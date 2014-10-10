@@ -1,0 +1,25 @@
+#### Symfony ####
+/web/bundles/
+/app/bootstrap.php.cache
+/app/cache/*
+/app/config/parameters.yml
+/app/logs/*
+/app/sessions/*
+!app/cache/.gitkeep
+!app/logs/.gitkeep
+!app/sessions/.gitkeep
+web/uploads/images/*
+!web/uploads/images/.gitkeep
+web/config.php
+/vendor/
+/bin/
+
+#### Composer ####
+/composer.phar
+
+#### PHPSpec ####
+/coverage
+coverage.xml
+
+#### Vagrant ####
+.vagrant
