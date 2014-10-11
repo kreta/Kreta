@@ -21,6 +21,9 @@ use Kreta\CoreBundle\Factory\Abstracts\AbstractFactory;
  */
 class UserFactory extends AbstractFactory
 {
+    /**
+     * {@inheritdoc}
+     */
     public function create()
     {
         return new User();

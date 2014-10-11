@@ -18,5 +18,10 @@ namespace Kreta\CoreBundle\Factory\Abstracts;
  */
 abstract class AbstractFactory
 {
+    /**
+     * Creates an instance of an entity.
+     *
+     * @return Object
+     */
     abstract public function create();
 }
