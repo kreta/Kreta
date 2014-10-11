@@ -8,6 +8,8 @@
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
 echo "Do not use this in production, its dangerous"
+sudo chmod -R 777 /dev/shm/symfony/cache
+sudo chmod -R 777 /dev/shm/symfony/logs/
 php app/console cache:clear -e=dev
 sudo chmod -R 777 /dev/shm/symfony/cache
 sudo chmod -R 777 /dev/shm/symfony/logs/

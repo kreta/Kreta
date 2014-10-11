@@ -5,5 +5,14 @@
 # @author benatespina <benatespina@gmail.com>
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
-fos_user:
-    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+Kreta\CoreBundle\Entity\Label:
+    type: entity
+    id:
+        id:
+            type: string
+            generator:
+                strategy: UUID
+    fields:
+        name:
+            type: string
+            length: 20

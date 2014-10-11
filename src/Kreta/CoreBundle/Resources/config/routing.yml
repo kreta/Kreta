@@ -4,6 +4,3 @@
 #
 # @author benatespina <benatespina@gmail.com>
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
-
-fos_user:
-    resource: "@FOSUserBundle/Resources/config/routing/all.xml"

@@ -1,0 +1,19 @@
+suites:
+    CoreBundle:
+        namespace: Kreta
+        spec_path: src/Kreta/CoreBundle
+
+extensions:
+    - PhpSpec\Extension\CodeCoverageExtension
+
+code_coverage:
+    whitelist:
+        - src/**/**/Entity
+        - src/**/**/Model
+        - src/**/**/Util
+    format:
+        - html
+        - clover
+    output:
+        html: coverage
+        clover: coverage.xml

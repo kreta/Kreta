@@ -1,0 +1,59 @@
+# This file belongs to Kreta.
+# The source code of application includes a LICENSE file
+# with all information about license.
+#
+# @author benatespina <benatespina@gmail.com>
+# @author gorkalaucirica <gorka.lauzirika@gmail.com>
+
+Kreta\CoreBundle\Entity\Issue:
+    type: entity
+    id:
+        id:
+            type: string
+            generator:
+                strategy: UUID
+    fields:
+        priority:
+            type: smallint
+        resolution:
+            type: smallint
+        status:
+            type: smallint
+        type:
+            type: smallint
+    manyToMany:
+        assigners:
+            targetEntity: Kreta\CoreBundle\Model\Interfaces\UserInterface
+            joinTable:
+                name: IssueAssigner
+                joinColumns:
+                    issue_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    user_id:
+                        referencedColumnName: id
+        labels:
+            targetEntity: Kreta\CoreBundle\Model\Interfaces\LabelInterface
+            joinTable:
+                name: IssueLabel
+                joinColumns:
+                    issue_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    label_id:
+                        referencedColumnName: id
+        watchers:
+            targetEntity: Kreta\CoreBundle\Model\Interfaces\UserInterface
+            joinTable:
+                name: IssueWatcher
+                joinColumns:
+                    issue_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    user_id:
+                        referencedColumnName: id
+    oneToMany:
+        comments:
+            targetEntity: Kreta\CoreBundle\Model\Interfaces\CommentInterface
+            mappedBy: issue
+            cascade: ['persist', 'remove']

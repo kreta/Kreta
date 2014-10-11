@@ -1,3 +1,10 @@
+# This file belongs to Kreta.
+# The source code of application includes a LICENSE file
+# with all information about license.
+#
+# @author benatespina <benatespina@gmail.com>
+# @author gorkalaucirica <gorka.lauzirika@gmail.com>
+
 imports:
     - { resource: parameters.yml }
     - { resource: security.yml }
@@ -62,6 +69,12 @@ doctrine:
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
         auto_mapping: true
+        resolve_target_entities:
+            Kreta\CoreBundle\Model\Interfaces\CommentInterface: Kreta\CoreBundle\Entity\Comment
+            Kreta\CoreBundle\Model\Interfaces\IssueInterface: Kreta\CoreBundle\Entity\Issue
+            Kreta\CoreBundle\Model\Interfaces\LabelInterface: Kreta\CoreBundle\Entity\Label
+            Kreta\CoreBundle\Model\Interfaces\ProjectInterface: Kreta\CoreBundle\Entity\Project
+            Kreta\CoreBundle\Model\Interfaces\UserInterface: Kreta\CoreBundle\Entity\User
 
 # Swiftmailer Configuration
 swiftmailer:
@@ -70,3 +83,9 @@ swiftmailer:
     username:  "%mailer_user%"
     password:  "%mailer_password%"
     spool:     { type: memory }
+
+# FOSUser
+fos_user:
+    db_driver: orm
+    firewall_name: main
+    user_class: CoreBundle\UserBundle\Entity\User
