@@ -7,6 +7,8 @@
 
 Kreta\CoreBundle\Entity\Label:
     type: entity
+    repositoryClass: Kreta\CoreBundle\Repository\LabelRepository
+    table: label
     id:
         id:
             type: string

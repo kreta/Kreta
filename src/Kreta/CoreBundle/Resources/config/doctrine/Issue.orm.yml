@@ -7,6 +7,8 @@
 
 Kreta\CoreBundle\Entity\Issue:
     type: entity
+    repositoryClass: Kreta\CoreBundle\Repository\IssueRepository
+    table: issue
     id:
         id:
             type: string
@@ -25,7 +27,7 @@ Kreta\CoreBundle\Entity\Issue:
         assigners:
             targetEntity: Kreta\CoreBundle\Model\Interfaces\UserInterface
             joinTable:
-                name: IssueAssigner
+                name: issue_assigner
                 joinColumns:
                     issue_id:
                         referencedColumnName: id
@@ -35,7 +37,7 @@ Kreta\CoreBundle\Entity\Issue:
         labels:
             targetEntity: Kreta\CoreBundle\Model\Interfaces\LabelInterface
             joinTable:
-                name: IssueLabel
+                name: issue_label
                 joinColumns:
                     issue_id:
                         referencedColumnName: id
@@ -45,7 +47,7 @@ Kreta\CoreBundle\Entity\Issue:
         watchers:
             targetEntity: Kreta\CoreBundle\Model\Interfaces\UserInterface
             joinTable:
-                name: IssueWatcher
+                name: issue_watcher
                 joinColumns:
                     issue_id:
                         referencedColumnName: id

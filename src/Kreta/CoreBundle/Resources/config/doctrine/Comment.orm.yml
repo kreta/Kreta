@@ -7,6 +7,8 @@
 
 Kreta\CoreBundle\Entity\Comment:
     type: entity
+    repositoryClass: Kreta\CoreBundle\Repository\CommentRepository
+    table: comment
     id:
         id:
             type: string
@@ -25,6 +27,6 @@ Kreta\CoreBundle\Entity\Comment:
             targetEntity: Kreta\CoreBundle\Model\Interfaces\IssueInterface
             inversedBy: comments
             joinColumn:
-                name: comment_id
+                name: issue_id
                 referencedColumnName: id
                 onDelete: CASCADE
