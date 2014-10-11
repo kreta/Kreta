@@ -33,7 +33,7 @@ class Project extends AbstractModel implements ProjectInterface
     /**
      * Array that contains users.
      *
-     * @var \Kreta\CoreBundle\Model\Interfaces\UserInterface[]
+     * @var \Doctrine\Common\Collections\ArrayCollection
      */
     protected $participants;
 

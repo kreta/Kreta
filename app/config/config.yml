@@ -88,4 +88,4 @@ swiftmailer:
 fos_user:
     db_driver: orm
     firewall_name: main
-    user_class: CoreBundle\UserBundle\Entity\User
+    user_class: Kreta\CoreBundle\Entity\User

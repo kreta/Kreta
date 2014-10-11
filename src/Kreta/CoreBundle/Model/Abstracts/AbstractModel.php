@@ -21,7 +21,7 @@ abstract class AbstractModel
     /**
      * The id.
      *
-     * @var integer
+     * @var string
      */
     protected $id;
 

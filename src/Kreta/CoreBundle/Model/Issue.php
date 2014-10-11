@@ -28,21 +28,21 @@ class Issue extends AbstractModel implements IssueInterface
     /**
      * Array that contains the assigners.
      *
-     * @var \Kreta\CoreBundle\Model\Interfaces\UserInterface[]
+     * @var \Doctrine\Common\Collections\ArrayCollection
      */
     protected $assigners;
 
     /**
      * Array that contains comments.
      *
-     * @var \Kreta\CoreBundle\Model\Interfaces\CommentInterface[]
+     * @var \Doctrine\Common\Collections\ArrayCollection
      */
     protected $comments;
 
     /**
      * Array that contains labels.
      *
-     * @var \Kreta\CoreBundle\Model\Interfaces\LabelInterface[]
+     * @var \Doctrine\Common\Collections\ArrayCollection
      */
     protected $labels;
 
@@ -84,7 +84,7 @@ class Issue extends AbstractModel implements IssueInterface
     /**
      * Array that contains the watchers.
      *
-     * @var \Kreta\CoreBundle\Model\Interfaces\UserInterface[]
+     * @var \Doctrine\Common\Collections\ArrayCollection
      */
     protected $watchers;
 
