@@ -2,12 +2,16 @@ suites:
     CoreBundle:
         namespace: Kreta
         spec_path: src/Kreta/CoreBundle
+    FixturesBundle:
+        namespace: Kreta
+        spec_path: src/Kreta/FixturesBundle
 
 extensions:
     - PhpSpec\Extension\CodeCoverageExtension
 
 code_coverage:
     whitelist:
+        - src/**/**/DataFixtures
         - src/**/**/Entity
         - src/**/**/Model
         - src/**/**/Util
