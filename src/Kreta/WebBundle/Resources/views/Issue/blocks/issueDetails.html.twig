@@ -4,12 +4,12 @@
 
 {% block widgetIcon %}fa-check-square-o{% endblock %}
 
-{% block widgetTitle %}Missing{% endblock %}
+{% block widgetTitle %}{{ issue.title }}{% endblock %}
 
 {% block widgetContent %}
     <div class="kreta-issue">
         <div class="description">
-            <p>Missing</p>
+            <p>{{ issue.description }}</p>
         </div>
         <div class="details row">
             <div class="small-6 column">
