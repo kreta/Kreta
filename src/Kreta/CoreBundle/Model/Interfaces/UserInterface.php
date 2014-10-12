@@ -28,36 +28,36 @@ interface UserInterface extends BaseUserInterface
     public function getId();
 
     /**
-     * Gets first name.
+     * Gets Bitbucket access token.
      *
      * @return string
      */
-    public function getFirstName();
+    public function getBitbucketAccessToken();
 
     /**
-     * Sets first name.
+     * Sets Bitbucket access token.
      *
-     * @param string $firstName The first name
+     * @param string $bitbucketAccessToken The Bitbucket access token
      *
      * @return $this self Object
      */
-    public function setFirstName($firstName);
+    public function setBitbucketAccessToken($bitbucketAccessToken);
 
     /**
-     * Gets last name.
+     * Gets Bitbucket id.
      *
      * @return string
      */
-    public function getLastName();
+    public function getBitbucketId();
 
     /**
-     * Sets last name.
+     * Sets Bitbucket id.
      *
-     * @param string $lastName The last name
+     * @param string $bitbucketId The Bitbucket id
      *
      * @return $this self Object
      */
-    public function setLastName($lastName);
+    public function setBitbucketId($bitbucketId);
 
     /**
      * Gets created at.
@@ -74,4 +74,68 @@ interface UserInterface extends BaseUserInterface
      * @return $this self Object
      */
     public function setCreatedAt(\DateTime $createdAt);
+
+    /**
+     * Gets first name.
+     *
+     * @return string
+     */
+    public function getFirstName();
+
+    /**
+     * Sets first name.
+     *
+     * @param string $firstName The first name
+     *
+     * @return $this self Object
+     */
+    public function setFirstName($firstName);
+
+    /**
+     * Gets GitHub access token.
+     *
+     * @return string
+     */
+    public function getGithubAccessToken();
+
+    /**
+     * Sets GitHub access token.
+     *
+     * @param string $githubAccessToken The GitHub access token
+     *
+     * @return $this self Object
+     */
+    public function setGithubAccessToken($githubAccessToken);
+
+    /**
+     * Gets GitHub id.
+     *
+     * @return string
+     */
+    public function getGithubId();
+
+    /**
+     * Sets GitHub id.
+     *
+     * @param string $githubId The GitHub id
+     *
+     * @return $this self Object
+     */
+    public function setGithubId($githubId);
+
+    /**
+     * Gets last name.
+     *
+     * @return string
+     */
+    public function getLastName();
+
+    /**
+     * Sets last name.
+     *
+     * @param string $lastName The last name
+     *
+     * @return $this self Object
+     */
+    public function setLastName($lastName);
 }

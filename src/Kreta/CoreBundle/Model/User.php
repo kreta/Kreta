@@ -22,6 +22,20 @@ use Kreta\CoreBundle\Model\Interfaces\UserInterface;
 class User extends BaseUser implements UserInterface
 {
     /**
+     * The Bitbucket access token.
+     *
+     * @var string
+     */
+    protected $bitbucketAccessToken;
+
+    /**
+     * The Bitbucket id.
+     *
+     * @var string
+     */
+    protected $bitbucketId;
+
+    /**
      * Created at.
      *
      * @var \DateTime
@@ -34,6 +48,20 @@ class User extends BaseUser implements UserInterface
      * @var string
      */
     protected $firstName;
+
+    /**
+     * The GitHub access token.
+     *
+     * @var string
+     */
+    protected $githubAccessToken;
+
+    /**
+     * The GitHub id.
+     *
+     * @var string
+     */
+    protected $githubId;
 
     /**
      * The last name.
@@ -50,6 +78,42 @@ class User extends BaseUser implements UserInterface
         $this->createdAt = new \DateTime();
 
         parent::__construct();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getBitbucketAccessToken()
+    {
+        return $this->bitbucketAccessToken;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setBitbucketAccessToken($bitbucketAccessToken)
+    {
+        $this->bitbucketAccessToken = $bitbucketAccessToken;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getBitbucketId()
+    {
+        return $this->bitbucketId;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setBitbucketId($bitbucketId)
+    {
+        $this->bitbucketId = $bitbucketId;
+
+        return $this;
     }
 
     /**
@@ -84,6 +148,42 @@ class User extends BaseUser implements UserInterface
     public function setFirstName($firstName)
     {
         $this->firstName = $firstName;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getGithubAccessToken()
+    {
+        return $this->githubAccessToken;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setGithubAccessToken($githubAccessToken)
+    {
+        $this->githubAccessToken = $githubAccessToken;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getGithubId()
+    {
+        return $this->githubId;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setGithubId($githubId)
+    {
+        $this->githubId = $githubId;
 
         return $this;
     }

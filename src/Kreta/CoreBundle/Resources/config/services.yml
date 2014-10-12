@@ -25,6 +25,8 @@ parameters:
     kreta_core.repository_class_project: Kreta\CoreBundle\Repository\ProjectRepository
     kreta_core.repository_class_user: Kreta\CoreBundle\Repository\UserRepository
 
+    kreta_core.security_class_userProvider: Kreta\CoreBundle\Security\UserProvider
+
 services:
 #### FACTORIES ####
     kreta_core.factory_comment:
@@ -64,3 +66,8 @@ services:
         factory_method: getRepository
         class: %kreta_core.repository_class_user%
         arguments: [%kreta_core.class_user%]
+
+#### SECURITY ####
+    kreta_user_provider:
+        class: %kreta_core.security_class_userProvider%
+        arguments: [@fos_user.user_manager, {bitbucket: bitbucket_id, github: gitbub_id}]
