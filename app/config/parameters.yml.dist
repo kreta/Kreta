@@ -9,9 +9,9 @@ parameters:
     database_driver:   pdo_mysql
     database_host:     127.0.0.1
     database_port:     ~
-    database_name:     kreta          # It must be the same that $mysql_database variable from Personalization file
-    database_user:     kreta-user     # It must be the same that $mysql_user variable from Personalization file
-    database_password: 123            # It must be the same that $mysql_password variable from Personalization file
+    database_name:     kreta        # It must be the same that $mysql_database variable from Personalization file
+    database_user:     app          # It must be the same that $mysql_rootpassword variable from Personalization file
+    database_password: 123          # It must be the same that $mysql_password variable from Personalization file
 
     mailer_transport:  smtp
     mailer_host:       127.0.0.1

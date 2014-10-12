@@ -49,8 +49,8 @@ $ip                 = "192.168.10.42"
 $port               = 8080
 $use_nfs            = true
 $base_box           = "precise64"
-$mysql_rootpassword = "app"           
-$mysql_user         = "kreta-user"    # It must be the same that database_user variable from parameters.yml file
+$mysql_rootpassword = "app"           # It must be the same that database_user variable from parameters.yml file 
+$mysql_user         = "kreta-user"
 $mysql_password     = "123"           # It must be the same that database_password variable from parameters.yml file
 $mysql_database     = "kreta"         # It must be the same that database_name variable from parameters.yml file
 
