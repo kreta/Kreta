@@ -41,10 +41,10 @@ abstract class DataFixtures extends AbstractFixture implements ContainerAwareInt
     /**
      * Adds random users into collection of object given.
      *
-     * @param Object $object     The object
-     * @param string $method     The name of the method
-     * @param array  $collection The collection
-     * @param int    $limit      The maximum limit of the index
+     * @param Object   $object     The object
+     * @param string   $method     The name of the method
+     * @param Object[] $collection The object collection
+     * @param int      $limit      The maximum limit of the index
      *
      * @return void
      */

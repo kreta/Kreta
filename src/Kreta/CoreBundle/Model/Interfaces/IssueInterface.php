@@ -47,29 +47,20 @@ interface IssueInterface
     public function getId();
 
     /**
-     * Gets assigners.
+     * Gets assignee.
      *
-     * @return \Kreta\CoreBundle\Model\Interfaces\UserInterface[]
+     * @return \Kreta\CoreBundle\Model\Interfaces\UserInterface
      */
-    public function getAssigners();
+    public function getAssignee();
 
     /**
-     * Adds the assigner.
+     * Sets the assignee.
      *
      * @param \Kreta\CoreBundle\Model\Interfaces\UserInterface
      *
      * @return $this self Object
      */
-    public function addAssigner(UserInterface $assigner);
-
-    /**
-     * Removes the assigner.
-     *
-     * @param \Kreta\CoreBundle\Model\Interfaces\UserInterface
-     *
-     * @return $this self Object
-     */
-    public function removeAssigner(UserInterface $assigner);
+    public function setAssignee(UserInterface $assigner);
 
     /**
      * Gets comments.
@@ -163,7 +154,8 @@ interface IssueInterface
     /**
      * Sets resolution.
      *
-     * @param string $resolution The resolution that can be "fixed", "won't fix", "duplicate", "incomplete" or "cannot reproduce"
+     * @param string $resolution The resolution that can be "fixed", "won't fix",
+     *                           "duplicate", "incomplete" or "cannot reproduce"
      *
      * @return $this self Object
      */

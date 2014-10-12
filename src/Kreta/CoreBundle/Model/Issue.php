@@ -26,11 +26,11 @@ use Kreta\CoreBundle\Model\Interfaces\UserInterface;
 class Issue extends AbstractModel implements IssueInterface
 {
     /**
-     * Array that contains the assigners.
+     * The assignee.
      *
-     * @var \Doctrine\Common\Collections\ArrayCollection
+     * @var \Kreta\CoreBundle\Model\Interfaces\UserInterface
      */
-    protected $assigners;
+    protected $assignee;
 
     /**
      * Array that contains comments.
@@ -93,7 +93,6 @@ class Issue extends AbstractModel implements IssueInterface
      */
     public function __construct()
     {
-        $this->assigners = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->labels = new ArrayCollection();
         $this->watchers = new ArrayCollection();
@@ -102,27 +101,17 @@ class Issue extends AbstractModel implements IssueInterface
     /**
      * {@inheritdoc}
      */
-    public function getAssigners()
+    public function getAssignee()
     {
-        return $this->assigners;
+        return $this->assignee;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function addAssigner(UserInterface $assigner)
+    public function setAssignee(UserInterface $assignee)
     {
-        $this->assigners[] = $assigner;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function removeAssigner(UserInterface $assigner)
-    {
-        $this->assigners->removeElement($assigner);
+        $this->assignee = $assignee;
 
         return $this;
     }

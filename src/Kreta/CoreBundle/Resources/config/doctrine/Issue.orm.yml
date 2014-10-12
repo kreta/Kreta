@@ -24,16 +24,6 @@ Kreta\CoreBundle\Entity\Issue:
         type:
             type: smallint
     manyToMany:
-        assigners:
-            targetEntity: Kreta\CoreBundle\Model\Interfaces\UserInterface
-            joinTable:
-                name: issue_assigner
-                joinColumns:
-                    issue_id:
-                        referencedColumnName: id
-                inverseJoinColumns:
-                    user_id:
-                        referencedColumnName: id
         labels:
             targetEntity: Kreta\CoreBundle\Model\Interfaces\LabelInterface
             joinTable:
@@ -54,6 +44,11 @@ Kreta\CoreBundle\Entity\Issue:
                 inverseJoinColumns:
                     user_id:
                         referencedColumnName: id
+    manyToOne:
+        assignee:
+            targetEntity: Kreta\CoreBundle\Model\Interfaces\UserInterface
+        reporter:
+            targetEntity: Kreta\CoreBundle\Model\Interfaces\UserInterface
     oneToMany:
         comments:
             targetEntity: Kreta\CoreBundle\Model\Interfaces\CommentInterface

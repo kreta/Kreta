@@ -40,23 +40,15 @@ class IssueSpec extends ObjectBehavior
 
     function its_assigners_comments_labels_and_watchers_is_collection()
     {
-        $this->getAssigners()->shouldHaveType('Doctrine\Common\Collections\ArrayCollection');
         $this->getComments()->shouldHaveType('Doctrine\Common\Collections\ArrayCollection');
         $this->getLabels()->shouldHaveType('Doctrine\Common\Collections\ArrayCollection');
         $this->getWatchers()->shouldHaveType('Doctrine\Common\Collections\ArrayCollection');
     }
 
-    function its_assigners_be_mutable(UserInterface $assigner)
+    function its_assignee_be_mutable(UserInterface $assignee)
     {
-        $this->getAssigners()->shouldHaveCount(0);
-
-        $this->addAssigner($assigner);
-
-        $this->getAssigners()->shouldHaveCount(1);
-
-        $this->removeAssigner($assigner);
-
-        $this->getAssigners()->shouldHaveCount(0);
+        $this->setAssignee($assignee)->shouldReturn($this);
+        $this->getAssignee()->shouldReturn($assignee);
     }
 
     function its_comments_be_mutable(CommentInterface $comment)

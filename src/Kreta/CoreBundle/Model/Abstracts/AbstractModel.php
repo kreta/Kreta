@@ -30,7 +30,7 @@ abstract class AbstractModel
      *
      * @param string $id The id
      *
-     * @return string
+     * @return $this self Object
      */
     public function setId($id)
     {
