@@ -31,8 +31,8 @@ class LoadIssueData extends DataFixtures
 
         for ($i = 0; $i < 50; $i++) {
             $issue = $this->container->get('kreta_core.factory_issue')->create();
-            $this->loadRandomObjects($issue, 'addAssigner', $users);
-            $this->loadRandomObjects($issue, 'addLabel', $labels, 12);
+            $this->loadRandomObjects($issue, 'addAssigner', $users, count($users));
+            $this->loadRandomObjects($issue, 'addLabel', $labels, count($labels));
             $issue->setPriority(rand(0, 3));
             $issue->setResolution(rand(0, 4));
             $issue->setReporter($users[array_rand($users)]);
