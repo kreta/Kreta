@@ -1,0 +1,29 @@
+{% extends 'KretaWebBundle:blocks:widget.html.twig' %}
+
+{% block widgetClass %}{% endblock %}
+
+{% block widgetIcon %}fa-comment{% endblock %}
+
+{% block widgetTitle %}Comments{% endblock %}
+
+{% block widgetContent %}
+    <form class="kreta-issue-comment-add">
+        <img src="/img/gorka.png">
+        <div class="textarea-container">
+            <textarea placeholder="Add your comment..."></textarea>
+            <input type="submit" class="button tiny" value="Send">
+        </div>
+    </form>
+    {% for comment in comments %}
+        <div class="kreta-issue-comment">
+            <img src="/img/gorka.png">
+            <div class="comment-content">
+                <div class="comment-header">
+                    <h4>Gorka Laucirica</h4>
+                    <span class="date">{{ comment.createdAt | date('Y-m-d') }}</span>
+                </div>
+                <p>{{ comment.description }}</p>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

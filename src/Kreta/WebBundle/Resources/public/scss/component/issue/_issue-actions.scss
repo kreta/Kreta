@@ -1,0 +1,15 @@
+@import '../../settings';
+
+.kreta-issue-actions {
+  border-top: 1px solid $borderGrey;
+  padding-top: .5em;
+  a {
+    display: block;
+    text-align: center;
+    margin-bottom: .5em;
+  }
+  hr {
+    border: 0;
+    border-top: 1px solid $borderGrey
+  }
+}

@@ -1,0 +1,32 @@
+@import "../../settings";
+@import "compass/css3";
+
+.kreta-issue {
+  .details {
+    margin: 0;
+    padding: 0 1em 1em;
+    border-top: 1px solid $borderGrey;
+    span {
+      line-height: 30px;
+    }
+    .field {
+      margin-top: .5em;
+      margin-bottom: .2em;
+      display: block;
+      color: $softBlack;
+    }
+    .image-item {
+      img {
+        width: 40px;
+        @include border-radius($standardRadius);
+      }
+    }
+  }
+  .description {
+    padding: 1em;
+    border-top: 1px solid $borderGrey;
+    p {
+      margin: 0 0 .5em 0;
+    }
+  }
+}

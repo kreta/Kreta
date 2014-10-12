@@ -1,0 +1,3 @@
+kreta_web_issue_view:
+    path:     /{id}
+    defaults: { _controller: KretaWebBundle:Issue:view }

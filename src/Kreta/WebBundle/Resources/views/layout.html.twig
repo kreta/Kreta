@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kreta - Modern task manager for software development</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    {% block stylesheets %}
+        {% stylesheets filter="compass"
+                              "@KretaWebBundle/Resources/public/scss/app.scss"
+                              output='css/app.css' %}
+            <link href="{{ asset_url }}" media="screen" rel="stylesheet" type="text/css"/>
+        {% endstylesheets %}
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+        <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400' rel='stylesheet' type='text/css'>
+    {% endblock %}
+</head>
+<body>
+{% block body %}
+    {% include 'KretaWebBundle:blocks:header.html.twig' %}
+    <div class="kreta-content row">
+        {% block content %}{% endblock %}
+    </div>
+{% endblock %}
+</body>
+</html>

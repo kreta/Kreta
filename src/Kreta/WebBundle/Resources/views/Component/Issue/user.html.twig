@@ -1,0 +1,23 @@
+{% extends 'KretaWebBundle:blocks:widget.html.twig' %}
+
+{% block widgetClass %}medium-8 column{% endblock %}
+
+{% block widgetIcon %}fa-check-square-o{% endblock %}
+
+{% block widgetTitle %}My issues{% endblock %}
+
+{% block widgetContent %}
+    {% for issue in issues %}
+        <div class="kreta-mini-issue">
+            <a href="{{ url('kreta_web_issue_view', { 'id' : issue.id }) }}"><h3>Missing</h3></a>
+            <div class="issue-footer">
+                <img class="project" src="/img/mcb.png">
+                <a><i class="fa fa-comment"></i> 0</a>
+                <a><i class="fa fa-pencil"></i></a>
+                <a><i class="fa fa-eye"></i></a>
+            </div>
+            {% include 'KretaWebBundle:Issue/blocks:typeIcon.html.twig' with {'type': issue.type} %}
+            {% include 'KretaWebBundle:Issue/blocks:priorityIcon.html.twig' with {'type': issue.priority} %}
+        </div>
+    {% endfor %}
+{% endblock %}

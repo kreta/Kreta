@@ -27,3 +27,8 @@ parameters:
     oauth.github.client_id:         client-id
     oauth.github.client_secret:     client-secret
 
+    locale:            en
+    secret:            23j12b3k54fgbpo23k2jb12ouh677khb456j
+
+    ruby_bin:          /usr/bin/env
+    compass_route:     compass

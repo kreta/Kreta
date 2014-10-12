@@ -1764,6 +1764,38 @@
                 "templating"
             ],
             "time": "2014-10-10 14:09:53"
+        },
+        {
+            "name": "zurb/foundation",
+            "version": "v5.4.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zurb/foundation.git",
+                "reference": "2afc8c87ffd180abebbef27f87a990e53e87904c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zurb/foundation/zipball/2afc8c87ffd180abebbef27f87a990e53e87904c",
+                "reference": "2afc8c87ffd180abebbef27f87a990e53e87904c",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "ZURB Inc."
+                }
+            ],
+            "description": "The most advanced responsive front-end framework in the world.",
+            "homepage": "http://foundation.zurb.com",
+            "keywords": [
+                "foundation",
+                "scss"
+            ],
+            "time": "2014-10-09 22:18:47"
         }
     ],
     "packages-dev": [

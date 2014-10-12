@@ -1,0 +1,7 @@
+parameters:
+#    kreta_web.example.class: Kreta\WebBundle\Example
+
+services:
+#    kreta_web.example:
+#        class: %kreta_web.example.class%
+#        arguments: [@service_id, "plain_value", %parameter%]

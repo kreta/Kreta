@@ -1,0 +1,39 @@
+{% extends 'KretaWebBundle:blocks:widget.html.twig' %}
+
+{% block widgetClass %}{% endblock %}
+
+{% block widgetIcon %}fa-check-square-o{% endblock %}
+
+{% block widgetTitle %}Missing{% endblock %}
+
+{% block widgetContent %}
+    <div class="kreta-issue">
+        <div class="description">
+            <p>Missing</p>
+        </div>
+        <div class="details row">
+            <div class="small-6 column">
+                <span class="field">Type:</span>
+                {% include 'KretaWebBundle:Issue/blocks:typeIcon.html.twig' with {'type': issue.type} %}
+                <span class="field">Priority:</span>
+                {% include 'KretaWebBundle:Issue/blocks:priorityIcon.html.twig' with {'type': issue.priority} %}
+                <span class="field">Asignee:</span>
+                <div class="image-item">
+                    <img src="/img/gorka.png">
+                    <span>Gorka Laucirica</span>
+                </div>
+            </div>
+            <div class="small-6 column">
+                <span class="field">Status:</span>
+                <span>{{ issue.status }}</span>
+                <span class="field">Resolution:</span>
+                <span>{{ issue.resolution }}</span>
+                <span class="field">Assigner:</span>
+                <div class="image-item">
+                    <img src="/img/gorka.png">
+                    <span>Gorka Laucirica</span>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

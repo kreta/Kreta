@@ -1,0 +1,47 @@
+@import "../settings";
+@import "compass/css3";
+
+.kreta-landing {
+  background: url(/bundles/kretaweb/img/landing-bg.jpg) no-repeat center center;
+  @include background-size(cover);
+  height: 100%;
+  width: 100%;
+  .kreta-landing-overlay {
+    height: 100%;
+    width: 100%;
+    background: rgba($mainGreen, 0.5);
+    color: $mainWhite;
+    display: table;
+    .kreta-landing-container {
+      display: table-cell;
+      vertical-align: middle;
+      text-align: center;
+      h1 {
+        font-size: 1.5em;
+      }
+      a {
+        @include border-radius($standardRadius);
+        margin: 0 1em;
+        &.github {
+          background: #444;
+          &:hover {
+            background: #2b2b2b;
+          }
+        }
+        &.bitbucket {
+          background: #205081;
+          &:hover {
+            background: #163758;
+          }
+        }
+        i {
+          font-size: 1.5em;
+          padding-right: 1em;
+        }
+        span {
+          line-height: 1.3em;
+        }
+      }
+    }
+  }
+}

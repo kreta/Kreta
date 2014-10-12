@@ -1,0 +1,28 @@
+@import "../../settings";
+@import "compass/css3";
+
+.kreta-project-users {
+  div.kreta-project-user {
+    border-top: 1px solid $borderGrey;
+    padding: .5em;
+    img {
+      width: 60px;
+      @include border-radius($standardRadius);
+    }
+    a {
+      padding-left: .5em;
+    }
+  }
+  div.kreta-actions {
+    text-align: center;
+    border-top: 1px solid $borderGrey;
+    padding-top: .5em;
+    a {
+      margin-bottom: .5em;
+      display: block;
+      i {
+        margin-right: .5em;
+      }
+    }
+  }
+}

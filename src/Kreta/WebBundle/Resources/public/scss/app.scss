@@ -1,0 +1,40 @@
+@import "settings";
+
+@import "../../../../../../vendor/zurb/foundation/scss/foundation/components/grid";
+@import "../../../../../../vendor/zurb/foundation/scss/foundation/components/buttons";
+@import "../../../../../../vendor/zurb/foundation/scss/normalize";
+
+
+@import "layout/header";
+@import "layout/widget";
+@import "layout/landing";
+
+@import "component/issue/issue";
+@import "component/issue/issue-actions";
+@import "component/issue/issue-comment";
+@import "component/issue/issue-vcs";
+@import "component/issue/mini-issue";
+@import "component/project/project-users";
+@import "component/project/project-details";
+@import "component/project/mini-project";
+
+@import "element/user-image";
+@import "element/icon-item";
+
+body {
+  background: $bgGrey;
+  font-family: 'Source Sans Pro', sans-serif;
+}
+
+.kreta-content {
+  margin: 1em auto;
+}
+
+a {
+  color: $mainBlack;
+  text-decoration: none;
+  @include transition(color .5s);
+  &:hover {
+    color: $mainGreen;
+  }
+}

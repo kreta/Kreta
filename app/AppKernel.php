@@ -36,6 +36,7 @@ class AppKernel extends Kernel
             new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
 
             new Kreta\Bundle\CoreBundle\KretaCoreBundle(),
+            new Kreta\WebBundle\KretaWebBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

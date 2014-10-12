@@ -1,0 +1,21 @@
+{% extends 'KretaWebBundle:blocks:widget.html.twig' %}
+
+{% block widgetClass %}{% endblock %}
+
+{% block widgetIcon %}fa-users{% endblock %}
+
+{% block widgetTitle %}Participants{% endblock %}
+
+{% block widgetContent %}
+    <div class="kreta-project-users">
+        <div class="kreta-project-user">
+            <img src="/img/gorka.png">
+            <a href="">Gorka Laucirica</a>
+        </div>
+        <div class="kreta-actions">
+            <a class="kreta-action" href="">
+                <i class="fa fa-plus"></i>Add user to project
+            </a>
+        </div>
+    </div>
+{% endblock %}
