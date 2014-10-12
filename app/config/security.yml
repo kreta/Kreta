@@ -31,8 +31,8 @@ security:
                 check_path: /login_check
             oauth:
                 resource_owners:
-                    bitbucket: "/login/check-bitbucket"
-                    github: "/login/check-github"
+                    bitbucket: "/oauth-login/check-bitbucket"
+                    github: "/oauth-login/check-github"
                 login_path: /login
                 failure_path: /login
 
@@ -43,6 +43,8 @@ security:
 
     access_control:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/oauth-login, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/oauth-connect, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/, role: ROLE_ADMIN }

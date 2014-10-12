@@ -8,22 +8,17 @@
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
 
-
-hwi_oauth_security:
+# OAuth login
+hwi_oauth_login:
     resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
-    prefix: /login
-
-hwi_oauth_connect:
-    resource: "@HWIOAuthBundle/Resources/config/routing/connect.xml"
-    prefix: /login
+    prefix:   /oauth-login
 
 hwi_oauth_redirect:
     resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
-    prefix:   /login
+    prefix:   /oauth-connect
 
+kreta_user_bitbucket_login:
+    pattern: /oauth-login/check-bitbucket
 
-bitbucket_login:
-    pattern: /login/check-bitbucket
-
-github_login:
-    pattern: /login/check-github
+kreta_user_github_login:
+    pattern: /oauth-login/check-github
