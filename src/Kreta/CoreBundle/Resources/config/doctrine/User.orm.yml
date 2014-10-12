@@ -16,12 +16,15 @@ Kreta\CoreBundle\Entity\User:
                 strategy: UUID
     fields:
         createdAt:
+            column: created_at
             type: datetime
         firstName:
+            column: first_name
             type: string
             length: 100
             nullable: true
         lastName:
+            column: last_name
             type: string
             length: 100
             nullable: true

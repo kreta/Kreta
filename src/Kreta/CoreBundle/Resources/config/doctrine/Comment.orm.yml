@@ -16,10 +16,12 @@ Kreta\CoreBundle\Entity\Comment:
                 strategy: UUID
     fields:
         createdAt:
+            column: created_at
             type: datetime
         description:
             type: text
         updatedAt:
+            column: updated_at
             type: datetime
             nullable: true
     manyToOne:

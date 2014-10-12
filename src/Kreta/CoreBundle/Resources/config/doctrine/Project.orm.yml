@@ -19,6 +19,7 @@ Kreta\CoreBundle\Entity\Project:
             type: string
             length: 100
         shortName:
+            column: short_name
             type: string
             length: 30
     manyToMany:
