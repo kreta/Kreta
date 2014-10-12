@@ -11,8 +11,13 @@
 
 namespace spec\Kreta\CoreBundle\Repository;
 
+use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Mapping\ClassMetadata;
+use Doctrine\ORM\Query\Expr;
+use Doctrine\ORM\QueryBuilder;
+use Kreta\CoreBundle\Model\Interfaces\UserInterface;
 use PhpSpec\ObjectBehavior;
 
 /**
@@ -36,4 +41,50 @@ class IssueRepositorySpec extends ObjectBehavior
     {
         $this->shouldHaveType('Doctrine\ORM\EntityRepository');
     }
+
+//    function it_finds_by_reporter(
+//        UserInterface $reporter,
+//        EntityRepository $repository,
+//        QueryBuilder $queryBuilder,
+//        Expr $expr,
+//        Expr\Comparison $comparison,
+//        AbstractQuery $query
+//    )
+//    {
+//        $repository->createQueryBuilder('i')->shouldBeCalled()->willReturn($queryBuilder);
+//
+//        $queryBuilder->select('i')->shouldBeCalled()->willReturn($queryBuilder);
+//        $queryBuilder->expr()->shouldBeCalled()->willReturn($expr);
+//        $expr->eq('i.reporter', ':reporter')->shouldBeCalled()->willReturn($comparison);
+//        $queryBuilder->where($comparison)->shouldBeCalled()->willReturn($queryBuilder);
+//        $reporter->getId()->shouldBeCalled()->willReturn('reporter-id');
+//        $queryBuilder->setParameter(':reporter', 'reporter-id')->shouldBeCalled()->willReturn($queryBuilder);
+//        $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
+//        $query->getResult()->shouldBeCalled()->willReturn(array());
+//
+//        $this->findByReporter($reporter);
+//    }
+//
+//    function it_finds_by_assignee(
+//        UserInterface $assignee,
+//        EntityRepository $repository,
+//        QueryBuilder $queryBuilder,
+//        Expr $expr,
+//        Expr\Comparison $comparison,
+//        AbstractQuery $query
+//    )
+//    {
+//        $repository->createQueryBuilder('i')->shouldBeCalled()->willReturn($queryBuilder);
+//
+//        $queryBuilder->select('i')->shouldBeCalled()->willReturn($queryBuilder);
+//        $queryBuilder->expr()->shouldBeCalled()->willReturn($expr);
+//        $expr->eq('i.assignee', ':assignee')->shouldBeCalled()->willReturn($comparison);
+//        $queryBuilder->where($comparison)->shouldBeCalled()->willReturn($queryBuilder);
+//        $assignee->getId()->shouldBeCalled()->willReturn('assignee-id');
+//        $queryBuilder->setParameter(':assignee', 'assignee-id')->shouldBeCalled()->willReturn($queryBuilder);
+//        $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
+//        $query->getResult()->shouldBeCalled()->willReturn(array());
+//
+//        $this->findByAssignee($assignee);
+//    }
 }

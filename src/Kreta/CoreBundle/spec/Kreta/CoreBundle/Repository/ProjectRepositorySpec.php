@@ -11,8 +11,13 @@
 
 namespace spec\Kreta\CoreBundle\Repository;
 
+use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Mapping\ClassMetadata;
+use Doctrine\ORM\Query\Expr;
+use Doctrine\ORM\QueryBuilder;
+use Kreta\CoreBundle\Model\Interfaces\UserInterface;
 use PhpSpec\ObjectBehavior;
 
 /**
@@ -36,4 +41,27 @@ class ProjectRepositorySpec extends ObjectBehavior
     {
         $this->shouldHaveType('Doctrine\ORM\EntityRepository');
     }
+
+//    function it_finds_by_participant(
+//        UserInterface $participant,
+//        EntityRepository $repository,
+//        QueryBuilder $queryBuilder,
+//        Expr $expr,
+//        Expr\Comparison $comparison,
+//        AbstractQuery $query
+//    )
+//    {
+//        $repository->createQueryBuilder('p')->shouldBeCalled()->willReturn($queryBuilder);
+//
+//        $queryBuilder->select('p')->shouldBeCalled()->willReturn($queryBuilder);
+//        $queryBuilder->expr()->shouldBeCalled()->willReturn($expr);
+//        $expr->eq('p.participants', ':participant')->shouldBeCalled()->willReturn($comparison);
+//        $queryBuilder->where($comparison)->shouldBeCalled()->willReturn($queryBuilder);
+//        $participant->getId()->shouldBeCalled()->willReturn('participant-id');
+//        $queryBuilder->setParameter(':participant', 'participant-id')->shouldBeCalled()->willReturn($queryBuilder);
+//        $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
+//        $query->getResult()->shouldBeCalled()->willReturn(array());
+//
+//        $this->findByParticipant($participant);
+//    }
 }

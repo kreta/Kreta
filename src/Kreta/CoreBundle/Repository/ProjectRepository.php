@@ -12,6 +12,7 @@
 namespace Kreta\CoreBundle\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Kreta\CoreBundle\Model\Interfaces\UserInterface;
 
 /**
  * Class ProjectRepository.
@@ -20,4 +21,20 @@ use Doctrine\ORM\EntityRepository;
  */
 class ProjectRepository extends EntityRepository
 {
+    /**
+     * Finds all the issues of participant given.
+     *
+     * @param \Kreta\CoreBundle\Model\Interfaces\UserInterface $participant The reporter
+     *
+     * @return \Kreta\CoreBundle\Model\Interfaces\ProjectInterface[]
+     */
+    public function findByParticipant(UserInterface $participant)
+    {
+        $queryBuilder = $this->createQueryBuilder('p');
+
+        return $queryBuilder->select('p')
+            ->where($queryBuilder->expr()->eq('p.participants', ':participant'))
+            ->setParameter(':participant', $participant->getId())
+            ->getQuery()->getResult();
+    }
 }

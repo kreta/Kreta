@@ -21,6 +21,13 @@ use FOS\UserBundle\Model\UserInterface as BaseUserInterface;
 interface UserInterface extends BaseUserInterface
 {
     /**
+     * Gets id.
+     *
+     * @return string
+     */
+    public function getId();
+
+    /**
      * Gets first name.
      *
      * @return string
