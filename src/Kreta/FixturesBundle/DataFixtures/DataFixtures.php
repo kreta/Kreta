@@ -48,14 +48,16 @@ abstract class DataFixtures extends AbstractFixture implements ContainerAwareInt
      *
      * @return void
      */
-    protected function loadRandomObjects($object, $method, array $collection, $limit = 39)
+    protected function loadRandomObjects($object, $method, array $collection, $limit = 5)
     {
-        $randomNumber = rand(1, 10);
+        $randomAmount = rand(1, $limit);
         $index = rand(0, $limit);
 
-        for ($j = 0; $j < $randomNumber; $j++) {
-            $object->$method($collection[$index]);
-            $index++;
+        for ($j = 0; $j < $randomAmount; $j++) {
+            if(count($collection) > $index) {
+                $object->$method($collection[$index]);
+                $index++;
+            }
         }
     }
 }

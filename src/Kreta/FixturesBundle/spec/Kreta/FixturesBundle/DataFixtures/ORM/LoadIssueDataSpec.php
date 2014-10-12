@@ -46,43 +46,45 @@ class LoadIssueDataSpec extends ObjectBehavior
         $this->shouldHaveType('Kreta\FixturesBundle\DataFixtures\DataFixtures');
     }
 
-//    function it_loads(
-//        ContainerInterface $container,
-//        UserRepository $userRepository,
-//        LabelRepository $labelRepository,
-//        IssueFactory $factory,
-//        IssueInterface $issue,
-//        ReferenceRepository $referenceRepository,
-//        IssueInterface $issue,
-//        ObjectManager $manager
-//    )
-//    {
-//        $container->get('kreta_core.repository_user')->shouldBeCalled()->willReturn($userRepository);
-//        $userRepository->findAll()->shouldBeCalled()->willReturn(array());
-//
-//        $container->get('kreta_core.repository_label')->shouldBeCalled()->willReturn($labelRepository);
-//        $labelRepository->findAll()->shouldBeCalled()->willReturn(array());
-//
-//        $container->get('kreta_core.factory_issue')->shouldBeCalled()->willReturn($factory);
-//        $factory->create()->shouldBeCalled()->willReturn($issue);
-//
-//        $issue->addAssigner(Argument::type('Kreta\CoreBundle\Model\Interfaces\UserInterface'))->shouldBeCalled()->willReturn($issue);
-//        $issue->addLabel(Argument::type('Kreta\CoreBundle\Model\Interfaces\LabelInterface'))->shouldBeCalled()->willReturn($issue);
-//        $issue->setPriority(Argument::type('int'))->shouldBeCalled()->willReturn($issue);
-//        $issue->setResolution(Argument::type('int'))->shouldBeCalled()->willReturn($issue);
-//        $issue->setReporter($user)->shouldBeCalled()->willReturn($issue);
-//        $issue->setStatus(Argument::type('int'))->shouldBeCalled()->willReturn($issue);
-//        $issue->setType(Argument::type('int'))->shouldBeCalled()->willReturn($issue);
-//        $issue->addWatcher(Argument::type('Kreta\CoreBundle\Model\Interfaces\UserInterface'))->shouldBeCalled()->willReturn($issue);
-//
-//        $referenceRepository->addReference(Argument::type('string'), $issue)->shouldBeCalled();
-//
-//        $manager->persist($issue)->shouldBeCalled();
-//
-//        $manager->flush()->shouldBeCalled();
-//
-//        $this->load($manager);
-//    }
+    function it_loads(
+        ContainerInterface $container,
+        UserRepository $userRepository,
+        LabelRepository $labelRepository,
+        IssueFactory $factory,
+        IssueInterface $issue,
+        ReferenceRepository $referenceRepository,
+        IssueInterface $issue,
+        ObjectManager $manager,
+        UserInterface $user,
+        LabelInterface $label
+    )
+    {
+        $container->get('kreta_core.repository_user')->shouldBeCalled()->willReturn($userRepository);
+        $userRepository->findAll()->shouldBeCalled()->willReturn(array($user));
+
+        $container->get('kreta_core.repository_label')->shouldBeCalled()->willReturn($labelRepository);
+        $labelRepository->findAll()->shouldBeCalled()->willReturn(array($label));
+
+        $container->get('kreta_core.factory_issue')->shouldBeCalled()->willReturn($factory);
+        $factory->create()->shouldBeCalled()->willReturn($issue);
+
+        $issue->setAssignee($user)->shouldBeCalled()->willReturn($issue);
+        $issue->addLabel($label)->shouldBeCalled()->willReturn($issue);
+        $issue->setPriority(Argument::type('int'))->shouldBeCalled()->willReturn($issue);
+        $issue->setResolution(Argument::type('int'))->shouldBeCalled()->willReturn($issue);
+        $issue->setReporter($user)->shouldBeCalled()->willReturn($issue);
+        $issue->setStatus(Argument::type('int'))->shouldBeCalled()->willReturn($issue);
+        $issue->setType(Argument::type('int'))->shouldBeCalled()->willReturn($issue);
+        $issue->addWatcher(Argument::type('Kreta\CoreBundle\Model\Interfaces\UserInterface'))->shouldBeCalled()->willReturn($issue);
+
+        $referenceRepository->addReference(Argument::type('string'), $issue)->shouldBeCalled();
+
+        $manager->persist($issue)->shouldBeCalled();
+
+        $manager->flush()->shouldBeCalled();
+
+        $this->load($manager);
+    }
 
     function it_gets_2_order()
     {
