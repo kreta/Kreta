@@ -12,8 +12,7 @@ Prerequisites
 -------------
 To start to use this project, you have a **Vagrant** virtual machine in the root directory that provides a completely
 functional environment for running *Kreta*. This Vagrant that is imported as submodule is maintained by
-[benatespina](mailto:benatespina@gmail.com) in this [repository](https://github.com/benatespina/default-vagrant) so, we
-are pretty sure that you do not have any problems to use it; however, if you have any kind of question or doubt, do not
+[benatespina](mailto:benatespina@gmail.com) in this [repository](https://github.com/benatespina/default-vagrant) so, we are pretty sure that you won`t any problems to use it; however, if you have any kind of question or doubt, do not
 hesitate to contact us.
 
 * Install [Vagrant](http://docs.vagrantup.com/v2/installation/index.html) on your system, which in turn requires
@@ -22,10 +21,10 @@ hesitate to contact us.
 *NOTE: If you are on Windows, I would recommend [RubyInstaller](http://rubyinstaller.org/) for installing Ruby and any
 ssh client as [PuTTY](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html) for log into your Vagrant box.*
 
-* For simplified the usage of this box, you should install
+* This box has some dependencies so you must install
 **[vagrant-hostsupdater](https://github.com/cogitatio/vagrant-hostsupdater)** plugin for Vagrant, which adds an entry
 to your `/etc/hosts` file on the host system and **[vagrant-vbguest](https://github.com/dotless-de/vagrant-vbguest)**
-plugin which automatically installs the host's VirtualBox Guest Additions on the guest system.
+ which automatically installs the host's VirtualBox Guest Additions on the guest system.
 ```
 vagrant plugin install vagrant-hostsupdater
 vagrant plugin install vagrant-vbguest
@@ -34,12 +33,11 @@ vagrant plugin install vagrant-vbguest
 Getting started
 ---------------
 
-The recommended way to clone this project is using the following command because you have to clone the *git submodules*
-too:
+The recommended way to clone this project is using the following command in order to add *git submodules* too:
 
     git clone --recursive https://github.com/kreta/kreta.git kreta
 
-Then, into `/vagrant` directory you have to duplicate the Personalization.dist in the same directory but without
+Then, inside `/vagrant` directory you have to copy the `Personalization.dist` in the same directory but without
 extension, modifying the values with your favorite preferences. This is the `Personalization` file that we recommend:
 
 ```
@@ -66,13 +64,12 @@ following commands:
     vagrant up
     vagran ssh
 
-Finally, you have to load all related with the **database** (create database if it is not exist, create schema and load some
+Finally, you have to load everything related to **database** (create database if it is not exist, create schema and load some
 fixtures). The recommended way to do all of these steps is executing the following command.
 
     sh scripts/update_doctrine_dev.sh
 
-And that's all! Now, if you go to the `http://kreta.localhost` url, you can see all the methods that
-are available for now.
+And that's all! Now, if you go to the `http://kreta.localhost` url, you will see your site up and running
 
 Contributing
 ------------
