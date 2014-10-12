@@ -28,22 +28,23 @@ class UserProvider extends BaseUserProvider
     public function connect(UserInterface $user, UserResponseInterface $response)
     {
         $property = $this->getProperty($response);
-        $username = $response->getUsername();
+        $email = $response->getEmail();
 
         $service = $response->getResourceOwner()->getName();
 
         $setter = 'set' . ucfirst($service);
-        $setter_id = $setter . 'Id';
-        $setter_token = $setter . 'AccessToken';
+        $setterId = $setter . 'Id';
+        $setterToken = $setter . 'AccessToken';
 
-        if (null !== $previousUser = $this->userManager->findUserBy(array($property => $username))) {
-            $previousUser->$setter_id(null);
-            $previousUser->$setter_token(null);
+        $previousUser = $this->userManager->findUserBy(array($property => $email));
+        if ($previousUser !== null) {
+            $previousUser->$setterId(null);
+            $previousUser->$setterToken(null);
             $this->userManager->updateUser($previousUser);
         }
 
-        $user->$setter_id($username);
-        $user->$setter_token($response->getAccessToken());
+        $user->$setterId($email);
+        $user->$setterToken($response->getAccessToken());
 
         $this->userManager->updateUser($user);
     }
