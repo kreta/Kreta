@@ -15,12 +15,17 @@ Kreta\CoreBundle\Entity\Issue:
             generator:
                 strategy: UUID
     fields:
+        description:
+            type: text
         priority:
             type: smallint
         resolution:
             type: smallint
         status:
             type: smallint
+        title:
+            type: string
+            length: 50
         type:
             type: smallint
     manyToMany:

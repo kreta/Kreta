@@ -88,6 +88,22 @@ interface IssueInterface
     public function removeComment(CommentInterface $comment);
 
     /**
+     * Gets description.
+     *
+     * @return string
+     */
+    public function getDescription();
+
+    /**
+     * Sets description.
+     *
+     * @param string $description The description
+     *
+     * @return $this self Object
+     */
+    public function setDescription($description);
+
+    /**
      * Gets labels.
      *
      * @return \Kreta\CoreBundle\Model\Interfaces\LabelInterface[]
@@ -192,6 +208,22 @@ interface IssueInterface
      * @return $this self Object
      */
     public function setType($type);
+
+    /**
+     * Gets title.
+     *
+     * @return string
+     */
+    public function getTitle();
+
+    /**
+     * Sets title.
+     *
+     * @param string $title The title
+     *
+     * @return $this self Object
+     */
+    public function setTitle($title);
 
     /**
      * Gets watchers.

@@ -64,6 +64,12 @@ class IssueSpec extends ObjectBehavior
         $this->getComments()->shouldHaveCount(0);
     }
 
+    function its_description_is_mutable()
+    {
+        $this->setDescription('This is a dummy description of issue')->shouldReturn($this);
+        $this->getDescription()->shouldReturn('This is a dummy description of issue');
+    }
+
     function its_labels_be_mutable(LabelInterface $label)
     {
         $this->getLabels()->shouldHaveCount(0);
@@ -99,6 +105,12 @@ class IssueSpec extends ObjectBehavior
     {
         $this->setStatus(0)->shouldReturn($this);
         $this->getStatus()->shouldReturn(0);
+    }
+
+    function its_title_is_mutable()
+    {
+        $this->setTitle('Dummy title')->shouldReturn($this);
+        $this->getTitle()->shouldReturn('Dummy title');
     }
 
     function its_type_is_mutable()

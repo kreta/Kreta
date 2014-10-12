@@ -17,11 +17,11 @@ Kreta\CoreBundle\Entity\Project:
     fields:
         name:
             type: string
-            length: 100
+            length: 140
         shortName:
             column: short_name
             type: string
-            length: 30
+            length: 4
     manyToMany:
         participants:
             targetEntity: Kreta\CoreBundle\Model\Interfaces\UserInterface

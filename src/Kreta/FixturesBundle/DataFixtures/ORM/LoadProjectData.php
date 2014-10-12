@@ -34,7 +34,7 @@ class LoadProjectData extends DataFixtures
 
             $this->loadRandomObjects($project, 'addParticipant', $users);
 
-            $project->setShortName('Project ' . $i);
+            $project->setShortName('PR-' . $i);
 
             $manager->persist($project);
         }

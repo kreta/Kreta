@@ -40,6 +40,13 @@ class Issue extends AbstractModel implements IssueInterface
     protected $comments;
 
     /**
+     * The description.
+     *
+     * @var string
+     */
+    protected $description;
+
+    /**
      * Array that contains labels.
      *
      * @var \Doctrine\Common\Collections\ArrayCollection
@@ -73,6 +80,13 @@ class Issue extends AbstractModel implements IssueInterface
      * @var int
      */
     protected $status;
+
+    /**
+     * The title.
+     *
+     * @var string
+     */
+    protected $title;
 
     /**
      * The type that can be "bug", "new feature", "improvement", "epic" or "story".
@@ -140,6 +154,24 @@ class Issue extends AbstractModel implements IssueInterface
     public function removeComment(CommentInterface $comment)
     {
         $this->comments->removeElement($comment);
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setDescription($description)
+    {
+        $this->description = $description;
 
         return $this;
     }
@@ -240,6 +272,24 @@ class Issue extends AbstractModel implements IssueInterface
     public function setStatus($status)
     {
         $this->status = $status;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getTitle()
+    {
+        return $this->title;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setTitle($title)
+    {
+        $this->title = $title;
 
         return $this;
     }
