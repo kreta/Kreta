@@ -1,0 +1,32 @@
+# This file belongs to Kreta.
+# The source code of application includes a LICENSE file
+# with all information about license.
+#
+# @author benatespina <benatespina@gmail.com>
+# @author gorkalaucirica <gorka.lauzirika@gmail.com>
+
+doctrine:
+    dbal:
+        driver:   "%database_driver%"
+        host:     "%database_host%"
+        port:     "%database_port%"
+        dbname:   "%database_name%"
+        user:     "%database_user%"
+        password: "%database_password%"
+        charset:  UTF8
+    orm:
+        auto_generate_proxy_classes: "%kernel.debug%"
+        mappings:
+            KretaCoreBundle:
+                mapping: true
+                type: yml
+                dir: "Resources/config/doctrine"
+                alias: 'KretaCoreBundle'
+                prefix: 'Kreta\CoreBundle\Model'
+                is_bundle: true
+        resolve_target_entities:
+            Kreta\CoreBundle\Model\Interfaces\CommentInterface: Kreta\CoreBundle\Model\Comment
+            Kreta\CoreBundle\Model\Interfaces\IssueInterface: Kreta\CoreBundle\Model\Issue
+            Kreta\CoreBundle\Model\Interfaces\LabelInterface: Kreta\CoreBundle\Model\Label
+            Kreta\CoreBundle\Model\Interfaces\ProjectInterface: Kreta\CoreBundle\Model\Project
+            Kreta\CoreBundle\Model\Interfaces\UserInterface: Kreta\CoreBundle\Model\User

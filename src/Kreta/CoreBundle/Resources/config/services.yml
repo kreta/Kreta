@@ -7,11 +7,11 @@
 
 parameters:
 #### CLASSES ####
-    kreta_core.class_comment: Kreta\CoreBundle\Entity\Comment
-    kreta_core.class_issue: Kreta\CoreBundle\Entity\Issue
-    kreta_core.class_label: Kreta\CoreBundle\Entity\Label
-    kreta_core.class_project: Kreta\CoreBundle\Entity\Project
-    kreta_core.class_user: Kreta\CoreBundle\Entity\User
+    kreta_core.class_comment: Kreta\CoreBundle\Model\Comment
+    kreta_core.class_issue: Kreta\CoreBundle\Model\Issue
+    kreta_core.class_label: Kreta\CoreBundle\Model\Label
+    kreta_core.class_project: Kreta\CoreBundle\Model\Project
+    kreta_core.class_user: Kreta\CoreBundle\Model\User
 
     kreta_core.factory_class_comment: Kreta\CoreBundle\Factory\CommentFactory
     kreta_core.factory_class_issue: Kreta\CoreBundle\Factory\IssueFactory

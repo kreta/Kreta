@@ -32,6 +32,6 @@ class LabelFactorySpec extends ObjectBehavior
 
     function it_creates_a_label()
     {
-        $this->create()->shouldReturnAnInstanceOf('Kreta\CoreBundle\Entity\Label');
+        $this->create()->shouldReturnAnInstanceOf('Kreta\CoreBundle\Model\Label');
     }
 }

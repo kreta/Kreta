@@ -32,6 +32,6 @@ class UserFactorySpec extends ObjectBehavior
 
     function it_creates_a_user()
     {
-        $this->create()->shouldReturnAnInstanceOf('Kreta\CoreBundle\Entity\User');
+        $this->create()->shouldReturnAnInstanceOf('Kreta\CoreBundle\Model\User');
     }
 }

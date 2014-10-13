@@ -11,7 +11,7 @@
 
 namespace Kreta\CoreBundle\Factory;
 
-use Kreta\CoreBundle\Entity\Label;
+use Kreta\CoreBundle\Model\Label;
 use Kreta\CoreBundle\Factory\Abstracts\AbstractFactory;
 
 /**

@@ -11,7 +11,7 @@
 
 namespace Kreta\CoreBundle\Factory;
 
-use Kreta\CoreBundle\Entity\Project;
+use Kreta\CoreBundle\Model\Project;
 use Kreta\CoreBundle\Factory\Abstracts\AbstractFactory;
 
 /**

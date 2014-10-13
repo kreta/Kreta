@@ -32,6 +32,6 @@ class ProjectFactorySpec extends ObjectBehavior
 
     function it_creates_a_project()
     {
-        $this->create()->shouldReturnAnInstanceOf('Kreta\CoreBundle\Entity\Project');
+        $this->create()->shouldReturnAnInstanceOf('Kreta\CoreBundle\Model\Project');
     }
 }

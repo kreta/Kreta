@@ -11,7 +11,7 @@
 
 namespace Kreta\CoreBundle\Factory;
 
-use Kreta\CoreBundle\Entity\Comment;
+use Kreta\CoreBundle\Model\Comment;
 use Kreta\CoreBundle\Factory\Abstracts\AbstractFactory;
 
 /**

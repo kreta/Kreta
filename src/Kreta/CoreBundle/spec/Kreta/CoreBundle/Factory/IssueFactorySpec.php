@@ -32,6 +32,6 @@ class IssueFactorySpec extends ObjectBehavior
 
     function it_creates_a_issue()
     {
-        $this->create()->shouldReturnAnInstanceOf('Kreta\CoreBundle\Entity\Issue');
+        $this->create()->shouldReturnAnInstanceOf('Kreta\CoreBundle\Model\Issue');
     }
 }

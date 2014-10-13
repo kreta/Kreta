@@ -5,7 +5,7 @@
 # @author benatespina <benatespina@gmail.com>
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
-Kreta\CoreBundle\Entity\Issue:
+Kreta\CoreBundle\Model\Issue:
     type: entity
     repositoryClass: Kreta\CoreBundle\Repository\IssueRepository
     table: issue

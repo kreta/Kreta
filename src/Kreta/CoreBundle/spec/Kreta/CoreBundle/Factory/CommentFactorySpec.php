@@ -32,6 +32,6 @@ class CommentFactorySpec extends ObjectBehavior
 
     function it_creates_a_comment()
     {
-        $this->create()->shouldReturnAnInstanceOf('Kreta\CoreBundle\Entity\Comment');
+        $this->create()->shouldReturnAnInstanceOf('Kreta\CoreBundle\Model\Comment');
     }
 }
