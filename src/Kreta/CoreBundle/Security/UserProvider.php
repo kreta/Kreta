@@ -38,6 +38,8 @@ class UserProvider extends BaseUserProvider
 
         $previousUser = $this->userManager->findUserBy(array($property => $email));
         if ($previousUser !== null) {
+            $previousUser->setUsername($email);
+            $previousUser->setEmail($email);
             $previousUser->$setterId(null);
             $previousUser->$setterToken(null);
             $this->userManager->updateUser($previousUser);
@@ -46,7 +48,7 @@ class UserProvider extends BaseUserProvider
         $user->$setterId($email);
         $user->$setterToken($response->getAccessToken());
 
-        $this->userManager->updateUser($user);
+        $this->userManager->updateUser($user, true);
     }
 
     /**
