@@ -66,7 +66,7 @@ class UserProvider extends BaseUserProvider
             $setter_token = $setter . 'AccessToken';
 
             $user = $this->userManager->createUser();
-            if($email === null) {
+            if($email === null || $email === "") {
                 //Create temporary email if provider doesn't return one.
                 $email = substr(md5(microtime()),rand(0,26),10) . '@kretatemporary.io';
             }
