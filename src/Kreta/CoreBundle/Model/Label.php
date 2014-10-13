@@ -13,7 +13,7 @@ namespace Kreta\CoreBundle\Model;
 
 use Kreta\CoreBundle\Model\Abstracts\AbstractModel;
 use Kreta\CoreBundle\Model\Interfaces\LabelInterface;
-use Kreta\CoreBundle\Util\Util;
+use Kreta\CoreBundle\Util\Slugger;
 
 /**
  * Class Label.
@@ -42,7 +42,7 @@ class Label extends AbstractModel implements LabelInterface
      */
     public function setName($name)
     {
-        $this->name = Util::generateSlug($name);
+        $this->name = Slugger::slugify($name);
 
         return $this;
     }

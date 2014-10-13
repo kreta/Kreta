@@ -12,11 +12,11 @@
 namespace Kreta\CoreBundle\Util;
 
 /**
- * Class Util.
+ * Class Slugger.
  *
  * @package Kreta\CoreBundle\Util
  */
-class Util
+class Slugger
 {
     /**
      * This function is copied from "The perfect PHP clean URL generator"
@@ -29,7 +29,7 @@ class Util
      *
      * @return string
      */
-    public static function generateSlug($string, $delimiter = '-')
+    public static function slugify($string, $delimiter = '-')
     {
         $slug = iconv('UTF-8', 'ASCII//TRANSLIT', $string);
         $slug = preg_replace('/[^a-zA-Z0-9\/_|+ -]/', '', $slug);
