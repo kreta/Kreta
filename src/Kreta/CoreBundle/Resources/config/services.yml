@@ -70,4 +70,4 @@ services:
 #### SECURITY ####
     kreta_user_provider:
         class: %kreta_core.security_class_userProvider%
-        arguments: [@fos_user.user_manager, {bitbucket: bitbucket_id, github: gitbub_id}]
+        arguments: [@fos_user.user_manager, {bitbucket: bitbucket_id, github: github_id}]
