@@ -26,7 +26,7 @@ class UserProviderSpec extends ObjectBehavior
 {
     function let(UserManagerInterface $userManager)
     {
-        $this->beConstructedWith($userManager, array('bitbucket' => 'bitbucket_id', 'github' => 'github_id'));
+        $this->beConstructedWith($userManager, array('bitbucket' => 'bitbucketId', 'github' => 'githubId'));
     }
 
     function it_is_initializable()

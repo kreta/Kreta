@@ -39,7 +39,7 @@ Kreta\CoreBundle\Model\User:
             length: 255
             nullable: true
         githubId:
-            column: github_id
+            column: githubId
             type: string
             length: 255
             nullable: true
