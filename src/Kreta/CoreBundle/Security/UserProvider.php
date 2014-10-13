@@ -45,7 +45,7 @@ class UserProvider extends BaseUserProvider
             $this->userManager->updateUser($previousUser);
         }
 
-        $user->$setterId($email);
+        $user->$setterId($response->getUsername());
         $user->$setterToken($response->getAccessToken());
 
         $this->userManager->updateUser($user, true);
@@ -66,10 +66,15 @@ class UserProvider extends BaseUserProvider
             $setter_token = $setter . 'AccessToken';
 
             $user = $this->userManager->createUser();
-            $user->$setter_id($email);
+            if($email === null) {
+                //Create temporary email if provider doesn't return one.
+                $email = substr(md5(microtime()),rand(0,26),10) . '@kretatemporary.io';
+            }
+            $user->$setter_id($response->getUsername());
             $user->$setter_token($response->getAccessToken());
             $user->setEmail($email);
-            $user->setPassword($email);
+            //Generate random password to avoid attacks.
+            $user->setPassword(substr(md5(microtime()),rand(0,26),10));
             $user->setEnabled(true);
             $this->userManager->updateUser($user);
 
