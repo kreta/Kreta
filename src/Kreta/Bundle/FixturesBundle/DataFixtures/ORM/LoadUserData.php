@@ -9,10 +9,10 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\FixturesBundle\DataFixtures\ORM;
+namespace Kreta\Bundle\FixturesBundle\DataFixtures\ORM;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Kreta\FixturesBundle\DataFixtures\DataFixtures;
+use Kreta\Bundle\FixturesBundle\DataFixtures\DataFixtures;
 
 /**
  * Class LoadUserData.

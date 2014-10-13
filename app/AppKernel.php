@@ -34,7 +34,7 @@ class AppKernel extends Kernel
 
             new FOS\UserBundle\FOSUserBundle(),
 
-            new Kreta\CoreBundle\KretaCoreBundle(),
+            new Kreta\Bundle\CoreBundle\KretaCoreBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
@@ -44,7 +44,7 @@ class AppKernel extends Kernel
 
             $bundles[] = new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle();
 
-            $bundles[] = new Kreta\FixturesBundle\KretaFixturesBundle();
+            $bundles[] = new Kreta\Bundle\FixturesBundle\KretaFixturesBundle();
         }
 
         return $bundles;

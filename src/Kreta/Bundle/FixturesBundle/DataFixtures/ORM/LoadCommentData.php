@@ -9,17 +9,17 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\FixturesBundle\DataFixtures\ORM;
+namespace Kreta\Bundle\FixturesBundle\DataFixtures\ORM;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Kreta\FixturesBundle\DataFixtures\DataFixtures;
+use Kreta\Bundle\FixturesBundle\DataFixtures\DataFixtures;
 
 /**
- * Class LoadIssueData.
+ * Class LoadCommentData.
  *
  * @package Kreta\FixturesBundle\DataFixtures\ORM
  */
-class LoadIssueData extends DataFixtures
+class LoadCommentData extends DataFixtures
 {
     /**
      * {@inheritdoc}
@@ -27,12 +27,10 @@ class LoadIssueData extends DataFixtures
     public function load(ObjectManager $manager)
     {
         $users = $this->container->get('kreta_core.repository_user')->findAll();
-        $labels = $this->container->get('kreta_core.repository_label')->findAll();
 
-        for ($i = 0; $i < 50; $i++) {
-            $issue = $this->container->get('kreta_core.factory_issue')->create();
-            $issue->setAssignee($users[array_rand($users)]);
-            $issue->setDescription(
+        for ($i = 0; $i < 100; $i++) {
+            $comment = $this->container->get('kreta_core.factory_comment')->create();
+            $comment->setDescription(
                 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean
                 massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec
                 quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec
@@ -48,18 +46,10 @@ class LoadIssueData extends DataFixtures
                 faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed
                 consequat, leo eget bibendum sodales, augue velit cursus nunc'
             );
-            $this->loadRandomObjects($issue, 'addLabel', $labels, count($labels));
-            $issue->setPriority(rand(0, 3));
-            $issue->setResolution(rand(0, 4));
-            $issue->setReporter($users[array_rand($users)]);
-            $issue->setStatus(rand(0, 2));
-            $issue->setType(rand(0, 4));
-            $issue->setTitle('Issue - ' . $i);
-            $this->loadRandomObjects($issue, 'addWatcher', $users);
+            $comment->setIssue($this->getReference('issue-' . rand(0, 49)));
+            $comment->setWrittenBy($users[array_rand($users)]);
 
-            $this->addReference('issue-' . $i, $issue);
-
-            $manager->persist($issue);
+            $manager->persist($comment);
         }
 
         $manager->flush();

@@ -9,15 +9,15 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\FixturesBundle;
+namespace Kreta\Bundle\CoreBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
- * Class KretaFixturesBundle.
+ * Class KretaCoreBundle.
  *
- * @package Kreta\FixturesBundle
+ * @package Kreta\CoreBundle
  */
-class KretaFixturesBundle extends Bundle
+class KretaCoreBundle extends Bundle
 {
 }

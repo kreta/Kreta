@@ -59,7 +59,7 @@
         ]
     },
     "autoload": {
-        "psr-0": { "": "src/" }
+        "psr-0": { "Kreta\\": "src/" }
     },
     "config": {
         "bin-dir": "bin"
