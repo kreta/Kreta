@@ -1,0 +1,13 @@
+{% extends "KretaWebBundle::layout.html.twig" %}
+
+{% block content %}
+    <div class="medium-8 column">
+        {{ form_start(form, {'action': url('kreta_web_issue_edit', {id: issue.id})}) }}
+            {{ form_row(form.title) }}
+            {{ form_row(form.description) }}
+            {{ form_row(form.type) }}
+            {{ form_row(form.priority) }}
+            <input type="submit" value="Update">
+        {{ form_end(form) }}
+    </div>
+{% endblock %}

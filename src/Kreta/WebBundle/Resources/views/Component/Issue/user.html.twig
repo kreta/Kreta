@@ -13,7 +13,7 @@
             <div class="issue-footer">
                 <img class="project" src="/img/mcb.png">
                 <a href="{{ url('kreta_web_issue_view', { 'id' : issue.id }) }}"><i class="fa fa-comment"></i> 0</a>
-                <a><i class="fa fa-pencil"></i></a>
+                <a href="{{ url('kreta_web_issue_edit', { 'id' : issue.id }) }}"><i class="fa fa-pencil"></i></a>
                 <a href="{{ url('kreta_web_issue_view', { 'id' : issue.id }) }}"><i class="fa fa-eye"></i></a>
             </div>
             {% include 'KretaWebBundle:Issue/blocks:typeIcon.html.twig' with {'type': issue.type} %}

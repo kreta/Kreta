@@ -8,7 +8,7 @@
 
 {% block widgetContent %}
     <div class="kreta-issue-actions">
-        <a href=""><i class="fa fa-pencil"></i> Edit issue</a>
+        <a href="{{ url('kreta_web_issue_edit', {id: issue.id}) }}"><i class="fa fa-pencil"></i> Edit issue</a>
         <hr noshade>
         <a href=""><i class="fa fa-share"></i> Start progress</a>
         <a href=""><i class="fa fa-check"></i> Resolve issue</a>

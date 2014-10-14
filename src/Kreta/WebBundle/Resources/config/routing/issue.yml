@@ -1,3 +1,11 @@
+kreta_web_issue_new:
+    path:     new
+    defaults: { _controller: KretaWebBundle:Issue:new }
+
 kreta_web_issue_view:
     path:     /{id}
     defaults: { _controller: KretaWebBundle:Issue:view }
+
+kreta_web_issue_edit:
+    path:     edit/{id}
+    defaults: { _controller: KretaWebBundle:Issue:edit }
