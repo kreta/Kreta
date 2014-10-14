@@ -14,19 +14,19 @@ namespace Kreta\CoreBundle\Repository;
 use Doctrine\ORM\EntityRepository;
 
 /**
- * Class UserRepository.
+ * Class ResolutionRepository.
  *
  * @package Kreta\CoreBundle\Rpository
  */
-class UserRepository extends EntityRepository
+class ResolutionRepository extends EntityRepository
 {
     /**
-     * Finds all the users that exist into database.
+     * Finds all the resolutions that exist into database.
      *
-     * @return \Kreta\CoreBundle\Model\Interfaces\UserInterface[]
+     * @return \Kreta\CoreBundle\Model\Interfaces\ResolutionInterface[]
      */
     public function findAll()
     {
-        return $this->createQueryBuilder('u')->getQuery()->getResult();
+        return $this->createQueryBuilder('r')->getQuery()->getResult();
     }
 }

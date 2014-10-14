@@ -13,6 +13,8 @@ namespace spec\Kreta\CoreBundle\Model;
 
 use Kreta\CoreBundle\Model\Interfaces\CommentInterface;
 use Kreta\CoreBundle\Model\Interfaces\LabelInterface;
+use Kreta\CoreBundle\Model\Interfaces\ResolutionInterface;
+use Kreta\CoreBundle\Model\Interfaces\StatusInterface;
 use Kreta\CoreBundle\Model\Interfaces\UserInterface;
 use PhpSpec\ObjectBehavior;
 
@@ -89,10 +91,10 @@ class IssueSpec extends ObjectBehavior
         $this->getPriority()->shouldReturn(0);
     }
 
-    function its_resolution_is_mutable()
+    function its_resolution_is_mutable(ResolutionInterface $resolution)
     {
-        $this->setResolution(0)->shouldReturn($this);
-        $this->getResolution()->shouldReturn(0);
+        $this->setResolution($resolution)->shouldReturn($this);
+        $this->getResolution()->shouldReturn($resolution);
     }
 
     function its_reporter_is_mutable(UserInterface $reporter)
@@ -101,10 +103,10 @@ class IssueSpec extends ObjectBehavior
         $this->getReporter()->shouldReturn($reporter);
     }
 
-    function its_status_is_mutable()
+    function its_status_is_mutable(StatusInterface $status)
     {
-        $this->setStatus(0)->shouldReturn($this);
-        $this->getStatus()->shouldReturn(0);
+        $this->setStatus($status)->shouldReturn($this);
+        $this->getStatus()->shouldReturn($status);
     }
 
     function its_title_is_mutable()

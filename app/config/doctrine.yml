@@ -29,4 +29,6 @@ doctrine:
             Kreta\CoreBundle\Model\Interfaces\IssueInterface: Kreta\CoreBundle\Model\Issue
             Kreta\CoreBundle\Model\Interfaces\LabelInterface: Kreta\CoreBundle\Model\Label
             Kreta\CoreBundle\Model\Interfaces\ProjectInterface: Kreta\CoreBundle\Model\Project
+            Kreta\CoreBundle\Model\Interfaces\ResolutionInterface: Kreta\CoreBundle\Model\Resolution
+            Kreta\CoreBundle\Model\Interfaces\StatusInterface: Kreta\CoreBundle\Model\Status
             Kreta\CoreBundle\Model\Interfaces\UserInterface: Kreta\CoreBundle\Model\User

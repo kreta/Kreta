@@ -21,7 +21,7 @@ use Doctrine\ORM\EntityRepository;
 class LabelRepository extends EntityRepository
 {
     /**
-     * Finds all the user that exist into database.
+     * Finds all the labels that exist into database.
      *
      * @return \Kreta\CoreBundle\Model\Interfaces\LabelInterface[]
      */
