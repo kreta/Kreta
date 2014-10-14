@@ -17,7 +17,7 @@ use Kreta\Bundle\FixturesBundle\DataFixtures\DataFixtures;
 /**
  * Class LoadCommentData.
  *
- * @package Kreta\FixturesBundle\DataFixtures\ORM
+ * @package Kreta\Bundle\FixturesBundle\DataFixtures\ORM
  */
 class LoadCommentData extends DataFixtures
 {

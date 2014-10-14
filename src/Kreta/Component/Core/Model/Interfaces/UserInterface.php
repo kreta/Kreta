@@ -9,14 +9,14 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\CoreBundle\Model\Interfaces;
+namespace Kreta\Component\Core\Model\Interfaces;
 
 use FOS\UserBundle\Model\UserInterface as BaseUserInterface;
 
 /**
  * Interface UserInterface.
  *
- * @package Kreta\CoreBundle\Model\Interfaces
+ * @package Kreta\Component\Core\Model\Interfaces
  */
 interface UserInterface extends BaseUserInterface
 {

@@ -1,10 +1,14 @@
 suites:
     CoreBundle:
         namespace: Kreta
-        spec_path: src/Kreta/CoreBundle
+        spec_path: src/Kreta/Bundle/CoreBundle
     FixturesBundle:
         namespace: Kreta
-        spec_path: src/Kreta/FixturesBundle
+        spec_path: src/Kreta/Bundle/FixturesBundle
+
+    CoreComponent:
+        namespace: Kreta
+        spec_path: src/Kreta/Component/Core
 
 extensions:
     - PhpSpec\Extension\CodeCoverageExtension

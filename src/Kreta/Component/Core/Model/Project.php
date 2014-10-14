@@ -9,17 +9,17 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\CoreBundle\Model;
+namespace Kreta\Component\Core\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Kreta\CoreBundle\Model\Abstracts\AbstractModel;
-use Kreta\CoreBundle\Model\Interfaces\ProjectInterface;
-use Kreta\CoreBundle\Model\Interfaces\UserInterface;
+use Kreta\Component\Core\Model\Abstracts\AbstractModel;
+use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
+use Kreta\Component\Core\Model\Interfaces\UserInterface;
 
 /**
  * Class Project.
  *
- * @package Kreta\CoreBundle\Model
+ * @package Kreta\Component\Core\Model
  */
 class Project extends AbstractModel implements ProjectInterface
 {

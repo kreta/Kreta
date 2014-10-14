@@ -9,7 +9,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace spec\Kreta\CoreBundle\Repository;
+namespace spec\Kreta\Component\Core\Repository;
 
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\EntityManager;
@@ -17,13 +17,13 @@ use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
-use Kreta\CoreBundle\Model\Interfaces\UserInterface;
+use Kreta\Component\Core\Model\Interfaces\UserInterface;
 use PhpSpec\ObjectBehavior;
 
 /**
  * Class IssueRepositorySpec.
  *
- * @package spec\Kreta\CoreBundle\Repository
+ * @package spec\Kreta\Component\Core\Repository
  */
 class IssueRepositorySpec extends ObjectBehavior
 {
@@ -34,7 +34,7 @@ class IssueRepositorySpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('Kreta\CoreBundle\Repository\IssueRepository');
+        $this->shouldHaveType('Kreta\Component\Core\Repository\IssueRepository');
     }
 
     function it_extends_entity_repository()

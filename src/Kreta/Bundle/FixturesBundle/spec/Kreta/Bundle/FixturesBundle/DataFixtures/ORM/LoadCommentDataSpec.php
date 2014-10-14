@@ -13,11 +13,11 @@ namespace spec\Kreta\FixturesBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\ReferenceRepository;
 use Doctrine\Common\Persistence\ObjectManager;
-use Kreta\CoreBundle\Factory\CommentFactory;
-use Kreta\CoreBundle\Model\Interfaces\CommentInterface;
-use Kreta\CoreBundle\Model\Interfaces\IssueInterface;
-use Kreta\CoreBundle\Model\Interfaces\UserInterface;
-use Kreta\CoreBundle\Repository\UserRepository;
+use Kreta\Component\Core\Factory\CommentFactory;
+use Kreta\Component\Core\Model\Interfaces\CommentInterface;
+use Kreta\Component\Core\Model\Interfaces\IssueInterface;
+use Kreta\Component\Core\Model\Interfaces\UserInterface;
+use Kreta\Component\Core\Repository\UserRepository;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -37,12 +37,12 @@ class LoadCommentDataSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('Kreta\FixturesBundle\DataFixtures\ORM\LoadCommentData');
+        $this->shouldHaveType('Kreta\Bundle\FixturesBundle\DataFixtures\ORM\LoadCommentData');
     }
 
     function it_extends_data_fixtures()
     {
-        $this->shouldHaveType('Kreta\FixturesBundle\DataFixtures\DataFixtures');
+        $this->shouldHaveType('Kreta\Bundle\FixturesBundle\DataFixtures\DataFixtures');
     }
 
     function it_loads(

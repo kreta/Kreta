@@ -9,20 +9,20 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace spec\Kreta\CoreBundle\Model\Abstracts;
+namespace spec\Kreta\Component\Core\Model\Abstracts;
 
 use PhpSpec\ObjectBehavior;
 
 /**
  * Class AbstractModelSpec.
  *
- * @package spec\Kreta\CoreBundle\Model\Abstracts
+ * @package spec\Kreta\Component\Core\Model\Abstracts
  */
 class AbstractModelSpec extends ObjectBehavior
 {
     function let()
     {
-        $this->beAnInstanceOf('Kreta\CoreBundle\Stubs\Model\Abstracts\AbstractModelStub');
+        $this->beAnInstanceOf('Kreta\Component\Core\Stubs\Model\Abstracts\AbstractModelStub');
     }
 
     function it_does_not_have_id_by_default()

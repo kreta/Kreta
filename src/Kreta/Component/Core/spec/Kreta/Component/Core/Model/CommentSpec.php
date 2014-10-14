@@ -9,32 +9,32 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace spec\Kreta\CoreBundle\Model;
+namespace spec\Kreta\Component\Core\Model;
 
-use Kreta\CoreBundle\Model\Interfaces\IssueInterface;
-use Kreta\CoreBundle\Model\Interfaces\UserInterface;
+use Kreta\Component\Core\Model\Interfaces\IssueInterface;
+use Kreta\Component\Core\Model\Interfaces\UserInterface;
 use PhpSpec\ObjectBehavior;
 
 /**
  * Class CommentSpec.
  *
- * @package spec\Kreta\CoreBundle\Model
+ * @package spec\Kreta\Component\Core\Model
  */
 class CommentSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('Kreta\CoreBundle\Model\Comment');
+        $this->shouldHaveType('Kreta\Component\Core\Model\Comment');
     }
 
     function it_extends_abstract_model()
     {
-        $this->shouldHaveType('Kreta\CoreBundle\Model\Abstracts\AbstractModel');
+        $this->shouldHaveType('Kreta\Component\Core\Model\Abstracts\AbstractModel');
     }
 
     function it_implements_comment_interface()
     {
-        $this->shouldImplement('Kreta\CoreBundle\Model\Interfaces\CommentInterface');
+        $this->shouldImplement('Kreta\Component\Core\Model\Interfaces\CommentInterface');
     }
 
     function its_created_at_is_datetime()

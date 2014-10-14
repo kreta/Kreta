@@ -9,31 +9,31 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace spec\Kreta\CoreBundle\Model;
+namespace spec\Kreta\Component\Core\Model;
 
-use Kreta\CoreBundle\Model\Interfaces\UserInterface;
+use Kreta\Component\Core\Model\Interfaces\UserInterface;
 use PhpSpec\ObjectBehavior;
 
 /**
  * Class ProjectSpec.
  *
- * @package spec\Kreta\CoreBundle\Model
+ * @package spec\Kreta\Component\Core\Model
  */
 class ProjectSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('Kreta\CoreBundle\Model\Project');
+        $this->shouldHaveType('Kreta\Component\Core\Model\Project');
     }
 
     function it_extends_abstract_model()
     {
-        $this->shouldHaveType('Kreta\CoreBundle\Model\Abstracts\AbstractModel');
+        $this->shouldHaveType('Kreta\Component\Core\Model\Abstracts\AbstractModel');
     }
 
     function it_implements_project_interface()
     {
-        $this->shouldImplement('Kreta\CoreBundle\Model\Interfaces\ProjectInterface');
+        $this->shouldImplement('Kreta\Component\Core\Model\Interfaces\ProjectInterface');
     }
 
     function its_participants_is_collection()

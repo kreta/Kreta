@@ -9,12 +9,12 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\CoreBundle\Model\Interfaces;
+namespace Kreta\Component\Core\Model\Interfaces;
 
 /**
  * Interface IssueInterface.
  *
- * @package Kreta\CoreBundle\Model\Interfaces
+ * @package Kreta\Component\Core\Model\Interfaces
  */
 interface IssueInterface
 {
@@ -49,14 +49,14 @@ interface IssueInterface
     /**
      * Gets assignee.
      *
-     * @return \Kreta\CoreBundle\Model\Interfaces\UserInterface
+     * @return \Kreta\Component\Core\Model\Interfaces\UserInterface
      */
     public function getAssignee();
 
     /**
      * Sets the assignee.
      *
-     * @param \Kreta\CoreBundle\Model\Interfaces\UserInterface
+     * @param \Kreta\Component\Core\Model\Interfaces\UserInterface
      *
      * @return $this self Object
      */
@@ -65,14 +65,14 @@ interface IssueInterface
     /**
      * Gets comments.
      *
-     * @return \Kreta\CoreBundle\Model\Interfaces\CommentInterface[]
+     * @return \Kreta\Component\Core\Model\Interfaces\CommentInterface[]
      */
     public function getComments();
 
     /**
      * Adds the comment.
      *
-     * @param \Kreta\CoreBundle\Model\Interfaces\CommentInterface
+     * @param \Kreta\Component\Core\Model\Interfaces\CommentInterface
      *
      * @return $this self Object
      */
@@ -81,7 +81,7 @@ interface IssueInterface
     /**
      * Removes the comment.
      *
-     * @param \Kreta\CoreBundle\Model\Interfaces\CommentInterface
+     * @param \Kreta\Component\Core\Model\Interfaces\CommentInterface
      *
      * @return $this self Object
      */
@@ -106,14 +106,14 @@ interface IssueInterface
     /**
      * Gets labels.
      *
-     * @return \Kreta\CoreBundle\Model\Interfaces\LabelInterface[]
+     * @return \Kreta\Component\Core\Model\Interfaces\LabelInterface[]
      */
     public function getLabels();
 
     /**
      * Adds the labels.
      *
-     * @param \Kreta\CoreBundle\Model\Interfaces\LabelInterface
+     * @param \Kreta\Component\Core\Model\Interfaces\LabelInterface
      *
      * @return $this self Object
      */
@@ -122,7 +122,7 @@ interface IssueInterface
     /**
      * Removes the label.
      *
-     * @param \Kreta\CoreBundle\Model\Interfaces\LabelInterface
+     * @param \Kreta\Component\Core\Model\Interfaces\LabelInterface
      *
      * @return $this self Object
      */
@@ -147,14 +147,14 @@ interface IssueInterface
     /**
      * Gets reporter.
      *
-     * @return \Kreta\CoreBundle\Model\Interfaces\UserInterface
+     * @return \Kreta\Component\Core\Model\Interfaces\UserInterface
      */
     public function getReporter();
 
     /**
      * Sets the reporter.
      *
-     * @param \Kreta\CoreBundle\Model\Interfaces\UserInterface
+     * @param \Kreta\Component\Core\Model\Interfaces\UserInterface
      *
      * @return $this self Object
      */
@@ -228,14 +228,14 @@ interface IssueInterface
     /**
      * Gets watchers.
      *
-     * @return \Kreta\CoreBundle\Model\Interfaces\UserInterface[]
+     * @return \Kreta\Component\Core\Model\Interfaces\UserInterface[]
      */
     public function getWatchers();
 
     /**
      * Adds the watcher.
      *
-     * @param \Kreta\CoreBundle\Model\Interfaces\UserInterface
+     * @param \Kreta\Component\Core\Model\Interfaces\UserInterface
      *
      * @return $this self Object
      */
@@ -244,7 +244,7 @@ interface IssueInterface
     /**
      * Removes the watcher.
      *
-     * @param \Kreta\CoreBundle\Model\Interfaces\UserInterface
+     * @param \Kreta\Component\Core\Model\Interfaces\UserInterface
      *
      * @return $this self Object
      */

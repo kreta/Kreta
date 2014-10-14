@@ -9,16 +9,16 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\CoreBundle\Model;
+namespace Kreta\Component\Core\Model;
 
-use Kreta\CoreBundle\Model\Abstracts\AbstractModel;
-use Kreta\CoreBundle\Model\Interfaces\CommentInterface;
-use Kreta\CoreBundle\Model\Interfaces\IssueInterface;
+use Kreta\Component\Core\Model\Abstracts\AbstractModel;
+use Kreta\Component\Core\Model\Interfaces\CommentInterface;
+use Kreta\Component\Core\Model\Interfaces\IssueInterface;
 
 /**
  * Class Comment.
  *
- * @package Kreta\CoreBundle\Model
+ * @package Kreta\Component\Core\Model
  */
 class Comment extends AbstractModel implements CommentInterface
 {
@@ -39,7 +39,7 @@ class Comment extends AbstractModel implements CommentInterface
     /**
      * The issue.
      *
-     * @var \Kreta\CoreBundle\Model\Interfaces\IssueInterface
+     * @var \Kreta\Component\Core\Model\Interfaces\IssueInterface
      */
     protected $issue;
 
@@ -53,7 +53,7 @@ class Comment extends AbstractModel implements CommentInterface
     /**
      * The owner.
      *
-     * @var \Kreta\CoreBundle\Model\Interfaces\UserInterface
+     * @var \Kreta\Component\Core\Model\Interfaces\UserInterface
      */
     protected $writtenBy;
 

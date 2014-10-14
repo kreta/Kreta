@@ -9,12 +9,12 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\CoreBundle\Model\Interfaces;
+namespace Kreta\Component\Core\Model\Interfaces;
 
 /**
  * Interface Project.
  *
- * @package Kreta\CoreBundle\Model\Interfaces
+ * @package Kreta\Component\Core\Model\Interfaces
  */
 interface ProjectInterface
 {
@@ -44,14 +44,14 @@ interface ProjectInterface
     /**
      * Gets participants.
      *
-     * @return \Kreta\CoreBundle\Model\Interfaces\UserInterface[]
+     * @return \Kreta\Component\Core\Model\Interfaces\UserInterface[]
      */
     public function getParticipants();
 
     /**
      * Adds participant.
      *
-     * @param \Kreta\CoreBundle\Model\Interfaces\UserInterface $participant The user object
+     * @param \Kreta\Component\Core\Model\Interfaces\UserInterface $participant The user object
      *
      * @return $this self Object
      */
@@ -60,7 +60,7 @@ interface ProjectInterface
     /**
      * Removes participant.
      *
-     * @param \Kreta\CoreBundle\Model\Interfaces\UserInterface $participant The user object
+     * @param \Kreta\Component\Core\Model\Interfaces\UserInterface $participant The user object
      *
      * @return $this self Object
      */

@@ -9,26 +9,26 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\CoreBundle\Model;
+namespace Kreta\Component\Core\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Kreta\CoreBundle\Model\Abstracts\AbstractModel;
-use Kreta\CoreBundle\Model\Interfaces\CommentInterface;
-use Kreta\CoreBundle\Model\Interfaces\IssueInterface;
-use Kreta\CoreBundle\Model\Interfaces\LabelInterface;
-use Kreta\CoreBundle\Model\Interfaces\UserInterface;
+use Kreta\Component\Core\Model\Abstracts\AbstractModel;
+use Kreta\Component\Core\Model\Interfaces\CommentInterface;
+use Kreta\Component\Core\Model\Interfaces\IssueInterface;
+use Kreta\Component\Core\Model\Interfaces\LabelInterface;
+use Kreta\Component\Core\Model\Interfaces\UserInterface;
 
 /**
  * Class Issue.
  *
- * @package Kreta\CoreBundle\Model
+ * @package Kreta\Component\Core\Model
  */
 class Issue extends AbstractModel implements IssueInterface
 {
     /**
      * The assignee.
      *
-     * @var \Kreta\CoreBundle\Model\Interfaces\UserInterface
+     * @var \Kreta\Component\Core\Model\Interfaces\UserInterface
      */
     protected $assignee;
 
@@ -70,7 +70,7 @@ class Issue extends AbstractModel implements IssueInterface
     /**
      * The reporter.
      *
-     * @var \Kreta\CoreBundle\Model\Interfaces\UserInterface
+     * @var \Kreta\Component\Core\Model\Interfaces\UserInterface
      */
     protected $reporter;
 

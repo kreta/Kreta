@@ -9,16 +9,16 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\CoreBundle\Model;
+namespace Kreta\Component\Core\Model;
 
-use Kreta\CoreBundle\Model\Abstracts\AbstractModel;
-use Kreta\CoreBundle\Model\Interfaces\LabelInterface;
-use Kreta\CoreBundle\Util\Slugger;
+use Kreta\Component\Core\Model\Abstracts\AbstractModel;
+use Kreta\Component\Core\Model\Interfaces\LabelInterface;
+use Kreta\Component\Core\Util\Slugger;
 
 /**
  * Class Label.
  *
- * @package Kreta\CoreBundle\Model
+ * @package Kreta\Component\Core\Model
  */
 class Label extends AbstractModel implements LabelInterface
 {

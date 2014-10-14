@@ -9,7 +9,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\CoreBundle\Repository;
+namespace Kreta\Component\Core\Repository;
 
 use Doctrine\ORM\EntityRepository;
 

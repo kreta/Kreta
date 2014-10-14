@@ -9,29 +9,29 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace spec\Kreta\CoreBundle\Factory;
+namespace spec\Kreta\Component\Core\Factory;
 
 use PhpSpec\ObjectBehavior;
 
 /**
  * Class LabelFactorySpec.
  *
- * @package spec\Kreta\CoreBundle\Factory
+ * @package spec\Kreta\Component\Core\Factory
  */
 class LabelFactorySpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('Kreta\CoreBundle\Factory\LabelFactory');
+        $this->shouldHaveType('Kreta\Component\Core\Factory\LabelFactory');
     }
 
     function it_extends_abstract_factory()
     {
-        $this->shouldHaveType('Kreta\CoreBundle\Factory\Abstracts\AbstractFactory');
+        $this->shouldHaveType('Kreta\Component\Core\Factory\Abstracts\AbstractFactory');
     }
 
     function it_creates_a_label()
     {
-        $this->create()->shouldReturnAnInstanceOf('Kreta\CoreBundle\Model\Label');
+        $this->create()->shouldReturnAnInstanceOf('Kreta\Component\Core\Model\Label');
     }
 }

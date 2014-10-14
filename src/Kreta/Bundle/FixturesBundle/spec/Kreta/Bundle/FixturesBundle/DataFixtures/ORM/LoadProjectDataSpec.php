@@ -12,10 +12,10 @@
 namespace spec\Kreta\FixturesBundle\DataFixtures\ORM;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Kreta\CoreBundle\Factory\ProjectFactory;
-use Kreta\CoreBundle\Model\Interfaces\ProjectInterface;
-use Kreta\CoreBundle\Model\Interfaces\UserInterface;
-use Kreta\CoreBundle\Repository\UserRepository;
+use Kreta\Component\Core\Factory\ProjectFactory;
+use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
+use Kreta\Component\Core\Model\Interfaces\UserInterface;
+use Kreta\Component\Core\Repository\UserRepository;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -34,12 +34,12 @@ class LoadProjectDataSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('Kreta\FixturesBundle\DataFixtures\ORM\LoadProjectData');
+        $this->shouldHaveType('Kreta\Bundle\FixturesBundle\DataFixtures\ORM\LoadProjectData');
     }
 
     function it_extends_data_fixtures()
     {
-        $this->shouldHaveType('Kreta\FixturesBundle\DataFixtures\DataFixtures');
+        $this->shouldHaveType('Kreta\Bundle\FixturesBundle\DataFixtures\DataFixtures');
     }
 
     function it_loads(

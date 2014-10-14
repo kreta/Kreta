@@ -9,7 +9,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\CoreBundle\Repository;
+namespace Kreta\Component\Core\Repository;
 
 use Doctrine\ORM\EntityRepository;
 
@@ -23,7 +23,7 @@ class UserRepository extends EntityRepository
     /**
      * Finds all the user that exist into database.
      *
-     * @return \Kreta\CoreBundle\Model\Interfaces\UserInterface[]
+     * @return \Kreta\Component\Core\Model\Interfaces\UserInterface[]
      */
     public function findAll()
     {

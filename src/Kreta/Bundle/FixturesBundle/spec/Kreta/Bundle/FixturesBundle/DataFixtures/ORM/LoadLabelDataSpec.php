@@ -12,8 +12,8 @@
 namespace spec\Kreta\FixturesBundle\DataFixtures\ORM;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Kreta\CoreBundle\Factory\LabelFactory;
-use Kreta\CoreBundle\Model\Interfaces\LabelInterface;
+use Kreta\Component\Core\Factory\LabelFactory;
+use Kreta\Component\Core\Model\Interfaces\LabelInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -32,12 +32,12 @@ class LoadLabelDataSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('Kreta\FixturesBundle\DataFixtures\ORM\LoadLabelData');
+        $this->shouldHaveType('Kreta\Bundle\FixturesBundle\DataFixtures\ORM\LoadLabelData');
     }
 
     function it_extends_data_fixtures()
     {
-        $this->shouldHaveType('Kreta\FixturesBundle\DataFixtures\DataFixtures');
+        $this->shouldHaveType('Kreta\Bundle\FixturesBundle\DataFixtures\DataFixtures');
     }
 
     function it_loads(

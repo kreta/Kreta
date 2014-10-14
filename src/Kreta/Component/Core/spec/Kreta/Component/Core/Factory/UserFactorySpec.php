@@ -9,29 +9,29 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace spec\Kreta\CoreBundle\Factory;
+namespace spec\Kreta\Component\Core\Factory;
 
 use PhpSpec\ObjectBehavior;
 
 /**
  * Class UserFactorySpec.
  *
- * @package spec\Kreta\CoreBundle\Factory
+ * @package spec\Kreta\Component\Core\Factory
  */
 class UserFactorySpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('Kreta\CoreBundle\Factory\UserFactory');
+        $this->shouldHaveType('Kreta\Component\Core\Factory\UserFactory');
     }
 
     function it_extends_abstract_factory()
     {
-        $this->shouldHaveType('Kreta\CoreBundle\Factory\Abstracts\AbstractFactory');
+        $this->shouldHaveType('Kreta\Component\Core\Factory\Abstracts\AbstractFactory');
     }
 
     function it_creates_a_user()
     {
-        $this->create()->shouldReturnAnInstanceOf('Kreta\CoreBundle\Model\User');
+        $this->create()->shouldReturnAnInstanceOf('Kreta\Component\Core\Model\User');
     }
 }

@@ -9,10 +9,10 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\CoreBundle\Repository;
+namespace Kreta\Component\Core\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use Kreta\CoreBundle\Model\Interfaces\UserInterface;
+use Kreta\Component\Core\Model\Interfaces\UserInterface;
 
 /**
  * Class ProjectRepository.
@@ -24,9 +24,9 @@ class ProjectRepository extends EntityRepository
     /**
      * Finds all the issues of participant given.
      *
-     * @param \Kreta\CoreBundle\Model\Interfaces\UserInterface $participant The reporter
+     * @param \Kreta\Component\Core\Model\Interfaces\UserInterface $participant The reporter
      *
-     * @return \Kreta\CoreBundle\Model\Interfaces\ProjectInterface[]
+     * @return \Kreta\Component\Core\Model\Interfaces\ProjectInterface[]
      */
     public function findByParticipant(UserInterface $participant)
     {

@@ -7,23 +7,23 @@
 
 parameters:
 #### CLASSES ####
-    kreta_core.class_comment: Kreta\CoreBundle\Model\Comment
-    kreta_core.class_issue: Kreta\CoreBundle\Model\Issue
-    kreta_core.class_label: Kreta\CoreBundle\Model\Label
-    kreta_core.class_project: Kreta\CoreBundle\Model\Project
-    kreta_core.class_user: Kreta\CoreBundle\Model\User
+    kreta_core.class_comment: Kreta\Component\Core\Model\Comment
+    kreta_core.class_issue: Kreta\Component\Core\Model\Issue
+    kreta_core.class_label: Kreta\Component\Core\Model\Label
+    kreta_core.class_project: Kreta\Component\Core\Model\Project
+    kreta_core.class_user: Kreta\Component\Core\Model\User
 
-    kreta_core.factory_class_comment: Kreta\CoreBundle\Factory\CommentFactory
-    kreta_core.factory_class_issue: Kreta\CoreBundle\Factory\IssueFactory
-    kreta_core.factory_class_label: Kreta\CoreBundle\Factory\LabelFactory
-    kreta_core.factory_class_project: Kreta\CoreBundle\Factory\ProjectFactory
-    kreta_core.factory_class_user: Kreta\CoreBundle\Factory\UserFactory
+    kreta_core.factory_class_comment: Kreta\Component\Core\Factory\CommentFactory
+    kreta_core.factory_class_issue: Kreta\Component\Core\Factory\IssueFactory
+    kreta_core.factory_class_label: Kreta\Component\Core\Factory\LabelFactory
+    kreta_core.factory_class_project: Kreta\Component\Core\Factory\ProjectFactory
+    kreta_core.factory_class_user: Kreta\Component\Core\Factory\UserFactory
 
-    kreta_core.repository_class_comment: Kreta\CoreBundle\Repository\CommentRepository
-    kreta_core.repository_class_issue: Kreta\CoreBundle\Repository\IssueRepository
-    kreta_core.repository_class_label: Kreta\CoreBundle\Repository\LabelRepository
-    kreta_core.repository_class_project: Kreta\CoreBundle\Repository\ProjectRepository
-    kreta_core.repository_class_user: Kreta\CoreBundle\Repository\UserRepository
+    kreta_core.repository_class_comment: Kreta\Component\Core\Repository\CommentRepository
+    kreta_core.repository_class_issue: Kreta\Component\Core\Repository\IssueRepository
+    kreta_core.repository_class_label: Kreta\Component\Core\Repository\LabelRepository
+    kreta_core.repository_class_project: Kreta\Component\Core\Repository\ProjectRepository
+    kreta_core.repository_class_user: Kreta\Component\Core\Repository\UserRepository
 
 services:
 #### FACTORIES ####

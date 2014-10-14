@@ -5,9 +5,9 @@
 # @author benatespina <benatespina@gmail.com>
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
-Kreta\CoreBundle\Model\Comment:
+Kreta\Component\Core\Model\Comment:
     type: entity
-    repositoryClass: Kreta\CoreBundle\Repository\CommentRepository
+    repositoryClass: Kreta\Component\Core\Repository\CommentRepository
     table: comment
     id:
         id:
@@ -26,7 +26,7 @@ Kreta\CoreBundle\Model\Comment:
             nullable: true
     manyToOne:
         issue:
-            targetEntity: Kreta\CoreBundle\Model\Interfaces\IssueInterface
+            targetEntity: Kreta\Component\Core\Model\Interfaces\IssueInterface
             inversedBy: comments
             joinColumn:
                 name: issue_id

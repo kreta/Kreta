@@ -21,12 +21,12 @@ doctrine:
                 mapping: true
                 type: yml
                 dir: "Resources/config/doctrine"
-                alias: 'KretaCoreBundle'
-                prefix: 'Kreta\CoreBundle\Model'
+#                alias: 'KretaCoreBundle'
+                prefix: 'Kreta\Component\Core\Model'
                 is_bundle: true
         resolve_target_entities:
-            Kreta\CoreBundle\Model\Interfaces\CommentInterface: Kreta\CoreBundle\Model\Comment
-            Kreta\CoreBundle\Model\Interfaces\IssueInterface: Kreta\CoreBundle\Model\Issue
-            Kreta\CoreBundle\Model\Interfaces\LabelInterface: Kreta\CoreBundle\Model\Label
-            Kreta\CoreBundle\Model\Interfaces\ProjectInterface: Kreta\CoreBundle\Model\Project
-            Kreta\CoreBundle\Model\Interfaces\UserInterface: Kreta\CoreBundle\Model\User
+            Kreta\Component\Core\Model\Interfaces\CommentInterface: Kreta\Component\Core\Model\Comment
+            Kreta\Component\Core\Model\Interfaces\IssueInterface: Kreta\Component\Core\Model\Issue
+            Kreta\Component\Core\Model\Interfaces\LabelInterface: Kreta\Component\Core\Model\Label
+            Kreta\Component\Core\Model\Interfaces\ProjectInterface: Kreta\Component\Core\Model\Project
+            Kreta\Component\Core\Model\Interfaces\UserInterface: Kreta\Component\Core\Model\User

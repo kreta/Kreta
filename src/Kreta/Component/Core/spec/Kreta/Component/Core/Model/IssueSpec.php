@@ -9,33 +9,33 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace spec\Kreta\CoreBundle\Model;
+namespace spec\Kreta\Component\Core\Model;
 
-use Kreta\CoreBundle\Model\Interfaces\CommentInterface;
-use Kreta\CoreBundle\Model\Interfaces\LabelInterface;
-use Kreta\CoreBundle\Model\Interfaces\UserInterface;
+use Kreta\Component\Core\Model\Interfaces\CommentInterface;
+use Kreta\Component\Core\Model\Interfaces\LabelInterface;
+use Kreta\Component\Core\Model\Interfaces\UserInterface;
 use PhpSpec\ObjectBehavior;
 
 /**
  * Class IssueSpec.
  *
- * @package spec\Kreta\CoreBundle\Model
+ * @package spec\Kreta\Component\Core\Model
  */
 class IssueSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('Kreta\CoreBundle\Model\Issue');
+        $this->shouldHaveType('Kreta\Component\Core\Model\Issue');
     }
 
     function it_extends_abstract_model()
     {
-        $this->shouldHaveType('Kreta\CoreBundle\Model\Abstracts\AbstractModel');
+        $this->shouldHaveType('Kreta\Component\Core\Model\Abstracts\AbstractModel');
     }
 
     function it_implements_issue_interface()
     {
-        $this->shouldImplement('Kreta\CoreBundle\Model\Interfaces\IssueInterface');
+        $this->shouldImplement('Kreta\Component\Core\Model\Interfaces\IssueInterface');
     }
 
     function its_assigners_comments_labels_and_watchers_is_collection()

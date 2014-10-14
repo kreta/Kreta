@@ -9,14 +9,14 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\CoreBundle\Stubs\Model\Abstracts;
+namespace Kreta\Component\Core\Stubs\Model\Abstracts;
 
-use Kreta\CoreBundle\Model\Abstracts\AbstractModel;
+use Kreta\Component\Core\Model\Abstracts\AbstractModel;
 
 /**
  * Class AbstractModelStub.
  *
- * @package Kreta\CoreBundle\Stubs\Model\Abstracts
+ * @package Kreta\Component\Core\Stubs\Model\Abstracts
  */
 class AbstractModelStub extends AbstractModel
 {

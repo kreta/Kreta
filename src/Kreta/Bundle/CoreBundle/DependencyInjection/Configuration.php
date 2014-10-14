@@ -9,8 +9,9 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\CoreBundle\DependencyInjection;
+namespace Kreta\Bundle\CoreBundle\DependencyInjection;
 
+use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
 /**
@@ -21,11 +22,14 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
  */
 class Configuration implements ConfigurationInterface
 {
-        /**
-         * {@inheritdoc}
-         */
-        public function getConfigTreeBuilder()
-        {
-            //Todo
-        }
+    /**
+     * {@inheritdoc}
+     */
+    public function getConfigTreeBuilder()
+    {
+        $treeBuilder = new TreeBuilder();
+        $treeBuilder->root('kreta_core');
+
+        return $treeBuilder;
+    }
 }

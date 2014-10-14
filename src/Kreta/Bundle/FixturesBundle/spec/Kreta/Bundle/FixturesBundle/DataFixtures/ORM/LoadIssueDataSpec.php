@@ -13,12 +13,12 @@ namespace spec\Kreta\FixturesBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\ReferenceRepository;
 use Doctrine\Common\Persistence\ObjectManager;
-use Kreta\CoreBundle\Factory\IssueFactory;
-use Kreta\CoreBundle\Model\Interfaces\IssueInterface;
-use Kreta\CoreBundle\Model\Interfaces\LabelInterface;
-use Kreta\CoreBundle\Model\Interfaces\UserInterface;
-use Kreta\CoreBundle\Repository\LabelRepository;
-use Kreta\CoreBundle\Repository\UserRepository;
+use Kreta\Component\Core\Factory\IssueFactory;
+use Kreta\Component\Core\Model\Interfaces\IssueInterface;
+use Kreta\Component\Core\Model\Interfaces\LabelInterface;
+use Kreta\Component\Core\Model\Interfaces\UserInterface;
+use Kreta\Component\Core\Repository\LabelRepository;
+use Kreta\Component\Core\Repository\UserRepository;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -38,12 +38,12 @@ class LoadIssueDataSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('Kreta\FixturesBundle\DataFixtures\ORM\LoadIssueData');
+        $this->shouldHaveType('Kreta\Bundle\FixturesBundle\DataFixtures\ORM\LoadIssueData');
     }
 
     function it_extends_data_fixtures()
     {
-        $this->shouldHaveType('Kreta\FixturesBundle\DataFixtures\DataFixtures');
+        $this->shouldHaveType('Kreta\Bundle\FixturesBundle\DataFixtures\DataFixtures');
     }
 
     function it_loads(
@@ -92,7 +92,7 @@ class LoadIssueDataSpec extends ObjectBehavior
         $issue->setStatus(Argument::type('int'))->shouldBeCalled()->willReturn($issue);
         $issue->setTitle(Argument::type('string'))->shouldBeCalled()->willReturn($issue);
         $issue->setType(Argument::type('int'))->shouldBeCalled()->willReturn($issue);
-        $issue->addWatcher(Argument::type('Kreta\CoreBundle\Model\Interfaces\UserInterface'))->shouldBeCalled()->willReturn($issue);
+        $issue->addWatcher(Argument::type('Kreta\Component\Core\Model\Interfaces\UserInterface'))->shouldBeCalled()->willReturn($issue);
 
         $referenceRepository->addReference(Argument::type('string'), $issue)->shouldBeCalled();
 

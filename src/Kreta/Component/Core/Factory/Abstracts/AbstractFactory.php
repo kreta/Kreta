@@ -9,12 +9,12 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\CoreBundle\Factory\Abstracts;
+namespace Kreta\Component\Core\Factory\Abstracts;
 
 /**
  * Abstract class AbstractFactory.
  *
- * @package Kreta\CoreBundle\Factory\Abstracts
+ * @package Kreta\Component\Core\Factory\Abstracts
  */
 abstract class AbstractFactory
 {

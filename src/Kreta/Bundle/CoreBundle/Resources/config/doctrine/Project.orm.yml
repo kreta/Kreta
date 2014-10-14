@@ -5,9 +5,9 @@
 # @author benatespina <benatespina@gmail.com>
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
-Kreta\CoreBundle\Model\Project:
+Kreta\Component\Core\Model\Project:
     type: entity
-    repositoryClass: Kreta\CoreBundle\Repository\ProjectRepository
+    repositoryClass: Kreta\Component\Core\Repository\ProjectRepository
     table: project
     id:
         id:
@@ -24,7 +24,7 @@ Kreta\CoreBundle\Model\Project:
             length: 4
     manyToMany:
         participants:
-            targetEntity: Kreta\CoreBundle\Model\Interfaces\UserInterface
+            targetEntity: Kreta\Component\Core\Model\Interfaces\UserInterface
             joinTable:
                 name: project_user
                 joinColumns:

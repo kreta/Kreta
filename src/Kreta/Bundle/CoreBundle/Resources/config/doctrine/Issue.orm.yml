@@ -5,9 +5,9 @@
 # @author benatespina <benatespina@gmail.com>
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
-Kreta\CoreBundle\Model\Issue:
+Kreta\Component\Core\Model\Issue:
     type: entity
-    repositoryClass: Kreta\CoreBundle\Repository\IssueRepository
+    repositoryClass: Kreta\Component\Core\Repository\IssueRepository
     table: issue
     id:
         id:
@@ -30,7 +30,7 @@ Kreta\CoreBundle\Model\Issue:
             type: smallint
     manyToMany:
         labels:
-            targetEntity: Kreta\CoreBundle\Model\Interfaces\LabelInterface
+            targetEntity: Kreta\Component\Core\Model\Interfaces\LabelInterface
             joinTable:
                 name: issue_label
                 joinColumns:
@@ -40,7 +40,7 @@ Kreta\CoreBundle\Model\Issue:
                     label_id:
                         referencedColumnName: id
         watchers:
-            targetEntity: Kreta\CoreBundle\Model\Interfaces\UserInterface
+            targetEntity: Kreta\Component\Core\Model\Interfaces\UserInterface
             joinTable:
                 name: issue_watcher
                 joinColumns:
@@ -51,11 +51,11 @@ Kreta\CoreBundle\Model\Issue:
                         referencedColumnName: id
     manyToOne:
         assignee:
-            targetEntity: Kreta\CoreBundle\Model\Interfaces\UserInterface
+            targetEntity: Kreta\Component\Core\Model\Interfaces\UserInterface
         reporter:
-            targetEntity: Kreta\CoreBundle\Model\Interfaces\UserInterface
+            targetEntity: Kreta\Component\Core\Model\Interfaces\UserInterface
     oneToMany:
         comments:
-            targetEntity: Kreta\CoreBundle\Model\Interfaces\CommentInterface
+            targetEntity: Kreta\Component\Core\Model\Interfaces\CommentInterface
             mappedBy: issue
             cascade: ['persist', 'remove']

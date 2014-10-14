@@ -9,29 +9,29 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace spec\Kreta\CoreBundle\Factory;
+namespace spec\Kreta\Component\Core\Factory;
 
 use PhpSpec\ObjectBehavior;
 
 /**
  * Class ProjectFactorySpec.
  *
- * @package spec\Kreta\CoreBundle\Factory
+ * @package spec\Kreta\Component\Core\Factory
  */
 class ProjectFactorySpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('Kreta\CoreBundle\Factory\ProjectFactory');
+        $this->shouldHaveType('Kreta\Component\Core\Factory\ProjectFactory');
     }
 
     function it_extends_abstract_factory()
     {
-        $this->shouldHaveType('Kreta\CoreBundle\Factory\Abstracts\AbstractFactory');
+        $this->shouldHaveType('Kreta\Component\Core\Factory\Abstracts\AbstractFactory');
     }
 
     function it_creates_a_project()
     {
-        $this->create()->shouldReturnAnInstanceOf('Kreta\CoreBundle\Model\Project');
+        $this->create()->shouldReturnAnInstanceOf('Kreta\Component\Core\Model\Project');
     }
 }

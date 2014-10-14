@@ -17,7 +17,7 @@ use Kreta\Bundle\FixturesBundle\DataFixtures\DataFixtures;
 /**
  * Class LoadUserData.
  *
- * @package Kreta\FixturesBundle\DataFixtures\ORM
+ * @package Kreta\Bundle\FixturesBundle\DataFixtures\ORM
  */
 class LoadUserData extends DataFixtures
 {
@@ -53,7 +53,7 @@ class LoadUserData extends DataFixtures
      * @param string   $email The email
      * @param string[] $roles The array that contains roles
      *
-     * @return \Kreta\CoreBundle\\Model\Interfaces\UserInterface
+     * @return \Kreta\Component\Core\Model\Interfaces\UserInterface
      */
     protected function createUser($email, $roles = array('ROLE_USER'))
     {

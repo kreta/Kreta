@@ -5,9 +5,9 @@
 # @author benatespina <benatespina@gmail.com>
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
-Kreta\CoreBundle\Model\User:
+Kreta\Component\Core\Model\User:
     type: entity
-    repositoryClass: Kreta\CoreBundle\Repository\UserRepository
+    repositoryClass: Kreta\Component\Core\Repository\UserRepository
     table: user
     id:
         id:

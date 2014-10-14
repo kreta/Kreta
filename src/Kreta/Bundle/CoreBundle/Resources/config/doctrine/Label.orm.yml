@@ -5,9 +5,9 @@
 # @author benatespina <benatespina@gmail.com>
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
-Kreta\CoreBundle\Model\Label:
+Kreta\Component\Core\Model\Label:
     type: entity
-    repositoryClass: Kreta\CoreBundle\Repository\LabelRepository
+    repositoryClass: Kreta\Component\Core\Repository\LabelRepository
     table: label
     id:
         id:

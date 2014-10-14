@@ -9,12 +9,12 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\CoreBundle\Model\Abstracts;
+namespace Kreta\Component\Core\Model\Abstracts;
 
 /**
  * Abstract class AbstractModel.
  *
- * @package Kreta\CoreBundle\Model\Abstracts
+ * @package Kreta\Component\Core\Model\Abstracts
  */
 abstract class AbstractModel
 {

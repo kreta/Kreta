@@ -9,20 +9,20 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace spec\Kreta\CoreBundle\Model;
+namespace spec\Kreta\Component\Core\Model;
 
 use PhpSpec\ObjectBehavior;
 
 /**
  * Class UserSpec.
  *
- * @package spec\Kreta\CoreBundle\Model
+ * @package spec\Kreta\Component\Core\Model
  */
 class UserSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('Kreta\CoreBundle\Model\User');
+        $this->shouldHaveType('Kreta\Component\Core\Model\User');
     }
 
     function it_extends_fos_user_model()
@@ -32,7 +32,7 @@ class UserSpec extends ObjectBehavior
 
     function it_implements_user_interface()
     {
-        $this->shouldImplement('Kreta\CoreBundle\Model\Interfaces\UserInterface');
+        $this->shouldImplement('Kreta\Component\Core\Model\Interfaces\UserInterface');
     }
 
     function it_created_at_is_mutable()

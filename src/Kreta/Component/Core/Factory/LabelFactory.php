@@ -9,15 +9,15 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\CoreBundle\Factory;
+namespace Kreta\Component\Core\Factory;
 
-use Kreta\CoreBundle\Model\Label;
-use Kreta\CoreBundle\Factory\Abstracts\AbstractFactory;
+use Kreta\Component\Core\Model\Label;
+use Kreta\Component\Core\Factory\Abstracts\AbstractFactory;
 
 /**
  * Class LabelFactory.
  *
- * @package Kreta\CoreBundle\Factory
+ * @package Kreta\Component\Core\Factory
  */
 class LabelFactory extends AbstractFactory
 {

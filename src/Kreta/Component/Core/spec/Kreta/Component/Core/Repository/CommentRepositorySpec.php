@@ -9,7 +9,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace spec\Kreta\CoreBundle\Repository;
+namespace spec\Kreta\Component\Core\Repository;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\ClassMetadata;
@@ -18,7 +18,7 @@ use PhpSpec\ObjectBehavior;
 /**
  * Class CommentRepositorySpec.
  *
- * @package spec\Kreta\CoreBundle\Repository
+ * @package spec\Kreta\Component\Core\Repository
  */
 class CommentRepositorySpec extends ObjectBehavior
 {
@@ -29,7 +29,7 @@ class CommentRepositorySpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('Kreta\CoreBundle\Repository\CommentRepository');
+        $this->shouldHaveType('Kreta\Component\Core\Repository\CommentRepository');
     }
 
     function it_extends_entity_repository()

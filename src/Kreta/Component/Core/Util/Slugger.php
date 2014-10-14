@@ -9,12 +9,12 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\CoreBundle\Util;
+namespace Kreta\Component\Core\Util;
 
 /**
  * Class Slugger.
  *
- * @package Kreta\CoreBundle\Util
+ * @package Kreta\Component\Core\Util
  */
 class Slugger
 {

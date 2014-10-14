@@ -9,12 +9,12 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\CoreBundle\Model\Interfaces;
+namespace Kreta\Component\Core\Model\Interfaces;
 
 /**
  * Interface CommentInterface.
  *
- * @package Kreta\CoreBundle\Model\Interfaces
+ * @package Kreta\Component\Core\Model\Interfaces
  */
 interface CommentInterface
 {
@@ -60,14 +60,14 @@ interface CommentInterface
     /**
      * Gets issue.
      *
-     * @return \Kreta\CoreBundle\Model\Interfaces\IssueInterface
+     * @return \Kreta\Component\Core\Model\Interfaces\IssueInterface
      */
     public function getIssue();
 
     /**
      * Sets issue.
      *
-     * @param \Kreta\CoreBundle\Model\Interfaces\IssueInterface $issue The issue
+     * @param \Kreta\Component\Core\Model\Interfaces\IssueInterface $issue The issue
      *
      * @return $this self Object
      */
@@ -92,14 +92,14 @@ interface CommentInterface
     /**
      * Gets written by.
      *
-     * @return \Kreta\CoreBundle\Model\Interfaces\UserInterface
+     * @return \Kreta\Component\Core\Model\Interfaces\UserInterface
      */
     public function getWrittenBy();
 
     /**
      * Sets written by.
      *
-     * @param \Kreta\CoreBundle\Model\Interfaces\UserInterface $writtenBy The written by
+     * @param \Kreta\Component\Core\Model\Interfaces\UserInterface $writtenBy The written by
      *
      * @return $this self Object
      */

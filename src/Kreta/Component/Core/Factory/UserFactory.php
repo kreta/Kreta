@@ -9,15 +9,15 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\CoreBundle\Factory;
+namespace Kreta\Component\Core\Factory;
 
-use Kreta\CoreBundle\Model\User;
-use Kreta\CoreBundle\Factory\Abstracts\AbstractFactory;
+use Kreta\Component\Core\Model\User;
+use Kreta\Component\Core\Factory\Abstracts\AbstractFactory;
 
 /**
  * Class UserFactory.
  *
- * @package Kreta\CoreBundle\Factory
+ * @package Kreta\Component\Core\Factory
  */
 class UserFactory extends AbstractFactory
 {

@@ -9,10 +9,10 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\CoreBundle\Repository;
+namespace Kreta\Component\Core\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use Kreta\CoreBundle\Model\Interfaces\UserInterface;
+use Kreta\Component\Core\Model\Interfaces\UserInterface;
 
 /**
  * Class IssueRepository.
@@ -24,9 +24,9 @@ class IssueRepository extends EntityRepository
     /**
      * Finds all the issues of reporter given.
      *
-     * @param \Kreta\CoreBundle\Model\Interfaces\UserInterface $reporter The reporter
+     * @param \Kreta\Component\Core\Model\Interfaces\UserInterface $reporter The reporter
      *
-     * @return \Kreta\CoreBundle\Model\Interfaces\IssueInterface[]
+     * @return \Kreta\Component\Core\Model\Interfaces\IssueInterface[]
      */
     public function findByReporter(UserInterface $reporter)
     {
@@ -41,9 +41,9 @@ class IssueRepository extends EntityRepository
     /**
      * Finds all the issues of assignee given.
      *
-     * @param \Kreta\CoreBundle\Model\Interfaces\UserInterface $assignee The assignee
+     * @param \Kreta\Component\Core\Model\Interfaces\UserInterface $assignee The assignee
      *
-     * @return \Kreta\CoreBundle\Model\Interfaces\IssueInterface[]
+     * @return \Kreta\Component\Core\Model\Interfaces\IssueInterface[]
      */
     public function findByAssignee(UserInterface $assignee)
     {

@@ -9,12 +9,12 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\CoreBundle\Model\Interfaces;
+namespace Kreta\Component\Core\Model\Interfaces;
 
 /**
  * Interface LabelInterface.
  *
- * @package Kreta\CoreBundle\Model\Interfaces
+ * @package Kreta\Component\Core\Model\Interfaces
  */
 interface LabelInterface
 {
