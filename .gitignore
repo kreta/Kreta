@@ -11,6 +11,10 @@
 web/uploads/images/*
 !web/uploads/images/.gitkeep
 web/config.php
+web/css
+web/bundles
+web/images
+web/js
 /vendor/
 /bin/
 

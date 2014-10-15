@@ -56,8 +56,11 @@ class UserProvider extends BaseUserProvider
      */
     public function loadUserByOAuthUserResponse(UserResponseInterface $response)
     {
-        $email = $response->getEmail();
-        $user = $this->userManager->findUserBy(array($this->getProperty($response) => $email));
+        if($response->getEmail() === '') {
+            $user = $this->userManager->findUserBy(array($this->getProperty($response) => $response->getUsername()));
+        } else {
+            $user = $this->userManager->findUserBy(array('email' => $response->getEmail()));
+        }
 
         if (null === $user) {
             $service = $response->getResourceOwner()->getName();
@@ -66,13 +69,10 @@ class UserProvider extends BaseUserProvider
             $setter_token = $setter . 'AccessToken';
 
             $user = $this->userManager->createUser();
-            if($email === null || $email === "") {
-                //Create temporary email if provider doesn't return one.
-                $email = substr(md5(microtime()),rand(0,26),10) . '@kretatemporary.io';
-            }
+
             $user->$setter_id($response->getUsername());
             $user->$setter_token($response->getAccessToken());
-            $user->setEmail($email);
+            $user->setEmail($response->getEmail());
             //Generate random password to avoid attacks.
             $user->setPassword(substr(md5(microtime()),rand(0,26),10));
             $user->setEnabled(true);
@@ -80,8 +80,6 @@ class UserProvider extends BaseUserProvider
 
             return $user;
         }
-
-        $user = $this->userManager->findUserByEmail($email);
 
         $serviceName = $response->getResourceOwner()->getName();
         $setter = 'set' . ucfirst($serviceName) . 'AccessToken';
