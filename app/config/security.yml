@@ -27,11 +27,24 @@ security:
             form_login:
                 provider: fos_userbundle
                 csrf_provider: form.csrf_provider
-            logout:       true
-            anonymous:    true
+                login_path: /login
+                check_path: /login_check
+            oauth:
+                resource_owners:
+                    bitbucket: "/oauth-login/check-bitbucket"
+                    github: "/oauth-login/check-github"
+                login_path: /login
+                failure_path: /login
+
+                oauth_user_provider:
+                    service: kreta_user_provider
+            logout: true
+            anonymous: true
 
     access_control:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/oauth-login, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/oauth-connect, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/admin/, role: ROLE_ADMIN }

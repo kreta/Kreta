@@ -11,15 +11,15 @@ imports:
     - { resource: doctrine.yml }
 
 framework:
-    #esi:             ~
-    #translator:      { fallback: "%locale%" }
-    secret:          "%secret%"
+    #esi: ~
+    #translator: { fallback: "%locale%" }
+    secret: "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
         strict_requirements: ~
-    form:            ~
+    form: ~
     csrf_protection: ~
-    validation:      { enable_annotations: true }
+    validation: { enable_annotations: true }
     templating:
         engines: ['twig']
         #assets_version: SomeVersionScheme
@@ -29,19 +29,17 @@ framework:
         handler_id: session.handler.native_file
         save_path: "%kernel.root_dir%/sessions"
         name: kreta-session
-    fragments:       ~
+    fragments: ~
     http_method_override: true
 
-# Twig Configuration
 twig:
-    debug:            "%kernel.debug%"
+    debug: "%kernel.debug%"
     strict_variables: "%kernel.debug%"
 
-# Assetic Configuration
 assetic:
-    debug:          "%kernel.debug%"
+    debug: "%kernel.debug%"
     use_controller: false
-    bundles:        [ ]
+    bundles: [ ]
     #java: /usr/bin/java
     filters:
         cssrewrite: ~
@@ -50,16 +48,33 @@ assetic:
         #yui_css:
         #    jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar"
 
-# Swiftmailer Configuration
 swiftmailer:
     transport: "%mailer_transport%"
-    host:      "%mailer_host%"
-    username:  "%mailer_user%"
-    password:  "%mailer_password%"
-    spool:     { type: memory }
+    host: "%mailer_host%"
+    username: "%mailer_user%"
+    password: "%mailer_password%"
+    spool: { type: memory }
 
-# FOSUser
 fos_user:
     db_driver: orm
     firewall_name: main
     user_class: Kreta\Component\Core\Model\User
+
+hwi_oauth:
+    connect:
+        account_connector: kreta_user_provider
+    firewall_name: main
+    fosub:
+        username_iterations: 30
+        properties:
+            bitbucket: bitbucket_id
+            github: github_id
+    resource_owners:
+        github:
+            type: github
+            client_id: %oauth.github.client_id%
+            client_secret: %oauth.github.client_secret%
+        bitbucket:
+            type: bitbucket
+            client_id: %oauth.bitbucket.client_id%
+            client_secret: %oauth.bitbucket.client_secret%

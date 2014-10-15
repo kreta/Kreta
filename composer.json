@@ -31,7 +31,8 @@
         "sensio/generator-bundle":                  "2.3.*",
         "incenteev/composer-parameter-handler":     "~2.0",
 
-        "friendsofsymfony/user-bundle":             "~2.0@dev"
+        "friendsofsymfony/user-bundle":             "~2.0@dev",
+        "hwi/oauth-bundle":                         "0.4.*@dev"
     },
     "require-dev": {
         "phpspec/phpspec":                          "2.1.x-dev",

@@ -35,7 +35,7 @@ class UserSpec extends ObjectBehavior
         $this->shouldImplement('Kreta\Component\Core\Model\Interfaces\UserInterface');
     }
 
-    function it_created_at_is_mutable()
+    function its_created_at_is_mutable()
     {
         $createDate = new \DateTime();
 
@@ -43,13 +43,37 @@ class UserSpec extends ObjectBehavior
         $this->getCreatedAt()->shouldReturn($createDate);
     }
 
-    function it_first_name_is_mutable()
+    function its_bitbucket_access_token_is_mutable()
+    {
+        $this->setBitbucketAccessToken('the-dummy-bitbucket-access-token')->shouldReturn($this);
+        $this->getBitbucketAccessToken()->shouldReturn('the-dummy-bitbucket-access-token');
+    }
+
+    function its_bitbucket_id_is_mutable()
+    {
+        $this->setBitbucketId('the-dummy-bitbucket-id')->shouldReturn($this);
+        $this->getBitbucketId()->shouldReturn('the-dummy-bitbucket-id');
+    }
+
+    function its_first_name_is_mutable()
     {
         $this->setFirstName('The dummy first name')->shouldReturn($this);
         $this->getFirstName()->shouldReturn('The dummy first name');
     }
 
-    function it_last_name_is_mutable()
+    function its_github_access_token_is_mutable()
+    {
+        $this->setGithubAccessToken('the-dummy-github-access-token')->shouldReturn($this);
+        $this->getGithubAccessToken()->shouldReturn('the-dummy-github-access-token');
+    }
+
+    function its_github_id_is_mutable()
+    {
+        $this->setGithubId('the-dummy-github-id')->shouldReturn($this);
+        $this->getGithubId()->shouldReturn('the-dummy-github-id');
+    }
+
+    function its_last_name_is_mutable()
     {
         $this->setLastName('The dummy last name')->shouldReturn($this);
         $this->getLastName()->shouldReturn('The dummy last name');
