@@ -16,6 +16,8 @@ use Kreta\Component\Core\Model\Abstracts\AbstractModel;
 use Kreta\Component\Core\Model\Interfaces\CommentInterface;
 use Kreta\Component\Core\Model\Interfaces\IssueInterface;
 use Kreta\Component\Core\Model\Interfaces\LabelInterface;
+use Kreta\Component\Core\Model\Interfaces\ResolutionInterface;
+use Kreta\Component\Core\Model\Interfaces\StatusInterface;
 use Kreta\Component\Core\Model\Interfaces\UserInterface;
 
 /**
@@ -61,9 +63,9 @@ class Issue extends AbstractModel implements IssueInterface
     protected $priority;
 
     /**
-     * The resolution that can be "fixed", "won't fix", "duplicate", "incomplete" or "cannot reproduce".
+     * The resolution.
      *
-     * @var int
+     * @var \Kreta\Component\Core\Model\Interfaces\ResolutionInterface
      */
     protected $resolution;
 
@@ -75,9 +77,9 @@ class Issue extends AbstractModel implements IssueInterface
     protected $reporter;
 
     /**
-     * The status that can be "todo", "doing" or "done".
+     * The status.
      *
-     * @var int
+     * @var \Kreta\Component\Core\Model\Interfaces\StatusInterface
      */
     protected $status;
 
@@ -251,7 +253,7 @@ class Issue extends AbstractModel implements IssueInterface
     /**
      * {@inheritdoc}
      */
-    public function setResolution($resolution)
+    public function setResolution(ResolutionInterface $resolution)
     {
         $this->resolution = $resolution;
 
@@ -269,7 +271,7 @@ class Issue extends AbstractModel implements IssueInterface
     /**
      * {@inheritdoc}
      */
-    public function setStatus($status)
+    public function setStatus(StatusInterface $status)
     {
         $this->status = $status;
 

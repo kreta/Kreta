@@ -9,7 +9,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace spec\Kreta\FixturesBundle\DataFixtures\ORM;
+namespace spec\Kreta\Bundle\FixturesBundle\DataFixtures\ORM;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Kreta\Component\Core\Factory\ProjectFactory;
@@ -23,7 +23,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Class LoadProjectDataSpec.
  *
- * @package spec\Kreta\FixturesBundle\DataFixtures\ORM
+ * @package spec\Kreta\Bundle\FixturesBundle\DataFixtures\ORM
  */
 class LoadProjectDataSpec extends ObjectBehavior
 {

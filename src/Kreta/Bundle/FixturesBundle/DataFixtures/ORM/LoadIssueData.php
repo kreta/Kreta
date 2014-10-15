@@ -26,8 +26,10 @@ class LoadIssueData extends DataFixtures
      */
     public function load(ObjectManager $manager)
     {
-        $users = $this->container->get('kreta_core.repository_user')->findAll();
         $labels = $this->container->get('kreta_core.repository_label')->findAll();
+        $resolutions = $this->container->get('kreta_core.repository_resolution')->findAll();
+        $status = $this->container->get('kreta_core.repository_status')->findAll();
+        $users = $this->container->get('kreta_core.repository_user')->findAll();
 
         for ($i = 0; $i < 50; $i++) {
             $issue = $this->container->get('kreta_core.factory_issue')->create();
@@ -50,9 +52,9 @@ class LoadIssueData extends DataFixtures
             );
             $this->loadRandomObjects($issue, 'addLabel', $labels, count($labels));
             $issue->setPriority(rand(0, 3));
-            $issue->setResolution(rand(0, 4));
+            $issue->setResolution($resolutions[array_rand($resolutions)]);
             $issue->setReporter($users[array_rand($users)]);
-            $issue->setStatus(rand(0, 2));
+            $issue->setStatus($status[array_rand($status)]);
             $issue->setType(rand(0, 4));
             $issue->setTitle('Issue - ' . $i);
             $this->loadRandomObjects($issue, 'addWatcher', $users);

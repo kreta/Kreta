@@ -11,28 +11,30 @@
 
 namespace spec\Kreta\Bundle\FixturesBundle\DataFixtures\ORM;
 
+use Doctrine\Common\DataFixtures\ReferenceRepository;
 use Doctrine\Common\Persistence\ObjectManager;
-use Kreta\Component\Core\Factory\LabelFactory;
-use Kreta\Component\Core\Model\Interfaces\LabelInterface;
+use Kreta\Component\Core\Factory\ResolutionFactory;
+use Kreta\Component\Core\Model\Interfaces\ResolutionInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Class LoadLabelDataSpec.
+ * Class LoadResolutionDataSpec.
  *
- * @package spec\Kreta\Bundle\FixturesBundle\DataFixtures\ORM
+ * @package spec\Kreta\Bundle\FixturesBundle
  */
-class LoadLabelDataSpec extends ObjectBehavior
+class LoadResolutionDataSpec extends ObjectBehavior
 {
-    function let(ContainerInterface $container)
+    function let(ContainerInterface $container, ReferenceRepository $referenceRepository)
     {
         $this->setContainer($container);
+        $this->setReferenceRepository($referenceRepository);
     }
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('Kreta\Bundle\FixturesBundle\DataFixtures\ORM\LoadLabelData');
+        $this->shouldHaveType('Kreta\Bundle\FixturesBundle\DataFixtures\ORM\LoadResolutionData');
     }
 
     function it_extends_data_fixtures()
@@ -42,17 +44,17 @@ class LoadLabelDataSpec extends ObjectBehavior
 
     function it_loads(
         ContainerInterface $container,
-        LabelFactory $factory,
-        LabelInterface $label,
+        ResolutionFactory $factory,
+        ResolutionInterface $resolution,
         ObjectManager $manager
     )
     {
-        $container->get('kreta_core.factory_label')->shouldBeCalled()->willReturn($factory);
-        $factory->create()->shouldBeCalled()->willReturn($label);
+        $container->get('kreta_core.factory_resolution')->shouldBeCalled()->willReturn($factory);
+        $factory->create()->shouldBeCalled()->willReturn($resolution);
 
-        $label->setName(Argument::type('string'))->shouldBeCalled()->willReturn($label);
+        $resolution->setDescription(Argument::type('string'))->shouldBeCalled()->willReturn($resolution);
 
-        $manager->persist($label)->shouldBeCalled();
+        $manager->persist($resolution)->shouldBeCalled();
 
         $manager->flush()->shouldBeCalled();
 

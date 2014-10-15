@@ -9,7 +9,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace spec\Kreta\FixturesBundle\DataFixtures\ORM;
+namespace spec\Kreta\Bundle\FixturesBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\ReferenceRepository;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -25,7 +25,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Class LoadCommentDataSpec.
  *
- * @package spec\Kreta\FixturesBundle
+ * @package spec\Kreta\Bundle\FixturesBundle
  */
 class LoadCommentDataSpec extends ObjectBehavior
 {

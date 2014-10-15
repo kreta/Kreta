@@ -9,15 +9,19 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace spec\Kreta\FixturesBundle\DataFixtures\ORM;
+namespace spec\Kreta\Bundle\FixturesBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\ReferenceRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Kreta\Component\Core\Factory\IssueFactory;
 use Kreta\Component\Core\Model\Interfaces\IssueInterface;
 use Kreta\Component\Core\Model\Interfaces\LabelInterface;
+use Kreta\Component\Core\Model\Interfaces\ResolutionInterface;
+use Kreta\Component\Core\Model\Interfaces\StatusInterface;
 use Kreta\Component\Core\Model\Interfaces\UserInterface;
 use Kreta\Component\Core\Repository\LabelRepository;
+use Kreta\Component\Core\Repository\ResolutionRepository;
+use Kreta\Component\Core\Repository\StatusRepository;
 use Kreta\Component\Core\Repository\UserRepository;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -26,7 +30,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Class LoadIssueDataSpec.
  *
- * @package spec\Kreta\FixturesBundle
+ * @package spec\Kreta\Bundle\FixturesBundle
  */
 class LoadIssueDataSpec extends ObjectBehavior
 {
@@ -50,20 +54,30 @@ class LoadIssueDataSpec extends ObjectBehavior
         ContainerInterface $container,
         UserRepository $userRepository,
         LabelRepository $labelRepository,
+        StatusRepository $statusRepository,
+        ResolutionRepository $resolutionRepository,
         IssueFactory $factory,
         IssueInterface $issue,
         ReferenceRepository $referenceRepository,
         IssueInterface $issue,
         ObjectManager $manager,
         UserInterface $user,
-        LabelInterface $label
+        LabelInterface $label,
+        StatusInterface $status,
+        ResolutionInterface $resolution
     )
     {
-        $container->get('kreta_core.repository_user')->shouldBeCalled()->willReturn($userRepository);
-        $userRepository->findAll()->shouldBeCalled()->willReturn(array($user));
-
         $container->get('kreta_core.repository_label')->shouldBeCalled()->willReturn($labelRepository);
         $labelRepository->findAll()->shouldBeCalled()->willReturn(array($label));
+
+        $container->get('kreta_core.repository_status')->shouldBeCalled()->willReturn($statusRepository);
+        $statusRepository->findAll()->shouldBeCalled()->willReturn(array($status));
+
+        $container->get('kreta_core.repository_resolution')->shouldBeCalled()->willReturn($resolutionRepository);
+        $resolutionRepository->findAll()->shouldBeCalled()->willReturn(array($resolution));
+
+        $container->get('kreta_core.repository_user')->shouldBeCalled()->willReturn($userRepository);
+        $userRepository->findAll()->shouldBeCalled()->willReturn(array($user));
 
         $container->get('kreta_core.factory_issue')->shouldBeCalled()->willReturn($factory);
         $factory->create()->shouldBeCalled()->willReturn($issue);
@@ -87,12 +101,15 @@ class LoadIssueDataSpec extends ObjectBehavior
         )->shouldBeCalled()->willReturn($issue);
         $issue->addLabel($label)->shouldBeCalled()->willReturn($issue);
         $issue->setPriority(Argument::type('int'))->shouldBeCalled()->willReturn($issue);
-        $issue->setResolution(Argument::type('int'))->shouldBeCalled()->willReturn($issue);
+        $issue->setResolution(Argument::type('Kreta\Component\Core\Model\Interfaces\ResolutionInterface'))
+            ->shouldBeCalled()->willReturn($issue);
         $issue->setReporter($user)->shouldBeCalled()->willReturn($issue);
-        $issue->setStatus(Argument::type('int'))->shouldBeCalled()->willReturn($issue);
+        $issue->setStatus(Argument::type('Kreta\Component\Core\Model\Interfaces\StatusInterface'))
+            ->shouldBeCalled()->willReturn($issue);
         $issue->setTitle(Argument::type('string'))->shouldBeCalled()->willReturn($issue);
         $issue->setType(Argument::type('int'))->shouldBeCalled()->willReturn($issue);
-        $issue->addWatcher(Argument::type('Kreta\Component\Core\Model\Interfaces\UserInterface'))->shouldBeCalled()->willReturn($issue);
+        $issue->addWatcher(Argument::type('Kreta\Component\Core\Model\Interfaces\UserInterface'))
+            ->shouldBeCalled()->willReturn($issue);
 
         $referenceRepository->addReference(Argument::type('string'), $issue)->shouldBeCalled();
 

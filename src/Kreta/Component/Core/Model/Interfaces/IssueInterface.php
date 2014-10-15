@@ -23,16 +23,6 @@ interface IssueInterface
     const PRIORITY_HIGH = 2;
     const PRIORITY_BLOCKING = 3;
 
-    const STATUS_TODO = 0;
-    const STATUS_DOING = 1;
-    const STATUS_DONE = 2;
-
-    const RESOLUTION_FIXED = 0;
-    const RESOLUTION_WONT_FIX = 1;
-    const RESOLUTION_DUPLICATE = 2;
-    const RESOLUTION_INCOMPLETE = 3;
-    const RESOLUTION_CANNOT_REPRODUCE = 4;
-
     const TYPE_BUG = 0;
     const TYPE_NEW_FEATURE = 1;
     const TYPE_IMPROVEMENT = 2;
@@ -163,35 +153,34 @@ interface IssueInterface
     /**
      * Gets resolution.
      *
-     * @return string
+     * @return \Kreta\CoreBundle\Model\Interfaces\ResolutionInterface
      */
     public function getResolution();
 
     /**
      * Sets resolution.
      *
-     * @param string $resolution The resolution that can be "fixed", "won't fix",
-     *                           "duplicate", "incomplete" or "cannot reproduce"
+     * @param \Kreta\CoreBundle\Model\Interfaces\ResolutionInterface $resolution The resolution
      *
      * @return $this self Object
      */
-    public function setResolution($resolution);
+    public function setResolution(ResolutionInterface $resolution);
 
     /**
      * Gets status.
      *
-     * @return string
+     * @return \Kreta\CoreBundle\Model\Interfaces\StatusInterface
      */
     public function getStatus();
 
     /**
      * Sets status.
      *
-     * @param string $status The status that can be "todo", "doing" or "done"
+     * @param \Kreta\CoreBundle\Model\Interfaces\StatusInterface $status The status
      *
      * @return $this self Object
      */
-    public function setStatus($status);
+    public function setStatus(StatusInterface $status);
 
     /**
      * Gets type.

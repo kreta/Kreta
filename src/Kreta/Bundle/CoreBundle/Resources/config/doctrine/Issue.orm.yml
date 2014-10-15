@@ -19,10 +19,6 @@ Kreta\Component\Core\Model\Issue:
             type: text
         priority:
             type: smallint
-        resolution:
-            type: smallint
-        status:
-            type: smallint
         title:
             type: string
             length: 50
@@ -54,6 +50,10 @@ Kreta\Component\Core\Model\Issue:
             targetEntity: Kreta\Component\Core\Model\Interfaces\UserInterface
         reporter:
             targetEntity: Kreta\Component\Core\Model\Interfaces\UserInterface
+        resolution:
+            targetEntity: Kreta\Component\Core\Model\Interfaces\ResolutionInterface
+        status:
+            targetEntity: Kreta\Component\Core\Model\Interfaces\StatusInterface
     oneToMany:
         comments:
             targetEntity: Kreta\Component\Core\Model\Interfaces\CommentInterface

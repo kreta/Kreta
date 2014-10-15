@@ -9,7 +9,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace spec\Kreta\FixturesBundle\DataFixtures\ORM;
+namespace spec\Kreta\Bundle\FixturesBundle\DataFixtures\ORM;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Kreta\Component\Core\Factory\UserFactory;
@@ -21,7 +21,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Class LoadUserDataSpec.
  *
- * @package spec\Kreta\FixturesBundle
+ * @package spec\Kreta\Bundle\FixturesBundle
  */
 class LoadUserDataSpec extends ObjectBehavior
 {

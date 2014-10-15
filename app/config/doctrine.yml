@@ -29,4 +29,6 @@ doctrine:
             Kreta\Component\Core\Model\Interfaces\IssueInterface: Kreta\Component\Core\Model\Issue
             Kreta\Component\Core\Model\Interfaces\LabelInterface: Kreta\Component\Core\Model\Label
             Kreta\Component\Core\Model\Interfaces\ProjectInterface: Kreta\Component\Core\Model\Project
+            Kreta\Component\Core\Model\Interfaces\ResolutionInterface: Kreta\Component\Core\Model\Resolution
+            Kreta\Component\Core\Model\Interfaces\StatusInterface: Kreta\Component\Core\Model\Status
             Kreta\Component\Core\Model\Interfaces\UserInterface: Kreta\Component\Core\Model\User

@@ -14,19 +14,19 @@ namespace Kreta\Component\Core\Repository;
 use Doctrine\ORM\EntityRepository;
 
 /**
- * Class UserRepository.
+ * Class StatusRepository.
  *
- * @package Kreta\CoreBundle\Rpository
+ * @package Kreta\Component\Core\Rpository
  */
-class UserRepository extends EntityRepository
+class StatusRepository extends EntityRepository
 {
     /**
-     * Finds all the users that exist into database.
+     * Finds all the status that exist into database.
      *
-     * @return \Kreta\Component\Core\Model\Interfaces\UserInterface[]
+     * @return \Kreta\Component\Core\Model\Interfaces\ResolutionInterface[]
      */
     public function findAll()
     {
-        return $this->createQueryBuilder('u')->getQuery()->getResult();
+        return $this->createQueryBuilder('s')->getQuery()->getResult();
     }
 }
