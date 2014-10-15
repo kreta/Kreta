@@ -52,6 +52,7 @@ Kreta\Component\Core\Model\Issue:
             targetEntity: Kreta\Component\Core\Model\Interfaces\UserInterface
         resolution:
             targetEntity: Kreta\Component\Core\Model\Interfaces\ResolutionInterface
+            nullable: true
         status:
             targetEntity: Kreta\Component\Core\Model\Interfaces\StatusInterface
     oneToMany:

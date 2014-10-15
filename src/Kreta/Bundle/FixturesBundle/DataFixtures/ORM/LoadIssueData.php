@@ -52,7 +52,9 @@ class LoadIssueData extends DataFixtures
             );
             $this->loadRandomObjects($issue, 'addLabel', $labels, count($labels));
             $issue->setPriority(rand(0, 3));
-            $issue->setResolution($resolutions[array_rand($resolutions)]);
+            if ($i % 5 !== 0) {
+                $issue->setResolution($resolutions[array_rand($resolutions)]);
+            }
             $issue->setReporter($users[array_rand($users)]);
             $issue->setStatus($status[array_rand($status)]);
             $issue->setType(rand(0, 4));
