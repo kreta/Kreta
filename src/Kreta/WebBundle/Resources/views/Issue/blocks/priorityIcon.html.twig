@@ -1,4 +1,21 @@
-<div class="kreta-priority-icon kreta-icon-item red">
-    <i class="fa fa-arrow-up"></i>
-    <span>High</span>
+{% if priority == 0 %}
+    {% set icon = 'fa fa-arrow-down' %}
+    {% set color = 'green' %}
+    {% set text =  'Low' %}
+{% elseif priority == 1 %}
+    {% set icon = 'fa fa-arrow-left' %}
+    {% set color = 'yellow' %}
+    {% set text =  'Medium' %}
+{% elseif priority == 2 %}
+    {% set icon = 'fa fa-arrow-up' %}
+    {% set color = 'red' %}
+    {% set text =  'High' %}
+{% elseif priority == 3 %}
+    {% set icon = 'fa fa-ban' %}
+    {% set color = 'red' %}
+    {% set text =  'Blocker' %}
+{% endif %}
+<div class="kreta-priority-icon kreta-icon-item {{ color }}">
+    <i class="fa {{ icon }}"></i>
+    <span>{{ text }}</span>
 </div>

@@ -17,7 +17,7 @@
                 <a href="{{ url('kreta_web_issue_view', { 'id' : issue.id }) }}"><i class="fa fa-eye"></i></a>
             </div>
             {% include 'KretaWebBundle:Issue/blocks:typeIcon.html.twig' with {'type': issue.type} %}
-            {% include 'KretaWebBundle:Issue/blocks:priorityIcon.html.twig' with {'type': issue.priority} %}
+            {% include 'KretaWebBundle:Issue/blocks:priorityIcon.html.twig' with {'priority': issue.priority} %}
         </div>
     {% endfor %}
 {% endblock %}

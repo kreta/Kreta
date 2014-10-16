@@ -26,6 +26,12 @@
       border: 1px solid $iconBlue;
     }
   }
+  &.purple {
+    color: $iconPurple;
+    i {
+      border: 1px solid $iconPurple;
+    }
+  }
   i {
     background: $mainWhite;
     padding: 0 .5em;
