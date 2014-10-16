@@ -37,24 +37,31 @@ The recommended way to clone this project is using the following command in orde
 
     git clone --recursive https://github.com/kreta/kreta.git kreta
 
-Then, inside `/vagrant` directory you have to copy the `Personalization.dist` in the same directory but without
-extension, modifying the values with your favorite preferences. This is the `Personalization` file that we recommend:
+Then, inside `/vagrant` directory you have to copy the `parameters.yml.dist` in the same directory but without
+`.dist` extension, modifying the values with your favorite preferences. This is the `parameters.yml` file that we recommend:
 
 ```
-$vhost              = "kreta"
-$domain             = "localhost"
-$vhostpath          = "/var/www"
+$vhost                  = "kreta"
+$domain                 = "localhost"
+$vhostpath              = "/var/www"
 
-$ip                 = "192.168.10.42"
-$port               = 8080
-$use_nfs            = true
-$base_box           = "precise64"
-$mysql_rootpassword = "app"           # It must be the same that database_user variable from parameters.yml file 
-$mysql_user         = "kreta-user"
-$mysql_password     = "123"           # It must be the same that database_password variable from parameters.yml file
-$mysql_database     = "kreta"         # It must be the same that database_name variable from parameters.yml file
+$ip                     = "192.168.10.42"
+$port                   = 8080
+$use_nfs                = true
+$base_box               = "precise64"
 
-$is_symfony_env     = true
+$database_rootpassword  = "app"             # It must be the same that database_user variable from parameters.yml file
+$database_user          = "kreta-user"
+$database_password      = "123"             # It must be the same that database_password variable from parameters.yml file
+$database_name          = "kreta"           # It must be the same that database_name variable from parameters.yml file
+
+$database               = "mysql"
+
+$cpu                    = "1"
+$memory                 = "512"
+
+######## ENVIRONMENTS ########
+$symfony = true
 ```
 
 In the next step, you have to build the *Vagrant* machine and then, you have to connect via **ssh** to the VM with the
