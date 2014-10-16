@@ -11,7 +11,7 @@
 
 namespace Kreta\WebBundle\Controller;
 
-use Kreta\CoreBundle\Model\Interfaces\IssueInterface;
+use Kreta\Component\Core\Model\Interfaces\IssueInterface;
 use Kreta\WebBundle\Form\Type\IssueType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -31,8 +31,6 @@ class IssueController extends Controller
     public function newAction(Request $request)
     {
         $issue = $this->get('kreta_core.factory_issue')->create();
-        $issue->setStatus(IssueInterface::STATUS_TODO);
-        $issue->setResolution(IssueInterface::RESOLUTION_INCOMPLETE);
 
         $form = $this->createForm(new IssueType(), $issue);
 

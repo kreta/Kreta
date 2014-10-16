@@ -1,13 +1,14 @@
 @import "settings";
 
+@import "../../../../../../vendor/zurb/foundation/scss/normalize";
 @import "../../../../../../vendor/zurb/foundation/scss/foundation/components/grid";
 @import "../../../../../../vendor/zurb/foundation/scss/foundation/components/buttons";
-@import "../../../../../../vendor/zurb/foundation/scss/normalize";
-
+@import "../../../../../../vendor/zurb/foundation/scss/foundation/components/forms";
 
 @import "layout/header";
-@import "layout/widget";
+@import "layout/form";
 @import "layout/landing";
+@import "layout/widget";
 
 @import "component/issue/issue";
 @import "component/issue/issue-actions";

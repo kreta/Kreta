@@ -21,7 +21,7 @@ interface IssueInterface
     const PRIORITY_LOW = 0;
     const PRIORITY_MEDIUM = 1;
     const PRIORITY_HIGH = 2;
-    const PRIORITY_BLOCKING = 3;
+    const PRIORITY_BLOCKER = 3;
 
     const TYPE_BUG = 0;
     const TYPE_NEW_FEATURE = 1;

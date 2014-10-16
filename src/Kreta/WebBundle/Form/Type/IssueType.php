@@ -31,15 +31,22 @@ class IssueType extends AbstractType
                 'required' => true,
                 'label'    => 'Name',
             ))
-            ->add('description', 'text', array(
+            ->add('description', 'textarea', array(
                 'label'    => 'Description',
             ))
-            ->add('type', 'text', array(
+            ->add('type', new TypeType(), array(
                 'label'    => 'Type',
             ))
-            ->add('priority', 'text', array(
-                'label'    => 'Type',
+            ->add('priority', new PriorityType(), array(
+                'label'    => 'Priority',
+            ))
+            ->add('reporter', null, array(
+                'label'    => 'Assigner',
+            ))
+            ->add('assignee', null, array(
+                'label'    => 'Assignee',
             ));
+            ;
     }
 
     /**
@@ -49,6 +56,6 @@ class IssueType extends AbstractType
      */
     public function getName()
     {
-        return 'elcodi_admin_attribute_form_type_attribute';
+        return 'kreta_core_issue_type';
     }
 }
