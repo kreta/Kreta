@@ -1,0 +1,12 @@
+#### Generic ####
+src/
+vendor/
+bin/
+
+#### Composer ####
+/composer.phar
+composer.lock
+
+#### PHPSpec ####
+/coverage
+coverage.xml

@@ -1,5 +1,5 @@
 # Kreta
-> Modern task manager for software development.
+> Modern project manager for software development.
 
 [![Build Status](https://travis-ci.org/kreta-io/kreta.svg?branch=master)](https://travis-ci.org/kreta-io/kreta)
 [![Coverage Status](https://img.shields.io/coveralls/kreta-io/kreta.svg)](https://coveralls.io/r/kreta-io/kreta)
@@ -78,6 +78,19 @@ fixtures). The recommended way to do all of these steps is executing the followi
 
 And that's all! Now, if you go to the `http://kreta.localhost` url, you will see your site up and running
 
+Tests
+-----
+
+This project is completely tested by **[PHPSpec][1], SpecBDD framework for PHP**.
+
+Because you want to contribute or simply because you want to throw the tests, you have to type the following command
+in your terminal.
+
+    phpspec run -fpretty
+
+*Depends the location of the `bin` directory (sometimes in the root dir; sometimes in the `/vendor` dir) the way that
+works every time is to use the absolute path of the binary `vendor/phpspec/phpspec/bin/phpspec`*
+
 Contributing
 ------------
 
@@ -108,4 +121,4 @@ Kreta is created by:
 
 Licensing Options
 -----------------
-Released under MIT license. See [LICENSE.md](https://github.com/kreta/kreta/blob/master/LICENSE.md) file for more information.
+Released under MIT license. See [LICENSE.md](https://github.com/kreta-io/kreta/blob/master/LICENSE.md) file for more information.
