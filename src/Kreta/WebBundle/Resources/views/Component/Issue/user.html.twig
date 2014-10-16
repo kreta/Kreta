@@ -19,5 +19,9 @@
             {% include 'KretaWebBundle:Issue/blocks:typeIcon.html.twig' with {'type': issue.type} %}
             {% include 'KretaWebBundle:Issue/blocks:priorityIcon.html.twig' with {'priority': issue.priority} %}
         </div>
+    {% else %}
+        <div class="kreta-mini-issue">
+            <p>No issues found</p>
+        </div>
     {% endfor %}
 {% endblock %}
