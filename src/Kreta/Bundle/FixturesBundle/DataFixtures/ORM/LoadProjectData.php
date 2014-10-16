@@ -30,7 +30,7 @@ class LoadProjectData extends DataFixtures
 
         for ($i = 0; $i < 100; $i++) {
             $project = $this->container->get('kreta_core.factory_project')->create();
-            $project->setName('This is the project number' . $i . 'that is created by fixtures');
+            $project->setName('This is the project number ' . $i . ' that is created by fixtures');
 
             $this->loadRandomObjects($project, 'addParticipant', $users);
 

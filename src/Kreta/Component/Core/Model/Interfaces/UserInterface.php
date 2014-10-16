@@ -21,6 +21,31 @@ use FOS\UserBundle\Model\UserInterface as BaseUserInterface;
 interface UserInterface extends BaseUserInterface
 {
     /**
+     * Gets assigned issues.
+     *
+     * @return \Kreta\Component\Core\Model\Interfaces\IssueInterface[]
+     */
+    public function getAssignedIssues();
+
+    /**
+     * Adds assigned issue.
+     *
+     * @param \Kreta\Component\Core\Model\Interfaces\IssueInterface $issue The assigned issue
+     *
+     * @return $this self Object
+     */
+    public function addAssignedIssue(IssueInterface $issue);
+
+    /**
+     * Removes assigned issue.
+     *
+     * @param \Kreta\Component\Core\Model\Interfaces\IssueInterface $issue The assigned issue
+     *
+     * @return $this self Object
+     */
+    public function removeAssignedIssue(IssueInterface $issue);
+
+    /**
      * Gets id.
      *
      * @return string
@@ -138,4 +163,54 @@ interface UserInterface extends BaseUserInterface
      * @return $this self Object
      */
     public function setLastName($lastName);
+
+    /**
+     * Gets projects.
+     *
+     * @return \Kreta\Component\Core\Model\Interfaces\ProjectInterface[]
+     */
+    public function getProjects();
+
+    /**
+     * Adds project.
+     *
+     * @param \Kreta\Component\Core\Model\Interfaces\ProjectInterface $project The project
+     *
+     * @return $this self Object
+     */
+    public function addProject(ProjectInterface $project);
+
+    /**
+     * Removes project.
+     *
+     * @param \Kreta\Component\Core\Model\Interfaces\ProjectInterface $project The project
+     *
+     * @return $this self Object
+     */
+    public function removeProject(ProjectInterface $project);
+
+    /**
+     * Gets reported issues.
+     *
+     * @return \Kreta\Component\Core\Model\Interfaces\IssueInterface[]
+     */
+    public function getReportedIssues();
+
+    /**
+     * Adds reported issue.
+     *
+     * @param \Kreta\Component\Core\Model\Interfaces\IssueInterface $issue The reported issue
+     *
+     * @return $this self Object
+     */
+    public function addReportedIssue(IssueInterface $issue);
+
+    /**
+     * Removes reported issue.
+     *
+     * @param \Kreta\Component\Core\Model\Interfaces\IssueInterface $issue The reported issue
+     *
+     * @return $this self Object
+     */
+    public function removeReportedIssue(IssueInterface $issue);
 }

@@ -22,6 +22,16 @@ use Kreta\Component\Core\Model\Interfaces\UserInterface;
 class ProjectRepository extends EntityRepository
 {
     /**
+     * Finds all the project that exist into database.
+     *
+     * @return \Kreta\Component\Core\Model\Interfaces\ProjectInterface[]
+     */
+    public function findAll()
+    {
+        return $this->createQueryBuilder('p')->getQuery()->getResult();
+    }
+
+    /**
      * Finds all the issues of participant given.
      *
      * @param \Kreta\Component\Core\Model\Interfaces\UserInterface $participant The reporter

@@ -16,6 +16,7 @@ use Kreta\Component\Core\Model\Abstracts\AbstractModel;
 use Kreta\Component\Core\Model\Interfaces\CommentInterface;
 use Kreta\Component\Core\Model\Interfaces\IssueInterface;
 use Kreta\Component\Core\Model\Interfaces\LabelInterface;
+use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Core\Model\Interfaces\ResolutionInterface;
 use Kreta\Component\Core\Model\Interfaces\StatusInterface;
 use Kreta\Component\Core\Model\Interfaces\UserInterface;
@@ -61,6 +62,13 @@ class Issue extends AbstractModel implements IssueInterface
      * @var int
      */
     protected $priority;
+
+    /**
+     * The project.
+     *
+     * @var \Kreta\Component\Core\Model\Interfaces\ProjectInterface
+     */
+    protected $project;
 
     /**
      * The resolution.
@@ -220,6 +228,24 @@ class Issue extends AbstractModel implements IssueInterface
     public function setPriority($priority)
     {
         $this->priority = $priority;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getProject()
+    {
+        return $this->project;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setProject(ProjectInterface $project)
+    {
+        $this->project = $project;
 
         return $this;
     }

@@ -11,6 +11,8 @@
 
 namespace spec\Kreta\Component\Core\Model;
 
+use Kreta\Component\Core\Model\Interfaces\IssueInterface;
+use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
 use PhpSpec\ObjectBehavior;
 
 /**
@@ -35,12 +37,17 @@ class UserSpec extends ObjectBehavior
         $this->shouldImplement('Kreta\Component\Core\Model\Interfaces\UserInterface');
     }
 
-    function its_created_at_is_mutable()
+    function its_assigned_issues_be_mutable(IssueInterface $issue)
     {
-        $createDate = new \DateTime();
+        $this->getAssignedIssues()->shouldHaveCount(0);
 
-        $this->setCreatedAt($createDate)->shouldReturn($this);
-        $this->getCreatedAt()->shouldReturn($createDate);
+        $this->addAssignedIssue($issue);
+
+        $this->getAssignedIssues()->shouldHaveCount(1);
+
+        $this->removeAssignedIssue($issue);
+
+        $this->getAssignedIssues()->shouldHaveCount(0);
     }
 
     function its_bitbucket_access_token_is_mutable()
@@ -53,6 +60,14 @@ class UserSpec extends ObjectBehavior
     {
         $this->setBitbucketId('the-dummy-bitbucket-id')->shouldReturn($this);
         $this->getBitbucketId()->shouldReturn('the-dummy-bitbucket-id');
+    }
+
+    function its_created_at_is_mutable()
+    {
+        $createDate = new \DateTime();
+
+        $this->setCreatedAt($createDate)->shouldReturn($this);
+        $this->getCreatedAt()->shouldReturn($createDate);
     }
 
     function its_first_name_is_mutable()
@@ -77,6 +92,32 @@ class UserSpec extends ObjectBehavior
     {
         $this->setLastName('The dummy last name')->shouldReturn($this);
         $this->getLastName()->shouldReturn('The dummy last name');
+    }
+
+    function its_projects_be_mutable(ProjectInterface $project)
+    {
+        $this->getProjects()->shouldHaveCount(0);
+
+        $this->addProject($project);
+
+        $this->getProjects()->shouldHaveCount(1);
+
+        $this->removeProject($project);
+
+        $this->getProjects()->shouldHaveCount(0);
+    }
+
+    function its_reported_issues_be_mutable(IssueInterface $issue)
+    {
+        $this->getReportedIssues()->shouldHaveCount(0);
+
+        $this->addReportedIssue($issue);
+
+        $this->getReportedIssues()->shouldHaveCount(1);
+
+        $this->removeReportedIssue($issue);
+
+        $this->getReportedIssues()->shouldHaveCount(0);
     }
 
     function its_email_has_the_same_value_than_username()

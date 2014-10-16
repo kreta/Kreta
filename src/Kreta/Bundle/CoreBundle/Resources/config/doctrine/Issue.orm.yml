@@ -48,8 +48,18 @@ Kreta\Component\Core\Model\Issue:
     manyToOne:
         assignee:
             targetEntity: Kreta\Component\Core\Model\Interfaces\UserInterface
+            inversedBy: assignedIssues
+            joinColumn:
+                name: assignee_id
+                referencedColumnName: id
+        project:
+            targetEntity: Kreta\Component\Core\Model\Interfaces\ProjectInterface
         reporter:
             targetEntity: Kreta\Component\Core\Model\Interfaces\UserInterface
+            inversedBy: reportedIssues
+            joinColumn:
+                name: reporter_id
+                referencedColumnName: id
         resolution:
             targetEntity: Kreta\Component\Core\Model\Interfaces\ResolutionInterface
             nullable: true

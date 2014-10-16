@@ -27,6 +27,7 @@ class LoadIssueData extends DataFixtures
     public function load(ObjectManager $manager)
     {
         $labels = $this->container->get('kreta_core.repository_label')->findAll();
+        $projects = $this->container->get('kreta_core.repository_project')->findAll();
         $resolutions = $this->container->get('kreta_core.repository_resolution')->findAll();
         $status = $this->container->get('kreta_core.repository_status')->findAll();
         $users = $this->container->get('kreta_core.repository_user')->findAll();
@@ -55,6 +56,7 @@ class LoadIssueData extends DataFixtures
             if ($i % 5 !== 0) {
                 $issue->setResolution($resolutions[array_rand($resolutions)]);
             }
+            $issue->setProject($projects[array_rand($projects)]);
             $issue->setReporter($users[array_rand($users)]);
             $issue->setStatus($status[array_rand($status)]);
             $issue->setType(rand(0, 4));

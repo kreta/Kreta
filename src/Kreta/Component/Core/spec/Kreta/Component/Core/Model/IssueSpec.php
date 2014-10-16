@@ -13,6 +13,7 @@ namespace spec\Kreta\Component\Core\Model;
 
 use Kreta\Component\Core\Model\Interfaces\CommentInterface;
 use Kreta\Component\Core\Model\Interfaces\LabelInterface;
+use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Core\Model\Interfaces\ResolutionInterface;
 use Kreta\Component\Core\Model\Interfaces\StatusInterface;
 use Kreta\Component\Core\Model\Interfaces\UserInterface;
@@ -89,6 +90,12 @@ class IssueSpec extends ObjectBehavior
     {
         $this->setPriority(0)->shouldReturn($this);
         $this->getPriority()->shouldReturn(0);
+    }
+
+    function its_project_is_mutable(ProjectInterface $project)
+    {
+        $this->setProject($project)->shouldReturn($this);
+        $this->getProject()->shouldReturn($project);
     }
 
     function its_resolution_is_mutable(ResolutionInterface $resolution)

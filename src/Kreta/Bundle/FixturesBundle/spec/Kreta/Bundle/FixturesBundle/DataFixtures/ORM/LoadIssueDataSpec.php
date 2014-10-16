@@ -16,10 +16,12 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Kreta\Component\Core\Factory\IssueFactory;
 use Kreta\Component\Core\Model\Interfaces\IssueInterface;
 use Kreta\Component\Core\Model\Interfaces\LabelInterface;
+use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Core\Model\Interfaces\ResolutionInterface;
 use Kreta\Component\Core\Model\Interfaces\StatusInterface;
 use Kreta\Component\Core\Model\Interfaces\UserInterface;
 use Kreta\Component\Core\Repository\LabelRepository;
+use Kreta\Component\Core\Repository\ProjectRepository;
 use Kreta\Component\Core\Repository\ResolutionRepository;
 use Kreta\Component\Core\Repository\StatusRepository;
 use Kreta\Component\Core\Repository\UserRepository;
@@ -54,6 +56,7 @@ class LoadIssueDataSpec extends ObjectBehavior
         ContainerInterface $container,
         UserRepository $userRepository,
         LabelRepository $labelRepository,
+        ProjectRepository $projectRepository,
         StatusRepository $statusRepository,
         ResolutionRepository $resolutionRepository,
         IssueFactory $factory,
@@ -63,12 +66,16 @@ class LoadIssueDataSpec extends ObjectBehavior
         ObjectManager $manager,
         UserInterface $user,
         LabelInterface $label,
+        ProjectInterface $project,
         StatusInterface $status,
         ResolutionInterface $resolution
     )
     {
         $container->get('kreta_core.repository_label')->shouldBeCalled()->willReturn($labelRepository);
         $labelRepository->findAll()->shouldBeCalled()->willReturn(array($label));
+
+        $container->get('kreta_core.repository_project')->shouldBeCalled()->willReturn($projectRepository);
+        $projectRepository->findAll()->shouldBeCalled()->willReturn(array($project));
 
         $container->get('kreta_core.repository_status')->shouldBeCalled()->willReturn($statusRepository);
         $statusRepository->findAll()->shouldBeCalled()->willReturn(array($status));
@@ -100,6 +107,8 @@ class LoadIssueDataSpec extends ObjectBehavior
                 consequat, leo eget bibendum sodales, augue velit cursus nunc'
         )->shouldBeCalled()->willReturn($issue);
         $issue->addLabel($label)->shouldBeCalled()->willReturn($issue);
+        $issue->setProject(Argument::type('Kreta\Component\Core\Model\Interfaces\ProjectInterface'))
+            ->shouldBeCalled()->willReturn($issue);
         $issue->setPriority(Argument::type('int'))->shouldBeCalled()->willReturn($issue);
         $issue->setResolution(Argument::type('Kreta\Component\Core\Model\Interfaces\ResolutionInterface'))
             ->shouldBeCalled()->willReturn($issue);

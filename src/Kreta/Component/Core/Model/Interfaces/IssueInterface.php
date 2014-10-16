@@ -46,7 +46,7 @@ interface IssueInterface
     /**
      * Sets the assignee.
      *
-     * @param \Kreta\Component\Core\Model\Interfaces\UserInterface
+     * @param \Kreta\Component\Core\Model\Interfaces\UserInterface $assigner The assigner
      *
      * @return $this self Object
      */
@@ -62,7 +62,7 @@ interface IssueInterface
     /**
      * Adds the comment.
      *
-     * @param \Kreta\Component\Core\Model\Interfaces\CommentInterface
+     * @param \Kreta\Component\Core\Model\Interfaces\CommentInterface $comment The comment
      *
      * @return $this self Object
      */
@@ -71,7 +71,7 @@ interface IssueInterface
     /**
      * Removes the comment.
      *
-     * @param \Kreta\Component\Core\Model\Interfaces\CommentInterface
+     * @param \Kreta\Component\Core\Model\Interfaces\CommentInterface $comment The comment
      *
      * @return $this self Object
      */
@@ -103,7 +103,7 @@ interface IssueInterface
     /**
      * Adds the labels.
      *
-     * @param \Kreta\Component\Core\Model\Interfaces\LabelInterface
+     * @param \Kreta\Component\Core\Model\Interfaces\LabelInterface $label The label
      *
      * @return $this self Object
      */
@@ -112,7 +112,7 @@ interface IssueInterface
     /**
      * Removes the label.
      *
-     * @param \Kreta\Component\Core\Model\Interfaces\LabelInterface
+     * @param \Kreta\Component\Core\Model\Interfaces\LabelInterface $label The label
      *
      * @return $this self Object
      */
@@ -144,23 +144,39 @@ interface IssueInterface
     /**
      * Sets the reporter.
      *
-     * @param \Kreta\Component\Core\Model\Interfaces\UserInterface
+     * @param \Kreta\Component\Core\Model\Interfaces\UserInterface $reporter The reporter
      *
      * @return $this self Object
      */
     public function setReporter(UserInterface $reporter);
 
     /**
+     * Gets project.
+     *
+     * @return \Kreta\Component\Core\Model\Interfaces\ProjectInterface
+     */
+    public function getProject();
+
+    /**
+     * Sets the project.
+     *
+     * @param \Kreta\Component\Core\Model\Interfaces\ProjectInterface $project The project
+     *
+     * @return $this self Object
+     */
+    public function setProject(ProjectInterface $project);
+
+    /**
      * Gets resolution.
      *
-     * @return \Kreta\CoreBundle\Model\Interfaces\ResolutionInterface
+     * @return \Kreta\Component\Core\Model\Interfaces\ResolutionInterface
      */
     public function getResolution();
 
     /**
      * Sets resolution.
      *
-     * @param \Kreta\CoreBundle\Model\Interfaces\ResolutionInterface $resolution The resolution
+     * @param \Kreta\Component\Core\Model\Interfaces\ResolutionInterface $resolution The resolution
      *
      * @return $this self Object
      */
@@ -169,14 +185,14 @@ interface IssueInterface
     /**
      * Gets status.
      *
-     * @return \Kreta\CoreBundle\Model\Interfaces\StatusInterface
+     * @return \Kreta\Component\Core\Model\Interfaces\StatusInterface
      */
     public function getStatus();
 
     /**
      * Sets status.
      *
-     * @param \Kreta\CoreBundle\Model\Interfaces\StatusInterface $status The status
+     * @param \Kreta\Component\Core\Model\Interfaces\StatusInterface $status The status
      *
      * @return $this self Object
      */
@@ -224,7 +240,7 @@ interface IssueInterface
     /**
      * Adds the watcher.
      *
-     * @param \Kreta\Component\Core\Model\Interfaces\UserInterface
+     * @param \Kreta\Component\Core\Model\Interfaces\UserInterface $watcher The watcher
      *
      * @return $this self Object
      */
@@ -233,7 +249,7 @@ interface IssueInterface
     /**
      * Removes the watcher.
      *
-     * @param \Kreta\Component\Core\Model\Interfaces\UserInterface
+     * @param \Kreta\Component\Core\Model\Interfaces\UserInterface $watcher The watcher
      *
      * @return $this self Object
      */

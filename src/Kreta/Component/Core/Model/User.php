@@ -11,7 +11,10 @@
 
 namespace Kreta\Component\Core\Model;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Model\User as BaseUser;
+use Kreta\Component\Core\Model\Interfaces\IssueInterface;
+use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Core\Model\Interfaces\UserInterface;
 
 /**
@@ -21,6 +24,13 @@ use Kreta\Component\Core\Model\Interfaces\UserInterface;
  */
 class User extends BaseUser implements UserInterface
 {
+    /**
+     * Array that contains assigned issues.
+     *
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     */
+    protected $assignedIssues;
+
     /**
      * The Bitbucket access token.
      *
@@ -71,13 +81,58 @@ class User extends BaseUser implements UserInterface
     protected $lastName;
 
     /**
+     * Array that contains projects.
+     *
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     */
+    protected $projects;
+
+    /**
+     * Array that contains reported issues.
+     *
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     */
+    protected $reportedIssues;
+
+    /**
      * Constructor.
      */
     public function __construct()
     {
+        $this->assignedIssues = new ArrayCollection();
         $this->createdAt = new \DateTime();
+        $this->projects = new ArrayCollection();
+        $this->reportedIssues = new ArrayCollection();
 
         parent::__construct();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getAssignedIssues()
+    {
+        return $this->assignedIssues;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function addAssignedIssue(IssueInterface $issue)
+    {
+        $this->assignedIssues[] = $issue;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function removeAssignedIssue(IssueInterface $issue)
+    {
+        $this->assignedIssues->removeElement($issue);
+
+        return $this;
     }
 
     /**
@@ -202,6 +257,62 @@ class User extends BaseUser implements UserInterface
     public function setLastName($lastName)
     {
         $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getProjects()
+    {
+        return $this->projects;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function addProject(ProjectInterface $project)
+    {
+        $this->projects[] = $project;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function removeProject(ProjectInterface $project)
+    {
+        $this->projects->removeElement($project);
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getReportedIssues()
+    {
+        return $this->reportedIssues;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function addReportedIssue(IssueInterface $issue)
+    {
+        $this->reportedIssues[] = $issue;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function removeReportedIssue(IssueInterface $issue)
+    {
+        $this->reportedIssues->removeElement($issue);
 
         return $this;
     }

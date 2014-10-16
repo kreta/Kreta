@@ -25,6 +25,7 @@ Kreta\Component\Core\Model\Project:
     manyToMany:
         participants:
             targetEntity: Kreta\Component\Core\Model\Interfaces\UserInterface
+            inversedBy: projects
             joinTable:
                 name: project_user
                 joinColumns:
