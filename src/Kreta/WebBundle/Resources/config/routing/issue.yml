@@ -9,3 +9,7 @@ kreta_web_issue_view:
 kreta_web_issue_edit:
     path:     edit/{id}
     defaults: { _controller: KretaWebBundle:Issue:edit }
+
+kreta_web_issue_comment_new:
+    path:     /{issueId}/comment/new
+    defaults: { _controller: KretaWebBundle:Issue:newComment }

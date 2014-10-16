@@ -7,19 +7,13 @@
 {% block widgetTitle %}Comments{% endblock %}
 
 {% block widgetContent %}
-    <form class="kreta-issue-comment-add">
-        <img src="/img/gorka.png">
-        <div class="textarea-container">
-            <textarea placeholder="Add your comment..."></textarea>
-            <input type="submit" class="button tiny" value="Send">
-        </div>
-    </form>
-    {% for comment in comments %}
+    {{ render(url('kreta_web_issue_comment_new',{'issueId': issue.id})) }}
+    {% for comment in issue.comments %}
         <div class="kreta-issue-comment">
-            <img src="/img/gorka.png">
+            <img src="/images/gorka.png">
             <div class="comment-content">
                 <div class="comment-header">
-                    <h4>Gorka Laucirica</h4>
+                    <h4>{{ comment.writtenBy.fullName }}</h4>
                     <span class="date">{{ comment.createdAt | date('Y-m-d') }}</span>
                 </div>
                 <p>{{ comment.description }}</p>

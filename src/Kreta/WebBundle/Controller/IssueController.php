@@ -12,6 +12,7 @@
 namespace Kreta\WebBundle\Controller;
 
 use Kreta\Component\Core\Model\Interfaces\IssueInterface;
+use Kreta\WebBundle\Form\Type\CommentType;
 use Kreta\WebBundle\Form\Type\IssueType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
@@ -71,5 +72,32 @@ class IssueController extends Controller
             'form' => $form->createView(),
             'issue' => $issue
         ));
+    }
+
+    function newCommentAction($issueId, Request $request)
+    {
+        $issue = $this->get('kreta_core.repository_issue')->find($issueId);
+        if (!$issue) {
+            $this->createNotFoundException('Issue not found');
+        }
+        $comment = $this->get('kreta_core.factory_comment')->create();
+
+        $form = $this->createForm(new CommentType(), $comment);
+
+        if ($request->isMethod('POST')) {
+            $form->handleRequest($request);
+            if ($form->isValid()) {
+                $comment->setWrittenBy($this->getUser());
+                $comment->setIssue($issue);
+                $manager = $this->getDoctrine()->getManager();
+                $manager->persist($comment);
+                $manager->flush();
+                return $this->redirect($this->generateUrl('kreta_web_issue_view', array('id' => $issue->getId())));
+            }
+            return $this->redirect($this->generateUrl('kreta_web_issue_view', array('id' => $issue->getId())));
+        }
+
+        return $this->render('KretaWebBundle:Issue/blocks:commentForm.html.twig', array('form' => $form->createView(), 'issue' => $issue));
+
     }
 }

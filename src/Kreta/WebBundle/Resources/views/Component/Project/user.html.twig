@@ -10,7 +10,7 @@
     <div class="kreta-mini-project">
         {% for project in projects %}
             <div class="title-container">
-                <img src="/img/mcb.png">
+                <img src="/images/mcb.png">
                 <a href="{{ url('kreta_web_project_view', {'id': project.id}) }}">{{ project.shortName }}</a>
             </div>
         {% else %}

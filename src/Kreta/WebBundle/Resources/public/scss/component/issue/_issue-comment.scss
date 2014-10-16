@@ -2,6 +2,8 @@
 @import "compass/css3";
 
 .kreta-issue-comment-add {
+  overflow: hidden;
+  margin: 0;
   img {
     width: 13%;
     padding: 0 5px 5px 5px;

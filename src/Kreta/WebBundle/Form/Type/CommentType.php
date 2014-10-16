@@ -14,9 +14,9 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
- * Class IssueType
+ * Class CommentType
  */
-class IssueType extends AbstractType
+class CommentType extends AbstractType
 {
     /**
      * Buildform function
@@ -27,24 +27,9 @@ class IssueType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', 'text', array(
-                'required' => true,
-                'label'    => 'Name',
-            ))
             ->add('description', 'textarea', array(
-                'label'    => 'Description',
-            ))
-            ->add('type', new TypeType(), array(
-                'label'    => 'Type',
-            ))
-            ->add('priority', new PriorityType(), array(
-                'label'    => 'Priority',
-            ))
-            ->add('reporter', null, array(
-                'label'    => 'Assigner',
-            ))
-            ->add('assignee', null, array(
-                'label'    => 'Assignee',
+                'required' => true,
+                'label' => false
             ));
     }
 
@@ -55,6 +40,6 @@ class IssueType extends AbstractType
      */
     public function getName()
     {
-        return 'kreta_core_issue_type';
+        return 'kreta_core_comment_type';
     }
 }

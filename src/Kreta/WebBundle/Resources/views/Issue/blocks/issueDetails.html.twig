@@ -16,10 +16,10 @@
                 <span class="field">Type:</span>
                 {% include 'KretaWebBundle:Issue/blocks:typeIcon.html.twig' with {'type': issue.type} %}
                 <span class="field">Priority:</span>
-                {% include 'KretaWebBundle:Issue/blocks:priorityIcon.html.twig' with {'type': issue.priority} %}
+                {% include 'KretaWebBundle:Issue/blocks:priorityIcon.html.twig' with {'priority': issue.priority} %}
                 <span class="field">Asignee:</span>
                 <div class="image-item">
-                    <img src="/img/gorka.png">
+                    <img src="/images/gorka.png">
                     <span>{{ issue.assignee.firstName ~ ' ' ~ issue.assignee.lastName }}</span>
                 </div>
             </div>
@@ -30,7 +30,7 @@
                 <span>{{ issue.resolution ?: '-' }}</span>
                 <span class="field">Assigner:</span>
                 <div class="image-item">
-                    <img src="/img/gorka.png">
+                    <img src="/images/gorka.png">
                     <span>{{ issue.reporter.firstName ~ ' ' ~ issue.reporter.lastName }}</span>
                 </div>
             </div>

@@ -283,6 +283,14 @@ class User extends BaseUser implements UserInterface
     /**
      * {@inheritdoc}
      */
+    public function getFullName()
+    {
+        return $this->firstName . ' ' . $this->lastName;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getLastName()
     {
         return $this->lastName;
