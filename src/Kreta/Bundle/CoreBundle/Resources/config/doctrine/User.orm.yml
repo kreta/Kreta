@@ -62,4 +62,4 @@ Kreta\Component\Core\Model\User:
             mappedBy: reporter
         comments:
             targetEntity: Kreta\Component\Core\Model\Interfaces\CommentInterface
-            mappedBy: comments
+            mappedBy: writtenBy
