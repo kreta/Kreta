@@ -17,6 +17,9 @@ class DefaultController extends Controller
 {
     public function indexAction()
     {
+        if ($this->getUser()) {
+            return $this->dashboardAction();
+        }
         return $this->render('KretaWebBundle:Default:index.html.twig');
     }
 
