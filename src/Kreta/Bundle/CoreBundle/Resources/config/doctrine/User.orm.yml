@@ -60,3 +60,6 @@ Kreta\Component\Core\Model\User:
         reportedIssues:
             targetEntity: Kreta\Component\Core\Model\Interfaces\IssueInterface
             mappedBy: reporter
+        comments:
+            targetEntity: Kreta\Component\Core\Model\Interfaces\CommentInterface
+            mappedBy: comments

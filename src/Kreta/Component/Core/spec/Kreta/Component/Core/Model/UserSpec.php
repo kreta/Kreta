@@ -11,6 +11,7 @@
 
 namespace spec\Kreta\Component\Core\Model;
 
+use Kreta\Component\Core\Model\Interfaces\CommentInterface;
 use Kreta\Component\Core\Model\Interfaces\IssueInterface;
 use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
 use PhpSpec\ObjectBehavior;
@@ -60,6 +61,19 @@ class UserSpec extends ObjectBehavior
     {
         $this->setBitbucketId('the-dummy-bitbucket-id')->shouldReturn($this);
         $this->getBitbucketId()->shouldReturn('the-dummy-bitbucket-id');
+    }
+
+    function its_comments_be_mutable(CommentInterface $comment)
+    {
+        $this->getComments()->shouldHaveCount(0);
+
+        $this->addComment($comment);
+
+        $this->getComments()->shouldHaveCount(1);
+
+        $this->removeComment($comment);
+
+        $this->getComments()->shouldHaveCount(0);
     }
 
     function its_created_at_is_mutable()

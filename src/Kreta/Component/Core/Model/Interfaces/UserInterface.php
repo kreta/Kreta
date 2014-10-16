@@ -85,6 +85,31 @@ interface UserInterface extends BaseUserInterface
     public function setBitbucketId($bitbucketId);
 
     /**
+     * Gets comments.
+     *
+     * @return \Kreta\Component\Core\Model\Interfaces\CommentInterface[]
+     */
+    public function getComments();
+
+    /**
+     * Adds comment.
+     *
+     * @param \Kreta\Component\Core\Model\Interfaces\CommentInterface $comment The comment
+     *
+     * @return $this self Object
+     */
+    public function addComment(CommentInterface $comment);
+
+    /**
+     * Removes comment.
+     *
+     * @param \Kreta\Component\Core\Model\Interfaces\CommentInterface $comment The comment
+     *
+     * @return $this self Object
+     */
+    public function removeComment(CommentInterface $comment);
+
+    /**
      * Gets created at.
      *
      * @return \DateTime

@@ -13,6 +13,7 @@ namespace Kreta\Component\Core\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Model\User as BaseUser;
+use Kreta\Component\Core\Model\Interfaces\CommentInterface;
 use Kreta\Component\Core\Model\Interfaces\IssueInterface;
 use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Core\Model\Interfaces\UserInterface;
@@ -51,6 +52,13 @@ class User extends BaseUser implements UserInterface
      * @var \DateTime
      */
     protected $createdAt;
+
+    /**
+     * Array that contains comments.
+     *
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     */
+    protected $comments;
 
     /**
      * The first name.
@@ -100,6 +108,7 @@ class User extends BaseUser implements UserInterface
     public function __construct()
     {
         $this->assignedIssues = new ArrayCollection();
+        $this->comments = new ArrayCollection();
         $this->createdAt = new \DateTime();
         $this->projects = new ArrayCollection();
         $this->reportedIssues = new ArrayCollection();
@@ -167,6 +176,34 @@ class User extends BaseUser implements UserInterface
     public function setBitbucketId($bitbucketId)
     {
         $this->bitbucketId = $bitbucketId;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getComments()
+    {
+        return $this->comments;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function addComment(CommentInterface $comment)
+    {
+        $this->comments[] = $comment;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function removeComment(CommentInterface $comment)
+    {
+        $this->comments->removeElement($comment);
 
         return $this;
     }
