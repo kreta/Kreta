@@ -5,6 +5,7 @@
         <div class="kreta-widget-content">
             <h2><i class="fa fa-check-square-o"></i>Create new issue</h2>
             {{ form_start(form, {'action': url('kreta_web_issue_new')}) }}
+                {{ form_row(form.project) }}
                 {{ form_row(form.title) }}
                 {{ form_row(form.description) }}
                 {{ form_row(form.type) }}

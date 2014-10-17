@@ -3,7 +3,7 @@
 {% block content %}
     <div class="medium-8 column">
         {% include 'KretaWebBundle:Project/blocks:projectDetails.html.twig' %}
-        {#{% include 'KretaWebBundle:Project/blocks:projectIssues.html.twig' with {'issues': project.issues }%}#}
+        {% include 'KretaWebBundle:Project/blocks:projectIssues.html.twig' with {'issues': project.issues }%}
     </div>
     <div class="medium-4 column">
         {% include 'KretaWebBundle:Project/blocks:projectUsers.html.twig' with {'project': project}%}
