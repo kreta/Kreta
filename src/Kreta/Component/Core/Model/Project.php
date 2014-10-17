@@ -13,6 +13,7 @@ namespace Kreta\Component\Core\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Kreta\Component\Core\Model\Abstracts\AbstractModel;
+use Kreta\Component\Core\Model\Interfaces\IssueInterface;
 use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Core\Model\Interfaces\UserInterface;
 
@@ -23,6 +24,11 @@ use Kreta\Component\Core\Model\Interfaces\UserInterface;
  */
 class Project extends AbstractModel implements ProjectInterface
 {
+    /**
+     * Array that contains issues.
+     */
+    protected $issues;
+
     /**
      * The name.
      *
@@ -49,7 +55,36 @@ class Project extends AbstractModel implements ProjectInterface
      */
     public function __construct()
     {
+        $this->issues = new ArrayCollection();
         $this->participants = new ArrayCollection();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getIssues()
+    {
+        return $this->issues;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function addIssue(IssueInterface $issue)
+    {
+        $this->issues[] = $issue;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function removeIssue(IssueInterface $issue)
+    {
+        $this->issues->removeElement($issue);
+
+        return $this;
     }
 
     /**

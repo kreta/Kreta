@@ -11,6 +11,7 @@
 
 namespace spec\Kreta\Component\Core\Model;
 
+use Kreta\Component\Core\Model\Interfaces\IssueInterface;
 use Kreta\Component\Core\Model\Interfaces\UserInterface;
 use PhpSpec\ObjectBehavior;
 
@@ -36,9 +37,27 @@ class ProjectSpec extends ObjectBehavior
         $this->shouldImplement('Kreta\Component\Core\Model\Interfaces\ProjectInterface');
     }
 
+    function its_issues_is_collection()
+    {
+        $this->getIssues()->shouldHaveType('Doctrine\Common\Collections\ArrayCollection');
+    }
+
     function its_participants_is_collection()
     {
         $this->getParticipants()->shouldHaveType('Doctrine\Common\Collections\ArrayCollection');
+    }
+
+    function its_issues_are_be_mutable(IssueInterface $issue)
+    {
+        $this->getIssues()->shouldHaveCount(0);
+
+        $this->addIssue($issue);
+
+        $this->getIssues()->shouldHaveCount(1);
+
+        $this->removeIssue($issue);
+
+        $this->getIssues()->shouldHaveCount(0);
     }
 
     function its_name_is_mutable()
@@ -49,7 +68,7 @@ class ProjectSpec extends ObjectBehavior
         $this->getShortName()->shouldReturn('Dummy name that it is a te...');
     }
 
-    function its_participants_be_mutable(UserInterface $participant)
+    function its_participants_are_be_mutable(UserInterface $participant)
     {
         $this->getParticipants()->shouldHaveCount(0);
 

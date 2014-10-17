@@ -26,6 +26,31 @@ interface ProjectInterface
     public function getId();
 
     /**
+     * Gets issues.
+     *
+     * @return \Kreta\Component\Core\Model\Interfaces\IssueInterface[]
+     */
+    public function getIssues();
+
+    /**
+     * Adds issue.
+     *
+     * @param \Kreta\Component\Core\Model\Interfaces\IssueInterface $issue The issue
+     *
+     * @return $this self Object
+     */
+    public function addIssue(IssueInterface $issue);
+
+    /**
+     * Removes issue.
+     *
+     * @param \Kreta\Component\Core\Model\Interfaces\IssueInterface $issue The issue
+     *
+     * @return $this self Object
+     */
+    public function removeIssue(IssueInterface $issue);
+
+    /**
      * Gets name.
      *
      * @return string

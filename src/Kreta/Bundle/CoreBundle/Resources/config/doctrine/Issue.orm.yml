@@ -54,6 +54,10 @@ Kreta\Component\Core\Model\Issue:
                 referencedColumnName: id
         project:
             targetEntity: Kreta\Component\Core\Model\Interfaces\ProjectInterface
+            inversedBy: issues
+            joinColumn:
+                name: project_id
+                referencedColumnName: id
         reporter:
             targetEntity: Kreta\Component\Core\Model\Interfaces\UserInterface
             inversedBy: reportedIssues

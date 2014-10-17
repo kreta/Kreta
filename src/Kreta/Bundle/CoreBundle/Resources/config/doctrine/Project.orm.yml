@@ -34,3 +34,7 @@ Kreta\Component\Core\Model\Project:
                 inverseJoinColumns:
                     user_id:
                         referencedColumnName: id
+    oneToMany:
+        issues:
+            targetEntity: Kreta\Component\Core\Model\Interfaces\IssueInterface
+            mappedBy: project
