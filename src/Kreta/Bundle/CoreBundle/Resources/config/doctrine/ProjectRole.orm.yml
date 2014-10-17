@@ -1,0 +1,28 @@
+# This file belongs to Kreta.
+# The source code of application includes a LICENSE file
+# with all information about license.
+#
+# @author benatespina <benatespina@gmail.com>
+# @author gorkalaucirica <gorka.lauzirika@gmail.com>
+
+Kreta\Component\Core\Model\ProjectRole:
+    type: entity
+    repositoryClass: Kreta\Component\Core\Repository\ProjectRoleRepository
+    table: project_role
+    id:
+        project:
+            type: entity
+            associationKey: true
+        user:
+            type: entity
+            associationKey: true
+    fields:
+        role:
+            type: string
+            length: 20
+
+    manyToOne:
+        project:
+            targetEntity: Kreta\Component\Core\Model\Interfaces\ProjectInterface
+        user:
+            targetEntity: Kreta\Component\Core\Model\Interfaces\UserInterface

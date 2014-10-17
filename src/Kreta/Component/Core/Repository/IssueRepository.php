@@ -17,7 +17,7 @@ use Kreta\Component\Core\Model\Interfaces\UserInterface;
 /**
  * Class IssueRepository.
  *
- * @package Kreta\CoreBundle\Rpository
+ * @package Kreta\Component\Core\Repository
  */
 class IssueRepository extends EntityRepository
 {

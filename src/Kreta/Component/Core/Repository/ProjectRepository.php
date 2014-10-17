@@ -17,7 +17,7 @@ use Kreta\Component\Core\Model\Interfaces\UserInterface;
 /**
  * Class ProjectRepository.
  *
- * @package Kreta\CoreBundle\Rpository
+ * @package Kreta\Component\Core\Repository
  */
 class ProjectRepository extends EntityRepository
 {

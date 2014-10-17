@@ -16,7 +16,7 @@ use Doctrine\ORM\EntityRepository;
 /**
  * Class UserRepository.
  *
- * @package Kreta\CoreBundle\Rpository
+ * @package Kreta\Component\Core\Repository
  */
 class UserRepository extends EntityRepository
 {

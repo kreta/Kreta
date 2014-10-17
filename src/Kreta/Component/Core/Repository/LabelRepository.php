@@ -16,7 +16,7 @@ use Doctrine\ORM\EntityRepository;
 /**
  * Class LabelRepository.
  *
- * @package Kreta\CoreBundle\Rpository
+ * @package Kreta\Component\Core\Repository
  */
 class LabelRepository extends EntityRepository
 {

@@ -11,6 +11,7 @@ parameters:
     kreta_core.class_issue: Kreta\Component\Core\Model\Issue
     kreta_core.class_label: Kreta\Component\Core\Model\Label
     kreta_core.class_project: Kreta\Component\Core\Model\Project
+    kreta_core.class_projectRole: Kreta\Component\Core\Model\ProjectRole
     kreta_core.class_resolution: Kreta\Component\Core\Model\Resolution
     kreta_core.class_status: Kreta\Component\Core\Model\Status
     kreta_core.class_user: Kreta\Component\Core\Model\User
@@ -19,6 +20,7 @@ parameters:
     kreta_core.factory_class_issue: Kreta\Component\Core\Factory\IssueFactory
     kreta_core.factory_class_label: Kreta\Component\Core\Factory\LabelFactory
     kreta_core.factory_class_project: Kreta\Component\Core\Factory\ProjectFactory
+    kreta_core.factory_class_projectRole: Kreta\Component\Core\Factory\ProjectRoleFactory
     kreta_core.factory_class_resolution: Kreta\Component\Core\Factory\ResolutionFactory
     kreta_core.factory_class_status: Kreta\Component\Core\Factory\StatusFactory
     kreta_core.factory_class_user: Kreta\Component\Core\Factory\UserFactory
@@ -27,6 +29,7 @@ parameters:
     kreta_core.repository_class_issue: Kreta\Component\Core\Repository\IssueRepository
     kreta_core.repository_class_label: Kreta\Component\Core\Repository\LabelRepository
     kreta_core.repository_class_project: Kreta\Component\Core\Repository\ProjectRepository
+    kreta_core.repository_class_projectRole: Kreta\Component\Core\Repository\ProjectRoleRepository
     kreta_core.repository_class_resolution: Kreta\Component\Core\Repository\ResolutionRepository
     kreta_core.repository_class_status: Kreta\Component\Core\Repository\StatusRepository
     kreta_core.repository_class_user: Kreta\Component\Core\Repository\UserRepository
@@ -43,6 +46,8 @@ services:
         class: %kreta_core.factory_class_label%
     kreta_core.factory_project:
         class: %kreta_core.factory_class_project%
+    kreta_core.factory_projectRole:
+        class: %kreta_core.factory_class_projectRole%
     kreta_core.factory_resolution:
         class: %kreta_core.factory_class_resolution%
     kreta_core.factory_status:
@@ -71,6 +76,11 @@ services:
         factory_method: getRepository
         class: %kreta_core.repository_class_project%
         arguments: [%kreta_core.class_project%]
+    kreta_core.repository_projectRole:
+        factory_service: doctrine.orm.default_entity_manager
+        factory_method: getRepository
+        class: %kreta_core.repository_class_projectRole%
+        arguments: [%kreta_core.class_projectRole%]
     kreta_core.repository_resolution:
         factory_service: doctrine.orm.default_entity_manager
         factory_method: getRepository

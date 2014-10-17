@@ -39,7 +39,7 @@ interface CommentInterface
      *
      * @return $this self Object
      */
-    public function setCreatedAt($createdAt);
+    public function setCreatedAt(\DateTime $createdAt);
 
     /**
      * Gets description.
@@ -87,7 +87,7 @@ interface CommentInterface
      *
      * @return $this self Object
      */
-    public function setUpdatedAt($updatedAt);
+    public function setUpdatedAt(\DateTime $updatedAt);
 
     /**
      * Gets written by.
@@ -103,5 +103,5 @@ interface CommentInterface
      *
      * @return $this self Object
      */
-    public function setWrittenBy($writtenBy);
+    public function setWrittenBy(UserInterface $writtenBy);
 }

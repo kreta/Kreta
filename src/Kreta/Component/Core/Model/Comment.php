@@ -14,6 +14,7 @@ namespace Kreta\Component\Core\Model;
 use Kreta\Component\Core\Model\Abstracts\AbstractModel;
 use Kreta\Component\Core\Model\Interfaces\CommentInterface;
 use Kreta\Component\Core\Model\Interfaces\IssueInterface;
+use Kreta\Component\Core\Model\Interfaces\UserInterface;
 
 /**
  * Class Comment.
@@ -76,7 +77,7 @@ class Comment extends AbstractModel implements CommentInterface
     /**
      * {@inheritdoc}
      */
-    public function setCreatedAt($createdAt)
+    public function setCreatedAt(\DateTime $createdAt)
     {
         $this->createdAt = $createdAt;
 
@@ -130,7 +131,7 @@ class Comment extends AbstractModel implements CommentInterface
     /**
      * {@inheritdoc}
      */
-    public function setUpdatedAt($updatedAt)
+    public function setUpdatedAt(\DateTime $updatedAt)
     {
         $this->updatedAt = $updatedAt;
 
@@ -148,7 +149,7 @@ class Comment extends AbstractModel implements CommentInterface
     /**
      * {@inheritdoc}
      */
-    public function setWrittenBy($writtenBy)
+    public function setWrittenBy(UserInterface $writtenBy)
     {
         $this->writtenBy = $writtenBy;
 

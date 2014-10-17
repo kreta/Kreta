@@ -16,7 +16,7 @@ use Doctrine\ORM\EntityRepository;
 /**
  * Class StatusRepository.
  *
- * @package Kreta\Component\Core\Rpository
+ * @package Kreta\Component\Core\Repository
  */
 class StatusRepository extends EntityRepository
 {

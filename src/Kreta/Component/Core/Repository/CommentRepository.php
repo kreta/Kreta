@@ -16,7 +16,7 @@ use Doctrine\ORM\EntityRepository;
 /**
  * Class CommentRepository.
  *
- * @package Kreta\CoreBundle\Rpository
+ * @package Kreta\Component\Core\Repository
  */
 class CommentRepository extends EntityRepository
 {

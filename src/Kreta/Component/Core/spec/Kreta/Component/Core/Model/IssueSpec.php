@@ -41,7 +41,7 @@ class IssueSpec extends ObjectBehavior
         $this->shouldImplement('Kreta\Component\Core\Model\Interfaces\IssueInterface');
     }
 
-    function its_assigners_comments_labels_and_watchers_is_collection()
+    function its_comments_labels_and_watchers_is_collection()
     {
         $this->getComments()->shouldHaveType('Doctrine\Common\Collections\ArrayCollection');
         $this->getLabels()->shouldHaveType('Doctrine\Common\Collections\ArrayCollection');

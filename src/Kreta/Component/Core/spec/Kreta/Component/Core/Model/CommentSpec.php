@@ -42,7 +42,7 @@ class CommentSpec extends ObjectBehavior
         $this->getCreatedAt()->shouldHaveType('DateTime');
     }
 
-    function it_created_at_is_mutable()
+    function its_created_at_is_mutable()
     {
         $createDate = new \DateTime();
 
