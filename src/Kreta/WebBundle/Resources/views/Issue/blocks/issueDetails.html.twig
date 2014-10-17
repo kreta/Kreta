@@ -20,18 +20,18 @@
                 <span class="field">Asignee:</span>
                 <div class="image-item">
                     <img src="/images/gorka.png">
-                    <span>{{ issue.assignee.firstName ~ ' ' ~ issue.assignee.lastName }}</span>
+                    <span>{{ issue.assignee.fullName }}</span>
                 </div>
             </div>
             <div class="small-6 column">
                 <span class="field">Status:</span>
-                <span>{{ issue.status }}</span>
+                <span>{{ issue.status.description }}</span>
                 <span class="field">Resolution:</span>
-                <span>{{ issue.resolution ?: '-' }}</span>
+                <span>{{ issue.resolution ? issue.resolution.description : '-' }}</span>
                 <span class="field">Assigner:</span>
                 <div class="image-item">
                     <img src="/images/gorka.png">
-                    <span>{{ issue.reporter.firstName ~ ' ' ~ issue.reporter.lastName }}</span>
+                    <span>{{ issue.reporter.fullName }}</span>
                 </div>
             </div>
         </div>
