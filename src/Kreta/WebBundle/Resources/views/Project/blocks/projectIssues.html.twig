@@ -1,0 +1,17 @@
+{% for issue in issues %}
+    <div class="kreta-mini-issue">
+        <a href="{{ url('kreta_web_issue_view', { 'id' : issue.id }) }}"><h3>{{ issue.title }}</h3></a>
+        <div class="issue-footer">
+            <img class="project" src="/images/mcb.png">
+            <a href="{{ url('kreta_web_issue_view', { 'id' : issue.id }) }}"><i class="fa fa-eye"></i></a>
+            <a href="{{ url('kreta_web_issue_view', { 'id' : issue.id }) }}"><i class="fa fa-comment"></i> 0</a>
+            <a href="{{ url('kreta_web_issue_edit', { 'id' : issue.id }) }}"><i class="fa fa-pencil"></i></a>
+        </div>
+        {% include 'KretaWebBundle:Issue/blocks:typeIcon.html.twig' with {'type': issue.type} %}
+        {% include 'KretaWebBundle:Issue/blocks:priorityIcon.html.twig' with {'priority': issue.priority} %}
+    </div>
+{% else %}
+    <div class="kreta-mini-issue">
+        <p>No issues found</p>
+    </div>
+{% endfor %}
