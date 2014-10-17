@@ -5,6 +5,6 @@
         {% include 'KretaWebBundle:Project/blocks:projectDetails.html.twig' %}
     </div>
     <div class="medium-4 column">
-        {% include 'KretaWebBundle:Project/blocks:projectUsers.html.twig' %}
+        {% include 'KretaWebBundle:Project/blocks:projectUsers.html.twig' with {'project': project}%}
     </div>
 {% endblock %}

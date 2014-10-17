@@ -8,14 +8,19 @@
 
 {% block widgetContent %}
     <div class="kreta-project-users">
-        <div class="kreta-project-user">
-            <img src="/images/gorka.png">
-            <a href="">Gorka Laucirica</a>
-        </div>
+        {% for participant in project.participants %}
+            <div class="kreta-project-user">
+                <img src="/images/gorka.png">
+                <a href="">{{ participant.fullName }}</a>
+            </div>
+        {% endfor %}
         <div class="kreta-actions">
-            <a class="kreta-action" href="">
-                <i class="fa fa-plus"></i>Add user to project
-            </a>
+            <form method="post" action="{{ url('kreta_web_project_participant_new', {'id' : project.id }) }}">
+                <input type="text" name="email" placeholder="New user's email">
+                <button class="kreta-action" type="submit">
+                    <i class="fa fa-plus"></i>Add user to project
+                </button>
+            </form>
         </div>
     </div>
 {% endblock %}

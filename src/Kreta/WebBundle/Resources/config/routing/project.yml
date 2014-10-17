@@ -1,3 +1,8 @@
 kreta_web_project_view:
     path:     /{id}
     defaults: { _controller: KretaWebBundle:Project:view }
+
+kreta_web_project_participant_new:
+    path:     /{id}/participant
+    methods: [POST]
+    defaults: { _controller: KretaWebBundle:Project:newParticipant }
