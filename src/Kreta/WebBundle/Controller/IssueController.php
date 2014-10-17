@@ -32,6 +32,7 @@ class IssueController extends Controller
     public function newAction(Request $request)
     {
         $issue = $this->get('kreta_core.factory_issue')->create();
+        $issue->setReporter($this->getUser());
 
         $form = $this->createForm(new IssueType(), $issue);
 
@@ -41,7 +42,7 @@ class IssueController extends Controller
                 $manager = $this->getDoctrine()->getManager();
                 $manager->persist($issue);
                 $manager->flush();
-                return $this->redirect($this->generateUrl('kreta_web_issue_edit', array('id' => $issue->getId())));
+                return $this->redirect($this->generateUrl('kreta_web_issue_view', array('id' => $issue->getId())));
             }
         }
 
@@ -65,6 +66,7 @@ class IssueController extends Controller
                 $manager = $this->getDoctrine()->getManager();
                 $manager->persist($issue);
                 $manager->flush();
+                return $this->redirect($this->generateUrl('kreta_web_issue_view', array('id' => $issue->getId())));
             }
         }
 

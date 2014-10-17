@@ -8,9 +8,6 @@
 
 {% block widgetContent %}
     <div class="kreta-issue">
-        <div class="description">
-            <p>{{ issue.description }}</p>
-        </div>
         <div class="details row">
             <div class="small-6 column">
                 <span class="field">Type:</span>
@@ -25,7 +22,7 @@
             </div>
             <div class="small-6 column">
                 <span class="field">Status:</span>
-                <span>{{ issue.status.description }}</span>
+                <span>{{ issue.status ? issue.status.description : '-'}}</span>
                 <span class="field">Resolution:</span>
                 <span>{{ issue.resolution ? issue.resolution.description : '-' }}</span>
                 <span class="field">Assigner:</span>
@@ -34,6 +31,9 @@
                     <span>{{ issue.reporter.fullName }}</span>
                 </div>
             </div>
+        </div>
+        <div class="description">
+            <p>{{ issue.description }}</p>
         </div>
     </div>
 {% endblock %}
