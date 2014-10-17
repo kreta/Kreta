@@ -43,6 +43,9 @@ class IssueType extends AbstractType
             ->add('priority', new PriorityType(), array(
                 'label'    => 'Priority',
             ))
+            ->add('status', null, array(
+                'label'    => 'Status',
+            ))
             ->add('reporter', null, array(
                 'label'    => 'Assigner',
             ))
