@@ -16,7 +16,9 @@
                 {% include 'KretaWebBundle:Issue/blocks:priorityIcon.html.twig' with {'priority': issue.priority} %}
                 <span class="field">Asignee:</span>
                 <div class="image-item">
-                    <img src="/images/gorka.png">
+                    {% image '@KretaWebBundle/Resources/public/img/user.jpg' %}
+                        <img src="{{ asset_url }}">
+                    {% endimage %}
                     <span>{{ issue.assignee.fullName }}</span>
                 </div>
             </div>
@@ -27,7 +29,9 @@
                 <span>{{ issue.resolution ? issue.resolution.description : '-' }}</span>
                 <span class="field">Assigner:</span>
                 <div class="image-item">
-                    <img src="/images/gorka.png">
+                    {% image '@KretaWebBundle/Resources/public/img/user.jpg' %}
+                        <img src="{{ asset_url }}">
+                    {% endimage %}
                     <span>{{ issue.reporter.fullName }}</span>
                 </div>
             </div>

@@ -27,9 +27,10 @@
     }
   }
   .issue-footer {
+    margin: 0 .5em;
     img {
       width: 40px;
-      margin: 0 1em;
+      @include border-radius($standardRadius);
     }
     a {
       padding: 0 .5em;

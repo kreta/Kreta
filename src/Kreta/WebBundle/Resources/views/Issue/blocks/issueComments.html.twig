@@ -10,7 +10,9 @@
     {{ render(url('kreta_web_issue_comment_new',{'issueId': issue.id})) }}
     {% for comment in issue.comments %}
         <div class="kreta-issue-comment">
-            <img src="/images/gorka.png">
+            {% image '@KretaWebBundle/Resources/public/img/user.jpg' %}
+                <img src="{{ asset_url }}">
+            {% endimage %}
             <div class="comment-content">
                 <div class="comment-header">
                     <h4>{{ comment.writtenBy.fullName }}</h4>

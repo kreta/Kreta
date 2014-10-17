@@ -11,7 +11,16 @@
         <div class="kreta-mini-issue">
             <a href="{{ url('kreta_web_issue_view', { 'id' : issue.id }) }}"><h3>{{ issue.title }}</h3></a>
             <div class="issue-footer">
-                <img class="project" src="/images/mcb.png">
+                <a href="{{ url('kreta_web_project_view', { 'id' : issue.project.id }) }}">
+                    {% image '@KretaWebBundle/Resources/public/img/project.jpg' %}
+                        <img src="{{ asset_url }}">
+                    {% endimage %}
+                </a>
+                <a href="">
+                    {% image '@KretaWebBundle/Resources/public/img/user.jpg' %}
+                        <img src="{{ asset_url }}">
+                    {% endimage %}
+                </a>
                 <a href="{{ url('kreta_web_issue_view', { 'id' : issue.id }) }}"><i class="fa fa-eye"></i></a>
                 <a href="{{ url('kreta_web_issue_view', { 'id' : issue.id }) }}"><i class="fa fa-comment"></i>
                     {{ issue.comments | length }}

@@ -1,5 +1,7 @@
 <form action="{{ url('kreta_web_issue_comment_new', {'issueId': issue.id}) }}" method="post" class="kreta-issue-comment-add">
-    <img src="/images/gorka.png">
+    {% image '@KretaWebBundle/Resources/public/img/user.jpg' %}
+        <img src="{{ asset_url }}">
+    {% endimage %}
     <div class="textarea-container">
         {{ form_row(form.description) }}
         {{ form_end(form) }}

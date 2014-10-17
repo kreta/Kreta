@@ -2,12 +2,13 @@
 @import 'compass/css3';
 
 .kreta-mini-project {
-  border-top: 1px solid $borderGrey;
   .title-container {
+    border-top: 1px solid $borderGrey;
     img {
-      width: 60px;
+      width: 50px;
       display: inline-block;
-      padding: 10px;
+      margin: 10px;
+      @include border-radius($standardRadius);
     }
     h3 {
       margin: 0;
