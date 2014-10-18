@@ -17,6 +17,7 @@ use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Core\Model\Interfaces\ProjectRoleInterface;
 use Kreta\Component\Core\Model\Interfaces\UserInterface;
 use Kreta\Component\Core\Repository\ProjectRepository;
+use Kreta\Component\Core\Repository\UserRepository;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -47,6 +48,10 @@ class LoadRoleDataSpec extends ObjectBehavior
         ContainerInterface $container,
         ProjectRepository $projectRepository,
         ProjectInterface $project,
+        ProjectInterface $project2,
+        ProjectInterface $project3,
+        ProjectInterface $project4,
+        UserRepository $userRepository,
         UserInterface $user,
         ProjectRoleFactory $factory,
         ProjectRoleInterface $projectRole,
@@ -54,15 +59,15 @@ class LoadRoleDataSpec extends ObjectBehavior
     )
     {
         $container->get('kreta_core.repository_project')->shouldBeCalled()->willReturn($projectRepository);
-        $projectRepository->findAll()->shouldBeCalled()->willReturn(array($project));
+        $projectRepository->findAll()->shouldBeCalled()->willReturn(array($project, $project2, $project3, $project4));
 
-        $project->getParticipants()->shouldBeCalled()->willReturn(array($user));
+        $container->get('kreta_core.repository_user')->shouldBeCalled()->willReturn($userRepository);
+        $userRepository->findAll()->shouldBeCalled()->willReturn(array($user));
 
         $container->get('kreta_core.factory_projectRole')->shouldBeCalled()->willReturn($factory);
-        $factory->create()->shouldBeCalled()->willReturn($projectRole);
+        $factory->create(Argument::type('Kreta\Component\Core\Model\Interfaces\ProjectInterface'), $user)
+            ->shouldBeCalled()->willReturn($projectRole);
 
-        $projectRole->setProject($project)->shouldBeCalled()->willReturn($projectRole);
-        $projectRole->setUser($user)->shouldBeCalled()->willReturn($projectRole);
         $projectRole->setRole(Argument::type('string'))->shouldBeCalled()->willReturn($projectRole);
 
         $manager->persist($projectRole)->shouldBeCalled();

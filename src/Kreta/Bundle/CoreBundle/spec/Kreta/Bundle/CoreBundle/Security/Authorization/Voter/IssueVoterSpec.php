@@ -52,7 +52,7 @@ class IssueVoterSpec extends ObjectBehavior
 
     function it_does_not_support_class()
     {
-        $this->supportsClass('non-exist-class')->shouldReturn(false);
+        $this->supportsClass('Kreta\Component\Core\Model\Interfaces\ProjectInterface')->shouldReturn(false);
     }
 
     function it_does_not_vote_because_it_does_not_support_class(TokenInterface $token, ProjectInterface $project)

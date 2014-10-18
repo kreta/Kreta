@@ -49,17 +49,16 @@ Kreta\Component\Core\Model\User:
             length: 100
             nullable: true
 
-    manyToMany:
-        projects:
-            targetEntity: Kreta\Component\Core\Model\Interfaces\ProjectInterface
-            mappedBy: participants
     oneToMany:
         assignedIssues:
             targetEntity: Kreta\Component\Core\Model\Interfaces\IssueInterface
             mappedBy: assignee
-        reportedIssues:
-            targetEntity: Kreta\Component\Core\Model\Interfaces\IssueInterface
-            mappedBy: reporter
         comments:
             targetEntity: Kreta\Component\Core\Model\Interfaces\CommentInterface
             mappedBy: writtenBy
+        projectRoles:
+            targetEntity: Kreta\Component\Core\Model\Interfaces\ProjectRoleInterface
+            mappedBy: user
+        reportedIssues:
+            targetEntity: Kreta\Component\Core\Model\Interfaces\IssueInterface
+            mappedBy: reporter

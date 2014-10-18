@@ -22,19 +22,10 @@ Kreta\Component\Core\Model\Project:
             column: short_name
             type: string
             length: 4
-    manyToMany:
-        participants:
-            targetEntity: Kreta\Component\Core\Model\Interfaces\UserInterface
-            inversedBy: projects
-            joinTable:
-                name: project_user
-                joinColumns:
-                    project_id:
-                        referencedColumnName: id
-                inverseJoinColumns:
-                    user_id:
-                        referencedColumnName: id
     oneToMany:
         issues:
             targetEntity: Kreta\Component\Core\Model\Interfaces\IssueInterface
+            mappedBy: project
+        projectRoles:
+            targetEntity: Kreta\Component\Core\Model\Interfaces\ProjectRoleInterface
             mappedBy: project

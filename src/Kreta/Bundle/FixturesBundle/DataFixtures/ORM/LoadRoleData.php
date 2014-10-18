@@ -34,12 +34,13 @@ class LoadRoleData extends DataFixtures
     public function load(ObjectManager $manager)
     {
         $projects = $this->container->get('kreta_core.repository_project')->findAll();
+        $users = $this->container->get('kreta_core.repository_user')->findAll();
 
-        foreach ($projects as $project) {
-            foreach ($project->getParticipants() as $participant) {
-                $projectRole = $this->container->get('kreta_core.factory_projectRole')->create();
-                $projectRole->setProject($project);
-                $projectRole->setUser($participant);
+        foreach ($users as $user) {
+            $i = rand(0, count($users) - 5);
+            $userProjects = array($projects[$i], $projects[$i + 1], $projects[$i + 2], $projects[$i + 3]);
+            foreach ($userProjects as $project) {
+                $projectRole = $this->container->get('kreta_core.factory_projectRole')->create($project, $user);
                 $projectRole->setRole($this->projectRoles[array_rand($this->projectRoles)]);
 
                 $manager->persist($projectRole);

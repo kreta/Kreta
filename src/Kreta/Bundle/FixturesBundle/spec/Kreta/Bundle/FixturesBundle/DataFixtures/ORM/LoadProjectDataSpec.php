@@ -58,7 +58,6 @@ class LoadProjectDataSpec extends ObjectBehavior
         $factory->create()->shouldBeCalled()->willReturn($project);
 
         $project->setName(Argument::type('string'))->shouldBeCalled()->willReturn($project);
-        $project->addParticipant($user)->shouldBeCalled()->willReturn($project);
         $project->setShortName(Argument::type('string'))->shouldBeCalled()->willReturn($project);
 
         $manager->persist($project)->shouldBeCalled();

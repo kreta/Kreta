@@ -14,6 +14,7 @@ namespace spec\Kreta\Component\Core\Model;
 use Kreta\Component\Core\Model\Interfaces\IssueInterface;
 use Kreta\Component\Core\Model\Interfaces\ProjectRoleInterface;
 use Kreta\Component\Core\Model\Interfaces\UserInterface;
+use Kreta\Component\Core\Model\Project;
 use Kreta\Component\Core\Model\ProjectRole;
 use Kreta\Component\Core\Model\User;
 use PhpSpec\ObjectBehavior;
@@ -43,7 +44,6 @@ class ProjectSpec extends ObjectBehavior
     function its_issues_participants_and_project_roles_are_collection()
     {
         $this->getIssues()->shouldHaveType('Doctrine\Common\Collections\ArrayCollection');
-        $this->getParticipants()->shouldHaveType('Doctrine\Common\Collections\ArrayCollection');
         $this->getProjectRoles()->shouldHaveType('Doctrine\Common\Collections\ArrayCollection');
     }
 
@@ -66,19 +66,6 @@ class ProjectSpec extends ObjectBehavior
         $this->getName()->shouldReturn('Dummy name that it is a test for the PHPSpec');
 
         $this->getShortName()->shouldReturn('Dummy name that it is a te...');
-    }
-
-    function its_participants_are_be_mutable(UserInterface $participant)
-    {
-        $this->getParticipants()->shouldHaveCount(0);
-
-        $this->addParticipant($participant);
-
-        $this->getParticipants()->shouldHaveCount(1);
-
-        $this->removeParticipant($participant);
-
-        $this->getParticipants()->shouldHaveCount(0);
     }
 
     function its_project_roles_are_be_mutable(ProjectRoleInterface $projectRole)
@@ -105,9 +92,9 @@ class ProjectSpec extends ObjectBehavior
 
     function it_does_not_get_user_role(UserInterface $anotherUser)
     {
-        $projectRole = new ProjectRole();
+        $project = new Project();
         $user = new User();
-        $projectRole->setUser($user);
+        $projectRole = new ProjectRole($project, $user);
 
         $this->addProjectRole($projectRole)->shouldReturn($this);
         $anotherUser->getId()->shouldBeCalled()->willReturn('user-id');
@@ -117,9 +104,9 @@ class ProjectSpec extends ObjectBehavior
 
     function it_gets_user_role(UserInterface $anotherUser)
     {
-        $projectRole = new ProjectRole();
+        $project = new Project();
         $user = new User();
-        $projectRole->setUser($user);
+        $projectRole = new ProjectRole($project, $user);
         $projectRole->setRole('ROLE_ADMIN');
 
         $this->addProjectRole($projectRole)->shouldReturn($this);

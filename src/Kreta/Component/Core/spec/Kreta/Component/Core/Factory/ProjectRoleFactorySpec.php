@@ -11,6 +11,8 @@
 
 namespace spec\Kreta\Component\Core\Factory;
 
+use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
+use Kreta\Component\Core\Model\Interfaces\UserInterface;
 use PhpSpec\ObjectBehavior;
 
 /**
@@ -25,13 +27,8 @@ class ProjectRoleFactorySpec extends ObjectBehavior
         $this->shouldHaveType('Kreta\Component\Core\Factory\ProjectRoleFactory');
     }
 
-    function it_extends_abstract_factory()
+    function it_creates_a_project_role(ProjectInterface $project, UserInterface $user)
     {
-        $this->shouldHaveType('Kreta\Component\Core\Factory\Abstracts\AbstractFactory');
-    }
-
-    function it_creates_a_project_role()
-    {
-        $this->create()->shouldReturnAnInstanceOf('Kreta\Component\Core\Model\ProjectRole');
+        $this->create($project, $user)->shouldReturnAnInstanceOf('Kreta\Component\Core\Model\ProjectRole');
     }
 }

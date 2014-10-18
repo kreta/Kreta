@@ -22,6 +22,11 @@ use PhpSpec\ObjectBehavior;
  */
 class ProjectRoleSpec extends ObjectBehavior
 {
+    function let(ProjectInterface $project, UserInterface $user)
+    {
+        $this->beConstructedWith($project, $user);
+    }
+
     function it_is_initializable()
     {
         $this->shouldHaveType('Kreta\Component\Core\Model\ProjectRole');

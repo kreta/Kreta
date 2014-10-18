@@ -67,31 +67,6 @@ interface ProjectInterface
     public function setName($name);
 
     /**
-     * Gets participants.
-     *
-     * @return \Kreta\Component\Core\Model\Interfaces\UserInterface[]
-     */
-    public function getParticipants();
-
-    /**
-     * Adds participant.
-     *
-     * @param \Kreta\Component\Core\Model\Interfaces\UserInterface $participant The user object
-     *
-     * @return $this self Object
-     */
-    public function addParticipant(UserInterface $participant);
-
-    /**
-     * Removes participant.
-     *
-     * @param \Kreta\Component\Core\Model\Interfaces\UserInterface $participant The user object
-     *
-     * @return $this self Object
-     */
-    public function removeParticipant(UserInterface $participant);
-
-    /**
      * Gets project roles.
      *
      * @return \Kreta\Component\Core\Model\Interfaces\ProjectRoleInterface[]

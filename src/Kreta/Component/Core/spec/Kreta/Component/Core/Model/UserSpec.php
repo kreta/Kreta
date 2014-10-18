@@ -13,7 +13,7 @@ namespace spec\Kreta\Component\Core\Model;
 
 use Kreta\Component\Core\Model\Interfaces\CommentInterface;
 use Kreta\Component\Core\Model\Interfaces\IssueInterface;
-use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
+use Kreta\Component\Core\Model\Interfaces\ProjectRoleInterface;
 use PhpSpec\ObjectBehavior;
 
 /**
@@ -108,17 +108,17 @@ class UserSpec extends ObjectBehavior
         $this->getLastName()->shouldReturn('The dummy last name');
     }
 
-    function its_projects_be_mutable(ProjectInterface $project)
+    function its_projects_be_mutable(ProjectRoleInterface $projectRole)
     {
-        $this->getProjects()->shouldHaveCount(0);
+        $this->getProjectRoles()->shouldHaveCount(0);
 
-        $this->addProject($project);
+        $this->addProjectRole($projectRole);
 
-        $this->getProjects()->shouldHaveCount(1);
+        $this->getProjectRoles()->shouldHaveCount(1);
 
-        $this->removeProject($project);
+        $this->removeProjectRole($projectRole);
 
-        $this->getProjects()->shouldHaveCount(0);
+        $this->getProjectRoles()->shouldHaveCount(0);
     }
 
     function its_reported_issues_be_mutable(IssueInterface $issue)

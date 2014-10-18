@@ -8,7 +8,7 @@
 Kreta\Component\Core\Model\ProjectRole:
     type: entity
     repositoryClass: Kreta\Component\Core\Repository\ProjectRoleRepository
-    table: project_role
+    table: project_user
     id:
         project:
             type: entity
@@ -24,9 +24,13 @@ Kreta\Component\Core\Model\ProjectRole:
     manyToOne:
         project:
             targetEntity: Kreta\Component\Core\Model\Interfaces\ProjectInterface
-            inversedBy: projectRoles
+            inversedBy: participants
             joinColumn:
                 name: project_id
                 referencedColumnName: id
         user:
             targetEntity: Kreta\Component\Core\Model\Interfaces\UserInterface
+            inversedBy: projects
+            joinColumn:
+                name: user_id
+                referencedColumnName: id

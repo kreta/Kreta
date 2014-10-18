@@ -44,6 +44,15 @@ class ProjectRole implements ProjectRoleInterface
     protected $user;
 
     /**
+     * Constructor.
+     */
+    public function __construct(ProjectInterface $project, UserInterface $user)
+    {
+        $this->project = $project;
+        $this->user = $user;
+    }
+
+    /**
      * {@inheritdoc}
      */
     public function getProject()

@@ -15,7 +15,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Model\User as BaseUser;
 use Kreta\Component\Core\Model\Interfaces\CommentInterface;
 use Kreta\Component\Core\Model\Interfaces\IssueInterface;
-use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
+use Kreta\Component\Core\Model\Interfaces\ProjectRoleInterface;
 use Kreta\Component\Core\Model\Interfaces\UserInterface;
 
 /**
@@ -89,11 +89,11 @@ class User extends BaseUser implements UserInterface
     protected $lastName;
 
     /**
-     * Array that contains projects.
+     * Array that contains all the roles of the user.
      *
      * @var \Doctrine\Common\Collections\ArrayCollection
      */
-    protected $projects;
+    protected $projectRoles;
 
     /**
      * Array that contains reported issues.
@@ -110,7 +110,7 @@ class User extends BaseUser implements UserInterface
         $this->assignedIssues = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->createdAt = new \DateTime();
-        $this->projects = new ArrayCollection();
+        $this->projectRoles = new ArrayCollection();
         $this->reportedIssues = new ArrayCollection();
 
         parent::__construct();
@@ -301,17 +301,17 @@ class User extends BaseUser implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function getProjects()
+    public function getProjectRoles()
     {
-        return $this->projects;
+        return $this->projectRoles;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function addProject(ProjectInterface $project)
+    public function addProjectRole(ProjectRoleInterface $projectRole)
     {
-        $this->projects[] = $project;
+        $this->projectRoles[] = $projectRole;
 
         return $this;
     }
@@ -319,9 +319,9 @@ class User extends BaseUser implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function removeProject(ProjectInterface $project)
+    public function removeProjectRole(ProjectRoleInterface $projectRole)
     {
-        $this->projects->removeElement($project);
+        $this->projectRoles->removeElement($projectRole);
 
         return $this;
     }

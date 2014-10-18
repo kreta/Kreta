@@ -38,13 +38,6 @@ class Project extends AbstractModel implements ProjectInterface
     protected $name;
 
     /**
-     * Array that contains users.
-     *
-     * @var \Doctrine\Common\Collections\ArrayCollection
-     */
-    protected $participants;
-
-    /**
      * Array that contains all the roles of the project.
      *
      * @var \Doctrine\Common\Collections\ArrayCollection
@@ -64,7 +57,6 @@ class Project extends AbstractModel implements ProjectInterface
     public function __construct()
     {
         $this->issues = new ArrayCollection();
-        $this->participants = new ArrayCollection();
         $this->projectRoles = new ArrayCollection();
     }
 
@@ -114,34 +106,6 @@ class Project extends AbstractModel implements ProjectInterface
         if ($this->shortName === null) {
             $this->shortName = substr($this->name, 0, 26) . '...';
         }
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getParticipants()
-    {
-        return $this->participants;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function addParticipant(UserInterface $participant)
-    {
-        $this->participants[] = $participant;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function removeParticipant(UserInterface $participant)
-    {
-        $this->participants->removeElement($participant);
 
         return $this;
     }
