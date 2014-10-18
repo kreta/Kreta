@@ -19,10 +19,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 class CommentType extends AbstractType
 {
     /**
-     * Buildform function
-     *
-     * @param FormBuilderInterface $builder the formBuilder
-     * @param array                $options the options for this form
+     * @{@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -34,9 +31,7 @@ class CommentType extends AbstractType
     }
 
     /**
-     * Return unique name for this form
-     *
-     * @return string
+     * @{@inheritdoc}
      */
     public function getName()
     {

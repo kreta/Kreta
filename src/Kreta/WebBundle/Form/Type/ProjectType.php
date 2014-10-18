@@ -19,10 +19,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 class ProjectType extends AbstractType
 {
     /**
-     * Buildform function
-     *
-     * @param FormBuilderInterface $builder the formBuilder
-     * @param array                $options the options for this form
+     * @{@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -37,9 +34,7 @@ class ProjectType extends AbstractType
     }
 
     /**
-     * Return unique name for this form
-     *
-     * @return string
+     * @{@inheritdoc}
      */
     public function getName()
     {

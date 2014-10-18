@@ -12,7 +12,6 @@ namespace Kreta\WebBundle\Form\Type;
 
 use Kreta\Component\Core\Model\Interfaces\IssueInterface;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**

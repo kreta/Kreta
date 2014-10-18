@@ -16,13 +16,11 @@
                 <a href="">{{ participant.fullName }}</a>
             </div>
         {% endfor %}
-        <div class="kreta-actions">
-            <form method="post" action="{{ url('kreta_web_project_participant_new', {'id' : project.id }) }}">
-                <input type="text" name="email" placeholder="New user's email">
-                <button class="kreta-action" type="submit">
-                    <i class="fa fa-plus"></i>Add user to project
-                </button>
-            </form>
-        </div>
+        <form method="post" action="{{ url('kreta_web_project_participant_new', {'id' : project.id }) }}">
+            <input type="text" name="email" placeholder="New user's email">
+            <button class="kreta-action" type="submit">
+                <i class="fa fa-plus"></i>Add user to project
+            </button>
+        </form>
     </div>
 {% endblock %}
