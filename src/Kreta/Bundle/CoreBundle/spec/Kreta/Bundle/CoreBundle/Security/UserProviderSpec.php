@@ -107,8 +107,8 @@ class UserProviderSpec extends ObjectBehavior
         ResourceOwnerInterface $resourceOwner
     )
     {
-        $response->getEmail()->shouldBeCalled()->willReturn('user@kreta.com');
-        $userManager->findUserBy(array('email' => 'user@kreta.com'))->shouldBeCalled()->willReturn($user);
+        $response->getUsername()->shouldBeCalled()->willReturn('1234567');
+        $userManager->findUserBy(array('githubId' => '1234567'))->shouldBeCalled()->willReturn($user);
 
         $response->getResourceOwner()->shouldBeCalled()->willReturn($resourceOwner);
         $resourceOwner->getName()->shouldBeCalled()->willReturn('github');
