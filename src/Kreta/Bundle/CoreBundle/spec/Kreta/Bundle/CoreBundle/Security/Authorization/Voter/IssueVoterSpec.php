@@ -81,7 +81,23 @@ class IssueVoterSpec extends ObjectBehavior
         $this->vote($token, $issue, array('assign'))->shouldReturn(-1);
     }
 
-    function it_does_not_vote(TokenInterface $token, Issue $issue, UserInterface $user)
+    function it_does_not_vote_assign_or_edit_grant(
+        TokenInterface $token,
+        Issue $issue,
+        UserInterface $user,
+        ProjectInterface $project
+    )
+    {
+        $token->getUser()->shouldBeCalled()->willReturn($user);
+        $issue->getProject()->shouldBeCalled()->willReturn($project);
+        $project->getUserRole($user)->shouldBeCalled()->willReturn('ROLE_PARTICIPANT');
+        $issue->isAssignee($user)->shouldBeCalled()->willReturn(false);
+        $issue->isReporter($user)->shouldBeCalled()->willReturn(false);
+
+        $this->vote($token, $issue, array('assign'))->shouldReturn(-1);
+    }
+
+    function it_does_not_vote_view_grant(TokenInterface $token, Issue $issue, UserInterface $user)
     {
         $token->getUser()->shouldBeCalled()->willReturn($user);
         $issue->isParticipant($user)->shouldBeCalled()->willReturn(false);

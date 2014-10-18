@@ -12,7 +12,10 @@
 namespace spec\Kreta\Component\Core\Model;
 
 use Kreta\Component\Core\Model\Interfaces\IssueInterface;
+use Kreta\Component\Core\Model\Interfaces\ProjectRoleInterface;
 use Kreta\Component\Core\Model\Interfaces\UserInterface;
+use Kreta\Component\Core\Model\ProjectRole;
+use Kreta\Component\Core\Model\User;
 use PhpSpec\ObjectBehavior;
 
 /**
@@ -37,17 +40,14 @@ class ProjectSpec extends ObjectBehavior
         $this->shouldImplement('Kreta\Component\Core\Model\Interfaces\ProjectInterface');
     }
 
-    function its_issues_is_collection()
+    function its_issues_participants_and_project_roles_are_collection()
     {
         $this->getIssues()->shouldHaveType('Doctrine\Common\Collections\ArrayCollection');
-    }
-
-    function its_participants_is_collection()
-    {
         $this->getParticipants()->shouldHaveType('Doctrine\Common\Collections\ArrayCollection');
+        $this->getProjectRoles()->shouldHaveType('Doctrine\Common\Collections\ArrayCollection');
     }
 
-    function its_issues_are_be_mutable(IssueInterface $issue)
+    function its_issues_are_mutable(IssueInterface $issue)
     {
         $this->getIssues()->shouldHaveCount(0);
 
@@ -81,6 +81,19 @@ class ProjectSpec extends ObjectBehavior
         $this->getParticipants()->shouldHaveCount(0);
     }
 
+    function its_project_roles_are_be_mutable(ProjectRoleInterface $projectRole)
+    {
+        $this->getProjectRoles()->shouldHaveCount(0);
+
+        $this->addProjectRole($projectRole);
+
+        $this->getProjectRoles()->shouldHaveCount(1);
+
+        $this->removeProjectRole($projectRole);
+
+        $this->getProjectRoles()->shouldHaveCount(0);
+    }
+
     function its_short_name_is_mutable()
     {
         $this->setShortName('Dummy short name that it is a test for the PHPSpec')->shouldReturn($this);
@@ -88,5 +101,29 @@ class ProjectSpec extends ObjectBehavior
 
         $this->setShortName('Dummy short name')->shouldReturn($this);
         $this->getShortName()->shouldReturn('Dummy short name');
+    }
+
+    function it_does_not_get_user_role(UserInterface $anotherUser)
+    {
+        $projectRole = new ProjectRole();
+        $user = new User();
+        $projectRole->setUser($user);
+
+        $this->addProjectRole($projectRole)->shouldReturn($this);
+        $anotherUser->getId()->shouldBeCalled()->willReturn('user-id');
+
+        $this->getUserRole($anotherUser)->shouldReturn(null);
+    }
+
+    function it_gets_user_role(UserInterface $anotherUser)
+    {
+        $projectRole = new ProjectRole();
+        $user = new User();
+        $projectRole->setUser($user);
+        $projectRole->setRole('ROLE_ADMIN');
+
+        $this->addProjectRole($projectRole)->shouldReturn($this);
+
+        $this->getUserRole($anotherUser)->shouldReturn('ROLE_ADMIN');
     }
 }

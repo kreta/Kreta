@@ -17,6 +17,8 @@ use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Core\Model\Interfaces\ResolutionInterface;
 use Kreta\Component\Core\Model\Interfaces\StatusInterface;
 use Kreta\Component\Core\Model\Interfaces\UserInterface;
+use Kreta\Component\Core\Model\Project;
+use Kreta\Component\Core\Model\User;
 use PhpSpec\ObjectBehavior;
 
 /**
@@ -41,7 +43,7 @@ class IssueSpec extends ObjectBehavior
         $this->shouldImplement('Kreta\Component\Core\Model\Interfaces\IssueInterface');
     }
 
-    function its_comments_labels_and_watchers_is_collection()
+    function its_comments_labels_and_watchers_are_collections()
     {
         $this->getComments()->shouldHaveType('Doctrine\Common\Collections\ArrayCollection');
         $this->getLabels()->shouldHaveType('Doctrine\Common\Collections\ArrayCollection');
@@ -54,7 +56,22 @@ class IssueSpec extends ObjectBehavior
         $this->getAssignee()->shouldReturn($assignee);
     }
 
-    function its_comments_be_mutable(CommentInterface $comment)
+    function it_is_not_assignee(UserInterface $assignee, UserInterface $user)
+    {
+        $this->setAssignee($assignee)->shouldReturn($this);
+        $assignee->getId()->shouldBeCalled()->willReturn('assignee-id');
+        $user->getId()->shouldBeCalled()->willReturn('user-id');
+        $this->isAssignee($user)->shouldReturn(false);
+    }
+
+    function it_is_assignee(UserInterface $assignee)
+    {
+        $this->setAssignee($assignee)->shouldReturn($this);
+        $assignee->getId()->shouldBeCalled()->willReturn('user-id');
+        $this->isAssignee($assignee)->shouldReturn(true);
+    }
+
+    function its_comments_are_mutable(CommentInterface $comment)
     {
         $this->getComments()->shouldHaveCount(0);
 
@@ -73,7 +90,7 @@ class IssueSpec extends ObjectBehavior
         $this->getDescription()->shouldReturn('This is a dummy description of issue');
     }
 
-    function its_labels_be_mutable(LabelInterface $label)
+    function its_labels_are_mutable(LabelInterface $label)
     {
         $this->getLabels()->shouldHaveCount(0);
 
@@ -110,6 +127,21 @@ class IssueSpec extends ObjectBehavior
         $this->getReporter()->shouldReturn($reporter);
     }
 
+    function it_is_not_reporter(UserInterface $reporter, UserInterface $user)
+    {
+        $this->setReporter($reporter)->shouldReturn($this);
+        $reporter->getId()->shouldBeCalled()->willReturn('reporter-id');
+        $user->getId()->shouldBeCalled()->willReturn('user-id');
+        $this->isReporter($user)->shouldReturn(false);
+    }
+
+    function it_is_reporter(UserInterface $reporter)
+    {
+        $this->setReporter($reporter)->shouldReturn($this);
+        $reporter->getId()->shouldBeCalled()->willReturn('user-id');
+        $this->isReporter($reporter)->shouldReturn(true);
+    }
+
     function its_status_is_mutable(StatusInterface $status)
     {
         $this->setStatus($status)->shouldReturn($this);
@@ -128,7 +160,7 @@ class IssueSpec extends ObjectBehavior
         $this->getType()->shouldReturn(0);
     }
 
-    function its_watchers_be_mutable(UserInterface $watcher)
+    function its_watchers_are_mutable(UserInterface $watcher)
     {
         $this->getWatchers()->shouldHaveCount(0);
 
@@ -139,5 +171,28 @@ class IssueSpec extends ObjectBehavior
         $this->removeWatcher($watcher);
 
         $this->getLabels()->shouldHaveCount(0);
+    }
+
+    function it_is_not_participant(UserInterface $anotherUser)
+    {
+        $project = new Project();
+        $user = new User();
+        $project->addParticipant($user);
+
+        $this->setProject($project)->shouldReturn($this);
+        $anotherUser->getId()->shouldBeCalled()->willReturn('user-id');
+
+        $this->isParticipant($anotherUser)->shouldReturn(false);
+    }
+
+    function it_is_participant(UserInterface $anotherUser)
+    {
+        $project = new Project();
+        $user = new User();
+        $project->addParticipant($user);
+
+        $this->setProject($project)->shouldReturn($this);
+
+        $this->isParticipant($anotherUser)->shouldReturn(true);
     }
 }
