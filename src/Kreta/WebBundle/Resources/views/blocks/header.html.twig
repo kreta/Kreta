@@ -8,7 +8,7 @@
     </div>
     <div class="kreta-user-menu small-6 columns">
         <a href="{{ url('kreta_web_issue_new') }}"><i class="fa fa-plus"></i></a>
-        <a href=""><i class="fa fa-wrench"></i></a>
+        <a href="{{ url('kreta_web_user_edit') }}"><i class="fa fa-wrench"></i></a>
         {% image '@KretaWebBundle/Resources/public/img/user.jpg' %}
             <img class="kreta-user-image" src="{{ asset_url }}">
         {% endimage %}

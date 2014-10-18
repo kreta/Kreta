@@ -14,6 +14,10 @@ kreta_web_project:
     prefix:   /projects
     resource: "@KretaWebBundle/Resources/config/routing/project.yml"
 
+kreta_web_user:
+    prefix:   /users
+    resource: "@KretaWebBundle/Resources/config/routing/user.yml"
+
 kreta_web_component_issue:
     prefix: /component/issues/
     resource: "@KretaWebBundle/Resources/config/routing/component/issue.yml"
