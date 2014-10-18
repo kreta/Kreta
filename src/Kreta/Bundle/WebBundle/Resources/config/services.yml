@@ -1,5 +1,5 @@
 parameters:
-#    kreta_web.example.class: Kreta\WebBundle\Example
+#    kreta_web.example.class: Kreta\Bundle\WebBundle\Example
 
 services:
 #    kreta_web.example:

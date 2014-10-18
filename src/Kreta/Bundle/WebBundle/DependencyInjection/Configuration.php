@@ -9,7 +9,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\WebBundle\DependencyInjection;
+namespace Kreta\Bundle\WebBundle\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;

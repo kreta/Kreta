@@ -9,11 +9,11 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\WebBundle\Controller;
+namespace Kreta\Bundle\WebBundle\Controller;
 
 use Kreta\Component\Core\Model\Interfaces\IssueInterface;
-use Kreta\WebBundle\Form\Type\CommentType;
-use Kreta\WebBundle\Form\Type\IssueType;
+use Kreta\Bundle\WebBundle\Form\Type\CommentType;
+use Kreta\Bundle\WebBundle\Form\Type\IssueType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 

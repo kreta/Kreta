@@ -9,7 +9,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\WebBundle\Controller;
+namespace Kreta\Bundle\WebBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 

@@ -8,7 +8,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\WebBundle\Form\Type;
+namespace Kreta\Bundle\WebBundle\Form\Type;
 
 use Kreta\Component\Core\Model\Interfaces\IssueInterface;
 use Symfony\Component\Form\AbstractType;

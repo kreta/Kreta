@@ -9,9 +9,9 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\WebBundle\Controller;
+namespace Kreta\Bundle\WebBundle\Controller;
 
-use Kreta\WebBundle\Form\Type\ProjectType;
+use Kreta\Bundle\WebBundle\Form\Type\ProjectType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 

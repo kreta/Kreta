@@ -8,15 +8,15 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\WebBundle\Form\Type;
+namespace Kreta\Bundle\WebBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
- * Class CommentType
+ * Class ProjectType
  */
-class CommentType extends AbstractType
+class ProjectType extends AbstractType
 {
     /**
      * @{@inheritdoc}
@@ -24,9 +24,12 @@ class CommentType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('description', 'textarea', array(
+            ->add('name', 'text', array(
                 'required' => true,
-                'label' => false
+                'label'    => 'Name',
+            ))
+            ->add('shortName', 'text', array(
+                'label'    => 'Short name',
             ));
     }
 
@@ -35,6 +38,6 @@ class CommentType extends AbstractType
      */
     public function getName()
     {
-        return 'kreta_core_comment_type';
+        return 'kreta_core_project_type';
     }
 }
