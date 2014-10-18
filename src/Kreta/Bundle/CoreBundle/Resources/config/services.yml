@@ -35,6 +35,7 @@ parameters:
     kreta_core.repository_class_user: Kreta\Component\Core\Repository\UserRepository
 
     kreta_core.security_class_userProvider: Kreta\Bundle\CoreBundle\Security\UserProvider
+    kreta_core.security_class_issueVoter: Kreta\CoreBundle\Security\Authorization\Voter\IssueVoter
 
 services:
 #### FACTORIES ####
@@ -101,3 +102,9 @@ services:
     kreta_user_provider:
         class: %kreta_core.security_class_userProvider%
         arguments: [@fos_user.user_manager, {bitbucket: bitbucketId, github: githubId}]
+
+    kreta_issue_voter:
+        class: %kreta_core.security_class_issueVoter%
+        public: false
+        tags:
+           - { name: security.voter }
