@@ -30,6 +30,9 @@ class UserType extends AbstractType
             ))
             ->add('lastName', null, array(
                 'label' => 'Last Name'
+            ))
+            ->add('email', null, array (
+                'label' => 'Email'
             ));
     }
 
