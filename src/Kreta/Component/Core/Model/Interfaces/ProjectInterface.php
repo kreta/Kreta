@@ -92,6 +92,31 @@ interface ProjectInterface
     public function removeParticipant(UserInterface $participant);
 
     /**
+     * Gets project roles.
+     *
+     * @return \Kreta\Component\Core\Model\Interfaces\ProjectRoleInterface[]
+     */
+    public function getProjectRoles();
+
+    /**
+     * Adds project role.
+     *
+     * @param \Kreta\Component\Core\Model\Interfaces\ProjectRoleInterface $projectRole The project role
+     *
+     * @return $this self Object
+     */
+    public function addProjectRole(ProjectRoleInterface $projectRole);
+
+    /**
+     * Removes project role.
+     *
+     * @param \Kreta\Component\Core\Model\Interfaces\ProjectRoleInterface $projectRole The project role
+     *
+     * @return $this self Object
+     */
+    public function removeProjectRole(ProjectRoleInterface $projectRole);
+
+    /**
      * Gets short name.
      *
      * @return string
@@ -106,4 +131,13 @@ interface ProjectInterface
      * @return $this self Object
      */
     public function setShortName($shortName);
+
+    /**
+     * Gets role of user given.
+     *
+     * @param \Kreta\Component\Core\Model\Interfaces\UserInterface $user The user
+     *
+     * @return string
+     */
+    public function getUserRole(UserInterface $user);
 }

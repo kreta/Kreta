@@ -18,6 +18,9 @@ namespace Kreta\Component\Core\Model\Interfaces;
  */
 interface ProjectRoleInterface
 {
+    const ADMIN = 'ROLE_ADMIN';
+    const PARTICIPANT = 'ROLE_PARTICIPANT';
+
     /**
      * Gets project.
      *

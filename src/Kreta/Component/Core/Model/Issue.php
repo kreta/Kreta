@@ -143,6 +143,14 @@ class Issue extends AbstractModel implements IssueInterface
     /**
      * {@inheritdoc}
      */
+    public function isAssignee(UserInterface $user)
+    {
+        return $this->assignee->getId() === $user->getId();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getComments()
     {
         return $this->comments;
@@ -271,6 +279,14 @@ class Issue extends AbstractModel implements IssueInterface
     /**
      * {@inheritdoc}
      */
+    public function isReporter(UserInterface $user)
+    {
+        return $this->reporter->getId() === $user->getId();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getResolution()
     {
         return $this->resolution;
@@ -366,5 +382,19 @@ class Issue extends AbstractModel implements IssueInterface
         $this->watchers->removeElement($watcher);
 
         return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isParticipant(UserInterface $user)
+    {
+        foreach ($this->project->getParticipants() as $participant) {
+            if ($user->getId() === $participant->getId()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

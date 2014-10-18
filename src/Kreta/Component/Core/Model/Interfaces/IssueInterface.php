@@ -46,11 +46,20 @@ interface IssueInterface
     /**
      * Sets the assignee.
      *
-     * @param \Kreta\Component\Core\Model\Interfaces\UserInterface $assigner The assigner
+     * @param \Kreta\Component\Core\Model\Interfaces\UserInterface $assignee The assignee
      *
      * @return $this self Object
      */
-    public function setAssignee(UserInterface $assigner);
+    public function setAssignee(UserInterface $assignee);
+
+    /**
+     * Checks that the user given is assignee.
+     *
+     * @param \Kreta\Component\Core\Model\Interfaces\UserInterface $user The user
+     *
+     * @return boolean
+     */
+    public function isAssignee(UserInterface $user);
 
     /**
      * Gets comments.
@@ -149,6 +158,15 @@ interface IssueInterface
      * @return $this self Object
      */
     public function setReporter(UserInterface $reporter);
+
+    /**
+     * Checks that the user given is reporter.
+     *
+     * @param \Kreta\Component\Core\Model\Interfaces\UserInterface $user The user
+     *
+     * @return boolean
+     */
+    public function isReporter(UserInterface $user);
 
     /**
      * Gets project.
@@ -254,4 +272,13 @@ interface IssueInterface
      * @return $this self Object
      */
     public function removeWatcher(UserInterface $watcher);
+
+    /**
+     * Checks that the user given is project participant.
+     *
+     * @param \Kreta\Component\Core\Model\Interfaces\UserInterface $user The user
+     *
+     * @return boolean
+     */
+    public function isParticipant(UserInterface $user);
 }

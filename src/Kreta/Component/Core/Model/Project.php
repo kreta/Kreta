@@ -15,6 +15,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Kreta\Component\Core\Model\Abstracts\AbstractModel;
 use Kreta\Component\Core\Model\Interfaces\IssueInterface;
 use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
+use Kreta\Component\Core\Model\Interfaces\ProjectRoleInterface;
 use Kreta\Component\Core\Model\Interfaces\UserInterface;
 
 /**
@@ -44,6 +45,13 @@ class Project extends AbstractModel implements ProjectInterface
     protected $participants;
 
     /**
+     * Array that contains all the roles of the project.
+     *
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     */
+    protected $projectRoles;
+
+    /**
      * The short name.
      *
      * @var string
@@ -57,6 +65,7 @@ class Project extends AbstractModel implements ProjectInterface
     {
         $this->issues = new ArrayCollection();
         $this->participants = new ArrayCollection();
+        $this->projectRoles = new ArrayCollection();
     }
 
     /**
@@ -140,6 +149,34 @@ class Project extends AbstractModel implements ProjectInterface
     /**
      * {@inheritdoc}
      */
+    public function getProjectRoles()
+    {
+        return $this->projectRoles;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function addProjectRole(ProjectRoleInterface $projectRole)
+    {
+        $this->projectRoles[] = $projectRole;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function removeProjectRole(ProjectRoleInterface $projectRole)
+    {
+        $this->projectRoles->removeElement($projectRole);
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getShortName()
     {
         return $this->shortName;
@@ -159,5 +196,19 @@ class Project extends AbstractModel implements ProjectInterface
         $this->shortName = $shortName;
 
         return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getUserRole(UserInterface $user)
+    {
+        foreach ($this->projectRoles as $projectRole) {
+            if ($projectRole->getUser()->getId() === $user->getId()) {
+                return $projectRole->getRole();
+            }
+        }
+
+        return null;
     }
 }
