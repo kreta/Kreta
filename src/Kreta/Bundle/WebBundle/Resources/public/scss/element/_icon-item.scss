@@ -35,6 +35,8 @@
   i {
     background: $mainWhite;
     padding: 0 .5em;
+    min-width: 35px;
+    text-align: center;
     line-height: 30px;
     display: inline-block;
     @include border-radius($standardRadius);

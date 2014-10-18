@@ -1,9 +1,9 @@
 @import "settings";
 
-@import "../../../../../../vendor/zurb/foundation/scss/normalize";
-@import "../../../../../../vendor/zurb/foundation/scss/foundation/components/grid";
-@import "../../../../../../vendor/zurb/foundation/scss/foundation/components/buttons";
-@import "../../../../../../vendor/zurb/foundation/scss/foundation/components/forms";
+@import "../../../../../../../vendor/zurb/foundation/scss/normalize";
+@import "../../../../../../../vendor/zurb/foundation/scss/foundation/components/grid";
+@import "../../../../../../../vendor/zurb/foundation/scss/foundation/components/buttons";
+@import "../../../../../../../vendor/zurb/foundation/scss/foundation/components/forms";
 
 @import "layout/header";
 @import "layout/form";
@@ -29,6 +29,7 @@ body {
 .kreta-content {
   margin: 1em auto;
 }
+
 
 a {
   color: $mainBlack;
