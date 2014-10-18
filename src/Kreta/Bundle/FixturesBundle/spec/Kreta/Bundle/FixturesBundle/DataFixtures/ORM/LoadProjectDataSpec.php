@@ -14,8 +14,6 @@ namespace spec\Kreta\Bundle\FixturesBundle\DataFixtures\ORM;
 use Doctrine\Common\Persistence\ObjectManager;
 use Kreta\Component\Core\Factory\ProjectFactory;
 use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
-use Kreta\Component\Core\Model\Interfaces\UserInterface;
-use Kreta\Component\Core\Repository\UserRepository;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -44,16 +42,11 @@ class LoadProjectDataSpec extends ObjectBehavior
 
     function it_loads(
         ContainerInterface $container,
-        UserRepository $userRepository,
-        UserInterface $user,
         ProjectFactory $factory,
         ProjectInterface $project,
         ObjectManager $manager
     )
     {
-        $container->get('kreta_core.repository_user')->shouldBeCalled()->willReturn($userRepository);
-        $userRepository->findAll()->shouldBeCalled()->willReturn(array($user));
-
         $container->get('kreta_core.factory_project')->shouldBeCalled()->willReturn($factory);
         $factory->create()->shouldBeCalled()->willReturn($project);
 

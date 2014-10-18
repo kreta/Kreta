@@ -37,7 +37,7 @@ class LoadRoleData extends DataFixtures
         $users = $this->container->get('kreta_core.repository_user')->findAll();
 
         foreach ($users as $user) {
-            $i = rand(0, count($users) - 5);
+            $i = rand(0, count($projects) - 5);
             $userProjects = array($projects[$i], $projects[$i + 1], $projects[$i + 2], $projects[$i + 3]);
             foreach ($userProjects as $project) {
                 $projectRole = $this->container->get('kreta_core.factory_projectRole')->create($project, $user);

@@ -23,10 +23,9 @@
         "symfony/dependency-injection":        "~2.3",
         "symfony/http-kernel":                 "~2.3",
         "symfony/security":                    "~2.3",
+        "hwi/oauth-bundle":                    "0.4.*@dev",
 
-        "kreta/core":                          "dev-master",
-
-        "hwi/oauth-bundle":                    "0.4.*@dev"
+        "kreta/core":                          "dev-master"
     },
     "require-dev": {
         "phpspec/phpspec":                     "2.1.x-dev",

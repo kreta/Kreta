@@ -19,9 +19,7 @@
     ],
     "require": {
         "php":                                 ">=5.3.3",
-        "doctrine/collections":                "~1.0",
-        "doctrine/common":                     "~2.3",
-
+        "doctrine/orm":                        "~2.2,>=2.2.3",
         "friendsofsymfony/user-bundle":        "~2.0@dev"
     },
     "require-dev": {
