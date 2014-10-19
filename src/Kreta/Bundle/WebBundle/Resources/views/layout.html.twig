@@ -17,6 +17,18 @@
 {% block body %}
     {% include 'KretaWebBundle:blocks:header.html.twig' %}
     <div class="kreta-content row">
+        {% for flashMessage in app.session.flashbag.get('error') %}
+            <div class="kreta-flash error">
+                <i class="fa fa-times-circle-o"></i>
+                <span>{{ flashMessage }}</span>
+            </div>
+        {% endfor %}
+        {% for flashMessage in app.session.flashbag.get('success') %}
+            <div class="kreta-flash success">
+                <i class="fa fa-check-circle-o"></i>
+                <span>{{ flashMessage }}</span>
+            </div>
+        {% endfor %}
         {% block content %}{% endblock %}
     </div>
 {% endblock %}

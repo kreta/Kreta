@@ -42,8 +42,10 @@ class IssueController extends Controller
                 $manager = $this->getDoctrine()->getManager();
                 $manager->persist($issue);
                 $manager->flush();
+                $this->get('session')->getFlashBag()->add('success', 'Issue created successfully');
                 return $this->redirect($this->generateUrl('kreta_web_issue_view', array('id' => $issue->getId())));
             }
+            $this->get('session')->getFlashBag()->add('error', 'Some errors found in your issue');
         }
 
         return $this->render('KretaWebBundle:Issue:new.html.twig', array(
@@ -66,8 +68,10 @@ class IssueController extends Controller
                 $manager = $this->getDoctrine()->getManager();
                 $manager->persist($issue);
                 $manager->flush();
+                $this->get('session')->getFlashBag()->add('success', 'Issue edited successfully');
                 return $this->redirect($this->generateUrl('kreta_web_issue_view', array('id' => $issue->getId())));
             }
+            $this->get('session')->getFlashBag()->add('error', 'Some errors found in your issue');
         }
 
         return $this->render('KretaWebBundle:Issue:edit.html.twig', array(
@@ -94,6 +98,7 @@ class IssueController extends Controller
                 $manager = $this->getDoctrine()->getManager();
                 $manager->persist($comment);
                 $manager->flush();
+                $this->get('session')->getFlashBag()->add('success', 'Comment added successfully');
                 return $this->redirect($this->generateUrl('kreta_web_issue_view', array('id' => $issue->getId())));
             }
             return $this->redirect($this->generateUrl('kreta_web_issue_view', array('id' => $issue->getId())));

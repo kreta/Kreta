@@ -21,11 +21,11 @@
                         <img src="{{ asset_url }}">
                     {% endimage %}
                 </a>
-                <a href="{{ url('kreta_web_issue_view', { 'id' : issue.id }) }}"><i class="fa fa-eye"></i></a>
+                <a class='view-issue' href="{{ url('kreta_web_issue_view', { 'id' : issue.id }) }}"><i class="fa fa-eye"></i></a>
                 <a href="{{ url('kreta_web_issue_view', { 'id' : issue.id }) }}"><i class="fa fa-comment"></i>
                     {{ issue.comments | length }}
                 </a>
-                <a href="{{ url('kreta_web_issue_edit', { 'id' : issue.id }) }}"><i class="fa fa-pencil"></i></a>
+                <a class='edit-issue' href="{{ url('kreta_web_issue_edit', { 'id' : issue.id }) }}"><i class="fa fa-pencil"></i></a>
             </div>
             {% include 'KretaWebBundle:Issue/blocks:typeIcon.html.twig' with {'type': issue.type} %}
             {% include 'KretaWebBundle:Issue/blocks:priorityIcon.html.twig' with {'priority': issue.priority} %}

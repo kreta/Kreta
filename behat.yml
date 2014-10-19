@@ -15,6 +15,9 @@ default:
         issue:
             contexts:
                 - Kreta\Bundle\CoreBundle\Behat\UserContext
+                - Kreta\Bundle\CoreBundle\Behat\StatusContext
+                - Kreta\Bundle\CoreBundle\Behat\ProjectContext
+                - Kreta\Bundle\CoreBundle\Behat\IssueContext
                 - Kreta\Bundle\WebBundle\Behat\DefaultContext
             filters:
                 tags: "@issue"

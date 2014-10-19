@@ -26,6 +26,7 @@ class UserController extends Controller
             $manager = $this->getDoctrine()->getManager();
             $manager->persist($user);
             $manager->flush();
+            $this->get('session')->getFlashBag()->add('success', 'Profile updated successfully');
         }
 
         return $this->render('@KretaWeb/User/edit.html.twig', array('form' => $form->createView(), 'user' => $user));

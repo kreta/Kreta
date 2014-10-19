@@ -41,6 +41,7 @@ class ProjectController extends Controller
                 $manager->persist($project);
                 $project->addParticipant($this->getUser());
                 $manager->flush();
+                $this->get('session')->getFlashBag()->add('success', 'Project created successfully');
                 return $this->redirect($this->generateUrl('kreta_web_project_view', array('id' => $project->getId())));
             }
         }
@@ -66,6 +67,7 @@ class ProjectController extends Controller
                 $manager = $this->getDoctrine()->getManager();
                 $manager->persist($project);
                 $manager->flush();
+                $this->get('session')->getFlashBag()->add('success', 'Project updated successfully');
                 return $this->redirect($this->generateUrl('kreta_web_project_view', array('id' => $project->getId())));
             }
         }
@@ -84,17 +86,16 @@ class ProjectController extends Controller
         $project = $this->get('kreta_core.repository_project')->find($id);
 
         if(!$user) {
-            throw $this->createNotFoundException('User not found');
-        }
-
-        if(!$project) {
+            $this->get('session')->getFlashBag()->add('error', 'User not found');
+        } elseif(!$project) {
             throw $this->createNotFoundException('Project not found');
+        } else {
+            $project->addParticipant($user);
+            $manager = $this->getDoctrine()->getManager();
+            $manager->persist($project);
+            $manager->flush();
+            $this->get('session')->getFlashBag()->add('success', 'Participant added successfully');
         }
-
-        $project->addParticipant($user);
-        $manager = $this->getDoctrine()->getManager();
-        $manager->persist($project);
-        $manager->flush();
 
         return $this->redirect($this->generateUrl('kreta_web_project_view', array('id' => $project->getId())));
     }

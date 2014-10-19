@@ -12,6 +12,7 @@
 namespace Kreta\Bundle\WebBundle\Behat;
 
 use Behat\Behat\Hook\Scope\BeforeScenarioScope;
+use Behat\Mink\Exception\ElementNotFoundException;
 use Behat\MinkExtension\Context\MinkContext;
 use Behat\Symfony2Extension\Context\KernelAwareContext;
 use Behat\Symfony2Extension\Context\KernelDictionary;
@@ -54,5 +55,24 @@ class DefaultContext extends MinkContext implements KernelAwareContext
     public function iClickOnAddIssueButton()
     {
         $this->clickLink('add-issue');
+    }
+
+    /**
+     * @Given /^I click on ([^"]*) button for issue '([^"]*)'$/
+     */
+    public function iClickOnEditButtonForIssue($button, $issueName)
+    {
+        $issuesEls = $this->getSession()->getPage()->findAll('css', '.kreta-mini-issue');
+
+        /** @var \Behat\Mink\Element\NodeElement $issueEl */
+        foreach ($issuesEls as $issueEl) {
+            if($issueName === $issueEl->find('css', 'h3')->getText()) {
+                $issueEl->find('css', ".$button-issue")->click();
+                return;
+            }
+        }
+
+        throw new ElementNotFoundException($this->getSession());
+
     }
 } 
