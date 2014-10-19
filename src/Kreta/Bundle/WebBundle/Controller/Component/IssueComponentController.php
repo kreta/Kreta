@@ -17,7 +17,11 @@ class IssueComponentController extends Controller
 {
     public function userAction()
     {
-        $issues = $this->get('kreta_core.repository_issue')->findByAssignee($this->getUser());
+        $issues = $this->get('kreta_core.repository_issue')->findByAssignee(
+            $this->getUser(),
+            array(),
+            array('status' => 'ASC', 'priority' => 'DESC')
+        );
 
         return $this->render('KretaWebBundle:Component/Issue:user.html.twig',
             array('issues' => $issues));
