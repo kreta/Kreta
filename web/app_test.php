@@ -25,7 +25,7 @@ if (isset($_SERVER['HTTP_CLIENT_IP'])
     exit('You are not allowed to access this file from '.@$_SERVER['REMOTE_ADDR'].'. Check '.basename(__FILE__).' for more information.');
 }
 
-$kernel = new AppKernel('dev', true);
+$kernel = new AppKernel('test', true);
 $kernel->loadClassCache();
 $request = Request::createFromGlobals();
 $response = $kernel->handle($request);

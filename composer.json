@@ -33,9 +33,14 @@
 
         "friendsofsymfony/user-bundle":             "~2.0@dev",
         "hwi/oauth-bundle":                         "0.4.*@dev",
-        "zurb/foundation": "~5.4"
+        "zurb/foundation":                          "~5.4"
+
     },
     "require-dev": {
+        "behat/behat" :                             "~3.0",
+        "behat/symfony2-extension" :                "~2.0",
+        "behat/mink-extension" :                    "~2.0",
+        "behat/mink-browserkit-driver":             "~1.2",
         "phpspec/phpspec":                          "2.1.x-dev",
         "henrikbjorn/phpspec-code-coverage":        "1.0.x-dev",
         "satooshi/php-coveralls":                   "0.6.1",
