@@ -13,20 +13,20 @@ namespace Kreta\Component\Core\Factory;
 
 use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Core\Model\Interfaces\UserInterface;
-use Kreta\Component\Core\Model\ProjectRole;
+use Kreta\Component\Core\Model\Participant;
 
 /**
- * Class ProjectRoleFactory.
+ * Class ParticipantFactory.
  *
  * @package Kreta\Component\Core\Factory
  */
-class ProjectRoleFactory
+class ParticipantFactory
 {
     /**
      * {@inheritdoc}
      */
     public function create(ProjectInterface $project, UserInterface $user)
     {
-        return new ProjectRole($project, $user);
+        return new Participant($project, $user);
     }
 }

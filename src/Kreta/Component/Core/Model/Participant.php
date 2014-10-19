@@ -12,7 +12,7 @@
 namespace Kreta\Component\Core\Model;
 
 use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
-use Kreta\Component\Core\Model\Interfaces\ProjectRoleInterface;
+use Kreta\Component\Core\Model\Interfaces\ParticipantInterface;
 use Kreta\Component\Core\Model\Interfaces\UserInterface;
 
 /**
@@ -20,7 +20,7 @@ use Kreta\Component\Core\Model\Interfaces\UserInterface;
  *
  * @package Kreta\Component\Core\Model
  */
-class ProjectRole implements ProjectRoleInterface
+class Participant implements ParticipantInterface
 {
     /**
      * The project.

@@ -11,7 +11,7 @@
 
 namespace Kreta\Bundle\CoreBundle\Security\Authorization\Voter;
 
-use Kreta\Component\Core\Model\ProjectRole;
+use Kreta\Component\Core\Model\Participant;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -76,11 +76,11 @@ class IssueVoter implements VoterInterface
         switch ($attribute) {
             case self::ASSIGN:
             case self::EDIT:
-                $projectRole = $issue->getProject()->getUserRole($user);
+                $participant = $issue->getProject()->getUserRole($user);
 
                 if ($issue->isAssignee($user) === true
                     || $issue->isReporter($user) === true
-                    || $projectRole == ProjectRole::ADMIN
+                    || $participant == Participant::ADMIN
                 ) {
                     return VoterInterface::ACCESS_GRANTED;
                 }

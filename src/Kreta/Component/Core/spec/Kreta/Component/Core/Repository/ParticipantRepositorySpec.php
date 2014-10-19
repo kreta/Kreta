@@ -16,11 +16,11 @@ use Doctrine\ORM\Mapping\ClassMetadata;
 use PhpSpec\ObjectBehavior;
 
 /**
- * Class ProjectRoleRepositorySpec.
+ * Class ParticipantRepositorySpec.
  *
  * @package spec\Kreta\Component\Core\Repository
  */
-class ProjectRoleRepositorySpec extends ObjectBehavior
+class ParticipantRepositorySpec extends ObjectBehavior
 {
     function let(EntityManager $manager, ClassMetadata $metadata)
     {
@@ -29,7 +29,7 @@ class ProjectRoleRepositorySpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('Kreta\Component\Core\Repository\ProjectRoleRepository');
+        $this->shouldHaveType('Kreta\Component\Core\Repository\ParticipantRepository');
     }
 
     function it_extends_entity_repository()

@@ -73,6 +73,23 @@ class DefaultContext extends MinkContext implements KernelAwareContext
         }
 
         throw new ElementNotFoundException($this->getSession());
-
     }
+
+    /**
+     * @Given /^I choose "([^"]*)" project from user's project list$/
+     */
+    public function iChooseProjectFromUsersProjectList($projectShortName)
+    {
+        $projectEls = $this->getSession()->getPage()->findAll('css', '.title-container');
+        /** @var \Behat\Mink\Element\NodeElement $projectEl */
+        foreach ($projectEls as $projectEl) {
+            if($projectShortName === $projectEl->find('css', 'a')->getText()) {
+                $projectEl->find('css', 'a')->click();
+                return;
+            }
+        }
+
+        throw new ElementNotFoundException($this->getSession());
+    }
+
 } 

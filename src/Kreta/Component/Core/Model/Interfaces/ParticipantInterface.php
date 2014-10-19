@@ -12,11 +12,11 @@
 namespace Kreta\Component\Core\Model\Interfaces;
 
 /**
- * Interface ProjectRoleInterface.
+ * Interface ParticipantInterface.
  *
  * @package Kreta\Component\Core\Model\Interfaces
  */
-interface ProjectRoleInterface
+interface ParticipantInterface
 {
     const ADMIN = 'ROLE_ADMIN';
     const PARTICIPANT = 'ROLE_PARTICIPANT';

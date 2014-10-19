@@ -15,7 +15,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Model\User as BaseUser;
 use Kreta\Component\Core\Model\Interfaces\CommentInterface;
 use Kreta\Component\Core\Model\Interfaces\IssueInterface;
-use Kreta\Component\Core\Model\Interfaces\ProjectRoleInterface;
+use Kreta\Component\Core\Model\Interfaces\ParticipantInterface;
 use Kreta\Component\Core\Model\Interfaces\UserInterface;
 
 /**
@@ -93,7 +93,7 @@ class User extends BaseUser implements UserInterface
      *
      * @var \Doctrine\Common\Collections\ArrayCollection
      */
-    protected $projectRoles;
+    protected $participants;
 
     /**
      * Array that contains reported issues.
@@ -110,7 +110,7 @@ class User extends BaseUser implements UserInterface
         $this->assignedIssues = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->createdAt = new \DateTime();
-        $this->projectRoles = new ArrayCollection();
+        $this->participants = new ArrayCollection();
         $this->reportedIssues = new ArrayCollection();
 
         parent::__construct();
@@ -309,17 +309,17 @@ class User extends BaseUser implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function getProjectRoles()
+    public function getParticipants()
     {
-        return $this->projectRoles;
+        return $this->participants;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function addProjectRole(ProjectRoleInterface $projectRole)
+    public function addParticipant(ParticipantInterface $participant)
     {
-        $this->projectRoles[] = $projectRole;
+        $this->participants[] = $participant;
 
         return $this;
     }
@@ -327,9 +327,9 @@ class User extends BaseUser implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function removeProjectRole(ProjectRoleInterface $projectRole)
+    public function removeParticipant(ParticipantInterface $participant)
     {
-        $this->projectRoles->removeElement($projectRole);
+        $this->participants->removeElement($participant);
 
         return $this;
     }

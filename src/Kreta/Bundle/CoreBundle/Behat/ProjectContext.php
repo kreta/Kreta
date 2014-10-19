@@ -32,6 +32,7 @@ class ProjectContext extends RawMinkContext implements Context, KernelAwareConte
             /** @var \Kreta\Component\Core\Model\Interfaces\ProjectInterface $project */
             $project = $this->kernel->getContainer()->get('kreta_core.factory_project')->create();
             $project->setName($projectData['name']);
+            $project->setShortName($projectData['shortName']);
 
             $manager->persist($project);
         }

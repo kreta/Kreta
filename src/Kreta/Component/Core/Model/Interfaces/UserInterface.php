@@ -192,27 +192,27 @@ interface UserInterface extends BaseUserInterface
     /**
      * Gets project roles.
      *
-     * @return \Kreta\Component\Core\Model\Interfaces\ProjectRoleInterface[]
+     * @return \Kreta\Component\Core\Model\Interfaces\ParticipantInterface[]
      */
-    public function getProjectRoles();
+    public function getParticipants();
 
     /**
      * Adds project role.
      *
-     * @param \Kreta\Component\Core\Model\Interfaces\ProjectRoleInterface $projectRole The project role
+     * @param \Kreta\Component\Core\Model\Interfaces\ParticipantInterface $participant The project role
      *
      * @return $this self Object
      */
-    public function addProjectRole(ProjectRoleInterface $projectRole);
+    public function addParticipant(ParticipantInterface $participant);
 
     /**
      * Removes project role.
      *
-     * @param \Kreta\Component\Core\Model\Interfaces\ProjectRoleInterface $projectRole The project role
+     * @param \Kreta\Component\Core\Model\Interfaces\ParticipantInterface $participant The project role
      *
      * @return $this self Object
      */
-    public function removeProjectRole(ProjectRoleInterface $projectRole);
+    public function removeParticipant(ParticipantInterface $participant);
 
     /**
      * Gets reported issues.

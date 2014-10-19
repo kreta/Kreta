@@ -5,10 +5,10 @@
 # @author benatespina <benatespina@gmail.com>
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
-Kreta\Component\Core\Model\ProjectRole:
+Kreta\Component\Core\Model\Participant:
     type: entity
     repositoryClass: Kreta\Component\Core\Repository\ProjectRoleRepository
-    table: project_user
+    table: participant
     id:
         project:
             type: entity

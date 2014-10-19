@@ -12,10 +12,10 @@
 namespace spec\Kreta\Component\Core\Model;
 
 use Kreta\Component\Core\Model\Interfaces\IssueInterface;
-use Kreta\Component\Core\Model\Interfaces\ProjectRoleInterface;
+use Kreta\Component\Core\Model\Interfaces\ParticipantInterface;
 use Kreta\Component\Core\Model\Interfaces\UserInterface;
 use Kreta\Component\Core\Model\Project;
-use Kreta\Component\Core\Model\ProjectRole;
+use Kreta\Component\Core\Model\Participant;
 use Kreta\Component\Core\Model\User;
 use PhpSpec\ObjectBehavior;
 
@@ -44,7 +44,7 @@ class ProjectSpec extends ObjectBehavior
     function its_issues_participants_and_project_roles_are_collection()
     {
         $this->getIssues()->shouldHaveType('Doctrine\Common\Collections\ArrayCollection');
-        $this->getProjectRoles()->shouldHaveType('Doctrine\Common\Collections\ArrayCollection');
+        $this->getParticipants()->shouldHaveType('Doctrine\Common\Collections\ArrayCollection');
     }
 
     function its_issues_are_mutable(IssueInterface $issue)
@@ -68,17 +68,17 @@ class ProjectSpec extends ObjectBehavior
         $this->getShortName()->shouldReturn('Dummy name that it is a te...');
     }
 
-    function its_project_roles_are_be_mutable(ProjectRoleInterface $projectRole)
+    function its_project_roles_are_be_mutable(ParticipantInterface $participant)
     {
-        $this->getProjectRoles()->shouldHaveCount(0);
+        $this->getParticipants()->shouldHaveCount(0);
 
-        $this->addProjectRole($projectRole);
+        $this->addParticipant($participant);
 
-        $this->getProjectRoles()->shouldHaveCount(1);
+        $this->getParticipants()->shouldHaveCount(1);
 
-        $this->removeProjectRole($projectRole);
+        $this->removeParticipant($participant);
 
-        $this->getProjectRoles()->shouldHaveCount(0);
+        $this->getParticipants()->shouldHaveCount(0);
     }
 
     function its_short_name_is_mutable()
@@ -94,9 +94,9 @@ class ProjectSpec extends ObjectBehavior
     {
         $project = new Project();
         $user = new User();
-        $projectRole = new ProjectRole($project, $user);
+        $participant = new Participant($project, $user);
 
-        $this->addProjectRole($projectRole)->shouldReturn($this);
+        $this->addParticipant($participant)->shouldReturn($this);
         $anotherUser->getId()->shouldBeCalled()->willReturn('user-id');
 
         $this->getUserRole($anotherUser)->shouldReturn(null);
@@ -106,10 +106,10 @@ class ProjectSpec extends ObjectBehavior
     {
         $project = new Project();
         $user = new User();
-        $projectRole = new ProjectRole($project, $user);
-        $projectRole->setRole('ROLE_ADMIN');
+        $participant = new Participant($project, $user);
+        $participant->setRole('ROLE_ADMIN');
 
-        $this->addProjectRole($projectRole)->shouldReturn($this);
+        $this->addParticipant($participant)->shouldReturn($this);
 
         $this->getUserRole($anotherUser)->shouldReturn('ROLE_ADMIN');
     }

@@ -39,7 +39,10 @@ class ProjectController extends Controller
             if ($form->isValid()) {
                 $manager = $this->getDoctrine()->getManager();
                 $manager->persist($project);
-                $project->addParticipant($this->getUser());
+                $participant = $this->get('kreta_core.factory_participant')->create($project, $this->getUser());
+                $participant->setRole('ROLE_ADMIN');
+                $project->addParticipant($participant);
+                $manager->persist($participant);
                 $manager->flush();
                 $this->get('session')->getFlashBag()->add('success', 'Project created successfully');
                 return $this->redirect($this->generateUrl('kreta_web_project_view', array('id' => $project->getId())));
@@ -90,9 +93,11 @@ class ProjectController extends Controller
         } elseif(!$project) {
             throw $this->createNotFoundException('Project not found');
         } else {
-            $project->addParticipant($user);
+            $participant = $this->get('kreta_core.factory_participant')->create($project, $user);
+            $participant->setRole('ROLE_ADMIN');
+            $project->addParticipant($participant);
             $manager = $this->getDoctrine()->getManager();
-            $manager->persist($project);
+            $manager->persist($participant);
             $manager->flush();
             $this->get('session')->getFlashBag()->add('success', 'Participant added successfully');
         }

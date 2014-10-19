@@ -16,11 +16,11 @@ use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Core\Model\Interfaces\UserInterface;
 
 /**
- * Class ProjectRoleRepository.
+ * Class ParticipantRepository.
  *
  * @package Kreta\Component\Core\Repository
  */
-class ProjectRoleRepository extends EntityRepository
+class ParticipantRepository extends EntityRepository
 {
     /**
      * Finds the role of project and user given.

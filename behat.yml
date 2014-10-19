@@ -22,6 +22,16 @@ default:
             filters:
                 tags: "@issue"
 
+        project:
+            contexts:
+                - Kreta\Bundle\CoreBundle\Behat\UserContext
+                - Kreta\Bundle\CoreBundle\Behat\StatusContext
+                - Kreta\Bundle\CoreBundle\Behat\ProjectContext
+                - Kreta\Bundle\CoreBundle\Behat\ParticipantContext
+                - Kreta\Bundle\WebBundle\Behat\DefaultContext
+            filters:
+                tags: "@project"
+
     extensions:
             Behat\MinkExtension:
                 base_url: http://localhost/app_test.php

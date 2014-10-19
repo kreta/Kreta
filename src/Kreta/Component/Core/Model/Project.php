@@ -15,7 +15,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Kreta\Component\Core\Model\Abstracts\AbstractModel;
 use Kreta\Component\Core\Model\Interfaces\IssueInterface;
 use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
-use Kreta\Component\Core\Model\Interfaces\ProjectRoleInterface;
+use Kreta\Component\Core\Model\Interfaces\ParticipantInterface;
 use Kreta\Component\Core\Model\Interfaces\UserInterface;
 
 /**
@@ -42,7 +42,7 @@ class Project extends AbstractModel implements ProjectInterface
      *
      * @var \Doctrine\Common\Collections\ArrayCollection
      */
-    protected $projectRoles;
+    protected $participants;
 
     /**
      * The short name.
@@ -57,7 +57,7 @@ class Project extends AbstractModel implements ProjectInterface
     public function __construct()
     {
         $this->issues = new ArrayCollection();
-        $this->projectRoles = new ArrayCollection();
+        $this->participants = new ArrayCollection();
     }
 
     /**
@@ -113,17 +113,17 @@ class Project extends AbstractModel implements ProjectInterface
     /**
      * {@inheritdoc}
      */
-    public function getProjectRoles()
+    public function getParticipants()
     {
-        return $this->projectRoles;
+        return $this->participants;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function addProjectRole(ProjectRoleInterface $projectRole)
+    public function addParticipant(ParticipantInterface $participant)
     {
-        $this->projectRoles[] = $projectRole;
+        $this->participants[] = $participant;
 
         return $this;
     }
@@ -131,9 +131,9 @@ class Project extends AbstractModel implements ProjectInterface
     /**
      * {@inheritdoc}
      */
-    public function removeProjectRole(ProjectRoleInterface $projectRole)
+    public function removeParticipant(ParticipantInterface $participant)
     {
-        $this->projectRoles->removeElement($projectRole);
+        $this->participants->removeElement($participant);
 
         return $this;
     }
@@ -167,9 +167,9 @@ class Project extends AbstractModel implements ProjectInterface
      */
     public function getUserRole(UserInterface $user)
     {
-        foreach ($this->projectRoles as $projectRole) {
-            if ($projectRole->getUser()->getId() === $user->getId()) {
-                return $projectRole->getRole();
+        foreach ($this->participants as $participant) {
+            if ($participant->getUser()->getId() === $user->getId()) {
+                return $participant->getRole();
             }
         }
 

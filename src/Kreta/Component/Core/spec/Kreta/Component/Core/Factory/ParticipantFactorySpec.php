@@ -16,19 +16,19 @@ use Kreta\Component\Core\Model\Interfaces\UserInterface;
 use PhpSpec\ObjectBehavior;
 
 /**
- * Class ProjectRoleSpec.
+ * Class ParticipantFactorySpec.
  *
  * @package spec\Kreta\Component\Core\Factory
  */
-class ProjectRoleFactorySpec extends ObjectBehavior
+class ParticipantFactorySpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('Kreta\Component\Core\Factory\ProjectRoleFactory');
+        $this->shouldHaveType('Kreta\Component\Core\Factory\ParticipantFactory');
     }
 
     function it_creates_a_project_role(ProjectInterface $project, UserInterface $user)
     {
-        $this->create($project, $user)->shouldReturnAnInstanceOf('Kreta\Component\Core\Model\ProjectRole');
+        $this->create($project, $user)->shouldReturnAnInstanceOf('Kreta\Component\Core\Model\Participant');
     }
 }
