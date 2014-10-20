@@ -1,0 +1,18 @@
+@import '../../settings';
+@import 'compass/css3';
+
+.kreta-mini-project {
+  .title-container {
+    border-top: 1px solid $borderGrey;
+    img {
+      width: 50px;
+      display: inline-block;
+      margin: 10px;
+      @include border-radius($standardRadius);
+    }
+    h3 {
+      margin: 0;
+      display: inline-block;
+    }
+  }
+}

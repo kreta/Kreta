@@ -12,6 +12,7 @@
 namespace Kreta\Component\Core\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\QueryBuilder;
 use Kreta\Component\Core\Model\Interfaces\UserInterface;
 
 /**
@@ -21,6 +22,8 @@ use Kreta\Component\Core\Model\Interfaces\UserInterface;
  */
 class IssueRepository extends EntityRepository
 {
+    private $validFilters = array('status', 'priority');
+
     /**
      * Finds all the issues of reporter given.
      *
@@ -42,16 +45,34 @@ class IssueRepository extends EntityRepository
      * Finds all the issues of assignee given.
      *
      * @param \Kreta\Component\Core\Model\Interfaces\UserInterface $assignee The assignee
+     * @param array                                                $filters  Fields and values to be filtered
+     * @param array                                                $orderBy  Fileds and strategy to order issues
      *
      * @return \Kreta\Component\Core\Model\Interfaces\IssueInterface[]
      */
-    public function findByAssignee(UserInterface $assignee)
+    public function findByAssignee(UserInterface $assignee, $filters, $orderBy)
     {
         $queryBuilder = $this->createQueryBuilder('i');
 
-        return $queryBuilder->select('i')
+        $queryBuilder->select('i')
             ->where($queryBuilder->expr()->eq('i.assignee', ':assignee'))
-            ->setParameter(':assignee', $assignee->getId())
-            ->getQuery()->getResult();
+            ->setParameter(':assignee', $assignee->getId());
+
+        $queryBuilder = $this->orderBy($orderBy, $queryBuilder);
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
+    protected function orderBy($orderBy, QueryBuilder $queryBuilder)
+    {
+        foreach ($orderBy as $sort => $order) {
+            if(in_array($sort, $this->validFilters)) {
+                $queryBuilder->orderBy('i.'.$sort, $order);
+            } else {
+                throw new \Exception($sort. ' is not a valid filter');
+            }
+        }
+
+        return $queryBuilder;
     }
 }

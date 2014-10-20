@@ -1,0 +1,24 @@
+{% extends 'KretaWebBundle:blocks:widget.html.twig' %}
+
+{% block widgetClass %}{% endblock %}
+
+{% block widgetIcon %}fa-folder-open-o{% endblock %}
+
+{% block widgetTitle %}VCS Integration{% endblock %}
+
+{% block widgetContent %}
+    <div class="kreta-issue-vcs">
+        <div class="vcs-section">
+            <h4><i class="fa fa-github"></i>Repository</h4>
+            <a href="http://github.com/kreta-io/kreta">kreta-io/kreta</a>
+        </div>
+        <div class="vcs-section">
+            <h4><i class="fa fa-code-fork"></i>Branches</h4>
+            <p>No branches found for this issue</p>
+        </div>
+        <div class="vcs-section">
+            <h4><i class="fa fa-code"></i>Commits</h4>
+            <p>No commits found for this issue</p>
+        </div>
+    </div>
+{% endblock %}

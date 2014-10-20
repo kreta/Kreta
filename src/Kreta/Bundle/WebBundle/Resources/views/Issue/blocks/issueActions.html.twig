@@ -1,0 +1,17 @@
+{% extends 'KretaWebBundle:blocks:widget.html.twig' %}
+
+{% block widgetClass %}{% endblock %}
+
+{% block widgetIcon %}fa-gear{% endblock %}
+
+{% block widgetTitle %}Actions{% endblock %}
+
+{% block widgetContent %}
+    <div class="kreta-actions">
+        <a href="{{ url('kreta_web_issue_edit', {id: issue.id}) }}"><i class="fa fa-pencil"></i> Edit issue</a>
+        {#<hr noshade>
+        <a href=""><i class="fa fa-share"></i> Start progress</a>
+        <a href=""><i class="fa fa-check"></i> Resolve issue</a>
+        <a href=""><i class="fa fa-close"></i> Close issue</a>#}
+    </div>
+{% endblock %}

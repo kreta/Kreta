@@ -1,0 +1,20 @@
+{% extends "KretaWebBundle::layout.html.twig" %}
+
+{% block content %}
+    <div class="medium-8 column kreta-widget">
+        <div class="kreta-widget-content">
+            <h2><i class="fa fa-check-square-o"></i>Edit issue</h2>
+            {{ form_start(form, {'action': url('kreta_web_issue_edit', {id: issue.id})}) }}
+            {{ form_row(form.project) }}
+            {{ form_row(form.title) }}
+            {{ form_row(form.description) }}
+            {{ form_row(form.type) }}
+            {{ form_row(form.priority) }}
+            {{ form_row(form.status) }}
+            {{ form_row(form.reporter) }}
+            {{ form_row(form.assignee) }}
+            <input class="button tiny" type="submit" value="Update">
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

@@ -18,7 +18,7 @@ use Kreta\Component\Core\Model\Interfaces\ResolutionInterface;
 use Kreta\Component\Core\Model\Interfaces\StatusInterface;
 use Kreta\Component\Core\Model\Interfaces\UserInterface;
 use Kreta\Component\Core\Model\Project;
-use Kreta\Component\Core\Model\ProjectRole;
+use Kreta\Component\Core\Model\Participant;
 use Kreta\Component\Core\Model\User;
 use PhpSpec\ObjectBehavior;
 
@@ -178,8 +178,8 @@ class IssueSpec extends ObjectBehavior
     {
         $project = new Project();
         $user = new User();
-        $projectRole = new ProjectRole($project, $user);
-        $project->addProjectRole($projectRole);
+        $participant = new Participant($project, $user);
+        $project->addParticipant($participant);
 
         $this->setProject($project)->shouldReturn($this);
         $anotherUser->getId()->shouldBeCalled()->willReturn('user-id');
@@ -191,8 +191,8 @@ class IssueSpec extends ObjectBehavior
     {
         $project = new Project();
         $user = new User();
-        $projectRole = new ProjectRole($project, $user);
-        $project->addProjectRole($projectRole);
+        $participant = new Participant($project, $user);
+        $project->addParticipant($participant);
 
         $this->setProject($project)->shouldReturn($this);
 

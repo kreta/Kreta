@@ -1,0 +1,26 @@
+{% if type == 0 %}
+    {% set icon = 'fa fa-bug' %}
+    {% set color = 'red' %}
+    {% set text =  'Bug' %}
+{% elseif type == 1 %}
+    {% set icon = 'fa fa-plus' %}
+    {% set color = 'green' %}
+    {% set text =  'New feature' %}
+{% elseif type == 2 %}
+    {% set icon = 'fa fa-expand' %}
+    {% set color = 'blue' %}
+    {% set text =  'Improvement' %}
+{% elseif type == 3 %}
+    {% set icon = 'fa fa-bolt' %}
+    {% set color = 'purple' %}
+    {% set text =  'Epic' %}
+{% elseif type == 4 %}
+    {% set icon = 'fa fa-lightbulb-o' %}
+    {% set color = 'yellow' %}
+    {% set text =  'Story' %}
+{% endif %}
+
+<div class="kreta-type-icon kreta-icon-item {{ color }}">
+    <i class="fa {{ icon }}"></i>
+    <span class="kreta-icon-item-legend">{{ text }}</span>
+</div>

@@ -16,11 +16,11 @@ use Kreta\Component\Core\Model\Interfaces\UserInterface;
 use PhpSpec\ObjectBehavior;
 
 /**
- * Class ProjectRoleSpec.
+ * Class ParticipantSpec.
  *
  * @package spec\Kreta\Component\Core\Model
  */
-class ProjectRoleSpec extends ObjectBehavior
+class ParticipantSpec extends ObjectBehavior
 {
     function let(ProjectInterface $project, UserInterface $user)
     {
@@ -29,12 +29,12 @@ class ProjectRoleSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('Kreta\Component\Core\Model\ProjectRole');
+        $this->shouldHaveType('Kreta\Component\Core\Model\Participant');
     }
 
     function it_implements_project_role_interface()
     {
-        $this->shouldImplement('Kreta\Component\Core\Model\Interfaces\ProjectRoleInterface');
+        $this->shouldImplement('Kreta\Component\Core\Model\Interfaces\ParticipantInterface');
     }
 
     function its_project_is_mutable(ProjectInterface $project)

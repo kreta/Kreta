@@ -56,9 +56,11 @@ class UserProvider extends BaseUserProvider
      */
     public function loadUserByOAuthUserResponse(UserResponseInterface $response)
     {
-        if ($response->getEmail() === '') {
-            $user = $this->userManager->findUserBy(array($this->getProperty($response) => $response->getUsername()));
-        } else {
+        //Load by github or bitbucket id
+        $user = $this->userManager->findUserBy(array($this->getProperty($response) => $response->getUsername()));
+
+        //If not found try finding someone with the same email to associate accounts
+        if(!$user && $response->getEmail() != '') {
             $user = $this->userManager->findUserBy(array('email' => $response->getEmail()));
         }
 

@@ -1,0 +1,43 @@
+{% extends 'KretaWebBundle:blocks:widget.html.twig' %}
+
+{% block widgetClass %}{% endblock %}
+
+{% block widgetIcon %}fa-check-square-o{% endblock %}
+
+{% block widgetTitle %}{{ issue.title }}{% endblock %}
+
+{% block widgetContent %}
+    <div class="kreta-issue">
+        <div class="details row">
+            <div class="small-6 column">
+                <span class="field">Type:</span>
+                {% include 'KretaWebBundle:Issue/blocks:typeIcon.html.twig' with {'type': issue.type} %}
+                <span class="field">Priority:</span>
+                {% include 'KretaWebBundle:Issue/blocks:priorityIcon.html.twig' with {'priority': issue.priority} %}
+                <span class="field">Asignee:</span>
+                <div class="image-item">
+                    {% image '@KretaWebBundle/Resources/public/img/user.jpg' %}
+                        <img src="{{ asset_url }}">
+                    {% endimage %}
+                    <span>{{ issue.assignee.fullName }}</span>
+                </div>
+            </div>
+            <div class="small-6 column">
+                <span class="field">Status:</span>
+                <span>{{ issue.status ? issue.status.description : '-'}}</span>
+                <span class="field">Resolution:</span>
+                <span>{{ issue.resolution ? issue.resolution.description : '-' }}</span>
+                <span class="field">Assigner:</span>
+                <div class="image-item">
+                    {% image '@KretaWebBundle/Resources/public/img/user.jpg' %}
+                        <img src="{{ asset_url }}">
+                    {% endimage %}
+                    <span>{{ issue.reporter.fullName }}</span>
+                </div>
+            </div>
+        </div>
+        <div class="description">
+            <p>{{ issue.description }}</p>
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,11 @@
+{% extends "KretaWebBundle::layout.html.twig" %}
+
+{% block content %}
+    <div class="medium-8 column">
+        {% include 'KretaWebBundle:Project/blocks:projectDetails.html.twig' with {'project': project} %}
+        {% include 'KretaWebBundle:Project/blocks:projectIssues.html.twig' with {'issues': project.issues } %}
+    </div>
+    <div class="medium-4 column">
+        {% include 'KretaWebBundle:Project/blocks:projectUsers.html.twig' with {'project': project} %}
+    </div>
+{% endblock %}

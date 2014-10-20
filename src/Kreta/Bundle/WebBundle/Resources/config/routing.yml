@@ -1,0 +1,27 @@
+kreta_web_homepage:
+    path:     /
+    defaults: { _controller: KretaWebBundle:Default:index }
+
+kreta_web_dashboard:
+    path:     /dashboard
+    defaults: { _controller: KretaWebBundle:Default:dashboard }
+
+kreta_web_issue:
+    prefix:   /issues
+    resource: "@KretaWebBundle/Resources/config/routing/issue.yml"
+
+kreta_web_project:
+    prefix:   /projects
+    resource: "@KretaWebBundle/Resources/config/routing/project.yml"
+
+kreta_web_user:
+    prefix:   /users
+    resource: "@KretaWebBundle/Resources/config/routing/user.yml"
+
+kreta_web_component_issue:
+    prefix: /component/issues/
+    resource: "@KretaWebBundle/Resources/config/routing/component/issue.yml"
+
+kreta_web_component_project:
+    prefix: /component/projects/
+    resource: "@KretaWebBundle/Resources/config/routing/component/project.yml"

@@ -1,0 +1,23 @@
+@import "../settings";
+
+header#main-header {
+  height: 60px;
+  background: $mainGreen;
+  max-width: none;
+  img.logo {
+    height: 60px;
+    padding: 5px;
+  }
+}
+
+.kreta-user-menu {
+  padding: 0;
+  text-align: right;
+  a {
+    color: $mainWhite;
+    padding: 0 .5em;
+    &:hover {
+      color: $mainWhite;
+    }
+  }
+}

@@ -1,0 +1,39 @@
+{% extends 'KretaWebBundle:blocks:widget.html.twig' %}
+
+{% block widgetClass %}medium-8 column{% endblock %}
+
+{% block widgetIcon %}fa-check-square-o{% endblock %}
+
+{% block widgetTitle %}My issues{% endblock %}
+
+{% block widgetContent %}
+    {% for issue in issues %}
+        <div class="kreta-mini-issue">
+            <a href="{{ url('kreta_web_issue_view', { 'id' : issue.id }) }}"><h3>{{ issue.title }}</h3></a>
+            <div class="issue-footer">
+                <a href="{{ url('kreta_web_project_view', { 'id' : issue.project.id }) }}">
+                    {% image '@KretaWebBundle/Resources/public/img/project.jpg' %}
+                        <img src="{{ asset_url }}">
+                    {% endimage %}
+                </a>
+                <a href="">
+                    {% image '@KretaWebBundle/Resources/public/img/user.jpg' %}
+                        <img src="{{ asset_url }}">
+                    {% endimage %}
+                </a>
+                <span>{{ issue.status }}</span>
+                <a class='view-issue' href="{{ url('kreta_web_issue_view', { 'id' : issue.id }) }}"><i class="fa fa-eye"></i></a>
+                <a href="{{ url('kreta_web_issue_view', { 'id' : issue.id }) }}"><i class="fa fa-comment"></i>
+                    {{ issue.comments | length }}
+                </a>
+                <a class='edit-issue' href="{{ url('kreta_web_issue_edit', { 'id' : issue.id }) }}"><i class="fa fa-pencil"></i></a>
+            </div>
+            {% include 'KretaWebBundle:Issue/blocks:typeIcon.html.twig' with {'type': issue.type} %}
+            {% include 'KretaWebBundle:Issue/blocks:priorityIcon.html.twig' with {'priority': issue.priority} %}
+        </div>
+    {% else %}
+        <div class="kreta-mini-issue">
+            <p>No issues found</p>
+        </div>
+    {% endfor %}
+{% endblock %}

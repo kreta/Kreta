@@ -12,9 +12,9 @@
 namespace spec\Kreta\Bundle\FixturesBundle\DataFixtures\ORM;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Kreta\Component\Core\Factory\ProjectRoleFactory;
+use Kreta\Component\Core\Factory\ParticipantFactory;
 use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
-use Kreta\Component\Core\Model\Interfaces\ProjectRoleInterface;
+use Kreta\Component\Core\Model\Interfaces\ParticipantInterface;
 use Kreta\Component\Core\Model\Interfaces\UserInterface;
 use Kreta\Component\Core\Repository\ProjectRepository;
 use Kreta\Component\Core\Repository\UserRepository;
@@ -23,11 +23,11 @@ use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Class LoadRoleDataSpec.
+ * Class LoadParticipantDataSpec.
  *
  * @package spec\Kreta\Bundle\FixturesBundle
  */
-class LoadRoleDataSpec extends ObjectBehavior
+class LoadParticipantDataSpec extends ObjectBehavior
 {
     function let(ContainerInterface $container)
     {
@@ -36,7 +36,7 @@ class LoadRoleDataSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('Kreta\Bundle\FixturesBundle\DataFixtures\ORM\LoadRoleData');
+        $this->shouldHaveType('Kreta\Bundle\FixturesBundle\DataFixtures\ORM\LoadParticipantData');
     }
 
     function it_extends_data_fixtures()
@@ -53,8 +53,8 @@ class LoadRoleDataSpec extends ObjectBehavior
         ProjectInterface $project4,
         UserRepository $userRepository,
         UserInterface $user,
-        ProjectRoleFactory $factory,
-        ProjectRoleInterface $projectRole,
+        ParticipantFactory $factory,
+        ParticipantInterface $participant,
         ObjectManager $manager
     )
     {
@@ -64,13 +64,13 @@ class LoadRoleDataSpec extends ObjectBehavior
         $container->get('kreta_core.repository_user')->shouldBeCalled()->willReturn($userRepository);
         $userRepository->findAll()->shouldBeCalled()->willReturn(array($user));
 
-        $container->get('kreta_core.factory_projectRole')->shouldBeCalled()->willReturn($factory);
+        $container->get('kreta_core.factory_participant')->shouldBeCalled()->willReturn($factory);
         $factory->create(Argument::type('Kreta\Component\Core\Model\Interfaces\ProjectInterface'), $user)
-            ->shouldBeCalled()->willReturn($projectRole);
+            ->shouldBeCalled()->willReturn($participant);
 
-        $projectRole->setRole(Argument::type('string'))->shouldBeCalled()->willReturn($projectRole);
+        $participant->setRole(Argument::type('string'))->shouldBeCalled()->willReturn($participant);
 
-        $manager->persist($projectRole)->shouldBeCalled();
+        $manager->persist($participant)->shouldBeCalled();
 
         $manager->flush()->shouldBeCalled();
 

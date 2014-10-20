@@ -1,0 +1,25 @@
+{% extends 'KretaWebBundle:blocks:widget.html.twig' %}
+
+{% block widgetClass %}{% endblock %}
+
+{% block widgetIcon %}fa-comment{% endblock %}
+
+{% block widgetTitle %}Comments{% endblock %}
+
+{% block widgetContent %}
+    {{ render(url('kreta_web_issue_comment_new',{'issueId': issue.id})) }}
+    {% for comment in issue.comments %}
+        <div class="kreta-issue-comment">
+            {% image '@KretaWebBundle/Resources/public/img/user.jpg' %}
+                <img src="{{ asset_url }}">
+            {% endimage %}
+            <div class="comment-content">
+                <div class="comment-header">
+                    <h4>{{ comment.writtenBy.fullName }}</h4>
+                    <span class="date">{{ comment.createdAt | date('Y-m-d') }}</span>
+                </div>
+                <p>{{ comment.description }}</p>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

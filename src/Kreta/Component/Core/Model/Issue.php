@@ -389,8 +389,8 @@ class Issue extends AbstractModel implements IssueInterface
      */
     public function isParticipant(UserInterface $user)
     {
-        foreach ($this->project->getProjectRoles() as $projectRole) {
-            if ($user->getId() === $projectRole->getUser()->getId()) {
+        foreach ($this->project->getParticipants() as $participant) {
+            if ($user->getId() === $participant->getUser()->getId()) {
                 return true;
             }
         }

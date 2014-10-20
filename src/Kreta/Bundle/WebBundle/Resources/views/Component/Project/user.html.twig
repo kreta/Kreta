@@ -1,0 +1,27 @@
+{% extends 'KretaWebBundle:blocks:widget.html.twig' %}
+
+{% block widgetClass %}medium-4 column{% endblock %}
+
+{% block widgetIcon %}fa-book{% endblock %}
+
+{% block widgetTitle %}My projects{% endblock %}
+
+{% block widgetContent %}
+    <div class="kreta-mini-project">
+        {% for project in projects %}
+            <div class="title-container">
+                {% image '@KretaWebBundle/Resources/public/img/project.jpg' %}
+                    <img src="{{ asset_url }}">
+                {% endimage %}
+                <a href="{{ url('kreta_web_project_view', {'id': project.id}) }}">{{ project.shortName }}</a>
+            </div>
+        {% else %}
+            <p>No projects found</p>
+        {% endfor %}
+        <div class="kreta-actions">
+            <a href="{{ url('kreta_web_project_new') }}"><i class="fa fa-plus"></i>
+                Add project
+            </a>
+        </div>
+    </div>
+{% endblock %}

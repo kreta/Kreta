@@ -5,6 +5,10 @@
 # @author benatespina <benatespina@gmail.com>
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
+kreta_web:
+    resource: "@KretaWebBundle/Resources/config/routing.yml"
+    prefix:   /
+
 fos_user:
     resource: "@FOSUserBundle/Resources/config/routing/all.xml"
 

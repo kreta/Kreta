@@ -1,0 +1,15 @@
+@import "../settings";
+
+.kreta-flash {
+  margin: 0 1em 1em;
+  color: white;
+  padding: 1em;
+  @include border-radius(3px);
+  text-align: center;
+  &.success {
+    color: green;
+  }
+  &.error {
+    color: darkred;
+  }
+}

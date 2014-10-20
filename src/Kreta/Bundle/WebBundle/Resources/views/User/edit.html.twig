@@ -1,0 +1,15 @@
+{% extends "KretaWebBundle::layout.html.twig" %}
+
+{% block content %}
+    <div class="medium-8 column kreta-widget">
+        <div class="kreta-widget-content">
+            <h2><i class="fa fa-user"></i>Edit yout profile</h2>
+            {{ form_start(form, {'action': url('kreta_web_user_edit')}) }}
+            {{ form_row(form.firstName) }}
+            {{ form_row(form.lastName) }}
+            {{ form_row(form.email) }}
+            <input class="button tiny" type="submit" value="Update">
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}

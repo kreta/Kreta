@@ -1,0 +1,19 @@
+@import "../../settings";
+@import "compass/css3";
+
+.kreta-issue-vcs {
+  .vcs-section {
+    border-top: 1px solid $borderGrey;
+    padding: 1em;
+    h4 {
+      margin: 0 0 .5em 0;
+      font-size: 1.2em;
+      i {
+        margin-right: .5em;
+      }
+    }
+  }
+  button {
+    width: 100%;
+  }
+}

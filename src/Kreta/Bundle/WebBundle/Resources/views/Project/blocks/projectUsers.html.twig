@@ -1,0 +1,26 @@
+{% extends 'KretaWebBundle:blocks:widget.html.twig' %}
+
+{% block widgetClass %}{% endblock %}
+
+{% block widgetIcon %}fa-users{% endblock %}
+
+{% block widgetTitle %}Participants{% endblock %}
+
+{% block widgetContent %}
+    <div class="kreta-project-users">
+        {% for participant in project.participants %}
+            <div class="kreta-project-user">
+                {% image '@KretaWebBundle/Resources/public/img/user.jpg' %}
+                    <img src="{{ asset_url }}">
+                {% endimage %}
+                <a href="">{{ participant.user.fullName }}</a>
+            </div>
+        {% endfor %}
+        <form method="post" action="{{ url('kreta_web_project_participant_new', {'id' : project.id }) }}">
+            <input type="text" name="email" placeholder="New user's email">
+            <button class="kreta-action" type="submit">
+                <i class="fa fa-plus"></i>Add user to project
+            </button>
+        </form>
+    </div>
+{% endblock %}

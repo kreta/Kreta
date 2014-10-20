@@ -1,0 +1,58 @@
+@import "../../settings";
+@import "compass/css3";
+
+.kreta-issue-comment-add {
+  overflow: hidden;
+  margin: 0;
+  img {
+    width: 13%;
+    float: left;
+    @include border-radius($standardRadius);
+  }
+  .textarea-container {
+    float: right;
+    width: 84%;
+    textarea {
+      height: 75px;
+      width: 100%;
+      max-width: 100%;
+      border: 1px solid $mainGreen;
+    }
+    input[type="submit"] {
+      margin-right: .5em;
+      float: right;
+    }
+  }
+}
+
+.kreta-issue-comment {
+  border-top: 1px solid $borderGrey;
+  overflow: hidden;
+  padding: .5em;
+  img {
+    width: 13%;
+    float: left;
+    @include border-radius($standardRadius);
+  }
+  .comment-content {
+    float: left;
+    width: 87%;
+    padding: 0 1em;
+    .comment-header {
+      h4 {
+        margin: 0;
+        display: inline-block;
+        font-size: 1.1em;
+      }
+      .date {
+        display: inline-block;
+        font-size: .7em;
+        color: $softBlack;
+      }
+    }
+    p {
+      margin: .5em 0;
+      line-height: 1.2em;
+    }
+  }
+}

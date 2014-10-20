@@ -1,0 +1,31 @@
+@import "../settings";
+@import "compass/css3";
+
+.kreta-widget {
+  margin-bottom: 1em;
+  .kreta-widget-content {
+    border: 1px solid $borderGrey;
+    background: $mainWhite;
+    @include border-radius($standardRadius);
+    h2 {
+      margin: .5em 1em;
+      color: $mainGreen;
+      i {
+        margin-right: .5em;
+      }
+    }
+    .kreta-actions {
+      border-top: 1px solid $borderGrey;
+      padding-top: .5em;
+      a {
+        display: block;
+        text-align: center;
+        margin-bottom: .5em;
+      }
+      hr {
+        border: 0;
+        border-top: 1px solid $borderGrey
+      }
+    }
+  }
+}

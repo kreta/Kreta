@@ -56,9 +56,32 @@ Kreta\Component\Core\Model\User:
         comments:
             targetEntity: Kreta\Component\Core\Model\Interfaces\CommentInterface
             mappedBy: writtenBy
-        projectRoles:
-            targetEntity: Kreta\Component\Core\Model\Interfaces\ProjectRoleInterface
+        participants:
+            targetEntity: Kreta\Component\Core\Model\Interfaces\ParticipantInterface
             mappedBy: user
         reportedIssues:
             targetEntity: Kreta\Component\Core\Model\Interfaces\IssueInterface
             mappedBy: reporter
+
+    attributeOverride:
+        email:
+            type: string
+            length: 255
+            nullable: true
+
+        emailCanonical:
+            column: email_canonical
+            type: string
+            length: 255
+            nullable: true
+
+        username:
+            type: string
+            length: 255
+            nullable: true
+
+        usernameCanonical:
+            column: username_canonical
+            type: string
+            length: 255
+            nullable: true

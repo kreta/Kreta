@@ -1,0 +1,14 @@
+{% extends "KretaWebBundle::layout.html.twig" %}
+
+{% block content %}
+    <div class="medium-8 column kreta-widget">
+        <div class="kreta-widget-content">
+            <h2><i class="fa fa-book"></i>Create new project</h2>
+            {{ form_start(form, {'action': url('kreta_web_project_new')}) }}
+            {{ form_row(form.name) }}
+            {{ form_row(form.shortName) }}
+            <input class="button tiny" type="submit" value="Create">
+            {{ form_end(form) }}
+        </div>
+    </div>
+{% endblock %}
