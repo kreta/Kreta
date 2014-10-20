@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * This file belongs to Kreta.
+ * The source code of application includes a LICENSE file
+ * with all information about license.
+ *
+ * @author benatespina <benatespina@gmail.com>
+ * @author gorkalaucirica <gorka.lauzirika@gmail.com>
+ */
+
 namespace spec\Kreta\Bundle\WebBundle\Form\Type;
 
 use Kreta\Component\Core\Model\Interfaces\IssueInterface;
@@ -7,6 +16,11 @@ use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
+/**
+ * Class PriorityTypeSpec.
+ *
+ * @package spec\Kreta\Bundle\WebBundle\Form\Type
+ */
 class PriorityTypeSpec extends ObjectBehavior
 {
     function it_is_initializable()
@@ -23,9 +37,9 @@ class PriorityTypeSpec extends ObjectBehavior
     {
         $resolver->setDefaults(array(
             'choices' => array(
-                IssueInterface::PRIORITY_LOW => 'Low',
-                IssueInterface::PRIORITY_MEDIUM => 'Medium',
-                IssueInterface::PRIORITY_HIGH => 'High',
+                IssueInterface::PRIORITY_LOW     => 'Low',
+                IssueInterface::PRIORITY_MEDIUM  => 'Medium',
+                IssueInterface::PRIORITY_HIGH    => 'High',
                 IssueInterface::PRIORITY_BLOCKER => 'Blocker',
             )
         ))->shouldBeCalled();

@@ -17,6 +17,11 @@ use Behat\MinkExtension\Context\RawMinkContext;
 use Behat\Symfony2Extension\Context\KernelAwareContext;
 use Behat\Symfony2Extension\Context\KernelDictionary;
 
+/**
+ * Class ProjectContext.
+ *
+ * @package Kreta\Bundle\CoreBundle\Behat
+ */
 class ProjectContext extends RawMinkContext implements Context, KernelAwareContext
 {
     use KernelDictionary;
@@ -29,13 +34,13 @@ class ProjectContext extends RawMinkContext implements Context, KernelAwareConte
         $manager = $this->kernel->getContainer()->get('doctrine')->getManager();
 
         foreach($projects as $projectData) {
-            /** @var \Kreta\Component\Core\Model\Interfaces\ProjectInterface $project */
             $project = $this->kernel->getContainer()->get('kreta_core.factory_project')->create();
             $project->setName($projectData['name']);
             $project->setShortName($projectData['shortName']);
 
             $manager->persist($project);
         }
+
         $manager->flush();
     }
 }

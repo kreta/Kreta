@@ -17,6 +17,11 @@ use Behat\MinkExtension\Context\RawMinkContext;
 use Behat\Symfony2Extension\Context\KernelAwareContext;
 use Behat\Symfony2Extension\Context\KernelDictionary;
 
+/**
+ * Class StatusContext.
+ *
+ * @package Kreta\Bundle\CoreBundle\Behat
+ */
 class StatusContext extends RawMinkContext implements Context, KernelAwareContext
 {
     use KernelDictionary;
@@ -28,12 +33,12 @@ class StatusContext extends RawMinkContext implements Context, KernelAwareContex
     {
         $manager = $this->kernel->getContainer()->get('doctrine')->getManager();
 
-        foreach($statuses as $statusData) {
-            /** @var \Kreta\Component\Core\Model\Interfaces\StatusInterface $status */
+        foreach ($statuses as $statusData) {
             $status = $this->kernel->getContainer()->get('kreta_core.factory_status')->create();
             $status->setDescription($statusData['description']);
             $manager->persist($status);
         }
+
         $manager->flush();
     }
 }

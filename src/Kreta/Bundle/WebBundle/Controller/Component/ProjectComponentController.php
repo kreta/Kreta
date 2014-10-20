@@ -13,8 +13,18 @@ namespace Kreta\Bundle\WebBundle\Controller\Component;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+/**
+ * Class ProjectComponentController.
+ *
+ * @package Kreta\Bundle\WebBundle\Controller\Component
+ */
 class ProjectComponentController extends Controller
 {
+    /**
+     * User action.
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function userAction()
     {
         $projects = $this->get('kreta_core.repository_project')->findByParticipant($this->getUser());

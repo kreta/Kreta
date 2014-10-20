@@ -20,7 +20,6 @@ Kreta\Component\Core\Model\Participant:
         role:
             type: string
             length: 20
-
     manyToOne:
         project:
             targetEntity: Kreta\Component\Core\Model\Interfaces\ProjectInterface

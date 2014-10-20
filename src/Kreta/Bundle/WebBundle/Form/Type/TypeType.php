@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file belongs to Kreta.
  * The source code of application includes a LICENSE file
@@ -15,28 +16,30 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
- * Class TypeType
+ * Class TypeType.
+ *
+ * @package Kreta\Bundle\WebBundle\Form\Type
  */
 class TypeType extends AbstractType
 {
     /**
-     * @{@inheritdoc}
+     * {@inheritdoc}
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
             'choices' => array(
-                IssueInterface::TYPE_STORY => 'Story',
-                IssueInterface::TYPE_BUG => 'Bug',
+                IssueInterface::TYPE_STORY       => 'Story',
+                IssueInterface::TYPE_BUG         => 'Bug',
                 IssueInterface::TYPE_IMPROVEMENT => 'Improvement',
                 IssueInterface::TYPE_NEW_FEATURE => 'New feature',
-                IssueInterface::TYPE_EPIC => 'Epic'
+                IssueInterface::TYPE_EPIC        => 'Epic'
             )
         ));
     }
 
     /**
-     * @{@inheritdoc}
+     * {@inheritdoc}
      */
     public function getParent()
     {
@@ -44,7 +47,7 @@ class TypeType extends AbstractType
     }
 
     /**
-     * @{@inheritdoc}
+     * {@inheritdoc}
      */
     public function getName()
     {

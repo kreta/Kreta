@@ -17,6 +17,11 @@ use Behat\MinkExtension\Context\RawMinkContext;
 use Behat\Symfony2Extension\Context\KernelAwareContext;
 use Behat\Symfony2Extension\Context\KernelDictionary;
 
+/**
+ * Class IssueContext.
+ *
+ * @package Kreta\Bundle\CoreBundle\Behat
+ */
 class IssueContext extends RawMinkContext implements Context, KernelAwareContext
 {
     use KernelDictionary;
@@ -28,12 +33,16 @@ class IssueContext extends RawMinkContext implements Context, KernelAwareContext
     {
         $manager = $this->kernel->getContainer()->get('doctrine')->getManager();
 
-        foreach($issues as $issueData) {
-            $project = $this->getKernel()->getContainer()->get('kreta_core.repository_project')->findOneBy(array('name' => $issueData['project']));
-            $reporter = $this->getKernel()->getContainer()->get('kreta_core.repository_user')->findOneBy(array('email' => $issueData['reporter']));
-            $assignee = $this->getKernel()->getContainer()->get('kreta_core.repository_user')->findOneBy(array('email' => $issueData['assignee']));
-            $status = $this->getKernel()->getContainer()->get('kreta_core.repository_status')->findOneBy(array('description' => $issueData['status']));
-            /** @var \Kreta\Component\Core\Model\Interfaces\IssueInterface $issue */
+        foreach ($issues as $issueData) {
+            $project = $this->getKernel()->getContainer()->get('kreta_core.repository_project')
+                ->findOneBy(array('name' => $issueData['project']));
+            $reporter = $this->getKernel()->getContainer()->get('kreta_core.repository_user')
+                ->findOneBy(array('email' => $issueData['reporter']));
+            $assignee = $this->getKernel()->getContainer()->get('kreta_core.repository_user')
+                ->findOneBy(array('email' => $issueData['assignee']));
+            $status = $this->getKernel()->getContainer()->get('kreta_core.repository_status')
+                ->findOneBy(array('description' => $issueData['status']));
+
             $issue = $this->kernel->getContainer()->get('kreta_core.factory_issue')->create();
             $issue->setPriority($issueData['priority']);
             $issue->setProject($project);
@@ -46,6 +55,7 @@ class IssueContext extends RawMinkContext implements Context, KernelAwareContext
 
             $manager->persist($issue);
         }
+
         $manager->flush();
     }
 }

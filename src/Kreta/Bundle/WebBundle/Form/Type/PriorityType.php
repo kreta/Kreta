@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file belongs to Kreta.
  * The source code of application includes a LICENSE file
@@ -15,27 +16,29 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
- * Class PriorityType
+ * Class PriorityType.
+ *
+ * @package Kreta\Bundle\WebBundle\Form\Type
  */
 class PriorityType extends AbstractType
 {
     /**
-     * @{@inheritdoc}
+     * {@inheritdoc}
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults(array(
             'choices' => array(
-                IssueInterface::PRIORITY_LOW => 'Low',
-                IssueInterface::PRIORITY_MEDIUM => 'Medium',
-                IssueInterface::PRIORITY_HIGH => 'High',
+                IssueInterface::PRIORITY_LOW     => 'Low',
+                IssueInterface::PRIORITY_MEDIUM  => 'Medium',
+                IssueInterface::PRIORITY_HIGH    => 'High',
                 IssueInterface::PRIORITY_BLOCKER => 'Blocker',
             )
         ));
     }
 
     /**
-     * @{@inheritdoc}
+     * {@inheritdoc}
      */
     public function getParent()
     {
@@ -43,7 +46,7 @@ class PriorityType extends AbstractType
     }
 
     /**
-     * @{@inheritdoc}
+     * {@inheritdoc}
      */
     public function getName()
     {

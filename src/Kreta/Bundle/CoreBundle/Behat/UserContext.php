@@ -17,6 +17,11 @@ use Behat\MinkExtension\Context\RawMinkContext;
 use Behat\Symfony2Extension\Context\KernelAwareContext;
 use Behat\Symfony2Extension\Context\KernelDictionary;
 
+/**
+ * Class UserContext.
+ *
+ * @package Kreta\Bundle\CoreBundle\Behat
+ */
 class UserContext extends RawMinkContext implements Context, KernelAwareContext
 {
     use KernelDictionary;
@@ -28,8 +33,7 @@ class UserContext extends RawMinkContext implements Context, KernelAwareContext
     {
         $manager = $this->kernel->getContainer()->get('doctrine')->getManager();
 
-        foreach($users as $userData) {
-            /** @var \Kreta\Component\Core\Model\Interfaces\UserInterface $user */
+        foreach ($users as $userData) {
             $user = $this->kernel->getContainer()->get('kreta_core.factory_user')->create();
             $user->setFirstname($userData['firstName']);
             $user->setLastname($userData['lastName']);
@@ -38,6 +42,7 @@ class UserContext extends RawMinkContext implements Context, KernelAwareContext
             $user->setEnabled(true);
             $manager->persist($user);
         }
+
         $manager->flush();
     }
 }

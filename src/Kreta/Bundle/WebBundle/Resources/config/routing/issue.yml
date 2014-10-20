@@ -1,15 +1,22 @@
+# This file belongs to Kreta.
+# The source code of application includes a LICENSE file
+# with all information about license.
+#
+# @author benatespina <benatespina@gmail.com>
+# @author gorkalaucirica <gorka.lauzirika@gmail.com>
+
 kreta_web_issue_new:
-    path:     new
+    path: new
     defaults: { _controller: KretaWebBundle:Issue:new }
 
 kreta_web_issue_view:
-    path:     /{id}
+    path: /{id}
     defaults: { _controller: KretaWebBundle:Issue:view }
 
 kreta_web_issue_edit:
-    path:     edit/{id}
+    path: edit/{id}
     defaults: { _controller: KretaWebBundle:Issue:edit }
 
 kreta_web_issue_comment_new:
-    path:     /{issueId}/comment/new
+    path: /{issueId}/comment/new
     defaults: { _controller: KretaWebBundle:Issue:newComment }

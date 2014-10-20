@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file belongs to Kreta.
  * The source code of application includes a LICENSE file
@@ -14,24 +15,26 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
- * Class CommentType
+ * Class CommentType.
+ *
+ * @package Kreta\Bundle\WebBundle\Form\Type
  */
 class CommentType extends AbstractType
 {
     /**
-     * @{@inheritdoc}
+     * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
             ->add('description', 'textarea', array(
                 'required' => true,
-                'label' => false
+                'label'    => false
             ));
     }
 
     /**
-     * @{@inheritdoc}
+     * {@inheritdoc}
      */
     public function getName()
     {

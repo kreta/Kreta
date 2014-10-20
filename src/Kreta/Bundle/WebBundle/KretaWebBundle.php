@@ -8,10 +8,16 @@
  * @author benatespina <benatespina@gmail.com>
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
+
 namespace Kreta\Bundle\WebBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
+/**
+ * Class KretaWebBundle.
+ *
+ * @package Kreta\Bundle\WebBundle
+ */
 class KretaWebBundle extends Bundle
 {
 }

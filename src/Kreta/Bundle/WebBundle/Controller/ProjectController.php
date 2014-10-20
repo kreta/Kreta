@@ -15,28 +15,47 @@ use Kreta\Bundle\WebBundle\Form\Type\ProjectType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * Class ProjectController.
+ *
+ * @package Kreta\Bundle\WebBundle\Controller
+ */
 class ProjectController extends Controller
 {
+    /**
+     * View action.
+     *
+     * @param string $id The id
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     function viewAction($id)
     {
         $project = $this->get('kreta_core.repository_project')->find($id);
 
-        if (!$project) {
+        if ($project == null) {
             throw $this->createNotFoundException('Project not found');
         }
 
         return $this->render('KretaWebBundle:Project:view.html.twig', array('project' => $project));
     }
 
+    /**
+     * New action.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request The request
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function newAction(Request $request)
     {
         $project = $this->get('kreta_core.factory_project')->create();
 
         $form = $this->createForm(new ProjectType(), $project);
 
-        if ($request->isMethod('POST')) {
+        if ($request->isMethod('POST') === true) {
             $form->handleRequest($request);
-            if ($form->isValid()) {
+            if ($form->isSubmitted() === true && $form->isValid() === true) {
                 $manager = $this->getDoctrine()->getManager();
                 $manager->persist($project);
                 $participant = $this->get('kreta_core.factory_participant')->create($project, $this->getUser());
@@ -45,52 +64,66 @@ class ProjectController extends Controller
                 $manager->persist($participant);
                 $manager->flush();
                 $this->get('session')->getFlashBag()->add('success', 'Project created successfully');
+
                 return $this->redirect($this->generateUrl('kreta_web_project_view', array('id' => $project->getId())));
             }
         }
 
-        return $this->render('KretaWebBundle:Project:new.html.twig', array(
-            'form' => $form->createView(),
-        ));
+        return $this->render('KretaWebBundle:Project:new.html.twig', array('form' => $form->createView()));
     }
 
+    /**
+     * Edit action.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request The request
+     * @param string                                    $id      The id
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     */
     public function editAction(Request $request, $id)
     {
         $project = $this->get('kreta_core.repository_project')->find($id);
 
-        if(!$project) {
+        if ($project == null) {
             throw $this->createNotFoundException();
         }
 
         $form = $this->createForm(new ProjectType(), $project);
 
-        if ($request->isMethod('POST')) {
+        if ($request->isMethod('POST') === true) {
             $form->handleRequest($request);
-            if ($form->isValid()) {
+            if ($form->isSubmitted() === true && $form->isValid() === true) {
                 $manager = $this->getDoctrine()->getManager();
                 $manager->persist($project);
                 $manager->flush();
                 $this->get('session')->getFlashBag()->add('success', 'Project updated successfully');
+
                 return $this->redirect($this->generateUrl('kreta_web_project_view', array('id' => $project->getId())));
             }
         }
 
         return $this->render('KretaWebBundle:Project:edit.html.twig', array(
-            'form' => $form->createView(),
+            'form'    => $form->createView(),
             'project' => $project,
         ));
     }
 
+    /**
+     * New participant action.
+     *
+     * @param string $id The id
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
     public function newParticipantAction($id)
     {
-        /** @var \Kreta\Component\Core\Model\Interfaces\UserInterface $user */
-        $user = $this->get('kreta_core.repository_user')->findOneBy(array('email' => $this->getRequest()->get('email')));
-        /** @var \Kreta\Component\Core\Model\Interfaces\ProjectInterface $project */
+        $user = $this->get('kreta_core.repository_user')
+            ->findOneBy(array('email' => $this->getRequest()->get('email')));
         $project = $this->get('kreta_core.repository_project')->find($id);
 
-        if(!$user) {
+        if ($user == null) {
             $this->get('session')->getFlashBag()->add('error', 'User not found');
-        } elseif(!$project) {
+        } elseif ($project == null) {
             throw $this->createNotFoundException('Project not found');
         } else {
             $participant = $this->get('kreta_core.factory_participant')->create($project, $user);

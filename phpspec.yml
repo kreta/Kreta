@@ -5,6 +5,9 @@ suites:
     FixturesBundle:
         namespace: Kreta
         spec_path: src/Kreta/Bundle/FixturesBundle
+    WebBundle:
+        namespace: Kreta
+        spec_path: src/Kreta/Bundle/WebBundle
 
     CoreComponent:
         namespace: Kreta

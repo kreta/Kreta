@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file belongs to Kreta.
  * The source code of application includes a LICENSE file
@@ -14,12 +15,14 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
- * Class ProjectType
+ * Class ProjectType.
+ *
+ * @package Kreta\Bundle\WebBundle\Form\Type
  */
 class ProjectType extends AbstractType
 {
     /**
-     * @{@inheritdoc}
+     * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -29,12 +32,12 @@ class ProjectType extends AbstractType
                 'label'    => 'Name',
             ))
             ->add('shortName', 'text', array(
-                'label'    => 'Short name',
+                'label' => 'Short name',
             ));
     }
 
     /**
-     * @{@inheritdoc}
+     * {@inheritdoc}
      */
     public function getName()
     {

@@ -13,8 +13,18 @@ namespace Kreta\Bundle\WebBundle\Controller\Component;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+/**
+ * Class IssueComponentController.
+ *
+ * @package Kreta\Bundle\WebBundle\Controller\Component
+ */
 class IssueComponentController extends Controller
 {
+    /**
+     * User action.
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function userAction()
     {
         $issues = $this->get('kreta_core.repository_issue')->findByAssignee(
@@ -23,7 +33,6 @@ class IssueComponentController extends Controller
             array('status' => 'ASC', 'priority' => 'DESC')
         );
 
-        return $this->render('KretaWebBundle:Component/Issue:user.html.twig',
-            array('issues' => $issues));
+        return $this->render('KretaWebBundle:Component/Issue:user.html.twig', array('issues' => $issues));
     }
 }

@@ -18,6 +18,11 @@ use Behat\Symfony2Extension\Context\KernelAwareContext;
 use Behat\Symfony2Extension\Context\KernelDictionary;
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 
+/**
+ * Class DefaultContext.
+ *
+ * @package Kreta\Bundle\WebBundle\Behat
+ */
 class DefaultContext extends MinkContext implements KernelAwareContext
 {
     use KernelDictionary;
@@ -27,7 +32,6 @@ class DefaultContext extends MinkContext implements KernelAwareContext
      */
     public function purgeDatabase(BeforeScenarioScope $scope)
     {
-        /** @var \Doctrine\ORM\EntityManager $entityManager */
         $entityManager = $this->getContainer()->get('doctrine.orm.entity_manager');
         $entityManager->getConnection()->executeUpdate("SET foreign_key_checks = 0;");
 
@@ -35,7 +39,6 @@ class DefaultContext extends MinkContext implements KernelAwareContext
         $purger->purge();
 
         $entityManager->getConnection()->executeUpdate("SET foreign_key_checks = 1;");
-
     }
 
     /**
@@ -64,10 +67,10 @@ class DefaultContext extends MinkContext implements KernelAwareContext
     {
         $issuesEls = $this->getSession()->getPage()->findAll('css', '.kreta-mini-issue');
 
-        /** @var \Behat\Mink\Element\NodeElement $issueEl */
         foreach ($issuesEls as $issueEl) {
-            if($issueName === $issueEl->find('css', 'h3')->getText()) {
+            if ($issueName === $issueEl->find('css', 'h3')->getText()) {
                 $issueEl->find('css', ".$button-issue")->click();
+
                 return;
             }
         }
@@ -81,15 +84,14 @@ class DefaultContext extends MinkContext implements KernelAwareContext
     public function iChooseProjectFromUsersProjectList($projectShortName)
     {
         $projectEls = $this->getSession()->getPage()->findAll('css', '.title-container');
-        /** @var \Behat\Mink\Element\NodeElement $projectEl */
         foreach ($projectEls as $projectEl) {
-            if($projectShortName === $projectEl->find('css', 'a')->getText()) {
+            if ($projectShortName === $projectEl->find('css', 'a')->getText()) {
                 $projectEl->find('css', 'a')->click();
+
                 return;
             }
         }
 
         throw new ElementNotFoundException($this->getSession());
     }
-
-} 
+}

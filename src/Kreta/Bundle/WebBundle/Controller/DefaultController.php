@@ -13,16 +13,32 @@ namespace Kreta\Bundle\WebBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
+/**
+ * Class DefaultController.
+ *
+ * @package Kreta\Bundle\WebBundle\Controller
+ */
 class DefaultController extends Controller
 {
+    /**
+     * Index action.
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function indexAction()
     {
-        if ($this->getUser()) {
+        if ($this->getUser() !== null) {
             return $this->dashboardAction();
         }
+
         return $this->render('KretaWebBundle:Default:index.html.twig');
     }
 
+    /**
+     * Dashboard action.
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function dashboardAction()
     {
         return $this->render('KretaWebBundle:Default:dashboard.html.twig');

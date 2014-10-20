@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * This file belongs to Kreta.
+ * The source code of application includes a LICENSE file
+ * with all information about license.
+ *
+ * @author benatespina <benatespina@gmail.com>
+ * @author gorkalaucirica <gorka.lauzirika@gmail.com>
+ */
+
 namespace spec\Kreta\Bundle\WebBundle\Form\Type;
 
 use Kreta\Component\Core\Model\Interfaces\IssueInterface;
@@ -7,6 +16,11 @@ use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
+/**
+ * Class TypeTypeSpec.
+ *
+ * @package spec\Kreta\Bundle\WebBundle\Form\Type
+ */
 class TypeTypeSpec extends ObjectBehavior
 {
     function it_is_initializable()
@@ -23,11 +37,11 @@ class TypeTypeSpec extends ObjectBehavior
     {
         $resolver->setDefaults(array(
             'choices' => array(
-                IssueInterface::TYPE_STORY => 'Story',
-                IssueInterface::TYPE_BUG => 'Bug',
+                IssueInterface::TYPE_STORY       => 'Story',
+                IssueInterface::TYPE_BUG         => 'Bug',
                 IssueInterface::TYPE_IMPROVEMENT => 'Improvement',
                 IssueInterface::TYPE_NEW_FEATURE => 'New feature',
-                IssueInterface::TYPE_EPIC => 'Epic'
+                IssueInterface::TYPE_EPIC        => 'Epic'
             )
         ))->shouldBeCalled();
 

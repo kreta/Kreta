@@ -17,6 +17,11 @@ use Behat\MinkExtension\Context\RawMinkContext;
 use Behat\Symfony2Extension\Context\KernelAwareContext;
 use Behat\Symfony2Extension\Context\KernelDictionary;
 
+/**
+ * Class ParticipantContext.
+ *
+ * @package Kreta\Bundle\CoreBundle\Behat
+ */
 class ParticipantContext extends RawMinkContext implements Context, KernelAwareContext
 {
     use KernelDictionary;
@@ -36,13 +41,13 @@ class ParticipantContext extends RawMinkContext implements Context, KernelAwareC
                 array('email' => $participantData['user'])
             );
 
-            /** @var \Kreta\Component\Core\Model\Participant $participant */
             $participant = $this->getContainer()->get('kreta_core.factory_participant')->create($project, $user);
 
             $participant->setRole($participantData['role']);
 
             $manager->persist($participant);
         }
+
         $manager->flush();
     }
 }
