@@ -111,14 +111,15 @@ class ProjectController extends Controller
     /**
      * New participant action.
      *
-     * @param string $id The id
+     * @param \Symfony\Component\HttpFoundation\Request $request The request
+     * @param string                                    $id      The id
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function newParticipantAction($id)
+    public function newParticipantAction(Request $request, $id)
     {
         $user = $this->get('kreta_core.repository_user')
-            ->findOneBy(array('email' => $this->getRequest()->get('email')));
+            ->findOneBy(array('email' => $request->get('email')));
         $project = $this->get('kreta_core.repository_project')->find($id);
 
         if ($user == null) {

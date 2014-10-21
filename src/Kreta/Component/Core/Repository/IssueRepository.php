@@ -22,6 +22,11 @@ use Kreta\Component\Core\Model\Interfaces\UserInterface;
  */
 class IssueRepository extends EntityRepository
 {
+    /**
+     * Array that contains the default valid filters.
+     *
+     * @var string[]
+     */
     private $validFilters = array('status', 'priority');
 
     /**
@@ -46,7 +51,7 @@ class IssueRepository extends EntityRepository
      *
      * @param \Kreta\Component\Core\Model\Interfaces\UserInterface $assignee The assignee
      * @param array                                                $filters  Fields and values to be filtered
-     * @param array                                                $orderBy  Fileds and strategy to order issues
+     * @param array                                                $orderBy  Fields and strategy to order issues
      *
      * @return \Kreta\Component\Core\Model\Interfaces\IssueInterface[]
      */
@@ -63,13 +68,22 @@ class IssueRepository extends EntityRepository
         return $queryBuilder->getQuery()->getResult();
     }
 
-    protected function orderBy($orderBy, QueryBuilder $queryBuilder)
+    /**
+     * Manages the order by statement into queries.
+     *
+     * @param string[]                   $orderBy      Array that contains the orders
+     * @param \Doctrine\ORM\QueryBuilder $queryBuilder The query builder
+     *
+     * @return \Doctrine\ORM\QueryBuilder
+     * @throws \Exception when it is not a valid filter
+     */
+    protected function orderBy(array $orderBy = array(), QueryBuilder $queryBuilder)
     {
         foreach ($orderBy as $sort => $order) {
-            if(in_array($sort, $this->validFilters)) {
-                $queryBuilder->orderBy('i.'.$sort, $order);
+            if (in_array($sort, $this->validFilters) === true) {
+                $queryBuilder->orderBy('i.' . $sort, $order);
             } else {
-                throw new \Exception($sort. ' is not a valid filter');
+                throw new \Exception($sort . ' is not a valid filter');
             }
         }
 
