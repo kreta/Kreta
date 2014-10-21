@@ -4,6 +4,7 @@
 #
 # @author benatespina <benatespina@gmail.com>
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
+
 default:
     formatters:
         pretty:
