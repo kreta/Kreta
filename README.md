@@ -41,27 +41,26 @@ Then, inside `/vagrant` directory you have to copy the `parameters.yml.dist` in 
 `.dist` extension, modifying the values with your favorite preferences. This is the `parameters.yml` file that we recommend:
 
 ```
-$vhost                  = "kreta"
-$domain                 = "localhost"
-$vhostpath              = "/var/www"
+virtual_machine:
+    vhost:      kreta
+    domain:     localhost
+    vhostpath:  /var/www
+    ip:         192.168.10.42
+    port:       8080
+    use_nfs:    true
+    box:        precise64
+    cpu:        1
+    memory:     512
 
-$ip                     = "192.168.10.42"
-$port                   = 8080
-$use_nfs                = true
-$base_box               = "precise64"
+database:
+    mysql:
+        rootpassword: app           # It must be the same that database_user variable from app/config/parameters.yml
+        user:         kreta-user
+        password:     123           # It must be the same that database_password variable from app/config/parameters.yml
+        name:         kreta         # It must be the same that database_name variable from app/config/parameters.yml
 
-$database_rootpassword  = "app"             # It must be the same that database_user variable from parameters.yml file
-$database_user          = "kreta-user"
-$database_password      = "123"             # It must be the same that database_password variable from parameters.yml file
-$database_name          = "kreta"           # It must be the same that database_name variable from parameters.yml file
-
-$database               = "mysql"
-
-$cpu                    = "1"
-$memory                 = "512"
-
-######## ENVIRONMENTS ########
-$symfony = true
+environments:
+    symfony: true
 ```
 
 In the next step, you have to build the *Vagrant* machine and then, you have to connect via **ssh** to the VM with the
