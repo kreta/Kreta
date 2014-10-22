@@ -4,14 +4,14 @@
 [![Build Status](https://travis-ci.org/kreta-io/CoreBundle.svg?branch=master)](https://travis-ci.org/kreta-io/CoreBundle)
 [![Coverage Status](https://img.shields.io/coveralls/kreta-io/CoreBundle.svg)](https://coveralls.io/r/kreta-io/CoreBundle)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/kreta-io/CoreBundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/kreta-io/CoreBundle/?branch=master)
-[![HHVM Status](http://hhvm.h4cc.de/badge/kreta/CoreBundle.svg)](http://hhvm.h4cc.de/package/kreta/CoreBundle)
+[![HHVM Status](http://hhvm.h4cc.de/badge/kreta/core-bundle.svg)](http://hhvm.h4cc.de/package/kreta/core-bundle)
 
-[![Latest Stable Version](https://poser.pugx.org/kreta/CoreBundle/v/stable.svg)](https://packagist.org/packages/kreta/CoreBundle)
-[![Latest Unstable Version](https://poser.pugx.org/kreta/CoreBundle/v/unstable.svg)](https://packagist.org/packages/kreta/CoreBundle)
+[![Latest Stable Version](https://poser.pugx.org/kreta/core-bundle/v/stable.svg)](https://packagist.org/packages/kreta/core-bundle)
+[![Latest Unstable Version](https://poser.pugx.org/kreta/core-bundle/v/unstable.svg)](https://packagist.org/packages/kreta/core-bundle)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-[![Total Downloads](https://poser.pugx.org/kreta/CoreBundle/downloads.svg)](https://packagist.org/packages/kreta/CoreBundle)
-[![Monthly Downloads](https://poser.pugx.org/kreta/CoreBundle/d/monthly.png)](https://packagist.org/packages/kreta/CoreBundle)
-[![Daily Downloads](https://poser.pugx.org/kreta/CoreBundle/d/daily.png)](https://packagist.org/packages/kreta/CoreBundle)
+[![Total Downloads](https://poser.pugx.org/kreta/core-bundle/downloads.svg)](https://packagist.org/packages/kreta/core-bundle)
+[![Monthly Downloads](https://poser.pugx.org/kreta/core-bundle/d/monthly.png)](https://packagist.org/packages/kreta/core-bundle)
+[![Daily Downloads](https://poser.pugx.org/kreta/core-bundle/d/daily.png)](https://packagist.org/packages/kreta/core-bundle)
 
 Tests
 -----

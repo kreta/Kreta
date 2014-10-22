@@ -4,14 +4,14 @@
 [![Build Status](https://travis-ci.org/kreta-io/Core.svg?branch=master)](https://travis-ci.org/kreta-io/Core)
 [![Coverage Status](https://img.shields.io/coveralls/kreta-io/Core.svg)](https://coveralls.io/r/kreta-io/Core)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/kreta-io/Core/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/kreta-io/Core/?branch=master)
-[![HHVM Status](http://hhvm.h4cc.de/badge/kreta/Core.svg)](http://hhvm.h4cc.de/package/kreta/Core)
+[![HHVM Status](http://hhvm.h4cc.de/badge/kreta/core.svg)](http://hhvm.h4cc.de/package/kreta/core)
 
-[![Latest Stable Version](https://poser.pugx.org/kreta/Core/v/stable.svg)](https://packagist.org/packages/kreta/Core)
-[![Latest Unstable Version](https://poser.pugx.org/kreta/Core/v/unstable.svg)](https://packagist.org/packages/kreta/Core)
+[![Latest Stable Version](https://poser.pugx.org/kreta/core/v/stable.svg)](https://packagist.org/packages/kreta/core)
+[![Latest Unstable Version](https://poser.pugx.org/kreta/core/v/unstable.svg)](https://packagist.org/packages/kreta/core)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-[![Total Downloads](https://poser.pugx.org/kreta/Core/downloads.svg)](https://packagist.org/packages/kreta/Core)
-[![Monthly Downloads](https://poser.pugx.org/kreta/Core/d/monthly.png)](https://packagist.org/packages/kreta/Core)
-[![Daily Downloads](https://poser.pugx.org/kreta/Core/d/daily.png)](https://packagist.org/packages/kreta/Core)
+[![Total Downloads](https://poser.pugx.org/kreta/core/downloads.svg)](https://packagist.org/packages/kreta/core)
+[![Monthly Downloads](https://poser.pugx.org/kreta/core/d/monthly.png)](https://packagist.org/packages/kreta/core)
+[![Daily Downloads](https://poser.pugx.org/kreta/core/d/daily.png)](https://packagist.org/packages/kreta/core)
 
 Tests
 -----
