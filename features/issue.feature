@@ -21,8 +21,8 @@ Feature: Manage issues
       | Doing       |
       | Done        |
     And the following projects exist:
-      | name         |
-      | Test project |
+      | name         | shortName |
+      | Test project | TPR       |
     And the following issues exist:
       | project      | title | description | reporter       | assignee       | type | status | priority |
       | Test project | Test  | Description | user@kreta.com | user@kreta.com | 1    | To do  | 1        |
