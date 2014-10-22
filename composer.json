@@ -18,7 +18,7 @@
         }
     ],
     "require": {
-        "php":                                      ">=5.3.3",
+        "php":                                      ">=5.4",
         "symfony/symfony":                          "2.3.*",
         "doctrine/orm":                             "~2.2,>=2.2.3",
         "doctrine/doctrine-bundle":                 "1.2.*",
@@ -41,9 +41,12 @@
         "behat/symfony2-extension" :                "~2.0",
         "behat/mink-extension" :                    "~2.0",
         "behat/mink-browserkit-driver":             "~1.2",
+        "vipsoft/code-coverage-extension":          "3.0.*@dev",
+
         "phpspec/phpspec":                          "2.1.x-dev",
         "henrikbjorn/phpspec-code-coverage":        "1.0.x-dev",
         "satooshi/php-coveralls":                   "0.6.1",
+
         "squizlabs/php_codesniffer":                "1.*",
         "phpmd/phpmd":                              "2.1.1",
 
@@ -77,9 +80,6 @@
         "symfony-web-dir": "web",
         "incenteev-parameters": {
             "file": "app/config/parameters.yml"
-        },
-        "branch-alias": {
-            "dev-master": "2.3-dev"
         }
     }
 }

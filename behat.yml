@@ -34,11 +34,39 @@ default:
                 tags: "@project"
 
     extensions:
-            Behat\MinkExtension:
-                base_url: http://localhost/app_test.php
-                sessions:
-                    default:
-                        symfony2: ~
-                browser_name: firefox
-                show_auto:    false
-            Behat\Symfony2Extension: ~
+        Behat\MinkExtension:
+            base_url: http://localhost/app_test.php
+            sessions:
+                default:
+                    symfony2: ~
+            browser_name: firefox
+            show_auto:    false
+        Behat\Symfony2Extension: ~
+
+#### Only recommended for dev envs ####
+#        VIPSoft\CodeCoverageExtension\Extension:
+#            auth:
+#                user: user@kreta.com
+#                password: 123456
+#            create:
+#                method:   POST
+#                path:     /
+#            read:
+#                method:   GET
+#                path:     /
+#            delete:
+#                method:   DELETE
+#                path:     /
+#            drivers:
+#                - remote
+#                - local
+#            filter:
+#                blacklist:
+#                    include:
+#                        directories:
+#                            'app': ~
+#                            'vendor': ~
+#            report:
+#                format: html
+#                options:
+#                    target: coverage-behat

@@ -7,6 +7,13 @@
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/c744caca-06bb-4b7f-9e0d-96282f4e8469/mini.png)](https://insight.sensiolabs.com/projects/c744caca-06bb-4b7f-9e0d-96282f4e8469)
 [![HHVM Status](http://hhvm.h4cc.de/badge/kreta-io/kreta.svg)](http://hhvm.h4cc.de/package/kreta-io/kreta)
 
+[![Latest Stable Version](https://poser.pugx.org/kreta-io/kreta/v/stable.svg)](https://packagist.org/packages/kreta-io/kreta)
+[![Latest Unstable Version](https://poser.pugx.org/kreta-io/kreta/v/unstable.svg)](https://packagist.org/packages/kreta-io/kreta)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+[![Total Downloads](https://poser.pugx.org/kreta-io/kreta/downloads.svg)](https://packagist.org/packages/kreta-io/kreta)
+[![Monthly Downloads](https://poser.pugx.org/kreta-io/kreta/d/monthly.png)](https://packagist.org/packages/kreta-io/kreta)
+[![Daily Downloads](https://poser.pugx.org/kreta-io/kreta/d/daily.png)](https://packagist.org/packages/kreta-io/kreta)
+
 
 Prerequisites
 -------------
@@ -79,8 +86,9 @@ And that's all! Now, if you go to the `http://kreta.localhost` url, you will see
 
 Tests
 -----
+This project is completely tested by full-stack **BDD methodology**.
 
-This project is completely tested by **[PHPSpec][1], SpecBDD framework for PHP**.
+Firstly, is completely tested by **[PHPSpec][1], SpecBDD framework for PHP**.
 
 Because you want to contribute or simply because you want to throw the tests, you have to type the following command
 in your terminal.
@@ -89,6 +97,19 @@ in your terminal.
 
 *Depends the location of the `bin` directory (sometimes in the root dir; sometimes in the `/vendor` dir) the way that
 works every time is to use the absolute path of the binary `vendor/phpspec/phpspec/bin/phpspec`*
+
+Furthermore, **[Behat][5], StoryBDD framework for PHP** has *scenarios* that it tests the project in functional mode.
+As mentioned above, if you want to throw the test, you have to create the test environment database with its schema and then,
+type the following command in your terminal.
+
+    sh scripts/pre_behat.sh
+    behat
+
+*Depends the location of the `bin` directory (sometimes in the root dir; sometimes in the `/vendor` dir) the way that
+works every time is to use the absolute path of the binary `vendor/behat/behat/bin/behat`*
+
+If you want to check the **code-coverage** of previous tests, PHPSpec generates it by default, but to activate the Behat code-coverage
+you have to uncomment the lines of `behat.yml` file.
 
 Contributing
 ------------
@@ -110,6 +131,7 @@ in the [Submitting a Patch][3] section and use the [Pull Request Template][4].
 [2]: http://symfony.com/doc/current/contributing/code/index.html
 [3]: http://symfony.com/doc/current/contributing/code/patches.html#check-list
 [4]: http://symfony.com/doc/current/contributing/code/patches.html#make-a-pull-request
+[5]: http://behat.org
 
 Credits
 -------
@@ -120,4 +142,4 @@ Kreta is created by:
 
 Licensing Options
 -----------------
-Released under MIT license. See [LICENSE.md](https://github.com/kreta-io/kreta/blob/master/LICENSE.md) file for more information.
+![License](https://poser.pugx.org/kreta-io/kreta/license.svg) See [LICENSE.md](https://github.com/kreta-io/kreta/blob/master/LICENSE.md) file for more information.

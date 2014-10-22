@@ -32,5 +32,8 @@ web/js
 /coverage
 coverage.xml
 
+#### Behat ####
+/coverage-behat
+
 #### Vagrant ####
 .vagrant

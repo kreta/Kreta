@@ -18,7 +18,7 @@
         }
     ],
     "require": {
-        "php":                                 ">=5.3.3",
+        "php":                                 ">=5.4",
         "doctrine/data-fixtures":              "1.0.*@dev",
 
         "kreta/core-bundle":                   "dev-master"

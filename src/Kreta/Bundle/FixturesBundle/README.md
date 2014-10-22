@@ -4,7 +4,14 @@
 [![Build Status](https://travis-ci.org/kreta-io/FixturesBundle.svg?branch=master)](https://travis-ci.org/kreta-io/FixturesBundle)
 [![Coverage Status](https://img.shields.io/coveralls/kreta-io/FixturesBundle.svg)](https://coveralls.io/r/kreta-io/FixturesBundle)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/kreta-io/FixturesBundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/kreta-io/FixturesBundle/?branch=master)
-[![HHVM Status](http://hhvm.h4cc.de/badge/kreta-io/FixturesBundle.svg)](http://hhvm.h4cc.de/package/kreta-io/FixturesBundle)
+[![HHVM Status](http://hhvm.h4cc.de/badge/kreta/FixturesBundle.svg)](http://hhvm.h4cc.de/package/kreta/FixturesBundle)
+
+[![Latest Stable Version](https://poser.pugx.org/kreta/FixturesBundle/v/stable.svg)](https://packagist.org/packages/kreta/FixturesBundle)
+[![Latest Unstable Version](https://poser.pugx.org/kreta/CoreBundle/v/unstable.svg)](https://packagist.org/packages/kreta/FixturesBundle)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+[![Total Downloads](https://poser.pugx.org/kreta/FixturesBundle/downloads.svg)](https://packagist.org/packages/kreta/FixturesBundle)
+[![Monthly Downloads](https://poser.pugx.org/kreta/FixturesBundle/d/monthly.png)](https://packagist.org/packages/kreta/FixturesBundle)
+[![Daily Downloads](https://poser.pugx.org/kreta/FixturesBundle/d/daily.png)](https://packagist.org/packages/kreta/FixturesBundle)
 
 Tests
 -----
@@ -50,4 +57,4 @@ Kreta Core Bundle is created by:
 
 Licensing Options
 -----------------
-Released under MIT license.
+![License](https://poser.pugx.org/kreta-io/FixturesBundle/license.svg)

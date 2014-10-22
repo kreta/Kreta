@@ -4,7 +4,14 @@
 [![Build Status](https://travis-ci.org/kreta-io/WebBundle.svg?branch=master)](https://travis-ci.org/kreta-io/WebBundle)
 [![Coverage Status](https://img.shields.io/coveralls/kreta-io/WebBundle.svg)](https://coveralls.io/r/kreta-io/WebBundle)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/kreta-io/WebBundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/kreta-io/WebBundle/?branch=master)
-[![HHVM Status](http://hhvm.h4cc.de/badge/kreta-io/WebBundle.svg)](http://hhvm.h4cc.de/package/kreta-io/WebBundle)
+[![HHVM Status](http://hhvm.h4cc.de/badge/kreta/WebBundle.svg)](http://hhvm.h4cc.de/package/kreta/WebBundle)
+
+[![Latest Stable Version](https://poser.pugx.org/kreta/WebBundle/v/stable.svg)](https://packagist.org/packages/kreta/WebBundle)
+[![Latest Unstable Version](https://poser.pugx.org/kreta/WebBundle/v/unstable.svg)](https://packagist.org/packages/kreta/WebBundle)
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+[![Total Downloads](https://poser.pugx.org/kreta/WebBundle/downloads.svg)](https://packagist.org/packages/kreta/WebBundle)
+[![Monthly Downloads](https://poser.pugx.org/kreta/WebBundle/d/monthly.png)](https://packagist.org/packages/kreta/WebBundle)
+[![Daily Downloads](https://poser.pugx.org/kreta/WebBundle/d/daily.png)](https://packagist.org/packages/kreta/WebBundle)
 
 Tests
 -----
@@ -50,4 +57,4 @@ Kreta Core Bundle is created by:
 
 Licensing Options
 -----------------
-Released under MIT license.
+![License](https://poser.pugx.org/kreta-io/WebBundle/license.svg)
