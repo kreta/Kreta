@@ -5,14 +5,14 @@
 [![Coverage Status](https://img.shields.io/coveralls/kreta-io/kreta.svg)](https://coveralls.io/r/kreta-io/kreta)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/kreta-io/kreta/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/kreta-io/kreta/?branch=master)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/c744caca-06bb-4b7f-9e0d-96282f4e8469/mini.png)](https://insight.sensiolabs.com/projects/c744caca-06bb-4b7f-9e0d-96282f4e8469)
-[![HHVM Status](http://hhvm.h4cc.de/badge/kreta-io/kreta.svg)](http://hhvm.h4cc.de/package/kreta-io/kreta)
+[![HHVM Status](http://hhvm.h4cc.de/badge/kreta/kreta.svg)](http://hhvm.h4cc.de/package/kreta/kreta)
 
-[![Latest Stable Version](https://poser.pugx.org/kreta-io/kreta/v/stable.svg)](https://packagist.org/packages/kreta-io/kreta)
-[![Latest Unstable Version](https://poser.pugx.org/kreta-io/kreta/v/unstable.svg)](https://packagist.org/packages/kreta-io/kreta)
+[![Latest Stable Version](https://poser.pugx.org/kreta/kreta/v/stable.svg)](https://packagist.org/packages/kreta/kreta)
+[![Latest Unstable Version](https://poser.pugx.org/kreta/kreta/v/unstable.svg)](https://packagist.org/packages/kreta/kreta)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-[![Total Downloads](https://poser.pugx.org/kreta-io/kreta/downloads.svg)](https://packagist.org/packages/kreta-io/kreta)
-[![Monthly Downloads](https://poser.pugx.org/kreta-io/kreta/d/monthly.png)](https://packagist.org/packages/kreta-io/kreta)
-[![Daily Downloads](https://poser.pugx.org/kreta-io/kreta/d/daily.png)](https://packagist.org/packages/kreta-io/kreta)
+[![Total Downloads](https://poser.pugx.org/kreta/kreta/downloads.svg)](https://packagist.org/packages/kreta/kreta)
+[![Monthly Downloads](https://poser.pugx.org/kreta/kreta/d/monthly.png)](https://packagist.org/packages/kreta/kreta)
+[![Daily Downloads](https://poser.pugx.org/kreta/kreta/d/daily.png)](https://packagist.org/packages/kreta/kreta)
 
 
 Prerequisites
@@ -142,4 +142,4 @@ Kreta is created by:
 
 Licensing Options
 -----------------
-![License](https://poser.pugx.org/kreta-io/kreta/license.svg) See [LICENSE.md](https://github.com/kreta-io/kreta/blob/master/LICENSE.md) file for more information.
+[![License](https://poser.pugx.org/kreta/kreta/license.svg)](https://github.com/kreta-io/kreta/blob/master/LICENSE.md)

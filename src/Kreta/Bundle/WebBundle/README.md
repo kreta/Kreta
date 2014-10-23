@@ -57,4 +57,4 @@ Kreta Core Bundle is created by:
 
 Licensing Options
 -----------------
-![License](https://poser.pugx.org/kreta-io/WebBundle/license.svg)
+[![License](https://poser.pugx.org/kreta/web-bundle/license.svg)](https://github.com/kreta-io/kreta/blob/master/LICENSE.md)
