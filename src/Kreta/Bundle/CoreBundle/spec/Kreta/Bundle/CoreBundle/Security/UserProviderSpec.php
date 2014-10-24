@@ -100,6 +100,28 @@ class UserProviderSpec extends ObjectBehavior
         $this->loadUserByOAuthUserResponse($response)->shouldReturn($user);
     }
 
+    function it_loads_by_oauth_user_response_when_email_is_not_empty_but_user_does_not_exist(
+        UserResponseInterface $response,
+        UserManagerInterface $userManager,
+        UserInterface $user,
+        ResourceOwnerInterface $resourceOwner
+    )
+    {
+        $response->getUsername()->shouldBeCalled()->willReturn('1234567');
+        $userManager->findUserBy(array('githubId' => '1234567'))->shouldBeCalled()->willReturn(null);
+
+        $response->getEmail()->shouldBeCalled()->willReturn('kreta@kreta.com');
+        $userManager->findUserBy(array('email' => 'kreta@kreta.com'))->shouldBeCalled()->willReturn($user);
+
+        $response->getResourceOwner()->shouldBeCalled()->willReturn($resourceOwner);
+        $resourceOwner->getName()->shouldBeCalled()->willReturn('github');
+
+        $response->getAccessToken()->shouldBeCalled()->willReturn('github-access-token');
+        $user->setGithubAccessToken('github-access-token')->shouldBeCalled()->willReturn($user);
+
+        $this->loadUserByOAuthUserResponse($response)->shouldReturn($user);
+    }
+
     function it_loads_by_oauth_user_response_when_email_is_not_empty_and_user_exists(
         UserResponseInterface $response,
         UserManagerInterface $userManager,

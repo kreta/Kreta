@@ -55,7 +55,7 @@ Kreta\Component\Core\Model\User:
         comments:
             targetEntity: Kreta\Component\Core\Model\Interfaces\CommentInterface
             mappedBy: writtenBy
-        participants:
+        projects:
             targetEntity: Kreta\Component\Core\Model\Interfaces\ParticipantInterface
             mappedBy: user
         reportedIssues:

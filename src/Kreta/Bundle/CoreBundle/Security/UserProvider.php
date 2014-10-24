@@ -37,7 +37,7 @@ class UserProvider extends BaseUserProvider
         $setterToken = $setter . 'AccessToken';
 
         $previousUser = $this->userManager->findUserBy(array($property => $email));
-        if ($previousUser !== null) {
+        if ($previousUser instanceof UserInterface) {
             $previousUser->setUsername($email);
             $previousUser->setEmail($email);
             $previousUser->$setterId(null);
@@ -56,15 +56,13 @@ class UserProvider extends BaseUserProvider
      */
     public function loadUserByOAuthUserResponse(UserResponseInterface $response)
     {
-        //Load by github or bitbucket id
         $user = $this->userManager->findUserBy(array($this->getProperty($response) => $response->getUsername()));
 
-        //If not found try finding someone with the same email to associate accounts
-        if(!$user && $response->getEmail() != '') {
+        if (($user instanceof UserInterface) === false && $response->getEmail() !== '') {
             $user = $this->userManager->findUserBy(array('email' => $response->getEmail()));
         }
 
-        if (null === $user) {
+        if (($user instanceof UserInterface) === false) {
             $service = $response->getResourceOwner()->getName();
             $setter = 'set' . ucfirst($service);
             $setter_id = $setter . 'Id';

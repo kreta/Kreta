@@ -38,6 +38,19 @@ class UserSpec extends ObjectBehavior
         $this->shouldImplement('Kreta\Component\Core\Model\Interfaces\UserInterface');
     }
 
+    function its_assignee_issues_comments_projects_and_reported_issues_are_collection()
+    {
+        $this->getAssignedIssues()->shouldHaveType('Doctrine\Common\Collections\ArrayCollection');
+        $this->getComments()->shouldHaveType('Doctrine\Common\Collections\ArrayCollection');
+        $this->getProjects()->shouldHaveType('Doctrine\Common\Collections\ArrayCollection');
+        $this->getReportedIssues()->shouldHaveType('Doctrine\Common\Collections\ArrayCollection');
+    }
+    
+    function its_created_at_is_a_datetime()
+    {
+        $this->getCreatedAt()->shouldHaveType('DateTime');
+    }
+
     function its_assigned_issues_be_mutable(IssueInterface $issue)
     {
         $this->getAssignedIssues()->shouldHaveCount(0);
@@ -90,6 +103,33 @@ class UserSpec extends ObjectBehavior
         $this->getFirstName()->shouldReturn('The dummy first name');
     }
 
+    function its_full_name_returns_null_if_first_name_and_last_name_are_null()
+    {
+        $this->getFullName()->shouldReturn(null);
+    }
+
+    function its_full_name_returns_last_name_if_first_name_is_null()
+    {
+        $this->setLastName('surname')->shouldReturn($this);
+
+        $this->getFullName()->shouldReturn('surname');
+    }
+
+    function its_full_name_returns_first_name_if_last_name_is_null()
+    {
+        $this->setFirstName('name')->shouldReturn($this);
+
+        $this->getFullName()->shouldReturn('name');
+    }
+
+    function its_full_name_returns_first_name_plus_last_name_if_it_is_default_situation()
+    {
+        $this->setFirstName('name')->shouldReturn($this);
+        $this->setLastName('surname')->shouldReturn($this);
+
+        $this->getFullName()->shouldReturn('name surname');
+    }
+
     function its_github_access_token_is_mutable()
     {
         $this->setGithubAccessToken('the-dummy-github-access-token')->shouldReturn($this);
@@ -108,17 +148,17 @@ class UserSpec extends ObjectBehavior
         $this->getLastName()->shouldReturn('The dummy last name');
     }
 
-    function its_projects_be_mutable(ParticipantInterface $participant)
+    function its_projects_with_his_roles_are_be_mutable(ParticipantInterface $project)
     {
-        $this->getParticipants()->shouldHaveCount(0);
+        $this->getProjects()->shouldHaveCount(0);
 
-        $this->addParticipant($participant);
+        $this->addProject($project);
 
-        $this->getParticipants()->shouldHaveCount(1);
+        $this->getProjects()->shouldHaveCount(1);
 
-        $this->removeParticipant($participant);
+        $this->removeProject($project);
 
-        $this->getParticipants()->shouldHaveCount(0);
+        $this->getProjects()->shouldHaveCount(0);
     }
 
     function its_reported_issues_be_mutable(IssueInterface $issue)

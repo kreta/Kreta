@@ -89,11 +89,11 @@ class User extends BaseUser implements UserInterface
     protected $lastName;
 
     /**
-     * Array that contains all the roles of the user.
+     * Array that contains all the projects with his roles.
      *
      * @var \Doctrine\Common\Collections\ArrayCollection
      */
-    protected $participants;
+    protected $projects;
 
     /**
      * Array that contains reported issues.
@@ -110,7 +110,7 @@ class User extends BaseUser implements UserInterface
         $this->assignedIssues = new ArrayCollection();
         $this->comments = new ArrayCollection();
         $this->createdAt = new \DateTime();
-        $this->participants = new ArrayCollection();
+        $this->projects = new ArrayCollection();
         $this->reportedIssues = new ArrayCollection();
 
         parent::__construct();
@@ -247,6 +247,24 @@ class User extends BaseUser implements UserInterface
     /**
      * {@inheritdoc}
      */
+    public function getFullName()
+    {
+        if ($this->firstName !== null && $this->lastName !== null) {
+            return $this->firstName . ' ' . $this->lastName;
+        }
+
+        if ($this->firstName !== null) {
+            return $this->firstName;
+        }
+
+        if ($this->lastName !== null) {
+            return $this->lastName;
+        }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getGithubAccessToken()
     {
         return $this->githubAccessToken;
@@ -283,14 +301,6 @@ class User extends BaseUser implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function getFullName()
-    {
-        return $this->firstName . ' ' . $this->lastName;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function getLastName()
     {
         return $this->lastName;
@@ -309,17 +319,17 @@ class User extends BaseUser implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function getParticipants()
+    public function getProjects()
     {
-        return $this->participants;
+        return $this->projects;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function addParticipant(ParticipantInterface $participant)
+    public function addProject(ParticipantInterface $project)
     {
-        $this->participants[] = $participant;
+        $this->projects[] = $project;
 
         return $this;
     }
@@ -327,9 +337,9 @@ class User extends BaseUser implements UserInterface
     /**
      * {@inheritdoc}
      */
-    public function removeParticipant(ParticipantInterface $participant)
+    public function removeProject(ParticipantInterface $project)
     {
-        $this->participants->removeElement($participant);
+        $this->projects->removeElement($project);
 
         return $this;
     }

@@ -45,16 +45,4 @@ class Status extends AbstractModel implements StatusInterface
 
         return $this;
     }
-
-    /**
-     * Returns status description
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->description;
-    }
-
-
 }

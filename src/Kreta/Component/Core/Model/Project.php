@@ -175,12 +175,4 @@ class Project extends AbstractModel implements ProjectInterface
 
         return null;
     }
-
-    /**
-     * @{inheritdoc}
-     */
-    public function __toString()
-    {
-        return $this->name;
-    }
 }

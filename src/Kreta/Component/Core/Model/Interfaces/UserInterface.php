@@ -190,29 +190,29 @@ interface UserInterface extends BaseUserInterface
     public function setLastName($lastName);
 
     /**
-     * Gets project roles.
+     * Gets project with his role.
      *
      * @return \Kreta\Component\Core\Model\Interfaces\ParticipantInterface[]
      */
-    public function getParticipants();
+    public function getProjects();
 
     /**
-     * Adds project role.
+     * Adds project with his role.
      *
-     * @param \Kreta\Component\Core\Model\Interfaces\ParticipantInterface $participant The project role
+     * @param \Kreta\Component\Core\Model\Interfaces\ParticipantInterface $project The project
      *
      * @return $this self Object
      */
-    public function addParticipant(ParticipantInterface $participant);
+    public function addProject(ParticipantInterface $project);
 
     /**
-     * Removes project role.
+     * Removes project with his role.
      *
-     * @param \Kreta\Component\Core\Model\Interfaces\ParticipantInterface $participant The project role
+     * @param \Kreta\Component\Core\Model\Interfaces\ParticipantInterface $project The project
      *
      * @return $this self Object
      */
-    public function removeParticipant(ParticipantInterface $participant);
+    public function removeProject(ParticipantInterface $project);
 
     /**
      * Gets reported issues.
