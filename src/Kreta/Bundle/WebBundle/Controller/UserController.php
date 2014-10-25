@@ -12,8 +12,10 @@
 namespace Kreta\Bundle\WebBundle\Controller;
 
 use Kreta\Bundle\WebBundle\Form\Type\UserType;
+use Kreta\Component\Core\Model\Interfaces\UserInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Class UserController.
@@ -27,11 +29,15 @@ class UserController extends Controller
      *
      * @param \Symfony\Component\HttpFoundation\Request $request The request
      *
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function editAction(Request $request)
     {
         $user = $this->getUser();
+        if (($user instanceof UserInterface) === false) {
+            throw new AccessDeniedException();
+        }
 
         $form = $this->createForm(new UserType(), $user);
 

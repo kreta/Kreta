@@ -50,12 +50,11 @@ class IssueRepository extends EntityRepository
      * Finds all the issues of assignee given.
      *
      * @param \Kreta\Component\Core\Model\Interfaces\UserInterface $assignee The assignee
-     * @param array                                                $filters  Fields and values to be filtered
      * @param array                                                $orderBy  Fields and strategy to order issues
      *
      * @return \Kreta\Component\Core\Model\Interfaces\IssueInterface[]
      */
-    public function findByAssignee(UserInterface $assignee, $filters, $orderBy)
+    public function findByAssignee(UserInterface $assignee, $orderBy)
     {
         $queryBuilder = $this->createQueryBuilder('i');
 
@@ -63,7 +62,7 @@ class IssueRepository extends EntityRepository
             ->where($queryBuilder->expr()->eq('i.assignee', ':assignee'))
             ->setParameter(':assignee', $assignee->getId());
 
-        $queryBuilder = $this->orderBy($orderBy, $queryBuilder);
+        $queryBuilder = $this->orderBy($queryBuilder, $orderBy);
 
         return $queryBuilder->getQuery()->getResult();
     }
@@ -71,13 +70,13 @@ class IssueRepository extends EntityRepository
     /**
      * Manages the order by statement into queries.
      *
-     * @param string[]                   $orderBy      Array that contains the orders
      * @param \Doctrine\ORM\QueryBuilder $queryBuilder The query builder
+     * @param string[]                   $orderBy      Array that contains the orders
      *
      * @return \Doctrine\ORM\QueryBuilder
      * @throws \Exception when it is not a valid filter
      */
-    protected function orderBy(array $orderBy = array(), QueryBuilder $queryBuilder)
+    protected function orderBy(QueryBuilder $queryBuilder, array $orderBy = array())
     {
         foreach ($orderBy as $sort => $order) {
             if (in_array($sort, $this->validFilters) === true) {

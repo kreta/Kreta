@@ -58,7 +58,7 @@ class UserProviderSpec extends ObjectBehavior
         $previousUser->setEmail('user@kreta.com')->shouldBeCalled()->willReturn($previousUser);
         $previousUser->setGithubId(null)->shouldBeCalled()->willReturn($previousUser);
         $previousUser->setGithubAccessToken(null)->shouldBeCalled()->willReturn($previousUser);
-        $userManager->updateUser($previousUser)->shouldBeCalled();
+        $userManager->updateUser($previousUser, false)->shouldBeCalled();
 
         $response->getUsername()->shouldBeCalled()->willReturn('user@kreta.com');
         $user->setGithubId('user@kreta.com')->shouldBeCalled()->willReturn($previousUser);
@@ -66,7 +66,7 @@ class UserProviderSpec extends ObjectBehavior
         $response->getAccessToken()->shouldBeCalled()->willReturn('github-access-token');
         $user->setGithubAccessToken('github-access-token')->shouldBeCalled()->willReturn($previousUser);
 
-        $userManager->updateUser($user, true)->shouldBeCalled();
+        $userManager->updateUser($user)->shouldBeCalled();
 
         $this->connect($user, $response);
     }

@@ -12,6 +12,8 @@
 namespace Kreta\Bundle\WebBundle\Controller;
 
 use Kreta\Bundle\WebBundle\Form\Type\ProjectType;
+use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
+use Kreta\Component\Core\Model\Interfaces\UserInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -27,13 +29,14 @@ class ProjectController extends Controller
      *
      * @param string $id The id
      *
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    function viewAction($id)
+    public function viewAction($id)
     {
         $project = $this->get('kreta_core.repository_project')->find($id);
 
-        if ($project == null) {
+        if (($project instanceof ProjectInterface) === false) {
             throw $this->createNotFoundException('Project not found');
         }
 
@@ -78,13 +81,14 @@ class ProjectController extends Controller
      * @param \Symfony\Component\HttpFoundation\Request $request The request
      * @param string                                    $id      The id
      *
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
     public function editAction(Request $request, $id)
     {
         $project = $this->get('kreta_core.repository_project')->find($id);
 
-        if ($project == null) {
+        if (($project instanceof ProjectInterface) === false) {
             throw $this->createNotFoundException();
         }
 
@@ -114,6 +118,7 @@ class ProjectController extends Controller
      * @param \Symfony\Component\HttpFoundation\Request $request The request
      * @param string                                    $id      The id
      *
+     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function newParticipantAction(Request $request, $id)
@@ -122,9 +127,9 @@ class ProjectController extends Controller
             ->findOneBy(array('email' => $request->get('email')));
         $project = $this->get('kreta_core.repository_project')->find($id);
 
-        if ($user == null) {
+        if (($user instanceof UserInterface) === false) {
             $this->get('session')->getFlashBag()->add('error', 'User not found');
-        } elseif ($project == null) {
+        } elseif (($project instanceof ProjectInterface) === false) {
             throw $this->createNotFoundException('Project not found');
         } else {
             $participant = $this->get('kreta_core.factory_participant')->create($project, $user);

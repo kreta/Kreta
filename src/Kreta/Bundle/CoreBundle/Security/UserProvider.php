@@ -42,13 +42,13 @@ class UserProvider extends BaseUserProvider
             $previousUser->setEmail($email);
             $previousUser->$setterId(null);
             $previousUser->$setterToken(null);
-            $this->userManager->updateUser($previousUser);
+            $this->userManager->updateUser($previousUser, false);
         }
 
         $user->$setterId($response->getUsername());
         $user->$setterToken($response->getAccessToken());
 
-        $this->userManager->updateUser($user, true);
+        $this->userManager->updateUser($user);
     }
 
     /**

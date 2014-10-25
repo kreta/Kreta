@@ -80,7 +80,7 @@ class IssueVoter implements VoterInterface
 
                 if ($issue->isAssignee($user) === true
                     || $issue->isReporter($user) === true
-                    || $participant == Participant::ADMIN
+                    || $participant === Participant::ADMIN
                 ) {
                     return VoterInterface::ACCESS_GRANTED;
                 }

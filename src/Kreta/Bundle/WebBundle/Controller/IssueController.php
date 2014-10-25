@@ -34,7 +34,7 @@ class IssueController extends Controller
     public function viewAction($id)
     {
         $issue = $this->get('kreta_core.repository_issue')->find($id);
-        if ($issue == null) {
+        if (($issue instanceof IssueInterface) === false) {
             $this->createNotFoundException();
         }
 
@@ -82,7 +82,7 @@ class IssueController extends Controller
     public function editAction($id, Request $request)
     {
         $issue = $this->get('kreta_core.repository_issue')->find($id);
-        if ($issue == null) {
+        if (($issue instanceof IssueInterface) === false) {
             $this->createNotFoundException();
         }
 
@@ -118,7 +118,7 @@ class IssueController extends Controller
     function newCommentAction($issueId, Request $request)
     {
         $issue = $this->get('kreta_core.repository_issue')->find($issueId);
-        if (!$issue) {
+        if (($issue instanceof IssueInterface) === false) {
             $this->createNotFoundException('Issue not found');
         }
         $comment = $this->get('kreta_core.factory_comment')->create();
