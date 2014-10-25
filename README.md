@@ -67,6 +67,9 @@ database:
         name:         kreta         # It must be the same that database_name variable from app/config/parameters.yml
 
 environments:
+    ruby:
+        sass: latest
+        compass: 0.12.6
     symfony: true
 ```
 
