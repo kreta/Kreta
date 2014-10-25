@@ -17,8 +17,8 @@ use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Core\Model\Interfaces\ResolutionInterface;
 use Kreta\Component\Core\Model\Interfaces\StatusInterface;
 use Kreta\Component\Core\Model\Interfaces\UserInterface;
-use Kreta\Component\Core\Model\Project;
 use Kreta\Component\Core\Model\Participant;
+use Kreta\Component\Core\Model\Project;
 use Kreta\Component\Core\Model\User;
 use PhpSpec\ObjectBehavior;
 
@@ -51,6 +51,11 @@ class IssueSpec extends ObjectBehavior
         $this->getWatchers()->shouldHaveType('Doctrine\Common\Collections\ArrayCollection');
     }
 
+    function its_created_at_is_a_datetime()
+    {
+        $this->getCreatedAt()->shouldHaveType('DateTime');
+    }
+
     function its_assignee_be_mutable(UserInterface $assignee)
     {
         $this->setAssignee($assignee)->shouldReturn($this);
@@ -70,6 +75,14 @@ class IssueSpec extends ObjectBehavior
         $this->setAssignee($assignee)->shouldReturn($this);
         $assignee->getId()->shouldBeCalled()->willReturn('user-id');
         $this->isAssignee($assignee)->shouldReturn(true);
+    }
+
+    function its_created_at_is_mutable()
+    {
+        $createDate = new \DateTime();
+
+        $this->setCreatedAt($createDate)->shouldReturn($this);
+        $this->getCreatedAt()->shouldReturn($createDate);
     }
 
     function its_comments_are_mutable(CommentInterface $comment)

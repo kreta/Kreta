@@ -43,6 +43,13 @@ class Issue extends AbstractModel implements IssueInterface
     protected $comments;
 
     /**
+     * Created at.
+     *
+     * @var \DateTime
+     */
+    protected $createdAt;
+
+    /**
      * The description.
      *
      * @var string
@@ -118,6 +125,7 @@ class Issue extends AbstractModel implements IssueInterface
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+        $this->createdAt = new \DateTime();
         $this->labels = new ArrayCollection();
         $this->watchers = new ArrayCollection();
     }
@@ -172,6 +180,24 @@ class Issue extends AbstractModel implements IssueInterface
     public function removeComment(CommentInterface $comment)
     {
         $this->comments->removeElement($comment);
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setCreatedAt(\DateTime $createdAt)
+    {
+        $this->createdAt = $createdAt;
 
         return $this;
     }

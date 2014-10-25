@@ -15,6 +15,9 @@ Kreta\Component\Core\Model\Issue:
             generator:
                 strategy: UUID
     fields:
+        createdAt:
+            column: created_at
+            type: datetime
         description:
             type: text
         priority:

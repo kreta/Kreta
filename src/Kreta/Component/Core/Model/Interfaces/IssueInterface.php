@@ -87,6 +87,22 @@ interface IssueInterface
     public function removeComment(CommentInterface $comment);
 
     /**
+     * Gets created at.
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt();
+
+    /**
+     * Sets created at.
+     *
+     * @param \DateTime $createdAt The created at.
+     *
+     * @return $this self Object
+     */
+    public function setCreatedAt(\DateTime $createdAt);
+
+    /**
      * Gets description.
      *
      * @return string
