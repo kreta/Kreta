@@ -12,18 +12,19 @@
 namespace Kreta\Bundle\CoreBundle\Security\Authorization\Voter;
 
 use Kreta\Bundle\CoreBundle\Security\Authorization\Voter\Abstracts\AbstractVoter;
-use Kreta\Component\Core\Model\Participant;
 use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * Class IssueVoter.
+ * Class ProjectVoter.
  *
  * @package Kreta\Bundle\CoreBundle\Security\Authorization\Voter
  */
-class IssueVoter extends AbstractVoter
+class ProjectVoter extends AbstractVoter
 {
-    const ASSIGN = 'assign';
+    const ADD_PARTICIPANT = 'add_participant';
+    const DELETE = 'delete';
+    const DELETE_PARTICIPANT = 'delete_participant';
     const EDIT = 'edit';
     const VIEW = 'view';
 
@@ -31,7 +32,9 @@ class IssueVoter extends AbstractVoter
      * {@inheritdoc}
      */
     protected $attributes = array(
-        self::ASSIGN,
+        self::ADD_PARTICIPANT,
+        self::DELETE,
+        self::DELETE_PARTICIPANT,
         self::EDIT,
         self::VIEW
     );
@@ -39,27 +42,24 @@ class IssueVoter extends AbstractVoter
     /**
      * {@inheritdoc}
      */
-    protected $supportedClass = 'Kreta\Component\Core\Model\Interfaces\IssueInterface';
+    protected $supportedClass = 'Kreta\Component\Core\Model\Interfaces\ProjectInterface';
 
     /**
      * {@inheritdoc}
      */
-    public function checkAttribute(UserInterface $user, $issue, $attribute)
+    public function checkAttribute(UserInterface $user, $project, $attribute)
     {
         switch ($attribute) {
-            case self::ASSIGN:
+            case self::ADD_PARTICIPANT:
+            case self::DELETE:
+            case self::DELETE_PARTICIPANT:
             case self::EDIT:
-                $participant = $issue->getProject()->getUserRole($user);
-
-                if ($issue->isAssignee($user) === true
-                    || $issue->isReporter($user) === true
-                    || $participant === Participant::ADMIN
-                ) {
+                if ($project->getUserRole($user) === 'ROLE_ADMIN') {
                     return VoterInterface::ACCESS_GRANTED;
                 }
                 break;
             case self::VIEW:
-                if ($issue->isParticipant($user) === true) {
+                if ($project->getUserRole($user) !== null) {
                     return VoterInterface::ACCESS_GRANTED;
                 }
                 break;
