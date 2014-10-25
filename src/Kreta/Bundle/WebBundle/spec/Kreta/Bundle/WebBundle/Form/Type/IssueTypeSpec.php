@@ -36,8 +36,10 @@ class IssueTypeSpec extends ObjectBehavior
 
     function it_builds_a_form(FormBuilder $builder)
     {
-        $builder->add('project', null, array(
-            'label' => 'Project'
+        $builder->add('project', 'entity', array(
+            'label'    => 'Project',
+            'class'    => 'Kreta\Component\Core\Model\Project',
+            'property' => 'name'
         ))->shouldBeCalled()->willReturn($builder);
 
         $builder->add('title', 'text', array(
@@ -57,16 +59,20 @@ class IssueTypeSpec extends ObjectBehavior
             'label' => 'Priority'
         ))->shouldBeCalled()->willReturn($builder);
 
-        $builder->add('status', null, array(
-            'label' => 'Status'
+        $builder->add('status', 'entity', array(
+            'label'    => 'Status',
+            'class'    => 'Kreta\Component\Core\Model\Status',
+            'property' => 'description'
         ))->shouldBeCalled()->willReturn($builder);
 
         $builder->add('reporter', null, array(
-            'label' => 'Assigner'
+            'label' => 'Assigner',
+            'empty_value' => null
         ))->shouldBeCalled()->willReturn($builder);
 
         $builder->add('assignee', null, array(
-            'label' => 'Assignee'
+            'label' => 'Assignee',
+            'empty_value' => null
         ))->shouldBeCalled()->willReturn($builder);
 
 

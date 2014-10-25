@@ -21,7 +21,7 @@
                         <img src="{{ asset_url }}">
                     {% endimage %}
                 </a>
-                <span>{{ issue.status }}</span>
+                <span>{{ issue.status.description }}</span>
                 <a class='view-issue' href="{{ url('kreta_web_issue_view', { 'id' : issue.id }) }}"><i class="fa fa-eye"></i></a>
                 <a href="{{ url('kreta_web_issue_view', { 'id' : issue.id }) }}"><i class="fa fa-comment"></i>
                     {{ issue.comments | length }}

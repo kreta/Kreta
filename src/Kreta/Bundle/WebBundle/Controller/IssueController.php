@@ -51,7 +51,9 @@ class IssueController extends Controller
     public function newAction(Request $request)
     {
         $issue = $this->get('kreta_core.factory_issue')->create();
-        $issue->setReporter($this->getUser());
+        $user = $this->getUser();
+        $issue->setReporter($user);
+        $issue->setAssignee($user);
 
         $form = $this->createForm(new IssueType(), $issue);
 
@@ -115,7 +117,7 @@ class IssueController extends Controller
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    function newCommentAction($issueId, Request $request)
+    public function newCommentAction($issueId, Request $request)
     {
         $issue = $this->get('kreta_core.repository_issue')->find($issueId);
         if (($issue instanceof IssueInterface) === false) {

@@ -27,30 +27,36 @@ class IssueType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('project', null, array(
-                'label' => 'Project'
+            ->add('project', 'entity', array(
+                'label'    => 'Project',
+                'class'    => 'Kreta\Component\Core\Model\Project',
+                'property' => 'name'
             ))
             ->add('title', 'text', array(
                 'required' => true,
-                'label'    => 'Name',
+                'label'    => 'Name'
             ))
             ->add('description', 'textarea', array(
-                'label'    => 'Description',
+                'label' => 'Description'
             ))
             ->add('type', new TypeType(), array(
-                'label'    => 'Type',
+                'label' => 'Type'
             ))
             ->add('priority', new PriorityType(), array(
-                'label'    => 'Priority',
+                'label' => 'Priority'
             ))
-            ->add('status', null, array(
+            ->add('status', 'entity', array(
                 'label'    => 'Status',
+                'class'    => 'Kreta\Component\Core\Model\Status',
+                'property' => 'description'
             ))
             ->add('reporter', null, array(
-                'label'    => 'Assigner',
+                'label'       => 'Assigner',
+                'empty_value' => null
             ))
             ->add('assignee', null, array(
-                'label'    => 'Assignee',
+                'label'       => 'Assignee',
+                'empty_value' => null
             ));
     }
 
