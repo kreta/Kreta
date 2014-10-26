@@ -16,6 +16,7 @@ use Kreta\Bundle\WebBundle\Form\Type\IssueType;
 use Kreta\Component\Core\Model\Interfaces\IssueInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 /**
  * Class IssueController.
@@ -34,9 +35,14 @@ class IssueController extends Controller
     public function viewAction($id)
     {
         $issue = $this->get('kreta_core.repository_issue')->find($id);
+
         if (($issue instanceof IssueInterface) === false) {
             $this->createNotFoundException();
         }
+
+        if ($this->get('security.context')->isGranted('edit', $issue) === false) {
+            throw new AccessDeniedHttpException();
+        };
 
         return $this->render('KretaWebBundle:Issue:view.html.twig', array('issue' => $issue));
     }
@@ -84,9 +90,14 @@ class IssueController extends Controller
     public function editAction($id, Request $request)
     {
         $issue = $this->get('kreta_core.repository_issue')->find($id);
+
         if (($issue instanceof IssueInterface) === false) {
             $this->createNotFoundException();
         }
+
+        if ($this->get('security.context')->isGranted('edit', $issue) === false) {
+            throw new AccessDeniedHttpException();
+        };
 
         $form = $this->createForm(new IssueType(), $issue);
 
@@ -104,7 +115,7 @@ class IssueController extends Controller
         }
 
         return $this->render('KretaWebBundle:Issue:edit.html.twig', array(
-            'form'  => $form->createView(),
+            'form' => $form->createView(),
             'issue' => $issue
         ));
     }
@@ -120,9 +131,11 @@ class IssueController extends Controller
     public function newCommentAction($issueId, Request $request)
     {
         $issue = $this->get('kreta_core.repository_issue')->find($issueId);
+
         if (($issue instanceof IssueInterface) === false) {
             $this->createNotFoundException('Issue not found');
         }
+
         $comment = $this->get('kreta_core.factory_comment')->create();
 
         $form = $this->createForm(new CommentType(), $comment);
@@ -144,7 +157,7 @@ class IssueController extends Controller
         }
 
         return $this->render('KretaWebBundle:Issue/blocks:commentForm.html.twig', array(
-            'form'  => $form->createView(),
+            'form' => $form->createView(),
             'issue' => $issue
         ));
     }
