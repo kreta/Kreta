@@ -12,7 +12,11 @@
             {% image '@KretaWebBundle/Resources/public/img/user.jpg' %}
             <img class="kreta-user-image" src="{{ asset_url }}">
             {% endimage %}
-            <span>Gorka Laucirica</span>
+            {% if app.user.firstName is defined and app.user.lastName is defined %}
+                <span>{{ app.user.email }}</span>
+            {% else %}
+                <span>{{ app.user.firstName }} {{ app.user.lastName }}</span>
+            {% endif %}
             <div class="user-actions">
                 <a href="{{ url('kreta_web_user_edit') }}"><i class="fa fa-wrench"></i></a>
                 <a href="{{ url('fos_user_security_logout') }}"><i class="fa fa-sign-out"></i></a>
