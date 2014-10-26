@@ -14,9 +14,9 @@
   @include border-radius(3px);
   text-align: center;
   &.success {
-    color: green;
+    color: $mainGreen;
   }
   &.error {
-    color: darkred;
+    color: $pumpkin;
   }
 }

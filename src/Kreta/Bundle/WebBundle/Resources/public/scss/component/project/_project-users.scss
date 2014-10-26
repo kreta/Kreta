@@ -12,6 +12,10 @@
   div.kreta-project-user {
     border-top: 1px solid $borderGrey;
     padding: .5em;
+    @include transition-duration(.5s);
+    &:hover {
+      background: $mainWhite;
+    }
     img {
       width: 60px;
       @include border-radius($standardRadius);
@@ -22,5 +26,8 @@
   }
   button {
     width: 100%;
+    i {
+      padding-right: .5em;
+    }
   }
 }

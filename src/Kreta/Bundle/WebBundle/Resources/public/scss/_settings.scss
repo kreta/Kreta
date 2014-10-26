@@ -5,20 +5,54 @@
 // @author benatespina <benatespina@gmail.com>
 // @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
+// greens
+$turquoise:     #1abc9c;
+$emerald:       #2ecc71;
+$greenSea:      #16a085;
+$nephritis:     #27ae60;
+
+  // blues
+$peterRiver:    #3498db;
+$belizeHole:    #2980b9;
+$wetAsphalt:    #34495e;
+$midnightBlue:  #2c3e50;
+
+  // purples
+$amethyst:      #9b59b6;
+$wisteria:      #8e44ad;
+
+  // oranges
+$sunflower:     #f1c40f;
+$carrot:        #e67e22;
+$orange:        #f39c12;
+$pumpkin:       #d35400;
+
+  // reds
+$alizarin:      #e74c3c;
+$pomegranate:   #c0392b;
+
+// grays
+$clouds:        #ecf0f1;
+$silver:        #bdc3c7;
+$concrete:      #95a5a6;
+$asbestos:      #7f8c8d;
+
+
 // Color
-$mainGreen: #00803b;
+$mainGreen: $turquoise;
+$mainGrey: $clouds;
 $mainWhite: white;
-$bgGrey: #F0F0F0;
+$bgGrey: #DADADA;
 $borderGrey: #E2E2E2;
-$mainBlack: black;
-$softBlack: lighten($mainBlack, 60%);
+$mainBlack: $midnightBlue;
+$softBlack: lighten($mainBlack, 30%);
 
 // Icon item colors
-$iconRed: #a00000;
-$iconGreen: #00803b;
-$iconYellow: #c6a400;
-$iconBlue: #000089;
-$iconPurple: #630089;
+$iconRed: $pumpkin;
+$iconGreen: $turquoise;
+$iconYellow: $sunflower;
+$iconBlue: $midnightBlue;
+$iconPurple: $wisteria;
 
 // Foundation buttons
 $button-bg-color: $mainGreen;

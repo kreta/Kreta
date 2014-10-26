@@ -1,0 +1,34 @@
+<div class="kreta-mini-issue">
+    <a href="{{ url('kreta_web_issue_view', { 'id' : issue.id }) }}"><h3>{{ issue.title }}</h3></a>
+    <div class="issue-footer">
+        <div class="kreta-icon-item green">
+            <span class="kreta-icon-item-legend">{{ issue.status.description }}</span>
+        </div>
+        {% include 'KretaWebBundle:Issue/blocks:typeIcon.html.twig' with {'type': issue.type} %}
+        {% include 'KretaWebBundle:Issue/blocks:priorityIcon.html.twig' with {'priority': issue.priority} %}
+        <div class="issue-actions">
+            <a class='view-issue' href="{{ url('kreta_web_issue_view', { 'id' : issue.id }) }}">
+                <i class="fa fa-eye"></i>
+            </a>
+            <a class='edit-issue' href="{{ url('kreta_web_issue_edit', { 'id' : issue.id }) }}">
+                <i class="fa fa-pencil"></i>
+            </a>
+            <a class="comments-issue" href="{{ url('kreta_web_issue_view', { 'id' : issue.id }) }}">
+                <i class="fa fa-comment"></i>
+                {{ issue.comments | length }}
+            </a>
+        </div>
+        <div class="issue-images">
+            <a href="{{ url('kreta_web_project_view', { 'id' : issue.project.id }) }}">
+                {% image '@KretaWebBundle/Resources/public/img/project.jpg' %}
+                <img src="{{ asset_url }}">
+                {% endimage %}
+            </a>
+            <a href="">
+                {% image '@KretaWebBundle/Resources/public/img/user.jpg' %}
+                <img src="{{ asset_url }}">
+                {% endimage %}
+            </a>
+        </div>
+    </div>
+</div>

@@ -9,46 +9,32 @@
 @import 'compass/css3';
 
 .kreta-icon-item {
+  color: $mainWhite;
+  padding: 0em 1em;
+  text-align: center;
+  text-transform: uppercase;
+  display: inline-block;
+  @include border-radius(3px);
+  font-size: .8em;
+  margin-right: .5em;
   &.red {
-    color: $iconRed;
-    i {
-      border: 1px solid $iconRed;
-    }
+    background: $iconRed;
   }
   &.yellow {
-    color: $iconYellow;
-    i {
-      border: 1px solid $iconYellow;
-    }
+    background: $iconYellow;
   }
   &.green {
-    color: $iconGreen;
-    i {
-      border: 1px solid $iconGreen;
-    }
+    background: $iconGreen;
   }
   &.blue {
-    color: $iconBlue;
-    i {
-      border: 1px solid $iconBlue;
-    }
+    background: $iconBlue;
   }
   &.purple {
-    color: $iconPurple;
-    i {
-      border: 1px solid $iconPurple;
-    }
+    background: $iconPurple;
   }
   i {
-    background: $mainWhite;
-    padding: 0 .5em;
-    min-width: 35px;
-    text-align: center;
-    line-height: 30px;
+    color: $mainWhite;
+    padding-right: .5em;
     display: inline-block;
-    @include border-radius($standardRadius);
-  }
-  span {
-    margin-left: .5em;
   }
 }

@@ -7,7 +7,9 @@
             {{ form_start(form, {'action': url('kreta_web_project_new')}) }}
             {{ form_row(form.name) }}
             {{ form_row(form.shortName) }}
-            <input class="button tiny" type="submit" value="Create">
+            <div class="form-actions">
+                <input class="button tiny" type="submit" value="Create">
+            </div>
             {{ form_end(form) }}
         </div>
     </div>

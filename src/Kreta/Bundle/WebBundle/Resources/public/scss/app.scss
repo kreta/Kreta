@@ -24,7 +24,6 @@
 @import "component/project/project-users";
 @import "component/project/project-details";
 @import "component/project/mini-project";
-
 @import "element/user-image";
 @import "element/icon-item";
 @import "element/flash";
@@ -32,18 +31,14 @@
 body {
   background: $bgGrey;
   font-family: 'Source Sans Pro', sans-serif;
+  color: $mainBlack;
 }
 
 .kreta-content {
   margin: 1em auto;
 }
 
-
 a {
-  color: $mainBlack;
+  color: $mainGreen;
   text-decoration: none;
-  @include transition(color .5s);
-  &:hover {
-    color: $mainGreen;
-  }
 }
