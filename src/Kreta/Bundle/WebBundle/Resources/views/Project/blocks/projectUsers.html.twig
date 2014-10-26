@@ -18,7 +18,7 @@
         {% endfor %}
         <form method="post" action="{{ url('kreta_web_project_participant_new', {'id' : project.id }) }}">
             <input type="text" name="email" placeholder="New user's email">
-            <button class="kreta-action" type="submit">
+            <button class="kreta-action tiny" type="submit">
                 <i class="fa fa-plus"></i>Add user to project
             </button>
         </form>

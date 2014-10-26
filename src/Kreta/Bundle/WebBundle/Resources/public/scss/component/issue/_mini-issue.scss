@@ -11,54 +11,62 @@
 .kreta-mini-issue {
   border-top: 1px solid $borderGrey;
   position: relative;
-  min-height: 100px;
+  @include transition(background .5s);
+  &:hover {
+    background: $mainWhite;
+    .issue-actions {
+      @include opacity(1);
+      z-index: 10;
+      bottom: 10px
+    }
+    .issue-images {
+      @include opacity(0);
+    }
+  }
   h3 {
     margin: .5em 1em;
-    @include transition(color .5s);
-    &:hover {
-      color: $mainGreen;
-    }
-  }
-  .kreta-icon-item {
-    position: absolute;
-    height: 30px;
-    right: -10px;
-    &.kreta-type-icon {
-      top: 10px;
-    }
-    &.kreta-priority-icon {
-      top: 50px;
-    }
-    > span {
-      display: none;
-    }
+    color: $mainGreen;
   }
   .issue-footer {
-    margin: 0 .5em;
-    img {
-      width: 40px;
-      @include border-radius($standardRadius);
-    }
+    padding: 0 1em 1em 1em;
+  }
+  .issue-actions {
+    position: absolute;
+    right: 10px;
+    bottom: 0px;
+    @include opacity(0);
+    @include transition-duration(.5s);
     a {
-      padding: 0 .5em;
+      @include transition-duration(.5s);
       color: $borderGrey;
-      &:hover {
-        color: $mainGreen;
+      padding: 0 .5em;
+      &.view-issue {
+        &:hover {
+          color: $mainGreen;
+        }
+      }
+      &.edit-issue {
+        &:hover {
+          color: $sunflower;
+        }
+      }
+      &.comments-issue {
+        &:hover {
+          color: $wisteria;
+        }
       }
     }
   }
-}
-
-@media #{$medium-up} {
-  .kreta-mini-issue .kreta-icon-item > span {
-    display: block;
-    margin-left: .5em;
+  .issue-images {
     position: absolute;
-    left: -150px;
-    top: 0;
-    width: 130px;
-    background: white;
-    text-align: right;
-    line-height: 30px;
+    right: 10px;
+    bottom: 10px;
+    z-index: 5;
+    @include transition-duration(.5s);
+    img {
+      display: inline-block;
+      width: 40px;
+      @include border-radius($standardRadius);
+    }
   }
 }

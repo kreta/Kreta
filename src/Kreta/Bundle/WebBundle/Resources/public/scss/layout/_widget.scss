@@ -11,23 +11,27 @@
 .kreta-widget {
   margin-bottom: 1em;
   .kreta-widget-content {
-    border: 1px solid $borderGrey;
-    background: $mainWhite;
-    @include border-radius($standardRadius);
+    background: $mainGrey;
     h2 {
-      margin: .5em 1em;
+      padding: .5em 1em;
+      background: white;
+      margin: 0;
       color: $mainGreen;
+      background: $mainWhite;
       i {
         margin-right: .5em;
       }
     }
     .kreta-actions {
       border-top: 1px solid $borderGrey;
-      padding-top: .5em;
+      padding: .5em 0;
+      @include transition-duration(.5s);
+      &:hover {
+        background: $mainWhite;
+      }
       a {
         display: block;
         text-align: center;
-        margin-bottom: .5em;
       }
       hr {
         border: 0;

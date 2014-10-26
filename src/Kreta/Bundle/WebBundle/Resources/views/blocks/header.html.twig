@@ -1,17 +1,22 @@
 <header id="main-header" class="row">
-    <div class="small-6 column">
+    <div class="small-3 column">
         <a href="{{ url('kreta_web_dashboard') }}">
             {% image '@KretaWebBundle/Resources/public/img/logo.png' %}
                 <img class="logo" src="{{ asset_url }}"/>
             {% endimage %}
         </a>
     </div>
-    <div class="kreta-user-menu small-6 columns">
-        <a id="add-issue" href="{{ url('kreta_web_issue_new') }}"><i class="fa fa-plus"></i></a>
-        <a href="{{ url('kreta_web_user_edit') }}"><i class="fa fa-wrench"></i></a>
-        <a href="{{ url('fos_user_security_logout') }}"><i class="fa fa-sign-out"></i></a>
-        {% image '@KretaWebBundle/Resources/public/img/user.jpg' %}
+    <div class="kreta-user-menu small-9 columns">
+        <a id="add-issue" href="{{ url('kreta_web_issue_new') }}"><i class="fa fa-plus"></i>Create issue</a>
+        <div class="user-container">
+            {% image '@KretaWebBundle/Resources/public/img/user.jpg' %}
             <img class="kreta-user-image" src="{{ asset_url }}">
-        {% endimage %}
+            {% endimage %}
+            <span>Gorka Laucirica</span>
+            <div class="user-actions">
+                <a href="{{ url('kreta_web_user_edit') }}"><i class="fa fa-wrench"></i></a>
+                <a href="{{ url('fos_user_security_logout') }}"><i class="fa fa-sign-out"></i></a>
+            </div>
+        </div>
     </div>
 </header>

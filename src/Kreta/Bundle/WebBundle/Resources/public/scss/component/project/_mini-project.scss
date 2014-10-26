@@ -11,6 +11,10 @@
 .kreta-mini-project {
   .title-container {
     border-top: 1px solid $borderGrey;
+    @include transition-duration(.5s);
+    &:hover {
+      background: $mainWhite;
+    }
     img {
       width: 50px;
       display: inline-block;
