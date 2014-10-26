@@ -65,11 +65,6 @@ class IssueTypeSpec extends ObjectBehavior
             'property' => 'description'
         ))->shouldBeCalled()->willReturn($builder);
 
-        $builder->add('reporter', null, array(
-            'label' => 'Assigner',
-            'empty_value' => null
-        ))->shouldBeCalled()->willReturn($builder);
-
         $builder->add('assignee', null, array(
             'label' => 'Assignee',
             'empty_value' => null

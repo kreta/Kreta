@@ -30,7 +30,7 @@ class LoadProjectData extends DataFixtures
             $project = $this->container->get('kreta_core.factory_project')->create();
             $project->setName('This is the project number ' . $i . ' that is created by fixtures');
 
-            $project->setShortName('PR-' . $i);
+            $project->setShortName('PR' . $i);
 
             $manager->persist($project);
         }

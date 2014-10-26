@@ -12,6 +12,7 @@
 namespace Kreta\Bundle\WebBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Class DefaultController.
@@ -27,7 +28,7 @@ class DefaultController extends Controller
      */
     public function indexAction()
     {
-        if ($this->getUser() !== null) {
+        if ($this->getUser() instanceof UserInterface) {
             return $this->dashboardAction();
         }
 

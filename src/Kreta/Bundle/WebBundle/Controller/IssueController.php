@@ -16,7 +16,7 @@ use Kreta\Bundle\WebBundle\Form\Type\IssueType;
 use Kreta\Component\Core\Model\Interfaces\IssueInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Class IssueController.
@@ -41,7 +41,7 @@ class IssueController extends Controller
         }
 
         if ($this->get('security.context')->isGranted('edit', $issue) === false) {
-            throw new AccessDeniedHttpException();
+            throw new AccessDeniedException();
         };
 
         return $this->render('KretaWebBundle:Issue:view.html.twig', array('issue' => $issue));
@@ -96,7 +96,7 @@ class IssueController extends Controller
         }
 
         if ($this->get('security.context')->isGranted('edit', $issue) === false) {
-            throw new AccessDeniedHttpException();
+            throw new AccessDeniedException();
         };
 
         $form = $this->createForm(new IssueType(), $issue);
@@ -115,7 +115,7 @@ class IssueController extends Controller
         }
 
         return $this->render('KretaWebBundle:Issue:edit.html.twig', array(
-            'form' => $form->createView(),
+            'form'  => $form->createView(),
             'issue' => $issue
         ));
     }
@@ -157,7 +157,7 @@ class IssueController extends Controller
         }
 
         return $this->render('KretaWebBundle:Issue/blocks:commentForm.html.twig', array(
-            'form' => $form->createView(),
+            'form'  => $form->createView(),
             'issue' => $issue
         ));
     }

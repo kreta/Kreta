@@ -50,10 +50,6 @@ class IssueType extends AbstractType
                 'class'    => 'Kreta\Component\Core\Model\Status',
                 'property' => 'description'
             ))
-            ->add('reporter', null, array(
-                'label'       => 'Assigner',
-                'empty_value' => null
-            ))
             ->add('assignee', null, array(
                 'label'       => 'Assignee',
                 'empty_value' => null

@@ -36,7 +36,6 @@ Feature: Manage issues
       | Description | kreta |
     And I select "Test project" from "Project"
     And I select "To do" from "Status"
-    And I select "user@kreta.com" from "Assigner"
     And I select "user@kreta.com" from "Assignee"
     And I press "Create"
     Then I should see "Issue created successfully"
