@@ -24,7 +24,7 @@ Kreta\Component\Core\Model\Issue:
             type: smallint
         title:
             type: string
-            length: 50
+            length: 140
         type:
             type: smallint
     manyToMany:
