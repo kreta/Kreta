@@ -35,7 +35,7 @@ default:
 
     extensions:
         Behat\MinkExtension:
-            base_url: http://localhost/app_test.php
+            base_url: http://demo.kreta.io/app_test.php
             sessions:
                 default:
                     symfony2: ~
@@ -43,30 +43,29 @@ default:
             show_auto:    false
         Behat\Symfony2Extension: ~
 
-#### Only recommended for dev envs ####
-#        VIPSoft\CodeCoverageExtension\Extension:
-#            auth:
-#                user: user@kreta.com
-#                password: 123456
-#            create:
-#                method:   POST
-#                path:     /
-#            read:
-#                method:   GET
-#                path:     /
-#            delete:
-#                method:   DELETE
-#                path:     /
-#            drivers:
-#                - remote
-#                - local
-#            filter:
-#                blacklist:
-#                    include:
-#                        directories:
-#                            'app': ~
-#                            'vendor': ~
-#            report:
-#                format: html
-#                options:
-#                    target: coverage-behat
+        VIPSoft\CodeCoverageExtension\Extension:
+            auth:
+                user: user@kreta.com
+                password: 123456
+            create:
+                method:   POST
+                path:     /
+            read:
+                method:   GET
+                path:     /
+            delete:
+                method:   DELETE
+                path:     /
+            drivers:
+                - remote
+                - local
+            filter:
+                blacklist:
+                    include:
+                        directories:
+                            'app': ~
+                            'vendor': ~
+            report:
+                format: clover
+                options:
+                    target: behat-coverage.xml

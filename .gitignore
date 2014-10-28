@@ -30,10 +30,11 @@ web/js
 
 #### PHPSpec ####
 /coverage
-coverage.xml
+phpspec-coverage.xml
 
 #### Behat ####
 /coverage-behat
+behat-coverage.xml
 
 #### Vagrant ####
 .vagrant

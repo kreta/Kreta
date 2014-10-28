@@ -8,5 +8,7 @@
 service_name: travis-ci
 
 src_dir: src
-coverage_clover: coverage.xml
+coverage_clover:
+    - phpspec-coverage.xml
+    - behat-coverage.xml
 json_path: coveralls-upload.json
