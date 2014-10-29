@@ -16,6 +16,7 @@ Feature: Manage project
       | firstName | lastName | email           | password |
       | Kreta     | User     | user@kreta.com  | 123456   |
       | Kreta     | User2    | user2@kreta.com | 123456   |
+      | Kreta     | User3    | user3@kreta.com | 123456   |
     And the following statuses exist:
       | description |
       | To do       |
@@ -25,12 +26,13 @@ Feature: Manage project
       | name         | shortName |
       | Test project | TPR       |
     And the following participants exist:
-      | project      | user           | role             |
-      | Test project | user@kreta.com | ROLE_PARTICIPANT |
-    And I am a logged as 'user@kreta.com' with password '123456'
+      | project      | user            | role             |
+      | Test project | user@kreta.com  | ROLE_ADMIN       |
+      | Test project | user3@kreta.com | ROLE_PARTICIPANT |
 
   Scenario: Adding a new project
-    Given I am on homepage
+    Given I am a logged as 'user@kreta.com' with password '123456'
+    And I am on homepage
     And I follow "Add project"
     When I fill in the following:
       | Name       | New project |
@@ -39,21 +41,30 @@ Feature: Manage project
     Then I should see "Project created successfully"
 
   Scenario: Viewing a existing project
-    Given I am on homepage
+    Given I am a logged as 'user@kreta.com' with password '123456'
+    And I am on homepage
     When I choose "TPR" project from user's project list
     Then I should see "Participants"
     And I should see "Project Issues"
 
   Scenario: Adding a participant to project
-    Given I am on homepage
+    Given I am a logged as 'user@kreta.com' with password '123456'
+    And I am on homepage
     And I choose "TPR" project from user's project list
     When I fill in "email" with "user2@kreta.com"
     And I press "Add user to project"
     Then I should see "Participant added successfully"
 
   Scenario: Adding a participant with unregistered email
-    Given I am on homepage
+    Given I am a logged as 'user@kreta.com' with password '123456'
+    And I am on homepage
     And I choose "TPR" project from user's project list
     When I fill in "email" with "unregistered@kreta.com"
     And I press "Add user to project"
     Then I should see "User not found"
+
+  Scenario: Trying to add a participant to a project without being project admin
+    Given I am a logged as 'user3@kreta.com' with password '123456'
+    And I am on homepage
+    When I choose "TPR" project from user's project list
+    Then I should not see "Add user to project"
