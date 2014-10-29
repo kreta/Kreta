@@ -4,3 +4,10 @@
 #
 # @author benatespina <benatespina@gmail.com>
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
+
+services:
+    kreta_web.listener_emptyProfileListener:
+        class: Kreta\Bundle\WebBundle\EventListener\EmptyProfileListener
+        arguments: [@security.context, @router, @session]
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
