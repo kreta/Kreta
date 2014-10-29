@@ -11,6 +11,8 @@
 
 namespace Kreta\Bundle\WebBundle\Form\Type;
 
+use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
+use Kreta\Component\Core\Repository\ProjectRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -21,16 +23,26 @@ use Symfony\Component\Form\FormBuilderInterface;
  */
 class IssueType extends AbstractType
 {
+    /** @var ProjectInterface[] */
+    protected $projects;
+
+    public function __construct(array $projects)
+    {
+        $this->projects = $projects;
+    }
+
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+
         $builder
             ->add('project', 'entity', array(
                 'label'    => 'Project',
                 'class'    => 'Kreta\Component\Core\Model\Project',
-                'property' => 'name'
+                'property' => 'name',
+                'choices' => $this->projects
             ))
             ->add('title', 'text', array(
                 'required' => true,

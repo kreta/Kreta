@@ -62,7 +62,8 @@ class IssueController extends Controller
         $issue->setReporter($user);
         $issue->setAssignee($user);
 
-        $form = $this->createForm(new IssueType(), $issue);
+        $form = $this->createForm(new IssueType($this->get('kreta_core.repository_project')
+            ->findByParticipant($this->getUser())), $issue);
 
         if ($request->isMethod('POST') === true) {
             $form->handleRequest($request);
@@ -100,7 +101,8 @@ class IssueController extends Controller
             throw new AccessDeniedException();
         };
 
-        $form = $this->createForm(new IssueType(), $issue);
+        $form = $this->createForm(new IssueType($this->get('kreta_core.repository_project')
+            ->findByParticipant($this->getUser())), $issue);
 
         if ($request->isMethod('POST') === true) {
             $form->handleRequest($request);
