@@ -16,6 +16,7 @@ use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Core\Model\Interfaces\UserInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Class ProjectController.
@@ -35,6 +36,10 @@ class ProjectController extends Controller
     public function viewAction($id)
     {
         $project = $this->get('kreta_core.repository_project')->find($id);
+
+        if ($this->get('security.context')->isGranted('view', $project) === false) {
+            throw new AccessDeniedException();
+        };
 
         if (($project instanceof ProjectInterface) === false) {
             throw $this->createNotFoundException('Project not found');
@@ -92,6 +97,10 @@ class ProjectController extends Controller
             throw $this->createNotFoundException();
         }
 
+        if ($this->get('security.context')->isGranted('edit', $project) === false) {
+            throw new AccessDeniedException();
+        }
+
         $form = $this->createForm(new ProjectType(), $project);
 
         if ($request->isMethod('POST') === true) {
@@ -107,7 +116,7 @@ class ProjectController extends Controller
         }
 
         return $this->render('KretaWebBundle:Project:edit.html.twig', array(
-            'form'    => $form->createView(),
+            'form' => $form->createView(),
             'project' => $project,
         ));
     }
@@ -126,6 +135,10 @@ class ProjectController extends Controller
         $user = $this->get('kreta_core.repository_user')
             ->findOneBy(array('email' => $request->get('email')));
         $project = $this->get('kreta_core.repository_project')->find($id);
+
+        if ($this->get('security.context')->isGranted('add_participant', $project) === false) {
+            throw new AccessDeniedException();
+        }
 
         if (($user instanceof UserInterface) === false) {
             $this->get('session')->getFlashBag()->add('error', 'User not found');

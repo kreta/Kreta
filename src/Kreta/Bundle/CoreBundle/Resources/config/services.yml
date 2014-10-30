@@ -36,6 +36,7 @@ parameters:
 
     kreta_core.security_class_userProvider: Kreta\Bundle\CoreBundle\Security\UserProvider
     kreta_core.security_class_issueVoter: Kreta\Bundle\CoreBundle\Security\Authorization\Voter\IssueVoter
+    kreta_core.security_class_projectVoter: Kreta\Bundle\CoreBundle\Security\Authorization\Voter\ProjectVoter
 
 services:
 #### FACTORIES ####
@@ -105,6 +106,12 @@ services:
 
     kreta_issue_voter:
         class: %kreta_core.security_class_issueVoter%
+        public: false
+        tags:
+           - { name: security.voter }
+
+    kreta_project_voter:
+        class: %kreta_core.security_class_projectVoter%
         public: false
         tags:
            - { name: security.voter }
