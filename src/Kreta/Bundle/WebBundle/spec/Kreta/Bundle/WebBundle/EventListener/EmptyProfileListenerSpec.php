@@ -95,7 +95,7 @@ class EmptyProfileListenerSpec extends ObjectBehavior
         $flashBag->add('error', 'Email required to start using Kreta')->shouldBeCalled();
         $securityContext->getToken()->shouldBeCalled()->willReturn($token);
         $token->getUser()->shouldBeCalled()->willReturn($user);
-        $user->getEmail()->shouldBeCalled()->willReturn('');
+        $user->getEmail()->shouldBeCalled()->willReturn(null);
         $router->generate('kreta_web_user_edit')->shouldBeCalled()->willReturn('/user/edit');
 
         $event->setResponse(Argument::type('\Symfony\Component\HttpFoundation\RedirectResponse'))->shouldBeCalled();
