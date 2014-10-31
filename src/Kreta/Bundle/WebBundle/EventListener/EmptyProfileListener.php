@@ -79,7 +79,7 @@ class EmptyProfileListener
         }
 
         $token = $this->securityContext->getToken();
-        if ($token !== null && $token->getUser() instanceof UserInterface && $token->getUser()->getEmail() === '') {
+        if ($token !== null && $token->getUser() instanceof UserInterface && $token->getUser()->getEmail() === null) {
             $this->session->getFlashBag()->add('error', 'Email required to start using Kreta');
             $response = new RedirectResponse($this->router->generate('kreta_web_user_edit'));
             $event->setResponse($response);
