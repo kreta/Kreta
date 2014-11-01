@@ -27,6 +27,7 @@ class ProjectVoter extends AbstractVoter
     const DELETE_PARTICIPANT = 'delete_participant';
     const EDIT = 'edit';
     const VIEW = 'view';
+    const CREATE_ISSUE = 'create_issue';
 
     /**
      * {@inheritdoc}
@@ -59,6 +60,7 @@ class ProjectVoter extends AbstractVoter
                 }
                 break;
             case self::VIEW:
+            case self::CREATE_ISSUE:
                 if ($project->getUserRole($user) !== null) {
                     return VoterInterface::ACCESS_GRANTED;
                 }

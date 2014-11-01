@@ -51,19 +51,28 @@ class IssueController extends Controller
     /**
      * New action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request The request
+     * @param integer                                   $projectId Id of the project
+     * @param \Symfony\Component\HttpFoundation\Request $request   The request
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function newAction(Request $request)
+    public function newAction($projectId, Request $request)
     {
         $issue = $this->get('kreta_core.factory_issue')->create();
+
+        /** @var \Kreta\Component\Core\Model\Interfaces\ProjectInterface $project */
+        $project = $this->get('kreta_core.repository_project')->find($projectId);
+
+        if (!$project || $this->get('security.context')->isGranted('create_issue', $project)) {
+            throw new AccessDeniedException();
+        }
+
+        $issue->setProject($project);
         $user = $this->getUser();
         $issue->setReporter($user);
         $issue->setAssignee($user);
 
-        $form = $this->createForm(new IssueType($this->get('kreta_core.repository_project')
-            ->findByParticipant($this->getUser())), $issue);
+        $form = $this->createForm(new IssueType($project->getParticipants()), $issue);
 
         if ($request->isMethod('POST') === true) {
             $form->handleRequest($request);
@@ -78,7 +87,8 @@ class IssueController extends Controller
             $this->get('session')->getFlashBag()->add('error', 'Some errors found in your issue');
         }
 
-        return $this->render('KretaWebBundle:Issue:new.html.twig', array('form' => $form->createView()));
+        return $this->render('KretaWebBundle:Issue:new.html.twig',
+            array('form' => $form->createView(), 'project' => $project));
     }
 
     /**
@@ -91,6 +101,7 @@ class IssueController extends Controller
      */
     public function editAction($id, Request $request)
     {
+        /** @var IssueInterface $issue */
         $issue = $this->get('kreta_core.repository_issue')->find($id);
 
         if (($issue instanceof IssueInterface) === false) {
@@ -101,8 +112,7 @@ class IssueController extends Controller
             throw new AccessDeniedException();
         };
 
-        $form = $this->createForm(new IssueType($this->get('kreta_core.repository_project')
-            ->findByParticipant($this->getUser())), $issue);
+        $form = $this->createForm(new IssueType($issue->getProject()->getParticipants()), $issue);
 
         if ($request->isMethod('POST') === true) {
             $form->handleRequest($request);

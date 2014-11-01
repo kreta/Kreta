@@ -11,8 +11,7 @@
 
 namespace Kreta\Bundle\WebBundle\Form\Type;
 
-use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
-use Kreta\Component\Core\Repository\ProjectRepository;
+use Kreta\Component\Core\Model;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
@@ -23,12 +22,20 @@ use Symfony\Component\Form\FormBuilderInterface;
  */
 class IssueType extends AbstractType
 {
-    /** @var ProjectInterface[] */
-    protected $projects;
+    /** @var \Kreta\Component\Core\Model\User[] */
+    protected $users;
 
-    public function __construct(array $projects)
+    /**
+     * @param \Kreta\Component\Core\Model\Participant[] $participants Collection of participants
+     */
+    public function __construct($participants)
     {
-        $this->projects = $projects;
+        $users = array();
+        foreach ($participants as $participant) {
+            $users[] = $participant->getUser();
+        }
+
+        $this->users = $users;
     }
 
     /**
@@ -36,17 +43,10 @@ class IssueType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
         $builder
-            ->add('project', 'entity', array(
-                'label'    => 'Project',
-                'class'    => 'Kreta\Component\Core\Model\Project',
-                'property' => 'name',
-                'choices' => $this->projects
-            ))
             ->add('title', 'text', array(
                 'required' => true,
-                'label'    => 'Name'
+                'label' => 'Name'
             ))
             ->add('description', 'textarea', array(
                 'label' => 'Description'
@@ -57,14 +57,11 @@ class IssueType extends AbstractType
             ->add('priority', new PriorityType(), array(
                 'label' => 'Priority'
             ))
-            ->add('status', 'entity', array(
-                'label'    => 'Status',
-                'class'    => 'Kreta\Component\Core\Model\Status',
-                'property' => 'name'
-            ))
             ->add('assignee', null, array(
-                'label'       => 'Assignee',
-                'empty_value' => null
+                'label' => 'Assignee',
+                'empty_value' => null,
+                'choices' => $this->users,
+                'property' => 'fullName'
             ));
     }
 
