@@ -11,9 +11,9 @@
         <div class="details row">
             <div class="small-6 column">
                 <span class="field">Type:</span>
-                {% include 'KretaWebBundle:Issue/blocks:typeIcon.html.twig' with {'type': issue.type} %}
+                {{ issue.type | issue_type }}
                 <span class="field">Priority:</span>
-                {% include 'KretaWebBundle:Issue/blocks:priorityIcon.html.twig' with {'priority': issue.priority} %}
+                {{ issue.priority | issue_priority }}
                 <span class="field">Asignee:</span>
                 <div class="image-item">
                     {% image '@KretaWebBundle/Resources/public/img/user.jpg' %}

@@ -4,8 +4,8 @@
         <div class="kreta-icon-item green">
             <span class="kreta-icon-item-legend">{{ issue.status.description }}</span>
         </div>
-        {% include 'KretaWebBundle:Issue/blocks:typeIcon.html.twig' with {'type': issue.type} %}
-        {% include 'KretaWebBundle:Issue/blocks:priorityIcon.html.twig' with {'priority': issue.priority} %}
+        {{ issue.type | issue_type }}
+        {{ issue.priority | issue_priority }}
         <div class="issue-actions">
             <a class='view-issue' href="{{ url('kreta_web_issue_view', { 'id' : issue.id }) }}">
                 <i class="fa fa-eye"></i>
