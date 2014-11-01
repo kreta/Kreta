@@ -11,3 +11,8 @@ services:
         arguments: [@security.context, @router, @session]
         tags:
             - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
+
+    kreta_web.twig.issue_extension:
+        class: Kreta\Bundle\WebBundle\Twig\IssueExtension
+        tags:
+            - { name: twig.extension }
