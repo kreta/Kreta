@@ -23,7 +23,7 @@ use Kreta\Component\Core\Model\Interfaces\IssueInterface;
 class IssueStateMachine extends StateMachine
 {
     /**
-     * The statuses
+     * The statuses.
      *
      * @var \Kreta\Component\Core\Model\Interfaces\StatusInterface[]
      */

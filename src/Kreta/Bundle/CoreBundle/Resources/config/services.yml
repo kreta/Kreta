@@ -61,32 +61,32 @@ services:
 
 #### REPOSITORIES ####
     kreta_core.repository_comment:
-        factory_service: doctrine.orm.default_entity_manager
+        factory_service: doctrine.orm.entity_manager
         factory_method: getRepository
         class: %kreta_core.repository_class_comment%
         arguments: [%kreta_core.class_comment%]
     kreta_core.repository_issue:
-        factory_service: doctrine.orm.default_entity_manager
+        factory_service: doctrine.orm.entity_manager
         factory_method: getRepository
         class: %kreta_core.repository_class_issue%
         arguments: [%kreta_core.class_issue%]
     kreta_core.repository_label:
-        factory_service: doctrine.orm.default_entity_manager
+        factory_service: doctrine.orm.entity_manager
         factory_method: getRepository
         class: %kreta_core.repository_class_label%
         arguments: [%kreta_core.class_label%]
     kreta_core.repository_project:
-        factory_service: doctrine.orm.default_entity_manager
+        factory_service: doctrine.orm.entity_manager
         factory_method: getRepository
         class: %kreta_core.repository_class_project%
         arguments: [%kreta_core.class_project%]
     kreta_core.repository_participant:
-        factory_service: doctrine.orm.default_entity_manager
+        factory_service: doctrine.orm.entity_manager
         factory_method: getRepository
         class: %kreta_core.repository_class_participant%
         arguments: [%kreta_core.class_participant%]
     kreta_core.repository_resolution:
-        factory_service: doctrine.orm.default_entity_manager
+        factory_service: doctrine.orm.entity_manager
         factory_method: getRepository
         class: %kreta_core.repository_class_resolution%
         arguments: [%kreta_core.class_resolution%]
@@ -96,7 +96,7 @@ services:
         class: %kreta_core.repository_class_status%
         arguments: [%kreta_core.class_status%]
     kreta_core.repository_user:
-        factory_service: doctrine.orm.default_entity_manager
+        factory_service: doctrine.orm.entity_manager
         factory_method: getRepository
         class: %kreta_core.repository_class_user%
         arguments: [%kreta_core.class_user%]

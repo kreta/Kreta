@@ -14,7 +14,7 @@ namespace Kreta\Bundle\WebBundle\Twig;
 use Kreta\Component\Core\Model\Interfaces\IssueInterface;
 
 /**
- * Class IssueExtension
+ * Class IssueExtension.
  *
  * @package Kreta\Bundle\WebBundle\Twig
  */
@@ -34,9 +34,9 @@ class IssueExtension extends \Twig_Extension
     /**
      * Renders the label to represent the given type.
      *
-     * @param integer $type Issue type to be rendered.
+     * @param integer $type Issue type to be rendered
      *
-     * @return string Generated raw HTML.
+     * @return string Generated raw HTML
      */
     public function typeFilter($type)
     {
@@ -79,9 +79,9 @@ class IssueExtension extends \Twig_Extension
     /**
      * Renders the label to represent the given priority.
      *
-     * @param integer $priority Issue priority to be rendered.
+     * @param integer $priority Issue priority to be rendered
      *
-     * @return string Generated raw HTML.
+     * @return string Generated raw HTML
      */
     public function priorityFilter($priority)
     {

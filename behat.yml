@@ -44,9 +44,6 @@ default:
         Behat\Symfony2Extension: ~
 
         VIPSoft\CodeCoverageExtension\Extension:
-            auth:
-                user: user@kreta.com
-                password: 123456
             create:
                 method:   POST
                 path:     /
