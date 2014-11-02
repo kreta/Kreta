@@ -4,14 +4,14 @@
 
 {% block widgetIcon %}fa-check-square-o{% endblock %}
 
-{% block widgetTitle %}My issues{% endblock %}
+{% block widgetTitle %}My open issues{% endblock %}
 
 {% block widgetContent %}
     {% for issue in issues %}
         {% include '@KretaWeb/Issue/blocks/miniIssue.html.twig' with { 'issue' : issue } %}
     {% else %}
         <div class="kreta-mini-issue">
-            <p>No issues found</p>
+            <p>No open issues found</p>
         </div>
     {% endfor %}
 {% endblock %}

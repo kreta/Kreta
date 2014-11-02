@@ -13,6 +13,7 @@ namespace Kreta\Component\Core\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
+use Finite\State\StateInterface;
 use Kreta\Component\Core\Model\Interfaces\UserInterface;
 
 /**
@@ -49,18 +50,24 @@ class IssueRepository extends EntityRepository
     /**
      * Finds all the issues of assignee given.
      *
-     * @param \Kreta\Component\Core\Model\Interfaces\UserInterface $assignee The assignee
-     * @param array                                                $orderBy  Fields and strategy to order issues
+     * @param \Kreta\Component\Core\Model\Interfaces\UserInterface $assignee  The assignee
+     * @param array                                                $orderBy   Fields and strategy to order issues
+     * @param bool                                                 $onlyOpen  Shows only open issues
      *
      * @return \Kreta\Component\Core\Model\Interfaces\IssueInterface[]
      */
-    public function findByAssignee(UserInterface $assignee, $orderBy)
+    public function findByAssignee(UserInterface $assignee, $orderBy, $onlyOpen = false)
     {
         $queryBuilder = $this->createQueryBuilder('i');
 
         $queryBuilder->select('i')
+            ->leftJoin('i.status','st')
             ->where($queryBuilder->expr()->eq('i.assignee', ':assignee'))
             ->setParameter(':assignee', $assignee->getId());
+        if($onlyOpen) {
+            $queryBuilder->andWhere($queryBuilder->expr()->neq('st.type', ':state'))
+                         ->setParameter(':state', StateInterface::TYPE_FINAL);
+        }
 
         $queryBuilder = $this->orderBy($queryBuilder, $orderBy);
 
