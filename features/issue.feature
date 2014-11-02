@@ -18,16 +18,9 @@ Feature: Manage issues
     And the following projects exist:
       | name         | shortName |
       | Test project | TPR       |
-    And the following statuses exist:
-      | color   | name        | project      |
-      | #27ae60 | Open        | Test project |
-      | #2c3e50 | In progress | Test project |
-      | #f1c40f | Resolved    | Test project |
-      | #c0392b | Closed      | Test project |
-      | #27ae60 | Reopened    | Test project |
     And the following issues exist:
       | project      | title | description | reporter       | assignee       | type    | status | priority |
-      | Test project | Test  | Description | user@kreta.com | user@kreta.com | initial | Open   | 1        |
+      | Test project | Test  | Description | user@kreta.com | user@kreta.com | initial | To do  | 1        |
     And I am a logged as 'user@kreta.com' with password '123456'
 
   Scenario: Adding a new issue
@@ -37,7 +30,7 @@ Feature: Manage issues
       | Name        | kreta |
       | Description | kreta |
     And I select "Test project" from "Project"
-    And I select "Open" from "Status"
+    And I select "To do" from "Status"
     And I select "user@kreta.com" from "Assignee"
     And I press "Create"
     Then I should see "Issue created successfully"
@@ -56,3 +49,10 @@ Feature: Manage issues
     Then I should see "VCS Integration"
     And I should see "Actions"
     And I should see "Comments"
+
+  Scenario: Changing issues current status
+    Given I am on the homepage
+    And I click on view button for issue 'Test'
+    When I follow "Mark as Doing"
+    Then I should see "Status changed successfully"
+

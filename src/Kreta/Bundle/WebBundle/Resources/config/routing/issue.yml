@@ -20,3 +20,7 @@ kreta_web_issue_edit:
 kreta_web_issue_comment_new:
     path: /{issueId}/comment/new
     defaults: { _controller: KretaWebBundle:Issue:newComment }
+
+kreta_web_issue_change_status:
+    path: /{issueId}/status/{statusId}
+    defaults: { _controller: KretaWebBundle:Issue:editStatus }

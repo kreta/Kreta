@@ -12,6 +12,7 @@
 namespace Kreta\Bundle\WebBundle\Twig;
 
 use Kreta\Component\Core\Model\Interfaces\IssueInterface;
+use Kreta\Component\Core\Model\Interfaces\StatusInterface;
 
 /**
  * Class IssueExtension.
@@ -27,7 +28,8 @@ class IssueExtension extends \Twig_Extension
     {
         return array(
             new \Twig_SimpleFilter('issue_type', array($this, 'typeFilter'), array('is_safe' => array('all'))),
-            new \Twig_SimpleFilter('issue_priority', array($this, 'priorityFilter'), array('is_safe' => array('all')))
+            new \Twig_SimpleFilter('issue_priority', array($this, 'priorityFilter'), array('is_safe' => array('all'))),
+            new \Twig_SimpleFilter('issue_status', array($this, 'statusFilter'), array('is_safe' => array('all')))
         );
     }
 
@@ -113,6 +115,22 @@ class IssueExtension extends \Twig_Extension
         $label = '<div class="kreta-priority-icon kreta-icon-item ' . $color . '">';
         $label .= '  <i class="fa ' . $icon . '" ></i >';
         $label .= '  <span>' . $text . '</span></div>';
+
+        return $label;
+    }
+
+    /**
+     * Renders the label to represent the given status.
+     *
+     * @param StatusInterface $status Status to be rendered.
+     *
+     * @return string Generated raw HTML.
+     */
+    public function statusFilter(StatusInterface $status)
+    {
+        $label = '<div class="kreta-icon-item" style="background: ' . $status->getColor() . '">';
+        $label .= '<span class="kreta-icon-item-legend">'. $status->getName() .'</span>';
+        $label .= '</div>';
 
         return $label;
     }

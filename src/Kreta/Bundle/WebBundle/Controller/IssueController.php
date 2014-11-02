@@ -14,6 +14,7 @@ namespace Kreta\Bundle\WebBundle\Controller;
 use Kreta\Bundle\WebBundle\Form\Type\CommentType;
 use Kreta\Bundle\WebBundle\Form\Type\IssueType;
 use Kreta\Component\Core\Model\Interfaces\IssueInterface;
+use Kreta\Component\Core\Model\Interfaces\StatusInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -115,7 +116,7 @@ class IssueController extends Controller
         }
 
         return $this->render('KretaWebBundle:Issue:edit.html.twig', array(
-            'form'  => $form->createView(),
+            'form' => $form->createView(),
             'issue' => $issue
         ));
     }
@@ -157,8 +158,53 @@ class IssueController extends Controller
         }
 
         return $this->render('KretaWebBundle:Issue/blocks:commentForm.html.twig', array(
-            'form'  => $form->createView(),
+            'form' => $form->createView(),
             'issue' => $issue
         ));
+    }
+
+    /**
+     * New comment action.
+     *
+     * @param string $issueId  The issue id
+     * @param string $statusId The issue id
+     *
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function editStatusAction($issueId, $statusId)
+    {
+        /** @var IssueInterface $issue */
+        $issue = $this->get('kreta_core.repository_issue')->find($issueId);
+
+        if (($issue instanceof IssueInterface) === false) {
+            $this->createNotFoundException();
+        }
+
+        if ($this->get('security.context')->isGranted('edit', $issue) === false) {
+            throw new AccessDeniedException();
+        };
+
+        /** @var StatusInterface $status */
+        $status = $this->get('kreta_core.repository_status')->find($statusId);
+
+        if (($issue instanceof StatusInterface) === false) {
+            $this->createNotFoundException();
+        }
+
+        $statuses = $this->get('kreta_core.repository_status')->findByProject($issue->getProject());
+
+        $stateMachine = $this->get('kreta_issue_state_machine')->load($issue, $statuses);
+
+        if($stateMachine->can($issue->getStatus()->getName() . '-' . $status->getName())) {
+            $manager = $this->getDoctrine()->getManager();
+            $issue->setStatus($status);
+            $manager->persist($issue);
+            $manager->flush();
+            $this->get('session')->getFlashBag()->add('success', 'Status changed successfully');
+        } else {
+            $this->get('session')->getFlashBag()->add('error', 'Transition not allowed');
+        }
+
+        return $this->redirect($this->generateUrl('kreta_web_issue_view', array('id' => $issue->getId())));
     }
 }

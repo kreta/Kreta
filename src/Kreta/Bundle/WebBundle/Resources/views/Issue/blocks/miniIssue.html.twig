@@ -1,9 +1,7 @@
 <div class="kreta-mini-issue">
     <a href="{{ url('kreta_web_issue_view', { 'id' : issue.id }) }}"><h3>{{ issue.title }}</h3></a>
     <div class="issue-footer">
-        <div class="kreta-icon-item green">
-            <span class="kreta-icon-item-legend">{{ issue.status.name }}</span>
-        </div>
+        {{ issue.status | issue_status }}
         {{ issue.type | issue_type }}
         {{ issue.priority | issue_priority }}
         <div class="issue-actions">
