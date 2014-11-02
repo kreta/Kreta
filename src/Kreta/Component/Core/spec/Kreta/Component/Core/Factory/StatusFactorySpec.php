@@ -25,13 +25,8 @@ class StatusFactorySpec extends ObjectBehavior
         $this->shouldHaveType('Kreta\Component\Core\Factory\StatusFactory');
     }
 
-    function it_extends_abstract_factory()
-    {
-        $this->shouldHaveType('Kreta\Component\Core\Factory\Abstracts\AbstractFactory');
-    }
-
     function it_creates_a_status()
     {
-        $this->create()->shouldReturnAnInstanceOf('Kreta\Component\Core\Model\Status');
+        $this->create('Open')->shouldReturnAnInstanceOf('Kreta\Component\Core\Model\Status');
     }
 }

@@ -10,13 +10,14 @@
  */
 
 namespace Kreta\Component\Core\Model\Interfaces;
+use Finite\State\StateInterface;
 
 /**
  * Interface StatusInterface.
  *
  * @package Kreta\Component\Core\Model\Interfaces
  */
-interface StatusInterface
+interface StatusInterface extends StateInterface
 {
     /**
      * Gets id.
@@ -26,18 +27,70 @@ interface StatusInterface
     public function getId();
 
     /**
-     * Gets description.
+     * Gets color.
      *
      * @return string
      */
-    public function getDescription();
+    public function getColor();
+
+    /**
+     * Sets color.
+     *
+     * @param string $color The color
+     *
+     * @return $this self Object
+     */
+    public function setColor($color);
 
     /**
      * Sets description.
      *
-     * @param string $description The description
+     * @param string $name The name
      *
      * @return $this self Object
      */
-    public function setDescription($description);
+    public function setName($name);
+
+    /**
+     * Gets project.
+     *
+     * @return \Kreta\Component\Core\Model\Interfaces\ProjectInterface
+     */
+    public function getProject();
+
+    /**
+     * Sets the project.
+     *
+     * @param \Kreta\Component\Core\Model\Interfaces\ProjectInterface $project The project
+     *
+     * @return $this self Object
+     */
+    public function setProject(ProjectInterface $project);
+
+    /**
+     * Adds transition.
+     *
+     * @param \Kreta\Component\Core\Model\Interfaces\StatusInterface $transition The transition
+     *
+     * @return $this self Object
+     */
+    public function addStatusTransition(StatusInterface $transition);
+
+    /**
+     * Removes transition.
+     *
+     * @param \Kreta\Component\Core\Model\Interfaces\StatusInterface $transition The transition
+     *
+     * @return $this self Object
+     */
+    public function removeStatusTransition(StatusInterface $transition);
+
+    /**
+     * Sets type.
+     *
+     * @param string $type The type that can be 0 (initial), 1 (normal) or 2 (final)
+     *
+     * @return $this self Object
+     */
+    public function setType($type);
 }

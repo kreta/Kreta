@@ -223,6 +223,24 @@ class Issue extends AbstractModel implements IssueInterface
     /**
      * {@inheritdoc}
      */
+    public function getFiniteState()
+    {
+        return $this->status->getName();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setFiniteState($state)
+    {
+        $this->status->setName($state);
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getLabels()
     {
         return $this->labels;
@@ -342,6 +360,7 @@ class Issue extends AbstractModel implements IssueInterface
     public function setStatus(StatusInterface $status)
     {
         $this->status = $status;
+        self::setFiniteState($status->getName());
 
         return $this;
     }

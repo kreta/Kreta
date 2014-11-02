@@ -11,7 +11,8 @@
 
 namespace Kreta\Component\Core\Model;
 
-use Kreta\Component\Core\Model\Abstracts\AbstractModel;
+use Finite\State\State;
+use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Core\Model\Interfaces\StatusInterface;
 
 /**
@@ -19,29 +20,113 @@ use Kreta\Component\Core\Model\Interfaces\StatusInterface;
  *
  * @package Kreta\Component\Core\Model
  */
-class Status extends AbstractModel implements StatusInterface
+class Status extends State implements StatusInterface
 {
     /**
-     * The description.
+     * The id.
      *
      * @var string
      */
-    protected $description;
+    protected $id;
+
+    /**
+     * The color.
+     *
+     * @var string
+     */
+    protected $color;
+
+    /**
+     * The project.
+     *
+     * @var \Kreta\Component\Core\Model\Interfaces\ProjectInterface
+     */
+    protected $project;
 
     /**
      * {@inheritdoc}
      */
-    public function getDescription()
+    public function getId()
     {
-        return $this->description;
+        return $this->id;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function setDescription($description)
+    public function getColor()
     {
-        $this->description = $description;
+        return $this->color;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setColor($color)
+    {
+        $this->color = $color;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getProject()
+    {
+        return $this->project;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setProject(ProjectInterface $project)
+    {
+        $this->project = $project;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function addStatusTransition(StatusInterface $transition)
+    {
+        $this->transitions[] = $transition;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function removeStatusTransition(StatusInterface $transition)
+    {
+        $key = array_search($transition, $this->transitions, true);
+
+        if ($key !== false) {
+            unset($this->transitions[$key]);
+        }
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
 
         return $this;
     }

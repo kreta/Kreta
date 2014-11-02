@@ -38,6 +38,8 @@ parameters:
     kreta_core.security_class_issueVoter: Kreta\Bundle\CoreBundle\Security\Authorization\Voter\IssueVoter
     kreta_core.security_class_projectVoter: Kreta\Bundle\CoreBundle\Security\Authorization\Voter\ProjectVoter
 
+    kreta_core.service_class_issueStateMachine: Kreta\Bundle\CoreBundle\Services\StateMachine\IssueStateMachine
+
 services:
 #### FACTORIES ####
     kreta_core.factory_comment:
@@ -89,7 +91,7 @@ services:
         class: %kreta_core.repository_class_resolution%
         arguments: [%kreta_core.class_resolution%]
     kreta_core.repository_status:
-        factory_service: doctrine.orm.default_entity_manager
+        factory_service: doctrine.orm.entity_manager
         factory_method: getRepository
         class: %kreta_core.repository_class_status%
         arguments: [%kreta_core.class_status%]
@@ -115,3 +117,7 @@ services:
         public: false
         tags:
            - { name: security.voter }
+
+#### STATE MACHINE ####
+    kreta_issue_state_machine:
+        class: %kreta_core.service_class_issueStateMachine%

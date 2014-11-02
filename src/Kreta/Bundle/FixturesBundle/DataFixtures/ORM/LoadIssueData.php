@@ -29,7 +29,7 @@ class LoadIssueData extends DataFixtures
         $labels = $this->container->get('kreta_core.repository_label')->findAll();
         $projects = $this->container->get('kreta_core.repository_project')->findAll();
         $resolutions = $this->container->get('kreta_core.repository_resolution')->findAll();
-        $status = $this->container->get('kreta_core.repository_status')->findAll();
+        $statuses = $this->container->get('kreta_core.repository_status')->findAll();
         $users = $this->container->get('kreta_core.repository_user')->findAll();
 
         for ($i = 0; $i < 50; $i++) {
@@ -58,8 +58,10 @@ class LoadIssueData extends DataFixtures
             }
             $issue->setProject($projects[array_rand($projects)]);
             $issue->setReporter($users[array_rand($users)]);
-            $issue->setStatus($status[array_rand($status)]);
-            $issue->setType(rand(0, 4));
+            $status = $statuses[array_rand($statuses)];
+            $issue->setStatus($status);
+            $types = array($status::TYPE_INITIAL, $status::TYPE_NORMAL, $status::TYPE_FINAL);
+            $issue->setType($types[array_rand($types)]);
             $issue->setTitle('Issue - ' . $i);
             $this->loadRandomObjects($issue, 'addWatcher', $users);
 

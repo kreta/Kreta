@@ -11,12 +11,14 @@
 
 namespace Kreta\Component\Core\Model\Interfaces;
 
+use Finite\StatefulInterface;
+
 /**
  * Interface IssueInterface.
  *
  * @package Kreta\Component\Core\Model\Interfaces
  */
-interface IssueInterface
+interface IssueInterface extends StatefulInterface
 {
     const PRIORITY_LOW = 0;
     const PRIORITY_MEDIUM = 1;

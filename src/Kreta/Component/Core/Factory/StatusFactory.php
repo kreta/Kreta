@@ -11,7 +11,7 @@
 
 namespace Kreta\Component\Core\Factory;
 
-use Kreta\Component\Core\Factory\Abstracts\AbstractFactory;
+use Kreta\Component\Core\Model\Interfaces\StatusInterface;
 use Kreta\Component\Core\Model\Status;
 
 /**
@@ -19,13 +19,25 @@ use Kreta\Component\Core\Model\Status;
  *
  * @package Kreta\Component\Core\Factory
  */
-class StatusFactory extends AbstractFactory
+class StatusFactory
 {
     /**
-     * {@inheritdoc}
+     * Creates an instance of Status.
+     *
+     * @param string $name        The name
+     * @param string $type        The type
+     * @param array  $transitions Array that contains transitions
+     * @param array  $properties  Array that contains properties
+     *
+     * @return \Kreta\Component\Core\Model\Status
      */
-    public function create()
+    public function create(
+        $name,
+        $type = StatusInterface::TYPE_NORMAL,
+        array $transitions = array(),
+        array $properties = array()
+    )
     {
-        return new Status();
+        return new Status($name, $type, $transitions, $properties);
     }
 }

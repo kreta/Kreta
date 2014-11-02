@@ -26,6 +26,12 @@ Kreta\Component\Core\Model\Project:
         issues:
             targetEntity: Kreta\Component\Core\Model\Interfaces\IssueInterface
             mappedBy: project
+            cascade: ['persist', 'remove']
         participants:
             targetEntity: Kreta\Component\Core\Model\Interfaces\ParticipantInterface
             mappedBy: project
+            cascade: ['persist', 'remove']
+        statuses:
+            targetEntity: Kreta\Component\Core\Model\Interfaces\StatusInterface
+            mappedBy: project
+            cascade: ['persist', 'remove']
