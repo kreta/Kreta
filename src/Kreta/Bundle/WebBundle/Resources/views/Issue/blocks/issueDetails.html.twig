@@ -24,9 +24,7 @@
             </div>
             <div class="small-6 column">
                 <span class="field">Status:</span>
-                <div class="kreta-icon-item green">
-                    <span class="kreta-icon-item-legend">{{ issue.status.name }}</span>
-                </div>
+                {{ issue.status | issue_status }}
                 <span class="field">Resolution:</span>
                 <span>{{ issue.resolution ? issue.resolution.description : '-' }}</span>
                 <span class="field">Assigner:</span>

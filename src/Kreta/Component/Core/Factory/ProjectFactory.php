@@ -30,9 +30,9 @@ class ProjectFactory extends AbstractFactory
         $project = new Project();
         $statuses = $this->createDefaultStatus();
         foreach ($statuses as $status) {
+            $status->setProject($project);
             $project->addStatus($status);
         }
-
         return $project;
     }
 
@@ -43,25 +43,25 @@ class ProjectFactory extends AbstractFactory
      */
     protected function createDefaultStatus()
     {
-        $defaultStatusesNames = array('Todo', 'Doing', 'Done');
+        $defaultStatusesNames = array('To do', 'Doing', 'Done');
 
         $statuses = array();
         foreach ($defaultStatusesNames as $name) {
             $statuses[$name] = new Status($name);
         }
 
-        $statuses['Todo']->setColor('#2c3e50');
-        $statuses['Todo']->setType('initial');
-        $statuses['Todo']->addStatusTransition($statuses['Doing']);
-        $statuses['Todo']->addStatusTransition($statuses['Done']);
+        $statuses['To do']->setColor('#2c3e50');
+        $statuses['To do']->setType('initial');
+        $statuses['To do']->addStatusTransition($statuses['Doing']);
+        $statuses['To do']->addStatusTransition($statuses['Done']);
 
         $statuses['Doing']->setColor('#f1c40f');
-        $statuses['Doing']->addStatusTransition($statuses['Todo']);
+        $statuses['Doing']->addStatusTransition($statuses['To do']);
         $statuses['Doing']->addStatusTransition($statuses['Done']);
 
         $statuses['Done']->setColor('#1abc9c');
         $statuses['Done']->setType('final');
-        $statuses['Done']->addStatusTransition($statuses['Todo']);
+        $statuses['Done']->addStatusTransition($statuses['To do']);
         $statuses['Done']->addStatusTransition($statuses['Doing']);
 
         return $statuses;
