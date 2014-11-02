@@ -48,7 +48,7 @@ class IssueType extends AbstractType
             ->add('status', 'entity', array(
                 'label'    => 'Status',
                 'class'    => 'Kreta\Component\Core\Model\Status',
-                'property' => 'description'
+                'property' => 'name'
             ))
             ->add('assignee', null, array(
                 'label'       => 'Assignee',

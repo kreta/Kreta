@@ -62,7 +62,7 @@ class IssueTypeSpec extends ObjectBehavior
         $builder->add('status', 'entity', array(
             'label'    => 'Status',
             'class'    => 'Kreta\Component\Core\Model\Status',
-            'property' => 'description'
+            'property' => 'name'
         ))->shouldBeCalled()->willReturn($builder);
 
         $builder->add('assignee', null, array(

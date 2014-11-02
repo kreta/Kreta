@@ -11,6 +11,8 @@
 
 namespace spec\Kreta\Component\Core\Model;
 
+use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
+use Kreta\Component\Core\Model\Interfaces\StatusInterface;
 use PhpSpec\ObjectBehavior;
 
 /**
@@ -20,14 +22,19 @@ use PhpSpec\ObjectBehavior;
  */
 class StatusSpec extends ObjectBehavior
 {
+    function let()
+    {
+        $this->beConstructedWith('Open');
+    }
+
     function it_is_initializable()
     {
         $this->shouldHaveType('Kreta\Component\Core\Model\Status');
     }
 
-    function it_extends_abstract_model()
+    function it_extends_finite_state()
     {
-        $this->shouldHaveType('Kreta\Component\Core\Model\Abstracts\AbstractModel');
+        $this->shouldHaveType('Finite\State\State');
     }
 
     function it_implements_status_interface()
@@ -35,9 +42,57 @@ class StatusSpec extends ObjectBehavior
         $this->shouldImplement('Kreta\Component\Core\Model\Interfaces\StatusInterface');
     }
 
-    function its_description_is_mutable()
+    function it_should_not_have_id_by_default()
     {
-        $this->setDescription('This is a dummy description of status')->shouldReturn($this);
-        $this->getDescription()->shouldReturn('This is a dummy description of status');
+        $this->getId()->shouldReturn(null);
+    }
+
+    function its_color_is_mutable()
+    {
+        $this->setColor('#FFFFFF')->shouldReturn($this);
+        $this->getColor()->shouldReturn('#FFFFFF');
+    }
+
+    function its_name_is_mutable()
+    {
+        $this->getName()->shouldReturn('Open');
+
+        $this->setName('Closed')->shouldReturn($this);
+        $this->getName()->shouldReturn('Closed');
+    }
+
+    function its_project_is_mutable(ProjectInterface $project)
+    {
+        $this->setProject($project)->shouldReturn($this);
+        $this->getProject()->shouldReturn($project);
+    }
+
+    function its_status_transitions_are_mutable(StatusInterface $status)
+    {
+        $this->getTransitions()->shouldHaveCount(0);
+
+        $this->addStatusTransition($status);
+
+        $this->getTransitions()->shouldHaveCount(1);
+
+        $this->removeStatusTransition($status);
+
+        $this->getTransitions()->shouldHaveCount(0);
+    }
+
+    function its_type_is_mutable()
+    {
+        $this->getType()->shouldReturn('normal');
+
+        $this->setType('initial')->shouldReturn($this);
+        $this->getType()->shouldReturn('initial');
+    }
+
+    function its_to_string_returns_id()
+    {
+        $this->__toString(null);
+
+        $this->setName('Done')->shouldReturn($this);
+        $this->__toString('Done');
     }
 }

@@ -15,5 +15,30 @@ Kreta\Component\Core\Model\Status:
             generator:
                 strategy: UUID
     fields:
-        description:
-            type: text
+        color:
+            type: string
+            length: 10
+        name:
+            type: string
+            length: 100
+        type:
+            type: string
+            length: 8
+    manyToOne:
+        project:
+            targetEntity: Kreta\Component\Core\Model\Interfaces\ProjectInterface
+            inversedBy: statuses
+            joinColumn:
+                name: project_id
+                referencedColumnName: id
+    manyToMany:
+        transitions:
+            targetEntity: Kreta\Component\Core\Model\Interfaces\StatusInterface
+            joinTable:
+                name: status_transitions
+                joinColumns:
+                    from_status_id:
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    to_status_id:
+                        referencedColumnName: id

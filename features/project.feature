@@ -17,14 +17,16 @@ Feature: Manage project
       | Kreta     | User     | user@kreta.com  | 123456   |
       | Kreta     | User2    | user2@kreta.com | 123456   |
       | Kreta     | User3    | user3@kreta.com | 123456   |
-    And the following statuses exist:
-      | description |
-      | To do       |
-      | Doing       |
-      | Done        |
     And the following projects exist:
       | name         | shortName |
       | Test project | TPR       |
+    And the following statuses exist:
+      | color   | name        | project      |
+      | #27ae60 | Open        | Test project |
+      | #2c3e50 | In progress | Test project |
+      | #f1c40f | Resolved    | Test project |
+      | #c0392b | Closed      | Test project |
+      | #27ae60 | Reopened    | Test project |
     And the following participants exist:
       | project      | user            | role             |
       | Test project | user@kreta.com  | ROLE_ADMIN       |

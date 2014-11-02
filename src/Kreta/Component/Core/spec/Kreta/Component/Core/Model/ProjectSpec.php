@@ -13,6 +13,7 @@ namespace spec\Kreta\Component\Core\Model;
 
 use Kreta\Component\Core\Model\Interfaces\IssueInterface;
 use Kreta\Component\Core\Model\Interfaces\ParticipantInterface;
+use Kreta\Component\Core\Model\Interfaces\StatusInterface;
 use Kreta\Component\Core\Model\Interfaces\UserInterface;
 use Kreta\Component\Core\Model\Project;
 use Kreta\Component\Core\Model\Participant;
@@ -41,10 +42,11 @@ class ProjectSpec extends ObjectBehavior
         $this->shouldImplement('Kreta\Component\Core\Model\Interfaces\ProjectInterface');
     }
 
-    function its_issues_participants_and_project_roles_are_collection()
+    function its_issues_participants_project_roles_and_status_are_collection()
     {
         $this->getIssues()->shouldHaveType('Doctrine\Common\Collections\ArrayCollection');
         $this->getParticipants()->shouldHaveType('Doctrine\Common\Collections\ArrayCollection');
+        $this->getStatuses()->shouldHaveType('Doctrine\Common\Collections\ArrayCollection');
     }
 
     function its_issues_are_mutable(IssueInterface $issue)
@@ -88,6 +90,19 @@ class ProjectSpec extends ObjectBehavior
 
         $this->setShortName('Dummy short name')->shouldReturn($this);
         $this->getShortName()->shouldReturn('Dummy short name');
+    }
+
+    function its_statuses_are_be_mutable(StatusInterface $status)
+    {
+        $this->getStatuses()->shouldHaveCount(0);
+
+        $this->addStatus($status);
+
+        $this->getStatuses()->shouldHaveCount(1);
+
+        $this->removeStatus($status);
+
+        $this->getStatuses()->shouldHaveCount(0);
     }
 
     function it_does_not_get_user_role(UserInterface $anotherUser)

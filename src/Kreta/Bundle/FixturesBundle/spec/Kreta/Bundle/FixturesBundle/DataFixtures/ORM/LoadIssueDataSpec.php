@@ -116,7 +116,7 @@ class LoadIssueDataSpec extends ObjectBehavior
         $issue->setStatus(Argument::type('Kreta\Component\Core\Model\Interfaces\StatusInterface'))
             ->shouldBeCalled()->willReturn($issue);
         $issue->setTitle(Argument::type('string'))->shouldBeCalled()->willReturn($issue);
-        $issue->setType(Argument::type('int'))->shouldBeCalled()->willReturn($issue);
+        $issue->setType(Argument::type('string'))->shouldBeCalled()->willReturn($issue);
         $issue->addWatcher(Argument::type('Kreta\Component\Core\Model\Interfaces\UserInterface'))
             ->shouldBeCalled()->willReturn($issue);
 

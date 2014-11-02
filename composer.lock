@@ -1,9 +1,10 @@
 {
     "_readme": [
         "This file locks the dependencies of your project to a known state",
-        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
+        "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
+        "This file is @generated automatically"
     ],
-    "hash": "6ff3bda29ec153336068c0007ee4a5fb",
+    "hash": "33b7f350ddfa7061c0fd16f98d28c194",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1714,17 +1715,81 @@
             "time": "2014-10-17 12:53:44"
         },
         {
-            "name": "zurb/foundation",
-            "version": "v5.4.6",
+            "name": "yohang/finite",
+            "version": "1.0.3",
             "source": {
                 "type": "git",
-                "url": "https://github.com/zurb/foundation.git",
-                "reference": "2afc8c87ffd180abebbef27f87a990e53e87904c"
+                "url": "https://github.com/yohang/Finite.git",
+                "reference": "252476cdb20e6f9d93e588db1c1ec73d1619400d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zurb/foundation/zipball/2afc8c87ffd180abebbef27f87a990e53e87904c",
-                "reference": "2afc8c87ffd180abebbef27f87a990e53e87904c",
+                "url": "https://api.github.com/repos/yohang/Finite/zipball/252476cdb20e6f9d93e588db1c1ec73d1619400d",
+                "reference": "252476cdb20e6f9d93e588db1c1ec73d1619400d",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0",
+                "symfony/event-dispatcher": ">=2.1,<3.0",
+                "symfony/options-resolver": ">=2.1,<3.0"
+            },
+            "require-dev": {
+                "pdepend/pdepend": "*",
+                "phpmd/phpmd": "*",
+                "phpunit/phpunit": ">=3.7,<4.0",
+                "pimple/pimple": ">=1.0,<2.0",
+                "symfony/dependency-injection": ">=2.1,<3.0",
+                "symfony/framework-bundle": ">=2.1,<3.0",
+                "symfony/security": ">=2.1,<3.0",
+                "twig/twig": ">=1.13,<2.0"
+            },
+            "suggest": {
+                "pimple/pimple": "Needed for use with PimpleFactory",
+                "symfony/dependency-injection": "Needed for use with Symfony DependencyInjection Factory",
+                "symfony/security": "Needed for using SecurityAwareStateMachine",
+                "symfony/yaml": "Yaml allows you to define your State graph in YAML"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Finite": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Yohan Giarelli",
+                    "email": "yohan@giarel.li",
+                    "homepage": "http://yohan.giarel.li"
+                }
+            ],
+            "description": "A simple PHP5.3+ Finite State Machine",
+            "homepage": "https://github.com/yohang/Finite",
+            "keywords": [
+                "statemachine"
+            ],
+            "time": "2014-05-05 08:08:03"
+        },
+        {
+            "name": "zurb/foundation",
+            "version": "v5.4.7",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/zurb/foundation.git",
+                "reference": "9ea0bc88f04aaa92b6173b336ec2e3ca6ca78597"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/zurb/foundation/zipball/9ea0bc88f04aaa92b6173b336ec2e3ca6ca78597",
+                "reference": "9ea0bc88f04aaa92b6173b336ec2e3ca6ca78597",
                 "shasum": ""
             },
             "type": "library",
@@ -1743,7 +1808,7 @@
                 "foundation",
                 "scss"
             ],
-            "time": "2014-10-09 22:18:47"
+            "time": "2014-10-28 16:28:12"
         }
     ],
     "packages-dev": [
@@ -3363,9 +3428,7 @@
             "time": "2014-07-31 03:16:45"
         }
     ],
-    "aliases": [
-
-    ],
+    "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
         "friendsofsymfony/user-bundle": 20,
@@ -3374,10 +3437,9 @@
         "phpspec/phpspec": 20,
         "henrikbjorn/phpspec-code-coverage": 20
     },
+    "prefer-stable": false,
     "platform": {
         "php": ">=5.4"
     },
-    "platform-dev": [
-
-    ]
+    "platform-dev": []
 }

@@ -108,6 +108,31 @@ interface ProjectInterface
     public function setShortName($shortName);
 
     /**
+     * Gets statuses.
+     *
+     * @return \Kreta\Component\Core\Model\Interfaces\StatusInterface[]
+     */
+    public function getStatuses();
+
+    /**
+     * Adds status.
+     *
+     * @param \Kreta\Component\Core\Model\Interfaces\StatusInterface $status The status
+     *
+     * @return $this self Object
+     */
+    public function addStatus(StatusInterface $status);
+
+    /**
+     * Removes status.
+     *
+     * @param \Kreta\Component\Core\Model\Interfaces\StatusInterface $status The status
+     *
+     * @return $this self Object
+     */
+    public function removeStatus(StatusInterface $status);
+
+    /**
      * Gets role of user given.
      *
      * @param \Kreta\Component\Core\Model\Interfaces\UserInterface $user The user

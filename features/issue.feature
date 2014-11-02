@@ -15,17 +15,19 @@ Feature: Manage issues
     Given the following users exist:
       | firstName | lastName | email          | password |
       | Kreta     | User     | user@kreta.com | 123456   |
-    And the following statuses exist:
-      | description |
-      | To do       |
-      | Doing       |
-      | Done        |
     And the following projects exist:
       | name         | shortName |
       | Test project | TPR       |
+    And the following statuses exist:
+      | color   | name        | project      |
+      | #27ae60 | Open        | Test project |
+      | #2c3e50 | In progress | Test project |
+      | #f1c40f | Resolved    | Test project |
+      | #c0392b | Closed      | Test project |
+      | #27ae60 | Reopened    | Test project |
     And the following issues exist:
-      | project      | title | description | reporter       | assignee       | type | status | priority |
-      | Test project | Test  | Description | user@kreta.com | user@kreta.com | 1    | To do  | 1        |
+      | project      | title | description | reporter       | assignee       | type    | status | priority |
+      | Test project | Test  | Description | user@kreta.com | user@kreta.com | initial | Open   | 1        |
     And I am a logged as 'user@kreta.com' with password '123456'
 
   Scenario: Adding a new issue
@@ -35,7 +37,7 @@ Feature: Manage issues
       | Name        | kreta |
       | Description | kreta |
     And I select "Test project" from "Project"
-    And I select "To do" from "Status"
+    And I select "Open" from "Status"
     And I select "user@kreta.com" from "Assignee"
     And I press "Create"
     Then I should see "Issue created successfully"

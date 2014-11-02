@@ -14,8 +14,9 @@ namespace Kreta\Component\Core\Model;
 use Doctrine\Common\Collections\ArrayCollection;
 use Kreta\Component\Core\Model\Abstracts\AbstractModel;
 use Kreta\Component\Core\Model\Interfaces\IssueInterface;
-use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Core\Model\Interfaces\ParticipantInterface;
+use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
+use Kreta\Component\Core\Model\Interfaces\StatusInterface;
 use Kreta\Component\Core\Model\Interfaces\UserInterface;
 
 /**
@@ -26,7 +27,9 @@ use Kreta\Component\Core\Model\Interfaces\UserInterface;
 class Project extends AbstractModel implements ProjectInterface
 {
     /**
-     * Array that contains issues.
+     * Array that contains all the issues of the project.
+     *
+     * @var \Doctrine\Common\Collections\ArrayCollection
      */
     protected $issues;
 
@@ -52,12 +55,20 @@ class Project extends AbstractModel implements ProjectInterface
     protected $shortName;
 
     /**
+     * Array that contains all the status of the project.
+     *
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     */
+    protected $statuses;
+
+    /**
      * Constructor.
      */
     public function __construct()
     {
         $this->issues = new ArrayCollection();
         $this->participants = new ArrayCollection();
+        $this->statuses = new ArrayCollection();
     }
 
     /**
@@ -158,6 +169,34 @@ class Project extends AbstractModel implements ProjectInterface
         }
 
         $this->shortName = $shortName;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getStatuses()
+    {
+        return $this->statuses;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function addStatus(StatusInterface $status)
+    {
+        $this->statuses[] = $status;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function removeStatus(StatusInterface $status)
+    {
+        $this->statuses->removeElement($status);
 
         return $this;
     }

@@ -19,6 +19,7 @@ use Kreta\Component\Core\Model\Interfaces\StatusInterface;
 use Kreta\Component\Core\Model\Interfaces\UserInterface;
 use Kreta\Component\Core\Model\Participant;
 use Kreta\Component\Core\Model\Project;
+use Kreta\Component\Core\Model\Status;
 use Kreta\Component\Core\Model\User;
 use PhpSpec\ObjectBehavior;
 
@@ -102,6 +103,16 @@ class IssueSpec extends ObjectBehavior
     {
         $this->setDescription('This is a dummy description of issue')->shouldReturn($this);
         $this->getDescription()->shouldReturn('This is a dummy description of issue');
+    }
+
+    function its_finite_state_is_mutable()
+    {
+        $status = new Status('Todo');
+        $this->setStatus($status);
+
+        $this->getFiniteState()->shouldReturn('Todo');
+        $this->setFiniteState('Done')->shouldReturn($this);
+        $this->getFiniteState()->shouldReturn('Done');
     }
 
     function its_labels_are_mutable(LabelInterface $label)
