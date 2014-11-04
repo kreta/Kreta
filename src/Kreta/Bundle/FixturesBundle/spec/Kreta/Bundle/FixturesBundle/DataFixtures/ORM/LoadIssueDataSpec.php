@@ -16,15 +16,16 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Kreta\Component\Core\Factory\IssueFactory;
 use Kreta\Component\Core\Model\Interfaces\IssueInterface;
 use Kreta\Component\Core\Model\Interfaces\LabelInterface;
+use Kreta\Component\Core\Model\Interfaces\ParticipantInterface;
 use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Core\Model\Interfaces\ResolutionInterface;
 use Kreta\Component\Core\Model\Interfaces\StatusInterface;
 use Kreta\Component\Core\Model\Interfaces\UserInterface;
 use Kreta\Component\Core\Repository\LabelRepository;
+use Kreta\Component\Core\Repository\ParticipantRepository;
 use Kreta\Component\Core\Repository\ProjectRepository;
 use Kreta\Component\Core\Repository\ResolutionRepository;
 use Kreta\Component\Core\Repository\StatusRepository;
-use Kreta\Component\Core\Repository\UserRepository;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -54,11 +55,11 @@ class LoadIssueDataSpec extends ObjectBehavior
 
     function it_loads(
         ContainerInterface $container,
-        UserRepository $userRepository,
         LabelRepository $labelRepository,
         ProjectRepository $projectRepository,
         StatusRepository $statusRepository,
         ResolutionRepository $resolutionRepository,
+        ParticipantRepository $participantRepository,
         IssueFactory $factory,
         IssueInterface $issue,
         ReferenceRepository $referenceRepository,
@@ -68,7 +69,9 @@ class LoadIssueDataSpec extends ObjectBehavior
         LabelInterface $label,
         ProjectInterface $project,
         StatusInterface $status,
-        ResolutionInterface $resolution
+        ResolutionInterface $resolution,
+        ParticipantInterface $participant,
+        UserInterface $user
     )
     {
         $container->get('kreta_core.repository_label')->shouldBeCalled()->willReturn($labelRepository);
@@ -77,14 +80,15 @@ class LoadIssueDataSpec extends ObjectBehavior
         $container->get('kreta_core.repository_project')->shouldBeCalled()->willReturn($projectRepository);
         $projectRepository->findAll()->shouldBeCalled()->willReturn(array($project));
 
-        $container->get('kreta_core.repository_status')->shouldBeCalled()->willReturn($statusRepository);
-        $statusRepository->findAll()->shouldBeCalled()->willReturn(array($status));
-
         $container->get('kreta_core.repository_resolution')->shouldBeCalled()->willReturn($resolutionRepository);
         $resolutionRepository->findAll()->shouldBeCalled()->willReturn(array($resolution));
 
-        $container->get('kreta_core.repository_user')->shouldBeCalled()->willReturn($userRepository);
-        $userRepository->findAll()->shouldBeCalled()->willReturn(array($user));
+        $container->get('kreta_core.repository_status')->shouldBeCalled()->willReturn($statusRepository);
+        $statusRepository->findAll()->shouldBeCalled()->willReturn(array($status));
+
+        $container->get('kreta_core.repository_participant')->shouldBeCalled()->willReturn($participantRepository);
+        $participantRepository->findByProject($project)->shouldBeCalled()->willReturn(array($participant));
+        $participant->getUser()->shouldBeCalled()->willReturn($user);
 
         $container->get('kreta_core.factory_issue')->shouldBeCalled()->willReturn($factory);
         $factory->create(
@@ -110,8 +114,6 @@ class LoadIssueDataSpec extends ObjectBehavior
                 consequat, leo eget bibendum sodales, augue velit cursus nunc'
         )->shouldBeCalled()->willReturn($issue);
         $issue->addLabel($label)->shouldBeCalled()->willReturn($issue);
-        $issue->setProject(Argument::type('Kreta\Component\Core\Model\Interfaces\ProjectInterface'))
-            ->shouldBeCalled()->willReturn($issue);
         $issue->setPriority(Argument::type('int'))->shouldBeCalled()->willReturn($issue);
         $issue->setResolution(Argument::type('Kreta\Component\Core\Model\Interfaces\ResolutionInterface'))
             ->shouldBeCalled()->willReturn($issue);

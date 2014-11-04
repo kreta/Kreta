@@ -7,7 +7,7 @@
 
 Kreta\Component\Core\Model\Participant:
     type: entity
-    repositoryClass: Kreta\Component\Core\Repository\ProjectRoleRepository
+    repositoryClass: Kreta\Component\Core\Repository\ParticipantRepository
     table: participant
     id:
         project:

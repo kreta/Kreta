@@ -32,12 +32,33 @@ class ParticipantRepository extends EntityRepository
      */
     public function findOneByProjectAndUser(ProjectInterface $project, UserInterface $user)
     {
-        $queryBuilder = $this->createQueryBuilder('pr');
+        $queryBuilder = $this->createQueryBuilder('p');
 
-        return $queryBuilder->select('pr.role')
-            ->where($queryBuilder->expr()->eq('pr.project', ':project'))
-            ->andWhere($queryBuilder->expr()->eq('pr.user', ':user'))
-            ->setParameters(array(':project' => $project->getId(), ':user' => $user->getId()))
+        return $queryBuilder->select('p.role')
+            ->where($queryBuilder->expr()->eq('p.project', ':project'))
+            ->andWhere($queryBuilder->expr()->eq('p.user', ':user'))
+            ->setParameters(array(':project' => $project, ':user' => $user))
             ->getQuery()->getArrayResult();
+    }
+
+    /**
+     * Finds all of project given.
+     *
+     * @param \Kreta\Component\Core\Model\Interfaces\ProjectInterface $project The project
+     *
+     * @return \Kreta\Component\Core\Model\Interfaces\ParticipantInterface[]
+     */
+    public function findByProject(ProjectInterface $project)
+    {
+        $queryBuilder = $this->createQueryBuilder('p');
+
+        return $queryBuilder->select(array('p', 'u', 'pr'))
+            ->leftJoin('p.project', 'pr')
+            ->leftJoin('p.user', 'u')
+            ->where($queryBuilder->expr()->eq('p.project', ':project'))
+            ->setParameter(':project', $project)
+            ->getQuery()->getResult();
+
+        return $this->findBy(array('project' => $project));
     }
 }

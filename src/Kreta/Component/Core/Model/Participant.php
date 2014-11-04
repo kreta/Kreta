@@ -11,8 +11,8 @@
 
 namespace Kreta\Component\Core\Model;
 
-use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Core\Model\Interfaces\ParticipantInterface;
+use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Core\Model\Interfaces\UserInterface;
 
 /**
@@ -45,6 +45,9 @@ class Participant implements ParticipantInterface
 
     /**
      * Constructor.
+     *
+     * @param ProjectInterface $project The project
+     * @param UserInterface    $user    The user
      */
     public function __construct(ProjectInterface $project, UserInterface $user)
     {

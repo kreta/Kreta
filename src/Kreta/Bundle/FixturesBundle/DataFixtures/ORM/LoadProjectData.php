@@ -26,7 +26,7 @@ class LoadProjectData extends DataFixtures
      */
     public function load(ObjectManager $manager)
     {
-        for ($i = 0; $i < 100; $i++) {
+        for ($i = 0; $i < 10; $i++) {
             $project = $this->container->get('kreta_core.factory_project')->create();
             $project->setName('This is the project number ' . $i . ' that is created by fixtures');
 

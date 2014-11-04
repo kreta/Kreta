@@ -30,12 +30,14 @@ class LoadIssueData extends DataFixtures
         $projects = $this->container->get('kreta_core.repository_project')->findAll();
         $resolutions = $this->container->get('kreta_core.repository_resolution')->findAll();
         $statuses = $this->container->get('kreta_core.repository_status')->findAll();
-        $users = $this->container->get('kreta_core.repository_user')->findAll();
 
-        for ($i = 0; $i < 50; $i++) {
+        for ($i = 0; $i < 100; $i++) {
+            $project = $projects[array_rand($projects)];
+            $participants = $this->container->get('kreta_core.repository_participant')->findByProject($project);
+
             $issue = $this->container->get('kreta_core.factory_issue')
-                ->create($projects[array_rand($projects)], $users[array_rand($users)]);
-            $issue->setAssignee($users[array_rand($users)]);
+                ->create($project, $participants[array_rand($participants)]->getUser());
+            $issue->setAssignee($participants[array_rand($participants)]->getUser());
             $issue->setDescription(
                 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean
                 massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec
@@ -57,13 +59,17 @@ class LoadIssueData extends DataFixtures
             if ($i % 5 !== 0) {
                 $issue->setResolution($resolutions[array_rand($resolutions)]);
             }
-            $issue->setProject($projects[array_rand($projects)]);
-            $issue->setReporter($users[array_rand($users)]);
+            $issue->setReporter($participants[array_rand($participants)]->getUser());
             $status = $statuses[array_rand($statuses)];
             $issue->setStatus($status);
             $types = array($status::TYPE_INITIAL, $status::TYPE_NORMAL, $status::TYPE_FINAL);
             $issue->setType($types[array_rand($types)]);
             $issue->setTitle('Issue - ' . $i);
+
+            $users = array();
+            foreach ($participants as $participant) {
+                $users[] = $participant->getUser();
+            }
             $this->loadRandomObjects($issue, 'addWatcher', $users);
 
             $this->addReference('issue-' . $i, $issue);

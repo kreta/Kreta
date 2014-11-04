@@ -26,7 +26,7 @@ class LoadParticipantData extends DataFixtures
      *
      * @var string[]
      */
-    private $projectParticipants = array('ROLE_ADMIN', 'ROLE_PARTICIPANT');
+    private $participantRoles = array('ROLE_ADMIN', 'ROLE_PARTICIPANT');
 
     /**
      * {@inheritdoc}
@@ -37,13 +37,13 @@ class LoadParticipantData extends DataFixtures
         $users = $this->container->get('kreta_core.repository_user')->findAll();
 
         foreach ($users as $user) {
-            $i = rand(0, count($projects) - 5);
-            $userProjects = array($projects[$i], $projects[$i + 1], $projects[$i + 2], $projects[$i + 3]);
-            foreach ($userProjects as $project) {
-                $projectParticipant = $this->container->get('kreta_core.factory_participant')->create($project, $user);
-                $projectParticipant->setRole($this->projectParticipants[array_rand($this->projectParticipants)]);
+            foreach ($projects as $project) {
+                if (rand(0, 2) === 1) {
+                    $participant = $this->container->get('kreta_core.factory_participant')->create($project, $user);
+                    $participant->setRole($this->participantRoles[array_rand($this->participantRoles)]);
 
-                $manager->persist($projectParticipant);
+                    $manager->persist($participant);
+                }
             }
         }
 
