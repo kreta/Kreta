@@ -18,6 +18,9 @@ Feature: Manage issues
     And the following projects exist:
       | name         | shortName |
       | Test project | TPR       |
+    And the following participants exist:
+      | project      | user           | role             |
+      | Test project | user@kreta.com | ROLE_PARTICIPANT |
     And the following issues exist:
       | project      | title | description | reporter       | assignee       | type    | status | priority |
       | Test project | Test  | Description | user@kreta.com | user@kreta.com | initial | To do  | 1        |
@@ -25,13 +28,12 @@ Feature: Manage issues
 
   Scenario: Adding a new issue
     Given I am on the homepage
+    And I choose "TPR" project from user's project list
     And I click on add issue button
     When I fill in the following:
       | Name        | kreta |
       | Description | kreta |
-    And I select "Test project" from "Project"
-    And I select "To do" from "Status"
-    And I select "user@kreta.com" from "Assignee"
+    And I select "Kreta User" from "Assignee"
     And I press "Create"
     Then I should see "Issue created successfully"
 

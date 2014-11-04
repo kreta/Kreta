@@ -11,6 +11,7 @@
 
 namespace spec\Kreta\Bundle\WebBundle\Form\Type;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Kreta\Bundle\WebBundle\Form\Type\PriorityType;
 use Kreta\Bundle\WebBundle\Form\Type\TypeType;
 use PhpSpec\ObjectBehavior;
@@ -24,6 +25,11 @@ use Symfony\Component\Form\FormBuilder;
  */
 class IssueTypeSpec extends ObjectBehavior
 {
+    function let() {
+        $participants = new ArrayCollection();
+        $this->beConstructedWith($participants);
+    }
+
     function it_is_initializable()
     {
         $this->shouldHaveType('Kreta\Bundle\WebBundle\Form\Type\IssueType');
@@ -36,12 +42,6 @@ class IssueTypeSpec extends ObjectBehavior
 
     function it_builds_a_form(FormBuilder $builder)
     {
-        $builder->add('project', 'entity', array(
-            'label'    => 'Project',
-            'class'    => 'Kreta\Component\Core\Model\Project',
-            'property' => 'name'
-        ))->shouldBeCalled()->willReturn($builder);
-
         $builder->add('title', 'text', array(
             'required' => true,
             'label'    => 'Name'
@@ -59,15 +59,11 @@ class IssueTypeSpec extends ObjectBehavior
             'label' => 'Priority'
         ))->shouldBeCalled()->willReturn($builder);
 
-        $builder->add('status', 'entity', array(
-            'label'    => 'Status',
-            'class'    => 'Kreta\Component\Core\Model\Status',
-            'property' => 'name'
-        ))->shouldBeCalled()->willReturn($builder);
-
         $builder->add('assignee', null, array(
             'label' => 'Assignee',
-            'empty_value' => null
+            'empty_value' => null,
+            'choices' => array(),
+            'property' => 'fullName'
         ))->shouldBeCalled()->willReturn($builder);
 
 
