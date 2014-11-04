@@ -20,6 +20,11 @@ use PhpSpec\ObjectBehavior;
  */
 class StatusFactorySpec extends ObjectBehavior
 {
+    function let()
+    {
+        $this->beConstructedWith('Kreta\Component\Core\Model\Status');
+    }
+
     function it_is_initializable()
     {
         $this->shouldHaveType('Kreta\Component\Core\Factory\StatusFactory');

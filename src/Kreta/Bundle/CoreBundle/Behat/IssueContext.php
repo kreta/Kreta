@@ -43,7 +43,7 @@ class IssueContext extends RawMinkContext implements Context, KernelAwareContext
             $status = $this->getKernel()->getContainer()->get('kreta_core.repository_status')
                 ->findOneBy(array('name' => $issueData['status']));
 
-            $issue = $this->kernel->getContainer()->get('kreta_core.factory_issue')->create();
+            $issue = $this->kernel->getContainer()->get('kreta_core.factory_issue')->create($project, $reporter);
             $issue->setPriority($issueData['priority']);
             $issue->setProject($project);
             $issue->setAssignee($assignee);

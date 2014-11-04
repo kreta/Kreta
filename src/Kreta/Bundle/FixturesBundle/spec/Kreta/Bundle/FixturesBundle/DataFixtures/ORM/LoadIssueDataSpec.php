@@ -87,7 +87,10 @@ class LoadIssueDataSpec extends ObjectBehavior
         $userRepository->findAll()->shouldBeCalled()->willReturn(array($user));
 
         $container->get('kreta_core.factory_issue')->shouldBeCalled()->willReturn($factory);
-        $factory->create()->shouldBeCalled()->willReturn($issue);
+        $factory->create(
+            Argument::type('Kreta\Component\Core\Model\Interfaces\ProjectInterface'),
+            Argument::type('Kreta\Component\Core\Model\Interfaces\UserInterface')
+        )->shouldBeCalled()->willReturn($issue);
 
         $issue->setAssignee($user)->shouldBeCalled()->willReturn($issue);
         $issue->setDescription(

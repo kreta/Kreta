@@ -20,14 +20,14 @@ use PhpSpec\ObjectBehavior;
  */
 class ProjectFactorySpec extends ObjectBehavior
 {
+    function let()
+    {
+        $this->beConstructedWith('Kreta\Component\Core\Model\Project');
+    }
+
     function it_is_initializable()
     {
         $this->shouldHaveType('Kreta\Component\Core\Factory\ProjectFactory');
-    }
-
-    function it_extends_abstract_factory()
-    {
-        $this->shouldHaveType('Kreta\Component\Core\Factory\Abstracts\AbstractFactory');
     }
 
     function it_creates_a_project()

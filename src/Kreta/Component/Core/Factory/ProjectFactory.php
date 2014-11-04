@@ -11,8 +11,6 @@
 
 namespace Kreta\Component\Core\Factory;
 
-use Kreta\Component\Core\Factory\Abstracts\AbstractFactory;
-use Kreta\Component\Core\Model\Project;
 use Kreta\Component\Core\Model\Status;
 
 /**
@@ -20,19 +18,39 @@ use Kreta\Component\Core\Model\Status;
  *
  * @package Kreta\Component\Core\Factory
  */
-class ProjectFactory extends AbstractFactory
+class ProjectFactory
 {
     /**
-     * {@inheritdoc}
+     * The class name.
+     *
+     * @var string
+     */
+    protected $className;
+
+    /**
+     * Constructor.
+     *
+     * @param string $className The class name
+     */
+    public function __construct($className)
+    {
+        $this->className = $className;
+    }
+
+    /**
+     * Creates an instance of an entity.
+     *
+     * @return \Kreta\Component\Core\Model\Interfaces\ProjectInterface
      */
     public function create()
     {
-        $project = new Project();
+        $project = new $this->className();
         $statuses = $this->createDefaultStatus();
         foreach ($statuses as $status) {
             $status->setProject($project);
             $project->addStatus($status);
         }
+
         return $project;
     }
 

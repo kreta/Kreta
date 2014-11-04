@@ -11,7 +11,11 @@
 
 namespace spec\Kreta\Component\Core\Factory;
 
+use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
+use Kreta\Component\Core\Model\Interfaces\StatusInterface;
+use Kreta\Component\Core\Model\Interfaces\UserInterface;
 use PhpSpec\ObjectBehavior;
+use Prophecy\Argument;
 
 /**
  * Class IssueFactorySpec.
@@ -20,18 +24,28 @@ use PhpSpec\ObjectBehavior;
  */
 class IssueFactorySpec extends ObjectBehavior
 {
+    function let()
+    {
+        $this->beConstructedWith('Kreta\Component\Core\Model\Issue');
+    }
+
     function it_is_initializable()
     {
         $this->shouldHaveType('Kreta\Component\Core\Factory\IssueFactory');
     }
 
-    function it_extends_abstract_factory()
+    function it_creates_a_issue(
+        ProjectInterface $project,
+        StatusInterface $status,
+        UserInterface $user
+    )
     {
-        $this->shouldHaveType('Kreta\Component\Core\Factory\Abstracts\AbstractFactory');
-    }
 
-    function it_creates_a_issue()
-    {
-        $this->create()->shouldReturnAnInstanceOf('Kreta\Component\Core\Model\Issue');
+        $project->getStatuses()->shouldBeCalled()->willReturn(array($status));
+        $status->getName()->shouldBeCalled()->willReturn('To do');
+        $status->setName('To do')->shouldBeCalled();
+        $status->getType()->shouldBeCalled()->willReturn('initial');
+
+        $this->create($project, $user)->shouldReturnAnInstanceOf('Kreta\Component\Core\Model\Issue');
     }
 }

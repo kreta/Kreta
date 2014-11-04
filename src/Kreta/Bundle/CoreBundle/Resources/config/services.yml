@@ -16,14 +16,14 @@ parameters:
     kreta_core.class_status: Kreta\Component\Core\Model\Status
     kreta_core.class_user: Kreta\Component\Core\Model\User
 
-    kreta_core.factory_class_comment: Kreta\Component\Core\Factory\CommentFactory
+    kreta_core.factory_class_comment: Kreta\Component\Core\Factory\BaseFactory
     kreta_core.factory_class_issue: Kreta\Component\Core\Factory\IssueFactory
-    kreta_core.factory_class_label: Kreta\Component\Core\Factory\LabelFactory
+    kreta_core.factory_class_label: Kreta\Component\Core\Factory\BaseFactory
     kreta_core.factory_class_project: Kreta\Component\Core\Factory\ProjectFactory
     kreta_core.factory_class_participant: Kreta\Component\Core\Factory\ParticipantFactory
-    kreta_core.factory_class_resolution: Kreta\Component\Core\Factory\ResolutionFactory
+    kreta_core.factory_class_resolution: Kreta\Component\Core\Factory\BaseFactory
     kreta_core.factory_class_status: Kreta\Component\Core\Factory\StatusFactory
-    kreta_core.factory_class_user: Kreta\Component\Core\Factory\UserFactory
+    kreta_core.factory_class_user: Kreta\Component\Core\Factory\BaseFactory
 
     kreta_core.repository_class_comment: Kreta\Component\Core\Repository\CommentRepository
     kreta_core.repository_class_issue: Kreta\Component\Core\Repository\IssueRepository
@@ -41,24 +41,6 @@ parameters:
     kreta_core.service_class_issueStateMachine: Kreta\Bundle\CoreBundle\Services\StateMachine\IssueStateMachine
 
 services:
-#### FACTORIES ####
-    kreta_core.factory_comment:
-        class: %kreta_core.factory_class_comment%
-    kreta_core.factory_issue:
-        class: %kreta_core.factory_class_issue%
-    kreta_core.factory_label:
-        class: %kreta_core.factory_class_label%
-    kreta_core.factory_project:
-        class: %kreta_core.factory_class_project%
-    kreta_core.factory_participant:
-        class: %kreta_core.factory_class_participant%
-    kreta_core.factory_resolution:
-        class: %kreta_core.factory_class_resolution%
-    kreta_core.factory_status:
-        class: %kreta_core.factory_class_status%
-    kreta_core.factory_user:
-        class: %kreta_core.factory_class_user%
-
 #### REPOSITORIES ####
     kreta_core.repository_comment:
         factory_service: doctrine.orm.entity_manager

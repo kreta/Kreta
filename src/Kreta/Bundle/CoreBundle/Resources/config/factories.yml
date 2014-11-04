@@ -1,0 +1,32 @@
+# This file belongs to Kreta.
+# The source code of application includes a LICENSE file
+# with all information about license.
+#
+# @author benatespina <benatespina@gmail.com>
+# @author gorkalaucirica <gorka.lauzirika@gmail.com>
+
+services:
+    kreta_core.factory_comment:
+        class: %kreta_core.factory_class_comment%
+        arguments: [%kreta_core.class_comment%]
+    kreta_core.factory_issue:
+        class: %kreta_core.factory_class_issue%
+        arguments: [%kreta_core.class_issue%]
+    kreta_core.factory_label:
+        class: %kreta_core.factory_class_label%
+        arguments: [%kreta_core.class_label%]
+    kreta_core.factory_project:
+        class: %kreta_core.factory_class_project%
+        arguments: [%kreta_core.class_project%]
+    kreta_core.factory_participant:
+        class: %kreta_core.factory_class_participant%
+        arguments: [%kreta_core.class_participant%]
+    kreta_core.factory_resolution:
+        class: %kreta_core.factory_class_resolution%
+        arguments: [%kreta_core.class_resolution%]
+    kreta_core.factory_status:
+        class: %kreta_core.factory_class_status%
+        arguments: [%kreta_core.class_status%]
+    kreta_core.factory_user:
+        class: %kreta_core.factory_class_user%
+        arguments: [%kreta_core.class_user%]
