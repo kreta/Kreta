@@ -13,7 +13,7 @@ namespace spec\Kreta\Bundle\FixturesBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\ReferenceRepository;
 use Doctrine\Common\Persistence\ObjectManager;
-use Kreta\Component\Core\Factory\CommentFactory;
+use Kreta\Component\Core\Factory\BaseFactory;
 use Kreta\Component\Core\Model\Interfaces\CommentInterface;
 use Kreta\Component\Core\Model\Interfaces\IssueInterface;
 use Kreta\Component\Core\Model\Interfaces\UserInterface;
@@ -49,7 +49,7 @@ class LoadCommentDataSpec extends ObjectBehavior
         ContainerInterface $container,
         UserRepository $userRepository,
         UserInterface $user,
-        CommentFactory $factory,
+        BaseFactory $factory,
         CommentInterface $comment,
         ReferenceRepository $referenceRepository,
         IssueInterface $issue,

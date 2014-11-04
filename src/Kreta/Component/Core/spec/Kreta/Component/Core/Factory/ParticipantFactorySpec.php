@@ -22,12 +22,17 @@ use PhpSpec\ObjectBehavior;
  */
 class ParticipantFactorySpec extends ObjectBehavior
 {
+    function let()
+    {
+        $this->beConstructedWith('Kreta\Component\Core\Model\Participant');
+    }
+
     function it_is_initializable()
     {
         $this->shouldHaveType('Kreta\Component\Core\Factory\ParticipantFactory');
     }
 
-    function it_creates_a_project_role(ProjectInterface $project, UserInterface $user)
+    function it_creates_a_participant(ProjectInterface $project, UserInterface $user)
     {
         $this->create($project, $user)->shouldReturnAnInstanceOf('Kreta\Component\Core\Model\Participant');
     }

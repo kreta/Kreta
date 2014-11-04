@@ -14,20 +14,20 @@ namespace spec\Kreta\Component\Core\Factory;
 use PhpSpec\ObjectBehavior;
 
 /**
- * Class CommentFactorySpec.
+ * Class BaseFactorySpec.
  *
  * @package spec\Kreta\Component\Core\Factory
  */
-class CommentFactorySpec extends ObjectBehavior
+class BaseFactorySpec extends ObjectBehavior
 {
-    function it_is_initializable()
+    function let()
     {
-        $this->shouldHaveType('Kreta\Component\Core\Factory\CommentFactory');
+        $this->beConstructedWith('Kreta\Component\Core\Model\Comment');
     }
 
-    function it_extends_abstract_factory()
+    function it_is_initializable()
     {
-        $this->shouldHaveType('Kreta\Component\Core\Factory\Abstracts\AbstractFactory');
+        $this->shouldHaveType('Kreta\Component\Core\Factory\BaseFactory');
     }
 
     function it_creates_a_comment()

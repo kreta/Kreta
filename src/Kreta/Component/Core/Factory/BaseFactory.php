@@ -11,15 +11,12 @@
 
 namespace Kreta\Component\Core\Factory;
 
-use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
-use Kreta\Component\Core\Model\Interfaces\UserInterface;
-
 /**
- * Class ParticipantFactory.
+ * Class BaseFactory.
  *
  * @package Kreta\Component\Core\Factory
  */
-class ParticipantFactory
+class BaseFactory
 {
     /**
      * The class name.
@@ -41,13 +38,10 @@ class ParticipantFactory
     /**
      * Creates an instance of an entity.
      *
-     * @param \Kreta\Component\Core\Model\Interfaces\ProjectInterface $project The project
-     * @param \Kreta\Component\Core\Model\Interfaces\UserInterface    $user    The user
-     *
-     * @return \Kreta\Component\Core\Model\Interfaces\ParticipantInterface
+     * @return Object
      */
-    public function create(ProjectInterface $project, UserInterface $user)
+    public function create()
     {
-        return new $this->className($project, $user);
+        return new $this->className();
     }
 }

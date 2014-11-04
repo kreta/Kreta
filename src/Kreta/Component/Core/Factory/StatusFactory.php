@@ -12,7 +12,6 @@
 namespace Kreta\Component\Core\Factory;
 
 use Kreta\Component\Core\Model\Interfaces\StatusInterface;
-use Kreta\Component\Core\Model\Status;
 
 /**
  * Class StatusFactory.
@@ -21,6 +20,23 @@ use Kreta\Component\Core\Model\Status;
  */
 class StatusFactory
 {
+    /**
+     * The class name.
+     *
+     * @var string
+     */
+    protected $className;
+
+    /**
+     * Constructor.
+     *
+     * @param string $className The class name
+     */
+    public function __construct($className)
+    {
+        $this->className = $className;
+    }
+
     /**
      * Creates an instance of Status.
      *
@@ -38,6 +54,6 @@ class StatusFactory
         array $properties = array()
     )
     {
-        return new Status($name, $type, $transitions, $properties);
+        return new $this->className($name, $type, $transitions, $properties);
     }
 }

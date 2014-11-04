@@ -13,7 +13,7 @@ namespace spec\Kreta\Bundle\FixturesBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\ReferenceRepository;
 use Doctrine\Common\Persistence\ObjectManager;
-use Kreta\Component\Core\Factory\ResolutionFactory;
+use Kreta\Component\Core\Factory\BaseFactory;
 use Kreta\Component\Core\Model\Interfaces\ResolutionInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -44,7 +44,7 @@ class LoadResolutionDataSpec extends ObjectBehavior
 
     function it_loads(
         ContainerInterface $container,
-        ResolutionFactory $factory,
+        BaseFactory $factory,
         ResolutionInterface $resolution,
         ObjectManager $manager
     )

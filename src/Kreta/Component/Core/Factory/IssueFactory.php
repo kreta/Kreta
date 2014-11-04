@@ -11,21 +11,55 @@
 
 namespace Kreta\Component\Core\Factory;
 
-use Kreta\Component\Core\Model\Issue;
-use Kreta\Component\Core\Factory\Abstracts\AbstractFactory;
+use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
+use Kreta\Component\Core\Model\Interfaces\UserInterface;
 
 /**
  * Class IssueFactory.
  *
  * @package Kreta\Component\Core\Factory
  */
-class IssueFactory extends AbstractFactory
+class IssueFactory
 {
     /**
-     * {@inheritdoc}
+     * The class name.
+     *
+     * @var string
      */
-    public function create()
+    protected $className;
+
+    /**
+     * Constructor.
+     *
+     * @param string $className The class name
+     */
+    public function __construct($className = '')
     {
-        return new Issue();
+        $this->className = $className;
+    }
+
+    /**
+     * Creates an instance of Issue.
+     *
+     * @param \Kreta\Component\Core\Model\Interfaces\ProjectInterface $project  Project that will contain the issue
+     * @param \Kreta\Component\Core\Model\Interfaces\UserInterface    $reporter User that is creating the issue
+     *
+     * @return \Kreta\Component\Core\Model\Interfaces\IssueInterface
+     */
+    public function create(ProjectInterface $project, UserInterface $reporter)
+    {
+        $issue = new $this->className();
+        $issue->setProject($project);
+        $issue->setReporter($reporter);
+        $issue->setAssignee($reporter);
+
+        foreach ($project->getStatuses() as $status) {
+            if ($status->getType() === 'initial') {
+                $issue->setStatus($status);
+                break;
+            }
+        }
+
+        return $issue;
     }
 }

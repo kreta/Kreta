@@ -12,7 +12,7 @@
 namespace spec\Kreta\Bundle\FixturesBundle\DataFixtures\ORM;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Kreta\Component\Core\Factory\LabelFactory;
+use Kreta\Component\Core\Factory\BaseFactory;
 use Kreta\Component\Core\Model\Interfaces\LabelInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -42,7 +42,7 @@ class LoadLabelDataSpec extends ObjectBehavior
 
     function it_loads(
         ContainerInterface $container,
-        LabelFactory $factory,
+        BaseFactory $factory,
         LabelInterface $label,
         ObjectManager $manager
     )

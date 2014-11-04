@@ -12,7 +12,7 @@
 namespace spec\Kreta\Bundle\FixturesBundle\DataFixtures\ORM;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Kreta\Component\Core\Factory\UserFactory;
+use Kreta\Component\Core\Factory\BaseFactory;
 use Kreta\Component\Core\Model\Interfaces\UserInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -42,7 +42,7 @@ class LoadUserDataSpec extends ObjectBehavior
 
     function it_loads(
         ContainerInterface $container,
-        UserFactory $factory,
+        BaseFactory $factory,
         UserInterface $user,
         ObjectManager $manager
     )
@@ -66,7 +66,7 @@ class LoadUserDataSpec extends ObjectBehavior
 
     private function createUser(
         ContainerInterface $container,
-        UserFactory $factory,
+        BaseFactory $factory,
         UserInterface $user,
         $role = 'ROLE_USER'
     )

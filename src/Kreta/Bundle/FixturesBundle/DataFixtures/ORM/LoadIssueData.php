@@ -33,7 +33,8 @@ class LoadIssueData extends DataFixtures
         $users = $this->container->get('kreta_core.repository_user')->findAll();
 
         for ($i = 0; $i < 50; $i++) {
-            $issue = $this->container->get('kreta_core.factory_issue')->create();
+            $issue = $this->container->get('kreta_core.factory_issue')
+                ->create($projects[array_rand($projects)], $users[array_rand($users)]);
             $issue->setAssignee($users[array_rand($users)]);
             $issue->setDescription(
                 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean
