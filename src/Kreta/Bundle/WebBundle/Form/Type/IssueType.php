@@ -26,7 +26,7 @@ class IssueType extends AbstractType
     protected $users;
 
     /**
-     * @param \Kreta\Component\Core\Model\Participant[] $participants Collection of participants
+     * @param \Kreta\Component\Core\Model\Interfaces\ParticipantInterface[] $participants Collection of participants
      */
     public function __construct($participants)
     {

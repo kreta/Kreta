@@ -41,7 +41,7 @@ class IssueController extends Controller
             $this->createNotFoundException();
         }
 
-        if ($this->get('security.context')->isGranted('edit', $issue) === false) {
+        if ($this->get('security.context')->isGranted('view', $issue) === false) {
             throw new AccessDeniedException();
         };
 
@@ -58,8 +58,6 @@ class IssueController extends Controller
      */
     public function newAction($projectId, Request $request)
     {
-        $issue = $this->get('kreta_core.factory_issue')->create();
-
         /** @var \Kreta\Component\Core\Model\Interfaces\ProjectInterface $project */
         $project = $this->get('kreta_core.repository_project')->find($projectId);
 
@@ -67,10 +65,7 @@ class IssueController extends Controller
             throw new AccessDeniedException();
         }
 
-        $issue->setProject($project);
-        $user = $this->getUser();
-        $issue->setReporter($user);
-        $issue->setAssignee($user);
+        $issue = $this->get('kreta_core.factory_issue')->create($project, $this->getUser());
 
         $form = $this->createForm(new IssueType($project->getParticipants()), $issue);
 
