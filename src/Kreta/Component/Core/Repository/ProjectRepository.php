@@ -32,20 +32,54 @@ class ProjectRepository extends EntityRepository
     }
 
     /**
-     * Finds all the issues of participant given.
+     * Finds all the projects of participant given and ordered by value given.
      *
-     * @param \Kreta\Component\Core\Model\Interfaces\UserInterface $participant The reporter
+     * Can do pagination if $page is changed, starting from 0
+     * and it can limit the search if $count is changed.
+     *
+     * @param \Kreta\Component\Core\Model\Interfaces\UserInterface $participant The participant
+     * @param string                                               $order       The order value
+     * @param string|int                                           $count       The number of results
+     * @param int                                                  $page        The number of page
      *
      * @return \Kreta\Component\Core\Model\Interfaces\ProjectInterface[]
      */
-    public function findByParticipant(UserInterface $participant)
+    public function findByParticipant(UserInterface $participant, $order = 'name', $count = 0, $page = 0)
     {
+        $order = 'p.' . $order;
+
         $queryBuilder = $this->createQueryBuilder('p');
 
-        return $queryBuilder->select('p')
+        $queryBuilder->select('p')
             ->where($queryBuilder->expr()->eq('pu.user', ':participant'))
             ->leftJoin('p.participants', 'pu')
             ->setParameter(':participant', $participant->getId())
-            ->getQuery()->getResult();
+            ->orderBy($order);
+
+        if ($count === 0) {
+            $queryBuilder
+                ->setMaxResults($count)
+                ->setFirstResult($count * $page);
+        }
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
+    /**
+     * Finds the project of id given.
+     *
+     * @param string $id The id
+     *
+     * @return \Kreta\Component\Core\Model\Interfaces\ProjectInterface
+     */
+    public function findOneById($id)
+    {
+        $queryBuilder = $this->createQueryBuilder('p');
+
+        $queryBuilder
+            ->where($queryBuilder->expr()->eq('p.id', ':id'))
+            ->setParameter('id', $id);
+
+        return $queryBuilder->getQuery()->getOneOrNullResult();
     }
 }

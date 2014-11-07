@@ -1,0 +1,78 @@
+# This file belongs to Kreta.
+# The source code of application includes a LICENSE file
+# with all information about license.
+#
+# @author benatespina <benatespina@gmail.com>
+# @author gorkalaucirica <gorka.lauzirika@gmail.com>
+
+Kreta\Component\Core\Model\Project:
+    exclusion_policy: ALL
+    relations:
+        -
+            rel: self
+            href:
+                route: get_project
+                parameters:
+                    id: expr(object.getId())
+                absolute: true
+            exclusion:
+                groups: [projectList, project]
+        -
+            rel: projects
+            href:
+                route: get_projects
+                absolute: true
+            exclusion:
+                groups: [projectList, project]
+#        -
+#            rel: cast
+#            href:
+#                route: get_movies_cast
+#                parameters:
+#                    id: expr(object.getId())
+#                absolute: true
+#            exclusion:
+#                groups: [movieList, movie]
+#        -
+#            rel: awards
+#            href:
+#                route: get_movies_awards
+#                parameters:
+#                    id: expr(object.getId())
+#                absolute: true
+#            exclusion:
+#                groups: [movieList, movie]
+#        -
+#            rel: images
+#            href:
+#                route: get_movies_images
+#                parameters:
+#                    id: expr(object.getId())
+#                absolute: true
+#            exclusion:
+#                groups: [movieList, movie]
+#        -
+#            rel: reviews
+#            href:
+#                route: get_movies_reviews
+#                parameters:
+#                    id: expr(object.getId())
+#                absolute: true
+#            exclusion:
+#                groups: [movieList, movie]
+    properties:
+        issues:
+            expose: true
+            groups: [projectList, project]
+        name:
+            expose: true
+            groups: [projectList, project]
+        participants:
+            expose: true
+            groups: [projectList, project]
+        shortName:
+            expose: true
+            groups: [projectList, project]
+        statuses:
+            expose: true
+            groups: []

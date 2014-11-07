@@ -31,10 +31,15 @@
         "sensio/generator-bundle":                  "2.3.*",
         "incenteev/composer-parameter-handler":     "~2.0",
 
+        "friendsofsymfony/rest-bundle":             "1.4.x",
         "friendsofsymfony/user-bundle":             "~2.0@dev",
+        "nelmio/api-doc-bundle":                    "2.5.x",
+        "nelmio/cors-bundle":                       "1.3.x",
         "hwi/oauth-bundle":                         "0.4.*@dev",
+        "jms/serializer-bundle":                    "0.13.x",
         "yohang/finite":                            "~1.0",
-        "zurb/foundation":                          "~5.4"
+        "zurb/foundation":                          "~5.4",
+        "willdurand/hateoas-bundle":                "0.3.x"
 
     },
     "require-dev": {

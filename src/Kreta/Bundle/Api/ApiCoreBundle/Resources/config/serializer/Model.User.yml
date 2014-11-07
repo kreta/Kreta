@@ -1,0 +1,49 @@
+# This file belongs to Kreta.
+# The source code of application includes a LICENSE file
+# with all information about license.
+#
+# @author benatespina <benatespina@gmail.com>
+# @author gorkalaucirica <gorka.lauzirika@gmail.com>
+
+Kreta\Component\Core\Model\User:
+    exclusion_policy: ALL
+    properties:
+        id:
+            expose: true
+            groups: [projectList]
+        email:
+            expose: true
+            groups: [projectList]
+        assignedIssues:
+            expose: true
+            groups: []
+        bitbucketAccessToken:
+            expose: true
+            groups: []
+        bitbucketId:
+            expose: true
+            groups: []
+        createdAt:
+            expose: true
+            groups: [projectList]
+        comments:
+            expose: true
+            groups: [projectList]
+        firstName:
+            expose: true
+            groups: [projectList]
+        githubAccessToken:
+            expose: true
+            groups: []
+        githubId:
+            expose: true
+            groups: []
+        lastName:
+            expose: true
+            groups: [projectList]
+        projects:
+            expose: true
+            groups: []
+        reportedIssues:
+            expose: true
+            groups: []
