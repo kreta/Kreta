@@ -40,8 +40,8 @@ class ResourceController extends BaseController
     /**
      * Returns all the resources, it admits ordering, filter, count and pagination.
      *
-     * @param ParamFetcher $paramFetcher The param fetcher
-     * @param string[]     $groups       The array of serialization groups
+     * @param \FOS\RestBundle\Request\ParamFetcher $paramFetcher The param fetcher
+     * @param string[]                             $groups       The array of serialization groups
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -62,7 +62,7 @@ class ResourceController extends BaseController
      * Returns all the resources if the user is authenticated, it admits ordering, count and pagination.
      *
      * @param \Kreta\Component\Core\Model\Interfaces\UserInterface $user         The user object
-     * @param ParamFetcher                                         $paramFetcher The param fetcher
+     * @param \FOS\RestBundle\Request\ParamFetcher                 $paramFetcher The param fetcher
      * @param string[]                                             $groups       The array of serialization groups
      * @param string                                               $query        The query, by default 'findAll'
      *

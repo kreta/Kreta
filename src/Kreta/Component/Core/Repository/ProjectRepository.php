@@ -56,7 +56,7 @@ class ProjectRepository extends EntityRepository
             ->setParameter(':participant', $participant->getId())
             ->orderBy($order);
 
-        if ($count === 0) {
+        if ($count !== 0) {
             $queryBuilder
                 ->setMaxResults($count)
                 ->setFirstResult($count * $page);

@@ -42,7 +42,7 @@ class ProjectController extends ResourceController
     /**
      * Returns all the projects of current user, it admits ordering, count and pagination.
      *
-     * @param ParamFetcher $paramFetcher The param fetcher
+     * @param \FOS\RestBundle\Request\ParamFetcher $paramFetcher The param fetcher
      *
      * @QueryParam(name="order", requirements="(name|shortName)", default="name", description="Order")
      * @QueryParam(name="count", requirements="\d+", default="9999", description="Amount of projects to be returned")
@@ -54,7 +54,7 @@ class ProjectController extends ResourceController
      *    {
      *      "name"="_format",
      *      "requirement"="json|jsonp",
-     *      "description"="Supported formats, by default json."
+     *      "description"="Supported formats, by default json"
      *    }
      *  },
      * )
@@ -144,22 +144,19 @@ class ProjectController extends ResourceController
      *    {
      *      "name"="_format",
      *      "requirement"="json|jsonp",
-     *      "description"="Supported formats, by default json."
+     *      "description"="Supported formats, by default json"
      *    }
      *  },
      *  statusCodes = {
      *      200 = "Successfully updated",
      *      400 = {
      *          "Name should not be blank",
-     *          "ShortName should not be blank",
-     *          "ShortName max length is 4",
-     *          "ShortName is already exists"
+     *          "Short name should not be blank",
+     *          "Short name max length is 4",
+     *          "Short name is already in use"
      *      },
      *      403 = "Not allowed to access this resource",
-     *      404 = {
-     *          "Project not found",
-     *          "Does not exist any project with <$id> id"
-     *      }
+     *      404 = "Does not exist any project with <$id> id"
      *  }
      * )
      *
@@ -172,41 +169,38 @@ class ProjectController extends ResourceController
         );
     }
 
-    /**
-     * Deletes the project of id given.
-     *
-     * @param string $id The project id
-     *
-     * @ApiDoc(
-     *  description = "Deletes the project of id given",
-     *  requirements = {
-     *    {
-     *      "name"="_format",
-     *      "requirement"="json|jsonp",
-     *      "description"="Supported formats, by default json"
-     *    }
-     *  },
-     *  statusCodes = {
-     *      204 = "Successfully removed",
-     *      403 = "Not allowed to access this resource",
-     *      404 = {
-     *          "Project not found",
-     *          "Does not exist any project with <$id> id"
-     *      }
-     *  }
-     * )
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function deleteProjectsAction($id)
-    {
-        $project = $this->getProjectIfExistsAndIfIsGranted($id, 'delete');
-        $manager = $this->getDoctrine()->getManager();
-        $manager->remove($project);
-        $manager->flush();
-
-        return $this->handleView($this->createView('The project is successfully removed', null, 204));
-    }
+//    /**
+//     * Deletes the project of id given.
+//     *
+//     * @param string $id The project id
+//     *
+//     * @ApiDoc(
+//     *  description = "Deletes the project of id given",
+//     *  requirements = {
+//     *    {
+//     *      "name"="_format",
+//     *      "requirement"="json|jsonp",
+//     *      "description"="Supported formats, by default json"
+//     *    }
+//     *  },
+//     *  statusCodes = {
+//     *      204 = "Successfully removed",
+//     *      403 = "Not allowed to access this resource",
+//     *      404 = "Does not exist any project with <$id> id"
+//     *  }
+//     * )
+//     *
+//     * @return \Symfony\Component\HttpFoundation\Response
+//     */
+//    public function deleteProjectsAction($id)
+//    {
+//        $project = $this->getProjectIfExistsAndIfIsGranted($id, 'delete');
+//        $manager = $this->getDoctrine()->getManager();
+//        $manager->remove($project);
+//        $manager->flush();
+//
+//        return $this->handleView($this->createView('The project is successfully removed', null, 204));
+//    }
 
     /**
      * Gets the project if the current user is granted and if the project exists.
@@ -214,8 +208,7 @@ class ProjectController extends ResourceController
      * @param string $id    The id
      * @param string $grant The grant, by default view
      *
-     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-     *
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
      * @return \Kreta\Component\Core\Model\Interfaces\ProjectInterface
      */
     protected function getProjectIfExistsAndIfIsGranted($id, $grant = 'view')

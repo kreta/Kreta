@@ -31,6 +31,7 @@ Kreta\Component\Core\Model\Status:
             joinColumn:
                 name: project_id
                 referencedColumnName: id
+                onDelete: CASCADE
     manyToMany:
         transitions:
             targetEntity: Kreta\Component\Core\Model\Interfaces\StatusInterface
@@ -39,6 +40,8 @@ Kreta\Component\Core\Model\Status:
                 joinColumns:
                     from_status_id:
                         referencedColumnName: id
+                        onDelete: CASCADE
                 inverseJoinColumns:
                     to_status_id:
                         referencedColumnName: id
+                        onDelete: CASCADE

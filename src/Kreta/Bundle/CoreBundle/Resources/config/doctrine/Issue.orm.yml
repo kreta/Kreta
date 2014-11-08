@@ -35,9 +35,11 @@ Kreta\Component\Core\Model\Issue:
                 joinColumns:
                     issue_id:
                         referencedColumnName: id
+                        onDelete: CASCADE
                 inverseJoinColumns:
                     label_id:
                         referencedColumnName: id
+                        onDelete: CASCADE
         watchers:
             targetEntity: Kreta\Component\Core\Model\Interfaces\UserInterface
             joinTable:
@@ -45,9 +47,11 @@ Kreta\Component\Core\Model\Issue:
                 joinColumns:
                     issue_id:
                         referencedColumnName: id
+                        onDelete: CASCADE
                 inverseJoinColumns:
                     user_id:
                         referencedColumnName: id
+                        onDelete: CASCADE
     manyToOne:
         assignee:
             targetEntity: Kreta\Component\Core\Model\Interfaces\UserInterface
@@ -61,6 +65,7 @@ Kreta\Component\Core\Model\Issue:
             joinColumn:
                 name: project_id
                 referencedColumnName: id
+                onDelete: CASCADE
         reporter:
             targetEntity: Kreta\Component\Core\Model\Interfaces\UserInterface
             inversedBy: reportedIssues
@@ -72,6 +77,8 @@ Kreta\Component\Core\Model\Issue:
             nullable: true
         status:
             targetEntity: Kreta\Component\Core\Model\Interfaces\StatusInterface
+            onDelete: CASCADE
+
     oneToMany:
         comments:
             targetEntity: Kreta\Component\Core\Model\Interfaces\CommentInterface
