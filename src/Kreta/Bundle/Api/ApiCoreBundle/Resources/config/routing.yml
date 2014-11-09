@@ -8,3 +8,13 @@
 kreta_api_core_project:
     type: rest
     resource: Kreta\Bundle\Api\ApiCoreBundle\Controller\ProjectController
+
+kreta_api_core_status:
+    type: rest
+    parent: kreta_api_core_project
+    resource: Kreta\Bundle\Api\ApiCoreBundle\Controller\StatusController
+
+kreta_api_core_status_transition:
+    type: rest
+    parent: kreta_api_core_status
+    resource: Kreta\Bundle\Api\ApiCoreBundle\Controller\StatusTransitionController

@@ -15,6 +15,7 @@ use FOS\RestBundle\Request\ParamFetcher;
 use Kreta\Component\Core\Model\Interfaces\UserInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Class ResourceController.
@@ -102,16 +103,21 @@ class ResourceController extends BaseController
     /**
      * Returns the resource for given id if exists, otherwise throws the exception.
      *
-     * @param string $id The id of the resource
+     * @param string $id    The id of the resource
      *
-     * @return mixed
+     * @param string $class The class name, by default is null
+     *
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
+     * @return mixed
      */
-    protected function getResourceIfExists($id)
+    protected function getResourceIfExists($id, $class = null)
     {
-        $resource = $this->get('kreta_' . $this->bundle . '.repository_' . $this->class)->findOneById($id);
+        if ($class === null) {
+            $class = $this->class;
+        }
+        $resource = $this->get('kreta_' . $this->bundle . '.repository_' . $class)->findOneById($id);
         if ($resource === null) {
-            throw new NotFoundHttpException('Does not exist any ' . $this->class . ' with ' . $id . ' id');
+            throw new NotFoundHttpException('Does not exist any ' . $class . ' with ' . $id . ' id');
         }
 
         return $resource;
@@ -142,5 +148,40 @@ class ResourceController extends BaseController
         }
 
         return $this->handleView($this->createView($this->getFormErrors($form), null, 400));
+    }
+
+    /**
+     * Gets the project if the current user is granted and if the project exists.
+     *
+     * @param string $id    The id
+     * @param string $grant The grant, by default view
+     *
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
+     * @return \Kreta\Component\Core\Model\Interfaces\ProjectInterface
+     */
+    protected function getProjectIfExistsAndIfIsGranted($id, $grant = 'view')
+    {
+        $project = $this->getResourceIfExists($id, 'project');
+        if ($this->get('security.context')->isGranted($grant, $project) === false) {
+            throw new AccessDeniedException('Not allowed to access this resource');
+        }
+
+        return $project;
+    }
+
+    /**
+     * Gets the status if the current user is granted and if the status exists.
+     *
+     * @param string $projectId The project id
+     * @param string $id        The status id
+     * @param string $grant     The grant, by default view
+     *
+     * @return mixed
+     */
+    protected function getStatusIfExists($projectId, $id, $grant = 'view')
+    {
+        $this->getProjectIfExistsAndIfIsGranted($projectId, $grant);
+
+        return $this->getResourceIfExists($id, 'status');
     }
 }

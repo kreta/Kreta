@@ -24,42 +24,6 @@ Kreta\Component\Core\Model\Project:
                 absolute: true
             exclusion:
                 groups: [projectList, project]
-#        -
-#            rel: cast
-#            href:
-#                route: get_movies_cast
-#                parameters:
-#                    id: expr(object.getId())
-#                absolute: true
-#            exclusion:
-#                groups: [movieList, movie]
-#        -
-#            rel: awards
-#            href:
-#                route: get_movies_awards
-#                parameters:
-#                    id: expr(object.getId())
-#                absolute: true
-#            exclusion:
-#                groups: [movieList, movie]
-#        -
-#            rel: images
-#            href:
-#                route: get_movies_images
-#                parameters:
-#                    id: expr(object.getId())
-#                absolute: true
-#            exclusion:
-#                groups: [movieList, movie]
-#        -
-#            rel: reviews
-#            href:
-#                route: get_movies_reviews
-#                parameters:
-#                    id: expr(object.getId())
-#                absolute: true
-#            exclusion:
-#                groups: [movieList, movie]
     properties:
         issues:
             expose: true

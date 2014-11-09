@@ -28,6 +28,7 @@ class ProjectVoter extends AbstractVoter
     const EDIT = 'edit';
     const VIEW = 'view';
     const CREATE_ISSUE = 'create_issue';
+    const MANAGE_STATUS = 'manage_status';
 
     /**
      * {@inheritdoc}
@@ -37,7 +38,8 @@ class ProjectVoter extends AbstractVoter
         self::DELETE,
         self::DELETE_PARTICIPANT,
         self::EDIT,
-        self::VIEW
+        self::VIEW,
+        self::MANAGE_STATUS
     );
 
     /**
@@ -55,6 +57,7 @@ class ProjectVoter extends AbstractVoter
             case self::DELETE:
             case self::DELETE_PARTICIPANT:
             case self::EDIT:
+            case self::MANAGE_STATUS:
                 if ($project->getUserRole($user) === 'ROLE_ADMIN') {
                     return VoterInterface::ACCESS_GRANTED;
                 }

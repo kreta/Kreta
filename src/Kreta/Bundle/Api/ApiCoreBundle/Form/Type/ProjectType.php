@@ -12,7 +12,6 @@
 namespace Kreta\Bundle\Api\ApiCoreBundle\Form\Type;
 
 use Kreta\Bundle\WebBundle\Form\Type\ProjectType as BaseProjectType;
-use Symfony\Component\Form\FormBuilderInterface;
 
 /**
  * Class ProjectType.
@@ -21,20 +20,6 @@ use Symfony\Component\Form\FormBuilderInterface;
  */
 class ProjectType extends BaseProjectType
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-        $builder
-            ->add('name', 'text', array(
-                'required' => true,
-            ))
-            ->add('shortName', 'text', array(
-                'required' => true,
-            ));
-    }
-
     /**
      * {@inheritdoc}
      */

@@ -46,4 +46,20 @@ class StatusRepository extends EntityRepository
             ->setParameter(':project', $project->getId())
             ->getQuery()->getResult();
     }
+
+    /**
+     * Finds the status of name given.
+     *
+     * @param string $name The name
+     *
+     * @return \Kreta\Component\Core\Model\Interfaces\StatusInterface
+     */
+    public function findOneByName($name)
+    {
+        $queryBuilder = $this->createQueryBuilder('s');
+
+        return $queryBuilder->where($queryBuilder->expr()->eq('s.name', ':name'))
+            ->setParameter(':name', $name)
+            ->getQuery()->getOneOrNullResult();
+    }
 }

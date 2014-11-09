@@ -7,13 +7,52 @@
 
 Kreta\Component\Core\Model\Status:
     exclusion_policy: ALL
+    relations:
+        -
+            rel: self
+            href:
+                route: get_projects_status
+                parameters:
+                    projectId: expr(object.getProject().getId())
+                    id: expr(object.getId())
+                absolute: true
+            exclusion:
+                groups: [statusList, status]
+        -
+            rel: statuses
+            href:
+                route: get_projects_statuses
+                parameters:
+                    id: expr(object.getProject().getId())
+                absolute: true
+            exclusion:
+                groups: [statusList, status]
+        -
+            rel: project
+            href:
+                route: get_project
+                parameters:
+                    id: expr(object.getProject().getId())
+                absolute: true
+            exclusion:
+                groups: [statusList, status]
     properties:
         id:
             expose: true
-            groups: [projectList, project]
+            groups: [projectList, project, statusList, status]
         color:
             expose: true
-            groups: [projectList, project]
+            groups: [projectList, project, statusList, status]
+        name:
+            expose: true
+            groups: [projectList, project, statusList, status]
         project:
             expose: true
-            groups: [projectList, project]
+            groups: []
+        type:
+            expose: true
+            groups: [projectList, project, statusList, status]
+        transitions:
+            expose: true
+            groups: [projectList, project, statusList, status]
+
