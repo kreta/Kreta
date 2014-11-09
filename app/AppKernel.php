@@ -37,6 +37,7 @@ class AppKernel extends Kernel
             new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
 
             new Kreta\Bundle\CoreBundle\KretaCoreBundle(),
+            new Kreta\Bundle\NotificationBundle\KretaNotificationBundle(),
             new Kreta\Bundle\WebBundle\KretaWebBundle(),
         );
 
