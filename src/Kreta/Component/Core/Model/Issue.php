@@ -233,7 +233,14 @@ class Issue extends AbstractModel implements IssueInterface
      */
     public function setFiniteState($state)
     {
-        $this->status->setName($state);
+        $statuses = $this->project->getStatuses();
+
+        foreach ($statuses as $status) {
+            if ($state === $status->getName()) {
+                $this->status = $status;
+                break;
+            }
+        }
 
         return $this;
     }
@@ -360,7 +367,6 @@ class Issue extends AbstractModel implements IssueInterface
     public function setStatus(StatusInterface $status)
     {
         $this->status = $status;
-        self::setFiniteState($status->getName());
 
         return $this;
     }

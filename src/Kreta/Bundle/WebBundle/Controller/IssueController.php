@@ -171,7 +171,7 @@ class IssueController extends Controller
     }
 
     /**
-     * New comment action.
+     * Edit status action.
      *
      * @param string $issueId  The issue id
      * @param string $statusId The issue id
@@ -180,7 +180,6 @@ class IssueController extends Controller
      */
     public function editStatusAction($issueId, $statusId)
     {
-        /** @var IssueInterface $issue */
         $issue = $this->get('kreta_core.repository_issue')->find($issueId);
 
         if (($issue instanceof IssueInterface) === false) {
@@ -191,7 +190,6 @@ class IssueController extends Controller
             throw new AccessDeniedException();
         };
 
-        /** @var StatusInterface $status */
         $status = $this->get('kreta_core.repository_status')->find($statusId);
 
         if (($issue instanceof StatusInterface) === false) {
@@ -202,13 +200,11 @@ class IssueController extends Controller
 
         $stateMachine = $this->get('kreta_issue_state_machine')->load($issue, $statuses);
 
-        if($stateMachine->can($issue->getStatus()->getName() . '-' . $status->getName())) {
-            $manager = $this->getDoctrine()->getManager();
-            $issue->setStatus($status);
-            $manager->persist($issue);
-            $manager->flush();
+        try {
+            $stateMachine->apply($issue->getStatus()->getName() . '-' . $status->getName());
+            $this->getDoctrine()->getManager()->flush();
             $this->get('session')->getFlashBag()->add('success', 'Status changed successfully');
-        } else {
+        } catch (\Exception $exception) {
             $this->get('session')->getFlashBag()->add('error', 'Transition not allowed');
         }
 
