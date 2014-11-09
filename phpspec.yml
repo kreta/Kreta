@@ -26,13 +26,13 @@ suites:
         namespace: Kreta
         spec_path: src/Kreta/Component/Notification
 
-#extensions:
-#    - PhpSpec\Extension\CodeCoverageExtension
-#
-#code_coverage:
-#    format:
-#        - html
-#        - clover
-#    output:
-#        html: coverage
-#        clover: phpspec-coverage.xml
+extensions:
+    - PhpSpec\Extension\CodeCoverageExtension
+
+code_coverage:
+    format:
+        - html
+        - clover
+    output:
+        html: coverage
+        clover: phpspec-coverage.xml

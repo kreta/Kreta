@@ -19,6 +19,7 @@ parameters:
     mailer_password:                ~
     mailer_port:                    ~
     mailer_dev_delivery_address:    me@localhost
+    mailer_encryption:              tls
 
     locale:                         en
     secret:                         23j12b3k54fgbpo23k2jb12ouh677khb456j
