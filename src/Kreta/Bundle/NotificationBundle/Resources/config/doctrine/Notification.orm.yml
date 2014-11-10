@@ -1,0 +1,30 @@
+Kreta\Component\Notification\Model\Notification:
+    type: entity
+    repositoryClass: Kreta\Component\Notification\Repository\NotificationRepository
+    table: notification
+    id:
+        id:
+            type: string
+            generator:
+                strategy: UUID
+    fields:
+        date:
+            type: datetime
+        description:
+            type: text
+        read:
+            type: boolean
+        title:
+            type: string
+            length: 140
+    manyToOne:
+        project:
+            targetEntity: Kreta\Component\Core\Model\Interfaces\ProjectInterface
+            joinColumn:
+                name: project_id
+                referencedColumnName: id
+        user:
+            targetEntity: Kreta\Component\Core\Model\Interfaces\UserInterface
+            joinColumn:
+                name: user_id
+                referencedColumnName: id

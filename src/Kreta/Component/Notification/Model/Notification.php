@@ -11,14 +11,13 @@
 
 namespace Kreta\Component\Notification\Model;
 
+use Kreta\Component\Core\Model\Abstracts\AbstractModel;
 use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Core\Model\Interfaces\UserInterface;
 use Kreta\Component\Notification\Model\Interfaces\NotificationInterface;
 
-class Notification implements NotificationInterface
+class Notification extends AbstractModel implements NotificationInterface
 {
-    protected $id;
-
     protected $date;
 
     protected $description;
@@ -30,24 +29,6 @@ class Notification implements NotificationInterface
     protected $title;
 
     protected $user;
-
-    /**
-     * @{@inheritdoc}
-     */
-    public function getId()
-    {
-        return $this->id;
-    }
-
-    /**
-     * @{@inheritdoc}
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
 
     /**
      * @{@inheritdoc}
