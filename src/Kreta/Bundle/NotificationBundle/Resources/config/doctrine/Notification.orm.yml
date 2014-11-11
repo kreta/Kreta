@@ -13,6 +13,7 @@ Kreta\Component\Notification\Model\Notification:
         description:
             type: text
         read:
+            column: is_read #Avoid using reserved SQL word
             type: boolean
         title:
             type: string

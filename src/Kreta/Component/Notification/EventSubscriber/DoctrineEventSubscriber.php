@@ -44,7 +44,7 @@ class DoctrineEventSubscriber extends AbstractEventSubscriber implements EventSu
      */
     public function preRemove(LifecycleEventArgs $args)
     {
-        $this->handleEvent('preRemove', $args->getObject());
+        $this->handleEvent('preRemove', $args->getObject(), $args->getEntityManager());
     }
 
     /**
@@ -54,7 +54,7 @@ class DoctrineEventSubscriber extends AbstractEventSubscriber implements EventSu
      */
     public function postRemove(LifecycleEventArgs $args)
     {
-        $this->handleEvent('postRemove', $args->getObject());
+        $this->handleEvent('postRemove', $args->getObject(), $args->getEntityManager());
     }
 
     /**
@@ -64,7 +64,7 @@ class DoctrineEventSubscriber extends AbstractEventSubscriber implements EventSu
      */
     public function prePersist(LifecycleEventArgs $args)
     {
-        $this->handleEvent('prePersist', $args->getObject());
+        $this->handleEvent('prePersist', $args->getObject(), $args->getEntityManager());
     }
 
     /**
@@ -74,7 +74,7 @@ class DoctrineEventSubscriber extends AbstractEventSubscriber implements EventSu
      */
     public function postPersist(LifecycleEventArgs $args)
     {
-        $this->handleEvent('postPersist', $args->getObject());
+        $this->handleEvent('postPersist', $args->getObject(), $args->getEntityManager());
     }
 
     /**
@@ -84,7 +84,7 @@ class DoctrineEventSubscriber extends AbstractEventSubscriber implements EventSu
      */
     public function preUpdate(LifecycleEventArgs $args)
     {
-        $this->handleEvent('preUpdate', $args->getObject());
+        $this->handleEvent('preUpdate', $args->getObject(), $args->getEntityManager());
     }
 
     /**
@@ -94,6 +94,6 @@ class DoctrineEventSubscriber extends AbstractEventSubscriber implements EventSu
      */
     public function postUpdate(LifecycleEventArgs $args)
     {
-        $this->handleEvent('postUpdate', $args->getObject());
+        $this->handleEvent('postUpdate', $args->getObject(), $args->getEntityManager());
     }
 }

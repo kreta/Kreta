@@ -2,6 +2,7 @@
 
 namespace spec\Kreta\Component\Notification\EventSubscriber;
 
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Events;
 use Kreta\Component\Notification\Model\Interfaces\NotificationInterface;
@@ -45,6 +46,7 @@ class DoctrineEventSubscriberSpec extends ObjectBehavior
                                    NotifiableEventInterface $notifiableEvent,
                                    NotifierInterface $notifier,
                                    NotificationInterface $notification,
+                                   EntityManager $manager,
                                    LifecycleEventArgs $args)
     {
         $object = new stdClass();
@@ -52,6 +54,7 @@ class DoctrineEventSubscriberSpec extends ObjectBehavior
                             $notifier, $notification);
 
         $args->getObject()->willReturn($object);
+        $args->getEntityManager()->willReturn($manager);
         $this->preRemove($args);
     }
 
@@ -60,6 +63,7 @@ class DoctrineEventSubscriberSpec extends ObjectBehavior
                                    NotifiableEventInterface $notifiableEvent,
                                    NotifierInterface $notifier,
                                    NotificationInterface $notification,
+                                   EntityManager $manager,
                                    LifecycleEventArgs $args)
     {
         $object = new stdClass();
@@ -67,6 +71,7 @@ class DoctrineEventSubscriberSpec extends ObjectBehavior
                                 $notifier, $notification);
 
         $args->getObject()->willReturn(new stdClass());
+        $args->getEntityManager()->willReturn($manager);
         $this->postRemove($args);
     }
 
@@ -75,6 +80,7 @@ class DoctrineEventSubscriberSpec extends ObjectBehavior
                                    NotifiableEventInterface $notifiableEvent,
                                    NotifierInterface $notifier,
                                    NotificationInterface $notification,
+                                   EntityManager $manager,
                                    LifecycleEventArgs $args)
     {
         $object = new stdClass();
@@ -82,6 +88,7 @@ class DoctrineEventSubscriberSpec extends ObjectBehavior
             $notifier, $notification);
 
         $args->getObject()->willReturn(new stdClass());
+        $args->getEntityManager()->willReturn($manager);
         $this->prePersist($args);
     }
 
@@ -90,6 +97,7 @@ class DoctrineEventSubscriberSpec extends ObjectBehavior
                                    NotifiableEventInterface $notifiableEvent,
                                    NotifierInterface $notifier,
                                    NotificationInterface $notification,
+                                   EntityManager $manager,
                                    LifecycleEventArgs $args)
     {
         $object = new stdClass();
@@ -97,6 +105,7 @@ class DoctrineEventSubscriberSpec extends ObjectBehavior
             $notifier, $notification);
 
         $args->getObject()->willReturn(new stdClass());
+        $args->getEntityManager()->willReturn($manager);
         $this->postPersist($args);
     }
 
@@ -104,7 +113,7 @@ class DoctrineEventSubscriberSpec extends ObjectBehavior
                                    NotifierRegistryInterface $notifierRegistry,
                                    NotifiableEventInterface $notifiableEvent,
                                    NotifierInterface $notifier,
-                                   NotificationInterface $notification,
+                                   NotificationInterface $notification, EntityManager $manager,
                                    LifecycleEventArgs $args)
     {
         $object = new stdClass();
@@ -112,6 +121,7 @@ class DoctrineEventSubscriberSpec extends ObjectBehavior
             $notifier, $notification);
 
         $args->getObject()->willReturn(new stdClass());
+        $args->getEntityManager()->willReturn($manager);
         $this->preUpdate($args);
     }
 
@@ -119,7 +129,7 @@ class DoctrineEventSubscriberSpec extends ObjectBehavior
                                    NotifierRegistryInterface $notifierRegistry,
                                    NotifiableEventInterface $notifiableEvent,
                                    NotifierInterface $notifier,
-                                   NotificationInterface $notification,
+                                   NotificationInterface $notification, EntityManager $manager,
                                    LifecycleEventArgs $args)
     {
         $object = new stdClass();
@@ -127,6 +137,7 @@ class DoctrineEventSubscriberSpec extends ObjectBehavior
             $notifier, $notification);
 
         $args->getObject()->willReturn(new stdClass());
+        $args->getEntityManager()->willReturn($manager);
         $this->postUpdate($args);
     }
 
