@@ -11,7 +11,7 @@
 
 namespace Kreta\Component\Notification\EventSubscriber;
 
-use Doctrine\ORM\EntityManager;
+use Doctrine\Common\Persistence\ObjectManager;
 use Kreta\Component\Notification\NotifiableEvent\Registry\NotifiableEventRegistryInterface;
 use Kreta\Component\Notification\Notifier\Registry\NotifierRegistryInterface;
 
@@ -51,11 +51,11 @@ abstract class AbstractEventSubscriber
      * the event and will call the registered notifiers to send notifications to users. Additionally, persists all
      * notification in database
      *
-     * @param string        $event   Event that was triggered
-     * @param object        $object  Object that triggered the event
-     * @param EntityManager $manager Entity manager used to persist built in notification
+     * @param string                                     $event   Event that was triggered
+     * @param object                                     $object  Object that triggered the event
+     * @param \Doctrine\Common\Persistence\ObjectManager $manager Entity manager used to persist built in notification
      */
-    public function handleEvent($event, $object, EntityManager $manager = null)
+    public function handleEvent($event, $object, ObjectManager $manager = null)
     {
         $notifications = array();
 

@@ -44,7 +44,7 @@ class DoctrineEventSubscriber extends AbstractEventSubscriber implements EventSu
      */
     public function preRemove(LifecycleEventArgs $args)
     {
-        $this->handleEvent('preRemove', $args->getObject(), $args->getEntityManager());
+        $this->handleEvent('preRemove', $args->getObject(), $args->getObjectManager());
     }
 
     /**
