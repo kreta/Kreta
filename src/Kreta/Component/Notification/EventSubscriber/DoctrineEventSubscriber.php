@@ -54,7 +54,7 @@ class DoctrineEventSubscriber extends AbstractEventSubscriber implements EventSu
      */
     public function postRemove(LifecycleEventArgs $args)
     {
-        $this->handleEvent('postRemove', $args->getObject(), $args->getEntityManager());
+        $this->handleEvent('postRemove', $args->getObject(), $args->getObjectManager());
     }
 
     /**
@@ -64,7 +64,7 @@ class DoctrineEventSubscriber extends AbstractEventSubscriber implements EventSu
      */
     public function prePersist(LifecycleEventArgs $args)
     {
-        $this->handleEvent('prePersist', $args->getObject(), $args->getEntityManager());
+        $this->handleEvent('prePersist', $args->getObject(), $args->getObjectManager());
     }
 
     /**
@@ -74,7 +74,7 @@ class DoctrineEventSubscriber extends AbstractEventSubscriber implements EventSu
      */
     public function postPersist(LifecycleEventArgs $args)
     {
-        $this->handleEvent('postPersist', $args->getObject(), $args->getEntityManager());
+        $this->handleEvent('postPersist', $args->getObject(), $args->getObjectManager());
     }
 
     /**
@@ -84,7 +84,7 @@ class DoctrineEventSubscriber extends AbstractEventSubscriber implements EventSu
      */
     public function preUpdate(LifecycleEventArgs $args)
     {
-        $this->handleEvent('preUpdate', $args->getObject(), $args->getEntityManager());
+        $this->handleEvent('preUpdate', $args->getObject(), $args->getObjectManager());
     }
 
     /**
@@ -94,6 +94,6 @@ class DoctrineEventSubscriber extends AbstractEventSubscriber implements EventSu
      */
     public function postUpdate(LifecycleEventArgs $args)
     {
-        $this->handleEvent('postUpdate', $args->getObject(), $args->getEntityManager());
+        $this->handleEvent('postUpdate', $args->getObject(), $args->getObjectManager());
     }
 }

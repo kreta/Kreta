@@ -54,7 +54,7 @@ class DoctrineEventSubscriberSpec extends ObjectBehavior
                             $notifier, $notification);
 
         $args->getObject()->willReturn($object);
-        $args->getEntityManager()->willReturn($manager);
+        $args->getObjectManager()->willReturn($manager);
         $this->preRemove($args);
     }
 
@@ -71,7 +71,7 @@ class DoctrineEventSubscriberSpec extends ObjectBehavior
                                 $notifier, $notification);
 
         $args->getObject()->willReturn(new stdClass());
-        $args->getEntityManager()->willReturn($manager);
+        $args->getObjectManager()->willReturn($manager);
         $this->postRemove($args);
     }
 
@@ -88,7 +88,7 @@ class DoctrineEventSubscriberSpec extends ObjectBehavior
             $notifier, $notification);
 
         $args->getObject()->willReturn(new stdClass());
-        $args->getEntityManager()->willReturn($manager);
+        $args->getObjectManager()->willReturn($manager);
         $this->prePersist($args);
     }
 
@@ -105,7 +105,7 @@ class DoctrineEventSubscriberSpec extends ObjectBehavior
             $notifier, $notification);
 
         $args->getObject()->willReturn(new stdClass());
-        $args->getEntityManager()->willReturn($manager);
+        $args->getObjectManager()->willReturn($manager);
         $this->postPersist($args);
     }
 
@@ -121,7 +121,7 @@ class DoctrineEventSubscriberSpec extends ObjectBehavior
             $notifier, $notification);
 
         $args->getObject()->willReturn(new stdClass());
-        $args->getEntityManager()->willReturn($manager);
+        $args->getObjectManager()->willReturn($manager);
         $this->preUpdate($args);
     }
 
@@ -137,7 +137,7 @@ class DoctrineEventSubscriberSpec extends ObjectBehavior
             $notifier, $notification);
 
         $args->getObject()->willReturn(new stdClass());
-        $args->getEntityManager()->willReturn($manager);
+        $args->getObjectManager()->willReturn($manager);
         $this->postUpdate($args);
     }
 
