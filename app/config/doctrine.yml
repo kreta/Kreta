@@ -24,6 +24,12 @@ doctrine:
 #                alias: 'KretaCoreBundle'
                 prefix: 'Kreta\Component\Core\Model'
                 is_bundle: true
+            KretaNotificationBundle:
+                mapping: true
+                type: yml
+                dir: "Resources/config/doctrine"
+                prefix: 'Kreta\Component\Notification\Model'
+                is_bundle: true
         resolve_target_entities:
             Kreta\Component\Core\Model\Interfaces\CommentInterface: Kreta\Component\Core\Model\Comment
             Kreta\Component\Core\Model\Interfaces\IssueInterface: Kreta\Component\Core\Model\Issue
@@ -33,3 +39,4 @@ doctrine:
             Kreta\Component\Core\Model\Interfaces\ResolutionInterface: Kreta\Component\Core\Model\Resolution
             Kreta\Component\Core\Model\Interfaces\StatusInterface: Kreta\Component\Core\Model\Status
             Kreta\Component\Core\Model\Interfaces\UserInterface: Kreta\Component\Core\Model\User
+            Kreta\Component\Notification\Model\Interfaces\NotificationInterface: Kreta\Component\Core\Model\User

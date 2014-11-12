@@ -12,6 +12,9 @@ suites:
     FixturesBundle:
         namespace: Kreta
         spec_path: src/Kreta/Bundle/FixturesBundle
+    NotificationBundle:
+        namespace: Kreta
+        spec_path: src/Kreta/Bundle/NotificationBundle
     WebBundle:
         namespace: Kreta
         spec_path: src/Kreta/Bundle/WebBundle
@@ -19,6 +22,9 @@ suites:
     CoreComponent:
         namespace: Kreta
         spec_path: src/Kreta/Component/Core
+    NotificationComponent:
+        namespace: Kreta
+        spec_path: src/Kreta/Component/Notification
 
 extensions:
     - PhpSpec\Extension\CodeCoverageExtension
