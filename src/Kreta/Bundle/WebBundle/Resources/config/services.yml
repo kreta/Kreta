@@ -12,6 +12,17 @@ services:
         tags:
             - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
 
+    kreta_web.issue_events:
+        class: Kreta\Bundle\WebBundle\NotifiableEvent\IssueEvents
+        tags:
+            - { name: kreta_notification.notifiable_event, label: issue }
+
+#    kreta_web.notifier_email:
+#        class: Kreta\Bundle\WebBundle\Notifier\EmailNotifier
+#        arguments: [@mailer]
+#        tags:
+#            - { name: kreta_notification.notifier, label: email }
+
     kreta_web.twig.issue_extension:
         class: Kreta\Bundle\WebBundle\Twig\IssueExtension
         tags:
