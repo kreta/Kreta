@@ -39,19 +39,19 @@ Kreta\Component\Core\Model\Status:
     properties:
         id:
             expose: true
-            groups: [projectList, project, statusList, status]
+            groups: [projectList, project, issueList, issue, statusList, status]
         color:
             expose: true
-            groups: [projectList, project, statusList, status]
+            groups: [projectList, project, issueList, issue, statusList, status]
         name:
             expose: true
-            groups: [projectList, project, statusList, status]
+            groups: [projectList, project, issueList, issue, statusList, status]
         project:
             expose: true
             groups: []
         type:
             expose: true
-            groups: [projectList, project, statusList, status]
+            groups: [projectList, project, issueList, issue, statusList, status]
         transitions:
             expose: true
             groups: [projectList, project, statusList, status]

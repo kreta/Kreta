@@ -8,12 +8,6 @@
 Kreta\Component\Core\Model\User:
     exclusion_policy: ALL
     properties:
-        id:
-            expose: true
-            groups: [projectList]
-        email:
-            expose: true
-            groups: [projectList]
         assignedIssues:
             expose: true
             groups: []
@@ -31,7 +25,7 @@ Kreta\Component\Core\Model\User:
             groups: [projectList]
         firstName:
             expose: true
-            groups: [projectList]
+            groups: [projectList, issueList, issue]
         githubAccessToken:
             expose: true
             groups: []
@@ -40,7 +34,7 @@ Kreta\Component\Core\Model\User:
             groups: []
         lastName:
             expose: true
-            groups: [projectList]
+            groups: [projectList, issueList, issue]
         projects:
             expose: true
             groups: []

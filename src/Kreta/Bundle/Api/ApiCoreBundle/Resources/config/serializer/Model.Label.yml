@@ -7,3 +7,7 @@
 
 Kreta\Component\Core\Model\Label:
     exclusion_policy: ALL
+    properties:
+        name:
+            expose: true
+            groups: [issueList, issue]

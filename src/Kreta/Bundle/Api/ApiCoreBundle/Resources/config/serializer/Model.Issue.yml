@@ -7,4 +7,69 @@
 
 Kreta\Component\Core\Model\Issue:
     exclusion_policy: ALL
-
+    relations:
+        -
+            rel: project
+            href:
+                route: get_project
+                parameters:
+                    id: expr(object.getProject().getId())
+                absolute: true
+            exclusion:
+                groups: [issueList, issue]
+        -
+            rel: issues
+            href:
+                route: get_projects_issues
+                parameters:
+                    projectId: expr(object.getId())
+                absolute: true
+            exclusion:
+                groups: [issueList, issue]
+        -
+            rel: transitions
+            href:
+                route: get_projects_statuses_transitions
+                parameters:
+                    projectId: expr(object.getId())
+                    statusId: expr(object.getStatus().getId())
+                absolute: true
+            exclusion:
+                groups: [issueList, issue]
+    properties:
+        assignee:
+            expose: true
+            groups: [issueList, issue]
+        comments:
+            expose: true
+            groups: [issueList, issue]
+        createdAt:
+            expose: true
+            groups: [issueList, issue]
+        description:
+            expose: true
+            groups: [issueList, issue]
+        labels:
+            expose: true
+            groups: [issueList, issue]
+        priority:
+            expose: true
+            groups: [issueList, issue]
+        project:
+            expose: true
+            groups: []
+        resolution:
+            expose: true
+            groups: [issueList, issue]
+        reporter:
+            expose: true
+            groups: [issueList, issue]
+        status:
+            expose: true
+            groups: [issueList, issue]
+        title:
+            expose: true
+            groups: [issueList, issue]
+        type:
+            expose: true
+            groups: [issueList, issue]

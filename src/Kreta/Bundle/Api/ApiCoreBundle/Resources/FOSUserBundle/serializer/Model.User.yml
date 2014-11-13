@@ -1,0 +1,52 @@
+# This file belongs to Kreta.
+# The source code of application includes a LICENSE file
+# with all information about license.
+#
+# @author benatespina <benatespina@gmail.com>
+# @author gorkalaucirica <gorka.lauzirika@gmail.com>
+
+FOS\UserBundle\Model\User:
+    exclusion_policy: ALL
+    properties:
+        id:
+            expose: true
+            groups: [self, issueList, issue]
+        email:
+            expose: true
+            groups: [self, issueList, issue]
+        emailCanonical:
+            expose: true
+            groups: [self]
+        enabled:
+            expose: true
+            groups: [self]
+        lastLogin:
+            expose: true
+            groups: [self]
+        confirmationToken:
+            expose: true
+            groups: [self]
+        passwordRequestedAt:
+            expose: true
+            groups: [self]
+        groups:
+            expose: true
+            groups: [self]
+        locked:
+            expose: true
+            groups: [self]
+        expired:
+            expose: true
+            groups: [self]
+        expiresAt:
+            expose: true
+            groups: [self]
+        roles:
+            expose: true
+            groups: [self]
+        credentialsExpired:
+            expose: true
+            groups: [self]
+        credentialsExpireAt:
+            expose: true
+            groups: [self]

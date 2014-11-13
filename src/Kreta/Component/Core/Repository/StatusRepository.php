@@ -54,12 +54,15 @@ class StatusRepository extends EntityRepository
      *
      * @return \Kreta\Component\Core\Model\Interfaces\StatusInterface
      */
-    public function findOneByName($name)
+    public function findOneByNameAndProjectId($name, $projectId)
     {
         $queryBuilder = $this->createQueryBuilder('s');
 
-        return $queryBuilder->where($queryBuilder->expr()->eq('s.name', ':name'))
+        return $queryBuilder
+            ->where($queryBuilder->expr()->eq('s.name', ':name'))
+            ->andWhere($queryBuilder->expr()->eq('s.project', ':project'))
             ->setParameter(':name', $name)
+            ->setParameter(':project', $projectId)
             ->getQuery()->getOneOrNullResult();
     }
 }

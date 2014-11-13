@@ -194,75 +194,40 @@ class StatusController extends ResourceController
         );
     }
 
-//    /**
-//     * Updates the project of id given.
-//     *
-//     * @param string $id The project id
-//     *
-//     * @ApiDoc(
-//     *  description = "Updates the project of id given",
-//     *  input = "Kreta\Bundle\Api\ApiCoreBundle\Form\Type\ProjectType",
-//     *  output = "Kreta\Component\Core\Model\Interfaces\ProjectInterface",
-//     *  requirements = {
-//     *    {
-//     *      "name"="_format",
-//     *      "requirement"="json|jsonp",
-//     *      "description"="Supported formats, by default json"
-//     *    }
-//     *  },
-//     *  statusCodes = {
-//     *      200 = "Successfully updated",
-//     *      400 = {
-//     *          "Name should not be blank",
-//     *          "Short name should not be blank",
-//     *          "Short name max length is 4",
-//     *          "Short name is already in use"
-//     *      },
-//     *      403 = "Not allowed to access this resource",
-//     *      404 = "Does not exist any project with <$id> id"
-//     *  }
-//     * )
-//     *
-//     * @return \Symfony\Component\HttpFoundation\Response
-//     */
-//    public function putProjectsAction($id)
-//    {
-//        return $this->manageForm(
-//            new ProjectType(), $this->getProjectIfExistsAndIfIsGranted($id, 'edit'), array('project')
-//        );
-//    }
-//
-////    /**
-////     * Deletes the project of id given.
-////     *
-////     * @param string $id The project id
-////     *
-////     * @ApiDoc(
-////     *  description = "Deletes the project of id given",
-////     *  requirements = {
-////     *    {
-////     *      "name"="_format",
-////     *      "requirement"="json|jsonp",
-////     *      "description"="Supported formats, by default json"
-////     *    }
-////     *  },
-////     *  statusCodes = {
-////     *      204 = "Successfully removed",
-////     *      403 = "Not allowed to access this resource",
-////     *      404 = "Does not exist any project with <$id> id"
-////     *  }
-////     * )
-////     *
-////     * @return \Symfony\Component\HttpFoundation\Response
-////     */
-////    public function deleteProjectsAction($id)
-////    {
-////        $project = $this->getProjectIfExistsAndIfIsGranted($id, 'delete');
-////        $manager = $this->getDoctrine()->getManager();
-////        $manager->remove($project);
-////        $manager->flush();
-////
-////        return $this->handleView($this->createView('The project is successfully removed', null, 204));
-////    }
-//
+    /**
+     * Deletes the status and its associate transitions of project id and id given.
+     *
+     * @param string $projectId The project id
+     * @param string $id        The id
+     *
+     * @ApiDoc(
+     *  description = "Deletes the status and its associate transitions of project id and id given",
+     *  requirements = {
+     *    {
+     *      "name"="_format",
+     *      "requirement"="json|jsonp",
+     *      "description"="Supported formats, by default json"
+     *    }
+     *  },
+     *  statusCodes = {
+     *      204 = "Successfully removed",
+     *      403 = "Not allowed to access this resource",
+     *      404 = {
+     *          "Does not exist any project with <$id> id",
+     *          "Does not exist any status with <$id> id"
+     *      }
+     *  }
+     * )
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function deleteStatusesAction($projectId, $id)
+    {
+        $status = $this->getStatusIfExists($projectId, $id, 'delete');
+        $manager = $this->getDoctrine()->getManager();
+        $manager->remove($status);
+        $manager->flush();
+
+        return $this->handleView($this->createView('The status is successfully removed', null, 204));
+    }
 }

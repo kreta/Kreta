@@ -24,6 +24,20 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 class StatusTransitionController extends ResourceController
 {
     /**
+     * The name of class.
+     *
+     * @var string
+     */
+    protected $class = 'status';
+
+    /**
+     * The name of bundle.
+     *
+     * @var string
+     */
+    protected $bundle = 'core';
+
+    /**
      * Returns transitions of status id and project id given.
      *
      * @ApiDoc(
@@ -74,19 +88,17 @@ class StatusTransitionController extends ResourceController
      *  statusCodes = {
      *      200 = "Successfully created",
      *      400 = {
-     *          "Name should not be blank",
-     *          "Color should not be blank",
-     *          "Type should not be blank",
-     *          "This status is already exist in this project",
-     *          "The type is not valid",
-     *          "To status name should not be blank"
+     *          "To status name should not be blank",
+     *          "From status and to status are equals",
+     *          "From status and to status are equals",
      *      },
      *      403 = "Not allowed to access this resource",
      *      404 = {
      *          "Does not exist any project with <$id> id",
      *          "Does not exist any status with <$id> id",
      *          "Does not exist any status with <$toStatusName> name"
-     *      }
+     *      },
+     *      409 = "The <$toStatusName> transition is already exist"
      *  }
      * )
      *
@@ -105,57 +117,73 @@ class StatusTransitionController extends ResourceController
         if (!$toStatusName) {
             throw new BadRequestHttpException('To status name should not be blank');
         }
-        $toStatus = $this->get('kreta_core.repository_status')->findOneByName($toStatusName);
+        $toStatus = $this->get('kreta_core.repository_status')->findOneByNameAndProjectId($toStatusName, $projectId);
         if (!$toStatus) {
             throw new NotFoundHttpException('Does not exist any status with ' . $toStatusName . ' name');
         }
+        if ($toStatus->getId() === $status->getId()) {
+            throw new BadRequestHttpException('From status and to status are equals');
+        }
+        $transitions = $status->getTransitions();
+        foreach ($transitions as $transition) {
+            if ($transition->getId() === $toStatus->getId()) {
+                throw new BadRequestHttpException('The ' . $toStatus->getName() . ' transition is already exist');
+            }
+        }
+
         $status->addStatusTransition($toStatus);
+        $manager = $this->getDoctrine()->getManager();
+        $manager->persist($status);
+        $manager->flush();
 
         return $this->handleView($this->createView($status->getTransitions(), array('status')));
     }
 
-//    /**
-//     * Updates the status for name, color and type given.
-//     * Type is a choice option that its values can be 'initial', 'normal' or 'final'.
-//     *
-//     * @ApiDoc(
-//     *  description = "Updates the status for name, color and type given",
-//     *  input = "Kreta\Bundle\Api\ApiCoreBundle\Form\Type\StatusType",
-//     *  output = "Kreta\Component\Core\Model\Interfaces\StatusInterface",
-//     *  requirements = {
-//     *    {
-//     *      "name"="_format",
-//     *      "requirement"="json|jsonp",
-//     *      "description"="Supported formats, by default json"
-//     *    }
-//     *  },
-//     *  statusCodes = {
-//     *      200 = "Successfully created",
-//     *      400 = {
-//     *          "Name should not be blank",
-//     *          "Color should not be blank",
-//     *          "Type should not be blank",
-//     *          "This status is already exist in this project",
-//     *          "The type is not valid"
-//     *      },
-//     *      403 = "Not allowed to access this resource",
-//     *      404 = {
-//     *          "Does not exist any project with <$id> id",
-//     *          "Does not exist any status with <$id> id"
-//     *      }
-//     *  }
-//     * )
-//     *
-//     * @param string $projectId The project id
-//     * @param string $statusId  The status id
-//     * @param string $id        The id
-//     *
-//     * @return \Symfony\Component\HttpFoundation\Response
-//     */
-//    public function deleteTransitionAction($projectId, $statusId, $id)
-//    {
-//        return $this->manageForm(
-//            new StatusType(), $this->getStatusIfExists($projectId, $id, 'manage_status'), array('status')
-//        );
-//    }
+    /**
+     * Deletes the transition of project and status, with transition id given.
+     *
+     * @ApiDoc(
+     *  description = "Deletes the transition of project and status, with transition id given",
+     *  requirements = {
+     *    {
+     *      "name"="_format",
+     *      "requirement"="json|jsonp",
+     *      "description"="Supported formats, by default json"
+     *    }
+     *  },
+     *  statusCodes = {
+     *      204 = "The transition is successfully removed",
+     *      403 = "Not allowed to access this resource",
+     *      404 = {
+     *          "Does not exist any project with <$id> id",
+     *          "Does not exist any status with <$id> id",
+     *          "Does not exist any transition with <$id> id"
+     *      }
+     *  }
+     * )
+     *
+     * @param string $projectId The project id
+     * @param string $statusId  The status id
+     * @param string $id        The transition id
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function deleteTransitionAction($projectId, $statusId, $id)
+    {
+        /** @var \Kreta\Component\Core\Model\Interfaces\StatusInterface $status */
+        $status = $this->getStatusIfExists($projectId, $statusId, 'manage_status');
+        $transitions = $status->getTransitions();
+        foreach ($transitions as $transition) {
+            if ($transition->getId() === $id) {
+                $status->removeStatusTransition($transition);
+                $manager = $this->getDoctrine()->getManager();
+                $manager->persist($status);
+                $manager->flush();
+
+                return $this->handleView($this->createView('The transition is successfully removed', null, 204));
+            }
+        }
+
+        return $this->handleView($this->createView('Does not exist any transition with ' . $id . ' id', null, 404));
+    }
 }

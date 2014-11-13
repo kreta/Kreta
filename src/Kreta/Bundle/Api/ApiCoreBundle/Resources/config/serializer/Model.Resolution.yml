@@ -7,3 +7,7 @@
 
 Kreta\Component\Core\Model\Resolution:
     exclusion_policy: ALL
+    properties:
+        description:
+            expose: true
+            groups: [issueList, issue]

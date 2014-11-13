@@ -24,6 +24,15 @@ Kreta\Component\Core\Model\Project:
                 absolute: true
             exclusion:
                 groups: [projectList, project]
+        -
+            rel: statuses
+            href:
+                route: get_projects_statuses
+                parameters:
+                    id: expr(object.getId())
+                absolute: true
+            exclusion:
+                groups: [projectList, project]
     properties:
         issues:
             expose: true

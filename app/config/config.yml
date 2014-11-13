@@ -109,7 +109,7 @@ jms_serializer:
                 path: "@KretaApiCoreBundle/Resources/config/serializer"
             FOSUserBundle:
                 namespace_prefix: "FOS\\UserBundle"
-                path: "Kreta/Bundle/Api/ApiCoreBundle/Resources/config/serializer"
+                path: "@KretaApiCoreBundle/Resources/FOSUserBundle/serializer"
 
 nelmio_api_doc: ~
 

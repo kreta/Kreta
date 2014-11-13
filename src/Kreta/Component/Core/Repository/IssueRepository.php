@@ -14,6 +14,7 @@ namespace Kreta\Component\Core\Repository;
 use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\QueryBuilder;
 use Finite\State\StateInterface;
+use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Core\Model\Interfaces\UserInterface;
 
 /**
@@ -24,11 +25,74 @@ use Kreta\Component\Core\Model\Interfaces\UserInterface;
 class IssueRepository extends EntityRepository
 {
     /**
-     * Array that contains the default valid filters.
+     * Array that contains the default valid filters to use in ordering.
      *
      * @var string[]
      */
-    private $validFilters = array('status', 'priority');
+    private $validFilters = array('status', 'priority', 'createdAt', 'title');
+
+    /**
+     * Finds all the issues of project given.
+     *
+     * Can do pagination if $page is changed, starting from 0 and it can
+     * limit the search if $count is changed. Furthermore, it can filter
+     * by issue title, assignee, reporter, watcher, priority, status and type.
+     *
+     * @param \Kreta\Component\Core\Model\Interfaces\ProjectInterface $project The project
+     * @param array                                                   $orderBy Array that contains the orders
+     * @param int                                                     $count   The number of results
+     * @param int                                                     $page    The number of page
+     * @param array                                                   $filters Array that contains all the filter that
+     *                                                                         support this method
+     *
+     * @return \Kreta\Component\Core\Model\Interfaces\IssueInterface[]
+     */
+    public function findByProject(
+        ProjectInterface $project,
+        array $orderBy,
+        $count = 10,
+        $page = 0,
+        array $filters = array()
+    )
+    {
+        $whereSql = ' 1=1 ';
+        $parameters = array();
+        foreach ($filters as $key => $filter) {
+            if ($filter !== '') {
+                if (strpos($key, '.') !== false) {
+                    list($classPrefix, $key) = explode('.', $key);
+                    $whereSql .= 'AND ' . $classPrefix . '.' . $key . ' LIKE :' . $classPrefix . $key . ' ';
+                    $parameters[$classPrefix . $key] = '%' . $filter . '%';
+                } else {
+                    $whereSql .= 'AND i.' . $key . ' LIKE :' . $key . ' ';
+                    $parameters[$key] = '%' . $filter . '%';
+                }
+            }
+        }
+        $parameters['project'] = $project->getId();
+
+        $queryBuilder = $this->createQueryBuilder('i');
+        $queryBuilder->select(array('i', 'a', 'c', 'l', 'p', 'r', 'rep', 's', 'w'))
+            ->leftJoin('i.assignee', 'a')
+            ->leftJoin('i.comments', 'c')
+            ->leftJoin('i.labels', 'l')
+            ->leftJoin('i.project', 'p')
+            ->leftJoin('i.resolution', 'r')
+            ->leftJoin('i.reporter', 'rep')
+            ->leftJoin('i.status', 's')
+            ->leftJoin('i.watchers', 'w')
+            ->where($queryBuilder->expr()->eq('i.project', ':project'))
+            ->andWhere($whereSql)
+            ->setParameters($parameters);
+        if ($count !== 'uncountable') {
+            $queryBuilder
+                ->setMaxResults($count)
+                ->setFirstResult($count * $page);
+        }
+        $queryBuilder = $this->orderBy($queryBuilder, $orderBy);
+
+        return $queryBuilder->getQuery()->getResult();
+    }
 
     /**
      * Finds all the issues of reporter given.
@@ -50,9 +114,9 @@ class IssueRepository extends EntityRepository
     /**
      * Finds all the issues of assignee given.
      *
-     * @param \Kreta\Component\Core\Model\Interfaces\UserInterface $assignee  The assignee
-     * @param array                                                $orderBy   Fields and strategy to order issues
-     * @param bool                                                 $onlyOpen  Shows only open issues
+     * @param \Kreta\Component\Core\Model\Interfaces\UserInterface $assignee The assignee
+     * @param array                                                $orderBy  Fields and strategy to order issues
+     * @param bool                                                 $onlyOpen Shows only open issues
      *
      * @return \Kreta\Component\Core\Model\Interfaces\IssueInterface[]
      */
@@ -61,12 +125,12 @@ class IssueRepository extends EntityRepository
         $queryBuilder = $this->createQueryBuilder('i');
 
         $queryBuilder->select('i')
-            ->leftJoin('i.status','st')
+            ->leftJoin('i.status', 'st')
             ->where($queryBuilder->expr()->eq('i.assignee', ':assignee'))
             ->setParameter(':assignee', $assignee->getId());
-        if($onlyOpen) {
+        if ($onlyOpen) {
             $queryBuilder->andWhere($queryBuilder->expr()->neq('st.type', ':state'))
-                         ->setParameter(':state', StateInterface::TYPE_FINAL);
+                ->setParameter(':state', StateInterface::TYPE_FINAL);
         }
 
         $queryBuilder = $this->orderBy($queryBuilder, $orderBy);
