@@ -39,6 +39,7 @@ class ProjectVoter extends AbstractVoter
         self::DELETE_PARTICIPANT,
         self::EDIT,
         self::VIEW,
+        self::CREATE_ISSUE,
         self::MANAGE_STATUS
     );
 

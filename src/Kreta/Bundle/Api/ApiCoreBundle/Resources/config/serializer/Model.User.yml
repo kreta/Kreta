@@ -19,13 +19,13 @@ Kreta\Component\Core\Model\User:
             groups: []
         createdAt:
             expose: true
-            groups: [projectList]
+            groups: [projectList, project]
         comments:
             expose: true
-            groups: [projectList]
+            groups: [projectList, project]
         firstName:
             expose: true
-            groups: [projectList, issueList, issue]
+            groups: [projectList, project, issueList, issue]
         githubAccessToken:
             expose: true
             groups: []
@@ -34,7 +34,7 @@ Kreta\Component\Core\Model\User:
             groups: []
         lastName:
             expose: true
-            groups: [projectList, issueList, issue]
+            groups: [projectList, project, issueList, issue]
         projects:
             expose: true
             groups: []

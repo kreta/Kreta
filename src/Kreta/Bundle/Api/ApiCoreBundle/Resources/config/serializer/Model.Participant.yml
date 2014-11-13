@@ -10,10 +10,10 @@ Kreta\Component\Core\Model\Participant:
     properties:
         project:
             expose: true
-            groups: [projectList]
+            groups: [projectList, project]
         user:
             expose: true
-            groups: [projectList]
+            groups: [projectList, project]
         role:
             expose: true
-            groups: [projectList]
+            groups: [projectList, project]

@@ -10,10 +10,10 @@ FOS\UserBundle\Model\User:
     properties:
         id:
             expose: true
-            groups: [self, issueList, issue]
+            groups: [self, projectList, project, issueList, issue]
         email:
             expose: true
-            groups: [self, issueList, issue]
+            groups: [self, projectList, project, issueList, issue]
         emailCanonical:
             expose: true
             groups: [self]

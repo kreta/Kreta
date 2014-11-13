@@ -9,6 +9,16 @@ Kreta\Component\Core\Model\Issue:
     exclusion_policy: ALL
     relations:
         -
+            rel: self
+            href:
+                route: get_projects_issue
+                parameters:
+                    projectId: expr(object.getProject().getId())
+                    id: expr(object.getId())
+                absolute: true
+            exclusion:
+                groups: [issueList, issue]
+        -
             rel: project
             href:
                 route: get_project

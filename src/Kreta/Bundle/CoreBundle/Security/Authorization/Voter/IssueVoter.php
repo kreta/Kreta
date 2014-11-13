@@ -24,6 +24,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class IssueVoter extends AbstractVoter
 {
     const ASSIGN = 'assign';
+    const DELETE = 'delete';
     const EDIT = 'edit';
     const VIEW = 'view';
 
@@ -32,6 +33,7 @@ class IssueVoter extends AbstractVoter
      */
     protected $attributes = array(
         self::ASSIGN,
+        self::DELETE,
         self::EDIT,
         self::VIEW
     );
@@ -48,6 +50,7 @@ class IssueVoter extends AbstractVoter
     {
         switch ($attribute) {
             case self::ASSIGN:
+            case self::DELETE:
             case self::EDIT:
                 $participant = $issue->getProject()->getUserRole($user);
 
