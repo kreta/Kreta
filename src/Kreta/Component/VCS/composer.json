@@ -1,0 +1,43 @@
+{
+    "name": "kreta/vcs",
+    "description": "Kreta vcs component",
+    "keywords": ["project-manager", "development-tool", "vcs", "component"],
+    "homepage": "http://kreta.io",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Beñat Espiña Diaz",
+            "email": "benatespina@gmail.com",
+            "homepage": "http://benatespina.com"
+        },
+        {
+            "name": "Gorka Laucirica Ibarra",
+            "email": "gorka.lauzirika@gmail.com",
+            "homepage": "http://gorkalaucirica.net"
+        }
+    ],
+    "require": {
+        "php":                                 ">=5.4",
+        "symfony/event-dispatcher":            "~2.3",
+        "doctrine/orm":                        "~2.2,>=2.2.3",
+        "kreta/core-bundle":                   "dev-master"
+    },
+    "require-dev": {
+        "phpspec/phpspec":                     "2.1.x-dev",
+        "henrikbjorn/phpspec-code-coverage":   "1.0.x-dev",
+        "satooshi/php-coveralls":              "0.6.1",
+        "squizlabs/php_codesniffer":           "1.*",
+        "phpmd/phpmd":                         "2.1.1"
+    },
+    "autoload": {
+        "psr-4": { "Kreta\\Component\\VCS\\": "" }
+    },
+    "autoload-dev": {
+        "psr-4": { "Kreta\\Component\\VCS\\spec\\": "spec/" }
+    },
+    "config": {
+        "bin-dir": "bin"
+    },
+    "minimum-stability": "dev"
+}
