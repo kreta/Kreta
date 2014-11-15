@@ -6,15 +6,15 @@
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
 kreta_web_issue_new:
-    path: /new/{projectId}
+    path: /new
     defaults: { _controller: KretaWebBundle:Issue:new }
 
 kreta_web_issue_view:
-    path: /{id}
+    path: /{issueId}
     defaults: { _controller: KretaWebBundle:Issue:view }
 
 kreta_web_issue_edit:
-    path: edit/{id}
+    path: edit/{issueId}
     defaults: { _controller: KretaWebBundle:Issue:edit }
 
 kreta_web_issue_comment_new:

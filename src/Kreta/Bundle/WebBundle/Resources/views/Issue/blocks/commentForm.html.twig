@@ -1,4 +1,5 @@
-<form action="{{ url('kreta_web_issue_comment_new', {'issueId': issue.id}) }}" method="post" class="kreta-issue-comment-add">
+<form action="{{ url('kreta_web_issue_comment_new', {'projectId': issue.project.id, 'issueId': issue.id}) }}"
+      method="post" class="kreta-issue-comment-add">
     {% image '@KretaWebBundle/Resources/public/img/user.jpg' %}
         <img src="{{ asset_url }}">
     {% endimage %}

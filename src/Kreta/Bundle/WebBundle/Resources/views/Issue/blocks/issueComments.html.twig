@@ -7,7 +7,7 @@
 {% block widgetTitle %}Comments{% endblock %}
 
 {% block widgetContent %}
-    {{ render(url('kreta_web_issue_comment_new',{'issueId': issue.id})) }}
+    {{ render(url('kreta_web_issue_comment_new',{'projectId': issue.project.id, 'issueId': issue.id})) }}
     {% for comment in issue.comments %}
         <div class="kreta-issue-comment">
             {% image '@KretaWebBundle/Resources/public/img/user.jpg' %}

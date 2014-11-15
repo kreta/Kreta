@@ -34,7 +34,9 @@
   }
   i {
     color: $mainWhite;
-    padding-right: .5em;
     display: inline-block;
+  }
+  span {
+    padding-left: .5em;
   }
 }

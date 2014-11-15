@@ -2,21 +2,68 @@
 
 namespace spec\Kreta\Component\Notification\Repository;
 
+use Doctrine\ORM\QueryBuilder;
+use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\Mapping\ClassMetadata;
+use Doctrine\ORM\Query\Expr;
+use Kreta\Component\Core\Model\Interfaces\UserInterface;
+use Kreta\Component\Notification\Model\Interfaces\NotificationInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
 class NotificationRepositorySpec extends ObjectBehavior
 {
-    function let(EntityManager $em, ClassMetadata $classMetadata)
+    function let(EntityManager $manager, ClassMetadata $classMetadata)
     {
-        $this->beConstructedWith($em, $classMetadata);
+        $this->beConstructedWith($manager, $classMetadata);
     }
 
     function it_is_initializable()
     {
         $this->shouldHaveType('Kreta\Component\Notification\Repository\NotificationRepository');
+    }
+
+    function it_gets_users_unread_notification_count(EntityManager $manager, QueryBuilder $queryBuilder,
+                                                     UserInterface $user, Expr $expr, Expr\Comparison $comparison, 
+                                                     AbstractQuery $query)
+    {
+        $manager->createQueryBuilder()->shouldBeCalled()->willReturn($queryBuilder);
+
+        $queryBuilder->select('count(n.id)')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->from(Argument::any(), 'n')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->expr()->shouldBeCalled()->willReturn($expr);
+        $expr->eq('n.user', ':userId')->shouldBeCalled()->willReturn($comparison);
+        $queryBuilder->where($comparison)->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->expr()->shouldBeCalled()->willReturn($expr);
+        $expr->eq('n.read', ':read')->shouldBeCalled()->willReturn($comparison);
+        $queryBuilder->andWhere($comparison)->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->setParameter(':userId', '231231')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->setParameter(':read', false)->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
+        $query->getSingleScalarResult()->shouldBeCalled()->willReturn(2);
+
+        $user->getId()->shouldBeCalled()->willReturn('231231');
+
+        $this->getUsersUnreadNotificationsCount($user)->shouldReturn(2);
+    }
+    
+    function it_finds_all_notifications_by_user(EntityManager $manager, QueryBuilder $queryBuilder,
+                                                UserInterface $user, Expr $expr, Expr\Comparison $comparison,
+                                                AbstractQuery $query, NotificationInterface $notification)
+    {
+        $manager->createQueryBuilder()->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->select('n')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->from(Argument::any(), 'n')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->expr()->shouldBeCalled()->willReturn($expr);
+        $expr->eq('n.user', ':userId')->shouldBeCalled()->willReturn($comparison);
+        $queryBuilder->where($comparison)->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->orderBy('n.date', 'desc')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->setParameter(':userId', '222')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
+        $query->getResult()->shouldBeCalled()->willReturn(array($notification));
+
+        $user->getId()->shouldBeCalled()->willReturn('222');
+        $this->findAllByUser($user)->shouldReturn(array($notification));
     }
 }

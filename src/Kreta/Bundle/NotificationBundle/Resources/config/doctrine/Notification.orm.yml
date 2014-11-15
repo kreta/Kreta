@@ -13,11 +13,18 @@ Kreta\Component\Notification\Model\Notification:
         description:
             type: text
         read:
-            column: is_read #Avoid using reserved SQL word
+            column: is_read #Avoids using reserved SQL word (read)
             type: boolean
+        resourceUrl:
+            type: string
         title:
             type: string
             length: 140
+        type:
+            type: string
+            length: 50
+        webUrl:
+            type: string
     manyToOne:
         project:
             targetEntity: Kreta\Component\Core\Model\Interfaces\ProjectInterface

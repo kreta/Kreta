@@ -12,12 +12,23 @@
 namespace Kreta\Bundle\WebBundle\NotifiableEvent;
 
 use Kreta\Component\Core\Model\Interfaces\IssueInterface;
+use Kreta\Component\Notification\Factory\NotificationFactory;
 use Kreta\Component\Notification\NotifiableEvent\NotifiableEventInterface;
 use Kreta\Component\Notification\Model\Notification;
+use Symfony\Component\Routing\RouterInterface;
 
 class IssueEvents implements NotifiableEventInterface
 {
     protected $supportedEvents = array('postPersist');
+
+    protected $router;
+
+    const EVENT_ISSUE_NEW = 'issue_new';
+
+    public function __construct( RouterInterface $router)
+    {
+        $this->router = $router;
+    }
 
     /**
      * @{@inheritdoc}
@@ -35,14 +46,21 @@ class IssueEvents implements NotifiableEventInterface
         $notifications = array();
         switch($event) {
             case 'postPersist':
-                //Notify to assignee that has a new notification
+                //Notify to assignee that has a new issue
                 if($object->getAssignee() != $object->getReporter()) {
                     $notification = new Notification();
-                    $notification->setDate(new \DateTime())
+                    $url = $this->router->generate(
+                                'kreta_web_issue_view',
+                                array('projectId' => $object->getProject()->getId(), 'issueId' => $object->getId()));
+                    $notification
+                        ->setDate(new \DateTime())
                         ->setProject($object->getProject())
-                        ->setTitle('New issue: '. $object->getTitle())
+                        ->setTitle($object->getTitle())
                         ->setDescription($object->getDescription())
+                        ->setType(self::EVENT_ISSUE_NEW)
                         ->setRead(false)
+                        ->setResourceUrl($url)
+                        ->setWebUrl($url)
                         ->setUser($object->getAssignee());
                     $notifications[] = $notification;
                 }
