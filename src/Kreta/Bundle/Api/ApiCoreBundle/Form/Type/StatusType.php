@@ -30,7 +30,6 @@ class StatusType extends AbstractType
         $builder
             ->add('color', null, array(
                 'required' => true,
-                'label'    => 'color',
             ))
             ->add('name', null, array(
                 'required' => true

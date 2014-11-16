@@ -50,7 +50,7 @@ class ProjectRepository extends EntityRepository
 
         $queryBuilder = $this->createQueryBuilder('p');
 
-        $queryBuilder->select('p')
+        $queryBuilder
             ->where($queryBuilder->expr()->eq('pu.user', ':participant'))
             ->leftJoin('p.participants', 'pu')
             ->setParameter(':participant', $participant->getId())

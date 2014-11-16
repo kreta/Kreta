@@ -8,7 +8,7 @@
 suites:
     ApiBundle:
         namespace: Kreta
-        spec_path: src/Kreta/Bundle/ApiBundle
+        spec_path: src/Kreta/Bundle/Api/ApiCoreBundle
     CoreBundle:
         namespace: Kreta
         spec_path: src/Kreta/Bundle/CoreBundle

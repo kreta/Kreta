@@ -6,8 +6,9 @@
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
 Kreta\Component\Core\Model\Abstracts\AbstractModel:
-    exclusion_policy: NONE
+    exclusion_policy: ALL
     properties:
         id:
             expose: true
             groups: [projectList, project, issueList, issue]
+

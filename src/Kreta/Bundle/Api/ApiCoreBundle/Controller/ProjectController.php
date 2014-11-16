@@ -13,32 +13,17 @@ namespace Kreta\Bundle\Api\ApiCoreBundle\Controller;
 
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Request\ParamFetcher;
-use Kreta\Bundle\Api\ApiCoreBundle\Controller\Base\ResourceController;
+use Kreta\Bundle\Api\ApiCoreBundle\Controller\Abstracts\AbstractRestController;
 use Kreta\Bundle\Api\ApiCoreBundle\Form\Type\ProjectType;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Class ProjectController.
  *
  * @package Kreta\Bundle\Api\ApiCoreBundle\Controller
  */
-class ProjectController extends ResourceController
+class ProjectController extends AbstractRestController
 {
-    /**
-     * The name of class.
-     *
-     * @var string
-     */
-    protected $class = 'project';
-
-    /**
-     * The name of bundle.
-     *
-     * @var string
-     */
-    protected $bundle = 'core';
-
     /**
      * Returns all the projects of current user, it admits ordering, count and pagination.
      *
@@ -91,7 +76,7 @@ class ProjectController extends ResourceController
      */
     public function getProjectAction($id)
     {
-        return $this->handleView($this->createView($this->getProjectIfExistsAndIfIsGranted($id), array('project')));
+        return $this->createResponse($this->getProjectIfAllowed($id), array('project'));
     }
 
     /**
@@ -164,60 +149,14 @@ class ProjectController extends ResourceController
      */
     public function putProjectsAction($id)
     {
-        return $this->manageForm(
-            new ProjectType(), $this->getProjectIfExistsAndIfIsGranted($id, 'edit'), array('project')
-        );
+        return $this->manageForm(new ProjectType(), $this->getProjectIfAllowed($id, 'edit'), array('project'));
     }
 
-//    /**
-//     * Deletes the project of id given.
-//     *
-//     * @param string $id The project id
-//     *
-//     * @ApiDoc(
-//     *  description = "Deletes the project of id given",
-//     *  requirements = {
-//     *    {
-//     *      "name"="_format",
-//     *      "requirement"="json|jsonp",
-//     *      "description"="Supported formats, by default json"
-//     *    }
-//     *  },
-//     *  statusCodes = {
-//     *      204 = "Successfully removed",
-//     *      403 = "Not allowed to access this resource",
-//     *      404 = "Does not exist any project with <$id> id"
-//     *  }
-//     * )
-//     *
-//     * @return \Symfony\Component\HttpFoundation\Response
-//     */
-//    public function deleteProjectsAction($id)
-//    {
-//        $project = $this->getProjectIfExistsAndIfIsGranted($id, 'delete');
-//        $manager = $this->getDoctrine()->getManager();
-//        $manager->remove($project);
-//        $manager->flush();
-//
-//        return $this->handleView($this->createView('The project is successfully removed', null, 204));
-//    }
-
     /**
-     * Gets the project if the current user is granted and if the project exists.
-     *
-     * @param string $id    The id
-     * @param string $grant The grant, by default view
-     *
-     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
-     * @return \Kreta\Component\Core\Model\Interfaces\ProjectInterface
+     * {@inheritdoc}
      */
-    protected function getProjectIfExistsAndIfIsGranted($id, $grant = 'view')
+    protected function getRepository()
     {
-        $project = $this->getResourceIfExists($id);
-        if ($this->get('security.context')->isGranted($grant, $project) === false) {
-            throw new AccessDeniedException('Not allowed to access this resource');
-        }
-
-        return $project;
+        return $this->get('kreta_core.repository_project');
     }
 }

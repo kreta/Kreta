@@ -11,7 +11,7 @@
 
 namespace Kreta\Bundle\Api\ApiCoreBundle\Controller;
 
-use Kreta\Bundle\Api\ApiCoreBundle\Controller\Base\ResourceController;
+use Kreta\Bundle\Api\ApiCoreBundle\Controller\Abstracts\AbstractRestController;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -21,22 +21,8 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
  *
  * @package Kreta\Bundle\Api\ApiCoreBundle\Controller
  */
-class StatusTransitionController extends ResourceController
+class StatusTransitionController extends AbstractRestController
 {
-    /**
-     * The name of class.
-     *
-     * @var string
-     */
-    protected $class = 'status';
-
-    /**
-     * The name of bundle.
-     *
-     * @var string
-     */
-    protected $bundle = 'core';
-
     /**
      * Returns transitions of status id and project id given.
      *
@@ -65,11 +51,9 @@ class StatusTransitionController extends ResourceController
      */
     public function getTransitionsAction($projectId, $statusId)
     {
-        return $this->handleView(
-            $this->createView(
-                $this->getStatusIfExists($projectId, $statusId)->getTransitions(),
-                array('status')
-            )
+        return $this->createResponse(
+            $this->getStatusIfAllowed($projectId, $statusId)->getTransitions(),
+            array('status')
         );
     }
 
@@ -111,13 +95,12 @@ class StatusTransitionController extends ResourceController
      */
     public function postTransitionsAction($projectId, $statusId)
     {
-        /** @var \Kreta\Component\Core\Model\Interfaces\StatusInterface $status */
-        $status = $this->getStatusIfExists($projectId, $statusId, 'manage_status');
-        $toStatusName = $this->get('request')->get('to');
+        $status = $this->getStatusIfAllowed($projectId, $statusId, 'manage_status');
+        $toStatusName = $this->getRequest()->get('to');
         if (!$toStatusName) {
             throw new BadRequestHttpException('To status name should not be blank');
         }
-        $toStatus = $this->get('kreta_core.repository_status')->findOneByNameAndProjectId($toStatusName, $projectId);
+        $toStatus = $this->getRepository()->findOneByNameAndProjectId($toStatusName, $projectId);
         if (!$toStatus) {
             throw new NotFoundHttpException('Does not exist any status with ' . $toStatusName . ' name');
         }
@@ -132,11 +115,9 @@ class StatusTransitionController extends ResourceController
         }
 
         $status->addStatusTransition($toStatus);
-        $manager = $this->getDoctrine()->getManager();
-        $manager->persist($status);
-        $manager->flush();
+        $this->getRepository()->save($status);
 
-        return $this->handleView($this->createView($status->getTransitions(), array('status')));
+        return $this->createResponse($status->getTransitions(), array('status'));
     }
 
     /**
@@ -168,22 +149,43 @@ class StatusTransitionController extends ResourceController
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function deleteTransitionAction($projectId, $statusId, $id)
+    public function deleteTransitionsAction($projectId, $statusId, $id)
     {
-        /** @var \Kreta\Component\Core\Model\Interfaces\StatusInterface $status */
-        $status = $this->getStatusIfExists($projectId, $statusId, 'manage_status');
+        $status = $this->getStatusIfAllowed($projectId, $statusId, 'manage_status');
         $transitions = $status->getTransitions();
         foreach ($transitions as $transition) {
             if ($transition->getId() === $id) {
                 $status->removeStatusTransition($transition);
-                $manager = $this->getDoctrine()->getManager();
-                $manager->persist($status);
-                $manager->flush();
+                $this->getRepository()->save($status);
 
-                return $this->handleView($this->createView('The transition is successfully removed', null, 204));
+                return $this->createResponse('The transition is successfully removed', null, 204);
             }
         }
 
-        return $this->handleView($this->createView('Does not exist any transition with ' . $id . ' id', null, 404));
+        return $this->createResponse('Does not exist any transition with ' . $id . ' id', null, 404);
+    }
+
+    /**
+     * Gets the status if the current user is granted and if the project exists.
+     *
+     * @param string $projectId The project id
+     * @param string $id        The id
+     * @param string $grant     The grant, by default 'view'
+     *
+     * @return \Kreta\Component\Core\Model\Interfaces\StatusInterface
+     */
+    protected function getStatusIfAllowed($projectId, $id, $grant = 'view')
+    {
+        $this->getProjectIfAllowed($projectId, $grant);
+
+        return $this->getResourceIfExists($id);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getRepository()
+    {
+        return $this->get('kreta_core.repository_status');
     }
 }

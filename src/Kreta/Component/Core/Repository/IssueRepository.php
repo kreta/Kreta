@@ -32,6 +32,23 @@ class IssueRepository extends EntityRepository
     private $validFilters = array('status', 'priority', 'createdAt', 'title');
 
     /**
+     * Finds the issue of id given.
+     *
+     * @param string $id The id
+     *
+     * @return \Kreta\Component\Core\Model\Interfaces\IssueInterface
+     */
+    public function findOneById($id)
+    {
+        $queryBuilder = $this->createQueryBuilder('i');
+
+        return $queryBuilder
+            ->where($queryBuilder->expr()->eq('i.id', ':id'))
+            ->setParameter(':id', $id)
+            ->getQuery()->getResult();
+    }
+
+    /**
      * Finds all the issues of project given.
      *
      * Can do pagination if $page is changed, starting from 0 and it can

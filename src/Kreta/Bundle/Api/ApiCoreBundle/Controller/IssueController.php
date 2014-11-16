@@ -13,7 +13,7 @@ namespace Kreta\Bundle\Api\ApiCoreBundle\Controller;
 
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Request\ParamFetcher;
-use Kreta\Bundle\Api\ApiCoreBundle\Controller\Base\ResourceController;
+use Kreta\Bundle\Api\ApiCoreBundle\Controller\Abstracts\AbstractRestController;
 use Kreta\Bundle\Api\ApiCoreBundle\Form\Type\IssueType;
 use Kreta\Component\Core\Util\CamelCaser;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
@@ -24,29 +24,15 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
  *
  * @package Kreta\Bundle\Api\ApiCoreBundle\Controller
  */
-class IssueController extends ResourceController
+class IssueController extends AbstractRestController
 {
-    /**
-     * The name of class.
-     *
-     * @var string
-     */
-    protected $class = 'issue';
-
-    /**
-     * The name of bundle.
-     *
-     * @var string
-     */
-    protected $bundle = 'core';
-
     /**
      * Returns all the projects of current user, it admits ordering, count, pagination and filtering.
      *
      * @param string                               $projectId    The project id
      * @param \FOS\RestBundle\Request\ParamFetcher $paramFetcher The param fetcher
      *
-     * @QueryParam(name="order", requirements="(createdAt|title)", strict=true, default="createdAt", description="Order")
+     * @QueryParam(name="order", requirements="(created-at|title)", strict=true, default="created-at", description="Order")
      * @QueryParam(name="assignee", requirements="(.*)", strict=true, nullable=true, description="Assignee's email filter")
      * @QueryParam(name="reporter", requirements="(.*)", strict=true, nullable=true, description="Reporter's email filter")
      * @QueryParam(name="watcher", requirements="(.*)", strict=true, nullable=true, description="Watcher's email filter")
@@ -78,25 +64,23 @@ class IssueController extends ResourceController
      */
     public function getIssuesAction($projectId, ParamFetcher $paramFetcher)
     {
-        $project = $this->getProjectIfExistsAndIfIsGranted($projectId, 'view');
-        $resources = $this->get('kreta_' . $this->bundle . '.repository_' . $this->class)
-            ->findByProject(
-                $project,
-                array(CamelCaser::underscoreToCamelCase($paramFetcher->get('order')) => 'ASC'),
-                $paramFetcher->get('count'),
-                $paramFetcher->get('page'),
-                array(
-                    'title'     => $paramFetcher->get('q'),
-                    'a.email'   => $paramFetcher->get('assignee'),
-                    'rep.email' => $paramFetcher->get('reporter'),
-                    'w.email'   => $paramFetcher->get('watcher'),
-                    'priority'  => $paramFetcher->get('priority'),
-                    's.name'    => $paramFetcher->get('status'),
-                    'type'      => $paramFetcher->get('type')
-                )
-            );
+        $resources = $this->getRepository()->findByProject(
+            $this->getProjectIfAllowed($projectId, 'view'),
+            array(CamelCaser::underscoreToCamelCase($paramFetcher->get('order')) => 'ASC'),
+            $paramFetcher->get('count'),
+            $paramFetcher->get('page'),
+            array(
+                'title'     => $paramFetcher->get('q'),
+                'a.email'   => $paramFetcher->get('assignee'),
+                'rep.email' => $paramFetcher->get('reporter'),
+                'w.email'   => $paramFetcher->get('watcher'),
+                'priority'  => $paramFetcher->get('priority'),
+                's.name'    => $paramFetcher->get('status'),
+                'type'      => $paramFetcher->get('type')
+            )
+        );
 
-        return $this->handleView($this->createView($resources, array('issueList')));
+        return $this->createResponse($resources, array('issueList'));
     }
 
     /**
@@ -125,9 +109,7 @@ class IssueController extends ResourceController
      */
     public function getIssueAction($projectId, $id)
     {
-        $this->getProjectIfExistsAndIfIsGranted($projectId, 'view');
-
-        return $this->handleView($this->createView($this->getResourceIfExists($id), array('issue')));
+        return $this->createResponse($this->getIssueIfAllowed($id), array('issue'));
     }
 
     /**
@@ -167,7 +149,7 @@ class IssueController extends ResourceController
      */
     public function postIssuesAction($projectId)
     {
-        $project = $this->getProjectIfExistsAndIfIsGranted($projectId, 'create_issue');
+        $project = $this->getProjectIfAllowed($projectId, 'create_issue');
         $issue = $this->get('kreta_core.factory_issue')->create($project, $this->getCurrentUser());
 
         return $this->manageForm(new IssueType($project->getParticipants()), $issue, array('issue'));
@@ -214,67 +196,39 @@ class IssueController extends ResourceController
      */
     public function putIssuesAction($projectId, $id)
     {
-        $project = $this->getProjectIfExistsAndIfIsGranted($projectId, 'view');
+        $project = $this->getProjectIfAllowed($projectId, 'view');
 
         return $this->manageForm(
             new IssueType($project->getParticipants()),
-            $this->getIssueIfExistsAndIfIsGranted($id, 'edit'),
+            $this->getIssueIfAllowed($id, 'edit'),
             array('issue')
         );
     }
 
     /**
-     * Deletes the issue of project id and id given.
-     *
-     * @param string $projectId The project id
-     * @param string $id        The id
-     *
-     * @ApiDoc(
-     *  description = "Deletes the issue of project id and id given",
-     *  requirements = {
-     *    {
-     *      "name"="_format",
-     *      "requirement"="json|jsonp",
-     *      "description"="Supported formats, by default json"
-     *    }
-     *  },
-     *  statusCodes = {
-     *      204 = "Successfully removed",
-     *      403 = "Not allowed to access this resource",
-     *      404 = "Does not exist any project with <$id> id"
-     *  }
-     * )
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function deleteIssuesAction($projectId, $id)
-    {
-        $project = $this->getProjectIfExistsAndIfIsGranted($projectId, 'view');
-
-        $project = $this->getIssueIfExistsAndIfIsGranted($id, 'delete');
-        $manager = $this->getDoctrine()->getManager();
-        $manager->remove($project);
-        $manager->flush();
-
-        return $this->handleView($this->createView('The issue is successfully removed', null, 204));
-    }
-
-    /**
-     * Gets the project if the current user is granted and if the project exists.
+     * Gets the issue if the current user is granted and if the project exists.
      *
      * @param string $id    The id
      * @param string $grant The grant, by default view
      *
      * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
-     * @return \Kreta\Component\Core\Model\Interfaces\ProjectInterface
+     * @return \Kreta\Component\Core\Model\Interfaces\IssueInterface
      */
-    protected function getIssueIfExistsAndIfIsGranted($id, $grant = 'view')
+    protected function getIssueIfAllowed($id, $grant = 'view')
     {
         $issue = $this->getResourceIfExists($id);
-        if ($this->get('security.context')->isGranted($grant, $issue) === false) {
+        if (!$this->get('security.context')->isGranted($grant, $issue)) {
             throw new AccessDeniedException('Not allowed to access this resource');
         }
 
         return $issue;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getRepository()
+    {
+        return $this->get('kreta_core.repository_issue');
     }
 }

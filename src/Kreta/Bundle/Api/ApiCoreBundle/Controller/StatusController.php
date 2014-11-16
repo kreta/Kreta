@@ -11,7 +11,7 @@
 
 namespace Kreta\Bundle\Api\ApiCoreBundle\Controller;
 
-use Kreta\Bundle\Api\ApiCoreBundle\Controller\Base\ResourceController;
+use Kreta\Bundle\Api\ApiCoreBundle\Controller\Abstracts\AbstractRestController;
 use Kreta\Bundle\Api\ApiCoreBundle\Form\Type\StatusType;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -21,24 +21,12 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
  *
  * @package Kreta\Bundle\Api\ApiCoreBundle\Controller
  */
-class StatusController extends ResourceController
+class StatusController extends AbstractRestController
 {
     /**
-     * The name of class.
-     *
-     * @var string
-     */
-    protected $class = 'status';
-
-    /**
-     * The name of bundle.
-     *
-     * @var string
-     */
-    protected $bundle = 'core';
-
-    /**
      * Returns all the statuses of project id given.
+     *
+     * @param string $id The project id
      *
      * @ApiDoc(
      *  description = "Returns all the statuses of project id given",
@@ -55,22 +43,18 @@ class StatusController extends ResourceController
      *  }
      * )
      *
-     * @param string $id The project id
-     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function getStatusesAction($id)
     {
-        return $this->handleView(
-            $this->createView(
-                $this->getProjectIfExistsAndIfIsGranted($id)->getStatuses(),
-                array('statusList')
-            )
-        );
+        return $this->createResponse($this->getProjectIfAllowed($id)->getStatuses(), array('statusList'));
     }
 
     /**
      * Returns the status of id and project id given.
+     *
+     * @param string $projectId The project id
+     * @param string $id        The status id
      *
      * @ApiDoc(
      *  description = "Returns the status of id and project id given",
@@ -88,24 +72,18 @@ class StatusController extends ResourceController
      *  }
      * )
      *
-     * @param string $projectId The project if
-     * @param string $id        The status id
-     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function getStatusAction($projectId, $id)
     {
-        return $this->handleView(
-            $this->createView(
-                $this->getStatusIfExists($projectId, $id),
-                array('status')
-            )
-        );
+        return $this->createResponse($this->getStatusIfAllowed($projectId, $id), array('status'));
     }
 
     /**
      * Creates new status for name, color and type given.
      * Type is a choice option that its values can be 'initial', 'normal' or 'final'.
+     *
+     * @param string $id The id
      *
      * @ApiDoc(
      *  description = "Creates new status for name, color and type given",
@@ -132,19 +110,17 @@ class StatusController extends ResourceController
      *  }
      * )
      *
-     * @param string $id The id
-     *
      * @throws \Symfony\Component\HttpKernel\Exception\BadRequestHttpException
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function postStatusesAction($id)
     {
-        $name = $this->get('request')->get('name');
+        $name = $this->getRequest()->get('name');
         if (!$name) {
             throw new BadRequestHttpException('Name should not be blank');
         }
         $status = $this->get('kreta_core.factory_status')->create($name);
-        $status->setProject($this->getProjectIfExistsAndIfIsGranted($id, 'manage_status'));
+        $status->setProject($this->getProjectIfAllowed($id, 'manage_status'));
 
         return $this->manageForm(new StatusType(), $status, array('status'));
     }
@@ -190,7 +166,7 @@ class StatusController extends ResourceController
     public function putStatusesAction($projectId, $id)
     {
         return $this->manageForm(
-            new StatusType(), $this->getStatusIfExists($projectId, $id, 'manage_status'), array('status')
+            new StatusType(), $this->getStatusIfAllowed($projectId, $id, 'manage_status'), array('status')
         );
     }
 
@@ -223,11 +199,33 @@ class StatusController extends ResourceController
      */
     public function deleteStatusesAction($projectId, $id)
     {
-        $status = $this->getStatusIfExists($projectId, $id, 'delete');
-        $manager = $this->getDoctrine()->getManager();
-        $manager->remove($status);
-        $manager->flush();
+        $status = $this->getStatusIfAllowed($projectId, $id, 'manage_status');
+        $this->getRepository()->delete($status);
 
-        return $this->handleView($this->createView('The status is successfully removed', null, 204));
+        return $this->createResponse('The status is successfully removed', null, 204);
+    }
+
+    /**
+     * Gets the status if the current user is granted and if the project exists.
+     *
+     * @param string $projectId The project id
+     * @param string $id        The id
+     * @param string $grant     The grant, by default 'view'
+     *
+     * @return \Kreta\Component\Core\Model\Interfaces\StatusInterface
+     */
+    protected function getStatusIfAllowed($projectId, $id, $grant = 'view')
+    {
+        $this->getProjectIfAllowed($projectId, $grant);
+
+        return $this->getResourceIfExists($id);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getRepository()
+    {
+        return $this->get('kreta_core.repository_status');
     }
 }
