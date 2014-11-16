@@ -39,5 +39,4 @@ class RegisterNotifiersPass implements CompilerPassInterface
             $registry->addMethodCall('registerNotifier', array($name, new Reference($id)));
         }
     }
-
-} 
+}

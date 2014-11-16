@@ -46,15 +46,33 @@ class NotificationSpec extends ObjectBehavior
         $this->isRead()->shouldReturn(true);
     }
 
+    function its_resource_url_is_mutable()
+    {
+        $this->setResourceUrl('/projects/1221312/issue/1982')->shouldReturn($this);
+        $this->getResourceUrl()->shouldReturn('/projects/1221312/issue/1982');
+    }
+
     function its_title_is_mutable()
     {
         $this->setTitle('Title!')->shouldReturn($this);
         $this->getTitle()->shouldReturn('Title!');
     }
 
+    function its_type_is_mutable()
+    {
+        $this->setType('issue_new')->shouldReturn($this);
+        $this->getType()->shouldReturn('issue_new');
+    }
+
     function its_user_is_mutable(UserInterface $user)
     {
         $this->setUser($user)->shouldReturn($this);
         $this->getUser()->shouldReturn($user);
+    }
+
+    function its_web_url_is_mutable()
+    {
+        $this->setWebUrl('/issue/1982')->shouldReturn($this);
+        $this->getWebUrl()->shouldReturn('/issue/1982');
     }
 }

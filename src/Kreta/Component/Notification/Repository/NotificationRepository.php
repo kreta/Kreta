@@ -12,6 +12,7 @@
 namespace Kreta\Component\Notification\Repository;
 
 use Doctrine\ORM\EntityRepository;
+use Kreta\Component\Core\Model\Interfaces\UserInterface;
 
 /**
  * Class NotificationRepository
@@ -20,4 +21,36 @@ use Doctrine\ORM\EntityRepository;
  */
 class NotificationRepository extends EntityRepository
 {
+    /**
+     * Gets the amount of notifications that user does not read yet
+     *
+     * @param UserInterface $user Target user
+     *
+     * @return integer Amount of unread notifications
+     */
+    public function getUsersUnreadNotificationsCount(UserInterface $user)
+    {
+        $queryBuilder = $this->_em->createQueryBuilder();
+
+        return $queryBuilder->select('count(n.id)')
+                     ->from($this->_entityName, 'n')
+                     ->where($queryBuilder->expr()->eq('n.user', ':userId'))
+                     ->andWhere($queryBuilder->expr()->eq('n.read', ':read'))
+                     ->setParameter(':userId', $user->getId())
+                     ->setParameter(':read', false)
+                     ->getQuery()->getSingleScalarResult();
+    }
+
+    public function findAllUnreadByUser(UserInterface $user)
+    {
+        $queryBuilder = $this->createQueryBuilder('n');
+
+        return $queryBuilder
+                    ->where($queryBuilder->expr()->eq('n.user', ':userId'))
+                    ->andWhere($queryBuilder->expr()->eq('n.read', ':read'))
+                    ->orderBy('n.date', 'desc')
+                    ->setParameter(':userId', $user->getId())
+                    ->setParameter(':read', false)
+                    ->getQuery()->getResult();
+    }
 }

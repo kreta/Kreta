@@ -26,7 +26,13 @@ class Notification extends AbstractModel implements NotificationInterface
 
     protected $read;
 
+    protected $resourceUrl;
+
     protected $title;
+
+    protected $type;
+
+    protected $webUrl;
 
     protected $user;
 
@@ -105,6 +111,24 @@ class Notification extends AbstractModel implements NotificationInterface
     /**
      * @{@inheritdoc}
      */
+    public function getResourceUrl()
+    {
+        return $this->resourceUrl;
+    }
+
+    /**
+     * @{@inheritdoc}
+     */
+    public function setResourceUrl($url)
+    {
+        $this->resourceUrl = $url;
+
+        return $this;
+    }
+
+    /**
+     * @{@inheritdoc}
+     */
     public function getTitle()
     {
         return $this->title;
@@ -123,6 +147,24 @@ class Notification extends AbstractModel implements NotificationInterface
     /**
      * @{@inheritdoc}
      */
+    public function getType()
+    {
+        return $this->type;
+    }
+
+    /**
+     * @{@inheritdoc}
+     */
+    public function setType($type)
+    {
+        $this->type = $type;
+
+        return $this;
+    }
+
+    /**
+     * @{@inheritdoc}
+     */
     public function getUser()
     {
         return $this->user;
@@ -134,6 +176,24 @@ class Notification extends AbstractModel implements NotificationInterface
     public function setUser(UserInterface $user)
     {
         $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getWebUrl()
+    {
+        return $this->webUrl;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setWebUrl($url)
+    {
+        $this->webUrl = $url;
 
         return $this;
     }
