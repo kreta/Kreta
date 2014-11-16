@@ -218,6 +218,7 @@ class IssueController extends Controller
             $this->get('session')->getFlashBag()->add('error', 'Transition not allowed');
         }
 
-        return $this->redirect($this->generateUrl('kreta_web_issue_view', array('id' => $issue->getId())));
+        return $this->redirect($this->generateUrl('kreta_web_issue_view',
+            array('projectId' => $issue->getProject()->getId(), 'issueId' => $issue->getId())));
     }
 }
