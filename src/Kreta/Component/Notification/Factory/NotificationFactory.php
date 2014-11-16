@@ -29,6 +29,7 @@ class NotificationFactory extends BaseFactory
         /** @var NotificationInterface $notification */
         $notification = new $this->className;
         $notification->setDate(new \DateTime());
+        $notification->setRead(false);
 
         return $notification;
     }

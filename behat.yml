@@ -34,9 +34,18 @@ default:
             filters:
                 tags: "@project"
 
+        notification:
+            contexts:
+                - Kreta\Bundle\CoreBundle\Behat\UserContext
+                - Kreta\Bundle\CoreBundle\Behat\ProjectContext
+                - Kreta\Bundle\NotificationBundle\Behat\NotificationContext
+                - Kreta\Bundle\WebBundle\Behat\DefaultContext
+            filters:
+                tags: "@notification"
+
     extensions:
         Behat\MinkExtension:
-            base_url: http://demo.kreta.io/app_test.php
+            base_url: http://kreta.localhost/app_test.php
             sessions:
                 default:
                     symfony2: ~

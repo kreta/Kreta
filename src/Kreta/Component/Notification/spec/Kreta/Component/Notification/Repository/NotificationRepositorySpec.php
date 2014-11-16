@@ -48,9 +48,9 @@ class NotificationRepositorySpec extends ObjectBehavior
         $this->getUsersUnreadNotificationsCount($user)->shouldReturn(2);
     }
     
-    function it_finds_all_notifications_by_user(EntityManager $manager, QueryBuilder $queryBuilder,
-                                                UserInterface $user, Expr $expr, Expr\Comparison $comparison,
-                                                AbstractQuery $query, NotificationInterface $notification)
+    function it_finds_all_unread_notifications_by_user(EntityManager $manager, QueryBuilder $queryBuilder,
+                                                       UserInterface $user, Expr $expr, Expr\Comparison $comparison,
+                                                       AbstractQuery $query, NotificationInterface $notification)
     {
         $manager->createQueryBuilder()->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->select('n')->shouldBeCalled()->willReturn($queryBuilder);
@@ -58,12 +58,16 @@ class NotificationRepositorySpec extends ObjectBehavior
         $queryBuilder->expr()->shouldBeCalled()->willReturn($expr);
         $expr->eq('n.user', ':userId')->shouldBeCalled()->willReturn($comparison);
         $queryBuilder->where($comparison)->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->expr()->shouldBeCalled()->willReturn($expr);
+        $expr->eq('n.read', ':read')->shouldBeCalled()->willReturn($comparison);
+        $queryBuilder->andWhere($comparison)->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->orderBy('n.date', 'desc')->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->setParameter(':userId', '222')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->setParameter(':read', false)->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
         $query->getResult()->shouldBeCalled()->willReturn(array($notification));
 
         $user->getId()->shouldBeCalled()->willReturn('222');
-        $this->findAllByUser($user)->shouldReturn(array($notification));
+        $this->findAllUnreadByUser($user)->shouldReturn(array($notification));
     }
 }

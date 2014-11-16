@@ -17,9 +17,6 @@ parameters:
 services:
     kreta_notification.factory_notification:
         class: %kreta_notification.factory_class_notification%
-        factory_service: doctrine.orm.entity_manager
-        factory_method: getRepository
-        class: %kreta_notification.repository_class_notification%
         arguments: [%kreta_notification.class_notification%]
 
     kreta_notification.doctrine_event_subscriber:

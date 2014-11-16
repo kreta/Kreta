@@ -41,13 +41,16 @@ class NotificationRepository extends EntityRepository
                      ->getQuery()->getSingleScalarResult();
     }
 
-    public function findAllByUser(UserInterface $user)
+    public function findAllUnreadByUser(UserInterface $user)
     {
         $queryBuilder = $this->createQueryBuilder('n');
 
-        return $queryBuilder->where($queryBuilder->expr()->eq('n.user', ':userId'))
+        return $queryBuilder
+                    ->where($queryBuilder->expr()->eq('n.user', ':userId'))
+                    ->andWhere($queryBuilder->expr()->eq('n.read', ':read'))
                     ->orderBy('n.date', 'desc')
                     ->setParameter(':userId', $user->getId())
+                    ->setParameter(':read', false)
                     ->getQuery()->getResult();
     }
 }

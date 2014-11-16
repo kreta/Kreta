@@ -9,7 +9,8 @@ class NotificationController extends Controller
 {
     public function viewAction()
     {
-        $notifications = $this->get('kreta_notification.repository_notification')->findAllByUser($this->getUser());
+        $notifications = $this->get('kreta_notification.repository_notification')
+            ->findAllUnreadByUser($this->getUser());
 
         return $this->render('KretaWebBundle:Notification:view.html.twig', array('notifications' => $notifications));
     }
