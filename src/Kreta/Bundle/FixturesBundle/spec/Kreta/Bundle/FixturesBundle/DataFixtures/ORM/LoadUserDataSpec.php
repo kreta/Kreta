@@ -74,8 +74,8 @@ class LoadUserDataSpec extends ObjectBehavior
         $container->get('kreta_core.factory_user')->shouldBeCalled()->willReturn($factory);
         $factory->create()->shouldBeCalled()->willReturn($user);
 
-        $user->setFirstName('Name')->shouldBeCalled()->willReturn($user);
-        $user->setLastName('Surname')->shouldBeCalled()->willReturn($user);
+        $user->setFirstName(Argument::type('string'))->shouldBeCalled()->willReturn($user);
+        $user->setLastName(Argument::type('string'))->shouldBeCalled()->willReturn($user);
         $user->setEmail(Argument::type('string'))->shouldBeCalled()->willReturn($user);
         $user->setPlainPassword(123456)->shouldBeCalled()->willReturn($user);
         $user->setRoles(array($role))->shouldBeCalled()->willReturn($user);
