@@ -30,6 +30,9 @@ extensions:
     - PhpSpec\Extension\CodeCoverageExtension
 
 code_coverage:
+    blacklist:
+        - src/**/**/**/Behat
+        - src/**/**/**/spec
     format:
         - html
         - clover
