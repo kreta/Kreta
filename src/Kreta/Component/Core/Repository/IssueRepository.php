@@ -45,7 +45,7 @@ class IssueRepository extends EntityRepository
         return $queryBuilder
             ->where($queryBuilder->expr()->eq('i.id', ':id'))
             ->setParameter(':id', $id)
-            ->getQuery()->getResult();
+            ->getQuery()->getOneOrNullResult();
     }
 
     /**
@@ -101,7 +101,7 @@ class IssueRepository extends EntityRepository
             ->where($queryBuilder->expr()->eq('i.project', ':project'))
             ->andWhere($whereSql)
             ->setParameters($parameters);
-        if ($count !== 'uncountable') {
+        if ($count !== 0) {
             $queryBuilder
                 ->setMaxResults($count)
                 ->setFirstResult($count * $page);

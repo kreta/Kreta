@@ -22,8 +22,8 @@ use Kreta\Component\Core\Model\Interfaces\ParticipantInterface;
 use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Core\Model\Interfaces\UserInterface;
 use Kreta\Component\Core\Repository\ProjectRepository;
-use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
+use spec\Kreta\Bundle\Api\ApiCoreBundle\Controller\Abstracts\AbstractRestControllerSpec;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -40,7 +40,7 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
  *
  * @package spec\Kreta\Bundle\Api\ApiCoreBundle\Controller
  */
-class ProjectControllerSpec extends ObjectBehavior
+class ProjectControllerSpec extends AbstractRestControllerSpec
 {
     function let(ContainerInterface $container)
     {
@@ -64,13 +64,10 @@ class ProjectControllerSpec extends ObjectBehavior
         ParamFetcher $paramFetcher
     )
     {
-        $container->has('security.context')->shouldBeCalled()->willReturn(true);
-        $container->get('security.context')->shouldBeCalled()->willReturn($securityContext);
-        $securityContext->getToken()->shouldBeCalled()->willReturn($token);
-        $token->getUser()->shouldBeCalled()->willReturn(null);
+        $this->getCurrentUser($container, $securityContext, $token);
 
         $this->shouldThrow(new AccessDeniedException('Not allowed to access this resource'))
-            ->during('getProjectsAction', array($paramFetcher));
+            ->during('getProjectsAction', [$paramFetcher]);
     }
 
     function it_gets_projects(
@@ -94,7 +91,7 @@ class ProjectControllerSpec extends ObjectBehavior
         $paramFetcher->get('order')->shouldBeCalled()->willReturn('name');
         $paramFetcher->get('count')->shouldBeCalled()->willReturn(10);
         $paramFetcher->get('page')->shouldBeCalled()->willReturn(1);
-        $projectRepository->findByParticipant($user, 'name', 10, 1)->shouldBeCalled()->willReturn(array());
+        $projectRepository->findByParticipant($user, 'name', 10, 1)->shouldBeCalled()->willReturn([]);
 
         $container->get('fos_rest.view_handler')->shouldBeCalled()->willReturn($viewHandler);
         $viewHandler->handle(Argument::type('FOS\RestBundle\View\View'))->shouldBeCalled()->willReturn($response);
@@ -107,11 +104,10 @@ class ProjectControllerSpec extends ObjectBehavior
         ProjectRepository $projectRepository
     )
     {
-        $container->get('kreta_core.repository_project')->shouldBeCalled()->willReturn($projectRepository);
-        $projectRepository->findOneById('project-id')->shouldBeCalled()->willReturn(null);
+        $this->getProjectIfExist($container, $projectRepository);
 
         $this->shouldThrow(new NotFoundHttpException('Does not exist any entity with project-id id'))
-            ->during('getProjectAction', array('project-id'));
+            ->during('getProjectAction', ['project-id']);
     }
 
     function it_does_not_get_project_because_the_user_has_not_the_required_grant(
@@ -121,13 +117,10 @@ class ProjectControllerSpec extends ObjectBehavior
         SecurityContextInterface $securityContext
     )
     {
-        $container->get('kreta_core.repository_project')->shouldBeCalled()->willReturn($projectRepository);
-        $projectRepository->findOneById('project-id')->shouldBeCalled()->willReturn($project);
-        $container->get('security.context')->shouldBeCalled()->willReturn($securityContext);
-        $securityContext->isGranted('view', $project)->shouldBeCalled()->willReturn(false);
+        $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext, 'view', false);
 
         $this->shouldThrow(new AccessDeniedException('Not allowed to access this resource'))
-            ->during('getProjectAction', array('project-id'));
+            ->during('getProjectAction', ['project-id']);
     }
 
     function it_gets_project(
@@ -139,10 +132,7 @@ class ProjectControllerSpec extends ObjectBehavior
         Response $response
     )
     {
-        $container->get('kreta_core.repository_project')->shouldBeCalled()->willReturn($projectRepository);
-        $projectRepository->findOneById('project-id')->shouldBeCalled()->willReturn($project);
-        $container->get('security.context')->shouldBeCalled()->willReturn($securityContext);
-        $securityContext->isGranted('view', $project)->shouldBeCalled()->willReturn(true);
+        $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext);
 
         $container->get('fos_rest.view_handler')->shouldBeCalled()->willReturn($viewHandler);
         $viewHandler->handle(Argument::type('FOS\RestBundle\View\View'))->shouldBeCalled()->willReturn($response);
@@ -171,28 +161,25 @@ class ProjectControllerSpec extends ObjectBehavior
         $container->get('kreta_core.factory_project')->shouldBeCalled()->willReturn($projectFactory);
         $projectFactory->create()->shouldBeCalled()->willReturn($project);
 
-        $container->has('security.context')->shouldBeCalled()->willReturn(true);
-        $container->get('security.context')->shouldBeCalled()->willReturn($securityContext);
-        $securityContext->getToken()->shouldBeCalled()->willReturn($token);
-        $token->getUser()->shouldBeCalled()->willReturn($user);
+        $this->getCurrentUser($container, $securityContext, $token, $user);
+
         $container->get('kreta_core.factory_participant')->shouldBeCalled()->willReturn($participantFactory);
         $participantFactory->create($project, $user, 'ROLE_ADMIN')->shouldBeCalled()->willReturn($participant);
 
         $project->addParticipant($participant)->shouldBeCalled()->willReturn($project);
 
-
-        $container->get('request')->shouldBeCalled()->willReturn($request);
-        $container->get('form.factory')->shouldBeCalled()->willReturn($formFactory);
-        $request->getMethod()->shouldBeCalled()->willReturn('POST');
-        $formFactory->create(new ProjectType(), $project, array('csrf_protection' => false, 'method' => 'POST'))
-            ->shouldBeCalled()->willReturn($form);
-        $form->handleRequest($request)->shouldBeCalled()->willReturn($form);
-        $form->isValid()->shouldBeCalled()->willReturn(true);
-        $container->has('doctrine')->shouldBeCalled()->willReturn(true);
-        $container->get('doctrine')->shouldBeCalled()->willReturn($registry);
-        $registry->getManager()->shouldBeCalled()->willReturn($manager);
-        $manager->persist($project)->shouldBeCalled();
-        $manager->flush()->shouldBeCalled();
+        $this->processForm(
+            $container,
+            $request,
+            $formFactory,
+            $form,
+            $registry,
+            $manager,
+            $viewHandler,
+            $response,
+            new ProjectType(),
+            $project
+        );
 
         $container->get('fos_rest.view_handler')->shouldBeCalled()->willReturn($viewHandler);
         $viewHandler->handle(Argument::type('FOS\RestBundle\View\View'))->shouldBeCalled()->willReturn($response);
@@ -222,32 +209,26 @@ class ProjectControllerSpec extends ObjectBehavior
         $container->get('kreta_core.factory_project')->shouldBeCalled()->willReturn($projectFactory);
         $projectFactory->create()->shouldBeCalled()->willReturn($project);
 
-        $container->has('security.context')->shouldBeCalled()->willReturn(true);
-        $container->get('security.context')->shouldBeCalled()->willReturn($securityContext);
-        $securityContext->getToken()->shouldBeCalled()->willReturn($token);
-        $token->getUser()->shouldBeCalled()->willReturn($user);
+        $this->getCurrentUser($container, $securityContext, $token, $user);
+
         $container->get('kreta_core.factory_participant')->shouldBeCalled()->willReturn($participantFactory);
         $participantFactory->create($project, $user, 'ROLE_ADMIN')->shouldBeCalled()->willReturn($participant);
 
         $project->addParticipant($participant)->shouldBeCalled()->willReturn($project);
 
-
-        $container->get('request')->shouldBeCalled()->willReturn($request);
-        $container->get('form.factory')->shouldBeCalled()->willReturn($formFactory);
-        $request->getMethod()->shouldBeCalled()->willReturn('POST');
-        $formFactory->create(new ProjectType(), $project, array('csrf_protection' => false, 'method' => 'POST'))
-            ->shouldBeCalled()->willReturn($form);
-        $form->handleRequest($request)->shouldBeCalled()->willReturn($form);
-        $form->isValid()->shouldBeCalled()->willReturn(false);
-        $form->getErrors()->shouldBeCalled()->willReturn(array($error));
-        $error->getMessage()->shouldBeCalled()->willReturn('error message');
-        $form->all()->shouldBeCalled()->willReturn(array($formChild));
-        $formChild->isValid()->shouldBeCalled()->willReturn(false);
-        $formChild->getName()->shouldBeCalled()->willReturn('form child name');
-        $formChild->getErrors()->shouldBeCalled()->willReturn(array($error));
-        $error->getMessage()->shouldBeCalled()->willReturn('error message');
-        $formChild->all()->shouldBeCalled()->willReturn(array($formGrandChild));
-        $formGrandChild->isValid()->shouldBeCalled()->willReturn(true);
+        $this->getFormErrors(
+            $container,
+            $request,
+            $formFactory,
+            $form,
+            $error,
+            $formChild,
+            $formGrandChild,
+            $viewHandler,
+            $response,
+            new ProjectType(),
+            $project
+        );
 
         $container->get('fos_rest.view_handler')->shouldBeCalled()->willReturn($viewHandler);
         $viewHandler->handle(Argument::type('FOS\RestBundle\View\View'))->shouldBeCalled()->willReturn($response);
@@ -269,23 +250,21 @@ class ProjectControllerSpec extends ObjectBehavior
         Response $response
     )
     {
-        $container->get('kreta_core.repository_project')->shouldBeCalled()->willReturn($projectRepository);
-        $projectRepository->findOneById('project-id')->shouldBeCalled()->willReturn($project);
-        $container->get('security.context')->shouldBeCalled()->willReturn($securityContext);
-        $securityContext->isGranted('edit', $project)->shouldBeCalled()->willReturn(true);
+        $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext, 'edit');
 
-        $container->get('request')->shouldBeCalled()->willReturn($request);
-        $container->get('form.factory')->shouldBeCalled()->willReturn($formFactory);
-        $request->getMethod()->shouldBeCalled()->willReturn('PUT');
-        $formFactory->create(new ProjectType(), $project, array('csrf_protection' => false, 'method' => 'PUT'))
-            ->shouldBeCalled()->willReturn($form);
-        $form->handleRequest($request)->shouldBeCalled()->willReturn($form);
-        $form->isValid()->shouldBeCalled()->willReturn(true);
-        $container->has('doctrine')->shouldBeCalled()->willReturn(true);
-        $container->get('doctrine')->shouldBeCalled()->willReturn($registry);
-        $registry->getManager()->shouldBeCalled()->willReturn($manager);
-        $manager->persist($project)->shouldBeCalled();
-        $manager->flush()->shouldBeCalled();
+        $this->processForm(
+            $container,
+            $request,
+            $formFactory,
+            $form,
+            $registry,
+            $manager,
+            $viewHandler,
+            $response,
+            new ProjectType(),
+            $project,
+            'PUT'
+        );
 
         $container->get('fos_rest.view_handler')->shouldBeCalled()->willReturn($viewHandler);
         $viewHandler->handle(Argument::type('FOS\RestBundle\View\View'))->shouldBeCalled()->willReturn($response);
@@ -308,27 +287,22 @@ class ProjectControllerSpec extends ObjectBehavior
         Response $response
     )
     {
-        $container->get('kreta_core.repository_project')->shouldBeCalled()->willReturn($projectRepository);
-        $projectRepository->findOneById('project-id')->shouldBeCalled()->willReturn($project);
-        $container->get('security.context')->shouldBeCalled()->willReturn($securityContext);
-        $securityContext->isGranted('edit', $project)->shouldBeCalled()->willReturn(true);
+        $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext, 'edit');
 
-        $container->get('request')->shouldBeCalled()->willReturn($request);
-        $container->get('form.factory')->shouldBeCalled()->willReturn($formFactory);
-        $request->getMethod()->shouldBeCalled()->willReturn('PUT');
-        $formFactory->create(new ProjectType(), $project, array('csrf_protection' => false, 'method' => 'PUT'))
-            ->shouldBeCalled()->willReturn($form);
-        $form->handleRequest($request)->shouldBeCalled()->willReturn($form);
-        $form->isValid()->shouldBeCalled()->willReturn(false);
-        $form->getErrors()->shouldBeCalled()->willReturn(array($error));
-        $error->getMessage()->shouldBeCalled()->willReturn('error message');
-        $form->all()->shouldBeCalled()->willReturn(array($formChild));
-        $formChild->isValid()->shouldBeCalled()->willReturn(false);
-        $formChild->getName()->shouldBeCalled()->willReturn('form child name');
-        $formChild->getErrors()->shouldBeCalled()->willReturn(array($error));
-        $error->getMessage()->shouldBeCalled()->willReturn('error message');
-        $formChild->all()->shouldBeCalled()->willReturn(array($formGrandChild));
-        $formGrandChild->isValid()->shouldBeCalled()->willReturn(true);
+        $this->getFormErrors(
+            $container,
+            $request,
+            $formFactory,
+            $form,
+            $error,
+            $formChild,
+            $formGrandChild,
+            $viewHandler,
+            $response,
+            new ProjectType(),
+            $project,
+            'PUT'
+        );
 
         $container->get('fos_rest.view_handler')->shouldBeCalled()->willReturn($viewHandler);
         $viewHandler->handle(Argument::type('FOS\RestBundle\View\View'))->shouldBeCalled()->willReturn($response);

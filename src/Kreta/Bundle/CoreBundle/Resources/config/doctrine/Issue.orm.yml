@@ -77,7 +77,6 @@ Kreta\Component\Core\Model\Issue:
             nullable: true
         status:
             targetEntity: Kreta\Component\Core\Model\Interfaces\StatusInterface
-            onDelete: CASCADE
 
     oneToMany:
         comments:

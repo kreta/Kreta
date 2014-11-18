@@ -44,7 +44,7 @@ class ProjectRepository extends EntityRepository
      *
      * @return \Kreta\Component\Core\Model\Interfaces\ProjectInterface[]
      */
-    public function findByParticipant(UserInterface $participant, $order = 'name', $count = 0, $page = 0)
+    public function findByParticipant(UserInterface $participant, $order = 'name', $count = 10, $page = 0)
     {
         $order = 'p.' . $order;
 

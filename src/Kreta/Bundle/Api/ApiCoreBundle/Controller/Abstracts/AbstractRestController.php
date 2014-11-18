@@ -30,12 +30,19 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 abstract class AbstractRestController extends FOSRestController
 {
     /**
+     * Abstract method that gets the entity repository class.
+     *
+     * @return \Doctrine\ORM\EntityRepository;
+     */
+    protected abstract function getRepository();
+
+    /**
      * Checks if user is authenticated returning this, otherwise throws an exception.
      *
      * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
      * @return \Kreta\Component\Core\Model\Interfaces\UserInterface
      */
-    public function getCurrentUser()
+    protected function getCurrentUser()
     {
         if (!$this->getUser() instanceof UserInterface) {
             throw new AccessDeniedException('Not allowed to access this resource');
@@ -205,11 +212,4 @@ abstract class AbstractRestController extends FOSRestController
 
         return $project;
     }
-
-    /**
-     * Abstract method that gets the entity repository class.
-     *
-     * @return \Doctrine\ORM\EntityRepository;
-     */
-    protected abstract function getRepository();
 }

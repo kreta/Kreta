@@ -186,7 +186,7 @@ class StatusController extends AbstractRestController
      *    }
      *  },
      *  statusCodes = {
-     *      204 = "Successfully removed",
+     *      204 = "",
      *      403 = "Not allowed to access this resource",
      *      404 = {
      *          "Does not exist any project with <$id> id",
@@ -202,7 +202,7 @@ class StatusController extends AbstractRestController
         $status = $this->getStatusIfAllowed($projectId, $id, 'manage_status');
         $this->getRepository()->delete($status);
 
-        return $this->createResponse('The status is successfully removed', null, 204);
+        return $this->createResponse('', null, 204);
     }
 
     /**

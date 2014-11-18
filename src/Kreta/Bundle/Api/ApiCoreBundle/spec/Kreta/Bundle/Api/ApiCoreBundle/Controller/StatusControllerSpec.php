@@ -20,8 +20,8 @@ use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Core\Model\Interfaces\StatusInterface;
 use Kreta\Component\Core\Repository\ProjectRepository;
 use Kreta\Component\Core\Repository\StatusRepository;
-use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
+use spec\Kreta\Bundle\Api\ApiCoreBundle\Controller\Abstracts\AbstractRestControllerSpec;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -38,7 +38,7 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
  *
  * @package spec\Kreta\Bundle\Api\ApiCoreBundle\Controller
  */
-class StatusControllerSpec extends ObjectBehavior
+class StatusControllerSpec extends AbstractRestControllerSpec
 {
     function let(ContainerInterface $container)
     {
@@ -60,11 +60,10 @@ class StatusControllerSpec extends ObjectBehavior
         ProjectRepository $projectRepository
     )
     {
-        $container->get('kreta_core.repository_project')->shouldBeCalled()->willReturn($projectRepository);
-        $projectRepository->findOneById('project-id')->shouldBeCalled()->willReturn(null);
+        $this->getProjectIfExist($container, $projectRepository);
 
         $this->shouldThrow(new NotFoundHttpException('Does not exist any entity with project-id id'))
-            ->during('getStatusesAction', array('project-id'));
+            ->during('getStatusesAction', ['project-id']);
     }
 
     function it_does_not_get_statuses_because_the_user_has_not_the_required_grant(
@@ -74,13 +73,10 @@ class StatusControllerSpec extends ObjectBehavior
         SecurityContextInterface $securityContext
     )
     {
-        $container->get('kreta_core.repository_project')->shouldBeCalled()->willReturn($projectRepository);
-        $projectRepository->findOneById('project-id')->shouldBeCalled()->willReturn($project);
-        $container->get('security.context')->shouldBeCalled()->willReturn($securityContext);
-        $securityContext->isGranted('view', $project)->shouldBeCalled()->willReturn(false);
+        $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext, 'view', false);
 
         $this->shouldThrow(new AccessDeniedException('Not allowed to access this resource'))
-            ->during('getStatusesAction', array('project-id'));
+            ->during('getStatusesAction', ['project-id']);
     }
 
     function it_gets_statuses(
@@ -92,10 +88,7 @@ class StatusControllerSpec extends ObjectBehavior
         Response $response
     )
     {
-        $container->get('kreta_core.repository_project')->shouldBeCalled()->willReturn($projectRepository);
-        $projectRepository->findOneById('project-id')->shouldBeCalled()->willReturn($project);
-        $container->get('security.context')->shouldBeCalled()->willReturn($securityContext);
-        $securityContext->isGranted('view', $project)->shouldBeCalled()->willReturn(true);
+        $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext);
 
         $container->get('fos_rest.view_handler')->shouldBeCalled()->willReturn($viewHandler);
         $viewHandler->handle(Argument::type('FOS\RestBundle\View\View'))->shouldBeCalled()->willReturn($response);
@@ -108,11 +101,10 @@ class StatusControllerSpec extends ObjectBehavior
         ProjectRepository $projectRepository
     )
     {
-        $container->get('kreta_core.repository_project')->shouldBeCalled()->willReturn($projectRepository);
-        $projectRepository->findOneById('project-id')->shouldBeCalled()->willReturn(null);
+        $this->getProjectIfExist($container, $projectRepository);
 
         $this->shouldThrow(new NotFoundHttpException('Does not exist any entity with project-id id'))
-            ->during('getStatusAction', array('project-id', 'status-id'));
+            ->during('getStatusAction', ['project-id', 'status-id']);
     }
 
     function it_does_not_get_status_because_the_user_has_not_the_required_grant(
@@ -122,13 +114,10 @@ class StatusControllerSpec extends ObjectBehavior
         SecurityContextInterface $securityContext
     )
     {
-        $container->get('kreta_core.repository_project')->shouldBeCalled()->willReturn($projectRepository);
-        $projectRepository->findOneById('project-id')->shouldBeCalled()->willReturn($project);
-        $container->get('security.context')->shouldBeCalled()->willReturn($securityContext);
-        $securityContext->isGranted('view', $project)->shouldBeCalled()->willReturn(false);
+        $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext, 'view', false);
 
         $this->shouldThrow(new AccessDeniedException('Not allowed to access this resource'))
-            ->during('getStatusAction', array('project-id', 'status-id'));
+            ->during('getStatusAction', ['project-id', 'status-id']);
     }
 
     function it_does_not_get_status_because_the_status_does_not_exist(
@@ -139,16 +128,10 @@ class StatusControllerSpec extends ObjectBehavior
         StatusRepository $statusRepository
     )
     {
-        $container->get('kreta_core.repository_project')->shouldBeCalled()->willReturn($projectRepository);
-        $projectRepository->findOneById('project-id')->shouldBeCalled()->willReturn($project);
-        $container->get('security.context')->shouldBeCalled()->willReturn($securityContext);
-        $securityContext->isGranted('view', $project)->shouldBeCalled()->willReturn(true);
-
-        $container->get('kreta_core.repository_status')->shouldBeCalled()->willReturn($statusRepository);
-        $statusRepository->findOneById('status-id')->shouldBeCalled()->willReturn(null);
+        $this->getStatusIfAllowed($container, $projectRepository, $project, $securityContext, $statusRepository);
 
         $this->shouldThrow(new NotFoundHttpException('Does not exist any entity with status-id id'))
-            ->during('getStatusAction', array('project-id', 'status-id'));
+            ->during('getStatusAction', ['project-id', 'status-id']);
     }
 
     function it_gets_status(
@@ -162,13 +145,14 @@ class StatusControllerSpec extends ObjectBehavior
         Response $response
     )
     {
-        $container->get('kreta_core.repository_project')->shouldBeCalled()->willReturn($projectRepository);
-        $projectRepository->findOneById('project-id')->shouldBeCalled()->willReturn($project);
-        $container->get('security.context')->shouldBeCalled()->willReturn($securityContext);
-        $securityContext->isGranted('view', $project)->shouldBeCalled()->willReturn(true);
-
-        $container->get('kreta_core.repository_status')->shouldBeCalled()->willReturn($statusRepository);
-        $statusRepository->findOneById('status-id')->shouldBeCalled()->willReturn($status);
+        $this->getStatusIfAllowed(
+            $container,
+            $projectRepository,
+            $project,
+            $securityContext,
+            $statusRepository,
+            $status
+        );
 
         $container->get('fos_rest.view_handler')->shouldBeCalled()->willReturn($viewHandler);
         $viewHandler->handle(Argument::type('FOS\RestBundle\View\View'))->shouldBeCalled()->willReturn($response);
@@ -176,15 +160,13 @@ class StatusControllerSpec extends ObjectBehavior
         $this->getStatusAction('project-id', 'status-id')->shouldReturn($response);
     }
 
-    function it_does_not_post_status_because_the_name_is_blank(
-        ContainerInterface $container,
-        Request $request
-    )
+    function it_does_not_post_status_because_the_name_is_blank(ContainerInterface $container, Request $request)
     {
         $container->get('request')->shouldBeCalled()->willReturn($request);
         $request->get('name')->shouldBeCalled()->willReturn('');
+
         $this->shouldThrow(new BadRequestHttpException('Name should not be blank'))
-            ->during('postStatusesAction', array('project-id'));
+            ->during('postStatusesAction', ['project-id']);
     }
 
     function it_does_not_post_status_because_the_project_does_not_exist(
@@ -201,11 +183,10 @@ class StatusControllerSpec extends ObjectBehavior
         $container->get('kreta_core.factory_status')->shouldBeCalled()->willReturn($statusFactory);
         $statusFactory->create('status-name')->shouldBeCalled()->willReturn($status);
 
-        $container->get('kreta_core.repository_project')->shouldBeCalled()->willReturn($projectRepository);
-        $projectRepository->findOneById('project-id')->shouldBeCalled()->willReturn(null);
+        $this->getProjectIfExist($container, $projectRepository);
 
         $this->shouldThrow(new NotFoundHttpException('Does not exist any entity with project-id id'))
-            ->during('postStatusesAction', array('project-id'));
+            ->during('postStatusesAction', ['project-id']);
     }
 
     function it_does_not_post_status_because_the_user_has_not_the_required_grant(
@@ -224,14 +205,10 @@ class StatusControllerSpec extends ObjectBehavior
         $container->get('kreta_core.factory_status')->shouldBeCalled()->willReturn($statusFactory);
         $statusFactory->create('status-name')->shouldBeCalled()->willReturn($status);
 
-        $container->get('kreta_core.repository_project')->shouldBeCalled()->willReturn($projectRepository);
-        $projectRepository->findOneById('project-id')->shouldBeCalled()->willReturn($project);
-
-        $container->get('security.context')->shouldBeCalled()->willReturn($securityContext);
-        $securityContext->isGranted('manage_status', $project)->shouldBeCalled()->willReturn(false);
+        $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext, 'manage_status', false);
 
         $this->shouldThrow(new AccessDeniedException('Not allowed to access this resource'))
-            ->during('postStatusesAction', array('project-id'));
+            ->during('postStatusesAction', ['project-id']);
     }
 
     function it_posts_status(
@@ -256,26 +233,22 @@ class StatusControllerSpec extends ObjectBehavior
         $container->get('kreta_core.factory_status')->shouldBeCalled()->willReturn($statusFactory);
         $statusFactory->create('status-name')->shouldBeCalled()->willReturn($status);
 
-        $container->get('kreta_core.repository_project')->shouldBeCalled()->willReturn($projectRepository);
-        $projectRepository->findOneById('project-id')->shouldBeCalled()->willReturn($project);
-
-        $container->get('security.context')->shouldBeCalled()->willReturn($securityContext);
-        $securityContext->isGranted('manage_status', $project)->shouldBeCalled()->willReturn(true);
+        $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext, 'manage_status');
 
         $status->setProject($project)->shouldBeCalled()->willReturn($status);
 
-        $container->get('request')->shouldBeCalled()->willReturn($request);
-        $container->get('form.factory')->shouldBeCalled()->willReturn($formFactory);
-        $request->getMethod()->shouldBeCalled()->willReturn('POST');
-        $formFactory->create(new StatusType(), $status, array('csrf_protection' => false, 'method' => 'POST'))
-            ->shouldBeCalled()->willReturn($form);
-        $form->handleRequest($request)->shouldBeCalled()->willReturn($form);
-        $form->isValid()->shouldBeCalled()->willReturn(true);
-        $container->has('doctrine')->shouldBeCalled()->willReturn(true);
-        $container->get('doctrine')->shouldBeCalled()->willReturn($registry);
-        $registry->getManager()->shouldBeCalled()->willReturn($manager);
-        $manager->persist($status)->shouldBeCalled();
-        $manager->flush()->shouldBeCalled();
+        $this->processForm(
+            $container,
+            $request,
+            $formFactory,
+            $form,
+            $registry,
+            $manager,
+            $viewHandler,
+            $response,
+            new StatusType(),
+            $status
+        );
 
         $container->get('fos_rest.view_handler')->shouldBeCalled()->willReturn($viewHandler);
         $viewHandler->handle(Argument::type('FOS\RestBundle\View\View'))->shouldBeCalled()->willReturn($response);
@@ -306,30 +279,23 @@ class StatusControllerSpec extends ObjectBehavior
         $container->get('kreta_core.factory_status')->shouldBeCalled()->willReturn($statusFactory);
         $statusFactory->create('status-name')->shouldBeCalled()->willReturn($status);
 
-        $container->get('kreta_core.repository_project')->shouldBeCalled()->willReturn($projectRepository);
-        $projectRepository->findOneById('project-id')->shouldBeCalled()->willReturn($project);
-
-        $container->get('security.context')->shouldBeCalled()->willReturn($securityContext);
-        $securityContext->isGranted('manage_status', $project)->shouldBeCalled()->willReturn(true);
+        $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext, 'manage_status');
 
         $status->setProject($project)->shouldBeCalled()->willReturn($status);
 
-        $container->get('request')->shouldBeCalled()->willReturn($request);
-        $container->get('form.factory')->shouldBeCalled()->willReturn($formFactory);
-        $request->getMethod()->shouldBeCalled()->willReturn('POST');
-        $formFactory->create(new StatusType(), $status, array('csrf_protection' => false, 'method' => 'POST'))
-            ->shouldBeCalled()->willReturn($form);
-        $form->handleRequest($request)->shouldBeCalled()->willReturn($form);
-        $form->isValid()->shouldBeCalled()->willReturn(false);
-        $form->getErrors()->shouldBeCalled()->willReturn(array($error));
-        $error->getMessage()->shouldBeCalled()->willReturn('error message');
-        $form->all()->shouldBeCalled()->willReturn(array($formChild));
-        $formChild->isValid()->shouldBeCalled()->willReturn(false);
-        $formChild->getName()->shouldBeCalled()->willReturn('form child name');
-        $formChild->getErrors()->shouldBeCalled()->willReturn(array($error));
-        $error->getMessage()->shouldBeCalled()->willReturn('error message');
-        $formChild->all()->shouldBeCalled()->willReturn(array($formGrandChild));
-        $formGrandChild->isValid()->shouldBeCalled()->willReturn(true);
+        $this->getFormErrors(
+            $container,
+            $request,
+            $formFactory,
+            $form,
+            $error,
+            $formChild,
+            $formGrandChild,
+            $viewHandler,
+            $response,
+            new StatusType(),
+            $status
+        );
 
         $container->get('fos_rest.view_handler')->shouldBeCalled()->willReturn($viewHandler);
         $viewHandler->handle(Argument::type('FOS\RestBundle\View\View'))->shouldBeCalled()->willReturn($response);
@@ -342,11 +308,10 @@ class StatusControllerSpec extends ObjectBehavior
         ProjectRepository $projectRepository
     )
     {
-        $container->get('kreta_core.repository_project')->shouldBeCalled()->willReturn($projectRepository);
-        $projectRepository->findOneById('project-id')->shouldBeCalled()->willReturn(null);
+        $this->getProjectIfExist($container, $projectRepository);
 
         $this->shouldThrow(new NotFoundHttpException('Does not exist any entity with project-id id'))
-            ->during('putStatusesAction', array('project-id', 'status-id'));
+            ->during('putStatusesAction', ['project-id', 'status-id']);
     }
 
     function it_does_not_put_status_because_the_user_has_not_the_required_grant(
@@ -356,14 +321,10 @@ class StatusControllerSpec extends ObjectBehavior
         SecurityContextInterface $securityContext
     )
     {
-        $container->get('kreta_core.repository_project')->shouldBeCalled()->willReturn($projectRepository);
-        $projectRepository->findOneById('project-id')->shouldBeCalled()->willReturn($project);
-
-        $container->get('security.context')->shouldBeCalled()->willReturn($securityContext);
-        $securityContext->isGranted('manage_status', $project)->shouldBeCalled()->willReturn(false);
+        $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext, 'manage_status', false);
 
         $this->shouldThrow(new AccessDeniedException('Not allowed to access this resource'))
-            ->during('putStatusesAction', array('project-id', 'status-id'));
+            ->during('putStatusesAction', ['project-id', 'status-id']);
     }
 
     function it_does_not_put_status_because_the_status_does_not_exist(
@@ -374,17 +335,18 @@ class StatusControllerSpec extends ObjectBehavior
         StatusRepository $statusRepository
     )
     {
-        $container->get('kreta_core.repository_project')->shouldBeCalled()->willReturn($projectRepository);
-        $projectRepository->findOneById('project-id')->shouldBeCalled()->willReturn($project);
-
-        $container->get('security.context')->shouldBeCalled()->willReturn($securityContext);
-        $securityContext->isGranted('manage_status', $project)->shouldBeCalled()->willReturn(true);
-
-        $container->get('kreta_core.repository_status')->shouldBeCalled()->willReturn($statusRepository);
-        $statusRepository->findOneById('status-id')->shouldBeCalled()->willReturn(null);
+        $this->getStatusIfAllowed(
+            $container,
+            $projectRepository,
+            $project,
+            $securityContext,
+            $statusRepository,
+            null,
+            'manage_status'
+        );
 
         $this->shouldThrow(new NotFoundHttpException('Does not exist any entity with status-id id'))
-            ->during('putStatusesAction', array('project-id', 'status-id'));
+            ->during('putStatusesAction', ['project-id', 'status-id']);
     }
 
     function it_puts_status(
@@ -403,27 +365,29 @@ class StatusControllerSpec extends ObjectBehavior
         Response $response
     )
     {
-        $container->get('kreta_core.repository_project')->shouldBeCalled()->willReturn($projectRepository);
-        $projectRepository->findOneById('project-id')->shouldBeCalled()->willReturn($project);
+        $this->getStatusIfAllowed(
+            $container,
+            $projectRepository,
+            $project,
+            $securityContext,
+            $statusRepository,
+            $status,
+            'manage_status'
+        );
 
-        $container->get('security.context')->shouldBeCalled()->willReturn($securityContext);
-        $securityContext->isGranted('manage_status', $project)->shouldBeCalled()->willReturn(true);
-
-        $container->get('kreta_core.repository_status')->shouldBeCalled()->willReturn($statusRepository);
-        $statusRepository->findOneById('status-id')->shouldBeCalled()->willReturn($status);
-
-        $container->get('request')->shouldBeCalled()->willReturn($request);
-        $container->get('form.factory')->shouldBeCalled()->willReturn($formFactory);
-        $request->getMethod()->shouldBeCalled()->willReturn('PUT');
-        $formFactory->create(new StatusType(), $status, array('csrf_protection' => false, 'method' => 'PUT'))
-            ->shouldBeCalled()->willReturn($form);
-        $form->handleRequest($request)->shouldBeCalled()->willReturn($form);
-        $form->isValid()->shouldBeCalled()->willReturn(true);
-        $container->has('doctrine')->shouldBeCalled()->willReturn(true);
-        $container->get('doctrine')->shouldBeCalled()->willReturn($registry);
-        $registry->getManager()->shouldBeCalled()->willReturn($manager);
-        $manager->persist($status)->shouldBeCalled();
-        $manager->flush()->shouldBeCalled();
+        $this->processForm(
+            $container,
+            $request,
+            $formFactory,
+            $form,
+            $registry,
+            $manager,
+            $viewHandler,
+            $response,
+            new StatusType(),
+            $status,
+            'PUT'
+        );
 
         $container->get('fos_rest.view_handler')->shouldBeCalled()->willReturn($viewHandler);
         $viewHandler->handle(Argument::type('FOS\RestBundle\View\View'))->shouldBeCalled()->willReturn($response);
@@ -448,31 +412,30 @@ class StatusControllerSpec extends ObjectBehavior
         Response $response
     )
     {
-        $container->get('kreta_core.repository_project')->shouldBeCalled()->willReturn($projectRepository);
-        $projectRepository->findOneById('project-id')->shouldBeCalled()->willReturn($project);
+        $this->getStatusIfAllowed(
+            $container,
+            $projectRepository,
+            $project,
+            $securityContext,
+            $statusRepository,
+            $status,
+            'manage_status'
+        );
 
-        $container->get('security.context')->shouldBeCalled()->willReturn($securityContext);
-        $securityContext->isGranted('manage_status', $project)->shouldBeCalled()->willReturn(true);
-
-        $container->get('kreta_core.repository_status')->shouldBeCalled()->willReturn($statusRepository);
-        $statusRepository->findOneById('status-id')->shouldBeCalled()->willReturn($status);
-
-        $container->get('request')->shouldBeCalled()->willReturn($request);
-        $container->get('form.factory')->shouldBeCalled()->willReturn($formFactory);
-        $request->getMethod()->shouldBeCalled()->willReturn('PUT');
-        $formFactory->create(new StatusType(), $status, array('csrf_protection' => false, 'method' => 'PUT'))
-            ->shouldBeCalled()->willReturn($form);
-        $form->handleRequest($request)->shouldBeCalled()->willReturn($form);
-        $form->isValid()->shouldBeCalled()->willReturn(false);
-        $form->getErrors()->shouldBeCalled()->willReturn(array($error));
-        $error->getMessage()->shouldBeCalled()->willReturn('error message');
-        $form->all()->shouldBeCalled()->willReturn(array($formChild));
-        $formChild->isValid()->shouldBeCalled()->willReturn(false);
-        $formChild->getName()->shouldBeCalled()->willReturn('form child name');
-        $formChild->getErrors()->shouldBeCalled()->willReturn(array($error));
-        $error->getMessage()->shouldBeCalled()->willReturn('error message');
-        $formChild->all()->shouldBeCalled()->willReturn(array($formGrandChild));
-        $formGrandChild->isValid()->shouldBeCalled()->willReturn(true);
+        $this->getFormErrors(
+            $container,
+            $request,
+            $formFactory,
+            $form,
+            $error,
+            $formChild,
+            $formGrandChild,
+            $viewHandler,
+            $response,
+            new StatusType(),
+            $status,
+            'PUT'
+        );
 
         $container->get('fos_rest.view_handler')->shouldBeCalled()->willReturn($viewHandler);
         $viewHandler->handle(Argument::type('FOS\RestBundle\View\View'))->shouldBeCalled()->willReturn($response);
@@ -485,11 +448,10 @@ class StatusControllerSpec extends ObjectBehavior
         ProjectRepository $projectRepository
     )
     {
-        $container->get('kreta_core.repository_project')->shouldBeCalled()->willReturn($projectRepository);
-        $projectRepository->findOneById('project-id')->shouldBeCalled()->willReturn(null);
+        $this->getProjectIfExist($container, $projectRepository);
 
         $this->shouldThrow(new NotFoundHttpException('Does not exist any entity with project-id id'))
-            ->during('deleteStatusesAction', array('project-id', 'status-id'));
+            ->during('deleteStatusesAction', ['project-id', 'status-id']);
     }
 
     function it_does_not_delete_status_because_the_user_has_not_the_required_grant(
@@ -499,14 +461,10 @@ class StatusControllerSpec extends ObjectBehavior
         SecurityContextInterface $securityContext
     )
     {
-        $container->get('kreta_core.repository_project')->shouldBeCalled()->willReturn($projectRepository);
-        $projectRepository->findOneById('project-id')->shouldBeCalled()->willReturn($project);
-
-        $container->get('security.context')->shouldBeCalled()->willReturn($securityContext);
-        $securityContext->isGranted('manage_status', $project)->shouldBeCalled()->willReturn(false);
+        $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext, 'manage_status', false);
 
         $this->shouldThrow(new AccessDeniedException('Not allowed to access this resource'))
-            ->during('deleteStatusesAction', array('project-id', 'status-id'));
+            ->during('deleteStatusesAction', ['project-id', 'status-id']);
     }
 
     function it_does_not_delete_status_because_the_status_does_not_exist(
@@ -517,17 +475,18 @@ class StatusControllerSpec extends ObjectBehavior
         StatusRepository $statusRepository
     )
     {
-        $container->get('kreta_core.repository_project')->shouldBeCalled()->willReturn($projectRepository);
-        $projectRepository->findOneById('project-id')->shouldBeCalled()->willReturn($project);
-
-        $container->get('security.context')->shouldBeCalled()->willReturn($securityContext);
-        $securityContext->isGranted('manage_status', $project)->shouldBeCalled()->willReturn(true);
-
-        $container->get('kreta_core.repository_status')->shouldBeCalled()->willReturn($statusRepository);
-        $statusRepository->findOneById('status-id')->shouldBeCalled()->willReturn(null);
+        $this->getStatusIfAllowed(
+            $container,
+            $projectRepository,
+            $project,
+            $securityContext,
+            $statusRepository,
+            null,
+            'manage_status'
+        );
 
         $this->shouldThrow(new NotFoundHttpException('Does not exist any entity with status-id id'))
-            ->during('deleteStatusesAction', array('project-id', 'status-id'));
+            ->during('deleteStatusesAction', ['project-id', 'status-id']);
     }
 
     function it_deletes_status(
@@ -541,14 +500,15 @@ class StatusControllerSpec extends ObjectBehavior
         Response $response
     )
     {
-        $container->get('kreta_core.repository_project')->shouldBeCalled()->willReturn($projectRepository);
-        $projectRepository->findOneById('project-id')->shouldBeCalled()->willReturn($project);
-
-        $container->get('security.context')->shouldBeCalled()->willReturn($securityContext);
-        $securityContext->isGranted('manage_status', $project)->shouldBeCalled()->willReturn(true);
-
-        $container->get('kreta_core.repository_status')->shouldBeCalled()->willReturn($statusRepository);
-        $statusRepository->findOneById('status-id')->shouldBeCalled()->willReturn($status);
+        $this->getStatusIfAllowed(
+            $container,
+            $projectRepository,
+            $project,
+            $securityContext,
+            $statusRepository,
+            $status,
+            'manage_status'
+        );
 
         $statusRepository->delete($status)->shouldBeCalled();
 

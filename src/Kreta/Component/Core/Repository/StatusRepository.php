@@ -67,7 +67,7 @@ class StatusRepository extends EntityRepository
 
         return $queryBuilder->where($queryBuilder->expr()->eq('s.id', ':id'))
             ->setParameter(':id', $id)
-            ->getQuery()->getResult();
+            ->getQuery()->getOneOrNullResult();
     }
 
     /**
@@ -87,9 +87,10 @@ class StatusRepository extends EntityRepository
     }
 
     /**
-     * Finds the status of name given.
+     * Finds the status of name and project id given.
      *
-     * @param string $name The name
+     * @param string $name      The name
+     * @param string $projectId The project id
      *
      * @return \Kreta\Component\Core\Model\Interfaces\StatusInterface
      */

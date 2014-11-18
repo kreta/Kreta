@@ -133,7 +133,7 @@ class StatusTransitionController extends AbstractRestController
      *    }
      *  },
      *  statusCodes = {
-     *      204 = "The transition is successfully removed",
+     *      204 = "",
      *      403 = "Not allowed to access this resource",
      *      404 = {
      *          "Does not exist any project with <$id> id",
@@ -158,7 +158,7 @@ class StatusTransitionController extends AbstractRestController
                 $status->removeStatusTransition($transition);
                 $this->getRepository()->save($status);
 
-                return $this->createResponse('The transition is successfully removed', null, 204);
+                return $this->createResponse('', null, 204);
             }
         }
 
