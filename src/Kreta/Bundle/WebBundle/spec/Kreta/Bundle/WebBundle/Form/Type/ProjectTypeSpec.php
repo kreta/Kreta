@@ -41,6 +41,7 @@ class ProjectTypeSpec extends ObjectBehavior
 
         $builder->add('shortName', 'text', array(
             'label' => 'Short name',
+            'attr' => array('maxlength' => 4)
         ))->shouldBeCalled()->willReturn($builder);
 
         $this->buildForm($builder, array());
