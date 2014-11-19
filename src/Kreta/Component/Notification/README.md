@@ -4,14 +4,14 @@
 [![Build Status](https://travis-ci.org/kreta-io/Notification.svg?branch=master)](https://travis-ci.org/kreta-io/Notification)
 [![Coverage Status](https://img.shields.io/coveralls/kreta-io/Notification.svg)](https://coveralls.io/r/kreta-io/Notification)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/kreta-io/Notification/badges/quality-sNotification.png?b=master)](https://scrutinizer-ci.com/g/kreta-io/Notification/?branch=master)
-[![HHVM Status](http://hhvm.h4cc.de/badge/kreta/Notification.svg)](http://hhvm.h4cc.de/package/kreta/Notification)
+[![HHVM Status](http://hhvm.h4cc.de/badge/kreta/notification.svg)](http://hhvm.h4cc.de/package/kreta/notification)
 
-[![Latest Stable Version](https://poser.pugx.org/kreta/Notification/v/stable.svg)](https://packagist.org/packages/kreta/Notification)
-[![Latest Unstable Version](https://poser.pugx.org/kreta/Notification/v/unstable.svg)](https://packagist.org/packages/kreta/Notification)
+[![Latest Stable Version](https://poser.pugx.org/kreta/notification/v/stable.svg)](https://packagist.org/packages/kreta/notification)
+[![Latest Unstable Version](https://poser.pugx.org/kreta/notification/v/unstable.svg)](https://packagist.org/packages/kreta/notification)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-[![Total Downloads](https://poser.pugx.org/kreta/Notification/downloads.svg)](https://packagist.org/packages/kreta/Notification)
-[![Monthly Downloads](https://poser.pugx.org/kreta/Notification/d/monthly.png)](https://packagist.org/packages/kreta/Notification)
-[![Daily Downloads](https://poser.pugx.org/kreta/Notification/d/daily.png)](https://packagist.org/packages/kreta/Notification)
+[![Total Downloads](https://poser.pugx.org/kreta/notification/downloads.svg)](https://packagist.org/packages/kreta/notification)
+[![Monthly Downloads](https://poser.pugx.org/kreta/notification/d/monthly.png)](https://packagist.org/packages/kreta/notification)
+[![Daily Downloads](https://poser.pugx.org/kreta/notification/d/daily.png)](https://packagist.org/packages/kreta/notification)
 
 Tests
 -----

@@ -4,14 +4,14 @@
 [![Build Status](https://travis-ci.org/kreta-io/NotificationBundle.svg?branch=master)](https://travis-ci.org/kreta-io/NotificationBundle)
 [![Coverage Status](https://img.shields.io/coveralls/kreta-io/NotificationBundle.svg)](https://coveralls.io/r/kreta-io/NotificationBundle)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/kreta-io/NotificationBundle/badges/quality-sNotificationBundle.png?b=master)](https://scrutinizer-ci.com/g/kreta-io/NotificationBundle/?branch=master)
-[![HHVM Status](http://hhvm.h4cc.de/badge/kreta/NotificationBundle.svg)](http://hhvm.h4cc.de/package/kreta/NotificationBundle)
+[![HHVM Status](http://hhvm.h4cc.de/badge/kreta/notification-bundle.svg)](http://hhvm.h4cc.de/package/kreta/notification-bundle)
 
-[![Latest Stable Version](https://poser.pugx.org/kreta/NotificationBundle/v/stable.svg)](https://packagist.org/packages/kreta/NotificationBundle)
-[![Latest Unstable Version](https://poser.pugx.org/kreta/NotificationBundle/v/unstable.svg)](https://packagist.org/packages/kreta/NotificationBundle)
+[![Latest Stable Version](https://poser.pugx.org/kreta/notification-bundle/v/stable.svg)](https://packagist.org/packages/kreta/notification-bundle)
+[![Latest Unstable Version](https://poser.pugx.org/kreta/notification-bundle/v/unstable.svg)](https://packagist.org/packages/kreta/notification-bundle)
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-[![Total Downloads](https://poser.pugx.org/kreta/NotificationBundle/downloads.svg)](https://packagist.org/packages/kreta/NotificationBundle)
-[![Monthly Downloads](https://poser.pugx.org/kreta/NotificationBundle/d/monthly.png)](https://packagist.org/packages/kreta/NotificationBundle)
-[![Daily Downloads](https://poser.pugx.org/kreta/NotificationBundle/d/daily.png)](https://packagist.org/packages/kreta/NotificationBundle)
+[![Total Downloads](https://poser.pugx.org/kreta/notification-bundle/downloads.svg)](https://packagist.org/packages/kreta/notification-bundle)
+[![Monthly Downloads](https://poser.pugx.org/kreta/notification-bundle/d/monthly.png)](https://packagist.org/packages/kreta/notification-bundle)
+[![Daily Downloads](https://poser.pugx.org/kreta/notification-bundle/d/daily.png)](https://packagist.org/packages/kreta/notification-bundle)
 
 Tests
 -----

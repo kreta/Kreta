@@ -12,7 +12,6 @@ php:
     - 5.5
     - 5.6
     - hhvm
-    - hhvm-nightly
 
 before_script:
     - composer self-update
@@ -31,4 +30,3 @@ cache:
 matrix:
     allow_failures:
         - php: hhvm
-        - php: hhvm-nightly
