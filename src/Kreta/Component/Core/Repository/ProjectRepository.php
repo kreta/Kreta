@@ -51,8 +51,8 @@ class ProjectRepository extends EntityRepository
         $queryBuilder = $this->createQueryBuilder('p');
 
         $queryBuilder
-            ->where($queryBuilder->expr()->eq('pu.user', ':participant'))
             ->leftJoin('p.participants', 'pu')
+            ->where($queryBuilder->expr()->eq('pu.user', ':participant'))
             ->setParameter(':participant', $participant->getId())
             ->orderBy($order);
 
@@ -63,23 +63,5 @@ class ProjectRepository extends EntityRepository
         }
 
         return $queryBuilder->getQuery()->getResult();
-    }
-
-    /**
-     * Finds the project of id given.
-     *
-     * @param string $id The id
-     *
-     * @return \Kreta\Component\Core\Model\Interfaces\ProjectInterface
-     */
-    public function findOneById($id)
-    {
-        $queryBuilder = $this->createQueryBuilder('p');
-
-        $queryBuilder
-            ->where($queryBuilder->expr()->eq('p.id', ':id'))
-            ->setParameter('id', $id);
-
-        return $queryBuilder->getQuery()->getOneOrNullResult();
     }
 }

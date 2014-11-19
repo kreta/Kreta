@@ -11,9 +11,12 @@
 
 namespace spec\Kreta\Component\Core\Repository;
 
+use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\ClassMetadata;
+use Doctrine\ORM\QueryBuilder;
 use PhpSpec\ObjectBehavior;
+use Prophecy\Argument;
 
 /**
  * Class ResolutionRepositorySpec.
@@ -37,12 +40,14 @@ class ResolutionRepositorySpec extends ObjectBehavior
         $this->shouldHaveType('Doctrine\ORM\EntityRepository');
     }
 
-//    function it_finds_all(EntityRepository $repository, QueryBuilder $queryBuilder, AbstractQuery $query)
-//    {
-//        $repository->createQueryBuilder('r')->shouldBeCalled()->willReturn($queryBuilder);
-//        $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
-//        $query->getResult()->shouldBeCalled()->willReturn(array());
-//
-//        $this->findAll()->shouldBeArray();
-//    }
+    function it_finds_all(EntityManager $manager, QueryBuilder $queryBuilder, AbstractQuery $query)
+    {
+        $manager->createQueryBuilder()->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->select('r')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->from(Argument::any(), 'r')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
+        $query->getResult()->shouldBeCalled()->willReturn([]);
+
+        $this->findAll()->shouldBeArray();
+    }
 }

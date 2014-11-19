@@ -55,22 +55,6 @@ class StatusRepository extends EntityRepository
     }
 
     /**
-     * Finds the status of id given.
-     *
-     * @param string $id The id
-     *
-     * @return \Kreta\Component\Core\Model\Interfaces\StatusInterface
-     */
-    public function findOneById($id)
-    {
-        $queryBuilder = $this->createQueryBuilder('s');
-
-        return $queryBuilder->where($queryBuilder->expr()->eq('s.id', ':id'))
-            ->setParameter(':id', $id)
-            ->getQuery()->getOneOrNullResult();
-    }
-
-    /**
      * Finds all the status of project given.
      *
      * @param \Kreta\Component\Core\Model\Interfaces\ProjectInterface $project The project
@@ -81,7 +65,8 @@ class StatusRepository extends EntityRepository
     {
         $queryBuilder = $this->createQueryBuilder('s');
 
-        return $queryBuilder->where($queryBuilder->expr()->eq('s.project', ':project'))
+        return $queryBuilder
+            ->where($queryBuilder->expr()->eq('s.project', ':project'))
             ->setParameter(':project', $project->getId())
             ->getQuery()->getResult();
     }

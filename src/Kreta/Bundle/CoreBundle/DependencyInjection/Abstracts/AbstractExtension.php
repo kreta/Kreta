@@ -33,7 +33,7 @@ class AbstractExtension extends Extension
      */
     protected function getConfigFiles($config)
     {
-        return array('services', 'factories');
+        return array('services', 'factories', 'parameters', 'repositories');
     }
 
     /**
