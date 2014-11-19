@@ -1,7 +1,7 @@
 {
     "name": "kreta/core-bundle",
     "description": "Kreta core bundle",
-    "keywords": ["project-manager", "development-tool", "core", "bundle"],
+    "keywords": ["project", "manager", "development", "tool", "core", "bundle"],
     "homepage": "http://kreta.io",
     "license": "MIT",
     "type": "symfony-bundle",

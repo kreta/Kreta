@@ -1,7 +1,7 @@
 {
     "name": "kreta/web-bundle",
     "description": "Kreta web bundle",
-    "keywords": ["project-manager", "development-tool", "web", "bundle"],
+    "keywords": ["project", "manager", "development", "tool", "web", "bundle"],
     "homepage": "http://kreta.io",
     "license": "MIT",
     "type": "symfony-bundle",

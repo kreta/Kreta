@@ -1,7 +1,7 @@
 {
     "name": "kreta/fixtures-bundle",
     "description": "Kreta fixtures bundle",
-    "keywords": ["project-manager", "development-tool", "fixtures", "bundle"],
+    "keywords": ["project", "manager", "development", "tool", "fixtures", "bundle"],
     "homepage": "http://kreta.io",
     "license": "MIT",
     "type": "symfony-bundle",

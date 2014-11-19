@@ -1,7 +1,7 @@
 {
     "name": "kreta/core",
     "description": "Kreta core component",
-    "keywords": ["project-manager", "development-tool", "core", "component"],
+    "keywords": ["project", "manager", "development", "tool", "core", "component"],
     "homepage": "http://kreta.io",
     "license": "MIT",
     "type": "library",
