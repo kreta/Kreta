@@ -60,7 +60,8 @@ class IssueTypeSpec extends ObjectBehavior
             'label' => 'Priority'
         ))->shouldBeCalled()->willReturn($builder);
 
-        $builder->add('assignee', null, array(
+        $builder->add('assignee', 'entity', array(
+            'class' => 'Kreta\Component\Core\Model\User',
             'label' => 'Assignee',
             'empty_value' => null,
             'choices' => array(),

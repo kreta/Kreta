@@ -1,0 +1,16 @@
+# This file belongs to Kreta.
+# The source code of application includes a LICENSE file
+# with all information about license.
+#
+# @author benatespina <benatespina@gmail.com>
+# @author gorkalaucirica <gorka.lauzirika@gmail.com>
+
+kreta_api_core:
+    type: rest
+    resource: '@KretaApiCoreBundle/Resources/config/routing.yml'
+    prefix: /
+
+# Third party libraries/bundles
+api_doc:
+    resource: '@NelmioApiDocBundle/Resources/config/routing.yml'
+    prefix: /doc

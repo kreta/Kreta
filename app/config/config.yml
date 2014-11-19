@@ -65,6 +65,20 @@ swiftmailer:
     password:   %mailer_password%
     spool:      { type: memory }
 
+bazinga_hateoas:
+    metadata:
+        cache: file
+        file_cache:
+            dir: %kernel.cache_dir%/hateoas
+
+fos_rest:
+    routing_loader:
+        include_format: false
+        default_format: json
+    param_fetcher_listener: true
+    body_listener:
+        array_normalizer: fos_rest.normalizer.camel_keys
+
 fos_user:
     db_driver: orm
     firewall_name: main
@@ -88,3 +102,27 @@ hwi_oauth:
             type: bitbucket
             client_id: %oauth.bitbucket.client_id%
             client_secret: %oauth.bitbucket.client_secret%
+
+jms_serializer:
+    metadata:
+        directories:
+            kreta-core:
+                namespace_prefix: "Kreta\\Component\\Core"
+                path: "@KretaApiCoreBundle/Resources/config/serializer"
+            FOSUserBundle:
+                namespace_prefix: "FOS\\UserBundle"
+                path: "@KretaApiCoreBundle/Resources/FOSUserBundle/serializer"
+
+nelmio_api_doc: ~
+
+nelmio_cors:
+    paths:
+        '^/':
+            allow_origin: ['*']
+            allow_headers: ['X-Custom-Auth']
+            allow_methods: ['POST', 'PUT', 'DELETE']
+            max_age: 3600
+
+sensio_framework_extra:
+    view:
+        annotations: false

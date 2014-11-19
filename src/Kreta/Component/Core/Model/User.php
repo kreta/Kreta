@@ -119,6 +119,16 @@ class User extends BaseUser implements UserInterface
     /**
      * {@inheritdoc}
      */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getAssignedIssues()
     {
         return $this->assignedIssues;

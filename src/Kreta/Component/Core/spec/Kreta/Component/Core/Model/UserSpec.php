@@ -45,7 +45,13 @@ class UserSpec extends ObjectBehavior
         $this->getProjects()->shouldHaveType('Doctrine\Common\Collections\ArrayCollection');
         $this->getReportedIssues()->shouldHaveType('Doctrine\Common\Collections\ArrayCollection');
     }
-    
+
+    function its_id_is_mutable()
+    {
+        $this->setId('the-id')->shouldReturn($this);
+        $this->getId()->shouldReturn('the-id');
+    }
+
     function its_created_at_is_a_datetime()
     {
         $this->getCreatedAt()->shouldHaveType('DateTime');

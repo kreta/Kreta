@@ -53,6 +53,15 @@ interface UserInterface extends BaseUserInterface
     public function getId();
 
     /**
+     * Sets id.
+     *
+     * @param string $id The id
+     *
+     * @return self Object $this
+     */
+    public function setId($id);
+
+    /**
      * Gets Bitbucket access token.
      *
      * @return string

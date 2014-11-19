@@ -58,7 +58,8 @@ class IssueType extends AbstractType
             ->add('priority', new PriorityType(), array(
                 'label' => 'Priority'
             ))
-            ->add('assignee', null, array(
+            ->add('assignee', 'entity', array(
+                'class' => 'Kreta\Component\Core\Model\User',
                 'label' => 'Assignee',
                 'empty_value' => null,
                 'choices' => $this->users,

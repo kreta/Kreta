@@ -6,20 +6,24 @@
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
 kreta_web:
-    resource: "@KretaWebBundle/Resources/config/routing.yml"
-    prefix:   /
+    resource: '@KretaWebBundle/Resources/config/routing.yml'
+    prefix: /
 
+api:
+    resource: routing_api.yml
+    prefix: /api
+
+# Third party libraries/bundles
 fos_user:
-    resource: "@FOSUserBundle/Resources/config/routing/all.xml"
+    resource: '@FOSUserBundle/Resources/config/routing/all.xml'
 
-# OAuth login
 hwi_oauth_login:
-    resource: "@HWIOAuthBundle/Resources/config/routing/login.xml"
-    prefix:   /oauth-login
+    resource: '@HWIOAuthBundle/Resources/config/routing/login.xml'
+    prefix: /oauth-login
 
 hwi_oauth_redirect:
-    resource: "@HWIOAuthBundle/Resources/config/routing/redirect.xml"
-    prefix:   /oauth-connect
+    resource: '@HWIOAuthBundle/Resources/config/routing/redirect.xml'
+    prefix: /oauth-connect
 
 kreta_user_bitbucket_login:
     pattern: /oauth-login/check-bitbucket

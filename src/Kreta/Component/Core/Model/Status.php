@@ -112,10 +112,13 @@ class Status extends State implements StatusInterface
      */
     public function removeStatusTransition(StatusInterface $transition)
     {
-        $key = array_search($transition, $this->transitions, true);
-
-        if ($key !== false) {
-            unset($this->transitions[$key]);
+        $i = 0;
+        foreach ($this->transitions as $element) {
+            if ($element->getId() === $transition->getId()) {
+                unset($this->transitions[$i]);
+                break;
+            }
+            $i++;
         }
 
         return $this;

@@ -62,7 +62,13 @@ class LoadIssueData extends DataFixtures
             $issue->setReporter($participants[array_rand($participants)]->getUser());
             $status = $statuses[array_rand($statuses)];
             $issue->setStatus($status);
-            $types = array($status::TYPE_INITIAL, $status::TYPE_NORMAL, $status::TYPE_FINAL);
+            $types = array(
+                $issue::TYPE_BUG,
+                $issue::TYPE_NEW_FEATURE,
+                $issue::TYPE_IMPROVEMENT,
+                $issue::TYPE_EPIC,
+                $issue::TYPE_STORY
+            );
             $issue->setType($types[array_rand($types)]);
             $issue->setTitle('Issue - ' . $i);
 
