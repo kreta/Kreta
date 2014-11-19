@@ -48,6 +48,7 @@ class IssueTypeSpec extends ObjectBehavior
         ))->shouldBeCalled()->willReturn($builder);
 
         $builder->add('description', 'textarea', array(
+            'required' => false,
             'label' => 'Description',
         ))->shouldBeCalled()->willReturn($builder);
 

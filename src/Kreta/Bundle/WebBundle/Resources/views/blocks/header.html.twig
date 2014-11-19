@@ -7,11 +7,12 @@
         </a>
     </div>
     <div class="kreta-user-menu small-9 columns">
+        {{ render(url('kreta_web_component_notification_icon')) }}
         <div class="user-container">
             {% image '@KretaWebBundle/Resources/public/img/user.jpg' %}
             <img class="kreta-user-image" src="{{ asset_url }}">
             {% endimage %}
-            {% if app.user.firstName is null and app.user.lastName is null %}
+            {% if app.user.firstName is not null and app.user.lastName is not null %}
                 <span>{{ app.user.firstName }} {{ app.user.lastName }}</span>
             {% else %}
                 <span>{{ app.user.email }}</span>

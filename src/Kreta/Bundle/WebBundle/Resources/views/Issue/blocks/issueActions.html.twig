@@ -8,10 +8,13 @@
 
 {% block widgetContent %}
     <div class="kreta-actions">
-        <a href="{{ url('kreta_web_issue_edit', {id: issue.id}) }}"><i class="fa fa-pencil"></i> Edit issue</a>
+        <a href="{{ url('kreta_web_issue_edit', {projectId: issue.project.id, issueId: issue.id}) }}">
+            <i class="fa fa-pencil"></i> Edit issue
+        </a>
         <hr noshade>
         {% for transition in issue.status.transitions %}
-        <a href="{{ url('kreta_web_issue_change_status', {issueId: issue.id, statusId: transition.id}) }}">
+        <a href="{{ url('kreta_web_issue_change_status',
+            {projectId: issue.project.id, issueId: issue.id, statusId: transition.id}) }}">
             Mark as <b>{{ transition.name }}</b>
         </a>
         {% endfor %}

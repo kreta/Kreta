@@ -94,4 +94,27 @@ class DefaultContext extends MinkContext implements KernelAwareContext
 
         throw new ElementNotFoundException($this->getSession());
     }
+
+    /**
+     * @Then /^I should see (\d+) unread notifications$/
+     */
+    public function iShouldSeeUnreadNotification($amount)
+    {
+        $icon = $this->getSession()->getPage()->find('css', '.kreta-notification-count');
+        if($icon->find('css','span')->getText() != $amount) {
+            throw new \Exception('Unread notification amount does not match');
+        }
+    }
+
+    /**
+     * @When I click in notification inbox icon
+     */
+    public function iClickInNotificationInboxIcon()
+    {
+        $icon = $this->getSession()->getPage()->find('css', '.kreta-notification-count');
+        if(!$icon) {
+            throw new \Exception('Icon not found');
+        }
+        $icon->click();
+    }
 }

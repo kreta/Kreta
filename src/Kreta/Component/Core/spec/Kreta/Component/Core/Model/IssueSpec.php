@@ -11,6 +11,7 @@
 
 namespace spec\Kreta\Component\Core\Model;
 
+use Kreta\Component\Core\Factory\ProjectFactory;
 use Kreta\Component\Core\Model\Interfaces\CommentInterface;
 use Kreta\Component\Core\Model\Interfaces\LabelInterface;
 use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
@@ -107,10 +108,10 @@ class IssueSpec extends ObjectBehavior
 
     function its_finite_state_is_mutable()
     {
-        $status = new Status('Todo');
-        $this->setStatus($status);
+        $projectFactory = new ProjectFactory('Kreta\Component\Core\Model\Project');
+        $project = $projectFactory->create();
+        $this->setProject($project);
 
-        $this->getFiniteState()->shouldReturn('Todo');
         $this->setFiniteState('Done')->shouldReturn($this);
         $this->getFiniteState()->shouldReturn('Done');
     }

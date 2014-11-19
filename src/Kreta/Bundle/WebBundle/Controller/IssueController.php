@@ -29,13 +29,14 @@ class IssueController extends Controller
     /**
      * View action.
      *
-     * @param string $id The id
+     * @param string $projectId The project id
+     * @param string $issueId   The id
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function viewAction($id)
+    public function viewAction($projectId, $issueId)
     {
-        $issue = $this->get('kreta_core.repository_issue')->find($id);
+        $issue = $this->get('kreta_core.repository_issue')->find($issueId);
 
         if (($issue instanceof IssueInterface) === false) {
             $this->createNotFoundException();
@@ -77,7 +78,10 @@ class IssueController extends Controller
                 $manager->flush();
                 $this->get('session')->getFlashBag()->add('success', 'Issue created successfully');
 
-                return $this->redirect($this->generateUrl('kreta_web_issue_view', array('id' => $issue->getId())));
+                return $this->redirect($this->generateUrl(
+                    'kreta_web_issue_view',
+                    array('projectId' => $issue->getProject()->getId(), 'issueId' => $issue->getId())
+                ));
             }
             $this->get('session')->getFlashBag()->add('error', 'Some errors found in your issue');
         }
@@ -89,15 +93,16 @@ class IssueController extends Controller
     /**
      * Edit action.
      *
-     * @param string                                    $id      The id
-     * @param \Symfony\Component\HttpFoundation\Request $request The request
+     * @param string                                    $projectId The project id
+     * @param string                                    $issueId   The id
+     * @param \Symfony\Component\HttpFoundation\Request $request   The request
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function editAction($id, Request $request)
+    public function editAction($projectId, $issueId, Request $request)
     {
         /** @var IssueInterface $issue */
-        $issue = $this->get('kreta_core.repository_issue')->find($id);
+        $issue = $this->get('kreta_core.repository_issue')->find($issueId);
 
         if (($issue instanceof IssueInterface) === false) {
             $this->createNotFoundException();
@@ -117,7 +122,10 @@ class IssueController extends Controller
                 $manager->flush();
                 $this->get('session')->getFlashBag()->add('success', 'Issue edited successfully');
 
-                return $this->redirect($this->generateUrl('kreta_web_issue_view', array('id' => $issue->getId())));
+                return $this->redirect($this->generateUrl(
+                    'kreta_web_issue_view',
+                    array('projectId' => $issue->getProject()->getId(), 'issueId' => $issue->getId())
+                ));
             }
             $this->get('session')->getFlashBag()->add('error', 'Some errors found in your issue');
         }
@@ -131,12 +139,13 @@ class IssueController extends Controller
     /**
      * New comment action.
      *
-     * @param string                                    $issueId The issue id
-     * @param \Symfony\Component\HttpFoundation\Request $request The request
+     * @param string                                    $projectId The project id
+     * @param string                                    $issueId   The issue id
+     * @param \Symfony\Component\HttpFoundation\Request $request   The request
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function newCommentAction($issueId, Request $request)
+    public function newCommentAction($projectId, $issueId, Request $request)
     {
         $issue = $this->get('kreta_core.repository_issue')->find($issueId);
 
@@ -157,11 +166,12 @@ class IssueController extends Controller
                 $manager->persist($comment);
                 $manager->flush();
                 $this->get('session')->getFlashBag()->add('success', 'Comment added successfully');
-
-                return $this->redirect($this->generateUrl('kreta_web_issue_view', array('id' => $issue->getId())));
             }
 
-            return $this->redirect($this->generateUrl('kreta_web_issue_view', array('id' => $issue->getId())));
+            return $this->redirect($this->generateUrl(
+                'kreta_web_issue_view',
+                array('projectId' => $issue->getProject()->getId(), 'issueId' => $issue->getId())
+            ));
         }
 
         return $this->render('KretaWebBundle:Issue/blocks:commentForm.html.twig', array(
@@ -171,7 +181,7 @@ class IssueController extends Controller
     }
 
     /**
-     * New comment action.
+     * Edit status action.
      *
      * @param string $issueId  The issue id
      * @param string $statusId The issue id
@@ -180,7 +190,6 @@ class IssueController extends Controller
      */
     public function editStatusAction($issueId, $statusId)
     {
-        /** @var IssueInterface $issue */
         $issue = $this->get('kreta_core.repository_issue')->find($issueId);
 
         if (($issue instanceof IssueInterface) === false) {
@@ -191,7 +200,6 @@ class IssueController extends Controller
             throw new AccessDeniedException();
         };
 
-        /** @var StatusInterface $status */
         $status = $this->get('kreta_core.repository_status')->find($statusId);
 
         if (($issue instanceof StatusInterface) === false) {
@@ -202,16 +210,15 @@ class IssueController extends Controller
 
         $stateMachine = $this->get('kreta_issue_state_machine')->load($issue, $statuses);
 
-        if($stateMachine->can($issue->getStatus()->getName() . '-' . $status->getName())) {
-            $manager = $this->getDoctrine()->getManager();
-            $issue->setStatus($status);
-            $manager->persist($issue);
-            $manager->flush();
+        try {
+            $stateMachine->apply($issue->getStatus()->getName() . '-' . $status->getName());
+            $this->getDoctrine()->getManager()->flush();
             $this->get('session')->getFlashBag()->add('success', 'Status changed successfully');
-        } else {
+        } catch (\Exception $exception) {
             $this->get('session')->getFlashBag()->add('error', 'Transition not allowed');
         }
 
-        return $this->redirect($this->generateUrl('kreta_web_issue_view', array('id' => $issue->getId())));
+        return $this->redirect($this->generateUrl('kreta_web_issue_view',
+            array('projectId' => $issue->getProject()->getId(), 'issueId' => $issue->getId())));
     }
 }

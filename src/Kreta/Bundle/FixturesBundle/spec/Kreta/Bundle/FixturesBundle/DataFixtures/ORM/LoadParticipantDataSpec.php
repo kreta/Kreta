@@ -64,15 +64,15 @@ class LoadParticipantDataSpec extends ObjectBehavior
         $container->get('kreta_core.repository_user')->shouldBeCalled()->willReturn($userRepository);
         $userRepository->findAll()->shouldBeCalled()->willReturn(array($user));
 
-        $container->get('kreta_core.factory_participant')->shouldBeCalled()->willReturn($factory);
+        $container->get('kreta_core.factory_participant')->willReturn($factory);
         $factory->create(Argument::type('Kreta\Component\Core\Model\Interfaces\ProjectInterface'), $user)
-            ->shouldBeCalled()->willReturn($participant);
+            ->willReturn($participant);
 
-        $participant->setRole(Argument::type('string'))->shouldBeCalled()->willReturn($participant);
+        $participant->setRole(Argument::type('string'))->willReturn($participant);
 
-        $manager->persist($participant)->shouldBeCalled();
+        $manager->persist($participant);
 
-        $manager->flush()->shouldBeCalled();
+        $manager->flush();
 
         $this->load($manager);
     }

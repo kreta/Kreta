@@ -1,0 +1,21 @@
+{% extends 'KretaWebBundle:blocks:widget.html.twig' %}
+
+{% block widgetClass %}{% endblock %}
+
+{% block widgetIcon %}fa-inbox{% endblock %}
+
+{% block widgetTitle %}{{ 'Notifications' | trans }}{% endblock %}
+
+{% block widgetContent %}
+    <table class="kreta-notifications-user">
+        {% for notification in notifications %}
+            <tr class="kreta-notification">
+                <td>{{ notificationIcon(notification.type) }}</td>
+                <td class="kreta-notification-title">
+                    <a href="{{ notification.webUrl }}">{{ notification.title }}</a>
+                </td>
+                <td class="kreta-notification-data">{{ notification.date | date('Y-m-d H:i') }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}

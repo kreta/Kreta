@@ -49,6 +49,7 @@ class IssueType extends AbstractType
                 'label' => 'Name'
             ))
             ->add('description', 'textarea', array(
+                'required' => false,
                 'label' => 'Description'
             ))
             ->add('type', new TypeType(), array(

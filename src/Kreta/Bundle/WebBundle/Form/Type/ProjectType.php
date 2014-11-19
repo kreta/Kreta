@@ -33,6 +33,7 @@ class ProjectType extends AbstractType
             ))
             ->add('shortName', 'text', array(
                 'label' => 'Short name',
+                'attr' => array('maxlength' => 4)
             ));
     }
 

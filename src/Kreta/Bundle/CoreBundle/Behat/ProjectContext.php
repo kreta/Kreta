@@ -29,7 +29,7 @@ class ProjectContext extends RawMinkContext implements Context, KernelAwareConte
     /**
      * @Given /^the following projects exist:$/
      */
-    public function theFollowingStatusesExist(TableNode $projects)
+    public function theFollowingProjectsExist(TableNode $projects)
     {
         $manager = $this->kernel->getContainer()->get('doctrine')->getManager();
 

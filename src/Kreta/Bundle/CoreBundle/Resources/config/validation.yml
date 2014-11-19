@@ -40,8 +40,6 @@ Kreta\Component\Core\Model\Issue:
     properties:
         title:
             - NotBlank: ~
-        description:
-            - NotBlank: ~
         assignee:
             - NotBlank: ~
 Kreta\Component\Core\Model\Status:
