@@ -49,6 +49,7 @@ class IssueFactory
     public function create(ProjectInterface $project, UserInterface $reporter)
     {
         $issue = new $this->className();
+        $issue->setNumericId(count($project->getIssues()) + 1);
         $issue->setProject($project);
         $issue->setReporter($reporter);
         $issue->setAssignee($reporter);

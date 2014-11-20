@@ -25,6 +25,9 @@ Kreta\Component\Core\Model\Issue:
         title:
             type: string
             length: 140
+        numericId:
+            column: numeric_id
+            type: integer
         type:
             type: smallint
     manyToMany:
