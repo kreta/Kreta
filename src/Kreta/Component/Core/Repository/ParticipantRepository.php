@@ -13,7 +13,6 @@ namespace Kreta\Component\Core\Repository;
 
 use Doctrine\ORM\EntityRepository;
 use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
-use Kreta\Component\Core\Model\Interfaces\UserInterface;
 
 /**
  * Class ParticipantRepository.
@@ -23,25 +22,6 @@ use Kreta\Component\Core\Model\Interfaces\UserInterface;
 class ParticipantRepository extends EntityRepository
 {
     /**
-     * Finds the role of project and user given.
-     *
-     * @param \Kreta\Component\Core\Model\Interfaces\ProjectInterface $project The project
-     * @param \Kreta\Component\Core\Model\Interfaces\UserInterface    $user    The user
-     *
-     * @return string
-     */
-    public function findOneByProjectAndUser(ProjectInterface $project, UserInterface $user)
-    {
-        $queryBuilder = $this->createQueryBuilder('p');
-
-        return $queryBuilder->select('p.role')
-            ->where($queryBuilder->expr()->eq('p.project', ':project'))
-            ->andWhere($queryBuilder->expr()->eq('p.user', ':user'))
-            ->setParameters(array(':project' => $project, ':user' => $user))
-            ->getQuery()->getArrayResult();
-    }
-
-    /**
      * Finds all of project given.
      *
      * @param \Kreta\Component\Core\Model\Interfaces\ProjectInterface $project The project
@@ -50,15 +30,14 @@ class ParticipantRepository extends EntityRepository
      */
     public function findByProject(ProjectInterface $project)
     {
-        $queryBuilder = $this->createQueryBuilder('p');
+        $queryBuilder = $this->_em->createQueryBuilder();
 
-        return $queryBuilder->select(array('p', 'u', 'pr'))
+        return $queryBuilder->select(['p', 'u', 'pr'])
+            ->from($this->_entityName, 'p')
             ->leftJoin('p.project', 'pr')
             ->leftJoin('p.user', 'u')
             ->where($queryBuilder->expr()->eq('p.project', ':project'))
             ->setParameter(':project', $project)
             ->getQuery()->getResult();
-
-        return $this->findBy(array('project' => $project));
     }
 }

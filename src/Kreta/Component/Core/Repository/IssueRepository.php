@@ -29,24 +29,7 @@ class IssueRepository extends EntityRepository
      *
      * @var string[]
      */
-    private $validFilters = array('status', 'priority', 'createdAt', 'title');
-
-    /**
-     * Finds the issue of id given.
-     *
-     * @param string $id The id
-     *
-     * @return \Kreta\Component\Core\Model\Interfaces\IssueInterface
-     */
-    public function findOneById($id)
-    {
-        $queryBuilder = $this->createQueryBuilder('i');
-
-        return $queryBuilder
-            ->where($queryBuilder->expr()->eq('i.id', ':id'))
-            ->setParameter(':id', $id)
-            ->getQuery()->getOneOrNullResult();
-    }
+    private $validFilters = ['status', 'priority', 'createdAt', 'title'];
 
     /**
      * Finds all the issues of project given.
@@ -69,11 +52,11 @@ class IssueRepository extends EntityRepository
         array $orderBy,
         $count = 10,
         $page = 0,
-        array $filters = array()
+        array $filters = []
     )
     {
         $whereSql = ' 1=1 ';
-        $parameters = array();
+        $parameters = [];
         foreach ($filters as $key => $filter) {
             if ($filter !== '') {
                 if (strpos($key, '.') !== false) {
@@ -88,8 +71,9 @@ class IssueRepository extends EntityRepository
         }
         $parameters['project'] = $project->getId();
 
-        $queryBuilder = $this->createQueryBuilder('i');
-        $queryBuilder->select(array('i', 'a', 'c', 'l', 'p', 'r', 'rep', 's', 'w'))
+        $queryBuilder = $this->_em->createQueryBuilder();
+        $queryBuilder->select(['i', 'a', 'c', 'l', 'p', 'r', 'rep', 's', 'w'])
+            ->from($this->_entityName, 'i')
             ->leftJoin('i.assignee', 'a')
             ->leftJoin('i.comments', 'c')
             ->leftJoin('i.labels', 'l')
@@ -122,7 +106,7 @@ class IssueRepository extends EntityRepository
     {
         $queryBuilder = $this->createQueryBuilder('i');
 
-        return $queryBuilder->select('i')
+        return $queryBuilder
             ->where($queryBuilder->expr()->eq('i.reporter', ':reporter'))
             ->setParameter(':reporter', $reporter->getId())
             ->getQuery()->getResult();
@@ -137,11 +121,11 @@ class IssueRepository extends EntityRepository
      *
      * @return \Kreta\Component\Core\Model\Interfaces\IssueInterface[]
      */
-    public function findByAssignee(UserInterface $assignee, $orderBy, $onlyOpen = false)
+    public function findByAssignee(UserInterface $assignee, array $orderBy, $onlyOpen = false)
     {
         $queryBuilder = $this->createQueryBuilder('i');
 
-        $queryBuilder->select('i')
+        $queryBuilder
             ->leftJoin('i.status', 'st')
             ->where($queryBuilder->expr()->eq('i.assignee', ':assignee'))
             ->setParameter(':assignee', $assignee->getId());
@@ -164,10 +148,10 @@ class IssueRepository extends EntityRepository
      * @return \Doctrine\ORM\QueryBuilder
      * @throws \Exception when it is not a valid filter
      */
-    protected function orderBy(QueryBuilder $queryBuilder, array $orderBy = array())
+    protected function orderBy(QueryBuilder $queryBuilder, array $orderBy = [])
     {
         foreach ($orderBy as $sort => $order) {
-            if (in_array($sort, $this->validFilters) === true) {
+            if (in_array($sort, $this->validFilters)) {
                 $queryBuilder->orderBy('i.' . $sort, $order);
             } else {
                 throw new \Exception($sort . ' is not a valid filter');

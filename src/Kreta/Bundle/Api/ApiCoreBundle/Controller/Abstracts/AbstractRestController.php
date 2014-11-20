@@ -32,9 +32,9 @@ abstract class AbstractRestController extends FOSRestController
     /**
      * Abstract method that gets the entity repository class.
      *
-     * @return \Doctrine\ORM\EntityRepository;
+     * @return \Doctrine\ORM\EntityRepository
      */
-    protected abstract function getRepository();
+    abstract protected function getRepository();
 
     /**
      * Checks if user is authenticated returning this, otherwise throws an exception.
@@ -54,10 +54,10 @@ abstract class AbstractRestController extends FOSRestController
     /**
      * Returns created view by data, groups, status code and format given
      *
-     * @param mixed        $data       The data
-     * @param array|string $groups     The groups, by default is null
-     * @param int          $statusCode The HTTP status code, by default is 200
-     * @param string       $format     The format of serializer by default is json
+     * @param mixed    $data       The data
+     * @param string[] $groups     The groups, by default is null
+     * @param int      $statusCode The HTTP status code, by default is 200
+     * @param string   $format     The format of serializer by default is json
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
@@ -157,7 +157,7 @@ abstract class AbstractRestController extends FOSRestController
     protected function getResourceIfExists($id, EntityRepository $otherRepository = null)
     {
         $repository = $otherRepository ? $otherRepository : $this->getRepository();
-        $resource = $repository->findOneById($id);
+        $resource = $repository->find($id);
         if (!$resource) {
             throw new NotFoundHttpException('Does not exist any entity with ' . $id . ' id');
         }

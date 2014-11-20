@@ -44,7 +44,7 @@ abstract class AbstractRestControllerSpec extends ObjectBehavior
     )
     {
         $container->get('kreta_core.repository_project')->shouldBeCalled()->willReturn($projectRepository);
-        $projectRepository->findOneById('project-id')->shouldBeCalled()->willReturn($project);
+        $projectRepository->find('project-id')->shouldBeCalled()->willReturn($project);
     }
 
     protected function getProjectIfAllowed(
@@ -57,7 +57,7 @@ abstract class AbstractRestControllerSpec extends ObjectBehavior
     )
     {
         $container->get('kreta_core.repository_project')->shouldBeCalled()->willReturn($projectRepository);
-        $projectRepository->findOneById('project-id')->shouldBeCalled()->willReturn($project);
+        $projectRepository->find('project-id')->shouldBeCalled()->willReturn($project);
         $container->get('security.context')->shouldBeCalled()->willReturn($securityContext);
         $securityContext->isGranted($grant, $project)->shouldBeCalled()->willReturn($result);
     }
@@ -143,7 +143,7 @@ abstract class AbstractRestControllerSpec extends ObjectBehavior
         $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext, $grant, $result);
 
         $container->get('kreta_core.repository_status')->shouldBeCalled()->willReturn($statusRepository);
-        $statusRepository->findOneById('status-id')->shouldBeCalled()->willReturn($status);
+        $statusRepository->find('status-id')->shouldBeCalled()->willReturn($status);
     }
 
     protected function getCurrentUser(
