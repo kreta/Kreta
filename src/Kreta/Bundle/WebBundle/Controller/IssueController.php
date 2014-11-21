@@ -62,7 +62,7 @@ class IssueController extends Controller
         /** @var \Kreta\Component\Core\Model\Interfaces\ProjectInterface $project */
         $project = $this->get('kreta_core.repository_project')->find($projectId);
 
-        if (!$project || $this->get('security.context')->isGranted('create_issue', $project)) {
+        if (!$project || !$this->get('security.context')->isGranted('create_issue', $project)) {
             throw new AccessDeniedException();
         }
 
@@ -70,9 +70,9 @@ class IssueController extends Controller
 
         $form = $this->createForm(new IssueType($project->getParticipants()), $issue);
 
-        if ($request->isMethod('POST') === true) {
+        if ($request->isMethod('POST')) {
             $form->handleRequest($request);
-            if ($form->isSubmitted() === true && $form->isValid() === true) {
+            if ($form->isSubmitted() && $form->isValid()) {
                 $manager = $this->getDoctrine()->getManager();
                 $manager->persist($issue);
                 $manager->flush();
@@ -104,19 +104,19 @@ class IssueController extends Controller
         /** @var IssueInterface $issue */
         $issue = $this->get('kreta_core.repository_issue')->find($issueId);
 
-        if (($issue instanceof IssueInterface) === false) {
+        if (!$issue instanceof IssueInterface) {
             $this->createNotFoundException();
         }
 
-        if ($this->get('security.context')->isGranted('edit', $issue) === false) {
+        if (!$this->get('security.context')->isGranted('edit', $issue)) {
             throw new AccessDeniedException();
         };
 
         $form = $this->createForm(new IssueType($issue->getProject()->getParticipants()), $issue);
 
-        if ($request->isMethod('POST') === true) {
+        if ($request->isMethod('POST')) {
             $form->handleRequest($request);
-            if ($form->isSubmitted() === true && $form->isValid() === true) {
+            if ($form->isSubmitted() && $form->isValid()) {
                 $manager = $this->getDoctrine()->getManager();
                 $manager->persist($issue);
                 $manager->flush();
@@ -149,7 +149,7 @@ class IssueController extends Controller
     {
         $issue = $this->get('kreta_core.repository_issue')->find($issueId);
 
-        if (($issue instanceof IssueInterface) === false) {
+        if (!$issue instanceof IssueInterface) {
             $this->createNotFoundException('Issue not found');
         }
 
@@ -157,9 +157,9 @@ class IssueController extends Controller
 
         $form = $this->createForm(new CommentType(), $comment);
 
-        if ($request->isMethod('POST') === true) {
+        if ($request->isMethod('POST')) {
             $form->handleRequest($request);
-            if ($form->isSubmitted() === true && $form->isValid() === true) {
+            if ($form->isSubmitted() && $form->isValid()) {
                 $comment->setWrittenBy($this->getUser());
                 $comment->setIssue($issue);
                 $manager = $this->getDoctrine()->getManager();
@@ -192,17 +192,17 @@ class IssueController extends Controller
     {
         $issue = $this->get('kreta_core.repository_issue')->find($issueId);
 
-        if (($issue instanceof IssueInterface) === false) {
+        if (!$issue instanceof IssueInterface) {
             $this->createNotFoundException();
         }
 
-        if ($this->get('security.context')->isGranted('edit', $issue) === false) {
+        if (!$this->get('security.context')->isGranted('edit', $issue)) {
             throw new AccessDeniedException();
         };
 
         $status = $this->get('kreta_core.repository_status')->find($statusId);
 
-        if (($issue instanceof StatusInterface) === false) {
+        if (!$issue instanceof StatusInterface) {
             $this->createNotFoundException();
         }
 
