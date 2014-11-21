@@ -18,18 +18,28 @@ env:
     - SYMFONY_VERSION=2.5.*
     - SYMFONY_VERSION=dev-master
 
+install:
+    - sudo apt-get update > /dev/null
+    - sudo apt-get install -y --force-yes apache2 libapache2-mod-php5 php5-curl php5-mysql php5-intl
+    - sudo sed -i -e "s,/var/www,$(pwd)/web,g" /etc/apache2/sites-available/default
+    - sudo /etc/init.d/apache2 restart
+
 before_script:
+    - export MINK_EXTENSION_PARAMS='base_url=http://localhost/app_test.php'
     - composer self-update
     - composer require symfony/symfony:${SYMFONY_VERSION}
 
     - app/console doctrine:database:create --env=test
     - app/console doctrine:schema:create --env=test
+    - app/console cache:warmup --env=test
+    - sleep 5
 
 script:
     - bin/phpspec run -fpretty
 
     - bin/behat --stop-on-failure --suite=issue
     - bin/behat --stop-on-failure --suite=project
+    - bin/behat --stop-on-failure --suite=notification
 
 after_script:
     - bin/coveralls -v
