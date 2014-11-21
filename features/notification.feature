@@ -35,3 +35,9 @@ Feature: Managing notifications
     Then I should see "Test notification 2"
     And I should see "Test notification 3"
     And I should not see "Test notification 1"
+
+  Scenario: Clicking a notification
+    Given I am on the homepage
+    When I click in notification inbox icon
+    And I follow "Test notification 2"
+    Then I should see 1 unread notifications

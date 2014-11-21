@@ -8,3 +8,7 @@
 kreta_web_notification_view:
     path: /
     defaults: { _controller: KretaWebBundle:Notification:view }
+
+kreta_web_notification_read:
+    path: /read/{id}
+    defaults: { _controller: KretaWebBundle:Notification:read }
