@@ -45,34 +45,9 @@ default:
 
     extensions:
         Behat\MinkExtension:
-            base_url: http://kreta.localhost/app_test.php
             sessions:
                 default:
                     symfony2: ~
             browser_name: firefox
             show_auto:    false
         Behat\Symfony2Extension: ~
-
-        VIPSoft\CodeCoverageExtension\Extension:
-            create:
-                method:   POST
-                path:     /
-            read:
-                method:   GET
-                path:     /
-            delete:
-                method:   DELETE
-                path:     /
-            drivers:
-                - remote
-                - local
-            filter:
-                blacklist:
-                    include:
-                        directories:
-                            'app': ~
-                            'vendor': ~
-            report:
-                format: clover
-                options:
-                    target: behat-coverage.xml
