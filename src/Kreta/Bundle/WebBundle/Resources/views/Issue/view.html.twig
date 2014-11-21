@@ -6,7 +6,9 @@
         {% include 'KretaWebBundle:Issue/blocks:issueComments.html.twig' with { 'issue': issue } %}
     </div>
     <div class="medium-4 column">
-        {% include 'KretaWebBundle:Issue/blocks:issueActions.html.twig' with { 'issue': issue } %}
+        {% if is_granted('edit', issue) %}
+            {% include 'KretaWebBundle:Issue/blocks:issueActions.html.twig' with { 'issue': issue } %}
+        {% endif %}
         {% include 'KretaWebBundle:Issue/blocks:issueVcs.html.twig' with { 'issue': issue } %}
     </div>
 {% endblock %}
