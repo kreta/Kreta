@@ -10,10 +10,12 @@
                href="{{ url('kreta_web_issue_view', { 'projectId': issue.project.id, 'issueId' : issue.id }) }}">
                 <i class="fa fa-eye"></i>
             </a>
+            {% if is_granted('edit', issue) %}
             <a class='edit-issue'
                href="{{ url('kreta_web_issue_edit', { 'projectId': issue.project.id, 'issueId' : issue.id }) }}">
                 <i class="fa fa-pencil"></i>
             </a>
+            {% endif %}
             <a class="comments-issue"
                href="{{ url('kreta_web_issue_view', { 'projectId': issue.project.id, 'issueId' : issue.id }) }}">
                 <i class="fa fa-comment"></i>
