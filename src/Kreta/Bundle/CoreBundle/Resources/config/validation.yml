@@ -16,7 +16,7 @@ Kreta\Component\Core\Model\Project:
         shortName:
             - NotBlank: ~
             - Length:
-                min: 4
+                min: 3
                 max: 4
                 minMessage: 'Short name must be at least {{ limit }} characters long'
                 maxMessage: 'Short name cannot be longer than {{ limit }} characters long'
