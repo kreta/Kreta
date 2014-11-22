@@ -176,7 +176,7 @@ abstract class AbstractRestController extends FOSRestController
      */
     protected function manageForm(AbstractType $formType, $resource, $groups = array())
     {
-        $request = $this->getRequest();
+        $request = $this->get('request');
         $form = $this->createForm(
             $formType,
             $resource,

@@ -96,7 +96,7 @@ class StatusTransitionController extends AbstractRestController
     public function postTransitionsAction($projectId, $statusId)
     {
         $status = $this->getStatusIfAllowed($projectId, $statusId, 'manage_status');
-        $toStatusName = $this->getRequest()->get('to');
+        $toStatusName = $this->get('request')->get('to');
         if (!$toStatusName) {
             throw new BadRequestHttpException('To status name should not be blank');
         }

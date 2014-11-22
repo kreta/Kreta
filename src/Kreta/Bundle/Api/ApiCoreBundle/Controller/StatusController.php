@@ -115,7 +115,7 @@ class StatusController extends AbstractRestController
      */
     public function postStatusesAction($id)
     {
-        $name = $this->getRequest()->get('name');
+        $name = $this->get('request')->get('name');
         if (!$name) {
             throw new BadRequestHttpException('Name should not be blank');
         }
