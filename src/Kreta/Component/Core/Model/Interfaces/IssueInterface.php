@@ -315,4 +315,11 @@ interface IssueInterface extends StatefulInterface
      * @return boolean
      */
     public function isParticipant(UserInterface $user);
+
+    /**
+     * Doctrine's pre-persist method that allows to generate a numeric id.
+     *
+     * @return void
+     */
+    public function generateNumericId();
 }
