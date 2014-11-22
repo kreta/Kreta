@@ -11,6 +11,7 @@
 
 namespace spec\Kreta\Component\Core\Factory;
 
+use Kreta\Component\Core\Model\Interfaces\IssueInterface;
 use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Core\Model\Interfaces\StatusInterface;
 use Kreta\Component\Core\Model\Interfaces\UserInterface;
@@ -36,11 +37,13 @@ class IssueFactorySpec extends ObjectBehavior
 
     function it_creates_a_issue(
         ProjectInterface $project,
+        IssueInterface $issue,
         StatusInterface $status,
         UserInterface $user
     )
     {
-        $project->getStatuses()->shouldBeCalled()->willReturn(array($status));
+        $project->getIssues()->shouldBeCalled()->willReturn([[$issue]]);
+        $project->getStatuses()->shouldBeCalled()->willReturn([$status]);
         $status->getType()->shouldBeCalled()->willReturn('initial');
 
         $this->create($project, $user)->shouldReturnAnInstanceOf('Kreta\Component\Core\Model\Issue');

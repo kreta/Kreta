@@ -129,6 +129,12 @@ class IssueSpec extends ObjectBehavior
         $this->getLabels()->shouldHaveCount(0);
     }
 
+    function its_numeric_id_is_mutable()
+    {
+        $this->setNumericId(1)->shouldReturn($this);
+        $this->getNumericId()->shouldReturn(1);
+    }
+
     function its_priority_is_mutable()
     {
         $this->setPriority(0)->shouldReturn($this);
