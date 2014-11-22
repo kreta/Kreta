@@ -115,6 +115,8 @@ class LoadIssueDataSpec extends ObjectBehavior
                 consequat, leo eget bibendum sodales, augue velit cursus nunc'
         )->shouldBeCalled()->willReturn($issue);
         $issue->addLabel($label)->shouldBeCalled()->willReturn($issue);
+        $project->getShortName()->shouldBeCalled()->willReturn('PR01');
+        $issue->setNumericId(Argument::type('int'))->shouldBeCalled()->willReturn($issue);
         $issue->setPriority(Argument::type('int'))->shouldBeCalled()->willReturn($issue);
         $issue->setResolution(Argument::type('Kreta\Component\Core\Model\Interfaces\ResolutionInterface'))
             ->shouldBeCalled()->willReturn($issue);

@@ -13,6 +13,7 @@ namespace Kreta\Bundle\FixturesBundle\DataFixtures\ORM;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Kreta\Bundle\FixturesBundle\DataFixtures\DataFixtures;
+use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
 
 /**
  * Class LoadIssueData.
@@ -30,8 +31,10 @@ class LoadIssueData extends DataFixtures
         $projects = $this->container->get('kreta_core.repository_project')->findAll();
         $resolutions = $this->container->get('kreta_core.repository_resolution')->findAll();
 
+        $issuesPerProject = [];
         for ($i = 0; $i < 100; $i++) {
             $project = $projects[array_rand($projects)];
+            $issuesPerProject = $this->incrementIssuePerProject($issuesPerProject, $project);
             $participants = $this->container->get('kreta_core.repository_participant')->findByProject($project);
 
             $issue = $this->container->get('kreta_core.factory_issue')
@@ -54,6 +57,7 @@ class LoadIssueData extends DataFixtures
                 consequat, leo eget bibendum sodales, augue velit cursus nunc'
             );
             $this->loadRandomObjects($issue, 'addLabel', $labels, count($labels));
+            $issue->setNumericId($issuesPerProject[$project->getShortName()]);
             $issue->setPriority(rand(0, 3));
             if ($i % 5 !== 0) {
                 $issue->setResolution($resolutions[array_rand($resolutions)]);
@@ -92,5 +96,29 @@ class LoadIssueData extends DataFixtures
     public function getOrder()
     {
         return 2;
+    }
+
+    /**
+     * Increments the counter of issues of index of project given. It creates the project index if is not exist yet.
+     *
+     * @param array                                                   $issuesPerProject Array that counts
+     *                                                                                  issues per project
+     * @param \Kreta\Component\Core\Model\Interfaces\ProjectInterface $project          The project
+     *
+     * @return array
+     */
+    private function incrementIssuePerProject(array $issuesPerProject, ProjectInterface $project)
+    {
+        foreach ($issuesPerProject as $projectShortName => $amount) {
+            if ($projectShortName === $project->getShortName()) {
+                $issuesPerProject[$projectShortName] = $amount + 1;
+
+                return $issuesPerProject;
+            }
+        }
+
+        $issuesPerProject[$project->getShortName()] = 1;
+
+        return $issuesPerProject;
     }
 }

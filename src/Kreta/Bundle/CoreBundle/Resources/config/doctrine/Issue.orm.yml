@@ -14,6 +14,9 @@ Kreta\Component\Core\Model\Issue:
             type: string
             generator:
                 strategy: UUID
+    uniqueConstraints:
+        numeric_id_project_idx:
+          columns: [numeric_id, project_id]
     fields:
         createdAt:
             column: created_at
@@ -25,6 +28,9 @@ Kreta\Component\Core\Model\Issue:
         title:
             type: string
             length: 140
+        numericId:
+            column: numeric_id
+            type: integer
         type:
             type: smallint
     manyToMany:
@@ -83,3 +89,5 @@ Kreta\Component\Core\Model\Issue:
             targetEntity: Kreta\Component\Core\Model\Interfaces\CommentInterface
             mappedBy: issue
             cascade: ['persist', 'remove']
+    lifecycleCallbacks:
+        prePersist: [generateNumericId]
