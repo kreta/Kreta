@@ -14,7 +14,7 @@ namespace Kreta\Bundle\WebBundle\Controller;
 use Kreta\Bundle\WebBundle\Form\Type\CommentType;
 use Kreta\Bundle\WebBundle\Form\Type\IssueType;
 use Kreta\Component\Core\Model\Interfaces\IssueInterface;
-use Kreta\Component\Core\Model\Interfaces\StatusInterface;
+use Kreta\Component\Core\Model\Interfaces\StatusTransitionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -38,15 +38,17 @@ class IssueController extends Controller
     {
         $issue = $this->get('kreta_core.repository_issue')->find($issueId);
 
-        if (($issue instanceof IssueInterface) === false) {
+        if (!$issue instanceof IssueInterface) {
             $this->createNotFoundException();
         }
 
-        if ($this->get('security.context')->isGranted('view', $issue) === false) {
+        if (!$this->get('security.context')->isGranted('view', $issue)) {
             throw new AccessDeniedException();
         };
 
-        return $this->render('KretaWebBundle:Issue:view.html.twig', array('issue' => $issue));
+        return $this->render('KretaWebBundle:Issue:view.html.twig', [
+            'issue' => $issue
+        ]);
     }
 
     /**
@@ -86,8 +88,9 @@ class IssueController extends Controller
             $this->get('session')->getFlashBag()->add('error', 'Some errors found in your issue');
         }
 
-        return $this->render('KretaWebBundle:Issue:new.html.twig',
-            array('form' => $form->createView(), 'project' => $project));
+        return $this->render('KretaWebBundle:Issue:new.html.twig', [
+            'form' => $form->createView(), 'project' => $project
+        ]);
     }
 
     /**
@@ -124,16 +127,16 @@ class IssueController extends Controller
 
                 return $this->redirect($this->generateUrl(
                     'kreta_web_issue_view',
-                    array('projectId' => $issue->getProject()->getId(), 'issueId' => $issue->getId())
+                    ['projectId' => $issue->getProject()->getId(), 'issueId' => $issue->getId()]
                 ));
             }
             $this->get('session')->getFlashBag()->add('error', 'Some errors found in your issue');
         }
 
-        return $this->render('KretaWebBundle:Issue:edit.html.twig', array(
+        return $this->render('KretaWebBundle:Issue:edit.html.twig', [
             'form' => $form->createView(),
             'issue' => $issue
-        ));
+        ]);
     }
 
     /**
@@ -170,25 +173,25 @@ class IssueController extends Controller
 
             return $this->redirect($this->generateUrl(
                 'kreta_web_issue_view',
-                array('projectId' => $issue->getProject()->getId(), 'issueId' => $issue->getId())
+                ['projectId' => $issue->getProject()->getId(), 'issueId' => $issue->getId()]
             ));
         }
 
-        return $this->render('KretaWebBundle:Issue/blocks:commentForm.html.twig', array(
+        return $this->render('KretaWebBundle:Issue/blocks:commentForm.html.twig', [
             'form' => $form->createView(),
             'issue' => $issue
-        ));
+        ]);
     }
 
     /**
      * Edit status action.
      *
-     * @param string $issueId  The issue id
-     * @param string $statusId The issue id
+     * @param string $issueId      The issue id
+     * @param string $transitionId The transition id
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function editStatusAction($issueId, $statusId)
+    public function editStatusAction($issueId, $transitionId)
     {
         $issue = $this->get('kreta_core.repository_issue')->find($issueId);
 
@@ -200,25 +203,30 @@ class IssueController extends Controller
             throw new AccessDeniedException();
         };
 
-        $status = $this->get('kreta_core.repository_status')->find($statusId);
+        $transition = $this->get('kreta_core.repository_status_transition')->find($transitionId);
 
-        if (!$issue instanceof StatusInterface) {
+        if (!$transition instanceof StatusTransitionInterface ||
+            $issue->getProject()->getId() !== $transition->getProject()->getId()
+        ) {
             $this->createNotFoundException();
         }
 
         $statuses = $this->get('kreta_core.repository_status')->findByProject($issue->getProject());
+        $transitions = $this->get('kreta_core.repository_status_transition')->findByProject($issue->getProject());
 
-        $stateMachine = $this->get('kreta_issue_state_machine')->load($issue, $statuses);
+        $stateMachine = $this->get('kreta_issue_state_machine')->load($issue, $statuses, $transitions);
 
-        try {
-            $stateMachine->apply($issue->getStatus()->getName() . '-' . $status->getName());
+        if ($stateMachine->can($transition->getName())) {
+            $stateMachine->apply($transition->getName());
             $this->getDoctrine()->getManager()->flush();
             $this->get('session')->getFlashBag()->add('success', 'Status changed successfully');
-        } catch (\Exception $exception) {
+        } else {
             $this->get('session')->getFlashBag()->add('error', 'Transition not allowed');
         }
 
-        return $this->redirect($this->generateUrl('kreta_web_issue_view',
-            array('projectId' => $issue->getProject()->getId(), 'issueId' => $issue->getId())));
+        return $this->redirect($this->generateUrl('kreta_web_issue_view', [
+            'projectId' => $issue->getProject()->getId(),
+            'issueId' => $issue->getId()
+        ]));
     }
 }

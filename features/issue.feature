@@ -55,6 +55,6 @@ Feature: Manage issues
   Scenario: Changing issues current status
     Given I am on the homepage
     And I click on view button for issue 'Test'
-    When I follow "Mark as Doing"
+    When I follow "Start progress"
     Then I should see "Status changed successfully"
 

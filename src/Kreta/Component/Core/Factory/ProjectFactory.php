@@ -12,6 +12,7 @@
 namespace Kreta\Component\Core\Factory;
 
 use Kreta\Component\Core\Model\Status;
+use Kreta\Component\Core\Model\StatusTransition;
 
 /**
  * Class ProjectFactory.
@@ -44,11 +45,17 @@ class ProjectFactory
      */
     public function create()
     {
+        /** @var $project \Kreta\Component\Core\Model\Interfaces\ProjectInterface */
         $project = new $this->className();
         $statuses = $this->createDefaultStatus();
         foreach ($statuses as $status) {
             $status->setProject($project);
             $project->addStatus($status);
+        }
+        $transitions = $this->createDefaultTransitions($statuses);
+        foreach ($transitions as $transition) {
+            $transition->setProject($project);
+            $project->addStatusTransition($transition);
         }
 
         return $project;
@@ -70,18 +77,51 @@ class ProjectFactory
 
         $statuses['To do']->setColor('#2c3e50');
         $statuses['To do']->setType('initial');
-        $statuses['To do']->addStatusTransition($statuses['Doing']);
-        $statuses['To do']->addStatusTransition($statuses['Done']);
 
         $statuses['Doing']->setColor('#f1c40f');
-        $statuses['Doing']->addStatusTransition($statuses['To do']);
-        $statuses['Doing']->addStatusTransition($statuses['Done']);
 
         $statuses['Done']->setColor('#1abc9c');
         $statuses['Done']->setType('final');
-        $statuses['Done']->addStatusTransition($statuses['To do']);
-        $statuses['Done']->addStatusTransition($statuses['Doing']);
 
         return $statuses;
+    }
+
+    /**
+     * Creates some default transitions to add into project when this is created.
+     *
+     * @param \Kreta\Component\Core\Model\Interfaces\StatusInterface[] $statuses
+     *
+     * @return \Kreta\Component\Core\Model\Interfaces\StatusTransitionInterface[]
+     */
+    protected function createDefaultTransitions($statuses)
+    {
+        $defaultTransitions = [
+            'Start progress' => [
+                'from' => [$statuses['To do']],
+                'to' => $statuses['Doing']
+            ],
+            'Finish progress' => [
+                'from' => [$statuses['To do'], $statuses['Doing']],
+                'to' => $statuses['Done']
+            ],
+            'Stop progress' => [
+                'from' => [$statuses['Doing']],
+                'to' => $statuses['To do']
+            ],
+            'Reopen issue' => [
+                'from' => [$statuses['Done']],
+                'to' => $statuses['Doing']
+            ],
+        ];
+
+        $transitions = [];
+
+        foreach ($defaultTransitions as $transitionName => $defaultTransition) {
+            $transition = new StatusTransition($transitionName, $defaultTransition['from'], $defaultTransition['to']);
+
+            $transitions[] = $transition;
+        }
+
+        return $transitions;
     }
 }

@@ -10,14 +10,15 @@
  */
 
 namespace Kreta\Component\Core\Model\Interfaces;
-use Finite\State\StateInterface;
+
+use Finite\Transition\TransitionInterface;
 
 /**
- * Interface StatusInterface.
+ * Class StatusTransition
  *
- * @package Kreta\Component\Core\Model\Interfaces
+ * @package Kreta\Component\Core\Model
  */
-interface StatusInterface extends StateInterface
+interface StatusTransitionInterface extends TransitionInterface
 {
     /**
      * Gets id.
@@ -25,31 +26,6 @@ interface StatusInterface extends StateInterface
      * @return string
      */
     public function getId();
-
-    /**
-     * Gets color.
-     *
-     * @return string
-     */
-    public function getColor();
-
-    /**
-     * Sets color.
-     *
-     * @param string $color The color
-     *
-     * @return $this self Object
-     */
-    public function setColor($color);
-
-    /**
-     * Sets description.
-     *
-     * @param string $name The name
-     *
-     * @return $this self Object
-     */
-    public function setName($name);
 
     /**
      * Gets project.
@@ -66,13 +42,4 @@ interface StatusInterface extends StateInterface
      * @return $this self Object
      */
     public function setProject(ProjectInterface $project);
-
-    /**
-     * Sets type.
-     *
-     * @param string $type The type that can be 0 (initial), 1 (normal) or 2 (final)
-     *
-     * @return $this self Object
-     */
-    public function setType($type);
 }

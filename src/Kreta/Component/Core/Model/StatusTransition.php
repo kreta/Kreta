@@ -11,16 +11,16 @@
 
 namespace Kreta\Component\Core\Model;
 
-use Finite\State\State;
+use Finite\Transition\Transition;
 use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
-use Kreta\Component\Core\Model\Interfaces\StatusInterface;
+use Kreta\Component\Core\Model\Interfaces\StatusTransitionInterface;
 
 /**
- * Class Status.
+ * Class StatusTransition
  *
  * @package Kreta\Component\Core\Model
  */
-class Status extends State implements StatusInterface
+class StatusTransition extends Transition implements StatusTransitionInterface
 {
     /**
      * The id.
@@ -28,13 +28,6 @@ class Status extends State implements StatusInterface
      * @var string
      */
     protected $id;
-
-    /**
-     * The color.
-     *
-     * @var string
-     */
-    protected $color;
 
     /**
      * The project.
@@ -52,35 +45,23 @@ class Status extends State implements StatusInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Sets id.
+     *
+     * @param $id
+     *
+     * @return $this
      */
-    public function getColor()
+    public function setId($id)
     {
-        return $this->color;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setColor($color)
-    {
-        $this->color = $color;
+        $this->id = $id;
 
         return $this;
     }
 
     /**
-     * {@inheritdoc}
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
+     * Gets project.
+     *
+     * @return \Kreta\Component\Core\Model\Interfaces\ProjectInterface
      */
     public function getProject()
     {
@@ -88,21 +69,15 @@ class Status extends State implements StatusInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Sets the project.
+     *
+     * @param \Kreta\Component\Core\Model\Interfaces\ProjectInterface $project The project
+     *
+     * @return $this self Object
      */
     public function setProject(ProjectInterface $project)
     {
         $this->project = $project;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setType($type)
-    {
-        $this->type = $type;
 
         return $this;
     }

@@ -13,9 +13,12 @@
         </a>
         <hr noshade>
         {% for transition in issue.status.transitions %}
-        <a href="{{ url('kreta_web_issue_change_status',
-            {projectId: issue.project.id, issueId: issue.id, statusId: transition.id}) }}">
-            Mark as <b>{{ transition.name }}</b>
+        <a href="{{ url('kreta_web_issue_change_status', {
+                        projectId: issue.project.id,
+                        issueId: issue.id,
+                        transitionId: transition.id
+        }) }}">
+            {{ transition.name }}
         </a>
         {% endfor %}
     </div>

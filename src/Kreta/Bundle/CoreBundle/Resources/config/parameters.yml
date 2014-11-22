@@ -13,6 +13,7 @@ parameters:
     kreta_core.class_participant: Kreta\Component\Core\Model\Participant
     kreta_core.class_resolution: Kreta\Component\Core\Model\Resolution
     kreta_core.class_status: Kreta\Component\Core\Model\Status
+    kreta_core.class_status_transition: Kreta\Component\Core\Model\StatusTransition
     kreta_core.class_user: Kreta\Component\Core\Model\User
 
     kreta_core.factory_class_comment: Kreta\Component\Core\Factory\BaseFactory
@@ -31,6 +32,7 @@ parameters:
     kreta_core.repository_class_participant: Kreta\Component\Core\Repository\ParticipantRepository
     kreta_core.repository_class_resolution: Kreta\Component\Core\Repository\ResolutionRepository
     kreta_core.repository_class_status: Kreta\Component\Core\Repository\StatusRepository
+    kreta_core.repository_class_status_transition: Kreta\Component\Core\Repository\StatusTransitionRepository
     kreta_core.repository_class_user: Kreta\Component\Core\Repository\UserRepository
 
     kreta_core.security_class_userProvider: Kreta\Bundle\CoreBundle\Security\UserProvider

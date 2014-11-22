@@ -41,6 +41,11 @@ services:
         factory_method: getRepository
         class: %kreta_core.repository_class_status%
         arguments: [%kreta_core.class_status%]
+    kreta_core.repository_status_transition:
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        class: %kreta_core.repository_class_status_transition%
+        arguments: [%kreta_core.class_status_transition%]
     kreta_core.repository_user:
         factory_service: doctrine.orm.entity_manager
         factory_method: getRepository

@@ -1,0 +1,48 @@
+# This file belongs to Kreta.
+# The source code of application includes a LICENSE file
+# with all information about license.
+#
+# @author benatespina <benatespina@gmail.com>
+# @author gorkalaucirica <gorka.lauzirika@gmail.com>
+
+Kreta\Component\Core\Model\StatusTransition:
+    type: entity
+    repositoryClass: Kreta\Component\Core\Repository\StatusTransitionRepository
+    table: status_transition
+    id:
+        id:
+            type: string
+            generator:
+                strategy: UUID
+    fields:
+        name:
+            type: string
+            length: 100
+    manyToOne:
+        project:
+            targetEntity: Kreta\Component\Core\Model\Interfaces\ProjectInterface
+            inversedBy: statusTransitions
+            joinColumn:
+                name: project_id
+                referencedColumnName: id
+                onDelete: CASCADE
+        state:
+            targetEntity: Kreta\Component\Core\Model\Interfaces\StatusInterface
+            joinColumn:
+                name: status_transitions_state
+                referencedColumnName: id
+                onDelete: CASCADE
+    manyToMany:
+        initialStates:
+            targetEntity: Kreta\Component\Core\Model\Interfaces\StatusInterface
+            inversedBy: transitions
+            joinTable:
+                name: status_transitions_initial
+                joinColumns:
+                    status_transition_id:
+                        referencedColumnName: id
+                        onDelete: CASCADE
+                inverseJoinColumns:
+                    status_id:
+                        referencedColumnName: id
+                        onDelete: CASCADE

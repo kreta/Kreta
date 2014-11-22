@@ -13,6 +13,7 @@ namespace spec\Kreta\Bundle\CoreBundle\Services\StateMachine;
 
 use Kreta\Component\Core\Model\Interfaces\IssueInterface;
 use Kreta\Component\Core\Model\Interfaces\StatusInterface;
+use Kreta\Component\Core\Model\Interfaces\StatusTransitionInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -33,20 +34,20 @@ class IssueStateMachineSpec extends ObjectBehavior
         $this->shouldHaveType('Finite\StateMachine\StateMachine');
     }
 
-    function it_loads(IssueInterface $issue, StatusInterface $status, StatusInterface $status2)
+    function it_loads(IssueInterface $issue, StatusInterface $status, StatusInterface $status2,
+                      StatusTransitionInterface $transition)
     {
-        $status->addStatusTransition($status2);
-        $status2->addStatusTransition($status);
-
         $status->getName()->shouldBeCalled()->willReturn('Open');
         $status->getType()->shouldBeCalled()->willReturn('initial');
-        $status->getTransitions()->shouldBeCalled()->willReturn(array($status2));
 
         $status2->getName()->shouldBeCalled()->willReturn('In progress');
         $status2->getType()->shouldBeCalled()->willReturn('normal');
-        $status2->getTransitions()->shouldBeCalled()->willReturn(array($status));
 
-        $this->load($issue, array($status, $status2))
+        $transition->getInitialStates()->shouldBeCalled()->willReturn(array($status));
+        $transition->getName()->shouldBeCalled()->willReturn('Start progress');
+        $transition->getState()->shouldBeCalled()->willReturn($status2);
+
+        $this->load($issue, array($status, $status2), array($transition))
             ->shouldReturnAnInstanceOf('Kreta\Bundle\CoreBundle\Services\StateMachine\IssueStateMachine');
     }
 }

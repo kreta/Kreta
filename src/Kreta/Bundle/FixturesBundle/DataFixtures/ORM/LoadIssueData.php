@@ -29,7 +29,6 @@ class LoadIssueData extends DataFixtures
         $labels = $this->container->get('kreta_core.repository_label')->findAll();
         $projects = $this->container->get('kreta_core.repository_project')->findAll();
         $resolutions = $this->container->get('kreta_core.repository_resolution')->findAll();
-        $statuses = $this->container->get('kreta_core.repository_status')->findAll();
 
         for ($i = 0; $i < 100; $i++) {
             $project = $projects[array_rand($projects)];
@@ -60,6 +59,7 @@ class LoadIssueData extends DataFixtures
                 $issue->setResolution($resolutions[array_rand($resolutions)]);
             }
             $issue->setReporter($participants[array_rand($participants)]->getUser());
+            $statuses = $this->container->get('kreta_core.repository_status')->findByProject($project);
             $status = $statuses[array_rand($statuses)];
             $issue->setStatus($status);
             $types = array(

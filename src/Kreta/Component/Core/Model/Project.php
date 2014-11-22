@@ -17,6 +17,7 @@ use Kreta\Component\Core\Model\Interfaces\IssueInterface;
 use Kreta\Component\Core\Model\Interfaces\ParticipantInterface;
 use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Core\Model\Interfaces\StatusInterface;
+use Kreta\Component\Core\Model\Interfaces\StatusTransitionInterface;
 use Kreta\Component\Core\Model\Interfaces\UserInterface;
 
 /**
@@ -62,6 +63,13 @@ class Project extends AbstractModel implements ProjectInterface
     protected $statuses;
 
     /**
+     * Array that contains all the status transitions of the project.
+     *
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     */
+    protected $statusTransitions;
+
+    /**
      * Constructor.
      */
     public function __construct()
@@ -69,6 +77,7 @@ class Project extends AbstractModel implements ProjectInterface
         $this->issues = new ArrayCollection();
         $this->participants = new ArrayCollection();
         $this->statuses = new ArrayCollection();
+        $this->statusTransitions = new ArrayCollection();
     }
 
     /**
@@ -200,6 +209,35 @@ class Project extends AbstractModel implements ProjectInterface
 
         return $this;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getStatusTransitions()
+    {
+        return $this->statusTransitions;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function addStatusTransition(StatusTransitionInterface $statusTransition)
+    {
+        $this->statusTransitions[] = $statusTransition;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function removeStatusTransition(StatusTransitionInterface $statusTransition)
+    {
+        $this->statusTransitions->removeElement($statusTransition);
+
+        return $this;
+    }
+
 
     /**
      * {@inheritdoc}

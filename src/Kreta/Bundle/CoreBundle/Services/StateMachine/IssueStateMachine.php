@@ -11,6 +11,7 @@
 
 namespace Kreta\Bundle\CoreBundle\Services\StateMachine;
 
+use Finite\Exception;
 use Finite\Loader\ArrayLoader;
 use Finite\StateMachine\StateMachine;
 use Kreta\Component\Core\Model\Interfaces\IssueInterface;
@@ -30,16 +31,25 @@ class IssueStateMachine extends StateMachine
     protected $statuses;
 
     /**
+     * The statuses.
+     *
+     * @var \Kreta\Component\Core\Model\Interfaces\StatusTransitionInterface[]
+     */
+    protected $transitions;
+
+    /**
      * Loads a issue state machine.
      *
-     * @param \Kreta\Component\Core\Model\Interfaces\IssueInterface    $issue    The issue
-     * @param \Kreta\Component\Core\Model\Interfaces\StatusInterface[] $statuses A collection of statuses
+     * @param \Kreta\Component\Core\Model\Interfaces\IssueInterface              $issue      The issue
+     * @param \Kreta\Component\Core\Model\Interfaces\StatusInterface[]           $statuses   A collection of statuses
+     * @param \Kreta\Component\Core\Model\Interfaces\StatusTransitionInterface[] transitions A collection of trasitions
      *
      * @return $this self Object
      */
-    public function load(IssueInterface $issue, $statuses)
+    public function load(IssueInterface $issue, $statuses, $transitions)
     {
         $this->statuses = $statuses;
+        $this->transitions = $transitions;
 
         parent::__construct($issue, null);
 
@@ -57,10 +67,10 @@ class IssueStateMachine extends StateMachine
     private function createLoader()
     {
         return new ArrayLoader([
-            'class'         => 'Issue',
+            'class' => 'Issue',
             'property_path' => 'status',
-            'states'        => $this->getStates(),
-            'transitions'   => $this->getTransitions()
+            'states' => $this->getStates(),
+            'transitions' => $this->getTransitions()
         ]);
     }
 
@@ -71,10 +81,9 @@ class IssueStateMachine extends StateMachine
      */
     public function getStates()
     {
-        $statusCollection = $this->statuses;
+        $states = [];
 
-        $states = array();
-        foreach ($statusCollection as $status) {
+        foreach ($this->statuses as $status) {
             $states[$status->getName()] = ['type' => $status->getType()];
         }
 
@@ -88,14 +97,18 @@ class IssueStateMachine extends StateMachine
      */
     public function getTransitions()
     {
-        $statusCollection = $this->statuses;
+        $transitions = [];
 
-        $transitions = array();
-        foreach ($statusCollection as $status) {
-            foreach ($status->getTransitions() as $transition) {
-                $transitions[$status->getName() . '-' . $transition->getName()] =
-                    ['from' => [$status->getName()], 'to' => $transition->getName()];
+        foreach ($this->transitions as $transition) {
+            $from = [];
+            foreach ($transition->getInitialStates() as $state) {
+                $from[] = $state->getName();
             }
+
+            $transitions[$transition->getName()] = [
+                'from' => $from,
+                'to' => $transition->getState()->getName()
+            ];
         }
 
         return $transitions;
