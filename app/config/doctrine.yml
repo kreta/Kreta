@@ -38,5 +38,6 @@ doctrine:
             Kreta\Component\Core\Model\Interfaces\ParticipantInterface: Kreta\Component\Core\Model\Participant
             Kreta\Component\Core\Model\Interfaces\ResolutionInterface: Kreta\Component\Core\Model\Resolution
             Kreta\Component\Core\Model\Interfaces\StatusInterface: Kreta\Component\Core\Model\Status
+            Kreta\Component\Core\Model\Interfaces\StatusTransitionInterface: Kreta\Component\Core\Model\StatusTransition
             Kreta\Component\Core\Model\Interfaces\UserInterface: Kreta\Component\Core\Model\User
             Kreta\Component\Notification\Model\Interfaces\NotificationInterface: Kreta\Component\Core\Model\User

@@ -14,6 +14,7 @@ namespace spec\Kreta\Component\Core\Model;
 use Kreta\Component\Core\Model\Interfaces\IssueInterface;
 use Kreta\Component\Core\Model\Interfaces\ParticipantInterface;
 use Kreta\Component\Core\Model\Interfaces\StatusInterface;
+use Kreta\Component\Core\Model\Interfaces\StatusTransitionInterface;
 use Kreta\Component\Core\Model\Interfaces\UserInterface;
 use Kreta\Component\Core\Model\Project;
 use Kreta\Component\Core\Model\Participant;
@@ -103,6 +104,19 @@ class ProjectSpec extends ObjectBehavior
         $this->removeStatus($status);
 
         $this->getStatuses()->shouldHaveCount(0);
+    }
+
+    function its_status_transitions_are_be_mutable(StatusTransitionInterface $transition)
+    {
+        $this->getStatusTransitions()->shouldHaveCount(0);
+
+        $this->addStatusTransition($transition);
+
+        $this->getStatusTransitions()->shouldHaveCount(1);
+
+        $this->removeStatusTransition($transition);
+
+        $this->getStatusTransitions()->shouldHaveCount(0);
     }
 
     function it_does_not_get_user_role(UserInterface $anotherUser)

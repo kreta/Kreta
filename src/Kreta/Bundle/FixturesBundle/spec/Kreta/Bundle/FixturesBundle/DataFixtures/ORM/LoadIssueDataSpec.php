@@ -84,7 +84,8 @@ class LoadIssueDataSpec extends ObjectBehavior
         $resolutionRepository->findAll()->shouldBeCalled()->willReturn(array($resolution));
 
         $container->get('kreta_core.repository_status')->shouldBeCalled()->willReturn($statusRepository);
-        $statusRepository->findAll()->shouldBeCalled()->willReturn(array($status));
+        $statusRepository->findByProject(Argument::type('Kreta\Component\Core\Model\Interfaces\ProjectInterface'))
+            ->shouldBeCalled()->willReturn(array($status));
 
         $container->get('kreta_core.repository_participant')->shouldBeCalled()->willReturn($participantRepository);
         $participantRepository->findByProject($project)->shouldBeCalled()->willReturn(array($participant));

@@ -35,3 +35,8 @@ Kreta\Component\Core\Model\Project:
             targetEntity: Kreta\Component\Core\Model\Interfaces\StatusInterface
             mappedBy: project
             cascade: ['persist', 'remove']
+        statusTransitions:
+            targetEntity: Kreta\Component\Core\Model\Interfaces\StatusTransitionInterface
+            mappedBy: project
+            cascade: ['persist', 'remove']
+

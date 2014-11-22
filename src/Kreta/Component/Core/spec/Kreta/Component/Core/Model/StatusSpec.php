@@ -67,19 +67,6 @@ class StatusSpec extends ObjectBehavior
         $this->getProject()->shouldReturn($project);
     }
 
-    function its_status_transitions_are_mutable(StatusInterface $status)
-    {
-        $this->getTransitions()->shouldHaveCount(0);
-
-        $this->addStatusTransition($status);
-
-        $this->getTransitions()->shouldHaveCount(1);
-
-        $this->removeStatusTransition($status);
-
-        $this->getTransitions()->shouldHaveCount(0);
-    }
-
     function its_type_is_mutable()
     {
         $this->getType()->shouldReturn('normal');

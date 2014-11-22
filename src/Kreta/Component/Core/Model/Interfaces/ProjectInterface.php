@@ -133,6 +133,31 @@ interface ProjectInterface
     public function removeStatus(StatusInterface $status);
 
     /**
+     * Gets status transitions.
+     *
+     * @return \Kreta\Component\Core\Model\Interfaces\StatusTransitionInterface[]
+     */
+    public function getStatusTransitions();
+
+    /**
+     * Adds status transition.
+     *
+     * @param \Kreta\Component\Core\Model\Interfaces\StatusTransitionInterface $statusTransition The status transition
+     *
+     * @return $this self Object
+     */
+    public function addStatusTransition(StatusTransitionInterface $statusTransition);
+
+    /**
+     * Removes status transition.
+     *
+     * @param \Kreta\Component\Core\Model\Interfaces\StatusTransitionInterface $statusTransition The status
+     *
+     * @return $this self Object
+     */
+    public function removeStatusTransition(StatusTransitionInterface $statusTransition);
+
+    /**
      * Gets role of user given.
      *
      * @param \Kreta\Component\Core\Model\Interfaces\UserInterface $user The user

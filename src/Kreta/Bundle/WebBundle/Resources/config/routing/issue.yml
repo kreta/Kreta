@@ -22,5 +22,5 @@ kreta_web_issue_comment_new:
     defaults: { _controller: KretaWebBundle:Issue:newComment }
 
 kreta_web_issue_change_status:
-    path: /{issueId}/status/{statusId}
+    path: /{issueId}/status/{transitionId}
     defaults: { _controller: KretaWebBundle:Issue:editStatus }
