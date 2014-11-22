@@ -12,7 +12,9 @@
             <tr class="kreta-notification">
                 <td>{{ notificationIcon(notification.type) }}</td>
                 <td class="kreta-notification-title">
-                    <a href="{{ notification.webUrl }}">{{ notification.title }}</a>
+                    <a href="{{ url('kreta_web_notification_read', { id : notification.id}) }}">
+                        {{ notification.title }}
+                    </a>
                 </td>
                 <td class="kreta-notification-data">{{ notification.date | date('Y-m-d H:i') }}</td>
             </tr>
