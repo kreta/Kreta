@@ -15,6 +15,9 @@ services:
     kreta_core.factory_label:
         class: %kreta_core.factory_class_label%
         arguments: [%kreta_core.class_label%]
+    kreta_core.factory_media:
+        class: %kreta_core.factory_class_media%
+        arguments: [%kreta_core.class_media%]
     kreta_core.factory_project:
         class: %kreta_core.factory_class_project%
         arguments: [%kreta_core.class_project%]

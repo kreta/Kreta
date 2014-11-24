@@ -15,13 +15,14 @@
 !app/cache/.gitkeep
 !app/logs/.gitkeep
 !app/sessions/.gitkeep
-web/uploads/images/*
-!web/uploads/images/.gitkeep
+web/bundles
 web/config.php
 web/css
-web/bundles
 web/images
 web/js
+web/media
+!web/media/image/.gitkeep
+!web/media/cache/.gitkeep
 /vendor/
 /bin/
 

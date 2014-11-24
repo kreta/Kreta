@@ -113,6 +113,46 @@ jms_serializer:
                 namespace_prefix: "FOS\\UserBundle"
                 path: "@KretaApiCoreBundle/Resources/FOSUserBundle/serializer"
 
+knp_gaufrette:
+    adapters:
+        kreta_image_users:
+            local:
+                directory: %kernel.root_dir%/../web/media/image
+#                directory: %kernel.root_dir%/../web/media/image/users
+                create: true
+        kreta_image_projects:
+            local:
+                directory: %kernel.root_dir%/../web/media/image
+#                directory: %kernel.root_dir%/../web/media/image/projects
+                create: true
+    filesystems:
+        kreta_image_users:
+            adapter: %users.image.uploader.filesystem%
+        kreta_image_projects:
+            adapter: %projects.image.uploader.filesystem%
+
+liip_imagine:
+    loaders:
+        default:
+            filesystem:
+                data_root: %kernel.root_dir%/../web/media/image
+#        projects:
+#            filesystem:
+#                data_root: %kernel.root_dir%/../web/media/image/projects
+#        users:
+#            filesystem:
+#                data_root: %kernel.root_dir%/../web/media/image/users
+    filter_sets:
+        kreta_small:
+            filters:
+                thumbnail: { size: [150, 150], mode: outbound }
+        kreta_medium:
+            filters:
+                thumbnail: { size: [240, 180], mode: outbound }
+        kreta_large:
+            filters:
+                thumbnail: { size: [640, 480], mode: outbound }
+
 nelmio_api_doc: ~
 
 nelmio_cors:

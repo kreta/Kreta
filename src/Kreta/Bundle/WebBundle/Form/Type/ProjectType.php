@@ -27,14 +27,21 @@ class ProjectType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name', 'text', array(
-                'required' => true,
-                'label'    => 'Name',
-            ))
-            ->add('shortName', 'text', array(
-                'label' => 'Short name',
-                'attr' => array('maxlength' => 4)
-            ));
+            ->add(
+                'name',
+                'text',
+                ['label' => 'Name']
+            )
+            ->add(
+                'shortName',
+                'text',
+                ['label' => 'Short name', 'attr' => ['maxlength' => 4]]
+            )
+            ->add(
+                'image',
+                'file',
+                ['label' => 'Image', 'required' => false, 'mapped' => false]
+            );
     }
 
     /**

@@ -26,6 +26,22 @@ interface ProjectInterface
     public function getId();
 
     /**
+     * Gets image.
+     *
+     * @return \Kreta\Component\Core\Model\Interfaces\MediaInterface
+     */
+    public function getImage();
+
+    /**
+     * Sets image.
+     *
+     * @param \Kreta\Component\Core\Model\Interfaces\MediaInterface $image The image
+     *
+     * @return $this self Object
+     */
+    public function setImage(MediaInterface $image);
+
+    /**
      * Gets issues.
      *
      * @return \Kreta\Component\Core\Model\Interfaces\IssueInterface[]

@@ -12,10 +12,13 @@
 namespace spec\Kreta\Bundle\FixturesBundle\DataFixtures\ORM;
 
 use Doctrine\Common\Persistence\ObjectManager;
+use Kreta\Component\Core\Factory\MediaFactory;
 use Kreta\Component\Core\Factory\ProjectFactory;
+use Kreta\Component\Core\Model\Interfaces\MediaInterface;
 use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
-use PhpSpec\ObjectBehavior;
+use Kreta\Component\Core\Uploader\Interfaces\MediaUploaderInterface;
 use Prophecy\Argument;
+use spec\Kreta\Bundle\FixturesBundle\DataFixtures\DataFixturesSpec;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
@@ -23,7 +26,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  *
  * @package spec\Kreta\Bundle\FixturesBundle\DataFixtures\ORM
  */
-class LoadProjectDataSpec extends ObjectBehavior
+class LoadProjectDataSpec extends DataFixturesSpec
 {
     function let(ContainerInterface $container)
     {
@@ -42,16 +45,30 @@ class LoadProjectDataSpec extends ObjectBehavior
 
     function it_loads(
         ContainerInterface $container,
+        MediaUploaderInterface $uploader,
+        MediaFactory $mediaFactory,
+        MediaInterface $media,
         ProjectFactory $factory,
         ProjectInterface $project,
         ObjectManager $manager
     )
     {
+        $this->loadMedias(
+            $container,
+            $uploader,
+            $mediaFactory,
+            $media,
+            $manager,
+            'kreta_core.image_projects_uploader'
+        );
+
         $container->get('kreta_core.factory_project')->shouldBeCalled()->willReturn($factory);
         $factory->create()->shouldBeCalled()->willReturn($project);
 
         $project->setName(Argument::type('string'))->shouldBeCalled()->willReturn($project);
         $project->setShortName(Argument::type('string'))->shouldBeCalled()->willReturn($project);
+        $project->setImage(Argument::type('Kreta\Component\Core\Model\Interfaces\MediaInterface'))
+            ->shouldBeCalled()->willReturn($project);
 
         $manager->persist($project)->shouldBeCalled();
 

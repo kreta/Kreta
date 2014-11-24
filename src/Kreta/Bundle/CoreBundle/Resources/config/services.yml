@@ -26,3 +26,22 @@ services:
 #### STATE MACHINE ####
     kreta_issue_state_machine:
         class: %kreta_core.service_class_issueStateMachine%
+
+#### UPLOADER ####
+    kreta_core.image_users_uploader:
+        class: %kreta_core.uploader_class_mediaUploader%
+        arguments: [@kreta_core.image_users_uploader_filesystem]
+    kreta_core.image_projects_uploader:
+        class: %kreta_core.uploader_class_mediaUploader%
+        arguments: [@kreta_core.image_projects_uploader_filesystem]
+
+    kreta_core.image_users_uploader_filesystem:
+        class: Gaufrette\Filesystem
+        factory_service: knp_gaufrette.filesystem_map
+        factory_method: get
+        arguments: [%users.image.uploader.filesystem%]
+    kreta_core.image_projects_uploader_filesystem:
+        class: Gaufrette\Filesystem
+        factory_service: knp_gaufrette.filesystem_map
+        factory_method: get
+        arguments: [%projects.image.uploader.filesystem%]

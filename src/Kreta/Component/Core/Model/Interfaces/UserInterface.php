@@ -199,6 +199,22 @@ interface UserInterface extends BaseUserInterface
     public function setLastName($lastName);
 
     /**
+     * Gets photo.
+     *
+     * @return \Kreta\Component\Core\Model\Interfaces\MediaInterface
+     */
+    public function getPhoto();
+
+    /**
+     * Sets photo.
+     *
+     * @param \Kreta\Component\Core\Model\Interfaces\MediaInterface $photo The photo
+     *
+     * @return $this self Object
+     */
+    public function setPhoto(MediaInterface $photo);
+
+    /**
      * Gets project with his role.
      *
      * @return \Kreta\Component\Core\Model\Interfaces\ParticipantInterface[]

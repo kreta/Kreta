@@ -48,6 +48,13 @@ Kreta\Component\Core\Model\User:
             type: string
             length: 100
             nullable: true
+    oneToOne:
+        photo:
+            targetEntity: Kreta\Component\Core\Model\Interfaces\MediaInterface
+            joinColumn:
+                name: photo
+                referencedColumnName: id
+            cascade: ['persist', 'remove']
     oneToMany:
         assignedIssues:
             targetEntity: Kreta\Component\Core\Model\Interfaces\IssueInterface

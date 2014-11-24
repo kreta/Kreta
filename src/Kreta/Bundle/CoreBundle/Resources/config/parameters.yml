@@ -9,6 +9,7 @@ parameters:
     kreta_core.class_comment: Kreta\Component\Core\Model\Comment
     kreta_core.class_issue: Kreta\Component\Core\Model\Issue
     kreta_core.class_label: Kreta\Component\Core\Model\Label
+    kreta_core.class_media: Kreta\Component\Core\Model\Media
     kreta_core.class_project: Kreta\Component\Core\Model\Project
     kreta_core.class_participant: Kreta\Component\Core\Model\Participant
     kreta_core.class_resolution: Kreta\Component\Core\Model\Resolution
@@ -19,6 +20,7 @@ parameters:
     kreta_core.factory_class_comment: Kreta\Component\Core\Factory\BaseFactory
     kreta_core.factory_class_issue: Kreta\Component\Core\Factory\IssueFactory
     kreta_core.factory_class_label: Kreta\Component\Core\Factory\BaseFactory
+    kreta_core.factory_class_media: Kreta\Component\Core\Factory\MediaFactory
     kreta_core.factory_class_project: Kreta\Component\Core\Factory\ProjectFactory
     kreta_core.factory_class_participant: Kreta\Component\Core\Factory\ParticipantFactory
     kreta_core.factory_class_resolution: Kreta\Component\Core\Factory\BaseFactory
@@ -28,6 +30,7 @@ parameters:
     kreta_core.repository_class_comment: Kreta\Component\Core\Repository\CommentRepository
     kreta_core.repository_class_issue: Kreta\Component\Core\Repository\IssueRepository
     kreta_core.repository_class_label: Kreta\Component\Core\Repository\LabelRepository
+    kreta_core.repository_class_media: Kreta\Component\Core\Repository\MediaRepository
     kreta_core.repository_class_project: Kreta\Component\Core\Repository\ProjectRepository
     kreta_core.repository_class_participant: Kreta\Component\Core\Repository\ParticipantRepository
     kreta_core.repository_class_resolution: Kreta\Component\Core\Repository\ResolutionRepository
@@ -40,3 +43,5 @@ parameters:
     kreta_core.security_class_projectVoter: Kreta\Bundle\CoreBundle\Security\Authorization\Voter\ProjectVoter
 
     kreta_core.service_class_issueStateMachine: Kreta\Bundle\CoreBundle\Services\StateMachine\IssueStateMachine
+
+    kreta_core.uploader_class_mediaUploader: Kreta\Component\Core\Uploader\MediaUploader

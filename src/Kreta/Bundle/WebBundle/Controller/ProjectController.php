@@ -15,6 +15,7 @@ use Kreta\Bundle\WebBundle\Form\Type\ProjectType;
 use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Core\Model\Interfaces\UserInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
@@ -64,6 +65,12 @@ class ProjectController extends Controller
         if ($request->isMethod('POST') === true) {
             $form->handleRequest($request);
             if ($form->isSubmitted() === true && $form->isValid() === true) {
+                $image = $request->files->get('kreta_core_project_type')['image'];
+                if ($image instanceof UploadedFile) {
+                    $media = $this->get('kreta_core.factory_media')->create($image);
+                    $this->get('kreta_core.image_projects_uploader')->upload($media);
+                    $project->setImage($media);
+                }
                 $manager = $this->getDoctrine()->getManager();
                 $manager->persist($project);
                 $participant = $this->get('kreta_core.factory_participant')->create($project, $this->getUser());
@@ -106,6 +113,12 @@ class ProjectController extends Controller
         if ($request->isMethod('POST') === true) {
             $form->handleRequest($request);
             if ($form->isSubmitted() === true && $form->isValid() === true) {
+                $image = $request->files->get('kreta_core_project_type')['image'];
+                if ($image instanceof UploadedFile) {
+                    $media = $this->get('kreta_core.factory_media')->create($image);
+                    $this->get('kreta_core.image_projects_uploader')->upload($media);
+                    $project->setImage($media);
+                }
                 $manager = $this->getDoctrine()->getManager();
                 $manager->persist($project);
                 $manager->flush();

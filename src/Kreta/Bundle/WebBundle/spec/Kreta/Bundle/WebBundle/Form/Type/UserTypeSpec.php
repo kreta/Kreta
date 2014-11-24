@@ -34,19 +34,31 @@ class UserTypeSpec extends ObjectBehavior
 
     function it_builds_a_form(FormBuilder $builder)
     {
-        $builder->add('firstName', null, array(
-            'label' => 'First Name'
-        ))->shouldBeCalled()->willReturn($builder);
+        $builder->add(
+            'firstName',
+            null,
+            ['label' => 'First Name']
+        )->shouldBeCalled()->willReturn($builder);
 
-        $builder->add('lastName', null, array(
-            'label' => 'Last Name'
-        ))->shouldBeCalled()->willReturn($builder);
+        $builder->add(
+            'lastName',
+            null,
+            ['label' => 'Last Name']
+        )->shouldBeCalled()->willReturn($builder);
 
-        $builder->add('email', null, array(
-            'label' => 'Email'
-        ))->shouldBeCalled()->willReturn($builder);
+        $builder->add(
+            'email',
+            null,
+            ['label' => 'Email']
+        )->shouldBeCalled()->willReturn($builder);
 
-        $this->buildForm($builder, array());
+        $builder->add(
+            'photo',
+            'file',
+            ['label' => 'Photo', 'required' => false, 'mapped' => false]
+        )->shouldBeCalled()->willReturn($builder);
+
+        $this->buildForm($builder, []);
     }
 
     function it_gets_name()

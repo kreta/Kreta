@@ -22,6 +22,14 @@ Kreta\Component\Core\Model\Project:
             column: short_name
             type: string
             length: 4
+    oneToOne:
+        image:
+            targetEntity: Kreta\Component\Core\Model\Interfaces\MediaInterface
+            joinColumn:
+                name: image
+                referencedColumnName: id
+            cascade: ['persist', 'remove']
+
     oneToMany:
         issues:
             targetEntity: Kreta\Component\Core\Model\Interfaces\IssueInterface

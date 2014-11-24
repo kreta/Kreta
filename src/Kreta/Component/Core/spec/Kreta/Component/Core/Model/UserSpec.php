@@ -13,6 +13,7 @@ namespace spec\Kreta\Component\Core\Model;
 
 use Kreta\Component\Core\Model\Interfaces\CommentInterface;
 use Kreta\Component\Core\Model\Interfaces\IssueInterface;
+use Kreta\Component\Core\Model\Interfaces\MediaInterface;
 use Kreta\Component\Core\Model\Interfaces\ParticipantInterface;
 use PhpSpec\ObjectBehavior;
 
@@ -152,6 +153,12 @@ class UserSpec extends ObjectBehavior
     {
         $this->setLastName('The dummy last name')->shouldReturn($this);
         $this->getLastName()->shouldReturn('The dummy last name');
+    }
+
+    function its_photo_is_mutable(MediaInterface $media)
+    {
+        $this->setPhoto($media)->shouldReturn($this);
+        $this->getPhoto()->shouldReturn($media);
     }
 
     function its_projects_with_his_roles_are_be_mutable(ParticipantInterface $project)
