@@ -4,7 +4,10 @@
     <div class="medium-8 column kreta-widget">
         <div class="kreta-widget-content">
             <h2><i class="fa fa-check-square-o"></i>Edit issue</h2>
-            {{ form_start(form, {'action': url('kreta_web_issue_edit',{projectId: issue.project.id, issueId: issue.id})})}}
+            {{ form_start(form, {'action': url('kreta_web_issue_edit',{
+                projectShortName: issue.project.shortName,
+                issueNumber: issue.numericId
+            })}) }}
             {{ form_row(form.title) }}
             {{ form_row(form.description) }}
             {{ form_row(form.type) }}

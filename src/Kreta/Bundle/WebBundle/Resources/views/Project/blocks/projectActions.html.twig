@@ -8,6 +8,8 @@
 
 {% block widgetContent %}
     <div class="kreta-actions">
-        <a id="add-issue" href="{{ url('kreta_web_issue_new', {projectId: project.id}) }}"><i class="fa fa-plus"></i> Create issue</a>
+        <a id="add-issue" href="{{ url('kreta_web_issue_new', {'projectShortName': project.shortName}) }}">
+            <i class="fa fa-plus"></i> Create issue
+        </a>
     </div>
 {% endblock %}
