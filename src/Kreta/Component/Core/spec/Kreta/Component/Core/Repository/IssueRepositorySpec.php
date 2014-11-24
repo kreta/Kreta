@@ -16,6 +16,7 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
+use Kreta\Component\Core\Model\Interfaces\IssueInterface;
 use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Core\Model\Interfaces\UserInterface;
 use PhpSpec\ObjectBehavior;
@@ -190,5 +191,32 @@ class IssueRepositorySpec extends ObjectBehavior
         $query->getResult()->shouldBeCalled()->willReturn([]);
 
         $this->findByAssignee($assignee, [], true)->shouldBeArray();
+    }
+
+    function it_finds_one_issue_by_shortcode (
+        EntityManager $manager,
+        QueryBuilder $queryBuilder,
+        Expr $expr,
+        Expr\Comparison $comparison,
+        Expr\Comparison $comparison2,
+        AbstractQuery $query,
+        IssueInterface $issue
+    )
+    {
+        $manager->createQueryBuilder()->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->select('i')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->from(Argument::any(), 'i')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->leftJoin('i.project', 'p')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->expr()->shouldBeCalledTimes(2)->willReturn($expr);
+        $expr->eq('i.numericId', ':issueNumber')->shouldBeCalled()->willReturn($comparison);
+        $expr->eq('p.shortName', ':projectShortName')->shouldBeCalled()->willReturn($comparison2);
+        $queryBuilder->where($comparison)->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->andWhere($comparison2)->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->setParameter('issueNumber', 42)->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->setParameter('projectShortName', 'KRT')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
+        $query->getOneOrNullResult()->shouldBeCalled()->willReturn($issue);
+
+        $this->findOneByShortCode('KRT', 42)->shouldReturn($issue);
     }
 }

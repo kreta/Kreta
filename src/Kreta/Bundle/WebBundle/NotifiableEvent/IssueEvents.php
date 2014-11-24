@@ -25,7 +25,7 @@ class IssueEvents implements NotifiableEventInterface
 
     const EVENT_ISSUE_NEW = 'issue_new';
 
-    public function __construct( RouterInterface $router)
+    public function __construct(RouterInterface $router)
     {
         $this->router = $router;
     }
@@ -44,14 +44,17 @@ class IssueEvents implements NotifiableEventInterface
     public function getNotifications($event, $object)
     {
         $notifications = array();
-        switch($event) {
+        switch ($event) {
             case 'postPersist':
                 //Notify to assignee that has a new issue
-                if($object->getAssignee() != $object->getReporter()) {
+                if ($object->getAssignee() != $object->getReporter()) {
                     $notification = new Notification();
                     $url = $this->router->generate(
-                                'kreta_web_issue_view',
-                                array('projectId' => $object->getProject()->getId(), 'issueId' => $object->getId()));
+                        'kreta_web_issue_view', [
+                            'projectShortName' => $object->getProject()->getShortName(),
+                            'issueNumber' => $object->getNumericId()
+                        ]
+                    );
                     $notification
                         ->setDate(new \DateTime())
                         ->setProject($object->getProject())

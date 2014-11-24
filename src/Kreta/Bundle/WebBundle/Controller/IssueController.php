@@ -29,14 +29,14 @@ class IssueController extends Controller
     /**
      * View action.
      *
-     * @param string $projectId The project id
-     * @param string $issueId   The id
+     * @param string $projectShortName Project shortname
+     * @param string $issueNumber      The issue number
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function viewAction($projectId, $issueId)
+    public function viewAction($projectShortName, $issueNumber)
     {
-        $issue = $this->get('kreta_core.repository_issue')->find($issueId);
+        $issue = $this->get('kreta_core.repository_issue')->findOneByShortCode($projectShortName, $issueNumber);
 
         if (!$issue instanceof IssueInterface) {
             $this->createNotFoundException();
@@ -54,15 +54,17 @@ class IssueController extends Controller
     /**
      * New action.
      *
-     * @param integer                                   $projectId Id of the project
-     * @param \Symfony\Component\HttpFoundation\Request $request   The request
+     * @param string                                    $projectShortName Project shortname
+     * @param \Symfony\Component\HttpFoundation\Request $request          The request
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function newAction($projectId, Request $request)
+    public function newAction($projectShortName, Request $request)
     {
         /** @var \Kreta\Component\Core\Model\Interfaces\ProjectInterface $project */
-        $project = $this->get('kreta_core.repository_project')->find($projectId);
+        $project = $this->get('kreta_core.repository_project')->findOneBy([
+            'shortName' => $projectShortName
+        ]);
 
         if (!$project || !$this->get('security.context')->isGranted('create_issue', $project)) {
             throw new AccessDeniedException();
@@ -81,8 +83,10 @@ class IssueController extends Controller
                 $this->get('session')->getFlashBag()->add('success', 'Issue created successfully');
 
                 return $this->redirect($this->generateUrl(
-                    'kreta_web_issue_view',
-                    array('projectId' => $issue->getProject()->getId(), 'issueId' => $issue->getId())
+                    'kreta_web_issue_view', [
+                        'projectShortName' => $issue->getProject()->getShortName(),
+                        'issueNumber' => $issue->getNumericId()
+                    ]
                 ));
             }
             $this->get('session')->getFlashBag()->add('error', 'Some errors found in your issue');
@@ -96,16 +100,16 @@ class IssueController extends Controller
     /**
      * Edit action.
      *
-     * @param string                                    $projectId The project id
-     * @param string                                    $issueId   The id
-     * @param \Symfony\Component\HttpFoundation\Request $request   The request
+     * @param string                                    $projectShortName Project shortname
+     * @param string                                    $issueNumber      The issue number
+     * @param \Symfony\Component\HttpFoundation\Request $request          The request
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function editAction($projectId, $issueId, Request $request)
+    public function editAction($projectShortName, $issueNumber, Request $request)
     {
         /** @var IssueInterface $issue */
-        $issue = $this->get('kreta_core.repository_issue')->find($issueId);
+        $issue = $this->get('kreta_core.repository_issue')->findOneByShortCode($projectShortName, $issueNumber);
 
         if (!$issue instanceof IssueInterface) {
             $this->createNotFoundException();
@@ -126,8 +130,10 @@ class IssueController extends Controller
                 $this->get('session')->getFlashBag()->add('success', 'Issue edited successfully');
 
                 return $this->redirect($this->generateUrl(
-                    'kreta_web_issue_view',
-                    ['projectId' => $issue->getProject()->getId(), 'issueId' => $issue->getId()]
+                    'kreta_web_issue_view', [
+                        'projectShortName' => $issue->getProject()->getShortName(),
+                        'issueNumber' => $issue->getNumericId()
+                    ]
                 ));
             }
             $this->get('session')->getFlashBag()->add('error', 'Some errors found in your issue');
@@ -142,15 +148,15 @@ class IssueController extends Controller
     /**
      * New comment action.
      *
-     * @param string                                    $projectId The project id
-     * @param string                                    $issueId   The issue id
-     * @param \Symfony\Component\HttpFoundation\Request $request   The request
+     * @param string                                    $projectShortName Project shortname
+     * @param string                                    $issueNumber      The issue number
+     * @param \Symfony\Component\HttpFoundation\Request $request          The request
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function newCommentAction($projectId, $issueId, Request $request)
+    public function newCommentAction($projectShortName, $issueNumber, Request $request)
     {
-        $issue = $this->get('kreta_core.repository_issue')->find($issueId);
+        $issue = $this->get('kreta_core.repository_issue')->findOneByShortCode($projectShortName, $issueNumber);
 
         if (!$issue instanceof IssueInterface) {
             $this->createNotFoundException('Issue not found');
@@ -172,8 +178,10 @@ class IssueController extends Controller
             }
 
             return $this->redirect($this->generateUrl(
-                'kreta_web_issue_view',
-                ['projectId' => $issue->getProject()->getId(), 'issueId' => $issue->getId()]
+                'kreta_web_issue_view', [
+                    'projectShortName' => $issue->getProject()->getShortName(),
+                    'issueNumber' => $issue->getNumericId()
+                ]
             ));
         }
 
@@ -186,14 +194,15 @@ class IssueController extends Controller
     /**
      * Edit status action.
      *
-     * @param string $issueId      The issue id
-     * @param string $transitionId The transition id
+     * @param string $projectShortName Project shortname
+     * @param string $issueNumber      The issue number
+     * @param string $transitionId     The transition id
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function editStatusAction($issueId, $transitionId)
+    public function editStatusAction($projectShortName, $issueNumber, $transitionId)
     {
-        $issue = $this->get('kreta_core.repository_issue')->find($issueId);
+        $issue = $this->get('kreta_core.repository_issue')->findOneByShortCode($projectShortName, $issueNumber);
 
         if (!$issue instanceof IssueInterface) {
             $this->createNotFoundException();
@@ -224,9 +233,11 @@ class IssueController extends Controller
             $this->get('session')->getFlashBag()->add('error', 'Transition not allowed');
         }
 
-        return $this->redirect($this->generateUrl('kreta_web_issue_view', [
-            'projectId' => $issue->getProject()->getId(),
-            'issueId' => $issue->getId()
-        ]));
+        return $this->redirect($this->generateUrl(
+            'kreta_web_issue_view', [
+                'projectShortName' => $issue->getProject()->getShortName(),
+                'issueNumber' => $issue->getNumericId()
+            ]
+        ));
     }
 }

@@ -14,7 +14,7 @@ kreta_web_dashboard:
     defaults: { _controller: KretaWebBundle:Default:dashboard }
 
 kreta_web_issue:
-    prefix: /projects/{projectId}/issues
+    prefix: /issues
     resource: "@KretaWebBundle/Resources/config/routing/issue.yml"
 
 kreta_web_notification:

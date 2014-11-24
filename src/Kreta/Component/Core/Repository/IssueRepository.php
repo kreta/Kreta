@@ -140,6 +140,28 @@ class IssueRepository extends EntityRepository
     }
 
     /**
+     * Finds one issue by its short code.
+     *
+     * @param string $projectShortName The 4 character project shortname of the issue to find
+     * @param string $issueNumber      Numeric number of the issue to find
+     *
+     * @return \Kreta\Component\Core\Model\Interfaces\IssueInterface
+     */
+    public function findOneByShortCode($projectShortName, $issueNumber)
+    {
+        $queryBuilder = $this->createQueryBuilder('i');
+
+        $queryBuilder
+            ->leftJoin('i.project', 'p')
+            ->where($queryBuilder->expr()->eq('i.numericId', ':issueNumber'))
+            ->andWhere($queryBuilder->expr()->eq('p.shortName', ':projectShortName'))
+            ->setParameter('issueNumber', $issueNumber)
+            ->setParameter('projectShortName', $projectShortName);
+
+        return $queryBuilder->getQuery()->getOneOrNullResult();
+    }
+
+    /**
      * Manages the order by statement into queries.
      *
      * @param \Doctrine\ORM\QueryBuilder $queryBuilder The query builder
