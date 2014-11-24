@@ -23,6 +23,7 @@ Kreta\Component\Core\Model\Issue:
             type: datetime
         description:
             type: text
+            nullable: true
         priority:
             type: smallint
         title:
