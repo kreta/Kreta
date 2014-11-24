@@ -64,6 +64,13 @@ class Issue extends AbstractModel implements IssueInterface
     protected $labels;
 
     /**
+     * The auto increment numeric id.
+     *
+     * @var int
+     */
+    protected $numericId;
+
+    /**
      * The priority that can be "low", "medium", "high" or "blocking".
      *
      * @var int
@@ -276,6 +283,24 @@ class Issue extends AbstractModel implements IssueInterface
     /**
      * {@inheritdoc}
      */
+    public function getNumericId()
+    {
+        return $this->numericId;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setNumericId($numericId)
+    {
+        $this->numericId = $numericId;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getPriority()
     {
         return $this->priority;
@@ -447,5 +472,15 @@ class Issue extends AbstractModel implements IssueInterface
         }
 
         return false;
+    }
+    
+    /**
+     * {@inheritdoc}
+     */
+    public function generateNumericId()
+    {
+        if (!$this->numericId) {
+            $this->numericId = count($this->project->getIssues()) + 1;
+        }
     }
 }

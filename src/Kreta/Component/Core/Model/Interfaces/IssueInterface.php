@@ -146,6 +146,22 @@ interface IssueInterface extends StatefulInterface
     public function removeLabel(LabelInterface $label);
 
     /**
+     * Gets numeric id.
+     *
+     * @return int
+     */
+    public function getNumericId();
+
+    /**
+     * Sets numeric id.
+     *
+     * @param int|null $numericId The numeric id
+     *
+     * @return $this self Object
+     */
+    public function setNumericId($numericId);
+
+    /**
      * Gets priority.
      *
      * @return string
@@ -299,4 +315,11 @@ interface IssueInterface extends StatefulInterface
      * @return boolean
      */
     public function isParticipant(UserInterface $user);
+
+    /**
+     * Doctrine's pre-persist method that allows to generate a numeric id.
+     *
+     * @return void
+     */
+    public function generateNumericId();
 }
