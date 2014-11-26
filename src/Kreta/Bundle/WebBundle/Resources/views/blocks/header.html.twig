@@ -10,7 +10,7 @@
         {{ render(url('kreta_web_component_notification_icon')) }}
         <div class="user-container">
             {% image '@KretaWebBundle/Resources/public/img/user.jpg' %}
-            <img class="kreta-user-image" src="{{ asset_url }}">
+                <img class="kreta-user-image" src="{{ app.user.photo ? app.user.photo.name|imagine_filter('kreta_small') : asset_url }}">
             {% endimage %}
             {% if app.user.firstName is not null and app.user.lastName is not null %}
                 <span>{{ app.user.firstName }} {{ app.user.lastName }}</span>

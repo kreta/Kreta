@@ -17,7 +17,7 @@
                 <span class="field">Asignee:</span>
                 <div class="image-item">
                     {% image '@KretaWebBundle/Resources/public/img/user.jpg' %}
-                        <img src="{{ asset_url }}">
+                    <img class="kreta-user-image" src="{{ issue.assignee.photo ? issue.assignee.photo.name|imagine_filter('kreta_small') : asset_url }}">
                     {% endimage %}
                     <span>{{ issue.assignee.fullName }}</span>
                 </div>
@@ -30,7 +30,7 @@
                 <span class="field">Assigner:</span>
                 <div class="image-item">
                     {% image '@KretaWebBundle/Resources/public/img/user.jpg' %}
-                        <img src="{{ asset_url }}">
+                        <img class="kreta-user-image" src="{{ issue.reporter.photo ? issue.reporter.photo.name|imagine_filter('kreta_small') : asset_url }}">
                     {% endimage %}
                     <span>{{ issue.reporter.fullName }}</span>
                 </div>

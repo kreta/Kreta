@@ -36,8 +36,10 @@ class AppKernel extends Kernel
             new Finite\Bundle\FiniteBundle\FiniteFiniteBundle(),
             new FOS\RestBundle\FOSRestBundle(),
             new FOS\UserBundle\FOSUserBundle(),
+            new Knp\Bundle\GaufretteBundle\KnpGaufretteBundle(),
             new HWI\Bundle\OAuthBundle\HWIOAuthBundle(),
             new JMS\SerializerBundle\JMSSerializerBundle(),
+            new Liip\ImagineBundle\LiipImagineBundle(),
             new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
             new Nelmio\CorsBundle\NelmioCorsBundle(),
 

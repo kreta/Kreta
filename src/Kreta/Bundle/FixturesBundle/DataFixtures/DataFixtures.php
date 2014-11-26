@@ -13,8 +13,11 @@ namespace Kreta\Bundle\FixturesBundle\DataFixtures;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
+use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\DependencyInjection\ContainerAwareInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Finder\Finder;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Class DataFixture.
@@ -23,6 +26,20 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
  */
 abstract class DataFixtures extends AbstractFixture implements ContainerAwareInterface, OrderedFixtureInterface
 {
+    /**
+     * The path where there are located the projects' fixture images.
+     *
+     * @var string
+     */
+    protected $projectPath = '/../Resources/fixtures/media/image/projects';
+
+    /**
+     * The path where there are located the users' fixture photos.
+     *
+     * @var string
+     */
+    protected $userPath = '/../Resources/fixtures/media/image/users';
+
     /**
      * The container.
      *
@@ -54,10 +71,38 @@ abstract class DataFixtures extends AbstractFixture implements ContainerAwareInt
         $index = rand(0, $limit);
 
         for ($j = 0; $j < $randomAmount; $j++) {
-            if(count($collection) > $index) {
+            if (count($collection) > $index) {
                 $object->$method($collection[$index]);
                 $index++;
             }
         }
+    }
+
+    /**
+     * Agnostic method that loads medias of any uploader.
+     *
+     * @param \Doctrine\Common\Persistence\ObjectManager $manager         The manager
+     * @param string                                     $uploaderService The uploader service
+     * @param string                                     $path            The path
+     *
+     * @return \Kreta\Component\Core\Model\Interfaces\MediaInterface[]
+     */
+    protected function loadMedias(ObjectManager $manager, $uploaderService, $path)
+    {
+        $finder = new Finder();
+        $medias = [];
+        $uploader = $this->container->get($uploaderService);
+        foreach ($finder->files()->in(__DIR__ . $path) as $file) {
+            $media = $this->container->get('kreta_core.factory_media')
+                ->create(new UploadedFile($file->getRealPath(), $file->getFilename()));
+            $uploader->upload($media);
+            $medias[] = $media;
+
+            $manager->persist($media);
+        }
+
+        $manager->flush();
+
+        return $medias;
     }
 }

@@ -30,3 +30,6 @@ kreta_user_bitbucket_login:
 
 kreta_user_github_login:
     pattern: /oauth-login/check-github
+
+liip_imagine:
+    resource: "@LiipImagineBundle/Resources/config/routing.xml"

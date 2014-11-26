@@ -6,32 +6,35 @@
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
 parameters:
-    database_driver:                pdo_mysql
-    database_host:                  127.0.0.1
-    database_port:                  ~
-    database_name:                  kreta
-    database_user:                  root
-    database_password:              ~
+    database_driver:                    pdo_mysql
+    database_host:                      127.0.0.1
+    database_port:                      ~
+    database_name:                      kreta
+    database_user:                      root
+    database_password:                  ~
 
-    mailer_transport:               smtp
-    mailer_host:                    127.0.0.1
-    mailer_user:                    ~
-    mailer_password:                ~
-    mailer_port:                    ~
-    mailer_dev_delivery_address:    me@localhost
-    mailer_encryption:              tls
+    mailer_transport:                   smtp
+    mailer_host:                        127.0.0.1
+    mailer_user:                        ~
+    mailer_password:                    ~
+    mailer_port:                        ~
+    mailer_dev_delivery_address:        me@localhost
+    mailer_encryption:                  tls
 
-    locale:                         en
-    secret:                         23j12b3k54fgbpo23k2jb12ouh677khb456j
+    locale:                             en
+    secret:                             23j12b3k54fgbpo23k2jb12ouh677khb456j
 
-    oauth.bitbucket.client_id:      client-id
-    oauth.bitbucket.client_secret:  client-secret
+    oauth.bitbucket.client_id:          client-id
+    oauth.bitbucket.client_secret:      client-secret
 
-    oauth.github.client_id:         client-id
-    oauth.github.client_secret:     client-secret
+    oauth.github.client_id:             client-id
+    oauth.github.client_secret:         client-secret
 
-    locale:            en
-    secret:            23j12b3k54fgbpo23k2jb12ouh677khb456j
+    users.image.uploader.filesystem:    kreta_image_users
+    projects.image.uploader.filesystem: kreta_image_projects
 
-    ruby_bin:          /usr/bin/env
-    compass_route:     compass
+    locale:                             en
+    secret:                             23j12b3k54fgbpo23k2jb12ouh677khb456j
+
+    ruby_bin:                           /usr/bin/env
+    compass_route:                      compass

@@ -14,6 +14,7 @@ namespace Kreta\Component\Core\Model;
 use Doctrine\Common\Collections\ArrayCollection;
 use Kreta\Component\Core\Model\Abstracts\AbstractModel;
 use Kreta\Component\Core\Model\Interfaces\IssueInterface;
+use Kreta\Component\Core\Model\Interfaces\MediaInterface;
 use Kreta\Component\Core\Model\Interfaces\ParticipantInterface;
 use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Core\Model\Interfaces\StatusInterface;
@@ -27,6 +28,13 @@ use Kreta\Component\Core\Model\Interfaces\UserInterface;
  */
 class Project extends AbstractModel implements ProjectInterface
 {
+    /**
+     * The image.
+     *
+     * @var \Kreta\Component\Core\Model\Interfaces\MediaInterface
+     */
+    protected $image;
+
     /**
      * Array that contains all the issues of the project.
      *
@@ -78,6 +86,24 @@ class Project extends AbstractModel implements ProjectInterface
         $this->participants = new ArrayCollection();
         $this->statuses = new ArrayCollection();
         $this->statusTransitions = new ArrayCollection();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setImage(MediaInterface $image)
+    {
+        $this->image = $image;
+
+        return $this;
     }
 
     /**

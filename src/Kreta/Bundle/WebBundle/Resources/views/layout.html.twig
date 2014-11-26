@@ -32,5 +32,11 @@
         {% block content %}{% endblock %}
     </div>
 {% endblock %}
+{% block javascripts %}
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    {% javascripts '@KretaWebBundle/Resources/public/js/*' output='js/*.js' %}
+        <script type="text/javascript" src="{{ asset_url }}"></script>
+    {% endjavascripts %}
+{% endblock %}
 </body>
 </html>

@@ -15,6 +15,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Model\User as BaseUser;
 use Kreta\Component\Core\Model\Interfaces\CommentInterface;
 use Kreta\Component\Core\Model\Interfaces\IssueInterface;
+use Kreta\Component\Core\Model\Interfaces\MediaInterface;
 use Kreta\Component\Core\Model\Interfaces\ParticipantInterface;
 use Kreta\Component\Core\Model\Interfaces\UserInterface;
 
@@ -87,6 +88,13 @@ class User extends BaseUser implements UserInterface
      * @var string
      */
     protected $lastName;
+
+    /**
+     * The photo.
+     *
+     * @var \Kreta\Component\Core\Model\Interfaces\MediaInterface
+     */
+    protected $photo;
 
     /**
      * Array that contains all the projects with his roles.
@@ -322,6 +330,24 @@ class User extends BaseUser implements UserInterface
     public function setLastName($lastName)
     {
         $this->lastName = $lastName;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getPhoto()
+    {
+        return $this->photo;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setPhoto(MediaInterface $photo)
+    {
+        $this->photo = $photo;
 
         return $this;
     }

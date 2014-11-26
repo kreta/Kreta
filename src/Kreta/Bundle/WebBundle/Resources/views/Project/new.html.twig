@@ -7,6 +7,10 @@
             {{ form_start(form, {'action': url('kreta_web_project_new')}) }}
             {{ form_row(form.name) }}
             {{ form_row(form.shortName) }}
+            {{ form_row(form.image) }}
+            {% image '@KretaWebBundle/Resources/public/img/project.jpg' %}
+                <img class="kreta-image-preview" src="{{ asset_url }}">
+            {% endimage %}
             <div class="form-actions">
                 <input class="button tiny" type="submit" value="Create">
             </div>

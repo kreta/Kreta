@@ -12,12 +12,13 @@
 namespace spec\Kreta\Component\Core\Model;
 
 use Kreta\Component\Core\Model\Interfaces\IssueInterface;
+use Kreta\Component\Core\Model\Interfaces\MediaInterface;
 use Kreta\Component\Core\Model\Interfaces\ParticipantInterface;
 use Kreta\Component\Core\Model\Interfaces\StatusInterface;
 use Kreta\Component\Core\Model\Interfaces\StatusTransitionInterface;
 use Kreta\Component\Core\Model\Interfaces\UserInterface;
-use Kreta\Component\Core\Model\Project;
 use Kreta\Component\Core\Model\Participant;
+use Kreta\Component\Core\Model\Project;
 use Kreta\Component\Core\Model\User;
 use PhpSpec\ObjectBehavior;
 
@@ -48,6 +49,12 @@ class ProjectSpec extends ObjectBehavior
         $this->getIssues()->shouldHaveType('Doctrine\Common\Collections\ArrayCollection');
         $this->getParticipants()->shouldHaveType('Doctrine\Common\Collections\ArrayCollection');
         $this->getStatuses()->shouldHaveType('Doctrine\Common\Collections\ArrayCollection');
+    }
+
+    function its_image_is_mutable(MediaInterface $media)
+    {
+        $this->setImage($media)->shouldReturn($this);
+        $this->getImage()->shouldReturn($media);
     }
 
     function its_issues_are_mutable(IssueInterface $issue)

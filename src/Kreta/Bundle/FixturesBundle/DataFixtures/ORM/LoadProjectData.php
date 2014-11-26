@@ -26,11 +26,13 @@ class LoadProjectData extends DataFixtures
      */
     public function load(ObjectManager $manager)
     {
+        $images = $this->loadMedias($manager, 'kreta_core.image_projects_uploader', $this->projectPath);
+
         for ($i = 0; $i < 10; $i++) {
             $project = $this->container->get('kreta_core.factory_project')->create();
             $project->setName('This is the project number ' . $i . ' that is created by fixtures');
-
             $project->setShortName('PR' . $i);
+            $project->setImage($images[$i]);
 
             $manager->persist($project);
         }

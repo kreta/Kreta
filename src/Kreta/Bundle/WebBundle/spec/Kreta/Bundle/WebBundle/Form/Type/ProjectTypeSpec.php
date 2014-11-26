@@ -34,17 +34,25 @@ class ProjectTypeSpec extends ObjectBehavior
 
     function it_builds_a_form(FormBuilder $builder)
     {
-        $builder->add('name', 'text', array(
-            'required' => true,
-            'label'    => 'Name',
-        ))->shouldBeCalled()->willReturn($builder);
+        $builder->add(
+            'name',
+            'text',
+            ['label' => 'Name']
+        )->shouldBeCalled()->willReturn($builder);
 
-        $builder->add('shortName', 'text', array(
-            'label' => 'Short name',
-            'attr' => array('maxlength' => 4)
-        ))->shouldBeCalled()->willReturn($builder);
+        $builder->add(
+            'shortName',
+            'text',
+            ['label' => 'Short name', 'attr' => ['maxlength' => 4]]
+        )->shouldBeCalled()->willReturn($builder);
 
-        $this->buildForm($builder, array());
+        $builder->add(
+            'image',
+            'file',
+            ['label' => 'Image', 'required' => false, 'mapped' => false]
+        )->shouldBeCalled()->willReturn($builder);
+
+        $this->buildForm($builder, []);
     }
 
     function it_gets_name()

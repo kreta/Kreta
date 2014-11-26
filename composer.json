@@ -33,13 +33,15 @@
 
         "friendsofsymfony/rest-bundle":             "1.4.x",
         "friendsofsymfony/user-bundle":             "~2.0@dev",
+        "knplabs/knp-gaufrette-bundle":             "*@dev",
         "nelmio/api-doc-bundle":                    "2.5.x",
         "nelmio/cors-bundle":                       "1.3.x",
         "hwi/oauth-bundle":                         "0.4.*@dev",
         "jms/serializer-bundle":                    "0.13.x",
         "yohang/finite":                            "~1.0",
         "zurb/foundation":                          "~5.4",
-        "willdurand/hateoas-bundle":                "0.3.x"
+        "willdurand/hateoas-bundle":                "0.3.x",
+        "liip/imagine-bundle":                      "dev-master"
 
     },
     "require-dev": {

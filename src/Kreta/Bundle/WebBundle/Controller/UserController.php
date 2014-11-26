@@ -14,6 +14,7 @@ namespace Kreta\Bundle\WebBundle\Controller;
 use Kreta\Bundle\WebBundle\Form\Type\UserType;
 use Kreta\Component\Core\Model\Interfaces\UserInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
@@ -44,6 +45,12 @@ class UserController extends Controller
         if ($request->isMethod('POST') === true) {
             $form->handleRequest($request);
             if ($form->isSubmitted() === true && $form->isValid() === true) {
+                $photo = $request->files->get('kreta_core_user_type')['photo'];
+                if ($photo instanceof UploadedFile) {
+                    $media = $this->get('kreta_core.factory_media')->create($photo);
+                    $this->get('kreta_core.image_users_uploader')->upload($media);
+                    $user->setPhoto($media);
+                }
                 $manager = $this->getDoctrine()->getManager();
                 $manager->persist($user);
                 $manager->flush();

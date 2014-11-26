@@ -26,12 +26,18 @@ class LoadUserData extends DataFixtures
      */
     public function load(ObjectManager $manager)
     {
+        $photos = $this->loadMedias($manager, 'kreta_core.image_users_uploader', $this->userPath);
+
         $user = $this->createUser(['email' => 'kreta@kreta.com'], ['ROLE_ADMIN']);
+        $user->setPhoto($photos[0]);
 
         $manager->persist($user);
 
+        $i = 1;
         foreach ($this->userInfoList as $userInfo) {
             $user = $this->createUser($userInfo);
+            $user->setPhoto($photos[$i]);
+            $i++;
 
             $manager->persist($user);
         }
@@ -127,11 +133,5 @@ class LoadUserData extends DataFixtures
         ['firstName' => 'Anthony',   'lastName' => 'King',       'email' => 'anthonyiking@dayrep.com'],
         ['firstName' => 'Sofia',     'lastName' => 'Hamilton',   'email' => 'sofiahamilton@einrot.com'],
         ['firstName' => 'Ildegunda', 'lastName' => 'Vázquez',    'email' => 'ildegundavazquezQuiroz@rhyta.com'],
-        ['firstName' => 'Aisha',     'lastName' => 'Hamilton',   'email' => 'aishahamilton@jourrapide.com'],
-        ['firstName' => 'Lois',      'lastName' => 'Woods',      'email' => 'loisawoods@einrot.com'],
-        ['firstName' => 'Scott',     'lastName' => 'Castillo',   'email' => 'scottjcastillo@fleckens.hu'],
-        ['firstName' => 'Sienna',    'lastName' => 'Peacock',    'email' => 'siennapeacock@dayrep.com'],
-        ['firstName' => 'Jennifer',  'lastName' => 'Thornton',   'email' => 'jenniferthornton@jourrapide.com'],
-        ['firstName' => 'Joseph',    'lastName' => 'Burns',      'email' => 'josephburns@jourrapide.com'],
     ];
 }
