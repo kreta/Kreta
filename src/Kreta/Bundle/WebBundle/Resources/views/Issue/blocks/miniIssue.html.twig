@@ -38,7 +38,7 @@
             </a>
             <a href="">
                 {% image '@KretaWebBundle/Resources/public/img/user.jpg' %}
-                <img src="{{ issue.reporter.photo ? issue.reporter.photo.name|imagine_filter('kreta_small') : asset_url }}">
+                <img src="{{ issue.assignee.photo ? issue.assignee.photo.name|imagine_filter('kreta_small') : asset_url }}">
                 {% endimage %}
             </a>
         </div>

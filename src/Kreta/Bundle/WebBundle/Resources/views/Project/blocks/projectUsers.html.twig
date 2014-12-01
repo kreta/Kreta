@@ -11,7 +11,7 @@
         {% for participant in project.participants %}
             <div class="kreta-project-user">
                 {% image '@KretaWebBundle/Resources/public/img/user.jpg' %}
-                    <img class="kreta-user-image" src="{{ participant.user.photo ? participant.user.photo.name|imagine_filter('kreta_small') : asset_url }}">
+                    <img src="{{ participant.user.photo ? participant.user.photo.name|imagine_filter('kreta_small') : asset_url }}">
                 {% endimage %}
                 <a href="">{{ participant.user.fullName }}</a>
             </div>
