@@ -21,4 +21,11 @@ use Symfony\Component\DependencyInjection\Loader;
  */
 class KretaApiCoreExtension extends AbstractExtension
 {
+    /**
+     * {@inheritdoc}
+     */
+    protected function getConfigFilesLocation()
+    {
+        return __DIR__ . '/../Resources/config';
+    }
 }

@@ -18,32 +18,27 @@ use Symfony\Component\DependencyInjection\Extension\Extension;
 use Symfony\Component\DependencyInjection\Loader;
 
 /**
- * Class AbstractExtension.
+ * Abstract class AbstractExtension.
  *
  * @package Kreta\Bundle\CoreBundle\DependencyInjection\Abstracts
  */
-class AbstractExtension extends Extension
+abstract class AbstractExtension extends Extension
 {
     /**
-     * Gets array with all the config file names.
-     *
-     * @param string $config The config
-     *
-     * @return array
-     */
-    protected function getConfigFiles($config)
-    {
-        return array('services', 'factories', 'parameters', 'repositories');
-    }
-
-    /**
-     * Get the Config file location.
+     * Gets the Config file location.
      *
      * @return string
      */
-    protected function getConfigFilesLocation()
+    abstract protected function getConfigFilesLocation();
+
+    /**
+     * Gets array with all the config file names.
+     *
+     * @return string[]
+     */
+    protected function getConfigFiles()
     {
-        return __DIR__ . '/../../Resources/config';
+        return ['services'];
     }
 
     /**

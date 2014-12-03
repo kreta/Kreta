@@ -4,3 +4,9 @@
 #
 # @author benatespina <benatespina@gmail.com>
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
+
+services:
+    json_exception_listener:
+        class: Kreta\Bundle\Api\ApiCoreBundle\EventListener\JsonExceptionListener
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception, method: onKernelException, priority: 200 }
