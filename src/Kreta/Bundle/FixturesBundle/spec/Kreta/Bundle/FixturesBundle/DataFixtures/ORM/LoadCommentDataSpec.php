@@ -91,8 +91,8 @@ class LoadCommentDataSpec extends ObjectBehavior
         $this->load($manager);
     }
 
-    function it_gets_2_order()
+    function it_gets_4_order()
     {
-        $this->getOrder()->shouldReturn(2);
+        $this->getOrder()->shouldReturn(4);
     }
 }

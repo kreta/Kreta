@@ -55,11 +55,7 @@ EOT
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $clientManager = $this->getContainer()->get('fos_oauth_server.client_manager.default');
-        $client = $clientManager->createClient();
-        $client->setRedirectUris($input->getOption('redirect-uri'));
-        $client->setAllowedGrantTypes($input->getOption('grant-type'));
-        $clientManager->updateClient($client);
+        $client = $this->generateClient($input->getOption('redirect-uri'), $input->getOption('grant-type'));
         $output->writeln(
             sprintf(
                 'A new client with public id <info>%s</info>, secret <info>%s</info> has been added',
@@ -67,5 +63,24 @@ EOT
                 $client->getSecret()
             )
         );
+    }
+
+    /**
+     * Generates the client with redirect uris and grant types given.
+     *
+     * @param array $redirectUris The redirect uris
+     * @param array $grantTypes   The grant types
+     *
+     * @return \FOS\OAuthServerBundle\Model\ClientInterface
+     */
+    public function generateClient(array $redirectUris, array $grantTypes)
+    {
+        $clientManager = $this->getContainer()->get('fos_oauth_server.client_manager.default');
+        $client = $clientManager->createClient();
+        $client->setRedirectUris($redirectUris);
+        $client->setAllowedGrantTypes($grantTypes);
+        $clientManager->updateClient($client);
+
+        return $client;
     }
 }
