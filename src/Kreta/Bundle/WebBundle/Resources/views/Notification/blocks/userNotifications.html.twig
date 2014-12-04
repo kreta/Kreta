@@ -18,6 +18,11 @@
                 </td>
                 <td class="kreta-notification-data">{{ notification.date | date('Y-m-d H:i') }}</td>
             </tr>
+        {% else %}
+            <div class="kreta-widget-message">
+                <p>No notifications found</p>
+            </div>
         {% endfor %}
+
     </table>
 {% endblock %}
