@@ -28,7 +28,7 @@ class UserTypeSpec extends ObjectBehavior
 
     function it_extends_user_type()
     {
-        $this->shouldHaveType('Kreta\Bundle\WebBundle\Form\Type\UserType');
+        $this->shouldHaveType('Kreta\Bundle\CoreBundle\Form\Type\UserType');
     }
 
     function it_gets_name()

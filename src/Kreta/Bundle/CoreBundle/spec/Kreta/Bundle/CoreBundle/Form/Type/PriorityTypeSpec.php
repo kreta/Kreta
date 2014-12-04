@@ -9,7 +9,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace spec\Kreta\Bundle\WebBundle\Form\Type;
+namespace spec\Kreta\Bundle\CoreBundle\Form\Type;
 
 use Kreta\Component\Core\Model\Interfaces\IssueInterface;
 use PhpSpec\ObjectBehavior;
@@ -17,15 +17,15 @@ use Prophecy\Argument;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
- * Class TypeTypeSpec.
+ * Class PriorityTypeSpec.
  *
- * @package spec\Kreta\Bundle\WebBundle\Form\Type
+ * @package spec\Kreta\Bundle\CoreBundle\Form\Type
  */
-class TypeTypeSpec extends ObjectBehavior
+class PriorityTypeSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('Kreta\Bundle\WebBundle\Form\Type\TypeType');
+        $this->shouldHaveType('Kreta\Bundle\CoreBundle\Form\Type\PriorityType');
     }
 
     function it_extends_form_abstract_type()
@@ -37,11 +37,10 @@ class TypeTypeSpec extends ObjectBehavior
     {
         $resolver->setDefaults(array(
             'choices' => array(
-                IssueInterface::TYPE_STORY       => 'Story',
-                IssueInterface::TYPE_BUG         => 'Bug',
-                IssueInterface::TYPE_IMPROVEMENT => 'Improvement',
-                IssueInterface::TYPE_NEW_FEATURE => 'New feature',
-                IssueInterface::TYPE_EPIC        => 'Epic'
+                IssueInterface::PRIORITY_LOW     => 'Low',
+                IssueInterface::PRIORITY_MEDIUM  => 'Medium',
+                IssueInterface::PRIORITY_HIGH    => 'High',
+                IssueInterface::PRIORITY_BLOCKER => 'Blocker',
             )
         ))->shouldBeCalled();
 
@@ -55,6 +54,6 @@ class TypeTypeSpec extends ObjectBehavior
 
     function it_gets_name()
     {
-        $this->getName()->shouldReturn('kreta_core_type_type');
+        $this->getName()->shouldReturn('kreta_core_priority_type');
     }
 }

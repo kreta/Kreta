@@ -11,7 +11,7 @@
 
 namespace Kreta\Bundle\Api\ApiCoreBundle\Form\Type;
 
-use Kreta\Bundle\WebBundle\Form\Type\ProjectType as BaseProjectType;
+use Kreta\Bundle\CoreBundle\Form\Type\ProjectType as BaseProjectType;
 
 /**
  * Class ProjectType.

@@ -21,6 +21,7 @@ web/css
 web/images
 web/js
 web/media
+web/phpinfo.php
 !web/media/image/.gitkeep
 !web/media/cache/.gitkeep
 /vendor/

@@ -9,17 +9,17 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\Bundle\WebBundle\Form\Type;
+namespace Kreta\Bundle\CoreBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 
 /**
- * Class ProjectType.
+ * Class UserType.
  *
- * @package Kreta\Bundle\WebBundle\Form\Type
+ * @package Kreta\Bundle\CoreBundle\Form\Type
  */
-class ProjectType extends AbstractType
+class UserType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -27,20 +27,21 @@ class ProjectType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add(
-                'name',
-                'text',
-                ['label' => 'Name']
+            ->add('firstName', null,
+                ['label' => 'First Name']
+            )
+            ->add('lastName', null,
+                ['label' => 'Last Name']
             )
             ->add(
-                'shortName',
-                'text',
-                ['label' => 'Short name', 'attr' => ['maxlength' => 4]]
+                'email',
+                null,
+                ['label' => 'Email']
             )
             ->add(
-                'image',
+                'photo',
                 'file',
-                ['label' => 'Image', 'required' => false, 'mapped' => false]
+                ['label' => 'Photo', 'required' => false, 'mapped' => false]
             );
     }
 
@@ -49,6 +50,6 @@ class ProjectType extends AbstractType
      */
     public function getName()
     {
-        return 'kreta_core_project_type';
+        return 'kreta_core_user_type';
     }
 }
