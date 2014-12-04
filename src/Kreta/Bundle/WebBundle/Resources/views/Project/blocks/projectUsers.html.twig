@@ -17,7 +17,7 @@
             </div>
         {% endfor %}
         {% if is_granted('add_participant', project) %}
-            <form method="post" action="{{ url('kreta_web_project_participant_new', {'id' : project.id }) }}">
+            <form method="post" action="{{ url('kreta_web_project_participant_new', {'projectShortName' : project.shortName }) }}">
                 <input type="text" name="email" placeholder="New user's email">
                 <button class="kreta-action tiny" type="submit">
                     <i class="fa fa-plus"></i>Add user to project

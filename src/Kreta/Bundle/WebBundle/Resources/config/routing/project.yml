@@ -10,14 +10,14 @@ kreta_web_project_new:
     defaults: { _controller: KretaWebBundle:Project:new }
 
 kreta_web_project_edit:
-    path: /edit/{id}
+    path: /edit/{projectShortName}
     defaults: { _controller: KretaWebBundle:Project:edit }
 
 kreta_web_project_view:
-    path: /{id}
+    path: /{projectShortName}
     defaults: { _controller: KretaWebBundle:Project:view }
 
 kreta_web_project_participant_new:
-    path: /{id}/participant
+    path: /{projectShortName}/participant
     defaults: { _controller: KretaWebBundle:Project:newParticipant }
     methods: [POST]

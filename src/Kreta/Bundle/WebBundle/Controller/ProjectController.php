@@ -29,24 +29,24 @@ class ProjectController extends Controller
     /**
      * View action.
      *
-     * @param string $id The id
+     * @param string $projectShortName The project short name
      *
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function viewAction($id)
+    public function viewAction($projectShortName)
     {
-        $project = $this->get('kreta_core.repository_project')->find($id);
+        $project = $this->get('kreta_core.repository_project')->findOneBy(['shortName' => $projectShortName]);
 
-        if ($this->get('security.context')->isGranted('view', $project) === false) {
+        if (!$this->get('security.context')->isGranted('view', $project)) {
             throw new AccessDeniedException();
         };
 
-        if (($project instanceof ProjectInterface) === false) {
+        if (!$project instanceof ProjectInterface) {
             throw $this->createNotFoundException('Project not found');
         }
 
-        return $this->render('KretaWebBundle:Project:view.html.twig', array('project' => $project));
+        return $this->render('KretaWebBundle:Project:view.html.twig', ['project' => $project]);
     }
 
     /**
@@ -62,9 +62,9 @@ class ProjectController extends Controller
 
         $form = $this->createForm(new ProjectType(), $project);
 
-        if ($request->isMethod('POST') === true) {
+        if ($request->isMethod('POST')) {
             $form->handleRequest($request);
-            if ($form->isSubmitted() === true && $form->isValid() === true) {
+            if ($form->isSubmitted() && $form->isValid()) {
                 $image = $request->files->get('kreta_core_project_type')['image'];
                 if ($image instanceof UploadedFile) {
                     $media = $this->get('kreta_core.factory_media')->create($image);
@@ -80,39 +80,41 @@ class ProjectController extends Controller
                 $manager->flush();
                 $this->get('session')->getFlashBag()->add('success', 'Project created successfully');
 
-                return $this->redirect($this->generateUrl('kreta_web_project_view', array('id' => $project->getId())));
+                return $this->redirect($this->generateUrl('kreta_web_project_view', [
+                    'projectShortName' => $project->getShortName()
+                ]));
             }
         }
 
-        return $this->render('KretaWebBundle:Project:new.html.twig', array('form' => $form->createView()));
+        return $this->render('KretaWebBundle:Project:new.html.twig', ['form' => $form->createView()]);
     }
 
     /**
      * Edit action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request The request
-     * @param string                                    $id      The id
+     * @param \Symfony\Component\HttpFoundation\Request $request          The request
+     * @param string                                    $projectShortName The project short name
      *
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
      */
-    public function editAction(Request $request, $id)
+    public function editAction(Request $request, $projectShortName)
     {
-        $project = $this->get('kreta_core.repository_project')->find($id);
+        $project = $this->get('kreta_core.repository_project')->findOneBy(['shortName' => $projectShortName]);
 
-        if (($project instanceof ProjectInterface) === false) {
+        if (!$project instanceof ProjectInterface) {
             throw $this->createNotFoundException();
         }
 
-        if ($this->get('security.context')->isGranted('edit', $project) === false) {
+        if (!$this->get('security.context')->isGranted('edit', $project)) {
             throw new AccessDeniedException();
         }
 
         $form = $this->createForm(new ProjectType(), $project);
 
-        if ($request->isMethod('POST') === true) {
+        if ($request->isMethod('POST')) {
             $form->handleRequest($request);
-            if ($form->isSubmitted() === true && $form->isValid() === true) {
+            if ($form->isSubmitted() && $form->isValid()) {
                 $image = $request->files->get('kreta_core_project_type')['image'];
                 if ($image instanceof UploadedFile) {
                     $media = $this->get('kreta_core.factory_media')->create($image);
@@ -124,38 +126,39 @@ class ProjectController extends Controller
                 $manager->flush();
                 $this->get('session')->getFlashBag()->add('success', 'Project updated successfully');
 
-                return $this->redirect($this->generateUrl('kreta_web_project_view', array('id' => $project->getId())));
+                return $this->redirect($this->generateUrl('kreta_web_project_view', [
+                    'projectShortName' => $project->getShortName()
+                ]));
             }
         }
 
-        return $this->render('KretaWebBundle:Project:edit.html.twig', array(
+        return $this->render('KretaWebBundle:Project:edit.html.twig', [
             'form' => $form->createView(),
-            'project' => $project,
-        ));
+            'project' => $project
+        ]);
     }
 
     /**
      * New participant action.
      *
-     * @param \Symfony\Component\HttpFoundation\Request $request The request
-     * @param string                                    $id      The id
+     * @param \Symfony\Component\HttpFoundation\Request $request          The request
+     * @param string                                    $projectShortName The project short name
      *
      * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function newParticipantAction(Request $request, $id)
+    public function newParticipantAction(Request $request, $projectShortName)
     {
-        $user = $this->get('kreta_core.repository_user')
-            ->findOneBy(array('email' => $request->get('email')));
-        $project = $this->get('kreta_core.repository_project')->find($id);
+        $user = $this->get('kreta_core.repository_user')->findOneBy(['email' => $request->get('email')]);
+        $project = $this->get('kreta_core.repository_project')->findOneBy(['shortName' => $projectShortName]);
 
-        if ($this->get('security.context')->isGranted('add_participant', $project) === false) {
+        if (!$this->get('security.context')->isGranted('add_participant', $project)) {
             throw new AccessDeniedException();
         }
 
-        if (($user instanceof UserInterface) === false) {
+        if (!$user instanceof UserInterface) {
             $this->get('session')->getFlashBag()->add('error', 'User not found');
-        } elseif (($project instanceof ProjectInterface) === false) {
+        } elseif (!$project instanceof ProjectInterface) {
             throw $this->createNotFoundException('Project not found');
         } else {
             $participant = $this->get('kreta_core.factory_participant')->create($project, $user);
@@ -167,6 +170,8 @@ class ProjectController extends Controller
             $this->get('session')->getFlashBag()->add('success', 'Participant added successfully');
         }
 
-        return $this->redirect($this->generateUrl('kreta_web_project_view', array('id' => $project->getId())));
+        return $this->redirect($this->generateUrl('kreta_web_project_view', [
+            'projectShortName' => $project->getShortName()
+        ]));
     }
 }
