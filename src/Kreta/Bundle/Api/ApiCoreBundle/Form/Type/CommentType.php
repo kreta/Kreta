@@ -11,7 +11,7 @@
 
 namespace Kreta\Bundle\Api\ApiCoreBundle\Form\Type;
 
-use Kreta\Bundle\WebBundle\Form\Type\CommentType as BaseCommentType;
+use Kreta\Bundle\CoreBundle\Form\Type\CommentType as BaseCommentType;
 
 /**
  * Class CommentType.

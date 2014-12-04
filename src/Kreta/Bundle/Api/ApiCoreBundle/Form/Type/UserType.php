@@ -11,7 +11,7 @@
 
 namespace Kreta\Bundle\Api\ApiCoreBundle\Form\Type;
 
-use Kreta\Bundle\WebBundle\Form\Type\UserType as BaserUserType;
+use Kreta\Bundle\CoreBundle\Form\Type\UserType as BaserUserType;
 
 /**
  * Class UserType.

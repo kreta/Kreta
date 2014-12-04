@@ -28,7 +28,7 @@ class CommentTypeSpec extends ObjectBehavior
 
     function it_extends_comment_type()
     {
-        $this->shouldHaveType('Kreta\Bundle\WebBundle\Form\Type\CommentType');
+        $this->shouldHaveType('Kreta\Bundle\CoreBundle\Form\Type\CommentType');
     }
 
     function it_gets_name()

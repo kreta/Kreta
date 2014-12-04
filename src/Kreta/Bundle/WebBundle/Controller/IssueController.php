@@ -11,8 +11,8 @@
 
 namespace Kreta\Bundle\WebBundle\Controller;
 
-use Kreta\Bundle\WebBundle\Form\Type\CommentType;
-use Kreta\Bundle\WebBundle\Form\Type\IssueType;
+use Kreta\Bundle\CoreBundle\Form\Type\CommentType;
+use Kreta\Bundle\CoreBundle\Form\Type\IssueType;
 use Kreta\Component\Core\Model\Interfaces\IssueInterface;
 use Kreta\Component\Core\Model\Interfaces\StatusTransitionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;

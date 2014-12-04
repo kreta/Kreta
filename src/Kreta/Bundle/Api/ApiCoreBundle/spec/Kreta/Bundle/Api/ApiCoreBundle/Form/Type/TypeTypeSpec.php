@@ -28,7 +28,7 @@ class TypeTypeSpec extends ObjectBehavior
 
     function it_extends_type_type()
     {
-        $this->shouldHaveType('Kreta\Bundle\WebBundle\Form\Type\TypeType');
+        $this->shouldHaveType('Kreta\Bundle\CoreBundle\Form\Type\TypeType');
     }
 
     function it_gets_name()

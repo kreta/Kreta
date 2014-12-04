@@ -11,7 +11,7 @@
 
 namespace Kreta\Bundle\Api\ApiCoreBundle\Form\Type;
 
-use Kreta\Bundle\WebBundle\Form\Type\IssueType as BaseIssueType;
+use Kreta\Bundle\CoreBundle\Form\Type\IssueType as BaseIssueType;
 
 /**
  * Class IssueType.

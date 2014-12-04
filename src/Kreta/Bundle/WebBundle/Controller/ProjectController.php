@@ -11,7 +11,7 @@
 
 namespace Kreta\Bundle\WebBundle\Controller;
 
-use Kreta\Bundle\WebBundle\Form\Type\ProjectType;
+use Kreta\Bundle\CoreBundle\Form\Type\ProjectType;
 use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Core\Model\Interfaces\UserInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;

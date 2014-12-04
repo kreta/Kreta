@@ -11,7 +11,7 @@
 
 namespace Kreta\Bundle\Api\ApiCoreBundle\Form\Type;
 
-use Kreta\Bundle\WebBundle\Form\Type\PriorityType as BasePriorityType;
+use Kreta\Bundle\CoreBundle\Form\Type\PriorityType as BasePriorityType;
 
 /**
  * Class PriorityType.

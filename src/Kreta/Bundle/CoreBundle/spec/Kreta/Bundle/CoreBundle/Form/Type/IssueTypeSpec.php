@@ -9,11 +9,11 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace spec\Kreta\Bundle\WebBundle\Form\Type;
+namespace spec\Kreta\Bundle\CoreBundle\Form\Type;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Kreta\Bundle\WebBundle\Form\Type\PriorityType;
-use Kreta\Bundle\WebBundle\Form\Type\TypeType;
+use Kreta\Bundle\CoreBundle\Form\Type\PriorityType;
+use Kreta\Bundle\CoreBundle\Form\Type\TypeType;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\Form\FormBuilder;
@@ -21,7 +21,7 @@ use Symfony\Component\Form\FormBuilder;
 /**
  * Class IssueTypeSpec.
  *
- * @package spec\Kreta\Bundle\WebBundle\Form\Type
+ * @package spec\Kreta\Bundle\CoreBundle\Form\Type
  */
 class IssueTypeSpec extends ObjectBehavior
 {
@@ -32,7 +32,7 @@ class IssueTypeSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('Kreta\Bundle\WebBundle\Form\Type\IssueType');
+        $this->shouldHaveType('Kreta\Bundle\CoreBundle\Form\Type\IssueType');
     }
 
     function it_extends_form_abstract_type()
