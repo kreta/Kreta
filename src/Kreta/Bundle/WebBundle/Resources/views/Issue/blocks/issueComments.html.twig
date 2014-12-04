@@ -13,7 +13,7 @@
     {% for comment in issue.comments %}
         <div class="kreta-issue-comment">
             {% image '@KretaWebBundle/Resources/public/img/user.jpg' %}
-                <img class="kreta-user-image" src="{{ app.user.photo ? app.user.photo.name|imagine_filter('kreta_small') : asset_url }}">
+                <img src="{{ app.user.photo ? app.user.photo.name|imagine_filter('kreta_small') : asset_url }}">
             {% endimage %}
             <div class="comment-content">
                 <div class="comment-header">
