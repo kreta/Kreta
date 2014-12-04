@@ -35,7 +35,7 @@ class IssueTypeSpec extends ObjectBehavior
 
     function it_extends_issue_type()
     {
-        $this->shouldHaveType('Kreta\Bundle\WebBundle\Form\Type\IssueType');
+        $this->shouldHaveType('Kreta\Bundle\CoreBundle\Form\Type\IssueType');
     }
 
     function it_gets_name()

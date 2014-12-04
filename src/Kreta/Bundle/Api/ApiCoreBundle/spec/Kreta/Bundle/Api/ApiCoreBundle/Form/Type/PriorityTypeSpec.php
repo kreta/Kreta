@@ -28,7 +28,7 @@ class PriorityTypeSpec extends ObjectBehavior
 
     function it_extends_priority_type()
     {
-        $this->shouldHaveType('Kreta\Bundle\WebBundle\Form\Type\PriorityType');
+        $this->shouldHaveType('Kreta\Bundle\CoreBundle\Form\Type\PriorityType');
     }
 
     function it_gets_name()

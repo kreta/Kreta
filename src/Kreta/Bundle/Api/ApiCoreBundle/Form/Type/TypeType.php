@@ -11,7 +11,7 @@
 
 namespace Kreta\Bundle\Api\ApiCoreBundle\Form\Type;
 
-use Kreta\Bundle\WebBundle\Form\Type\TypeType as BaseTypeType;
+use Kreta\Bundle\CoreBundle\Form\Type\TypeType as BaseTypeType;
 
 /**
  * Class TypeType.

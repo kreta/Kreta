@@ -9,7 +9,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace spec\Kreta\Bundle\WebBundle\Form\Type;
+namespace spec\Kreta\Bundle\CoreBundle\Form\Type;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -18,13 +18,13 @@ use Symfony\Component\Form\FormBuilder;
 /**
  * Class ProjectTypeSpec.
  *
- * @package spec\Kreta\Bundle\WebBundle\Form\Type
+ * @package spec\Kreta\Bundle\CoreBundle\Form\Type
  */
 class ProjectTypeSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('Kreta\Bundle\WebBundle\Form\Type\ProjectType');
+        $this->shouldHaveType('Kreta\Bundle\CoreBundle\Form\Type\ProjectType');
     }
 
     function it_extends_form_abstract_type()

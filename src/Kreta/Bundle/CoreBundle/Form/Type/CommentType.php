@@ -9,7 +9,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\Bundle\WebBundle\Form\Type;
+namespace Kreta\Bundle\CoreBundle\Form\Type;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -17,7 +17,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 /**
  * Class CommentType.
  *
- * @package Kreta\Bundle\WebBundle\Form\Type
+ * @package Kreta\Bundle\CoreBundle\Form\Type
  */
 class CommentType extends AbstractType
 {

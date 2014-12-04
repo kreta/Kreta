@@ -9,7 +9,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\Bundle\WebBundle\Form\Type;
+namespace Kreta\Bundle\CoreBundle\Form\Type;
 
 use Kreta\Component\Core\Model\Interfaces\IssueInterface;
 use Symfony\Component\Form\AbstractType;
@@ -18,7 +18,7 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 /**
  * Class TypeType.
  *
- * @package Kreta\Bundle\WebBundle\Form\Type
+ * @package Kreta\Bundle\CoreBundle\Form\Type
  */
 class TypeType extends AbstractType
 {

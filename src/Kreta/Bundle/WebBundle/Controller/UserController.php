@@ -11,7 +11,7 @@
 
 namespace Kreta\Bundle\WebBundle\Controller;
 
-use Kreta\Bundle\WebBundle\Form\Type\UserType;
+use Kreta\Bundle\CoreBundle\Form\Type\UserType;
 use Kreta\Component\Core\Model\Interfaces\UserInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\UploadedFile;

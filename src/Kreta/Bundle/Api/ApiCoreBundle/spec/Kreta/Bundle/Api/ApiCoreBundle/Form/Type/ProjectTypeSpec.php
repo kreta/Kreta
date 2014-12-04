@@ -28,7 +28,7 @@ class ProjectTypeSpec extends ObjectBehavior
 
     function it_extends_project_type()
     {
-        $this->shouldHaveType('Kreta\Bundle\WebBundle\Form\Type\ProjectType');
+        $this->shouldHaveType('Kreta\Bundle\CoreBundle\Form\Type\ProjectType');
     }
 
     function it_gets_name()
