@@ -31,7 +31,7 @@
             </a>
         </div>
         <div class="issue-images">
-            <a href="{{ url('kreta_web_project_view', { 'id' : issue.project.id }) }}">
+            <a href="{{ url('kreta_web_project_view', { 'projectShortName' : issue.project.shortName }) }}">
                 {% image '@KretaWebBundle/Resources/public/img/project.jpg' %}
                     <img src="{{ issue.project.image ? issue.project.image.name|imagine_filter('kreta_small') : asset_url }}">
                 {% endimage %}
