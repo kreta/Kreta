@@ -11,7 +11,6 @@
 
 namespace Kreta\Bundle\CoreBundle\Services\StateMachine;
 
-use Finite\Exception;
 use Finite\Loader\ArrayLoader;
 use Finite\StateMachine\StateMachine;
 use Kreta\Component\Core\Model\Interfaces\IssueInterface;

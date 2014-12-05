@@ -12,7 +12,6 @@
 namespace Kreta\Bundle\Api\ApiCoreBundle\DependencyInjection;
 
 use Kreta\Bundle\CoreBundle\DependencyInjection\Abstracts\AbstractExtension;
-use Symfony\Component\DependencyInjection\Loader;
 
 /**
  * Class KretaApiCoreExtension.
