@@ -12,7 +12,6 @@
 namespace Kreta\Bundle\WebBundle\NotifiableEvent;
 
 use Kreta\Component\Core\Model\Interfaces\IssueInterface;
-use Kreta\Component\Notification\Factory\NotificationFactory;
 use Kreta\Component\Notification\NotifiableEvent\NotifiableEventInterface;
 use Kreta\Component\Notification\Model\Notification;
 use Symfony\Component\Routing\RouterInterface;

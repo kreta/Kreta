@@ -11,7 +11,6 @@
 
 namespace Kreta\Bundle\CoreBundle\Form\Type;
 
-use Kreta\Component\Core\Model;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 

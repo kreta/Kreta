@@ -13,8 +13,6 @@ namespace Kreta\Bundle\Api\ApiCoreBundle\Controller;
 
 use Kreta\Bundle\Api\ApiCoreBundle\Controller\Abstracts\AbstractRestController;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Class StatusTransitionController.
