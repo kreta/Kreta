@@ -9,15 +9,15 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\Bundle\FixturesBundle\DataFixtures\ORM;
+namespace Kreta\Bundle\CoreBundle\DataFixtures\ORM;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Kreta\Bundle\FixturesBundle\DataFixtures\DataFixtures;
+use Kreta\Bundle\CoreBundle\DataFixtures\DataFixtures;
 
 /**
  * Class LoadResolutionData.
  *
- * @package Kreta\Bundle\FixturesBundle\DataFixtures\ORM
+ * @package Kreta\Bundle\CoreBundle\DataFixtures\ORM
  */
 class LoadResolutionData extends DataFixtures
 {

@@ -14,6 +14,7 @@ namespace Kreta\Bundle\Api\ApiCoreBundle\Controller\Abstracts;
 use Doctrine\ORM\EntityRepository;
 use FOS\RestBundle\Controller\FOSRestController;
 use FOS\RestBundle\Request\ParamFetcher;
+use FOS\RestBundle\Util\Codes;
 use FOS\RestBundle\View\View;
 use JMS\Serializer\SerializationContext;
 use Kreta\Component\Core\Model\Interfaces\UserInterface;
@@ -56,12 +57,12 @@ abstract class AbstractRestController extends FOSRestController
      *
      * @param mixed    $data       The data
      * @param string[] $groups     The groups, by default is null
-     * @param int      $statusCode The HTTP status code, by default is 200
+     * @param int      $statusCode The HTTP status code, by default
      * @param string   $format     The format of serializer by default is json
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    protected function createResponse($data, $groups = null, $statusCode = 200, $format = 'json')
+    protected function createResponse($data, $groups = null, $statusCode = Codes::HTTP_OK, $format = 'json')
     {
         $view = View::create()
             ->setStatusCode($statusCode)
@@ -83,7 +84,7 @@ abstract class AbstractRestController extends FOSRestController
      */
     protected function getFormErrors(FormInterface $form)
     {
-        $errors = array();
+        $errors = [];
         foreach ($form->getErrors() as $error) {
             $errors[] = $error->getMessage();
         }
@@ -97,27 +98,6 @@ abstract class AbstractRestController extends FOSRestController
     }
 
     /**
-     * Returns all the resources, it admits ordering, filter, count and pagination.
-     *
-     * @param \FOS\RestBundle\Request\ParamFetcher $paramFetcher The param fetcher
-     * @param string[]                             $groups       The array of serialization groups
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    protected function getAll(ParamFetcher $paramFetcher, $groups = array())
-    {
-        $resources = $this->getRepository()
-            ->findAll(
-                $paramFetcher->get('order'),
-                $paramFetcher->get('q'),
-                $paramFetcher->get('count'),
-                $paramFetcher->get('page')
-            );
-
-        return $this->createResponse($resources, $groups);
-    }
-
-    /**
      * Returns all the resources if the user is authenticated, it admits ordering, count and pagination.
      *
      * @param \Kreta\Component\Core\Model\Interfaces\UserInterface $user         The user object
@@ -127,10 +107,10 @@ abstract class AbstractRestController extends FOSRestController
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    protected function getAllAuthenticated(
+    protected function getAll(
         UserInterface $user,
         ParamFetcher $paramFetcher,
-        $groups = array(),
+        $groups = [],
         $query = 'findAll'
     )
     {
@@ -174,7 +154,7 @@ abstract class AbstractRestController extends FOSRestController
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    protected function manageForm(AbstractType $formType, $resource, $groups = array())
+    protected function manageForm(AbstractType $formType, $resource, $groups = [])
     {
         $request = $this->get('request');
         $form = $this->createForm(
@@ -191,7 +171,7 @@ abstract class AbstractRestController extends FOSRestController
             return $this->createResponse($resource, $groups);
         }
 
-        return $this->createResponse($this->getFormErrors($form), null, 400);
+        return $this->createResponse($this->getFormErrors($form), null, Codes::HTTP_BAD_REQUEST);
     }
 
     /**

@@ -9,7 +9,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace spec\Kreta\Bundle\FixturesBundle\DataFixtures\ORM;
+namespace spec\Kreta\Bundle\Api\ApiCoreBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\ReferenceRepository;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -26,7 +26,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Class LoadOauthDataSpec.
  *
- * @package spec\Kreta\Bundle\FixturesBundle
+ * @package spec\Kreta\Bundle\Api\ApiCoreBundle\DataFixtures\ORM
  */
 class LoadOauthDataSpec extends ObjectBehavior
 {
@@ -38,12 +38,12 @@ class LoadOauthDataSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('Kreta\Bundle\FixturesBundle\DataFixtures\ORM\LoadOauthData');
+        $this->shouldHaveType('Kreta\Bundle\Api\ApiCoreBundle\DataFixtures\ORM\LoadOauthData');
     }
 
     function it_extends_data_fixtures()
     {
-        $this->shouldHaveType('Kreta\Bundle\FixturesBundle\DataFixtures\DataFixtures');
+        $this->shouldHaveType('Kreta\Bundle\CoreBundle\DataFixtures\DataFixtures');
     }
 
     function it_loads(

@@ -9,16 +9,16 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\Bundle\FixturesBundle\DataFixtures\ORM;
+namespace Kreta\Bundle\CoreBundle\DataFixtures\ORM;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Kreta\Bundle\FixturesBundle\DataFixtures\DataFixtures;
+use Kreta\Bundle\CoreBundle\DataFixtures\DataFixtures;
 use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
 
 /**
  * Class LoadIssueData.
  *
- * @package Kreta\Bundle\FixturesBundle\DataFixtures\ORM
+ * @package Kreta\Bundle\CoreBundle\DataFixtures\ORM
  */
 class LoadIssueData extends DataFixtures
 {

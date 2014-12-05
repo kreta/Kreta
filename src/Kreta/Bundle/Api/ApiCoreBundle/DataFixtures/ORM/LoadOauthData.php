@@ -9,18 +9,18 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\Bundle\FixturesBundle\DataFixtures\ORM;
+namespace Kreta\Bundle\Api\ApiCoreBundle\DataFixtures\ORM;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use FOS\OAuthServerBundle\Model\ClientInterface;
 use FOS\OAuthServerBundle\Util\Random;
-use Kreta\Bundle\FixturesBundle\DataFixtures\DataFixtures;
+use Kreta\Bundle\CoreBundle\DataFixtures\DataFixtures;
 use Kreta\Component\Core\Model\Interfaces\UserInterface;
 
 /**
  * Class LoadOauthData.
  *
- * @package Kreta\Bundle\FixturesBundle\DataFixtures\ORM
+ * @package Kreta\Bundle\Api\ApiCoreBundle\DataFixtures\ORM
  */
 class LoadOauthData extends DataFixtures
 {

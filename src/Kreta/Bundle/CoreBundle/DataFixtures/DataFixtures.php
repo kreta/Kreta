@@ -9,7 +9,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\Bundle\FixturesBundle\DataFixtures;
+namespace Kreta\Bundle\CoreBundle\DataFixtures;
 
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
@@ -22,7 +22,7 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 /**
  * Class DataFixture.
  *
- * @package Kreta\FixturesBundle\DataFixtures
+ * @package Kreta\CoreBundle\DataFixtures
  */
 abstract class DataFixtures extends AbstractFixture implements ContainerAwareInterface, OrderedFixtureInterface
 {

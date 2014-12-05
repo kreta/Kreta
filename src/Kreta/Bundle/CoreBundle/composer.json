@@ -28,6 +28,7 @@
         "kreta/core":                          "dev-master"
     },
     "require-dev": {
+        "doctrine/data-fixtures":              "1.0.*@dev",
         "phpspec/phpspec":                     "2.1.x-dev",
         "henrikbjorn/phpspec-code-coverage":   "1.0.x-dev",
         "satooshi/php-coveralls":              "0.6.1",
@@ -35,8 +36,7 @@
         "phpmd/phpmd":                         "2.1.1"
     },
     "suggest": {
-        "kreta/web-bundle":      "Provides default web interface",
-        "kreta/fixtures-bundle": "Provides default Kreta fixtures"
+        "kreta/web-bundle":      "Provides default web interface"
     },
     "autoload": {
         "psr-4": { "Kreta\\Bundle\\CoreBundle\\": "" }

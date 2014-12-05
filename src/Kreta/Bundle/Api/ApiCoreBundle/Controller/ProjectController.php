@@ -48,7 +48,7 @@ class ProjectController extends AbstractRestController
      */
     public function getProjectsAction(ParamFetcher $paramFetcher)
     {
-        return $this->getAllAuthenticated(
+        return $this->getAll(
             $this->getCurrentUser(), $paramFetcher, array('projectList'), 'findByParticipant'
         );
     }
@@ -76,7 +76,7 @@ class ProjectController extends AbstractRestController
      */
     public function getProjectAction($id)
     {
-        return $this->createResponse($this->getProjectIfAllowed($id), array('project'));
+        return $this->createResponse($this->getProjectIfAllowed($id), ['project']);
     }
 
     /**
@@ -113,7 +113,7 @@ class ProjectController extends AbstractRestController
             ->create($project, $this->getCurrentUser(), 'ROLE_ADMIN');
         $project->addParticipant($participant);
 
-        return $this->manageForm(new ProjectType(), $project, array('project'));
+        return $this->manageForm(new ProjectType(), $project, ['project']);
     }
 
     /**
@@ -149,7 +149,7 @@ class ProjectController extends AbstractRestController
      */
     public function putProjectsAction($id)
     {
-        return $this->manageForm(new ProjectType(), $this->getProjectIfAllowed($id, 'edit'), array('project'));
+        return $this->manageForm(new ProjectType(), $this->getProjectIfAllowed($id, 'edit'), ['project']);
     }
 
     /**

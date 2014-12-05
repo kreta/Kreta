@@ -9,7 +9,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace spec\Kreta\Bundle\FixturesBundle\DataFixtures\ORM;
+namespace spec\Kreta\Bundle\CoreBundle\DataFixtures\ORM;
 
 use Doctrine\Common\DataFixtures\ReferenceRepository;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -25,7 +25,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Class LoadCommentDataSpec.
  *
- * @package spec\Kreta\Bundle\FixturesBundle
+ * @package spec\Kreta\Bundle\CoreBundle\DataFixtures\ORM
  */
 class LoadCommentDataSpec extends ObjectBehavior
 {
@@ -37,12 +37,12 @@ class LoadCommentDataSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('Kreta\Bundle\FixturesBundle\DataFixtures\ORM\LoadCommentData');
+        $this->shouldHaveType('Kreta\Bundle\CoreBundle\DataFixtures\ORM\LoadCommentData');
     }
 
     function it_extends_data_fixtures()
     {
-        $this->shouldHaveType('Kreta\Bundle\FixturesBundle\DataFixtures\DataFixtures');
+        $this->shouldHaveType('Kreta\Bundle\CoreBundle\DataFixtures\DataFixtures');
     }
 
     function it_loads(

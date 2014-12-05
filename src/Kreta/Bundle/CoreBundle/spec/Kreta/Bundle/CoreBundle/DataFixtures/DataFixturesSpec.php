@@ -9,7 +9,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace spec\Kreta\Bundle\FixturesBundle\DataFixtures;
+namespace spec\Kreta\Bundle\CoreBundle\DataFixtures;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Kreta\Component\Core\Factory\MediaFactory;
@@ -22,7 +22,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Class DataFixturesSpec.
  *
- * @package spec\Kreta\Bundle\FixturesBundle\DataFixtures
+ * @package spec\Kreta\Bundle\CoreBundle\DataFixtures
  */
 class DataFixturesSpec extends ObjectBehavior
 {

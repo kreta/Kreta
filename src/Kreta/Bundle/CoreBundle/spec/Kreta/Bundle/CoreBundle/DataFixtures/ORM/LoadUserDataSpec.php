@@ -9,7 +9,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace spec\Kreta\Bundle\FixturesBundle\DataFixtures\ORM;
+namespace spec\Kreta\Bundle\CoreBundle\DataFixtures\ORM;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Kreta\Component\Core\Factory\BaseFactory;
@@ -18,13 +18,13 @@ use Kreta\Component\Core\Model\Interfaces\MediaInterface;
 use Kreta\Component\Core\Model\Interfaces\UserInterface;
 use Kreta\Component\Core\Uploader\Interfaces\MediaUploaderInterface;
 use Prophecy\Argument;
-use spec\Kreta\Bundle\FixturesBundle\DataFixtures\DataFixturesSpec;
+use spec\Kreta\Bundle\CoreBundle\DataFixtures\DataFixturesSpec;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
  * Class LoadUserDataSpec.
  *
- * @package spec\Kreta\Bundle\FixturesBundle
+ * @package spec\Kreta\Bundle\CoreBundle\DataFixtures\ORM
  */
 class LoadUserDataSpec extends DataFixturesSpec
 {
@@ -35,12 +35,12 @@ class LoadUserDataSpec extends DataFixturesSpec
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('Kreta\Bundle\FixturesBundle\DataFixtures\ORM\LoadUserData');
+        $this->shouldHaveType('Kreta\Bundle\CoreBundle\DataFixtures\ORM\LoadUserData');
     }
 
     function it_extends_data_fixtures()
     {
-        $this->shouldHaveType('Kreta\Bundle\FixturesBundle\DataFixtures\DataFixtures');
+        $this->shouldHaveType('Kreta\Bundle\CoreBundle\DataFixtures\DataFixtures');
     }
 
     function it_loads(

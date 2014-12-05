@@ -9,7 +9,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace spec\Kreta\Bundle\FixturesBundle\DataFixtures\ORM;
+namespace spec\Kreta\Bundle\CoreBundle\DataFixtures\ORM;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Kreta\Component\Core\Factory\BaseFactory;
@@ -21,7 +21,7 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Class LoadLabelDataSpec.
  *
- * @package spec\Kreta\Bundle\FixturesBundle\DataFixtures\ORM
+ * @package spec\Kreta\Bundle\CoreBundle\DataFixtures\ORM
  */
 class LoadLabelDataSpec extends ObjectBehavior
 {
@@ -32,12 +32,12 @@ class LoadLabelDataSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('Kreta\Bundle\FixturesBundle\DataFixtures\ORM\LoadLabelData');
+        $this->shouldHaveType('Kreta\Bundle\CoreBundle\DataFixtures\ORM\LoadLabelData');
     }
 
     function it_extends_data_fixtures()
     {
-        $this->shouldHaveType('Kreta\Bundle\FixturesBundle\DataFixtures\DataFixtures');
+        $this->shouldHaveType('Kreta\Bundle\CoreBundle\DataFixtures\DataFixtures');
     }
 
     function it_loads(
