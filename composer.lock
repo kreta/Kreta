@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "0136cdc6d9b7291165ac3b8e79a21199",
+    "hash": "7753ab258155c0d0d6ea26338fc7e4f0",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -1642,17 +1642,17 @@
         },
         {
             "name": "liip/imagine-bundle",
-            "version": "dev-master",
+            "version": "1.1.1",
             "target-dir": "Liip/ImagineBundle",
             "source": {
                 "type": "git",
                 "url": "https://github.com/liip/LiipImagineBundle.git",
-                "reference": "9a7f49505741d84d78929a99c9c4c45e17d0497a"
+                "reference": "eacdae21cc9ce8e07ab64d20d5a92529ed49709d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/liip/LiipImagineBundle/zipball/9a7f49505741d84d78929a99c9c4c45e17d0497a",
-                "reference": "9a7f49505741d84d78929a99c9c4c45e17d0497a",
+                "url": "https://api.github.com/repos/liip/LiipImagineBundle/zipball/eacdae21cc9ce8e07ab64d20d5a92529ed49709d",
+                "reference": "eacdae21cc9ce8e07ab64d20d5a92529ed49709d",
                 "shasum": ""
             },
             "require": {
@@ -1712,7 +1712,7 @@
                 "image",
                 "imagine"
             ],
-            "time": "2014-11-18 13:03:01"
+            "time": "2014-11-12 10:15:02"
         },
         {
             "name": "michelf/php-markdown",
@@ -4667,7 +4667,6 @@
         "friendsofsymfony/user-bundle": 20,
         "knplabs/knp-gaufrette-bundle": 20,
         "hwi/oauth-bundle": 20,
-        "liip/imagine-bundle": 20,
         "vipsoft/code-coverage-extension": 20,
         "phpspec/phpspec": 20,
         "henrikbjorn/phpspec-code-coverage": 20

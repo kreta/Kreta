@@ -42,7 +42,7 @@
         "yohang/finite":                            "~1.0",
         "zurb/foundation":                          "~5.4",
         "willdurand/hateoas-bundle":                "0.3.x",
-        "liip/imagine-bundle":                      "dev-master"
+        "liip/imagine-bundle":                      "~1.1"
 
     },
     "require-dev": {
