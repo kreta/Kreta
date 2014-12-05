@@ -11,8 +11,6 @@
 
 namespace Kreta\Bundle\WebBundle\Controller;
 
-use Kreta\Bundle\CoreBundle\Form\Type\CommentType;
-use Kreta\Bundle\CoreBundle\Form\Type\IssueType;
 use Kreta\Component\Core\Model\Interfaces\IssueInterface;
 use Kreta\Component\Core\Model\Interfaces\StatusTransitionInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -72,24 +70,16 @@ class IssueController extends Controller
 
         $issue = $this->get('kreta_core.factory_issue')->create($project, $this->getUser());
 
-        $form = $this->createForm(new IssueType($project->getParticipants()), $issue);
+        $form = $this->get('kreta_web.form_handler_issue')->handleForm(
+            $request, $issue, [], $project->getParticipants()
+        );
 
-        if ($request->isMethod('POST')) {
-            $form->handleRequest($request);
-            if ($form->isSubmitted() && $form->isValid()) {
-                $manager = $this->getDoctrine()->getManager();
-                $manager->persist($issue);
-                $manager->flush();
-                $this->get('session')->getFlashBag()->add('success', 'Issue created successfully');
-
-                return $this->redirect($this->generateUrl(
-                    'kreta_web_issue_view', [
-                        'projectShortName' => $issue->getProject()->getShortName(),
-                        'issueNumber' => $issue->getNumericId()
-                    ]
-                ));
-            }
-            $this->get('session')->getFlashBag()->add('error', 'Some errors found in your issue');
+        if ($form->isValid()) {
+            return $this->redirect($this->generateUrl(
+                'kreta_web_issue_view', [
+                    'projectShortName' => $issue->getProject()->getShortName(),
+                    'issueNumber' => $issue->getNumericId()
+                ]));
         }
 
         return $this->render('KretaWebBundle:Issue:new.html.twig', [
@@ -119,30 +109,20 @@ class IssueController extends Controller
             throw new AccessDeniedException();
         };
 
-        $form = $this->createForm(new IssueType($issue->getProject()->getParticipants()), $issue);
+        $form = $this->get('kreta_web.form_handler_issue')->handleForm(
+            $request, $issue, [], $issue->getProject()->getParticipants()
+        );
 
-        if ($request->isMethod('POST')) {
-            $form->handleRequest($request);
-            if ($form->isSubmitted() && $form->isValid()) {
-                $manager = $this->getDoctrine()->getManager();
-                $manager->persist($issue);
-                $manager->flush();
-                $this->get('session')->getFlashBag()->add('success', 'Issue edited successfully');
-
-                return $this->redirect($this->generateUrl(
-                    'kreta_web_issue_view', [
-                        'projectShortName' => $issue->getProject()->getShortName(),
-                        'issueNumber' => $issue->getNumericId()
-                    ]
-                ));
-            }
-            $this->get('session')->getFlashBag()->add('error', 'Some errors found in your issue');
+        if ($form->isValid()) {
+            return $this->redirect($this->generateUrl(
+                'kreta_web_issue_view', [
+                    'projectShortName' => $issue->getProject()->getShortName(),
+                    'issueNumber' => $issue->getNumericId()
+                ]
+            ));
         }
 
-        return $this->render('KretaWebBundle:Issue:edit.html.twig', [
-            'form' => $form->createView(),
-            'issue' => $issue
-        ]);
+        return $this->render('KretaWebBundle:Issue:edit.html.twig', ['form' => $form->createView(), 'issue' => $issue]);
     }
 
     /**
@@ -164,19 +144,11 @@ class IssueController extends Controller
 
         $comment = $this->get('kreta_core.factory_comment')->create();
 
-        $form = $this->createForm(new CommentType(), $comment);
+        $form = $this->get('kreta_web.form_handler_comment')->handleForm(
+            $request, $comment, ['user' => $this->getUser(), 'issue' => $issue]
+        );
 
-        if ($request->isMethod('POST')) {
-            $form->handleRequest($request);
-            if ($form->isSubmitted() && $form->isValid()) {
-                $comment->setWrittenBy($this->getUser());
-                $comment->setIssue($issue);
-                $manager = $this->getDoctrine()->getManager();
-                $manager->persist($comment);
-                $manager->flush();
-                $this->get('session')->getFlashBag()->add('success', 'Comment added successfully');
-            }
-
+        if($form->isValid()) {
             return $this->redirect($this->generateUrl(
                 'kreta_web_issue_view', [
                     'projectShortName' => $issue->getProject()->getShortName(),
