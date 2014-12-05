@@ -16,6 +16,7 @@ php:
 env:
     - SYMFONY_VERSION=2.3.*
     - SYMFONY_VERSION=2.5.*
+    - SYMFONY_VERSION=2.7.x-dev
     - SYMFONY_VERSION=dev-master
 
 install:
@@ -51,4 +52,5 @@ cache:
 matrix:
     allow_failures:
         - php: hhvm
+        - env: SYMFONY_VERSION=2.7.x-dev
         - env: SYMFONY_VERSION=dev-master
