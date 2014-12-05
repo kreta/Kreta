@@ -12,7 +12,6 @@
 namespace Kreta\Bundle\CoreBundle\DependencyInjection;
 
 use Kreta\Bundle\CoreBundle\DependencyInjection\Abstracts\AbstractExtension;
-use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Loader;
 
 /**
@@ -22,4 +21,19 @@ use Symfony\Component\DependencyInjection\Loader;
  */
 class KretaCoreExtension extends AbstractExtension
 {
+    /**
+     * {@inheritdoc}
+     */
+    protected function getConfigFilesLocation()
+    {
+        return __DIR__ . '/../Resources/config';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getConfigFiles()
+    {
+        return ['services', 'factories', 'parameters', 'repositories'];
+    }
 }

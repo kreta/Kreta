@@ -34,6 +34,7 @@ class AppKernel extends Kernel
 
             new Bazinga\Bundle\HateoasBundle\BazingaHateoasBundle(),
             new Finite\Bundle\FiniteBundle\FiniteFiniteBundle(),
+            new FOS\OAuthServerBundle\FOSOAuthServerBundle(),
             new FOS\RestBundle\FOSRestBundle(),
             new FOS\UserBundle\FOSUserBundle(),
             new Knp\Bundle\GaufretteBundle\KnpGaufretteBundle(),

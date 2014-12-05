@@ -17,6 +17,18 @@ doctrine:
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
         mappings:
+            FOSOAuthServerBundle:
+                mapping: true
+                type: xml
+                dir: "Resources/config/doctrine"
+                prefix: 'FOS\OAuthServerBundle\Entity'
+                is_bundle: true
+            KretaApiCoreBundle:
+                mapping: true
+                type: yml
+                dir: "Resources/config/doctrine"
+                prefix: 'Kreta\Bundle\Api\ApiCoreBundle\Model'
+                is_bundle: true
             KretaCoreBundle:
                 mapping: true
                 type: yml
@@ -30,6 +42,10 @@ doctrine:
                 prefix: 'Kreta\Component\Notification\Model'
                 is_bundle: true
         resolve_target_entities:
+            Kreta\Bundle\Api\ApiCoreBundle\Model\Interfaces\AccessTokenInterface: Kreta\Bundle\Api\ApiCoreBundle\Model\AccessToken
+            Kreta\Bundle\Api\ApiCoreBundle\Model\Interfaces\AuthCodeInterface: Kreta\Bundle\Api\ApiCoreBundle\Model\AuthCode
+            Kreta\Bundle\Api\ApiCoreBundle\Model\Interfaces\ClientInterface: Kreta\Bundle\Api\ApiCoreBundle\Model\Client
+            Kreta\Bundle\Api\ApiCoreBundle\Model\Interfaces\RefreshTokenInterface: Kreta\Bundle\Api\ApiCoreBundle\Model\RefreshToken
             Kreta\Component\Core\Model\Interfaces\CommentInterface: Kreta\Component\Core\Model\Comment
             Kreta\Component\Core\Model\Interfaces\IssueInterface: Kreta\Component\Core\Model\Issue
             Kreta\Component\Core\Model\Interfaces\LabelInterface: Kreta\Component\Core\Model\Label

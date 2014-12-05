@@ -71,6 +71,17 @@ bazinga_hateoas:
         file_cache:
             dir: %kernel.cache_dir%/hateoas
 
+fos_oauth_server:
+    db_driver: orm
+    access_token_class: Kreta\Bundle\Api\ApiCoreBundle\Model\AccessToken
+    auth_code_class: Kreta\Bundle\Api\ApiCoreBundle\Model\AuthCode
+    client_class: Kreta\Bundle\Api\ApiCoreBundle\Model\Client
+    refresh_token_class: Kreta\Bundle\Api\ApiCoreBundle\Model\RefreshToken
+    service:
+        user_provider: kreta_user_provider
+        options:
+            supported_scopes: user
+
 fos_rest:
     routing_loader:
         include_format: false

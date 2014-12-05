@@ -60,6 +60,6 @@ class LoadCommentData extends DataFixtures
      */
     public function getOrder()
     {
-        return 2;
+        return 4;
     }
 }

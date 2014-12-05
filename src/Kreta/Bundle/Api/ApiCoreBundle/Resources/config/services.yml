@@ -4,3 +4,14 @@
 #
 # @author benatespina <benatespina@gmail.com>
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
+
+services:
+    kreta_api_core.listener_jsonExceptionListener:
+        class: Kreta\Bundle\Api\ApiCoreBundle\EventListener\JsonExceptionListener
+        tags:
+            - { name: kernel.event_listener, event: kernel.exception, method: onKernelException, priority: 200 }
+
+    kreta_api_core.command_createClientCommand:
+        class: Kreta\Bundle\Api\ApiCoreBundle\Command\CreateClientCommand
+        calls:
+            - [setContainer, ['@service_container'] ]
