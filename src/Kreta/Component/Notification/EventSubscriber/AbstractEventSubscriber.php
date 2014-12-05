@@ -74,7 +74,7 @@ abstract class AbstractEventSubscriber
             }
         }
 
-        if($manager) {
+        if(count($notifications) > 0 && $manager) {
             $manager->flush();
         }
     }
