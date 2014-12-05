@@ -8,19 +8,24 @@
 kreta_web_issue_new:
     path: /{projectShortName}/new
     defaults: { _controller: KretaWebBundle:Issue:new }
+    methods:  [GET,POST]
 
 kreta_web_issue_view:
     path: /{projectShortName}-{issueNumber}
     defaults: { _controller: KretaWebBundle:Issue:view }
+    methods:  [GET]
 
 kreta_web_issue_edit:
     path: /{projectShortName}-{issueNumber}/edit
     defaults: { _controller: KretaWebBundle:Issue:edit }
+    methods:  [GET,POST]
 
 kreta_web_issue_comment_new:
     path: /{projectShortName}-{issueNumber}/comment/new
     defaults: { _controller: KretaWebBundle:Issue:newComment }
+    methods:  [GET,POST]
 
 kreta_web_issue_change_status:
     path: /{projectShortName}-{issueNumber}/status/{transitionId}
     defaults: { _controller: KretaWebBundle:Issue:editStatus }
+    methods:  [GET]

@@ -8,3 +8,4 @@
 kreta_web_user_edit:
     path: /edit
     defaults: { _controller: KretaWebBundle:User:edit }
+    methods:  [GET,POST]

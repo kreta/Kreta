@@ -8,3 +8,4 @@
 kreta_web_component_project_user:
     path: /user
     defaults: { _controller: KretaWebBundle:Component/ProjectComponent:user }
+    methods:  [GET]
