@@ -223,7 +223,7 @@ class IssueController extends Controller
         $statuses = $this->get('kreta_core.repository_status')->findByProject($issue->getProject());
         $transitions = $this->get('kreta_core.repository_status_transition')->findByProject($issue->getProject());
 
-        $stateMachine = $this->get('kreta_issue_state_machine')->load($issue, $statuses, $transitions);
+        $stateMachine = $this->get('kreta_core.issue_state_machine')->load($issue, $statuses, $transitions);
 
         if ($stateMachine->can($transition->getName())) {
             $stateMachine->apply($transition->getName());

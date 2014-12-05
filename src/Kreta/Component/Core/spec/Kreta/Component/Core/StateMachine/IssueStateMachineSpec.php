@@ -9,7 +9,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace spec\Kreta\Bundle\CoreBundle\Services\StateMachine;
+namespace spec\Kreta\Component\Core\StateMachine;
 
 use Kreta\Component\Core\Model\Interfaces\IssueInterface;
 use Kreta\Component\Core\Model\Interfaces\StatusInterface;
@@ -20,13 +20,13 @@ use Prophecy\Argument;
 /**
  * Class IssueStateMachineSpec.
  *
- * @package spec\Kreta\Bundle\CoreBundle\Services\StateMachine
+ * @package spec\Kreta\Component\Core\StateMachine
  */
 class IssueStateMachineSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('Kreta\Bundle\CoreBundle\Services\StateMachine\IssueStateMachine');
+        $this->shouldHaveType('Kreta\Component\Core\StateMachine\IssueStateMachine');
     }
 
     function it_extends_state_machine()
@@ -34,8 +34,12 @@ class IssueStateMachineSpec extends ObjectBehavior
         $this->shouldHaveType('Finite\StateMachine\StateMachine');
     }
 
-    function it_loads(IssueInterface $issue, StatusInterface $status, StatusInterface $status2,
-                      StatusTransitionInterface $transition)
+    function it_loads(
+        IssueInterface $issue,
+        StatusInterface $status,
+        StatusInterface $status2,
+        StatusTransitionInterface $transition
+    )
     {
         $status->getName()->shouldBeCalled()->willReturn('Open');
         $status->getType()->shouldBeCalled()->willReturn('initial');
@@ -43,11 +47,11 @@ class IssueStateMachineSpec extends ObjectBehavior
         $status2->getName()->shouldBeCalled()->willReturn('In progress');
         $status2->getType()->shouldBeCalled()->willReturn('normal');
 
-        $transition->getInitialStates()->shouldBeCalled()->willReturn(array($status));
+        $transition->getInitialStates()->shouldBeCalled()->willReturn([$status]);
         $transition->getName()->shouldBeCalled()->willReturn('Start progress');
         $transition->getState()->shouldBeCalled()->willReturn($status2);
 
-        $this->load($issue, array($status, $status2), array($transition))
-            ->shouldReturnAnInstanceOf('Kreta\Bundle\CoreBundle\Services\StateMachine\IssueStateMachine');
+        $this->load($issue, [$status, $status2], [$transition])
+            ->shouldReturnAnInstanceOf('Kreta\Component\Core\StateMachine\IssueStateMachine');
     }
 }

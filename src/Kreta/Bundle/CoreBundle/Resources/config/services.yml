@@ -24,8 +24,8 @@ services:
            - { name: security.voter }
 
 #### STATE MACHINE ####
-    kreta_issue_state_machine:
-        class: %kreta_core.service_class_issueStateMachine%
+    kreta_core.issue_state_machine:
+        class: %kreta_core.state_machine_class_issue%
 
 #### UPLOADER ####
     kreta_core.image_users_uploader:

@@ -42,6 +42,6 @@ parameters:
     kreta_core.security_class_issueVoter: Kreta\Bundle\CoreBundle\Security\Authorization\Voter\IssueVoter
     kreta_core.security_class_projectVoter: Kreta\Bundle\CoreBundle\Security\Authorization\Voter\ProjectVoter
 
-    kreta_core.service_class_issueStateMachine: Kreta\Bundle\CoreBundle\Services\StateMachine\IssueStateMachine
+    kreta_core.state_machine_class_issue: Kreta\Component\Core\StateMachine\IssueStateMachine
 
     kreta_core.uploader_class_mediaUploader: Kreta\Component\Core\Uploader\MediaUploader

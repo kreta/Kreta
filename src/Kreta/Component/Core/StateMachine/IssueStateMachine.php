@@ -9,7 +9,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\Bundle\CoreBundle\Services\StateMachine;
+namespace Kreta\Component\Core\StateMachine;
 
 use Finite\Exception;
 use Finite\Loader\ArrayLoader;
@@ -42,7 +42,7 @@ class IssueStateMachine extends StateMachine
      *
      * @param \Kreta\Component\Core\Model\Interfaces\IssueInterface              $issue      The issue
      * @param \Kreta\Component\Core\Model\Interfaces\StatusInterface[]           $statuses   A collection of statuses
-     * @param \Kreta\Component\Core\Model\Interfaces\StatusTransitionInterface[] transitions A collection of trasitions
+     * @param \Kreta\Component\Core\Model\Interfaces\StatusTransitionInterface[] transitions A collection of transitions
      *
      * @return $this self Object
      */
