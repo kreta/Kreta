@@ -65,18 +65,10 @@ class ProjectController extends Controller
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
-                $image = $request->files->get('kreta_core_project_type')['image'];
-                if ($image instanceof UploadedFile) {
-                    $media = $this->get('kreta_core.factory_media')->create($image);
-                    $this->get('kreta_core.image_projects_uploader')->upload($media);
-                    $project->setImage($media);
-                }
+                $this->handleImageUpload($request, $project);
                 $manager = $this->getDoctrine()->getManager();
+                $this->get('kreta_core.factory_participant')->create($project, $this->getUser(), 'ROLE_ADMIN');
                 $manager->persist($project);
-                $participant = $this->get('kreta_core.factory_participant')->create($project, $this->getUser());
-                $participant->setRole('ROLE_ADMIN');
-                $project->addParticipant($participant);
-                $manager->persist($participant);
                 $manager->flush();
                 $this->get('session')->getFlashBag()->add('success', 'Project created successfully');
 
@@ -115,12 +107,7 @@ class ProjectController extends Controller
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
-                $image = $request->files->get('kreta_core_project_type')['image'];
-                if ($image instanceof UploadedFile) {
-                    $media = $this->get('kreta_core.factory_media')->create($image);
-                    $this->get('kreta_core.image_projects_uploader')->upload($media);
-                    $project->setImage($media);
-                }
+                $this->handleImageUpload($request, $project);
                 $manager = $this->getDoctrine()->getManager();
                 $manager->persist($project);
                 $manager->flush();
@@ -162,8 +149,6 @@ class ProjectController extends Controller
             throw $this->createNotFoundException('Project not found');
         } else {
             $participant = $this->get('kreta_core.factory_participant')->create($project, $user);
-            $participant->setRole('ROLE_ADMIN');
-            $project->addParticipant($participant);
             $manager = $this->getDoctrine()->getManager();
             $manager->persist($participant);
             $manager->flush();
@@ -173,5 +158,19 @@ class ProjectController extends Controller
         return $this->redirect($this->generateUrl('kreta_web_project_view', [
             'projectShortName' => $project->getShortName()
         ]));
+    }
+
+    /**
+     * @param Request $request
+     * @param         $project
+     */
+    protected function handleImageUpload(Request $request, ProjectInterface $project)
+    {
+        $image = $request->files->get('kreta_core_project_type')['image'];
+        if ($image instanceof UploadedFile) {
+            $media = $this->get('kreta_core.factory_media')->create($image);
+            $this->get('kreta_core.image_projects_uploader')->upload($media);
+            $project->setImage($media);
+        }
     }
 }

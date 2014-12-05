@@ -71,9 +71,11 @@ abstract class AbstractEventSubscriber
             }
             if ($manager) {
                 $manager->persist($notification);
-                $manager->flush();
             }
+        }
 
+        if($manager) {
+            $manager->flush();
         }
     }
 }

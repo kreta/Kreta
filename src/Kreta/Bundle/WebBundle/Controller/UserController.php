@@ -36,21 +36,16 @@ class UserController extends Controller
     public function editAction(Request $request)
     {
         $user = $this->getUser();
-        if (($user instanceof UserInterface) === false) {
+        if (!$user instanceof UserInterface) {
             throw new AccessDeniedException();
         }
 
         $form = $this->createForm(new UserType(), $user);
 
-        if ($request->isMethod('POST') === true) {
+        if ($request->isMethod('POST')) {
             $form->handleRequest($request);
-            if ($form->isSubmitted() === true && $form->isValid() === true) {
-                $photo = $request->files->get('kreta_core_user_type')['photo'];
-                if ($photo instanceof UploadedFile) {
-                    $media = $this->get('kreta_core.factory_media')->create($photo);
-                    $this->get('kreta_core.image_users_uploader')->upload($media);
-                    $user->setPhoto($media);
-                }
+            if ($form->isSubmitted() && $form->isValid()) {
+                $this->handleImageUpload($request, $user);
                 $manager = $this->getDoctrine()->getManager();
                 $manager->persist($user);
                 $manager->flush();
@@ -58,6 +53,20 @@ class UserController extends Controller
             }
         }
 
-        return $this->render('@KretaWeb/User/edit.html.twig', array('form' => $form->createView(), 'user' => $user));
+        return $this->render('@KretaWeb/User/edit.html.twig', ['form' => $form->createView(), 'user' => $user]);
+    }
+
+    /**
+     * @param Request       $request
+     * @param UserInterface $user
+     */
+    protected function handleImageUpload(Request $request, UserInterface $user)
+    {
+        $photo = $request->files->get('kreta_core_user_type')['photo'];
+        if ($photo instanceof UploadedFile) {
+            $media = $this->get('kreta_core.factory_media')->create($photo);
+            $this->get('kreta_core.image_users_uploader')->upload($media);
+            $user->setPhoto($media);
+        }
     }
 }

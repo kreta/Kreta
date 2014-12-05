@@ -58,69 +58,6 @@ class StatusTransitionController extends AbstractRestController
     }
 
     /**
-     * Creates new transition for project and status given.
-     *
-     * @ApiDoc(
-     *  description = "Creates new transition for project and status given",
-     *  requirements = {
-     *    {
-     *      "name"="_format",
-     *      "requirement"="json|jsonp",
-     *      "description"="Supported formats, by default json"
-     *    }
-     *  },
-     *  statusCodes = {
-     *      200 = "Successfully created",
-     *      400 = {
-     *          "To status name should not be blank",
-     *          "From status and to status are equals",
-     *          "From status and to status are equals",
-     *      },
-     *      403 = "Not allowed to access this resource",
-     *      404 = {
-     *          "Does not exist any project with <$id> id",
-     *          "Does not exist any status with <$id> id",
-     *          "Does not exist any status with <$toStatusName> name"
-     *      },
-     *      409 = "The <$toStatusName> transition is already exist"
-     *  }
-     * )
-     *
-     * @param string $projectId The project id
-     * @param string $statusId  The status id
-     *
-     * @throws \Symfony\Component\HttpKernel\Exception\BadRequestHttpException
-     * @throws \Symfony\Component\HttpKernel\Exception\NotFoundHttpException
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    public function postTransitionsAction($projectId, $statusId)
-    {
-        $status = $this->getStatusIfAllowed($projectId, $statusId, 'manage_status');
-        $toStatusName = $this->get('request')->get('to');
-        if (!$toStatusName) {
-            throw new BadRequestHttpException('To status name should not be blank');
-        }
-        $toStatus = $this->getRepository()->findOneByNameAndProjectId($toStatusName, $projectId);
-        if (!$toStatus) {
-            throw new NotFoundHttpException('Does not exist any status with ' . $toStatusName . ' name');
-        }
-        if ($toStatus->getId() === $status->getId()) {
-            throw new BadRequestHttpException('From status and to status are equals');
-        }
-        $transitions = $status->getTransitions();
-        foreach ($transitions as $transition) {
-            if ($transition->getId() === $toStatus->getId()) {
-                throw new BadRequestHttpException('The ' . $toStatus->getName() . ' transition is already exist');
-            }
-        }
-
-        $status->addStatusTransition($toStatus);
-        $this->getRepository()->save($status);
-
-        return $this->createResponse($status->getTransitions(), array('status'));
-    }
-
-    /**
      * Deletes the transition of project and status, with transition id given.
      *
      * @ApiDoc(

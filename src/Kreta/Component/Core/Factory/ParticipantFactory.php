@@ -43,13 +43,17 @@ class ParticipantFactory
      *
      * @param \Kreta\Component\Core\Model\Interfaces\ProjectInterface $project The project
      * @param \Kreta\Component\Core\Model\Interfaces\UserInterface    $user    The user
+     * @param string                                                  $role    The role assigned to the participant
      *
      * @return \Kreta\Component\Core\Model\Interfaces\ParticipantInterface
      */
     public function create(ProjectInterface $project, UserInterface $user, $role = 'ROLE_PARTICIPANT')
     {
         $participant = new $this->className($project, $user);
+        $participant->setRole($role);
 
-        return $participant->setRole($role);
+        $project->addParticipant($participant);
+
+        return $participant;
     }
 }
