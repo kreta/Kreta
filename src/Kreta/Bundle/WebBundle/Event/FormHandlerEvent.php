@@ -14,7 +14,7 @@ namespace Kreta\Bundle\WebBundle\Event;
 use Symfony\Component\EventDispatcher\Event;
 
 /**
- * Class FormHandlerEvent
+ * Class FormHandlerEvent.
  *
  * @package Kreta\Bundle\WebBundle\Event
  */
@@ -26,17 +26,21 @@ class FormHandlerEvent extends Event
     const TYPE_ERROR = 'error';
 
     /**
+     * Event type.
+     *
      * @var string
      */
     protected $type;
 
     /**
+     * Event message.
+     *
      * @var string
      */
     protected $message;
 
     /**
-     * Creates a form handler event
+     * Creates a form handler event.
      *
      * @param string $type    Event type, use FormHandlerEvent::TYPE_* constants
      * @param string $message Message to be displayed to the user
@@ -94,6 +98,4 @@ class FormHandlerEvent extends Event
 
         return $this;
     }
-
-
-} 
+}

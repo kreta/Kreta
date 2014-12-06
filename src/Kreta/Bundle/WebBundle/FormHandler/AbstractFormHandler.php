@@ -18,32 +18,43 @@ use Symfony\Component\Form\FormFactory;
 use Symfony\Component\HttpFoundation\FileBag;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * Class AbstractFormHandler
+ *
+ * @package Kreta\Bundle\WebBundle\FormHandler
+ */
 abstract class AbstractFormHandler
 {
     /**
+     * The factory used to create a new Form instance.
+     *
      * @var FormFactory
      */
     protected $formFactory;
 
     /**
+     * Manager used to persist and flush the object.
+     *
      * @var ObjectManager
      */
     protected $manager;
 
     /**
+     * Dispatcher used to dispatch FormHandlerEvents.
+     *
      * @var EventDispatcher
      */
     protected $eventDispatcher;
 
     /**
-     * Dispatched default success message
+     * Dispatched default success message.
      *
      * @var string
      */
     protected $successMessage = 'Saved successfully';
 
     /**
-     * Dispatched default error message
+     * Dispatched default error message.
      *
      * @var string
      */
@@ -52,9 +63,9 @@ abstract class AbstractFormHandler
     /**
      * Creates a form handler
      *
-     * @param FormFactory     $formFactory     Used to create a new Form instance
-     * @param ObjectManager   $manager         Used to persist and flush the object
-     * @param EventDispatcher $eventDispatcher Used to dispatch FormHandlerEvents
+     * @param FormFactory     $formFactory     Used to create a new Form instance.
+     * @param ObjectManager   $manager         Used to persist and flush the object.
+     * @param EventDispatcher $eventDispatcher Used to dispatch FormHandlerEvents.
      */
     public function __construct(FormFactory $formFactory, ObjectManager $manager, EventDispatcher $eventDispatcher)
     {
@@ -67,8 +78,8 @@ abstract class AbstractFormHandler
      * Handles the form and saves the object to the DB. All process can be changed extendind handleFiles, handleObject
      * dispatchSuccess and dispatchError methods. See each methods doc for more info.
      *
-     * @param Request $request     Contains values sent by the user
-     * @param object  $object      The object to be edited with form content
+     * @param Request $request     Contains values sent by the user.
+     * @param object  $object      The object to be edited with form content.
      * @param null    $formOptions Options that will be passed as parameter to createForm method.
      *
      * @return \Symfony\Component\Form\Form
@@ -91,10 +102,10 @@ abstract class AbstractFormHandler
     }
 
     /**
-     * Creates a form with the given parameters
+     * Creates a form with the given parameters.
      *
-     * @param object        $object      Model related to the form
-     * @param object | null $formOptions Options that will be passed in the form create method
+     * @param object        $object      Model related to the form.
+     * @param object | null $formOptions Options that will be passed in the form create method.
      *
      * @return \Symfony\Component\Form\Form
      */
@@ -105,8 +116,8 @@ abstract class AbstractFormHandler
      *
      * For extended functionality override the method.
      *
-     * @param FileBag $files  Files found in current request
-     * @param         $object Object been handled in the request
+     * @param FileBag $files  Files found in current request.
+     * @param         $object Object been handled in the request.
      */
     protected function handleFiles(FileBag $files, $object)
     {
@@ -117,7 +128,7 @@ abstract class AbstractFormHandler
      *
      * For extended functionality override the method.
      *
-     * @param object $object The object to be handled
+     * @param object $object The object to be handled.
      */
     protected function handleObject($object)
     {
@@ -126,7 +137,7 @@ abstract class AbstractFormHandler
     }
 
     /**
-     * Dispatches success event. By default it uses $successMessage for the message
+     * Dispatches success event. By default it uses $successMessage for the message.
      */
     protected function dispatchSuccess()
     {
@@ -137,7 +148,7 @@ abstract class AbstractFormHandler
     }
 
     /**
-     * Dispatches error event. By default it uses $errorMessage for the message
+     * Dispatches error event. By default it uses $errorMessage for the message.
      */
     protected function dispatchError()
     {

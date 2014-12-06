@@ -13,10 +13,25 @@ namespace Kreta\Bundle\WebBundle\FormHandler;
 
 use Kreta\Bundle\CoreBundle\Form\Type\IssueType;
 
+/**
+ * Class IssueFormHandler
+ *
+ * @package Kreta\Bundle\WebBundle\FormHandler
+ */
 class IssueFormHandler extends AbstractFormHandler
 {
+    /**
+     * Dispatched success message.
+     *
+     * @var string
+     */
     protected $successMessage = 'Issue saved successfully';
 
+    /**
+     * Dispatched error message.
+     *
+     * @var string
+     */
     protected $errorMessage = 'Error saving issue';
 
     /**

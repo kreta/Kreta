@@ -11,11 +11,9 @@
 
 namespace Kreta\Bundle\WebBundle\Controller;
 
-use Kreta\Bundle\CoreBundle\Form\Type\ProjectType;
 use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Core\Model\Interfaces\UserInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 

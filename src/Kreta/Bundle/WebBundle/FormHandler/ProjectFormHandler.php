@@ -18,8 +18,16 @@ use Symfony\Component\Form\FormFactory;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\FileBag;
 
+/**
+ * Class ProjectFormHandler
+ *
+ * @package Kreta\Bundle\WebBundle\FormHandler
+ */
 class ProjectFormHandler extends AbstractFormHandler
 {
+    /**
+     * @var MediaFactory
+     */
     protected $mediaFactory;
 
     protected $uploader;

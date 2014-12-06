@@ -13,10 +13,25 @@ namespace Kreta\Bundle\WebBundle\FormHandler;
 
 use Kreta\Bundle\CoreBundle\Form\Type\CommentType;
 
+/**
+ * Class CommentFormHandler
+ *
+ * @package Kreta\Bundle\WebBundle\FormHandler
+ */
 class CommentFormHandler extends AbstractFormHandler
 {
+    /**
+     * Dispatched success message.
+     *
+     * @var string
+     */
     protected $successMessage = 'Comment added successfully';
 
+    /**
+     * Dispatched error message.
+     *
+     * @var string
+     */
     protected $errorMessage = 'Error sending comment';
 
     /**
