@@ -108,10 +108,7 @@ class ProjectController extends AbstractRestController
      */
     public function postProjectsAction()
     {
-        $project = $this->get('kreta_core.factory_project')->create();
-        $participant = $this->get('kreta_core.factory_participant')
-            ->create($project, $this->getCurrentUser(), 'ROLE_ADMIN');
-        $project->addParticipant($participant);
+        $project = $this->get('kreta_core.factory_project')->create($this->getCurrentUser());
 
         return $this->manageForm(new ProjectType(), $project, ['project']);
     }

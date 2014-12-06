@@ -15,6 +15,13 @@ use Kreta\Bundle\CoreBundle\Form\Type\IssueType;
 
 class IssueFormHandler extends AbstractFormHandler
 {
+    protected $successMessage = 'Issue saved successfully';
+
+    protected $errorMessage = 'Error saving issue';
+
+    /**
+     * {@inheritdoc}
+     */
     protected function createForm($object, $formOptions = null)
     {
         return $this->formFactory->create(new IssueType($formOptions), $object);

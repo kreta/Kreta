@@ -16,11 +16,8 @@ Feature: Manage issues
       | firstName | lastName | email          | password |
       | Kreta     | User     | user@kreta.com | 123456   |
     And the following projects exist:
-      | name         | shortName |
-      | Test project | TPR       |
-    And the following participants exist:
-      | project      | user           | role             |
-      | Test project | user@kreta.com | ROLE_PARTICIPANT |
+      | name         | shortName | creator        |
+      | Test project | TPR       | user@kreta.com |
     And the following issues exist:
       | project      | title | description | reporter       | assignee       | type    | status | priority |
       | Test project | Test  | Description | user@kreta.com | user@kreta.com | initial | To do  | 1        |
@@ -35,14 +32,14 @@ Feature: Manage issues
       | Description | kreta |
     And I select "Kreta User" from "Assignee"
     And I press "Create"
-    Then I should see "Issue created successfully"
+    Then I should see "Issue saved successfully"
 
   Scenario: Editing an existing issue
     Given I am on the homepage
     And I click on edit button for issue 'Test'
     When I fill in "Description" with "Edited description"
     And I press "Update"
-    Then I should see "Issue edited successfully"
+    Then I should see "Issue saved successfully"
     And I should see "Edited description"
 
   Scenario: Viewing an existing issue
@@ -57,4 +54,11 @@ Feature: Manage issues
     And I click on view button for issue 'Test'
     When I follow "Start progress"
     Then I should see "Status changed successfully"
+
+  Scenario: Adding a comment
+    Given I am on the homepage
+    And I click on view button for issue 'Test'
+    When I fill in "kreta_core_comment_type_description" with "New comment!!"
+    And I press "Send"
+    Then I should see "Comment added successfully"
 

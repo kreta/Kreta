@@ -158,15 +158,11 @@ class ProjectControllerSpec extends AbstractRestControllerSpec
         Response $response
     )
     {
-        $container->get('kreta_core.factory_project')->shouldBeCalled()->willReturn($projectFactory);
-        $projectFactory->create()->shouldBeCalled()->willReturn($project);
-
         $this->getCurrentUser($container, $securityContext, $token, $user);
 
-        $container->get('kreta_core.factory_participant')->shouldBeCalled()->willReturn($participantFactory);
-        $participantFactory->create($project, $user, 'ROLE_ADMIN')->shouldBeCalled()->willReturn($participant);
+        $container->get('kreta_core.factory_project')->shouldBeCalled()->willReturn($projectFactory);
+        $projectFactory->create($user)->shouldBeCalled()->willReturn($project);
 
-        $project->addParticipant($participant)->shouldBeCalled()->willReturn($project);
 
         $this->processForm(
             $container,
@@ -207,14 +203,8 @@ class ProjectControllerSpec extends AbstractRestControllerSpec
     )
     {
         $container->get('kreta_core.factory_project')->shouldBeCalled()->willReturn($projectFactory);
-        $projectFactory->create()->shouldBeCalled()->willReturn($project);
-
         $this->getCurrentUser($container, $securityContext, $token, $user);
-
-        $container->get('kreta_core.factory_participant')->shouldBeCalled()->willReturn($participantFactory);
-        $participantFactory->create($project, $user, 'ROLE_ADMIN')->shouldBeCalled()->willReturn($participant);
-
-        $project->addParticipant($participant)->shouldBeCalled()->willReturn($project);
+        $projectFactory->create($user)->shouldBeCalled()->willReturn($project);
 
         $this->getFormErrors(
             $container,

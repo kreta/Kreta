@@ -71,7 +71,7 @@ class IssueController extends Controller
         $issue = $this->get('kreta_core.factory_issue')->create($project, $this->getUser());
 
         $form = $this->get('kreta_web.form_handler_issue')->handleForm(
-            $request, $issue, [], $project->getParticipants()
+            $request, $issue, $project->getParticipants()
         );
 
         if ($form->isValid()) {
@@ -98,7 +98,6 @@ class IssueController extends Controller
      */
     public function editAction($projectShortName, $issueNumber, Request $request)
     {
-        /** @var IssueInterface $issue */
         $issue = $this->get('kreta_core.repository_issue')->findOneByShortCode($projectShortName, $issueNumber);
 
         if (!$issue instanceof IssueInterface) {
@@ -110,7 +109,7 @@ class IssueController extends Controller
         };
 
         $form = $this->get('kreta_web.form_handler_issue')->handleForm(
-            $request, $issue, [], $issue->getProject()->getParticipants()
+            $request, $issue, $issue->getProject()->getParticipants()
         );
 
         if ($form->isValid()) {
@@ -142,11 +141,9 @@ class IssueController extends Controller
             $this->createNotFoundException('Issue not found');
         }
 
-        $comment = $this->get('kreta_core.factory_comment')->create();
+        $comment = $this->get('kreta_core.factory_comment')->create($issue, $this->getUser());
 
-        $form = $this->get('kreta_web.form_handler_comment')->handleForm(
-            $request, $comment, ['user' => $this->getUser(), 'issue' => $issue]
-        );
+        $form = $this->get('kreta_web.form_handler_comment')->handleForm($request, $comment);
 
         if($form->isValid()) {
             return $this->redirect($this->generateUrl(

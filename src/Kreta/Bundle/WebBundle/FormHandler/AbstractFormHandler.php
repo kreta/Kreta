@@ -15,16 +15,47 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Kreta\Bundle\WebBundle\Event\FormHandlerEvent;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\Form\FormFactory;
+use Symfony\Component\HttpFoundation\FileBag;
 use Symfony\Component\HttpFoundation\Request;
 
 abstract class AbstractFormHandler
 {
+    /**
+     * @var FormFactory
+     */
     protected $formFactory;
 
+    /**
+     * @var ObjectManager
+     */
     protected $manager;
 
+    /**
+     * @var EventDispatcher
+     */
     protected $eventDispatcher;
 
+    /**
+     * Dispatched default success message
+     *
+     * @var string
+     */
+    protected $successMessage = 'Saved successfully';
+
+    /**
+     * Dispatched default error message
+     *
+     * @var string
+     */
+    protected $errorMessage = 'Error while saving';
+
+    /**
+     * Creates a form handler
+     *
+     * @param FormFactory     $formFactory     Used to create a new Form instance
+     * @param ObjectManager   $manager         Used to persist and flush the object
+     * @param EventDispatcher $eventDispatcher Used to dispatch FormHandlerEvents
+     */
     public function __construct(FormFactory $formFactory, ObjectManager $manager, EventDispatcher $eventDispatcher)
     {
         $this->formFactory = $formFactory;
@@ -33,20 +64,23 @@ abstract class AbstractFormHandler
     }
 
     /**
-     * @param Request $request
-     * @param         $object
-     * @param array   $helpers
-     * @param null    $formOptions
+     * Handles the form and saves the object to the DB. All process can be changed extendind handleFiles, handleObject
+     * dispatchSuccess and dispatchError methods. See each methods doc for more info.
+     *
+     * @param Request $request     Contains values sent by the user
+     * @param object  $object      The object to be edited with form content
+     * @param null    $formOptions Options that will be passed as parameter to createForm method.
      *
      * @return \Symfony\Component\Form\Form
      */
-    public function handleForm(Request $request, $object, $helpers = [], $formOptions = null)
+    public function handleForm(Request $request, $object, $formOptions = null)
     {
         $form = $this->createForm($object, $formOptions);
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
-                $this->handleObject($object, $helpers);
+                $this->handleFiles($request->files, $object);
+                $this->handleObject($object);
                 $this->dispatchSuccess();
             } else {
                 $this->dispatchError();
@@ -57,32 +91,59 @@ abstract class AbstractFormHandler
     }
 
     /**
-     * @param $object
-     * @param $formOptions
+     * Creates a form with the given parameters
+     *
+     * @param object        $object      Model related to the form
+     * @param object | null $formOptions Options that will be passed in the form create method
      *
      * @return \Symfony\Component\Form\Form
      */
     abstract protected function createForm($object, $formOptions = null);
 
-    protected function handleObject($object, $helpers = [])
+    /**
+     * Handles file upload.
+     *
+     * For extended functionality override the method.
+     *
+     * @param FileBag $files  Files found in current request
+     * @param         $object Object been handled in the request
+     */
+    protected function handleFiles(FileBag $files, $object)
+    {
+    }
+
+    /**
+     * Edits (if needed), persists and flushes the object.
+     *
+     * For extended functionality override the method.
+     *
+     * @param object $object The object to be handled
+     */
+    protected function handleObject($object)
     {
         $this->manager->persist($object);
         $this->manager->flush();
     }
 
+    /**
+     * Dispatches success event. By default it uses $successMessage for the message
+     */
     protected function dispatchSuccess()
     {
         $this->eventDispatcher->dispatch(
             FormHandlerEvent::NAME,
-            new FormHandlerEvent(FormHandlerEvent::TYPE_SUCCESS, 'Saved successfully')
+            new FormHandlerEvent(FormHandlerEvent::TYPE_SUCCESS, $this->successMessage)
         );
     }
 
+    /**
+     * Dispatches error event. By default it uses $errorMessage for the message
+     */
     protected function dispatchError()
     {
         $this->eventDispatcher->dispatch(
             FormHandlerEvent::NAME,
-            new FormHandlerEvent(FormHandlerEvent::TYPE_ERROR, 'Error while saving')
+            new FormHandlerEvent(FormHandlerEvent::TYPE_ERROR, $this->errorMessage)
         );
     }
 }

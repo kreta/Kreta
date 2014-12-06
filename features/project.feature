@@ -18,8 +18,8 @@ Feature: Manage project
       | Kreta     | User2    | user2@kreta.com | 123456   |
       | Kreta     | User3    | user3@kreta.com | 123456   |
     And the following projects exist:
-      | name         | shortName |
-      | Test project | TPR       |
+      | name         | shortName | creator        |
+      | Test project | TPR       | user@kreta.com |
     And the following statuses exist:
       | color   | name        | project      |
       | #27ae60 | Open        | Test project |
@@ -29,7 +29,6 @@ Feature: Manage project
       | #27ae60 | Reopened    | Test project |
     And the following participants exist:
       | project      | user            | role             |
-      | Test project | user@kreta.com  | ROLE_ADMIN       |
       | Test project | user3@kreta.com | ROLE_PARTICIPANT |
 
   Scenario: Adding a new project
@@ -40,7 +39,7 @@ Feature: Manage project
       | Name       | New project |
       | Short name | NPR         |
     And I press "Create"
-    Then I should see "Project created successfully"
+    Then I should see "Project saved successfully"
 
   Scenario: Viewing a existing project
     Given I am a logged as 'user@kreta.com' with password '123456'

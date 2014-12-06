@@ -16,6 +16,8 @@ use Kreta\Component\Core\Factory\MediaFactory;
 use Kreta\Component\Core\Factory\ProjectFactory;
 use Kreta\Component\Core\Model\Interfaces\MediaInterface;
 use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
+use Kreta\Component\Core\Model\Interfaces\UserInterface;
+use Kreta\Component\Core\Repository\UserRepository;
 use Kreta\Component\Core\Uploader\Interfaces\MediaUploaderInterface;
 use Prophecy\Argument;
 use spec\Kreta\Bundle\CoreBundle\DataFixtures\DataFixturesSpec;
@@ -50,7 +52,9 @@ class LoadProjectDataSpec extends DataFixturesSpec
         MediaInterface $media,
         ProjectFactory $factory,
         ProjectInterface $project,
-        ObjectManager $manager
+        ObjectManager $manager,
+        UserRepository $userRepository,
+        UserInterface $user
     )
     {
         $this->loadMedias(
@@ -63,7 +67,11 @@ class LoadProjectDataSpec extends DataFixturesSpec
         );
 
         $container->get('kreta_core.factory_project')->shouldBeCalled()->willReturn($factory);
-        $factory->create()->shouldBeCalled()->willReturn($project);
+        $container->get('kreta_core.repository_user')->shouldBeCalled()->willReturn($userRepository);
+
+        $userRepository->findAll()->shouldBeCalled()->willReturn([$user]);
+
+        $factory->create($user)->shouldBeCalled()->willReturn($project);
 
         $project->setName(Argument::type('string'))->shouldBeCalled()->willReturn($project);
         $project->setShortName(Argument::type('string'))->shouldBeCalled()->willReturn($project);

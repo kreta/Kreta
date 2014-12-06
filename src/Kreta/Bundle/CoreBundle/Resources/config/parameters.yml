@@ -17,7 +17,7 @@ parameters:
     kreta_core.class_status_transition: Kreta\Component\Core\Model\StatusTransition
     kreta_core.class_user: Kreta\Component\Core\Model\User
 
-    kreta_core.factory_class_comment: Kreta\Component\Core\Factory\BaseFactory
+    kreta_core.factory_class_comment: Kreta\Component\Core\Factory\CommentFactory
     kreta_core.factory_class_issue: Kreta\Component\Core\Factory\IssueFactory
     kreta_core.factory_class_label: Kreta\Component\Core\Factory\BaseFactory
     kreta_core.factory_class_media: Kreta\Component\Core\Factory\MediaFactory

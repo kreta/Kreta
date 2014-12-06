@@ -11,9 +11,13 @@
 
 namespace Kreta\Bundle\WebBundle\Event;
 
-
 use Symfony\Component\EventDispatcher\Event;
 
+/**
+ * Class FormHandlerEvent
+ *
+ * @package Kreta\Bundle\WebBundle\Event
+ */
 class FormHandlerEvent extends Event
 {
     const NAME = 'kreta_web_event_form_handler';
@@ -21,20 +25,32 @@ class FormHandlerEvent extends Event
     const TYPE_SUCCESS = 'success';
     const TYPE_ERROR = 'error';
 
+    /**
+     * @var string
+     */
     protected $type;
 
+    /**
+     * @var string
+     */
     protected $message;
 
+    /**
+     * Creates a form handler event
+     *
+     * @param string $type    Event type, use FormHandlerEvent::TYPE_* constants
+     * @param string $message Message to be displayed to the user
+     */
     public function __construct($type, $message)
     {
-        $this->$type;
-        $this->$message;
+        $this->type = $type;
+        $this->message = $message;
     }
 
     /**
-     * Returns type
+     * Gets type.
      *
-     * @return mixed
+     * @return string
      */
     public function getType()
     {
@@ -42,22 +58,23 @@ class FormHandlerEvent extends Event
     }
 
     /**
-     * Sets type
+     * Sets type. Use FormHandlerEvent::TYPE_* constants
      *
-     * @param mixed $type The type to be set
+     * @param string $type The type to be set
      *
      * @return self
      */
     public function setType($type)
     {
         $this->type = $type;
+
         return $this;
     }
 
     /**
-     * Returns message
+     * Returns message.
      *
-     * @return mixed
+     * @return string
      */
     public function getMessage()
     {
@@ -65,15 +82,16 @@ class FormHandlerEvent extends Event
     }
 
     /**
-     * Sets message
+     * Sets message.
      *
-     * @param mixed $message The message to be set
+     * @param string $message The message to be set
      *
      * @return self
      */
     public function setMessage($message)
     {
         $this->message = $message;
+
         return $this;
     }
 

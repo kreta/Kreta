@@ -58,24 +58,14 @@ class ProjectController extends Controller
      */
     public function newAction(Request $request)
     {
-        $project = $this->get('kreta_core.factory_project')->create();
+        $project = $this->get('kreta_core.factory_project')->create($this->getUser());
 
-        $form = $this->createForm(new ProjectType(), $project);
+        $form = $this->get('kreta_web.form_handler_project')->handleForm($request, $project);
 
-        if ($request->isMethod('POST')) {
-            $form->handleRequest($request);
-            if ($form->isSubmitted() && $form->isValid()) {
-                $this->handleImageUpload($request, $project);
-                $manager = $this->getDoctrine()->getManager();
-                $this->get('kreta_core.factory_participant')->create($project, $this->getUser(), 'ROLE_ADMIN');
-                $manager->persist($project);
-                $manager->flush();
-                $this->get('session')->getFlashBag()->add('success', 'Project created successfully');
-
-                return $this->redirect($this->generateUrl('kreta_web_project_view', [
-                    'projectShortName' => $project->getShortName()
-                ]));
-            }
+        if($form->isValid()) {
+            return $this->redirect($this->generateUrl('kreta_web_project_view', [
+                'projectShortName' => $project->getShortName()
+            ]));
         }
 
         return $this->render('KretaWebBundle:Project:new.html.twig', ['form' => $form->createView()]);
@@ -102,21 +92,12 @@ class ProjectController extends Controller
             throw new AccessDeniedException();
         }
 
-        $form = $this->createForm(new ProjectType(), $project);
+        $form = $this->get('kreta_web.form_handler_project')->handleForm($request, $project);
 
-        if ($request->isMethod('POST')) {
-            $form->handleRequest($request);
-            if ($form->isSubmitted() && $form->isValid()) {
-                $this->handleImageUpload($request, $project);
-                $manager = $this->getDoctrine()->getManager();
-                $manager->persist($project);
-                $manager->flush();
-                $this->get('session')->getFlashBag()->add('success', 'Project updated successfully');
-
-                return $this->redirect($this->generateUrl('kreta_web_project_view', [
-                    'projectShortName' => $project->getShortName()
-                ]));
-            }
+        if($form->isValid()) {
+            return $this->redirect($this->generateUrl('kreta_web_project_view', [
+                'projectShortName' => $project->getShortName()
+            ]));
         }
 
         return $this->render('KretaWebBundle:Project:edit.html.twig', [
@@ -158,19 +139,5 @@ class ProjectController extends Controller
         return $this->redirect($this->generateUrl('kreta_web_project_view', [
             'projectShortName' => $project->getShortName()
         ]));
-    }
-
-    /**
-     * @param Request $request
-     * @param         $project
-     */
-    protected function handleImageUpload(Request $request, ProjectInterface $project)
-    {
-        $image = $request->files->get('kreta_core_project_type')['image'];
-        if ($image instanceof UploadedFile) {
-            $media = $this->get('kreta_core.factory_media')->create($image);
-            $this->get('kreta_core.image_projects_uploader')->upload($media);
-            $project->setImage($media);
-        }
     }
 }

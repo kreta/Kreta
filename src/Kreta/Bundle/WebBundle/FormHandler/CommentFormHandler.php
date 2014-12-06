@@ -15,30 +15,15 @@ use Kreta\Bundle\CoreBundle\Form\Type\CommentType;
 
 class CommentFormHandler extends AbstractFormHandler
 {
+    protected $successMessage = 'Comment added successfully';
+
+    protected $errorMessage = 'Error sending comment';
+
     /**
-     * @param $object
-     * @param $formOptions
-     *
-     * @return \Symfony\Component\Form\Form
+     * {@inheritdoc}
      */
     protected function createForm($object, $formOptions = null)
     {
         return $this->formFactory->create(new CommentType(), $object);
     }
-
-    /**
-     * Handles object
-     *
-     * @param \Kreta\Component\Core\Model\Interfaces\CommentInterface $object
-     * @param array                                                   $helpers
-     */
-    public function handleObject($object, $helpers = [])
-    {
-        $object->setWrittenBy($helpers['user']);
-        $object->setIssue($helpers['issue']);
-
-        parent::handleObject($object, $helpers);
-    }
-
-
-} 
+}
