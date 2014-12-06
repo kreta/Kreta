@@ -8,3 +8,4 @@
 kreta_web_component_issue_user:
     path: /user
     defaults: { _controller: KretaWebBundle:Component/IssueComponent:user }
+    methods:  [GET]

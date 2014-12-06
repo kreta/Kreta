@@ -8,3 +8,4 @@
 kreta_web_component_notification_icon:
     path: /icon
     defaults: { _controller: KretaWebBundle:Component/NotificationComponent:icon }
+    methods:  [GET]
