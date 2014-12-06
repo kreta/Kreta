@@ -13,6 +13,7 @@ namespace spec\Kreta\Bundle\Api\ApiCoreBundle\EventListener;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 
 /**
@@ -27,8 +28,14 @@ class JsonExceptionListenerSpec extends ObjectBehavior
         $this->shouldHaveType('Kreta\Bundle\Api\ApiCoreBundle\EventListener\JsonExceptionListener');
     }
 
-    function it_converts_exception_into_json_response(GetResponseForExceptionEvent $event, \Exception $exception)
+    function it_converts_exception_into_json_response(
+        GetResponseForExceptionEvent $event,
+        Request $request,
+        \Exception $exception
+    )
     {
+        $event->getRequest()->shouldBeCalled()->willReturn($request);
+        $request->isXmlHttpRequest()->shouldBeCalled()->willReturn(true);
         $event->getException()->shouldBeCalled()->willReturn($exception);
         $event->setResponse(Argument::type('Symfony\Component\HttpFoundation\JsonResponse'))->shouldBeCalled();
 
