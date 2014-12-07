@@ -13,6 +13,7 @@ namespace Kreta\Bundle\WebBundle\Controller;
 
 use Kreta\Component\Core\Model\Interfaces\IssueInterface;
 use Kreta\Component\Core\Model\Interfaces\StatusTransitionInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -31,22 +32,22 @@ class IssueController extends Controller
      * @param string $issueNumber      The issue number
      *
      * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @Template
      */
     public function viewAction($projectShortName, $issueNumber)
     {
         $issue = $this->get('kreta_core.repository_issue')->findOneByShortCode($projectShortName, $issueNumber);
 
         if (!$issue instanceof IssueInterface) {
-            $this->createNotFoundException();
+            throw $this->createNotFoundException();
         }
 
         if (!$this->get('security.context')->isGranted('view', $issue)) {
             throw new AccessDeniedException();
         };
 
-        return $this->render('KretaWebBundle:Issue:view.html.twig', [
-            'issue' => $issue
-        ]);
+        return ['issue' => $issue];
     }
 
     /**
@@ -56,6 +57,8 @@ class IssueController extends Controller
      * @param \Symfony\Component\HttpFoundation\Request $request          The request
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     *
+     * @Template
      */
     public function newAction($projectShortName, Request $request)
     {
@@ -82,9 +85,7 @@ class IssueController extends Controller
                 ]));
         }
 
-        return $this->render('KretaWebBundle:Issue:new.html.twig', [
-            'form' => $form->createView(), 'project' => $project
-        ]);
+        return ['form' => $form->createView(), 'project' => $project];
     }
 
     /**
@@ -95,13 +96,15 @@ class IssueController extends Controller
      * @param \Symfony\Component\HttpFoundation\Request $request          The request
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     *
+     * @Template
      */
     public function editAction($projectShortName, $issueNumber, Request $request)
     {
         $issue = $this->get('kreta_core.repository_issue')->findOneByShortCode($projectShortName, $issueNumber);
 
         if (!$issue instanceof IssueInterface) {
-            $this->createNotFoundException();
+            throw $this->createNotFoundException();
         }
 
         if (!$this->get('security.context')->isGranted('edit', $issue)) {
@@ -121,7 +124,7 @@ class IssueController extends Controller
             ));
         }
 
-        return $this->render('KretaWebBundle:Issue:edit.html.twig', ['form' => $form->createView(), 'issue' => $issue]);
+        return['form' => $form->createView(), 'issue' => $issue];
     }
 
     /**
@@ -132,6 +135,8 @@ class IssueController extends Controller
      * @param \Symfony\Component\HttpFoundation\Request $request          The request
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     *
+     * @Template("KretaWebBundle:Issue/blocks:commentForm.html.twig")
      */
     public function newCommentAction($projectShortName, $issueNumber, Request $request)
     {
@@ -145,7 +150,7 @@ class IssueController extends Controller
 
         $form = $this->get('kreta_web.form_handler_comment')->handleForm($request, $comment);
 
-        if($form->isValid()) {
+        if ($form->isValid()) {
             return $this->redirect($this->generateUrl(
                 'kreta_web_issue_view', [
                     'projectShortName' => $issue->getProject()->getShortName(),
@@ -154,10 +159,7 @@ class IssueController extends Controller
             ));
         }
 
-        return $this->render('KretaWebBundle:Issue/blocks:commentForm.html.twig', [
-            'form' => $form->createView(),
-            'issue' => $issue
-        ]);
+        return ['form' => $form->createView(),'issue' => $issue];
     }
 
     /**

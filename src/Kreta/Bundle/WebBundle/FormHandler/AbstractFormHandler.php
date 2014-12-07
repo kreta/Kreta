@@ -13,7 +13,7 @@ namespace Kreta\Bundle\WebBundle\FormHandler;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Kreta\Bundle\WebBundle\Event\FormHandlerEvent;
-use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\HttpFoundation\FileBag;
 use Symfony\Component\HttpFoundation\Request;
@@ -42,7 +42,7 @@ abstract class AbstractFormHandler
     /**
      * Dispatcher used to dispatch FormHandlerEvents.
      *
-     * @var EventDispatcher
+     * @var EventDispatcherInterface
      */
     protected $eventDispatcher;
 
@@ -65,9 +65,10 @@ abstract class AbstractFormHandler
      *
      * @param FormFactory     $formFactory     Used to create a new Form instance.
      * @param ObjectManager   $manager         Used to persist and flush the object.
-     * @param EventDispatcher $eventDispatcher Used to dispatch FormHandlerEvents.
+     * @param EventDispatcherInterface $eventDispatcher Used to dispatch FormHandlerEvents.
      */
-    public function __construct(FormFactory $formFactory, ObjectManager $manager, EventDispatcher $eventDispatcher)
+    public function __construct(FormFactory $formFactory, ObjectManager $manager,
+                                EventDispatcherInterface $eventDispatcher)
     {
         $this->formFactory = $formFactory;
         $this->manager = $manager;

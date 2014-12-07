@@ -15,7 +15,7 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Kreta\Bundle\CoreBundle\Form\Type\UserType;
 use Kreta\Component\Core\Factory\MediaFactory;
 use Kreta\Component\Core\Uploader\MediaUploader;
-use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\FileBag;
@@ -35,14 +35,15 @@ class UserFormHandler extends AbstractFormHandler
     protected $uploader;
 
     /**
-     * @param FormFactory     $formFactory     Used to create a new Form instance
-     * @param ObjectManager   $manager         Used to persist and flush the object
-     * @param EventDispatcher $eventDispatcher Used to dispatch FormHandlerEvents
-     * @param MediaFactory    $mediaFactory    Used to create a new User picture
-     * @param MediaUploader   $uploader        Used to upload User pictures
+     * @param FormFactory              $formFactory     Used to create a new Form instance
+     * @param ObjectManager            $manager         Used to persist and flush the object
+     * @param EventDispatcherInterface $eventDispatcher Used to dispatch FormHandlerEvents
+     * @param MediaFactory             $mediaFactory    Used to create a new User picture
+     * @param MediaUploader            $uploader        Used to upload User pictures
      */
-    public function __construct(FormFactory $formFactory, ObjectManager $manager, EventDispatcher $eventDispatcher,
-                                MediaFactory $mediaFactory, MediaUploader $uploader)
+    public function __construct(FormFactory $formFactory, ObjectManager $manager,
+                                EventDispatcherInterface $eventDispatcher, MediaFactory $mediaFactory,
+                                MediaUploader $uploader)
     {
         parent::__construct($formFactory, $manager, $eventDispatcher);
         $this->mediaFactory = $mediaFactory;

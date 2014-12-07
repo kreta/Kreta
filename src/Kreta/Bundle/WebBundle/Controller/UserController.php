@@ -11,10 +11,9 @@
 
 namespace Kreta\Bundle\WebBundle\Controller;
 
-use Kreta\Bundle\CoreBundle\Form\Type\UserType;
 use Kreta\Component\Core\Model\Interfaces\UserInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
@@ -32,6 +31,8 @@ class UserController extends Controller
      *
      * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
      * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @Template
      */
     public function editAction(Request $request)
     {
@@ -42,6 +43,6 @@ class UserController extends Controller
 
         $form = $this->get('kreta_web.form_handler_user')->handleForm($request, $user);
 
-        return $this->render('@KretaWeb/User/edit.html.twig', ['form' => $form->createView(), 'user' => $user]);
+        return ['form' => $form->createView(), 'user' => $user];
     }
 }
