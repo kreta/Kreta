@@ -27,14 +27,14 @@ class PriorityType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'choices' => array(
+        $resolver->setDefaults([
+            'choices' => [
                 IssueInterface::PRIORITY_LOW     => 'Low',
                 IssueInterface::PRIORITY_MEDIUM  => 'Medium',
                 IssueInterface::PRIORITY_HIGH    => 'High',
                 IssueInterface::PRIORITY_BLOCKER => 'Blocker',
-            )
-        ));
+            ]
+        ]);
     }
 
     /**

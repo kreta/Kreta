@@ -31,12 +31,12 @@ class IssueVoter extends AbstractVoter
     /**
      * {@inheritdoc}
      */
-    protected $attributes = array(
+    protected $attributes = [
         self::ASSIGN,
         self::DELETE,
         self::EDIT,
         self::VIEW
-    );
+    ];
 
     /**
      * {@inheritdoc}

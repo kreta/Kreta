@@ -34,12 +34,12 @@ class CommentTypeSpec extends ObjectBehavior
 
     function it_builds_a_form(FormBuilder $builder)
     {
-        $builder->add('description', 'textarea', array(
+        $builder->add('description', 'textarea', [
             'required' => true,
             'label'    => false
-        ))->shouldBeCalled()->willReturn($builder);
+        ])->shouldBeCalled()->willReturn($builder);
 
-        $this->buildForm($builder, array());
+        $this->buildForm($builder, []);
     }
 
     function it_gets_name()

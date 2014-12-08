@@ -15,7 +15,7 @@ class KretaNotificationExtensionSpec extends ObjectBehavior
 
     function it_loads_extension(ContainerBuilder $container)
     {
-        $this->load(array(), $container);
+        $this->load([], $container);
     }
 
     function it_gets_alias()

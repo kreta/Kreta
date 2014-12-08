@@ -79,9 +79,9 @@ class ProjectFactory
      */
     protected function createDefaultStatus()
     {
-        $defaultStatusesNames = array('To do', 'Doing', 'Done');
+        $defaultStatusesNames = ['To do', 'Doing', 'Done'];
 
-        $statuses = array();
+        $statuses = [];
         foreach ($defaultStatusesNames as $name) {
             $statuses[$name] = new Status($name);
         }

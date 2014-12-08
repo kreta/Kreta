@@ -36,7 +36,7 @@ class RegisterNotifiableEventsPass implements CompilerPassInterface
                 throw new \InvalidArgumentException('Tagged notifiable event needs to have `label` attribute.');
             }
             $name = $attributes[0]['label'];
-            $registry->addMethodCall('registerNotifiableEvent', array($name, new Reference($id)));
+            $registry->addMethodCall('registerNotifiableEvent', [$name, new Reference($id)]);
         }
     }
 }

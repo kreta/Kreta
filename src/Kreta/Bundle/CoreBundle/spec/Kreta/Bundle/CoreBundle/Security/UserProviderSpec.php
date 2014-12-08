@@ -27,7 +27,7 @@ class UserProviderSpec extends ObjectBehavior
 {
     function let(UserManagerInterface $userManager)
     {
-        $this->beConstructedWith($userManager, array('bitbucket' => 'bitbucketId', 'github' => 'githubId'));
+        $this->beConstructedWith($userManager, ['bitbucket' => 'bitbucketId', 'github' => 'githubId']);
     }
 
     function it_is_initializable()
@@ -53,7 +53,7 @@ class UserProviderSpec extends ObjectBehavior
         $response->getResourceOwner()->shouldBeCalled()->willReturn($resourceOwner);
         $resourceOwner->getName()->shouldBeCalled()->willReturn('github');
 
-        $userManager->findUserBy(array('githubId' => 'user@kreta.com'))->shouldBeCalled()->willReturn($previousUser);
+        $userManager->findUserBy(['githubId' => 'user@kreta.com'])->shouldBeCalled()->willReturn($previousUser);
         $previousUser->setUsername('user@kreta.com')->shouldBeCalled()->willReturn($previousUser);
         $previousUser->setEmail('user@kreta.com')->shouldBeCalled()->willReturn($previousUser);
         $previousUser->setGithubId(null)->shouldBeCalled()->willReturn($previousUser);
@@ -80,7 +80,7 @@ class UserProviderSpec extends ObjectBehavior
     {
         $response->getEmail()->shouldBeCalled()->willReturn('');
         $response->getUsername()->shouldBeCalled()->willReturn('user@kreta.com');
-        $userManager->findUserBy(array('githubId' => 'user@kreta.com'))->shouldBeCalled()->willReturn(null);
+        $userManager->findUserBy(['githubId' => 'user@kreta.com'])->shouldBeCalled()->willReturn(null);
 
         $response->getResourceOwner()->shouldBeCalled()->willReturn($resourceOwner);
         $resourceOwner->getName()->shouldBeCalled()->willReturn('github');
@@ -108,10 +108,10 @@ class UserProviderSpec extends ObjectBehavior
     )
     {
         $response->getUsername()->shouldBeCalled()->willReturn('1234567');
-        $userManager->findUserBy(array('githubId' => '1234567'))->shouldBeCalled()->willReturn(null);
+        $userManager->findUserBy(['githubId' => '1234567'])->shouldBeCalled()->willReturn(null);
 
         $response->getEmail()->shouldBeCalled()->willReturn('kreta@kreta.com');
-        $userManager->findUserBy(array('email' => 'kreta@kreta.com'))->shouldBeCalled()->willReturn($user);
+        $userManager->findUserBy(['email' => 'kreta@kreta.com'])->shouldBeCalled()->willReturn($user);
 
         $response->getResourceOwner()->shouldBeCalled()->willReturn($resourceOwner);
         $resourceOwner->getName()->shouldBeCalled()->willReturn('github');
@@ -130,7 +130,7 @@ class UserProviderSpec extends ObjectBehavior
     )
     {
         $response->getUsername()->shouldBeCalled()->willReturn('1234567');
-        $userManager->findUserBy(array('githubId' => '1234567'))->shouldBeCalled()->willReturn($user);
+        $userManager->findUserBy(['githubId' => '1234567'])->shouldBeCalled()->willReturn($user);
 
         $response->getResourceOwner()->shouldBeCalled()->willReturn($resourceOwner);
         $resourceOwner->getName()->shouldBeCalled()->willReturn('github');

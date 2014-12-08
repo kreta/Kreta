@@ -35,14 +35,14 @@ class PriorityTypeSpec extends ObjectBehavior
 
     function it_sets_defaults(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'choices' => array(
+        $resolver->setDefaults([
+            'choices' => [
                 IssueInterface::PRIORITY_LOW     => 'Low',
                 IssueInterface::PRIORITY_MEDIUM  => 'Medium',
                 IssueInterface::PRIORITY_HIGH    => 'High',
-                IssueInterface::PRIORITY_BLOCKER => 'Blocker',
-            )
-        ))->shouldBeCalled();
+                IssueInterface::PRIORITY_BLOCKER => 'Blocker'
+            ]
+        ])->shouldBeCalled();
 
         $this->setDefaultOptions($resolver);
     }

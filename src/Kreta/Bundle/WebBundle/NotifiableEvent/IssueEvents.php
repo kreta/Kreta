@@ -18,7 +18,7 @@ use Symfony\Component\Routing\RouterInterface;
 
 class IssueEvents implements NotifiableEventInterface
 {
-    protected $supportedEvents = array('postPersist');
+    protected $supportedEvents = ['postPersist'];
 
     protected $router;
 
@@ -42,7 +42,7 @@ class IssueEvents implements NotifiableEventInterface
      */
     public function getNotifications($event, $object)
     {
-        $notifications = array();
+        $notifications = [];
         switch ($event) {
             case 'postPersist':
                 //Notify to assignee that has a new issue

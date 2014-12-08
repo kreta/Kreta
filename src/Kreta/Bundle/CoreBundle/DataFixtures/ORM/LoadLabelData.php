@@ -26,12 +26,12 @@ class LoadLabelData extends DataFixtures
      */
     public function load(ObjectManager $manager)
     {
-        $tags = array(
+        $tags = [
             'php', 'backend', 'server', 'configuration', 'frontend', 'symfony', 'angular.js', 'design', 'ux', 'sass',
             'marketing', 'commercial', 'social-network', 'foundation', 'continuous-integration', 'deploy', 'node.js',
             'javascript', 'database', 'performance', 'cache', 'redis', 'mongodb', 'sphinx', 'twig', 'doctrine', 'bdd',
             'testing', 'behat', 'phpspec', 'quality-assurance', 'clean-code', 'refactoring'
-        );
+        ];
 
         foreach ($tags as $tag) {
             $label = $this->container->get('kreta_core.factory_label')->create();

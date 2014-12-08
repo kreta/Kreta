@@ -49,7 +49,7 @@ class ProjectController extends AbstractRestController
     public function getProjectsAction(ParamFetcher $paramFetcher)
     {
         return $this->getAll(
-            $this->getCurrentUser(), $paramFetcher, array('projectList'), 'findByParticipant'
+            $this->getCurrentUser(), $paramFetcher, ['projectList'], 'findByParticipant'
         );
     }
 

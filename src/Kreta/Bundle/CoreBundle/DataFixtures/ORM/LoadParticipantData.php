@@ -26,7 +26,7 @@ class LoadParticipantData extends DataFixtures
      *
      * @var string[]
      */
-    private $participantRoles = array('ROLE_ADMIN', 'ROLE_PARTICIPANT');
+    private $participantRoles = ['ROLE_ADMIN', 'ROLE_PARTICIPANT'];
 
     /**
      * {@inheritdoc}

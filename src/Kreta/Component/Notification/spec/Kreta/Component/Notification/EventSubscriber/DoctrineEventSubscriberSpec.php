@@ -29,14 +29,14 @@ class DoctrineEventSubscriberSpec extends ObjectBehavior
 
     function it_returns_subscribed_events()
     {
-        $subscribedEvents = array(
+        $subscribedEvents = [
                                 Events::preRemove,
                                 Events::postRemove,
                                 Events::prePersist,
                                 Events::postPersist,
                                 Events::preUpdate,
                                 Events::postUpdate
-                            );
+                            ];
 
         $this->getSubscribedEvents()->shouldReturn($subscribedEvents);
     }
@@ -149,9 +149,9 @@ class DoctrineEventSubscriberSpec extends ObjectBehavior
                                        NotificationInterface $notification)
     {
         $notifiableEvent->supportsEvent($event, Argument::any())->shouldBeCalled()->willReturn(true);
-        $notifiableEvent->getNotifications($event, $object)->shouldBeCalled()->willReturn(array($notification));
-        $notifiableEventRegistry->getNotifiableEvents()->willReturn(array($notifiableEvent));
+        $notifiableEvent->getNotifications($event, $object)->shouldBeCalled()->willReturn([$notification]);
+        $notifiableEventRegistry->getNotifiableEvents()->willReturn([$notifiableEvent]);
         $notifier->notify($notification)->shouldBeCalled();
-        $notifierRegistry->getNotifiers()->shouldBeCalled()->willReturn(array($notifier));
+        $notifierRegistry->getNotifiers()->shouldBeCalled()->willReturn([$notifier]);
     }
 }

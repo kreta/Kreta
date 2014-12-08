@@ -58,18 +58,18 @@ class ProjectVoterSpec extends ObjectBehavior
 
     function it_does_not_vote_because_it_does_not_support_class(TokenInterface $token, IssueInterface $issue)
     {
-        $this->vote($token, $issue, array())->shouldReturn(0);
+        $this->vote($token, $issue, [])->shouldReturn(0);
     }
 
     function it_does_not_vote_because_it_only_one_attribute_allowed(TokenInterface $token, Project $project)
     {
         $this->shouldThrow(new \InvalidArgumentException('Only one attribute allowed.'))
-            ->during('vote', array($token, $project, array()));
+            ->during('vote', [$token, $project, []]);
     }
 
     function it_does_not_vote_because_it_does_not_support_attribute(TokenInterface $token, Project $project)
     {
-        $this->vote($token, $project, array('non-exist-attribute'))->shouldReturn(0);
+        $this->vote($token, $project, ['non-exist-attribute'])->shouldReturn(0);
     }
 
     function it_does_not_vote_because_the_current_user_is_not_user_interface_instance(
@@ -79,7 +79,7 @@ class ProjectVoterSpec extends ObjectBehavior
     {
         $token->getUser()->shouldBeCalled()->willReturn(null);
 
-        $this->vote($token, $project, array('add_participant'))->shouldReturn(-1);
+        $this->vote($token, $project, ['add_participant'])->shouldReturn(-1);
     }
 
     function it_does_not_vote_add_participant_delete_delete_participant_or_edit_grant(
@@ -91,7 +91,7 @@ class ProjectVoterSpec extends ObjectBehavior
         $token->getUser()->shouldBeCalled()->willReturn($user);
         $project->getUserRole($user)->shouldBeCalled()->willReturn('ROLE_PARTICIPANT');
 
-        $this->vote($token, $project, array('add_participant'))->shouldReturn(-1);
+        $this->vote($token, $project, ['add_participant'])->shouldReturn(-1);
     }
 
     function it_does_not_vote_view_grant(TokenInterface $token, Project $project, UserInterface $user)
@@ -99,7 +99,7 @@ class ProjectVoterSpec extends ObjectBehavior
         $token->getUser()->shouldBeCalled()->willReturn($user);
         $project->getUserRole($user)->shouldBeCalled()->willReturn(null);
 
-        $this->vote($token, $project, array('view'))->shouldReturn(-1);
+        $this->vote($token, $project, ['view'])->shouldReturn(-1);
     }
 
     function it_votes_add_participant_delete_delete_participant_or_edit_because_its_role_project_is_admin(
@@ -111,7 +111,7 @@ class ProjectVoterSpec extends ObjectBehavior
         $token->getUser()->shouldBeCalled()->willReturn($user);
         $project->getUserRole($user)->shouldBeCalled()->willReturn('ROLE_ADMIN');
 
-        $this->vote($token, $project, array('add_participant'))->shouldReturn(1);
+        $this->vote($token, $project, ['add_participant'])->shouldReturn(1);
     }
 
     function it_votes(TokenInterface $token, UserInterface $user, ProjectInterface $project)
@@ -119,6 +119,6 @@ class ProjectVoterSpec extends ObjectBehavior
         $token->getUser()->shouldBeCalled()->willReturn($user);
         $project->getUserRole($user)->shouldBeCalled()->willReturn('ROLE_PARTICIPANT');
 
-        $this->vote($token, $project, array('view'))->shouldReturn(1);
+        $this->vote($token, $project, ['view'])->shouldReturn(1);
     }
 }

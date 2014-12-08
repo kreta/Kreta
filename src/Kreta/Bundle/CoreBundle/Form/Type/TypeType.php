@@ -27,15 +27,15 @@ class TypeType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'choices' => array(
+        $resolver->setDefaults([
+            'choices' => [
                 IssueInterface::TYPE_BUG         => 'Bug',
                 IssueInterface::TYPE_NEW_FEATURE => 'New feature',
                 IssueInterface::TYPE_IMPROVEMENT => 'Improvement',
                 IssueInterface::TYPE_EPIC        => 'Epic',
                 IssueInterface::TYPE_STORY       => 'Story'
-            )
-        ));
+            ]
+        ]);
     }
 
     /**

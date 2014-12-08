@@ -27,7 +27,7 @@ abstract class AbstractVoter implements VoterInterface
      *
      * @var string[]
      */
-    protected $attributes = array();
+    protected $attributes = [];
 
     /**
      * Namespace of the supported class.

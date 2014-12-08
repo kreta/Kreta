@@ -66,10 +66,10 @@ class IssueController extends AbstractRestController
     {
         $resources = $this->getRepository()->findByProject(
             $this->getProjectIfAllowed($projectId, 'view'),
-            array(CamelCaser::underscoreToCamelCase($paramFetcher->get('order')) => 'ASC'),
+            [CamelCaser::underscoreToCamelCase($paramFetcher->get('order')) => 'ASC'],
             $paramFetcher->get('count'),
             $paramFetcher->get('page'),
-            array(
+            [
                 'title'     => $paramFetcher->get('q'),
                 'a.email'   => $paramFetcher->get('assignee'),
                 'rep.email' => $paramFetcher->get('reporter'),
@@ -77,10 +77,10 @@ class IssueController extends AbstractRestController
                 'priority'  => $paramFetcher->get('priority'),
                 's.name'    => $paramFetcher->get('status'),
                 'type'      => $paramFetcher->get('type')
-            )
+            ]
         );
 
-        return $this->createResponse($resources, array('issueList'));
+        return $this->createResponse($resources, ['issueList']);
     }
 
     /**
@@ -109,7 +109,7 @@ class IssueController extends AbstractRestController
      */
     public function getIssueAction($projectId, $id)
     {
-        return $this->createResponse($this->getIssueIfAllowed($id), array('issue'));
+        return $this->createResponse($this->getIssueIfAllowed($id), ['issue']);
     }
 
     /**
@@ -152,7 +152,7 @@ class IssueController extends AbstractRestController
         $project = $this->getProjectIfAllowed($projectId, 'create_issue');
         $issue = $this->get('kreta_core.factory_issue')->create($project, $this->getCurrentUser());
 
-        return $this->manageForm(new IssueType($project->getParticipants()), $issue, array('issue'));
+        return $this->manageForm(new IssueType($project->getParticipants()), $issue, ['issue']);
     }
 
     /**
@@ -201,7 +201,7 @@ class IssueController extends AbstractRestController
         return $this->manageForm(
             new IssueType($project->getParticipants()),
             $this->getIssueIfAllowed($id, 'edit'),
-            array('issue')
+            ['issue']
         );
     }
 
