@@ -16,8 +16,8 @@ Feature: Managing notifications
       | firstName | lastName | email          | password |
       | Kreta     | User     | user@kreta.com | 123456   |
     And the following projects exist:
-      | name         | shortName |
-      | Test project | TPR       |
+      | name         | shortName | creator        |
+      | Test project | TPR       | user@kreta.com |
     And the following notifications exist:
       | title               | description              | projectName  | userEmail      | read  | resourceUrl | webUrl | type      |
       | Test notification 1 | Test notification 1 desc | Test project | user@kreta.com | true  | /           | /      | issue_new |

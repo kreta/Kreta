@@ -11,6 +11,7 @@
 
 namespace Kreta\Component\Core\Factory;
 
+use Kreta\Component\Core\Model\Interfaces\UserInterface;
 use Kreta\Component\Core\Model\Status;
 use Kreta\Component\Core\Model\StatusTransition;
 
@@ -29,21 +30,28 @@ class ProjectFactory
     protected $className;
 
     /**
-     * Constructor.
-     *
-     * @param string $className The class name
+     * @var ParticipantFactory
      */
-    public function __construct($className)
+    protected $participantFactory;
+
+    /**
+     * @param string             $className          The class name
+     * @param ParticipantFactory $participantFactory Factory needed to add creator as participant
+     */
+    public function __construct($className, ParticipantFactory $participantFactory)
     {
         $this->className = $className;
+        $this->participantFactory = $participantFactory;
     }
 
     /**
      * Creates an instance of an entity.
      *
+     * @param UserInterface $user Project creator that will be set as admin
+     *
      * @return \Kreta\Component\Core\Model\Interfaces\ProjectInterface
      */
-    public function create()
+    public function create(UserInterface $user)
     {
         /** @var $project \Kreta\Component\Core\Model\Interfaces\ProjectInterface */
         $project = new $this->className();
@@ -57,6 +65,9 @@ class ProjectFactory
             $transition->setProject($project);
             $project->addStatusTransition($transition);
         }
+
+        $participant = $this->participantFactory->create($project, $user, 'ROLE_ADMIN');
+        $project->addParticipant($participant);
 
         return $project;
     }

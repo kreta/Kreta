@@ -106,10 +106,10 @@ class IssueSpec extends ObjectBehavior
         $this->getDescription()->shouldReturn('This is a dummy description of issue');
     }
 
-    function its_finite_state_is_mutable()
+    function its_finite_state_is_mutable(ProjectInterface $project, StatusInterface $status)
     {
-        $projectFactory = new ProjectFactory('Kreta\Component\Core\Model\Project');
-        $project = $projectFactory->create();
+        $status->getName()->shouldBeCalled()->willReturn('Done');
+        $project->getStatuses()->shouldBeCalled()->willReturn([$status]);
         $this->setProject($project);
 
         $this->setFiniteState('Done')->shouldReturn($this);

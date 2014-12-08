@@ -20,7 +20,7 @@ services:
         arguments: [%kreta_core.class_media%]
     kreta_core.factory_project:
         class: %kreta_core.factory_class_project%
-        arguments: [%kreta_core.class_project%]
+        arguments: [%kreta_core.class_project%, @kreta_core.factory_participant]
     kreta_core.factory_participant:
         class: %kreta_core.factory_class_participant%
         arguments: [%kreta_core.class_participant%]

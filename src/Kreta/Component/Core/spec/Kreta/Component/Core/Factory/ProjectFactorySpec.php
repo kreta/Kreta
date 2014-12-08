@@ -11,7 +11,11 @@
 
 namespace spec\Kreta\Component\Core\Factory;
 
+use Kreta\Component\Core\Factory\ParticipantFactory;
+use Kreta\Component\Core\Model\Interfaces\UserInterface;
+use Kreta\Component\Core\Model\Participant;
 use PhpSpec\ObjectBehavior;
+use Prophecy\Argument;
 
 /**
  * Class ProjectFactorySpec.
@@ -20,9 +24,9 @@ use PhpSpec\ObjectBehavior;
  */
 class ProjectFactorySpec extends ObjectBehavior
 {
-    function let()
+    function let(ParticipantFactory $participantFactory)
     {
-        $this->beConstructedWith('Kreta\Component\Core\Model\Project');
+        $this->beConstructedWith('Kreta\Component\Core\Model\Project', $participantFactory);
     }
 
     function it_is_initializable()
@@ -30,8 +34,10 @@ class ProjectFactorySpec extends ObjectBehavior
         $this->shouldHaveType('Kreta\Component\Core\Factory\ProjectFactory');
     }
 
-    function it_creates_a_project()
+    function it_creates_a_project(UserInterface $user, ParticipantFactory $participantFactory, Participant $participant)
     {
-        $this->create()->shouldReturnAnInstanceOf('Kreta\Component\Core\Model\Project');
+        $participantFactory->create(Argument::type('Kreta\Component\Core\Model\Project'), $user, 'ROLE_ADMIN')
+            ->shouldBeCalled()->willReturn($participant);
+        $this->create($user)->shouldReturnAnInstanceOf('Kreta\Component\Core\Model\Project');
     }
 }

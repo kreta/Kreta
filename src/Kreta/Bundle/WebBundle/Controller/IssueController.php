@@ -11,10 +11,9 @@
 
 namespace Kreta\Bundle\WebBundle\Controller;
 
-use Kreta\Bundle\CoreBundle\Form\Type\CommentType;
-use Kreta\Bundle\CoreBundle\Form\Type\IssueType;
 use Kreta\Component\Core\Model\Interfaces\IssueInterface;
 use Kreta\Component\Core\Model\Interfaces\StatusTransitionInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -33,22 +32,22 @@ class IssueController extends Controller
      * @param string $issueNumber      The issue number
      *
      * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @Template
      */
     public function viewAction($projectShortName, $issueNumber)
     {
         $issue = $this->get('kreta_core.repository_issue')->findOneByShortCode($projectShortName, $issueNumber);
 
         if (!$issue instanceof IssueInterface) {
-            $this->createNotFoundException();
+            throw $this->createNotFoundException();
         }
 
         if (!$this->get('security.context')->isGranted('view', $issue)) {
             throw new AccessDeniedException();
         };
 
-        return $this->render('KretaWebBundle:Issue:view.html.twig', [
-            'issue' => $issue
-        ]);
+        return ['issue' => $issue];
     }
 
     /**
@@ -58,6 +57,8 @@ class IssueController extends Controller
      * @param \Symfony\Component\HttpFoundation\Request $request          The request
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     *
+     * @Template
      */
     public function newAction($projectShortName, Request $request)
     {
@@ -72,29 +73,19 @@ class IssueController extends Controller
 
         $issue = $this->get('kreta_core.factory_issue')->create($project, $this->getUser());
 
-        $form = $this->createForm(new IssueType($project->getParticipants()), $issue);
+        $form = $this->get('kreta_web.form_handler_issue')->handleForm(
+            $request, $issue, $project->getParticipants()
+        );
 
-        if ($request->isMethod('POST')) {
-            $form->handleRequest($request);
-            if ($form->isSubmitted() && $form->isValid()) {
-                $manager = $this->getDoctrine()->getManager();
-                $manager->persist($issue);
-                $manager->flush();
-                $this->get('session')->getFlashBag()->add('success', 'Issue created successfully');
-
-                return $this->redirect($this->generateUrl(
-                    'kreta_web_issue_view', [
-                        'projectShortName' => $issue->getProject()->getShortName(),
-                        'issueNumber' => $issue->getNumericId()
-                    ]
-                ));
-            }
-            $this->get('session')->getFlashBag()->add('error', 'Some errors found in your issue');
+        if ($form->isValid()) {
+            return $this->redirect($this->generateUrl(
+                'kreta_web_issue_view', [
+                    'projectShortName' => $issue->getProject()->getShortName(),
+                    'issueNumber' => $issue->getNumericId()
+                ]));
         }
 
-        return $this->render('KretaWebBundle:Issue:new.html.twig', [
-            'form' => $form->createView(), 'project' => $project
-        ]);
+        return ['form' => $form->createView(), 'project' => $project];
     }
 
     /**
@@ -105,44 +96,35 @@ class IssueController extends Controller
      * @param \Symfony\Component\HttpFoundation\Request $request          The request
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     *
+     * @Template
      */
     public function editAction($projectShortName, $issueNumber, Request $request)
     {
-        /** @var IssueInterface $issue */
         $issue = $this->get('kreta_core.repository_issue')->findOneByShortCode($projectShortName, $issueNumber);
 
         if (!$issue instanceof IssueInterface) {
-            $this->createNotFoundException();
+            throw $this->createNotFoundException();
         }
 
         if (!$this->get('security.context')->isGranted('edit', $issue)) {
             throw new AccessDeniedException();
         };
 
-        $form = $this->createForm(new IssueType($issue->getProject()->getParticipants()), $issue);
+        $form = $this->get('kreta_web.form_handler_issue')->handleForm(
+            $request, $issue, $issue->getProject()->getParticipants()
+        );
 
-        if ($request->isMethod('POST')) {
-            $form->handleRequest($request);
-            if ($form->isSubmitted() && $form->isValid()) {
-                $manager = $this->getDoctrine()->getManager();
-                $manager->persist($issue);
-                $manager->flush();
-                $this->get('session')->getFlashBag()->add('success', 'Issue edited successfully');
-
-                return $this->redirect($this->generateUrl(
-                    'kreta_web_issue_view', [
-                        'projectShortName' => $issue->getProject()->getShortName(),
-                        'issueNumber' => $issue->getNumericId()
-                    ]
-                ));
-            }
-            $this->get('session')->getFlashBag()->add('error', 'Some errors found in your issue');
+        if ($form->isValid()) {
+            return $this->redirect($this->generateUrl(
+                'kreta_web_issue_view', [
+                    'projectShortName' => $issue->getProject()->getShortName(),
+                    'issueNumber' => $issue->getNumericId()
+                ]
+            ));
         }
 
-        return $this->render('KretaWebBundle:Issue:edit.html.twig', [
-            'form' => $form->createView(),
-            'issue' => $issue
-        ]);
+        return['form' => $form->createView(), 'issue' => $issue];
     }
 
     /**
@@ -153,6 +135,8 @@ class IssueController extends Controller
      * @param \Symfony\Component\HttpFoundation\Request $request          The request
      *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
+     *
+     * @Template("KretaWebBundle:Issue/blocks:commentForm.html.twig")
      */
     public function newCommentAction($projectShortName, $issueNumber, Request $request)
     {
@@ -162,21 +146,11 @@ class IssueController extends Controller
             $this->createNotFoundException('Issue not found');
         }
 
-        $comment = $this->get('kreta_core.factory_comment')->create();
+        $comment = $this->get('kreta_core.factory_comment')->create($issue, $this->getUser());
 
-        $form = $this->createForm(new CommentType(), $comment);
+        $form = $this->get('kreta_web.form_handler_comment')->handleForm($request, $comment);
 
-        if ($request->isMethod('POST')) {
-            $form->handleRequest($request);
-            if ($form->isSubmitted() && $form->isValid()) {
-                $comment->setWrittenBy($this->getUser());
-                $comment->setIssue($issue);
-                $manager = $this->getDoctrine()->getManager();
-                $manager->persist($comment);
-                $manager->flush();
-                $this->get('session')->getFlashBag()->add('success', 'Comment added successfully');
-            }
-
+        if ($form->isValid()) {
             return $this->redirect($this->generateUrl(
                 'kreta_web_issue_view', [
                     'projectShortName' => $issue->getProject()->getShortName(),
@@ -185,10 +159,7 @@ class IssueController extends Controller
             ));
         }
 
-        return $this->render('KretaWebBundle:Issue/blocks:commentForm.html.twig', [
-            'form' => $form->createView(),
-            'issue' => $issue
-        ]);
+        return ['form' => $form->createView(),'issue' => $issue];
     }
 
     /**

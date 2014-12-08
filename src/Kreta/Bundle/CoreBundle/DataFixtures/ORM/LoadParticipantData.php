@@ -39,10 +39,12 @@ class LoadParticipantData extends DataFixtures
         foreach ($users as $user) {
             foreach ($projects as $project) {
                 if (rand(0, 2) === 1) {
-                    $participant = $this->container->get('kreta_core.factory_participant')->create($project, $user);
-                    $participant->setRole($this->participantRoles[array_rand($this->participantRoles)]);
+                    if(!$project->getUserRole($user)) { //Avoids adding existing participant
+                        $participant = $this->container->get('kreta_core.factory_participant')->create($project, $user);
+                        $participant->setRole($this->participantRoles[array_rand($this->participantRoles)]);
+                        $manager->persist($participant);
+                    }
 
-                    $manager->persist($participant);
                 }
             }
         }

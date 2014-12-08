@@ -12,6 +12,30 @@ services:
         tags:
             - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
 
+    kreta_web.listener_formHandlerFlashListener:
+        class: Kreta\Bundle\WebBundle\EventListener\FormHandlerFlashListener
+        arguments: [@session]
+        tags:
+            - { name: kernel.event_listener, event: kreta_web_event_form_handler, method: onFormHandlerEvent }
+
+    #Form handlers
+    kreta_web.form_handler_comment:
+        class: Kreta\Bundle\WebBundle\FormHandler\CommentFormHandler
+        arguments: [@form.factory, @doctrine.orm.entity_manager, @event_dispatcher]
+
+    kreta_web.form_handler_issue:
+        class: Kreta\Bundle\WebBundle\FormHandler\IssueFormHandler
+        arguments: [@form.factory, @doctrine.orm.entity_manager, @event_dispatcher]
+
+    kreta_web.form_handler_project:
+        class: Kreta\Bundle\WebBundle\FormHandler\ProjectFormHandler
+        arguments: [@form.factory, @doctrine.orm.entity_manager, @event_dispatcher, @kreta_core.factory_media, @kreta_core.image_projects_uploader]
+
+    kreta_web.form_handler_user:
+        class: Kreta\Bundle\WebBundle\FormHandler\UserFormHandler
+        arguments: [@form.factory, @doctrine.orm.entity_manager, @event_dispatcher, @kreta_core.factory_media, @kreta_core.image_users_uploader]
+
+    #Events
     kreta_web.issue_events:
         class: Kreta\Bundle\WebBundle\NotifiableEvent\IssueEvents
         arguments: [@router]

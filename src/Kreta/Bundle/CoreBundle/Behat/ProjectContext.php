@@ -34,7 +34,10 @@ class ProjectContext extends RawMinkContext implements Context, KernelAwareConte
         $manager = $this->kernel->getContainer()->get('doctrine')->getManager();
 
         foreach($projects as $projectData) {
-            $project = $this->kernel->getContainer()->get('kreta_core.factory_project')->create();
+            $creator = $this->kernel->getContainer()->get('kreta_core.repository_user')->findOneBy(
+                ['email' => $projectData['creator']]
+            );
+            $project = $this->kernel->getContainer()->get('kreta_core.factory_project')->create($creator);
             $project->setName($projectData['name']);
             $project->setShortName($projectData['shortName']);
 
