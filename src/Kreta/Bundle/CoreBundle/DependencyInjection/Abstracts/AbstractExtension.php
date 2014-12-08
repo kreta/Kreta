@@ -55,7 +55,7 @@ abstract class AbstractExtension extends Extension
             $loader = new Loader\YamlFileLoader($container, new FileLocator($this->getConfigFilesLocation()));
             foreach ($configFiles as $configFile) {
                 if (is_array($configFile)) {
-                    if (isset($configFile[1]) && $configFile[1] === false) {
+                    if (!isset($configFile[1]) && $configFile[1]) {
                         continue;
                     }
                     $configFile = $configFile[0];

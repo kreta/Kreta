@@ -74,7 +74,7 @@ class EmptyProfileListener
             return;
         }
 
-        if ($this->session->getFlashBag()->has('error') === true) {
+        if ($this->session->getFlashBag()->has('error')) {
             return;
         }
 

@@ -54,15 +54,12 @@ class IssueVoter extends AbstractVoter
             case self::EDIT:
                 $participant = $issue->getProject()->getUserRole($user);
 
-                if ($issue->isAssignee($user) === true
-                    || $issue->isReporter($user) === true
-                    || $participant === Participant::ADMIN
-                ) {
+                if ($issue->isAssignee($user) || $issue->isReporter($user) || $participant === Participant::ADMIN) {
                     return VoterInterface::ACCESS_GRANTED;
                 }
                 break;
             case self::VIEW:
-                if ($issue->isParticipant($user) === true) {
+                if ($issue->isParticipant($user)) {
                     return VoterInterface::ACCESS_GRANTED;
                 }
                 break;
