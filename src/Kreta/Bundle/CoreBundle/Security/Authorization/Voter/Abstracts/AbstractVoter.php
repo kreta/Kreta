@@ -57,7 +57,7 @@ abstract class AbstractVoter implements VoterInterface
      */
     public function vote(TokenInterface $token, $object, array $attributes)
     {
-        if ($this->supportsClass(get_class($object)) === false) {
+        if (!$this->supportsClass(get_class($object))) {
             return VoterInterface::ACCESS_ABSTAIN;
         }
 
@@ -67,12 +67,12 @@ abstract class AbstractVoter implements VoterInterface
 
         $attribute = $attributes[0];
 
-        if ($this->supportsAttribute($attribute) === false) {
+        if (!$this->supportsAttribute($attribute)) {
             return VoterInterface::ACCESS_ABSTAIN;
         }
 
         $user = $token->getUser();
-        if (($user instanceof UserInterface) === false) {
+        if (!$user instanceof UserInterface) {
             return VoterInterface::ACCESS_DENIED;
         }
 

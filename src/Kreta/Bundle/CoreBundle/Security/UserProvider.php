@@ -58,11 +58,11 @@ class UserProvider extends BaseUserProvider
     {
         $user = $this->userManager->findUserBy([$this->getProperty($response) => $response->getUsername()]);
 
-        if (($user instanceof UserInterface) === false && $response->getEmail() !== '') {
+        if (!$user instanceof UserInterface && $response->getEmail() !== '') {
             $user = $this->userManager->findUserBy(['email' => $response->getEmail()]);
         }
 
-        if (($user instanceof UserInterface) === false) {
+        if (!$user instanceof UserInterface) {
             $service = $response->getResourceOwner()->getName();
             $setter = 'set' . ucfirst($service);
             $setter_id = $setter . 'Id';
