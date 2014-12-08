@@ -49,7 +49,7 @@ class DefaultContext extends MinkContext implements KernelAwareContext
         $this->visitPath('/login');
         $this->fillField('username', $user);
         $this->fillField('password', $password);
-        $this->pressButton('submit');
+        $this->pressButton('Login');
     }
 
     /**
