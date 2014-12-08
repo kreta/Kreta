@@ -74,5 +74,4 @@ class ProjectFormHandler extends AbstractFormHandler
             $object->setImage($media);
         }
     }
-
 }
