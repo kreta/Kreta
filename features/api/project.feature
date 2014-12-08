@@ -18,14 +18,12 @@ Feature: Manage projects
       | 1  | Kreta     | User2    | user2@kreta.com | 123456   | 2014-10-20 |
       | 2  | Kreta     | User3    | user3@kreta.com | 123456   | 2014-10-20 |
     And the following projects exist:
-      | id | name           | shortName |
-      | 0  | Test project 1 | TPR1      |
-      | 1  | Test project 2 | TPR2      |
+      | id | name           | shortName | creator        |
+      | 0  | Test project 1 | TPR1      | user@kreta.com |
+      | 1  | Test project 2 | TPR2      | user@kreta.com |
     And the following participants exist:
       | project        | user            | role             |
-      | Test project 1 | user@kreta.com  | ROLE_ADMIN       |
       | Test project 1 | user3@kreta.com | ROLE_PARTICIPANT |
-      | Test project 2 | user@kreta.com  | ROLE_ADMIN       |
       | Test project 2 | user2@kreta.com | ROLE_PARTICIPANT |
     And the following tokens exist:
       | token          | expiresAt | scope | user            |

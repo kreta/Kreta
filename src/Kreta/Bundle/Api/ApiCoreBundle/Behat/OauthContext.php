@@ -51,7 +51,7 @@ class OauthContext extends WebApiContext implements Context, KernelAwareContext
             $accessToken->setExpiresAt($token['expiresAt']);
             $accessToken->setScope($token['scope']);
             
-            $user = $container->get('kreta_core.repository_user')->findOneBy(['email' => $token['user']]);
+            $user = $container->get('kreta_core.repository.user')->findOneBy(['email' => $token['user']]);
             $accessToken->setUser($user);
 
             $manager->persist($accessToken);

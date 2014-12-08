@@ -34,7 +34,7 @@ class UserContext extends RawMinkContext implements Context, KernelAwareContext
         $manager = $this->kernel->getContainer()->get('doctrine')->getManager();
 
         foreach ($users as $userData) {
-            $user = $this->kernel->getContainer()->get('kreta_core.factory_user')->create();
+            $user = $this->kernel->getContainer()->get('kreta_core.factory.user')->create();
             $user->setId($userData['id']);
             $user->setFirstname($userData['firstName']);
             $user->setLastname($userData['lastName']);
