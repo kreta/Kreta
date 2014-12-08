@@ -18,7 +18,9 @@
                 </a>
             </div>
         {% else %}
-            <p>No projects found</p>
+            <div class="kreta-widget-message">
+                <p>No projects found</p>
+            </div>
         {% endfor %}
         <div class="kreta-actions">
             <a href="{{ url('kreta_web_project_new') }}"><i class="fa fa-plus"></i>

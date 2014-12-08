@@ -9,6 +9,12 @@
                 {% endimage %}
                 <h1>Modern project manager for software development</h1>
                 <div>
+                    <a href="{{ url('fos_user_security_login') }}" class="button github">
+                        <span>Login</span>
+                    </a>
+                    <a href="{{ url('fos_user_registration_register') }}" class="button github">
+                        <span>Sign up</span>
+                    </a>
                     <a href="{{ url('hwi_oauth_service_redirect', {'service': 'github'}) }}" class="button github">
                         <i class="fa fa-github"></i>
                         <span>Login with Github</span>

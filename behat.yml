@@ -43,6 +43,13 @@ default:
             filters:
                 tags: "@notification"
 
+        login:
+            contexts:
+                - Kreta\Bundle\CoreBundle\Behat\UserContext
+                - Kreta\Bundle\WebBundle\Behat\DefaultContext
+            filters:
+                tags: "@login"
+
     extensions:
         Behat\MinkExtension:
             sessions:
