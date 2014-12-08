@@ -25,9 +25,9 @@ class NotificationExtension extends \Twig_Extension
      */
     public function getFunctions()
     {
-        return array(
-            new \Twig_SimpleFunction('notificationIcon', array($this, 'iconFilter'), array('is_safe' => array('all'))),
-        );
+        return [
+            new \Twig_SimpleFunction('notificationIcon', [$this, 'iconFilter'], ['is_safe' => ['all']]),
+        ];
     }
 
     /**

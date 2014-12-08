@@ -47,7 +47,7 @@ class StatusController extends AbstractRestController
      */
     public function getStatusesAction($id)
     {
-        return $this->createResponse($this->getProjectIfAllowed($id)->getStatuses(), array('statusList'));
+        return $this->createResponse($this->getProjectIfAllowed($id)->getStatuses(), ['statusList']);
     }
 
     /**
@@ -76,7 +76,7 @@ class StatusController extends AbstractRestController
      */
     public function getStatusAction($projectId, $id)
     {
-        return $this->createResponse($this->getStatusIfAllowed($projectId, $id), array('status'));
+        return $this->createResponse($this->getStatusIfAllowed($projectId, $id), ['status']);
     }
 
     /**
@@ -122,7 +122,7 @@ class StatusController extends AbstractRestController
         $status = $this->get('kreta_core.factory_status')->create($name);
         $status->setProject($this->getProjectIfAllowed($id, 'manage_status'));
 
-        return $this->manageForm(new StatusType(), $status, array('status'));
+        return $this->manageForm(new StatusType(), $status, ['status']);
     }
 
     /**
@@ -166,7 +166,7 @@ class StatusController extends AbstractRestController
     public function putStatusesAction($projectId, $id)
     {
         return $this->manageForm(
-            new StatusType(), $this->getStatusIfAllowed($projectId, $id, 'manage_status'), array('status')
+            new StatusType(), $this->getStatusIfAllowed($projectId, $id, 'manage_status'), ['status']
         );
     }
 

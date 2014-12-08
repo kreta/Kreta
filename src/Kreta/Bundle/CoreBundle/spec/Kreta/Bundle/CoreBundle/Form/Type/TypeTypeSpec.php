@@ -35,15 +35,15 @@ class TypeTypeSpec extends ObjectBehavior
 
     function it_sets_defaults(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(array(
-            'choices' => array(
+        $resolver->setDefaults([
+            'choices' => [
                 IssueInterface::TYPE_STORY       => 'Story',
                 IssueInterface::TYPE_BUG         => 'Bug',
                 IssueInterface::TYPE_IMPROVEMENT => 'Improvement',
                 IssueInterface::TYPE_NEW_FEATURE => 'New feature',
                 IssueInterface::TYPE_EPIC        => 'Epic'
-            )
-        ))->shouldBeCalled();
+            ]
+        ])->shouldBeCalled();
 
         $this->setDefaultOptions($resolver);
     }

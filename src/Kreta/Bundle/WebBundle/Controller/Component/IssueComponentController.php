@@ -29,10 +29,10 @@ class IssueComponentController extends Controller
     {
         $issues = $this->get('kreta_core.repository_issue')->findByAssignee(
             $this->getUser(),
-            array('status' => 'ASC', 'priority' => 'DESC'),
+            ['status' => 'ASC', 'priority' => 'DESC'],
             true
         );
 
-        return $this->render('KretaWebBundle:Component/Issue:user.html.twig', array('issues' => $issues));
+        return $this->render('KretaWebBundle:Component/Issue:user.html.twig', ['issues' => $issues]);
     }
 }

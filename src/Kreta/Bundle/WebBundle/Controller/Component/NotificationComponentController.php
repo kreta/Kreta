@@ -25,6 +25,6 @@ class NotificationComponentController extends Controller
         $count = $this->get('kreta_notification.repository_notification')
                     ->getUsersUnreadNotificationsCount($this->getUser());
 
-        return $this->render('KretaWebBundle:Component/Notification:icon.html.twig', array('count' => $count));
+        return $this->render('KretaWebBundle:Component/Notification:icon.html.twig', ['count' => $count]);
     }
 } 

@@ -28,20 +28,20 @@ class StatusType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('color', null, array(
+            ->add('color', null, [
                 'required' => true,
-            ))
-            ->add('name', null, array(
+            ])
+            ->add('name', null, [
                 'required' => true
-            ))
-            ->add('type', 'choice', array(
+            ])
+            ->add('type', 'choice', [
                 'required' => true,
-                'choices'  => array(
+                'choices'  => [
                     StateInterface::TYPE_INITIAL => 'initial',
                     StateInterface::TYPE_NORMAL  => 'normal',
                     StateInterface::TYPE_FINAL   => 'final'
-                )
-            ));
+                ]
+            ]);
     }
 
     /**

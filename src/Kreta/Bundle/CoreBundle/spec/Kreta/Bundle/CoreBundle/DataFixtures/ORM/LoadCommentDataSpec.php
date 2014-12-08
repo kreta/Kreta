@@ -57,7 +57,7 @@ class LoadCommentDataSpec extends ObjectBehavior
     )
     {
         $container->get('kreta_core.repository_user')->shouldBeCalled()->willReturn($userRepository);
-        $userRepository->findAll()->shouldBeCalled()->willReturn(array($user));
+        $userRepository->findAll()->shouldBeCalled()->willReturn([$user]);
 
         $container->get('kreta_core.factory_comment')->shouldBeCalled()->willReturn($factory);
         $factory->create()->shouldBeCalled()->willReturn($comment);

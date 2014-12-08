@@ -27,14 +27,14 @@ class DoctrineEventSubscriber extends AbstractEventSubscriber implements EventSu
      */
     public function getSubscribedEvents()
     {
-        return array(
+        return [
             Events::preRemove,
             Events::postRemove,
             Events::prePersist,
             Events::postPersist,
             Events::preUpdate,
             Events::postUpdate
-        );
+        ];
     }
 
     /**

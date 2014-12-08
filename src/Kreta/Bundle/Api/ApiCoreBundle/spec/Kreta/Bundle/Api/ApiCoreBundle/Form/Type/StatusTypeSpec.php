@@ -35,24 +35,24 @@ class StatusTypeSpec extends ObjectBehavior
 
     function it_builds_a_form(FormBuilderInterface $builder)
     {
-        $builder->add('color', null, array(
+        $builder->add('color', null, [
             'required' => true,
-        ))->shouldBeCalled()->willReturn($builder);
+        ])->shouldBeCalled()->willReturn($builder);
 
-        $builder->add('name', null, array(
+        $builder->add('name', null, [
             'required' => true,
-        ))->shouldBeCalled()->willReturn($builder);
+        ])->shouldBeCalled()->willReturn($builder);
 
-        $builder->add('type', 'choice', array(
+        $builder->add('type', 'choice', [
             'required' => true,
-            'choices'  => array(
+            'choices'  => [
                 StateInterface::TYPE_INITIAL => 'initial',
                 StateInterface::TYPE_NORMAL  => 'normal',
                 StateInterface::TYPE_FINAL   => 'final'
-            )
-        ))->shouldBeCalled()->willReturn($builder);
+            ]
+        ])->shouldBeCalled()->willReturn($builder);
 
-        $this->buildForm($builder, array());
+        $this->buildForm($builder, []);
     }
 
     function it_gets_name()

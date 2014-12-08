@@ -29,7 +29,7 @@ class IssueType extends AbstractType
      */
     public function __construct($participants)
     {
-        $users = array();
+        $users = [];
         foreach ($participants as $participant) {
             $users[] = $participant->getUser();
         }
@@ -43,27 +43,27 @@ class IssueType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', 'text', array(
+            ->add('title', 'text', [
                 'required' => true,
                 'label' => 'Name'
-            ))
-            ->add('description', 'textarea', array(
+            ])
+            ->add('description', 'textarea', [
                 'required' => false,
                 'label' => 'Description'
-            ))
-            ->add('type', new TypeType(), array(
+            ])
+            ->add('type', new TypeType(), [
                 'label' => 'Type'
-            ))
-            ->add('priority', new PriorityType(), array(
+            ])
+            ->add('priority', new PriorityType(), [
                 'label' => 'Priority'
-            ))
-            ->add('assignee', 'entity', array(
+            ])
+            ->add('assignee', 'entity', [
                 'class' => 'Kreta\Component\Core\Model\User',
                 'label' => 'Assignee',
                 'empty_value' => null,
                 'choices' => $this->users,
                 'property' => 'fullName'
-            ));
+            ]);
     }
 
     /**

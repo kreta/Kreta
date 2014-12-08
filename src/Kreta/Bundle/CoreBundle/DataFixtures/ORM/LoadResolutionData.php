@@ -26,7 +26,7 @@ class LoadResolutionData extends DataFixtures
      *
      * @var string[]
      */
-    private $resolutionCollection = array('Fixed', "Won't Fix", 'Duplicate', 'Incomplete', 'Cannot Reproduce');
+    private $resolutionCollection = ['Fixed', "Won't Fix", 'Duplicate', 'Incomplete', 'Cannot Reproduce'];
 
     /**
      * {@inheritdoc}

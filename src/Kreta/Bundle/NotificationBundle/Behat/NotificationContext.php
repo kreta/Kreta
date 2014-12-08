@@ -38,7 +38,7 @@ class NotificationContext extends RawMinkContext implements Context, KernelAware
             $notification = $this->getKernel()->getContainer()->get('kreta_notification.factory_notification')->create();
 
             $project = $this->getKernel()->getContainer()->get('kreta_core.repository_project')
-                ->findOneBy(array('name' => $notificationData['projectName']));
+                ->findOneBy(['name' => $notificationData['projectName']]);
 
             if(!$project) {
                 throw new \InvalidArgumentException(
@@ -47,7 +47,7 @@ class NotificationContext extends RawMinkContext implements Context, KernelAware
             }
 
             $user = $this->getKernel()->getContainer()->get('kreta_core.repository_user')
-                ->findOneBy(array('email' => $notificationData['userEmail']));
+                ->findOneBy(['email' => $notificationData['userEmail']]);
 
             if(!$user) {
                 throw new \InvalidArgumentException(

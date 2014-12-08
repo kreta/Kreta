@@ -51,7 +51,7 @@ class StatusTransitionController extends AbstractRestController
     {
         return $this->createResponse(
             $this->getStatusIfAllowed($projectId, $statusId)->getTransitions(),
-            array('status')
+            ['status']
         );
     }
 

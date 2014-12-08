@@ -80,18 +80,18 @@ abstract class AbstractRestControllerSpec extends ObjectBehavior
         $container->get('request')->shouldBeCalled()->willReturn($request);
         $container->get('form.factory')->shouldBeCalled()->willReturn($formFactory);
         $request->getMethod()->shouldBeCalled()->willReturn($requestMethod);
-        $formFactory->create($formType, $object, array('csrf_protection' => false, 'method' => $requestMethod))
+        $formFactory->create($formType, $object, ['csrf_protection' => false, 'method' => $requestMethod])
             ->shouldBeCalled()->willReturn($form);
         $form->handleRequest($request)->shouldBeCalled()->willReturn($form);
         $form->isValid()->shouldBeCalled()->willReturn(false);
-        $form->getErrors()->shouldBeCalled()->willReturn(array($error));
+        $form->getErrors()->shouldBeCalled()->willReturn([$error]);
         $error->getMessage()->shouldBeCalled()->willReturn('error message');
-        $form->all()->shouldBeCalled()->willReturn(array($formChild));
+        $form->all()->shouldBeCalled()->willReturn([$formChild]);
         $formChild->isValid()->shouldBeCalled()->willReturn(false);
         $formChild->getName()->shouldBeCalled()->willReturn('form child name');
-        $formChild->getErrors()->shouldBeCalled()->willReturn(array($error));
+        $formChild->getErrors()->shouldBeCalled()->willReturn([$error]);
         $error->getMessage()->shouldBeCalled()->willReturn('error message');
-        $formChild->all()->shouldBeCalled()->willReturn(array($formGrandChild));
+        $formChild->all()->shouldBeCalled()->willReturn([$formGrandChild]);
         $formGrandChild->isValid()->shouldBeCalled()->willReturn(true);
 
         $container->get('fos_rest.view_handler')->shouldBeCalled()->willReturn($viewHandler);
@@ -115,7 +115,7 @@ abstract class AbstractRestControllerSpec extends ObjectBehavior
         $container->get('request')->shouldBeCalled()->willReturn($request);
         $container->get('form.factory')->shouldBeCalled()->willReturn($formFactory);
         $request->getMethod()->shouldBeCalled()->willReturn($requestMethod);
-        $formFactory->create($formType, $object, array('csrf_protection' => false, 'method' => $requestMethod))
+        $formFactory->create($formType, $object, ['csrf_protection' => false, 'method' => $requestMethod])
             ->shouldBeCalled()->willReturn($form);
         $form->handleRequest($request)->shouldBeCalled()->willReturn($form);
         $form->isValid()->shouldBeCalled()->willReturn(true);

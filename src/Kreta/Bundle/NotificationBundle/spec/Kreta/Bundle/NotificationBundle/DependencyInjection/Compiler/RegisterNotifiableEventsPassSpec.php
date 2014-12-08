@@ -22,10 +22,10 @@ class RegisterNotifiableEventsPassSpec extends ObjectBehavior
             ->shouldBeCalled()->willReturn($definition);
 
         $container->findTaggedServiceIds('kreta_notification.notifiable_event')
-            ->shouldBeCalled()->willReturn(array(array(array("label" => "asdas"))));
+            ->shouldBeCalled()->willReturn([[["label" => "asdas"]]]);
 
         $definition->addMethodCall('registerNotifiableEvent',
-            array('testEvent', Argument::type('Symfony\Component\DependencyInjection\Reference')));
+            ['testEvent', Argument::type('Symfony\Component\DependencyInjection\Reference')]);
 
         $this->process($container);
     }
@@ -39,7 +39,7 @@ class RegisterNotifiableEventsPassSpec extends ObjectBehavior
             ->shouldBeCalled()->willReturn($definition);
 
         $container->findTaggedServiceIds('kreta_notification.notifiable_event')
-            ->shouldBeCalled()->willReturn(array(array(array("notLabelHere" => "asdas"))));
+            ->shouldBeCalled()->willReturn([[["notLabelHere" => "asdas"]]]);
 
         $definition->addMethodCall('registerNotifiableEvent', Argument::any())->shouldNotBeCalled();
 

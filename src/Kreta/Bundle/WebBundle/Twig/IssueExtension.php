@@ -26,11 +26,11 @@ class IssueExtension extends \Twig_Extension
      */
     public function getFilters()
     {
-        return array(
-            new \Twig_SimpleFilter('issue_type', array($this, 'typeFilter'), array('is_safe' => array('all'))),
-            new \Twig_SimpleFilter('issue_priority', array($this, 'priorityFilter'), array('is_safe' => array('all'))),
-            new \Twig_SimpleFilter('issue_status', array($this, 'statusFilter'), array('is_safe' => array('all')))
-        );
+        return [
+            new \Twig_SimpleFilter('issue_type', [$this, 'typeFilter'], ['is_safe' => ['all']]),
+            new \Twig_SimpleFilter('issue_priority', [$this, 'priorityFilter'], ['is_safe' => ['all']]),
+            new \Twig_SimpleFilter('issue_status', [$this, 'statusFilter'], ['is_safe' => ['all']])
+        ];
     }
 
     /**

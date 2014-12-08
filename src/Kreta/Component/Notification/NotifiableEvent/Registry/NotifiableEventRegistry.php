@@ -20,7 +20,7 @@ use Kreta\Component\Notification\NotifiableEvent\NotifiableEventInterface;
  */
 class NotifiableEventRegistry implements NotifiableEventRegistryInterface
 {
-    protected $notifiableEvents = array();
+    protected $notifiableEvents = [];
 
     /**
      * @{@inheritdoc}

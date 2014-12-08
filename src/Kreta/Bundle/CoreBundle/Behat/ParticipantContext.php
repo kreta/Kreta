@@ -35,10 +35,10 @@ class ParticipantContext extends RawMinkContext implements Context, KernelAwareC
 
         foreach($participants as $participantData) {
             $project = $this->getContainer()->get('kreta_core.repository_project')->findOneBy(
-                array('name' => $participantData['project'])
+                ['name' => $participantData['project']]
             );
             $user = $this->getContainer()->get('kreta_core.repository_user')->findOneBy(
-                array('email' => $participantData['user'])
+                ['email' => $participantData['user']]
             );
 
             $participant = $this->getContainer()->get('kreta_core.factory_participant')->create($project, $user);

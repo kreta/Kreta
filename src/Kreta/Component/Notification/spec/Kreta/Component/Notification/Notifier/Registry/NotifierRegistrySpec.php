@@ -15,7 +15,7 @@ class NotifierRegistrySpec extends ObjectBehavior
 
     function it_returns_notifiers()
     {
-        $this->getNotifiers()->shouldReturn(array());
+        $this->getNotifiers()->shouldReturn([]);
     }
 
     function it_registers_notifier(NotifierInterface $notifier)

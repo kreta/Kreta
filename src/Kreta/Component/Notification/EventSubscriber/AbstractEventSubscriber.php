@@ -57,7 +57,7 @@ abstract class AbstractEventSubscriber
      */
     public function handleEvent($event, $object, ObjectManager $manager = null)
     {
-        $notifications = array();
+        $notifications = [];
 
         foreach ($this->notifiableEventRegistry->getNotifiableEvents() as $notifiable) {
             if ($notifiable->supportsEvent($event, $object)) {

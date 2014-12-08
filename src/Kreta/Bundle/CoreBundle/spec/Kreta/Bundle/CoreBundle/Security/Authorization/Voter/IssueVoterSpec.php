@@ -57,18 +57,18 @@ class IssueVoterSpec extends ObjectBehavior
 
     function it_does_not_vote_because_it_does_not_support_class(TokenInterface $token, ProjectInterface $project)
     {
-        $this->vote($token, $project, array())->shouldReturn(0);
+        $this->vote($token, $project, [])->shouldReturn(0);
     }
 
     function it_does_not_vote_because_it_only_one_attribute_allowed(TokenInterface $token, Issue $issue)
     {
         $this->shouldThrow(new \InvalidArgumentException('Only one attribute allowed.'))
-            ->during('vote', array($token, $issue, array()));
+            ->during('vote', [$token, $issue, []]);
     }
 
     function it_does_not_vote_because_it_does_not_support_attribute(TokenInterface $token, Issue $issue)
     {
-        $this->vote($token, $issue, array('non-exist-attribute'))->shouldReturn(0);
+        $this->vote($token, $issue, ['non-exist-attribute'])->shouldReturn(0);
     }
 
     function it_does_not_vote_because_the_current_user_is_not_user_interface_instance(
@@ -78,7 +78,7 @@ class IssueVoterSpec extends ObjectBehavior
     {
         $token->getUser()->shouldBeCalled()->willReturn(null);
 
-        $this->vote($token, $issue, array('assign'))->shouldReturn(-1);
+        $this->vote($token, $issue, ['assign'])->shouldReturn(-1);
     }
 
     function it_does_not_vote_assign_or_edit_grant(
@@ -94,7 +94,7 @@ class IssueVoterSpec extends ObjectBehavior
         $issue->isAssignee($user)->shouldBeCalled()->willReturn(false);
         $issue->isReporter($user)->shouldBeCalled()->willReturn(false);
 
-        $this->vote($token, $issue, array('assign'))->shouldReturn(-1);
+        $this->vote($token, $issue, ['assign'])->shouldReturn(-1);
     }
 
     function it_does_not_vote_view_grant(TokenInterface $token, Issue $issue, UserInterface $user)
@@ -102,7 +102,7 @@ class IssueVoterSpec extends ObjectBehavior
         $token->getUser()->shouldBeCalled()->willReturn($user);
         $issue->isParticipant($user)->shouldBeCalled()->willReturn(false);
 
-        $this->vote($token, $issue, array('view'))->shouldReturn(-1);
+        $this->vote($token, $issue, ['view'])->shouldReturn(-1);
     }
 
     function it_votes_assign_or_edit_grant_because_its_role_project_is_admin(
@@ -118,7 +118,7 @@ class IssueVoterSpec extends ObjectBehavior
         $issue->isAssignee($user)->shouldBeCalled()->willReturn(false);
         $issue->isReporter($user)->shouldBeCalled()->willReturn(false);
 
-        $this->vote($token, $issue, array('assign'))->shouldReturn(1);
+        $this->vote($token, $issue, ['assign'])->shouldReturn(1);
     }
 
     function it_votes_assign_or_edit_grant_because_it_is_reporter(
@@ -134,7 +134,7 @@ class IssueVoterSpec extends ObjectBehavior
         $issue->isAssignee($user)->shouldBeCalled()->willReturn(false);
         $issue->isReporter($user)->shouldBeCalled()->willReturn(true);
 
-        $this->vote($token, $issue, array('assign'))->shouldReturn(1);
+        $this->vote($token, $issue, ['assign'])->shouldReturn(1);
     }
 
     function it_votes_assign_or_edit_grant_because_it_is_assignee(
@@ -149,7 +149,7 @@ class IssueVoterSpec extends ObjectBehavior
         $project->getUserRole($user)->shouldBeCalled()->willReturn('ROLE_PARTICIPANT');
         $issue->isAssignee($user)->shouldBeCalled()->willReturn(true);
 
-        $this->vote($token, $issue, array('assign'))->shouldReturn(1);
+        $this->vote($token, $issue, ['assign'])->shouldReturn(1);
     }
 
     function it_votes_view_grant(TokenInterface $token, Issue $issue, UserInterface $user)
@@ -157,6 +157,6 @@ class IssueVoterSpec extends ObjectBehavior
         $token->getUser()->shouldBeCalled()->willReturn($user);
         $issue->isParticipant($user)->shouldBeCalled()->willReturn(true);
 
-        $this->vote($token, $issue, array('view'))->shouldReturn(1);
+        $this->vote($token, $issue, ['view'])->shouldReturn(1);
     }
 }

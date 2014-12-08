@@ -20,7 +20,7 @@ use Kreta\Component\Notification\Notifier\NotifierInterface;
  */
 class NotifierRegistry implements NotifierRegistryInterface
 {
-    protected $notifiers = array();
+    protected $notifiers = [];
 
     /**
      * @{@inheritdoc}

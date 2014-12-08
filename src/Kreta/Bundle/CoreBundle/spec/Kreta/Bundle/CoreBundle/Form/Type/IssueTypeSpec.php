@@ -42,34 +42,34 @@ class IssueTypeSpec extends ObjectBehavior
 
     function it_builds_a_form(FormBuilder $builder)
     {
-        $builder->add('title', 'text', array(
+        $builder->add('title', 'text', [
             'required' => true,
             'label'    => 'Name'
-        ))->shouldBeCalled()->willReturn($builder);
+        ])->shouldBeCalled()->willReturn($builder);
 
-        $builder->add('description', 'textarea', array(
+        $builder->add('description', 'textarea', [
             'required' => false,
             'label' => 'Description',
-        ))->shouldBeCalled()->willReturn($builder);
+        ])->shouldBeCalled()->willReturn($builder);
 
-        $builder->add('type', new TypeType(), array(
+        $builder->add('type', new TypeType(), [
             'label' => 'Type'
-        ))->shouldBeCalled()->willReturn($builder);
+        ])->shouldBeCalled()->willReturn($builder);
 
-        $builder->add('priority', new PriorityType(), array(
+        $builder->add('priority', new PriorityType(), [
             'label' => 'Priority'
-        ))->shouldBeCalled()->willReturn($builder);
+        ])->shouldBeCalled()->willReturn($builder);
 
-        $builder->add('assignee', 'entity', array(
+        $builder->add('assignee', 'entity', [
             'class' => 'Kreta\Component\Core\Model\User',
             'label' => 'Assignee',
             'empty_value' => null,
-            'choices' => array(),
+            'choices' => [],
             'property' => 'fullName'
-        ))->shouldBeCalled()->willReturn($builder);
+        ])->shouldBeCalled()->willReturn($builder);
 
 
-        $this->buildForm($builder, array());
+        $this->buildForm($builder, []);
     }
 
     function it_gets_name()

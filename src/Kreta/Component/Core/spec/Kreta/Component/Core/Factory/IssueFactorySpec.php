@@ -40,7 +40,7 @@ class IssueFactorySpec extends ObjectBehavior
         UserInterface $user
     )
     {
-        $project->getStatuses()->shouldBeCalled()->willReturn(array($status));
+        $project->getStatuses()->shouldBeCalled()->willReturn([$status]);
         $status->getType()->shouldBeCalled()->willReturn('initial');
 
         $this->create($project, $user)->shouldReturnAnInstanceOf('Kreta\Component\Core\Model\Issue');

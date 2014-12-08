@@ -15,7 +15,7 @@ class NotifiableEventRegistrySpec extends ObjectBehavior
 
     function it_returns_notifiable_events()
     {
-        $this->getNotifiableEvents()->shouldReturn(array());
+        $this->getNotifiableEvents()->shouldReturn([]);
     }
 
     function it_registers_notifiable_event(NotifiableEventInterface $notifiableEvent)

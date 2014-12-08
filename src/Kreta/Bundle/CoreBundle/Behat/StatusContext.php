@@ -35,7 +35,7 @@ class StatusContext extends RawMinkContext implements Context, KernelAwareContex
 
         foreach ($statuses as $statusData) {
             $project = $this->getKernel()->getContainer()->get('kreta_core.repository_project')
-                ->findOneBy(array('name' => $statusData['project']));
+                ->findOneBy(['name' => $statusData['project']]);
 
             $status = $this->kernel->getContainer()->get('kreta_core.factory_status')->create($statusData['name']);
             $status->setColor($statusData['color']);

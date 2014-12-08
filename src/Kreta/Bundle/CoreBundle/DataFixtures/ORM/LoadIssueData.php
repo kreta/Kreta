@@ -66,17 +66,17 @@ class LoadIssueData extends DataFixtures
             $statuses = $this->container->get('kreta_core.repository_status')->findByProject($project);
             $status = $statuses[array_rand($statuses)];
             $issue->setStatus($status);
-            $types = array(
+            $types = [
                 $issue::TYPE_BUG,
                 $issue::TYPE_NEW_FEATURE,
                 $issue::TYPE_IMPROVEMENT,
                 $issue::TYPE_EPIC,
                 $issue::TYPE_STORY
-            );
+            ];
             $issue->setType($types[array_rand($types)]);
             $issue->setTitle('Issue - ' . $i);
 
-            $users = array();
+            $users = [];
             foreach ($participants as $participant) {
                 $users[] = $participant->getUser();
             }

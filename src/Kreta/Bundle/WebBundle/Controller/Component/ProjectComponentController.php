@@ -29,6 +29,6 @@ class ProjectComponentController extends Controller
     {
         $projects = $this->get('kreta_core.repository_project')->findByParticipant($this->getUser());
 
-        return $this->render('KretaWebBundle:Component/Project:user.html.twig', array('projects' => $projects));
+        return $this->render('KretaWebBundle:Component/Project:user.html.twig', ['projects' => $projects]);
     }
 }

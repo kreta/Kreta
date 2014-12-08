@@ -50,8 +50,8 @@ class StatusFactory
     public function create(
         $name,
         $type = StatusInterface::TYPE_NORMAL,
-        array $transitions = array(),
-        array $properties = array()
+        array $transitions = [],
+        array $properties = []
     )
     {
         return new $this->className($name, $type, $transitions, $properties);

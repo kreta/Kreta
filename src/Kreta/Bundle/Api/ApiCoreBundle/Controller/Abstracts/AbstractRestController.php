@@ -160,7 +160,7 @@ abstract class AbstractRestController extends FOSRestController
         $form = $this->createForm(
             $formType,
             $resource,
-            array('csrf_protection' => false, 'method' => $request->getMethod())
+            ['csrf_protection' => false, 'method' => $request->getMethod()]
         );
         $form->handleRequest($request);
         if ($form->isValid()) {

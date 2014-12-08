@@ -33,7 +33,7 @@ class ProjectVoter extends AbstractVoter
     /**
      * {@inheritdoc}
      */
-    protected $attributes = array(
+    protected $attributes = [
         self::ADD_PARTICIPANT,
         self::DELETE,
         self::DELETE_PARTICIPANT,
@@ -41,7 +41,7 @@ class ProjectVoter extends AbstractVoter
         self::VIEW,
         self::CREATE_ISSUE,
         self::MANAGE_STATUS
-    );
+    ];
 
     /**
      * {@inheritdoc}

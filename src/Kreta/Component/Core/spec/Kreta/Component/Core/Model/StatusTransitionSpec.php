@@ -24,7 +24,7 @@ class StatusTransitionSpec extends ObjectBehavior
 {
     function let(StatusInterface $statusFrom, StatusInterface $statusTo)
     {
-        $this->beConstructedWith('Transition name', array($statusFrom), $statusTo);
+        $this->beConstructedWith('Transition name', [$statusFrom], $statusTo);
     }
 
     function it_is_initializable()

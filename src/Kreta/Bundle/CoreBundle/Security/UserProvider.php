@@ -36,7 +36,7 @@ class UserProvider extends BaseUserProvider
         $setterId = $setter . 'Id';
         $setterToken = $setter . 'AccessToken';
 
-        $previousUser = $this->userManager->findUserBy(array($property => $email));
+        $previousUser = $this->userManager->findUserBy([$property => $email]);
         if ($previousUser instanceof UserInterface) {
             $previousUser->setUsername($email);
             $previousUser->setEmail($email);
@@ -56,10 +56,10 @@ class UserProvider extends BaseUserProvider
      */
     public function loadUserByOAuthUserResponse(UserResponseInterface $response)
     {
-        $user = $this->userManager->findUserBy(array($this->getProperty($response) => $response->getUsername()));
+        $user = $this->userManager->findUserBy([$this->getProperty($response) => $response->getUsername()]);
 
         if (($user instanceof UserInterface) === false && $response->getEmail() !== '') {
-            $user = $this->userManager->findUserBy(array('email' => $response->getEmail()));
+            $user = $this->userManager->findUserBy(['email' => $response->getEmail()]);
         }
 
         if (($user instanceof UserInterface) === false) {
