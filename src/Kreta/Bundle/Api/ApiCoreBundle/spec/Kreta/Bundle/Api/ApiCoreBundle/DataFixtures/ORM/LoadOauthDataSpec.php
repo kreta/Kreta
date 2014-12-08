@@ -64,7 +64,7 @@ class LoadOauthDataSpec extends ObjectBehavior
             ['http://kreta.io'], ['authorization_code', 'password', 'refresh_token', 'token', 'client_credentials']
         )->shouldBeCalled()->willReturn($client);
 
-        $container->get('kreta_core.repository_user')->shouldBeCalled()->willReturn($userRepository);
+        $container->get('kreta_core.repository.user')->shouldBeCalled()->willReturn($userRepository);
         $userRepository->findAll()->shouldBeCalled()->willReturn([$user, $user2]);
 
         $user->getEmail()->shouldBeCalled()->willReturn('kreta@kreta.com');

@@ -34,7 +34,7 @@ class LoadLabelData extends DataFixtures
         ];
 
         foreach ($tags as $tag) {
-            $label = $this->container->get('kreta_core.factory_label')->create();
+            $label = $this->container->get('kreta_core.factory.label')->create();
             $label->setName($tag);
 
             $manager->persist($label);

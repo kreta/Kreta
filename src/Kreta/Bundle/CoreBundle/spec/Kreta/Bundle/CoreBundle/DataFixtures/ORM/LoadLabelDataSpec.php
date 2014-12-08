@@ -47,7 +47,7 @@ class LoadLabelDataSpec extends ObjectBehavior
         ObjectManager $manager
     )
     {
-        $container->get('kreta_core.factory_label')->shouldBeCalled()->willReturn($factory);
+        $container->get('kreta_core.factory.label')->shouldBeCalled()->willReturn($factory);
         $factory->create()->shouldBeCalled()->willReturn($label);
 
         $label->setName(Argument::type('string'))->shouldBeCalled()->willReturn($label);

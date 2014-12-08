@@ -34,14 +34,14 @@ class ParticipantContext extends RawMinkContext implements Context, KernelAwareC
         $manager = $this->getContainer()->get('doctrine')->getManager();
 
         foreach($participants as $participantData) {
-            $project = $this->getContainer()->get('kreta_core.repository_project')->findOneBy(
+            $project = $this->getContainer()->get('kreta_core.repository.project')->findOneBy(
                 ['name' => $participantData['project']]
             );
-            $user = $this->getContainer()->get('kreta_core.repository_user')->findOneBy(
+            $user = $this->getContainer()->get('kreta_core.repository.user')->findOneBy(
                 ['email' => $participantData['user']]
             );
 
-            $participant = $this->getContainer()->get('kreta_core.factory_participant')->create($project, $user);
+            $participant = $this->getContainer()->get('kreta_core.factory.participant')->create($project, $user);
 
             $participant->setRole($participantData['role']);
 

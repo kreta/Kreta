@@ -34,16 +34,16 @@ class IssueContext extends RawMinkContext implements Context, KernelAwareContext
         $manager = $this->kernel->getContainer()->get('doctrine')->getManager();
 
         foreach ($issues as $issueData) {
-            $project = $this->getKernel()->getContainer()->get('kreta_core.repository_project')
+            $project = $this->getKernel()->getContainer()->get('kreta_core.repository.project')
                 ->findOneBy(['name' => $issueData['project']]);
-            $reporter = $this->getKernel()->getContainer()->get('kreta_core.repository_user')
+            $reporter = $this->getKernel()->getContainer()->get('kreta_core.repository.user')
                 ->findOneBy(['email' => $issueData['reporter']]);
-            $assignee = $this->getKernel()->getContainer()->get('kreta_core.repository_user')
+            $assignee = $this->getKernel()->getContainer()->get('kreta_core.repository.user')
                 ->findOneBy(['email' => $issueData['assignee']]);
-            $status = $this->getKernel()->getContainer()->get('kreta_core.repository_status')
+            $status = $this->getKernel()->getContainer()->get('kreta_core.repository.status')
                 ->findOneBy(['name' => $issueData['status']]);
 
-            $issue = $this->kernel->getContainer()->get('kreta_core.factory_issue')->create($project, $reporter);
+            $issue = $this->kernel->getContainer()->get('kreta_core.factory.issue')->create($project, $reporter);
             $issue->setPriority($issueData['priority']);
             $issue->setProject($project);
             $issue->setAssignee($assignee);

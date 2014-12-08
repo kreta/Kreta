@@ -93,7 +93,7 @@ abstract class DataFixtures extends AbstractFixture implements ContainerAwareInt
         $medias = [];
         $uploader = $this->container->get($uploaderService);
         foreach ($finder->files()->in(__DIR__ . $path) as $file) {
-            $media = $this->container->get('kreta_core.factory_media')
+            $media = $this->container->get('kreta_core.factory.media')
                 ->create(new UploadedFile($file->getRealPath(), $file->getFilename()));
             $uploader->upload($media);
             $medias[] = $media;

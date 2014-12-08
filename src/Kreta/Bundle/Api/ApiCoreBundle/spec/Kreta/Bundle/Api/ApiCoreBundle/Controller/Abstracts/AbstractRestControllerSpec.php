@@ -43,7 +43,7 @@ abstract class AbstractRestControllerSpec extends ObjectBehavior
         ProjectInterface $project = null
     )
     {
-        $container->get('kreta_core.repository_project')->shouldBeCalled()->willReturn($projectRepository);
+        $container->get('kreta_core.repository.project')->shouldBeCalled()->willReturn($projectRepository);
         $projectRepository->find('project-id')->shouldBeCalled()->willReturn($project);
     }
 
@@ -56,7 +56,7 @@ abstract class AbstractRestControllerSpec extends ObjectBehavior
         $result = true
     )
     {
-        $container->get('kreta_core.repository_project')->shouldBeCalled()->willReturn($projectRepository);
+        $container->get('kreta_core.repository.project')->shouldBeCalled()->willReturn($projectRepository);
         $projectRepository->find('project-id')->shouldBeCalled()->willReturn($project);
         $container->get('security.context')->shouldBeCalled()->willReturn($securityContext);
         $securityContext->isGranted($grant, $project)->shouldBeCalled()->willReturn($result);
@@ -142,7 +142,7 @@ abstract class AbstractRestControllerSpec extends ObjectBehavior
     {
         $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext, $grant, $result);
 
-        $container->get('kreta_core.repository_status')->shouldBeCalled()->willReturn($statusRepository);
+        $container->get('kreta_core.repository.status')->shouldBeCalled()->willReturn($statusRepository);
         $statusRepository->find('status-id')->shouldBeCalled()->willReturn($status);
     }
 

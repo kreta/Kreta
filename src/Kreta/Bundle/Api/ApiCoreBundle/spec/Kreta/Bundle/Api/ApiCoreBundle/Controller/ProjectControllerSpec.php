@@ -86,7 +86,7 @@ class ProjectControllerSpec extends AbstractRestControllerSpec
         $securityContext->getToken()->shouldBeCalled()->willReturn($token);
         $token->getUser()->shouldBeCalled()->willReturn($user);
 
-        $container->get('kreta_core.repository_project')
+        $container->get('kreta_core.repository.project')
             ->shouldBeCalled()->willReturn($projectRepository);
         $paramFetcher->get('order')->shouldBeCalled()->willReturn('name');
         $paramFetcher->get('count')->shouldBeCalled()->willReturn(10);
@@ -160,9 +160,8 @@ class ProjectControllerSpec extends AbstractRestControllerSpec
     {
         $this->getCurrentUser($container, $securityContext, $token, $user);
 
-        $container->get('kreta_core.factory_project')->shouldBeCalled()->willReturn($projectFactory);
+        $container->get('kreta_core.factory.project')->shouldBeCalled()->willReturn($projectFactory);
         $projectFactory->create($user)->shouldBeCalled()->willReturn($project);
-
 
         $this->processForm(
             $container,
@@ -202,7 +201,7 @@ class ProjectControllerSpec extends AbstractRestControllerSpec
         Response $response
     )
     {
-        $container->get('kreta_core.factory_project')->shouldBeCalled()->willReturn($projectFactory);
+        $container->get('kreta_core.factory.project')->shouldBeCalled()->willReturn($projectFactory);
         $this->getCurrentUser($container, $securityContext, $token, $user);
         $projectFactory->create($user)->shouldBeCalled()->willReturn($project);
 

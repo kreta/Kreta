@@ -185,7 +185,7 @@ abstract class AbstractRestController extends FOSRestController
      */
     protected function getProjectIfAllowed($id, $grant = 'view')
     {
-        $project = $this->getResourceIfExists($id, $this->get('kreta_core.repository_project'));
+        $project = $this->getResourceIfExists($id, $this->get('kreta_core.repository.project'));
         if (!$this->get('security.context')->isGranted($grant, $project)) {
             throw new AccessDeniedException('Not allowed to access this resource');
         }

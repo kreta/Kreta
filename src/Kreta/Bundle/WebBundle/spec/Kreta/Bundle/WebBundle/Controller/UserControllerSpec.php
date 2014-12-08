@@ -44,7 +44,7 @@ class UserControllerSpec extends ObjectBehavior
         $securityContext->getToken()->shouldBeCalled()->willReturn($token);
         $token->getUser()->shouldBeCalled()->willReturn($user);
 
-        $container->get('kreta_web.form_handler_user')->shouldBeCalled()->willReturn($formHandler);
+        $container->get('kreta_web.form_handler.user')->shouldBeCalled()->willReturn($formHandler);
         $formHandler->handleForm($request, $user)->shouldBeCalled()->willReturn($form);
 
         $form->createView()->shouldBeCalled()->willReturn($formView);

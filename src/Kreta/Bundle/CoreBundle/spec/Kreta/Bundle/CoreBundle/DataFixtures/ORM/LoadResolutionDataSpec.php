@@ -49,7 +49,7 @@ class LoadResolutionDataSpec extends ObjectBehavior
         ObjectManager $manager
     )
     {
-        $container->get('kreta_core.factory_resolution')->shouldBeCalled()->willReturn($factory);
+        $container->get('kreta_core.factory.resolution')->shouldBeCalled()->willReturn($factory);
         $factory->create()->shouldBeCalled()->willReturn($resolution);
 
         $resolution->setDescription(Argument::type('string'))->shouldBeCalled()->willReturn($resolution);

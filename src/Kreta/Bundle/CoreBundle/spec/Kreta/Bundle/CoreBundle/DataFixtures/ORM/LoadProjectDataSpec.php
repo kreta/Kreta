@@ -63,11 +63,11 @@ class LoadProjectDataSpec extends DataFixturesSpec
             $mediaFactory,
             $media,
             $manager,
-            'kreta_core.image_projects_uploader'
+            'kreta_core.uploader.image_project'
         );
 
-        $container->get('kreta_core.factory_project')->shouldBeCalled()->willReturn($factory);
-        $container->get('kreta_core.repository_user')->shouldBeCalled()->willReturn($userRepository);
+        $container->get('kreta_core.factory.project')->shouldBeCalled()->willReturn($factory);
+        $container->get('kreta_core.repository.user')->shouldBeCalled()->willReturn($userRepository);
 
         $userRepository->findAll()->shouldBeCalled()->willReturn([$user]);
 

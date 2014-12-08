@@ -6,35 +6,35 @@
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
 parameters:
-    kreta_notification.class_notification: Kreta\Component\Notification\Model\Notification
+    kreta_notification.notification.class: Kreta\Component\Notification\Model\Notification
 
-    kreta_notification.factory_class_notification: Kreta\Component\Notification\Factory\NotificationFactory
-    kreta_notification.event_subscriber_class_doctrine: Kreta\Component\Notification\EventSubscriber\DoctrineEventSubscriber
-    kreta_notification.class_notifierRegistry: Kreta\Component\Notification\Notifier\Registry\NotifierRegistry
-    kreta_notification.class_notifiableEventRegistry: Kreta\Component\Notification\NotifiableEvent\Registry\NotifiableEventRegistry
-    kreta_notification.repository_class_notification: Kreta\Component\Notification\Repository\NotificationRepository
+    kreta_notification.factory_notification.class: Kreta\Component\Notification\Factory\NotificationFactory
+    kreta_notification.event_subscriber_doctrine.class: Kreta\Component\Notification\EventSubscriber\DoctrineEventSubscriber
+    kreta_notification.notifier_registry.class: Kreta\Component\Notification\Notifier\Registry\NotifierRegistry
+    kreta_notification.notifiable_event_registry.class: Kreta\Component\Notification\NotifiableEvent\Registry\NotifiableEventRegistry
+    kreta_notification.repository_notification.class: Kreta\Component\Notification\Repository\NotificationRepository
 
 services:
-    kreta_notification.factory_notification:
-        class: %kreta_notification.factory_class_notification%
-        arguments: [%kreta_notification.class_notification%]
+    kreta_notification.factory.notification:
+        class: %kreta_notification.factory_notification.class%
+        arguments: [%kreta_notification.notification.class%]
 
     kreta_notification.doctrine_event_subscriber:
-        class: %kreta_notification.event_subscriber_class_doctrine%
+        class: %kreta_notification.event_subscriber_doctrine.class%
         arguments: [@kreta_notification.notifiable_event_registry, @kreta_notification.notifier_registry]
         tags:
             - { name: doctrine.event_subscriber }
 
     kreta_notification.notifier_registry:
-        class: %kreta_notification.class_notifierRegistry%
+        class: %kreta_notification.notifier_registry.class%
     kreta_notification.notifiable_event_registry:
-        class: %kreta_notification.class_notifiableEventRegistry%
+        class: %kreta_notification.notifiable_event_registry.class%
 
-    kreta_notification.repository_notification:
+    kreta_notification.repository.notification:
         factory_service: doctrine.orm.entity_manager
         factory_method: getRepository
-        class: %kreta_notification.repository_class_notification%
-        arguments: [%kreta_notification.class_notification%]
+        class: %kreta_notification.repository_notification.class%
+        arguments: [%kreta_notification.notification.class%]
 
 
 

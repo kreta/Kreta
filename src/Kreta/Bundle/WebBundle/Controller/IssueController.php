@@ -37,7 +37,7 @@ class IssueController extends Controller
      */
     public function viewAction($projectShortName, $issueNumber)
     {
-        $issue = $this->get('kreta_core.repository_issue')->findOneByShortCode($projectShortName, $issueNumber);
+        $issue = $this->get('kreta_core.repository.issue')->findOneByShortCode($projectShortName, $issueNumber);
 
         if (!$issue instanceof IssueInterface) {
             throw $this->createNotFoundException();
@@ -63,7 +63,7 @@ class IssueController extends Controller
     public function newAction($projectShortName, Request $request)
     {
         /** @var \Kreta\Component\Core\Model\Interfaces\ProjectInterface $project */
-        $project = $this->get('kreta_core.repository_project')->findOneBy([
+        $project = $this->get('kreta_core.repository.project')->findOneBy([
             'shortName' => $projectShortName
         ]);
 
@@ -71,9 +71,9 @@ class IssueController extends Controller
             throw new AccessDeniedException();
         }
 
-        $issue = $this->get('kreta_core.factory_issue')->create($project, $this->getUser());
+        $issue = $this->get('kreta_core.factory.issue')->create($project, $this->getUser());
 
-        $form = $this->get('kreta_web.form_handler_issue')->handleForm(
+        $form = $this->get('kreta_web.form_handler.issue')->handleForm(
             $request, $issue, $project->getParticipants()
         );
 
@@ -101,7 +101,7 @@ class IssueController extends Controller
      */
     public function editAction($projectShortName, $issueNumber, Request $request)
     {
-        $issue = $this->get('kreta_core.repository_issue')->findOneByShortCode($projectShortName, $issueNumber);
+        $issue = $this->get('kreta_core.repository.issue')->findOneByShortCode($projectShortName, $issueNumber);
 
         if (!$issue instanceof IssueInterface) {
             throw $this->createNotFoundException();
@@ -111,7 +111,7 @@ class IssueController extends Controller
             throw new AccessDeniedException();
         };
 
-        $form = $this->get('kreta_web.form_handler_issue')->handleForm(
+        $form = $this->get('kreta_web.form_handler.issue')->handleForm(
             $request, $issue, $issue->getProject()->getParticipants()
         );
 
@@ -140,15 +140,15 @@ class IssueController extends Controller
      */
     public function newCommentAction($projectShortName, $issueNumber, Request $request)
     {
-        $issue = $this->get('kreta_core.repository_issue')->findOneByShortCode($projectShortName, $issueNumber);
+        $issue = $this->get('kreta_core.repository.issue')->findOneByShortCode($projectShortName, $issueNumber);
 
         if (!$issue instanceof IssueInterface) {
             $this->createNotFoundException('Issue not found');
         }
 
-        $comment = $this->get('kreta_core.factory_comment')->create($issue, $this->getUser());
+        $comment = $this->get('kreta_core.factory.comment')->create($issue, $this->getUser());
 
-        $form = $this->get('kreta_web.form_handler_comment')->handleForm($request, $comment);
+        $form = $this->get('kreta_web.form_handler.comment')->handleForm($request, $comment);
 
         if ($form->isValid()) {
             return $this->redirect($this->generateUrl(
@@ -173,7 +173,7 @@ class IssueController extends Controller
      */
     public function editStatusAction($projectShortName, $issueNumber, $transitionId)
     {
-        $issue = $this->get('kreta_core.repository_issue')->findOneByShortCode($projectShortName, $issueNumber);
+        $issue = $this->get('kreta_core.repository.issue')->findOneByShortCode($projectShortName, $issueNumber);
 
         if (!$issue instanceof IssueInterface) {
             $this->createNotFoundException();
@@ -183,7 +183,7 @@ class IssueController extends Controller
             throw new AccessDeniedException();
         };
 
-        $transition = $this->get('kreta_core.repository_status_transition')->find($transitionId);
+        $transition = $this->get('kreta_core.repository.status_transition')->find($transitionId);
 
         if (!$transition instanceof StatusTransitionInterface ||
             $issue->getProject()->getId() !== $transition->getProject()->getId()
@@ -191,10 +191,10 @@ class IssueController extends Controller
             $this->createNotFoundException();
         }
 
-        $statuses = $this->get('kreta_core.repository_status')->findByProject($issue->getProject());
-        $transitions = $this->get('kreta_core.repository_status_transition')->findByProject($issue->getProject());
+        $statuses = $this->get('kreta_core.repository.status')->findByProject($issue->getProject());
+        $transitions = $this->get('kreta_core.repository.status_transition')->findByProject($issue->getProject());
 
-        $stateMachine = $this->get('kreta_core.issue_state_machine')->load($issue, $statuses, $transitions);
+        $stateMachine = $this->get('kreta_core.state_machine.issue')->load($issue, $statuses, $transitions);
 
         if ($stateMachine->can($transition->getName())) {
             $stateMachine->apply($transition->getName());

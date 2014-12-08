@@ -36,7 +36,7 @@ class DataFixturesSpec extends ObjectBehavior
     )
     {
         $container->get($uploaderService)->shouldBeCalled()->willReturn($uploader);
-        $container->get('kreta_core.factory_media')->shouldBeCalled()->willReturn($mediaFactory);
+        $container->get('kreta_core.factory.media')->shouldBeCalled()->willReturn($mediaFactory);
         $mediaFactory->create(Argument::type('Symfony\Component\HttpFoundation\File\UploadedFile'))
             ->shouldBeCalled()->willReturn($media);
         $uploader->upload($media)->shouldBeCalled();

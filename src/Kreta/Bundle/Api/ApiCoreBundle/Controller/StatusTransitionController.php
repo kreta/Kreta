@@ -121,6 +121,6 @@ class StatusTransitionController extends AbstractRestController
      */
     protected function getRepository()
     {
-        return $this->get('kreta_core.repository_status');
+        return $this->get('kreta_core.repository.status');
     }
 }

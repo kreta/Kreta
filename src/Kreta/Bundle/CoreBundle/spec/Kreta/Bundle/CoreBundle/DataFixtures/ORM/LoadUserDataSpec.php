@@ -59,7 +59,7 @@ class LoadUserDataSpec extends DataFixturesSpec
             $mediaFactory,
             $media,
             $manager,
-            'kreta_core.image_users_uploader'
+            'kreta_core.uploader.image_user'
         );
 
         $this->createUser($container, $factory, $user, 'ROLE_ADMIN');
@@ -90,7 +90,7 @@ class LoadUserDataSpec extends DataFixturesSpec
         $role = 'ROLE_USER'
     )
     {
-        $container->get('kreta_core.factory_user')->shouldBeCalled()->willReturn($factory);
+        $container->get('kreta_core.factory.user')->shouldBeCalled()->willReturn($factory);
         $factory->create()->shouldBeCalled()->willReturn($user);
 
         $user->setFirstName(Argument::type('string'))->shouldBeCalled()->willReturn($user);

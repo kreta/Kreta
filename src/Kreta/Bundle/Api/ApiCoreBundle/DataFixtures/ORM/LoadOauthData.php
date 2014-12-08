@@ -33,7 +33,7 @@ class LoadOauthData extends DataFixtures
             ['http://kreta.io'], ['authorization_code', 'password', 'refresh_token', 'token', 'client_credentials']
         );
 
-        $users = $this->container->get('kreta_core.repository_user')->findAll();
+        $users = $this->container->get('kreta_core.repository.user')->findAll();
 
         foreach ($users as $user) {
             if ($user->getEmail() === 'kreta@kreta.com') {
