@@ -18,7 +18,7 @@ kreta_web_project_edit:
 kreta_web_project_view:
     path: /{projectShortName}
     defaults: { _controller: KretaWebBundle:Project:view }
-    methods:  [GET,POST]
+    methods:  [GET]
 
 kreta_web_project_participant_new:
     path: /{projectShortName}/participant

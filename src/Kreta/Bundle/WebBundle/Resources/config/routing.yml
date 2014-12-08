@@ -8,10 +8,12 @@
 kreta_web_homepage:
     path: /
     defaults: { _controller: KretaWebBundle:Default:index }
+    methods:  [GET]
 
 kreta_web_dashboard:
     path: /dashboard
     defaults: { _controller: KretaWebBundle:Default:dashboard }
+    methods:  [GET]
 
 kreta_web_issue:
     prefix: /issues
