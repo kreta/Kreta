@@ -8,11 +8,21 @@
 default:
     formatters:
         pretty:
-            verbose:  true
-            paths:    false
+            verbose: true
+            paths: false
             snippets: false
 
     suites:
+        api:
+            contexts:
+                - Kreta\Bundle\Api\ApiCoreBundle\Behat\OauthContext
+                - Kreta\Bundle\Api\ApiCoreBundle\Behat\ProjectContext
+                - Kreta\Bundle\Api\ApiCoreBundle\Behat\UserContext
+                - Kreta\Bundle\CoreBundle\Behat\StatusContext
+                - Kreta\Bundle\CoreBundle\Behat\ParticipantContext
+                - Kreta\Bundle\WebBundle\Behat\DefaultContext
+            filters:
+                tags: "@api"
         issue:
             contexts:
                 - Kreta\Bundle\CoreBundle\Behat\UserContext
@@ -49,5 +59,7 @@ default:
                 default:
                     symfony2: ~
             browser_name: firefox
-            show_auto:    false
+            show_auto: false
         Behat\Symfony2Extension: ~
+        Behat\WebApiExtension:
+            base_url: http://kreta.localhost/app_test.php

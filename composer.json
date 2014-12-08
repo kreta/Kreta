@@ -51,6 +51,7 @@
         "behat/mink-extension" :                    "~2.0",
         "behat/mink-browserkit-driver":             "~1.2",
         "vipsoft/code-coverage-extension":          "3.0.*@dev",
+        "behat/web-api-extension":                  "~1.0@dev",
 
         "phpspec/phpspec":                          "2.1.x-dev",
         "henrikbjorn/phpspec-code-coverage":        "1.0.x-dev",
