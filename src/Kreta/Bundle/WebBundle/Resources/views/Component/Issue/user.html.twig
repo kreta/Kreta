@@ -10,7 +10,7 @@
     {% for issue in issues %}
         {% include '@KretaWeb/Issue/blocks/miniIssue.html.twig' with { 'issue' : issue } %}
     {% else %}
-        <div class="kreta-mini-issue">
+        <div class="kreta-widget-message">
             <p>No open issues found</p>
         </div>
     {% endfor %}

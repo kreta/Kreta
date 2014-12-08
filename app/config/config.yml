@@ -18,7 +18,7 @@ parameters:
 
 framework:
     #esi: ~
-    #translator: { fallback: "%locale%" }
+    translator: { fallback: "%locale%" }
     secret: "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -44,6 +44,7 @@ assetic:
     use_controller: false
     bundles:
         - KretaWebBundle
+        - FOSUserBundle
     #java: /usr/bin/java
     filters:
         cssrewrite: ~
@@ -94,6 +95,9 @@ fos_user:
     db_driver: orm
     firewall_name: main
     user_class: Kreta\Component\Core\Model\User
+    registration:
+        confirmation:
+            enabled: true
 
 hwi_oauth:
     connect:
