@@ -61,4 +61,5 @@ Feature: Manage issues
     When I fill in "kreta_core_comment_type_description" with "New comment!!"
     And I press "Send"
     Then I should see "Comment added successfully"
+    And I should see "New comment!!"
 
