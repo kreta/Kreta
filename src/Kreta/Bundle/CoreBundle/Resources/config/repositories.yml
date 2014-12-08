@@ -6,53 +6,53 @@
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
 services:
-    kreta_core.repository_comment:
+    kreta_core.repository.comment:
         factory_service: doctrine.orm.entity_manager
         factory_method: getRepository
-        class: %kreta_core.repository_class_comment%
-        arguments: [%kreta_core.class_comment%]
-    kreta_core.repository_issue:
+        class: %kreta_core.repository_comment.class%
+        arguments: [%kreta_core.comment.class%]
+    kreta_core.repository.issue:
         factory_service: doctrine.orm.entity_manager
         factory_method: getRepository
-        class: %kreta_core.repository_class_issue%
-        arguments: [%kreta_core.class_issue%]
-    kreta_core.repository_label:
+        class: %kreta_core.repository_issue.class%
+        arguments: [%kreta_core.issue.class%]
+    kreta_core.repository.label:
         factory_service: doctrine.orm.entity_manager
         factory_method: getRepository
-        class: %kreta_core.repository_class_label%
-        arguments: [%kreta_core.class_label%]
-    kreta_core.repository_media:
+        class: %kreta_core.repository_label.class%
+        arguments: [%kreta_core.label.class%]
+    kreta_core.repository.media:
         factory_service: doctrine.orm.entity_manager
         factory_method: getRepository
-        class: %kreta_core.repository_class_media%
-        arguments: [%kreta_core.class_media%]
-    kreta_core.repository_project:
+        class: %kreta_core.repository_media.class%
+        arguments: [%kreta_core.media.class%]
+    kreta_core.repository.project:
         factory_service: doctrine.orm.entity_manager
         factory_method: getRepository
-        class: %kreta_core.repository_class_project%
-        arguments: [%kreta_core.class_project%]
-    kreta_core.repository_participant:
+        class: %kreta_core.repository_project.class%
+        arguments: [%kreta_core.project.class%]
+    kreta_core.repository.participant:
         factory_service: doctrine.orm.entity_manager
         factory_method: getRepository
-        class: %kreta_core.repository_class_participant%
-        arguments: [%kreta_core.class_participant%]
-    kreta_core.repository_resolution:
+        class: %kreta_core.repository_participant.class%
+        arguments: [%kreta_core.participant.class%]
+    kreta_core.repository.resolution:
         factory_service: doctrine.orm.entity_manager
         factory_method: getRepository
-        class: %kreta_core.repository_class_resolution%
-        arguments: [%kreta_core.class_resolution%]
-    kreta_core.repository_status:
+        class: %kreta_core.repository_resolution.class%
+        arguments: [%kreta_core.resolution.class%]
+    kreta_core.repository.status:
         factory_service: doctrine.orm.entity_manager
         factory_method: getRepository
-        class: %kreta_core.repository_class_status%
-        arguments: [%kreta_core.class_status%]
-    kreta_core.repository_status_transition:
+        class: %kreta_core.repository_status.class%
+        arguments: [%kreta_core.status.class%]
+    kreta_core.repository.status_transition:
         factory_service: doctrine.orm.entity_manager
         factory_method: getRepository
-        class: %kreta_core.repository_class_status_transition%
-        arguments: [%kreta_core.class_status_transition%]
-    kreta_core.repository_user:
+        class: %kreta_core.repository_status_transition.class%
+        arguments: [%kreta_core.status_transition.class%]
+    kreta_core.repository.user:
         factory_service: doctrine.orm.entity_manager
         factory_method: getRepository
-        class: %kreta_core.repository_class_user%
-        arguments: [%kreta_core.class_user%]
+        class: %kreta_core.repository_user.class%
+        arguments: [%kreta_core.user.class%]

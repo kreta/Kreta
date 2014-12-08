@@ -27,17 +27,17 @@ class LoadIssueData extends DataFixtures
      */
     public function load(ObjectManager $manager)
     {
-        $labels = $this->container->get('kreta_core.repository_label')->findAll();
-        $projects = $this->container->get('kreta_core.repository_project')->findAll();
-        $resolutions = $this->container->get('kreta_core.repository_resolution')->findAll();
+        $labels = $this->container->get('kreta_core.repository.label')->findAll();
+        $projects = $this->container->get('kreta_core.repository.project')->findAll();
+        $resolutions = $this->container->get('kreta_core.repository.resolution')->findAll();
 
         $issuesPerProject = [];
         for ($i = 0; $i < 100; $i++) {
             $project = $projects[array_rand($projects)];
             $issuesPerProject = $this->incrementIssuePerProject($issuesPerProject, $project);
-            $participants = $this->container->get('kreta_core.repository_participant')->findByProject($project);
+            $participants = $this->container->get('kreta_core.repository.participant')->findByProject($project);
 
-            $issue = $this->container->get('kreta_core.factory_issue')
+            $issue = $this->container->get('kreta_core.factory.issue')
                 ->create($project, $participants[array_rand($participants)]->getUser());
             $issue->setAssignee($participants[array_rand($participants)]->getUser());
             $issue->setDescription(
@@ -63,7 +63,7 @@ class LoadIssueData extends DataFixtures
                 $issue->setResolution($resolutions[array_rand($resolutions)]);
             }
             $issue->setReporter($participants[array_rand($participants)]->getUser());
-            $statuses = $this->container->get('kreta_core.repository_status')->findByProject($project);
+            $statuses = $this->container->get('kreta_core.repository.status')->findByProject($project);
             $status = $statuses[array_rand($statuses)];
             $issue->setStatus($status);
             $types = [

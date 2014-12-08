@@ -6,43 +6,43 @@
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
 services:
-    kreta_web.listener_emptyProfileListener:
+    kreta_web.listener.empty_profile:
         class: Kreta\Bundle\WebBundle\EventListener\EmptyProfileListener
         arguments: [@security.context, @router, @session]
         tags:
             - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
 
-    kreta_web.listener_formHandlerFlashListener:
+    kreta_web.listener.form_handler_flash:
         class: Kreta\Bundle\WebBundle\EventListener\FormHandlerFlashListener
         arguments: [@session]
         tags:
             - { name: kernel.event_listener, event: kreta_web_event_form_handler, method: onFormHandlerEvent }
 
     #Form handlers
-    kreta_web.form_handler_comment:
+    kreta_web.form_handler.comment:
         class: Kreta\Bundle\WebBundle\FormHandler\CommentFormHandler
         arguments: [@form.factory, @doctrine.orm.entity_manager, @event_dispatcher]
 
-    kreta_web.form_handler_issue:
+    kreta_web.form_handler.issue:
         class: Kreta\Bundle\WebBundle\FormHandler\IssueFormHandler
         arguments: [@form.factory, @doctrine.orm.entity_manager, @event_dispatcher]
 
-    kreta_web.form_handler_project:
+    kreta_web.form_handler.project:
         class: Kreta\Bundle\WebBundle\FormHandler\ProjectFormHandler
-        arguments: [@form.factory, @doctrine.orm.entity_manager, @event_dispatcher, @kreta_core.factory_media, @kreta_core.image_projects_uploader]
+        arguments: [@form.factory, @doctrine.orm.entity_manager, @event_dispatcher, @kreta_core.factory.media, @kreta_core.uploader.image_project]
 
-    kreta_web.form_handler_user:
+    kreta_web.form_handler.user:
         class: Kreta\Bundle\WebBundle\FormHandler\UserFormHandler
-        arguments: [@form.factory, @doctrine.orm.entity_manager, @event_dispatcher, @kreta_core.factory_media, @kreta_core.image_users_uploader]
+        arguments: [@form.factory, @doctrine.orm.entity_manager, @event_dispatcher, @kreta_core.factory.media, @kreta_core.uploader.image_user]
 
     #Events
-    kreta_web.issue_events:
+    kreta_web.notifiable_event.issue:
         class: Kreta\Bundle\WebBundle\NotifiableEvent\IssueEvents
         arguments: [@router]
         tags:
             - { name: kreta_notification.notifiable_event, label: issue }
 
-    kreta_web.notifier_email:
+    kreta_web.notifier.email:
         class: Kreta\Bundle\WebBundle\Notifier\EmailNotifier
         arguments: [@mailer]
         tags:

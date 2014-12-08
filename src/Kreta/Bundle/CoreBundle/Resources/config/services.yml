@@ -7,40 +7,40 @@
 
 services:
 #### SECURITY ####
-    kreta_user_provider:
-        class: %kreta_core.security_class_userProvider%
+    kreta_core.user_provider:
+        class: %kreta_core.security_user_provider.class%
         arguments: [@fos_user.user_manager, {bitbucket: bitbucketId, github: githubId}]
 
-    kreta_issue_voter:
-        class: %kreta_core.security_class_issueVoter%
+    kreta_core.voter.issue:
+        class: %kreta_core.security_issue_voter.class%
         public: false
         tags:
            - { name: security.voter }
 
-    kreta_project_voter:
-        class: %kreta_core.security_class_projectVoter%
+    kreta_core.voter.project:
+        class: %kreta_core.security_project_voter.class%
         public: false
         tags:
            - { name: security.voter }
 
 #### STATE MACHINE ####
-    kreta_core.issue_state_machine:
-        class: %kreta_core.state_machine_class_issue%
+    kreta_core.state_machine.issue:
+        class: %kreta_core.state_machine_issue.class%
 
 #### UPLOADER ####
-    kreta_core.image_users_uploader:
-        class: %kreta_core.uploader_class_mediaUploader%
-        arguments: [@kreta_core.image_users_uploader_filesystem]
-    kreta_core.image_projects_uploader:
-        class: %kreta_core.uploader_class_mediaUploader%
-        arguments: [@kreta_core.image_projects_uploader_filesystem]
+    kreta_core.uploader.image_user:
+        class: %kreta_core.uploader_media.class%
+        arguments: [@kreta_core.uploader_filesystem.image_user]
+    kreta_core.uploader.image_project:
+        class: %kreta_core.uploader_media.class%
+        arguments: [@kreta_core.uploader_filesystem.image_project]
 
-    kreta_core.image_users_uploader_filesystem:
+    kreta_core.uploader_filesystem.image_user:
         class: Gaufrette\Filesystem
         factory_service: knp_gaufrette.filesystem_map
         factory_method: get
         arguments: [%users.image.uploader.filesystem%]
-    kreta_core.image_projects_uploader_filesystem:
+    kreta_core.uploader_filesystem.image_project:
         class: Gaufrette\Filesystem
         factory_service: knp_gaufrette.filesystem_map
         factory_method: get

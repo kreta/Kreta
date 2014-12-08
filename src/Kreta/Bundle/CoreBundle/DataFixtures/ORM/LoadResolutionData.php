@@ -34,7 +34,7 @@ class LoadResolutionData extends DataFixtures
     public function load(ObjectManager $manager)
     {
         foreach ($this->resolutionCollection as $description) {
-            $resolution = $this->container->get('kreta_core.factory_resolution')->create();
+            $resolution = $this->container->get('kreta_core.factory.resolution')->create();
             $resolution->setDescription($description);
 
             $manager->persist($resolution);

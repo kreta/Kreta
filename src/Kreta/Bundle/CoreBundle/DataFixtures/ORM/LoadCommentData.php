@@ -26,10 +26,10 @@ class LoadCommentData extends DataFixtures
      */
     public function load(ObjectManager $manager)
     {
-        $users = $this->container->get('kreta_core.repository_user')->findAll();
+        $users = $this->container->get('kreta_core.repository.user')->findAll();
 
         for ($i = 0; $i < 100; $i++) {
-            $comment = $this->container->get('kreta_core.factory_comment')->create();
+            $comment = $this->container->get('kreta_core.factory.comment')->create();
             $comment->setDescription(
                 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean
                 massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec

@@ -41,7 +41,7 @@ class UserController extends Controller
             throw new AccessDeniedException();
         }
 
-        $form = $this->get('kreta_web.form_handler_user')->handleForm($request, $user);
+        $form = $this->get('kreta_web.form_handler.user')->handleForm($request, $user);
 
         return ['form' => $form->createView(), 'user' => $user];
     }

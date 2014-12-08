@@ -33,18 +33,17 @@ class LoadParticipantData extends DataFixtures
      */
     public function load(ObjectManager $manager)
     {
-        $projects = $this->container->get('kreta_core.repository_project')->findAll();
-        $users = $this->container->get('kreta_core.repository_user')->findAll();
+        $projects = $this->container->get('kreta_core.repository.project')->findAll();
+        $users = $this->container->get('kreta_core.repository.user')->findAll();
 
         foreach ($users as $user) {
             foreach ($projects as $project) {
                 if (rand(0, 2) === 1) {
                     if(!$project->getUserRole($user)) { //Avoids adding existing participant
-                        $participant = $this->container->get('kreta_core.factory_participant')->create($project, $user);
+                        $participant = $this->container->get('kreta_core.factory.participant')->create($project, $user);
                         $participant->setRole($this->participantRoles[array_rand($this->participantRoles)]);
                         $manager->persist($participant);
                     }
-
                 }
             }
         }

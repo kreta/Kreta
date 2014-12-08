@@ -150,7 +150,7 @@ class IssueController extends AbstractRestController
     public function postIssuesAction($projectId)
     {
         $project = $this->getProjectIfAllowed($projectId, 'create_issue');
-        $issue = $this->get('kreta_core.factory_issue')->create($project, $this->getCurrentUser());
+        $issue = $this->get('kreta_core.factory.issue')->create($project, $this->getCurrentUser());
 
         return $this->manageForm(new IssueType($project->getParticipants()), $issue, ['issue']);
     }
@@ -229,6 +229,6 @@ class IssueController extends AbstractRestController
      */
     protected function getRepository()
     {
-        return $this->get('kreta_core.repository_issue');
+        return $this->get('kreta_core.repository.issue');
     }
 }

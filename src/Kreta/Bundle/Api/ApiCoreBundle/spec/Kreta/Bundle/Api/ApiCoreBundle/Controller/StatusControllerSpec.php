@@ -180,7 +180,7 @@ class StatusControllerSpec extends AbstractRestControllerSpec
         $container->get('request')->shouldBeCalled()->willReturn($request);
         $request->get('name')->shouldBeCalled()->willReturn('status-name');
 
-        $container->get('kreta_core.factory_status')->shouldBeCalled()->willReturn($statusFactory);
+        $container->get('kreta_core.factory.status')->shouldBeCalled()->willReturn($statusFactory);
         $statusFactory->create('status-name')->shouldBeCalled()->willReturn($status);
 
         $this->getProjectIfExist($container, $projectRepository);
@@ -202,7 +202,7 @@ class StatusControllerSpec extends AbstractRestControllerSpec
         $container->get('request')->shouldBeCalled()->willReturn($request);
         $request->get('name')->shouldBeCalled()->willReturn('status-name');
 
-        $container->get('kreta_core.factory_status')->shouldBeCalled()->willReturn($statusFactory);
+        $container->get('kreta_core.factory.status')->shouldBeCalled()->willReturn($statusFactory);
         $statusFactory->create('status-name')->shouldBeCalled()->willReturn($status);
 
         $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext, 'manage_status', false);
@@ -230,7 +230,7 @@ class StatusControllerSpec extends AbstractRestControllerSpec
         $container->get('request')->shouldBeCalled()->willReturn($request);
         $request->get('name')->shouldBeCalled()->willReturn('status-name');
 
-        $container->get('kreta_core.factory_status')->shouldBeCalled()->willReturn($statusFactory);
+        $container->get('kreta_core.factory.status')->shouldBeCalled()->willReturn($statusFactory);
         $statusFactory->create('status-name')->shouldBeCalled()->willReturn($status);
 
         $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext, 'manage_status');
@@ -276,7 +276,7 @@ class StatusControllerSpec extends AbstractRestControllerSpec
         $container->get('request')->shouldBeCalled()->willReturn($request);
         $request->get('name')->shouldBeCalled()->willReturn('status-name');
 
-        $container->get('kreta_core.factory_status')->shouldBeCalled()->willReturn($statusFactory);
+        $container->get('kreta_core.factory.status')->shouldBeCalled()->willReturn($statusFactory);
         $statusFactory->create('status-name')->shouldBeCalled()->willReturn($status);
 
         $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext, 'manage_status');

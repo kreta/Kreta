@@ -6,30 +6,30 @@
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
 services:
-    kreta_core.factory_comment:
-        class: %kreta_core.factory_class_comment%
-        arguments: [%kreta_core.class_comment%]
-    kreta_core.factory_issue:
-        class: %kreta_core.factory_class_issue%
-        arguments: [%kreta_core.class_issue%]
-    kreta_core.factory_label:
-        class: %kreta_core.factory_class_label%
-        arguments: [%kreta_core.class_label%]
-    kreta_core.factory_media:
-        class: %kreta_core.factory_class_media%
-        arguments: [%kreta_core.class_media%]
-    kreta_core.factory_project:
-        class: %kreta_core.factory_class_project%
-        arguments: [%kreta_core.class_project%, @kreta_core.factory_participant]
-    kreta_core.factory_participant:
-        class: %kreta_core.factory_class_participant%
-        arguments: [%kreta_core.class_participant%]
-    kreta_core.factory_resolution:
-        class: %kreta_core.factory_class_resolution%
-        arguments: [%kreta_core.class_resolution%]
-    kreta_core.factory_status:
-        class: %kreta_core.factory_class_status%
-        arguments: [%kreta_core.class_status%]
-    kreta_core.factory_user:
-        class: %kreta_core.factory_class_user%
-        arguments: [%kreta_core.class_user%]
+    kreta_core.factory.comment:
+        class: %kreta_core.factory_comment.class%
+        arguments: [%kreta_core.comment.class%]
+    kreta_core.factory.issue:
+        class: %kreta_core.factory_issue.class%
+        arguments: [%kreta_core.issue.class%]
+    kreta_core.factory.label:
+        class: %kreta_core.factory_label.class%
+        arguments: [%kreta_core.label.class%]
+    kreta_core.factory.media:
+        class: %kreta_core.factory_media.class%
+        arguments: [%kreta_core.media.class%]
+    kreta_core.factory.project:
+        class: %kreta_core.factory_project.class%
+        arguments: [%kreta_core.project.class%, @kreta_core.factory.participant]
+    kreta_core.factory.participant:
+        class: %kreta_core.factory_participant.class%
+        arguments: [%kreta_core.participant.class%]
+    kreta_core.factory.resolution:
+        class: %kreta_core.factory_resolution.class%
+        arguments: [%kreta_core.resolution.class%]
+    kreta_core.factory.status:
+        class: %kreta_core.factory_status.class%
+        arguments: [%kreta_core.status.class%]
+    kreta_core.factory.user:
+        class: %kreta_core.factory_user.class%
+        arguments: [%kreta_core.user.class%]

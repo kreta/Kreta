@@ -108,7 +108,7 @@ class ProjectController extends AbstractRestController
      */
     public function postProjectsAction()
     {
-        $project = $this->get('kreta_core.factory_project')->create($this->getCurrentUser());
+        $project = $this->get('kreta_core.factory.project')->create($this->getCurrentUser());
 
         return $this->manageForm(new ProjectType(), $project, ['project']);
     }
@@ -154,6 +154,6 @@ class ProjectController extends AbstractRestController
      */
     protected function getRepository()
     {
-        return $this->get('kreta_core.repository_project');
+        return $this->get('kreta_core.repository.project');
     }
 }

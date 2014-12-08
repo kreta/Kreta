@@ -119,7 +119,7 @@ class StatusController extends AbstractRestController
         if (!$name) {
             throw new BadRequestHttpException('Name should not be blank');
         }
-        $status = $this->get('kreta_core.factory_status')->create($name);
+        $status = $this->get('kreta_core.factory.status')->create($name);
         $status->setProject($this->getProjectIfAllowed($id, 'manage_status'));
 
         return $this->manageForm(new StatusType(), $status, ['status']);
@@ -226,6 +226,6 @@ class StatusController extends AbstractRestController
      */
     protected function getRepository()
     {
-        return $this->get('kreta_core.repository_status');
+        return $this->get('kreta_core.repository.status');
     }
 }

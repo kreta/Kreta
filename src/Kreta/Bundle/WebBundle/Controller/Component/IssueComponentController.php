@@ -27,7 +27,7 @@ class IssueComponentController extends Controller
      */
     public function userAction()
     {
-        $issues = $this->get('kreta_core.repository_issue')->findByAssignee(
+        $issues = $this->get('kreta_core.repository.issue')->findByAssignee(
             $this->getUser(),
             ['status' => 'ASC', 'priority' => 'DESC'],
             true

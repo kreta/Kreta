@@ -47,7 +47,7 @@ security:
                 failure_path: /login
 
                 oauth_user_provider:
-                    service: kreta_user_provider
+                    service: kreta_core.user_provider
             logout: true
             anonymous: true
 

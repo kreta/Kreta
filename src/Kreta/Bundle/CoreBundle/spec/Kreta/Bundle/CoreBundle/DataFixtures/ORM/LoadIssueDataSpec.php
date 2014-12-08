@@ -74,24 +74,24 @@ class LoadIssueDataSpec extends ObjectBehavior
         UserInterface $user
     )
     {
-        $container->get('kreta_core.repository_label')->shouldBeCalled()->willReturn($labelRepository);
+        $container->get('kreta_core.repository.label')->shouldBeCalled()->willReturn($labelRepository);
         $labelRepository->findAll()->shouldBeCalled()->willReturn([$label]);
 
-        $container->get('kreta_core.repository_project')->shouldBeCalled()->willReturn($projectRepository);
+        $container->get('kreta_core.repository.project')->shouldBeCalled()->willReturn($projectRepository);
         $projectRepository->findAll()->shouldBeCalled()->willReturn([$project]);
 
-        $container->get('kreta_core.repository_resolution')->shouldBeCalled()->willReturn($resolutionRepository);
+        $container->get('kreta_core.repository.resolution')->shouldBeCalled()->willReturn($resolutionRepository);
         $resolutionRepository->findAll()->shouldBeCalled()->willReturn([$resolution]);
 
-        $container->get('kreta_core.repository_status')->shouldBeCalled()->willReturn($statusRepository);
+        $container->get('kreta_core.repository.status')->shouldBeCalled()->willReturn($statusRepository);
         $statusRepository->findByProject(Argument::type('Kreta\Component\Core\Model\Interfaces\ProjectInterface'))
             ->shouldBeCalled()->willReturn([$status]);
 
-        $container->get('kreta_core.repository_participant')->shouldBeCalled()->willReturn($participantRepository);
+        $container->get('kreta_core.repository.participant')->shouldBeCalled()->willReturn($participantRepository);
         $participantRepository->findByProject($project)->shouldBeCalled()->willReturn([$participant]);
         $participant->getUser()->shouldBeCalled()->willReturn($user);
 
-        $container->get('kreta_core.factory_issue')->shouldBeCalled()->willReturn($factory);
+        $container->get('kreta_core.factory.issue')->shouldBeCalled()->willReturn($factory);
         $factory->create(
             Argument::type('Kreta\Component\Core\Model\Interfaces\ProjectInterface'),
             Argument::type('Kreta\Component\Core\Model\Interfaces\UserInterface')

@@ -78,7 +78,7 @@ fos_oauth_server:
     client_class: Kreta\Bundle\Api\ApiCoreBundle\Model\Client
     refresh_token_class: Kreta\Bundle\Api\ApiCoreBundle\Model\RefreshToken
     service:
-        user_provider: kreta_user_provider
+        user_provider: kreta_core.user_provider
         options:
             supported_scopes: user
 
@@ -97,7 +97,7 @@ fos_user:
 
 hwi_oauth:
     connect:
-        account_connector: kreta_user_provider
+        account_connector: kreta_core.user_provider
     firewall_name: main
     fosub:
         username_iterations: 30

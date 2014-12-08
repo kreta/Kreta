@@ -64,7 +64,7 @@ class IssueControllerSpec extends AbstractRestControllerSpec
         ParamFetcher $paramFetcher
     )
     {
-        $container->get('kreta_core.repository_issue')->shouldBeCalled()->willReturn($issueRepository);
+        $container->get('kreta_core.repository.issue')->shouldBeCalled()->willReturn($issueRepository);
 
         $this->getProjectIfExist($container, $projectRepository);
 
@@ -81,7 +81,7 @@ class IssueControllerSpec extends AbstractRestControllerSpec
         ParamFetcher $paramFetcher
     )
     {
-        $container->get('kreta_core.repository_issue')->shouldBeCalled()->willReturn($issueRepository);
+        $container->get('kreta_core.repository.issue')->shouldBeCalled()->willReturn($issueRepository);
 
         $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext, 'view', false);
 
@@ -100,7 +100,7 @@ class IssueControllerSpec extends AbstractRestControllerSpec
         Response $response
     )
     {
-        $container->get('kreta_core.repository_issue')->shouldBeCalled()->willReturn($issueRepository);
+        $container->get('kreta_core.repository.issue')->shouldBeCalled()->willReturn($issueRepository);
 
         $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext);
 
@@ -142,7 +142,7 @@ class IssueControllerSpec extends AbstractRestControllerSpec
         IssueRepository $issueRepository
     )
     {
-        $container->get('kreta_core.repository_issue')->shouldBeCalled()->willReturn($issueRepository);
+        $container->get('kreta_core.repository.issue')->shouldBeCalled()->willReturn($issueRepository);
         $issueRepository->find('issue-id')->shouldBeCalled()->willReturn(null);
 
         $this->shouldThrow(new NotFoundHttpException('Does not exist any entity with issue-id id'))
@@ -216,7 +216,7 @@ class IssueControllerSpec extends AbstractRestControllerSpec
         $container->has('security.context')->shouldBeCalled()->willReturn(true);
         $securityContext->getToken()->shouldBeCalled()->willReturn($token);
 
-        $container->get('kreta_core.factory_issue')->shouldBeCalled()->willReturn($issueFactory);
+        $container->get('kreta_core.factory.issue')->shouldBeCalled()->willReturn($issueFactory);
 
         $this->shouldThrow(new AccessDeniedException('Not allowed to access this resource'))
             ->during('postIssuesAction', ['project-id']);
@@ -246,7 +246,7 @@ class IssueControllerSpec extends AbstractRestControllerSpec
         $securityContext->getToken()->shouldBeCalled()->willReturn($token);
         $token->getUser()->shouldBeCalled()->willReturn($user);
 
-        $container->get('kreta_core.factory_issue')->shouldBeCalled()->willReturn($issueFactory);
+        $container->get('kreta_core.factory.issue')->shouldBeCalled()->willReturn($issueFactory);
         $issueFactory->create($project, $user)->shouldBeCalled()->willReturn($issue);
         $project->getParticipants()->shouldBeCalled()->willReturn([]);
 
@@ -290,7 +290,7 @@ class IssueControllerSpec extends AbstractRestControllerSpec
         $securityContext->getToken()->shouldBeCalled()->willReturn($token);
         $token->getUser()->shouldBeCalled()->willReturn($user);
 
-        $container->get('kreta_core.factory_issue')->shouldBeCalled()->willReturn($issueFactory);
+        $container->get('kreta_core.factory.issue')->shouldBeCalled()->willReturn($issueFactory);
         $issueFactory->create($project, $user)->shouldBeCalled()->willReturn($issue);
         $project->getParticipants()->shouldBeCalled()->willReturn([]);
 
@@ -345,7 +345,7 @@ class IssueControllerSpec extends AbstractRestControllerSpec
         $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext);
         $project->getParticipants()->shouldBeCalled()->willReturn([]);
 
-        $container->get('kreta_core.repository_issue')->shouldBeCalled()->willReturn($issueRepository);
+        $container->get('kreta_core.repository.issue')->shouldBeCalled()->willReturn($issueRepository);
         $issueRepository->find('issue-id')->shouldBeCalled()->willReturn(null);
 
         $this->shouldThrow(new NotFoundHttpException('Does not exist any entity with issue-id id'))
@@ -458,7 +458,7 @@ class IssueControllerSpec extends AbstractRestControllerSpec
         $result = true
     )
     {
-        $container->get('kreta_core.repository_issue')->shouldBeCalled()->willReturn($issueRepository);
+        $container->get('kreta_core.repository.issue')->shouldBeCalled()->willReturn($issueRepository);
         $issueRepository->find('issue-id')->shouldBeCalled()->willReturn($issue);
         $container->get('security.context')->shouldBeCalled()->willReturn($securityContext);
         $securityContext->isGranted($grant, $issue)->shouldBeCalled()->willReturn($result);

@@ -26,7 +26,7 @@ class LoadUserData extends DataFixtures
      */
     public function load(ObjectManager $manager)
     {
-        $photos = $this->loadMedias($manager, 'kreta_core.image_users_uploader', $this->userPath);
+        $photos = $this->loadMedias($manager, 'kreta_core.uploader.image_user', $this->userPath);
 
         $user = $this->createUser(['email' => 'kreta@kreta.com'], ['ROLE_ADMIN']);
         $user->setPhoto($photos[0]);
@@ -63,7 +63,7 @@ class LoadUserData extends DataFixtures
      */
     protected function createUser(array $userInfo = [], array $roles = ['ROLE_USER'])
     {
-        $user = $this->container->get('kreta_core.factory_user')->create();
+        $user = $this->container->get('kreta_core.factory.user')->create();
         if ($userInfo['email'] === 'kreta@kreta.com') {
             $user->setFirstname('Kretauser');
             $user->setLastname('Kretasurname');
