@@ -91,13 +91,13 @@ Feature: Manage issue
         "type": 0,
         "_links": {
           "self": {
-            "href": "http://kreta.localhost/app_test.php/api/projects/0/issues/0"
+            "href": "http://localhost/app_test.php/api/projects/0/issues/0"
           },
           "project": {
-            "href": "http://kreta.localhost/app_test.php/api/projects/0"
+            "href": "http://localhost/app_test.php/api/projects/0"
           },
           "issues": {
-            "href": "http://kreta.localhost/app_test.php/api/projects/0/issues"
+            "href": "http://localhost/app_test.php/api/projects/0/issues"
           }
         }
       }
@@ -295,13 +295,13 @@ Feature: Manage issue
         "type": 0,
         "_links": {
           "self": {
-            "href": "http://kreta.localhost/app_test.php/api/projects/0/issues/0"
+            "href": "http://localhost/app_test.php/api/projects/0/issues/0"
           },
           "project": {
-            "href": "http://kreta.localhost/app_test.php/api/projects/0"
+            "href": "http://localhost/app_test.php/api/projects/0"
           },
           "issues": {
-            "href": "http://kreta.localhost/app_test.php/api/projects/0/issues"
+            "href": "http://localhost/app_test.php/api/projects/0/issues"
           }
         }
       } 
@@ -417,13 +417,13 @@ Feature: Manage issue
         "type": 0,
         "_links": {
           "self": {
-            "href": "http://kreta.localhost/app_test.php/api/projects/1/issues/2"
+            "href": "http://localhost/app_test.php/api/projects/1/issues/2"
           },
           "project": {
-            "href": "http://kreta.localhost/app_test.php/api/projects/1"
+            "href": "http://localhost/app_test.php/api/projects/1"
           },
           "issues": {
-            "href": "http://kreta.localhost/app_test.php/api/projects/2/issues"
+            "href": "http://localhost/app_test.php/api/projects/2/issues"
           }
         }
       }
@@ -472,13 +472,13 @@ Feature: Manage issue
         "type": 0,
         "_links": {
           "self": {
-            "href": "http://kreta.localhost/app_test.php/api/projects/1/issues/3"
+            "href": "http://localhost/app_test.php/api/projects/1/issues/3"
           },
           "project": {
-            "href": "http://kreta.localhost/app_test.php/api/projects/1"
+            "href": "http://localhost/app_test.php/api/projects/1"
           },
           "issues": {
-            "href": "http://kreta.localhost/app_test.php/api/projects/3/issues"
+            "href": "http://localhost/app_test.php/api/projects/3/issues"
           }
         }
       }
@@ -527,13 +527,13 @@ Feature: Manage issue
         "type": 0,
         "_links": {
           "self": {
-            "href": "http://kreta.localhost/app_test.php/api/projects/0/issues/0"
+            "href": "http://localhost/app_test.php/api/projects/0/issues/0"
           },
           "project": {
-            "href": "http://kreta.localhost/app_test.php/api/projects/0"
+            "href": "http://localhost/app_test.php/api/projects/0"
           },
           "issues": {
-            "href": "http://kreta.localhost/app_test.php/api/projects/0/issues"
+            "href": "http://localhost/app_test.php/api/projects/0/issues"
           }
         }
       } 

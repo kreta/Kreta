@@ -64,16 +64,16 @@ Feature: Manage projects
         "short_name": "TPR1",
         "_links": {
           "self": {
-            "href": "http://kreta.localhost/app_test.php/api/projects/0"
+            "href": "http://localhost/app_test.php/api/projects/0"
           },
           "projects": {
-            "href": "http://kreta.localhost/app_test.php/api/projects"
+            "href": "http://localhost/app_test.php/api/projects"
           },
           "issues": {
-            "href": "http://kreta.localhost/app_test.php/api/projects/0/issues"
+            "href": "http://localhost/app_test.php/api/projects/0/issues"
           },
           "statuses": {
-            "href": "http://kreta.localhost/app_test.php/api/projects/0/statuses"
+            "href": "http://localhost/app_test.php/api/projects/0/statuses"
           }
         }
       }, {
@@ -103,16 +103,16 @@ Feature: Manage projects
         "short_name": "TPR2",
         "_links": {
           "self": {
-            "href": "http://kreta.localhost/app_test.php/api/projects/1"
+            "href": "http://localhost/app_test.php/api/projects/1"
           },
           "projects": {
-            "href": "http://kreta.localhost/app_test.php/api/projects"
+            "href": "http://localhost/app_test.php/api/projects"
           },
           "issues": {
-            "href": "http://kreta.localhost/app_test.php/api/projects/1/issues"
+            "href": "http://localhost/app_test.php/api/projects/1/issues"
           },
           "statuses": {
-            "href": "http://kreta.localhost/app_test.php/api/projects/1/statuses"
+            "href": "http://localhost/app_test.php/api/projects/1/statuses"
           }
         }
       }]
@@ -151,16 +151,16 @@ Feature: Manage projects
         "short_name":"TPR1",
         "_links":{
           "self":{
-            "href":"http://kreta.localhost/app_test.php/api/projects/0"
+            "href":"http://localhost/app_test.php/api/projects/0"
           },
           "projects":{
-            "href":"http://kreta.localhost/app_test.php/api/projects"
+            "href":"http://localhost/app_test.php/api/projects"
           },
           "issues":{
-            "href":"http://kreta.localhost/app_test.php/api/projects/0/issues"
+            "href":"http://localhost/app_test.php/api/projects/0/issues"
           },
           "statuses":{
-            "href":"http://kreta.localhost/app_test.php/api/projects/0/statuses"
+            "href":"http://localhost/app_test.php/api/projects/0/statuses"
           }
         }
       }
@@ -280,16 +280,16 @@ Feature: Manage projects
         "short_name": "NPR",
         "_links": {
           "self": {
-            "href": "http://kreta.localhost/app_test.php/api/projects/0"
+            "href": "http://localhost/app_test.php/api/projects/0"
           },
           "projects": {
-            "href": "http://kreta.localhost/app_test.php/api/projects"
+            "href": "http://localhost/app_test.php/api/projects"
           },
           "issues": {
-            "href": "http://kreta.localhost/app_test.php/api/projects/0/issues"
+            "href": "http://localhost/app_test.php/api/projects/0/issues"
           },
           "statuses": {
-            "href": "http://kreta.localhost/app_test.php/api/projects/0/statuses"
+            "href": "http://localhost/app_test.php/api/projects/0/statuses"
           }
         }
       }

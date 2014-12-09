@@ -62,5 +62,4 @@ default:
             browser_name: firefox
             show_auto: false
         Behat\Symfony2Extension: ~
-        Behat\WebApiExtension:
-            base_url: http://kreta.localhost/app_test.php
+        Behat\WebApiExtension: ~

@@ -55,13 +55,13 @@ Feature: Manage status
         "color": "#27ae60",
         "_links": {
           "self": {
-            "href": "http://kreta.localhost/app_test.php/api/projects/0/statuses/0"
+            "href": "http://localhost/app_test.php/api/projects/0/statuses/0"
           },
           "statuses": {
-            "href": "http://kreta.localhost/app_test.php/api/projects/0/statuses"
+            "href": "http://localhost/app_test.php/api/projects/0/statuses"
           },
           "project": {
-            "href": "http://kreta.localhost/app_test.php/api/projects/0"
+            "href": "http://localhost/app_test.php/api/projects/0"
           }
         }
       }, {
@@ -69,13 +69,13 @@ Feature: Manage status
         "color": "#2c3e50",
         "_links": {
           "self": {
-            "href": "http://kreta.localhost/app_test.php/api/projects/0/statuses/1"
+            "href": "http://localhost/app_test.php/api/projects/0/statuses/1"
           },
           "statuses": {
-            "href": "http://kreta.localhost/app_test.php/api/projects/0/statuses"
+            "href": "http://localhost/app_test.php/api/projects/0/statuses"
           },
           "project": {
-            "href": "http://kreta.localhost/app_test.php/api/projects/0"
+            "href": "http://localhost/app_test.php/api/projects/0"
           }
         }
       }, {
@@ -83,13 +83,13 @@ Feature: Manage status
         "color": "#f1c40f",
         "_links": {
           "self": {
-            "href": "http://kreta.localhost/app_test.php/api/projects/0/statuses/2"
+            "href": "http://localhost/app_test.php/api/projects/0/statuses/2"
           },
           "statuses": {
-            "href": "http://kreta.localhost/app_test.php/api/projects/0/statuses"
+            "href": "http://localhost/app_test.php/api/projects/0/statuses"
           },
           "project": {
-            "href": "http://kreta.localhost/app_test.php/api/projects/0"
+            "href": "http://localhost/app_test.php/api/projects/0"
           }
         }
       }, {
@@ -97,13 +97,13 @@ Feature: Manage status
         "color": "#c0392b",
         "_links": {
           "self": {
-            "href": "http://kreta.localhost/app_test.php/api/projects/0/statuses/3"
+            "href": "http://localhost/app_test.php/api/projects/0/statuses/3"
           },
           "statuses": {
-            "href": "http://kreta.localhost/app_test.php/api/projects/0/statuses"
+            "href": "http://localhost/app_test.php/api/projects/0/statuses"
           },
           "project": {
-            "href": "http://kreta.localhost/app_test.php/api/projects/0"
+            "href": "http://localhost/app_test.php/api/projects/0"
           }
         }
       }, {
@@ -111,13 +111,13 @@ Feature: Manage status
         "color": "#27ae60",
         "_links": {
           "self": {
-            "href": "http://kreta.localhost/app_test.php/api/projects/0/statuses/4"
+            "href": "http://localhost/app_test.php/api/projects/0/statuses/4"
           },
           "statuses": {
-            "href": "http://kreta.localhost/app_test.php/api/projects/0/statuses"
+            "href": "http://localhost/app_test.php/api/projects/0/statuses"
           },
           "project": {
-            "href": "http://kreta.localhost/app_test.php/api/projects/0"
+            "href": "http://localhost/app_test.php/api/projects/0"
           }
         }
       }]
@@ -134,13 +134,13 @@ Feature: Manage status
         "color": "#27ae60",
         "_links": {
           "self": {
-            "href": "http://kreta.localhost/app_test.php/api/projects/0/statuses/0"
+            "href": "http://localhost/app_test.php/api/projects/0/statuses/0"
           },
           "statuses": {
-            "href": "http://kreta.localhost/app_test.php/api/projects/0/statuses"
+            "href": "http://localhost/app_test.php/api/projects/0/statuses"
           },
           "project": {
-            "href": "http://kreta.localhost/app_test.php/api/projects/0"
+            "href": "http://localhost/app_test.php/api/projects/0"
           }
         }
       }
@@ -281,13 +281,13 @@ Feature: Manage status
         "color": "#FFFFFF",
         "_links": {
           "self": {
-            "href": "http://kreta.localhost/app_test.php/api/projects/0/statuses/0"
+            "href": "http://localhost/app_test.php/api/projects/0/statuses/0"
           },
           "statuses": {
-            "href": "http://kreta.localhost/app_test.php/api/projects/0/statuses"
+            "href": "http://localhost/app_test.php/api/projects/0/statuses"
           },
           "project": {
-            "href": "http://kreta.localhost/app_test.php/api/projects/0"
+            "href": "http://localhost/app_test.php/api/projects/0"
           }
         }
       }
