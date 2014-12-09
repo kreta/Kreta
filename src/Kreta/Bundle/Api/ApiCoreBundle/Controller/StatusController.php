@@ -11,10 +11,12 @@
 
 namespace Kreta\Bundle\Api\ApiCoreBundle\Controller;
 
+use FOS\RestBundle\Util\Codes;
 use Kreta\Bundle\Api\ApiCoreBundle\Controller\Abstracts\AbstractRestController;
 use Kreta\Bundle\Api\ApiCoreBundle\Form\Type\StatusType;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
  * Class StatusController.
@@ -187,7 +189,10 @@ class StatusController extends AbstractRestController
      *  },
      *  statusCodes = {
      *      204 = "",
-     *      403 = "Not allowed to access this resource",
+     *      403 = {
+     *          "Not allowed to access this resource",
+     *          "Remove operation has been cancelled, the status is currently in use"
+     *      },
      *      404 = {
      *          "Does not exist any project with <$id> id",
      *          "Does not exist any status with <$id> id"
@@ -200,9 +205,20 @@ class StatusController extends AbstractRestController
     public function deleteStatusesAction($projectId, $id)
     {
         $status = $this->getStatusIfAllowed($projectId, $id, 'manage_status');
+
+        $issues = $this->get('kreta_core.repository.issue')->findByProject($status->getProject());
+        foreach ($issues as $issue) {
+            if ($issue->getStatus()->getId() === $status->getId()) {
+                throw new HttpException(
+                    Codes::HTTP_FORBIDDEN,
+                    'Remove operation has been cancelled, the status is currently in use'
+                );
+            }
+        }
+
         $this->getRepository()->delete($status);
 
-        return $this->createResponse('', null, 204);
+        return $this->createResponse('', null, Codes::HTTP_NO_CONTENT);
     }
 
     /**

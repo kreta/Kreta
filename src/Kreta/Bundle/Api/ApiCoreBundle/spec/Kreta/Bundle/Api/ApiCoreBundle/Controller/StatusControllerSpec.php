@@ -13,11 +13,14 @@ namespace spec\Kreta\Bundle\Api\ApiCoreBundle\Controller;
 
 use Doctrine\Common\Persistence\AbstractManagerRegistry;
 use Doctrine\Common\Persistence\ObjectManager;
+use FOS\RestBundle\Util\Codes;
 use FOS\RestBundle\View\ViewHandler;
 use Kreta\Bundle\Api\ApiCoreBundle\Form\Type\StatusType;
 use Kreta\Component\Core\Factory\StatusFactory;
+use Kreta\Component\Core\Model\Interfaces\IssueInterface;
 use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Core\Model\Interfaces\StatusInterface;
+use Kreta\Component\Core\Repository\IssueRepository;
 use Kreta\Component\Core\Repository\ProjectRepository;
 use Kreta\Component\Core\Repository\StatusRepository;
 use Prophecy\Argument;
@@ -29,6 +32,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\SecurityContextInterface;
@@ -489,13 +493,51 @@ class StatusControllerSpec extends AbstractRestControllerSpec
             ->during('deleteStatusesAction', ['project-id', 'status-id']);
     }
 
-    function it_deletes_status(
+    function it_does_not_delete_status_because_the_status_is_in_use(
         ContainerInterface $container,
         ProjectRepository $projectRepository,
         ProjectInterface $project,
         SecurityContextInterface $securityContext,
         StatusRepository $statusRepository,
         StatusInterface $status,
+        IssueRepository $issueRepository,
+        IssueInterface $issue
+    )
+    {
+        $this->getStatusIfAllowed(
+            $container,
+            $projectRepository,
+            $project,
+            $securityContext,
+            $statusRepository,
+            $status,
+            'manage_status'
+        );
+
+        $status->getProject()->shouldBeCalled()->willReturn($project);
+        $container->get('kreta_core.repository.issue')->shouldBeCalled()->willReturn($issueRepository);
+        $issueRepository->findByProject($project)->shouldBeCalled()->willReturn([$issue]);
+        $issue->getStatus()->shouldBeCalled()->willReturn($status);
+        $status->getId()->shouldBeCalled()->willReturn('status-id');
+
+        $this->shouldThrow(
+            new HttpException(
+                Codes::HTTP_FORBIDDEN,
+                'Remove operation has been cancelled, the status is currently in use'
+            )
+        )->during('deleteStatusesAction', ['project-id', 'status-id']);
+    }
+
+    function it_deletes_status(
+        ContainerInterface $container,
+        ProjectRepository $projectRepository,
+        ProjectInterface $project,
+        SecurityContextInterface $securityContext,
+        IssueRepository $issueRepository,
+        IssueInterface $issue,
+        StatusRepository $statusRepository,
+        StatusInterface $status,
+        StatusInterface $status2,
         ViewHandler $viewHandler,
         Response $response
     )
@@ -509,6 +551,13 @@ class StatusControllerSpec extends AbstractRestControllerSpec
             $status,
             'manage_status'
         );
+
+        $status->getProject()->shouldBeCalled()->willReturn($project);
+        $container->get('kreta_core.repository.issue')->shouldBeCalled()->willReturn($issueRepository);
+        $issueRepository->findByProject($project)->shouldBeCalled()->willReturn([$issue]);
+        $issue->getStatus()->shouldBeCalled()->willReturn($status2);
+        $status->getId()->shouldBeCalled()->willReturn('status-id-1');
+        $status2->getId()->shouldBeCalled()->willReturn('status-id-2');
 
         $statusRepository->delete($status)->shouldBeCalled();
 

@@ -36,11 +36,11 @@ Feature: Manage issue
       | Test project 2 | user2@kreta.com | ROLE_PARTICIPANT |
       | Test project 2 | user4@kreta.com | ROLE_PARTICIPANT |
     And the following issues exist:
-      | id | numericId | project        | title        | description | reporter       | assignee       | type    | status   | priority | createdAt  |
-      | 0  | 1         | Test project 1 | Test issue 1 | Description | user@kreta.com | user@kreta.com | initial | Open     | 1        | 2014-10-21 |
-      | 1  | 2         | Test project 1 | Test issue 2 | Description | user@kreta.com | user@kreta.com | initial | Resolved | 1        | 2014-10-21 |
-      | 2  | 1         | Test project 2 | Test issue 1 | Description | user@kreta.com | user4@kreta.com | initial | Resolved | 1        | 2014-10-21 |
-      | 3  | 2         | Test project 2 | Test issue 1 | Description | user4@kreta.com | user@kreta.com | initial | Resolved | 1        | 2014-10-21 |
+      | id | numericId | project        | title        | description | reporter        | assignee        | type    | status   | priority | createdAt  |
+      | 0  | 1         | Test project 1 | Test issue 1 | Description | user@kreta.com  | user@kreta.com  | initial | Open     | 1        | 2014-10-21 |
+      | 1  | 2         | Test project 1 | Test issue 2 | Description | user@kreta.com  | user@kreta.com  | initial | Resolved | 1        | 2014-10-21 |
+      | 2  | 1         | Test project 2 | Test issue 1 | Description | user@kreta.com  | user4@kreta.com | initial | Resolved | 1        | 2014-10-21 |
+      | 3  | 2         | Test project 2 | Test issue 1 | Description | user4@kreta.com | user@kreta.com  | initial | Resolved | 1        | 2014-10-21 |
     And the following tokens exist:
       | token          | expiresAt | scope | user            |
       | access-token-0 | null      | user  | user@kreta.com  |

@@ -380,7 +380,7 @@ Feature: Manage status
       }
     """
 
-  Scenario: Deleting the 0 status
+  Scenario: Deleting the 1 status
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
     When I send a DELETE request to "/app_test.php/api/projects/0/statuses/1"
@@ -388,6 +388,18 @@ Feature: Manage status
     And the response should contain json:
     """
       {}
+    """
+
+  Scenario: Deleting the 0 status
+    Given I am authenticating with "access-token-0" token
+    Given I set header "content-type" with value "application/json"
+    When I send a DELETE request to "/app_test.php/api/projects/0/statuses/0"
+    Then the response code should be 403
+    And the response should contain json:
+    """
+      {
+        "error": "Remove operation has been cancelled, the status is currently in use"
+      }
     """
 
   Scenario: Deleting the unknown status
