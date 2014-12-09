@@ -74,7 +74,7 @@ class EmptyProfileListener
             return;
         }
 
-        if ($this->session->getFlashBag()->has('error')) {
+        if ($event->getRequest()->attributes->get('_route') === 'kreta_web_user_edit') {
             return;
         }
 

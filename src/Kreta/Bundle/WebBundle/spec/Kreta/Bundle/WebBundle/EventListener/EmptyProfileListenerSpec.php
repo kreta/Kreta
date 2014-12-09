@@ -14,6 +14,8 @@ namespace spec\Kreta\Bundle\WebBundle\EventListener;
 use Kreta\Component\Core\Model\Interfaces\UserInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
+use Symfony\Component\HttpFoundation\ParameterBag;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
@@ -47,11 +49,13 @@ class EmptyProfileListenerSpec extends ObjectBehavior
         $this->onKernelRequest($event);
     }
 
-    function it_avoids_infinite_loops(GetResponseEvent $event, Session $session, FlashBagInterface $flashBag)
+    function it_avoids_infinite_loops(GetResponseEvent $event, Request $request)
     {
         $event->getRequestType()->shouldBeCalled()->willReturn(HttpKernel::MASTER_REQUEST);
-        $session->getFlashBag()->shouldBeCalled()->willReturn($flashBag);
-        $flashBag->has('error')->shouldBeCalled()->willReturn(true);
+
+        $request->attributes = new ParameterBag();
+        $request->attributes->set('_route', 'kreta_web_user_edit');
+        $event->getRequest()->shouldBeCalled()->willReturn($request);
         $event->setResponse(Argument::any())->shouldNotBeCalled();
 
         $this->onKernelRequest($event);
@@ -59,16 +63,17 @@ class EmptyProfileListenerSpec extends ObjectBehavior
 
     function it_ignores_if_user_has_email(
         GetResponseEvent $event,
-        Session $session,
-        FlashBagInterface $flashBag,
         SecurityContextInterface $securityContext,
         TokenInterface $token,
-        UserInterface $user
+        UserInterface $user,
+        Request $request
     )
     {
         $event->getRequestType()->shouldBeCalled()->willReturn(HttpKernel::MASTER_REQUEST);
-        $session->getFlashBag()->shouldBeCalled()->willReturn($flashBag);
-        $flashBag->has('error')->shouldBeCalled()->willReturn(false);
+
+        $request->attributes = new ParameterBag();
+        $request->attributes->set('_route', 'kreta_homepage');
+        $event->getRequest()->shouldBeCalled()->willReturn($request);
 
         $securityContext->getToken()->shouldBeCalled()->willReturn($token);
         $token->getUser()->shouldBeCalled()->willReturn($user);
@@ -81,6 +86,7 @@ class EmptyProfileListenerSpec extends ObjectBehavior
 
     function it_redirects_to_profile_if_empty_email(
         GetResponseEvent $event,
+        Request $request,
         Session $session,
         FlashBagInterface $flashBag,
         SecurityContextInterface $securityContext,
@@ -89,9 +95,12 @@ class EmptyProfileListenerSpec extends ObjectBehavior
     )
     {
         $event->getRequestType()->shouldBeCalled()->willReturn(HttpKernel::MASTER_REQUEST);
-        $session->getFlashBag()->shouldBeCalled()->willReturn($flashBag);
-        $flashBag->has('error')->shouldBeCalled()->willReturn(false);
 
+        $request->attributes = new ParameterBag();
+        $request->attributes->set('_route', 'kreta_homepage');
+        $event->getRequest()->shouldBeCalled()->willReturn($request);
+
+        $session->getFlashBag()->shouldBeCalled()->willReturn($flashBag);
         $flashBag->add('error', 'Email required to start using Kreta')->shouldBeCalled();
         $securityContext->getToken()->shouldBeCalled()->willReturn($token);
         $token->getUser()->shouldBeCalled()->willReturn($user);
