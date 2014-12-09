@@ -35,7 +35,7 @@ class JsonExceptionListenerSpec extends ObjectBehavior
     )
     {
         $event->getRequest()->shouldBeCalled()->willReturn($request);
-        $request->isXmlHttpRequest()->shouldBeCalled()->willReturn(true);
+        $request->getRequestFormat()->shouldBeCalled()->willReturn('json');
         $event->getException()->shouldBeCalled()->willReturn($exception);
         $event->setResponse(Argument::type('Symfony\Component\HttpFoundation\JsonResponse'))->shouldBeCalled();
 
