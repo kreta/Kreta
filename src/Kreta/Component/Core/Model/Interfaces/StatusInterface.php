@@ -10,6 +10,7 @@
  */
 
 namespace Kreta\Component\Core\Model\Interfaces;
+
 use Finite\State\StateInterface;
 
 /**
@@ -19,6 +20,15 @@ use Finite\State\StateInterface;
  */
 interface StatusInterface extends StateInterface
 {
+    /**
+     * Sets id.
+     *
+     * @param string $id The id
+     *
+     * @return $this self Object
+     */
+    public function setId($id);
+
     /**
      * Gets id.
      *

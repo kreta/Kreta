@@ -17,8 +17,9 @@ default:
             contexts:
                 - Kreta\Bundle\Api\ApiCoreBundle\Behat\OauthContext
                 - Kreta\Bundle\Api\ApiCoreBundle\Behat\ProjectContext
+                - Kreta\Bundle\Api\ApiCoreBundle\Behat\IssueContext
                 - Kreta\Bundle\Api\ApiCoreBundle\Behat\UserContext
-                - Kreta\Bundle\CoreBundle\Behat\StatusContext
+                - Kreta\Bundle\Api\ApiCoreBundle\Behat\StatusContext
                 - Kreta\Bundle\CoreBundle\Behat\ParticipantContext
                 - Kreta\Bundle\WebBundle\Behat\DefaultContext
             filters:

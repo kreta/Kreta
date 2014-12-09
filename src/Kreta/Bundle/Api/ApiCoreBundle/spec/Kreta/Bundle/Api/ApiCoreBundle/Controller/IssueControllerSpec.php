@@ -117,7 +117,7 @@ class IssueControllerSpec extends AbstractRestControllerSpec
 
         $issueRepository->findByProject(
             $project,
-            ['created-at' => 'ASC'],
+            ['createdAt' => 'ASC'],
             10,
             1,
             [

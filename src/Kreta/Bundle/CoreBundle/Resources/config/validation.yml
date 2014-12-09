@@ -40,17 +40,21 @@ Kreta\Component\Core\Model\Issue:
     properties:
         title:
             - NotBlank: ~
+        type:
+            - NotBlank: ~
         assignee:
+            - NotBlank: ~
+        priority:
             - NotBlank: ~
 Kreta\Component\Core\Model\Status:
     constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
-            fields: [title, project]
-            message: 'An issue with identical title is already exist in this project'
+            fields: [name, project]
+            message: 'A status with identical name is already exist in this project'
     properties:
-        title:
+        color:
             - NotBlank: ~
-        description:
+        name:
             - NotBlank: ~
-        assignee:
+        type:
             - NotBlank: ~

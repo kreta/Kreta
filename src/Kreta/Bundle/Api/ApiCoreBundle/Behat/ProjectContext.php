@@ -46,6 +46,11 @@ class ProjectContext extends RawMinkContext implements Context, KernelAwareConte
             $metadata->setIdGenerator(new \Doctrine\ORM\Id\AssignedGenerator());
 
             $manager->persist($project);
+            
+            $statuses = $this->kernel->getContainer()->get('kreta_core.repository.status')->findByProject($project);
+            foreach ($statuses as $status) {
+                $manager->remove($status);
+            }
         }
 
         $manager->flush();

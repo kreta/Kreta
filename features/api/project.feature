@@ -29,7 +29,7 @@ Feature: Manage projects
       | token          | expiresAt | scope | user            |
       | access-token-0 | null      | user  | user@kreta.com  |
       | access-token-1 | null      | user  | user2@kreta.com |
-      | access-token-2 | 1234567   | user  | user3@kreta.com |
+      | access-token-2 | null      | user  | user3@kreta.com |
 
   Scenario: Getting all the project
     Given I am authenticating with "access-token-0" token
