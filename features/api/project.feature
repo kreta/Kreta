@@ -198,7 +198,7 @@ Feature: Manage projects
         "shortName": "NPR"
       }
     """
-    Then the response code should be 200
+    Then the response code should be 201
 
   Scenario: Creating a project without parameters
     Given I am authenticating with "access-token-0" token

@@ -83,6 +83,7 @@ abstract class AbstractRestControllerSpec extends ObjectBehavior
         $formFactory->create($formType, $object, ['csrf_protection' => false, 'method' => $requestMethod])
             ->shouldBeCalled()->willReturn($form);
         $form->handleRequest($request)->shouldBeCalled()->willReturn($form);
+        $form->isSubmitted()->shouldBeCalled()->willReturn(true);
         $form->isValid()->shouldBeCalled()->willReturn(false);
         $form->getErrors()->shouldBeCalled()->willReturn([$error]);
         $error->getMessage()->shouldBeCalled()->willReturn('error message');
@@ -93,7 +94,6 @@ abstract class AbstractRestControllerSpec extends ObjectBehavior
         $error->getMessage()->shouldBeCalled()->willReturn('error message');
         $formChild->all()->shouldBeCalled()->willReturn([$formGrandChild]);
         $formGrandChild->isValid()->shouldBeCalled()->willReturn(true);
-
         $container->get('fos_rest.view_handler')->shouldBeCalled()->willReturn($viewHandler);
         $viewHandler->handle(Argument::type('FOS\RestBundle\View\View'))->shouldBeCalled()->willReturn($response);
     }
@@ -117,6 +117,7 @@ abstract class AbstractRestControllerSpec extends ObjectBehavior
         $request->getMethod()->shouldBeCalled()->willReturn($requestMethod);
         $formFactory->create($formType, $object, ['csrf_protection' => false, 'method' => $requestMethod])
             ->shouldBeCalled()->willReturn($form);
+        $form->isSubmitted()->shouldBeCalled()->willReturn(true);
         $form->handleRequest($request)->shouldBeCalled()->willReturn($form);
         $form->isValid()->shouldBeCalled()->willReturn(true);
         $container->has('doctrine')->shouldBeCalled()->willReturn(true);
@@ -124,7 +125,6 @@ abstract class AbstractRestControllerSpec extends ObjectBehavior
         $registry->getManager()->shouldBeCalled()->willReturn($manager);
         $manager->persist($object)->shouldBeCalled();
         $manager->flush()->shouldBeCalled();
-
         $container->get('fos_rest.view_handler')->shouldBeCalled()->willReturn($viewHandler);
         $viewHandler->handle(Argument::type('FOS\RestBundle\View\View'))->shouldBeCalled()->willReturn($response);
     }

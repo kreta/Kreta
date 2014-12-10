@@ -138,7 +138,7 @@ Feature: Manage issue
         "assignee": "1"
       }
     """
-    Then the response code should be 200
+    Then the response code should be 201
 
   Scenario: Creating a issue assigning to user which is not a project participant
     Given I am authenticating with "access-token-0" token

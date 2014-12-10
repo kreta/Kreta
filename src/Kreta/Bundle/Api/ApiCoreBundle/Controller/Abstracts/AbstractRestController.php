@@ -157,18 +157,22 @@ abstract class AbstractRestController extends FOSRestController
     protected function manageForm(AbstractType $formType, $resource, $groups = [])
     {
         $request = $this->get('request');
+        $method = $request->getMethod();
         $form = $this->createForm(
             $formType,
             $resource,
-            ['csrf_protection' => false, 'method' => $request->getMethod()]
+            ['csrf_protection' => false, 'method' => $method]
         );
         $form->handleRequest($request);
-        if ($form->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $manager = $this->getDoctrine()->getManager();
             $manager->persist($resource);
             $manager->flush();
+            if ($method === 'PUT') {
+                return $this->createResponse($resource, $groups, Codes::HTTP_OK);
+            }
 
-            return $this->createResponse($resource, $groups);
+            return $this->createResponse($resource, $groups, Codes::HTTP_CREATED);
         }
 
         return $this->createResponse($this->getFormErrors($form), null, Codes::HTTP_BAD_REQUEST);

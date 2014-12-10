@@ -179,7 +179,7 @@ Feature: Manage status
         "type": "initial"
       }
     """
-    Then the response code should be 200
+    Then the response code should be 201
 
   Scenario: Creating a status without parameters
     Given I am authenticating with "access-token-0" token
