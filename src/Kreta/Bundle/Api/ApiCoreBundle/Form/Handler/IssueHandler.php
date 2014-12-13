@@ -9,28 +9,19 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\Bundle\WebBundle\FormHandler;
+namespace Kreta\Bundle\Api\ApiCoreBundle\Form\Handler;
 
-use Kreta\Bundle\CoreBundle\Form\Type\IssueType;
+use Kreta\Bundle\Api\ApiCoreBundle\Form\Type\IssueType;
+use Kreta\Bundle\WebBundle\FormHandler\IssueFormHandler as BaseIssueFormHandler;
 use Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
 
 /**
- * Class IssueFormHandler.
+ * Class IssueHandler.
  *
- * @package Kreta\Bundle\WebBundle\FormHandler
+ * @package Kreta\Bundle\Api\ApiCoreBundle\Form\Handler
  */
-class IssueFormHandler extends AbstractFormHandler
+class IssueHandler extends BaseIssueFormHandler
 {
-    /**
-     * {@inheritdoc}
-     */
-    protected $successMessage = 'Issue saved successfully';
-
-    /**
-     * {@inheritdoc}
-     */
-    protected $errorMessage = 'Error saving issue';
-
     /**
      * {@inheritdoc}
      */

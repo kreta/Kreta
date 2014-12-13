@@ -149,7 +149,7 @@ Feature: Manage status
   Scenario: Getting the 0 status with user which is not a participant
     Given I am authenticating with "access-token-2" token
     When I send a GET request to "/app_test.php/api/projects/1/statuses/0"
-    Then the response code should be 500
+    Then the response code should be 403
     And the response should contain json:
     """
       {
@@ -254,7 +254,7 @@ Feature: Manage status
         "type": "initial"
       }
     """
-    Then the response code should be 500
+    Then the response code should be 403
     And the response should contain json:
     """
       {
@@ -372,7 +372,7 @@ Feature: Manage status
         "type": "initial"
       }
     """
-    Then the response code should be 500
+    Then the response code should be 403
     And the response should contain json:
     """
       {
@@ -418,7 +418,7 @@ Feature: Manage status
     Given I am authenticating with "access-token-1" token
     Given I set header "content-type" with value "application/json"
     When I send a DELETE request to "/app_test.php/api/projects/0/statuses/0"
-    Then the response code should be 500
+    Then the response code should be 403
     And the response should contain json:
     """
       {

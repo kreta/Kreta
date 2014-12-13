@@ -180,7 +180,7 @@ Feature: Manage projects
   Scenario: Getting the project that the user is not allowed
     Given I am authenticating with "access-token-1" token
     When I send a GET request to "/app_test.php/api/projects/0"
-    Then the response code should be 500
+    Then the response code should be 403
     And the response should contain json:
     """
       {

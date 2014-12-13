@@ -40,7 +40,7 @@ class OauthContext extends WebApiContext implements Context, KernelAwareContext
         $container = $this->kernel->getContainer();
         $manager = $container->get('doctrine')->getManager();
 
-        $client = $container->get('kreta_api_core.command_createClientCommand')
+        $client = $container->get('kreta_api_core.command.create_client')
             ->generateClient(['http://kreta.io'], ['password']);
 
         $accessTokenManager = $container->get('fos_oauth_server.access_token_manager.default');

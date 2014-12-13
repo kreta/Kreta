@@ -26,8 +26,11 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class CommentFormHandlerSpec extends ObjectBehavior
 {
-    function let(FormFactory $formFactory, ObjectManager $manager,
-                 EventDispatcherInterface $eventDispatcher)
+    function let(
+        FormFactory $formFactory,
+        ObjectManager $manager,
+        EventDispatcherInterface $eventDispatcher
+    )
     {
         $this->beConstructedWith($formFactory, $manager, $eventDispatcher);
     }
@@ -37,10 +40,15 @@ class CommentFormHandlerSpec extends ObjectBehavior
         $this->shouldHaveType('Kreta\Bundle\WebBundle\FormHandler\CommentFormHandler');
     }
 
+    function it_extends_abstract_form_handler()
+    {
+        $this->shouldHaveType('Kreta\Bundle\WebBundle\FormHandler\AbstractFormHandler');
+    }
+
     function it_handles_form(Request $request, CommentInterface $comment, FormFactory $formFactory)
     {
-        $formFactory->create(Argument::type('\Kreta\Bundle\CoreBundle\Form\Type\CommentType'), $comment);
-        $request->isMethod('POST')->shouldBeCalled()->willReturn(false);
-        $this->handleForm($request, $comment, null);
+        $formFactory->create(Argument::type('\Kreta\Bundle\CoreBundle\Form\Type\CommentType'), $comment, []);
+
+        $this->handleForm($request, $comment, []);
     }
 }

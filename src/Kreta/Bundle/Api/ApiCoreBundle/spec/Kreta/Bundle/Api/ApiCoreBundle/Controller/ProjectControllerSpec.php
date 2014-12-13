@@ -11,14 +11,10 @@
 
 namespace spec\Kreta\Bundle\Api\ApiCoreBundle\Controller;
 
-use Doctrine\Common\Persistence\AbstractManagerRegistry;
-use Doctrine\Common\Persistence\ObjectManager;
 use FOS\RestBundle\Request\ParamFetcher;
 use FOS\RestBundle\View\ViewHandler;
-use Kreta\Bundle\Api\ApiCoreBundle\Form\Type\ProjectType;
-use Kreta\Component\Core\Factory\ParticipantFactory;
+use Kreta\Bundle\Api\ApiCoreBundle\Form\Handler\ProjectHandler;
 use Kreta\Component\Core\Factory\ProjectFactory;
-use Kreta\Component\Core\Model\Interfaces\ParticipantInterface;
 use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Core\Model\Interfaces\UserInterface;
 use Kreta\Component\Core\Repository\ProjectRepository;
@@ -26,13 +22,12 @@ use Prophecy\Argument;
 use spec\Kreta\Bundle\Api\ApiCoreBundle\Controller\Abstracts\AbstractRestControllerSpec;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\FormError;
-use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
@@ -66,7 +61,7 @@ class ProjectControllerSpec extends AbstractRestControllerSpec
     {
         $this->getCurrentUser($container, $securityContext, $token);
 
-        $this->shouldThrow(new AccessDeniedException('Not allowed to access this resource'))
+        $this->shouldThrow(new AccessDeniedHttpException('Not allowed to access this resource'))
             ->during('getProjectsAction', [$paramFetcher]);
     }
 
@@ -119,7 +114,7 @@ class ProjectControllerSpec extends AbstractRestControllerSpec
     {
         $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext, 'view', false);
 
-        $this->shouldThrow(new AccessDeniedException('Not allowed to access this resource'))
+        $this->shouldThrow(new AccessDeniedHttpException('Not allowed to access this resource'))
             ->during('getProjectAction', ['project-id']);
     }
 
@@ -142,22 +137,23 @@ class ProjectControllerSpec extends AbstractRestControllerSpec
 
     function it_posts_project(
         ContainerInterface $container,
+        Request $request,
+        FormInterface $form,
+        ViewHandler $viewHandler,
+        Response $response,
+        ProjectHandler $projectHandler,
         ProjectFactory $projectFactory,
         ProjectInterface $project,
-        ParticipantFactory $participantFactory,
-        ParticipantInterface $participant,
         SecurityContextInterface $securityContext,
         TokenInterface $token,
         UserInterface $user,
         Request $request,
-        FormFactoryInterface $formFactory,
         FormInterface $form,
-        AbstractManagerRegistry $registry,
-        ObjectManager $manager,
         ViewHandler $viewHandler,
         Response $response
     )
     {
+        $container->get('kreta_api_core.form_handler.project')->shouldBeCalled()->willReturn($projectHandler);
         $this->getCurrentUser($container, $securityContext, $token, $user);
 
         $container->get('kreta_core.factory.project')->shouldBeCalled()->willReturn($projectFactory);
@@ -166,18 +162,12 @@ class ProjectControllerSpec extends AbstractRestControllerSpec
         $this->processForm(
             $container,
             $request,
-            $formFactory,
             $form,
-            $registry,
-            $manager,
             $viewHandler,
+            $projectHandler,
             $response,
-            new ProjectType(),
             $project
         );
-
-        $container->get('fos_rest.view_handler')->shouldBeCalled()->willReturn($viewHandler);
-        $viewHandler->handle(Argument::type('FOS\RestBundle\View\View'))->shouldBeCalled()->willReturn($response);
 
         $this->postProjectsAction()->shouldReturn($response);
     }
@@ -186,13 +176,11 @@ class ProjectControllerSpec extends AbstractRestControllerSpec
         ContainerInterface $container,
         ProjectFactory $projectFactory,
         ProjectInterface $project,
-        ParticipantFactory $participantFactory,
-        ParticipantInterface $participant,
+        ProjectHandler $projectHandler,
         SecurityContextInterface $securityContext,
         TokenInterface $token,
         UserInterface $user,
         Request $request,
-        FormFactoryInterface $formFactory,
         FormInterface $form,
         FormError $error,
         FormInterface $formChild,
@@ -201,26 +189,24 @@ class ProjectControllerSpec extends AbstractRestControllerSpec
         Response $response
     )
     {
-        $container->get('kreta_core.factory.project')->shouldBeCalled()->willReturn($projectFactory);
+        $container->get('kreta_api_core.form_handler.project')->shouldBeCalled()->willReturn($projectHandler);
         $this->getCurrentUser($container, $securityContext, $token, $user);
+
+        $container->get('kreta_core.factory.project')->shouldBeCalled()->willReturn($projectFactory);
         $projectFactory->create($user)->shouldBeCalled()->willReturn($project);
 
         $this->getFormErrors(
             $container,
             $request,
-            $formFactory,
             $form,
             $error,
             $formChild,
             $formGrandChild,
-            $viewHandler,
             $response,
-            new ProjectType(),
+            $viewHandler,
+            $projectHandler,
             $project
         );
-
-        $container->get('fos_rest.view_handler')->shouldBeCalled()->willReturn($viewHandler);
-        $viewHandler->handle(Argument::type('FOS\RestBundle\View\View'))->shouldBeCalled()->willReturn($response);
 
         $this->postProjectsAction()->shouldReturn($response);
     }
@@ -231,32 +217,26 @@ class ProjectControllerSpec extends AbstractRestControllerSpec
         ProjectInterface $project,
         SecurityContextInterface $securityContext,
         Request $request,
-        FormFactoryInterface $formFactory,
+        ProjectHandler $projectHandler,
         FormInterface $form,
-        AbstractManagerRegistry $registry,
-        ObjectManager $manager,
         ViewHandler $viewHandler,
         Response $response
     )
     {
+        $container->get('kreta_api_core.form_handler.project')->shouldBeCalled()->willReturn($projectHandler);
+
         $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext, 'edit');
 
         $this->processForm(
             $container,
             $request,
-            $formFactory,
             $form,
-            $registry,
-            $manager,
             $viewHandler,
+            $projectHandler,
             $response,
-            new ProjectType(),
             $project,
             'PUT'
         );
-
-        $container->get('fos_rest.view_handler')->shouldBeCalled()->willReturn($viewHandler);
-        $viewHandler->handle(Argument::type('FOS\RestBundle\View\View'))->shouldBeCalled()->willReturn($response);
 
         $this->putProjectsAction('project-id')->shouldReturn($response);
     }
@@ -267,7 +247,7 @@ class ProjectControllerSpec extends AbstractRestControllerSpec
         ProjectInterface $project,
         SecurityContextInterface $securityContext,
         Request $request,
-        FormFactoryInterface $formFactory,
+        projectHandler $projectHandler,
         FormInterface $form,
         FormError $error,
         FormInterface $formChild,
@@ -276,25 +256,23 @@ class ProjectControllerSpec extends AbstractRestControllerSpec
         Response $response
     )
     {
+        $container->get('kreta_api_core.form_handler.project')->shouldBeCalled()->willReturn($projectHandler);
+
         $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext, 'edit');
 
         $this->getFormErrors(
             $container,
             $request,
-            $formFactory,
             $form,
             $error,
             $formChild,
             $formGrandChild,
-            $viewHandler,
             $response,
-            new ProjectType(),
+            $viewHandler,
+            $projectHandler,
             $project,
             'PUT'
         );
-
-        $container->get('fos_rest.view_handler')->shouldBeCalled()->willReturn($viewHandler);
-        $viewHandler->handle(Argument::type('FOS\RestBundle\View\View'))->shouldBeCalled()->willReturn($response);
 
         $this->putProjectsAction('project-id')->shouldReturn($response);
     }

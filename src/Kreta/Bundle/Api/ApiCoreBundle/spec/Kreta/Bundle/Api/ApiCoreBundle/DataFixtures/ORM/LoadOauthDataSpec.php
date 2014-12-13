@@ -58,7 +58,7 @@ class LoadOauthDataSpec extends ObjectBehavior
         ObjectManager $manager
     )
     {
-        $container->get('kreta_api_core.command_createClientCommand')
+        $container->get('kreta_api_core.command.create_client')
             ->shouldBeCalled()->willReturn($createClientCommand);
         $createClientCommand->generateClient(
             ['http://kreta.io'], ['authorization_code', 'password', 'refresh_token', 'token', 'client_credentials']

@@ -21,33 +21,52 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\FileBag;
 
 /**
- * Class ProjectFormHandler
+ * Class ProjectFormHandler.
  *
  * @package Kreta\Bundle\WebBundle\FormHandler
  */
 class ProjectFormHandler extends AbstractFormHandler
 {
     /**
-     * @var MediaFactory
+     * The media factory.
+     *
+     * @var \Kreta\Component\Core\Factory\MediaFactory
      */
     protected $mediaFactory;
 
+    /**
+     * The media uploader.
+     *
+     * @var \Kreta\Component\Core\Uploader\MediaUploader
+     */
     protected $uploader;
 
+    /**
+     * {@inheritdoc}
+     */
     protected $successMessage = 'Project saved successfully';
 
+    /**
+     * {@inheritdoc}
+     */
     protected $errorMessage = 'Error saving project';
 
     /**
-     * @param FormFactory              $formFactory     Used to create a new Form instance
-     * @param ObjectManager            $manager         Used to persist and flush the object
-     * @param EventDispatcherInterface $eventDispatcher Used to dispatch FormHandlerEvents
-     * @param MediaFactory             $mediaFactory    Used to create a new Project image
-     * @param MediaUploader            $uploader        Used to upload Project images
+     * Constructor.
+     *
+     * @param \Symfony\Component\Form\FormFactory                         $formFactory     Creates a new Form instance
+     * @param \Doctrine\Common\Persistence\ObjectManager                  $manager         Persists and flush the object
+     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher Dispatches FormHandlerEvents
+     * @param \Kreta\Component\Core\Factory\MediaFactory                  $mediaFactory    Creates a new Project image
+     * @param \Kreta\Component\Core\Uploader\MediaUploader                $uploader        Uploads Project images
      */
-    public function __construct(FormFactory $formFactory, ObjectManager $manager,
-                                EventDispatcherInterface $eventDispatcher, MediaFactory $mediaFactory,
-                                MediaUploader $uploader)
+    public function __construct(
+        FormFactory $formFactory,
+        ObjectManager $manager,
+        EventDispatcherInterface $eventDispatcher,
+        MediaFactory $mediaFactory,
+        MediaUploader $uploader
+    )
     {
         parent::__construct($formFactory, $manager, $eventDispatcher);
         $this->mediaFactory = $mediaFactory;
@@ -57,9 +76,9 @@ class ProjectFormHandler extends AbstractFormHandler
     /**
      * {@inheritdoc}
      */
-    protected function createForm($object, $formOptions = null)
+    protected function createForm($object, array $formOptions = [])
     {
-        return $this->formFactory->create(new ProjectType(), $object);
+        return $this->formFactory->create(new ProjectType(), $object, $formOptions);
     }
 
     /**

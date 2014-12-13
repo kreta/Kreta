@@ -106,7 +106,7 @@ Feature: Manage issue
   Scenario: Getting the 0 issue with user which is not a participant
     Given I am authenticating with "access-token-2" token
     When I send a GET request to "/app_test.php/api/projects/1/issues/2"
-    Then the response code should be 500
+    Then the response code should be 403
     And the response should contain json:
     """
       {
@@ -244,7 +244,7 @@ Feature: Manage issue
         "assignee": "1"
       }
     """
-    Then the response code should be 500
+    Then the response code should be 403
     And the response should contain json:
     """
       {
@@ -366,7 +366,7 @@ Feature: Manage issue
         "assignee": "1"
       }
     """
-    Then the response code should be 500
+    Then the response code should be 403
     And the response should contain json:
     """
       {

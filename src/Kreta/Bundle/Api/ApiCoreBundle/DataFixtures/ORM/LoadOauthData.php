@@ -29,7 +29,7 @@ class LoadOauthData extends DataFixtures
      */
     public function load(ObjectManager $manager)
     {
-        $client = $this->container->get('kreta_api_core.command_createClientCommand')->generateClient(
+        $client = $this->container->get('kreta_api_core.command.create_client')->generateClient(
             ['http://kreta.io'], ['authorization_code', 'password', 'refresh_token', 'token', 'client_credentials']
         );
 

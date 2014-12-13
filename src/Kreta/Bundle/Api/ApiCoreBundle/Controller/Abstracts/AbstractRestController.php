@@ -17,11 +17,11 @@ use FOS\RestBundle\Request\ParamFetcher;
 use FOS\RestBundle\Util\Codes;
 use FOS\RestBundle\View\View;
 use JMS\Serializer\SerializationContext;
+use Kreta\Bundle\WebBundle\FormHandler\AbstractFormHandler;
 use Kreta\Component\Core\Model\Interfaces\UserInterface;
-use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Abstract Class AbstractRestController.
@@ -46,7 +46,7 @@ abstract class AbstractRestController extends FOSRestController
     protected function getCurrentUser()
     {
         if (!$this->getUser() instanceof UserInterface) {
-            throw new AccessDeniedException('Not allowed to access this resource');
+            throw new AccessDeniedHttpException('Not allowed to access this resource');
         }
 
         return $this->getUser();
@@ -146,33 +146,68 @@ abstract class AbstractRestController extends FOSRestController
     }
 
     /**
-     * Manage POST and PUT requests with logic of forms returning the response or form's validation errors.
+     * Processes POST requests.
      *
-     * @param \Symfony\Component\Form\AbstractType $formType The form of resource object
-     * @param mixed                                $resource The object of resource
-     * @param string[]                             $groups   The serialization groups
+     * @param \Kreta\Bundle\WebBundle\FormHandler\AbstractFormHandler $formHandler The form handler
+     * @param mixed                                                   $resource    The object of resource
+     * @param string[]                                                $groups      The serialization groups
+     * @param array                                                   $formOptions Array which contains the form options
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    protected function manageForm(AbstractType $formType, $resource, $groups = [])
+    protected function post(
+        AbstractFormHandler $formHandler,
+        $resource,
+        array $groups = [],
+        array $formOptions = ['csrf_protection' => false, 'method' => 'POST']
+    )
     {
-        $request = $this->get('request');
-        $method = $request->getMethod();
-        $form = $this->createForm(
-            $formType,
-            $resource,
-            ['csrf_protection' => false, 'method' => $method]
-        );
-        $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
-            $manager = $this->getDoctrine()->getManager();
-            $manager->persist($resource);
-            $manager->flush();
-            if ($method === 'PUT') {
-                return $this->createResponse($resource, $groups, Codes::HTTP_OK);
-            }
+        return $this->processFormRequest($formHandler, $formOptions, $resource, $groups, Codes::HTTP_CREATED);
+    }
 
-            return $this->createResponse($resource, $groups, Codes::HTTP_CREATED);
+    /**
+     * Processes PUT requests.
+     *
+     * @param \Kreta\Bundle\WebBundle\FormHandler\AbstractFormHandler $formHandler The form handler
+     * @param mixed                                                   $resource    The object of resource
+     * @param string[]                                                $groups      The serialization groups
+     * @param array                                                   $formOptions Array which contains the form options
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    protected function put(
+        AbstractFormHandler $formHandler,
+        $resource,
+        array $groups = [],
+        array $formOptions = ['csrf_protection' => false, 'method' => 'PUT']
+    )
+    {
+        return $this->processFormRequest($formHandler, $formOptions, $resource, $groups, Codes::HTTP_OK);
+    }
+
+    /**
+     * Processes form requests (POST and PUT requests) returning the response or form's validation errors.
+     *
+     * @param \Kreta\Bundle\WebBundle\FormHandler\AbstractFormHandler $formHandler The form handler
+     * @param array                                                   $formOptions Array which contains the form options
+     * @param mixed                                                   $resource    The object of resource
+     * @param string[]                                                $groups      The serialization groups
+     * @param int                                                     $statusCode  The http status code, by default 200
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    protected function processFormRequest(
+        AbstractFormHandler $formHandler,
+        array $formOptions = [],
+        $resource,
+        array $groups = [],
+        $statusCode = Codes::HTTP_OK
+    )
+    {
+        $form = $formHandler->handleForm($this->get('request'), $resource, $formOptions);
+
+        if ($form->isValid()) {
+            return $this->createResponse($resource, $groups, $statusCode);
         }
 
         return $this->createResponse($this->getFormErrors($form), null, Codes::HTTP_BAD_REQUEST);
@@ -191,7 +226,7 @@ abstract class AbstractRestController extends FOSRestController
     {
         $project = $this->getResourceIfExists($id, $this->get('kreta_core.repository.project'));
         if (!$this->get('security.context')->isGranted($grant, $project)) {
-            throw new AccessDeniedException('Not allowed to access this resource');
+            throw new AccessDeniedHttpException('Not allowed to access this resource');
         }
 
         return $project;

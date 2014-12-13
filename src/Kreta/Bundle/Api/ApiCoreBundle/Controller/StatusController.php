@@ -13,7 +13,6 @@ namespace Kreta\Bundle\Api\ApiCoreBundle\Controller;
 
 use FOS\RestBundle\Util\Codes;
 use Kreta\Bundle\Api\ApiCoreBundle\Controller\Abstracts\AbstractRestController;
-use Kreta\Bundle\Api\ApiCoreBundle\Form\Type\StatusType;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -99,7 +98,7 @@ class StatusController extends AbstractRestController
      *    }
      *  },
      *  statusCodes = {
-     *      200 = "Successfully created",
+     *      201 = "Successfully created",
      *      400 = {
      *          "Name should not be blank",
      *          "Color should not be blank",
@@ -124,7 +123,11 @@ class StatusController extends AbstractRestController
         $status = $this->get('kreta_core.factory.status')->create($name);
         $status->setProject($this->getProjectIfAllowed($id, 'manage_status'));
 
-        return $this->manageForm(new StatusType(), $status, ['status']);
+        return $this->post(
+            $this->get('kreta_api_core.form_handler.status'),
+            $status,
+            ['status']
+        );
     }
 
     /**
@@ -167,8 +170,10 @@ class StatusController extends AbstractRestController
      */
     public function putStatusesAction($projectId, $id)
     {
-        return $this->manageForm(
-            new StatusType(), $this->getStatusIfAllowed($projectId, $id, 'manage_status'), ['status']
+        return $this->put(
+            $this->get('kreta_api_core.form_handler.status'),
+            $this->getStatusIfAllowed($projectId, $id, 'manage_status'),
+            ['status']
         );
     }
 

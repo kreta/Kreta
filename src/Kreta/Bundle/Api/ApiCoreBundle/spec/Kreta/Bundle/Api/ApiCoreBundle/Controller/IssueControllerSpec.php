@@ -11,13 +11,12 @@
 
 namespace spec\Kreta\Bundle\Api\ApiCoreBundle\Controller;
 
-use Doctrine\Common\Persistence\AbstractManagerRegistry;
-use Doctrine\Common\Persistence\ObjectManager;
 use FOS\RestBundle\Request\ParamFetcher;
 use FOS\RestBundle\View\ViewHandler;
-use Kreta\Bundle\Api\ApiCoreBundle\Form\Type\IssueType;
+use Kreta\Bundle\Api\ApiCoreBundle\Form\Handler\IssueHandler;
 use Kreta\Component\Core\Factory\IssueFactory;
 use Kreta\Component\Core\Model\Interfaces\IssueInterface;
+use Kreta\Component\Core\Model\Interfaces\ParticipantInterface;
 use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Core\Model\Interfaces\UserInterface;
 use Kreta\Component\Core\Repository\IssueRepository;
@@ -26,13 +25,12 @@ use Prophecy\Argument;
 use spec\Kreta\Bundle\Api\ApiCoreBundle\Controller\Abstracts\AbstractRestControllerSpec;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\FormError;
-use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
@@ -85,7 +83,7 @@ class IssueControllerSpec extends AbstractRestControllerSpec
 
         $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext, 'view', false);
 
-        $this->shouldThrow(new AccessDeniedException('Not allowed to access this resource'))
+        $this->shouldThrow(new AccessDeniedHttpException('Not allowed to access this resource'))
             ->during('getIssuesAction', ['project-id', $paramFetcher]);
     }
 
@@ -158,7 +156,7 @@ class IssueControllerSpec extends AbstractRestControllerSpec
     {
         $this->getIssueIfAllowed($container, $issueRepository, $issue, $securityContext, 'view', false);
 
-        $this->shouldThrow(new AccessDeniedException('Not allowed to access this resource'))
+        $this->shouldThrow(new AccessDeniedHttpException('Not allowed to access this resource'))
             ->during('getIssueAction', ['project-id', 'issue-id']);
     }
 
@@ -199,7 +197,7 @@ class IssueControllerSpec extends AbstractRestControllerSpec
     {
         $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext, 'create_issue', false);
 
-        $this->shouldThrow(new AccessDeniedException('Not allowed to access this resource'))
+        $this->shouldThrow(new AccessDeniedHttpException('Not allowed to access this resource'))
             ->during('postIssuesAction', ['project-id']);
     }
 
@@ -218,12 +216,60 @@ class IssueControllerSpec extends AbstractRestControllerSpec
 
         $container->get('kreta_core.factory.issue')->shouldBeCalled()->willReturn($issueFactory);
 
-        $this->shouldThrow(new AccessDeniedException('Not allowed to access this resource'))
+        $this->shouldThrow(new AccessDeniedHttpException('Not allowed to access this resource'))
             ->during('postIssuesAction', ['project-id']);
+    }
+
+    function it_posts_issue(
+        ContainerInterface $container,
+        Request $request,
+        FormInterface $form,
+        ViewHandler $viewHandler,
+        Response $response,
+        IssueHandler $issueHandler,
+        ProjectRepository $projectRepository,
+        IssueFactory $issueFactory,
+        ProjectInterface $project,
+        SecurityContextInterface $securityContext,
+        TokenInterface $token,
+        UserInterface $user,
+        IssueInterface $issue,
+        ParticipantInterface $participant,
+        Request $request,
+        FormInterface $form,
+        ViewHandler $viewHandler,
+        Response $response
+    )
+    {
+        $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext, 'create_issue');
+        $container->has('security.context')->shouldBeCalled()->willReturn(true);
+        $securityContext->getToken()->shouldBeCalled()->willReturn($token);
+        $token->getUser()->shouldBeCalled()->willReturn($user);
+
+        $container->get('kreta_core.factory.issue')->shouldBeCalled()->willReturn($issueFactory);
+        $issueFactory->create($project, $user)->shouldBeCalled()->willReturn($issue);
+        $project->getParticipants()->shouldBeCalled()->willReturn([$participant]);
+
+        $container->get('kreta_api_core.form_handler.issue')->shouldBeCalled()->willReturn($issueHandler);
+
+        $container->get('request')->shouldBeCalled()->willReturn($request);
+
+        $issueHandler->handleForm(
+            $request,
+            $issue,
+            ['csrf_protection' => false, 'method' => 'POST', 'participants' => [$participant]]
+        )->shouldBeCalled()->willReturn($form);
+
+        $form->isValid()->shouldBeCalled()->willReturn(true);
+        $container->get('fos_rest.view_handler')->shouldBeCalled()->willReturn($viewHandler);
+        $viewHandler->handle(Argument::type('FOS\RestBundle\View\View'))->shouldBeCalled()->willReturn($response);
+
+        $this->postIssuesAction('project-id')->shouldReturn($response);
     }
 
     function it_does_not_post_issues_because_there_are_some_form_errors(
         ContainerInterface $container,
+        IssueHandler $issueHandler,
         ProjectRepository $projectRepository,
         ProjectInterface $project,
         SecurityContextInterface $securityContext,
@@ -232,7 +278,7 @@ class IssueControllerSpec extends AbstractRestControllerSpec
         IssueFactory $issueFactory,
         IssueInterface $issue,
         Request $request,
-        FormFactoryInterface $formFactory,
+        ParticipantInterface $participant,
         FormInterface $form,
         FormError $error,
         FormInterface $formChild,
@@ -248,64 +294,30 @@ class IssueControllerSpec extends AbstractRestControllerSpec
 
         $container->get('kreta_core.factory.issue')->shouldBeCalled()->willReturn($issueFactory);
         $issueFactory->create($project, $user)->shouldBeCalled()->willReturn($issue);
-        $project->getParticipants()->shouldBeCalled()->willReturn([]);
+        $project->getParticipants()->shouldBeCalled()->willReturn([$participant]);
 
-        $this->getFormErrors(
-            $container,
+        $container->get('kreta_api_core.form_handler.issue')->shouldBeCalled()->willReturn($issueHandler);
+
+        $container->get('request')->shouldBeCalled()->willReturn($request);
+
+        $issueHandler->handleForm(
             $request,
-            $formFactory,
-            $form,
-            $error,
-            $formChild,
-            $formGrandChild,
-            $viewHandler,
-            $response,
-            new IssueType([]),
-            $issue
-        );
+            $issue,
+            ['csrf_protection' => false, 'method' => 'POST', 'participants' => [$participant]]
+        )->shouldBeCalled()->willReturn($form);
 
-        $this->postIssuesAction('project-id')->shouldReturn($response);
-    }
-
-    function it_posts_issue(
-        ContainerInterface $container,
-        ProjectRepository $projectRepository,
-        ProjectInterface $project,
-        SecurityContextInterface $securityContext,
-        TokenInterface $token,
-        UserInterface $user,
-        IssueFactory $issueFactory,
-        IssueInterface $issue,
-        Request $request,
-        FormFactoryInterface $formFactory,
-        FormInterface $form,
-        AbstractManagerRegistry $registry,
-        ObjectManager $manager,
-        ViewHandler $viewHandler,
-        Response $response
-    )
-    {
-        $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext, 'create_issue');
-        $container->has('security.context')->shouldBeCalled()->willReturn(true);
-        $securityContext->getToken()->shouldBeCalled()->willReturn($token);
-        $token->getUser()->shouldBeCalled()->willReturn($user);
-
-        $container->get('kreta_core.factory.issue')->shouldBeCalled()->willReturn($issueFactory);
-        $issueFactory->create($project, $user)->shouldBeCalled()->willReturn($issue);
-        $project->getParticipants()->shouldBeCalled()->willReturn([]);
-
-        $this->processForm(
-            $container,
-            $request,
-            $formFactory,
-            $form,
-            $registry,
-            $manager,
-            $viewHandler,
-            $response,
-            new IssueType([]),
-            $issue
-        );
+        $form->isValid()->shouldBeCalled()->willReturn(false);
+        $form->getErrors()->shouldBeCalled()->willReturn([$error]);
+        $error->getMessage()->shouldBeCalled()->willReturn('error message');
+        $form->all()->shouldBeCalled()->willReturn([$formChild]);
+        $formChild->isValid()->shouldBeCalled()->willReturn(false);
+        $formChild->getName()->shouldBeCalled()->willReturn('form child name');
+        $formChild->getErrors()->shouldBeCalled()->willReturn([$error]);
+        $error->getMessage()->shouldBeCalled()->willReturn('error message');
+        $formChild->all()->shouldBeCalled()->willReturn([$formGrandChild]);
+        $formGrandChild->isValid()->shouldBeCalled()->willReturn(true);
+        $container->get('fos_rest.view_handler')->shouldBeCalled()->willReturn($viewHandler);
+        $viewHandler->handle(Argument::type('FOS\RestBundle\View\View'))->shouldBeCalled()->willReturn($response);
 
         $this->postIssuesAction('project-id')->shouldReturn($response);
     }
@@ -330,7 +342,7 @@ class IssueControllerSpec extends AbstractRestControllerSpec
     {
         $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext, 'view', false);
 
-        $this->shouldThrow(new AccessDeniedException('Not allowed to access this resource'))
+        $this->shouldThrow(new AccessDeniedHttpException('Not allowed to access this resource'))
             ->during('putIssuesAction', ['project-id', 'issue-id']);
     }
 
@@ -338,12 +350,14 @@ class IssueControllerSpec extends AbstractRestControllerSpec
         ContainerInterface $container,
         ProjectRepository $projectRepository,
         ProjectInterface $project,
+        IssueHandler $issueHandler,
         SecurityContextInterface $securityContext,
         IssueRepository $issueRepository
     )
     {
         $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext);
-        $project->getParticipants()->shouldBeCalled()->willReturn([]);
+
+        $container->get('kreta_api_core.form_handler.issue')->shouldBeCalled()->willReturn($issueHandler);
 
         $container->get('kreta_core.repository.issue')->shouldBeCalled()->willReturn($issueRepository);
         $issueRepository->find('issue-id')->shouldBeCalled()->willReturn(null);
@@ -356,30 +370,69 @@ class IssueControllerSpec extends AbstractRestControllerSpec
         ContainerInterface $container,
         ProjectRepository $projectRepository,
         ProjectInterface $project,
+        IssueHandler $issueHandler,
         IssueRepository $issueRepository,
         IssueInterface $issue,
         SecurityContextInterface $securityContext
     )
     {
         $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext);
-        $project->getParticipants()->shouldBeCalled()->willReturn([]);
+
+        $container->get('kreta_api_core.form_handler.issue')->shouldBeCalled()->willReturn($issueHandler);
 
         $this->getIssueIfAllowed($container, $issueRepository, $issue, $securityContext, 'edit', false);
 
-        $this->shouldThrow(new AccessDeniedException('Not allowed to access this resource'))
+        $this->shouldThrow(new AccessDeniedHttpException('Not allowed to access this resource'))
             ->during('putIssuesAction', ['project-id', 'issue-id']);
     }
 
-
-    function it_does_not_put_issue_because_there_are_some_form_errors(
+    function it_puts_issue(
         ContainerInterface $container,
+        IssueHandler $issueHandler,
         ProjectRepository $projectRepository,
         ProjectInterface $project,
         IssueRepository $issueRepository,
         IssueInterface $issue,
+        ParticipantInterface $participant,
         SecurityContextInterface $securityContext,
         Request $request,
-        FormFactoryInterface $formFactory,
+        FormInterface $form,
+        ViewHandler $viewHandler,
+        Response $response
+    )
+    {
+        $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext);
+        $project->getParticipants()->shouldBeCalled()->willReturn([$participant]);
+
+        $this->getIssueIfAllowed($container, $issueRepository, $issue, $securityContext, 'edit');
+
+        $container->get('kreta_api_core.form_handler.issue')->shouldBeCalled()->willReturn($issueHandler);
+
+        $container->get('request')->shouldBeCalled()->willReturn($request);
+
+        $issueHandler->handleForm(
+            $request,
+            $issue,
+            ['csrf_protection' => false, 'method' => 'PUT', 'participants' => [$participant]]
+        )->shouldBeCalled()->willReturn($form);
+
+        $form->isValid()->shouldBeCalled()->willReturn(true);
+        $container->get('fos_rest.view_handler')->shouldBeCalled()->willReturn($viewHandler);
+        $viewHandler->handle(Argument::type('FOS\RestBundle\View\View'))->shouldBeCalled()->willReturn($response);
+
+        $this->putIssuesAction('project-id', 'issue-id')->shouldReturn($response);
+    }
+
+    function it_does_not_put_issue_because_there_are_some_form_errors(
+        ContainerInterface $container,
+        IssueHandler $issueHandler,
+        ProjectRepository $projectRepository,
+        ProjectInterface $project,
+        IssueRepository $issueRepository,
+        IssueInterface $issue,
+        ParticipantInterface $participant,
+        SecurityContextInterface $securityContext,
+        Request $request,
         FormInterface $form,
         FormError $error,
         FormInterface $formChild,
@@ -389,62 +442,33 @@ class IssueControllerSpec extends AbstractRestControllerSpec
     )
     {
         $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext);
-        $project->getParticipants()->shouldBeCalled()->willReturn([]);
+        $project->getParticipants()->shouldBeCalled()->willReturn([$participant]);
 
         $this->getIssueIfAllowed($container, $issueRepository, $issue, $securityContext, 'edit');
 
-        $this->getFormErrors(
-            $container,
+        $container->get('kreta_api_core.form_handler.issue')->shouldBeCalled()->willReturn($issueHandler);
+
+        $container->get('request')->shouldBeCalled()->willReturn($request);
+
+        $issueHandler->handleForm(
             $request,
-            $formFactory,
-            $form,
-            $error,
-            $formChild,
-            $formGrandChild,
-            $viewHandler,
-            $response,
-            new IssueType([]),
             $issue,
-            'PUT'
-        );
+            ['csrf_protection' => false, 'method' => 'PUT', 'participants' => [$participant]]
+        )->shouldBeCalled()->willReturn($form);
 
-        $this->putIssuesAction('project-id', 'issue-id')->shouldReturn($response);
-    }
+        $form->isValid()->shouldBeCalled()->willReturn(false);
+        $form->getErrors()->shouldBeCalled()->willReturn([$error]);
+        $error->getMessage()->shouldBeCalled()->willReturn('error message');
+        $form->all()->shouldBeCalled()->willReturn([$formChild]);
+        $formChild->isValid()->shouldBeCalled()->willReturn(false);
+        $formChild->getName()->shouldBeCalled()->willReturn('form child name');
+        $formChild->getErrors()->shouldBeCalled()->willReturn([$error]);
+        $error->getMessage()->shouldBeCalled()->willReturn('error message');
+        $formChild->all()->shouldBeCalled()->willReturn([$formGrandChild]);
+        $formGrandChild->isValid()->shouldBeCalled()->willReturn(true);
+        $container->get('fos_rest.view_handler')->shouldBeCalled()->willReturn($viewHandler);
+        $viewHandler->handle(Argument::type('FOS\RestBundle\View\View'))->shouldBeCalled()->willReturn($response);
 
-    function it_puts_issue(
-        ContainerInterface $container,
-        ProjectRepository $projectRepository,
-        ProjectInterface $project,
-        IssueRepository $issueRepository,
-        IssueInterface $issue,
-        SecurityContextInterface $securityContext,
-        Request $request,
-        FormFactoryInterface $formFactory,
-        FormInterface $form,
-        AbstractManagerRegistry $registry,
-        ObjectManager $manager,
-        ViewHandler $viewHandler,
-        Response $response
-    )
-    {
-        $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext);
-        $project->getParticipants()->shouldBeCalled()->willReturn([]);
-
-        $this->getIssueIfAllowed($container, $issueRepository, $issue, $securityContext, 'edit');
-
-        $this->processForm(
-            $container,
-            $request,
-            $formFactory,
-            $form,
-            $registry,
-            $manager,
-            $viewHandler,
-            $response,
-            new IssueType([]),
-            $issue,
-            'PUT'
-        );
 
         $this->putIssuesAction('project-id', 'issue-id')->shouldReturn($response);
     }

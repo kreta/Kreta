@@ -9,7 +9,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace spec\Kreta\Bundle\WebBundle\FormHandler;
+namespace spec\Kreta\Bundle\Api\ApiCoreBundle\Form\Handler;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Kreta\Component\Core\Model\Interfaces\IssueInterface;
@@ -23,11 +23,11 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Class IssueFormHandlerSpec.
+ * Class IssueHandlerSpec.
  *
- * @package spec\Kreta\Bundle\WebBundle\FormHandler
+ * @package spec\Kreta\Bundle\Api\ApiCoreBundle\Form\Handler
  */
-class IssueFormHandlerSpec extends ObjectBehavior
+class IssueHandlerSpec extends ObjectBehavior
 {
     function let(
         FormFactory $formFactory,
@@ -40,12 +40,12 @@ class IssueFormHandlerSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('Kreta\Bundle\WebBundle\FormHandler\IssueFormHandler');
+        $this->shouldHaveType('Kreta\Bundle\Api\ApiCoreBundle\Form\Handler\IssueHandler');
     }
 
-    function it_extends_abstract_form_handler()
+    function it_extends_core_issue_handler()
     {
-        $this->shouldHaveType('Kreta\Bundle\WebBundle\FormHandler\AbstractFormHandler');
+        $this->shouldHaveType('Kreta\Bundle\WebBundle\FormHandler\IssueFormHandler');
     }
 
     function it_does_not_handle_form_because_participants_key_does_not_exist(IssueInterface $issue, Request $request)
@@ -62,7 +62,7 @@ class IssueFormHandlerSpec extends ObjectBehavior
         ParticipantInterface $participant
     )
     {
-        $formFactory->create(Argument::type('\Kreta\Bundle\CoreBundle\Form\Type\IssueType'), $issue, [])
+        $formFactory->create(Argument::type('\Kreta\Bundle\Api\ApiCoreBundle\Form\Type\IssueType'), $issue, [])
             ->shouldBeCalled()->willReturn($form);
 
         $this->handleForm($request, $issue, ['participants' => [$participant]])->shouldReturn($form);

@@ -14,10 +14,9 @@ namespace Kreta\Bundle\Api\ApiCoreBundle\Controller;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Request\ParamFetcher;
 use Kreta\Bundle\Api\ApiCoreBundle\Controller\Abstracts\AbstractRestController;
-use Kreta\Bundle\Api\ApiCoreBundle\Form\Type\IssueType;
 use Kreta\Component\Core\Util\CamelCaser;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 
 /**
  * Class IssueController.
@@ -129,7 +128,7 @@ class IssueController extends AbstractRestController
      *    }
      *  },
      *  statusCodes = {
-     *      200 = "Successfully created",
+     *      201 = "Successfully created",
      *      400 = {
      *          "Title should not be blank",
      *          "Priority should not be blank",
@@ -152,7 +151,12 @@ class IssueController extends AbstractRestController
         $project = $this->getProjectIfAllowed($projectId, 'create_issue');
         $issue = $this->get('kreta_core.factory.issue')->create($project, $this->getCurrentUser());
 
-        return $this->manageForm(new IssueType($project->getParticipants()), $issue, ['issue']);
+        return $this->post(
+            $this->get('kreta_api_core.form_handler.issue'),
+            $issue,
+            ['issue'],
+            ['csrf_protection' => false, 'method' => 'POST', 'participants' => $project->getParticipants()]
+        );
     }
 
     /**
@@ -173,7 +177,7 @@ class IssueController extends AbstractRestController
      *    }
      *  },
      *  statusCodes = {
-     *      200 = "Successfully created",
+     *      200 = "Successfully updated",
      *      400 = {
      *          "Title should not be blank",
      *          "Priority should not be blank",
@@ -198,10 +202,11 @@ class IssueController extends AbstractRestController
     {
         $project = $this->getProjectIfAllowed($projectId, 'view');
 
-        return $this->manageForm(
-            new IssueType($project->getParticipants()),
+        return $this->put(
+            $this->get('kreta_api_core.form_handler.issue'),
             $this->getIssueIfAllowed($id, 'edit'),
-            ['issue']
+            ['issue'],
+            ['csrf_protection' => false, 'method' => 'PUT', 'participants' => $project->getParticipants()]
         );
     }
 
@@ -218,7 +223,7 @@ class IssueController extends AbstractRestController
     {
         $issue = $this->getResourceIfExists($id);
         if (!$this->get('security.context')->isGranted($grant, $issue)) {
-            throw new AccessDeniedException('Not allowed to access this resource');
+            throw new AccessDeniedHttpException('Not allowed to access this resource');
         }
 
         return $issue;

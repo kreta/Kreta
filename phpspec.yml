@@ -12,9 +12,6 @@ suites:
     CoreBundle:
         namespace: Kreta
         spec_path: src/Kreta/Bundle/CoreBundle
-    FixturesBundle:
-        namespace: Kreta
-        spec_path: src/Kreta/Bundle/FixturesBundle
     NotificationBundle:
         namespace: Kreta
         spec_path: src/Kreta/Bundle/NotificationBundle
