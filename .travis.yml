@@ -51,6 +51,7 @@ script:
     - bin/behat --stop-on-failure --suite=project
     - bin/behat --stop-on-failure --suite=notification
     - bin/behat --stop-on-failure --suite=api
+    - bin/behat --stop-on-failure --suite=login
 
 after_script:
     - bin/coveralls -v
