@@ -13,6 +13,8 @@ error_reporting(-1);
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
+date_default_timezone_set('Europe/Madrid');
+
 use Symfony\Component\Debug\Debug;
 use Symfony\Component\HttpFoundation\Request;
 
