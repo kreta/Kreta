@@ -103,7 +103,7 @@ class StatusController extends AbstractRestController
      *          "Name should not be blank",
      *          "Color should not be blank",
      *          "Type should not be blank",
-     *          "This status is already exist in this project",
+     *          "A status with identical name is already exist in this project",
      *          "The type is not valid"
      *      },
      *      403 = "Not allowed to access this resource",
@@ -151,7 +151,7 @@ class StatusController extends AbstractRestController
      *          "Name should not be blank",
      *          "Color should not be blank",
      *          "Type should not be blank",
-     *          "This status is already exist in this project",
+     *          "A status with identical name is already exist in this project",
      *          "The type is not valid"
      *      },
      *      403 = "Not allowed to access this resource",

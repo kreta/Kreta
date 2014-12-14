@@ -20,18 +20,6 @@ Kreta\Component\Core\Model\Project:
                 max: 4
                 minMessage: 'Short name must be at least {{ limit }} characters long'
                 maxMessage: 'Short name cannot be longer than {{ limit }} characters long'
-Kreta\Component\Core\Model\Status:
-    constraints:
-        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
-            fields: [name, project]
-            message: 'This status is already exist in this project'
-    properties:
-        color:
-            - NotBlank: ~
-        name:
-            - NotBlank: ~
-        type:
-            - NotBlank: ~
 Kreta\Component\Core\Model\Issue:
     constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
