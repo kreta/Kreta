@@ -25,8 +25,6 @@ install:
     - sudo cp ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf.default ~/.phpenv/versions/$(phpenv version-name)/etc/php-fpm.conf
     - sudo a2enmod rewrite actions fastcgi alias
     - echo "cgi.fix_pathinfo = 1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-    - echo 'date.timezone = "Europe/Madrid"' >> ~/.phpenv/versions/$(phpenv version-name)/etc/php.ini
-    - phpenv config-add scripts/travis/php.ini
     - ~/.phpenv/versions/$(phpenv version-name)/sbin/php-fpm
     # configure apache virtual hosts
     - sudo cp -f scripts/travis/vhost /etc/apache2/sites-available/default
