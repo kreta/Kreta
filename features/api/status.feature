@@ -63,7 +63,9 @@ Feature: Manage status
           "project": {
             "href": "http://localhost/app_test.php/api/projects/0"
           }
-        }
+        },
+        "type": "normal",
+        "name": "Open"
       }, {
         "id": "1",
         "color": "#2c3e50",
@@ -77,10 +79,13 @@ Feature: Manage status
           "project": {
             "href": "http://localhost/app_test.php/api/projects/0"
           }
-        }
+        },
+        "type": "normal",
+        "name": "In progress"
       }, {
         "id": "2",
         "color": "#f1c40f",
+        
         "_links": {
           "self": {
             "href": "http://localhost/app_test.php/api/projects/0/statuses/2"
@@ -91,7 +96,9 @@ Feature: Manage status
           "project": {
             "href": "http://localhost/app_test.php/api/projects/0"
           }
-        }
+        },
+        "type": "normal",
+        "name": "Resolved"
       }, {
         "id": "3",
         "color": "#c0392b",
@@ -105,7 +112,9 @@ Feature: Manage status
           "project": {
             "href": "http://localhost/app_test.php/api/projects/0"
           }
-        }
+        },
+        "type": "normal",
+        "name": "Closed"
       }, {
         "id": "4",
         "color": "#27ae60",
@@ -119,7 +128,9 @@ Feature: Manage status
           "project": {
             "href": "http://localhost/app_test.php/api/projects/0"
           }
-        }
+        },
+        "type": "normal",
+        "name": "Reopened"
       }]
     """
 

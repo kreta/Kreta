@@ -85,7 +85,9 @@ Feature: Manage issue
         },
         "status": {
           "id": "0",
-          "color": "#27ae60"
+          "color": "#27ae60",
+          "type": "normal",
+          "name": "Open"
         },
         "title": "Test issue 1",
         "type": 0,
@@ -289,7 +291,9 @@ Feature: Manage issue
         },
         "status": {
           "id": "0",
-          "color": "#27ae60"
+          "color": "#27ae60",
+          "type": "normal",
+          "name": "Open"
         },
         "title": "Test issue 1",
         "type": 0,
@@ -411,7 +415,9 @@ Feature: Manage issue
         },
         "status": {
           "id": "2",
-          "color": "#f1c40f"
+          "color": "#f1c40f",
+          "type": "normal",
+          "name": "Resolved"
         },
         "title": "Updated issue 0",
         "type": 0,
@@ -466,7 +472,9 @@ Feature: Manage issue
         },
         "status": {
           "id": "2",
-          "color": "#f1c40f"
+          "color": "#f1c40f",
+          "type": "normal",
+          "name": "Resolved"
         },
         "title": "Updated issue 1",
         "type": 0,
@@ -521,7 +529,9 @@ Feature: Manage issue
         },
         "status": {
           "id": "0",
-          "color": "#27ae60"
+          "color": "#27ae60",
+          "type": "normal",
+          "name": "Open"
         },
         "title": "Updated issue 2",
         "type": 0,
