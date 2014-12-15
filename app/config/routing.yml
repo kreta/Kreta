@@ -15,8 +15,6 @@ kreta_api:
     
 kreta_media_image:
     pattern: /media/image/{name}
-    requirements:
-        name: ^[\w,\s-]+\.[A-Za-z]{3}$
 
 # Third party libraries/bundles
 
