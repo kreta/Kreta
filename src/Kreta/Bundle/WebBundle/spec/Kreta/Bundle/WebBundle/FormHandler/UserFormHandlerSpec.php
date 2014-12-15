@@ -34,9 +34,13 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class UserFormHandlerSpec extends ObjectBehavior
 {
-    function let(FormFactory $formFactory, ObjectManager $manager,
-                 EventDispatcherInterface $eventDispatcher, MediaFactory $mediaFactory,
-                 MediaUploader $uploader)
+    function let(
+        FormFactory $formFactory,
+        ObjectManager $manager,
+        EventDispatcherInterface $eventDispatcher,
+        MediaFactory $mediaFactory,
+        MediaUploader $uploader
+    )
     {
         $this->beConstructedWith($formFactory, $manager, $eventDispatcher, $mediaFactory, $uploader);
     }
@@ -46,22 +50,34 @@ class UserFormHandlerSpec extends ObjectBehavior
         $this->shouldHaveType('Kreta\Bundle\WebBundle\FormHandler\UserFormHandler');
     }
 
-    function it_handles_form(Request $request, ProjectInterface $project, FormFactory $formFactory, FormInterface $form)
+    function it_extends_abstract_form_handler()
     {
-        $formFactory->create(Argument::type('\Kreta\Bundle\CoreBundle\Form\Type\UserType'), $project)
-            ->shouldBeCalled()->willReturn($form);
-        $request->isMethod('POST')->shouldBeCalled()->willReturn(false);
-
-        $this->handleForm($request, $project, null)->shouldReturn($form);
+        $this->shouldHaveType('Kreta\Bundle\WebBundle\FormHandler\AbstractFormHandler');
     }
 
-    function it_handles_post_request(Request $request, UserInterface $user, FormFactory $formFactory,
-                                     FormInterface $form, FileBag $fileBag,
-                                     MediaFactory $mediaFactory, MediaInterface $media, ObjectManager $manager,
-                                     MediaUploader $uploader, EventDispatcherInterface $eventDispatcher)
+    function it_handles_form(Request $request, ProjectInterface $project, FormFactory $formFactory, FormInterface $form)
+    {
+        $formFactory->create(Argument::type('\Kreta\Bundle\CoreBundle\Form\Type\UserType'), $project, [])
+            ->shouldBeCalled()->willReturn($form);
+
+        $this->handleForm($request, $project, [])->shouldReturn($form);
+    }
+
+    function it_handles_post_request(
+        Request $request,
+        UserInterface $user,
+        FormFactory $formFactory,
+        FormInterface $form,
+        FileBag $fileBag,
+        MediaFactory $mediaFactory,
+        MediaInterface $media,
+        ObjectManager $manager,
+        MediaUploader $uploader,
+        EventDispatcherInterface $eventDispatcher
+    )
     {
         $image = new UploadedFile('', '', null, null, 99, true); //Avoids file not found exception
-        $formFactory->create(Argument::type('\Kreta\Bundle\CoreBundle\Form\Type\UserType'), $user)
+        $formFactory->create(Argument::type('\Kreta\Bundle\CoreBundle\Form\Type\UserType'), $user, [])
             ->shouldBeCalled()->willReturn($form);
         $request->isMethod('POST')->shouldBeCalled()->willReturn(true);
         $form->handleRequest($request)->shouldBeCalled();
@@ -80,9 +96,8 @@ class UserFormHandlerSpec extends ObjectBehavior
 
         $eventDispatcher->dispatch(
             FormHandlerEvent::NAME, Argument::type('\Kreta\Bundle\WebBundle\Event\FormHandlerEvent')
-
         );
 
-        $this->handleForm($request, $user, null);
+        $this->handleForm($request, $user, []);
     }
 }

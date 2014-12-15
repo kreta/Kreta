@@ -94,7 +94,7 @@ class IssueControllerSpec extends ObjectBehavior
 
         $project->getParticipants()->shouldBeCalled()->willReturn([$user]);
         $container->get('kreta_web.form_handler.issue')->shouldBeCalled()->willReturn($formHandler);
-        $formHandler->handleForm($request, $issue, [$user])->shouldBeCalled()->willReturn($form);
+        $formHandler->handleForm($request, $issue, ['participants' => [$user]])->shouldBeCalled()->willReturn($form);
 
         $form->isValid()->shouldBeCalled()->willReturn(false);
         $form->createView()->shouldBeCalled()->willReturn($formView);
@@ -122,7 +122,7 @@ class IssueControllerSpec extends ObjectBehavior
 
         $project->getParticipants()->shouldBeCalled()->willReturn([$user]);
         $container->get('kreta_web.form_handler.issue')->shouldBeCalled()->willReturn($formHandler);
-        $formHandler->handleForm($request, $issue, [$user])->shouldBeCalled()->willReturn($form);
+        $formHandler->handleForm($request, $issue, ['participants' => [$user]])->shouldBeCalled()->willReturn($form);
 
         $form->isValid()->shouldBeCalled()->willReturn(true);
         $container->get('router')->shouldBeCalled()->willReturn($router);
@@ -168,7 +168,7 @@ class IssueControllerSpec extends ObjectBehavior
         $issue->getProject()->shouldBeCalled()->willReturn($project);
         $project->getParticipants()->shouldBeCalled()->willReturn([$user]);
         $container->get('kreta_web.form_handler.issue')->shouldBeCalled()->willReturn($formHandler);
-        $formHandler->handleForm($request, $issue, [$user])->shouldBeCalled()->willReturn($form);
+        $formHandler->handleForm($request, $issue, ['participants' => [$user]])->shouldBeCalled()->willReturn($form);
 
         $form->isValid()->shouldBeCalled()->willReturn(false);
         $form->createView()->shouldBeCalled()->willReturn($formView);
@@ -195,7 +195,7 @@ class IssueControllerSpec extends ObjectBehavior
         $issue->getProject()->shouldBeCalled()->willReturn($project);
         $project->getParticipants()->shouldBeCalled()->willReturn([$user]);
         $container->get('kreta_web.form_handler.issue')->shouldBeCalled()->willReturn($formHandler);
-        $formHandler->handleForm($request, $issue, [$user])->shouldBeCalled()->willReturn($form);
+        $formHandler->handleForm($request, $issue, ['participants' => [$user]])->shouldBeCalled()->willReturn($form);
 
         $form->isValid()->shouldBeCalled()->willReturn(true);
         $container->get('router')->shouldBeCalled()->willReturn($router);

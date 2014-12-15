@@ -1,0 +1,44 @@
+<VirtualHost *:80>
+    ServerName      localhost
+
+    DocumentRoot    "%TRAVIS_BUILD_DIR%/web"
+    DirectoryIndex  app.php
+
+    <Directory "%TRAVIS_BUILD_DIR%/web">
+        AllowOverride None
+        Allow from All
+
+        <IfModule mod_rewrite.c>
+            Options -MultiViews
+            RewriteEngine On
+            RewriteCond %{REQUEST_FILENAME} !-f
+            RewriteRule ^(.*)$ app.php [QSA,L]
+        </IfModule>
+    </Directory>
+
+    <IfModule mod_fastcgi.c>
+        AddHandler php5-fcgi .php
+        Action php5-fcgi /php5-fcgi
+        Alias /php5-fcgi /usr/lib/cgi-bin/php5-fcgi
+        FastCgiExternalServer /usr/lib/cgi-bin/php5-fcgi -host 127.0.0.1:9000 -pass-header Authorization
+    </IfModule>
+
+    CustomLog  %TRAVIS_BUILD_DIR%/app/logs/travis.log combined
+
+    KeepAlive            On
+    MaxKeepAliveRequests 200
+    KeepAliveTimeout     5
+
+    AddOutputFilterByType DEFLATE text/css text/plain text/html application/xhtml+xml text/xml application/xml
+
+    <IfModule mod_headers.c>
+        Header append Vary User-Agent env=!dont-vary
+
+        ExpiresActive On
+        ExpiresDefault "now plus 1 week"
+        ExpiresByType image/x-icon "now plus 1 month"
+        ExpiresByType image/gif    "now plus 1 month"
+        ExpiresByType image/png    "now plus 1 month"
+        ExpiresByType image/jpeg   "now plus 1 month"
+    </IfModule>
+</VirtualHost>

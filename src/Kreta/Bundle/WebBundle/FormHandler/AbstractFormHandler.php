@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\FileBag;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Class AbstractFormHandler
+ * Class AbstractFormHandler.
  *
  * @package Kreta\Bundle\WebBundle\FormHandler
  */
@@ -28,21 +28,21 @@ abstract class AbstractFormHandler
     /**
      * The factory used to create a new Form instance.
      *
-     * @var FormFactory
+     * @var \Symfony\Component\Form\FormFactory
      */
     protected $formFactory;
 
     /**
      * Manager used to persist and flush the object.
      *
-     * @var ObjectManager
+     * @var \Doctrine\Common\Persistence\ObjectManager
      */
     protected $manager;
 
     /**
      * Dispatcher used to dispatch FormHandlerEvents.
      *
-     * @var EventDispatcherInterface
+     * @var \Symfony\Component\EventDispatcher\EventDispatcherInterface
      */
     protected $eventDispatcher;
 
@@ -61,14 +61,17 @@ abstract class AbstractFormHandler
     protected $errorMessage = 'Error while saving';
 
     /**
-     * Creates a form handler
+     * Constructor.
      *
-     * @param FormFactory     $formFactory     Used to create a new Form instance.
-     * @param ObjectManager   $manager         Used to persist and flush the object.
-     * @param EventDispatcherInterface $eventDispatcher Used to dispatch FormHandlerEvents.
+     * @param \Symfony\Component\Form\FormFactory                         $formFactory     Creates a new Form instance
+     * @param \Doctrine\Common\Persistence\ObjectManager                  $manager         Persists and flush the object
+     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher Dispatches FormHandlerEvents
      */
-    public function __construct(FormFactory $formFactory, ObjectManager $manager,
-                                EventDispatcherInterface $eventDispatcher)
+    public function __construct(
+        FormFactory $formFactory,
+        ObjectManager $manager,
+        EventDispatcherInterface $eventDispatcher
+    )
     {
         $this->formFactory = $formFactory;
         $this->manager = $manager;
@@ -76,19 +79,20 @@ abstract class AbstractFormHandler
     }
 
     /**
-     * Handles the form and saves the object to the DB. All process can be changed extendind handleFiles, handleObject
-     * dispatchSuccess and dispatchError methods. See each methods doc for more info.
+     * Handles the form and saves the object to the DB. All process can be changed extending handleFiles,
+     * handleObject dispatchSuccess and dispatchError methods. See each methods doc for more info.
      *
-     * @param Request $request     Contains values sent by the user.
-     * @param object  $object      The object to be edited with form content.
-     * @param null    $formOptions Options that will be passed as parameter to createForm method.
+     * @param \Symfony\Component\HttpFoundation\Request $request     Contains values sent by the user
+     * @param Object                                    $object      The object to be edited with form content
+     * @param array                                     $formOptions Array which contains the options that will be
+     *                                                               passed in the form create method
      *
      * @return \Symfony\Component\Form\Form
      */
-    public function handleForm(Request $request, $object, $formOptions = null)
+    public function handleForm(Request $request, $object, array $formOptions = [])
     {
         $form = $this->createForm($object, $formOptions);
-        if ($request->isMethod('POST')) {
+        if ($request->isMethod('POST') || $request->isMethod('PUT')) {
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
                 $this->handleFiles($request->files, $object);
@@ -105,20 +109,22 @@ abstract class AbstractFormHandler
     /**
      * Creates a form with the given parameters.
      *
-     * @param object        $object      Model related to the form.
-     * @param object | null $formOptions Options that will be passed in the form create method.
+     * @param Object $object      Model related to the form
+     * @param array  $formOptions Array which contains the options that will be passed in the form create method
      *
      * @return \Symfony\Component\Form\Form
      */
-    abstract protected function createForm($object, $formOptions = null);
+    abstract protected function createForm($object, array $formOptions = []);
 
     /**
      * Handles file upload.
      *
      * For extended functionality override the method.
      *
-     * @param FileBag $files  Files found in current request.
-     * @param         $object Object been handled in the request.
+     * @param FileBag $files  Files found in current request
+     * @param Object  $object Object been handled in the request
+     *
+     * @return void
      */
     protected function handleFiles(FileBag $files, $object)
     {
@@ -129,7 +135,9 @@ abstract class AbstractFormHandler
      *
      * For extended functionality override the method.
      *
-     * @param object $object The object to be handled.
+     * @param Object $object The object to be handled
+     *
+     * @return void
      */
     protected function handleObject($object)
     {

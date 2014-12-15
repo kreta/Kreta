@@ -14,31 +14,27 @@ namespace Kreta\Bundle\WebBundle\FormHandler;
 use Kreta\Bundle\CoreBundle\Form\Type\CommentType;
 
 /**
- * Class CommentFormHandler
+ * Class CommentFormHandler.
  *
  * @package Kreta\Bundle\WebBundle\FormHandler
  */
 class CommentFormHandler extends AbstractFormHandler
 {
     /**
-     * Dispatched success message.
-     *
-     * @var string
+     * {@inheritdoc}
      */
     protected $successMessage = 'Comment added successfully';
 
     /**
-     * Dispatched error message.
-     *
-     * @var string
+     * {@inheritdoc}
      */
     protected $errorMessage = 'Error sending comment';
 
     /**
      * {@inheritdoc}
      */
-    protected function createForm($object, $formOptions = null)
+    protected function createForm($object, array $formOptions = [])
     {
-        return $this->formFactory->create(new CommentType(), $object);
+        return $this->formFactory->create(new CommentType(), $object, $formOptions);
     }
 }

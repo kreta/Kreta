@@ -74,7 +74,7 @@ class IssueController extends Controller
         $issue = $this->get('kreta_core.factory.issue')->create($project, $this->getUser());
 
         $form = $this->get('kreta_web.form_handler.issue')->handleForm(
-            $request, $issue, $project->getParticipants()
+            $request, $issue, ['participants' => $project->getParticipants()]
         );
 
         if ($form->isValid()) {
@@ -112,7 +112,7 @@ class IssueController extends Controller
         };
 
         $form = $this->get('kreta_web.form_handler.issue')->handleForm(
-            $request, $issue, $issue->getProject()->getParticipants()
+            $request, $issue, ['participants' => $issue->getProject()->getParticipants()]
         );
 
         if ($form->isValid()) {

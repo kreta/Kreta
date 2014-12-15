@@ -27,7 +27,7 @@ class IssueType extends AbstractType
     /**
      * @param \Kreta\Component\Core\Model\Interfaces\ParticipantInterface[] $participants Collection of participants
      */
-    public function __construct($participants)
+    public function __construct($participants = [])
     {
         $users = [];
         foreach ($participants as $participant) {

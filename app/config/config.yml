@@ -17,7 +17,6 @@ parameters:
     assetic.filter.compass.generated_images_path: "%kernel.root_dir%/../web/images/"
 
 framework:
-    #esi: ~
     translator: { fallback: "%locale%" }
     secret: "%secret%"
     router:
@@ -28,7 +27,6 @@ framework:
     validation: { enable_annotations: true }
     templating:
         engines: ['twig']
-        #assets_version: SomeVersionScheme
     default_locale:  "%locale%"
     trusted_proxies: ~
     session: ~
@@ -45,17 +43,12 @@ assetic:
     bundles:
         - KretaWebBundle
         - FOSUserBundle
-    #java: /usr/bin/java
     filters:
         cssrewrite: ~
         compass:
             load_paths:
                 - '%kernel.root_dir%/vendor/zurb/foundation/scss'
             bin: "%compass_route%"
-        #closure:
-        #    jar: "%kernel.root_dir%/Resources/java/compiler.jar"
-        #yui_css:
-        #    jar: "%kernel.root_dir%/Resources/java/yuicompressor-2.4.7.jar"
 
 swiftmailer:
     transport:  %mailer_transport%
@@ -133,12 +126,10 @@ knp_gaufrette:
         kreta_image_users:
             local:
                 directory: %kernel.root_dir%/../web/media/image
-#                directory: %kernel.root_dir%/../web/media/image/users
                 create: true
         kreta_image_projects:
             local:
                 directory: %kernel.root_dir%/../web/media/image
-#                directory: %kernel.root_dir%/../web/media/image/projects
                 create: true
     filesystems:
         kreta_image_users:
@@ -151,12 +142,6 @@ liip_imagine:
         default:
             filesystem:
                 data_root: %kernel.root_dir%/../web/media/image
-#        projects:
-#            filesystem:
-#                data_root: %kernel.root_dir%/../web/media/image/projects
-#        users:
-#            filesystem:
-#                data_root: %kernel.root_dir%/../web/media/image/users
     filter_sets:
         kreta_small:
             filters:

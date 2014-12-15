@@ -30,7 +30,7 @@ class JsonExceptionListener
      */
     public function onKernelException(GetResponseForExceptionEvent $event)
     {
-        if ($event->getRequest()->isXmlHttpRequest()) {
+        if ($event->getRequest()->getRequestFormat() === 'json') {
             $exception = $event->getException();
             $data = ['error' => $exception->getMessage()];
             $response = new JsonResponse($data);

@@ -43,6 +43,9 @@ Kreta\Component\Core\Model\Project:
             exclusion:
                 groups: [projectList, project]
     properties:
+        image:
+            expose: true
+            groups: [projectList, project]
         issues:
             expose: true
             groups: []

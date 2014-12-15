@@ -49,7 +49,7 @@ class IssueRepository extends EntityRepository
      */
     public function findByProject(
         ProjectInterface $project,
-        array $orderBy,
+        array $orderBy = ['createdAt' => 'ASC'],
         $count = 10,
         $page = 0,
         array $filters = []

@@ -36,6 +36,6 @@ class CamelCaser
         }
         $func = create_function('$c', 'return strtoupper($c[1]);');
 
-        return preg_replace_callback('/_([a-z])/', $func, $string);
+        return preg_replace_callback('/[_-]([a-z])/', $func, $string);
     }
 }

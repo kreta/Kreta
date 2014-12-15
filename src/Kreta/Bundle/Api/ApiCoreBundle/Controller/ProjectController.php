@@ -14,7 +14,6 @@ namespace Kreta\Bundle\Api\ApiCoreBundle\Controller;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Request\ParamFetcher;
 use Kreta\Bundle\Api\ApiCoreBundle\Controller\Abstracts\AbstractRestController;
-use Kreta\Bundle\Api\ApiCoreBundle\Form\Type\ProjectType;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
 /**
@@ -95,7 +94,7 @@ class ProjectController extends AbstractRestController
      *    }
      *  },
      *  statusCodes = {
-     *      200 = "Successfully created",
+     *      201 = "Successfully created",
      *      400 = {
      *          "Name should not be blank",
      *          "ShortName should not be blank",
@@ -108,9 +107,11 @@ class ProjectController extends AbstractRestController
      */
     public function postProjectsAction()
     {
-        $project = $this->get('kreta_core.factory.project')->create($this->getCurrentUser());
-
-        return $this->manageForm(new ProjectType(), $project, ['project']);
+        return $this->post(
+            $this->get('kreta_api_core.form_handler.project'),
+            $this->get('kreta_core.factory.project')->create($this->getCurrentUser()),
+            ['project']
+        );
     }
 
     /**
@@ -146,7 +147,11 @@ class ProjectController extends AbstractRestController
      */
     public function putProjectsAction($id)
     {
-        return $this->manageForm(new ProjectType(), $this->getProjectIfAllowed($id, 'edit'), ['project']);
+        return $this->put(
+            $this->get('kreta_api_core.form_handler.project'),
+            $this->getProjectIfAllowed($id, 'edit'),
+            ['project']
+        );
     }
 
     /**

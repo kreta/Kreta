@@ -11,13 +11,14 @@
 
 namespace spec\Kreta\Bundle\Api\ApiCoreBundle\Controller;
 
-use Doctrine\Common\Persistence\AbstractManagerRegistry;
-use Doctrine\Common\Persistence\ObjectManager;
+use FOS\RestBundle\Util\Codes;
 use FOS\RestBundle\View\ViewHandler;
-use Kreta\Bundle\Api\ApiCoreBundle\Form\Type\StatusType;
+use Kreta\Bundle\Api\ApiCoreBundle\Form\Handler\StatusHandler;
 use Kreta\Component\Core\Factory\StatusFactory;
+use Kreta\Component\Core\Model\Interfaces\IssueInterface;
 use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Core\Model\Interfaces\StatusInterface;
+use Kreta\Component\Core\Repository\IssueRepository;
 use Kreta\Component\Core\Repository\ProjectRepository;
 use Kreta\Component\Core\Repository\StatusRepository;
 use Prophecy\Argument;
@@ -28,9 +29,10 @@ use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
@@ -75,7 +77,7 @@ class StatusControllerSpec extends AbstractRestControllerSpec
     {
         $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext, 'view', false);
 
-        $this->shouldThrow(new AccessDeniedException('Not allowed to access this resource'))
+        $this->shouldThrow(new AccessDeniedHttpException('Not allowed to access this resource'))
             ->during('getStatusesAction', ['project-id']);
     }
 
@@ -116,7 +118,7 @@ class StatusControllerSpec extends AbstractRestControllerSpec
     {
         $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext, 'view', false);
 
-        $this->shouldThrow(new AccessDeniedException('Not allowed to access this resource'))
+        $this->shouldThrow(new AccessDeniedHttpException('Not allowed to access this resource'))
             ->during('getStatusAction', ['project-id', 'status-id']);
     }
 
@@ -207,26 +209,30 @@ class StatusControllerSpec extends AbstractRestControllerSpec
 
         $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext, 'manage_status', false);
 
-        $this->shouldThrow(new AccessDeniedException('Not allowed to access this resource'))
+        $this->shouldThrow(new AccessDeniedHttpException('Not allowed to access this resource'))
             ->during('postStatusesAction', ['project-id']);
     }
 
     function it_posts_status(
         ContainerInterface $container,
         Request $request,
+        FormInterface $form,
+        ViewHandler $viewHandler,
+        Response $response,
+        StatusHandler $statusHandler,
         StatusFactory $statusFactory,
         StatusInterface $status,
         ProjectRepository $projectRepository,
         ProjectInterface $project,
         SecurityContextInterface $securityContext,
-        FormFactoryInterface $formFactory,
+        Request $request,
         FormInterface $form,
-        AbstractManagerRegistry $registry,
-        ObjectManager $manager,
         ViewHandler $viewHandler,
         Response $response
     )
     {
+        $container->get('kreta_api_core.form_handler.status')->shouldBeCalled()->willReturn($statusHandler);
+
         $container->get('request')->shouldBeCalled()->willReturn($request);
         $request->get('name')->shouldBeCalled()->willReturn('status-name');
 
@@ -240,31 +246,25 @@ class StatusControllerSpec extends AbstractRestControllerSpec
         $this->processForm(
             $container,
             $request,
-            $formFactory,
             $form,
-            $registry,
-            $manager,
             $viewHandler,
+            $statusHandler,
             $response,
-            new StatusType(),
             $status
         );
-
-        $container->get('fos_rest.view_handler')->shouldBeCalled()->willReturn($viewHandler);
-        $viewHandler->handle(Argument::type('FOS\RestBundle\View\View'))->shouldBeCalled()->willReturn($response);
 
         $this->postStatusesAction('project-id')->shouldReturn($response);
     }
 
     function it_does_not_posts_status_because_there_are_some_form_errors(
         ContainerInterface $container,
-        Request $request,
         StatusFactory $statusFactory,
         StatusInterface $status,
+        StatusHandler $statusHandler,
+        SecurityContextInterface $securityContext,
         ProjectRepository $projectRepository,
         ProjectInterface $project,
-        SecurityContextInterface $securityContext,
-        FormFactoryInterface $formFactory,
+        Request $request,
         FormInterface $form,
         FormError $error,
         FormInterface $formChild,
@@ -273,6 +273,8 @@ class StatusControllerSpec extends AbstractRestControllerSpec
         Response $response
     )
     {
+        $container->get('kreta_api_core.form_handler.status')->shouldBeCalled()->willReturn($statusHandler);
+
         $container->get('request')->shouldBeCalled()->willReturn($request);
         $request->get('name')->shouldBeCalled()->willReturn('status-name');
 
@@ -286,28 +288,27 @@ class StatusControllerSpec extends AbstractRestControllerSpec
         $this->getFormErrors(
             $container,
             $request,
-            $formFactory,
             $form,
             $error,
             $formChild,
             $formGrandChild,
-            $viewHandler,
             $response,
-            new StatusType(),
+            $viewHandler,
+            $statusHandler,
             $status
         );
-
-        $container->get('fos_rest.view_handler')->shouldBeCalled()->willReturn($viewHandler);
-        $viewHandler->handle(Argument::type('FOS\RestBundle\View\View'))->shouldBeCalled()->willReturn($response);
 
         $this->postStatusesAction('project-id')->shouldReturn($response);
     }
 
     function it_does_not_put_status_because_the_project_does_not_exist(
         ContainerInterface $container,
+        StatusHandler $statusHandler,
         ProjectRepository $projectRepository
     )
     {
+        $container->get('kreta_api_core.form_handler.status')->shouldBeCalled()->willReturn($statusHandler);
+
         $this->getProjectIfExist($container, $projectRepository);
 
         $this->shouldThrow(new NotFoundHttpException('Does not exist any entity with project-id id'))
@@ -316,25 +317,31 @@ class StatusControllerSpec extends AbstractRestControllerSpec
 
     function it_does_not_put_status_because_the_user_has_not_the_required_grant(
         ContainerInterface $container,
+        StatusHandler $statusHandler,
         ProjectRepository $projectRepository,
         ProjectInterface $project,
         SecurityContextInterface $securityContext
     )
     {
+        $container->get('kreta_api_core.form_handler.status')->shouldBeCalled()->willReturn($statusHandler);
+
         $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext, 'manage_status', false);
 
-        $this->shouldThrow(new AccessDeniedException('Not allowed to access this resource'))
+        $this->shouldThrow(new AccessDeniedHttpException('Not allowed to access this resource'))
             ->during('putStatusesAction', ['project-id', 'status-id']);
     }
 
     function it_does_not_put_status_because_the_status_does_not_exist(
         ContainerInterface $container,
+        StatusHandler $statusHandler,
         ProjectRepository $projectRepository,
         ProjectInterface $project,
         SecurityContextInterface $securityContext,
         StatusRepository $statusRepository
     )
     {
+        $container->get('kreta_api_core.form_handler.status')->shouldBeCalled()->willReturn($statusHandler);
+
         $this->getStatusIfAllowed(
             $container,
             $projectRepository,
@@ -354,17 +361,17 @@ class StatusControllerSpec extends AbstractRestControllerSpec
         Request $request,
         StatusRepository $statusRepository,
         StatusInterface $status,
+        StatusHandler $statusHandler,
         ProjectRepository $projectRepository,
         ProjectInterface $project,
         SecurityContextInterface $securityContext,
-        FormFactoryInterface $formFactory,
         FormInterface $form,
-        AbstractManagerRegistry $registry,
-        ObjectManager $manager,
         ViewHandler $viewHandler,
         Response $response
     )
     {
+        $container->get('kreta_api_core.form_handler.status')->shouldBeCalled()->willReturn($statusHandler);
+
         $this->getStatusIfAllowed(
             $container,
             $projectRepository,
@@ -378,25 +385,20 @@ class StatusControllerSpec extends AbstractRestControllerSpec
         $this->processForm(
             $container,
             $request,
-            $formFactory,
             $form,
-            $registry,
-            $manager,
             $viewHandler,
+            $statusHandler,
             $response,
-            new StatusType(),
             $status,
             'PUT'
         );
-
-        $container->get('fos_rest.view_handler')->shouldBeCalled()->willReturn($viewHandler);
-        $viewHandler->handle(Argument::type('FOS\RestBundle\View\View'))->shouldBeCalled()->willReturn($response);
 
         $this->putStatusesAction('project-id', 'status-id')->shouldReturn($response);
     }
 
     function it_does_not_puts_status_because_there_are_some_form_errors(
         ContainerInterface $container,
+        StatusHandler $statusHandler,
         Request $request,
         StatusRepository $statusRepository,
         StatusInterface $status,
@@ -412,6 +414,8 @@ class StatusControllerSpec extends AbstractRestControllerSpec
         Response $response
     )
     {
+        $container->get('kreta_api_core.form_handler.status')->shouldBeCalled()->willReturn($statusHandler);
+
         $this->getStatusIfAllowed(
             $container,
             $projectRepository,
@@ -425,20 +429,16 @@ class StatusControllerSpec extends AbstractRestControllerSpec
         $this->getFormErrors(
             $container,
             $request,
-            $formFactory,
             $form,
             $error,
             $formChild,
             $formGrandChild,
-            $viewHandler,
             $response,
-            new StatusType(),
+            $viewHandler,
+            $statusHandler,
             $status,
             'PUT'
         );
-
-        $container->get('fos_rest.view_handler')->shouldBeCalled()->willReturn($viewHandler);
-        $viewHandler->handle(Argument::type('FOS\RestBundle\View\View'))->shouldBeCalled()->willReturn($response);
 
         $this->putStatusesAction('project-id', 'status-id')->shouldReturn($response);
     }
@@ -463,7 +463,7 @@ class StatusControllerSpec extends AbstractRestControllerSpec
     {
         $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext, 'manage_status', false);
 
-        $this->shouldThrow(new AccessDeniedException('Not allowed to access this resource'))
+        $this->shouldThrow(new AccessDeniedHttpException('Not allowed to access this resource'))
             ->during('deleteStatusesAction', ['project-id', 'status-id']);
     }
 
@@ -489,13 +489,51 @@ class StatusControllerSpec extends AbstractRestControllerSpec
             ->during('deleteStatusesAction', ['project-id', 'status-id']);
     }
 
-    function it_deletes_status(
+    function it_does_not_delete_status_because_the_status_is_in_use(
         ContainerInterface $container,
         ProjectRepository $projectRepository,
         ProjectInterface $project,
         SecurityContextInterface $securityContext,
         StatusRepository $statusRepository,
         StatusInterface $status,
+        IssueRepository $issueRepository,
+        IssueInterface $issue
+    )
+    {
+        $this->getStatusIfAllowed(
+            $container,
+            $projectRepository,
+            $project,
+            $securityContext,
+            $statusRepository,
+            $status,
+            'manage_status'
+        );
+
+        $status->getProject()->shouldBeCalled()->willReturn($project);
+        $container->get('kreta_core.repository.issue')->shouldBeCalled()->willReturn($issueRepository);
+        $issueRepository->findByProject($project)->shouldBeCalled()->willReturn([$issue]);
+        $issue->getStatus()->shouldBeCalled()->willReturn($status);
+        $status->getId()->shouldBeCalled()->willReturn('status-id');
+
+        $this->shouldThrow(
+            new HttpException(
+                Codes::HTTP_FORBIDDEN,
+                'Remove operation has been cancelled, the status is currently in use'
+            )
+        )->during('deleteStatusesAction', ['project-id', 'status-id']);
+    }
+
+    function it_deletes_status(
+        ContainerInterface $container,
+        ProjectRepository $projectRepository,
+        ProjectInterface $project,
+        SecurityContextInterface $securityContext,
+        IssueRepository $issueRepository,
+        IssueInterface $issue,
+        StatusRepository $statusRepository,
+        StatusInterface $status,
+        StatusInterface $status2,
         ViewHandler $viewHandler,
         Response $response
     )
@@ -509,6 +547,13 @@ class StatusControllerSpec extends AbstractRestControllerSpec
             $status,
             'manage_status'
         );
+
+        $status->getProject()->shouldBeCalled()->willReturn($project);
+        $container->get('kreta_core.repository.issue')->shouldBeCalled()->willReturn($issueRepository);
+        $issueRepository->findByProject($project)->shouldBeCalled()->willReturn([$issue]);
+        $issue->getStatus()->shouldBeCalled()->willReturn($status2);
+        $status->getId()->shouldBeCalled()->willReturn('status-id-1');
+        $status2->getId()->shouldBeCalled()->willReturn('status-id-2');
 
         $statusRepository->delete($status)->shouldBeCalled();
 

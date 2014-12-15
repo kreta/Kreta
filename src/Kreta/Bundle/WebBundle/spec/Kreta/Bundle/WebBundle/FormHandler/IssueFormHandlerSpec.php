@@ -16,8 +16,10 @@ use Kreta\Component\Core\Model\Interfaces\IssueInterface;
 use Kreta\Component\Core\Model\Interfaces\ParticipantInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
+use Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactory;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -27,8 +29,11 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class IssueFormHandlerSpec extends ObjectBehavior
 {
-    function let(FormFactory $formFactory, ObjectManager $manager,
-                 EventDispatcherInterface $eventDispatcher)
+    function let(
+        FormFactory $formFactory,
+        ObjectManager $manager,
+        EventDispatcherInterface $eventDispatcher
+    )
     {
         $this->beConstructedWith($formFactory, $manager, $eventDispatcher);
     }
@@ -38,11 +43,28 @@ class IssueFormHandlerSpec extends ObjectBehavior
         $this->shouldHaveType('Kreta\Bundle\WebBundle\FormHandler\IssueFormHandler');
     }
 
-    function it_handles_form(Request $request, IssueInterface $issue, FormFactory $formFactory,
-                             ParticipantInterface $participant)
+    function it_extends_abstract_form_handler()
     {
-        $formFactory->create(Argument::type('\Kreta\Bundle\CoreBundle\Form\Type\IssueType'), $issue);
-        $request->isMethod('POST')->shouldBeCalled()->willReturn(false);
-        $this->handleForm($request, $issue, [$participant]);
+        $this->shouldHaveType('Kreta\Bundle\WebBundle\FormHandler\AbstractFormHandler');
+    }
+
+    function it_does_not_handle_form_because_participants_key_does_not_exist(IssueInterface $issue, Request $request)
+    {
+        $this->shouldThrow(new ParameterNotFoundException('participants'))
+            ->during('handleForm', [$request, $issue, []]);
+    }
+
+    function it_handles_form(
+        Request $request,
+        IssueInterface $issue,
+        FormFactory $formFactory,
+        FormInterface $form,
+        ParticipantInterface $participant
+    )
+    {
+        $formFactory->create(Argument::type('\Kreta\Bundle\CoreBundle\Form\Type\IssueType'), $issue, [])
+            ->shouldBeCalled()->willReturn($form);
+
+        $this->handleForm($request, $issue, ['participants' => [$participant]])->shouldReturn($form);
     }
 }

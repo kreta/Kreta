@@ -37,11 +37,31 @@ class Status extends State implements StatusInterface
     protected $color;
 
     /**
+     * {@inheritdoc}
+     */
+    protected $name;
+
+    /**
      * The project.
      *
      * @var \Kreta\Component\Core\Model\Interfaces\ProjectInterface
      */
     protected $project;
+
+    /**
+     * {@inheritdoc}
+     */
+    protected $type;
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
 
     /**
      * {@inheritdoc}

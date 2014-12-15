@@ -12,33 +12,37 @@
 namespace Kreta\Bundle\WebBundle\FormHandler;
 
 use Kreta\Bundle\CoreBundle\Form\Type\IssueType;
+use Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
 
 /**
- * Class IssueFormHandler
+ * Class IssueFormHandler.
  *
  * @package Kreta\Bundle\WebBundle\FormHandler
  */
 class IssueFormHandler extends AbstractFormHandler
 {
     /**
-     * Dispatched success message.
-     *
-     * @var string
+     * {@inheritdoc}
      */
     protected $successMessage = 'Issue saved successfully';
 
     /**
-     * Dispatched error message.
-     *
-     * @var string
+     * {@inheritdoc}
      */
     protected $errorMessage = 'Error saving issue';
 
     /**
      * {@inheritdoc}
      */
-    protected function createForm($object, $formOptions = null)
+    protected function createForm($object, array $formOptions = [])
     {
-        return $this->formFactory->create(new IssueType($formOptions), $object);
+        if (!array_key_exists('participants', $formOptions)) {
+            throw new ParameterNotFoundException('participants');
+        }
+
+        $participants = $formOptions['participants'];
+        unset($formOptions['participants']);
+
+        return $this->formFactory->create(new IssueType($participants), $object, $formOptions);
     }
 }
