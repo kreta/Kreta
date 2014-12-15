@@ -93,6 +93,28 @@ class StatusRepositorySpec extends ObjectBehavior
         $this->findByProject($project)->shouldBeArray();
     }
 
+    function it_finds_one_by_name(
+        EntityManager $manager,
+        QueryBuilder $queryBuilder,
+        Expr $expr,
+        Expr\Comparison $comparison,
+        AbstractQuery $query,
+        StatusInterface $status
+    )
+    {
+        $manager->createQueryBuilder()->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->select('s')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->from(Argument::any(), 's')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->expr()->shouldBeCalled()->willReturn($expr);
+        $expr->eq('s.name', ':name')->shouldBeCalled()->willReturn($comparison);
+        $queryBuilder->where($comparison)->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->setParameter(':name', 'status name')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
+        $query->getOneOrNullResult()->shouldBeCalled()->willReturn($status);
+
+        $this->findOneByName('status name')->shouldReturn($status);
+    }
+
     function it_finds_one_by_name_and_project_id(
         EntityManager $manager,
         QueryBuilder $queryBuilder,

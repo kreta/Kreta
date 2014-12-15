@@ -72,12 +72,29 @@ class StatusRepository extends EntityRepository
     }
 
     /**
-     * Finds the status of name and project id given.
+     * Finds the status of name given otherwise returns null.
+     *
+     * @param string $name The name
+     *
+     * @return \Kreta\Component\Core\Model\Interfaces\StatusInterface|null
+     */
+    public function findOneByName($name)
+    {
+        $queryBuilder = $this->createQueryBuilder('s');
+
+        return $queryBuilder
+            ->where($queryBuilder->expr()->eq('s.name', ':name'))
+            ->setParameter(':name', $name)
+            ->getQuery()->getOneOrNullResult();
+    }
+
+    /**
+     * Finds the status of name and project id given otherwise returns null.
      *
      * @param string $name      The name
      * @param string $projectId The project id
      *
-     * @return \Kreta\Component\Core\Model\Interfaces\StatusInterface
+     * @return \Kreta\Component\Core\Model\Interfaces\StatusInterface|null
      */
     public function findOneByNameAndProjectId($name, $projectId)
     {

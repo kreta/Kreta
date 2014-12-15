@@ -36,16 +36,6 @@ Kreta\Component\Core\Model\Issue:
                 absolute: true
             exclusion:
                 groups: [issueList, issue]
-#        -
-#            rel: transitions
-#            href:
-#                route: get_projects_statuses_transitions
-#                parameters:
-#                    projectId: expr(object.getId())
-#                    statusId: expr(object.getStatus().getId())
-#                absolute: true
-#            exclusion:
-#                groups: [issueList, issue]
     properties:
         assignee:
             expose: true

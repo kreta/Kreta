@@ -8,8 +8,8 @@
 @api
 Feature: Manage status
   In order to manage statuses
-  As an API issue
-  I want to be able to GET, POST and PUT statuses
+  As an API status
+  I want to be able to GET, POST, PUT and DELETE statuses
 
   Background:
     Given the following users exist:
