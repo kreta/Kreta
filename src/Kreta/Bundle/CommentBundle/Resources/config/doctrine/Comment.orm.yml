@@ -34,7 +34,6 @@ Kreta\Component\Comment\Model\Comment:
                 onDelete: CASCADE
         writtenBy:
             targetEntity: Kreta\Component\User\Model\Interfaces\UserInterface
-            inversedBy: comments
             joinColumn:
                 name: user_id
                 referencedColumnName: id
