@@ -12,7 +12,7 @@
 namespace spec\Kreta\Bundle\WebBundle\FormHandler;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Kreta\Component\Core\Model\Interfaces\CommentInterface;
+use Kreta\Component\Comment\Model\Interfaces\CommentInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -47,7 +47,7 @@ class CommentFormHandlerSpec extends ObjectBehavior
 
     function it_handles_form(Request $request, CommentInterface $comment, FormFactory $formFactory)
     {
-        $formFactory->create(Argument::type('\Kreta\Bundle\CoreBundle\Form\Type\CommentType'), $comment, []);
+        $formFactory->create(Argument::type('\Kreta\Bundle\CommentBundle\Form\Type\CommentType'), $comment, []);
 
         $this->handleForm($request, $comment, []);
     }

@@ -12,7 +12,7 @@
 namespace Kreta\Bundle\CoreBundle\Security\Authorization\Voter;
 
 use Kreta\Bundle\CoreBundle\Security\Authorization\Voter\Abstracts\AbstractVoter;
-use Kreta\Component\Core\Model\Participant;
+use Kreta\Component\Project\Model\Participant;
 use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -41,7 +41,7 @@ class IssueVoter extends AbstractVoter
     /**
      * {@inheritdoc}
      */
-    protected $supportedClass = 'Kreta\Component\Core\Model\Interfaces\IssueInterface';
+    protected $supportedClass = 'Kreta\Component\Issue\Model\Interfaces\IssueInterface';
 
     /**
      * {@inheritdoc}

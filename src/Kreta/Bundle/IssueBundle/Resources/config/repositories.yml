@@ -1,0 +1,23 @@
+# This file belongs to Kreta.
+# The source code of application includes a LICENSE file
+# with all information about license.
+#
+# @author benatespina <benatespina@gmail.com>
+# @author gorkalaucirica <gorka.lauzirika@gmail.com>
+
+services:
+    kreta_issue.repository.issue:
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        class: %kreta_issue.repository_issue.class%
+        arguments: [%kreta_issue.issue.class%]
+    kreta_issue.repository.label:
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        class: %kreta_issue.repository_label.class%
+        arguments: [%kreta_issue.label.class%]
+    kreta_issue.repository.resolution:
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        class: %kreta_issue.repository_resolution.class%
+        arguments: [%kreta_issue.resolution.class%]

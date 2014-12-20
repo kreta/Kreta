@@ -8,23 +8,62 @@
 suites:
     ApiBundle:
         namespace: Kreta
-        spec_path: src/Kreta/Bundle/Api/ApiCoreBundle
+        spec_path: src/Kreta/Bundle/ApiBundle
+    CommentBundle:
+        namespace: Kreta
+        spec_path: src/Kreta/Bundle/CommentBundle
     CoreBundle:
         namespace: Kreta
         spec_path: src/Kreta/Bundle/CoreBundle
+    FixturesBundle:
+        namespace: Kreta
+        spec_path: src/Kreta/Bundle/FixturesBundle
+    IssueBundle:
+        namespace: Kreta
+        spec_path: src/Kreta/Bundle/IssueBundle
+    MediaBundle:
+        namespace: Kreta
+        spec_path: src/Kreta/Bundle/MediaBundle
     NotificationBundle:
         namespace: Kreta
         spec_path: src/Kreta/Bundle/NotificationBundle
+    UserBundle:
+        namespace: Kreta
+        spec_path: src/Kreta/Bundle/UserBundle
+    ProjectBundle:
+        namespace: Kreta
+        spec_path: src/Kreta/Bundle/ProjectBundle
     WebBundle:
         namespace: Kreta
         spec_path: src/Kreta/Bundle/WebBundle
+    WorkflowBundle:
+        namespace: Kreta
+        spec_path: src/Kreta/Bundle/WorkflowBundle
 
+    CommentComponent:
+        namespace: Kreta
+        spec_path: src/Kreta/Component/Comment
     CoreComponent:
         namespace: Kreta
         spec_path: src/Kreta/Component/Core
+    IssueComponent:
+        namespace: Kreta
+        spec_path: src/Kreta/Component/Issue
+    MediaComponent:
+        namespace: Kreta
+        spec_path: src/Kreta/Component/Media
+    ProjectComponent:
+        namespace: Kreta
+        spec_path: src/Kreta/Component/Project
+    UserComponent:
+        namespace: Kreta
+        spec_path: src/Kreta/Component/User
     NotificationComponent:
         namespace: Kreta
         spec_path: src/Kreta/Component/Notification
+    WorkflowComponent:
+        namespace: Kreta
+        spec_path: src/Kreta/Component/Workflow
 
 extensions:
     - PhpSpec\Extension\CodeCoverageExtension

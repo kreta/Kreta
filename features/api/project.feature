@@ -17,10 +17,14 @@ Feature: Manage projects
       | 0  | Kreta     | User     | user@kreta.com  | 123456   | 2014-10-20 |
       | 1  | Kreta     | User2    | user2@kreta.com | 123456   | 2014-10-20 |
       | 2  | Kreta     | User3    | user3@kreta.com | 123456   | 2014-10-20 |
+    And the following workflows exist:
+      | id | name       | creator        |
+      | 0  | Workflow 1 | user@kreta.com |
+      | 1  | Workflow 2 | user@kreta.com |
     And the following projects exist:
-      | id | name           | shortName | creator        |
-      | 0  | Test project 1 | TPR1      | user@kreta.com |
-      | 1  | Test project 2 | TPR2      | user@kreta.com |
+      | id | name           | shortName | creator        | workflow   |
+      | 0  | Test project 1 | TPR1      | user@kreta.com | Workflow 1 |
+      | 1  | Test project 2 | TPR2      | user@kreta.com | Workflow 2 |
     And the following participants exist:
       | project        | user            | role             |
       | Test project 1 | user3@kreta.com | ROLE_PARTICIPANT |
@@ -46,7 +50,6 @@ Feature: Manage projects
             "id": "0",
             "email": "user@kreta.com",
             "created_at": "2014-10-20T00:00:00+0200",
-            "comments": [],
             "first_name": "Kreta",
             "last_name": "User"
           }
@@ -56,7 +59,6 @@ Feature: Manage projects
             "id": "2",
             "email": "user3@kreta.com",
             "created_at": "2014-10-20T00:00:00+0200",
-            "comments": [],
             "first_name": "Kreta",
             "last_name": "User3"
           }
@@ -73,7 +75,7 @@ Feature: Manage projects
             "href": "http://localhost/app_test.php/api/projects/0/issues"
           },
           "statuses": {
-            "href": "http://localhost/app_test.php/api/projects/0/statuses"
+            "href": "http://localhost/app_test.php/api/workflows/0/statuses"
           }
         }
       }, {
@@ -85,7 +87,6 @@ Feature: Manage projects
             "id": "0",
             "email": "user@kreta.com",
             "created_at": "2014-10-20T00:00:00+0200",
-            "comments": [],
             "first_name": "Kreta",
             "last_name": "User"
           }
@@ -95,7 +96,6 @@ Feature: Manage projects
             "id": "1",
             "email": "user2@kreta.com",
             "created_at": "2014-10-20T00:00:00+0200",
-            "comments": [],
             "first_name": "Kreta",
             "last_name": "User2"
           }
@@ -112,7 +112,7 @@ Feature: Manage projects
             "href": "http://localhost/app_test.php/api/projects/1/issues"
           },
           "statuses": {
-            "href": "http://localhost/app_test.php/api/projects/1/statuses"
+            "href": "http://localhost/app_test.php/api/workflows/1/statuses"
           }
         }
       }]
@@ -133,7 +133,6 @@ Feature: Manage projects
             "id":"0",
             "email":"user@kreta.com",
             "created_at":"2014-10-20T00:00:00+0200",
-            "comments":[],
             "first_name":"Kreta",
             "last_name":"User"
           }
@@ -143,7 +142,6 @@ Feature: Manage projects
             "id":"2",
             "email":"user3@kreta.com",
             "created_at":"2014-10-20T00:00:00+0200",
-            "comments":[],
             "first_name":"Kreta",
             "last_name":"User3"
           }
@@ -160,7 +158,7 @@ Feature: Manage projects
             "href":"http://localhost/app_test.php/api/projects/0/issues"
           },
           "statuses":{
-            "href":"http://localhost/app_test.php/api/projects/0/statuses"
+            "href":"http://localhost/app_test.php/api/workflows/0/statuses"
           }
         }
       }
@@ -262,7 +260,6 @@ Feature: Manage projects
             "id": "0",
             "email": "user@kreta.com",
             "created_at": "2014-10-20T00:00:00+0200",
-            "comments": [],
             "first_name": "Kreta",
             "last_name": "User"
           }
@@ -272,7 +269,6 @@ Feature: Manage projects
             "id": "2",
             "email": "user3@kreta.com",
             "created_at": "2014-10-20T00:00:00+0200",
-            "comments": [],
             "first_name": "Kreta",
             "last_name": "User3"
           }
@@ -289,7 +285,7 @@ Feature: Manage projects
             "href": "http://localhost/app_test.php/api/projects/0/issues"
           },
           "statuses": {
-            "href": "http://localhost/app_test.php/api/projects/0/statuses"
+            "href": "http://localhost/app_test.php/api/workflows/0/statuses"
           }
         }
       }

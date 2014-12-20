@@ -28,12 +28,11 @@
         "kreta/core":                          "dev-master"
     },
     "require-dev": {
-        "doctrine/data-fixtures":              "1.0.*@dev",
-        "phpspec/phpspec":                     "2.1.x-dev",
-        "henrikbjorn/phpspec-code-coverage":   "1.0.x-dev",
+        "phpspec/phpspec":                     "~2.1",
+        "henrikbjorn/phpspec-code-coverage":   "~1.0",
         "satooshi/php-coveralls":              "0.6.1",
-        "squizlabs/php_codesniffer":           "1.*",
-        "phpmd/phpmd":                         "2.1.1"
+        "squizlabs/php_codesniffer":           "~1.0",
+        "phpmd/phpmd":                         "~2.1"
     },
     "suggest": {
         "kreta/web-bundle":      "Provides default web interface"

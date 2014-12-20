@@ -12,8 +12,8 @@
 namespace spec\Kreta\Bundle\WebBundle\FormHandler;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Kreta\Component\Core\Model\Interfaces\IssueInterface;
-use Kreta\Component\Core\Model\Interfaces\ParticipantInterface;
+use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
+use Kreta\Component\Project\Model\Interfaces\ParticipantInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
@@ -62,7 +62,7 @@ class IssueFormHandlerSpec extends ObjectBehavior
         ParticipantInterface $participant
     )
     {
-        $formFactory->create(Argument::type('\Kreta\Bundle\CoreBundle\Form\Type\IssueType'), $issue, [])
+        $formFactory->create(Argument::type('\Kreta\Bundle\IssueBundle\Form\Type\IssueType'), $issue, [])
             ->shouldBeCalled()->willReturn($form);
 
         $this->handleForm($request, $issue, ['participants' => [$participant]])->shouldReturn($form);

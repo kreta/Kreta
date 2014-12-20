@@ -11,8 +11,8 @@
 
 namespace Kreta\Bundle\WebBundle\Twig;
 
-use Kreta\Component\Core\Model\Interfaces\IssueInterface;
-use Kreta\Component\Core\Model\Interfaces\StatusInterface;
+use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
+use Kreta\Component\Workflow\Model\Interfaces\StatusInterface;
 
 /**
  * Class IssueExtension.

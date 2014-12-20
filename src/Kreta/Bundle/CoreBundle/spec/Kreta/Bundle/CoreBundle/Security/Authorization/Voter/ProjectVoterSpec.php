@@ -11,10 +11,10 @@
 
 namespace spec\Kreta\Bundle\CoreBundle\Security\Authorization\Voter;
 
-use Kreta\Component\Core\Model\Interfaces\IssueInterface;
-use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
-use Kreta\Component\Core\Model\Interfaces\UserInterface;
-use Kreta\Component\Core\Model\Project;
+use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
+use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
+use Kreta\Component\User\Model\Interfaces\UserInterface;
+use Kreta\Component\Project\Model\Project;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -48,12 +48,12 @@ class ProjectVoterSpec extends ObjectBehavior
 
     function it_supports_class()
     {
-        $this->supportsClass('Kreta\Component\Core\Model\Interfaces\ProjectInterface')->shouldReturn(true);
+        $this->supportsClass('Kreta\Component\Project\Model\Interfaces\ProjectInterface')->shouldReturn(true);
     }
 
     function it_does_not_support_class()
     {
-        $this->supportsClass('Kreta\Component\Core\Model\Interfaces\IssueInterface')->shouldReturn(false);
+        $this->supportsClass('Kreta\Component\Issue\Model\Interfaces\IssueInterface')->shouldReturn(false);
     }
 
     function it_does_not_vote_because_it_does_not_support_class(TokenInterface $token, IssueInterface $issue)

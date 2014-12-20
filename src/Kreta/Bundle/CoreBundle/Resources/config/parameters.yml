@@ -6,42 +6,6 @@
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
 parameters:
-    kreta_core.comment.class: Kreta\Component\Core\Model\Comment
-    kreta_core.issue.class: Kreta\Component\Core\Model\Issue
-    kreta_core.label.class: Kreta\Component\Core\Model\Label
-    kreta_core.media.class: Kreta\Component\Core\Model\Media
-    kreta_core.project.class: Kreta\Component\Core\Model\Project
-    kreta_core.participant.class: Kreta\Component\Core\Model\Participant
-    kreta_core.resolution.class: Kreta\Component\Core\Model\Resolution
-    kreta_core.status.class: Kreta\Component\Core\Model\Status
-    kreta_core.status_transition.class: Kreta\Component\Core\Model\StatusTransition
-    kreta_core.user.class: Kreta\Component\Core\Model\User
-
-    kreta_core.factory_comment.class: Kreta\Component\Core\Factory\CommentFactory
-    kreta_core.factory_issue.class: Kreta\Component\Core\Factory\IssueFactory
-    kreta_core.factory_label.class: Kreta\Component\Core\Factory\BaseFactory
-    kreta_core.factory_media.class: Kreta\Component\Core\Factory\MediaFactory
-    kreta_core.factory_project.class: Kreta\Component\Core\Factory\ProjectFactory
-    kreta_core.factory_participant.class: Kreta\Component\Core\Factory\ParticipantFactory
-    kreta_core.factory_resolution.class: Kreta\Component\Core\Factory\BaseFactory
-    kreta_core.factory_status.class: Kreta\Component\Core\Factory\StatusFactory
-    kreta_core.factory_user.class: Kreta\Component\Core\Factory\BaseFactory
-
-    kreta_core.repository_comment.class: Kreta\Component\Core\Repository\CommentRepository
-    kreta_core.repository_issue.class: Kreta\Component\Core\Repository\IssueRepository
-    kreta_core.repository_label.class: Kreta\Component\Core\Repository\LabelRepository
-    kreta_core.repository_media.class: Kreta\Component\Core\Repository\MediaRepository
-    kreta_core.repository_project.class: Kreta\Component\Core\Repository\ProjectRepository
-    kreta_core.repository_participant.class: Kreta\Component\Core\Repository\ParticipantRepository
-    kreta_core.repository_resolution.class: Kreta\Component\Core\Repository\ResolutionRepository
-    kreta_core.repository_status.class: Kreta\Component\Core\Repository\StatusRepository
-    kreta_core.repository_status_transition.class: Kreta\Component\Core\Repository\StatusTransitionRepository
-    kreta_core.repository_user.class: Kreta\Component\Core\Repository\UserRepository
-
-    kreta_core.security_user_provider.class: Kreta\Bundle\CoreBundle\Security\UserProvider
     kreta_core.security_issue_voter.class: Kreta\Bundle\CoreBundle\Security\Authorization\Voter\IssueVoter
     kreta_core.security_project_voter.class: Kreta\Bundle\CoreBundle\Security\Authorization\Voter\ProjectVoter
-
-    kreta_core.state_machine_issue.class: Kreta\Component\Core\StateMachine\IssueStateMachine
-
-    kreta_core.uploader_media.class: Kreta\Component\Core\Uploader\MediaUploader
+    kreta_core.security_workflow_voter.class: Kreta\Bundle\CoreBundle\Security\Authorization\Voter\WorkflowVoter

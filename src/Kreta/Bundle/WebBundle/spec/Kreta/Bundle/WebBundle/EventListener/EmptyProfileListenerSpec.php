@@ -11,7 +11,7 @@
 
 namespace spec\Kreta\Bundle\WebBundle\EventListener;
 
-use Kreta\Component\Core\Model\Interfaces\UserInterface;
+use Kreta\Component\User\Model\Interfaces\UserInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\HttpFoundation\ParameterBag;

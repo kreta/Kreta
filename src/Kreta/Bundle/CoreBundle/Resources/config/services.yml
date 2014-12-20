@@ -7,10 +7,6 @@
 
 services:
 #### SECURITY ####
-    kreta_core.user_provider:
-        class: %kreta_core.security_user_provider.class%
-        arguments: [@fos_user.user_manager, {bitbucket: bitbucketId, github: githubId}]
-
     kreta_core.voter.issue:
         class: %kreta_core.security_issue_voter.class%
         public: false
@@ -22,17 +18,18 @@ services:
         public: false
         tags:
            - { name: security.voter }
-
-#### STATE MACHINE ####
-    kreta_core.state_machine.issue:
-        class: %kreta_core.state_machine_issue.class%
+    kreta_core.voter.workflow:
+        class: %kreta_core.security_workflow_voter.class%
+        public: false
+        tags:
+           - { name: security.voter }
 
 #### UPLOADER ####
     kreta_core.uploader.image_user:
-        class: %kreta_core.uploader_media.class%
+        class: %kreta_media.uploader_media.class%
         arguments: [@kreta_core.uploader_filesystem.image_user]
     kreta_core.uploader.image_project:
-        class: %kreta_core.uploader_media.class%
+        class: %kreta_media.uploader_media.class%
         arguments: [@kreta_core.uploader_filesystem.image_project]
 
     kreta_core.uploader_filesystem.image_user:

@@ -13,11 +13,11 @@ namespace spec\Kreta\Bundle\WebBundle\FormHandler;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Kreta\Bundle\WebBundle\Event\FormHandlerEvent;
-use Kreta\Component\Core\Factory\MediaFactory;
-use Kreta\Component\Core\Model\Interfaces\MediaInterface;
-use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
-use Kreta\Component\Core\Model\Interfaces\UserInterface;
-use Kreta\Component\Core\Uploader\MediaUploader;
+use Kreta\Component\Media\Factory\MediaFactory;
+use Kreta\Component\Media\Model\Interfaces\MediaInterface;
+use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
+use Kreta\Component\User\Model\Interfaces\UserInterface;
+use Kreta\Component\Media\Uploader\MediaUploader;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -57,7 +57,7 @@ class UserFormHandlerSpec extends ObjectBehavior
 
     function it_handles_form(Request $request, ProjectInterface $project, FormFactory $formFactory, FormInterface $form)
     {
-        $formFactory->create(Argument::type('\Kreta\Bundle\CoreBundle\Form\Type\UserType'), $project, [])
+        $formFactory->create(Argument::type('\Kreta\Bundle\UserBundle\Form\Type\UserType'), $project, [])
             ->shouldBeCalled()->willReturn($form);
 
         $this->handleForm($request, $project, [])->shouldReturn($form);
@@ -77,7 +77,7 @@ class UserFormHandlerSpec extends ObjectBehavior
     )
     {
         $image = new UploadedFile('', '', null, null, 99, true); //Avoids file not found exception
-        $formFactory->create(Argument::type('\Kreta\Bundle\CoreBundle\Form\Type\UserType'), $user, [])
+        $formFactory->create(Argument::type('\Kreta\Bundle\UserBundle\Form\Type\UserType'), $user, [])
             ->shouldBeCalled()->willReturn($form);
         $request->isMethod('POST')->shouldBeCalled()->willReturn(true);
         $form->handleRequest($request)->shouldBeCalled();

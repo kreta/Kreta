@@ -11,7 +11,7 @@
 
 namespace Kreta\Bundle\WebBundle\EventListener;
 
-use Kreta\Component\Core\Model\Interfaces\UserInterface;
+use Kreta\Component\User\Model\Interfaces\UserInterface;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;

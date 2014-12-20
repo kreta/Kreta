@@ -1,0 +1,40 @@
+# This file belongs to Kreta.
+# The source code of application includes a LICENSE file
+# with all information about license.
+#
+# @author benatespina <benatespina@gmail.com>
+# @author gorkalaucirica <gorka.lauzirika@gmail.com>
+
+Kreta\Component\Workflow\Model\Workflow:
+    type: entity
+    repositoryClass: Kreta\Component\Workflow\Repository\WorkflowRepository
+    table: workflow
+    id:
+        id:
+            type: string
+            generator:
+                strategy: UUID
+    fields:
+        name:
+            type: string
+            length: 140
+    manyToOne:
+        creator:
+            targetEntity: Kreta\Component\User\Model\Interfaces\UserInterface
+            joinColumn:
+                name: creator_id
+                referencedColumnName: id
+    oneToMany:
+        projects:
+            targetEntity: Kreta\Component\Project\Model\Interfaces\ProjectInterface
+            mappedBy: workflow
+            cascade: ['persist', 'remove']
+        statuses:
+            targetEntity: Kreta\Component\Workflow\Model\Interfaces\StatusInterface
+            mappedBy: workflow
+            cascade: ['persist', 'remove']
+        statusTransitions:
+            targetEntity: Kreta\Component\Workflow\Model\Interfaces\StatusTransitionInterface
+            mappedBy: workflow
+            cascade: ['persist', 'remove']
+

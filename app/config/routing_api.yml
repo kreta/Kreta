@@ -5,9 +5,9 @@
 # @author benatespina <benatespina@gmail.com>
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
-kreta_api_core:
+kreta_api:
     type: rest
-    resource: '@KretaApiCoreBundle/Resources/config/routing.yml'
+    resource: '@KretaApiBundle/Resources/config/routing.yml'
     prefix: /
 
 # Third party libraries/bundles

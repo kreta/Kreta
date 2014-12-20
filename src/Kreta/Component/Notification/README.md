@@ -57,4 +57,4 @@ Kreta Notification Component is created by:
 
 Licensing Options
 -----------------
-[![License](https://poser.pugx.org/kreta/Notification/license.svg)](https://github.com/kreta-io/kreta/blob/master/LICENSE.md)
+[![License](https://poser.pugx.org/kreta/notification/license.svg)](https://github.com/kreta-io/kreta/blob/master/LICENSE.md)
