@@ -9,60 +9,57 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\Bundle\CoreBundle\Security\Authorization\Voter;
+namespace Kreta\Bundle\WorkflowBundle\Security\Authorization\Voter;
 
 use Kreta\Bundle\CoreBundle\Security\Authorization\Voter\Abstracts\AbstractVoter;
-use Kreta\Component\Project\Model\Participant;
 use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * Class IssueVoter.
+ * Class WorkflowVoter.
  *
- * @package Kreta\Bundle\CoreBundle\Security\Authorization\Voter
+ * @package Kreta\Bundle\WorkflowBundle\Security\Authorization\Voter
  */
-class IssueVoter extends AbstractVoter
+class WorkflowVoter extends AbstractVoter
 {
-    const ASSIGN = 'assign';
-    const DELETE = 'delete';
     const EDIT = 'edit';
     const VIEW = 'view';
+    const MANAGE_STATUS = 'manage_status';
 
     /**
      * {@inheritdoc}
      */
     protected $attributes = [
-        self::ASSIGN,
-        self::DELETE,
         self::EDIT,
-        self::VIEW
+        self::VIEW,
+        self::MANAGE_STATUS
     ];
 
     /**
      * {@inheritdoc}
      */
-    protected $supportedClass = 'Kreta\Component\Issue\Model\Interfaces\IssueInterface';
+    protected $supportedClass = 'Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface';
 
     /**
      * {@inheritdoc}
      */
-    public function checkAttribute(UserInterface $user, $issue, $attribute)
+    public function checkAttribute(UserInterface $user, $workflow, $attribute)
     {
         switch ($attribute) {
-            case self::ASSIGN:
-            case self::DELETE:
             case self::EDIT:
-                $participant = $issue->getProject()->getUserRole($user);
-
-                if ($issue->isAssignee($user) || $issue->isReporter($user) || $participant === Participant::ADMIN) {
+            case self::MANAGE_STATUS:
+                if ($workflow->getCreator()->getId() === $user->getId()) {
                     return VoterInterface::ACCESS_GRANTED;
                 }
                 break;
             case self::VIEW:
-                if ($issue->isParticipant($user)) {
-                    return VoterInterface::ACCESS_GRANTED;
+                if ($projects = $workflow->getProjects()) {
+                    foreach ($projects as $project) {
+                        if ($project->getUserRole($user) !== null) {
+                            return VoterInterface::ACCESS_GRANTED;
+                        }
+                    }
                 }
-                break;
         }
 
         return VoterInterface::ACCESS_DENIED;

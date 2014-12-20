@@ -6,6 +6,13 @@
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
 services:
+#### SECURITY ####
+    kreta_issue.voter.issue:
+        class: %kreta_issue.security_issue_voter.class%
+        public: false
+        tags:
+           - { name: security.voter }
+
 #### STATE MACHINE ####
     kreta_issue.state_machine.issue:
         class: %kreta_issue.state_machine_issue.class%

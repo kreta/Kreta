@@ -83,7 +83,7 @@ class ProjectFormHandlerSpec extends ObjectBehavior
         $form->isSubmitted()->shouldBeCalled()->willReturn(true);
         $form->isValid()->shouldBeCalled()->willReturn(true);
 
-        $fileBag->get('kreta_core_project_type')->shouldBeCalled()->willReturn(["image" => $image]);
+        $fileBag->get('kreta_project_project_type')->shouldBeCalled()->willReturn(["image" => $image]);
         $request->files = $fileBag;
 
         $mediaFactory->create($image)->shouldBeCalled()->willReturn($media);

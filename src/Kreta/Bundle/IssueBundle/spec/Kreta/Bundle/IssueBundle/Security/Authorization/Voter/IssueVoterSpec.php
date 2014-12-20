@@ -9,7 +9,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace spec\Kreta\Bundle\CoreBundle\Security\Authorization\Voter;
+namespace spec\Kreta\Bundle\IssueBundle\Security\Authorization\Voter;
 
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
@@ -21,13 +21,18 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 /**
  * Class IssueVoterSpec.
  *
- * @package spec\Kreta\Bundle\CoreBundle\Security\Authorization\Voter
+ * @package spec\Kreta\Bundle\IssueBundle\Security\Authorization\Voter
  */
 class IssueVoterSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('Kreta\Bundle\CoreBundle\Security\Authorization\Voter\IssueVoter');
+        $this->shouldHaveType('Kreta\Bundle\IssueBundle\Security\Authorization\Voter\IssueVoter');
+    }
+
+    function it_extends_abstract_voter()
+    {
+        $this->shouldHaveType('Kreta\Bundle\CoreBundle\Security\Authorization\Voter\Abstracts\AbstractVoter');
     }
 
     function it_implements_voter_interface()

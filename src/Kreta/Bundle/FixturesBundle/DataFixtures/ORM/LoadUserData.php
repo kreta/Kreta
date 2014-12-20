@@ -26,7 +26,7 @@ class LoadUserData extends DataFixtures
      */
     public function load(ObjectManager $manager)
     {
-        $photos = $this->loadMedias($manager, 'kreta_core.uploader.image_user', $this->userPath);
+        $photos = $this->loadMedias($manager, 'kreta_user.uploader.image_user', $this->userPath);
 
         $user = $this->createUser(['email' => 'kreta@kreta.com'], ['ROLE_ADMIN']);
         $user->setPhoto($photos[0]);

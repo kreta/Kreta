@@ -24,7 +24,7 @@ services:
 
     kreta_api.form_handler.project:
         class: Kreta\Bundle\ApiBundle\Form\Handler\ProjectHandler
-        arguments: [@form.factory, @doctrine.orm.entity_manager, @event_dispatcher, @kreta_media.factory.media, @kreta_core.uploader.image_project]
+        arguments: [@form.factory, @doctrine.orm.entity_manager, @event_dispatcher, @kreta_media.factory.media, @kreta_project.uploader.image_project]
 
     kreta_api.form_handler.issue:
         class: Kreta\Bundle\ApiBundle\Form\Handler\IssueHandler
@@ -32,4 +32,4 @@ services:
 
     kreta_api.form_handler.status:
         class: Kreta\Bundle\ApiBundle\Form\Handler\StatusHandler
-        arguments: [@form.factory, @doctrine.orm.entity_manager, @event_dispatcher, @kreta_media.factory.media, @kreta_core.uploader.image_project]
+        arguments: [@form.factory, @doctrine.orm.entity_manager, @event_dispatcher]

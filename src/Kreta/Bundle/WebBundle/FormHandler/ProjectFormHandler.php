@@ -86,7 +86,7 @@ class ProjectFormHandler extends AbstractFormHandler
      */
     protected function handleFiles(FileBag $files, $object)
     {
-        $image = $files->get('kreta_core_project_type')['image'];
+        $image = $files->get('kreta_project_project_type')['image'];
         if ($image instanceof UploadedFile) {
             $media = $this->mediaFactory->create($image);
             $this->uploader->upload($media);

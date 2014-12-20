@@ -16,3 +16,5 @@ parameters:
     kreta_workflow.repository_workflow.class: Kreta\Component\Workflow\Repository\WorkflowRepository
     kreta_workflow.repository_status.class: Kreta\Component\Workflow\Repository\StatusRepository
     kreta_workflow.repository_status_transition.class: Kreta\Component\Workflow\Repository\StatusTransitionRepository
+
+    kreta_workflow.security_workflow_voter.class: Kreta\Bundle\WorkflowBundle\Security\Authorization\Voter\WorkflowVoter

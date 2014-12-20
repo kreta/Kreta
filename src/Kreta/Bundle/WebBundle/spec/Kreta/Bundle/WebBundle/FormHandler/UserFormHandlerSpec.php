@@ -84,7 +84,7 @@ class UserFormHandlerSpec extends ObjectBehavior
         $form->isSubmitted()->shouldBeCalled()->willReturn(true);
         $form->isValid()->shouldBeCalled()->willReturn(true);
 
-        $fileBag->get('kreta_core_user_type')->shouldBeCalled()->willReturn(["photo" => $image]);
+        $fileBag->get('kreta_user_user_type')->shouldBeCalled()->willReturn(["photo" => $image]);
         $request->files = $fileBag;
 
         $mediaFactory->create($image)->shouldBeCalled()->willReturn($media);

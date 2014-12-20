@@ -76,7 +76,7 @@ class UserFormHandler extends AbstractFormHandler
      */
     protected function handleFiles(FileBag $files, $object)
     {
-        $image = $files->get('kreta_core_user_type')['photo'];
+        $image = $files->get('kreta_user_user_type')['photo'];
         if ($image instanceof UploadedFile) {
             $media = $this->mediaFactory->create($image);
             $this->uploader->upload($media);
