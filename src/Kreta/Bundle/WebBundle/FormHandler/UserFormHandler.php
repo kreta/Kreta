@@ -12,9 +12,9 @@
 namespace Kreta\Bundle\WebBundle\FormHandler;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Kreta\Bundle\CoreBundle\Form\Type\UserType;
-use Kreta\Component\Core\Factory\MediaFactory;
-use Kreta\Component\Core\Uploader\MediaUploader;
+use Kreta\Bundle\UserBundle\Form\Type\UserType;
+use Kreta\Component\Media\Factory\MediaFactory;
+use Kreta\Component\Media\Uploader\MediaUploader;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -30,14 +30,14 @@ class UserFormHandler extends AbstractFormHandler
     /**
      * The media factory.
      *
-     * @var \Kreta\Component\Core\Factory\MediaFactory
+     * @var \Kreta\Component\Media\Factory\MediaFactory
      */
     protected $mediaFactory;
 
     /**
      * The media uploader.
      *
-     * @var \Kreta\Component\Core\Uploader\MediaUploader
+     * @var \Kreta\Component\Media\Uploader\MediaUploader
      */
     protected $uploader;
 
@@ -47,8 +47,8 @@ class UserFormHandler extends AbstractFormHandler
      * @param \Symfony\Component\Form\FormFactory                         $formFactory     Creates a new Form instance
      * @param \Doctrine\Common\Persistence\ObjectManager                  $manager         Persists and flush the object
      * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher Dispatches FormHandlerEvents
-     * @param \Kreta\Component\Core\Factory\MediaFactory                  $mediaFactory    Creates a new Project image
-     * @param \Kreta\Component\Core\Uploader\MediaUploader                $uploader        Uploads Project images
+     * @param \Kreta\Component\Media\Factory\MediaFactory                  $mediaFactory    Creates a new Project image
+     * @param \Kreta\Component\Media\Uploader\MediaUploader                $uploader        Uploads Project images
      */
     public function __construct(
         FormFactory $formFactory,

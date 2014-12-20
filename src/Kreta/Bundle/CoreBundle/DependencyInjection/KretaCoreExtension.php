@@ -33,6 +33,6 @@ class KretaCoreExtension extends AbstractExtension
      */
     protected function getConfigFiles()
     {
-        return ['services', 'factories', 'parameters', 'repositories'];
+        return ['services', 'parameters', 'repositories'];
     }
 }

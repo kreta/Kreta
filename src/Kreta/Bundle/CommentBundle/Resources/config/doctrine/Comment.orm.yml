@@ -1,0 +1,40 @@
+# This file belongs to Kreta.
+# The source code of application includes a LICENSE file
+# with all information about license.
+#
+# @author benatespina <benatespina@gmail.com>
+# @author gorkalaucirica <gorka.lauzirika@gmail.com>
+
+Kreta\Component\Comment\Model\Comment:
+    type: entity
+    repositoryClass: Kreta\Component\Comment\Repository\CommentRepository
+    table: comment
+    id:
+        id:
+            type: string
+            generator:
+                strategy: UUID
+    fields:
+        createdAt:
+            column: created_at
+            type: datetime
+        description:
+            type: text
+        updatedAt:
+            column: updated_at
+            type: datetime
+            nullable: true
+    manyToOne:
+        issue:
+            targetEntity: Kreta\Component\Issue\Model\Interfaces\IssueInterface
+            inversedBy: comments
+            joinColumn:
+                name: issue_id
+                referencedColumnName: id
+                onDelete: CASCADE
+        writtenBy:
+            targetEntity: Kreta\Component\User\Model\Interfaces\UserInterface
+            inversedBy: comments
+            joinColumn:
+                name: user_id
+                referencedColumnName: id

@@ -29,11 +29,11 @@ services:
 
     kreta_web.form_handler.project:
         class: Kreta\Bundle\WebBundle\FormHandler\ProjectFormHandler
-        arguments: [@form.factory, @doctrine.orm.entity_manager, @event_dispatcher, @kreta_core.factory.media, @kreta_core.uploader.image_project]
+        arguments: [@form.factory, @doctrine.orm.entity_manager, @event_dispatcher, @kreta_media.factory.media, @kreta_core.uploader.image_project]
 
     kreta_web.form_handler.user:
         class: Kreta\Bundle\WebBundle\FormHandler\UserFormHandler
-        arguments: [@form.factory, @doctrine.orm.entity_manager, @event_dispatcher, @kreta_core.factory.media, @kreta_core.uploader.image_user]
+        arguments: [@form.factory, @doctrine.orm.entity_manager, @event_dispatcher, @kreta_media.factory.media, @kreta_core.uploader.image_user]
 
     #Events
     kreta_web.notifiable_event.issue:

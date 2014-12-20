@@ -1,0 +1,15 @@
+# This file belongs to Kreta.
+# The source code of application includes a LICENSE file
+# with all information about license.
+#
+# @author benatespina <benatespina@gmail.com>
+# @author gorkalaucirica <gorka.lauzirika@gmail.com>
+
+Kreta\Bundle\ApiBundle\Model\Client:
+    type: entity
+    table: client
+    id:
+        id:
+            type: string
+            generator:
+                strategy: UUID

@@ -1,0 +1,13 @@
+# This file belongs to Kreta.
+# The source code of application includes a LICENSE file
+# with all information about license.
+#
+# @author benatespina <benatespina@gmail.com>
+# @author gorkalaucirica <gorka.lauzirika@gmail.com>
+
+parameters:
+    kreta_comment.comment.class: Kreta\Component\Comment\Model\Comment
+
+    kreta_comment.factory_comment.class: Kreta\Component\Comment\Factory\CommentFactory
+
+    kreta_comment.repository_comment.class: Kreta\Component\Comment\Repository\CommentRepository

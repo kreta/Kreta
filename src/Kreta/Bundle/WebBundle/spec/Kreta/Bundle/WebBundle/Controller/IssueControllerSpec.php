@@ -3,12 +3,12 @@
 namespace spec\Kreta\Bundle\WebBundle\Controller;
 
 use Kreta\Bundle\WebBundle\FormHandler\IssueFormHandler;
-use Kreta\Component\Core\Factory\IssueFactory;
-use Kreta\Component\Core\Model\Interfaces\IssueInterface;
-use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
-use Kreta\Component\Core\Model\Interfaces\UserInterface;
-use Kreta\Component\Core\Repository\IssueRepository;
-use Kreta\Component\Core\Repository\ProjectRepository;
+use Kreta\Component\Issue\Factory\IssueFactory;
+use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
+use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
+use Kreta\Component\User\Model\Interfaces\UserInterface;
+use Kreta\Component\Issue\Repository\IssueRepository;
+use Kreta\Component\Project\Repository\ProjectRepository;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -37,7 +37,7 @@ class IssueControllerSpec extends ObjectBehavior
         $projectShortName = 'TEST';
         $issueNumber = 42;
 
-        $container->get('kreta_core.repository.issue')->shouldBeCalled()->willReturn($repository);
+        $container->get('kreta_issue.repository.issue')->shouldBeCalled()->willReturn($repository);
         $repository->findOneByShortCode($projectShortName, $issueNumber)->shouldBeCalled()->willReturn($issue);
 
         $container->get('security.context')->shouldBeCalled()->willReturn($securityContext);
@@ -51,7 +51,7 @@ class IssueControllerSpec extends ObjectBehavior
         $projectShortName = 'TEST';
         $issueNumber = 42;
 
-        $container->get('kreta_core.repository.issue')->shouldBeCalled()->willReturn($repository);
+        $container->get('kreta_issue.repository.issue')->shouldBeCalled()->willReturn($repository);
         $repository->findOneByShortCode($projectShortName, $issueNumber)->shouldBeCalled()->willReturn(null);
 
         $this->shouldThrow('\Symfony\Component\HttpKernel\Exception\NotFoundHttpException')
@@ -65,7 +65,7 @@ class IssueControllerSpec extends ObjectBehavior
         $projectShortName = 'TEST';
         $issueNumber = 42;
 
-        $container->get('kreta_core.repository.issue')->shouldBeCalled()->willReturn($repository);
+        $container->get('kreta_issue.repository.issue')->shouldBeCalled()->willReturn($repository);
         $repository->findOneByShortCode($projectShortName, $issueNumber)->shouldBeCalled()->willReturn($issue);
 
         $container->get('security.context')->shouldBeCalled()->willReturn($securityContext);
@@ -82,13 +82,13 @@ class IssueControllerSpec extends ObjectBehavior
     {
         $projectShortName = 'TEST';
 
-        $container->get('kreta_core.repository.project')->shouldBeCalled()->willReturn($repository);
+        $container->get('kreta_project.repository.project')->shouldBeCalled()->willReturn($repository);
         $repository->findOneBy(['shortName' => $projectShortName])->shouldBeCalled()->willReturn($project);
 
         $container->get('security.context')->shouldBeCalled()->willReturn($securityContext);
         $securityContext->isGranted('create_issue', $project)->shouldBeCalled()->willReturn(true);
 
-        $container->get('kreta_core.factory.issue')->shouldBeCalled()->willReturn($factory);
+        $container->get('kreta_issue.factory.issue')->shouldBeCalled()->willReturn($factory);
         $this->getUserStub($container, $securityContext, $token, $user);
         $factory->create($project, $user)->shouldBeCalled()->willReturn($issue);
 
@@ -110,13 +110,13 @@ class IssueControllerSpec extends ObjectBehavior
     {
         $projectShortName = 'TEST';
 
-        $container->get('kreta_core.repository.project')->shouldBeCalled()->willReturn($repository);
+        $container->get('kreta_project.repository.project')->shouldBeCalled()->willReturn($repository);
         $repository->findOneBy(['shortName' => $projectShortName])->shouldBeCalled()->willReturn($project);
 
         $container->get('security.context')->shouldBeCalled()->willReturn($securityContext);
         $securityContext->isGranted('create_issue', $project)->shouldBeCalled()->willReturn(true);
 
-        $container->get('kreta_core.factory.issue')->shouldBeCalled()->willReturn($factory);
+        $container->get('kreta_issue.factory.issue')->shouldBeCalled()->willReturn($factory);
         $this->getUserStub($container, $securityContext, $token, $user);
         $factory->create($project, $user)->shouldBeCalled()->willReturn($issue);
 
@@ -141,7 +141,7 @@ class IssueControllerSpec extends ObjectBehavior
     {
         $projectShortName = 'TEST';
 
-        $container->get('kreta_core.repository.project')->shouldBeCalled()->willReturn($repository);
+        $container->get('kreta_project.repository.project')->shouldBeCalled()->willReturn($repository);
         $repository->findOneBy(['shortName' => $projectShortName])->shouldBeCalled()->willReturn($project);
 
         $container->get('security.context')->shouldBeCalled()->willReturn($securityContext);
@@ -159,7 +159,7 @@ class IssueControllerSpec extends ObjectBehavior
         $projectShortName = 'TEST';
         $issueNumber = 42;
 
-        $container->get('kreta_core.repository.issue')->shouldBeCalled()->willReturn($repository);
+        $container->get('kreta_issue.repository.issue')->shouldBeCalled()->willReturn($repository);
         $repository->findOneByShortCode($projectShortName, $issueNumber)->shouldBeCalled()->willReturn($issue);
 
         $container->get('security.context')->shouldBeCalled()->willReturn($securityContext);
@@ -186,7 +186,7 @@ class IssueControllerSpec extends ObjectBehavior
         $projectShortName = 'TEST';
         $issueNumber = 42;
 
-        $container->get('kreta_core.repository.issue')->shouldBeCalled()->willReturn($repository);
+        $container->get('kreta_issue.repository.issue')->shouldBeCalled()->willReturn($repository);
         $repository->findOneByShortCode($projectShortName, $issueNumber)->shouldBeCalled()->willReturn($issue);
 
         $container->get('security.context')->shouldBeCalled()->willReturn($securityContext);
@@ -216,7 +216,7 @@ class IssueControllerSpec extends ObjectBehavior
         $projectShortName = 'TEST';
         $issueNumber = 42;
 
-        $container->get('kreta_core.repository.issue')->shouldBeCalled()->willReturn($repository);
+        $container->get('kreta_issue.repository.issue')->shouldBeCalled()->willReturn($repository);
         $repository->findOneByShortCode($projectShortName, $issueNumber)->shouldBeCalled()->willReturn(null);
 
         $this->shouldThrow('\Symfony\Component\HttpKernel\Exception\NotFoundHttpException')
@@ -230,7 +230,7 @@ class IssueControllerSpec extends ObjectBehavior
         $projectShortName = 'TEST';
         $issueNumber = 42;
 
-        $container->get('kreta_core.repository.issue')->shouldBeCalled()->willReturn($repository);
+        $container->get('kreta_issue.repository.issue')->shouldBeCalled()->willReturn($repository);
         $repository->findOneByShortCode($projectShortName, $issueNumber)->shouldBeCalled()->willReturn($issue);
 
         $container->get('security.context')->shouldBeCalled()->willReturn($securityContext);

@@ -12,7 +12,7 @@
 namespace Kreta\Component\Notification\Repository;
 
 use Doctrine\ORM\EntityRepository;
-use Kreta\Component\Core\Model\Interfaces\UserInterface;
+use Kreta\Component\User\Model\Interfaces\UserInterface;
 
 /**
  * Class NotificationRepository.
@@ -24,7 +24,7 @@ class NotificationRepository extends EntityRepository
     /**
      * Gets the amount of notifications that user does not read yet.
      *
-     * @param \Kreta\Component\Core\Model\Interfaces\UserInterface $user Target user
+     * @param \Kreta\Component\User\Model\Interfaces\UserInterface $user Target user
      *
      * @return integer Amount of unread notifications
      */
@@ -44,7 +44,7 @@ class NotificationRepository extends EntityRepository
     /**
      * Finds all unread notifications of user given.
      *
-     * @param \Kreta\Component\Core\Model\Interfaces\UserInterface $user Target user
+     * @param \Kreta\Component\User\Model\Interfaces\UserInterface $user Target user
      *
      * @return \Kreta\Component\Notification\Model\Interfaces\NotificationInterface[]
      */

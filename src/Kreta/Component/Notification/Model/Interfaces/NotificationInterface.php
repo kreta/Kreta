@@ -11,8 +11,8 @@
 
 namespace Kreta\Component\Notification\Model\Interfaces;
 
-use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
-use Kreta\Component\Core\Model\Interfaces\UserInterface;
+use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
+use Kreta\Component\User\Model\Interfaces\UserInterface;
 
 /**
  * Class NotificationInterface

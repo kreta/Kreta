@@ -12,8 +12,8 @@
 namespace Kreta\Component\Notification\Model;
 
 use Kreta\Component\Core\Model\Abstracts\AbstractModel;
-use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
-use Kreta\Component\Core\Model\Interfaces\UserInterface;
+use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
+use Kreta\Component\User\Model\Interfaces\UserInterface;
 use Kreta\Component\Notification\Model\Interfaces\NotificationInterface;
 
 class Notification extends AbstractModel implements NotificationInterface

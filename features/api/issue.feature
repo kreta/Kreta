@@ -18,17 +18,21 @@ Feature: Manage issue
       | 1  | Kreta     | User2    | user2@kreta.com | 123456   | 2014-10-20 |
       | 2  | Kreta     | User3    | user3@kreta.com | 123456   | 2014-10-20 |
       | 3  | Kreta     | User4    | user4@kreta.com | 123456   | 2014-10-20 |
+    And the following workflows exist:
+      | id | name       | creator        |
+      | 0  | Workflow 1 | user@kreta.com |
+      | 1  | Workflow 2 | user@kreta.com |
     And the following projects exist:
-      | id | name           | shortName | creator        |
-      | 0  | Test project 1 | TPR1      | user@kreta.com |
-      | 1  | Test project 2 | TPR2      | user@kreta.com |
+      | id | name           | shortName | creator        | workflow   |
+      | 0  | Test project 1 | TPR1      | user@kreta.com | Workflow 1 |
+      | 1  | Test project 2 | TPR2      | user@kreta.com | Workflow 2 |
     And the following statuses exist:
-      | id | color   | name        | project        |
-      | 0  | #27ae60 | Open        | Test project 1 |
-      | 1  | #2c3e50 | In progress | Test project 1 |
-      | 2  | #f1c40f | Resolved    | Test project 1 |
-      | 3  | #c0392b | Closed      | Test project 1 |
-      | 4  | #27ae60 | Reopened    | Test project 1 |
+      | id | color   | name        | workflow   |
+      | 0  | #27ae60 | Open        | Workflow 1 |
+      | 1  | #2c3e50 | In progress | Workflow 1 |
+      | 2  | #f1c40f | Resolved    | Workflow 1 |
+      | 3  | #c0392b | Closed      | Workflow 1 |
+      | 4  | #27ae60 | Reopened    | Workflow 1 |
     And the following participants exist:
       | project        | user            | role             |
       | Test project 1 | user3@kreta.com | ROLE_PARTICIPANT |
@@ -429,7 +433,7 @@ Feature: Manage issue
             "href": "http://localhost/app_test.php/api/projects/1"
           },
           "issues": {
-            "href": "http://localhost/app_test.php/api/projects/2/issues"
+            "href": "http://localhost/app_test.php/api/projects/1/issues"
           }
         }
       }
@@ -486,7 +490,7 @@ Feature: Manage issue
             "href": "http://localhost/app_test.php/api/projects/1"
           },
           "issues": {
-            "href": "http://localhost/app_test.php/api/projects/3/issues"
+            "href": "http://localhost/app_test.php/api/projects/1/issues"
           }
         }
       }

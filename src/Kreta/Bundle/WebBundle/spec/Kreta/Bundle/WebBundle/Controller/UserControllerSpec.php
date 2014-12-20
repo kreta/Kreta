@@ -3,7 +3,7 @@
 namespace spec\Kreta\Bundle\WebBundle\Controller;
 
 use Kreta\Bundle\WebBundle\FormHandler\UserFormHandler;
-use Kreta\Component\Core\Model\Interfaces\UserInterface;
+use Kreta\Component\User\Model\Interfaces\UserInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\ContainerInterface;

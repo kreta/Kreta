@@ -11,8 +11,8 @@
 
 namespace Kreta\Bundle\WebBundle\Controller;
 
-use Kreta\Component\Core\Model\Interfaces\ProjectInterface;
-use Kreta\Component\Core\Model\Interfaces\UserInterface;
+use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
+use Kreta\Component\User\Model\Interfaces\UserInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -34,7 +34,7 @@ class ProjectController extends Controller
      */
     public function viewAction($projectShortName)
     {
-        $project = $this->get('kreta_core.repository.project')->findOneBy(['shortName' => $projectShortName]);
+        $project = $this->get('kreta_project.repository.project')->findOneBy(['shortName' => $projectShortName]);
 
         if (!$this->get('security.context')->isGranted('view', $project)) {
             throw new AccessDeniedException();
@@ -56,7 +56,7 @@ class ProjectController extends Controller
      */
     public function newAction(Request $request)
     {
-        $project = $this->get('kreta_core.factory.project')->create($this->getUser());
+        $project = $this->get('kreta_project.factory.project')->create($this->getUser());
 
         $form = $this->get('kreta_web.form_handler.project')->handleForm($request, $project);
 
@@ -80,7 +80,7 @@ class ProjectController extends Controller
      */
     public function editAction(Request $request, $projectShortName)
     {
-        $project = $this->get('kreta_core.repository.project')->findOneBy(['shortName' => $projectShortName]);
+        $project = $this->get('kreta_project.repository.project')->findOneBy(['shortName' => $projectShortName]);
 
         if (!$project instanceof ProjectInterface) {
             throw $this->createNotFoundException();
@@ -115,8 +115,8 @@ class ProjectController extends Controller
      */
     public function newParticipantAction(Request $request, $projectShortName)
     {
-        $user = $this->get('kreta_core.repository.user')->findOneBy(['email' => $request->get('email')]);
-        $project = $this->get('kreta_core.repository.project')->findOneBy(['shortName' => $projectShortName]);
+        $user = $this->get('kreta_user.repository.user')->findOneBy(['email' => $request->get('email')]);
+        $project = $this->get('kreta_project.repository.project')->findOneBy(['shortName' => $projectShortName]);
 
         if (!$this->get('security.context')->isGranted('add_participant', $project)) {
             throw new AccessDeniedException();
@@ -127,7 +127,7 @@ class ProjectController extends Controller
         } elseif (!$project instanceof ProjectInterface) {
             throw $this->createNotFoundException('Project not found');
         } else {
-            $participant = $this->get('kreta_core.factory.participant')->create($project, $user);
+            $participant = $this->get('kreta_project.factory.participant')->create($project, $user);
             $manager = $this->getDoctrine()->getManager();
             $manager->persist($participant);
             $manager->flush();

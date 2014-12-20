@@ -23,17 +23,41 @@ doctrine:
                 dir: "Resources/config/doctrine"
                 prefix: 'FOS\OAuthServerBundle\Entity'
                 is_bundle: true
-            KretaApiCoreBundle:
+            KretaApiBundle:
                 mapping: true
                 type: yml
                 dir: "Resources/config/doctrine"
-                prefix: 'Kreta\Bundle\Api\ApiCoreBundle\Model'
+                prefix: 'Kreta\Bundle\ApiBundle\Model'
                 is_bundle: true
-            KretaCoreBundle:
+            KretaIssueBundle:
                 mapping: true
                 type: yml
                 dir: "Resources/config/doctrine"
-                prefix: 'Kreta\Component\Core\Model'
+                prefix: 'Kreta\Component\Issue\Model'
+            KretaMediaBundle:
+                mapping: true
+                type: yml
+                dir: "Resources/config/doctrine"
+                prefix: 'Kreta\Component\Media\Model'
+                is_bundle: true
+                is_bundle: true
+            KretaProjectBundle:
+                mapping: true
+                type: yml
+                dir: "Resources/config/doctrine"
+                prefix: 'Kreta\Component\Project\Model'
+                is_bundle: true
+            KretaUserBundle:
+                mapping: true
+                type: yml
+                dir: "Resources/config/doctrine"
+                prefix: 'Kreta\Component\User\Model'
+                is_bundle: true
+            KretaCommentBundle:
+                mapping: true
+                type: yml
+                dir: "Resources/config/doctrine"
+                prefix: 'Kreta\Component\Comment\Model'
                 is_bundle: true
             KretaNotificationBundle:
                 mapping: true
@@ -41,19 +65,26 @@ doctrine:
                 dir: "Resources/config/doctrine"
                 prefix: 'Kreta\Component\Notification\Model'
                 is_bundle: true
+            KretaWorkflowBundle:
+                mapping: true
+                type: yml
+                dir: "Resources/config/doctrine"
+                prefix: 'Kreta\Component\Workflow\Model'
+                is_bundle: true
         resolve_target_entities:
-            Kreta\Bundle\Api\ApiCoreBundle\Model\Interfaces\AccessTokenInterface: Kreta\Bundle\Api\ApiCoreBundle\Model\AccessToken
-            Kreta\Bundle\Api\ApiCoreBundle\Model\Interfaces\AuthCodeInterface: Kreta\Bundle\Api\ApiCoreBundle\Model\AuthCode
-            Kreta\Bundle\Api\ApiCoreBundle\Model\Interfaces\ClientInterface: Kreta\Bundle\Api\ApiCoreBundle\Model\Client
-            Kreta\Bundle\Api\ApiCoreBundle\Model\Interfaces\RefreshTokenInterface: Kreta\Bundle\Api\ApiCoreBundle\Model\RefreshToken
-            Kreta\Component\Core\Model\Interfaces\CommentInterface: Kreta\Component\Core\Model\Comment
-            Kreta\Component\Core\Model\Interfaces\IssueInterface: Kreta\Component\Core\Model\Issue
-            Kreta\Component\Core\Model\Interfaces\LabelInterface: Kreta\Component\Core\Model\Label
-            Kreta\Component\Core\Model\Interfaces\MediaInterface: Kreta\Component\Core\Model\Media
-            Kreta\Component\Core\Model\Interfaces\ProjectInterface: Kreta\Component\Core\Model\Project
-            Kreta\Component\Core\Model\Interfaces\ParticipantInterface: Kreta\Component\Core\Model\Participant
-            Kreta\Component\Core\Model\Interfaces\ResolutionInterface: Kreta\Component\Core\Model\Resolution
-            Kreta\Component\Core\Model\Interfaces\StatusInterface: Kreta\Component\Core\Model\Status
-            Kreta\Component\Core\Model\Interfaces\StatusTransitionInterface: Kreta\Component\Core\Model\StatusTransition
-            Kreta\Component\Core\Model\Interfaces\UserInterface: Kreta\Component\Core\Model\User
-            Kreta\Component\Notification\Model\Interfaces\NotificationInterface: Kreta\Component\Core\Model\User
+            Kreta\Bundle\ApiBundle\Model\Interfaces\AccessTokenInterface: Kreta\Bundle\ApiBundle\Model\AccessToken
+            Kreta\Bundle\ApiBundle\Model\Interfaces\AuthCodeInterface: Kreta\Bundle\ApiBundle\Model\AuthCode
+            Kreta\Bundle\ApiBundle\Model\Interfaces\ClientInterface: Kreta\Bundle\ApiBundle\Model\Client
+            Kreta\Bundle\ApiBundle\Model\Interfaces\RefreshTokenInterface: Kreta\Bundle\ApiBundle\Model\RefreshToken
+            Kreta\Component\Comment\Model\Interfaces\CommentInterface: Kreta\Component\Comment\Model\Comment
+            Kreta\Component\Issue\Model\Interfaces\IssueInterface: Kreta\Component\Issue\Model\Issue
+            Kreta\Component\Issue\Model\Interfaces\LabelInterface: Kreta\Component\Issue\Model\Label
+            Kreta\Component\Media\Model\Interfaces\MediaInterface: Kreta\Component\Media\Model\Media
+            Kreta\Component\Project\Model\Interfaces\ProjectInterface: Kreta\Component\Project\Model\Project
+            Kreta\Component\Project\Model\Interfaces\ParticipantInterface: Kreta\Component\Project\Model\Participant
+            Kreta\Component\Issue\Model\Interfaces\ResolutionInterface: Kreta\Component\Issue\Model\Resolution
+            Kreta\Component\Workflow\Model\Interfaces\StatusInterface: Kreta\Component\Workflow\Model\Status
+            Kreta\Component\Workflow\Model\Interfaces\StatusTransitionInterface: Kreta\Component\Workflow\Model\StatusTransition
+            Kreta\Component\User\Model\Interfaces\UserInterface: Kreta\Component\User\Model\User
+            Kreta\Component\Notification\Model\Interfaces\NotificationInterface: Kreta\Component\Notification\Model\Notification
+            Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface: Kreta\Component\Workflow\Model\Workflow

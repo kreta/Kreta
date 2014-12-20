@@ -11,7 +11,7 @@
 
 namespace Kreta\Bundle\WebBundle\FormHandler;
 
-use Kreta\Bundle\CoreBundle\Form\Type\IssueType;
+use Kreta\Bundle\IssueBundle\Form\Type\IssueType;
 use Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
 
 /**

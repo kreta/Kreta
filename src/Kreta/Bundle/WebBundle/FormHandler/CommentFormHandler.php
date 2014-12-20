@@ -11,7 +11,7 @@
 
 namespace Kreta\Bundle\WebBundle\FormHandler;
 
-use Kreta\Bundle\CoreBundle\Form\Type\CommentType;
+use Kreta\Bundle\CommentBundle\Form\Type\CommentType;
 
 /**
  * Class CommentFormHandler.

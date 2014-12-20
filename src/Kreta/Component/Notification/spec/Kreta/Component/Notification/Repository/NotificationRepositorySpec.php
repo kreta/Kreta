@@ -16,7 +16,7 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
-use Kreta\Component\Core\Model\Interfaces\UserInterface;
+use Kreta\Component\User\Model\Interfaces\UserInterface;
 use Kreta\Component\Notification\Model\Interfaces\NotificationInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;

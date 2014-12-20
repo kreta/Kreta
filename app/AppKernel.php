@@ -44,11 +44,18 @@ class AppKernel extends Kernel
             new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
             new Nelmio\CorsBundle\NelmioCorsBundle(),
 
+            new Kreta\Bundle\ApiBundle\KretaApiBundle(),
+            new Kreta\Bundle\CommentBundle\KretaCommentBundle(),
+            new Kreta\Bundle\FixturesBundle\KretaFixturesBundle(),
             new Kreta\Bundle\CoreBundle\KretaCoreBundle(),
+            new Kreta\Bundle\IssueBundle\KretaIssueBundle(),
+            new Kreta\Bundle\MediaBundle\KretaMediaBundle(),
             new Kreta\Bundle\NotificationBundle\KretaNotificationBundle(),
+            new Kreta\Bundle\ProjectBundle\KretaProjectBundle(),
+            new Kreta\Bundle\UserBundle\KretaUserBundle(),
             new Kreta\Bundle\WebBundle\KretaWebBundle(),
+            new Kreta\Bundle\WorkflowBundle\KretaWorkflowBundle(),
 
-            new Kreta\Bundle\Api\ApiCoreBundle\KretaApiCoreBundle()
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {

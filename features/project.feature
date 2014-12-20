@@ -20,13 +20,6 @@ Feature: Manage project
     And the following projects exist:
       | name         | shortName | creator        |
       | Test project | TPR       | user@kreta.com |
-    And the following statuses exist:
-      | color   | name        | project      |
-      | #27ae60 | Open        | Test project |
-      | #2c3e50 | In progress | Test project |
-      | #f1c40f | Resolved    | Test project |
-      | #c0392b | Closed      | Test project |
-      | #27ae60 | Reopened    | Test project |
     And the following participants exist:
       | project      | user            | role             |
       | Test project | user3@kreta.com | ROLE_PARTICIPANT |

@@ -1,0 +1,63 @@
+# This file belongs to Kreta.
+# The source code of application includes a LICENSE file
+# with all information about license.
+#
+# @author benatespina <benatespina@gmail.com>
+# @author gorkalaucirica <gorka.lauzirika@gmail.com>
+
+Kreta\Component\Project\Model\Project:
+    exclusion_policy: ALL
+    relations:
+        -
+            rel: self
+            href:
+                route: get_project
+                parameters:
+                    projectId: expr(object.getId())
+                absolute: true
+            exclusion:
+                groups: [projectList, project]
+        -
+            rel: projects
+            href:
+                route: get_projects
+                absolute: true
+            exclusion:
+                groups: [projectList, project]
+        -
+            rel: issues
+            href:
+                route: get_projects_issues
+                parameters:
+                    projectId: expr(object.getId())
+                absolute: true
+            exclusion:
+                groups: [projectList, project]
+        -
+            rel: statuses
+            href:
+                route: get_workflow_statuses
+                parameters:
+                    workflowId: expr(object.getWorkflow().getId())
+                absolute: true
+            exclusion:
+                groups: [projectList, project]
+    properties:
+        image:
+            expose: true
+            groups: [projectList, project]
+        issues:
+            expose: true
+            groups: []
+        name:
+            expose: true
+            groups: [projectList, project]
+        participants:
+            expose: true
+            groups: [projectList, project]
+        shortName:
+            expose: true
+            groups: [projectList, project]
+        statuses:
+            expose: true
+            groups: []

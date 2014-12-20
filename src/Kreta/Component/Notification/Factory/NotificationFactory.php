@@ -11,22 +11,37 @@
 
 namespace Kreta\Component\Notification\Factory;
 
-use Kreta\Component\Core\Factory\BaseFactory;
-use Kreta\Component\Notification\Model\Interfaces\NotificationInterface;
-
 /**
  * Class NotificationFactory
  *
  * @package Kreta\Component\Notification\Factory
  */
-class NotificationFactory extends BaseFactory
+class NotificationFactory
 {
     /**
-     * {@inheritdoc}
+     * The class name.
+     *
+     * @var string
+     */
+    protected $className;
+
+    /**
+     * Constructor.
+     *
+     * @param string $className The class name
+     */
+    public function __construct($className)
+    {
+        $this->className = $className;
+    }
+
+    /**
+     * Creates an instance of an entity.
+     *
+     * @return \Kreta\Component\Notification\Model\Interfaces\NotificationInterface
      */
     public function create()
     {
-        /** @var NotificationInterface $notification */
         $notification = new $this->className;
         $notification->setDate(new \DateTime());
         $notification->setRead(false);

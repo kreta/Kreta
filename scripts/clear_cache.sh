@@ -16,5 +16,6 @@ sudo rm -rf app/cache/* app/logs/*
 sudo chmod -R 777 /dev/shm/symfony/cache
 sudo chmod -R 777 /dev/shm/symfony/logs/
 php app/console cache:clear -e=dev
+php app/console cache:clear -e=test
 sudo chmod -R 777 /dev/shm/symfony/cache
 sudo chmod -R 777 /dev/shm/symfony/logs/

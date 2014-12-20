@@ -58,7 +58,7 @@ Feature: Manage issues
   Scenario: Adding a comment
     Given I am on the homepage
     And I click on view button for issue 'Test'
-    When I fill in "kreta_core_comment_type_description" with "New comment!!"
+    When I fill in "kreta_comment_comment_type_description" with "New comment!!"
     And I press "Send"
     Then I should see "Comment added successfully"
     And I should see "New comment!!"
