@@ -12,19 +12,24 @@
 namespace Kreta\Bundle\WebBundle\Controller\Component;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * Class NotificationComponentController.
+ *
+ * @package Kreta\Bundle\WebBundle\Controller\Component
+ */
 class NotificationComponentController extends Controller
 {
     /**
      * Renders the icon used to alert users that have notifications
      *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function iconAction(Request $request)
+    public function iconAction()
     {
         $count = $this->get('kreta_notification.repository.notification')
                     ->getUsersUnreadNotificationsCount($this->getUser());
 
         return $this->render('KretaWebBundle:Component/Notification:icon.html.twig', ['count' => $count]);
     }
-} 
+}

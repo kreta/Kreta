@@ -1,14 +1,23 @@
 <?php
 
+/**
+ * This file belongs to Kreta.
+ * The source code of application includes a LICENSE file
+ * with all information about license.
+ *
+ * @author benatespina <benatespina@gmail.com>
+ * @author gorkalaucirica <gorka.lauzirika@gmail.com>
+ */
+
 namespace spec\Kreta\Bundle\WebBundle\Controller;
 
-use Kreta\Bundle\WebBundle\FormHandler\IssueFormHandler;
+use Kreta\Bundle\IssueBundle\Form\Handler\IssueHandler;
 use Kreta\Component\Issue\Factory\IssueFactory;
 use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
-use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
-use Kreta\Component\User\Model\Interfaces\UserInterface;
 use Kreta\Component\Issue\Repository\IssueRepository;
+use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Project\Repository\ProjectRepository;
+use Kreta\Component\User\Model\Interfaces\UserInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -19,6 +28,11 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
+/**
+ * Class IssueControllerSpec.
+ *
+ * @package spec\Kreta\Bundle\WebBundle\Controller
+ */
 class IssueControllerSpec extends ObjectBehavior
 {
     function let(ContainerInterface $container)
@@ -31,8 +45,12 @@ class IssueControllerSpec extends ObjectBehavior
         $this->shouldHaveType('Kreta\Bundle\WebBundle\Controller\IssueController');
     }
 
-    function it_shows_issue(ContainerInterface $container, SecurityContextInterface $securityContext,
-                            IssueRepository $repository, IssueInterface $issue)
+    function it_shows_issue(
+        ContainerInterface $container,
+        SecurityContextInterface $securityContext,
+        IssueRepository $repository,
+        IssueInterface $issue
+    )
     {
         $projectShortName = 'TEST';
         $issueNumber = 42;
@@ -56,11 +74,14 @@ class IssueControllerSpec extends ObjectBehavior
 
         $this->shouldThrow('\Symfony\Component\HttpKernel\Exception\NotFoundHttpException')
             ->duringViewAction($projectShortName, $issueNumber);
-
     }
 
-    function it_denies_viewing_access(ContainerInterface $container, SecurityContextInterface $securityContext,
-                                      IssueRepository $repository, IssueInterface $issue)
+    function it_denies_viewing_access(
+        ContainerInterface $container,
+        SecurityContextInterface $securityContext,
+        IssueRepository $repository,
+        IssueInterface $issue
+    )
     {
         $projectShortName = 'TEST';
         $issueNumber = 42;
@@ -75,10 +96,20 @@ class IssueControllerSpec extends ObjectBehavior
             ->duringViewAction($projectShortName, $issueNumber);
     }
 
-    function it_shows_new_issue_form(ContainerInterface $container, SecurityContextInterface $securityContext,
-                                     ProjectRepository $repository, ProjectInterface $project, IssueFactory $factory,
-                                     UserInterface $user, IssueFormHandler $formHandler, IssueInterface $issue,
-                                     Request $request, FormInterface $form, FormView $formView, TokenInterface $token)
+    function it_shows_new_issue_form(
+        ContainerInterface $container,
+        SecurityContextInterface $securityContext,
+        ProjectRepository $repository,
+        ProjectInterface $project,
+        IssueFactory $factory,
+        UserInterface $user,
+        IssueHandler $formHandler,
+        IssueInterface $issue,
+        Request $request,
+        FormInterface $form,
+        FormView $formView,
+        TokenInterface $token
+    )
     {
         $projectShortName = 'TEST';
 
@@ -93,7 +124,7 @@ class IssueControllerSpec extends ObjectBehavior
         $factory->create($project, $user)->shouldBeCalled()->willReturn($issue);
 
         $project->getParticipants()->shouldBeCalled()->willReturn([$user]);
-        $container->get('kreta_web.form_handler.issue')->shouldBeCalled()->willReturn($formHandler);
+        $container->get('kreta_issue.form_handler.issue')->shouldBeCalled()->willReturn($formHandler);
         $formHandler->handleForm($request, $issue, ['participants' => [$user]])->shouldBeCalled()->willReturn($form);
 
         $form->isValid()->shouldBeCalled()->willReturn(false);
@@ -102,11 +133,20 @@ class IssueControllerSpec extends ObjectBehavior
         $this->newAction($projectShortName, $request)->shouldReturn(['form' => $formView, 'project' => $project]);
     }
 
-    function it_creates_new_issue(ContainerInterface $container, SecurityContextInterface $securityContext,
-                                  ProjectRepository $repository, ProjectInterface $project, IssueFactory $factory,
-                                  UserInterface $user, IssueFormHandler $formHandler, IssueInterface $issue,
-                                  Request $request, FormInterface $form, FormView $formView, TokenInterface $token,
-                                  UrlGeneratorInterface $router)
+    function it_creates_new_issue(
+        ContainerInterface $container,
+        SecurityContextInterface $securityContext,
+        ProjectRepository $repository,
+        ProjectInterface $project,
+        IssueFactory $factory,
+        UserInterface $user,
+        IssueHandler $formHandler,
+        IssueInterface $issue,
+        Request $request,
+        FormInterface $form,
+        TokenInterface $token,
+        UrlGeneratorInterface $router
+    )
     {
         $projectShortName = 'TEST';
 
@@ -121,7 +161,7 @@ class IssueControllerSpec extends ObjectBehavior
         $factory->create($project, $user)->shouldBeCalled()->willReturn($issue);
 
         $project->getParticipants()->shouldBeCalled()->willReturn([$user]);
-        $container->get('kreta_web.form_handler.issue')->shouldBeCalled()->willReturn($formHandler);
+        $container->get('kreta_issue.form_handler.issue')->shouldBeCalled()->willReturn($formHandler);
         $formHandler->handleForm($request, $issue, ['participants' => [$user]])->shouldBeCalled()->willReturn($form);
 
         $form->isValid()->shouldBeCalled()->willReturn(true);
@@ -129,15 +169,23 @@ class IssueControllerSpec extends ObjectBehavior
         $issue->getProject()->shouldBeCalled()->willReturn($project);
         $project->getShortName()->shouldBeCalled()->willReturn($projectShortName);
         $issue->getNumericId()->shouldBeCalled()->willReturn(42);
-        $router->generate('kreta_web_issue_view', ['projectShortName' => $projectShortName, 'issueNumber' => 42], false)
-            ->shouldBeCalled()->willReturn('/issues/TEST-42');
+        $router->generate(
+            'kreta_web_issue_view',
+            ['projectShortName' => $projectShortName, 'issueNumber' => 42],
+            false
+        )->shouldBeCalled()->willReturn('/issues/TEST-42');
 
         $this->newAction($projectShortName, $request)
             ->shouldReturnAnInstanceOf('\Symfony\Component\HttpFoundation\RedirectResponse');
     }
 
-    function it_denies_issue_creation(ContainerInterface $container, SecurityContextInterface $securityContext,
-                                      ProjectRepository $repository, ProjectInterface $project, Request $request)
+    function it_denies_issue_creation(
+        ContainerInterface $container,
+        SecurityContextInterface $securityContext,
+        ProjectRepository $repository,
+        ProjectInterface $project,
+        Request $request
+    )
     {
         $projectShortName = 'TEST';
 
@@ -151,10 +199,18 @@ class IssueControllerSpec extends ObjectBehavior
             ->duringNewAction($projectShortName, $request);
     }
 
-    function it_shows_edit_issue_form(ContainerInterface $container, SecurityContextInterface $securityContext,
-                                      IssueRepository $repository, UserInterface $user, IssueFormHandler $formHandler,
-                                      IssueInterface $issue, Request $request, FormInterface $form, FormView $formView,
-                                      ProjectInterface $project)
+    function it_shows_edit_issue_form(
+        ContainerInterface $container,
+        SecurityContextInterface $securityContext,
+        IssueRepository $repository,
+        UserInterface $user,
+        IssueHandler $formHandler,
+        IssueInterface $issue,
+        Request $request,
+        FormInterface $form,
+        FormView $formView,
+        ProjectInterface $project
+    )
     {
         $projectShortName = 'TEST';
         $issueNumber = 42;
@@ -167,7 +223,7 @@ class IssueControllerSpec extends ObjectBehavior
 
         $issue->getProject()->shouldBeCalled()->willReturn($project);
         $project->getParticipants()->shouldBeCalled()->willReturn([$user]);
-        $container->get('kreta_web.form_handler.issue')->shouldBeCalled()->willReturn($formHandler);
+        $container->get('kreta_issue.form_handler.issue')->shouldBeCalled()->willReturn($formHandler);
         $formHandler->handleForm($request, $issue, ['participants' => [$user]])->shouldBeCalled()->willReturn($form);
 
         $form->isValid()->shouldBeCalled()->willReturn(false);
@@ -177,11 +233,18 @@ class IssueControllerSpec extends ObjectBehavior
             ->shouldReturn(['form' => $formView, 'issue' => $issue]);
     }
 
-    function it_edits_issue(ContainerInterface $container, SecurityContextInterface $securityContext,
-                            IssueRepository $repository, ProjectInterface $project,
-                            UserInterface $user, IssueFormHandler $formHandler, IssueInterface $issue,
-                            Request $request, FormInterface $form, FormView $formView,
-                            UrlGeneratorInterface $router)
+    function it_edits_issue(
+        ContainerInterface $container,
+        SecurityContextInterface $securityContext,
+        IssueRepository $repository,
+        ProjectInterface $project,
+        UserInterface $user,
+        IssueHandler $formHandler,
+        IssueInterface $issue,
+        Request $request,
+        FormInterface $form,
+        UrlGeneratorInterface $router
+    )
     {
         $projectShortName = 'TEST';
         $issueNumber = 42;
@@ -194,7 +257,7 @@ class IssueControllerSpec extends ObjectBehavior
 
         $issue->getProject()->shouldBeCalled()->willReturn($project);
         $project->getParticipants()->shouldBeCalled()->willReturn([$user]);
-        $container->get('kreta_web.form_handler.issue')->shouldBeCalled()->willReturn($formHandler);
+        $container->get('kreta_issue.form_handler.issue')->shouldBeCalled()->willReturn($formHandler);
         $formHandler->handleForm($request, $issue, ['participants' => [$user]])->shouldBeCalled()->willReturn($form);
 
         $form->isValid()->shouldBeCalled()->willReturn(true);
@@ -210,8 +273,11 @@ class IssueControllerSpec extends ObjectBehavior
             ->shouldReturnAnInstanceOf('\Symfony\Component\HttpFoundation\RedirectResponse');
     }
 
-    function it_shows_error_when_issue_not_found_editing (ContainerInterface $container, IssueRepository $repository,
-                                                          Request $request)
+    function it_shows_error_when_issue_not_found_editing(
+        ContainerInterface $container,
+        IssueRepository $repository,
+        Request $request
+    )
     {
         $projectShortName = 'TEST';
         $issueNumber = 42;
@@ -221,11 +287,15 @@ class IssueControllerSpec extends ObjectBehavior
 
         $this->shouldThrow('\Symfony\Component\HttpKernel\Exception\NotFoundHttpException')
             ->duringEditAction($projectShortName, $issueNumber, $request);
-
     }
 
-    function it_denies_issue_edition(ContainerInterface $container, SecurityContextInterface $securityContext,
-                                      IssueRepository $repository, IssueInterface $issue, Request $request)
+    function it_denies_issue_edition(
+        ContainerInterface $container,
+        SecurityContextInterface $securityContext,
+        IssueRepository $repository,
+        IssueInterface $issue,
+        Request $request
+    )
     {
         $projectShortName = 'TEST';
         $issueNumber = 42;
@@ -240,8 +310,12 @@ class IssueControllerSpec extends ObjectBehavior
             ->duringEditAction($projectShortName, $issueNumber, $request);
     }
 
-    protected function getUserStub(ContainerInterface $container, SecurityContextInterface $securityContext,
-                                   TokenInterface $token, UserInterface $user)
+    protected function getUserStub(
+        ContainerInterface $container,
+        SecurityContextInterface $securityContext,
+        TokenInterface $token,
+        UserInterface $user
+    )
     {
         $container->has('security.context')->shouldBeCalled()->willReturn(true);
         $container->get('security.context')->shouldBeCalled()->willReturn($securityContext);

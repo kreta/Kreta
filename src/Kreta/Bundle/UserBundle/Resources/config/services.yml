@@ -6,6 +6,11 @@
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
 services:
+#### FORM HANDLER ####
+    kreta_user.form_handler.user:
+        class: %kreta_user.form_user_handler.class%
+        arguments: [@form.factory, @doctrine.orm.entity_manager, @event_dispatcher, @kreta_media.factory.media, @kreta_user.uploader.image_user]
+
 #### SECURITY ####
     kreta_user.user_provider:
         class: %kreta_user.security_user_provider.class%

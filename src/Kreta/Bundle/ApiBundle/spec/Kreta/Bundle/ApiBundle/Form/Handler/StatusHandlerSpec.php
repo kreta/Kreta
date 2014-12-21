@@ -47,12 +47,12 @@ class StatusHandlerSpec extends ObjectBehavior
 
     function it_extends_core_abstract_handler()
     {
-        $this->shouldHaveType('Kreta\Bundle\WebBundle\FormHandler\AbstractFormHandler');
+        $this->shouldHaveType('Kreta\Bundle\CoreBundle\Form\Handler\Abstracts\AbstractHandler');
     }
 
     function it_handles_form(Request $request, StatusInterface $status, FormFactory $formFactory, FormInterface $form)
     {
-        $formFactory->create(Argument::type('\Kreta\Bundle\ApiBundle\Form\Type\StatusType'), $status, [])
+        $formFactory->create(Argument::type('Kreta\Bundle\ApiBundle\Form\Type\StatusType'), $status, [])
             ->shouldBeCalled()->willReturn($form);
 
         $this->handleForm($request, $status, [])->shouldReturn($form);

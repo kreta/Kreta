@@ -15,4 +15,6 @@ parameters:
     kreta_project.repository_participant.class: Kreta\Component\Project\Repository\ParticipantRepository
     kreta_project.repository_project.class: Kreta\Component\Project\Repository\ProjectRepository
 
+    kreta_project.form_project_handler.class: Kreta\Bundle\ProjectBundle\Form\Handler\ProjectHandler
+
     kreta_project.security_project_voter.class: Kreta\Bundle\ProjectBundle\Security\Authorization\Voter\ProjectVoter

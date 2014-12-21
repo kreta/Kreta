@@ -12,7 +12,7 @@
 namespace spec\Kreta\Bundle\ApiBundle\Controller\Abstracts;
 
 use FOS\RestBundle\View\ViewHandler;
-use Kreta\Bundle\WebBundle\FormHandler\AbstractFormHandler;
+use Kreta\Bundle\CoreBundle\Form\Handler\Abstracts\AbstractHandler;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use Kreta\Component\Project\Repository\ProjectRepository;
@@ -68,7 +68,7 @@ abstract class AbstractRestControllerSpec extends ObjectBehavior
         FormInterface $formGrandChild,
         Response $response,
         ViewHandler $viewHandler,
-        AbstractFormHandler $formHandler,
+        AbstractHandler $formHandler,
         $resource,
         $method = 'POST'
     )
@@ -97,7 +97,7 @@ abstract class AbstractRestControllerSpec extends ObjectBehavior
         Request $request,
         FormInterface $form,
         ViewHandler $viewHandler,
-        AbstractFormHandler $formHandler,
+        AbstractHandler $formHandler,
         Response $response,
         $resource,
         $method = 'POST'

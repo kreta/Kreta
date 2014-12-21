@@ -9,17 +9,18 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\Bundle\WebBundle\FormHandler;
+namespace Kreta\Bundle\IssueBundle\Form\Handler;
 
+use Kreta\Bundle\CoreBundle\Form\Handler\Abstracts\AbstractHandler;
 use Kreta\Bundle\IssueBundle\Form\Type\IssueType;
 use Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
 
 /**
- * Class IssueFormHandler.
+ * Class IssueHandler.
  *
- * @package Kreta\Bundle\WebBundle\FormHandler
+ * @package Kreta\Bundle\IssueBundle\Form\Handler
  */
-class IssueFormHandler extends AbstractFormHandler
+class IssueHandler extends AbstractHandler
 {
     /**
      * {@inheritdoc}

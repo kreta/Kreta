@@ -9,16 +9,17 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\Bundle\WebBundle\FormHandler;
+namespace Kreta\Bundle\CommentBundle\Form\Handler;
 
 use Kreta\Bundle\CommentBundle\Form\Type\CommentType;
+use Kreta\Bundle\CoreBundle\Form\Handler\Abstracts\AbstractHandler;
 
 /**
- * Class CommentFormHandler.
+ * Class CommentHandler.
  *
- * @package Kreta\Bundle\WebBundle\FormHandler
+ * @package Kreta\Bundle\CommentBundle\FormHandler
  */
-class CommentFormHandler extends AbstractFormHandler
+class CommentHandler extends AbstractHandler
 {
     /**
      * {@inheritdoc}

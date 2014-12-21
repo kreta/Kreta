@@ -9,7 +9,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace spec\Kreta\Bundle\WebBundle\FormHandler;
+namespace spec\Kreta\Bundle\IssueBundle\Form\Handler;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
@@ -23,29 +23,25 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Class IssueFormHandlerSpec.
+ * Class IssueHandlerSpec.
  *
- * @package spec\Kreta\Bundle\WebBundle\FormHandler
+ * @package spec\Kreta\Bundle\IssueBundle\Form\Handler
  */
-class IssueFormHandlerSpec extends ObjectBehavior
+class IssueHandlerSpec extends ObjectBehavior
 {
-    function let(
-        FormFactory $formFactory,
-        ObjectManager $manager,
-        EventDispatcherInterface $eventDispatcher
-    )
+    function let(FormFactory $formFactory, ObjectManager $manager, EventDispatcherInterface $eventDispatcher)
     {
         $this->beConstructedWith($formFactory, $manager, $eventDispatcher);
     }
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('Kreta\Bundle\WebBundle\FormHandler\IssueFormHandler');
+        $this->shouldHaveType('Kreta\Bundle\IssueBundle\Form\Handler\IssueHandler');
     }
 
     function it_extends_abstract_form_handler()
     {
-        $this->shouldHaveType('Kreta\Bundle\WebBundle\FormHandler\AbstractFormHandler');
+        $this->shouldHaveType('Kreta\Bundle\CoreBundle\Form\Handler\Abstracts\AbstractHandler');
     }
 
     function it_does_not_handle_form_because_participants_key_does_not_exist(IssueInterface $issue, Request $request)
@@ -62,7 +58,7 @@ class IssueFormHandlerSpec extends ObjectBehavior
         ParticipantInterface $participant
     )
     {
-        $formFactory->create(Argument::type('\Kreta\Bundle\IssueBundle\Form\Type\IssueType'), $issue, [])
+        $formFactory->create(Argument::type('Kreta\Bundle\IssueBundle\Form\Type\IssueType'), $issue, [])
             ->shouldBeCalled()->willReturn($form);
 
         $this->handleForm($request, $issue, ['participants' => [$participant]])->shouldReturn($form);

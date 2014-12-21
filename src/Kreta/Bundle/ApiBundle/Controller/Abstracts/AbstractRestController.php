@@ -17,7 +17,7 @@ use FOS\RestBundle\Request\ParamFetcher;
 use FOS\RestBundle\Util\Codes;
 use FOS\RestBundle\View\View;
 use JMS\Serializer\SerializationContext;
-use Kreta\Bundle\WebBundle\FormHandler\AbstractFormHandler;
+use Kreta\Bundle\CoreBundle\Form\Handler\Abstracts\AbstractHandler;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
@@ -40,7 +40,7 @@ abstract class AbstractRestController extends FOSRestController
     /**
      * Checks if user is authenticated returning this, otherwise throws an exception.
      *
-     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
+     * @throws \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException
      * @return \Kreta\Component\User\Model\Interfaces\UserInterface
      */
     protected function getCurrentUser()
@@ -148,15 +148,16 @@ abstract class AbstractRestController extends FOSRestController
     /**
      * Processes POST requests.
      *
-     * @param \Kreta\Bundle\WebBundle\FormHandler\AbstractFormHandler $formHandler The form handler
-     * @param mixed                                                   $resource    The object of resource
-     * @param string[]                                                $groups      The serialization groups
-     * @param array                                                   $formOptions Array which contains the form options
+     * @param \Kreta\Bundle\CoreBundle\Form\Handler\Abstracts\AbstractHandler $formHandler The form handler
+     * @param mixed                                                           $resource    The object of resource
+     * @param string[]                                                        $groups      The serialization groups
+     * @param array                                                           $formOptions Array which contains the
+     *                                                                                     form options
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     protected function post(
-        AbstractFormHandler $formHandler,
+        AbstractHandler $formHandler,
         $resource,
         array $groups = [],
         array $formOptions = ['csrf_protection' => false, 'method' => 'POST']
@@ -168,15 +169,16 @@ abstract class AbstractRestController extends FOSRestController
     /**
      * Processes PUT requests.
      *
-     * @param \Kreta\Bundle\WebBundle\FormHandler\AbstractFormHandler $formHandler The form handler
-     * @param mixed                                                   $resource    The object of resource
-     * @param string[]                                                $groups      The serialization groups
-     * @param array                                                   $formOptions Array which contains the form options
+     * @param \Kreta\Bundle\CoreBundle\Form\Handler\Abstracts\AbstractHandler $formHandler The form handler
+     * @param mixed                                                           $resource    The object of resource
+     * @param string[]                                                        $groups      The serialization groups
+     * @param array                                                           $formOptions Array which contains the
+     *                                                                                     form options
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     protected function put(
-        AbstractFormHandler $formHandler,
+        AbstractHandler $formHandler,
         $resource,
         array $groups = [],
         array $formOptions = ['csrf_protection' => false, 'method' => 'PUT']
@@ -188,16 +190,18 @@ abstract class AbstractRestController extends FOSRestController
     /**
      * Processes form requests (POST and PUT requests) returning the response or form's validation errors.
      *
-     * @param \Kreta\Bundle\WebBundle\FormHandler\AbstractFormHandler $formHandler The form handler
-     * @param array                                                   $formOptions Array which contains the form options
-     * @param mixed                                                   $resource    The object of resource
-     * @param string[]                                                $groups      The serialization groups
-     * @param int                                                     $statusCode  The http status code, by default 200
+     * @param \Kreta\Bundle\CoreBundle\Form\Handler\Abstracts\AbstractHandler $formHandler The form handler
+     * @param array                                                           $formOptions Array which contains the
+     *                                                                                     form options
+     * @param mixed                                                           $resource    The object of resource
+     * @param string[]                                                        $groups      The serialization groups
+     * @param int                                                             $statusCode  The http status code,
+     *                                                                                     by default 200
      *
      * @return \Symfony\Component\HttpFoundation\Response
      */
     protected function processFormRequest(
-        AbstractFormHandler $formHandler,
+        AbstractHandler $formHandler,
         array $formOptions = [],
         $resource,
         array $groups = [],
@@ -219,7 +223,7 @@ abstract class AbstractRestController extends FOSRestController
      * @param string $projectId    The project id
      * @param string $projectGrant The project grant, by default view
      *
-     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
+     * @throws \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException
      * @return \Kreta\Component\Project\Model\Interfaces\ProjectInterface
      */
     protected function getProjectIfAllowed($projectId, $projectGrant = 'view')
@@ -239,7 +243,7 @@ abstract class AbstractRestController extends FOSRestController
      * @param string $workflowId    The workflow id
      * @param string $workflowGrant The workflow grant, by default view
      *
-     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
+     * @throws \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException
      * @return \Kreta\Component\Project\Model\Interfaces\ProjectInterface
      */
     protected function getWorkflowIfAllowed($workflowId, $workflowGrant = 'view')

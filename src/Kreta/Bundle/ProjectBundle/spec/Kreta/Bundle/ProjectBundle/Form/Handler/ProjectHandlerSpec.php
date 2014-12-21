@@ -9,7 +9,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace spec\Kreta\Bundle\WebBundle\FormHandler;
+namespace spec\Kreta\Bundle\ProjectBundle\Form\Handler;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Kreta\Bundle\WebBundle\Event\FormHandlerEvent;
@@ -27,11 +27,11 @@ use Symfony\Component\HttpFoundation\FileBag;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Class ProjectFormHandlerSpec.
+ * Class ProjectHandlerSpec.
  *
- * @package spec\Kreta\Bundle\WebBundle\FormHandler
+ * @package spec\Kreta\Bundle\ProjectBundle\Form\Handler
  */
-class ProjectFormHandlerSpec extends ObjectBehavior
+class ProjectHandlerSpec extends ObjectBehavior
 {
     function let(
         FormFactory $formFactory,
@@ -46,17 +46,17 @@ class ProjectFormHandlerSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('Kreta\Bundle\WebBundle\FormHandler\ProjectFormHandler');
+        $this->shouldHaveType('Kreta\Bundle\ProjectBundle\Form\Handler\ProjectHandler');
     }
 
     function it_extends_abstract_form_handler()
     {
-        $this->shouldHaveType('Kreta\Bundle\WebBundle\FormHandler\AbstractFormHandler');
+        $this->shouldHaveType('Kreta\Bundle\CoreBundle\Form\Handler\Abstracts\AbstractHandler');
     }
 
     function it_handles_form(Request $request, ProjectInterface $project, FormFactory $formFactory, FormInterface $form)
     {
-        $formFactory->create(Argument::type('\Kreta\Bundle\ProjectBundle\Form\Type\ProjectType'), $project, [])
+        $formFactory->create(Argument::type('Kreta\Bundle\ProjectBundle\Form\Type\ProjectType'), $project, [])
             ->shouldBeCalled()->willReturn($form);
 
         $this->handleForm($request, $project, [])->shouldReturn($form);
@@ -76,7 +76,7 @@ class ProjectFormHandlerSpec extends ObjectBehavior
     )
     {
         $image = new UploadedFile('', '', null, null, 99, true); //Avoids file not found exception
-        $formFactory->create(Argument::type('\Kreta\Bundle\ProjectBundle\Form\Type\ProjectType'), $project, [])
+        $formFactory->create(Argument::type('Kreta\Bundle\ProjectBundle\Form\Type\ProjectType'), $project, [])
             ->shouldBeCalled()->willReturn($form);
         $request->isMethod('POST')->shouldBeCalled()->willReturn(true);
         $form->handleRequest($request)->shouldBeCalled();
@@ -94,7 +94,7 @@ class ProjectFormHandlerSpec extends ObjectBehavior
         $manager->flush()->shouldBeCalled();
 
         $eventDispatcher->dispatch(
-            FormHandlerEvent::NAME, Argument::type('\Kreta\Bundle\WebBundle\Event\FormHandlerEvent')
+            FormHandlerEvent::NAME, Argument::type('Kreta\Bundle\WebBundle\Event\FormHandlerEvent')
         );
 
         $this->handleForm($request, $project, []);

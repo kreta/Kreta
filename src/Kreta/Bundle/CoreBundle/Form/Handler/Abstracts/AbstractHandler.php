@@ -9,7 +9,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\Bundle\WebBundle\FormHandler;
+namespace Kreta\Bundle\CoreBundle\Form\Handler\Abstracts;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Kreta\Bundle\WebBundle\Event\FormHandlerEvent;
@@ -19,11 +19,11 @@ use Symfony\Component\HttpFoundation\FileBag;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Class AbstractFormHandler.
+ * Class AbstractHandler.
  *
- * @package Kreta\Bundle\WebBundle\FormHandler
+ * @package Kreta\Bundle\CoreBundle\Form\Handler\Abstracts
  */
-abstract class AbstractFormHandler
+abstract class AbstractHandler
 {
     /**
      * The factory used to create a new Form instance.

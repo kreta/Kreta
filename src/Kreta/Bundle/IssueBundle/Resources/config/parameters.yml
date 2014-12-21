@@ -18,5 +18,7 @@ parameters:
     kreta_issue.repository_label.class: Kreta\Component\Issue\Repository\LabelRepository
     kreta_issue.repository_resolution.class: Kreta\Component\Issue\Repository\ResolutionRepository
 
+    kreta_issue.form_issue_handler.class: Kreta\Bundle\IssueBundle\Form\Handler\IssueHandler
+
     kreta_issue.state_machine_issue.class: Kreta\Component\Issue\StateMachine\IssueStateMachine
     kreta_issue.security_issue_voter.class: Kreta\Bundle\IssueBundle\Security\Authorization\Voter\IssueVoter

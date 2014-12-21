@@ -73,7 +73,7 @@ class IssueController extends Controller
 
         $issue = $this->get('kreta_issue.factory.issue')->create($project, $this->getUser());
 
-        $form = $this->get('kreta_web.form_handler.issue')->handleForm(
+        $form = $this->get('kreta_issue.form_handler.issue')->handleForm(
             $request, $issue, ['participants' => $project->getParticipants()]
         );
 
@@ -111,7 +111,7 @@ class IssueController extends Controller
             throw new AccessDeniedException();
         };
 
-        $form = $this->get('kreta_web.form_handler.issue')->handleForm(
+        $form = $this->get('kreta_issue.form_handler.issue')->handleForm(
             $request, $issue, ['participants' => $issue->getProject()->getParticipants()]
         );
 
@@ -148,7 +148,7 @@ class IssueController extends Controller
 
         $comment = $this->get('kreta_comment.factory.comment')->create($issue, $this->getUser());
 
-        $form = $this->get('kreta_web.form_handler.comment')->handleForm($request, $comment);
+        $form = $this->get('kreta_comment.form_handler.comment')->handleForm($request, $comment);
 
         if ($form->isValid()) {
             return $this->redirect($this->generateUrl(

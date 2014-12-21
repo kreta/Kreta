@@ -9,10 +9,11 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\Bundle\WebBundle\FormHandler;
+namespace Kreta\Bundle\UserBundle\Form\Handler;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Kreta\Bundle\ProjectBundle\Form\Type\ProjectType;
+use Kreta\Bundle\CoreBundle\Form\Handler\Abstracts\AbstractHandler;
+use Kreta\Bundle\UserBundle\Form\Type\UserType;
 use Kreta\Component\Media\Factory\MediaFactory;
 use Kreta\Component\Media\Uploader\MediaUploader;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -21,11 +22,11 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\FileBag;
 
 /**
- * Class ProjectFormHandler.
+ * Class UserHandler.
  *
- * @package Kreta\Bundle\WebBundle\FormHandler
+ * @package Kreta\Bundle\UserBundle\Form\Handler
  */
-class ProjectFormHandler extends AbstractFormHandler
+class UserHandler extends AbstractHandler
 {
     /**
      * The media factory.
@@ -40,16 +41,6 @@ class ProjectFormHandler extends AbstractFormHandler
      * @var \Kreta\Component\Media\Uploader\MediaUploader
      */
     protected $uploader;
-
-    /**
-     * {@inheritdoc}
-     */
-    protected $successMessage = 'Project saved successfully';
-
-    /**
-     * {@inheritdoc}
-     */
-    protected $errorMessage = 'Error saving project';
 
     /**
      * Constructor.
@@ -78,7 +69,7 @@ class ProjectFormHandler extends AbstractFormHandler
      */
     protected function createForm($object, array $formOptions = [])
     {
-        return $this->formFactory->create(new ProjectType(), $object, $formOptions);
+        return $this->formFactory->create(new UserType(), $object, $formOptions);
     }
 
     /**
@@ -86,11 +77,13 @@ class ProjectFormHandler extends AbstractFormHandler
      */
     protected function handleFiles(FileBag $files, $object)
     {
-        $image = $files->get('kreta_project_project_type')['image'];
+        $image = $files->get('kreta_user_user_type')['photo'];
         if ($image instanceof UploadedFile) {
             $media = $this->mediaFactory->create($image);
             $this->uploader->upload($media);
-            $object->setImage($media);
+            $object->setPhoto($media);
         }
     }
+
 }
+

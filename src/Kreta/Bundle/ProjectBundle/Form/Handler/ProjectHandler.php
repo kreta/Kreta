@@ -9,10 +9,11 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\Bundle\WebBundle\FormHandler;
+namespace Kreta\Bundle\ProjectBundle\Form\Handler;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Kreta\Bundle\UserBundle\Form\Type\UserType;
+use Kreta\Bundle\CoreBundle\Form\Handler\Abstracts\AbstractHandler;
+use Kreta\Bundle\ProjectBundle\Form\Type\ProjectType;
 use Kreta\Component\Media\Factory\MediaFactory;
 use Kreta\Component\Media\Uploader\MediaUploader;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -21,11 +22,11 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\FileBag;
 
 /**
- * Class UserFormHandler.
+ * Class ProjectHandler.
  *
- * @package Kreta\Bundle\WebBundle\FormHandler
+ * @package Kreta\Bundle\ProjectBundle\Form\Handler
  */
-class UserFormHandler extends AbstractFormHandler
+class ProjectHandler extends AbstractHandler
 {
     /**
      * The media factory.
@@ -42,13 +43,23 @@ class UserFormHandler extends AbstractFormHandler
     protected $uploader;
 
     /**
+     * {@inheritdoc}
+     */
+    protected $successMessage = 'Project saved successfully';
+
+    /**
+     * {@inheritdoc}
+     */
+    protected $errorMessage = 'Error saving project';
+
+    /**
      * Constructor.
      *
      * @param \Symfony\Component\Form\FormFactory                         $formFactory     Creates a new Form instance
      * @param \Doctrine\Common\Persistence\ObjectManager                  $manager         Persists and flush the object
      * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher Dispatches FormHandlerEvents
-     * @param \Kreta\Component\Media\Factory\MediaFactory                  $mediaFactory    Creates a new Project image
-     * @param \Kreta\Component\Media\Uploader\MediaUploader                $uploader        Uploads Project images
+     * @param \Kreta\Component\Media\Factory\MediaFactory                 $mediaFactory    Creates a new Project image
+     * @param \Kreta\Component\Media\Uploader\MediaUploader               $uploader        Uploads Project images
      */
     public function __construct(
         FormFactory $formFactory,
@@ -68,7 +79,7 @@ class UserFormHandler extends AbstractFormHandler
      */
     protected function createForm($object, array $formOptions = [])
     {
-        return $this->formFactory->create(new UserType(), $object, $formOptions);
+        return $this->formFactory->create(new ProjectType(), $object, $formOptions);
     }
 
     /**
@@ -76,13 +87,11 @@ class UserFormHandler extends AbstractFormHandler
      */
     protected function handleFiles(FileBag $files, $object)
     {
-        $image = $files->get('kreta_user_user_type')['photo'];
+        $image = $files->get('kreta_project_project_type')['image'];
         if ($image instanceof UploadedFile) {
             $media = $this->mediaFactory->create($image);
             $this->uploader->upload($media);
-            $object->setPhoto($media);
+            $object->setImage($media);
         }
     }
-
 }
-

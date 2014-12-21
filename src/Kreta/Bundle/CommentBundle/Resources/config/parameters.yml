@@ -11,3 +11,6 @@ parameters:
     kreta_comment.factory_comment.class: Kreta\Component\Comment\Factory\CommentFactory
 
     kreta_comment.repository_comment.class: Kreta\Component\Comment\Repository\CommentRepository
+
+    kreta_comment.form_comment_handler.class: Kreta\Bundle\CommentBundle\Form\Handler\CommentHandler
+

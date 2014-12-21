@@ -9,15 +9,15 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace spec\Kreta\Bundle\WebBundle\FormHandler;
+namespace spec\Kreta\Bundle\UserBundle\Form\Handler;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Kreta\Bundle\WebBundle\Event\FormHandlerEvent;
 use Kreta\Component\Media\Factory\MediaFactory;
 use Kreta\Component\Media\Model\Interfaces\MediaInterface;
+use Kreta\Component\Media\Uploader\MediaUploader;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
-use Kreta\Component\Media\Uploader\MediaUploader;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -28,11 +28,11 @@ use Symfony\Component\HttpFoundation\FileBag;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Class UserFormHandlerSpec.
+ * Class UserHandlerSpec.
  *
- * @package spec\Kreta\Bundle\WebBundle\FormHandler
+ * @package spec\Kreta\Bundle\UserBundle\Form\Handler
  */
-class UserFormHandlerSpec extends ObjectBehavior
+class UserHandlerSpec extends ObjectBehavior
 {
     function let(
         FormFactory $formFactory,
@@ -47,17 +47,17 @@ class UserFormHandlerSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('Kreta\Bundle\WebBundle\FormHandler\UserFormHandler');
+        $this->shouldHaveType('Kreta\Bundle\UserBundle\Form\Handler\UserHandler');
     }
 
     function it_extends_abstract_form_handler()
     {
-        $this->shouldHaveType('Kreta\Bundle\WebBundle\FormHandler\AbstractFormHandler');
+        $this->shouldHaveType('Kreta\Bundle\CoreBundle\Form\Handler\Abstracts\AbstractHandler');
     }
 
     function it_handles_form(Request $request, ProjectInterface $project, FormFactory $formFactory, FormInterface $form)
     {
-        $formFactory->create(Argument::type('\Kreta\Bundle\UserBundle\Form\Type\UserType'), $project, [])
+        $formFactory->create(Argument::type('Kreta\Bundle\UserBundle\Form\Type\UserType'), $project, [])
             ->shouldBeCalled()->willReturn($form);
 
         $this->handleForm($request, $project, [])->shouldReturn($form);
@@ -77,7 +77,7 @@ class UserFormHandlerSpec extends ObjectBehavior
     )
     {
         $image = new UploadedFile('', '', null, null, 99, true); //Avoids file not found exception
-        $formFactory->create(Argument::type('\Kreta\Bundle\UserBundle\Form\Type\UserType'), $user, [])
+        $formFactory->create(Argument::type('Kreta\Bundle\UserBundle\Form\Type\UserType'), $user, [])
             ->shouldBeCalled()->willReturn($form);
         $request->isMethod('POST')->shouldBeCalled()->willReturn(true);
         $form->handleRequest($request)->shouldBeCalled();
@@ -95,7 +95,7 @@ class UserFormHandlerSpec extends ObjectBehavior
         $manager->flush()->shouldBeCalled();
 
         $eventDispatcher->dispatch(
-            FormHandlerEvent::NAME, Argument::type('\Kreta\Bundle\WebBundle\Event\FormHandlerEvent')
+            FormHandlerEvent::NAME, Argument::type('Kreta\Bundle\WebBundle\Event\FormHandlerEvent')
         );
 
         $this->handleForm($request, $user, []);
