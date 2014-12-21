@@ -11,30 +11,31 @@
 
 namespace Kreta\Bundle\UserBundle\Behat;
 
-use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\TableNode;
-use Behat\MinkExtension\Context\RawMinkContext;
-use Behat\Symfony2Extension\Context\KernelAwareContext;
-use Behat\Symfony2Extension\Context\KernelDictionary;
+use Kreta\Bundle\CoreBundle\Behat\Abstracts\AbstractContext;
 
 /**
  * Class UserContext.
  *
  * @package Kreta\Bundle\UserBundle\Behat
  */
-class UserContext extends RawMinkContext implements Context, KernelAwareContext
+class UserContext extends AbstractContext
 {
-    use KernelDictionary;
-
     /**
+     * Populates the database with users.
+     *
+     * @param \Behat\Gherkin\Node\TableNode $users The users
+     *
+     * @return void
+     *
      * @Given /^the following users exist:$/
      */
     public function theFollowingUsersExist(TableNode $users)
     {
-        $manager = $this->kernel->getContainer()->get('doctrine')->getManager();
+        $manager = $this->getContainer()->get('doctrine')->getManager();
 
         foreach ($users as $userData) {
-            $user = $this->kernel->getContainer()->get('kreta_user.factory.user')->create();
+            $user = $this->getContainer()->get('kreta_user.factory.user')->create();
             $user->setFirstname($userData['firstName']);
             $user->setLastname($userData['lastName']);
             $user->setEmail($userData['email']);

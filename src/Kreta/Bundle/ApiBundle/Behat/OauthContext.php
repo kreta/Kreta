@@ -11,9 +11,7 @@
 
 namespace Kreta\Bundle\ApiBundle\Behat;
 
-use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\TableNode;
-use Behat\Symfony2Extension\Context\KernelAwareContext;
 use Behat\Symfony2Extension\Context\KernelDictionary;
 use Behat\WebApiExtension\Context\WebApiContext;
 
@@ -22,7 +20,7 @@ use Behat\WebApiExtension\Context\WebApiContext;
  *
  * @package Kreta\Bundle\ApiBundle\Behat
  */
-class OauthContext extends WebApiContext implements Context, KernelAwareContext
+class OauthContext extends WebApiContext
 {
     use KernelDictionary;
 
@@ -37,21 +35,20 @@ class OauthContext extends WebApiContext implements Context, KernelAwareContext
      */
     public function theFollowingTokensExist(TableNode $tokens)
     {
-        $container = $this->kernel->getContainer();
-        $manager = $container->get('doctrine')->getManager();
+        $manager = $this->getContainer()->get('doctrine')->getManager();
 
-        $client = $container->get('kreta_api.command.create_client')
+        $client = $this->getContainer()->get('kreta_api.command.create_client')
             ->generateClient(['http://kreta.io'], ['password']);
 
-        $accessTokenManager = $container->get('fos_oauth_server.access_token_manager.default');
+        $accessTokenManager = $this->getContainer()->get('fos_oauth_server.access_token_manager.default');
         foreach ($tokens as $token) {
             $accessToken = $accessTokenManager->createToken();
             $accessToken->setClient($client);
             $accessToken->setToken($token['token']);
             $accessToken->setExpiresAt($token['expiresAt']);
             $accessToken->setScope($token['scope']);
-            
-            $user = $container->get('kreta_user.repository.user')->findOneBy(['email' => $token['user']]);
+
+            $user = $this->getContainer()->get('kreta_user.repository.user')->findOneBy(['email' => $token['user']]);
             $accessToken->setUser($user);
 
             $manager->persist($accessToken);

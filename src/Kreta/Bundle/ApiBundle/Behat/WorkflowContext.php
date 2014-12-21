@@ -11,21 +11,16 @@
 
 namespace Kreta\Bundle\ApiBundle\Behat;
 
-use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\TableNode;
-use Behat\MinkExtension\Context\RawMinkContext;
-use Behat\Symfony2Extension\Context\KernelAwareContext;
-use Behat\Symfony2Extension\Context\KernelDictionary;
+use Kreta\Bundle\CoreBundle\Behat\Abstracts\AbstractContext;
 
 /**
  * Class WorkflowContext.
  *
  * @package Kreta\Bundle\ApiBundle\Behat
  */
-class WorkflowContext extends RawMinkContext implements Context, KernelAwareContext
+class WorkflowContext extends AbstractContext
 {
-    use KernelDictionary;
-
     /**
      * Populates the database with workflows.
      *
@@ -37,14 +32,13 @@ class WorkflowContext extends RawMinkContext implements Context, KernelAwareCont
      */
     public function theFollowingWorkflowsExist(TableNode $workflows)
     {
-        $manager = $this->kernel->getContainer()->get('doctrine')->getManager();
-        $container = $this->kernel->getContainer();
+        $manager = $this->getContainer()->get('doctrine')->getManager();
 
         foreach ($workflows as $workflowData) {
-            $creator = $this->kernel->getContainer()->get('kreta_user.repository.user')->findOneBy(
-                ['email' => $workflowData['creator']]
-            );
-            $workflow = $container->get('kreta_workflow.factory.workflow')->create($workflowData['name'], $creator);
+            $creator = $this->getContainer()->get('kreta_user.repository.user')
+                ->findOneBy(['email' => $workflowData['creator']]);
+            $workflow = $this->getContainer()->get('kreta_workflow.factory.workflow')
+                ->create($workflowData['name'], $creator);
 
             $metadata = $manager->getClassMetaData(get_class($workflow));
             $metadata->setIdGenerator(new \Doctrine\ORM\Id\AssignedGenerator());

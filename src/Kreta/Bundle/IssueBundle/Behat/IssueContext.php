@@ -11,39 +11,40 @@
 
 namespace Kreta\Bundle\IssueBundle\Behat;
 
-use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\TableNode;
-use Behat\MinkExtension\Context\RawMinkContext;
-use Behat\Symfony2Extension\Context\KernelAwareContext;
-use Behat\Symfony2Extension\Context\KernelDictionary;
+use Kreta\Bundle\CoreBundle\Behat\Abstracts\AbstractContext;
 
 /**
  * Class IssueContext.
  *
  * @package Kreta\Bundle\IssueBundle\Behat
  */
-class IssueContext extends RawMinkContext implements Context, KernelAwareContext
+class IssueContext extends AbstractContext
 {
-    use KernelDictionary;
-
     /**
+     * Populates the database with issues.
+     *
+     * @param \Behat\Gherkin\Node\TableNode $issues The issues
+     *
+     * @return void
+     *
      * @Given /^the following issues exist:$/
      */
     public function theFollowingStatusesExist(TableNode $issues)
     {
-        $manager = $this->kernel->getContainer()->get('doctrine')->getManager();
+        $manager = $this->getContainer()->get('doctrine')->getManager();
 
         foreach ($issues as $issueData) {
-            $project = $this->getKernel()->getContainer()->get('kreta_project.repository.project')
+            $project = $this->getContainer()->get('kreta_project.repository.project')
                 ->findOneBy(['name' => $issueData['project']]);
-            $reporter = $this->getKernel()->getContainer()->get('kreta_user.repository.user')
+            $reporter = $this->getContainer()->get('kreta_user.repository.user')
                 ->findOneBy(['email' => $issueData['reporter']]);
-            $assignee = $this->getKernel()->getContainer()->get('kreta_user.repository.user')
+            $assignee = $this->getContainer()->get('kreta_user.repository.user')
                 ->findOneBy(['email' => $issueData['assignee']]);
-            $status = $this->getKernel()->getContainer()->get('kreta_workflow.repository.status')
+            $status = $this->getContainer()->get('kreta_workflow.repository.status')
                 ->findOneBy(['name' => $issueData['status']]);
 
-            $issue = $this->kernel->getContainer()->get('kreta_issue.factory.issue')->create($project, $reporter);
+            $issue = $this->getContainer()->get('kreta_issue.factory.issue')->create($project, $reporter);
             $issue->setPriority($issueData['priority']);
             $issue->setProject($project);
             $issue->setAssignee($assignee);
