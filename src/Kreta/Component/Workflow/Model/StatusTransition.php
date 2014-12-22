@@ -12,8 +12,8 @@
 namespace Kreta\Component\Workflow\Model;
 
 use Finite\Transition\Transition;
+use Kreta\Component\Workflow\Model\Interfaces\StatusInterface;
 use Kreta\Component\Workflow\Model\Interfaces\StatusTransitionInterface;
-use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
 
 /**
  * Class StatusTransition.
@@ -30,11 +30,40 @@ class StatusTransition extends Transition implements StatusTransitionInterface
     protected $id;
 
     /**
+     * {@inheritdoc}
+     */
+    protected $initialStates;
+
+    /**
+     * {@inheritdoc}
+     */
+    protected $name;
+
+    /**
+     * {@inheritdoc}
+     */
+    protected $state;
+
+    /**
      * The workflow.
      *
      * @var \Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface
      */
     protected $workflow;
+
+    /**
+     * Constructor.
+     *
+     * @param string                                                       $name          The name of transition
+     * @param \Kreta\Component\Workflow\Model\Interfaces\StatusInterface[] $initialStates Array that contains
+     *                                                                                    the initial states
+     * @param \Kreta\Component\Workflow\Model\Interfaces\StatusInterface   $state         The status
+     */
+    public function __construct($name, array $initialStates = [], StatusInterface $state)
+    {
+        parent::__construct($name, $initialStates, $state);
+        $this->workflow = $state->getWorkflow();
+    }
 
     /**
      * {@inheritdoc}
@@ -45,44 +74,10 @@ class StatusTransition extends Transition implements StatusTransitionInterface
     }
 
     /**
-     * Sets id.
-     *
-     * @param $id
-     *
-     * @return $this
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function getWorkflow()
     {
         return $this->workflow;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setWorkflow(WorkflowInterface $workflow)
-    {
-        $this->workflow = $workflow;
-
-        return $this;
     }
 }

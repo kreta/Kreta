@@ -5,20 +5,12 @@
 # @author benatespina <benatespina@gmail.com>
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
-kreta_api_workflow:
+kreta_api_v1:
     type: rest
-    resource: Kreta\Bundle\ApiBundle\Controller\WorkflowController
+    resource: '@KretaApiBundle/Resources/config/versions/routing_v1.yml'
+    prefix: /
 
-kreta_api_project:
-    type: rest
-    resource: Kreta\Bundle\ApiBundle\Controller\ProjectController
-
-kreta_api_issue:
-    type: rest
-    parent: kreta_api_project
-    resource: Kreta\Bundle\ApiBundle\Controller\IssueController
-
-kreta_api_status:
-    type: rest
-    parent: kreta_api_workflow
-    resource: Kreta\Bundle\ApiBundle\Controller\StatusController
+# Third party libraries/bundles
+api_doc:
+    resource: '@NelmioApiDocBundle/Resources/config/routing.yml'
+    prefix: /doc

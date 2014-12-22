@@ -11,6 +11,7 @@ parameters:
     kreta_workflow.status_transition.class: Kreta\Component\Workflow\Model\StatusTransition
 
     kreta_workflow.factory_status.class: Kreta\Component\Workflow\Factory\StatusFactory
+    kreta_workflow.factory_status_transition.class: Kreta\Component\Workflow\Factory\StatusTransitionFactory
     kreta_workflow.factory_workflow.class: Kreta\Component\Workflow\Factory\WorkflowFactory
 
     kreta_workflow.repository_workflow.class: Kreta\Component\Workflow\Repository\WorkflowRepository

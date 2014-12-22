@@ -22,10 +22,12 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 class StatusTransitionController extends AbstractRestController
 {
     /**
-     * Returns transitions of status id and project id given.
+     * Returns transitions of workflow id given.
+     *
+     * @param string $workflowId The workflow id
      *
      * @ApiDoc(
-     *  description = "Returns transitions of status id and project id given",
+     *  description = "Returns transitions of workflow id given",
      *  requirements = {
      *    {
      *      "name"="_format",
@@ -35,31 +37,27 @@ class StatusTransitionController extends AbstractRestController
      *  },
      *  statusCodes = {
      *    403 = "Not allowed to access this resource",
-     *    404 = "Does not exist any project with <$id> id",
-     *    404 = "Does not exist any status with <$id> id"
+     *    404 = "Does not exist any workflow with <$id> id"
      *  }
      * )
      *
-     * @param string $projectId The project id
-     * @param string $statusId  The status id
-     *
-     * @internal param string $id The status id
-     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function getTransitionsAction($projectId, $statusId)
+    public function getTransitionsAction($workflowId)
     {
         return $this->createResponse(
-            $this->getStatusIfAllowed($projectId, $statusId)->getTransitions(),
-            ['status']
+            $this->getWorkflowIfAllowed($workflowId)->getStatusTransitions(), ['transitionList']
         );
     }
 
     /**
-     * Deletes the transition of project and status, with transition id given.
+     * Returns the transition of workflow id and status transition id given.
+     *
+     * @param string $workflowId   The workflow id
+     * @param string $transitionId The status transition id
      *
      * @ApiDoc(
-     *  description = "Deletes the transition of project and status, with transition id given",
+     *  description = "Returns the transition of workflow id and status transition id given",
      *  requirements = {
      *    {
      *      "name"="_format",
@@ -68,52 +66,33 @@ class StatusTransitionController extends AbstractRestController
      *    }
      *  },
      *  statusCodes = {
-     *      204 = "",
-     *      403 = "Not allowed to access this resource",
-     *      404 = {
-     *          "Does not exist any project with <$id> id",
-     *          "Does not exist any status with <$id> id",
-     *          "Does not exist any transition with <$id> id"
-     *      }
+     *    403 = "Not allowed to access this resource",
+     *    404 = "Does not exist any workflow with <$id> id",
+     *    404 = "Does not exist any transition with <$id> id"
      *  }
      * )
      *
-     * @param string $projectId The project id
-     * @param string $statusId  The status id
-     * @param string $id        The transition id
-     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function deleteTransitionsAction($projectId, $statusId, $id)
+    public function getTransitionAction($workflowId, $transitionId)
     {
-        $status = $this->getStatusIfAllowed($projectId, $statusId, 'manage_status');
-        $transitions = $status->getTransitions();
-        foreach ($transitions as $transition) {
-            if ($transition->getId() === $id) {
-                $status->removeStatusTransition($transition);
-                $this->getRepository()->save($status);
-
-                return $this->createResponse('', null, 204);
-            }
-        }
-
-        return $this->createResponse('Does not exist any transition with ' . $id . ' id', null, 404);
+        return $this->createResponse($this->getTransitionIfAllowed($workflowId, $transitionId), ['transition']);
     }
 
     /**
-     * Gets the status if the current user is granted and if the project exists.
+     * Gets the status transition if the current user is granted and if the workflow exists.
      *
-     * @param string $projectId The project id
-     * @param string $id        The id
-     * @param string $grant     The grant, by default 'view'
+     * @param string $workflowId   The workflow id
+     * @param string $transitionId The transition id
+     * @param string $grant        The grant, by default 'view'
      *
-     * @return \Kreta\Component\Workflow\Model\Interfaces\StatusInterface
+     * @return \Kreta\Component\Workflow\Model\Interfaces\StatusTransitionInterface
      */
-    protected function getStatusIfAllowed($projectId, $id, $grant = 'view')
+    protected function getTransitionIfAllowed($workflowId, $transitionId, $grant = 'view')
     {
-        $this->getProjectIfAllowed($projectId, $grant);
+        $this->getWorkflowIfAllowed($workflowId, $grant);
 
-        return $this->getResourceIfExists($id);
+        return $this->getResourceIfExists($transitionId);
     }
 
     /**
@@ -121,6 +100,6 @@ class StatusTransitionController extends AbstractRestController
      */
     protected function getRepository()
     {
-        return $this->get('kreta_workflow.repository.status');
+        return $this->get('kreta_workflow.repository.status_transition');
     }
 }

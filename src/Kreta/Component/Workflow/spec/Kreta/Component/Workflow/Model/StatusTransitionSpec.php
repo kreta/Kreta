@@ -47,23 +47,8 @@ class StatusTransitionSpec extends ObjectBehavior
         $this->getId()->shouldReturn(null);
     }
 
-    function its_id_is_mutable()
+    function it_should_not_have_workflow_by_default()
     {
-        $this->setId('2222')->shouldReturn($this);
-        $this->getId()->shouldReturn('2222');
-    }
-
-    function its_name_is_mutable()
-    {
-        $this->getName()->shouldReturn('Transition name');
-
-        $this->setName('New transition name')->shouldReturn($this);
-        $this->getName()->shouldReturn('New transition name');
-    }
-
-    function its_workflow_is_mutable(WorkflowInterface $workflow)
-    {
-        $this->setWorkflow($workflow)->shouldReturn($this);
-        $this->getWorkflow()->shouldReturn($workflow);
+        $this->getWorkflow()->shouldReturn(null);
     }
 }
