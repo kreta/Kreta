@@ -12,11 +12,13 @@
 namespace Kreta\Bundle\ApiBundle\Controller;
 
 use FOS\RestBundle\Util\Codes;
-use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\Delete;
+use FOS\RestBundle\Controller\Annotations\Get;
+use FOS\RestBundle\Controller\Annotations\Post;
 use Kreta\Bundle\ApiBundle\Controller\Abstracts\AbstractRestController;
 use Kreta\Component\Workflow\Model\Interfaces\StatusInterface;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
@@ -212,6 +214,52 @@ class StatusTransitionController extends AbstractRestController
             }
         }
         throw new NotFoundHttpException(sprintf('Does not exist any initial status with %s id', $initialStatusId));
+    }
+
+    /**
+     * Creates an initial status of transition id and workflow id given.
+     *
+     * @param string $workflowId      The workflow id
+     * @param string $transitionId    The transition id
+     *
+     * @ApiDoc(
+     *  description = "Creates an initial status of transition id and workflow id given",
+     *  requirements = {
+     *    {
+     *      "name"="_format",
+     *      "requirement"="json|jsonp",
+     *      "description"="Supported formats, by default json"
+     *    }
+     *  },
+     *  statusCodes = {
+     *    403 = "Not allowed to access this resource",
+     *    404 = {
+     *        "Does not exist any workflow with <$id> id",
+     *        "Does not exist any transition with <$id> id"
+     *    }
+     *  }
+     * )
+     *
+     * @Post("/workflows/{workflowId}/transitions/{transitionId}/initial-statuses")
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function postTransitionsInitialStatusAction($workflowId, $transitionId)
+    {
+        if (($initialStatusId = $this->get('request')->get('initial_status')) === null) {
+            throw new BadRequestHttpException('The initial status should not be blank');
+        }
+        $initialStatus = $this->get('kreta_workflow.repository.status')->find($initialStatusId);
+        if (!($initialStatus instanceof StatusInterface)) {
+            throw new NotFoundHttpException(
+                sprintf('Does not exist any initial status with %s id', $initialStatusId)
+            );
+        }
+        $transition = $this->getTransitionIfAllowed($workflowId, $transitionId, 'manage_status');
+        $transition->addInitialState($initialStatus);
+        $this->getRepository()->save($transition);
+
+        return $this->createResponse($transition->getInitialStates(), ['transitionList', 'transition']);
     }
 
     /**

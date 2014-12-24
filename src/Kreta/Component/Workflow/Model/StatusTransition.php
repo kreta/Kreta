@@ -76,9 +76,20 @@ class StatusTransition extends Transition implements StatusTransitionInterface
     /**
      * {@inheritdoc}
      */
-    public function getWorkflow()
+    public function addInitialState($status)
     {
-        return $this->workflow;
+        if (!($status instanceof StatusInterface)) {
+            throw new \InvalidArgumentException('Invalid argument passed, it is not an instance of StatusInterface');
+        }
+
+        foreach ($this->initialStates as $index => $initialStatus) {
+            if ($initialStatus->getId() === $status->getId()) {
+                return $this;
+            }
+        }
+        $this->initialStates[] = $status;
+
+        return $this;
     }
 
     /**
@@ -94,5 +105,13 @@ class StatusTransition extends Transition implements StatusTransitionInterface
         }
 
         return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getWorkflow()
+    {
+        return $this->workflow;
     }
 }

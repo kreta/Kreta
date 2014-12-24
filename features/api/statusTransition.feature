@@ -451,7 +451,7 @@ Feature: Manage status transition
 
   Scenario: Deleting the 0 initial status of unknown transition
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/workflows/0/transitions/unknown-transition/initial-statuses/0"
+    When I send a DELETE request to "/app_test.php/api/workflows/0/transitions/unknown-transition/initial-statuses/0"
     Then the response code should be 404
     And the response should contain json:
     """
@@ -489,4 +489,93 @@ Feature: Manage status transition
     And the response should contain json:
     """
       {}
+    """
+
+  Scenario: Creating an initial status of 0 transition with user which is not workflow creator
+    When I send a POST request to "/app_test.php/api/workflows/0/transitions/0/initial-statuses?access_token=access-token-2" with form data:
+    """
+        initial_status=0
+    """
+    Then the response code should be 403
+    And the response should contain json:
+    """
+      {
+        "error": "Not allowed to access this resource"
+      }
+    """
+
+  Scenario: Creating an initial status of 0 transition of unknown workflow
+    When I send a POST request to "/app_test.php/api/workflows/unknown-workflow/transitions/0/initial-statuses?access_token=access-token-0" with form data:
+    """
+        initial_status=0
+    """
+    Then the response code should be 404
+    And the response should contain json:
+    """
+      {
+        "error": "Does not exist any entity with unknown-workflow id"
+      }
+    """
+
+  Scenario: Creating an initial status of unknown transition
+    When I send a POST request to "/app_test.php/api/workflows/0/transitions/unknown-transition/initial-statuses?access_token=access-token-0" with form data:
+    """
+        initial_status=0
+    """
+    Then the response code should be 404
+    And the response should contain json:
+    """
+      {
+        "error": "Does not exist any entity with unknown-transition id"
+      }
+    """
+
+  Scenario: Creating an initial status of 0 transition which the status does not exist
+    When I send a POST request to "/app_test.php/api/workflows/0/transitions/0/initial-statuses?access_token=access-token-0" with form data:
+    """
+        initial_status=unknown-initial-status
+    """
+    Then the response code should be 404
+    And the response should contain json:
+    """
+      {
+        "error": "Does not exist any initial status with unknown-initial-status id"
+      }
+    """
+
+  Scenario: Creating an initial status of 0 transition which the status is already added
+    When I send a POST request to "/app_test.php/api/workflows/0/transitions/0/initial-statuses?access_token=access-token-0" with form data:
+    """
+        initial_status=1
+    """
+    Then the response code should be 200
+    And the response should contain json:
+    """
+      [{
+        "type": "normal",
+        "name": "In progress",
+        "id": "1",
+        "color": "#2c3e50"
+      }]
+    """
+
+  Scenario: Creating an initial status of 0 transition
+    When I send a POST request to "/app_test.php/api/workflows/0/transitions/0/initial-statuses?access_token=access-token-0" with form data:
+    """
+        initial_status=2
+    """
+    Then the response code should be 200
+    And the response should contain json:
+    """
+      [{
+        "type": "normal",
+        "name": "In progress",
+        "id": "1",
+        "color": "#2c3e50"
+      }, {
+        "type": "normal",
+        "name": "Resolved",
+        "id": "2",
+        "color": "#f1c40f"
+      }]
     """
