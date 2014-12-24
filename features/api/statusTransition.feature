@@ -5,7 +5,7 @@
 # @author benatespina <benatespina@gmail.com>
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
-@api-o
+@api
 Feature: Manage status transition
   In order to manage status transitions
   As an API status transition
@@ -158,7 +158,7 @@ Feature: Manage status transition
       }
     """
 
-  Scenario: Getting the 0 status with user which is not a participant
+  Scenario: Getting the 0 transition with user which is not a participant
     Given I am authenticating with "access-token-2" token
     When I send a GET request to "/app_test.php/api/workflows/1/transitions/0"
     Then the response code should be 403
@@ -177,5 +177,37 @@ Feature: Manage status transition
     """
       {
         "error": "Does not exist any entity with unknown-transition id"
+      }
+    """
+
+  Scenario: Deleting the 0 transition with user which is not workflow creator
+    Given I am authenticating with "access-token-2" token
+    When I send a DELETE request to "/app_test.php/api/workflows/0/transitions/0"
+    Then the response code should be 403
+    And the response should contain json:
+    """
+      {
+        "error": "Not allowed to access this resource"
+      }
+    """
+
+  Scenario: Deleting the 1 transition which is in use by an issue
+    Given I am authenticating with "access-token-0" token
+    When I send a DELETE request to "/app_test.php/api/workflows/0/transitions/1"
+    Then the response code should be 403
+    And the response should contain json:
+    """
+      {
+        "error": "Remove operation has been cancelled, the transition is currently in use"
+      }
+    """
+
+  Scenario: Deleting the 0 transition
+    Given I am authenticating with "access-token-0" token
+    When I send a DELETE request to "/app_test.php/api/workflows/0/transitions/0"
+    Then the response code should be 204
+    And the response should contain json:
+    """
+      {
       }
     """
