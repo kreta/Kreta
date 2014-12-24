@@ -37,7 +37,7 @@ Feature: Manage status transition
       | 2  | Finish progress | Resolved    | Open,In progress |
     And the following participants exist:
       | project        | user            | role             |
-      | Test project 1 | user3@kreta.com | ROLE_PARTICIPANT |
+      | Test project 2 | user3@kreta.com | ROLE_PARTICIPANT |
       | Test project 1 | user2@kreta.com | ROLE_PARTICIPANT |
       | Test project 2 | user2@kreta.com | ROLE_PARTICIPANT |
     And the following issues exist:
@@ -129,6 +129,17 @@ Feature: Manage status transition
       }]
     """
 
+  Scenario: Getting all the transitions of unknown workflow
+    Given I am authenticating with "access-token-0" token
+    When I send a GET request to "/app_test.php/api/workflows/unknown-workflow/transitions"
+    Then the response code should be 404
+    And the response should contain json:
+    """
+      {
+        "error": "Does not exist any entity with unknown-workflow id"
+      }
+    """
+
   Scenario: Getting the 0 transition
     Given I am authenticating with "access-token-0" token
     When I send a GET request to "/app_test.php/api/workflows/0/transitions/0"
@@ -160,7 +171,7 @@ Feature: Manage status transition
 
   Scenario: Getting the 0 transition with user which is not a participant
     Given I am authenticating with "access-token-2" token
-    When I send a GET request to "/app_test.php/api/workflows/1/transitions/0"
+    When I send a GET request to "/app_test.php/api/workflows/0/transitions/0"
     Then the response code should be 403
     And the response should contain json:
     """
@@ -177,6 +188,17 @@ Feature: Manage status transition
     """
       {
         "error": "Does not exist any entity with unknown-transition id"
+      }
+    """
+
+  Scenario: Getting the transition of unknown workflow
+    Given I am authenticating with "access-token-0" token
+    When I send a GET request to "/app_test.php/api/workflows/unknown-workflow/transitions/0"
+    Then the response code should be 404
+    And the response should contain json:
+    """
+      {
+        "error": "Does not exist any entity with unknown-workflow id"
       }
     """
 
@@ -202,6 +224,17 @@ Feature: Manage status transition
       }
     """
 
+  Scenario: Deleting the transition of unknown workflow
+    Given I am authenticating with "access-token-0" token
+    When I send a DELETE request to "/app_test.php/api/workflows/unknown-workflow/transitions/0"
+    Then the response code should be 404
+    And the response should contain json:
+    """
+      {
+        "error": "Does not exist any entity with unknown-workflow id"
+      }
+    """
+
   Scenario: Deleting the 0 transition
     Given I am authenticating with "access-token-0" token
     When I send a DELETE request to "/app_test.php/api/workflows/0/transitions/0"
@@ -210,4 +243,250 @@ Feature: Manage status transition
     """
       {
       }
+    """
+
+  Scenario: Deleting the unknown transition
+    Given I am authenticating with "access-token-0" token
+    When I send a DELETE request to "/app_test.php/api/workflows/0/transitions/unknown-transition"
+    Then the response code should be 404
+    And the response should contain json:
+    """
+      {
+        "error": "Does not exist any entity with unknown-transition id"
+      }
+    """
+
+  Scenario: Getting the initial statuses of 0 transition with user which is not workflow creator
+    Given I am authenticating with "access-token-2" token
+    When I send a GET request to "/app_test.php/api/workflows/0/transitions/0/initial-statuses"
+    Then the response code should be 403
+    And the response should contain json:
+    """
+      {
+        "error": "Not allowed to access this resource"
+      }
+    """
+
+  Scenario: Getting the initial statuses of 0 transition of unknown workflow
+    Given I am authenticating with "access-token-0" token
+    When I send a GET request to "/app_test.php/api/workflows/unknown-workflow/transitions/0/initial-statuses"
+    Then the response code should be 404
+    And the response should contain json:
+    """
+      {
+        "error": "Does not exist any entity with unknown-workflow id"
+      }
+    """
+
+  Scenario: Getting the initial statuses of unknown transition
+    Given I am authenticating with "access-token-0" token
+    When I send a GET request to "/app_test.php/api/workflows/0/transitions/unknown-transition/initial-statuses"
+    Then the response code should be 404
+    And the response should contain json:
+    """
+      {
+        "error": "Does not exist any entity with unknown-transition id"
+      }
+    """
+
+  Scenario: Getting the initial statuses of 0 transition
+    Given I am authenticating with "access-token-0" token
+    When I send a GET request to "/app_test.php/api/workflows/0/transitions/0/initial-statuses"
+    Then the response code should be 200
+    And the response should contain json:
+    """
+      [{
+        "type": "normal",
+        "name": "In progress",
+        "id": "1",
+        "color": "#2c3e50"
+      }]
+    """
+
+  Scenario: Getting the initial statuses of 1 transition
+    Given I am authenticating with "access-token-0" token
+    When I send a GET request to "/app_test.php/api/workflows/0/transitions/1/initial-statuses"
+    Then the response code should be 200
+    And the response should contain json:
+    """
+      [{
+        "type": "normal",
+        "name": "Open",
+        "id": "0",
+        "color": "#27ae60"
+      }, {
+        "type": "normal",
+        "name": "Resolved",
+        "id": "2",
+        "color": "#f1c40f"
+      }]
+    """
+
+  Scenario: Getting the 0 initial status of 0 transition with user which is not workflow creator
+    Given I am authenticating with "access-token-2" token
+    When I send a GET request to "/app_test.php/api/workflows/0/transitions/0/initial-statuses/0"
+    Then the response code should be 403
+    And the response should contain json:
+    """
+      {
+        "error": "Not allowed to access this resource"
+      }
+    """
+
+  Scenario: Getting the 0 initial status of 0 transition of unknown workflow
+    Given I am authenticating with "access-token-0" token
+    When I send a GET request to "/app_test.php/api/workflows/unknown-workflow/transitions/0/initial-statuses/0"
+    Then the response code should be 404
+    And the response should contain json:
+    """
+      {
+        "error": "Does not exist any entity with unknown-workflow id"
+      }
+    """
+
+  Scenario: Getting the 0 initial status of unknown transition
+    Given I am authenticating with "access-token-0" token
+    When I send a GET request to "/app_test.php/api/workflows/0/transitions/unknown-transition/initial-statuses/0"
+    Then the response code should be 404
+    And the response should contain json:
+    """
+      {
+        "error": "Does not exist any entity with unknown-transition id"
+      }
+    """
+
+  Scenario: Getting the unknown initial status of 0 transition
+    Given I am authenticating with "access-token-0" token
+    When I send a GET request to "/app_test.php/api/workflows/0/transitions/0/initial-statuses/unknown-initial-status"
+    Then the response code should be 404
+    And the response should contain json:
+    """
+      {
+        "error": "Does not exist any initial status with unknown-initial-status id"
+      }
+    """
+
+  Scenario: Getting the 0 initial status of 0 transition
+    Given I am authenticating with "access-token-0" token
+    When I send a GET request to "/app_test.php/api/workflows/0/transitions/0/initial-statuses/1"
+    Then the response code should be 200
+    And the response should contain json:
+    """
+      {
+        "type": "normal",
+        "name": "In progress",
+        "id": "1",
+        "color": "#2c3e50"
+      }
+    """
+
+  Scenario: Getting the end status of 0 transition with user which is not workflow creator
+    Given I am authenticating with "access-token-2" token
+    When I send a GET request to "/app_test.php/api/workflows/0/transitions/0/end-status"
+    Then the response code should be 403
+    And the response should contain json:
+    """
+      {
+        "error": "Not allowed to access this resource"
+      }
+    """
+
+  Scenario: Getting the end status of 0 transition of unknown workflow
+    Given I am authenticating with "access-token-0" token
+    When I send a GET request to "/app_test.php/api/workflows/unknown-workflow/transitions/0/end-status"
+    Then the response code should be 404
+    And the response should contain json:
+    """
+      {
+        "error": "Does not exist any entity with unknown-workflow id"
+      }
+    """
+
+  Scenario: Getting the end status of unknown transition
+    Given I am authenticating with "access-token-0" token
+    When I send a GET request to "/app_test.php/api/workflows/0/transitions/unknown-transition/end-status"
+    Then the response code should be 404
+    And the response should contain json:
+    """
+      {
+        "error": "Does not exist any entity with unknown-transition id"
+      }
+    """
+
+  Scenario: Getting the end status of 0 transition
+    Given I am authenticating with "access-token-0" token
+    When I send a GET request to "/app_test.php/api/workflows/0/transitions/0/end-status"
+    Then the response code should be 200
+    And the response should contain json:
+    """
+      {
+        "type": "normal",
+        "name": "Open",
+        "id": "0",
+        "color": "#27ae60"
+      }
+    """
+
+  Scenario: Deleting the 0 initial status of 0 transition with user which is not workflow creator
+    Given I am authenticating with "access-token-2" token
+    When I send a DELETE request to "/app_test.php/api/workflows/0/transitions/0/initial-statuses/0"
+    Then the response code should be 403
+    And the response should contain json:
+    """
+      {
+        "error": "Not allowed to access this resource"
+      }
+    """
+
+  Scenario: Deleting the 0 initial status of 0 transition of unknown workflow
+    Given I am authenticating with "access-token-0" token
+    When I send a DELETE request to "/app_test.php/api/workflows/unknown-workflow/transitions/0/initial-statuses/0"
+    Then the response code should be 404
+    And the response should contain json:
+    """
+      {
+        "error": "Does not exist any entity with unknown-workflow id"
+      }
+    """
+
+  Scenario: Deleting the 0 initial status of unknown transition
+    Given I am authenticating with "access-token-0" token
+    When I send a GET request to "/app_test.php/api/workflows/0/transitions/unknown-transition/initial-statuses/0"
+    Then the response code should be 404
+    And the response should contain json:
+    """
+      {
+        "error": "Does not exist any entity with unknown-transition id"
+      }
+    """
+
+  Scenario: Deleting the unknown initial status of 0 transition
+    Given I am authenticating with "access-token-0" token
+    When I send a DELETE request to "/app_test.php/api/workflows/0/transitions/0/initial-statuses/unknown-initial-status"
+    Then the response code should be 404
+    And the response should contain json:
+    """
+      {
+        "error": "Does not exist any initial status with unknown-initial-status id"
+      }
+    """
+
+  Scenario: Deleting the 0 initial status where the transition is in use by an issue
+    Given I am authenticating with "access-token-0" token
+    When I send a DELETE request to "/app_test.php/api/workflows/0/transitions/1/initial-statuses/0"
+    Then the response code should be 403
+    And the response should contain json:
+    """
+      {
+        "error": "Remove operation has been cancelled, the transition is currently in use"
+      }
+    """
+
+  Scenario: Deleting the 0 initial status of 0 transition
+    Given I am authenticating with "access-token-0" token
+    When I send a DELETE request to "/app_test.php/api/workflows/0/transitions/0/initial-statuses/1"
+    Then the response code should be 204
+    And the response should contain json:
+    """
+      {}
     """

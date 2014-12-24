@@ -80,4 +80,19 @@ class StatusTransition extends Transition implements StatusTransitionInterface
     {
         return $this->workflow;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function removeInitialState(StatusInterface $status)
+    {
+        foreach ($this->initialStates as $index => $initialStatus) {
+            if ($initialStatus->getId() === $status->getId()) {
+                unset($this->initialStates[$index]);
+                break;
+            }
+        }
+
+        return $this;
+    }
 }

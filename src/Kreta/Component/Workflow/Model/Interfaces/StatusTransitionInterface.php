@@ -33,4 +33,13 @@ interface StatusTransitionInterface extends TransitionInterface
      * @return \Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface
      */
     public function getWorkflow();
+
+    /**
+     * Removes initial status.
+     *
+     * @param \Kreta\Component\Workflow\Model\Interfaces\StatusInterface $status The status
+     *
+     * @return $this self Object
+     */
+    public function removeInitialState(StatusInterface $status);
 }
