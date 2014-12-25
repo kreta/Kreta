@@ -30,11 +30,14 @@ Feature: Manage status transition
       | 0  | #27ae60 | Open        | Workflow 1 |
       | 1  | #2c3e50 | In progress | Workflow 1 |
       | 2  | #f1c40f | Resolved    | Workflow 1 |
+      | 3  | #z7bp2p | Closed      | Workflow 1 |
+      | 4  | #q1oy8v | Initial     | Workflow 1 |
     And the following status transitions exist:
-      | id | name            | status      | initialStates    |
-      | 0  | Start progress  | Open        | In progress      |
-      | 1  | Reopen progress | In progress | Open,Resolved    |
-      | 2  | Finish progress | Resolved    | Open,In progress |
+      | id | name            | status      | initialStates      |
+      | 0  | Start progress  | Open        | In progress        |
+      | 1  | Reopen progress | In progress | Open,Resolved      |
+      | 2  | Finish progress | Resolved    | Open,In progress   |
+      | 3  | Begin progress  | Initial     | In progress,Closed |
     And the following participants exist:
       | project        | user            | role             |
       | Test project 2 | user3@kreta.com | ROLE_PARTICIPANT |
@@ -482,9 +485,21 @@ Feature: Manage status transition
       }
     """
 
-  Scenario: Deleting the 0 initial status of 0 transition
+  Scenario: Deleting the 0 initial status of 0 transition when the transition only has one initial status
     Given I am authenticating with "access-token-0" token
     When I send a DELETE request to "/app_test.php/api/workflows/0/transitions/0/initial-statuses/1"
+    Then the response code should be 500
+    And the response should contain json:
+    """
+      {
+        "error": "Impossible to remove. The transition must have at least one initial status"
+      }
+    """
+
+  Scenario: Deleting the 0 initial status of 0 transition
+    Given I am authenticating with "access-token-0" token
+    When I send a DELETE request to "/app_test.php/api/workflows/0/transitions/3/initial-statuses/1"
+    And print response
     Then the response code should be 204
     And the response should contain json:
     """

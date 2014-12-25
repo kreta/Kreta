@@ -97,6 +97,10 @@ class StatusTransition extends Transition implements StatusTransitionInterface
      */
     public function removeInitialState(StatusInterface $status)
     {
+        if (count($this->initialStates) < 2) {
+            throw new \Exception('Impossible to remove. The transition must have at least one initial status');
+        }
+
         foreach ($this->initialStates as $index => $initialStatus) {
             if ($initialStatus->getId() === $status->getId()) {
                 unset($this->initialStates[$index]);
