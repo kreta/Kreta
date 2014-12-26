@@ -9,7 +9,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\Component\VCS\Gateway;
+namespace Kreta\Component\VCS\Gateway\Interfaces;
 
 use Kreta\Component\VCS\Model\BranchInterface;
 use Kreta\Component\VCS\Model\PullRequestInterface;

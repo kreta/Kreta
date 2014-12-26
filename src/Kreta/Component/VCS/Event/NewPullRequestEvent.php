@@ -11,7 +11,7 @@
 
 namespace Kreta\Component\VCS\Event;
 
-use Kreta\Component\VCS\Model\PullRequestInterface;
+use Kreta\Component\VCS\Model\Interfaces\PullRequestInterface;
 use Symfony\Component\EventDispatcher\Event;
 
 /**

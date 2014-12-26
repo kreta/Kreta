@@ -9,14 +9,14 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\Component\VCS\Model;
+namespace Kreta\Component\VCS\Model\Interfaces;
 
 /**
- * Interface CommitInterface
+ * Interface PullRequestInterface
  *
  * @package Kreta\Component\VCS\Model
  */
-interface CommitInterface
+interface PullRequestInterface
 {
     public function getId();
 

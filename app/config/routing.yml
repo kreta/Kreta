@@ -16,6 +16,10 @@ kreta_api:
 kreta_media_image:
     pattern: /media/image/{name}
 
+kreta_vcs:
+    resource: '@KretaVCSBundle/Resources/config/routing.yml'
+    prefix: /webhook
+
 # Third party libraries/bundles
 
 fos_oauth_server_token:

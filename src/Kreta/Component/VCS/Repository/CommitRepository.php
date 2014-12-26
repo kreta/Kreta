@@ -9,13 +9,15 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\Component\VCS\Model;
+namespace Kreta\Component\VCS\Repository;
+
+use Doctrine\ORM\EntityRepository;
 
 /**
- * Class BranchInterface
+ * Class CommitRepository.
  *
- * @package Kreta\Component\VCS\Model
+ * @package Kreta\Component\VCS\Repository
  */
-class BranchInterface
+class CommitRepository extends EntityRepository
 {
 }

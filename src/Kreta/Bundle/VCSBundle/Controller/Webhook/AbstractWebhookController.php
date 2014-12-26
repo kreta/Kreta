@@ -13,6 +13,7 @@ namespace Kreta\Bundle\VCSBundle\Controller\Webhook;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 /**
  * Class AbstractWebhookController
@@ -28,10 +29,13 @@ abstract class AbstractWebhookController extends Controller
      * Exposes the action that will be registered as a webhook in the VCS provider.
      *
      * @param Request $request
+     *
+     * @return Response
      */
     public function webhookAction(Request $request)
     {
-        $this->getWebhookStrategy()->handleWebhook(json_decode($request->getContent(), true));
+        $this->getWebhookStrategy()->handleWebhook($request);
+        return new Response();
     }
 
     /**

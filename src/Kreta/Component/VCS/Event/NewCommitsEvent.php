@@ -11,36 +11,36 @@
 
 namespace Kreta\Component\VCS\Event;
 
-use Kreta\Component\VCS\Model\CommitInterface;
+use Kreta\Component\VCS\Model\Interfaces\CommitInterface;
 use Symfony\Component\EventDispatcher\Event;
 
 /**
- * Class NewCommitEvent
+ * Class NewCommitsEvent
  *
  * @package Kreta\Component\VCS\Event
  */
-class NewCommitEvent extends Event
+class NewCommitsEvent extends Event
 {
     /**
      * @var CommitInterface
      */
-    protected $commit;
+    protected $commits;
 
     /**
-     * @param CommitInterface $commit
+     * @param CommitInterface[] $commits
      */
-    public function __construct(CommitInterface $commit)
+    public function __construct(array $commits)
     {
-        $this->commit = $commit;
+        $this->commits = $commits;
     }
 
     /**
-     * Gets the commit.
+     * Gets the commits.
      *
-     * @return CommitInterface
+     * @return CommitInterface[]
      */
-    public function getCommit()
+    public function getCommits()
     {
-        return $this->commit;
+        return $this->commits;
     }
 } 

@@ -1,0 +1,23 @@
+# This file belongs to Kreta.
+# The source code of application includes a LICENSE file
+# with all information about license.
+#
+# @author benatespina <benatespina@gmail.com>
+# @author gorkalaucirica <gorka.lauzirika@gmail.com>
+
+parameters:
+    kreta_vcs.commit.class: Kreta\Component\Comment\Factory\CommentFactory
+    kreta_vcs.factory_commit.class: Kreta\Component\VCS\Factory\CommitFactory
+
+services:
+    kreta_vcs.factory.commit:
+        class: %kreta_vcs.factory_commit.class%
+        arguments: [%kreta_vcs.commit.class%]
+
+    kreta_vcs.resolver.github:
+        class: Kreta\Component\VCS\Resolver\GithubResolver
+        arguments: [@kreta_vcs.factory.commit]
+
+    kreta_vcs.webhook_strategy.github:
+        class: Kreta\Component\VCS\WebhookStrategy\GithubWebhookStrategy
+        arguments: [@kreta_vcs.resolver.github, @event_dispatcher, @doctrine.orm.entity_manager]

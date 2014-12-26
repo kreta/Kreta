@@ -9,22 +9,13 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\Component\VCS\Model;
+namespace Kreta\Component\VCS\Model\Interfaces;
 
 /**
- * Interface PullRequestInterface
+ * Class BranchInterface
  *
  * @package Kreta\Component\VCS\Model
  */
-interface PullRequestInterface
+class BranchInterface
 {
-    public function getId();
-
-    public function getSHA();
-
-    public function getMessage();
-
-    public function getAuthor();
-
-    public function getIssuesRelated();
 }

@@ -21,7 +21,7 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension;
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-class KretaWebExtension extends Extension
+class KretaVCSExtension extends Extension
 {
     /**
      * {@inheritDoc}

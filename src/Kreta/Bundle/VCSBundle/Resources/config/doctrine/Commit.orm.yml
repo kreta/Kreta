@@ -1,0 +1,41 @@
+# This file belongs to Kreta.
+# The source code of application includes a LICENSE file
+# with all information about license.
+#
+# @author benatespina <benatespina@gmail.com>
+# @author gorkalaucirica <gorka.lauzirika@gmail.com>
+
+Kreta\Component\VCS\Model\Commit:
+    type: entity
+    repositoryClass: Kreta\Component\VCS\Repository\CommitRepository
+    table: project
+    id:
+        id:
+            type: string
+            generator:
+                strategy: UUID
+    fields:
+        author:
+            type: string
+            length: 50
+        message:
+            type: text
+        provider:
+            type: string
+            length: 20
+        repository:
+            type: string
+            length: 100
+        sha:
+            type: string
+            length: 50
+        url:
+            type: string
+    manyToOne:
+        issuesRelated:
+            targetEntity: Kreta\Component\Issue\Model\Interfaces\IssueInterface
+            joinColumn:
+                name: issue_id
+                referencedColumnName: id
+                onDelete: CASCADE
+            cascade: ['persist', 'remove']
