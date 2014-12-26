@@ -16,12 +16,6 @@ use Symfony\Component\HttpFoundation\Response;
 
 class GithubWebhookController extends AbstractWebhookController
 {
-    public function webhookAction(Request $request)
-    {
-        $this->getWebhookStrategy()->handleWebhook($request);
-        return new Response();
-    }
-
     /**
      * {@inheritdoc}
      */

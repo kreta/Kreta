@@ -52,5 +52,7 @@ class CommitFactory
         $commit->setAuthor($author);
         $commit->setProvider($provider);
         $commit->setUrl($url);
+
+        return $commit;
     }
 } 

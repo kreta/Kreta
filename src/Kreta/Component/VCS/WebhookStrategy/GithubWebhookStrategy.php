@@ -11,42 +11,28 @@
 
 namespace Kreta\Component\VCS\WebhookStrategy;
 
-use Kreta\Component\VCS\Event\NewCommitsEvent;
+use Kreta\Component\VCS\Serializer\Github\CommitSerializer;
+use Kreta\Component\VCS\WebhookStrategy\Interfaces\WebhookStrategyInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-class GithubWebhookStrategy extends AbstractWebhookStrategy
+class GithubWebhookStrategy implements WebhookStrategyInterface
 {
+    protected $commitSerializer;
 
+    public function __construct(CommitSerializer $commitSerializer)
+    {
+        $this->commitSerializer = $commitSerializer;
+    }
     /**
      * {@inheritdoc}
      */
-    public function handleWebhook(Request $request)
+    public function getSerializer(Request $request)
     {
-        //Security should be checked
         $event = $request->headers->get('X-Github-Event');
         if ('push' === $event) {
-            $this->handleCommit(json_decode($request->getContent(), true));
+            return $this->commitSerializer;
         }
-    }
 
-    /**
-     * {@inheritdoc}
-     */
-    protected function handleCommit($json)
-    {
-        $commits = $this->resolver->getCommits($json);
-        foreach ($commits as $commit) {
-            $this->manager->persist($commit);
-        }
-        $this->manager->flush();
-        $this->eventDispatcher->dispatch('k', new NewCommitsEvent($commits));
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function handlePullRequest($event)
-    {
-        return $this->resolver->getPullRequest($event);
+        throw new \Exception('Event strategy not implemented');
     }
 }
