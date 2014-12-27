@@ -11,6 +11,8 @@
 
 namespace Kreta\Bundle\VCSBundle;
 
+use Kreta\Bundle\VCSBundle\DependencyInjection\Compiler\RegisterSerializersPass;
+use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
@@ -20,4 +22,13 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  */
 class KretaVCSBundle extends Bundle
 {
+    /**
+     * {@inheritdoc}
+     */
+    public function build(ContainerBuilder $container)
+    {
+        parent::build($container);
+
+        $container->addCompilerPass(new RegisterSerializersPass());
+    }
 }

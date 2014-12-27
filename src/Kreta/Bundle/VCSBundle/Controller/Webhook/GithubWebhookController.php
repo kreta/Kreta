@@ -11,9 +11,6 @@
 
 namespace Kreta\Bundle\VCSBundle\Controller\Webhook;
 
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-
 class GithubWebhookController extends AbstractWebhookController
 {
     /**

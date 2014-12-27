@@ -8,16 +8,26 @@
 parameters:
     kreta_vcs.commit.class: Kreta\Component\VCS\Model\Commit
     kreta_vcs.factory_commit.class: Kreta\Component\VCS\Factory\CommitFactory
+    kreta_vcs.registry_serializer.class: Kreta\Component\VCS\Serializer\Registry\SerializerRegistry
 
 services:
+    #Factories
     kreta_vcs.factory.commit:
         class: %kreta_vcs.factory_commit.class%
         arguments: [%kreta_vcs.commit.class%]
 
+    #Serializers
     kreta_vcs.serializer.github.commit:
         class: Kreta\Component\VCS\Serializer\Github\CommitSerializer
         arguments: [@kreta_vcs.factory.commit]
+        tags:
+            - { name: kreta_vcs.serializer, provider: github, event: push }
 
+    #SerializerRegistry
+    kreta_vcs.registry.serializer:
+        class: %kreta_vcs.registry_serializer.class%
+
+    #WebhookStrategies
     kreta_vcs.webhook_strategy.github:
         class: Kreta\Component\VCS\WebhookStrategy\GithubWebhookStrategy
-        arguments: [@kreta_vcs.serializer.github.commit]
+        arguments: [@kreta_vcs.registry.serializer]

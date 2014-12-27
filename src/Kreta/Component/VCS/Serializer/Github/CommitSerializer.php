@@ -15,13 +15,22 @@ use Kreta\Component\VCS\Serializer\Interfaces\SerializerInterface;
 
 class CommitSerializer implements SerializerInterface {
 
+    /** @var CommitFactory $factory */
     protected $factory;
 
+    /**
+     * Constructor.
+     *
+     * @param CommitFactory $factory
+     */
     public function __construct(CommitFactory $factory)
     {
         $this->factory = $factory;
     }
 
+    /**
+     * {@inheritdoc}
+     */
     public function deserialize($json)
     {
         $jsonCommit = $json['head_commit'];

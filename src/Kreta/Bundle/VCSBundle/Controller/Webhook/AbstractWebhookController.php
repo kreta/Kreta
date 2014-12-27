@@ -47,8 +47,7 @@ abstract class AbstractWebhookController extends Controller
     /**
      * Gets webhook strategy to be used in this case. Each VCS should have one
      *
-     * @return /Kreta/Component/VCS/WebhookStrategy/AbstractWebhookController
+     * @return \Kreta\Component\VCS\WebhookStrategy\AbstractWebhookStrategy
      */
     abstract public function getWebhookStrategy();
-
-} 
+}

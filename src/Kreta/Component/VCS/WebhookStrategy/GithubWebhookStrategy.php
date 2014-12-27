@@ -11,28 +11,22 @@
 
 namespace Kreta\Component\VCS\WebhookStrategy;
 
-use Kreta\Component\VCS\Serializer\Github\CommitSerializer;
-use Kreta\Component\VCS\WebhookStrategy\Interfaces\WebhookStrategyInterface;
 use Symfony\Component\HttpFoundation\Request;
 
-class GithubWebhookStrategy implements WebhookStrategyInterface
+/**
+ * Class GithubWebhookStrategy
+ *
+ * @package Kreta\Component\VCS\WebhookStrategy
+ */
+class GithubWebhookStrategy extends AbstractWebhookStrategy
 {
-    protected $commitSerializer;
-
-    public function __construct(CommitSerializer $commitSerializer)
-    {
-        $this->commitSerializer = $commitSerializer;
-    }
     /**
      * {@inheritdoc}
      */
     public function getSerializer(Request $request)
     {
         $event = $request->headers->get('X-Github-Event');
-        if ('push' === $event) {
-            return $this->commitSerializer;
-        }
 
-        throw new \Exception('Event strategy not implemented');
+        return $this->serializerRegistry->getSerializer('github', $event);
     }
 }
