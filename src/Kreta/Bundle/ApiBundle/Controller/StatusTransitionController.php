@@ -88,6 +88,66 @@ class StatusTransitionController extends AbstractRestController
     }
 
     /**
+     * Creates new transition for name, status and initial statuses given.
+     *
+     * @param string $workflowId The workflow id
+     *
+     * @ApiDoc(
+     *  description = "Creates new transition for name, status and initial statuses given",
+     *  input = "Kreta\Bundle\ApiBundle\Form\Type\StatusTransitionType",
+     *  output = "Kreta\Component\Workflow\Model\Interfaces\StatusTransitionInterface",
+     *  requirements = {
+     *    {
+     *      "name"="_format",
+     *      "requirement"="json|jsonp",
+     *      "description"="Supported formats, by default json"
+     *    }
+     *  },
+     *  statusCodes = {
+     *      201 = "Successfully created",
+     *      400 = {
+     *          "Name should not be blank",
+     *          "Status should not be blank",
+     *          "Initial statuses should not be blank",
+     *          "A transition with identical name is already exist in this workflow",
+     *          "The status is not valid",
+     *          "The initial statuses are not valid"
+     *      },
+     *      403 = "Not allowed to access this resource",
+     *      404 = "Does not exist any workflow with <$id> id"
+     *  }
+     * )
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\BadRequestHttpException
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function postTransitionsAction($workflowId)
+    {
+        $workflow = $this->getWorkflowIfAllowed($workflowId, 'manage_status');
+
+        $name = $this->get('request')->get('name');
+        if (!$name) {
+            throw new BadRequestHttpException('Name should not be blank');
+        }
+
+        $initialStatuses = $this->get('kreta_workflow.repository.status')
+            ->findByIds($this->get('request')->get('initials'), $workflow);
+        if (count($initialStatuses) < 1) {
+            throw new BadRequestHttpException('The transition must have at least one initial status');
+        }
+
+        $statusTransition = $this->get('kreta_workflow.factory.status_transition')
+            ->create($name, null, $initialStatuses);
+
+        return $this->post(
+            $this->get('kreta_api.form_handler.status_transition'),
+            $statusTransition,
+            ['transition'],
+            ['csrf_protection' => false, 'method' => 'POST', 'states' => $workflow->getStatuses()]
+        );
+    }
+
+    /**
      * Deletes the transition of workflow id and transition id given.
      *
      * @param string $workflowId   The workflow id

@@ -47,7 +47,7 @@ class StatusTransitionFactory
      *
      * @return \Kreta\Component\Workflow\Model\Interfaces\StatusTransitionInterface
      */
-    public function create($name, StatusInterface $state, array $initialStates = [])
+    public function create($name, StatusInterface $state = null, array $initialStates = [])
     {
         return new $this->className($name, $initialStates, $state);
     }

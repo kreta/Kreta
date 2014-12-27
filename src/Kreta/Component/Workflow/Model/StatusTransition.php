@@ -59,10 +59,13 @@ class StatusTransition extends Transition implements StatusTransitionInterface
      *                                                                                    the initial states
      * @param \Kreta\Component\Workflow\Model\Interfaces\StatusInterface   $state         The status
      */
-    public function __construct($name, array $initialStates = [], StatusInterface $state)
+    public function __construct($name, array $initialStates = [], StatusInterface $state = null)
     {
         parent::__construct($name, $initialStates, $state);
-        $this->workflow = $state->getWorkflow();
+
+        if ($state instanceof StatusInterface) {
+            $this->workflow = $state->getWorkflow();
+        }
     }
 
     /**
@@ -114,8 +117,48 @@ class StatusTransition extends Transition implements StatusTransitionInterface
     /**
      * {@inheritdoc}
      */
+    public function setName($name)
+    {
+        $this->name = $name;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setState(StatusInterface $state)
+    {
+        $this->state = $state;
+        $this->workflow = $state->getWorkflow();
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getWorkflow()
     {
         return $this->workflow;
+    }
+
+    /**
+     * Method which validates if the state is also an initial state.
+     * It is a validation method with its assertions.
+     *
+     * @return boolean
+     */
+    public function isValidState()
+    {
+        if ($this->state instanceof StatusInterface) {
+            foreach ($this->initialStates as $initialState) {
+                if ($initialState->getId() === $this->state->getId()) {
+                    return false;
+                }
+            }
+        }
+
+        return true;
     }
 }

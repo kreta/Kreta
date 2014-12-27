@@ -205,6 +205,157 @@ Feature: Manage status transition
       }
     """
 
+  Scenario: Creating transition with user which is not workflow creator
+    Given I am authenticating with "access-token-2" token
+    Given I set header "content-type" with value "application/json"
+    When I send a POST request to "/app_test.php/api/workflows/0/transitions"
+    Then the response code should be 403
+    And the response should contain json:
+    """
+      {
+        "error": "Not allowed to access this resource"
+      }
+    """
+
+  Scenario: Creating transition with unknown initial status
+    Given I am authenticating with "access-token-0" token
+    Given I set header "content-type" with value "application/json"
+    When I send a POST request to "/app_test.php/api/workflows/0/transitions" with body:
+    """
+      {
+        "name": "Dummy name",
+        "state": 0,
+        "initials": "unknown-initial-status"
+      }
+    """
+    Then the response code should be 400
+    And the response should contain json:
+    """
+      {
+        "error": "The transition must have at least one initial status"
+      }
+    """
+
+  Scenario: Creating transition of unknown workflow
+    Given I am authenticating with "access-token-0" token
+    Given I set header "content-type" with value "application/json"
+    When I send a POST request to "/app_test.php/api/workflows/unknown-workflow/transitions"
+    Then the response code should be 404
+    And the response should contain json:
+    """
+      {
+        "error": "Does not exist any entity with unknown-workflow id"
+      }
+    """
+
+  Scenario: Creating transition without name
+    Given I am authenticating with "access-token-0" token
+    Given I set header "content-type" with value "application/json"
+    When I send a POST request to "/app_test.php/api/workflows/0/transitions" with body:
+    """
+      {
+        "state": 0,
+        "initials": "1, 2"
+      }
+    """
+    Then the response code should be 400
+    And the response should contain json:
+    """
+      {
+        "error": "Name should not be blank"
+      }
+    """
+
+  Scenario: Creating transition without status
+    Given I am authenticating with "access-token-0" token
+    Given I set header "content-type" with value "application/json"
+    When I send a POST request to "/app_test.php/api/workflows/0/transitions" with body:
+    """
+      {
+        "name": "Dummy name",
+        "initials": "1,2"
+      }
+    """
+    Then the response code should be 400
+    And the response should contain json:
+    """
+      {
+        "state": [
+          "This value should not be blank."
+        ]
+      }
+    """
+
+  Scenario: Creating transition that the status and initial status are the same
+    Given I am authenticating with "access-token-0" token
+    Given I set header "content-type" with value "application/json"
+    When I send a POST request to "/app_test.php/api/workflows/0/transitions" with body:
+    """
+      {
+        "name": "Dummy name",
+        "state": 0,
+        "initials": 0
+      }
+    """
+    Then the response code should be 400
+    And the response should contain json:
+    """
+      [
+        "The state cannot be an initial state too"
+      ]
+    """
+
+  Scenario: Creating transition with name that already exists
+    Given I am authenticating with "access-token-0" token
+    Given I set header "content-type" with value "application/json"
+    When I send a POST request to "/app_test.php/api/workflows/0/transitions" with body:
+    """
+      {
+        "name": "Start progress",
+        "state": 0,
+        "initials": "1, 2"
+      }
+    """
+    Then the response code should be 400
+    And the response should contain json:
+    """
+      {
+          "name": [
+            "A transition with identical name is already exist in this workflow"
+          ]
+      }
+    """
+
+  Scenario: Creating transition
+    Given I am authenticating with "access-token-0" token
+    Given I set header "content-type" with value "application/json"
+    When I send a POST request to "/app_test.php/api/workflows/0/transitions" with body:
+    """
+      {
+        "name": "Dummy name",
+        "state": 0,
+        "initials": "1,2"
+      }
+    """
+    Then the response code should be 201
+    And the response should contain json:
+    """
+      {
+        "initial_states": [{
+          "type": "normal",
+          "name": "In progress",
+          "id": "1",
+          "color": "#2c3e50"
+        }, {
+          "type": "normal",
+          "name": "Resolved",
+          "id": "2",
+          "color": "#f1c40f"
+        }],
+        "name": "Dummy name"
+      }
+    """
+
   Scenario: Deleting the 0 transition with user which is not workflow creator
     Given I am authenticating with "access-token-2" token
     When I send a DELETE request to "/app_test.php/api/workflows/0/transitions/0"
