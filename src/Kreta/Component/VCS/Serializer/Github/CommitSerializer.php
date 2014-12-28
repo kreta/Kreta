@@ -33,6 +33,8 @@ class CommitSerializer implements SerializerInterface {
      */
     public function deserialize($json)
     {
+        $json = json_decode($json, true);
+
         $jsonCommit = $json['head_commit'];
 
         $commit = $this->factory->create($jsonCommit['id'], $jsonCommit['message'], $json['repository']['full_name'],

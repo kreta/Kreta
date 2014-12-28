@@ -35,7 +35,7 @@ abstract class AbstractWebhookController extends Controller
     public function webhookAction(Request $request)
     {
         $serializer = $this->getWebhookStrategy()->getSerializer($request);
-        $entity = $serializer->deserialize(json_decode($request->getContent(), true));
+        $entity = $serializer->deserialize($request->getContent());
 
         $manager = $this->getDoctrine()->getManager();
         $manager->persist($entity);

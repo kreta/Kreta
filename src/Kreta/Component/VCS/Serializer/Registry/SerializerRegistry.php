@@ -37,7 +37,7 @@ class SerializerRegistry implements SerializerRegistryInterface
     /**
      * @{@inheritdoc}
      */
-    public function registerSerializer($provider, $event, SerializerInterface $notifier)
+    public function registerSerializer($provider, $event, SerializerInterface $serializer)
     {
         if ($this->hasSerializer($provider, $event)) {
             throw new ExistingSerializerException($provider, $event);
@@ -48,7 +48,7 @@ class SerializerRegistry implements SerializerRegistryInterface
             $this->serializers[$provider] = [];
         }
 
-        $this->serializers[$provider][$event] = $notifier;
+        $this->serializers[$provider][$event] = $serializer;
     }
 
     /**

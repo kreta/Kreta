@@ -21,7 +21,7 @@ interface SerializerInterface
     /**
      * Transforms json message received into a object
      *
-     * @param string $json Message received in json format
+     * @param string $json Raw message received in json format
      *
      * @return object
      */
