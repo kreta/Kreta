@@ -23,22 +23,32 @@ class AbstractRepository extends EntityRepository
     /**
      * Persists object.
      *
-     * @param Object $object The object that will be persisted
+     * @param Object  $object The object that will be persisted
+     * @param boolean $flush  Boolean that checks if flushes or not, by default is true
+     *
+     * @return void
      */
-    public function save($object)
+    public function save($object, $flush = true)
     {
         $this->_em->persist($object);
-        $this->_em->flush();
+        if ($flush) {
+            $this->_em->flush();
+        }
     }
 
     /**
      * Removes object.
      *
-     * @param Object $object The object that will be removed
+     * @param Object  $object The object that will be removed
+     * @param boolean $flush  Boolean that checks if flushes or not, by default is true
+     *
+     * @return void
      */
-    public function delete($object)
+    public function delete($object, $flush = true)
     {
         $this->_em->remove($object);
-        $this->_em->flush();
+        if ($flush) {
+            $this->_em->flush();
+        }
     }
 }

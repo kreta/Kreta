@@ -208,7 +208,14 @@ Feature: Manage status transition
   Scenario: Creating transition with user which is not workflow creator
     Given I am authenticating with "access-token-2" token
     Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/workflows/0/transitions"
+    When I send a POST request to "/app_test.php/api/workflows/0/transitions" with body:
+    """
+      {
+        "name": "Dummy name",
+        "state": 0,
+        "initials": "initial-status"
+      }
+    """
     Then the response code should be 403
     And the response should contain json:
     """
@@ -239,7 +246,14 @@ Feature: Manage status transition
   Scenario: Creating transition of unknown workflow
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/workflows/unknown-workflow/transitions"
+    When I send a POST request to "/app_test.php/api/workflows/unknown-workflow/transitions" with body:
+    """
+      {
+        "name": "Dummy name",
+        "state": 0,
+        "initials": "initial-status"
+      }
+    """
     Then the response code should be 404
     And the response should contain json:
     """

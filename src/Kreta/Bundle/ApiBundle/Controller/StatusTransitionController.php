@@ -123,12 +123,12 @@ class StatusTransitionController extends AbstractRestController
      */
     public function postTransitionsAction($workflowId)
     {
-        $workflow = $this->getWorkflowIfAllowed($workflowId, 'manage_status');
-
         $name = $this->get('request')->get('name');
         if (!$name) {
             throw new BadRequestHttpException('Name should not be blank');
         }
+
+        $workflow = $this->getWorkflowIfAllowed($workflowId, 'manage_status');
 
         $initialStatuses = $this->get('kreta_workflow.repository.status')
             ->findByIds($this->get('request')->get('initials'), $workflow);
