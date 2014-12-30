@@ -43,6 +43,9 @@ class WorkflowContext extends AbstractContext
             $metadata = $manager->getClassMetaData(get_class($workflow));
             $metadata->setIdGenerator(new \Doctrine\ORM\Id\AssignedGenerator());
             $metadata->setIdentifierValues($workflow, ['id' => $workflowData['id']]);
+            if (isset($workflowData['createdAt'])) {
+                $metadata->setFieldValue($workflow, 'createdAt', new \DateTime($workflowData['createdAt']));
+            }
 
             $manager->persist($workflow);
         }

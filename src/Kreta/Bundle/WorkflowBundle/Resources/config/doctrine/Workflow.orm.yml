@@ -15,6 +15,9 @@ Kreta\Component\Workflow\Model\Workflow:
             generator:
                 strategy: UUID
     fields:
+        createdAt:
+            column: created_at
+            type: datetime
         name:
             type: string
             length: 140
