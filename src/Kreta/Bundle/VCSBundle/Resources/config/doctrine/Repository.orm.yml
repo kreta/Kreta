@@ -1,0 +1,31 @@
+# This file belongs to Kreta.
+# The source code of application includes a LICENSE file
+# with all information about license.
+#
+# @author benatespina <benatespina@gmail.com>
+# @author gorkalaucirica <gorka.lauzirika@gmail.com>
+
+Kreta\Component\VCS\Model\Repository:
+    type: entity
+    repositoryClass: Kreta\Component\VCS\Repository\RepositoryRepository
+    table: repository
+    id:
+        id:
+            type: string
+            generator:
+                strategy: UUID
+    fields:
+        name:
+            type: string
+
+    manyToMany:
+        projects:
+            targetEntity: Kreta\Component\Project\Model\Interfaces\ProjectInterface
+            joinTable:
+                name: repository_projects
+                joinColumns:
+                  repository_id:
+                    referencedColumnName: id
+                inverseJoinColumns:
+                  project_id:
+                    referencedColumnName: id

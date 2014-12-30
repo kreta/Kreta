@@ -14,11 +14,11 @@ namespace Kreta\Component\VCS\Matcher\Interfaces;
 use Kreta\Component\VCS\Model\Interfaces\CommitInterface;
 
 /**
- * Interface IssueMatcherInterface
+ * Interface MatcherInterface
  *
  * @package Kreta\Component\VCS\Matcher\Interfaces
  */
-interface IssueMatcherInterface
+interface MatcherInterface
 {
     /**
      * @param CommitInterface $commit

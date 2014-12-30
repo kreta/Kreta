@@ -12,10 +12,57 @@
 namespace Kreta\Component\VCS\Model\Interfaces;
 
 /**
- * Class BranchInterface
+ * Interface BranchInterface
  *
  * @package Kreta\Component\VCS\Model
  */
-class BranchInterface
+interface BranchInterface
 {
+    /**
+     * Gets id.
+     *
+     * @return string
+     */
+    public function getId();
+
+    /**
+     * Sets id.
+     *
+     * @param string $id
+     *
+     * @return self
+     */
+    public function setId($id);
+
+    /**
+     * Gets name.
+     *
+     * @return string
+     */
+    public function getName();
+
+    /**
+     * Sets name.
+     *
+     * @param string $name
+     *
+     * @return self
+     */
+    public function setName($name);
+
+    /**
+     * Gets repository.
+     *
+     * @return RepositoryInterface
+     */
+    public function getRepository();
+
+    /**
+     * Sets repository.
+     *
+     * @param RepositoryInterface $repository
+     *
+     * @return self
+     */
+    public function setRepository(RepositoryInterface $repository);
 }

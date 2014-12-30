@@ -11,47 +11,38 @@
 
 namespace Kreta\Component\VCS\Model;
 
+use Kreta\Component\VCS\Model\Interfaces\BranchInterface;
 use Kreta\Component\VCS\Model\Interfaces\CommitInterface;
 
 /**
- * Class Commit
- *
- * @package Kreta\Component\VCS\Model
- */
+     * {@inheritdoc}
+     */
 class Commit implements CommitInterface
 {
     protected $id;
 
     protected $author;
 
+    protected $branch;
+
     protected $issuesRelated;
 
     protected $message;
-
-    protected $provider;
-
-    protected $repository;
 
     protected $sha;
 
     protected $url;
 
-    /**
-     * Returns id
-     *
-     * @return mixed
+    /** 
+     * {@inheritdoc} 
      */
     public function getId()
     {
         return $this->id;
     }
 
-    /**
-     * Sets id
-     *
-     * @param mixed $id The id to be set
-     *
-     * @return self
+    /** 
+    * {@inheritdoc}
      */
     public function setId($id)
     {
@@ -60,22 +51,16 @@ class Commit implements CommitInterface
         return $this;
     }
 
-    /**
-     * Returns author
-     *
-     * @return mixed
+    /** 
+     * {@inheritdoc}
      */
     public function getAuthor()
     {
         return $this->author;
     }
 
-    /**
-     * Sets author
-     *
-     * @param mixed $author The author to be set
-     *
-     * @return self
+    /** 
+     * {@inheritdoc}
      */
     public function setAuthor($author)
     {
@@ -85,21 +70,34 @@ class Commit implements CommitInterface
     }
 
     /**
-     * Returns issuesRelated
-     *
-     * @return mixed
+     * {@inheritdoc}
+     */
+    public function getBranch()
+    {
+        return $this->branch;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setBranch(BranchInterface $branch)
+    {
+        $this->branch = $branch;
+
+        return $this;
+    }
+
+
+    /** 
+     * {@inheritdoc}
      */
     public function getIssuesRelated()
     {
         return $this->issuesRelated;
     }
 
-    /**
-     * Sets issuesRelated
-     *
-     * @param mixed $issuesRelated The issuesRelated to be set
-     *
-     * @return self
+    /** 
+     * {@inheritdoc}
      */
     public function setIssuesRelated($issuesRelated)
     {
@@ -108,22 +106,16 @@ class Commit implements CommitInterface
         return $this;
     }
 
-    /**
-     * Returns message
-     *
-     * @return mixed
+    /** 
+     * {@inheritdoc}
      */
     public function getMessage()
     {
         return $this->message;
     }
 
-    /**
-     * Sets message
-     *
-     * @param mixed $message The message to be set
-     *
-     * @return self
+    /** 
+     * {@inheritdoc}
      */
     public function setMessage($message)
     {
@@ -133,69 +125,15 @@ class Commit implements CommitInterface
     }
 
     /**
-     * Returns provider
-     *
-     * @return mixed
-     */
-    public function getProvider()
-    {
-        return $this->provider;
-    }
-
-    /**
-     * Sets provider
-     *
-     * @param mixed $provider The provider to be set
-     *
-     * @return self
-     */
-    public function setProvider($provider)
-    {
-        $this->provider = $provider;
-
-        return $this;
-    }
-
-    /**
-     * Returns repository
-     *
-     * @return mixed
-     */
-    public function getRepository()
-    {
-        return $this->repository;
-    }
-
-    /**
-     * Sets repository
-     *
-     * @param mixed $repository The repository to be set
-     *
-     * @return self
-     */
-    public function setRepository($repository)
-    {
-        $this->repository = $repository;
-
-        return $this;
-    }
-
-    /**
-     * Returns sha
-     *
-     * @return mixed
+     * {@inheritdoc}
      */
     public function getSha()
     {
         return $this->sha;
     }
 
-    /**
-     * Sets sha
-     *
-     * @param mixed $sha The sha to be set
-     *
-     * @return self
+    /** 
+     * {@inheritdoc}
      */
     public function setSha($sha)
     {
@@ -204,22 +142,16 @@ class Commit implements CommitInterface
         return $this;
     }
 
-    /**
-     * Returns url
-     *
-     * @return mixed
+    /** 
+     * {@inheritdoc}
      */
     public function getUrl()
     {
         return $this->url;
     }
 
-    /**
-     * Sets url
-     *
-     * @param mixed $url The url to be set
-     *
-     * @return self
+    /** 
+     * {@inheritdoc}
      */
     public function setUrl($url)
     {

@@ -7,25 +7,85 @@
 
 parameters:
     kreta_vcs.commit.class: Kreta\Component\VCS\Model\Commit
+    kreta_vcs.branch.class: Kreta\Component\VCS\Model\Branch
+    kreta_vcs.repository.class: Kreta\Component\VCS\Model\Repository
+
+    kreta_vcs.event_subscriber_commit.class: Kreta\Component\VCS\EventSubscriber\CommitEventSubscriber
+
     kreta_vcs.factory_commit.class: Kreta\Component\VCS\Factory\CommitFactory
+    kreta_vcs.factory_branch.class: Kreta\Component\VCS\Factory\BranchFactory
+
+    kreta_vcs.matcher_commit.class: Kreta\Component\VCS\Matcher\CommitMatcher
+
     kreta_vcs.registry_serializer.class: Kreta\Component\VCS\Serializer\Registry\SerializerRegistry
 
+    kreta_vcs.repository_issue.class: Kreta\Component\VCS\Repository\IssueRepository
+    kreta_vcs.repository_commit.class: Kreta\Component\VCS\Repository\CommitRepository
+    kreta_vcs.repository_branch.class: Kreta\Component\VCS\Repository\BranchRepository
+    kreta_vcs.repository_repository.class: Kreta\Component\VCS\Repository\RepositoryRepository
+
 services:
+    #EventListeners
+    kreta_vcs.event_listener.commit:
+        class: Kreta\Component\VCS\EventSubscriber\CommitListener
+        arguments: [@kreta_vcs.matcher.commit, @doctrine.orm.entity_manager]
+        tags:
+            - { name: kernel.event_listener, event: kreta_vcs.event.commit.new, method: newCommit }
+
+    #EventSubscribers
+    kreta_vcs.event_subscriber.doctrine:
+        class: %kreta_vcs.event_subscriber_commit.class%
+        arguments: [@event_dispatcher]
+        tags:
+            - { name: doctrine.event_subscriber }
+
     #Factories
     kreta_vcs.factory.commit:
         class: %kreta_vcs.factory_commit.class%
         arguments: [%kreta_vcs.commit.class%]
 
-    #Serializers
-    kreta_vcs.serializer.github.commit:
-        class: Kreta\Component\VCS\Serializer\Github\CommitSerializer
-        arguments: [@kreta_vcs.factory.commit]
-        tags:
-            - { name: kreta_vcs.serializer, provider: github, event: push }
+    kreta_vcs.factory.branch:
+        class: %kreta_vcs.factory_branch.class%
+        arguments: [%kreta_vcs.branch.class%]
+
+    #Matchers
+    kreta_vcs.matcher.commit:
+        class: %kreta_vcs.matcher_commit.class%
+        arguments: [@kreta_vcs.repository.issue]
+
+    #Repositories
+    kreta_vcs.repository.issue:
+        class: %kreta_vcs.repository_issue.class%
+        arguments: [@doctrine.orm.entity_manager, %kreta_issue.issue.class%]
+
+    kreta_vcs.repository.commit:
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        class: %kreta_vcs.repository_commit.class%
+        arguments: [%kreta_vcs.commit.class%]
+
+    kreta_vcs.repository.branch:
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        class: %kreta_vcs.repository_branch.class%
+        arguments: [%kreta_vcs.branch.class%]
+
+    kreta_vcs.repository.repository:
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        class: %kreta_vcs.repository_repository.class%
+        arguments: [%kreta_vcs.repository.class%]
 
     #SerializerRegistry
     kreta_vcs.registry.serializer:
         class: %kreta_vcs.registry_serializer.class%
+
+    #Serializers
+    kreta_vcs.serializer.github.commit:
+        class: Kreta\Component\VCS\Serializer\Github\CommitSerializer
+        arguments: [@kreta_vcs.factory.commit, @kreta_vcs.repository.repository, @kreta_vcs.repository.branch]
+        tags:
+            - { name: kreta_vcs.serializer, provider: github, event: push }
 
     #WebhookStrategies
     kreta_vcs.webhook_strategy.github:

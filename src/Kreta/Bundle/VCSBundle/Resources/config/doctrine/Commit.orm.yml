@@ -8,7 +8,7 @@
 Kreta\Component\VCS\Model\Commit:
     type: entity
     repositoryClass: Kreta\Component\VCS\Repository\CommitRepository
-    table: project
+    table: commit
     id:
         id:
             type: string
@@ -20,22 +20,25 @@ Kreta\Component\VCS\Model\Commit:
             length: 50
         message:
             type: text
-        provider:
-            type: string
-            length: 20
-        repository:
-            type: string
-            length: 100
         sha:
             type: string
             length: 50
         url:
             type: string
     manyToOne:
+        branch:
+            targetEntity: Kreta\Component\VCS\Model\Interfaces\BranchInterface
+            joinColumn:
+                name: branch_id
+                referencedColumnName: id
+    manyToMany:
         issuesRelated:
             targetEntity: Kreta\Component\Issue\Model\Interfaces\IssueInterface
-            joinColumn:
-                name: issue_id
-                referencedColumnName: id
-                onDelete: CASCADE
-            cascade: ['persist', 'remove']
+            joinTable:
+                name: commit_issues
+                joinColumns:
+                  commit_id:
+                    referencedColumnName: id
+                inverseJoinColumns:
+                  issue_id:
+                    referencedColumnName: id

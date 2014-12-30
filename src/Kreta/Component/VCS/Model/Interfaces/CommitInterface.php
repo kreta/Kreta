@@ -28,7 +28,7 @@ interface CommitInterface
     /**
      * Sets id
      *
-     * @param mixed $id The id to be set
+     * @param string $id The id to be set
      *
      * @return string
      */
@@ -49,6 +49,22 @@ interface CommitInterface
      * @return self
      */
     public function setAuthor($author);
+
+    /**
+     * Gets branch
+     *
+     * @return BranchInterface
+     */
+    public function getBranch();
+
+    /**
+     * Gets branch
+     *
+     * @param BranchInterface $branch
+     *
+     * @return self
+     */
+    public function setBranch(BranchInterface $branch);
 
     /**
      * Returns issuesRelated
@@ -81,38 +97,6 @@ interface CommitInterface
      * @return self
      */
     public function setMessage($message);
-
-    /**
-     * Returns provider
-     *
-     * @return string
-     */
-    public function getProvider();
-
-    /**
-     * Sets provider
-     *
-     * @param string $provider The provider to be set
-     *
-     * @return self
-     */
-    public function setProvider($provider);
-
-    /**
-     * Returns repository
-     *
-     * @return string
-     */
-    public function getRepository();
-
-    /**
-     * Sets repository
-     *
-     * @param string $repository The repository to be set
-     *
-     * @return self
-     */
-    public function setRepository($repository);
 
     /**
      * Returns sha

@@ -11,6 +11,7 @@
 
 namespace spec\Kreta\Component\VCS\Model;
 
+use Kreta\Component\VCS\Model\Interfaces\BranchInterface;
 use PhpSpec\ObjectBehavior;
 
 class CommitSpec extends ObjectBehavior
@@ -32,6 +33,12 @@ class CommitSpec extends ObjectBehavior
         $this->getAuthor()->shouldReturn('gorkalaucirica');
     }
 
+    function its_branch_is_mutable(BranchInterface $branch)
+    {
+        $this->setBranch($branch)->shouldReturn($this);
+        $this->getBranch()->shouldReturn($branch);
+    }
+
     function its_issues_related_is_mutable()
     {
         $this->setIssuesRelated([])->shouldReturn($this);
@@ -42,18 +49,6 @@ class CommitSpec extends ObjectBehavior
     {
         $this->setMessage('Test message')->shouldReturn($this);
         $this->getMessage()->shouldReturn('Test message');
-    }
-
-    function its_provider_is_mutable()
-    {
-        $this->setProvider('github')->shouldReturn($this);
-        $this->getProvider()->shouldReturn('github');
-    }
-
-    function its_repository_is_mutable()
-    {
-        $this->setRepository('kreta-io/kreta')->shouldReturn($this);
-        $this->getRepository()->shouldReturn('kreta-io/kreta');
     }
 
     function its_sha_is_mutable()

@@ -11,6 +11,7 @@
 
 namespace spec\Kreta\Component\VCS\Factory;
 
+use Kreta\Component\VCS\Model\Interfaces\BranchInterface;
 use PhpSpec\ObjectBehavior;
 
 class CommitFactorySpec extends ObjectBehavior
@@ -25,10 +26,9 @@ class CommitFactorySpec extends ObjectBehavior
         $this->shouldHaveType('Kreta\Component\VCS\Factory\CommitFactory');
     }
 
-    function it_creates_a_commit()
+    function it_creates_a_commit(BranchInterface $branch)
     {
-        $this->create('11231', 'Test commit', 'kreta-io/kreta', 'gorkalaucirica', 'github',
-            'http://github.com/kreta-io/kreta')
+        $this->create('11231', 'Test commit', $branch, 'gorkalaucirica', 'http://github.com/kreta-io/kreta')
             ->shouldReturnAnInstanceOf('Kreta\Component\VCS\Model\Commit');
     }
 } 

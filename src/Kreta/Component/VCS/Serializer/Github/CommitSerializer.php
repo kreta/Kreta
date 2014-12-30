@@ -11,6 +11,8 @@
 namespace Kreta\Component\VCS\Serializer\Github;
 
 use Kreta\Component\VCS\Factory\CommitFactory;
+use Kreta\Component\VCS\Repository\BranchRepository;
+use Kreta\Component\VCS\Repository\RepositoryRepository;
 use Kreta\Component\VCS\Serializer\Interfaces\SerializerInterface;
 
 class CommitSerializer implements SerializerInterface {
@@ -18,14 +20,25 @@ class CommitSerializer implements SerializerInterface {
     /** @var CommitFactory $factory */
     protected $factory;
 
+    /** @var  RepositoryRepository $repositoryRepository */
+    protected $repositoryRepository;
+
+    /** @var  BranchRepository $branchRepository */
+    protected $branchRepository;
+
     /**
      * Constructor.
      *
-     * @param CommitFactory $factory
+     * @param CommitFactory        $factory
+     * @param RepositoryRepository $repositoryRepository
+     * @param BranchRepository     $branchRepository
      */
-    public function __construct(CommitFactory $factory)
+    public function __construct(CommitFactory $factory, RepositoryRepository $repositoryRepository,
+                                BranchRepository $branchRepository)
     {
         $this->factory = $factory;
+        $this->repositoryRepository = $repositoryRepository;
+        $this->branchRepository = $branchRepository;
     }
 
     /**
@@ -37,8 +50,16 @@ class CommitSerializer implements SerializerInterface {
 
         $jsonCommit = $json['head_commit'];
 
-        $commit = $this->factory->create($jsonCommit['id'], $jsonCommit['message'], $json['repository']['full_name'],
-            $jsonCommit['author']['username'], 'github', $jsonCommit['url']);
+        $repository = $this->repositoryRepository->findOneBy(['name' => $json['repository']['full_name']]);
+        if(!$repository) {
+            return null;
+        }
+
+        $branchName = str_replace('refs/heads/', '', $json['ref']);
+        $branch = $this->branchRepository->findOrCreateBranch($repository, $branchName);
+
+        $commit = $this->factory->create($jsonCommit['id'], $jsonCommit['message'], $branch,
+            $jsonCommit['author']['username'], $jsonCommit['url']);
 
         return $commit;
     }
