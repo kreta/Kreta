@@ -38,6 +38,7 @@ class StatusController extends AbstractRestController
      *      "description"="Supported formats, by default json"
      *    }
      *  },
+     *  resource = true,
      *  statusCodes = {
      *    403 = "Not allowed to access this resource",
      *    404 = "Does not exist any workflow with <$id> id"
@@ -68,8 +69,10 @@ class StatusController extends AbstractRestController
      *  },
      *  statusCodes = {
      *    403 = "Not allowed to access this resource",
-     *    404 = "Does not exist any workflow with <$id> id",
-     *    404 = "Does not exist any status with <$id> id"
+     *    404 = {
+     *      "Does not exist any workflow with <$id> id",
+     *      "Does not exist any status with <$id> id"
+     *    }
      *  }
      * )
      *

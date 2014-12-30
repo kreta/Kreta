@@ -20,4 +20,11 @@ use Kreta\Component\Core\Repository\Abstracts\AbstractRepository;
  */
 class AbstractRepositoryStub extends AbstractRepository
 {
+    /**
+     * {@inheritdoc}
+     */
+    protected function getAlias()
+    {
+        return 'ars';
+    }
 }

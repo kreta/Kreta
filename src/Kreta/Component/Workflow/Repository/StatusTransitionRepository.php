@@ -37,4 +37,12 @@ class StatusTransitionRepository extends AbstractRepository
             ->setParameter('workflow', $workflow)
             ->getQuery()->getResult();
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getAlias()
+    {
+        return 'st';
+    }
 }
