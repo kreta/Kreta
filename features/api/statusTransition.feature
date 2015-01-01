@@ -239,7 +239,7 @@ Feature: Manage status transition
     And the response should contain json:
     """
       {
-        "error": "The transition must have at least one initial status"
+        "error": "The initial status is missing or does not exist"
       }
     """
 
@@ -335,7 +335,7 @@ Feature: Manage status transition
     """
       {
           "name": [
-            "A transition with identical name is already exist in this workflow"
+            "A transition with identical name is already exists in this workflow"
           ]
       }
     """
@@ -384,7 +384,7 @@ Feature: Manage status transition
   Scenario: Deleting the 1 transition which is in use by an issue
     Given I am authenticating with "access-token-0" token
     When I send a DELETE request to "/app_test.php/api/workflows/0/transitions/1"
-    Then the response code should be 403
+    Then the response code should be 400
     And the response should contain json:
     """
       {
@@ -642,7 +642,7 @@ Feature: Manage status transition
   Scenario: Deleting the 0 initial status where the transition is in use by an issue
     Given I am authenticating with "access-token-0" token
     When I send a DELETE request to "/app_test.php/api/workflows/0/transitions/1/initial-statuses/0"
-    Then the response code should be 403
+    Then the response code should be 400
     And the response should contain json:
     """
       {
@@ -664,7 +664,6 @@ Feature: Manage status transition
   Scenario: Deleting the 0 initial status of 0 transition
     Given I am authenticating with "access-token-0" token
     When I send a DELETE request to "/app_test.php/api/workflows/0/transitions/3/initial-statuses/1"
-    And print response
     Then the response code should be 204
     And the response should contain json:
     """

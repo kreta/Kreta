@@ -112,7 +112,8 @@ class StatusTransitionController extends AbstractRestController
      *          "Initial statuses should not be blank",
      *          "A transition with identical name is already exist in this workflow",
      *          "The status is not valid",
-     *          "The initial statuses are not valid"
+     *          "The initial statuses are not valid",
+     *          "The initial status is missing or does not exist"
      *      },
      *      403 = "Not allowed to access this resource",
      *      404 = "Does not exist any workflow with <$id> id"
@@ -134,7 +135,7 @@ class StatusTransitionController extends AbstractRestController
         $initialStatuses = $this->get('kreta_workflow.repository.status')
             ->findByIds($this->get('request')->get('initials'), $workflow);
         if (count($initialStatuses) < 1) {
-            throw new BadRequestHttpException('The transition must have at least one initial status');
+            throw new BadRequestHttpException('The initial status is missing or does not exist');
         }
 
         $statusTransition = $this->get('kreta_workflow.factory.status_transition')
@@ -165,10 +166,8 @@ class StatusTransitionController extends AbstractRestController
      *  },
      *  statusCodes = {
      *      204 = "",
-     *      403 = {
-     *          "Not allowed to access this resource",
-     *          "Remove operation has been cancelled, the transition is currently in use"
-     *      },
+     *      400 = "Remove operation has been cancelled, the transition is currently in use",
+     *      403 ="Not allowed to access this resource",
      *      404 = {
      *          "Does not exist any workflow with <$id> id",
      *          "Does not exist any transition with <$id> id"
@@ -187,7 +186,7 @@ class StatusTransitionController extends AbstractRestController
             foreach ($issue->getStatus()->getTransitions() as $retrieveTransition) {
                 if ($retrieveTransition->getId() === $transition->getId()) {
                     throw new HttpException(
-                        Codes::HTTP_FORBIDDEN,
+                        Codes::HTTP_BAD_REQUEST,
                         'Remove operation has been cancelled, the transition is currently in use'
                     );
                 }
@@ -341,10 +340,8 @@ class StatusTransitionController extends AbstractRestController
      *  },
      *  statusCodes = {
      *      204 = "",
-     *      403 = {
-     *          "Not allowed to access this resource",
-     *          "Remove operation has been cancelled, the transition is currently in use"
-     *      },
+     *      400 = "Remove operation has been cancelled, the transition is currently in use",
+     *      403 ="Not allowed to access this resource",
      *      404 = {
      *          "Does not exist any workflow with <$id> id",
      *          "Does not exist any transition with <$id> id",
@@ -366,7 +363,7 @@ class StatusTransitionController extends AbstractRestController
             foreach ($issue->getStatus()->getTransitions() as $retrieveTransition) {
                 if ($retrieveTransition->getId() === $transition->getId()) {
                     throw new HttpException(
-                        Codes::HTTP_FORBIDDEN,
+                        Codes::HTTP_BAD_REQUEST,
                         'Remove operation has been cancelled, the transition is currently in use'
                     );
                 }

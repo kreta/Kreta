@@ -9,7 +9,7 @@ Kreta\Component\Workflow\Model\Status:
     constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
             fields: [name, workflow]
-            message: 'A status with identical name is already exist in this workflow'
+            message: 'A status with identical name is already exists in this workflow'
     properties:
         color:
             - NotBlank: ~
@@ -22,7 +22,7 @@ Kreta\Component\Workflow\Model\StatusTransition:
     constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
             fields: [name, workflow]
-            message: 'A transition with identical name is already exist in this workflow'
+            message: 'A transition with identical name is already exists in this workflow'
     properties:
         name:
             - NotBlank: ~

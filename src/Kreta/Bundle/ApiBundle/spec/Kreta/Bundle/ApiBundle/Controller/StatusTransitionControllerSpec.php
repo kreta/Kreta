@@ -230,7 +230,7 @@ class StatusTransitionControllerSpec extends AbstractRestControllerSpec
         $request->get('initials')->shouldBeCalled()->willReturn('status-id');
         $statusRepository->findByIds('status-id', $workflow)->shouldBeCalled()->willReturn([]);
 
-        $this->shouldThrow(new BadRequestHttpException('The transition must have at least one initial status'))
+        $this->shouldThrow(new BadRequestHttpException('The initial status is missing or does not exist'))
             ->during('postTransitionsAction', ['workflow-id']);
     }
 
@@ -422,7 +422,7 @@ class StatusTransitionControllerSpec extends AbstractRestControllerSpec
 
         $this->shouldThrow(
             new HttpException(
-                Codes::HTTP_FORBIDDEN,
+                Codes::HTTP_BAD_REQUEST,
                 'Remove operation has been cancelled, the transition is currently in use'
             )
         )->during('deleteTransitionAction', ['workflow-id', 'transition-id']);
@@ -844,7 +844,7 @@ class StatusTransitionControllerSpec extends AbstractRestControllerSpec
 
         $this->shouldThrow(
             new HttpException(
-                Codes::HTTP_FORBIDDEN, 'Remove operation has been cancelled, the transition is currently in use')
+                Codes::HTTP_BAD_REQUEST, 'Remove operation has been cancelled, the transition is currently in use')
         )->during('deleteTransitionsInitialStatusAction', ['workflow-id', 'transition-id', 'initial-id']);
     }
 
