@@ -154,7 +154,6 @@ class IssueRepository extends EntityRepository
 
         $queryBuilder
             ->join('i.project', 'p')
-            ->join('p.workflow', 'w')
             ->where($queryBuilder->expr()->eq('i.numericId', ':issueNumber'))
             ->andWhere($queryBuilder->expr()->eq('p.shortName', ':projectShortName'))
             ->setParameter('issueNumber', $issueNumber)

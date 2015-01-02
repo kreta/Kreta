@@ -14,11 +14,19 @@
         </div>
         <div class="vcs-section">
             <h4><i class="fa fa-code-fork"></i>Branches</h4>
-            <p>No branches found for this issue</p>
+            {% for branch in branches %}
+                <p>{{ branch.name }}</p>
+            {% else %}
+                <p>No branches found for this issue</p>
+            {% endfor %}
         </div>
         <div class="vcs-section">
             <h4><i class="fa fa-code"></i>Commits</h4>
-            <p>No commits found for this issue</p>
+            {% for commit in commits %}
+                <p>{{ commit.sha | slice(0, 10)}} - {{ commit.message }}</p>
+            {% else %}
+                <p>No commits found for this issue</p>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}

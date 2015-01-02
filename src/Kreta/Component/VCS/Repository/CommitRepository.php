@@ -20,4 +20,12 @@ use Doctrine\ORM\EntityRepository;
  */
 class CommitRepository extends EntityRepository
 {
+    public function findByIssue($issueId)
+    {
+        $queryBuilder = $this->createQueryBuilder('c');
+        $queryBuilder->innerJoin('c.issuesRelated', 'ri', 'WITH', 'ri.id = :issueId')
+            ->setParameter('issueId', $issueId);
+
+        return $queryBuilder->getQuery()->getResult();
+    }
 }

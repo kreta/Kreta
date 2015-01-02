@@ -42,3 +42,7 @@ kreta_web_component_project:
 kreta_web_component_notification:
     prefix: /component/notification/
     resource: "@KretaWebBundle/Resources/config/routing/component/notification.yml"
+
+kreta_web_component_vcs:
+    prefix: /component/vcs/
+    resource: "@KretaWebBundle/Resources/config/routing/component/vcs.yml"
