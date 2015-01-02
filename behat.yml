@@ -60,8 +60,9 @@ default:
         vcs:
             contexts:
                 - Behat\WebApiExtension\Context\WebApiContext
+                - Kreta\Bundle\VCSBundle\Behat\RepositoryContext
             filters:
-                tags: "@vcs"
+                tags: "@vcs && ~@TODO"
 
         login:
             contexts:
