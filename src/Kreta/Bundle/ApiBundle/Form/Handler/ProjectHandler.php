@@ -12,7 +12,7 @@
 namespace Kreta\Bundle\ApiBundle\Form\Handler;
 
 use Kreta\Bundle\ApiBundle\Form\Type\ProjectType;
-use Kreta\Bundle\WebBundle\FormHandler\ProjectFormHandler as BaseProjectFormHandler;
+use Kreta\Bundle\ProjectBundle\Form\Handler\ProjectHandler as BaseProjectFormHandler;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\FileBag;
 

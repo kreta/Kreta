@@ -10,8 +10,8 @@
 $(document).ready(function () {
     var $photo, $image;
 
-    $photo = $('#kreta_core_user_type_photo');
-    $image = $('#kreta_core_project_type_image');
+    $photo = $('#kreta_user_user_type_photo');
+    $image = $('#kreta_project_project_type_image');
 
     $photo.on('change', function () {
         $('.kreta-image-preview')[0].src = window.URL.createObjectURL(this.files[0])

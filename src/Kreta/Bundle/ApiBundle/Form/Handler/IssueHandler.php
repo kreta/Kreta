@@ -12,7 +12,7 @@
 namespace Kreta\Bundle\ApiBundle\Form\Handler;
 
 use Kreta\Bundle\ApiBundle\Form\Type\IssueType;
-use Kreta\Bundle\WebBundle\FormHandler\IssueFormHandler as BaseIssueFormHandler;
+use Kreta\Bundle\IssueBundle\Form\Handler\IssueHandler as BaseIssueFormHandler;
 use Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
 
 /**

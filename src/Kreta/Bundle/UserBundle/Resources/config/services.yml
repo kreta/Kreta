@@ -6,7 +6,22 @@
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
 services:
+#### FORM HANDLER ####
+    kreta_user.form_handler.user:
+        class: %kreta_user.form_user_handler.class%
+        arguments: [@form.factory, @doctrine.orm.entity_manager, @event_dispatcher, @kreta_media.factory.media, @kreta_user.uploader.image_user]
+
 #### SECURITY ####
-    kreta_core.user_provider:
+    kreta_user.user_provider:
         class: %kreta_user.security_user_provider.class%
         arguments: [@fos_user.user_manager, {bitbucket: bitbucketId, github: githubId}]
+
+#### UPLOADER ####
+    kreta_user.uploader.image_user:
+        class: %kreta_media.uploader_media.class%
+        arguments: [@kreta_user.uploader_filesystem.image_user]
+    kreta_user.uploader_filesystem.image_user:
+        class: Gaufrette\Filesystem
+        factory_service: knp_gaufrette.filesystem_map
+        factory_method: get
+        arguments: [%users.image.uploader.filesystem%]

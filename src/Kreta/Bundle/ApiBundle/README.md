@@ -1,7 +1,7 @@
 # Kreta Api Bundle
-> Api Core bundle of Kreta: modern project manager for software development.
+> Api bundle of Kreta: modern project manager for software development.
 
-[![Build Status](https://travis-ci.org/api-kreta-io/ApiBundle.svg?branch=master)](https://travis-ci.org/kreta-io/ApiBundle)
+[![Build Status](https://travis-ci.org/kreta-io/ApiBundle.svg?branch=master)](https://travis-ci.org/kreta-io/ApiBundle)
 [![Coverage Status](https://img.shields.io/coveralls/kreta-io/ApiBundle.svg)](https://coveralls.io/r/kreta-io/ApiBundle)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/kreta-io/ApiBundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/kreta-io/ApiBundle/?branch=master)
 [![HHVM Status](http://hhvm.h4cc.de/badge/kreta/api-bundle.svg)](http://hhvm.h4cc.de/package/kreta/api-bundle)

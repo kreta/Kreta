@@ -12,4 +12,6 @@ parameters:
 
     kreta_user.repository_user.class: Kreta\Component\User\Repository\UserRepository
 
+    kreta_user.form_user_handler.class: Kreta\Bundle\UserBundle\Form\Handler\UserHandler
+
     kreta_user.security_user_provider.class: Kreta\Bundle\UserBundle\Security\UserProvider

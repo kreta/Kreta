@@ -59,7 +59,7 @@ class LoadUserDataSpec extends DataFixturesSpec
             $mediaFactory,
             $media,
             $manager,
-            'kreta_core.uploader.image_user'
+            'kreta_user.uploader.image_user'
         );
 
         $this->createUser($container, $factory, $user, 'ROLE_ADMIN');

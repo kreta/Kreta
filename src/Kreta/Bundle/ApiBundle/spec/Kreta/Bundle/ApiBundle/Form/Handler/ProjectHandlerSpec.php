@@ -51,12 +51,12 @@ class ProjectHandlerSpec extends ObjectBehavior
 
     function it_extends_core_issue_handler()
     {
-        $this->shouldHaveType('Kreta\Bundle\WebBundle\FormHandler\ProjectFormHandler');
+        $this->shouldHaveType('Kreta\Bundle\ProjectBundle\Form\Handler\ProjectHandler');
     }
 
     function it_handles_form(Request $request, ProjectInterface $project, FormFactory $formFactory, FormInterface $form)
     {
-        $formFactory->create(Argument::type('\Kreta\Bundle\ApiBundle\Form\Type\ProjectType'), $project, [])
+        $formFactory->create(Argument::type('Kreta\Bundle\ApiBundle\Form\Type\ProjectType'), $project, [])
             ->shouldBeCalled()->willReturn($form);
 
         $this->handleForm($request, $project, [])->shouldReturn($form);
@@ -76,7 +76,7 @@ class ProjectHandlerSpec extends ObjectBehavior
     )
     {
         $image = new UploadedFile('', '', null, null, 99, true); //Avoids file not found exception
-        $formFactory->create(Argument::type('\Kreta\Bundle\ApiBundle\Form\Type\ProjectType'), $project, [])
+        $formFactory->create(Argument::type('Kreta\Bundle\ApiBundle\Form\Type\ProjectType'), $project, [])
             ->shouldBeCalled()->willReturn($form);
         $request->isMethod('POST')->shouldBeCalled()->willReturn(true);
         $form->handleRequest($request)->shouldBeCalled();
@@ -94,7 +94,7 @@ class ProjectHandlerSpec extends ObjectBehavior
         $manager->flush()->shouldBeCalled();
 
         $eventDispatcher->dispatch(
-            FormHandlerEvent::NAME, Argument::type('\Kreta\Bundle\WebBundle\Event\FormHandlerEvent')
+            FormHandlerEvent::NAME, Argument::type('Kreta\Bundle\WebBundle\Event\FormHandlerEvent')
         );
 
         $this->handleForm($request, $project, []);

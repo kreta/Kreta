@@ -4,3 +4,11 @@
 #
 # @author benatespina <benatespina@gmail.com>
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
+
+services:
+#### SECURITY ####
+    kreta_workflow.voter.workflow:
+        class: %kreta_workflow.security_workflow_voter.class%
+        public: false
+        tags:
+           - { name: security.voter }

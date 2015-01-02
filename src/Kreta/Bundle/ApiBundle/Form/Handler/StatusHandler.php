@@ -12,14 +12,14 @@
 namespace Kreta\Bundle\ApiBundle\Form\Handler;
 
 use Kreta\Bundle\ApiBundle\Form\Type\StatusType;
-use Kreta\Bundle\WebBundle\FormHandler\AbstractFormHandler;
+use Kreta\Bundle\CoreBundle\Form\Handler\Abstracts\AbstractHandler;
 
 /**
  * Class StatusHandler.
  *
  * @package Kreta\Bundle\ApiBundle\Form\Handler
  */
-class StatusHandler extends AbstractFormHandler
+class StatusHandler extends AbstractHandler
 {
     /**
      * {@inheritdoc}

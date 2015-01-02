@@ -11,21 +11,16 @@
 
 namespace Kreta\Bundle\ApiBundle\Behat;
 
-use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\TableNode;
-use Behat\MinkExtension\Context\RawMinkContext;
-use Behat\Symfony2Extension\Context\KernelAwareContext;
-use Behat\Symfony2Extension\Context\KernelDictionary;
+use Kreta\Bundle\CoreBundle\Behat\Abstracts\AbstractContext;
 
 /**
  * Class StatusContext.
  *
  * @package Kreta\Bundle\ApiBundle\Behat
  */
-class StatusContext extends RawMinkContext implements Context, KernelAwareContext
+class StatusContext extends AbstractContext
 {
-    use KernelDictionary;
-
     /**
      * Populates the database with statuses.
      *
@@ -37,13 +32,13 @@ class StatusContext extends RawMinkContext implements Context, KernelAwareContex
      */
     public function theFollowingStatusesExist(TableNode $statuses)
     {
-        $manager = $this->kernel->getContainer()->get('doctrine')->getManager();
+        $manager = $this->getContainer()->get('doctrine')->getManager();
 
         foreach ($statuses as $statusData) {
-            $workflow = $this->getKernel()->getContainer()->get('kreta_workflow.repository.workflow')
+            $workflow = $this->getContainer()->get('kreta_workflow.repository.workflow')
                 ->findOneBy(['name' => $statusData['workflow']]);
 
-            $status = $this->kernel->getContainer()->get('kreta_workflow.factory.status')->create($statusData['name']);
+            $status = $this->getContainer()->get('kreta_workflow.factory.status')->create($statusData['name']);
             $status->setColor($statusData['color']);
             $status->setName($statusData['name']);
             $status->setWorkflow($workflow);

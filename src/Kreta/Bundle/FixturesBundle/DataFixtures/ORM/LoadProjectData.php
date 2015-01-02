@@ -26,7 +26,7 @@ class LoadProjectData extends DataFixtures
      */
     public function load(ObjectManager $manager)
     {
-        $images = $this->loadMedias($manager, 'kreta_core.uploader.image_project', $this->projectPath);
+        $images = $this->loadMedias($manager, 'kreta_project.uploader.image_project', $this->projectPath);
         $users = $this->container->get('kreta_user.repository.user')->findAll();
 
         for ($i = 0; $i < 10; $i++) {

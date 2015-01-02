@@ -11,45 +11,46 @@
 
 namespace Kreta\Bundle\NotificationBundle\Behat;
 
-use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\TableNode;
-use Behat\MinkExtension\Context\RawMinkContext;
-use Behat\Symfony2Extension\Context\KernelAwareContext;
-use Behat\Symfony2Extension\Context\KernelDictionary;
+use Kreta\Bundle\CoreBundle\Behat\Abstracts\AbstractContext;
 
 /**
  * Class NotificationContext
  *
  * @package Kreta\Bundle\NotificationBundle\Behat
  */
-class NotificationContext extends RawMinkContext implements Context, KernelAwareContext
+class NotificationContext extends AbstractContext
 {
-    use KernelDictionary;
-
     /**
+     * Populates the database with notifications.
+     *
+     * @param \Behat\Gherkin\Node\TableNode $notifications The notifications
+     *
+     * @return void
+     *
      * @Given /^the following notifications exist:$/
      */
     public function theFollowingNotificationsExist(TableNode $notifications)
     {
-        $manager = $this->kernel->getContainer()->get('doctrine')->getManager();
+        $manager = $this->getContainer()->get('doctrine')->getManager();
 
         foreach ($notifications as $notificationData) {
 
-            $notification = $this->getKernel()->getContainer()->get('kreta_notification.factory.notification')->create();
+            $notification = $this->getContainer()->get('kreta_notification.factory.notification')->create();
 
-            $project = $this->getKernel()->getContainer()->get('kreta_project.repository.project')
+            $project = $this->getContainer()->get('kreta_project.repository.project')
                 ->findOneBy(['name' => $notificationData['projectName']]);
 
-            if(!$project) {
+            if (!$project) {
                 throw new \InvalidArgumentException(
                     sprintf('Project %s does not exist', $notificationData['projectName'])
                 );
             }
 
-            $user = $this->getKernel()->getContainer()->get('kreta_user.repository.user')
+            $user = $this->getContainer()->get('kreta_user.repository.user')
                 ->findOneBy(['email' => $notificationData['userEmail']]);
 
-            if(!$user) {
+            if (!$user) {
                 throw new \InvalidArgumentException(
                     sprintf('User %s does not exist', $notificationData['userEmail'])
                 );

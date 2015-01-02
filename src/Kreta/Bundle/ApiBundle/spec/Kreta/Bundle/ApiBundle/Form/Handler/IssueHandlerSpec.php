@@ -45,7 +45,7 @@ class IssueHandlerSpec extends ObjectBehavior
 
     function it_extends_core_issue_handler()
     {
-        $this->shouldHaveType('Kreta\Bundle\WebBundle\FormHandler\IssueFormHandler');
+        $this->shouldHaveType('Kreta\Bundle\IssueBundle\Form\Handler\IssueHandler');
     }
 
     function it_does_not_handle_form_because_participants_key_does_not_exist(IssueInterface $issue, Request $request)

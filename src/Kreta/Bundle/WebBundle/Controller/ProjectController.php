@@ -58,7 +58,7 @@ class ProjectController extends Controller
     {
         $project = $this->get('kreta_project.factory.project')->create($this->getUser());
 
-        $form = $this->get('kreta_web.form_handler.project')->handleForm($request, $project);
+        $form = $this->get('kreta_project.form_handler.project')->handleForm($request, $project);
 
         if($form->isValid()) {
             return $this->redirect($this->generateUrl('kreta_web_project_view', [
@@ -90,7 +90,7 @@ class ProjectController extends Controller
             throw new AccessDeniedException();
         }
 
-        $form = $this->get('kreta_web.form_handler.project')->handleForm($request, $project);
+        $form = $this->get('kreta_project.form_handler.project')->handleForm($request, $project);
 
         if($form->isValid()) {
             return $this->redirect($this->generateUrl('kreta_web_project_view', [

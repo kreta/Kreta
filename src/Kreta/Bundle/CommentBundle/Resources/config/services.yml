@@ -4,3 +4,9 @@
 #
 # @author benatespina <benatespina@gmail.com>
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
+
+services:
+#### FORM HANDLER ####
+    kreta_comment.form_handler.comment:
+        class: %kreta_comment.form_comment_handler.class%
+        arguments: [@form.factory, @doctrine.orm.entity_manager, @event_dispatcher]

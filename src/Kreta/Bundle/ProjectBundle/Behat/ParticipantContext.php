@@ -11,29 +11,30 @@
 
 namespace Kreta\Bundle\ProjectBundle\Behat;
 
-use Behat\Behat\Context\Context;
 use Behat\Gherkin\Node\TableNode;
-use Behat\MinkExtension\Context\RawMinkContext;
-use Behat\Symfony2Extension\Context\KernelAwareContext;
-use Behat\Symfony2Extension\Context\KernelDictionary;
+use Kreta\Bundle\CoreBundle\Behat\Abstracts\AbstractContext;
 
 /**
  * Class ParticipantContext.
  *
  * @package Kreta\Bundle\ProjectBundle\Behat
  */
-class ParticipantContext extends RawMinkContext implements Context, KernelAwareContext
+class ParticipantContext extends AbstractContext
 {
-    use KernelDictionary;
-
     /**
+     * Populates the database with participants.
+     *
+     * @param \Behat\Gherkin\Node\TableNode $participants The participants
+     *
+     * @return void
+     *
      * @Given /^the following participants exist:$/
      */
     public function theFollowingParticipantsExist(TableNode $participants)
     {
         $manager = $this->getContainer()->get('doctrine')->getManager();
 
-        foreach($participants as $participantData) {
+        foreach ($participants as $participantData) {
             $project = $this->getContainer()->get('kreta_project.repository.project')->findOneBy(
                 ['name' => $participantData['project']]
             );

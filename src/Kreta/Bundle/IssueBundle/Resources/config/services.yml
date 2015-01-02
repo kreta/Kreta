@@ -6,6 +6,18 @@
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
 services:
+#### FORM HANDLER ####
+    kreta_issue.form_handler.issue:
+        class: %kreta_issue.form_issue_handler.class%
+        arguments: [@form.factory, @doctrine.orm.entity_manager, @event_dispatcher]
+
+#### SECURITY ####
+    kreta_issue.voter.issue:
+        class: %kreta_issue.security_issue_voter.class%
+        public: false
+        tags:
+           - { name: security.voter }
+
 #### STATE MACHINE ####
     kreta_issue.state_machine.issue:
         class: %kreta_issue.state_machine_issue.class%
