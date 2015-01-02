@@ -208,7 +208,6 @@ class IssueRepositorySpec extends ObjectBehavior
         $queryBuilder->select('i')->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->from(Argument::any(), 'i')->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->join('i.project', 'p')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->join('p.workflow', 'w')->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->expr()->shouldBeCalledTimes(2)->willReturn($expr);
         $expr->eq('i.numericId', ':issueNumber')->shouldBeCalled()->willReturn($comparison);
         $expr->eq('p.shortName', ':projectShortName')->shouldBeCalled()->willReturn($comparison2);
