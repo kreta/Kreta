@@ -10,7 +10,8 @@ parameters:
     kreta_vcs.branch.class: Kreta\Component\VCS\Model\Branch
     kreta_vcs.repository.class: Kreta\Component\VCS\Model\Repository
 
-    kreta_vcs.event_subscriber_commit.class: Kreta\Component\VCS\EventSubscriber\CommitEventSubscriber
+    kreta_vcs.event_listener_commit.class: Kreta\Component\VCS\EventListener\CommitListener
+    kreta_vcs.event_subscriber_doctrine.class: Kreta\Component\VCS\EventSubscriber\DoctrineEventSubscriber
 
     kreta_vcs.factory_commit.class: Kreta\Component\VCS\Factory\CommitFactory
     kreta_vcs.factory_branch.class: Kreta\Component\VCS\Factory\BranchFactory
@@ -27,14 +28,14 @@ parameters:
 services:
     #EventListeners
     kreta_vcs.event_listener.commit:
-        class: Kreta\Component\VCS\EventSubscriber\CommitListener
+        class: %kreta_vcs.event_listener_commit.class%
         arguments: [@kreta_vcs.matcher.commit, @doctrine.orm.entity_manager]
         tags:
             - { name: kernel.event_listener, event: kreta_vcs.event.commit.new, method: newCommit }
 
     #EventSubscribers
     kreta_vcs.event_subscriber.doctrine:
-        class: %kreta_vcs.event_subscriber_commit.class%
+        class: %kreta_vcs.event_subscriber_doctrine.class%
         arguments: [@event_dispatcher]
         tags:
             - { name: doctrine.event_subscriber }
