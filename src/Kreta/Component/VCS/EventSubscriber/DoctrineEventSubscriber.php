@@ -17,6 +17,7 @@ use Doctrine\ORM\Events;
 use Kreta\Component\VCS\Event\NewCommitEvent;
 use Kreta\Component\VCS\Model\Interfaces\CommitInterface;
 use Symfony\Component\EventDispatcher\EventDispatcher;
+use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
  * Class DoctrineEventSubscriber
@@ -30,7 +31,7 @@ class DoctrineEventSubscriber implements EventSubscriber
      */
     protected $dispatcher;
 
-    public function __construct(EventDispatcher $dispatcher)
+    public function __construct(EventDispatcherInterface $dispatcher)
     {
         $this->dispatcher = $dispatcher;
     }
