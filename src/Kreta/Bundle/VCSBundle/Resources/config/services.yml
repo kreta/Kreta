@@ -11,12 +11,14 @@ parameters:
     kreta_vcs.repository.class: Kreta\Component\VCS\Model\Repository
 
     kreta_vcs.event_listener_commit.class: Kreta\Component\VCS\EventListener\CommitListener
+    kreta_vcs.event_listener_branch.class: Kreta\Component\VCS\EventListener\BranchListener
     kreta_vcs.event_subscriber_doctrine.class: Kreta\Component\VCS\EventSubscriber\DoctrineEventSubscriber
 
     kreta_vcs.factory_commit.class: Kreta\Component\VCS\Factory\CommitFactory
     kreta_vcs.factory_branch.class: Kreta\Component\VCS\Factory\BranchFactory
 
     kreta_vcs.matcher_commit.class: Kreta\Component\VCS\Matcher\CommitMatcher
+    kreta_vcs.matcher_branch.class: Kreta\Component\VCS\Matcher\BranchMatcher
 
     kreta_vcs.registry_serializer.class: Kreta\Component\VCS\Serializer\Registry\SerializerRegistry
 
@@ -32,6 +34,12 @@ services:
         arguments: [@kreta_vcs.matcher.commit, @doctrine.orm.entity_manager]
         tags:
             - { name: kernel.event_listener, event: kreta_vcs.event.commit.new, method: newCommit }
+
+    kreta_vcs.event_listener.branch:
+            class: %kreta_vcs.event_listener_branch.class%
+            arguments: [@kreta_vcs.matcher.branch, @doctrine.orm.entity_manager]
+            tags:
+                - { name: kernel.event_listener, event: kreta_vcs.event.branch.new, method: newBranch }
 
     #EventSubscribers
     kreta_vcs.event_subscriber.doctrine:
@@ -52,6 +60,10 @@ services:
     #Matchers
     kreta_vcs.matcher.commit:
         class: %kreta_vcs.matcher_commit.class%
+        arguments: [@kreta_vcs.repository.issue]
+
+    kreta_vcs.matcher.branch:
+        class: %kreta_vcs.matcher_branch.class%
         arguments: [@kreta_vcs.repository.issue]
 
     #Repositories

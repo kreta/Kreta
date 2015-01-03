@@ -4,7 +4,9 @@ namespace spec\Kreta\Component\VCS\EventSubscriber;
 
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Events;
+use Kreta\Component\VCS\Event\NewBranchEvent;
 use Kreta\Component\VCS\Event\NewCommitEvent;
+use Kreta\Component\VCS\Model\Interfaces\BranchInterface;
 use Kreta\Component\VCS\Model\Interfaces\CommitInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -32,6 +34,15 @@ class DoctrineEventSubscriberSpec extends ObjectBehavior
     {
         $args->getObject()->shouldBeCalled()->willReturn($commit);
         $dispatcher->dispatch(NewCommitEvent::NAME, Argument::type('Kreta\Component\VCS\Event\NewCommitEvent'));
+
+        $this->postPersist($args);
+    }
+
+    function it_dispatches_new_branch_event(EventDispatcher $dispatcher, LifecycleEventArgs $args,
+                                            BranchInterface $branch)
+    {
+        $args->getObject()->shouldBeCalled()->willReturn($branch);
+        $dispatcher->dispatch(NewBranchEvent::NAME, Argument::type('Kreta\Component\VCS\Event\NewBranchEvent'));
 
         $this->postPersist($args);
     }

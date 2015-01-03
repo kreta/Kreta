@@ -25,3 +25,15 @@ Kreta\Component\VCS\Model\Branch:
                 referencedColumnName: id
                 onDelete: CASCADE
             cascade: ['persist', 'remove']
+    manyToMany:
+        issuesRelated:
+            targetEntity: Kreta\Component\Issue\Model\Interfaces\IssueInterface
+            joinTable:
+                name: branch_issues
+                joinColumns:
+                  branch_id:
+                    referencedColumnName: id
+                inverseJoinColumns:
+                  issue_id:
+                    referencedColumnName: id
+

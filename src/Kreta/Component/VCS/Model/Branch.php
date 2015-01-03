@@ -28,6 +28,8 @@ class Branch implements BranchInterface
     /** @var RepositoryInterface $repository */
     protected $repository;
 
+    protected $issuesRelated;
+
     /**
      * {@inheritdoc}
      */
@@ -78,6 +80,24 @@ class Branch implements BranchInterface
     public function setRepository(RepositoryInterface $repository)
     {
         $this->repository = $repository;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getIssuesRelated()
+    {
+        return $this->issuesRelated;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setIssuesRelated($issuesRelated)
+    {
+        $this->issuesRelated = $issuesRelated;
 
         return $this;
     }

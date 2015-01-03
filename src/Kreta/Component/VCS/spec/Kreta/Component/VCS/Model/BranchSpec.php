@@ -30,4 +30,10 @@ class BranchSpec extends ObjectBehavior
         $this->setRepository($repository)->shouldReturn($this);
         $this->getRepository()->shouldReturn($repository);
     }
+
+    function its_issues_related_is_mutable()
+    {
+        $this->setIssuesRelated([])->shouldReturn($this);
+        $this->getIssuesRelated()->shouldReturn([]);
+    }
 }

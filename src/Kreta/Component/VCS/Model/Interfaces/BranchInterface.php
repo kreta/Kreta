@@ -65,4 +65,20 @@ interface BranchInterface
      * @return self
      */
     public function setRepository(RepositoryInterface $repository);
+
+    /**
+     * Returns issuesRelated
+     *
+     * @return \Kreta\Component\Issue\Model\Interfaces\IssueInterface[]
+     */
+    public function getIssuesRelated();
+
+    /**
+     * Sets issuesRelated
+     *
+     * @param array $issuesRelated The issuesRelated to be set
+     *
+     * @return self
+     */
+    public function setIssuesRelated($issuesRelated);
 }

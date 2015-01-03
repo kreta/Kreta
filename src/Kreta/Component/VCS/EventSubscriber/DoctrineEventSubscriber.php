@@ -14,7 +14,9 @@ namespace Kreta\Component\VCS\EventSubscriber;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Events;
+use Kreta\Component\VCS\Event\NewBranchEvent;
 use Kreta\Component\VCS\Event\NewCommitEvent;
+use Kreta\Component\VCS\Model\Interfaces\BranchInterface;
 use Kreta\Component\VCS\Model\Interfaces\CommitInterface;
 use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -55,6 +57,8 @@ class DoctrineEventSubscriber implements EventSubscriber
     {
         if ($args->getObject() instanceof CommitInterface) {
             $this->dispatcher->dispatch(NewCommitEvent::NAME, new NewCommitEvent($args->getObject()));
+        } else if ($args->getObject() instanceof BranchInterface) {
+            $this->dispatcher->dispatch(NewBranchEvent::NAME, new NewBranchEvent($args->getObject()));
         }
     }
 }

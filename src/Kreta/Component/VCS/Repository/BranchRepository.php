@@ -26,12 +26,12 @@ class BranchRepository extends EntityRepository
     /**
      * Tries to find a branch by repository and branch name and throws exception if is not able to do so.
      *
-     * @param string $repositoryName
-     * @param string $branchName
+     * @param RepositoryInterface $repository
+     * @param string              $branchName
      *
      * @return \Kreta\Component\VCS\Model\Interfaces\BranchInterface
      */
-    public function findOrCreateBranch($repository, $branchName)
+    public function findOrCreateBranch(RepositoryInterface $repository, $branchName)
     {
         $queryBuilder = $this->createQueryBuilder('b');
 
