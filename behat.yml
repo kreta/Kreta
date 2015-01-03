@@ -21,6 +21,7 @@ default:
                 - Kreta\Bundle\ApiBundle\Behat\IssueContext
                 - Kreta\Bundle\ApiBundle\Behat\UserContext
                 - Kreta\Bundle\ApiBundle\Behat\StatusContext
+                - Kreta\Bundle\ApiBundle\Behat\StatusTransitionContext
                 - Kreta\Bundle\ProjectBundle\Behat\ParticipantContext
                 - Kreta\Bundle\WebBundle\Behat\DefaultContext
             filters:

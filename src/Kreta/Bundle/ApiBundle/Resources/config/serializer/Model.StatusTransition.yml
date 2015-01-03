@@ -5,28 +5,28 @@
 # @author benatespina <benatespina@gmail.com>
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
-Kreta\Component\Workflow\Model\Status:
+Kreta\Component\Workflow\Model\StatusTransition:
     exclusion_policy: ALL
     relations:
         -
             rel: self
             href:
-                route: get_workflow_status
+                route: get_workflow_transition
                 parameters:
                     workflowId: expr(object.getWorkflow().getId())
-                    statusId: expr(object.getId())
+                    transitionId: expr(object.getId())
                 absolute: true
             exclusion:
-                groups: [statusList, status]
+                groups: [transitionList, transition]
         -
-            rel: statuses
+            rel: transitions
             href:
-                route: get_workflow_statuses
+                route: get_workflow_transitions
                 parameters:
                     workflowId: expr(object.getWorkflow().getId())
                 absolute: true
             exclusion:
-                groups: [statusList, status]
+                groups: [transitionList, transition]
         -
             rel: workflow
             href:
@@ -35,23 +35,20 @@ Kreta\Component\Workflow\Model\Status:
                     workflowId: expr(object.getWorkflow().getId())
                 absolute: true
             exclusion:
-                groups: [statusList, status]
+                groups: [transitionList, transition]
     properties:
         id:
             expose: true
-            groups: [projectList, project, issueList, issue, statusList, status, transitionList, transition]
-        color:
+            groups: [transitionList, transition]
+        initialStates:
             expose: true
-            groups: [projectList, project, issueList, issue, statusList, status, transitionList, transition]
+            groups: [transitionList, transition]
         name:
             expose: true
-            groups: [projectList, project, issueList, issue, statusList, status, transitionList, transition]
-        type:
+            groups: [transitionList, transition]
+        state:
             expose: true
-            groups: [projectList, project, issueList, issue, statusList, status, transitionList, transition]
-        transitions:
-            expose: true
-            groups: [projectList, project, statusList, status]
+            groups: []
         workflow:
             expose: true
             groups: []

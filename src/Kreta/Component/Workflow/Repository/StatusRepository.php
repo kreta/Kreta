@@ -107,4 +107,41 @@ class StatusRepository extends EntityRepository
             ->setParameter('workflow', $workflow)
             ->getQuery()->getResult();
     }
+
+    /**
+     * Finds the status of ids given.
+     *
+     * @param mixed                                                        $ids      A collection of ids, can be an
+     *                                                                               simple string with comma separated
+     *                                                                               or an array
+     * @param \Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface $workflow The workflow
+     *
+     * @return \Kreta\Component\Workflow\Model\Interfaces\StatusInterface[]
+     */
+    public function findByIds($ids, WorkflowInterface $workflow)
+    {
+        if (!(is_array($ids))) {
+            $ids = explode(',', str_replace(' ', '', $ids));
+        }
+
+        $queryBuilder = $this->createQueryBuilder('s');
+
+        $queryBuilder
+            ->where($queryBuilder->expr()->eq('s.id', ':id'))
+            ->andWhere($queryBuilder->expr()->eq('s.workflow', ':workflow'))
+            ->setParameter('workflow', $workflow);
+
+        $result = [];
+        foreach ($ids as $id) {
+            $status = $queryBuilder
+                ->setParameter('id', $id)
+                ->getQuery()->getOneOrNullResult();
+
+            if ($status instanceof StatusInterface) {
+                $result[] = $status;
+            }
+        }
+
+        return array_unique($result);
+    }
 }

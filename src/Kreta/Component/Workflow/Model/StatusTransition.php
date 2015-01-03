@@ -12,8 +12,8 @@
 namespace Kreta\Component\Workflow\Model;
 
 use Finite\Transition\Transition;
+use Kreta\Component\Workflow\Model\Interfaces\StatusInterface;
 use Kreta\Component\Workflow\Model\Interfaces\StatusTransitionInterface;
-use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
 
 /**
  * Class StatusTransition.
@@ -30,11 +30,43 @@ class StatusTransition extends Transition implements StatusTransitionInterface
     protected $id;
 
     /**
+     * {@inheritdoc}
+     */
+    protected $initialStates;
+
+    /**
+     * {@inheritdoc}
+     */
+    protected $name;
+
+    /**
+     * {@inheritdoc}
+     */
+    protected $state;
+
+    /**
      * The workflow.
      *
      * @var \Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface
      */
     protected $workflow;
+
+    /**
+     * Constructor.
+     *
+     * @param string                                                       $name          The name of transition
+     * @param \Kreta\Component\Workflow\Model\Interfaces\StatusInterface[] $initialStates Array that contains
+     *                                                                                    the initial states
+     * @param \Kreta\Component\Workflow\Model\Interfaces\StatusInterface   $state         The status
+     */
+    public function __construct($name, array $initialStates = [], StatusInterface $state = null)
+    {
+        parent::__construct($name, $initialStates, $state);
+
+        if ($state instanceof StatusInterface) {
+            $this->workflow = $state->getWorkflow();
+        }
+    }
 
     /**
      * {@inheritdoc}
@@ -45,15 +77,39 @@ class StatusTransition extends Transition implements StatusTransitionInterface
     }
 
     /**
-     * Sets id.
-     *
-     * @param $id
-     *
-     * @return $this
+     * {@inheritdoc}
      */
-    public function setId($id)
+    public function addInitialState($status)
     {
-        $this->id = $id;
+        if (!($status instanceof StatusInterface)) {
+            throw new \InvalidArgumentException('Invalid argument passed, it is not an instance of StatusInterface');
+        }
+
+        foreach ($this->initialStates as $index => $initialStatus) {
+            if ($initialStatus->getId() === $status->getId()) {
+                return $this;
+            }
+        }
+        $this->initialStates[] = $status;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function removeInitialState(StatusInterface $status)
+    {
+        if (count($this->initialStates) < 2) {
+            throw new \Exception('Impossible to remove. The transition must have at least one initial status');
+        }
+
+        foreach ($this->initialStates as $index => $initialStatus) {
+            if ($initialStatus->getId() === $status->getId()) {
+                unset($this->initialStates[$index]);
+                break;
+            }
+        }
 
         return $this;
     }
@@ -71,18 +127,38 @@ class StatusTransition extends Transition implements StatusTransitionInterface
     /**
      * {@inheritdoc}
      */
+    public function setState(StatusInterface $state)
+    {
+        $this->state = $state;
+        $this->workflow = $state->getWorkflow();
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function getWorkflow()
     {
         return $this->workflow;
     }
 
     /**
-     * {@inheritdoc}
+     * Method which validates if the state is also an initial state.
+     * It is a validation method with its assertions.
+     *
+     * @return boolean
      */
-    public function setWorkflow(WorkflowInterface $workflow)
+    public function isValidState()
     {
-        $this->workflow = $workflow;
+        if ($this->state instanceof StatusInterface) {
+            foreach ($this->initialStates as $initialState) {
+                if ($initialState->getId() === $this->state->getId()) {
+                    return false;
+                }
+            }
+        }
 
-        return $this;
+        return true;
     }
 }

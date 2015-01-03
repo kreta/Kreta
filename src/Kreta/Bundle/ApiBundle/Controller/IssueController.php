@@ -51,6 +51,7 @@ class IssueController extends AbstractRestController
      *      "description"="Supported formats, by default json"
      *    }
      *  },
+     *  resource = true,
      *  statusCodes = {
      *      403 = "Not allowed to access this resource",
      *      404 = "Does not exist any project with <$id> id"

@@ -9,6 +9,9 @@ services:
     kreta_workflow.factory.status:
         class: %kreta_workflow.factory_status.class%
         arguments: [%kreta_workflow.status.class%]
+    kreta_workflow.factory.status_transition:
+        class: %kreta_workflow.factory_status_transition.class%
+        arguments: [%kreta_workflow.status_transition.class%]
     kreta_workflow.factory.workflow:
         class: %kreta_workflow.factory_workflow.class%
         arguments: [%kreta_workflow.workflow.class%]

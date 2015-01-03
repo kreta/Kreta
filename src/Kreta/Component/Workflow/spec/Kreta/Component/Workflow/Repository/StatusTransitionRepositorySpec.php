@@ -38,9 +38,9 @@ class StatusTransitionRepositorySpec extends ObjectBehavior
         $this->shouldHaveType('Kreta\Component\Workflow\Repository\StatusTransitionRepository');
     }
 
-    function it_extends_entity_repository()
+    function it_extends_abstract_repository()
     {
-        $this->shouldHaveType('Doctrine\ORM\EntityRepository');
+        $this->shouldHaveType('Kreta\Component\Core\Repository\Abstracts\AbstractRepository');
     }
 
     function it_finds_by_workflow(

@@ -40,7 +40,8 @@ class ProjectController extends AbstractRestController
      *      "requirement"="json|jsonp",
      *      "description"="Supported formats, by default json"
      *    }
-     *  }
+     *  },
+     *  resource = true
      * )
      *
      * @return \Symfony\Component\HttpFoundation\Response

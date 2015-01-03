@@ -11,7 +11,7 @@
 
 namespace Kreta\Component\Workflow\Repository;
 
-use Doctrine\ORM\EntityRepository;
+use Kreta\Component\Core\Repository\Abstracts\AbstractRepository;
 use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
 
 /**
@@ -19,7 +19,7 @@ use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
  *
  * @package Kreta\Component\Workflow\Repository
  */
-class StatusTransitionRepository extends EntityRepository
+class StatusTransitionRepository extends AbstractRepository
 {
     /**
      * Finds the transitions of workflow given.
@@ -36,5 +36,13 @@ class StatusTransitionRepository extends EntityRepository
             ->where($queryBuilder->expr()->eq('s.workflow', ':workflow'))
             ->setParameter('workflow', $workflow)
             ->getQuery()->getResult();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getAlias()
+    {
+        return 'st';
     }
 }

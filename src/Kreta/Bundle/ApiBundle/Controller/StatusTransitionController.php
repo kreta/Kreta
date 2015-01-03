@@ -11,8 +11,16 @@
 
 namespace Kreta\Bundle\ApiBundle\Controller;
 
+use FOS\RestBundle\Util\Codes;
+use FOS\RestBundle\Controller\Annotations\Delete;
+use FOS\RestBundle\Controller\Annotations\Get;
+use FOS\RestBundle\Controller\Annotations\Post;
 use Kreta\Bundle\ApiBundle\Controller\Abstracts\AbstractRestController;
+use Kreta\Component\Workflow\Model\Interfaces\StatusInterface;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Class StatusTransitionController.
@@ -22,10 +30,43 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 class StatusTransitionController extends AbstractRestController
 {
     /**
-     * Returns transitions of status id and project id given.
+     * Returns transitions of workflow id given.
+     *
+     * @param string $workflowId The workflow id
      *
      * @ApiDoc(
-     *  description = "Returns transitions of status id and project id given",
+     *  description = "Returns transitions of workflow id given",
+     *  requirements = {
+     *    {
+     *      "name"="_format",
+     *      "requirement"="json|jsonp",
+     *      "description"="Supported formats, by default json"
+     *    }
+     *  },
+     *  resource = true,
+     *  statusCodes = {
+     *    403 = "Not allowed to access this resource",
+     *    404 = "Does not exist any workflow with <$id> id"
+     *  }
+     * )
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function getTransitionsAction($workflowId)
+    {
+        return $this->createResponse(
+            $this->getWorkflowIfAllowed($workflowId)->getStatusTransitions(), ['transitionList']
+        );
+    }
+
+    /**
+     * Returns the transition of workflow id and status transition id given.
+     *
+     * @param string $workflowId   The workflow id
+     * @param string $transitionId The status transition id
+     *
+     * @ApiDoc(
+     *  description = "Returns the transition of workflow id and status transition id given",
      *  requirements = {
      *    {
      *      "name"="_format",
@@ -35,31 +76,87 @@ class StatusTransitionController extends AbstractRestController
      *  },
      *  statusCodes = {
      *    403 = "Not allowed to access this resource",
-     *    404 = "Does not exist any project with <$id> id",
-     *    404 = "Does not exist any status with <$id> id"
+     *    404 = "Does not exist any workflow with <$id> id",
+     *    404 = "Does not exist any transition with <$id> id"
      *  }
      * )
      *
-     * @param string $projectId The project id
-     * @param string $statusId  The status id
-     *
-     * @internal param string $id The status id
-     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function getTransitionsAction($projectId, $statusId)
+    public function getTransitionAction($workflowId, $transitionId)
     {
-        return $this->createResponse(
-            $this->getStatusIfAllowed($projectId, $statusId)->getTransitions(),
-            ['status']
+        return $this->createResponse($this->getTransitionIfAllowed($workflowId, $transitionId), ['transition']);
+    }
+
+    /**
+     * Creates new transition for name, status and initial statuses given.
+     *
+     * @param string $workflowId The workflow id
+     *
+     * @ApiDoc(
+     *  description = "Creates new transition for name, status and initial statuses given",
+     *  input = "Kreta\Bundle\ApiBundle\Form\Type\StatusTransitionType",
+     *  output = "Kreta\Component\Workflow\Model\Interfaces\StatusTransitionInterface",
+     *  requirements = {
+     *    {
+     *      "name"="_format",
+     *      "requirement"="json|jsonp",
+     *      "description"="Supported formats, by default json"
+     *    }
+     *  },
+     *  statusCodes = {
+     *      201 = "Successfully created",
+     *      400 = {
+     *          "Name should not be blank",
+     *          "Status should not be blank",
+     *          "Initial statuses should not be blank",
+     *          "A transition with identical name is already exist in this workflow",
+     *          "The status is not valid",
+     *          "The initial statuses are not valid",
+     *          "The initial status is missing or does not exist"
+     *      },
+     *      403 = "Not allowed to access this resource",
+     *      404 = "Does not exist any workflow with <$id> id"
+     *  }
+     * )
+     *
+     * @throws \Symfony\Component\HttpKernel\Exception\BadRequestHttpException
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function postTransitionsAction($workflowId)
+    {
+        $name = $this->get('request')->get('name');
+        if (!$name) {
+            throw new BadRequestHttpException('Name should not be blank');
+        }
+
+        $workflow = $this->getWorkflowIfAllowed($workflowId, 'manage_status');
+
+        $initialStatuses = $this->get('kreta_workflow.repository.status')
+            ->findByIds($this->get('request')->get('initials'), $workflow);
+        if (count($initialStatuses) < 1) {
+            throw new BadRequestHttpException('The initial status is missing or does not exist');
+        }
+
+        $statusTransition = $this->get('kreta_workflow.factory.status_transition')
+            ->create($name, null, $initialStatuses);
+
+        return $this->post(
+            $this->get('kreta_api.form_handler.status_transition'),
+            $statusTransition,
+            ['transition'],
+            ['csrf_protection' => false, 'method' => 'POST', 'states' => $workflow->getStatuses()]
         );
     }
 
     /**
-     * Deletes the transition of project and status, with transition id given.
+     * Deletes the transition of workflow id and transition id given.
+     *
+     * @param string $workflowId   The workflow id
+     * @param string $transitionId The transition id
      *
      * @ApiDoc(
-     *  description = "Deletes the transition of project and status, with transition id given",
+     *  description = "Deletes the transition of workflow id and transition id given",
      *  requirements = {
      *    {
      *      "name"="_format",
@@ -69,51 +166,272 @@ class StatusTransitionController extends AbstractRestController
      *  },
      *  statusCodes = {
      *      204 = "",
-     *      403 = "Not allowed to access this resource",
+     *      400 = "Remove operation has been cancelled, the transition is currently in use",
+     *      403 ="Not allowed to access this resource",
      *      404 = {
-     *          "Does not exist any project with <$id> id",
-     *          "Does not exist any status with <$id> id",
+     *          "Does not exist any workflow with <$id> id",
      *          "Does not exist any transition with <$id> id"
      *      }
      *  }
      * )
      *
-     * @param string $projectId The project id
-     * @param string $statusId  The status id
-     * @param string $id        The transition id
-     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function deleteTransitionsAction($projectId, $statusId, $id)
+    public function deleteTransitionAction($workflowId, $transitionId)
     {
-        $status = $this->getStatusIfAllowed($projectId, $statusId, 'manage_status');
-        $transitions = $status->getTransitions();
-        foreach ($transitions as $transition) {
-            if ($transition->getId() === $id) {
-                $status->removeStatusTransition($transition);
-                $this->getRepository()->save($status);
+        $transition = $this->getTransitionIfAllowed($workflowId, $transitionId, 'manage_status');
 
-                return $this->createResponse('', null, 204);
+        $issues = $this->get('kreta_issue.repository.issue')->findByWorkflow($transition->getWorkflow());
+        foreach ($issues as $issue) {
+            foreach ($issue->getStatus()->getTransitions() as $retrieveTransition) {
+                if ($retrieveTransition->getId() === $transition->getId()) {
+                    throw new HttpException(
+                        Codes::HTTP_BAD_REQUEST,
+                        'Remove operation has been cancelled, the transition is currently in use'
+                    );
+                }
             }
         }
 
-        return $this->createResponse('Does not exist any transition with ' . $id . ' id', null, 404);
+        $this->getRepository()->delete($transition);
+
+        return $this->createResponse('', null, Codes::HTTP_NO_CONTENT);
     }
 
     /**
-     * Gets the status if the current user is granted and if the project exists.
+     * Returns initial statuses of transition id and workflow id given.
      *
-     * @param string $projectId The project id
-     * @param string $id        The id
-     * @param string $grant     The grant, by default 'view'
+     * @param string $workflowId   The workflow id
+     * @param string $transitionId The transition id
      *
-     * @return \Kreta\Component\Workflow\Model\Interfaces\StatusInterface
+     * @ApiDoc(
+     *  description = "Returns initial statuses of transition id and workflow id given",
+     *  requirements = {
+     *    {
+     *      "name"="_format",
+     *      "requirement"="json|jsonp",
+     *      "description"="Supported formats, by default json"
+     *    }
+     *  },
+     *  statusCodes = {
+     *    403 = "Not allowed to access this resource",
+     *    404 = {
+     *        "Does not exist any workflow with <$id> id",
+     *        "Does not exist any transition with <$id> id"
+     *    }
+     *  }
+     * )
+     *
+     * @Get("/workflows/{workflowId}/transitions/{transitionId}/initial-statuses")
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
      */
-    protected function getStatusIfAllowed($projectId, $id, $grant = 'view')
+    public function getTransitionsInitialStatusesAction($workflowId, $transitionId)
     {
-        $this->getProjectIfAllowed($projectId, $grant);
+        return $this->createResponse(
+            $this->getTransitionIfAllowed($workflowId, $transitionId)->getInitialStates(),
+            ['transitionList', 'transition']
+        );
+    }
 
-        return $this->getResourceIfExists($id);
+    /**
+     * Returns the initial status of status initial id, transition id and workflow id given.
+     *
+     * @param string $workflowId      The workflow id
+     * @param string $transitionId    The transition id
+     * @param string $initialStatusId The initial status id
+     *
+     * @ApiDoc(
+     *  description = "Returns the initial status of status initial id, transition id and workflow id given",
+     *  requirements = {
+     *    {
+     *      "name"="_format",
+     *      "requirement"="json|jsonp",
+     *      "description"="Supported formats, by default json"
+     *    }
+     *  },
+     *  statusCodes = {
+     *    403 = "Not allowed to access this resource",
+     *    404 = {
+     *        "Does not exist any workflow with <$id> id",
+     *        "Does not exist any transition with <$id> id",
+     *        "Does not exist any initial status with <$id> id"
+     *    }
+     *  }
+     * )
+     *
+     * @Get("/workflows/{workflowId}/transitions/{transitionId}/initial-statuses/{initialStatusId}")
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function getTransitionsInitialStatusAction($workflowId, $transitionId, $initialStatusId)
+    {
+        $initialStatuses = $this->getTransitionIfAllowed($workflowId, $transitionId)->getInitialStates();
+
+        foreach ($initialStatuses as $initialStatus) {
+            if ($initialStatus->getId() === $initialStatusId) {
+                return $this->createResponse($initialStatus, ['transitionList', 'transition']);
+            }
+        }
+        throw new NotFoundHttpException(sprintf('Does not exist any initial status with %s id', $initialStatusId));
+    }
+
+    /**
+     * Creates an initial status of transition id and workflow id given.
+     *
+     * @param string $workflowId      The workflow id
+     * @param string $transitionId    The transition id
+     *
+     * @ApiDoc(
+     *  description = "Creates an initial status of transition id and workflow id given",
+     *  requirements = {
+     *    {
+     *      "name"="_format",
+     *      "requirement"="json|jsonp",
+     *      "description"="Supported formats, by default json"
+     *    }
+     *  },
+     *  statusCodes = {
+     *    403 = "Not allowed to access this resource",
+     *    404 = {
+     *        "Does not exist any workflow with <$id> id",
+     *        "Does not exist any transition with <$id> id"
+     *    }
+     *  }
+     * )
+     *
+     * @Post("/workflows/{workflowId}/transitions/{transitionId}/initial-statuses")
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function postTransitionsInitialStatusAction($workflowId, $transitionId)
+    {
+        if (($initialStatusId = $this->get('request')->get('initial_status')) === null) {
+            throw new BadRequestHttpException('The initial status should not be blank');
+        }
+        $initialStatus = $this->get('kreta_workflow.repository.status')->find($initialStatusId);
+        if (!($initialStatus instanceof StatusInterface)) {
+            throw new NotFoundHttpException(
+                sprintf('Does not exist any initial status with %s id', $initialStatusId)
+            );
+        }
+        $transition = $this->getTransitionIfAllowed($workflowId, $transitionId, 'manage_status');
+        $transition->addInitialState($initialStatus);
+        $this->getRepository()->save($transition);
+
+        return $this->createResponse($transition->getInitialStates(), ['transitionList', 'transition']);
+    }
+
+    /**
+     * Deletes the initial status of workflow id, transition id and initial status id given.
+     *
+     * @param string $workflowId      The workflow id
+     * @param string $transitionId    The transition id
+     * @param string $initialStatusId The initial status id
+     *
+     * @ApiDoc(
+     *  description = "Deletes the initial status of workflow id, transition id and initial status id given",
+     *  requirements = {
+     *    {
+     *      "name"="_format",
+     *      "requirement"="json|jsonp",
+     *      "description"="Supported formats, by default json"
+     *    }
+     *  },
+     *  statusCodes = {
+     *      204 = "",
+     *      400 = "Remove operation has been cancelled, the transition is currently in use",
+     *      403 ="Not allowed to access this resource",
+     *      404 = {
+     *          "Does not exist any workflow with <$id> id",
+     *          "Does not exist any transition with <$id> id",
+     *          "Does not exist any initial status with <$id> id"
+     *      }
+     *  }
+     * )
+     *
+     * @Delete("/workflows/{workflowId}/transitions/{transitionId}/initial-statuses/{initialStatusId}")
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function deleteTransitionsInitialStatusAction($workflowId, $transitionId, $initialStatusId)
+    {
+        $transition = $this->getTransitionIfAllowed($workflowId, $transitionId, 'manage_status');
+
+        $issues = $this->get('kreta_issue.repository.issue')->findByWorkflow($transition->getWorkflow());
+        foreach ($issues as $issue) {
+            foreach ($issue->getStatus()->getTransitions() as $retrieveTransition) {
+                if ($retrieveTransition->getId() === $transition->getId()) {
+                    throw new HttpException(
+                        Codes::HTTP_BAD_REQUEST,
+                        'Remove operation has been cancelled, the transition is currently in use'
+                    );
+                }
+            }
+        }
+
+        $initialStatuses = $transition->getInitialStates();
+
+        foreach ($initialStatuses as $initialStatus) {
+            if ($initialStatus->getId() === $initialStatusId) {
+                $transition->removeInitialState($initialStatus);
+                $this->getRepository()->save($transition);
+
+                return $this->createResponse('', null, Codes::HTTP_NO_CONTENT);
+            }
+        }
+        throw new NotFoundHttpException(sprintf('Does not exist any initial status with %s id', $initialStatusId));
+    }
+
+    /**
+     * Returns the end status of transition id and workflow id given.
+     *
+     * @param string $workflowId      The workflow id
+     * @param string $transitionId    The transition id
+     *
+     * @ApiDoc(
+     *  description = "Returns the end status of transition id and workflow id given",
+     *  requirements = {
+     *    {
+     *      "name"="_format",
+     *      "requirement"="json|jsonp",
+     *      "description"="Supported formats, by default json"
+     *    }
+     *  },
+     *  statusCodes = {
+     *    403 = "Not allowed to access this resource",
+     *    404 = {
+     *        "Does not exist any workflow with <$id> id",
+     *        "Does not exist any transition with <$id> id"
+     *    }
+     *  }
+     * )
+     *
+     * @Get("/workflows/{workflowId}/transitions/{transitionId}/end-status")
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function getTransitionsEndStatusAction($workflowId, $transitionId)
+    {
+        return $this->createResponse(
+            $this->getTransitionIfAllowed($workflowId, $transitionId)->getState(), ['transitionList', 'transition']
+        );
+    }
+
+    /**
+     * Gets the status transition if the current user is granted and if the workflow exists.
+     *
+     * @param string $workflowId   The workflow id
+     * @param string $transitionId The transition id
+     * @param string $grant        The grant, by default 'view'
+     *
+     * @return \Kreta\Component\Workflow\Model\Interfaces\StatusTransitionInterface
+     */
+    protected function getTransitionIfAllowed($workflowId, $transitionId, $grant = 'view')
+    {
+        $this->getWorkflowIfAllowed($workflowId, $grant);
+
+        return $this->getResourceIfExists($transitionId);
     }
 
     /**
@@ -121,6 +439,6 @@ class StatusTransitionController extends AbstractRestController
      */
     protected function getRepository()
     {
-        return $this->get('kreta_workflow.repository.status');
+        return $this->get('kreta_workflow.repository.status_transition');
     }
 }

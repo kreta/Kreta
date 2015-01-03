@@ -138,6 +138,34 @@ class StatusRepositorySpec extends ObjectBehavior
         $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
         $query->getResult()->shouldBeCalled()->willReturn([$status]);
 
-        $this->findByWorkflow($workflow)->shouldBeArray();
+        $this->findByWorkflow($workflow)->shouldReturn([$status]);
+    }
+
+    function it_finds_by_ids(
+        WorkflowInterface $workflow,
+        EntityManager $manager,
+        QueryBuilder $queryBuilder,
+        Expr $expr,
+        Expr\Comparison $comparison,
+        Expr\Comparison $comparison2,
+        AbstractQuery $query,
+        StatusInterface $status
+    )
+    {
+        $manager->createQueryBuilder()->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->select('s')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->from(Argument::any(), 's')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->expr()->shouldBeCalled()->willReturn($expr);
+        $expr->eq('s.id', ':id')->shouldBeCalled()->willReturn($comparison);
+        $expr->eq('s.workflow', ':workflow')->shouldBeCalled()->willReturn($comparison2);
+        $queryBuilder->where($comparison)->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->andWhere($comparison2)->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->setParameter('workflow', $workflow)->shouldBeCalled()->willReturn($queryBuilder);
+
+        $queryBuilder->setParameter('id', 'status-id')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
+        $query->getOneOrNullResult()->shouldBeCalled()->willReturn($status);
+
+        $this->findByIds('status-id', $workflow)->shouldReturn([$status]);
     }
 }

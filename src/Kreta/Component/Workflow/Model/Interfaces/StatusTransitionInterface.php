@@ -28,24 +28,6 @@ interface StatusTransitionInterface extends TransitionInterface
     public function getId();
 
     /**
-     * Sets id.
-     *
-     * @param string $id The id
-     *
-     * @return $this self Object
-     */
-    public function setId($id);
-
-    /**
-     * Sets name.
-     *
-     * @param string $name The name
-     *
-     * @return $this self Object
-     */
-    public function setName($name);
-
-    /**
      * Gets workflow.
      *
      * @return \Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface
@@ -53,11 +35,20 @@ interface StatusTransitionInterface extends TransitionInterface
     public function getWorkflow();
 
     /**
-     * Sets the project.
+     * Adds initial status.
      *
-     * @param \Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface $workflow The workflow
+     * @param \Kreta\Component\Workflow\Model\Interfaces\StatusInterface $status The status
      *
      * @return $this self Object
      */
-    public function setWorkflow(WorkflowInterface $workflow);
+    public function addInitialState($status);
+
+    /**
+     * Removes initial status.
+     *
+     * @param \Kreta\Component\Workflow\Model\Interfaces\StatusInterface $status The status
+     *
+     * @return $this self Object
+     */
+    public function removeInitialState(StatusInterface $status);
 }

@@ -244,7 +244,7 @@ abstract class AbstractRestController extends FOSRestController
      * @param string $workflowGrant The workflow grant, by default view
      *
      * @throws \Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException
-     * @return \Kreta\Component\Project\Model\Interfaces\ProjectInterface
+     * @return \Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface
      */
     protected function getWorkflowIfAllowed($workflowId, $workflowGrant = 'view')
     {

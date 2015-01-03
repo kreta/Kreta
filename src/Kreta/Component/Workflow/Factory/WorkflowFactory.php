@@ -76,7 +76,6 @@ class WorkflowFactory
         }
         $transitions = $this->createDefaultTransitions($statuses);
         foreach ($transitions as $transition) {
-            $transition->setWorkflow($workflow);
             $workflow->addStatusTransition($transition);
         }
 

@@ -16,7 +16,10 @@ use Kreta\Bundle\CoreBundle\Form\Handler\Abstracts\AbstractHandler;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use Kreta\Component\Project\Repository\ProjectRepository;
+use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
 use Kreta\Component\Workflow\Repository\StatusRepository;
+use Kreta\Component\Workflow\Repository\StatusTransitionRepository;
+use Kreta\Component\Workflow\Repository\WorkflowRepository;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -57,6 +60,33 @@ abstract class AbstractRestControllerSpec extends ObjectBehavior
         $projectRepository->find('project-id')->shouldBeCalled()->willReturn($project);
         $container->get('security.context')->shouldBeCalled()->willReturn($securityContext);
         $securityContext->isGranted($grant, $project)->shouldBeCalled()->willReturn($result);
+    }
+
+    protected function getWorkflowIfExist(
+        ContainerInterface $container,
+        WorkflowRepository $workflowRepository,
+        WorkflowInterface $workflow = null
+    )
+    {
+        $container->get('kreta_workflow.repository.workflow')->shouldBeCalled()->willReturn($workflowRepository);
+        $workflowRepository->find('workflow-id')->shouldBeCalled()->willReturn($workflow);
+    }
+
+    protected function getWorkflowIfAllowed(
+        ContainerInterface $container,
+        WorkflowRepository $workflowRepository,
+        WorkflowInterface $workflow,
+        SecurityContextInterface $securityContext,
+        $grant = 'view',
+        $result = true
+    )
+    {
+        $container->get('kreta_workflow.repository.workflow')->shouldBeCalled()->willReturn($workflowRepository);
+        $workflowRepository->find('workflow-id')->shouldBeCalled()->willReturn($workflow);
+        $container->get('security.context')->shouldBeCalled()->willReturn($securityContext);
+        $securityContext->isGranted($grant, $workflow)->shouldBeCalled()->willReturn($result);
+
+        return $workflow;
     }
 
     protected function getFormErrors(
@@ -115,8 +145,8 @@ abstract class AbstractRestControllerSpec extends ObjectBehavior
 
     protected function getStatusIfAllowed(
         ContainerInterface $container,
-        ProjectRepository $projectRepository,
-        ProjectInterface $project,
+        WorkflowRepository $workflowRepository,
+        WorkflowInterface $workflow,
         SecurityContextInterface $securityContext,
         StatusRepository $statusRepository,
         $status = null,
@@ -124,10 +154,30 @@ abstract class AbstractRestControllerSpec extends ObjectBehavior
         $result = true
     )
     {
-        $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext, $grant, $result);
+        $this->getWorkflowIfAllowed($container, $workflowRepository, $workflow, $securityContext, $grant, $result);
 
         $container->get('kreta_workflow.repository.status')->shouldBeCalled()->willReturn($statusRepository);
         $statusRepository->find('status-id')->shouldBeCalled()->willReturn($status);
+    }
+
+    protected function getTransitionIfAllowed(
+        ContainerInterface $container,
+        WorkflowRepository $workflowRepository,
+        WorkflowInterface $workflow,
+        SecurityContextInterface $securityContext,
+        StatusTransitionRepository $transitionRepository,
+        $transition = null,
+        $grant = 'view',
+        $result = true
+    )
+    {
+        $this->getWorkflowIfAllowed($container, $workflowRepository, $workflow, $securityContext, $grant, $result);
+
+        $container->get('kreta_workflow.repository.status_transition')
+            ->shouldBeCalled()->willReturn($transitionRepository);
+        $transitionRepository->find('transition-id')->shouldBeCalled()->willReturn($transition);
+
+        return $transition;
     }
 
     protected function getCurrentUser(
