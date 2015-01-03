@@ -43,4 +43,18 @@ class CommitMatcherSpec extends ObjectBehavior
 
         $this->getRelatedIssues($commit)->shouldReturn([$issue]);
     }
+
+    function it_matches_underscore_projects(CommitInterface $commit, IssueRepository $issueRepository,
+                                            IssueInterface $issue, RepositoryInterface $repository, BranchInterface $branch)
+    {
+        $commit->getMessage()->shouldBeCalled()->willReturn('pr0-1 Testing relation with issue');
+        $commit->getBranch()->shouldBeCalled()->willReturn($branch);
+        $branch->getRepository()->shouldBeCalled()->willReturn($repository);
+        $branch->getName()->shouldBeCalled()->willReturn('master');
+
+        $issueRepository->findRelatedIssuesByRepository($repository, 'pr0', '1')
+            ->shouldBeCalled()->willReturn([$issue]);
+
+        $this->getRelatedIssues($commit)->shouldReturn([$issue]);
+    }
 } 

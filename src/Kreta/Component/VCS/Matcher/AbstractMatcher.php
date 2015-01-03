@@ -69,7 +69,7 @@ abstract class AbstractMatcher
      */
     protected function findShortNamesInMessage($message)
     {
-        preg_match('/[A-Z0-9]{3,4}-[0-9]{1,}/', $message, $matches);
+        preg_match('/[A-z0-9]{3,4}-[0-9]{1,}/', $message, $matches);
         return $matches;
     }
 } 
