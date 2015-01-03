@@ -28,8 +28,9 @@ class VCSComponentController extends Controller
     public function issueAction($issueId)
     {
         $commits = $this->get('kreta_vcs.repository.commit')->findByIssue($issueId);
+        $branches = $this->get('kreta_vcs.repository.branch')->findByIssue($issueId);
 
-        return $this->render('KretaWebBundle:Component/VCS:issue.html.twig', ['commits' => $commits, 'branches' => []]);
+        return $this->render('KretaWebBundle:Component/VCS:issue.html.twig', ['commits' => $commits, 'branches' => $branches]);
     }
 
 }

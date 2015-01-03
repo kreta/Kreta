@@ -53,4 +53,18 @@ class BranchRepository extends EntityRepository
             return $branch;
         }
     }
+
+    /**
+     * @param $issueId
+     *
+     * @return array
+     */
+    public function findByIssue($issueId)
+    {
+        $queryBuilder = $this->createQueryBuilder('b');
+        $queryBuilder->innerJoin('b.issuesRelated', 'ir', 'WITH', 'ir.id = :issueId')
+            ->setParameter('issueId', $issueId);
+
+        return $queryBuilder->getQuery()->getResult();
+    }
 } 

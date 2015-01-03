@@ -44,7 +44,7 @@ class CommitMatcherSpec extends ObjectBehavior
         $this->getRelatedIssues($commit)->shouldReturn([$issue]);
     }
 
-    function it_matches_underscore_projects(CommitInterface $commit, IssueRepository $issueRepository,
+    function it_matches_lowercase_projects(CommitInterface $commit, IssueRepository $issueRepository,
                                             IssueInterface $issue, RepositoryInterface $repository, BranchInterface $branch)
     {
         $commit->getMessage()->shouldBeCalled()->willReturn('pr0-1 Testing relation with issue');
