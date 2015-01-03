@@ -101,4 +101,20 @@ class Branch implements BranchInterface
 
         return $this;
     }
+
+    /**
+     * Gets url pointing the branch in the providers page.
+     *
+     * @return string
+     */
+    public function getUrl()
+    {
+        switch($this->repository->getProvider())
+        {
+            case 'github':
+                return 'https://github.com/'. $this->repository->getName() . '/tree/' . $this->name;
+            default:
+                return '';
+        }
+    }
 }

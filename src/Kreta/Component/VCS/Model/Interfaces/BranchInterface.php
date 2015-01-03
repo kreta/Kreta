@@ -81,4 +81,11 @@ interface BranchInterface
      * @return self
      */
     public function setIssuesRelated($issuesRelated);
+
+    /**
+     * Gets url pointing the branch in the providers page.
+     *
+     * @return string
+     */
+    public function getUrl();
 }

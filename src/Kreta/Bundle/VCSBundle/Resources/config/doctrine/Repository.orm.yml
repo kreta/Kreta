@@ -17,7 +17,12 @@ Kreta\Component\VCS\Model\Repository:
     fields:
         name:
             type: string
-
+        provider:
+            type: string
+            length: 50
+        url:
+            type: string
+            length: 150
     manyToMany:
         projects:
             targetEntity: Kreta\Component\Project\Model\Interfaces\ProjectInterface

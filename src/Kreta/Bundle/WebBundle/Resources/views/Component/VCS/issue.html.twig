@@ -10,12 +10,16 @@
     <div class="kreta-issue-vcs">
         <div class="vcs-section">
             <h4><i class="fa fa-github"></i>Repository</h4>
-            <a href="http://github.com/kreta-io/kreta">kreta-io/kreta</a>
+            {% for repository in repositories %}
+                <p><a href="{{ repository.url }}">{{ repository.name }}</a></p>
+            {% else %}
+                <p>No repositories found for this issue</p>
+            {% endfor %}
         </div>
         <div class="vcs-section">
             <h4><i class="fa fa-code-fork"></i>Branches</h4>
             {% for branch in branches %}
-                <p>{{ branch.name }}</p>
+                <p><a href="{{ branch.url }}">{{ branch.name }}</a></p>
             {% else %}
                 <p>No branches found for this issue</p>
             {% endfor %}
@@ -23,7 +27,7 @@
         <div class="vcs-section">
             <h4><i class="fa fa-code"></i>Commits</h4>
             {% for commit in commits %}
-                <p>{{ commit.sha | slice(0, 10)}} - {{ commit.message }}</p>
+                <p><a href="{{ commit.url }}">{{ commit.sha | slice(0, 10)}}</a> - {{ commit.message }}</p>
             {% else %}
                 <p>No commits found for this issue</p>
             {% endfor %}

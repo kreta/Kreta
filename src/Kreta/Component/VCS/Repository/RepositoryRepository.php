@@ -11,9 +11,7 @@
 
 namespace Kreta\Component\VCS\Repository;
 
-use Doctrine\Common\Util\Debug;
 use Doctrine\ORM\EntityRepository;
-use Kreta\Component\VCS\Model\Interfaces\RepositoryInterface;
 
 /**
  * Class RepositoryRepository
@@ -22,18 +20,14 @@ use Kreta\Component\VCS\Model\Interfaces\RepositoryInterface;
  */
 class RepositoryRepository extends EntityRepository
 {
-    public function findRelatedIssuesByRepository(RepositoryInterface $repository, $shortName)
+    public function findByIssue($issueId)
     {
         $queryBuilder = $this->createQueryBuilder('r');
-        $queryBuilder->leftJoin('r.project', 'p')
-            ->leftJoin('p.issue', 'i')
-            ->where('r.id = :repositoryId')
-            ->andWhere('p.shortName = :shortName')
-            ->andWhere('i.numberId = :numberId')
-            ->setParameter('repositoryId', $repository->getId())
-            ->setParameter('shortName', $shortName)
-            ->setParameter('numericId', $numericId);
+        $queryBuilder->leftJoin('r.projects', 'p')
+            ->leftJoin('p.issues', 'i')
+            ->where('i.id = :issueId')
+            ->setParameter('issueId', $issueId);
 
-        Debug::dump($queryBuilder->getQuery()->getResult());
+        return $queryBuilder->getQuery()->getResult();
     }
 }
