@@ -57,4 +57,9 @@ class CommitMatcherSpec extends ObjectBehavior
 
         $this->getRelatedIssues($commit)->shouldReturn([$issue]);
     }
+
+    function it_returns_empty_array_if_not_branch_instance(IssueInterface $issue)
+    {
+        $this->getRelatedIssues($issue)->shouldReturn([]);
+    }
 } 

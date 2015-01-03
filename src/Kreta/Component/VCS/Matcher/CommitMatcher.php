@@ -20,7 +20,7 @@ class CommitMatcher extends AbstractMatcher
      */
     public function getRelatedIssues($commit)
     {
-        if (!$commit instanceof CommitInterface && !$commit->getBranch()) {
+        if (!$commit instanceof CommitInterface || !$commit->getBranch()) {
             return [];
         }
 

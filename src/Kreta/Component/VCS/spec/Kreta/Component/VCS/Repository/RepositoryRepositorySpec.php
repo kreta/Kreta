@@ -15,11 +15,11 @@ use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\QueryBuilder;
-use Kreta\Component\VCS\Model\Interfaces\CommitInterface;
+use Kreta\Component\VCS\Model\Interfaces\RepositoryInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
-class CommitRepositorySpec extends ObjectBehavior
+class RepositoryRepositorySpec extends ObjectBehavior
 {
     function let(EntityManager $manager, ClassMetadata $classMetadata)
     {
@@ -28,21 +28,24 @@ class CommitRepositorySpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('Kreta\Component\VCS\Repository\CommitRepository');
+        $this->shouldHaveType('Kreta\Component\VCS\Repository\RepositoryRepository');
     }
 
     function it_finds_by_issue(EntityManager$manager, QueryBuilder $queryBuilder, AbstractQuery $query,
-                               CommitInterface $commit)
+                               RepositoryInterface $repository)
     {
         $manager->createQueryBuilder()->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->select('c')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->from(Argument::any(), 'c')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->innerJoin('c.issuesRelated', 'ri', 'WITH', 'ri.id = :issueId')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->select('r')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->from(Argument::any(), 'r')->shouldBeCalled()->willReturn($queryBuilder);
+        
+        $queryBuilder->leftJoin('r.projects', 'p')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->leftJoin('p.issues', 'i')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->where('i.id = :issueId')->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->setParameter('issueId', '1111')->shouldBeCalled()->willReturn($queryBuilder);
 
         $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
-        $query->getResult()->shouldBeCalled()->willReturn([$commit]);
+        $query->getResult()->shouldBeCalled()->willReturn([$repository]);
 
-        $this->findByIssue('1111')->shouldReturn([$commit]);
+        $this->findByIssue('1111')->shouldReturn([$repository]);
     }
 } 
