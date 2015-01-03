@@ -16,7 +16,7 @@ class GithubWebhookController extends AbstractWebhookController
     /**
      * {@inheritdoc}
      */
-    public function getWebhookStrategy()
+    protected function getWebhookStrategy()
     {
         return $this->get('kreta_vcs.webhook_strategy.github');
     }
