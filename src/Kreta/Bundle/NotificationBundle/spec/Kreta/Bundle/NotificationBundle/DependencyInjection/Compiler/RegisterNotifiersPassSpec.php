@@ -24,8 +24,31 @@ class RegisterNotifiersPassSpec extends ObjectBehavior
         $container->findTaggedServiceIds('kreta_notification.notifier')
             ->shouldBeCalled()->willReturn([[["label" => "testEvent"]]]);
 
+        $container->hasParameter('kreta_notification.notifier.testEvent.enabled')->shouldBeCalled()->willReturn(true);
+        $container->getParameter('kreta_notification.notifier.testEvent.enabled')->shouldBeCalled()->willReturn(true);
+
         $definition->addMethodCall('registerNotifier',
             ['testEvent', Argument::type('Symfony\Component\DependencyInjection\Reference')]);
+
+        $this->process($container);
+    }
+
+    function it_does_not_register_disbaled_notifiers(ContainerBuilder $container, Definition $definition)
+    {
+        $container->hasDefinition('kreta_notification.notifier_registry')->shouldBeCalled()->willReturn(true);
+
+        $container->getDefinition('kreta_notification.notifier_registry')
+            ->shouldBeCalled()->willReturn($definition);
+
+        $container->findTaggedServiceIds('kreta_notification.notifier')
+            ->shouldBeCalled()->willReturn([[["label" => "testEvent"]]]);
+
+        $container->hasParameter('kreta_notification.notifier.testEvent.enabled')->shouldBeCalled()->willReturn(true);
+        $container->getParameter('kreta_notification.notifier.testEvent.enabled')->shouldBeCalled()->willReturn(false);
+
+        $definition->addMethodCall('registerNotifier',
+            ['testEvent', Argument::type('Symfony\Component\DependencyInjection\Reference')])
+        ->shouldNotBeCalled();
 
         $this->process($container);
     }

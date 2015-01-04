@@ -30,6 +30,12 @@ class KretaNotificationExtension extends Extension
     {
         $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
         $loader->load('services.yml');
+
+        $configuration = new Configuration();
+
+        $config = $this->processConfiguration($configuration, $configs);
+
+        $container->setParameter('kreta_notification.notifier.email.enabled', $config['notifier']['email']['enabled']);
     }
 
     /**
