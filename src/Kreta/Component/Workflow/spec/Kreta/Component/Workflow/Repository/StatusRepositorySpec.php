@@ -48,7 +48,7 @@ class StatusRepositorySpec extends ObjectBehavior
         $manager->persist($status)->shouldBeCalled();
         $manager->flush()->shouldBeCalled();
 
-        $this->save($status);
+        $this->persist($status);
     }
 
     function it_removes(EntityManager $manager, StatusInterface $status)
@@ -56,7 +56,7 @@ class StatusRepositorySpec extends ObjectBehavior
         $manager->remove($status)->shouldBeCalled();
         $manager->flush()->shouldBeCalled();
 
-        $this->delete($status);
+        $this->remove($status);
     }
 
     function it_finds_all(EntityManager $manager, QueryBuilder $queryBuilder, AbstractQuery $query)

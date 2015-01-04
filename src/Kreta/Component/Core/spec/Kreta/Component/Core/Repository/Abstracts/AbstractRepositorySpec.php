@@ -33,7 +33,7 @@ class AbstractRepositorySpec extends ObjectBehavior
     {
         $manager->persist(Argument::type('Object'))->shouldBeCalled();
 
-        $this->save(Argument::type('Object'), false);
+        $this->persist(Argument::type('Object'), false);
     }
 
     function it_persists_with_flush(EntityManager $manager)
@@ -41,7 +41,7 @@ class AbstractRepositorySpec extends ObjectBehavior
         $manager->persist(Argument::type('Object'))->shouldBeCalled();
         $manager->flush()->shouldBeCalled();
 
-        $this->save(Argument::type('Object'), true);
+        $this->persist(Argument::type('Object'), true);
     }
 
     function it_removes_without_flush(EntityManager $manager)
@@ -49,7 +49,7 @@ class AbstractRepositorySpec extends ObjectBehavior
         $manager->remove(Argument::type('Object'))->shouldBeCalled();
         $manager->flush()->shouldBeCalled();
 
-        $this->delete(Argument::type('Object'), true);
+        $this->remove(Argument::type('Object'), true);
     }
 
     function it_removes_with_flush(EntityManager $manager)
@@ -57,6 +57,6 @@ class AbstractRepositorySpec extends ObjectBehavior
         $manager->remove(Argument::type('Object'))->shouldBeCalled();
         $manager->flush()->shouldBeCalled();
 
-        $this->delete(Argument::type('Object'), true);
+        $this->remove(Argument::type('Object'), true);
     }
 }

@@ -83,18 +83,21 @@ abstract class AbstractHandler
      * handleObject dispatchSuccess and dispatchError methods. See each methods doc for more info.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request     Contains values sent by the user
-     * @param Object                                    $object      The object to be edited with form content
+     * @param Object|null                               $object      The object to be edited with form content
      * @param array                                     $formOptions Array which contains the options that will be
      *                                                               passed in the form create method
      *
      * @return \Symfony\Component\Form\Form
      */
-    public function handleForm(Request $request, $object, array $formOptions = [])
+    public function handleForm(Request $request, $object = null, array $formOptions = [])
     {
         $form = $this->createForm($object, $formOptions);
         if ($request->isMethod('POST') || $request->isMethod('PUT')) {
             $form->handleRequest($request);
             if ($form->isSubmitted() && $form->isValid()) {
+                if (!$object) {
+                    $object = $form->getData();
+                }
                 $this->handleFiles($request->files, $object);
                 $this->handleObject($object);
                 $this->dispatchSuccess();
@@ -109,12 +112,12 @@ abstract class AbstractHandler
     /**
      * Creates a form with the given parameters.
      *
-     * @param Object $object      Model related to the form
-     * @param array  $formOptions Array which contains the options that will be passed in the form create method
+     * @param Object|null $object      Model related to the form
+     * @param array       $formOptions Array which contains the options that will be passed in the form create method
      *
      * @return \Symfony\Component\Form\Form
      */
-    abstract protected function createForm($object, array $formOptions = []);
+    abstract protected function createForm($object = null, array $formOptions = []);
 
     /**
      * Handles file upload.

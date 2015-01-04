@@ -58,17 +58,6 @@ class StatusTransitionControllerSpec extends AbstractRestControllerSpec
         $this->shouldHaveType('Kreta\Bundle\ApiBundle\Controller\Abstracts\AbstractRestController');
     }
 
-    function it_does_not_get_status_transitions_because_the_workflow_does_not_exist(
-        ContainerInterface $container,
-        WorkflowRepository $workflowRepository
-    )
-    {
-        $this->getWorkflowIfExist($container, $workflowRepository);
-
-        $this->shouldThrow(new NotFoundHttpException('Does not exist any entity with workflow-id id'))
-            ->during('getTransitionsAction', ['workflow-id']);
-    }
-
     function it_does_not_get_status_transitions_because_the_user_has_not_the_required_grant(
         ContainerInterface $container,
         WorkflowRepository $workflowRepository,
@@ -97,17 +86,6 @@ class StatusTransitionControllerSpec extends AbstractRestControllerSpec
         $viewHandler->handle(Argument::type('FOS\RestBundle\View\View'))->shouldBeCalled()->willReturn($response);
 
         $this->getTransitionsAction('workflow-id')->shouldReturn($response);
-    }
-
-    function it_does_not_get_status_transition_because_the_workflow_does_not_exist(
-        ContainerInterface $container,
-        WorkflowRepository $workflowRepository
-    )
-    {
-        $this->getWorkflowIfExist($container, $workflowRepository);
-
-        $this->shouldThrow(new NotFoundHttpException('Does not exist any entity with workflow-id id'))
-            ->during('getTransitionAction', ['workflow-id', 'status-transition-name']);
     }
 
     function it_does_not_get_status_transition_because_the_user_has_not_the_required_grant(
@@ -172,21 +150,6 @@ class StatusTransitionControllerSpec extends AbstractRestControllerSpec
         $request->get('name')->shouldBeCalled()->willReturn('');
 
         $this->shouldThrow(new BadRequestHttpException('Name should not be blank'))
-            ->during('postTransitionsAction', ['workflow-id']);
-    }
-
-    function it_does_not_post_status_transition_because_the_workflow_does_not_exist(
-        ContainerInterface $container,
-        Request $request,
-        WorkflowRepository $workflowRepository
-    )
-    {
-        $container->get('request')->shouldBeCalled()->willReturn($request);
-        $request->get('name')->shouldBeCalled()->willReturn('status-transition-name');
-
-        $this->getWorkflowIfExist($container, $workflowRepository);
-
-        $this->shouldThrow(new NotFoundHttpException('Does not exist any entity with workflow-id id'))
             ->during('postTransitionsAction', ['workflow-id']);
     }
 
@@ -344,17 +307,6 @@ class StatusTransitionControllerSpec extends AbstractRestControllerSpec
         $this->postTransitionsAction('workflow-id')->shouldReturn($response);
     }
 
-    function it_does_not_delete_status_transition_because_the_workflow_does_not_exist(
-        ContainerInterface $container,
-        WorkflowRepository $workflowRepository
-    )
-    {
-        $this->getWorkflowIfExist($container, $workflowRepository);
-
-        $this->shouldThrow(new NotFoundHttpException('Does not exist any entity with workflow-id id'))
-            ->during('deleteTransitionAction', ['workflow-id', 'transition-id']);
-    }
-
     function it_does_not_delete_status_transition_because_the_user_has_not_the_required_grant(
         ContainerInterface $container,
         WorkflowRepository $workflowRepository,
@@ -460,23 +412,12 @@ class StatusTransitionControllerSpec extends AbstractRestControllerSpec
         $transition->getId()->shouldBeCalled()->willReturn('transition-id');
         $transition2->getId()->shouldBeCalled()->willReturn('transition-id-2');
 
-        $transitionRepository->delete($transition)->shouldBeCalled();
+        $transitionRepository->remove($transition)->shouldBeCalled();
 
         $container->get('fos_rest.view_handler')->shouldBeCalled()->willReturn($viewHandler);
         $viewHandler->handle(Argument::type('FOS\RestBundle\View\View'))->shouldBeCalled()->willReturn($response);
 
         $this->deleteTransitionAction('workflow-id', 'transition-id')->shouldReturn($response);
-    }
-
-    function it_does_not_get_initial_statuses_because_the_workflow_does_not_exist(
-        ContainerInterface $container,
-        WorkflowRepository $workflowRepository
-    )
-    {
-        $this->getWorkflowIfExist($container, $workflowRepository);
-
-        $this->shouldThrow(new NotFoundHttpException('Does not exist any entity with workflow-id id'))
-            ->during('getTransitionsInitialStatusesAction', ['workflow-id', 'status-transition-id']);
     }
 
     function it_does_not_get_initial_statuses_because_the_user_has_not_the_required_grant(
@@ -535,17 +476,6 @@ class StatusTransitionControllerSpec extends AbstractRestControllerSpec
         $viewHandler->handle(Argument::type('FOS\RestBundle\View\View'))->shouldBeCalled()->willReturn($response);
 
         $this->getTransitionsInitialStatusesAction('workflow-id', 'transition-id')->shouldReturn($response);
-    }
-
-    function it_does_not_get_initial_status_because_the_workflow_does_not_exist(
-        ContainerInterface $container,
-        WorkflowRepository $workflowRepository
-    )
-    {
-        $this->getWorkflowIfExist($container, $workflowRepository);
-
-        $this->shouldThrow(new NotFoundHttpException('Does not exist any entity with workflow-id id'))
-            ->during('getTransitionsInitialStatusAction', ['workflow-id', 'status-transition-id', 'initial-id']);
     }
 
     function it_does_not_get_initial_status_because_the_user_has_not_the_required_grant(
@@ -661,26 +591,6 @@ class StatusTransitionControllerSpec extends AbstractRestControllerSpec
         )->during('postTransitionsInitialStatusAction', ['workflow-id', 'transition-id']);
     }
 
-    function it_does_not_post_initial_status_because_the_workflow_does_not_exist(
-        ContainerInterface $container,
-        Request $request,
-        StatusRepository $statusRepository,
-        StatusInterface $status,
-        WorkflowRepository $workflowRepository
-    )
-    {
-        $container->get('request')->shouldBeCalled()->willReturn($request);
-        $request->get('initial_status')->shouldBeCalled()->willReturn('initial-status-id');
-
-        $container->get('kreta_workflow.repository.status')->shouldBeCalled()->willReturn($statusRepository);
-        $statusRepository->find('initial-status-id')->shouldBeCalled()->willReturn($status);
-
-        $this->getWorkflowIfExist($container, $workflowRepository);
-
-        $this->shouldThrow(new NotFoundHttpException('Does not exist any entity with workflow-id id'))
-            ->during('postTransitionsInitialStatusAction', ['workflow-id', 'transition-id']);
-    }
-
     function it_does_not_post_initial_status_because_the_user_has_not_the_required_grant(
         ContainerInterface $container,
         Request $request,
@@ -761,24 +671,13 @@ class StatusTransitionControllerSpec extends AbstractRestControllerSpec
         );
 
         $transition->addInitialState($status)->shouldBeCalled()->willReturn($transition);
-        $transitionRepository->save($transition)->shouldBeCalled();
+        $transitionRepository->persist($transition)->shouldBeCalled();
         $transition->getInitialStates()->shouldBeCalled()->willReturn([$status]);
 
         $container->get('fos_rest.view_handler')->shouldBeCalled()->willReturn($viewHandler);
         $viewHandler->handle(Argument::type('FOS\RestBundle\View\View'))->shouldBeCalled()->willReturn($response);
 
         $this->postTransitionsInitialStatusAction('workflow-id', 'transition-id')->shouldReturn($response);
-    }
-
-    function it_does_not_delete_initial_status_because_the_workflow_does_not_exist(
-        ContainerInterface $container,
-        WorkflowRepository $workflowRepository
-    )
-    {
-        $this->getWorkflowIfExist($container, $workflowRepository);
-
-        $this->shouldThrow(new NotFoundHttpException('Does not exist any entity with workflow-id id'))
-            ->during('deleteTransitionsInitialStatusAction', ['workflow-id', 'transition-id', 'initial-id']);
     }
 
     function it_does_not_delete_initial_status_because_the_user_has_not_the_required_grant(
@@ -923,24 +822,13 @@ class StatusTransitionControllerSpec extends AbstractRestControllerSpec
         $transition->getInitialStates()->shouldBeCalled()->willReturn([$initial]);
         $initial->getId()->shouldBeCalled()->willReturn('initial-id');
         $transition->removeInitialState($initial)->shouldBeCalled()->willReturn($transition);
-        $transitionRepository->save($transition)->shouldBeCalled();
+        $transitionRepository->persist($transition)->shouldBeCalled();
 
         $container->get('fos_rest.view_handler')->shouldBeCalled()->willReturn($viewHandler);
         $viewHandler->handle(Argument::type('FOS\RestBundle\View\View'))->shouldBeCalled()->willReturn($response);
 
         $this->deleteTransitionsInitialStatusAction('workflow-id', 'transition-id', 'initial-id')
             ->shouldReturn($response);
-    }
-
-    function it_does_not_get_end_status_because_the_workflow_does_not_exist(
-        ContainerInterface $container,
-        WorkflowRepository $workflowRepository
-    )
-    {
-        $this->getWorkflowIfExist($container, $workflowRepository);
-
-        $this->shouldThrow(new NotFoundHttpException('Does not exist any entity with workflow-id id'))
-            ->during('getTransitionsEndStatusAction', ['workflow-id', 'transition-id']);
     }
 
     function it_does_not_get_end_status_because_the_user_has_not_the_required_grant(

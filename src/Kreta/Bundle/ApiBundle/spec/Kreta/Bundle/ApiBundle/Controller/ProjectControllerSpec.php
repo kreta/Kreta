@@ -94,17 +94,6 @@ class ProjectControllerSpec extends AbstractRestControllerSpec
         $this->getProjectsAction($paramFetcher)->shouldReturn($response);
     }
 
-    function it_does_not_get_project_because_the_project_does_not_exist(
-        ContainerInterface $container,
-        ProjectRepository $projectRepository
-    )
-    {
-        $this->getProjectIfExist($container, $projectRepository);
-
-        $this->shouldThrow(new NotFoundHttpException('Does not exist any entity with project-id id'))
-            ->during('getProjectAction', ['project-id']);
-    }
-
     function it_does_not_get_project_because_the_user_has_not_the_required_grant(
         ContainerInterface $container,
         ProjectRepository $projectRepository,

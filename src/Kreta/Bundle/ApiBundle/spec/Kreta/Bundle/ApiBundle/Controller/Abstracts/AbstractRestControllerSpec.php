@@ -44,7 +44,7 @@ abstract class AbstractRestControllerSpec extends ObjectBehavior
     )
     {
         $container->get('kreta_project.repository.project')->shouldBeCalled()->willReturn($projectRepository);
-        $projectRepository->find('project-id')->shouldBeCalled()->willReturn($project);
+        $projectRepository->find('project-id', false)->shouldBeCalled()->willReturn($project);
     }
 
     protected function getProjectIfAllowed(
@@ -57,7 +57,7 @@ abstract class AbstractRestControllerSpec extends ObjectBehavior
     )
     {
         $container->get('kreta_project.repository.project')->shouldBeCalled()->willReturn($projectRepository);
-        $projectRepository->find('project-id')->shouldBeCalled()->willReturn($project);
+        $projectRepository->find('project-id', false)->shouldBeCalled()->willReturn($project);
         $container->get('security.context')->shouldBeCalled()->willReturn($securityContext);
         $securityContext->isGranted($grant, $project)->shouldBeCalled()->willReturn($result);
     }
@@ -69,7 +69,7 @@ abstract class AbstractRestControllerSpec extends ObjectBehavior
     )
     {
         $container->get('kreta_workflow.repository.workflow')->shouldBeCalled()->willReturn($workflowRepository);
-        $workflowRepository->find('workflow-id')->shouldBeCalled()->willReturn($workflow);
+        $workflowRepository->find('workflow-id', false)->shouldBeCalled()->willReturn($workflow);
     }
 
     protected function getWorkflowIfAllowed(
@@ -82,7 +82,7 @@ abstract class AbstractRestControllerSpec extends ObjectBehavior
     )
     {
         $container->get('kreta_workflow.repository.workflow')->shouldBeCalled()->willReturn($workflowRepository);
-        $workflowRepository->find('workflow-id')->shouldBeCalled()->willReturn($workflow);
+        $workflowRepository->find('workflow-id', false)->shouldBeCalled()->willReturn($workflow);
         $container->get('security.context')->shouldBeCalled()->willReturn($securityContext);
         $securityContext->isGranted($grant, $workflow)->shouldBeCalled()->willReturn($result);
 

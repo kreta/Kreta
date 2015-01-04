@@ -11,6 +11,7 @@
 
 namespace spec\Kreta\Bundle\ApiBundle\Controller;
 
+use Doctrine\ORM\NoResultException;
 use FOS\RestBundle\Request\ParamFetcher;
 use FOS\RestBundle\View\ViewHandler;
 use Kreta\Bundle\ApiBundle\Form\Handler\IssueHandler;
@@ -53,21 +54,6 @@ class IssueControllerSpec extends AbstractRestControllerSpec
     function it_extends_abstract_rest_controller()
     {
         $this->shouldHaveType('Kreta\Bundle\ApiBundle\Controller\Abstracts\AbstractRestController');
-    }
-
-    function it_does_not_get_issues_because_the_project_does_not_exist(
-        ContainerInterface $container,
-        IssueRepository $issueRepository,
-        ProjectRepository $projectRepository,
-        ParamFetcher $paramFetcher
-    )
-    {
-        $container->get('kreta_issue.repository.issue')->shouldBeCalled()->willReturn($issueRepository);
-
-        $this->getProjectIfExist($container, $projectRepository);
-
-        $this->shouldThrow(new NotFoundHttpException('Does not exist any entity with project-id id'))
-            ->during('getIssuesAction', ['project-id', $paramFetcher]);
     }
 
     function it_does_not_get_issues_because_the_user_has_not_the_required_grant(
@@ -175,17 +161,6 @@ class IssueControllerSpec extends AbstractRestControllerSpec
         $viewHandler->handle(Argument::type('FOS\RestBundle\View\View'))->shouldBeCalled()->willReturn($response);
 
         $this->getIssueAction('project-id', 'issue-id')->shouldReturn($response);
-    }
-
-    function it_does_not_post_issues_because_the_project_does_not_exist(
-        ContainerInterface $container,
-        ProjectRepository $projectRepository
-    )
-    {
-        $this->getProjectIfExist($container, $projectRepository);
-
-        $this->shouldThrow(new NotFoundHttpException('Does not exist any entity with project-id id'))
-            ->during('postIssuesAction', ['project-id']);
     }
 
     function it_does_not_post_issues_because_the_user_has_not_the_required_grant(
@@ -320,17 +295,6 @@ class IssueControllerSpec extends AbstractRestControllerSpec
         $viewHandler->handle(Argument::type('FOS\RestBundle\View\View'))->shouldBeCalled()->willReturn($response);
 
         $this->postIssuesAction('project-id')->shouldReturn($response);
-    }
-
-    function it_does_not_put_issue_because_the_project_does_not_exist(
-        ContainerInterface $container,
-        ProjectRepository $projectRepository
-    )
-    {
-        $this->getProjectIfExist($container, $projectRepository);
-
-        $this->shouldThrow(new NotFoundHttpException('Does not exist any entity with project-id id'))
-            ->during('putIssuesAction', ['project-id', 'issue-id']);
     }
 
     function it_does_not_put_issue_because_the_user_has_not_the_required_grant(

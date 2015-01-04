@@ -222,7 +222,7 @@ class StatusController extends AbstractRestController
             }
         }
 
-        $this->getRepository()->delete($status);
+        $this->getRepository()->remove($status);
 
         return $this->createResponse('', null, Codes::HTTP_NO_CONTENT);
     }

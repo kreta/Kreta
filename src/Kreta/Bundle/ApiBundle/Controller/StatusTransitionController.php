@@ -194,7 +194,7 @@ class StatusTransitionController extends AbstractRestController
             }
         }
 
-        $this->getRepository()->delete($transition);
+        $this->getRepository()->remove($transition);
 
         return $this->createResponse('', null, Codes::HTTP_NO_CONTENT);
     }
@@ -318,7 +318,7 @@ class StatusTransitionController extends AbstractRestController
         }
         $transition = $this->getTransitionIfAllowed($workflowId, $transitionId, 'manage_status');
         $transition->addInitialState($initialStatus);
-        $this->getRepository()->save($transition);
+        $this->getRepository()->persist($transition);
 
         return $this->createResponse($transition->getInitialStates(), ['transitionList', 'transition']);
     }
@@ -378,7 +378,7 @@ class StatusTransitionController extends AbstractRestController
         foreach ($initialStatuses as $initialStatus) {
             if ($initialStatus->getId() === $initialStatusId) {
                 $transition->removeInitialState($initialStatus);
-                $this->getRepository()->save($transition);
+                $this->getRepository()->persist($transition);
 
                 return $this->createResponse('', null, Codes::HTTP_NO_CONTENT);
             }

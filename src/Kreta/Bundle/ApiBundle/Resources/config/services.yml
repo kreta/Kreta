@@ -37,3 +37,7 @@ services:
     kreta_api.form_handler.status_transition:
         class: Kreta\Bundle\ApiBundle\Form\Handler\StatusTransitionHandler
         arguments: [@form.factory, @doctrine.orm.entity_manager, @event_dispatcher]
+
+    kreta_api.form_handler.workflow:
+        class: Kreta\Bundle\ApiBundle\Form\Handler\WorkflowHandler
+        arguments: [@form.factory, @doctrine.orm.entity_manager, @event_dispatcher, @security.context, @kreta_workflow.factory.workflow]

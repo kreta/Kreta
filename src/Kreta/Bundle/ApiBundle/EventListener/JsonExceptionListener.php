@@ -32,8 +32,15 @@ class JsonExceptionListener
     {
         if ($event->getRequest()->getRequestFormat() === 'json') {
             $exception = $event->getException();
-            $data = ['error' => $exception->getMessage()];
-            $response = new JsonResponse($data);
+            $response = new JsonResponse();
+            switch (get_class($exception)) {
+                case 'Doctrine\ORM\NoResultException':
+                    $response->setStatusCode(404);
+                    $response->setData(['error' => 'Does not exist any object with id passed']);
+                    break;
+                default:
+                    $response->setData(['error' => $exception->getMessage()]);
+            }
             $event->setResponse($response);
         }
     }

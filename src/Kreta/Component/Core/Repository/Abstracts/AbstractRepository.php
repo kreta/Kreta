@@ -36,7 +36,7 @@ abstract class AbstractRepository extends EntityRepository
      *
      * @return void
      */
-    public function save($object, $flush = true)
+    public function persist($object, $flush = true)
     {
         $this->_em->persist($object);
         if ($flush) {
@@ -52,12 +52,26 @@ abstract class AbstractRepository extends EntityRepository
      *
      * @return void
      */
-    public function delete($object, $flush = true)
+    public function remove($object, $flush = true)
     {
         $this->_em->remove($object);
         if ($flush) {
             $this->_em->flush();
         }
+    }
+
+    /**
+     * Finds a resource by its primary key / identifier.
+     *
+     * @param string  $id       The id
+     * @param boolean $nullable Boolean that checks if the result can be null or not, by default is true
+     *
+     * @return Object|null
+     * @throws \Doctrine\ORM\NoResultException If nullable is false and if the query returned no result.
+     */
+    public function find($id, $nullable = true)
+    {
+        return $nullable ? parent::find($id) : self::findOneBy(['id' => $id], false);
     }
 
     /**
@@ -74,15 +88,18 @@ abstract class AbstractRepository extends EntityRepository
      * Finds the resource by criteria given.
      *
      * @param string[] $criteria Array which contains the criteria as key value
+     * @param boolean  $nullable Boolean that checks if the result can be null or not, by default is true
      *
      * @return Object|null
+     * @throws \Doctrine\ORM\NoResultException If nullable is false and if the query returned no result.
      */
-    public function findOneBy(array $criteria)
+    public function findOneBy(array $criteria, $nullable = true)
     {
         $queryBuilder = $this->getQueryBuilder();
         $this->addCriteria($queryBuilder, $criteria);
+        $query = $queryBuilder->getQuery();
 
-        return $queryBuilder->getQuery()->getOneOrNullResult();
+        return $nullable ? $query->getOneOrNullResult() : $query->getSingleResult();
     }
 
     /**

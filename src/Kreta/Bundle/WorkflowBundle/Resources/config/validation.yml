@@ -32,3 +32,12 @@ Kreta\Component\Workflow\Model\StatusTransition:
         validState:
             - 'True':
                 message: 'The state cannot be an initial state too'
+
+Kreta\Component\Workflow\Model\Workflow:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [name]
+            message: 'A workflow with identical name is already exists'
+    properties:
+        name:
+            - NotBlank: ~

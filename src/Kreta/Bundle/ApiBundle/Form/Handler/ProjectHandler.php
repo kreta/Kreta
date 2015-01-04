@@ -26,7 +26,7 @@ class ProjectHandler extends BaseProjectFormHandler
     /**
      * {@inheritdoc}
      */
-    protected function createForm($object, array $formOptions = [])
+    protected function createForm($object = null, array $formOptions = [])
     {
         return $this->formFactory->create(new ProjectType(), $object, $formOptions);
     }

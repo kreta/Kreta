@@ -82,7 +82,7 @@ class WorkflowController extends AbstractRestController
      *  statusCodes = {
      *    200 = "<data>",
      *    403 = "Not allowed to access this resource",
-     *    404 = "Does not exist any workflow with <$id> id"
+     *    404 = "Does not exist any object with id passed"
      *  }
      * )
      *
@@ -98,12 +98,80 @@ class WorkflowController extends AbstractRestController
         return $this->getWorkflowIfAllowed($workflowId);
     }
 
+    /**
+     * Creates new workflow for name given.
+     *
+     * @ApiDoc(
+     *  description = "Creates new workflow for name given",
+     *  input = "Kreta\Bundle\ApiBundle\Form\Type\WorkflowType",
+     *  output = "Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface",
+     *  requirements = {
+     *    {
+     *      "name"="_format",
+     *      "requirement"="json|jsonp",
+     *      "description"="Supported formats, by default json"
+     *    }
+     *  },
+     *  statusCodes = {
+     *      201 = "<data>",
+     *      400 = {
+     *          "Name should not be blank",
+     *          "A workflow with identical name is already exists",
+     *      }
+     *  }
+     * )
+     *
+     * @View(
+     *  statusCode=201,
+     *  serializerGroups={"workflow"}
+     * )
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
     public function postWorkflowAction()
     {
+        return $this->post2($this->get('kreta_api.form_handler.workflow'));
     }
 
-    public function putWorkflowAction()
+    /**
+     * Updates the workflow of id given.
+     *
+     * @param string $workflowId The workflow id
+     *
+     * @ApiDoc(
+     *  description = "Updates the workflow of id given",
+     *  input = "Kreta\Bundle\ApiBundle\Form\Type\WorkflowType",
+     *  output = "Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface",
+     *  requirements = {
+     *    {
+     *      "name"="_format",
+     *      "requirement"="json|jsonp",
+     *      "description"="Supported formats, by default json"
+     *    }
+     *  },
+     *  statusCodes = {
+     *      200 = "<data>",
+     *      400 = {
+     *          "Name should not be blank",
+     *          "A workflow with identical name is already exists",
+     *      },
+     *      403 = "Not allowed to access this resource",
+     *      404 = "Does not exist any object with id passed"
+     *  }
+     * )
+     *
+     * @View(
+     *  statusCode=200,
+     *  serializerGroups={"workflow"}
+     * )
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function putWorkflowAction($workflowId)
     {
+        return $this->put2(
+            $this->get('kreta_api.form_handler.workflow'), $this->getWorkflowIfAllowed($workflowId, 'edit')
+        );
     }
 
     /**

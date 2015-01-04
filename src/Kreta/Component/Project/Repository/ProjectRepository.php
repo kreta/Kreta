@@ -11,7 +11,7 @@
 
 namespace Kreta\Component\Project\Repository;
 
-use Doctrine\ORM\EntityRepository;
+use Kreta\Component\Core\Repository\Abstracts\AbstractRepository;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
 
@@ -20,18 +20,8 @@ use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
  *
  * @package Kreta\Component\Project\Repository
  */
-class ProjectRepository extends EntityRepository
+class ProjectRepository extends AbstractRepository
 {
-    /**
-     * Finds all the project that exist into database.
-     *
-     * @return \Kreta\Component\Project\Model\Interfaces\ProjectInterface[]
-     */
-    public function findAll()
-    {
-        return $this->createQueryBuilder('p')->getQuery()->getResult();
-    }
-
     /**
      * Finds all the projects of participant given and ordered by value given.
      *
@@ -97,5 +87,13 @@ class ProjectRepository extends EntityRepository
         }
 
         return $queryBuilder->getQuery()->getResult();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getAlias()
+    {
+        return 'p';
     }
 }

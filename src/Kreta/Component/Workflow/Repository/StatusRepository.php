@@ -27,7 +27,7 @@ class StatusRepository extends EntityRepository
      *
      * @param \Kreta\Component\Workflow\Model\Interfaces\StatusInterface $status The status
      */
-    public function save(StatusInterface $status)
+    public function persist(StatusInterface $status)
     {
         $this->_em->persist($status);
         $this->_em->flush();
@@ -38,7 +38,7 @@ class StatusRepository extends EntityRepository
      *
      * @param \Kreta\Component\Workflow\Model\Interfaces\StatusInterface $status The status
      */
-    public function delete(StatusInterface $status)
+    public function remove(StatusInterface $status)
     {
         $this->_em->remove($status);
         $this->_em->flush();

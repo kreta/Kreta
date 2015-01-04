@@ -5,7 +5,7 @@
 # @author benatespina <benatespina@gmail.com>
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
-@api-o
+@api
 Feature: Manage workflow
   In order to manage workflows
   As an API workflow
@@ -493,13 +493,167 @@ Feature: Manage workflow
     And the response should contain json:
     """
       {
-        "error": "Does not exist any entity with unknown-workflow id"
+        "error": "Does not exist any object with id passed"
       }
     """
 
   Scenario: Getting the 2 workflow with the user that is not its project participant
     Given I am authenticating with "access-token-1" token
     When I send a GET request to "/app_test.php/api/workflows/2"
+    Then the response code should be 403
+    And the response should contain json:
+    """
+      {
+        "error": "Not allowed to access this resource"
+      }
+    """
+
+  Scenario: Creating a workflow
+    Given I am authenticating with "access-token-0" token
+    Given I set header "content-type" with value "application/json"
+    When I send a POST request to "/app_test.php/api/workflows" with body:
+    """
+      {
+        "name": "Dummy Workflow"
+      }
+    """
+    Then the response code should be 201
+
+  Scenario: Creating a workflow without required name
+    Given I am authenticating with "access-token-0" token
+    Given I set header "content-type" with value "application/json"
+    When I send a POST request to "/app_test.php/api/workflows" with body:
+    """
+      {
+        "name": ""
+      }
+    """
+    Then the response code should be 400
+    And the response should contain json:
+    """
+      {
+        "name": [
+          "This value should not be blank."
+        ]
+      }
+    """
+
+  Scenario: Creating a workflow with existing name
+    Given I am authenticating with "access-token-0" token
+    Given I set header "content-type" with value "application/json"
+    When I send a POST request to "/app_test.php/api/workflows" with body:
+    """
+      {
+        "name": "Workflow 1"
+      }
+    """
+    Then the response code should be 400
+    And the response should contain json:
+    """
+      {
+        "name": [
+          "A workflow with identical name is already exists"
+        ]
+      }
+    """
+
+  Scenario: Updating a workflow
+    Given I am authenticating with "access-token-0" token
+    Given I set header "content-type" with value "application/json"
+    When I send a PUT request to "/app_test.php/api/workflows/0" with body:
+    """
+      {
+        "name": "New updated Workflow name"
+      }
+    """
+    Then the response code should be 200
+    And the response should contain json:
+    """
+      {
+        "id": "0",
+        "created_at": "2014-11-29T00:00:00+0100",
+        "name": "New updated Workflow name",
+        "_links": {
+          "self": {
+            "href": "http://localhost/app_test.php/api/workflows/0"
+          },
+          "workflows": {
+            "href": "http://localhost/app_test.php/api/workflows"
+          },
+          "transitions": {
+            "href": "http://localhost/app_test.php/api/workflows/0/transitions"
+          },
+          "statuses": {
+            "href": "http://localhost/app_test.php/api/workflows/0/statuses"
+          }
+        }
+      }
+    """
+
+  Scenario: Updating a workflow without required name
+    Given I am authenticating with "access-token-0" token
+    Given I set header "content-type" with value "application/json"
+    When I send a PUT request to "/app_test.php/api/workflows/0" with body:
+    """
+      {
+        "name": ""
+      }
+    """
+    Then the response code should be 400
+    And the response should contain json:
+    """
+      {
+        "name": [
+          "This value should not be blank."
+        ]
+      }
+    """
+
+  Scenario: Updating a workflow with existing name
+    Given I am authenticating with "access-token-0" token
+    Given I set header "content-type" with value "application/json"
+    When I send a PUT request to "/app_test.php/api/workflows/0" with body:
+    """
+      {
+        "name": "Workflow 2"
+      }
+    """
+    Then the response code should be 400
+    And the response should contain json:
+    """
+      {
+        "name": [
+          "A workflow with identical name is already exists"
+        ]
+      }
+    """
+
+  Scenario: Updating an unknown workflow
+    Given I am authenticating with "access-token-0" token
+    Given I set header "content-type" with value "application/json"
+    When I send a PUT request to "/app_test.php/api/workflows/unknown-workflow" with body:
+    """
+      {
+        "name": "Workflow 1"
+      }
+    """
+    Then the response code should be 404
+    And the response should contain json:
+    """
+      {
+          "error": "Does not exist any object with id passed"
+      }
+    """
+
+  Scenario: Updating 0 workflow with the user that is not workflow creator
+    Given I am authenticating with "access-token-1" token
+    Given I set header "content-type" with value "application/json"
+    When I send a PUT request to "/app_test.php/api/workflows/0" with body:
+    """
+      {
+        "name": "Workflow 1"
+      }
+    """
     Then the response code should be 403
     And the response should contain json:
     """

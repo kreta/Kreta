@@ -228,7 +228,7 @@ abstract class AbstractRestController extends FOSRestController
      */
     protected function getProjectIfAllowed($projectId, $projectGrant = 'view')
     {
-        $project = $this->getResourceIfExists($projectId, $this->get('kreta_project.repository.project'));
+        $project = $this->get('kreta_project.repository.project')->find($projectId, false);
 
         if (!$this->get('security.context')->isGranted($projectGrant, $project)) {
             throw new AccessDeniedHttpException('Not allowed to access this resource');
@@ -248,12 +248,34 @@ abstract class AbstractRestController extends FOSRestController
      */
     protected function getWorkflowIfAllowed($workflowId, $workflowGrant = 'view')
     {
-        $workflow = $this->getResourceIfExists($workflowId, $this->get('kreta_workflow.repository.workflow'));
+        $workflow = $this->get('kreta_workflow.repository.workflow')->find($workflowId, false);
 
         if (!$this->get('security.context')->isGranted($workflowGrant, $workflow)) {
             throw new AccessDeniedHttpException('Not allowed to access this resource');
         }
 
         return $workflow;
+    }
+
+    protected function post2(AbstractHandler $formHandler, $resource = null, array $formOptions = ['method' => 'POST'])
+    {
+        $form = $formHandler->handleForm($this->get('request'), $resource, $formOptions);
+
+        if ($form->isValid()) {
+            return !$resource ? $form->getData() : $resource;
+        }
+
+        return $this->createResponse($this->getFormErrors($form), null, Codes::HTTP_BAD_REQUEST);
+    }
+
+    protected function put2(AbstractHandler $formHandler, $resource = null, array $formOptions = ['method' => 'PUT'])
+    {
+        $form = $formHandler->handleForm($this->get('request'), $resource, $formOptions);
+
+        if ($form->isValid()) {
+            return !$resource ? $form->getData() : $resource;
+        }
+
+        return $this->createResponse($this->getFormErrors($form), null, Codes::HTTP_BAD_REQUEST);
     }
 }

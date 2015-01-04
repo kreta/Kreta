@@ -56,17 +56,6 @@ class StatusControllerSpec extends AbstractRestControllerSpec
         $this->shouldHaveType('Kreta\Bundle\ApiBundle\Controller\Abstracts\AbstractRestController');
     }
 
-    function it_does_not_get_statuses_because_the_workflow_does_not_exist(
-        ContainerInterface $container,
-        WorkflowRepository $workflowRepository
-    )
-    {
-        $this->getWorkflowIfExist($container, $workflowRepository);
-
-        $this->shouldThrow(new NotFoundHttpException('Does not exist any entity with workflow-id id'))
-            ->during('getStatusesAction', ['workflow-id']);
-    }
-
     function it_does_not_get_statuses_because_the_user_has_not_the_required_grant(
         ContainerInterface $container,
         WorkflowRepository $workflowRepository,
@@ -95,17 +84,6 @@ class StatusControllerSpec extends AbstractRestControllerSpec
         $viewHandler->handle(Argument::type('FOS\RestBundle\View\View'))->shouldBeCalled()->willReturn($response);
 
         $this->getStatusesAction('workflow-id')->shouldReturn($response);
-    }
-
-    function it_does_not_get_status_because_the_workflow_does_not_exist(
-        ContainerInterface $container,
-        WorkflowRepository $workflowRepository
-    )
-    {
-        $this->getWorkflowIfExist($container, $workflowRepository);
-
-        $this->shouldThrow(new NotFoundHttpException('Does not exist any entity with workflow-id id'))
-            ->during('getStatusAction', ['workflow-id', 'status-id']);
     }
 
     function it_does_not_get_status_because_the_user_has_not_the_required_grant(
@@ -167,26 +145,6 @@ class StatusControllerSpec extends AbstractRestControllerSpec
         $request->get('name')->shouldBeCalled()->willReturn('');
 
         $this->shouldThrow(new BadRequestHttpException('Name should not be blank'))
-            ->during('postStatusesAction', ['workflow-id']);
-    }
-
-    function it_does_not_post_status_because_the_workflow_does_not_exist(
-        ContainerInterface $container,
-        Request $request,
-        StatusFactory $statusFactory,
-        StatusInterface $status,
-        WorkflowRepository $workflowRepository
-    )
-    {
-        $container->get('request')->shouldBeCalled()->willReturn($request);
-        $request->get('name')->shouldBeCalled()->willReturn('status-name');
-
-        $container->get('kreta_workflow.factory.status')->shouldBeCalled()->willReturn($statusFactory);
-        $statusFactory->create('status-name')->shouldBeCalled()->willReturn($status);
-
-        $this->getWorkflowIfExist($container, $workflowRepository);
-
-        $this->shouldThrow(new NotFoundHttpException('Does not exist any entity with workflow-id id'))
             ->during('postStatusesAction', ['workflow-id']);
     }
 
@@ -300,20 +258,6 @@ class StatusControllerSpec extends AbstractRestControllerSpec
         );
 
         $this->postStatusesAction('workflow-id')->shouldReturn($response);
-    }
-
-    function it_does_not_put_status_because_the_workflow_does_not_exist(
-        ContainerInterface $container,
-        StatusHandler $statusHandler,
-        WorkflowRepository $workflowRepository
-    )
-    {
-        $container->get('kreta_api.form_handler.status')->shouldBeCalled()->willReturn($statusHandler);
-
-        $this->getWorkflowIfExist($container, $workflowRepository);
-
-        $this->shouldThrow(new NotFoundHttpException('Does not exist any entity with workflow-id id'))
-            ->during('putStatusesAction', ['workflow-id', 'status-id']);
     }
 
     function it_does_not_put_status_because_the_user_has_not_the_required_grant(
@@ -445,17 +389,6 @@ class StatusControllerSpec extends AbstractRestControllerSpec
         $this->putStatusesAction('workflow-id', 'status-id')->shouldReturn($response);
     }
 
-    function it_does_not_delete_status_because_the_workflow_does_not_exist(
-        ContainerInterface $container,
-        WorkflowRepository $workflowRepository
-    )
-    {
-        $this->getWorkflowIfExist($container, $workflowRepository);
-
-        $this->shouldThrow(new NotFoundHttpException('Does not exist any entity with workflow-id id'))
-            ->during('deleteStatusesAction', ['workflow-id', 'status-id']);
-    }
-
     function it_does_not_delete_status_because_the_user_has_not_the_required_grant(
         ContainerInterface $container,
         WorkflowRepository $workflowRepository,
@@ -559,7 +492,7 @@ class StatusControllerSpec extends AbstractRestControllerSpec
         $status->getId()->shouldBeCalled()->willReturn('status-id-1');
         $status2->getId()->shouldBeCalled()->willReturn('status-id-2');
 
-        $statusRepository->delete($status)->shouldBeCalled();
+        $statusRepository->remove($status)->shouldBeCalled();
 
         $container->get('fos_rest.view_handler')->shouldBeCalled()->willReturn($viewHandler);
         $viewHandler->handle(Argument::type('FOS\RestBundle\View\View'))->shouldBeCalled()->willReturn($response);

@@ -171,7 +171,7 @@ Feature: Manage projects
     And the response should contain json:
     """
       {
-        "error": "Does not exist any entity with unknown-project id"
+        "error": "Does not exist any object with id passed"
       }
     """
 

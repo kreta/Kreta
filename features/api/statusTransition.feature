@@ -139,7 +139,7 @@ Feature: Manage status transition
     And the response should contain json:
     """
       {
-        "error": "Does not exist any entity with unknown-workflow id"
+        "error": "Does not exist any object with id passed"
       }
     """
 
@@ -201,7 +201,7 @@ Feature: Manage status transition
     And the response should contain json:
     """
       {
-        "error": "Does not exist any entity with unknown-workflow id"
+        "error": "Does not exist any object with id passed"
       }
     """
 
@@ -258,7 +258,7 @@ Feature: Manage status transition
     And the response should contain json:
     """
       {
-        "error": "Does not exist any entity with unknown-workflow id"
+        "error": "Does not exist any object with id passed"
       }
     """
 
@@ -399,7 +399,7 @@ Feature: Manage status transition
     And the response should contain json:
     """
       {
-        "error": "Does not exist any entity with unknown-workflow id"
+        "error": "Does not exist any object with id passed"
       }
     """
 
@@ -442,7 +442,7 @@ Feature: Manage status transition
     And the response should contain json:
     """
       {
-        "error": "Does not exist any entity with unknown-workflow id"
+        "error": "Does not exist any object with id passed"
       }
     """
 
@@ -508,7 +508,7 @@ Feature: Manage status transition
     And the response should contain json:
     """
       {
-        "error": "Does not exist any entity with unknown-workflow id"
+        "error": "Does not exist any object with id passed"
       }
     """
 
@@ -566,7 +566,7 @@ Feature: Manage status transition
     And the response should contain json:
     """
       {
-        "error": "Does not exist any entity with unknown-workflow id"
+        "error": "Does not exist any object with id passed"
       }
     """
 
@@ -613,7 +613,7 @@ Feature: Manage status transition
     And the response should contain json:
     """
       {
-        "error": "Does not exist any entity with unknown-workflow id"
+        "error": "Does not exist any object with id passed"
       }
     """
 
@@ -693,7 +693,7 @@ Feature: Manage status transition
     And the response should contain json:
     """
       {
-        "error": "Does not exist any entity with unknown-workflow id"
+        "error": "Does not exist any object with id passed"
       }
     """
 
