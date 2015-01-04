@@ -9,10 +9,9 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\Bundle\WebBundle\NotifiableEvent;
+namespace Kreta\Component\Notification\NotifiableEvent;
 
 use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
-use Kreta\Component\Notification\NotifiableEvent\NotifiableEventInterface;
 use Kreta\Component\Notification\Model\Notification;
 use Symfony\Component\Routing\RouterInterface;
 

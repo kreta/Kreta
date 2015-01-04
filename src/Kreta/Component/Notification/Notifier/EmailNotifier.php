@@ -9,10 +9,9 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\Bundle\WebBundle\Notifier;
+namespace Kreta\Component\Notification\Notifier;
 
 use Kreta\Component\Notification\Model\Interfaces\NotificationInterface;
-use Kreta\Component\Notification\Notifier\NotifierInterface;
 
 class EmailNotifier implements  NotifierInterface
 {

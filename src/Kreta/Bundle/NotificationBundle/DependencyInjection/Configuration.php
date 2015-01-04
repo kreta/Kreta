@@ -27,7 +27,20 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder()
     {
         $treeBuilder = new TreeBuilder();
-        $treeBuilder->root('kreta_notification');
+        $treeBuilder->root('kreta_notification')
+            ->children()
+                ->arrayNode('notifier')
+                    ->addDefaultsIfNotSet()
+                    ->children()
+                        ->arrayNode('email')
+                            ->addDefaultsIfNotSet()
+                            ->children()
+                                ->booleanNode('enabled')->isRequired()->defaultTrue()->end()
+                            ->end()
+                        ->end()
+                    ->end()
+                ->end()
+            ->end();
 
         return $treeBuilder;
     }
