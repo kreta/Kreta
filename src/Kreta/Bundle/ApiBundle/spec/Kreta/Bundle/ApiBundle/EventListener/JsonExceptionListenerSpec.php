@@ -11,6 +11,8 @@
 
 namespace spec\Kreta\Bundle\ApiBundle\EventListener;
 
+use Doctrine\ORM\NoResultException;
+use Kreta\Bundle\CoreBundle\Form\Handler\Exception\InvalidFormException;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,7 +30,7 @@ class JsonExceptionListenerSpec extends ObjectBehavior
         $this->shouldHaveType('Kreta\Bundle\ApiBundle\EventListener\JsonExceptionListener');
     }
 
-    function it_converts_exception_into_json_response(
+    function it_converts_exception_into_json_response_by_default_option(
         GetResponseForExceptionEvent $event,
         Request $request,
         \Exception $exception
@@ -37,6 +39,39 @@ class JsonExceptionListenerSpec extends ObjectBehavior
         $event->getRequest()->shouldBeCalled()->willReturn($request);
         $request->getRequestFormat()->shouldBeCalled()->willReturn('json');
         $event->getException()->shouldBeCalled()->willReturn($exception);
+        $event->setResponse(Argument::type('Symfony\Component\HttpFoundation\JsonResponse'))->shouldBeCalled();
+
+        $this->onKernelException($event);
+    }
+
+    function it_converts_doctrines_no_result_exception_into_json_response(
+        GetResponseForExceptionEvent $event,
+        Request $request,
+        NoResultException $exception
+    )
+    {
+        $event->getRequest()->shouldBeCalled()->willReturn($request);
+        $request->getRequestFormat()->shouldBeCalled()->willReturn('json');
+        $event->getException()->shouldBeCalled()->willReturn($exception);
+        $event->setResponse(Argument::type('Symfony\Component\HttpFoundation\JsonResponse'))->shouldBeCalled();
+
+        $this->onKernelException($event);
+    }
+
+    function it_converts_kretas_invalid_form_exception_into_json_response(
+        GetResponseForExceptionEvent $event,
+        Request $request,
+        InvalidFormException $exception
+    )
+    {
+        $event->getRequest()->shouldBeCalled()->willReturn($request);
+        $request->getRequestFormat()->shouldBeCalled()->willReturn('json');
+        $event->getException()->shouldBeCalled()->willReturn($exception);
+        $exception->getFormErrors()->shouldBeCalled()->willReturn(
+            ['name' =>
+                 ['This value should not be blank', 'An object with identical name is already exists']
+            ]
+        );
         $event->setResponse(Argument::type('Symfony\Component\HttpFoundation\JsonResponse'))->shouldBeCalled();
 
         $this->onKernelException($event);

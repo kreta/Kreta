@@ -13,18 +13,17 @@ namespace Kreta\Bundle\ApiBundle\Form\Type;
 
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use Kreta\Component\Workflow\Factory\WorkflowFactory;
-use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Security\Core\SecurityContextInterface;
+use Kreta\Bundle\WorkflowBundle\Form\Type\WorkflowType as BaseWorkflowType;
 
 /**
  * Class WorkflowType.
  *
  * @package Kreta\Bundle\ApiBundle\Form\Type
  */
-class WorkflowType extends AbstractType
+class WorkflowType extends BaseWorkflowType
 {
     /**
      * The context.
@@ -55,14 +54,6 @@ class WorkflowType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function buildForm(FormBuilderInterface $builder, array $options)
-    {
-        $builder->add('name', null);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
@@ -73,6 +64,7 @@ class WorkflowType extends AbstractType
                 if (!($user instanceof UserInterface)) {
                     throw new \Exception('User is not logged');
                 }
+
                 return $this->factory->create($form->get('name')->getData(), $user, true);
             }
         ]);

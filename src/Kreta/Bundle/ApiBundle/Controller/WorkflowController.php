@@ -130,7 +130,7 @@ class WorkflowController extends AbstractRestController
      */
     public function postWorkflowAction()
     {
-        return $this->post2($this->get('kreta_api.form_handler.workflow'));
+        return $this->get('kreta_api.form_handler.workflow')->processForm($this->get('request'));
     }
 
     /**
@@ -169,8 +169,8 @@ class WorkflowController extends AbstractRestController
      */
     public function putWorkflowAction($workflowId)
     {
-        return $this->put2(
-            $this->get('kreta_api.form_handler.workflow'), $this->getWorkflowIfAllowed($workflowId, 'edit')
+        return $this->get('kreta_api.form_handler.workflow')->processForm(
+            $this->get('request'), $this->getWorkflowIfAllowed($workflowId, 'edit'), ['method' => 'PUT']
         );
     }
 

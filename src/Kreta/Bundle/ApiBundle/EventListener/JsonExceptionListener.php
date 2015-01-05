@@ -11,6 +11,8 @@
 
 namespace Kreta\Bundle\ApiBundle\EventListener;
 
+use Doctrine\ORM\NoResultException;
+use Kreta\Bundle\CoreBundle\Form\Handler\Exception\InvalidFormException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 
@@ -33,10 +35,14 @@ class JsonExceptionListener
         if ($event->getRequest()->getRequestFormat() === 'json') {
             $exception = $event->getException();
             $response = new JsonResponse();
-            switch (get_class($exception)) {
-                case 'Doctrine\ORM\NoResultException':
+            switch ($exception) {
+                case ($exception instanceof NoResultException):
                     $response->setStatusCode(404);
                     $response->setData(['error' => 'Does not exist any object with id passed']);
+                    break;
+                case ($exception instanceof InvalidFormException):
+                    $response->setStatusCode(400);
+                    $response->setData($exception->getFormErrors());
                     break;
                 default:
                     $response->setData(['error' => $exception->getMessage()]);

@@ -256,26 +256,4 @@ abstract class AbstractRestController extends FOSRestController
 
         return $workflow;
     }
-
-    protected function post2(AbstractHandler $formHandler, $resource = null, array $formOptions = ['method' => 'POST'])
-    {
-        $form = $formHandler->handleForm($this->get('request'), $resource, $formOptions);
-
-        if ($form->isValid()) {
-            return !$resource ? $form->getData() : $resource;
-        }
-
-        return $this->createResponse($this->getFormErrors($form), null, Codes::HTTP_BAD_REQUEST);
-    }
-
-    protected function put2(AbstractHandler $formHandler, $resource = null, array $formOptions = ['method' => 'PUT'])
-    {
-        $form = $formHandler->handleForm($this->get('request'), $resource, $formOptions);
-
-        if ($form->isValid()) {
-            return !$resource ? $form->getData() : $resource;
-        }
-
-        return $this->createResponse($this->getFormErrors($form), null, Codes::HTTP_BAD_REQUEST);
-    }
 }

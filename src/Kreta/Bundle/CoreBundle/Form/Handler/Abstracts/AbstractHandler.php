@@ -12,9 +12,11 @@
 namespace Kreta\Bundle\CoreBundle\Form\Handler\Abstracts;
 
 use Doctrine\Common\Persistence\ObjectManager;
+use Kreta\Bundle\CoreBundle\Form\Handler\Exception\InvalidFormException;
 use Kreta\Bundle\WebBundle\Event\FormHandlerEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactory;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\FileBag;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -76,6 +78,28 @@ abstract class AbstractHandler
         $this->formFactory = $formFactory;
         $this->manager = $manager;
         $this->eventDispatcher = $eventDispatcher;
+    }
+
+    /**
+     * Wrapper which envelops all the logic that has the form process. All the process can be changed extending it.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request     Contains values sent by the user
+     * @param Object|null                               $object      The object to be edited with form content
+     * @param array                                     $formOptions Array which contains the options that will be
+     *                                                               passed in the form create method
+     *
+     * @return mixed
+     * @throws \Kreta\Bundle\CoreBundle\Form\Handler\Exception\InvalidFormException
+     */
+    public function processForm(Request $request, $object = null, array $formOptions = [])
+    {
+        $form = $this->handleForm($request, $object, $formOptions);
+
+        if (!$form->isValid()) {
+            throw new InvalidFormException($this->getFormErrors($form));
+        }
+
+        return !$object ? $form->getData() : $object;
     }
 
     /**
@@ -150,6 +174,8 @@ abstract class AbstractHandler
 
     /**
      * Dispatches success event. By default it uses $successMessage for the message.
+     *
+     * @return void
      */
     protected function dispatchSuccess()
     {
@@ -161,6 +187,8 @@ abstract class AbstractHandler
 
     /**
      * Dispatches error event. By default it uses $errorMessage for the message.
+     *
+     * @return void
      */
     protected function dispatchError()
     {
@@ -168,5 +196,27 @@ abstract class AbstractHandler
             FormHandlerEvent::NAME,
             new FormHandlerEvent(FormHandlerEvent::TYPE_ERROR, $this->errorMessage)
         );
+    }
+
+    /**
+     * Returns all the errors from form into array.
+     *
+     * @param \Symfony\Component\Form\FormInterface $form The form
+     *
+     * @return array
+     */
+    protected function getFormErrors(FormInterface $form)
+    {
+        $errors = [];
+        foreach ($form->getErrors() as $error) {
+            $errors[] = $error->getMessage();
+        }
+        foreach ($form->all() as $child) {
+            if (!$child->isValid()) {
+                $errors[$child->getName()] = $this->getFormErrors($child);
+            }
+        }
+
+        return $errors;
     }
 }
