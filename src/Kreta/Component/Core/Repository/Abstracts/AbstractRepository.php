@@ -71,7 +71,7 @@ abstract class AbstractRepository extends EntityRepository
      */
     public function find($id, $nullable = true)
     {
-        return $nullable ? parent::find($id) : self::findOneBy(['id' => $id], false);
+        return $nullable ? parent::find($id) : $this->findOneBy(['id' => $id], false);
     }
 
     /**
@@ -89,14 +89,15 @@ abstract class AbstractRepository extends EntityRepository
      *
      * @param string[] $criteria Array which contains the criteria as key value
      * @param boolean  $nullable Boolean that checks if the result can be null or not, by default is true
+     * @param boolean  $strict   The strict mode, by default is true
      *
      * @return Object|null
      * @throws \Doctrine\ORM\NoResultException If nullable is false and if the query returned no result.
      */
-    public function findOneBy(array $criteria, $nullable = true)
+    public function findOneBy(array $criteria, $nullable = true, $strict = true)
     {
         $queryBuilder = $this->getQueryBuilder();
-        $this->addCriteria($queryBuilder, $criteria);
+        $this->addCriteria($queryBuilder, $criteria, $strict);
         $query = $queryBuilder->getQuery();
 
         return $nullable ? $query->getOneOrNullResult() : $query->getSingleResult();
@@ -110,13 +111,14 @@ abstract class AbstractRepository extends EntityRepository
      * @param string[] $sorting  Array which contains the sorting as key value
      * @param int      $limit    The limit
      * @param int      $offset   The offset
+     * @param boolean  $strict   The strict mode, by default is true
      *
      * @return array
      */
-    public function findBy(array $criteria, array $sorting = [], $limit = null, $offset = null)
+    public function findBy(array $criteria, array $sorting = [], $limit = null, $offset = null, $strict = true)
     {
         $queryBuilder = $this->getQueryBuilder();
-        $this->addCriteria($queryBuilder, $criteria);
+        $this->addCriteria($queryBuilder, $criteria, $strict);
         $this->orderBy($queryBuilder, $sorting);
         if ($limit) {
             $queryBuilder->setMaxResults($limit);
@@ -143,21 +145,27 @@ abstract class AbstractRepository extends EntityRepository
      *
      * @param \Doctrine\ORM\QueryBuilder $queryBuilder The query builder
      * @param string[]                   $criteria     Array which contains the criteria as key value
+     * @param boolean                    $strict       Boolean that checks if it is strict or not, useful to determine
+     *                                                 if the query is eq or like
      *
      * @return \Doctrine\ORM\QueryBuilder
      */
-    protected function addCriteria(QueryBuilder $queryBuilder, array $criteria = [])
+    protected function addCriteria(QueryBuilder $queryBuilder, array $criteria = [], $strict = true)
     {
         foreach ($criteria as $property => $value) {
-            if (null === $value) {
-                $queryBuilder
-                    ->andWhere($queryBuilder->expr()->isNull($this->getPropertyName($property)));
+            $rand = mt_rand();
+            if ($strict && (null === $value)) {
+                $queryBuilder->andWhere($queryBuilder->expr()->isNull($this->getPropertyName($property)));
             } elseif (is_array($value)) {
                 $queryBuilder->andWhere($queryBuilder->expr()->in($this->getPropertyName($property), $value));
-            } elseif ('' !== $value) {
+            } elseif (!$strict && (null !== $value) && ('' !== $value)) {
                 $queryBuilder
-                    ->andWhere($queryBuilder->expr()->eq($this->getPropertyName($property), ':' . $property))
-                    ->setParameter($property, $value);
+                    ->andWhere($queryBuilder->expr()->like($this->getPropertyName($property), ':likeValue' . $rand))
+                    ->setParameter('likeValue' . $rand, '%' . $value . '%');
+            } elseif ($strict && ('' !== $value)) {
+                $queryBuilder
+                    ->andWhere($queryBuilder->expr()->eq($this->getPropertyName($property), ':eqValue' . $rand))
+                    ->setParameter('eqValue' . $rand, $value);
             }
         }
 
@@ -176,7 +184,8 @@ abstract class AbstractRepository extends EntityRepository
     protected function orderBy(QueryBuilder $queryBuilder, array $sorting = [])
     {
         foreach ($sorting as $property => $order) {
-            if (empty($order)) {
+            if (!(array_keys($sorting) !== range(0, count($sorting) - 1))) {
+                $property = $order;
                 $order = 'DESC';
             }
             $queryBuilder->addOrderBy($this->getPropertyName($property), $order);
@@ -194,10 +203,6 @@ abstract class AbstractRepository extends EntityRepository
      */
     protected function getPropertyName($name)
     {
-        if (!strpos($name, '.')) {
-            return $this->getAlias() . '.' . $name;
-        }
-
-        return $name;
+        return !strpos($name, '.') ? $this->getAlias() . '.' . $name : $name;
     }
 }

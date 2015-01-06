@@ -16,11 +16,11 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
+use Kreta\Component\Core\spec\Kreta\Component\Core\Repository\Abstracts\BaseRepository;
 use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
-use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
 /**
@@ -28,7 +28,7 @@ use Prophecy\Argument;
  *
  * @package spec\Kreta\Component\Issue\Repository
  */
-class IssueRepositorySpec extends ObjectBehavior
+class IssueRepositorySpec extends BaseRepository
 {
     function let(EntityManager $manager, ClassMetadata $metadata)
     {
@@ -40,9 +40,9 @@ class IssueRepositorySpec extends ObjectBehavior
         $this->shouldHaveType('Kreta\Component\Issue\Repository\IssueRepository');
     }
 
-    function it_extends_entity_repository()
+    function it_extends_abstract_repository()
     {
-        $this->shouldHaveType('Doctrine\ORM\EntityRepository');
+        $this->shouldHaveType('Kreta\Component\Core\Repository\Abstracts\AbstractRepository');
     }
 
     function it_finds_by_project(
@@ -51,44 +51,22 @@ class IssueRepositorySpec extends ObjectBehavior
         QueryBuilder $queryBuilder,
         Expr $expr,
         Expr\Comparison $comparison,
-        AbstractQuery $query
+        AbstractQuery $query,
+        IssueInterface $issue
     )
     {
-        $manager->createQueryBuilder()->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->select(['i', 'a', 'c', 'l', 'p', 'r', 'rep', 's', 'w'])
-            ->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->from(Argument::any(), 'i')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->leftJoin('i.assignee', 'a')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->leftJoin('i.comments', 'c')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->leftJoin('i.labels', 'l')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->leftJoin('i.project', 'p')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->leftJoin('i.resolution', 'r')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->leftJoin('i.reporter', 'rep')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->leftJoin('i.status', 's')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->leftJoin('i.watchers', 'w')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->expr()->shouldBeCalled()->willReturn($expr);
-        $expr->eq('i.project', ':project')->shouldBeCalled()->willReturn($comparison);
-        $queryBuilder->where($comparison)->shouldBeCalled()->willReturn($queryBuilder);
-        $project->getId()->shouldBeCalled()->willReturn('project-id');
-        $queryBuilder->andWhere(' 1=1 AND i.title LIKE :title AND a.email LIKE :aemail ')
-            ->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->setParameters(
-            ['title' => '%title-of-project%', 'aemail' => '%user@kreta.com%', 'project' => 'project-id']
-        )->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder = $this->getQueryBuilderSpec($manager, $queryBuilder);
+        $this->addCriteriaSpec($queryBuilder, $expr, ['project' => $project], $comparison);
+        $this->addCriteriaSpec($queryBuilder, $expr, ['title' => 'project name'], $comparison, 'like');
+        $this->orderBySpec($queryBuilder, ['title' => 'DESC']);
         $queryBuilder->setMaxResults(10)->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->setFirstResult(0)->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->orderBy('i.status', 'DESC')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->setFirstResult(1)->shouldBeCalled()->willReturn($queryBuilder);
 
         $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
-        $query->getResult()->shouldBeCalled()->willReturn([]);
+        $query->getResult()->shouldBeCalled()->willReturn([$issue]);
 
-        $this->findByProject(
-            $project,
-            ['status' => 'DESC'],
-            10,
-            0,
-            ['title' => 'title-of-project', 'a.email' => 'user@kreta.com']
-        )->shouldBeArray();
+        $this->findByProject($project, ['title' => 'project name'], ['title' => 'DESC'], 10, 1)
+            ->shouldReturn([$issue]);
     }
 
     function it_finds_by_reporter(
@@ -114,29 +92,6 @@ class IssueRepositorySpec extends ObjectBehavior
         $this->findByReporter($reporter)->shouldBeArray();
     }
 
-    function it_does_not_find_by_assignee_because_the_order_is_not_a_valid_filter(
-        UserInterface $assignee,
-        EntityManager $manager,
-        QueryBuilder $queryBuilder,
-        Expr $expr,
-        Expr\Comparison $comparison
-    )
-    {
-        $manager->createQueryBuilder()->shouldBeCalled()->willReturn($queryBuilder);
-
-        $queryBuilder->select('i')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->from(Argument::any(), 'i')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->leftJoin('i.status', 'st')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->expr()->shouldBeCalled()->willReturn($expr);
-        $expr->eq('i.assignee', ':assignee')->shouldBeCalled()->willReturn($comparison);
-        $queryBuilder->where($comparison)->shouldBeCalled()->willReturn($queryBuilder);
-        $assignee->getId()->shouldBeCalled()->willReturn('assignee-id');
-        $queryBuilder->setParameter(':assignee', 'assignee-id')->shouldBeCalled()->willReturn($queryBuilder);
-
-        $this->shouldThrow(new \Exception('unknown-filter is not a valid filter'))
-            ->during('findByAssignee', [$assignee, ['unknown-filter' => 'DESC'], false]);
-    }
-
     function it_finds_by_assignee(
         UserInterface $assignee,
         EntityManager $manager,
@@ -156,7 +111,7 @@ class IssueRepositorySpec extends ObjectBehavior
         $queryBuilder->where($comparison)->shouldBeCalled()->willReturn($queryBuilder);
         $assignee->getId()->shouldBeCalled()->willReturn('assignee-id');
         $queryBuilder->setParameter(':assignee', 'assignee-id')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->orderBy('i.status', 'DESC')->shouldBeCalled()->willReturn($queryBuilder);
+        $this->orderBySpec($queryBuilder, ['status' => 'DESC']);
         $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
         $query->getResult()->shouldBeCalled()->willReturn([]);
 
@@ -244,5 +199,29 @@ class IssueRepositorySpec extends ObjectBehavior
         $query->getResult()->shouldBeCalled()->willReturn([$issue]);
 
         $this->findByWorkflow($workflow)->shouldBeArray();
+    }
+
+    protected function getQueryBuilderSpec(EntityManager $manager, QueryBuilder $queryBuilder)
+    {
+        $manager->createQueryBuilder()->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->select('i')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->addSelect(['a', 'c', 'l', 'p', 'r', 'rep', 's', 'w'])
+            ->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->from(Argument::any(), 'i')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->leftJoin('i.assignee', 'a')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->leftJoin('i.comments', 'c')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->leftJoin('i.labels', 'l')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->leftJoin('i.project', 'p')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->leftJoin('i.resolution', 'r')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->leftJoin('i.reporter', 'rep')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->leftJoin('i.status', 's')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->leftJoin('i.watchers', 'w')->shouldBeCalled()->willReturn($queryBuilder);
+
+        return $queryBuilder;
+    }
+
+    protected function getAlias()
+    {
+        return 'i';
     }
 }

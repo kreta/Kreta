@@ -28,7 +28,7 @@ services:
 
     kreta_api.form_handler.issue:
         class: Kreta\Bundle\ApiBundle\Form\Handler\IssueHandler
-        arguments: [@form.factory, @doctrine.orm.entity_manager, @event_dispatcher]
+        arguments: [@form.factory, @doctrine.orm.entity_manager, @event_dispatcher, @security.context, @kreta_issue.factory.issue]
 
     kreta_api.form_handler.status:
         class: Kreta\Bundle\ApiBundle\Form\Handler\StatusHandler

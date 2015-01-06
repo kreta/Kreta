@@ -11,11 +11,11 @@
 
 namespace Kreta\Bundle\ApiBundle\Controller;
 
-use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Request\ParamFetcher;
 use Kreta\Bundle\ApiBundle\Controller\Abstracts\AbstractRestController;
+use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
 /**
  * Class WorkflowController.
@@ -53,7 +53,7 @@ class WorkflowController extends AbstractRestController
      *  serializerGroups={"workflowList"}
      * )
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface[]
      */
     public function getWorkflowsAction(ParamFetcher $paramFetcher)
     {
@@ -91,7 +91,7 @@ class WorkflowController extends AbstractRestController
      *  serializerGroups={"workflow"}
      * )
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface
      */
     public function getWorkflowAction($workflowId)
     {
@@ -126,7 +126,7 @@ class WorkflowController extends AbstractRestController
      *  serializerGroups={"workflow"}
      * )
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface
      */
     public function postWorkflowAction()
     {
@@ -165,7 +165,7 @@ class WorkflowController extends AbstractRestController
      *  serializerGroups={"workflow"}
      * )
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @return \Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface
      */
     public function putWorkflowAction($workflowId)
     {

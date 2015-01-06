@@ -11,9 +11,8 @@
 
 namespace Kreta\Component\Issue\Repository;
 
-use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\QueryBuilder;
 use Finite\State\StateInterface;
+use Kreta\Component\Core\Repository\Abstracts\AbstractRepository;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
@@ -23,75 +22,42 @@ use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
  *
  * @package Kreta\Component\Issue\Repository
  */
-class IssueRepository extends EntityRepository
+class IssueRepository extends AbstractRepository
 {
     /**
-     * Array that contains the default valid filters to use in ordering.
-     *
-     * @var string[]
-     */
-    private $validFilters = ['status', 'priority', 'createdAt', 'title'];
-
-    /**
      * Finds all the issues of project given.
+     * Can do ordering, limit and offset.
      *
-     * Can do pagination if $page is changed, starting from 0 and it can
-     * limit the search if $count is changed. Furthermore, it can filter
-     * by issue title, assignee, reporter, watcher, priority, status and type.
+     * Furthermore, it can filter by issue title, assignee, reporter, watcher, priority, status and type.
      *
      * @param \Kreta\Component\Project\Model\Interfaces\ProjectInterface $project The project
-     * @param array                                                      $orderBy Array that contains the orders
-     * @param int                                                        $count   The number of results
-     * @param int                                                        $page    The number of page
-     * @param array                                                      $filters Array that contains all the filter
-     *                                                                            that support this method
+     * @param array                                                      $filters Array which contains all the filters
+     *                                                                            for search the results in the query
+     * @param string[]                                                   $sorting Array which contains the sorting as
+     *                                                                            key value
+     * @param int                                                        $limit   The limit
+     * @param int                                                        $offset  The offset
      *
      * @return \Kreta\Component\Issue\Model\Interfaces\IssueInterface[]
      */
     public function findByProject(
         ProjectInterface $project,
-        array $orderBy = ['createdAt' => 'ASC'],
-        $count = 10,
-        $page = 0,
-        array $filters = []
+        array $filters = [],
+        array $sorting = [],
+        $limit = null,
+        $offset = null
     )
     {
-        $whereSql = ' 1=1 ';
-        $parameters = [];
-        foreach ($filters as $key => $filter) {
-            if ($filter !== '') {
-                if (strpos($key, '.') !== false) {
-                    list($classPrefix, $key) = explode('.', $key);
-                    $whereSql .= 'AND ' . $classPrefix . '.' . $key . ' LIKE :' . $classPrefix . $key . ' ';
-                    $parameters[$classPrefix . $key] = '%' . $filter . '%';
-                } else {
-                    $whereSql .= 'AND i.' . $key . ' LIKE :' . $key . ' ';
-                    $parameters[$key] = '%' . $filter . '%';
-                }
-            }
+        $queryBuilder = $this->getQueryBuilder();
+        $this->addCriteria($queryBuilder, ['project' => $project]);
+        $this->addCriteria($queryBuilder, $filters, false);
+        $this->orderBy($queryBuilder, $sorting);
+        if ($limit) {
+            $queryBuilder->setMaxResults($limit);
         }
-        $parameters['project'] = $project->getId();
-
-        $queryBuilder = $this->_em->createQueryBuilder();
-        $queryBuilder->select(['i', 'a', 'c', 'l', 'p', 'r', 'rep', 's', 'w'])
-            ->from($this->_entityName, 'i')
-            ->leftJoin('i.assignee', 'a')
-            ->leftJoin('i.comments', 'c')
-            ->leftJoin('i.labels', 'l')
-            ->leftJoin('i.project', 'p')
-            ->leftJoin('i.resolution', 'r')
-            ->leftJoin('i.reporter', 'rep')
-            ->leftJoin('i.status', 's')
-            ->leftJoin('i.watchers', 'w')
-            ->where($queryBuilder->expr()->eq('i.project', ':project'))
-            ->andWhere($whereSql)
-            ->setParameters($parameters);
-        if ($count !== 0) {
-            $queryBuilder
-                ->setMaxResults($count)
-                ->setFirstResult($count * $page);
+        if ($offset) {
+            $queryBuilder->setFirstResult($offset);
         }
-        $queryBuilder = $this->orderBy($queryBuilder, $orderBy);
 
         return $queryBuilder->getQuery()->getResult();
     }
@@ -181,26 +147,28 @@ class IssueRepository extends EntityRepository
             ->getQuery()->getResult();
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    protected function getQueryBuilder()
+    {
+        return parent::getQueryBuilder()
+            ->addSelect(['a', 'c', 'l', 'p', 'r', 'rep', 's', 'w'])
+            ->leftJoin('i.assignee', 'a')
+            ->leftJoin('i.comments', 'c')
+            ->leftJoin('i.labels', 'l')
+            ->leftJoin('i.project', 'p')
+            ->leftJoin('i.resolution', 'r')
+            ->leftJoin('i.reporter', 'rep')
+            ->leftJoin('i.status', 's')
+            ->leftJoin('i.watchers', 'w');
+    }
 
     /**
-     * Manages the order by statement into queries.
-     *
-     * @param \Doctrine\ORM\QueryBuilder $queryBuilder The query builder
-     * @param string[]                   $orderBy      Array that contains the orders
-     *
-     * @return \Doctrine\ORM\QueryBuilder
-     * @throws \Exception when it is not a valid filter
+     * {@inheritdoc}
      */
-    protected function orderBy(QueryBuilder $queryBuilder, array $orderBy = [])
+    protected function getAlias()
     {
-        foreach ($orderBy as $sort => $order) {
-            if (in_array($sort, $this->validFilters)) {
-                $queryBuilder->orderBy('i.' . $sort, $order);
-            } else {
-                throw new \Exception($sort . ' is not a valid filter');
-            }
-        }
-
-        return $queryBuilder;
+        return 'i';
     }
 }

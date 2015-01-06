@@ -12,8 +12,10 @@
 namespace spec\Kreta\Bundle\ApiBundle\Form\Handler;
 
 use Doctrine\Common\Persistence\ObjectManager;
+use Kreta\Component\Issue\Factory\IssueFactory;
 use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
 use Kreta\Component\Project\Model\Interfaces\ParticipantInterface;
+use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
@@ -21,6 +23,7 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
  * Class IssueHandlerSpec.
@@ -32,10 +35,12 @@ class IssueHandlerSpec extends ObjectBehavior
     function let(
         FormFactory $formFactory,
         ObjectManager $manager,
-        EventDispatcherInterface $eventDispatcher
+        EventDispatcherInterface $eventDispatcher,
+        SecurityContextInterface $context,
+        IssueFactory $issueFactory
     )
     {
-        $this->beConstructedWith($formFactory, $manager, $eventDispatcher);
+        $this->beConstructedWith($formFactory, $manager, $eventDispatcher, $context, $issueFactory);
     }
 
     function it_is_initializable()
@@ -48,9 +53,9 @@ class IssueHandlerSpec extends ObjectBehavior
         $this->shouldHaveType('Kreta\Bundle\IssueBundle\Form\Handler\IssueHandler');
     }
 
-    function it_does_not_handle_form_because_participants_key_does_not_exist(IssueInterface $issue, Request $request)
+    function it_does_not_handle_form_because_project_key_does_not_exist(IssueInterface $issue, Request $request)
     {
-        $this->shouldThrow(new ParameterNotFoundException('participants'))
+        $this->shouldThrow(new ParameterNotFoundException('project'))
             ->during('handleForm', [$request, $issue, []]);
     }
 
@@ -59,12 +64,14 @@ class IssueHandlerSpec extends ObjectBehavior
         IssueInterface $issue,
         FormFactory $formFactory,
         FormInterface $form,
+        ProjectInterface $project,
         ParticipantInterface $participant
     )
     {
+        $project->getParticipants()->shouldBeCalled()->willReturn([$participant]);
         $formFactory->create(Argument::type('\Kreta\Bundle\ApiBundle\Form\Type\IssueType'), $issue, [])
             ->shouldBeCalled()->willReturn($form);
 
-        $this->handleForm($request, $issue, ['participants' => [$participant]])->shouldReturn($form);
+        $this->handleForm($request, $issue, ['project' => $project])->shouldReturn($form);
     }
 }

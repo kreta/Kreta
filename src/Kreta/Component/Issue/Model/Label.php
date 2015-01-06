@@ -42,7 +42,7 @@ class Label extends AbstractModel implements LabelInterface
      */
     public function setName($name)
     {
-        $this->name = Slugger::slugify($name);
+        $this->name = $name;
 
         return $this;
     }
