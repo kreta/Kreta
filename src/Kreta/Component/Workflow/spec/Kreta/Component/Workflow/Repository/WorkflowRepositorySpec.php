@@ -14,15 +14,15 @@ namespace spec\Kreta\Component\Workflow\Repository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Query\Expr;
-use PhpSpec\ObjectBehavior;
+use Kreta\Component\Core\spec\Kreta\Component\Core\Repository\Abstracts\BaseRepository;
 use Prophecy\Argument;
 
 /**
- * Class StatusTransitionRepositorySpec.
+ * Class WorkflowRepositorySpec.
  *
  * @package spec\Kreta\Component\Workflow\Repository
  */
-class StatusTransitionRepositorySpec extends ObjectBehavior
+class WorkflowRepositorySpec extends BaseRepository
 {
     function let(EntityManager $manager, ClassMetadata $metadata)
     {
@@ -31,7 +31,7 @@ class StatusTransitionRepositorySpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('Kreta\Component\Workflow\Repository\StatusTransitionRepository');
+        $this->shouldHaveType('Kreta\Component\Workflow\Repository\WorkflowRepository');
     }
 
     function it_extends_abstract_repository()

@@ -12,6 +12,7 @@
 namespace Kreta\Bundle\ApiBundle\Controller;
 
 use FOS\RestBundle\Controller\Annotations\QueryParam;
+use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Request\ParamFetcher;
 use Kreta\Bundle\ApiBundle\Controller\Abstracts\AbstractRestController;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
@@ -24,16 +25,16 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 class ProjectController extends AbstractRestController
 {
     /**
-     * Returns all the projects of current user, it admits ordering, count and pagination.
+     * Returns all the projects of current user, it admits sort, limit and offset.
      *
      * @param \FOS\RestBundle\Request\ParamFetcher $paramFetcher The param fetcher
      *
-     * @QueryParam(name="order", requirements="(name|shortName)", default="name", description="Order")
-     * @QueryParam(name="count", requirements="\d+", default="9999", description="Amount of projects to be returned")
-     * @QueryParam(name="page", requirements="\d+", default="0", description="Offset in pages")
+     * @QueryParam(name="sort", requirements="(name|shortName)", default="name", description="Sort")
+     * @QueryParam(name="limit", requirements="\d+", default="9999", description="Amount of projects to be returned")
+     * @QueryParam(name="offset", requirements="\d+", default="0", description="Offset in pages")
      *
      * @ApiDoc(
-     *  description = "Returns all the projects of current user, it admits ordering, count and pagination",
+     *  description = "Returns all the projects of current user, it admits sort, limit and offset",
      *  requirements = {
      *    {
      *      "name"="_format",
@@ -41,15 +42,26 @@ class ProjectController extends AbstractRestController
      *      "description"="Supported formats, by default json"
      *    }
      *  },
-     *  resource = true
+     *  resource = true,
+     *  statusCodes = {
+     *    200 = "<data>"
+     *  }
      * )
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @View(
+     *  statusCode=200,
+     *  serializerGroups={"projectList"}
+     * )
+     *
+     * @return \Kreta\Component\Project\Model\Interfaces\ProjectInterface[]
      */
     public function getProjectsAction(ParamFetcher $paramFetcher)
     {
-        return $this->getAll(
-            $this->getCurrentUser(), $paramFetcher, ['projectList'], 'findByParticipant'
+        return $this->get('kreta_project.repository.project')->findByParticipant(
+            $this->getCurrentUser(),
+            [$paramFetcher->get('sort') => 'ASC'],
+            $paramFetcher->get('limit'),
+            $paramFetcher->get('offset')
         );
     }
 
@@ -68,24 +80,29 @@ class ProjectController extends AbstractRestController
      *    }
      *  },
      *  statusCodes = {
-     *    404 = {
-     *        "Does not exist any project with <$id> id"
-     *    }
+     *    200 = "<data>",
+     *    403 = "Not allowed to access this resource",
+     *    404 = "Does not exist any object with id passed"
      *  }
      * )
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @View(
+     *  statusCode=200,
+     *  serializerGroups={"project"}
+     * )
+     *
+     * @return \Kreta\Component\Project\Model\Interfaces\ProjectInterface
      */
     public function getProjectAction($projectId)
     {
-        return $this->createResponse($this->getProjectIfAllowed($projectId), ['project']);
+        return $this->getProjectIfAllowed($projectId);
     }
 
     /**
      * Creates new project for name and shortName given.
      *
      * @ApiDoc(
-     *  description = "Creates new project for name, shortName and statuses given",
+     *  description = "Creates new project for name and shortName given",
      *  input = "Kreta\Bundle\ApiBundle\Form\Type\ProjectType",
      *  output = "Kreta\Component\Project\Model\Interfaces\ProjectInterface",
      *  requirements = {
@@ -96,24 +113,24 @@ class ProjectController extends AbstractRestController
      *    }
      *  },
      *  statusCodes = {
-     *      201 = "Successfully created",
+     *      201 = "<data>",
      *      400 = {
      *          "Name should not be blank",
-     *          "ShortName should not be blank",
-     *          "Date is not valid"
+     *          "ShortName should not be blank"
      *      }
      *  }
      * )
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @View(
+     *  statusCode=201,
+     *  serializerGroups={"project"}
+     * )
+     *
+     * @return \Kreta\Component\Project\Model\Interfaces\ProjectInterface
      */
     public function postProjectsAction()
     {
-        return $this->post(
-            $this->get('kreta_api.form_handler.project'),
-            $this->get('kreta_project.factory.project')->create($this->getCurrentUser()),
-            ['project']
-        );
+        return $this->get('kreta_api.form_handler.project')->processForm($this->get('request'));
     }
 
     /**
@@ -141,27 +158,21 @@ class ProjectController extends AbstractRestController
      *          "Short name is already in use"
      *      },
      *      403 = "Not allowed to access this resource",
-     *      404 = {
-     *          "Does not exist any project with <$id> id"
-     *      }
+     *      404 = "Does not exist any object with id passed"
      *  }
      * )
-     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @View(
+     *  statusCode=200,
+     *  serializerGroups={"project"}
+     * )
+     *
+     * @return \Kreta\Component\Project\Model\Interfaces\ProjectInterface
      */
     public function putProjectsAction($projectId)
     {
-        return $this->put(
-            $this->get('kreta_api.form_handler.project'),
-            $this->getProjectIfAllowed($projectId, 'edit'),
-            ['project']
+        return $this->get('kreta_api.form_handler.project')->processForm(
+            $this->get('request'), $this->getProjectIfAllowed($projectId, 'edit'), ['method' => 'PUT']
         );
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getRepository()
-    {
-        return $this->get('kreta_project.repository.project');
     }
 }

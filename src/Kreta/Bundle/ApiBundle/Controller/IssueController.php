@@ -68,7 +68,7 @@ class IssueController extends AbstractRestController
      */
     public function getIssuesAction($projectId, ParamFetcher $paramFetcher)
     {
-        return $this->getRepository()->findByProject(
+        return $this->get('kreta_issue.repository.issue')->findByProject(
             $this->getProjectIfAllowed($projectId),
             [
                 'title'     => $paramFetcher->get('q'),
@@ -230,19 +230,11 @@ class IssueController extends AbstractRestController
      */
     protected function getIssueIfAllowed($id, $grant = 'view')
     {
-        $issue = $this->getRepository()->find($id, false);
+        $issue = $this->get('kreta_issue.repository.issue')->find($id, false);
         if (!$this->get('security.context')->isGranted($grant, $issue)) {
             throw new AccessDeniedHttpException('Not allowed to access this resource');
         }
 
         return $issue;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getRepository()
-    {
-        return $this->get('kreta_issue.repository.issue');
     }
 }

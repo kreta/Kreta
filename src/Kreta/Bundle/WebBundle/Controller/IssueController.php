@@ -192,9 +192,9 @@ class IssueController extends Controller
         }
 
         $statuses = $this->get('kreta_workflow.repository.status')
-            ->findByWorkflow($issue->getProject()->getWorkflow());
+            ->findBy(['workflow' => $issue->getProject()->getWorkflow()]);
         $transitions = $this->get('kreta_workflow.repository.status_transition')
-            ->findByWorkflow($issue->getProject()->getWorkflow());
+            ->findBy(['workflow' => $issue->getProject()->getWorkflow()]);
 
         $stateMachine = $this->get('kreta_issue.state_machine.issue')->load($issue, $statuses, $transitions);
 

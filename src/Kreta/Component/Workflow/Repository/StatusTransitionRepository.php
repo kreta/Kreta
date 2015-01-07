@@ -12,7 +12,6 @@
 namespace Kreta\Component\Workflow\Repository;
 
 use Kreta\Component\Core\Repository\Abstracts\AbstractRepository;
-use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
 
 /**
  * Class StatusTransitionRepository.
@@ -21,23 +20,6 @@ use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
  */
 class StatusTransitionRepository extends AbstractRepository
 {
-    /**
-     * Finds the transitions of workflow given.
-     *
-     * @param \Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface $workflow The workflow
-     *
-     * @return \Kreta\Component\Workflow\Model\Interfaces\StatusInterface[]
-     */
-    public function findByWorkflow(WorkflowInterface $workflow)
-    {
-        $queryBuilder = $this->createQueryBuilder('s');
-
-        return $queryBuilder
-            ->where($queryBuilder->expr()->eq('s.workflow', ':workflow'))
-            ->setParameter('workflow', $workflow)
-            ->getQuery()->getResult();
-    }
-
     /**
      * {@inheritdoc}
      */

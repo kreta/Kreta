@@ -64,7 +64,7 @@ class LoadIssueData extends DataFixtures
             }
             $issue->setReporter($participants[array_rand($participants)]->getUser());
             $statuses = $this->container->get('kreta_workflow.repository.status')
-                ->findByWorkflow($project->getWorkflow());
+                ->findBy(['workflow' => $project->getWorkflow()]);
             $status = $statuses[array_rand($statuses)];
             $issue->setStatus($status);
             $types = [

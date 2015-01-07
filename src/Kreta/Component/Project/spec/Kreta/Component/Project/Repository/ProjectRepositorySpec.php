@@ -16,9 +16,9 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
+use Kreta\Component\Core\spec\Kreta\Component\Core\Repository\Abstracts\BaseRepository;
+use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
-use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
-use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
 /**
@@ -26,7 +26,7 @@ use Prophecy\Argument;
  *
  * @package spec\Kreta\Component\Project\Repository
  */
-class ProjectRepositorySpec extends ObjectBehavior
+class ProjectRepositorySpec extends BaseRepository
 {
     function let(EntityManager $manager, ClassMetadata $metadata)
     {
@@ -43,19 +43,9 @@ class ProjectRepositorySpec extends ObjectBehavior
         $this->shouldHaveType('Kreta\Component\Core\Repository\Abstracts\AbstractRepository');
     }
 
-    function it_finds_all(EntityManager $manager, QueryBuilder $queryBuilder, AbstractQuery $query)
-    {
-        $manager->createQueryBuilder()->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->select('p')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->from(Argument::any(), 'p')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
-        $query->getResult()->shouldBeCalled()->willReturn([]);
-
-        $this->findAll()->shouldBeArray();
-    }
-
-    function it_finds_by_participant(
-        UserInterface $participant,
+    function it_finds_by_project(
+        ProjectInterface $project,
+        UserInterface $user,
         EntityManager $manager,
         QueryBuilder $queryBuilder,
         Expr $expr,
@@ -63,46 +53,34 @@ class ProjectRepositorySpec extends ObjectBehavior
         AbstractQuery $query
     )
     {
-        $manager->createQueryBuilder()->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->select('p')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->from(Argument::any(), 'p')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->leftJoin('p.participants', 'pu')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->expr()->shouldBeCalled()->willReturn($expr);
-        $expr->eq('pu.user', ':participant')->shouldBeCalled()->willReturn($comparison);
-        $queryBuilder->where($comparison)->shouldBeCalled()->willReturn($queryBuilder);
-        $participant->getId()->shouldBeCalled()->willReturn('participant-id');
-        $queryBuilder->setParameter(':participant', 'participant-id')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->orderBy('p.name')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder = $this->getQueryBuilderSpec($manager, $queryBuilder);
+        $this->addCriteriaSpec($queryBuilder, $expr, ['par.user' => $user], $comparison);
+        $this->orderBySpec($queryBuilder, ['name' => 'ASC']);
         $queryBuilder->setMaxResults(10)->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->setFirstResult(0)->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
-        $query->getResult()->shouldBeCalled()->willReturn([]);
+        $queryBuilder->setFirstResult(1)->shouldBeCalled()->willReturn($queryBuilder);
 
-        $this->findByParticipant($participant)->shouldBeArray();
+        $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
+        $query->getResult()->shouldBeCalled()->willReturn([$project]);
+
+        $this->findByParticipant($user, ['name' => 'ASC'], 10, 1)->shouldReturn([$project]);
     }
 
-    function it_finds_by_workflow(
-        WorkflowInterface $workflow,
-        EntityManager $manager,
-        QueryBuilder $queryBuilder,
-        Expr $expr,
-        Expr\Comparison $comparison,
-        AbstractQuery $query
-    )
+    protected function getQueryBuilderSpec(EntityManager $manager, QueryBuilder $queryBuilder)
     {
         $manager->createQueryBuilder()->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->select('p')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->addSelect(['img', 'i', 'par', 'w'])->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->from(Argument::any(), 'p')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->expr()->shouldBeCalled()->willReturn($expr);
-        $expr->eq('p.workflow', ':workflow')->shouldBeCalled()->willReturn($comparison);
-        $queryBuilder->where($comparison)->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->setParameter('workflow', $workflow)->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->orderBy('p.name')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->setMaxResults(10)->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->setFirstResult(0)->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
-        $query->getResult()->shouldBeCalled()->willReturn([]);
+        $queryBuilder->leftJoin('p.image', 'img')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->leftJoin('p.issues', 'i')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->join('p.participants', 'par')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->join('p.workflow', 'w')->shouldBeCalled()->willReturn($queryBuilder);
 
-        $this->findByWorkflow($workflow)->shouldBeArray();
+        return $queryBuilder;
+    }
+
+    protected function getAlias()
+    {
+        return 'p';
     }
 }

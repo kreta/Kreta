@@ -11,10 +11,12 @@
 
 namespace Kreta\Component\Issue\Repository;
 
+use Doctrine\ORM\ORMException;
 use Finite\State\StateInterface;
 use Kreta\Component\Core\Repository\Abstracts\AbstractRepository;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
+use Kreta\Component\Workflow\Model\Interfaces\StatusInterface;
 use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
 
 /**
@@ -138,13 +140,32 @@ class IssueRepository extends AbstractRepository
      */
     public function findByWorkflow(WorkflowInterface $workflow)
     {
-        $queryBuilder = $this->createQueryBuilder('i');
+        $queryBuilder = $this->getQueryBuilder();
+        $this->addCriteria($queryBuilder, ['p.workflow' => $workflow]);
 
-        return $queryBuilder
-            ->innerJoin('i.project', 'pr')
-            ->where($queryBuilder->expr()->eq('pr.workflow', ':workflow'))
-            ->setParameter('workflow', $workflow)
-            ->getQuery()->getResult();
+        return $queryBuilder->getQuery()->getResult();
+    }
+
+    /**
+     * Checks if the status given is in use by any issue of workflow given.
+     *
+     * @param \Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface $workflow The workflow
+     * @param \Kreta\Component\Workflow\Model\Interfaces\StatusInterface   $status   The status
+     *
+     * @return boolean
+     */
+    public function isStatusInUse(WorkflowInterface $workflow, StatusInterface $status)
+    {
+        $issues = $this->findByWorkflow($workflow);
+        if ($status instanceof StatusInterface) {
+            foreach ($issues as $issue) {
+                if ($issue->getStatus()->getId() === $status->getId()) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 
     /**

@@ -367,7 +367,7 @@ class StatusTransitionControllerSpec extends AbstractRestControllerSpec
 
         $transition->getWorkflow()->shouldBeCalled()->willReturn($workflow);
         $container->get('kreta_issue.repository.issue')->shouldBeCalled()->willReturn($issueRepository);
-        $issueRepository->findByWorkflow($workflow)->shouldBeCalled()->willReturn([$issue]);
+        $issueRepository->findBy(['workflow' => $workflow])->shouldBeCalled()->willReturn([$issue]);
         $issue->getStatus()->shouldBeCalled()->willReturn($status);
         $status->getTransitions()->shouldBeCalled()->willReturn([$transition]);
         $transition->getId()->shouldBeCalled()->willReturn('transition-id');
@@ -406,7 +406,7 @@ class StatusTransitionControllerSpec extends AbstractRestControllerSpec
 
         $status->getWorkflow()->shouldBeCalled()->willReturn($workflow);
         $container->get('kreta_issue.repository.issue')->shouldBeCalled()->willReturn($issueRepository);
-        $issueRepository->findByWorkflow($workflow)->shouldBeCalled()->willReturn([$issue]);
+        $issueRepository->findBy(['workflow' => $workflow])->shouldBeCalled()->willReturn([$issue]);
         $issue->getStatus()->shouldBeCalled()->willReturn($status);
         $status->getTransitions()->shouldBeCalled()->willReturn([$transition2]);
         $transition->getId()->shouldBeCalled()->willReturn('transition-id');
@@ -735,7 +735,7 @@ class StatusTransitionControllerSpec extends AbstractRestControllerSpec
 
         $container->get('kreta_issue.repository.issue')->shouldBeCalled()->willReturn($issueRepository);
         $transition->getWorkflow()->shouldBeCalled()->willReturn($workflow);
-        $issueRepository->findByWorkflow($workflow)->shouldBeCalled()->willReturn([$issue]);
+        $issueRepository->findBy(['workflow' => $workflow])->shouldBeCalled()->willReturn([$issue]);
 
         $issue->getStatus()->shouldBeCalled()->willReturn($status);
         $status->getTransitions()->shouldBeCalled()->willReturn([$transition]);
@@ -772,7 +772,7 @@ class StatusTransitionControllerSpec extends AbstractRestControllerSpec
 
         $container->get('kreta_issue.repository.issue')->shouldBeCalled()->willReturn($issueRepository);
         $transition->getWorkflow()->shouldBeCalled()->willReturn($workflow);
-        $issueRepository->findByWorkflow($workflow)->shouldBeCalled()->willReturn([$issue]);
+        $issueRepository->findBy(['workflow' => $workflow])->shouldBeCalled()->willReturn([$issue]);
 
         $issue->getStatus()->shouldBeCalled()->willReturn($status);
         $status->getTransitions()->shouldBeCalled()->willReturn([$transition2]);
@@ -813,7 +813,7 @@ class StatusTransitionControllerSpec extends AbstractRestControllerSpec
 
         $container->get('kreta_issue.repository.issue')->shouldBeCalled()->willReturn($issueRepository);
         $transition->getWorkflow()->shouldBeCalled()->willReturn($workflow);
-        $issueRepository->findByWorkflow($workflow)->shouldBeCalled()->willReturn([$issue]);
+        $issueRepository->findBy(['workflow' => $workflow])->shouldBeCalled()->willReturn([$issue]);
 
         $issue->getStatus()->shouldBeCalled()->willReturn($status);
         $status->getTransitions()->shouldBeCalled()->willReturn([$transition2]);

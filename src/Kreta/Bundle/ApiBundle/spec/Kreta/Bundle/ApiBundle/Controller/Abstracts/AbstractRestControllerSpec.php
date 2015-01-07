@@ -60,6 +60,8 @@ abstract class AbstractRestControllerSpec extends ObjectBehavior
         $projectRepository->find('project-id', false)->shouldBeCalled()->willReturn($project);
         $container->get('security.context')->shouldBeCalled()->willReturn($securityContext);
         $securityContext->isGranted($grant, $project)->shouldBeCalled()->willReturn($result);
+
+        return $project;
     }
 
     protected function getWorkflowIfExist(
@@ -157,7 +159,9 @@ abstract class AbstractRestControllerSpec extends ObjectBehavior
         $this->getWorkflowIfAllowed($container, $workflowRepository, $workflow, $securityContext, $grant, $result);
 
         $container->get('kreta_workflow.repository.status')->shouldBeCalled()->willReturn($statusRepository);
-        $statusRepository->find('status-id')->shouldBeCalled()->willReturn($status);
+        $statusRepository->find('status-id', false)->shouldBeCalled()->willReturn($status);
+
+        return $status;
     }
 
     protected function getTransitionIfAllowed(
@@ -191,5 +195,7 @@ abstract class AbstractRestControllerSpec extends ObjectBehavior
         $container->get('security.context')->shouldBeCalled()->willReturn($securityContext);
         $securityContext->getToken()->shouldBeCalled()->willReturn($token);
         $token->getUser()->shouldBeCalled()->willReturn($user);
+
+        return $user;
     }
 }

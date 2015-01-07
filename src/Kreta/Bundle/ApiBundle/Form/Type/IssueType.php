@@ -15,7 +15,6 @@ use Kreta\Bundle\IssueBundle\Form\Type\IssueType as BaseIssueType;
 use Kreta\Component\Issue\Factory\IssueFactory;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
@@ -70,7 +69,6 @@ class IssueType extends BaseIssueType
         $resolver->setDefaults([
             'data_class'         => 'Kreta\Component\Issue\Model\Issue',
             'csrf_protection'    => false,
-            'cascade_validation' => true,
             'empty_data'         => function () {
                 $user = $this->context->getToken()->getUser();
                 if (!($user instanceof UserInterface)) {

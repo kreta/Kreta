@@ -12,6 +12,7 @@
 namespace Kreta\Bundle\ApiBundle\EventListener;
 
 use Doctrine\ORM\NoResultException;
+use Kreta\Bundle\ApiBundle\Exception\ResourceInUseException;
 use Kreta\Bundle\CoreBundle\Form\Handler\Exception\InvalidFormException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
@@ -43,6 +44,10 @@ class JsonExceptionListener
                 case ($exception instanceof InvalidFormException):
                     $response->setStatusCode(400);
                     $response->setData($exception->getFormErrors());
+                    break;
+                case ($exception instanceof ResourceInUseException):
+                    $response->setStatusCode(409);
+                    $response->setData(['error' => $exception->getMessage()]);
                     break;
                 default:
                     $response->setData(['error' => $exception->getMessage()]);

@@ -57,7 +57,7 @@ class WorkflowController extends AbstractRestController
      */
     public function getWorkflowsAction(ParamFetcher $paramFetcher)
     {
-        return $this->getRepository()->findBy(
+        return $this->get('kreta_workflow.repository.workflow')->findBy(
             ['creator' => $this->getCurrentUser()],
             [$paramFetcher->get('sort') => 'ASC'],
             $paramFetcher->get('limit'),
@@ -172,13 +172,5 @@ class WorkflowController extends AbstractRestController
         return $this->get('kreta_api.form_handler.workflow')->processForm(
             $this->get('request'), $this->getWorkflowIfAllowed($workflowId, 'edit'), ['method' => 'PUT']
         );
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getRepository()
-    {
-        return $this->get('kreta_workflow.repository.workflow');
     }
 }

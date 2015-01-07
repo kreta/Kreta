@@ -38,10 +38,10 @@ class StatusContext extends AbstractContext
             $workflow = $this->getContainer()->get('kreta_workflow.repository.workflow')
                 ->findOneBy(['name' => $statusData['workflow']]);
 
-            $status = $this->getContainer()->get('kreta_workflow.factory.status')->create($statusData['name']);
+            $status = $this->getContainer()->get('kreta_workflow.factory.status')
+                ->create($statusData['name'], $workflow);
             $status->setColor($statusData['color']);
             $status->setName($statusData['name']);
-            $status->setWorkflow($workflow);
 
             $metadata = $manager->getClassMetaData(get_class($status));
             $metadata->setIdGenerator(new \Doctrine\ORM\Id\AssignedGenerator());

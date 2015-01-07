@@ -53,15 +53,6 @@ Feature: Manage projects
             "first_name": "Kreta",
             "last_name": "User"
           }
-        }, {
-          "role": "ROLE_PARTICIPANT",
-          "user": {
-            "id": "2",
-            "email": "user3@kreta.com",
-            "created_at": "2014-10-20T00:00:00+0200",
-            "first_name": "Kreta",
-            "last_name": "User3"
-          }
         }],
         "short_name": "TPR1",
         "_links": {
@@ -90,15 +81,6 @@ Feature: Manage projects
             "first_name": "Kreta",
             "last_name": "User"
           }
-        }, {
-          "role": "ROLE_PARTICIPANT",
-          "user": {
-            "id": "1",
-            "email": "user2@kreta.com",
-            "created_at": "2014-10-20T00:00:00+0200",
-            "first_name": "Kreta",
-            "last_name": "User2"
-          }
         }],
         "short_name": "TPR2",
         "_links": {
@@ -125,40 +107,44 @@ Feature: Manage projects
     And the response should contain json:
     """
       {
-        "id":"0",
-        "name":"Test project 1",
-        "participants":[{
-          "role":"ROLE_ADMIN",
-          "user":{
-            "id":"0",
-            "email":"user@kreta.com",
-            "created_at":"2014-10-20T00:00:00+0200",
-            "first_name":"Kreta",
-            "last_name":"User"
+        "id": "0",
+        "name": "Test project 1",
+        "participants": [{
+          "role": "ROLE_ADMIN",
+          "user": {
+            "id": "0",
+            "email": "user@kreta.com",
+            "created_at": "2014-10-20T00:00:00+0200",
+            "first_name": "Kreta",
+            "last_name": "User"
           }
         }, {
-          "role":"ROLE_PARTICIPANT",
-          "user":{
-            "id":"2",
-            "email":"user3@kreta.com",
-            "created_at":"2014-10-20T00:00:00+0200",
-            "first_name":"Kreta",
-            "last_name":"User3"
+          "role": "ROLE_PARTICIPANT",
+          "user": {
+            "id": "2",
+            "email": "user3@kreta.com",
+            "created_at": "2014-10-20T00:00:00+0200",
+            "first_name": "Kreta",
+            "last_name": "User3"
           }
         }],
-        "short_name":"TPR1",
-        "_links":{
-          "self":{
-            "href":"http://localhost/app_test.php/api/projects/0"
+        "short_name": "TPR1",
+        "workflow": {
+          "id": "0",
+          "name": "Workflow 1"
+        },
+        "_links": {
+          "self": {
+            "href": "http://localhost/app_test.php/api/projects/0"
           },
-          "projects":{
-            "href":"http://localhost/app_test.php/api/projects"
+          "projects": {
+            "href": "http://localhost/app_test.php/api/projects"
           },
-          "issues":{
-            "href":"http://localhost/app_test.php/api/projects/0/issues"
+          "issues": {
+            "href": "http://localhost/app_test.php/api/projects/0/issues"
           },
-          "statuses":{
-            "href":"http://localhost/app_test.php/api/workflows/0/statuses"
+          "statuses": {
+            "href": "http://localhost/app_test.php/api/workflows/0/statuses"
           }
         }
       }
@@ -197,6 +183,95 @@ Feature: Manage projects
       }
     """
     Then the response code should be 201
+    And the response should contain json:
+    """
+      {
+        "name": "New project",
+        "participants": [{
+          "role": "ROLE_ADMIN",
+          "user": {
+            "id": "0",
+            "email": "user@kreta.com",
+            "created_at": "2014-10-20T00:00:00+0200",
+            "first_name": "Kreta",
+            "last_name": "User"
+          }
+        }, {
+          "role": "ROLE_ADMIN",
+          "user": {
+            "id": "0",
+            "email": "user@kreta.com",
+            "created_at": "2014-10-20T00:00:00+0200",
+            "first_name": "Kreta",
+            "last_name": "User"
+          }
+        }],
+        "short_name": "NPR"
+      }
+    """
+
+  Scenario: Creating a project with workflow
+    Given I am authenticating with "access-token-0" token
+    Given I set header "content-type" with value "application/json"
+    When I send a POST request to "/app_test.php/api/projects" with body:
+    """
+      {
+        "name": "New project",
+        "shortName": "NPR2",
+        "workflow": "0"
+      }
+    """
+    Then the response code should be 201
+    And the response should contain json:
+    """
+      {
+        "name": "New project",
+        "participants": [{
+          "role": "ROLE_ADMIN",
+          "user": {
+            "id": "0",
+            "email": "user@kreta.com",
+            "created_at": "2014-10-20T00:00:00+0200",
+            "first_name": "Kreta",
+            "last_name": "User"
+          }
+        }, {
+          "role": "ROLE_ADMIN",
+          "user": {
+            "id": "0",
+            "email": "user@kreta.com",
+            "created_at": "2014-10-20T00:00:00+0200",
+            "first_name": "Kreta",
+            "last_name": "User"
+          }
+        }],
+        "short_name": "NPR2",
+        "workflow": {
+          "id": "0",
+          "name": "Workflow 1"
+        }
+      }
+    """
+
+  Scenario: Creating a project with existing short name
+    Given I am authenticating with "access-token-0" token
+    Given I set header "content-type" with value "application/json"
+    When I send a POST request to "/app_test.php/api/projects" with body:
+    """
+      {
+        "name": "New project",
+        "shortName": "TPR1"
+      }
+    """
+    Then the response code should be 400
+    And the response should contain json:
+    """
+      {
+        "shortName": [
+          "Short name is already in use"
+        ]
+      }
+    """
 
   Scenario: Creating a project without parameters
     Given I am authenticating with "access-token-0" token
@@ -245,7 +320,8 @@ Feature: Manage projects
     """
       {
         "name": "New project",
-        "shortName": "NPR"
+        "shortName": "NPR",
+        "workflow": "0"
       }
     """
     Then the response code should be 200
@@ -274,6 +350,10 @@ Feature: Manage projects
           }
         }],
         "short_name": "NPR",
+        "workflow": {
+          "id": "0",
+          "name": "Workflow 1"
+        },
         "_links": {
           "self": {
             "href": "http://localhost/app_test.php/api/projects/0"

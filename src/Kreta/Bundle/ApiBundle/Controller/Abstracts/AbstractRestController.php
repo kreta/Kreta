@@ -13,7 +13,6 @@ namespace Kreta\Bundle\ApiBundle\Controller\Abstracts;
 
 use Doctrine\ORM\EntityRepository;
 use FOS\RestBundle\Controller\FOSRestController;
-use FOS\RestBundle\Request\ParamFetcher;
 use FOS\RestBundle\Util\Codes;
 use FOS\RestBundle\View\View;
 use JMS\Serializer\SerializationContext;
@@ -31,11 +30,14 @@ use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 abstract class AbstractRestController extends FOSRestController
 {
     /**
-     * Abstract method that gets the entity repository class.
+     * Method that gets the entity repository class.
      *
      * @return \Doctrine\ORM\EntityRepository
      */
-    abstract protected function getRepository();
+    protected function getRepository()
+    {
+        return $this->get('doctrine')->getManager();
+    }
 
     /**
      * Checks if user is authenticated returning this, otherwise throws an exception.
@@ -95,34 +97,6 @@ abstract class AbstractRestController extends FOSRestController
         }
 
         return $errors;
-    }
-
-    /**
-     * Returns all the resources if the user is authenticated, it admits ordering, count and pagination.
-     *
-     * @param \Kreta\Component\User\Model\Interfaces\UserInterface $user         The user object
-     * @param \FOS\RestBundle\Request\ParamFetcher                 $paramFetcher The param fetcher
-     * @param string[]                                             $groups       The array of serialization groups
-     * @param string                                               $query        The query, by default 'findAll'
-     *
-     * @return \Symfony\Component\HttpFoundation\Response
-     */
-    protected function getAll(
-        UserInterface $user,
-        ParamFetcher $paramFetcher,
-        $groups = [],
-        $query = 'findAll'
-    )
-    {
-        $resources = $this->getRepository()
-            ->$query(
-                $user,
-                $paramFetcher->get('order'),
-                $paramFetcher->get('count'),
-                $paramFetcher->get('page')
-            );
-
-        return $this->createResponse($resources, $groups);
     }
 
     /**
