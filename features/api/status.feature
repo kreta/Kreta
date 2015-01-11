@@ -251,7 +251,7 @@ Feature: Manage status
     """
       {
         "name": [
-          "A status with identical name is already exist in this workflow"
+          "A status with identical name is already exists in this workflow"
         ]
       } 
     """
