@@ -12,14 +12,14 @@
 namespace Kreta\Bundle\WorkflowBundle\Behat;
 
 use Behat\Gherkin\Node\TableNode;
-use Kreta\Bundle\CoreBundle\Behat\Abstracts\AbstractContext;
+use Kreta\Bundle\CoreBundle\Behat\DefaultContext;
 
 /**
  * Class StatusContext.
  *
  * @package Kreta\Bundle\WorkflowBundle\Behat
  */
-class StatusContext extends AbstractContext
+class StatusContext extends DefaultContext
 {
     /**
      * Populates the database with statuses.
@@ -32,8 +32,7 @@ class StatusContext extends AbstractContext
      */
     public function theFollowingStatusesExist(TableNode $statuses)
     {
-        $manager = $this->getContainer()->get('doctrine')->getManager();
-
+        $this->getManager();
         foreach ($statuses as $statusData) {
             $workflow = $this->getContainer()->get('kreta_workflow.repository.workflow')
                 ->findOneBy(['name' => $statusData['workflow']]);
@@ -41,9 +40,12 @@ class StatusContext extends AbstractContext
             $status = $this->getContainer()->get('kreta_workflow.factory.status')
                 ->create($statusData['name'], $workflow);
             $status->setColor($statusData['color']);
-            $manager->persist($status);
+            $status->setName($statusData['name']);
+            $this->setId($status, $statusData['id']);
+
+            $this->manager->persist($status);
         }
 
-        $manager->flush();
+        $this->manager->flush();
     }
 }

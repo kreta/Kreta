@@ -12,19 +12,19 @@
 namespace Kreta\Bundle\WorkflowBundle\Behat;
 
 use Behat\Gherkin\Node\TableNode;
-use Kreta\Bundle\CoreBundle\Behat\Abstracts\AbstractContext;
+use Kreta\Bundle\CoreBundle\Behat\DefaultContext;
 
 /**
  * Class WorkflowContext.
  *
  * @package Kreta\Bundle\WorkflowBundle\Behat
  */
-class WorkflowContext extends AbstractContext
+class WorkflowContext extends DefaultContext
 {
     /**
      * Populates the database with workflows.
      *
-     * @param \Behat\Gherkin\Node\TableNode $workflows The $workflows
+     * @param \Behat\Gherkin\Node\TableNode $workflows The workflows
      *
      * @return void
      *
@@ -32,17 +32,20 @@ class WorkflowContext extends AbstractContext
      */
     public function theFollowingWorkflowsExist(TableNode $workflows)
     {
-        $manager = $this->getContainer()->get('doctrine')->getManager();
-
+        $this->getManager();
         foreach ($workflows as $workflowData) {
             $creator = $this->getContainer()->get('kreta_user.repository.user')
                 ->findOneBy(['email' => $workflowData['creator']]);
             $workflow = $this->getContainer()->get('kreta_workflow.factory.workflow')
                 ->create($workflowData['name'], $creator);
+            $this->setId($workflow, $workflowData['id']);
+            if (isset($workflowData['createdAt'])) {
+                $this->setField($workflow, 'createdAt', new \DateTime($workflowData['createdAt']));
+            }
 
-            $manager->persist($workflow);
+            $this->manager->persist($workflow);
         }
 
-        $manager->flush();
+        $this->manager->flush();
     }
 }

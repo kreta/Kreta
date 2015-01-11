@@ -12,14 +12,14 @@
 namespace Kreta\Bundle\NotificationBundle\Behat;
 
 use Behat\Gherkin\Node\TableNode;
-use Kreta\Bundle\CoreBundle\Behat\Abstracts\AbstractContext;
+use Kreta\Bundle\CoreBundle\Behat\DefaultContext;
 
 /**
  * Class NotificationContext
  *
  * @package Kreta\Bundle\NotificationBundle\Behat
  */
-class NotificationContext extends AbstractContext
+class NotificationContext extends DefaultContext
 {
     /**
      * Populates the database with notifications.
@@ -32,10 +32,8 @@ class NotificationContext extends AbstractContext
      */
     public function theFollowingNotificationsExist(TableNode $notifications)
     {
-        $manager = $this->getContainer()->get('doctrine')->getManager();
-
+        $this->getManager();
         foreach ($notifications as $notificationData) {
-
             $notification = $this->getContainer()->get('kreta_notification.factory.notification')->create();
 
             $project = $this->getContainer()->get('kreta_project.repository.project')
@@ -64,9 +62,9 @@ class NotificationContext extends AbstractContext
             $notification->setType($notificationData['type']);
             $notification->setWebUrl($notificationData['webUrl']);
             $notification->setUser($user);
-            $manager->persist($notification);
+            $this->manager->persist($notification);
         }
 
-        $manager->flush();
+        $this->manager->flush();
     }
 }

@@ -12,14 +12,14 @@
 namespace Kreta\Bundle\UserBundle\Behat;
 
 use Behat\Gherkin\Node\TableNode;
-use Kreta\Bundle\CoreBundle\Behat\Abstracts\AbstractContext;
+use Kreta\Bundle\CoreBundle\Behat\DefaultContext;
 
 /**
  * Class UserContext.
  *
  * @package Kreta\Bundle\UserBundle\Behat
  */
-class UserContext extends AbstractContext
+class UserContext extends DefaultContext
 {
     /**
      * Populates the database with users.
@@ -32,8 +32,7 @@ class UserContext extends AbstractContext
      */
     public function theFollowingUsersExist(TableNode $users)
     {
-        $manager = $this->getContainer()->get('doctrine')->getManager();
-
+        $this->getManager();
         foreach ($users as $userData) {
             $user = $this->getContainer()->get('kreta_user.factory.user')->create();
             $user->setFirstname($userData['firstName']);
@@ -41,9 +40,15 @@ class UserContext extends AbstractContext
             $user->setEmail($userData['email']);
             $user->setPlainPassword($userData['password']);
             $user->setEnabled(true);
-            $manager->persist($user);
+            if (isset($userData['createdAt'])) {
+                $this->setField($user, 'createdAt', new \DateTime($userData['createdAt']));
+            }
+            if (isset($userData['id'])) {
+                $this->setId($user, $userData['id']);
+            }
+            $this->manager->persist($user);
         }
 
-        $manager->flush();
+        $this->manager->flush();
     }
 }
