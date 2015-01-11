@@ -11,38 +11,42 @@
 
 namespace Kreta\Component\Workflow\Repository;
 
-use Kreta\Component\Core\Repository\Abstracts\AbstractRepository;
-use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
+use Kreta\Component\Core\Repository\EntityRepository;
+use Kreta\Component\Workflow\Model\Interfaces\StatusInterface;
+use Kreta\Component\Workflow\Model\Interfaces\StatusTransitionInterface;
 
 /**
  * Class StatusTransitionRepository.
  *
  * @package Kreta\Component\Workflow\Repository
  */
-class StatusTransitionRepository extends AbstractRepository
+class StatusTransitionRepository extends EntityRepository
 {
     /**
-     * Finds the transitions of workflow given.
+     * Persists the initial status of transition given if it is possible.
      *
-     * @param \Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface $workflow The workflow
+     * @param \Kreta\Component\Workflow\Model\Interfaces\StatusTransitionInterface $transition    The transition
+     * @param \Kreta\Component\Workflow\Model\Interfaces\StatusInterface           $initialStatus The initial status
      *
-     * @return \Kreta\Component\Workflow\Model\Interfaces\StatusInterface[]
+     * @return void
      */
-    public function findByWorkflow(WorkflowInterface $workflow)
+    public function persistInitialStatus(StatusTransitionInterface $transition, StatusInterface $initialStatus)
     {
-        $queryBuilder = $this->createQueryBuilder('s');
-
-        return $queryBuilder
-            ->where($queryBuilder->expr()->eq('s.workflow', ':workflow'))
-            ->setParameter('workflow', $workflow)
-            ->getQuery()->getResult();
+        $transition->addInitialState($initialStatus);
+        $this->persist($transition);
     }
 
     /**
-     * {@inheritdoc}
+     * Removes the initial status of transition given if it is possible.
+     *
+     * @param \Kreta\Component\Workflow\Model\Interfaces\StatusTransitionInterface $transition      The transition
+     * @param string                                                               $initialStatusId Initial status id
+     *
+     * @return void
      */
-    protected function getAlias()
+    public function removeInitialStatus(StatusTransitionInterface $transition, $initialStatusId)
     {
-        return 'st';
+        $transition->removeInitialState($transition->getInitialState($initialStatusId));
+        $this->persist($transition);
     }
 }

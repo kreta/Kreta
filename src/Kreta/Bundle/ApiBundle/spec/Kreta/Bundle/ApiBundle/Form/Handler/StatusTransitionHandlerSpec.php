@@ -12,7 +12,10 @@
 namespace spec\Kreta\Bundle\ApiBundle\Form\Handler;
 
 use Doctrine\Common\Persistence\ObjectManager;
+use Kreta\Component\Workflow\Factory\StatusTransitionFactory;
 use Kreta\Component\Workflow\Model\Interfaces\StatusTransitionInterface;
+use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
+use Kreta\Component\Workflow\Repository\StatusRepository;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
@@ -31,10 +34,12 @@ class StatusTransitionHandlerSpec extends ObjectBehavior
     function let(
         FormFactory $formFactory,
         ObjectManager $manager,
-        EventDispatcherInterface $eventDispatcher
+        EventDispatcherInterface $eventDispatcher,
+        StatusTransitionFactory $factory,
+        StatusRepository $statusRepository
     )
     {
-        $this->beConstructedWith($formFactory, $manager, $eventDispatcher);
+        $this->beConstructedWith($formFactory, $manager, $eventDispatcher, $factory, $statusRepository);
     }
 
     function it_is_initializable()
@@ -52,7 +57,7 @@ class StatusTransitionHandlerSpec extends ObjectBehavior
         Request $request
     )
     {
-        $this->shouldThrow(new ParameterNotFoundException('states'))
+        $this->shouldThrow(new ParameterNotFoundException('workflow'))
             ->during('handleForm', [$request, $statusTransition, []]);
     }
 
@@ -60,7 +65,8 @@ class StatusTransitionHandlerSpec extends ObjectBehavior
         Request $request,
         StatusTransitionInterface $statusTransition,
         FormFactory $formFactory,
-        FormInterface $form
+        FormInterface $form,
+        WorkflowInterface $workflow
     )
     {
         $formFactory->create(
@@ -69,6 +75,6 @@ class StatusTransitionHandlerSpec extends ObjectBehavior
             []
         )->shouldBeCalled()->willReturn($form);
 
-        $this->handleForm($request, $statusTransition, ['states' => [$statusTransition]])->shouldReturn($form);
+        $this->handleForm($request, $statusTransition, ['workflow' => $workflow])->shouldReturn($form);
     }
 }

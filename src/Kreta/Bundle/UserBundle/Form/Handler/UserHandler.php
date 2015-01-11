@@ -67,7 +67,7 @@ class UserHandler extends AbstractHandler
     /**
      * {@inheritdoc}
      */
-    protected function createForm($object, array $formOptions = [])
+    protected function createForm($object = null, array $formOptions = [])
     {
         return $this->formFactory->create(new UserType(), $object, $formOptions);
     }

@@ -11,18 +11,16 @@
 
 namespace Kreta\Bundle\ApiBundle\Controller;
 
-use FOS\RestBundle\Util\Codes;
-use Kreta\Bundle\ApiBundle\Controller\Abstracts\AbstractRestController;
+use FOS\RestBundle\Controller\Annotations\View;
+use Kreta\Component\Core\Exception\ResourceInUseException;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\HttpKernel\Exception\HttpException;
 
 /**
  * Class StatusController.
  *
  * @package Kreta\Bundle\ApiBundle\Controller
  */
-class StatusController extends AbstractRestController
+class StatusController extends RestController
 {
     /**
      * Returns all the statuses of workflow id given.
@@ -40,16 +38,22 @@ class StatusController extends AbstractRestController
      *  },
      *  resource = true,
      *  statusCodes = {
+     *    200 = "<data>",
      *    403 = "Not allowed to access this resource",
-     *    404 = "Does not exist any workflow with <$id> id"
+     *    404 = "Does not exist any object with id passed"
      *  }
      * )
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @View(
+     *  statusCode=200,
+     *  serializerGroups={"statusList"}
+     * )
+     *
+     * @return \Kreta\Component\Workflow\Model\Interfaces\StatusInterface[]
      */
     public function getStatusesAction($workflowId)
     {
-        return $this->createResponse($this->getWorkflowIfAllowed($workflowId)->getStatuses(), ['statusList']);
+        return $this->getWorkflowIfAllowed($workflowId)->getStatuses();
     }
 
     /**
@@ -68,19 +72,22 @@ class StatusController extends AbstractRestController
      *    }
      *  },
      *  statusCodes = {
+     *    200 = "<data>",
      *    403 = "Not allowed to access this resource",
-     *    404 = {
-     *      "Does not exist any workflow with <$id> id",
-     *      "Does not exist any status with <$id> id"
-     *    }
+     *    404 = "Does not exist any object with id passed"
      *  }
      * )
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @View(
+     *  statusCode=200,
+     *  serializerGroups={"status"}
+     * )
+     *
+     * @return \Kreta\Component\Workflow\Model\Interfaces\StatusInterface
      */
     public function getStatusAction($workflowId, $statusId)
     {
-        return $this->createResponse($this->getStatusIfAllowed($workflowId, $statusId), ['status']);
+        return $this->getStatusIfAllowed($workflowId, $statusId);
     }
 
     /**
@@ -100,35 +107,32 @@ class StatusController extends AbstractRestController
      *    }
      *  },
      *  statusCodes = {
-     *      201 = "Successfully created",
-     *      400 = {
-     *          "Name should not be blank",
-     *          "Color should not be blank",
-     *          "Type should not be blank",
-     *          "A status with identical name is already exist in this project",
-     *          "The type is not valid"
-     *      },
-     *      403 = "Not allowed to access this resource",
-     *      404 = "Does not exist any workflow with <$id> id"
+     *    201 = "<data>",
+     *    400 = {
+     *      "Name should not be blank",
+     *      "Color should not be blank",
+     *      "Type should not be blank",
+     *      "A status with identical name is already exist in this project",
+     *      "The type is not valid"
+     *    },
+     *    403 = "Not allowed to access this resource",
+     *    404 = "Does not exist any object with id passed"
      *  }
      * )
      *
-     * @throws \Symfony\Component\HttpKernel\Exception\BadRequestHttpException
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @View(
+     *  statusCode=201,
+     *  serializerGroups={"status"}
+     * )
+     *
+     * @return \Kreta\Component\Workflow\Model\Interfaces\StatusInterface
      */
     public function postStatusesAction($workflowId)
     {
-        $name = $this->get('request')->get('name');
-        if (!$name) {
-            throw new BadRequestHttpException('Name should not be blank');
-        }
-        $status = $this->get('kreta_workflow.factory.status')->create($name);
-        $status->setWorkflow($this->getWorkflowIfAllowed($workflowId, 'manage_status'));
+        $workflow = $this->getWorkflowIfAllowed($workflowId, 'manage_status');
 
-        return $this->post(
-            $this->get('kreta_api.form_handler.status'),
-            $status,
-            ['status']
+        return $this->get('kreta_api.form_handler.status')->processForm(
+            $this->get('request'), null, ['workflow' => $workflow]
         );
     }
 
@@ -150,31 +154,32 @@ class StatusController extends AbstractRestController
      *    }
      *  },
      *  statusCodes = {
-     *      200 = "Successfully created",
-     *      400 = {
-     *          "Name should not be blank",
-     *          "Color should not be blank",
-     *          "Type should not be blank",
-     *          "A status with identical name is already exist in this project",
-     *          "The type is not valid"
-     *      },
-     *      403 = "Not allowed to access this resource",
-     *      404 = {
-     *          "Does not exist any workflow with <$id> id",
-     *          "Does not exist any status with <$id> id"
-     *      }
+     *    200 = "Successfully created",
+     *    400 = {
+     *      "Name should not be blank",
+     *      "Color should not be blank",
+     *      "Type should not be blank",
+     *      "A status with identical name is already exist in this project",
+     *      "The type is not valid"
+     *    },
+     *    403 = "Not allowed to access this resource",
+     *    404 = "Does not exist any object with id passed"
      *  }
      * )
      *
-     * @throws \Symfony\Component\HttpKernel\Exception\BadRequestHttpException
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @View(
+     *  statusCode=200,
+     *  serializerGroups={"status"}
+     * )
+     *
+     * @return \Kreta\Component\Workflow\Model\Interfaces\StatusInterface
      */
     public function putStatusesAction($workflowId, $statusId)
     {
-        return $this->put(
-            $this->get('kreta_api.form_handler.status'),
-            $this->getStatusIfAllowed($workflowId, $statusId, 'manage_status'),
-            ['status']
+        $status = $this->getStatusIfAllowed($workflowId, $statusId, 'manage_status');
+
+        return $this->get('kreta_api.form_handler.status')->processForm(
+            $this->get('request'), $status, ['method' => 'PUT']
         );
     }
 
@@ -194,37 +199,25 @@ class StatusController extends AbstractRestController
      *    }
      *  },
      *  statusCodes = {
-     *      204 = "",
-     *      403 = {
-     *          "Not allowed to access this resource",
-     *          "Remove operation has been cancelled, the status is currently in use"
-     *      },
-     *      404 = {
-     *          "Does not exist any workflow with <$id> id",
-     *          "Does not exist any status with <$id> id"
-     *      }
+     *    204 = "",
+     *    403 = "Not allowed to access this resource",
+     *    404 = "Does not exist any object with id passed",
+     *    409 = "The resource is currently in use"
      *  }
      * )
      *
-     * @return \Symfony\Component\HttpFoundation\Response
+     * @View(statusCode=204)
+     *
+     * @return void
+     * @throws \Kreta\Component\Core\Exception\ResourceInUseException
      */
     public function deleteStatusesAction($workflowId, $statusId)
     {
         $status = $this->getStatusIfAllowed($workflowId, $statusId, 'manage_status');
-
-        $issues = $this->get('kreta_issue.repository.issue')->findByWorkflow($status->getWorkflow());
-        foreach ($issues as $issue) {
-            if ($issue->getStatus()->getId() === $status->getId()) {
-                throw new HttpException(
-                    Codes::HTTP_FORBIDDEN,
-                    'Remove operation has been cancelled, the status is currently in use'
-                );
-            }
+        if ($this->get('kreta_issue.repository.issue')->isStatusInUse($status)) {
+            throw new ResourceInUseException();
         }
-
-        $this->getRepository()->delete($status);
-
-        return $this->createResponse('', null, Codes::HTTP_NO_CONTENT);
+        $this->get('kreta_workflow.repository.status')->remove($status);
     }
 
     /**
@@ -240,14 +233,6 @@ class StatusController extends AbstractRestController
     {
         $this->getWorkflowIfAllowed($workflowId, $grant);
 
-        return $this->getResourceIfExists($statusId);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getRepository()
-    {
-        return $this->get('kreta_workflow.repository.status');
+        return $this->get('kreta_workflow.repository.status')->find($statusId, false);
     }
 }

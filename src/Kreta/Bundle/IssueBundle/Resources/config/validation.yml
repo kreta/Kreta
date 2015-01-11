@@ -9,7 +9,7 @@ Kreta\Component\Issue\Model\Issue:
     constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
             fields: [title, project]
-            message: 'An issue with identical title is already exist in this project'
+            message: 'An issue with identical title is already exists in this project'
     properties:
         title:
             - NotBlank: ~

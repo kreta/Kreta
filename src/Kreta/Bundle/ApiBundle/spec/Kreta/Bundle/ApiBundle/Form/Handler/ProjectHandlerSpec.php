@@ -15,8 +15,10 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Kreta\Bundle\WebBundle\Event\FormHandlerEvent;
 use Kreta\Component\Media\Factory\MediaFactory;
 use Kreta\Component\Media\Model\Interfaces\MediaInterface;
+use Kreta\Component\Project\Factory\ProjectFactory;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Media\Uploader\MediaUploader;
+use Kreta\Component\Workflow\Repository\WorkflowRepository;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -25,6 +27,7 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\FileBag;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
  * Class ProjectHandlerSpec.
@@ -38,10 +41,22 @@ class ProjectHandlerSpec extends ObjectBehavior
         ObjectManager $manager,
         EventDispatcherInterface $eventDispatcher,
         MediaFactory $mediaFactory,
-        MediaUploader $uploader
+        MediaUploader $uploader,
+        SecurityContextInterface $context,
+        ProjectFactory $projectFactory,
+        WorkflowRepository $workflowRepository
     )
     {
-        $this->beConstructedWith($formFactory, $manager, $eventDispatcher, $mediaFactory, $uploader);
+        $this->beConstructedWith(
+            $formFactory,
+            $manager,
+            $eventDispatcher,
+            $mediaFactory,
+            $uploader,
+            $context,
+            $projectFactory,
+            $workflowRepository
+        );
     }
 
     function it_is_initializable()

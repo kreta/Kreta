@@ -88,8 +88,8 @@ class LoadIssueDataSpec extends ObjectBehavior
         $projectRepository->findAll()->shouldBeCalled()->willReturn([$project]);
 
         $container->get('kreta_workflow.repository.status')->shouldBeCalled()->willReturn($statusRepository);
-        $statusRepository->findByWorkflow(Argument::type('Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface'))
-            ->shouldBeCalled()->willReturn([$status]);
+        $project->getWorkflow()->shouldBeCalled()->willReturn($workflow);
+        $statusRepository->findBy(['workflow' => $workflow])->shouldBeCalled()->willReturn([$status]);
 
         $container->get('kreta_project.repository.participant')->shouldBeCalled()->willReturn($participantRepository);
         $participantRepository->findByProject($project)->shouldBeCalled()->willReturn([$participant]);

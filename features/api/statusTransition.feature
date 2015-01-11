@@ -32,6 +32,7 @@ Feature: Manage status transition
       | 2  | #f1c40f | Resolved    | Workflow 1 |
       | 3  | #z7bp2p | Closed      | Workflow 1 |
       | 4  | #q1oy8v | Initial     | Workflow 1 |
+      | 5  | #q1oy8v | Done        | Workflow 2 |
     And the following status transitions exist:
       | id | name            | status      | initialStates      |
       | 0  | Start progress  | Open        | In progress        |
@@ -139,7 +140,7 @@ Feature: Manage status transition
     And the response should contain json:
     """
       {
-        "error": "Does not exist any entity with unknown-workflow id"
+        "error": "Does not exist any object with id passed"
       }
     """
 
@@ -190,7 +191,7 @@ Feature: Manage status transition
     And the response should contain json:
     """
       {
-        "error": "Does not exist any entity with unknown-transition id"
+        "error": "Does not exist any object with id passed"
       }
     """
 
@@ -201,7 +202,7 @@ Feature: Manage status transition
     And the response should contain json:
     """
       {
-        "error": "Does not exist any entity with unknown-workflow id"
+        "error": "Does not exist any object with id passed"
       }
     """
 
@@ -238,9 +239,9 @@ Feature: Manage status transition
     Then the response code should be 400
     And the response should contain json:
     """
-      {
-        "error": "The initial status is missing or does not exist"
-      }
+      [
+        "The transition must have at least one initial status"
+      ]
     """
 
   Scenario: Creating transition of unknown workflow
@@ -258,7 +259,7 @@ Feature: Manage status transition
     And the response should contain json:
     """
       {
-        "error": "Does not exist any entity with unknown-workflow id"
+        "error": "Does not exist any object with id passed"
       }
     """
 
@@ -276,7 +277,9 @@ Feature: Manage status transition
     And the response should contain json:
     """
       {
-        "error": "Name should not be blank"
+        "name": [
+          "This value should not be blank."
+        ]
       }
     """
 
@@ -384,11 +387,11 @@ Feature: Manage status transition
   Scenario: Deleting the 1 transition which is in use by an issue
     Given I am authenticating with "access-token-0" token
     When I send a DELETE request to "/app_test.php/api/workflows/0/transitions/1"
-    Then the response code should be 400
+    Then the response code should be 409
     And the response should contain json:
     """
       {
-        "error": "Remove operation has been cancelled, the transition is currently in use"
+        "error": "The resource is currently in use"
       }
     """
 
@@ -399,7 +402,7 @@ Feature: Manage status transition
     And the response should contain json:
     """
       {
-        "error": "Does not exist any entity with unknown-workflow id"
+        "error": "Does not exist any object with id passed"
       }
     """
 
@@ -409,8 +412,7 @@ Feature: Manage status transition
     Then the response code should be 204
     And the response should contain json:
     """
-      {
-      }
+      {}
     """
 
   Scenario: Deleting the unknown transition
@@ -420,7 +422,7 @@ Feature: Manage status transition
     And the response should contain json:
     """
       {
-        "error": "Does not exist any entity with unknown-transition id"
+        "error": "Does not exist any object with id passed"
       }
     """
 
@@ -442,7 +444,7 @@ Feature: Manage status transition
     And the response should contain json:
     """
       {
-        "error": "Does not exist any entity with unknown-workflow id"
+        "error": "Does not exist any object with id passed"
       }
     """
 
@@ -453,7 +455,7 @@ Feature: Manage status transition
     And the response should contain json:
     """
       {
-        "error": "Does not exist any entity with unknown-transition id"
+        "error": "Does not exist any object with id passed"
       }
     """
 
@@ -508,7 +510,7 @@ Feature: Manage status transition
     And the response should contain json:
     """
       {
-        "error": "Does not exist any entity with unknown-workflow id"
+        "error": "Does not exist any object with id passed"
       }
     """
 
@@ -519,7 +521,7 @@ Feature: Manage status transition
     And the response should contain json:
     """
       {
-        "error": "Does not exist any entity with unknown-transition id"
+        "error": "Does not exist any object with id passed"
       }
     """
 
@@ -530,7 +532,7 @@ Feature: Manage status transition
     And the response should contain json:
     """
       {
-        "error": "Does not exist any initial status with unknown-initial-status id"
+        "error": "Does not exist any object with id passed"
       }
     """
 
@@ -566,7 +568,7 @@ Feature: Manage status transition
     And the response should contain json:
     """
       {
-        "error": "Does not exist any entity with unknown-workflow id"
+        "error": "Does not exist any object with id passed"
       }
     """
 
@@ -577,7 +579,7 @@ Feature: Manage status transition
     And the response should contain json:
     """
       {
-        "error": "Does not exist any entity with unknown-transition id"
+        "error": "Does not exist any object with id passed"
       }
     """
 
@@ -613,7 +615,7 @@ Feature: Manage status transition
     And the response should contain json:
     """
       {
-        "error": "Does not exist any entity with unknown-workflow id"
+        "error": "Does not exist any object with id passed"
       }
     """
 
@@ -624,7 +626,7 @@ Feature: Manage status transition
     And the response should contain json:
     """
       {
-        "error": "Does not exist any entity with unknown-transition id"
+        "error": "Does not exist any object with id passed"
       }
     """
 
@@ -635,29 +637,29 @@ Feature: Manage status transition
     And the response should contain json:
     """
       {
-        "error": "Does not exist any initial status with unknown-initial-status id"
+        "error": "Does not exist any object with id passed"
       }
     """
 
   Scenario: Deleting the 0 initial status where the transition is in use by an issue
     Given I am authenticating with "access-token-0" token
     When I send a DELETE request to "/app_test.php/api/workflows/0/transitions/1/initial-statuses/0"
-    Then the response code should be 400
+    Then the response code should be 409
     And the response should contain json:
     """
       {
-        "error": "Remove operation has been cancelled, the transition is currently in use"
+        "error": "The resource is currently in use"
       }
     """
 
   Scenario: Deleting the 0 initial status of 0 transition when the transition only has one initial status
     Given I am authenticating with "access-token-0" token
     When I send a DELETE request to "/app_test.php/api/workflows/0/transitions/0/initial-statuses/1"
-    Then the response code should be 500
+    Then the response code should be 409
     And the response should contain json:
     """
       {
-        "error": "Impossible to remove. The transition must have at least one initial status"
+        "error": "The collection already has the minimum elements that is supported"
       }
     """
 
@@ -668,6 +670,19 @@ Feature: Manage status transition
     And the response should contain json:
     """
       {}
+    """
+
+  Scenario: Creating an initial status of 0 transition without initial status
+    When I send a POST request to "/app_test.php/api/workflows/0/transitions/0/initial-statuses?access_token=access-token-0" with form data:
+    """
+        {}
+    """
+    Then the response code should be 400
+    And the response should contain json:
+    """
+      {
+        "error": "The initial status should not be blank"
+      }
     """
 
   Scenario: Creating an initial status of 0 transition with user which is not workflow creator
@@ -692,7 +707,7 @@ Feature: Manage status transition
     And the response should contain json:
     """
       {
-        "error": "Does not exist any entity with unknown-workflow id"
+        "error": "Does not exist any object with id passed"
       }
     """
 
@@ -705,7 +720,7 @@ Feature: Manage status transition
     And the response should contain json:
     """
       {
-        "error": "Does not exist any entity with unknown-transition id"
+        "error": "Does not exist any object with id passed"
       }
     """
 
@@ -718,7 +733,7 @@ Feature: Manage status transition
     And the response should contain json:
     """
       {
-        "error": "Does not exist any initial status with unknown-initial-status id"
+        "error": "Does not exist any object with id passed"
       }
     """
 
@@ -727,15 +742,25 @@ Feature: Manage status transition
     """
         initial_status=1
     """
-    Then the response code should be 200
+    Then the response code should be 409
     And the response should contain json:
     """
-      [{
-        "type": "normal",
-        "name": "In progress",
-        "id": "1",
-        "color": "#2c3e50"
-      }]
+      {
+        "error": "The resource is already persisted"
+      }
+    """
+
+  Scenario: Creating an initial status of 0 transition which the status is of another workflow
+    When I send a POST request to "/app_test.php/api/workflows/0/transitions/0/initial-statuses?access_token=access-token-0" with form data:
+    """
+        initial_status=5
+    """
+    Then the response code should be 400
+    And the response should contain json:
+    """
+      {
+        "error": "The initial status given is not from transition's workflow"
+      }
     """
 
   Scenario: Creating an initial status of 0 transition
@@ -743,7 +768,7 @@ Feature: Manage status transition
     """
         initial_status=2
     """
-    Then the response code should be 200
+    Then the response code should be 201
     And the response should contain json:
     """
       [{

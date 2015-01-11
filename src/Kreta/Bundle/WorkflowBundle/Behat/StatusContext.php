@@ -38,9 +38,9 @@ class StatusContext extends AbstractContext
             $workflow = $this->getContainer()->get('kreta_workflow.repository.workflow')
                 ->findOneBy(['name' => $statusData['workflow']]);
 
-            $status = $this->getContainer()->get('kreta_workflow.factory.status')->create($statusData['name']);
+            $status = $this->getContainer()->get('kreta_workflow.factory.status')
+                ->create($statusData['name'], $workflow);
             $status->setColor($statusData['color']);
-            $status->setWorkflow($workflow);
             $manager->persist($status);
         }
 

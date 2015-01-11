@@ -70,13 +70,7 @@ class MediaUrlSubscriber implements EventSubscriberInterface
 
             if ($image instanceof MediaInterface) {
                 $project->setImage(
-                    $image->setName(
-                        $this->router->generate(
-                            'kreta_media_image',
-                            ['name' => $image->getName()],
-                            true
-                        )
-                    )
+                    $image->setName($this->router->generate('kreta_media_image', ['name' => $image->getName()], true))
                 );
             }
         }

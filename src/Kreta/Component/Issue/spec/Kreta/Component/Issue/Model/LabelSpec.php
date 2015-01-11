@@ -38,6 +38,6 @@ class LabelSpec extends ObjectBehavior
     function it_name_is_mutable()
     {
         $this->setName('The dummy label')->shouldReturn($this);
-        $this->getName()->shouldReturn('the-dummy-label');
+        $this->getName()->shouldReturn('The dummy label');
     }
 }

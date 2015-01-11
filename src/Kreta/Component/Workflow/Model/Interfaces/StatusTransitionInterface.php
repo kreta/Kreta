@@ -35,11 +35,25 @@ interface StatusTransitionInterface extends TransitionInterface
     public function getWorkflow();
 
     /**
+     * Gets the initial status of id given.
+     *
+     * @param string $initialStatusId The initial status id
+     *
+     * @return \Kreta\Component\Workflow\Model\Interfaces\StatusInterface
+     * @throws \Kreta\Component\Core\Exception\CollectionMinLengthException
+     * @throws \Doctrine\ORM\NoResultException
+     */
+    public function getInitialState($initialStatusId);
+
+    /**
      * Adds initial status.
      *
      * @param \Kreta\Component\Workflow\Model\Interfaces\StatusInterface $status The status
      *
      * @return $this self Object
+     * @throws \InvalidArgumentException
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Kreta\Component\Core\Exception\ResourceAlreadyPersistException
      */
     public function addInitialState($status);
 

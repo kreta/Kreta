@@ -11,11 +11,12 @@
 
 namespace Kreta\Component\Issue\Repository;
 
-use Doctrine\ORM\EntityRepository;
-use Doctrine\ORM\QueryBuilder;
 use Finite\State\StateInterface;
+use Kreta\Component\Core\Repository\EntityRepository;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
+use Kreta\Component\Workflow\Model\Interfaces\StatusInterface;
+use Kreta\Component\Workflow\Model\Interfaces\StatusTransitionInterface;
 use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
 
 /**
@@ -26,91 +27,40 @@ use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
 class IssueRepository extends EntityRepository
 {
     /**
-     * Array that contains the default valid filters to use in ordering.
-     *
-     * @var string[]
-     */
-    private $validFilters = ['status', 'priority', 'createdAt', 'title'];
-
-    /**
      * Finds all the issues of project given.
+     * Can do ordering, limit and offset.
      *
-     * Can do pagination if $page is changed, starting from 0 and it can
-     * limit the search if $count is changed. Furthermore, it can filter
-     * by issue title, assignee, reporter, watcher, priority, status and type.
+     * Furthermore, it can filter by issue title, assignee, reporter, watcher, priority, status and type.
      *
      * @param \Kreta\Component\Project\Model\Interfaces\ProjectInterface $project The project
-     * @param array                                                      $orderBy Array that contains the orders
-     * @param int                                                        $count   The number of results
-     * @param int                                                        $page    The number of page
-     * @param array                                                      $filters Array that contains all the filter
-     *                                                                            that support this method
+     * @param array                                                      $filters Array which contains all the filters
+     *                                                                            for search the results in the query
+     * @param string[]                                                   $sorting Array which contains the sorting
+     * @param int                                                        $limit   The limit
+     * @param int                                                        $offset  The offset
      *
      * @return \Kreta\Component\Issue\Model\Interfaces\IssueInterface[]
      */
     public function findByProject(
         ProjectInterface $project,
-        array $orderBy = ['createdAt' => 'ASC'],
-        $count = 10,
-        $page = 0,
-        array $filters = []
+        array $filters = [],
+        array $sorting = [],
+        $limit = null,
+        $offset = null
     )
     {
-        $whereSql = ' 1=1 ';
-        $parameters = [];
-        foreach ($filters as $key => $filter) {
-            if ($filter !== '') {
-                if (strpos($key, '.') !== false) {
-                    list($classPrefix, $key) = explode('.', $key);
-                    $whereSql .= 'AND ' . $classPrefix . '.' . $key . ' LIKE :' . $classPrefix . $key . ' ';
-                    $parameters[$classPrefix . $key] = '%' . $filter . '%';
-                } else {
-                    $whereSql .= 'AND i.' . $key . ' LIKE :' . $key . ' ';
-                    $parameters[$key] = '%' . $filter . '%';
-                }
-            }
+        $queryBuilder = $this->getQueryBuilder();
+        $this->addCriteria($queryBuilder, ['project' => $project]);
+        $this->addCriteria($queryBuilder, $filters, false);
+        $this->orderBy($queryBuilder, $sorting);
+        if ($limit) {
+            $queryBuilder->setMaxResults($limit);
         }
-        $parameters['project'] = $project->getId();
-
-        $queryBuilder = $this->_em->createQueryBuilder();
-        $queryBuilder->select(['i', 'a', 'c', 'l', 'p', 'r', 'rep', 's', 'w'])
-            ->from($this->_entityName, 'i')
-            ->leftJoin('i.assignee', 'a')
-            ->leftJoin('i.comments', 'c')
-            ->leftJoin('i.labels', 'l')
-            ->leftJoin('i.project', 'p')
-            ->leftJoin('i.resolution', 'r')
-            ->leftJoin('i.reporter', 'rep')
-            ->leftJoin('i.status', 's')
-            ->leftJoin('i.watchers', 'w')
-            ->where($queryBuilder->expr()->eq('i.project', ':project'))
-            ->andWhere($whereSql)
-            ->setParameters($parameters);
-        if ($count !== 0) {
-            $queryBuilder
-                ->setMaxResults($count)
-                ->setFirstResult($count * $page);
+        if ($offset) {
+            $queryBuilder->setFirstResult($offset);
         }
-        $queryBuilder = $this->orderBy($queryBuilder, $orderBy);
 
         return $queryBuilder->getQuery()->getResult();
-    }
-
-    /**
-     * Finds all the issues of reporter given.
-     *
-     * @param \Kreta\Component\User\Model\Interfaces\UserInterface $reporter The reporter
-     *
-     * @return \Kreta\Component\Issue\Model\Interfaces\IssueInterface[]
-     */
-    public function findByReporter(UserInterface $reporter)
-    {
-        $queryBuilder = $this->createQueryBuilder('i');
-
-        return $queryBuilder
-            ->where($queryBuilder->expr()->eq('i.reporter', ':reporter'))
-            ->setParameter(':reporter', $reporter->getId())
-            ->getQuery()->getResult();
     }
 
     /**
@@ -124,17 +74,12 @@ class IssueRepository extends EntityRepository
      */
     public function findByAssignee(UserInterface $assignee, array $orderBy, $onlyOpen = false)
     {
-        $queryBuilder = $this->createQueryBuilder('i');
-
-        $queryBuilder
-            ->leftJoin('i.status', 'st')
-            ->where($queryBuilder->expr()->eq('i.assignee', ':assignee'))
-            ->setParameter(':assignee', $assignee->getId());
+        $queryBuilder = $this->getQueryBuilder();
+        $this->addCriteria($queryBuilder, ['assignee' => $assignee]);
         if ($onlyOpen) {
-            $queryBuilder->andWhere($queryBuilder->expr()->neq('st.type', ':state'))
-                ->setParameter(':state', StateInterface::TYPE_FINAL);
+            $queryBuilder->andWhere($queryBuilder->expr()->neq('s.type', ':statusType'))
+                ->setParameter('statusType', StateInterface::TYPE_FINAL);
         }
-
         $queryBuilder = $this->orderBy($queryBuilder, $orderBy);
 
         return $queryBuilder->getQuery()->getResult();
@@ -150,15 +95,8 @@ class IssueRepository extends EntityRepository
      */
     public function findOneByShortCode($projectShortName, $issueNumber)
     {
-        $queryBuilder = $this->createQueryBuilder('i');
-
-        $queryBuilder
-            ->join('i.project', 'p')
-            ->join('p.workflow', 'w')
-            ->where($queryBuilder->expr()->eq('i.numericId', ':issueNumber'))
-            ->andWhere($queryBuilder->expr()->eq('p.shortName', ':projectShortName'))
-            ->setParameter('issueNumber', $issueNumber)
-            ->setParameter('projectShortName', $projectShortName);
+        $queryBuilder = $this->getQueryBuilder();
+        $this->addCriteria($queryBuilder, ['numericId' => $issueNumber, 'p.shortName' => $projectShortName]);
 
         return $queryBuilder->getQuery()->getOneOrNullResult();
     }
@@ -172,35 +110,78 @@ class IssueRepository extends EntityRepository
      */
     public function findByWorkflow(WorkflowInterface $workflow)
     {
-        $queryBuilder = $this->createQueryBuilder('i');
+        $queryBuilder = $this->getQueryBuilder();
+        $this->addCriteria($queryBuilder, ['p.workflow' => $workflow]);
 
-        return $queryBuilder
-            ->innerJoin('i.project', 'pr')
-            ->where($queryBuilder->expr()->eq('pr.workflow', ':workflow'))
-            ->setParameter('workflow', $workflow)
-            ->getQuery()->getResult();
+        return $queryBuilder->getQuery()->getResult();
     }
 
-
     /**
-     * Manages the order by statement into queries.
+     * Checks if the status given is in use by any issue of workflow given.
      *
-     * @param \Doctrine\ORM\QueryBuilder $queryBuilder The query builder
-     * @param string[]                   $orderBy      Array that contains the orders
+     * @param \Kreta\Component\Workflow\Model\Interfaces\StatusInterface $status The status
      *
-     * @return \Doctrine\ORM\QueryBuilder
-     * @throws \Exception when it is not a valid filter
+     * @return boolean
      */
-    protected function orderBy(QueryBuilder $queryBuilder, array $orderBy = [])
+    public function isStatusInUse(StatusInterface $status)
     {
-        foreach ($orderBy as $sort => $order) {
-            if (in_array($sort, $this->validFilters)) {
-                $queryBuilder->orderBy('i.' . $sort, $order);
-            } else {
-                throw new \Exception($sort . ' is not a valid filter');
+        $issues = $this->findByWorkflow($status->getWorkflow());
+        if ($status instanceof StatusInterface) {
+            foreach ($issues as $issue) {
+                if ($issue->getStatus()->getId() === $status->getId()) {
+                    return true;
+                }
             }
         }
 
-        return $queryBuilder;
+        return false;
+    }
+
+    /**
+     * Checks if the transition given is in use by any issue of workflow given.
+     *
+     * @param \Kreta\Component\Workflow\Model\Interfaces\StatusTransitionInterface $transition The status transition
+     *
+     * @return boolean
+     */
+    public function isTransitionInUse(StatusTransitionInterface $transition)
+    {
+        $issues = $this->findByWorkflow($transition->getWorkflow());
+        if ($transition instanceof StatusTransitionInterface) {
+            foreach ($issues as $issue) {
+                foreach ($issue->getStatus()->getTransitions() as $retrieveTransition) {
+                    if ($retrieveTransition->getId() === $transition->getId()) {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getQueryBuilder()
+    {
+        return parent::getQueryBuilder()
+            ->addSelect(['a', 'c', 'l', 'p', 'r', 'rep', 's', 'w'])
+            ->leftJoin('i.assignee', 'a')
+            ->leftJoin('i.comments', 'c')
+            ->leftJoin('i.labels', 'l')
+            ->leftJoin('i.project', 'p')
+            ->leftJoin('i.resolution', 'r')
+            ->leftJoin('i.reporter', 'rep')
+            ->leftJoin('i.status', 's')
+            ->leftJoin('i.watchers', 'w');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getAlias()
+    {
+        return 'i';
     }
 }

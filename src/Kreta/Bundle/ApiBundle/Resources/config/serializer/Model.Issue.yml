@@ -42,7 +42,7 @@ Kreta\Component\Issue\Model\Issue:
             groups: [issueList, issue]
         comments:
             expose: true
-            groups: [issueList, issue]
+            groups: [issue]
         createdAt:
             expose: true
             groups: [issueList, issue]
@@ -50,6 +50,9 @@ Kreta\Component\Issue\Model\Issue:
             expose: true
             groups: [issueList, issue]
         labels:
+            expose: true
+            groups: [issueList, issue]
+        numericId:
             expose: true
             groups: [issueList, issue]
         priority:
