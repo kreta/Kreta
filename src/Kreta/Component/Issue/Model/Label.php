@@ -13,7 +13,6 @@ namespace Kreta\Component\Issue\Model;
 
 use Kreta\Component\Core\Model\Abstracts\AbstractModel;
 use Kreta\Component\Issue\Model\Interfaces\LabelInterface;
-use Kreta\Component\Core\Util\Slugger;
 
 /**
  * Class Label.

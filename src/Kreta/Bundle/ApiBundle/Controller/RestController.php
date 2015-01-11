@@ -47,7 +47,7 @@ class RestController extends FOSRestController
      *
      * @return \Kreta\Component\Project\Model\Interfaces\ProjectInterface
      */
-    public function getProjectIfAllowed($projectId, $projectGrant = 'view')
+    protected function getProjectIfAllowed($projectId, $projectGrant = 'view')
     {
         return $this->getResourceIfAllowed(
             $this->get('kreta_project.repository.project'), $projectId, $projectGrant
@@ -62,7 +62,7 @@ class RestController extends FOSRestController
      *
      * @return \Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface
      */
-    public function getWorkflowIfAllowed($workflowId, $workflowGrant = 'view')
+    protected function getWorkflowIfAllowed($workflowId, $workflowGrant = 'view')
     {
         return $this->getResourceIfAllowed(
             $this->get('kreta_workflow.repository.workflow'), $workflowId, $workflowGrant
@@ -70,7 +70,7 @@ class RestController extends FOSRestController
     }
 
     /**
-     * Gets the workflow if the current user is granted and if the workflow exists.
+     * Gets the resource if the current user is granted and if the resource exists.
      *
      * @param \Kreta\Component\Core\Repository\EntityRepository $repository The repository
      * @param string                                            $id         The id
@@ -79,7 +79,7 @@ class RestController extends FOSRestController
      * @return mixed
      * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
      */
-    protected function getResourceIfAllowed(EntityRepository $repository, $id, $grant = 'view')
+    private function getResourceIfAllowed(EntityRepository $repository, $id, $grant = 'view')
     {
         $resource = $repository->find($id, false);
         if (!$this->get('security.context')->isGranted($grant, $resource)) {

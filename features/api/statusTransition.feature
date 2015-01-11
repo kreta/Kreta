@@ -338,7 +338,7 @@ Feature: Manage status transition
     """
       {
           "name": [
-            "A transition with identical name is already exist in this workflow"
+            "A transition with identical name is already exists in this workflow"
           ]
       }
     """
