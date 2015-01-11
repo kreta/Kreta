@@ -13,15 +13,15 @@ namespace spec\Kreta\Bundle\ApiBundle\Controller;
 
 use FOS\RestBundle\Request\ParamFetcher;
 use Kreta\Bundle\ApiBundle\Form\Handler\ProjectHandler;
+use Kreta\Bundle\ApiBundle\spec\Kreta\Bundle\ApiBundle\Controller\RestController;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use Kreta\Component\Project\Repository\ProjectRepository;
 use Prophecy\Argument;
-use spec\Kreta\Bundle\ApiBundle\Controller\Abstracts\AbstractRestControllerSpec;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
@@ -29,7 +29,7 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
  *
  * @package spec\Kreta\Bundle\ApiBundle\Controller
  */
-class ProjectControllerSpec extends AbstractRestControllerSpec
+class ProjectControllerSpec extends RestController
 {
     function let(ContainerInterface $container)
     {
@@ -41,9 +41,9 @@ class ProjectControllerSpec extends AbstractRestControllerSpec
         $this->shouldHaveType('Kreta\Bundle\ApiBundle\Controller\ProjectController');
     }
 
-    function it_extends_abstract_rest_controller()
+    function it_extends_rest_controller()
     {
-        $this->shouldHaveType('Kreta\Bundle\ApiBundle\Controller\Abstracts\AbstractRestController');
+        $this->shouldHaveType('Kreta\Bundle\ApiBundle\Controller\RestController');
     }
 
     function it_does_not_get_projects_because_the_user_is_not_logged(
@@ -55,10 +55,9 @@ class ProjectControllerSpec extends AbstractRestControllerSpec
     )
     {
         $container->get('kreta_project.repository.project')->shouldBeCalled()->willReturn($projectRepository);
-        $this->getCurrentUser($container, $securityContext, $token);
+        $this->getUser($container, $securityContext, $token);
 
-        $this->shouldThrow(new AccessDeniedHttpException('Not allowed to access this resource'))
-            ->during('getProjectsAction', [$paramFetcher]);
+        $this->shouldThrow(new AccessDeniedException())->during('getProjectsAction', [$paramFetcher]);
     }
 
     function it_gets_projects(
@@ -72,7 +71,7 @@ class ProjectControllerSpec extends AbstractRestControllerSpec
     )
     {
         $container->get('kreta_project.repository.project')->shouldBeCalled()->willReturn($projectRepository);
-        $user = $this->getCurrentUser($container, $securityContext, $token, $user);
+        $user = $this->getUser($container, $securityContext, $token, $user);
 
         $paramFetcher->get('sort')->shouldBeCalled()->willReturn('name');
         $paramFetcher->get('limit')->shouldBeCalled()->willReturn(10);
@@ -92,8 +91,7 @@ class ProjectControllerSpec extends AbstractRestControllerSpec
     {
         $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext, 'view', false);
 
-        $this->shouldThrow(new AccessDeniedHttpException('Not allowed to access this resource'))
-            ->during('getProjectAction', ['project-id']);
+        $this->shouldThrow(new AccessDeniedException())->during('getProjectAction', ['project-id']);
     }
 
     function it_gets_project(
@@ -136,8 +134,7 @@ class ProjectControllerSpec extends AbstractRestControllerSpec
         $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext, 'edit', false);
         $container->get('request')->shouldBeCalled()->willReturn($request);
 
-        $this->shouldThrow(new AccessDeniedHttpException('Not allowed to access this resource'))
-            ->during('putProjectsAction', ['project-id']);
+        $this->shouldThrow(new AccessDeniedException())->during('putProjectsAction', ['project-id']);
     }
 
     function it_puts_project(

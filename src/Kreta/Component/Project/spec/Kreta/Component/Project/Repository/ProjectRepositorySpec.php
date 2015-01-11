@@ -16,7 +16,7 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
-use Kreta\Component\Core\spec\Kreta\Component\Core\Repository\Abstracts\BaseRepository;
+use Kreta\Component\Core\spec\Kreta\Component\Core\Repository\BaseEntityRepository;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use Prophecy\Argument;
@@ -26,7 +26,7 @@ use Prophecy\Argument;
  *
  * @package spec\Kreta\Component\Project\Repository
  */
-class ProjectRepositorySpec extends BaseRepository
+class ProjectRepositorySpec extends BaseEntityRepository
 {
     function let(EntityManager $manager, ClassMetadata $metadata)
     {
@@ -38,9 +38,9 @@ class ProjectRepositorySpec extends BaseRepository
         $this->shouldHaveType('Kreta\Component\Project\Repository\ProjectRepository');
     }
 
-    function it_extends_abstract_repository()
+    function it_extends_kretas_entity_repository()
     {
-        $this->shouldHaveType('Kreta\Component\Core\Repository\Abstracts\AbstractRepository');
+        $this->shouldHaveType('Kreta\Component\Core\Repository\EntityRepository');
     }
 
     function it_finds_by_project(

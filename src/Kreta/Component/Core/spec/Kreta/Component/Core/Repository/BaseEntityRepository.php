@@ -9,7 +9,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\Component\Core\spec\Kreta\Component\Core\Repository\Abstracts;
+namespace Kreta\Component\Core\spec\Kreta\Component\Core\Repository;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Query\Expr;
@@ -19,17 +19,17 @@ use Prophecy\Argument;
 
 
 /**
- * Class BaseRepository.
+ * Class BaseEntityRepository.
  *
- * @package Kreta\Component\Core\spec\Kreta\Component\Core\Repository\Abstracts
+ * @package Kreta\Component\Core\spec\Kreta\Component\Core\Repository
  */
-class BaseRepository extends ObjectBehavior
+class BaseEntityRepository extends ObjectBehavior
 {
     protected function getQueryBuilderSpec(EntityManager $manager, QueryBuilder $queryBuilder)
     {
         $manager->createQueryBuilder()->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->select('ars')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->from(Argument::any(), 'ars')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->select('kreta')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->from(Argument::any(), 'kreta')->shouldBeCalled()->willReturn($queryBuilder);
 
         return $queryBuilder;
     }
@@ -87,7 +87,7 @@ class BaseRepository extends ObjectBehavior
 
     protected function getAlias()
     {
-        return 'ars';
+        return 'kreta';
     }
 }
 

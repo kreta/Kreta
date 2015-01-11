@@ -14,7 +14,7 @@ namespace spec\Kreta\Component\Workflow\Repository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Query\Expr;
-use Kreta\Component\Core\spec\Kreta\Component\Core\Repository\Abstracts\BaseRepository;
+use Kreta\Component\Core\spec\Kreta\Component\Core\Repository\BaseEntityRepository;
 use Prophecy\Argument;
 
 /**
@@ -22,7 +22,7 @@ use Prophecy\Argument;
  *
  * @package spec\Kreta\Component\Workflow\Repository
  */
-class WorkflowRepositorySpec extends BaseRepository
+class WorkflowRepositorySpec extends BaseEntityRepository
 {
     function let(EntityManager $manager, ClassMetadata $metadata)
     {
@@ -34,8 +34,8 @@ class WorkflowRepositorySpec extends BaseRepository
         $this->shouldHaveType('Kreta\Component\Workflow\Repository\WorkflowRepository');
     }
 
-    function it_extends_abstract_repository()
+    function it_extends_kretas_entity_repository()
     {
-        $this->shouldHaveType('Kreta\Component\Core\Repository\Abstracts\AbstractRepository');
+        $this->shouldHaveType('Kreta\Component\Core\Repository\EntityRepository');
     }
 }

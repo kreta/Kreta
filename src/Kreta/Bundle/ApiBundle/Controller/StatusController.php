@@ -12,8 +12,7 @@
 namespace Kreta\Bundle\ApiBundle\Controller;
 
 use FOS\RestBundle\Controller\Annotations\View;
-use Kreta\Bundle\ApiBundle\Controller\Abstracts\AbstractRestController;
-use Kreta\Bundle\ApiBundle\Exception\ResourceInUseException;
+use Kreta\Component\Core\Exception\ResourceInUseException;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
 /**
@@ -21,7 +20,7 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
  *
  * @package Kreta\Bundle\ApiBundle\Controller
  */
-class StatusController extends AbstractRestController
+class StatusController extends RestController
 {
     /**
      * Returns all the statuses of workflow id given.
@@ -210,12 +209,12 @@ class StatusController extends AbstractRestController
      * @View(statusCode=204)
      *
      * @return void
-     * @throws \Kreta\Bundle\ApiBundle\Exception\ResourceInUseException
+     * @throws \Kreta\Component\Core\Exception\ResourceInUseException
      */
     public function deleteStatusesAction($workflowId, $statusId)
     {
         $status = $this->getStatusIfAllowed($workflowId, $statusId, 'manage_status');
-        if ($this->get('kreta_issue.repository.issue')->isStatusInUse($status->getWorkflow(), $status)) {
+        if ($this->get('kreta_issue.repository.issue')->isStatusInUse($status)) {
             throw new ResourceInUseException();
         }
         $this->get('kreta_workflow.repository.status')->remove($status);

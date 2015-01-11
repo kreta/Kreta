@@ -13,10 +13,12 @@ namespace spec\Kreta\Bundle\ApiBundle\EventListener;
 
 use Doctrine\ORM\NoResultException;
 use Kreta\Bundle\CoreBundle\Form\Handler\Exception\InvalidFormException;
+use Kreta\Component\Core\Exception\ResourceInUseException;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Class JsonExceptionListenerSpec.
@@ -44,10 +46,52 @@ class JsonExceptionListenerSpec extends ObjectBehavior
         $this->onKernelException($event);
     }
 
+    function it_converts_kretas_ResourceInUse_ResourceAlreadyPersist_and_CollectionMinLength_exceptions_into_json_response(
+        GetResponseForExceptionEvent $event,
+        Request $request,
+        ResourceInUseException $exception
+    )
+    {
+        $event->getRequest()->shouldBeCalled()->willReturn($request);
+        $request->getRequestFormat()->shouldBeCalled()->willReturn('json');
+        $event->getException()->shouldBeCalled()->willReturn($exception);
+        $event->setResponse(Argument::type('Symfony\Component\HttpFoundation\JsonResponse'))->shouldBeCalled();
+
+        $this->onKernelException($event);
+    }
+
     function it_converts_doctrines_no_result_exception_into_json_response(
         GetResponseForExceptionEvent $event,
         Request $request,
         NoResultException $exception
+    )
+    {
+        $event->getRequest()->shouldBeCalled()->willReturn($request);
+        $request->getRequestFormat()->shouldBeCalled()->willReturn('json');
+        $event->getException()->shouldBeCalled()->willReturn($exception);
+        $event->setResponse(Argument::type('Symfony\Component\HttpFoundation\JsonResponse'))->shouldBeCalled();
+
+        $this->onKernelException($event);
+    }
+
+    function it_converts_access_denied_exception_into_json_response(
+        GetResponseForExceptionEvent $event,
+        Request $request,
+        AccessDeniedException $exception
+    )
+    {
+        $event->getRequest()->shouldBeCalled()->willReturn($request);
+        $request->getRequestFormat()->shouldBeCalled()->willReturn('json');
+        $event->getException()->shouldBeCalled()->willReturn($exception);
+        $event->setResponse(Argument::type('Symfony\Component\HttpFoundation\JsonResponse'))->shouldBeCalled();
+
+        $this->onKernelException($event);
+    }
+
+    function it_converts_invalid_argument_exception_into_json_response(
+        GetResponseForExceptionEvent $event,
+        Request $request,
+        \InvalidArgumentException $exception
     )
     {
         $event->getRequest()->shouldBeCalled()->willReturn($request);

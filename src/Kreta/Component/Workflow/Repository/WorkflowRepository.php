@@ -11,20 +11,13 @@
 
 namespace Kreta\Component\Workflow\Repository;
 
-use Kreta\Component\Core\Repository\Abstracts\AbstractRepository;
+use Kreta\Component\Core\Repository\EntityRepository;
 
 /**
  * Class WorkflowRepository.
  *
  * @package Kreta\Component\Workflow\Repository
  */
-class WorkflowRepository extends AbstractRepository
+class WorkflowRepository extends EntityRepository
 {
-    /**
-     * {@inheritdoc}
-     */
-    protected function getAlias()
-    {
-        return 'w';
-    }
 }

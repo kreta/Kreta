@@ -14,7 +14,6 @@ namespace Kreta\Bundle\ApiBundle\Controller;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Request\ParamFetcher;
-use Kreta\Bundle\ApiBundle\Controller\Abstracts\AbstractRestController;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
 /**
@@ -22,7 +21,7 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
  *
  * @package Kreta\Bundle\ApiBundle\Controller
  */
-class WorkflowController extends AbstractRestController
+class WorkflowController extends RestController
 {
     /**
      * Returns all the workflows of current user, it admits sort, limit and offset.
@@ -58,7 +57,7 @@ class WorkflowController extends AbstractRestController
     public function getWorkflowsAction(ParamFetcher $paramFetcher)
     {
         return $this->get('kreta_workflow.repository.workflow')->findBy(
-            ['creator' => $this->getCurrentUser()],
+            ['creator' => $this->getUser()],
             [$paramFetcher->get('sort') => 'ASC'],
             $paramFetcher->get('limit'),
             $paramFetcher->get('offset')

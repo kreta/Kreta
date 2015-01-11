@@ -11,7 +11,10 @@
 
 namespace Kreta\Component\Workflow\Model;
 
+use Doctrine\ORM\NoResultException;
 use Finite\Transition\Transition;
+use Kreta\Component\Core\Exception\CollectionMinLengthException;
+use Kreta\Component\Core\Exception\ResourceAlreadyPersistException;
 use Kreta\Component\Workflow\Model\Interfaces\StatusInterface;
 use Kreta\Component\Workflow\Model\Interfaces\StatusTransitionInterface;
 
@@ -79,15 +82,33 @@ class StatusTransition extends Transition implements StatusTransitionInterface
     /**
      * {@inheritdoc}
      */
+    public function getInitialState($initialStatusId)
+    {
+        foreach ($this->initialStates as $initialStatus) {
+            if ($initialStatus->getId() === $initialStatusId) {
+                return $initialStatus;
+            }
+        }
+        throw new NoResultException();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function addInitialState($status)
     {
         if (!($status instanceof StatusInterface)) {
             throw new \InvalidArgumentException('Invalid argument passed, it is not an instance of StatusInterface');
         }
 
-        foreach ($this->initialStates as $index => $initialStatus) {
-            if ($initialStatus->getId() === $status->getId()) {
-                return $this;
+        if ($status->getWorkflow()->getId() !== $this->getWorkflow()->getId()) {
+            throw new \InvalidArgumentException('The initial status given is not from transition\'s workflow');
+        }
+
+        $statusId = $status->getId();
+        foreach ($this->initialStates as $initialStatus) {
+            if ($initialStatus->getId() === $statusId || $this->state === $statusId) {
+                throw new ResourceAlreadyPersistException();
             }
         }
         $this->initialStates[] = $status;
@@ -101,38 +122,16 @@ class StatusTransition extends Transition implements StatusTransitionInterface
     public function removeInitialState(StatusInterface $status)
     {
         if (count($this->initialStates) < 2) {
-            throw new \Exception('Impossible to remove. The transition must have at least one initial status');
+            throw new CollectionMinLengthException();
         }
 
         foreach ($this->initialStates as $index => $initialStatus) {
             if ($initialStatus->getId() === $status->getId()) {
                 unset($this->initialStates[$index]);
-                break;
+                return $this;
             }
         }
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setName($name)
-    {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setState(StatusInterface $state)
-    {
-        $this->state = $state;
-        $this->workflow = $state->getWorkflow();
-
-        return $this;
+        throw new NoResultException();
     }
 
     /**

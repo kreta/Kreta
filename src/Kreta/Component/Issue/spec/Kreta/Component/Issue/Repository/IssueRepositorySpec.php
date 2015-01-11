@@ -16,11 +16,12 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
-use Kreta\Component\Core\spec\Kreta\Component\Core\Repository\Abstracts\BaseRepository;
+use Kreta\Component\Core\spec\Kreta\Component\Core\Repository\BaseEntityRepository;
 use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use Kreta\Component\Workflow\Model\Interfaces\StatusInterface;
+use Kreta\Component\Workflow\Model\Interfaces\StatusTransitionInterface;
 use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
 use Prophecy\Argument;
 
@@ -29,7 +30,7 @@ use Prophecy\Argument;
  *
  * @package spec\Kreta\Component\Issue\Repository
  */
-class IssueRepositorySpec extends BaseRepository
+class IssueRepositorySpec extends BaseEntityRepository
 {
     function let(EntityManager $manager, ClassMetadata $metadata)
     {
@@ -41,9 +42,9 @@ class IssueRepositorySpec extends BaseRepository
         $this->shouldHaveType('Kreta\Component\Issue\Repository\IssueRepository');
     }
 
-    function it_extends_abstract_repository()
+    function it_extends_kretas_entity_repository()
     {
-        $this->shouldHaveType('Kreta\Component\Core\Repository\Abstracts\AbstractRepository');
+        $this->shouldHaveType('Kreta\Component\Core\Repository\EntityRepository');
     }
 
     function it_finds_by_project(
@@ -68,29 +69,6 @@ class IssueRepositorySpec extends BaseRepository
 
         $this->findByProject($project, ['title' => 'project name'], ['title' => 'DESC'], 10, 1)
             ->shouldReturn([$issue]);
-    }
-
-    function it_finds_by_reporter(
-        UserInterface $reporter,
-        EntityManager $manager,
-        QueryBuilder $queryBuilder,
-        Expr $expr,
-        Expr\Comparison $comparison,
-        AbstractQuery $query
-    )
-    {
-        $manager->createQueryBuilder()->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->select('i')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->from(Argument::any(), 'i')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->expr()->shouldBeCalled()->willReturn($expr);
-        $expr->eq('i.reporter', ':reporter')->shouldBeCalled()->willReturn($comparison);
-        $queryBuilder->where($comparison)->shouldBeCalled()->willReturn($queryBuilder);
-        $reporter->getId()->shouldBeCalled()->willReturn('reporter-id');
-        $queryBuilder->setParameter(':reporter', 'reporter-id')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
-        $query->getResult()->shouldBeCalled()->willReturn([]);
-
-        $this->findByReporter($reporter)->shouldBeArray();
     }
 
     function it_finds_by_assignee(
@@ -155,23 +133,13 @@ class IssueRepositorySpec extends BaseRepository
         QueryBuilder $queryBuilder,
         Expr $expr,
         Expr\Comparison $comparison,
-        Expr\Comparison $comparison2,
         AbstractQuery $query,
         IssueInterface $issue
     )
     {
-        $manager->createQueryBuilder()->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->select('i')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->from(Argument::any(), 'i')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->join('i.project', 'p')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->join('p.workflow', 'w')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->expr()->shouldBeCalledTimes(2)->willReturn($expr);
-        $expr->eq('i.numericId', ':issueNumber')->shouldBeCalled()->willReturn($comparison);
-        $expr->eq('p.shortName', ':projectShortName')->shouldBeCalled()->willReturn($comparison2);
-        $queryBuilder->where($comparison)->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->andWhere($comparison2)->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->setParameter('issueNumber', 42)->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->setParameter('projectShortName', 'KRT')->shouldBeCalled()->willReturn($queryBuilder);
+        $this->getQueryBuilderSpec($manager, $queryBuilder);
+        $this->addCriteriaSpec($queryBuilder, $expr, ['numericId' => 42], $comparison);
+        $this->addCriteriaSpec($queryBuilder, $expr, ['p.shortName' => 'KRT'], $comparison);
         $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
         $query->getOneOrNullResult()->shouldBeCalled()->willReturn($issue);
 
@@ -208,6 +176,7 @@ class IssueRepositorySpec extends BaseRepository
         IssueInterface $issue
     )
     {
+        $status->getWorkflow()->shouldBeCalled()->willReturn($workflow);
         $queryBuilder = $this->getQueryBuilderSpec($manager, $queryBuilder);
         $this->addCriteriaSpec($queryBuilder, $expr, ['p.workflow' => $workflow], $comparison);
         $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
@@ -217,10 +186,10 @@ class IssueRepositorySpec extends BaseRepository
         $status2->getId()->shouldBeCalled()->willReturn('status-id');
         $status->getId()->shouldBeCalled()->willReturn('status-id');
 
-        $this->isStatusInUse($workflow, $status)->shouldReturn(true);
+        $this->isStatusInUse($status)->shouldReturn(true);
     }
 
-    function it_returns_false_because_the_status_is_in_use_by_any_issue_of_workflow_given(
+    function it_returns_false_because_the_status_is_not_in_use_by_any_issue_of_workflow_given(
         WorkflowInterface $workflow,
         StatusInterface $status,
         StatusInterface $status2,
@@ -232,6 +201,7 @@ class IssueRepositorySpec extends BaseRepository
         IssueInterface $issue
     )
     {
+        $status->getWorkflow()->shouldBeCalled()->willReturn($workflow);
         $queryBuilder = $this->getQueryBuilderSpec($manager, $queryBuilder);
         $this->addCriteriaSpec($queryBuilder, $expr, ['p.workflow' => $workflow], $comparison);
         $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
@@ -241,7 +211,61 @@ class IssueRepositorySpec extends BaseRepository
         $status2->getId()->shouldBeCalled()->willReturn('status2-id');
         $status->getId()->shouldBeCalled()->willReturn('status-id');
 
-        $this->isStatusInUse($workflow, $status)->shouldReturn(false);
+        $this->isStatusInUse($status)->shouldReturn(false);
+    }
+
+    function it_returns_true_because_the_transition_is_in_use_by_any_issue_of_workflow_given(
+        WorkflowInterface $workflow,
+        StatusTransitionInterface $transition,
+        StatusTransitionInterface $transition2,
+        StatusInterface $status,
+        EntityManager $manager,
+        QueryBuilder $queryBuilder,
+        Expr $expr,
+        Expr\Comparison $comparison,
+        AbstractQuery $query,
+        IssueInterface $issue
+    )
+    {
+        $transition->getWorkflow()->shouldBeCalled()->willReturn($workflow);
+        $queryBuilder = $this->getQueryBuilderSpec($manager, $queryBuilder);
+        $this->addCriteriaSpec($queryBuilder, $expr, ['p.workflow' => $workflow], $comparison);
+        $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
+        $query->getResult()->shouldBeCalled()->willReturn([$issue]);
+
+        $issue->getStatus()->shouldBeCalled()->willReturn($status);
+        $status->getTransitions()->shouldBeCalled()->willReturn([$transition2]);
+        $transition2->getId()->shouldBeCalled()->willReturn('transition-id');
+        $transition->getId()->shouldBeCalled()->willReturn('transition-id');
+
+        $this->isTransitionInUse($transition)->shouldReturn(true);
+    }
+
+    function it_returns_false_because_the_transition_is_not_in_use_by_any_issue_of_workflow_given(
+        WorkflowInterface $workflow,
+        StatusTransitionInterface $transition,
+        StatusTransitionInterface $transition2,
+        StatusInterface $status,
+        EntityManager $manager,
+        QueryBuilder $queryBuilder,
+        Expr $expr,
+        Expr\Comparison $comparison,
+        AbstractQuery $query,
+        IssueInterface $issue
+    )
+    {
+        $transition->getWorkflow()->shouldBeCalled()->willReturn($workflow);
+        $queryBuilder = $this->getQueryBuilderSpec($manager, $queryBuilder);
+        $this->addCriteriaSpec($queryBuilder, $expr, ['p.workflow' => $workflow], $comparison);
+        $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
+        $query->getResult()->shouldBeCalled()->willReturn([$issue]);
+
+        $issue->getStatus()->shouldBeCalled()->willReturn($status);
+        $status->getTransitions()->shouldBeCalled()->willReturn([$transition2]);
+        $transition2->getId()->shouldBeCalled()->willReturn('transition2-id');
+        $transition->getId()->shouldBeCalled()->willReturn('transition-id');
+
+        $this->isTransitionInUse($transition)->shouldReturn(false);
     }
 
     protected function getQueryBuilderSpec(EntityManager $manager, QueryBuilder $queryBuilder)

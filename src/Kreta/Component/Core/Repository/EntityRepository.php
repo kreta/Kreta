@@ -9,25 +9,18 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\Component\Core\Repository\Abstracts;
+namespace Kreta\Component\Core\Repository;
 
-use Doctrine\ORM\EntityRepository;
+use Doctrine\ORM\EntityRepository as BaseEntityRepository;
 use Doctrine\ORM\QueryBuilder;
 
 /**
- * Abstract class AbstractRepository.
+ * Class EntityRepository.
  *
- * @package Kreta\Component\Core\Repository\Abstracts
+ * @package Kreta\Component\Core\Repository
  */
-abstract class AbstractRepository extends EntityRepository
+class EntityRepository extends BaseEntityRepository
 {
-    /**
-     * Gets the entity name alias.
-     *
-     * @abstract
-     */
-    abstract protected function getAlias();
-
     /**
      * Persists object.
      *
@@ -204,5 +197,15 @@ abstract class AbstractRepository extends EntityRepository
     protected function getPropertyName($name)
     {
         return !strpos($name, '.') ? $this->getAlias() . '.' . $name : $name;
+    }
+
+    /**
+     * Gets the entity name alias.
+     *
+     * @return string
+     */
+    protected function getAlias()
+    {
+        return 'kreta';
     }
 }

@@ -9,20 +9,20 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\Bundle\ApiBundle\Exception;
+namespace Kreta\Component\Core\Exception;
 
 /**
- * Class ResourceInUseException.
+ * Class CollectionMinLengthException.
  *
- * @package Kreta\Bundle\ApiBundle\Exception
+ * @package Kreta\Component\Core\Exception
  */
-class ResourceInUseException extends \Exception 
+class CollectionMinLengthException extends \Exception 
 {
     /**
      * Constructor.
      */
     public function __construct()
     {
-        parent::__construct('The resource is currently in use');
+        parent::__construct('The collection already has the minimum elements that is supported');
     }
 }

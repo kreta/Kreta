@@ -11,7 +11,8 @@
 
 namespace spec\Kreta\Bundle\ApiBundle\Controller;
 
-use Kreta\Bundle\ApiBundle\Exception\ResourceInUseException;
+use Kreta\Bundle\ApiBundle\spec\Kreta\Bundle\ApiBundle\Controller\RestController;
+use Kreta\Component\Core\Exception\ResourceInUseException;
 use Kreta\Bundle\ApiBundle\Form\Handler\StatusHandler;
 use Kreta\Component\Issue\Repository\IssueRepository;
 use Kreta\Component\Workflow\Model\Interfaces\StatusInterface;
@@ -19,10 +20,9 @@ use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
 use Kreta\Component\Workflow\Repository\StatusRepository;
 use Kreta\Component\Workflow\Repository\WorkflowRepository;
 use Prophecy\Argument;
-use spec\Kreta\Bundle\ApiBundle\Controller\Abstracts\AbstractRestControllerSpec;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
@@ -30,7 +30,7 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
  *
  * @package spec\Kreta\Bundle\ApiBundle\Controller
  */
-class StatusControllerSpec extends AbstractRestControllerSpec
+class StatusControllerSpec extends RestController
 {
     function let(ContainerInterface $container)
     {
@@ -42,9 +42,9 @@ class StatusControllerSpec extends AbstractRestControllerSpec
         $this->shouldHaveType('Kreta\Bundle\ApiBundle\Controller\StatusController');
     }
 
-    function it_extends_abstract_rest_controller()
+    function it_extends_rest_controller()
     {
-        $this->shouldHaveType('Kreta\Bundle\ApiBundle\Controller\Abstracts\AbstractRestController');
+        $this->shouldHaveType('Kreta\Bundle\ApiBundle\Controller\RestController');
     }
 
     function it_does_not_get_statuses_because_the_user_has_not_the_required_grant(
@@ -56,8 +56,7 @@ class StatusControllerSpec extends AbstractRestControllerSpec
     {
         $this->getWorkflowIfAllowed($container, $workflowRepository, $workflow, $securityContext, 'view', false);
 
-        $this->shouldThrow(new AccessDeniedHttpException('Not allowed to access this resource'))
-            ->during('getStatusesAction', ['workflow-id']);
+        $this->shouldThrow(new AccessDeniedException())->during('getStatusesAction', ['workflow-id']);
     }
 
     function it_gets_statuses(
@@ -83,8 +82,7 @@ class StatusControllerSpec extends AbstractRestControllerSpec
     {
         $this->getWorkflowIfAllowed($container, $workflowRepository, $workflow, $securityContext, 'view', false);
 
-        $this->shouldThrow(new AccessDeniedHttpException('Not allowed to access this resource'))
-            ->during('getStatusAction', ['workflow-id', 'status-id']);
+        $this->shouldThrow(new AccessDeniedException())->during('getStatusAction', ['workflow-id', 'status-id']);
     }
 
     function it_gets_status(
@@ -114,8 +112,7 @@ class StatusControllerSpec extends AbstractRestControllerSpec
             $container, $workflowRepository, $workflow, $securityContext, 'manage_status', false
         );
 
-        $this->shouldThrow(new AccessDeniedHttpException('Not allowed to access this resource'))
-            ->during('postStatusesAction', ['workflow-id']);
+        $this->shouldThrow(new AccessDeniedException())->during('postStatusesAction', ['workflow-id']);
     }
 
     function it_posts_status(
@@ -150,8 +147,7 @@ class StatusControllerSpec extends AbstractRestControllerSpec
             $container, $workflowRepository, $workflow, $securityContext, 'manage_status', false
         );
 
-        $this->shouldThrow(new AccessDeniedHttpException('Not allowed to access this resource'))
-            ->during('putStatusesAction', ['workflow-id', 'status-id']);
+        $this->shouldThrow(new AccessDeniedException())->during('putStatusesAction', ['workflow-id', 'status-id']);
     }
 
     function it_puts_status(
@@ -186,8 +182,7 @@ class StatusControllerSpec extends AbstractRestControllerSpec
             $container, $workflowRepository, $workflow, $securityContext, 'manage_status', false
         );
 
-        $this->shouldThrow(new AccessDeniedHttpException('Not allowed to access this resource'))
-            ->during('deleteStatusesAction', ['workflow-id', 'status-id']);
+        $this->shouldThrow(new AccessDeniedException())->during('deleteStatusesAction', ['workflow-id', 'status-id']);
     }
 
     function it_does_not_delete_status_because_the_status_is_in_use(
@@ -204,8 +199,7 @@ class StatusControllerSpec extends AbstractRestControllerSpec
             $container, $workflowRepository, $workflow, $securityContext, $statusRepository, $status, 'manage_status'
         );
         $container->get('kreta_issue.repository.issue')->shouldBeCalled()->willReturn($issueRepository);
-        $status->getWorkflow()->shouldBeCalled()->willReturn($workflow);
-        $issueRepository->isStatusInUse($workflow, $status)->shouldBeCalled()->willReturn(true);
+        $issueRepository->isStatusInUse($status)->shouldBeCalled()->willReturn(true);
 
         $this->shouldThrow(new ResourceInUseException())->during('deleteStatusesAction', ['workflow-id', 'status-id']);
     }
@@ -224,11 +218,42 @@ class StatusControllerSpec extends AbstractRestControllerSpec
             $container, $workflowRepository, $workflow, $securityContext, $statusRepository, $status, 'manage_status'
         );
         $container->get('kreta_issue.repository.issue')->shouldBeCalled()->willReturn($issueRepository);
-        $status->getWorkflow()->shouldBeCalled()->willReturn($workflow);
-        $issueRepository->isStatusInUse($workflow, $status)->shouldBeCalled()->willReturn(false);
+        $issueRepository->isStatusInUse($status)->shouldBeCalled()->willReturn(false);
 
         $statusRepository->remove($status)->shouldBeCalled();
 
         $this->deleteStatusesAction('workflow-id', 'status-id');
+    }
+
+    /**
+     * Method that allows to reuse the same lines of specs related with status.
+     *
+     * @param \Symfony\Component\DependencyInjection\ContainerInterface       $container          The container
+     * @param \Kreta\Component\Workflow\Repository\WorkflowRepository         $workflowRepository Workflow repository
+     * @param \Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface    $workflow           The workflow
+     * @param \Symfony\Component\Security\Core\SecurityContextInterface       $context            The security context
+     * @param \Kreta\Component\Workflow\Repository\StatusRepository           $statusRepository   The status repository
+     * @param \Kreta\Component\Workflow\Model\Interfaces\StatusInterface|null $status             The status
+     * @param string                                                          $grant              The grant
+     * @param boolean                                                         $result             The result
+     *
+     * @return \Kreta\Component\Workflow\Model\Interfaces\StatusTransitionInterface|null
+     */
+    protected function getStatusIfAllowed(
+        ContainerInterface $container,
+        WorkflowRepository $workflowRepository,
+        WorkflowInterface $workflow,
+        SecurityContextInterface $context,
+        StatusRepository $statusRepository,
+        $status = null,
+        $grant = 'view',
+        $result = true
+    )
+    {
+        $this->getWorkflowIfAllowed($container, $workflowRepository, $workflow, $context, $grant, $result);
+        $container->get('kreta_workflow.repository.status')->shouldBeCalled()->willReturn($statusRepository);
+        $statusRepository->find('status-id', false)->shouldBeCalled()->willReturn($status);
+
+        return $status;
     }
 }

@@ -12,13 +12,12 @@
 namespace spec\Kreta\Bundle\ApiBundle\Form\Handler;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Kreta\Component\Media\Factory\MediaFactory;
 use Kreta\Component\Workflow\Factory\StatusFactory;
 use Kreta\Component\Workflow\Model\Interfaces\StatusInterface;
-use Kreta\Component\Media\Uploader\MediaUploader;
 use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
+use Symfony\Component\DependencyInjection\Exception\ParameterNotFoundException;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\Form\FormInterface;
@@ -58,6 +57,11 @@ class StatusHandlerSpec extends ObjectBehavior
         )->shouldBeCalled()->willReturn($form);
 
         $this->handleForm($request, $status, [])->shouldReturn($form);
+    }
+
+    function it_handles_form_without_object_and_without_workflow_option(Request $request)
+    {
+        $this->shouldThrow(new ParameterNotFoundException('workflow'))->during('handleForm', [$request]);
     }
 
     function it_handles_form_without_object(

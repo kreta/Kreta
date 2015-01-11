@@ -14,7 +14,6 @@ namespace Kreta\Bundle\ApiBundle\Controller;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Request\ParamFetcher;
-use Kreta\Bundle\ApiBundle\Controller\Abstracts\AbstractRestController;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 
 /**
@@ -22,7 +21,7 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
  *
  * @package Kreta\Bundle\ApiBundle\Controller
  */
-class ProjectController extends AbstractRestController
+class ProjectController extends RestController
 {
     /**
      * Returns all the projects of current user, it admits sort, limit and offset.
@@ -58,7 +57,7 @@ class ProjectController extends AbstractRestController
     public function getProjectsAction(ParamFetcher $paramFetcher)
     {
         return $this->get('kreta_project.repository.project')->findByParticipant(
-            $this->getCurrentUser(),
+            $this->getUser(),
             [$paramFetcher->get('sort') => 'ASC'],
             $paramFetcher->get('limit'),
             $paramFetcher->get('offset')

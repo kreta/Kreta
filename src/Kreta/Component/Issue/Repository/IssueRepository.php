@@ -11,12 +11,12 @@
 
 namespace Kreta\Component\Issue\Repository;
 
-use Doctrine\ORM\ORMException;
 use Finite\State\StateInterface;
-use Kreta\Component\Core\Repository\Abstracts\AbstractRepository;
+use Kreta\Component\Core\Repository\EntityRepository;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use Kreta\Component\Workflow\Model\Interfaces\StatusInterface;
+use Kreta\Component\Workflow\Model\Interfaces\StatusTransitionInterface;
 use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
 
 /**
@@ -24,7 +24,7 @@ use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
  *
  * @package Kreta\Component\Issue\Repository
  */
-class IssueRepository extends AbstractRepository
+class IssueRepository extends EntityRepository
 {
     /**
      * Finds all the issues of project given.
@@ -35,8 +35,7 @@ class IssueRepository extends AbstractRepository
      * @param \Kreta\Component\Project\Model\Interfaces\ProjectInterface $project The project
      * @param array                                                      $filters Array which contains all the filters
      *                                                                            for search the results in the query
-     * @param string[]                                                   $sorting Array which contains the sorting as
-     *                                                                            key value
+     * @param string[]                                                   $sorting Array which contains the sorting
      * @param int                                                        $limit   The limit
      * @param int                                                        $offset  The offset
      *
@@ -62,23 +61,6 @@ class IssueRepository extends AbstractRepository
         }
 
         return $queryBuilder->getQuery()->getResult();
-    }
-
-    /**
-     * Finds all the issues of reporter given.
-     *
-     * @param \Kreta\Component\User\Model\Interfaces\UserInterface $reporter The reporter
-     *
-     * @return \Kreta\Component\Issue\Model\Interfaces\IssueInterface[]
-     */
-    public function findByReporter(UserInterface $reporter)
-    {
-        $queryBuilder = $this->createQueryBuilder('i');
-
-        return $queryBuilder
-            ->where($queryBuilder->expr()->eq('i.reporter', ':reporter'))
-            ->setParameter(':reporter', $reporter->getId())
-            ->getQuery()->getResult();
     }
 
     /**
@@ -118,15 +100,8 @@ class IssueRepository extends AbstractRepository
      */
     public function findOneByShortCode($projectShortName, $issueNumber)
     {
-        $queryBuilder = $this->createQueryBuilder('i');
-
-        $queryBuilder
-            ->join('i.project', 'p')
-            ->join('p.workflow', 'w')
-            ->where($queryBuilder->expr()->eq('i.numericId', ':issueNumber'))
-            ->andWhere($queryBuilder->expr()->eq('p.shortName', ':projectShortName'))
-            ->setParameter('issueNumber', $issueNumber)
-            ->setParameter('projectShortName', $projectShortName);
+        $queryBuilder = $this->getQueryBuilder();
+        $this->addCriteria($queryBuilder, ['numericId' => $issueNumber, 'p.shortName' => $projectShortName]);
 
         return $queryBuilder->getQuery()->getOneOrNullResult();
     }
@@ -149,18 +124,40 @@ class IssueRepository extends AbstractRepository
     /**
      * Checks if the status given is in use by any issue of workflow given.
      *
-     * @param \Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface $workflow The workflow
-     * @param \Kreta\Component\Workflow\Model\Interfaces\StatusInterface   $status   The status
+     * @param \Kreta\Component\Workflow\Model\Interfaces\StatusInterface $status The status
      *
      * @return boolean
      */
-    public function isStatusInUse(WorkflowInterface $workflow, StatusInterface $status)
+    public function isStatusInUse(StatusInterface $status)
     {
-        $issues = $this->findByWorkflow($workflow);
+        $issues = $this->findByWorkflow($status->getWorkflow());
         if ($status instanceof StatusInterface) {
             foreach ($issues as $issue) {
                 if ($issue->getStatus()->getId() === $status->getId()) {
                     return true;
+                }
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * Checks if the transition given is in use by any issue of workflow given.
+     *
+     * @param \Kreta\Component\Workflow\Model\Interfaces\StatusTransitionInterface $transition The status transition
+     *
+     * @return boolean
+     */
+    public function isTransitionInUse(StatusTransitionInterface $transition)
+    {
+        $issues = $this->findByWorkflow($transition->getWorkflow());
+        if ($transition instanceof StatusTransitionInterface) {
+            foreach ($issues as $issue) {
+                foreach ($issue->getStatus()->getTransitions() as $retrieveTransition) {
+                    if ($retrieveTransition->getId() === $transition->getId()) {
+                        return true;
+                    }
                 }
             }
         }

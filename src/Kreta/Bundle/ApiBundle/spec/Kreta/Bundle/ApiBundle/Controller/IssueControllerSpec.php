@@ -13,15 +13,15 @@ namespace spec\Kreta\Bundle\ApiBundle\Controller;
 
 use FOS\RestBundle\Request\ParamFetcher;
 use Kreta\Bundle\ApiBundle\Form\Handler\IssueHandler;
+use Kreta\Bundle\ApiBundle\spec\Kreta\Bundle\ApiBundle\Controller\RestController;
 use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Issue\Repository\IssueRepository;
 use Kreta\Component\Project\Repository\ProjectRepository;
 use Prophecy\Argument;
-use spec\Kreta\Bundle\ApiBundle\Controller\Abstracts\AbstractRestControllerSpec;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
@@ -29,7 +29,7 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
  *
  * @package spec\Kreta\Bundle\ApiBundle\Controller
  */
-class IssueControllerSpec extends AbstractRestControllerSpec
+class IssueControllerSpec extends RestController
 {
     function let(ContainerInterface $container)
     {
@@ -41,9 +41,9 @@ class IssueControllerSpec extends AbstractRestControllerSpec
         $this->shouldHaveType('Kreta\Bundle\ApiBundle\Controller\IssueController');
     }
 
-    function it_extends_abstract_rest_controller()
+    function it_extends_rest_controller()
     {
-        $this->shouldHaveType('Kreta\Bundle\ApiBundle\Controller\Abstracts\AbstractRestController');
+        $this->shouldHaveType('Kreta\Bundle\ApiBundle\Controller\RestController');
     }
 
     function it_does_not_get_issues_because_the_user_has_not_the_required_grant(
@@ -56,11 +56,9 @@ class IssueControllerSpec extends AbstractRestControllerSpec
     )
     {
         $container->get('kreta_issue.repository.issue')->shouldBeCalled()->willReturn($issueRepository);
-
         $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext, 'view', false);
 
-        $this->shouldThrow(new AccessDeniedHttpException('Not allowed to access this resource'))
-            ->during('getIssuesAction', ['project-id', $paramFetcher]);
+        $this->shouldThrow(new AccessDeniedException())->during('getIssuesAction', ['project-id', $paramFetcher]);
     }
 
     function it_gets_issues(
@@ -74,7 +72,6 @@ class IssueControllerSpec extends AbstractRestControllerSpec
     )
     {
         $container->get('kreta_issue.repository.issue')->shouldBeCalled()->willReturn($issueRepository);
-
         $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext);
 
         $paramFetcher->get('sort')->shouldBeCalled()->willReturn('createdAt');
@@ -109,25 +106,32 @@ class IssueControllerSpec extends AbstractRestControllerSpec
 
     function it_does_not_get_issue_because_the_user_has_not_the_required_grant(
         ContainerInterface $container,
+        ProjectRepository $projectRepository,
+        ProjectInterface $project,
         IssueRepository $issueRepository,
         IssueInterface $issue,
         SecurityContextInterface $securityContext
     )
     {
-        $this->getIssueIfAllowed($container, $issueRepository, $issue, $securityContext, 'view', false);
+        $this->getIssueIfAllowed(
+            $container, $projectRepository, $project, $issueRepository, $issue, $securityContext, 'view', false
+        );
 
-        $this->shouldThrow(new AccessDeniedHttpException('Not allowed to access this resource'))
-            ->during('getIssueAction', ['project-id', 'issue-id']);
+        $this->shouldThrow(new AccessDeniedException())->during('getIssueAction', ['project-id', 'issue-id']);
     }
 
     function it_gets_issue(
         ContainerInterface $container,
+        ProjectRepository $projectRepository,
+        ProjectInterface $project,
         IssueRepository $issueRepository,
         IssueInterface $issue,
         SecurityContextInterface $securityContext
     )
     {
-        $issue = $this->getIssueIfAllowed($container, $issueRepository, $issue, $securityContext);
+        $issue = $this->getIssueIfAllowed(
+            $container, $projectRepository, $project, $issueRepository, $issue, $securityContext
+        );
 
         $this->getIssueAction('project-id', 'issue-id')->shouldReturn($issue);
     }
@@ -141,8 +145,7 @@ class IssueControllerSpec extends AbstractRestControllerSpec
     {
         $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext, 'create_issue', false);
 
-        $this->shouldThrow(new AccessDeniedHttpException('Not allowed to access this resource'))
-            ->during('postIssuesAction', ['project-id']);
+        $this->shouldThrow(new AccessDeniedException())->during('postIssuesAction', ['project-id']);
     }
 
     function it_posts_issue(
@@ -173,8 +176,7 @@ class IssueControllerSpec extends AbstractRestControllerSpec
     {
         $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext, 'view', false);
 
-        $this->shouldThrow(new AccessDeniedHttpException('Not allowed to access this resource'))
-            ->during('putIssuesAction', ['project-id', 'issue-id']);
+        $this->shouldThrow(new AccessDeniedException())->during('putIssuesAction', ['project-id', 'issue-id']);
     }
 
     function it_does_not_put_issue_because_the_user_has_not_the_required_grant_for_issue(
@@ -186,11 +188,11 @@ class IssueControllerSpec extends AbstractRestControllerSpec
         SecurityContextInterface $securityContext
     )
     {
-        $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext);
-        $this->getIssueIfAllowed($container, $issueRepository, $issue, $securityContext, 'edit', false);
+        $this->getIssueIfAllowed(
+            $container, $projectRepository, $project, $issueRepository, $issue, $securityContext, 'edit', false
+        );
 
-        $this->shouldThrow(new AccessDeniedHttpException('Not allowed to access this resource'))
-            ->during('putIssuesAction', ['project-id', 'issue-id']);
+        $this->shouldThrow(new AccessDeniedException())->during('putIssuesAction', ['project-id', 'issue-id']);
     }
 
     function it_puts_issue(
@@ -204,11 +206,13 @@ class IssueControllerSpec extends AbstractRestControllerSpec
         Request $request
     )
     {
-        $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext);
-        $this->getIssueIfAllowed($container, $issueRepository, $issue, $securityContext, 'edit');
+        $issue = $this->getIssueIfAllowed(
+            $container, $projectRepository, $project, $issueRepository, $issue, $securityContext, 'edit'
+        );
 
         $container->get('kreta_api.form_handler.issue')->shouldBeCalled()->willReturn($issueHandler);
         $container->get('request')->shouldBeCalled()->willReturn($request);
+        $issue->getProject()->shouldBeCalled()->willReturn($project);
         $issueHandler->processForm($request, $issue, ['method' => 'PUT', 'project' => $project])
             ->shouldBeCalled()->willReturn($issue);
 
@@ -217,17 +221,21 @@ class IssueControllerSpec extends AbstractRestControllerSpec
 
     private function getIssueIfAllowed(
         ContainerInterface $container,
+        ProjectRepository $projectRepository,
+        ProjectInterface $project,
         IssueRepository $issueRepository,
         IssueInterface $issue,
         SecurityContextInterface $securityContext,
-        $grant = 'view',
-        $result = true
+        $issueGrant = 'view',
+        $issueResult = true
     )
     {
+        $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext);
+
         $container->get('kreta_issue.repository.issue')->shouldBeCalled()->willReturn($issueRepository);
         $issueRepository->find('issue-id', false)->shouldBeCalled()->willReturn($issue);
         $container->get('security.context')->shouldBeCalled()->willReturn($securityContext);
-        $securityContext->isGranted($grant, $issue)->shouldBeCalled()->willReturn($result);
+        $securityContext->isGranted($issueGrant, $issue)->shouldBeCalled()->willReturn($issueResult);
 
         return $issue;
     }

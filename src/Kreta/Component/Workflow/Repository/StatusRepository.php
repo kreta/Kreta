@@ -11,7 +11,7 @@
 
 namespace Kreta\Component\Workflow\Repository;
 
-use Kreta\Component\Core\Repository\Abstracts\AbstractRepository;
+use Kreta\Component\Core\Repository\EntityRepository;
 use Kreta\Component\Workflow\Model\Interfaces\StatusInterface;
 use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
 
@@ -20,7 +20,7 @@ use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
  *
  * @package Kreta\Component\Workflow\Repository
  */
-class StatusRepository extends AbstractRepository
+class StatusRepository extends EntityRepository
 {
     /**
      * Finds the status of ids given.
@@ -38,12 +38,9 @@ class StatusRepository extends AbstractRepository
             $ids = explode(',', str_replace(' ', '', $ids));
         }
 
-        $queryBuilder = $this->createQueryBuilder('s');
-
-        $queryBuilder
-            ->where($queryBuilder->expr()->eq('s.id', ':id'))
-            ->andWhere($queryBuilder->expr()->eq('s.workflow', ':workflow'))
-            ->setParameter('workflow', $workflow);
+        $queryBuilder = $this->getQueryBuilder();
+        $this->addCriteria($queryBuilder, ['workflow' => $workflow]);
+        $queryBuilder->where($queryBuilder->expr()->eq('s.id', ':id'));
 
         $result = [];
         foreach ($ids as $id) {
@@ -57,6 +54,16 @@ class StatusRepository extends AbstractRepository
         }
 
         return array_unique($result);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getQueryBuilder()
+    {
+        return parent::getQueryBuilder()
+            ->addSelect(['w'])
+            ->join('s.workflow', 'w');
     }
 
     /**

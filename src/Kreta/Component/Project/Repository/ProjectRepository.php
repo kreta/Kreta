@@ -11,7 +11,7 @@
 
 namespace Kreta\Component\Project\Repository;
 
-use Kreta\Component\Core\Repository\Abstracts\AbstractRepository;
+use Kreta\Component\Core\Repository\EntityRepository;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 
 /**
@@ -19,7 +19,7 @@ use Kreta\Component\User\Model\Interfaces\UserInterface;
  *
  * @package Kreta\Component\Project\Repository
  */
-class ProjectRepository extends AbstractRepository
+class ProjectRepository extends EntityRepository
 {
     /**
      * Finds all the projects where user given is participant.

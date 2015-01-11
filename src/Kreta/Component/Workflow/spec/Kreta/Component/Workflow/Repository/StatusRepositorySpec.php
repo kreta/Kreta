@@ -16,9 +16,9 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
+use Kreta\Component\Core\spec\Kreta\Component\Core\Repository\BaseEntityRepository;
 use Kreta\Component\Workflow\Model\Interfaces\StatusInterface;
 use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
-use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
 /**
@@ -26,7 +26,7 @@ use Prophecy\Argument;
  *
  * @package spec\Kreta\Component\Workflow\Repository
  */
-class StatusRepositorySpec extends ObjectBehavior
+class StatusRepositorySpec extends BaseEntityRepository
 {
     function let(EntityManager $manager, ClassMetadata $metadata)
     {
@@ -38,9 +38,9 @@ class StatusRepositorySpec extends ObjectBehavior
         $this->shouldHaveType('Kreta\Component\Workflow\Repository\StatusRepository');
     }
 
-    function it_extends_abstract_repository()
+    function it_extends_kretas_entity_repository()
     {
-        $this->shouldHaveType('Kreta\Component\Core\Repository\Abstracts\AbstractRepository');
+        $this->shouldHaveType('Kreta\Component\Core\Repository\EntityRepository');
     }
 
     function it_finds_by_ids(
@@ -54,20 +54,31 @@ class StatusRepositorySpec extends ObjectBehavior
         StatusInterface $status
     )
     {
-        $manager->createQueryBuilder()->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->select('s')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->from(Argument::any(), 's')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->expr()->shouldBeCalled()->willReturn($expr);
-        $expr->eq('s.id', ':id')->shouldBeCalled()->willReturn($comparison);
-        $expr->eq('s.workflow', ':workflow')->shouldBeCalled()->willReturn($comparison2);
-        $queryBuilder->where($comparison)->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->andWhere($comparison2)->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->setParameter('workflow', $workflow)->shouldBeCalled()->willReturn($queryBuilder);
+        $this->getQueryBuilderSpec($manager, $queryBuilder);
+        $this->addCriteriaSpec($queryBuilder, $expr, ['workflow' => $workflow], $comparison);
+        $expr->eq('s.id', ':id')->shouldBeCalled()->willReturn($comparison2);
+        $queryBuilder->where($comparison2)->shouldBeCalled()->willReturn($queryBuilder);
 
         $queryBuilder->setParameter('id', 'status-id')->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
         $query->getOneOrNullResult()->shouldBeCalled()->willReturn($status);
 
         $this->findByIds('status-id', $workflow)->shouldReturn([$status]);
+    }
+
+    protected function getQueryBuilderSpec(EntityManager $manager, QueryBuilder $queryBuilder)
+    {
+        $manager->createQueryBuilder()->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->select('s')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->addSelect(['w'])->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->from(Argument::any(), 's')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->join('s.workflow', 'w')->shouldBeCalled()->willReturn($queryBuilder);
+
+        return $queryBuilder;
+    }
+
+    protected function getAlias()
+    {
+        return 's';
     }
 }

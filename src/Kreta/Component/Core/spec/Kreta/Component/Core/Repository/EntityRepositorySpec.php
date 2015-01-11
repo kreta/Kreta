@@ -9,7 +9,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace spec\Kreta\Component\Core\Repository\Abstracts;
+namespace spec\Kreta\Component\Core\Repository;
 
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Mapping\ClassMetadata;
@@ -17,19 +17,28 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
 use Prophecy\Argument;
-use Kreta\Component\Core\spec\Kreta\Component\Core\Repository\Abstracts\BaseRepository;
+use Kreta\Component\Core\spec\Kreta\Component\Core\Repository\BaseEntityRepository;
 
 /**
- * Class AbstractRepositorySpec.
+ * Class EntityRepositorySpec.
  *
- * @package spec\Kreta\Component\Core\Repository\Abstracts
+ * @package spec\Kreta\Component\Core\Repository
  */
-class AbstractRepositorySpec extends BaseRepository
+class EntityRepositorySpec extends BaseEntityRepository
 {
     function let(EntityManager $manager, ClassMetadata $metadata)
     {
-        $this->beAnInstanceOf('Kreta\Component\Core\Stubs\Repository\Abstracts\AbstractRepositoryStub');
         $this->beConstructedWith($manager, $metadata);
+    }
+    
+    function it_is_initializable()
+    {
+        $this->shouldHaveType('Kreta\Component\Core\Repository\EntityRepository');
+    }
+
+    function it_extends_doctrines_entity_repository()
+    {
+        $this->shouldHaveType('Doctrine\ORM\EntityRepository');
     }
 
     function it_persists_without_flush(EntityManager $manager)

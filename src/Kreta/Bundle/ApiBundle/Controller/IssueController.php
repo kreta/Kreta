@@ -14,16 +14,15 @@ namespace Kreta\Bundle\ApiBundle\Controller;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Request\ParamFetcher;
-use Kreta\Bundle\ApiBundle\Controller\Abstracts\AbstractRestController;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Class IssueController.
  *
  * @package Kreta\Bundle\ApiBundle\Controller
  */
-class IssueController extends AbstractRestController
+class IssueController extends RestController
 {
     /**
      * Returns all the issues of current user, it admits sort, limit and offset.
@@ -116,7 +115,7 @@ class IssueController extends AbstractRestController
      */
     public function getIssueAction($projectId, $issueId)
     {
-        return $this->getIssueIfAllowed($issueId);
+        return $this->getIssueIfAllowed($projectId, $issueId);
     }
 
     /**
@@ -211,28 +210,31 @@ class IssueController extends AbstractRestController
      */
     public function putIssuesAction($projectId, $issueId)
     {
-        $project = $this->getProjectIfAllowed($projectId);
-        $issue = $this->getIssueIfAllowed($issueId, 'edit');
+        $issue = $this->getIssueIfAllowed($projectId, $issueId, 'view', 'edit');
 
         return $this->get('kreta_api.form_handler.issue')->processForm(
-            $this->get('request'), $issue, ['method' => 'PUT', 'project' => $project]
+            $this->get('request'), $issue, ['method' => 'PUT', 'project' => $issue->getProject()]
         );
     }
 
     /**
      * Gets the issue if the current user is granted and if the project exists.
      *
-     * @param string $id    The id
-     * @param string $grant The grant, by default view
+     * @param string $projectId    The project id
+     * @param string $issueId      The issue id
+     * @param string $projectGrant The project grant
+     * @param string $issueGrant   The issue grant
      *
-     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
      * @return \Kreta\Component\Issue\Model\Interfaces\IssueInterface
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
      */
-    protected function getIssueIfAllowed($id, $grant = 'view')
+    protected function getIssueIfAllowed($projectId, $issueId, $projectGrant = 'view', $issueGrant = 'view')
     {
-        $issue = $this->get('kreta_issue.repository.issue')->find($id, false);
-        if (!$this->get('security.context')->isGranted($grant, $issue)) {
-            throw new AccessDeniedHttpException('Not allowed to access this resource');
+        $this->getProjectIfAllowed($projectId, $projectGrant);
+
+        $issue = $this->get('kreta_issue.repository.issue')->find($issueId, false);
+        if (!$this->get('security.context')->isGranted($issueGrant, $issue)) {
+            throw new AccessDeniedException();
         }
 
         return $issue;
