@@ -13,7 +13,7 @@ namespace Kreta\Bundle\CoreBundle\Form\Handler\Abstracts;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Kreta\Bundle\CoreBundle\Form\Handler\Exception\InvalidFormException;
-use Kreta\Bundle\WebBundle\Event\FormHandlerEvent;
+use Kreta\Bundle\CoreBundle\Event\FormHandlerEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\Form\FormInterface;

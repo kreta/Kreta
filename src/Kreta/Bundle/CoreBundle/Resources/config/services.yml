@@ -4,3 +4,10 @@
 #
 # @author benatespina <benatespina@gmail.com>
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
+
+services:
+    kreta_core.listener.form_handler_flash:
+        class: Kreta\Bundle\CoreBundle\EventListener\FormHandlerFlashListener
+        arguments: [@session]
+        tags:
+            - { name: kernel.event_listener, event: kreta_core_event_form_handler, method: onFormHandlerEvent }

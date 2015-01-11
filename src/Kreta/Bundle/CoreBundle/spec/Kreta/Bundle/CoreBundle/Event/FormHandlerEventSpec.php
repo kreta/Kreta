@@ -9,7 +9,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace spec\Kreta\Bundle\WebBundle\Event;
+namespace spec\Kreta\Bundle\CoreBundle\Event;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -17,7 +17,7 @@ use Prophecy\Argument;
 /**
  * Class FormHandlerEventSpec.
  *
- * @package spec\Kreta\Bundle\WebBundle\Event
+ * @package spec\Kreta\Bundle\CoreBundle\Event
  */
 class FormHandlerEventSpec extends ObjectBehavior
 {
@@ -28,7 +28,7 @@ class FormHandlerEventSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('Kreta\Bundle\WebBundle\Event\FormHandlerEvent');
+        $this->shouldHaveType('Kreta\Bundle\CoreBundle\Event\FormHandlerEvent');
     }
 
     function its_type_is_mutable()

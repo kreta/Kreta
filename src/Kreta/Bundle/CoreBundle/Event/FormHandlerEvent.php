@@ -9,18 +9,18 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\Bundle\WebBundle\Event;
+namespace Kreta\Bundle\CoreBundle\Event;
 
 use Symfony\Component\EventDispatcher\Event;
 
 /**
  * Class FormHandlerEvent.
  *
- * @package Kreta\Bundle\WebBundle\Event
+ * @package Kreta\Bundle\CoreBundle\Event
  */
 class FormHandlerEvent extends Event
 {
-    const NAME = 'kreta_web_event_form_handler';
+    const NAME = 'kreta_core_event_form_handler';
 
     const TYPE_SUCCESS = 'success';
     const TYPE_ERROR = 'error';
@@ -66,7 +66,7 @@ class FormHandlerEvent extends Event
      *
      * @param string $type The type to be set
      *
-     * @return self
+     * @return $this self Object
      */
     public function setType($type)
     {
@@ -90,7 +90,7 @@ class FormHandlerEvent extends Event
      *
      * @param string $message The message to be set
      *
-     * @return self
+     * @return $this self Object
      */
     public function setMessage($message)
     {

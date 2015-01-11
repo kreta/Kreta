@@ -12,7 +12,7 @@
 namespace spec\Kreta\Bundle\ProjectBundle\Form\Handler;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Kreta\Bundle\WebBundle\Event\FormHandlerEvent;
+use Kreta\Bundle\CoreBundle\Event\FormHandlerEvent;
 use Kreta\Component\Media\Factory\MediaFactory;
 use Kreta\Component\Media\Model\Interfaces\MediaInterface;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
@@ -94,7 +94,7 @@ class ProjectHandlerSpec extends ObjectBehavior
         $manager->flush()->shouldBeCalled();
 
         $eventDispatcher->dispatch(
-            FormHandlerEvent::NAME, Argument::type('Kreta\Bundle\WebBundle\Event\FormHandlerEvent')
+            FormHandlerEvent::NAME, Argument::type('Kreta\Bundle\CoreBundle\Event\FormHandlerEvent')
         );
 
         $this->handleForm($request, $project, []);
