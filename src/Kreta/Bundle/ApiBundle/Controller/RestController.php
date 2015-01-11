@@ -12,6 +12,7 @@
 namespace Kreta\Bundle\ApiBundle\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
+use Kreta\Component\Core\Repository\EntityRepository;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
@@ -45,16 +46,12 @@ class RestController extends FOSRestController
      * @param string $projectGrant The project grant, by default view
      *
      * @return \Kreta\Component\Project\Model\Interfaces\ProjectInterface
-     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
      */
-    protected function getProjectIfAllowed($projectId, $projectGrant = 'view')
+    public function getProjectIfAllowed($projectId, $projectGrant = 'view')
     {
-        $project = $this->get('kreta_project.repository.project')->find($projectId, false);
-        if (!$this->get('security.context')->isGranted($projectGrant, $project)) {
-            throw new AccessDeniedException();
-        }
-
-        return $project;
+        return $this->getResourceIfAllowed(
+            $this->get('kreta_project.repository.project'), $projectId, $projectGrant
+        );
     }
 
     /**
@@ -64,15 +61,31 @@ class RestController extends FOSRestController
      * @param string $workflowGrant The workflow grant, by default view
      *
      * @return \Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface
+     */
+    public function getWorkflowIfAllowed($workflowId, $workflowGrant = 'view')
+    {
+        return $this->getResourceIfAllowed(
+            $this->get('kreta_workflow.repository.workflow'), $workflowId, $workflowGrant
+        );
+    }
+
+    /**
+     * Gets the workflow if the current user is granted and if the workflow exists.
+     *
+     * @param \Kreta\Component\Core\Repository\EntityRepository $repository The repository
+     * @param string                                            $id         The id
+     * @param string                                            $grant      The grant
+     *
+     * @return mixed
      * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
      */
-    protected function getWorkflowIfAllowed($workflowId, $workflowGrant = 'view')
+    protected function getResourceIfAllowed(EntityRepository $repository, $id, $grant = 'view')
     {
-        $workflow = $this->get('kreta_workflow.repository.workflow')->find($workflowId, false);
-        if (!$this->get('security.context')->isGranted($workflowGrant, $workflow)) {
+        $resource = $repository->find($id, false);
+        if (!$this->get('security.context')->isGranted($grant, $resource)) {
             throw new AccessDeniedException();
         }
 
-        return $workflow;
+        return $resource;
     }
 }

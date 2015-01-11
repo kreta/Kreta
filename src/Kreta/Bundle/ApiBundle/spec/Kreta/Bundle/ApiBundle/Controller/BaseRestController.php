@@ -23,13 +23,13 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
- * Class RestController.
+ * Class BaseRestController.
  *
  * @package Kreta\Bundle\ApiBundle\spec\Kreta\Bundle\ApiBundle\Controller
  */
-class RestController extends ObjectBehavior
+class BaseRestController extends ObjectBehavior
 {
-    protected function getUser(
+    protected function getUserSpec(
         ContainerInterface $container,
         SecurityContextInterface $securityContext,
         TokenInterface $token,
@@ -44,7 +44,7 @@ class RestController extends ObjectBehavior
         return $user;
     }
 
-    protected function getProjectIfAllowed(
+    protected function getProjectIfAllowedSpec(
         ContainerInterface $container,
         ProjectRepository $projectRepository,
         ProjectInterface $project,
@@ -61,7 +61,7 @@ class RestController extends ObjectBehavior
         return $project;
     }
 
-    protected function getWorkflowIfAllowed(
+    protected function getWorkflowIfAllowedSpec(
         ContainerInterface $container,
         WorkflowRepository $workflowRepository,
         WorkflowInterface $workflow,

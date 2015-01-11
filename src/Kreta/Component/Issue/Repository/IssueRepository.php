@@ -74,17 +74,12 @@ class IssueRepository extends EntityRepository
      */
     public function findByAssignee(UserInterface $assignee, array $orderBy, $onlyOpen = false)
     {
-        $queryBuilder = $this->createQueryBuilder('i');
-
-        $queryBuilder
-            ->leftJoin('i.status', 'st')
-            ->where($queryBuilder->expr()->eq('i.assignee', ':assignee'))
-            ->setParameter(':assignee', $assignee->getId());
+        $queryBuilder = $this->getQueryBuilder();
+        $this->addCriteria($queryBuilder, ['assignee' => $assignee]);
         if ($onlyOpen) {
-            $queryBuilder->andWhere($queryBuilder->expr()->neq('st.type', ':state'))
-                ->setParameter(':state', StateInterface::TYPE_FINAL);
+            $queryBuilder->andWhere($queryBuilder->expr()->neq('s.type', ':statusType'))
+                ->setParameter('statusType', StateInterface::TYPE_FINAL);
         }
-
         $queryBuilder = $this->orderBy($queryBuilder, $orderBy);
 
         return $queryBuilder->getQuery()->getResult();

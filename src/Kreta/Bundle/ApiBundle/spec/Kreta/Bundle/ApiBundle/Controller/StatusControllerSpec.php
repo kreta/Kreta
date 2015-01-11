@@ -11,7 +11,7 @@
 
 namespace spec\Kreta\Bundle\ApiBundle\Controller;
 
-use Kreta\Bundle\ApiBundle\spec\Kreta\Bundle\ApiBundle\Controller\RestController;
+use Kreta\Bundle\ApiBundle\spec\Kreta\Bundle\ApiBundle\Controller\BaseRestController;
 use Kreta\Component\Core\Exception\ResourceInUseException;
 use Kreta\Bundle\ApiBundle\Form\Handler\StatusHandler;
 use Kreta\Component\Issue\Repository\IssueRepository;
@@ -30,7 +30,7 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
  *
  * @package spec\Kreta\Bundle\ApiBundle\Controller
  */
-class StatusControllerSpec extends RestController
+class StatusControllerSpec extends BaseRestController
 {
     function let(ContainerInterface $container)
     {
@@ -54,7 +54,7 @@ class StatusControllerSpec extends RestController
         SecurityContextInterface $securityContext
     )
     {
-        $this->getWorkflowIfAllowed($container, $workflowRepository, $workflow, $securityContext, 'view', false);
+        $this->getWorkflowIfAllowedSpec($container, $workflowRepository, $workflow, $securityContext, 'view', false);
 
         $this->shouldThrow(new AccessDeniedException())->during('getStatusesAction', ['workflow-id']);
     }
@@ -67,7 +67,7 @@ class StatusControllerSpec extends RestController
         StatusInterface $status
     )
     {
-        $workflow = $this->getWorkflowIfAllowed($container, $workflowRepository, $workflow, $securityContext);
+        $workflow = $this->getWorkflowIfAllowedSpec($container, $workflowRepository, $workflow, $securityContext);
         $workflow->getStatuses()->shouldBeCalled()->willReturn([$status]);
 
         $this->getStatusesAction('workflow-id')->shouldReturn([$status]);
@@ -80,7 +80,7 @@ class StatusControllerSpec extends RestController
         SecurityContextInterface $securityContext
     )
     {
-        $this->getWorkflowIfAllowed($container, $workflowRepository, $workflow, $securityContext, 'view', false);
+        $this->getWorkflowIfAllowedSpec($container, $workflowRepository, $workflow, $securityContext, 'view', false);
 
         $this->shouldThrow(new AccessDeniedException())->during('getStatusAction', ['workflow-id', 'status-id']);
     }
@@ -108,7 +108,7 @@ class StatusControllerSpec extends RestController
         SecurityContextInterface $securityContext
     )
     {
-        $this->getWorkflowIfAllowed(
+        $this->getWorkflowIfAllowedSpec(
             $container, $workflowRepository, $workflow, $securityContext, 'manage_status', false
         );
 
@@ -126,7 +126,7 @@ class StatusControllerSpec extends RestController
         Request $request
     )
     {
-        $workflow = $this->getWorkflowIfAllowed(
+        $workflow = $this->getWorkflowIfAllowedSpec(
             $container, $workflowRepository, $workflow, $securityContext, 'manage_status'
         );
         $container->get('kreta_api.form_handler.status')->shouldBeCalled()->willReturn($statusHandler);
@@ -143,7 +143,7 @@ class StatusControllerSpec extends RestController
         SecurityContextInterface $securityContext
     )
     {
-        $this->getWorkflowIfAllowed(
+        $this->getWorkflowIfAllowedSpec(
             $container, $workflowRepository, $workflow, $securityContext, 'manage_status', false
         );
 
@@ -178,7 +178,7 @@ class StatusControllerSpec extends RestController
         SecurityContextInterface $securityContext
     )
     {
-        $this->getWorkflowIfAllowed(
+        $this->getWorkflowIfAllowedSpec(
             $container, $workflowRepository, $workflow, $securityContext, 'manage_status', false
         );
 
@@ -250,7 +250,7 @@ class StatusControllerSpec extends RestController
         $result = true
     )
     {
-        $this->getWorkflowIfAllowed($container, $workflowRepository, $workflow, $context, $grant, $result);
+        $this->getWorkflowIfAllowedSpec($container, $workflowRepository, $workflow, $context, $grant, $result);
         $container->get('kreta_workflow.repository.status')->shouldBeCalled()->willReturn($statusRepository);
         $statusRepository->find('status-id', false)->shouldBeCalled()->willReturn($status);
 

@@ -13,7 +13,7 @@ namespace spec\Kreta\Bundle\ApiBundle\Controller;
 
 use FOS\RestBundle\Request\ParamFetcher;
 use Kreta\Bundle\ApiBundle\Form\Handler\WorkflowHandler;
-use Kreta\Bundle\ApiBundle\spec\Kreta\Bundle\ApiBundle\Controller\RestController;
+use Kreta\Bundle\ApiBundle\spec\Kreta\Bundle\ApiBundle\Controller\BaseRestController;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
 use Kreta\Component\Workflow\Repository\WorkflowRepository;
@@ -29,7 +29,7 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
  *
  * @package spec\Kreta\Bundle\ApiBundle\Controller
  */
-class WorkflowControllerSpec extends RestController
+class WorkflowControllerSpec extends BaseRestController
 {
     function let(ContainerInterface $container)
     {
@@ -57,7 +57,7 @@ class WorkflowControllerSpec extends RestController
     )
     {
         $container->get('kreta_workflow.repository.workflow')->shouldBeCalled()->willReturn($workflowRepository);
-        $user = $this->getUser($container, $context, $token, $user);
+        $user = $this->getUserSpec($container, $context, $token, $user);
         $paramFetcher->get('sort')->shouldBeCalled()->willReturn('createdAt');
         $paramFetcher->get('limit')->shouldBeCalled()->willReturn(10);
         $paramFetcher->get('offset')->shouldBeCalled()->willReturn(1);
@@ -74,7 +74,7 @@ class WorkflowControllerSpec extends RestController
         SecurityContextInterface $context
     )
     {
-        $this->getWorkflowIfAllowed($container, $workflowRepository, $workflow, $context, 'view', false);
+        $this->getWorkflowIfAllowedSpec($container, $workflowRepository, $workflow, $context, 'view', false);
 
         $this->shouldThrow(new AccessDeniedException())->during('getWorkflowAction', ['workflow-id']);
     }
@@ -86,7 +86,7 @@ class WorkflowControllerSpec extends RestController
         SecurityContextInterface $context
     )
     {
-        $workflow = $this->getWorkflowIfAllowed($container, $workflowRepository, $workflow, $context);
+        $workflow = $this->getWorkflowIfAllowedSpec($container, $workflowRepository, $workflow, $context);
 
         $this->getWorkflowAction('workflow-id')->shouldReturn($workflow);
     }
@@ -116,7 +116,7 @@ class WorkflowControllerSpec extends RestController
     {
         $container->get('kreta_api.form_handler.workflow')->shouldBeCalled()->willReturn($workflowHandler);
         $container->get('request')->shouldBeCalled()->willReturn($request);
-        $this->getWorkflowIfAllowed($container, $workflowRepository, $workflow, $context, 'edit', false);
+        $this->getWorkflowIfAllowedSpec($container, $workflowRepository, $workflow, $context, 'edit', false);
 
         $this->shouldThrow(new AccessDeniedException())->during('putWorkflowAction', ['workflow-id']);
     }
@@ -132,7 +132,7 @@ class WorkflowControllerSpec extends RestController
     {
         $container->get('kreta_api.form_handler.workflow')->shouldBeCalled()->willReturn($workflowHandler);
         $container->get('request')->shouldBeCalled()->willReturn($request);
-        $workflow = $this->getWorkflowIfAllowed($container, $workflowRepository, $workflow, $context, 'edit');
+        $workflow = $this->getWorkflowIfAllowedSpec($container, $workflowRepository, $workflow, $context, 'edit');
         $workflowHandler->processForm($request, $workflow, ['method' => 'PUT'])
             ->shouldBeCalled()->willReturn($workflow);
 

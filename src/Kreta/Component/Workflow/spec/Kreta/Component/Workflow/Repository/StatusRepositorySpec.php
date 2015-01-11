@@ -57,7 +57,7 @@ class StatusRepositorySpec extends BaseEntityRepository
         $this->getQueryBuilderSpec($manager, $queryBuilder);
         $this->addCriteriaSpec($queryBuilder, $expr, ['workflow' => $workflow], $comparison);
         $expr->eq('s.id', ':id')->shouldBeCalled()->willReturn($comparison2);
-        $queryBuilder->where($comparison2)->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->andWhere($comparison2)->shouldBeCalled()->willReturn($queryBuilder);
 
         $queryBuilder->setParameter('id', 'status-id')->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);

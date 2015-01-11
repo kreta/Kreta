@@ -40,7 +40,7 @@ class StatusRepository extends EntityRepository
 
         $queryBuilder = $this->getQueryBuilder();
         $this->addCriteria($queryBuilder, ['workflow' => $workflow]);
-        $queryBuilder->where($queryBuilder->expr()->eq('s.id', ':id'));
+        $queryBuilder->andWhere($queryBuilder->expr()->eq('s.id', ':id'));
 
         $result = [];
         foreach ($ids as $id) {

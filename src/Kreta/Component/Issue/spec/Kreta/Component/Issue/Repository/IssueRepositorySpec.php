@@ -77,24 +77,17 @@ class IssueRepositorySpec extends BaseEntityRepository
         QueryBuilder $queryBuilder,
         Expr $expr,
         Expr\Comparison $comparison,
-        AbstractQuery $query
+        AbstractQuery $query,
+        IssueInterface $issue
     )
     {
-        $manager->createQueryBuilder()->shouldBeCalled()->willReturn($queryBuilder);
-
-        $queryBuilder->select('i')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->from(Argument::any(), 'i')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->leftJoin('i.status', 'st')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->expr()->shouldBeCalled()->willReturn($expr);
-        $expr->eq('i.assignee', ':assignee')->shouldBeCalled()->willReturn($comparison);
-        $queryBuilder->where($comparison)->shouldBeCalled()->willReturn($queryBuilder);
-        $assignee->getId()->shouldBeCalled()->willReturn('assignee-id');
-        $queryBuilder->setParameter(':assignee', 'assignee-id')->shouldBeCalled()->willReturn($queryBuilder);
+        $this->getQueryBuilderSpec($manager, $queryBuilder);
+        $this->addCriteriaSpec($queryBuilder, $expr, ['assignee' => $assignee], $comparison);
         $this->orderBySpec($queryBuilder, ['status' => 'DESC']);
         $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
-        $query->getResult()->shouldBeCalled()->willReturn([]);
+        $query->getResult()->shouldBeCalled()->willReturn([$issue]);
 
-        $this->findByAssignee($assignee, ['status' => 'DESC'], false)->shouldBeArray();
+        $this->findByAssignee($assignee, ['status' => 'DESC'], false)->shouldReturn([$issue]);
     }
 
     function it_finds_only_open_issues_by_assignee(
@@ -103,29 +96,22 @@ class IssueRepositorySpec extends BaseEntityRepository
         QueryBuilder $queryBuilder,
         Expr $expr,
         Expr\Comparison $comparison,
-        AbstractQuery $query
+        AbstractQuery $query,
+        IssueInterface $issue
     )
     {
-        $manager->createQueryBuilder()->shouldBeCalled()->willReturn($queryBuilder);
-
-        $queryBuilder->select('i')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->from(Argument::any(), 'i')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->leftJoin('i.status', 'st')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->expr()->shouldBeCalled()->willReturn($expr);
-        $expr->eq('i.assignee', ':assignee')->shouldBeCalled()->willReturn($comparison);
-        $queryBuilder->where($comparison)->shouldBeCalled()->willReturn($queryBuilder);
-        $assignee->getId()->shouldBeCalled()->willReturn('assignee-id');
-        $queryBuilder->setParameter(':assignee', 'assignee-id')->shouldBeCalled()->willReturn($queryBuilder);
+        $this->getQueryBuilderSpec($manager, $queryBuilder);
+        $this->addCriteriaSpec($queryBuilder, $expr, ['assignee' => $assignee], $comparison);
 
         $queryBuilder->expr()->shouldBeCalled()->willReturn($expr);
-        $expr->neq('st.type', ':state')->shouldBeCalled()->willReturn($comparison);
+        $expr->neq('s.type', ':statusType')->shouldBeCalled()->willReturn($comparison);
         $queryBuilder->andWhere($comparison)->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->setParameter(':state', 'final')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->setParameter('statusType', 'final')->shouldBeCalled()->willReturn($queryBuilder);
 
         $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
-        $query->getResult()->shouldBeCalled()->willReturn([]);
+        $query->getResult()->shouldBeCalled()->willReturn([$issue]);
 
-        $this->findByAssignee($assignee, [], true)->shouldBeArray();
+        $this->findByAssignee($assignee, [], true)->shouldReturn([$issue]);
     }
 
     function it_finds_one_issue_by_short_code(

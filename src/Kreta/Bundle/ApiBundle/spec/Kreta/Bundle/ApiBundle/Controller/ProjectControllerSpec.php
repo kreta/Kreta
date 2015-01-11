@@ -13,7 +13,7 @@ namespace spec\Kreta\Bundle\ApiBundle\Controller;
 
 use FOS\RestBundle\Request\ParamFetcher;
 use Kreta\Bundle\ApiBundle\Form\Handler\ProjectHandler;
-use Kreta\Bundle\ApiBundle\spec\Kreta\Bundle\ApiBundle\Controller\RestController;
+use Kreta\Bundle\ApiBundle\spec\Kreta\Bundle\ApiBundle\Controller\BaseRestController;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use Kreta\Component\Project\Repository\ProjectRepository;
@@ -29,7 +29,7 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
  *
  * @package spec\Kreta\Bundle\ApiBundle\Controller
  */
-class ProjectControllerSpec extends RestController
+class ProjectControllerSpec extends BaseRestController
 {
     function let(ContainerInterface $container)
     {
@@ -55,7 +55,7 @@ class ProjectControllerSpec extends RestController
     )
     {
         $container->get('kreta_project.repository.project')->shouldBeCalled()->willReturn($projectRepository);
-        $this->getUser($container, $securityContext, $token);
+        $this->getUserSpec($container, $securityContext, $token);
 
         $this->shouldThrow(new AccessDeniedException())->during('getProjectsAction', [$paramFetcher]);
     }
@@ -71,7 +71,7 @@ class ProjectControllerSpec extends RestController
     )
     {
         $container->get('kreta_project.repository.project')->shouldBeCalled()->willReturn($projectRepository);
-        $user = $this->getUser($container, $securityContext, $token, $user);
+        $user = $this->getUserSpec($container, $securityContext, $token, $user);
 
         $paramFetcher->get('sort')->shouldBeCalled()->willReturn('name');
         $paramFetcher->get('limit')->shouldBeCalled()->willReturn(10);
@@ -89,7 +89,7 @@ class ProjectControllerSpec extends RestController
         SecurityContextInterface $securityContext
     )
     {
-        $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext, 'view', false);
+        $this->getProjectIfAllowedSpec($container, $projectRepository, $project, $securityContext, 'view', false);
 
         $this->shouldThrow(new AccessDeniedException())->during('getProjectAction', ['project-id']);
     }
@@ -101,7 +101,7 @@ class ProjectControllerSpec extends RestController
         SecurityContextInterface $securityContext
     )
     {
-        $project = $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext);
+        $project = $this->getProjectIfAllowedSpec($container, $projectRepository, $project, $securityContext);
 
         $this->getProjectAction('project-id')->shouldReturn($project);
     }
@@ -131,7 +131,7 @@ class ProjectControllerSpec extends RestController
     )
     {
         $container->get('kreta_api.form_handler.project')->shouldBeCalled()->willReturn($projectHandler);
-        $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext, 'edit', false);
+        $this->getProjectIfAllowedSpec($container, $projectRepository, $project, $securityContext, 'edit', false);
         $container->get('request')->shouldBeCalled()->willReturn($request);
 
         $this->shouldThrow(new AccessDeniedException())->during('putProjectsAction', ['project-id']);
@@ -147,7 +147,7 @@ class ProjectControllerSpec extends RestController
     )
     {
         $container->get('kreta_api.form_handler.project')->shouldBeCalled()->willReturn($projectHandler);
-        $project = $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext, 'edit');
+        $project = $this->getProjectIfAllowedSpec($container, $projectRepository, $project, $securityContext, 'edit');
         $container->get('request')->shouldBeCalled()->willReturn($request);
         $projectHandler->processForm($request, $project, ['method' => 'PUT'])->shouldBeCalled()->willReturn($project);
 

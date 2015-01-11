@@ -12,7 +12,7 @@
 namespace spec\Kreta\Bundle\ApiBundle\Controller;
 
 use Kreta\Bundle\ApiBundle\Form\Handler\StatusTransitionHandler;
-use Kreta\Bundle\ApiBundle\spec\Kreta\Bundle\ApiBundle\Controller\RestController;
+use Kreta\Bundle\ApiBundle\spec\Kreta\Bundle\ApiBundle\Controller\BaseRestController;
 use Kreta\Component\Core\Exception\ResourceInUseException;
 use Kreta\Component\Issue\Repository\IssueRepository;
 use Kreta\Component\Workflow\Model\Interfaces\StatusInterface;
@@ -33,7 +33,7 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
  *
  * @package spec\Kreta\Bundle\ApiBundle\Controller
  */
-class StatusTransitionControllerSpec extends RestController
+class StatusTransitionControllerSpec extends BaseRestController
 {
     function let(ContainerInterface $container)
     {
@@ -57,7 +57,7 @@ class StatusTransitionControllerSpec extends RestController
         SecurityContextInterface $securityContext
     )
     {
-        $this->getWorkflowIfAllowed($container, $workflowRepository, $workflow, $securityContext, 'view', false);
+        $this->getWorkflowIfAllowedSpec($container, $workflowRepository, $workflow, $securityContext, 'view', false);
 
         $this->shouldThrow(new AccessDeniedException())->during('getTransitionsAction', ['workflow-id']);
     }
@@ -70,7 +70,7 @@ class StatusTransitionControllerSpec extends RestController
         StatusTransitionInterface $transition
     )
     {
-        $workflow = $this->getWorkflowIfAllowed($container, $workflowRepository, $workflow, $securityContext);
+        $workflow = $this->getWorkflowIfAllowedSpec($container, $workflowRepository, $workflow, $securityContext);
         $workflow->getStatusTransitions()->shouldBeCalled()->willReturn([$transition]);
 
         $this->getTransitionsAction('workflow-id')->shouldReturn([$transition]);
@@ -83,7 +83,7 @@ class StatusTransitionControllerSpec extends RestController
         SecurityContextInterface $securityContext
     )
     {
-        $this->getWorkflowIfAllowed($container, $workflowRepository, $workflow, $securityContext, 'view', false);
+        $this->getWorkflowIfAllowedSpec($container, $workflowRepository, $workflow, $securityContext, 'view', false);
 
         $this->shouldThrow(new AccessDeniedException())
             ->during('getTransitionAction', ['workflow-id', 'status-transition-name']);
@@ -112,7 +112,7 @@ class StatusTransitionControllerSpec extends RestController
         SecurityContextInterface $securityContext
     )
     {
-        $this->getWorkflowIfAllowed(
+        $this->getWorkflowIfAllowedSpec(
             $container, $workflowRepository, $workflow, $securityContext, 'manage_status', false
         );
 
@@ -132,7 +132,7 @@ class StatusTransitionControllerSpec extends RestController
     {
         $container->get('request')->shouldBeCalled()->willReturn($request);
 
-        $workflow = $this->getWorkflowIfAllowed(
+        $workflow = $this->getWorkflowIfAllowedSpec(
             $container, $workflowRepository, $workflow, $securityContext, 'manage_status'
         );
 
@@ -150,7 +150,7 @@ class StatusTransitionControllerSpec extends RestController
         SecurityContextInterface $securityContext
     )
     {
-        $this->getWorkflowIfAllowed(
+        $this->getWorkflowIfAllowedSpec(
             $container, $workflowRepository, $workflow, $securityContext, 'manage_status', false
         );
 
@@ -209,7 +209,7 @@ class StatusTransitionControllerSpec extends RestController
         SecurityContextInterface $securityContext
     )
     {
-        $this->getWorkflowIfAllowed($container, $workflowRepository, $workflow, $securityContext, 'view', false);
+        $this->getWorkflowIfAllowedSpec($container, $workflowRepository, $workflow, $securityContext, 'view', false);
 
         $this->shouldThrow(new AccessDeniedException())
             ->during('getTransitionsInitialStatusesAction', ['workflow-id', 'status-transition-id']);
@@ -240,7 +240,7 @@ class StatusTransitionControllerSpec extends RestController
         SecurityContextInterface $securityContext
     )
     {
-        $this->getWorkflowIfAllowed($container, $workflowRepository, $workflow, $securityContext, 'view', false);
+        $this->getWorkflowIfAllowedSpec($container, $workflowRepository, $workflow, $securityContext, 'view', false);
 
         $this->shouldThrow(new AccessDeniedException())
             ->during('getTransitionsInitialStatusAction', ['workflow-id', 'status-transition-id', 'initial-id']);
@@ -291,7 +291,7 @@ class StatusTransitionControllerSpec extends RestController
         SecurityContextInterface $context
     )
     {
-        $this->getWorkflowIfAllowed($container, $workflowRepository, $workflow, $context, 'manage_status', false);
+        $this->getWorkflowIfAllowedSpec($container, $workflowRepository, $workflow, $context, 'manage_status', false);
 
         $this->shouldThrow(new AccessDeniedException())
             ->during('postTransitionsInitialStatusAction', ['workflow-id', 'transition-id']);
@@ -331,7 +331,7 @@ class StatusTransitionControllerSpec extends RestController
         SecurityContextInterface $securityContext
     )
     {
-        $this->getWorkflowIfAllowed(
+        $this->getWorkflowIfAllowedSpec(
             $container, $workflowRepository, $workflow, $securityContext, 'manage_status', false
         );
 
@@ -388,7 +388,7 @@ class StatusTransitionControllerSpec extends RestController
         SecurityContextInterface $securityContext
     )
     {
-        $this->getWorkflowIfAllowed($container, $workflowRepository, $workflow, $securityContext, 'view', false);
+        $this->getWorkflowIfAllowedSpec($container, $workflowRepository, $workflow, $securityContext, 'view', false);
 
         $this->shouldThrow(new AccessDeniedException())
             ->during('getTransitionsEndStatusAction', ['workflow-id', 'transition-id']);
@@ -445,7 +445,7 @@ class StatusTransitionControllerSpec extends RestController
         $result = true
     )
     {
-        $this->getWorkflowIfAllowed($container, $workflowRepository, $workflow, $context, $grant, $result);
+        $this->getWorkflowIfAllowedSpec($container, $workflowRepository, $workflow, $context, $grant, $result);
         $container->get('kreta_workflow.repository.status_transition')
             ->shouldBeCalled()->willReturn($transitionRepository);
         $transitionRepository->find('transition-id', false)->shouldBeCalled()->willReturn($transition);

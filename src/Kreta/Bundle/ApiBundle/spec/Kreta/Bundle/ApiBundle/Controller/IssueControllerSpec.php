@@ -13,7 +13,7 @@ namespace spec\Kreta\Bundle\ApiBundle\Controller;
 
 use FOS\RestBundle\Request\ParamFetcher;
 use Kreta\Bundle\ApiBundle\Form\Handler\IssueHandler;
-use Kreta\Bundle\ApiBundle\spec\Kreta\Bundle\ApiBundle\Controller\RestController;
+use Kreta\Bundle\ApiBundle\spec\Kreta\Bundle\ApiBundle\Controller\BaseRestController;
 use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Issue\Repository\IssueRepository;
@@ -29,7 +29,7 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
  *
  * @package spec\Kreta\Bundle\ApiBundle\Controller
  */
-class IssueControllerSpec extends RestController
+class IssueControllerSpec extends BaseRestController
 {
     function let(ContainerInterface $container)
     {
@@ -56,7 +56,7 @@ class IssueControllerSpec extends RestController
     )
     {
         $container->get('kreta_issue.repository.issue')->shouldBeCalled()->willReturn($issueRepository);
-        $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext, 'view', false);
+        $this->getProjectIfAllowedSpec($container, $projectRepository, $project, $securityContext, 'view', false);
 
         $this->shouldThrow(new AccessDeniedException())->during('getIssuesAction', ['project-id', $paramFetcher]);
     }
@@ -72,7 +72,7 @@ class IssueControllerSpec extends RestController
     )
     {
         $container->get('kreta_issue.repository.issue')->shouldBeCalled()->willReturn($issueRepository);
-        $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext);
+        $this->getProjectIfAllowedSpec($container, $projectRepository, $project, $securityContext);
 
         $paramFetcher->get('sort')->shouldBeCalled()->willReturn('createdAt');
         $paramFetcher->get('limit')->shouldBeCalled()->willReturn(10);
@@ -143,7 +143,7 @@ class IssueControllerSpec extends RestController
         SecurityContextInterface $securityContext
     )
     {
-        $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext, 'create_issue', false);
+        $this->getProjectIfAllowedSpec($container, $projectRepository, $project, $securityContext, 'create_issue', false);
 
         $this->shouldThrow(new AccessDeniedException())->during('postIssuesAction', ['project-id']);
     }
@@ -158,7 +158,7 @@ class IssueControllerSpec extends RestController
         IssueInterface $issue
     )
     {
-        $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext, 'create_issue');
+        $this->getProjectIfAllowedSpec($container, $projectRepository, $project, $securityContext, 'create_issue');
 
         $container->get('kreta_api.form_handler.issue')->shouldBeCalled()->willReturn($issueHandler);
         $container->get('request')->shouldBeCalled()->willReturn($request);
@@ -174,7 +174,7 @@ class IssueControllerSpec extends RestController
         SecurityContextInterface $securityContext
     )
     {
-        $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext, 'view', false);
+        $this->getProjectIfAllowedSpec($container, $projectRepository, $project, $securityContext, 'view', false);
 
         $this->shouldThrow(new AccessDeniedException())->during('putIssuesAction', ['project-id', 'issue-id']);
     }
@@ -230,7 +230,7 @@ class IssueControllerSpec extends RestController
         $issueResult = true
     )
     {
-        $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext);
+        $this->getProjectIfAllowedSpec($container, $projectRepository, $project, $securityContext);
 
         $container->get('kreta_issue.repository.issue')->shouldBeCalled()->willReturn($issueRepository);
         $issueRepository->find('issue-id', false)->shouldBeCalled()->willReturn($issue);
