@@ -12,7 +12,7 @@
 namespace spec\Kreta\Bundle\UserBundle\Form\Handler;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Kreta\Bundle\WebBundle\Event\FormHandlerEvent;
+use Kreta\Bundle\CoreBundle\Event\FormHandlerEvent;
 use Kreta\Component\Media\Factory\MediaFactory;
 use Kreta\Component\Media\Model\Interfaces\MediaInterface;
 use Kreta\Component\Media\Uploader\MediaUploader;
@@ -95,7 +95,7 @@ class UserHandlerSpec extends ObjectBehavior
         $manager->flush()->shouldBeCalled();
 
         $eventDispatcher->dispatch(
-            FormHandlerEvent::NAME, Argument::type('Kreta\Bundle\WebBundle\Event\FormHandlerEvent')
+            FormHandlerEvent::NAME, Argument::type('Kreta\Bundle\CoreBundle\Event\FormHandlerEvent')
         );
 
         $this->handleForm($request, $user, []);
