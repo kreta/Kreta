@@ -14,7 +14,6 @@ namespace spec\Kreta\Bundle\ApiBundle\Controller;
 use Kreta\Bundle\ApiBundle\Form\Handler\StatusTransitionHandler;
 use Kreta\Bundle\ApiBundle\spec\Kreta\Bundle\ApiBundle\Controller\BaseRestController;
 use Kreta\Component\Core\Exception\ResourceInUseException;
-use Kreta\Component\Issue\Repository\IssueRepository;
 use Kreta\Component\Workflow\Model\Interfaces\StatusInterface;
 use Kreta\Component\Workflow\Model\Interfaces\StatusTransitionInterface;
 use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
@@ -163,7 +162,6 @@ class StatusTransitionControllerSpec extends BaseRestController
         WorkflowRepository $workflowRepository,
         WorkflowInterface $workflow,
         SecurityContextInterface $context,
-        IssueRepository $issueRepository,
         StatusTransitionRepository $transitionRepository,
         StatusTransitionInterface $transition
     )
@@ -171,9 +169,7 @@ class StatusTransitionControllerSpec extends BaseRestController
         $transition = $this->getTransitionIfAllowed(
             $container, $workflowRepository, $workflow, $context, $transitionRepository, $transition, 'manage_status'
         );
-
-        $container->get('kreta_issue.repository.issue')->shouldBeCalled()->willReturn($issueRepository);
-        $issueRepository->isTransitionInUse($transition)->shouldBeCalled()->willReturn(true);
+        $transition->isInUse()->shouldBeCalled()->willReturn(true);
 
         $this->shouldThrow(new ResourceInUseException())
             ->during('deleteTransitionAction', ['workflow-id', 'transition-id']);
@@ -184,7 +180,6 @@ class StatusTransitionControllerSpec extends BaseRestController
         WorkflowRepository $workflowRepository,
         WorkflowInterface $workflow,
         SecurityContextInterface $context,
-        IssueRepository $issueRepository,
         StatusTransitionRepository $transitionRepository,
         StatusTransitionInterface $transition
     )
@@ -192,9 +187,7 @@ class StatusTransitionControllerSpec extends BaseRestController
         $transition = $this->getTransitionIfAllowed(
             $container, $workflowRepository, $workflow, $context, $transitionRepository, $transition, 'manage_status'
         );
-
-        $container->get('kreta_issue.repository.issue')->shouldBeCalled()->willReturn($issueRepository);
-        $issueRepository->isTransitionInUse($transition)->shouldBeCalled()->willReturn(false);
+        $transition->isInUse()->shouldBeCalled()->willReturn(false);
         $container->get('kreta_workflow.repository.status_transition')
             ->shouldBeCalled()->willReturn($transitionRepository);
         $transitionRepository->remove($transition)->shouldBeCalled();
@@ -341,7 +334,6 @@ class StatusTransitionControllerSpec extends BaseRestController
 
     function it_does_not_delete_initial_status_because_transition_is_currently_in_use(
         ContainerInterface $container,
-        IssueRepository $issueRepository,
         WorkflowRepository $workflowRepository,
         WorkflowInterface $workflow,
         SecurityContextInterface $context,
@@ -352,8 +344,7 @@ class StatusTransitionControllerSpec extends BaseRestController
         $transition = $this->getTransitionIfAllowed(
             $container, $workflowRepository, $workflow, $context, $transitionRepository, $transition, 'manage_status'
         );
-        $container->get('kreta_issue.repository.issue')->shouldBeCalled()->willReturn($issueRepository);
-        $issueRepository->isTransitionInUse($transition)->shouldBeCalled()->willReturn(true);
+        $transition->isInUse()->shouldBeCalled()->willReturn(true);
 
         $this->shouldThrow(new ResourceInUseException())
             ->during('deleteTransitionsInitialStatusAction', ['workflow-id', 'transition-id', 'initial-id']);
@@ -361,7 +352,6 @@ class StatusTransitionControllerSpec extends BaseRestController
 
     function it_deletes_initial_status(
         ContainerInterface $container,
-        IssueRepository $issueRepository,
         WorkflowRepository $workflowRepository,
         WorkflowInterface $workflow,
         SecurityContextInterface $context,
@@ -372,8 +362,7 @@ class StatusTransitionControllerSpec extends BaseRestController
         $transition = $this->getTransitionIfAllowed(
             $container, $workflowRepository, $workflow, $context, $transitionRepository, $transition, 'manage_status'
         );
-        $container->get('kreta_issue.repository.issue')->shouldBeCalled()->willReturn($issueRepository);
-        $issueRepository->isTransitionInUse($transition)->shouldBeCalled()->willReturn(false);
+        $transition->isInUse()->shouldBeCalled()->willReturn(false);
         $container->get('kreta_workflow.repository.status_transition')
             ->shouldBeCalled()->willReturn($transitionRepository);
         $transitionRepository->removeInitialStatus($transition, 'initial-id')->shouldBeCalled()->willReturn($transition);

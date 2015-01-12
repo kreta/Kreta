@@ -15,8 +15,6 @@ use Finite\State\StateInterface;
 use Kreta\Component\Core\Repository\EntityRepository;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
-use Kreta\Component\Workflow\Model\Interfaces\StatusInterface;
-use Kreta\Component\Workflow\Model\Interfaces\StatusTransitionInterface;
 use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
 
 /**
@@ -114,50 +112,6 @@ class IssueRepository extends EntityRepository
         $this->addCriteria($queryBuilder, ['p.workflow' => $workflow]);
 
         return $queryBuilder->getQuery()->getResult();
-    }
-
-    /**
-     * Checks if the status given is in use by any issue of workflow given.
-     *
-     * @param \Kreta\Component\Workflow\Model\Interfaces\StatusInterface $status The status
-     *
-     * @return boolean
-     */
-    public function isStatusInUse(StatusInterface $status)
-    {
-        $issues = $this->findByWorkflow($status->getWorkflow());
-        if ($status instanceof StatusInterface) {
-            foreach ($issues as $issue) {
-                if ($issue->getStatus()->getId() === $status->getId()) {
-                    return true;
-                }
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     * Checks if the transition given is in use by any issue of workflow given.
-     *
-     * @param \Kreta\Component\Workflow\Model\Interfaces\StatusTransitionInterface $transition The status transition
-     *
-     * @return boolean
-     */
-    public function isTransitionInUse(StatusTransitionInterface $transition)
-    {
-        $issues = $this->findByWorkflow($transition->getWorkflow());
-        if ($transition instanceof StatusTransitionInterface) {
-            foreach ($issues as $issue) {
-                foreach ($issue->getStatus()->getTransitions() as $retrieveTransition) {
-                    if ($retrieveTransition->getId() === $transition->getId()) {
-                        return true;
-                    }
-                }
-            }
-        }
-
-        return false;
     }
 
     /**

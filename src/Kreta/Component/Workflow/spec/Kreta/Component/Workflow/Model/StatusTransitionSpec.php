@@ -14,7 +14,10 @@ namespace spec\Kreta\Component\Workflow\Model;
 use Doctrine\ORM\NoResultException;
 use Kreta\Component\Core\Exception\CollectionMinLengthException;
 use Kreta\Component\Core\Exception\ResourceAlreadyPersistException;
+use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
+use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Workflow\Model\Interfaces\StatusInterface;
+use Kreta\Component\Workflow\Model\Interfaces\StatusTransitionInterface;
 use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -152,6 +155,48 @@ class StatusTransitionSpec extends ObjectBehavior
     function it_should_transition_status_workflow_by_default(WorkflowInterface $workflow)
     {
         $this->getWorkflow()->shouldReturn($workflow);
+    }
+
+    function it_returns_false_because_the_transition_is_not_in_use_by_any_issue(
+        WorkflowInterface $workflow,
+        StatusInterface $status,
+        ProjectInterface $project,
+        IssueInterface $issue,
+        StatusTransitionInterface $transition2,
+        StatusInterface $status
+    )
+    {
+        $this->getWorkflow()->shouldReturn($workflow);
+        $workflow->getProjects()->shouldBeCalled()->willReturn([$project]);
+        $project->getIssues()->shouldBeCalled()->willReturn([$issue]);
+
+        $issue->getStatus()->shouldBeCalled()->willReturn($status);
+        $status->getTransitions()->shouldBeCalled()->willReturn([$transition2]);
+        $transition2->getId()->shouldBeCalled()->willReturn('transition-id');
+        $this->getId()->shouldReturn(null);
+
+        $this->isInUse()->shouldReturn(false);
+    }
+
+    function it_returns_true_because_the_transition_is_in_use_by_any_issue(
+        WorkflowInterface $workflow,
+        StatusInterface $status,
+        ProjectInterface $project,
+        IssueInterface $issue,
+        StatusTransitionInterface $transition2,
+        StatusInterface $status
+    )
+    {
+        $this->getWorkflow()->shouldReturn($workflow);
+        $workflow->getProjects()->shouldBeCalled()->willReturn([$project]);
+        $project->getIssues()->shouldBeCalled()->willReturn([$issue]);
+
+        $issue->getStatus()->shouldBeCalled()->willReturn($status);
+        $status->getTransitions()->shouldBeCalled()->willReturn([$transition2]);
+        $transition2->getId()->shouldBeCalled()->willReturn(null);
+        $this->getId()->shouldReturn(null);
+
+        $this->isInUse()->shouldReturn(true);
     }
 
     function it_is_valid_state()

@@ -126,4 +126,20 @@ class Status extends State implements StatusInterface
 
         return $this;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isInUse()
+    {
+        foreach ($this->getWorkflow()->getProjects() as $project) {
+            foreach ($project->getIssues() as $issue) {
+                if ($issue->getStatus()->getId() === $this->id) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+    }
 }

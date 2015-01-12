@@ -20,8 +20,6 @@ use Kreta\Component\Core\spec\Kreta\Component\Core\Repository\BaseEntityReposito
 use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
-use Kreta\Component\Workflow\Model\Interfaces\StatusInterface;
-use Kreta\Component\Workflow\Model\Interfaces\StatusTransitionInterface;
 use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
 use Prophecy\Argument;
 
@@ -148,110 +146,6 @@ class IssueRepositorySpec extends BaseEntityRepository
         $query->getResult()->shouldBeCalled()->willReturn([$issue]);
 
         $this->findByWorkflow($workflow)->shouldReturn([$issue]);
-    }
-
-    function it_returns_true_because_the_status_is_in_use_by_any_issue_of_workflow_given(
-        WorkflowInterface $workflow,
-        StatusInterface $status,
-        StatusInterface $status2,
-        EntityManager $manager,
-        QueryBuilder $queryBuilder,
-        Expr $expr,
-        Expr\Comparison $comparison,
-        AbstractQuery $query,
-        IssueInterface $issue
-    )
-    {
-        $status->getWorkflow()->shouldBeCalled()->willReturn($workflow);
-        $queryBuilder = $this->getQueryBuilderSpec($manager, $queryBuilder);
-        $this->addCriteriaSpec($queryBuilder, $expr, ['p.workflow' => $workflow], $comparison);
-        $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
-        $query->getResult()->shouldBeCalled()->willReturn([$issue]);
-
-        $issue->getStatus()->shouldBeCalled()->willReturn($status2);
-        $status2->getId()->shouldBeCalled()->willReturn('status-id');
-        $status->getId()->shouldBeCalled()->willReturn('status-id');
-
-        $this->isStatusInUse($status)->shouldReturn(true);
-    }
-
-    function it_returns_false_because_the_status_is_not_in_use_by_any_issue_of_workflow_given(
-        WorkflowInterface $workflow,
-        StatusInterface $status,
-        StatusInterface $status2,
-        EntityManager $manager,
-        QueryBuilder $queryBuilder,
-        Expr $expr,
-        Expr\Comparison $comparison,
-        AbstractQuery $query,
-        IssueInterface $issue
-    )
-    {
-        $status->getWorkflow()->shouldBeCalled()->willReturn($workflow);
-        $queryBuilder = $this->getQueryBuilderSpec($manager, $queryBuilder);
-        $this->addCriteriaSpec($queryBuilder, $expr, ['p.workflow' => $workflow], $comparison);
-        $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
-        $query->getResult()->shouldBeCalled()->willReturn([$issue]);
-
-        $issue->getStatus()->shouldBeCalled()->willReturn($status2);
-        $status2->getId()->shouldBeCalled()->willReturn('status2-id');
-        $status->getId()->shouldBeCalled()->willReturn('status-id');
-
-        $this->isStatusInUse($status)->shouldReturn(false);
-    }
-
-    function it_returns_true_because_the_transition_is_in_use_by_any_issue_of_workflow_given(
-        WorkflowInterface $workflow,
-        StatusTransitionInterface $transition,
-        StatusTransitionInterface $transition2,
-        StatusInterface $status,
-        EntityManager $manager,
-        QueryBuilder $queryBuilder,
-        Expr $expr,
-        Expr\Comparison $comparison,
-        AbstractQuery $query,
-        IssueInterface $issue
-    )
-    {
-        $transition->getWorkflow()->shouldBeCalled()->willReturn($workflow);
-        $queryBuilder = $this->getQueryBuilderSpec($manager, $queryBuilder);
-        $this->addCriteriaSpec($queryBuilder, $expr, ['p.workflow' => $workflow], $comparison);
-        $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
-        $query->getResult()->shouldBeCalled()->willReturn([$issue]);
-
-        $issue->getStatus()->shouldBeCalled()->willReturn($status);
-        $status->getTransitions()->shouldBeCalled()->willReturn([$transition2]);
-        $transition2->getId()->shouldBeCalled()->willReturn('transition-id');
-        $transition->getId()->shouldBeCalled()->willReturn('transition-id');
-
-        $this->isTransitionInUse($transition)->shouldReturn(true);
-    }
-
-    function it_returns_false_because_the_transition_is_not_in_use_by_any_issue_of_workflow_given(
-        WorkflowInterface $workflow,
-        StatusTransitionInterface $transition,
-        StatusTransitionInterface $transition2,
-        StatusInterface $status,
-        EntityManager $manager,
-        QueryBuilder $queryBuilder,
-        Expr $expr,
-        Expr\Comparison $comparison,
-        AbstractQuery $query,
-        IssueInterface $issue
-    )
-    {
-        $transition->getWorkflow()->shouldBeCalled()->willReturn($workflow);
-        $queryBuilder = $this->getQueryBuilderSpec($manager, $queryBuilder);
-        $this->addCriteriaSpec($queryBuilder, $expr, ['p.workflow' => $workflow], $comparison);
-        $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
-        $query->getResult()->shouldBeCalled()->willReturn([$issue]);
-
-        $issue->getStatus()->shouldBeCalled()->willReturn($status);
-        $status->getTransitions()->shouldBeCalled()->willReturn([$transition2]);
-        $transition2->getId()->shouldBeCalled()->willReturn('transition2-id');
-        $transition->getId()->shouldBeCalled()->willReturn('transition-id');
-
-        $this->isTransitionInUse($transition)->shouldReturn(false);
     }
 
     protected function getQueryBuilderSpec(EntityManager $manager, QueryBuilder $queryBuilder)

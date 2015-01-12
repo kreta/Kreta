@@ -14,7 +14,6 @@ namespace spec\Kreta\Bundle\ApiBundle\Controller;
 use Kreta\Bundle\ApiBundle\spec\Kreta\Bundle\ApiBundle\Controller\BaseRestController;
 use Kreta\Component\Core\Exception\ResourceInUseException;
 use Kreta\Bundle\ApiBundle\Form\Handler\StatusHandler;
-use Kreta\Component\Issue\Repository\IssueRepository;
 use Kreta\Component\Workflow\Model\Interfaces\StatusInterface;
 use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
 use Kreta\Component\Workflow\Repository\StatusRepository;
@@ -191,15 +190,13 @@ class StatusControllerSpec extends BaseRestController
         WorkflowInterface $workflow,
         SecurityContextInterface $securityContext,
         StatusRepository $statusRepository,
-        StatusInterface $status,
-        IssueRepository $issueRepository
+        StatusInterface $status
     )
     {
         $status = $this->getStatusIfAllowed(
             $container, $workflowRepository, $workflow, $securityContext, $statusRepository, $status, 'manage_status'
         );
-        $container->get('kreta_issue.repository.issue')->shouldBeCalled()->willReturn($issueRepository);
-        $issueRepository->isStatusInUse($status)->shouldBeCalled()->willReturn(true);
+        $status->isInUse()->shouldBeCalled()->willReturn(true);
 
         $this->shouldThrow(new ResourceInUseException())->during('deleteStatusesAction', ['workflow-id', 'status-id']);
     }
@@ -209,7 +206,6 @@ class StatusControllerSpec extends BaseRestController
         WorkflowRepository $workflowRepository,
         WorkflowInterface $workflow,
         SecurityContextInterface $securityContext,
-        IssueRepository $issueRepository,
         StatusRepository $statusRepository,
         StatusInterface $status
     )
@@ -217,8 +213,7 @@ class StatusControllerSpec extends BaseRestController
         $status = $this->getStatusIfAllowed(
             $container, $workflowRepository, $workflow, $securityContext, $statusRepository, $status, 'manage_status'
         );
-        $container->get('kreta_issue.repository.issue')->shouldBeCalled()->willReturn($issueRepository);
-        $issueRepository->isStatusInUse($status)->shouldBeCalled()->willReturn(false);
+        $status->isInUse()->shouldBeCalled()->willReturn(false);
 
         $statusRepository->remove($status)->shouldBeCalled();
 
