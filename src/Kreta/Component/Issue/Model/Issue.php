@@ -12,7 +12,6 @@
 namespace Kreta\Component\Issue\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
-use Kreta\Component\Comment\Model\Interfaces\CommentInterface;
 use Kreta\Component\Core\Model\Abstracts\AbstractModel;
 use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
 use Kreta\Component\Issue\Model\Interfaces\LabelInterface;
@@ -34,13 +33,6 @@ class Issue extends AbstractModel implements IssueInterface
      * @var \Kreta\Component\User\Model\Interfaces\UserInterface
      */
     protected $assignee;
-
-    /**
-     * Array that contains comments.
-     *
-     * @var \Doctrine\Common\Collections\ArrayCollection
-     */
-    protected $comments;
 
     /**
      * Created at.
@@ -131,7 +123,6 @@ class Issue extends AbstractModel implements IssueInterface
      */
     public function __construct()
     {
-        $this->comments = new ArrayCollection();
         $this->createdAt = new \DateTime();
         $this->labels = new ArrayCollection();
         $this->watchers = new ArrayCollection();
@@ -161,34 +152,6 @@ class Issue extends AbstractModel implements IssueInterface
     public function isAssignee(UserInterface $user)
     {
         return $this->assignee->getId() === $user->getId();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getComments()
-    {
-        return $this->comments;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function addComment(CommentInterface $comment)
-    {
-        $this->comments[] = $comment;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function removeComment(CommentInterface $comment)
-    {
-        $this->comments->removeElement($comment);
-
-        return $this;
     }
 
     /**

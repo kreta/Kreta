@@ -7,13 +7,13 @@
 {% block widgetTitle %}Comments{% endblock %}
 
 {% block widgetContent %}
-    {{ render(url('kreta_web_issue_comment_new',
-        {'projectShortName': issue.project.shortName,
-         'issueNumber': issue.numericId})) }}
-    {% for comment in issue.comments %}
+    {{ render(url('kreta_web_comment_new',
+    {'projectShortName': issue.project.shortName,
+        'issueNumber': issue.numericId})) }}
+    {% for comment in comments %}
         <div class="kreta-issue-comment">
             {% image '@KretaWebBundle/Resources/public/img/user.jpg' %}
-                <img src="{{ comment.writtenBy.photo ? comment.writtenBy.photo.name|imagine_filter('kreta_small') : asset_url }}">
+            <img src="{{ comment.writtenBy.photo ? comment.writtenBy.photo.name|imagine_filter('kreta_small') : asset_url }}">
             {% endimage %}
             <div class="comment-content">
                 <div class="comment-header">

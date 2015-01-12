@@ -12,7 +12,6 @@
 namespace Kreta\Component\Issue\Model\Interfaces;
 
 use Finite\StatefulInterface;
-use Kreta\Component\Comment\Model\Interfaces\CommentInterface;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use Kreta\Component\Workflow\Model\Interfaces\StatusInterface;
@@ -66,31 +65,6 @@ interface IssueInterface extends StatefulInterface
      * @return boolean
      */
     public function isAssignee(UserInterface $user);
-
-    /**
-     * Gets comments.
-     *
-     * @return \Kreta\Component\Comment\Model\Interfaces\CommentInterface[]
-     */
-    public function getComments();
-
-    /**
-     * Adds the comment.
-     *
-     * @param \Kreta\Component\Comment\Model\Interfaces\CommentInterface $comment The comment
-     *
-     * @return $this self Object
-     */
-    public function addComment(CommentInterface $comment);
-
-    /**
-     * Removes the comment.
-     *
-     * @param \Kreta\Component\Comment\Model\Interfaces\CommentInterface $comment The comment
-     *
-     * @return $this self Object
-     */
-    public function removeComment(CommentInterface $comment);
 
     /**
      * Gets created at.

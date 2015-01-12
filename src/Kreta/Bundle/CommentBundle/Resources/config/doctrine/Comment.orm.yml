@@ -27,7 +27,6 @@ Kreta\Component\Comment\Model\Comment:
     manyToOne:
         issue:
             targetEntity: Kreta\Component\Issue\Model\Interfaces\IssueInterface
-            inversedBy: comments
             joinColumn:
                 name: issue_id
                 referencedColumnName: id
