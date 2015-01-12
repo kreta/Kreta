@@ -11,37 +11,28 @@
 
 namespace Kreta\Bundle\WebBundle\Behat;
 
-use Behat\Behat\Hook\Scope\BeforeScenarioScope;
 use Behat\Mink\Exception\ElementNotFoundException;
 use Behat\MinkExtension\Context\MinkContext;
 use Behat\Symfony2Extension\Context\KernelAwareContext;
-use Behat\Symfony2Extension\Context\KernelDictionary;
-use Doctrine\Common\DataFixtures\Purger\ORMPurger;
+use Kreta\Bundle\CoreBundle\Behat\Traits\DatabaseContextTrait;
 
 /**
- * Class DefaultContext.
+ * Class WebContext.
  *
  * @package Kreta\Bundle\WebBundle\Behat
  */
-class DefaultContext extends MinkContext implements KernelAwareContext
+class WebContext extends MinkContext implements KernelAwareContext
 {
-    use KernelDictionary;
+    use DatabaseContextTrait;
 
     /**
-     * @BeforeScenario
-     */
-    public function purgeDatabase(BeforeScenarioScope $scope)
-    {
-        $entityManager = $this->getContainer()->get('doctrine.orm.entity_manager');
-        $entityManager->getConnection()->executeUpdate("SET foreign_key_checks = 0;");
-
-        $purger = new ORMPurger($entityManager);
-        $purger->purge();
-
-        $entityManager->getConnection()->executeUpdate("SET foreign_key_checks = 1;");
-    }
-
-    /**
+     * Log into the app with username and password given.
+     *
+     * @param string $user     The username
+     * @param string $password The password
+     *
+     * @return void
+     *
      * @Given /^I am a logged as '([^"]*)' with password '([^"]*)'$/
      */
     public function iAmALoggedUser($user, $password)
@@ -53,6 +44,10 @@ class DefaultContext extends MinkContext implements KernelAwareContext
     }
 
     /**
+     * Clicks on "add" issue button.
+     *
+     * @return void
+     *
      * @Given /^I click on add issue button$/
      */
     public function iClickOnAddIssueButton()
@@ -61,6 +56,14 @@ class DefaultContext extends MinkContext implements KernelAwareContext
     }
 
     /**
+     * Clicks on "edit" issue button.
+     *
+     * @param string $button    The button
+     * @param string $issueName The issue name
+     *
+     * @return void
+     * @throws \Behat\Mink\Exception\ElementNotFoundException
+     *
      * @Given /^I click on ([^"]*) button for issue '([^"]*)'$/
      */
     public function iClickOnEditButtonForIssue($button, $issueName)
@@ -79,6 +82,13 @@ class DefaultContext extends MinkContext implements KernelAwareContext
     }
 
     /**
+     * Chooses the project from users project list.
+     *
+     * @param string $projectShortName The project short name
+     *
+     * @return void
+     * @throws \Behat\Mink\Exception\ElementNotFoundException
+     *
      * @Given /^I choose "([^"]*)" project from user's project list$/
      */
     public function iChooseProjectFromUsersProjectList($projectShortName)
@@ -96,23 +106,35 @@ class DefaultContext extends MinkContext implements KernelAwareContext
     }
 
     /**
+     * Views unread notifications.
+     *
+     * @param int $amount The amount of notifications
+     *
+     * @return void
+     * @throws \Exception when the unread notification amount does not match
+     *
      * @Then /^I should see (\d+) unread notifications$/
      */
     public function iShouldSeeUnreadNotification($amount)
     {
         $icon = $this->getSession()->getPage()->find('css', '.kreta-notification-count');
-        if($icon->find('css','span')->getText() != $amount) {
+        if ($icon->find('css', 'span')->getText() != $amount) {
             throw new \Exception('Unread notification amount does not match');
         }
     }
 
     /**
+     * Clicks in notification inbox icon.
+     *
+     * @return void
+     * @throws \Exception when the icon not found
+     *
      * @When I click in notification inbox icon
      */
     public function iClickInNotificationInboxIcon()
     {
         $icon = $this->getSession()->getPage()->find('css', '.kreta-notification-count');
-        if(!$icon) {
+        if (!$icon) {
             throw new \Exception('Icon not found');
         }
         $icon->click();

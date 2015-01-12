@@ -9,17 +9,17 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\Bundle\ApiBundle\Behat;
+namespace Kreta\Bundle\WorkflowBundle\Behat;
 
 use Behat\Gherkin\Node\TableNode;
-use Kreta\Bundle\CoreBundle\Behat\Abstracts\AbstractContext;
+use Kreta\Bundle\CoreBundle\Behat\DefaultContext;
 
 /**
  * Class StatusTransitionContext.
  *
- * @package Kreta\Bundle\ApiBundle\Behat
+ * @package Kreta\Bundle\WorkflowBundle\Behat
  */
-class StatusTransitionContext extends AbstractContext
+class StatusTransitionContext extends DefaultContext
 {
     /**
      * Populates the database with status transitions.
@@ -32,8 +32,7 @@ class StatusTransitionContext extends AbstractContext
      */
     public function theFollowingStatusesExist(TableNode $statusTransitions)
     {
-        $manager = $this->getContainer()->get('doctrine')->getManager();
-
+        $this->getManager();
         foreach ($statusTransitions as $transitionData) {
             $initials = [];
             $initialNames = explode(',', $transitionData['initialStates']);
@@ -46,14 +45,11 @@ class StatusTransitionContext extends AbstractContext
 
             $transition = $this->getContainer()->get('kreta_workflow.factory.status_transition')
                 ->create($transitionData['name'], $status, $initials);
+            $this->setId($transition, $transitionData['id']);
 
-            $metadata = $manager->getClassMetaData(get_class($transition));
-            $metadata->setIdGenerator(new \Doctrine\ORM\Id\AssignedGenerator());
-            $metadata->setIdentifierValues($transition, ['id' => $transitionData['id']]);
-
-            $manager->persist($transition);
+            $this->manager->persist($transition);
         }
 
-        $manager->flush();
+        $this->manager->flush();
     }
 }

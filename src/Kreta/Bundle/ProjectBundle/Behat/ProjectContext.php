@@ -12,14 +12,14 @@
 namespace Kreta\Bundle\ProjectBundle\Behat;
 
 use Behat\Gherkin\Node\TableNode;
-use Kreta\Bundle\CoreBundle\Behat\Abstracts\AbstractContext;
+use Kreta\Bundle\CoreBundle\Behat\DefaultContext;
 
 /**
  * Class ProjectContext.
  *
  * @package Kreta\Bundle\ProjectBundle\Behat
  */
-class ProjectContext extends AbstractContext
+class ProjectContext extends DefaultContext
 {
     /**
      * Populates the database with projects.
@@ -32,19 +32,29 @@ class ProjectContext extends AbstractContext
      */
     public function theFollowingProjectsExist(TableNode $projects)
     {
-        $manager = $this->getContainer()->get('doctrine')->getManager();
-
+        $this->getManager();
         foreach ($projects as $projectData) {
-            $creator = $this->getContainer()->get('kreta_user.repository.user')->findOneBy(
-                ['email' => $projectData['creator']]
-            );
-            $project = $this->getContainer()->get('kreta_project.factory.project')->create($creator);
+            if (isset($projectData['workflow'])) {
+                $workflow = $this->getContainer()->get('kreta_workflow.repository.workflow')->findOneBy(
+                    ['name' => $projectData['workflow']]
+                );
+                $project = $this->getContainer()->get('kreta_project.factory.project')
+                    ->create($workflow->getCreator(), $workflow);
+            } else {
+                $creator = $this->getContainer()->get('kreta_user.repository.user')->findOneBy(
+                    ['email' => $projectData['creator']]
+                );
+                $project = $this->getContainer()->get('kreta_project.factory.project')->create($creator);
+            }
             $project->setName($projectData['name']);
             $project->setShortName($projectData['shortName']);
+            if (isset($projectData['id'])) {
+                $this->setId($project, $projectData['id']);
+            }
 
-            $manager->persist($project);
+            $this->manager->persist($project);
         }
 
-        $manager->flush();
+        $this->manager->flush();
     }
 }
