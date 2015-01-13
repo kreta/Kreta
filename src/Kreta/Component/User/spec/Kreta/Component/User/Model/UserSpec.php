@@ -11,7 +11,6 @@
 
 namespace spec\Kreta\Component\User\Model;
 
-use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
 use Kreta\Component\Media\Model\Interfaces\MediaInterface;
 use Kreta\Component\Project\Model\Interfaces\ParticipantInterface;
 use PhpSpec\ObjectBehavior;
@@ -38,35 +37,19 @@ class UserSpec extends ObjectBehavior
         $this->shouldImplement('Kreta\Component\User\Model\Interfaces\UserInterface');
     }
 
-    function its_assignee_issues_comments_projects_and_reported_issues_are_collection()
+    function its_projects_are_collection()
     {
-        $this->getAssignedIssues()->shouldHaveType('Doctrine\Common\Collections\ArrayCollection');
         $this->getProjects()->shouldHaveType('Doctrine\Common\Collections\ArrayCollection');
-        $this->getReportedIssues()->shouldHaveType('Doctrine\Common\Collections\ArrayCollection');
     }
 
-    function its_id_is_mutable()
+    function it_should_not_have_id_by_default()
     {
-        $this->setId('the-id')->shouldReturn($this);
-        $this->getId()->shouldReturn('the-id');
+        $this->getId()->shouldReturn(null);
     }
 
     function its_created_at_is_a_datetime()
     {
         $this->getCreatedAt()->shouldHaveType('DateTime');
-    }
-
-    function its_assigned_issues_be_mutable(IssueInterface $issue)
-    {
-        $this->getAssignedIssues()->shouldHaveCount(0);
-
-        $this->addAssignedIssue($issue);
-
-        $this->getAssignedIssues()->shouldHaveCount(1);
-
-        $this->removeAssignedIssue($issue);
-
-        $this->getAssignedIssues()->shouldHaveCount(0);
     }
 
     function its_bitbucket_access_token_is_mutable()
@@ -157,19 +140,6 @@ class UserSpec extends ObjectBehavior
         $this->removeProject($project);
 
         $this->getProjects()->shouldHaveCount(0);
-    }
-
-    function its_reported_issues_be_mutable(IssueInterface $issue)
-    {
-        $this->getReportedIssues()->shouldHaveCount(0);
-
-        $this->addReportedIssue($issue);
-
-        $this->getReportedIssues()->shouldHaveCount(1);
-
-        $this->removeReportedIssue($issue);
-
-        $this->getReportedIssues()->shouldHaveCount(0);
     }
 
     function its_email_has_the_same_value_than_username()

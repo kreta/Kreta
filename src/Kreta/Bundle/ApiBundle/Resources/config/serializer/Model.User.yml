@@ -8,9 +8,6 @@
 Kreta\Component\User\Model\User:
     exclusion_policy: ALL
     properties:
-        assignedIssues:
-            expose: true
-            groups: []
         bitbucketAccessToken:
             expose: true
             groups: []
@@ -33,8 +30,5 @@ Kreta\Component\User\Model\User:
             expose: true
             groups: [projectList, project, issueList, issue]
         projects:
-            expose: true
-            groups: []
-        reportedIssues:
             expose: true
             groups: []

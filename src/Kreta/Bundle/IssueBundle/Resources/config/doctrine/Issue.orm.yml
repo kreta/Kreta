@@ -62,10 +62,6 @@ Kreta\Component\Issue\Model\Issue:
     manyToOne:
         assignee:
             targetEntity: Kreta\Component\User\Model\Interfaces\UserInterface
-            inversedBy: assignedIssues
-            joinColumn:
-                name: assignee_id
-                referencedColumnName: id
         project:
             targetEntity: Kreta\Component\Project\Model\Interfaces\ProjectInterface
             inversedBy: issues
@@ -75,10 +71,6 @@ Kreta\Component\Issue\Model\Issue:
                 onDelete: CASCADE
         reporter:
             targetEntity: Kreta\Component\User\Model\Interfaces\UserInterface
-            inversedBy: reportedIssues
-            joinColumn:
-                name: reporter_id
-                referencedColumnName: id
         resolution:
             targetEntity: Kreta\Component\Issue\Model\Interfaces\ResolutionInterface
             nullable: true
