@@ -12,7 +12,6 @@
 namespace Kreta\Component\User\Model\Interfaces;
 
 use FOS\UserBundle\Model\UserInterface as BaseUserInterface;
-use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
 use Kreta\Component\Media\Model\Interfaces\MediaInterface;
 use Kreta\Component\Project\Model\Interfaces\ParticipantInterface;
 
@@ -29,40 +28,6 @@ interface UserInterface extends BaseUserInterface
      * @return string
      */
     public function getId();
-
-    /**
-     * Gets assigned issues.
-     *
-     * @return \Kreta\Component\Issue\Model\Interfaces\IssueInterface[]
-     */
-    public function getAssignedIssues();
-
-    /**
-     * Adds assigned issue.
-     *
-     * @param \Kreta\Component\Issue\Model\Interfaces\IssueInterface $issue The assigned issue
-     *
-     * @return $this self Object
-     */
-    public function addAssignedIssue(IssueInterface $issue);
-
-    /**
-     * Removes assigned issue.
-     *
-     * @param \Kreta\Component\Issue\Model\Interfaces\IssueInterface $issue The assigned issue
-     *
-     * @return $this self Object
-     */
-    public function removeAssignedIssue(IssueInterface $issue);
-
-    /**
-     * Sets id.
-     *
-     * @param string $id The id
-     *
-     * @return self Object $this
-     */
-    public function setId($id);
 
     /**
      * Gets Bitbucket access token.
@@ -216,29 +181,4 @@ interface UserInterface extends BaseUserInterface
      * @return $this self Object
      */
     public function removeProject(ParticipantInterface $project);
-
-    /**
-     * Gets reported issues.
-     *
-     * @return \Kreta\Component\Issue\Model\Interfaces\IssueInterface[]
-     */
-    public function getReportedIssues();
-
-    /**
-     * Adds reported issue.
-     *
-     * @param \Kreta\Component\Issue\Model\Interfaces\IssueInterface $issue The reported issue
-     *
-     * @return $this self Object
-     */
-    public function addReportedIssue(IssueInterface $issue);
-
-    /**
-     * Removes reported issue.
-     *
-     * @param \Kreta\Component\Issue\Model\Interfaces\IssueInterface $issue The reported issue
-     *
-     * @return $this self Object
-     */
-    public function removeReportedIssue(IssueInterface $issue);
 }
