@@ -864,7 +864,6 @@ Feature: Manage issue
           "first_name": "Kreta",
           "last_name": "User"
         },
-        "comments": [],
         "created_at": "2014-12-15T00:00:00+0100",
         "description": "Description",
         "labels": [],
@@ -1071,7 +1070,6 @@ Feature: Manage issue
           "first_name": "Kreta",
           "last_name": "User2"
         },
-        "comments": [],
         "created_at": "2014-12-15T00:00:00+0100",
         "description": "The description",
         "labels": [],
@@ -1196,7 +1194,6 @@ Feature: Manage issue
           "first_name": "Kreta",
           "last_name": "User2"
         },
-        "comments": [],
         "created_at": "2014-10-21T00:00:00+0200",
         "description": "The description",
         "labels": [],
@@ -1254,7 +1251,6 @@ Feature: Manage issue
           "first_name": "Kreta",
           "last_name": "User2"
         },
-        "comments": [],
         "created_at": "2014-10-21T00:00:00+0200",
         "description": "The description",
         "labels": [],
@@ -1312,7 +1308,6 @@ Feature: Manage issue
           "first_name": "Kreta",
           "last_name": "User2"
         },
-        "comments": [],
         "created_at": "2014-12-15T00:00:00+0100",
         "description": "The description",
         "labels": [],
