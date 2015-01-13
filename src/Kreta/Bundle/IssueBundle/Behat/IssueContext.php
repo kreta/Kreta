@@ -12,14 +12,14 @@
 namespace Kreta\Bundle\IssueBundle\Behat;
 
 use Behat\Gherkin\Node\TableNode;
-use Kreta\Bundle\CoreBundle\Behat\Abstracts\AbstractContext;
+use Kreta\Bundle\CoreBundle\Behat\DefaultContext;
 
 /**
  * Class IssueContext.
  *
  * @package Kreta\Bundle\IssueBundle\Behat
  */
-class IssueContext extends AbstractContext
+class IssueContext extends DefaultContext
 {
     /**
      * Populates the database with issues.
@@ -30,10 +30,9 @@ class IssueContext extends AbstractContext
      *
      * @Given /^the following issues exist:$/
      */
-    public function theFollowingStatusesExist(TableNode $issues)
+    public function theFollowingIssuesExist(TableNode $issues)
     {
-        $manager = $this->getContainer()->get('doctrine')->getManager();
-
+        $this->getManager();
         foreach ($issues as $issueData) {
             $project = $this->getContainer()->get('kreta_project.repository.project')
                 ->findOneBy(['name' => $issueData['project']]);
@@ -53,10 +52,19 @@ class IssueContext extends AbstractContext
             $issue->setType($issueData['type']);
             $issue->setTitle($issueData['title']);
             $issue->setDescription($issueData['description']);
+            if (isset($issueData['numericId'])) {
+                $this->setField($issue, 'numericId', $issueData['numericId']);
+            }
+            if (isset($issueData['createdAt'])) {
+                $this->setField($issue, 'createdAt', new \DateTime($issueData['createdAt']));
+            }
+            if (isset($issueData['id'])) {
+                $this->setId($issue, $issueData['id']);
+            }
 
-            $manager->persist($issue);
+            $this->manager->persist($issue);
         }
 
-        $manager->flush();
+        $this->manager->flush();
     }
 }

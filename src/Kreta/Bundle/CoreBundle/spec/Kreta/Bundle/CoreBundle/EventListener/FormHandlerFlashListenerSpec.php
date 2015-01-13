@@ -9,9 +9,9 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace spec\Kreta\Bundle\WebBundle\EventListener;
+namespace spec\Kreta\Bundle\CoreBundle\EventListener;
 
-use Kreta\Bundle\WebBundle\Event\FormHandlerEvent;
+use Kreta\Bundle\CoreBundle\Event\FormHandlerEvent;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
@@ -20,7 +20,7 @@ use Symfony\Component\HttpFoundation\Session\Session;
 /**
  * Class FormHandlerFlashListenerSpec.
  *
- * @package spec\Kreta\Bundle\WebBundle\EventListener
+ * @package spec\Kreta\Bundle\CoreBundle\EventListener
  */
 class FormHandlerFlashListenerSpec extends ObjectBehavior
 {
@@ -31,7 +31,7 @@ class FormHandlerFlashListenerSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('Kreta\Bundle\WebBundle\EventListener\FormHandlerFlashListener');
+        $this->shouldHaveType('Kreta\Bundle\CoreBundle\EventListener\FormHandlerFlashListener');
     }
 
     function it_add_flash_message(Session $session, FlashBagInterface $flashBag, FormHandlerEvent $event)
