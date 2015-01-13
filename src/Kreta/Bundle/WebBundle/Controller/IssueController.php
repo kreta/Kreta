@@ -128,41 +128,6 @@ class IssueController extends Controller
     }
 
     /**
-     * New comment action.
-     *
-     * @param string                                    $projectShortName Project shortname
-     * @param string                                    $issueNumber      The issue number
-     * @param \Symfony\Component\HttpFoundation\Request $request          The request
-     *
-     * @return \Symfony\Component\HttpFoundation\RedirectResponse|\Symfony\Component\HttpFoundation\Response
-     *
-     * @Template("KretaWebBundle:Issue/blocks:commentForm.html.twig")
-     */
-    public function newCommentAction($projectShortName, $issueNumber, Request $request)
-    {
-        $issue = $this->get('kreta_issue.repository.issue')->findOneByShortCode($projectShortName, $issueNumber);
-
-        if (!$issue instanceof IssueInterface) {
-            $this->createNotFoundException('Issue not found');
-        }
-
-        $comment = $this->get('kreta_comment.factory.comment')->create($issue, $this->getUser());
-
-        $form = $this->get('kreta_comment.form_handler.comment')->handleForm($request, $comment);
-
-        if ($form->isValid()) {
-            return $this->redirect($this->generateUrl(
-                'kreta_web_issue_view', [
-                    'projectShortName' => $issue->getProject()->getShortName(),
-                    'issueNumber'      => $issue->getNumericId()
-                ]
-            ));
-        }
-
-        return ['form' => $form->createView(), 'issue' => $issue];
-    }
-
-    /**
      * Edit status action.
      *
      * @param string $projectShortName Project short name

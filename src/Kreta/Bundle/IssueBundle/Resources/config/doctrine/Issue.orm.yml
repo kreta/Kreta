@@ -84,11 +84,5 @@ Kreta\Component\Issue\Model\Issue:
             nullable: true
         status:
             targetEntity: Kreta\Component\Workflow\Model\Interfaces\StatusInterface
-
-    oneToMany:
-        comments:
-            targetEntity: Kreta\Component\Comment\Model\Interfaces\CommentInterface
-            mappedBy: issue
-            cascade: ['persist', 'remove']
     lifecycleCallbacks:
         prePersist: [generateNumericId]

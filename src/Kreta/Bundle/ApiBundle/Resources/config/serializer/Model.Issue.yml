@@ -40,9 +40,6 @@ Kreta\Component\Issue\Model\Issue:
         assignee:
             expose: true
             groups: [issueList, issue]
-        comments:
-            expose: true
-            groups: [issue]
         createdAt:
             expose: true
             groups: [issueList, issue]

@@ -11,6 +11,7 @@
 
 namespace Kreta\Component\Issue\Repository;
 
+use Doctrine\ORM\Query\Expr;
 use Finite\State\StateInterface;
 use Kreta\Component\Core\Repository\EntityRepository;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
@@ -166,9 +167,8 @@ class IssueRepository extends EntityRepository
     protected function getQueryBuilder()
     {
         return parent::getQueryBuilder()
-            ->addSelect(['a', 'c', 'l', 'p', 'r', 'rep', 's', 'w'])
+            ->addSelect(['a', 'l', 'p', 'r', 'rep', 's', 'w'])
             ->leftJoin('i.assignee', 'a')
-            ->leftJoin('i.comments', 'c')
             ->leftJoin('i.labels', 'l')
             ->leftJoin('i.project', 'p')
             ->leftJoin('i.resolution', 'r')
