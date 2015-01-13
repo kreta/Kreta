@@ -83,6 +83,8 @@ fos_rest:
     param_fetcher_listener: true
     body_listener:
         array_normalizer: fos_rest.normalizer.camel_keys
+    view:
+        view_response_listener: force
 
 fos_user:
     db_driver: orm
@@ -186,4 +188,4 @@ nelmio_cors:
 
 sensio_framework_extra:
     view:
-        annotations: true
+        annotations: false

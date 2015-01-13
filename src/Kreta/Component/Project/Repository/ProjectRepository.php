@@ -11,9 +11,8 @@
 
 namespace Kreta\Component\Project\Repository;
 
-use Doctrine\ORM\EntityRepository;
+use Kreta\Component\Core\Repository\EntityRepository;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
-use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
 
 /**
  * Class ProjectRepository.
@@ -23,79 +22,49 @@ use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
 class ProjectRepository extends EntityRepository
 {
     /**
-     * Finds all the project that exist into database.
+     * Finds all the projects where user given is participant.
+     * Can do ordering, limit and offset.
+     *
+     * @param \Kreta\Component\User\Model\Interfaces\UserInterface $user    The user
+     * @param string[]                                             $sorting Array which contains the sorting as key/val
+     * @param int                                                  $limit   The limit
+     * @param int                                                  $offset  The offset
      *
      * @return \Kreta\Component\Project\Model\Interfaces\ProjectInterface[]
      */
-    public function findAll()
+    public function findByParticipant(UserInterface $user, array $sorting = [], $limit = null, $offset = null)
     {
-        return $this->createQueryBuilder('p')->getQuery()->getResult();
-    }
-
-    /**
-     * Finds all the projects of participant given and ordered by value given.
-     *
-     * Can do pagination if $page is changed, starting from 0
-     * and it can limit the search if $count is changed.
-     *
-     * @param \Kreta\Component\User\Model\Interfaces\UserInterface $participant The participant
-     * @param string                                               $order       The order value
-     * @param string|int                                           $count       The number of results
-     * @param int                                                  $page        The number of page
-     *
-     * @return \Kreta\Component\Project\Model\Interfaces\ProjectInterface[]
-     */
-    public function findByParticipant(UserInterface $participant, $order = 'name', $count = 10, $page = 0)
-    {
-        $order = 'p.' . $order;
-
-        $queryBuilder = $this->createQueryBuilder('p');
-
-        $queryBuilder
-            ->leftJoin('p.participants', 'pu')
-            ->where($queryBuilder->expr()->eq('pu.user', ':participant'))
-            ->setParameter(':participant', $participant->getId())
-            ->orderBy($order);
-
-        if ($count !== 0) {
-            $queryBuilder
-                ->setMaxResults($count)
-                ->setFirstResult($count * $page);
+        $queryBuilder = $this->getQueryBuilder();
+        $this->addCriteria($queryBuilder, ['par.user' => $user]);
+        $this->orderBy($queryBuilder, $sorting);
+        if ($limit) {
+            $queryBuilder->setMaxResults($limit);
+        }
+        if ($offset) {
+            $queryBuilder->setFirstResult($offset);
         }
 
         return $queryBuilder->getQuery()->getResult();
     }
 
     /**
-     * Finds all the projects of workflow given and ordered by value given.
-     *
-     * Can do pagination if $page is changed, starting from 0
-     * and it can limit the search if $count is changed.
-     *
-     * @param \Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface $workflow The workflow
-     * @param string                                                       $order    The order value
-     * @param string|int                                                   $count    The number of results
-     * @param int                                                          $page     The number of page
-     *
-     * @return \Kreta\Component\Project\Model\Interfaces\ProjectInterface[]
+     * {@inheritdoc}
      */
-    public function findByWorkflow(WorkflowInterface $workflow, $order = 'name', $count = 10, $page = 0)
+    protected function getQueryBuilder()
     {
-        $order = 'p.' . $order;
+        return parent::getQueryBuilder()
+            ->addSelect(['img', 'i', 'par', 'w'])
+            ->leftJoin('p.image', 'img')
+            ->leftJoin('p.issues', 'i')
+            ->join('p.participants', 'par')
+            ->join('p.workflow', 'w');
+    }
 
-        $queryBuilder = $this->createQueryBuilder('p');
-
-        $queryBuilder
-            ->where($queryBuilder->expr()->eq('p.workflow', ':workflow'))
-            ->setParameter('workflow', $workflow)
-            ->orderBy($order);
-
-        if ($count !== 0) {
-            $queryBuilder
-                ->setMaxResults($count)
-                ->setFirstResult($count * $page);
-        }
-
-        return $queryBuilder->getQuery()->getResult();
+    /**
+     * {@inheritdoc}
+     */
+    protected function getAlias()
+    {
+        return 'p';
     }
 }

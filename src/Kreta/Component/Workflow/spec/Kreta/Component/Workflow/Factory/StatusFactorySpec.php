@@ -11,7 +11,9 @@
 
 namespace spec\Kreta\Component\Workflow\Factory;
 
+use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
 use PhpSpec\ObjectBehavior;
+use Prophecy\Argument;
 
 /**
  * Class StatusFactorySpec.
@@ -30,8 +32,8 @@ class StatusFactorySpec extends ObjectBehavior
         $this->shouldHaveType('Kreta\Component\Workflow\Factory\StatusFactory');
     }
 
-    function it_creates_a_status()
+    function it_creates_a_status(WorkflowInterface $workflow)
     {
-        $this->create('Open')->shouldReturnAnInstanceOf('Kreta\Component\Workflow\Model\Status');
+        $this->create('Open', $workflow)->shouldReturnAnInstanceOf('Kreta\Component\Workflow\Model\Status');
     }
 }

@@ -13,7 +13,6 @@ namespace Kreta\Component\Issue\Model;
 
 use Kreta\Component\Core\Model\Abstracts\AbstractModel;
 use Kreta\Component\Issue\Model\Interfaces\LabelInterface;
-use Kreta\Component\Core\Util\Slugger;
 
 /**
  * Class Label.
@@ -42,7 +41,7 @@ class Label extends AbstractModel implements LabelInterface
      */
     public function setName($name)
     {
-        $this->name = Slugger::slugify($name);
+        $this->name = $name;
 
         return $this;
     }

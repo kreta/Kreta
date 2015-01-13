@@ -12,14 +12,14 @@
 namespace Kreta\Bundle\ProjectBundle\Behat;
 
 use Behat\Gherkin\Node\TableNode;
-use Kreta\Bundle\CoreBundle\Behat\Abstracts\AbstractContext;
+use Kreta\Bundle\CoreBundle\Behat\DefaultContext;
 
 /**
  * Class ParticipantContext.
  *
  * @package Kreta\Bundle\ProjectBundle\Behat
  */
-class ParticipantContext extends AbstractContext
+class ParticipantContext extends DefaultContext
 {
     /**
      * Populates the database with participants.
@@ -32,8 +32,7 @@ class ParticipantContext extends AbstractContext
      */
     public function theFollowingParticipantsExist(TableNode $participants)
     {
-        $manager = $this->getContainer()->get('doctrine')->getManager();
-
+        $this->getManager();
         foreach ($participants as $participantData) {
             $project = $this->getContainer()->get('kreta_project.repository.project')->findOneBy(
                 ['name' => $participantData['project']]
@@ -46,9 +45,9 @@ class ParticipantContext extends AbstractContext
 
             $participant->setRole($participantData['role']);
 
-            $manager->persist($participant);
+            $this->manager->persist($participant);
         }
 
-        $manager->flush();
+        $this->manager->flush();
     }
 }

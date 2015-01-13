@@ -11,14 +11,12 @@
 
 namespace spec\Kreta\Component\Workflow\Repository;
 
-use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Query\Expr;
-use Doctrine\ORM\QueryBuilder;
+use Kreta\Component\Core\spec\Kreta\Component\Core\Repository\BaseEntityRepository;
+use Kreta\Component\Workflow\Model\Interfaces\StatusInterface;
 use Kreta\Component\Workflow\Model\Interfaces\StatusTransitionInterface;
-use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
-use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
 /**
@@ -26,7 +24,7 @@ use Prophecy\Argument;
  *
  * @package spec\Kreta\Component\Workflow\Repository
  */
-class StatusTransitionRepositorySpec extends ObjectBehavior
+class StatusTransitionRepositorySpec extends BaseEntityRepository
 {
     function let(EntityManager $manager, ClassMetadata $metadata)
     {
@@ -38,31 +36,23 @@ class StatusTransitionRepositorySpec extends ObjectBehavior
         $this->shouldHaveType('Kreta\Component\Workflow\Repository\StatusTransitionRepository');
     }
 
-    function it_extends_entity_repository()
+    function it_extends_kretas_entity_repository()
     {
-        $this->shouldHaveType('Doctrine\ORM\EntityRepository');
+        $this->shouldHaveType('Kreta\Component\Core\Repository\EntityRepository');
+    }
+    
+    function it_persists_initial_status(StatusTransitionInterface $transition, StatusInterface $initialStatus)
+    {
+        $transition->addInitialState($initialStatus)->shouldBeCalled()->willReturn($transition);
+
+        $this->persistInitialStatus($transition, $initialStatus);
     }
 
-    function it_finds_by_workflow(
-        WorkflowInterface $workflow,
-        EntityManager $manager,
-        QueryBuilder $queryBuilder,
-        Expr $expr,
-        Expr\Comparison $comparison,
-        AbstractQuery $query,
-        StatusTransitionInterface $statusTransition
-    )
+    function it_removes_initial_status(StatusTransitionInterface $transition, StatusInterface $initialStatus)
     {
-        $manager->createQueryBuilder()->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->select('s')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->from(Argument::any(), 's')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->expr()->shouldBeCalled()->willReturn($expr);
-        $expr->eq('s.workflow', ':workflow')->shouldBeCalled()->willReturn($comparison);
-        $queryBuilder->where($comparison)->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->setParameter('workflow', $workflow)->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
-        $query->getResult()->shouldBeCalled()->willReturn([$statusTransition]);
+        $transition->getInitialState('initial-status-id')->shouldBeCalled()->willReturn($initialStatus);
+        $transition->removeInitialState($initialStatus)->shouldBeCalled()->willReturn($transition);
 
-        $this->findByWorkflow($workflow)->shouldBeArray();
+        $this->removeInitialStatus($transition, 'initial-status-id');
     }
 }

@@ -26,3 +26,8 @@ monolog:
 
 swiftmailer:
     delivery_address: %mailer_dev_delivery_address%
+
+kreta_notification:
+    notifier:
+        email:
+            enabled: false

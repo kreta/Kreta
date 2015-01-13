@@ -12,25 +12,7 @@ services:
         tags:
             - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
 
-    kreta_web.listener.form_handler_flash:
-        class: Kreta\Bundle\WebBundle\EventListener\FormHandlerFlashListener
-        arguments: [@session]
-        tags:
-            - { name: kernel.event_listener, event: kreta_web_event_form_handler, method: onFormHandlerEvent }
-
 #### EVENTS ####
-    kreta_web.notifiable_event.issue:
-        class: Kreta\Bundle\WebBundle\NotifiableEvent\IssueEvents
-        arguments: [@router]
-        tags:
-            - { name: kreta_notification.notifiable_event, label: issue }
-
-    kreta_web.notifier.email:
-        class: Kreta\Bundle\WebBundle\Notifier\EmailNotifier
-        arguments: [@mailer]
-        tags:
-            - { name: kreta_notification.notifier, label: email }
-
     kreta_web.twig.issue_extension:
         class: Kreta\Bundle\WebBundle\Twig\IssueExtension
         tags:

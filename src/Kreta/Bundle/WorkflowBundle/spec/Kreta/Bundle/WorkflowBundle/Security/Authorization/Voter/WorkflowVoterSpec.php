@@ -118,7 +118,7 @@ class WorkflowVoterSpec extends ObjectBehavior
         $this->vote($token, $workflow, ['view'])->shouldReturn(-1);
     }
 
-    function it_votes_manage_status_or_edit_because_the_current_user_is_the_creator_of_the_workflow(
+    function it_does_not_vote_manage_status_or_edit_because_the_current_user_is_not_the_creator_of_the_workflow(
         TokenInterface $token,
         Workflow $workflow,
         UserInterface $user,
@@ -132,6 +132,21 @@ class WorkflowVoterSpec extends ObjectBehavior
 
         $this->vote($token, $workflow, ['edit'])->shouldReturn(-1);
         $this->vote($token, $workflow, ['manage_status'])->shouldReturn(-1);
+    }
+
+    function it_votes_manage_status_or_edit_because_the_current_user_is_the_creator_of_the_workflow(
+        TokenInterface $token,
+        Workflow $workflow,
+        UserInterface $user
+    )
+    {
+        $token->getUser()->shouldBeCalled()->willReturn($user);
+        $user->getId()->shouldBeCalled()->willReturn('user-id');
+        $workflow->getCreator()->shouldBeCalled()->willReturn($user);
+        $user->getId()->shouldBeCalled()->willReturn('user-id');
+
+        $this->vote($token, $workflow, ['edit'])->shouldReturn(1);
+        $this->vote($token, $workflow, ['manage_status'])->shouldReturn(1);
     }
 
     function it_votes(

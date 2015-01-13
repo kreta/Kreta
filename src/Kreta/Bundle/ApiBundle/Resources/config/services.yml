@@ -22,14 +22,31 @@ services:
         tags:
             - { name: jms_serializer.event_subscriber }
 
+    kreta_api.form_handler.abstract:
+        abstract: true
+        arguments: [@form.factory, @doctrine.orm.entity_manager, @event_dispatcher]
+
     kreta_api.form_handler.project:
         class: Kreta\Bundle\ApiBundle\Form\Handler\ProjectHandler
-        arguments: [@form.factory, @doctrine.orm.entity_manager, @event_dispatcher, @kreta_media.factory.media, @kreta_project.uploader.image_project]
+        parent: kreta_api.form_handler.abstract
+        arguments: [@kreta_media.factory.media, @kreta_project.uploader.image_project, @security.context, @kreta_project.factory.project, @kreta_workflow.repository.workflow]
 
     kreta_api.form_handler.issue:
         class: Kreta\Bundle\ApiBundle\Form\Handler\IssueHandler
-        arguments: [@form.factory, @doctrine.orm.entity_manager, @event_dispatcher]
+        parent: kreta_api.form_handler.abstract
+        arguments: [@security.context, @kreta_issue.factory.issue]
 
     kreta_api.form_handler.status:
         class: Kreta\Bundle\ApiBundle\Form\Handler\StatusHandler
-        arguments: [@form.factory, @doctrine.orm.entity_manager, @event_dispatcher]
+        parent: kreta_api.form_handler.abstract
+        arguments: [@kreta_workflow.factory.status]
+
+    kreta_api.form_handler.status_transition:
+        class: Kreta\Bundle\ApiBundle\Form\Handler\StatusTransitionHandler
+        parent: kreta_api.form_handler.abstract
+        arguments: [@kreta_workflow.factory.status_transition, @kreta_workflow.repository.status]
+
+    kreta_api.form_handler.workflow:
+        class: Kreta\Bundle\ApiBundle\Form\Handler\WorkflowHandler
+        parent: kreta_api.form_handler.abstract
+        arguments: [@security.context, @kreta_workflow.factory.workflow]

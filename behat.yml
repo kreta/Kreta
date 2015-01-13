@@ -16,13 +16,13 @@ default:
         api:
             contexts:
                 - Kreta\Bundle\ApiBundle\Behat\OauthContext
-                - Kreta\Bundle\ApiBundle\Behat\WorkflowContext
-                - Kreta\Bundle\ApiBundle\Behat\ProjectContext
-                - Kreta\Bundle\ApiBundle\Behat\IssueContext
-                - Kreta\Bundle\ApiBundle\Behat\UserContext
-                - Kreta\Bundle\ApiBundle\Behat\StatusContext
+                - Kreta\Bundle\WorkflowBundle\Behat\WorkflowContext
+                - Kreta\Bundle\ProjectBundle\Behat\ProjectContext
+                - Kreta\Bundle\IssueBundle\Behat\IssueContext
+                - Kreta\Bundle\UserBundle\Behat\UserContext
+                - Kreta\Bundle\WorkflowBundle\Behat\StatusContext
+                - Kreta\Bundle\WorkflowBundle\Behat\StatusTransitionContext
                 - Kreta\Bundle\ProjectBundle\Behat\ParticipantContext
-                - Kreta\Bundle\WebBundle\Behat\DefaultContext
             filters:
                 tags: "@api"
         issue:
@@ -33,7 +33,7 @@ default:
                 - Kreta\Bundle\ProjectBundle\Behat\ParticipantContext
                 - Kreta\Bundle\IssueBundle\Behat\IssueContext
                 - Kreta\Bundle\WorkflowBundle\Behat\WorkflowContext
-                - Kreta\Bundle\WebBundle\Behat\DefaultContext
+                - Kreta\Bundle\WebBundle\Behat\WebContext
             filters:
                 tags: "@issue"
 
@@ -44,7 +44,7 @@ default:
                 - Kreta\Bundle\ProjectBundle\Behat\ProjectContext
                 - Kreta\Bundle\ProjectBundle\Behat\ParticipantContext
                 - Kreta\Bundle\WorkflowBundle\Behat\WorkflowContext
-                - Kreta\Bundle\WebBundle\Behat\DefaultContext
+                - Kreta\Bundle\WebBundle\Behat\WebContext
             filters:
                 tags: "@project"
 
@@ -53,7 +53,7 @@ default:
                 - Kreta\Bundle\UserBundle\Behat\UserContext
                 - Kreta\Bundle\ProjectBundle\Behat\ProjectContext
                 - Kreta\Bundle\NotificationBundle\Behat\NotificationContext
-                - Kreta\Bundle\WebBundle\Behat\DefaultContext
+                - Kreta\Bundle\WebBundle\Behat\WebContext
             filters:
                 tags: "@notification"
 
@@ -67,7 +67,7 @@ default:
         login:
             contexts:
                 - Kreta\Bundle\UserBundle\Behat\UserContext
-                - Kreta\Bundle\WebBundle\Behat\DefaultContext
+                - Kreta\Bundle\WebBundle\Behat\WebContext
             filters:
                 tags: "@login"
 

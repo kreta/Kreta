@@ -32,8 +32,8 @@ class CommentRepositorySpec extends ObjectBehavior
         $this->shouldHaveType('Kreta\Component\Comment\Repository\CommentRepository');
     }
 
-    function it_extends_entity_repository()
+    function it_extends_kretas_entity_repository()
     {
-        $this->shouldHaveType('Doctrine\ORM\EntityRepository');
+        $this->shouldHaveType('Kreta\Component\Core\Repository\EntityRepository');
     }
 }

@@ -1,0 +1,27 @@
+{% extends 'KretaWebBundle:blocks:widget.html.twig' %}
+
+{% block widgetClass %}{% endblock %}
+
+{% block widgetIcon %}fa-comment{% endblock %}
+
+{% block widgetTitle %}Comments{% endblock %}
+
+{% block widgetContent %}
+    {{ render(url('kreta_web_comment_new',
+    {'projectShortName': issue.project.shortName,
+        'issueNumber': issue.numericId})) }}
+    {% for comment in comments %}
+        <div class="kreta-issue-comment">
+            {% image '@KretaWebBundle/Resources/public/img/user.jpg' %}
+            <img src="{{ comment.writtenBy.photo ? comment.writtenBy.photo.name|imagine_filter('kreta_small') : asset_url }}">
+            {% endimage %}
+            <div class="comment-content">
+                <div class="comment-header">
+                    <h4>{{ comment.writtenBy.fullName }}</h4>
+                    <span class="date">{{ comment.createdAt | date('Y-m-d') }}</span>
+                </div>
+                <p>{{ comment.description }}</p>
+            </div>
+        </div>
+    {% endfor %}
+{% endblock %}

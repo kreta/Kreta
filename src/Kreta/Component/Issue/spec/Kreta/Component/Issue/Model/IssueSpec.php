@@ -11,7 +11,6 @@
 
 namespace spec\Kreta\Component\Issue\Model;
 
-use Kreta\Component\Comment\Model\Interfaces\CommentInterface;
 use Kreta\Component\Issue\Model\Interfaces\LabelInterface;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Issue\Model\Interfaces\ResolutionInterface;
@@ -45,9 +44,8 @@ class IssueSpec extends ObjectBehavior
         $this->shouldImplement('Kreta\Component\Issue\Model\Interfaces\IssueInterface');
     }
 
-    function its_comments_labels_and_watchers_are_collections()
+    function its_labels_and_watchers_are_collections()
     {
-        $this->getComments()->shouldHaveType('Doctrine\Common\Collections\ArrayCollection');
         $this->getLabels()->shouldHaveType('Doctrine\Common\Collections\ArrayCollection');
         $this->getWatchers()->shouldHaveType('Doctrine\Common\Collections\ArrayCollection');
     }
@@ -84,19 +82,6 @@ class IssueSpec extends ObjectBehavior
 
         $this->setCreatedAt($createDate)->shouldReturn($this);
         $this->getCreatedAt()->shouldReturn($createDate);
-    }
-
-    function its_comments_are_mutable(CommentInterface $comment)
-    {
-        $this->getComments()->shouldHaveCount(0);
-
-        $this->addComment($comment);
-
-        $this->getComments()->shouldHaveCount(1);
-
-        $this->removeComment($comment);
-
-        $this->getComments()->shouldHaveCount(0);
     }
 
     function its_description_is_mutable()

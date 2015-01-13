@@ -12,22 +12,16 @@
 namespace spec\Kreta\Bundle\ApiBundle\Controller;
 
 use FOS\RestBundle\Request\ParamFetcher;
-use FOS\RestBundle\View\ViewHandler;
 use Kreta\Bundle\ApiBundle\Form\Handler\ProjectHandler;
-use Kreta\Component\Project\Factory\ProjectFactory;
+use Kreta\Bundle\ApiBundle\spec\Kreta\Bundle\ApiBundle\Controller\BaseRestController;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use Kreta\Component\Project\Repository\ProjectRepository;
 use Prophecy\Argument;
-use spec\Kreta\Bundle\ApiBundle\Controller\Abstracts\AbstractRestControllerSpec;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\Form\FormError;
-use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
@@ -35,7 +29,7 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
  *
  * @package spec\Kreta\Bundle\ApiBundle\Controller
  */
-class ProjectControllerSpec extends AbstractRestControllerSpec
+class ProjectControllerSpec extends BaseRestController
 {
     function let(ContainerInterface $container)
     {
@@ -47,62 +41,45 @@ class ProjectControllerSpec extends AbstractRestControllerSpec
         $this->shouldHaveType('Kreta\Bundle\ApiBundle\Controller\ProjectController');
     }
 
-    function it_extends_abstract_rest_controller()
+    function it_extends_rest_controller()
     {
-        $this->shouldHaveType('Kreta\Bundle\ApiBundle\Controller\Abstracts\AbstractRestController');
+        $this->shouldHaveType('Kreta\Bundle\ApiBundle\Controller\RestController');
     }
 
     function it_does_not_get_projects_because_the_user_is_not_logged(
         ContainerInterface $container,
+        ProjectRepository $projectRepository,
         SecurityContextInterface $securityContext,
         TokenInterface $token,
         ParamFetcher $paramFetcher
     )
     {
-        $this->getCurrentUser($container, $securityContext, $token);
+        $container->get('kreta_project.repository.project')->shouldBeCalled()->willReturn($projectRepository);
+        $this->getUserSpec($container, $securityContext, $token);
 
-        $this->shouldThrow(new AccessDeniedHttpException('Not allowed to access this resource'))
-            ->during('getProjectsAction', [$paramFetcher]);
+        $this->shouldThrow(new AccessDeniedException())->during('getProjectsAction', [$paramFetcher]);
     }
 
     function it_gets_projects(
         ContainerInterface $container,
         ProjectRepository $projectRepository,
         ParamFetcher $paramFetcher,
-        ViewHandler $viewHandler,
         SecurityContextInterface $securityContext,
         TokenInterface $token,
         UserInterface $user,
-        Response $response
+        ProjectInterface $project
     )
     {
-        $container->has('security.context')->shouldBeCalled()->willReturn(true);
-        $container->get('security.context')->shouldBeCalled()->willReturn($securityContext);
-        $securityContext->getToken()->shouldBeCalled()->willReturn($token);
-        $token->getUser()->shouldBeCalled()->willReturn($user);
+        $container->get('kreta_project.repository.project')->shouldBeCalled()->willReturn($projectRepository);
+        $user = $this->getUserSpec($container, $securityContext, $token, $user);
 
-        $container->get('kreta_project.repository.project')
-            ->shouldBeCalled()->willReturn($projectRepository);
-        $paramFetcher->get('order')->shouldBeCalled()->willReturn('name');
-        $paramFetcher->get('count')->shouldBeCalled()->willReturn(10);
-        $paramFetcher->get('page')->shouldBeCalled()->willReturn(1);
-        $projectRepository->findByParticipant($user, 'name', 10, 1)->shouldBeCalled()->willReturn([]);
+        $paramFetcher->get('sort')->shouldBeCalled()->willReturn('name');
+        $paramFetcher->get('limit')->shouldBeCalled()->willReturn(10);
+        $paramFetcher->get('offset')->shouldBeCalled()->willReturn(1);
+        $projectRepository->findByParticipant($user, ['name' => 'ASC'], 10, 1)
+            ->shouldBeCalled()->willReturn([$project]);
 
-        $container->get('fos_rest.view_handler')->shouldBeCalled()->willReturn($viewHandler);
-        $viewHandler->handle(Argument::type('FOS\RestBundle\View\View'))->shouldBeCalled()->willReturn($response);
-
-        $this->getProjectsAction($paramFetcher)->shouldReturn($response);
-    }
-
-    function it_does_not_get_project_because_the_project_does_not_exist(
-        ContainerInterface $container,
-        ProjectRepository $projectRepository
-    )
-    {
-        $this->getProjectIfExist($container, $projectRepository);
-
-        $this->shouldThrow(new NotFoundHttpException('Does not exist any entity with project-id id'))
-            ->during('getProjectAction', ['project-id']);
+        $this->getProjectsAction($paramFetcher)->shouldReturn([$project]);
     }
 
     function it_does_not_get_project_because_the_user_has_not_the_required_grant(
@@ -112,103 +89,52 @@ class ProjectControllerSpec extends AbstractRestControllerSpec
         SecurityContextInterface $securityContext
     )
     {
-        $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext, 'view', false);
+        $this->getProjectIfAllowedSpec($container, $projectRepository, $project, $securityContext, 'view', false);
 
-        $this->shouldThrow(new AccessDeniedHttpException('Not allowed to access this resource'))
-            ->during('getProjectAction', ['project-id']);
+        $this->shouldThrow(new AccessDeniedException())->during('getProjectAction', ['project-id']);
     }
 
     function it_gets_project(
         ContainerInterface $container,
         ProjectRepository $projectRepository,
         ProjectInterface $project,
-        SecurityContextInterface $securityContext,
-        ViewHandler $viewHandler,
-        Response $response
+        SecurityContextInterface $securityContext
     )
     {
-        $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext);
+        $project = $this->getProjectIfAllowedSpec($container, $projectRepository, $project, $securityContext);
 
-        $container->get('fos_rest.view_handler')->shouldBeCalled()->willReturn($viewHandler);
-        $viewHandler->handle(Argument::type('FOS\RestBundle\View\View'))->shouldBeCalled()->willReturn($response);
-
-        $this->getProjectAction('project-id')->shouldReturn($response);
+        $this->getProjectAction('project-id')->shouldReturn($project);
     }
 
     function it_posts_project(
         ContainerInterface $container,
         Request $request,
-        FormInterface $form,
-        ViewHandler $viewHandler,
-        Response $response,
         ProjectHandler $projectHandler,
-        ProjectFactory $projectFactory,
         ProjectInterface $project,
-        SecurityContextInterface $securityContext,
-        TokenInterface $token,
-        UserInterface $user,
-        Request $request,
-        FormInterface $form,
-        ViewHandler $viewHandler,
-        Response $response
+        Request $request
     )
     {
         $container->get('kreta_api.form_handler.project')->shouldBeCalled()->willReturn($projectHandler);
-        $this->getCurrentUser($container, $securityContext, $token, $user);
+        $container->get('request')->shouldBeCalled()->willReturn($request);
+        $projectHandler->processForm($request)->shouldBeCalled()->willReturn($project);
 
-        $container->get('kreta_project.factory.project')->shouldBeCalled()->willReturn($projectFactory);
-        $projectFactory->create($user)->shouldBeCalled()->willReturn($project);
-
-        $this->processForm(
-            $container,
-            $request,
-            $form,
-            $viewHandler,
-            $projectHandler,
-            $response,
-            $project
-        );
-
-        $this->postProjectsAction()->shouldReturn($response);
+        $this->postProjectsAction()->shouldReturn($project);
     }
 
-    function it_does_not_posts_project_because_there_are_some_form_errors(
+    function it_puts_project_because_the_user_has_not_the_required_grant(
         ContainerInterface $container,
-        ProjectFactory $projectFactory,
+        ProjectRepository $projectRepository,
         ProjectInterface $project,
-        ProjectHandler $projectHandler,
         SecurityContextInterface $securityContext,
-        TokenInterface $token,
-        UserInterface $user,
         Request $request,
-        FormInterface $form,
-        FormError $error,
-        FormInterface $formChild,
-        FormInterface $formGrandChild,
-        ViewHandler $viewHandler,
-        Response $response
+        ProjectHandler $projectHandler
     )
     {
         $container->get('kreta_api.form_handler.project')->shouldBeCalled()->willReturn($projectHandler);
-        $this->getCurrentUser($container, $securityContext, $token, $user);
+        $this->getProjectIfAllowedSpec($container, $projectRepository, $project, $securityContext, 'edit', false);
+        $container->get('request')->shouldBeCalled()->willReturn($request);
 
-        $container->get('kreta_project.factory.project')->shouldBeCalled()->willReturn($projectFactory);
-        $projectFactory->create($user)->shouldBeCalled()->willReturn($project);
-
-        $this->getFormErrors(
-            $container,
-            $request,
-            $form,
-            $error,
-            $formChild,
-            $formGrandChild,
-            $response,
-            $viewHandler,
-            $projectHandler,
-            $project
-        );
-
-        $this->postProjectsAction()->shouldReturn($response);
+        $this->shouldThrow(new AccessDeniedException())->during('putProjectsAction', ['project-id']);
     }
 
     function it_puts_project(
@@ -217,63 +143,14 @@ class ProjectControllerSpec extends AbstractRestControllerSpec
         ProjectInterface $project,
         SecurityContextInterface $securityContext,
         Request $request,
-        ProjectHandler $projectHandler,
-        FormInterface $form,
-        ViewHandler $viewHandler,
-        Response $response
+        ProjectHandler $projectHandler
     )
     {
         $container->get('kreta_api.form_handler.project')->shouldBeCalled()->willReturn($projectHandler);
+        $project = $this->getProjectIfAllowedSpec($container, $projectRepository, $project, $securityContext, 'edit');
+        $container->get('request')->shouldBeCalled()->willReturn($request);
+        $projectHandler->processForm($request, $project, ['method' => 'PUT'])->shouldBeCalled()->willReturn($project);
 
-        $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext, 'edit');
-
-        $this->processForm(
-            $container,
-            $request,
-            $form,
-            $viewHandler,
-            $projectHandler,
-            $response,
-            $project,
-            'PUT'
-        );
-
-        $this->putProjectsAction('project-id')->shouldReturn($response);
-    }
-
-    function it_does_not_puts_project_because_there_are_some_form_errors(
-        ContainerInterface $container,
-        ProjectRepository $projectRepository,
-        ProjectInterface $project,
-        SecurityContextInterface $securityContext,
-        Request $request,
-        projectHandler $projectHandler,
-        FormInterface $form,
-        FormError $error,
-        FormInterface $formChild,
-        FormInterface $formGrandChild,
-        ViewHandler $viewHandler,
-        Response $response
-    )
-    {
-        $container->get('kreta_api.form_handler.project')->shouldBeCalled()->willReturn($projectHandler);
-
-        $this->getProjectIfAllowed($container, $projectRepository, $project, $securityContext, 'edit');
-
-        $this->getFormErrors(
-            $container,
-            $request,
-            $form,
-            $error,
-            $formChild,
-            $formGrandChild,
-            $response,
-            $viewHandler,
-            $projectHandler,
-            $project,
-            'PUT'
-        );
-
-        $this->putProjectsAction('project-id')->shouldReturn($response);
+        $this->putProjectsAction('project-id')->shouldReturn($project);
     }
 }

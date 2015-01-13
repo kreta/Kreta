@@ -1,0 +1,54 @@
+# This file belongs to Kreta.
+# The source code of application includes a LICENSE file
+# with all information about license.
+#
+# @author benatespina <benatespina@gmail.com>
+# @author gorkalaucirica <gorka.lauzirika@gmail.com>
+
+Kreta\Component\Workflow\Model\StatusTransition:
+    exclusion_policy: ALL
+    relations:
+        -
+            rel: self
+            href:
+                route: get_workflow_transition
+                parameters:
+                    workflowId: expr(object.getWorkflow().getId())
+                    transitionId: expr(object.getId())
+                absolute: true
+            exclusion:
+                groups: [transitionList, transition]
+        -
+            rel: transitions
+            href:
+                route: get_workflow_transitions
+                parameters:
+                    workflowId: expr(object.getWorkflow().getId())
+                absolute: true
+            exclusion:
+                groups: [transitionList, transition]
+        -
+            rel: workflow
+            href:
+                route: get_workflow
+                parameters:
+                    workflowId: expr(object.getWorkflow().getId())
+                absolute: true
+            exclusion:
+                groups: [transitionList, transition]
+    properties:
+        id:
+            expose: true
+            groups: [transitionList, transition]
+        initialStates:
+            expose: true
+            groups: [transitionList, transition]
+        name:
+            expose: true
+            groups: [transitionList, transition]
+        state:
+            expose: true
+            groups: []
+        workflow:
+            expose: true
+            groups: []

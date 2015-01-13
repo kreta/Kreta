@@ -25,10 +25,25 @@ services:
         tags:
             - { name: doctrine.event_subscriber }
 
+    #Notifiers
     kreta_notification.notifier_registry:
         class: %kreta_notification.notifier_registry.class%
+
+    kreta_notification.notifier.email:
+        class: Kreta\Component\Notification\Notifier\EmailNotifier
+        arguments: [@mailer]
+        tags:
+            - { name: kreta_notification.notifier, label: email }
+
+    #Notifiable events
     kreta_notification.notifiable_event_registry:
         class: %kreta_notification.notifiable_event_registry.class%
+
+    kreta_notification.notifiable_event.issue:
+        class: Kreta\Component\Notification\NotifiableEvent\IssueEvents
+        arguments: [@router]
+        tags:
+            - { name: kreta_notification.notifiable_event, label: issue }
 
     kreta_notification.repository.notification:
         factory_service: doctrine.orm.entity_manager

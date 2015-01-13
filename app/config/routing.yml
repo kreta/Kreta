@@ -10,9 +10,9 @@ kreta_web:
     prefix: /
 
 kreta_api:
-    resource: routing_api.yml
+    resource: '@KretaApiBundle/Resources/config/routing.yml'
     prefix: /api
-    
+
 kreta_media_image:
     pattern: /media/image/{name}
 

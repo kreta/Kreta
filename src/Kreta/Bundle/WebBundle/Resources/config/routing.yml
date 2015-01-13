@@ -15,6 +15,9 @@ kreta_web_dashboard:
     defaults: { _controller: KretaWebBundle:Default:dashboard }
     methods:  [GET]
 
+kreta_web_comment:
+    resource: "@KretaWebBundle/Resources/config/routing/comment.yml"
+
 kreta_web_issue:
     prefix: /issues
     resource: "@KretaWebBundle/Resources/config/routing/issue.yml"

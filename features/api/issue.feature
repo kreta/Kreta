@@ -40,11 +40,13 @@ Feature: Manage issue
       | Test project 2 | user2@kreta.com | ROLE_PARTICIPANT |
       | Test project 2 | user4@kreta.com | ROLE_PARTICIPANT |
     And the following issues exist:
-      | id | numericId | project        | title        | description | reporter        | assignee        | type    | status   | priority | createdAt  |
-      | 0  | 1         | Test project 1 | Test issue 1 | Description | user@kreta.com  | user@kreta.com  | initial | Open     | 1        | 2014-10-21 |
-      | 1  | 2         | Test project 1 | Test issue 2 | Description | user@kreta.com  | user@kreta.com  | initial | Resolved | 1        | 2014-10-21 |
-      | 2  | 1         | Test project 2 | Test issue 1 | Description | user@kreta.com  | user4@kreta.com | initial | Resolved | 1        | 2014-10-21 |
-      | 3  | 2         | Test project 2 | Test issue 1 | Description | user4@kreta.com | user@kreta.com  | initial | Resolved | 1        | 2014-10-21 |
+      | id | numericId | project        | title        | description | reporter        | assignee        | type | status   | priority | createdAt  |
+      | 0  | 1         | Test project 1 | Test issue 1 | Description | user@kreta.com  | user@kreta.com  | 4    | Open     | 1        | 2014-12-15 |
+      | 1  | 2         | Test project 1 | Test issue 2 | Description | user@kreta.com  | user@kreta.com  | 2    | Resolved | 1        | 2014-11-07 |
+      | 2  | 3         | Test project 1 | Test issue 3 | Description | user@kreta.com  | user@kreta.com  | 1    | Resolved | 1        | 2014-10-21 |
+      | 3  | 1         | Test project 2 | Test issue 1 | Description | user@kreta.com  | user4@kreta.com | 3    | Resolved | 1        | 2014-10-21 |
+      | 4  | 2         | Test project 2 | Test issue 1 | Description | user4@kreta.com | user@kreta.com  | 1    | Resolved | 1        | 2014-10-21 |
+      | 5  | 4         | Test project 1 | Test issue 4 | Description | user2@kreta.com | user@kreta.com  | 0    | Closed   | 0        | 2014-10-21 |
     And the following tokens exist:
       | token          | expiresAt | scope | user            |
       | access-token-0 | null      | user  | user@kreta.com  |
@@ -56,10 +58,796 @@ Feature: Manage issue
     Given I am authenticating with "access-token-0" token
     When I send a GET request to "/app_test.php/api/projects/0/issues"
     Then the response code should be 200
-    And print response
     And the response should contain json:
     """
-    []
+      [{
+        "id": "0",
+        "assignee": {
+          "id": "0",
+          "email": "user@kreta.com",
+          "first_name": "Kreta",
+          "last_name": "User"
+        },
+        "created_at": "2014-12-15T00:00:00+0100",
+        "description": "Description",
+        "labels": [],
+        "numeric_id": 1,
+        "priority": 1,
+        "reporter": {
+          "id": "0",
+          "email": "user@kreta.com",
+          "first_name": "Kreta",
+          "last_name": "User"
+        },
+        "status": {
+          "type": "normal",
+          "name": "Open",
+          "id": "0",
+          "color": "#27ae60"
+        },
+        "title": "Test issue 1",
+        "type": 4,
+        "_links": {
+          "self": {
+            "href": "http://localhost/app_test.php/api/projects/0/issues/0"
+          },
+          "project": {
+            "href": "http://localhost/app_test.php/api/projects/0"
+          },
+          "issues": {
+            "href": "http://localhost/app_test.php/api/projects/0/issues"
+          }
+        }
+      }, {
+        "id": "1",
+        "assignee": {
+          "id": "0",
+          "email": "user@kreta.com",
+          "first_name": "Kreta",
+          "last_name": "User"
+        },
+        "created_at": "2014-11-07T00:00:00+0100",
+        "description": "Description",
+        "labels": [],
+        "numeric_id": 2,
+        "priority": 1,
+        "reporter": {
+          "id": "0",
+          "email": "user@kreta.com",
+          "first_name": "Kreta",
+          "last_name": "User"
+        },
+        "status": {
+          "type": "normal",
+          "name": "Resolved",
+          "id": "2",
+          "color": "#f1c40f"
+        },
+        "title": "Test issue 2",
+        "type": 2,
+        "_links": {
+          "self": {
+            "href": "http://localhost/app_test.php/api/projects/0/issues/1"
+          },
+          "project": {
+            "href": "http://localhost/app_test.php/api/projects/0"
+          },
+          "issues": {
+            "href": "http://localhost/app_test.php/api/projects/0/issues"
+          }
+        }
+      }, {
+        "id": "2",
+        "assignee": {
+          "id": "0",
+          "email": "user@kreta.com",
+          "first_name": "Kreta",
+          "last_name": "User"
+        },
+        "created_at": "2014-10-21T00:00:00+0200",
+        "description": "Description",
+        "labels": [],
+        "numeric_id": 3,
+        "priority": 1,
+        "reporter": {
+          "id": "0",
+          "email": "user@kreta.com",
+          "first_name": "Kreta",
+          "last_name": "User"
+        },
+        "status": {
+          "type": "normal",
+          "name": "Resolved",
+          "id": "2",
+          "color": "#f1c40f"
+        },
+        "title": "Test issue 3",
+        "type": 1,
+        "_links": {
+          "self": {
+            "href": "http://localhost/app_test.php/api/projects/0/issues/2"
+          },
+          "project": {
+            "href": "http://localhost/app_test.php/api/projects/0"
+          },
+          "issues": {
+            "href": "http://localhost/app_test.php/api/projects/0/issues"
+          }
+        }
+      }, {
+        "id": "5",
+        "assignee": {
+          "id": "0",
+          "email": "user@kreta.com",
+          "first_name": "Kreta",
+          "last_name": "User"
+        },
+        "created_at": "2014-10-21T00:00:00+0200",
+        "description": "Description",
+        "labels": [],
+        "numeric_id": 4,
+        "priority": 0,
+        "reporter": {
+          "id": "1",
+          "email": "user2@kreta.com",
+          "first_name": "Kreta",
+          "last_name": "User2"
+        },
+        "status": {
+          "type": "normal",
+          "name": "Closed",
+          "id": "3",
+          "color": "#c0392b"
+        },
+        "title": "Test issue 4",
+        "type": 0,
+        "_links": {
+          "self": {
+            "href": "http://localhost/app_test.php/api/projects/0/issues/5"
+          },
+          "project": {
+            "href": "http://localhost/app_test.php/api/projects/0"
+          },
+          "issues": {
+            "href": "http://localhost/app_test.php/api/projects/0/issues"
+          }
+        }
+      }]
+    """
+
+  Scenario: Getting all the issues of project 0 with user which is not a project participant
+    Given I am authenticating with "access-token-3" token
+    When I send a GET request to "/app_test.php/api/projects/0/issues"
+    Then the response code should be 403
+    And the response should contain json:
+    """
+      {
+        "error": "Not allowed to access this resource"
+      }
+    """
+
+  Scenario: Getting all the issues of project unknown project
+    Given I am authenticating with "access-token-3" token
+    When I send a GET request to "/app_test.php/api/projects/unknown-project/issues"
+    Then the response code should be 404
+    And the response should contain json:
+    """
+      {
+        "error": "Does not exist any object with id passed"
+      }
+    """
+
+  Scenario: Getting all the issues of project 0 sorted by createdAt
+    Given I am authenticating with "access-token-0" token
+    When I send a GET request to "/app_test.php/api/projects/0/issues?sort=createdAt"
+    Then the response code should be 200
+    And the response should contain json:
+    """
+    [{
+      "id": "2",
+      "assignee": {
+        "id": "0",
+        "email": "user@kreta.com",
+        "first_name": "Kreta",
+        "last_name": "User"
+      },
+      "created_at": "2014-10-21T00:00:00+0200",
+      "description": "Description",
+      "labels": [],
+      "numeric_id": 3,
+      "priority": 1,
+      "reporter": {
+        "id": "0",
+        "email": "user@kreta.com",
+        "first_name": "Kreta",
+        "last_name": "User"
+      },
+      "status": {
+        "type": "normal",
+        "name": "Resolved",
+        "id": "2",
+        "color": "#f1c40f"
+      },
+      "title": "Test issue 3",
+      "type": 1,
+      "_links": {
+        "self": {
+          "href": "http://localhost/app_test.php/api/projects/0/issues/2"
+        },
+        "project": {
+          "href": "http://localhost/app_test.php/api/projects/0"
+        },
+        "issues": {
+          "href": "http://localhost/app_test.php/api/projects/0/issues"
+        }
+      }
+    }, {
+      "id": "5",
+      "assignee": {
+        "id": "0",
+        "email": "user@kreta.com",
+        "first_name": "Kreta",
+        "last_name": "User"
+      },
+      "created_at": "2014-10-21T00:00:00+0200",
+      "description": "Description",
+      "labels": [],
+      "numeric_id": 4,
+      "priority": 0,
+      "reporter": {
+        "id": "1",
+        "email": "user2@kreta.com",
+        "first_name": "Kreta",
+        "last_name": "User2"
+      },
+      "status": {
+        "type": "normal",
+        "name": "Closed",
+        "id": "3",
+        "color": "#c0392b"
+      },
+      "title": "Test issue 4",
+      "type": 0,
+      "_links": {
+        "self": {
+          "href": "http://localhost/app_test.php/api/projects/0/issues/5"
+        },
+        "project": {
+          "href": "http://localhost/app_test.php/api/projects/0"
+        },
+        "issues": {
+          "href": "http://localhost/app_test.php/api/projects/0/issues"
+        }
+      }
+    }, {
+      "id": "1",
+      "assignee": {
+        "id": "0",
+        "email": "user@kreta.com",
+        "first_name": "Kreta",
+        "last_name": "User"
+      },
+      "created_at": "2014-11-07T00:00:00+0100",
+      "description": "Description",
+      "labels": [],
+      "numeric_id": 2,
+      "priority": 1,
+      "reporter": {
+        "id": "0",
+        "email": "user@kreta.com",
+        "first_name": "Kreta",
+        "last_name": "User"
+      },
+      "status": {
+        "type": "normal",
+        "name": "Resolved",
+        "id": "2",
+        "color": "#f1c40f"
+      },
+      "title": "Test issue 2",
+      "type": 2,
+      "_links": {
+        "self": {
+          "href": "http://localhost/app_test.php/api/projects/0/issues/1"
+        },
+        "project": {
+          "href": "http://localhost/app_test.php/api/projects/0"
+        },
+        "issues": {
+          "href": "http://localhost/app_test.php/api/projects/0/issues"
+        }
+      }
+    }, {
+      "id": "0",
+      "assignee": {
+        "id": "0",
+        "email": "user@kreta.com",
+        "first_name": "Kreta",
+        "last_name": "User"
+      },
+      "created_at": "2014-12-15T00:00:00+0100",
+      "description": "Description",
+      "labels": [],
+      "numeric_id": 1,
+      "priority": 1,
+      "reporter": {
+        "id": "0",
+        "email": "user@kreta.com",
+        "first_name": "Kreta",
+        "last_name": "User"
+      },
+      "status": {
+        "type": "normal",
+        "name": "Open",
+        "id": "0",
+        "color": "#27ae60"
+      },
+      "title": "Test issue 1",
+      "type": 4,
+      "_links": {
+        "self": {
+          "href": "http://localhost/app_test.php/api/projects/0/issues/0"
+        },
+        "project": {
+          "href": "http://localhost/app_test.php/api/projects/0"
+        },
+        "issues": {
+          "href": "http://localhost/app_test.php/api/projects/0/issues"
+        }
+      }
+    }]
+    """
+
+  Scenario: Getting all the issues of project 1 filter by assignee=user4@kreta.com
+    Given I am authenticating with "access-token-0" token
+    When I send a GET request to "/app_test.php/api/projects/1/issues?assignee=user4@kreta.com"
+    Then the response code should be 200
+    And the response should contain json:
+    """
+      [{
+        "id": "3",
+        "assignee": {
+          "id": "3",
+          "email": "user4@kreta.com",
+          "first_name": "Kreta",
+          "last_name": "User4"
+        },
+        "created_at": "2014-10-21T00:00:00+0200",
+        "description": "Description",
+        "labels": [],
+        "numeric_id": 1,
+        "priority": 1,
+        "reporter": {
+          "id": "0",
+          "email": "user@kreta.com",
+          "first_name": "Kreta",
+          "last_name": "User"
+        },
+        "status": {
+          "type": "normal",
+          "name": "Resolved",
+          "id": "2",
+          "color": "#f1c40f"
+        },
+        "title": "Test issue 1",
+        "type": 3,
+        "_links": {
+          "self": {
+            "href": "http://localhost/app_test.php/api/projects/1/issues/3"
+          },
+          "project": {
+            "href": "http://localhost/app_test.php/api/projects/1"
+          },
+          "issues": {
+            "href": "http://localhost/app_test.php/api/projects/1/issues"
+          }
+        }
+      }]
+    """
+
+  Scenario: Getting all the issues of project 1 filter by reporter=user4@kreta.com
+    Given I am authenticating with "access-token-0" token
+    When I send a GET request to "/app_test.php/api/projects/1/issues?reporter=user4@kreta.com"
+    Then the response code should be 200
+    And the response should contain json:
+    """
+    [{
+      "id": "4",
+      "assignee": {
+        "id": "0",
+        "email": "user@kreta.com",
+        "first_name": "Kreta",
+        "last_name": "User"
+      },
+      "created_at": "2014-10-21T00:00:00+0200",
+      "description": "Description",
+      "labels": [],
+      "numeric_id": 2,
+      "priority": 1,
+      "reporter": {
+        "id": "3",
+        "email": "user4@kreta.com",
+        "first_name": "Kreta",
+        "last_name": "User4"
+      },
+      "status": {
+        "type": "normal",
+        "name": "Resolved",
+        "id": "2",
+        "color": "#f1c40f"
+      },
+      "title": "Test issue 1",
+      "type": 1,
+      "_links": {
+        "self": {
+          "href": "http://localhost/app_test.php/api/projects/1/issues/4"
+        },
+        "project": {
+          "href": "http://localhost/app_test.php/api/projects/1"
+        },
+        "issues": {
+          "href": "http://localhost/app_test.php/api/projects/1/issues"
+        }
+      }
+    }]
+    """
+
+  Scenario: Getting all the issues of project 0 filter by priority=0
+    Given I am authenticating with "access-token-0" token
+    When I send a GET request to "/app_test.php/api/projects/0/issues?priority=0"
+    Then the response code should be 200
+    And the response should contain json:
+    """
+      [{
+        "id": "5",
+        "assignee": {
+          "id": "0",
+          "email": "user@kreta.com",
+          "first_name": "Kreta",
+          "last_name": "User"
+        },
+        "created_at": "2014-10-21T00:00:00+0200",
+        "description": "Description",
+        "labels": [],
+        "numeric_id": 4,
+        "priority": 0,
+        "reporter": {
+          "id": "1",
+          "email": "user2@kreta.com",
+          "first_name": "Kreta",
+          "last_name": "User2"
+        },
+        "status": {
+          "type": "normal",
+          "name": "Closed",
+          "id": "3",
+          "color": "#c0392b"
+        },
+        "title": "Test issue 4",
+        "type": 0,
+        "_links": {
+          "self": {
+            "href": "http://localhost/app_test.php/api/projects/0/issues/5"
+          },
+          "project": {
+            "href": "http://localhost/app_test.php/api/projects/0"
+          },
+          "issues": {
+            "href": "http://localhost/app_test.php/api/projects/0/issues"
+          }
+        }
+      }]
+    """
+
+  Scenario: Getting all the issues of project 0 filter by status=closed
+    Given I am authenticating with "access-token-0" token
+    When I send a GET request to "/app_test.php/api/projects/0/issues?status=closed"
+    Then the response code should be 200
+    And the response should contain json:
+    """
+      [{
+        "id": "5",
+        "assignee": {
+          "id": "0",
+          "email": "user@kreta.com",
+          "first_name": "Kreta",
+          "last_name": "User"
+        },
+        "created_at": "2014-10-21T00:00:00+0200",
+        "description": "Description",
+        "labels": [],
+        "numeric_id": 4,
+        "priority": 0,
+        "reporter": {
+          "id": "1",
+          "email": "user2@kreta.com",
+          "first_name": "Kreta",
+          "last_name": "User2"
+        },
+        "status": {
+          "type": "normal",
+          "name": "Closed",
+          "id": "3",
+          "color": "#c0392b"
+        },
+        "title": "Test issue 4",
+        "type": 0,
+        "_links": {
+          "self": {
+            "href": "http://localhost/app_test.php/api/projects/0/issues/5"
+          },
+          "project": {
+            "href": "http://localhost/app_test.php/api/projects/0"
+          },
+          "issues": {
+            "href": "http://localhost/app_test.php/api/projects/0/issues"
+          }
+        }
+      }]
+    """
+
+  Scenario: Getting all the issues of project 0 filter by type=0
+    Given I am authenticating with "access-token-0" token
+    When I send a GET request to "/app_test.php/api/projects/0/issues?type=0"
+    Then the response code should be 200
+    And the response should contain json:
+    """
+      [{
+        "id": "5",
+        "assignee": {
+          "id": "0",
+          "email": "user@kreta.com",
+          "first_name": "Kreta",
+          "last_name": "User"
+        },
+        "created_at": "2014-10-21T00:00:00+0200",
+        "description": "Description",
+        "labels": [],
+        "numeric_id": 4,
+        "priority": 0,
+        "reporter": {
+          "id": "1",
+          "email": "user2@kreta.com",
+          "first_name": "Kreta",
+          "last_name": "User2"
+        },
+        "status": {
+          "type": "normal",
+          "name": "Closed",
+          "id": "3",
+          "color": "#c0392b"
+        },
+        "title": "Test issue 4",
+        "type": 0,
+        "_links": {
+          "self": {
+            "href": "http://localhost/app_test.php/api/projects/0/issues/5"
+          },
+          "project": {
+            "href": "http://localhost/app_test.php/api/projects/0"
+          },
+          "issues": {
+            "href": "http://localhost/app_test.php/api/projects/0/issues"
+          }
+        }
+      }]
+    """
+
+  Scenario: Getting all the issues of project 0 filter by title=issue 4
+    Given I am authenticating with "access-token-0" token
+    When I send a GET request to "/app_test.php/api/projects/0/issues?q=issue 4"
+    Then the response code should be 200
+    And the response should contain json:
+    """
+      [{
+        "id": "5",
+        "assignee": {
+          "id": "0",
+          "email": "user@kreta.com",
+          "first_name": "Kreta",
+          "last_name": "User"
+        },
+        "created_at": "2014-10-21T00:00:00+0200",
+        "description": "Description",
+        "labels": [],
+        "numeric_id": 4,
+        "priority": 0,
+        "reporter": {
+          "id": "1",
+          "email": "user2@kreta.com",
+          "first_name": "Kreta",
+          "last_name": "User2"
+        },
+        "status": {
+          "type": "normal",
+          "name": "Closed",
+          "id": "3",
+          "color": "#c0392b"
+        },
+        "title": "Test issue 4",
+        "type": 0,
+        "_links": {
+          "self": {
+            "href": "http://localhost/app_test.php/api/projects/0/issues/5"
+          },
+          "project": {
+            "href": "http://localhost/app_test.php/api/projects/0"
+          },
+          "issues": {
+            "href": "http://localhost/app_test.php/api/projects/0/issues"
+          }
+        }
+      }]
+    """
+
+  Scenario: Getting all the issues of project 0 with limit 2
+    Given I am authenticating with "access-token-0" token
+    When I send a GET request to "/app_test.php/api/projects/0/issues?limit=2"
+    Then the response code should be 200
+    And the response should contain json:
+    """
+      [{
+        "id": "0",
+        "assignee": {
+          "id": "0",
+          "email": "user@kreta.com",
+          "first_name": "Kreta",
+          "last_name": "User"
+        },
+        "created_at": "2014-12-15T00:00:00+0100",
+        "description": "Description",
+        "labels": [],
+        "numeric_id": 1,
+        "priority": 1,
+        "reporter": {
+          "id": "0",
+          "email": "user@kreta.com",
+          "first_name": "Kreta",
+          "last_name": "User"
+        },
+        "status": {
+          "type": "normal",
+          "name": "Open",
+          "id": "0",
+          "color": "#27ae60"
+        },
+        "title": "Test issue 1",
+        "type": 4,
+        "_links": {
+          "self": {
+            "href": "http://localhost/app_test.php/api/projects/0/issues/0"
+          },
+          "project": {
+            "href": "http://localhost/app_test.php/api/projects/0"
+          },
+          "issues": {
+            "href": "http://localhost/app_test.php/api/projects/0/issues"
+          }
+        }
+      }, {
+        "id": "1",
+        "assignee": {
+          "id": "0",
+          "email": "user@kreta.com",
+          "first_name": "Kreta",
+          "last_name": "User"
+        },
+        "created_at": "2014-11-07T00:00:00+0100",
+        "description": "Description",
+        "labels": [],
+        "numeric_id": 2,
+        "priority": 1,
+        "reporter": {
+          "id": "0",
+          "email": "user@kreta.com",
+          "first_name": "Kreta",
+          "last_name": "User"
+        },
+        "status": {
+          "type": "normal",
+          "name": "Resolved",
+          "id": "2",
+          "color": "#f1c40f"
+        },
+        "title": "Test issue 2",
+        "type": 2,
+        "_links": {
+          "self": {
+            "href": "http://localhost/app_test.php/api/projects/0/issues/1"
+          },
+          "project": {
+            "href": "http://localhost/app_test.php/api/projects/0"
+          },
+          "issues": {
+            "href": "http://localhost/app_test.php/api/projects/0/issues"
+          }
+        }
+      }]
+    """
+
+  Scenario: Getting all the issues of project 0 with offset 2
+    Given I am authenticating with "access-token-0" token
+    When I send a GET request to "/app_test.php/api/projects/0/issues?offset=2"
+    Then the response code should be 200
+    And the response should contain json:
+    """
+      [{
+        "id": "2",
+        "assignee": {
+          "id": "0",
+          "email": "user@kreta.com",
+          "first_name": "Kreta",
+          "last_name": "User"
+        },
+        "created_at": "2014-10-21T00:00:00+0200",
+        "description": "Description",
+        "labels": [],
+        "numeric_id": 3,
+        "priority": 1,
+        "reporter": {
+          "id": "0",
+          "email": "user@kreta.com",
+          "first_name": "Kreta",
+          "last_name": "User"
+        },
+        "status": {
+          "type": "normal",
+          "name": "Resolved",
+          "id": "2",
+          "color": "#f1c40f"
+        },
+        "title": "Test issue 3",
+        "type": 1,
+        "_links": {
+          "self": {
+            "href": "http://localhost/app_test.php/api/projects/0/issues/2"
+          },
+          "project": {
+            "href": "http://localhost/app_test.php/api/projects/0"
+          },
+          "issues": {
+            "href": "http://localhost/app_test.php/api/projects/0/issues"
+          }
+        }
+      }, {
+        "id": "5",
+        "assignee": {
+          "id": "0",
+          "email": "user@kreta.com",
+          "first_name": "Kreta",
+          "last_name": "User"
+        },
+        "created_at": "2014-10-21T00:00:00+0200",
+        "description": "Description",
+        "labels": [],
+        "numeric_id": 4,
+        "priority": 0,
+        "reporter": {
+          "id": "1",
+          "email": "user2@kreta.com",
+          "first_name": "Kreta",
+          "last_name": "User2"
+        },
+        "status": {
+          "type": "normal",
+          "name": "Closed",
+          "id": "3",
+          "color": "#c0392b"
+        },
+        "title": "Test issue 4",
+        "type": 0,
+        "_links": {
+          "self": {
+            "href": "http://localhost/app_test.php/api/projects/0/issues/5"
+          },
+          "project": {
+            "href": "http://localhost/app_test.php/api/projects/0"
+          },
+          "issues": {
+            "href": "http://localhost/app_test.php/api/projects/0/issues"
+          }
+        }
+      }]
     """
 
   Scenario: Getting the 0 issue
@@ -76,10 +864,10 @@ Feature: Manage issue
           "first_name": "Kreta",
           "last_name": "User"
         },
-        "comments": [],
-        "created_at": "2014-10-21T00:00:00+0200",
+        "created_at": "2014-12-15T00:00:00+0100",
         "description": "Description",
         "labels": [],
+        "numeric_id": 1,
         "priority": 1,
         "reporter": {
           "id": "0",
@@ -94,7 +882,7 @@ Feature: Manage issue
           "name": "Open"
         },
         "title": "Test issue 1",
-        "type": 0,
+        "type": 4,
         "_links": {
           "self": {
             "href": "http://localhost/app_test.php/api/projects/0/issues/0"
@@ -109,9 +897,9 @@ Feature: Manage issue
       }
     """
 
-  Scenario: Getting the 0 issue with user which is not a participant
-    Given I am authenticating with "access-token-2" token
-    When I send a GET request to "/app_test.php/api/projects/1/issues/2"
+  Scenario: Getting the 1 issue with user which is not a participant
+    Given I am authenticating with "access-token-3" token
+    When I send a GET request to "/app_test.php/api/projects/0/issues/1"
     Then the response code should be 403
     And the response should contain json:
     """
@@ -127,7 +915,7 @@ Feature: Manage issue
     And the response should contain json:
     """
       {
-        "error": "Does not exist any entity with unknown-issue id"
+        "error": "Does not exist any object with id passed"
       }
     """
 
@@ -233,7 +1021,7 @@ Feature: Manage issue
     """
       {
         "title": [
-          "An issue with identical title is already exist in this project"
+          "An issue with identical title is already exists in this project"
         ]
       } 
     """
@@ -282,10 +1070,10 @@ Feature: Manage issue
           "first_name": "Kreta",
           "last_name": "User2"
         },
-        "comments": [],
-        "created_at": "2014-10-21T00:00:00+0200",
+        "created_at": "2014-12-15T00:00:00+0100",
         "description": "The description",
         "labels": [],
+        "numeric_id": 1,
         "priority": 0,
         "reporter": {
           "id": "0",
@@ -383,9 +1171,9 @@ Feature: Manage issue
     """
 
   Scenario: Updating the 1 issue with user which is assignee
-    Given I am authenticating with "access-token-3" token
+    Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a PUT request to "/app_test.php/api/projects/1/issues/2" with body:
+    When I send a PUT request to "/app_test.php/api/projects/0/issues/2" with body:
     """
       {
         "title": "Updated issue 0",
@@ -406,10 +1194,10 @@ Feature: Manage issue
           "first_name": "Kreta",
           "last_name": "User2"
         },
-        "comments": [],
         "created_at": "2014-10-21T00:00:00+0200",
         "description": "The description",
         "labels": [],
+        "numeric_id": 3,
         "priority": 0,
         "reporter": {
           "id": "0",
@@ -427,13 +1215,13 @@ Feature: Manage issue
         "type": 0,
         "_links": {
           "self": {
-            "href": "http://localhost/app_test.php/api/projects/1/issues/2"
+            "href": "http://localhost/app_test.php/api/projects/0/issues/2"
           },
           "project": {
-            "href": "http://localhost/app_test.php/api/projects/1"
+            "href": "http://localhost/app_test.php/api/projects/0"
           },
           "issues": {
-            "href": "http://localhost/app_test.php/api/projects/1/issues"
+            "href": "http://localhost/app_test.php/api/projects/0/issues"
           }
         }
       }
@@ -463,16 +1251,16 @@ Feature: Manage issue
           "first_name": "Kreta",
           "last_name": "User2"
         },
-        "comments": [],
         "created_at": "2014-10-21T00:00:00+0200",
         "description": "The description",
         "labels": [],
+        "numeric_id": 1,
         "priority": 0,
         "reporter": {
-          "id": "3",
-          "email": "user4@kreta.com",
+          "id": "0",
+          "email": "user@kreta.com",
           "first_name": "Kreta",
-          "last_name": "User4"
+          "last_name": "User"
         },
         "status": {
           "id": "2",
@@ -520,10 +1308,10 @@ Feature: Manage issue
           "first_name": "Kreta",
           "last_name": "User2"
         },
-        "comments": [],
-        "created_at": "2014-10-21T00:00:00+0200",
+        "created_at": "2014-12-15T00:00:00+0100",
         "description": "The description",
         "labels": [],
+        "numeric_id": 1,
         "priority": 0,
         "reporter": {
           "id": "0",

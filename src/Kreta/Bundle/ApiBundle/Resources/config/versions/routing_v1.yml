@@ -1,0 +1,29 @@
+# This file belongs to Kreta.
+# The source code of application includes a LICENSE file
+# with all information about license.
+#
+# @author benatespina <benatespina@gmail.com>
+# @author gorkalaucirica <gorka.lauzirika@gmail.com>
+
+kreta_api_workflow:
+    type: rest
+    resource: Kreta\Bundle\ApiBundle\Controller\WorkflowController
+
+kreta_api_project:
+    type: rest
+    resource: Kreta\Bundle\ApiBundle\Controller\ProjectController
+
+kreta_api_issue:
+    type: rest
+    parent: kreta_api_project
+    resource: Kreta\Bundle\ApiBundle\Controller\IssueController
+
+kreta_api_status:
+    type: rest
+    parent: kreta_api_workflow
+    resource: Kreta\Bundle\ApiBundle\Controller\StatusController
+
+kreta_api_status_transitions:
+    type: rest
+    parent: kreta_api_workflow
+    resource: Kreta\Bundle\ApiBundle\Controller\StatusTransitionController

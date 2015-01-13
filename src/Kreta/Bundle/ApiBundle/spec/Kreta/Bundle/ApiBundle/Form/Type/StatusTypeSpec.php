@@ -12,9 +12,14 @@
 namespace spec\Kreta\Bundle\ApiBundle\Form\Type;
 
 use Finite\State\StateInterface;
+use Kreta\Component\Workflow\Factory\StatusFactory;
+use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
  * Class StatusTypeSpec.
@@ -23,6 +28,11 @@ use Symfony\Component\Form\FormBuilderInterface;
  */
 class StatusTypeSpec extends ObjectBehavior
 {
+    function let(StatusFactory $factory, WorkflowInterface $workflow)
+    {
+        $this->beConstructedWith($factory, $workflow);
+    }
+
     function it_is_initializable()
     {
         $this->shouldHaveType('Kreta\Bundle\ApiBundle\Form\Type\StatusType');
@@ -35,16 +45,11 @@ class StatusTypeSpec extends ObjectBehavior
 
     function it_builds_a_form(FormBuilderInterface $builder)
     {
-        $builder->add('color', null, [
-            'required' => true,
-        ])->shouldBeCalled()->willReturn($builder);
-
-        $builder->add('name', null, [
-            'required' => true,
-        ])->shouldBeCalled()->willReturn($builder);
+        $builder->add('color', null)->shouldBeCalled()->willReturn($builder);
+        $builder->add('name', null)->shouldBeCalled()->willReturn($builder);
 
         $builder->add('type', 'choice', [
-            'required' => true,
+            'required' => false,
             'choices'  => [
                 StateInterface::TYPE_INITIAL => 'initial',
                 StateInterface::TYPE_NORMAL  => 'normal',
@@ -53,6 +58,17 @@ class StatusTypeSpec extends ObjectBehavior
         ])->shouldBeCalled()->willReturn($builder);
 
         $this->buildForm($builder, []);
+    }
+
+    function it_sets_default_options(OptionsResolverInterface $resolver, FormInterface $form)
+    {
+        $resolver->setDefaults([
+            'data_class'      => 'Kreta\Component\Workflow\Model\Status',
+            'csrf_protection' => false,
+            'empty_data'      => Argument::type('closure')
+        ]); //->shouldBeCalled();
+
+        $this->setDefaultOptions($resolver);
     }
 
     function it_gets_name()

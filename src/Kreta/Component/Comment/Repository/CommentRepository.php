@@ -11,7 +11,7 @@
 
 namespace Kreta\Component\Comment\Repository;
 
-use Doctrine\ORM\EntityRepository;
+use Kreta\Component\Core\Repository\EntityRepository;
 
 /**
  * Class CommentRepository.

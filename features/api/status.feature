@@ -179,7 +179,7 @@ Feature: Manage status
     And the response should contain json:
     """
       {
-        "error": "Does not exist any entity with unknown-status id"
+        "error": "Does not exist any object with id passed"
       }
     """
 
@@ -201,17 +201,15 @@ Feature: Manage status
     Given I set header "content-type" with value "application/json"
     When I send a POST request to "/app_test.php/api/workflows/0/statuses" with body:
     """
-      {
-        "color": [],
-        "name": [],
-        "type": []
-      }
+      {}
     """
     Then the response code should be 400
     And the response should contain json:
     """
       {
-        "error": "Name should not be blank"
+        "color": [],
+        "name": [],
+        "type": []
       }
     """
 
@@ -253,7 +251,7 @@ Feature: Manage status
     """
       {
         "name": [
-          "A status with identical name is already exist in this workflow"
+          "A status with identical name is already exists in this workflow"
         ]
       } 
     """
@@ -313,25 +311,15 @@ Feature: Manage status
     Given I set header "content-type" with value "application/json"
     When I send a PUT request to "/app_test.php/api/workflows/0/statuses/0" with body:
     """
-      {
-        "color": [],
-        "name": [],
-        "type": []
-      }
+      {}
     """
     Then the response code should be 400
     And the response should contain json:
     """
       {
-        "color": [
-          "This value should not be blank."
-        ],
-        "name": [
-          "This value should not be blank."
-        ],
-        "type": [
-          "This value is not valid."
-        ]
+        "color": [],
+        "name": [],
+        "type": []
       }
     """
 
@@ -372,7 +360,7 @@ Feature: Manage status
     And the response should contain json:
     """
       {
-        "error": "Does not exist any entity with unknown-status id"
+        "error": "Does not exist any object with id passed"
       }
     """
 
@@ -409,11 +397,11 @@ Feature: Manage status
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
     When I send a DELETE request to "/app_test.php/api/workflows/0/statuses/0"
-    Then the response code should be 403
+    Then the response code should be 409
     And the response should contain json:
     """
       {
-        "error": "Remove operation has been cancelled, the status is currently in use"
+        "error": "The resource is currently in use"
       }
     """
 
@@ -425,7 +413,7 @@ Feature: Manage status
     And the response should contain json:
     """
       {
-        "error": "Does not exist any entity with unknown-status id"
+        "error": "Does not exist any object with id passed"
       }
     """
 

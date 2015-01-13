@@ -22,12 +22,8 @@
                 <i class="fa fa-pencil"></i>
             </a>
             {% endif %}
-            <a class="comments-issue"
-               href="{{ url('kreta_web_issue_view', {
-               'projectShortName': issue.project.shortName,
-               'issueNumber' : issue.numericId }) }}">
+            <a class="comments-issue" href="{{ url('kreta_web_comment_list', {'issueId': issue.id}) }}">
                 <i class="fa fa-comment"></i>
-                {{ issue.comments | length }}
             </a>
         </div>
         <div class="issue-images">

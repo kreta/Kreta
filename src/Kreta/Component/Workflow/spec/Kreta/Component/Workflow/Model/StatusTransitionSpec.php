@@ -11,9 +11,16 @@
 
 namespace spec\Kreta\Component\Workflow\Model;
 
+use Doctrine\ORM\NoResultException;
+use Kreta\Component\Core\Exception\CollectionMinLengthException;
+use Kreta\Component\Core\Exception\ResourceAlreadyPersistException;
+use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
+use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Workflow\Model\Interfaces\StatusInterface;
+use Kreta\Component\Workflow\Model\Interfaces\StatusTransitionInterface;
 use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
 use PhpSpec\ObjectBehavior;
+use Prophecy\Argument;
 
 /**
  * Class StatusTransitionSpec.
@@ -22,9 +29,10 @@ use PhpSpec\ObjectBehavior;
  */
 class StatusTransitionSpec extends ObjectBehavior
 {
-    function let(StatusInterface $statusFrom, StatusInterface $statusTo)
+    function let(StatusInterface $statusTo, WorkflowInterface $workflow)
     {
-        $this->beConstructedWith('Transition name', [$statusFrom], $statusTo);
+        $statusTo->getWorkflow()->shouldBeCalled()->willReturn($workflow);
+        $this->beConstructedWith('Transition name', [], $statusTo);
     }
 
     function it_is_initializable()
@@ -47,23 +55,168 @@ class StatusTransitionSpec extends ObjectBehavior
         $this->getId()->shouldReturn(null);
     }
 
-    function its_id_is_mutable()
+    function it_does_not_gets_initial_state()
     {
-        $this->setId('2222')->shouldReturn($this);
-        $this->getId()->shouldReturn('2222');
+        $this->shouldThrow(new NoResultException())->during('getInitialState', ['initial-status-id']);
     }
 
-    function its_name_is_mutable()
+    function it_gets_initial_state(StatusInterface $initialStatus, WorkflowInterface $workflow)
     {
-        $this->getName()->shouldReturn('Transition name');
+        $initialStatus->getWorkflow()->shouldBeCalled()->willReturn($workflow);
+        $workflow->getId()->shouldBeCalled()->willReturn('workflow-id');
+        $initialStatus->getId()->shouldBeCalled()->willReturn('initial-status-id');
+        $this->addInitialState($initialStatus);
 
-        $this->setName('New transition name')->shouldReturn($this);
-        $this->getName()->shouldReturn('New transition name');
+        $this->getInitialState('initial-status-id')->shouldReturn($initialStatus);
     }
 
-    function its_workflow_is_mutable(WorkflowInterface $workflow)
+    function its_initial_status_is_not_a_status_instance($status)
     {
-        $this->setWorkflow($workflow)->shouldReturn($this);
+        $this->shouldThrow(
+            new \InvalidArgumentException('Invalid argument passed, it is not an instance of StatusInterface')
+        )->during('addInitialState', [$status]);
+    }
+
+    function its_initial_status_is_not_from_transition_workflow(StatusInterface $status, WorkflowInterface $workflow1)
+    {
+        $status->getWorkflow()->shouldBeCalled()->willReturn($workflow1);
+        $workflow1->getId()->shouldBeCalled()->willReturn('workflow-id');
+
+        $this->shouldThrow(
+            new \InvalidArgumentException('The initial status given is not from transition\'s workflow')
+        )->during('addInitialState', [$status]);
+    }
+
+    function its_initial_status_is_already_added(StatusInterface $status, WorkflowInterface $workflow)
+    {
+        $status->getWorkflow()->shouldBeCalled()->willReturn($workflow);
+        $workflow->getId()->shouldBeCalled()->willReturn('workflow-id');
+        $status->getId()->shouldBeCalled()->willReturn('status-id-1');
+        $this->addInitialState($status);
+
+        $status->getWorkflow()->shouldBeCalled()->willReturn($workflow);
+        $workflow->getId()->shouldBeCalled()->willReturn('workflow-id');
+        $status->getId()->shouldBeCalled()->willReturn('status-id-1');
+
+        $this->shouldThrow(new ResourceAlreadyPersistException())->during('addInitialState', [$status]);
+    }
+
+    function its_initials_state_are_mutable(
+        StatusInterface $status,
+        WorkflowInterface $workflow,
+        StatusInterface $status2
+    )
+    {
+        $this->getInitialStates()->shouldHaveCount(0);
+
+        $status->getWorkflow()->shouldBeCalled()->willReturn($workflow);
+        $workflow->getId()->shouldBeCalled()->willReturn('workflow-id');
+        $status->getId()->shouldBeCalled()->willReturn('status-id-1');
+        $this->addInitialState($status);
+
+        $this->getInitialStates()->shouldHaveCount(1);
+
+        $status2->getWorkflow()->shouldBeCalled()->willReturn($workflow);
+        $workflow->getId()->shouldBeCalled()->willReturn('workflow-id');
+        $status2->getId()->shouldBeCalled()->willReturn('status-id-2');
+        $this->addInitialState($status2);
+
+        $this->getInitialStates()->shouldHaveCount(2);
+        $this->removeInitialState($status2);
+        $this->getInitialStates()->shouldHaveCount(1);
+    }
+
+    function it_does_not_remove_the_initial_because_the_transition_must_have_at_least_one_initial_status(
+        StatusInterface $status
+    )
+    {
+        $this->shouldThrow(new CollectionMinLengthException())->during('removeInitialState', [$status]);
+    }
+
+    function its_does_not_remove_the_initial_because_it_is_not_a_initial_of_transition(
+        StatusInterface $status,
+        WorkflowInterface $workflow,
+        StatusInterface $status2,
+        StatusInterface $status3
+    )
+    {
+        $status->getWorkflow()->shouldBeCalled()->willReturn($workflow);
+        $workflow->getId()->shouldBeCalled()->willReturn('workflow-id');
+        $status->getId()->shouldBeCalled()->willReturn('status-id-1');
+        $this->addInitialState($status);
+        $status2->getWorkflow()->shouldBeCalled()->willReturn($workflow);
+        $workflow->getId()->shouldBeCalled()->willReturn('workflow-id');
+        $status2->getId()->shouldBeCalled()->willReturn('status-id-2');
+        $this->addInitialState($status2);
+
+        $this->shouldThrow(new NoResultException())->during('removeInitialState', [$status3]);
+    }
+
+    function it_should_transition_status_workflow_by_default(WorkflowInterface $workflow)
+    {
         $this->getWorkflow()->shouldReturn($workflow);
+    }
+
+    function it_returns_false_because_the_transition_is_not_in_use_by_any_issue(
+        WorkflowInterface $workflow,
+        StatusInterface $status,
+        ProjectInterface $project,
+        IssueInterface $issue,
+        StatusTransitionInterface $transition2,
+        StatusInterface $status
+    )
+    {
+        $this->getWorkflow()->shouldReturn($workflow);
+        $workflow->getProjects()->shouldBeCalled()->willReturn([$project]);
+        $project->getIssues()->shouldBeCalled()->willReturn([$issue]);
+
+        $issue->getStatus()->shouldBeCalled()->willReturn($status);
+        $status->getTransitions()->shouldBeCalled()->willReturn([$transition2]);
+        $transition2->getId()->shouldBeCalled()->willReturn('transition-id');
+        $this->getId()->shouldReturn(null);
+
+        $this->isInUse()->shouldReturn(false);
+    }
+
+    function it_returns_true_because_the_transition_is_in_use_by_any_issue(
+        WorkflowInterface $workflow,
+        StatusInterface $status,
+        ProjectInterface $project,
+        IssueInterface $issue,
+        StatusTransitionInterface $transition2,
+        StatusInterface $status
+    )
+    {
+        $this->getWorkflow()->shouldReturn($workflow);
+        $workflow->getProjects()->shouldBeCalled()->willReturn([$project]);
+        $project->getIssues()->shouldBeCalled()->willReturn([$issue]);
+
+        $issue->getStatus()->shouldBeCalled()->willReturn($status);
+        $status->getTransitions()->shouldBeCalled()->willReturn([$transition2]);
+        $transition2->getId()->shouldBeCalled()->willReturn(null);
+        $this->getId()->shouldReturn(null);
+
+        $this->isInUse()->shouldReturn(true);
+    }
+
+    function it_is_valid_state()
+    {
+        $this->isValidState()->shouldReturn(true);
+    }
+
+    function it_is_not_valid_state_because_the_state_is_in_initial_states_array(
+        StatusInterface $initial,
+        WorkflowInterface $workflow,
+        StatusInterface $statusTo
+    )
+    {
+        $initial->getWorkflow()->shouldBeCalled()->willReturn($workflow);
+        $workflow->getId()->shouldBeCalled()->willReturn('workflow-id');
+        $initial->getId()->shouldBeCalled()->willReturn('status-id');
+        $this->addInitialState($initial);
+
+        $statusTo->getId()->shouldBeCalled()->willReturn('status-id');
+
+        $this->isValidState()->shouldReturn(false);
     }
 }

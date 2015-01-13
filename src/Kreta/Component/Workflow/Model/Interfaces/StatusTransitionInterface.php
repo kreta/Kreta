@@ -28,22 +28,36 @@ interface StatusTransitionInterface extends TransitionInterface
     public function getId();
 
     /**
-     * Sets id.
+     * Gets the initial status of id given.
      *
-     * @param string $id The id
+     * @param string $initialStatusId The initial status id
      *
-     * @return $this self Object
+     * @return \Kreta\Component\Workflow\Model\Interfaces\StatusInterface
+     * @throws \Kreta\Component\Core\Exception\CollectionMinLengthException
+     * @throws \Doctrine\ORM\NoResultException
      */
-    public function setId($id);
+    public function getInitialState($initialStatusId);
 
     /**
-     * Sets name.
+     * Adds initial status.
      *
-     * @param string $name The name
+     * @param \Kreta\Component\Workflow\Model\Interfaces\StatusInterface $status The status
+     *
+     * @return $this self Object
+     * @throws \InvalidArgumentException
+     * @throws \Doctrine\ORM\NoResultException
+     * @throws \Kreta\Component\Core\Exception\ResourceAlreadyPersistException
+     */
+    public function addInitialState($status);
+
+    /**
+     * Removes initial status.
+     *
+     * @param \Kreta\Component\Workflow\Model\Interfaces\StatusInterface $status The status
      *
      * @return $this self Object
      */
-    public function setName($name);
+    public function removeInitialState(StatusInterface $status);
 
     /**
      * Gets workflow.
@@ -53,11 +67,9 @@ interface StatusTransitionInterface extends TransitionInterface
     public function getWorkflow();
 
     /**
-     * Sets the project.
+     * Checks if the transition is in use by any issue.
      *
-     * @param \Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface $workflow The workflow
-     *
-     * @return $this self Object
+     * @return boolean
      */
-    public function setWorkflow(WorkflowInterface $workflow);
+    public function isInUse();
 }

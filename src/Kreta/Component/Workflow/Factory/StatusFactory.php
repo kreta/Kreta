@@ -12,6 +12,7 @@
 namespace Kreta\Component\Workflow\Factory;
 
 use Kreta\Component\Workflow\Model\Interfaces\StatusInterface;
+use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
 
 /**
  * Class StatusFactory.
@@ -40,20 +41,25 @@ class StatusFactory
     /**
      * Creates an instance of status.
      *
-     * @param string $name        The name
-     * @param string $type        The type
-     * @param array  $transitions Array that contains transitions
-     * @param array  $properties  Array that contains properties
+     * @param string                                                       $name        The name
+     * @param \Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface $workflow    The workflow
+     * @param string                                                       $type        The type
+     * @param array                                                        $transitions Array that contains transitions
+     * @param array                                                        $properties  Array that contains properties
      *
      * @return \Kreta\Component\Workflow\Model\Interfaces\StatusInterface
      */
     public function create(
         $name,
+        WorkflowInterface $workflow,
         $type = StatusInterface::TYPE_NORMAL,
         array $transitions = [],
         array $properties = []
     )
     {
-        return new $this->className($name, $type, $transitions, $properties);
+        $status = new $this->className($name, $type, $transitions, $properties);
+
+        return $status
+            ->setWorkflow($workflow);
     }
 }

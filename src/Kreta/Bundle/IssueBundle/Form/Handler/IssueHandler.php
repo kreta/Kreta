@@ -35,7 +35,7 @@ class IssueHandler extends AbstractHandler
     /**
      * {@inheritdoc}
      */
-    protected function createForm($object, array $formOptions = [])
+    protected function createForm($object = null, array $formOptions = [])
     {
         if (!array_key_exists('participants', $formOptions)) {
             throw new ParameterNotFoundException('participants');
