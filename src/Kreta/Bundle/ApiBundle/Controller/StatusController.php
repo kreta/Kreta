@@ -214,7 +214,7 @@ class StatusController extends RestController
     public function deleteStatusesAction($workflowId, $statusId)
     {
         $status = $this->getStatusIfAllowed($workflowId, $statusId, 'manage_status');
-        if ($this->get('kreta_issue.repository.issue')->isStatusInUse($status)) {
+        if ($status->isInUse()) {
             throw new ResourceInUseException();
         }
         $this->get('kreta_workflow.repository.status')->remove($status);

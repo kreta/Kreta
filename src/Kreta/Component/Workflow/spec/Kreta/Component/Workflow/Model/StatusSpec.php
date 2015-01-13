@@ -11,6 +11,9 @@
 
 namespace spec\Kreta\Component\Workflow\Model;
 
+use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
+use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
+use Kreta\Component\Workflow\Model\Interfaces\StatusInterface;
 use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
 use PhpSpec\ObjectBehavior;
 
@@ -87,4 +90,45 @@ class StatusSpec extends ObjectBehavior
         $this->setName('Done')->shouldReturn($this);
         $this->__toString('Done');
     }
+
+    function it_returns_false_because_the_status_is_not_in_use_by_any_issue(
+        WorkflowInterface $workflow,
+        StatusInterface $status,
+        ProjectInterface $project,
+        IssueInterface $issue,
+        StatusInterface $status
+    )
+    {
+        $this->setWorkflow($workflow)->shouldReturn($this);
+        $this->getWorkflow()->shouldReturn($workflow);
+        $workflow->getProjects()->shouldBeCalled()->willReturn([$project]);
+        $project->getIssues()->shouldBeCalled()->willReturn([$issue]);
+
+        $issue->getStatus()->shouldBeCalled()->willReturn($status);
+        $status->getId()->shouldBeCalled()->willReturn('status-id');
+        $this->getId()->shouldReturn(null);
+
+        $this->isInUse()->shouldReturn(false);
+    }
+
+    function it_returns_true_because_the_transition_is_in_use_by_any_issue(
+        WorkflowInterface $workflow,
+        StatusInterface $status,
+        ProjectInterface $project,
+        IssueInterface $issue,
+        StatusInterface $status
+    )
+    {
+        $this->setWorkflow($workflow)->shouldReturn($this);
+        $this->getWorkflow()->shouldReturn($workflow);
+        $workflow->getProjects()->shouldBeCalled()->willReturn([$project]);
+        $project->getIssues()->shouldBeCalled()->willReturn([$issue]);
+
+        $issue->getStatus()->shouldBeCalled()->willReturn($status);
+        $status->getId()->shouldBeCalled()->willReturn(null);
+        $this->getId()->shouldReturn(null);
+
+        $this->isInUse()->shouldReturn(true);
+    }
+
 }

@@ -43,7 +43,9 @@ class StatusTransition extends Transition implements StatusTransitionInterface
     protected $name;
 
     /**
-     * {@inheritdoc}
+     * The status.
+     *
+     * @var \Kreta\Component\Workflow\Model\Interfaces\StatusInterface
      */
     protected $state;
 
@@ -140,6 +142,24 @@ class StatusTransition extends Transition implements StatusTransitionInterface
     public function getWorkflow()
     {
         return $this->workflow;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function isInUse()
+    {
+        foreach ($this->state->getWorkflow()->getProjects() as $project) {
+            foreach ($project->getIssues() as $issue) {
+                foreach ($issue->getStatus()->getTransitions() as $retrieveTransition) {
+                    if ($retrieveTransition->getId() === $this->id) {
+                        return true;
+                    }
+                }
+            }
+        }
+
+        return false;
     }
 
     /**

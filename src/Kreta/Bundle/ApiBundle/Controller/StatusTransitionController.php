@@ -173,7 +173,7 @@ class StatusTransitionController extends RestController
     public function deleteTransitionAction($workflowId, $transitionId)
     {
         $transition = $this->getTransitionIfAllowed($workflowId, $transitionId, 'manage_status');
-        if ($this->get('kreta_issue.repository.issue')->isTransitionInUse($transition)) {
+        if ($transition->isInUse()) {
             throw new ResourceInUseException();
         }
 
@@ -339,7 +339,7 @@ class StatusTransitionController extends RestController
     public function deleteTransitionsInitialStatusAction($workflowId, $transitionId, $initialStatusId)
     {
         $transition = $this->getTransitionIfAllowed($workflowId, $transitionId, 'manage_status');
-        if ($this->get('kreta_issue.repository.issue')->isTransitionInUse($transition)) {
+        if ($transition->isInUse()) {
             throw new ResourceInUseException();
         }
         $this->get('kreta_workflow.repository.status_transition')->removeInitialStatus($transition, $initialStatusId);

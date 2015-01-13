@@ -76,4 +76,11 @@ interface StatusInterface extends StateInterface
      * @return $this self Object
      */
     public function setWorkflow(WorkflowInterface $workflow);
+
+    /**
+     * Checks if the status is in use by any issue.
+     *
+     * @return boolean
+     */
+    public function isInUse();
 }

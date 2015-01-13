@@ -28,13 +28,6 @@ interface StatusTransitionInterface extends TransitionInterface
     public function getId();
 
     /**
-     * Gets workflow.
-     *
-     * @return \Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface
-     */
-    public function getWorkflow();
-
-    /**
      * Gets the initial status of id given.
      *
      * @param string $initialStatusId The initial status id
@@ -65,4 +58,18 @@ interface StatusTransitionInterface extends TransitionInterface
      * @return $this self Object
      */
     public function removeInitialState(StatusInterface $status);
+
+    /**
+     * Gets workflow.
+     *
+     * @return \Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface
+     */
+    public function getWorkflow();
+
+    /**
+     * Checks if the transition is in use by any issue.
+     *
+     * @return boolean
+     */
+    public function isInUse();
 }
