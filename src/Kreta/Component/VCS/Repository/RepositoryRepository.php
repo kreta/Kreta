@@ -14,12 +14,19 @@ namespace Kreta\Component\VCS\Repository;
 use Doctrine\ORM\EntityRepository;
 
 /**
- * Class RepositoryRepository
+ * Class RepositoryRepository.
  *
  * @package Kreta\Component\VCS\Repository
  */
 class RepositoryRepository extends EntityRepository
 {
+    /**
+     * Finds all the repositories of issue id given.
+     *
+     * @param string $issueId The issue id
+     *
+     * @return \Kreta\Component\VCS\Model\Interfaces\RepositoryInterface[]
+     */
     public function findByIssue($issueId)
     {
         $queryBuilder = $this->createQueryBuilder('r');

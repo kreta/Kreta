@@ -12,7 +12,7 @@
 namespace Kreta\Component\VCS\Factory;
 
 /**
- * Interface CommitFactoryInterface
+ * Class BranchFactory.
  *
  * @package Kreta\Component\VCS\Factory
  */
@@ -36,7 +36,7 @@ class BranchFactory
     }
 
     /**
-     * Creates a Branch object with the given response by the VCS provider
+     * Creates a Branch object with the given response by the VCS provider.
      *
      * @return \Kreta\Component\VCS\Model\Interfaces\BranchInterface
      */

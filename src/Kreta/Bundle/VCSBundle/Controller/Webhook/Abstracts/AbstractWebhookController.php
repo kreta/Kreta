@@ -9,28 +9,28 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\Bundle\VCSBundle\Controller\Webhook;
+namespace Kreta\Bundle\VCSBundle\Controller\Webhook\Abstracts;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * Class AbstractWebhookController
+ * Abstract class AbstractWebhookController.
  *
- * Responsible for exposing the entrance point for webhooks. Each provider should have one controller with
- * getWebhookStrategy() implemented.
+ * Responsible for exposing the entrance point for webhooks.
+ * Each provider should have one controller with getWebhookStrategy() implemented.
  *
- * @package Kreta\Bundle\VCSBundle\Controller\Webhook
+ * @package Kreta\Bundle\VCSBundle\Controller\Webhook\Abstracts
  */
 abstract class AbstractWebhookController extends Controller
 {
     /**
      * Exposes the action that will be registered as a webhook in the VCS provider.
      *
-     * @param Request $request
+     * @param \Symfony\Component\HttpFoundation\Request $request The request
      *
-     * @return Response
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function webhookAction(Request $request)
     {
@@ -45,7 +45,7 @@ abstract class AbstractWebhookController extends Controller
     }
 
     /**
-     * Gets webhook strategy to be used in this case. Each VCS should have one
+     * Gets webhook strategy to be used in this case. Each VCS should have one.
      *
      * @return \Kreta\Component\VCS\WebhookStrategy\AbstractWebhookStrategy
      */

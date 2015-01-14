@@ -20,6 +20,13 @@ use Doctrine\ORM\EntityRepository;
  */
 class CommitRepository extends EntityRepository
 {
+    /**
+     * Finds all the commits of issue id given.
+     *
+     * @param string $issueId The issue id
+     *
+     * @return \Kreta\Component\VCS\Model\Interfaces\CommitInterface[]
+     */
     public function findByIssue($issueId)
     {
         $queryBuilder = $this->createQueryBuilder('c');

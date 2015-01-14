@@ -15,21 +15,51 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\VCS\Model\Interfaces\RepositoryInterface;
 
+/**
+ * Class Repository.
+ *
+ * @package Kreta\Component\VCS\Model
+ */
 class Repository implements RepositoryInterface
 {
+    /**
+     * The id.
+     *
+     * @var string
+     */
     protected $id;
 
+    /**
+     * The name.
+     *
+     * @var string
+     */
     protected $name;
 
     /**
-     * @var ArrayCollection $projects
+     * Array which contains projects.
+     *
+     * @var \Kreta\Component\Project\Model\Interfaces\ProjectInterface[]
      */
     protected $projects;
 
+    /**
+     * The provider.
+     *
+     * @var string
+     */
     protected $provider;
 
+    /**
+     * The url.
+     *
+     * @var string
+     */
     protected $url;
 
+    /**
+     * Constructor.
+     */
     public function __construct()
     {
         $this->projects = new ArrayCollection();
@@ -134,5 +164,4 @@ class Repository implements RepositoryInterface
 
         return $this;
     }
-
 }

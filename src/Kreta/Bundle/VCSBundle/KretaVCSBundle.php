@@ -16,9 +16,9 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 /**
- * Class KretaWebBundle.
+ * Class KretaVCSBundle.
  *
- * @package Kreta\Bundle\WebBundle
+ * @package Kreta\Bundle\VCSBundle
  */
 class KretaVCSBundle extends Bundle
 {
@@ -28,7 +28,6 @@ class KretaVCSBundle extends Bundle
     public function build(ContainerBuilder $container)
     {
         parent::build($container);
-
         $container->addCompilerPass(new RegisterSerializersPass());
     }
 }

@@ -14,7 +14,7 @@ namespace Kreta\Component\VCS\Factory;
 use Kreta\Component\VCS\Model\Interfaces\BranchInterface;
 
 /**
- * Interface CommitFactoryInterface
+ * Class CommitFactory.
  *
  * @package Kreta\Component\VCS\Factory
  */
@@ -38,22 +38,25 @@ class CommitFactory
     }
 
     /**
-     * Creates a Commit object with the given response by the VCS provider
+     * Creates a Commit object with the given response by the VCS provider.
+     *
+     * @param string                                                $sha     The sha
+     * @param string                                                $message The message
+     * @param \Kreta\Component\VCS\Model\Interfaces\BranchInterface $branch  The branch
+     * @param string                                                $author  the author
+     * @param string                                                $url     The url
      *
      * @return \Kreta\Component\VCS\Model\Interfaces\CommitInterface
      */
     public function create($sha, $message, BranchInterface $branch, $author, $url)
     {
-        /**
-         * @var \Kreta\Component\VCS\Model\Interfaces\CommitInterface $commit
-         */
         $commit = new $this->className;
-        $commit->setSHA($sha);
-        $commit->setMessage($message);
-        $commit->setBranch($branch);
-        $commit->setAuthor($author);
-        $commit->setUrl($url);
 
-        return $commit;
+        return $commit
+            ->setSHA($sha)
+            ->setMessage($message)
+            ->setBranch($branch)
+            ->setAuthor($author)
+            ->setUrl($url);
     }
 }

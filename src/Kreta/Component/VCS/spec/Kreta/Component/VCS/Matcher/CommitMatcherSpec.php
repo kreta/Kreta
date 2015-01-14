@@ -18,6 +18,11 @@ use Kreta\Component\VCS\Model\Interfaces\RepositoryInterface;
 use Kreta\Component\VCS\Repository\IssueRepository;
 use PhpSpec\ObjectBehavior;
 
+/**
+ * Class CommitMatcherSpec.
+ *
+ * @package spec\Kreta\Component\VCS\Matcher
+ */
 class CommitMatcherSpec extends ObjectBehavior
 {
     function let(IssueRepository $issueRepository)
@@ -29,9 +34,19 @@ class CommitMatcherSpec extends ObjectBehavior
     {
         $this->shouldHaveType('Kreta\Component\VCS\Matcher\CommitMatcher');
     }
+
+    function it_extends_abstract_matcher()
+    {
+        $this->shouldHaveType('Kreta\Component\VCS\Matcher\Abstracts\AbstractMatcher');
+    }
     
-    function it_gets_related_issues(CommitInterface $commit, IssueRepository $issueRepository,
-                                    IssueInterface $issue, RepositoryInterface $repository, BranchInterface $branch)
+    function it_gets_related_issues(
+        CommitInterface $commit,
+        IssueRepository $issueRepository,
+        IssueInterface $issue,
+        RepositoryInterface $repository,
+        BranchInterface $branch
+    )
     {
         $commit->getMessage()->shouldBeCalled()->willReturn('PR0-1 Testing relation with issue');
         $commit->getBranch()->shouldBeCalled()->willReturn($branch);
@@ -44,8 +59,13 @@ class CommitMatcherSpec extends ObjectBehavior
         $this->getRelatedIssues($commit)->shouldReturn([$issue]);
     }
 
-    function it_matches_lowercase_projects(CommitInterface $commit, IssueRepository $issueRepository,
-                                            IssueInterface $issue, RepositoryInterface $repository, BranchInterface $branch)
+    function it_matches_lowercase_projects(
+        CommitInterface $commit,
+        IssueRepository $issueRepository,
+        IssueInterface $issue,
+        RepositoryInterface $repository,
+        BranchInterface $branch
+    )
     {
         $commit->getMessage()->shouldBeCalled()->willReturn('pr0-1 Testing relation with issue');
         $commit->getBranch()->shouldBeCalled()->willReturn($branch);
@@ -62,4 +82,4 @@ class CommitMatcherSpec extends ObjectBehavior
     {
         $this->getRelatedIssues($issue)->shouldReturn([]);
     }
-} 
+}

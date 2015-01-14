@@ -11,6 +11,13 @@
 
 namespace Kreta\Bundle\VCSBundle\Controller\Webhook;
 
+use Kreta\Bundle\VCSBundle\Controller\Webhook\Abstracts\AbstractWebhookController;
+
+/**
+ * Class GithubWebhookController.
+ *
+ * @package Kreta\Bundle\VCSBundle\Controller\Webhook
+ */
 class GithubWebhookController extends AbstractWebhookController
 {
     /**

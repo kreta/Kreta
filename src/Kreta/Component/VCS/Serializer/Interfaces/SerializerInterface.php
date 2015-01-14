@@ -12,18 +12,18 @@
 namespace Kreta\Component\VCS\Serializer\Interfaces;
 
 /**
- * Interface SerializerInterface
+ * Interface SerializerInterface.
  *
  * @package Kreta\Component\VCS\Serializer\Interfaces
  */
 interface SerializerInterface
 {
     /**
-     * Transforms json message received into a object
+     * Transforms json message received into a object.
      *
      * @param string $json Raw message received in json format
      *
-     * @return object
+     * @return Object
      */
     public function deserialize($json);
 }

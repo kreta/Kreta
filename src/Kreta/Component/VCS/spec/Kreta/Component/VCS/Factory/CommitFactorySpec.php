@@ -14,6 +14,11 @@ namespace spec\Kreta\Component\VCS\Factory;
 use Kreta\Component\VCS\Model\Interfaces\BranchInterface;
 use PhpSpec\ObjectBehavior;
 
+/**
+ * Class CommitFactorySpec.
+ *
+ * @package spec\Kreta\Component\VCS\Factory
+ */
 class CommitFactorySpec extends ObjectBehavior
 {
     function let()
@@ -31,4 +36,4 @@ class CommitFactorySpec extends ObjectBehavior
         $this->create('11231', 'Test commit', $branch, 'gorkalaucirica', 'http://github.com/kreta-io/kreta')
             ->shouldReturnAnInstanceOf('Kreta\Component\VCS\Model\Commit');
     }
-} 
+}

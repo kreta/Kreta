@@ -12,18 +12,24 @@
 namespace Kreta\Component\VCS\Serializer\Registry;
 
 use Kreta\Component\VCS\Serializer\Interfaces\SerializerInterface;
+use Kreta\Component\VCS\Serializer\Registry\Interfaces\SerializerRegistryInterface;
 
 /**
- * Class SerializerRegistry
+ * Class SerializerRegistry.
  *
  * @package Kreta\Component\VCS\Serializer\Registry
  */
 class SerializerRegistry implements SerializerRegistryInterface
 {
+    /**
+     * Array which contains serializers.
+     *
+     * @var array
+     */
     protected $serializers = [];
 
     /**
-     * @{@inheritdoc}
+     * {@inheritdoc}
      */
     public function getSerializers($provider)
     {
@@ -35,7 +41,7 @@ class SerializerRegistry implements SerializerRegistryInterface
     }
 
     /**
-     * @{@inheritdoc}
+     * {@inheritdoc}
      */
     public function registerSerializer($provider, $event, SerializerInterface $serializer)
     {
@@ -43,7 +49,6 @@ class SerializerRegistry implements SerializerRegistryInterface
             throw new ExistingSerializerException($provider, $event);
         }
 
-        // Initialize providers array if it has not been initialized yet.
         if (!isset($this->serializers[$provider])) {
             $this->serializers[$provider] = [];
         }
@@ -52,7 +57,7 @@ class SerializerRegistry implements SerializerRegistryInterface
     }
 
     /**
-     * @{@inheritdoc}
+     * {@inheritdoc}
      */
     public function unregisterSerializer($provider, $event)
     {
@@ -64,7 +69,7 @@ class SerializerRegistry implements SerializerRegistryInterface
     }
 
     /**
-     * @{@inheritdoc}
+     * {@inheritdoc}
      */
     public function hasSerializer($provider, $event)
     {
@@ -72,7 +77,7 @@ class SerializerRegistry implements SerializerRegistryInterface
     }
 
     /**
-     * @{@inheritdoc}
+     * {@inheritdoc}
      */
     public function getSerializer($provider, $event)
     {
@@ -82,4 +87,4 @@ class SerializerRegistry implements SerializerRegistryInterface
 
         return $this->serializers[$provider][$event];
     }
-} 
+}

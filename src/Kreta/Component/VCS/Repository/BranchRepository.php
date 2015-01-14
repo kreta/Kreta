@@ -11,13 +11,13 @@
 
 namespace Kreta\Component\VCS\Repository;
 
-use Doctrine\ORM\EntityRepository;
 use Doctrine\ORM\NoResultException;
+use Kreta\Component\Core\Repository\EntityRepository;
 use Kreta\Component\VCS\Model\Branch;
 use Kreta\Component\VCS\Model\Interfaces\RepositoryInterface;
 
 /**
- * Class BranchRepository
+ * Class BranchRepository.
  *
  * @package Kreta\Component\VCS\Repository
  */
@@ -26,38 +26,33 @@ class BranchRepository extends EntityRepository
     /**
      * Tries to find a branch by repository and branch name and throws exception if is not able to do so.
      *
-     * @param RepositoryInterface $repository
-     * @param string              $branchName
+     * @param \Kreta\Component\VCS\Model\Interfaces\RepositoryInterface $repository The repository
+     * @param string                                                    $branchName The branch name
      *
      * @return \Kreta\Component\VCS\Model\Interfaces\BranchInterface
      */
     public function findOrCreateBranch(RepositoryInterface $repository, $branchName)
     {
-        $queryBuilder = $this->createQueryBuilder('b');
-
-        $queryBuilder->where('b.name = :branchName')
-            ->andWhere('b.repository = :repositoryId')
-            ->setParameter('branchName', $branchName)
-            ->setParameter('repositoryId', $repository->getId());
-
         try {
-            return $queryBuilder->getQuery()->getSingleResult();
+            return $this->findOneBy(['name' => $branchName, 'repository' => $repository], false);
         } catch (NoResultException $e) {
             $branch = new Branch();
-            $branch->setName($branchName)
+            $branch
+                ->setName($branchName)
                 ->setRepository($repository);
 
-            $this->_em->persist($branch);
-            $this->_em->flush();
+            $this->persist($branch);
 
             return $branch;
         }
     }
 
     /**
-     * @param $issueId
+     * Finds all the branches of issue id given.
      *
-     * @return array
+     * @param string $issueId The issue id
+     *
+     * @return \Kreta\Component\VCS\Model\Interfaces\BranchInterface[]
      */
     public function findByIssue($issueId)
     {
@@ -66,5 +61,24 @@ class BranchRepository extends EntityRepository
             ->setParameter('issueId', $issueId);
 
         return $queryBuilder->getQuery()->getResult();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getQueryBuilder()
+    {
+        return parent::getQueryBuilder()
+            ->addSelect(['ir', 'r'])
+            ->innerJoin('b.issuesRelated', 'ir')
+            ->innerJoin('b.repository', 'r');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getAlias()
+    {
+        return 'b';
     }
 } 

@@ -11,8 +11,14 @@
 
 namespace Kreta\Component\VCS\Matcher;
 
+use Kreta\Component\VCS\Matcher\Abstracts\AbstractMatcher;
 use Kreta\Component\VCS\Model\Interfaces\BranchInterface;
 
+/**
+ * Class BranchMatcher.
+ *
+ * @package Kreta\Component\VCS\Matcher
+ */
 class BranchMatcher extends AbstractMatcher
 {
     /**
@@ -20,7 +26,7 @@ class BranchMatcher extends AbstractMatcher
      */
     public function getRelatedIssues($branch)
     {
-        if(!$branch instanceof BranchInterface) {
+        if (!$branch instanceof BranchInterface) {
             return [];
         }
 

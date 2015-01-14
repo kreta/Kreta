@@ -9,40 +9,49 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\Component\VCS\Matcher;
+namespace Kreta\Component\VCS\Matcher\Abstracts;
 
 use Kreta\Component\VCS\Model\Interfaces\RepositoryInterface;
 use Kreta\Component\VCS\Repository\IssueRepository;
 
 /**
- * Class AbstractMatcher
+ * Abstract class AbstractMatcher
  *
- * @package Kreta\Component\VCS\Matcher
+ * @package Kreta\Component\VCS\Matcher\Abstracts
  */
 abstract class AbstractMatcher
 {
     /**
-     * @var IssueRepository $issueRepository
+     * The issue repository.
+     *
+     * @var \Kreta\Component\VCS\Repository\IssueRepository
      */
     protected $issueRepository;
 
+    /**
+     * Constructor.
+     *
+     * @param \Kreta\Component\VCS\Repository\IssueRepository $issueRepository The issue repository
+     */
     public function __construct(IssueRepository $issueRepository)
     {
         $this->issueRepository = $issueRepository;
     }
 
     /**
-     * @param $entity
+     * Gets related issues.
+     *
+     * @param mixed $entity The entity
      *
      * @return \Kreta\Component\Issue\Model\Interfaces\IssueInterface[]
      */
     abstract public function getRelatedIssues($entity);
 
     /**
-     * Finds related issues for repository and message given
+     * Finds related issues for repository and message given.
      *
-     * @param RepositoryInterface $repository
-     * @param string              $message
+     * @param \Kreta\Component\VCS\Model\Interfaces\RepositoryInterface $repository The repository
+     * @param string                                                    $message    The message
      *
      * @return \Kreta\Component\Issue\Model\Interfaces\IssueInterface[]
      */
@@ -63,13 +72,14 @@ abstract class AbstractMatcher
     /**
      * Returns the complete string matching shortName-numericId format (f.e. KRT-42) found in the string given.
      *
-     * @param $message
+     * @param string $message The message
      *
      * @return string[]
      */
     protected function findShortNamesInMessage($message)
     {
         preg_match('/[A-z0-9]{3,4}-[0-9]{1,}/', $message, $matches);
+
         return $matches;
     }
-} 
+}

@@ -19,6 +19,11 @@ use Kreta\Component\VCS\Model\Interfaces\RepositoryInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
+/**
+ * Class RepositoryRepositorySpec.
+ *
+ * @package spec\Kreta\Component\VCS\Repository
+ */
 class RepositoryRepositorySpec extends ObjectBehavior
 {
     function let(EntityManager $manager, ClassMetadata $classMetadata)
@@ -31,13 +36,22 @@ class RepositoryRepositorySpec extends ObjectBehavior
         $this->shouldHaveType('Kreta\Component\VCS\Repository\RepositoryRepository');
     }
 
-    function it_finds_by_issue(EntityManager$manager, QueryBuilder $queryBuilder, AbstractQuery $query,
-                               RepositoryInterface $repository)
+    function it_extends_entity_repository()
+    {
+        $this->shouldHaveType('Doctrine\ORM\EntityRepository');
+    }
+
+    function it_finds_by_issue(
+        EntityManager $manager,
+        QueryBuilder $queryBuilder,
+        AbstractQuery $query,
+        RepositoryInterface $repository
+    )
     {
         $manager->createQueryBuilder()->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->select('r')->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->from(Argument::any(), 'r')->shouldBeCalled()->willReturn($queryBuilder);
-        
+
         $queryBuilder->leftJoin('r.projects', 'p')->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->leftJoin('p.issues', 'i')->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->where('i.id = :issueId')->shouldBeCalled()->willReturn($queryBuilder);
@@ -48,4 +62,4 @@ class RepositoryRepositorySpec extends ObjectBehavior
 
         $this->findByIssue('1111')->shouldReturn([$repository]);
     }
-} 
+}

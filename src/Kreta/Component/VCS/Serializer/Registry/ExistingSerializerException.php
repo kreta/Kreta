@@ -12,7 +12,7 @@
 namespace Kreta\Component\VCS\Serializer\Registry;
 
 /**
- * Class ExistingSerializerException
+ * Class ExistingSerializerException.
  *
  * @package Kreta\Component\VCS\Serializer\Registry
  */
@@ -21,8 +21,8 @@ class ExistingSerializerException extends \InvalidArgumentException
     /**
      * Constructor.
      *
-     * @param string $provider
-     * @param string $event
+     * @param string $provider The provider
+     * @param string $event    The event
      */
     public function __construct($provider, $event)
     {

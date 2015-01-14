@@ -11,8 +11,14 @@
 
 namespace Kreta\Component\VCS\Matcher;
 
+use Kreta\Component\VCS\Matcher\Abstracts\AbstractMatcher;
 use Kreta\Component\VCS\Model\Interfaces\CommitInterface;
 
+/**
+ * Class CommitMatcher.
+ *
+ * @package Kreta\Component\VCS\Matcher
+ */
 class CommitMatcher extends AbstractMatcher
 {
     /**

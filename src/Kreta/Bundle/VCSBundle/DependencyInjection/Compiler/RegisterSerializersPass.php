@@ -16,14 +16,14 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
- * Class RegisterSerializersPass
+ * Class RegisterSerializersPass.
  *
  * @package Kreta\Bundle\VCSBundle\DependencyInjection\Compiler
  */
 class RegisterSerializersPass implements CompilerPassInterface
 {
     /**
-     * @{@inheritdoc}
+     * {@inheritdoc}
      */
     public function process(ContainerBuilder $container)
     {

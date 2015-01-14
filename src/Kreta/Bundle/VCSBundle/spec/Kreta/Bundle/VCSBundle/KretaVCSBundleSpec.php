@@ -15,11 +15,21 @@ use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
+/**
+ * Class KretaVCSBundleSpec.
+ *
+ * @package spec\Kreta\Bundle\VCSBundle
+ */
 class KretaVCSBundleSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
         $this->shouldHaveType('Kreta\Bundle\VCSBundle\KretaVCSBundle');
+    }
+
+    function it_extends_bundle()
+    {
+        $this->shouldHaveType('Symfony\Component\HttpKernel\Bundle\Bundle');
     }
 
     function it_builds_extension(ContainerBuilder $container)
@@ -30,4 +40,4 @@ class KretaVCSBundleSpec extends ObjectBehavior
 
         $this->build($container);
     }
-} 
+}

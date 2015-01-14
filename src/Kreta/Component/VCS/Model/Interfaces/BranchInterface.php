@@ -12,9 +12,9 @@
 namespace Kreta\Component\VCS\Model\Interfaces;
 
 /**
- * Interface BranchInterface
+ * Interface BranchInterface.
  *
- * @package Kreta\Component\VCS\Model
+ * @package Kreta\Component\VCS\Model\Interfaces
  */
 interface BranchInterface
 {
@@ -28,9 +28,9 @@ interface BranchInterface
     /**
      * Sets id.
      *
-     * @param string $id
+     * @param string $id The id
      *
-     * @return self
+     * @return $this self Object
      */
     public function setId($id);
 
@@ -44,41 +44,41 @@ interface BranchInterface
     /**
      * Sets name.
      *
-     * @param string $name
+     * @param string $name The name
      *
-     * @return self
+     * @return $this self Object
      */
     public function setName($name);
 
     /**
      * Gets repository.
      *
-     * @return RepositoryInterface
+     * @return \Kreta\Component\VCS\Model\Interfaces\RepositoryInterface
      */
     public function getRepository();
 
     /**
      * Sets repository.
      *
-     * @param RepositoryInterface $repository
+     * @param \Kreta\Component\VCS\Model\Interfaces\RepositoryInterface $repository The repository
      *
-     * @return self
+     * @return $this self Object
      */
     public function setRepository(RepositoryInterface $repository);
 
     /**
-     * Returns issuesRelated
+     * Gets issues related.
      *
      * @return \Kreta\Component\Issue\Model\Interfaces\IssueInterface[]
      */
     public function getIssuesRelated();
 
     /**
-     * Sets issuesRelated
+     * Sets issues related.
      *
      * @param array $issuesRelated The issuesRelated to be set
      *
-     * @return self
+     * @return $this self Object
      */
     public function setIssuesRelated($issuesRelated);
 

@@ -12,7 +12,7 @@
 namespace Kreta\Bundle\VCSBundle\Behat;
 
 use Behat\Gherkin\Node\TableNode;
-use Kreta\Bundle\CoreBundle\Behat\Abstracts\AbstractContext;
+use Kreta\Bundle\CoreBundle\Behat\DefaultContext;
 use Kreta\Component\VCS\Model\Repository;
 
 /**
@@ -20,7 +20,7 @@ use Kreta\Component\VCS\Model\Repository;
  *
  * @package Kreta\Bundle\VCSBundle\Behat
  */
-class RepositoryContext extends AbstractContext
+class RepositoryContext extends DefaultContext
 {
     /**
      * Populates the database with repositories.
@@ -33,17 +33,16 @@ class RepositoryContext extends AbstractContext
      */
     public function theFollowingRepositoriesExist(TableNode $repositories)
     {
-        $manager = $this->getContainer()->get('doctrine')->getManager();
-
+        $this->getManager();
         foreach ($repositories as $repoData) {
             $repository = new Repository();
             $repository->setName($repoData['name']);
             $repository->setProvider($repoData['provider']);
             $repository->setUrl($repoData['url']);
 
-            $manager->persist($repository);
+            $this->manager->persist($repository);
         }
 
-        $manager->flush();
+        $this->manager->flush();
     }
 }

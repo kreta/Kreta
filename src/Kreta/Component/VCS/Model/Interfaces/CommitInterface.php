@@ -12,121 +12,121 @@
 namespace Kreta\Component\VCS\Model\Interfaces;
 
 /**
- * Interface CommitInterface
+ * Interface CommitInterface.
  *
- * @package Kreta\Component\VCS\Model
+ * @package Kreta\Component\VCS\Model\Interfaces
  */
 interface CommitInterface
 {
     /**
-     * Returns id
+     * Gets id.
      *
      * @return string
      */
     public function getId();
 
     /**
-     * Sets id
+     * Sets id.
      *
      * @param string $id The id to be set
      *
-     * @return string
+     * @return $this self Object
      */
     public function setId($id);
 
     /**
-     * Returns author
+     * Gets author.
      *
      * @return string
      */
     public function getAuthor();
 
     /**
-     * Sets author
+     * Sets author.
      *
      * @param string $author The author to be set
      *
-     * @return self
+     * @return $this self Object
      */
     public function setAuthor($author);
 
     /**
-     * Gets branch
+     * Gets branch.
      *
-     * @return BranchInterface
+     * @return \Kreta\Component\VCS\Model\Interfaces\BranchInterface
      */
     public function getBranch();
 
     /**
-     * Gets branch
+     * Gets branch.
      *
-     * @param BranchInterface $branch
+     * @param \Kreta\Component\VCS\Model\Interfaces\BranchInterface $branch The branch
      *
-     * @return self
+     * @return $this self Object
      */
     public function setBranch(BranchInterface $branch);
 
     /**
-     * Returns issuesRelated
+     * Gets issues related.
      *
      * @return mixed
      */
     public function getIssuesRelated();
 
     /**
-     * Sets issuesRelated
+     * Sets issues related.
      *
      * @param mixed $issuesRelated The issuesRelated to be set
      *
-     * @return self
+     * @return $this self Object
      */
     public function setIssuesRelated($issuesRelated);
 
     /**
-     * Returns message
+     * Gets message.
      *
      * @return string
      */
     public function getMessage();
 
     /**
-     * Sets message
+     * Sets message.
      *
      * @param string $message The message to be set
      *
-     * @return self
+     * @return $this self Object
      */
     public function setMessage($message);
 
     /**
-     * Returns sha
+     * Gets sha.
      *
      * @return string
      */
     public function getSha();
 
     /**
-     * Sets sha
+     * Sets sha.
      *
      * @param string $sha The sha to be set
      *
-     * @return self
+     * @return $this self Object
      */
     public function setSha($sha);
 
     /**
-     * Returns url
+     * Gets url.
      *
      * @return string
      */
     public function getUrl();
 
     /**
-     * Sets url
+     * Sets url.
      *
      * @param string $url The url to be set
      *
-     * @return self
+     * @return $this self Object
      */
     public function setUrl($url);
 }

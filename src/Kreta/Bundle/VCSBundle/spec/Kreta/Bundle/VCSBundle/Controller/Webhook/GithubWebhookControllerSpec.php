@@ -21,18 +21,38 @@ use Symfony\Bridge\Doctrine\RegistryInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
+/**
+ * Class GithubWebhookControllerSpec.
+ *
+ * @package spec\Kreta\Bundle\VCSBundle\Controller\Webhook
+ */
 class GithubWebhookControllerSpec extends ObjectBehavior
 {
+    function let(ContainerInterface $container)
+    {
+        $this->setContainer($container);
+    }
+
     function it_is_initializable()
     {
         $this->shouldHaveType('Kreta\Bundle\VCSBundle\Controller\Webhook\GithubWebhookController');
     }
 
-    function it_responds_to_webhook(Request $request, ContainerInterface $container, GithubWebhookStrategy $strategy,
-                                    SerializerInterface $serializer, RegistryInterface $registry,
-                                    EntityManager $manager, CommitInterface $entity)
+    function it_extends_abstract_webhook_controller()
     {
-        $this->setContainer($container);
+        $this->shouldHaveType('Kreta\Bundle\VCSBundle\Controller\Webhook\Abstracts\AbstractWebhookController');
+    }
+
+    function it_responds_to_webhook(
+        Request $request,
+        ContainerInterface $container,
+        GithubWebhookStrategy $strategy,
+        SerializerInterface $serializer,
+        RegistryInterface $registry,
+        EntityManager $manager,
+        CommitInterface $entity
+    )
+    {
         $container->get('kreta_vcs.webhook_strategy.github')->shouldBeCalled()->willReturn($strategy);
         $strategy->getSerializer($request)->shouldBeCalled()->willReturn($serializer);
         $serializer->deserialize(Argument::any())->shouldBeCalled()->willReturn($entity);

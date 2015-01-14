@@ -14,11 +14,21 @@ namespace spec\Kreta\Component\VCS\Serializer\Registry;
 use Kreta\Component\VCS\Serializer\Interfaces\SerializerInterface;
 use PhpSpec\ObjectBehavior;
 
+/**
+ * Class SerializerRegistrySpec.
+ *
+ * @package spec\Kreta\Component\VCS\Serializer\Registry
+ */
 class SerializerRegistrySpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
         $this->shouldHaveType('Kreta\Component\VCS\Serializer\Registry\SerializerRegistry');
+    }
+
+    function it_implement_serializer_registry_interface()
+    {
+        $this->shouldImplement('Kreta\Component\VCS\Serializer\Registry\Interfaces\SerializerRegistryInterface');
     }
 
     function it_gets_serializers_if_provider_exists(SerializerInterface $serializer)
@@ -76,4 +86,4 @@ class SerializerRegistrySpec extends ObjectBehavior
         $this->shouldThrow('Kreta\Component\VCS\Serializer\Registry\ExistingSerializerException')
             ->duringRegisterSerializer('github', 'push', $serializer);
     }
-} 
+}

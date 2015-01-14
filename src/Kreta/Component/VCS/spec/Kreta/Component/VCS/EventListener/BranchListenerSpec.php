@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * This file belongs to Kreta.
+ * The source code of application includes a LICENSE file
+ * with all information about license.
+ *
+ * @author benatespina <benatespina@gmail.com>
+ * @author gorkalaucirica <gorka.lauzirika@gmail.com>
+ */
+
 namespace spec\Kreta\Component\VCS\EventListener;
 
 use Doctrine\ORM\EntityManager;
@@ -10,6 +19,11 @@ use Kreta\Component\VCS\Model\Interfaces\BranchInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
+/**
+ * Class BranchListenerSpec.
+ *
+ * @package spec\Kreta\Component\VCS\EventListener
+ */
 class BranchListenerSpec extends ObjectBehavior
 {
     function let(BranchMatcher $matcher, EntityManager $manager)
@@ -22,8 +36,13 @@ class BranchListenerSpec extends ObjectBehavior
         $this->shouldHaveType('Kreta\Component\VCS\EventListener\BranchListener');
     }
 
-    function it_listens_to_new_branch(BranchMatcher $matcher, EntityManager $manager, NewBranchEvent $event,
-                                      BranchInterface $branch, IssueInterface $issue)
+    function it_listens_to_new_branch(
+        BranchMatcher $matcher,
+        EntityManager $manager,
+        NewBranchEvent $event,
+        BranchInterface $branch,
+        IssueInterface $issue
+    )
     {
         $event->getBranch()->shouldBeCalled()->willReturn($branch);
 

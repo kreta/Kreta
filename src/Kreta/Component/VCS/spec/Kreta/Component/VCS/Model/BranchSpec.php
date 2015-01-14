@@ -1,16 +1,35 @@
 <?php
 
+/**
+ * This file belongs to Kreta.
+ * The source code of application includes a LICENSE file
+ * with all information about license.
+ *
+ * @author benatespina <benatespina@gmail.com>
+ * @author gorkalaucirica <gorka.lauzirika@gmail.com>
+ */
+
 namespace spec\Kreta\Component\VCS\Model;
 
 use Kreta\Component\VCS\Model\Interfaces\RepositoryInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
+/**
+ * Class BranchSpec.
+ *
+ * @package spec\Kreta\Component\VCS\Model
+ */
 class BranchSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
         $this->shouldHaveType('Kreta\Component\VCS\Model\Branch');
+    }
+
+    function it_implements_branch_interface()
+    {
+        $this->shouldImplement('Kreta\Component\VCS\Model\Interfaces\BranchInterface');
     }
 
     function its_id_is_mutable()
@@ -43,6 +62,16 @@ class BranchSpec extends ObjectBehavior
         $repository->getName()->shouldBeCalled()->willReturn('kreta-io/kreta');
         $this->setRepository($repository);
         $this->setName('KRT-42-test-url-generation');
+
         $this->getUrl()->shouldReturn('https://github.com/kreta-io/kreta/tree/KRT-42-test-url-generation');
+    }
+
+    function it_generates_default_url(RepositoryInterface $repository)
+    {
+        $repository->getProvider()->shouldBeCalled()->willReturn('default-provider');
+        $this->setRepository($repository);
+        $this->setName('KRT-42-test-url-generation');
+
+        $this->getUrl()->shouldReturn('');
     }
 }

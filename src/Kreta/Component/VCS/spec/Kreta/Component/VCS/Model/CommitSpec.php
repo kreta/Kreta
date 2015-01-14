@@ -14,11 +14,21 @@ namespace spec\Kreta\Component\VCS\Model;
 use Kreta\Component\VCS\Model\Interfaces\BranchInterface;
 use PhpSpec\ObjectBehavior;
 
+/**
+ * Class CommitSpec.
+ *
+ * @package spec\Kreta\Component\VCS\Model
+ */
 class CommitSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
         $this->shouldHaveType('Kreta\Component\VCS\Model\Commit');
+    }
+
+    function it_implements_commit_interface()
+    {
+        $this->shouldImplement('Kreta\Component\VCS\Model\Interfaces\CommitInterface');
     }
 
     function its_id_is_mutable()
@@ -62,4 +72,4 @@ class CommitSpec extends ObjectBehavior
         $this->setUrl('http://github.com/kreta-io/kreta')->shouldReturn($this);
         $this->getUrl()->shouldReturn('http://github.com/kreta-io/kreta');
     }
-} 
+}

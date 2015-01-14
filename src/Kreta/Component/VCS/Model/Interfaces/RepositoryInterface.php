@@ -14,7 +14,7 @@ namespace Kreta\Component\VCS\Model\Interfaces;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 
 /**
- * Interface RepositoryInterface
+ * Interface RepositoryInterface.
  *
  * @package Kreta\Component\VCS\Model\Interfaces
  */
@@ -30,9 +30,9 @@ interface RepositoryInterface
     /**
      * Sets id.
      *
-     * @param string $id
+     * @param string $id The id
      *
-     * @return self
+     * @return $this self Object
      */
     public function setId($id);
 
@@ -48,63 +48,64 @@ interface RepositoryInterface
      *
      * @param string $name
      *
-     * @return self
+     * @return $this self Object
      */
     public function setName($name);
+
     /**
-     * Gets projects associated to the repository
+     * Gets projects associated to the repository.
      *
-     * @return ProjectInterface[]
+     * @return \Kreta\Component\Project\Model\Interfaces\ProjectInterface[]
      */
     public function getProjects();
 
     /**
      * Adds project to repository.
      *
-     * @param ProjectInterface $project
+     * @param \Kreta\Component\Project\Model\Interfaces\ProjectInterface $project The project
      *
-     * @return mixed
+     * @return $this self Object
      */
     public function addProject(ProjectInterface $project);
 
     /**
      * Removes association to project.
      *
-     * @param ProjectInterface $project
+     * @param \Kreta\Component\Project\Model\Interfaces\ProjectInterface $project The project
      *
-     * @return self
+     * @return $this self Object
      */
     public function removeProject(ProjectInterface $project);
 
     /**
-     * Gets provider. For example 'github'
+     * Gets provider. For example 'github'.
      *
-     * @return self
+     * @return $this self Object
      */
     public function getProvider();
 
     /**
-     * Sets provider
+     * Sets provider.
      *
-     * @param string $provider
+     * @param string $provider The provider
      *
-     * @return self
+     * @return $this self Object
      */
     public function setProvider($provider);
 
     /**
-     * Gets the url that points to the repository in providers page
+     * Gets the url that points to the repository in providers page.
      *
      * @return string
      */
     public function getUrl();
 
     /**
-     * Set the url that points to the repository in providers page
+     * Set the url that points to the repository in providers page.
      *
-     * @param string $url
+     * @param string $url The url
      *
-     * @return self
+     * @return $this self Object
      */
     public function setUrl($url);
 }

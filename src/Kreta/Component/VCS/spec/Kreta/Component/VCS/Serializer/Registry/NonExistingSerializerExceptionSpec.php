@@ -1,10 +1,24 @@
 <?php
 
+/**
+ * This file belongs to Kreta.
+ * The source code of application includes a LICENSE file
+ * with all information about license.
+ *
+ * @author benatespina <benatespina@gmail.com>
+ * @author gorkalaucirica <gorka.lauzirika@gmail.com>
+ */
+
 namespace spec\Kreta\Component\VCS\Serializer\Registry;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
+/**
+ * Class NonExistingSerializerExceptionSpec.
+ *
+ * @package spec\Kreta\Component\VCS\Serializer\Registry
+ */
 class NonExistingSerializerExceptionSpec extends ObjectBehavior
 {
     function let()
@@ -15,6 +29,11 @@ class NonExistingSerializerExceptionSpec extends ObjectBehavior
     function it_is_initializable()
     {
         $this->shouldHaveType('Kreta\Component\VCS\Serializer\Registry\NonExistingSerializerException');
+    }
+
+    function it_extends_invalid_argument_exception()
+    {
+        $this->shouldHaveType('\InvalidArgumentException');
     }
 
     function it_returns_message()

@@ -15,7 +15,7 @@ use Kreta\Component\VCS\Model\Interfaces\CommitInterface;
 use Symfony\Component\EventDispatcher\Event;
 
 /**
- * Class NewCommitEvent
+ * Class NewCommitEvent.
  *
  * @package Kreta\Component\VCS\Event
  */
@@ -23,13 +23,17 @@ class NewCommitEvent extends Event
 {
     const NAME = 'kreta_vcs.event.commit.new';
 
-    /** @var CommitInterface */
+    /**
+     * The commit.
+     *
+     * @var \Kreta\Component\VCS\Model\Interfaces\CommitInterface
+     */
     protected $commit;
 
     /**
-     * Creates new commit event.
+     * Constructor.
      *
-     * @param CommitInterface $commit
+     * @param \Kreta\Component\VCS\Model\Interfaces\CommitInterface $commit The commit
      */
     public function __construct(CommitInterface $commit)
     {
@@ -39,10 +43,10 @@ class NewCommitEvent extends Event
     /**
      * Gets just created commit.
      *
-     * @return CommitInterface
+     * @return \Kreta\Component\VCS\Model\Interfaces\CommitInterface
      */
     public function getCommit()
     {
         return $this->commit;
     }
-} 
+}

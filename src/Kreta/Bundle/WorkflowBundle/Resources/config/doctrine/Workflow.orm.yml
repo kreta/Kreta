@@ -40,4 +40,3 @@ Kreta\Component\Workflow\Model\Workflow:
             targetEntity: Kreta\Component\Workflow\Model\Interfaces\StatusTransitionInterface
             mappedBy: workflow
             cascade: ['persist', 'remove']
-

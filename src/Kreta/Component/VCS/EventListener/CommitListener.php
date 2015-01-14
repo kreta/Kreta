@@ -16,23 +16,31 @@ use Kreta\Component\VCS\Event\NewCommitEvent;
 use Kreta\Component\VCS\Matcher\CommitMatcher;
 
 /**
- * Class CommitListener
+ * Class CommitListener.
  *
  * @package Kreta\Component\VCS\EventListener
  */
 class CommitListener
 {
-    /** @var CommitMatcher $matcher */
+    /**
+     * The commit matcher.
+     *
+     * @var \Kreta\Component\VCS\Matcher\CommitMatcher
+     */
     protected $matcher;
 
-    /** @var EntityManager $manager */
+    /**
+     * The entity manager.
+     *
+     * @var \Doctrine\ORM\EntityManager
+     */
     protected $manager;
 
     /**
      * Constructor.
      *
-     * @param CommitMatcher $matcher
-     * @param EntityManager $manager
+     * @param \Kreta\Component\VCS\Matcher\CommitMatcher $matcher The commit matcher
+     * @param \Doctrine\ORM\EntityManager                $manager The entity manager
      */
     public function __construct(CommitMatcher $matcher, EntityManager $manager)
     {
@@ -41,9 +49,9 @@ class CommitListener
     }
 
     /**
-     * Fills the commit with related issues matched by CommitMatcher
+     * Fills the commit with related issues matched by CommitMatcher.
      *
-     * @param NewCommitEvent $event
+     * @param \Kreta\Component\VCS\Event\NewCommitEvent $event The new commit event
      */
     public function newCommit(NewCommitEvent $event)
     {

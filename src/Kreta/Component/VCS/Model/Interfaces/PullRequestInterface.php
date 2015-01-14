@@ -12,41 +12,41 @@
 namespace Kreta\Component\VCS\Model\Interfaces;
 
 /**
- * Interface PullRequestInterface
+ * Interface PullRequestInterface.
  *
- * @package Kreta\Component\VCS\Model
+ * @package Kreta\Component\VCS\Model\Interfaces
  */
 interface PullRequestInterface
 {
     /**
-     * Returns id
+     * Gets id.
      *
      * @return string
      */
     public function getId();
 
     /**
-     * Sets id
+     * Sets id.
      *
      * @param string $id The id to be set
      *
-     * @return self
+     * @return $this self Object
      */
     public function setId($id);
 
     /**
-     * Returns the number given to the pull request by the provider
+     * Gets the number given to the pull request by the provider.
      *
-     * @return integer
+     * @return int
      */
     public function getNumber();
 
     /**
-     * Sets the number given to the pull request by the provider
+     * Sets the number given to the pull request by the provider.
      *
-     * @param integer $number
+     * @param int $number The number
      *
-     * @return self
+     * @return $this self Object
      */
     public function setNumber($number);
 
@@ -60,7 +60,9 @@ interface PullRequestInterface
     /**
      * Sets the title.
      *
-     * @return self
+     * @param string $title The title
+     *
+     * @return $this self Object
      */
     public function setTitle($title);
 
@@ -74,9 +76,9 @@ interface PullRequestInterface
     /**
      * Sets the message.
      *
-     * @param string $message
+     * @param string $message The message
      *
-     * @return self
+     * @return $this self Object
      */
     public function setMessage($message);
 
@@ -90,11 +92,16 @@ interface PullRequestInterface
     /**
      * Sets the author.
      *
-     * @param string $author
+     * @param string $author The author
      *
-     * @return self
+     * @return $this self Object
      */
     public function setAuthor($author);
 
+    /**
+     * Gets issues related.
+     *
+     * @return \Kreta\Component\Issue\Model\Interfaces\IssueInterface[]
+     */
     public function getIssuesRelated();
 }

@@ -1,4 +1,5 @@
 <?php
+
 /**
  * This file belongs to Kreta.
  * The source code of application includes a LICENSE file
@@ -15,26 +16,47 @@ use Kreta\Component\VCS\Repository\BranchRepository;
 use Kreta\Component\VCS\Repository\RepositoryRepository;
 use Kreta\Component\VCS\Serializer\Interfaces\SerializerInterface;
 
-class CommitSerializer implements SerializerInterface {
+/**
+ * Class CommitSerializer.
+ *
+ * @package Kreta\Component\VCS\Serializer\Github
+ */
+class CommitSerializer implements SerializerInterface
+{
 
-    /** @var CommitFactory $factory */
+    /**
+     * The commit factory.
+     *
+     * @var \Kreta\Component\VCS\Factory\CommitFactory
+     */
     protected $factory;
 
-    /** @var  RepositoryRepository $repositoryRepository */
+    /**
+     * The repository repository.
+     *
+     * @var  \Kreta\Component\VCS\Repository\RepositoryRepository
+     */
     protected $repositoryRepository;
 
-    /** @var  BranchRepository $branchRepository */
+    /**
+     * The branch repository.
+     *
+     * @var \Kreta\Component\VCS\Repository\BranchRepository
+     */
     protected $branchRepository;
 
     /**
      * Constructor.
      *
-     * @param CommitFactory        $factory
-     * @param RepositoryRepository $repositoryRepository
-     * @param BranchRepository     $branchRepository
+     * @param \Kreta\Component\VCS\Factory\CommitFactory           $factory              The factory
+     * @param \Kreta\Component\VCS\Repository\RepositoryRepository $repositoryRepository The repository repository
+     * @param \Kreta\Component\VCS\Repository\BranchRepository     $branchRepository     The branch repository
      */
-    public function __construct(CommitFactory $factory, RepositoryRepository $repositoryRepository,
-                                BranchRepository $branchRepository)
+    public function __construct(
+        CommitFactory $factory,
+        RepositoryRepository $repositoryRepository,
+        BranchRepository $branchRepository
+    )
     {
         $this->factory = $factory;
         $this->repositoryRepository = $repositoryRepository;
@@ -51,7 +73,7 @@ class CommitSerializer implements SerializerInterface {
         $jsonCommit = $json['head_commit'];
 
         $repository = $this->repositoryRepository->findOneBy(['name' => $json['repository']['full_name']]);
-        if(!$repository) {
+        if (!$repository) {
             return null;
         }
 

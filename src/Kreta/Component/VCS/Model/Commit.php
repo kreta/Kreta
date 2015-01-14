@@ -11,38 +11,84 @@
 
 namespace Kreta\Component\VCS\Model;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Kreta\Component\VCS\Model\Interfaces\BranchInterface;
 use Kreta\Component\VCS\Model\Interfaces\CommitInterface;
 
 /**
-     * {@inheritdoc}
-     */
+ * Class Commit.
+ *
+ * @package Kreta\Component\VCS\Model
+ */
 class Commit implements CommitInterface
 {
+    /**
+     * The id.
+     *
+     * @var string
+     */
     protected $id;
 
+    /**
+     * The author.
+     *
+     * @var string
+     */
     protected $author;
 
+    /**
+     * The branch name.
+     *
+     * @var string
+     */
     protected $branch;
 
+    /**
+     * Collection of issues related.
+     *
+     * @var \Kreta\Component\Issue\Model\Interfaces\IssueInterface[]
+     */
     protected $issuesRelated;
 
+    /**
+     * The message.
+     *
+     * @var string
+     */
     protected $message;
 
+    /**
+     * The sha.
+     *
+     * @var string
+     */
     protected $sha;
 
+    /**
+     * The url.
+     *
+     * @var string
+     */
     protected $url;
 
-    /** 
-     * {@inheritdoc} 
+    /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->issuesRelated = new ArrayCollection();
+    }
+
+    /**
+     * {@inheritdoc}
      */
     public function getId()
     {
         return $this->id;
     }
 
-    /** 
-    * {@inheritdoc}
+    /**
+     * {@inheritdoc}
      */
     public function setId($id)
     {
@@ -51,7 +97,7 @@ class Commit implements CommitInterface
         return $this;
     }
 
-    /** 
+    /**
      * {@inheritdoc}
      */
     public function getAuthor()
@@ -59,7 +105,7 @@ class Commit implements CommitInterface
         return $this->author;
     }
 
-    /** 
+    /**
      * {@inheritdoc}
      */
     public function setAuthor($author)
@@ -88,7 +134,7 @@ class Commit implements CommitInterface
     }
 
 
-    /** 
+    /**
      * {@inheritdoc}
      */
     public function getIssuesRelated()
@@ -96,7 +142,7 @@ class Commit implements CommitInterface
         return $this->issuesRelated;
     }
 
-    /** 
+    /**
      * {@inheritdoc}
      */
     public function setIssuesRelated($issuesRelated)
@@ -106,7 +152,7 @@ class Commit implements CommitInterface
         return $this;
     }
 
-    /** 
+    /**
      * {@inheritdoc}
      */
     public function getMessage()
@@ -114,7 +160,7 @@ class Commit implements CommitInterface
         return $this->message;
     }
 
-    /** 
+    /**
      * {@inheritdoc}
      */
     public function setMessage($message)
@@ -132,7 +178,7 @@ class Commit implements CommitInterface
         return $this->sha;
     }
 
-    /** 
+    /**
      * {@inheritdoc}
      */
     public function setSha($sha)
@@ -142,7 +188,7 @@ class Commit implements CommitInterface
         return $this;
     }
 
-    /** 
+    /**
      * {@inheritdoc}
      */
     public function getUrl()
@@ -150,7 +196,7 @@ class Commit implements CommitInterface
         return $this->url;
     }
 
-    /** 
+    /**
      * {@inheritdoc}
      */
     public function setUrl($url)

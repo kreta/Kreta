@@ -18,18 +18,19 @@ use Kreta\Component\VCS\Event\NewBranchEvent;
 use Kreta\Component\VCS\Event\NewCommitEvent;
 use Kreta\Component\VCS\Model\Interfaces\BranchInterface;
 use Kreta\Component\VCS\Model\Interfaces\CommitInterface;
-use Symfony\Component\EventDispatcher\EventDispatcher;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 
 /**
- * Class DoctrineEventSubscriber
+ * Class DoctrineEventSubscriber.
  *
  * @package Kreta\Component\VCS\EventSubscriber
  */
 class DoctrineEventSubscriber implements EventSubscriber
 {
     /**
-     * @var EventDispatcher $dispatcher
+     * The event dispatcher.
+     *
+     * @var \Symfony\Component\EventDispatcher\EventDispatcher
      */
     protected $dispatcher;
 
@@ -43,15 +44,13 @@ class DoctrineEventSubscriber implements EventSubscriber
      */
     public function getSubscribedEvents()
     {
-        return [
-            Events::postPersist,
-        ];
+        return [Events::postPersist];
     }
 
     /**
-     * Handles postPersist event triggered by doctrine
+     * Handles postPersist event triggered by doctrine.
      *
-     * @param LifecycleEventArgs $args
+     * @param \Doctrine\ORM\Event\LifecycleEventArgs $args The arguments
      */
     public function postPersist(LifecycleEventArgs $args)
     {

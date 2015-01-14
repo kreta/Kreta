@@ -16,23 +16,31 @@ use Kreta\Component\VCS\Event\NewBranchEvent;
 use Kreta\Component\VCS\Matcher\BranchMatcher;
 
 /**
- * Class BranchListener
+ * Class BranchListener.
  *
  * @package Kreta\Component\VCS\EventListener
  */
 class BranchListener
 {
-    /** @var BranchMatcher $matcher */
+    /**
+     * The branch matcher.
+     *
+     * @var \Kreta\Component\VCS\Matcher\BranchMatcher
+     */
     protected $matcher;
 
-    /** @var EntityManager $manager */
+    /**
+     * The entity manager.
+     *
+     * @var \Doctrine\ORM\EntityManager
+     */
     protected $manager;
 
     /**
      * Constructor.
      *
-     * @param BranchMatcher $matcher
-     * @param EntityManager $manager
+     * @param \Kreta\Component\VCS\Matcher\BranchMatcher $matcher The branch matcher
+     * @param \Doctrine\ORM\EntityManager                $manager The entity manager
      */
     public function __construct(BranchMatcher $matcher, EntityManager $manager)
     {
@@ -41,9 +49,9 @@ class BranchListener
     }
 
     /**
-     * Fills the branch with related issues matched by BranchMatcher
+     * Fills the branch with related issues matched by BranchMatcher.
      *
-     * @param NewBranchEvent $event
+     * @param \Kreta\Component\VCS\Event\NewBranchEvent $event The new branch event
      */
     public function newBranch(NewBranchEvent $event)
     {

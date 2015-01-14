@@ -19,6 +19,11 @@ use Kreta\Component\VCS\Repository\BranchRepository;
 use Kreta\Component\VCS\Repository\RepositoryRepository;
 use PhpSpec\ObjectBehavior;
 
+/**
+ * Class CommitSerializerSpec.
+ *
+ * @package spec\Kreta\Component\VCS\Serializer\Github
+ */
 class CommitSerializerSpec extends ObjectBehavior
 {
     function let(CommitFactory $factory, RepositoryRepository $repositoryRepository, BranchRepository $branchRepository)
@@ -31,20 +36,30 @@ class CommitSerializerSpec extends ObjectBehavior
         $this->shouldHaveType('Kreta\Component\VCS\Serializer\Github\CommitSerializer');
     }
 
-    function it_deserializes_commit_info(CommitFactory $factory, CommitInterface $commit,
-                                         RepositoryRepository $repositoryRepository, BranchRepository $branchRepository,
-                                         RepositoryInterface $repository, BranchInterface $branch)
+    function it_implement_serializer_interface()
+    {
+        $this->shouldImplement('Kreta\Component\VCS\Serializer\Interfaces\SerializerInterface');
+    }
+
+    function it_deserializes_commit_info(
+        CommitFactory $factory,
+        CommitInterface $commit,
+        RepositoryRepository $repositoryRepository,
+        BranchRepository $branchRepository,
+        RepositoryInterface $repository,
+        BranchInterface $branch
+    )
     {
         $json = json_encode(
             [
-                'ref' => 'refs/heads/master',
+                'ref'         => 'refs/heads/master',
                 'head_commit' => [
-                    'id' => '11231',
+                    'id'      => '11231',
                     'message' => 'Test commit',
-                    'author' => ['username' => 'gorkalaucirica'],
-                    'url' => 'http://github.com/kreta-io/kreta'
+                    'author'  => ['username' => 'gorkalaucirica'],
+                    'url'     => 'http://github.com/kreta-io/kreta'
                 ],
-                'repository' => ['full_name' => 'kreta-io/kreta']
+                'repository'  => ['full_name' => 'kreta-io/kreta']
             ]
         );
         $repositoryRepository->findOneBy(['name' => 'kreta-io/kreta'])->shouldBeCalled()->willReturn($repository);
@@ -55,4 +70,25 @@ class CommitSerializerSpec extends ObjectBehavior
 
         $this->deserialize($json)->shouldReturn($commit);
     }
-} 
+
+    function it_does_not_deserialize_commit_info_because_the_repository_does_not_exist(
+        RepositoryRepository $repositoryRepository
+    )
+    {
+        $json = json_encode(
+            [
+                'ref'         => 'refs/heads/master',
+                'head_commit' => [
+                    'id'      => '11231',
+                    'message' => 'Test commit',
+                    'author'  => ['username' => 'gorkalaucirica'],
+                    'url'     => 'http://github.com/kreta-io/kreta'
+                ],
+                'repository'  => ['full_name' => 'kreta-io/kreta']
+            ]
+        );
+        $repositoryRepository->findOneBy(['name' => 'kreta-io/kreta'])->shouldBeCalled()->willReturn(null);
+
+        $this->deserialize($json)->shouldReturn(null);
+    }
+}

@@ -13,10 +13,20 @@ namespace spec\Kreta\Bundle\VCSBundle\DependencyInjection;
 
 use PhpSpec\ObjectBehavior;
 
+/**
+ * Class KretaVCSExtensionSpec.
+ *
+ * @package spec\Kreta\Bundle\VCSBundle\DependencyInjection
+ */
 class KretaVCSExtensionSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
         $this->shouldHaveType('Kreta\Bundle\VCSBundle\DependencyInjection\KretaVCSExtension');
     }
-} 
+
+    function it_extends_extension()
+    {
+        $this->shouldHaveType('Symfony\Component\HttpKernel\DependencyInjection\Extension');
+    }
+}

@@ -15,7 +15,7 @@ use Kreta\Component\VCS\Model\Interfaces\BranchInterface;
 use Symfony\Component\EventDispatcher\Event;
 
 /**
- * Class NewBranchEvent
+ * Class NewBranchEvent.
  *
  * @package Kreta\Component\VCS\Event
  */
@@ -23,13 +23,17 @@ class NewBranchEvent extends Event
 {
     const NAME = 'kreta_vcs.event.branch.new';
 
-    /** @var BranchInterface */
+    /**
+     * The branch.
+     *
+     * @var \Kreta\Component\VCS\Model\Interfaces\BranchInterface
+     */
     protected $branch;
 
     /**
-     * Creates new commit event.
+     * Constructor.
      *
-     * @param BranchInterface $branch
+     * @param \Kreta\Component\VCS\Model\Interfaces\BranchInterface $branch The branch
      */
     public function __construct(BranchInterface $branch)
     {
@@ -39,10 +43,10 @@ class NewBranchEvent extends Event
     /**
      * Gets just created branch.
      *
-     * @return BranchInterface
+     * @return \Kreta\Component\VCS\Model\Interfaces\BranchInterface
      */
     public function getBranch()
     {
         return $this->branch;
     }
-} 
+}

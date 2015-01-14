@@ -11,10 +11,11 @@
 
 namespace Kreta\Component\VCS\WebhookStrategy;
 
+use Kreta\Component\VCS\WebhookStrategy\Abstracts\AbstractWebhookStrategy;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Class GithubWebhookStrategy
+ * Class GithubWebhookStrategy.
  *
  * @package Kreta\Component\VCS\WebhookStrategy
  */
@@ -25,8 +26,6 @@ class GithubWebhookStrategy extends AbstractWebhookStrategy
      */
     public function getSerializer(Request $request)
     {
-        $event = $request->headers->get('X-Github-Event');
-
-        return $this->serializerRegistry->getSerializer('github', $event);
+        return $this->serializerRegistry->getSerializer('github', $request->headers->get('X-Github-Event'));
     }
 }

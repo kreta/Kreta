@@ -15,13 +15,19 @@ use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\NoResultException;
+use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
+use Kreta\Component\Core\spec\Kreta\Component\Core\Repository\BaseEntityRepository;
 use Kreta\Component\VCS\Model\Interfaces\BranchInterface;
 use Kreta\Component\VCS\Model\Interfaces\RepositoryInterface;
-use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
-class BranchRepositorySpec extends ObjectBehavior
+/**
+ * Class BranchRepositorySpec.
+ *
+ * @package spec\Kreta\Component\VCS\Repository
+ */
+class BranchRepositorySpec extends BaseEntityRepository
 {
     function let(EntityManager $manager, ClassMetadata $classMetadata)
     {
@@ -33,57 +39,65 @@ class BranchRepositorySpec extends ObjectBehavior
         $this->shouldHaveType('Kreta\Component\VCS\Repository\BranchRepository');
     }
 
-    function it_finds_exiting_branch(EntityManager $manager, QueryBuilder $queryBuilder, AbstractQuery $query,
-                                     BranchInterface $branch, RepositoryInterface $repository)
+    function it_extends_kreta_entity_repository()
     {
-        $manager->createQueryBuilder()->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->select('b')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->from(Argument::any(), 'b')->shouldBeCalled()->willReturn($queryBuilder);
+        $this->shouldHaveType('Kreta\Component\Core\Repository\EntityRepository');
+    }
 
-        $queryBuilder->where('b.name = :branchName')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->andWhere('b.repository = :repositoryId')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->setParameter('branchName', 'master')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->setParameter('repositoryId', '2222')->shouldBeCalled()->willReturn($queryBuilder);
-
+    function it_finds_exiting_branch(
+        EntityManager $manager,
+        QueryBuilder $queryBuilder,
+        Expr $expr,
+        Expr\Comparison $comparison,
+        AbstractQuery $query,
+        BranchInterface $branch,
+        RepositoryInterface $repository,
+        BranchInterface $branch
+    )
+    {
+        $queryBuilder = $this->getQueryBuilderSpec($manager, $queryBuilder);
+        $this->addCriteriaSpec($queryBuilder, $expr, ['name' => 'master'], $comparison);
+        $this->addCriteriaSpec($queryBuilder, $expr, ['repository' => $repository], $comparison);
         $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
         $query->getSingleResult()->shouldBeCalled()->willReturn($branch);
-
-        $repository->getId()->shouldBeCalled()->willReturn('2222');
 
         $this->findOrCreateBranch($repository, 'master')->shouldReturn($branch);
     }
 
-    function it_creates_a_new_branch(EntityManager $manager, QueryBuilder $queryBuilder, AbstractQuery $query,
-                                     RepositoryInterface $repository)
+    function it_creates_a_new_branch(
+        EntityManager $manager,
+        QueryBuilder $queryBuilder,
+        Expr $expr,
+        Expr\Comparison $comparison,
+        AbstractQuery $query,
+        RepositoryInterface $repository
+    )
     {
-        $manager->createQueryBuilder()->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->select('b')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->from(Argument::any(), 'b')->shouldBeCalled()->willReturn($queryBuilder);
-
-        $queryBuilder->where('b.name = :branchName')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->andWhere('b.repository = :repositoryId')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->setParameter('branchName', 'master')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->setParameter('repositoryId', '2222')->shouldBeCalled()->willReturn($queryBuilder);
-
+        $queryBuilder = $this->getQueryBuilderSpec($manager, $queryBuilder);
+        $this->addCriteriaSpec($queryBuilder, $expr, ['name' => 'master'], $comparison);
+        $this->addCriteriaSpec($queryBuilder, $expr, ['repository' => $repository], $comparison);
         $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
         $query->getSingleResult()->shouldBeCalled()->willThrow(new NoResultException());
 
         $manager->persist(Argument::type('Kreta\Component\VCS\Model\Interfaces\BranchInterface'))->shouldBeCalled();
         $manager->flush()->shouldBeCalled();
 
-        $repository->getId()->shouldBeCalled()->willReturn('2222');
-
         $this->findOrCreateBranch($repository, 'master')
             ->shouldReturnAnInstanceOf('Kreta\Component\VCS\Model\Interfaces\BranchInterface');
     }
 
-    function it_finds_by_issue(EntityManager $manager, QueryBuilder $queryBuilder, AbstractQuery $query,
-                               BranchInterface $branch)
+    function it_finds_by_issue(
+        EntityManager $manager,
+        QueryBuilder $queryBuilder,
+        AbstractQuery $query,
+        BranchInterface $branch
+    )
     {
         $manager->createQueryBuilder()->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->select('b')->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->from(Argument::any(), 'b')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->innerJoin('b.issuesRelated', 'ir', 'WITH', 'ir.id = :issueId')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->innerJoin('b.issuesRelated', 'ir', 'WITH', 'ir.id = :issueId')
+            ->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->setParameter('issueId', '1111')->shouldBeCalled()->willReturn($queryBuilder);
 
         $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
@@ -91,4 +105,21 @@ class BranchRepositorySpec extends ObjectBehavior
 
         $this->findByIssue('1111')->shouldReturn([$branch]);
     }
-} 
+
+    protected function getQueryBuilderSpec(EntityManager $manager, QueryBuilder $queryBuilder)
+    {
+        $manager->createQueryBuilder()->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->select('b')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->addSelect(['ir', 'r'])->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->from(Argument::any(), 'b')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->innerJoin('b.issuesRelated', 'ir')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->innerJoin('b.repository', 'r')->shouldBeCalled()->willReturn($queryBuilder);
+
+        return $queryBuilder;
+    }
+
+    protected function getAlias()
+    {
+        return 'b';
+    }
+}

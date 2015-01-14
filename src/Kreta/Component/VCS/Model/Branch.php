@@ -11,24 +11,52 @@
 
 namespace Kreta\Component\VCS\Model;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Kreta\Component\VCS\Model\Interfaces\BranchInterface;
 use Kreta\Component\VCS\Model\Interfaces\RepositoryInterface;
 
 /**
- * Class Branch
+ * Class Branch.
  *
  * @package Kreta\Component\VCS\Model
  */
 class Branch implements BranchInterface
 {
+    /**
+     * The id.
+     *
+     * @var string
+     */
     protected $id;
 
+    /**
+     * The name.
+     *
+     * @var string
+     */
     protected $name;
 
-    /** @var RepositoryInterface $repository */
+    /**
+     * The repository.
+     *
+     * @var \Kreta\Component\VCS\Model\Interfaces\RepositoryInterface
+     */
     protected $repository;
 
+    /**
+     * Collection of issues related.
+     *
+     * @var \Kreta\Component\Issue\Model\Interfaces\IssueInterface[]
+     */
     protected $issuesRelated;
+
+    /**
+     * Constructor.
+     */
+    public function __construct()
+    {
+        $this->issuesRelated = new ArrayCollection();
+    }
 
     /**
      * {@inheritdoc}
@@ -103,16 +131,13 @@ class Branch implements BranchInterface
     }
 
     /**
-     * Gets url pointing the branch in the providers page.
-     *
-     * @return string
+     * {@inheritdoc}
      */
     public function getUrl()
     {
-        switch($this->repository->getProvider())
-        {
+        switch ($this->repository->getProvider()) {
             case 'github':
-                return 'https://github.com/'. $this->repository->getName() . '/tree/' . $this->name;
+                return 'https://github.com/' . $this->repository->getName() . '/tree/' . $this->name;
             default:
                 return '';
         }
