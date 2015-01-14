@@ -57,6 +57,13 @@ default:
             filters:
                 tags: "@notification"
 
+        vcs:
+            contexts:
+                - Behat\WebApiExtension\Context\WebApiContext
+                - Kreta\Bundle\VCSBundle\Behat\RepositoryContext
+            filters:
+                tags: "@vcs && ~@TODO"
+
         login:
             contexts:
                 - Kreta\Bundle\UserBundle\Behat\UserContext

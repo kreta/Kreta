@@ -1,0 +1,34 @@
+# This file belongs to Kreta.
+# The source code of application includes a LICENSE file
+# with all information about license.
+#
+# @author benatespina <benatespina@gmail.com>
+# @author gorkalaucirica <gorka.lauzirika@gmail.com>
+
+language: php
+
+php:
+    - 5.4
+    - 5.5
+    - 5.6
+    - hhvm
+    - hhvm-nightly
+
+before_script:
+    - composer self-update
+    - composer install --prefer-source
+
+script:
+    - bin/phpspec run -fpretty
+
+after_script:
+    - bin/coveralls -v
+
+cache:
+    directories:
+        - $COMPOSER_CACHE_DIR
+
+matrix:
+    allow_failures:
+        - php: hhvm
+        - php: hhvm-nightly

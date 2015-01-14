@@ -65,6 +65,12 @@ doctrine:
                 dir: "Resources/config/doctrine"
                 prefix: 'Kreta\Component\Notification\Model'
                 is_bundle: true
+            KretaVCSBundle:
+                mapping: true
+                type: yml
+                dir: "Resources/config/doctrine"
+                prefix: 'Kreta\Component\VCS\Model'
+                is_bundle: true
             KretaWorkflowBundle:
                 mapping: true
                 type: yml
@@ -88,3 +94,7 @@ doctrine:
             Kreta\Component\User\Model\Interfaces\UserInterface: Kreta\Component\User\Model\User
             Kreta\Component\Notification\Model\Interfaces\NotificationInterface: Kreta\Component\Notification\Model\Notification
             Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface: Kreta\Component\Workflow\Model\Workflow
+            Kreta\Component\VCS\Model\Interfaces\CommitInterface: Kreta\Component\VCS\Model\Commit
+            Kreta\Component\VCS\Model\Interfaces\BranchInterface: Kreta\Component\VCS\Model\Branch
+            Kreta\Component\VCS\Model\Interfaces\RepositoryInterface: Kreta\Component\VCS\Model\Repository
+

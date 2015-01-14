@@ -72,12 +72,11 @@ class WebContext extends MinkContext implements KernelAwareContext
 
         foreach ($issuesEls as $issueEl) {
             if ($issueName === $issueEl->find('css', 'h3')->getText()) {
-                $issueEl->find('css', ".$button-issue")->click();
+                $issueEl->find('css', '.' . $button . '-issue')->click();
 
                 return;
             }
         }
-
         throw new ElementNotFoundException($this->getSession());
     }
 
@@ -101,7 +100,6 @@ class WebContext extends MinkContext implements KernelAwareContext
                 return;
             }
         }
-
         throw new ElementNotFoundException($this->getSession());
     }
 

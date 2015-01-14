@@ -33,6 +33,9 @@ suites:
     ProjectBundle:
         namespace: Kreta
         spec_path: src/Kreta/Bundle/ProjectBundle
+    VCSBundle:
+        namespace: Kreta
+        spec_path: src/Kreta/Bundle/VCSBundle
     WebBundle:
         namespace: Kreta
         spec_path: src/Kreta/Bundle/WebBundle
@@ -61,6 +64,9 @@ suites:
     NotificationComponent:
         namespace: Kreta
         spec_path: src/Kreta/Component/Notification
+    VCSComponent:
+        namespace: Kreta
+        spec_path: src/Kreta/Component/VCS
     WorkflowComponent:
         namespace: Kreta
         spec_path: src/Kreta/Component/Workflow

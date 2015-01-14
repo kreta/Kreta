@@ -1,0 +1,44 @@
+{
+    "name": "kreta/vcs-bundle",
+    "description": "Kreta vcs bundle",
+    "keywords": ["project-manager", "development-tool", "vcs", "bundle"],
+    "homepage": "http://kreta.io",
+    "license": "MIT",
+    "type": "symfony-bundle",
+    "authors": [
+        {
+            "name": "Beñat Espiña Diaz",
+            "email": "benatespina@gmail.com",
+            "homepage": "http://benatespina.com"
+        },
+        {
+            "name": "Gorka Laucirica Ibarra",
+            "email": "gorka.lauzirika@gmail.com",
+            "homepage": "http://gorkalaucirica.net"
+        }
+    ],
+    "require": {
+        "php":                                 ">=5.4",
+        "symfony/framework-bundle":            "~2.3",
+        "symfony/dependency-injection":        "~2.3",
+        "symfony/http-kernel":                 "~2.3",
+        "kreta/core-bundle":                   "dev-master"
+    },
+    "require-dev": {
+        "phpspec/phpspec":                     "2.1.x-dev",
+        "henrikbjorn/phpspec-code-coverage":   "1.0.x-dev",
+        "satooshi/php-coveralls":              "0.6.1",
+        "squizlabs/php_codesniffer":           "1.*",
+        "phpmd/phpmd":                         "2.1.1"
+    },
+    "autoload": {
+        "psr-4": { "Kreta\\Bundle\\VCSBundle\\": "" }
+    },
+    "autoload-dev": {
+        "psr-4": { "Kreta\\Bundle\\VCSBundle\\spec\\": "spec/" }
+    },
+    "config": {
+        "bin-dir": "bin"
+    },
+    "minimum-stability": "dev"
+}

@@ -1,0 +1,39 @@
+# This file belongs to Kreta.
+# The source code of application includes a LICENSE file
+# with all information about license.
+#
+# @author benatespina <benatespina@gmail.com>
+# @author gorkalaucirica <gorka.lauzirika@gmail.com>
+
+Kreta\Component\VCS\Model\Branch:
+    type: entity
+    repositoryClass: Kreta\Component\VCS\Repository\BranchRepository
+    table: branch
+    id:
+        id:
+            type: string
+            generator:
+                strategy: UUID
+    fields:
+        name:
+            type: string
+    manyToOne:
+        repository:
+            targetEntity: Kreta\Component\VCS\Model\Interfaces\RepositoryInterface
+            joinColumn:
+                name: repository_id
+                referencedColumnName: id
+                onDelete: CASCADE
+            cascade: ['persist', 'remove']
+    manyToMany:
+        issuesRelated:
+            targetEntity: Kreta\Component\Issue\Model\Interfaces\IssueInterface
+            joinTable:
+                name: branch_issues
+                joinColumns:
+                  branch_id:
+                    referencedColumnName: id
+                inverseJoinColumns:
+                  issue_id:
+                    referencedColumnName: id
+
