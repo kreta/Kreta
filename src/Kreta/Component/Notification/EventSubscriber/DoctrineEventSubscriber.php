@@ -14,9 +14,10 @@ namespace Kreta\Component\Notification\EventSubscriber;
 use Doctrine\Common\EventSubscriber;
 use Doctrine\ORM\Event\LifecycleEventArgs;
 use Doctrine\ORM\Events;
+use Kreta\Component\Notification\EventSubscriber\Abstracts\AbstractEventSubscriber;
 
 /**
- * Class DoctrineEventListener
+ * Class DoctrineEventListener.
  *
  * @package Kreta\Component\Notification\EventListener
  */
@@ -38,9 +39,9 @@ class DoctrineEventSubscriber extends AbstractEventSubscriber implements EventSu
     }
 
     /**
-     * Handles preRemove event triggered by doctrine
+     * Handles preRemove event triggered by doctrine.
      *
-     * @param LifecycleEventArgs $args
+     * @param \Doctrine\ORM\Event\LifecycleEventArgs $args The lifecycle event arguments
      */
     public function preRemove(LifecycleEventArgs $args)
     {
@@ -48,9 +49,9 @@ class DoctrineEventSubscriber extends AbstractEventSubscriber implements EventSu
     }
 
     /**
-     * Handles preRemove event triggered by doctrine
+     * Handles preRemove event triggered by doctrine.
      *
-     * @param LifecycleEventArgs $args
+     * @param \Doctrine\ORM\Event\LifecycleEventArgs $args The lifecycle event arguments
      */
     public function postRemove(LifecycleEventArgs $args)
     {
@@ -58,9 +59,9 @@ class DoctrineEventSubscriber extends AbstractEventSubscriber implements EventSu
     }
 
     /**
-     * Handles prePersist event triggered by doctrine
+     * Handles prePersist event triggered by doctrine.
      *
-     * @param LifecycleEventArgs $args
+     * @param \Doctrine\ORM\Event\LifecycleEventArgs $args The lifecycle event arguments
      */
     public function prePersist(LifecycleEventArgs $args)
     {
@@ -68,9 +69,9 @@ class DoctrineEventSubscriber extends AbstractEventSubscriber implements EventSu
     }
 
     /**
-     * Handles postPersist event triggered by doctrine
+     * Handles postPersist event triggered by doctrine.
      *
-     * @param LifecycleEventArgs $args
+     * @param \Doctrine\ORM\Event\LifecycleEventArgs $args The lifecycle event arguments
      */
     public function postPersist(LifecycleEventArgs $args)
     {
@@ -78,9 +79,9 @@ class DoctrineEventSubscriber extends AbstractEventSubscriber implements EventSu
     }
 
     /**
-     * Handles preUpdate event triggered by doctrine
+     * Handles preUpdate event triggered by doctrine.
      *
-     * @param LifecycleEventArgs $args
+     * @param \Doctrine\ORM\Event\LifecycleEventArgs $args The lifecycle event arguments
      */
     public function preUpdate(LifecycleEventArgs $args)
     {
@@ -88,9 +89,9 @@ class DoctrineEventSubscriber extends AbstractEventSubscriber implements EventSu
     }
 
     /**
-     * Handles postUpdate event triggered by doctrine
+     * Handles postUpdate event triggered by doctrine.
      *
-     * @param LifecycleEventArgs $args
+     * @param \Doctrine\ORM\Event\LifecycleEventArgs $args The lifecycle event arguments
      */
     public function postUpdate(LifecycleEventArgs $args)
     {

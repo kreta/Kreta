@@ -17,7 +17,6 @@ use Doctrine\ORM\QueryBuilder;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
-
 /**
  * Class BaseEntityRepository.
  *

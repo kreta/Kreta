@@ -149,10 +149,10 @@ class StatusTransition extends Transition implements StatusTransitionInterface
      */
     public function isInUse()
     {
-        foreach ($this->state->getWorkflow()->getProjects() as $project) {
+        foreach ($this->getWorkflow()->getProjects() as $project) {
             foreach ($project->getIssues() as $issue) {
-                foreach ($issue->getStatus()->getTransitions() as $retrieveTransition) {
-                    if ($retrieveTransition->getId() === $this->id) {
+                foreach ($issue->getStatus()->getTransitions() as $transition) {
+                    if ($transition->getId() === $this->id) {
                         return true;
                     }
                 }

@@ -1,0 +1,15 @@
+# This file belongs to Kreta.
+# The source code of application includes a LICENSE file
+# with all information about license.
+#
+# @author benatespina <benatespina@gmail.com>
+# @author gorkalaucirica <gorka.lauzirika@gmail.com>
+
+parameters:
+    kreta_notification.notification.class: Kreta\Component\Notification\Model\Notification
+
+    kreta_notification.factory_notification.class: Kreta\Component\Notification\Factory\NotificationFactory
+    kreta_notification.event_subscriber_doctrine.class: Kreta\Component\Notification\EventSubscriber\DoctrineEventSubscriber
+    kreta_notification.notifier_registry.class: Kreta\Component\Notification\Notifier\Registry\NotifierRegistry
+    kreta_notification.notifiable_event_registry.class: Kreta\Component\Notification\NotifiableEvent\Registry\NotifiableEventRegistry
+    kreta_notification.repository_notification.class: Kreta\Component\Notification\Repository\NotificationRepository

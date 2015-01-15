@@ -16,28 +16,78 @@ use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use Kreta\Component\Notification\Model\Interfaces\NotificationInterface;
 
+/**
+ * Class Notification.
+ *
+ * @package Kreta\Component\Notification\Model
+ */
 class Notification extends AbstractModel implements NotificationInterface
 {
+    /**
+     * The date.
+     *
+     * @var \DateTime
+     */
     protected $date;
 
+    /**
+     * The description.
+     *
+     * @var string
+     */
     protected $description;
 
+    /**
+     * The project.
+     *
+     * @var \Kreta\Component\Project\Model\Interfaces\ProjectInterface
+     */
     protected $project;
 
+    /**
+     * Boolean that checks if the notification has been read or not.
+     *
+     * @var boolean
+     */
     protected $read;
 
+    /**
+     * The resource url.
+     *
+     * @var string
+     */
     protected $resourceUrl;
 
+    /**
+     * The title.
+     *
+     * @var string
+     */
     protected $title;
 
+    /**
+     *  The type of notification.
+     *
+     * @var string
+     */
     protected $type;
 
+    /**
+     * The web url.
+     *
+     * @var string
+     */
     protected $webUrl;
 
+    /**
+     * The user.
+     *
+     * @var \Kreta\Component\User\Model\Interfaces\UserInterface
+     */
     protected $user;
 
     /**
-     * @{@inheritdoc}
+     * {@inheritdoc}
      */
     public function getDate()
     {
@@ -45,7 +95,7 @@ class Notification extends AbstractModel implements NotificationInterface
     }
 
     /**
-     * @{@inheritdoc}
+     * {@inheritdoc}
      */
     public function setDate(\Datetime $date)
     {
@@ -55,7 +105,7 @@ class Notification extends AbstractModel implements NotificationInterface
     }
 
     /**
-     * @{@inheritdoc}
+     * {@inheritdoc}
      */
     public function getDescription()
     {
@@ -63,7 +113,7 @@ class Notification extends AbstractModel implements NotificationInterface
     }
 
     /**
-     * @{@inheritdoc}
+     * {@inheritdoc}
      */
     public function setDescription($description)
     {
@@ -73,7 +123,7 @@ class Notification extends AbstractModel implements NotificationInterface
     }
 
     /**
-     * @{@inheritdoc}
+     * {@inheritdoc}
      */
     public function getProject()
     {
@@ -81,7 +131,7 @@ class Notification extends AbstractModel implements NotificationInterface
     }
 
     /**
-     * @{@inheritdoc}
+     * {@inheritdoc}
      */
     public function setProject(ProjectInterface $project)
     {
@@ -91,7 +141,7 @@ class Notification extends AbstractModel implements NotificationInterface
     }
 
     /**
-     * @{@inheritdoc}
+     * {@inheritdoc}
      */
     public function isRead()
     {
@@ -99,7 +149,7 @@ class Notification extends AbstractModel implements NotificationInterface
     }
 
     /**
-     * @{@inheritdoc}
+     * {@inheritdoc}
      */
     public function setRead($read)
     {
@@ -109,7 +159,7 @@ class Notification extends AbstractModel implements NotificationInterface
     }
 
     /**
-     * @{@inheritdoc}
+     * {@inheritdoc}
      */
     public function getResourceUrl()
     {
@@ -117,7 +167,7 @@ class Notification extends AbstractModel implements NotificationInterface
     }
 
     /**
-     * @{@inheritdoc}
+     * {@inheritdoc}
      */
     public function setResourceUrl($url)
     {
@@ -127,7 +177,7 @@ class Notification extends AbstractModel implements NotificationInterface
     }
 
     /**
-     * @{@inheritdoc}
+     * {@inheritdoc}
      */
     public function getTitle()
     {
@@ -135,7 +185,7 @@ class Notification extends AbstractModel implements NotificationInterface
     }
 
     /**
-     * @{@inheritdoc}
+     * {@inheritdoc}
      */
     public function setTitle($title)
     {
@@ -145,7 +195,7 @@ class Notification extends AbstractModel implements NotificationInterface
     }
 
     /**
-     * @{@inheritdoc}
+     * {@inheritdoc}
      */
     public function getType()
     {
@@ -153,7 +203,7 @@ class Notification extends AbstractModel implements NotificationInterface
     }
 
     /**
-     * @{@inheritdoc}
+     * {@inheritdoc}
      */
     public function setType($type)
     {
@@ -163,7 +213,7 @@ class Notification extends AbstractModel implements NotificationInterface
     }
 
     /**
-     * @{@inheritdoc}
+     * {@inheritdoc}
      */
     public function getUser()
     {
@@ -171,7 +221,7 @@ class Notification extends AbstractModel implements NotificationInterface
     }
 
     /**
-     * @{@inheritdoc}
+     * {@inheritdoc}
      */
     public function setUser(UserInterface $user)
     {

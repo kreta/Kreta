@@ -9,31 +9,43 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\Component\Notification\EventSubscriber;
+namespace Kreta\Component\Notification\EventSubscriber\Abstracts;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Kreta\Component\Notification\NotifiableEvent\Registry\NotifiableEventRegistryInterface;
-use Kreta\Component\Notification\Notifier\Registry\NotifierRegistryInterface;
+use Kreta\Component\Notification\NotifiableEvent\Registry\Interfaces\NotifiableEventRegistryInterface;
+use Kreta\Component\Notification\Notifier\Registry\Interfaces\NotifierRegistryInterface;
 
 /**
- * Class AbstractEventSubscriber
+ * Abstract class AbstractEventSubscriber.
  *
- * @package Kreta\Component\Notification\EventSubscriber
+ * @package Kreta\Component\Notification\EventSubscriber\Abstracts
  */
 abstract class AbstractEventSubscriber
 {
+    /**
+     * The notifiable event registry.
+     *
+     * @var \Kreta\Component\Notification\NotifiableEvent\Registry\Interfaces\NotifiableEventRegistryInterface
+     */
     protected $notifiableEventRegistry;
 
+    /**
+     * The notifier registry.
+     *
+     * @var \Kreta\Component\Notification\Notifier\Registry\Interfaces\NotifierRegistryInterface
+     */
     protected $notifierRegistry;
 
     /**
-     * Builds the subscriber with the required dependencies. Both will be used in handleEvent method to notify users
+     * Builds the subscriber with the required dependencies. Both will be used in handleEvent method to notify users.
      *
      * @param NotifiableEventRegistryInterface $notifiableEventRegistry Registry containing all events to be notified
      * @param NotifierRegistryInterface        $notifierRegistry        Registry containing all notifiers enabled
      */
-    public function __construct(NotifiableEventRegistryInterface $notifiableEventRegistry,
-                                NotifierRegistryInterface $notifierRegistry)
+    public function __construct(
+        NotifiableEventRegistryInterface $notifiableEventRegistry,
+        NotifierRegistryInterface $notifierRegistry
+    )
     {
         $this->notifiableEventRegistry = $notifiableEventRegistry;
         $this->notifierRegistry = $notifierRegistry;
@@ -74,7 +86,7 @@ abstract class AbstractEventSubscriber
             }
         }
 
-        if(count($notifications) > 0 && $manager) {
+        if (count($notifications) > 0 && $manager) {
             $manager->flush();
         }
     }

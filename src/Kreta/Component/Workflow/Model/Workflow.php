@@ -48,23 +48,23 @@ class Workflow extends AbstractModel implements WorkflowInterface
     protected $name;
 
     /**
-     * Array that contains the projects.
+     * Array which contains the projects.
      *
-     * @var \Doctrine\Common\Collections\ArrayCollection
+     * @var \Kreta\Component\Project\Model\Interfaces\ProjectInterface[]
      */
     protected $projects;
 
     /**
-     * The workflow.
+     * Array which contains the statuses.
      *
-     * @var \Kreta\Component\Workflow\Model\Interfaces\StatusInterface
+     * @var \Kreta\Component\Workflow\Model\Interfaces\StatusInterface[]
      */
     protected $statuses;
 
     /**
-     * The workflow.
+     * Array which contains the status transition.
      *
-     * @var \Kreta\Component\Workflow\Model\Interfaces\StatusTransitionInterface
+     * @var \Kreta\Component\Workflow\Model\Interfaces\StatusTransitionInterface[]
      */
     protected $statusTransitions;
 

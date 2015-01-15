@@ -28,9 +28,9 @@ use Symfony\Component\Form\FormFactory;
 class StatusTransitionHandler extends AbstractHandler
 {
     /**
-     * The status factory.
+     * The status transition factory.
      *
-     * @var \Kreta\Component\Workflow\Factory\StatusFactory
+     * @var \Kreta\Component\Workflow\Factory\StatusTransitionFactory
      */
     protected $factory;
 

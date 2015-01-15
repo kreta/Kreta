@@ -9,21 +9,21 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\Component\Notification\Notifier;
+namespace Kreta\Component\Notification\Notifier\Interfaces;
 
 use Kreta\Component\Notification\Model\Interfaces\NotificationInterface;
 
 /**
- * Interface NotifierInterface
+ * Interface NotifierInterface.
  *
- * @package Kreta\Component\Notification\Notifier
+ * @package Kreta\Component\Notification\Notifier\Interfaces
  */
 interface NotifierInterface
 {
     /**
-     * Handles the notification and proceeds as required
+     * Handles the notification and proceeds as required.
      *
-     * @param NotificationInterface $notification Notification to be send
+     * @param \Kreta\Component\Notification\Model\Interfaces\NotificationInterface $notification Notification to be send
      */
     public function notify(NotificationInterface $notification);
-} 
+}

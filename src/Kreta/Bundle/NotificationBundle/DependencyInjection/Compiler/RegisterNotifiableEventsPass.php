@@ -16,14 +16,14 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
- * Class RegisterNotifiersPass
+ * Class RegisterNotifiersPass.
  *
  * @package Kreta\Bundle\NotificationBundle\DependencyInjection\Compiler
  */
 class RegisterNotifiableEventsPass implements CompilerPassInterface
 {
     /**
-     * @{@inheritdoc}
+     * {@inheritdoc}
      */
     public function process(ContainerBuilder $container)
     {

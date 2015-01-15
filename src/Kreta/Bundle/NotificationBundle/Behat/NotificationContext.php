@@ -15,7 +15,7 @@ use Behat\Gherkin\Node\TableNode;
 use Kreta\Bundle\CoreBundle\Behat\DefaultContext;
 
 /**
- * Class NotificationContext
+ * Class NotificationContext.
  *
  * @package Kreta\Bundle\NotificationBundle\Behat
  */

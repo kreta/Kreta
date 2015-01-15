@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * This file belongs to Kreta.
+ * The source code of application includes a LICENSE file
+ * with all information about license.
+ *
+ * @author benatespina <benatespina@gmail.com>
+ * @author gorkalaucirica <gorka.lauzirika@gmail.com>
+ */
+
 namespace spec\Kreta\Component\Notification\Model;
 
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
@@ -7,6 +16,11 @@ use Kreta\Component\User\Model\Interfaces\UserInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
+/**
+ * Class NotificationSpec.
+ *
+ * @package spec\Kreta\Component\Notification\Model
+ */
 class NotificationSpec extends ObjectBehavior
 {
     function it_is_initializable()
@@ -14,10 +28,9 @@ class NotificationSpec extends ObjectBehavior
         $this->shouldHaveType('Kreta\Component\Notification\Model\Notification');
     }
 
-    function its_id_is_mutable()
+    function it_implements_notification_interface()
     {
-        $this->setId('1111')->shouldReturn($this);
-        $this->getId()->shouldReturn('1111');
+        $this->shouldImplement('Kreta\Component\Notification\Model\Interfaces\NotificationInterface');
     }
 
     function its_date_is_mutable()

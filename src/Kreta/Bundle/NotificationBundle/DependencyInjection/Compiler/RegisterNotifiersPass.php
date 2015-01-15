@@ -16,14 +16,14 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Reference;
 
 /**
- * Class RegisterNotifiersPass
+ * Class RegisterNotifiersPass.
  *
  * @package Kreta\Bundle\NotificationBundle\DependencyInjection\Compiler
  */
 class RegisterNotifiersPass implements CompilerPassInterface
 {
     /**
-     * @{@inheritdoc}
+     * {@inheritdoc}
      */
     public function process(ContainerBuilder $container)
     {
@@ -35,9 +35,9 @@ class RegisterNotifiersPass implements CompilerPassInterface
             if (!isset($attributes[0]['label'])) {
                 throw new \InvalidArgumentException('Tagged notifier needs to have `label` attribute.');
             }
-            //By default will be enabled so is not required to be enabled in config file
-            if(!$container->hasParameter(sprintf('kreta_notification.notifier.%s.enabled', $attributes[0]['label'])) ||
-               $container->getParameter(sprintf('kreta_notification.notifier.%s.enabled', $attributes[0]['label'])) === true ) {
+            if (!$container->hasParameter(sprintf('kreta_notification.notifier.%s.enabled', $attributes[0]['label'])) ||
+                $container->getParameter(sprintf('kreta_notification.notifier.%s.enabled', $attributes[0]['label'])) === true
+            ) {
                 $name = $attributes[0]['label'];
                 $registry->addMethodCall('registerNotifier', [$name, new Reference($id)]);
             }

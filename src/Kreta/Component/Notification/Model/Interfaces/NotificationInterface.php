@@ -15,7 +15,7 @@ use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 
 /**
- * Class NotificationInterface
+ * Class NotificationInterface.
  *
  * @package Kreta\Component\Notification\Model\Interfaces
  */
@@ -29,25 +29,16 @@ interface NotificationInterface
     public function getId();
 
     /**
-     * Sets the id.
-     *
-     * @param string $id The id.
-     *
-     * @return $this self Object
-     */
-    public function setId($id);
-
-    /**
      * Gets the date.
      *
-     * @return \Datetime The date.
+     * @return \Datetime
      */
     public function getDate();
 
     /**
-     * Sets the datetime.
+     * Sets the date.
      *
-     * @param \Datetime $date
+     * @param \Datetime $date The date
      *
      * @return $this self Object
      */
@@ -56,14 +47,14 @@ interface NotificationInterface
     /**
      * Gets the description.
      *
-     * @return string The description.
+     * @return string
      */
     public function getDescription();
 
     /**
      * Sets the description.
      *
-     * @param $description
+     * @param string $description The description
      *
      * @return $this self Object
      */
@@ -72,12 +63,14 @@ interface NotificationInterface
     /**
      * Gets the project.
      *
-     * @return ProjectInterface
+     * @return \Kreta\Component\Project\Model\Interfaces\ProjectInterface
      */
     public function getProject();
 
     /**
-     * @param ProjectInterface $project
+     * Sets project.
+     *
+     * @param \Kreta\Component\Project\Model\Interfaces\ProjectInterface $project The project
      *
      * @return $this self Object
      */
@@ -86,14 +79,14 @@ interface NotificationInterface
     /**
      * Gets if notification has been read.
      *
-     * @return bool
+     * @return boolean
      */
     public function isRead();
 
     /**
      * Sets read.
      *
-     * @param bool $read
+     * @param boolean $read Boolean that checks if the notification has been read or not
      *
      * @return $this self Object
      */
@@ -102,14 +95,14 @@ interface NotificationInterface
     /**
      * Gets relative URL linking the notification in the API.
      *
-     * @return string The Url pointing the notified resource in the website.
+     * @return string
      */
     public function getResourceUrl();
 
     /**
      * Sets relative URL linking the notification in the API.
      *
-     * @param string $url The Url pointing the notified resource in the website.
+     * @param string $url The Url pointing the notified resource in the website
      *
      * @return $this self Object
      */
@@ -125,7 +118,7 @@ interface NotificationInterface
     /**
      * Sets title.
      *
-     * @param string $title
+     * @param string $title The title
      *
      * @return $this self Object
      */
@@ -141,7 +134,7 @@ interface NotificationInterface
     /**
      * Sets type.
      *
-     * @param string $type
+     * @param string $type The type
      *
      * @return $this self Object
      */
@@ -150,14 +143,14 @@ interface NotificationInterface
     /**
      * Gets user.
      *
-     * @return UserInterface
+     * @return \Kreta\Component\User\Model\Interfaces\UserInterface
      */
     public function getUser();
 
     /**
      * Sets user.
      *
-     * @param UserInterface $user
+     * @param \Kreta\Component\User\Model\Interfaces\UserInterface $user The user
      *
      * @return $this self Object
      */
@@ -166,14 +159,14 @@ interface NotificationInterface
     /**
      * Gets relative URL linking the notification in the website.
      *
-     * @return string The Url pointing the notified resource in the website.
+     * @return string
      */
     public function getWebUrl();
 
     /**
      * Sets relative URL linking the notification in the website.
      *
-     * @param string $url The Url pointing the notified resource in the website.
+     * @param string $url The Url pointing the notified resource in the website
      *
      * @return $this self Object
      */

@@ -11,19 +11,25 @@
 
 namespace Kreta\Component\Notification\NotifiableEvent\Registry;
 
-use Kreta\Component\Notification\NotifiableEvent\NotifiableEventInterface;
+use Kreta\Component\Notification\NotifiableEvent\Interfaces\NotifiableEventInterface;
+use Kreta\Component\Notification\NotifiableEvent\Registry\Interfaces\NotifiableEventRegistryInterface;
 
 /**
- * Class NotifiableEventRegistry
+ * Class NotifiableEventRegistry.
  *
  * @package Kreta\Component\Notification\NotifiableEvent\Registry
  */
 class NotifiableEventRegistry implements NotifiableEventRegistryInterface
 {
+    /**
+     * Array which contains notifiable events.
+     *
+     * @var \Kreta\Component\Notification\NotifiableEvent\Interfaces\NotifiableEventInterface[]
+     */
     protected $notifiableEvents = [];
 
     /**
-     * @{@inheritdoc}
+     * {@inheritdoc}
      */
     public function getNotifiableEvents()
     {
@@ -31,18 +37,18 @@ class NotifiableEventRegistry implements NotifiableEventRegistryInterface
     }
 
     /**
-     * @{@inheritdoc}
+     * {@inheritdoc}
      */
-    public function registerNotifiableEvent($name, NotifiableEventInterface $NotifiableEvent)
+    public function registerNotifiableEvent($name, NotifiableEventInterface $notifiableEvent)
     {
         if ($this->hasNotifiableEvent($name)) {
             throw new ExistingNotifiableEventException($name);
         }
-        $this->notifiableEvents[$name] = $NotifiableEvent;
+        $this->notifiableEvents[$name] = $notifiableEvent;
     }
 
     /**
-     * @{@inheritdoc}
+     * {@inheritdoc}
      */
     public function unregisterNotifiableEvent($name)
     {
@@ -53,7 +59,7 @@ class NotifiableEventRegistry implements NotifiableEventRegistryInterface
     }
 
     /**
-     * @{@inheritdoc}
+     * {@inheritdoc}
      */
     public function hasNotifiableEvent($name)
     {
@@ -61,14 +67,14 @@ class NotifiableEventRegistry implements NotifiableEventRegistryInterface
     }
 
     /**
-     * @{@inheritdoc}
+     * {@inheritdoc}
      */
     public function getNotifiableEvent($name)
     {
         if (!$this->hasNotifiableEvent($name)) {
             throw new NonExistingNotifiableEventException($name);
         }
+
         return $this->notifiableEvents[$name];
     }
-
 }

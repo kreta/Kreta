@@ -50,7 +50,7 @@ class StatusTransitionType extends AbstractType
     /**
      * The status transition's workflow.
      *
-     * @var \Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface[]
+     * @var \Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface
      */
     protected $workflow;
 

@@ -1,16 +1,37 @@
 <?php
 
+/**
+ * This file belongs to Kreta.
+ * The source code of application includes a LICENSE file
+ * with all information about license.
+ *
+ * @author benatespina <benatespina@gmail.com>
+ * @author gorkalaucirica <gorka.lauzirika@gmail.com>
+ */
+
 namespace spec\Kreta\Component\Notification\NotifiableEvent\Registry;
 
-use Kreta\Component\Notification\NotifiableEvent\NotifiableEventInterface;
+use Kreta\Component\Notification\NotifiableEvent\Interfaces\NotifiableEventInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
+/**
+ * Class NotifiableEventRegistrySpec.
+ *
+ * @package spec\Kreta\Component\Notification\NotifiableEvent\Registry
+ */
 class NotifiableEventRegistrySpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
         $this->shouldHaveType('Kreta\Component\Notification\NotifiableEvent\Registry\NotifiableEventRegistry');
+    }
+
+    function it_implements_notifiable_event_interface()
+    {
+        $this->shouldImplement(
+            'Kreta\Component\Notification\NotifiableEvent\Registry\Interfaces\NotifiableEventRegistryInterface'
+        );
     }
 
     function it_returns_notifiable_events()
@@ -25,20 +46,16 @@ class NotifiableEventRegistrySpec extends ObjectBehavior
 
     function it_doesnt_register_notifiable_event_if_exists(NotifiableEventInterface $notifiableEvent)
     {
-        //Add event
         $this->registerNotifiableEvent('testEvent', $notifiableEvent);
 
-        //Duplicate event and therefore get the exception
         $this->shouldThrow('Kreta\Component\Notification\NotifiableEvent\Registry\ExistingNotifiableEventException')
             ->duringRegisterNotifiableEvent('testEvent', $notifiableEvent);
     }
 
     function it_unregisters_notifiable_event(NotifiableEventInterface $notifiableEvent)
     {
-        //Add event
         $this->registerNotifiableEvent('testEvent', $notifiableEvent);
 
-        //Unregister existing event
         $this->unregisterNotifiableEvent('testEvent');
     }
 

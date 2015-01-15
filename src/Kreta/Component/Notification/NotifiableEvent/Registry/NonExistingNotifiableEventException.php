@@ -12,7 +12,7 @@
 namespace Kreta\Component\Notification\NotifiableEvent\Registry;
 
 /**
- * Class NonExistingNotifierException
+ * Class NonExistingNotifierException.
  *
  * @package Kreta\Component\Notification\Notifier\Registry
  */
@@ -21,7 +21,7 @@ class NonExistingNotifiableEventException extends \InvalidArgumentException
     /**
      * Constructor.
      *
-     * @param string $name
+     * @param string $name The name
      */
     public function __construct($name)
     {

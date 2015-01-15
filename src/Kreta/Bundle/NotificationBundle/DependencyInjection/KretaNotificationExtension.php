@@ -14,7 +14,7 @@ namespace Kreta\Bundle\NotificationBundle\DependencyInjection;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
-use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
+use Symfony\Component\DependencyInjection\Loader;
 
 /**
  * Class KretaNotificationExtension.
@@ -26,24 +26,40 @@ class KretaNotificationExtension extends Extension
     /**
      * {@inheritdoc}
      */
-    public function load(array $configs, ContainerBuilder $container)
+    protected function getConfigFilesLocation()
     {
-        $loader = new YamlFileLoader($container, new FileLocator(__DIR__.'/../Resources/config'));
-        $loader->load('services.yml');
-
-        $configuration = new Configuration();
-
-        $config = $this->processConfiguration($configuration, $configs);
-
-        $container->setParameter('kreta_notification.notifier.email.enabled', $config['notifier']['email']['enabled']);
+        return __DIR__ . '/../Resources/config';
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getAlias()
+    protected function getConfigFiles()
     {
-        return 'kreta_notification';
+        return ['events', 'factories', 'notifiers', 'parameters', 'repositories', 'subscribers'];
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function load(array $configs, ContainerBuilder $container)
+    {
+        $configuration = new Configuration();
+        $config = $this->processConfiguration($configuration, $configs);
+
+        $configFiles = $this->getConfigFiles($config);
+
+        if (!empty($configFiles)) {
+            $loader = new Loader\YamlFileLoader($container, new FileLocator($this->getConfigFilesLocation()));
+            foreach ($configFiles as $configFile) {
+                if (is_array($configFile)) {
+                    if (!isset($configFile[1]) && $configFile[1]) {
+                        continue;
+                    }
+                    $configFile = $configFile[0];
+                }
+                $loader->load($configFile . '.yml');
+            }
+        }
+    }
 }

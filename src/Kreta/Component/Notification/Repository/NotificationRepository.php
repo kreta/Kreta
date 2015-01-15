@@ -26,7 +26,7 @@ class NotificationRepository extends EntityRepository
      *
      * @param \Kreta\Component\User\Model\Interfaces\UserInterface $user Target user
      *
-     * @return integer Amount of unread notifications
+     * @return int Amount of unread notifications
      */
     public function getUsersUnreadNotificationsCount(UserInterface $user)
     {

@@ -11,19 +11,25 @@
 
 namespace Kreta\Component\Notification\Notifier\Registry;
 
-use Kreta\Component\Notification\Notifier\NotifierInterface;
+use Kreta\Component\Notification\Notifier\Interfaces\NotifierInterface;
+use Kreta\Component\Notification\Notifier\Registry\Interfaces\NotifierRegistryInterface;
 
 /**
- * Class NotifierRegistry
+ * Class NotifierRegistry.
  *
  * @package Kreta\Component\Notification\Notifier\Registry
  */
 class NotifierRegistry implements NotifierRegistryInterface
 {
+    /**
+     * Array which contains notifiers.
+     *
+     * @var \Kreta\Component\Notification\Notifier\Interfaces\NotifierInterface[]
+     */
     protected $notifiers = [];
 
     /**
-     * @{@inheritdoc}
+     * {@inheritdoc}
      */
     public function getNotifiers()
     {
@@ -31,7 +37,7 @@ class NotifierRegistry implements NotifierRegistryInterface
     }
 
     /**
-     * @{@inheritdoc}
+     * {@inheritdoc}
      */
     public function registerNotifier($name, NotifierInterface $notifier)
     {
@@ -42,7 +48,7 @@ class NotifierRegistry implements NotifierRegistryInterface
     }
 
     /**
-     * @{@inheritdoc}
+     * {@inheritdoc}
      */
     public function unregisterNotifier($name)
     {
@@ -53,7 +59,7 @@ class NotifierRegistry implements NotifierRegistryInterface
     }
 
     /**
-     * @{@inheritdoc}
+     * {@inheritdoc}
      */
     public function hasNotifier($name)
     {
@@ -68,7 +74,7 @@ class NotifierRegistry implements NotifierRegistryInterface
         if (!$this->hasNotifier($name)) {
             throw new NonExistingNotifierException($name);
         }
+
         return $this->notifiers[$name];
     }
-
 }

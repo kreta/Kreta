@@ -38,6 +38,11 @@ class NotificationRepositorySpec extends ObjectBehavior
         $this->shouldHaveType('Kreta\Component\Notification\Repository\NotificationRepository');
     }
 
+    function it_extends_kreta_entity_repository()
+    {
+        $this->shouldHaveType('Doctrine\ORM\EntityRepository');
+    }
+
     function it_gets_users_unread_notification_count(
         EntityManager $manager,
         QueryBuilder $queryBuilder,

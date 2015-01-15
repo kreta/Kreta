@@ -1,16 +1,35 @@
 <?php
 
+/**
+ * This file belongs to Kreta.
+ * The source code of application includes a LICENSE file
+ * with all information about license.
+ *
+ * @author benatespina <benatespina@gmail.com>
+ * @author gorkalaucirica <gorka.lauzirika@gmail.com>
+ */
+
 namespace spec\Kreta\Component\Notification\Notifier\Registry;
 
-use Kreta\Component\Notification\Notifier\NotifierInterface;
+use Kreta\Component\Notification\Notifier\Interfaces\NotifierInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
+/**
+ * Class NotifierRegistrySpec.
+ *
+ * @package spec\Kreta\Component\Notification\Notifier\Registry
+ */
 class NotifierRegistrySpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
         $this->shouldHaveType('Kreta\Component\Notification\Notifier\Registry\NotifierRegistry');
+    }
+
+    function it_implements_notifier_registry_interface()
+    {
+        $this->shouldImplement('Kreta\Component\Notification\Notifier\Registry\Interfaces\NotifierRegistryInterface');
     }
 
     function it_returns_notifiers()
@@ -25,20 +44,16 @@ class NotifierRegistrySpec extends ObjectBehavior
 
     function it_doesnt_register_notifier_if_exists(NotifierInterface $notifier)
     {
-        //Add notifier
         $this->registerNotifier('testNotifier', $notifier);
 
-        //Duplicate notifier and therefore get the exception
         $this->shouldThrow('Kreta\Component\Notification\Notifier\Registry\ExistingNotifierException')
             ->duringRegisterNotifier('testNotifier', $notifier);
     }
 
     function it_unregisters_notifier(NotifierInterface $notifier)
     {
-        //Add notifier
         $this->registerNotifier('testNotifier', $notifier);
 
-        //Unregister existing notifier
         $this->unregisterNotifier('testNotifier');
     }
 

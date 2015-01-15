@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * This file belongs to Kreta.
+ * The source code of application includes a LICENSE file
+ * with all information about license.
+ *
+ * @author benatespina <benatespina@gmail.com>
+ * @author gorkalaucirica <gorka.lauzirika@gmail.com>
+ */
+
 namespace spec\Kreta\Component\Notification\Notifier;
 
 use Kreta\Component\Notification\Model\Interfaces\NotificationInterface;
@@ -7,6 +16,11 @@ use Kreta\Component\User\Model\Interfaces\UserInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
+/**
+ * Class EmailNotifierSpec.
+ *
+ * @package spec\Kreta\Component\Notification\Notifier
+ */
 class EmailNotifierSpec extends ObjectBehavior
 {
     function let(\Swift_Mailer $mailer)
@@ -19,8 +33,17 @@ class EmailNotifierSpec extends ObjectBehavior
         $this->shouldHaveType('Kreta\Component\Notification\Notifier\EmailNotifier');
     }
 
-    function it_notifies(\Swift_Mailer $mailer, \Swift_Mime_Message $message, NotificationInterface $notification,
-                         UserInterface $user)
+    function it_implements_notifier_interface()
+    {
+        $this->shouldImplement('Kreta\Component\Notification\Notifier\Interfaces\NotifierInterface');
+    }
+
+    function it_notifies(
+        \Swift_Mailer $mailer,
+        \Swift_Mime_Message $message,
+        NotificationInterface $notification,
+        UserInterface $user
+    )
     {
         $notification->getUser()->shouldBeCalled()->willReturn($user);
         $user->getEmail()->shouldBeCalled()->willReturn('kreta@kreta.io');

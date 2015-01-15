@@ -12,7 +12,7 @@
 namespace Kreta\Component\Notification\Factory;
 
 /**
- * Class NotificationFactory
+ * Class NotificationFactory.
  *
  * @package Kreta\Component\Notification\Factory
  */
@@ -36,16 +36,16 @@ class NotificationFactory
     }
 
     /**
-     * Creates an instance of an entity.
+     * Creates an instance of a notification.
      *
      * @return \Kreta\Component\Notification\Model\Interfaces\NotificationInterface
      */
     public function create()
     {
         $notification = new $this->className;
-        $notification->setDate(new \DateTime());
-        $notification->setRead(false);
 
-        return $notification;
+        return $notification
+            ->setDate(new \DateTime())
+            ->setRead(false);
     }
 }

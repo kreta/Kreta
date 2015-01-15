@@ -35,9 +35,9 @@ class IssueHandler extends BaseIssueFormHandler
     protected $context;
 
     /**
-     * The workflow factory.
+     * The issue factory.
      *
-     * @var \Kreta\Component\Workflow\Factory\WorkflowFactory
+     * @var \Kreta\Component\Issue\Factory\IssueFactory
      */
     protected $factory;
 

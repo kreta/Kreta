@@ -11,7 +11,6 @@
 
 namespace Kreta\Component\Issue\Repository;
 
-use Doctrine\ORM\Query\Expr;
 use Finite\State\StateInterface;
 use Kreta\Component\Core\Repository\EntityRepository;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;

@@ -76,7 +76,7 @@ class RestController extends FOSRestController
      * @param string                                            $id         The id
      * @param string                                            $grant      The grant
      *
-     * @return mixed
+     * @return Object
      * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
      */
     private function getResourceIfAllowed(EntityRepository $repository, $id, $grant = 'view')

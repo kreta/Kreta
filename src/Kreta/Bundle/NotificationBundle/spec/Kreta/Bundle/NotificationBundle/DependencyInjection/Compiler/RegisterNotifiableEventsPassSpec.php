@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * This file belongs to Kreta.
+ * The source code of application includes a LICENSE file
+ * with all information about license.
+ *
+ * @author benatespina <benatespina@gmail.com>
+ * @author gorkalaucirica <gorka.lauzirika@gmail.com>
+ */
+
 namespace spec\Kreta\Bundle\NotificationBundle\DependencyInjection\Compiler;
 
 use PhpSpec\ObjectBehavior;
@@ -7,11 +16,21 @@ use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 
+/**
+ * Class RegisterNotifiableEventsPassSpec.
+ *
+ * @package spec\Kreta\Bundle\NotificationBundle\DependencyInjection\Compiler
+ */
 class RegisterNotifiableEventsPassSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
         $this->shouldHaveType('Kreta\Bundle\NotificationBundle\DependencyInjection\Compiler\RegisterNotifiableEventsPass');
+    }
+
+    function it_implements_compiler_pass_interface()
+    {
+        $this->shouldImplement('Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface');
     }
 
     function it_registers_notifiable_events(ContainerBuilder $container, Definition $definition)
