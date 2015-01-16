@@ -89,21 +89,18 @@ class BranchRepositorySpec extends BaseEntityRepository
     function it_finds_by_issue(
         EntityManager $manager,
         QueryBuilder $queryBuilder,
+        Expr $expr,
+        Expr\Comparison $comparison,
         AbstractQuery $query,
         BranchInterface $branch
     )
     {
-        $manager->createQueryBuilder()->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->select('b')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->from(Argument::any(), 'b')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->innerJoin('b.issuesRelated', 'ir', 'WITH', 'ir.id = :issueId')
-            ->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->setParameter('issueId', '1111')->shouldBeCalled()->willReturn($queryBuilder);
-
+        $queryBuilder = $this->getQueryBuilderSpec($manager, $queryBuilder);
+        $this->addCriteriaSpec($queryBuilder, $expr, ['ir.id' => 'issue-id'], $comparison);
         $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
         $query->getResult()->shouldBeCalled()->willReturn([$branch]);
 
-        $this->findByIssue('1111')->shouldReturn([$branch]);
+        $this->findByIssue('issue-id')->shouldReturn([$branch]);
     }
 
     protected function getQueryBuilderSpec(EntityManager $manager, QueryBuilder $queryBuilder)

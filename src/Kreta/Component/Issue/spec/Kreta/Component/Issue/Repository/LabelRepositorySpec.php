@@ -11,10 +11,8 @@
 
 namespace spec\Kreta\Component\Issue\Repository;
 
-use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\ClassMetadata;
-use Doctrine\ORM\QueryBuilder;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -35,19 +33,8 @@ class LabelRepositorySpec extends ObjectBehavior
         $this->shouldHaveType('Kreta\Component\Issue\Repository\LabelRepository');
     }
 
-    function it_extends_entity_repository()
+    function it_extends_kreta_entity_repository()
     {
-        $this->shouldHaveType('Doctrine\ORM\EntityRepository');
-    }
-
-    function it_finds_all(EntityManager $manager, QueryBuilder $queryBuilder, AbstractQuery $query)
-    {
-        $manager->createQueryBuilder()->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->select('l')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->from(Argument::any(), 'l')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
-        $query->getResult()->shouldBeCalled()->willReturn([]);
-
-        $this->findAll()->shouldBeArray();
+        $this->shouldHaveType('Kreta\Component\Core\Repository\EntityRepository');
     }
 }

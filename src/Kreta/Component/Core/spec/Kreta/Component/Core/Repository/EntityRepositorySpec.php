@@ -30,7 +30,7 @@ class EntityRepositorySpec extends BaseEntityRepository
     {
         $this->beConstructedWith($manager, $metadata);
     }
-    
+
     function it_is_initializable()
     {
         $this->shouldHaveType('Kreta\Component\Core\Repository\EntityRepository');
@@ -131,7 +131,7 @@ class EntityRepositorySpec extends BaseEntityRepository
         $this->findAll()->shouldBeArray();
     }
 
-    function it_finds_one_by_eq_nullable(
+    function it_finds_one_by_nullable(
         EntityManager $manager,
         QueryBuilder $queryBuilder,
         Expr $expr,
@@ -143,220 +143,13 @@ class EntityRepositorySpec extends BaseEntityRepository
 
         $queryBuilder = $this->getQueryBuilderSpec($manager, $queryBuilder);
         $this->addCriteriaSpec($queryBuilder, $expr, ['name' => 'dummy name'], $comparison);
-        $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
-        $query->getOneOrNullResult()->shouldBeCalled()->willReturn($object);
-
-        $this->findOneBy(['name' => 'dummy name'])->shouldReturn($object);
-    }
-
-    function it_finds_one_by_eq_nullable_without_result(
-        EntityManager $manager,
-        QueryBuilder $queryBuilder,
-        Expr $expr,
-        Expr\Comparison $comparison,
-        AbstractQuery $query
-    )
-    {
-        $queryBuilder = $this->getQueryBuilderSpec($manager, $queryBuilder);
-        $this->addCriteriaSpec($queryBuilder, $expr, ['name' => 'dummy name'], $comparison);
-        $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
-        $query->getOneOrNullResult()->shouldBeCalled()->willReturn(null);
-
-        $this->findOneBy(['name' => 'dummy name'])->shouldReturn(null);
-    }
-
-    function it_finds_one_by_eq(
-        EntityManager $manager,
-        QueryBuilder $queryBuilder,
-        Expr $expr,
-        Expr\Comparison $comparison,
-        AbstractQuery $query
-    )
-    {
-        $object = Argument::type('Object');
-
-        $queryBuilder = $this->getQueryBuilderSpec($manager, $queryBuilder);
-        $this->addCriteriaSpec($queryBuilder, $expr, ['name' => 'dummy name'], $comparison);
-        $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
-        $query->getSingleResult()->shouldBeCalled()->willReturn($object);
-
-        $this->findOneBy(['name' => 'dummy name'], false)->shouldReturn($object);
-    }
-
-    function it_finds_one_by_eq_without_result(
-        EntityManager $manager,
-        QueryBuilder $queryBuilder,
-        Expr $expr,
-        Expr\Comparison $comparison,
-        AbstractQuery $query
-    )
-    {
-        $queryBuilder = $this->getQueryBuilderSpec($manager, $queryBuilder);
-        $this->addCriteriaSpec($queryBuilder, $expr, ['name' => 'dummy name'], $comparison);
-        $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
-
-        $query->getSingleResult()->shouldBeCalled()->willReturn(null);
-
-        $this->findOneBy(['name' => 'dummy name'], false)->shouldReturn(null);
-    }
-
-    function it_finds_one_by_isNull_nullable(
-        EntityManager $manager,
-        QueryBuilder $queryBuilder,
-        Expr $expr,
-        Expr\Comparison $comparison,
-        AbstractQuery $query
-    )
-    {
-        $object = Argument::type('Object');
-
-        $queryBuilder = $this->getQueryBuilderSpec($manager, $queryBuilder);
-        $this->addCriteriaSpec($queryBuilder, $expr, ['name' => null], $comparison, 'isNull');
-        $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
-        $query->getOneOrNullResult()->shouldBeCalled()->willReturn($object);
-
-        $this->findOneBy(['name' => null])->shouldReturn($object);
-    }
-
-    function it_finds_one_by_isNull_nullable_without_result(
-        EntityManager $manager,
-        QueryBuilder $queryBuilder,
-        Expr $expr,
-        Expr\Comparison $comparison,
-        AbstractQuery $query
-    )
-    {
-        $queryBuilder = $this->getQueryBuilderSpec($manager, $queryBuilder);
-        $this->addCriteriaSpec($queryBuilder, $expr, ['name' => null], $comparison, 'isNull');
-        $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
-        $query->getOneOrNullResult()->shouldBeCalled()->willReturn(null);
-
-        $this->findOneBy(['name' => null])->shouldReturn(null);
-    }
-
-    function it_finds_one_by_isNull(
-        EntityManager $manager,
-        QueryBuilder $queryBuilder,
-        Expr $expr,
-        Expr\Comparison $comparison,
-        AbstractQuery $query
-    )
-    {
-        $object = Argument::type('Object');
-
-        $queryBuilder = $this->getQueryBuilderSpec($manager, $queryBuilder);
-        $this->addCriteriaSpec($queryBuilder, $expr, ['name' => null], $comparison, 'isNull');
-        $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
-        $query->getSingleResult()->shouldBeCalled()->willReturn($object);
-
-        $this->findOneBy(['name' => null], false)->shouldReturn($object);
-    }
-
-    function it_finds_one_by_isNull_without_result(
-        EntityManager $manager,
-        QueryBuilder $queryBuilder,
-        Expr $expr,
-        Expr\Comparison $comparison,
-        AbstractQuery $query
-    )
-    {
-        $queryBuilder = $this->getQueryBuilderSpec($manager, $queryBuilder);
-        $this->addCriteriaSpec($queryBuilder, $expr, ['name' => null], $comparison, 'isNull');
-        $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
-
-        $query->getSingleResult()->shouldBeCalled()->willReturn(null);
-
-        $this->findOneBy(['name' => null], false)->shouldReturn(null);
-    }
-
-    function it_finds_one_by_in_nullable(
-        EntityManager $manager,
-        QueryBuilder $queryBuilder,
-        Expr $expr,
-        Expr\Comparison $comparison,
-        AbstractQuery $query
-    )
-    {
-        $object = Argument::type('Object');
-
-        $queryBuilder = $this->getQueryBuilderSpec($manager, $queryBuilder);
-        $this->addCriteriaSpec($queryBuilder, $expr, ['names' => ['dummy name', 'dummy name 2']], $comparison, 'in');
-        $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
-        $query->getOneOrNullResult()->shouldBeCalled()->willReturn($object);
-
-        $this->findOneBy(['names' => ['dummy name', 'dummy name 2']])->shouldReturn($object);
-    }
-
-    function it_finds_one_by_in_nullable_without_result(
-        EntityManager $manager,
-        QueryBuilder $queryBuilder,
-        Expr $expr,
-        Expr\Comparison $comparison,
-        AbstractQuery $query
-    )
-    {
-        $queryBuilder = $this->getQueryBuilderSpec($manager, $queryBuilder);
-        $this->addCriteriaSpec($queryBuilder, $expr, ['names' => ['dummy name', 'dummy name 2']], $comparison, 'in');
-        $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
-        $query->getOneOrNullResult()->shouldBeCalled()->willReturn(null);
-
-        $this->findOneBy(['names' => ['dummy name', 'dummy name 2']])->shouldReturn(null);
-    }
-
-    function it_finds_one_by_in(
-        EntityManager $manager,
-        QueryBuilder $queryBuilder,
-        Expr $expr,
-        Expr\Comparison $comparison,
-        AbstractQuery $query
-    )
-    {
-        $object = Argument::type('Object');
-
-        $queryBuilder = $this->getQueryBuilderSpec($manager, $queryBuilder);
-        $this->addCriteriaSpec($queryBuilder, $expr, ['names' => ['dummy name', 'dummy name 2']], $comparison, 'in');
-        $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
-        $query->getSingleResult()->shouldBeCalled()->willReturn($object);
-
-        $this->findOneBy(['names' => ['dummy name', 'dummy name 2']], false)->shouldReturn($object);
-    }
-
-    function it_finds_one_by_in_without_result(
-        EntityManager $manager,
-        QueryBuilder $queryBuilder,
-        Expr $expr,
-        Expr\Comparison $comparison,
-        AbstractQuery $query
-    )
-    {
-        $queryBuilder = $this->getQueryBuilderSpec($manager, $queryBuilder);
-        $this->addCriteriaSpec($queryBuilder, $expr, ['names' => ['dummy name', 'dummy name 2']], $comparison, 'in');
-        $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
-
-        $query->getSingleResult()->shouldBeCalled()->willReturn(null);
-
-        $this->findOneBy(['names' => ['dummy name', 'dummy name 2']], false)->shouldReturn(null);
-    }
-
-    function it_finds_one_by_like_nullable(
-        EntityManager $manager,
-        QueryBuilder $queryBuilder,
-        Expr $expr,
-        Expr\Comparison $comparison,
-        AbstractQuery $query
-    )
-    {
-        $object = Argument::type('Object');
-
-        $queryBuilder = $this->getQueryBuilderSpec($manager, $queryBuilder);
-        $this->addCriteriaSpec($queryBuilder, $expr, ['name' => 'dummy name'], $comparison, 'like');
         $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
         $query->getOneOrNullResult()->shouldBeCalled()->willReturn($object);
 
         $this->findOneBy(['name' => 'dummy name'], true, false)->shouldReturn($object);
     }
 
-    function it_finds_one_by_like_nullable_without_result(
+    function it_finds_one_nullable_without_result(
         EntityManager $manager,
         QueryBuilder $queryBuilder,
         Expr $expr,
@@ -365,7 +158,7 @@ class EntityRepositorySpec extends BaseEntityRepository
     )
     {
         $queryBuilder = $this->getQueryBuilderSpec($manager, $queryBuilder);
-        $this->addCriteriaSpec($queryBuilder, $expr, ['name' => 'dummy name'], $comparison, 'like');
+        $this->addCriteriaSpec($queryBuilder, $expr, ['name' => 'dummy name'], $comparison);
         $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
 
         $query->getOneOrNullResult()->shouldBeCalled()->willReturn(null);
@@ -373,7 +166,7 @@ class EntityRepositorySpec extends BaseEntityRepository
         $this->findOneBy(['name' => 'dummy name'], true, false)->shouldReturn(null);
     }
 
-    function it_finds_one_by_like(
+    function it_finds_one_by(
         EntityManager $manager,
         QueryBuilder $queryBuilder,
         Expr $expr,
@@ -384,14 +177,14 @@ class EntityRepositorySpec extends BaseEntityRepository
         $object = Argument::type('Object');
 
         $queryBuilder = $this->getQueryBuilderSpec($manager, $queryBuilder);
-        $this->addCriteriaSpec($queryBuilder, $expr, ['name' => 'dummy name'], $comparison, 'like');
+        $this->addCriteriaSpec($queryBuilder, $expr, ['name' => 'dummy name'], $comparison);
         $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
         $query->getSingleResult()->shouldBeCalled()->willReturn($object);
 
         $this->findOneBy(['name' => 'dummy name'], false, false)->shouldReturn($object);
     }
 
-    function it_finds_one_by_like_without_result(
+    function it_finds_one_by_without_result(
         EntityManager $manager,
         QueryBuilder $queryBuilder,
         Expr $expr,
@@ -400,7 +193,7 @@ class EntityRepositorySpec extends BaseEntityRepository
     )
     {
         $queryBuilder = $this->getQueryBuilderSpec($manager, $queryBuilder);
-        $this->addCriteriaSpec($queryBuilder, $expr, ['name' => 'dummy name'], $comparison, 'like');
+        $this->addCriteriaSpec($queryBuilder, $expr, ['name' => 'dummy name'], $comparison);
         $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
 
         $query->getSingleResult()->shouldBeCalled()->willReturn(null);
@@ -408,7 +201,7 @@ class EntityRepositorySpec extends BaseEntityRepository
         $this->findOneBy(['name' => 'dummy name'], false, false)->shouldReturn(null);
     }
 
-    function it_finds_by_eq(
+    function it_finds_by(
         EntityManager $manager,
         QueryBuilder $queryBuilder,
         Expr $expr,
@@ -427,68 +220,5 @@ class EntityRepositorySpec extends BaseEntityRepository
         $query->getResult()->shouldBeCalled()->willReturn([$object]);
 
         $this->findBy(['name' => 'dummy name'], ['name'], 10, 3)->shouldReturn([$object]);
-    }
-
-    function it_finds_by_in(
-        EntityManager $manager,
-        QueryBuilder $queryBuilder,
-        Expr $expr,
-        Expr\Comparison $comparison,
-        AbstractQuery $query
-    )
-    {
-        $object = Argument::type('Object');
-
-        $queryBuilder = $this->getQueryBuilderSpec($manager, $queryBuilder);
-        $this->addCriteriaSpec($queryBuilder, $expr, ['names' => ['dummy name', 'dummy name 2']], $comparison, 'in');
-        $this->orderBySpec($queryBuilder, ['name' => 'ASC']);
-        $queryBuilder->setMaxResults(10)->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->setFirstResult(3)->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
-        $query->getResult()->shouldBeCalled()->willReturn([$object]);
-
-        $this->findBy(['names' => ['dummy name', 'dummy name 2']], ['name' => 'ASC'], 10, 3)->shouldReturn([$object]);
-    }
-
-    function it_finds_by_isNull(
-        EntityManager $manager,
-        QueryBuilder $queryBuilder,
-        Expr $expr,
-        Expr\Comparison $comparison,
-        AbstractQuery $query
-    )
-    {
-        $object = Argument::type('Object');
-
-        $queryBuilder = $this->getQueryBuilderSpec($manager, $queryBuilder);
-        $this->addCriteriaSpec($queryBuilder, $expr, ['name' => null], $comparison, 'isNull');
-        $this->orderBySpec($queryBuilder, ['name' => 'DESC']);
-        $queryBuilder->setMaxResults(10)->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->setFirstResult(3)->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
-        $query->getResult()->shouldBeCalled()->willReturn([$object]);
-
-        $this->findBy(['name' => null], ['name'], 10, 3)->shouldReturn([$object]);
-    }
-
-    function it_finds_by_like(
-        EntityManager $manager,
-        QueryBuilder $queryBuilder,
-        Expr $expr,
-        Expr\Comparison $comparison,
-        AbstractQuery $query
-    )
-    {
-        $object = Argument::type('Object');
-
-        $queryBuilder = $this->getQueryBuilderSpec($manager, $queryBuilder);
-        $this->addCriteriaSpec($queryBuilder, $expr, ['name' => 'dummy name'], $comparison, 'like');
-        $this->orderBySpec($queryBuilder, ['name' => 'DESC']);
-        $queryBuilder->setMaxResults(10)->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->setFirstResult(3)->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
-        $query->getResult()->shouldBeCalled()->willReturn([$object]);
-
-        $this->findBy(['name' => 'dummy name'], ['name'], 10, 3, false)->shouldReturn([$object]);
     }
 }

@@ -11,7 +11,7 @@
 
 namespace Kreta\Component\VCS\Repository;
 
-use Doctrine\ORM\EntityRepository;
+use Kreta\Component\Core\Repository\EntityRepository;
 
 /**
  * Class CommitRepository.
@@ -29,10 +29,25 @@ class CommitRepository extends EntityRepository
      */
     public function findByIssue($issueId)
     {
-        $queryBuilder = $this->createQueryBuilder('c');
-        $queryBuilder->innerJoin('c.issuesRelated', 'ri', 'WITH', 'ri.id = :issueId')
-            ->setParameter('issueId', $issueId);
+        return $this->findBy(['ir.id' => $issueId]);
+    }
 
-        return $queryBuilder->getQuery()->getResult();
+    /**
+     * {@inheritdoc}
+     */
+    protected function getQueryBuilder()
+    {
+        return parent::getQueryBuilder()
+            ->addSelect(['b', 'ir'])
+            ->innerJoin('c.branch', 'b')
+            ->innerJoin('c.issuesRelated', 'ir');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getAlias()
+    {
+        return 'c';
     }
 }

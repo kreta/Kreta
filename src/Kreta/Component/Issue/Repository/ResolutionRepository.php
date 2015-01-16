@@ -11,7 +11,7 @@
 
 namespace Kreta\Component\Issue\Repository;
 
-use Doctrine\ORM\EntityRepository;
+use Kreta\Component\Core\Repository\EntityRepository;
 
 /**
  * Class ResolutionRepository.
@@ -20,13 +20,4 @@ use Doctrine\ORM\EntityRepository;
  */
 class ResolutionRepository extends EntityRepository
 {
-    /**
-     * Finds all the resolutions that exist into database.
-     *
-     * @return \Kreta\Component\Issue\Model\Interfaces\ResolutionInterface[]
-     */
-    public function findAll()
-    {
-        return $this->createQueryBuilder('r')->getQuery()->getResult();
-    }
 }

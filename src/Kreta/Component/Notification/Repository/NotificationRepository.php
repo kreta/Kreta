@@ -11,7 +11,7 @@
 
 namespace Kreta\Component\Notification\Repository;
 
-use Doctrine\ORM\EntityRepository;
+use Kreta\Component\Core\Repository\EntityRepository;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 
 /**
@@ -26,19 +26,14 @@ class NotificationRepository extends EntityRepository
      *
      * @param \Kreta\Component\User\Model\Interfaces\UserInterface $user Target user
      *
-     * @return int Amount of unread notifications
+     * @return int
      */
     public function getUsersUnreadNotificationsCount(UserInterface $user)
     {
-        $queryBuilder = $this->_em->createQueryBuilder();
+        $queryBuilder = $this->getQueryBuilder()->select('count(n.id)');
+        $this->addCriteria($queryBuilder, ['user' => $user, 'read' => false]);
 
-        return $queryBuilder->select('count(n.id)')
-            ->from($this->_entityName, 'n')
-            ->where($queryBuilder->expr()->eq('n.user', ':userId'))
-            ->andWhere($queryBuilder->expr()->eq('n.read', ':read'))
-            ->setParameter(':userId', $user->getId())
-            ->setParameter(':read', false)
-            ->getQuery()->getSingleScalarResult();
+        return $queryBuilder->getQuery()->getSingleScalarResult();
     }
 
     /**
@@ -50,14 +45,25 @@ class NotificationRepository extends EntityRepository
      */
     public function findAllUnreadByUser(UserInterface $user)
     {
-        $queryBuilder = $this->createQueryBuilder('n');
+        return $this->findBy(['user' => $user, 'read' => false]);
+    }
 
-        return $queryBuilder
-            ->where($queryBuilder->expr()->eq('n.user', ':userId'))
-            ->andWhere($queryBuilder->expr()->eq('n.read', ':read'))
-            ->orderBy('n.date', 'desc')
-            ->setParameter(':userId', $user->getId())
-            ->setParameter(':read', false)
-            ->getQuery()->getResult();
+    /**
+     * {@inheritdoc}
+     */
+    protected function getQueryBuilder()
+    {
+        return parent::getQueryBuilder()
+            ->addSelect(['p', 'u'])
+            ->join('n.project', 'p')
+            ->join('n.user', 'u');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getAlias()
+    {
+        return 'n';
     }
 }

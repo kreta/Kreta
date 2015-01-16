@@ -11,7 +11,7 @@
 
 namespace Kreta\Component\Issue\Repository;
 
-use Doctrine\ORM\EntityRepository;
+use Kreta\Component\Core\Repository\EntityRepository;
 
 /**
  * Class LabelRepository.
@@ -20,13 +20,4 @@ use Doctrine\ORM\EntityRepository;
  */
 class LabelRepository extends EntityRepository
 {
-    /**
-     * Finds all the labels that exist into database.
-     *
-     * @return \Kreta\Component\Issue\Model\Interfaces\LabelInterface[]
-     */
-    public function findAll()
-    {
-        return $this->createQueryBuilder('l')->getQuery()->getResult();
-    }
 }

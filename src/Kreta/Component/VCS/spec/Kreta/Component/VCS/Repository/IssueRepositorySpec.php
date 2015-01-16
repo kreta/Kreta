@@ -48,6 +48,7 @@ class IssueRepositorySpec extends BaseEntityRepository
         QueryBuilder $queryBuilder,
         Expr $expr,
         Expr\Func $func,
+        Expr\Comparison $comparison,
         AbstractQuery $query,
         IssueInterface $issue
     )
@@ -58,13 +59,9 @@ class IssueRepositorySpec extends BaseEntityRepository
 
         $issueRepository->createQueryBuilder('i')->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->leftJoin('i.project', 'p')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->expr()->shouldBeCalled()->willReturn($expr);
-        $expr->in('i.project', ['repository-id', 'repository-id-2'])->shouldBeCalled()->willReturn($func);
-        $queryBuilder->where($func)->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->andWhere('p.shortName = :shortName')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->andWhere('i.numericId = :numericId')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->setParameter('shortName', 'KRT')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->setParameter('numericId', 10)->shouldBeCalled()->willReturn($queryBuilder);
+        $this->addInCriteriaSpec($queryBuilder, $expr, $func, ['i.project' => ['repository-id', 'repository-id-2']]);
+        $this->addCriteriaSpec($queryBuilder, $expr, ['p.shortName' => 'KRT'], $comparison);
+        $this->addCriteriaSpec($queryBuilder, $expr, ['i.numericId' => 10], $comparison);
         $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
         $query->getResult()->shouldBeCalled()->willReturn([$issue]);
 

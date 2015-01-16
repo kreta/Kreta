@@ -9,15 +9,16 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\Component\User\Repository;
+namespace Kreta\Component\Core\Stubs\Repository;
 
-use Kreta\Component\Core\Repository\EntityRepository;
+use Kreta\Component\Core\Repository\Traits\QueryBuilderTrait;
 
 /**
- * Class UserRepository.
+ * Class QueryBuilderTraitStub.
  *
- * @package Kreta\Component\User\Repository
+ * @package Kreta\Component\Core\Stubs\Repository
  */
-class UserRepository extends EntityRepository
+class QueryBuilderTraitStub
 {
+    use QueryBuilderTrait;
 }

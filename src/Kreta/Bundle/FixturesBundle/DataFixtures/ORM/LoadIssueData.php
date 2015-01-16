@@ -35,7 +35,8 @@ class LoadIssueData extends DataFixtures
         for ($i = 0; $i < 100; $i++) {
             $project = $projects[array_rand($projects)];
             $issuesPerProject = $this->incrementIssuePerProject($issuesPerProject, $project);
-            $participants = $this->container->get('kreta_project.repository.participant')->findByProject($project);
+            $participants = $this->container->get('kreta_project.repository.participant')
+                ->findBy(['project' => $project]);
 
             $issue = $this->container->get('kreta_issue.factory.issue')
                 ->create($project, $participants[array_rand($participants)]->getUser());

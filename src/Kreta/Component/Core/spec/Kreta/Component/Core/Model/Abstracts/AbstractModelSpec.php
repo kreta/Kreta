@@ -22,7 +22,7 @@ class AbstractModelSpec extends ObjectBehavior
 {
     function let()
     {
-        $this->beAnInstanceOf('Kreta\Component\Core\Stubs\Model\Abstracts\AbstractModelStub');
+        $this->beAnInstanceOf('Kreta\Component\Core\Stubs\Model\AbstractModelStub');
     }
 
     function it_does_not_have_id_by_default()
