@@ -32,10 +32,9 @@ class RepositorySpec extends ObjectBehavior
         $this->shouldImplement('Kreta\Component\VCS\Model\Interfaces\RepositoryInterface');
     }
 
-    function its_id_is_mutable()
+    function it_does_not_have_id_by_default()
     {
-        $this->setId('2222')->shouldReturn($this);
-        $this->getId()->shouldReturn('2222');
+        $this->getId()->shouldReturn(null);
     }
 
     function its_name_is_mutable()

@@ -54,4 +54,4 @@ class CommentFactory
             ->setIssue($issue)
             ->setWrittenBy($user);
     }
-} 
+}

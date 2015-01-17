@@ -48,8 +48,8 @@ class UserHandler extends AbstractHandler
      * @param \Symfony\Component\Form\FormFactory                         $formFactory     Creates a new Form instance
      * @param \Doctrine\Common\Persistence\ObjectManager                  $manager         Persists and flush the object
      * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $eventDispatcher Dispatches FormHandlerEvents
-     * @param \Kreta\Component\Media\Factory\MediaFactory                  $mediaFactory    Creates a new Project image
-     * @param \Kreta\Component\Media\Uploader\MediaUploader                $uploader        Uploads Project images
+     * @param \Kreta\Component\Media\Factory\MediaFactory                 $mediaFactory    Creates a new Project image
+     * @param \Kreta\Component\Media\Uploader\MediaUploader               $uploader        Uploads Project images
      */
     public function __construct(
         FormFactory $formFactory,
@@ -84,6 +84,4 @@ class UserHandler extends AbstractHandler
             $object->setPhoto($media);
         }
     }
-
 }
-

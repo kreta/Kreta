@@ -26,15 +26,6 @@ interface PullRequestInterface
     public function getId();
 
     /**
-     * Sets id.
-     *
-     * @param string $id The id to be set
-     *
-     * @return $this self Object
-     */
-    public function setId($id);
-
-    /**
      * Gets the number given to the pull request by the provider.
      *
      * @return int

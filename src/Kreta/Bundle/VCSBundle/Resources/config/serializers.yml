@@ -1,0 +1,16 @@
+# This file belongs to Kreta.
+# The source code of application includes a LICENSE file
+# with all information about license.
+#
+# @author benatespina <benatespina@gmail.com>
+# @author gorkalaucirica <gorka.lauzirika@gmail.com>
+
+services:
+    kreta_vcs.registry.serializer:
+        class: %kreta_vcs.registry_serializer.class%
+
+    kreta_vcs.serializer.github.commit:
+        class: Kreta\Component\VCS\Serializer\Github\CommitSerializer
+        arguments: [@kreta_vcs.factory.commit, @kreta_vcs.repository.repository, @kreta_vcs.repository.branch]
+        tags:
+            - { name: kreta_vcs.serializer, provider: github, event: push }

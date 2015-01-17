@@ -65,4 +65,4 @@ class GithubWebhookControllerSpec extends ObjectBehavior
 
         $this->webhookAction($request);
     }
-} 
+}

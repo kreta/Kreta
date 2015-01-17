@@ -62,8 +62,8 @@ class IssueRepository
      * Finds related issues of repository, short name and numeric id given.
      *
      * @param \Kreta\Component\VCS\Model\Interfaces\RepositoryInterface $repository The repository
-     * @param  string                                                   $shortName  The short name
-     * @param  string                                                   $numericId  The numeric id
+     * @param string                                                    $shortName  The short name
+     * @param string                                                    $numericId  The numeric id
      *
      * @return \Kreta\Component\Issue\Model\Interfaces\IssueInterface[]
      */

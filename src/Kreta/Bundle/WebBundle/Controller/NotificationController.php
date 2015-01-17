@@ -53,4 +53,4 @@ class NotificationController extends Controller
 
         return $this->redirect($notification->getWebUrl());
     }
-} 
+}

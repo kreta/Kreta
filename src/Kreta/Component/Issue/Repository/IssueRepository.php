@@ -48,7 +48,7 @@ class IssueRepository extends EntityRepository
      * @param string $projectShortName The 4 character project short name of the issue to find
      * @param string $issueNumber      Numeric number of the issue to find
      *
-     * @return \Kreta\Component\Issue\Model\Interfaces\IssueInterface
+     * @return \Kreta\Component\Issue\Model\Interfaces\IssueInterface|null
      */
     public function findOneByShortCode($projectShortName, $issueNumber)
     {

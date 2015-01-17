@@ -49,12 +49,6 @@ class StatusSpec extends ObjectBehavior
         $this->getId()->shouldReturn(null);
     }
 
-    function its_id_is_mutable()
-    {
-        $this->setId('status-id')->shouldReturn($this);
-        $this->getId()->shouldReturn('status-id');
-    }
-
     function its_color_is_mutable()
     {
         $this->setColor('#FFFFFF')->shouldReturn($this);

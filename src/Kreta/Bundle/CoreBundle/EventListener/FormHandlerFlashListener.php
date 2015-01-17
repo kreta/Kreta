@@ -49,4 +49,4 @@ class FormHandlerFlashListener
     {
         $this->session->getFlashBag()->add($event->getType(), $event->getMessage());
     }
-} 
+}

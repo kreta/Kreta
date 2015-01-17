@@ -50,11 +50,11 @@ trait DatabaseContextTrait
     public function purgeDatabase()
     {
         $this->getManager();
-        $this->manager->getConnection()->executeUpdate("SET foreign_key_checks = 0;");
+        $this->manager->getConnection()->executeUpdate('SET foreign_key_checks = 0;');
 
         $purger = new ORMPurger($this->manager);
         $purger->purge();
 
-        $this->manager->getConnection()->executeUpdate("SET foreign_key_checks = 1;");
+        $this->manager->getConnection()->executeUpdate('SET foreign_key_checks = 1;');
     }
 }

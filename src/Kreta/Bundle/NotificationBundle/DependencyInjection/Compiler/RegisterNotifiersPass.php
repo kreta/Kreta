@@ -35,8 +35,12 @@ class RegisterNotifiersPass implements CompilerPassInterface
             if (!isset($attributes[0]['label'])) {
                 throw new \InvalidArgumentException('Tagged notifier needs to have `label` attribute.');
             }
-            if (!$container->hasParameter(sprintf('kreta_notification.notifier.%s.enabled', $attributes[0]['label'])) ||
-                $container->getParameter(sprintf('kreta_notification.notifier.%s.enabled', $attributes[0]['label'])) === true
+            if (!$container->hasParameter(
+                    sprintf('kreta_notification.notifier.%s.enabled', $attributes[0]['label'])
+                )
+                || $container->getParameter(
+                    sprintf('kreta_notification.notifier.%s.enabled', $attributes[0]['label'])
+                ) === true
             ) {
                 $name = $attributes[0]['label'];
                 $registry->addMethodCall('registerNotifier', [$name, new Reference($id)]);

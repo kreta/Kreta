@@ -69,16 +69,6 @@ class Branch implements BranchInterface
     /**
      * {@inheritdoc}
      */
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function getName()
     {
         return $this->name;

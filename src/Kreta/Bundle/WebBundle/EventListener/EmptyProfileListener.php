@@ -54,7 +54,7 @@ class EmptyProfileListener
      * @param Router                   $router          The router
      * @param Session                  $session         The session
      */
-    function __construct(SecurityContextInterface $securityContext, Router $router, Session $session)
+    public function __construct(SecurityContextInterface $securityContext, Router $router, Session $session)
     {
         $this->securityContext = $securityContext;
         $this->router = $router;

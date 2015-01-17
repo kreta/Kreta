@@ -90,16 +90,6 @@ class Commit implements CommitInterface
     /**
      * {@inheritdoc}
      */
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function getAuthor()
     {
         return $this->author;

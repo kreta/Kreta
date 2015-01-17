@@ -16,7 +16,7 @@ namespace Kreta\Component\Core\Exception;
  *
  * @package Kreta\Component\Core\Exception
  */
-class CollectionMinLengthException extends \Exception 
+class CollectionMinLengthException extends \Exception
 {
     /**
      * Constructor.

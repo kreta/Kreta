@@ -16,7 +16,7 @@ namespace Kreta\Component\Core\Exception;
  *
  * @package Kreta\Component\Core\Exception
  */
-class ResourceAlreadyPersistException extends \Exception 
+class ResourceAlreadyPersistException extends \Exception
 {
     /**
      * Constructor.

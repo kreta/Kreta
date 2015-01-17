@@ -16,7 +16,7 @@ namespace Kreta\Component\Core\Exception;
  *
  * @package Kreta\Component\Core\Exception
  */
-class ResourceInUseException extends \Exception 
+class ResourceInUseException extends \Exception
 {
     /**
      * Constructor.

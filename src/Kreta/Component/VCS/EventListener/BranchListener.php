@@ -11,9 +11,9 @@
 
 namespace Kreta\Component\VCS\EventListener;
 
-use Doctrine\ORM\EntityManager;
 use Kreta\Component\VCS\Event\NewBranchEvent;
 use Kreta\Component\VCS\Matcher\BranchMatcher;
+use Kreta\Component\VCS\Repository\BranchRepository;
 
 /**
  * Class BranchListener.
@@ -30,28 +30,30 @@ class BranchListener
     protected $matcher;
 
     /**
-     * The entity manager.
+     * The branch repository.
      *
-     * @var \Doctrine\ORM\EntityManager
+     * @var \Kreta\Component\VCS\Repository\BranchRepository
      */
-    protected $manager;
+    protected $repository;
 
     /**
      * Constructor.
      *
-     * @param \Kreta\Component\VCS\Matcher\BranchMatcher $matcher The branch matcher
-     * @param \Doctrine\ORM\EntityManager                $manager The entity manager
+     * @param \Kreta\Component\VCS\Matcher\BranchMatcher       $matcher          The branch matcher
+     * @param \Kreta\Component\VCS\Repository\BranchRepository $branchRepository The branch repository
      */
-    public function __construct(BranchMatcher $matcher, EntityManager $manager)
+    public function __construct(BranchMatcher $matcher, BranchRepository $branchRepository)
     {
         $this->matcher = $matcher;
-        $this->manager = $manager;
+        $this->repository = $branchRepository;
     }
 
     /**
      * Fills the branch with related issues matched by BranchMatcher.
      *
      * @param \Kreta\Component\VCS\Event\NewBranchEvent $event The new branch event
+     *
+     * @return void
      */
     public function newBranch(NewBranchEvent $event)
     {
@@ -60,7 +62,6 @@ class BranchListener
         $related = $this->matcher->getRelatedIssues($branch);
         $branch->setIssuesRelated($related);
 
-        $this->manager->persist($branch);
-        $this->manager->flush();
+        $this->repository->persist($branch);
     }
 }

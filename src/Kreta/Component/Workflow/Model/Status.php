@@ -64,16 +64,6 @@ class Status extends State implements StatusInterface
     /**
      * {@inheritdoc}
      */
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function getColor()
     {
         return $this->color;

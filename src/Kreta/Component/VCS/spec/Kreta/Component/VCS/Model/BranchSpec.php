@@ -32,10 +32,9 @@ class BranchSpec extends ObjectBehavior
         $this->shouldImplement('Kreta\Component\VCS\Model\Interfaces\BranchInterface');
     }
 
-    function its_id_is_mutable()
+    function it_does_not_have_id_by_default()
     {
-        $this->setId('1111')->shouldReturn($this);
-        $this->getId()->shouldReturn('1111');
+        $this->getId()->shouldReturn(null);
     }
 
     function its_name_is_mutable()

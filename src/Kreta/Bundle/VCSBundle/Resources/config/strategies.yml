@@ -1,0 +1,11 @@
+# This file belongs to Kreta.
+# The source code of application includes a LICENSE file
+# with all information about license.
+#
+# @author benatespina <benatespina@gmail.com>
+# @author gorkalaucirica <gorka.lauzirika@gmail.com>
+
+services:
+    kreta_vcs.webhook_strategy.github:
+        class: Kreta\Component\VCS\WebhookStrategy\GithubWebhookStrategy
+        arguments: [@kreta_vcs.registry.serializer]

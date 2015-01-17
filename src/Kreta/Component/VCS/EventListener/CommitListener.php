@@ -11,9 +11,9 @@
 
 namespace Kreta\Component\VCS\EventListener;
 
-use Doctrine\ORM\EntityManager;
 use Kreta\Component\VCS\Event\NewCommitEvent;
 use Kreta\Component\VCS\Matcher\CommitMatcher;
+use Kreta\Component\VCS\Repository\CommitRepository;
 
 /**
  * Class CommitListener.
@@ -30,28 +30,30 @@ class CommitListener
     protected $matcher;
 
     /**
-     * The entity manager.
+     * The commit repository.
      *
-     * @var \Doctrine\ORM\EntityManager
+     * @var \Kreta\Component\VCS\Repository\CommitRepository
      */
-    protected $manager;
+    protected $repository;
 
     /**
      * Constructor.
      *
-     * @param \Kreta\Component\VCS\Matcher\CommitMatcher $matcher The commit matcher
-     * @param \Doctrine\ORM\EntityManager                $manager The entity manager
+     * @param \Kreta\Component\VCS\Matcher\CommitMatcher       $matcher          The commit matcher
+     * @param \Kreta\Component\VCS\Repository\CommitRepository $commitRepository The commit repository
      */
-    public function __construct(CommitMatcher $matcher, EntityManager $manager)
+    public function __construct(CommitMatcher $matcher, CommitRepository $commitRepository)
     {
         $this->matcher = $matcher;
-        $this->manager = $manager;
+        $this->repository = $commitRepository;
     }
 
     /**
      * Fills the commit with related issues matched by CommitMatcher.
      *
      * @param \Kreta\Component\VCS\Event\NewCommitEvent $event The new commit event
+     *
+     * @return void
      */
     public function newCommit(NewCommitEvent $event)
     {
@@ -60,7 +62,6 @@ class CommitListener
         $related = $this->matcher->getRelatedIssues($commit);
         $commit->setIssuesRelated($related);
 
-        $this->manager->persist($commit);
-        $this->manager->flush();
+        $this->repository->persist($commit);
     }
 }

@@ -77,4 +77,4 @@ class BranchRepository extends EntityRepository
     {
         return 'b';
     }
-} 
+}

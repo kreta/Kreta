@@ -30,10 +30,15 @@ class DoctrineEventSubscriber implements EventSubscriber
     /**
      * The event dispatcher.
      *
-     * @var \Symfony\Component\EventDispatcher\EventDispatcher
+     * @var \Symfony\Component\EventDispatcher\EventDispatcherInterface
      */
     protected $dispatcher;
 
+    /**
+     * Constructor.
+     *
+     * @param \Symfony\Component\EventDispatcher\EventDispatcherInterface $dispatcher The event dispatcher
+     */
     public function __construct(EventDispatcherInterface $dispatcher)
     {
         $this->dispatcher = $dispatcher;
@@ -51,12 +56,14 @@ class DoctrineEventSubscriber implements EventSubscriber
      * Handles postPersist event triggered by doctrine.
      *
      * @param \Doctrine\ORM\Event\LifecycleEventArgs $args The arguments
+     *
+     * @return void
      */
     public function postPersist(LifecycleEventArgs $args)
     {
         if ($args->getObject() instanceof CommitInterface) {
             $this->dispatcher->dispatch(NewCommitEvent::NAME, new NewCommitEvent($args->getObject()));
-        } else if ($args->getObject() instanceof BranchInterface) {
+        } elseif ($args->getObject() instanceof BranchInterface) {
             $this->dispatcher->dispatch(NewBranchEvent::NAME, new NewBranchEvent($args->getObject()));
         }
     }

@@ -57,4 +57,4 @@ class NotificationExtension extends \Twig_Extension
     {
         return 'notification_extension';
     }
-} 
+}

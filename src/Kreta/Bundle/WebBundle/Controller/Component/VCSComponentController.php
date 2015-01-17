@@ -23,6 +23,8 @@ class VCSComponentController extends Controller
     /**
      * User action.
      *
+     * @param string $issueId The issue id
+     *
      * @return array
      */
     public function issueAction($issueId)
@@ -31,9 +33,9 @@ class VCSComponentController extends Controller
         $branches = $this->get('kreta_vcs.repository.branch')->findByIssue($issueId);
         $repositories = $this->get('kreta_vcs.repository.repository')->findByIssue($issueId);
 
-        return $this->render('KretaWebBundle:Component/VCS:issue.html.twig', [
-            'commits' => $commits, 'branches' => $branches, 'repositories' => $repositories
-        ]);
+        return $this->render(
+            'KretaWebBundle:Component/VCS:issue.html.twig',
+            ['commits' => $commits, 'branches' => $branches, 'repositories' => $repositories]
+        );
     }
-
 }

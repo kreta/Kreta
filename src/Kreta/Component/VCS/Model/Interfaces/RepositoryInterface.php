@@ -28,15 +28,6 @@ interface RepositoryInterface
     public function getId();
 
     /**
-     * Sets id.
-     *
-     * @param string $id The id
-     *
-     * @return $this self Object
-     */
-    public function setId($id);
-
-    /**
      * Gets name.
      *
      * @return string
@@ -80,7 +71,7 @@ interface RepositoryInterface
     /**
      * Gets provider. For example 'github'.
      *
-     * @return $this self Object
+     * @return string
      */
     public function getProvider();
 

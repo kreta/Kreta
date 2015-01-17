@@ -43,7 +43,7 @@ class StatusTransitionType extends AbstractType
     /**
      * Array which contains statuses.
      *
-     * @var \Kreta\Component\Workflow\Model\Status[]
+     * @var \Kreta\Component\Workflow\Model\Interfaces\StatusInterface[]
      */
     protected $statuses;
 

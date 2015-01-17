@@ -31,8 +31,7 @@ abstract class AbstractWebhookStrategy
     /**
      * Constructor.
      *
-     * @param \Kreta\Component\VCS\Serializer\Registry\Interfaces\SerializerRegistryInterface $serializerRegistry Serializer
-     *                                                                                                            registry.
+     * @param SerializerRegistryInterface $serializerRegistry Serializer
      */
     public function __construct(SerializerRegistryInterface $serializerRegistry)
     {

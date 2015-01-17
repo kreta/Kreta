@@ -11,11 +11,11 @@
 
 namespace spec\Kreta\Component\VCS\EventListener;
 
-use Doctrine\ORM\EntityManager;
 use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
 use Kreta\Component\VCS\Event\NewBranchEvent;
 use Kreta\Component\VCS\Matcher\BranchMatcher;
 use Kreta\Component\VCS\Model\Interfaces\BranchInterface;
+use Kreta\Component\VCS\Repository\BranchRepository;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -26,9 +26,9 @@ use Prophecy\Argument;
  */
 class BranchListenerSpec extends ObjectBehavior
 {
-    function let(BranchMatcher $matcher, EntityManager $manager)
+    function let(BranchMatcher $matcher, BranchRepository $branchRepository)
     {
-        $this->beConstructedWith($matcher, $manager);
+        $this->beConstructedWith($matcher, $branchRepository);
     }
 
     function it_is_initializable()
@@ -38,7 +38,7 @@ class BranchListenerSpec extends ObjectBehavior
 
     function it_listens_to_new_branch(
         BranchMatcher $matcher,
-        EntityManager $manager,
+        BranchRepository $branchRepository,
         NewBranchEvent $event,
         BranchInterface $branch,
         IssueInterface $issue
@@ -49,8 +49,7 @@ class BranchListenerSpec extends ObjectBehavior
         $matcher->getRelatedIssues($branch)->shouldBeCalled()->willReturn([$issue]);
         $branch->setIssuesRelated([$issue])->shouldBeCalled();
 
-        $manager->persist($branch)->shouldBeCalled();
-        $manager->flush()->shouldBeCalled();
+        $branchRepository->persist($branch)->shouldBeCalled();
 
         $this->newBranch($event);
     }

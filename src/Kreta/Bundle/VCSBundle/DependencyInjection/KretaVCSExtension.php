@@ -26,12 +26,49 @@ class KretaVCSExtension extends Extension
     /**
      * {@inheritdoc}
      */
+    protected function getConfigFilesLocation()
+    {
+        return __DIR__ . '/../Resources/config';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getConfigFiles()
+    {
+        return [
+            'factories',
+            'listeners',
+            'matchers',
+            'parameters',
+            'repositories',
+            'serializers',
+            'strategies',
+            'subscribers'
+        ];
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function load(array $configs, ContainerBuilder $container)
     {
         $configuration = new Configuration();
-        $this->processConfiguration($configuration, $configs);
+        $config = $this->processConfiguration($configuration, $configs);
 
-        $loader = new Loader\YamlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
-        $loader->load('services.yml');
+        $configFiles = $this->getConfigFiles($config);
+
+        if (!empty($configFiles)) {
+            $loader = new Loader\YamlFileLoader($container, new FileLocator($this->getConfigFilesLocation()));
+            foreach ($configFiles as $configFile) {
+                if (is_array($configFile)) {
+                    if (!isset($configFile[1]) && $configFile[1]) {
+                        continue;
+                    }
+                    $configFile = $configFile[0];
+                }
+                $loader->load($configFile . '.yml');
+            }
+        }
     }
 }

@@ -26,15 +26,6 @@ interface BranchInterface
     public function getId();
 
     /**
-     * Sets id.
-     *
-     * @param string $id The id
-     *
-     * @return $this self Object
-     */
-    public function setId($id);
-
-    /**
      * Gets name.
      *
      * @return string

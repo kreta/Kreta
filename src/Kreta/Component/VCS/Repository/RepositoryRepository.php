@@ -53,5 +53,5 @@ class RepositoryRepository extends EntityRepository
     {
         return 'r';
     }
-} 
+}
 

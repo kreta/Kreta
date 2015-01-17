@@ -11,11 +11,11 @@
 
 namespace spec\Kreta\Component\VCS\EventListener;
 
-use Doctrine\ORM\EntityManager;
 use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
 use Kreta\Component\VCS\Event\NewCommitEvent;
 use Kreta\Component\VCS\Matcher\CommitMatcher;
 use Kreta\Component\VCS\Model\Interfaces\CommitInterface;
+use Kreta\Component\VCS\Repository\CommitRepository;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -26,9 +26,9 @@ use Prophecy\Argument;
  */
 class CommitListenerSpec extends ObjectBehavior
 {
-    function let(CommitMatcher $matcher, EntityManager $manager)
+    function let(CommitMatcher $matcher, CommitRepository $commitRepository)
     {
-        $this->beConstructedWith($matcher, $manager);
+        $this->beConstructedWith($matcher, $commitRepository);
     }
 
     function it_is_initializable()
@@ -38,7 +38,7 @@ class CommitListenerSpec extends ObjectBehavior
 
     function it_listens_to_new_commit(
         CommitMatcher $matcher,
-        EntityManager $manager,
+        CommitRepository $commitRepository,
         NewCommitEvent $event,
         CommitInterface $commit,
         IssueInterface $issue
@@ -49,8 +49,7 @@ class CommitListenerSpec extends ObjectBehavior
         $matcher->getRelatedIssues($commit)->shouldBeCalled()->willReturn([$issue]);
         $commit->setIssuesRelated([$issue])->shouldBeCalled();
 
-        $manager->persist($commit)->shouldBeCalled();
-        $manager->flush()->shouldBeCalled();
+        $commitRepository->persist($commit)->shouldBeCalled();
 
         $this->newCommit($event);
     }

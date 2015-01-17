@@ -30,7 +30,7 @@ class IssueStateMachine extends StateMachine
     protected $statuses;
 
     /**
-     * The statuses.
+     * The transitions.
      *
      * @var \Kreta\Component\Workflow\Model\Interfaces\StatusTransitionInterface[]
      */
@@ -39,7 +39,7 @@ class IssueStateMachine extends StateMachine
     /**
      * Loads a issue state machine.
      *
-     * @param \Kreta\Component\Issue\Model\Interfaces\IssueInterface                  $issue      The issue
+     * @param \Kreta\Component\Issue\Model\Interfaces\IssueInterface                 $issue      The issue
      * @param \Kreta\Component\Workflow\Model\Interfaces\StatusInterface[]           $statuses   A collection of
      *                                                                                           statuses
      * @param \Kreta\Component\Workflow\Model\Interfaces\StatusTransitionInterface[] transitions A collection of
@@ -67,12 +67,14 @@ class IssueStateMachine extends StateMachine
      */
     private function createLoader()
     {
-        return new ArrayLoader([
-            'class'         => 'Issue',
-            'property_path' => 'status',
-            'states'        => $this->getStates(),
-            'transitions'   => $this->getTransitions()
-        ]);
+        return new ArrayLoader(
+            [
+                'class'         => 'Issue',
+                'property_path' => 'status',
+                'states'        => $this->getStates(),
+                'transitions'   => $this->getTransitions()
+            ]
+        );
     }
 
     /**

@@ -44,9 +44,9 @@ class Repository implements RepositoryInterface
     protected $projects;
 
     /**
-     * The provider.
+     * The provider. For example 'github'.
      *
-     * @var \Kreta\Component\Project\Model\Interfaces\ProjectInterface
+     * @var string
      */
     protected $provider;
 
@@ -71,16 +71,6 @@ class Repository implements RepositoryInterface
     public function getId()
     {
         return $this->id;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setId($id)
-    {
-        $this->id = $id;
-
-        return $this;
     }
 
     /**

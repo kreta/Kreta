@@ -31,10 +31,9 @@ class CommitSpec extends ObjectBehavior
         $this->shouldImplement('Kreta\Component\VCS\Model\Interfaces\CommitInterface');
     }
 
-    function its_id_is_mutable()
+    function it_does_not_have_id_by_default()
     {
-        $this->setId('1122')->shouldReturn($this);
-        $this->getId()->shouldReturn('1122');
+        $this->getId()->shouldReturn(null);
     }
 
     function its_author_is_mutable()
