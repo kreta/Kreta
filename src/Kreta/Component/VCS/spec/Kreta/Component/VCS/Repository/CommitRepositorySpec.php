@@ -14,9 +14,10 @@ namespace spec\Kreta\Component\VCS\Repository;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\ClassMetadata;
+use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
+use Kreta\Component\Core\spec\Kreta\Component\Core\Repository\BaseEntityRepository;
 use Kreta\Component\VCS\Model\Interfaces\CommitInterface;
-use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
 /**
@@ -24,7 +25,7 @@ use Prophecy\Argument;
  *
  * @package spec\Kreta\Component\VCS\Repository
  */
-class CommitRepositorySpec extends ObjectBehavior
+class CommitRepositorySpec extends BaseEntityRepository
 {
     function let(EntityManager $manager, ClassMetadata $classMetadata)
     {
@@ -36,28 +37,42 @@ class CommitRepositorySpec extends ObjectBehavior
         $this->shouldHaveType('Kreta\Component\VCS\Repository\CommitRepository');
     }
 
-    function it_extends_entity_repository()
+    function it_extends_kreta_entity_repository()
     {
-        $this->shouldHaveType('Doctrine\ORM\EntityRepository');
+        $this->shouldHaveType('Kreta\Component\Core\Repository\EntityRepository');
     }
 
     function it_finds_by_issue(
         EntityManager $manager,
         QueryBuilder $queryBuilder,
+        Expr $expr,
+        Expr\Comparison $comparison,
         AbstractQuery $query,
         CommitInterface $commit
     )
     {
-        $manager->createQueryBuilder()->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->select('c')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->from(Argument::any(), 'c')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->innerJoin('c.issuesRelated', 'ri', 'WITH', 'ri.id = :issueId')
-            ->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->setParameter('issueId', '1111')->shouldBeCalled()->willReturn($queryBuilder);
-
+        $queryBuilder = $this->getQueryBuilderSpec($manager, $queryBuilder);
+        $this->addCriteriaSpec($queryBuilder, $expr, ['ir.id' => 'issue-id'], $comparison);
         $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
         $query->getResult()->shouldBeCalled()->willReturn([$commit]);
 
-        $this->findByIssue('1111')->shouldReturn([$commit]);
+        $this->findByIssue('issue-id')->shouldReturn([$commit]);
+    }
+
+    protected function getQueryBuilderSpec(EntityManager $manager, QueryBuilder $queryBuilder)
+    {
+        $manager->createQueryBuilder()->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->select('c')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->addSelect(['b', 'ir'])->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->from(Argument::any(), 'c')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->innerJoin('c.branch', 'b')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->innerJoin('c.issuesRelated', 'ir')->shouldBeCalled()->willReturn($queryBuilder);
+
+        return $queryBuilder;
+    }
+
+    protected function getAlias()
+    {
+        return 'c';
     }
 }

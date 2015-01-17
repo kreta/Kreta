@@ -46,7 +46,7 @@ class Repository implements RepositoryInterface
     /**
      * The provider.
      *
-     * @var string
+     * @var \Kreta\Component\Project\Model\Interfaces\ProjectInterface
      */
     protected $provider;
 

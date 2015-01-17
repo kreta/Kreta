@@ -37,9 +37,9 @@ class Commit implements CommitInterface
     protected $author;
 
     /**
-     * The branch name.
+     * The branch.
      *
-     * @var string
+     * @var \Kreta\Component\VCS\Model\Interfaces\BranchInterface
      */
     protected $branch;
 

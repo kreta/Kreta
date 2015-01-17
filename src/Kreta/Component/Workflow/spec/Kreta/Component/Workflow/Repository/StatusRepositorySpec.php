@@ -38,7 +38,7 @@ class StatusRepositorySpec extends BaseEntityRepository
         $this->shouldHaveType('Kreta\Component\Workflow\Repository\StatusRepository');
     }
 
-    function it_extends_kretas_entity_repository()
+    function it_extends_kreta_entity_repository()
     {
         $this->shouldHaveType('Kreta\Component\Core\Repository\EntityRepository');
     }

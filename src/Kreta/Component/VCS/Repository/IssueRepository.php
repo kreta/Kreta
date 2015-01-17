@@ -12,6 +12,7 @@
 namespace Kreta\Component\VCS\Repository;
 
 use Doctrine\ORM\EntityManager;
+use Kreta\Component\Core\Repository\Traits\QueryBuilderTrait;
 use Kreta\Component\VCS\Model\Interfaces\RepositoryInterface;
 
 /**
@@ -21,6 +22,8 @@ use Kreta\Component\VCS\Model\Interfaces\RepositoryInterface;
  */
 class IssueRepository
 {
+    use QueryBuilderTrait;
+
     /**
      * The entity manager.
      *
@@ -62,7 +65,7 @@ class IssueRepository
      * @param  string                                                   $shortName  The short name
      * @param  string                                                   $numericId  The numeric id
      *
-     * @return array
+     * @return \Kreta\Component\Issue\Model\Interfaces\IssueInterface[]
      */
     public function findRelatedIssuesByRepository(RepositoryInterface $repository, $shortName, $numericId)
     {
@@ -71,15 +74,14 @@ class IssueRepository
             $repositoryIds[] = $project->getId();
         }
 
-        $queryBuilder = $this->repository->createQueryBuilder('i');
+        $queryBuilder = $this->repository->createQueryBuilder('i')
+            ->leftJoin('i.project', 'p');
+        $this->addCriteria($queryBuilder, [
+                'in'          => ['i.project' => $repositoryIds],
+                'p.shortName' => $shortName, 'i.numericId' => $numericId
+            ]
+        );
 
-        return $queryBuilder
-            ->leftJoin('i.project', 'p')
-            ->where($queryBuilder->expr()->in('i.project', $repositoryIds))
-            ->andWhere('p.shortName = :shortName')
-            ->andWhere('i.numericId = :numericId')
-            ->setParameter('shortName', $shortName)
-            ->setParameter('numericId', $numericId)
-            ->getQuery()->getResult();
+        return $queryBuilder->getQuery()->getResult();
     }
 }

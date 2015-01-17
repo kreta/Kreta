@@ -85,16 +85,18 @@ class IssueControllerSpec extends BaseRestController
         $paramFetcher->get('status')->shouldBeCalled()->willReturn('done');
         $paramFetcher->get('type')->shouldBeCalled()->willReturn(1);
 
-        $issueRepository->findByProject(
-            $project,
+        $issueRepository->findBy(
             [
-                'title'     => 'title-filter',
-                'a.email'   => 'user@kreta.com',
-                'rep.email' => 'user@kreta.com',
-                'w.email'   => 'user@kreta.com',
-                'priority'  => 0,
-                's.name'    => 'done',
-                'type'      => 1
+                'project' => $project,
+                'like' => [
+                    'title'     => 'title-filter',
+                    'a.email'   => 'user@kreta.com',
+                    'rep.email' => 'user@kreta.com',
+                    'w.email'   => 'user@kreta.com',
+                    'priority'  => 0,
+                    's.name'    => 'done',
+                    'type'      => 1
+                ]
             ],
             ['createdAt' => 'ASC'],
             10,

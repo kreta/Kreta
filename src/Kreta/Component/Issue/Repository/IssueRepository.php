@@ -13,9 +13,7 @@ namespace Kreta\Component\Issue\Repository;
 
 use Finite\State\StateInterface;
 use Kreta\Component\Core\Repository\EntityRepository;
-use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
-use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
 
 /**
  * Class IssueRepository.
@@ -25,62 +23,23 @@ use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
 class IssueRepository extends EntityRepository
 {
     /**
-     * Finds all the issues of project given.
-     * Can do ordering, limit and offset.
-     *
-     * Furthermore, it can filter by issue title, assignee, reporter, watcher, priority, status and type.
-     *
-     * @param \Kreta\Component\Project\Model\Interfaces\ProjectInterface $project The project
-     * @param array                                                      $filters Array which contains all the filters
-     *                                                                            for search the results in the query
-     * @param string[]                                                   $sorting Array which contains the sorting
-     * @param int                                                        $limit   The limit
-     * @param int                                                        $offset  The offset
-     *
-     * @return \Kreta\Component\Issue\Model\Interfaces\IssueInterface[]
-     */
-    public function findByProject(
-        ProjectInterface $project,
-        array $filters = [],
-        array $sorting = [],
-        $limit = null,
-        $offset = null
-    )
-    {
-        $queryBuilder = $this->getQueryBuilder();
-        $this->addCriteria($queryBuilder, ['project' => $project]);
-        $this->addCriteria($queryBuilder, $filters, false);
-        $this->orderBy($queryBuilder, $sorting);
-        if ($limit) {
-            $queryBuilder->setMaxResults($limit);
-        }
-        if ($offset) {
-            $queryBuilder->setFirstResult($offset);
-        }
-
-        return $queryBuilder->getQuery()->getResult();
-    }
-
-    /**
      * Finds all the issues of assignee given.
      *
      * @param \Kreta\Component\User\Model\Interfaces\UserInterface $assignee The assignee
      * @param array                                                $orderBy  Fields and strategy to order issues
-     * @param bool                                                 $onlyOpen Shows only open issues
+     * @param boolean                                              $onlyOpen Shows only open issues
      *
      * @return \Kreta\Component\Issue\Model\Interfaces\IssueInterface[]
      */
     public function findByAssignee(UserInterface $assignee, array $orderBy, $onlyOpen = false)
     {
-        $queryBuilder = $this->getQueryBuilder();
-        $this->addCriteria($queryBuilder, ['assignee' => $assignee]);
         if ($onlyOpen) {
-            $queryBuilder->andWhere($queryBuilder->expr()->neq('s.type', ':statusType'))
-                ->setParameter('statusType', StateInterface::TYPE_FINAL);
+            return $this->findBy(
+                ['assignee' => $assignee, 'neq' => ['s.type' => StateInterface::TYPE_FINAL]], $orderBy
+            );
         }
-        $queryBuilder = $this->orderBy($queryBuilder, $orderBy);
 
-        return $queryBuilder->getQuery()->getResult();
+        return $this->findBy(['assignee' => $assignee], $orderBy);
     }
 
     /**
@@ -93,25 +52,7 @@ class IssueRepository extends EntityRepository
      */
     public function findOneByShortCode($projectShortName, $issueNumber)
     {
-        $queryBuilder = $this->getQueryBuilder();
-        $this->addCriteria($queryBuilder, ['numericId' => $issueNumber, 'p.shortName' => $projectShortName]);
-
-        return $queryBuilder->getQuery()->getOneOrNullResult();
-    }
-
-    /**
-     * Finds all the issues of workflow given.
-     *
-     * @param \Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface $workflow The workflow
-     *
-     * @return \Kreta\Component\Issue\Model\Interfaces\IssueInterface[]
-     */
-    public function findByWorkflow(WorkflowInterface $workflow)
-    {
-        $queryBuilder = $this->getQueryBuilder();
-        $this->addCriteria($queryBuilder, ['p.workflow' => $workflow]);
-
-        return $queryBuilder->getQuery()->getResult();
+        return $this->findOneBy(['numericId' => $issueNumber, 'p.shortName' => $projectShortName]);
     }
 
     /**

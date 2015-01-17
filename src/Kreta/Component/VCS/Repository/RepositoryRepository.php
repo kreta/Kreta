@@ -11,7 +11,7 @@
 
 namespace Kreta\Component\VCS\Repository;
 
-use Doctrine\ORM\EntityRepository;
+use Kreta\Component\Core\Repository\EntityRepository;
 
 /**
  * Class RepositoryRepository.
@@ -29,12 +29,29 @@ class RepositoryRepository extends EntityRepository
      */
     public function findByIssue($issueId)
     {
-        $queryBuilder = $this->createQueryBuilder('r');
-        $queryBuilder->leftJoin('r.projects', 'p')
-            ->leftJoin('p.issues', 'i')
-            ->where('i.id = :issueId')
-            ->setParameter('issueId', $issueId);
+        $queryBuilder = $this->getQueryBuilder();
+        $queryBuilder->leftJoin('p.issues', 'i');
+        $this->addCriteria($queryBuilder, ['i.id' => $issueId]);
 
         return $queryBuilder->getQuery()->getResult();
     }
-}
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getQueryBuilder()
+    {
+        return parent::getQueryBuilder()
+            ->addSelect(['p'])
+            ->leftJoin('r.projects', 'p');
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getAlias()
+    {
+        return 'r';
+    }
+} 
+

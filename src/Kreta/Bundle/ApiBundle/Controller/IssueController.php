@@ -67,16 +67,18 @@ class IssueController extends RestController
      */
     public function getIssuesAction($projectId, ParamFetcher $paramFetcher)
     {
-        return $this->get('kreta_issue.repository.issue')->findByProject(
-            $this->getProjectIfAllowed($projectId),
+        return $this->get('kreta_issue.repository.issue')->findBy(
             [
-                'title'     => $paramFetcher->get('q'),
-                'a.email'   => $paramFetcher->get('assignee'),
-                'rep.email' => $paramFetcher->get('reporter'),
-                'w.email'   => $paramFetcher->get('watcher'),
-                'priority'  => $paramFetcher->get('priority'),
-                's.name'    => strtolower($paramFetcher->get('status')),
-                'type'      => $paramFetcher->get('type')
+                'project' => $this->getProjectIfAllowed($projectId),
+                'like' => [
+                    'title'     => $paramFetcher->get('q'),
+                    'a.email'   => $paramFetcher->get('assignee'),
+                    'rep.email' => $paramFetcher->get('reporter'),
+                    'w.email'   => $paramFetcher->get('watcher'),
+                    'priority'  => $paramFetcher->get('priority'),
+                    's.name'    => strtolower($paramFetcher->get('status')),
+                    'type'      => $paramFetcher->get('type')
+                ]
             ],
             [$paramFetcher->get('sort') => 'ASC'],
             $paramFetcher->get('limit'),

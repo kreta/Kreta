@@ -16,9 +16,9 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
+use Kreta\Component\Core\spec\Kreta\Component\Core\Repository\BaseEntityRepository;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use Kreta\Component\Notification\Model\Interfaces\NotificationInterface;
-use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
 /**
@@ -26,7 +26,7 @@ use Prophecy\Argument;
  *
  * @package spec\Kreta\Component\Notification\Repository
  */
-class NotificationRepositorySpec extends ObjectBehavior
+class NotificationRepositorySpec extends BaseEntityRepository
 {
     function let(EntityManager $manager, ClassMetadata $classMetadata)
     {
@@ -40,7 +40,7 @@ class NotificationRepositorySpec extends ObjectBehavior
 
     function it_extends_kreta_entity_repository()
     {
-        $this->shouldHaveType('Doctrine\ORM\EntityRepository');
+        $this->shouldHaveType('Kreta\Component\Core\Repository\EntityRepository');
     }
 
     function it_gets_users_unread_notification_count(
@@ -52,22 +52,12 @@ class NotificationRepositorySpec extends ObjectBehavior
         AbstractQuery $query
     )
     {
-        $manager->createQueryBuilder()->shouldBeCalled()->willReturn($queryBuilder);
-
+        $queryBuilder = $this->getQueryBuilderSpec($manager, $queryBuilder);
         $queryBuilder->select('count(n.id)')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->from(Argument::any(), 'n')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->expr()->shouldBeCalled()->willReturn($expr);
-        $expr->eq('n.user', ':userId')->shouldBeCalled()->willReturn($comparison);
-        $queryBuilder->where($comparison)->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->expr()->shouldBeCalled()->willReturn($expr);
-        $expr->eq('n.read', ':read')->shouldBeCalled()->willReturn($comparison);
-        $queryBuilder->andWhere($comparison)->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->setParameter(':userId', '231231')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->setParameter(':read', false)->shouldBeCalled()->willReturn($queryBuilder);
+        $this->addCriteriaSpec($queryBuilder, $expr, ['user' => $user], $comparison);
+        $this->addCriteriaSpec($queryBuilder, $expr, ['read' => false], $comparison);
         $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
         $query->getSingleScalarResult()->shouldBeCalled()->willReturn(2);
-
-        $user->getId()->shouldBeCalled()->willReturn('231231');
 
         $this->getUsersUnreadNotificationsCount($user)->shouldReturn(2);
     }
@@ -82,22 +72,29 @@ class NotificationRepositorySpec extends ObjectBehavior
         NotificationInterface $notification
     )
     {
-        $manager->createQueryBuilder()->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->select('n')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->from(Argument::any(), 'n')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->expr()->shouldBeCalled()->willReturn($expr);
-        $expr->eq('n.user', ':userId')->shouldBeCalled()->willReturn($comparison);
-        $queryBuilder->where($comparison)->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->expr()->shouldBeCalled()->willReturn($expr);
-        $expr->eq('n.read', ':read')->shouldBeCalled()->willReturn($comparison);
-        $queryBuilder->andWhere($comparison)->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->orderBy('n.date', 'desc')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->setParameter(':userId', '222')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->setParameter(':read', false)->shouldBeCalled()->willReturn($queryBuilder);
+        $this->getQueryBuilderSpec($manager, $queryBuilder);
+        $this->addCriteriaSpec($queryBuilder, $expr, ['user' => $user], $comparison);
+        $this->addCriteriaSpec($queryBuilder, $expr, ['read' => false], $comparison);
         $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
         $query->getResult()->shouldBeCalled()->willReturn([$notification]);
-        $user->getId()->shouldBeCalled()->willReturn('222');
 
         $this->findAllUnreadByUser($user)->shouldReturn([$notification]);
+    }
+
+    protected function getQueryBuilderSpec(EntityManager $manager, QueryBuilder $queryBuilder)
+    {
+        $manager->createQueryBuilder()->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->select('n')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->addSelect(['p', 'u'])->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->from(Argument::any(), 'n')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->join('n.project', 'p')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->join('n.user', 'u')->shouldBeCalled()->willReturn($queryBuilder);
+
+        return $queryBuilder;
+    }
+
+    protected function getAlias()
+    {
+        return 'n';
     }
 }

@@ -18,9 +18,7 @@ use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
 use Kreta\Component\Core\spec\Kreta\Component\Core\Repository\BaseEntityRepository;
 use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
-use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
-use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
 use Prophecy\Argument;
 
 /**
@@ -43,30 +41,6 @@ class IssueRepositorySpec extends BaseEntityRepository
     function it_extends_kretas_entity_repository()
     {
         $this->shouldHaveType('Kreta\Component\Core\Repository\EntityRepository');
-    }
-
-    function it_finds_by_project(
-        ProjectInterface $project,
-        EntityManager $manager,
-        QueryBuilder $queryBuilder,
-        Expr $expr,
-        Expr\Comparison $comparison,
-        AbstractQuery $query,
-        IssueInterface $issue
-    )
-    {
-        $queryBuilder = $this->getQueryBuilderSpec($manager, $queryBuilder);
-        $this->addCriteriaSpec($queryBuilder, $expr, ['project' => $project], $comparison);
-        $this->addCriteriaSpec($queryBuilder, $expr, ['title' => 'project name'], $comparison, 'like');
-        $this->orderBySpec($queryBuilder, ['title' => 'DESC']);
-        $queryBuilder->setMaxResults(10)->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->setFirstResult(1)->shouldBeCalled()->willReturn($queryBuilder);
-
-        $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
-        $query->getResult()->shouldBeCalled()->willReturn([$issue]);
-
-        $this->findByProject($project, ['title' => 'project name'], ['title' => 'DESC'], 10, 1)
-            ->shouldReturn([$issue]);
     }
 
     function it_finds_by_assignee(
@@ -99,12 +73,8 @@ class IssueRepositorySpec extends BaseEntityRepository
     )
     {
         $this->getQueryBuilderSpec($manager, $queryBuilder);
-        $this->addCriteriaSpec($queryBuilder, $expr, ['assignee' => $assignee], $comparison);
-
-        $queryBuilder->expr()->shouldBeCalled()->willReturn($expr);
-        $expr->neq('s.type', ':statusType')->shouldBeCalled()->willReturn($comparison);
-        $queryBuilder->andWhere($comparison)->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->setParameter('statusType', 'final')->shouldBeCalled()->willReturn($queryBuilder);
+        $this->addEqCriteriaSpec($queryBuilder, $expr, ['assignee' => $assignee], $comparison);
+        $this->addNeqCriteriaSpec($queryBuilder, $expr, ['s.type' => 'final'], $comparison);
 
         $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
         $query->getResult()->shouldBeCalled()->willReturn([$issue]);
@@ -122,30 +92,12 @@ class IssueRepositorySpec extends BaseEntityRepository
     )
     {
         $this->getQueryBuilderSpec($manager, $queryBuilder);
-        $this->addCriteriaSpec($queryBuilder, $expr, ['numericId' => 42], $comparison);
-        $this->addCriteriaSpec($queryBuilder, $expr, ['p.shortName' => 'KRT'], $comparison);
+        $this->addEqCriteriaSpec($queryBuilder, $expr, ['numericId' => 42], $comparison);
+        $this->addEqCriteriaSpec($queryBuilder, $expr, ['p.shortName' => 'KRT'], $comparison);
         $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
         $query->getOneOrNullResult()->shouldBeCalled()->willReturn($issue);
 
         $this->findOneByShortCode('KRT', 42)->shouldReturn($issue);
-    }
-
-    function it_finds_by_workflow(
-        WorkflowInterface $workflow,
-        EntityManager $manager,
-        QueryBuilder $queryBuilder,
-        Expr $expr,
-        Expr\Comparison $comparison,
-        AbstractQuery $query,
-        IssueInterface $issue
-    )
-    {
-        $queryBuilder = $this->getQueryBuilderSpec($manager, $queryBuilder);
-        $this->addCriteriaSpec($queryBuilder, $expr, ['p.workflow' => $workflow], $comparison);
-        $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
-        $query->getResult()->shouldBeCalled()->willReturn([$issue]);
-
-        $this->findByWorkflow($workflow)->shouldReturn([$issue]);
     }
 
     protected function getQueryBuilderSpec(EntityManager $manager, QueryBuilder $queryBuilder)

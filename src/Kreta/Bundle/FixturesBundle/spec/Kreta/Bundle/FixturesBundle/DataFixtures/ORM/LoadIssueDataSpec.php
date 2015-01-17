@@ -92,7 +92,7 @@ class LoadIssueDataSpec extends ObjectBehavior
         $statusRepository->findBy(['workflow' => $workflow])->shouldBeCalled()->willReturn([$status]);
 
         $container->get('kreta_project.repository.participant')->shouldBeCalled()->willReturn($participantRepository);
-        $participantRepository->findByProject($project)->shouldBeCalled()->willReturn([$participant]);
+        $participantRepository->findBy(['project' => $project])->shouldBeCalled()->willReturn([$participant]);
         $participant->getUser()->shouldBeCalled()->willReturn($user);
 
         $container->get('kreta_issue.factory.issue')->shouldBeCalled()->willReturn($factory);

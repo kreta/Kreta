@@ -37,36 +37,77 @@ class BaseEntityRepository extends ObjectBehavior
         QueryBuilder $queryBuilder,
         Expr $expr,
         array $values,
-        Expr\Comparison $comparison,
-        $comparisonType = 'eq'
+        Expr\Comparison $comparison
+    )
+    {
+        return $this->addEqCriteriaSpec($queryBuilder, $expr, $values, $comparison);
+    }
+
+    protected function addEqCriteriaSpec(
+        QueryBuilder $queryBuilder,
+        Expr $expr,
+        array $values,
+        Expr\Comparison $comparison
     )
     {
         $queryBuilder->expr()->shouldBeCalled()->willReturn($expr);
-        switch ($comparisonType) {
-            case 'isNull':
-                $expr->isNull($this->getPropertyNameSpec(key($values)))->shouldBeCalled()->willReturn($comparison);
-                $queryBuilder->andWhere($comparison)->shouldBeCalled()->willReturn($queryBuilder);
-                break;
-            case 'in':
-                $expr->in($this->getPropertyNameSpec(key($values)), $values[key($values)])
-                    ->shouldBeCalled()->willReturn($comparison);
-                $queryBuilder->andWhere($comparison)->shouldBeCalled()->willReturn($queryBuilder);
-                break;
-            case 'like':
-                $expr->like($this->getPropertyNameSpec(key($values)), Argument::containingString(':likeValue'))
-                    ->shouldBeCalled()->willReturn($comparison);
-                $queryBuilder->andWhere($comparison)->shouldBeCalled()->willReturn($queryBuilder);
-                $queryBuilder->setParameter(Argument::containingString('likeValue'), '%' . $values[key($values)] . '%')
-                    ->shouldBeCalled()->willReturn($queryBuilder);
-                break;
-            default:
-                $expr->eq($this->getPropertyNameSpec(key($values)), Argument::containingString(':eqValue'))
-                    ->shouldBeCalled()->willReturn($comparison);
-                $queryBuilder->andWhere($comparison)->shouldBeCalled()->willReturn($queryBuilder);
-                $queryBuilder->setParameter(Argument::containingString('eqValue'), $values[key($values)])
-                    ->shouldBeCalled()->willReturn($queryBuilder);
-                break;
-        }
+        $expr->eq($this->getPropertyNameSpec(key($values)), Argument::containingString(':eqValue'))
+            ->shouldBeCalled()->willReturn($comparison);
+        $queryBuilder->andWhere($comparison)->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->setParameter(Argument::containingString('eqValue'), $values[key($values)])
+            ->shouldBeCalled()->willReturn($queryBuilder);
+
+        return $queryBuilder;
+    }
+
+    protected function addNeqCriteriaSpec(
+        QueryBuilder $queryBuilder,
+        Expr $expr,
+        array $values,
+        Expr\Comparison $comparison
+    )
+    {
+        $queryBuilder->expr()->shouldBeCalled()->willReturn($expr);
+        $expr->neq($this->getPropertyNameSpec(key($values)), Argument::containingString(':neqValue'))
+            ->shouldBeCalled()->willReturn($comparison);
+        $queryBuilder->andWhere($comparison)->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->setParameter(Argument::containingString('neqValue'), $values[key($values)])
+            ->shouldBeCalled()->willReturn($queryBuilder);
+
+        return $queryBuilder;
+    }
+
+    protected function addLikeCriteriaSpec(
+        QueryBuilder $queryBuilder,
+        Expr $expr,
+        array $values,
+        Expr\Comparison $comparison
+    )
+    {
+        $queryBuilder->expr()->shouldBeCalled()->willReturn($expr);
+        $expr->like($this->getPropertyNameSpec(key($values)), Argument::containingString(':likeValue'))
+            ->shouldBeCalled()->willReturn($comparison);
+        $queryBuilder->andWhere($comparison)->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->setParameter(Argument::containingString('likeValue'), '%' . $values[key($values)] . '%')
+            ->shouldBeCalled()->willReturn($queryBuilder);
+
+        return $queryBuilder;
+    }
+
+    protected function addIsNullCriteriaSpec(QueryBuilder $queryBuilder, Expr $expr, $property)
+    {
+        $queryBuilder->expr()->shouldBeCalled()->willReturn($expr);
+        $expr->isNull($this->getPropertyNameSpec($property))->shouldBeCalled()->willReturn('kreta.property IS NULL');
+        $queryBuilder->andWhere('kreta.property IS NULL')->shouldBeCalled()->willReturn($queryBuilder);
+
+        return $queryBuilder;
+    }
+
+    protected function addInCriteriaSpec(QueryBuilder $queryBuilder, Expr $expr, Expr\Func $func, array $values)
+    {
+        $queryBuilder->expr()->shouldBeCalled()->willReturn($expr);
+        $expr->in($this->getPropertyNameSpec(key($values)), $values[key($values)])->shouldBeCalled()->willReturn($func);
+        $queryBuilder->andWhere($func)->shouldBeCalled()->willReturn($queryBuilder);
 
         return $queryBuilder;
     }

@@ -38,12 +38,12 @@ class ProjectRepositorySpec extends BaseEntityRepository
         $this->shouldHaveType('Kreta\Component\Project\Repository\ProjectRepository');
     }
 
-    function it_extends_kretas_entity_repository()
+    function it_extends_kreta_entity_repository()
     {
         $this->shouldHaveType('Kreta\Component\Core\Repository\EntityRepository');
     }
 
-    function it_finds_by_project(
+    function it_finds_by_participant(
         ProjectInterface $project,
         UserInterface $user,
         EntityManager $manager,

@@ -34,17 +34,7 @@ class ProjectRepository extends EntityRepository
      */
     public function findByParticipant(UserInterface $user, array $sorting = [], $limit = null, $offset = null)
     {
-        $queryBuilder = $this->getQueryBuilder();
-        $this->addCriteria($queryBuilder, ['par.user' => $user]);
-        $this->orderBy($queryBuilder, $sorting);
-        if ($limit) {
-            $queryBuilder->setMaxResults($limit);
-        }
-        if ($offset) {
-            $queryBuilder->setFirstResult($offset);
-        }
-
-        return $queryBuilder->getQuery()->getResult();
+        return $this->findBy(['par.user' => $user], $sorting, $limit, $offset);
     }
 
     /**
