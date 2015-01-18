@@ -118,9 +118,7 @@ trait QueryBuilderTrait
 
         if (null !== $value && '' !== $value) {
             $queryBuilder
-                ->andWhere($queryBuilder->expr()->like(
-                    $this->getPropertyName($property), ':likeValue' . $rand)
-                )
+                ->andWhere($queryBuilder->expr()->like($this->getPropertyName($property), ':likeValue' . $rand))
                 ->setParameter('likeValue' . $rand, '%' . $value . '%');
         }
 
