@@ -99,9 +99,6 @@ To run [Behat][5] tests run the following
     $ sh scripts/pre_behat.sh
     $ bin/behat
 
-If you want to check the **code-coverage** of previous tests, PHPSpec generates them by default. To activate the Behat code-coverage you have to uncomment the lines of `behat.yml` file.
-
-
 Contributing
 ------------
 
@@ -117,6 +114,9 @@ If you would like to contribute it is a good point to follow Symfony contributio
 so please read the [Contributing Code][2] in the project
 documentation. If you are submitting a pull request, please follow the guidelines
 in the [Submitting a Patch][3] section and use the [Pull Request Template][4].
+
+If you have any doubt or maybe you want to share some opinion, you can use our **Gitter chat**.
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/kreta-io/kreta?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 [1]: http://www.phpspec.net/
 [2]: http://symfony.com/doc/current/contributing/code/index.html
