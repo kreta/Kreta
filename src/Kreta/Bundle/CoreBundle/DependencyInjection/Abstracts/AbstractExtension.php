@@ -33,7 +33,7 @@ abstract class AbstractExtension extends Extension
     /**
      * Gets the Configuration instance.
      *
-     * @return string
+     * @return \Symfony\Component\Config\Definition\ConfigurationInterface
      */
     abstract protected function getConfigurationInstance();
 
@@ -53,19 +53,14 @@ abstract class AbstractExtension extends Extension
     public function load(array $configs, ContainerBuilder $container)
     {
         $configuration = $this->getConfigurationInstance();
-        $config = $this->processConfiguration($configuration, $configs);
 
-        $configFiles = $this->getConfigFiles($config);
+        $this->processConfiguration($configuration, $configs);
+
+        $configFiles = $this->getConfigFiles();
 
         if (!empty($configFiles)) {
             $loader = new Loader\YamlFileLoader($container, new FileLocator($this->getConfigFilesLocation()));
             foreach ($configFiles as $configFile) {
-                if (is_array($configFile)) {
-                    if (!isset($configFile[1]) && $configFile[1]) {
-                        continue;
-                    }
-                    $configFile = $configFile[0];
-                }
                 $loader->load($configFile . '.yml');
             }
         }

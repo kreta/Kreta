@@ -9,20 +9,17 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\Bundle\NotificationBundle\DependencyInjection;
+namespace Kreta\Bundle\CoreBundle\Stubs;
 
 use Kreta\Bundle\CoreBundle\DependencyInjection\Abstracts\AbstractExtension;
-use Symfony\Component\DependencyInjection\Loader;
+use Sensio\Bundle\FrameworkExtraBundle\DependencyInjection\Configuration;
 
-/**
- * Class KretaNotificationExtension.
- *
- * @package Kreta\Bundle\NotificationBundle\DependencyInjection
- */
-class KretaNotificationExtension extends AbstractExtension
+class AbstractExtensionStub extends AbstractExtension
 {
     /**
-     * {@inheritdoc}
+     * Gets the Config file location.
+     *
+     * @return string
      */
     protected function getConfigFilesLocation()
     {
@@ -30,18 +27,12 @@ class KretaNotificationExtension extends AbstractExtension
     }
 
     /**
-     * {@inheritdoc}
+     * Gets the Configuration instance.
+     *
+     * @return \Symfony\Component\Config\Definition\ConfigurationInterface
      */
     protected function getConfigurationInstance()
     {
         return new Configuration();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getConfigFiles()
-    {
-        return ['events', 'factories', 'notifiers', 'parameters', 'repositories', 'subscribers'];
     }
 }

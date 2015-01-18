@@ -9,21 +9,16 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace spec\Kreta\Bundle\VCSBundle\DependencyInjection;
+namespace spec\Kreta\Bundle\IssueBundle\DependencyInjection;
 
 use PhpSpec\ObjectBehavior;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-/**
- * Class KretaVCSExtensionSpec.
- *
- * @package spec\Kreta\Bundle\VCSBundle\DependencyInjection
- */
-class KretaVCSExtensionSpec extends ObjectBehavior
+class KretaIssueExtensionSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('Kreta\Bundle\VCSBundle\DependencyInjection\KretaVCSExtension');
+        $this->shouldHaveType('Kreta\Bundle\IssueBundle\DependencyInjection\KretaIssueExtension');
     }
 
     function it_loads(ContainerBuilder $container)
