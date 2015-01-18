@@ -36,9 +36,4 @@ class KretaNotificationExtensionSpec extends ObjectBehavior
     {
         $this->load([], $container);
     }
-
-    function it_gets_alias()
-    {
-        $this->getAlias()->shouldReturn('kreta_notification');
-    }
 }
