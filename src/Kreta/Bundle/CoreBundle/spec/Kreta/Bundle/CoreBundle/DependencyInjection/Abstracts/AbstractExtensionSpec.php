@@ -11,11 +11,15 @@
 
 namespace spec\Kreta\Bundle\CoreBundle\DependencyInjection\Abstracts;
 
-
 use PhpSpec\ObjectBehavior;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-class AbstactExtensionSpec extends ObjectBehavior
+/**
+ * Class AbstractExtensionSpec.
+ *
+ * @package spec\Kreta\Bundle\CoreBundle\DependencyInjection\Abstracts
+ */
+class AbstractExtensionSpec extends ObjectBehavior
 {
     function let()
     {

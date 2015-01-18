@@ -14,6 +14,11 @@ namespace spec\Kreta\Bundle\UserBundle\DependencyInjection;
 use PhpSpec\ObjectBehavior;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
+/**
+ * Class KretaUserExtensionSpec.
+ *
+ * @package spec\Kreta\Bundle\UserBundle\DependencyInjection
+ */
 class KretaUserExtensionSpec extends ObjectBehavior
 {
     function it_is_initializable()

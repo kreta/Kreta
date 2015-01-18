@@ -14,6 +14,11 @@ namespace spec\Kreta\Bundle\CommentBundle\DependencyInjection;
 use PhpSpec\ObjectBehavior;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
+/**
+ * Class KretaCommentExtensionSpec.
+ *
+ * @package spec\Kreta\Bundle\CommentBundle\DependencyInjection
+ */
 class KretaCommentExtensionSpec extends ObjectBehavior
 {
     function it_is_initializable()

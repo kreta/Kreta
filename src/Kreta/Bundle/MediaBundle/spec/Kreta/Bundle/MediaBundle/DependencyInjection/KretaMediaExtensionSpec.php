@@ -14,6 +14,11 @@ namespace spec\Kreta\Bundle\MediaBundle\DependencyInjection;
 use PhpSpec\ObjectBehavior;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
+/**
+ * Class KretaMediaExtensionSpec.
+ *
+ * @package spec\Kreta\Bundle\MediaBundle\DependencyInjection
+ */
 class KretaMediaExtensionSpec extends ObjectBehavior
 {
     function it_is_initializable()

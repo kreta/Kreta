@@ -14,6 +14,11 @@ namespace spec\Kreta\Bundle\WorkflowBundle\DependencyInjection;
 use PhpSpec\ObjectBehavior;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
+/**
+ * Class KretaWorkflowExtensionSpec.
+ *
+ * @package spec\Kreta\Bundle\WorkflowBundle\DependencyInjection
+ */
 class KretaWorkflowExtensionSpec extends ObjectBehavior
 {
     function it_is_initializable()

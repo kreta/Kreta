@@ -41,6 +41,6 @@ class KretaCommentExtension extends AbstractExtension
      */
     protected function getConfigFiles()
     {
-        return ['services', 'factories', 'parameters', 'repositories'];
+        return ['factories', 'handlers', 'parameters', 'repositories'];
     }
 }

@@ -14,12 +14,15 @@ namespace Kreta\Bundle\CoreBundle\Stubs;
 use Kreta\Bundle\CoreBundle\DependencyInjection\Abstracts\AbstractExtension;
 use Sensio\Bundle\FrameworkExtraBundle\DependencyInjection\Configuration;
 
+/**
+ * Class AbstractExtensionStub.
+ *
+ * @package Kreta\Bundle\CoreBundle\Stubs
+ */
 class AbstractExtensionStub extends AbstractExtension
 {
     /**
-     * Gets the Config file location.
-     *
-     * @return string
+     * {@inheritdoc}
      */
     protected function getConfigFilesLocation()
     {
@@ -27,9 +30,7 @@ class AbstractExtensionStub extends AbstractExtension
     }
 
     /**
-     * Gets the Configuration instance.
-     *
-     * @return \Symfony\Component\Config\Definition\ConfigurationInterface
+     * {@inheritdoc}
      */
     protected function getConfigurationInstance()
     {
