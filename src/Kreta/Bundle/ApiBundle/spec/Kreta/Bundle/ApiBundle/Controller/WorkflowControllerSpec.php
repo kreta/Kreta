@@ -57,7 +57,12 @@ class WorkflowControllerSpec extends BaseRestController
     )
     {
         $container->get('kreta_workflow.repository.workflow')->shouldBeCalled()->willReturn($workflowRepository);
-        $user = $this->getUserSpec($container, $context, $token, $user);
+
+        $container->has('security.context')->shouldBeCalled()->willReturn(true);
+        $container->get('security.context')->shouldBeCalled()->willReturn($context);
+        $context->getToken()->shouldBeCalled()->willReturn($token);
+        $token->getUser()->shouldBeCalled()->willReturn($user);
+        
         $paramFetcher->get('sort')->shouldBeCalled()->willReturn('createdAt');
         $paramFetcher->get('limit')->shouldBeCalled()->willReturn(10);
         $paramFetcher->get('offset')->shouldBeCalled()->willReturn(1);

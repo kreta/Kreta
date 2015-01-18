@@ -13,7 +13,6 @@ namespace Kreta\Bundle\ApiBundle\Controller;
 
 use FOS\RestBundle\Controller\FOSRestController;
 use Kreta\Component\Core\Repository\EntityRepository;
-use Kreta\Component\User\Model\Interfaces\UserInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
@@ -23,22 +22,6 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
  */
 class RestController extends FOSRestController
 {
-    /**
-     * Checks if user is authenticated returning this, otherwise throws an exception.
-     *
-     * @return \Kreta\Component\User\Model\Interfaces\UserInterface
-     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
-     */
-    public function getUser()
-    {
-        $user = parent::getUser();
-        if (!($user instanceof UserInterface)) {
-            throw new AccessDeniedException();
-        }
-
-        return $user;
-    }
-
     /**
      * Gets the project if the current user is granted and if the project exists.
      *

@@ -9,24 +9,20 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace spec\Kreta\Bundle\VCSBundle\DependencyInjection;
+namespace spec\Kreta\Bundle\CoreBundle\DependencyInjection\Abstracts;
+
 
 use PhpSpec\ObjectBehavior;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
-/**
- * Class KretaVCSExtensionSpec.
- *
- * @package spec\Kreta\Bundle\VCSBundle\DependencyInjection
- */
-class KretaVCSExtensionSpec extends ObjectBehavior
+class AbstactExtensionSpec extends ObjectBehavior
 {
-    function it_is_initializable()
+    function let()
     {
-        $this->shouldHaveType('Kreta\Bundle\VCSBundle\DependencyInjection\KretaVCSExtension');
+        $this->beAnInstanceOf('Kreta\Bundle\CoreBundle\Stubs\AbstractExtensionStub');
     }
 
-    function it_loads(ContainerBuilder $container)
+    function it_loads_config(ContainerBuilder $container)
     {
         $this->load([], $container);
     }

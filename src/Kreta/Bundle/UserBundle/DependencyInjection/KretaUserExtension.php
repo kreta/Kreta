@@ -11,22 +11,17 @@
 
 namespace Kreta\Bundle\UserBundle\DependencyInjection;
 
-use Symfony\Component\Config\FileLocator;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Extension\Extension;
-use Symfony\Component\DependencyInjection\Loader;
+use Kreta\Bundle\CoreBundle\DependencyInjection\Abstracts\AbstractExtension;
 
 /**
  * Class KretaUserExtension.
  *
  * @package Kreta\Bundle\CommentBundle\DependencyInjection
  */
-class KretaUserExtension extends Extension
+class KretaUserExtension extends AbstractExtension
 {
     /**
-     * Gets the Config file location.
-     *
-     * @return string
+     * {@inheritdoc}
      */
     protected function getConfigFilesLocation()
     {
@@ -34,36 +29,18 @@ class KretaUserExtension extends Extension
     }
 
     /**
-     * Gets array with all the config file names.
-     *
-     * @return string[]
+     * {@inheritdoc}
      */
-    protected function getConfigFiles()
+    protected function getConfigurationInstance()
     {
-        return ['services', 'factories', 'parameters', 'repositories'];
+        return new Configuration();
     }
 
     /**
      * {@inheritdoc}
      */
-    public function load(array $configs, ContainerBuilder $container)
+    protected function getConfigFiles()
     {
-        $configuration = new Configuration();
-        $config = $this->processConfiguration($configuration, $configs);
-
-        $configFiles = $this->getConfigFiles($config);
-
-        if (!empty($configFiles)) {
-            $loader = new Loader\YamlFileLoader($container, new FileLocator($this->getConfigFilesLocation()));
-            foreach ($configFiles as $configFile) {
-                if (is_array($configFile)) {
-                    if (!isset($configFile[1]) && $configFile[1]) {
-                        continue;
-                    }
-                    $configFile = $configFile[0];
-                }
-                $loader->load($configFile . '.yml');
-            }
-        }
+        return ['services', 'factories', 'parameters', 'repositories'];
     }
 }

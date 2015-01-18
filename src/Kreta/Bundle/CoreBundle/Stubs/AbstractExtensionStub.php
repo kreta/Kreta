@@ -9,38 +9,30 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\Bundle\IssueBundle\DependencyInjection;
+namespace Kreta\Bundle\CoreBundle\Stubs;
 
 use Kreta\Bundle\CoreBundle\DependencyInjection\Abstracts\AbstractExtension;
+use Sensio\Bundle\FrameworkExtraBundle\DependencyInjection\Configuration;
 
-/**
- * Class KretaIssueExtension.
- *
- * @package Kreta\Bundle\IssueBundle\DependencyInjection
- */
-class KretaIssueExtension extends AbstractExtension
+class AbstractExtensionStub extends AbstractExtension
 {
     /**
-     * {@inheritdoc}
+     * Gets the Config file location.
+     *
+     * @return string
      */
     protected function getConfigFilesLocation()
     {
-        return __DIR__ . '/../Resources/config';
+        return getcwd() . '/src/Kreta/Bundle/CoreBundle/Resources/config';
     }
 
     /**
-     * {@inheritdoc}
+     * Gets the Configuration instance.
+     *
+     * @return \Symfony\Component\Config\Definition\ConfigurationInterface
      */
     protected function getConfigurationInstance()
     {
         return new Configuration();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getConfigFiles()
-    {
-        return ['services', 'factories', 'parameters', 'repositories'];
     }
 }
