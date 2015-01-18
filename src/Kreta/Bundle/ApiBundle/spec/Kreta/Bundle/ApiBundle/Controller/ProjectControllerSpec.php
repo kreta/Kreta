@@ -46,32 +46,22 @@ class ProjectControllerSpec extends BaseRestController
         $this->shouldHaveType('Kreta\Bundle\ApiBundle\Controller\RestController');
     }
 
-    function it_does_not_get_projects_because_the_user_is_not_logged(
-        ContainerInterface $container,
-        ProjectRepository $projectRepository,
-        SecurityContextInterface $securityContext,
-        TokenInterface $token,
-        ParamFetcher $paramFetcher
-    )
-    {
-        $container->get('kreta_project.repository.project')->shouldBeCalled()->willReturn($projectRepository);
-        $this->getUserSpec($container, $securityContext, $token);
-
-        $this->shouldThrow(new AccessDeniedException())->during('getProjectsAction', [$paramFetcher]);
-    }
-
     function it_gets_projects(
         ContainerInterface $container,
         ProjectRepository $projectRepository,
         ParamFetcher $paramFetcher,
-        SecurityContextInterface $securityContext,
+        SecurityContextInterface $context,
         TokenInterface $token,
         UserInterface $user,
         ProjectInterface $project
     )
     {
         $container->get('kreta_project.repository.project')->shouldBeCalled()->willReturn($projectRepository);
-        $user = $this->getUserSpec($container, $securityContext, $token, $user);
+
+        $container->has('security.context')->shouldBeCalled()->willReturn(true);
+        $container->get('security.context')->shouldBeCalled()->willReturn($context);
+        $context->getToken()->shouldBeCalled()->willReturn($token);
+        $token->getUser()->shouldBeCalled()->willReturn($user);
 
         $paramFetcher->get('sort')->shouldBeCalled()->willReturn('name');
         $paramFetcher->get('limit')->shouldBeCalled()->willReturn(10);

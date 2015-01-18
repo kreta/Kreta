@@ -13,13 +13,11 @@ namespace Kreta\Bundle\ApiBundle\spec\Kreta\Bundle\ApiBundle\Controller;
 
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Project\Repository\ProjectRepository;
-use Kreta\Component\User\Model\Interfaces\UserInterface;
 use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
 use Kreta\Component\Workflow\Repository\WorkflowRepository;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
@@ -29,21 +27,6 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
  */
 class BaseRestController extends ObjectBehavior
 {
-    protected function getUserSpec(
-        ContainerInterface $container,
-        SecurityContextInterface $securityContext,
-        TokenInterface $token,
-        UserInterface $user = null
-    )
-    {
-        $container->has('security.context')->shouldBeCalled()->willReturn(true);
-        $container->get('security.context')->shouldBeCalled()->willReturn($securityContext);
-        $securityContext->getToken()->shouldBeCalled()->willReturn($token);
-        $token->getUser()->shouldBeCalled()->willReturn($user);
-
-        return $user;
-    }
-
     protected function getProjectIfAllowedSpec(
         ContainerInterface $container,
         ProjectRepository $projectRepository,
