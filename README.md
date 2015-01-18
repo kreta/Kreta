@@ -13,22 +13,13 @@
 
 Prerequisites
 -------------
-To start to use this project, you have a **Vagrant** virtual machine in the root directory that provides a completely
-functional environment for running *Kreta*. This Vagrant that is imported as submodule is maintained by
-[benatespina](mailto:benatespina@gmail.com) in this [repository](https://github.com/benatespina/default-vagrant) so, we
-are pretty sure that you won`t any problems to use it; however, if you have any kind of question or doubt, do not
-hesitate to contact us.
+To start to use this project, we recommend using a **Vagrant** virtual machine located in the root directory that provides a completely functional environment for running *Kreta*. This Vagrant that is imported as submodule is maintained by [benatespina](https://github.com/benatespina) in this [repository](https://github.com/benatespina/default-vagrant) so, we are pretty sure that you won`t any problems to use it; however, if you have any kind of question or doubt, do not hesitate to contact us.
 
-* Install [Vagrant](http://docs.vagrantup.com/v2/installation/index.html) on your system, which in turn requires
-[RubyGems](https://rubygems.org/pages/download) and [VirtualBox](https://www.virtualbox.org/wiki/Downloads).
+To make it work, first of all you need to install [Vagrant](http://docs.vagrantup.com/v2/installation/index.html) on your system, which in turn requires [RubyGems](https://rubygems.org/pages/download) and [VirtualBox](https://www.virtualbox.org/wiki/Downloads).
 
-*NOTE: If you are on Windows, I would recommend [RubyInstaller](http://rubyinstaller.org/) for installing Ruby and any
-ssh client as [PuTTY](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html) for log into your Vagrant box.*
+>  If you are on Windows, we recommend [RubyInstaller](http://rubyinstaller.org/) to install Ruby and any ssh client as [PuTTY](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html) for log into your Vagrant box.
 
-* This box has some dependencies so you must install
-**[vagrant-hostsupdater](https://github.com/cogitatio/vagrant-hostsupdater)** plugin for Vagrant, which adds an entry
-to your `/etc/hosts` file on the host system and **[vagrant-vbguest](https://github.com/dotless-de/vagrant-vbguest)**
- which automatically installs the host's VirtualBox Guest Additions on the guest system.
+This box has some dependencies so you must install [vagrant-hostsupdater](https://github.com/cogitatio/vagrant-hostsupdater) plugin for Vagrant, which adds an entry to your `/etc/hosts` file on the host system and [vagrant-vbguest](https://github.com/dotless-de/vagrant-vbguest) which automatically installs the host's VirtualBox Guest Additions on the guest system.
 ```
 $ vagrant plugin install vagrant-hostsupdater
 $ vagrant plugin install vagrant-vbguest
@@ -41,8 +32,7 @@ The recommended way to clone this project is using the following command in orde
 
     $ git clone --recursive https://github.com/kreta/kreta.git kreta
 
-Then, inside `/vagrant` directory you have to copy the `parameters.yml.dist` in the same directory but without
-`.dist` extension, modifying the values with your favorite preferences. This is the `parameters.yml` file that we recommend:
+Then, inside `/vagrant` directory you have to copy the `parameters.yml.dist` in the same directory to `parameters.yml`, modifying the values with your favorite preferences. This is what we recommend:
 
 ```
 virtual_machine:
@@ -59,9 +49,9 @@ virtual_machine:
 database:
     mysql:
         rootpassword: app
-        user:         kretaUser     # It must be the same that database_user variable from app/config/parameters.yml
-        password:     123           # It must be the same that database_password variable from app/config/parameters.yml
-        name:         kreta         # It must be the same that database_name variable from app/config/parameters.yml
+        user:         kretaUser     
+        password:     123           
+        name:         kreta
 
 environments:
     ruby:
@@ -77,19 +67,18 @@ following commands:
     $ vagrant up
     $ vagran ssh
 
-*NOTE: sometimes when you type `vagrant up` of provisioned box, the `/dev/shm/symfony/cache` and `/dev/shm/symfony/logs`
-folders are disappeared; to solve this problem you have to execute `sh scripts/clear_cache.sh`*
+> NOTE: sometimes when you type `vagrant up` of provisioned box, the `/dev/shm/symfony/cache` and `/dev/shm/symfony/logs`
+folders are disappeared; to solve this problem you have to execute `sh scripts/clear_cache.sh`
 
 Once, you are inside the *Vagrant* box you need to download Kreta's dependencies using **[Composer][6]**.
 
     $ composer install
 
-After that, you have to load everything related to **database** (create database if it is not exist, create schema and
-load some fixtures). The fastest way to do all of these steps is executing the following command.
+After that, you have to load everything related to **database** (create database if it is not exist, create schema and load some fixtures). The fastest way is executing the following command.
 
     $ sh scripts/update_doctrine_dev.sh
 
-Finally, you have to dump the `.scss` and `.js` files for a better front-end experience with the command below:
+Finally, you have to dump the assets files:
 
     $ php app/console assetic:dump
 
@@ -99,28 +88,19 @@ Tests
 -----
 This project is completely tested by full-stack **BDD methodology**.
 
-Firstly, is completely tested by **[PHPSpec][1], SpecBDD framework for PHP**.
+For testing [PHPSpec][1] and [Behat][5] are used.
 
-Because you want to contribute or simply because you want to throw the tests, you have to type the following command
-in your terminal.
+To run [PHPSpec][1] type the following
 
-    $ phpspec run -fpretty
+    $ bin/phpspec run -fpretty
 
-*Depends the location of the `bin` directory (sometimes in the root dir; sometimes in the `/vendor` dir) the way that
-works every time is to use the absolute path of the binary `vendor/phpspec/phpspec/bin/phpspec`*
-
-Furthermore, **[Behat][5], StoryBDD framework for PHP** has *scenarios* that it tests the project in functional mode.
-As mentioned above, if you want to throw the test, you have to create the test environment database with its schema and
-then, type the following command in your terminal.
+To run [Behat][5] tests run the following
 
     $ sh scripts/pre_behat.sh
-    $ behat
+    $ bin/behat
 
-*Depends the location of the `bin` directory (sometimes in the root dir; sometimes in the `/vendor` dir) the way that
-works every time is to use the absolute path of the binary `vendor/behat/behat/bin/behat`*
+If you want to check the **code-coverage** of previous tests, PHPSpec generates them by default. To activate the Behat code-coverage you have to uncomment the lines of `behat.yml` file.
 
-If you want to check the **code-coverage** of previous tests, PHPSpec generates it by default, but to activate the Behat
-code-coverage you have to uncomment the lines of `behat.yml` file.
 
 Contributing
 ------------
