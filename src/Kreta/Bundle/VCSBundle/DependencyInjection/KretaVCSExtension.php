@@ -11,17 +11,14 @@
 
 namespace Kreta\Bundle\VCSBundle\DependencyInjection;
 
-use Symfony\Component\Config\FileLocator;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Loader;
-use Symfony\Component\HttpKernel\DependencyInjection\Extension;
+use Kreta\Bundle\CoreBundle\DependencyInjection\Abstracts\AbstractExtension;
 
 /**
  * Class KretaVCSExtension.
  *
  * @package Kreta\Bundle\VCSBundle\DependencyInjection
  */
-class KretaVCSExtension extends Extension
+class KretaVCSExtension extends AbstractExtension
 {
     /**
      * {@inheritdoc}
@@ -46,29 +43,5 @@ class KretaVCSExtension extends Extension
             'strategies',
             'subscribers'
         ];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function load(array $configs, ContainerBuilder $container)
-    {
-        $configuration = new Configuration();
-        $config = $this->processConfiguration($configuration, $configs);
-
-        $configFiles = $this->getConfigFiles($config);
-
-        if (!empty($configFiles)) {
-            $loader = new Loader\YamlFileLoader($container, new FileLocator($this->getConfigFilesLocation()));
-            foreach ($configFiles as $configFile) {
-                if (is_array($configFile)) {
-                    if (!isset($configFile[1]) && $configFile[1]) {
-                        continue;
-                    }
-                    $configFile = $configFile[0];
-                }
-                $loader->load($configFile . '.yml');
-            }
-        }
     }
 }

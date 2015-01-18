@@ -11,17 +11,14 @@
 
 namespace Kreta\Bundle\IssueBundle\DependencyInjection;
 
-use Symfony\Component\Config\FileLocator;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Extension\Extension;
-use Symfony\Component\DependencyInjection\Loader;
+use Kreta\Bundle\CoreBundle\DependencyInjection\Abstracts\AbstractExtension;
 
 /**
  * Class KretaIssueExtension.
  *
  * @package Kreta\Bundle\IssueBundle\DependencyInjection
  */
-class KretaIssueExtension extends Extension
+class KretaIssueExtension extends AbstractExtension
 {
     /**
      * Gets the Config file location.
@@ -41,29 +38,5 @@ class KretaIssueExtension extends Extension
     protected function getConfigFiles()
     {
         return ['services', 'factories', 'parameters', 'repositories'];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function load(array $configs, ContainerBuilder $container)
-    {
-        $configuration = new Configuration();
-        $config = $this->processConfiguration($configuration, $configs);
-
-        $configFiles = $this->getConfigFiles($config);
-
-        if (!empty($configFiles)) {
-            $loader = new Loader\YamlFileLoader($container, new FileLocator($this->getConfigFilesLocation()));
-            foreach ($configFiles as $configFile) {
-                if (is_array($configFile)) {
-                    if (!isset($configFile[1]) && $configFile[1]) {
-                        continue;
-                    }
-                    $configFile = $configFile[0];
-                }
-                $loader->load($configFile . '.yml');
-            }
-        }
     }
 }

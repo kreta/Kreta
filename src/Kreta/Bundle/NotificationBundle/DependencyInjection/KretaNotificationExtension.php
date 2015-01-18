@@ -11,17 +11,14 @@
 
 namespace Kreta\Bundle\NotificationBundle\DependencyInjection;
 
-use Symfony\Component\Config\FileLocator;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
-use Symfony\Component\DependencyInjection\Extension\Extension;
-use Symfony\Component\DependencyInjection\Loader;
+use Kreta\Bundle\CoreBundle\DependencyInjection\Abstracts\AbstractExtension;
 
 /**
  * Class KretaNotificationExtension.
  *
  * @package Kreta\Bundle\NotificationBundle\DependencyInjection
  */
-class KretaNotificationExtension extends Extension
+class KretaNotificationExtension extends AbstractExtension
 {
     /**
      * {@inheritdoc}
@@ -37,29 +34,5 @@ class KretaNotificationExtension extends Extension
     protected function getConfigFiles()
     {
         return ['events', 'factories', 'notifiers', 'parameters', 'repositories', 'subscribers'];
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function load(array $configs, ContainerBuilder $container)
-    {
-        $configuration = new Configuration();
-        $config = $this->processConfiguration($configuration, $configs);
-
-        $configFiles = $this->getConfigFiles($config);
-
-        if (!empty($configFiles)) {
-            $loader = new Loader\YamlFileLoader($container, new FileLocator($this->getConfigFilesLocation()));
-            foreach ($configFiles as $configFile) {
-                if (is_array($configFile)) {
-                    if (!isset($configFile[1]) && $configFile[1]) {
-                        continue;
-                    }
-                    $configFile = $configFile[0];
-                }
-                $loader->load($configFile . '.yml');
-            }
-        }
     }
 }
