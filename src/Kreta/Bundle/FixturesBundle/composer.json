@@ -19,9 +19,12 @@
     ],
     "require": {
         "php":                                 ">=5.4",
-        "hwi/oauth-bundle":                    "0.4.*@dev",
-        "symfony/framework-bundle":            "~2.3",
-        "friendsofsymfony/oauth-server-bundle":"~1.4"
+
+        "kreta/comment-bundle":                "dev-master",
+        "kreta/issue-bundle":                  "dev-master",
+        "kreta/media-bundle":                  "dev-master",
+        "kreta/project-bundle":                "dev-master",
+        "kreta/user-bundle":                   "dev-master"
     },
     "require-dev": {
         "doctrine/data-fixtures":              "~1.0",

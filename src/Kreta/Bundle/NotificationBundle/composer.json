@@ -19,7 +19,8 @@
     ],
     "require": {
         "php":                                 ">=5.4",
-        "symfony/framework-bundle":            "~2.3",
+
+        "kreta/core-bundle":                   "dev-master",
         "kreta/notification":                  "dev-master"
     },
     "require-dev": {

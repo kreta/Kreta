@@ -19,7 +19,8 @@
     ],
     "require": {
         "php":                                 ">=5.4",
-        "doctrine/orm":                        "~2.2,>=2.2.3",
+
+        "kreta/issue":                         "dev-master",
         "kreta/user":                          "dev-master"
     },
     "require-dev": {

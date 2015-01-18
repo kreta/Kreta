@@ -19,7 +19,10 @@
     ],
     "require": {
         "php":                                 ">=5.4",
-        "doctrine/orm":                        "~2.2,>=2.2.3"
+
+        "kreta/core":                          "dev-master",
+        "kreta/project":                       "dev-master",
+        "kreta/user":                          "dev-master"
     },
     "require-dev": {
         "phpspec/phpspec":                     "~2.1",

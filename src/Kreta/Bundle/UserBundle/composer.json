@@ -19,9 +19,9 @@
     ],
     "require": {
         "php":                                 ">=5.4",
-        "symfony/framework-bundle":            "~2.3",
-        "symfony/form":                        "~2.3",
+        "hwi/oauth-bundle":                    "0.4.*@dev",
 
+        "kreta/core-bundle":                   "dev-master",
         "kreta/user":                          "dev-master"
     },
     "require-dev": {

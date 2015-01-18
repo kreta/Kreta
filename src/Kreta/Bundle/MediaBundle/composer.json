@@ -19,8 +19,8 @@
     ],
     "require": {
         "php":                                 ">=5.4",
-        "symfony/framework-bundle":            "~2.3",
 
+        "kreta/core-bundle":                   "dev-master",
         "kreta/media":                         "dev-master"
     },
     "require-dev": {
@@ -29,9 +29,6 @@
         "satooshi/php-coveralls":              "0.6.1",
         "squizlabs/php_codesniffer":           "~1.0",
         "phpmd/phpmd":                         "~2.1"
-    },
-    "suggest": {
-        "kreta/web-bundle":      "Provides default web interface"
     },
     "autoload": {
         "psr-4": { "Kreta\\Bundle\\CoreBundle\\": "" }

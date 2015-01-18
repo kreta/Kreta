@@ -19,10 +19,9 @@
     ],
     "require": {
         "php":                                 ">=5.4",
-        "symfony/framework-bundle":            "~2.3",
-        "symfony/form":                        "~2.3",
 
-        "kreta/issue":                          "dev-master"
+        "kreta/core-bundle":                   "dev-master",
+        "kreta/issue":                         "dev-master"
     },
     "require-dev": {
         "phpspec/phpspec":                     "~2.1",

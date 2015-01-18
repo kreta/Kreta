@@ -19,8 +19,10 @@
     ],
     "require": {
         "php":                                 ">=5.4",
-        "doctrine/orm":                        "~2.2,>=2.2.3",
-        "symfony/http-foundation":             "~2.3"
+        "knplabs/knp-gaufrette-bundle":        "*@dev",
+        "symfony/http-foundation":             "~2.3",
+
+        "kreta/core":                          "dev-master"
     },
     "require-dev": {
         "phpspec/phpspec":                     "~2.1",

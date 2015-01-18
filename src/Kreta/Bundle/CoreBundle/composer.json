@@ -19,11 +19,9 @@
     ],
     "require": {
         "php":                                 ">=5.4",
-        "symfony/config":                      "~2.3",
-        "symfony/dependency-injection":        "~2.3",
-        "symfony/http-kernel":                 "~2.3",
+        "symfony/framework-bundle":            "~2.3",
+        "symfony/form":                        "~2.3",
         "symfony/security":                    "~2.3",
-        "hwi/oauth-bundle":                    "0.4.*@dev",
 
         "kreta/core":                          "dev-master"
     },

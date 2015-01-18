@@ -19,10 +19,9 @@
     ],
     "require": {
         "php":                                 ">=5.4",
-        "symfony/framework-bundle":            "~2.3",
-        "symfony/dependency-injection":        "~2.3",
-        "symfony/http-kernel":                 "~2.3",
-        "kreta/core-bundle":                   "dev-master"
+
+        "kreta/core-bundle":                   "dev-master",
+        "kreta/vcs":                           "dev-master"
     },
     "require-dev": {
         "phpspec/phpspec":                     "2.1.x-dev",
