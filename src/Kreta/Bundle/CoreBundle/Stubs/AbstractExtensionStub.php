@@ -23,7 +23,7 @@ class AbstractExtensionStub extends AbstractExtension
      */
     protected function getConfigFilesLocation()
     {
-        return __DIR__ . '/../Resources/config';
+        return getcwd() . '/src/Kreta/Bundle/CoreBundle/Resources/config';
     }
 
     /**
