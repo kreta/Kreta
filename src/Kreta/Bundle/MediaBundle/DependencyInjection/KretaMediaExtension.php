@@ -21,9 +21,7 @@ use Kreta\Bundle\CoreBundle\DependencyInjection\Abstracts\AbstractExtension;
 class KretaMediaExtension extends AbstractExtension
 {
     /**
-     * Gets the Config file location.
-     *
-     * @return string
+     * {@inheritdoc}
      */
     protected function getConfigFilesLocation()
     {
@@ -31,9 +29,15 @@ class KretaMediaExtension extends AbstractExtension
     }
 
     /**
-     * Gets array with all the config file names.
-     *
-     * @return string[]
+     * {@inheritdoc}
+     */
+    protected function getConfigurationInstance()
+    {
+        return new Configuration();
+    }
+
+    /**
+     * {@inheritdoc}
      */
     protected function getConfigFiles()
     {

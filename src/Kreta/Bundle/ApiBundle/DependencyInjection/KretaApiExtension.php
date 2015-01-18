@@ -27,4 +27,12 @@ class KretaApiExtension extends AbstractExtension
     {
         return __DIR__ . '/../Resources/config';
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getConfigurationInstance()
+    {
+        return new Configuration();
+    }
 }

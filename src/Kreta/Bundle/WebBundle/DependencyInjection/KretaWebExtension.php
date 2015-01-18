@@ -31,6 +31,14 @@ class KretaWebExtension extends AbstractExtension
     /**
      * {@inheritdoc}
      */
+    protected function getConfigurationInstance()
+    {
+        return new Configuration();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     protected function getConfigFiles()
     {
         return ['services'];

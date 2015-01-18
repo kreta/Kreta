@@ -11,7 +11,6 @@
 
 namespace Kreta\Bundle\CoreBundle\DependencyInjection\Abstracts;
 
-use Symfony\Bundle\FrameworkBundle\DependencyInjection\Configuration;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\Extension;
@@ -32,6 +31,13 @@ abstract class AbstractExtension extends Extension
     abstract protected function getConfigFilesLocation();
 
     /**
+     * Gets the Configuration instance.
+     *
+     * @return string
+     */
+    abstract protected function getConfigurationInstance();
+
+    /**
      * Gets array with all the config file names.
      *
      * @return string[]
@@ -46,7 +52,7 @@ abstract class AbstractExtension extends Extension
      */
     public function load(array $configs, ContainerBuilder $container)
     {
-        $configuration = new Configuration();
+        $configuration = $this->getConfigurationInstance();
         $config = $this->processConfiguration($configuration, $configs);
 
         $configFiles = $this->getConfigFiles($config);
