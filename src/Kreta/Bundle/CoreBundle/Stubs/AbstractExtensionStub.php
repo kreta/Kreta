@@ -12,7 +12,7 @@
 namespace Kreta\Bundle\CoreBundle\Stubs;
 
 use Kreta\Bundle\CoreBundle\DependencyInjection\Abstracts\AbstractExtension;
-use Symfony\Bundle\FrameworkBundle\DependencyInjection\Configuration;
+use Kreta\Bundle\CoreBundle\DependencyInjection\Configuration;
 
 /**
  * Class AbstractExtensionStub.
@@ -26,7 +26,7 @@ class AbstractExtensionStub extends AbstractExtension
      */
     protected function getConfigFilesLocation()
     {
-        return getcwd() . '/src/Kreta/Bundle/CoreBundle/Resources/config';
+        return __DIR__ . '/../Resources/config';
     }
 
     /**
