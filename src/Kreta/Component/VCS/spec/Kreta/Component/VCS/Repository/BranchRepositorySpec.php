@@ -108,7 +108,7 @@ class BranchRepositorySpec extends BaseEntityRepository
         $manager->createQueryBuilder()->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->select('b')->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->addSelect(['ir', 'r'])->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->from(Argument::any(), 'b')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->from(Argument::any(), 'b', null)->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->innerJoin('b.issuesRelated', 'ir')->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->innerJoin('b.repository', 'r')->shouldBeCalled()->willReturn($queryBuilder);
 

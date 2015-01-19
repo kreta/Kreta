@@ -71,7 +71,7 @@ class StatusRepositorySpec extends BaseEntityRepository
         $manager->createQueryBuilder()->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->select('s')->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->addSelect(['w'])->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->from(Argument::any(), 's')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->from(Argument::any(), 's', null)->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->join('s.workflow', 'w')->shouldBeCalled()->willReturn($queryBuilder);
 
         return $queryBuilder;

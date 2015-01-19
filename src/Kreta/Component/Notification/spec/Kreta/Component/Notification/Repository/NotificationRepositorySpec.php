@@ -86,7 +86,7 @@ class NotificationRepositorySpec extends BaseEntityRepository
         $manager->createQueryBuilder()->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->select('n')->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->addSelect(['p', 'u'])->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->from(Argument::any(), 'n')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->from(Argument::any(), 'n', null)->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->join('n.project', 'p')->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->join('n.user', 'u')->shouldBeCalled()->willReturn($queryBuilder);
 

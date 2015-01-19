@@ -65,7 +65,7 @@ class RepositoryRepositorySpec extends BaseEntityRepository
         $manager->createQueryBuilder()->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->select('r')->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->addSelect(['p'])->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->from(Argument::any(), 'r')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->from(Argument::any(), 'r', null)->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->leftJoin('r.projects', 'p')->shouldBeCalled()->willReturn($queryBuilder);
 
         return $queryBuilder;

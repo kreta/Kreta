@@ -64,7 +64,7 @@ class CommitRepositorySpec extends BaseEntityRepository
         $manager->createQueryBuilder()->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->select('c')->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->addSelect(['b', 'ir'])->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->from(Argument::any(), 'c')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->from(Argument::any(), 'c', null)->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->innerJoin('c.branch', 'b')->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->innerJoin('c.issuesRelated', 'ir')->shouldBeCalled()->willReturn($queryBuilder);
 

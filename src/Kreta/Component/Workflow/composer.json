@@ -22,6 +22,7 @@
         "yohang/finite":                       "~1.0",
 
         "kreta/core":                          "dev-master",
+        "kreta/issue":                         "dev-master",
         "kreta/project":                       "dev-master",
         "kreta/user":                          "dev-master"
     },

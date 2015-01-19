@@ -28,7 +28,7 @@ class BaseEntityRepository extends ObjectBehavior
     {
         $manager->createQueryBuilder()->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->select('kreta')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->from(Argument::any(), 'kreta')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->from(Argument::any(), 'kreta', null)->shouldBeCalled()->willReturn($queryBuilder);
 
         return $queryBuilder;
     }

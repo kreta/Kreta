@@ -106,7 +106,7 @@ class IssueRepositorySpec extends BaseEntityRepository
         $queryBuilder->select('i')->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->addSelect(['a', 'l', 'p', 'r', 'rep', 's', 'w'])
             ->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->from(Argument::any(), 'i')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->from(Argument::any(), 'i', null)->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->leftJoin('i.assignee', 'a')->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->leftJoin('i.labels', 'l')->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->leftJoin('i.project', 'p')->shouldBeCalled()->willReturn($queryBuilder);
