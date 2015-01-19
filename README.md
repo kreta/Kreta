@@ -30,7 +30,7 @@ Getting started
 
 The recommended way to clone this project is using the following command in order to add *git submodules* too:
 
-    $ git clone --recursive https://github.com/kreta/kreta.git kreta
+    $ git clone --recursive https://github.com/kreta-io/kreta.git kreta
 
 Then, inside `/vagrant` directory you have to copy the `parameters.yml.dist` in the same directory to `parameters.yml`, modifying the values with your favorite preferences. This is what we recommend:
 
@@ -65,7 +65,7 @@ following commands:
 
     $ cd /vagrant
     $ vagrant up
-    $ vagran ssh
+    $ vagrant ssh
 
 > NOTE: sometimes when you type `vagrant up` of provisioned box, the `/dev/shm/symfony/cache` and `/dev/shm/symfony/logs`
 folders are disappeared; to solve this problem you have to execute `sh scripts/clear_cache.sh`
