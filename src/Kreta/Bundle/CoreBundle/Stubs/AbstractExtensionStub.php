@@ -12,7 +12,7 @@
 namespace Kreta\Bundle\CoreBundle\Stubs;
 
 use Kreta\Bundle\CoreBundle\DependencyInjection\Abstracts\AbstractExtension;
-use Sensio\Bundle\FrameworkExtraBundle\DependencyInjection\Configuration;
+use Symfony\Bundle\FrameworkBundle\DependencyInjection\Configuration;
 
 /**
  * Class AbstractExtensionStub.
