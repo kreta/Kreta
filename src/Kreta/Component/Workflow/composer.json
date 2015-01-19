@@ -19,6 +19,7 @@
     ],
     "require": {
         "php":                                 ">=5.4",
+        "yohang/finite":                       "~1.0",
 
         "kreta/core":                          "dev-master",
         "kreta/project":                       "dev-master",
