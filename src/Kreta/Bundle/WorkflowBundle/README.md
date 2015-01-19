@@ -1,14 +1,14 @@
-# Kreta Comment Bundle
+# Kreta Workflow Bundle
 > Comment bundle of Kreta: modern project manager for software development.
 
-[![Build Status](https://travis-ci.org/kreta-io/CommentBundle.svg?branch=master)](https://travis-ci.org/kreta-io/CommentBundle)
-[![Coverage Status](https://img.shields.io/coveralls/kreta-io/CommentBundle.svg)](https://coveralls.io/r/kreta-io/CommentBundle)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/kreta-io/CommentBundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/kreta-io/CommentBundle/?branch=master)
-[![HHVM Status](http://hhvm.h4cc.de/badge/kreta/comment-bundle.svg)](http://hhvm.h4cc.de/package/kreta/comment-bundle)
-[![Total Downloads](https://poser.pugx.org/kreta/comment-bundle/downloads.svg)](https://packagist.org/packages/kreta/comment-bundle)
+[![Build Status](https://travis-ci.org/kreta-io/WorkflowBundle.svg?branch=master)](https://travis-ci.org/kreta-io/WorkflowBundle)
+[![Coverage Status](https://img.shields.io/coveralls/kreta-io/WorkflowBundle.svg)](https://coveralls.io/r/kreta-io/WorkflowBundle)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/kreta-io/WorkflowBundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/kreta-io/WorkflowBundle/?branch=master)
+[![HHVM Status](http://hhvm.h4cc.de/badge/kreta/workflow-bundle.svg)](http://hhvm.h4cc.de/package/kreta/workflow-bundle)
+[![Total Downloads](https://poser.pugx.org/kreta/workflow-bundle/downloads.svg)](https://packagist.org/packages/kreta/workflow-bundle)
 
-[![Latest Stable Version](https://poser.pugx.org/kreta/comment-bundle/v/stable.svg)](https://packagist.org/packages/kreta/comment-bundle)
-[![Latest Unstable Version](https://poser.pugx.org/kreta/comment-bundle/v/unstable.svg)](https://packagist.org/packages/kreta/comment-bundle)
+[![Latest Stable Version](https://poser.pugx.org/kreta/workflow-bundle/v/stable.svg)](https://packagist.org/packages/kreta/workflow-bundle)
+[![Latest Unstable Version](https://poser.pugx.org/kreta/workflow-bundle/v/unstable.svg)](https://packagist.org/packages/kreta/workflow-bundle)
 
 Tests
 -----
@@ -49,11 +49,11 @@ If you have any doubt or maybe you want to share some opinion, you can use our *
 
 Credits
 -------
-Kreta Comment Bundle is created by:
+Kreta Workflow Bundle is created by:
 >
 **@benatespina** - [benatespina@gmail.com](mailto:benatespina@gmail.com)<br/>
 **@gorkalaucirica** - [gorka.lauzirika@gmail.com](mailto:gorka.lauzirika@gmail.com)
 
 Licensing Options
 -----------------
-[![License](https://poser.pugx.org/kreta/comment-bundle/license.svg)](https://github.com/kreta-io/kreta/blob/master/LICENSE)
+[![License](https://poser.pugx.org/kreta/workflow-bundle/license.svg)](https://github.com/kreta-io/kreta/blob/master/LICENSE)
