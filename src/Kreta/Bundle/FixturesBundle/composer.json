@@ -20,11 +20,7 @@
     "require": {
         "php":                                 ">=5.4",
 
-        "kreta/comment-bundle":                "dev-master",
-        "kreta/issue-bundle":                  "dev-master",
-        "kreta/media-bundle":                  "dev-master",
-        "kreta/project-bundle":                "dev-master",
-        "kreta/user-bundle":                   "dev-master"
+        "kreta/api-bundle":                    "dev-master"
     },
     "require-dev": {
         "doctrine/data-fixtures":              "~1.0",

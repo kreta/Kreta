@@ -26,6 +26,7 @@
         "jms/serializer-bundle":                "0.13.x",
         "willdurand/hateoas-bundle":            "0.3.x",
 
+        "kreta/comment-bundle":                 "dev-master",
         "kreta/issue-bundle":                   "dev-master",
         "kreta/media-bundle":                   "dev-master",
         "kreta/project-bundle":                 "dev-master",
