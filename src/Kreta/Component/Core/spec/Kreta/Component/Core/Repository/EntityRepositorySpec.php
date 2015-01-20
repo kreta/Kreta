@@ -76,14 +76,14 @@ class EntityRepositorySpec extends BaseEntityRepository
     {
         $object = Argument::type('Object');
 
-        $manager->find(null, 'id', null, null)->shouldBeCalled()->willReturn($object);
+        $manager->find(null, 'id', 0, null)->shouldBeCalled()->willReturn($object);
 
         $this->find('id')->shouldReturn($object);
     }
 
     function it_finds_nullable_without_result(EntityManager $manager)
     {
-        $manager->find(null, 'id', null, null)->shouldBeCalled()->willReturn(null);
+        $manager->find(null, 'id', 0, null)->shouldBeCalled()->willReturn(null);
 
         $this->find('id')->shouldReturn(null);
     }

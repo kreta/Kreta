@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "569df40d691630f094bef61f7bd0236e",
+    "hash": "1f7ecc6f59f51f47f57a8e810e7a97e1",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -826,12 +826,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle.git",
-                "reference": "cb3a5d3550183522416b422e140c9e4d062004f1"
+                "reference": "f54031a652846cd8e7b12119fe713eae90e24cf9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/cb3a5d3550183522416b422e140c9e4d062004f1",
-                "reference": "cb3a5d3550183522416b422e140c9e4d062004f1",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/f54031a652846cd8e7b12119fe713eae90e24cf9",
+                "reference": "f54031a652846cd8e7b12119fe713eae90e24cf9",
                 "shasum": ""
             },
             "require": {
@@ -885,7 +885,7 @@
             "keywords": [
                 "User management"
             ],
-            "time": "2015-01-19 13:42:15"
+            "time": "2015-01-20 09:35:03"
         },
         {
             "name": "hwi/oauth-bundle",
@@ -2649,12 +2649,12 @@
             "version": "v1.0.1",
             "source": {
                 "type": "git",
-                "url": "https://github.com/fabpot/Twig-extensions.git",
+                "url": "https://github.com/twigphp/Twig-extensions.git",
                 "reference": "f91a82ec225e5bb108e01a0f93c9be04f84dcfa0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/fabpot/Twig-extensions/zipball/f91a82ec225e5bb108e01a0f93c9be04f84dcfa0",
+                "url": "https://api.github.com/repos/twigphp/Twig-extensions/zipball/f91a82ec225e5bb108e01a0f93c9be04f84dcfa0",
                 "reference": "f91a82ec225e5bb108e01a0f93c9be04f84dcfa0",
                 "shasum": ""
             },
@@ -2679,9 +2679,7 @@
             "authors": [
                 {
                     "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com",
-                    "homepage": "http://fabien.potencier.org",
-                    "role": "Lead Developer"
+                    "email": "fabien@symfony.com"
                 }
             ],
             "description": "Common additional features for Twig that do not directly belong in core",
@@ -3008,7 +3006,7 @@
             ],
             "authors": [
                 {
-                    "name": "Yohan Giarelli",
+                    "name": "Yohan GIARELLI",
                     "email": "yohan@giarel.li",
                     "homepage": "http://yohan.giarel.li"
                 }
@@ -3198,12 +3196,12 @@
             "version": "v1.6.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Behat/Mink.git",
+                "url": "https://github.com/minkphp/Mink.git",
                 "reference": "090900a0049c441f1e072bbd837db4079b2250c5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Behat/Mink/zipball/090900a0049c441f1e072bbd837db4079b2250c5",
+                "url": "https://api.github.com/repos/minkphp/Mink/zipball/090900a0049c441f1e072bbd837db4079b2250c5",
                 "reference": "090900a0049c441f1e072bbd837db4079b2250c5",
                 "shasum": ""
             },
@@ -3253,12 +3251,12 @@
             "version": "v1.2.0",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Behat/MinkBrowserKitDriver.git",
+                "url": "https://github.com/minkphp/MinkBrowserKitDriver.git",
                 "reference": "aed8f4a596b79014a75254c3e337511c33e38cbd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Behat/MinkBrowserKitDriver/zipball/aed8f4a596b79014a75254c3e337511c33e38cbd",
+                "url": "https://api.github.com/repos/minkphp/MinkBrowserKitDriver/zipball/aed8f4a596b79014a75254c3e337511c33e38cbd",
                 "reference": "aed8f4a596b79014a75254c3e337511c33e38cbd",
                 "shasum": ""
             },
@@ -3901,7 +3899,7 @@
         },
         {
             "name": "henrikbjorn/phpspec-code-coverage",
-            "version": "dev-master",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/henrikbjorn/PhpSpecCodeCoverageExtension.git",
@@ -4106,20 +4104,20 @@
         },
         {
             "name": "phpspec/phpspec",
-            "version": "dev-master",
+            "version": "2.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/phpspec.git",
-                "reference": "f65d8ef944ce8a34b0e70fbb4ec0c48d6fec4ccb"
+                "reference": "66a1df93099282b1514e9e001fcf6e9393f7783d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/phpspec/zipball/f65d8ef944ce8a34b0e70fbb4ec0c48d6fec4ccb",
-                "reference": "f65d8ef944ce8a34b0e70fbb4ec0c48d6fec4ccb",
+                "url": "https://api.github.com/repos/phpspec/phpspec/zipball/66a1df93099282b1514e9e001fcf6e9393f7783d",
+                "reference": "66a1df93099282b1514e9e001fcf6e9393f7783d",
                 "shasum": ""
             },
             "require": {
-                "doctrine/instantiator": "^1.0.1",
+                "doctrine/instantiator": "~1.0,>=1.0.1",
                 "php": ">=5.3.3",
                 "phpspec/php-diff": "~1.0.0",
                 "phpspec/prophecy": "~1.1",
@@ -4131,9 +4129,8 @@
                 "symfony/yaml": "~2.1"
             },
             "require-dev": {
-                "behat/behat": "^3.0.11",
+                "behat/behat": "~3.0,>=3.0.11",
                 "bossa/phpspec2-expect": "~1.0",
-                "phpunit/phpunit": "~4.4",
                 "symfony/filesystem": "~2.1"
             },
             "suggest": {
@@ -4179,7 +4176,7 @@
                 "testing",
                 "tests"
             ],
-            "time": "2015-01-18 18:36:58"
+            "time": "2015-01-09 13:21:45"
         },
         {
             "name": "phpspec/prophecy",
@@ -5072,115 +5069,6 @@
                 "standards"
             ],
             "time": "2014-12-04 22:32:15"
-        },
-        {
-            "name": "vipsoft/code-coverage-common",
-            "version": "2.5.0",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/vipsoft/code-coverage-common.git",
-                "reference": "816a42e203e8ecb5d4ec20775effcab700016ee9"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/vipsoft/code-coverage-common/zipball/816a42e203e8ecb5d4ec20775effcab700016ee9",
-                "reference": "816a42e203e8ecb5d4ec20775effcab700016ee9",
-                "shasum": ""
-            },
-            "require": {
-                "phpunit/php-code-coverage": "*"
-            },
-            "require-dev": {
-                "mikey179/vfsstream": "*",
-                "phpunit/phpunit": "3.7.*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "VIPSoft\\CodeCoverageCommon": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-3-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Anthon Pang",
-                    "email": "apang@softwaredevelopment.ca",
-                    "role": "developer"
-                }
-            ],
-            "description": "Extending PHP_CodeCoverage",
-            "keywords": [
-                "BDD",
-                "Behat",
-                "code",
-                "coverage",
-                "phpunit",
-                "testing"
-            ],
-            "time": "2013-11-16 03:02:36"
-        },
-        {
-            "name": "vipsoft/code-coverage-extension",
-            "version": "dev-master",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/vipsoft/code-coverage-extension.git",
-                "reference": "35d6ce1f4bfe06df35482b25a2fbc3904e277f64"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/vipsoft/code-coverage-extension/zipball/35d6ce1f4bfe06df35482b25a2fbc3904e277f64",
-                "reference": "35d6ce1f4bfe06df35482b25a2fbc3904e277f64",
-                "shasum": ""
-            },
-            "require": {
-                "behat/behat": "~3.0",
-                "guzzle/http": "~3.0",
-                "php": ">=5.3.10",
-                "symfony/config": "~2.2",
-                "symfony/dependency-injection": "~2.2",
-                "symfony/http-foundation": "~2.2",
-                "symfony/http-kernel": "~2.2",
-                "vipsoft/code-coverage-common": "2.5.*"
-            },
-            "require-dev": {
-                "mikey179/vfsstream": "1.2.*",
-                "phpunit/phpunit": "3.7.*"
-            },
-            "type": "library",
-            "extra": {
-                "branch-alias": {
-                    "dev-master": "3.0.x-dev"
-                }
-            },
-            "autoload": {
-                "psr-0": {
-                    "VIPSoft\\CodeCoverageExtension": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "BSD-2-Clause"
-            ],
-            "authors": [
-                {
-                    "name": "Anthon Pang",
-                    "email": "apang@softwaredevelopment.ca"
-                }
-            ],
-            "description": "Behat code coverage collector",
-            "keywords": [
-                "BDD",
-                "Behat",
-                "code",
-                "coverage",
-                "phpunit",
-                "testing"
-            ],
-            "time": "2014-07-31 03:16:45"
         }
     ],
     "aliases": [],
@@ -5189,10 +5077,7 @@
         "friendsofsymfony/user-bundle": 20,
         "knplabs/knp-gaufrette-bundle": 20,
         "hwi/oauth-bundle": 20,
-        "vipsoft/code-coverage-extension": 20,
-        "behat/web-api-extension": 20,
-        "phpspec/phpspec": 20,
-        "henrikbjorn/phpspec-code-coverage": 20
+        "behat/web-api-extension": 20
     },
     "prefer-stable": false,
     "prefer-lowest": false,

@@ -19,7 +19,7 @@
     ],
     "require": {
         "php":                                 ">=5.4",
-        "doctrine/orm":                        "~2.2,>=2.2.3"
+        "doctrine/orm":                        ">=2.2.3,<2.5.0"
     },
     "require-dev": {
         "phpspec/phpspec":                     "~2.1",
@@ -37,5 +37,5 @@
     "config": {
         "bin-dir": "bin"
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "stable"
 }

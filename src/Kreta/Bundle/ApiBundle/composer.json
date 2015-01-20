@@ -49,8 +49,8 @@
     "autoload-dev": {
         "psr-4": { "Kreta\\Bundle\\ApiBundle\\spec\\": "spec/" }
     },
-    "config": {
+    "config": {         
         "bin-dir": "bin"
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "stable"
 }

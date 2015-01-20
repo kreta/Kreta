@@ -31,7 +31,7 @@
         "phpmd/phpmd":                         "~2.1"
     },
     "suggest": {
-        "kreta/web-bundle":      "Provides default web interface"
+        "kreta/web-bundle": "Provides default web interface"
     },
     "autoload": {
         "psr-4": { "Kreta\\Bundle\\FixturesBundle\\": "" }
@@ -42,5 +42,5 @@
     "config": {
         "bin-dir": "bin"
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "stable"
 }

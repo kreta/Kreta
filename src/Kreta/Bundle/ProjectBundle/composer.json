@@ -30,9 +30,6 @@
         "squizlabs/php_codesniffer":           "~1.0",
         "phpmd/phpmd":                         "~2.1"
     },
-    "suggest": {
-        "kreta/web-bundle":      "Provides default web interface"
-    },
     "autoload": {
         "psr-4": { "Kreta\\Bundle\\ProjectBundle\\": "" }
     },
@@ -42,5 +39,5 @@
     "config": {
         "bin-dir": "bin"
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "stable"
 }
