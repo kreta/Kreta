@@ -3,7 +3,7 @@
 
 [![Build Status](https://travis-ci.org/kreta-io/VCS.svg?branch=master)](https://travis-ci.org/kreta-io/VCS)
 [![Coverage Status](https://img.shields.io/coveralls/kreta-io/VCS.svg)](https://coveralls.io/r/kreta-io/VCS)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/kreta-io/VCS/badges/quality-sVCS.png?b=master)](https://scrutinizer-ci.com/g/kreta-io/VCS/?branch=master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/kreta-io/VCS/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/kreta-io/VCS/?branch=master)
 [![HHVM Status](http://hhvm.h4cc.de/badge/kreta/VCS.svg)](http://hhvm.h4cc.de/package/kreta/VCS)
 [![Total Downloads](https://poser.pugx.org/kreta/VCS/downloads.svg)](https://packagist.org/packages/kreta/VCS)
 

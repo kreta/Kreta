@@ -19,6 +19,7 @@
     ],
     "require": {
         "php":                                 ">=5.4",
+        "zurb/foundation":                     "~5.4",
 
         "kreta/comment-bundle":                "dev-master",
         "kreta/issue-bundle":                  "dev-master",
@@ -47,5 +48,9 @@
     "config": {
         "bin-dir": "bin"
     },
-    "minimum-stability": "stable"
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1-dev"
+        }
+    }
 }

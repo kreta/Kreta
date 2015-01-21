@@ -77,15 +77,15 @@
         ]
     },
     "autoload": {
-        "psr-4": {
-            "Kreta\\": "src/Kreta"
-        }
+        "psr-4": { "Kreta\\": "src/Kreta" }
     },
     "config": {
         "bin-dir": "bin"
     },
-    "minimum-stability": "stable",
     "extra": {
+        "branch-alias": {
+            "dev-master": "0.1-dev"
+        },
         "symfony-app-dir": "app",
         "symfony-web-dir": "web",
         "incenteev-parameters": {
