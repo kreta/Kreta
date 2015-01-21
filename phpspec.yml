@@ -72,7 +72,7 @@ suites:
         spec_path: src/Kreta/Component/Workflow
 
 extensions:
-    - PhpSpec\Extension\CodeCoverageExtension
+#    - PhpSpec\Extension\CodeCoverageExtension
 
 code_coverage:
     blacklist:

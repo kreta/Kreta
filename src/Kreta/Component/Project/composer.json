@@ -20,10 +20,10 @@
     "require": {
         "php":                                 ">=5.4",
 
-        "kreta/core":                          "dev-master",
-        "kreta/media":                         "dev-master",
-        "kreta/user":                          "dev-master",
-        "kreta/workflow":                      "dev-master"
+        "kreta/core":                          "~0.1.0",
+        "kreta/media":                         "~0.1.0",
+        "kreta/user":                          "~0.1.0",
+        "kreta/workflow":                      "~0.1.0"
     },
     "require-dev": {
         "phpspec/phpspec":                     "~2.1",
@@ -43,7 +43,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "0.1-dev"
+            "dev-master": "0.2-dev"
         }
     }
 }

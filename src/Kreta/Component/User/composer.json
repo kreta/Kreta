@@ -21,8 +21,8 @@
         "php":                                 ">=5.4",
         "friendsofsymfony/user-bundle":        "~2.0@dev",
         
-        "kreta/core":                          "dev-master",
-        "kreta/project":                       "dev-master"
+        "kreta/core":                          "~0.1.0",
+        "kreta/project":                       "~0.1.0"
     },
     "require-dev": {
         "phpspec/phpspec":                     "~2.1",
@@ -42,7 +42,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "0.1-dev"
+            "dev-master": "0.2-dev"
         }
     }
 }

@@ -60,6 +60,30 @@
 
         "doctrine/doctrine-fixtures-bundle":        "~2.2"
     },
+    "replace": {
+        "kreta/api-bundle": "self.version",
+        "kreta/comment-bundle": "self.version",
+        "kreta/core-bundle": "self.version",
+        "kreta/fixtures-bundle": "self.version",
+        "kreta/issue-bundle": "self.version",
+        "kreta/media-bundle": "self.version",
+        "kreta/notification-bundle": "self.version",
+        "kreta/project-bundle": "self.version",
+        "kreta/user-bundle": "self.version",
+        "kreta/vcs-bundle": "self.version",
+        "kreta/web-bundle": "self.version",
+        "kreta/workflow-bundle": "self.version",
+
+        "kreta/comment": "self.version",
+        "kreta/core": "self.version",
+        "kreta/issue": "self.version",
+        "kreta/media": "self.version",
+        "kreta/notification": "self.version",
+        "kreta/project": "self.version",
+        "kreta/user": "self.version",
+        "kreta/vcs": "self.version",
+        "kreta/workflow": "self.version"
+    },
     "scripts": {
         "post-install-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
@@ -84,7 +108,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "0.1-dev"
+            "dev-master": "0.2-dev"
         },
         "symfony-app-dir": "app",
         "symfony-web-dir": "web",
