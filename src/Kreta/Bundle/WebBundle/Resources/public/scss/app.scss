@@ -44,3 +44,10 @@ a {
   text-decoration: none;
 }
 
+@media #{$large-up} {
+  body {
+    background: url(/bundles/kretaweb/img/bg.jpg) no-repeat center center;
+    background-size: cover;
+  }
+}
+
