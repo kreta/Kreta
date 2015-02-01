@@ -55,6 +55,9 @@ suites:
     ProjectComponent:
         namespace: Kreta
         spec_path: src/Kreta/Component/Project
+    TimeTrackingComponent:
+        namespace: Kreta
+        spec_path: src/Kreta/Component/TimeTracking
     UserComponent:
         namespace: Kreta
         spec_path: src/Kreta/Component/User
