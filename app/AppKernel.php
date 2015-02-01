@@ -43,6 +43,7 @@ class AppKernel extends Kernel
             new Liip\ImagineBundle\LiipImagineBundle(),
             new Nelmio\ApiDocBundle\NelmioApiDocBundle(),
             new Nelmio\CorsBundle\NelmioCorsBundle(),
+            new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
 
             new Kreta\Bundle\ApiBundle\KretaApiBundle(),
             new Kreta\Bundle\CommentBundle\KretaCommentBundle(),
