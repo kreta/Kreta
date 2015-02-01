@@ -62,6 +62,12 @@ Kreta\Component\Issue\Model\Issue:
     manyToOne:
         assignee:
             targetEntity: Kreta\Component\User\Model\Interfaces\UserInterface
+        parent:
+            targetEntity: Kreta\Component\Issue\Model\Interfaces\IssueInterface
+            inversedBy: children
+            joinColumn:
+                name: parent_id
+                referencedColumnName: id
         project:
             targetEntity: Kreta\Component\Project\Model\Interfaces\ProjectInterface
             inversedBy: issues
@@ -76,5 +82,9 @@ Kreta\Component\Issue\Model\Issue:
             nullable: true
         status:
             targetEntity: Kreta\Component\Workflow\Model\Interfaces\StatusInterface
+    oneToMany:
+        children:
+            targetEntity: Kreta\Component\Issue\Model\Interfaces\IssueInterface
+            mappedBy: parent
     lifecycleCallbacks:
         prePersist: [generateNumericId]
