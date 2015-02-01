@@ -11,7 +11,9 @@
 
 namespace spec\Kreta\Component\Issue\Model;
 
+use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
 use Kreta\Component\Issue\Model\Interfaces\LabelInterface;
+use Kreta\Component\Issue\Model\Issue;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Issue\Model\Interfaces\ResolutionInterface;
 use Kreta\Component\Workflow\Model\Interfaces\StatusInterface;
@@ -44,8 +46,9 @@ class IssueSpec extends ObjectBehavior
         $this->shouldImplement('Kreta\Component\Issue\Model\Interfaces\IssueInterface');
     }
 
-    function its_labels_and_watchers_are_collections()
+    function its_children_labels_and_watchers_are_collections()
     {
+        $this->getChildren()->shouldHaveType('Doctrine\Common\Collections\ArrayCollection');
         $this->getLabels()->shouldHaveType('Doctrine\Common\Collections\ArrayCollection');
         $this->getWatchers()->shouldHaveType('Doctrine\Common\Collections\ArrayCollection');
     }
@@ -74,6 +77,19 @@ class IssueSpec extends ObjectBehavior
         $this->setAssignee($assignee)->shouldReturn($this);
         $assignee->getId()->shouldBeCalled()->willReturn('user-id');
         $this->isAssignee($assignee)->shouldReturn(true);
+    }
+
+    function its_childrens_are_mutable(IssueInterface $issue)
+    {
+        $this->getChildren()->shouldHaveCount(0);
+
+        $this->addChildren($issue);
+
+        $this->getChildren()->shouldHaveCount(1);
+
+        $this->removeChildren($issue);
+
+        $this->getChildren()->shouldHaveCount(0);
     }
 
     function its_created_at_is_mutable()
@@ -122,6 +138,12 @@ class IssueSpec extends ObjectBehavior
     {
         $this->setNumericId(1)->shouldReturn($this);
         $this->getNumericId()->shouldReturn(1);
+    }
+
+    function its_parent_is_mutable(IssueInterface $issue)
+    {
+        $this->setParent($issue)->shouldReturn($this);
+        $this->getParent()->shouldReturn($issue);
     }
 
     function its_priority_is_mutable()

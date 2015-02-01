@@ -35,6 +35,13 @@ class Issue extends AbstractModel implements IssueInterface
     protected $assignee;
 
     /**
+     * Child issues
+     *
+     * @var \Kreta\Component\Issue\Model\Interfaces\IssueInterface[]
+     */
+    protected $children;
+
+    /**
      * Created at.
      *
      * @var \DateTime
@@ -61,6 +68,13 @@ class Issue extends AbstractModel implements IssueInterface
      * @var int
      */
     protected $numericId;
+
+    /**
+     * Parent issue
+     *
+     * @var \Kreta\Component\Issue\Model\Interfaces\IssueInterface
+     */
+    protected $parent;
 
     /**
      * The priority that can be "low", "medium", "high" or "blocking".
@@ -123,6 +137,7 @@ class Issue extends AbstractModel implements IssueInterface
      */
     public function __construct()
     {
+        $this->children = new ArrayCollection();
         $this->createdAt = new \DateTime();
         $this->labels = new ArrayCollection();
         $this->watchers = new ArrayCollection();
@@ -152,6 +167,34 @@ class Issue extends AbstractModel implements IssueInterface
     public function isAssignee(UserInterface $user)
     {
         return $this->assignee->getId() === $user->getId();
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getChildren()
+    {
+        return $this->children;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function addChildren(IssueInterface $issue)
+    {
+        $this->children[] = $issue;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function removeChildren(IssueInterface $issue)
+    {
+        $this->children->removeElement($issue);
+
+        return $this;
     }
 
     /**
@@ -257,6 +300,24 @@ class Issue extends AbstractModel implements IssueInterface
     public function setNumericId($numericId)
     {
         $this->numericId = $numericId;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getParent()
+    {
+        return $this->parent;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setParent(IssueInterface $issue)
+    {
+        $this->parent = $issue;
 
         return $this;
     }

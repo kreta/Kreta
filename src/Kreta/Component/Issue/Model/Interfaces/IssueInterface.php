@@ -67,6 +67,31 @@ interface IssueInterface extends StatefulInterface
     public function isAssignee(UserInterface $user);
 
     /**
+     * Gets child issues.
+     *
+     * @return \Kreta\Component\Issue\Model\Interfaces\IssueInterface[]
+     */
+    public function getChildren();
+
+    /**
+     * Adds child issue.
+     *
+     * @param \Kreta\Component\Issue\Model\Interfaces\IssueInterface $issue
+     *
+     * @return $this self Object
+     */
+    public function addChildren(IssueInterface $issue);
+
+    /**
+     * Removes child issue.
+     *
+     * @param \Kreta\Component\Issue\Model\Interfaces\IssueInterface $issue
+     *
+     * @return $this self Object
+     */
+    public function removeChildren(IssueInterface $issue);
+
+    /**
      * Gets created at.
      *
      * @return \DateTime
@@ -138,6 +163,22 @@ interface IssueInterface extends StatefulInterface
      * @return $this self Object
      */
     public function setNumericId($numericId);
+
+    /**
+     * Gets parents issue.
+     *
+     * @return \Kreta\Component\Issue\Model\Interfaces\IssueInterface | null
+     */
+    public function getParent();
+
+    /**
+     * Sets parent issue.
+     *
+     * @param \Kreta\Component\Issue\Model\Interfaces\IssueInterface $issue
+     *
+     * @return $this self Object
+     */
+    public function setParent(IssueInterface $issue);
 
     /**
      * Gets priority.
