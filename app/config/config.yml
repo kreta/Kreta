@@ -189,3 +189,5 @@ nelmio_cors:
 sensio_framework_extra:
     view:
         annotations: false
+
+doctrine_migrations: ~

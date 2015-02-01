@@ -42,7 +42,10 @@
         "yohang/finite":                            "~1.0",
         "zurb/foundation":                          "5.4.*",
         "willdurand/hateoas-bundle":                "0.3.x",
-        "liip/imagine-bundle":                      "~1.1"
+        "liip/imagine-bundle":                      "~1.1",
+
+        "doctrine/migrations":                      "1.0.*@dev",
+        "doctrine/doctrine-migrations-bundle":      "2.1.*@dev"
     },
     "require-dev": {
         "behat/behat" :                             "~3.0",
