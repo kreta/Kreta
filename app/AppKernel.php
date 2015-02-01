@@ -22,7 +22,7 @@ class AppKernel extends Kernel
      */
     public function registerBundles()
     {
-        $bundles = array(
+        $bundles = [
             new Symfony\Bundle\FrameworkBundle\FrameworkBundle(),
             new Symfony\Bundle\SecurityBundle\SecurityBundle(),
             new Symfony\Bundle\TwigBundle\TwigBundle(),
@@ -45,7 +45,6 @@ class AppKernel extends Kernel
             new Nelmio\CorsBundle\NelmioCorsBundle(),
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
 
-            new Kreta\Bundle\ApiBundle\KretaApiBundle(),
             new Kreta\Bundle\CommentBundle\KretaCommentBundle(),
             new Kreta\Bundle\FixturesBundle\KretaFixturesBundle(),
             new Kreta\Bundle\CoreBundle\KretaCoreBundle(),
@@ -57,10 +56,9 @@ class AppKernel extends Kernel
             new Kreta\Bundle\WebBundle\KretaWebBundle(),
             new Kreta\Bundle\WorkflowBundle\KretaWorkflowBundle(),
             new Kreta\Bundle\VCSBundle\KretaVCSBundle(),
+        ];
 
-        );
-
-        if (in_array($this->getEnvironment(), array('dev', 'test'))) {
+        if (in_array($this->getEnvironment(), ['dev', 'test'])) {
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
@@ -86,7 +84,7 @@ class AppKernel extends Kernel
     {
         $filename = '/dev/shm/symfony/cache/';
 
-        if (in_array($this->environment, array('dev', 'test')) && file_exists($filename)) {
+        if (in_array($this->environment, ['dev', 'test']) && file_exists($filename)) {
             return $filename . $this->environment;
         }
 
@@ -100,7 +98,7 @@ class AppKernel extends Kernel
     {
         $filename = '/dev/shm/symfony/logs/';
 
-        if (in_array($this->environment, array('dev', 'test')) && file_exists($filename)) {
+        if (in_array($this->environment, ['dev', 'test']) && file_exists($filename)) {
             return $filename . $this->environment;
         }
 

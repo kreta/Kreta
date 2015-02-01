@@ -6,9 +6,6 @@
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
 suites:
-    ApiBundle:
-        namespace: Kreta
-        spec_path: src/Kreta/Bundle/ApiBundle
     CommentBundle:
         namespace: Kreta
         spec_path: src/Kreta/Bundle/CommentBundle
