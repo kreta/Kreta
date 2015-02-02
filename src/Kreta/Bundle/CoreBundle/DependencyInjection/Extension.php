@@ -24,19 +24,6 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension as BaseExtension;
 class Extension extends BaseExtension
 {
     /**
-     * Gets the path for configuration directories.
-     *
-     * @return string
-     */
-    public function getConfigurationDirectoryPath()
-    {
-        $classPath = new \ReflectionClass($this);
-        $nameSpaceDir = dirname($classPath->getFileName());
-        return $nameSpaceDir . '/../Resources/config';
-    }
-
-
-    /**
      * {@inheritdoc}
      */
     public function load(array $configs, ContainerBuilder $container)
@@ -46,5 +33,17 @@ class Extension extends BaseExtension
         $path = $this->getConfigurationDirectoryPath();
         $loader = new YamlFileLoader($container, new FileLocator($path));
         $loader->loadFilesFromDirectory($path);
+    }
+
+    /**
+     * Gets the path for configuration directories.
+     *
+     * @return string
+     */
+    protected function getConfigurationDirectoryPath()
+    {
+        $classPath = new \ReflectionClass($this);
+        $nameSpaceDir = dirname($classPath->getFileName());
+        return $nameSpaceDir . '/../Resources/config';
     }
 }

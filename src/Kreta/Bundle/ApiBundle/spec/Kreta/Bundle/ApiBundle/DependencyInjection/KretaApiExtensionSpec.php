@@ -12,7 +12,6 @@
 namespace spec\Kreta\Bundle\ApiBundle\DependencyInjection;
 
 use PhpSpec\ObjectBehavior;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 class KretaApiExtensionSpec extends ObjectBehavior
 {
@@ -21,8 +20,8 @@ class KretaApiExtensionSpec extends ObjectBehavior
         $this->shouldHaveType('Kreta\Bundle\ApiBundle\DependencyInjection\KretaApiExtension');
     }
 
-    function it_loads(ContainerBuilder $container)
+    function it_extends_kreta_extension()
     {
-        $this->load([], $container);
+        $this->shouldHaveType('Kreta\Bundle\CoreBundle\DependencyInjection\Extension');
     }
 }

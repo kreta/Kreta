@@ -9,24 +9,24 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace spec\Kreta\Bundle\CoreBundle\DependencyInjection\Abstracts;
+namespace spec\Kreta\Bundle\CoreBundle\DependencyInjection;
 
 use PhpSpec\ObjectBehavior;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
- * Class AbstractExtensionSpec.
+ * Class ExtensionSpec.
  *
- * @package spec\Kreta\Bundle\CoreBundle\DependencyInjection\Abstracts
+ * @package spec\Kreta\Bundle\CoreBundle\DependencyInjection
  */
-class AbstractExtensionSpec extends ObjectBehavior
+class ExtensionSpec extends ObjectBehavior
 {
-    function let()
+    function it_is_initializable()
     {
-        $this->beAnInstanceOf('Kreta\Bundle\CoreBundle\Stubs\AbstractExtensionStub');
+        $this->shouldHaveType('Kreta\Bundle\CoreBundle\DependencyInjection\Extension');
     }
 
-    function it_loads_config(ContainerBuilder $container)
+    function it_loads_kreta_extension(ContainerBuilder $container)
     {
         $this->load([], $container);
     }
