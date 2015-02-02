@@ -11,45 +11,13 @@
 
 namespace Kreta\Bundle\VCSBundle\DependencyInjection;
 
-use Kreta\Bundle\CoreBundle\DependencyInjection\Abstracts\AbstractExtension;
+use Kreta\Bundle\CoreBundle\DependencyInjection\Extension;
 
 /**
  * Class KretaVCSExtension.
  *
  * @package Kreta\Bundle\VCSBundle\DependencyInjection
  */
-class KretaVCSExtension extends AbstractExtension
+class KretaVCSExtension extends Extension
 {
-    /**
-     * {@inheritdoc}
-     */
-    protected function getConfigFilesLocation()
-    {
-        return __DIR__ . '/../Resources/config';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getConfigurationInstance()
-    {
-        return new Configuration();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getConfigFiles()
-    {
-        return [
-            'factories',
-            'listeners',
-            'matchers',
-            'parameters',
-            'repositories',
-            'serializers',
-            'strategies',
-            'subscribers'
-        ];
-    }
 }

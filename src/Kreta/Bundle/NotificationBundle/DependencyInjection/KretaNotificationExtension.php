@@ -11,36 +11,13 @@
 
 namespace Kreta\Bundle\NotificationBundle\DependencyInjection;
 
-use Kreta\Bundle\CoreBundle\DependencyInjection\Abstracts\AbstractExtension;
+use Kreta\Bundle\CoreBundle\DependencyInjection\Extension;
 
 /**
  * Class KretaNotificationExtension.
  *
  * @package Kreta\Bundle\NotificationBundle\DependencyInjection
  */
-class KretaNotificationExtension extends AbstractExtension
+class KretaNotificationExtension extends Extension
 {
-    /**
-     * {@inheritdoc}
-     */
-    protected function getConfigFilesLocation()
-    {
-        return __DIR__ . '/../Resources/config';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getConfigurationInstance()
-    {
-        return new Configuration();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getConfigFiles()
-    {
-        return ['events', 'factories', 'notifiers', 'parameters', 'repositories', 'subscribers'];
-    }
 }

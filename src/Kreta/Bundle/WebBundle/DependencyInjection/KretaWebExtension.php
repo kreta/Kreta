@@ -11,36 +11,13 @@
 
 namespace Kreta\Bundle\WebBundle\DependencyInjection;
 
-use Kreta\Bundle\CoreBundle\DependencyInjection\Abstracts\AbstractExtension;
+use Kreta\Bundle\CoreBundle\DependencyInjection\Extension;
 
 /**
  * This is the class that loads and manages your bundle configuration.
  *
  * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
  */
-class KretaWebExtension extends AbstractExtension
+class KretaWebExtension extends Extension
 {
-    /**
-     * {@inheritdoc}
-     */
-    protected function getConfigFilesLocation()
-    {
-        return __DIR__ . '/../Resources/config';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getConfigurationInstance()
-    {
-        return new Configuration();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getConfigFiles()
-    {
-        return ['services'];
-    }
 }

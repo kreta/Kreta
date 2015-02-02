@@ -11,28 +11,13 @@
 
 namespace Kreta\Bundle\ApiBundle\DependencyInjection;
 
-use Kreta\Bundle\CoreBundle\DependencyInjection\Abstracts\AbstractExtension;
+use Kreta\Bundle\CoreBundle\DependencyInjection\Extension;
 
 /**
  * Class KretaApiExtension.
  *
  * @package Kreta\Bundle\ApiBundle\DependencyInjection
  */
-class KretaApiExtension extends AbstractExtension
+class KretaApiExtension extends Extension
 {
-    /**
-     * {@inheritdoc}
-     */
-    protected function getConfigFilesLocation()
-    {
-        return __DIR__ . '/../Resources/config';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getConfigurationInstance()
-    {
-        return new Configuration();
-    }
 }
