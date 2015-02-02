@@ -18,18 +18,25 @@
         }
     ],
     "require": {
-        "php":                                 ">=5.4",
-        "symfony/framework-bundle":            "2.3.*",
-        "symfony/form":                        "2.3.*",
+        "php":                                  ">=5.4",
+        "symfony/framework-bundle":             "2.3.*",
+        "symfony/form":                         "2.3.*",
 
-        "kreta/core":                          "~0.1.0"
+        "friendsofsymfony/oauth-server-bundle": "~1.4",
+        "friendsofsymfony/rest-bundle":         "1.4.x",
+        "nelmio/api-doc-bundle":                "2.5.x",
+        "nelmio/cors-bundle":                   "1.3.x",
+        "jms/serializer-bundle":                "0.13.x",
+        "willdurand/hateoas-bundle":            "0.3.x",
+
+        "kreta/core":                           "~0.1.0"
     },
     "require-dev": {
-        "phpspec/phpspec":                     "~2.1",
-        "henrikbjorn/phpspec-code-coverage":   "~1.0",
-        "satooshi/php-coveralls":              "0.6.1",
-        "squizlabs/php_codesniffer":           "~1.0",
-        "phpmd/phpmd":                         "~2.1"
+        "phpspec/phpspec":                      "~2.1",
+        "henrikbjorn/phpspec-code-coverage":    "~1.0",
+        "satooshi/php-coveralls":               "0.6.1",
+        "squizlabs/php_codesniffer":            "~1.0",
+        "phpmd/phpmd":                          "~2.1"
     },
     "autoload": {
         "psr-4": { "Kreta\\Bundle\\CoreBundle\\": "" }
