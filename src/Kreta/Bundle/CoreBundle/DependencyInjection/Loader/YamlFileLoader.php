@@ -53,6 +53,7 @@ class YamlFileLoader extends BaseYamlFileLoader
     {
         $parser = new Parser();
         $parsedResult = $parser->parse(file_get_contents($file));
-        return array_key_exists($searchTerm, $parsedResult);
+
+        return is_null($parsedResult) ? false : array_key_exists($searchTerm, $parsedResult);
     }
 }
