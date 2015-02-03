@@ -9,10 +9,6 @@
 
 echo "Generating the subtree splits..."
 
-git subtree split -P src/Kreta/Bundle/ApiBundle/ -b api-bundle
-git push git@github.com:kreta-io/ApiBundle.git api-bundle:master
-git branch -D api-bundle
-
 git subtree split -P src/Kreta/Bundle/CommentBundle/ -b comment-bundle
 git push git@github.com:kreta-io/CommentBundle.git comment-bundle:master
 git branch -D comment-bundle
