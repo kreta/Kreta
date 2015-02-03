@@ -35,7 +35,7 @@ class Issue extends AbstractModel implements IssueInterface
     protected $assignee;
 
     /**
-     * Child issues
+     * Child issues.
      *
      * @var \Kreta\Component\Issue\Model\Interfaces\IssueInterface[]
      */
@@ -70,7 +70,7 @@ class Issue extends AbstractModel implements IssueInterface
     protected $numericId;
 
     /**
-     * Parent issue
+     * Parent issue.
      *
      * @var \Kreta\Component\Issue\Model\Interfaces\IssueInterface
      */
