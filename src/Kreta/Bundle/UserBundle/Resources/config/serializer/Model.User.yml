@@ -29,6 +29,3 @@ Kreta\Component\User\Model\User:
         lastName:
             expose: true
             groups: [projectList, project, issueList, issue]
-        projects:
-            expose: true
-            groups: []

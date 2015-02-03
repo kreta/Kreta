@@ -55,10 +55,6 @@ Kreta\Component\User\Model\User:
                 name: photo
                 referencedColumnName: id
             cascade: ['persist', 'remove']
-    oneToMany:
-        projects:
-            targetEntity: Kreta\Component\Project\Model\Interfaces\ParticipantInterface
-            mappedBy: user
     attributeOverride:
         email:
             type: string

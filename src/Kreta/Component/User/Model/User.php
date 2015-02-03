@@ -11,10 +11,8 @@
 
 namespace Kreta\Component\User\Model;
 
-use Doctrine\Common\Collections\ArrayCollection;
 use FOS\UserBundle\Model\User as BaseUser;
 use Kreta\Component\Media\Model\Interfaces\MediaInterface;
-use Kreta\Component\Project\Model\Interfaces\ParticipantInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 
 /**
@@ -81,19 +79,11 @@ class User extends BaseUser implements UserInterface
     protected $photo;
 
     /**
-     * Array that contains all the projects with his roles.
-     *
-     * @var \Doctrine\Common\Collections\ArrayCollection
-     */
-    protected $projects;
-
-    /**
      * Constructor.
      */
     public function __construct()
     {
         $this->createdAt = new \DateTime();
-        $this->projects = new ArrayCollection();
 
         parent::__construct();
     }
@@ -256,34 +246,6 @@ class User extends BaseUser implements UserInterface
     public function setPhoto(MediaInterface $photo)
     {
         $this->photo = $photo;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getProjects()
-    {
-        return $this->projects;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function addProject(ParticipantInterface $project)
-    {
-        $this->projects[] = $project;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function removeProject(ParticipantInterface $project)
-    {
-        $this->projects->removeElement($project);
 
         return $this;
     }
