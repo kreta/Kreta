@@ -14,9 +14,9 @@ namespace Kreta\Bundle\WebBundle\DependencyInjection;
 use Kreta\Bundle\CoreBundle\DependencyInjection\Extension;
 
 /**
- * This is the class that loads and manages your bundle configuration.
+ * Class KretaWebExtension.
  *
- * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
+ * @package Kreta\Bundle\WebBundle\DependencyInjection
  */
 class KretaWebExtension extends Extension
 {

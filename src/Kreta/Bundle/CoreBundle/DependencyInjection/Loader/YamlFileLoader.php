@@ -22,18 +22,18 @@ use Symfony\Component\DependencyInjection\Loader\YamlFileLoader as BaseYamlFileL
 class YamlFileLoader extends BaseYamlFileLoader
 {
     /**
-     * Load all YAML Files from directory.
+     * Loads all YAML files from directory.
      *
      * @param string $path Path for resources
      *
-     * @return null
+     * @return void
      */
     public function loadFilesFromDirectory($path)
     {
         if ($handle = opendir($path)) {
             while (false !== ($file = readdir($handle))) {
                 if (strpos($file, '.yml')) {
-                    if ($this->existInFile($path . '/' . $file, 'services')) {
+                    if ($this->existInFile($path . '/' . $file, ['services', 'parameters'])) {
                         $this->load($file);
                     }
                 }
@@ -42,18 +42,26 @@ class YamlFileLoader extends BaseYamlFileLoader
     }
 
     /**
-     * Analyze content of YAML for search term.
+     * Analyzes content of YAML for search term.
      *
-     * @param string $file Path for search content
-     * @param string $searchTerm Searched term in file
+     * @param string $file        Path for search content
+     * @param array  $searchTerms Array which contains terms for search
      *
      * @return boolean
      */
-    protected function existInFile($file, $searchTerm)
+    protected function existInFile($file, array $searchTerms)
     {
         $parser = new Parser();
         $parsedResult = $parser->parse(file_get_contents($file));
 
-        return is_null($parsedResult) ? false : array_key_exists($searchTerm, $parsedResult);
+        if (isset($parsedResult)) {
+            foreach ($searchTerms as $searchTerm) {
+                if (array_key_exists($searchTerm, $parsedResult)) {
+                    return true;
+                }
+            }
+        }
+
+        return false;
     }
 }

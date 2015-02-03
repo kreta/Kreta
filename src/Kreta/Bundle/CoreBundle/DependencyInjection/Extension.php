@@ -24,56 +24,43 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension as BaseExtension;
 class Extension extends BaseExtension
 {
     /**
-     * @var string $nameSpaceDir
+     * The current bundle's Configuration.php directory path.
+     *
+     * @var string
      */
-    protected $nameSpaceDir;
+    protected $directory;
 
     /**
-     * @var string $nameSpace
+     * The current bundle's Configuration.php namespace.
+     *
+     * @var string
      */
-    protected $nameSpace;
+    protected $namespace;
 
     /**
      * {@inheritdoc}
      */
     public function load(array $configs, ContainerBuilder $container)
     {
-        $this->configureNamespacesAndPaths();
-        $configClass = $this->getConfigurationClassPath();
-        $configuration = new $configClass();
+        $this->setUp();
+
+        $configuration = new $this->namespace();
         $this->processConfiguration($configuration, $configs);
-        $path = $this->getConfigurationDirectoryPath();
-        $loader = new YamlFileLoader($container, new FileLocator($path));
-        $loader->loadFilesFromDirectory($path);
+
+        $loader = new YamlFileLoader($container, new FileLocator($this->directory));
+        $loader->loadFilesFromDirectory($this->directory);
     }
 
     /**
-     * Gets the path for configuration directories.
+     * Sets the directory and namespace with the current bundle Extension data.
      *
-     * @return string
-     */
-    protected function getConfigurationDirectoryPath()
-    {
-        return $this->nameSpaceDir . '/../Resources/config';
-    }
-
-    /**
-     * Gets the path for configuration class.
-     *
-     * @return string
-     */
-    protected function getConfigurationClassPath()
-    {
-        return $this->nameSpace . '\Configuration';
-    }
-
-    /**
      * @return void
      */
-    protected function configureNamespacesAndPaths()
+    protected function setUp()
     {
         $classPath = new \ReflectionClass($this);
-        $this->nameSpaceDir = dirname($classPath->getFileName());
-        $this->nameSpace = $classPath->getNamespaceName();
+
+        $this->directory = dirname($classPath->getFileName()) . '/../Resources/config';
+        $this->namespace = $classPath->getNamespaceName() . '\Configuration';
     }
 }

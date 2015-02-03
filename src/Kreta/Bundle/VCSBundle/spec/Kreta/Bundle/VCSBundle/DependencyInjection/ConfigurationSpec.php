@@ -30,8 +30,9 @@ class ConfigurationSpec extends ObjectBehavior
         $this->shouldImplement('Symfony\Component\Config\Definition\ConfigurationInterface');
     }
 
-    function it_gets_config_tree_build()
+    function it_gets_config_tree_builder()
     {
-        $this->getConfigTreeBuilder();
+        $this->getConfigTreeBuilder()
+            ->shouldReturnAnInstanceOf('Symfony\Component\Config\Definition\Builder\TreeBuilder');
     }
 }
