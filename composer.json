@@ -64,7 +64,6 @@
         "doctrine/doctrine-fixtures-bundle":        "~2.2"
     },
     "replace": {
-        "kreta/api-bundle": "self.version",
         "kreta/comment-bundle": "self.version",
         "kreta/core-bundle": "self.version",
         "kreta/fixtures-bundle": "self.version",

@@ -15,7 +15,7 @@ default:
     suites:
         api:
             contexts:
-                - Kreta\Bundle\ApiBundle\Behat\OauthContext
+                - Kreta\Bundle\CoreBundle\Behat\OauthContext
                 - Kreta\Bundle\WorkflowBundle\Behat\WorkflowContext
                 - Kreta\Bundle\ProjectBundle\Behat\ProjectContext
                 - Kreta\Bundle\IssueBundle\Behat\IssueContext

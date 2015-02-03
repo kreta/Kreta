@@ -7,6 +7,11 @@
 
 services:
 #### FORM HANDLER ####
+    kreta_project.form_handler.api.project:
+        class: Kreta\Bundle\ProjectBundle\Form\Handler\Api\ProjectHandler
+        parent: kreta_core.form_handler.abstract
+        arguments: [@kreta_media.factory.media, @kreta_project.uploader.image_project, @security.context, @kreta_project.factory.project, @kreta_workflow.repository.workflow]
+
     kreta_project.form_handler.project:
         class: %kreta_project.form_project_handler.class%
         arguments: [@form.factory, @doctrine.orm.entity_manager, @event_dispatcher, @kreta_media.factory.media, @kreta_project.uploader.image_project]

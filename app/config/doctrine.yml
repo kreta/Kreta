@@ -23,11 +23,11 @@ doctrine:
                 dir: "Resources/config/doctrine"
                 prefix: 'FOS\OAuthServerBundle\Entity'
                 is_bundle: true
-            KretaApiBundle:
+            KretaCoreBundle:
                 mapping: true
                 type: yml
                 dir: "Resources/config/doctrine"
-                prefix: 'Kreta\Bundle\ApiBundle\Model'
+                prefix: 'Kreta\Bundle\CoreBundle\Model'
                 is_bundle: true
             KretaIssueBundle:
                 mapping: true
@@ -78,10 +78,10 @@ doctrine:
                 prefix: 'Kreta\Component\Workflow\Model'
                 is_bundle: true
         resolve_target_entities:
-            Kreta\Bundle\ApiBundle\Model\Interfaces\AccessTokenInterface: Kreta\Bundle\ApiBundle\Model\AccessToken
-            Kreta\Bundle\ApiBundle\Model\Interfaces\AuthCodeInterface: Kreta\Bundle\ApiBundle\Model\AuthCode
-            Kreta\Bundle\ApiBundle\Model\Interfaces\ClientInterface: Kreta\Bundle\ApiBundle\Model\Client
-            Kreta\Bundle\ApiBundle\Model\Interfaces\RefreshTokenInterface: Kreta\Bundle\ApiBundle\Model\RefreshToken
+            Kreta\Bundle\CoreBundle\Model\Interfaces\AccessTokenInterface: Kreta\Bundle\CoreBundle\Model\AccessToken
+            Kreta\Bundle\CoreBundle\Model\Interfaces\AuthCodeInterface: Kreta\Bundle\CoreBundle\Model\AuthCode
+            Kreta\Bundle\CoreBundle\Model\Interfaces\ClientInterface: Kreta\Bundle\CoreBundle\Model\Client
+            Kreta\Bundle\CoreBundle\Model\Interfaces\RefreshTokenInterface: Kreta\Bundle\CoreBundle\Model\RefreshToken
             Kreta\Component\Comment\Model\Interfaces\CommentInterface: Kreta\Component\Comment\Model\Comment
             Kreta\Component\Issue\Model\Interfaces\IssueInterface: Kreta\Component\Issue\Model\Issue
             Kreta\Component\Issue\Model\Interfaces\LabelInterface: Kreta\Component\Issue\Model\Label
