@@ -67,10 +67,10 @@ bazinga_hateoas:
 
 fos_oauth_server:
     db_driver: orm
-    access_token_class: Kreta\Bundle\ApiBundle\Model\AccessToken
-    auth_code_class: Kreta\Bundle\ApiBundle\Model\AuthCode
-    client_class: Kreta\Bundle\ApiBundle\Model\Client
-    refresh_token_class: Kreta\Bundle\ApiBundle\Model\RefreshToken
+    access_token_class: Kreta\Bundle\CoreBundle\Model\AccessToken
+    auth_code_class: Kreta\Bundle\CoreBundle\Model\AuthCode
+    client_class: Kreta\Bundle\CoreBundle\Model\Client
+    refresh_token_class: Kreta\Bundle\CoreBundle\Model\RefreshToken
     service:
         user_provider: kreta_user.user_provider
         options:
@@ -118,31 +118,31 @@ jms_serializer:
         directories:
             kreta-comment:
                 namespace_prefix: "Kreta\\Component\\Comment"
-                path: "@KretaApiBundle/Resources/config/serializer"
+                path: "@KretaCommentBundle/Resources/config/serializer"
             kreta-core:
                 namespace_prefix: "Kreta\\Component\\Core"
-                path: "@KretaApiBundle/Resources/config/serializer"
+                path: "@KretaCoreBundle/Resources/config/serializer"
             kreta-issue:
                 namespace_prefix: "Kreta\\Component\\Issue"
-                path: "@KretaApiBundle/Resources/config/serializer"
+                path: "@KretaIssueBundle/Resources/config/serializer"
             kreta-media:
                 namespace_prefix: "Kreta\\Component\\Media"
-                path: "@KretaApiBundle/Resources/config/serializer"
+                path: "@KretaMediaBundle/Resources/config/serializer"
             kreta-notification:
                 namespace_prefix: "Kreta\\Component\\Notification"
-                path: "@KretaApiBundle/Resources/config/serializer"
+                path: "@KretaNotificationBundle/Resources/config/serializer"
             kreta-project:
                 namespace_prefix: "Kreta\\Component\\Project"
-                path: "@KretaApiBundle/Resources/config/serializer"
+                path: "@KretaProjectBundle/Resources/config/serializer"
             kreta-user:
                 namespace_prefix: "Kreta\\Component\\User"
-                path: "@KretaApiBundle/Resources/config/serializer"
+                path: "@KretaUserBundle/Resources/config/serializer"
             kreta-workflow:
                 namespace_prefix: "Kreta\\Component\\Workflow"
-                path: "@KretaApiBundle/Resources/config/serializer"
+                path: "@KretaWorkflowBundle/Resources/config/serializer"
             FOSUserBundle:
                 namespace_prefix: "FOS\\UserBundle"
-                path: "@KretaApiBundle/Resources/FOSUserBundle/serializer"
+                path: "@KretaUserBundle/Resources/FOSUserBundle/serializer"
 
 knp_gaufrette:
     adapters:

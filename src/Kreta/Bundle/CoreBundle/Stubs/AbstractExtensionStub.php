@@ -36,4 +36,12 @@ class AbstractExtensionStub extends AbstractExtension
     {
         return new Configuration();
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function getConfigFiles()
+    {
+        return ['commands', 'handlers', 'listeners', 'subscribers'];
+    }
 }

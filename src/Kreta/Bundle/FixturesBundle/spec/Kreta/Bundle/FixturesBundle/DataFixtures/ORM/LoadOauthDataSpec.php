@@ -15,8 +15,8 @@ use Doctrine\Common\DataFixtures\ReferenceRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use FOS\OAuthServerBundle\Model\TokenInterface;
 use FOS\OAuthServerBundle\Model\TokenManagerInterface;
-use Kreta\Bundle\ApiBundle\Command\CreateClientCommand;
-use Kreta\Bundle\ApiBundle\Model\Interfaces\ClientInterface;
+use Kreta\Bundle\CoreBundle\Command\CreateClientCommand;
+use Kreta\Bundle\CoreBundle\Model\Interfaces\ClientInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use Kreta\Component\User\Repository\UserRepository;
 use PhpSpec\ObjectBehavior;
@@ -58,7 +58,7 @@ class LoadOauthDataSpec extends ObjectBehavior
         ObjectManager $manager
     )
     {
-        $container->get('kreta_api.command.create_client')
+        $container->get('kreta_core.command.create_client')
             ->shouldBeCalled()->willReturn($createClientCommand);
         $createClientCommand->generateClient(
             ['http://kreta.io'], ['authorization_code', 'password', 'refresh_token', 'token', 'client_credentials']
