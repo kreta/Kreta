@@ -12,7 +12,6 @@
 namespace spec\Kreta\Component\User\Model;
 
 use Kreta\Component\Media\Model\Interfaces\MediaInterface;
-use Kreta\Component\Project\Model\Interfaces\ParticipantInterface;
 use PhpSpec\ObjectBehavior;
 
 /**
@@ -35,11 +34,6 @@ class UserSpec extends ObjectBehavior
     function it_implements_user_interface()
     {
         $this->shouldImplement('Kreta\Component\User\Model\Interfaces\UserInterface');
-    }
-
-    function its_projects_are_collection()
-    {
-        $this->getProjects()->shouldHaveType('Doctrine\Common\Collections\ArrayCollection');
     }
 
     function it_should_not_have_id_by_default()
@@ -127,19 +121,6 @@ class UserSpec extends ObjectBehavior
     {
         $this->setPhoto($media)->shouldReturn($this);
         $this->getPhoto()->shouldReturn($media);
-    }
-
-    function its_projects_with_his_roles_are_be_mutable(ParticipantInterface $project)
-    {
-        $this->getProjects()->shouldHaveCount(0);
-
-        $this->addProject($project);
-
-        $this->getProjects()->shouldHaveCount(1);
-
-        $this->removeProject($project);
-
-        $this->getProjects()->shouldHaveCount(0);
     }
 
     function its_email_has_the_same_value_than_username()

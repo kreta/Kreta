@@ -13,7 +13,6 @@ namespace Kreta\Component\User\Model\Interfaces;
 
 use FOS\UserBundle\Model\UserInterface as BaseUserInterface;
 use Kreta\Component\Media\Model\Interfaces\MediaInterface;
-use Kreta\Component\Project\Model\Interfaces\ParticipantInterface;
 
 /**
  * Interface UserInterface.
@@ -156,29 +155,4 @@ interface UserInterface extends BaseUserInterface
      * @return $this self Object
      */
     public function setPhoto(MediaInterface $photo);
-
-    /**
-     * Gets project with his role.
-     *
-     * @return \Kreta\Component\Project\Model\Interfaces\ParticipantInterface[]
-     */
-    public function getProjects();
-
-    /**
-     * Adds project with his role.
-     *
-     * @param \Kreta\Component\Project\Model\Interfaces\ParticipantInterface $project The project
-     *
-     * @return $this self Object
-     */
-    public function addProject(ParticipantInterface $project);
-
-    /**
-     * Removes project with his role.
-     *
-     * @param \Kreta\Component\Project\Model\Interfaces\ParticipantInterface $project The project
-     *
-     * @return $this self Object
-     */
-    public function removeProject(ParticipantInterface $project);
 }
