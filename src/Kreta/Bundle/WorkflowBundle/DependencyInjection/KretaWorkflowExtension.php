@@ -11,36 +11,13 @@
 
 namespace Kreta\Bundle\WorkflowBundle\DependencyInjection;
 
-use Kreta\Bundle\CoreBundle\DependencyInjection\Abstracts\AbstractExtension;
+use Kreta\Bundle\CoreBundle\DependencyInjection\Extension;
 
 /**
  * Class KretaWorkflowExtension.
  *
  * @package Kreta\Bundle\WorkflowBundle\DependencyInjection
  */
-class KretaWorkflowExtension extends AbstractExtension
+class KretaWorkflowExtension extends Extension
 {
-    /**
-     * {@inheritdoc}
-     */
-    protected function getConfigFilesLocation()
-    {
-        return __DIR__ . '/../Resources/config';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getConfigurationInstance()
-    {
-        return new Configuration();
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getConfigFiles()
-    {
-        return ['services', 'factories', 'parameters', 'repositories'];
-    }
 }

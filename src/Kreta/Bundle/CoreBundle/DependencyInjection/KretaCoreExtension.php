@@ -11,36 +11,11 @@
 
 namespace Kreta\Bundle\CoreBundle\DependencyInjection;
 
-use Kreta\Bundle\CoreBundle\DependencyInjection\Abstracts\AbstractExtension;
-
 /**
  * Class KretaCoreExtension.
  *
  * @package Kreta\Bundle\CoreBundle\DependencyInjection
  */
-class KretaCoreExtension extends AbstractExtension
+class KretaCoreExtension extends Extension
 {
-    /**
-     * {@inheritdoc}
-     */
-    protected function getConfigFilesLocation()
-    {
-        return __DIR__ . '/../Resources/config';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    protected function getConfigurationInstance()
-    {
-        return new Configuration();
-    }
-    
-    /**
-     * {@inheritdoc}
-     */
-    protected function getConfigFiles()
-    {
-        return ['commands', 'handlers', 'listeners', 'subscribers'];
-    }
 }

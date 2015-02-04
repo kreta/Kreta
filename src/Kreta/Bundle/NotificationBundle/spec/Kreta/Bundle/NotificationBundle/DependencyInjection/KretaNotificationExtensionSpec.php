@@ -13,7 +13,6 @@ namespace spec\Kreta\Bundle\NotificationBundle\DependencyInjection;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
  * Class KretaNotificationExtensionSpec.
@@ -27,13 +26,8 @@ class KretaNotificationExtensionSpec extends ObjectBehavior
         $this->shouldHaveType('Kreta\Bundle\NotificationBundle\DependencyInjection\KretaNotificationExtension');
     }
 
-    function it_extends_extension()
+    function it_extends_kreta_extension()
     {
-        $this->shouldHaveType('Symfony\Component\DependencyInjection\Extension\Extension');
-    }
-
-    function it_loads_extension(ContainerBuilder $container)
-    {
-        $this->load([], $container);
+        $this->shouldHaveType('Kreta\Bundle\CoreBundle\DependencyInjection\Extension');
     }
 }

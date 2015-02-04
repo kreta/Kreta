@@ -12,7 +12,6 @@
 namespace spec\Kreta\Bundle\VCSBundle\DependencyInjection;
 
 use PhpSpec\ObjectBehavior;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
  * Class KretaVCSExtensionSpec.
@@ -26,8 +25,8 @@ class KretaVCSExtensionSpec extends ObjectBehavior
         $this->shouldHaveType('Kreta\Bundle\VCSBundle\DependencyInjection\KretaVCSExtension');
     }
 
-    function it_loads(ContainerBuilder $container)
+    function it_extends_kreta_extension()
     {
-        $this->load([], $container);
+        $this->shouldHaveType('Kreta\Bundle\CoreBundle\DependencyInjection\Extension');
     }
 }

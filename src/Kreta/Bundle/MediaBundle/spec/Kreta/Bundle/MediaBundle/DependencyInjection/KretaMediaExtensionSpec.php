@@ -12,7 +12,6 @@
 namespace spec\Kreta\Bundle\MediaBundle\DependencyInjection;
 
 use PhpSpec\ObjectBehavior;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 
 /**
  * Class KretaMediaExtensionSpec.
@@ -26,8 +25,8 @@ class KretaMediaExtensionSpec extends ObjectBehavior
         $this->shouldHaveType('Kreta\Bundle\MediaBundle\DependencyInjection\KretaMediaExtension');
     }
 
-    function it_loads(ContainerBuilder $container)
+    function it_extends_kreta_extension()
     {
-        $this->load([], $container);
+        $this->shouldHaveType('Kreta\Bundle\CoreBundle\DependencyInjection\Extension');
     }
 }

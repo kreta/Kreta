@@ -25,4 +25,15 @@ class ConfigurationSpec extends ObjectBehavior
     {
         $this->shouldHaveType('Kreta\Bundle\WebBundle\DependencyInjection\Configuration');
     }
+
+    function it_implements_configuration_interface()
+    {
+        $this->shouldImplement('Symfony\Component\Config\Definition\ConfigurationInterface');
+    }
+
+    function it_gets_config_tree_builder()
+    {
+        $this->getConfigTreeBuilder()
+            ->shouldReturnAnInstanceOf('Symfony\Component\Config\Definition\Builder\TreeBuilder');
+    }
 }
