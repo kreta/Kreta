@@ -30,7 +30,6 @@ Kreta\Component\Project\Model\Participant:
                 onDelete: CASCADE
         user:
             targetEntity: Kreta\Component\User\Model\Interfaces\UserInterface
-            inversedBy: projects
             joinColumn:
                 name: user_id
                 referencedColumnName: id
