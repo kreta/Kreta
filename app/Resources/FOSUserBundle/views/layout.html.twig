@@ -5,9 +5,7 @@
     <div class="small-12 medium-8 large-6 small-centered column">
         <div class="small-6 small-centered column text-center">
             <a href="{{ url('kreta_web_homepage') }}">
-                {% image '@KretaWebBundle/Resources/public/img/logo.png' %}
-                <img class="logo" src="{{ asset_url }}"/>
-                {% endimage %}
+                <img class="logo" src="{{ asset(base_asset_img ~ 'logo.png') }}"/>
             </a>
         </div>
     {% block fos_user_content %}

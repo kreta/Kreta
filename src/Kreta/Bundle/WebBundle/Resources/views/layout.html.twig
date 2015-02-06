@@ -4,11 +4,11 @@
     <title>Kreta - Modern task manager for software development</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     {% block stylesheets %}
-        {% stylesheets filter="compass"
-                              "@KretaWebBundle/Resources/public/scss/app.scss"
-                              output='css/app.css' %}
-            <link href="{{ asset_url }}" media="screen" rel="stylesheet" type="text/css"/>
-        {% endstylesheets %}
+        {% if app.debug %}
+            <link href="{{ asset('css/app.css') }}" media="screen" rel="stylesheet" type="text/css"/>
+        {% else %}
+            <link href="{{ asset('css/app.min.css') }}" media="screen" rel="stylesheet" type="text/css"/>
+        {% endif %}
         <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
         <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400' rel='stylesheet' type='text/css'>
     {% endblock %}
@@ -34,9 +34,13 @@
 {% endblock %}
 {% block javascripts %}
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    {% javascripts '@KretaWebBundle/Resources/public/js/*' output='js/*.js' %}
-        <script type="text/javascript" src="{{ asset_url }}"></script>
-    {% endjavascripts %}
+    {% if app.debug %}
+        {% for js_file in javascripts(base_asset_js) %}
+            <script src="{{ asset(base_asset_js ~ js_file) }}"></script>
+        {% endfor %}
+    {% else %}
+            <script src="{{ asset(base_asset_js ~ 'app.min.js') }}"></script>
+    {% endif %}
 {% endblock %}
 </body>
 </html>

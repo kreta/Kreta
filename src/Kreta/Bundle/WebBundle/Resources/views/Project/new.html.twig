@@ -8,9 +8,7 @@
             {{ form_row(form.name) }}
             {{ form_row(form.shortName) }}
             {{ form_row(form.image) }}
-            {% image '@KretaWebBundle/Resources/public/img/project.jpg' %}
-                <img class="kreta-image-preview" src="{{ asset_url }}">
-            {% endimage %}
+            <img class="kreta-image-preview" src="{{ asset(base_asset_img ~ 'project.jpg') }}">
             <div class="form-actions">
                 <input class="button tiny" type="submit" value="Create">
             </div>
