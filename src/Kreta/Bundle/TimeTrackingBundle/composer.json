@@ -1,0 +1,47 @@
+{
+    "name": "kreta/time-tracking-bundle",
+    "description": "Kreta time tracking bundle",
+    "keywords": ["project", "management", "development", "tool", "time tracking", "bundle"],
+    "homepage": "http://kreta.io",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Beñat Espiña Diaz",
+            "email": "benatespina@gmail.com",
+            "homepage": "http://benatespina.com"
+        },
+        {
+            "name": "Gorka Laucirica Ibarra",
+            "email": "gorka.lauzirika@gmail.com",
+            "homepage": "http://gorkalaucirica.net"
+        }
+    ],
+    "require": {
+        "php":                                 ">=5.4",
+
+        "kreta/core-bundle":                   "~0.1.0",
+        "kreta/time-tracking":                  "~0.1.0"
+    },
+    "require-dev": {
+        "phpspec/phpspec":                     "~2.1",
+        "henrikbjorn/phpspec-code-coverage":   "~1.0",
+        "satooshi/php-coveralls":              "0.6.1",
+        "squizlabs/php_codesniffer":           "~1.0",
+        "phpmd/phpmd":                         "~2.1"
+    },
+    "autoload": {
+        "psr-4": { "Kreta\\Bundle\\TimeTrackingBundle\\": "" }
+    },
+    "autoload-dev": {
+        "psr-4": { "Kreta\\Bundle\\TimeTrackingBundle\\spec\\": "spec/" }
+    },
+    "config": {
+        "bin-dir": "bin"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.2-dev"
+        }
+    }
+}

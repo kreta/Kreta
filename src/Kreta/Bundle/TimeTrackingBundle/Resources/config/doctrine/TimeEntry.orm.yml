@@ -1,0 +1,16 @@
+Kreta\Component\TimeTracking\Model\TimeEntry:
+    type: entity
+    repositoryClass: Kreta\Component\TimeTracking\Repository\TimeEntryRepository
+    table: time_entry
+    id:
+        id:
+            type: string
+            generator:
+                strategy: UUID
+    fields:
+        dateReported:
+            type: datetime
+        description:
+            type: text
+        timeSpent:
+            type: integer
