@@ -12,7 +12,7 @@
 namespace Kreta\Component\TimeTracking\Model\Interfaces;
 
 /**
- * Interface TimeEntryInterface
+ * Interface TimeEntryInterface.
  *
  * @package Kreta\Component\TimeTracking\Model\Interfaces
  */

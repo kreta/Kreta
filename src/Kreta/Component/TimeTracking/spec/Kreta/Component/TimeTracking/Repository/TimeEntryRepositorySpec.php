@@ -14,6 +14,11 @@ namespace spec\Kreta\Component\TimeTracking\Repository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\ClassMetadata;
 
+/**
+ * Class TimeEntryRepositorySpec
+ *
+ * @package spec\Kreta\Component\TimeTracking\Repository
+ */
 class TimeEntryRepositorySpec
 {
     function let(EntityManager $manager, ClassMetadata $classMetadata)

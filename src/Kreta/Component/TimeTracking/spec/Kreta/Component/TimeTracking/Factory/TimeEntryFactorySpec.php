@@ -13,6 +13,11 @@ namespace spec\Kreta\Component\TimeTracking\Factory;
 
 use PhpSpec\ObjectBehavior;
 
+/**
+ * Class TimeEntryFactorySpec
+ *
+ * @package spec\Kreta\Component\TimeTracking\Factory
+ */
 class TimeEntryFactorySpec extends ObjectBehavior
 {
     function let()

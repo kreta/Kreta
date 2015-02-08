@@ -14,7 +14,7 @@ namespace Kreta\Component\TimeTracking\Model;
 use Kreta\Component\TimeTracking\Model\Interfaces\TimeEntryInterface;
 
 /**
- * Class TimeEntry
+ * Class TimeEntry.
  *
  * @package Kreta\Component\TimeTracking\Model
  */
@@ -44,7 +44,7 @@ class TimeEntry implements TimeEntryInterface
     /**
      * Time spent in seconds.
      *
-     * @var integer
+     * @var int
      */
     protected $timeSpent;
 
