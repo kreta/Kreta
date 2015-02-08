@@ -33,6 +33,7 @@ twig:
     globals:
         base_asset_img: "bundles/kretaweb/img/"
         base_asset_js: "bundles/kretaweb/js/"
+        base_asset_vendor: "bundles/kretaweb/vendor/"
 
 swiftmailer:
     transport:  %mailer_transport%

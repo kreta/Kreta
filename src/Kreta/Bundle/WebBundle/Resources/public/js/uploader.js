@@ -14,9 +14,9 @@ $(document).ready(function () {
     $image = $('#kreta_project_project_type_image');
 
     $photo.on('change', function () {
-        $('.kreta-image-preview')[0].src = window.URL.createObjectURL(this.files[0])
+        $('.kreta-image-preview')[0].src = window.URL.createObjectURL(this.files[0]);
     });
     $image.on('change', function() {
-        $('.kreta-image-preview')[0].src = window.URL.createObjectURL(this.files[0])
+        $('.kreta-image-preview')[0].src = window.URL.createObjectURL(this.files[0]);
     });
 });

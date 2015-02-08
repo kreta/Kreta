@@ -7,10 +7,10 @@
 
 @import "settings";
 
-@import "../../../../../../../vendor/zurb/foundation/scss/normalize";
-@import "../../../../../../../vendor/zurb/foundation/scss/foundation/components/grid";
-@import "../../../../../../../vendor/zurb/foundation/scss/foundation/components/buttons";
-@import "../../../../../../../vendor/zurb/foundation/scss/foundation/components/forms";
+@import "../vendor/foundation/scss/normalize";
+@import "../vendor/foundation/scss/foundation/components/grid";
+@import "../vendor/foundation/scss/foundation/components/buttons";
+@import "../vendor/foundation/scss/foundation/components/forms";
 
 @import "layout/header";
 @import "layout/form";

@@ -11,6 +11,9 @@
 
 namespace Kreta\Bundle\WebBundle\Twig;
 
+use RecursiveIteratorIterator;
+use Symfony\Component\Finder\Iterator\RecursiveDirectoryIterator;
+
 /**
  * Class AssetExtension.
  *
@@ -37,12 +40,7 @@ class AssetExtension extends \Twig_Extension
      */
     public function getJavaScriptFiles($directory)
     {
-        $files = [];
-        foreach (array_map('basename', glob($directory . '*.js')) as $jsFilename) {
-            $files[] = $jsFilename;
-        }
-
-        return $files;
+        return $this->getAssets($directory, 'js');
     }
 
     /**
@@ -51,5 +49,30 @@ class AssetExtension extends \Twig_Extension
     public function getName()
     {
         return 'asset_extension';
+    }
+
+    /**
+     * Gets all the assets files of extension given and from directory given.
+     *
+     * @param string $directory     The directory path
+     * @param string $fileExtension The extension of assets that will be find
+     *
+     * @return array
+     */
+    protected function getAssets($directory, $fileExtension)
+    {
+        $paths = new RecursiveIteratorIterator(
+            new RecursiveDirectoryIterator($directory, RecursiveIteratorIterator::SELF_FIRST, true),
+            RecursiveIteratorIterator::SELF_FIRST
+        );
+
+        $files = [];
+        foreach ($paths as $name => $result) {
+            if ($result->isFile() && $result->getExtension() === $fileExtension) {
+                $files[] = $name;
+            }
+        }
+
+        return $files;
     }
 }

@@ -40,3 +40,7 @@ behat-coverage.xml
 
 #### Vagrant ####
 .vagrant
+
+#### Front-end ####
+.sass-cache
+node_modules
