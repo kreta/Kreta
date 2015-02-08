@@ -30,6 +30,9 @@ suites:
     ProjectBundle:
         namespace: Kreta
         spec_path: src/Kreta/Bundle/ProjectBundle
+    TimeTrackingBundle:
+        namespace: Kreta
+        spec_path: src/Kreta/Bundle/TimeTrackingBundle
     VCSBundle:
         namespace: Kreta
         spec_path: src/Kreta/Bundle/VCSBundle
@@ -55,6 +58,9 @@ suites:
     ProjectComponent:
         namespace: Kreta
         spec_path: src/Kreta/Component/Project
+    TimeTrackingComponent:
+        namespace: Kreta
+        spec_path: src/Kreta/Component/TimeTracking
     UserComponent:
         namespace: Kreta
         spec_path: src/Kreta/Component/User
