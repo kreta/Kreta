@@ -31,9 +31,9 @@ twig:
     debug: "%kernel.debug%"
     strict_variables: "%kernel.debug%"
     globals:
-        base_asset_img: "bundles/kretaweb/img/"
-        base_asset_js: "bundles/kretaweb/js/"
-        base_asset_vendor: "bundles/kretaweb/vendor/"
+        base_asset_img: "images/"
+        base_asset_js: "js/"
+        base_asset_vendor: "vendor/"
 
 swiftmailer:
     transport:  %mailer_transport%

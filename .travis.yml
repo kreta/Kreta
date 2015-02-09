@@ -19,6 +19,13 @@ env:
     - SYMFONY_VERSION=2.7.x-dev
     - SYMFONY_VERSION=dev-master
 
+before_install:
+    - sudo apt-get install node
+    - npm install -g bower
+    - npm install -g gulp
+    - npm install
+    - gulp
+  
 install:
     - sudo apt-get install apache2 libapache2-mod-fastcgi
     # enable php-fpm

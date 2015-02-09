@@ -7,16 +7,21 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-$(document).ready(function () {
-    var $photo, $image;
+(function ($) {
+  'use strict';
+
+  $(document).ready(function () {
+    var $photo, $image, $preview;
 
     $photo = $('#kreta_user_user_type_photo');
     $image = $('#kreta_project_project_type_image');
+    $preview = $('.kreta-image-preview');
 
     $photo.on('change', function () {
-        $('.kreta-image-preview')[0].src = window.URL.createObjectURL(this.files[0]);
+      $preview[0].src = window.URL.createObjectURL(this.files[0]);
     });
-    $image.on('change', function() {
-        $('.kreta-image-preview')[0].src = window.URL.createObjectURL(this.files[0]);
+    $image.on('change', function () {
+      $preview[0].src = window.URL.createObjectURL(this.files[0]);
     });
-});
+  });
+}(jQuery));
