@@ -38,6 +38,8 @@ class WebContext extends MinkContext implements KernelAwareContext
     public function iAmALoggedUser($user, $password)
     {
         $this->visitPath('/login');
+        var_dump($this->getSession()->getPage()->getContent() . "\n");
+        echo($this->getSession()->getPage()->getContent());die();
         $this->fillField('username', $user);
         $this->fillField('password', $password);
         $this->pressButton('Login');
