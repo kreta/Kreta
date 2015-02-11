@@ -11,7 +11,6 @@
 
 var gulp = require('gulp');
 var del = require('del');
-var to5 = require('gulp-6to5');
 var compass = require('gulp-compass');
 var concat = require('gulp-concat');
 var header = require('gulp-header');
@@ -19,12 +18,13 @@ var imagemin = require('gulp-imagemin');
 var jshint = require('gulp-jshint');
 var minifyCSS = require('gulp-minify-css');
 var rename = require('gulp-rename');
+var traceur = require('gulp-traceur');
 var uglify = require('gulp-uglify');
 var pkg = require('./package.json');
 
 var url = 'kreta.localhost';
-var basePath = './web/bundles/kretaweb/';
-var resultPath = './web/';
+var basePath = 'web/bundles/kretaweb/';
+var resultPath = 'web/';
 
 var license = [
   '/**',
@@ -93,15 +93,15 @@ gulp.task('sass:prod', ['clean'], function () {
 
 gulp.task('javascript', ['clean'], function () {
   return gulp.src(assets.javascripts)
-    .pipe(to5({blacklist: ['useStrict']}))
     .pipe(jshint())
     .pipe(jshint.reporter('default'))
+    .pipe(traceur())
     .pipe(gulp.dest(resultPath + 'js'));
 });
 
 gulp.task('javascript:prod', ['clean'], function () {
   return gulp.src(assets.javascripts)
-    .pipe(to5())
+    .pipe(traceur())
     .pipe(concat('kreta.min.js'))
     .pipe(uglify())
     .pipe(header(license, {pkg: pkg}))
