@@ -24,6 +24,7 @@ before_install:
     - npm install -g bower
     - npm install -g gulp
     - npm install
+    - gulp
 
 install:
     - sudo apt-get install apache2 libapache2-mod-fastcgi
@@ -48,7 +49,6 @@ before_script:
     - app/console cache:warmup --env=test
 
     - app/console assets:install --symlink
-    - gulp
     - sleep 5
 
 script:
