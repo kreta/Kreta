@@ -20,6 +20,7 @@ web/config.php
 web/css
 web/images
 web/js
+web/vendor
 web/media
 web/phpinfo.php
 !web/media/image/.gitkeep
@@ -40,3 +41,7 @@ behat-coverage.xml
 
 #### Vagrant ####
 .vagrant
+
+#### Front-end ####
+.sass-cache
+node_modules
