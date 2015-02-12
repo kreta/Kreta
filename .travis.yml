@@ -39,6 +39,7 @@ install:
     - npm install -g bower
     - npm install -g gulp
     - npm install
+    - bower install
     
     - gem install compass --version "=0.12.6"
 
