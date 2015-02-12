@@ -19,13 +19,6 @@ env:
 #    - SYMFONY_VERSION=2.7.x-dev
 #    - SYMFONY_VERSION=dev-master
 
-before_install:
-    - sudo apt-get install node
-    - npm install -g bower
-    - npm install -g gulp
-    - npm install
-    - gulp
-
 install:
     - sudo apt-get install apache2 libapache2-mod-fastcgi
     # enable php-fpm
@@ -38,6 +31,11 @@ install:
     - sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/default
     - sudo service apache2 restart
     - cat /etc/apache2/sites-available/default
+    
+    - sudo apt-get install node
+    - npm install -g bower
+    - npm install -g gulp
+    - npm install
 
 before_script:
     - export MINK_EXTENSION_PARAMS='base_url=http://localhost'
@@ -49,6 +47,8 @@ before_script:
     - app/console cache:warmup --env=test
 
     - app/console assets:install --symlink
+    - gulp
+
     - sleep 5
 
 script:
