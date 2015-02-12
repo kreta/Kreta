@@ -9,9 +9,7 @@
             {{ form_row(form.lastName) }}
             {{ form_row(form.email) }}
             {{ form_row(form.photo) }}
-            {% image '@KretaWebBundle/Resources/public/img/user.jpg' %}
-                <img class="kreta-image-preview" src="{{ app.user.photo ? app.user.photo.name|imagine_filter('kreta_small') : asset_url }}">
-            {% endimage %}
+            <img class="kreta-image-preview" src="{{ app.user.photo ? app.user.photo.name|imagine_filter('kreta_small') : asset(base_asset_img ~ 'user.jpg') }}">
             <div class="form-actions">
                 <input class="button tiny" type="submit" value="Update">
             </div>

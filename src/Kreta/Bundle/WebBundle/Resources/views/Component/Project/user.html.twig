@@ -10,9 +10,7 @@
     <div class="kreta-mini-project">
         {% for project in projects %}
             <div class="title-container">
-                {% image '@KretaWebBundle/Resources/public/img/project.jpg' %}
-                    <img src="{{ project.image ? project.image.name|imagine_filter('kreta_small') : asset_url }}">
-                {% endimage %}
+                <img src="{{ project.image ? project.image.name|imagine_filter('kreta_small') : asset(base_asset_img ~ 'project.jpg') }}">
                 <a href="{{ url('kreta_web_project_view', {'projectShortName': project.shortName}) }}">
                     {{ project.shortName }}
                 </a>

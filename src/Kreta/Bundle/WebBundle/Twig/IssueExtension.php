@@ -22,7 +22,7 @@ use Kreta\Component\Workflow\Model\Interfaces\StatusInterface;
 class IssueExtension extends \Twig_Extension
 {
     /**
-     * @{@inheritdoc}
+     * {@inheritdoc}
      */
     public function getFilters()
     {
@@ -122,9 +122,9 @@ class IssueExtension extends \Twig_Extension
     /**
      * Renders the label to represent the given status.
      *
-     * @param StatusInterface $status Status to be rendered.
+     * @param StatusInterface $status Status to be rendered
      *
-     * @return string Generated raw HTML.
+     * @return string Generated raw HTML
      */
     public function statusFilter(StatusInterface $status)
     {

@@ -24,3 +24,9 @@ doctrine:
         user:     "%database_user%"
         password: "%database_password%"
         charset:  UTF8
+
+#twig:
+#    globals:
+#        base_asset_img: ./web/images/
+#        base_asset_js: ./web/js/
+#        base_asset_vendor: ./web/vendor/

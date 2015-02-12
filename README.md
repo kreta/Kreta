@@ -80,7 +80,7 @@ After that, you have to load everything related to **database** (create database
 
 Finally, you have to dump the assets files:
 
-    $ php app/console assetic:dump
+    $ gulp
 
 And that's all! Now, if you access `http://kreta.localhost`, you will see your site up and running.
 

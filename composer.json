@@ -23,7 +23,6 @@
         "doctrine/orm":                             ">=2.2.3,<2.5.0",
         "doctrine/doctrine-bundle":                 "1.2.*",
         "twig/extensions":                          "1.0.*",
-        "symfony/assetic-bundle":                   "2.3.*",
         "symfony/swiftmailer-bundle":               "2.3.*",
         "symfony/monolog-bundle":                   "2.3.*",
         "sensio/distribution-bundle":               "2.3.*",
@@ -40,7 +39,6 @@
         "hwi/oauth-bundle":                         "0.4.*@dev",
         "jms/serializer-bundle":                    "0.13.x",
         "yohang/finite":                            "~1.0",
-        "zurb/foundation":                          "5.4.*",
         "willdurand/hateoas-bundle":                "0.3.x",
         "liip/imagine-bundle":                      "~1.1",
 
