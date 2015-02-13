@@ -26,7 +26,7 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 class IssueController extends RestController
 {
     /**
-     * Returns all the issues of current user, it admits sort, limit and offset.
+     * Returns all issues of project id given, it admits sort, limit and offset.
      *
      * @param string                               $projectId    The project id
      * @param \FOS\RestBundle\Request\ParamFetcher $paramFetcher The param fetcher
@@ -43,7 +43,7 @@ class IssueController extends RestController
      * @QueryParam(name="offset", requirements="\d+", default="0", description="Offset in pages")
      *
      * @ApiDoc(
-     *  description = "Returns all the issues of current user, it admits sort, limit and offset",
+     *  description = "Returns all issues of project id given, it admits sort, limit and offset",
      *  requirements = {
      *    {
      *      "name"="_format",
