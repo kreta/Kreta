@@ -34,14 +34,16 @@ install:
     - sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/default
     - sudo service apache2 restart
     - cat /etc/apache2/sites-available/default
-    
+
     - sudo apt-get install node
     - npm install -g bower
     - npm install -g gulp
+    - gem install compass --version "=0.12.6"
+
+    - cd src/Kreta/Bundle/WebBundle
     - npm install
     - bower install
-    
-    - gem install compass --version "=0.12.6"
+    - cd -
 
 before_script:
     - export MINK_EXTENSION_PARAMS='base_url=http://localhost'
@@ -53,7 +55,9 @@ before_script:
     - app/console cache:warmup --env=test
 
     - app/console assets:install --symlink
+    - cd src/Kreta/Bundle/WebBundle
     - gulp
+    - cd -
 
     - sleep 5
 

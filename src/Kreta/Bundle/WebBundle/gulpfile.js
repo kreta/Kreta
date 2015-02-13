@@ -22,9 +22,8 @@ var rename = require('gulp-rename');
 var uglify = require('gulp-uglify');
 var pkg = require('./package.json');
 
-var url = 'kreta.localhost';
-var basePath = 'web/bundles/kretaweb/';
-var resultPath = 'web/';
+var basePath = './../../../../web/bundles/kretaweb/';
+var resultPath = './../../../../web/';
 
 var license = [
   '/**',
@@ -33,7 +32,8 @@ var license = [
   ' * @link    <%= pkg.homepage %>',
   ' * @author  <%= pkg.authors[0].name %> (<%= pkg.authors[0].homepage %>)',
   ' * @author  <%= pkg.authors[1].name %> (<%= pkg.authors[1].homepage %>)',
-  ' * @license <%= pkg.license %>', ' */',
+  ' * @license <%= pkg.license %>',
+  ' */',
   "\n"
 ].join("\n");
 

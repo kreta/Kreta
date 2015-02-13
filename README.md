@@ -49,8 +49,8 @@ virtual_machine:
 database:
     mysql:
         rootpassword: app
-        user:         kretaUser     
-        password:     123           
+        user:         kretaUser
+        password:     123
         name:         kreta
 
 environments:
@@ -75,7 +75,7 @@ Once, you are inside the *Vagrant* box you need to download Kreta's dependencies
 
     $ composer install
     
-Furthermore, you need to download front-end development dependencies using **[NPM][8]** and **[Bower][7]**.
+Furthermore, you need to download front-end development dependencies using **[NPM][7]** and **[Bower][8]**.
     
     $ npm install
     $ bower install
@@ -84,7 +84,7 @@ After that, you have to load everything related to **database** (create database
 
     $ sh scripts/update_doctrine_dev.sh
 
-Finally, you have to dump the assets files using **[Gulp][8]**:
+Finally, you have to dump the assets files using **[Gulp][9]**:
 
     $ gulp
 
@@ -130,6 +130,9 @@ If you have any doubt or maybe you want to share some opinion, you can use our *
 [4]: http://symfony.com/doc/current/contributing/code/patches.html#make-a-pull-request
 [5]: http://behat.org
 [6]: http://getcomposer.org/download
+[7]: https://www.npmjs.com/
+[8]: http://bower.io/
+[9]: http://gulpjs.com/
 
 Credits
 -------
