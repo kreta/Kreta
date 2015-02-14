@@ -9,8 +9,10 @@ Kreta\Component\TimeTracking\Model\TimeEntry:
                 strategy: UUID
     fields:
         dateReported:
+            column: date_reported
             type: datetime
         description:
             type: text
         timeSpent:
+            column: time_spent
             type: integer
