@@ -9,14 +9,14 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\Component\Issue\Repository;
+namespace Kreta\Component\Project\Repository;
 
 use Kreta\Component\Core\Repository\EntityRepository;
 
 /**
  * Class LabelRepository.
  *
- * @package Kreta\Component\Issue\Repository
+ * @package Kreta\Component\Project\Repository
  */
 class LabelRepository extends EntityRepository
 {

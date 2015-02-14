@@ -72,6 +72,31 @@ interface ProjectInterface
     public function removeIssue(IssueInterface $issue);
 
     /**
+     * Gets labels.
+     *
+     * @return \Kreta\Component\Project\Model\Interfaces\LabelInterface[]
+     */
+    public function getLabels();
+
+    /**
+     * Adds the labels.
+     *
+     * @param \Kreta\Component\Project\Model\Interfaces\LabelInterface $label The label
+     *
+     * @return $this self Object
+     */
+    public function addLabel(LabelInterface $label);
+
+    /**
+     * Removes the label.
+     *
+     * @param \Kreta\Component\Project\Model\Interfaces\LabelInterface $label The label
+     *
+     * @return $this self Object
+     */
+    public function removeLabel(LabelInterface $label);
+
+    /**
      * Gets name.
      *
      * @return string

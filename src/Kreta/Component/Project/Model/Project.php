@@ -15,6 +15,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Kreta\Component\Core\Model\Abstracts\AbstractModel;
 use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
 use Kreta\Component\Media\Model\Interfaces\MediaInterface;
+use Kreta\Component\Project\Model\Interfaces\LabelInterface;
 use Kreta\Component\Project\Model\Interfaces\ParticipantInterface;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
@@ -40,6 +41,13 @@ class Project extends AbstractModel implements ProjectInterface
      * @var \Doctrine\Common\Collections\ArrayCollection
      */
     protected $issues;
+
+    /**
+     * Array that contains labels.
+     *
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     */
+    protected $labels;
 
     /**
      * The name.
@@ -75,6 +83,7 @@ class Project extends AbstractModel implements ProjectInterface
     public function __construct()
     {
         $this->issues = new ArrayCollection();
+        $this->labels = new ArrayCollection();
         $this->participants = new ArrayCollection();
     }
 
@@ -120,6 +129,34 @@ class Project extends AbstractModel implements ProjectInterface
     public function removeIssue(IssueInterface $issue)
     {
         $this->issues->removeElement($issue);
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getLabels()
+    {
+        return $this->labels;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function addLabel(LabelInterface $label)
+    {
+        $this->labels[] = $label;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function removeLabel(LabelInterface $label)
+    {
+        $this->labels->removeElement($label);
 
         return $this;
     }

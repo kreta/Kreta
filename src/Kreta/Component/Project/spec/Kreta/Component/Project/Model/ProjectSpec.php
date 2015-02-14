@@ -13,6 +13,7 @@ namespace spec\Kreta\Component\Project\Model;
 
 use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
 use Kreta\Component\Media\Model\Interfaces\MediaInterface;
+use Kreta\Component\Project\Model\Interfaces\LabelInterface;
 use Kreta\Component\Project\Model\Interfaces\ParticipantInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use Kreta\Component\Project\Model\Participant;
@@ -38,9 +39,10 @@ class ProjectSpec extends ObjectBehavior
         $this->shouldImplement('Kreta\Component\Project\Model\Interfaces\ProjectInterface');
     }
 
-    function its_issues_participants_project_roles_are_collection()
+    function its_issues_labels_and_participants_are_collection()
     {
         $this->getIssues()->shouldHaveType('Doctrine\Common\Collections\ArrayCollection');
+        $this->getLabels()->shouldHaveType('Doctrine\Common\Collections\ArrayCollection');
         $this->getParticipants()->shouldHaveType('Doctrine\Common\Collections\ArrayCollection');
     }
 
@@ -61,6 +63,19 @@ class ProjectSpec extends ObjectBehavior
         $this->removeIssue($issue);
 
         $this->getIssues()->shouldHaveCount(0);
+    }
+
+    function its_labels_are_be_mutable(LabelInterface $label)
+    {
+        $this->getLabels()->shouldHaveCount(0);
+
+        $this->addLabel($label);
+
+        $this->getLabels()->shouldHaveCount(1);
+
+        $this->removeLabel($label);
+
+        $this->getLabels()->shouldHaveCount(0);
     }
 
     function its_name_is_mutable()

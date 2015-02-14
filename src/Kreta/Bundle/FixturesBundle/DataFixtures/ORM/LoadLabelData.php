@@ -33,9 +33,11 @@ class LoadLabelData extends DataFixtures
             'phpspec', 'quality-assurance', 'clean-code', 'refactoring', 'backbone.js', 'nginx', 'memcached', 'compass'
         ];
 
+        $projects = $this->container->get('kreta_project.repository.project')->findAll();
+
         foreach ($tags as $tag) {
-            $label = $this->container->get('kreta_issue.factory.label')->create();
-            $label->setName($tag);
+            $label = $this->container->get('kreta_project.factory.label')
+                ->create($projects[array_rand($projects)], $tag);
 
             $manager->persist($label);
         }
@@ -48,6 +50,6 @@ class LoadLabelData extends DataFixtures
      */
     public function getOrder()
     {
-        return 0;
+        return 2;
     }
 }

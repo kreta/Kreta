@@ -9,15 +9,16 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\Component\Issue\Model;
+namespace Kreta\Component\Project\Model;
 
 use Kreta\Component\Core\Model\Abstracts\AbstractModel;
-use Kreta\Component\Issue\Model\Interfaces\LabelInterface;
+use Kreta\Component\Project\Model\Interfaces\LabelInterface;
+use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 
 /**
  * Class Label.
  *
- * @package Kreta\Component\Issue\Model
+ * @package Kreta\Component\Project\Model
  */
 class Label extends AbstractModel implements LabelInterface
 {
@@ -27,6 +28,31 @@ class Label extends AbstractModel implements LabelInterface
      * @var string
      */
     protected $name;
+
+    /**
+     * The project.
+     *
+     * @var \Kreta\Component\Project\Model\Interfaces\ProjectInterface
+     */
+    protected $project;
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getProject()
+    {
+        return $this->project;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setProject(ProjectInterface $project)
+    {
+        $this->project = $project;
+
+        return $this;
+    }
 
     /**
      * {@inheritdoc}

@@ -15,13 +15,13 @@ use Doctrine\Common\DataFixtures\ReferenceRepository;
 use Doctrine\Common\Persistence\ObjectManager;
 use Kreta\Component\Issue\Factory\IssueFactory;
 use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
-use Kreta\Component\Issue\Model\Interfaces\LabelInterface;
+use Kreta\Component\Project\Model\Interfaces\LabelInterface;
 use Kreta\Component\Project\Model\Interfaces\ParticipantInterface;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Issue\Model\Interfaces\ResolutionInterface;
 use Kreta\Component\Workflow\Model\Interfaces\StatusInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
-use Kreta\Component\Issue\Repository\LabelRepository;
+use Kreta\Component\Project\Repository\LabelRepository;
 use Kreta\Component\Project\Repository\ParticipantRepository;
 use Kreta\Component\Project\Repository\ProjectRepository;
 use Kreta\Component\Issue\Repository\ResolutionRepository;
@@ -78,14 +78,14 @@ class LoadIssueDataSpec extends ObjectBehavior
         UserInterface $user
     )
     {
-        $container->get('kreta_issue.repository.label')->shouldBeCalled()->willReturn($labelRepository);
-        $labelRepository->findAll()->shouldBeCalled()->willReturn([$label]);
-
         $container->get('kreta_issue.repository.resolution')->shouldBeCalled()->willReturn($resolutionRepository);
         $resolutionRepository->findAll()->shouldBeCalled()->willReturn([$resolution]);
 
         $container->get('kreta_project.repository.project')->shouldBeCalled()->willReturn($projectRepository);
         $projectRepository->findAll()->shouldBeCalled()->willReturn([$project]);
+
+        $container->get('kreta_project.repository.label')->shouldBeCalled()->willReturn($labelRepository);
+        $labelRepository->findBy(['project' => $project])->shouldBeCalled()->willReturn([$label]);
 
         $container->get('kreta_workflow.repository.status')->shouldBeCalled()->willReturn($statusRepository);
         $project->getWorkflow()->shouldBeCalled()->willReturn($workflow);

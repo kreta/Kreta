@@ -14,7 +14,7 @@ namespace Kreta\Component\Issue\Model;
 use Doctrine\Common\Collections\ArrayCollection;
 use Kreta\Component\Core\Model\Abstracts\AbstractModel;
 use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
-use Kreta\Component\Issue\Model\Interfaces\LabelInterface;
+use Kreta\Component\Project\Model\Interfaces\LabelInterface;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Issue\Model\Interfaces\ResolutionInterface;
 use Kreta\Component\Workflow\Model\Interfaces\StatusInterface;

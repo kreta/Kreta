@@ -9,12 +9,14 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\Component\Issue\Factory;
+namespace Kreta\Component\Project\Factory;
+
+use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 
 /**
- * Class BaseFactory.
+ * Class LabelFactory.
  *
- * @package Kreta\Component\Issue\Factory
+ * @package Kreta\Component\Project\Factory
  */
 class LabelFactory
 {
@@ -38,10 +40,17 @@ class LabelFactory
     /**
      * Creates an instance of an label.
      *
-     * @return \Kreta\Component\Issue\Model\Interfaces\LabelInterface
+     * @param \Kreta\Component\Project\Model\Interfaces\ProjectInterface $project The project
+     * @param string                                                     $name    The name
+     *
+     * @return \Kreta\Component\Project\Model\Interfaces\LabelInterface
      */
-    public function create()
+    public function create(ProjectInterface $project, $name)
     {
-        return new $this->className();
+        $label = new $this->className();
+
+        return $label
+            ->setProject($project)
+            ->setName($name);
     }
 }

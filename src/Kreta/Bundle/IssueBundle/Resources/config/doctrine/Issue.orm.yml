@@ -36,7 +36,7 @@ Kreta\Component\Issue\Model\Issue:
             type: smallint
     manyToMany:
         labels:
-            targetEntity: Kreta\Component\Issue\Model\Interfaces\LabelInterface
+            targetEntity: Kreta\Component\Project\Model\Interfaces\LabelInterface
             joinTable:
                 name: issue_label
                 joinColumns:

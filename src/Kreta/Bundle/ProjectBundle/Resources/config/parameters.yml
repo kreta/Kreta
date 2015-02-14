@@ -6,12 +6,15 @@
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
 parameters:
+    kreta_project.label.class: Kreta\Component\Project\Model\Label
     kreta_project.participant.class: Kreta\Component\Project\Model\Participant
     kreta_project.project.class: Kreta\Component\Project\Model\Project
 
+    kreta_project.factory_label.class: Kreta\Component\Project\Factory\LabelFactory
     kreta_project.factory_participant.class: Kreta\Component\Project\Factory\ParticipantFactory
     kreta_project.factory_project.class: Kreta\Component\Project\Factory\ProjectFactory
 
+    kreta_project.repository_label.class: Kreta\Component\Project\Repository\LabelRepository
     kreta_project.repository_participant.class: Kreta\Component\Project\Repository\ParticipantRepository
     kreta_project.repository_project.class: Kreta\Component\Project\Repository\ProjectRepository
 

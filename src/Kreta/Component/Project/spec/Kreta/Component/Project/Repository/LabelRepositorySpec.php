@@ -9,7 +9,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace spec\Kreta\Component\Issue\Repository;
+namespace spec\Kreta\Component\Project\Repository;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\ClassMetadata;
@@ -19,7 +19,7 @@ use Prophecy\Argument;
 /**
  * Class LabelRepositorySpec.
  *
- * @package spec\Kreta\Component\Issue\Repository
+ * @package spec\Kreta\Component\Project\Repository
  */
 class LabelRepositorySpec extends ObjectBehavior
 {
@@ -30,7 +30,7 @@ class LabelRepositorySpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('Kreta\Component\Issue\Repository\LabelRepository');
+        $this->shouldHaveType('Kreta\Component\Project\Repository\LabelRepository');
     }
 
     function it_extends_kreta_entity_repository()

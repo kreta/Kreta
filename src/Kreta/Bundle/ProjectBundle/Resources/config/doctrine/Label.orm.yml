@@ -5,9 +5,9 @@
 # @author benatespina <benatespina@gmail.com>
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
-Kreta\Component\Issue\Model\Label:
+Kreta\Component\Project\Model\Label:
     type: entity
-    repositoryClass: Kreta\Component\Issue\Repository\LabelRepository
+    repositoryClass: Kreta\Component\Project\Repository\LabelRepository
     table: label
     id:
         id:
@@ -18,3 +18,10 @@ Kreta\Component\Issue\Model\Label:
         name:
             type: string
             length: 20
+    manyToOne:
+        project:
+            targetEntity: Kreta\Component\Project\Model\Interfaces\ProjectInterface
+            inversedBy: labels
+            joinColumn:
+                name: project_id
+                referencedColumnName: id

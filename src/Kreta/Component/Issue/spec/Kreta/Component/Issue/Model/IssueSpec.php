@@ -12,8 +12,7 @@
 namespace spec\Kreta\Component\Issue\Model;
 
 use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
-use Kreta\Component\Issue\Model\Interfaces\LabelInterface;
-use Kreta\Component\Issue\Model\Issue;
+use Kreta\Component\Project\Model\Interfaces\LabelInterface;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Issue\Model\Interfaces\ResolutionInterface;
 use Kreta\Component\Workflow\Model\Interfaces\StatusInterface;

@@ -12,6 +12,7 @@
 namespace Kreta\Component\Issue\Model\Interfaces;
 
 use Finite\StatefulInterface;
+use Kreta\Component\Project\Model\Interfaces\LabelInterface;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use Kreta\Component\Workflow\Model\Interfaces\StatusInterface;
@@ -126,14 +127,14 @@ interface IssueInterface extends StatefulInterface
     /**
      * Gets labels.
      *
-     * @return \Kreta\Component\Issue\Model\Interfaces\LabelInterface[]
+     * @return \Kreta\Component\Project\Model\Interfaces\LabelInterface[]
      */
     public function getLabels();
 
     /**
      * Adds the labels.
      *
-     * @param \Kreta\Component\Issue\Model\Interfaces\LabelInterface $label The label
+     * @param \Kreta\Component\Project\Model\Interfaces\LabelInterface $label The label
      *
      * @return $this self Object
      */
@@ -142,7 +143,7 @@ interface IssueInterface extends StatefulInterface
     /**
      * Removes the label.
      *
-     * @param \Kreta\Component\Issue\Model\Interfaces\LabelInterface $label The label
+     * @param \Kreta\Component\Project\Model\Interfaces\LabelInterface $label The label
      *
      * @return $this self Object
      */

@@ -38,10 +38,13 @@ Kreta\Component\Project\Model\Project:
                 name: image
                 referencedColumnName: id
             cascade: ['persist', 'remove']
-
     oneToMany:
         issues:
             targetEntity: Kreta\Component\Issue\Model\Interfaces\IssueInterface
+            mappedBy: project
+            cascade: ['persist', 'remove']
+        labels:
+            targetEntity: Kreta\Component\Project\Model\Interfaces\LabelInterface
             mappedBy: project
             cascade: ['persist', 'remove']
         participants:
