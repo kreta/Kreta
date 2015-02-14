@@ -13,6 +13,10 @@ kreta_issue:
     type: rest
     resource: '@KretaIssueBundle/Resources/config/routing.yml'
 
+kreta_comment:
+    type: rest
+    resource: '@KretaCommentBundle/Resources/config/routing.yml'
+
 kreta_workflow:
     type: rest
     resource: '@KretaWorkflowBundle/Resources/config/routing.yml'

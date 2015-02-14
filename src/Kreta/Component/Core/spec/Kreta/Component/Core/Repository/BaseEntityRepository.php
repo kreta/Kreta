@@ -112,6 +112,19 @@ class BaseEntityRepository extends ObjectBehavior
         return $queryBuilder;
     }
 
+    protected function addBetweenCriteriaSpec(QueryBuilder $queryBuilder, Expr $expr, Expr\Func $func, array $values)
+    {
+        $now = new \DateTime();
+        $queryBuilder->expr()->shouldBeCalled()->willReturn($expr);
+        $expr->between($this->getPropertyNameSpec(key($values)), ':from', ':to')
+            ->shouldBeCalled()->willReturn($func);
+        $queryBuilder->andWhere($func)->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->setParameter('from', Argument::type('string'))->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->setParameter('to', $now->format('Y-m-d'))->shouldBeCalled()->willReturn($queryBuilder);
+
+        return $queryBuilder;
+    }
+
     protected function orderBySpec(QueryBuilder $queryBuilder, array $sorting)
     {
         $queryBuilder->addOrderBy($this->getPropertyNameSpec(key($sorting)), $sorting[key($sorting)])

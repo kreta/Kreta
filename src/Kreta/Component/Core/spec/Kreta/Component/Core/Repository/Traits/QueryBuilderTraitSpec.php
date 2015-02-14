@@ -87,6 +87,43 @@ class QueryBuilderTraitSpec extends BaseEntityRepository
         )->shouldReturn($queryBuilder);
     }
 
+    function it_adds_between_criteria_with_datetimes_array_value(
+        QueryBuilder $queryBuilder,
+        Expr $expr,
+        Expr\Func $func
+    )
+    {
+        $from = new \DateTime();
+        $to = new \DateTime();
+        $this->addBetweenCriteriaSpec($queryBuilder, $expr, $func, ['property' => [$from, $to]]);
+
+        $this->addCriteria(
+            $queryBuilder, ['between' => ['property' => [$from, $to]]]
+        )->shouldReturn($queryBuilder);
+    }
+
+    function it_adds_between_criteria_with_datetime_value(QueryBuilder $queryBuilder, Expr $expr, Expr\Func $func)
+    {
+        $datetime = new \DateTime();
+        $this->addBetweenCriteriaSpec($queryBuilder, $expr, $func, ['property' => $datetime]);
+
+        $this->addCriteria(
+            $queryBuilder, ['between' => ['property' => $datetime]]
+        )->shouldReturn($queryBuilder);
+    }
+
+    function it_adds_between_criteria_without_datetimes_array_value(QueryBuilder $queryBuilder)
+    {
+        $this->addCriteria(
+            $queryBuilder, ['between' => ['property' => ['not-datetime', 'not-datetime']]]
+        )->shouldReturn($queryBuilder);
+    }
+
+    function it_adds_between_criteria_without_datetime_value(QueryBuilder $queryBuilder)
+    {
+        $this->addCriteria($queryBuilder, ['between' => ['property' => 'not-datetime']])->shouldReturn($queryBuilder);
+    }
+
     function it_orders_by(QueryBuilder $queryBuilder)
     {
         $this->orderBySpec($queryBuilder, ['property' => 'DESC']);

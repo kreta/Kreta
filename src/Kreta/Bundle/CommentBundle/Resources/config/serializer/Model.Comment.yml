@@ -7,3 +7,43 @@
 
 Kreta\Component\Comment\Model\Comment:
     exclusion_policy: ALL
+    relations:
+        -
+            rel: issue
+            href:
+                route: get_projects_issue
+                parameters:
+                    projectId: expr(object.getIssue().getProject().getId())
+                    issueId: expr(object.getIssue().getId())
+                absolute: true
+            exclusion:
+                groups: [commentList, comment]
+        -
+            rel: comments
+            href:
+                route: get_projects_issues_comments
+                parameters:
+                    projectId: expr(object.getIssue().getProject().getId())
+                    issueId: expr(object.getIssue().getId())
+                absolute: true
+            exclusion:
+                groups: [commentList, comment]
+    properties:
+        id:
+            expose: true
+            groups: [commentList, comment]
+        createdAt:
+            expose: true
+            groups: [commentList, comment]
+        description:
+            expose: true
+            groups: [commentList, comment]
+        updatedAt:
+            expose: true
+            groups: [commentList, comment]
+        issue:
+            expose: true
+            groups: []
+        writtenBy:
+            expose: true
+            groups: [commentList, comment]
