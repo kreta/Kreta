@@ -109,4 +109,4 @@ class TimeEntry implements TimeEntryInterface
 
         return $this;
     }
-} 
+}

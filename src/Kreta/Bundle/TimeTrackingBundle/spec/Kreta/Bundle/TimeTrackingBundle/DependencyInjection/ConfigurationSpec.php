@@ -9,7 +9,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace spec\Kreta\Bundle\NotificationBundle\DependencyInjection;
+namespace spec\Kreta\Bundle\TimeTrackingBundle\DependencyInjection;
 
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -17,7 +17,7 @@ use Prophecy\Argument;
 /**
  * Class ConfigurationSpec.
  *
- * @package spec\Kreta\Bundle\NotificationBundle\DependencyInjection
+ * @package spec\Kreta\Bundle\TimeTrackingBundle\DependencyInjection
  */
 class ConfigurationSpec extends ObjectBehavior
 {

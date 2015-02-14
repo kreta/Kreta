@@ -13,6 +13,11 @@ namespace spec\Kreta\Component\TimeTracking\Model;
 
 use PhpSpec\ObjectBehavior;
 
+/**
+ * Class TimeEntrySpec.
+ *
+ * @package spec\Kreta\Component\TimeTracking\Model
+ */
 class TimeEntrySpec extends ObjectBehavior
 {
     function it_is_initializable()
@@ -23,6 +28,11 @@ class TimeEntrySpec extends ObjectBehavior
     function it_implements_time_tracking_interface()
     {
         $this->shouldImplement('Kreta\Component\TimeTracking\Model\Interfaces\TimeEntryInterface');
+    }
+
+    function it_should_not_have_id_by_default()
+    {
+        $this->getId()->shouldReturn(null);
     }
 
     function its_date_reported_is_mutable(\DateTime $dateReported)
@@ -42,5 +52,4 @@ class TimeEntrySpec extends ObjectBehavior
         $this->setTimeSpent(60 * 60)->shouldReturn($this);
         $this->getTimeSpent()->shouldReturn(60 * 60);
     }
-
-} 
+}
