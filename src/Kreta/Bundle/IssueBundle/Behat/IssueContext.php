@@ -42,6 +42,13 @@ class IssueContext extends DefaultContext
                 ->findOneBy(['email' => $issueData['assignee']]);
             $status = $this->getContainer()->get('kreta_workflow.repository.status')
                 ->findOneBy(['name' => $issueData['status']]);
+            $labels = [];
+            if (isset($issueData['labels'])) {
+                foreach (explode(',', $issueData['labels']) as $labelName) {
+                    $labels[] = $this->getContainer()->get('kreta_project.repository.label')
+                        ->findOneBy(['name' => $labelName]);
+                }
+            }
 
             $issue = $this->getContainer()->get('kreta_issue.factory.issue')->create($project, $reporter);
             $issue->setPriority($issueData['priority']);
@@ -52,6 +59,7 @@ class IssueContext extends DefaultContext
             $issue->setType($issueData['type']);
             $issue->setTitle($issueData['title']);
             $issue->setDescription($issueData['description']);
+            $this->setField($issue, 'labels', $labels);
             if (isset($issueData['numericId'])) {
                 $this->setField($issue, 'numericId', $issueData['numericId']);
             }

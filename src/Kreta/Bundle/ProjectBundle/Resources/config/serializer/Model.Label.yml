@@ -5,9 +5,9 @@
 # @author benatespina <benatespina@gmail.com>
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
-Kreta\Component\Issue\Model\Label:
+Kreta\Component\Project\Model\Label:
     exclusion_policy: ALL
     properties:
         name:
             expose: true
-            groups: [issueList, issue]
+            groups: [projectList, project, issueList, issue, labelList, label]
