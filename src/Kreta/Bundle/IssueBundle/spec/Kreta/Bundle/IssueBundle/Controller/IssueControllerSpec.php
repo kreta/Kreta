@@ -138,7 +138,7 @@ class IssueControllerSpec extends ObjectBehavior
         $this->getIssueAction('project-id', 'issue-id')->shouldReturn($issue);
     }
 
-    function it_does_not_post_issues_because_the_user_has_not_the_required_grant(
+    function it_does_not_post_issue_because_the_user_has_not_the_required_grant(
         ContainerInterface $container,
         ProjectRepository $projectRepository,
         ProjectInterface $project,

@@ -28,6 +28,8 @@ class ProjectVoter extends AbstractVoter
     const EDIT = 'edit';
     const VIEW = 'view';
     const CREATE_ISSUE = 'create_issue';
+    const CREATE_LABEL = 'create_label';
+    const DELETE_LABEL = 'delete_label';
 
     /**
      * {@inheritdoc}
@@ -38,7 +40,9 @@ class ProjectVoter extends AbstractVoter
         self::DELETE_PARTICIPANT,
         self::EDIT,
         self::VIEW,
-        self::CREATE_ISSUE
+        self::CREATE_ISSUE,
+        self::CREATE_LABEL,
+        self::DELETE_LABEL
     ];
 
     /**
@@ -56,12 +60,14 @@ class ProjectVoter extends AbstractVoter
             case self::DELETE:
             case self::DELETE_PARTICIPANT:
             case self::EDIT:
+            case self::DELETE_LABEL:
                 if ($project->getUserRole($user) === 'ROLE_ADMIN') {
                     return VoterInterface::ACCESS_GRANTED;
                 }
                 break;
             case self::VIEW:
             case self::CREATE_ISSUE:
+            case self::CREATE_LABEL:
                 if ($project->getUserRole($user) !== null) {
                     return VoterInterface::ACCESS_GRANTED;
                 }

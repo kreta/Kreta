@@ -7,6 +7,25 @@
 
 Kreta\Component\Project\Model\Label:
     exclusion_policy: ALL
+    relations:
+        -
+            rel: labels
+            href:
+                route: get_projects_labels
+                parameters:
+                    projectId: expr(object.getProject().getId())
+                absolute: true
+            exclusion:
+                groups: [labelList, label]
+        -
+            rel: project
+            href:
+                route: get_project
+                parameters:
+                    projectId: expr(object.getProject().getId())
+                absolute: true
+            exclusion:
+                groups: [labelList, label]
     properties:
         name:
             expose: true
