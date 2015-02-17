@@ -1,17 +1,11 @@
 <header id="main-header" class="row">
     <div class="small-3 column">
-        <a href="{{ url('kreta_web_dashboard') }}">
-            {% image '@KretaWebBundle/Resources/public/img/logo.png' %}
-                <img class="logo" src="{{ asset_url }}"/>
-            {% endimage %}
-        </a>
+        <a href="{{ url('kreta_web_dashboard') }}"><img class="logo" src="{{ asset(base_asset_img ~ 'logo.png') }}"/></a>
     </div>
     <div class="kreta-user-menu small-9 columns">
         {{ render(url('kreta_web_component_notification_icon')) }}
         <div class="user-container">
-            {% image '@KretaWebBundle/Resources/public/img/user.jpg' %}
-                <img class="kreta-user-image" src="{{ app.user.photo ? app.user.photo.name|imagine_filter('kreta_small') : asset_url }}">
-            {% endimage %}
+            <img class="kreta-user-image" src="{{ app.user.photo ? app.user.photo.name|imagine_filter('kreta_small') : asset(base_asset_img ~ 'user.jpg') }}">
             {% if app.user.firstName is not null and app.user.lastName is not null %}
                 <span>{{ app.user.firstName }} {{ app.user.lastName }}</span>
             {% else %}

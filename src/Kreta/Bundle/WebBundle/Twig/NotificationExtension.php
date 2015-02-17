@@ -11,17 +11,27 @@
 
 namespace Kreta\Bundle\WebBundle\Twig;
 
+/**
+ * Class NotificationExtension.
+ *
+ * @package Kreta\Bundle\WebBundle\Twig
+ */
 class NotificationExtension extends \Twig_Extension
 {
-    protected $events = array (
-        'issue_new' => array (
+    /**
+     * Array which contains events.
+     *
+     * @var array
+     */
+    protected $events = [
+        'issue_new' => [
             'icon' => 'fa-check-square-o',
             'color' => 'green'
-        )
-    );
+        ]
+    ];
 
     /**
-     * @{@inheritdoc}
+     * {@inheritdoc}
      */
     public function getFunctions()
     {
@@ -31,7 +41,7 @@ class NotificationExtension extends \Twig_Extension
     }
 
     /**
-     * Renders the icon with its color according the configuration
+     * Renders the icon with its color according the configuration.
      *
      * @param string $type Event type to be rendered
      *

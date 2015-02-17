@@ -1,0 +1,46 @@
+{
+  "name": "kreta",
+  "version": "0.2.0",
+  "homepage": "http://kreta.io",
+  "description": "Modern project manager for software development",
+  "keywords": [
+    "project",
+    "manager",
+    "development",
+    "tool"
+  ],
+  "main": "gulpfile.js",
+  "devDependencies": {
+    "del": "^1.1.1",
+    "gulp": "^3.8.10",
+    "gulp-6to5": "^3.0.0",
+    "gulp-compass": "^2.0.3",
+    "gulp-concat": "^2.4.3",
+    "gulp-header": "^1.2.2",
+    "gulp-imagemin": "^2.1.0",
+    "gulp-jshint": "^1.9.2",
+    "gulp-minify-css": "^0.4.5",
+    "gulp-rename": "^1.2.0",
+    "gulp-uglify": "^1.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kreta-io/kreta.git"
+  },
+  "authors": [
+    {
+      "name": "Beñat Espiña Diaz",
+      "email": "benatespina@gmail.com",
+      "homepage": "http://benatespina.com"
+    },
+    {
+      "name": "Gorka Laucirica Ibarra",
+      "email": "gorka.lauzirika@gmail.com",
+      "homepage": "http://gorkalaucirica.net"
+    }
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/kreta-io/kreta/issues"
+  }
+}

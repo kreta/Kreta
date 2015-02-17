@@ -10,12 +10,6 @@ imports:
     - { resource: security.yml }
     - { resource: doctrine.yml }
 
-parameters:
-    assetic.ruby.bin: "%ruby_bin%"
-    assetic.filter.compass.images_dir: "%kernel.root_dir%/Resources/sprites"
-    assetic.filter.compass.http_path:  "/"
-    assetic.filter.compass.generated_images_path: "%kernel.root_dir%/../web/images/"
-
 framework:
     translator: { fallback: "%locale%" }
     secret: "%secret%"
@@ -36,19 +30,10 @@ framework:
 twig:
     debug: "%kernel.debug%"
     strict_variables: "%kernel.debug%"
-
-assetic:
-    debug: "%kernel.debug%"
-    use_controller: false
-    bundles:
-        - KretaWebBundle
-        - FOSUserBundle
-    filters:
-        cssrewrite: ~
-        compass:
-            load_paths:
-                - '%kernel.root_dir%/vendor/zurb/foundation/scss'
-            bin: "%compass_route%"
+    globals:
+        base_asset_img: %kernel.root_dir%/../web/images
+        base_asset_js: %kernel.root_dir%/../web/js
+        base_asset_vendor: %kernel.root_dir%/../web/vendor
 
 swiftmailer:
     transport:  %mailer_transport%

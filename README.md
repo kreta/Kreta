@@ -49,11 +49,12 @@ virtual_machine:
 database:
     mysql:
         rootpassword: app
-        user:         kretaUser     
-        password:     123           
+        user:         kretaUser
+        password:     123
         name:         kreta
 
 environments:
+    node: stable
     ruby:
         sass: latest
         compass: 0.12.6
@@ -73,14 +74,19 @@ folders are disappeared; to solve this problem you have to execute `sh scripts/c
 Once, you are inside the *Vagrant* box you need to download Kreta's dependencies using **[Composer][6]**.
 
     $ composer install
+    
+Furthermore, you need to download front-end development dependencies using **[NPM][7]** and **[Bower][8]**.
+    
+    $ npm install
+    $ bower install
 
 After that, you have to load everything related to **database** (create database if it is not exist, create schema and load some fixtures). The fastest way is executing the following command.
 
     $ sh scripts/update_doctrine_dev.sh
 
-Finally, you have to dump the assets files:
+Finally, you have to dump the assets files using **[Gulp][9]**:
 
-    $ php app/console assetic:dump
+    $ gulp
 
 And that's all! Now, if you access `http://kreta.localhost`, you will see your site up and running.
 
@@ -124,6 +130,9 @@ If you have any doubt or maybe you want to share some opinion, you can use our *
 [4]: http://symfony.com/doc/current/contributing/code/patches.html#make-a-pull-request
 [5]: http://behat.org
 [6]: http://getcomposer.org/download
+[7]: https://www.npmjs.com/
+[8]: http://bower.io/
+[9]: http://gulpjs.com/
 
 Credits
 -------

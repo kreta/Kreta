@@ -19,7 +19,6 @@
     ],
     "require": {
         "php":                                 ">=5.4",
-        "zurb/foundation":                     "5.4.*",
 
         "kreta/comment-bundle":                "~0.1.0",
         "kreta/issue-bundle":                  "~0.1.0",
