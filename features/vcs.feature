@@ -19,7 +19,7 @@ Feature: Manage VCS
     And the following repositories exist:
       | name                        | provider | url |
       | baxterthehacker/public-repo | github   |     |
-    When I send a POST request to "/app_test.php/webhook/github" with body:
+    When I send a POST request to "/app_test.php/webhooks/github" with body:
     """
        {
           "ref": "refs/heads/gh-pages",
@@ -183,7 +183,7 @@ Feature: Manage VCS
     And I set header "X-Github-Delivery" with value "72d3162e-cc78-11e3-81ab-4c9367dc0958"
     And I set header "X-Github-Event" with value "pull_request"
     And I set header "X-Hub-Signature" with value "uQw56aLXuKWVQbT"
-    When I send a POST request to "/app_test.php/webhook/github" with body:
+    When I send a POST request to "/app_test.php/webhooks/github" with body:
     """
     {
         "action": "opened",

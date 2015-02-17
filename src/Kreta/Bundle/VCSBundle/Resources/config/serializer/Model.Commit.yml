@@ -1,0 +1,62 @@
+# This file belongs to Kreta.
+# The source code of application includes a LICENSE file
+# with all information about license.
+#
+# @author benatespina <benatespina@gmail.com>
+# @author gorkalaucirica <gorka.lauzirika@gmail.com>
+
+Kreta\Component\VCS\Model\Commit:
+    exclusion_policy: ALL
+    relations:
+#        -
+#            rel: commits
+#            href:
+#                route: get_projects_issues_commits
+#                parameters:
+#                    projectId: expr(object.getIssuesRelated()[0].getProject().getId())
+#                    issueId: expr(object.getIssuesRelated()[0].getId())
+#                absolute: true
+#            exclusion:
+#                groups: [commitList]
+        -
+            rel: branches
+            href:
+                route: get_projects_issues_branches
+                parameters:
+                    projectId: expr(object.getIssuesRelated()[0].getProject().getId())
+                    issueId: expr(object.getIssuesRelated()[0].getId())
+                absolute: true
+            exclusion:
+                groups: [commitList]
+        -
+            rel: issue
+            href:
+                route: get_projects_issue
+                parameters:
+                    projectId: expr(object.getIssuesRelated()[0].getProject().getId())
+                    issueId: expr(object.getIssuesRelated()[0].getId())
+                absolute: true
+            exclusion:
+                groups: [commitList]
+    properties:
+        id:
+            expose: true
+            groups: [commitLis, repositoryList]
+        author:
+            expose: true
+            groups: [commitLis, repositoryList]
+        message:
+            expose: true
+            groups: [commitList, repositoryList]
+        sha:
+            expose: true
+            groups: [commitList, repositoryList]
+        url:
+            expose: true
+            groups: [commitList, repositoryList]
+        branch:
+            expose: true
+            groups: [commitList, repositoryList]
+        issuesRelated:
+            expose: true
+            groups: []

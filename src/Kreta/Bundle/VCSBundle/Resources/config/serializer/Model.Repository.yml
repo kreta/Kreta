@@ -1,0 +1,41 @@
+# This file belongs to Kreta.
+# The source code of application includes a LICENSE file
+# with all information about license.
+#
+# @author benatespina <benatespina@gmail.com>
+# @author gorkalaucirica <gorka.lauzirika@gmail.com>
+
+Kreta\Component\VCS\Model\Repository:
+    exclusion_policy: ALL
+    relations:
+        -
+            rel: repositories
+            href:
+                route: get_projects_repositories
+                parameters:
+                    projectId: expr(object.getProjects()[0].getId())
+                absolute: true
+            exclusion:
+                groups: [repositoryList]
+        -
+            rel: project
+            href:
+                route: get_project
+                parameters:
+                    projectId: expr(object.getProjects()[0].getId())
+                absolute: true
+            exclusion:
+                groups: [repositoryList]
+    properties:
+        id:
+            expose: true
+            groups: [repositoryList, branchList]
+        name:
+            expose: true
+            groups: [repositoryList, branchList]
+        provider:
+            expose: true
+            groups: [repositoryList, branchList]
+        projects:
+            expose: true
+            groups: []

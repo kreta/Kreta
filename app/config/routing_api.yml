@@ -17,6 +17,10 @@ kreta_comment:
     type: rest
     resource: '@KretaCommentBundle/Resources/config/routing.yml'
 
+kreta_vcs:
+    type: rest
+    resource: '@KretaVCSBundle/Resources/config/routing/routing.yml'
+
 kreta_workflow:
     type: rest
     resource: '@KretaWorkflowBundle/Resources/config/routing.yml'

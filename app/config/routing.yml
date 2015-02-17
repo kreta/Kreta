@@ -18,8 +18,8 @@ kreta_media_image:
     pattern: /media/image/{name}
 
 kreta_vcs:
-    resource: '@KretaVCSBundle/Resources/config/routing.yml'
-    prefix: /webhook
+    resource: '@KretaVCSBundle/Resources/config/routing/webhooks.yml'
+    prefix: /webhooks
 
 # Third party libraries/bundles
 

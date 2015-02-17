@@ -1,0 +1,19 @@
+# This file belongs to Kreta.
+# The source code of application includes a LICENSE file
+# with all information about license.
+#
+# @author benatespina <benatespina@gmail.com>
+# @author gorkalaucirica <gorka.lauzirika@gmail.com>
+
+kreta_vcs_branch:
+    type: rest
+    parent: kreta_api_issue
+    resource: Kreta\Bundle\VCSBundle\Controller\BranchController
+
+#kreta_vcs_commit:
+#    type: rest
+#    resource: Kreta\Bundle\VCSBundle\Controller\CommitController
+#
+#kreta_vcs_repository:
+#    type: rest
+#    resource: Kreta\Bundle\VCSBundle\Controller\RepositoryController

@@ -8,4 +8,4 @@
 kreta_vcs_webhook_github:
     path: /github
     defaults: { _controller: KretaVCSBundle:Webhook/GithubWebhook:webhook }
-    methods:  [POST]
+    methods: [POST]
