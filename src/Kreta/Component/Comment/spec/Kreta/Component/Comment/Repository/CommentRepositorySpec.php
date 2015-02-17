@@ -11,16 +11,22 @@
 
 namespace spec\Kreta\Component\Comment\Repository;
 
+use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\ClassMetadata;
-use PhpSpec\ObjectBehavior;
+use Doctrine\ORM\Query\Expr;
+use Doctrine\ORM\QueryBuilder;
+use Kreta\Component\Comment\Model\Interfaces\CommentInterface;
+use Kreta\Component\Core\spec\Kreta\Component\Core\Repository\BaseEntityRepository;
+use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
+use Prophecy\Argument;
 
 /**
  * Class CommentRepositorySpec.
  *
  * @package spec\Kreta\Component\Comment\Repository
  */
-class CommentRepositorySpec extends ObjectBehavior
+class CommentRepositorySpec extends BaseEntityRepository
 {
     function let(EntityManager $manager, ClassMetadata $metadata)
     {
@@ -35,5 +41,48 @@ class CommentRepositorySpec extends ObjectBehavior
     function it_extends_kretas_entity_repository()
     {
         $this->shouldHaveType('Kreta\Component\Core\Repository\EntityRepository');
+    }
+
+    function it_finds_by_issue(
+        IssueInterface $issue,
+        CommentInterface $comment,
+        EntityManager $manager,
+        QueryBuilder $queryBuilder,
+        Expr $expr,
+        Expr\Func $func,
+        Expr\Comparison $comparison,
+        AbstractQuery $query
+    )
+    {
+        $createdAt = new \DateTime();
+        $this->getQueryBuilderSpec($manager, $queryBuilder);
+        $this->addBetweenCriteriaSpec($queryBuilder, $expr, $func, ['createdAt' => $createdAt]);
+        $this->addCriteriaSpec($queryBuilder, $expr, ['wb.email' => 'user@kreta.com'], $comparison);
+        $this->addCriteriaSpec($queryBuilder, $expr, ['issue' => $issue], $comparison);
+        $this->orderBySpec($queryBuilder, ['createdAt' => 'ASC']);
+        $queryBuilder->setMaxResults(1)->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->setFirstResult(1)->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
+        $query->getResult()->shouldBeCalled()->willReturn([$comment]);
+
+        $this->findByIssue($issue, $createdAt, 'user@kreta.com', 1, 1)->shouldReturn([$comment]);
+    }
+
+    protected function getQueryBuilderSpec(EntityManager $manager, QueryBuilder $queryBuilder)
+    {
+        $manager->createQueryBuilder()->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->select('c')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->addSelect(['i', 'wb'])
+            ->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->from(Argument::any(), 'c', null)->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->join('c.issue', 'i')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->join('c.writtenBy', 'wb')->shouldBeCalled()->willReturn($queryBuilder);
+
+        return $queryBuilder;
+    }
+
+    protected function getAlias()
+    {
+        return 'c';
     }
 }

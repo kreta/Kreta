@@ -162,6 +162,38 @@ trait QueryBuilderTrait
     }
 
     /**
+     * Composes the BETWEEN query builder expression.
+     *
+     * @param \Doctrine\ORM\QueryBuilder $queryBuilder The query builder
+     * @param string                     $property     The property
+     * @param \DateTime|array            $value        The value can be datetime or array which contains two datetimes
+     *
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    protected function addBetweenCriteria(QueryBuilder $queryBuilder, $property, $value)
+    {
+        if ($value instanceof \DateTime) {
+            $now = new \DateTime();
+
+            return $queryBuilder
+                ->andWhere($queryBuilder->expr()->between($this->getPropertyName($property), ':from', ':to'))
+                ->setParameter('from', $value->format('Y-m-d'))
+                ->setParameter('to', $now->format('Y-m-d'));
+        }
+
+        if (is_array($value)
+            && count($value) === 2
+            && $value[0] instanceof \DateTime
+            && $value[1] instanceof \DateTime
+        ) {
+            return $queryBuilder
+                ->andWhere($queryBuilder->expr()->between($this->getPropertyName($property), ':from', ':to'))
+                ->setParameter('from', $value[0]->format('Y-m-d'))
+                ->setParameter('to', $value[1]->format('Y-m-d'));
+        }
+    }
+
+    /**
      * Gets property name.
      *
      * @param string $name The property name

@@ -219,27 +219,4 @@ class IssueController extends RestController
             $this->get('request'), $issue, ['method' => 'PUT', 'project' => $issue->getProject()]
         );
     }
-
-    /**
-     * Gets the issue if the current user is granted and if the project exists.
-     *
-     * @param string $projectId    The project id
-     * @param string $issueId      The issue id
-     * @param string $projectGrant The project grant
-     * @param string $issueGrant   The issue grant
-     *
-     * @return \Kreta\Component\Issue\Model\Interfaces\IssueInterface
-     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
-     */
-    protected function getIssueIfAllowed($projectId, $issueId, $projectGrant = 'view', $issueGrant = 'view')
-    {
-        $this->getProjectIfAllowed($projectId, $projectGrant);
-
-        $issue = $this->get('kreta_issue.repository.issue')->find($issueId, false);
-        if (!$this->get('security.context')->isGranted($issueGrant, $issue)) {
-            throw new AccessDeniedException();
-        }
-
-        return $issue;
-    }
 }
