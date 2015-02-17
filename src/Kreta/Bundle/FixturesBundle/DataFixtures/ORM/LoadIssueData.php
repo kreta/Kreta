@@ -27,13 +27,13 @@ class LoadIssueData extends DataFixtures
      */
     public function load(ObjectManager $manager)
     {
-        $labels = $this->container->get('kreta_issue.repository.label')->findAll();
         $projects = $this->container->get('kreta_project.repository.project')->findAll();
         $resolutions = $this->container->get('kreta_issue.repository.resolution')->findAll();
 
         $issuesPerProject = [];
         for ($i = 0; $i < 100; $i++) {
             $project = $projects[array_rand($projects)];
+            $labels = $this->container->get('kreta_project.repository.label')->findBy(['project' => $project]);
             $issuesPerProject = $this->incrementIssuePerProject($issuesPerProject, $project);
             $participants = $this->container->get('kreta_project.repository.participant')
                 ->findBy(['project' => $project]);

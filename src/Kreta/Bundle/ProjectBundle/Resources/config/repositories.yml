@@ -6,6 +6,11 @@
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
 services:
+    kreta_project.repository.label:
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        class: %kreta_project.repository_label.class%
+        arguments: [%kreta_project.label.class%]
     kreta_project.repository.participant:
         factory_service: doctrine.orm.entity_manager
         factory_method: getRepository

@@ -26,6 +26,21 @@ Feature: Manage issue
       | id | name           | shortName | creator        | workflow   |
       | 0  | Test project 1 | TPR1      | user@kreta.com | Workflow 1 |
       | 1  | Test project 2 | TPR2      | user@kreta.com | Workflow 2 |
+    And the following labels exist:
+      | id | name        | project        |
+      | 0  | backbone.js | Test project 1 |
+      | 1  | php         | Test project 2 |
+      | 2  | javascript  | Test project 1 |
+      | 3  | bdd         | Test project 1 |
+      | 4  | behat       | Test project 2 |
+      | 5  | phpspec     | Test project 2 |
+      | 6  | symfony     | Test project 1 |
+      | 7  | html5       | Test project 2 |
+      | 8  | css3        | Test project 1 |
+      | 9  | sass        | Test project 1 |
+      | 10 | compass     | Test project 2 |
+      | 11 | mysql       | Test project 1 |
+      | 12 | mongodb     | Test project 1 |
     And the following statuses exist:
       | id | color   | name        | workflow   |
       | 0  | #27ae60 | Open        | Workflow 1 |
@@ -40,13 +55,13 @@ Feature: Manage issue
       | Test project 2 | user2@kreta.com | ROLE_PARTICIPANT |
       | Test project 2 | user4@kreta.com | ROLE_PARTICIPANT |
     And the following issues exist:
-      | id | numericId | project        | title        | description | reporter        | assignee        | type | status   | priority | createdAt  |
-      | 0  | 1         | Test project 1 | Test issue 1 | Description | user@kreta.com  | user@kreta.com  | 4    | Open     | 1        | 2014-12-15 |
-      | 1  | 2         | Test project 1 | Test issue 2 | Description | user@kreta.com  | user@kreta.com  | 2    | Resolved | 1        | 2014-11-07 |
-      | 2  | 3         | Test project 1 | Test issue 3 | Description | user@kreta.com  | user@kreta.com  | 1    | Resolved | 1        | 2014-10-21 |
-      | 3  | 1         | Test project 2 | Test issue 1 | Description | user@kreta.com  | user4@kreta.com | 3    | Resolved | 1        | 2014-10-21 |
-      | 4  | 2         | Test project 2 | Test issue 1 | Description | user4@kreta.com | user@kreta.com  | 1    | Resolved | 1        | 2014-10-21 |
-      | 5  | 4         | Test project 1 | Test issue 4 | Description | user2@kreta.com | user@kreta.com  | 0    | Closed   | 0        | 2014-10-21 |
+      | id | numericId | project        | title        | description | reporter        | assignee        | type | status   | priority | createdAt  | labels                                   |
+      | 0  | 1         | Test project 1 | Test issue 1 | Description | user@kreta.com  | user@kreta.com  | 4    | Open     | 1        | 2014-12-15 | backbone.js,javascript,bdd,symfony,css3  |
+      | 1  | 2         | Test project 1 | Test issue 2 | Description | user@kreta.com  | user@kreta.com  | 2    | Resolved | 1        | 2014-11-07 | backbone.js,javascript,bdd,symfony,css3  |
+      | 2  | 3         | Test project 1 | Test issue 3 | Description | user@kreta.com  | user@kreta.com  | 1    | Resolved | 1        | 2014-10-21 | backbone.js,javascript,bdd,mysql,mongodb |
+      | 3  | 1         | Test project 2 | Test issue 1 | Description | user@kreta.com  | user4@kreta.com | 3    | Resolved | 1        | 2014-10-21 | php,behat,phpspec,html5,compass          |
+      | 4  | 2         | Test project 2 | Test issue 1 | Description | user4@kreta.com | user@kreta.com  | 1    | Resolved | 1        | 2014-10-21 | php,behat,phpspec,html5,compass          |
+      | 5  | 4         | Test project 1 | Test issue 4 | Description | user2@kreta.com | user@kreta.com  | 0    | Closed   | 0        | 2014-10-21 | backbone.js,javascript,bdd,mysql,mongodb |
     And the following tokens exist:
       | token          | expiresAt | scope | user            |
       | access-token-0 | null      | user  | user@kreta.com  |
@@ -70,7 +85,22 @@ Feature: Manage issue
         },
         "created_at": "2014-12-15T00:00:00+0100",
         "description": "Description",
-        "labels": [],
+        "labels": [{
+          "id": "0",
+          "name": "backbone.js"
+        }, {
+          "id": "2",
+          "name": "javascript"
+        }, {
+          "id": "3",
+          "name": "bdd"
+        }, {
+          "id": "6",
+          "name": "symfony"
+        }, {
+          "id": "8",
+          "name": "css3"
+        }],
         "numeric_id": 1,
         "priority": 1,
         "reporter": {
@@ -108,7 +138,22 @@ Feature: Manage issue
         },
         "created_at": "2014-11-07T00:00:00+0100",
         "description": "Description",
-        "labels": [],
+        "labels": [{
+          "id": "0",
+          "name": "backbone.js"
+        }, {
+          "id": "2",
+          "name": "javascript"
+        }, {
+          "id": "3",
+          "name": "bdd"
+        }, {
+          "id": "6",
+          "name": "symfony"
+        }, {
+          "id": "8",
+          "name": "css3"
+        }],
         "numeric_id": 2,
         "priority": 1,
         "reporter": {
@@ -146,7 +191,22 @@ Feature: Manage issue
         },
         "created_at": "2014-10-21T00:00:00+0200",
         "description": "Description",
-        "labels": [],
+        "labels": [{
+          "id": "0",
+          "name": "backbone.js"
+        }, {
+          "id": "11",
+          "name": "mysql"
+        }, {
+          "id": "12",
+          "name": "mongodb"
+        }, {
+          "id": "2",
+          "name": "javascript"
+        }, {
+          "id": "3",
+          "name": "bdd"
+        }],
         "numeric_id": 3,
         "priority": 1,
         "reporter": {
@@ -184,7 +244,22 @@ Feature: Manage issue
         },
         "created_at": "2014-10-21T00:00:00+0200",
         "description": "Description",
-        "labels": [],
+        "labels": [{
+          "id": "0",
+          "name": "backbone.js"
+        }, {
+          "id": "11",
+          "name": "mysql"
+        }, {
+          "id": "12",
+          "name": "mongodb"
+        }, {
+          "id": "2",
+          "name": "javascript"
+        }, {
+          "id": "3",
+          "name": "bdd"
+        }],
         "numeric_id": 4,
         "priority": 0,
         "reporter": {
@@ -253,7 +328,23 @@ Feature: Manage issue
       },
       "created_at": "2014-10-21T00:00:00+0200",
       "description": "Description",
-      "labels": [],
+      "labels": [{
+        "id": "0",
+        "name": "backbone.js"
+      }, {
+        "id": "11",
+        "name": "mysql"
+      }, {
+        "id": "12",
+        "name": "mongodb"
+      }, {
+        "id": "2",
+        "name": "javascript"
+      }, {
+        "id": "3",
+        "name": "bdd"
+      }],
+      "numeric_id": 3,
       "numeric_id": 3,
       "priority": 1,
       "reporter": {
@@ -291,7 +382,22 @@ Feature: Manage issue
       },
       "created_at": "2014-10-21T00:00:00+0200",
       "description": "Description",
-      "labels": [],
+      "labels": [{
+        "id": "0",
+        "name": "backbone.js"
+      }, {
+        "id": "11",
+        "name": "mysql"
+      }, {
+        "id": "12",
+        "name": "mongodb"
+      }, {
+        "id": "2",
+        "name": "javascript"
+      }, {
+        "id": "3",
+        "name": "bdd"
+      }],
       "numeric_id": 4,
       "priority": 0,
       "reporter": {
@@ -329,7 +435,22 @@ Feature: Manage issue
       },
       "created_at": "2014-11-07T00:00:00+0100",
       "description": "Description",
-      "labels": [],
+      "labels": [{
+          "id": "0",
+          "name": "backbone.js"
+      }, {
+        "id": "2",
+        "name": "javascript"
+      }, {
+        "id": "3",
+        "name": "bdd"
+      }, {
+        "id": "6",
+        "name": "symfony"
+      }, {
+        "id": "8",
+        "name": "css3"
+      }],
       "numeric_id": 2,
       "priority": 1,
       "reporter": {
@@ -367,7 +488,22 @@ Feature: Manage issue
       },
       "created_at": "2014-12-15T00:00:00+0100",
       "description": "Description",
-      "labels": [],
+      "labels": [{
+        "id": "0",
+        "name": "backbone.js"
+      }, {
+        "id": "2",
+        "name": "javascript"
+      }, {
+        "id": "3",
+        "name": "bdd"
+      }, {
+        "id": "6",
+        "name": "symfony"
+      }, {
+        "id": "8",
+        "name": "css3"
+      }],
       "numeric_id": 1,
       "priority": 1,
       "reporter": {
@@ -414,7 +550,22 @@ Feature: Manage issue
         },
         "created_at": "2014-10-21T00:00:00+0200",
         "description": "Description",
-        "labels": [],
+        "labels": [{
+          "id": "1",
+          "name": "php"
+        }, {
+          "id": "10",
+          "name": "compass"
+        }, {
+          "id": "4",
+          "name": "behat"
+        }, {
+          "id": "5",
+          "name": "phpspec"
+        }, {
+          "id": "7",
+          "name": "html5"
+        }],
         "numeric_id": 1,
         "priority": 1,
         "reporter": {
@@ -461,7 +612,22 @@ Feature: Manage issue
       },
       "created_at": "2014-10-21T00:00:00+0200",
       "description": "Description",
-      "labels": [],
+      "labels": [{
+        "id": "1",
+        "name": "php"
+      }, {
+        "id": "10",
+        "name": "compass"
+      }, {
+        "id": "4",
+        "name": "behat"
+      }, {
+        "id": "5",
+        "name": "phpspec"
+      }, {
+        "id": "7",
+        "name": "html5"
+      }],
       "numeric_id": 2,
       "priority": 1,
       "reporter": {
@@ -508,7 +674,22 @@ Feature: Manage issue
         },
         "created_at": "2014-10-21T00:00:00+0200",
         "description": "Description",
-        "labels": [],
+        "labels": [{
+          "id": "0",
+          "name": "backbone.js"
+        }, {
+          "id": "11",
+          "name": "mysql"
+        }, {
+          "id": "12",
+          "name": "mongodb"
+        }, {
+          "id": "2",
+          "name": "javascript"
+        }, {
+          "id": "3",
+          "name": "bdd"
+        }],
         "numeric_id": 4,
         "priority": 0,
         "reporter": {
@@ -555,7 +736,22 @@ Feature: Manage issue
         },
         "created_at": "2014-10-21T00:00:00+0200",
         "description": "Description",
-        "labels": [],
+        "labels": [{
+          "id": "0",
+          "name": "backbone.js"
+        }, {
+          "id": "11",
+          "name": "mysql"
+        }, {
+          "id": "12",
+          "name": "mongodb"
+        }, {
+          "id": "2",
+          "name": "javascript"
+        }, {
+          "id": "3",
+          "name": "bdd"
+        }],
         "numeric_id": 4,
         "priority": 0,
         "reporter": {
@@ -602,7 +798,22 @@ Feature: Manage issue
         },
         "created_at": "2014-10-21T00:00:00+0200",
         "description": "Description",
-        "labels": [],
+        "labels": [{
+          "id": "0",
+          "name": "backbone.js"
+        }, {
+          "id": "11",
+          "name": "mysql"
+        }, {
+          "id": "12",
+          "name": "mongodb"
+        }, {
+          "id": "2",
+          "name": "javascript"
+        }, {
+          "id": "3",
+          "name": "bdd"
+        }],
         "numeric_id": 4,
         "priority": 0,
         "reporter": {
@@ -649,7 +860,22 @@ Feature: Manage issue
         },
         "created_at": "2014-10-21T00:00:00+0200",
         "description": "Description",
-        "labels": [],
+        "labels": [{
+          "id": "0",
+          "name": "backbone.js"
+        }, {
+          "id": "11",
+          "name": "mysql"
+        }, {
+          "id": "12",
+          "name": "mongodb"
+        }, {
+          "id": "2",
+          "name": "javascript"
+        }, {
+          "id": "3",
+          "name": "bdd"
+        }],
         "numeric_id": 4,
         "priority": 0,
         "reporter": {
@@ -684,6 +910,7 @@ Feature: Manage issue
     Given I am authenticating with "access-token-0" token
     When I send a GET request to "/app_test.php/api/projects/0/issues?limit=2"
     Then the response code should be 200
+    And print response
     And the response should contain json:
     """
       [{
@@ -696,7 +923,22 @@ Feature: Manage issue
         },
         "created_at": "2014-12-15T00:00:00+0100",
         "description": "Description",
-        "labels": [],
+        "labels": [{
+          "id": "0",
+          "name": "backbone.js"
+        }, {
+          "id": "2",
+          "name": "javascript"
+        }, {
+          "id": "3",
+          "name": "bdd"
+        }, {
+          "id": "6",
+          "name": "symfony"
+        }, {
+          "id": "8",
+          "name": "css3"
+        }],
         "numeric_id": 1,
         "priority": 1,
         "reporter": {
@@ -734,7 +976,22 @@ Feature: Manage issue
         },
         "created_at": "2014-11-07T00:00:00+0100",
         "description": "Description",
-        "labels": [],
+        "labels": [{
+          "id": "0",
+          "name": "backbone.js"
+        }, {
+          "id": "2",
+          "name": "javascript"
+        }, {
+          "id": "3",
+          "name": "bdd"
+        }, {
+          "id": "6",
+          "name": "symfony"
+        }, {
+          "id": "8",
+          "name": "css3"
+        }],
         "numeric_id": 2,
         "priority": 1,
         "reporter": {
@@ -769,6 +1026,7 @@ Feature: Manage issue
     Given I am authenticating with "access-token-0" token
     When I send a GET request to "/app_test.php/api/projects/0/issues?offset=2"
     Then the response code should be 200
+    And print response
     And the response should contain json:
     """
       [{
@@ -781,7 +1039,22 @@ Feature: Manage issue
         },
         "created_at": "2014-10-21T00:00:00+0200",
         "description": "Description",
-        "labels": [],
+        "labels": [{
+          "id": "0",
+          "name": "backbone.js"
+        }, {
+          "id": "11",
+          "name": "mysql"
+        }, {
+          "id": "12",
+          "name": "mongodb"
+        }, {
+          "id": "2",
+          "name": "javascript"
+        }, {
+          "id": "3",
+          "name": "bdd"
+        }],
         "numeric_id": 3,
         "priority": 1,
         "reporter": {
@@ -819,7 +1092,22 @@ Feature: Manage issue
         },
         "created_at": "2014-10-21T00:00:00+0200",
         "description": "Description",
-        "labels": [],
+        "labels": [{
+          "id": "0",
+          "name": "backbone.js"
+        }, {
+          "id": "11",
+          "name": "mysql"
+        }, {
+          "id": "12",
+          "name": "mongodb"
+        }, {
+          "id": "2",
+          "name": "javascript"
+        }, {
+          "id": "3",
+          "name": "bdd"
+        }],
         "numeric_id": 4,
         "priority": 0,
         "reporter": {
@@ -866,7 +1154,22 @@ Feature: Manage issue
         },
         "created_at": "2014-12-15T00:00:00+0100",
         "description": "Description",
-        "labels": [],
+        "labels": [{
+          "id": "0",
+          "name": "backbone.js"
+        }, {
+          "id": "2",
+          "name": "javascript"
+        }, {
+          "id": "3",
+          "name": "bdd"
+        }, {
+          "id": "6",
+          "name": "symfony"
+        }, {
+          "id": "8",
+          "name": "css3"
+        }],
         "numeric_id": 1,
         "priority": 1,
         "reporter": {
@@ -1072,7 +1375,22 @@ Feature: Manage issue
         },
         "created_at": "2014-12-15T00:00:00+0100",
         "description": "The description",
-        "labels": [],
+        "labels": [{
+          "id": "0",
+          "name": "backbone.js"
+        }, {
+          "id": "2",
+          "name": "javascript"
+        }, {
+          "id": "3",
+          "name": "bdd"
+        }, {
+          "id": "6",
+          "name": "symfony"
+        }, {
+          "id": "8",
+          "name": "css3"
+        }],
         "numeric_id": 1,
         "priority": 0,
         "reporter": {
@@ -1196,7 +1514,22 @@ Feature: Manage issue
         },
         "created_at": "2014-10-21T00:00:00+0200",
         "description": "The description",
-        "labels": [],
+        "labels": [{
+          "id": "0",
+          "name": "backbone.js"
+        }, {
+          "id": "11",
+          "name": "mysql"
+        }, {
+          "id": "12",
+          "name": "mongodb"
+        }, {
+          "id": "2",
+          "name": "javascript"
+        }, {
+          "id": "3",
+          "name": "bdd"
+        }],
         "numeric_id": 3,
         "priority": 0,
         "reporter": {
@@ -1253,7 +1586,22 @@ Feature: Manage issue
         },
         "created_at": "2014-10-21T00:00:00+0200",
         "description": "The description",
-        "labels": [],
+        "labels": [{
+          "id": "1",
+          "name": "php"
+        }, {
+          "id": "10",
+          "name": "compass"
+        }, {
+          "id": "4",
+          "name": "behat"
+        }, {
+          "id": "5",
+          "name": "phpspec"
+        }, {
+          "id": "7",
+          "name": "html5"
+        }],
         "numeric_id": 1,
         "priority": 0,
         "reporter": {
@@ -1310,7 +1658,22 @@ Feature: Manage issue
         },
         "created_at": "2014-12-15T00:00:00+0100",
         "description": "The description",
-        "labels": [],
+        "labels": [{
+          "id": "0",
+          "name": "backbone.js"
+        }, {
+          "id": "2",
+          "name": "javascript"
+        }, {
+          "id": "3",
+          "name": "bdd"
+        }, {
+          "id": "6",
+          "name": "symfony"
+        }, {
+          "id": "8",
+          "name": "css3"
+        }],
         "numeric_id": 1,
         "priority": 0,
         "reporter": {

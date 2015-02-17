@@ -11,11 +11,6 @@ services:
         factory_method: getRepository
         class: %kreta_issue.repository_issue.class%
         arguments: [%kreta_issue.issue.class%]
-    kreta_issue.repository.label:
-        factory_service: doctrine.orm.entity_manager
-        factory_method: getRepository
-        class: %kreta_issue.repository_label.class%
-        arguments: [%kreta_issue.label.class%]
     kreta_issue.repository.resolution:
         factory_service: doctrine.orm.entity_manager
         factory_method: getRepository

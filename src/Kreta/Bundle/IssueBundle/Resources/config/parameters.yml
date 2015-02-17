@@ -7,15 +7,12 @@
 
 parameters:
     kreta_issue.issue.class: Kreta\Component\Issue\Model\Issue
-    kreta_issue.label.class: Kreta\Component\Issue\Model\Label
     kreta_issue.resolution.class: Kreta\Component\Issue\Model\Resolution
 
     kreta_issue.factory_issue.class: Kreta\Component\Issue\Factory\IssueFactory
-    kreta_issue.factory_label.class: Kreta\Component\Issue\Factory\LabelFactory
     kreta_issue.factory_resolution.class: Kreta\Component\Issue\Factory\ResolutionFactory
 
     kreta_issue.repository_issue.class: Kreta\Component\Issue\Repository\IssueRepository
-    kreta_issue.repository_label.class: Kreta\Component\Issue\Repository\LabelRepository
     kreta_issue.repository_resolution.class: Kreta\Component\Issue\Repository\ResolutionRepository
 
     kreta_issue.form_issue_handler.class: Kreta\Bundle\IssueBundle\Form\Handler\IssueHandler

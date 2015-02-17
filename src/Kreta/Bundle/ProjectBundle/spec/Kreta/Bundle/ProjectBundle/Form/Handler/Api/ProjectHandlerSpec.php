@@ -64,7 +64,7 @@ class ProjectHandlerSpec extends ObjectBehavior
         $this->shouldHaveType('Kreta\Bundle\ProjectBundle\Form\Handler\Api\ProjectHandler');
     }
 
-    function it_extends_core_issue_handler()
+    function it_extends_project_handler()
     {
         $this->shouldHaveType('Kreta\Bundle\ProjectBundle\Form\Handler\ProjectHandler');
     }

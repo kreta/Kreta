@@ -20,3 +20,12 @@ Kreta\Component\Project\Model\Project:
                 max: 4
                 minMessage: 'Short name must be at least {{ limit }} characters long'
                 maxMessage: 'Short name cannot be longer than {{ limit }} characters long'
+
+Kreta\Component\Project\Model\Label:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [name, project]
+            message: 'A label with identical name is already exists in this project'
+    properties:
+        name:
+            - NotBlank: ~

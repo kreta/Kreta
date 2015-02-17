@@ -19,6 +19,7 @@ default:
                 - Kreta\Bundle\WorkflowBundle\Behat\WorkflowContext
                 - Kreta\Bundle\ProjectBundle\Behat\ProjectContext
                 - Kreta\Bundle\IssueBundle\Behat\IssueContext
+                - Kreta\Bundle\ProjectBundle\Behat\LabelContext
                 - Kreta\Bundle\UserBundle\Behat\UserContext
                 - Kreta\Bundle\WorkflowBundle\Behat\StatusContext
                 - Kreta\Bundle\WorkflowBundle\Behat\StatusTransitionContext

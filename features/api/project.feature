@@ -67,6 +67,9 @@ Feature: Manage projects
           },
           "statuses": {
             "href": "http://localhost/app_test.php/api/workflows/0/statuses"
+          },
+          "labels": {
+            "href": "http://localhost/app_test.php/api/projects/0/labels"
           }
         }
       }, {
@@ -95,6 +98,9 @@ Feature: Manage projects
           },
           "statuses": {
             "href": "http://localhost/app_test.php/api/workflows/1/statuses"
+          },
+          "labels": {
+            "href": "http://localhost/app_test.php/api/projects/1/labels"
           }
         }
       }]
@@ -145,6 +151,9 @@ Feature: Manage projects
           },
           "statuses": {
             "href": "http://localhost/app_test.php/api/workflows/0/statuses"
+          },
+          "labels": {
+            "href": "http://localhost/app_test.php/api/projects/0/labels"
           }
         }
       }
@@ -366,6 +375,9 @@ Feature: Manage projects
           },
           "statuses": {
             "href": "http://localhost/app_test.php/api/workflows/0/statuses"
+          },
+          "labels": {
+            "href": "http://localhost/app_test.php/api/projects/0/labels"
           }
         }
       }

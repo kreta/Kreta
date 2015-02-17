@@ -12,8 +12,10 @@
 namespace spec\Kreta\Bundle\FixturesBundle\DataFixtures\ORM;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use Kreta\Component\Issue\Factory\LabelFactory;
-use Kreta\Component\Issue\Model\Interfaces\LabelInterface;
+use Kreta\Component\Project\Factory\LabelFactory;
+use Kreta\Component\Project\Model\Interfaces\LabelInterface;
+use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
+use Kreta\Component\Project\Repository\ProjectRepository;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -42,15 +44,17 @@ class LoadLabelDataSpec extends ObjectBehavior
 
     function it_loads(
         ContainerInterface $container,
+        ProjectRepository $projectRepository,
+        ProjectInterface $project,
         LabelFactory $factory,
         LabelInterface $label,
         ObjectManager $manager
     )
     {
-        $container->get('kreta_issue.factory.label')->shouldBeCalled()->willReturn($factory);
-        $factory->create()->shouldBeCalled()->willReturn($label);
-
-        $label->setName(Argument::type('string'))->shouldBeCalled()->willReturn($label);
+        $container->get('kreta_project.repository.project')->shouldBeCalled()->willReturn($projectRepository);
+        $projectRepository->findAll()->shouldBeCalled()->willReturn([$project]);
+        $container->get('kreta_project.factory.label')->shouldBeCalled()->willReturn($factory);
+        $factory->create($project, Argument::type('string'))->shouldBeCalled()->willReturn($label);
 
         $manager->persist($label)->shouldBeCalled();
 
@@ -61,6 +65,6 @@ class LoadLabelDataSpec extends ObjectBehavior
 
     function it_gets_0_order()
     {
-        $this->getOrder()->shouldReturn(0);
+        $this->getOrder()->shouldReturn(2);
     }
 }

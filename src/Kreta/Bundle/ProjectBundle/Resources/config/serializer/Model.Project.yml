@@ -42,11 +42,23 @@ Kreta\Component\Project\Model\Project:
                 absolute: true
             exclusion:
                 groups: [projectList, project]
+        -
+            rel: labels
+            href:
+                route: get_projects_labels
+                parameters:
+                    projectId: expr(object.getId())
+                absolute: true
+            exclusion:
+                groups: [projectList, project]
     properties:
         image:
             expose: true
             groups: [projectList, project]
         issues:
+            expose: true
+            groups: []
+        labels:
             expose: true
             groups: []
         name:
