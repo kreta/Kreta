@@ -61,8 +61,17 @@ default:
 
         vcs:
             contexts:
-                - Behat\WebApiExtension\Context\WebApiContext
+                - Kreta\Bundle\WorkflowBundle\Behat\WorkflowContext
+                - Kreta\Bundle\ProjectBundle\Behat\ProjectContext
+                - Kreta\Bundle\IssueBundle\Behat\IssueContext
+                - Kreta\Bundle\VCSBundle\Behat\CommitContext
                 - Kreta\Bundle\VCSBundle\Behat\RepositoryContext
+                - Kreta\Bundle\VCSBundle\Behat\BranchContext
+                - Kreta\Bundle\CoreBundle\Behat\OauthContext
+                - Kreta\Bundle\UserBundle\Behat\UserContext
+                - Kreta\Bundle\WorkflowBundle\Behat\StatusContext
+                - Kreta\Bundle\WorkflowBundle\Behat\StatusTransitionContext
+                - Kreta\Bundle\ProjectBundle\Behat\ParticipantContext
             filters:
                 tags: "@vcs && ~@TODO"
 

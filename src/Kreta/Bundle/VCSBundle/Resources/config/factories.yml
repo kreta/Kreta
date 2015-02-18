@@ -9,7 +9,6 @@ services:
     kreta_vcs.factory.commit:
         class: %kreta_vcs.factory_commit.class%
         arguments: [%kreta_vcs.commit.class%]
-
     kreta_vcs.factory.branch:
         class: %kreta_vcs.factory_branch.class%
         arguments: [%kreta_vcs.branch.class%]

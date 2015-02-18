@@ -17,6 +17,7 @@ use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
 use Kreta\Component\Core\spec\Kreta\Component\Core\Repository\BaseEntityRepository;
+use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\VCS\Model\Interfaces\RepositoryInterface;
 use Prophecy\Argument;
 
@@ -58,6 +59,24 @@ class RepositoryRepositorySpec extends BaseEntityRepository
         $query->getResult()->shouldBeCalled()->willReturn([$repository]);
 
         $this->findByIssue('issue-id')->shouldReturn([$repository]);
+    }
+
+    function it_finds_by_project(
+        EntityManager $manager,
+        QueryBuilder $queryBuilder,
+        Expr $expr,
+        Expr\Comparison $comparison,
+        AbstractQuery $query,
+        RepositoryInterface $repository,
+        ProjectInterface $project
+    )
+    {
+        $queryBuilder = $this->getQueryBuilderSpec($manager, $queryBuilder);
+        $this->addCriteriaSpec($queryBuilder, $expr, ['p.id' => $project], $comparison);
+        $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
+        $query->getResult()->shouldBeCalled()->willReturn([$repository]);
+
+        $this->findByProject($project)->shouldReturn([$repository]);
     }
 
     protected function getQueryBuilderSpec(EntityManager $manager, QueryBuilder $queryBuilder)
