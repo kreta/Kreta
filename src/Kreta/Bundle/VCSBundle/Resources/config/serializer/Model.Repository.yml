@@ -29,13 +29,13 @@ Kreta\Component\VCS\Model\Repository:
     properties:
         id:
             expose: true
-            groups: [repositoryList, branchList]
+            groups: [repositoryList, branchList, commitList]
         name:
             expose: true
-            groups: [repositoryList, branchList]
+            groups: [repositoryList, branchList, commitList]
         provider:
             expose: true
-            groups: [repositoryList, branchList]
+            groups: [repositoryList, branchList, commitList]
         projects:
             expose: true
             groups: []

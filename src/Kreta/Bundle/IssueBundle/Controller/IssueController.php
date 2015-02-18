@@ -16,7 +16,6 @@ use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Request\ParamFetcher;
 use Kreta\Bundle\CoreBundle\Controller\RestController;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Class IssueController.

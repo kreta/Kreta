@@ -17,8 +17,8 @@ Feature: Manage VCS
     And I set header "X-Github-Event" with value "push"
     And I set header "X-Hub-Signature" with value "uQw56aLXuKWVQbT"
     And the following repositories exist:
-      | name                        | provider | url |
-      | baxterthehacker/public-repo | github   |     |
+      | id | name                        | provider | url |
+      | 1  | baxterthehacker/public-repo | github   |     |
     When I send a POST request to "/app_test.php/webhooks/github" with body:
     """
        {

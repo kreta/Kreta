@@ -64,6 +64,7 @@ default:
                 - Kreta\Bundle\WorkflowBundle\Behat\WorkflowContext
                 - Kreta\Bundle\ProjectBundle\Behat\ProjectContext
                 - Kreta\Bundle\IssueBundle\Behat\IssueContext
+                - Kreta\Bundle\VCSBundle\Behat\CommitContext
                 - Kreta\Bundle\VCSBundle\Behat\RepositoryContext
                 - Kreta\Bundle\VCSBundle\Behat\BranchContext
                 - Kreta\Bundle\CoreBundle\Behat\OauthContext

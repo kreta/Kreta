@@ -31,13 +31,13 @@ Kreta\Component\VCS\Model\Branch:
     properties:
         id:
             expose: true
-            groups: [branchList]
+            groups: [branchList, commitList]
         name:
             expose: true
-            groups: [branchList]
+            groups: [branchList, commitList]
         repository:
             expose: true
-            groups: [branchList]
+            groups: [branchList, commitList]
         issuesRelated:
             expose: true
             groups: []

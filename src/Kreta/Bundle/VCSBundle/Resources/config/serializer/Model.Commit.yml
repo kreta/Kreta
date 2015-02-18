@@ -8,16 +8,16 @@
 Kreta\Component\VCS\Model\Commit:
     exclusion_policy: ALL
     relations:
-#        -
-#            rel: commits
-#            href:
-#                route: get_projects_issues_commits
-#                parameters:
-#                    projectId: expr(object.getIssuesRelated()[0].getProject().getId())
-#                    issueId: expr(object.getIssuesRelated()[0].getId())
-#                absolute: true
-#            exclusion:
-#                groups: [commitList]
+        -
+            rel: commits
+            href:
+                route: get_projects_issues_commits
+                parameters:
+                    projectId: expr(object.getIssuesRelated()[0].getProject().getId())
+                    issueId: expr(object.getIssuesRelated()[0].getId())
+                absolute: true
+            exclusion:
+                groups: [commitList]
         -
             rel: branches
             href:
@@ -25,6 +25,15 @@ Kreta\Component\VCS\Model\Commit:
                 parameters:
                     projectId: expr(object.getIssuesRelated()[0].getProject().getId())
                     issueId: expr(object.getIssuesRelated()[0].getId())
+                absolute: true
+            exclusion:
+                groups: [commitList]
+        -
+            rel: repositories
+            href:
+                route: get_projects_repositories
+                parameters:
+                    projectId: expr(object.getIssuesRelated()[0].getProject().getId())
                 absolute: true
             exclusion:
                 groups: [commitList]
@@ -41,10 +50,10 @@ Kreta\Component\VCS\Model\Commit:
     properties:
         id:
             expose: true
-            groups: [commitLis, repositoryList]
+            groups: [commitList, repositoryList]
         author:
             expose: true
-            groups: [commitLis, repositoryList]
+            groups: [commitList, repositoryList]
         message:
             expose: true
             groups: [commitList, repositoryList]

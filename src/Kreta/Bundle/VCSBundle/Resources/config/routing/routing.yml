@@ -10,10 +10,13 @@ kreta_vcs_branch:
     parent: kreta_api_issue
     resource: Kreta\Bundle\VCSBundle\Controller\BranchController
 
-#kreta_vcs_commit:
-#    type: rest
-#    resource: Kreta\Bundle\VCSBundle\Controller\CommitController
-#
-#kreta_vcs_repository:
-#    type: rest
-#    resource: Kreta\Bundle\VCSBundle\Controller\RepositoryController
+kreta_vcs_commit:
+    type: rest
+    parent: kreta_api_issue
+    resource: Kreta\Bundle\VCSBundle\Controller\CommitController
+
+kreta_vcs_repository:
+    type: rest
+    parent: kreta_api_project
+    resource: Kreta\Bundle\VCSBundle\Controller\RepositoryController
+

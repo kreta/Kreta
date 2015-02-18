@@ -33,7 +33,6 @@ class RepositoryContext extends DefaultContext
      */
     public function theFollowingRepositoriesExist(TableNode $repositories)
     {
-        $this->getManager();
         foreach ($repositories as $repoData) {
             $projects = [];
             if (isset($repoData['projects'])) {
@@ -47,13 +46,9 @@ class RepositoryContext extends DefaultContext
             $repository->setProvider($repoData['provider']);
             $repository->setUrl($repoData['url']);
             $this->setField($repository, 'projects', $projects);
-            if (isset($repoData['id'])) {
-                $this->setId($repository, $repoData['id']);
-            }
+            $this->setId($repository, $repoData['id']);
 
-            $this->manager->persist($repository);
+            $this->getContainer()->get('kreta_vcs.repository.repository')->persist($repository);
         }
-
-        $this->manager->flush();
     }
 }

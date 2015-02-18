@@ -12,6 +12,7 @@
 namespace Kreta\Component\VCS\Repository;
 
 use Kreta\Component\Core\Repository\EntityRepository;
+use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 
 /**
  * Class RepositoryRepository.
@@ -34,6 +35,18 @@ class RepositoryRepository extends EntityRepository
         $this->addCriteria($queryBuilder, ['i.id' => $issueId]);
 
         return $queryBuilder->getQuery()->getResult();
+    }
+
+    /**
+     * Finds all the repositories of project given.
+     *
+     * @param \Kreta\Component\Project\Model\Interfaces\ProjectInterface $project The project
+     *
+     * @return \Kreta\Component\VCS\Model\Interfaces\RepositoryInterface[]
+     */
+    public function findByProject(ProjectInterface $project)
+    {
+        return $this->findBy(['p.id' => $project]);
     }
 
     /**
