@@ -10,8 +10,8 @@
 'use strict';
 
 var gulp = require('gulp');
+var babel = require('gulp-babel');
 var del = require('del');
-var to5 = require('gulp-6to5');
 var compass = require('gulp-compass');
 var concat = require('gulp-concat');
 var header = require('gulp-header');
@@ -95,13 +95,13 @@ gulp.task('javascript', ['clean'], function () {
   return gulp.src(assets.javascripts)
     .pipe(jshint())
     .pipe(jshint.reporter('default'))
-    //.pipe(to5({blacklist: ['useStrict'], modules: ['amd'] }))
+    //.pipe(babel({blacklist: ['useStrict'], comments: false, modules: ['amd'] }))
     .pipe(gulp.dest(resultPath + 'js'));
 });
 
 gulp.task('javascript:prod', ['clean'], function () {
   return gulp.src(assets.javascripts)
-    //.pipe(to5({blacklist: ['useStrict'], modules: ['amd'] }))
+    //.pipe(babel({blacklist: ['useStrict'], comments: false, modules: ['amd'] }))
     .pipe(concat('kreta.min.js'))
     .pipe(uglify())
     .pipe(header(license, {pkg: pkg}))
