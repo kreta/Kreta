@@ -17,6 +17,10 @@ kreta_comment:
     type: rest
     resource: '@KretaCommentBundle/Resources/config/routing.yml'
 
+kreta_time_tracking:
+    type: rest
+    resource: '@KretaTimeTrackingBundle/Resources/config/routing.yml'
+
 kreta_vcs:
     type: rest
     resource: '@KretaVCSBundle/Resources/config/routing/routing.yml'

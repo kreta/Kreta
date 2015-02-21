@@ -11,6 +11,7 @@
 
 namespace Kreta\Component\TimeTracking\Model;
 
+use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
 use Kreta\Component\TimeTracking\Model\Interfaces\TimeEntryInterface;
 
 /**
@@ -40,6 +41,13 @@ class TimeEntry implements TimeEntryInterface
      * @var string
      */
     protected $description;
+
+    /**
+     * An issue associated.
+     *
+     * @var \Kreta\Component\Issue\Model\Interfaces\IssueInterface
+     */
+    protected $issue;
 
     /**
      * Time spent in seconds.
@@ -88,6 +96,24 @@ class TimeEntry implements TimeEntryInterface
     public function setDescription($description)
     {
         $this->description = $description;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getIssue()
+    {
+        return $this->issue;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setIssue(IssueInterface $issue)
+    {
+        $this->issue = $issue;
 
         return $this;
     }
