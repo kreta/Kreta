@@ -27,7 +27,7 @@ default:
                 - Kreta\Bundle\CommentBundle\Behat\CommentContext
                 - Kreta\Bundle\TimeTrackingBundle\Behat\TimeEntryContext
             filters:
-                tags: "@api-o"
+                tags: "@api"
         issue:
             contexts:
                 - Kreta\Bundle\UserBundle\Behat\UserContext

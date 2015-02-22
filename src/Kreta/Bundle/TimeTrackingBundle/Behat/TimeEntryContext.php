@@ -36,9 +36,8 @@ class TimeEntryContext extends DefaultContext
             $issue = $this->getContainer()->get('kreta_issue.repository.issue')
                 ->findOneBy(['title' => $timeEntryData['issue']]);
 
-            $timeEntry = $this->getContainer()->get('kreta_time_tracking.factory.time_entry')->create();
+            $timeEntry = $this->getContainer()->get('kreta_time_tracking.factory.time_entry')->create($issue);
             $timeEntry->setDescription($timeEntryData['description']);
-            $timeEntry->setIssue($issue);
             $timeEntry->setTimeSpent($timeEntryData['timeSpent']);
             if (isset($timeEntryData['dateReported'])) {
                 $this->setField($timeEntry, 'dateReported', new \DateTime($timeEntryData['dateReported']));

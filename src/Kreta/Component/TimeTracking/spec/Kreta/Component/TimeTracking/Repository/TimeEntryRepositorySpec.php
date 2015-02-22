@@ -16,6 +16,7 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
+use Kreta\Component\Core\spec\Kreta\Component\Core\Repository\BaseEntityRepository;
 use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
 use Kreta\Component\TimeTracking\Model\Interfaces\TimeEntryInterface;
 use Prophecy\Argument;
@@ -25,7 +26,7 @@ use Prophecy\Argument;
  *
  * @package spec\Kreta\Component\TimeTracking\Repository
  */
-class TimeEntryRepositorySpec
+class TimeEntryRepositorySpec extends BaseEntityRepository
 {
     function let(EntityManager $manager, ClassMetadata $classMetadata)
     {
@@ -55,10 +56,12 @@ class TimeEntryRepositorySpec
         $this->getQueryBuilderSpec($manager, $queryBuilder);
         $this->addCriteriaSpec($queryBuilder, $expr, ['issue' => $issue], $comparison);
         $this->orderBySpec($queryBuilder, ['dateReported' => 'ASC']);
+        $queryBuilder->setMaxResults(1)->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->setFirstResult(1)->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
         $query->getResult()->shouldBeCalled()->willReturn([$timeEntry]);
 
-        $this->findByIssue($issue, ['dateReported' => 'ASC'], 0, 1)->shouldReturn([$timeEntry]);
+        $this->findByIssue($issue, ['dateReported' => 'ASC'], 1, 1)->shouldReturn([$timeEntry]);
     }
 
     protected function getQueryBuilderSpec(EntityManager $manager, QueryBuilder $queryBuilder)

@@ -11,6 +11,7 @@
 
 namespace spec\Kreta\Component\TimeTracking\Factory;
 
+use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
 use PhpSpec\ObjectBehavior;
 
 /**
@@ -30,9 +31,9 @@ class TimeEntryFactorySpec extends ObjectBehavior
         $this->shouldHaveType('Kreta\Component\TimeTracking\Factory\TimeEntryFactory');
     }
 
-    function it_creates_time_entry()
+    function it_creates_time_entry(IssueInterface $issue)
     {
-        $this->create()
+        $this->create($issue)
             ->shouldReturnAnInstanceOf('Kreta\Component\TimeTracking\Model\Interfaces\TimeEntryInterface');
     }
-} 
+}

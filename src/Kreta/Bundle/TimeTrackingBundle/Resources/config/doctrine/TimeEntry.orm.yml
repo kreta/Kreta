@@ -20,6 +20,7 @@ Kreta\Component\TimeTracking\Model\TimeEntry:
             type: datetime
         description:
             type: text
+            nullable: true
         timeSpent:
             column: time_spent
             type: integer

@@ -5,7 +5,7 @@
 # @author benatespina <benatespina@gmail.com>
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
-@api-o
+@api
 Feature: Manage time entry
   In order to manage time entries
   As an API time entry
@@ -45,11 +45,11 @@ Feature: Manage time entry
       | 1  | 2         | Test project 2 | Test issue 2 | Description2 | user@kreta.com | user@kreta.com | 4    | Open   | 1        | 2014-12-15 |
     And the following time entries exist:
       | id | dateReported | description                 | issue        | timeSpent |
-      | 0  | 2015-02-15   | Description of time entry 0 | Test issue 1 | 90        |
-      | 1  | 2015-02-20   | Description of time entry 0 | Test issue 2 | 200       |
-      | 2  | 2015-02-10   | Description of time entry 0 | Test issue 1 | 3000      |
-      | 3  | 2015-02-05   | Description of time entry 0 | Test issue 1 | 200       |
-      | 4  | 2015-02-17   | Description of time entry 0 | Test issue 1 | 100       |
+      | 0  | 2015-02-15   | Description of time entry | Test issue 1 | 90        |
+      | 1  | 2015-02-20   | Description of time entry | Test issue 2 | 200       |
+      | 2  | 2015-02-10   | Description of time entry | Test issue 1 | 3000      |
+      | 3  | 2015-02-05   | Description of time entry | Test issue 1 | 200       |
+      | 4  | 2015-02-17   | Description of time entry | Test issue 1 | 100       |
     And the following tokens exist:
       | token          | expiresAt | scope | user            |
       | access-token-0 | null      | user  | user@kreta.com  |
@@ -66,7 +66,7 @@ Feature: Manage time entry
       [{
         "id": "3",
         "date_reported": "2015-02-05T00:00:00+0100",
-        "description": "Description of time entry 0",
+        "description": "Description of time entry",
         "time_spent": 200,
         "_links": {
           "self": {
@@ -82,7 +82,7 @@ Feature: Manage time entry
       }, {
         "id": "2",
         "date_reported": "2015-02-10T00:00:00+0100",
-        "description": "Description of time entry 0",
+        "description": "Description of time entry",
         "time_spent": 3000,
         "_links": {
           "self": {
@@ -98,7 +98,7 @@ Feature: Manage time entry
       }, {
         "id": "0",
         "date_reported": "2015-02-15T00:00:00+0100",
-        "description": "Description of time entry 0",
+        "description": "Description of time entry",
         "time_spent": 90,
         "_links": {
           "self": {
@@ -114,7 +114,7 @@ Feature: Manage time entry
       }, {
         "id": "4",
         "date_reported": "2015-02-17T00:00:00+0100",
-        "description": "Description of time entry 0",
+        "description": "Description of time entry",
         "time_spent": 100,
         "_links": {
           "self": {
@@ -132,46 +132,14 @@ Feature: Manage time entry
 
   Scenario: Getting all the time entries of project 0 and issue 0 order by time spent
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/projects/0/issues/0/time-entries?sort=timeSpent"
+    When I send a GET request to "/app_test.php/api/projects/0/issues/0/time-entries?sort=time_spent"
     Then the response code should be 200
     And the response should contain json:
     """
       [{
-        "id": "0",
-        "date_reported": "2015-02-15T00:00:00+0100",
-        "description": "Description of time entry 0",
-        "time_spent": 90,
-        "_links": {
-          "self": {
-            "href": "http://localhost/app_test.php/api/projects/0/issues/0/time-entries/0"
-          },
-          "timeEntries": {
-            "href": "http://localhost/app_test.php/api/projects/0/issues/0/time-entries"
-          },
-          "issues": {
-            "href": "http://localhost/app_test.php/api/projects/0/issues"
-          }
-        }
-      }, {
-        "id":"4",
-        "date_reported": "2015-02-17T00:00:00+0100",
-        "description": "Description of time entry 0",
-        "time_spent": 100,
-        "_links": {
-          "self": {
-            "href": "http://localhost/app_test.php/api/projects/0/issues/0/time-entries/4"
-          },
-          "timeEntries": {
-            "href": "http://localhost/app_test.php/api/projects/0/issues/0/time-entries"
-          },
-          "issues": {
-            "href": "http://localhost/app_test.php/api/projects/0/issues"
-          }
-        }
-      }, {
         "id": "3",
         "date_reported": "2015-02-05T00:00:00+0100",
-        "description": "Description of time entry 0",
+        "description": "Description of time entry",
         "time_spent": 200,
         "_links": {
           "self": {
@@ -187,11 +155,43 @@ Feature: Manage time entry
       }, {
         "id": "2",
         "date_reported": "2015-02-10T00:00:00+0100",
-        "description": "Description of time entry 0",
+        "description": "Description of time entry",
         "time_spent": 3000,
         "_links": {
           "self": {
             "href": "http://localhost/app_test.php/api/projects/0/issues/0/time-entries/2"
+          },
+          "timeEntries": {
+            "href": "http://localhost/app_test.php/api/projects/0/issues/0/time-entries"
+          },
+          "issues": {
+            "href": "http://localhost/app_test.php/api/projects/0/issues"
+          }
+        }
+      }, {
+        "id": "0",
+        "date_reported": "2015-02-15T00:00:00+0100",
+        "description": "Description of time entry",
+        "time_spent": 90,
+        "_links": {
+          "self": {
+            "href": "http://localhost/app_test.php/api/projects/0/issues/0/time-entries/0"
+          },
+          "timeEntries": {
+            "href": "http://localhost/app_test.php/api/projects/0/issues/0/time-entries"
+          },
+          "issues": {
+            "href": "http://localhost/app_test.php/api/projects/0/issues"
+          }
+        }
+      }, {
+        "id":"4",
+        "date_reported": "2015-02-17T00:00:00+0100",
+        "description": "Description of time entry",
+        "time_spent": 100,
+        "_links": {
+          "self": {
+            "href": "http://localhost/app_test.php/api/projects/0/issues/0/time-entries/4"
           },
           "timeEntries": {
             "href": "http://localhost/app_test.php/api/projects/0/issues/0/time-entries"
@@ -212,7 +212,7 @@ Feature: Manage time entry
       [{
         "id": "3",
         "date_reported": "2015-02-05T00:00:00+0100",
-        "description": "Description of time entry 0",
+        "description": "Description of time entry",
         "time_spent": 200,
         "_links": {
           "self": {
@@ -228,7 +228,7 @@ Feature: Manage time entry
       }, {
         "id": "2",
         "date_reported": "2015-02-10T00:00:00+0100",
-        "description": "Description of time entry 0",
+        "description": "Description of time entry",
         "time_spent": 3000,
         "_links": {
           "self": {
@@ -253,7 +253,7 @@ Feature: Manage time entry
       [{
         "id": "0",
         "date_reported": "2015-02-15T00:00:00+0100",
-        "description": "Description of time entry 0",
+        "description": "Description of time entry",
         "time_spent": 90,
         "_links": {
           "self": {
@@ -269,7 +269,7 @@ Feature: Manage time entry
       }, {
         "id": "4",
         "date_reported": "2015-02-17T00:00:00+0100",
-        "description": "Description of time entry 0",
+        "description": "Description of time entry",
         "time_spent": 100,
         "_links": {
           "self": {
@@ -322,13 +322,12 @@ Feature: Manage time entry
     Given I am authenticating with "access-token-0" token
     When I send a GET request to "/app_test.php/api/projects/0/issues/0/time-entries/0"
     Then the response code should be 200
-    And print response
     And the response should contain json:
     """
       {
         "id": "0",
         "date_reported": "2015-02-15T00:00:00+0100",
-        "description": "Description of time entry 0",
+        "description": "Description of time entry",
         "time_spent": 90,
         "_links": {
           "self": {
@@ -386,4 +385,213 @@ Feature: Manage time entry
       {
         "error": "Does not exist any object with id passed"
       }
+    """
+
+  Scenario: Creating a time entry
+    Given I am authenticating with "access-token-0" token
+    Given I set header "content-type" with value "application/json"
+    When I send a POST request to "/app_test.php/api/projects/0/issues/0/time-entries" with body:
+    """
+      {
+        "description": "The description",
+        "timeSpent": "5"
+      }
+    """
+    Then the response code should be 201
+
+  Scenario: Creating a time entry without parameters
+    Given I am authenticating with "access-token-0" token
+    Given I set header "content-type" with value "application/json"
+    When I send a POST request to "/app_test.php/api/projects/0/issues/0/time-entries" with body:
+    """
+      {
+      }
+    """
+    Then the response code should be 400
+    And the response should contain json:
+    """
+      {
+        "description": [],
+        "timeSpent": []
+      }
+    """
+
+  Scenario: Creating a time entry without required parameters
+    Given I am authenticating with "access-token-0" token
+    Given I set header "content-type" with value "application/json"
+    When I send a POST request to "/app_test.php/api/projects/0/issues/0/time-entries" with body:
+    """
+      {
+        "description": "The description"
+      }
+    """
+    Then the response code should be 400
+    And the response should contain json:
+    """
+      {
+        "timeSpent": [
+          "This value should not be blank."
+        ]
+      }
+    """
+
+  Scenario: Creating an time entry with user which is not a participant
+    Given I am authenticating with "access-token-2" token
+    When I send a POST request to "/app_test.php/api/projects/1/issues/0/time-entries" with body:
+    """
+      {
+        "description": "The description",
+        "timeSpent": 5
+      }
+    """
+    Then the response code should be 403
+    And the response should contain json:
+    """
+      {
+        "error": "Not allowed to access this resource"
+      }
+    """
+
+  Scenario: Updating the 0 time entry
+    Given I am authenticating with "access-token-0" token
+    Given I set header "content-type" with value "application/json"
+    When I send a PUT request to "/app_test.php/api/projects/0/issues/0/time-entries/0" with body:
+    """
+      {
+        "description": "New description",
+        "timeSpent": 3
+      }
+    """
+    Then the response code should be 200
+    And the response should contain json:
+    """
+      {
+        "id": "0",
+        "date_reported": "2015-02-15T00:00:00+0100",
+        "description": "New description",
+        "time_spent": 3,
+        "_links": {
+          "self": {
+            "href": "http://localhost/app_test.php/api/projects/0/issues/0/time-entries/0"
+          },
+          "timeEntries": {
+            "href": "http://localhost/app_test.php/api/projects/0/issues/0/time-entries"
+          },
+          "issues": {
+            "href": "http://localhost/app_test.php/api/projects/0/issues"
+          }
+        }
+      }
+    """
+
+  Scenario: Updating the 0 time entry without parameters
+    Given I am authenticating with "access-token-0" token
+    Given I set header "content-type" with value "application/json"
+    When I send a PUT request to "/app_test.php/api/projects/0/issues/0/time-entries/0" with body:
+    """
+      {
+      }
+    """
+    Then the response code should be 400
+    And the response should contain json:
+    """
+      {
+        "description": [],
+        "timeSpent": []
+      }
+    """
+
+  Scenario: Updating the 0 time entry without required parameters
+    Given I am authenticating with "access-token-0" token
+    Given I set header "content-type" with value "application/json"
+    When I send a PUT request to "/app_test.php/api/projects/0/issues/0/time-entries/0" with body:
+    """
+      {
+        "description": "The description"
+      }
+    """
+    Then the response code should be 400
+    And the response should contain json:
+    """
+      {
+        "timeSpent": [
+          "This value should not be blank."
+        ]
+      }
+    """
+
+  Scenario: Updating the 1 time entry with user which is participant
+    Given I am authenticating with "access-token-2" token
+    Given I set header "content-type" with value "application/json"
+    When I send a PUT request to "/app_test.php/api/projects/1/issues/0/time-entries/1" with body:
+    """
+      {
+        "description": "The description",
+        "timeSpent": 11
+      }
+    """
+    Then the response code should be 403
+    And the response should contain json:
+    """
+      {
+        "error": "Not allowed to access this resource"
+      }
+    """
+
+
+
+
+
+
+  Scenario: Deleting the 0 time entry with user which is participant
+    Given I am authenticating with "access-token-2" token
+    When I send a DELETE request to "/app_test.php/api/projects/1/issues/0/time-entries/1"
+    Then the response code should be 403
+    And the response should contain json:
+    """
+      {
+        "error": "Not allowed to access this resource"
+      }
+    """
+
+  Scenario: Deleting the 0 time entry of unknown project
+    Given I am authenticating with "access-token-0" token
+    When I send a DELETE request to "/app_test.php/api/projects/unknown-project/issues/0/time-entries/1"
+    Then the response code should be 404
+    And the response should contain json:
+    """
+      {
+        "error": "Does not exist any object with id passed"
+      }
+    """
+
+  Scenario: Deleting the 0 time entry of unknown issue
+    Given I am authenticating with "access-token-0" token
+    When I send a DELETE request to "/app_test.php/api/projects/1/issues/unknown-issue/time-entries/1"
+    Then the response code should be 404
+    And the response should contain json:
+    """
+      {
+        "error": "Does not exist any object with id passed"
+      }
+    """
+
+  Scenario: Deleting the unknown time entry
+    Given I am authenticating with "access-token-0" token
+    When I send a DELETE request to "/app_test.php/api/projects/0/issues/0/time-entries/unknown-time-entry"
+    Then the response code should be 404
+    And the response should contain json:
+    """
+      {
+        "error": "Does not exist any object with id passed"
+      }
+    """
+
+  Scenario: Deleting the 0 time entry
+    Given I am authenticating with "access-token-0" token
+    When I send a DELETE request to "/app_test.php/api/projects/0/issues/0/time-entries/0"
+    Then the response code should be 204
+    And the response should contain json:
+    """
+      {}
     """

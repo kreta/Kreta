@@ -12,6 +12,9 @@
 namespace Kreta\Bundle\TimeTrackingBundle\Controller;
 
 use FOS\RestBundle\Controller\Annotations\Get;
+use FOS\RestBundle\Controller\Annotations\Post;
+use FOS\RestBundle\Controller\Annotations\Put;
+use FOS\RestBundle\Controller\Annotations\Delete;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Request\ParamFetcher;
@@ -109,104 +112,127 @@ class TimeEntryController extends RestController
         return $this->getTimeEntryIfAllowed($projectId, $issueId, $timeEntryId);
     }
 
-//    /**
-//     * Creates new issue for title, description, type priority and assignee given.
-//     *
-//     * @param string $projectId The project id
-//     *
-//     * @ApiDoc(
-//     *  description = "Creates new issue for title, description, type, priority and assignee given",
-//     *  input = "Kreta\Bundle\IssueBundle\Form\Type\Api\IssueType",
-//     *  output = "Kreta\Component\Issue\Model\Interfaces\IssueInterface",
-//     *  requirements = {
-//     *    {
-//     *      "name"="_format",
-//     *      "requirement"="json|jsonp",
-//     *      "description"="Supported formats, by default json"
-//     *    }
-//     *  },
-//     *  statusCodes = {
-//     *      201 = "<data>",
-//     *      400 = {
-//     *          "Title should not be blank",
-//     *          "Priority should not be blank",
-//     *          "Type should not be blank",
-//     *          "Assignee should not be blank",
-//     *          "An issue with identical title is already exist in this project",
-//     *          "Priority is not valid",
-//     *          "Type is not valid",
-//     *          "Assignee is not valid",
-//     *      },
-//     *      403 = "Not allowed to access this resource",
-//     *      404 = "Does not exist any object with id passed"
-//     *  }
-//     * )
-//     *
-//     * @View(
-//     *  statusCode=201,
-//     *  serializerGroups={"issue"}
-//     * )
-//     *
-//     * @return \Kreta\Component\Issue\Model\Interfaces\IssueInterface
-//     */
-//    public function postIssuesAction($projectId)
-//    {
-//        $project = $this->getProjectIfAllowed($projectId, 'create_issue');
-//
-//        return $this->get('kreta_issue.form_handler.api.issue')->processForm(
-//            $this->get('request'), null, ['project' => $project]
-//        );
-//    }
-//
-//    /**
-//     * Updates the issue of project id and id given.
-//     *
-//     * @param string $projectId The project id
-//     * @param string $issueId   The issue id
-//     *
-//     * @ApiDoc(
-//     *  description = "Updates the issue of project id and id given",
-//     *  input = "Kreta\Bundle\IssueBundle\Form\Type\Api\IssueType",
-//     *  output = "Kreta\Component\Issue\Model\Interfaces\IssueInterface",
-//     *  requirements = {
-//     *    {
-//     *      "name"="_format",
-//     *      "requirement"="json|jsonp",
-//     *      "description"="Supported formats, by default json"
-//     *    }
-//     *  },
-//     *  statusCodes = {
-//     *      200 = "<data>",
-//     *      400 = {
-//     *          "Title should not be blank",
-//     *          "Priority should not be blank",
-//     *          "Type should not be blank",
-//     *          "Assignee should not be blank",
-//     *          "An issue with identical title is already exist in this project",
-//     *          "Priority is not valid",
-//     *          "Type is not valid",
-//     *          "Assignee is not valid",
-//     *      },
-//     *      403 = "Not allowed to access this resource",
-//     *      404 = "Does not exist any object with id passed"
-//     *  }
-//     * )
-//     *
-//     * @View(
-//     *  statusCode=200,
-//     *  serializerGroups={"issue"}
-//     * )
-//     *
-//     * @return \Kreta\Component\Issue\Model\Interfaces\IssueInterface
-//     */
-//    public function putIssuesAction($projectId, $issueId)
-//    {
-//        $issue = $this->getIssueIfAllowed($projectId, $issueId, 'view', 'edit');
-//
-//        return $this->get('kreta_issue.form_handler.api.issue')->processForm(
-//            $this->get('request'), $issue, ['method' => 'PUT', 'project' => $issue->getProject()]
-//        );
-//    }
+    /**
+     * Creates new time entry for description, and time spent given.
+     *
+     * @param string $projectId The project id
+     * @param string $issueId   The issue id
+     *
+     * @ApiDoc(
+     *  description = "Creates new time entry for description, and time spent given",
+     *  input = "Kreta\Bundle\TimeTrackingBundle\Form\Type\TimeEntryType",
+     *  output = "Kreta\Component\TimeTracking\Model\Interfaces\TimeEntryInterface",
+     *  requirements = {
+     *    {
+     *      "name"="_format",
+     *      "requirement"="json|jsonp",
+     *      "description"="Supported formats, by default json"
+     *    }
+     *  },
+     *  statusCodes = {
+     *      201 = "<data>",
+     *      400 = "Time spent should not be blank",
+     *      403 = "Not allowed to access this resource",
+     *      404 = "Does not exist any object with id passed"
+     *  }
+     * )
+     *
+     * @Post("/projects/{projectId}/issues/{issueId}/time-entries")
+     *
+     * @View(
+     *  statusCode=201,
+     *  serializerGroups={"timeEntry"}
+     * )
+     *
+     * @return \Kreta\Component\TimeTracking\Model\Interfaces\TimeEntryInterface
+     */
+    public function postTimeEntriesAction($projectId, $issueId)
+    {
+        $issue = $this->getIssueIfAllowed($projectId, $issueId);
+
+        return $this->get('kreta_time_tracking.form_handler.time_entry')->processForm(
+            $this->get('request'), null, ['issue' => $issue]
+        );
+    }
+
+    /**
+     * Updates the time entry of project id, issue id, and id given.
+     *
+     * @param string $projectId   The project id
+     * @param string $issueId     The issue id
+     * @param string $timeEntryId The time entry id
+     *
+     * @ApiDoc(
+     *  description = "Updates the time entry of project id, issue id, and id given",
+     *  input = "Kreta\Bundle\TimeTrackingBundle\Form\Type\TimeEntryType",
+     *  output = "Kreta\Component\TimeTracking\Model\Interfaces\TimeEntryInterface",
+     *  requirements = {
+     *    {
+     *      "name"="_format",
+     *      "requirement"="json|jsonp",
+     *      "description"="Supported formats, by default json"
+     *    }
+     *  },
+     *  statusCodes = {
+     *      200 = "<data>",
+     *      400 = "Time spent should not be blank",
+     *      403 = "Not allowed to access this resource",
+     *      404 = "Does not exist any object with id passed"
+     *  }
+     * )
+     *
+     * @Put("/projects/{projectId}/issues/{issueId}/time-entries/{timeEntryId}")
+     *
+     * @View(
+     *  statusCode=200,
+     *  serializerGroups={"timeEntry"}
+     * )
+     *
+     * @return \Kreta\Component\TimeTracking\Model\Interfaces\TimeEntryInterface
+     */
+    public function putTimeEntriesAction($projectId, $issueId, $timeEntryId)
+    {
+        $timeEntry = $this->getTimeEntryIfAllowed($projectId, $issueId, $timeEntryId, 'view', 'view', 'edit');
+
+        return $this->get('kreta_time_tracking.form_handler.time_entry')->processForm(
+            $this->get('request'), $timeEntry, ['method' => 'PUT', 'issue' => $timeEntry->getIssue()]
+        );
+    }
+
+    /**
+     * Deletes the time entry of project id, issue id, and id given.
+     *
+     * @param string $projectId   The project id
+     * @param string $issueId     The issue id
+     * @param string $timeEntryId The time entry id
+     *
+     * @ApiDoc(
+     *  description = "Deletes the time entry of project id, issue id, and id given",
+     *  requirements = {
+     *    {
+     *      "name"="_format",
+     *      "requirement"="json|jsonp",
+     *      "description"="Supported formats, by default json"
+     *    }
+     *  },
+     *  statusCodes = {
+     *      200 = "<data>",
+     *      403 = "Not allowed to access this resource",
+     *      404 = "Does not exist any object with id passed"
+     *  }
+     * )
+     *
+     * @Delete("/projects/{projectId}/issues/{issueId}/time-entries/{timeEntryId}")
+     *
+     * @View(statusCode=204)
+     *
+     * @return void
+     */
+    public function deleteTimeEntriesAction($projectId, $issueId, $timeEntryId)
+    {
+        $timeEntry = $this->getTimeEntryIfAllowed($projectId, $issueId, $timeEntryId, 'view', 'view', 'delete');
+        $this->get('kreta_time_tracking.repository.time_entry')->remove($timeEntry);
+    }
 
     /**
      * Gets the time entry if the current user is granted and if the time entry exists.
