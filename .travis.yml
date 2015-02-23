@@ -64,12 +64,16 @@ before_script:
 script:
     - bin/phpspec run -fpretty
 
-    - bin/behat --stop-on-failure --suite=issue
-    - bin/behat --stop-on-failure --suite=project
-    - bin/behat --stop-on-failure --suite=notification
-    - bin/behat --stop-on-failure --suite=api
-    - bin/behat --stop-on-failure --suite=login
+    - bin/behat --stop-on-failure --suite=comment
     - bin/behat --stop-on-failure --suite=vcs
+    - bin/behat --stop-on-failure --suite=issue
+    - bin/behat --stop-on-failure --suite=label
+    - bin/behat --stop-on-failure --suite=project
+    - bin/behat --stop-on-failure --suite=status
+    - bin/behat --stop-on-failure --suite=statusTransition
+    - bin/behat --stop-on-failure --suite=timeEntry
+    - bin/behat --stop-on-failure --suite=workflow
+    - bin/behat --stop-on-failure --suite=web
 
 after_script:
     - bin/coveralls -v
