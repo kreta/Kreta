@@ -33,22 +33,22 @@ class CommitContext extends DefaultContext
     public function theFollowingCommitsExist(TableNode $commits)
     {
         foreach ($commits as $commitData) {
-            $branch = $this->getContainer()->get('kreta_vcs.repository.branch')
-                ->findOneBy(['id' => $commitData['branch']]);
+            $branch = $this->container->get('kreta_vcs.repository.branch')
+                ->findOneBy(['id' => $commitData['branch']], false);
             $issuesRelated = [];
             if (isset($commitData['issuesRelated'])) {
                 foreach (explode(',', $commitData['issuesRelated']) as $issueRelated) {
-                    $issuesRelated[] = $this->getContainer()->get('kreta_issue.repository.issue')->find($issueRelated);
+                    $issuesRelated[] = $this->container->get('kreta_issue.repository.issue')->find($issueRelated);
                 }
             }
 
-            $commit = $this->getContainer()->get('kreta_vcs.factory.commit')->create(
+            $commit = $this->container->get('kreta_vcs.factory.commit')->create(
                 $commitData['sha'], $commitData['message'], $branch, $commitData['author'], $commitData['url']
             );
             $this->setField($commit, 'issuesRelated', $issuesRelated);
             $this->setId($commit, $commitData['id']);
 
-            $this->getContainer()->get('kreta_vcs.repository.commit')->persist($commit);
+            $this->container->get('kreta_vcs.repository.commit')->persist($commit);
         }
     }
 }

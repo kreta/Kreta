@@ -13,7 +13,8 @@ namespace Kreta\Bundle\CoreBundle\Behat;
 
 use Behat\MinkExtension\Context\RawMinkContext;
 use Behat\Symfony2Extension\Context\KernelAwareContext;
-use Kreta\Bundle\CoreBundle\Behat\Traits\DatabaseContextTrait;
+use Doctrine\Common\DataFixtures\Purger\ORMPurger;
+use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
  * Class DefaultContext.
@@ -22,7 +23,51 @@ use Kreta\Bundle\CoreBundle\Behat\Traits\DatabaseContextTrait;
  */
 class DefaultContext extends RawMinkContext implements KernelAwareContext
 {
-    use DatabaseContextTrait;
+    /**
+     * The container.
+     *
+     * @var \Symfony\Component\DependencyInjection\ContainerInterface
+     */
+    protected $container;
+
+    /**
+     * @var \Symfony\Component\HttpKernel\KernelInterface
+     */
+    protected $kernel;
+
+    /**
+     * The entity manager.
+     *
+     * @var \Doctrine\ORM\EntityManager
+     */
+    protected $manager;
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setKernel(KernelInterface $kernel)
+    {
+        $this->kernel = $kernel;
+        $this->container = $this->kernel->getContainer();
+        $this->manager = $this->kernel->getContainer()->get('doctrine.orm.entity_manager');
+    }
+
+    /**
+     * Method that allows to purge database before load the scenario.
+     *
+     * @return void
+     *
+     * @BeforeScenario
+     */
+    public function purgeDatabase()
+    {
+        $this->manager->getConnection()->executeUpdate('SET foreign_key_checks = 0;');
+
+        $purger = new ORMPurger($this->manager);
+        $purger->purge();
+
+        $this->manager->getConnection()->executeUpdate('SET foreign_key_checks = 1;');
+    }
 
     /**
      * Sets id.

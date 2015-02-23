@@ -32,20 +32,17 @@ class WorkflowContext extends DefaultContext
      */
     public function theFollowingWorkflowsExist(TableNode $workflows)
     {
-        $this->getManager();
         foreach ($workflows as $workflowData) {
-            $creator = $this->getContainer()->get('kreta_user.repository.user')
-                ->findOneBy(['email' => $workflowData['creator']]);
-            $workflow = $this->getContainer()->get('kreta_workflow.factory.workflow')
+            $creator = $this->container->get('kreta_user.repository.user')
+                ->findOneBy(['email' => $workflowData['creator']], false);
+            $workflow = $this->container->get('kreta_workflow.factory.workflow')
                 ->create($workflowData['name'], $creator);
             $this->setId($workflow, $workflowData['id']);
             if (isset($workflowData['createdAt'])) {
                 $this->setField($workflow, 'createdAt', new \DateTime($workflowData['createdAt']));
             }
 
-            $this->manager->persist($workflow);
+            $this->container->get('kreta_workflow.repository.workflow')->persist($workflow);
         }
-
-        $this->manager->flush();
     }
 }

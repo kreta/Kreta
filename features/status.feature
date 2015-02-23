@@ -5,7 +5,7 @@
 # @author benatespina <benatespina@gmail.com>
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
-@api
+@status
 Feature: Manage status
   In order to manage statuses
   As an API status

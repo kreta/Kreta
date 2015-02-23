@@ -32,23 +32,22 @@ class UserContext extends DefaultContext
      */
     public function theFollowingUsersExist(TableNode $users)
     {
-        $this->getManager();
         foreach ($users as $userData) {
-            $user = $this->getContainer()->get('kreta_user.factory.user')->create();
-            $user->setFirstname($userData['firstName']);
-            $user->setLastname($userData['lastName']);
-            $user->setEmail($userData['email']);
-            $user->setPlainPassword($userData['password']);
-            $user->setEnabled(true);
+            $user = $this->container->get('kreta_user.factory.user')->create();
+            $user
+                ->setFirstname($userData['firstName'])
+                ->setLastname($userData['lastName'])
+                ->setEmail($userData['email'])
+                ->setPlainPassword($userData['password'])
+                ->setEnabled(true);
+
             if (isset($userData['createdAt'])) {
                 $this->setField($user, 'createdAt', new \DateTime($userData['createdAt']));
             }
             if (isset($userData['id'])) {
                 $this->setId($user, $userData['id']);
             }
-            $this->manager->persist($user);
+            $this->container->get('kreta_user.repository.user')->persist($user);
         }
-
-        $this->manager->flush();
     }
 }

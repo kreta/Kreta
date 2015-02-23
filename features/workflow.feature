@@ -5,7 +5,7 @@
 # @author benatespina <benatespina@gmail.com>
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
-@api
+@workflow
 Feature: Manage workflow
   In order to manage workflows
   As an API workflow

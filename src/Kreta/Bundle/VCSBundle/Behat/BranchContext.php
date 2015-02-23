@@ -33,22 +33,24 @@ class BranchContext extends DefaultContext
     public function theFollowingBranchesExist(TableNode $branches)
     {
         foreach ($branches as $branchData) {
-            $repository = $this->getContainer()->get('kreta_vcs.repository.repository')
-                ->findOneBy(['name' => $branchData['repository']]);
+            $repository = $this->container->get('kreta_vcs.repository.repository')
+                ->findOneBy(['name' => $branchData['repository']], false);
             $issuesRelated = [];
             if (isset($branchData['issuesRelated'])) {
                 foreach (explode(',', $branchData['issuesRelated']) as $issueRelated) {
-                    $issuesRelated[] = $this->getContainer()->get('kreta_issue.repository.issue')->find($issueRelated);
+                    $issuesRelated[] = $this->container->get('kreta_issue.repository.issue')->find($issueRelated);
                 }
             }
 
-            $branch = $this->getContainer()->get('kreta_vcs.factory.branch')->create();
-            $branch->setName($branchData['name']);
-            $branch->setRepository($repository);
+            $branch = $this->container->get('kreta_vcs.factory.branch')->create();
+            $branch
+                ->setName($branchData['name'])
+                ->setRepository($repository);
+
             $this->setField($branch, 'issuesRelated', $issuesRelated);
             $this->setId($branch, $branchData['id']);
 
-            $this->getContainer()->get('kreta_vcs.repository.branch')->persist($branch);
+            $this->container->get('kreta_vcs.repository.branch')->persist($branch);
         }
     }
 }

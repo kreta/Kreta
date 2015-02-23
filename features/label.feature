@@ -5,7 +5,7 @@
 # @author benatespina <benatespina@gmail.com>
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
-@api
+@label
 Feature: Manage label
   In order to manage labels
   As an API label

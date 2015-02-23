@@ -32,27 +32,13 @@ class NotificationContext extends DefaultContext
      */
     public function theFollowingNotificationsExist(TableNode $notifications)
     {
-        $this->getManager();
         foreach ($notifications as $notificationData) {
-            $notification = $this->getContainer()->get('kreta_notification.factory.notification')->create();
+            $project = $this->container->get('kreta_project.repository.project')
+                ->findOneBy(['name' => $notificationData['projectName']], false);
+            $user = $this->container->get('kreta_user.repository.user')
+                ->findOneBy(['email' => $notificationData['userEmail']], false);
 
-            $project = $this->getContainer()->get('kreta_project.repository.project')
-                ->findOneBy(['name' => $notificationData['projectName']]);
-
-            if (!$project) {
-                throw new \InvalidArgumentException(
-                    sprintf('Project %s does not exist', $notificationData['projectName'])
-                );
-            }
-
-            $user = $this->getContainer()->get('kreta_user.repository.user')
-                ->findOneBy(['email' => $notificationData['userEmail']]);
-
-            if (!$user) {
-                throw new \InvalidArgumentException(
-                    sprintf('User %s does not exist', $notificationData['userEmail'])
-                );
-            }
+            $notification = $this->container->get('kreta_notification.factory.notification')->create();
 
             $notification->setDescription($notificationData['description']);
             $notification->setProject($project);
@@ -62,9 +48,8 @@ class NotificationContext extends DefaultContext
             $notification->setType($notificationData['type']);
             $notification->setWebUrl($notificationData['webUrl']);
             $notification->setUser($user);
-            $this->manager->persist($notification);
-        }
 
-        $this->manager->flush();
+            $this->container->get('kreta_notification.repository.notification')->persist($notification);
+        }
     }
 }

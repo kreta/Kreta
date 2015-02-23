@@ -5,7 +5,7 @@
 # @author benatespina <benatespina@gmail.com>
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
-@api
+@timeEntry
 Feature: Manage time entry
   In order to manage time entries
   As an API time entry

@@ -32,14 +32,13 @@ class CommentContext extends DefaultContext
      */
     public function theFollowingCommentsExist(TableNode $comments)
     {
-        $this->getManager();
         foreach ($comments as $commentData) {
-            $issue = $this->getContainer()->get('kreta_issue.repository.issue')
-                ->findOneBy(['title' => $commentData['issue']]);
-            $user = $this->getContainer()->get('kreta_user.repository.user')
-                ->findOneBy(['email' => $commentData['user']]);
+            $issue = $this->container->get('kreta_issue.repository.issue')
+                ->findOneBy(['title' => $commentData['issue']], false);
+            $user = $this->container->get('kreta_user.repository.user')
+                ->findOneBy(['email' => $commentData['user']], false);
 
-            $comment = $this->getContainer()->get('kreta_comment.factory.comment')->create($issue, $user);
+            $comment = $this->container->get('kreta_comment.factory.comment')->create($issue, $user);
             $comment->setDescription($commentData['description']);
             if (isset($commentData['updatedAt'])) {
                 $this->setField($comment, 'updatedAt', new \DateTime($commentData['updatedAt']));
@@ -51,9 +50,7 @@ class CommentContext extends DefaultContext
                 $this->setId($comment, $commentData['id']);
             }
 
-            $this->manager->persist($comment);
+            $this->container->get('kreta_comment.repository.comment')->persist($comment);
         }
-
-        $this->manager->flush();
     }
 }

@@ -37,18 +37,20 @@ class RepositoryContext extends DefaultContext
             $projects = [];
             if (isset($repoData['projects'])) {
                 foreach (explode(',', $repoData['projects']) as $project) {
-                    $projects[] = $this->getContainer()->get('kreta_project.repository.project')->find($project);
+                    $projects[] = $this->container->get('kreta_project.repository.project')->find($project);
                 }
             }
 
             $repository = new Repository();
-            $repository->setName($repoData['name']);
-            $repository->setProvider($repoData['provider']);
-            $repository->setUrl($repoData['url']);
+            $repository
+                ->setName($repoData['name'])
+                ->setProvider($repoData['provider'])
+                ->setUrl($repoData['url']);
+
             $this->setField($repository, 'projects', $projects);
             $this->setId($repository, $repoData['id']);
 
-            $this->getContainer()->get('kreta_vcs.repository.repository')->persist($repository);
+            $this->container->get('kreta_vcs.repository.repository')->persist($repository);
         }
     }
 }

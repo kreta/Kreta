@@ -5,7 +5,7 @@
 # @author benatespina <benatespina@gmail.com>
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
-@login
+@web
 Feature: Manage issues
   In order to manage issues
   As a logged user

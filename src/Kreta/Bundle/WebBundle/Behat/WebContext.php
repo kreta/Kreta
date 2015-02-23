@@ -13,18 +13,14 @@ namespace Kreta\Bundle\WebBundle\Behat;
 
 use Behat\Mink\Exception\ElementNotFoundException;
 use Behat\MinkExtension\Context\MinkContext;
-use Behat\Symfony2Extension\Context\KernelAwareContext;
-use Kreta\Bundle\CoreBundle\Behat\Traits\DatabaseContextTrait;
 
 /**
  * Class WebContext.
  *
  * @package Kreta\Bundle\WebBundle\Behat
  */
-class WebContext extends MinkContext implements KernelAwareContext
+class WebContext extends MinkContext
 {
-    use DatabaseContextTrait;
-
     /**
      * Log into the app with username and password given.
      *
