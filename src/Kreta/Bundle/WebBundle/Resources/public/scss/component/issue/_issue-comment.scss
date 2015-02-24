@@ -6,7 +6,6 @@
 // @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
 @import "../../settings";
-@import "compass/css3";
 
 .kreta-issue-comment-add {
   overflow: hidden;
@@ -14,7 +13,7 @@
   img {
     width: 13%;
     float: left;
-    @include border-radius($standardRadius);
+    border-radius: $standardRadius;
   }
   .textarea-container {
     float: right;
@@ -38,7 +37,7 @@
   img {
     width: 13%;
     float: left;
-    @include border-radius($standardRadius);
+    border-radius: $standardRadius;
   }
   .comment-content {
     float: left;

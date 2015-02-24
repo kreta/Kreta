@@ -6,7 +6,6 @@
 // @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
 @import "../settings";
-@import "compass/css3";
 
 header#main-header {
   height: 80px;
@@ -39,25 +38,25 @@ header#main-header {
         }
         .user-actions {
           bottom: 15px;
-          @include opacity(1);
+          opacity: 1;
         }
       }
       img {
         height: 50px;
         margin: 15px 15px 15px 0;
-        @include border-radius($standardRadius);
+        border-radius: $standardRadius;
       }
       span {
         position: relative;
         top: 0;
-        @include transition-duration(.5s);
+        transition-duration: .5s;
       }
       .user-actions {
         position: absolute;
-        bottom: 0px;
+        bottom: 0;
         left: 70px;
-        @include opacity(0);
-        @include transition-duration(.5s);
+        opacity: 0;
+        transition-duration: .5s;
         a {
           padding-right: .5em;
         }

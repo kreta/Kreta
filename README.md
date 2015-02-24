@@ -57,7 +57,6 @@ environments:
     node: stable
     ruby:
         sass: latest
-        compass: 0.12.6
     symfony: true
 ```
 

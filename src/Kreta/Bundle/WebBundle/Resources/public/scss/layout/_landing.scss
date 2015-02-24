@@ -6,11 +6,10 @@
 // @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
 @import "../settings";
-@import "compass/css3";
 
 .kreta-landing {
   background: url(/bundles/kretaweb/img/landing-bg.jpg) no-repeat center center;
-  @include background-size(cover);
+  background-size: cover;
   height: 100%;
   width: 100%;
   .kreta-landing-overlay {
@@ -27,7 +26,7 @@
         font-size: 1.5em;
       }
       a {
-        @include border-radius($standardRadius);
+        border-radius: $standardRadius;
         margin: 0 1em;
         &.github {
           background: #444;

@@ -6,12 +6,11 @@
 // @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
 @import '../../settings';
-@import 'compass/css3';
 
 .kreta-mini-project {
   .title-container {
     border-top: 1px solid $borderGrey;
-    @include transition-duration(.5s);
+    transition-duration: .5s;
     &:hover {
       background: $mainWhite;
     }
@@ -19,7 +18,7 @@
       width: 50px;
       display: inline-block;
       margin: 10px;
-      @include border-radius($standardRadius);
+      border-radius: $standardRadius;
     }
     h3 {
       margin: 0;

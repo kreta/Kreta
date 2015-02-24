@@ -6,15 +6,14 @@
 // @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
 @import '../settings';
-@import 'compass/css3';
 
 .kreta-icon-item {
   color: $mainWhite;
-  padding: 0em 1em;
+  padding: 0 1em;
   text-align: center;
   text-transform: uppercase;
   display: inline-block;
-  @include border-radius(3px);
+  border-radius: 3px;
   font-size: .8em;
   margin-right: .5em;
   &.red {
