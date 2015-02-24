@@ -33,7 +33,7 @@ class UserContext extends DefaultContext
     public function theFollowingUsersExist(TableNode $users)
     {
         foreach ($users as $userData) {
-            $user = $this->container->get('kreta_user.factory.user')->create();
+            $user = $this->get('kreta_user.factory.user')->create();
             $user
                 ->setFirstname($userData['firstName'])
                 ->setLastname($userData['lastName'])
@@ -47,7 +47,7 @@ class UserContext extends DefaultContext
             if (isset($userData['id'])) {
                 $this->setId($user, $userData['id']);
             }
-            $this->container->get('kreta_user.repository.user')->persist($user);
+            $this->get('kreta_user.repository.user')->persist($user);
         }
     }
 }

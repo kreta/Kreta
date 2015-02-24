@@ -34,14 +34,13 @@ class ProjectContext extends DefaultContext
     {
         foreach ($projects as $projectData) {
             if (isset($projectData['workflow'])) {
-                $workflow = $this->container->get('kreta_workflow.repository.workflow')
+                $workflow = $this->get('kreta_workflow.repository.workflow')
                     ->findOneBy(['name' => $projectData['workflow']], false);
-                $project = $this->container->get('kreta_project.factory.project')
-                    ->create($workflow->getCreator(), $workflow);
+                $project = $this->get('kreta_project.factory.project')->create($workflow->getCreator(), $workflow);
             } else {
-                $creator = $this->container->get('kreta_user.repository.user')
+                $creator = $this->get('kreta_user.repository.user')
                     ->findOneBy(['email' => $projectData['creator']], false);
-                $project = $this->container->get('kreta_project.factory.project')->create($creator);
+                $project = $this->get('kreta_project.factory.project')->create($creator);
             }
             $project
                 ->setName($projectData['name'])
@@ -50,7 +49,7 @@ class ProjectContext extends DefaultContext
                 $this->setId($project, $projectData['id']);
             }
 
-            $this->container->get('kreta_project.repository.project')->persist($project);
+            $this->get('kreta_project.repository.project')->persist($project);
         }
     }
 }

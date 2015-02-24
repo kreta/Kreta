@@ -36,17 +36,17 @@ class StatusTransitionContext extends DefaultContext
             $initials = [];
             $initialNames = explode(',', $transitionData['initialStates']);
             foreach ($initialNames as $initialName) {
-                $initials[] = $this->container->get('kreta_workflow.repository.status')
+                $initials[] = $this->get('kreta_workflow.repository.status')
                     ->findOneBy(['name' => $initialName], false);
             }
-            $status = $this->container->get('kreta_workflow.repository.status')
+            $status = $this->get('kreta_workflow.repository.status')
                 ->findOneBy(['name' => $transitionData['status']], false);
 
-            $transition = $this->container->get('kreta_workflow.factory.status_transition')
+            $transition = $this->get('kreta_workflow.factory.status_transition')
                 ->create($transitionData['name'], $status, $initials);
             $this->setId($transition, $transitionData['id']);
 
-            $this->container->get('kreta_workflow.repository.status_transition')->persist($transition);
+            $this->get('kreta_workflow.repository.status_transition')->persist($transition);
         }
     }
 }

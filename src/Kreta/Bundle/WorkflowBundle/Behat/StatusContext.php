@@ -33,17 +33,17 @@ class StatusContext extends DefaultContext
     public function theFollowingStatusesExist(TableNode $statuses)
     {
         foreach ($statuses as $statusData) {
-            $workflow = $this->container->get('kreta_workflow.repository.workflow')
+            $workflow = $this->get('kreta_workflow.repository.workflow')
                 ->findOneBy(['name' => $statusData['workflow']], false);
 
-            $status = $this->container->get('kreta_workflow.factory.status')->create($statusData['name'], $workflow);
+            $status = $this->get('kreta_workflow.factory.status')->create($statusData['name'], $workflow);
             $status
                 ->setColor($statusData['color'])
                 ->setName($statusData['name']);
 
             $this->setId($status, $statusData['id']);
 
-            $this->container->get('kreta_workflow.repository.status')->persist($status);
+            $this->get('kreta_workflow.repository.status')->persist($status);
         }
     }
 }

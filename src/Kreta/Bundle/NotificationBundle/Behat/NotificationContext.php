@@ -33,23 +33,24 @@ class NotificationContext extends DefaultContext
     public function theFollowingNotificationsExist(TableNode $notifications)
     {
         foreach ($notifications as $notificationData) {
-            $project = $this->container->get('kreta_project.repository.project')
+            $project = $this->get('kreta_project.repository.project')
                 ->findOneBy(['name' => $notificationData['projectName']], false);
-            $user = $this->container->get('kreta_user.repository.user')
+            $user = $this->get('kreta_user.repository.user')
                 ->findOneBy(['email' => $notificationData['userEmail']], false);
 
-            $notification = $this->container->get('kreta_notification.factory.notification')->create();
+            $notification = $this->get('kreta_notification.factory.notification')->create();
 
-            $notification->setDescription($notificationData['description']);
-            $notification->setProject($project);
-            $notification->setRead($notificationData['read'] === 'true' ? true : false);
-            $notification->setResourceUrl($notificationData['resourceUrl']);
-            $notification->setTitle($notificationData['title']);
-            $notification->setType($notificationData['type']);
-            $notification->setWebUrl($notificationData['webUrl']);
-            $notification->setUser($user);
+            $notification
+                ->setDescription($notificationData['description'])
+                ->setProject($project)
+                ->setRead($notificationData['read'] === 'true' ? true : false)
+                ->setResourceUrl($notificationData['resourceUrl'])
+                ->setTitle($notificationData['title'])
+                ->setType($notificationData['type'])
+                ->setWebUrl($notificationData['webUrl'])
+                ->setUser($user);
 
-            $this->container->get('kreta_notification.repository.notification')->persist($notification);
+            $this->get('kreta_notification.repository.notification')->persist($notification);
         }
     }
 }

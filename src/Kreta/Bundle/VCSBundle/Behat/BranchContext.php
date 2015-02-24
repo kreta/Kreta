@@ -33,16 +33,16 @@ class BranchContext extends DefaultContext
     public function theFollowingBranchesExist(TableNode $branches)
     {
         foreach ($branches as $branchData) {
-            $repository = $this->container->get('kreta_vcs.repository.repository')
+            $repository = $this->get('kreta_vcs.repository.repository')
                 ->findOneBy(['name' => $branchData['repository']], false);
             $issuesRelated = [];
             if (isset($branchData['issuesRelated'])) {
                 foreach (explode(',', $branchData['issuesRelated']) as $issueRelated) {
-                    $issuesRelated[] = $this->container->get('kreta_issue.repository.issue')->find($issueRelated);
+                    $issuesRelated[] = $this->get('kreta_issue.repository.issue')->find($issueRelated);
                 }
             }
 
-            $branch = $this->container->get('kreta_vcs.factory.branch')->create();
+            $branch = $this->get('kreta_vcs.factory.branch')->create();
             $branch
                 ->setName($branchData['name'])
                 ->setRepository($repository);
@@ -50,7 +50,7 @@ class BranchContext extends DefaultContext
             $this->setField($branch, 'issuesRelated', $issuesRelated);
             $this->setId($branch, $branchData['id']);
 
-            $this->container->get('kreta_vcs.repository.branch')->persist($branch);
+            $this->get('kreta_vcs.repository.branch')->persist($branch);
         }
     }
 }

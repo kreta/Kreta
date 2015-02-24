@@ -33,23 +33,20 @@ class IssueContext extends DefaultContext
     public function theFollowingIssuesExist(TableNode $issues)
     {
         foreach ($issues as $issueData) {
-            $project = $this->container->get('kreta_project.repository.project')
+            $reporter = $this->get('kreta_user.repository.user')->findOneBy(['email' => $issueData['reporter']], false);
+            $assignee = $this->get('kreta_user.repository.user')->findOneBy(['email' => $issueData['assignee']], false);
+            $project = $this->get('kreta_project.repository.project')
                 ->findOneBy(['name' => $issueData['project']], false);
-            $reporter = $this->container->get('kreta_user.repository.user')
-                ->findOneBy(['email' => $issueData['reporter']], false);
-            $assignee = $this->container->get('kreta_user.repository.user')
-                ->findOneBy(['email' => $issueData['assignee']], false);
-            $status = $this->container->get('kreta_workflow.repository.status')
+            $status = $this->get('kreta_workflow.repository.status')
                 ->findOneBy(['name' => $issueData['status']], false);
             $labels = [];
             if (isset($issueData['labels'])) {
                 foreach (explode(',', $issueData['labels']) as $labelName) {
-                    $labels[] = $this->container->get('kreta_project.repository.label')
-                        ->findOneBy(['name' => $labelName]);
+                    $labels[] = $this->get('kreta_project.repository.label')->findOneBy(['name' => $labelName]);
                 }
             }
 
-            $issue = $this->container->get('kreta_issue.factory.issue')->create($project, $reporter);
+            $issue = $this->get('kreta_issue.factory.issue')->create($project, $reporter);
             $issue
                 ->setPriority($issueData['priority'])
                 ->setProject($project)
@@ -71,7 +68,7 @@ class IssueContext extends DefaultContext
                 $this->setId($issue, $issueData['id']);
             }
 
-            $this->container->get('kreta_issue.repository.issue')->persist($issue);
+            $this->get('kreta_issue.repository.issue')->persist($issue);
         }
     }
 }

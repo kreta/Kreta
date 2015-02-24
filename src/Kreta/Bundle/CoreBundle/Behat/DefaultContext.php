@@ -13,8 +13,8 @@ namespace Kreta\Bundle\CoreBundle\Behat;
 
 use Behat\MinkExtension\Context\RawMinkContext;
 use Behat\Symfony2Extension\Context\KernelAwareContext;
+use Behat\Symfony2Extension\Context\KernelDictionary;
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
-use Symfony\Component\HttpKernel\KernelInterface;
 
 /**
  * Class DefaultContext.
@@ -23,34 +23,7 @@ use Symfony\Component\HttpKernel\KernelInterface;
  */
 class DefaultContext extends RawMinkContext implements KernelAwareContext
 {
-    /**
-     * The container.
-     *
-     * @var \Symfony\Component\DependencyInjection\ContainerInterface
-     */
-    protected $container;
-
-    /**
-     * @var \Symfony\Component\HttpKernel\KernelInterface
-     */
-    protected $kernel;
-
-    /**
-     * The entity manager.
-     *
-     * @var \Doctrine\ORM\EntityManager
-     */
-    protected $manager;
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setKernel(KernelInterface $kernel)
-    {
-        $this->kernel = $kernel;
-        $this->container = $this->kernel->getContainer();
-        $this->manager = $this->kernel->getContainer()->get('doctrine.orm.entity_manager');
-    }
+    use KernelDictionary;
 
     /**
      * Method that allows to purge database before load the scenario.
@@ -61,12 +34,36 @@ class DefaultContext extends RawMinkContext implements KernelAwareContext
      */
     public function purgeDatabase()
     {
-        $this->manager->getConnection()->executeUpdate('SET foreign_key_checks = 0;');
+        $connection = $this->getManager()->getConnection();
 
-        $purger = new ORMPurger($this->manager);
+        $connection->executeUpdate('SET foreign_key_checks = 0;');
+
+        $purger = new ORMPurger($this->getManager());
         $purger->purge();
 
-        $this->manager->getConnection()->executeUpdate('SET foreign_key_checks = 1;');
+        $connection->executeUpdate('SET foreign_key_checks = 1;');
+    }
+
+    /**
+     * Gets a service by id.
+     *
+     * @param string $id The service id
+     *
+     * @return object
+     */
+    public function get($id)
+    {
+        return $this->kernel->getContainer()->get($id);
+    }
+
+    /**
+     * Gets the the doctrine's entity manager.
+     *
+     * @return \Doctrine\ORM\EntityManager
+     */
+    public function getManager()
+    {
+        return $this->get('doctrine.orm.entity_manager');
     }
 
     /**
@@ -79,7 +76,7 @@ class DefaultContext extends RawMinkContext implements KernelAwareContext
      */
     public function setId($object, $id)
     {
-        $metadata = $this->manager->getClassMetaData(get_class($object));
+        $metadata = $this->getManager()->getClassMetaData(get_class($object));
         $metadata->setIdGenerator(new \Doctrine\ORM\Id\AssignedGenerator());
         $metadata->setIdentifierValues($object, ['id' => $id]);
     }
@@ -95,7 +92,7 @@ class DefaultContext extends RawMinkContext implements KernelAwareContext
      */
     public function setField($object, $field, $value)
     {
-        $metadata = $this->manager->getClassMetaData(get_class($object));
+        $metadata = $this->getManager()->getClassMetaData(get_class($object));
         $metadata->setFieldValue($object, $field, $value);
     }
 }

@@ -33,16 +33,16 @@ class LabelContext extends DefaultContext
     public function theFollowingLabelsExist(TableNode $labels)
     {
         foreach ($labels as $labelData) {
-            $project = $this->container->get('kreta_project.repository.project')
+            $project = $this->get('kreta_project.repository.project')
                 ->findOneBy(['name' => $labelData['project']], false);
 
-            $label = $this->container->get('kreta_project.factory.label')->create($project, $labelData['name']);
+            $label = $this->get('kreta_project.factory.label')->create($project, $labelData['name']);
 
             if (isset($labelData['id'])) {
                 $this->setId($label, $labelData['id']);
             }
 
-            $this->container->get('kreta_project.repository.label')->persist($label);
+            $this->get('kreta_project.repository.label')->persist($label);
         }
     }
 }

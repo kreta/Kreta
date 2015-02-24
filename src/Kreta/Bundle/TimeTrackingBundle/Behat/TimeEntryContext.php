@@ -33,10 +33,10 @@ class TimeEntryContext extends DefaultContext
     public function theFollowingTimeEntriesExist(TableNode $timeEntries)
     {
         foreach ($timeEntries as $timeEntryData) {
-            $issue = $this->container->get('kreta_issue.repository.issue')
+            $issue = $this->get('kreta_issue.repository.issue')
                 ->findOneBy(['title' => $timeEntryData['issue']], false);
 
-            $timeEntry = $this->container->get('kreta_time_tracking.factory.time_entry')->create($issue);
+            $timeEntry = $this->get('kreta_time_tracking.factory.time_entry')->create($issue);
             $timeEntry
                 ->setDescription($timeEntryData['description'])
                 ->setTimeSpent($timeEntryData['timeSpent']);
@@ -47,7 +47,7 @@ class TimeEntryContext extends DefaultContext
                 $this->setId($timeEntry, $timeEntryData['id']);
             }
 
-            $this->container->get('kreta_time_tracking.repository.time_entry')->persist($timeEntry);
+            $this->get('kreta_time_tracking.repository.time_entry')->persist($timeEntry);
         }
     }
 }
