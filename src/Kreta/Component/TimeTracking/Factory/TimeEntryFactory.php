@@ -11,6 +11,8 @@
 
 namespace Kreta\Component\TimeTracking\Factory;
 
+use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
+
 /**
  * Class TimeTrackingFactory.
  *
@@ -38,12 +40,16 @@ class TimeEntryFactory
     /**
      * Creates an instance of a time entry.
      *
+     * @param \Kreta\Component\Issue\Model\Interfaces\IssueInterface $issue The issue
+     *
      * @return \Kreta\Component\TimeTracking\Model\Interfaces\TimeEntryInterface
      */
-    public function create()
+    public function create(IssueInterface $issue)
     {
         $timeEntry = new $this->className;
 
-        return $timeEntry->setDateReported(new \DateTime());
+        return $timeEntry
+            ->setDateReported(new \DateTime())
+            ->setIssue($issue);
     }
 }

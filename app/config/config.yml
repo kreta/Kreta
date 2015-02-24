@@ -119,6 +119,9 @@ jms_serializer:
             kreta-project:
                 namespace_prefix: "Kreta\\Component\\Project"
                 path: "@KretaProjectBundle/Resources/config/serializer"
+            kreta-time-tracking:
+                namespace_prefix: "Kreta\\Component\\TimeTracking"
+                path: "@KretaTimeTrackingBundle/Resources/config/serializer"
             kreta-user:
                 namespace_prefix: "Kreta\\Component\\User"
                 path: "@KretaUserBundle/Resources/config/serializer"

@@ -1,3 +1,10 @@
+# This file belongs to Kreta.
+# The source code of application includes a LICENSE file
+# with all information about license.
+#
+# @author benatespina <benatespina@gmail.com>
+# @author gorkalaucirica <gorka.lauzirika@gmail.com>
+
 Kreta\Component\TimeTracking\Model\TimeEntry:
     type: entity
     repositoryClass: Kreta\Component\TimeTracking\Repository\TimeEntryRepository
@@ -13,6 +20,14 @@ Kreta\Component\TimeTracking\Model\TimeEntry:
             type: datetime
         description:
             type: text
+            nullable: true
         timeSpent:
             column: time_spent
             type: integer
+    manyToOne:
+        issue:
+            targetEntity: Kreta\Component\Issue\Model\Interfaces\IssueInterface
+            joinColumn:
+                name: issue_id
+                referencedColumnName: id
+                onDelete: CASCADE

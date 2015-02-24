@@ -25,6 +25,7 @@ default:
                 - Kreta\Bundle\WorkflowBundle\Behat\StatusTransitionContext
                 - Kreta\Bundle\ProjectBundle\Behat\ParticipantContext
                 - Kreta\Bundle\CommentBundle\Behat\CommentContext
+                - Kreta\Bundle\TimeTrackingBundle\Behat\TimeEntryContext
             filters:
                 tags: "@api"
         issue:

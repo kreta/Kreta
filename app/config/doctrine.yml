@@ -65,6 +65,12 @@ doctrine:
                 dir: "Resources/config/doctrine"
                 prefix: 'Kreta\Component\Notification\Model'
                 is_bundle: true
+            KretaTimeTrackingBundle:
+                mapping: true
+                type: yml
+                dir: "Resources/config/doctrine"
+                prefix: 'Kreta\Component\TimeTracking\Model'
+                is_bundle: true
             KretaVCSBundle:
                 mapping: true
                 type: yml
@@ -90,6 +96,7 @@ doctrine:
             Kreta\Component\Project\Model\Interfaces\LabelInterface: Kreta\Component\Project\Model\Label
             Kreta\Component\Project\Model\Interfaces\ParticipantInterface: Kreta\Component\Project\Model\Participant
             Kreta\Component\Project\Model\Interfaces\ProjectInterface: Kreta\Component\Project\Model\Project
+            Kreta\Component\TimeTracking\Model\Interfaces\TimeEntryInterface: Kreta\Component\TimeTracking\Model\TimeEntry
             Kreta\Component\User\Model\Interfaces\UserInterface: Kreta\Component\User\Model\User
             Kreta\Component\Workflow\Model\Interfaces\StatusInterface: Kreta\Component\Workflow\Model\Status
             Kreta\Component\Workflow\Model\Interfaces\StatusTransitionInterface: Kreta\Component\Workflow\Model\StatusTransition

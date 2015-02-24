@@ -11,6 +11,8 @@
 
 namespace Kreta\Component\TimeTracking\Model\Interfaces;
 
+use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
+
 /**
  * Interface TimeEntryInterface.
  *
@@ -35,7 +37,7 @@ interface TimeEntryInterface
     /**
      * Sets date when time entry was made.
      *
-     * @param \DateTime $dateReported
+     * @param \DateTime $dateReported The date reported
      *
      * @return $this self Object
      */
@@ -51,11 +53,27 @@ interface TimeEntryInterface
     /**
      * Sets entry description.
      *
-     * @param $description
+     * @param string $description The description
      *
      * @return $this self Object
      */
     public function setDescription($description);
+
+    /**
+     * Gets issue.
+     *
+     * @return \Kreta\Component\Issue\Model\Interfaces\IssueInterface
+     */
+    public function getIssue();
+
+    /**
+     * Sets issue.
+     *
+     * @param \Kreta\Component\Issue\Model\Interfaces\IssueInterface $issue The issue
+     *
+     * @return $this self Object
+     */
+    public function setIssue(IssueInterface $issue);
 
     /**
      * Gets time spent in seconds.

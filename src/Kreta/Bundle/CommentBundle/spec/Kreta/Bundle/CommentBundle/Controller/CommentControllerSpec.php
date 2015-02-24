@@ -69,7 +69,7 @@ class CommentControllerSpec extends ObjectBehavior
         );
     }
 
-    function it_gets_issues(
+    function it_gets_comments(
         ContainerInterface $container,
         CommentRepository $commentRepository,
         IssueRepository $issueRepository,

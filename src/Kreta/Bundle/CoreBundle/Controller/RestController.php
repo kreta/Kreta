@@ -82,7 +82,7 @@ class RestController extends FOSRestController
      * @return Object
      * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
      */
-    private function getResourceIfAllowed(EntityRepository $repository, $id, $grant = 'view')
+    protected function getResourceIfAllowed(EntityRepository $repository, $id, $grant = 'view')
     {
         $resource = $repository->find($id, false);
         if (!$this->get('security.context')->isGranted($grant, $resource)) {

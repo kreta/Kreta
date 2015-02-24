@@ -1,0 +1,12 @@
+# This file belongs to Kreta.
+# The source code of application includes a LICENSE file
+# with all information about license.
+#
+# @author benatespina <benatespina@gmail.com>
+# @author gorkalaucirica <gorka.lauzirika@gmail.com>
+
+services:
+    kreta_time_tracking.form_handler.time_entry:
+        class: Kreta\Bundle\TimeTrackingBundle\Form\Handler\TimeEntryHandler
+        parent: kreta_core.form_handler.abstract
+        arguments: [@kreta_time_tracking.factory.time_entry]
