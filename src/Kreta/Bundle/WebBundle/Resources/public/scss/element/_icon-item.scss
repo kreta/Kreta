@@ -8,7 +8,7 @@
 @import '../settings';
 
 .kreta-icon-item {
-  color: $mainWhite;
+  color: $main-white;
   padding: 0 1em;
   text-align: center;
   text-transform: uppercase;
@@ -17,22 +17,22 @@
   font-size: .8em;
   margin-right: .5em;
   &.red {
-    background: $iconRed;
+    background: $icon-red;
   }
   &.yellow {
-    background: $iconYellow;
+    background: $icon-yellow;
   }
   &.green {
-    background: $iconGreen;
+    background: $icon-green;
   }
   &.blue {
-    background: $iconBlue;
+    background: $icon-blue;
   }
   &.purple {
-    background: $iconPurple;
+    background: $icon-purple;
   }
   i {
-    color: $mainWhite;
+    color: $main-white;
     display: inline-block;
   }
   span {

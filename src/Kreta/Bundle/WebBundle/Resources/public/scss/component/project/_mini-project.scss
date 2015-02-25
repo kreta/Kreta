@@ -9,16 +9,16 @@
 
 .kreta-mini-project {
   .title-container {
-    border-top: 1px solid $borderGrey;
+    border-top: 1px solid $border-grey;
     transition-duration: .5s;
     &:hover {
-      background: $mainWhite;
+      background: $main-white;
     }
     img {
       width: 50px;
       display: inline-block;
       margin: 10px;
-      border-radius: $standardRadius;
+      border-radius: $standard-radius;
     }
     h3 {
       margin: 0;

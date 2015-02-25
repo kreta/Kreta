@@ -5,36 +5,36 @@
 // @author benatespina <benatespina@gmail.com>
 // @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
-@import "../settings";
+@import '../settings';
 
 .kreta-widget {
   margin-bottom: 1em;
   .kreta-widget-content {
-    background: $mainGrey;
+    background: $main-grey;
     h2 {
       padding: .5em 1em;
       background: white;
       margin: 0;
-      color: $mainGreen;
-      background: $mainWhite;
+      color: $main-green;
+      background: $main-white;
       i {
         margin-right: .5em;
       }
     }
     .kreta-actions {
-      border-top: 1px solid $borderGrey;
+      border-top: 1px solid $border-grey;
       transition-duration: .5s;
       a {
         display: block;
         text-align: center;
         padding: .5em 0;
         &:hover {
-          background: $mainWhite;
+          background: $main-white;
         }
       }
       hr {
         border: 0;
-        border-top: 1px solid $borderGrey;
+        border-top: 1px solid $border-grey;
         margin: 0;
       }
     }

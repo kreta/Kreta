@@ -5,11 +5,11 @@
 // @author benatespina <benatespina@gmail.com>
 // @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
-@import "../settings";
+@import '../settings';
 
 .kreta-widget form {
   padding: 1em;
-  border-top: 1px solid $borderGrey;
+  border-top: 1px solid $border-grey;
   .form-actions {
     text-align: right;
     input[type="submit"] {

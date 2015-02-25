@@ -13,13 +13,14 @@ var gulp = require('gulp');
 var autoprefixer = require('gulp-autoprefixer');
 var babel = require('gulp-babel');
 var del = require('del');
-var compass = require('gulp-compass');
 var concat = require('gulp-concat');
 var header = require('gulp-header');
 var imagemin = require('gulp-imagemin');
 var jshint = require('gulp-jshint');
 var minifyCSS = require('gulp-minify-css');
 var rename = require('gulp-rename');
+var sass = require('gulp-ruby-sass');
+var scsslint = require('gulp-scss-lint');
 var uglify = require('gulp-uglify');
 var pkg = require('./package.json');
 
@@ -65,27 +66,27 @@ gulp.task('vendor', ['clean'], function () {
     .pipe(gulp.dest(resultPath + 'vendor'));
 });
 
-gulp.task('sass', ['clean'], function () {
+gulp.task('scss-lint', function () {
   return gulp.src(assets.sass)
-    .pipe(compass({
+    .pipe(scsslint());
+});
+
+gulp.task('sass', ['clean', 'scss-lint'], function () {
+  return sass(assets.sass, {
       style: 'expanded',
-      debugInfo: true,
-      sass: basePath + 'scss',
-      css: resultPath + 'css'
-    }))
-    .pipe(rename({
-      basename: 'kreta'
-    }))
+      lineNumbers: true,
+      loadPath: true
+    })
+    .pipe(rename({basename: 'kreta'}))
     .pipe(autoprefixer())
     .pipe(gulp.dest(resultPath + 'css'));
 });
 
-gulp.task('sass:prod', ['clean'], function () {
-  return gulp.src(assets.sass)
-    .pipe(compass({
-      sass: basePath + 'scss',
-      css: resultPath + 'css'
-    }))
+gulp.task('sass:prod', ['clean', 'scss-lint'], function () {
+  return sass(assets.sass, {
+      style: 'compressed',
+      stopOnError: true 
+    })
     .pipe(rename({
       basename: 'kreta',
       suffix: '.min'

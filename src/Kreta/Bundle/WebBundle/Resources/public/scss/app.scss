@@ -5,34 +5,34 @@
 // @author benatespina <benatespina@gmail.com>
 // @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
-@import "settings";
+@import 'settings';
 
-@import "../vendor/foundation/scss/normalize";
-@import "../vendor/foundation/scss/foundation/components/grid";
-@import "../vendor/foundation/scss/foundation/components/buttons";
-@import "../vendor/foundation/scss/foundation/components/forms";
+@import '../vendor/foundation/scss/normalize';
+@import '../vendor/foundation/scss/foundation/components/grid';
+@import '../vendor/foundation/scss/foundation/components/buttons';
+@import '../vendor/foundation/scss/foundation/components/forms';
 
-@import "layout/header";
-@import "layout/form";
-@import "layout/landing";
-@import "layout/widget";
+@import 'layout/header';
+@import 'layout/form';
+@import 'layout/landing';
+@import 'layout/widget';
 
-@import "component/issue/issue";
-@import "component/issue/issue-comment";
-@import "component/issue/issue-vcs";
-@import "component/issue/mini-issue";
-@import "component/notification/notification";
-@import "component/project/project-users";
-@import "component/project/project-details";
-@import "component/project/mini-project";
-@import "element/image-preview";
-@import "element/icon-item";
-@import "element/flash";
+@import 'component/issue/issue';
+@import 'component/issue/issue-comment';
+@import 'component/issue/issue-vcs';
+@import 'component/issue/mini-issue';
+@import 'component/notification/notification';
+@import 'component/project/project-users';
+@import 'component/project/project-details';
+@import 'component/project/mini-project';
+@import 'element/image-preview';
+@import 'element/icon-item';
+@import 'element/flash';
 
 body {
-  background: $bgGrey;
+  background: $bg-grey;
+  color: $main-black;
   font-family: 'Source Sans Pro', sans-serif;
-  color: $mainBlack;
 }
 
 .kreta-content {
@@ -40,14 +40,13 @@ body {
 }
 
 a {
-  color: $mainGreen;
+  color: $main-green;
   text-decoration: none;
 }
 
 @media #{$large-up} {
   body {
-    background: url(/bundles/kretaweb/img/bg.jpg) no-repeat center center;
+    background: url('/bundles/kretaweb/img/bg.jpg') no-repeat center center;
     background-size: cover;
   }
 }
-

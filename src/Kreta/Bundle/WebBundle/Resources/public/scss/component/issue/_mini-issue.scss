@@ -8,11 +8,11 @@
 @import '../../settings';
 
 .kreta-mini-issue {
-  border-top: 1px solid $borderGrey;
+  border-top: 1px solid $border-grey;
   position: relative;
   transition: background .5s;
   &:hover {
-    background: $mainWhite;
+    background: $main-white;
     .issue-actions {
       opacity: 1;
       z-index: 10;
@@ -24,7 +24,7 @@
   }
   h3 {
     margin: .5em 1em;
-    color: $mainGreen;
+    color: $main-green;
   }
   .issue-footer {
     padding: 0 1em 1em 1em;
@@ -37,11 +37,11 @@
     transition-duration: .5s;
     a {
       transition-duration: .5s;
-      color: $borderGrey;
+      color: $border-grey;
       padding: 0 .5em;
       &.view-issue {
         &:hover {
-          color: $mainGreen;
+          color: $main-green;
         }
       }
       &.edit-issue {
@@ -65,7 +65,7 @@
     img {
       display: inline-block;
       width: 40px;
-      border-radius: $standardRadius;
+      border-radius: $standard-radius;
     }
   }
 }

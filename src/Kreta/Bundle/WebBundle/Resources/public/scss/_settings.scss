@@ -6,56 +6,55 @@
 // @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
 // greens
-$turquoise:     #1abc9c;
-$emerald:       #2ecc71;
-$greenSea:      #16a085;
-$nephritis:     #27ae60;
+$turquoise: #1abc9c;
+$emerald: #2ecc71;
+$green-sea: #16a085;
+$nephritis: #27ae60;
 
-  // blues
-$peterRiver:    #3498db;
-$belizeHole:    #2980b9;
-$wetAsphalt:    #34495e;
-$midnightBlue:  #2c3e50;
+// blues
+$peter-river: #3498db;
+$belize-hole: #2980b9;
+$wet-asphalt: #34495e;
+$midnight-blue: #2c3e50;
 
-  // purples
-$amethyst:      #9b59b6;
-$wisteria:      #8e44ad;
+// purples
+$amethyst: #9b59b6;
+$wisteria: #8e44ad;
 
-  // oranges
-$sunflower:     #f1c40f;
-$carrot:        #e67e22;
-$orange:        #f39c12;
-$pumpkin:       #d35400;
+// oranges
+$sunflower: #f1c40f;
+$carrot: #e67e22;
+$orange: #f39c12;
+$pumpkin: #d35400;
 
-  // reds
-$alizarin:      #e74c3c;
-$pomegranate:   #c0392b;
+// reds
+$alizarin: #e74c3c;
+$pomegranate: #c0392b;
 
 // grays
-$clouds:        #ecf0f1;
-$silver:        #bdc3c7;
-$concrete:      #95a5a6;
-$asbestos:      #7f8c8d;
-
+$clouds: #ecf0f1;
+$silver: #bdc3c7;
+$concrete: #95a5a6;
+$asbestos: #7f8c8d;
 
 // Color
-$mainGreen: $turquoise;
-$mainGrey: $clouds;
-$mainWhite: white;
-$bgGrey: #DADADA;
-$borderGrey: #E2E2E2;
-$mainBlack: $midnightBlue;
-$softBlack: lighten($mainBlack, 30%);
+$main-green: $turquoise;
+$main-grey: $clouds;
+$main-white: white;
+$bg-grey: #DADADA;
+$border-grey: #E2E2E2;
+$main-black: $midnight-blue;
+$soft-black: lighten($main-black, 30%);
 
 // Icon item colors
-$iconRed: $pumpkin;
-$iconGreen: $turquoise;
-$iconYellow: $sunflower;
-$iconBlue: $midnightBlue;
-$iconPurple: $wisteria;
+$icon-red: $pumpkin;
+$icon-green: $turquoise;
+$icon-yellow: $sunflower;
+$icon-blue: $midnight-blue;
+$icon-purple: $wisteria;
 
 // Foundation buttons
-$button-bg-color: $mainGreen;
+$button-bg-color: $main-green;
 
 // Sizes
-$standardRadius: 3px;
+$standard-radius: 3px;

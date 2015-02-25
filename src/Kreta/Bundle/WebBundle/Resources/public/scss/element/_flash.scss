@@ -5,7 +5,7 @@
 // @author benatespina <benatespina@gmail.com>
 // @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
-@import "../settings";
+@import '../settings';
 
 .kreta-flash {
   margin: 0 1em 1em;
@@ -14,7 +14,7 @@
   border-radius: 3px;
   text-align: center;
   &.success {
-    color: $mainGreen;
+    color: $main-green;
   }
   &.error {
     color: $pumpkin;

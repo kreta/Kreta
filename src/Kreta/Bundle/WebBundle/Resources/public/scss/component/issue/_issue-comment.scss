@@ -5,7 +5,7 @@
 // @author benatespina <benatespina@gmail.com>
 // @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
-@import "../../settings";
+@import '../../settings';
 
 .kreta-issue-comment-add {
   overflow: hidden;
@@ -13,7 +13,7 @@
   img {
     width: 13%;
     float: left;
-    border-radius: $standardRadius;
+    border-radius: $standard-radius;
   }
   .textarea-container {
     float: right;
@@ -23,7 +23,7 @@
       width: 100%;
       max-width: 100%;
     }
-    input[type="submit"] {
+    input[type='submit'] {
       margin-right: .5em;
       float: right;
     }
@@ -31,13 +31,13 @@
 }
 
 .kreta-issue-comment {
-  border-top: 1px solid $borderGrey;
+  border-top: 1px solid $border-grey;
   overflow: hidden;
   padding: .5em;
   img {
     width: 13%;
     float: left;
-    border-radius: $standardRadius;
+    border-radius: $standard-radius;
   }
   .comment-content {
     float: left;
@@ -52,7 +52,7 @@
       .date {
         display: inline-block;
         font-size: .7em;
-        color: $softBlack;
+        color: $soft-black;
       }
     }
     p {

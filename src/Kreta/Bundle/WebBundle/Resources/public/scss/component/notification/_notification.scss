@@ -12,10 +12,10 @@ table.kreta-notifications-user {
 }
 
 .kreta-notification {
-  border-bottom: 1px solid $borderGrey;
+  border-bottom: 1px solid $border-grey;
   transition: background .5s;
   &:hover {
-    background: $mainWhite;
+    background: $main-white;
   }
   &:last-child {
     border-bottom: 0;

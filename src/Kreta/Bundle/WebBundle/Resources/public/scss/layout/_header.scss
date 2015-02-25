@@ -5,11 +5,11 @@
 // @author benatespina <benatespina@gmail.com>
 // @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
-@import "../settings";
+@import '../settings';
 
 header#main-header {
   height: 80px;
-  background: $mainWhite;
+  background: $main-white;
   max-width: none;
   img.logo {
     padding: 20px 10px;
@@ -19,7 +19,7 @@ header#main-header {
     padding: 0;
     text-align: right;
     > a {
-      color: $mainGreen;
+      color: $main-green;
       padding: 0 1em;
       line-height: 80px;
       i {
@@ -30,7 +30,7 @@ header#main-header {
       padding-right: 1em;
       display: inline-block;
       position: relative;
-      color: $mainGreen;
+      color: $main-green;
       &:hover {
         > span {
           position: relative;
@@ -44,7 +44,7 @@ header#main-header {
       img {
         height: 50px;
         margin: 15px 15px 15px 0;
-        border-radius: $standardRadius;
+        border-radius: $standard-radius;
       }
       span {
         position: relative;

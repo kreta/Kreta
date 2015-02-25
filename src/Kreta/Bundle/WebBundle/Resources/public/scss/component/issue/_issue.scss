@@ -11,7 +11,7 @@
   .details {
     margin: 0;
     padding: 0 1em 1em;
-    border-top: 1px solid $borderGrey;
+    border-top: 1px solid $border-grey;
     span {
       line-height: 30px;
     }
@@ -19,18 +19,18 @@
       margin-top: .5em;
       margin-bottom: .2em;
       display: block;
-      color: $mainGreen;
+      color: $main-green;
     }
     .image-item {
       img {
         width: 40px;
-        border-radius: $standardRadius;
+        border-radius: $standard-radius;
       }
     }
   }
   .description {
     padding: 1em;
-    border-top: 1px solid $borderGrey;
+    border-top: 1px solid $border-grey;
     p {
       margin: 0 0 .5em 0;
     }
