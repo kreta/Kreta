@@ -6,7 +6,6 @@
 // @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
 @import "../settings";
-@import "compass/css3";
 
 .kreta-widget {
   margin-bottom: 1em;
@@ -24,7 +23,7 @@
     }
     .kreta-actions {
       border-top: 1px solid $borderGrey;
-      @include transition-duration(.5s);
+      transition-duration: .5s;
       a {
         display: block;
         text-align: center;

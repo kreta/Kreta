@@ -10,6 +10,7 @@
 'use strict';
 
 var gulp = require('gulp');
+var autoprefixer = require('gulp-autoprefixer');
 var babel = require('gulp-babel');
 var del = require('del');
 var compass = require('gulp-compass');
@@ -72,7 +73,10 @@ gulp.task('sass', ['clean'], function () {
       sass: basePath + 'scss',
       css: resultPath + 'css'
     }))
-    .pipe(rename({basename: 'kreta'}))
+    .pipe(rename({
+      basename: 'kreta'
+    }))
+    .pipe(autoprefixer())
     .pipe(gulp.dest(resultPath + 'css'));
 });
 
@@ -86,6 +90,7 @@ gulp.task('sass:prod', ['clean'], function () {
       basename: 'kreta',
       suffix: '.min'
     }))
+    .pipe(autoprefixer())
     .pipe(minifyCSS({keepSpecialComments: 0}))
     .pipe(header(license, {pkg: pkg}))
     .pipe(gulp.dest(resultPath + 'css'));

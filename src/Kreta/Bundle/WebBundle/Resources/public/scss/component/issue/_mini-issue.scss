@@ -6,21 +6,20 @@
 // @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
 @import '../../settings';
-@import 'compass/css3';
 
 .kreta-mini-issue {
   border-top: 1px solid $borderGrey;
   position: relative;
-  @include transition(background .5s);
+  transition: background .5s;
   &:hover {
     background: $mainWhite;
     .issue-actions {
-      @include opacity(1);
+      opacity: 1;
       z-index: 10;
       bottom: 10px
     }
     .issue-images {
-      @include opacity(0);
+      opacity: 0;
     }
   }
   h3 {
@@ -33,11 +32,11 @@
   .issue-actions {
     position: absolute;
     right: 10px;
-    bottom: 0px;
-    @include opacity(0);
-    @include transition-duration(.5s);
+    bottom: 0;
+    opacity: 0;
+    transition-duration: .5s;
     a {
-      @include transition-duration(.5s);
+      transition-duration: .5s;
       color: $borderGrey;
       padding: 0 .5em;
       &.view-issue {
@@ -62,11 +61,11 @@
     right: 10px;
     bottom: 10px;
     z-index: 5;
-    @include transition-duration(.5s);
+    transition-duration: .5s;
     img {
       display: inline-block;
       width: 40px;
-      @include border-radius($standardRadius);
+      border-radius: $standardRadius;
     }
   }
 }
