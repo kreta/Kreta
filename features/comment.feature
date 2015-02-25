@@ -5,7 +5,7 @@
 # @author benatespina <benatespina@gmail.com>
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
-@api
+@comment
 Feature: Manage comment
   In order to manage comments
   As an API comment
@@ -22,10 +22,6 @@ Feature: Manage comment
       | id | name       | creator        |
       | 0  | Workflow 1 | user@kreta.com |
       | 1  | Workflow 2 | user@kreta.com |
-    And the following projects exist:
-      | id | name           | shortName | creator        | workflow   |
-      | 0  | Test project 1 | TPR1      | user@kreta.com | Workflow 1 |
-      | 1  | Test project 2 | TPR2      | user@kreta.com | Workflow 2 |
     And the following statuses exist:
       | id | color   | name        | workflow   |
       | 0  | #27ae60 | Open        | Workflow 1 |
@@ -33,6 +29,10 @@ Feature: Manage comment
       | 2  | #f1c40f | Resolved    | Workflow 1 |
       | 3  | #c0392b | Closed      | Workflow 1 |
       | 4  | #27ae60 | Reopened    | Workflow 1 |
+    And the following projects exist:
+      | id | name           | shortName | creator        | workflow   |
+      | 0  | Test project 1 | TPR1      | user@kreta.com | Workflow 1 |
+      | 1  | Test project 2 | TPR2      | user@kreta.com | Workflow 2 |
     And the following participants exist:
       | project        | user            | role             |
       | Test project 1 | user3@kreta.com | ROLE_PARTICIPANT |
@@ -608,6 +608,87 @@ Feature: Manage comment
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
     When I send a POST request to "/app_test.php/api/projects/0/issues/unknown-issue/comments" with body:
+    """
+      {
+        "description": "The comment description"
+      }
+    """
+    Then the response code should be 404
+    And the response should contain json:
+    """
+      {
+        "error": "Does not exist any object with id passed"
+      }
+    """
+
+  Scenario: Updating the 0 comment
+    Given I am authenticating with "access-token-0" token
+    Given I set header "content-type" with value "application/json"
+    When I send a PUT request to "/app_test.php/api/projects/0/issues/0/comments/0" with body:
+    """
+      {
+        "description": "The updated comment description"
+      }
+    """
+    Then the response code should be 200
+
+  Scenario: Updating the 0 comment without description
+    Given I am authenticating with "access-token-0" token
+    Given I set header "content-type" with value "application/json"
+    When I send a PUT request to "/app_test.php/api/projects/0/issues/0/comments/0" with body:
+    """
+      {
+        "description": ""
+      }
+    """
+    Then the response code should be 400
+    And the response should contain json:
+    """
+      {
+        "description": [
+          "This value should not be blank."
+        ]
+      }
+    """
+
+  Scenario: Updating the 0 comment of issue 0 with user which is not a project participant
+    Given I am authenticating with "access-token-3" token
+    Given I set header "content-type" with value "application/json"
+    When I send a PUT request to "/app_test.php/api/projects/0/issues/0/comments/0" with body:
+    """
+      {
+        "description": "The comment description"
+      }
+    """
+    Then the response code should be 403
+    And the response should contain json:
+    """
+      {
+        "error": "Not allowed to access this resource"
+      }
+    """
+
+  Scenario: Updating the 0 comment of issue 0 of project unknown project
+    Given I am authenticating with "access-token-0" token
+    Given I set header "content-type" with value "application/json"
+    When I send a PUT request to "/app_test.php/api/projects/unknown-project/issues/0/comments/0" with body:
+    """
+      {
+        "description": "The comment description"
+      }
+    """
+    Then the response code should be 404
+    And the response should contain json:
+    """
+      {
+        "error": "Does not exist any object with id passed"
+      }
+    """
+
+  Scenario: Updating the 0 comment of issue unknown issue
+    Given I am authenticating with "access-token-0" token
+    Given I set header "content-type" with value "application/json"
+    When I send a PUT request to "/app_test.php/api/projects/0/issues/unknown-issue/comments/0" with body:
     """
       {
         "description": "The comment description"

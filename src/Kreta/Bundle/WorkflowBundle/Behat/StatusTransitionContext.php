@@ -32,24 +32,21 @@ class StatusTransitionContext extends DefaultContext
      */
     public function theFollowingStatusesExist(TableNode $statusTransitions)
     {
-        $this->getManager();
         foreach ($statusTransitions as $transitionData) {
             $initials = [];
             $initialNames = explode(',', $transitionData['initialStates']);
             foreach ($initialNames as $initialName) {
-                $initials[] = $this->getContainer()->get('kreta_workflow.repository.status')
-                    ->findOneBy(['name' => $initialName]);
+                $initials[] = $this->get('kreta_workflow.repository.status')
+                    ->findOneBy(['name' => $initialName], false);
             }
-            $status = $this->getContainer()->get('kreta_workflow.repository.status')
-                ->findOneBy(['name' => $transitionData['status']]);
+            $status = $this->get('kreta_workflow.repository.status')
+                ->findOneBy(['name' => $transitionData['status']], false);
 
-            $transition = $this->getContainer()->get('kreta_workflow.factory.status_transition')
+            $transition = $this->get('kreta_workflow.factory.status_transition')
                 ->create($transitionData['name'], $status, $initials);
             $this->setId($transition, $transitionData['id']);
 
-            $this->manager->persist($transition);
+            $this->get('kreta_workflow.repository.status_transition')->persist($transition);
         }
-
-        $this->manager->flush();
     }
 }

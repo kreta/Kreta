@@ -11,55 +11,19 @@ default:
             verbose: true
             paths: false
             snippets: false
-
     suites:
-        api:
+        comment:
             contexts:
                 - Kreta\Bundle\CoreBundle\Behat\OauthContext
                 - Kreta\Bundle\WorkflowBundle\Behat\WorkflowContext
+                - Kreta\Bundle\WorkflowBundle\Behat\StatusContext
                 - Kreta\Bundle\ProjectBundle\Behat\ProjectContext
                 - Kreta\Bundle\IssueBundle\Behat\IssueContext
-                - Kreta\Bundle\ProjectBundle\Behat\LabelContext
                 - Kreta\Bundle\UserBundle\Behat\UserContext
-                - Kreta\Bundle\WorkflowBundle\Behat\StatusContext
-                - Kreta\Bundle\WorkflowBundle\Behat\StatusTransitionContext
                 - Kreta\Bundle\ProjectBundle\Behat\ParticipantContext
                 - Kreta\Bundle\CommentBundle\Behat\CommentContext
-                - Kreta\Bundle\TimeTrackingBundle\Behat\TimeEntryContext
             filters:
-                tags: "@api"
-        issue:
-            contexts:
-                - Kreta\Bundle\UserBundle\Behat\UserContext
-                - Kreta\Bundle\WorkflowBundle\Behat\StatusContext
-                - Kreta\Bundle\ProjectBundle\Behat\ProjectContext
-                - Kreta\Bundle\ProjectBundle\Behat\ParticipantContext
-                - Kreta\Bundle\IssueBundle\Behat\IssueContext
-                - Kreta\Bundle\WorkflowBundle\Behat\WorkflowContext
-                - Kreta\Bundle\WebBundle\Behat\WebContext
-            filters:
-                tags: "@issue"
-
-        project:
-            contexts:
-                - Kreta\Bundle\UserBundle\Behat\UserContext
-                - Kreta\Bundle\WorkflowBundle\Behat\StatusContext
-                - Kreta\Bundle\ProjectBundle\Behat\ProjectContext
-                - Kreta\Bundle\ProjectBundle\Behat\ParticipantContext
-                - Kreta\Bundle\WorkflowBundle\Behat\WorkflowContext
-                - Kreta\Bundle\WebBundle\Behat\WebContext
-            filters:
-                tags: "@project"
-
-        notification:
-            contexts:
-                - Kreta\Bundle\UserBundle\Behat\UserContext
-                - Kreta\Bundle\ProjectBundle\Behat\ProjectContext
-                - Kreta\Bundle\NotificationBundle\Behat\NotificationContext
-                - Kreta\Bundle\WebBundle\Behat\WebContext
-            filters:
-                tags: "@notification"
-
+                tags: "@comment"
         vcs:
             contexts:
                 - Kreta\Bundle\WorkflowBundle\Behat\WorkflowContext
@@ -75,13 +39,107 @@ default:
                 - Kreta\Bundle\ProjectBundle\Behat\ParticipantContext
             filters:
                 tags: "@vcs && ~@TODO"
-
-        login:
+        issue:
+            contexts:
+                - Kreta\Bundle\CoreBundle\Behat\OauthContext
+                - Kreta\Bundle\WorkflowBundle\Behat\WorkflowContext
+                - Kreta\Bundle\ProjectBundle\Behat\ProjectContext
+                - Kreta\Bundle\IssueBundle\Behat\IssueContext
+                - Kreta\Bundle\ProjectBundle\Behat\LabelContext
+                - Kreta\Bundle\UserBundle\Behat\UserContext
+                - Kreta\Bundle\WorkflowBundle\Behat\StatusContext
+                - Kreta\Bundle\WorkflowBundle\Behat\StatusTransitionContext
+                - Kreta\Bundle\ProjectBundle\Behat\ParticipantContext
+            filters:
+                tags: "@issue"
+        label:
+            contexts:
+                - Kreta\Bundle\CoreBundle\Behat\OauthContext
+                - Kreta\Bundle\WorkflowBundle\Behat\WorkflowContext
+                - Kreta\Bundle\ProjectBundle\Behat\ProjectContext
+                - Kreta\Bundle\ProjectBundle\Behat\LabelContext
+                - Kreta\Bundle\UserBundle\Behat\UserContext
+                - Kreta\Bundle\ProjectBundle\Behat\ParticipantContext
+            filters:
+                tags: "@label"
+        project:
+            contexts:
+                - Kreta\Bundle\CoreBundle\Behat\OauthContext
+                - Kreta\Bundle\WorkflowBundle\Behat\WorkflowContext
+                - Kreta\Bundle\ProjectBundle\Behat\ProjectContext
+                - Kreta\Bundle\UserBundle\Behat\UserContext
+                - Kreta\Bundle\ProjectBundle\Behat\ParticipantContext
+            filters:
+                tags: "@project"
+        status:
+            contexts:
+                - Kreta\Bundle\CoreBundle\Behat\OauthContext
+                - Kreta\Bundle\WorkflowBundle\Behat\WorkflowContext
+                - Kreta\Bundle\ProjectBundle\Behat\ProjectContext
+                - Kreta\Bundle\IssueBundle\Behat\IssueContext
+                - Kreta\Bundle\UserBundle\Behat\UserContext
+                - Kreta\Bundle\WorkflowBundle\Behat\StatusContext
+                - Kreta\Bundle\WorkflowBundle\Behat\StatusTransitionContext
+                - Kreta\Bundle\ProjectBundle\Behat\ParticipantContext
+            filters:
+                tags: "@status"
+        statusTransition:
+            contexts:
+                - Kreta\Bundle\CoreBundle\Behat\OauthContext
+                - Kreta\Bundle\WorkflowBundle\Behat\WorkflowContext
+                - Kreta\Bundle\ProjectBundle\Behat\ProjectContext
+                - Kreta\Bundle\IssueBundle\Behat\IssueContext
+                - Kreta\Bundle\UserBundle\Behat\UserContext
+                - Kreta\Bundle\WorkflowBundle\Behat\StatusContext
+                - Kreta\Bundle\WorkflowBundle\Behat\StatusTransitionContext
+                - Kreta\Bundle\ProjectBundle\Behat\ParticipantContext
+            filters:
+                tags: "@statusTransition"
+        timeEntry:
+            contexts:
+                - Kreta\Bundle\CoreBundle\Behat\OauthContext
+                - Kreta\Bundle\WorkflowBundle\Behat\WorkflowContext
+                - Kreta\Bundle\ProjectBundle\Behat\ProjectContext
+                - Kreta\Bundle\IssueBundle\Behat\IssueContext
+                - Kreta\Bundle\UserBundle\Behat\UserContext
+                - Kreta\Bundle\WorkflowBundle\Behat\StatusContext
+                - Kreta\Bundle\TimeTrackingBundle\Behat\TimeEntryContext
+                - Kreta\Bundle\ProjectBundle\Behat\ParticipantContext
+            filters:
+                tags: "@timeEntry"
+        workflow:
+            contexts:
+                - Kreta\Bundle\CoreBundle\Behat\OauthContext
+                - Kreta\Bundle\WorkflowBundle\Behat\WorkflowContext
+                - Kreta\Bundle\ProjectBundle\Behat\ProjectContext
+                - Kreta\Bundle\UserBundle\Behat\UserContext
+                - Kreta\Bundle\WorkflowBundle\Behat\StatusContext
+                - Kreta\Bundle\ProjectBundle\Behat\ParticipantContext
+            filters:
+                tags: "@workflow"
+        web:
             contexts:
                 - Kreta\Bundle\UserBundle\Behat\UserContext
+                - Kreta\Bundle\WorkflowBundle\Behat\StatusContext
+                - Kreta\Bundle\ProjectBundle\Behat\ProjectContext
+                - Kreta\Bundle\ProjectBundle\Behat\ParticipantContext
+                - Kreta\Bundle\IssueBundle\Behat\IssueContext
+                - Kreta\Bundle\WorkflowBundle\Behat\WorkflowContext
+                - Kreta\Bundle\WebBundle\Behat\WebContext
+                - Kreta\Bundle\UserBundle\Behat\UserContext
+                - Kreta\Bundle\WorkflowBundle\Behat\StatusContext
+                - Kreta\Bundle\ProjectBundle\Behat\ProjectContext
+                - Kreta\Bundle\ProjectBundle\Behat\ParticipantContext
+                - Kreta\Bundle\WorkflowBundle\Behat\WorkflowContext
+                - Kreta\Bundle\WebBundle\Behat\WebContext
+                - Kreta\Bundle\UserBundle\Behat\UserContext
+                - Kreta\Bundle\WebBundle\Behat\WebContext
+                - Kreta\Bundle\UserBundle\Behat\UserContext
+                - Kreta\Bundle\ProjectBundle\Behat\ProjectContext
+                - Kreta\Bundle\NotificationBundle\Behat\NotificationContext
                 - Kreta\Bundle\WebBundle\Behat\WebContext
             filters:
-                tags: "@login"
+                tags: "@web"
 
     extensions:
         Behat\MinkExtension:

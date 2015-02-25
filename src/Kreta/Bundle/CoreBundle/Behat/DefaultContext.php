@@ -13,7 +13,8 @@ namespace Kreta\Bundle\CoreBundle\Behat;
 
 use Behat\MinkExtension\Context\RawMinkContext;
 use Behat\Symfony2Extension\Context\KernelAwareContext;
-use Kreta\Bundle\CoreBundle\Behat\Traits\DatabaseContextTrait;
+use Behat\Symfony2Extension\Context\KernelDictionary;
+use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 
 /**
  * Class DefaultContext.
@@ -22,7 +23,48 @@ use Kreta\Bundle\CoreBundle\Behat\Traits\DatabaseContextTrait;
  */
 class DefaultContext extends RawMinkContext implements KernelAwareContext
 {
-    use DatabaseContextTrait;
+    use KernelDictionary;
+
+    /**
+     * Method that allows to purge database before load the scenario.
+     *
+     * @return void
+     *
+     * @BeforeScenario
+     */
+    public function purgeDatabase()
+    {
+        $connection = $this->getManager()->getConnection();
+
+        $connection->executeUpdate('SET foreign_key_checks = 0;');
+
+        $purger = new ORMPurger($this->getManager());
+        $purger->purge();
+
+        $connection->executeUpdate('SET foreign_key_checks = 1;');
+    }
+
+    /**
+     * Gets a service by id.
+     *
+     * @param string $id The service id
+     *
+     * @return object
+     */
+    public function get($id)
+    {
+        return $this->kernel->getContainer()->get($id);
+    }
+
+    /**
+     * Gets the the doctrine's entity manager.
+     *
+     * @return \Doctrine\ORM\EntityManager
+     */
+    public function getManager()
+    {
+        return $this->get('doctrine.orm.entity_manager');
+    }
 
     /**
      * Sets id.
@@ -34,7 +76,7 @@ class DefaultContext extends RawMinkContext implements KernelAwareContext
      */
     public function setId($object, $id)
     {
-        $metadata = $this->manager->getClassMetaData(get_class($object));
+        $metadata = $this->getManager()->getClassMetaData(get_class($object));
         $metadata->setIdGenerator(new \Doctrine\ORM\Id\AssignedGenerator());
         $metadata->setIdentifierValues($object, ['id' => $id]);
     }
@@ -50,7 +92,7 @@ class DefaultContext extends RawMinkContext implements KernelAwareContext
      */
     public function setField($object, $field, $value)
     {
-        $metadata = $this->manager->getClassMetaData(get_class($object));
+        $metadata = $this->getManager()->getClassMetaData(get_class($object));
         $metadata->setFieldValue($object, $field, $value);
     }
 }

@@ -5,7 +5,7 @@
 # @author benatespina <benatespina@gmail.com>
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
-@notification
+@web
 Feature: Managing notifications
   In order to manage notifications
   As a logged user

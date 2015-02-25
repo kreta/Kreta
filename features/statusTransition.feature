@@ -5,7 +5,7 @@
 # @author benatespina <benatespina@gmail.com>
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
-@api
+@statusTransition
 Feature: Manage status transition
   In order to manage status transitions
   As an API status transition

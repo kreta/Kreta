@@ -33,12 +33,13 @@ class TimeEntryContext extends DefaultContext
     public function theFollowingTimeEntriesExist(TableNode $timeEntries)
     {
         foreach ($timeEntries as $timeEntryData) {
-            $issue = $this->getContainer()->get('kreta_issue.repository.issue')
-                ->findOneBy(['title' => $timeEntryData['issue']]);
+            $issue = $this->get('kreta_issue.repository.issue')
+                ->findOneBy(['title' => $timeEntryData['issue']], false);
 
-            $timeEntry = $this->getContainer()->get('kreta_time_tracking.factory.time_entry')->create($issue);
-            $timeEntry->setDescription($timeEntryData['description']);
-            $timeEntry->setTimeSpent($timeEntryData['timeSpent']);
+            $timeEntry = $this->get('kreta_time_tracking.factory.time_entry')->create($issue);
+            $timeEntry
+                ->setDescription($timeEntryData['description'])
+                ->setTimeSpent($timeEntryData['timeSpent']);
             if (isset($timeEntryData['dateReported'])) {
                 $this->setField($timeEntry, 'dateReported', new \DateTime($timeEntryData['dateReported']));
             }
@@ -46,7 +47,7 @@ class TimeEntryContext extends DefaultContext
                 $this->setId($timeEntry, $timeEntryData['id']);
             }
 
-            $this->getContainer()->get('kreta_time_tracking.repository.time_entry')->persist($timeEntry);
+            $this->get('kreta_time_tracking.repository.time_entry')->persist($timeEntry);
         }
     }
 }

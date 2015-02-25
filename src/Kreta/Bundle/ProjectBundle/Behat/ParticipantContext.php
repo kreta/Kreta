@@ -32,22 +32,16 @@ class ParticipantContext extends DefaultContext
      */
     public function theFollowingParticipantsExist(TableNode $participants)
     {
-        $this->getManager();
         foreach ($participants as $participantData) {
-            $project = $this->getContainer()->get('kreta_project.repository.project')->findOneBy(
-                ['name' => $participantData['project']]
-            );
-            $user = $this->getContainer()->get('kreta_user.repository.user')->findOneBy(
-                ['email' => $participantData['user']]
-            );
+            $project = $this->get('kreta_project.repository.project')
+                ->findOneBy(['name' => $participantData['project']], false);
+            $user = $this->get('kreta_user.repository.user')
+                ->findOneBy(['email' => $participantData['user']], false);
 
-            $participant = $this->getContainer()->get('kreta_project.factory.participant')->create($project, $user);
-
+            $participant = $this->get('kreta_project.factory.participant')->create($project, $user);
             $participant->setRole($participantData['role']);
 
-            $this->manager->persist($participant);
+            $this->get('kreta_project.repository.participant')->persist($participant);
         }
-
-        $this->manager->flush();
     }
 }

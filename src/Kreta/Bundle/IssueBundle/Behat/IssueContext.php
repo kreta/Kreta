@@ -32,33 +32,31 @@ class IssueContext extends DefaultContext
      */
     public function theFollowingIssuesExist(TableNode $issues)
     {
-        $this->getManager();
         foreach ($issues as $issueData) {
-            $project = $this->getContainer()->get('kreta_project.repository.project')
-                ->findOneBy(['name' => $issueData['project']]);
-            $reporter = $this->getContainer()->get('kreta_user.repository.user')
-                ->findOneBy(['email' => $issueData['reporter']]);
-            $assignee = $this->getContainer()->get('kreta_user.repository.user')
-                ->findOneBy(['email' => $issueData['assignee']]);
-            $status = $this->getContainer()->get('kreta_workflow.repository.status')
-                ->findOneBy(['name' => $issueData['status']]);
+            $reporter = $this->get('kreta_user.repository.user')->findOneBy(['email' => $issueData['reporter']], false);
+            $assignee = $this->get('kreta_user.repository.user')->findOneBy(['email' => $issueData['assignee']], false);
+            $project = $this->get('kreta_project.repository.project')
+                ->findOneBy(['name' => $issueData['project']], false);
+            $status = $this->get('kreta_workflow.repository.status')
+                ->findOneBy(['name' => $issueData['status']], false);
             $labels = [];
             if (isset($issueData['labels'])) {
                 foreach (explode(',', $issueData['labels']) as $labelName) {
-                    $labels[] = $this->getContainer()->get('kreta_project.repository.label')
-                        ->findOneBy(['name' => $labelName]);
+                    $labels[] = $this->get('kreta_project.repository.label')->findOneBy(['name' => $labelName]);
                 }
             }
 
-            $issue = $this->getContainer()->get('kreta_issue.factory.issue')->create($project, $reporter);
-            $issue->setPriority($issueData['priority']);
-            $issue->setProject($project);
-            $issue->setAssignee($assignee);
-            $issue->setReporter($reporter);
-            $issue->setStatus($status);
-            $issue->setType($issueData['type']);
-            $issue->setTitle($issueData['title']);
-            $issue->setDescription($issueData['description']);
+            $issue = $this->get('kreta_issue.factory.issue')->create($project, $reporter);
+            $issue
+                ->setPriority($issueData['priority'])
+                ->setProject($project)
+                ->setAssignee($assignee)
+                ->setReporter($reporter)
+                ->setStatus($status)
+                ->setType($issueData['type'])
+                ->setTitle($issueData['title'])
+                ->setDescription($issueData['description']);
+
             $this->setField($issue, 'labels', $labels);
             if (isset($issueData['numericId'])) {
                 $this->setField($issue, 'numericId', $issueData['numericId']);
@@ -70,9 +68,7 @@ class IssueContext extends DefaultContext
                 $this->setId($issue, $issueData['id']);
             }
 
-            $this->manager->persist($issue);
+            $this->get('kreta_issue.repository.issue')->persist($issue);
         }
-
-        $this->manager->flush();
     }
 }

@@ -32,39 +32,25 @@ class NotificationContext extends DefaultContext
      */
     public function theFollowingNotificationsExist(TableNode $notifications)
     {
-        $this->getManager();
         foreach ($notifications as $notificationData) {
-            $notification = $this->getContainer()->get('kreta_notification.factory.notification')->create();
+            $project = $this->get('kreta_project.repository.project')
+                ->findOneBy(['name' => $notificationData['projectName']], false);
+            $user = $this->get('kreta_user.repository.user')
+                ->findOneBy(['email' => $notificationData['userEmail']], false);
 
-            $project = $this->getContainer()->get('kreta_project.repository.project')
-                ->findOneBy(['name' => $notificationData['projectName']]);
+            $notification = $this->get('kreta_notification.factory.notification')->create();
 
-            if (!$project) {
-                throw new \InvalidArgumentException(
-                    sprintf('Project %s does not exist', $notificationData['projectName'])
-                );
-            }
+            $notification
+                ->setDescription($notificationData['description'])
+                ->setProject($project)
+                ->setRead($notificationData['read'] === 'true' ? true : false)
+                ->setResourceUrl($notificationData['resourceUrl'])
+                ->setTitle($notificationData['title'])
+                ->setType($notificationData['type'])
+                ->setWebUrl($notificationData['webUrl'])
+                ->setUser($user);
 
-            $user = $this->getContainer()->get('kreta_user.repository.user')
-                ->findOneBy(['email' => $notificationData['userEmail']]);
-
-            if (!$user) {
-                throw new \InvalidArgumentException(
-                    sprintf('User %s does not exist', $notificationData['userEmail'])
-                );
-            }
-
-            $notification->setDescription($notificationData['description']);
-            $notification->setProject($project);
-            $notification->setRead($notificationData['read'] === 'true' ? true : false);
-            $notification->setResourceUrl($notificationData['resourceUrl']);
-            $notification->setTitle($notificationData['title']);
-            $notification->setType($notificationData['type']);
-            $notification->setWebUrl($notificationData['webUrl']);
-            $notification->setUser($user);
-            $this->manager->persist($notification);
+            $this->get('kreta_notification.repository.notification')->persist($notification);
         }
-
-        $this->manager->flush();
     }
 }
