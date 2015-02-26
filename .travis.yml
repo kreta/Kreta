@@ -11,11 +11,13 @@ php:
     - 5.4
     - 5.5
     - 5.6
+    - 7.0
     - hhvm
 
 env:
     - SYMFONY_VERSION=2.3.*
     - SYMFONY_VERSION=2.5.*
+    - SYMFONY_VERSION=2.6.*
     - SYMFONY_VERSION=2.7.x-dev
     - SYMFONY_VERSION=dev-master
 
@@ -38,7 +40,7 @@ install:
     - sudo apt-get install node
     - npm install -g bower
     - npm install -g gulp
-    - gem install compass --version "=0.12.6"
+    - gem install scss-lint
 
     - cd src/Kreta/Bundle/WebBundle
     - npm install
@@ -85,5 +87,7 @@ cache:
 matrix:
     allow_failures:
         - php: hhvm
+        - php: 7.0
+        - env: SYMFONY_VERSION=2.6.*
         - env: SYMFONY_VERSION=2.7.x-dev
         - env: SYMFONY_VERSION=dev-master
