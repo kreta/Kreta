@@ -174,7 +174,7 @@ nelmio_cors:
         '^/':
             allow_origin: ['*']
             allow_headers: ['X-Custom-Auth']
-            allow_methods: ['POST', 'PUT', 'DELETE']
+            allow_methods: ['GET', 'POST', 'PUT', 'DELETE']
             max_age: 3600
 
 sensio_framework_extra:
