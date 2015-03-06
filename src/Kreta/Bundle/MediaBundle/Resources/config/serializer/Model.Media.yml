@@ -10,13 +10,13 @@ Kreta\Component\Media\Model\Media:
     properties:
         id:
             expose: true
-            groups: [projectList, project]
+            groups: [projectList, project, issueList, issue, commentList, comment]
         createdAt:
             expose: true
             groups: [project]
         name:
             expose: true
-            groups: [projectList, project]
+            groups: [projectList, project, issueList, issue, commentList, comment]
         updatedAt:
             expose: true
             groups: [project]
