@@ -57,7 +57,7 @@ class LoadUserData extends DataFixtures
      * Returns a new instance of user with vales.
      *
      * @param string[] $userInfo The array contains first name, last name and email
-     * @param string[] $roles The array that contains roles
+     * @param string[] $roles    The array that contains roles
      *
      * @return \Kreta\Component\User\Model\Interfaces\UserInterface
      */

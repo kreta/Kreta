@@ -33,6 +33,10 @@ Feature: Manage comment
       | id | name           | shortName | creator        | workflow   |
       | 0  | Test project 1 | TPR1      | user@kreta.com | Workflow 1 |
       | 1  | Test project 2 | TPR2      | user@kreta.com | Workflow 2 |
+    And the following medias exist:
+      | id | name          | createdAt  | updatedAt | resource        |
+      | 2  | user-2.jpg    | 2014-10-30 | null      | user2@kreta.com |
+      | 3  | user-3.jpg    | 2014-10-30 | null      | user3@kreta.com |
     And the following participants exist:
       | project        | user            | role             |
       | Test project 1 | user3@kreta.com | ROLE_PARTICIPANT |
@@ -69,12 +73,17 @@ Feature: Manage comment
     And the response should contain json:
     """
       [{
+        "id": "7", 
         "created_at": "2015-01-02T00:00:00+0100",
         "description": "The description 8",
         "updated_at": "2015-01-24T00:00:00+0100",
         "written_by": {
           "first_name": "Kreta",
-          "last_name": "User3"
+          "last_name": "User3",
+          "photo": {
+              "id": "3",
+              "name": "http://localhost/app_test.php/media/image/user-3.jpg"
+            }
         },
         "_links": {
           "issue": {
@@ -85,6 +94,7 @@ Feature: Manage comment
           }
         }
       }, {
+        "id": "3",
         "created_at": "2015-01-09T00:00:00+0100",
         "description": "The description 4",
         "updated_at": "2015-02-21T00:00:00+0100",
@@ -101,6 +111,7 @@ Feature: Manage comment
           }
         }
       }, {
+        "id": "8",
         "created_at": "2015-01-09T00:00:00+0100",
         "description": "The description 9",
         "updated_at": "2015-02-18T00:00:00+0100",
@@ -117,6 +128,7 @@ Feature: Manage comment
           }
         }
       }, {
+        "id": "0",
         "created_at": "2015-01-10T00:00:00+0100",
         "description": "The description 1",
         "updated_at": "2015-03-01T00:00:00+0100",
@@ -133,6 +145,7 @@ Feature: Manage comment
           }
         }
       }, {
+        "id": "4",
         "created_at": "2015-01-20T00:00:00+0100",
         "description": "The description 5",
         "updated_at": "2015-01-30T00:00:00+0100",
@@ -149,6 +162,7 @@ Feature: Manage comment
           }
         }
       }, {
+        "id": "2",
         "created_at": "2015-01-31T00:00:00+0100",
         "description": "The description 3",
         "updated_at": "2015-02-01T00:00:00+0100",
@@ -165,12 +179,17 @@ Feature: Manage comment
           }
         }
       }, {
+        "id": "9",
         "created_at": "2015-02-07T00:00:00+0100",
         "description": "The description 10",
         "updated_at": "2015-02-18T00:00:00+0100",
         "written_by": {
           "first_name": "Kreta",
-          "last_name": "User3"
+          "last_name": "User3",
+          "photo": {
+              "id": "3",
+              "name": "http://localhost/app_test.php/media/image/user-3.jpg"
+            }
         },
         "_links": {
           "issue": {
@@ -181,12 +200,17 @@ Feature: Manage comment
           }
         }
       }, {
+        "id": "5",
         "created_at": "2015-02-09T00:00:00+0100",
         "description": "The description 6",
         "updated_at": "2015-02-10T00:00:00+0100",
         "written_by": {
           "first_name": "Kreta",
-          "last_name": "User2"
+          "last_name": "User2",
+          "photo": {
+              "id": "2",
+              "name": "http://localhost/app_test.php/media/image/user-2.jpg"
+            }
         },
         "_links": {
           "issue": {
@@ -206,6 +230,7 @@ Feature: Manage comment
     And the response should contain json:
     """
       [{
+        "id": "3",
         "created_at":"2015-01-09T00:00:00+0100",
         "description":"The description 4",
         "updated_at":"2015-02-21T00:00:00+0100",
@@ -222,6 +247,7 @@ Feature: Manage comment
           }
         }
       }, {
+        "id": "0",
         "created_at":"2015-01-10T00:00:00+0100",
         "description":"The description 1",
         "updated_at":"2015-03-01T00:00:00+0100",
@@ -238,6 +264,7 @@ Feature: Manage comment
           }
         }
       }, {
+        "id": "4",
         "created_at":"2015-01-20T00:00:00+0100",
         "description":"The description 5",
         "updated_at":"2015-01-30T00:00:00+0100",
@@ -254,6 +281,7 @@ Feature: Manage comment
           }
         }
       }, {
+        "id": "2",
         "created_at":"2015-01-31T00:00:00+0100",
         "description":"The description 3",
         "updated_at":"2015-02-01T00:00:00+0100",
@@ -279,6 +307,7 @@ Feature: Manage comment
     And the response should contain json:
     """
       [{
+        "id": "0",
         "created_at":"2015-01-10T00:00:00+0100",
         "description":"The description 1",
         "updated_at":"2015-03-01T00:00:00+0100",
@@ -295,6 +324,7 @@ Feature: Manage comment
           }
         }
       }, {
+        "id": "4",
         "created_at":"2015-01-20T00:00:00+0100",
         "description":"The description 5",
         "updated_at":"2015-01-30T00:00:00+0100",
@@ -311,6 +341,7 @@ Feature: Manage comment
           }
         }
       }, {
+        "id": "2",
         "created_at":"2015-01-31T00:00:00+0100",
         "description":"The description 3",
         "updated_at":"2015-02-01T00:00:00+0100",
@@ -327,12 +358,17 @@ Feature: Manage comment
           }
         }
       }, {
+        "id": "9",
         "created_at":"2015-02-07T00:00:00+0100",
         "description":"The description 10",
         "updated_at":"2015-02-18T00:00:00+0100",
         "written_by":{
           "first_name":"Kreta",
-          "last_name":"User3"
+          "last_name":"User3",
+          "photo": {
+              "id": "3",
+              "name": "http://localhost/app_test.php/media/image/user-3.jpg"
+            }
         },
         "_links":{
           "issue":{
@@ -343,12 +379,17 @@ Feature: Manage comment
           }
         }
       }, {
+        "id": "5",
         "created_at":"2015-02-09T00:00:00+0100",
         "description":"The description 6",
         "updated_at":"2015-02-10T00:00:00+0100",
         "written_by":{
           "first_name":"Kreta",
-          "last_name":"User2"
+          "last_name":"User2",
+          "photo": {
+              "id": "2",
+              "name": "http://localhost/app_test.php/media/image/user-2.jpg"
+            }
         },
         "_links":{
           "issue":{
@@ -368,12 +409,17 @@ Feature: Manage comment
     And the response should contain json:
     """
       [{
+        "id": "7",
         "created_at":"2015-01-02T00:00:00+0100",
         "description":"The description 8",
         "updated_at":"2015-01-24T00:00:00+0100",
         "written_by":{
           "first_name":"Kreta",
-          "last_name":"User3"
+          "last_name":"User3",
+          "photo": {
+              "id": "3",
+              "name": "http://localhost/app_test.php/media/image/user-3.jpg"
+            }
         },
         "_links":{
           "issue":{
@@ -384,6 +430,7 @@ Feature: Manage comment
           }
         }
       }, {
+        "id": "3",
         "created_at":"2015-01-09T00:00:00+0100",
         "description":"The description 4",
         "updated_at":"2015-02-21T00:00:00+0100",
@@ -409,6 +456,7 @@ Feature: Manage comment
     And the response should contain json:
     """
       [{
+        "id": "8",
         "created_at":"2015-01-09T00:00:00+0100",
         "description":"The description 9",
         "updated_at":"2015-02-18T00:00:00+0100",
@@ -425,6 +473,7 @@ Feature: Manage comment
           }
         }
       }, {
+        "id": "0",
         "created_at":"2015-01-10T00:00:00+0100",
         "description":"The description 1",
         "updated_at":"2015-03-01T00:00:00+0100",
@@ -441,6 +490,7 @@ Feature: Manage comment
           }
         }
       }, {
+        "id": "4",
         "created_at":"2015-01-20T00:00:00+0100",
         "description":"The description 5",
         "updated_at":"2015-01-30T00:00:00+0100",
@@ -457,6 +507,7 @@ Feature: Manage comment
           }
         }
       }, {
+        "id": "2",
         "created_at":"2015-01-31T00:00:00+0100",
         "description":"The description 3",
         "updated_at":"2015-02-01T00:00:00+0100",
@@ -473,12 +524,17 @@ Feature: Manage comment
           }
         }
       }, {
+        "id": "9",
         "created_at":"2015-02-07T00:00:00+0100",
         "description":"The description 10",
         "updated_at":"2015-02-18T00:00:00+0100",
         "written_by":{
           "first_name":"Kreta",
-          "last_name":"User3"
+          "last_name":"User3",
+          "photo": {
+              "id": "3",
+              "name": "http://localhost/app_test.php/media/image/user-3.jpg"
+            }
         },
         "_links":{
           "issue":{
@@ -489,12 +545,17 @@ Feature: Manage comment
           }
         }
       }, {
+        "id": "5",
         "created_at":"2015-02-09T00:00:00+0100",
         "description":"The description 6",
         "updated_at":"2015-02-10T00:00:00+0100",
         "written_by":{
           "first_name":"Kreta",
-          "last_name":"User2"
+          "last_name":"User2",
+          "photo": {
+              "id": "2",
+              "name": "http://localhost/app_test.php/media/image/user-2.jpg"
+            }
         },
         "_links":{
           "issue":{

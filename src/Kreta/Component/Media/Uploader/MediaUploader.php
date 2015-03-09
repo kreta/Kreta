@@ -42,7 +42,7 @@ class MediaUploader implements MediaUploaderInterface
     /**
      * {@inheritdoc}
      */
-    public function upload(MediaInterface $media)
+    public function upload(MediaInterface $media, $name = null, $test = false)
     {
         if (!$media->hasMedia()) {
             return;
@@ -54,15 +54,19 @@ class MediaUploader implements MediaUploaderInterface
 
         do {
             $hash = md5(uniqid(mt_rand(), true));
-            $name = $hash . '.' . $media->getMedia()->guessExtension();
+            if ($test === false) {
+                $name = $hash . '.' . $media->getMedia()->guessExtension();
+            }
         } while ($this->filesystem->has($name));
 
         $media->setName($name);
 
-        $this->filesystem->write(
-            $media->getName(),
-            file_get_contents($media->getMedia()->getPathname())
-        );
+        if ($test === false) {
+            $this->filesystem->write(
+                $media->getName(),
+                file_get_contents($media->getMedia()->getPathname())
+            );
+        }
     }
 
     /**

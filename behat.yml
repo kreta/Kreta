@@ -15,6 +15,7 @@ default:
         comment:
             contexts:
                 - Kreta\Bundle\CoreBundle\Behat\OauthContext
+                - Kreta\Bundle\MediaBundle\Behat\MediaContext
                 - Kreta\Bundle\WorkflowBundle\Behat\WorkflowContext
                 - Kreta\Bundle\WorkflowBundle\Behat\StatusContext
                 - Kreta\Bundle\ProjectBundle\Behat\ProjectContext
@@ -42,6 +43,7 @@ default:
         issue:
             contexts:
                 - Kreta\Bundle\CoreBundle\Behat\OauthContext
+                - Kreta\Bundle\MediaBundle\Behat\MediaContext
                 - Kreta\Bundle\WorkflowBundle\Behat\WorkflowContext
                 - Kreta\Bundle\ProjectBundle\Behat\ProjectContext
                 - Kreta\Bundle\IssueBundle\Behat\IssueContext
@@ -65,6 +67,7 @@ default:
         project:
             contexts:
                 - Kreta\Bundle\CoreBundle\Behat\OauthContext
+                - Kreta\Bundle\MediaBundle\Behat\MediaContext
                 - Kreta\Bundle\WorkflowBundle\Behat\WorkflowContext
                 - Kreta\Bundle\ProjectBundle\Behat\ProjectContext
                 - Kreta\Bundle\UserBundle\Behat\UserContext

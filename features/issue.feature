@@ -26,6 +26,10 @@ Feature: Manage issue
       | id | name           | shortName | creator        | workflow   |
       | 0  | Test project 1 | TPR1      | user@kreta.com | Workflow 1 |
       | 1  | Test project 2 | TPR2      | user@kreta.com | Workflow 2 |
+    And the following medias exist:
+      | id | name          | createdAt  | updatedAt | resource        |
+      | 2  | user-2.jpg    | 2014-10-30 | null      | user2@kreta.com |
+      | 3  | user-3.jpg    | 2014-10-30 | null      | user3@kreta.com |
     And the following labels exist:
       | id | name        | project        |
       | 0  | backbone.js | Test project 1 |
@@ -266,7 +270,11 @@ Feature: Manage issue
           "id": "1",
           "email": "user2@kreta.com",
           "first_name": "Kreta",
-          "last_name": "User2"
+          "last_name": "User2",
+          "photo": {
+            "id": "2",
+            "name": "http://localhost/app_test.php/media/image/user-2.jpg"
+          }
         },
         "status": {
           "type": "normal",
@@ -404,7 +412,11 @@ Feature: Manage issue
         "id": "1",
         "email": "user2@kreta.com",
         "first_name": "Kreta",
-        "last_name": "User2"
+        "last_name": "User2",
+        "photo": {
+          "id": "2",
+          "name": "http://localhost/app_test.php/media/image/user-2.jpg"
+        }
       },
       "status": {
         "type": "normal",
@@ -696,7 +708,11 @@ Feature: Manage issue
           "id": "1",
           "email": "user2@kreta.com",
           "first_name": "Kreta",
-          "last_name": "User2"
+          "last_name": "User2",
+          "photo": {
+            "id": "2",
+            "name": "http://localhost/app_test.php/media/image/user-2.jpg"
+          }
         },
         "status": {
           "type": "normal",
@@ -758,7 +774,11 @@ Feature: Manage issue
           "id": "1",
           "email": "user2@kreta.com",
           "first_name": "Kreta",
-          "last_name": "User2"
+          "last_name": "User2",
+          "photo": {
+            "id": "2",
+            "name": "http://localhost/app_test.php/media/image/user-2.jpg"
+          }
         },
         "status": {
           "type": "normal",
@@ -820,7 +840,11 @@ Feature: Manage issue
           "id": "1",
           "email": "user2@kreta.com",
           "first_name": "Kreta",
-          "last_name": "User2"
+          "last_name": "User2",
+          "photo": {
+            "id": "2",
+            "name": "http://localhost/app_test.php/media/image/user-2.jpg"
+          }
         },
         "status": {
           "type": "normal",
@@ -882,7 +906,11 @@ Feature: Manage issue
           "id": "1",
           "email": "user2@kreta.com",
           "first_name": "Kreta",
-          "last_name": "User2"
+          "last_name": "User2",
+          "photo": {
+            "id": "2",
+            "name": "http://localhost/app_test.php/media/image/user-2.jpg"
+          }
         },
         "status": {
           "type": "normal",
@@ -1114,7 +1142,11 @@ Feature: Manage issue
           "id": "1",
           "email": "user2@kreta.com",
           "first_name": "Kreta",
-          "last_name": "User2"
+          "last_name": "User2",
+          "photo": {
+            "id": "2",
+            "name": "http://localhost/app_test.php/media/image/user-2.jpg"
+          }
         },
         "status": {
           "type": "normal",
@@ -1371,7 +1403,11 @@ Feature: Manage issue
           "id": "1",
           "email": "user2@kreta.com",
           "first_name": "Kreta",
-          "last_name": "User2"
+          "last_name": "User2",
+          "photo": {
+            "id": "2",
+            "name": "http://localhost/app_test.php/media/image/user-2.jpg"
+          }
         },
         "created_at": "2014-12-15T00:00:00+0100",
         "description": "The description",
@@ -1510,7 +1546,11 @@ Feature: Manage issue
           "id": "1",
           "email": "user2@kreta.com",
           "first_name": "Kreta",
-          "last_name": "User2"
+          "last_name": "User2",
+          "photo": {
+            "id": "2",
+            "name": "http://localhost/app_test.php/media/image/user-2.jpg"
+          }
         },
         "created_at": "2014-10-21T00:00:00+0200",
         "description": "The description",
@@ -1582,7 +1622,11 @@ Feature: Manage issue
           "id": "1",
           "email": "user2@kreta.com",
           "first_name": "Kreta",
-          "last_name": "User2"
+          "last_name": "User2",
+          "photo": {
+            "id": "2",
+            "name": "http://localhost/app_test.php/media/image/user-2.jpg"
+          }
         },
         "created_at": "2014-10-21T00:00:00+0200",
         "description": "The description",
@@ -1654,7 +1698,11 @@ Feature: Manage issue
           "id": "1",
           "email": "user2@kreta.com",
           "first_name": "Kreta",
-          "last_name": "User2"
+          "last_name": "User2",
+          "photo": {
+            "id": "2",
+            "name": "http://localhost/app_test.php/media/image/user-2.jpg"
+          }
         },
         "created_at": "2014-12-15T00:00:00+0100",
         "description": "The description",
