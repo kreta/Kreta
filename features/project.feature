@@ -25,6 +25,12 @@ Feature: Manage projects
       | id | name           | shortName | creator        | workflow   |
       | 0  | Test project 1 | TPR1      | user@kreta.com | Workflow 1 |
       | 1  | Test project 2 | TPR2      | user@kreta.com | Workflow 2 |
+    And the following medias exist:
+      | id | name          | createdAt  | updatedAt | resource        |
+      | 0  | project-1.jpg | 2014-10-30 | null      | Test project 1  |
+      | 1  | project-2.jpg | 2014-10-30 | null      | Test project 2  |
+      | 2  | user-2.jpg    | 2014-10-30 | null      | user2@kreta.com |
+      | 3  | user-3.jpg    | 2014-10-30 | null      | user3@kreta.com |
     And the following participants exist:
       | project        | user            | role             |
       | Test project 1 | user3@kreta.com | ROLE_PARTICIPANT |
@@ -44,6 +50,10 @@ Feature: Manage projects
       [{
         "id": "0",
         "name": "Test project 1",
+        "image": {
+          "id": "0",
+          "name": "http://localhost/app_test.php/media/image/project-1.jpg"
+        },
         "participants": [{
           "role": "ROLE_ADMIN",
           "user": {
@@ -75,6 +85,10 @@ Feature: Manage projects
       }, {
         "id": "1",
         "name": "Test project 2",
+        "image": {
+          "id": "1",
+          "name": "http://localhost/app_test.php/media/image/project-2.jpg"
+        },
         "participants": [{
           "role": "ROLE_ADMIN",
           "user": {
@@ -115,6 +129,11 @@ Feature: Manage projects
       {
         "id": "0",
         "name": "Test project 1",
+        "image": {
+          "id":"0",
+          "created_at": "2014-10-30T00:00:00+0100",
+          "name": "http://localhost/app_test.php/media/image/project-1.jpg"
+        },
         "participants": [{
           "role": "ROLE_ADMIN",
           "user": {
@@ -131,7 +150,12 @@ Feature: Manage projects
             "email": "user3@kreta.com",
             "created_at": "2014-10-20T00:00:00+0200",
             "first_name": "Kreta",
-            "last_name": "User3"
+            "last_name": "User3",
+            "photo": {
+              "id": "3",
+              "created_at": "2014-10-30T00:00:00+0100",
+              "name": "http://localhost/app_test.php/media/image/user-3.jpg"
+            }
           }
         }],
         "short_name": "TPR1",
@@ -355,7 +379,12 @@ Feature: Manage projects
             "email": "user3@kreta.com",
             "created_at": "2014-10-20T00:00:00+0200",
             "first_name": "Kreta",
-            "last_name": "User3"
+            "last_name": "User3",
+            "photo": {
+              "id": "3",
+              "created_at": "2014-10-30T00:00:00+0100",
+              "name": "http://localhost/app_test.php/media/image/user-3.jpg"
+            }
           }
         }],
         "short_name": "NPR",

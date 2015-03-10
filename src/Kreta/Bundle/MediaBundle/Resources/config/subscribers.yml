@@ -4,3 +4,9 @@
 #
 # @author benatespina <benatespina@gmail.com>
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
+
+services:
+    kreta_media.subscriber.media_url.abstract:
+        abstract: true
+        class: Kreta\Bundle\MediaBundle\EventSubscriber\MediaUrlSubscriber
+        arguments: [@router]

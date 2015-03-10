@@ -6,8 +6,8 @@
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
 services:
-    kreta_api.subscriber.media_url:
-        class: Kreta\Bundle\CoreBundle\EventSubscriber\MediaUrlSubscriber
-        arguments: [@router]
+    kreta_project.subscriber.image_url:
+        parent: kreta_media.subscriber.media_url.abstract
+        arguments: [%kreta_project.project.class%, 'image']
         tags:
             - { name: jms_serializer.event_subscriber }

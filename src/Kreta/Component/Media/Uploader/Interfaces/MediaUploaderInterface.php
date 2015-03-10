@@ -24,6 +24,8 @@ interface MediaUploaderInterface
      * Uploads the media.
      *
      * @param \Kreta\Component\Media\Model\Interfaces\MediaInterface $media The media
+     * @param string  $name The file name, is useful in test mode to assign the name
+     * @param boolean $test Checks if it's in test mode or not. If it's true the file is not uploaded
      *
      * @return void
      */

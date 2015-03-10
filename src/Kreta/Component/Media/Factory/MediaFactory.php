@@ -47,8 +47,8 @@ class MediaFactory
     public function create(UploadedFile $file)
     {
         $media = new $this->className();
-        $media->setMedia($file);
 
-        return $media;
+        return $media
+            ->setMedia($file);
     }
 }
