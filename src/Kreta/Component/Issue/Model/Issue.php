@@ -154,7 +154,7 @@ class Issue extends AbstractModel implements IssueInterface
     /**
      * {@inheritdoc}
      */
-    public function setAssignee(UserInterface $assignee)
+    public function setAssignee(UserInterface $assignee = null)
     {
         $this->assignee = $assignee;
 

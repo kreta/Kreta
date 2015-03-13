@@ -11,9 +11,8 @@ Kreta\Component\Comment\Model\Comment:
         -
             rel: issue
             href:
-                route: get_projects_issue
+                route: get_issue
                 parameters:
-                    projectId: expr(object.getIssue().getProject().getId())
                     issueId: expr(object.getIssue().getId())
                 absolute: true
             exclusion:
@@ -21,9 +20,8 @@ Kreta\Component\Comment\Model\Comment:
         -
             rel: comments
             href:
-                route: get_projects_issues_comments
+                route: get_issues_comments
                 parameters:
-                    projectId: expr(object.getIssue().getProject().getId())
                     issueId: expr(object.getIssue().getId())
                 absolute: true
             exclusion:

@@ -7,6 +7,4 @@
 
 kreta_api_issue:
     type: rest
-    parent: kreta_api_project
     resource: Kreta\Bundle\IssueBundle\Controller\IssueController
-

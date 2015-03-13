@@ -23,20 +23,16 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 class RestController extends FOSRestController
 {
     /**
-     * Gets the issue if the current user is granted and if the project exists.
+     * Gets the issue if the current user is granted and if the issue exists.
      *
-     * @param string $projectId    The project id
-     * @param string $issueId      The issue id
-     * @param string $projectGrant The project grant
-     * @param string $issueGrant   The issue grant
+     * @param string $issueId    The issue id
+     * @param string $issueGrant The issue grant
      *
      * @return \Kreta\Component\Issue\Model\Interfaces\IssueInterface
      * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
      */
-    protected function getIssueIfAllowed($projectId, $issueId, $projectGrant = 'view', $issueGrant = 'view')
+    protected function getIssueIfAllowed($issueId, $issueGrant = 'view')
     {
-        $this->getProjectIfAllowed($projectId, $projectGrant);
-
         return $this->getResourceIfAllowed(
             $this->get('kreta_issue.repository.issue'), $issueId, $issueGrant
         );

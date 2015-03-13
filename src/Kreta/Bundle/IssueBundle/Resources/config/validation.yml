@@ -19,3 +19,5 @@ Kreta\Component\Issue\Model\Issue:
             - NotBlank: ~
         priority:
             - NotBlank: ~
+        project:
+            - NotBlank: ~

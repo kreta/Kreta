@@ -26,8 +26,7 @@ class BranchController extends RestController
     /**
      * Returns all branches of project id and issue id given.
      *
-     * @param string $projectId The project id
-     * @param string $issueId   The issue id
+     * @param string $issueId The issue id
      *
      * @ApiDoc(
      *  description = "Returns all branches of issue id given",
@@ -46,7 +45,7 @@ class BranchController extends RestController
      *  }
      * )
      *
-     * @Get("/projects/{projectId}/issues/{issueId}/vcs-branches")
+     * @Get("/issues/{issueId}/vcs-branches")
      *
      * @View(
      *  statusCode=200,
@@ -55,10 +54,8 @@ class BranchController extends RestController
      *
      * @return \Kreta\Component\VCS\Model\Interfaces\BranchInterface[]
      */
-    public function getBranchesAction($projectId, $issueId)
+    public function getBranchesAction($issueId)
     {
-        $issue = $this->getIssueIfAllowed($projectId, $issueId);
-
-        return $this->get('kreta_vcs.repository.branch')->findByIssue($issue);
+        return $this->get('kreta_vcs.repository.branch')->findByIssue($this->getIssueIfAllowed($issueId));
     }
 }

@@ -27,9 +27,7 @@ Kreta\Component\Project\Model\Project:
         -
             rel: issues
             href:
-                route: get_projects_issues
-                parameters:
-                    projectId: expr(object.getId())
+                route: get_issues
                 absolute: true
             exclusion:
                 groups: [projectList, project]

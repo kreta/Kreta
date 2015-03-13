@@ -56,7 +56,7 @@ interface IssueInterface extends StatefulInterface
      *
      * @return $this self Object
      */
-    public function setAssignee(UserInterface $assignee);
+    public function setAssignee(UserInterface $assignee = null);
 
     /**
      * Checks that the user given is assignee.

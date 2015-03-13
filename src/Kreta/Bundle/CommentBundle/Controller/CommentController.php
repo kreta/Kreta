@@ -25,9 +25,8 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 class CommentController extends RestController
 {
     /**
-     * Returns all comments of issue id and project id given, it admits date and owner filters, limit and offset.
+     * Returns all comments of issue id given, it admits date and owner filters, limit and offset.
      *
-     * @param string                               $projectId    The project id
      * @param string                               $issueId      The issue id
      * @param \FOS\RestBundle\Request\ParamFetcher $paramFetcher The param fetcher
      *
@@ -37,7 +36,7 @@ class CommentController extends RestController
      * @QueryParam(name="offset", requirements="\d+", default="0", description="Offset in pages")
      *
      * @ApiDoc(
-     *  description = "Returns all the issues of current user, it admits date and owner filters, limit and offset",
+     *  description = "Returns all comments of issue id given, it admits date and owner filters, limit and offset",
      *  requirements = {
      *    {
      *      "name"="_format",
@@ -60,14 +59,14 @@ class CommentController extends RestController
      *
      * @return \Kreta\Component\Comment\Model\Interfaces\CommentInterface[]
      */
-    public function getCommentsAction($projectId, $issueId, ParamFetcher $paramFetcher)
+    public function getCommentsAction($issueId, ParamFetcher $paramFetcher)
     {
         if ($createdAt = $paramFetcher->get('createdAt')) {
             $createdAt = new \DateTime($paramFetcher->get('createdAt'));
         };
 
         return $this->get('kreta_comment.repository.comment')->findByIssue(
-            $this->getIssueIfAllowed($projectId, $issueId),
+            $this->getIssueIfAllowed($issueId),
             $createdAt,
             $paramFetcher->get('owner'),
             $paramFetcher->get('limit'),
@@ -78,8 +77,7 @@ class CommentController extends RestController
     /**
      * Creates new comment for description given.
      *
-     * @param string $projectId The project id
-     * @param string $issueId   The issue id
+     * @param string $issueId The issue id
      *
      * @ApiDoc(
      *  description = "Creates new comment for description given",
@@ -107,9 +105,9 @@ class CommentController extends RestController
      *
      * @return \Kreta\Component\Comment\Model\Interfaces\CommentInterface
      */
-    public function postCommentsAction($projectId, $issueId)
+    public function postCommentsAction($issueId)
     {
-        $issue = $this->getIssueIfAllowed($projectId, $issueId);
+        $issue = $this->getIssueIfAllowed($issueId);
 
         return $this->get('kreta_comment.form_handler.api.comment')->processForm(
             $this->get('request'), null, ['issue' => $issue]
@@ -117,14 +115,13 @@ class CommentController extends RestController
     }
 
     /**
-     * Updates the comment of project id issue id and comment id given.
+     * Updates the comment of issue id and comment id given.
      *
-     * @param string $projectId The project id
      * @param string $issueId   The issue id
      * @param string $commentId The comment id
      *
      * @ApiDoc(
-     *  description = "Updates the comment of project id issue id and comment id given",
+     *  description = "Updates the comment of issue id and comment id given",
      *  input = "Kreta\Bundle\CommentBundle\Form\Type\Api\CommentType",
      *  output = "Kreta\Component\Comment\Model\Interfaces\CommentInterface",
      *  requirements = {
@@ -149,9 +146,9 @@ class CommentController extends RestController
      *
      * @return \Kreta\Component\Comment\Model\Interfaces\CommentInterface
      */
-    public function putCommentsAction($projectId, $issueId, $commentId)
+    public function putCommentsAction($issueId, $commentId)
     {
-        $comment = $this->getCommentIfAllowed($projectId, $issueId, $commentId);
+        $comment = $this->getCommentIfAllowed($commentId, $issueId);
 
         return $this->get('kreta_comment.form_handler.api.comment')->processForm(
             $this->get('request'), $comment, ['method' => 'PUT', 'issue' => $comment->getIssue()]
@@ -159,25 +156,21 @@ class CommentController extends RestController
     }
 
     /**
-     * Gets the comment if the current user is granted and if the project and issue exists.
+     * Gets the comment if the current user is granted and if issue exists.
      *
-     * @param string $projectId    The project id
-     * @param string $issueId      The issue id
-     * @param string $commentId    The comment id
-     * @param string $projectGrant The project grant
-     * @param string $issueGrant   The issue grant
+     * @param string $commentId  The comment id
+     * @param string $issueId    The issue id
+     * @param string $issueGrant The issue grant
      *
      * @return \Kreta\Component\Comment\Model\Interfaces\CommentInterface
      */
     protected function getCommentIfAllowed(
-        $projectId,
-        $issueId,
         $commentId,
-        $projectGrant = 'view',
+        $issueId,
         $issueGrant = 'view'
     )
     {
-        $this->getIssueIfAllowed($projectId, $issueId, $projectGrant, $issueGrant);
+        $this->getIssueIfAllowed($issueId, $issueGrant);
 
         return $this->get('kreta_comment.repository.comment')->findOneBy(
             ['id' => $commentId, 'writtenBy' => $this->getUser()],

@@ -68,15 +68,15 @@ class IssueHandler extends BaseIssueFormHandler
      */
     protected function createForm($object = null, array $formOptions = [])
     {
-        if (!array_key_exists('project', $formOptions)) {
-            throw new ParameterNotFoundException('project');
+        if (!array_key_exists('projects', $formOptions)) {
+            throw new ParameterNotFoundException('projects');
         }
 
-        $project = $formOptions['project'];
-        unset($formOptions['project']);
+        $projects = $formOptions['projects'];
+        unset($formOptions['projects']);
 
         return $this->formFactory->create(
-            new IssueType($project, $this->context, $this->factory), $object, $formOptions
+            new IssueType($projects, $this->context, $this->factory), $object, $formOptions
         );
     }
 }
