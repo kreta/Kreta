@@ -25,6 +25,7 @@ class ProjectVoter extends AbstractVoter
     const ADD_PARTICIPANT = 'add_participant';
     const DELETE = 'delete';
     const DELETE_PARTICIPANT = 'delete_participant';
+    const EDIT_ROLE_PARTICIPANT = 'edit_role_participant';
     const EDIT = 'edit';
     const VIEW = 'view';
     const CREATE_ISSUE = 'create_issue';
@@ -59,6 +60,7 @@ class ProjectVoter extends AbstractVoter
             case self::ADD_PARTICIPANT:
             case self::DELETE:
             case self::DELETE_PARTICIPANT:
+            case self::EDIT_ROLE_PARTICIPANT:
             case self::EDIT:
             case self::DELETE_LABEL:
                 if ($project->getUserRole($user) === 'ROLE_ADMIN') {

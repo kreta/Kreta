@@ -28,8 +28,6 @@ class BaseRestController extends ObjectBehavior
 {
     protected function getIssueIfAllowedSpec(
         ContainerInterface $container,
-        ProjectRepository $projectRepository,
-        ProjectInterface $project,
         IssueRepository $issueRepository,
         IssueInterface $issue,
         SecurityContextInterface $securityContext,
@@ -37,8 +35,6 @@ class BaseRestController extends ObjectBehavior
         $issueResult = true
     )
     {
-        $this->getProjectIfAllowedSpec($container, $projectRepository, $project, $securityContext);
-
         $container->get('kreta_issue.repository.issue')->shouldBeCalled()->willReturn($issueRepository);
         $issueRepository->find('issue-id', false)->shouldBeCalled()->willReturn($issue);
         $container->get('security.context')->shouldBeCalled()->willReturn($securityContext);

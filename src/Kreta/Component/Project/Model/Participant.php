@@ -102,7 +102,7 @@ class Participant implements ParticipantInterface
     /**
      * {@inheritdoc}
      */
-    public function setUser(UserInterface $user)
+    public function setUser(UserInterface $user = null)
     {
         $this->user = $user;
 

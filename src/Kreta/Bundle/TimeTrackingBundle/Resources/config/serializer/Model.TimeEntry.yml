@@ -11,9 +11,8 @@ Kreta\Component\TimeTracking\Model\TimeEntry:
         -
             rel: self
             href:
-                route: get_projects_issues_time_entry
+                route: get_issues_time_entry
                 parameters:
-                    projectId: expr(object.getIssue().getProject().getId())
                     issueId: expr(object.getIssue().getId())
                     timeEntryId: expr(object.getId())
                 absolute: true
@@ -22,9 +21,8 @@ Kreta\Component\TimeTracking\Model\TimeEntry:
         -
             rel: timeEntries
             href:
-                route: get_projects_issues_time_entries
+                route: get_issues_time_entries
                 parameters:
-                    projectId: expr(object.getIssue().getProject().getId())
                     issueId: expr(object.getIssue().getId())
                 absolute: true
             exclusion:
@@ -32,9 +30,7 @@ Kreta\Component\TimeTracking\Model\TimeEntry:
         -
             rel: issues
             href:
-                route: get_projects_issues
-                parameters:
-                    projectId: expr(object.getIssue().getProject().getId())
+                route: get_issues
                 absolute: true
             exclusion:
                 groups: [timeEntryList, timeEntry]

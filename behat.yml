@@ -64,6 +64,15 @@ default:
                 - Kreta\Bundle\ProjectBundle\Behat\ParticipantContext
             filters:
                 tags: "@label"
+        participant:
+            contexts:
+                - Kreta\Bundle\CoreBundle\Behat\OauthContext
+                - Kreta\Bundle\MediaBundle\Behat\MediaContext
+                - Kreta\Bundle\ProjectBundle\Behat\ProjectContext
+                - Kreta\Bundle\UserBundle\Behat\UserContext
+                - Kreta\Bundle\ProjectBundle\Behat\ParticipantContext
+            filters:
+                tags: "@participant"
         project:
             contexts:
                 - Kreta\Bundle\CoreBundle\Behat\OauthContext

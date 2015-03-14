@@ -26,8 +26,7 @@ class CommitController extends RestController
     /**
      * Returns all commits of project id and issue id given.
      *
-     * @param string $projectId The project id
-     * @param string $issueId   The issue id
+     * @param string $issueId The issue id
      *
      * @ApiDoc(
      *  description = "Returns all commits of issue id given",
@@ -46,7 +45,7 @@ class CommitController extends RestController
      *  }
      * )
      *
-     * @Get("/projects/{projectId}/issues/{issueId}/vcs-commits")
+     * @Get("/issues/{issueId}/vcs-commits")
      *
      * @View(
      *  statusCode=200,
@@ -55,10 +54,8 @@ class CommitController extends RestController
      *
      * @return \Kreta\Component\VCS\Model\Interfaces\CommitInterface[]
      */
-    public function getCommitsAction($projectId, $issueId)
+    public function getCommitsAction($issueId)
     {
-        $issue = $this->getIssueIfAllowed($projectId, $issueId);
-
-        return $this->get('kreta_vcs.repository.commit')->findByIssue($issue);
+        return $this->get('kreta_vcs.repository.commit')->findByIssue($this->getIssueIfAllowed($issueId));
     }
 }

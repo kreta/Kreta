@@ -52,35 +52,26 @@ class TimeEntryControllerSpec extends BaseRestController
         ContainerInterface $container,
         IssueRepository $issueRepository,
         IssueInterface $issue,
-        ProjectRepository $projectRepository,
-        ProjectInterface $project,
         SecurityContextInterface $securityContext,
         ParamFetcher $paramFetcher
     )
     {
-        $this->getIssueIfAllowedSpec(
-            $container, $projectRepository, $project, $issueRepository, $issue, $securityContext, 'view', false
-        );
-        $this->shouldThrow(
-            new AccessDeniedException())->during('getTimeEntriesAction', ['project-id', 'issue-id', $paramFetcher]
-        );
+        $this->getIssueIfAllowedSpec($container, $issueRepository, $issue, $securityContext, 'view', false);
+
+        $this->shouldThrow(new AccessDeniedException())->during('getTimeEntriesAction', ['issue-id', $paramFetcher]);
     }
 
     function it_gets_time_entries(
         ContainerInterface $container,
         TimeEntryRepository $timeEntryRepository,
         IssueRepository $issueRepository,
-        ProjectRepository $projectRepository,
-        ProjectInterface $project,
         SecurityContextInterface $securityContext,
         ParamFetcher $paramFetcher,
         IssueInterface $issue,
         TimeEntryInterface $timeEntry
     )
     {
-        $issue = $this->getIssueIfAllowedSpec(
-            $container, $projectRepository, $project, $issueRepository, $issue, $securityContext
-        );
+        $issue = $this->getIssueIfAllowedSpec($container, $issueRepository, $issue, $securityContext);
         $container->get('kreta_time_tracking.repository.time_entry')->shouldBeCalled()->willReturn($timeEntryRepository);
         $paramFetcher->get('sort')->shouldBeCalled()->willReturn('dateReported');
         $paramFetcher->get('limit')->shouldBeCalled()->willReturn(10);
@@ -89,7 +80,7 @@ class TimeEntryControllerSpec extends BaseRestController
         $timeEntryRepository->findByIssue($issue, ['dateReported' => 'ASC'], 10, 1)
             ->shouldBeCalled()->willReturn([$timeEntry]);
 
-        $this->getTimeEntriesAction('project-id', 'issue-id', $paramFetcher)->shouldReturn([$timeEntry]);
+        $this->getTimeEntriesAction('issue-id', $paramFetcher)->shouldReturn([$timeEntry]);
     }
 
     function it_does_not_get_time_entry_because_the_user_has_not_the_required_grant(
@@ -102,17 +93,15 @@ class TimeEntryControllerSpec extends BaseRestController
     )
     {
         $this->getIssueIfAllowedSpec(
-            $container, $projectRepository, $project, $issueRepository, $issue, $securityContext, 'view', false
+            $container, $issueRepository, $issue, $securityContext, 'view', false
         );
 
         $this->shouldThrow(new AccessDeniedException())
-            ->during('getTimeEntryAction', ['project-id', 'issue-id', 'time-entry-id']);
+            ->during('getTimeEntryAction', ['issue-id', 'time-entry-id']);
     }
 
     function it_gets_time_entry(
         ContainerInterface $container,
-        ProjectRepository $projectRepository,
-        ProjectInterface $project,
         IssueRepository $issueRepository,
         IssueInterface $issue,
         SecurityContextInterface $context,
@@ -122,8 +111,6 @@ class TimeEntryControllerSpec extends BaseRestController
     {
         $timeEntry = $this->getTimeEntryIfAllowedSpec(
             $container,
-            $projectRepository,
-            $project,
             $issueRepository,
             $issue,
             $context,
@@ -131,30 +118,24 @@ class TimeEntryControllerSpec extends BaseRestController
             $timeEntry
         );
 
-        $this->getTimeEntryAction('project-id', 'issue-id', 'time-entry-id')->shouldReturn($timeEntry);
+        $this->getTimeEntryAction('issue-id', 'time-entry-id')->shouldReturn($timeEntry);
     }
 
     function it_does_not_post_time_entry_because_the_user_has_not_the_required_grant(
         ContainerInterface $container,
-        ProjectRepository $projectRepository,
-        ProjectInterface $project,
         IssueRepository $issueRepository,
         IssueInterface $issue,
         SecurityContextInterface $context
     )
     {
-        $this->getIssueIfAllowedSpec(
-            $container, $projectRepository, $project, $issueRepository, $issue, $context, 'view', false
-        );
+        $this->getIssueIfAllowedSpec($container, $issueRepository, $issue, $context, 'view', false);
 
-        $this->shouldThrow(new AccessDeniedException())->during('postTimeEntriesAction', ['project-id', 'issue-id']);
+        $this->shouldThrow(new AccessDeniedException())->during('postTimeEntriesAction', ['issue-id']);
     }
 
     function it_posts_time_entry(
         ContainerInterface $container,
         Request $request,
-        ProjectRepository $projectRepository,
-        ProjectInterface $project,
         IssueRepository $issueRepository,
         IssueInterface $issue,
         TimeEntryHandler $timeEntryHandler,
@@ -163,9 +144,7 @@ class TimeEntryControllerSpec extends BaseRestController
         Request $request
     )
     {
-        $issue = $this->getIssueIfAllowedSpec(
-            $container, $projectRepository, $project, $issueRepository, $issue, $context
-        );
+        $issue = $this->getIssueIfAllowedSpec($container, $issueRepository, $issue, $context);
         $container->get('request')->shouldBeCalled()->willReturn($request);
 
         $container->get('kreta_time_tracking.form_handler.time_entry')
@@ -173,31 +152,25 @@ class TimeEntryControllerSpec extends BaseRestController
         $timeEntryHandler->processForm($request, null, ['issue' => $issue])
             ->shouldBeCalled()->willReturn($timeEntry);
 
-        $this->postTimeEntriesAction('project-id', 'issue-id')->shouldReturn($timeEntry);
+        $this->postTimeEntriesAction('issue-id')->shouldReturn($timeEntry);
     }
 
     function it_does_not_put_time_entry_because_the_user_has_not_the_required_grant(
         ContainerInterface $container,
-        ProjectRepository $projectRepository,
-        ProjectInterface $project,
         IssueRepository $issueRepository,
         IssueInterface $issue,
         SecurityContextInterface $context
     )
     {
-        $this->getIssueIfAllowedSpec(
-            $container, $projectRepository, $project, $issueRepository, $issue, $context, 'view', false
-        );
+        $this->getIssueIfAllowedSpec($container, $issueRepository, $issue, $context, 'view', false);
 
         $this->shouldThrow(new AccessDeniedException())
-            ->during('putTimeEntriesAction', ['project-id', 'issue-id', 'time-entry-id']);
+            ->during('putTimeEntriesAction', ['issue-id', 'time-entry-id']);
     }
 
     function it_puts_time_entry(
         ContainerInterface $container,
         Request $request,
-        ProjectRepository $projectRepository,
-        ProjectInterface $project,
         IssueRepository $issueRepository,
         IssueInterface $issue,
         TimeEntryHandler $timeEntryHandler,
@@ -209,8 +182,6 @@ class TimeEntryControllerSpec extends BaseRestController
     {
         $timeEntry = $this->getTimeEntryIfAllowedSpec(
             $container,
-            $projectRepository,
-            $project,
             $issueRepository,
             $issue,
             $context,
@@ -227,30 +198,26 @@ class TimeEntryControllerSpec extends BaseRestController
         $timeEntryHandler->processForm($request, $timeEntry, ['method' => 'PUT', 'issue' => $issue])
             ->shouldBeCalled()->willReturn($timeEntry);
 
-        $this->putTimeEntriesAction('project-id', 'issue-id', 'time-entry-id')->shouldReturn($timeEntry);
+        $this->putTimeEntriesAction('issue-id', 'time-entry-id')->shouldReturn($timeEntry);
     }
 
     function it_does_not_delete_time_entry_because_the_user_has_not_the_required_grant(
         ContainerInterface $container,
-        ProjectRepository $projectRepository,
-        ProjectInterface $project,
         IssueRepository $issueRepository,
         IssueInterface $issue,
         SecurityContextInterface $context
     )
     {
         $this->getIssueIfAllowedSpec(
-            $container, $projectRepository, $project, $issueRepository, $issue, $context, 'view', false
+            $container, $issueRepository, $issue, $context, 'view', false
         );
 
         $this->shouldThrow(new AccessDeniedException())
-            ->during('deleteTimeEntriesAction', ['project-id', 'issue-id', 'time-entry-id']);
+            ->during('deleteTimeEntriesAction', ['issue-id', 'time-entry-id']);
     }
 
     function it_deletes_time_entry(
         ContainerInterface $container,
-        ProjectRepository $projectRepository,
-        ProjectInterface $project,
         IssueRepository $issueRepository,
         IssueInterface $issue,
         TimeEntryInterface $timeEntry,
@@ -260,8 +227,6 @@ class TimeEntryControllerSpec extends BaseRestController
     {
         $timeEntry = $this->getTimeEntryIfAllowedSpec(
             $container,
-            $projectRepository,
-            $project,
             $issueRepository,
             $issue,
             $context,
@@ -274,13 +239,11 @@ class TimeEntryControllerSpec extends BaseRestController
             ->shouldBeCalled()->willReturn($timeEntryRepository);
         $timeEntryRepository->remove($timeEntry)->shouldBeCalled();
 
-        $this->deleteTimeEntriesAction('project-id', 'issue-id', 'time-entry-id');
+        $this->deleteTimeEntriesAction('issue-id', 'time-entry-id');
     }
 
     protected function getTimeEntryIfAllowedSpec(
         ContainerInterface $container,
-        ProjectRepository $projectRepository,
-        ProjectInterface $project,
         IssueRepository $issueRepository,
         IssueInterface $issue,
         SecurityContextInterface $context,
@@ -291,9 +254,7 @@ class TimeEntryControllerSpec extends BaseRestController
         $result = true
     )
     {
-        $this->getIssueIfAllowedSpec(
-            $container, $projectRepository, $project, $issueRepository, $issue, $context, $grant, $result
-        );
+        $this->getIssueIfAllowedSpec($container, $issueRepository, $issue, $context, $grant, $result);
         $container->get('kreta_time_tracking.repository.time_entry')
             ->shouldBeCalled()->willReturn($timeEntryRepository);
         $timeEntryRepository->find('time-entry-id', false)->shouldBeCalled()->willReturn($timeEntry);

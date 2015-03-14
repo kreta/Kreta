@@ -65,9 +65,9 @@ interface ParticipantInterface
     /**
      * Sets user.
      *
-     * @param \Kreta\Component\User\Model\Interfaces\UserInterface $user The user
+     * @param \Kreta\Component\User\Model\Interfaces\UserInterface|null $user The user
      *
      * @return $this self Object
      */
-    public function setUser(UserInterface $user);
+    public function setUser(UserInterface $user = null);
 }

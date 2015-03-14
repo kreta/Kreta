@@ -14,6 +14,10 @@ services:
         class: Kreta\Bundle\ProjectBundle\Form\Handler\Api\ProjectHandler
         parent: kreta_core.form_handler.abstract
         arguments: [@kreta_media.factory.media, @kreta_project.uploader.image_project, @security.context, @kreta_project.factory.project, @kreta_workflow.repository.workflow]
+    kreta_project.form_handler.api.participant:
+        class: Kreta\Bundle\ProjectBundle\Form\Handler\Api\ParticipantHandler
+        parent: kreta_core.form_handler.abstract
+        arguments: [@security.context, @kreta_project.factory.participant, @kreta_user.repository.user]
     kreta_project.form_handler.project:
         class: %kreta_project.form_project_handler.class%
         parent: kreta_core.form_handler.abstract

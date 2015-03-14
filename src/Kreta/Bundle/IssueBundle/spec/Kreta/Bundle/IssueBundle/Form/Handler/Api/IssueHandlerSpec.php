@@ -14,7 +14,6 @@ namespace spec\Kreta\Bundle\IssueBundle\Form\Handler\Api;
 use Doctrine\Common\Persistence\ObjectManager;
 use Kreta\Component\Issue\Factory\IssueFactory;
 use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
-use Kreta\Component\Project\Model\Interfaces\ParticipantInterface;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -55,7 +54,7 @@ class IssueHandlerSpec extends ObjectBehavior
 
     function it_does_not_handle_form_because_project_key_does_not_exist(IssueInterface $issue, Request $request)
     {
-        $this->shouldThrow(new ParameterNotFoundException('project'))
+        $this->shouldThrow(new ParameterNotFoundException('projects'))
             ->during('handleForm', [$request, $issue, []]);
     }
 
@@ -64,14 +63,12 @@ class IssueHandlerSpec extends ObjectBehavior
         IssueInterface $issue,
         FormFactory $formFactory,
         FormInterface $form,
-        ProjectInterface $project,
-        ParticipantInterface $participant
+        ProjectInterface $project
     )
     {
-        $project->getParticipants()->shouldBeCalled()->willReturn([$participant]);
         $formFactory->create(Argument::type('\Kreta\Bundle\IssueBundle\Form\Type\Api\IssueType'), $issue, [])
             ->shouldBeCalled()->willReturn($form);
 
-        $this->handleForm($request, $issue, ['project' => $project])->shouldReturn($form);
+        $this->handleForm($request, $issue, ['projects' => [$project]])->shouldReturn($form);
     }
 }

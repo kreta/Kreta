@@ -56,6 +56,42 @@ class IssueRepository extends EntityRepository
     }
 
     /**
+     * Finds all the issues where user given is participant.
+     * Can do ordering, limit and offset.
+     *
+     * @param \Kreta\Component\User\Model\Interfaces\UserInterface $user    The user
+     * @param array                                                $filters Array which contains the available filters
+     * @param string[]                                             $sorting Array which contains the sorting as key/val
+     * @param int                                                  $limit   The limit
+     * @param int                                                  $offset  The offset
+     *
+     * @return \Kreta\Component\Issue\Model\Interfaces\IssueInterface[]
+     */
+    public function findByParticipant(
+        UserInterface $user,
+        array $filters = [],
+        array $sorting = [],
+        $limit = null,
+        $offset = null
+    )
+    {
+        $queryBuilder = $this->getQueryBuilder()
+            ->addSelect('par')
+            ->join('p.participants', 'par');
+
+        $this->addCriteria($queryBuilder, ['par.user' => $user, 'like' => $filters]);
+        $this->orderBy($queryBuilder, $sorting);
+        if ($limit) {
+            $queryBuilder->setMaxResults($limit);
+        }
+        if ($offset) {
+            $queryBuilder->setFirstResult($offset);
+        }
+
+        return $queryBuilder->getQuery()->getResult();
+    }
+
+    /**
      * {@inheritdoc}
      */
     protected function getQueryBuilder()

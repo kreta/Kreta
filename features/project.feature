@@ -47,77 +47,112 @@ Feature: Manage projects
     Then the response code should be 200
     And the response should contain json:
     """
-      [{
-        "id": "0",
-        "name": "Test project 1",
-        "image": {
+      [
+        {
           "id": "0",
-          "name": "http://localhost/app_test.php/media/image/project-1.jpg"
-        },
-        "participants": [{
-          "role": "ROLE_ADMIN",
-          "user": {
+          "image": {
             "id": "0",
-            "email": "user@kreta.com",
-            "created_at": "2014-10-20T00:00:00+0200",
-            "first_name": "Kreta",
-            "last_name": "User"
+            "name": "http://localhost/app_test.php/media/image/project-1.jpg"
+          },
+          "name": "Test project 1",
+          "participants": [
+            {
+              "role": "ROLE_ADMIN",
+              "user": {
+                "id": "0",
+                "email": "user@kreta.com",
+                "created_at": "2014-10-20T00:00:00+0200",
+                "first_name": "Kreta",
+                "last_name": "User"
+              }
+            },
+            {
+              "role": "ROLE_PARTICIPANT",
+              "user": {
+                "id": "2",
+                "email": "user3@kreta.com",
+                "created_at": "2014-10-20T00:00:00+0200",
+                "first_name": "Kreta",
+                "last_name": "User3",
+                "photo": {
+                  "id": "3",
+                  "name": "http://localhost/app_test.php/media/image/user-3.jpg"
+                }
+              }
+            }
+          ],
+          "short_name": "TPR1",
+          "_links": {
+            "self": {
+              "href": "http://localhost/app_test.php/api/projects/0"
+            },
+            "projects": {
+              "href": "http://localhost/app_test.php/api/projects"
+            },
+            "issues": {
+              "href": "http://localhost/app_test.php/api/issues"
+            },
+            "statuses": {
+              "href": "http://localhost/app_test.php/api/workflows/0/statuses"
+            },
+            "labels": {
+              "href": "http://localhost/app_test.php/api/projects/0/labels"
+            }
           }
-        }],
-        "short_name": "TPR1",
-        "_links": {
-          "self": {
-            "href": "http://localhost/app_test.php/api/projects/0"
-          },
-          "projects": {
-            "href": "http://localhost/app_test.php/api/projects"
-          },
-          "issues": {
-            "href": "http://localhost/app_test.php/api/projects/0/issues"
-          },
-          "statuses": {
-            "href": "http://localhost/app_test.php/api/workflows/0/statuses"
-          },
-          "labels": {
-            "href": "http://localhost/app_test.php/api/projects/0/labels"
-          }
-        }
-      }, {
-        "id": "1",
-        "name": "Test project 2",
-        "image": {
+        },
+        {
           "id": "1",
-          "name": "http://localhost/app_test.php/media/image/project-2.jpg"
-        },
-        "participants": [{
-          "role": "ROLE_ADMIN",
-          "user": {
-            "id": "0",
-            "email": "user@kreta.com",
-            "created_at": "2014-10-20T00:00:00+0200",
-            "first_name": "Kreta",
-            "last_name": "User"
-          }
-        }],
-        "short_name": "TPR2",
-        "_links": {
-          "self": {
-            "href": "http://localhost/app_test.php/api/projects/1"
+          "image": {
+            "id": "1",
+            "name": "http://localhost/app_test.php/media/image/project-2.jpg"
           },
-          "projects": {
-            "href": "http://localhost/app_test.php/api/projects"
-          },
-          "issues": {
-            "href": "http://localhost/app_test.php/api/projects/1/issues"
-          },
-          "statuses": {
-            "href": "http://localhost/app_test.php/api/workflows/1/statuses"
-          },
-          "labels": {
-            "href": "http://localhost/app_test.php/api/projects/1/labels"
+          "name": "Test project 2",
+          "participants": [
+            {
+              "role": "ROLE_ADMIN",
+              "user": {
+                "id": "0",
+                "email": "user@kreta.com",
+                "created_at": "2014-10-20T00:00:00+0200",
+                "first_name": "Kreta",
+                "last_name": "User"
+              }
+            },
+            {
+              "role": "ROLE_PARTICIPANT",
+              "user": {
+                "id": "1",
+                "email": "user2@kreta.com",
+                "created_at": "2014-10-20T00:00:00+0200",
+                "first_name": "Kreta",
+                "last_name": "User2",
+                "photo": {
+                  "id": "2",
+                  "name": "http://localhost/app_test.php/media/image/user-2.jpg"
+                }
+              }
+            }
+          ],
+          "short_name": "TPR2",
+          "_links": {
+            "self": {
+              "href": "http://localhost/app_test.php/api/projects/1"
+            },
+            "projects": {
+              "href": "http://localhost/app_test.php/api/projects"
+            },
+            "issues": {
+              "href": "http://localhost/app_test.php/api/issues"
+            },
+            "statuses": {
+              "href": "http://localhost/app_test.php/api/workflows/1/statuses"
+            },
+            "labels": {
+              "href": "http://localhost/app_test.php/api/projects/1/labels"
+            }
           }
         }
-      }]
+      ]
     """
 
   Scenario: Getting the 0 project
@@ -171,7 +206,7 @@ Feature: Manage projects
             "href": "http://localhost/app_test.php/api/projects"
           },
           "issues": {
-            "href": "http://localhost/app_test.php/api/projects/0/issues"
+            "href": "http://localhost/app_test.php/api/issues"
           },
           "statuses": {
             "href": "http://localhost/app_test.php/api/workflows/0/statuses"
@@ -400,7 +435,7 @@ Feature: Manage projects
             "href": "http://localhost/app_test.php/api/projects"
           },
           "issues": {
-            "href": "http://localhost/app_test.php/api/projects/0/issues"
+            "href": "http://localhost/app_test.php/api/issues"
           },
           "statuses": {
             "href": "http://localhost/app_test.php/api/workflows/0/statuses"

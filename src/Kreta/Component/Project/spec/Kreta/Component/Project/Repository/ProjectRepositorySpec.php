@@ -69,7 +69,7 @@ class ProjectRepositorySpec extends BaseEntityRepository
     {
         $manager->createQueryBuilder()->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->select('p')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->addSelect(['img', 'i', 'par', 'w'])->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->addSelect(['img', 'i', 'w'])->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->from(Argument::any(), 'p', null)->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->leftJoin('p.image', 'img')->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->leftJoin('p.issues', 'i')->shouldBeCalled()->willReturn($queryBuilder);

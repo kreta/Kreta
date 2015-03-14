@@ -29,9 +29,8 @@ use Nelmio\ApiDocBundle\Annotation\ApiDoc;
 class TimeEntryController extends RestController
 {
     /**
-     * Returns all time entries of project id and issue id given, it admits sort, limit and offset.
+     * Returns all time entries of issue id given, it admits sort, limit and offset.
      *
-     * @param string                               $projectId    The project id
      * @param string                               $issueId      The issue id
      * @param \FOS\RestBundle\Request\ParamFetcher $paramFetcher The param fetcher
      *
@@ -40,7 +39,7 @@ class TimeEntryController extends RestController
      * @QueryParam(name="offset", requirements="\d+", default="0", description="Offset in pages")
      *
      * @ApiDoc(
-     *  description = "Returns all time entries of project id and issue id given, it admits sort, limit and offset",
+     *  description = "Returns all time entries of issue id given, it admits sort, limit and offset",
      *  requirements = {
      *    {
      *      "name"="_format",
@@ -55,7 +54,7 @@ class TimeEntryController extends RestController
      *    404 = "Does not exist any object with id passed"
      *  }
      * )
-     * @Get("/projects/{projectId}/issues/{issueId}/time-entries")
+     * @Get("/issues/{issueId}/time-entries")
      *
      * @View(
      *  statusCode=200,
@@ -64,9 +63,9 @@ class TimeEntryController extends RestController
      *
      * @return \Kreta\Component\TimeTracking\Model\Interfaces\TimeEntryInterface[]
      */
-    public function getTimeEntriesAction($projectId, $issueId, ParamFetcher $paramFetcher)
+    public function getTimeEntriesAction($issueId, ParamFetcher $paramFetcher)
     {
-        $issue = $this->getIssueIfAllowed($projectId, $issueId);
+        $issue = $this->getIssueIfAllowed($issueId);
 
         return $this->get('kreta_time_tracking.repository.time_entry')->findByIssue(
             $issue,
@@ -77,14 +76,13 @@ class TimeEntryController extends RestController
     }
 
     /**
-     * Returns the time entry of project id and issue id and time entry id given.
+     * Returns the time entry of issue id and time entry id given.
      *
-     * @param string $projectId   The project id
      * @param string $issueId     The issue id
      * @param string $timeEntryId The time entry id
      *
      * @ApiDoc(
-     *  description = "Returns the time entry of project id and issue id and time entry id given",
+     *  description = "Returns the time entry of issue id and time entry id given",
      *  requirements = {
      *    {
      *      "name"="_format",
@@ -98,7 +96,7 @@ class TimeEntryController extends RestController
      *    404 = "Does not exist any object with id passed"
      *  }
      * )
-     * @Get("/projects/{projectId}/issues/{issueId}/time-entries/{timeEntryId}")
+     * @Get("/issues/{issueId}/time-entries/{timeEntryId}")
      *
      * @View(
      *  statusCode=200,
@@ -107,16 +105,15 @@ class TimeEntryController extends RestController
      *
      * @return \Kreta\Component\Issue\Model\Interfaces\IssueInterface
      */
-    public function getTimeEntryAction($projectId, $issueId, $timeEntryId)
+    public function getTimeEntryAction($issueId, $timeEntryId)
     {
-        return $this->getTimeEntryIfAllowed($projectId, $issueId, $timeEntryId);
+        return $this->getTimeEntryIfAllowed($issueId, $timeEntryId);
     }
 
     /**
      * Creates new time entry for description, and time spent given.
      *
-     * @param string $projectId The project id
-     * @param string $issueId   The issue id
+     * @param string $issueId The issue id
      *
      * @ApiDoc(
      *  description = "Creates new time entry for description, and time spent given",
@@ -137,7 +134,7 @@ class TimeEntryController extends RestController
      *  }
      * )
      *
-     * @Post("/projects/{projectId}/issues/{issueId}/time-entries")
+     * @Post("/issues/{issueId}/time-entries")
      *
      * @View(
      *  statusCode=201,
@@ -146,9 +143,9 @@ class TimeEntryController extends RestController
      *
      * @return \Kreta\Component\TimeTracking\Model\Interfaces\TimeEntryInterface
      */
-    public function postTimeEntriesAction($projectId, $issueId)
+    public function postTimeEntriesAction($issueId)
     {
-        $issue = $this->getIssueIfAllowed($projectId, $issueId);
+        $issue = $this->getIssueIfAllowed($issueId);
 
         return $this->get('kreta_time_tracking.form_handler.time_entry')->processForm(
             $this->get('request'), null, ['issue' => $issue]
@@ -156,14 +153,13 @@ class TimeEntryController extends RestController
     }
 
     /**
-     * Updates the time entry of project id, issue id, and id given.
+     * Updates the time entry of issue id, and id given.
      *
-     * @param string $projectId   The project id
      * @param string $issueId     The issue id
      * @param string $timeEntryId The time entry id
      *
      * @ApiDoc(
-     *  description = "Updates the time entry of project id, issue id, and id given",
+     *  description = "Updates the time entry of issue id, and id given",
      *  input = "Kreta\Bundle\TimeTrackingBundle\Form\Type\TimeEntryType",
      *  output = "Kreta\Component\TimeTracking\Model\Interfaces\TimeEntryInterface",
      *  requirements = {
@@ -181,7 +177,7 @@ class TimeEntryController extends RestController
      *  }
      * )
      *
-     * @Put("/projects/{projectId}/issues/{issueId}/time-entries/{timeEntryId}")
+     * @Put("/issues/{issueId}/time-entries/{timeEntryId}")
      *
      * @View(
      *  statusCode=200,
@@ -190,9 +186,9 @@ class TimeEntryController extends RestController
      *
      * @return \Kreta\Component\TimeTracking\Model\Interfaces\TimeEntryInterface
      */
-    public function putTimeEntriesAction($projectId, $issueId, $timeEntryId)
+    public function putTimeEntriesAction($issueId, $timeEntryId)
     {
-        $timeEntry = $this->getTimeEntryIfAllowed($projectId, $issueId, $timeEntryId, 'view', 'view', 'edit');
+        $timeEntry = $this->getTimeEntryIfAllowed($issueId, $timeEntryId, 'view', 'edit');
 
         return $this->get('kreta_time_tracking.form_handler.time_entry')->processForm(
             $this->get('request'), $timeEntry, ['method' => 'PUT', 'issue' => $timeEntry->getIssue()]
@@ -200,14 +196,13 @@ class TimeEntryController extends RestController
     }
 
     /**
-     * Deletes the time entry of project id, issue id, and id given.
+     * Deletes the time entry of issue id, and id given.
      *
-     * @param string $projectId   The project id
      * @param string $issueId     The issue id
      * @param string $timeEntryId The time entry id
      *
      * @ApiDoc(
-     *  description = "Deletes the time entry of project id, issue id, and id given",
+     *  description = "Deletes the time entry of issue id, and id given",
      *  requirements = {
      *    {
      *      "name"="_format",
@@ -222,40 +217,36 @@ class TimeEntryController extends RestController
      *  }
      * )
      *
-     * @Delete("/projects/{projectId}/issues/{issueId}/time-entries/{timeEntryId}")
+     * @Delete("/issues/{issueId}/time-entries/{timeEntryId}")
      *
      * @View(statusCode=204)
      *
      * @return void
      */
-    public function deleteTimeEntriesAction($projectId, $issueId, $timeEntryId)
+    public function deleteTimeEntriesAction($issueId, $timeEntryId)
     {
-        $timeEntry = $this->getTimeEntryIfAllowed($projectId, $issueId, $timeEntryId, 'view', 'view', 'delete');
+        $timeEntry = $this->getTimeEntryIfAllowed($issueId, $timeEntryId, 'view', 'delete');
         $this->get('kreta_time_tracking.repository.time_entry')->remove($timeEntry);
     }
 
     /**
      * Gets the time entry if the current user is granted and if the time entry exists.
      *
-     * @param string $projectId      The project id
      * @param string $issueId        The issue id
      * @param string $timeEntryId    The time entry id
-     * @param string $projectGrant   The project grant
      * @param string $issueGrant     The issue grant
      * @param string $timeEntryGrant The time entry grant
      *
      * @return \Kreta\Component\TimeTracking\Model\Interfaces\TimeEntryInterface
      */
     protected function getTimeEntryIfAllowed(
-        $projectId,
         $issueId,
         $timeEntryId,
-        $projectGrant = 'view',
         $issueGrant = 'view',
         $timeEntryGrant = 'view'
     )
     {
-        $this->getIssueIfAllowed($projectId, $issueId, $projectGrant, $issueGrant);
+        $this->getIssueIfAllowed($issueId, $issueGrant);
 
         return $this->getResourceIfAllowed(
             $this->get('kreta_time_tracking.repository.time_entry'),
