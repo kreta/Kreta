@@ -61,13 +61,13 @@ Kreta\Component\Project\Model\Project:
             groups: []
         name:
             expose: true
-            groups: [projectList, project]
+            groups: [projectList, project, participantList, participant]
         participants:
             expose: true
             groups: [projectList, project]
         shortName:
             expose: true
-            groups: [projectList, project]
+            groups: [projectList, project, participantList, participant]
         statuses:
             expose: true
             groups: []

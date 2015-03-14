@@ -26,9 +26,9 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 class LabelType extends AbstractType
 {
     /**
-     * The project factory.
+     * The label factory.
      *
-     * @var \Kreta\Component\Project\Factory\ProjectFactory
+     * @var \Kreta\Component\Project\Factory\LabelFactory
      */
     protected $factory;
 
