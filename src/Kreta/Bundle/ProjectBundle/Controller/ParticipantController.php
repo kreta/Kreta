@@ -30,7 +30,7 @@ class ParticipantController extends RestController
      * @param string                               $projectId    The project id
      * @param \FOS\RestBundle\Request\ParamFetcher $paramFetcher The param fetcher
      *
-     * @QueryParam(name="limit", requirements="\d+", default="9999", description="Amount of projects to be returned")
+     * @QueryParam(name="limit", requirements="\d+", default="9999", description="Amount of participants to be returned")
      * @QueryParam(name="offset", requirements="\d+", default="0", description="Offset in pages")
      * @QueryParam(name="q", requirements="(.*)", strict=true, nullable=true, description="User email filter")
      *
@@ -73,7 +73,7 @@ class ParticipantController extends RestController
      * @param string $projectId The project id
      *
      * @ApiDoc(
-     *  description = "Creates new participant for name given",
+     *  description = "Creates new participant for role and user given",
      *  input = "Kreta\Bundle\ProjectBundle\Form\Type\Api\ParticipantType",
      *  output = "Kreta\Component\Project\Model\Interfaces\ParticipantInterface",
      *  requirements = {
@@ -110,13 +110,13 @@ class ParticipantController extends RestController
     }
 
     /**
-     * Deletes participant of project id and participant id given.
+     * Deletes participant of project id and user id given.
      *
      * @param string $projectId The project id
      * @param string $userId    The user id
      *
      * @ApiDoc(
-     *  description = "Deletes participant of project id and participant id given",
+     *  description = "Deletes participant of project id and user id given",
      *  requirements = {
      *    {
      *      "name"="_format",
