@@ -31,7 +31,7 @@ class LoadProjectData extends DataFixtures
 
         for ($i = 0; $i < 10; $i++) {
             $project = $this->container->get('kreta_project.factory.project')->create($users[array_rand($users)]);
-            $project->setName('This is the project number ' . $i . ' that is created by fixtures');
+            $project->setName('Project ' . $i);
             $project->setShortName('PR' . $i);
             $project->setImage($images[$i]);
 
