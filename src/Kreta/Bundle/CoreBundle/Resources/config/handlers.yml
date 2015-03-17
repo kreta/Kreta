@@ -8,4 +8,8 @@
 services:
     kreta_core.form_handler.abstract:
         abstract: true
-        arguments: [@form.factory, @doctrine.orm.entity_manager, @event_dispatcher]
+        arguments: 
+            - @form.factory
+            - @doctrine.orm.entity_manager
+            - @event_dispatcher
+            - @?kreta_media.factory.media

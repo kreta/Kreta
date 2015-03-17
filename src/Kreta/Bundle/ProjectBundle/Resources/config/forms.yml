@@ -6,6 +6,7 @@
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
 services:
+#### HANDLERS ####
     kreta_project.form_handler.api.label:
         class: Kreta\Bundle\ProjectBundle\Form\Handler\Api\LabelHandler
         parent: kreta_core.form_handler.abstract
@@ -13,7 +14,8 @@ services:
     kreta_project.form_handler.api.project:
         class: Kreta\Bundle\ProjectBundle\Form\Handler\Api\ProjectHandler
         parent: kreta_core.form_handler.abstract
-        arguments: [@kreta_media.factory.media, @kreta_project.uploader.image_project, @security.context, @kreta_project.factory.project, @kreta_workflow.repository.workflow]
+        arguments: 
+            - @kreta_project.uploader.image_project
     kreta_project.form_handler.api.participant:
         class: Kreta\Bundle\ProjectBundle\Form\Handler\Api\ParticipantHandler
         parent: kreta_core.form_handler.abstract
@@ -22,3 +24,14 @@ services:
         class: %kreta_project.form_project_handler.class%
         parent: kreta_core.form_handler.abstract
         arguments: [@kreta_media.factory.media, @kreta_project.uploader.image_project]
+
+#### TYPES ####
+    kreta_project.form_type.project:
+        class: Kreta\Bundle\ProjectBundle\Form\Type\Api\ProjectType
+        arguments:
+            - %kreta_project.project.class%
+            - @kreta_project.factory.project
+            - @doctrine.orm.entity_manager
+            - @security.context
+        tags:
+            - { name: form.type, alias: 'kreta_project_project_type' }
