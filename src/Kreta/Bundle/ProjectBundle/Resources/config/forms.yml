@@ -13,8 +13,9 @@ services:
         arguments: [@kreta_project.factory.label]
     kreta_project.form_handler.api.project:
         class: Kreta\Bundle\ProjectBundle\Form\Handler\Api\ProjectHandler
-        parent: kreta_core.form_handler.abstract
+        parent: kreta_core.form_handler.handler
         arguments: 
+            - @kreta_media.factory.media
             - @kreta_project.uploader.image_project
     kreta_project.form_handler.api.participant:
         class: Kreta\Bundle\ProjectBundle\Form\Handler\Api\ParticipantHandler
@@ -27,7 +28,7 @@ services:
 
 #### TYPES ####
     kreta_project.form_type.project:
-        class: Kreta\Bundle\ProjectBundle\Form\Type\Api\ProjectType
+        class: %kreta_project.form_type.project.class%
         arguments:
             - %kreta_project.project.class%
             - @kreta_project.factory.project

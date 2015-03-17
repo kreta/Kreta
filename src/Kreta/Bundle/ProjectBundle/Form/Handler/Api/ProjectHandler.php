@@ -11,7 +11,11 @@
 
 namespace Kreta\Bundle\ProjectBundle\Form\Handler\Api;
 
-use Kreta\Bundle\ProjectBundle\Form\Handler\ProjectHandler as BaseProjectFormHandler;
+use Doctrine\Common\Persistence\ObjectManager;
+use Kreta\Bundle\CoreBundle\Form\Handler\Handler;
+use Kreta\Component\Media\Factory\MediaFactory;
+use Kreta\Component\Media\Uploader\MediaUploader;
+use Symfony\Component\Form\FormFactory;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\FileBag;
 
@@ -20,17 +24,45 @@ use Symfony\Component\HttpFoundation\FileBag;
  *
  * @package Kreta\Bundle\ProjectBundle\Form\Handler\Api
  */
-class ProjectHandler extends BaseProjectFormHandler
+class ProjectHandler extends Handler
 {
     /**
      * {@inheritdoc}
      */
-    protected function createForm($object = null, array $formOptions = [])
-    {
-        return $this->formFactory->createNamedBuilder(
-            '', 'kreta_project_project_type', $object, $formOptions
-        )->getForm();
+    protected $formName = 'kreta_project_project_type';
 
+    /**
+     * The media factory.
+     *
+     * @var \Kreta\Component\Media\Factory\MediaFactory
+     */
+    protected $mediaFactory;
+
+    /**
+     * The media uploader.
+     *
+     * @var \Kreta\Component\Media\Uploader\MediaUploader
+     */
+    protected $uploader;
+
+    /**
+     * Constructor.
+     *
+     * @param \Symfony\Component\Form\FormFactory           $formFactory  Creates a new Form instance
+     * @param \Doctrine\Common\Persistence\ObjectManager    $manager      Persists and flush the object
+     * @param \Kreta\Component\Media\Factory\MediaFactory   $mediaFactory Creates a new Project image
+     * @param \Kreta\Component\Media\Uploader\MediaUploader $uploader     Uploads Project images
+     */
+    public function __construct(
+        FormFactory $formFactory,
+        ObjectManager $manager,
+        MediaFactory $mediaFactory,
+        MediaUploader $uploader
+    )
+    {
+        parent::__construct($formFactory, $manager);
+        $this->mediaFactory = $mediaFactory;
+        $this->uploader = $uploader;
     }
 
     /**
