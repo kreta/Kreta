@@ -11,4 +11,6 @@ parameters:
     kreta_time_tracking.factory_time_entry.class: Kreta\Component\TimeTracking\Factory\TimeEntryFactory
     kreta_time_tracking.repository_time_entry.class: Kreta\Component\TimeTracking\Repository\TimeEntryRepository
 
+    kreta_time_tracking.form_type.time_entry.class: Kreta\Bundle\TimeTrackingBundle\Form\Type\TimeEntryType
+
     kreta_time_tracking.security_time_entry_voter.class: Kreta\Bundle\TimeTrackingBundle\Security\Authorization\Voter\TimeEntryVoter

@@ -11,10 +11,9 @@
 
 namespace Kreta\Bundle\TimeTrackingBundle\Form\Type;
 
-use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
-use Kreta\Component\TimeTracking\Factory\TimeEntryFactory;
-use Symfony\Component\Form\AbstractType;
+use Kreta\Bundle\CoreBundle\Form\Type\Abstracts\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
@@ -25,36 +24,11 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 class TimeEntryType extends AbstractType
 {
     /**
-     * The issue factory.
-     *
-     * @var \Kreta\Component\TimeTracking\Factory\TimeEntryFactory
-     */
-    protected $factory;
-
-    /**
-     * The project.
-     *
-     * @var \Kreta\Component\Issue\Model\Interfaces\IssueInterface
-     */
-    protected $issue;
-
-    /**
-     * Constructor.
-     *
-     * @param \Kreta\Component\Issue\Model\Interfaces\IssueInterface $issue   The issue
-     * @param \Kreta\Component\TimeTracking\Factory\TimeEntryFactory $factory The time entry factory
-     */
-    public function __construct(IssueInterface $issue, TimeEntryFactory $factory)
-    {
-        $this->factory = $factory;
-        $this->issue = $issue;
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        parent::buildForm($builder, $options);
         $builder
             ->add('description', 'textarea', ['required' => false])
             ->add('timeSpent', 'integer');
@@ -65,13 +39,16 @@ class TimeEntryType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults([
-            'data_class'      => 'Kreta\Component\TimeTracking\Model\TimeEntry',
-            'csrf_protection' => false,
-            'empty_data'      => function () {
-                return $this->factory->create($this->issue);
-            }
-        ]);
+        parent::setDefaultOptions($resolver);
+        $resolver->setRequired(['issue']);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function createEmptyData(FormInterface $form)
+    {
+        return $this->factory->create($this->options['issue']);
     }
 
     /**
@@ -79,6 +56,6 @@ class TimeEntryType extends AbstractType
      */
     public function getName()
     {
-        return '';
+        return 'kreta_time_tracking_time_entry_type';
     }
 }
