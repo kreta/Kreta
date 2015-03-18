@@ -11,9 +11,7 @@
 
 namespace Kreta\Bundle\ProjectBundle\Form\Type\Api;
 
-use Kreta\Component\Project\Factory\LabelFactory;
-use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
-use Symfony\Component\Form\AbstractType;
+use Kreta\Bundle\CoreBundle\Form\Type\Abstracts\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -26,52 +24,29 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 class LabelType extends AbstractType
 {
     /**
-     * The label factory.
-     *
-     * @var \Kreta\Component\Project\Factory\LabelFactory
-     */
-    protected $factory;
-
-    /**
-     * The project.
-     *
-     * @var \Kreta\Component\Project\Model\Interfaces\ProjectInterface
-     */
-    protected $project;
-
-    /**
-     * Constructor.
-     *
-     * @param \Kreta\Component\Project\Model\Interfaces\ProjectInterface $project      The project
-     * @param \Kreta\Component\Project\Factory\LabelFactory              $labelFactory The label factory
-     */
-    public function __construct(ProjectInterface $project, LabelFactory $labelFactory)
-    {
-        $this->project = $project;
-        $this->factory = $labelFactory;
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('name');
+        parent::buildForm($builder, $options);
+        $builder->add('name');
     }
-
+    
     /**
      * {@inheritdoc}
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults([
-            'data_class'      => 'Kreta\Component\Project\Model\Label',
-            'csrf_protection' => false,
-            'empty_data'      => function (FormInterface $form) {
-                return $this->factory->create($this->project, $form->get('name')->getData());
-            }
-        ]);
+        parent::setDefaultOptions($resolver);
+        $resolver->setRequired(['project']);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function createEmptyData(FormInterface $form)
+    {
+        return $this->factory->create($this->options['project'], $form->get('name')->getData());
     }
 
     /**
@@ -79,6 +54,6 @@ class LabelType extends AbstractType
      */
     public function getName()
     {
-        return '';
+        return 'kreta_project_label_type';
     }
 }

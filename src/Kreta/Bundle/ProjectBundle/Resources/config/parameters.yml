@@ -20,6 +20,9 @@ parameters:
 
     kreta_project.form_project_handler.class: Kreta\Bundle\ProjectBundle\Form\Handler\ProjectHandler
     
+    kreta_project.form_type.label.class: Kreta\Bundle\ProjectBundle\Form\Type\Api\LabelType
     kreta_project.form_type.project.class: Kreta\Bundle\ProjectBundle\Form\Type\Api\ProjectType
+    kreta_project.form_type.participant.class: Kreta\Bundle\ProjectBundle\Form\Type\Api\ParticipantType
+    kreta_project.form_type.role.class: Kreta\Bundle\ProjectBundle\Form\Type\Api\RoleType
 
     kreta_project.security_project_voter.class: Kreta\Bundle\ProjectBundle\Security\Authorization\Voter\ProjectVoter

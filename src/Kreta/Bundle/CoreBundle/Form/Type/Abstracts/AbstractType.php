@@ -13,6 +13,7 @@ namespace Kreta\Bundle\CoreBundle\Form\Type\Abstracts;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\AbstractType as BaseAbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -48,6 +49,13 @@ abstract class AbstractType extends BaseAbstractType
     protected $manager;
 
     /**
+     * Array that contains the form options.
+     *
+     * @var array
+     */
+    protected $options = [];
+
+    /**
      * The user.
      *
      * @var \Symfony\Component\Security\Core\SecurityContextInterface|null
@@ -73,6 +81,14 @@ abstract class AbstractType extends BaseAbstractType
                 throw new AccessDeniedException();
             }
         }
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        $this->options = $options;
     }
 
     /**

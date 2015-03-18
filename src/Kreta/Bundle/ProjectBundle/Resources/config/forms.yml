@@ -8,9 +8,9 @@
 services:
 #### HANDLERS ####
     kreta_project.form_handler.api.label:
-        class: Kreta\Bundle\ProjectBundle\Form\Handler\Api\LabelHandler
-        parent: kreta_core.form_handler.abstract
-        arguments: [@kreta_project.factory.label]
+        parent: kreta_core.form_handler.handler
+        arguments:
+            - kreta_project_label_type
     kreta_project.form_handler.api.project:
         class: Kreta\Bundle\ProjectBundle\Form\Handler\Api\ProjectHandler
         parent: kreta_core.form_handler.handler
@@ -19,15 +19,24 @@ services:
             - @kreta_media.factory.media
             - @kreta_project.uploader.image_project
     kreta_project.form_handler.api.participant:
-        class: Kreta\Bundle\ProjectBundle\Form\Handler\Api\ParticipantHandler
-        parent: kreta_core.form_handler.abstract
-        arguments: [@security.context, @kreta_project.factory.participant, @kreta_user.repository.user]
+        parent: kreta_core.form_handler.handler
+        arguments:
+            - kreta_project_participant_type
     kreta_project.form_handler.project:
         class: %kreta_project.form_project_handler.class%
         parent: kreta_core.form_handler.abstract
         arguments: [@kreta_media.factory.media, @kreta_project.uploader.image_project]
 
 #### TYPES ####
+    kreta_project.form_type.label:
+        class: %kreta_project.form_type.label.class%
+        arguments:
+            - %kreta_project.label.class%
+            - @kreta_project.factory.label
+            - @doctrine.orm.entity_manager
+            - @security.context
+        tags:
+            - { name: form.type, alias: 'kreta_project_label_type' }
     kreta_project.form_type.project:
         class: %kreta_project.form_type.project.class%
         arguments:
@@ -37,3 +46,16 @@ services:
             - @security.context
         tags:
             - { name: form.type, alias: 'kreta_project_project_type' }
+    kreta_project.form_type.participant:
+        class: %kreta_project.form_type.participant.class%
+        arguments:
+            - %kreta_project.participant.class%
+            - @kreta_project.factory.participant
+            - @doctrine.orm.entity_manager
+            - @security.context
+        tags:
+            - { name: form.type, alias: 'kreta_project_participant_type' }
+    kreta_project.form_type.role:
+        class: %kreta_project.form_type.role.class%
+        tags:
+            - { name: form.type, alias: 'kreta_project_role_type' }
