@@ -18,7 +18,6 @@ services:
         arguments:
             - %kreta_time_tracking.time_entry.class%
             - @kreta_time_tracking.factory.time_entry
-            - @doctrine.orm.entity_manager
             - @security.context
         tags:
             - { name: form.type, alias: 'kreta_time_tracking_time_entry_type' }

@@ -21,7 +21,6 @@ services:
         arguments:
             - %kreta_comment.comment.class%
             - @kreta_comment.factory.comment
-            - @doctrine.orm.entity_manager
             - @security.context
         tags:
             - { name: form.type, alias: 'kreta_comment_comment_type' }

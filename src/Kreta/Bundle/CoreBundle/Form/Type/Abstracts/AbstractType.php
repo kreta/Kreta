@@ -65,12 +65,17 @@ abstract class AbstractType extends BaseAbstractType
     /**
      * Constructor.
      *
-     * @param string                                                    $dataClass The data class
-     * @param Object                                                    $factory   The factory
-     * @param \Doctrine\Common\Persistence\ObjectManager                $manager   The manager
-     * @param \Symfony\Component\Security\Core\SecurityContextInterface $context   The security context
+     * @param string                                                         $dataClass The data class
+     * @param Object                                                         $factory   The factory
+     * @param \Symfony\Component\Security\Core\SecurityContextInterface|null $context   The security context
+     * @param \Doctrine\Common\Persistence\ObjectManager|null                $manager   The manager
      */
-    public function __construct($dataClass, $factory, ObjectManager $manager, SecurityContextInterface $context = null)
+    public function __construct(
+        $dataClass,
+        $factory,
+        SecurityContextInterface $context = null,
+        ObjectManager $manager = null
+    )
     {
         $this->dataClass = $dataClass;
         $this->factory = $factory;

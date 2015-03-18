@@ -6,19 +6,6 @@
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
 services:
-    kreta_workflow.form_handler.api.status:
-        class: Kreta\Bundle\WorkflowBundle\Form\Handler\Api\StatusHandler
-        parent: kreta_core.form_handler.abstract
-        arguments: [@kreta_workflow.factory.status]
-    kreta_workflow.form_handler.api.status_transition:
-        class: Kreta\Bundle\WorkflowBundle\Form\Handler\Api\StatusTransitionHandler
-        parent: kreta_core.form_handler.abstract
-        arguments: [@kreta_workflow.factory.status_transition, @kreta_workflow.repository.status]
-    kreta_workflow.form_handler.api.workflow:
-        class: Kreta\Bundle\WorkflowBundle\Form\Handler\Api\WorkflowHandler
-        parent: kreta_core.form_handler.abstract
-        arguments: [@security.context, @kreta_workflow.factory.workflow]
-
 #### SECURITY ####
     kreta_workflow.voter.workflow:
         class: %kreta_workflow.security_workflow_voter.class%

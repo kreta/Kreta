@@ -24,18 +24,11 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 class CommentType extends AbstractType
 {
     /**
-     * The issue.
-     *
-     * @var \Kreta\Component\Issue\Model\Interfaces\IssueInterface
-     */
-    protected $issue;
-
-    /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $this->issue = $options['issue'];
+        parent::buildForm($builder, $options);
         $builder->add('description', 'textarea');
     }
 
@@ -61,6 +54,6 @@ class CommentType extends AbstractType
      */
     protected function createEmptyData(FormInterface $form)
     {
-        return $this->factory->create($this->issue, $this->user);
+        return $this->factory->create($this->options['issue'], $this->user);
     }
 }

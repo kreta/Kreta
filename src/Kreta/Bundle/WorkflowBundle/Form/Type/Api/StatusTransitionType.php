@@ -11,10 +11,7 @@
 
 namespace Kreta\Bundle\WorkflowBundle\Form\Type\Api;
 
-use Kreta\Component\Workflow\Factory\StatusTransitionFactory;
-use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
-use Kreta\Component\Workflow\Repository\StatusRepository;
-use Symfony\Component\Form\AbstractType;
+use Kreta\Bundle\CoreBundle\Form\Type\Abstracts\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -27,62 +24,16 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 class StatusTransitionType extends AbstractType
 {
     /**
-     * The status transition factory.
-     *
-     * @var \Kreta\Component\Workflow\Factory\StatusTransitionFactory
-     */
-    protected $factory;
-
-    /**
-     * The status repository.
-     *
-     * @var \Kreta\Component\Workflow\Repository\StatusRepository
-     */
-    protected $repository;
-
-    /**
-     * Array which contains statuses.
-     *
-     * @var \Kreta\Component\Workflow\Model\Interfaces\StatusInterface[]
-     */
-    protected $statuses;
-
-    /**
-     * The status transition's workflow.
-     *
-     * @var \Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface
-     */
-    protected $workflow;
-
-    /**
-     * Constructor.
-     *
-     * @param \Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface $workflow          The workflow
-     * @param \Kreta\Component\Workflow\Factory\StatusTransitionFactory    $transitionFactory The transition factory
-     * @param \Kreta\Component\Workflow\Repository\StatusRepository        $statusRepository  The status repository
-     */
-    public function __construct(
-        WorkflowInterface $workflow,
-        StatusTransitionFactory $transitionFactory,
-        StatusRepository $statusRepository
-    )
-    {
-        $this->workflow = $workflow;
-        $this->factory = $transitionFactory;
-        $this->statuses = $workflow->getStatuses();
-        $this->repository = $statusRepository;
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        parent::buildForm($builder, $options);
         $builder
-            ->add('name', null)
+            ->add('name')
             ->add('state', 'entity', [
                 'class'   => 'Kreta\Component\Workflow\Model\Status',
-                'choices' => $this->statuses,
+                'choices' => $options['workflow']->getStatuses(),
             ])
             ->add('initials', null, [
                 'mapped' => false
@@ -94,17 +45,8 @@ class StatusTransitionType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults([
-            'data_class'      => 'Kreta\Component\Workflow\Model\StatusTransition',
-            'csrf_protection' => false,
-            'empty_data'      => function (FormInterface $form) {
-                return $this->factory->create(
-                    $form->get('name')->getData(),
-                    $form->get('state')->getData(),
-                    $this->repository->findByIds($form->get('initials')->getData(), $this->workflow)
-                );
-            }
-        ]);
+        parent::setDefaultOptions($resolver);
+        $resolver->setRequired(['workflow']);
     }
 
     /**
@@ -112,6 +54,20 @@ class StatusTransitionType extends AbstractType
      */
     public function getName()
     {
-        return '';
+        return 'kreta_workflow_status_transition_type';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function createEmptyData(FormInterface $form)
+    {
+        return $this->factory->create(
+            $form->get('name')->getData(),
+            $form->get('state')->getData(),
+            $this->manager->getRepository('Kreta\Component\Workflow\Model\Status')->findByIds(
+                $form->get('initials')->getData(), $this->options['workflow']
+            )
+        );
     }
 }

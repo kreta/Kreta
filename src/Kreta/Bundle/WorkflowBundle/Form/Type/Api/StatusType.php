@@ -12,9 +12,7 @@
 namespace Kreta\Bundle\WorkflowBundle\Form\Type\Api;
 
 use Finite\State\StateInterface;
-use Kreta\Component\Workflow\Factory\StatusFactory;
-use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
-use Symfony\Component\Form\AbstractType;
+use Kreta\Bundle\CoreBundle\Form\Type\Abstracts\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
@@ -27,39 +25,14 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 class StatusType extends AbstractType
 {
     /**
-     * The status factory.
-     *
-     * @var \Kreta\Component\Workflow\Factory\StatusFactory
-     */
-    protected $factory;
-
-    /**
-     * The workflow.
-     *
-     * @var \Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface
-     */
-    protected $workflow;
-
-    /**
-     * Constructor.
-     *
-     * @param \Kreta\Component\Workflow\Factory\StatusFactory                   $statusFactory The status factory
-     * @param \Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface|null $workflow      The workflow
-     */
-    public function __construct(StatusFactory $statusFactory, WorkflowInterface $workflow = null)
-    {
-        $this->factory = $statusFactory;
-        $this->workflow = $workflow;
-    }
-
-    /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
+        parent::buildForm($builder, $options);
         $builder
-            ->add('color', null)
-            ->add('name', null)
+            ->add('color')
+            ->add('name')
             ->add('type', 'choice', [
                 'required' => false,
                 'choices'  => [
@@ -75,17 +48,8 @@ class StatusType extends AbstractType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults([
-            'data_class'         => 'Kreta\Component\Workflow\Model\Status',
-            'csrf_protection'    => false,
-            'empty_data'         => function (FormInterface $form) {
-                if (!($type = $form->get('type')->getData())) {
-                    return $this->factory->create($form->get('name')->getData(), $this->workflow, $type);
-                }
-
-                return $this->factory->create($form->get('name')->getData(), $this->workflow);
-            }
-        ]);
+        parent::setDefaultOptions($resolver);
+        $resolver->setOptional(['workflow']);
     }
 
     /**
@@ -93,6 +57,16 @@ class StatusType extends AbstractType
      */
     public function getName()
     {
-        return '';
+        return 'kreta_workflow_status_type';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function createEmptyData(FormInterface $form)
+    {
+        return $this->factory->create(
+            $form->get('name')->getData(), $this->options['workflow'], $form->get('type')->getData()
+        );
     }
 }

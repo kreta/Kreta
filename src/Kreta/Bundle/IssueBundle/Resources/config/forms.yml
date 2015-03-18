@@ -24,7 +24,6 @@ services:
         arguments:
             - %kreta_issue.issue.class%
             - @kreta_issue.factory.issue
-            - @doctrine.orm.entity_manager
             - @security.context
         tags:
             - { name: form.type, alias: 'kreta_issue_issue_type' }

@@ -33,7 +33,6 @@ services:
         arguments:
             - %kreta_project.label.class%
             - @kreta_project.factory.label
-            - @doctrine.orm.entity_manager
             - @security.context
         tags:
             - { name: form.type, alias: 'kreta_project_label_type' }
@@ -42,7 +41,6 @@ services:
         arguments:
             - %kreta_project.project.class%
             - @kreta_project.factory.project
-            - @doctrine.orm.entity_manager
             - @security.context
         tags:
             - { name: form.type, alias: 'kreta_project_project_type' }
@@ -51,7 +49,6 @@ services:
         arguments:
             - %kreta_project.participant.class%
             - @kreta_project.factory.participant
-            - @doctrine.orm.entity_manager
             - @security.context
         tags:
             - { name: form.type, alias: 'kreta_project_participant_type' }
