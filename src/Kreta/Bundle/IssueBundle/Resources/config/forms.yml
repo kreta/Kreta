@@ -8,11 +8,9 @@
 services:
 #### FORM HANDLER ####
     kreta_issue.form_handler.api.issue:
-        class: Kreta\Bundle\IssueBundle\Form\Handler\Api\IssueHandler
         parent: kreta_core.form_handler.handler
         arguments: 
-            - @security.context
-            - @kreta_issue.factory.issue
+            - kreta_issue_issue_type
     kreta_issue.form_handler.issue:
         class: %kreta_issue.form_issue_handler.class%
         arguments: 

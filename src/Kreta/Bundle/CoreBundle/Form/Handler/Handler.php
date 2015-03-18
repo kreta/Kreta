@@ -37,7 +37,7 @@ class Handler
      *
      * @var string
      */
-    protected $formName = 'form';
+    protected $formName;
 
     /**
      * Manager used to persist and flush the object.
@@ -51,11 +51,13 @@ class Handler
      *
      * @param \Symfony\Component\Form\FormFactory        $formFactory Creates a new Form instance
      * @param \Doctrine\Common\Persistence\ObjectManager $manager     Persists and flush the object
+     * @param string                                     $formName    The name of the form
      */
-    public function __construct(FormFactory $formFactory, ObjectManager $manager)
+    public function __construct(FormFactory $formFactory, ObjectManager $manager, $formName = 'form')
     {
         $this->formFactory = $formFactory;
         $this->manager = $manager;
+        $this->formName = $formName;
     }
 
     /**

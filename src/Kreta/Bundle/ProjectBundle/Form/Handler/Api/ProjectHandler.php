@@ -27,11 +27,6 @@ use Symfony\Component\HttpFoundation\FileBag;
 class ProjectHandler extends Handler
 {
     /**
-     * {@inheritdoc}
-     */
-    protected $formName = 'kreta_project_project_type';
-
-    /**
      * The media factory.
      *
      * @var \Kreta\Component\Media\Factory\MediaFactory
@@ -50,17 +45,19 @@ class ProjectHandler extends Handler
      *
      * @param \Symfony\Component\Form\FormFactory           $formFactory  Creates a new Form instance
      * @param \Doctrine\Common\Persistence\ObjectManager    $manager      Persists and flush the object
+     * @param string                                        $formName     The name of the form
      * @param \Kreta\Component\Media\Factory\MediaFactory   $mediaFactory Creates a new Project image
      * @param \Kreta\Component\Media\Uploader\MediaUploader $uploader     Uploads Project images
      */
     public function __construct(
         FormFactory $formFactory,
         ObjectManager $manager,
+        $formName,
         MediaFactory $mediaFactory,
         MediaUploader $uploader
     )
     {
-        parent::__construct($formFactory, $manager);
+        parent::__construct($formFactory, $manager, $formName);
         $this->mediaFactory = $mediaFactory;
         $this->uploader = $uploader;
     }

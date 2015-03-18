@@ -11,53 +11,32 @@
 
 namespace Kreta\Bundle\CommentBundle\Form\Type\Api;
 
-use Kreta\Bundle\CommentBundle\Form\Type\CommentType as BaseCommentType;
-use Kreta\Component\Comment\Factory\CommentFactory;
-use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
-use Kreta\Component\User\Model\Interfaces\UserInterface;
+use Kreta\Bundle\CoreBundle\Form\Type\Abstracts\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
-use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
  * Class CommentType.
  *
  * @package Kreta\Bundle\CommentBundle\Form\Type\Api
  */
-class CommentType extends BaseCommentType
+class CommentType extends AbstractType
 {
     /**
-     * The context.
-     *
-     * @var \Symfony\Component\Security\Core\SecurityContextInterface
-     */
-    protected $context;
-
-    /**
-     * The issue factory.
-     *
-     * @var \Kreta\Component\Comment\Factory\CommentFactory
-     */
-    protected $factory;
-
-    /**
-     * The project.
+     * The issue.
      *
      * @var \Kreta\Component\Issue\Model\Interfaces\IssueInterface
      */
     protected $issue;
 
     /**
-     * Constructor.
-     *
-     * @param \Kreta\Component\Issue\Model\Interfaces\IssueInterface    $issue   The issue
-     * @param \Symfony\Component\Security\Core\SecurityContextInterface $context The context
-     * @param \Kreta\Component\Comment\Factory\CommentFactory           $factory The comment factory
+     * {@inheritdoc}
      */
-    public function __construct(IssueInterface $issue, SecurityContextInterface $context, CommentFactory $factory)
+    public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $this->context = $context;
-        $this->factory = $factory;
-        $this->issue = $issue;
+        $this->issue = $options['issue'];
+        $builder->add('description', 'textarea');
     }
 
     /**
@@ -65,18 +44,8 @@ class CommentType extends BaseCommentType
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults([
-            'data_class'      => 'Kreta\Component\Comment\Model\Comment',
-            'csrf_protection' => false,
-            'empty_data'      => function () {
-                $user = $this->context->getToken()->getUser();
-                if (!($user instanceof UserInterface)) {
-                    throw new \Exception('User is not logged');
-                }
-
-                return $this->factory->create($this->issue, $user);
-            }
-        ]);
+        parent::setDefaultOptions($resolver);
+        $resolver->setRequired(['issue']);
     }
 
     /**
@@ -84,6 +53,14 @@ class CommentType extends BaseCommentType
      */
     public function getName()
     {
-        return '';
+        return 'kreta_comment_comment_type';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function createEmptyData(FormInterface $form)
+    {
+        return $this->factory->create($this->issue, $this->user);
     }
 }

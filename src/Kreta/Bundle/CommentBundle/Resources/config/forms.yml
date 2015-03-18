@@ -1,0 +1,27 @@
+# This file belongs to Kreta.
+# The source code of application includes a LICENSE file
+# with all information about license.
+#
+# @author benatespina <benatespina@gmail.com>
+# @author gorkalaucirica <gorka.lauzirika@gmail.com>
+
+services:
+#### FORMS ####
+    kreta_comment.form_handler.api.comment:
+        parent: kreta_core.form_handler.handler
+        arguments:
+            - kreta_comment_comment_type
+    kreta_comment.form_handler.comment:
+        class: %kreta_comment.form_comment_handler.class%
+        arguments: [@form.factory, @doctrine.orm.entity_manager, @event_dispatcher]
+
+#### TYPES ####
+    kreta_comment.form_type.comment:
+        class: %kreta_comment.form_type.comment.class%
+        arguments:
+            - %kreta_comment.comment.class%
+            - @kreta_comment.factory.comment
+            - @doctrine.orm.entity_manager
+            - @security.context
+        tags:
+            - { name: form.type, alias: 'kreta_comment_comment_type' }
