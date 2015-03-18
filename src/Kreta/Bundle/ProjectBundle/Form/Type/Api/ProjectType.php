@@ -44,19 +44,16 @@ class ProjectType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    protected function createEmptyData(FormInterface $form)
+    public function getName()
     {
-        $workflowId = $form->get('workflow')->getData() ? $form->get('workflow')->getData() : 'non-exist-id';
-        $workflow = $this->manager->getRepository('Kreta\Component\Workflow\Model\Workflow')->find($workflowId);
-
-        return $this->factory->create($this->user, $workflow);
+        return 'kreta_project_project_type';
     }
 
     /**
      * {@inheritdoc}
      */
-    public function getName()
+    protected function createEmptyData(FormInterface $form)
     {
-        return 'kreta_project_project_type';
+        return $this->factory->create($this->user, $form->get('workflow')->getData());
     }
 }

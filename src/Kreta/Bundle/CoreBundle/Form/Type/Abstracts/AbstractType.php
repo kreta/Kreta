@@ -84,7 +84,7 @@ abstract class AbstractType extends BaseAbstractType
             'csrf_protection' => false,
             'data_class'      => $this->dataClass,
             'empty_data'      => function (FormInterface $form) {
-                return $this->createEmptyData($form, $this->manager);
+                return $this->createEmptyData($form);
             }
         ]);
     }

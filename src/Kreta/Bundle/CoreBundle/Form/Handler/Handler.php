@@ -72,7 +72,9 @@ class Handler
      */
     public function processForm(Request $request, $object = null, array $formOptions = [])
     {
-        return !$object ? $this->handleForm($request, $object, $formOptions)->getData() : $object;
+        $form = $this->handleForm($request, $object, $formOptions);
+
+        return !$object ? $form->getData() : $object;
     }
 
     /**

@@ -17,5 +17,7 @@ parameters:
 
     kreta_issue.form_issue_handler.class: Kreta\Bundle\IssueBundle\Form\Handler\IssueHandler
 
+    kreta_issue.form_type.issue.class: Kreta\Bundle\IssueBundle\Form\Type\Api\IssueType
+
     kreta_issue.state_machine_issue.class: Kreta\Component\Issue\StateMachine\IssueStateMachine
     kreta_issue.security_issue_voter.class: Kreta\Bundle\IssueBundle\Security\Authorization\Voter\IssueVoter

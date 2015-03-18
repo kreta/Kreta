@@ -6,15 +6,6 @@
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
 services:
-#### FORM HANDLER ####
-    kreta_issue.form_handler.api.issue:
-        class: Kreta\Bundle\IssueBundle\Form\Handler\Api\IssueHandler
-        parent: kreta_core.form_handler.abstract
-        arguments: [@security.context, @kreta_issue.factory.issue]
-    kreta_issue.form_handler.issue:
-        class: %kreta_issue.form_issue_handler.class%
-        arguments: [@form.factory, @doctrine.orm.entity_manager, @event_dispatcher]
-
 #### SECURITY ####
     kreta_issue.voter.issue:
         class: %kreta_issue.security_issue_voter.class%

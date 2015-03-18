@@ -1,0 +1,32 @@
+# This file belongs to Kreta.
+# The source code of application includes a LICENSE file
+# with all information about license.
+#
+# @author benatespina <benatespina@gmail.com>
+# @author gorkalaucirica <gorka.lauzirika@gmail.com>
+
+services:
+#### FORM HANDLER ####
+    kreta_issue.form_handler.api.issue:
+        class: Kreta\Bundle\IssueBundle\Form\Handler\Api\IssueHandler
+        parent: kreta_core.form_handler.handler
+        arguments: 
+            - @security.context
+            - @kreta_issue.factory.issue
+    kreta_issue.form_handler.issue:
+        class: %kreta_issue.form_issue_handler.class%
+        arguments: 
+            - @form.factory
+            - @doctrine.orm.entity_manager
+            - @event_dispatcher
+    
+#### TYPES ####
+    kreta_issue.form_type.issue:
+        class: %kreta_issue.form_type.issue.class%
+        arguments:
+            - %kreta_issue.issue.class%
+            - @kreta_issue.factory.issue
+            - @doctrine.orm.entity_manager
+            - @security.context
+        tags:
+            - { name: form.type, alias: 'kreta_issue_issue_type' }
