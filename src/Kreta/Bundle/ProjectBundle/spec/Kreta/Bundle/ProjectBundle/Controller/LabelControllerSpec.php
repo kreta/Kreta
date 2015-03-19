@@ -12,7 +12,7 @@
 namespace spec\Kreta\Bundle\ProjectBundle\Controller;
 
 use FOS\RestBundle\Request\ParamFetcher;
-use Kreta\Bundle\ProjectBundle\Form\Handler\Api\LabelHandler;
+use Kreta\Component\Core\Form\Handler\Handler;
 use Kreta\Component\Project\Model\Interfaces\LabelInterface;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Project\Repository\LabelRepository;
@@ -90,7 +90,9 @@ class LabelControllerSpec extends ObjectBehavior
         SecurityContextInterface $securityContext
     )
     {
-        $this->getProjectIfAllowedSpec($container, $projectRepository, $project, $securityContext, 'create_label', false);
+        $this->getProjectIfAllowedSpec(
+            $container, $projectRepository, $project, $securityContext, 'create_label', false
+        );
 
         $this->shouldThrow(new AccessDeniedException())->during('postLabelsAction', ['project-id']);
     }
@@ -102,7 +104,7 @@ class LabelControllerSpec extends ObjectBehavior
         SecurityContextInterface $securityContext,
         ProjectInterface $project,
         Request $request,
-        LabelHandler $labelHandler,
+        Handler $handler,
         LabelInterface $label
     )
     {
@@ -110,9 +112,9 @@ class LabelControllerSpec extends ObjectBehavior
             $container, $projectRepository, $project, $securityContext, 'create_label'
         );
 
-        $container->get('kreta_project.form_handler.api.label')->shouldBeCalled()->willReturn($labelHandler);
+        $container->get('kreta_project.form_handler.label')->shouldBeCalled()->willReturn($handler);
         $container->get('request')->shouldBeCalled()->willReturn($request);
-        $labelHandler->processForm($request, null, ['project' => $project])->shouldBeCalled()->willReturn($label);
+        $handler->processForm($request, null, ['project' => $project])->shouldBeCalled()->willReturn($label);
 
         $this->postLabelsAction('project-id')->shouldReturn($label);
     }
@@ -124,7 +126,9 @@ class LabelControllerSpec extends ObjectBehavior
         SecurityContextInterface $securityContext
     )
     {
-        $this->getProjectIfAllowedSpec($container, $projectRepository, $project, $securityContext, 'delete_label', false);
+        $this->getProjectIfAllowedSpec(
+            $container, $projectRepository, $project, $securityContext, 'delete_label', false
+        );
 
         $this->shouldThrow(new AccessDeniedException())->during('deleteLabelsAction', ['project-id', 'label-id']);
     }

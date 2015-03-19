@@ -12,10 +12,10 @@
 namespace spec\Kreta\Bundle\CommentBundle\Controller;
 
 use FOS\RestBundle\Request\ParamFetcher;
-use Kreta\Bundle\CommentBundle\Form\Handler\Api\CommentHandler;
 use Kreta\Bundle\CoreBundle\spec\Kreta\Bundle\CoreBundle\Controller\BaseRestController;
 use Kreta\Component\Comment\Model\Interfaces\CommentInterface;
 use Kreta\Component\Comment\Repository\CommentRepository;
+use Kreta\Component\Core\Form\Handler\Handler;
 use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
 use Kreta\Component\Issue\Repository\IssueRepository;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
@@ -100,7 +100,7 @@ class CommentControllerSpec extends BaseRestController
     function it_posts_comment(
         ContainerInterface $container,
         SecurityContextInterface $securityContext,
-        CommentHandler $commentHandler,
+        Handler $handler,
         Request $request,
         IssueRepository $issueRepository,
         IssueInterface $issue,
@@ -108,9 +108,9 @@ class CommentControllerSpec extends BaseRestController
     )
     {
         $issue = $this->getIssueIfAllowedSpec($container, $issueRepository, $issue, $securityContext);
-        $container->get('kreta_comment.form_handler.api.comment')->shouldBeCalled()->willReturn($commentHandler);
+        $container->get('kreta_comment.form_handler.comment')->shouldBeCalled()->willReturn($handler);
         $container->get('request')->shouldBeCalled()->willReturn($request);
-        $commentHandler->processForm($request, null, ['issue' => $issue])->shouldBeCalled()->willReturn($comment);
+        $handler->processForm($request, null, ['issue' => $issue])->shouldBeCalled()->willReturn($comment);
 
         $this->postCommentsAction('issue-id')->shouldReturn($comment);
     }
@@ -130,7 +130,7 @@ class CommentControllerSpec extends BaseRestController
     function it_puts_comment(
         ContainerInterface $container,
         CommentRepository $commentRepository,
-        CommentHandler $commentHandler,
+        Handler $handler,
         IssueRepository $issueRepository,
         IssueInterface $issue,
         CommentInterface $comment,
@@ -149,10 +149,10 @@ class CommentControllerSpec extends BaseRestController
         $commentRepository->findOneBy(['id' => 'comment-id', 'writtenBy' => $user], false)
             ->shouldBeCalled()->willReturn($comment);
 
-        $container->get('kreta_comment.form_handler.api.comment')->shouldBeCalled()->willReturn($commentHandler);
+        $container->get('kreta_comment.form_handler.comment')->shouldBeCalled()->willReturn($handler);
         $container->get('request')->shouldBeCalled()->willReturn($request);
         $comment->getIssue()->shouldBeCalled()->willReturn($issue);
-        $commentHandler->processForm($request, $comment, ['method' => 'PUT', 'issue' => $issue])
+        $handler->processForm($request, $comment, ['method' => 'PUT', 'issue' => $issue])
             ->shouldBeCalled()->willReturn($comment);
 
         $this->putCommentsAction('issue-id', 'comment-id')->shouldReturn($comment);

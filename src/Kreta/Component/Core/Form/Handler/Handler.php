@@ -14,7 +14,7 @@ namespace Kreta\Component\Core\Form\Handler;
 use Doctrine\Common\Persistence\ObjectManager;
 use Kreta\Component\Core\Form\Exception\InvalidFormException;
 use Kreta\Component\Core\Form\Handler\Interfaces\HandlerInterface;
-use Symfony\Component\Form\FormFactory;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\FileBag;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,7 +29,7 @@ class Handler implements HandlerInterface
     /**
      * The factory used to create a new Form instance.
      *
-     * @var \Symfony\Component\Form\FormFactory
+     * @var \Symfony\Component\Form\FormFactoryInterface
      */
     protected $formFactory;
 
@@ -50,11 +50,11 @@ class Handler implements HandlerInterface
     /**
      * Constructor.
      *
-     * @param \Symfony\Component\Form\FormFactory        $formFactory Creates a new Form instance
-     * @param \Doctrine\Common\Persistence\ObjectManager $manager     Persists and flush the object
-     * @param string                                     $formName    The name of the form
+     * @param \Symfony\Component\Form\FormFactoryInterface $formFactory Creates a new Form instance
+     * @param \Doctrine\Common\Persistence\ObjectManager   $manager     Persists and flush the object
+     * @param string                                       $formName    The name of the form
      */
-    public function __construct(FormFactory $formFactory, ObjectManager $manager, $formName = 'form')
+    public function __construct(FormFactoryInterface $formFactory, ObjectManager $manager, $formName = 'form')
     {
         $this->formFactory = $formFactory;
         $this->manager = $manager;
@@ -102,7 +102,7 @@ class Handler implements HandlerInterface
      * @param Object|null $object      Model related to the form
      * @param array       $formOptions Array which contains the options that will be passed
      *
-     * @return \Symfony\Component\Form\Form
+     * @return \Symfony\Component\Form\FormInterface
      */
     protected function createForm($object = null, array $formOptions = [])
     {
@@ -112,8 +112,8 @@ class Handler implements HandlerInterface
     /**
      * Handles file upload.
      *
-     * @param FileBag $files  Files found in current request
-     * @param Object  $object Object been handled in the request
+     * @param \Symfony\Component\HttpFoundation\FileBag $files  Files found in current request
+     * @param Object                                    $object Object been handled in the request
      *
      * @return void
      */

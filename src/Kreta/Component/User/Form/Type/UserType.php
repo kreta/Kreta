@@ -9,18 +9,18 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\Component\Project\Form\Type;
+namespace Kreta\Component\User\Form\Type;
 
 use Kreta\Component\Core\Form\Type\Abstracts\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 
 /**
- * Class ProjectType.
+ * Class UserType.
  *
- * @package Kreta\Component\Project\Form\Type
+ * @package Kreta\Component\User\Form\Type
  */
-class ProjectType extends AbstractType
+class UserType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -28,16 +28,11 @@ class ProjectType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('name')
-            ->add('shortName')
-            ->add('image', 'file', [
-                'required' => false,
-                'mapped'   => false
-            ])
-            ->add('workflow', 'entity', [
-                'class'    => 'Kreta\Component\Workflow\Model\Workflow',
-                'required' => false,
-                'mapped'   => false
+            ->add('firstName')
+            ->add('lastName')
+            ->add('email')
+            ->add('photo', 'file', [
+                'required' => false, 'mapped' => false
             ]);
     }
 
@@ -46,7 +41,7 @@ class ProjectType extends AbstractType
      */
     public function getName()
     {
-        return 'kreta_project_project_type';
+        return 'kreta_user_user_type';
     }
 
     /**
@@ -54,6 +49,6 @@ class ProjectType extends AbstractType
      */
     protected function createEmptyData(FormInterface $form)
     {
-        return $this->factory->create($this->user, $form->get('workflow')->getData());
+        return $this->factory->create();
     }
 }

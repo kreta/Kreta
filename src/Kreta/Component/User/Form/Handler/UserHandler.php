@@ -9,7 +9,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\Component\Project\Form\Handler;
+namespace Kreta\Component\User\Form\Handler;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Kreta\Component\Core\Form\Handler\Handler;
@@ -20,11 +20,11 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\FileBag;
 
 /**
- * Class ProjectHandler.
+ * Class UserHandler.
  *
- * @package Kreta\Component\Project\Form\Handler
+ * @package Kreta\Component\User\Form\Handler
  */
-class ProjectHandler extends Handler
+class UserHandler extends Handler
 {
     /**
      * The media factory.
@@ -65,13 +65,13 @@ class ProjectHandler extends Handler
     /**
      * {@inheritdoc}
      */
-    protected function handleFiles(FileBag $files, $project)
+    protected function handleFiles(FileBag $files, $object)
     {
-        $image = $files->get('image');
+        $image = $files->get('photo');
         if ($image instanceof UploadedFile) {
             $media = $this->mediaFactory->create($image);
             $this->uploader->upload($media);
-            $project->setImage($media);
+            $object->setPhoto($media);
         }
     }
 }

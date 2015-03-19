@@ -43,7 +43,7 @@ interface HandlerInterface
      * @param array                                     $formOptions Array which contains the options that will be
      *                                                               passed in the form create method
      *
-     * @return \Symfony\Component\Form\Form
+     * @return \Symfony\Component\Form\FormInterface
      * @throws \Kreta\Component\Core\Form\Exception\InvalidFormException
      */
     public function handleForm(Request $request, $object = null, array $formOptions = []);

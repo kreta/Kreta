@@ -12,7 +12,7 @@
 namespace spec\Kreta\Bundle\WorkflowBundle\Controller;
 
 use FOS\RestBundle\Request\ParamFetcher;
-use Kreta\Bundle\WorkflowBundle\Form\Handler\Api\WorkflowHandler;
+use Kreta\Component\Core\Form\Handler\Handler;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
 use Kreta\Component\Workflow\Repository\WorkflowRepository;
@@ -98,28 +98,28 @@ class WorkflowControllerSpec extends ObjectBehavior
 
     function it_posts_workflow(
         ContainerInterface $container,
-        WorkflowHandler $workflowHandler,
+        Handler $handler,
         Request $request,
         WorkflowInterface $workflow
     )
     {
-        $container->get('kreta_workflow.form_handler.api.workflow')->shouldBeCalled()->willReturn($workflowHandler);
+        $container->get('kreta_workflow.form_handler.workflow')->shouldBeCalled()->willReturn($handler);
         $container->get('request')->shouldBeCalled()->willReturn($request);
-        $workflowHandler->processForm($request)->shouldBeCalled()->willReturn($workflow);
+        $handler->processForm($request)->shouldBeCalled()->willReturn($workflow);
 
         $this->postWorkflowAction()->shouldReturn($workflow);
     }
 
     function it_does_not_put_workflow_because_the_user_has_not_the_required_grant(
         ContainerInterface $container,
-        WorkflowHandler $workflowHandler,
+        Handler $handler,
         Request $request,
         WorkflowRepository $workflowRepository,
         WorkflowInterface $workflow,
         SecurityContextInterface $context
     )
     {
-        $container->get('kreta_workflow.form_handler.api.workflow')->shouldBeCalled()->willReturn($workflowHandler);
+        $container->get('kreta_workflow.form_handler.workflow')->shouldBeCalled()->willReturn($handler);
         $container->get('request')->shouldBeCalled()->willReturn($request);
         $this->getWorkflowIfAllowedSpec($container, $workflowRepository, $workflow, $context, 'edit', false);
 
@@ -128,17 +128,17 @@ class WorkflowControllerSpec extends ObjectBehavior
 
     function it_puts_workflow(
         ContainerInterface $container,
-        WorkflowHandler $workflowHandler,
+        Handler $handler,
         Request $request,
         WorkflowRepository $workflowRepository,
         WorkflowInterface $workflow,
         SecurityContextInterface $context
     )
     {
-        $container->get('kreta_workflow.form_handler.api.workflow')->shouldBeCalled()->willReturn($workflowHandler);
+        $container->get('kreta_workflow.form_handler.workflow')->shouldBeCalled()->willReturn($handler);
         $container->get('request')->shouldBeCalled()->willReturn($request);
         $workflow = $this->getWorkflowIfAllowedSpec($container, $workflowRepository, $workflow, $context, 'edit');
-        $workflowHandler->processForm($request, $workflow, ['method' => 'PUT'])
+        $handler->processForm($request, $workflow, ['method' => 'PUT'])
             ->shouldBeCalled()->willReturn($workflow);
 
         $this->putWorkflowAction('workflow-id')->shouldReturn($workflow);

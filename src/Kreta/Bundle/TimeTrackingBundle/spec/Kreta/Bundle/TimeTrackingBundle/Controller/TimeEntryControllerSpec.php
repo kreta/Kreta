@@ -13,11 +13,9 @@ namespace spec\Kreta\Bundle\TimeTrackingBundle\Controller;
 
 use FOS\RestBundle\Request\ParamFetcher;
 use Kreta\Bundle\CoreBundle\spec\Kreta\Bundle\CoreBundle\Controller\BaseRestController;
-use Kreta\Bundle\TimeTrackingBundle\Form\Handler\TimeEntryHandler;
+use Kreta\Component\Core\Form\Handler\Handler;
 use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
 use Kreta\Component\Issue\Repository\IssueRepository;
-use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
-use Kreta\Component\Project\Repository\ProjectRepository;
 use Kreta\Component\TimeTracking\Model\Interfaces\TimeEntryInterface;
 use Kreta\Component\TimeTracking\Repository\TimeEntryRepository;
 use Prophecy\Argument;
@@ -72,7 +70,8 @@ class TimeEntryControllerSpec extends BaseRestController
     )
     {
         $issue = $this->getIssueIfAllowedSpec($container, $issueRepository, $issue, $securityContext);
-        $container->get('kreta_time_tracking.repository.time_entry')->shouldBeCalled()->willReturn($timeEntryRepository);
+        $container->get('kreta_time_tracking.repository.time_entry')
+            ->shouldBeCalled()->willReturn($timeEntryRepository);
         $paramFetcher->get('sort')->shouldBeCalled()->willReturn('dateReported');
         $paramFetcher->get('limit')->shouldBeCalled()->willReturn(10);
         $paramFetcher->get('offset')->shouldBeCalled()->willReturn(1);
@@ -85,8 +84,6 @@ class TimeEntryControllerSpec extends BaseRestController
 
     function it_does_not_get_time_entry_because_the_user_has_not_the_required_grant(
         ContainerInterface $container,
-        ProjectRepository $projectRepository,
-        ProjectInterface $project,
         IssueRepository $issueRepository,
         IssueInterface $issue,
         SecurityContextInterface $securityContext
@@ -138,7 +135,7 @@ class TimeEntryControllerSpec extends BaseRestController
         Request $request,
         IssueRepository $issueRepository,
         IssueInterface $issue,
-        TimeEntryHandler $timeEntryHandler,
+        Handler $handler,
         TimeEntryInterface $timeEntry,
         SecurityContextInterface $context,
         Request $request
@@ -148,8 +145,8 @@ class TimeEntryControllerSpec extends BaseRestController
         $container->get('request')->shouldBeCalled()->willReturn($request);
 
         $container->get('kreta_time_tracking.form_handler.time_entry')
-            ->shouldBeCalled()->willReturn($timeEntryHandler);
-        $timeEntryHandler->processForm($request, null, ['issue' => $issue])
+            ->shouldBeCalled()->willReturn($handler);
+        $handler->processForm($request, null, ['issue' => $issue])
             ->shouldBeCalled()->willReturn($timeEntry);
 
         $this->postTimeEntriesAction('issue-id')->shouldReturn($timeEntry);
@@ -173,7 +170,7 @@ class TimeEntryControllerSpec extends BaseRestController
         Request $request,
         IssueRepository $issueRepository,
         IssueInterface $issue,
-        TimeEntryHandler $timeEntryHandler,
+        Handler $handler,
         TimeEntryInterface $timeEntry,
         SecurityContextInterface $context,
         TimeEntryRepository $timeEntryRepository,
@@ -193,9 +190,9 @@ class TimeEntryControllerSpec extends BaseRestController
         $container->get('request')->shouldBeCalled()->willReturn($request);
 
         $container->get('kreta_time_tracking.form_handler.time_entry')
-            ->shouldBeCalled()->willReturn($timeEntryHandler);
+            ->shouldBeCalled()->willReturn($handler);
         $timeEntry->getIssue()->shouldBeCalled()->willReturn($issue);
-        $timeEntryHandler->processForm($request, $timeEntry, ['method' => 'PUT', 'issue' => $issue])
+        $handler->processForm($request, $timeEntry, ['method' => 'PUT', 'issue' => $issue])
             ->shouldBeCalled()->willReturn($timeEntry);
 
         $this->putTimeEntriesAction('issue-id', 'time-entry-id')->shouldReturn($timeEntry);
