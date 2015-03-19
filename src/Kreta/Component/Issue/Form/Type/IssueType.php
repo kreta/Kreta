@@ -36,8 +36,8 @@ class IssueType extends AbstractType
             ->add('description', 'textarea', [
                 'required' => false,
             ])
-            ->add('type', new TypeType())
-            ->add('priority', new PriorityType())
+            ->add('type', 'kreta_issue_type_type')
+            ->add('priority', 'kreta_issue_priority_type')
             ->add('project', 'entity', [
                 'class'   => 'Kreta\Component\Project\Model\Project',
                 'choices' => $options['projects']

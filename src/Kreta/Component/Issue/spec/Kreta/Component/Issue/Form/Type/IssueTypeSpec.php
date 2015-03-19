@@ -12,8 +12,6 @@
 namespace spec\Kreta\Component\Issue\Form\Type;
 
 use Kreta\Component\Issue\Factory\IssueFactory;
-use Kreta\Component\Issue\Form\Type\PriorityType;
-use Kreta\Component\Issue\Form\Type\TypeType;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -52,8 +50,8 @@ class IssueTypeSpec extends ObjectBehavior
     {
         $builder->add('title', 'text')->shouldBeCalled()->willReturn($builder);
         $builder->add('description', 'textarea', ['required' => false,])->shouldBeCalled()->willReturn($builder);
-        $builder->add('type', new TypeType())->shouldBeCalled()->willReturn($builder);
-        $builder->add('priority', new PriorityType())->shouldBeCalled()->willReturn($builder);
+        $builder->add('type', 'kreta_issue_type_type')->shouldBeCalled()->willReturn($builder);
+        $builder->add('priority', 'kreta_issue_priority_type')->shouldBeCalled()->willReturn($builder);
         $builder->add('project', 'entity', [
             'class'   => 'Kreta\Component\Project\Model\Project',
             'choices' => [$project]
