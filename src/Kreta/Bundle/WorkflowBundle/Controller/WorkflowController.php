@@ -130,7 +130,7 @@ class WorkflowController extends RestController
      */
     public function postWorkflowAction()
     {
-        return $this->get('kreta_workflow.form_handler.api.workflow')->processForm($this->get('request'));
+        return $this->get('kreta_workflow.form_handler.workflow')->processForm($this->get('request'));
     }
 
     /**
@@ -169,7 +169,7 @@ class WorkflowController extends RestController
      */
     public function putWorkflowAction($workflowId)
     {
-        return $this->get('kreta_workflow.form_handler.api.workflow')->processForm(
+        return $this->get('kreta_workflow.form_handler.workflow')->processForm(
             $this->get('request'), $this->getWorkflowIfAllowed($workflowId, 'edit'), ['method' => 'PUT']
         );
     }

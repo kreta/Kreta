@@ -12,10 +12,10 @@
 namespace Kreta\Bundle\CoreBundle\EventListener;
 
 use Doctrine\ORM\NoResultException;
-use Kreta\Bundle\CoreBundle\Form\Handler\Exception\InvalidFormException;
 use Kreta\Component\Core\Exception\CollectionMinLengthException;
 use Kreta\Component\Core\Exception\ResourceAlreadyPersistException;
 use Kreta\Component\Core\Exception\ResourceInUseException;
+use Kreta\Component\Core\Form\Exception\InvalidFormException;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;

@@ -105,7 +105,7 @@ class ParticipantController extends RestController
         $project = $this->getProjectIfAllowed($projectId, 'add_participant');
         $users = $this->get('kreta_user.repository.user')->findAll();
 
-        return $this->get('kreta_project.form_handler.api.participant')->processForm(
+        return $this->get('kreta_project.form_handler.participant')->processForm(
             $this->get('request'), null, ['project' => $project, 'users' => $users]
         );
     }

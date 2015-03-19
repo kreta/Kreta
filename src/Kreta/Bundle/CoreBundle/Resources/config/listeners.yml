@@ -6,13 +6,7 @@
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
 services:
-    kreta_core.listener.form_handler_flash:
-        class: Kreta\Bundle\CoreBundle\EventListener\FormHandlerFlashListener
-        arguments: [@session]
-        tags:
-            - { name: kernel.event_listener, event: kreta_core_event_form_handler, method: onFormHandlerEvent }
-
-    kreta_core.listener.json_exception:
-        class: Kreta\Bundle\CoreBundle\EventListener\JsonExceptionListener
+    kreta_core.event_listener.json_exception:
+        class: %kreta_core.event_listener.json_exception.class%
         tags:
             - { name: kernel.event_listener, event: kernel.exception, method: onKernelException, priority: 200 }

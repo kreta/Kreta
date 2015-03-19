@@ -7,25 +7,21 @@
 
 services:
 #### HANDLERS ####
-    kreta_project.form_handler.api.label:
+    kreta_project.form_handler.label:
         parent: kreta_core.form_handler.handler
         arguments:
             - kreta_project_label_type
-    kreta_project.form_handler.api.project:
-        class: Kreta\Bundle\ProjectBundle\Form\Handler\Api\ProjectHandler
+    kreta_project.form_handler.project:
+        class: %kreta_project.form_handler.project.class%
         parent: kreta_core.form_handler.handler
         arguments: 
             - kreta_project_project_type
             - @kreta_media.factory.media
             - @kreta_project.uploader.image_project
-    kreta_project.form_handler.api.participant:
+    kreta_project.form_handler.participant:
         parent: kreta_core.form_handler.handler
         arguments:
             - kreta_project_participant_type
-    kreta_project.form_handler.project:
-        class: %kreta_project.form_project_handler.class%
-        parent: kreta_core.form_handler.abstract
-        arguments: [@kreta_media.factory.media, @kreta_project.uploader.image_project]
 
 #### TYPES ####
     kreta_project.form_type.label:

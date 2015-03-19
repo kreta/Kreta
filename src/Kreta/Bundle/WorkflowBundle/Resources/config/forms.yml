@@ -7,15 +7,15 @@
 
 services:
 #### HANDLERS ####
-    kreta_workflow.form_handler.api.status:
+    kreta_workflow.form_handler.status:
         parent: kreta_core.form_handler.handler
         arguments:
             - kreta_workflow_status_type
-    kreta_workflow.form_handler.api.status_transition:
+    kreta_workflow.form_handler.status_transition:
         parent: kreta_core.form_handler.handler
         arguments:
             - kreta_workflow_status_transition_type
-    kreta_workflow.form_handler.api.workflow:
+    kreta_workflow.form_handler.workflow:
         parent: kreta_core.form_handler.handler
         arguments:
             - kreta_workflow_workflow_type

@@ -130,7 +130,7 @@ class ProjectController extends RestController
      */
     public function postProjectsAction()
     {
-        return $this->get('kreta_project.form_handler.api.project')->processForm($this->get('request'));
+        return $this->get('kreta_project.form_handler.project')->processForm($this->get('request'));
     }
 
     /**
@@ -171,7 +171,7 @@ class ProjectController extends RestController
      */
     public function putProjectsAction($projectId)
     {
-        return $this->get('kreta_project.form_handler.api.project')->processForm(
+        return $this->get('kreta_project.form_handler.project')->processForm(
             $this->get('request'), $this->getProjectIfAllowed($projectId, 'edit'), ['method' => 'PUT']
         );
     }

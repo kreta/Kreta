@@ -7,13 +7,10 @@
 
 services:
 #### FORMS ####
-    kreta_comment.form_handler.api.comment:
+    kreta_comment.form_handler.comment:
         parent: kreta_core.form_handler.handler
         arguments:
             - kreta_comment_comment_type
-    kreta_comment.form_handler.comment:
-        class: %kreta_comment.form_comment_handler.class%
-        arguments: [@form.factory, @doctrine.orm.entity_manager, @event_dispatcher]
 
 #### TYPES ####
     kreta_comment.form_type.comment:

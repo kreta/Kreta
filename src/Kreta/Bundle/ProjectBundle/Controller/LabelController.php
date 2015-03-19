@@ -103,7 +103,7 @@ class LabelController extends RestController
     {
         $project = $this->getProjectIfAllowed($projectId, 'create_label');
 
-        return $this->get('kreta_project.form_handler.api.label')->processForm(
+        return $this->get('kreta_project.form_handler.label')->processForm(
             $this->get('request'), null, ['project' => $project]
         );
     }

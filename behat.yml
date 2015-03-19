@@ -129,30 +129,6 @@ default:
                 - Kreta\Bundle\ProjectBundle\Behat\ParticipantContext
             filters:
                 tags: "@workflow"
-        web:
-            contexts:
-                - Kreta\Bundle\UserBundle\Behat\UserContext
-                - Kreta\Bundle\WorkflowBundle\Behat\StatusContext
-                - Kreta\Bundle\ProjectBundle\Behat\ProjectContext
-                - Kreta\Bundle\ProjectBundle\Behat\ParticipantContext
-                - Kreta\Bundle\IssueBundle\Behat\IssueContext
-                - Kreta\Bundle\WorkflowBundle\Behat\WorkflowContext
-                - Kreta\Bundle\WebBundle\Behat\WebContext
-                - Kreta\Bundle\UserBundle\Behat\UserContext
-                - Kreta\Bundle\WorkflowBundle\Behat\StatusContext
-                - Kreta\Bundle\ProjectBundle\Behat\ProjectContext
-                - Kreta\Bundle\ProjectBundle\Behat\ParticipantContext
-                - Kreta\Bundle\WorkflowBundle\Behat\WorkflowContext
-                - Kreta\Bundle\WebBundle\Behat\WebContext
-                - Kreta\Bundle\UserBundle\Behat\UserContext
-                - Kreta\Bundle\WebBundle\Behat\WebContext
-                - Kreta\Bundle\UserBundle\Behat\UserContext
-                - Kreta\Bundle\ProjectBundle\Behat\ProjectContext
-                - Kreta\Bundle\NotificationBundle\Behat\NotificationContext
-                - Kreta\Bundle\WebBundle\Behat\WebContext
-            filters:
-                tags: "@web"
-
     extensions:
         Behat\MinkExtension:
             sessions:

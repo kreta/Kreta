@@ -12,12 +12,3 @@ services:
         arguments: 
             - @form.factory
             - @doctrine.orm.entity_manager
-
-
-#ToDo: Deprecated: remove after refactor the forms
-    kreta_core.form_handler.abstract: 
-        abstract: true
-        arguments: 
-            - @form.factory
-            - @doctrine.orm.entity_manager
-            - @event_dispatcher
