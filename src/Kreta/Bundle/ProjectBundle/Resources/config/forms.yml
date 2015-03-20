@@ -1,0 +1,54 @@
+# This file belongs to Kreta.
+# The source code of application includes a LICENSE file
+# with all information about license.
+#
+# @author benatespina <benatespina@gmail.com>
+# @author gorkalaucirica <gorka.lauzirika@gmail.com>
+
+services:
+#### HANDLERS ####
+    kreta_project.form_handler.label:
+        parent: kreta_core.form_handler.handler
+        arguments:
+            - kreta_project_label_type
+    kreta_project.form_handler.project:
+        class: %kreta_project.form_handler.project.class%
+        parent: kreta_core.form_handler.handler
+        arguments: 
+            - kreta_project_project_type
+            - @kreta_media.factory.media
+            - @kreta_project.uploader.image_project
+    kreta_project.form_handler.participant:
+        parent: kreta_core.form_handler.handler
+        arguments:
+            - kreta_project_participant_type
+
+#### TYPES ####
+    kreta_project.form_type.label:
+        class: %kreta_project.form_type.label.class%
+        arguments:
+            - %kreta_project.label.class%
+            - @kreta_project.factory.label
+            - @security.context
+        tags:
+            - { name: form.type, alias: 'kreta_project_label_type' }
+    kreta_project.form_type.project:
+        class: %kreta_project.form_type.project.class%
+        arguments:
+            - %kreta_project.project.class%
+            - @kreta_project.factory.project
+            - @security.context
+        tags:
+            - { name: form.type, alias: 'kreta_project_project_type' }
+    kreta_project.form_type.participant:
+        class: %kreta_project.form_type.participant.class%
+        arguments:
+            - %kreta_project.participant.class%
+            - @kreta_project.factory.participant
+            - @security.context
+        tags:
+            - { name: form.type, alias: 'kreta_project_participant_type' }
+    kreta_project.form_type.role:
+        class: %kreta_project.form_type.role.class%
+        tags:
+            - { name: form.type, alias: 'kreta_project_role_type' }

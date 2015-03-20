@@ -1,0 +1,31 @@
+# This file belongs to Kreta.
+# The source code of application includes a LICENSE file
+# with all information about license.
+#
+# @author benatespina <benatespina@gmail.com>
+# @author gorkalaucirica <gorka.lauzirika@gmail.com>
+
+services:
+#### FORM HANDLER ####
+    kreta_issue.form_handler.issue:
+        parent: kreta_core.form_handler.handler
+        arguments: 
+            - kreta_issue_issue_type
+
+#### TYPES ####
+    kreta_issue.form_type.issue:
+        class: %kreta_issue.form_type.issue.class%
+        arguments:
+            - %kreta_issue.issue.class%
+            - @kreta_issue.factory.issue
+            - @security.context
+        tags:
+            - { name: form.type, alias: 'kreta_issue_issue_type' }
+    kreta_issue.form_type.priority:
+        class: %kreta_issue.form_type.priority.class%
+        tags:
+            - { name: form.type, alias: 'kreta_issue_priority_type' }
+    kreta_issue.form_type.type:
+        class: %kreta_issue.form_type.type.class%
+        tags:
+            - { name: form.type, alias: 'kreta_issue_type_type' }

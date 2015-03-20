@@ -160,7 +160,7 @@ class IssueController extends RestController
     {
         $projects = $this->get('kreta_project.repository.project')->findByParticipant($this->getUser());
 
-        return $this->get('kreta_issue.form_handler.api.issue')
+        return $this->get('kreta_issue.form_handler.issue')
             ->processForm($this->get('request'), null, ['projects' => $projects]);
     }
 
@@ -211,7 +211,7 @@ class IssueController extends RestController
         $issue = $this->getIssueIfAllowed($issueId, 'edit');
         $projects = $this->get('kreta_project.repository.project')->findByParticipant($this->getUser());
 
-        return $this->get('kreta_issue.form_handler.api.issue')->processForm(
+        return $this->get('kreta_issue.form_handler.issue')->processForm(
             $this->get('request'), $issue, ['method' => 'PUT', 'projects' => $projects]
         );
     }

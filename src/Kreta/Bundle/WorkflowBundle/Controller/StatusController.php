@@ -132,7 +132,7 @@ class StatusController extends RestController
     {
         $workflow = $this->getWorkflowIfAllowed($workflowId, 'manage_status');
 
-        return $this->get('kreta_workflow.form_handler.api.status')->processForm(
+        return $this->get('kreta_workflow.form_handler.status')->processForm(
             $this->get('request'), null, ['workflow' => $workflow]
         );
     }
@@ -179,7 +179,7 @@ class StatusController extends RestController
     {
         $status = $this->getStatusIfAllowed($workflowId, $statusId, 'manage_status');
 
-        return $this->get('kreta_workflow.form_handler.api.status')->processForm(
+        return $this->get('kreta_workflow.form_handler.status')->processForm(
             $this->get('request'), $status, ['method' => 'PUT']
         );
     }

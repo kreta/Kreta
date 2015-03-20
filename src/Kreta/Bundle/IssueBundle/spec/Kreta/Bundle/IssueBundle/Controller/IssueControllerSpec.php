@@ -13,7 +13,7 @@ namespace spec\Kreta\Bundle\IssueBundle\Controller;
 
 use FOS\RestBundle\Request\ParamFetcher;
 use Kreta\Bundle\CoreBundle\spec\Kreta\Bundle\CoreBundle\Controller\BaseRestController;
-use Kreta\Bundle\IssueBundle\Form\Handler\Api\IssueHandler;
+use Kreta\Component\Core\Form\Handler\Handler;
 use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Issue\Repository\IssueRepository;
@@ -113,7 +113,7 @@ class IssueControllerSpec extends BaseRestController
         ContainerInterface $container,
         ProjectRepository $projectRepository,
         ProjectInterface $project,
-        IssueHandler $issueHandler,
+        Handler $handler,
         Request $request,
         IssueInterface $issue,
         SecurityContextInterface $securityContext,
@@ -128,9 +128,9 @@ class IssueControllerSpec extends BaseRestController
         $token->getUser()->shouldBeCalled()->willReturn($user);
         $projectRepository->findByParticipant($user)->shouldBeCalled()->willReturn([$project]);
 
-        $container->get('kreta_issue.form_handler.api.issue')->shouldBeCalled()->willReturn($issueHandler);
+        $container->get('kreta_issue.form_handler.issue')->shouldBeCalled()->willReturn($handler);
         $container->get('request')->shouldBeCalled()->willReturn($request);
-        $issueHandler->processForm($request, null, ['projects' => [$project]])->shouldBeCalled()->willReturn($issue);
+        $handler->processForm($request, null, ['projects' => [$project]])->shouldBeCalled()->willReturn($issue);
 
         $this->postIssuesAction()->shouldReturn($issue);
     }
@@ -149,7 +149,7 @@ class IssueControllerSpec extends BaseRestController
 
     function it_puts_issue(
         ContainerInterface $container,
-        IssueHandler $issueHandler,
+        Handler $handler,
         IssueRepository $issueRepository,
         IssueInterface $issue,
         SecurityContextInterface $securityContext,
@@ -168,9 +168,9 @@ class IssueControllerSpec extends BaseRestController
         $token->getUser()->shouldBeCalled()->willReturn($user);
         $projectRepository->findByParticipant($user)->shouldBeCalled()->willReturn([$project]);
 
-        $container->get('kreta_issue.form_handler.api.issue')->shouldBeCalled()->willReturn($issueHandler);
+        $container->get('kreta_issue.form_handler.issue')->shouldBeCalled()->willReturn($handler);
         $container->get('request')->shouldBeCalled()->willReturn($request);
-        $issueHandler->processForm($request, $issue, ['method' => 'PUT', 'projects' => [$project]])
+        $handler->processForm($request, $issue, ['method' => 'PUT', 'projects' => [$project]])
             ->shouldBeCalled()->willReturn($issue);
 
         $this->putIssuesAction('issue-id')->shouldReturn($issue);

@@ -20,7 +20,6 @@
     "require": {
         "php":                                  ">=5.4",
         "symfony/framework-bundle":             "2.3.*",
-        "symfony/form":                         "2.3.*",
 
         "friendsofsymfony/oauth-server-bundle": "~1.4",
         "friendsofsymfony/rest-bundle":         "1.4.x",

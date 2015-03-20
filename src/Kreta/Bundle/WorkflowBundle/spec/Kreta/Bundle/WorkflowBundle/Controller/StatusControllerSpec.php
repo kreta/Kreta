@@ -12,7 +12,7 @@
 namespace spec\Kreta\Bundle\WorkflowBundle\Controller;
 
 use Kreta\Component\Core\Exception\ResourceInUseException;
-use Kreta\Bundle\WorkflowBundle\Form\Handler\Api\StatusHandler;
+use Kreta\Component\Core\Form\Handler\Handler;
 use Kreta\Component\Workflow\Model\Interfaces\StatusInterface;
 use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
 use Kreta\Component\Workflow\Repository\StatusRepository;
@@ -117,7 +117,7 @@ class StatusControllerSpec extends ObjectBehavior
     function it_posts_status(
         ContainerInterface $container,
         Request $request,
-        StatusHandler $statusHandler,
+        Handler $handler,
         StatusInterface $status,
         WorkflowRepository $workflowRepository,
         WorkflowInterface $workflow,
@@ -128,9 +128,9 @@ class StatusControllerSpec extends ObjectBehavior
         $workflow = $this->getWorkflowIfAllowedSpec(
             $container, $workflowRepository, $workflow, $securityContext, 'manage_status'
         );
-        $container->get('kreta_workflow.form_handler.api.status')->shouldBeCalled()->willReturn($statusHandler);
+        $container->get('kreta_workflow.form_handler.status')->shouldBeCalled()->willReturn($handler);
         $container->get('request')->shouldBeCalled()->willReturn($request);
-        $statusHandler->processForm($request, null, ['workflow' => $workflow])->shouldBeCalled()->willReturn($status);
+        $handler->processForm($request, null, ['workflow' => $workflow])->shouldBeCalled()->willReturn($status);
 
         $this->postStatusesAction('workflow-id')->shouldReturn($status);
     }
@@ -154,7 +154,7 @@ class StatusControllerSpec extends ObjectBehavior
         Request $request,
         StatusRepository $statusRepository,
         StatusInterface $status,
-        StatusHandler $statusHandler,
+        Handler $handler,
         WorkflowRepository $workflowRepository,
         WorkflowInterface $workflow,
         SecurityContextInterface $securityContext
@@ -163,9 +163,9 @@ class StatusControllerSpec extends ObjectBehavior
         $status = $this->getStatusIfAllowedSpec(
             $container, $workflowRepository, $workflow, $securityContext, $statusRepository, $status, 'manage_status'
         );
-        $container->get('kreta_workflow.form_handler.api.status')->shouldBeCalled()->willReturn($statusHandler);
+        $container->get('kreta_workflow.form_handler.status')->shouldBeCalled()->willReturn($handler);
         $container->get('request')->shouldBeCalled()->willReturn($request);
-        $statusHandler->processForm($request, $status, ['method' => 'PUT'])->shouldBeCalled()->willReturn($status);
+        $handler->processForm($request, $status, ['method' => 'PUT'])->shouldBeCalled()->willReturn($status);
 
         $this->putStatusesAction('workflow-id', 'status-id')->shouldReturn($status);
     }

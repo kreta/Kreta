@@ -12,5 +12,5 @@ parameters:
 
     kreta_comment.repository_comment.class: Kreta\Component\Comment\Repository\CommentRepository
 
-    kreta_comment.form_comment_handler.class: Kreta\Bundle\CommentBundle\Form\Handler\CommentHandler
+    kreta_comment.form_type.comment.class: Kreta\Component\Comment\Form\Type\CommentType
 

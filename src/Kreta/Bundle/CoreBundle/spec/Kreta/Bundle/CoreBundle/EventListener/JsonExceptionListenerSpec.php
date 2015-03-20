@@ -12,8 +12,8 @@
 namespace spec\Kreta\Bundle\CoreBundle\EventListener;
 
 use Doctrine\ORM\NoResultException;
-use Kreta\Bundle\CoreBundle\Form\Handler\Exception\InvalidFormException;
 use Kreta\Component\Core\Exception\ResourceInUseException;
+use Kreta\Component\Core\Form\Exception\InvalidFormException;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\HttpFoundation\Request;

@@ -12,7 +12,7 @@
 namespace spec\Kreta\Bundle\ProjectBundle\Controller;
 
 use FOS\RestBundle\Request\ParamFetcher;
-use Kreta\Bundle\ProjectBundle\Form\Handler\Api\ProjectHandler;
+use Kreta\Component\Project\Form\Handler\ProjectHandler;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use Kreta\Component\Project\Repository\ProjectRepository;
@@ -104,7 +104,7 @@ class ProjectControllerSpec extends ObjectBehavior
         Request $request
     )
     {
-        $container->get('kreta_project.form_handler.api.project')->shouldBeCalled()->willReturn($projectHandler);
+        $container->get('kreta_project.form_handler.project')->shouldBeCalled()->willReturn($projectHandler);
         $container->get('request')->shouldBeCalled()->willReturn($request);
         $projectHandler->processForm($request)->shouldBeCalled()->willReturn($project);
 
@@ -120,7 +120,7 @@ class ProjectControllerSpec extends ObjectBehavior
         ProjectHandler $projectHandler
     )
     {
-        $container->get('kreta_project.form_handler.api.project')->shouldBeCalled()->willReturn($projectHandler);
+        $container->get('kreta_project.form_handler.project')->shouldBeCalled()->willReturn($projectHandler);
         $this->getProjectIfAllowedSpec($container, $projectRepository, $project, $securityContext, 'edit', false);
         $container->get('request')->shouldBeCalled()->willReturn($request);
 
@@ -136,7 +136,7 @@ class ProjectControllerSpec extends ObjectBehavior
         ProjectHandler $projectHandler
     )
     {
-        $container->get('kreta_project.form_handler.api.project')->shouldBeCalled()->willReturn($projectHandler);
+        $container->get('kreta_project.form_handler.project')->shouldBeCalled()->willReturn($projectHandler);
         $project = $this->getProjectIfAllowedSpec($container, $projectRepository, $project, $securityContext, 'edit');
         $container->get('request')->shouldBeCalled()->willReturn($request);
         $projectHandler->processForm($request, $project, ['method' => 'PUT'])->shouldBeCalled()->willReturn($project);

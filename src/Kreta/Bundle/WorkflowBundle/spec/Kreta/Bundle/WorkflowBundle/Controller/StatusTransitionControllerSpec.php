@@ -11,8 +11,8 @@
 
 namespace spec\Kreta\Bundle\WorkflowBundle\Controller;
 
-use Kreta\Bundle\WorkflowBundle\Form\Handler\Api\StatusTransitionHandler;
 use Kreta\Component\Core\Exception\ResourceInUseException;
+use Kreta\Component\Core\Form\Handler\Handler;
 use Kreta\Component\Workflow\Model\Interfaces\StatusInterface;
 use Kreta\Component\Workflow\Model\Interfaces\StatusTransitionInterface;
 use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
@@ -122,7 +122,7 @@ class StatusTransitionControllerSpec extends ObjectBehavior
         ContainerInterface $container,
         Request $request,
         StatusTransitionInterface $transition,
-        StatusTransitionHandler $transitionHandler,
+        Handler $handler,
         WorkflowRepository $workflowRepository,
         WorkflowInterface $workflow,
         SecurityContextInterface $securityContext,
@@ -135,9 +135,9 @@ class StatusTransitionControllerSpec extends ObjectBehavior
             $container, $workflowRepository, $workflow, $securityContext, 'manage_status'
         );
 
-        $container->get('kreta_workflow.form_handler.api.status_transition')
-            ->shouldBeCalled()->willReturn($transitionHandler);
-        $transitionHandler->processForm($request, null, ['workflow' => $workflow])
+        $container->get('kreta_workflow.form_handler.status_transition')
+            ->shouldBeCalled()->willReturn($handler);
+        $handler->processForm($request, null, ['workflow' => $workflow])
             ->shouldBeCalled()->willReturn($transition);
 
         $this->postTransitionsAction('workflow-id')->shouldReturn($transition);

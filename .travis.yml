@@ -76,7 +76,6 @@ script:
     - bin/behat --stop-on-failure --suite=statusTransition
     - bin/behat --stop-on-failure --suite=timeEntry
     - bin/behat --stop-on-failure --suite=workflow
-    - bin/behat --stop-on-failure --suite=web
 
 after_script:
     - bin/coveralls -v

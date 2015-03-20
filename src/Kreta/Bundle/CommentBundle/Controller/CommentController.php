@@ -109,7 +109,7 @@ class CommentController extends RestController
     {
         $issue = $this->getIssueIfAllowed($issueId);
 
-        return $this->get('kreta_comment.form_handler.api.comment')->processForm(
+        return $this->get('kreta_comment.form_handler.comment')->processForm(
             $this->get('request'), null, ['issue' => $issue]
         );
     }
@@ -150,7 +150,7 @@ class CommentController extends RestController
     {
         $comment = $this->getCommentIfAllowed($commentId, $issueId);
 
-        return $this->get('kreta_comment.form_handler.api.comment')->processForm(
+        return $this->get('kreta_comment.form_handler.comment')->processForm(
             $this->get('request'), $comment, ['method' => 'PUT', 'issue' => $comment->getIssue()]
         );
     }

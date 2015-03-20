@@ -13,11 +13,13 @@ namespace spec\Kreta\Bundle\ProjectBundle\Controller;
 
 use FOS\RestBundle\Request\ParamFetcher;
 use Kreta\Bundle\CoreBundle\spec\Kreta\Bundle\CoreBundle\Controller\BaseRestController;
-use Kreta\Bundle\ProjectBundle\Form\Handler\Api\ParticipantHandler;
+use Kreta\Component\Core\Form\Handler\Handler;
 use Kreta\Component\Project\Model\Interfaces\ParticipantInterface;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Project\Repository\ParticipantRepository;
 use Kreta\Component\Project\Repository\ProjectRepository;
+use Kreta\Component\User\Model\Interfaces\UserInterface;
+use Kreta\Component\User\Repository\UserRepository;
 use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
@@ -102,19 +104,23 @@ class ParticipantControllerSpec extends BaseRestController
         ProjectRepository $projectRepository,
         SecurityContextInterface $securityContext,
         ProjectInterface $project,
+        UserRepository $userRepository,
+        UserInterface $user,
         Request $request,
-        ParticipantHandler $participantHandler,
+        Handler $handler,
         ParticipantInterface $participant
     )
     {
         $project = $this->getProjectIfAllowedSpec(
             $container, $projectRepository, $project, $securityContext, 'add_participant'
         );
+        $container->get('kreta_user.repository.user')->shouldBeCalled()->willReturn($userRepository);
+        $userRepository->findAll()->shouldBeCalled()->willReturn([$user]);
 
-        $container->get('kreta_project.form_handler.api.participant')
-            ->shouldBeCalled()->willReturn($participantHandler);
+        $container->get('kreta_project.form_handler.participant')
+            ->shouldBeCalled()->willReturn($handler);
         $container->get('request')->shouldBeCalled()->willReturn($request);
-        $participantHandler->processForm($request, null, ['project' => $project])
+        $handler->processForm($request, null, ['project' => $project, 'users' => [$user]])
             ->shouldBeCalled()->willReturn($participant);
 
         $this->postParticipantsAction('project-id')->shouldReturn($participant);

@@ -138,7 +138,7 @@ class StatusTransitionController extends RestController
     {
         $workflow = $this->getWorkflowIfAllowed($workflowId, 'manage_status');
 
-        return $this->get('kreta_workflow.form_handler.api.status_transition')->processForm(
+        return $this->get('kreta_workflow.form_handler.status_transition')->processForm(
             $this->get('request'), null, ['workflow' => $workflow]
         );
     }
