@@ -45,3 +45,4 @@ behat-coverage.xml
 #### Front-end ####
 .sass-cache
 node_modules
+npm-debug.log
