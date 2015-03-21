@@ -18,8 +18,8 @@ Kreta\Component\Project\Model\Project:
             - Length:
                 min: 3
                 max: 4
-                minMessage: 'Short name must be at least {{ limit }} characters long'
-                maxMessage: 'Short name cannot be longer than {{ limit }} characters long'
+                minMessage: 'Short name must be at least 3 characters long'
+                maxMessage: 'Short name cannot be longer than 4 characters long'
 Kreta\Component\Project\Model\Label:
     constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:

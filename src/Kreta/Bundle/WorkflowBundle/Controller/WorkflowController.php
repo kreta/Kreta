@@ -15,7 +15,7 @@ use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Request\ParamFetcher;
 use Kreta\Bundle\CoreBundle\Controller\RestController;
-use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Kreta\SimpleApiDocBundle\Annotation\ApiDoc;
 
 /**
  * Class WorkflowController.
@@ -33,25 +33,8 @@ class WorkflowController extends RestController
      * @QueryParam(name="limit", requirements="\d+", default="9999", description="Amount of workflows to be returned")
      * @QueryParam(name="offset", requirements="\d+", default="0", description="Offset in pages")
      *
-     * @ApiDoc(
-     *  description = "Returns all the workflows of current user, it admits sort, limit and offset",
-     *  requirements = {
-     *    {
-     *      "name"="_format",
-     *      "requirement"="json|jsonp",
-     *      "description"="Supported formats, by default json"
-     *    }
-     *  },
-     *  resource = true,
-     *  statusCodes = {
-     *    200 = "<data>"
-     *  }
-     * )
-     *
-     * @View(
-     *  statusCode=200,
-     *  serializerGroups={"workflowList"}
-     * )
+     * @ApiDoc(resource=true, statusCodes={200})
+     * @View(statusCode=200, serializerGroups={"workflowList"})
      *
      * @return \Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface[]
      */
@@ -70,26 +53,8 @@ class WorkflowController extends RestController
      *
      * @param string $workflowId The workflow id
      *
-     * @ApiDoc(
-     *  description = "Returns the workflow of id given",
-     *  requirements = {
-     *    {
-     *      "name"="_format",
-     *      "requirement"="json|jsonp",
-     *      "description"="Supported formats, by default json"
-     *    }
-     *  },
-     *  statusCodes = {
-     *    200 = "<data>",
-     *    403 = "Not allowed to access this resource",
-     *    404 = "Does not exist any object with id passed"
-     *  }
-     * )
-     *
-     * @View(
-     *  statusCode=200,
-     *  serializerGroups={"workflow"}
-     * )
+     * @ApiDoc(statusCodes={200, 403, 404})
+     * @View(statusCode=200, serializerGroups={"workflow"})
      *
      * @return \Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface
      */
@@ -101,30 +66,8 @@ class WorkflowController extends RestController
     /**
      * Creates new workflow for name given.
      *
-     * @ApiDoc(
-     *  description = "Creates new workflow for name given",
-     *  input = "Kreta\Bundle\WorkflowBundle\Form\Type\Api\WorkflowType",
-     *  output = "Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface",
-     *  requirements = {
-     *    {
-     *      "name"="_format",
-     *      "requirement"="json|jsonp",
-     *      "description"="Supported formats, by default json"
-     *    }
-     *  },
-     *  statusCodes = {
-     *      201 = "<data>",
-     *      400 = {
-     *          "Name should not be blank",
-     *          "A workflow with identical name is already exists",
-     *      }
-     *  }
-     * )
-     *
-     * @View(
-     *  statusCode=201,
-     *  serializerGroups={"workflow"}
-     * )
+     * @ApiDoc(statusCodes={201, 400})
+     * @View(statusCode=201, serializerGroups={"workflow"})
      *
      * @return \Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface
      */
@@ -138,32 +81,8 @@ class WorkflowController extends RestController
      *
      * @param string $workflowId The workflow id
      *
-     * @ApiDoc(
-     *  description = "Updates the workflow of id given",
-     *  input = "Kreta\Bundle\WorkflowBundle\Form\Type\Api\WorkflowType",
-     *  output = "Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface",
-     *  requirements = {
-     *    {
-     *      "name"="_format",
-     *      "requirement"="json|jsonp",
-     *      "description"="Supported formats, by default json"
-     *    }
-     *  },
-     *  statusCodes = {
-     *      200 = "<data>",
-     *      400 = {
-     *          "Name should not be blank",
-     *          "A workflow with identical name is already exists",
-     *      },
-     *      403 = "Not allowed to access this resource",
-     *      404 = "Does not exist any object with id passed"
-     *  }
-     * )
-     *
-     * @View(
-     *  statusCode=200,
-     *  serializerGroups={"workflow"}
-     * )
+     * @ApiDoc(statusCodes={200, 400, 403, 404})
+     * @View(statusCode=200, serializerGroups={"workflow"})
      *
      * @return \Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface
      */

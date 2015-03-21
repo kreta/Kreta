@@ -31,5 +31,5 @@ kreta_workflow:
 
 # Third party libraries/bundles
 api_doc:
-    resource: '@NelmioApiDocBundle/Resources/config/routing.yml'
+    resource: '@KretaSimpleApiDocBundle/Resources/config/routing.yml'
     prefix: /doc

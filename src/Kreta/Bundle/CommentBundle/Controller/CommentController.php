@@ -15,7 +15,7 @@ use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Request\ParamFetcher;
 use Kreta\Bundle\CoreBundle\Controller\RestController;
-use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Kreta\SimpleApiDocBundle\Annotation\ApiDoc;
 
 /**
  * Class CommentController.
@@ -35,27 +35,8 @@ class CommentController extends RestController
      * @QueryParam(name="limit", requirements="\d+", default="9999", description="Amount of comments to be returned")
      * @QueryParam(name="offset", requirements="\d+", default="0", description="Offset in pages")
      *
-     * @ApiDoc(
-     *  description = "Returns all comments of issue id given, it admits date and owner filters, limit and offset",
-     *  requirements = {
-     *    {
-     *      "name"="_format",
-     *      "requirement"="json|jsonp",
-     *      "description"="Supported formats, by default json"
-     *    }
-     *  },
-     *  resource = true,
-     *  statusCodes = {
-     *    200 = "<data>",
-     *    403 = "Not allowed to access this resource",
-     *    404 = "Does not exist any object with id passed"
-     *  }
-     * )
-     *
-     * @View(
-     *  statusCode=200,
-     *  serializerGroups={"commentList"}
-     * )
+     * @ApiDoc(resource=true, statusCodes = {200, 403, 404})
+     * @View(statusCode=200, serializerGroups={"commentList"})
      *
      * @return \Kreta\Component\Comment\Model\Interfaces\CommentInterface[]
      */
@@ -79,29 +60,8 @@ class CommentController extends RestController
      *
      * @param string $issueId The issue id
      *
-     * @ApiDoc(
-     *  description = "Creates new comment for description given",
-     *  input = "Kreta\Bundle\CommentBundle\Form\Type\Api\CommentType",
-     *  output = "Kreta\Component\Comment\Model\Interfaces\CommentInterface",
-     *  requirements = {
-     *    {
-     *      "name"="_format",
-     *      "requirement"="json|jsonp",
-     *      "description"="Supported formats, by default json"
-     *    }
-     *  },
-     *  statusCodes = {
-     *    201 = "<data>",
-     *    400 = "Description should not be blank",
-     *    403 = "Not allowed to access this resource",
-     *    404 = "Does not exist any object with id passed"
-     *  }
-     * )
-     *
-     * @View(
-     *  statusCode=201,
-     *  serializerGroups={"comment"}
-     * )
+     * @ApiDoc(statusCodes={201, 400, 403, 404})
+     * @View(statusCode=201, serializerGroups={"comment"})
      *
      * @return \Kreta\Component\Comment\Model\Interfaces\CommentInterface
      */
@@ -120,29 +80,8 @@ class CommentController extends RestController
      * @param string $issueId   The issue id
      * @param string $commentId The comment id
      *
-     * @ApiDoc(
-     *  description = "Updates the comment of issue id and comment id given",
-     *  input = "Kreta\Bundle\CommentBundle\Form\Type\Api\CommentType",
-     *  output = "Kreta\Component\Comment\Model\Interfaces\CommentInterface",
-     *  requirements = {
-     *    {
-     *      "name"="_format",
-     *      "requirement"="json|jsonp",
-     *      "description"="Supported formats, by default json"
-     *    }
-     *  },
-     *  statusCodes = {
-     *    200 = "<data>",
-     *    400 = "Description should not be blank",
-     *    403 = "Not allowed to access this resource",
-     *    404 = "Does not exist any object with id passed"
-     *  }
-     * )
-     *
-     * @View(
-     *  statusCode=200,
-     *  serializerGroups={"comment"}
-     * )
+     * @ApiDoc(statusCodes={200, 400, 403, 404})
+     * @View(statusCode=200, serializerGroups={"comment"})
      *
      * @return \Kreta\Component\Comment\Model\Interfaces\CommentInterface
      */
@@ -164,11 +103,7 @@ class CommentController extends RestController
      *
      * @return \Kreta\Component\Comment\Model\Interfaces\CommentInterface
      */
-    protected function getCommentIfAllowed(
-        $commentId,
-        $issueId,
-        $issueGrant = 'view'
-    )
+    protected function getCommentIfAllowed($commentId, $issueId, $issueGrant = 'view')
     {
         $this->getIssueIfAllowed($issueId, $issueGrant);
 

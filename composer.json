@@ -34,7 +34,6 @@
         "friendsofsymfony/rest-bundle":             "1.4.x",
         "friendsofsymfony/user-bundle":             "2.0.*@dev",
         "knplabs/knp-gaufrette-bundle":             "*@dev",
-        "nelmio/api-doc-bundle":                    "2.5.x",
         "nelmio/cors-bundle":                       "1.3.x",
         "hwi/oauth-bundle":                         "0.4.*@dev",
         "jms/serializer-bundle":                    "0.13.x",
@@ -43,7 +42,9 @@
         "liip/imagine-bundle":                      "~1.1",
 
         "doctrine/migrations":                      "1.0.*@dev",
-        "doctrine/doctrine-migrations-bundle":      "2.1.*@dev"
+        "doctrine/doctrine-migrations-bundle":      "2.1.*@dev",
+
+        "kreta/simple-api-doc-bundle":              "0.1.*@dev"
     },
     "require-dev": {
         "behat/behat" :                             "~3.0",
@@ -62,27 +63,29 @@
         "doctrine/doctrine-fixtures-bundle":        "~2.2"
     },
     "replace": {
-        "kreta/comment-bundle": "self.version",
-        "kreta/core-bundle": "self.version",
-        "kreta/fixtures-bundle": "self.version",
-        "kreta/issue-bundle": "self.version",
-        "kreta/media-bundle": "self.version",
-        "kreta/notification-bundle": "self.version",
-        "kreta/project-bundle": "self.version",
-        "kreta/user-bundle": "self.version",
-        "kreta/vcs-bundle": "self.version",
-        "kreta/web-bundle": "self.version",
-        "kreta/workflow-bundle": "self.version",
+        "kreta/comment-bundle":                     "self.version",
+        "kreta/core-bundle":                        "self.version",
+        "kreta/fixtures-bundle":                    "self.version",
+        "kreta/issue-bundle":                       "self.version",
+        "kreta/media-bundle":                       "self.version",
+        "kreta/notification-bundle":                "self.version",
+        "kreta/project-bundle":                     "self.version",
+        "kreta/time-tracking-bundle":               "self.version",
+        "kreta/user-bundle":                        "self.version",
+        "kreta/vcs-bundle":                         "self.version",
+        "kreta/web-bundle":                         "self.version",
+        "kreta/workflow-bundle":                    "self.version",
 
-        "kreta/comment": "self.version",
-        "kreta/core": "self.version",
-        "kreta/issue": "self.version",
-        "kreta/media": "self.version",
-        "kreta/notification": "self.version",
-        "kreta/project": "self.version",
-        "kreta/user": "self.version",
-        "kreta/vcs": "self.version",
-        "kreta/workflow": "self.version"
+        "kreta/comment":                            "self.version",
+        "kreta/core":                               "self.version",
+        "kreta/issue":                              "self.version",
+        "kreta/media":                              "self.version",
+        "kreta/notification":                       "self.version",
+        "kreta/project":                            "self.version",
+        "kreta/time-tracking":                      "self.version",
+        "kreta/user":                               "self.version",
+        "kreta/vcs":                                "self.version",
+        "kreta/workflow":                           "self.version"
     },
     "scripts": {
         "post-install-cmd": [

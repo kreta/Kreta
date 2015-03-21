@@ -11,13 +11,11 @@
 
 namespace Kreta\Bundle\WorkflowBundle\Controller;
 
-use FOS\RestBundle\Controller\Annotations\Delete;
-use FOS\RestBundle\Controller\Annotations\Get;
-use FOS\RestBundle\Controller\Annotations\Post;
+use FOS\RestBundle\Controller\Annotations as Http;
 use FOS\RestBundle\Controller\Annotations\View;
 use Kreta\Bundle\CoreBundle\Controller\RestController;
 use Kreta\Component\Core\Exception\ResourceInUseException;
-use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Kreta\SimpleApiDocBundle\Annotation\ApiDoc;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 /**
@@ -32,27 +30,8 @@ class StatusTransitionController extends RestController
      *
      * @param string $workflowId The workflow id
      *
-     * @ApiDoc(
-     *  description = "Returns all the transitions of workflow id given",
-     *  requirements = {
-     *    {
-     *      "name"="_format",
-     *      "requirement"="json|jsonp",
-     *      "description"="Supported formats, by default json"
-     *    }
-     *  },
-     *  resource = true,
-     *  statusCodes = {
-     *    200 = "<data>",
-     *    403 = "Not allowed to access this resource",
-     *    404 = "Does not exist any object with id passed"
-     *  }
-     * )
-     *
-     * @View(
-     *  statusCode=200,
-     *  serializerGroups={"transitionList"}
-     * )
+     * @ApiDoc(resource=true, statusCodes={200, 403, 404})
+     * @View(statusCode=200, serializerGroups={"transitionList"})
      *
      * @return \Kreta\Component\Workflow\Model\Interfaces\StatusTransitionInterface[]
      */
@@ -67,26 +46,8 @@ class StatusTransitionController extends RestController
      * @param string $workflowId   The workflow id
      * @param string $transitionId The status transition id
      *
-     * @ApiDoc(
-     *  description = "Returns the transition of workflow id and status transition id given",
-     *  requirements = {
-     *    {
-     *      "name"="_format",
-     *      "requirement"="json|jsonp",
-     *      "description"="Supported formats, by default json"
-     *    }
-     *  },
-     *  statusCodes = {
-     *    200 = "<data>",
-     *    403 = "Not allowed to access this resource",
-     *    404 = "Does not exist any object with id passed"
-     *  }
-     * )
-     *
-     * @View(
-     *  statusCode=200,
-     *  serializerGroups={"transition"}
-     * )
+     * @ApiDoc(statusCodes={200, 403, 404})
+     * @View(statusCode=200, serializerGroups={"transition"})
      *
      * @return \Kreta\Component\Workflow\Model\Interfaces\StatusTransitionInterface
      */
@@ -100,37 +61,8 @@ class StatusTransitionController extends RestController
      *
      * @param string $workflowId The workflow id
      *
-     * @ApiDoc(
-     *  description = "Creates new transition for name, status and initial statuses given",
-     *  input = "Kreta\Bundle\ApiBundle\Form\Type\Api\StatusTransitionType",
-     *  output = "Kreta\Component\Workflow\Model\Interfaces\StatusTransitionInterface",
-     *  requirements = {
-     *    {
-     *      "name"="_format",
-     *      "requirement"="json|jsonp",
-     *      "description"="Supported formats, by default json"
-     *    }
-     *  },
-     *  statusCodes = {
-     *    201 = "<data>",
-     *    400 = {
-     *      "Name should not be blank",
-     *      "Status should not be blank",
-     *      "The transition must have at least one initial status",
-     *      "A transition with identical name is already exist in this workflow",
-     *      "The status is not valid",
-     *      "The initial statuses are not valid",
-     *      "The state cannot be an initial state too"
-     *    },
-     *    403 = "Not allowed to access this resource",
-     *    404 = "Does not exist any object with id passed"
-     *  }
-     * )
-     *
-     * @View(
-     *  statusCode=201,
-     *  serializerGroups={"transition"}
-     * )
+     * @ApiDoc(statusCodes = {201, 400, 403, 404})
+     * @View(statusCode=201, serializerGroups={"transition"})
      *
      * @return \Kreta\Component\Workflow\Model\Interfaces\StatusTransitionInterface
      */
@@ -149,23 +81,7 @@ class StatusTransitionController extends RestController
      * @param string $workflowId   The workflow id
      * @param string $transitionId The transition id
      *
-     * @ApiDoc(
-     *  description = "Deletes the transition of workflow id and transition id given",
-     *  requirements = {
-     *    {
-     *      "name"="_format",
-     *      "requirement"="json|jsonp",
-     *      "description"="Supported formats, by default json"
-     *    }
-     *  },
-     *  statusCodes = {
-     *    204 = "",
-     *    403 = "Not allowed to access this resource",
-     *    404 = "Does not exist any object with id passed",
-     *    409 = "The resource is currently in use"
-     *  }
-     * )
-     *
+     * @ApiDoc(statusCodes = {204, 403, 404, 409})
      * @View(statusCode=204)
      *
      * @return void
@@ -187,28 +103,9 @@ class StatusTransitionController extends RestController
      * @param string $workflowId   The workflow id
      * @param string $transitionId The transition id
      *
-     * @ApiDoc(
-     *  description = "Returns initial statuses of transition id and workflow id given",
-     *  requirements = {
-     *    {
-     *      "name"="_format",
-     *      "requirement"="json|jsonp",
-     *      "description"="Supported formats, by default json"
-     *    }
-     *  },
-     *  statusCodes = {
-     *    200 = "<data>",
-     *    403 = "Not allowed to access this resource",
-     *    404 = "Does not exist any object with id passed"
-     *  }
-     * )
-     *
-     * @Get("/workflows/{workflowId}/transitions/{transitionId}/initial-statuses")
-     *
-     * @View(
-     *  statusCode=200,
-     *  serializerGroups={"transitionList", "transition"}
-     * )
+     * @ApiDoc(statusCodes={200, 403, 404})
+     * @Http\Get("/workflows/{workflowId}/transitions/{transitionId}/initial-statuses")
+     * @View(statusCode=200, serializerGroups={"transitionList", "transition"})
      *
      * @return \Kreta\Component\Workflow\Model\Interfaces\StatusInterface[]
      */
@@ -224,28 +121,9 @@ class StatusTransitionController extends RestController
      * @param string $transitionId    The transition id
      * @param string $initialStatusId The initial status id
      *
-     * @ApiDoc(
-     *  description = "Returns the initial status of status initial id, transition id and workflow id given",
-     *  requirements = {
-     *    {
-     *      "name"="_format",
-     *      "requirement"="json|jsonp",
-     *      "description"="Supported formats, by default json"
-     *    }
-     *  },
-     *  statusCodes = {
-     *    200 = "<data>",
-     *    403 = "Not allowed to access this resource",
-     *    404 = "Does not exist any object with id passed",
-     *  }
-     * )
-     *
-     * @Get("/workflows/{workflowId}/transitions/{transitionId}/initial-statuses/{initialStatusId}")
-     *
-     * @View(
-     *  statusCode=200,
-     *  serializerGroups={"transitionList", "transition"}
-     * )
+     * @ApiDoc(statusCodes={200, 403, 404})
+     * @Http\Get("/workflows/{workflowId}/transitions/{transitionId}/initial-statuses/{initialStatusId}")
+     * @View(statusCode=200, serializerGroups={"transitionList", "transition"})
      *
      * @return \Kreta\Component\Workflow\Model\Interfaces\StatusInterface
      */
@@ -260,33 +138,9 @@ class StatusTransitionController extends RestController
      * @param string $workflowId   The workflow id
      * @param string $transitionId The transition id
      *
-     * @ApiDoc(
-     *  description = "Creates an initial status of transition id and workflow id given",
-     *  requirements = {
-     *    {
-     *      "name"="_format",
-     *      "requirement"="json|jsonp",
-     *      "description"="Supported formats, by default json"
-     *    }
-     *  },
-     *  statusCodes = {
-     *    201 = "<data>",
-     *    400 = {
-     *      "The initial status should not be blank",
-     *      "The initial status given is not from transition's workflow"
-     *    },
-     *    403 = "Not allowed to access this resource",
-     *    404 = "Does not exist any object with id passed",
-     *    409 = "The resource is already persisted"
-     *  }
-     * )
-     *
-     * @Post("/workflows/{workflowId}/transitions/{transitionId}/initial-statuses")
-     *
-     * @View(
-     *  statusCode=201,
-     *  serializerGroups={"transitionList", "transition"}
-     * )
+     * @ApiDoc(statusCodes={201, 400, 403, 404, 409})
+     * @Http\Post("/workflows/{workflowId}/transitions/{transitionId}/initial-statuses")
+     * @View(statusCode=201, serializerGroups={"transitionList", "transition"})
      *
      * @return \Kreta\Component\Workflow\Model\Interfaces\StatusInterface[]
      * @throws \Symfony\Component\HttpKernel\Exception\BadRequestHttpException
@@ -310,28 +164,10 @@ class StatusTransitionController extends RestController
      * @param string $transitionId    The transition id
      * @param string $initialStatusId The initial status id
      *
-     * @ApiDoc(
-     *  description = "Deletes the initial status of workflow id, transition id and initial status id given",
-     *  requirements = {
-     *    {
-     *      "name"="_format",
-     *      "requirement"="json|jsonp",
-     *      "description"="Supported formats, by default json"
-     *    }
-     *  },
-     *  statusCodes = {
-     *    204 = "",
-     *    403 = "Not allowed to access this resource",
-     *    404 = "Does not exist any object with id passed",
-     *    409 = {
-     *      "The resource is currently in use",
-     *      "The collection already has the minimum elements that is supported"
-     *    }
-     *  }
-     * )
-     *
-     * @Delete("/workflows/{workflowId}/transitions/{transitionId}/initial-statuses/{initialStatusId}")
-     *
+     * @ApiDoc(statusCodes={204, 403, 404, 409={
+     *  "The resource is currently in use", "The collection already has the minimum elements that is supported"
+     * }})
+     * @Http\Delete("/workflows/{workflowId}/transitions/{transitionId}/initial-statuses/{initialStatusId}")
      * @View(statusCode=204)
      *
      * @return void
@@ -352,28 +188,9 @@ class StatusTransitionController extends RestController
      * @param string $workflowId   The workflow id
      * @param string $transitionId The transition id
      *
-     * @ApiDoc(
-     *  description = "Returns the end status of transition id and workflow id given",
-     *  requirements = {
-     *    {
-     *      "name"="_format",
-     *      "requirement"="json|jsonp",
-     *      "description"="Supported formats, by default json"
-     *    }
-     *  },
-     *  statusCodes = {
-     *    200 = "<data>",
-     *    403 = "Not allowed to access this resource",
-     *    404 = "Does not exist any object with id passed"
-     *  }
-     * )
-     *
-     * @Get("/workflows/{workflowId}/transitions/{transitionId}/end-status")
-     *
-     * @View(
-     *  statusCode=200,
-     *  serializerGroups={"transitionList", "transition"}
-     * )
+     * @ApiDoc(statusCodes={200, 403, 404})
+     * @Http\Get("/workflows/{workflowId}/transitions/{transitionId}/end-status")
+     * @View(statusCode=200, serializerGroups={"transitionList", "transition"})
      *
      * @return \Kreta\Component\Workflow\Model\Interfaces\StatusInterface
      */

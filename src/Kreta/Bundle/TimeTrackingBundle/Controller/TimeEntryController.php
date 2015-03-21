@@ -11,15 +11,12 @@
 
 namespace Kreta\Bundle\TimeTrackingBundle\Controller;
 
-use FOS\RestBundle\Controller\Annotations\Get;
-use FOS\RestBundle\Controller\Annotations\Post;
-use FOS\RestBundle\Controller\Annotations\Put;
-use FOS\RestBundle\Controller\Annotations\Delete;
+use FOS\RestBundle\Controller\Annotations as Http;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Request\ParamFetcher;
 use Kreta\Bundle\CoreBundle\Controller\RestController;
-use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Kreta\SimpleApiDocBundle\Annotation\ApiDoc;
 
 /**
  * Class TimeEntryController.
@@ -38,28 +35,9 @@ class TimeEntryController extends RestController
      * @QueryParam(name="limit", requirements="\d+", default="9999", description="Amount of time entries to be returned")
      * @QueryParam(name="offset", requirements="\d+", default="0", description="Offset in pages")
      *
-     * @ApiDoc(
-     *  description = "Returns all time entries of issue id given, it admits sort, limit and offset",
-     *  requirements = {
-     *    {
-     *      "name"="_format",
-     *      "requirement"="json|jsonp",
-     *      "description"="Supported formats, by default json"
-     *    }
-     *  },
-     *  resource = true,
-     *  statusCodes = {
-     *    200 = "<data>",
-     *    403 = "Not allowed to access this resource",
-     *    404 = "Does not exist any object with id passed"
-     *  }
-     * )
-     * @Get("/issues/{issueId}/time-entries")
-     *
-     * @View(
-     *  statusCode=200,
-     *  serializerGroups={"timeEntryList"}
-     * )
+     * @ApiDoc(resource=true, statusCodes={200, 403, 404})
+     * @Http\Get("/issues/{issueId}/time-entries")
+     * @View(statusCode=200, serializerGroups={"timeEntryList"})
      *
      * @return \Kreta\Component\TimeTracking\Model\Interfaces\TimeEntryInterface[]
      */
@@ -81,27 +59,9 @@ class TimeEntryController extends RestController
      * @param string $issueId     The issue id
      * @param string $timeEntryId The time entry id
      *
-     * @ApiDoc(
-     *  description = "Returns the time entry of issue id and time entry id given",
-     *  requirements = {
-     *    {
-     *      "name"="_format",
-     *      "requirement"="json|jsonp",
-     *      "description"="Supported formats, by default json"
-     *    }
-     *  },
-     *  statusCodes = {
-     *    200 = "<data>",
-     *    403 = "Not allowed to access this resource",
-     *    404 = "Does not exist any object with id passed"
-     *  }
-     * )
-     * @Get("/issues/{issueId}/time-entries/{timeEntryId}")
-     *
-     * @View(
-     *  statusCode=200,
-     *  serializerGroups={"timeEntry"}
-     * )
+     * @ApiDoc(statusCodes={200, 403, 404})
+     * @Http\Get("/issues/{issueId}/time-entries/{timeEntryId}")
+     * @View(statusCode=200, serializerGroups={"timeEntry"})
      *
      * @return \Kreta\Component\Issue\Model\Interfaces\IssueInterface
      */
@@ -115,31 +75,9 @@ class TimeEntryController extends RestController
      *
      * @param string $issueId The issue id
      *
-     * @ApiDoc(
-     *  description = "Creates new time entry for description, and time spent given",
-     *  input = "Kreta\Bundle\TimeTrackingBundle\Form\Type\TimeEntryType",
-     *  output = "Kreta\Component\TimeTracking\Model\Interfaces\TimeEntryInterface",
-     *  requirements = {
-     *    {
-     *      "name"="_format",
-     *      "requirement"="json|jsonp",
-     *      "description"="Supported formats, by default json"
-     *    }
-     *  },
-     *  statusCodes = {
-     *      201 = "<data>",
-     *      400 = "Time spent should not be blank",
-     *      403 = "Not allowed to access this resource",
-     *      404 = "Does not exist any object with id passed"
-     *  }
-     * )
-     *
-     * @Post("/issues/{issueId}/time-entries")
-     *
-     * @View(
-     *  statusCode=201,
-     *  serializerGroups={"timeEntry"}
-     * )
+     * @ApiDoc(statusCodes={201, 400, 403, 404})
+     * @Http\Post("/issues/{issueId}/time-entries")
+     * @View(statusCode=201, serializerGroups={"timeEntry"})
      *
      * @return \Kreta\Component\TimeTracking\Model\Interfaces\TimeEntryInterface
      */
@@ -158,31 +96,9 @@ class TimeEntryController extends RestController
      * @param string $issueId     The issue id
      * @param string $timeEntryId The time entry id
      *
-     * @ApiDoc(
-     *  description = "Updates the time entry of issue id, and id given",
-     *  input = "Kreta\Bundle\TimeTrackingBundle\Form\Type\TimeEntryType",
-     *  output = "Kreta\Component\TimeTracking\Model\Interfaces\TimeEntryInterface",
-     *  requirements = {
-     *    {
-     *      "name"="_format",
-     *      "requirement"="json|jsonp",
-     *      "description"="Supported formats, by default json"
-     *    }
-     *  },
-     *  statusCodes = {
-     *      200 = "<data>",
-     *      400 = "Time spent should not be blank",
-     *      403 = "Not allowed to access this resource",
-     *      404 = "Does not exist any object with id passed"
-     *  }
-     * )
-     *
-     * @Put("/issues/{issueId}/time-entries/{timeEntryId}")
-     *
-     * @View(
-     *  statusCode=200,
-     *  serializerGroups={"timeEntry"}
-     * )
+     * @ApiDoc(statusCodes={200, 400, 403, 404})
+     * @Http\Put("/issues/{issueId}/time-entries/{timeEntryId}")
+     * @View(statusCode=200, serializerGroups={"timeEntry"})
      *
      * @return \Kreta\Component\TimeTracking\Model\Interfaces\TimeEntryInterface
      */
@@ -201,24 +117,8 @@ class TimeEntryController extends RestController
      * @param string $issueId     The issue id
      * @param string $timeEntryId The time entry id
      *
-     * @ApiDoc(
-     *  description = "Deletes the time entry of issue id, and id given",
-     *  requirements = {
-     *    {
-     *      "name"="_format",
-     *      "requirement"="json|jsonp",
-     *      "description"="Supported formats, by default json"
-     *    }
-     *  },
-     *  statusCodes = {
-     *      200 = "<data>",
-     *      403 = "Not allowed to access this resource",
-     *      404 = "Does not exist any object with id passed"
-     *  }
-     * )
-     *
-     * @Delete("/issues/{issueId}/time-entries/{timeEntryId}")
-     *
+     * @ApiDoc(statusCodes={200, 403, 404})
+     * @Http\Delete("/issues/{issueId}/time-entries/{timeEntryId}")
      * @View(statusCode=204)
      *
      * @return void
@@ -239,19 +139,12 @@ class TimeEntryController extends RestController
      *
      * @return \Kreta\Component\TimeTracking\Model\Interfaces\TimeEntryInterface
      */
-    protected function getTimeEntryIfAllowed(
-        $issueId,
-        $timeEntryId,
-        $issueGrant = 'view',
-        $timeEntryGrant = 'view'
-    )
+    protected function getTimeEntryIfAllowed($issueId, $timeEntryId, $issueGrant = 'view', $timeEntryGrant = 'view')
     {
         $this->getIssueIfAllowed($issueId, $issueGrant);
 
         return $this->getResourceIfAllowed(
-            $this->get('kreta_time_tracking.repository.time_entry'),
-            $timeEntryId,
-            $timeEntryGrant
+            $this->get('kreta_time_tracking.repository.time_entry'), $timeEntryId, $timeEntryGrant
         );
     }
 }

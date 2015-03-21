@@ -15,7 +15,7 @@ use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Request\ParamFetcher;
 use Kreta\Bundle\CoreBundle\Controller\RestController;
-use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Kreta\SimpleApiDocBundle\Annotation\ApiDoc;
 
 /**
  * Class ParticipantController.
@@ -34,27 +34,9 @@ class ParticipantController extends RestController
      * @QueryParam(name="offset", requirements="\d+", default="0", description="Offset in pages")
      * @QueryParam(name="q", requirements="(.*)", strict=true, nullable=true, description="User email filter")
      *
-     * @ApiDoc(
-     *  description = "Returns all the participants of project id given, it admits limit and offset",
-     *  requirements = {
-     *    {
-     *      "name"="_format",
-     *      "requirement"="json|jsonp",
-     *      "description"="Supported formats, by default json"
-     *    }
-     *  },
-     *  resource = true,
-     *  statusCodes = {
-     *    200 = "<data>",
-     *    403 = "Not allowed to access this resource",
-     *    404 = "Does not exist any object with id passed"
-     *  }
-     * )
+     * @ApiDoc(resource=true, statusCodes={200, 403, 404})
+     * @View(statusCode=200, serializerGroups={"participantList"})
      *
-     * @View(
-     *  statusCode=200,
-     *  serializerGroups={"participantList"}
-     * )
      * @return \Kreta\Component\Project\Model\Interfaces\ParticipantInterface[]
      */
     public function getParticipantsAction($projectId, ParamFetcher $paramFetcher)
@@ -72,31 +54,8 @@ class ParticipantController extends RestController
      *
      * @param string $projectId The project id
      *
-     * @ApiDoc(
-     *  description = "Creates new participant for role and user given",
-     *  input = "Kreta\Bundle\ProjectBundle\Form\Type\Api\ParticipantType",
-     *  output = "Kreta\Component\Project\Model\Interfaces\ParticipantInterface",
-     *  requirements = {
-     *    {
-     *      "name"="_format",
-     *      "requirement"="json|jsonp",
-     *      "description"="Supported formats, by default json"
-     *    }
-     *  },
-     *  statusCodes = {
-     *    201 = "<data>",
-     *    400 = {
-     *      "User should not be blank",
-     *      "Role should not be blank",
-     *      "This participant is already exists in this project",
-     *    }
-     *  }
-     * )
-     *
-     * @View(
-     *  statusCode=201,
-     *  serializerGroups={"participant"}
-     * )
+     * @ApiDoc(statusCodes={201, 400})
+     * @View(statusCode=201, serializerGroups={"participant"})
      *
      * @return \Kreta\Component\Project\Model\Interfaces\ParticipantInterface
      */
@@ -116,22 +75,7 @@ class ParticipantController extends RestController
      * @param string $projectId The project id
      * @param string $userId    The user id
      *
-     * @ApiDoc(
-     *  description = "Deletes participant of project id and user id given",
-     *  requirements = {
-     *    {
-     *      "name"="_format",
-     *      "requirement"="json|jsonp",
-     *      "description"="Supported formats, by default json"
-     *    }
-     *  },
-     *  statusCodes = {
-     *    204 = "",
-     *    403 = "Not allowed to access this resource",
-     *    404 = "Does not exist any object with id passed"
-     *  }
-     * )
-     *
+     * @ApiDoc(statusCodes={204, 403, 404})
      * @View(statusCode=204)
      *
      * @return void
