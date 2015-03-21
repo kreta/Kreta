@@ -47,7 +47,7 @@ class DefaultControllerSpec extends ObjectBehavior
         $securityContext->getToken()->shouldBeCalled()->willReturn(null);
 
         $container->get('templating')->shouldBeCalled()->willReturn($engine);
-        $engine->renderResponse('KretaWebBundle:Default:index.html.twig');
+        $engine->renderResponse('KretaWebBundle::layout.html.twig');
 
         $this->indexAction();
     }
@@ -66,7 +66,7 @@ class DefaultControllerSpec extends ObjectBehavior
         $token->getUser()->shouldBeCalled()->willReturn($user);
 
         $container->get('templating')->shouldBeCalled()->willReturn($engine);
-        $engine->renderResponse('KretaWebBundle:Default:dashboard.html.twig');
+        $engine->renderResponse('KretaWebBundle::layout.html.twig');
 
         $this->indexAction();
     }
@@ -74,7 +74,7 @@ class DefaultControllerSpec extends ObjectBehavior
     function it_renders_dashboard(ContainerInterface $container, TwigEngine $engine)
     {
         $container->get('templating')->shouldBeCalled()->willReturn($engine);
-        $engine->renderResponse('KretaWebBundle:Default:dashboard.html.twig');
+        $engine->renderResponse('KretaWebBundle::layout.html.twig');
 
         $this->dashboardAction();
     }

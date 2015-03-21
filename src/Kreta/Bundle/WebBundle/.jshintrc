@@ -1,10 +1,3 @@
-// This file belongs to Kreta.
-// The source code of application includes a LICENSE file
-// with all information about license.
-//
-// @author benatespina <benatespina@gmail.com>
-// @author gorkalaucirica <gorka.lauzirika@gmail.com>
-
 {
   "curly": true,
   "eqeqeq": true,
@@ -48,6 +41,8 @@
   "jquery": false,
   "globals": {
     "$": false,
-    "jQuery": false
+    "jQuery": false,
+    "Backbone": false,
+    "_": false
   }
 }

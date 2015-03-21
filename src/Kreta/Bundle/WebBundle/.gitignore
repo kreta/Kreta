@@ -17,3 +17,7 @@ composer.lock
 #### PHPSpec ####
 /coverage
 coverage.xml
+
+#### Dependencies ####
+/node_modules
+/Resources/public/vendor

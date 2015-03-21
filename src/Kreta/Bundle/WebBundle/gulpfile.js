@@ -1,4 +1,4 @@
-/**
+/*
  * This file belongs to Kreta.
  * The source code of application includes a LICENSE file
  * with all information about license.
@@ -28,7 +28,7 @@ var basePath = './../../../../web/bundles/kretaweb/';
 var resultPath = './../../../../web/';
 
 var license = [
-  '/**',
+  '/*',
   ' * <%= pkg.name %> - <%= pkg.description %>',
   ' * @version v<%= pkg.version %>',
   ' * @link    <%= pkg.homepage %>',
@@ -73,10 +73,10 @@ gulp.task('scss-lint', function () {
 
 gulp.task('sass', ['clean', 'scss-lint'], function () {
   return sass(assets.sass, {
-      style: 'expanded',
-      lineNumbers: true,
-      loadPath: true
-    })
+    style: 'expanded',
+    lineNumbers: true,
+    loadPath: true
+  })
     .pipe(rename({basename: 'kreta'}))
     .pipe(autoprefixer())
     .pipe(gulp.dest(resultPath + 'css'));
@@ -84,9 +84,9 @@ gulp.task('sass', ['clean', 'scss-lint'], function () {
 
 gulp.task('sass:prod', ['clean', 'scss-lint'], function () {
   return sass(assets.sass, {
-      style: 'compressed',
-      stopOnError: true 
-    })
+    style: 'compressed',
+    stopOnError: true
+  })
     .pipe(rename({
       basename: 'kreta',
       suffix: '.min'
@@ -99,15 +99,15 @@ gulp.task('sass:prod', ['clean', 'scss-lint'], function () {
 
 gulp.task('javascript', ['clean'], function () {
   return gulp.src(assets.javascripts)
-    .pipe(jshint())
+    .pipe(jshint('.jshintrc'))
     .pipe(jshint.reporter('default'))
-    //.pipe(babel({blacklist: ['useStrict'], comments: false, modules: ['amd'] }))
+    .pipe(babel({blacklist: ['useStrict'], comments: false, modules: ['amd'] }))
     .pipe(gulp.dest(resultPath + 'js'));
 });
 
 gulp.task('javascript:prod', ['clean'], function () {
   return gulp.src(assets.javascripts)
-    //.pipe(babel({blacklist: ['useStrict'], comments: false, modules: ['amd'] }))
+    .pipe(babel({blacklist: ['useStrict'], comments: false, modules: ['amd'] }))
     .pipe(concat('kreta.min.js'))
     .pipe(uglify())
     .pipe(header(license, {pkg: pkg}))
