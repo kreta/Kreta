@@ -7,7 +7,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-import {User} from '../models/user';
+import {User} from '../../models/user';
 
 export class HeaderView extends Backbone.View {
   constructor () {

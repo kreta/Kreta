@@ -7,7 +7,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-import {SelectorView} from '../element/selector';
+import {SelectorView} from '../component/selector';
 import {Issue} from '../../models/issue';
 import {ParticipantCollection} from '../../collections/participant';
 import {ProjectCollection} from '../../collections/project';

@@ -7,11 +7,10 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-import {HeaderView} from 'views/header';
-import {MainView} from 'views/main';
-import {LeftAsideView} from 'views/aside/leftAside';
-import {RightAsideView} from 'views/aside/rightAside';
-import {UserCollection} from 'collections/user';
+import {HeaderView} from 'views/layout/mainMenu';
+import {MainView} from 'views/layout/mainContent';
+import {LeftAsideView} from 'views/layout/leftAside';
+import {RightAsideView} from 'views/layout/rightAside';
 import {Router} from 'router';
 import {Config} from 'config';
 
@@ -24,11 +23,13 @@ var App = {
 
 window.App = App;
 
+$.ajaxSetup({
+    headers: {'Authorization': 'Bearer ' + App.accessToken}
+});
+
 $(() => {
   'use strict';
-  $.ajaxSetup({
-    headers: {'Authorization': 'Bearer ' + App.accessToken}
-  });
+
 
   new Router();
   new HeaderView();

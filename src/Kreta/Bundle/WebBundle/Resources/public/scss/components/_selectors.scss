@@ -1,0 +1,31 @@
+.kreta-selector {
+  position: relative;
+  cursor: pointer;
+  > span {
+    outline: 0;
+    display: block;
+    padding: 30px 0;
+  }
+  > div {
+    display: none;
+    position: absolute;
+    width: 100%;
+    top: 20px;
+    border: 1px solid #e1e1e1;
+    background: white;
+    span {
+      display: block;
+      padding: 8px;
+      transition-duration: .2s;
+      &:hover, &.selected {
+        background: $mainGreen;
+        color: white;
+      }
+    }
+  }
+  &.visible {
+    > div {
+      display: block;
+    }
+  }
+}

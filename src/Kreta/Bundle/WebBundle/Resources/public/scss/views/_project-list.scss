@@ -1,0 +1,23 @@
+#kreta-aside-projects {
+  li {
+    padding: 25px 0;
+    border-bottom: 1px solid #646570;
+    position: relative;
+    a {
+      color: white;
+      font-size: 1.1em;
+      text-decoration: none;
+      span {
+        font-size: .7em;
+        position: absolute;
+        bottom: 5px;
+        left: 0;
+        color: #a9aab1;
+      }
+    }
+  }
+}
+
+.kreta-sort-by {
+  font-size: .9em;
+}

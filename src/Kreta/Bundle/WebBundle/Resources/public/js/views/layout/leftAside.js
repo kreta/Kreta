@@ -7,7 +7,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-import {ProjectAsideView} from './left/projectAside';
+import {ProjectAsideView} from '../aside/left/projectAside';
 
 export class LeftAsideView extends Backbone.View {
   constructor () {

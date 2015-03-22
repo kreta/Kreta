@@ -1,0 +1,16 @@
+#issue-details {
+  padding: 45px;
+  h2 {
+    font-weight: lighter;
+    font-size: 1.8em;
+    line-height: 1.3em;
+    color: $mainBlack;
+  }
+  p.description {
+    margin-top: 30px;
+    font-weight: lighter;
+    color: $mainBlack;
+    line-height: 1.4em;
+    font-size: 1.1em;
+  }
+}
