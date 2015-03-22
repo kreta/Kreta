@@ -44,6 +44,8 @@ class AppKernel extends Kernel
             new Nelmio\CorsBundle\NelmioCorsBundle(),
             new Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle(),
 
+            new Kreta\SimpleApiDocBundle\KretaSimpleApiDocBundle(),
+
             new Kreta\Bundle\CommentBundle\KretaCommentBundle(),
             new Kreta\Bundle\FixturesBundle\KretaFixturesBundle(),
             new Kreta\Bundle\CoreBundle\KretaCoreBundle(),

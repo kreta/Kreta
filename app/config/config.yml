@@ -167,8 +167,6 @@ liip_imagine:
             filters:
                 thumbnail: { size: [640, 480], mode: outbound }
 
-nelmio_api_doc: ~
-
 nelmio_cors:
     paths:
         '^/':
