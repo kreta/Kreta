@@ -32,7 +32,7 @@ class DefaultController extends Controller
             return $this->dashboardAction();
         }
 
-        return $this->render('KretaWebBundle::layout.html.twig');
+        return $this->render('KretaWebBundle:Default:index.html.twig');
     }
 
     /**
@@ -42,6 +42,6 @@ class DefaultController extends Controller
      */
     public function dashboardAction()
     {
-        return $this->render('KretaWebBundle::layout.html.twig');
+        return $this->render('KretaWebBundle:Default:app.html.twig');
     }
 }

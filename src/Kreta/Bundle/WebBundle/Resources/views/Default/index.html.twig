@@ -1,0 +1,28 @@
+{% extends "KretaWebBundle::layout.html.twig" %}
+
+{% block body %}
+    <div class="kreta-landing">
+        <div class="kreta-landing-overlay">
+            <div class="kreta-landing-container">
+                <img src="{{ asset(base_asset_img ~ 'landing-logo.png') }}"/>
+                <h1>Modern project manager for software development</h1>
+                <div>
+                    <a href="{{ url('fos_user_security_login') }}" class="button github">
+                        <span>Login</span>
+                    </a>
+                    <a href="{{ url('fos_user_registration_register') }}" class="button github">
+                        <span>Sign up</span>
+                    </a>
+                    <a href="{{ url('hwi_oauth_service_redirect', {'service': 'github'}) }}" class="button github">
+                        <i class="fa fa-github"></i>
+                        <span>Login with Github</span>
+                    </a>
+                    {#<a href="" class="button bitbucket">
+                        <i class="fa fa-bitbucket"></i>
+                        <span>Login with Bitbucket</span>
+                    </a>#}
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

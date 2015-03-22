@@ -19,7 +19,7 @@ var imagemin = require('gulp-imagemin');
 var jshint = require('gulp-jshint');
 var minifyCSS = require('gulp-minify-css');
 var rename = require('gulp-rename');
-var sass = require('gulp-ruby-sass');
+var sass = require('gulp-sass');
 var scsslint = require('gulp-scss-lint');
 var uglify = require('gulp-uglify');
 var pkg = require('./package.json');
@@ -48,10 +48,10 @@ var assets = {
 
 gulp.task('clean', function () {
   del.sync([
-    resultPath + 'css/**',
-    resultPath + 'images/**',
-    resultPath + 'js/**',
-    resultPath + 'vendor/**'
+    resultPath + 'css*',
+    resultPath + 'images*',
+    resultPath + 'js*',
+    resultPath + 'vendor*'
   ], {force: true});
 });
 
@@ -72,21 +72,23 @@ gulp.task('scss-lint', function () {
 });
 
 gulp.task('sass', ['scss-lint'], function () {
-  return sass(assets.sass, {
-    style: 'expanded',
-    lineNumbers: true,
-    loadPath: true
-  })
+  return gulp.src(assets.sass)
+    .pipe(sass({
+        style: 'expanded',
+        lineNumbers: true,
+        loadPath: true
+     }))
     .pipe(rename({basename: 'kreta'}))
     .pipe(autoprefixer())
     .pipe(gulp.dest(resultPath + 'css'));
 });
 
 gulp.task('sass:prod', ['scss-lint'], function () {
-  return sass(assets.sass, {
-    style: 'compressed',
-    stopOnError: true
-  })
+  return gulp.src(assets.sass)
+    .pipe(sass(assets.sass, {
+        style: 'compressed',
+        stopOnError: true
+    }))
     .pipe(rename({
       basename: 'kreta',
       suffix: '.min'

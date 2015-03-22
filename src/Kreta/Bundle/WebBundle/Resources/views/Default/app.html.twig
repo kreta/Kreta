@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Kreta</title>
+    <link href="{{ asset('css/kreta.css') }}" media="screen" rel="stylesheet" type="text/css"/>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
+</head>
+<body>
+<nav id="kreta-menu-main">
+    <img class="logo" src="{{ asset('images/logo.png') }}"/>
+    <div class="kreta-menu-user">
+    </div>
+    <div class="kreta-menu-actions">
+        <a href="/">
+            <img src="{{ asset('images/icons/notification.png') }}">
+            <span class="kreta-notification-bubble">4</span>
+        </a>
+        <a href="/"><img src="{{ asset('images/icons/search.png') }}"></a>
+        <a href="/issue/new"><img src="{{ asset('images/icons/new.png') }}"></a>
+        <a href="/"><img src="{{ asset('images/icons/dashboard.png') }}"></a>
+        <a href="/"><img src="{{ asset('images/icons/lists.png') }}"></a>
+        <a href="/projects"><img src="{{ asset('images/icons/projects.png') }}"></a>
+    </div>
+</nav>
+<div id="kreta-left-aside"></div>
+<div id="kreta-content">
+    <div>
+        <div class="kreta-content-container"></div>
+    </div>
+</div>
+<div id="kreta-right-aside"></div>
+<script type="text/html" id="kreta-menu-user-template">
+    <div class="kreta-user-container">
+        <img src="<%= image %>">
+        <span>@gorka</span>
+    </div>
+</script>
+
+<script type="text/html" id="kreta-mini-issue-template">
+    <div class="issue-details">
+        <a href="/issue/<%= id %>">
+            <h3><%= title %></h3>
+        </a>
+    </div>
+    <div class="issue-icons">
+        <img src="<%= assignee.photo.name %>">
+    </div>
+</script>
+
+<script type="text/html" id="kreta-aside-issue-template">
+    <h2><%= title %></h2>
+    <img style="margin-top: 20px" src="{{ asset('images/temp-issue-details.jpg') }}">
+    <p class="description"><%= description %></p>
+    <img style="margin-top: 20px" src="{{ asset('images/temp-comments.jpg') }}">
+</script>
+
+<script type="text/html" id="kreta-project-issues-template">
+    <div class="kreta-project-header">
+        <div class="kreta-project-title">
+            <img src="{{ asset('images/temp-project-logo.jpg') }}">
+            <h2>Kreta</h2>
+        </div>
+        <div class="kreta-project-actions">
+            <a href="#"><img src="{{ asset('images/temp-dashboard-icon.jpg') }}">Dashboard</a>
+            <a href="#"><img src="{{ asset('images/temp-settings-icon.jpg') }}">Settings</a>
+        </div>
+    </div>
+    <div class="kreta-issue-filter">
+        <div class="kreta-issue-filter-group">
+            <a href="" class="selected">All</a>
+            <a href="">Assigned to</a>
+            <a href="">Me</a>
+        </div>
+        <div class="kreta-issue-filter-group">
+            <a href="" class="selected">All</a>
+            <a href="">Assigned to</a>
+            <a href="">Me</a>
+        </div>
+        <div class="kreta-issue-filter-group">
+            <a href="" class="selected">All</a>
+            <a href="">Assigned to</a>
+            <a href="">Me</a>
+        </div>
+    </div>
+    <div class="issues"></div>
+</script>
+
+<script type="text/html" id="kreta-create-issue-template">
+    <form id="kreta-create-task" method="POST" action="#">
+        <div class="kreta-create-issue-actions">
+            <button class="kreta-button">Cancel</button>
+            <input class="kreta-button green" type="submit" tabindex="8" value="Done">
+        </div>
+        <div class="kreta-selector selector-project">
+            <span tabindex="1"><img src="{{ asset('images/temp-project-icon.jpg') }}" style="margin-right: 5px">
+                Select project</span>
+            <input name="project" type="hidden" value="">
+            <div>
+
+            </div>
+        </div>
+        <input class="kreta-create-issue-title" name="title" placeholder="Type your task title" tabindex="2">
+        <textarea class="kreta-create-issue-description" name="description" placeholder="Type your task description" tabindex="3"></textarea>
+        <div class="kreta-create-issue-details">
+            <div class="kreta-selector selector-assignee">
+                <span tabindex="4">Unassigned</span>
+                <input name="assignee" type="hidden" value="">
+                <div>
+                </div>
+            </div>
+            <div class="kreta-selector selector-priority">
+                <span tabindex="5">Low priority</span>
+                <input name="priority" type="hidden" value="0">
+                <div>
+                    <span data-id="0">Low priority</span>
+                    <span data-id="1">Medium priority</span>
+                    <span data-id="2">High priority</span>
+                    <span data-id="3">Blocker priority</span>
+                </div>
+            </div>
+            <div class="kreta-selector selector-due-date">
+                <span tabindex="6">No due date</span>
+                <input type="hidden" value="">
+                <div>
+                    <span>No due date</span>
+                </div>
+            </div>
+            <div class="kreta-selector selector-type">
+                <span tabindex="7">New feature</span>
+                <input name="type" type="hidden" value="">
+                <div>
+                </div>
+            </div>
+        </div>
+    </form>
+</script>
+
+<script src="{{ asset('vendor/jquery/dist/jquery.js') }}"></script>
+<script src="{{ asset('vendor/lodash/lodash.js') }}"></script>
+<script src="{{ asset('vendor/backbone/backbone.js') }}"></script>
+<script src="{{ asset('vendor/jquery/dist/jquery.js') }}"></script>
+<script data-main="js/app" src="{{ asset('vendor/requirejs/require.js') }}"></script>
+</body>
+</html>
