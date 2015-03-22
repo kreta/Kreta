@@ -55,13 +55,13 @@ gulp.task('clean', function () {
   ], {force: true});
 });
 
-gulp.task('images', ['clean'], function () {
+gulp.task('images', function () {
   return gulp.src(assets.images)
     //.pipe(imagemin({optimizationLevel: 5}))
     .pipe(gulp.dest(resultPath + 'images'));
 });
 
-gulp.task('vendor', ['clean'], function () {
+gulp.task('vendor', function () {
   return gulp.src(assets.vendors)
     .pipe(gulp.dest(resultPath + 'vendor'));
 });
@@ -71,7 +71,7 @@ gulp.task('scss-lint', function () {
     .pipe(scsslint());
 });
 
-gulp.task('sass', ['clean', 'scss-lint'], function () {
+gulp.task('sass', ['scss-lint'], function () {
   return sass(assets.sass, {
     style: 'expanded',
     lineNumbers: true,
@@ -82,7 +82,7 @@ gulp.task('sass', ['clean', 'scss-lint'], function () {
     .pipe(gulp.dest(resultPath + 'css'));
 });
 
-gulp.task('sass:prod', ['clean', 'scss-lint'], function () {
+gulp.task('sass:prod', ['scss-lint'], function () {
   return sass(assets.sass, {
     style: 'compressed',
     stopOnError: true
@@ -97,7 +97,7 @@ gulp.task('sass:prod', ['clean', 'scss-lint'], function () {
     .pipe(gulp.dest(resultPath + 'css'));
 });
 
-gulp.task('javascript', ['clean'], function () {
+gulp.task('javascript', function () {
   return gulp.src(assets.javascripts)
     .pipe(jshint('.jshintrc'))
     .pipe(jshint.reporter('default'))
@@ -105,7 +105,7 @@ gulp.task('javascript', ['clean'], function () {
     .pipe(gulp.dest(resultPath + 'js'));
 });
 
-gulp.task('javascript:prod', ['clean'], function () {
+gulp.task('javascript:prod', function () {
   return gulp.src(assets.javascripts)
     .pipe(babel({blacklist: ['useStrict'], comments: false, modules: ['amd'] }))
     .pipe(concat('kreta.min.js'))
