@@ -76,7 +76,8 @@ gulp.task('sass', ['scss-lint'], function () {
     .pipe(sass({
         style: 'expanded',
         lineNumbers: true,
-        loadPath: true
+        loadPath: true,
+        errLogToConsole: true
      }))
     .pipe(rename({basename: 'kreta'}))
     .pipe(autoprefixer())
