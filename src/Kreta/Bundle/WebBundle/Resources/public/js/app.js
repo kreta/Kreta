@@ -23,13 +23,12 @@ var App = {
 
 window.App = App;
 
-$.ajaxSetup({
-    headers: {'Authorization': 'Bearer ' + App.accessToken}
-});
-
 $(() => {
   'use strict';
 
+  Backbone.$.ajaxSetup({
+    headers: {'Authorization': 'Bearer ' + App.accessToken}
+  });
 
   new Router();
   new HeaderView();
