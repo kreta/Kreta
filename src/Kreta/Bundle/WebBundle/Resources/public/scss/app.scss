@@ -5,6 +5,8 @@
 // @author benatespina <benatespina@gmail.com>
 // @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
+
+@import 'base/reset';
 @import 'base/colors';
 @import 'base/typography';
 
@@ -118,7 +120,6 @@
 
   .issue-icons {
     height: 100%;
-    padding: 10px;
     position: absolute;
     right: 0;
     text-align: center;
