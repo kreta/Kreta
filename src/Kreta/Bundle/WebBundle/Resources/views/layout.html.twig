@@ -20,7 +20,7 @@
     <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     {% if app.debug %}
     {% for js_file in javascripts(base_asset_js) %}
-    <script src="{{ asset(base_asset_js ~ js_file) }}"></script>
+        <script src="{{ asset(base_asset_js ~ js_file) }}"></script>
     {% endfor %}
     {% else %}
     <script src="{{ asset(base_asset_js ~ 'app.min.js') }}"></script>
