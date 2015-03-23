@@ -1,0 +1,16 @@
+# This file belongs to Kreta.
+# The source code of application includes a LICENSE file
+# with all information about license.
+#
+# @author benatespina <benatespina@gmail.com>
+# @author gorkalaucirica <gorka.lauzirika@gmail.com>
+
+services:
+    kreta_user.event_listener.login_listener:
+        class: Kreta\Bundle\UserBundle\EventListener\LoginListener
+        arguments:
+            - @fos_oauth_server.client_manager.default
+            - @kreta_core.factory.access_token
+            - @fos_oauth_server.access_token_manager.default
+        tags:
+            - { name: kernel.event_listener, event: kreta_core_event_authorization, method: onAuthorizationEvent }

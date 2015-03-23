@@ -7,4 +7,7 @@
 
 parameters:
     kreta_core.form_handler.handler.class: Kreta\Component\Core\Form\Handler\Handler
+
     kreta_core.event_listener.json_exception.class: Kreta\Bundle\CoreBundle\EventListener\JsonExceptionListener
+
+    kreta_core.factory.token.class: Kreta\Bundle\CoreBundle\Factory\TokenFactory
