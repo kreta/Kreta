@@ -1,0 +1,49 @@
+<script type="text/html" id="kreta-create-issue-template">
+    <form id="kreta-create-task" method="POST" action="#">
+        <div class="kreta-create-issue-actions">
+            <button class="kreta-button">Cancel</button>
+            <input class="kreta-button green" type="submit" tabindex="8" value="Done">
+        </div>
+        <div class="kreta-selector selector-project">
+            <span tabindex="1"><img src="{{ asset('images/temp-project-icon.jpg') }}" style="margin-right: 5px">
+                Select project</span>
+            <input name="project" type="text" value="">
+            <div>
+
+            </div>
+        </div>
+        <input class="kreta-create-issue-title" name="title" placeholder="Type your task title" tabindex="2">
+        <textarea class="kreta-create-issue-description" name="description" placeholder="Type your task description" tabindex="3"></textarea>
+        <div class="kreta-create-issue-details">
+            <div class="kreta-selector selector-assignee">
+                <span tabindex="4">Unassigned</span>
+                <input name="assignee" type="hidden" value="">
+                <div>
+                </div>
+            </div>
+            <div class="kreta-selector selector-priority">
+                <span tabindex="5">Low priority</span>
+                <input name="priority" type="hidden" value="0">
+                <div>
+                    <span data-id="0">Low priority</span>
+                    <span data-id="1">Medium priority</span>
+                    <span data-id="2">High priority</span>
+                    <span data-id="3">Blocker priority</span>
+                </div>
+            </div>
+            <div class="kreta-selector selector-due-date">
+                <span tabindex="6">No due date</span>
+                <input type="hidden" value="">
+                <div>
+                    <span>No due date</span>
+                </div>
+            </div>
+            <div class="kreta-selector selector-type">
+                <span tabindex="7">New feature</span>
+                <input name="type" type="hidden" value="">
+                <div>
+                </div>
+            </div>
+        </div>
+    </form>
+</script>

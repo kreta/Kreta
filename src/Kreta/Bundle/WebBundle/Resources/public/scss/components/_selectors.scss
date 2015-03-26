@@ -15,7 +15,7 @@
     background: white;
     span {
       display: block;
-      padding: 8px;
+      padding: 12px;
       transition-duration: .2s;
       &:hover, &.selected {
         background: $mainGreen;
