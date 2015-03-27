@@ -15,7 +15,7 @@ use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Request\ParamFetcher;
 use Kreta\Bundle\CoreBundle\Controller\RestController;
-use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Kreta\SimpleApiDocBundle\Annotation\ApiDoc;
 
 /**
  * Class LabelController.
@@ -34,27 +34,9 @@ class LabelController extends RestController
      * @QueryParam(name="offset", requirements="\d+", default="0", description="Offset in pages")
      * @QueryParam(name="q", requirements="(.*)", strict=true, nullable=true, description="Name filter")
      *
-     * @ApiDoc(
-     *  description = "Returns all the labels of project id given, it admits limit and offset",
-     *  requirements = {
-     *    {
-     *      "name"="_format",
-     *      "requirement"="json|jsonp",
-     *      "description"="Supported formats, by default json"
-     *    }
-     *  },
-     *  resource = true,
-     *  statusCodes = {
-     *    200 = "<data>",
-     *    403 = "Not allowed to access this resource",
-     *    404 = "Does not exist any object with id passed"
-     *  }
-     * )
+     * @ApiDoc(resource=true, statusCodes={200, 403, 404})
+     * @View(statusCode=200, serializerGroups={"labelList"})
      *
-     * @View(
-     *  statusCode=200,
-     *  serializerGroups={"labelList"}
-     * )
      * @return \Kreta\Component\Project\Model\Interfaces\LabelInterface[]
      */
     public function getLabelsAction($projectId, ParamFetcher $paramFetcher)
@@ -72,30 +54,8 @@ class LabelController extends RestController
      *
      * @param string $projectId The project id
      *
-     * @ApiDoc(
-     *  description = "Creates new label for name given",
-     *  input = "Kreta\Bundle\ProjectBundle\Form\Type\Api\LabelType",
-     *  output = "Kreta\Component\Project\Model\Interfaces\LabelInterface",
-     *  requirements = {
-     *    {
-     *      "name"="_format",
-     *      "requirement"="json|jsonp",
-     *      "description"="Supported formats, by default json"
-     *    }
-     *  },
-     *  statusCodes = {
-     *    201 = "<data>",
-     *    400 = {
-     *      "Name should not be blank",
-     *      "A label with identical name is already exists in this project",
-     *    }
-     *  }
-     * )
-     *
-     * @View(
-     *  statusCode=201,
-     *  serializerGroups={"label"}
-     * )
+     * @ApiDoc(statusCodes={201, 400})
+     * @View(statusCode=201, serializerGroups={"label"})
      *
      * @return \Kreta\Component\Project\Model\Interfaces\LabelInterface
      */
@@ -114,22 +74,7 @@ class LabelController extends RestController
      * @param string $projectId The project id
      * @param string $labelId   The label id
      *
-     * @ApiDoc(
-     *  description = "Deletes label of project id and label id given",
-     *  requirements = {
-     *    {
-     *      "name"="_format",
-     *      "requirement"="json|jsonp",
-     *      "description"="Supported formats, by default json"
-     *    }
-     *  },
-     *  statusCodes = {
-     *    204 = "",
-     *    403 = "Not allowed to access this resource",
-     *    404 = "Does not exist any object with id passed"
-     *  }
-     * )
-     *
+     * @ApiDoc(statusCodes={204, 403, 404})
      * @View(statusCode=204)
      *
      * @return void

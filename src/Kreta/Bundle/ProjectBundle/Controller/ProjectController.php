@@ -15,7 +15,7 @@ use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Request\ParamFetcher;
 use Kreta\Bundle\CoreBundle\Controller\RestController;
-use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Kreta\SimpleApiDocBundle\Annotation\ApiDoc;
 
 /**
  * Class ProjectController.
@@ -33,25 +33,8 @@ class ProjectController extends RestController
      * @QueryParam(name="limit", requirements="\d+", default="9999", description="Amount of projects to be returned")
      * @QueryParam(name="offset", requirements="\d+", default="0", description="Offset in pages")
      *
-     * @ApiDoc(
-     *  description = "Returns all the projects of current user, it admits sort, limit and offset",
-     *  requirements = {
-     *    {
-     *      "name"="_format",
-     *      "requirement"="json|jsonp",
-     *      "description"="Supported formats, by default json"
-     *    }
-     *  },
-     *  resource = true,
-     *  statusCodes = {
-     *    200 = "<data>"
-     *  }
-     * )
-     *
-     * @View(
-     *  statusCode=200,
-     *  serializerGroups={"projectList"}
-     * )
+     * @ApiDoc(resource=true, statusCodes={200})
+     * @View(statusCode=200, serializerGroups={"projectList"})
      *
      * @return \Kreta\Component\Project\Model\Interfaces\ProjectInterface[]
      */
@@ -70,26 +53,8 @@ class ProjectController extends RestController
      *
      * @param string $projectId The id of project
      *
-     * @ApiDoc(
-     *  description = "Returns the project for given id",
-     *  requirements = {
-     *    {
-     *      "name"="_format",
-     *      "requirement"="json|jsonp",
-     *      "description"="Supported formats, by default json"
-     *    }
-     *  },
-     *  statusCodes = {
-     *    200 = "<data>",
-     *    403 = "Not allowed to access this resource",
-     *    404 = "Does not exist any object with id passed"
-     *  }
-     * )
-     *
-     * @View(
-     *  statusCode=200,
-     *  serializerGroups={"project"}
-     * )
+     * @ApiDoc(statusCodes={200, 403, 404})
+     * @View(statusCode=200, serializerGroups={"project"})
      *
      * @return \Kreta\Component\Project\Model\Interfaces\ProjectInterface
      */
@@ -101,30 +66,8 @@ class ProjectController extends RestController
     /**
      * Creates new project for name and shortName given.
      *
-     * @ApiDoc(
-     *  description = "Creates new project for name and shortName given",
-     *  input = "Kreta\Bundle\ProjectBundle\Form\Type\Api\ProjectType",
-     *  output = "Kreta\Component\Project\Model\Interfaces\ProjectInterface",
-     *  requirements = {
-     *    {
-     *      "name"="_format",
-     *      "requirement"="json|jsonp",
-     *      "description"="Supported formats, by default json"
-     *    }
-     *  },
-     *  statusCodes = {
-     *      201 = "<data>",
-     *      400 = {
-     *          "Name should not be blank",
-     *          "ShortName should not be blank"
-     *      }
-     *  }
-     * )
-     *
-     * @View(
-     *  statusCode=201,
-     *  serializerGroups={"project"}
-     * )
+     * @ApiDoc(statusCodes={201, 400})
+     * @View(statusCode=201, serializerGroups={"project"})
      *
      * @return \Kreta\Component\Project\Model\Interfaces\ProjectInterface
      */
@@ -138,34 +81,8 @@ class ProjectController extends RestController
      *
      * @param string $projectId The project id
      *
-     * @ApiDoc(
-     *  description = "Updates the project of id given",
-     *  input = "Kreta\Bundle\ProjectBundle\Form\Type\Api\ProjectType",
-     *  output = "Kreta\Component\Project\Model\Interfaces\ProjectInterface",
-     *  requirements = {
-     *    {
-     *      "name"="_format",
-     *      "requirement"="json|jsonp",
-     *      "description"="Supported formats, by default json"
-     *    }
-     *  },
-     *  statusCodes = {
-     *      200 = "Successfully updated",
-     *      400 = {
-     *          "Name should not be blank",
-     *          "Short name should not be blank",
-     *          "Short name max length is 4",
-     *          "Short name is already in use"
-     *      },
-     *      403 = "Not allowed to access this resource",
-     *      404 = "Does not exist any object with id passed"
-     *  }
-     * )
-     *
-     * @View(
-     *  statusCode=200,
-     *  serializerGroups={"project"}
-     * )
+     * @ApiDoc(statusCodes={200, 400, 403, 404})
+     * @View(statusCode=200, serializerGroups={"project"})
      *
      * @return \Kreta\Component\Project\Model\Interfaces\ProjectInterface
      */

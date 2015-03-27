@@ -15,7 +15,7 @@ use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Request\ParamFetcher;
 use Kreta\Bundle\CoreBundle\Controller\RestController;
-use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Kreta\SimpleApiDocBundle\Annotation\ApiDoc;
 
 /**
  * Class IssueController.
@@ -41,26 +41,8 @@ class IssueController extends RestController
      * @QueryParam(name="limit", requirements="\d+", default="9999", description="Amount of issues to be returned")
      * @QueryParam(name="offset", requirements="\d+", default="0", description="Offset in pages")
      *
-     * @ApiDoc(
-     *  description = "Returns all issues, it admits sort, limit and offset",
-     *  requirements = {
-     *    {
-     *      "name"="_format",
-     *      "requirement"="json|jsonp",
-     *      "description"="Supported formats, by default json"
-     *    }
-     *  },
-     *  resource = true,
-     *  statusCodes = {
-     *    200 = "<data>",
-     *    403 = "Not allowed to access this resource"
-     *  }
-     * )
-     *
-     * @View(
-     *  statusCode=200,
-     *  serializerGroups={"issueList"}
-     * )
+     * @ApiDoc(resource=true, statusCodes={200, 403})
+     * @View(statusCode=200, serializerGroups={"issueList"})
      *
      * @return \Kreta\Component\Issue\Model\Interfaces\IssueInterface[]
      */
@@ -89,26 +71,8 @@ class IssueController extends RestController
      *
      * @param string $issueId The issue id
      *
-     * @ApiDoc(
-     *  description = "Returns the issue of id given",
-     *  requirements = {
-     *    {
-     *      "name"="_format",
-     *      "requirement"="json|jsonp",
-     *      "description"="Supported formats, by default json"
-     *    }
-     *  },
-     *  statusCodes = {
-     *    200 = "<data>",
-     *    403 = "Not allowed to access this resource",
-     *    404 = "Does not exist any object with id passed"
-     *  }
-     * )
-     *
-     * @View(
-     *  statusCode=200,
-     *  serializerGroups={"issue"}
-     * )
+     * @ApiDoc(statusCodes={200, 403, 404})
+     * @View(statusCode=200, serializerGroups={"issue"})
      *
      * @return \Kreta\Component\Issue\Model\Interfaces\IssueInterface
      */
@@ -120,39 +84,8 @@ class IssueController extends RestController
     /**
      * Creates new issue for title, description, type priority and assignee given.
      *
-     * @ApiDoc(
-     *  description = "Creates new issue for title, project, description, type, priority and assignee given",
-     *  input = "Kreta\Bundle\IssueBundle\Form\Type\Api\IssueType",
-     *  output = "Kreta\Component\Issue\Model\Interfaces\IssueInterface",
-     *  requirements = {
-     *    {
-     *      "name"="_format",
-     *      "requirement"="json|jsonp",
-     *      "description"="Supported formats, by default json"
-     *    }
-     *  },
-     *  statusCodes = {
-     *    201 = "<data>",
-     *    400 = {
-     *      "Title should not be blank",
-     *      "Priority should not be blank",
-     *      "Type should not be blank",
-     *      "Project should not be blank",
-     *      "Assignee should not be blank",
-     *      "An issue with identical title is already exist in this project",
-     *      "Priority is not valid",
-     *      "Type is not valid",
-     *      "Project is not valid",
-     *      "Assignee is not valid"
-     *    },
-     *    403 = "Not allowed to access this resource"
-     *  }
-     * )
-     *
-     * @View(
-     *  statusCode=201,
-     *  serializerGroups={"issue"}
-     * )
+     * @ApiDoc(statusCodes={201, 400, 403})
+     * @View(statusCode=201, serializerGroups={"issue"})
      *
      * @return \Kreta\Component\Issue\Model\Interfaces\IssueInterface
      */
@@ -169,40 +102,8 @@ class IssueController extends RestController
      *
      * @param string $issueId The issue id
      *
-     * @ApiDoc(
-     *  description = "Updates the issue of id given",
-     *  input = "Kreta\Bundle\IssueBundle\Form\Type\Api\IssueType",
-     *  output = "Kreta\Component\Issue\Model\Interfaces\IssueInterface",
-     *  requirements = {
-     *    {
-     *      "name"="_format",
-     *      "requirement"="json|jsonp",
-     *      "description"="Supported formats, by default json"
-     *    }
-     *  },
-     *  statusCodes = {
-     *    200 = "<data>",
-     *    400 = {
-     *      "Title should not be blank",
-     *      "Priority should not be blank",
-     *      "Type should not be blank",
-     *      "Assignee should not be blank",
-     *      "Project should not be blank",
-     *      "An issue with identical title is already exist in this project",
-     *      "Priority is not valid",
-     *      "Type is not valid",
-     *      "Project is not valid",
-     *      "Assignee is not valid"
-     *    },
-     *    403 = "Not allowed to access this resource",
-     *    404 = "Does not exist any object with id passed"
-     *  }
-     * )
-     *
-     * @View(
-     *  statusCode=200,
-     *  serializerGroups={"issue"}
-     * )
+     * @ApiDoc(statusCodes={200, 400, 403, 404})
+     * @View(statusCode=200, serializerGroups={"issue"})
      *
      * @return \Kreta\Component\Issue\Model\Interfaces\IssueInterface
      */
