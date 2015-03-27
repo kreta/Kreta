@@ -68,19 +68,17 @@ EOT
     /**
      * Generates the client with redirect uris and grant types given.
      *
-     * @param array  $redirectUris The redirect uris
-     * @param array  $grantTypes   The grant types
-     * @param string $randomId     The random id, by default is 'kreta.io'
+     * @param array $redirectUris The redirect uris
+     * @param array $grantTypes   The grant types
      *
      * @return \FOS\OAuthServerBundle\Model\ClientInterface
      */
-    public function generateClient(array $redirectUris, array $grantTypes, $randomId = 'kreta.io')
+    public function generateClient(array $redirectUris, array $grantTypes)
     {
         $clientManager = $this->getContainer()->get('fos_oauth_server.client_manager.default');
         $client = $clientManager->createClient();
         $client->setRedirectUris($redirectUris);
         $client->setAllowedGrantTypes($grantTypes);
-        $client->setRandomId($randomId);
         $clientManager->updateClient($client);
 
         return $client;

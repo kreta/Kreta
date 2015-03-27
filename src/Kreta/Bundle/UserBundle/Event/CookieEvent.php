@@ -9,21 +9,20 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\Bundle\CoreBundle\Event;
+namespace Kreta\Bundle\UserBundle\Event;
 
-use FOS\UserBundle\Event\UserEvent;
-use Kreta\Component\User\Model\Interfaces\UserInterface;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\EventDispatcher\Event;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 /**
- * Class AuthorizationEvent.
+ * Class CookieEvent.
  *
- * @package Kreta\Bundle\CoreBundle\Event
+ * @package Kreta\Bundle\UserBundle\Event
  */
-class AuthorizationEvent extends UserEvent
+class CookieEvent extends Event
 {
-    const NAME = 'kreta_core_event_authorization';
+    const NAME = 'kreta_user_event_cookie';
 
     /**
      * The response.
@@ -33,15 +32,21 @@ class AuthorizationEvent extends UserEvent
     protected $response;
 
     /**
+     * The session.
+     *
+     * @var \Symfony\Component\HttpFoundation\Session\SessionInterface
+     */
+    protected $session;
+
+    /**
      * Constructor.
      *
-     * @param \Kreta\Component\User\Model\Interfaces\UserInterface $user     The user
-     * @param \Symfony\Component\HttpFoundation\Request            $request  The request
-     * @param \Symfony\Component\HttpFoundation\Response           $response The response
+     * @param \Symfony\Component\HttpFoundation\Session\SessionInterface $session  The session
+     * @param \Symfony\Component\HttpFoundation\Response                 $response The response
      */
-    public function __construct(UserInterface $user, Request $request, Response $response = null)
+    public function __construct(SessionInterface $session, Response $response = null)
     {
-        parent::__construct($user, $request);
+        $this->session = $session;
         $this->response = $response;
         if (!($this->response instanceof Response)) {
             $this->response = new Response();
@@ -70,5 +75,15 @@ class AuthorizationEvent extends UserEvent
         $this->response = $response;
 
         return $this;
+    }
+
+    /**
+     * Gets session.
+     *
+     * @return \Symfony\Component\HttpFoundation\Session\SessionInterface
+     */
+    public function getSession()
+    {
+        return $this->session;
     }
 }

@@ -12,7 +12,7 @@
 namespace Kreta\Bundle\UserBundle\Controller;
 
 use FOS\UserBundle\Controller\RegistrationController as BaseRegistrationController;
-use Kreta\Bundle\CoreBundle\Event\AuthorizationEvent;
+use Kreta\Bundle\UserBundle\Event\AuthorizationEvent;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
@@ -28,17 +28,14 @@ class RegistrationController extends BaseRegistrationController
      */
     public function confirmedAction()
     {
-        $user = $this->getUser();
-        if (!($user instanceof UserInterface)) {
+        if (!($this->getUser() instanceof UserInterface)) {
             throw new AccessDeniedException('This user does not have access to this section.');
         }
 
-        $event = $this->get('event_dispatcher')->dispatch(
-            AuthorizationEvent::NAME, new AuthorizationEvent($user, $this->get('request'))
+        $this->get('event_dispatcher')->dispatch(
+            AuthorizationEvent::NAME, new AuthorizationEvent($this->get('request'))
         );
 
-        return $this->render(
-            'FOSUserBundle:Registration:confirmed.html.twig', ['user' => $user], $event->getResponse()
-        );
+        return $this->redirect($this->generateUrl('kreta_web_homepage'));
     }
 }
