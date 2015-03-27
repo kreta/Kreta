@@ -6,10 +6,10 @@
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
 @web
-Feature: Manage issues
-  In order to manage issues
+Feature: Manage authentication
+  In order to manage authentication
   As a logged user
-  I want to be able to add and edit issues
+  I want to be able to register, login and logout
 
   Background:
     Given the following users exist:

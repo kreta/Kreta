@@ -20,4 +20,11 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  */
 class KretaUserBundle extends Bundle
 {
+    /**
+     * {@inheritdoc}
+     */
+    public function getParent()
+    {
+        return 'FOSUserBundle';
+    }
 }
