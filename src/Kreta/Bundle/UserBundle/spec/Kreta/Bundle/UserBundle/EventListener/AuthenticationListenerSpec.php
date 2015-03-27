@@ -60,7 +60,7 @@ class AuthenticationListenerSpec extends ObjectBehavior
         $clientManager->findClientBy(['secret' => 'client-secret'])->shouldBeCalled()->willReturn($client);
         $event->getRequest()->shouldBeCalled()->willReturn($request);
         $request->getSession()->shouldBeCalled()->willReturn($session);
-        $client->getPublicId()->shouldBeCalled()->willReturn('the-public-id');
+        $client->getId()->shouldBeCalled()->willReturn('the-public-id');
         $client->getRandomId()->shouldBeCalled()->willReturn('random-id');
         $session->get('_email')->shouldBeCalled()->willReturn('kreta@kreta.com');
         $session->get('_password')->shouldBeCalled()->willReturn('123456');
@@ -99,7 +99,7 @@ class AuthenticationListenerSpec extends ObjectBehavior
 
         $clientManager->findClientBy(['secret' => 'client-secret'])->shouldBeCalled()->willReturn($client);
 
-        $client->getPublicId()->shouldBeCalled()->willReturn('the-public-id');
+        $client->getId()->shouldBeCalled()->willReturn('the-id');
         $client->getRandomId()->shouldBeCalled()->willReturn('random-id');
         $session->get('_email')->shouldBeCalled()->willReturn('kreta@kreta.com');
         $session->get('_password')->shouldBeCalled()->willReturn('123456');

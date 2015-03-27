@@ -5,7 +5,7 @@
 # @author benatespina <benatespina@gmail.com>
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
-@web
+@authentication 
 Feature: Manage authentication
   In order to manage authentication
   As a logged user
@@ -15,6 +15,7 @@ Feature: Manage authentication
     Given the following users exist:
       | firstName | lastName | email          | password |
       | Kreta     | User     | user@kreta.com | 123456   |
+    And the OAuth client is loaded
 
   Scenario: Login successfully
     Given I am on the homepage
@@ -23,7 +24,14 @@ Feature: Manage authentication
       | username | user@kreta.com |
       | password | 123456         |
     And I press "Login"
-    Then I should be on the homepage
+    Then I should be on the dashboard
+    And I should see refresh_token and access_token cookies
+
+  Scenario: Logout successfully
+    Given I am a logged as 'user@kreta.com' with password '123456'
+    Then I press logout
+    Then I should be on the landing
+    And I should not see refresh_token and access_token cookies
 
   Scenario: Login with invalid credentials
     Given I am on the homepage

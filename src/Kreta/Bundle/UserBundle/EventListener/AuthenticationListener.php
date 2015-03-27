@@ -79,7 +79,7 @@ class AuthenticationListener
         $request->query->add([
             'grant_type'    => 'password',
             'client_secret' => $this->clientSecret,
-            'client_id'     => sprintf('%s_%s', $client->getPublicId(), $client->getRandomId()),
+            'client_id'     => sprintf('%s_%s', $client->getId(), $client->getRandomId()),
             'username'      => $session->get('_email'),
             'password'      => $session->get('_password'),
         ]);
