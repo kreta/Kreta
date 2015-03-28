@@ -9,6 +9,7 @@
 
 import {SelectorView} from '../component/selector';
 import {Issue} from '../../models/issue';
+import {UserCollection} from '../../collections/user';
 import {ParticipantCollection} from '../../collections/participant';
 import {ProjectCollection} from '../../collections/project';
 import {TypeCollection} from '../../collections/type';
@@ -18,10 +19,7 @@ export class CreateIssueView extends Backbone.View {
     this.className = 'kreta-create-issue';
     this.template = _.template($('#kreta-create-issue-template').html());
     this.events = {
-      'focusin .kreta-project-selected': 'toggleProjectSelector',
-      'focusout .kreta-project-selected': 'toggleProjectSelector',
-      'submit #kreta-create-task': 'save',
-      'change input[name=project]': 'onProjectSelected'
+      'submit #kreta-create-task': 'save'
     };
 
     super();
@@ -51,11 +49,13 @@ export class CreateIssueView extends Backbone.View {
     this.$type = new SelectorView(this.$el.find('.selector-type'));
     this.$project = new SelectorView(this.$el.find('.selector-project'));
 
+    this.$project.onOptionSelectedCallback = $.proxy(this.onProjectSelected, this);
+
     return this;
   }
 
-  onProjectSelected (ev) {
-    this.participants.setProject($(ev.currentTarget).val()).fetch();
+  onProjectSelected (id) {
+    this.participants.setProject(id).fetch();
   }
 
   updateProjects () {
@@ -63,7 +63,11 @@ export class CreateIssueView extends Backbone.View {
   }
 
   updateSelectors () {
-    this.$assignee.setSelectables(this.participants);
+    var users = new UserCollection();
+    this.participants.each((participant) => {
+       users.push(participant.get('user'));
+    });
+    this.$assignee.setSelectables(users);
     this.$type.setSelectables(this.types);
   }
 
@@ -76,9 +80,5 @@ export class CreateIssueView extends Backbone.View {
 
     var issue = new Issue(formData);
     issue.save();
-  }
-
-  toggleProjectSelector () {
-    $('.kreta-project-selectable').toggleClass('visible');
   }
 }

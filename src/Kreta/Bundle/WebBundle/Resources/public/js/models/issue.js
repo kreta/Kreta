@@ -9,7 +9,7 @@
 
 export class Issue extends Backbone.Model {
   constructor (options) {
-    this.url = App.config.getBaseUrl() + '/issues/' + options.id;
+    this.url = App.config.getBaseUrl() + '/issues';
     super(options);
   }
 

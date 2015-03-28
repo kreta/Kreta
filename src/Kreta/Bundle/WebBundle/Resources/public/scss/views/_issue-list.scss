@@ -1,0 +1,39 @@
+.kreta-list-issue {
+  border-top: 1px solid #ebebeb;
+  padding: 20px 0;
+  position: relative;
+
+  a {
+    color: black;
+    text-decoration: none;
+  }
+
+  p {
+    font-size: .9em;
+    line-height: 1.2em;
+    margin-top: 10px;
+    opacity: .5;
+  }
+
+  .issue-details {
+    margin: 0 100px 0 10px;
+  }
+
+  .issue-icons {
+    height: 100%;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 0;
+    width: 100px;
+
+    img {
+      border-radius: 50%;
+      margin-top: -20px;
+      position: absolute;
+      top: 50%;
+      width: 40px;
+      height: 40px;
+    }
+  }
+}

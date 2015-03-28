@@ -9,9 +9,14 @@
   border: 1px solid;
   color: #e1e1e1;
   border-radius: 3px;
+  transition-duration: .3s;
   &.green {
-    background: $mainGreen;
     border: 1px solid $mainGreen;
-    color: white;
+    color: $mainGreen;
+    &:focus, &:hover {
+      background: $mainGreen;
+      border: 1px solid $mainGreen;
+      color: white;
+    }
   }
 }

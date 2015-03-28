@@ -46,6 +46,10 @@ var assets = {
   vendors: basePath + 'vendor/**'
 };
 
+var watch = {
+  sass: basePath + 'scss/**/*.scss'
+}
+
 gulp.task('clean', function () {
   del.sync([
     resultPath + 'css*',
@@ -67,7 +71,7 @@ gulp.task('vendor', function () {
 });
 
 gulp.task('scss-lint', function () {
-  return gulp.src(assets.sass)
+  return gulp.src(watch.sass)
     .pipe(scsslint());
 });
 
@@ -119,7 +123,7 @@ gulp.task('javascript:prod', function () {
 
 gulp.task('watch', function () {
   gulp.watch(assets.javascripts, ['javascript']);
-  gulp.watch(assets.sass, ['sass']);
+  gulp.watch(watch.sass, ['sass']);
   gulp.watch(assets.images, ['images']);
 });
 
