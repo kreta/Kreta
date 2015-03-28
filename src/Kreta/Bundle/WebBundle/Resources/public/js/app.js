@@ -14,17 +14,25 @@ import {RightAsideView} from 'views/layout/rightAside';
 import {Router} from 'router';
 import {Config} from 'config';
 
-var App = {
-  views: {},
-  collections: {},
-  config: new Config(),
-  accessToken: 'dummy-access-token'
-};
-
-window.App = App;
+'use strict';
 
 $(() => {
-  'use strict';
+  function getCookie(name) {
+    var value = '; ' + document.cookie;
+    var parts = value.split('; ' + name + '=');
+    if (parts.length === 2) {
+      return parts.pop().split(';').shift();
+    }
+  }
+
+  var App = {
+    views: {},
+    collections: {},
+    config: new Config(),
+    accessToken: getCookie('access_token')
+  };
+
+  window.App = App;
 
   Backbone.$.ajaxSetup({
     headers: {'Authorization': 'Bearer ' + App.accessToken}
