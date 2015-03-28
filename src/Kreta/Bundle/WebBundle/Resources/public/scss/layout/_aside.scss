@@ -1,13 +1,13 @@
-#kreta-left-aside, #kreta-right-aside {
+#kreta-left-aside,
+#kreta-right-aside {
   > div {
     position: fixed;
     top: 0;
     height: 100%;
     z-index: 20;
-    color: white;
+    color: $white;
     padding: 25px;
     transition-duration: .3s;
-
   }
 }
 
@@ -16,6 +16,7 @@
     width: 280px;
     left: -240px;
     background: #525461;
+
     &.visible {
       left: 80px;
     }
@@ -27,6 +28,7 @@
     width: 450px;
     right: -450px;
     background: #fafafa;
+
     &.visible {
       right: 0;
     }

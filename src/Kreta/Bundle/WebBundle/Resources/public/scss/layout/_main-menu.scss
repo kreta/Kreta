@@ -5,7 +5,7 @@
   height: 100%;
   width: 80px;
   background: #3f434a;
-  color: white;
+  color: $white;
   padding: 5px;
   z-index: 50;
   > img {
@@ -28,7 +28,7 @@
     a {
       position: relative;
       display: block;
-      color: white;
+      color: $white;
       text-decoration: none;
       padding: 20px;
       font-size: 1.3em;
@@ -38,7 +38,7 @@
         left: 50%;
         margin-left: -10px;
         background: #eb4d4f;
-        color: white;
+        color: $white;
         width: 20px;
         height: 20px;
         line-height: 20px;

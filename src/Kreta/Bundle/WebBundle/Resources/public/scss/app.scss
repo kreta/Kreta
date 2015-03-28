@@ -11,6 +11,7 @@
 @import 'base/typography';
 
 @import 'components/buttons';
+@import 'components/filter';
 @import 'components/selectors';
 
 @import 'layout/aside';
@@ -22,52 +23,24 @@
 @import 'views/issue-list';
 @import 'views/project-list';
 
-
-
-#kreta-content {
-  width: 100%;
-
-  > div {
-    margin-left: 80px;
-    transition-duration: .3s;
-
-    &.left-open {
-      margin-left: 360px;
-    }
-
-    &.right-open {
-      margin-right: 450px;
-    }
-
-    > .kreta-content-container {
-      margin: auto;
-      max-width: 900px;
-      padding: 0 20px;
-    }
-  }
-}
-
-.kreta-project-header {
+.project-header {
   padding: 30px 0;
   position: relative;
 
-  .kreta-project-title {
-
-    h2 {
-      display: inline-block;
-      font-size: 1.3em;
-      margin-left: 15px;
-      text-transform: uppercase;
-    }
+  h2 {
+    display: inline-block;
+    font-size: 1.3em;
+    margin-left: 15px;
+    text-transform: uppercase;
   }
 
-  .kreta-project-actions {
+  .project-actions {
     position: absolute;
     right: 0;
     top: 35px;
 
     a {
-      color: $mainBlack;
+      color: $main-black;
       font-size: .8em;
       text-decoration: none;
 
@@ -78,24 +51,3 @@
   }
 }
 
-.kreta-issue-filter {
-  margin-bottom: 50px;
-
-  .kreta-issue-filter-group {
-    display: inline-block;
-    margin-right: 30px;
-
-    a {
-      color: $mainBlack;
-      font-size: .75em;
-      font-weight: lighter;
-      margin: 0 10px;
-      text-decoration: none;
-
-      &.selected {
-        border-bottom: 1px solid $mainGreen;
-        font-weight: bold;
-      }
-    }
-  }
-}

@@ -24,10 +24,10 @@ export class ProjectAsideView extends Backbone.View {
 
   render () {
     var ul = '<span class="kreta-sort-by">Sort by <strong>priority</strong></span>' +
-      '<ul id="kreta-aside-projects">';
+      '<ul class="project-list">';
     ul += '</ul>';
     this.$el.html(ul);
-    this.$projects = this.$el.find('#kreta-aside-projects');
+    this.$projects = this.$el.find('.project-list');
     return this;
   }
 
