@@ -11,7 +11,9 @@
 
 namespace Kreta\Bundle\WebBundle\Controller;
 
+use Kreta\Bundle\UserBundle\Event\CookieEvent;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -29,7 +31,11 @@ class DefaultController extends Controller
     public function indexAction()
     {
         if ($this->getUser() instanceof UserInterface) {
-            return $this->dashboardAction();
+            $event = $this->get('event_dispatcher')->dispatch(
+                CookieEvent::NAME, new CookieEvent($this->get('request')->getSession())
+            );
+
+            return $this->dashboardAction($event->getResponse());
         }
 
         return $this->render('KretaWebBundle:Default:index.html.twig');
@@ -38,10 +44,12 @@ class DefaultController extends Controller
     /**
      * Dashboard action.
      *
+     * @param \Symfony\Component\HttpFoundation\Response $response The response
+     *
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function dashboardAction()
+    public function dashboardAction(Response $response)
     {
-        return $this->render('KretaWebBundle:Default:app.html.twig');
+        return $this->render('KretaWebBundle:Default:app.html.twig', [], $response);
     }
 }

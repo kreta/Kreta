@@ -11,7 +11,6 @@
 
 namespace Kreta\Bundle\WebBundle\Behat;
 
-use Behat\Mink\Exception\ElementNotFoundException;
 use Behat\MinkExtension\Context\MinkContext;
 
 /**
@@ -40,97 +39,74 @@ class WebContext extends MinkContext
     }
 
     /**
-     * Clicks on "add" issue button.
+     * Views refresh token and access token cookies.
      *
      * @return void
+     * @throws \Exception when the tokens does not match
      *
-     * @Given /^I click on add issue button$/
+     * @Then /^I should see refresh_token and access_token cookies$/
      */
-    public function iClickOnAddIssueButton()
+    public function iShouldSeeRefreshAndAccessTokensCookies()
     {
-        $this->clickLink('add-issue');
-    }
-
-    /**
-     * Clicks on "edit" issue button.
-     *
-     * @param string $button    The button
-     * @param string $issueName The issue name
-     *
-     * @return void
-     * @throws \Behat\Mink\Exception\ElementNotFoundException
-     *
-     * @Given /^I click on ([^"]*) button for issue '([^"]*)'$/
-     */
-    public function iClickOnEditButtonForIssue($button, $issueName)
-    {
-        $issuesEls = $this->getSession()->getPage()->findAll('css', '.kreta-mini-issue');
-
-        foreach ($issuesEls as $issueEl) {
-            if ($issueName === $issueEl->find('css', 'h3')->getText()) {
-                $issueEl->find('css', '.' . $button . '-issue')->click();
-
-                return;
-            }
-        }
-        throw new ElementNotFoundException($this->getSession());
-    }
-
-    /**
-     * Chooses the project from users project list.
-     *
-     * @param string $projectShortName The project short name
-     *
-     * @return void
-     * @throws \Behat\Mink\Exception\ElementNotFoundException
-     *
-     * @Given /^I choose "([^"]*)" project from user's project list$/
-     */
-    public function iChooseProjectFromUsersProjectList($projectShortName)
-    {
-        $projectEls = $this->getSession()->getPage()->findAll('css', '.title-container');
-        foreach ($projectEls as $projectEl) {
-            if ($projectShortName === $projectEl->find('css', 'a')->getText()) {
-                $projectEl->find('css', 'a')->click();
-
-                return;
-            }
-        }
-        throw new ElementNotFoundException($this->getSession());
-    }
-
-    /**
-     * Views unread notifications.
-     *
-     * @param int $amount The amount of notifications
-     *
-     * @return void
-     * @throws \Exception when the unread notification amount does not match
-     *
-     * @Then /^I should see (\d+) unread notifications$/
-     */
-    public function iShouldSeeUnreadNotification($amount)
-    {
-        $icon = $this->getSession()->getPage()->find('css', '.kreta-notification-count');
-        if ($icon->find('css', 'span')->getText() != $amount) {
-            throw new \Exception('Unread notification amount does not match');
+        $session = $this->getSession();
+        $refreshToken = $session->getCookie('refresh_token');
+        $accessToken = $session->getCookie('access_token');
+        if (!$refreshToken || !$accessToken) {
+            throw new \Exception('The tokens are not appear correctly');
         }
     }
 
     /**
-     * Clicks in notification inbox icon.
+     * Checks refresh token and access token cookies are not stored.
      *
      * @return void
-     * @throws \Exception when the icon not found
+     * @throws \Exception when the cookies are here
      *
-     * @When I click in notification inbox icon
+     * @Then /^I should not see refresh_token and access_token cookies$/
      */
-    public function iClickInNotificationInboxIcon()
+    public function iShouldNotSeeRefreshAndAccessTokensCookies()
     {
-        $icon = $this->getSession()->getPage()->find('css', '.kreta-notification-count');
-        if (!$icon) {
-            throw new \Exception('Icon not found');
+        $session = $this->getSession();
+        $refreshToken = $session->getCookie('refresh_token');
+        $accessToken = $session->getCookie('access_token');
+        if ($refreshToken || $accessToken) {
+            throw new \Exception('The cookies are here yet');
         }
-        $icon->click();
+    }
+
+    /**
+     * Presses logout with specified id|name|title|alt|value.
+     *
+     * @return void
+     *
+     * @When /^(?:|I )press logout$/
+     */
+    public function pressLogout()
+    {
+        $this->getSession()->getPage()->clickLink('logout');
+    }
+
+    /**
+     * Checks, that current page is the dashboard.
+     *
+     * @return void
+     *
+     * @Then /^(?:|I )should be on (?:|the )dashboard$/
+     */
+    public function assertDashboard()
+    {
+        $this->assertSession()->addressEquals($this->locatePath('/'));
+    }
+
+    /**
+     * Checks, that current page is the landing page.
+     *
+     * @return void
+     *
+     * @Then /^(?:|I )should be on (?:|the )landing$/
+     */
+    public function assertLanding()
+    {
+        $this->assertSession()->addressEquals($this->locatePath('/'));
     }
 }

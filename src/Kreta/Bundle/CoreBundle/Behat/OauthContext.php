@@ -71,4 +71,22 @@ class OauthContext extends WebApiContext
         $this->removeHeader('Authorization');
         $this->addHeader('Authorization', 'Bearer ' . $accessToken);
     }
+
+    /**
+     * Loads OAuth2 client with hardcoded randomId and secret.
+     *
+     * @return void
+     *
+     * @Given /^the OAuth client is loaded$/
+     */
+    public function loadClient()
+    {
+        $clientManager = $this->getContainer()->get('fos_oauth_server.client_manager.default');
+        $client = $clientManager->createClient();
+        $client->setRandomId('random-id');
+        $client->setSecret('client-secret');
+        $client->setAllowedGrantTypes(['password']);
+
+        $clientManager->updateClient($client);
+    }
 }

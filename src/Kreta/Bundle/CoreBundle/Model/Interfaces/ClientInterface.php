@@ -20,4 +20,10 @@ use FOS\OAuthServerBundle\Model\ClientInterface as BaseClientInterface;
  */
 interface ClientInterface extends BaseClientInterface
 {
+    /**
+     * Gets id.
+     *
+     * @return string
+     */
+    public function getId();
 }

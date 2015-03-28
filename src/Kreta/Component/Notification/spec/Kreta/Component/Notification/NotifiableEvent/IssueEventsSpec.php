@@ -60,11 +60,9 @@ class IssueEventsSpec extends ObjectBehavior
         $issue->getAssignee()->shouldBeCalled()->willReturn($assignee);
         $issue->getReporter()->shouldBeCalled()->willReturn($reporter);
         $issue->getProject()->shouldBeCalled()->willReturn($project);
-        $project->getShortName()->shouldBeCalled()->willReturn('KRT');
-        $issue->getNumericId()->shouldBeCalled()->willReturn(10);
+        $issue->getId()->shouldBeCalled()->willReturn('issue-id');
 
-        $router->generate('kreta_web_issue_view', ['projectShortName' => 'KRT', 'issueNumber' => 10])
-            ->shouldBeCalled()->willReturn('http://kreta.io');
+        $router->generate('get_issue', ['issueId' => 'issue-id'])->shouldBeCalled()->willReturn('http://kreta.io');
 
         $factory->create()->shouldBeCalled()->willReturn($notification);
         $issue->getProject()->shouldBeCalled()->willReturn($project);

@@ -12,6 +12,13 @@ default:
             paths: false
             snippets: false
     suites:
+        authentication:
+            contexts:
+                - Kreta\Bundle\CoreBundle\Behat\OauthContext
+                - Kreta\Bundle\UserBundle\Behat\UserContext
+                - Kreta\Bundle\WebBundle\Behat\WebContext
+            filters:
+                tags: "@authentication"
         comment:
             contexts:
                 - Kreta\Bundle\CoreBundle\Behat\OauthContext
