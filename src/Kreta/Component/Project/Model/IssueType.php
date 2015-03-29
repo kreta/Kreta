@@ -87,14 +87,4 @@ class IssueType implements IssueTypeInterface
 
         return $this;
     }
-
-    /**
-     * Magic method that is useful in Twig templates representing the entity class into string.
-     *
-     * @return string
-     */
-    public function __toString()
-    {
-        return $this->id;
-    }
 }

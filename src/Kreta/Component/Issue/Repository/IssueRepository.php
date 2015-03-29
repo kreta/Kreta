@@ -100,7 +100,6 @@ class IssueRepository extends EntityRepository
             ->addSelect(['a', 't', 'p', 'r', 'rep', 's', 'w'])
             ->leftJoin('i.assignee', 'a')
             ->leftJoin('i.type', 't')
-            // ->join('i.labels', 'l') // Because Doctrine has a bug, it must be lazy load.
             ->leftJoin('i.project', 'p')
             ->leftJoin('i.resolution', 'r')
             ->leftJoin('i.reporter', 'rep')

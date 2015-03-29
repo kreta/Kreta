@@ -81,6 +81,7 @@ code_coverage:
     blacklist:
         - src/**/**/**/Behat
         - src/**/**/**/spec
+        - src/**/**/**/Stubs
     format:
         - html
         - clover

@@ -12,6 +12,7 @@
 namespace spec\Kreta\Component\Issue\Model;
 
 use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
+use Kreta\Component\Project\Model\Interfaces\IssueTypeInterface;
 use Kreta\Component\Project\Model\Interfaces\LabelInterface;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Issue\Model\Interfaces\ResolutionInterface;
@@ -196,10 +197,10 @@ class IssueSpec extends ObjectBehavior
         $this->getTitle()->shouldReturn('Dummy title');
     }
 
-    function its_type_is_mutable()
+    function its_type_is_mutable(IssueTypeInterface $type)
     {
-        $this->setType(0)->shouldReturn($this);
-        $this->getType()->shouldReturn(0);
+        $this->setType($type)->shouldReturn($this);
+        $this->getType()->shouldReturn($type);
     }
 
     function its_watchers_are_mutable(UserInterface $watcher)

@@ -70,7 +70,7 @@ class IssueControllerSpec extends BaseRestController
         $paramFetcher->get('watcher')->shouldBeCalled()->willReturn('user@kreta.com');
         $paramFetcher->get('priority')->shouldBeCalled()->willReturn(0);
         $paramFetcher->get('status')->shouldBeCalled()->willReturn('done');
-        $paramFetcher->get('type')->shouldBeCalled()->willReturn(1);
+        $paramFetcher->get('type')->shouldBeCalled()->willReturn('Bug');
 
         $container->has('security.context')->shouldBeCalled()->willReturn(true);
         $container->get('security.context')->shouldBeCalled()->willReturn($securityContext);
@@ -87,7 +87,7 @@ class IssueControllerSpec extends BaseRestController
                 'w.email'     => 'user@kreta.com',
                 'priority'    => 0,
                 's.name'      => 'done',
-                'type'        => 1
+                't.name'      => 'Bug'
             ],
             ['createdAt' => 'ASC'],
             10,
