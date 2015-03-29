@@ -97,8 +97,9 @@ class IssueRepository extends EntityRepository
     protected function getQueryBuilder()
     {
         return parent::getQueryBuilder()
-            ->addSelect(['a', 'p', 'r', 'rep', 's', 'w'])
+            ->addSelect(['a', 't', 'p', 'r', 'rep', 's', 'w'])
             ->leftJoin('i.assignee', 'a')
+            ->leftJoin('i.type', 't')
             // ->join('i.labels', 'l') // Because Doctrine has a bug, it must be lazy load.
             ->leftJoin('i.project', 'p')
             ->leftJoin('i.resolution', 'r')

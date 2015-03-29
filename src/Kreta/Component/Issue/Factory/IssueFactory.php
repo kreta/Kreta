@@ -11,6 +11,7 @@
 
 namespace Kreta\Component\Issue\Factory;
 
+use Kreta\Component\Project\Model\Interfaces\IssueTypeInterface;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 
@@ -41,12 +42,13 @@ class IssueFactory
     /**
      * Creates an instance of issue.
      *
-     * @param \Kreta\Component\Project\Model\Interfaces\ProjectInterface|null $project  The project
      * @param \Kreta\Component\User\Model\Interfaces\UserInterface            $reporter User that is creating the issue
+     * @param \Kreta\Component\Project\Model\Interfaces\IssueTypeInterface    $type     The issue type
+     * @param \Kreta\Component\Project\Model\Interfaces\ProjectInterface|null $project  The project
      *
      * @return \Kreta\Component\Issue\Model\Interfaces\IssueInterface
      */
-    public function create(ProjectInterface $project = null, UserInterface $reporter)
+    public function create(UserInterface $reporter, IssueTypeInterface $type, ProjectInterface $project = null)
     {
         $issue = new $this->className();
 
@@ -62,6 +64,7 @@ class IssueFactory
         }
 
         return $issue
+            ->setType($type)
             ->setReporter($reporter)
             ->setAssignee($reporter);
     }

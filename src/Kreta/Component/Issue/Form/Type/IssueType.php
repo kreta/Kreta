@@ -13,6 +13,7 @@ namespace Kreta\Component\Issue\Form\Type;
 
 use Kreta\Component\Core\Form\Type\Abstracts\AbstractType;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
+use Kreta\Component\Project\Model\IssueType as Type;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -36,7 +37,6 @@ class IssueType extends AbstractType
             ->add('description', 'textarea', [
                 'required' => false,
             ])
-            ->add('type', 'kreta_issue_type_type')
             ->add('priority', 'kreta_issue_priority_type')
             ->add('project', 'entity', [
                 'class'   => 'Kreta\Component\Project\Model\Project',
@@ -45,15 +45,21 @@ class IssueType extends AbstractType
 
         $formModifier = function (FormInterface $form, ProjectInterface $project = null) {
             $participants = null === $project ? [] : $project->getParticipants();
+            $types = null === $project ? [] : $project->getIssueTypes();
             $users = [];
             foreach ($participants as $participant) {
                 $users[] = $participant->getUser();
             }
 
-            $form->add('assignee', 'entity', [
-                'class'   => 'Kreta\Component\User\Model\User',
-                'choices' => $users
-            ]);
+            $form
+                ->add('assignee', 'entity', [
+                    'class'   => 'Kreta\Component\User\Model\User',
+                    'choices' => $users
+                ])
+                ->add('type', 'entity', [
+                    'class'   => 'Kreta\Component\Project\Model\IssueType',
+                    'choices' => $types 
+                ]);
         };
 
         $builder->get('project')->addEventListener(
@@ -87,6 +93,8 @@ class IssueType extends AbstractType
      */
     protected function createEmptyData(FormInterface $form)
     {
-        return $this->factory->create($form->get('project')->getData(), $this->user);
+        $type = null === $form->get('type')->getData() ? new Type() : $form->get('type')->getData();
+
+        return $this->factory->create($this->user, $type, $form->get('project')->getData());
     }
 }

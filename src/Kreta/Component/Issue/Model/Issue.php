@@ -14,6 +14,7 @@ namespace Kreta\Component\Issue\Model;
 use Doctrine\Common\Collections\ArrayCollection;
 use Kreta\Component\Core\Model\Abstracts\AbstractModel;
 use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
+use Kreta\Component\Project\Model\Interfaces\IssueTypeInterface;
 use Kreta\Component\Project\Model\Interfaces\LabelInterface;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Issue\Model\Interfaces\ResolutionInterface;
@@ -119,9 +120,9 @@ class Issue extends AbstractModel implements IssueInterface
     protected $title;
 
     /**
-     * The type that can be "bug", "new feature", "improvement", "epic" or "story".
+     * The type.
      *
-     * @var int
+     * @var \Kreta\Component\Project\Model\Interfaces\IssueTypeInterface
      */
     protected $type;
 
@@ -449,7 +450,7 @@ class Issue extends AbstractModel implements IssueInterface
     /**
      * {@inheritdoc}
      */
-    public function setType($type)
+    public function setType(IssueTypeInterface $type = null)
     {
         $this->type = $type;
 

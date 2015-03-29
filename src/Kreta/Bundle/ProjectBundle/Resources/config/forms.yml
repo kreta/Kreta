@@ -7,6 +7,10 @@
 
 services:
 #### HANDLERS ####
+    kreta_project.form_handler.issue_type:
+        parent: kreta_core.form_handler.handler
+        arguments:
+            - kreta_project_issue_type_type
     kreta_project.form_handler.label:
         parent: kreta_core.form_handler.handler
         arguments:
@@ -24,6 +28,13 @@ services:
             - kreta_project_participant_type
 
 #### TYPES ####
+    kreta_project.form_type.issue_type:
+        class: %kreta_project.form_type.issue_type.class%
+        arguments:
+            - %kreta_project.issue_type.class%
+            - @kreta_project.factory.issue_type
+        tags:
+            - { name: form.type, alias: 'kreta_project_issue_type_type' }
     kreta_project.form_type.label:
         class: %kreta_project.form_type.label.class%
         arguments:

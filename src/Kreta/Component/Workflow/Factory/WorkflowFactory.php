@@ -31,6 +31,8 @@ class WorkflowFactory
     protected $className;
 
     /**
+     * Constructor.
+     *
      * @param string $className The class name
      */
     public function __construct($className)

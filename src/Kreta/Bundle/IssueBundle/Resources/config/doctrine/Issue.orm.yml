@@ -32,8 +32,6 @@ Kreta\Component\Issue\Model\Issue:
         numericId:
             column: numeric_id
             type: integer
-        type:
-            type: smallint
     manyToMany:
         labels:
             targetEntity: Kreta\Component\Project\Model\Interfaces\LabelInterface
@@ -82,6 +80,8 @@ Kreta\Component\Issue\Model\Issue:
             nullable: true
         status:
             targetEntity: Kreta\Component\Workflow\Model\Interfaces\StatusInterface
+        type:
+            targetEntity: Kreta\Component\Project\Model\Interfaces\IssueTypeInterface
     oneToMany:
         children:
             targetEntity: Kreta\Component\Issue\Model\Interfaces\IssueInterface

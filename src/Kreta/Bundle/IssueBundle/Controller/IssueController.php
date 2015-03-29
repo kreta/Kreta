@@ -36,7 +36,7 @@ class IssueController extends RestController
      * @QueryParam(name="watcher", requirements="(.*)", strict=true, nullable=true, description="Watcher's email filter")
      * @QueryParam(name="priority", requirements="(.*)", strict=true, nullable=true, description="Priority filter")
      * @QueryParam(name="status", requirements="(.*)", strict=true, nullable=true, description="Status' name filter")
-     * @QueryParam(name="type", requirements="(.*)", strict=true, nullable=true, description="Type filter")
+     * @QueryParam(name="type", requirements="(.*)", strict=true, nullable=true, description="Type's name filter")
      * @QueryParam(name="q", requirements="(.*)", strict=true, nullable=true, description="Title filter")
      * @QueryParam(name="limit", requirements="\d+", default="9999", description="Amount of issues to be returned")
      * @QueryParam(name="offset", requirements="\d+", default="0", description="Offset in pages")
@@ -58,7 +58,7 @@ class IssueController extends RestController
                 'w.email'     => $paramFetcher->get('watcher'),
                 'priority'    => $paramFetcher->get('priority'),
                 's.name'      => strtolower($paramFetcher->get('status')),
-                'type'        => $paramFetcher->get('type')
+                't.name'      => $paramFetcher->get('type')
             ],
             [$paramFetcher->get('sort') => 'ASC'],
             $paramFetcher->get('limit'),
@@ -93,8 +93,9 @@ class IssueController extends RestController
     {
         $projects = $this->get('kreta_project.repository.project')->findByParticipant($this->getUser());
 
-        return $this->get('kreta_issue.form_handler.issue')
-            ->processForm($this->get('request'), null, ['projects' => $projects]);
+        return $this->get('kreta_issue.form_handler.issue')->processForm(
+            $this->get('request'), null, ['projects' => $projects]
+        );
     }
 
     /**

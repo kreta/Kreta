@@ -5,21 +5,14 @@
 # @author benatespina <benatespina@gmail.com>
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
-Kreta\Component\Project\Model\Project:
+Kreta\Component\Project\Model\IssueType:
     constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
-            fields: [shortName]
-            message: 'Short name is already in use'
+            fields: [name, project]
+            message: 'A issue type with identical name is already exists in this project'
     properties:
         name:
             - NotBlank: ~
-        shortName:
-            - NotBlank: ~
-            - Length:
-                min: 3
-                max: 4
-                minMessage: 'Short name must be at least 3 characters long'
-                maxMessage: 'Short name cannot be longer than 4 characters long'
 Kreta\Component\Project\Model\Label:
     constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
@@ -38,3 +31,18 @@ Kreta\Component\Project\Model\Participant:
             - NotBlank: ~
         user:
             - NotBlank: ~
+Kreta\Component\Project\Model\Project:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [shortName]
+            message: 'Short name is already in use'
+    properties:
+        name:
+            - NotBlank: ~
+        shortName:
+            - NotBlank: ~
+            - Length:
+                min: 3
+                max: 4
+                minMessage: 'Short name must be at least 3 characters long'
+                maxMessage: 'Short name cannot be longer than 4 characters long'

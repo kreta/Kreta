@@ -26,6 +26,14 @@ Feature: Manage time entry
       | id | name           | shortName | creator        | workflow   |
       | 0  | Test project 1 | TPR1      | user@kreta.com | Workflow 1 |
       | 1  | Test project 2 | TPR2      | user@kreta.com | Workflow 2 |
+    And the following issue types exist:
+      | id | name        | project        |
+      | 0  | Bug         | Test project 1 |
+      | 1  | Epic        | Test project 1 |
+      | 2  | New feature | Test project 1 |
+      | 3  | Bug         | Test project 2 |
+      | 4  | Error       | Test project 2 |
+      | 5  | Story       | Test project 2 |
     And the following statuses exist:
       | id | color   | name        | workflow   |
       | 0  | #27ae60 | Open        | Workflow 1 |
@@ -40,7 +48,7 @@ Feature: Manage time entry
       | Test project 2 | user4@kreta.com | ROLE_PARTICIPANT |
     And the following issues exist:
       | id | numericId | project        | title        | description  | reporter       | assignee       | type | status | priority | createdAt  |
-      | 0  | 1         | Test project 1 | Test issue 1 | Description  | user@kreta.com | user@kreta.com | 4    | Open   | 1        | 2014-12-15 |
+      | 0  | 1         | Test project 1 | Test issue 1 | Description  | user@kreta.com | user@kreta.com | 2    | Open   | 1        | 2014-12-15 |
       | 1  | 2         | Test project 2 | Test issue 2 | Description2 | user@kreta.com | user@kreta.com | 4    | Open   | 1        | 2014-12-15 |
     And the following time entries exist:
       | id | dateReported | description               | issue        | timeSpent |
