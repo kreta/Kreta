@@ -25,7 +25,7 @@
     position: absolute;
     display: none;
     width: 100%;
-    background: white;
+    background: $white;
     top: 50px;
     border: 1px solid #e1e1e1;
     &.visible {
@@ -37,8 +37,8 @@
       cursor: pointer;
       transition-duration: .2s;
       &:hover {
-        background: $mainGreen;
-        color: white;
+        background: $main-green;
+        color: $white;
       }
     }
   }

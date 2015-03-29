@@ -8,7 +8,10 @@
  */
 
 export class Participant extends Backbone.Model {
+  constructor(options) {
+      super(options);
+  }
   toString () {
-    return this.get('user')['first_name'] + ' ' + this.get('user')['last_name'];
+    return this.get('user').first_name + ' ' + this.get('user').last_name;
   }
 }

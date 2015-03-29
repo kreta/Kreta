@@ -11,6 +11,7 @@
 @import 'base/typography';
 
 @import 'components/buttons';
+@import 'components/filter';
 @import 'components/selectors';
 
 @import 'layout/aside';
@@ -19,52 +20,27 @@
 
 @import 'views/create-issue';
 @import 'views/issue-details';
+@import 'views/issue-list';
 @import 'views/project-list';
 
-#kreta-content {
-  width: 100%;
-
-  > div {
-    margin-left: 80px;
-    transition-duration: .3s;
-
-    &.left-open {
-      margin-left: 360px;
-    }
-
-    &.right-open {
-      margin-right: 450px;
-    }
-
-    > .kreta-content-container {
-      margin: auto;
-      max-width: 900px;
-      padding: 0 20px;
-    }
-  }
-}
-
-.kreta-project-header {
+.project-header {
   padding: 30px 0;
   position: relative;
 
-  .kreta-project-title {
-
-    h2 {
-      display: inline-block;
-      font-size: 1.3em;
-      margin-left: 15px;
-      text-transform: uppercase;
-    }
+  h2 {
+    display: inline-block;
+    font-size: 1.3em;
+    margin-left: 15px;
+    text-transform: uppercase;
   }
 
-  .kreta-project-actions {
+  .project-actions {
     position: absolute;
     right: 0;
     top: 35px;
 
     a {
-      color: $mainBlack;
+      color: $main-black;
       font-size: .8em;
       text-decoration: none;
 
@@ -75,63 +51,3 @@
   }
 }
 
-.kreta-issue-filter {
-  margin-bottom: 50px;
-
-  .kreta-issue-filter-group {
-    display: inline-block;
-    margin-right: 30px;
-
-    a {
-      color: $mainBlack;
-      font-size: .75em;
-      font-weight: lighter;
-      margin: 0 10px;
-      text-decoration: none;
-
-      &.selected {
-        border-bottom: 1px solid $mainGreen;
-        font-weight: bold;
-      }
-    }
-  }
-}
-
-.kreta-list-issue {
-  border-top: 1px solid #ebebeb;
-  padding: 20px 0;
-  position: relative;
-
-  a {
-    color: black;
-    text-decoration: none;
-  }
-
-  p {
-    font-size: .9em;
-    line-height: 1.2em;
-    margin-top: 10px;
-    opacity: .5;
-  }
-
-  .issue-details {
-    margin: 0 100px 0 10px;
-  }
-
-  .issue-icons {
-    height: 100%;
-    position: absolute;
-    right: 0;
-    text-align: center;
-    top: 0;
-    width: 100px;
-
-    img {
-      border-radius: 50%;
-      margin-top: -20px;
-      position: absolute;
-      top: 50%;
-      width: 40px;
-    }
-  }
-}

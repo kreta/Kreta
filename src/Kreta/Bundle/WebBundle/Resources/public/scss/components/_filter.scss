@@ -1,0 +1,21 @@
+.filter {
+  margin-bottom: 50px;
+
+  > div {
+    display: inline-block;
+    margin-right: 30px;
+
+    a {
+      color: $main-black;
+      font-size: .75em;
+      font-weight: lighter;
+      margin: 0 10px;
+      text-decoration: none;
+
+      &.selected {
+        border-bottom: 1px solid $main-green;
+        font-weight: bold;
+      }
+    }
+  }
+}
