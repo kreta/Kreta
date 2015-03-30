@@ -21,6 +21,11 @@ services:
         factory_method: getRepository
         class: %kreta_project.repository_participant.class%
         arguments: [%kreta_project.participant.class%]
+    kreta_project.repository.priority:
+        factory_service: doctrine.orm.entity_manager
+        factory_method: getRepository
+        class: %kreta_project.repository_priority.class%
+        arguments: [%kreta_project.priority.class%]
     kreta_project.repository.project:
         factory_service: doctrine.orm.entity_manager
         factory_method: getRepository

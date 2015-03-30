@@ -36,6 +36,7 @@ class IssueContext extends DefaultContext
             $reporter = $this->get('kreta_user.repository.user')->findOneBy(['email' => $issueData['reporter']], false);
             $assignee = $this->get('kreta_user.repository.user')->findOneBy(['email' => $issueData['assignee']], false);
             $type = $this->get('kreta_project.repository.issue_type')->find($issueData['type'], false);
+            $priority = $this->get('kreta_project.repository.priority')->find($issueData['priority'], false);
             $project = $this->get('kreta_project.repository.project')
                 ->findOneBy(['name' => $issueData['project']], false);
             $status = $this->get('kreta_workflow.repository.status')
@@ -47,9 +48,8 @@ class IssueContext extends DefaultContext
                 }
             }
 
-            $issue = $this->get('kreta_issue.factory.issue')->create($reporter, $type, $project);
+            $issue = $this->get('kreta_issue.factory.issue')->create($reporter, $type, $priority, $project);
             $issue
-                ->setPriority($issueData['priority'])
                 ->setAssignee($assignee)
                 ->setStatus($status)
                 ->setTitle($issueData['title'])

@@ -92,11 +92,17 @@ Feature: Manage projects
             "issues": {
               "href": "http://localhost/app_test.php/api/issues"
             },
-            "statuses": {
-              "href": "http://localhost/app_test.php/api/workflows/0/statuses"
+            "issue_types": {
+              "href": "http://localhost/app_test.php/api/projects/0/issue-types"
             },
             "labels": {
               "href": "http://localhost/app_test.php/api/projects/0/labels"
+            },
+            "priorities": {
+              "href": "http://localhost/app_test.php/api/projects/0/priorities"
+            },
+            "statuses": {
+              "href": "http://localhost/app_test.php/api/workflows/0/statuses"
             }
           }
         },
@@ -144,11 +150,17 @@ Feature: Manage projects
             "issues": {
               "href": "http://localhost/app_test.php/api/issues"
             },
-            "statuses": {
-              "href": "http://localhost/app_test.php/api/workflows/1/statuses"
+            "issue_types": {
+              "href": "http://localhost/app_test.php/api/projects/1/issue-types"
             },
             "labels": {
               "href": "http://localhost/app_test.php/api/projects/1/labels"
+            },
+            "priorities": {
+              "href": "http://localhost/app_test.php/api/projects/1/priorities"
+            },
+            "statuses": {
+              "href": "http://localhost/app_test.php/api/workflows/1/statuses"
             }
           }
         }
@@ -163,36 +175,39 @@ Feature: Manage projects
     """
       {
         "id": "0",
-        "name": "Test project 1",
         "image": {
-          "id":"0",
+          "id": "0",
           "created_at": "2014-10-30T00:00:00+0100",
           "name": "http://localhost/app_test.php/media/image/project-1.jpg"
         },
-        "participants": [{
-          "role": "ROLE_ADMIN",
-          "user": {
-            "id": "0",
-            "email": "user@kreta.com",
-            "created_at": "2014-10-20T00:00:00+0200",
-            "first_name": "Kreta",
-            "last_name": "User"
-          }
-        }, {
-          "role": "ROLE_PARTICIPANT",
-          "user": {
-            "id": "2",
-            "email": "user3@kreta.com",
-            "created_at": "2014-10-20T00:00:00+0200",
-            "first_name": "Kreta",
-            "last_name": "User3",
-            "photo": {
-              "id": "3",
-              "created_at": "2014-10-30T00:00:00+0100",
-              "name": "http://localhost/app_test.php/media/image/user-3.jpg"
+        "name": "Test project 1",
+        "participants": [
+          {
+            "role": "ROLE_ADMIN",
+            "user": {
+              "id": "0",
+              "email": "user@kreta.com",
+              "created_at": "2014-10-20T00:00:00+0200",
+              "first_name": "Kreta",
+              "last_name": "User"
+            }
+          },
+          {
+            "role": "ROLE_PARTICIPANT",
+            "user": {
+              "id": "2",
+              "email": "user3@kreta.com",
+              "created_at": "2014-10-20T00:00:00+0200",
+              "first_name": "Kreta",
+              "last_name": "User3",
+              "photo": {
+                "id": "3",
+                "created_at": "2014-10-30T00:00:00+0100",
+                "name": "http://localhost/app_test.php/media/image/user-3.jpg"
+              }
             }
           }
-        }],
+        ],
         "short_name": "TPR1",
         "workflow": {
           "id": "0",
@@ -208,11 +223,17 @@ Feature: Manage projects
           "issues": {
             "href": "http://localhost/app_test.php/api/issues"
           },
-          "statuses": {
-            "href": "http://localhost/app_test.php/api/workflows/0/statuses"
+          "issue_types": {
+            "href": "http://localhost/app_test.php/api/projects/0/issue-types"
           },
           "labels": {
             "href": "http://localhost/app_test.php/api/projects/0/labels"
+          },
+          "priorities": {
+            "href": "http://localhost/app_test.php/api/projects/0/priorities"
+          },
+          "statuses": {
+            "href": "http://localhost/app_test.php/api/workflows/0/statuses"
           }
         }
       }
@@ -251,32 +272,6 @@ Feature: Manage projects
       }
     """
     Then the response code should be 201
-    And the response should contain json:
-    """
-      {
-        "name": "New project",
-        "participants": [{
-          "role": "ROLE_ADMIN",
-          "user": {
-            "id": "0",
-            "email": "user@kreta.com",
-            "created_at": "2014-10-20T00:00:00+0200",
-            "first_name": "Kreta",
-            "last_name": "User"
-          }
-        }, {
-          "role": "ROLE_ADMIN",
-          "user": {
-            "id": "0",
-            "email": "user@kreta.com",
-            "created_at": "2014-10-20T00:00:00+0200",
-            "first_name": "Kreta",
-            "last_name": "User"
-          }
-        }],
-        "short_name": "NPR"
-      }
-    """
 
   Scenario: Creating a project with workflow
     Given I am authenticating with "access-token-0" token
@@ -290,36 +285,6 @@ Feature: Manage projects
       }
     """
     Then the response code should be 201
-    And the response should contain json:
-    """
-      {
-        "name": "New project",
-        "participants": [{
-          "role": "ROLE_ADMIN",
-          "user": {
-            "id": "0",
-            "email": "user@kreta.com",
-            "created_at": "2014-10-20T00:00:00+0200",
-            "first_name": "Kreta",
-            "last_name": "User"
-          }
-        }, {
-          "role": "ROLE_ADMIN",
-          "user": {
-            "id": "0",
-            "email": "user@kreta.com",
-            "created_at": "2014-10-20T00:00:00+0200",
-            "first_name": "Kreta",
-            "last_name": "User"
-          }
-        }],
-        "short_name": "NPR2",
-        "workflow": {
-          "id": "0",
-          "name": "Workflow 1"
-        }
-      }
-    """
 
   Scenario: Creating a project with existing short name
     Given I am authenticating with "access-token-0" token
@@ -397,31 +362,39 @@ Feature: Manage projects
     """
       {
         "id": "0",
+        "image": {
+          "id": "0",
+          "created_at": "2014-10-30T00:00:00+0100",
+          "name": "http://localhost/app_test.php/media/image/project-1.jpg"
+        },
         "name": "New project",
-        "participants": [{
-          "role": "ROLE_ADMIN",
-          "user": {
-            "id": "0",
-            "email": "user@kreta.com",
-            "created_at": "2014-10-20T00:00:00+0200",
-            "first_name": "Kreta",
-            "last_name": "User"
-          }
-        }, {
-          "role": "ROLE_PARTICIPANT",
-          "user": {
-            "id": "2",
-            "email": "user3@kreta.com",
-            "created_at": "2014-10-20T00:00:00+0200",
-            "first_name": "Kreta",
-            "last_name": "User3",
-            "photo": {
-              "id": "3",
-              "created_at": "2014-10-30T00:00:00+0100",
-              "name": "http://localhost/app_test.php/media/image/user-3.jpg"
+        "participants": [
+          {
+            "role": "ROLE_ADMIN",
+            "user": {
+              "id": "0",
+              "email": "user@kreta.com",
+              "created_at": "2014-10-20T00:00:00+0200",
+              "first_name": "Kreta",
+              "last_name": "User"
+            }
+          },
+          {
+            "role": "ROLE_PARTICIPANT",
+            "user": {
+              "id": "2",
+              "email": "user3@kreta.com",
+              "created_at": "2014-10-20T00:00:00+0200",
+              "first_name": "Kreta",
+              "last_name": "User3",
+              "photo": {
+                "id": "3",
+                "created_at": "2014-10-30T00:00:00+0100",
+                "name": "http://localhost/app_test.php/media/image/user-3.jpg"
+              }
             }
           }
-        }],
+        ],
         "short_name": "NPR",
         "workflow": {
           "id": "0",
@@ -437,11 +410,17 @@ Feature: Manage projects
           "issues": {
             "href": "http://localhost/app_test.php/api/issues"
           },
-          "statuses": {
-            "href": "http://localhost/app_test.php/api/workflows/0/statuses"
+          "issue_types": {
+            "href": "http://localhost/app_test.php/api/projects/0/issue-types"
           },
           "labels": {
             "href": "http://localhost/app_test.php/api/projects/0/labels"
+          },
+          "priorities": {
+            "href": "http://localhost/app_test.php/api/projects/0/priorities"
+          },
+          "statuses": {
+            "href": "http://localhost/app_test.php/api/workflows/0/statuses"
           }
         }
       }

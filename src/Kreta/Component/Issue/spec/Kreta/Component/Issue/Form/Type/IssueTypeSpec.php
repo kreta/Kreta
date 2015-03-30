@@ -50,7 +50,6 @@ class IssueTypeSpec extends ObjectBehavior
     {
         $builder->add('title', 'text')->shouldBeCalled()->willReturn($builder);
         $builder->add('description', 'textarea', ['required' => false,])->shouldBeCalled()->willReturn($builder);
-        $builder->add('priority', 'kreta_issue_priority_type')->shouldBeCalled()->willReturn($builder);
         $builder->add('project', 'entity', [
             'class'   => 'Kreta\Component\Project\Model\Project',
             'choices' => [$project]

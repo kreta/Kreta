@@ -24,8 +24,6 @@ Kreta\Component\Issue\Model\Issue:
         description:
             type: text
             nullable: true
-        priority:
-            type: smallint
         title:
             type: string
             length: 140
@@ -66,6 +64,8 @@ Kreta\Component\Issue\Model\Issue:
             joinColumn:
                 name: parent_id
                 referencedColumnName: id
+        priority:
+            targetEntity: Kreta\Component\Project\Model\Interfaces\PriorityInterface
         project:
             targetEntity: Kreta\Component\Project\Model\Interfaces\ProjectInterface
             inversedBy: issues

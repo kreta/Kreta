@@ -55,3 +55,7 @@ Kreta\Component\Project\Model\Project:
             targetEntity: Kreta\Component\Project\Model\Interfaces\ParticipantInterface
             mappedBy: project
             cascade: ['persist', 'remove']
+        priorities:
+            targetEntity: Kreta\Component\Project\Model\Interfaces\PriorityInterface
+            mappedBy: project
+            cascade: ['persist', 'remove']

@@ -14,6 +14,7 @@ namespace spec\Kreta\Component\Issue\Model;
 use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
 use Kreta\Component\Project\Model\Interfaces\IssueTypeInterface;
 use Kreta\Component\Project\Model\Interfaces\LabelInterface;
+use Kreta\Component\Project\Model\Interfaces\PriorityInterface;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Issue\Model\Interfaces\ResolutionInterface;
 use Kreta\Component\Workflow\Model\Interfaces\StatusInterface;
@@ -146,10 +147,10 @@ class IssueSpec extends ObjectBehavior
         $this->getParent()->shouldReturn($issue);
     }
 
-    function its_priority_is_mutable()
+    function its_priority_is_mutable(PriorityInterface $priority)
     {
-        $this->setPriority(0)->shouldReturn($this);
-        $this->getPriority()->shouldReturn(0);
+        $this->setPriority($priority)->shouldReturn($this);
+        $this->getPriority()->shouldReturn($priority);
     }
 
     function its_project_is_mutable(ProjectInterface $project)

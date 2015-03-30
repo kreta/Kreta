@@ -13,7 +13,7 @@ namespace spec\Kreta\Bundle\FixturesBundle\DataFixtures\ORM;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Kreta\Component\Project\Factory\LabelFactory;
-use Kreta\Component\Project\Model\Interfaces\LabelInterface;
+use Kreta\Component\Project\Model\Interfaces\PriorityInterface;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Project\Repository\ProjectRepository;
 use PhpSpec\ObjectBehavior;
@@ -21,11 +21,11 @@ use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Class LoadLabelDataSpec.
+ * Class LoadPriorityDataSpec.
  *
  * @package spec\Kreta\Bundle\FixturesBundle\DataFixtures\ORM
  */
-class LoadLabelDataSpec extends ObjectBehavior
+class LoadPriorityDataSpec extends ObjectBehavior
 {
     function let(ContainerInterface $container)
     {
@@ -34,7 +34,7 @@ class LoadLabelDataSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('Kreta\Bundle\FixturesBundle\DataFixtures\ORM\LoadLabelData');
+        $this->shouldHaveType('Kreta\Bundle\FixturesBundle\DataFixtures\ORM\LoadPriorityData');
     }
 
     function it_extends_data_fixtures()
@@ -47,16 +47,16 @@ class LoadLabelDataSpec extends ObjectBehavior
         ProjectRepository $projectRepository,
         ProjectInterface $project,
         LabelFactory $factory,
-        LabelInterface $label,
+        PriorityInterface $priority,
         ObjectManager $manager
     )
     {
         $container->get('kreta_project.repository.project')->shouldBeCalled()->willReturn($projectRepository);
         $projectRepository->findAll()->shouldBeCalled()->willReturn([$project]);
-        $container->get('kreta_project.factory.label')->shouldBeCalled()->willReturn($factory);
-        $factory->create($project, Argument::type('string'))->shouldBeCalled()->willReturn($label);
+        $container->get('kreta_project.factory.priority')->shouldBeCalled()->willReturn($factory);
+        $factory->create($project, Argument::type('string'))->shouldBeCalled()->willReturn($priority);
 
-        $manager->persist($label)->shouldBeCalled();
+        $manager->persist($priority)->shouldBeCalled();
 
         $manager->flush()->shouldBeCalled();
 

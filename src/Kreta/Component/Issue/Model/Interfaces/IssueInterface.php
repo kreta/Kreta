@@ -14,6 +14,7 @@ namespace Kreta\Component\Issue\Model\Interfaces;
 use Finite\StatefulInterface;
 use Kreta\Component\Project\Model\Interfaces\IssueTypeInterface;
 use Kreta\Component\Project\Model\Interfaces\LabelInterface;
+use Kreta\Component\Project\Model\Interfaces\PriorityInterface;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use Kreta\Component\Workflow\Model\Interfaces\StatusInterface;
@@ -25,11 +26,6 @@ use Kreta\Component\Workflow\Model\Interfaces\StatusInterface;
  */
 interface IssueInterface extends StatefulInterface
 {
-    const PRIORITY_LOW = 0;
-    const PRIORITY_MEDIUM = 1;
-    const PRIORITY_HIGH = 2;
-    const PRIORITY_BLOCKER = 3;
-
     /**
      * Gets id.
      *
@@ -179,18 +175,34 @@ interface IssueInterface extends StatefulInterface
     /**
      * Gets priority.
      *
-     * @return string
+     * @return \Kreta\Component\Project\Model\Interfaces\PriorityInterface|null
      */
     public function getPriority();
 
     /**
-     * Sets labels.
+     * Sets priority.
      *
-     * @param string $priority The priority that can be "low", "medium", "high" or "blocking"
+     * @param \Kreta\Component\Project\Model\Interfaces\PriorityInterface|null $priority The priority
      *
      * @return $this self Object
      */
-    public function setPriority($priority);
+    public function setPriority(PriorityInterface $priority = null);
+
+    /**
+     * Gets project.
+     *
+     * @return \Kreta\Component\Project\Model\Interfaces\ProjectInterface
+     */
+    public function getProject();
+
+    /**
+     * Sets the project.
+     *
+     * @param \Kreta\Component\Project\Model\Interfaces\ProjectInterface $project The project
+     *
+     * @return $this self Object
+     */
+    public function setProject(ProjectInterface $project);
 
     /**
      * Gets reporter.
@@ -216,22 +228,6 @@ interface IssueInterface extends StatefulInterface
      * @return boolean
      */
     public function isReporter(UserInterface $user);
-
-    /**
-     * Gets project.
-     *
-     * @return \Kreta\Component\Project\Model\Interfaces\ProjectInterface
-     */
-    public function getProject();
-
-    /**
-     * Sets the project.
-     *
-     * @param \Kreta\Component\Project\Model\Interfaces\ProjectInterface $project The project
-     *
-     * @return $this self Object
-     */
-    public function setProject(ProjectInterface $project);
 
     /**
      * Gets resolution.
@@ -268,7 +264,7 @@ interface IssueInterface extends StatefulInterface
     /**
      * Gets type.
      *
-     * @return \Kreta\Component\Project\Model\Interfaces\IssueTypeInterface
+     * @return \Kreta\Component\Project\Model\Interfaces\IssueTypeInterface|null
      */
     public function getType();
 

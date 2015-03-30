@@ -68,7 +68,7 @@ class IssueControllerSpec extends BaseRestController
         $paramFetcher->get('assignee')->shouldBeCalled()->willReturn('user@kreta.com');
         $paramFetcher->get('reporter')->shouldBeCalled()->willReturn('user@kreta.com');
         $paramFetcher->get('watcher')->shouldBeCalled()->willReturn('user@kreta.com');
-        $paramFetcher->get('priority')->shouldBeCalled()->willReturn(0);
+        $paramFetcher->get('priority')->shouldBeCalled()->willReturn('Low');
         $paramFetcher->get('status')->shouldBeCalled()->willReturn('done');
         $paramFetcher->get('type')->shouldBeCalled()->willReturn('Bug');
 
@@ -85,7 +85,7 @@ class IssueControllerSpec extends BaseRestController
                 'a.email'     => 'user@kreta.com',
                 'rep.email'   => 'user@kreta.com',
                 'w.email'     => 'user@kreta.com',
-                'priority'    => 0,
+                'pr.name'     => 'Low',
                 's.name'      => 'done',
                 't.name'      => 'Bug'
             ],

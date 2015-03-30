@@ -18,6 +18,7 @@ use Kreta\Component\Media\Model\Interfaces\MediaInterface;
 use Kreta\Component\Project\Model\Interfaces\IssueTypeInterface;
 use Kreta\Component\Project\Model\Interfaces\LabelInterface;
 use Kreta\Component\Project\Model\Interfaces\ParticipantInterface;
+use Kreta\Component\Project\Model\Interfaces\PriorityInterface;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
@@ -72,6 +73,13 @@ class Project extends AbstractModel implements ProjectInterface
     protected $participants;
 
     /**
+     * Array that contains all the priorities of the project.
+     *
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     */
+    protected $priorities;
+
+    /**
      * The short name.
      *
      * @var string
@@ -94,6 +102,7 @@ class Project extends AbstractModel implements ProjectInterface
         $this->issueTypes = new ArrayCollection();
         $this->labels = new ArrayCollection();
         $this->participants = new ArrayCollection();
+        $this->priorities = new ArrayCollection();
     }
 
     /**
@@ -244,6 +253,34 @@ class Project extends AbstractModel implements ProjectInterface
     public function removeParticipant(ParticipantInterface $participant)
     {
         $this->participants->removeElement($participant);
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getPriorities()
+    {
+        return $this->priorities;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function addPriority(PriorityInterface $priority)
+    {
+        $this->priorities[] = $priority;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function removePriority(PriorityInterface $priority)
+    {
+        $this->priorities->removeElement($priority);
 
         return $this;
     }

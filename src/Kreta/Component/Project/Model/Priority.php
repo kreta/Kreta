@@ -11,15 +11,15 @@
 
 namespace Kreta\Component\Project\Model;
 
-use Kreta\Component\Project\Model\Interfaces\IssueTypeInterface;
+use Kreta\Component\Project\Model\Interfaces\PriorityInterface;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 
 /**
- * Class IssueType.
+ * Class Priority.
  *
  * @package Kreta\Component\Project\Model
  */
-class IssueType implements IssueTypeInterface
+class Priority implements PriorityInterface
 {
     /**
      * The id.
@@ -89,7 +89,7 @@ class IssueType implements IssueTypeInterface
     }
 
     /**
-     * Magic method that represents the issue type into string.
+     * Magic method that represents the priority into string.
      *
      * @return string
      */

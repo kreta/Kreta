@@ -34,13 +34,17 @@ class LoadIssueData extends DataFixtures
         for ($i = 0; $i < 100; $i++) {
             $project = $projects[array_rand($projects)];
             $issueTypes = $this->container->get('kreta_project.repository.issue_type')->findBy(['project' => $project]);
+            $priorities = $this->container->get('kreta_project.repository.priority')->findBy(['project' => $project]);
             $labels = $this->container->get('kreta_project.repository.label')->findBy(['project' => $project]);
             $issuesPerProject = $this->incrementIssuePerProject($issuesPerProject, $project);
             $participants = $this->container->get('kreta_project.repository.participant')
                 ->findBy(['project' => $project]);
 
             $issue = $this->container->get('kreta_issue.factory.issue')->create(
-                $participants[array_rand($participants)]->getUser(), $issueTypes[array_rand($issueTypes)], $project
+                $participants[array_rand($participants)]->getUser(),
+                $issueTypes[array_rand($issueTypes)],
+                $priorities[array_rand($priorities)],
+                $project
             );
             $issue->setAssignee($participants[array_rand($participants)]->getUser());
             $issue->setDescription(
@@ -61,7 +65,6 @@ class LoadIssueData extends DataFixtures
             );
             $this->loadRandomObjects($issue, 'addLabel', $labels, count($labels));
             $issue->setNumericId($issuesPerProject[$project->getShortName()]);
-            $issue->setPriority(rand(0, 3));
             if ($i % 5 !== 0) {
                 $issue->setResolution($resolutions[array_rand($resolutions)]);
             }

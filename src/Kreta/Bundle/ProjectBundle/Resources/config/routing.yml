@@ -23,3 +23,8 @@ kreta_api_participant:
     type: rest
     parent: kreta_api_project
     resource: Kreta\Bundle\ProjectBundle\Controller\ParticipantController
+
+kreta_api_priority:
+    type: rest
+    parent: kreta_api_project
+    resource: Kreta\Bundle\ProjectBundle\Controller\PriorityController

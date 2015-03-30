@@ -21,7 +21,3 @@ services:
             - @security.context
         tags:
             - { name: form.type, alias: 'kreta_issue_issue_type' }
-    kreta_issue.form_type.priority:
-        class: %kreta_issue.form_type.priority.class%
-        tags:
-            - { name: form.type, alias: 'kreta_issue_priority_type' }

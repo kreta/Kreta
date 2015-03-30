@@ -163,6 +163,31 @@ interface ProjectInterface
     public function removeParticipant(ParticipantInterface $participant);
 
     /**
+     * Gets project priorities.
+     *
+     * @return \Kreta\Component\Project\Model\Interfaces\PriorityInterface[]
+     */
+    public function getPriorities();
+
+    /**
+     * Adds project priority.
+     *
+     * @param \Kreta\Component\Project\Model\Interfaces\PriorityInterface $priority The priority
+     *
+     * @return $this self Object
+     */
+    public function addPriority(PriorityInterface $priority);
+
+    /**
+     * Removes project priority.
+     *
+     * @param \Kreta\Component\Project\Model\Interfaces\PriorityInterface $priority The priority
+     *
+     * @return $this self Object
+     */
+    public function removePriority(PriorityInterface $priority);
+
+    /**
      * Gets short name.
      *
      * @return string

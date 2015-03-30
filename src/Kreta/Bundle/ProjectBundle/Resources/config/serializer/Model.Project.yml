@@ -32,11 +32,11 @@ Kreta\Component\Project\Model\Project:
             exclusion:
                 groups: [projectList, project]
         -
-            rel: statuses
+            rel: issue_types
             href:
-                route: get_workflow_statuses
+                route: get_projects_issue_types
                 parameters:
-                    workflowId: expr(object.getWorkflow().getId())
+                    projectId: expr(object.getId())
                 absolute: true
             exclusion:
                 groups: [projectList, project]
@@ -49,11 +49,32 @@ Kreta\Component\Project\Model\Project:
                 absolute: true
             exclusion:
                 groups: [projectList, project]
+        -
+            rel: priorities
+            href:
+                route: get_projects_priorities
+                parameters:
+                    projectId: expr(object.getId())
+                absolute: true
+            exclusion:
+                groups: [projectList, project]
+        -
+            rel: statuses
+            href:
+                route: get_workflow_statuses
+                parameters:
+                    workflowId: expr(object.getWorkflow().getId())
+                absolute: true
+            exclusion:
+                groups: [projectList, project]
     properties:
         image:
             expose: true
             groups: [projectList, project]
         issues:
+            expose: true
+            groups: []
+        issueTypes:
             expose: true
             groups: []
         labels:
@@ -65,6 +86,9 @@ Kreta\Component\Project\Model\Project:
         participants:
             expose: true
             groups: [projectList, project]
+        priorities:
+            expose: true
+            groups: []
         shortName:
             expose: true
             groups: [projectList, project, participantList, participant]

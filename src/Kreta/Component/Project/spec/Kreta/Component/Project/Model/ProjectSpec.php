@@ -16,6 +16,7 @@ use Kreta\Component\Media\Model\Interfaces\MediaInterface;
 use Kreta\Component\Project\Model\Interfaces\IssueTypeInterface;
 use Kreta\Component\Project\Model\Interfaces\LabelInterface;
 use Kreta\Component\Project\Model\Interfaces\ParticipantInterface;
+use Kreta\Component\Project\Model\Interfaces\PriorityInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use Kreta\Component\Project\Model\Participant;
 use Kreta\Component\Project\Model\Project;
@@ -46,6 +47,7 @@ class ProjectSpec extends ObjectBehavior
         $this->getIssueTypes()->shouldHaveType('Doctrine\Common\Collections\ArrayCollection');
         $this->getLabels()->shouldHaveType('Doctrine\Common\Collections\ArrayCollection');
         $this->getParticipants()->shouldHaveType('Doctrine\Common\Collections\ArrayCollection');
+        $this->getPriorities()->shouldHaveType('Doctrine\Common\Collections\ArrayCollection');
     }
 
     function its_image_is_mutable(MediaInterface $media)
@@ -112,6 +114,19 @@ class ProjectSpec extends ObjectBehavior
         $this->removeParticipant($participant);
 
         $this->getParticipants()->shouldHaveCount(0);
+    }
+
+    function its_priorities_are_be_mutable(PriorityInterface $priority)
+    {
+        $this->getPriorities()->shouldHaveCount(0);
+
+        $this->addPriority($priority);
+
+        $this->getPriorities()->shouldHaveCount(1);
+
+        $this->removePriority($priority);
+
+        $this->getPriorities()->shouldHaveCount(0);
     }
 
     function its_short_name_is_mutable()

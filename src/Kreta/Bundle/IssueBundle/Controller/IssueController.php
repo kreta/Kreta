@@ -56,7 +56,7 @@ class IssueController extends RestController
                 'a.email'     => $paramFetcher->get('assignee'),
                 'rep.email'   => $paramFetcher->get('reporter'),
                 'w.email'     => $paramFetcher->get('watcher'),
-                'priority'    => $paramFetcher->get('priority'),
+                'pr.name'    => $paramFetcher->get('priority'),
                 's.name'      => strtolower($paramFetcher->get('status')),
                 't.name'      => $paramFetcher->get('type')
             ],

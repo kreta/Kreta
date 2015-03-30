@@ -15,20 +15,20 @@ use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use PhpSpec\ObjectBehavior;
 
 /**
- * Class IssueTypeSpec.
+ * Class PrioritySpec.
  *
  * @package spec\Kreta\Component\Project\Model
  */
-class IssueTypeSpec extends ObjectBehavior
+class PrioritySpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('Kreta\Component\Project\Model\IssueType');
+        $this->shouldHaveType('Kreta\Component\Project\Model\Priority');
     }
 
     function it_implements_issue_type_interface()
     {
-        $this->shouldImplement('Kreta\Component\Project\Model\Interfaces\IssueTypeInterface');
+        $this->shouldImplement('Kreta\Component\Project\Model\Interfaces\PriorityInterface');
     }
 
     function it_does_not_have_id_by_default()
@@ -38,8 +38,8 @@ class IssueTypeSpec extends ObjectBehavior
 
     function its_name_is_mutable()
     {
-        $this->setName('The dummy issue type')->shouldReturn($this);
-        $this->getName()->shouldReturn('The dummy issue type');
+        $this->setName('The dummy priority')->shouldReturn($this);
+        $this->getName()->shouldReturn('The dummy priority');
     }
 
     function its_project_is_mutable(ProjectInterface $project)

@@ -16,6 +16,7 @@ use Kreta\Component\Core\Model\Abstracts\AbstractModel;
 use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
 use Kreta\Component\Project\Model\Interfaces\IssueTypeInterface;
 use Kreta\Component\Project\Model\Interfaces\LabelInterface;
+use Kreta\Component\Project\Model\Interfaces\PriorityInterface;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Issue\Model\Interfaces\ResolutionInterface;
 use Kreta\Component\Workflow\Model\Interfaces\StatusInterface;
@@ -78,9 +79,9 @@ class Issue extends AbstractModel implements IssueInterface
     protected $parent;
 
     /**
-     * The priority that can be "low", "medium", "high" or "blocking".
+     * The priority.
      *
-     * @var int
+     * @var \Kreta\Component\Project\Model\Interfaces\PriorityInterface
      */
     protected $priority;
 
@@ -334,7 +335,7 @@ class Issue extends AbstractModel implements IssueInterface
     /**
      * {@inheritdoc}
      */
-    public function setPriority($priority)
+    public function setPriority(PriorityInterface $priority = null)
     {
         $this->priority = $priority;
 

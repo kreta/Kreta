@@ -14,6 +14,7 @@ namespace Kreta\Component\Issue\Form\Type;
 use Kreta\Component\Core\Form\Type\Abstracts\AbstractType;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Project\Model\IssueType as Type;
+use Kreta\Component\Project\Model\Priority;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -37,7 +38,6 @@ class IssueType extends AbstractType
             ->add('description', 'textarea', [
                 'required' => false,
             ])
-            ->add('priority', 'kreta_issue_priority_type')
             ->add('project', 'entity', [
                 'class'   => 'Kreta\Component\Project\Model\Project',
                 'choices' => $options['projects']
@@ -46,6 +46,7 @@ class IssueType extends AbstractType
         $formModifier = function (FormInterface $form, ProjectInterface $project = null) {
             $participants = null === $project ? [] : $project->getParticipants();
             $types = null === $project ? [] : $project->getIssueTypes();
+            $priorities = null === $project ? [] : $project->getPriorities();
             $users = [];
             foreach ($participants as $participant) {
                 $users[] = $participant->getUser();
@@ -55,6 +56,10 @@ class IssueType extends AbstractType
                 ->add('assignee', 'entity', [
                     'class'   => 'Kreta\Component\User\Model\User',
                     'choices' => $users
+                ])
+                ->add('priority', 'entity', [
+                    'class'   => 'Kreta\Component\Project\Model\Priority',
+                    'choices' => $priorities
                 ])
                 ->add('type', 'entity', [
                     'class'   => 'Kreta\Component\Project\Model\IssueType',
@@ -94,7 +99,8 @@ class IssueType extends AbstractType
     protected function createEmptyData(FormInterface $form)
     {
         $type = null === $form->get('type')->getData() ? new Type() : $form->get('type')->getData();
+        $priority = null === $form->get('priority')->getData() ? new Priority() : $form->get('priority')->getData();
 
-        return $this->factory->create($this->user, $type, $form->get('project')->getData());
+        return $this->factory->create($this->user, $type, $priority, $form->get('project')->getData());
     }
 }
