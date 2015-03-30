@@ -12,7 +12,8 @@
 namespace spec\Kreta\Bundle\CoreBundle\Command;
 
 use FOS\OAuthServerBundle\Entity\ClientManager;
-use FOS\OAuthServerBundle\Model\ClientInterface;
+use FOS\OAuthServerBundle\Model\ClientManagerInterface;
+use Kreta\Bundle\CoreBundle\Model\Interfaces\ClientInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\Console\Input\InputInterface;
@@ -78,5 +79,27 @@ class CreateClientCommandSpec extends ObjectBehavior
         )->shouldBeCalled();
 
         $this->run($input, $output);
+    }
+    
+    function it_generates_client(
+        ContainerInterface $container,
+        ClientManagerInterface $clientManager,
+        ClientInterface $client
+    )
+    {
+        $container->get('fos_oauth_server.client_manager.default')->shouldBeCalled()->willReturn($clientManager);
+        $clientManager->createClient()->shouldBeCalled()->willReturn($client);
+        $client->setRedirectUris(['http://kreta.io'])->shouldBeCalled();
+        $client->setAllowedGrantTypes(
+            ['authorization_code', 'password', 'refresh_token', 'token', 'client_credentials']
+        )->shouldBeCalled();
+        $client->setSecret('dummy-client-secret')->shouldBeCalled();
+        $clientManager->updateClient($client)->shouldBeCalled();
+
+        $this->generateClient(
+            ['http://kreta.io'],
+            ['authorization_code', 'password', 'refresh_token', 'token', 'client_credentials'],
+            'dummy-client-secret'
+        )->shouldReturn($client);
     }
 }

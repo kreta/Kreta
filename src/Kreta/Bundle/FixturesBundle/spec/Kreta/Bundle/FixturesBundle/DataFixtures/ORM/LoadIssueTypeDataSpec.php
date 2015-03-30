@@ -63,7 +63,7 @@ class LoadIssueTypeDataSpec extends ObjectBehavior
         $this->load($manager);
     }
 
-    function it_gets_0_order()
+    function it_gets_2_order()
     {
         $this->getOrder()->shouldReturn(2);
     }

@@ -30,11 +30,13 @@ class LoadIssueTypeData extends DataFixtures
 
         $projects = $this->container->get('kreta_project.repository.project')->findAll();
 
-        foreach ($issueTypeNames as $name) {
-            $issueType = $this->container->get('kreta_project.factory.issue_type')
-                ->create($projects[array_rand($projects)], $name);
+        foreach ($projects as $project) {
+            foreach ($issueTypeNames as $name) {
+                $issueType = $this->container->get('kreta_project.factory.issue_type')
+                    ->create($project, $name);
 
-            $manager->persist($issueType);
+                $manager->persist($issueType);
+            }
         }
 
         $manager->flush();

@@ -68,17 +68,22 @@ EOT
     /**
      * Generates the client with redirect uris and grant types given.
      *
-     * @param array $redirectUris The redirect uris
-     * @param array $grantTypes   The grant types
+     * @param array       $redirectUris The redirect uris
+     * @param array       $grantTypes   The grant types
+     * @param string|null $secret       The client secret, is used for tests purposes
      *
-     * @return \FOS\OAuthServerBundle\Model\ClientInterface
+     * @return \Kreta\Bundle\CoreBundle\Model\Interfaces\ClientInterface
      */
-    public function generateClient(array $redirectUris, array $grantTypes)
+    public function generateClient(array $redirectUris, array $grantTypes, $secret = null)
     {
         $clientManager = $this->getContainer()->get('fos_oauth_server.client_manager.default');
         $client = $clientManager->createClient();
         $client->setRedirectUris($redirectUris);
         $client->setAllowedGrantTypes($grantTypes);
+        if ($secret !== null) {
+            $client->setSecret($secret);
+        }
+
         $clientManager->updateClient($client);
 
         return $client;
