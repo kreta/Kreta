@@ -12,8 +12,8 @@
 namespace Kreta\Bundle\FixturesBundle\DataFixtures\ORM;
 
 use Doctrine\Common\Persistence\ObjectManager;
-use FOS\OAuthServerBundle\Model\ClientInterface;
 use FOS\OAuthServerBundle\Util\Random;
+use Kreta\Bundle\CoreBundle\Model\Interfaces\ClientInterface;
 use Kreta\Bundle\FixturesBundle\DataFixtures\DataFixtures;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 
@@ -30,7 +30,9 @@ class LoadOauthData extends DataFixtures
     public function load(ObjectManager $manager)
     {
         $client = $this->container->get('kreta_core.command.create_client')->generateClient(
-            ['http://kreta.io'], ['authorization_code', 'password', 'refresh_token', 'token', 'client_credentials']
+            ['http://kreta.io'],
+            ['authorization_code', 'password', 'refresh_token', 'token', 'client_credentials'],
+            'dummy-client-secret'
         );
 
         $users = $this->container->get('kreta_user.repository.user')->findAll();
@@ -57,10 +59,10 @@ class LoadOauthData extends DataFixtures
     /**
      * Generates the access token with client, associated user, token string and expires at given.
      *
-     * @param \FOS\OAuthServerBundle\Model\ClientInterface         $client    The client
-     * @param \Kreta\Component\User\Model\Interfaces\UserInterface $user      The user
-     * @param string                                               $token     The token string
-     * @param int|null                                             $expiresAt The expires at, in integer format
+     * @param \Kreta\Bundle\CoreBundle\Model\Interfaces\ClientInterface $client    The client
+     * @param \Kreta\Component\User\Model\Interfaces\UserInterface      $user      The user
+     * @param string                                                    $token     The token string
+     * @param int|null                                                  $expiresAt The expires at, in integer format
      *
      * @return \FOS\OAuthServerBundle\Model\AccessTokenInterface
      */
@@ -77,10 +79,10 @@ class LoadOauthData extends DataFixtures
     /**
      * Generates the refresh token with client, associated user, token string and expires at given.
      *
-     * @param \FOS\OAuthServerBundle\Model\ClientInterface         $client    The client
-     * @param \Kreta\Component\User\Model\Interfaces\UserInterface $user      The user
-     * @param string                                               $token     The token string
-     * @param int|null                                             $expiresAt The expires at, in integer format
+     * @param \Kreta\Bundle\CoreBundle\Model\Interfaces\ClientInterface $client    The client
+     * @param \Kreta\Component\User\Model\Interfaces\UserInterface      $user      The user
+     * @param string                                                    $token     The token string
+     * @param int|null                                                  $expiresAt The expires at, in integer format
      *
      * @return \FOS\OAuthServerBundle\Model\RefreshTokenInterface
      */
@@ -97,11 +99,11 @@ class LoadOauthData extends DataFixtures
     /**
      * Generates the token with client, associated user, the class of token, token string and expires at given.
      *
-     * @param \FOS\OAuthServerBundle\Model\ClientInterface         $client      The client
-     * @param \Kreta\Component\User\Model\Interfaces\UserInterface $user        The user
-     * @param string                                               $class       The class of token
-     * @param string                                               $tokenString The token string
-     * @param int|null                                             $expiresAt   The expires at, in integer format
+     * @param \Kreta\Bundle\CoreBundle\Model\Interfaces\ClientInterface $client      The client
+     * @param \Kreta\Component\User\Model\Interfaces\UserInterface      $user        The user
+     * @param string                                                    $class       The class of token
+     * @param string                                                    $tokenString The token string
+     * @param int|null                                                  $expiresAt   The expires at, in integer format
      *
      * @return \FOS\OAuthServerBundle\Model\TokenInterface
      */
