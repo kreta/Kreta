@@ -34,6 +34,7 @@ class IssueTypeSpec extends ObjectBehavior
     function it_does_not_have_id_by_default()
     {
         $this->getId()->shouldReturn(null);
+        $this->__toString()->shouldReturn(null);
     }
 
     function its_name_is_mutable()
@@ -46,16 +47,5 @@ class IssueTypeSpec extends ObjectBehavior
     {
         $this->setProject($project)->shouldReturn($this);
         $this->getProject()->shouldReturn($project);
-    }
-
-    function its_toString_returns_null_if_its_id_is_null()
-    {
-        $this->__toString()->shouldReturn(null);
-    }
-
-    function its_toString_returns_a_string()
-    {
-        $this->setId('dummy-id')->shouldReturn($this);
-        $this->__toString()->shouldReturn('dummy-id');
     }
 }
