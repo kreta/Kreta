@@ -1,0 +1,50 @@
+.issue-aside {
+  padding: 45px;
+
+  h2 {
+    color: $main-black;
+    font-size: 1.8em;
+    font-weight: lighter;
+    line-height: 1.3em;
+  }
+
+  .description {
+    color: $main-black;
+    font-weight: lighter;
+    line-height: 1.3em;
+    margin-top: 30px;
+    max-height: 200px;
+  }
+}
+
+.issue-overview {
+  margin-top: 30px;
+  overflow: hidden;
+
+  p {
+    border: 1px solid $main-grey;
+    color: $main-black;
+    font-size: .8em;
+    line-height: 3.5em;
+    text-align: center;
+    width: 100%;
+
+    &.half {
+      float: left;
+      width: 50%;
+    }
+  }
+
+  small {
+    font-size: .8em;
+  }
+}
+
+.issue-tab {
+  float: left;
+  width: 25%;
+  color: $main-grey;
+  &:hover {
+    color: $main-black;
+  }
+}

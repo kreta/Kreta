@@ -1,10 +1,10 @@
 .kreta-list-issue {
-  border-top: 1px solid #ebebeb;
+  border-top: 1px solid $main-grey;
   padding: 20px 0;
   position: relative;
 
   a {
-    color: black;
+    color: $main-black;
     text-decoration: none;
   }
 

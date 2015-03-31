@@ -27,7 +27,7 @@
   > div {
     width: 450px;
     right: -450px;
-    background: #fafafa;
+    background: $light-grey;
 
     &.visible {
       right: 0;

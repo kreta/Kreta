@@ -11,9 +11,9 @@ import {Issue} from '../../../models/issue';
 
 export class IssueAsideView extends Backbone.View {
   constructor (options) {
-    this.id = 'issue-details';
+    this.className = 'issue-aside';
 
-    this.template = _.template($('#issue-details-template').html());
+    this.template = _.template($('#issue-aside-template').html());
 
     super();
     this.model = new Issue({id: options.id});
