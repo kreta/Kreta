@@ -14,3 +14,8 @@ kreta_web_dashboard:
     path: /dashboard
     defaults: { _controller: KretaWebBundle:Default:dashboard }
     methods: [GET]
+
+kreta_web_issue:
+    path: /issue/{id}
+    defaults: { _controller: KretaWebBundle:Default:index }
+    methods: [GET]
