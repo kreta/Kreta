@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file belongs to Kreta.
  * The source code of application includes a LICENSE file
  * with all information about license.
@@ -14,13 +14,13 @@ namespace Kreta\Component\Issue\Model;
 use Doctrine\Common\Collections\ArrayCollection;
 use Kreta\Component\Core\Model\Abstracts\AbstractModel;
 use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
+use Kreta\Component\Issue\Model\Interfaces\ResolutionInterface;
 use Kreta\Component\Project\Model\Interfaces\IssueTypeInterface;
 use Kreta\Component\Project\Model\Interfaces\LabelInterface;
 use Kreta\Component\Project\Model\Interfaces\PriorityInterface;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
-use Kreta\Component\Issue\Model\Interfaces\ResolutionInterface;
-use Kreta\Component\Workflow\Model\Interfaces\StatusInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
+use Kreta\Component\Workflow\Model\Interfaces\StatusInterface;
 
 /**
  * Class Issue.
@@ -499,7 +499,7 @@ class Issue extends AbstractModel implements IssueInterface
 
         return false;
     }
-    
+
     /**
      * {@inheritdoc}
      */

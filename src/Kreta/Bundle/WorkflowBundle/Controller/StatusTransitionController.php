@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file belongs to Kreta.
  * The source code of application includes a LICENSE file
  * with all information about license.
@@ -13,8 +13,8 @@ namespace Kreta\Bundle\WorkflowBundle\Controller;
 
 use FOS\RestBundle\Controller\Annotations as Http;
 use FOS\RestBundle\Controller\Annotations\View;
-use Kreta\Component\Core\Exception\ResourceInUseException;
 use Kreta\Component\Core\Annotation\ResourceIfAllowed as Workflow;
+use Kreta\Component\Core\Exception\ResourceInUseException;
 use Kreta\SimpleApiDocBundle\Annotation\ApiDoc;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;

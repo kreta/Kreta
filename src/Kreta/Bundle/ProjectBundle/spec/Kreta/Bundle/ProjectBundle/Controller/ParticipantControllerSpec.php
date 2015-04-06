@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file belongs to Kreta.
  * The source code of application includes a LICENSE file
  * with all information about license.
@@ -12,26 +12,23 @@
 namespace spec\Kreta\Bundle\ProjectBundle\Controller;
 
 use FOS\RestBundle\Request\ParamFetcher;
-use Kreta\Bundle\CoreBundle\spec\Kreta\Bundle\CoreBundle\Controller\BaseRestController;
 use Kreta\Component\Core\Form\Handler\Handler;
 use Kreta\Component\Project\Model\Interfaces\ParticipantInterface;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Project\Repository\ParticipantRepository;
-use Kreta\Component\Project\Repository\ProjectRepository;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use Kreta\Component\User\Repository\UserRepository;
+use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
  * Class ParticipantControllerSpec.
  *
  * @package spec\Kreta\Bundle\ProjectBundle\Controller
  */
-class ParticipantControllerSpec extends BaseRestController
+class ParticipantControllerSpec extends ObjectBehavior
 {
     function let(ContainerInterface $container)
     {
