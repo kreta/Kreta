@@ -5,7 +5,7 @@
 # @author benatespina <benatespina@gmail.com>
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
-@issue-type
+@issueType
 Feature: Manage issue type
   In order to manage issue types
   As an API issue type
@@ -279,7 +279,6 @@ Feature: Manage issue type
   Scenario: Deleting issue type 0 of project 0
     Given I am authenticating with "access-token-0" token
     When I send a DELETE request to "/app_test.php/api/projects/0/issue-types/0"
-    And print response
     Then the response code should be 204
 
   Scenario: Deleting issue type 0 with user which is not a project admin

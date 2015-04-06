@@ -22,3 +22,14 @@ services:
         factory_service: knp_gaufrette.filesystem_map
         factory_method: get
         arguments: [%projects.image.uploader.filesystem%]
+
+
+#    kreta_annotation.metadata.annotation_driver:
+#        class: %kreta_annotation.metadata.annotation_driver.class%
+#        public: false
+#        arguments: ['@annotation_reader']
+#    kreta_annotation.metadata_factory:
+#        class: %kreta_annotation.metadata_factory.class%
+#        public: false
+#        arguments: ['@kreta_annotation.metadata.annotation_driver']
+#

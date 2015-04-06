@@ -14,15 +14,18 @@ namespace Kreta\Bundle\IssueBundle\Controller;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Request\ParamFetcher;
-use Kreta\Bundle\CoreBundle\Controller\RestController;
+use Kreta\Component\Core\Annotation\ResourceIfAllowed as Issue;
+use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
 use Kreta\SimpleApiDocBundle\Annotation\ApiDoc;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class IssueController.
  *
  * @package Kreta\Bundle\IssueBundle\Controller
  */
-class IssueController extends RestController
+class IssueController extends Controller
 {
     /**
      * Returns all issues, it admits sort, limit and offset.
@@ -69,52 +72,55 @@ class IssueController extends RestController
     /**
      * Returns the issue of id given.
      *
-     * @param string $issueId The issue id
+     * @param \Symfony\Component\HttpFoundation\Request $request The request
+     * @param string                                    $issueId The issue id
      *
      * @ApiDoc(statusCodes={200, 403, 404})
      * @View(statusCode=200, serializerGroups={"issue"})
+     * @Issue()
      *
      * @return \Kreta\Component\Issue\Model\Interfaces\IssueInterface
      */
-    public function getIssueAction($issueId)
+    public function getIssueAction(Request $request, $issueId)
     {
-        return $this->getIssueIfAllowed($issueId);
+        return $request->get('issue');
     }
 
     /**
      * Creates new issue for title, description, type priority and assignee given.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request The request
      *
      * @ApiDoc(statusCodes={201, 400, 403})
      * @View(statusCode=201, serializerGroups={"issue"})
      *
      * @return \Kreta\Component\Issue\Model\Interfaces\IssueInterface
      */
-    public function postIssuesAction()
+    public function postIssuesAction(Request $request)
     {
         $projects = $this->get('kreta_project.repository.project')->findByParticipant($this->getUser());
 
-        return $this->get('kreta_issue.form_handler.issue')->processForm(
-            $this->get('request'), null, ['projects' => $projects]
-        );
+        return $this->get('kreta_issue.form_handler.issue')->processForm($request, null, ['projects' => $projects]);
     }
 
     /**
      * Updates the issue of id given.
      *
-     * @param string $issueId The issue id
+     * @param \Symfony\Component\HttpFoundation\Request $request The request
+     * @param string                                    $issueId The issue id
      *
      * @ApiDoc(statusCodes={200, 400, 403, 404})
      * @View(statusCode=200, serializerGroups={"issue"})
+     * @Issue("edit")
      *
      * @return \Kreta\Component\Issue\Model\Interfaces\IssueInterface
      */
-    public function putIssuesAction($issueId)
+    public function putIssuesAction(Request $request, $issueId)
     {
-        $issue = $this->getIssueIfAllowed($issueId, 'edit');
         $projects = $this->get('kreta_project.repository.project')->findByParticipant($this->getUser());
 
         return $this->get('kreta_issue.form_handler.issue')->processForm(
-            $this->get('request'), $issue, ['method' => 'PUT', 'projects' => $projects]
+            $request, $request->get('issue'), ['method' => 'PUT', 'projects' => $projects]
         );
     }
 }

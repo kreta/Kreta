@@ -13,51 +13,33 @@ namespace Kreta\Bundle\VCSBundle\Controller;
 
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\View;
-use Kreta\Bundle\CoreBundle\Controller\RestController;
+use Kreta\Component\Core\Annotation\ResourceIfAllowed as Project;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class RepositoryController.
  *
  * @package Kreta\Bundle\VCSBundle\Controller
  */
-class RepositoryController extends RestController
+class RepositoryController extends Controller
 {
     /**
      * Returns all repositories of project id given.
      *
-     * @param string $projectId The project id
+     * @param \Symfony\Component\HttpFoundation\Request $request   The request
+     * @param string                                    $projectId The project id
      *
-     * @ApiDoc(
-     *  description = "Returns all repositories of project id given",
-     *  requirements = {
-     *    {
-     *      "name"="_format",
-     *      "requirement"="json|jsonp",
-     *      "description"="Supported formats, by default json"
-     *    }
-     *  },
-     *  resource = true,
-     *  statusCodes = {
-     *    200 = "<data>",
-     *    403 = "Not allowed to access this resource",
-     *    404 = "Does not exist any object with id passed"
-     *  }
-     * )
-     *
+     * @ApiDoc(resource = true, statusCodes = {200, 403, 404})
      * @Get("/projects/{projectId}/vcs-repositories")
-     *
-     * @View(
-     *  statusCode=200,
-     *  serializerGroups={"repositoryList"}
-     * )
+     * @View(statusCode=200, serializerGroups={"repositoryList"})
+     * @Project()
      *
      * @return \Kreta\Component\VCS\Model\Interfaces\RepositoryInterface[]
      */
-    public function getRepositoriesAction($projectId)
+    public function getRepositoriesAction(Request $request, $projectId)
     {
-        $project = $this->getProjectIfAllowed($projectId);
-
-        return $this->get('kreta_vcs.repository.repository')->findByProject($project);
+        return $this->get('kreta_vcs.repository.repository')->findByProject($request->get('project'));
     }
 }

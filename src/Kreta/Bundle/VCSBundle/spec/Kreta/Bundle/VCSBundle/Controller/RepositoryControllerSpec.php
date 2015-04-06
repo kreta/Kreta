@@ -11,21 +11,19 @@
 
 namespace spec\Kreta\Bundle\VCSBundle\Controller;
 
-use Kreta\Bundle\CoreBundle\spec\Kreta\Bundle\CoreBundle\Controller\BaseRestController;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
-use Kreta\Component\Project\Repository\ProjectRepository;
 use Kreta\Component\VCS\Model\Interfaces\RepositoryInterface;
 use Kreta\Component\VCS\Repository\RepositoryRepository;
+use PhpSpec\ObjectBehavior;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Symfony\Component\Security\Core\SecurityContextInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class RepositoryControllerSpec.
  *
  * @package spec\Kreta\Bundle\VCSBundle\Controller
  */
-class RepositoryControllerSpec extends BaseRestController
+class RepositoryControllerSpec extends ObjectBehavior
 {
     function let(ContainerInterface $container)
     {
@@ -37,39 +35,23 @@ class RepositoryControllerSpec extends BaseRestController
         $this->shouldHaveType('Kreta\Bundle\VCSBundle\Controller\RepositoryController');
     }
 
-    function it_extends_rest_controller()
+    function it_extends_controller()
     {
-        $this->shouldHaveType('Kreta\Bundle\CoreBundle\Controller\RestController');
-    }
-
-    function it_does_not_get_repositories_because_the_user_has_not_the_required_grant(
-        ContainerInterface $container,
-        ProjectRepository $projectRepository,
-        ProjectInterface $project,
-        ProjectRepository $projectRepository,
-        ProjectInterface $project,
-        SecurityContextInterface $securityContext
-    )
-    {
-        $this->getProjectIfAllowedSpec($container, $projectRepository, $project, $securityContext, 'view', false);
-
-        $this->shouldThrow(new AccessDeniedException())->during('getRepositoriesAction', ['project-id']);
+        $this->shouldHaveType('Symfony\Bundle\FrameworkBundle\Controller\Controller');
     }
 
     function it_gets_repositories(
         ContainerInterface $container,
+        Request $request,
         RepositoryRepository $repositoryRepository,
-        ProjectRepository $projectRepository,
         ProjectInterface $project,
-        SecurityContextInterface $securityContext,
         RepositoryInterface $repository
     )
     {
-        $project = $this->getProjectIfAllowedSpec($container, $projectRepository, $project, $securityContext);
         $container->get('kreta_vcs.repository.repository')->shouldBeCalled()->willReturn($repositoryRepository);
-
+        $request->get('project')->shouldBeCalled()->willReturn($project);
         $repositoryRepository->findByProject($project)->shouldBeCalled()->willReturn([$repository]);
 
-        $this->getRepositoriesAction('project-id')->shouldReturn([$repository]);
+        $this->getRepositoriesAction($request, 'project-id')->shouldReturn([$repository]);
     }
 }

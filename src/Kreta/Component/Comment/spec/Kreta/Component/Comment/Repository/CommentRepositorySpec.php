@@ -19,6 +19,7 @@ use Doctrine\ORM\QueryBuilder;
 use Kreta\Component\Comment\Model\Interfaces\CommentInterface;
 use Kreta\Component\Core\spec\Kreta\Component\Core\Repository\BaseEntityRepository;
 use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
+use Kreta\Component\User\Model\Interfaces\UserInterface;
 use Prophecy\Argument;
 
 /**
@@ -66,6 +67,25 @@ class CommentRepositorySpec extends BaseEntityRepository
         $query->getResult()->shouldBeCalled()->willReturn([$comment]);
 
         $this->findByIssue($issue, $createdAt, 'user@kreta.com', 1, 1)->shouldReturn([$comment]);
+    }
+
+    function it_finds_by_user(
+        UserInterface $user,
+        CommentInterface $comment,
+        EntityManager $manager,
+        QueryBuilder $queryBuilder,
+        Expr $expr,
+        Expr\Comparison $comparison,
+        AbstractQuery $query
+    )
+    {
+        $this->getQueryBuilderSpec($manager, $queryBuilder);
+        $this->addCriteriaSpec($queryBuilder, $expr, ['id' => 'comment-id'], $comparison);
+        $this->addCriteriaSpec($queryBuilder, $expr, ['writtenBy' => $user], $comparison);
+        $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
+        $query->getSingleResult()->shouldBeCalled()->willReturn([$comment]);
+
+        $this->findByUser('comment-id', $user)->shouldReturn([$comment]);
     }
 
     protected function getQueryBuilderSpec(EntityManager $manager, QueryBuilder $queryBuilder)

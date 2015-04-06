@@ -75,7 +75,6 @@ Feature: Manage time entry
   Scenario: Getting all the time entries of issue 0
     Given I am authenticating with "access-token-0" token
     When I send a GET request to "/app_test.php/api/issues/0/time-entries"
-    And print response
     Then the response code should be 200
     And the response should contain json:
     """

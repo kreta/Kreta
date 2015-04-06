@@ -13,49 +13,33 @@ namespace Kreta\Bundle\VCSBundle\Controller;
 
 use FOS\RestBundle\Controller\Annotations\Get;
 use FOS\RestBundle\Controller\Annotations\View;
-use Kreta\Bundle\CoreBundle\Controller\RestController;
+use Kreta\Component\Core\Annotation\ResourceIfAllowed as Issue;
 use Nelmio\ApiDocBundle\Annotation\ApiDoc;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class BranchController.
  *
  * @package Kreta\Bundle\VCSBundle\Controller
  */
-class BranchController extends RestController
+class BranchController extends Controller
 {
     /**
-     * Returns all branches of project id and issue id given.
+     * Returns all branches of issue id given.
      *
-     * @param string $issueId The issue id
+     * @param \Symfony\Component\HttpFoundation\Request $request The request
+     * @param string                                    $issueId The issue id
      *
-     * @ApiDoc(
-     *  description = "Returns all branches of issue id given",
-     *  requirements = {
-     *    {
-     *      "name"="_format",
-     *      "requirement"="json|jsonp",
-     *      "description"="Supported formats, by default json"
-     *    }
-     *  },
-     *  resource = true,
-     *  statusCodes = {
-     *    200 = "<data>",
-     *    403 = "Not allowed to access this resource",
-     *    404 = "Does not exist any object with id passed"
-     *  }
-     * )
-     *
+     * @ApiDoc(resource = true, statusCodes = {200, 403, 403})
      * @Get("/issues/{issueId}/vcs-branches")
-     *
-     * @View(
-     *  statusCode=200,
-     *  serializerGroups={"branchList"}
-     * )
+     * @View(statusCode=200, serializerGroups={"branchList"})
+     * @Issue()
      *
      * @return \Kreta\Component\VCS\Model\Interfaces\BranchInterface[]
      */
-    public function getBranchesAction($issueId)
+    public function getBranchesAction(Request $request, $issueId)
     {
-        return $this->get('kreta_vcs.repository.branch')->findByIssue($this->getIssueIfAllowed($issueId));
+        return $this->get('kreta_vcs.repository.branch')->findByIssue($request->get('issue'));
     }
 }

@@ -11,20 +11,19 @@
 
 namespace spec\Kreta\Bundle\VCSBundle\Controller;
 
-use Kreta\Bundle\CoreBundle\spec\Kreta\Bundle\CoreBundle\Controller\BaseRestController;
 use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
-use Kreta\Component\Issue\Repository\IssueRepository;
 use Kreta\Component\VCS\Model\Interfaces\BranchInterface;
 use Kreta\Component\VCS\Repository\BranchRepository;
+use PhpSpec\ObjectBehavior;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\Security\Core\SecurityContextInterface;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class BranchControllerSpec.
  *
  * @package spec\Kreta\Bundle\VCSBundle\Controller
  */
-class BranchControllerSpec extends BaseRestController
+class BranchControllerSpec extends ObjectBehavior
 {
     function let(ContainerInterface $container)
     {
@@ -36,27 +35,24 @@ class BranchControllerSpec extends BaseRestController
         $this->shouldHaveType('Kreta\Bundle\VCSBundle\Controller\BranchController');
     }
 
-    function it_extends_rest_controller()
+    function it_extends_controller()
     {
-        $this->shouldHaveType('Kreta\Bundle\CoreBundle\Controller\RestController');
+        $this->shouldHaveType('Symfony\Bundle\FrameworkBundle\Controller\Controller');
     }
 
     function it_gets_branches(
         ContainerInterface $container,
+        Request $request,
         BranchRepository $branchRepository,
-        IssueRepository $issueRepository,
-        SecurityContextInterface $securityContext,
         IssueInterface $issue,
         BranchInterface $branch
     )
     {
-        $issue = $this->getIssueIfAllowedSpec(
-            $container, $issueRepository, $issue, $securityContext
-        );
         $container->get('kreta_vcs.repository.branch')->shouldBeCalled()->willReturn($branchRepository);
 
+        $request->get('issue')->shouldBeCalled()->willReturn($issue);
         $branchRepository->findByIssue($issue)->shouldBeCalled()->willReturn([$branch]);
 
-        $this->getBranchesAction('issue-id')->shouldReturn([$branch]);
+        $this->getBranchesAction($request, 'issue-id')->shouldReturn([$branch]);
     }
 }
