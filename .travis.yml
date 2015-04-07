@@ -67,10 +67,14 @@ before_script:
 script:
     - bin/phpspec run -fpretty
 
+    - bin/behat --stop-on-failure --suite=authentication
     - bin/behat --stop-on-failure --suite=comment
     - bin/behat --stop-on-failure --suite=vcs
     - bin/behat --stop-on-failure --suite=issue
+    - bin/behat --stop-on-failure --suite=issueType
     - bin/behat --stop-on-failure --suite=label
+    - bin/behat --stop-on-failure --suite=participant
+    - bin/behat --stop-on-failure --suite=priority
     - bin/behat --stop-on-failure --suite=project
     - bin/behat --stop-on-failure --suite=status
     - bin/behat --stop-on-failure --suite=statusTransition
@@ -91,3 +95,4 @@ matrix:
         - env: SYMFONY_VERSION=2.6.*
         - env: SYMFONY_VERSION=2.7.x-dev
         - env: SYMFONY_VERSION=dev-master
+    fast_finish: true

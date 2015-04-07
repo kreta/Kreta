@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file belongs to Kreta.
  * The source code of application includes a LICENSE file
  * with all information about license.
@@ -12,30 +12,34 @@
 namespace Kreta\Bundle\WorkflowBundle\Controller;
 
 use FOS\RestBundle\Controller\Annotations\View;
-use Kreta\Bundle\CoreBundle\Controller\RestController;
+use Kreta\Component\Core\Annotation\ResourceIfAllowed as Workflow;
 use Kreta\Component\Core\Exception\ResourceInUseException;
 use Kreta\SimpleApiDocBundle\Annotation\ApiDoc;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class StatusController.
  *
  * @package Kreta\Bundle\WorkflowBundle\Controller
  */
-class StatusController extends RestController
+class StatusController extends Controller
 {
     /**
      * Returns all the statuses of workflow id given.
      *
-     * @param string $workflowId The workflow id
+     * @param \Symfony\Component\HttpFoundation\Request $request    The request
+     * @param string                                    $workflowId The workflow id
      *
      * @ApiDoc(resource=true, statusCodes={200, 403, 404})
      * @View(statusCode=200, serializerGroups={"statusList"})
+     * @Workflow()
      *
      * @return \Kreta\Component\Workflow\Model\Interfaces\StatusInterface[]
      */
-    public function getStatusesAction($workflowId)
+    public function getStatusesAction(Request $request, $workflowId)
     {
-        return $this->getWorkflowIfAllowed($workflowId)->getStatuses();
+        return $request->get('workflow')->getStatuses();
     }
 
     /**
@@ -46,51 +50,52 @@ class StatusController extends RestController
      *
      * @ApiDoc(statusCodes={200, 403, 404})
      * @View(statusCode=200, serializerGroups={"status"})
+     * @Workflow()
      *
      * @return \Kreta\Component\Workflow\Model\Interfaces\StatusInterface
      */
     public function getStatusAction($workflowId, $statusId)
     {
-        return $this->getStatusIfAllowed($workflowId, $statusId);
+        return $this->get('kreta_workflow.repository.status')->find($statusId, false);
     }
 
     /**
      * Creates new status for name, color and type given.
      *
-     * @param string $workflowId The workflow id
+     * @param \Symfony\Component\HttpFoundation\Request $request    The request
+     * @param string                                    $workflowId The workflow id
      *
      * @ApiDoc(statusCodes={201, 400, 403, 404})
      * @View(statusCode=201, serializerGroups={"status"})
+     * @Workflow("manage_status")
      *
      * @return \Kreta\Component\Workflow\Model\Interfaces\StatusInterface
      */
-    public function postStatusesAction($workflowId)
+    public function postStatusesAction(Request $request, $workflowId)
     {
-        $workflow = $this->getWorkflowIfAllowed($workflowId, 'manage_status');
-
         return $this->get('kreta_workflow.form_handler.status')->processForm(
-            $this->get('request'), null, ['workflow' => $workflow]
+            $request, null, ['workflow' => $request->get('workflow')]
         );
     }
 
     /**
      * Updates the status of workflow id and status id given.
      *
-     * @param string $workflowId The workflow id
-     * @param string $statusId   The status id
+     * @param \Symfony\Component\HttpFoundation\Request $request    The request
+     * @param string                                    $workflowId The workflow id
+     * @param string                                    $statusId   The status id
      *
      * @ApiDoc(statusCodes={200, 400, 403, 404})
      * @View(statusCode=200, serializerGroups={"status"})
+     * @Workflow("manage_status")
      *
      * @return \Kreta\Component\Workflow\Model\Interfaces\StatusInterface
      */
-    public function putStatusesAction($workflowId, $statusId)
+    public function putStatusesAction(Request $request, $workflowId, $statusId)
     {
-        $status = $this->getStatusIfAllowed($workflowId, $statusId, 'manage_status');
+        $status = $this->get('kreta_workflow.repository.status')->find($statusId, false);
 
-        return $this->get('kreta_workflow.form_handler.status')->processForm(
-            $this->get('request'), $status, ['method' => 'PUT']
-        );
+        return $this->get('kreta_workflow.form_handler.status')->processForm($request, $status, ['method' => 'PUT']);
     }
 
     /**
@@ -101,32 +106,18 @@ class StatusController extends RestController
      *
      * @ApiDoc(statusCodes={204, 403, 404, 409})
      * @View(statusCode=204)
+     * @Workflow("manage_status")
      *
      * @return void
      * @throws \Kreta\Component\Core\Exception\ResourceInUseException
      */
     public function deleteStatusesAction($workflowId, $statusId)
     {
-        $status = $this->getStatusIfAllowed($workflowId, $statusId, 'manage_status');
+        $repository = $this->get('kreta_workflow.repository.status');
+        $status = $repository->find($statusId, false);
         if ($status->isInUse()) {
             throw new ResourceInUseException();
         }
-        $this->get('kreta_workflow.repository.status')->remove($status);
-    }
-
-    /**
-     * Gets the status if the current user is granted and if the workflow exists.
-     *
-     * @param string $workflowId The workflow id
-     * @param string $statusId   The status id
-     * @param string $grant      The grant, by default 'view'
-     *
-     * @return \Kreta\Component\Workflow\Model\Interfaces\StatusInterface
-     */
-    protected function getStatusIfAllowed($workflowId, $statusId, $grant = 'view')
-    {
-        $this->getWorkflowIfAllowed($workflowId, $grant);
-
-        return $this->get('kreta_workflow.repository.status')->find($statusId, false);
+        $repository->remove($status);
     }
 }

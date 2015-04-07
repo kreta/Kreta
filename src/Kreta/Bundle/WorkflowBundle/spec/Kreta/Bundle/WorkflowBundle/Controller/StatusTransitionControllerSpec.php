@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file belongs to Kreta.
  * The source code of application includes a LICENSE file
  * with all information about license.
@@ -18,14 +18,11 @@ use Kreta\Component\Workflow\Model\Interfaces\StatusTransitionInterface;
 use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
 use Kreta\Component\Workflow\Repository\StatusRepository;
 use Kreta\Component\Workflow\Repository\StatusTransitionRepository;
-use Kreta\Component\Workflow\Repository\WorkflowRepository;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
  * Class StatusTransitionControllerSpec.
@@ -44,78 +41,34 @@ class StatusTransitionControllerSpec extends ObjectBehavior
         $this->shouldHaveType('Kreta\Bundle\WorkflowBundle\Controller\StatusTransitionController');
     }
 
-    function it_extends_rest_controller()
+    function it_extends_controller()
     {
-        $this->shouldHaveType('Kreta\Bundle\CoreBundle\Controller\RestController');
-    }
-
-    function it_does_not_get_status_transitions_because_the_user_has_not_the_required_grant(
-        ContainerInterface $container,
-        WorkflowRepository $workflowRepository,
-        WorkflowInterface $workflow,
-        SecurityContextInterface $securityContext
-    )
-    {
-        $this->getWorkflowIfAllowedSpec($container, $workflowRepository, $workflow, $securityContext, 'view', false);
-
-        $this->shouldThrow(new AccessDeniedException())->during('getTransitionsAction', ['workflow-id']);
+        $this->shouldHaveType('Symfony\Bundle\FrameworkBundle\Controller\Controller');
     }
 
     function it_gets_status_transitions(
-        ContainerInterface $container,
-        WorkflowRepository $workflowRepository,
+        Request $request,
         WorkflowInterface $workflow,
-        SecurityContextInterface $securityContext,
         StatusTransitionInterface $transition
     )
     {
-        $workflow = $this->getWorkflowIfAllowedSpec($container, $workflowRepository, $workflow, $securityContext);
+        $request->get('workflow')->shouldBeCalled()->willReturn($workflow);
         $workflow->getStatusTransitions()->shouldBeCalled()->willReturn([$transition]);
 
-        $this->getTransitionsAction('workflow-id')->shouldReturn([$transition]);
-    }
-
-    function it_does_not_get_status_transition_because_the_user_has_not_the_required_grant(
-        ContainerInterface $container,
-        WorkflowRepository $workflowRepository,
-        WorkflowInterface $workflow,
-        SecurityContextInterface $securityContext
-    )
-    {
-        $this->getWorkflowIfAllowedSpec($container, $workflowRepository, $workflow, $securityContext, 'view', false);
-
-        $this->shouldThrow(new AccessDeniedException())
-            ->during('getTransitionAction', ['workflow-id', 'status-transition-name']);
+        $this->getTransitionsAction($request, 'workflow-id')->shouldReturn([$transition]);
     }
 
     function it_gets_status_transition(
         ContainerInterface $container,
-        WorkflowRepository $workflowRepository,
-        WorkflowInterface $workflow,
-        SecurityContextInterface $securityContext,
         StatusTransitionRepository $transitionRepository,
         StatusTransitionInterface $transition
     )
     {
-        $transition = $this->getTransitionIfAllowed(
-            $container, $workflowRepository, $workflow, $securityContext, $transitionRepository, $transition
-        );
+        $container->get('kreta_workflow.repository.status_transition')
+            ->shouldBeCalled()->willReturn($transitionRepository);
+        $transitionRepository->find('transition-id', false)->shouldBeCalled()->willReturn($transition);
 
         $this->getTransitionAction('workflow-id', 'transition-id')->shouldReturn($transition);
-    }
-
-    function it_does_not_post_status_transition_because_the_user_has_not_the_required_grant(
-        ContainerInterface $container,
-        WorkflowRepository $workflowRepository,
-        WorkflowInterface $workflow,
-        SecurityContextInterface $securityContext
-    )
-    {
-        $this->getWorkflowIfAllowedSpec(
-            $container, $workflowRepository, $workflow, $securityContext, 'manage_status', false
-        );
-
-        $this->shouldThrow(new AccessDeniedException())->during('postTransitionsAction', ['workflow-id']);
     }
 
     function it_posts_status_transition(
@@ -123,53 +76,26 @@ class StatusTransitionControllerSpec extends ObjectBehavior
         Request $request,
         StatusTransitionInterface $transition,
         Handler $handler,
-        WorkflowRepository $workflowRepository,
         WorkflowInterface $workflow,
-        SecurityContextInterface $securityContext,
         Request $request
     )
     {
-        $container->get('request')->shouldBeCalled()->willReturn($request);
+        $container->get('kreta_workflow.form_handler.status_transition')->shouldBeCalled()->willReturn($handler);
+        $request->get('workflow')->shouldBeCalled()->willReturn($workflow);
+        $handler->processForm($request, null, ['workflow' => $workflow])->shouldBeCalled()->willReturn($transition);
 
-        $workflow = $this->getWorkflowIfAllowedSpec(
-            $container, $workflowRepository, $workflow, $securityContext, 'manage_status'
-        );
-
-        $container->get('kreta_workflow.form_handler.status_transition')
-            ->shouldBeCalled()->willReturn($handler);
-        $handler->processForm($request, null, ['workflow' => $workflow])
-            ->shouldBeCalled()->willReturn($transition);
-
-        $this->postTransitionsAction('workflow-id')->shouldReturn($transition);
-    }
-
-    function it_does_not_delete_status_transition_because_the_user_has_not_the_required_grant(
-        ContainerInterface $container,
-        WorkflowRepository $workflowRepository,
-        WorkflowInterface $workflow,
-        SecurityContextInterface $securityContext
-    )
-    {
-        $this->getWorkflowIfAllowedSpec(
-            $container, $workflowRepository, $workflow, $securityContext, 'manage_status', false
-        );
-
-        $this->shouldThrow(new AccessDeniedException())
-            ->during('deleteTransitionAction', ['workflow-id', 'transition-id']);
+        $this->postTransitionsAction($request, 'workflow-id')->shouldReturn($transition);
     }
 
     function it_does_not_delete_status_transition_because_the_transition_is_in_use(
         ContainerInterface $container,
-        WorkflowRepository $workflowRepository,
-        WorkflowInterface $workflow,
-        SecurityContextInterface $context,
         StatusTransitionRepository $transitionRepository,
         StatusTransitionInterface $transition
     )
     {
-        $transition = $this->getTransitionIfAllowed(
-            $container, $workflowRepository, $workflow, $context, $transitionRepository, $transition, 'manage_status'
-        );
+        $container->get('kreta_workflow.repository.status_transition')
+            ->shouldBeCalled()->willReturn($transitionRepository);
+        $transitionRepository->find('transition-id', false)->shouldBeCalled()->willReturn($transition);
         $transition->isInUse()->shouldBeCalled()->willReturn(true);
 
         $this->shouldThrow(new ResourceInUseException())
@@ -178,16 +104,13 @@ class StatusTransitionControllerSpec extends ObjectBehavior
 
     function it_deletes_status_transition(
         ContainerInterface $container,
-        WorkflowRepository $workflowRepository,
-        WorkflowInterface $workflow,
-        SecurityContextInterface $context,
         StatusTransitionRepository $transitionRepository,
         StatusTransitionInterface $transition
     )
     {
-        $transition = $this->getTransitionIfAllowed(
-            $container, $workflowRepository, $workflow, $context, $transitionRepository, $transition, 'manage_status'
-        );
+        $container->get('kreta_workflow.repository.status_transition')
+            ->shouldBeCalled()->willReturn($transitionRepository);
+        $transitionRepository->find('transition-id', false)->shouldBeCalled()->willReturn($transition);
         $transition->isInUse()->shouldBeCalled()->willReturn(false);
         $container->get('kreta_workflow.repository.status_transition')
             ->shouldBeCalled()->willReturn($transitionRepository);
@@ -196,63 +119,31 @@ class StatusTransitionControllerSpec extends ObjectBehavior
         $this->deleteTransitionAction('workflow-id', 'transition-id');
     }
 
-    function it_does_not_get_initial_statuses_because_the_user_has_not_the_required_grant(
-        ContainerInterface $container,
-        WorkflowRepository $workflowRepository,
-        WorkflowInterface $workflow,
-        SecurityContextInterface $securityContext
-    )
-    {
-        $this->getWorkflowIfAllowedSpec($container, $workflowRepository, $workflow, $securityContext, 'view', false);
-
-        $this->shouldThrow(new AccessDeniedException())
-            ->during('getTransitionsInitialStatusesAction', ['workflow-id', 'status-transition-id']);
-    }
-
     function it_gets_initial_statuses(
         ContainerInterface $container,
-        WorkflowRepository $workflowRepository,
-        WorkflowInterface $workflow,
-        SecurityContextInterface $context,
         StatusTransitionRepository $transitionRepository,
         StatusTransitionInterface $transition,
         StatusInterface $initial
     )
     {
-        $transition = $this->getTransitionIfAllowed(
-            $container, $workflowRepository, $workflow, $context, $transitionRepository, $transition
-        );
+        $container->get('kreta_workflow.repository.status_transition')
+            ->shouldBeCalled()->willReturn($transitionRepository);
+        $transitionRepository->find('transition-id', false)->shouldBeCalled()->willReturn($transition);
         $transition->getInitialStates()->shouldBeCalled()->willReturn([$initial]);
 
         $this->getTransitionsInitialStatusesAction('workflow-id', 'transition-id')->shouldReturn([$initial]);
     }
 
-    function it_does_not_get_initial_status_because_the_user_has_not_the_required_grant(
-        ContainerInterface $container,
-        WorkflowRepository $workflowRepository,
-        WorkflowInterface $workflow,
-        SecurityContextInterface $securityContext
-    )
-    {
-        $this->getWorkflowIfAllowedSpec($container, $workflowRepository, $workflow, $securityContext, 'view', false);
-
-        $this->shouldThrow(new AccessDeniedException())
-            ->during('getTransitionsInitialStatusAction', ['workflow-id', 'status-transition-id', 'initial-id']);
-    }
-
     function it_gets_initial_status(
         ContainerInterface $container,
-        WorkflowRepository $workflowRepository,
-        WorkflowInterface $workflow,
-        SecurityContextInterface $context,
         StatusTransitionRepository $transitionRepository,
         StatusTransitionInterface $transition,
         StatusInterface $initial
     )
     {
-        $transition = $this->getTransitionIfAllowed(
-            $container, $workflowRepository, $workflow, $context, $transitionRepository, $transition
-        );
+        $container->get('kreta_workflow.repository.status_transition')
+            ->shouldBeCalled()->willReturn($transitionRepository);
+        $transitionRepository->find('transition-id', false)->shouldBeCalled()->willReturn($transition);
         $transition->getInitialState('initial-id')->shouldBeCalled()->willReturn([$initial]);
 
         $this->getTransitionsInitialStatusAction('workflow-id', 'transition-id', 'initial-id')->shouldReturn([$initial]);
@@ -260,34 +151,18 @@ class StatusTransitionControllerSpec extends ObjectBehavior
 
     function it_does_not_post_initial_status_because_it_does_not_pass_initial_status_id(
         ContainerInterface $container,
-        WorkflowRepository $workflowRepository,
-        WorkflowInterface $workflow,
-        SecurityContextInterface $context,
         StatusTransitionRepository $transitionRepository,
         StatusTransitionInterface $transition,
         Request $request
     )
     {
-        $this->getTransitionIfAllowed(
-            $container, $workflowRepository, $workflow, $context, $transitionRepository, $transition, 'manage_status'
-        );
+        $container->get('kreta_workflow.repository.status_transition')
+            ->shouldBeCalled()->willReturn($transitionRepository);
+        $transitionRepository->find('transition-id', false)->shouldBeCalled()->willReturn($transition);
         $container->get('request')->shouldBeCalled()->willReturn($request);
         $request->get('initial_status')->shouldBeCalled()->willReturn(null);
 
         $this->shouldThrow(new BadRequestHttpException('The initial status should not be blank'))
-            ->during('postTransitionsInitialStatusAction', ['workflow-id', 'transition-id']);
-    }
-
-    function it_does_not_post_initial_status_because_the_user_has_not_the_required_grant(
-        ContainerInterface $container,
-        WorkflowRepository $workflowRepository,
-        WorkflowInterface $workflow,
-        SecurityContextInterface $context
-    )
-    {
-        $this->getWorkflowIfAllowedSpec($container, $workflowRepository, $workflow, $context, 'manage_status', false);
-
-        $this->shouldThrow(new AccessDeniedException())
             ->during('postTransitionsInitialStatusAction', ['workflow-id', 'transition-id']);
     }
 
@@ -296,16 +171,13 @@ class StatusTransitionControllerSpec extends ObjectBehavior
         Request $request,
         StatusRepository $statusRepository,
         StatusInterface $initial,
-        WorkflowRepository $workflowRepository,
-        WorkflowInterface $workflow,
-        SecurityContextInterface $context,
         StatusTransitionRepository $transitionRepository,
         StatusTransitionInterface $transition
     )
     {
-        $transition = $this->getTransitionIfAllowed(
-            $container, $workflowRepository, $workflow, $context, $transitionRepository, $transition, 'manage_status'
-        );
+        $container->get('kreta_workflow.repository.status_transition')
+            ->shouldBeCalled()->willReturn($transitionRepository);
+        $transitionRepository->find('transition-id', false)->shouldBeCalled()->willReturn($transition);
         $container->get('request')->shouldBeCalled()->willReturn($request);
         $request->get('initial_status')->shouldBeCalled()->willReturn('initial-status-id');
         $container->get('kreta_workflow.repository.status')->shouldBeCalled()->willReturn($statusRepository);
@@ -318,33 +190,15 @@ class StatusTransitionControllerSpec extends ObjectBehavior
         $this->postTransitionsInitialStatusAction('workflow-id', 'transition-id')->shouldReturn([$initial]);
     }
 
-    function it_does_not_delete_initial_status_because_the_user_has_not_the_required_grant(
-        ContainerInterface $container,
-        WorkflowRepository $workflowRepository,
-        WorkflowInterface $workflow,
-        SecurityContextInterface $securityContext
-    )
-    {
-        $this->getWorkflowIfAllowedSpec(
-            $container, $workflowRepository, $workflow, $securityContext, 'manage_status', false
-        );
-
-        $this->shouldThrow(new AccessDeniedException())
-            ->during('deleteTransitionsInitialStatusAction', ['workflow-id', 'transition-id', 'initial-id']);
-    }
-
     function it_does_not_delete_initial_status_because_transition_is_currently_in_use(
         ContainerInterface $container,
-        WorkflowRepository $workflowRepository,
-        WorkflowInterface $workflow,
-        SecurityContextInterface $context,
         StatusTransitionRepository $transitionRepository,
         StatusTransitionInterface $transition
     )
     {
-        $transition = $this->getTransitionIfAllowed(
-            $container, $workflowRepository, $workflow, $context, $transitionRepository, $transition, 'manage_status'
-        );
+        $container->get('kreta_workflow.repository.status_transition')
+            ->shouldBeCalled()->willReturn($transitionRepository);
+        $transitionRepository->find('transition-id', false)->shouldBeCalled()->willReturn($transition);
         $transition->isInUse()->shouldBeCalled()->willReturn(true);
 
         $this->shouldThrow(new ResourceInUseException())
@@ -353,16 +207,13 @@ class StatusTransitionControllerSpec extends ObjectBehavior
 
     function it_deletes_initial_status(
         ContainerInterface $container,
-        WorkflowRepository $workflowRepository,
-        WorkflowInterface $workflow,
-        SecurityContextInterface $context,
         StatusTransitionRepository $transitionRepository,
         StatusTransitionInterface $transition
     )
     {
-        $transition = $this->getTransitionIfAllowed(
-            $container, $workflowRepository, $workflow, $context, $transitionRepository, $transition, 'manage_status'
-        );
+        $container->get('kreta_workflow.repository.status_transition')
+            ->shouldBeCalled()->willReturn($transitionRepository);
+        $transitionRepository->find('transition-id', false)->shouldBeCalled()->willReturn($transition);
         $transition->isInUse()->shouldBeCalled()->willReturn(false);
         $container->get('kreta_workflow.repository.status_transition')
             ->shouldBeCalled()->willReturn($transitionRepository);
@@ -371,70 +222,18 @@ class StatusTransitionControllerSpec extends ObjectBehavior
         $this->deleteTransitionsInitialStatusAction('workflow-id', 'transition-id', 'initial-id');
     }
 
-    function it_does_not_get_end_status_because_the_user_has_not_the_required_grant(
-        ContainerInterface $container,
-        WorkflowRepository $workflowRepository,
-        WorkflowInterface $workflow,
-        SecurityContextInterface $securityContext
-    )
-    {
-        $this->getWorkflowIfAllowedSpec($container, $workflowRepository, $workflow, $securityContext, 'view', false);
-
-        $this->shouldThrow(new AccessDeniedException())
-            ->during('getTransitionsEndStatusAction', ['workflow-id', 'transition-id']);
-    }
-
     function it_gets_end_status(
         ContainerInterface $container,
-        WorkflowRepository $workflowRepository,
-        WorkflowInterface $workflow,
-        SecurityContextInterface $context,
         StatusTransitionRepository $transitionRepository,
         StatusTransitionInterface $transition,
         StatusInterface $status
     )
     {
-        $transition = $this->getTransitionIfAllowed(
-            $container, $workflowRepository, $workflow, $context, $transitionRepository, $transition
-        );
-        $transition->getState()->shouldBeCalled()->willReturn($status);
-
-        $this->getTransitionsEndStatusAction('workflow-id', 'transition-id')->shouldReturn($status);
-    }
-
-    protected function getTransitionIfAllowed(
-        ContainerInterface $container,
-        WorkflowRepository $workflowRepository,
-        WorkflowInterface $workflow,
-        SecurityContextInterface $context,
-        StatusTransitionRepository $transitionRepository,
-        $transition = null,
-        $grant = 'view',
-        $result = true
-    )
-    {
-        $this->getWorkflowIfAllowedSpec($container, $workflowRepository, $workflow, $context, $grant, $result);
         $container->get('kreta_workflow.repository.status_transition')
             ->shouldBeCalled()->willReturn($transitionRepository);
         $transitionRepository->find('transition-id', false)->shouldBeCalled()->willReturn($transition);
+        $transition->getState()->shouldBeCalled()->willReturn($status);
 
-        return $transition;
-    }
-
-    protected function getWorkflowIfAllowedSpec(
-        ContainerInterface $container,
-        WorkflowRepository $workflowRepository,
-        WorkflowInterface $workflow,
-        SecurityContextInterface $securityContext,
-        $grant = 'view',
-        $result = true
-    )
-    {
-        $container->get('kreta_workflow.repository.workflow')->shouldBeCalled()->willReturn($workflowRepository);
-        $workflowRepository->find('workflow-id', false)->shouldBeCalled()->willReturn($workflow);
-        $container->get('security.context')->shouldBeCalled()->willReturn($securityContext);
-        $securityContext->isGranted($grant, $workflow)->shouldBeCalled()->willReturn($result);
-
-        return $workflow;
+        $this->getTransitionsEndStatusAction('workflow-id', 'transition-id')->shouldReturn($status);
     }
 }

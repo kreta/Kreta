@@ -15,3 +15,5 @@ parameters:
     kreta_time_tracking.form_type.time_entry.class: Kreta\Component\TimeTracking\Form\Type\TimeEntryType
 
     kreta_time_tracking.security_time_entry_voter.class: Kreta\Bundle\TimeTrackingBundle\Security\Authorization\Voter\TimeEntryVoter
+
+    kreta_time_entry.event_listener.time_entry_if_allowed_annotation.class: Kreta\Bundle\TimeTrackingBundle\EventListener\TimeEntryIfAllowedAnnotationListener

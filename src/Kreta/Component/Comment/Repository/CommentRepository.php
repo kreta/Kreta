@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file belongs to Kreta.
  * The source code of application includes a LICENSE file
  * with all information about license.
@@ -13,6 +13,7 @@ namespace Kreta\Component\Comment\Repository;
 
 use Kreta\Component\Core\Repository\EntityRepository;
 use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
+use Kreta\Component\User\Model\Interfaces\UserInterface;
 
 /**
  * Class CommentRepository.
@@ -60,6 +61,19 @@ class CommentRepository extends EntityRepository
         }
 
         return $queryBuilder->getQuery()->getResult();
+    }
+
+    /**
+     * Finds the comments of given id if the user given is its writer.
+     *
+     * @param string                                               $commentId The comment id
+     * @param \Kreta\Component\User\Model\Interfaces\UserInterface $user      The user
+     *
+     * @return \Kreta\Component\Comment\Model\Interfaces\CommentInterface
+     */
+    public function findByUser($commentId, UserInterface $user)
+    {
+        return $this->findOneBy(['id' => $commentId, 'writtenBy' => $user], false);
     }
 
     /**

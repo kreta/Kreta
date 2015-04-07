@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file belongs to Kreta.
  * The source code of application includes a LICENSE file
  * with all information about license.
@@ -30,7 +30,7 @@ class PriorityContext extends DefaultContext
      *
      * @Given /^the following priorities exist:$/
      */
-    public function theFollowingIssueTypesExist(TableNode $priorities)
+    public function theFollowingPrioritiesExist(TableNode $priorities)
     {
         foreach ($priorities as $priorityData) {
             $project = $this->get('kreta_project.repository.project')

@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file belongs to Kreta.
  * The source code of application includes a LICENSE file
  * with all information about license.
@@ -14,21 +14,24 @@ namespace Kreta\Bundle\ProjectBundle\Controller;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Request\ParamFetcher;
-use Kreta\Bundle\CoreBundle\Controller\RestController;
+use Kreta\Component\Core\Annotation\ResourceIfAllowed as Project;
 use Kreta\SimpleApiDocBundle\Annotation\ApiDoc;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class ParticipantController.
  *
  * @package Kreta\Bundle\ProjectBundle\Controller
  */
-class ParticipantController extends RestController
+class ParticipantController extends Controller
 {
     /**
      * Returns all the participants of project id given, it admits limit and offset.
      *
-     * @param string                               $projectId    The project id
-     * @param \FOS\RestBundle\Request\ParamFetcher $paramFetcher The param fetcher
+     * @param \Symfony\Component\HttpFoundation\Request $request      The request
+     * @param string                                    $projectId    The project id
+     * @param \FOS\RestBundle\Request\ParamFetcher      $paramFetcher The param fetcher
      *
      * @QueryParam(name="limit", requirements="\d+", default="9999", description="Amount of participants to be returned")
      * @QueryParam(name="offset", requirements="\d+", default="0", description="Offset in pages")
@@ -36,13 +39,14 @@ class ParticipantController extends RestController
      *
      * @ApiDoc(resource=true, statusCodes={200, 403, 404})
      * @View(statusCode=200, serializerGroups={"participantList"})
+     * @Project()
      *
      * @return \Kreta\Component\Project\Model\Interfaces\ParticipantInterface[]
      */
-    public function getParticipantsAction($projectId, ParamFetcher $paramFetcher)
+    public function getParticipantsAction(Request $request, $projectId, ParamFetcher $paramFetcher)
     {
         return $this->get('kreta_project.repository.participant')->findByProject(
-            $this->getProjectIfAllowed($projectId),
+            $request->get('project'),
             $paramFetcher->get('limit'),
             $paramFetcher->get('offset'),
             $paramFetcher->get('q')
@@ -52,20 +56,21 @@ class ParticipantController extends RestController
     /**
      * Creates new participant for role and user given.
      *
-     * @param string $projectId The project id
+     * @param \Symfony\Component\HttpFoundation\Request $request   The request
+     * @param string                                    $projectId The project id
      *
      * @ApiDoc(statusCodes={201, 400})
      * @View(statusCode=201, serializerGroups={"participant"})
+     * @Project("add_participant")
      *
      * @return \Kreta\Component\Project\Model\Interfaces\ParticipantInterface
      */
-    public function postParticipantsAction($projectId)
+    public function postParticipantsAction(Request $request, $projectId)
     {
-        $project = $this->getProjectIfAllowed($projectId, 'add_participant');
         $users = $this->get('kreta_user.repository.user')->findAll();
 
         return $this->get('kreta_project.form_handler.participant')->processForm(
-            $this->get('request'), null, ['project' => $project, 'users' => $users]
+            $request, null, ['project' => $request->get('project'), 'users' => $users]
         );
     }
 
@@ -77,13 +82,12 @@ class ParticipantController extends RestController
      *
      * @ApiDoc(statusCodes={204, 403, 404})
      * @View(statusCode=204)
+     * @Project("delete_participant")
      *
      * @return void
      */
     public function deleteParticipantsAction($projectId, $userId)
     {
-        $this->getProjectIfAllowed($projectId, 'delete_participant');
-
         $repository = $this->get('kreta_project.repository.participant');
         $participant = $repository->findOneBy(['project' => $projectId, 'user' => $userId], false);
         $repository->remove($participant);

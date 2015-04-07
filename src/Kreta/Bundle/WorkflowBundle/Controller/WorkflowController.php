@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file belongs to Kreta.
  * The source code of application includes a LICENSE file
  * with all information about license.
@@ -14,15 +14,17 @@ namespace Kreta\Bundle\WorkflowBundle\Controller;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Request\ParamFetcher;
-use Kreta\Bundle\CoreBundle\Controller\RestController;
+use Kreta\Component\Core\Annotation\ResourceIfAllowed as Workflow;
 use Kreta\SimpleApiDocBundle\Annotation\ApiDoc;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class WorkflowController.
  *
  * @package Kreta\Bundle\WorkflowBundle\Controller
  */
-class WorkflowController extends RestController
+class WorkflowController extends Controller
 {
     /**
      * Returns all the workflows of current user, it admits sort, limit and offset.
@@ -51,45 +53,50 @@ class WorkflowController extends RestController
     /**
      * Returns the workflow of id given.
      *
-     * @param string $workflowId The workflow id
+     * @param \Symfony\Component\HttpFoundation\Request $request    The request
+     * @param string                                    $workflowId The workflow id
      *
      * @ApiDoc(statusCodes={200, 403, 404})
      * @View(statusCode=200, serializerGroups={"workflow"})
+     * @Workflow()
      *
      * @return \Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface
      */
-    public function getWorkflowAction($workflowId)
+    public function getWorkflowAction(Request $request, $workflowId)
     {
-        return $this->getWorkflowIfAllowed($workflowId);
+        return $request->get('workflow');
     }
 
     /**
      * Creates new workflow for name given.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request The request
      *
      * @ApiDoc(statusCodes={201, 400})
      * @View(statusCode=201, serializerGroups={"workflow"})
      *
      * @return \Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface
      */
-    public function postWorkflowAction()
+    public function postWorkflowAction(Request $request)
     {
-        return $this->get('kreta_workflow.form_handler.workflow')->processForm($this->get('request'));
+        return $this->get('kreta_workflow.form_handler.workflow')->processForm($request);
     }
 
     /**
      * Updates the workflow of id given.
      *
-     * @param string $workflowId The workflow id
+     * @param \Symfony\Component\HttpFoundation\Request $request    The request
+     * @param string                                    $workflowId The workflow id
      *
      * @ApiDoc(statusCodes={200, 400, 403, 404})
      * @View(statusCode=200, serializerGroups={"workflow"})
-     *
+     * @Workflow("edit")
      * @return \Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface
      */
-    public function putWorkflowAction($workflowId)
+    public function putWorkflowAction(Request $request, $workflowId)
     {
         return $this->get('kreta_workflow.form_handler.workflow')->processForm(
-            $this->get('request'), $this->getWorkflowIfAllowed($workflowId, 'edit'), ['method' => 'PUT']
+            $request, $request->get('workflow'), ['method' => 'PUT']
         );
     }
 }

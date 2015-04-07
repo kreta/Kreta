@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file belongs to Kreta.
  * The source code of application includes a LICENSE file
  * with all information about license.
@@ -15,21 +15,24 @@ use FOS\RestBundle\Controller\Annotations as Http;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Request\ParamFetcher;
-use Kreta\Bundle\CoreBundle\Controller\RestController;
+use Kreta\Component\Core\Annotation\ResourceIfAllowed as Project;
 use Kreta\SimpleApiDocBundle\Annotation\ApiDoc;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class IssueTypeController.
  *
  * @package Kreta\Bundle\ProjectBundle\Controller
  */
-class IssueTypeController extends RestController
+class IssueTypeController extends Controller
 {
     /**
      * Returns all issue types, it admits sort, limit and offset.
      *
-     * @param string                               $projectId    The project id
-     * @param \FOS\RestBundle\Request\ParamFetcher $paramFetcher The param fetcher
+     * @param \Symfony\Component\HttpFoundation\Request $request      The request
+     * @param string                                    $projectId    The project id
+     * @param \FOS\RestBundle\Request\ParamFetcher      $paramFetcher The param fetcher
      *
      * @QueryParam(name="q", requirements="(.*)", strict=true, nullable=true, description="Name filter")
      * @QueryParam(name="limit", requirements="\d+", default="9999", description="Amount of issue types to be returned")
@@ -38,13 +41,14 @@ class IssueTypeController extends RestController
      * @ApiDoc(resource=true, statusCodes={200, 403, 404})
      * @Http\Get("/projects/{projectId}/issue-types")
      * @View(statusCode=200, serializerGroups={"issueTypeList"})
+     * @Project()
      *
      * @return \Kreta\Component\Project\Model\Interfaces\IssueTypeInterface[]
      */
-    public function getIssueTypesAction($projectId, ParamFetcher $paramFetcher)
+    public function getIssueTypesAction(Request $request, $projectId, ParamFetcher $paramFetcher)
     {
         return $this->get('kreta_project.repository.issue_type')->findByProject(
-            $this->getProjectIfAllowed($projectId),
+            $request->get('project'),
             $paramFetcher->get('limit'),
             $paramFetcher->get('offset'),
             $paramFetcher->get('q')
@@ -54,20 +58,20 @@ class IssueTypeController extends RestController
     /**
      * Creates new issue type for name given.
      *
-     * @param string $projectId The project id
+     * @param \Symfony\Component\HttpFoundation\Request $request   The request
+     * @param string                                    $projectId The project id
      *
      * @ApiDoc(statusCodes={201, 400})
      * @Http\Post("/projects/{projectId}/issue-types")
      * @View(statusCode=201, serializerGroups={"issueType"})
+     * @Project("create_issue_type")
      *
      * @return \Kreta\Component\Project\Model\Interfaces\IssueTypeInterface
      */
-    public function postIssueTypesAction($projectId)
+    public function postIssueTypesAction(Request $request, $projectId)
     {
-        $project = $this->getProjectIfAllowed($projectId, 'create_issue_type');
-
         return $this->get('kreta_project.form_handler.issue_type')->processForm(
-            $this->get('request'), null, ['project' => $project]
+            $request, null, ['project' => $request->get('project')]
         );
     }
 
@@ -80,13 +84,12 @@ class IssueTypeController extends RestController
      * @ApiDoc(statusCodes={204, 403, 404})
      * @Http\Delete("/projects/{projectId}/issue-types/{issueTypeId}")
      * @View(statusCode=204)
+     * @Project("delete_issue_type")
      *
      * @return void
      */
     public function deleteIssueTypesAction($projectId, $issueTypeId)
     {
-        $this->getProjectIfAllowed($projectId, 'delete_issue_type');
-
         $repository = $this->get('kreta_project.repository.issue_type');
         $issueType = $repository->find($issueTypeId, false);
         $repository->remove($issueType);

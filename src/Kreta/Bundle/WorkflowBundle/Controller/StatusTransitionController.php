@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file belongs to Kreta.
  * The source code of application includes a LICENSE file
  * with all information about license.
@@ -13,9 +13,11 @@ namespace Kreta\Bundle\WorkflowBundle\Controller;
 
 use FOS\RestBundle\Controller\Annotations as Http;
 use FOS\RestBundle\Controller\Annotations\View;
-use Kreta\Bundle\CoreBundle\Controller\RestController;
+use Kreta\Component\Core\Annotation\ResourceIfAllowed as Workflow;
 use Kreta\Component\Core\Exception\ResourceInUseException;
 use Kreta\SimpleApiDocBundle\Annotation\ApiDoc;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
 /**
@@ -23,21 +25,23 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
  *
  * @package Kreta\Bundle\WorkflowBundle\Controller
  */
-class StatusTransitionController extends RestController
+class StatusTransitionController extends Controller
 {
     /**
      * Returns all the transitions of workflow id given.
      *
-     * @param string $workflowId The workflow id
+     * @param \Symfony\Component\HttpFoundation\Request $request    The request
+     * @param string                                    $workflowId The workflow id
      *
      * @ApiDoc(resource=true, statusCodes={200, 403, 404})
      * @View(statusCode=200, serializerGroups={"transitionList"})
+     * @Workflow()
      *
      * @return \Kreta\Component\Workflow\Model\Interfaces\StatusTransitionInterface[]
      */
-    public function getTransitionsAction($workflowId)
+    public function getTransitionsAction(Request $request, $workflowId)
     {
-        return $this->getWorkflowIfAllowed($workflowId)->getStatusTransitions();
+        return $request->get('workflow')->getStatusTransitions();
     }
 
     /**
@@ -48,30 +52,31 @@ class StatusTransitionController extends RestController
      *
      * @ApiDoc(statusCodes={200, 403, 404})
      * @View(statusCode=200, serializerGroups={"transition"})
+     * @Workflow()
      *
      * @return \Kreta\Component\Workflow\Model\Interfaces\StatusTransitionInterface
      */
     public function getTransitionAction($workflowId, $transitionId)
     {
-        return $this->getTransitionIfAllowed($workflowId, $transitionId);
+        return $this->getTransition($transitionId);
     }
 
     /**
      * Creates new transition for name, status and initial statuses given.
      *
-     * @param string $workflowId The workflow id
+     * @param \Symfony\Component\HttpFoundation\Request $request    The request
+     * @param string                                    $workflowId The workflow id
      *
      * @ApiDoc(statusCodes = {201, 400, 403, 404})
      * @View(statusCode=201, serializerGroups={"transition"})
+     * @Workflow("manage_status")
      *
      * @return \Kreta\Component\Workflow\Model\Interfaces\StatusTransitionInterface
      */
-    public function postTransitionsAction($workflowId)
+    public function postTransitionsAction(Request $request, $workflowId)
     {
-        $workflow = $this->getWorkflowIfAllowed($workflowId, 'manage_status');
-
         return $this->get('kreta_workflow.form_handler.status_transition')->processForm(
-            $this->get('request'), null, ['workflow' => $workflow]
+            $request, null, ['workflow' => $request->get('workflow')]
         );
     }
 
@@ -83,17 +88,17 @@ class StatusTransitionController extends RestController
      *
      * @ApiDoc(statusCodes = {204, 403, 404, 409})
      * @View(statusCode=204)
+     * @Workflow("manage_status")
      *
      * @return void
      * @throws \Kreta\Component\Core\Exception\ResourceInUseException
      */
     public function deleteTransitionAction($workflowId, $transitionId)
     {
-        $transition = $this->getTransitionIfAllowed($workflowId, $transitionId, 'manage_status');
+        $transition = $this->getTransition($transitionId);
         if ($transition->isInUse()) {
             throw new ResourceInUseException();
         }
-
         $this->get('kreta_workflow.repository.status_transition')->remove($transition);
     }
 
@@ -106,12 +111,13 @@ class StatusTransitionController extends RestController
      * @ApiDoc(statusCodes={200, 403, 404})
      * @Http\Get("/workflows/{workflowId}/transitions/{transitionId}/initial-statuses")
      * @View(statusCode=200, serializerGroups={"transitionList", "transition"})
+     * @Workflow()
      *
      * @return \Kreta\Component\Workflow\Model\Interfaces\StatusInterface[]
      */
     public function getTransitionsInitialStatusesAction($workflowId, $transitionId)
     {
-        return $this->getTransitionIfAllowed($workflowId, $transitionId)->getInitialStates();
+        return $this->getTransition($transitionId)->getInitialStates();
     }
 
     /**
@@ -124,12 +130,13 @@ class StatusTransitionController extends RestController
      * @ApiDoc(statusCodes={200, 403, 404})
      * @Http\Get("/workflows/{workflowId}/transitions/{transitionId}/initial-statuses/{initialStatusId}")
      * @View(statusCode=200, serializerGroups={"transitionList", "transition"})
+     * @Workflow()
      *
      * @return \Kreta\Component\Workflow\Model\Interfaces\StatusInterface
      */
     public function getTransitionsInitialStatusAction($workflowId, $transitionId, $initialStatusId)
     {
-        return $this->getTransitionIfAllowed($workflowId, $transitionId)->getInitialState($initialStatusId);
+        return $this->getTransition($transitionId)->getInitialState($initialStatusId);
     }
 
     /**
@@ -141,13 +148,14 @@ class StatusTransitionController extends RestController
      * @ApiDoc(statusCodes={201, 400, 403, 404, 409})
      * @Http\Post("/workflows/{workflowId}/transitions/{transitionId}/initial-statuses")
      * @View(statusCode=201, serializerGroups={"transitionList", "transition"})
+     * @Workflow("manage_status")
      *
      * @return \Kreta\Component\Workflow\Model\Interfaces\StatusInterface[]
      * @throws \Symfony\Component\HttpKernel\Exception\BadRequestHttpException
      */
     public function postTransitionsInitialStatusAction($workflowId, $transitionId)
     {
-        $transition = $this->getTransitionIfAllowed($workflowId, $transitionId, 'manage_status');
+        $transition = $this->getTransition($transitionId);
         if (($initialStatusId = $this->get('request')->get('initial_status')) === null) {
             throw new BadRequestHttpException('The initial status should not be blank');
         }
@@ -169,13 +177,14 @@ class StatusTransitionController extends RestController
      * }})
      * @Http\Delete("/workflows/{workflowId}/transitions/{transitionId}/initial-statuses/{initialStatusId}")
      * @View(statusCode=204)
+     * @Workflow("manage_status")
      *
      * @return void
      * @throws \Kreta\Component\Core\Exception\ResourceInUseException
      */
     public function deleteTransitionsInitialStatusAction($workflowId, $transitionId, $initialStatusId)
     {
-        $transition = $this->getTransitionIfAllowed($workflowId, $transitionId, 'manage_status');
+        $transition = $this->getTransition($transitionId);
         if ($transition->isInUse()) {
             throw new ResourceInUseException();
         }
@@ -191,27 +200,24 @@ class StatusTransitionController extends RestController
      * @ApiDoc(statusCodes={200, 403, 404})
      * @Http\Get("/workflows/{workflowId}/transitions/{transitionId}/end-status")
      * @View(statusCode=200, serializerGroups={"transitionList", "transition"})
+     * @Workflow()
      *
      * @return \Kreta\Component\Workflow\Model\Interfaces\StatusInterface
      */
     public function getTransitionsEndStatusAction($workflowId, $transitionId)
     {
-        return $this->getTransitionIfAllowed($workflowId, $transitionId)->getState();
+        return $this->getTransition($transitionId)->getState();
     }
 
     /**
-     * Gets the status transition if the current user is granted and if the workflow exists.
+     * Gets the status transition if exists.
      *
-     * @param string $workflowId   The workflow id
      * @param string $transitionId The transition id
-     * @param string $grant        The grant, by default 'view'
      *
      * @return \Kreta\Component\Workflow\Model\Interfaces\StatusTransitionInterface
      */
-    protected function getTransitionIfAllowed($workflowId, $transitionId, $grant = 'view')
+    protected function getTransition($transitionId)
     {
-        $this->getWorkflowIfAllowed($workflowId, $grant);
-
         return $this->get('kreta_workflow.repository.status_transition')->find($transitionId, false);
     }
 }

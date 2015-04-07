@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file belongs to Kreta.
  * The source code of application includes a LICENSE file
  * with all information about license.
@@ -21,7 +21,6 @@ use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
@@ -41,9 +40,9 @@ class ProjectControllerSpec extends ObjectBehavior
         $this->shouldHaveType('Kreta\Bundle\ProjectBundle\Controller\ProjectController');
     }
 
-    function it_extends_rest_controller()
+    function it_extends_controller()
     {
-        $this->shouldHaveType('Kreta\Bundle\CoreBundle\Controller\RestController');
+        $this->shouldHaveType('Symfony\Bundle\FrameworkBundle\Controller\Controller');
     }
 
     function it_gets_projects(
@@ -66,34 +65,16 @@ class ProjectControllerSpec extends ObjectBehavior
         $paramFetcher->get('sort')->shouldBeCalled()->willReturn('name');
         $paramFetcher->get('limit')->shouldBeCalled()->willReturn(10);
         $paramFetcher->get('offset')->shouldBeCalled()->willReturn(1);
-        $projectRepository->findByParticipant($user, ['name' => 'ASC'], 10, 1)
-            ->shouldBeCalled()->willReturn([$project]);
+        $projectRepository->findByParticipant($user, ['name' => 'ASC'], 10, 1)->shouldBeCalled()->willReturn([$project]);
 
         $this->getProjectsAction($paramFetcher)->shouldReturn([$project]);
     }
 
-    function it_does_not_get_project_because_the_user_has_not_the_required_grant(
-        ContainerInterface $container,
-        ProjectRepository $projectRepository,
-        ProjectInterface $project,
-        SecurityContextInterface $securityContext
-    )
+    function it_gets_project(Request $request, ProjectInterface $project)
     {
-        $this->getProjectIfAllowedSpec($container, $projectRepository, $project, $securityContext, 'view', false);
+        $request->get('project')->shouldBeCalled()->willReturn($project);
 
-        $this->shouldThrow(new AccessDeniedException())->during('getProjectAction', ['project-id']);
-    }
-
-    function it_gets_project(
-        ContainerInterface $container,
-        ProjectRepository $projectRepository,
-        ProjectInterface $project,
-        SecurityContextInterface $securityContext
-    )
-    {
-        $project = $this->getProjectIfAllowedSpec($container, $projectRepository, $project, $securityContext);
-
-        $this->getProjectAction('project-id')->shouldReturn($project);
+        $this->getProjectAction($request, 'project-id')->shouldReturn($project);
     }
 
     function it_posts_project(
@@ -105,26 +86,9 @@ class ProjectControllerSpec extends ObjectBehavior
     )
     {
         $container->get('kreta_project.form_handler.project')->shouldBeCalled()->willReturn($projectHandler);
-        $container->get('request')->shouldBeCalled()->willReturn($request);
         $projectHandler->processForm($request)->shouldBeCalled()->willReturn($project);
 
-        $this->postProjectsAction()->shouldReturn($project);
-    }
-
-    function it_puts_project_because_the_user_has_not_the_required_grant(
-        ContainerInterface $container,
-        ProjectRepository $projectRepository,
-        ProjectInterface $project,
-        SecurityContextInterface $securityContext,
-        Request $request,
-        ProjectHandler $projectHandler
-    )
-    {
-        $container->get('kreta_project.form_handler.project')->shouldBeCalled()->willReturn($projectHandler);
-        $this->getProjectIfAllowedSpec($container, $projectRepository, $project, $securityContext, 'edit', false);
-        $container->get('request')->shouldBeCalled()->willReturn($request);
-
-        $this->shouldThrow(new AccessDeniedException())->during('putProjectsAction', ['project-id']);
+        $this->postProjectsAction($request)->shouldReturn($project);
     }
 
     function it_puts_project(
@@ -137,27 +101,9 @@ class ProjectControllerSpec extends ObjectBehavior
     )
     {
         $container->get('kreta_project.form_handler.project')->shouldBeCalled()->willReturn($projectHandler);
-        $project = $this->getProjectIfAllowedSpec($container, $projectRepository, $project, $securityContext, 'edit');
-        $container->get('request')->shouldBeCalled()->willReturn($request);
+        $request->get('project')->shouldBeCalled()->willReturn($project);
         $projectHandler->processForm($request, $project, ['method' => 'PUT'])->shouldBeCalled()->willReturn($project);
 
-        $this->putProjectsAction('project-id')->shouldReturn($project);
-    }
-
-    protected function getProjectIfAllowedSpec(
-        ContainerInterface $container,
-        ProjectRepository $projectRepository,
-        ProjectInterface $project,
-        SecurityContextInterface $securityContext,
-        $grant = 'view',
-        $result = true
-    )
-    {
-        $container->get('kreta_project.repository.project')->shouldBeCalled()->willReturn($projectRepository);
-        $projectRepository->find('project-id', false)->shouldBeCalled()->willReturn($project);
-        $container->get('security.context')->shouldBeCalled()->willReturn($securityContext);
-        $securityContext->isGranted($grant, $project)->shouldBeCalled()->willReturn($result);
-
-        return $project;
+        $this->putProjectsAction($request, 'project-id')->shouldReturn($project);
     }
 }
