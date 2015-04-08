@@ -67,7 +67,7 @@ default:
                 - Kreta\Bundle\ProjectBundle\Behat\ParticipantContext
             filters:
                 tags: "@issue"
-        issue-type:
+        issueType:
             contexts:
                 - Kreta\Bundle\CoreBundle\Behat\OauthContext
                 - Kreta\Bundle\WorkflowBundle\Behat\WorkflowContext
