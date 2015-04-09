@@ -7,8 +7,8 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-export class Config {
-  getBaseUrl () {
-    return 'http://localhost:8000/api';
+export class IssueType extends Backbone.Model {
+  toString () {
+    return this.get('name');
   }
 }
