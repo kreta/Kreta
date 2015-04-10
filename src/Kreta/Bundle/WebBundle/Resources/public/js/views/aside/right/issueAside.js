@@ -20,16 +20,20 @@ export class IssueAsideView extends Backbone.View {
     };
 
     super();
+
     this.model = new Issue({id: options.id});
     this.model.fetch();
-
     this.model.on('sync', this.render, this);
   }
 
   render () {
-    this.$el.html(this.template(this.model.toJSON()));
+    if(this.model.hasChanged()) {
+      this.$el.html(this.template(this.model.toJSON()));
+      this.$tabContent = this.$el.find('.issue-tab-content');
+    } else {
+      this.$el.html('Loading...');
+    }
 
-    this.$tabContent = this.$el.find('.issue-tab-content');
 
     return this;
   }
