@@ -15,6 +15,10 @@ export class IssueAsideView extends Backbone.View {
 
     this.template = _.template($('#issue-aside-template').html());
 
+    this.events = {
+      'click .issue-tab': 'tabClicked'
+    };
+
     super();
     this.model = new Issue({id: options.id});
     this.model.fetch();
@@ -24,6 +28,17 @@ export class IssueAsideView extends Backbone.View {
 
   render () {
     this.$el.html(this.template(this.model.toJSON()));
+
+    this.$tabContent = this.$el.find('.issue-tab-content');
+
     return this;
+  }
+
+  tabClicked(ev) {
+    var pos = $(ev.currentTarget).index();
+    this.$tabContent.removeClass('visible');
+    $(this.$tabContent.get(pos)).addClass('visible');
+
+    return false;
   }
 }

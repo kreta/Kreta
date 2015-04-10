@@ -15,7 +15,17 @@ export class Issue extends Backbone.Model {
   defaults () {
     return {
       title: '',
-      description: ''
+      description: '',
+      assignee: {
+        first_name: '',
+        last_name: ''
+      },
+      type: {
+        name: ''
+      },
+      priority: {
+        name: ''
+      }
     };
   }
 }
