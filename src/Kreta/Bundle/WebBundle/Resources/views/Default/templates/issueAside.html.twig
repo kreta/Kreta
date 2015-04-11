@@ -1,13 +1,16 @@
 <script type="text/html" id="issue-aside-template">
     <h2><%= title %></h2>
     <section class="issue-overview">
-        <p><small>Assigned to</small> <strong>Gorka Laucirica</strong></p>
-        <p class="half"><small>Due on</small> MAR 18</p>
-        <p class="half">New feature</p>
+        <p>
+            <small>Assigned to</small>
+            <strong><%= assignee.first_name %> <%= assignee.last_name %></strong>
+        </p>
+        <p class="half"><small>Priority</small> <%= priority.name %></p>
+        <p class="half"><%= type.name %></p>
     </section>
     <p class="description"><%= description %></p>
     <section>
-        <nav>
+        <nav class="issue-tab-container">
             <a href="#" class="issue-tab active">
                 <img src="{{ asset('images/icons/search.png') }}"/>
                 <span>Comments</span>
@@ -25,7 +28,43 @@
                 <span>Following</span>
             </a>
         </nav>
-        <div>
+        <div class="issue-tab-content">
+            <div class="user-interaction">
+                <img src="{{ asset('images/grk4zi.png') }}"/>
+                <div class="details">
+                    <span class="time">18 hours ago</span>
+                    <h5>Gorka Laucirica</h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        Mauris turpis lacus, cursus in quam sed, suscipit efficitur
+                        leo.</p>
+                    <p>Curabitur turpis felis, mattis vel molestie sit amet,
+                        varius nec lorem. </p>
+                </div>
+            </div>
+            <div class="user-interaction">
+                <img src="{{ asset('images/grk4zi.png') }}"/>
+                <div class="details">
+                    <span class="time">18 hours ago</span>
+                    <h5>Gorka Laucirica</h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        Mauris turpis lacus, cursus in quam sed, suscipit efficitur
+                        leo.</p>
+                    <p>Curabitur turpis felis, mattis vel molestie sit amet,
+                        varius nec lorem. </p>
+                </div>
+            </div>
+            <div class="user-interaction">
+                <img src="{{ asset('images/grk4zi.png') }}"/>
+                <div class="details">
+                    <span class="time">18 hours ago</span>
+                    <h5>Gorka Laucirica</h5>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        Mauris turpis lacus, cursus in quam sed, suscipit efficitur
+                        leo.</p>
+                    <p>Curabitur turpis felis, mattis vel molestie sit amet,
+                        varius nec lorem. </p>
+                </div>
+            </div>
             <div class="user-interaction">
                 <img src="{{ asset('images/grk4zi.png') }}"/>
                 <div class="details">
@@ -40,5 +79,4 @@
             </div>
         </div>
     </section>
-    <img style="margin-top: 20px" src="{{ asset('images/temp-comments.jpg') }}">
 </script>

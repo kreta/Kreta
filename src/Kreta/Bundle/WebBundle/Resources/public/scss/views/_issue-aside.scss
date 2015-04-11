@@ -41,14 +41,27 @@
   }
 }
 
+.issue-tab-container {
+  background: $light-grey;
+  border-top: 1px solid $main-grey;
+  bottom: 0;
+  left: 0;
+  position: absolute;
+  right: 0;
+  z-index: 50;
+}
+
 .issue-tab {
+  background: $light-grey;
   color: $main-grey;
-  float: left;
+  display: inline-block;
+  margin: 0 -2px;
   padding: 20px 0;
   text-align: center;
   text-decoration: none;
   transition-duration: .4s;
   width: 25%;
+  z-index: 25;
 
   &:hover,
   &.active {
@@ -59,5 +72,20 @@
     display: block;
     font-size: .75em;
     margin-top: 5px;
+  }
+}
+
+.issue-tab-content {
+  border-top: 1px solid $main-grey;
+  bottom: -330px;
+  height: 400px;
+  left: 0;
+  overflow-y: scroll;
+  padding: 20px;
+  position: absolute;
+  transition: .4s ease;
+
+  &.visible {
+    bottom: 85px;
   }
 }

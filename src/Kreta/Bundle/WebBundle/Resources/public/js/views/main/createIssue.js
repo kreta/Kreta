@@ -12,7 +12,8 @@ import {Issue} from '../../models/issue';
 import {UserCollection} from '../../collections/user';
 import {ParticipantCollection} from '../../collections/participant';
 import {ProjectCollection} from '../../collections/project';
-import {TypeCollection} from '../../collections/type';
+import {IssueTypeCollection} from '../../collections/issue-type';
+import {IssuePriorityCollection} from '../../collections/issue-priority';
 
 export class CreateIssueView extends Backbone.View {
   constructor () {
@@ -26,14 +27,17 @@ export class CreateIssueView extends Backbone.View {
 
     this.projects = new ProjectCollection();
     this.participants = new ParticipantCollection();
-    //this.priorities = new PriorityCollection();
-    this.types = new TypeCollection();
+    this.issuePriorities = new IssuePriorityCollection();
+    this.issueTypes = new IssueTypeCollection();
 
     this.listenTo(this.projects, 'add', this.updateProjects);
     this.listenTo(this.projects, 'reset', this.updateProjects);
     this.listenTo(this.participants, 'add', this.updateSelectors);
     this.listenTo(this.participants, 'reset', this.updateSelectors);
-    this.listenTo(this.types, 'reset', this.updateSelectors);
+    this.listenTo(this.issueTypes, 'add', this.updateSelectors);
+    this.listenTo(this.issueTypes, 'reset', this.updateSelectors);
+    this.listenTo(this.issuePriorities, 'add', this.updateSelectors);
+    this.listenTo(this.issuePriorities, 'reset', this.updateSelectors);
 
     this.projects.fetch();
 
@@ -44,7 +48,7 @@ export class CreateIssueView extends Backbone.View {
     this.$el.html(this.template({}));
 
     this.$assignee = new SelectorView(this.$el.find('.selector-assignee'));
-    this.$priority = new SelectorView(this.$el.find('.selector-priority'));
+    this.$priorities = new SelectorView(this.$el.find('.selector-priority'));
     this.$dueDate = new SelectorView(this.$el.find('.selector-due-date'));
     this.$type = new SelectorView(this.$el.find('.selector-type'));
     this.$project = new SelectorView(this.$el.find('.selector-project'));
@@ -56,6 +60,8 @@ export class CreateIssueView extends Backbone.View {
 
   onProjectSelected (id) {
     this.participants.setProject(id).fetch();
+    this.issueTypes.setProject(id).fetch();
+    this.issuePriorities.setProject(id).fetch();
   }
 
   updateProjects () {
@@ -68,7 +74,8 @@ export class CreateIssueView extends Backbone.View {
        users.push(participant.get('user'));
     });
     this.$assignee.setSelectables(users);
-    this.$type.setSelectables(this.types);
+    this.$type.setSelectables(this.issueTypes);
+    this.$priorities.setSelectables(this.issuePriorities);
   }
 
   save (ev) {

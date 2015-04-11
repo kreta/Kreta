@@ -11,11 +11,4 @@ export class Issue extends Backbone.Model {
   urlRoot() {
     return  App.config.getBaseUrl() + '/issues';
   }
-
-  defaults () {
-    return {
-      title: '',
-      description: ''
-    };
-  }
 }
