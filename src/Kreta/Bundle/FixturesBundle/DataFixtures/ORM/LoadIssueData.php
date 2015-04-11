@@ -34,7 +34,8 @@ class LoadIssueData extends DataFixtures
         for ($i = 0; $i < 100; $i++) {
             $project = $projects[array_rand($projects)];
             $issueTypes = $this->container->get('kreta_project.repository.issue_type')->findBy(['project' => $project]);
-            $priorities = $this->container->get('kreta_project.repository.priority')->findBy(['project' => $project]);
+            $issuePriorities = $this->container->get('kreta_project.repository.issue_priority')
+                ->findBy(['project' => $project]);
             $labels = $this->container->get('kreta_project.repository.label')->findBy(['project' => $project]);
             $issuesPerProject = $this->incrementIssuePerProject($issuesPerProject, $project);
             $participants = $this->container->get('kreta_project.repository.participant')
@@ -43,7 +44,7 @@ class LoadIssueData extends DataFixtures
             $issue = $this->container->get('kreta_issue.factory.issue')->create(
                 $participants[array_rand($participants)]->getUser(),
                 $issueTypes[array_rand($issueTypes)],
-                $priorities[array_rand($priorities)],
+                $issuePriorities[array_rand($issuePriorities)],
                 $project
             );
             $issue->setAssignee($participants[array_rand($participants)]->getUser());

@@ -15,9 +15,9 @@ services:
     kreta_project.factory.participant:
         class: %kreta_project.factory_participant.class%
         arguments: [%kreta_project.participant.class%]
-    kreta_project.factory.priority:
-        class: %kreta_project.factory_priority.class%
-        arguments: [%kreta_project.priority.class%]
+    kreta_project.factory.issue_priority:
+        class: %kreta_project.factory_issue_priority.class%
+        arguments: [%kreta_project.issue_priority.class%]
     kreta_project.factory.project:
         class: %kreta_project.factory_project.class%
         arguments: 

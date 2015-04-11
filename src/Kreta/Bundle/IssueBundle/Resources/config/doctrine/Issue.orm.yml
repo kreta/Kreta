@@ -65,7 +65,7 @@ Kreta\Component\Issue\Model\Issue:
                 name: parent_id
                 referencedColumnName: id
         priority:
-            targetEntity: Kreta\Component\Project\Model\Interfaces\PriorityInterface
+            targetEntity: Kreta\Component\Project\Model\Interfaces\IssuePriorityInterface
         project:
             targetEntity: Kreta\Component\Project\Model\Interfaces\ProjectInterface
             inversedBy: issues

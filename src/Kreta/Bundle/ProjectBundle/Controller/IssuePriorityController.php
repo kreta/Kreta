@@ -11,6 +11,7 @@
 
 namespace Kreta\Bundle\ProjectBundle\Controller;
 
+use FOS\RestBundle\Controller\Annotations as Http;
 use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Request\ParamFetcher;
@@ -24,7 +25,7 @@ use Symfony\Component\HttpFoundation\Request;
  *
  * @package Kreta\Bundle\ProjectBundle\Controller
  */
-class PriorityController extends Controller
+class IssuePriorityController extends Controller
 {
     /**
      * Returns all priorities, it admits sort, limit and offset.
@@ -38,14 +39,15 @@ class PriorityController extends Controller
      * @QueryParam(name="offset", requirements="\d+", default="0", description="Offset in pages")
      *
      * @ApiDoc(resource=true, statusCodes={200, 403, 404})
-     * @View(statusCode=200, serializerGroups={"priorityList"})
+     * @Http\Get("/projects/{projectId}/issue-priorities")
+     * @View(statusCode=200, serializerGroups={"issuePriorityList"})
      * @Project()
      *
-     * @return \Kreta\Component\Project\Model\Interfaces\PriorityInterface[]
+     * @return \Kreta\Component\Project\Model\Interfaces\IssuePriorityInterface[]
      */
-    public function getPrioritiesAction(Request $request, $projectId, ParamFetcher $paramFetcher)
+    public function getIssuePrioritiesAction(Request $request, $projectId, ParamFetcher $paramFetcher)
     {
-        return $this->get('kreta_project.repository.priority')->findByProject(
+        return $this->get('kreta_project.repository.issue_priority')->findByProject(
             $request->get('project'),
             $paramFetcher->get('limit'),
             $paramFetcher->get('offset'),
@@ -60,14 +62,15 @@ class PriorityController extends Controller
      * @param string                                    $projectId The project id
      *
      * @ApiDoc(statusCodes={201, 400})
-     * @View(statusCode=201, serializerGroups={"priority"})
+     * @Http\Post("/projects/{projectId}/issue-priorities")
+     * @View(statusCode=201, serializerGroups={"issuePriority"})
      * @Project("create_priority")
      *
-     * @return \Kreta\Component\Project\Model\Interfaces\PriorityInterface
+     * @return \Kreta\Component\Project\Model\Interfaces\IssuePriorityInterface
      */
-    public function postPrioritiesAction(Request $request, $projectId)
+    public function postIssuePrioritiesAction(Request $request, $projectId)
     {
-        return $this->get('kreta_project.form_handler.priority')->processForm(
+        return $this->get('kreta_project.form_handler.issue_priority')->processForm(
             $request, null, ['project' => $request->get('project')]
         );
     }
@@ -79,14 +82,15 @@ class PriorityController extends Controller
      * @param string $priorityId The priority id
      *
      * @ApiDoc(statusCodes={204, 403, 404})
+     * @Http\Delete("/projects/{projectId}/issue-priorities/{priorityId}")
      * @View(statusCode=204)
      * @Project("delete_priority")
      *
      * @return void
      */
-    public function deletePrioritiesAction($projectId, $priorityId)
+    public function deleteIssuePrioritiesAction($projectId, $priorityId)
     {
-        $repository = $this->get('kreta_project.repository.priority');
+        $repository = $this->get('kreta_project.repository.issue_priority');
         $priority = $repository->find($priorityId, false);
         $repository->remove($priority);
     }

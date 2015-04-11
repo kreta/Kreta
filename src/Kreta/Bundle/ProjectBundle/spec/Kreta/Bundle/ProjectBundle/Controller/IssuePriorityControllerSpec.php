@@ -13,20 +13,20 @@ namespace spec\Kreta\Bundle\ProjectBundle\Controller;
 
 use FOS\RestBundle\Request\ParamFetcher;
 use Kreta\Component\Core\Form\Handler\Handler;
-use Kreta\Component\Project\Model\Interfaces\PriorityInterface;
+use Kreta\Component\Project\Model\Interfaces\IssuePriorityInterface;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
-use Kreta\Component\Project\Repository\PriorityRepository;
+use Kreta\Component\Project\Repository\IssuePriorityRepository;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
- * Class PriorityControllerSpec.
+ * Class IssuePriorityControllerSpec.
  *
  * @package spec\Kreta\Bundle\ProjectBundle\Controller
  */
-class PriorityControllerSpec extends ObjectBehavior
+class IssuePriorityControllerSpec extends ObjectBehavior
 {
     function let(ContainerInterface $container)
     {
@@ -35,7 +35,7 @@ class PriorityControllerSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('Kreta\Bundle\ProjectBundle\Controller\PriorityController');
+        $this->shouldHaveType('Kreta\Bundle\ProjectBundle\Controller\IssuePriorityController');
     }
 
     function it_extends_controller()
@@ -43,51 +43,51 @@ class PriorityControllerSpec extends ObjectBehavior
         $this->shouldHaveType('Symfony\Bundle\FrameworkBundle\Controller\Controller');
     }
 
-    function it_gets_priorities(
+    function it_gets_issue_priorities(
         ContainerInterface $container,
         Request $request,
-        PriorityRepository $priorityRepository,
+        IssuePriorityRepository $repository,
         ParamFetcher $paramFetcher,
         ProjectInterface $project,
-        PriorityInterface $priority
+        IssuePriorityInterface $issuePriority
     )
     {
-        $container->get('kreta_project.repository.priority')->shouldBeCalled()->willReturn($priorityRepository);
+        $container->get('kreta_project.repository.issue_priority')->shouldBeCalled()->willReturn($repository);
         $request->get('project')->shouldBeCalled()->willReturn($project);
         $paramFetcher->get('limit')->shouldBeCalled()->willReturn(10);
         $paramFetcher->get('offset')->shouldBeCalled()->willReturn(1);
         $paramFetcher->get('q')->shouldBeCalled()->willReturn('Low');
-        $priorityRepository->findByProject($project, 10, 1, 'Low')->shouldBeCalled()->willReturn([$priority]);
+        $repository->findByProject($project, 10, 1, 'Low')->shouldBeCalled()->willReturn([$issuePriority]);
 
-        $this->getPrioritiesAction($request, 'project-id', $paramFetcher)->shouldReturn([$priority]);
+        $this->getIssuePrioritiesAction($request, 'project-id', $paramFetcher)->shouldReturn([$issuePriority]);
     }
 
-    function it_posts_priority(
+    function it_posts_issue_priority(
         ContainerInterface $container,
         Request $request,
         ProjectInterface $project,
         Request $request,
         Handler $handler,
-        PriorityInterface $priority
+        IssuePriorityInterface $issuePriority
     )
     {
-        $container->get('kreta_project.form_handler.priority')->shouldBeCalled()->willReturn($handler);
+        $container->get('kreta_project.form_handler.issue_priority')->shouldBeCalled()->willReturn($handler);
         $request->get('project')->shouldBeCalled()->willReturn($project);
-        $handler->processForm($request, null, ['project' => $project])->shouldBeCalled()->willReturn($priority);
+        $handler->processForm($request, null, ['project' => $project])->shouldBeCalled()->willReturn($issuePriority);
 
-        $this->postPrioritiesAction($request, 'project-id')->shouldReturn($priority);
+        $this->postIssuePrioritiesAction($request, 'project-id')->shouldReturn($issuePriority);
     }
 
-    function it_deletes_priority(
+    function it_deletes_issue_priority(
         ContainerInterface $container,
-        PriorityRepository $priorityRepository,
-        PriorityInterface $priority
+        IssuePriorityRepository $repository,
+        IssuePriorityInterface $issuePriority
     )
     {
-        $container->get('kreta_project.repository.priority')->shouldBeCalled()->willReturn($priorityRepository);
-        $priorityRepository->find('priority-id', false)->shouldBeCalled()->willReturn($priority);
-        $priorityRepository->remove($priority)->shouldBeCalled();
+        $container->get('kreta_project.repository.issue_priority')->shouldBeCalled()->willReturn($repository);
+        $repository->find('issuePriority-id', false)->shouldBeCalled()->willReturn($issuePriority);
+        $repository->remove($issuePriority)->shouldBeCalled();
 
-        $this->deletePrioritiesAction('project-id', 'priority-id');
+        $this->deleteIssuePrioritiesAction('project-id', 'issuePriority-id');
     }
 }

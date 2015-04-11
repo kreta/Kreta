@@ -9,19 +9,19 @@ parameters:
     kreta_project.issue_type.class: Kreta\Component\Project\Model\IssueType
     kreta_project.label.class: Kreta\Component\Project\Model\Label
     kreta_project.participant.class: Kreta\Component\Project\Model\Participant
-    kreta_project.priority.class: Kreta\Component\Project\Model\Priority
+    kreta_project.issue_priority.class: Kreta\Component\Project\Model\IssuePriority
     kreta_project.project.class: Kreta\Component\Project\Model\Project
 
     kreta_project.factory_issue_type.class: Kreta\Component\Project\Factory\IssueTypeFactory
     kreta_project.factory_label.class: Kreta\Component\Project\Factory\LabelFactory
     kreta_project.factory_participant.class: Kreta\Component\Project\Factory\ParticipantFactory
-    kreta_project.factory_priority.class: Kreta\Component\Project\Factory\PriorityFactory
+    kreta_project.factory_issue_priority.class: Kreta\Component\Project\Factory\IssuePriorityFactory
     kreta_project.factory_project.class: Kreta\Component\Project\Factory\ProjectFactory
 
     kreta_project.repository_issue_type.class: Kreta\Component\Project\Repository\IssueTypeRepository
     kreta_project.repository_label.class: Kreta\Component\Project\Repository\LabelRepository
     kreta_project.repository_participant.class: Kreta\Component\Project\Repository\ParticipantRepository
-    kreta_project.repository_priority.class: Kreta\Component\Project\Repository\PriorityRepository
+    kreta_project.repository_issue_priority.class: Kreta\Component\Project\Repository\IssuePriorityRepository
     kreta_project.repository_project.class: Kreta\Component\Project\Repository\ProjectRepository
 
     kreta_project.form_handler.project.class: Kreta\Component\Project\Form\Handler\ProjectHandler
@@ -29,7 +29,7 @@ parameters:
     kreta_project.form_type.issue_type.class: Kreta\Component\Project\Form\Type\IssueTypeType
     kreta_project.form_type.label.class: Kreta\Component\Project\Form\Type\LabelType
     kreta_project.form_type.participant.class: Kreta\Component\Project\Form\Type\ParticipantType
-    kreta_project.form_type.priority.class: Kreta\Component\Project\Form\Type\PriorityType
+    kreta_project.form_type.issue_priority.class: Kreta\Component\Project\Form\Type\IssuePriorityType
     kreta_project.form_type.project.class: Kreta\Component\Project\Form\Type\ProjectType
     kreta_project.form_type.role.class: Kreta\Component\Project\Form\Type\RoleType
 

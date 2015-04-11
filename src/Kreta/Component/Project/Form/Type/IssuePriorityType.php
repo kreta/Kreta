@@ -17,11 +17,11 @@ use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
 /**
- * Class PriorityType.
+ * Class IssuePriorityType.
  *
  * @package Kreta\Component\Project\Form\Type
  */
-class PriorityType extends AbstractType
+class IssuePriorityType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -46,7 +46,7 @@ class PriorityType extends AbstractType
      */
     public function getName()
     {
-        return 'kreta_project_priority_type';
+        return 'kreta_project_issue_priority_type';
     }
 
     /**

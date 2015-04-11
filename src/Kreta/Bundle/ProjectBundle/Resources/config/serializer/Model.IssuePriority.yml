@@ -5,18 +5,18 @@
 # @author benatespina <benatespina@gmail.com>
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
-Kreta\Component\Project\Model\Priority:
+Kreta\Component\Project\Model\IssuePriority:
     exclusion_policy: ALL
     relations:
         -
-            rel: priorities
+            rel: issue_priorities
             href:
-                route: get_projects_priorities
+                route: get_projects_issue_priorities
                 parameters:
                     projectId: expr(object.getProject().getId())
                 absolute: true
             exclusion:
-                groups: [priorityList, priority]
+                groups: [issuePriorityList, issuePriority]
         -
             rel: project
             href:
@@ -25,11 +25,11 @@ Kreta\Component\Project\Model\Priority:
                     projectId: expr(object.getProject().getId())
                 absolute: true
             exclusion:
-                groups: [issueTypeList, issueType]
+                groups: [issuePriorityList, issuePriority]
     properties:
         id:
             expose: true
-            groups: [projectList, project, issueList, issue, priorityList, priority]
+            groups: [projectList, project, issueList, issue, issuePriorityList, issuePriority]
         name:
             expose: true
-            groups: [projectList, project, issueList, issue, priorityList, priority]
+            groups: [projectList, project, issueList, issue, issuePriorityList, issuePriority]

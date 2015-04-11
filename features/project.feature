@@ -98,8 +98,8 @@ Feature: Manage projects
             "labels": {
               "href": "http://localhost/app_test.php/api/projects/0/labels"
             },
-            "priorities": {
-              "href": "http://localhost/app_test.php/api/projects/0/priorities"
+            "issue_priorities": {
+              "href": "http://localhost/app_test.php/api/projects/0/issue-priorities"
             },
             "statuses": {
               "href": "http://localhost/app_test.php/api/workflows/0/statuses"
@@ -156,8 +156,8 @@ Feature: Manage projects
             "labels": {
               "href": "http://localhost/app_test.php/api/projects/1/labels"
             },
-            "priorities": {
-              "href": "http://localhost/app_test.php/api/projects/1/priorities"
+            "issue_priorities": {
+              "href": "http://localhost/app_test.php/api/projects/1/issue-priorities"
             },
             "statuses": {
               "href": "http://localhost/app_test.php/api/workflows/1/statuses"
@@ -229,8 +229,8 @@ Feature: Manage projects
           "labels": {
             "href": "http://localhost/app_test.php/api/projects/0/labels"
           },
-          "priorities": {
-            "href": "http://localhost/app_test.php/api/projects/0/priorities"
+          "issue_priorities": {
+            "href": "http://localhost/app_test.php/api/projects/0/issue-priorities"
           },
           "statuses": {
             "href": "http://localhost/app_test.php/api/workflows/0/statuses"
@@ -416,8 +416,8 @@ Feature: Manage projects
           "labels": {
             "href": "http://localhost/app_test.php/api/projects/0/labels"
           },
-          "priorities": {
-            "href": "http://localhost/app_test.php/api/projects/0/priorities"
+          "issue_priorities": {
+            "href": "http://localhost/app_test.php/api/projects/0/issue-priorities"
           },
           "statuses": {
             "href": "http://localhost/app_test.php/api/workflows/0/statuses"

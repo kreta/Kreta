@@ -50,9 +50,9 @@ Kreta\Component\Project\Model\Project:
             exclusion:
                 groups: [projectList, project]
         -
-            rel: priorities
+            rel: issue_priorities
             href:
-                route: get_projects_priorities
+                route: get_projects_issue_priorities
                 parameters:
                     projectId: expr(object.getId())
                 absolute: true
@@ -86,7 +86,7 @@ Kreta\Component\Project\Model\Project:
         participants:
             expose: true
             groups: [projectList, project]
-        priorities:
+        issuePriorities:
             expose: true
             groups: []
         shortName:

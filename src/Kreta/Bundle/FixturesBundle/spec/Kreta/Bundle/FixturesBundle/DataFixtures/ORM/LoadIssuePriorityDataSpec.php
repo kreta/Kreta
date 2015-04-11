@@ -13,7 +13,7 @@ namespace spec\Kreta\Bundle\FixturesBundle\DataFixtures\ORM;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Kreta\Component\Project\Factory\LabelFactory;
-use Kreta\Component\Project\Model\Interfaces\PriorityInterface;
+use Kreta\Component\Project\Model\Interfaces\IssuePriorityInterface;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Project\Repository\ProjectRepository;
 use PhpSpec\ObjectBehavior;
@@ -21,11 +21,11 @@ use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**
- * Class LoadPriorityDataSpec.
+ * Class LoadIssuePriorityDataSpec.
  *
  * @package spec\Kreta\Bundle\FixturesBundle\DataFixtures\ORM
  */
-class LoadPriorityDataSpec extends ObjectBehavior
+class LoadIssuePriorityDataSpec extends ObjectBehavior
 {
     function let(ContainerInterface $container)
     {
@@ -34,7 +34,7 @@ class LoadPriorityDataSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('Kreta\Bundle\FixturesBundle\DataFixtures\ORM\LoadPriorityData');
+        $this->shouldHaveType('Kreta\Bundle\FixturesBundle\DataFixtures\ORM\LoadIssuePriorityData');
     }
 
     function it_extends_data_fixtures()
@@ -47,16 +47,16 @@ class LoadPriorityDataSpec extends ObjectBehavior
         ProjectRepository $projectRepository,
         ProjectInterface $project,
         LabelFactory $factory,
-        PriorityInterface $priority,
+        IssuePriorityInterface $issuePriority,
         ObjectManager $manager
     )
     {
         $container->get('kreta_project.repository.project')->shouldBeCalled()->willReturn($projectRepository);
         $projectRepository->findAll()->shouldBeCalled()->willReturn([$project]);
-        $container->get('kreta_project.factory.priority')->shouldBeCalled()->willReturn($factory);
-        $factory->create($project, Argument::type('string'))->shouldBeCalled()->willReturn($priority);
+        $container->get('kreta_project.factory.issue_priority')->shouldBeCalled()->willReturn($factory);
+        $factory->create($project, Argument::type('string'))->shouldBeCalled()->willReturn($issuePriority);
 
-        $manager->persist($priority)->shouldBeCalled();
+        $manager->persist($issuePriority)->shouldBeCalled();
 
         $manager->flush()->shouldBeCalled();
 

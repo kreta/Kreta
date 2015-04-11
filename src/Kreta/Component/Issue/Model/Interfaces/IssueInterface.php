@@ -14,7 +14,7 @@ namespace Kreta\Component\Issue\Model\Interfaces;
 use Finite\StatefulInterface;
 use Kreta\Component\Project\Model\Interfaces\IssueTypeInterface;
 use Kreta\Component\Project\Model\Interfaces\LabelInterface;
-use Kreta\Component\Project\Model\Interfaces\PriorityInterface;
+use Kreta\Component\Project\Model\Interfaces\IssuePriorityInterface;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use Kreta\Component\Workflow\Model\Interfaces\StatusInterface;
@@ -175,18 +175,18 @@ interface IssueInterface extends StatefulInterface
     /**
      * Gets priority.
      *
-     * @return \Kreta\Component\Project\Model\Interfaces\PriorityInterface|null
+     * @return \Kreta\Component\Project\Model\Interfaces\IssuePriorityInterface|null
      */
     public function getPriority();
 
     /**
      * Sets priority.
      *
-     * @param \Kreta\Component\Project\Model\Interfaces\PriorityInterface|null $priority The priority
+     * @param \Kreta\Component\Project\Model\Interfaces\IssuePriorityInterface|null $priority The priority
      *
      * @return $this self Object
      */
-    public function setPriority(PriorityInterface $priority = null);
+    public function setPriority(IssuePriorityInterface $priority = null);
 
     /**
      * Gets project.

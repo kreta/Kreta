@@ -25,7 +25,7 @@ Feature: Manage status
       | id | name           | shortName | creator        | workflow   |
       | 0  | Test project 1 | TPR1      | user@kreta.com | Workflow 1 |
       | 1  | Test project 2 | TPR2      | user@kreta.com | Workflow 2 |
-    And the following priorities exist:
+    And the following issue priorities exist:
       | id | name    | project        |
       | 0  | Low     | Test project 1 |
       | 1  | Medium  | Test project 1 |

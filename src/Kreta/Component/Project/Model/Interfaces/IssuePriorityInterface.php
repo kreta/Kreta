@@ -12,11 +12,11 @@
 namespace Kreta\Component\Project\Model\Interfaces;
 
 /**
- * Interface PriorityInterface.
+ * Interface IssuePriorityInterface.
  *
  * @package Kreta\Component\Project\Model\Interfaces
  */
-interface PriorityInterface
+interface IssuePriorityInterface
 {
     /**
      * Gets id.

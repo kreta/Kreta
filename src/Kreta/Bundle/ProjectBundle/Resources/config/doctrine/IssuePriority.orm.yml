@@ -5,10 +5,10 @@
 # @author benatespina <benatespina@gmail.com>
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
-Kreta\Component\Project\Model\Priority:
+Kreta\Component\Project\Model\IssuePriority:
     type: entity
-    repositoryClass: Kreta\Component\Project\Repository\PriorityRepository
-    table: priority
+    repositoryClass: Kreta\Component\Project\Repository\IssuePriorityRepository
+    table: issue_priority
     id:
         id:
             type: string
@@ -21,7 +21,7 @@ Kreta\Component\Project\Model\Priority:
     manyToOne:
         project:
             targetEntity: Kreta\Component\Project\Model\Interfaces\ProjectInterface
-            inversedBy: issueTypes
+            inversedBy: issuePriorities
             joinColumn:
                 name: project_id
                 referencedColumnName: id

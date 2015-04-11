@@ -30,7 +30,7 @@ Feature: Manage issue
       | id | name       | createdAt  | updatedAt | resource        |
       | 2  | user-2.jpg | 2014-10-30 | null      | user2@kreta.com |
       | 3  | user-3.jpg | 2014-10-30 | null      | user3@kreta.com |
-    And the following priorities exist:
+    And the following issue priorities exist:
       | id | name    | project        |
       | 0  | Low     | Test project 1 |
       | 1  | Medium  | Test project 1 |

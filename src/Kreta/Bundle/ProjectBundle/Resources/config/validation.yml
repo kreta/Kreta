@@ -31,11 +31,11 @@ Kreta\Component\Project\Model\Participant:
             - NotBlank: ~
         user:
             - NotBlank: ~
-Kreta\Component\Project\Model\Priority:
+Kreta\Component\Project\Model\IssuePriority:
     constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
             fields: [name, project]
-            message: 'A priority with identical name is already exists in this project'
+            message: 'A issue priority with identical name is already exists in this project'
     properties:
         name:
             - NotBlank: ~

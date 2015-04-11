@@ -11,7 +11,7 @@
 
 namespace spec\Kreta\Component\Project\Form\Type;
 
-use Kreta\Component\Project\Factory\PriorityFactory;
+use Kreta\Component\Project\Factory\IssuePriorityFactory;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\Form\FormBuilder;
@@ -21,22 +21,22 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * Class PriorityTypeSpec.
+ * Class IssuePriorityTypeSpec.
  *
  * @package spec\Kreta\Component\Project\Form\Type
  */
-class PriorityTypeSpec extends ObjectBehavior
+class IssuePriorityTypeSpec extends ObjectBehavior
 {
-    function let(SecurityContextInterface $context, TokenInterface $token, UserInterface $user, PriorityFactory $factory)
+    function let(SecurityContextInterface $context, TokenInterface $token, UserInterface $user, IssuePriorityFactory $factory)
     {
         $context->getToken()->shouldBeCalled()->willReturn($token);
         $token->getUser()->shouldBeCalled()->willReturn($user);
-        $this->beConstructedWith('Kreta\Component\Project\Model\Priority', $factory, $context);
+        $this->beConstructedWith('Kreta\Component\Project\Model\IssuePriority', $factory, $context);
     }
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('Kreta\Component\Project\Form\Type\PriorityType');
+        $this->shouldHaveType('Kreta\Component\Project\Form\Type\IssuePriorityType');
     }
 
     function it_extends_kreta_abstract_type()
@@ -53,7 +53,7 @@ class PriorityTypeSpec extends ObjectBehavior
 
     function it_sets_default_options(OptionsResolverInterface $resolver)
     {
-        $resolver->setDefaults(Argument::withEntry('data_class', 'Kreta\Component\Project\Model\Priority'))
+        $resolver->setDefaults(Argument::withEntry('data_class', 'Kreta\Component\Project\Model\IssuePriority'))
             ->shouldBeCalled()->willReturn($resolver);
         $resolver->setDefaults(Argument::withEntry('csrf_protection', false))
             ->shouldBeCalled()->willReturn($resolver);
@@ -66,6 +66,6 @@ class PriorityTypeSpec extends ObjectBehavior
 
     function it_gets_name()
     {
-        $this->getName()->shouldReturn('kreta_project_priority_type');
+        $this->getName()->shouldReturn('kreta_project_issue_priority_type');
     }
 }

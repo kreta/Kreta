@@ -18,7 +18,7 @@ use Kreta\Component\Media\Model\Interfaces\MediaInterface;
 use Kreta\Component\Project\Model\Interfaces\IssueTypeInterface;
 use Kreta\Component\Project\Model\Interfaces\LabelInterface;
 use Kreta\Component\Project\Model\Interfaces\ParticipantInterface;
-use Kreta\Component\Project\Model\Interfaces\PriorityInterface;
+use Kreta\Component\Project\Model\Interfaces\IssuePriorityInterface;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
@@ -73,11 +73,11 @@ class Project extends AbstractModel implements ProjectInterface
     protected $participants;
 
     /**
-     * Array that contains all the priorities of the project.
+     * Array that contains all the issue priorities of the project.
      *
      * @var \Doctrine\Common\Collections\ArrayCollection
      */
-    protected $priorities;
+    protected $issuePriorities;
 
     /**
      * The short name.
@@ -102,7 +102,7 @@ class Project extends AbstractModel implements ProjectInterface
         $this->issueTypes = new ArrayCollection();
         $this->labels = new ArrayCollection();
         $this->participants = new ArrayCollection();
-        $this->priorities = new ArrayCollection();
+        $this->issuePriorities = new ArrayCollection();
     }
 
     /**
@@ -260,17 +260,17 @@ class Project extends AbstractModel implements ProjectInterface
     /**
      * {@inheritdoc}
      */
-    public function getPriorities()
+    public function getIssuePriorities()
     {
-        return $this->priorities;
+        return $this->issuePriorities;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function addPriority(PriorityInterface $priority)
+    public function addIssuePriority(IssuePriorityInterface $issuePriority)
     {
-        $this->priorities[] = $priority;
+        $this->issuePriorities[] = $issuePriority;
 
         return $this;
     }
@@ -278,9 +278,9 @@ class Project extends AbstractModel implements ProjectInterface
     /**
      * {@inheritdoc}
      */
-    public function removePriority(PriorityInterface $priority)
+    public function removeIssuePriority(IssuePriorityInterface $issuePriority)
     {
-        $this->priorities->removeElement($priority);
+        $this->issuePriorities->removeElement($issuePriority);
 
         return $this;
     }

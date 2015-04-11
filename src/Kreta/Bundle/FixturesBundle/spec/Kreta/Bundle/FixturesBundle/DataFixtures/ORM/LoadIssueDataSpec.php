@@ -18,11 +18,11 @@ use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
 use Kreta\Component\Project\Model\Interfaces\IssueTypeInterface;
 use Kreta\Component\Project\Model\Interfaces\LabelInterface;
 use Kreta\Component\Project\Model\Interfaces\ParticipantInterface;
-use Kreta\Component\Project\Model\Interfaces\PriorityInterface;
+use Kreta\Component\Project\Model\Interfaces\IssuePriorityInterface;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Issue\Model\Interfaces\ResolutionInterface;
 use Kreta\Component\Project\Repository\IssueTypeRepository;
-use Kreta\Component\Project\Repository\PriorityRepository;
+use Kreta\Component\Project\Repository\IssuePriorityRepository;
 use Kreta\Component\Workflow\Model\Interfaces\StatusInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use Kreta\Component\Project\Repository\LabelRepository;
@@ -67,8 +67,8 @@ class LoadIssueDataSpec extends ObjectBehavior
         ParticipantRepository $participantRepository,
         IssueTypeRepository $issueTypeRepository,
         IssueTypeInterface $issueType,
-        PriorityRepository $priorityRepository,
-        PriorityInterface $priority,
+        IssuePriorityRepository $issuePriorityRepository,
+        IssuePriorityInterface $issuePriority,
         IssueFactory $factory,
         IssueInterface $issue,
         ReferenceRepository $referenceRepository,
@@ -93,8 +93,8 @@ class LoadIssueDataSpec extends ObjectBehavior
         $container->get('kreta_project.repository.issue_type')->shouldBeCalled()->willReturn($issueTypeRepository);
         $issueTypeRepository->findBy(['project' => $project])->shouldBeCalled()->willReturn([$issueType]);
 
-        $container->get('kreta_project.repository.priority')->shouldBeCalled()->willReturn($priorityRepository);
-        $priorityRepository->findBy(['project' => $project])->shouldBeCalled()->willReturn([$priority]);
+        $container->get('kreta_project.repository.issue_priority')->shouldBeCalled()->willReturn($issuePriorityRepository);
+        $issuePriorityRepository->findBy(['project' => $project])->shouldBeCalled()->willReturn([$issuePriority]);
 
         $container->get('kreta_project.repository.label')->shouldBeCalled()->willReturn($labelRepository);
         $labelRepository->findBy(['project' => $project])->shouldBeCalled()->willReturn([$label]);
@@ -109,7 +109,7 @@ class LoadIssueDataSpec extends ObjectBehavior
 
         $container->get('kreta_issue.factory.issue')->shouldBeCalled()->willReturn($factory);
         $factory->create(
-            Argument::type('Kreta\Component\User\Model\Interfaces\UserInterface'), $issueType, $priority, $project
+            Argument::type('Kreta\Component\User\Model\Interfaces\UserInterface'), $issueType, $issuePriority, $project
         )->shouldBeCalled()->willReturn($issue);
 
         $issue->setAssignee($user)->shouldBeCalled()->willReturn($issue);

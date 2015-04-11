@@ -12,7 +12,7 @@
 namespace Kreta\Component\Issue\Factory;
 
 use Kreta\Component\Project\Model\Interfaces\IssueTypeInterface;
-use Kreta\Component\Project\Model\Interfaces\PriorityInterface;
+use Kreta\Component\Project\Model\Interfaces\IssuePriorityInterface;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 
@@ -43,17 +43,17 @@ class IssueFactory
     /**
      * Creates an instance of issue.
      *
-     * @param \Kreta\Component\User\Model\Interfaces\UserInterface            $reporter User that is creating the issue
-     * @param \Kreta\Component\Project\Model\Interfaces\IssueTypeInterface    $type     The issue type
-     * @param \Kreta\Component\Project\Model\Interfaces\PriorityInterface     $priority The priority
-     * @param \Kreta\Component\Project\Model\Interfaces\ProjectInterface|null $project  The project
+     * @param \Kreta\Component\User\Model\Interfaces\UserInterface             $reporter      User that is the reporter
+     * @param \Kreta\Component\Project\Model\Interfaces\IssueTypeInterface     $type          The issue type
+     * @param \Kreta\Component\Project\Model\Interfaces\IssuePriorityInterface $issuePriority The priority
+     * @param \Kreta\Component\Project\Model\Interfaces\ProjectInterface|null  $project       The project
      *
      * @return \Kreta\Component\Issue\Model\Interfaces\IssueInterface
      */
     public function create(
         UserInterface $reporter,
         IssueTypeInterface $type,
-        PriorityInterface $priority,
+        IssuePriorityInterface $issuePriority,
         ProjectInterface $project = null
     )
     {
@@ -71,7 +71,7 @@ class IssueFactory
         }
 
         return $issue
-            ->setPriority($priority)
+            ->setPriority($issuePriority)
             ->setType($type)
             ->setReporter($reporter)
             ->setAssignee($reporter);

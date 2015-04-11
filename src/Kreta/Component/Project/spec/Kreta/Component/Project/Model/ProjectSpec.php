@@ -16,7 +16,7 @@ use Kreta\Component\Media\Model\Interfaces\MediaInterface;
 use Kreta\Component\Project\Model\Interfaces\IssueTypeInterface;
 use Kreta\Component\Project\Model\Interfaces\LabelInterface;
 use Kreta\Component\Project\Model\Interfaces\ParticipantInterface;
-use Kreta\Component\Project\Model\Interfaces\PriorityInterface;
+use Kreta\Component\Project\Model\Interfaces\IssuePriorityInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use Kreta\Component\Project\Model\Participant;
 use Kreta\Component\Project\Model\Project;
@@ -41,13 +41,13 @@ class ProjectSpec extends ObjectBehavior
         $this->shouldImplement('Kreta\Component\Project\Model\Interfaces\ProjectInterface');
     }
 
-    function its_issues_labels_and_participants_are_collection()
+    function its_issues_issue_types_labels_participants_and_issue_priorities_are_collection()
     {
         $this->getIssues()->shouldHaveType('Doctrine\Common\Collections\ArrayCollection');
         $this->getIssueTypes()->shouldHaveType('Doctrine\Common\Collections\ArrayCollection');
         $this->getLabels()->shouldHaveType('Doctrine\Common\Collections\ArrayCollection');
         $this->getParticipants()->shouldHaveType('Doctrine\Common\Collections\ArrayCollection');
-        $this->getPriorities()->shouldHaveType('Doctrine\Common\Collections\ArrayCollection');
+        $this->getIssuePriorities()->shouldHaveType('Doctrine\Common\Collections\ArrayCollection');
     }
 
     function its_image_is_mutable(MediaInterface $media)
@@ -116,17 +116,17 @@ class ProjectSpec extends ObjectBehavior
         $this->getParticipants()->shouldHaveCount(0);
     }
 
-    function its_priorities_are_be_mutable(PriorityInterface $priority)
+    function its_issue_priorities_are_be_mutable(IssuePriorityInterface $issuePriority)
     {
-        $this->getPriorities()->shouldHaveCount(0);
+        $this->getIssuePriorities()->shouldHaveCount(0);
 
-        $this->addPriority($priority);
+        $this->addIssuePriority($issuePriority);
 
-        $this->getPriorities()->shouldHaveCount(1);
+        $this->getIssuePriorities()->shouldHaveCount(1);
 
-        $this->removePriority($priority);
+        $this->removeIssuePriority($issuePriority);
 
-        $this->getPriorities()->shouldHaveCount(0);
+        $this->getIssuePriorities()->shouldHaveCount(0);
     }
 
     function its_short_name_is_mutable()

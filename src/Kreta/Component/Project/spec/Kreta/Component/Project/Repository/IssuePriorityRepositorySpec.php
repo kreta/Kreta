@@ -17,16 +17,16 @@ use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
 use Kreta\Component\Core\spec\Kreta\Component\Core\Repository\BaseEntityRepository;
-use Kreta\Component\Project\Model\Interfaces\PriorityInterface;
+use Kreta\Component\Project\Model\Interfaces\IssuePriorityInterface;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Prophecy\Argument;
 
 /**
- * Class PriorityRepositorySpec.
+ * Class IssuePriorityRepositorySpec.
  *
  * @package spec\Kreta\Component\Project\Repository
  */
-class PriorityRepositorySpec extends BaseEntityRepository
+class IssuePriorityRepositorySpec extends BaseEntityRepository
 {
     function let(EntityManager $manager, ClassMetadata $metadata)
     {
@@ -35,14 +35,14 @@ class PriorityRepositorySpec extends BaseEntityRepository
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('Kreta\Component\Project\Repository\PriorityRepository');
+        $this->shouldHaveType('Kreta\Component\Project\Repository\IssuePriorityRepository');
     }
 
     function it_extends_kreta_entity_repository()
     {
         $this->shouldHaveType('Kreta\Component\Core\Repository\EntityRepository');
     }
-    
+
     function it_finds_by_project(
         ProjectInterface $project,
         EntityManager $manager,
@@ -50,7 +50,7 @@ class PriorityRepositorySpec extends BaseEntityRepository
         Expr $expr,
         Expr\Comparison $comparison,
         AbstractQuery $query,
-        PriorityInterface $priority
+        IssuePriorityInterface $priority
     )
     {
         $this->getQueryBuilderSpec($manager, $queryBuilder);
@@ -68,16 +68,16 @@ class PriorityRepositorySpec extends BaseEntityRepository
     protected function getQueryBuilderSpec(EntityManager $manager, QueryBuilder $queryBuilder)
     {
         $manager->createQueryBuilder()->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->select('pr')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->select('ip')->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->addSelect(['p'])->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->from(Argument::any(), 'pr', null)->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->join('pr.project', 'p')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->from(Argument::any(), 'ip', null)->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->join('ip.project', 'p')->shouldBeCalled()->willReturn($queryBuilder);
 
         return $queryBuilder;
     }
 
     protected function getAlias()
     {
-        return 'pr';
+        return 'ip';
     }
 }

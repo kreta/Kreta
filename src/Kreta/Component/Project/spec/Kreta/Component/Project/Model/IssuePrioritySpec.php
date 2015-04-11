@@ -15,20 +15,20 @@ use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use PhpSpec\ObjectBehavior;
 
 /**
- * Class PrioritySpec.
+ * Class IssuePrioritySpec.
  *
  * @package spec\Kreta\Component\Project\Model
  */
-class PrioritySpec extends ObjectBehavior
+class IssuePrioritySpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('Kreta\Component\Project\Model\Priority');
+        $this->shouldHaveType('Kreta\Component\Project\Model\IssuePriority');
     }
 
-    function it_implements_issue_type_interface()
+    function it_implements_issue_priority_interface()
     {
-        $this->shouldImplement('Kreta\Component\Project\Model\Interfaces\PriorityInterface');
+        $this->shouldImplement('Kreta\Component\Project\Model\Interfaces\IssuePriorityInterface');
     }
 
     function it_does_not_have_id_by_default()

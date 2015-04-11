@@ -15,10 +15,10 @@ services:
         parent: kreta_core.form_handler.handler
         arguments:
             - kreta_project_label_type
-    kreta_project.form_handler.priority:
+    kreta_project.form_handler.issue_priority:
         parent: kreta_core.form_handler.handler
         arguments:
-            - kreta_project_priority_type
+            - kreta_project_issue_priority_type
     kreta_project.form_handler.project:
         class: %kreta_project.form_handler.project.class%
         parent: kreta_core.form_handler.handler
@@ -47,13 +47,13 @@ services:
             - @security.context
         tags:
             - { name: form.type, alias: 'kreta_project_label_type' }
-    kreta_project.form_type.priority:
-        class: %kreta_project.form_type.priority.class%
+    kreta_project.form_type.issue_priority:
+        class: %kreta_project.form_type.issue_priority.class%
         arguments:
-            - %kreta_project.priority.class%
-            - @kreta_project.factory.priority
+            - %kreta_project.issue_priority.class%
+            - @kreta_project.factory.issue_priority
         tags:
-            - { name: form.type, alias: 'kreta_project_priority_type' }
+            - { name: form.type, alias: 'kreta_project_issue_priority_type' }
     kreta_project.form_type.project:
         class: %kreta_project.form_type.project.class%
         arguments:

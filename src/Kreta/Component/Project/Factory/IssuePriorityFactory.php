@@ -14,11 +14,11 @@ namespace Kreta\Component\Project\Factory;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 
 /**
- * Class PriorityFactory.
+ * Class IssuePriorityFactory.
  *
  * @package Kreta\Component\Project\Factory
  */
-class PriorityFactory
+class IssuePriorityFactory
 {
     /**
      * The class name.
@@ -38,12 +38,12 @@ class PriorityFactory
     }
 
     /**
-     * Creates an instance of priority.
+     * Creates an instance of issue priority.
      *
      * @param \Kreta\Component\Project\Model\Interfaces\ProjectInterface $project The project
      * @param string                                                     $name    The name
      *
-     * @return \Kreta\Component\Project\Model\Interfaces\PriorityInterface
+     * @return \Kreta\Component\Project\Model\Interfaces\IssuePriorityInterface
      */
     public function create(ProjectInterface $project, $name)
     {

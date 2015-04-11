@@ -11,15 +11,15 @@
 
 namespace Kreta\Component\Project\Model;
 
-use Kreta\Component\Project\Model\Interfaces\PriorityInterface;
+use Kreta\Component\Project\Model\Interfaces\IssuePriorityInterface;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 
 /**
- * Class Priority.
+ * Class IssuePriority.
  *
  * @package Kreta\Component\Project\Model
  */
-class Priority implements PriorityInterface
+class IssuePriority implements IssuePriorityInterface
 {
     /**
      * The id.

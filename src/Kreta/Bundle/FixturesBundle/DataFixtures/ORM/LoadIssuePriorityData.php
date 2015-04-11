@@ -15,11 +15,11 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Kreta\Bundle\FixturesBundle\DataFixtures\DataFixtures;
 
 /**
- * Class LoadPriorityData.
+ * Class LoadIssuePriorityData.
  *
  * @package Kreta\Bundle\FixturesBundle\DataFixtures\ORM
  */
-class LoadPriorityData extends DataFixtures
+class LoadIssuePriorityData extends DataFixtures
 {
     /**
      * {@inheritdoc}
@@ -32,10 +32,9 @@ class LoadPriorityData extends DataFixtures
 
         foreach ($projects as $project) {
             foreach ($priorities as $name) {
-                $priority = $this->container->get('kreta_project.factory.priority')
-                    ->create($project, $name);
+                $issuePriority = $this->container->get('kreta_project.factory.issue_priority')->create($project, $name);
 
-                $manager->persist($priority);
+                $manager->persist($issuePriority);
             }
         }
 

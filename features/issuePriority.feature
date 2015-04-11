@@ -5,11 +5,11 @@
 # @author benatespina <benatespina@gmail.com>
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
-@priority
-Feature: Manage priority
-  In order to manage priorities
-  As an API priorities
-  I want to be able to GET, POST and DELETE priorities
+@issuePriority
+Feature: Manage issue priority
+  In order to manage issue priorities
+  As an API issue priorities
+  I want to be able to GET, POST and DELETE issue priorities
 
   Background:
     Given the following users exist:
@@ -26,7 +26,7 @@ Feature: Manage priority
       | id | name           | shortName | creator        | workflow   |
       | 0  | Test project 1 | TPR1      | user@kreta.com | Workflow 1 |
       | 1  | Test project 2 | TPR2      | user@kreta.com | Workflow 2 |
-    And the following priorities exist:
+    And the following issue priorities exist:
       | id | name    | project        |
       | 0  | Low     | Test project 1 |
       | 1  | Medium  | Test project 1 |
@@ -47,9 +47,9 @@ Feature: Manage priority
       | access-token-2 | null      | user  | user3@kreta.com |
       | access-token-3 | null      | user  | user4@kreta.com |
 
-  Scenario: Getting all the priorities of project 0
+  Scenario: Getting all the issue priorities of project 0
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/projects/0/priorities"
+    When I send a GET request to "/app_test.php/api/projects/0/issue-priorities"
     Then the response code should be 200
     And the response should contain json:
     """
@@ -58,8 +58,11 @@ Feature: Manage priority
           "id": "3",
           "name": "Blocker",
           "_links": {
-            "priorities": {
-              "href": "http://localhost/app_test.php/api/projects/0/priorities"
+            "issue_priorities": {
+              "href": "http://localhost/app_test.php/api/projects/0/issue-priorities"
+            },
+            "project": {
+              "href": "http://localhost/app_test.php/api/projects/0"
             }
           }
         },
@@ -67,8 +70,11 @@ Feature: Manage priority
           "id": "2",
           "name": "High",
           "_links": {
-            "priorities": {
-              "href": "http://localhost/app_test.php/api/projects/0/priorities"
+            "issue_priorities": {
+              "href": "http://localhost/app_test.php/api/projects/0/issue-priorities"
+            },
+            "project": {
+              "href": "http://localhost/app_test.php/api/projects/0"
             }
           }
         },
@@ -76,8 +82,11 @@ Feature: Manage priority
           "id": "0",
           "name": "Low",
           "_links": {
-            "priorities": {
-              "href": "http://localhost/app_test.php/api/projects/0/priorities"
+            "issue_priorities": {
+              "href": "http://localhost/app_test.php/api/projects/0/issue-priorities"
+            },
+            "project": {
+              "href": "http://localhost/app_test.php/api/projects/0"
             }
           }
         },
@@ -85,17 +94,20 @@ Feature: Manage priority
           "id": "1",
           "name": "Medium",
           "_links": {
-            "priorities": {
-              "href": "http://localhost/app_test.php/api/projects/0/priorities"
+            "issue_priorities": {
+              "href": "http://localhost/app_test.php/api/projects/0/issue-priorities"
+            },
+            "project": {
+              "href": "http://localhost/app_test.php/api/projects/0"
             }
           }
         }
       ]
     """
 
-  Scenario: Getting all the priorities of project 0 with user which is not a project participant
+  Scenario: Getting all the issue priorities of project 0 with user which is not a project participant
     Given I am authenticating with "access-token-3" token
-    When I send a GET request to "/app_test.php/api/projects/0/priorities"
+    When I send a GET request to "/app_test.php/api/projects/0/issue-priorities"
     Then the response code should be 403
     And the response should contain json:
     """
@@ -104,9 +116,9 @@ Feature: Manage priority
       }
     """
 
-  Scenario: Getting all the priorities of project unknown project
+  Scenario: Getting all the issue priorities of project unknown project
     Given I am authenticating with "access-token-3" token
-    When I send a GET request to "/app_test.php/api/projects/unknown-project/priorities"
+    When I send a GET request to "/app_test.php/api/projects/unknown-project/issue-priorities"
     Then the response code should be 404
     And the response should contain json:
     """
@@ -115,9 +127,9 @@ Feature: Manage priority
       }
     """
 
-  Scenario: Getting all the priorities of project 0 filter by name=Bug
+  Scenario: Getting all the issue priorities of project 0 filter by name=Bug
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/projects/0/priorities?q=Low"
+    When I send a GET request to "/app_test.php/api/projects/0/issue-priorities?q=Low"
     Then the response code should be 200
     And the response should contain json:
     """
@@ -126,17 +138,20 @@ Feature: Manage priority
           "id": "0",
           "name": "Low",
           "_links": {
-            "priorities": {
-              "href": "http://localhost/app_test.php/api/projects/0/priorities"
+            "issue_priorities": {
+              "href": "http://localhost/app_test.php/api/projects/0/issue-priorities"
+            },
+            "project": {
+              "href": "http://localhost/app_test.php/api/projects/0"
             }
           }
         }
       ]
     """
 
-  Scenario: Getting all the priorities of project 0 with limit 2
+  Scenario: Getting all the issue priorities of project 0 with limit 2
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/projects/0/priorities?limit=2"
+    When I send a GET request to "/app_test.php/api/projects/0/issue-priorities?limit=2"
     Then the response code should be 200
     And the response should contain json:
     """
@@ -145,8 +160,11 @@ Feature: Manage priority
           "id": "3",
           "name": "Blocker",
           "_links": {
-            "priorities": {
-              "href": "http://localhost/app_test.php/api/projects/0/priorities"
+            "issue_priorities": {
+              "href": "http://localhost/app_test.php/api/projects/0/issue-priorities"
+            },
+            "project": {
+              "href": "http://localhost/app_test.php/api/projects/0"
             }
           }
         },
@@ -154,17 +172,20 @@ Feature: Manage priority
           "id": "2",
           "name": "High",
           "_links": {
-            "priorities": {
-              "href": "http://localhost/app_test.php/api/projects/0/priorities"
+            "issue_priorities": {
+              "href": "http://localhost/app_test.php/api/projects/0/issue-priorities"
+            },
+            "project": {
+              "href": "http://localhost/app_test.php/api/projects/0"
             }
           }
         }
       ]
     """
 
-  Scenario: Getting all the priorities of project 0 with offset 2
+  Scenario: Getting all the issue priorities of project 0 with offset 2
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/projects/0/priorities?offset=2"
+    When I send a GET request to "/app_test.php/api/projects/0/issue-priorities?offset=2"
     Then the response code should be 200
     And the response should contain json:
     """
@@ -173,8 +194,11 @@ Feature: Manage priority
           "id": "0",
           "name": "Low",
           "_links": {
-            "priorities": {
-              "href": "http://localhost/app_test.php/api/projects/0/priorities"
+            "issue_priorities": {
+              "href": "http://localhost/app_test.php/api/projects/0/issue-priorities"
+            },
+            "project": {
+              "href": "http://localhost/app_test.php/api/projects/0"
             }
           }
         },
@@ -182,32 +206,35 @@ Feature: Manage priority
           "id": "1",
           "name": "Medium",
           "_links": {
-            "priorities": {
-              "href": "http://localhost/app_test.php/api/projects/0/priorities"
+            "issue_priorities": {
+              "href": "http://localhost/app_test.php/api/projects/0/issue-priorities"
+            },
+            "project": {
+              "href": "http://localhost/app_test.php/api/projects/0"
             }
           }
         }
       ]
     """
 
-  Scenario: Creating a priority
+  Scenario: Creating a issue priority
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/projects/0/priorities" with body:
+    When I send a POST request to "/app_test.php/api/projects/0/issue-priorities" with body:
     """
       {
-        "name": "New priority"
+        "name": "New issue priority"
       }
     """
     Then the response code should be 201
 
-  Scenario: Creating a priority with user which is not a project participant
+  Scenario: Creating a issue priority with user which is not a project participant
     Given I am authenticating with "access-token-3" token
     Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/projects/0/priorities" with body:
+    When I send a POST request to "/app_test.php/api/projects/0/issue-priorities" with body:
     """
       {
-        "name": "New priority"
+        "name": "New issue priority"
       }
     """
     Then the response code should be 403
@@ -218,13 +245,13 @@ Feature: Manage priority
       }
     """
 
-  Scenario: Creating a priority in unknown project
+  Scenario: Creating a issue priority in unknown project
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/projects/unknown-project/priorities" with body:
+    When I send a POST request to "/app_test.php/api/projects/unknown-project/issue-priorities" with body:
     """
       {
-        "name": "New priority"
+        "name": "New issue priority"
       }
     """
     Then the response code should be 404
@@ -235,10 +262,10 @@ Feature: Manage priority
       }
     """
 
-  Scenario: Creating a priority without name
+  Scenario: Creating a issue priority without name
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/projects/1/priorities" with body:
+    When I send a POST request to "/app_test.php/api/projects/1/issue-priorities" with body:
     """
       {
         "name": ""
@@ -254,10 +281,10 @@ Feature: Manage priority
       }
     """
 
-  Scenario: Creating a priority with already exists name
+  Scenario: Creating a issue priority with already exists name
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/projects/1/priorities" with body:
+    When I send a POST request to "/app_test.php/api/projects/1/issue-priorities" with body:
     """
       {
         "name": "Low"
@@ -268,19 +295,19 @@ Feature: Manage priority
     """
       {
         "name": [
-          "A priority with identical name is already exists in this project"
+          "A issue priority with identical name is already exists in this project"
         ]
       } 
     """
 
-  Scenario: Deleting priorities 0 of project 0
+  Scenario: Deleting issue priority 0 of project 0
     Given I am authenticating with "access-token-0" token
-    When I send a DELETE request to "/app_test.php/api/projects/0/priorities/0"
+    When I send a DELETE request to "/app_test.php/api/projects/0/issue-priorities/0"
     Then the response code should be 204
 
-  Scenario: Deleting priority 0 with user which is not a project admin
+  Scenario: Deleting issue priority 0 with user which is not a project admin
     Given I am authenticating with "access-token-3" token
-    When I send a DELETE request to "/app_test.php/api/projects/0/priorities/0"
+    When I send a DELETE request to "/app_test.php/api/projects/0/issue-priorities/0"
     Then the response code should be 403
     And the response should contain json:
     """
@@ -289,9 +316,9 @@ Feature: Manage priority
       } 
     """
 
-  Scenario: Deleting priority 0 of unknown project
+  Scenario: Deleting issue priority 0 of unknown project
     Given I am authenticating with "access-token-0" token
-    When I send a DELETE request to "/app_test.php/api/projects/unknown-project/priorities/0"
+    When I send a DELETE request to "/app_test.php/api/projects/unknown-project/issue-priorities/0"
     Then the response code should be 404
     And the response should contain json:
     """

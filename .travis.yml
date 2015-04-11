@@ -74,7 +74,7 @@ script:
     - bin/behat --stop-on-failure --suite=issueType
     - bin/behat --stop-on-failure --suite=label
     - bin/behat --stop-on-failure --suite=participant
-    - bin/behat --stop-on-failure --suite=priority
+    - bin/behat --stop-on-failure --suite=issuePriority
     - bin/behat --stop-on-failure --suite=project
     - bin/behat --stop-on-failure --suite=status
     - bin/behat --stop-on-failure --suite=statusTransition

@@ -15,34 +15,34 @@ use Behat\Gherkin\Node\TableNode;
 use Kreta\Bundle\CoreBundle\Behat\DefaultContext;
 
 /**
- * Class PriorityContext.
+ * Class IssuePriorityContext.
  *
  * @package Kreta\Bundle\ProjectBundle\Behat
  */
-class PriorityContext extends DefaultContext
+class IssuePriorityContext extends DefaultContext
 {
     /**
      * Populates the database with priorities.
      *
-     * @param \Behat\Gherkin\Node\TableNode $priorities The priorities
+     * @param \Behat\Gherkin\Node\TableNode $issuePriorities The priorities
      *
      * @return void
      *
-     * @Given /^the following priorities exist:$/
+     * @Given /^the following issue priorities exist:$/
      */
-    public function theFollowingPrioritiesExist(TableNode $priorities)
+    public function theFollowingIssuePrioritiesExist(TableNode $issuePriorities)
     {
-        foreach ($priorities as $priorityData) {
+        foreach ($issuePriorities as $priorityData) {
             $project = $this->get('kreta_project.repository.project')
                 ->findOneBy(['name' => $priorityData['project']], false);
 
-            $priority = $this->get('kreta_project.factory.priority')->create($project, $priorityData['name']);
+            $priority = $this->get('kreta_project.factory.issue_priority')->create($project, $priorityData['name']);
 
             if (isset($priorityData['id'])) {
                 $this->setId($priority, $priorityData['id']);
             }
 
-            $this->get('kreta_project.repository.priority')->persist($priority);
+            $this->get('kreta_project.repository.issue_priority')->persist($priority);
         }
     }
 }

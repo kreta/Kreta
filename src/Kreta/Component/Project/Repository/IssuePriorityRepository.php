@@ -15,21 +15,21 @@ use Kreta\Component\Core\Repository\EntityRepository;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 
 /**
- * Class PriorityRepository.
+ * Class IssuePriorityRepository.
  *
  * @package Kreta\Component\Project\Repository
  */
-class PriorityRepository extends EntityRepository
+class IssuePriorityRepository extends EntityRepository
 {
     /**
-     * Finds all the priorities of project given.
+     * Finds all the issue priorities of project given.
      *
      * @param \Kreta\Component\Project\Model\Interfaces\ProjectInterface $project  The project
      * @param null|int                                                   $limit    The limit
      * @param null|int                                                   $offset   The offset
      * @param null|string                                                $criteria The filter criteria
      *
-     * @return \Kreta\Component\Project\Model\Interfaces\PriorityInterface[]
+     * @return \Kreta\Component\Project\Model\Interfaces\IssuePriorityInterface[]
      */
     public function findByProject(ProjectInterface $project, $limit = null, $offset = null, $criteria = null)
     {
@@ -45,7 +45,7 @@ class PriorityRepository extends EntityRepository
     {
         return parent::getQueryBuilder()
             ->addSelect(['p'])
-            ->join('pr.project', 'p');
+            ->join('ip.project', 'p');
     }
 
     /**
@@ -53,6 +53,6 @@ class PriorityRepository extends EntityRepository
      */
     protected function getAlias()
     {
-        return 'pr';
+        return 'ip';
     }
 }
