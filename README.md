@@ -35,29 +35,47 @@ The recommended way to clone this project is using the following command in orde
 Then, inside `/vagrant` directory you have to copy the `parameters.yml.dist` in the same directory to `parameters.yml`, modifying the values with your favorite preferences. This is what we recommend:
 
 ```
-virtual_machine:
-    vhost:      kreta
-    domain:     localhost
-    vhostpath:  /var/www
-    ip:         192.168.10.42
-    port:       8080
-    use_nfs:    true
-    box:        precise64
-    cpu:        1
-    memory:     512
+#### REQUIRED ####
+vm:
+  host_name:     kreta
+  domain:        localhost
+  host_path:     /var/www
+  public_dir:    /web
+  ip:            192.168.10.42
+  port:          8080
+  synced_folder: nfs
+  box:           http://files.vagrantup.com/precise64.box
+  cpu:           1
+  memory:        512
 
-database:
-    mysql:
-        rootpassword: app
-        user:         kretaUser
-        password:     123
-        name:         kreta
-
-environments:
-    node: stable
-    ruby:
-        sass: latest
-    symfony: true
+#### OPTIONAL ####
+nginx: ~
+php:
+  version:  5.6
+  timezone: Europe/Madrid
+  xdebug:
+    version:           2.2.5
+    max_nesting_level: 256
+    ide_key:           PHPSTORM
+    remote:
+      host:            localhost
+      port:            9001
+mysql:
+  version:       5.6
+  root_password: root
+  user:          user
+  password:      123
+  database:      kreta
+nodejs:
+  version: 0.12.2
+  packages:
+    - gulp
+    - bower
+ruby:
+  version: 2.1
+  gems:
+    - sass
+    - scss-lint
 ```
 
 In the next step, you have to build the *Vagrant* machine and then, you have to connect via **ssh** to the VM with the
