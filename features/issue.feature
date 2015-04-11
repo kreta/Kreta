@@ -501,7 +501,7 @@ Feature: Manage issue
 
   Scenario: Getting all the issues of project 0
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/issues?project=TPR1"
+    When I send a GET request to "/app_test.php/api/issues?project=0"
     Then the response code should be 200
     And the response should contain json:
     """
@@ -1189,7 +1189,7 @@ Feature: Manage issue
 
   Scenario: Getting all the issues of filter by assignee=user4@kreta.com
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/issues?assignee=user4@kreta.com"
+    When I send a GET request to "/app_test.php/api/issues?assignee=3"
     Then the response code should be 200
     And the response should contain json:
     """
@@ -1265,7 +1265,7 @@ Feature: Manage issue
 
   Scenario: Getting all the issues filter by reporter=user4@kreta.com
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/issues?reporter=user4@kreta.com"
+    When I send a GET request to "/app_test.php/api/issues?reporter=3"
     Then the response code should be 200
     And the response should contain json:
     """
@@ -1339,79 +1339,13 @@ Feature: Manage issue
       ]
     """
 
-  Scenario: Getting all the issues filter by priority=0
+  Scenario: Getting all the issues filter by low priority
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/issues?priority=Low"
+    When I send a GET request to "/app_test.php/api/issues?priority=0"
     Then the response code should be 200
     And the response should contain json:
     """
       [
-        {
-          "id": "4",
-          "assignee": {
-            "id": "0",
-            "email": "user@kreta.com",
-            "first_name": "Kreta",
-            "last_name": "User"
-          },
-          "created_at": "2014-10-21T00:00:00+0200",
-          "description": "Description",
-          "labels": [
-            {
-              "id": "1",
-              "name": "php"
-            },
-            {
-              "id": "10",
-              "name": "compass"
-            },
-            {
-              "id": "4",
-              "name": "behat"
-            },
-            {
-              "id": "5",
-              "name": "phpspec"
-            },
-            {
-              "id": "7",
-              "name": "html5"
-            }
-          ],
-          "numeric_id": 2,
-          "priority": {
-            "id": "4",
-            "name": "Low"
-          },
-          "reporter": {
-            "id": "3",
-            "email": "user4@kreta.com",
-            "first_name": "Kreta",
-            "last_name": "User4"
-          },
-          "status": {
-            "type": "normal",
-            "name": "Resolved",
-            "id": "2",
-            "color": "#f1c40f"
-          },
-          "title": "Test issue 1",
-          "type": {
-            "id": "4",
-            "name": "Error"
-          },
-          "_links": {
-            "self": {
-              "href": "http://localhost/app_test.php/api/issues/4"
-            },
-            "project": {
-              "href": "http://localhost/app_test.php/api/projects/1"
-            },
-            "issues": {
-              "href": "http://localhost/app_test.php/api/issues"
-            }
-          }
-        },
         {
           "id": "1",
           "assignee": {
@@ -1481,9 +1415,9 @@ Feature: Manage issue
       ]
     """
 
-  Scenario: Getting all the issues filter by status=closed
+  Scenario: Getting all the issues filter by status closed
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/issues?status=closed"
+    When I send a GET request to "/app_test.php/api/issues?status=3"
     Then the response code should be 200
     And the response should contain json:
     """
@@ -1561,9 +1495,9 @@ Feature: Manage issue
       ]
     """
 
-  Scenario: Getting all the issues filter by type=Bug
+  Scenario: Getting all the issues filter by type bug
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/issues?type=Bug"
+    When I send a GET request to "/app_test.php/api/issues?type=3"
     Then the response code should be 200
     And the response should contain json:
     """
@@ -1628,76 +1562,6 @@ Feature: Manage issue
             },
             "project": {
               "href": "http://localhost/app_test.php/api/projects/1"
-            },
-            "issues": {
-              "href": "http://localhost/app_test.php/api/issues"
-            }
-          }
-        },
-        {
-          "id": "5",
-          "assignee": {
-            "id": "0",
-            "email": "user@kreta.com",
-            "first_name": "Kreta",
-            "last_name": "User"
-          },
-          "created_at": "2014-10-21T00:00:00+0200",
-          "description": "Description",
-          "labels": [
-            {
-              "id": "0",
-              "name": "backbone.js"
-            },
-            {
-              "id": "11",
-              "name": "mysql"
-            },
-            {
-              "id": "12",
-              "name": "mongodb"
-            },
-            {
-              "id": "2",
-              "name": "javascript"
-            },
-            {
-              "id": "3",
-              "name": "bdd"
-            }
-          ],
-          "numeric_id": 4,
-          "priority": {
-            "id": "3",
-            "name": "Blocker"
-          },
-          "reporter": {
-            "id": "1",
-            "email": "user2@kreta.com",
-            "first_name": "Kreta",
-            "last_name": "User2",
-            "photo": {
-              "id": "2",
-              "name": "http://localhost/app_test.php/media/image/user-2.jpg"
-            }
-          },
-          "status": {
-            "type": "normal",
-            "name": "Closed",
-            "id": "3",
-            "color": "#c0392b"
-          },
-          "title": "Test issue 4",
-          "type": {
-            "id": "0",
-            "name": "Bug"
-          },
-          "_links": {
-            "self": {
-              "href": "http://localhost/app_test.php/api/issues/5"
-            },
-            "project": {
-              "href": "http://localhost/app_test.php/api/projects/0"
             },
             "issues": {
               "href": "http://localhost/app_test.php/api/issues"

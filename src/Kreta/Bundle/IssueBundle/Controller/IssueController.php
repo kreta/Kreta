@@ -33,13 +33,13 @@ class IssueController extends Controller
      * @param \FOS\RestBundle\Request\ParamFetcher $paramFetcher The param fetcher
      *
      * @QueryParam(name="sort", requirements="(title|createdAt)", default="title", description="Sort")
-     * @QueryParam(name="project", requirements="(.*)", strict=true, nullable=true, description="Project's name filter")
-     * @QueryParam(name="assignee", requirements="(.*)", strict=true, nullable=true, description="Assignee's email filter")
-     * @QueryParam(name="reporter", requirements="(.*)", strict=true, nullable=true, description="Reporter's email filter")
-     * @QueryParam(name="watcher", requirements="(.*)", strict=true, nullable=true, description="Watcher's email filter")
+     * @QueryParam(name="project", requirements="(.*)", strict=true, nullable=true, description="Project filter")
+     * @QueryParam(name="assignee", requirements="(.*)", strict=true, nullable=true, description="Assignee filter")
+     * @QueryParam(name="reporter", requirements="(.*)", strict=true, nullable=true, description="Reporter filter")
+     * @QueryParam(name="watcher", requirements="(.*)", strict=true, nullable=true, description="Watcher filter")
      * @QueryParam(name="priority", requirements="(.*)", strict=true, nullable=true, description="Priority filter")
-     * @QueryParam(name="status", requirements="(.*)", strict=true, nullable=true, description="Status' name filter")
-     * @QueryParam(name="type", requirements="(.*)", strict=true, nullable=true, description="Type's name filter")
+     * @QueryParam(name="status", requirements="(.*)", strict=true, nullable=true, description="Status filter")
+     * @QueryParam(name="type", requirements="(.*)", strict=true, nullable=true, description="Type filter")
      * @QueryParam(name="q", requirements="(.*)", strict=true, nullable=true, description="Title filter")
      * @QueryParam(name="limit", requirements="\d+", default="9999", description="Amount of issues to be returned")
      * @QueryParam(name="offset", requirements="\d+", default="0", description="Offset in pages")
@@ -54,14 +54,14 @@ class IssueController extends Controller
         return $this->get('kreta_issue.repository.issue')->findByParticipant(
             $this->getUser(),
             [
-                'title'       => $paramFetcher->get('q'),
-                'p.shortName' => $paramFetcher->get('project'),
-                'a.email'     => $paramFetcher->get('assignee'),
-                'rep.email'   => $paramFetcher->get('reporter'),
-                'w.email'     => $paramFetcher->get('watcher'),
-                'pr.name'    => $paramFetcher->get('priority'),
-                's.name'      => strtolower($paramFetcher->get('status')),
-                't.name'      => $paramFetcher->get('type')
+                'title'  => $paramFetcher->get('q'),
+                'p.id'   => $paramFetcher->get('project'),
+                'a.id'   => $paramFetcher->get('assignee'),
+                'rep.id' => $paramFetcher->get('reporter'),
+                'w.id'   => $paramFetcher->get('watcher'),
+                'pr.id'  => $paramFetcher->get('priority'),
+                's.id'   => $paramFetcher->get('status'),
+                't.id'   => $paramFetcher->get('type')
             ],
             [$paramFetcher->get('sort') => 'ASC'],
             $paramFetcher->get('limit'),

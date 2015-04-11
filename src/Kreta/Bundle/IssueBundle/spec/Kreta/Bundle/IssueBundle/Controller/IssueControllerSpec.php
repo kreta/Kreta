@@ -63,13 +63,13 @@ class IssueControllerSpec extends ObjectBehavior
         $paramFetcher->get('limit')->shouldBeCalled()->willReturn(10);
         $paramFetcher->get('offset')->shouldBeCalled()->willReturn(1);
         $paramFetcher->get('q')->shouldBeCalled()->willReturn('title-filter');
-        $paramFetcher->get('project')->shouldBeCalled()->willReturn('KRT');
-        $paramFetcher->get('assignee')->shouldBeCalled()->willReturn('user@kreta.com');
-        $paramFetcher->get('reporter')->shouldBeCalled()->willReturn('user@kreta.com');
-        $paramFetcher->get('watcher')->shouldBeCalled()->willReturn('user@kreta.com');
-        $paramFetcher->get('priority')->shouldBeCalled()->willReturn('Low');
-        $paramFetcher->get('status')->shouldBeCalled()->willReturn('done');
-        $paramFetcher->get('type')->shouldBeCalled()->willReturn('Bug');
+        $paramFetcher->get('project')->shouldBeCalled()->willReturn(1);
+        $paramFetcher->get('assignee')->shouldBeCalled()->willReturn(1);
+        $paramFetcher->get('reporter')->shouldBeCalled()->willReturn(1);
+        $paramFetcher->get('watcher')->shouldBeCalled()->willReturn(1);
+        $paramFetcher->get('priority')->shouldBeCalled()->willReturn(2);
+        $paramFetcher->get('status')->shouldBeCalled()->willReturn(2);
+        $paramFetcher->get('type')->shouldBeCalled()->willReturn(1);
 
         $container->has('security.context')->shouldBeCalled()->willReturn(true);
         $container->get('security.context')->shouldBeCalled()->willReturn($securityContext);
@@ -79,14 +79,14 @@ class IssueControllerSpec extends ObjectBehavior
         $issueRepository->findByParticipant(
             $user,
             [
-                'title'       => 'title-filter',
-                'p.shortName' => 'KRT',
-                'a.email'     => 'user@kreta.com',
-                'rep.email'   => 'user@kreta.com',
-                'w.email'     => 'user@kreta.com',
-                'pr.name'     => 'Low',
-                's.name'      => 'done',
-                't.name'      => 'Bug'
+                'title'  => 'title-filter',
+                'p.id'   => 1,
+                'a.id'   => 1,
+                'rep.id' => 1,
+                'w.id'   => 1,
+                'pr.id'  => 2,
+                's.id'   => 2,
+                't.id'   => 1
             ],
             ['createdAt' => 'ASC'],
             10,
