@@ -158,6 +158,13 @@ default:
                 - Kreta\Bundle\ProjectBundle\Behat\ParticipantContext
             filters:
                 tags: "@timeEntry"
+        profile:
+            contexts:
+                - Kreta\Bundle\CoreBundle\Behat\OauthContext
+                - Kreta\Bundle\MediaBundle\Behat\MediaContext
+                - Kreta\Bundle\UserBundle\Behat\UserContext
+            filters:
+                tags: "@profile"
         workflow:
             contexts:
                 - Kreta\Bundle\CoreBundle\Behat\OauthContext

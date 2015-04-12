@@ -49,6 +49,6 @@ class UserType extends AbstractType
      */
     protected function createEmptyData(FormInterface $form)
     {
-        return $this->factory->create();
+        return $this->user;
     }
 }

@@ -59,7 +59,7 @@ php:
     ide_key:           PHPSTORM
     remote:
       host:            localhost
-      port:            9001
+      port:            9000
 mysql:
   version:       5.6
   root_password: root
