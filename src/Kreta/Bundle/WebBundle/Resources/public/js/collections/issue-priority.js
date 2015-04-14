@@ -16,7 +16,7 @@ export class IssuePriorityCollection extends Backbone.Collection {
   }
 
   setProject(projectId) {
-    this.url = App.config.getBaseUrl() + '/projects/' + projectId + '/priorities';
+    this.url = App.config.getBaseUrl() + '/projects/' + projectId + '/issue-priorities';
     return this;
   }
 }

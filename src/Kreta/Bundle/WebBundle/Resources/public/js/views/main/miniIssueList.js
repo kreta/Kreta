@@ -83,6 +83,7 @@ export class MiniIssueList extends Backbone.View {
 
     this.render();
   }
+
   addAll () {
     this.$issues.html('');
     this.issues.each(this.addOne, this);

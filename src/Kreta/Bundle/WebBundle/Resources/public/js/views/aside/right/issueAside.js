@@ -8,6 +8,7 @@
  */
 
 import {Issue} from '../../../models/issue';
+import {CommentsTab} from './tabs/commentsTab';
 
 export class IssueAsideView extends Backbone.View {
   constructor (options) {
@@ -21,6 +22,7 @@ export class IssueAsideView extends Backbone.View {
 
     super();
 
+    this.issueId = options.id;
     this.model = new Issue({id: options.id});
     this.model.fetch();
     this.model.on('sync', this.render, this);
@@ -29,11 +31,16 @@ export class IssueAsideView extends Backbone.View {
   render () {
     if(this.model.hasChanged()) {
       this.$el.html(this.template(this.model.toJSON()));
-      this.$tabContent = this.$el.find('.issue-tab-content');
+      this.$footer = this.$el.find('footer');
+
+      var commentTab = new CommentsTab({issueId: this.issueId});
+      this.$footer.append(commentTab.render().el);
+
+      this.$tabContent = this.$footer.find('.issue-tab-content')
+
     } else {
       this.$el.html('Loading...');
     }
-
 
     return this;
   }
