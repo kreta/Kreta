@@ -75,7 +75,7 @@ gulp.task('scss-lint', function () {
     .pipe(scsslint());
 });
 
-gulp.task('sass', ['scss-lint'], function () {
+gulp.task('sass', function () {
   return gulp.src(assets.sass)
     .pipe(sass({
         style: 'expanded',

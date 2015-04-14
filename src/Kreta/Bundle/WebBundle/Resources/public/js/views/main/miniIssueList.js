@@ -9,6 +9,7 @@
 
 import {IssueCollection} from '../../collections/issue';
 import {MiniIssueView} from './miniIssue';
+import {IssueFilter} from './issueFilter';
 
 export class MiniIssueList extends Backbone.View {
   constructor (options) {
@@ -25,10 +26,11 @@ export class MiniIssueList extends Backbone.View {
 
     super(options);
 
-    this.render();
+    this.loadFilters();
 
     this.listenTo(this.issues, 'add', this.addOne);
     this.listenTo(this.issues, 'reset', this.addAll);
+    this.listenTo(App.currentUser, 'change', this.loadFilters);
   }
 
   render () {
@@ -36,9 +38,51 @@ export class MiniIssueList extends Backbone.View {
     this.$issues = this.$el.find('.issues');
     this.$filter = this.$el.find('.filter');
 
+    var html = '';
+    this.filters.forEach((filter) => {
+      var selected = true;
+      html += '<div>';
+      for(title in filter) {
+        html += $('<a></a>')
+          .attr('data-filter', filter[title].filter)
+          .attr('data-value', filter[title].value)
+          .text(title)
+          .addClass(selected ? 'selected' : '')
+          .get(0).outerHTML;
+        selected = false;
+      }
+      html += '</div>';
+    });
+
+    this.$filter.html(html);
+
     return this;
   }
 
+  loadFilters() {
+    this.filters = [{
+      'All': {
+        filter: 'assignee',
+        value: ''
+      },
+      'Assigned to me': {
+        filter: 'assignee',
+        value: App.currentUser.get('id')
+      }
+    }, {
+      'All priorities': {
+        'filter': 'priority',
+        'value': ''
+      }
+    }, {
+      'All statuses': {
+        'filter': 'status',
+        'value': ''
+      }
+    }];
+
+    this.render();
+  }
   addAll () {
     this.$issues.html('');
     this.issues.each(this.addOne, this);
@@ -66,7 +110,7 @@ export class MiniIssueList extends Backbone.View {
     });
     var data = {projects: this.projectId};
     jQuery.extend(data, filter);
-    this.issues.fetch({data: data, reset: true})
+    this.issues.fetch({data: data, reset: true});
     this.$issues.html('');
   }
 }

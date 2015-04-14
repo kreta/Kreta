@@ -18,7 +18,7 @@ export class Router extends Backbone.Router {
       var href = $(this).attr('href');
       var protocol = this.protocol + '//';
 
-      if (href.slice(protocol.length) !== protocol) {
+      if (href && href.slice(protocol.length) !== protocol) {
         evt.preventDefault();
         router.navigate(href, true);
       }

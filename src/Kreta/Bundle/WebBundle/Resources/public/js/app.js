@@ -11,6 +11,7 @@ import {HeaderView} from 'views/layout/mainMenu';
 import {MainView} from 'views/layout/mainContent';
 import {LeftAsideView} from 'views/layout/leftAside';
 import {RightAsideView} from 'views/layout/rightAside';
+import {Profile} from 'models/profile'
 import {Router} from 'router';
 import {Config} from 'config';
 
@@ -29,7 +30,8 @@ $(() => {
     views: {},
     collections: {},
     config: new Config(),
-    accessToken: getCookie('access_token')
+    accessToken: getCookie('access_token'),
+    currentUser: new Profile()
   };
 
   window.App = App;
@@ -37,6 +39,8 @@ $(() => {
   Backbone.$.ajaxSetup({
     headers: {'Authorization': 'Bearer ' + App.accessToken}
   });
+
+  App.currentUser.fetch();
 
   new Router();
   new HeaderView();
