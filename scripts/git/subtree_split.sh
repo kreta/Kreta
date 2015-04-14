@@ -8,6 +8,11 @@
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
 echo "Generating the subtree splits..."
+if [ $# -eq 0 ]; then
+    echo "No tag argument provided"
+    exit 1
+fi
+
 git tag -d $1
 
 git subtree split -P src/Kreta/Bundle/CommentBundle/ -b comment-bundle
