@@ -9,8 +9,9 @@
 
 import {Issue} from '../../../models/issue';
 import {CommentsTab} from './tabs/commentsTab';
+import {AsideView} from '../../layout/aside';
 
-export class IssueAsideView extends Backbone.View {
+export class IssueShowView extends AsideView {
   constructor (options) {
     this.className = 'issue-aside';
 
@@ -26,6 +27,10 @@ export class IssueAsideView extends Backbone.View {
     this.model = new Issue({id: options.id});
     this.model.fetch();
     this.model.on('sync', this.render, this);
+
+    this.render();
+
+    this.$container.append(this.$el);
   }
 
   render () {
@@ -51,5 +56,9 @@ export class IssueAsideView extends Backbone.View {
     $(this.$tabContent.get(pos)).addClass('visible');
 
     return false;
+  }
+
+  position() {
+    return 'right';
   }
 }

@@ -34,6 +34,7 @@
     "font-source-sans-pro": "~0.1",
     "backbone": "~1.1.2",
     "lodash": "~3.5.0",
-    "requirejs": "~2.1.16"
+    "requirejs": "~2.1.16",
+    "backbone.controller": "*"
   }
 }

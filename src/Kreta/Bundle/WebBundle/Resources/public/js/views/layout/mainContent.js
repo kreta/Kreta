@@ -12,6 +12,12 @@ export class MainView extends Backbone.View {
     this.setElement($('.kreta-content-container'), true);
     this.$spacer = this.$el.parent();
 
+    this.listenTo(Backbone, 'left-aside:after-open', this.leftOpened);
+    this.listenTo(Backbone, 'left-aside:close', this.leftClosed);
+
+    this.listenTo(Backbone, 'right-aside:after-open', this.rightOpened);
+    this.listenTo(Backbone, 'right-aside:close', this.rightClosed);
+
     super();
   }
 

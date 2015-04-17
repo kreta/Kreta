@@ -7,9 +7,8 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-import {IssueAsideView} from 'views/aside/right/issueAside';
-import {MiniIssueList} from 'views/main/miniIssueList';
-import {CreateIssueView} from 'views/main/createIssue';
+import {IssueController} from 'controllers/issue';
+import {ProjectController} from 'controllers/project'
 
 export class Router extends Backbone.Router {
   constructor () {
@@ -25,42 +24,15 @@ export class Router extends Backbone.Router {
     });
 
     this.routes = {
-      '': 'showIndex',
-      'issue/new': 'createIssue',
-      'issue/:id': 'showIssue',
-      'projects': 'showProjects',
-      'project/:id': 'showProject'
+      '': 'showIndex'
     };
+
+    new IssueController({router: true});
+    new ProjectController({router: true});
 
     this._bindRoutes();
   }
 
   showIndex () {
-    App.views.leftAside.hide();
-    App.views.rightAside.hide();
-  }
-
-  showIssue (id) {
-    var view = new IssueAsideView({id: id});
-    App.views.rightAside.show(view.render().el);
-  }
-
-  showProjects () {
-    App.views.rightAside.hide();
-    App.views.leftAside.showProjects();
-  }
-
-  showProject (id) {
-    var view = new MiniIssueList({projectId: id});
-    App.views.main.render(view.render().el);
-    App.views.leftAside.hide();
-    App.views.rightAside.hide();
-  }
-
-  createIssue () {
-    var view = new CreateIssueView();
-    App.views.main.render(view.render().el);
-    App.views.leftAside.hide();
-    App.views.rightAside.hide();
   }
 }

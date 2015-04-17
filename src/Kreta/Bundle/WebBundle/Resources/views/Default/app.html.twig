@@ -18,10 +18,10 @@
             <img src="{{ asset('images/icons/notification.png') }}">
             <span class="kreta-notification-bubble">4</span>
         </a>
-        <a href="/"><img src="{{ asset('images/icons/search.png') }}"></a>
+        {#<a href="/"><img src="{{ asset('images/icons/search.png') }}"></a>#}
         <a href="/issue/new"><img src="{{ asset('images/icons/new.png') }}"></a>
-        <a href="/"><img src="{{ asset('images/icons/dashboard.png') }}"></a>
-        <a href="/"><img src="{{ asset('images/icons/lists.png') }}"></a>
+        {#<a href="/"><img src="{{ asset('images/icons/dashboard.png') }}"></a>
+        <a href="/"><img src="{{ asset('images/icons/lists.png') }}"></a>#}
         <a href="/projects"><img src="{{ asset('images/icons/projects.png') }}"></a>
     </div>
 </nav>
@@ -60,6 +60,7 @@
 <script src="{{ asset('vendor/lodash/lodash.js') }}"></script>
 <script src="{{ asset('vendor/backbone/backbone.js') }}"></script>
 <script src="{{ asset('vendor/jquery/dist/jquery.js') }}"></script>
+<script src="{{ asset('vendor/backbone.controller/backbone.controller.js') }}"></script>
 <script data-main="/js/app" src="{{ asset('vendor/requirejs/require.js') }}"></script>
 </body>
 </html>
