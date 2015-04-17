@@ -46,8 +46,6 @@ $(() => {
   new HeaderView();
 
   App.views.main = new MainView();
-  App.views.leftAside = new LeftAsideView();
-  App.views.rightAside = new RightAsideView();
 
   Backbone.history.start({pushState: true});
 });

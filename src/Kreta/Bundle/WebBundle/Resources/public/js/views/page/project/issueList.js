@@ -7,12 +7,11 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-import {IssueCollection} from '../../collections/issue';
-import {MiniIssueView} from './miniIssue';
-import {IssueFilter} from './issueFilter';
+import {IssueCollection} from '../../../collections/issue';
+import {IssuePreviewView} from '../../component/issuePreview.js';
 
 export class MiniIssueList extends Backbone.View {
-  constructor (options) {
+  constructor(options) {
     this.template = _.template($('#kreta-project-issues-template').html());
 
     this.projectId = options.projectId;
@@ -33,7 +32,7 @@ export class MiniIssueList extends Backbone.View {
     this.listenTo(App.currentUser, 'change', this.loadFilters);
   }
 
-  render () {
+  render() {
     this.$el.html(this.template({}));
     this.$issues = this.$el.find('.issues');
     this.$filter = this.$el.find('.filter');
@@ -42,7 +41,7 @@ export class MiniIssueList extends Backbone.View {
     this.filters.forEach((filter) => {
       var selected = true;
       html += '<div>';
-      for(title in filter) {
+      for (title in filter) {
         html += $('<a></a>')
           .attr('data-filter', filter[title].filter)
           .attr('data-value', filter[title].value)
@@ -84,18 +83,17 @@ export class MiniIssueList extends Backbone.View {
     this.render();
   }
 
-  addAll () {
+  addAll() {
     this.$issues.html('');
     this.issues.each(this.addOne, this);
   }
 
-  addOne (model) {
-    var view = new MiniIssueView({model});
+  addOne(model) {
+    var view = new IssuePreviewView({model});
     this.$issues.append(view.render().el);
   }
 
-  filterClicked(ev)
-  {
+  filterClicked(ev) {
     $(ev.currentTarget).parent().find('a').removeClass('selected');
     $(ev.currentTarget).addClass('selected');
     this.filterIssues();
@@ -103,9 +101,9 @@ export class MiniIssueList extends Backbone.View {
 
   filterIssues() {
     var filter = {};
-    this.$filter.children().each(function() {
+    this.$filter.children().each(function () {
       var $selected = $(this).find('.selected');
-      if($selected.attr('data-value')) {
+      if ($selected.attr('data-value')) {
         filter[$selected.attr('data-filter')] = $selected.attr('data-value');
       }
     });

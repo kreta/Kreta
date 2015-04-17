@@ -7,13 +7,13 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-import {SelectorView} from '../component/selector';
-import {Issue} from '../../models/issue';
-import {UserCollection} from '../../collections/user';
-import {ParticipantCollection} from '../../collections/participant';
-import {ProjectCollection} from '../../collections/project';
-import {IssueTypeCollection} from '../../collections/issue-type';
-import {IssuePriorityCollection} from '../../collections/issue-priority';
+import {SelectorView} from '../../component/selector';
+import {Issue} from '../../../models/issue';
+import {UserCollection} from '../../../collections/user';
+import {ParticipantCollection} from '../../../collections/participant';
+import {ProjectCollection} from '../../../collections/project';
+import {IssueTypeCollection} from '../../../collections/issue-type';
+import {IssuePriorityCollection} from '../../../collections/issue-priority';
 
 export class CreateIssueView extends Backbone.View {
   constructor () {
@@ -86,6 +86,8 @@ export class CreateIssueView extends Backbone.View {
     });
 
     var issue = new Issue(formData);
-    issue.save();
+    issue.save(null, {success: function(model) {
+      App.router.navigate('/issue/' + model.get('id'), true);
+    }});
   }
 }

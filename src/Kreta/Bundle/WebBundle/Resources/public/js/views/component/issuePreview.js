@@ -7,7 +7,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-export class MiniIssueView extends Backbone.View {
+export class IssuePreviewView extends Backbone.View {
   constructor (options) {
     this.className = 'kreta-list-issue';
 

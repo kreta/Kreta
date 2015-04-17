@@ -8,8 +8,9 @@
  */
 
 import {ProjectCollection} from '../../../collections/project';
+import {AsideView} from '../../layout/aside';
 
-export class ProjectAsideView extends Backbone.View {
+export class ProjectListView extends AsideView {
   constructor () {
     super();
 
@@ -20,6 +21,8 @@ export class ProjectAsideView extends Backbone.View {
     this.listenTo(this.projects, 'reset', this.addAll);
 
     this.render();
+
+    this.$container.append(this.$el);
   }
 
   render () {
@@ -43,9 +46,5 @@ export class ProjectAsideView extends Backbone.View {
   addAll () {
     this.$projects.html('');
     this.projects.each(this.addOne, this);
-  }
-
-  show () {
-    this.$el.addClass('visible');
   }
 }
