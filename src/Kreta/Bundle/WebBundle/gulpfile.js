@@ -21,6 +21,7 @@ var minifyCSS = require('gulp-minify-css');
 var rename = require('gulp-rename');
 var sass = require('gulp-sass');
 var scsslint = require('gulp-scss-lint');
+var sourcemaps = require('gulp-sourcemaps');
 var uglify = require('gulp-uglify');
 var pkg = require('./package.json');
 
@@ -75,8 +76,9 @@ gulp.task('scss-lint', function () {
     .pipe(scsslint());
 });
 
-gulp.task('sass', function () {
+gulp.task('sass', [], function () {
   return gulp.src(assets.sass)
+    .pipe(sourcemaps.init())
     .pipe(sass({
         style: 'expanded',
         lineNumbers: true,
@@ -85,6 +87,7 @@ gulp.task('sass', function () {
      }))
     .pipe(rename({basename: 'kreta'}))
     .pipe(autoprefixer())
+    .pipe(sourcemaps.write())
     .pipe(gulp.dest(resultPath + 'css'));
 });
 
