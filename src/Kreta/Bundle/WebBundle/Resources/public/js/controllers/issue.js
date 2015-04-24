@@ -8,7 +8,7 @@
  */
 
 import {IssueShowView} from '../views/page/issue/show';
-import {CreateIssueView} from 'views/main/createIssue';
+import {CreateIssueView} from '../views/page/issue/new';
 
 export class IssueController extends Backbone.Controller {
   initialize() {

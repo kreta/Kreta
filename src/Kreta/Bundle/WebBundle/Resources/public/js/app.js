@@ -42,7 +42,7 @@ $(() => {
 
   App.currentUser.fetch();
 
-  new Router();
+  App.router = new Router();
   new HeaderView();
 
   App.views.main = new MainContentView();

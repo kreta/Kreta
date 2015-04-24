@@ -85,8 +85,11 @@ export class CreateIssueView extends Backbone.View {
       formData[this.name] = this.value;
     });
 
+    var projectId = formData['project'];
+
     var issue = new Issue(formData);
     issue.save(null, {success: function(model) {
+      App.router.navigate('/project/' + projectId, true);
       App.router.navigate('/issue/' + model.get('id'), true);
     }});
   }
