@@ -15,4 +15,17 @@ export class IssueCollection extends Backbone.Collection {
     this.url = App.config.getBaseUrl() + '/issues';
     super(models, options);
   }
+
+  findIndexById(issueId) {
+    var i = 0;
+
+    while(i < this.models.length ) {
+      if(this.models[i].get('id') == issueId) {
+        return i;
+      }
+      i++;
+    }
+
+    return -1;
+  }
 }

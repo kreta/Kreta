@@ -39,21 +39,11 @@
     </div>
 </script>
 
-<script type="text/html" id="kreta-mini-issue-template">
-    <div class="issue-details">
-        <a href="/issue/<%= id %>">
-            <h3><%= title %></h3>
-        </a>
-    </div>
-    <div class="issue-icons">
-        <img src="<%= assignee.photo.name %>">
-    </div>
-</script>
-
 {% include 'KretaWebBundle:Default/templates:issueAside.html.twig' %}
 {% include 'KretaWebBundle:Default/templates:projectIssues.html.twig' %}
 {% include 'KretaWebBundle:Default/templates:createIssue.html.twig' %}
 {% include 'KretaWebBundle:Default/templates:userInteraction.html.twig' %}
+{% include 'KretaWebBundle:Default/templates:listIssue.html.twig' %}
 
 
 <script src="{{ asset('vendor/jquery/dist/jquery.js') }}"></script>

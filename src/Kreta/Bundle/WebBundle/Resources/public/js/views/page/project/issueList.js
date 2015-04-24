@@ -8,9 +8,9 @@
  */
 
 import {IssueCollection} from '../../../collections/issue';
-import {IssuePreviewView} from '../../component/issuePreview.js';
+import {IssuePreviewView} from '../../component/issuePreview';
 
-export class MiniIssueList extends Backbone.View {
+export class IssueListView extends Backbone.View {
   constructor(options) {
     this.template = _.template($('#kreta-project-issues-template').html());
 
@@ -30,6 +30,7 @@ export class MiniIssueList extends Backbone.View {
     this.listenTo(this.issues, 'add', this.addOne);
     this.listenTo(this.issues, 'reset', this.addAll);
     this.listenTo(App.currentUser, 'change', this.loadFilters);
+    this.listenTo(Backbone, 'issue:highlight', this.highlightIssue);
   }
 
   render() {
@@ -111,5 +112,15 @@ export class MiniIssueList extends Backbone.View {
     jQuery.extend(data, filter);
     this.issues.fetch({data: data, reset: true});
     this.$issues.html('');
+  }
+
+  highlightIssue(issueId) {
+    var index = this.issues.findIndexById(issueId);
+
+    this.$issues.children().removeClass('highlight');
+
+    if(index >= 0) {
+      $(this.$issues.children().get(index)).addClass('highlight');
+    }
   }
 }

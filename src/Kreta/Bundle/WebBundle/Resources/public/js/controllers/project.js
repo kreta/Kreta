@@ -7,7 +7,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-import {MiniIssueList} from 'views/main/miniIssueList';
+import {IssueListView} from '../views/page/project/issueList';
 import {ProjectListView} from '../views/page/project/list';
 
 export class ProjectController extends Backbone.Controller {
@@ -29,7 +29,7 @@ export class ProjectController extends Backbone.Controller {
   }
 
   showAction(id) {
-    var view = new MiniIssueList({projectId: id});
+    var view = new IssueListView({projectId: id});
     App.views.main.render(view.render().el);
     Backbone.trigger('main:full-screen');
   }

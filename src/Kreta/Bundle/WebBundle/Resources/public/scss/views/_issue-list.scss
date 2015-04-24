@@ -1,39 +1,43 @@
-.kreta-list-issue {
+.list-issue {
   border-top: 1px solid $main-grey;
   padding: 20px 0;
   position: relative;
+  transition-duration: .4s;
 
-  a {
-    color: $main-black;
-    text-decoration: none;
-  }
+  &.highlight {
+    background: $main-green;
 
-  p {
-    font-size: .9em;
-    line-height: 1.2em;
-    margin-top: 10px;
-    opacity: .5;
-  }
-
-  .issue-details {
-    margin: 0 100px 0 10px;
-  }
-
-  .issue-icons {
-    height: 100%;
-    position: absolute;
-    right: 0;
-    text-align: center;
-    top: 0;
-    width: 100px;
-
-    img {
-      border-radius: 50%;
-      height: 40px;
-      margin-top: -20px;
-      position: absolute;
-      top: 50%;
-      width: 40px;
+    .list-issue-title {
+      color: $white;
     }
   }
 }
+
+.list-issue-details {
+  margin: 0 100px 0 10px;
+}
+
+.list-issue-title {
+  color: $main-black;
+  text-decoration: none;
+}
+
+.list-issue-icons {
+  height: 100%;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  top: 0;
+  width: 100px;
+}
+
+.list-issue-icon {
+  border-radius: 50%;
+  height: 40px;
+  margin-top: -20px;
+  position: absolute;
+  top: 50%;
+  width: 40px;
+}
+
+

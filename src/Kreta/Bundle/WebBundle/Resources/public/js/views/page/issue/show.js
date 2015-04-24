@@ -28,6 +28,7 @@ export class IssueShowView extends AsideView {
     this.model.fetch();
     this.model.on('sync', this.render, this);
 
+    Backbone.trigger('issue:highlight', this.issueId);
     this.render();
 
     this.$container.append(this.$el);

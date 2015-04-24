@@ -9,9 +9,9 @@
 
 export class IssuePreviewView extends Backbone.View {
   constructor (options) {
-    this.className = 'kreta-list-issue';
+    this.className = 'list-issue';
 
-    this.template = _.template($('#kreta-mini-issue-template').html());
+    this.template = _.template($('#list-issue-template').html());
     super(options);
   }
 
