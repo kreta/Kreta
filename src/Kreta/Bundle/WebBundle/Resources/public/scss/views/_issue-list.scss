@@ -5,11 +5,7 @@
   transition-duration: .4s;
 
   &.highlight {
-    background: $main-green;
-
-    .list-issue-title {
-      color: $white;
-    }
+    background: $main-grey;
   }
 }
 
@@ -31,7 +27,17 @@
   width: 100px;
 }
 
-.list-issue-icon {
+.list-issue-status {
+  position: absolute;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  right: 70px;
+  transform: translateY(-50%);
+  border-radius: 50%;
+}
+
+.list-issue-asignee {
   border-radius: 50%;
   height: 40px;
   margin-top: -20px;

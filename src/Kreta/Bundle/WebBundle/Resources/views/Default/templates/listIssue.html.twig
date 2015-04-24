@@ -3,6 +3,7 @@
         <a class="list-issue-title" href="/issue/<%= id %>"><%= title %></a>
     </div>
     <div class="list-issue-icons">
-        <img class="list-issue-icon" src="<%= assignee.photo.name %>">
+        <span class="list-issue-status" style="background: <%= status.color %>"></span>
+        <img class="list-issue-asignee" src="<%= assignee.photo.name %>">
     </div>
 </script>
