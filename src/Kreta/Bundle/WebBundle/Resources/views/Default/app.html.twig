@@ -51,5 +51,22 @@
 <script src="{{ asset('vendor/backbone/backbone.js') }}"></script>
 <script src="{{ asset('vendor/backbone.controller/backbone.controller.js') }}"></script>
 <script data-main="/js/app" src="{{ asset('vendor/requirejs/require.js') }}"></script>
+
+<script>
+    (function($) {
+        $(document.body).on('mouseenter', '[data-tooltip-text]', function() {
+            if($(this).children('.tooltip').length == 0) {
+                $(this).append('<span class="tooltip bottom">' + $(this).attr('data-tooltip-text') + '</span>');
+            }
+
+            $(this).find('.tooltip').addClass('visible');
+        });
+
+        $(document.body).on('mouseleave', '[data-tooltip-text]', function() {
+            $(this).find('.tooltip').removeClass('visible');
+        });
+
+    })(jQuery);
+</script>
 </body>
 </html>

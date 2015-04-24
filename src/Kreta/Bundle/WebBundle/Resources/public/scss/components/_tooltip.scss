@@ -1,0 +1,21 @@
+[data-tooltip-text] {
+  position: relative;
+}
+
+.tooltip {
+  display: none;
+  position: absolute;
+  bottom: -30px;
+  width: 50px;
+  background: $main-black;
+  color: $white;
+  font-size: .7em;
+  padding: .3em;
+  top: -4px;
+  left: -65px;
+  height: 20px;
+
+  &.visible {
+    display: block;
+  }
+}
