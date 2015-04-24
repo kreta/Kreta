@@ -7,7 +7,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-export class MainView extends Backbone.View {
+export class MainContentView extends Backbone.View {
   constructor () {
     this.setElement($('.kreta-content-container'), true);
     this.$spacer = this.$el.parent();

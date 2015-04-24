@@ -21,6 +21,7 @@ export class IssueController extends Backbone.Controller {
   newAction() {
     var view = new CreateIssueView();
     App.views.main.render(view.render().el);
+    Backbone.trigger('main:full-screen');
   }
 
   showAction(id) {

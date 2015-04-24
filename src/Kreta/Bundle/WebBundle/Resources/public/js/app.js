@@ -8,7 +8,7 @@
  */
 
 import {HeaderView} from 'views/layout/mainMenu';
-import {MainView} from 'views/layout/mainContent';
+import {MainContentView} from 'views/layout/mainContent';
 import {LeftAsideView} from 'views/layout/leftAside';
 import {RightAsideView} from 'views/layout/rightAside';
 import {Profile} from 'models/profile'
@@ -45,7 +45,7 @@ $(() => {
   new Router();
   new HeaderView();
 
-  App.views.main = new MainView();
+  App.views.main = new MainContentView();
 
   Backbone.history.start({pushState: true});
 });

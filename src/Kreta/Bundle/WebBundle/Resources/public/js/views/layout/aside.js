@@ -13,7 +13,7 @@ export class AsideView extends Backbone.View {
 
     this.$container = $('#kreta-' + this.position() + '-aside');
 
-    this.listenTo(Backbone, this.position() + '-aside:before-open', this.hide);
+    this.listenTo(Backbone, 'aside:before-open', this.hide);
     this.listenTo(Backbone, 'main:full-screen', this.hide);
   }
 
@@ -31,7 +31,7 @@ export class AsideView extends Backbone.View {
   }
 
   show () {
-    Backbone.trigger(this.position() + '-aside:before-open');
+    Backbone.trigger('aside:before-open');
 
     setTimeout(() => {
       this.$el.addClass('visible');

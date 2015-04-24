@@ -31,5 +31,6 @@ export class ProjectController extends Backbone.Controller {
   showAction(id) {
     var view = new MiniIssueList({projectId: id});
     App.views.main.render(view.render().el);
+    Backbone.trigger('main:full-screen');
   }
 }
