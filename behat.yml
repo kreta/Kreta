@@ -116,6 +116,15 @@ default:
                 - Kreta\Bundle\ProjectBundle\Behat\ParticipantContext
             filters:
                 tags: "@project"
+        notification:
+            contexts:
+                - Kreta\Bundle\CoreBundle\Behat\OauthContext
+                - Kreta\Bundle\NotificationBundle\Behat\NotificationContext
+                - Kreta\Bundle\ProjectBundle\Behat\ProjectContext
+                - Kreta\Bundle\UserBundle\Behat\UserContext
+                - Kreta\Bundle\ProjectBundle\Behat\ParticipantContext
+            filters:
+                tags: "@notification"
         status:
             contexts:
                 - Kreta\Bundle\CoreBundle\Behat\OauthContext

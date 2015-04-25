@@ -13,10 +13,10 @@ if [ ! -d '/dev/shm/symfony/' ]; then
   mkdir /dev/shm/symfony/cache /dev/shm/symfony/logs
 fi
 sudo rm -rf app/cache/* app/logs/*
-sudo touch /dev/shm/symfony/logs/dev/dev.log
 sudo chmod -R 777 /dev/shm/symfony/cache
 sudo chmod -R 777 /dev/shm/symfony/logs
 php app/console cache:clear -e=dev
 php app/console cache:clear -e=test
+sudo touch /dev/shm/symfony/logs/dev/dev.log
 sudo chmod -R 777 /dev/shm/symfony/cache
 sudo chmod -R 777 /dev/shm/symfony/logs

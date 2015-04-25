@@ -117,7 +117,8 @@ class HandlerSpec extends ObjectBehavior
             ->shouldBeCalled()->willReturn($formBuilder);
         $formBuilder->getForm()->shouldBeCalled()->willReturn($form);
         $request->isMethod('POST')->shouldBeCalled()->willReturn(false);
-        $request->isMethod('PUT')->shouldBeCalled()->willReturn(true);
+        $request->isMethod('PUT')->shouldBeCalled()->willReturn(false);
+        $request->isMethod('PATCH')->shouldBeCalled()->willReturn(true);
         $form->handleRequest($request)->shouldBeCalled()->willReturn($form);
         $form->isValid()->shouldBeCalled()->willReturn(true);
         $form->getData()->shouldBeCalled()->willReturn($this->object);

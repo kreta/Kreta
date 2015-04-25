@@ -34,9 +34,9 @@ class NotificationContext extends DefaultContext
     {
         foreach ($notifications as $notificationData) {
             $project = $this->get('kreta_project.repository.project')
-                ->findOneBy(['name' => $notificationData['projectName']], false);
+                ->findOneBy(['name' => $notificationData['project']], false);
             $user = $this->get('kreta_user.repository.user')
-                ->findOneBy(['email' => $notificationData['userEmail']], false);
+                ->findOneBy(['email' => $notificationData['user']], false);
 
             $notification = $this->get('kreta_notification.factory.notification')->create();
 
@@ -49,6 +49,13 @@ class NotificationContext extends DefaultContext
                 ->setType($notificationData['type'])
                 ->setWebUrl($notificationData['webUrl'])
                 ->setUser($user);
+
+            if (isset($notificationData['date'])) {
+                $this->setField($notification, 'date', new \DateTime($notificationData['date']));
+            }
+            if (isset($notificationData['id'])) {
+                $this->setId($notification, $notificationData['id']);
+            }
 
             $this->get('kreta_notification.repository.notification')->persist($notification);
         }
