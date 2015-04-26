@@ -5,7 +5,7 @@
 [![Coverage Status](https://img.shields.io/coveralls/kreta-io/TimeTrackingBundle.svg)](https://coveralls.io/r/kreta-io/TimeTrackingBundle)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/kreta-io/TimeTrackingBundle/badges/quality-sTimeTrackingBundle.png?b=master)](https://scrutinizer-ci.com/g/kreta-io/TimeTrackingBundle/?branch=master)
 [![HHVM Status](http://hhvm.h4cc.de/badge/kreta/time-tracking-bundle.svg)](http://hhvm.h4cc.de/package/kreta/time-tracking-bundle)
-[![Total Downloads](https://poser.pugx.org/kreta/time-tracking-bundle/downloads.svg)](https://packagist.org/packages/kreta/time-tracking-bundle)
+[![Total Downloads](https://poser.pugx.org/kreta/time-tracking-bundle/downloads)](https://packagist.org/packages/kreta/time-tracking-bundle)
 
 [![Latest Stable Version](https://poser.pugx.org/kreta/time-tracking-bundle/v/stable.svg)](https://packagist.org/packages/kreta/time-tracking-bundle)
 [![Latest Unstable Version](https://poser.pugx.org/kreta/time-tracking-bundle/v/unstable.svg)](https://packagist.org/packages/kreta/time-tracking-bundle)
