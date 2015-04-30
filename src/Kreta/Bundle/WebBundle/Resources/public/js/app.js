@@ -11,6 +11,7 @@ import {HeaderView} from 'views/layout/mainMenu';
 import {MainContentView} from 'views/layout/mainContent';
 import {LeftAsideView} from 'views/layout/leftAside';
 import {RightAsideView} from 'views/layout/rightAside';
+import {TooltipView} from 'views/component/tooltip';
 import {Profile} from 'models/profile'
 import {Router} from 'router';
 import {Config} from 'config';
@@ -44,6 +45,8 @@ $(() => {
 
   App.router = new Router();
   new HeaderView();
+
+  new TooltipView();
 
   App.views.main = new MainContentView();
 

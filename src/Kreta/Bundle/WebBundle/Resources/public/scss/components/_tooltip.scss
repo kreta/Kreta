@@ -1,21 +1,70 @@
+$tooltip-arrow-height: 10px;
+
 [data-tooltip-text] {
   position: relative;
 }
 
 .tooltip {
-  display: none;
-  position: absolute;
-  bottom: -30px;
-  width: 50px;
   background: $main-black;
+  border-radius: 3px;
   color: $white;
-  font-size: .7em;
-  padding: .3em;
-  top: -4px;
-  left: -65px;
+  font-size: 12px;
   height: 20px;
+  margin-top: -10px;
+  padding: .3em .6em;
+  position: absolute;
+  top: 50%;
+  transition-duration: .5s;
+  opacity: 0;
+  visibility: hidden;
+  white-space: nowrap;
 
   &.visible {
-    display: block;
+    visibility: visible;
+    opacity: 1;
+  }
+
+  &:after {
+    content: " ";
+    height: 0;
+    width: 0;
+    position: absolute;
+    pointer-events: none;
+    border: solid transparent;
+    border-color: rgba($main-black, 0);
+    border-width: $tooltip-arrow-height / 2;
+  }
+
+  //Position modifiers
+  &.left {
+    right: 100%;
+
+    &:after {
+      top: 50%;
+      left: 100%;
+
+      border-left-color: $main-black;
+      border-width: $tooltip-arrow-height / 2;
+      margin-top: -$tooltip-arrow-height / 2;
+    }
+
+    &.visible {
+      right: calc(100% + 10px);
+    }
+  }
+
+  &.right {
+    left: 100%;
+
+    &:after {
+      top: 50%;
+      right: 100%;
+      border-right-color: $main-black;
+      margin-top: -$tooltip-arrow-height / 2;
+    }
+
+    &.visible {
+      left: calc(100% + 10px);
+    }
   }
 }
