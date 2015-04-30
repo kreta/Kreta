@@ -19,10 +19,14 @@
             <span class="kreta-notification-bubble">4</span>
         </a>
         {#<a href="/"><img src="{{ asset('images/icons/search.png') }}"></a>#}
-        <a href="/issue/new"><img src="{{ asset('images/icons/new.png') }}"></a>
+        <a href="/issue/new" data-tooltip-text="Create issue" data-tooltip-position="right">
+            <img src="{{ asset('images/icons/new.png') }}">
+        </a>
         {#<a href="/"><img src="{{ asset('images/icons/dashboard.png') }}"></a>
         <a href="/"><img src="{{ asset('images/icons/lists.png') }}"></a>#}
-        <a href="/projects"><img src="{{ asset('images/icons/projects.png') }}"></a>
+        <a href="/projects" data-tooltip-text="Project list" data-tooltip-position="right">
+            <img src="{{ asset('images/icons/projects.png') }}">
+        </a>
     </div>
 </nav>
 <div id="kreta-left-aside"></div>
@@ -52,21 +56,5 @@
 <script src="{{ asset('vendor/backbone.controller/backbone.controller.js') }}"></script>
 <script data-main="/js/app" src="{{ asset('vendor/requirejs/require.js') }}"></script>
 
-<script>
-    (function($) {
-        $(document.body).on('mouseenter', '[data-tooltip-text]', function() {
-            if($(this).children('.tooltip').length == 0) {
-                $(this).append('<span class="tooltip bottom">' + $(this).attr('data-tooltip-text') + '</span>');
-            }
-
-            $(this).find('.tooltip').addClass('visible');
-        });
-
-        $(document.body).on('mouseleave', '[data-tooltip-text]', function() {
-            $(this).find('.tooltip').removeClass('visible');
-        });
-
-    })(jQuery);
-</script>
 </body>
 </html>
