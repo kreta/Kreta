@@ -47,6 +47,7 @@ class IssueType extends AbstractType
             $participants = null === $project ? [] : $project->getParticipants();
             $types = null === $project ? [] : $project->getIssueTypes();
             $priorities = null === $project ? [] : $project->getIssuePriorities();
+            $issues = null === $project ? [] : $project->getIssues();
             $users = [];
             foreach ($participants as $participant) {
                 $users[] = $participant->getUser();
@@ -60,6 +61,10 @@ class IssueType extends AbstractType
                 ->add('priority', 'entity', [
                     'class'   => 'Kreta\Component\Project\Model\IssuePriority',
                     'choices' => $priorities
+                ])
+                ->add('parent', 'entity', [
+                    'class'   => 'Kreta\Component\Issue\Model\Issue',
+                    'choices' => $issues
                 ])
                 ->add('type', 'entity', [
                     'class'   => 'Kreta\Component\Project\Model\IssueType',
@@ -105,6 +110,8 @@ class IssueType extends AbstractType
             ? new IssuePriority()
             : $form->get('priority')->getData();
 
-        return $this->factory->create($this->user, $type, $priority, $form->get('project')->getData());
+        return $this->factory->create(
+            $this->user, $type, $priority, $form->get('project')->getData(), $form->get('parent')->getData()
+        );
     }
 }

@@ -75,13 +75,14 @@ Feature: Manage issue
       | Test project 2 | user2@kreta.com | ROLE_PARTICIPANT |
       | Test project 2 | user4@kreta.com | ROLE_PARTICIPANT |
     And the following issues exist:
-      | id | numericId | project        | title        | description | reporter        | assignee        | type | status   | priority | createdAt  | labels                                   |
-      | 0  | 1         | Test project 1 | Test issue 1 | Description | user@kreta.com  | user@kreta.com  | 2    | Open     | 1        | 2014-12-15 | backbone.js,javascript,bdd,symfony,css3  |
-      | 1  | 2         | Test project 1 | Test issue 2 | Description | user@kreta.com  | user@kreta.com  | 1    | Resolved | 0        | 2014-11-07 | backbone.js,javascript,bdd,symfony,css3  |
-      | 2  | 3         | Test project 1 | Test issue 3 | Description | user@kreta.com  | user@kreta.com  | 1    | Resolved | 2        | 2014-10-21 | backbone.js,javascript,bdd,mysql,mongodb |
-      | 3  | 1         | Test project 2 | Test issue 1 | Description | user@kreta.com  | user4@kreta.com | 3    | Resolved | 5        | 2014-10-21 | php,behat,phpspec,html5,compass          |
-      | 4  | 2         | Test project 2 | Test issue 1 | Description | user4@kreta.com | user@kreta.com  | 4    | Resolved | 4        | 2014-10-21 | php,behat,phpspec,html5,compass          |
-      | 5  | 4         | Test project 1 | Test issue 4 | Description | user2@kreta.com | user@kreta.com  | 0    | Closed   | 3        | 2014-10-21 | backbone.js,javascript,bdd,mysql,mongodb |
+      | id | numericId | project        | title        | description | reporter        | assignee        | type | status   | priority | createdAt  | labels                                   | parent |
+      | 0  | 1         | Test project 1 | Test issue 1 | Description | user@kreta.com  | user@kreta.com  | 2    | Open     | 1        | 2014-12-15 | backbone.js,javascript,bdd,symfony,css3  |        |
+      | 1  | 2         | Test project 1 | Test issue 2 | Description | user@kreta.com  | user@kreta.com  | 1    | Resolved | 0        | 2014-11-07 | backbone.js,javascript,bdd,symfony,css3  |        |
+      | 2  | 3         | Test project 1 | Test issue 3 | Description | user@kreta.com  | user@kreta.com  | 1    | Resolved | 2        | 2014-10-21 | backbone.js,javascript,bdd,mysql,mongodb |        |
+      | 3  | 1         | Test project 2 | Test issue 1 | Description | user@kreta.com  | user4@kreta.com | 3    | Resolved | 5        | 2014-10-21 | php,behat,phpspec,html5,compass          |        |
+      | 4  | 2         | Test project 2 | Test issue 1 | Description | user4@kreta.com | user@kreta.com  | 4    | Resolved | 4        | 2014-10-21 | php,behat,phpspec,html5,compass          |        |
+      | 5  | 4         | Test project 1 | Test issue 4 | Description | user2@kreta.com | user@kreta.com  | 0    | Closed   | 3        | 2014-10-21 | backbone.js,javascript,bdd,mysql,mongodb |        |
+      | 6  | 3         | Test project 2 | Test issue 3 | Description | user4@kreta.com | user@kreta.com  | 4    | Resolved | 4        | 2014-10-22 | php,behat,phpspec,html5,compass          | 4      |
     And the following tokens exist:
       | token          | expiresAt | scope | user            |
       | access-token-0 | null      | user  | user@kreta.com  |
@@ -104,6 +105,7 @@ Feature: Manage issue
             "first_name": "Kreta",
             "last_name": "User"
           },
+          "children": [],
           "created_at": "2014-12-15T00:00:00+0100",
           "description": "Description",
           "labels": [
@@ -170,6 +172,7 @@ Feature: Manage issue
             "first_name": "Kreta",
             "last_name": "User4"
           },
+          "children": [],
           "created_at": "2014-10-21T00:00:00+0200",
           "description": "Description",
           "labels": [
@@ -236,6 +239,75 @@ Feature: Manage issue
             "first_name": "Kreta",
             "last_name": "User"
           },
+          "children": [
+            {
+              "id": "6",
+              "assignee": {
+                "id": "0",
+                "email": "user@kreta.com",
+                "first_name": "Kreta",
+                "last_name": "User"
+              },
+              "children": [],
+              "created_at": "2014-10-22T00:00:00+0200",
+              "description": "Description",
+              "labels": [
+                {
+                  "id": "1",
+                  "name": "php"
+                },
+                {
+                  "id": "10",
+                  "name": "compass"
+                },
+                {
+                  "id": "4",
+                  "name": "behat"
+                },
+                {
+                  "id": "5",
+                  "name": "phpspec"
+                },
+                {
+                  "id": "7",
+                  "name": "html5"
+                }
+              ],
+              "numeric_id": 3,
+              "priority": {
+                "id": "4",
+                "name": "Low"
+              },
+              "reporter": {
+                "id": "3",
+                "email": "user4@kreta.com",
+                "first_name": "Kreta",
+                "last_name": "User4"
+              },
+              "status": {
+                "type": "normal",
+                "name": "Resolved",
+                "id": "2",
+                "color": "#f1c40f"
+              },
+              "title": "Test issue 3",
+              "type": {
+                "id": "4",
+                "name": "Error"
+              },
+              "_links": {
+                "self": {
+                  "href": "http://localhost/app_test.php/api/issues/6"
+                },
+                "project": {
+                  "href": "http://localhost/app_test.php/api/projects/1"
+                },
+                "issues": {
+                  "href": "http://localhost/app_test.php/api/issues"
+                }
+              }
+            }
+          ],
           "created_at": "2014-10-21T00:00:00+0200",
           "description": "Description",
           "labels": [
@@ -302,6 +374,7 @@ Feature: Manage issue
             "first_name": "Kreta",
             "last_name": "User"
           },
+          "children": [],
           "created_at": "2014-11-07T00:00:00+0100",
           "description": "Description",
           "labels": [
@@ -368,6 +441,7 @@ Feature: Manage issue
             "first_name": "Kreta",
             "last_name": "User"
           },
+          "children": [],
           "created_at": "2014-10-21T00:00:00+0200",
           "description": "Description",
           "labels": [
@@ -427,6 +501,140 @@ Feature: Manage issue
           }
         },
         {
+          "id": "6",
+          "assignee": {
+            "id": "0",
+            "email": "user@kreta.com",
+            "first_name": "Kreta",
+            "last_name": "User"
+          },
+          "children": [],
+          "created_at": "2014-10-22T00:00:00+0200",
+          "description": "Description",
+          "labels": [
+            {
+              "id": "1",
+              "name": "php"
+            },
+            {
+              "id": "10",
+              "name": "compass"
+            },
+            {
+              "id": "4",
+              "name": "behat"
+            },
+            {
+              "id": "5",
+              "name": "phpspec"
+            },
+            {
+              "id": "7",
+              "name": "html5"
+            }
+          ],
+          "numeric_id": 3,
+          "parent": {
+            "id": "4",
+            "assignee": {
+              "id": "0",
+              "email": "user@kreta.com",
+              "first_name": "Kreta",
+              "last_name": "User"
+            },
+            "children": [],
+            "created_at": "2014-10-21T00:00:00+0200",
+            "description": "Description",
+            "labels": [
+              {
+                "id": "1",
+                "name": "php"
+              },
+              {
+                "id": "10",
+                "name": "compass"
+              },
+              {
+                "id": "4",
+                "name": "behat"
+              },
+              {
+                "id": "5",
+                "name": "phpspec"
+              },
+              {
+                "id": "7",
+                "name": "html5"
+              }
+            ],
+            "numeric_id": 2,
+            "priority": {
+              "id": "4",
+              "name": "Low"
+            },
+            "reporter": {
+              "id": "3",
+              "email": "user4@kreta.com",
+              "first_name": "Kreta",
+              "last_name": "User4"
+            },
+            "status": {
+              "type": "normal",
+              "name": "Resolved",
+              "id": "2",
+              "color": "#f1c40f"
+            },
+            "title": "Test issue 1",
+            "type": {
+              "id": "4",
+              "name": "Error"
+            },
+            "_links": {
+              "self": {
+                "href": "http://localhost/app_test.php/api/issues/4"
+              },
+              "project": {
+                "href": "http://localhost/app_test.php/api/projects/1"
+              },
+              "issues": {
+                "href": "http://localhost/app_test.php/api/issues"
+              }
+            }
+          },
+          "priority": {
+            "id": "4",
+            "name": "Low"
+          },
+          "reporter": {
+            "id": "3",
+            "email": "user4@kreta.com",
+            "first_name": "Kreta",
+            "last_name": "User4"
+          },
+          "status": {
+            "type": "normal",
+            "name": "Resolved",
+            "id": "2",
+            "color": "#f1c40f"
+          },
+          "title": "Test issue 3",
+          "type": {
+            "id": "4",
+            "name": "Error"
+          },
+          "_links": {
+            "self": {
+              "href": "http://localhost/app_test.php/api/issues/6"
+            },
+            "project": {
+              "href": "http://localhost/app_test.php/api/projects/1"
+            },
+            "issues": {
+              "href": "http://localhost/app_test.php/api/issues"
+            }
+          }
+        },
+        {
           "id": "5",
           "assignee": {
             "id": "0",
@@ -434,6 +642,7 @@ Feature: Manage issue
             "first_name": "Kreta",
             "last_name": "User"
           },
+          "children": [],
           "created_at": "2014-10-21T00:00:00+0200",
           "description": "Description",
           "labels": [
@@ -514,6 +723,7 @@ Feature: Manage issue
             "first_name": "Kreta",
             "last_name": "User"
           },
+          "children": [],
           "created_at": "2014-12-15T00:00:00+0100",
           "description": "Description",
           "labels": [
@@ -580,6 +790,7 @@ Feature: Manage issue
             "first_name": "Kreta",
             "last_name": "User"
           },
+          "children": [],
           "created_at": "2014-11-07T00:00:00+0100",
           "description": "Description",
           "labels": [
@@ -646,6 +857,7 @@ Feature: Manage issue
             "first_name": "Kreta",
             "last_name": "User"
           },
+          "children": [],
           "created_at": "2014-10-21T00:00:00+0200",
           "description": "Description",
           "labels": [
@@ -712,6 +924,7 @@ Feature: Manage issue
             "first_name": "Kreta",
             "last_name": "User"
           },
+          "children": [],
           "created_at": "2014-10-21T00:00:00+0200",
           "description": "Description",
           "labels": [
@@ -792,6 +1005,7 @@ Feature: Manage issue
             "first_name": "Kreta",
             "last_name": "User"
           },
+          "children": [],
           "created_at": "2014-10-21T00:00:00+0200",
           "description": "Description",
           "labels": [
@@ -858,6 +1072,7 @@ Feature: Manage issue
             "first_name": "Kreta",
             "last_name": "User"
           },
+          "children": [],
           "created_at": "2014-10-21T00:00:00+0200",
           "description": "Description",
           "labels": [
@@ -928,6 +1143,7 @@ Feature: Manage issue
             "first_name": "Kreta",
             "last_name": "User4"
           },
+          "children": [],
           "created_at": "2014-10-21T00:00:00+0200",
           "description": "Description",
           "labels": [
@@ -994,6 +1210,75 @@ Feature: Manage issue
             "first_name": "Kreta",
             "last_name": "User"
           },
+          "children": [
+            {
+              "id": "6",
+              "assignee": {
+                "id": "0",
+                "email": "user@kreta.com",
+                "first_name": "Kreta",
+                "last_name": "User"
+              },
+              "children": [],
+              "created_at": "2014-10-22T00:00:00+0200",
+              "description": "Description",
+              "labels": [
+                {
+                  "id": "1",
+                  "name": "php"
+                },
+                {
+                  "id": "10",
+                  "name": "compass"
+                },
+                {
+                  "id": "4",
+                  "name": "behat"
+                },
+                {
+                  "id": "5",
+                  "name": "phpspec"
+                },
+                {
+                  "id": "7",
+                  "name": "html5"
+                }
+              ],
+              "numeric_id": 3,
+              "priority": {
+                "id": "4",
+                "name": "Low"
+              },
+              "reporter": {
+                "id": "3",
+                "email": "user4@kreta.com",
+                "first_name": "Kreta",
+                "last_name": "User4"
+              },
+              "status": {
+                "type": "normal",
+                "name": "Resolved",
+                "id": "2",
+                "color": "#f1c40f"
+              },
+              "title": "Test issue 3",
+              "type": {
+                "id": "4",
+                "name": "Error"
+              },
+              "_links": {
+                "self": {
+                  "href": "http://localhost/app_test.php/api/issues/6"
+                },
+                "project": {
+                  "href": "http://localhost/app_test.php/api/projects/1"
+                },
+                "issues": {
+                  "href": "http://localhost/app_test.php/api/issues"
+                }
+              }
+            }
+          ],
           "created_at": "2014-10-21T00:00:00+0200",
           "description": "Description",
           "labels": [
@@ -1053,6 +1338,140 @@ Feature: Manage issue
           }
         },
         {
+          "id": "6",
+          "assignee": {
+            "id": "0",
+            "email": "user@kreta.com",
+            "first_name": "Kreta",
+            "last_name": "User"
+          },
+          "children": [],
+          "created_at": "2014-10-22T00:00:00+0200",
+          "description": "Description",
+          "labels": [
+            {
+              "id": "1",
+              "name": "php"
+            },
+            {
+              "id": "10",
+              "name": "compass"
+            },
+            {
+              "id": "4",
+              "name": "behat"
+            },
+            {
+              "id": "5",
+              "name": "phpspec"
+            },
+            {
+              "id": "7",
+              "name": "html5"
+            }
+          ],
+          "numeric_id": 3,
+          "parent": {
+            "id": "4",
+            "assignee": {
+              "id": "0",
+              "email": "user@kreta.com",
+              "first_name": "Kreta",
+              "last_name": "User"
+            },
+            "children": [],
+            "created_at": "2014-10-21T00:00:00+0200",
+            "description": "Description",
+            "labels": [
+              {
+                "id": "1",
+                "name": "php"
+              },
+              {
+                "id": "10",
+                "name": "compass"
+              },
+              {
+                "id": "4",
+                "name": "behat"
+              },
+              {
+                "id": "5",
+                "name": "phpspec"
+              },
+              {
+                "id": "7",
+                "name": "html5"
+              }
+            ],
+            "numeric_id": 2,
+            "priority": {
+              "id": "4",
+              "name": "Low"
+            },
+            "reporter": {
+              "id": "3",
+              "email": "user4@kreta.com",
+              "first_name": "Kreta",
+              "last_name": "User4"
+            },
+            "status": {
+              "type": "normal",
+              "name": "Resolved",
+              "id": "2",
+              "color": "#f1c40f"
+            },
+            "title": "Test issue 1",
+            "type": {
+              "id": "4",
+              "name": "Error"
+            },
+            "_links": {
+              "self": {
+                "href": "http://localhost/app_test.php/api/issues/4"
+              },
+              "project": {
+                "href": "http://localhost/app_test.php/api/projects/1"
+              },
+              "issues": {
+                "href": "http://localhost/app_test.php/api/issues"
+              }
+            }
+          },
+          "priority": {
+            "id": "4",
+            "name": "Low"
+          },
+          "reporter": {
+            "id": "3",
+            "email": "user4@kreta.com",
+            "first_name": "Kreta",
+            "last_name": "User4"
+          },
+          "status": {
+            "type": "normal",
+            "name": "Resolved",
+            "id": "2",
+            "color": "#f1c40f"
+          },
+          "title": "Test issue 3",
+          "type": {
+            "id": "4",
+            "name": "Error"
+          },
+          "_links": {
+            "self": {
+              "href": "http://localhost/app_test.php/api/issues/6"
+            },
+            "project": {
+              "href": "http://localhost/app_test.php/api/projects/1"
+            },
+            "issues": {
+              "href": "http://localhost/app_test.php/api/issues"
+            }
+          }
+        },
+        {
           "id": "1",
           "assignee": {
             "id": "0",
@@ -1060,6 +1479,7 @@ Feature: Manage issue
             "first_name": "Kreta",
             "last_name": "User"
           },
+          "children": [],
           "created_at": "2014-11-07T00:00:00+0100",
           "description": "Description",
           "labels": [
@@ -1126,6 +1546,7 @@ Feature: Manage issue
             "first_name": "Kreta",
             "last_name": "User"
           },
+          "children": [],
           "created_at": "2014-12-15T00:00:00+0100",
           "description": "Description",
           "labels": [
@@ -1202,6 +1623,7 @@ Feature: Manage issue
             "first_name": "Kreta",
             "last_name": "User4"
           },
+          "children": [],
           "created_at": "2014-10-21T00:00:00+0200",
           "description": "Description",
           "labels": [
@@ -1278,6 +1700,75 @@ Feature: Manage issue
             "first_name": "Kreta",
             "last_name": "User"
           },
+          "children": [
+            {
+              "id": "6",
+              "assignee": {
+                "id": "0",
+                "email": "user@kreta.com",
+                "first_name": "Kreta",
+                "last_name": "User"
+              },
+              "children": [],
+              "created_at": "2014-10-22T00:00:00+0200",
+              "description": "Description",
+              "labels": [
+                {
+                  "id": "1",
+                  "name": "php"
+                },
+                {
+                  "id": "10",
+                  "name": "compass"
+                },
+                {
+                  "id": "4",
+                  "name": "behat"
+                },
+                {
+                  "id": "5",
+                  "name": "phpspec"
+                },
+                {
+                  "id": "7",
+                  "name": "html5"
+                }
+              ],
+              "numeric_id": 3,
+              "priority": {
+                "id": "4",
+                "name": "Low"
+              },
+              "reporter": {
+                "id": "3",
+                "email": "user4@kreta.com",
+                "first_name": "Kreta",
+                "last_name": "User4"
+              },
+              "status": {
+                "type": "normal",
+                "name": "Resolved",
+                "id": "2",
+                "color": "#f1c40f"
+              },
+              "title": "Test issue 3",
+              "type": {
+                "id": "4",
+                "name": "Error"
+              },
+              "_links": {
+                "self": {
+                  "href": "http://localhost/app_test.php/api/issues/6"
+                },
+                "project": {
+                  "href": "http://localhost/app_test.php/api/projects/1"
+                },
+                "issues": {
+                  "href": "http://localhost/app_test.php/api/issues"
+                }
+              }
+            }
+          ],
           "created_at": "2014-10-21T00:00:00+0200",
           "description": "Description",
           "labels": [
@@ -1335,6 +1826,140 @@ Feature: Manage issue
               "href": "http://localhost/app_test.php/api/issues"
             }
           }
+        },
+        {
+          "id": "6",
+          "assignee": {
+            "id": "0",
+            "email": "user@kreta.com",
+            "first_name": "Kreta",
+            "last_name": "User"
+          },
+          "children": [],
+          "created_at": "2014-10-22T00:00:00+0200",
+          "description": "Description",
+          "labels": [
+            {
+              "id": "1",
+              "name": "php"
+            },
+            {
+              "id": "10",
+              "name": "compass"
+            },
+            {
+              "id": "4",
+              "name": "behat"
+            },
+            {
+              "id": "5",
+              "name": "phpspec"
+            },
+            {
+              "id": "7",
+              "name": "html5"
+            }
+          ],
+          "numeric_id": 3,
+          "parent": {
+            "id": "4",
+            "assignee": {
+              "id": "0",
+              "email": "user@kreta.com",
+              "first_name": "Kreta",
+              "last_name": "User"
+            },
+            "children": [],
+            "created_at": "2014-10-21T00:00:00+0200",
+            "description": "Description",
+            "labels": [
+              {
+                "id": "1",
+                "name": "php"
+              },
+              {
+                "id": "10",
+                "name": "compass"
+              },
+              {
+                "id": "4",
+                "name": "behat"
+              },
+              {
+                "id": "5",
+                "name": "phpspec"
+              },
+              {
+                "id": "7",
+                "name": "html5"
+              }
+            ],
+            "numeric_id": 2,
+            "priority": {
+              "id": "4",
+              "name": "Low"
+            },
+            "reporter": {
+              "id": "3",
+              "email": "user4@kreta.com",
+              "first_name": "Kreta",
+              "last_name": "User4"
+            },
+            "status": {
+              "type": "normal",
+              "name": "Resolved",
+              "id": "2",
+              "color": "#f1c40f"
+            },
+            "title": "Test issue 1",
+            "type": {
+              "id": "4",
+              "name": "Error"
+            },
+            "_links": {
+              "self": {
+                "href": "http://localhost/app_test.php/api/issues/4"
+              },
+              "project": {
+                "href": "http://localhost/app_test.php/api/projects/1"
+              },
+              "issues": {
+                "href": "http://localhost/app_test.php/api/issues"
+              }
+            }
+          },
+          "priority": {
+            "id": "4",
+            "name": "Low"
+          },
+          "reporter": {
+            "id": "3",
+            "email": "user4@kreta.com",
+            "first_name": "Kreta",
+            "last_name": "User4"
+          },
+          "status": {
+            "type": "normal",
+            "name": "Resolved",
+            "id": "2",
+            "color": "#f1c40f"
+          },
+          "title": "Test issue 3",
+          "type": {
+            "id": "4",
+            "name": "Error"
+          },
+          "_links": {
+            "self": {
+              "href": "http://localhost/app_test.php/api/issues/6"
+            },
+            "project": {
+              "href": "http://localhost/app_test.php/api/projects/1"
+            },
+            "issues": {
+              "href": "http://localhost/app_test.php/api/issues"
+            }
+          }
         }
       ]
     """
@@ -1354,6 +1979,7 @@ Feature: Manage issue
             "first_name": "Kreta",
             "last_name": "User"
           },
+          "children": [],
           "created_at": "2014-11-07T00:00:00+0100",
           "description": "Description",
           "labels": [
@@ -1430,6 +2056,7 @@ Feature: Manage issue
             "first_name": "Kreta",
             "last_name": "User"
           },
+          "children": [],
           "created_at": "2014-10-21T00:00:00+0200",
           "description": "Description",
           "labels": [
@@ -1510,6 +2137,7 @@ Feature: Manage issue
             "first_name": "Kreta",
             "last_name": "User4"
           },
+          "children": [],
           "created_at": "2014-10-21T00:00:00+0200",
           "description": "Description",
           "labels": [
@@ -1586,6 +2214,7 @@ Feature: Manage issue
             "first_name": "Kreta",
             "last_name": "User"
           },
+          "children": [],
           "created_at": "2014-10-21T00:00:00+0200",
           "description": "Description",
           "labels": [
@@ -1666,6 +2295,7 @@ Feature: Manage issue
             "first_name": "Kreta",
             "last_name": "User"
           },
+          "children": [],
           "created_at": "2014-12-15T00:00:00+0100",
           "description": "Description",
           "labels": [
@@ -1732,6 +2362,7 @@ Feature: Manage issue
             "first_name": "Kreta",
             "last_name": "User4"
           },
+          "children": [],
           "created_at": "2014-10-21T00:00:00+0200",
           "description": "Description",
           "labels": [
@@ -1808,6 +2439,75 @@ Feature: Manage issue
             "first_name": "Kreta",
             "last_name": "User"
           },
+          "children": [
+            {
+              "id": "6",
+              "assignee": {
+                "id": "0",
+                "email": "user@kreta.com",
+                "first_name": "Kreta",
+                "last_name": "User"
+              },
+              "children": [],
+              "created_at": "2014-10-22T00:00:00+0200",
+              "description": "Description",
+              "labels": [
+                {
+                  "id": "1",
+                  "name": "php"
+                },
+                {
+                  "id": "10",
+                  "name": "compass"
+                },
+                {
+                  "id": "4",
+                  "name": "behat"
+                },
+                {
+                  "id": "5",
+                  "name": "phpspec"
+                },
+                {
+                  "id": "7",
+                  "name": "html5"
+                }
+              ],
+              "numeric_id": 3,
+              "priority": {
+                "id": "4",
+                "name": "Low"
+              },
+              "reporter": {
+                "id": "3",
+                "email": "user4@kreta.com",
+                "first_name": "Kreta",
+                "last_name": "User4"
+              },
+              "status": {
+                "type": "normal",
+                "name": "Resolved",
+                "id": "2",
+                "color": "#f1c40f"
+              },
+              "title": "Test issue 3",
+              "type": {
+                "id": "4",
+                "name": "Error"
+              },
+              "_links": {
+                "self": {
+                  "href": "http://localhost/app_test.php/api/issues/6"
+                },
+                "project": {
+                  "href": "http://localhost/app_test.php/api/projects/1"
+                },
+                "issues": {
+                  "href": "http://localhost/app_test.php/api/issues"
+                }
+              }
+            }
+          ],
           "created_at": "2014-10-21T00:00:00+0200",
           "description": "Description",
           "labels": [
@@ -1874,6 +2574,7 @@ Feature: Manage issue
             "first_name": "Kreta",
             "last_name": "User"
           },
+          "children": [],
           "created_at": "2014-11-07T00:00:00+0100",
           "description": "Description",
           "labels": [
@@ -1940,6 +2641,7 @@ Feature: Manage issue
             "first_name": "Kreta",
             "last_name": "User"
           },
+          "children": [],
           "created_at": "2014-10-21T00:00:00+0200",
           "description": "Description",
           "labels": [
@@ -1999,6 +2701,140 @@ Feature: Manage issue
           }
         },
         {
+          "id": "6",
+          "assignee": {
+            "id": "0",
+            "email": "user@kreta.com",
+            "first_name": "Kreta",
+            "last_name": "User"
+          },
+          "children": [],
+          "created_at": "2014-10-22T00:00:00+0200",
+          "description": "Description",
+          "labels": [
+            {
+              "id": "1",
+              "name": "php"
+            },
+            {
+              "id": "10",
+              "name": "compass"
+            },
+            {
+              "id": "4",
+              "name": "behat"
+            },
+            {
+              "id": "5",
+              "name": "phpspec"
+            },
+            {
+              "id": "7",
+              "name": "html5"
+            }
+          ],
+          "numeric_id": 3,
+          "parent": {
+            "id": "4",
+            "assignee": {
+              "id": "0",
+              "email": "user@kreta.com",
+              "first_name": "Kreta",
+              "last_name": "User"
+            },
+            "children": [],
+            "created_at": "2014-10-21T00:00:00+0200",
+            "description": "Description",
+            "labels": [
+              {
+                "id": "1",
+                "name": "php"
+              },
+              {
+                "id": "10",
+                "name": "compass"
+              },
+              {
+                "id": "4",
+                "name": "behat"
+              },
+              {
+                "id": "5",
+                "name": "phpspec"
+              },
+              {
+                "id": "7",
+                "name": "html5"
+              }
+            ],
+            "numeric_id": 2,
+            "priority": {
+              "id": "4",
+              "name": "Low"
+            },
+            "reporter": {
+              "id": "3",
+              "email": "user4@kreta.com",
+              "first_name": "Kreta",
+              "last_name": "User4"
+            },
+            "status": {
+              "type": "normal",
+              "name": "Resolved",
+              "id": "2",
+              "color": "#f1c40f"
+            },
+            "title": "Test issue 1",
+            "type": {
+              "id": "4",
+              "name": "Error"
+            },
+            "_links": {
+              "self": {
+                "href": "http://localhost/app_test.php/api/issues/4"
+              },
+              "project": {
+                "href": "http://localhost/app_test.php/api/projects/1"
+              },
+              "issues": {
+                "href": "http://localhost/app_test.php/api/issues"
+              }
+            }
+          },
+          "priority": {
+            "id": "4",
+            "name": "Low"
+          },
+          "reporter": {
+            "id": "3",
+            "email": "user4@kreta.com",
+            "first_name": "Kreta",
+            "last_name": "User4"
+          },
+          "status": {
+            "type": "normal",
+            "name": "Resolved",
+            "id": "2",
+            "color": "#f1c40f"
+          },
+          "title": "Test issue 3",
+          "type": {
+            "id": "4",
+            "name": "Error"
+          },
+          "_links": {
+            "self": {
+              "href": "http://localhost/app_test.php/api/issues/6"
+            },
+            "project": {
+              "href": "http://localhost/app_test.php/api/projects/1"
+            },
+            "issues": {
+              "href": "http://localhost/app_test.php/api/issues"
+            }
+          }
+        },
+        {
           "id": "5",
           "assignee": {
             "id": "0",
@@ -2006,6 +2842,7 @@ Feature: Manage issue
             "first_name": "Kreta",
             "last_name": "User"
           },
+          "children": [],
           "created_at": "2014-10-21T00:00:00+0200",
           "description": "Description",
           "labels": [
@@ -2085,6 +2922,7 @@ Feature: Manage issue
           "first_name": "Kreta",
           "last_name": "User"
         },
+        "children": [],
         "created_at": "2014-12-15T00:00:00+0100",
         "description": "Description",
         "labels": [
@@ -2167,7 +3005,7 @@ Feature: Manage issue
       }
     """
 
-  Scenario: Creating a issue
+  Scenario: Creating an issue
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
     When I send a POST request to "/app_test.php/api/issues" with body:
@@ -2183,7 +3021,24 @@ Feature: Manage issue
     """
     Then the response code should be 201
 
-  Scenario: Creating a issue assigning to user which is not a project participant
+  Scenario: Creating an issue with parent issue
+    Given I am authenticating with "access-token-0" token
+    Given I set header "content-type" with value "application/json"
+    When I send a POST request to "/app_test.php/api/issues" with body:
+    """
+      {
+        "title": "New issue",
+        "description": "The description",
+        "type": "0",
+        "priority": "0",
+        "project": "0",
+        "assignee": "1",
+        "parent": "1"
+      }
+    """
+    Then the response code should be 201
+
+  Scenario: Creating an issue assigning to user which is not a project participant
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
     When I send a POST request to "/app_test.php/api/issues" with body:
@@ -2207,7 +3062,7 @@ Feature: Manage issue
       }
     """
 
-  Scenario: Creating a issue with invalid priority
+  Scenario: Creating an issue with invalid priority
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
     When I send a POST request to "/app_test.php/api/issues" with body:
@@ -2231,7 +3086,7 @@ Feature: Manage issue
       }
     """
 
-  Scenario: Creating a issue with invalid issue type
+  Scenario: Creating an issue with invalid issue type
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
     When I send a POST request to "/app_test.php/api/issues" with body:
@@ -2255,7 +3110,32 @@ Feature: Manage issue
       }
     """
 
-  Scenario: Creating a issue without parameters
+  Scenario: Creating an issue with invalid parent issue
+    Given I am authenticating with "access-token-0" token
+    Given I set header "content-type" with value "application/json"
+    When I send a POST request to "/app_test.php/api/issues" with body:
+    """
+      {
+        "title": "New issue",
+        "description": "The description",
+        "type": "0",
+        "priority": "0",
+        "project": "0",
+        "assignee": "1",
+        "parent": "3"
+      }
+    """
+    Then the response code should be 400
+    And the response should contain json:
+    """
+      {
+        "parent": [
+          "This value is not valid."
+        ]
+      }
+    """
+
+  Scenario: Creating an issue without parameters
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
     When I send a POST request to "/app_test.php/api/issues" with body:
@@ -2273,7 +3153,7 @@ Feature: Manage issue
       }
     """
 
-  Scenario: Creating a issue without required parameters
+  Scenario: Creating an issue without required parameters
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
     When I send a POST request to "/app_test.php/api/issues" with body:
@@ -2300,7 +3180,7 @@ Feature: Manage issue
       }
     """
 
-  Scenario: Creating a issue with already exists title
+  Scenario: Creating an issue with already exists title
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
     When I send a POST request to "/app_test.php/api/issues" with body:
@@ -2412,6 +3292,97 @@ Feature: Manage issue
             "name": "http://localhost/app_test.php/media/image/user-2.jpg"
           }
         },
+        "children": [],
+        "created_at": "2014-12-15T00:00:00+0100",
+        "description": "The description",
+        "labels": [
+          {
+            "id": "0",
+            "name": "backbone.js"
+          },
+          {
+            "id": "2",
+            "name": "javascript"
+          },
+          {
+            "id": "3",
+            "name": "bdd"
+          },
+          {
+            "id": "6",
+            "name": "symfony"
+          },
+          {
+            "id": "8",
+            "name": "css3"
+          }
+        ],
+        "numeric_id": 1,
+        "priority": {
+          "id": "0",
+          "name": "Low"
+        },
+        "reporter": {
+          "id": "0",
+          "email": "user@kreta.com",
+          "first_name": "Kreta",
+          "last_name": "User"
+        },
+        "status": {
+          "type": "normal",
+          "name": "Open",
+          "id": "0",
+          "color": "#27ae60"
+        },
+        "title": "Test issue 1",
+        "type": {
+          "id": "0",
+          "name": "Bug"
+        },
+        "_links": {
+          "self": {
+            "href": "http://localhost/app_test.php/api/issues/0"
+          },
+          "project": {
+            "href": "http://localhost/app_test.php/api/projects/0"
+          },
+          "issues": {
+            "href": "http://localhost/app_test.php/api/issues"
+          }
+        }
+      }
+    """
+
+  Scenario: Updating the 0 issue with parent
+    Given I am authenticating with "access-token-0" token
+    Given I set header "content-type" with value "application/json"
+    When I send a PUT request to "/app_test.php/api/issues/0" with body:
+    """
+      {
+        "title": "Test issue 1",
+        "type": "0",
+        "priority": "0",
+        "description": "The description",
+        "project": "0",
+        "assignee": "1",
+        "parent": "2"
+      }
+    """
+    Then the response code should be 200
+    And the response should contain json:
+    """
+      {
+        "id": "0",
+        "assignee": {
+          "id": "1",
+          "email": "user2@kreta.com",
+          "first_name": "Kreta",
+          "last_name": "User2",
+          "photo": {
+            "id": "2",
+            "name": "http://localhost/app_test.php/media/image/user-2.jpg"
+          }
+        },
         "created_at": "2014-12-15T00:00:00+0100",
         "description": "The description",
         "labels": [
@@ -2487,6 +3458,31 @@ Feature: Manage issue
         "title": [],
         "description": [],
         "project": []
+      }
+    """
+
+  Scenario: Updating the 0 issue with invalid parent issue
+    Given I am authenticating with "access-token-0" token
+    Given I set header "content-type" with value "application/json"
+    When I send a PUT request to "/app_test.php/api/issues/0" with body:
+    """
+      {
+        "title": "New issue",
+        "description": "The description",
+        "type": "0",
+        "priority": "0",
+        "project": "0",
+        "assignee": "1",
+        "parent": "3"
+      }
+    """
+    Then the response code should be 400
+    And the response should contain json:
+    """
+      {
+        "parent": [
+          "This value is not valid."
+        ]
       }
     """
 

@@ -11,6 +11,7 @@
 
 namespace Kreta\Component\Issue\Factory;
 
+use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
 use Kreta\Component\Project\Model\Interfaces\IssueTypeInterface;
 use Kreta\Component\Project\Model\Interfaces\IssuePriorityInterface;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
@@ -47,6 +48,7 @@ class IssueFactory
      * @param \Kreta\Component\Project\Model\Interfaces\IssueTypeInterface     $type          The issue type
      * @param \Kreta\Component\Project\Model\Interfaces\IssuePriorityInterface $issuePriority The priority
      * @param \Kreta\Component\Project\Model\Interfaces\ProjectInterface|null  $project       The project
+     * @param \Kreta\Component\Issue\Model\Interfaces\IssueInterface           $parent        The parent issue
      *
      * @return \Kreta\Component\Issue\Model\Interfaces\IssueInterface
      */
@@ -54,7 +56,8 @@ class IssueFactory
         UserInterface $reporter,
         IssueTypeInterface $type,
         IssuePriorityInterface $issuePriority,
-        ProjectInterface $project = null
+        ProjectInterface $project = null,
+        IssueInterface $parent = null
     )
     {
         $issue = new $this->className();
@@ -68,6 +71,9 @@ class IssueFactory
                     break;
                 }
             }
+        }
+        if ($parent instanceof IssueInterface) {
+            $issue->setParent($parent);
         }
 
         return $issue

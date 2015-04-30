@@ -47,13 +47,18 @@ class IssueContext extends DefaultContext
                     $labels[] = $this->get('kreta_project.repository.label')->findOneBy(['name' => $labelName]);
                 }
             }
-
+            
             $issue = $this->get('kreta_issue.factory.issue')->create($reporter, $type, $priority, $project);
             $issue
                 ->setAssignee($assignee)
                 ->setStatus($status)
                 ->setTitle($issueData['title'])
                 ->setDescription($issueData['description']);
+
+            if ($issueData['parent']) {
+                $parent = $this->get('kreta_issue.repository.issue')->find($issueData['parent'], false);
+                $issue->setParent($parent);
+            }
 
             $this->setField($issue, 'labels', $labels);
             if (isset($issueData['numericId'])) {

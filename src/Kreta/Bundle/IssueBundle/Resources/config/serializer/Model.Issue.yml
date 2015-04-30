@@ -37,6 +37,9 @@ Kreta\Component\Issue\Model\Issue:
         assignee:
             expose: true
             groups: [issueList, issue]
+        children:
+            expose: true
+            groups: [issueList, issue]
         createdAt:
             expose: true
             groups: [issueList, issue]
@@ -47,6 +50,9 @@ Kreta\Component\Issue\Model\Issue:
             expose: true
             groups: [issueList, issue]
         numericId:
+            expose: true
+            groups: [issueList, issue]
+        parent:
             expose: true
             groups: [issueList, issue]
         priority:
