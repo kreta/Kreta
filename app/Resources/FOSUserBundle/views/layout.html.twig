@@ -1,15 +1,22 @@
 {% extends 'KretaWebBundle::layout.html.twig' %}
 
+{% block stylesheets %}
+    {% if app.debug %}
+        <link href="{{ asset('css/login.css') }}" media="screen" rel="stylesheet" type="text/css"/>
+    {% else %}
+        <link href="{{ asset('css/login.min.css') }}" media="screen" rel="stylesheet" type="text/css"/>
+    {% endif %}
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400' rel='stylesheet' type='text/css'>
+{% endblock %}
+
 {% block body %}
-<div class="row">
-    <div class="small-12 medium-8 large-6 small-centered column">
-        <div class="small-6 small-centered column text-center">
-            <a href="{{ url('kreta_web_homepage') }}">
-                <img class="logo" src="{{ asset(base_asset_img ~ 'logo.png') }}"/>
-            </a>
-        </div>
-    {% block fos_user_content %}
-    {% endblock fos_user_content %}
+    <div class="login-container spacer-2">
+        <p class="login-logo spacer-vertical-half">
+            <strong>kreta</strong>.io
+        </p>
+        {% block content %}
+        {% endblock %}
     </div>
 </div>
 {% endblock %}

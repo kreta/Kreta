@@ -9,9 +9,11 @@
 @import 'base/reset';
 @import 'base/colors';
 @import 'base/typography';
+@import 'base/generic';
 
 @import 'components/buttons';
 @import 'components/filter';
+@import 'components/form';
 @import 'components/selectors';
 @import 'components/user-interaction';
 @import 'components/tooltip';

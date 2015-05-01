@@ -1,7 +1,9 @@
+$font-open-sans: 'Open Sans', sans-serif;
+
 body {
-  font-family: 'Open Sans', sans-serif;
+  font-family: $font-open-sans;
 }
 
-strong {
-  font-weight: bold;
+.font-size-2 {
+  font-size: 2em;
 }

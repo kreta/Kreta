@@ -43,7 +43,7 @@ var license = [
 var assets = {
   images: basePath + 'img/**',
   javascripts: basePath + 'js/**/*.js',
-  sass: basePath + 'scss/app.scss',
+  sass: basePath + 'scss/**.scss',
   vendors: basePath + 'vendor/**'
 };
 
@@ -85,7 +85,6 @@ gulp.task('sass', [], function () {
         loadPath: true,
         errLogToConsole: true
      }))
-    .pipe(rename({basename: 'kreta'}))
     .pipe(autoprefixer())
     .pipe(sourcemaps.write())
     .pipe(gulp.dest(resultPath + 'css'));

@@ -1,0 +1,47 @@
+{% extends "FOSUserBundle::layout.html.twig" %}
+
+{% trans_default_domain 'FOSUserBundle' %}
+
+{% block content %}
+    {% if error %}
+        <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+    {% endif %}
+
+    <h1>Sign in to <strong>kreta.io</strong></h1>
+    <p>Enter your <strong>email address</strong> and <strong>password</strong>.</p>
+    <form class="spacer-vertical-2" action="{{ path("fos_user_security_check") }}" method="post">
+        <input type="hidden" name="_csrf_token" value="{{ csrf_token }}" />
+
+        <input type="text"
+               id="username"
+               name="_username"
+               placeholder="Email"
+               value="{{ last_username }}"
+               required="required"
+               autofocus />
+
+        <input type="password"
+               id="password"
+               name="_password"
+               placeholder="Password"
+               required="required" />
+
+        <button class="kreta-button green spacer-vertical-1" type="submit" id="_submit" name="_submit">
+            {{ 'security.login.submit'|trans }}
+        </button>
+
+        <p class="spacer-vertical-1">
+            <label for="remember_me">
+                <input type="checkbox" id="remember_me" name="_remember_me" value="on" />
+                {{ 'security.login.remember_me'|trans }}
+            </label>
+        </p>
+    </form>
+    <p>
+        <strong>Kreta.io</strong> is still in beta. If you notice any issue, please
+        <a href="http://github.com/kreta-io/kreta/issues">open a ticket</a>.</p>
+
+    <p class="font-size-2">
+        <a href="http://github.com/kreta-io"><i class="fa fa-github"></i></a>
+    </p>
+{% endblock content %}

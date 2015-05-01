@@ -1,0 +1,25 @@
+input, textarea {
+  border: 0;
+  width: 100%;
+  font-family: $font-open-sans;
+  font-size: 1.3em;
+  font-weight: lighter;
+  padding: .5em 0;
+
+  &:focus {
+    outline: 0;
+  }
+
+  &.big {
+    font-size: 2em;
+  }
+}
+
+input[type="checkbox"] {
+  display: inline-block;
+  width: auto;
+}
+
+textarea {
+  min-height: 200px;
+}

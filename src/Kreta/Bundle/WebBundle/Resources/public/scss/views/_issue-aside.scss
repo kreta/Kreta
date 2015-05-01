@@ -6,6 +6,7 @@
     font-size: 1.8em;
     font-weight: lighter;
     line-height: 1.3em;
+    margin: 0;
   }
 
   .description {
@@ -29,6 +30,7 @@
     line-height: 3.5em;
     text-align: center;
     width: 100%;
+    margin: 0;
 
     &.half {
       float: left;
@@ -76,6 +78,7 @@
 }
 
 .issue-tab-content {
+  background: $light-grey;
   border-top: 1px solid $main-grey;
   bottom: -330px;
   height: 400px;
