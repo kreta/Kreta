@@ -19,7 +19,7 @@
     ],
     "require": {
         "php":                                 ">=5.4",
-        "doctrine/orm":                        ">=2.2.3,<2.5.0",
+        "doctrine/orm":                        ">=2.2.3",
         "symfony/form":                        "~2.3"
     },
     "require-dev": {
