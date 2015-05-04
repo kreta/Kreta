@@ -50,15 +50,17 @@ class NotificationControllerSpec extends ObjectBehavior
         SecurityContextInterface $context,
         TokenInterface $token,
         UserInterface $user,
-        Request $request,
         ParamFetcher $paramFetcher,
         NotificationInterface $notification
     )
     {
         $container->get('kreta_notification.repository.notification')->shouldBeCalled()->willReturn($repository);
 
-        $container->has('security.context')->shouldBeCalled()->willReturn(true);
-        $container->get('security.context')->shouldBeCalled()->willReturn($context);
+        $container->has('security.context')->willReturn(true);
+        $container->has('security.token_storage')->willReturn(true);
+        $container->get('security.context')->willReturn($context);
+        $container->get('security.token_storage')->willReturn($context);
+
         $context->getToken()->shouldBeCalled()->willReturn($token);
         $token->getUser()->shouldBeCalled()->willReturn($user);
 
@@ -102,8 +104,11 @@ class NotificationControllerSpec extends ObjectBehavior
     {
         $container->get('kreta_notification.repository.notification')->shouldBeCalled()->willReturn($repository);
 
-        $container->has('security.context')->shouldBeCalled()->willReturn(true);
-        $container->get('security.context')->shouldBeCalled()->willReturn($context);
+        $container->has('security.context')->willReturn(true);
+        $container->has('security.token_storage')->willReturn(true);
+        $container->get('security.context')->willReturn($context);
+        $container->get('security.token_storage')->willReturn($context);
+
         $context->getToken()->shouldBeCalled()->willReturn($token);
         $token->getUser()->shouldBeCalled()->willReturn($user);
 

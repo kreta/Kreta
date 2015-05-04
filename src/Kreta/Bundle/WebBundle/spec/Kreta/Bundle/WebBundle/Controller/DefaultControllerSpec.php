@@ -48,14 +48,17 @@ class DefaultControllerSpec extends ObjectBehavior
 
     function it_renders_landing_if_not_logged_in(
         ContainerInterface $container,
-        SecurityContext $securityContext,
+        SecurityContext $context,
         TokenInterface $token,
         TwigEngine $engine
     )
     {
-        $container->has('security.context')->shouldBeCalled()->willReturn(true);
-        $container->get('security.context')->shouldBeCalled()->willReturn($securityContext);
-        $securityContext->getToken()->shouldBeCalled()->willReturn($token);
+        $container->has('security.context')->willReturn(true);
+        $container->has('security.token_storage')->willReturn(true);
+        $container->get('security.context')->willReturn($context);
+        $container->get('security.token_storage')->willReturn($context);
+
+        $context->getToken()->shouldBeCalled()->willReturn($token);
         $token->getUser()->shouldBeCalled()->willReturn(null);
 
         $container->get('templating')->shouldBeCalled()->willReturn($engine);
@@ -66,7 +69,7 @@ class DefaultControllerSpec extends ObjectBehavior
 
     function it_renders_dashboard_if_logged_in(
         ContainerInterface $container,
-        SecurityContext $securityContext,
+        SecurityContext $context,
         TokenInterface $token,
         UserInterface $user,
         EventDispatcherInterface $eventDispatcher,
@@ -77,9 +80,12 @@ class DefaultControllerSpec extends ObjectBehavior
         Response $response
     )
     {
-        $container->has('security.context')->shouldBeCalled()->willReturn(true);
-        $container->get('security.context')->shouldBeCalled()->willReturn($securityContext);
-        $securityContext->getToken()->shouldBeCalled()->willReturn($token);
+        $container->has('security.context')->willReturn(true);
+        $container->has('security.token_storage')->willReturn(true);
+        $container->get('security.context')->willReturn($context);
+        $container->get('security.token_storage')->willReturn($context);
+
+        $context->getToken()->shouldBeCalled()->willReturn($token);
         $token->getUser()->shouldBeCalled()->willReturn($user);
 
         $container->get('request')->shouldBeCalled()->willReturn($request);

@@ -39,11 +39,11 @@ class IssueStateMachine extends StateMachine
     /**
      * Loads a issue state machine.
      *
-     * @param \Kreta\Component\Issue\Model\Interfaces\IssueInterface                 $issue      The issue
-     * @param \Kreta\Component\Workflow\Model\Interfaces\StatusInterface[]           $statuses   A collection of
-     *                                                                                           statuses
-     * @param \Kreta\Component\Workflow\Model\Interfaces\StatusTransitionInterface[] transitions A collection of
-     *                                                                                           transitions
+     * @param \Kreta\Component\Issue\Model\Interfaces\IssueInterface                 $issue       The issue
+     * @param \Kreta\Component\Workflow\Model\Interfaces\StatusInterface[]           $statuses    A collection of
+     *                                                                                            statuses
+     * @param \Kreta\Component\Workflow\Model\Interfaces\StatusTransitionInterface[] $transitions A collection of
+     *                                                                                            transitions
      *
      * @return $this self Object
      */
@@ -72,7 +72,8 @@ class IssueStateMachine extends StateMachine
                 'class'         => 'Issue',
                 'property_path' => 'status',
                 'states'        => $this->getStates(),
-                'transitions'   => $this->getTransitions()
+                'transitions'   => $this->getTransitions(),
+                'guard' => true
             ]
         );
     }
