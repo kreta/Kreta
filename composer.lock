@@ -4,7 +4,7 @@
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "2b7fab977cf690497fcb63c88a19db5e",
+    "hash": "484c6cd8afabc3aee14237b0b9ead442",
     "packages": [
         {
             "name": "doctrine/annotations",
@@ -938,12 +938,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfSymfony/FOSUserBundle.git",
-                "reference": "10894cba4584c9f37f2f4c374608306fc5761a3f"
+                "reference": "92d5624f2a29e74d8fd9d2a94d7ed7998a8c2809"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/10894cba4584c9f37f2f4c374608306fc5761a3f",
-                "reference": "10894cba4584c9f37f2f4c374608306fc5761a3f",
+                "url": "https://api.github.com/repos/FriendsOfSymfony/FOSUserBundle/zipball/92d5624f2a29e74d8fd9d2a94d7ed7998a8c2809",
+                "reference": "92d5624f2a29e74d8fd9d2a94d7ed7998a8c2809",
                 "shasum": ""
             },
             "require": {
@@ -997,7 +997,7 @@
             "keywords": [
                 "User management"
             ],
-            "time": "2015-05-04 18:21:41"
+            "time": "2015-05-05 15:08:24"
         },
         {
             "name": "hwi/oauth-bundle",
