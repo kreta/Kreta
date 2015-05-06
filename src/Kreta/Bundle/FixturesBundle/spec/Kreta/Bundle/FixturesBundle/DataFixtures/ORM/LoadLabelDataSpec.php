@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file belongs to Kreta.
  * The source code of application includes a LICENSE file
  * with all information about license.
@@ -63,7 +63,7 @@ class LoadLabelDataSpec extends ObjectBehavior
         $this->load($manager);
     }
 
-    function it_gets_0_order()
+    function it_gets_2_order()
     {
         $this->getOrder()->shouldReturn(2);
     }

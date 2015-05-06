@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file belongs to Kreta.
  * The source code of application includes a LICENSE file
  * with all information about license.
@@ -15,8 +15,10 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Kreta\Component\Core\Model\Abstracts\AbstractModel;
 use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
 use Kreta\Component\Media\Model\Interfaces\MediaInterface;
+use Kreta\Component\Project\Model\Interfaces\IssueTypeInterface;
 use Kreta\Component\Project\Model\Interfaces\LabelInterface;
 use Kreta\Component\Project\Model\Interfaces\ParticipantInterface;
+use Kreta\Component\Project\Model\Interfaces\IssuePriorityInterface;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
@@ -43,6 +45,13 @@ class Project extends AbstractModel implements ProjectInterface
     protected $issues;
 
     /**
+     * Array that contains all the issue types of the project.
+     *
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     */
+    protected $issueTypes;
+
+    /**
      * Array that contains labels.
      *
      * @var \Doctrine\Common\Collections\ArrayCollection
@@ -64,6 +73,13 @@ class Project extends AbstractModel implements ProjectInterface
     protected $participants;
 
     /**
+     * Array that contains all the issue priorities of the project.
+     *
+     * @var \Doctrine\Common\Collections\ArrayCollection
+     */
+    protected $issuePriorities;
+
+    /**
      * The short name.
      *
      * @var string
@@ -83,8 +99,10 @@ class Project extends AbstractModel implements ProjectInterface
     public function __construct()
     {
         $this->issues = new ArrayCollection();
+        $this->issueTypes = new ArrayCollection();
         $this->labels = new ArrayCollection();
         $this->participants = new ArrayCollection();
+        $this->issuePriorities = new ArrayCollection();
     }
 
     /**
@@ -129,6 +147,34 @@ class Project extends AbstractModel implements ProjectInterface
     public function removeIssue(IssueInterface $issue)
     {
         $this->issues->removeElement($issue);
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getIssueTypes()
+    {
+        return $this->issueTypes;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function addIssueType(IssueTypeInterface $issueType)
+    {
+        $this->issueTypes[] = $issueType;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function removeIssueType(IssueTypeInterface $issueType)
+    {
+        $this->issueTypes->removeElement($issueType);
 
         return $this;
     }
@@ -207,6 +253,34 @@ class Project extends AbstractModel implements ProjectInterface
     public function removeParticipant(ParticipantInterface $participant)
     {
         $this->participants->removeElement($participant);
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getIssuePriorities()
+    {
+        return $this->issuePriorities;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function addIssuePriority(IssuePriorityInterface $issuePriority)
+    {
+        $this->issuePriorities[] = $issuePriority;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function removeIssuePriority(IssuePriorityInterface $issuePriority)
+    {
+        $this->issuePriorities->removeElement($issuePriority);
 
         return $this;
     }

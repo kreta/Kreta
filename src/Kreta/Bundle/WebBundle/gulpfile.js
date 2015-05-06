@@ -1,4 +1,4 @@
-/**
+/*
  * This file belongs to Kreta.
  * The source code of application includes a LICENSE file
  * with all information about license.
@@ -19,8 +19,9 @@ var imagemin = require('gulp-imagemin');
 var jshint = require('gulp-jshint');
 var minifyCSS = require('gulp-minify-css');
 var rename = require('gulp-rename');
-var sass = require('gulp-ruby-sass');
+var sass = require('gulp-sass');
 var scsslint = require('gulp-scss-lint');
+var sourcemaps = require('gulp-sourcemaps');
 var uglify = require('gulp-uglify');
 var pkg = require('./package.json');
 
@@ -28,7 +29,7 @@ var basePath = './../../../../web/bundles/kretaweb/';
 var resultPath = './../../../../web/';
 
 var license = [
-  '/**',
+  '/*',
   ' * <%= pkg.name %> - <%= pkg.description %>',
   ' * @version v<%= pkg.version %>',
   ' * @link    <%= pkg.homepage %>',
@@ -42,51 +43,59 @@ var license = [
 var assets = {
   images: basePath + 'img/**',
   javascripts: basePath + 'js/**/*.js',
-  sass: basePath + 'scss/app.scss',
+  sass: basePath + 'scss/**.scss',
   vendors: basePath + 'vendor/**'
 };
 
+var watch = {
+  sass: basePath + 'scss/**/*.scss'
+}
+
 gulp.task('clean', function () {
   del.sync([
-    resultPath + 'css/**',
-    resultPath + 'images/**',
-    resultPath + 'js/**',
-    resultPath + 'vendor/**'
+    resultPath + 'css*',
+    resultPath + 'images*',
+    resultPath + 'js*',
+    resultPath + 'vendor*'
   ], {force: true});
 });
 
-gulp.task('images', ['clean'], function () {
+gulp.task('images', function () {
   return gulp.src(assets.images)
     //.pipe(imagemin({optimizationLevel: 5}))
     .pipe(gulp.dest(resultPath + 'images'));
 });
 
-gulp.task('vendor', ['clean'], function () {
+gulp.task('vendor', function () {
   return gulp.src(assets.vendors)
     .pipe(gulp.dest(resultPath + 'vendor'));
 });
 
 gulp.task('scss-lint', function () {
-  return gulp.src(assets.sass)
+  return gulp.src(watch.sass)
     .pipe(scsslint());
 });
 
-gulp.task('sass', ['clean', 'scss-lint'], function () {
-  return sass(assets.sass, {
-      style: 'expanded',
-      lineNumbers: true,
-      loadPath: true
-    })
-    .pipe(rename({basename: 'kreta'}))
+gulp.task('sass', [], function () {
+  return gulp.src(assets.sass)
+    .pipe(sourcemaps.init())
+    .pipe(sass({
+        style: 'expanded',
+        lineNumbers: true,
+        loadPath: true,
+        errLogToConsole: true
+     }))
     .pipe(autoprefixer())
+    .pipe(sourcemaps.write())
     .pipe(gulp.dest(resultPath + 'css'));
 });
 
-gulp.task('sass:prod', ['clean', 'scss-lint'], function () {
-  return sass(assets.sass, {
-      style: 'compressed',
-      stopOnError: true 
-    })
+gulp.task('sass:prod', ['scss-lint'], function () {
+  return gulp.src(assets.sass)
+    .pipe(sass(assets.sass, {
+        style: 'compressed',
+        stopOnError: true
+    }))
     .pipe(rename({
       basename: 'kreta',
       suffix: '.min'
@@ -97,17 +106,17 @@ gulp.task('sass:prod', ['clean', 'scss-lint'], function () {
     .pipe(gulp.dest(resultPath + 'css'));
 });
 
-gulp.task('javascript', ['clean'], function () {
+gulp.task('javascript', function () {
   return gulp.src(assets.javascripts)
-    .pipe(jshint())
+    .pipe(jshint('.jshintrc'))
     .pipe(jshint.reporter('default'))
-    //.pipe(babel({blacklist: ['useStrict'], comments: false, modules: ['amd'] }))
+    .pipe(babel({blacklist: ['useStrict'], comments: false, modules: ['amd'] }))
     .pipe(gulp.dest(resultPath + 'js'));
 });
 
-gulp.task('javascript:prod', ['clean'], function () {
+gulp.task('javascript:prod', function () {
   return gulp.src(assets.javascripts)
-    //.pipe(babel({blacklist: ['useStrict'], comments: false, modules: ['amd'] }))
+    .pipe(babel({blacklist: ['useStrict'], comments: false, modules: ['amd'] }))
     .pipe(concat('kreta.min.js'))
     .pipe(uglify())
     .pipe(header(license, {pkg: pkg}))
@@ -116,7 +125,7 @@ gulp.task('javascript:prod', ['clean'], function () {
 
 gulp.task('watch', function () {
   gulp.watch(assets.javascripts, ['javascript']);
-  gulp.watch(assets.sass, ['sass']);
+  gulp.watch(watch.sass, ['sass']);
   gulp.watch(assets.images, ['images']);
 });
 

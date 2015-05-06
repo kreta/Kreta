@@ -11,7 +11,7 @@ parameters:
     database_port:                      ~
     database_name:                      kreta
     database_user:                      root
-    database_password:                  ~
+    database_password:                  root
 
     mailer_transport:                   smtp
     mailer_host:                        127.0.0.1
@@ -24,6 +24,8 @@ parameters:
     locale:                             en
     secret:                             23j12b3k54fgbpo23k2jb12ouh677khb456j
 
+    oauth.web.client_secret:            dummy-client-secret
+
     oauth.bitbucket.client_id:          client-id
     oauth.bitbucket.client_secret:      client-secret
 
@@ -35,6 +37,3 @@ parameters:
 
     locale:                             en
     secret:                             23j12b3k54fgbpo23k2jb12ouh677khb456j
-
-    ruby_bin:                           /usr/bin/env
-    compass_route:                      compass

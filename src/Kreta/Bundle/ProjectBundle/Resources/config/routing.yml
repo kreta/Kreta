@@ -9,6 +9,11 @@ kreta_api_project:
     type: rest
     resource: Kreta\Bundle\ProjectBundle\Controller\ProjectController
 
+kreta_api_issue_type:
+    type: rest
+    parent: kreta_api_project
+    resource: Kreta\Bundle\ProjectBundle\Controller\IssueTypeController
+
 kreta_api_label:
     type: rest
     parent: kreta_api_project
@@ -18,3 +23,8 @@ kreta_api_participant:
     type: rest
     parent: kreta_api_project
     resource: Kreta\Bundle\ProjectBundle\Controller\ParticipantController
+
+kreta_api_issue_priority:
+    type: rest
+    parent: kreta_api_project
+    resource: Kreta\Bundle\ProjectBundle\Controller\IssuePriorityController

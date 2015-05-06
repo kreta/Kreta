@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file belongs to Kreta.
  * The source code of application includes a LICENSE file
  * with all information about license.
@@ -72,6 +72,31 @@ interface ProjectInterface
     public function removeIssue(IssueInterface $issue);
 
     /**
+     * Gets issue types.
+     *
+     * @return \Kreta\Component\Project\Model\Interfaces\IssueTypeInterface[]
+     */
+    public function getIssueTypes();
+
+    /**
+     * Adds the issue type.
+     *
+     * @param \Kreta\Component\Project\Model\Interfaces\IssueTypeInterface $issueType The issue type
+     *
+     * @return $this self Object
+     */
+    public function addIssueType(IssueTypeInterface $issueType);
+
+    /**
+     * Removes the issue type.
+     *
+     * @param \Kreta\Component\Project\Model\Interfaces\IssueTypeInterface $issueType The issue type
+     *
+     * @return $this self Object
+     */
+    public function removeIssueType(IssueTypeInterface $issueType);
+
+    /**
      * Gets labels.
      *
      * @return \Kreta\Component\Project\Model\Interfaces\LabelInterface[]
@@ -136,6 +161,31 @@ interface ProjectInterface
      * @return $this self Object
      */
     public function removeParticipant(ParticipantInterface $participant);
+
+    /**
+     * Gets project issue priorities.
+     *
+     * @return \Kreta\Component\Project\Model\Interfaces\IssuePriorityInterface[]
+     */
+    public function getIssuePriorities();
+
+    /**
+     * Adds project issue priority.
+     *
+     * @param \Kreta\Component\Project\Model\Interfaces\IssuePriorityInterface $issuePriority The issue priority
+     *
+     * @return $this self Object
+     */
+    public function addIssuePriority(IssuePriorityInterface $issuePriority);
+
+    /**
+     * Removes project issue priority.
+     *
+     * @param \Kreta\Component\Project\Model\Interfaces\IssuePriorityInterface $issuePriority The issue priority
+     *
+     * @return $this self Object
+     */
+    public function removeIssuePriority(IssuePriorityInterface $issuePriority);
 
     /**
      * Gets short name.

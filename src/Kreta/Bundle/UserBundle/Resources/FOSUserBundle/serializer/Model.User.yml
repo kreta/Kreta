@@ -10,43 +10,43 @@ FOS\UserBundle\Model\User:
     properties:
         id:
             expose: true
-            groups: [self, projectList, project, issueList, issue, participantList, participant]
+            groups: [profile, projectList, project, issueList, issue, participantList, participant]
         email:
             expose: true
-            groups: [self, projectList, project, issueList, issue, participantList, participant]
+            groups: [profile, projectList, project, issueList, issue, participantList, participant]
         emailCanonical:
             expose: true
-            groups: [self]
+            groups: []
         enabled:
             expose: true
-            groups: [self]
+            groups: [profile]
         lastLogin:
             expose: true
-            groups: [self]
+            groups: [profile]
         confirmationToken:
             expose: true
-            groups: [self]
+            groups: []
         passwordRequestedAt:
             expose: true
-            groups: [self]
+            groups: []
         groups:
             expose: true
-            groups: [self]
+            groups: []
         locked:
             expose: true
-            groups: [self]
+            groups: []
         expired:
             expose: true
-            groups: [self]
+            groups: []
         expiresAt:
             expose: true
-            groups: [self]
+            groups: []
         roles:
             expose: true
-            groups: [self]
+            groups: []
         credentialsExpired:
             expose: true
-            groups: [self]
+            groups: []
         credentialsExpireAt:
             expose: true
-            groups: [self]
+            groups: []

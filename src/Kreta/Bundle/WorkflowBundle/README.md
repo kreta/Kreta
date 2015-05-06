@@ -5,7 +5,7 @@
 [![Coverage Status](https://img.shields.io/coveralls/kreta-io/WorkflowBundle.svg)](https://coveralls.io/r/kreta-io/WorkflowBundle)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/kreta-io/WorkflowBundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/kreta-io/WorkflowBundle/?branch=master)
 [![HHVM Status](http://hhvm.h4cc.de/badge/kreta/workflow-bundle.svg)](http://hhvm.h4cc.de/package/kreta/workflow-bundle)
-[![Total Downloads](https://poser.pugx.org/kreta/workflow-bundle/downloads.svg)](https://packagist.org/packages/kreta/workflow-bundle)
+[![Total Downloads](https://poser.pugx.org/kreta/workflow-bundle/downloads)](https://packagist.org/packages/kreta/workflow-bundle)
 
 [![Latest Stable Version](https://poser.pugx.org/kreta/workflow-bundle/v/stable.svg)](https://packagist.org/packages/kreta/workflow-bundle)
 [![Latest Unstable Version](https://poser.pugx.org/kreta/workflow-bundle/v/unstable.svg)](https://packagist.org/packages/kreta/workflow-bundle)

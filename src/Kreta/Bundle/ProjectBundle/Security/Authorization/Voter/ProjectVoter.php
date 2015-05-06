@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file belongs to Kreta.
  * The source code of application includes a LICENSE file
  * with all information about license.
@@ -31,6 +31,10 @@ class ProjectVoter extends AbstractVoter
     const CREATE_ISSUE = 'create_issue';
     const CREATE_LABEL = 'create_label';
     const DELETE_LABEL = 'delete_label';
+    const CREATE_ISSUE_TYPE = 'create_issue_type';
+    const DELETE_ISSUE_TYPE = 'delete_issue_type';
+    const CREATE_PRIORITY = 'create_priority';
+    const DELETE_PRIORITY = 'delete_priority';
 
     /**
      * {@inheritdoc}
@@ -43,7 +47,11 @@ class ProjectVoter extends AbstractVoter
         self::VIEW,
         self::CREATE_ISSUE,
         self::CREATE_LABEL,
-        self::DELETE_LABEL
+        self::DELETE_LABEL,
+        self::CREATE_ISSUE_TYPE,
+        self::DELETE_ISSUE_TYPE,
+        self::CREATE_PRIORITY,
+        self::DELETE_PRIORITY
     ];
 
     /**
@@ -63,6 +71,8 @@ class ProjectVoter extends AbstractVoter
             case self::EDIT_ROLE_PARTICIPANT:
             case self::EDIT:
             case self::DELETE_LABEL:
+            case self::DELETE_ISSUE_TYPE:
+            case self::DELETE_PRIORITY:
                 if ($project->getUserRole($user) === 'ROLE_ADMIN') {
                     return VoterInterface::ACCESS_GRANTED;
                 }
@@ -70,6 +80,8 @@ class ProjectVoter extends AbstractVoter
             case self::VIEW:
             case self::CREATE_ISSUE:
             case self::CREATE_LABEL:
+            case self::CREATE_ISSUE_TYPE:
+            case self::CREATE_PRIORITY:
                 if ($project->getUserRole($user) !== null) {
                     return VoterInterface::ACCESS_GRANTED;
                 }

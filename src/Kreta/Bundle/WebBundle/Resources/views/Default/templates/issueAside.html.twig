@@ -1,0 +1,32 @@
+<script type="text/html" id="issue-aside-template">
+    <h2><%= title %></h2>
+    <section class="issue-overview">
+        <p>
+            <small>Assigned to</small>
+            <strong><%= assignee.first_name %> <%= assignee.last_name %></strong>
+        </p>
+        <p class="half"><small>Priority</small> <%= priority.name %></p>
+        <p class="half"><%= type.name %></p>
+    </section>
+    <p class="description"><%= description %></p>
+    <footer>
+        <nav class="issue-tab-container">
+            <a href="#" class="issue-tab active">
+                <img src="{{ asset('images/icons/search.png') }}"/>
+                <span>Comments</span>
+            </a>
+            <a href="#" class="issue-tab">
+                <img src="{{ asset('images/icons/search.png') }}"/>
+                <span>Repository</span>
+            </a>
+            <a href="#" class="issue-tab">
+                <img src="{{ asset('images/icons/search.png') }}"/>
+                <span>Time tracking</span>
+            </a>
+            <a href="#" class="issue-tab">
+                <img src="{{ asset('images/icons/search.png') }}"/>
+                <span>Following</span>
+            </a>
+        </nav>
+    </footer>
+</script>

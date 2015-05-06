@@ -1,0 +1,63 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Kreta</title>
+    <link href="{{ asset('css/app.css') }}" media="screen" rel="stylesheet" type="text/css"/>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
+</head>
+<body>
+<nav id="kreta-menu-main">
+    <img class="logo" src="{{ asset('images/logo.png') }}"/>
+    <div class="kreta-menu-user">
+    </div>
+    <div class="kreta-menu-actions">
+        <a href="/">
+            <img src="{{ asset('images/icons/notification.png') }}">
+            <span class="kreta-notification-bubble">4</span>
+        </a>
+        {#<a href="/"><img src="{{ asset('images/icons/search.png') }}"></a>#}
+        <a href="/issue/new" data-tooltip-text="Create issue" data-tooltip-position="right">
+            <img src="{{ asset('images/icons/new.png') }}">
+        </a>
+        {#<a href="/"><img src="{{ asset('images/icons/dashboard.png') }}"></a>
+        <a href="/"><img src="{{ asset('images/icons/lists.png') }}"></a>#}
+        <a href="/projects" data-tooltip-text="Project list" data-tooltip-position="right">
+            <img src="{{ asset('images/icons/projects.png') }}">
+        </a>
+        <a href="/logout" data-bypass data-tooltip-text="Logout" data-tooltip-position="right" title="Logout">
+            <i class="fa fa-sign-out"></i>
+        </a>
+    </div>
+</nav>
+<div id="kreta-left-aside"></div>
+<div id="kreta-content">
+    <div>
+        <div class="kreta-content-container"></div>
+    </div>
+</div>
+<div id="kreta-right-aside"></div>
+<script type="text/html" id="kreta-menu-user-template">
+    <div class="kreta-user-container">
+        <img src="<%= photo.name %>">
+        <span>@gorka</span>
+    </div>
+</script>
+
+{% include 'KretaWebBundle:Default/templates:issueAside.html.twig' %}
+{% include 'KretaWebBundle:Default/templates:projectIssues.html.twig' %}
+{% include 'KretaWebBundle:Default/templates:createIssue.html.twig' %}
+{% include 'KretaWebBundle:Default/templates:userInteraction.html.twig' %}
+{% include 'KretaWebBundle:Default/templates:listIssue.html.twig' %}
+
+
+<script src="{{ asset('vendor/jquery/dist/jquery.js') }}"></script>
+<script src="{{ asset('vendor/lodash/lodash.js') }}"></script>
+<script src="{{ asset('vendor/backbone/backbone.js') }}"></script>
+<script src="{{ asset('vendor/backbone.controller/backbone.controller.js') }}"></script>
+<script data-main="/js/app" src="{{ asset('vendor/requirejs/require.js') }}"></script>
+
+</body>
+</html>

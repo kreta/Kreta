@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file belongs to Kreta.
  * The source code of application includes a LICENSE file
  * with all information about license.
@@ -14,11 +14,13 @@ namespace Kreta\Component\Issue\Model;
 use Doctrine\Common\Collections\ArrayCollection;
 use Kreta\Component\Core\Model\Abstracts\AbstractModel;
 use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
-use Kreta\Component\Project\Model\Interfaces\LabelInterface;
-use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Issue\Model\Interfaces\ResolutionInterface;
-use Kreta\Component\Workflow\Model\Interfaces\StatusInterface;
+use Kreta\Component\Project\Model\Interfaces\IssueTypeInterface;
+use Kreta\Component\Project\Model\Interfaces\LabelInterface;
+use Kreta\Component\Project\Model\Interfaces\IssuePriorityInterface;
+use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
+use Kreta\Component\Workflow\Model\Interfaces\StatusInterface;
 
 /**
  * Class Issue.
@@ -77,9 +79,9 @@ class Issue extends AbstractModel implements IssueInterface
     protected $parent;
 
     /**
-     * The priority that can be "low", "medium", "high" or "blocking".
+     * The priority.
      *
-     * @var int
+     * @var \Kreta\Component\Project\Model\Interfaces\IssuePriorityInterface
      */
     protected $priority;
 
@@ -119,9 +121,9 @@ class Issue extends AbstractModel implements IssueInterface
     protected $title;
 
     /**
-     * The type that can be "bug", "new feature", "improvement", "epic" or "story".
+     * The type.
      *
-     * @var int
+     * @var \Kreta\Component\Project\Model\Interfaces\IssueTypeInterface
      */
     protected $type;
 
@@ -333,7 +335,7 @@ class Issue extends AbstractModel implements IssueInterface
     /**
      * {@inheritdoc}
      */
-    public function setPriority($priority)
+    public function setPriority(IssuePriorityInterface $priority = null)
     {
         $this->priority = $priority;
 
@@ -449,7 +451,7 @@ class Issue extends AbstractModel implements IssueInterface
     /**
      * {@inheritdoc}
      */
-    public function setType($type)
+    public function setType(IssueTypeInterface $type = null)
     {
         $this->type = $type;
 
@@ -497,7 +499,7 @@ class Issue extends AbstractModel implements IssueInterface
 
         return false;
     }
-    
+
     /**
      * {@inheritdoc}
      */

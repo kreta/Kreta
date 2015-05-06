@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file belongs to Kreta.
  * The source code of application includes a LICENSE file
  * with all information about license.
@@ -100,14 +100,38 @@ class IssueRepositorySpec extends BaseEntityRepository
         $this->findOneByShortCode('KRT', 42)->shouldReturn($issue);
     }
 
+    function it_finds_by_participant(
+        EntityManager $manager,
+        QueryBuilder $queryBuilder,
+        Expr $expr,
+        Expr\Comparison $comparison,
+        AbstractQuery $query,
+        IssueInterface $issue,
+        UserInterface $user
+    )
+    {
+        $this->getQueryBuilderSpec($manager, $queryBuilder);
+        $queryBuilder->addSelect('par')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->join('p.participants', 'par')->shouldBeCalled()->willReturn($queryBuilder);
+        $this->addEqCriteriaSpec($queryBuilder, $expr, ['par.user' => $user], $comparison);
+        $queryBuilder->setMaxResults(4)->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->setFirstResult(2)->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
+        $query->getResult()->shouldBeCalled()->willReturn([$issue]);
+
+        $this->findByParticipant($user, [], [], 4, 2)->shouldReturn([$issue]);
+    }
+
     protected function getQueryBuilderSpec(EntityManager $manager, QueryBuilder $queryBuilder)
     {
         $manager->createQueryBuilder()->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->select('i')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->addSelect(['a', 'p', 'r', 'rep', 's', 'w'])
+        $queryBuilder->addSelect(['a', 't', 'pr', 'p', 'r', 'rep', 's', 'w'])
             ->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->from(Argument::any(), 'i', null)->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->leftJoin('i.assignee', 'a')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->leftJoin('i.type', 't')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->leftJoin('i.priority', 'pr')->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->leftJoin('i.project', 'p')->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->leftJoin('i.resolution', 'r')->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->leftJoin('i.reporter', 'rep')->shouldBeCalled()->willReturn($queryBuilder);

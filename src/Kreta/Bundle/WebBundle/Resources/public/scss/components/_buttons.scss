@@ -1,0 +1,25 @@
+.kreta-button {
+  background: none;
+  border: 1px solid;
+  border-radius: 3px;
+  color: #e1e1e1;
+  cursor: pointer;
+  font-family: 'Open Sans', sans-serif;
+  min-width: 100px;
+  outline: 0;
+  padding: 10px;
+  text-transform: uppercase;
+  transition-duration: .3s;
+
+  &.green {
+    border: 1px solid $main-green;
+    color: $main-green;
+
+    &:focus,
+    &:hover {
+      background: $main-green;
+      border: 1px solid $main-green;
+      color: $white;
+    }
+  }
+}

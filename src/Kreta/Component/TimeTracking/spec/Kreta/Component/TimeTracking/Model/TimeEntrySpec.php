@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file belongs to Kreta.
  * The source code of application includes a LICENSE file
  * with all information about license.
@@ -11,6 +11,7 @@
 
 namespace spec\Kreta\Component\TimeTracking\Model;
 
+use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
 use PhpSpec\ObjectBehavior;
 
 /**
@@ -45,6 +46,12 @@ class TimeEntrySpec extends ObjectBehavior
     {
         $this->setDescription('Description')->shouldReturn($this);
         $this->getDescription()->shouldReturn('Description');
+    }
+
+    function its_issue_is_mutable(IssueInterface $issue)
+    {
+        $this->setIssue($issue)->shouldReturn($this);
+        $this->getIssue()->shouldReturn($issue);
     }
 
     function its_time_spent_is_mutable()

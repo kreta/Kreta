@@ -6,23 +6,8 @@
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
 services:
-    kreta_web.listener.empty_profile:
-        class: Kreta\Bundle\WebBundle\EventListener\EmptyProfileListener
-        arguments: [@security.context, @router, @session]
-        tags:
-            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
 
 #### EVENTS ####
-    kreta_web.twig.issue_extension:
-        class: Kreta\Bundle\WebBundle\Twig\IssueExtension
-        tags:
-            - { name: twig.extension }
-
-    kreta_web.twig.notification_extension:
-        class: Kreta\Bundle\WebBundle\Twig\NotificationExtension
-        tags:
-            - { name: twig.extension }
-
     kreta_web.twig.asset_extension:
         class: Kreta\Bundle\WebBundle\Twig\AssetExtension
         tags:

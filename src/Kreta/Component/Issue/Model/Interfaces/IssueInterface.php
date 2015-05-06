@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file belongs to Kreta.
  * The source code of application includes a LICENSE file
  * with all information about license.
@@ -12,7 +12,9 @@
 namespace Kreta\Component\Issue\Model\Interfaces;
 
 use Finite\StatefulInterface;
+use Kreta\Component\Project\Model\Interfaces\IssueTypeInterface;
 use Kreta\Component\Project\Model\Interfaces\LabelInterface;
+use Kreta\Component\Project\Model\Interfaces\IssuePriorityInterface;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use Kreta\Component\Workflow\Model\Interfaces\StatusInterface;
@@ -24,17 +26,6 @@ use Kreta\Component\Workflow\Model\Interfaces\StatusInterface;
  */
 interface IssueInterface extends StatefulInterface
 {
-    const PRIORITY_LOW = 0;
-    const PRIORITY_MEDIUM = 1;
-    const PRIORITY_HIGH = 2;
-    const PRIORITY_BLOCKER = 3;
-
-    const TYPE_BUG = 0;
-    const TYPE_NEW_FEATURE = 1;
-    const TYPE_IMPROVEMENT = 2;
-    const TYPE_EPIC = 3;
-    const TYPE_STORY = 4;
-
     /**
      * Gets id.
      *
@@ -77,7 +68,7 @@ interface IssueInterface extends StatefulInterface
     /**
      * Adds child issue.
      *
-     * @param \Kreta\Component\Issue\Model\Interfaces\IssueInterface $issue
+     * @param \Kreta\Component\Issue\Model\Interfaces\IssueInterface $issue The child issue
      *
      * @return $this self Object
      */
@@ -86,7 +77,7 @@ interface IssueInterface extends StatefulInterface
     /**
      * Removes child issue.
      *
-     * @param \Kreta\Component\Issue\Model\Interfaces\IssueInterface $issue
+     * @param \Kreta\Component\Issue\Model\Interfaces\IssueInterface $issue The child issue
      *
      * @return $this self Object
      */
@@ -175,7 +166,7 @@ interface IssueInterface extends StatefulInterface
     /**
      * Sets parent issue.
      *
-     * @param \Kreta\Component\Issue\Model\Interfaces\IssueInterface $issue
+     * @param \Kreta\Component\Issue\Model\Interfaces\IssueInterface $issue The parent issue
      *
      * @return $this self Object
      */
@@ -184,18 +175,34 @@ interface IssueInterface extends StatefulInterface
     /**
      * Gets priority.
      *
-     * @return string
+     * @return \Kreta\Component\Project\Model\Interfaces\IssuePriorityInterface|null
      */
     public function getPriority();
 
     /**
-     * Sets labels.
+     * Sets priority.
      *
-     * @param string $priority The priority that can be "low", "medium", "high" or "blocking"
+     * @param \Kreta\Component\Project\Model\Interfaces\IssuePriorityInterface|null $priority The priority
      *
      * @return $this self Object
      */
-    public function setPriority($priority);
+    public function setPriority(IssuePriorityInterface $priority = null);
+
+    /**
+     * Gets project.
+     *
+     * @return \Kreta\Component\Project\Model\Interfaces\ProjectInterface
+     */
+    public function getProject();
+
+    /**
+     * Sets the project.
+     *
+     * @param \Kreta\Component\Project\Model\Interfaces\ProjectInterface $project The project
+     *
+     * @return $this self Object
+     */
+    public function setProject(ProjectInterface $project);
 
     /**
      * Gets reporter.
@@ -221,22 +228,6 @@ interface IssueInterface extends StatefulInterface
      * @return boolean
      */
     public function isReporter(UserInterface $user);
-
-    /**
-     * Gets project.
-     *
-     * @return \Kreta\Component\Project\Model\Interfaces\ProjectInterface
-     */
-    public function getProject();
-
-    /**
-     * Sets the project.
-     *
-     * @param \Kreta\Component\Project\Model\Interfaces\ProjectInterface $project The project
-     *
-     * @return $this self Object
-     */
-    public function setProject(ProjectInterface $project);
 
     /**
      * Gets resolution.
@@ -273,18 +264,18 @@ interface IssueInterface extends StatefulInterface
     /**
      * Gets type.
      *
-     * @return string
+     * @return \Kreta\Component\Project\Model\Interfaces\IssueTypeInterface|null
      */
     public function getType();
 
     /**
      * Sets type.
      *
-     * @param string $type The type that can be "bug", "new feature", "improvement", "epic" or "story"
+     * @param \Kreta\Component\Project\Model\Interfaces\IssueTypeInterface|null $type The type
      *
      * @return $this self Object
      */
-    public function setType($type);
+    public function setType(IssueTypeInterface $type = null);
 
     /**
      * Gets title.

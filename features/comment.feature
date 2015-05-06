@@ -33,10 +33,26 @@ Feature: Manage comment
       | id | name           | shortName | creator        | workflow   |
       | 0  | Test project 1 | TPR1      | user@kreta.com | Workflow 1 |
       | 1  | Test project 2 | TPR2      | user@kreta.com | Workflow 2 |
+    And the following issue priorities exist:
+      | id | name    | project        |
+      | 0  | Low     | Test project 1 |
+      | 1  | Medium  | Test project 1 |
+      | 2  | High    | Test project 1 |
+      | 3  | Blocker | Test project 1 |
+      | 4  | Low     | Test project 2 |
+      | 5  | Medium  | Test project 2 |
+    And the following issue types exist:
+      | id | name        | project        |
+      | 0  | Bug         | Test project 1 |
+      | 1  | Epic        | Test project 1 |
+      | 2  | New feature | Test project 1 |
+      | 3  | Bug         | Test project 1 |
+      | 4  | Error       | Test project 1 |
+      | 5  | Story       | Test project 1 |
     And the following medias exist:
-      | id | name          | createdAt  | updatedAt | resource        |
-      | 2  | user-2.jpg    | 2014-10-30 | null      | user2@kreta.com |
-      | 3  | user-3.jpg    | 2014-10-30 | null      | user3@kreta.com |
+      | id | name       | createdAt  | updatedAt | resource        |
+      | 2  | user-2.jpg | 2014-10-30 | null      | user2@kreta.com |
+      | 3  | user-3.jpg | 2014-10-30 | null      | user3@kreta.com |
     And the following participants exist:
       | project        | user            | role             |
       | Test project 1 | user3@kreta.com | ROLE_PARTICIPANT |

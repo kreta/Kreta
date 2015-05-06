@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file belongs to Kreta.
  * The source code of application includes a LICENSE file
  * with all information about license.
@@ -97,9 +97,10 @@ class IssueRepository extends EntityRepository
     protected function getQueryBuilder()
     {
         return parent::getQueryBuilder()
-            ->addSelect(['a', 'p', 'r', 'rep', 's', 'w'])
+            ->addSelect(['a', 't', 'pr', 'p', 'r', 'rep', 's', 'w'])
             ->leftJoin('i.assignee', 'a')
-            // ->join('i.labels', 'l') // Because Doctrine has a bug, it must be lazy load.
+            ->leftJoin('i.type', 't')
+            ->leftJoin('i.priority', 'pr')
             ->leftJoin('i.project', 'p')
             ->leftJoin('i.resolution', 'r')
             ->leftJoin('i.reporter', 'rep')

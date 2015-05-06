@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file belongs to Kreta.
  * The source code of application includes a LICENSE file
  * with all information about license.
@@ -20,6 +20,7 @@ use Kreta\Component\Core\spec\Kreta\Component\Core\Repository\BaseEntityReposito
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use Kreta\Component\Notification\Model\Interfaces\NotificationInterface;
 use Prophecy\Argument;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Class NotificationRepositorySpec.
@@ -79,6 +80,77 @@ class NotificationRepositorySpec extends BaseEntityRepository
         $query->getResult()->shouldBeCalled()->willReturn([$notification]);
 
         $this->findAllUnreadByUser($user)->shouldReturn([$notification]);
+    }
+
+    function it_finds_by_user(
+        EntityManager $manager,
+        QueryBuilder $queryBuilder,
+        Expr $expr,
+        Expr\Func $func,
+        Expr\Comparison $comparison,
+        AbstractQuery $query,
+        NotificationInterface $notification,
+        UserInterface $user
+    )
+    {
+        $this->getQueryBuilderSpec($manager, $queryBuilder);
+        $this->addEqCriteriaSpec($queryBuilder, $expr, ['user' => $user], $comparison);
+        $this->addLikeCriteriaSpec($queryBuilder, $expr, ['title' => 'notification-title'], $comparison);
+        $this->addBetweenCriteriaSpec(
+            $queryBuilder, $expr, $func, ['date' => [new \DateTime('2014-10-20'), Argument::type('DateTime')]]
+        );
+        $queryBuilder->setMaxResults(4)->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->setFirstResult(2)->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
+        $query->getResult()->shouldBeCalled()->willReturn([$notification]);
+
+        $this->findByUser(
+            $user, ['date' => new \DateTime('2014-10-20'), 'title' => 'notification-title'], [], 4, 2
+        )->shouldReturn([$notification]);
+    }
+
+    function it_finds_one_by_user(
+        EntityManager $manager,
+        QueryBuilder $queryBuilder,
+        Expr $expr,
+        Expr\Comparison $comparison,
+        AbstractQuery $query,
+        NotificationInterface $notification,
+        UserInterface $user
+    )
+    {
+        $this->getQueryBuilderSpec($manager, $queryBuilder);
+        $this->addEqCriteriaSpec($queryBuilder, $expr, ['id' => 'notification-id'], $comparison);
+        $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
+        $query->getSingleResult()->shouldBeCalled()->willReturn($notification);
+
+        $notification->getUser()->shouldBeCalled()->willReturn($user);
+        $user->getId()->shouldBeCalled()->willReturn('user-id');
+
+        $this->findOneByUser('notification-id', $user)->shouldReturn($notification);
+    }
+
+    function it_throws_access_denied_exception_because_the_user_is_not_the_owner_of_notification(
+        EntityManager $manager,
+        QueryBuilder $queryBuilder,
+        Expr $expr,
+        Expr\Comparison $comparison,
+        AbstractQuery $query,
+        NotificationInterface $notification,
+        UserInterface $user,
+        UserInterface $user2
+    )
+    {
+        $this->getQueryBuilderSpec($manager, $queryBuilder);
+        $this->addEqCriteriaSpec($queryBuilder, $expr, ['id' => 'notification-id'], $comparison);
+        $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
+        $query->getSingleResult()->shouldBeCalled()->willReturn($notification);
+
+        $notification->getUser()->shouldBeCalled()->willReturn($user);
+        $user->getId()->shouldBeCalled()->willReturn('user-id');
+        $user2->getId()->shouldBeCalled()->willReturn('user2-id');
+
+        $this->shouldThrow(new AccessDeniedException())->during('findOneByUser', ['notification-id', $user2]);
     }
 
     protected function getQueryBuilderSpec(EntityManager $manager, QueryBuilder $queryBuilder)

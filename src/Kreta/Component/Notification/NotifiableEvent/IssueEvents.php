@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file belongs to Kreta.
  * The source code of application includes a LICENSE file
  * with all information about license.
@@ -76,10 +76,7 @@ class IssueEvents implements NotifiableEventInterface
             case 'postPersist':
                 if ($object->getAssignee() != $object->getReporter()) {
                     $url = $this->router->generate(
-                        'kreta_web_issue_view', [
-                            'projectShortName' => $object->getProject()->getShortName(),
-                            'issueNumber'      => $object->getNumericId()
-                        ]
+                        'get_issue', ['issueId' => $object->getId()]
                     );
                     $notification = $this->notificationFactory->create();
                     $notification

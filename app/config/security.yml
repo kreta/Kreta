@@ -48,7 +48,10 @@ security:
 
                 oauth_user_provider:
                     service: kreta_user.user_provider
-            logout: true
+            logout:
+                delete_cookies:
+                    access_token: { path: null, domain: null }
+                    refresh_token: { path: null, domain: null }
             anonymous: true
 
     access_control:
@@ -58,6 +61,5 @@ security:
         - { path: ^/oauth-connect, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/$, role: IS_AUTHENTICATED_ANONYMOUSLY}
         - { path: ^/, role: ROLE_USER }
         - { path: ^/admin/, role: ROLE_ADMIN }

@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file belongs to Kreta.
  * The source code of application includes a LICENSE file
  * with all information about license.
@@ -35,6 +35,8 @@ class IssueContext extends DefaultContext
         foreach ($issues as $issueData) {
             $reporter = $this->get('kreta_user.repository.user')->findOneBy(['email' => $issueData['reporter']], false);
             $assignee = $this->get('kreta_user.repository.user')->findOneBy(['email' => $issueData['assignee']], false);
+            $type = $this->get('kreta_project.repository.issue_type')->find($issueData['type'], false);
+            $priority = $this->get('kreta_project.repository.issue_priority')->find($issueData['priority'], false);
             $project = $this->get('kreta_project.repository.project')
                 ->findOneBy(['name' => $issueData['project']], false);
             $status = $this->get('kreta_workflow.repository.status')
@@ -45,17 +47,18 @@ class IssueContext extends DefaultContext
                     $labels[] = $this->get('kreta_project.repository.label')->findOneBy(['name' => $labelName]);
                 }
             }
-
-            $issue = $this->get('kreta_issue.factory.issue')->create($project, $reporter);
+            
+            $issue = $this->get('kreta_issue.factory.issue')->create($reporter, $type, $priority, $project);
             $issue
-                ->setPriority($issueData['priority'])
-                ->setProject($project)
                 ->setAssignee($assignee)
-                ->setReporter($reporter)
                 ->setStatus($status)
-                ->setType($issueData['type'])
                 ->setTitle($issueData['title'])
                 ->setDescription($issueData['description']);
+
+            if ($issueData['parent']) {
+                $parent = $this->get('kreta_issue.repository.issue')->find($issueData['parent'], false);
+                $issue->setParent($parent);
+            }
 
             $this->setField($issue, 'labels', $labels);
             if (isset($issueData['numericId'])) {

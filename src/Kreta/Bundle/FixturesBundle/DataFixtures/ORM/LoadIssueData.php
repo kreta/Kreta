@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file belongs to Kreta.
  * The source code of application includes a LICENSE file
  * with all information about license.
@@ -33,13 +33,20 @@ class LoadIssueData extends DataFixtures
         $issuesPerProject = [];
         for ($i = 0; $i < 100; $i++) {
             $project = $projects[array_rand($projects)];
+            $issueTypes = $this->container->get('kreta_project.repository.issue_type')->findBy(['project' => $project]);
+            $issuePriorities = $this->container->get('kreta_project.repository.issue_priority')
+                ->findBy(['project' => $project]);
             $labels = $this->container->get('kreta_project.repository.label')->findBy(['project' => $project]);
             $issuesPerProject = $this->incrementIssuePerProject($issuesPerProject, $project);
             $participants = $this->container->get('kreta_project.repository.participant')
                 ->findBy(['project' => $project]);
 
-            $issue = $this->container->get('kreta_issue.factory.issue')
-                ->create($project, $participants[array_rand($participants)]->getUser());
+            $issue = $this->container->get('kreta_issue.factory.issue')->create(
+                $participants[array_rand($participants)]->getUser(),
+                $issueTypes[array_rand($issueTypes)],
+                $issuePriorities[array_rand($issuePriorities)],
+                $project
+            );
             $issue->setAssignee($participants[array_rand($participants)]->getUser());
             $issue->setDescription(
                 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean
@@ -59,7 +66,6 @@ class LoadIssueData extends DataFixtures
             );
             $this->loadRandomObjects($issue, 'addLabel', $labels, count($labels));
             $issue->setNumericId($issuesPerProject[$project->getShortName()]);
-            $issue->setPriority(rand(0, 3));
             if ($i % 5 !== 0) {
                 $issue->setResolution($resolutions[array_rand($resolutions)]);
             }
@@ -68,14 +74,6 @@ class LoadIssueData extends DataFixtures
                 ->findBy(['workflow' => $project->getWorkflow()]);
             $status = $statuses[array_rand($statuses)];
             $issue->setStatus($status);
-            $types = [
-                $issue::TYPE_BUG,
-                $issue::TYPE_NEW_FEATURE,
-                $issue::TYPE_IMPROVEMENT,
-                $issue::TYPE_EPIC,
-                $issue::TYPE_STORY
-            ];
-            $issue->setType($types[array_rand($types)]);
             $issue->setTitle('Issue - ' . $i);
 
             $users = [];

@@ -1,0 +1,36 @@
+.user-interaction {
+  position: relative;
+  color: $main-black;
+  margin-bottom: 30px;
+
+  > img {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin: 0 10px;
+  }
+
+  .details {
+    margin-left: 60px;
+
+    h5 {
+      font-weight: bold;
+      font-size: 0.9em;
+      line-height: 1.6em;
+    }
+
+    p {
+      font-size: .8em;
+      line-height: 1.1em;
+    }
+
+    .time {
+      font-size: .5em;
+      position: absolute;
+      right: 0;
+    }
+  }
+}

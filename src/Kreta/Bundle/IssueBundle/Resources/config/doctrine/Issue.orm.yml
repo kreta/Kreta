@@ -24,16 +24,12 @@ Kreta\Component\Issue\Model\Issue:
         description:
             type: text
             nullable: true
-        priority:
-            type: smallint
         title:
             type: string
             length: 140
         numericId:
             column: numeric_id
             type: integer
-        type:
-            type: smallint
     manyToMany:
         labels:
             targetEntity: Kreta\Component\Project\Model\Interfaces\LabelInterface
@@ -68,6 +64,8 @@ Kreta\Component\Issue\Model\Issue:
             joinColumn:
                 name: parent_id
                 referencedColumnName: id
+        priority:
+            targetEntity: Kreta\Component\Project\Model\Interfaces\IssuePriorityInterface
         project:
             targetEntity: Kreta\Component\Project\Model\Interfaces\ProjectInterface
             inversedBy: issues
@@ -82,6 +80,8 @@ Kreta\Component\Issue\Model\Issue:
             nullable: true
         status:
             targetEntity: Kreta\Component\Workflow\Model\Interfaces\StatusInterface
+        type:
+            targetEntity: Kreta\Component\Project\Model\Interfaces\IssueTypeInterface
     oneToMany:
         children:
             targetEntity: Kreta\Component\Issue\Model\Interfaces\IssueInterface

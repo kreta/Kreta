@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file belongs to Kreta.
  * The source code of application includes a LICENSE file
  * with all information about license.
@@ -20,4 +20,11 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
  */
 class KretaUserBundle extends Bundle
 {
+    /**
+     * {@inheritdoc}
+     */
+    public function getParent()
+    {
+        return 'FOSUserBundle';
+    }
 }

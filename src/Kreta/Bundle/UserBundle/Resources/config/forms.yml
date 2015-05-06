@@ -21,5 +21,6 @@ services:
         arguments:
             - %kreta_user.user.class%
             - @kreta_user.factory.user
+            - @security.context
         tags:
             - { name: form.type, alias: 'kreta_user_user_type' }

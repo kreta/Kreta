@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file belongs to Kreta.
  * The source code of application includes a LICENSE file
  * with all information about license.
@@ -77,7 +77,7 @@ class Handler implements HandlerInterface
     public function handleForm(Request $request, $object = null, array $formOptions = [])
     {
         $form = $this->createForm($object, $formOptions);
-        if ($request->isMethod('POST') || $request->isMethod('PUT')) {
+        if ($request->isMethod('POST') || $request->isMethod('PUT') || $request->isMethod('PATCH')) {
             $form->handleRequest($request);
             if (!$form->isValid()) {
                 throw new InvalidFormException($this->getFormErrors($form));

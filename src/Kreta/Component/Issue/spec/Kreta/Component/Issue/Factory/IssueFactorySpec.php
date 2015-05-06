@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file belongs to Kreta.
  * The source code of application includes a LICENSE file
  * with all information about license.
@@ -11,6 +11,9 @@
 
 namespace spec\Kreta\Component\Issue\Factory;
 
+use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
+use Kreta\Component\Project\Model\Interfaces\IssueTypeInterface;
+use Kreta\Component\Project\Model\Interfaces\IssuePriorityInterface;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Workflow\Model\Interfaces\StatusInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
@@ -39,13 +42,17 @@ class IssueFactorySpec extends ObjectBehavior
         ProjectInterface $project,
         WorkflowInterface $workflow,
         StatusInterface $status,
-        UserInterface $user
+        UserInterface $user,
+        IssueTypeInterface $type,
+        IssuePriorityInterface $issuePriority,
+        IssueInterface $parent
     )
     {
         $project->getWorkflow()->shouldBeCalled()->willReturn($workflow);
         $workflow->getStatuses()->shouldBeCalled()->willReturn([$status]);
         $status->getType()->shouldBeCalled()->willReturn('initial');
 
-        $this->create($project, $user)->shouldReturnAnInstanceOf('Kreta\Component\Issue\Model\Issue');
+        $this->create($user, $type, $issuePriority, $project, $parent)
+            ->shouldReturnAnInstanceOf('Kreta\Component\Issue\Model\Issue');
     }
 }

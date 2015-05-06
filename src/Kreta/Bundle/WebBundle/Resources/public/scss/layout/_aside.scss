@@ -1,0 +1,36 @@
+#kreta-left-aside,
+#kreta-right-aside {
+  > div {
+    position: fixed;
+    top: 0;
+    height: 100%;
+    z-index: 20;
+    color: $white;
+    padding: 25px;
+    transition-duration: .3s;
+  }
+}
+
+#kreta-left-aside {
+  > div {
+    width: 280px;
+    left: -240px;
+    background: #525461;
+
+    &.visible {
+      left: 80px;
+    }
+  }
+}
+
+#kreta-right-aside {
+  > div {
+    width: 450px;
+    right: -450px;
+    background: $light-grey;
+
+    &.visible {
+      right: 0;
+    }
+  }
+}

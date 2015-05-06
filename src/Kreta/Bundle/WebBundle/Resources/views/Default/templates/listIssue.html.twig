@@ -1,0 +1,9 @@
+<script type="text/html" id="list-issue-template">
+    <div class="list-issue-details">
+        <a class="list-issue-title" href="/issue/<%= id %>"><%= title %></a>
+    </div>
+    <div class="list-issue-icons">
+        <span class="list-issue-status" style="background: <%= status.color %>" data-tooltip-text="<%= status.name %>"></span>
+        <img class="list-issue-asignee" src="<%= assignee.photo.name %>">
+    </div>
+</script>

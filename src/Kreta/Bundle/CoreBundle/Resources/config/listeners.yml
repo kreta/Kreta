@@ -10,3 +10,10 @@ services:
         class: %kreta_core.event_listener.json_exception.class%
         tags:
             - { name: kernel.event_listener, event: kernel.exception, method: onKernelException, priority: 200 }
+
+    kreta_core.event_listener.resource_if_allowed_annotation:
+        class: %kreta_core.event_listener.resource_if_allowed_annotation.class%
+        abstract: true
+        arguments:
+            - @annotations.reader
+            - @security.context

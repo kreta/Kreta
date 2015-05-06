@@ -1,0 +1,69 @@
+.kreta-create-issue-actions {
+  position: absolute;
+  right: 0;
+  z-index: 10;
+}
+
+.kreta-create-issue {
+  position: relative;
+  width: 100%;
+  padding-top: 100px;
+}
+
+.kreta-project-selector {
+  position: relative;
+  font-weight: lighter;
+  font-size: .8em;
+  cursor: pointer;
+  .kreta-project-selected {
+    line-height: 35px;
+    &:focus {
+      outline: 0;
+    }
+  }
+  .kreta-project-selectable {
+    position: absolute;
+    display: none;
+    width: 100%;
+    background: $white;
+    top: 50px;
+    border: 1px solid #e1e1e1;
+    &.visible {
+      display: block;
+    }
+    span {
+      display: block;
+      padding: 15px 30px;
+      cursor: pointer;
+      transition-duration: .2s;
+      &:hover {
+        background: $main-green;
+        color: $white;
+      }
+    }
+  }
+}
+
+.kreta-selector.selector-project {
+  font-weight: lighter;
+  font-size: .8em;
+  > span {
+    line-height: 35px;
+    padding: 0;
+  }
+  > div {
+    top: 0;
+    z-index: 20;
+  }
+}
+
+.kreta-create-issue-details {
+  border-top: 1px solid #e1e1e1;
+  font-size: .9em;
+  > div {
+    float: left;
+    width: 25%;
+    text-align: center;
+    font-weight: lighter;
+  }
+}

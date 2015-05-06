@@ -1,0 +1,49 @@
+.list-issue {
+  border-top: 1px solid $main-grey;
+  padding: 20px 0;
+  position: relative;
+  transition-duration: .4s;
+
+  &.highlight {
+    background: $main-grey;
+  }
+}
+
+.list-issue-details {
+  margin: 0 100px 0 10px;
+}
+
+.list-issue-title {
+  color: $main-black;
+  text-decoration: none;
+}
+
+.list-issue-icons {
+  height: 100%;
+  position: absolute;
+  right: 0;
+  text-align: center;
+  top: 0;
+  width: 100px;
+}
+
+.list-issue-status {
+  position: absolute;
+  top: 50%;
+  width: 10px;
+  height: 10px;
+  right: 70px;
+  transform: translateY(-50%);
+  border-radius: 50%;
+}
+
+.list-issue-asignee {
+  border-radius: 50%;
+  height: 40px;
+  margin-top: -20px;
+  position: absolute;
+  top: 50%;
+  width: 40px;
+}
+
+

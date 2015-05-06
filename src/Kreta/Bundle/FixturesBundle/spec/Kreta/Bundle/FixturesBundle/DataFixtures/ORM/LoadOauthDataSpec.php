@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file belongs to Kreta.
  * The source code of application includes a LICENSE file
  * with all information about license.
@@ -61,7 +61,9 @@ class LoadOauthDataSpec extends ObjectBehavior
         $container->get('kreta_core.command.create_client')
             ->shouldBeCalled()->willReturn($createClientCommand);
         $createClientCommand->generateClient(
-            ['http://kreta.io'], ['authorization_code', 'password', 'refresh_token', 'token', 'client_credentials']
+            ['http://kreta.io'],
+            ['authorization_code', 'password', 'refresh_token', 'token', 'client_credentials'],
+            'dummy-client-secret'
         )->shouldBeCalled()->willReturn($client);
 
         $container->get('kreta_user.repository.user')->shouldBeCalled()->willReturn($userRepository);

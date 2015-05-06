@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file belongs to Kreta.
  * The source code of application includes a LICENSE file
  * with all information about license.
@@ -31,6 +31,8 @@ class WorkflowFactory
     protected $className;
 
     /**
+     * Constructor.
+     *
      * @param string $className The class name
      */
     public function __construct($className)

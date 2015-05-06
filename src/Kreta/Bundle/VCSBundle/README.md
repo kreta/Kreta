@@ -5,7 +5,7 @@
 [![Coverage Status](https://img.shields.io/coveralls/kreta-io/VCSBundle.svg)](https://coveralls.io/r/kreta-io/VCSBundle)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/kreta-io/VCSBundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/kreta-io/VCSBundle/?branch=master)
 [![HHVM Status](http://hhvm.h4cc.de/badge/kreta/VCS-bundle.svg)](http://hhvm.h4cc.de/package/kreta/VCS-bundle)
-[![Total Downloads](https://poser.pugx.org/kreta/VCS-bundle/downloads.svg)](https://packagist.org/packages/kreta/VCS-bundle)
+[![Total Downloads](https://poser.pugx.org/kreta/VCS-bundle/downloads)](https://packagist.org/packages/kreta/VCS-bundle)
 
 [![Latest Stable Version](https://poser.pugx.org/kreta/VCS-bundle/v/stable.svg)](https://packagist.org/packages/kreta/VCS-bundle)
 [![Latest Unstable Version](https://poser.pugx.org/kreta/VCS-bundle/v/unstable.svg)](https://packagist.org/packages/kreta/VCS-bundle)

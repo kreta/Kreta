@@ -95,7 +95,9 @@ doctrine:
             Kreta\Component\Notification\Model\Interfaces\NotificationInterface: Kreta\Component\Notification\Model\Notification
             Kreta\Component\Project\Model\Interfaces\LabelInterface: Kreta\Component\Project\Model\Label
             Kreta\Component\Project\Model\Interfaces\ParticipantInterface: Kreta\Component\Project\Model\Participant
+            Kreta\Component\Project\Model\Interfaces\IssuePriorityInterface: Kreta\Component\Project\Model\IssuePriority
             Kreta\Component\Project\Model\Interfaces\ProjectInterface: Kreta\Component\Project\Model\Project
+            Kreta\Component\Project\Model\Interfaces\IssueTypeInterface: Kreta\Component\Project\Model\IssueType
             Kreta\Component\TimeTracking\Model\Interfaces\TimeEntryInterface: Kreta\Component\TimeTracking\Model\TimeEntry
             Kreta\Component\User\Model\Interfaces\UserInterface: Kreta\Component\User\Model\User
             Kreta\Component\Workflow\Model\Interfaces\StatusInterface: Kreta\Component\Workflow\Model\Status
