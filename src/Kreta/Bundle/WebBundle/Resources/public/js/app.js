@@ -9,8 +9,6 @@
 
 import {HeaderView} from 'views/layout/mainMenu';
 import {MainContentView} from 'views/layout/mainContent';
-import {LeftAsideView} from 'views/layout/leftAside';
-import {RightAsideView} from 'views/layout/rightAside';
 import {TooltipView} from 'views/component/tooltip';
 import {Profile} from 'models/profile'
 import {Router} from 'router';
