@@ -22,28 +22,30 @@
   height: 100%;
   position: absolute;
   right: 0;
-  text-align: center;
+  text-align: right;
   top: 0;
   width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.list-issue-icon {
+  margin-right: 10px;
+  font-size: .8em;
 }
 
 .list-issue-status {
-  position: absolute;
-  top: 50%;
   width: 10px;
   height: 10px;
-  right: 70px;
-  transform: translateY(-50%);
   border-radius: 50%;
+  margin: 0 10px;
 }
 
-.list-issue-asignee {
-  border-radius: 50%;
+.list-issue-assignee {
   height: 40px;
-  margin-top: -20px;
-  position: absolute;
-  top: 50%;
   width: 40px;
+  border-radius: 50%;
 }
 
 
