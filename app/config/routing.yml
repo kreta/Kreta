@@ -29,19 +29,5 @@ fos_oauth_server_token:
 fos_user:
     resource: '@FOSUserBundle/Resources/config/routing/all.xml'
 
-hwi_oauth_login:
-    resource: '@HWIOAuthBundle/Resources/config/routing/login.xml'
-    prefix: /oauth-login
-
-hwi_oauth_redirect:
-    resource: '@HWIOAuthBundle/Resources/config/routing/redirect.xml'
-    prefix: /oauth-connect
-
-kreta_user_bitbucket_login:
-    pattern: /oauth-login/check-bitbucket
-
-kreta_user_github_login:
-    pattern: /oauth-login/check-github
-
 liip_imagine:
     resource: "@LiipImagineBundle/Resources/config/routing.xml"
