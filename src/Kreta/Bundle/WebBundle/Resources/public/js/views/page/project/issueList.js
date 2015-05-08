@@ -17,7 +17,7 @@ export class IssueListView extends Backbone.View {
     this.projectId = options.projectId;
 
     this.issues = new IssueCollection();
-    this.issues.fetch({data: {projects: this.projectId}});
+    this.issues.fetch({data: {project: this.projectId}});
 
     this.events = {
       "click .filter a": "filterClicked"
@@ -108,7 +108,7 @@ export class IssueListView extends Backbone.View {
         filter[$selected.attr('data-filter')] = $selected.attr('data-value');
       }
     });
-    var data = {projects: this.projectId};
+    var data = {project: this.projectId};
     jQuery.extend(data, filter);
     this.issues.fetch({data: data, reset: true});
     this.$issues.html('');

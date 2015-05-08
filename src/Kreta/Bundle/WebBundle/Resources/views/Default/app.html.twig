@@ -4,9 +4,15 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Kreta</title>
-    <link href="{{ asset('css/app.css') }}" media="screen" rel="stylesheet" type="text/css"/>
-    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
+    {% if app.debug %}
+        <link href="{{ asset(base_asset_vendor ~ 'font-source-sans-pro/source-sans-pro.css') }}" rel="stylesheet" type="text/css"/>
+        <link href="{{ asset(base_asset_vendor ~ 'font-awesome/css/font-awesome.css') }}" rel="stylesheet" type="text/css"/>
+        <link href="{{ asset(base_asset_css ~ 'app.css') }}" media="screen" rel="stylesheet" type="text/css"/>
+    {% else %}
+        <link href="{{ asset(base_asset_css ~ 'app.min.css') }}" media="screen" rel="stylesheet" type="text/css"/>
+        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+        <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
+    {% endif %}
 </head>
 <body>
 <nav id="kreta-menu-main">
@@ -52,12 +58,18 @@
 {% include 'KretaWebBundle:Default/templates:userInteraction.html.twig' %}
 {% include 'KretaWebBundle:Default/templates:listIssue.html.twig' %}
 
-
-<script src="{{ asset('vendor/jquery/dist/jquery.js') }}"></script>
-<script src="{{ asset('vendor/lodash/lodash.js') }}"></script>
-<script src="{{ asset('vendor/backbone/backbone.js') }}"></script>
-<script src="{{ asset('vendor/backbone.controller/backbone.controller.js') }}"></script>
-<script data-main="/js/app" src="{{ asset('vendor/requirejs/require.js') }}"></script>
-
+{% if app.debug %}
+    <script src="{{ asset(base_asset_vendor ~ 'jquery/dist/jquery.js') }}"></script>
+    <script src="{{ asset(base_asset_vendor ~ 'lodash/lodash.js') }}"></script>
+    <script src="{{ asset(base_asset_vendor ~ 'backbone/backbone.js') }}"></script>
+    <script src="{{ asset(base_asset_vendor ~ 'backbone.controller/backbone.controller.js') }}"></script>
+    <script src="{{ asset(base_asset_vendor ~ 'requirejs/require.js') }}" data-main="{{ asset(base_asset_js ~ 'app') }}"></script>
+{% else %}
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/3.8.0/lodash.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js"></script>
+    <script src="{{ asset(base_asset_vendor ~ 'backbone.controller/backbone.controller.js') }}"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.17/require.min.js" data-main="{{ asset(base_asset_js ~ 'app.min') }}"></script>
+{% endif %}
 </body>
 </html>
