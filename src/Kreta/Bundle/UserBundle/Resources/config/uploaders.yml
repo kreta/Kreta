@@ -6,12 +6,6 @@
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
 services:
-#### SECURITY ####
-    kreta_user.user_provider:
-        class: %kreta_user.security_user_provider.class%
-        arguments: [@fos_user.user_manager, {bitbucket: bitbucketId, github: githubId}]
-
-#### UPLOADER ####
     kreta_user.uploader.image_user:
         class: %kreta_media.uploader_media.class%
         arguments: [@kreta_user.uploader_filesystem.image_user]

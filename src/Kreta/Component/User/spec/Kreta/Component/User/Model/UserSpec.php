@@ -46,18 +46,6 @@ class UserSpec extends ObjectBehavior
         $this->getCreatedAt()->shouldHaveType('DateTime');
     }
 
-    function its_bitbucket_access_token_is_mutable()
-    {
-        $this->setBitbucketAccessToken('the-dummy-bitbucket-access-token')->shouldReturn($this);
-        $this->getBitbucketAccessToken()->shouldReturn('the-dummy-bitbucket-access-token');
-    }
-
-    function its_bitbucket_id_is_mutable()
-    {
-        $this->setBitbucketId('the-dummy-bitbucket-id')->shouldReturn($this);
-        $this->getBitbucketId()->shouldReturn('the-dummy-bitbucket-id');
-    }
-
     function its_created_at_is_mutable()
     {
         $createDate = new \DateTime();
@@ -97,18 +85,6 @@ class UserSpec extends ObjectBehavior
         $this->setLastName('surname')->shouldReturn($this);
 
         $this->getFullName()->shouldReturn('name surname');
-    }
-
-    function its_github_access_token_is_mutable()
-    {
-        $this->setGithubAccessToken('the-dummy-github-access-token')->shouldReturn($this);
-        $this->getGithubAccessToken()->shouldReturn('the-dummy-github-access-token');
-    }
-
-    function its_github_id_is_mutable()
-    {
-        $this->setGithubId('the-dummy-github-id')->shouldReturn($this);
-        $this->getGithubId()->shouldReturn('the-dummy-github-id');
     }
 
     function its_last_name_is_mutable()

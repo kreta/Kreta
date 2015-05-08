@@ -75,28 +75,6 @@ fos_user:
     db_driver: orm
     firewall_name: main
     user_class: Kreta\Component\User\Model\User
-    registration:
-        confirmation:
-            enabled: true
-
-hwi_oauth:
-    connect:
-        account_connector: kreta_user.user_provider
-    firewall_name: main
-    fosub:
-        username_iterations: 30
-        properties:
-            bitbucket: bitbucket_id
-            github: github_id
-    resource_owners:
-        github:
-            type: github
-            client_id: %oauth.github.client_id%
-            client_secret: %oauth.github.client_secret%
-        bitbucket:
-            type: bitbucket
-            client_id: %oauth.bitbucket.client_id%
-            client_secret: %oauth.bitbucket.client_secret%
 
 jms_serializer:
     metadata:

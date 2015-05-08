@@ -15,16 +15,6 @@ Kreta\Component\User\Model\User:
             generator:
                 strategy: UUID
     fields:
-        bitbucketAccessToken:
-            column: bitbucket_access_token
-            type: string
-            length: 255
-            nullable: true
-        bitbucketId:
-            column: bitbucket_id
-            type: string
-            length: 255
-            nullable: true
         createdAt:
             column: created_at
             type: datetime
@@ -32,16 +22,6 @@ Kreta\Component\User\Model\User:
             column: first_name
             type: string
             length: 100
-            nullable: true
-        githubAccessToken:
-            column: github_access_token
-            type: string
-            length: 255
-            nullable: true
-        githubId:
-            column: githubId
-            type: string
-            length: 255
             nullable: true
         lastName:
             column: last_name
