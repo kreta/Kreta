@@ -13,7 +13,7 @@
 
 Prerequisites
 -------------
-To start to use this project, we recommend using a **Vagrant** virtual machine located in the root directory that provides a completely functional environment for running *Kreta*. This Vagrant that is imported as submodule is maintained by [benatespina](https://github.com/benatespina) in this [repository](https://github.com/benatespina/default-vagrant) so, we are pretty sure that you won`t any problems to use it; however, if you have any kind of question or doubt, do not hesitate to contact us.
+To start to use this project, we recommend using a **Vagrant** virtual machine located in the root directory that provides a completely functional environment for running *Kreta*. This Vagrant that is imported as submodule is maintained by [benatespina](https://github.com/benatespina) in this [repository](https://github.com/benatespina/ansible-vagrant) so, we are pretty sure that you won`t any problems to use it; however, if you have any kind of question or doubt, do not hesitate to contact us.
 
 To make it work, first of all you need to install [Vagrant](http://docs.vagrantup.com/v2/installation/index.html) on your system, which in turn requires [RubyGems](https://rubygems.org/pages/download) and [VirtualBox](https://www.virtualbox.org/wiki/Downloads).
 

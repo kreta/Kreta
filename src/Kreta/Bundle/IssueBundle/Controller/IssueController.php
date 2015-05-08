@@ -15,7 +15,6 @@ use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\View;
 use FOS\RestBundle\Request\ParamFetcher;
 use Kreta\Component\Core\Annotation\ResourceIfAllowed as Issue;
-use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
 use Kreta\SimpleApiDocBundle\Annotation\ApiDoc;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
