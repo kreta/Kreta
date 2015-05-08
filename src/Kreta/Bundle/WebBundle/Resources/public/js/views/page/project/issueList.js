@@ -17,7 +17,7 @@ export class IssueListView extends Backbone.View {
     this.projectId = options.projectId;
 
     this.issues = new IssueCollection();
-    this.issues.fetch({data: {projects: this.projectId}});
+    this.issues.fetch({data: {project: this.projectId}});
 
     this.events = {
       "click .filter a": "filterClicked"
