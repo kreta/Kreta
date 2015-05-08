@@ -9,6 +9,7 @@
 
 export class Config {
   getBaseUrl () {
-    return 'http://localhost:8000/api';
+    var host = location.hostname + (location.port != "" ? ":" + location.port : '');
+    return '//' + host + '/api';
   }
 }
