@@ -108,7 +108,7 @@ export class IssueListView extends Backbone.View {
         filter[$selected.attr('data-filter')] = $selected.attr('data-value');
       }
     });
-    var data = {projects: this.projectId};
+    var data = {project: this.projectId};
     jQuery.extend(data, filter);
     this.issues.fetch({data: data, reset: true});
     this.$issues.html('');
