@@ -18,8 +18,7 @@ Feature: Manage authentication
     And the OAuth client is loaded
 
   Scenario: Login successfully
-    Given I am on the homepage
-    And I follow "Login"
+    Given I am on "/login"
     When I fill in the following:
       | username | user@kreta.com |
       | password | 123456         |
@@ -29,26 +28,14 @@ Feature: Manage authentication
 
   Scenario: Logout successfully
     Given I am a logged as 'user@kreta.com' with password '123456'
-    Then I press logout
-    Then I should be on the landing
+    Then I follow "Logout"
+    Then I should be on the login
     And I should not see refresh_token and access_token cookies
 
   Scenario: Login with invalid credentials
-    Given I am on the homepage
-    And I follow "Login"
+    Given I am on "/login"
     When I fill in the following:
       | username | invalid@kreta.com |
       | password | invalid           |
     And I press "Login"
     Then I should see "Invalid credentials."
-
-  Scenario: Registering into Kreta
-    Given I am on the homepage
-    And I follow "Sign up"
-    When I fill in the following:
-      | fos_user_registration_form_username             | new@kreta.com |
-      | fos_user_registration_form_email                | new@kreta.com |
-      | fos_user_registration_form_plainPassword_first  | 11111         |
-      | fos_user_registration_form_plainPassword_second | 11111         |
-    And I press "Register"
-    Then I should see "An email has been sent to new@kreta.com"

@@ -55,7 +55,7 @@ class IssueContext extends DefaultContext
                 ->setTitle($issueData['title'])
                 ->setDescription($issueData['description']);
 
-            if ($issueData['parent']) {
+            if (isset($issueData['parent']) && $issueData['parent']) {
                 $parent = $this->get('kreta_issue.repository.issue')->find($issueData['parent'], false);
                 $issue->setParent($parent);
             }

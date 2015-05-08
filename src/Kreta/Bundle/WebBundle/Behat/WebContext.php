@@ -109,4 +109,16 @@ class WebContext extends MinkContext
     {
         $this->assertSession()->addressEquals($this->locatePath('/'));
     }
+
+    /**
+     * Checks, that current page is the login page.
+     *
+     * @return void
+     *
+     * @Then /^(?:|I )should be on (?:|the )login/
+     */
+    public function assertLogin()
+    {
+        $this->assertSession()->addressEquals($this->locatePath('/login'));
+    }
 }
