@@ -71,6 +71,11 @@ gulp.task('vendor', function () {
     .pipe(gulp.dest(resultPath + 'vendor'));
 });
 
+gulp.task('vendor:prod', function () {
+  return gulp.src(assets.vendors)
+    .pipe(gulp.dest(resultPath + 'vendor'));
+});
+
 gulp.task('scss-lint', function () {
   return gulp.src(watch.sass)
     .pipe(scsslint());
@@ -92,12 +97,11 @@ gulp.task('sass', [], function () {
 
 gulp.task('sass:prod', ['scss-lint'], function () {
   return gulp.src(assets.sass)
-    .pipe(sass(assets.sass, {
+    .pipe(sass({
         style: 'compressed',
-        stopOnError: true
+        errLogToConsole: true
     }))
     .pipe(rename({
-      basename: 'kreta',
       suffix: '.min'
     }))
     .pipe(autoprefixer())
@@ -117,7 +121,7 @@ gulp.task('javascript', function () {
 gulp.task('javascript:prod', function () {
   return gulp.src(assets.javascripts)
     .pipe(babel({blacklist: ['useStrict'], comments: false, modules: ['amd'] }))
-    .pipe(concat('kreta.min.js'))
+    .pipe(concat('app.min.js'))
     .pipe(uglify())
     .pipe(header(license, {pkg: pkg}))
     .pipe(gulp.dest(resultPath + 'js'));
