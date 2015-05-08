@@ -36,7 +36,7 @@ class ProjectFactorySpec extends ObjectBehavior
         $this->shouldHaveType('Kreta\Component\Project\Factory\ProjectFactory');
     }
 
-    function it_creates_a_project_with_workflow(
+    function it_creates_a_project_with_workflow_but_without_projects_defaults(
         UserInterface $user,
         ParticipantFactory $participantFactory,
         ParticipantInterface $participant,
@@ -46,10 +46,10 @@ class ProjectFactorySpec extends ObjectBehavior
         $participantFactory->create(Argument::type('Kreta\Component\Project\Model\Project'), $user, 'ROLE_ADMIN')
             ->shouldBeCalled()->willReturn($participant);
 
-        $this->create($user, $workflow)->shouldReturnAnInstanceOf('Kreta\Component\Project\Model\Project');
+        $this->create($user, $workflow, false)->shouldReturnAnInstanceOf('Kreta\Component\Project\Model\Project');
     }
 
-    function it_creates_a_project_without_workflow(
+    function it_creates_a_project_without_workflow_but_with_projects_defaults(
         UserInterface $user,
         ParticipantFactory $participantFactory,
         ParticipantInterface $participant,
@@ -62,6 +62,6 @@ class ProjectFactorySpec extends ObjectBehavior
         $workflowFactory->create('Default KRETA workflow', $user, true)
             ->shouldBeCalled()->willReturn($workflow);
 
-        $this->create($user, null)->shouldReturnAnInstanceOf('Kreta\Component\Project\Model\Project');
+        $this->create($user, null, true)->shouldReturnAnInstanceOf('Kreta\Component\Project\Model\Project');
     }
 }
