@@ -57,6 +57,7 @@
 {% include 'KretaWebBundle:Default/templates:createIssue.html.twig' %}
 {% include 'KretaWebBundle:Default/templates:userInteraction.html.twig' %}
 {% include 'KretaWebBundle:Default/templates:listIssue.html.twig' %}
+{% include 'KretaWebBundle:Default/component:filter.html.twig' %}
 
 {% if app.debug %}
     <script src="{{ asset(base_asset_vendor ~ 'jquery/dist/jquery.js') }}"></script>
@@ -71,5 +72,6 @@
     <script src="{{ asset(base_asset_vendor ~ 'backbone.controller/backbone.controller.js') }}"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.17/require.min.js" data-main="{{ asset(base_asset_js ~ 'app.min') }}"></script>
 {% endif %}
+
 </body>
 </html>

@@ -9,6 +9,7 @@
 
 import {IssueCollection} from '../../../collections/issue';
 import {IssuePreviewView} from '../../component/issuePreview';
+import {FilterView} from '../../component/filter';
 
 export class IssueListView extends Backbone.View {
   constructor(options) {
@@ -19,13 +20,10 @@ export class IssueListView extends Backbone.View {
     this.issues = new IssueCollection();
     this.issues.fetch({data: {project: this.projectId}});
 
-    this.events = {
-      "click .filter a": "filterClicked"
-    };
-
     super(options);
 
     this.loadFilters();
+    this.render();
 
     this.listenTo(this.issues, 'add', this.addOne);
     this.listenTo(this.issues, 'reset', this.addAll);
@@ -38,48 +36,44 @@ export class IssueListView extends Backbone.View {
     this.$issues = this.$el.find('.issues');
     this.$filter = this.$el.find('.filter');
 
-    var html = '';
-    this.filters.forEach((filter) => {
-      var selected = true;
-      html += '<div>';
-      for (title in filter) {
-        html += $('<a></a>')
-          .attr('data-filter', filter[title].filter)
-          .attr('data-value', filter[title].value)
-          .text(title)
-          .addClass(selected ? 'selected' : '')
-          .get(0).outerHTML;
-        selected = false;
-      }
-      html += '</div>';
+    this.filterView = new FilterView(this.filters);
+    this.filterView.onFilterClicked((filter) => {
+      this.filterIssues(filter);
     });
 
-    this.$filter.html(html);
+    this.$filter.html(this.filterView.render().el);
 
     return this;
   }
 
   loadFilters() {
-    this.filters = [{
-      'All': {
+    this.filters = [[
+      {
+        title: 'All',
         filter: 'assignee',
-        value: ''
-      },
-      'Assigned to me': {
+        value: '',
+        selected: true
+      }, {
+        title: 'Assigned to me',
         filter: 'assignee',
-        value: App.currentUser.get('id')
+        value: App.currentUser.get('id'),
+        selected: false
       }
-    }, {
-      'All priorities': {
-        'filter': 'priority',
-        'value': ''
+    ], [
+      {
+        title: 'All priorities',
+        filter: 'priority',
+        value: '',
+        selected: true
       }
-    }, {
-      'All statuses': {
-        'filter': 'status',
-        'value': ''
+    ], [
+      {
+        title: 'All statuses',
+        filter: 'status',
+        value: '',
+        selected: true
       }
-    }];
+    ]];
 
     this.render();
   }
@@ -94,22 +88,17 @@ export class IssueListView extends Backbone.View {
     this.$issues.append(view.render().el);
   }
 
-  filterClicked(ev) {
-    $(ev.currentTarget).parent().find('a').removeClass('selected');
-    $(ev.currentTarget).addClass('selected');
-    this.filterIssues();
-  }
-
-  filterIssues() {
-    var filter = {};
-    this.$filter.children().each(function () {
-      var $selected = $(this).find('.selected');
-      if ($selected.attr('data-value')) {
-        filter[$selected.attr('data-filter')] = $selected.attr('data-value');
-      }
-    });
+  filterIssues(filters) {
     var data = {project: this.projectId};
-    jQuery.extend(data, filter);
+
+    filters.forEach((filter) => {
+      filter.forEach((item) => {
+        if(item.selected) {
+          data[item.filter] = item.value;
+        }
+      });
+    });
+
     this.issues.fetch({data: data, reset: true});
     this.$issues.html('');
   }

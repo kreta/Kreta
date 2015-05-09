@@ -10,7 +10,7 @@
 import {HeaderView} from 'views/layout/mainMenu';
 import {MainContentView} from 'views/layout/mainContent';
 import {TooltipView} from 'views/component/tooltip';
-import {Profile} from 'models/profile'
+import {Profile} from 'models/profile';
 import {Router} from 'router';
 import {Config} from 'config';
 
