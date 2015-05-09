@@ -1,43 +1,42 @@
-<script type="text/html" id="kreta-create-issue-template">
-    <form id="kreta-create-task" method="POST" action="#">
-        <div class="kreta-create-issue-actions">
-            <button class="kreta-button">Cancel</button>
-            <button class="kreta-button green" type="submit" tabindex="8">Done</button>
+<script type="text/html" id="issue-new-template">
+    <form id="issue-new" method="POST" action="#">
+        <div class="issue-new-actions">
+            <button class="button">Cancel</button>
+            <button class="button green" type="submit" tabindex="8">Done</button>
         </div>
-        <div class="kreta-selector selector-project">
-            <span tabindex="1"><img src="{{ asset('images/temp-project-icon.jpg') }}" style="margin-right: 5px">
+        <div class="selector selector-project">
+            <span class="selector-text" tabindex="1">
                 Select project</span>
             <input name="project" type="hidden" value="">
-            <div>
-
+            <div class="selector-choices">
             </div>
         </div>
         <input type="text" class="big" name="title" placeholder="Type your task title" tabindex="2">
         <textarea name="description" placeholder="Type your task description" tabindex="3"></textarea>
-        <div class="kreta-create-issue-details">
-            <div class="kreta-selector selector-assignee">
-                <span tabindex="4">Unassigned</span>
+        <div class="issue-new-details">
+            <div class="selector selector-assignee">
+                <span class="selector-text" tabindex="4">Unassigned</span>
                 <input name="assignee" type="hidden" value="">
-                <div>
+                <div class="selector-choices">
                 </div>
             </div>
-            <div class="kreta-selector selector-priority">
-                <span tabindex="5">Low priority</span>
+            <div class="selector selector-priority">
+                <span class="selector-text" tabindex="5">Low priority</span>
                 <input name="priority" type="hidden" value="0">
-                <div>
+                <div class="selector-choices">
                 </div>
             </div>
-            <div class="kreta-selector selector-due-date">
-                <span tabindex="6">No due date</span>
+            <div class="selector selector-due-date">
+                <span class="selector-text" tabindex="6">No due date</span>
                 <input type="hidden" value="">
-                <div>
-                    <span>No due date</span>
+                <div class="selector-choices">
+                    <span class="selector-selectable">No due date</span>
                 </div>
             </div>
-            <div class="kreta-selector selector-type">
-                <span tabindex="7">New feature</span>
+            <div class="selector selector-type">
+                <span class="selector-text" tabindex="7">New feature</span>
                 <input name="type" type="hidden" value="">
-                <div>
+                <div class="selector-choices">
                 </div>
             </div>
         </div>

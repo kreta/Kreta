@@ -15,12 +15,12 @@ import {ProjectCollection} from '../../../collections/project';
 import {IssueTypeCollection} from '../../../collections/issue-type';
 import {IssuePriorityCollection} from '../../../collections/issue-priority';
 
-export class CreateIssueView extends Backbone.View {
+export class IssueNewView extends Backbone.View {
   constructor () {
-    this.className = 'kreta-create-issue';
-    this.template = _.template($('#kreta-create-issue-template').html());
+    this.className = 'issue-new';
+    this.template = _.template($('#issue-new-template').html());
     this.events = {
-      'submit #kreta-create-task': 'save'
+      'submit #issue-new': 'save'
     };
 
     super();
@@ -81,11 +81,11 @@ export class CreateIssueView extends Backbone.View {
   save (ev) {
     ev.preventDefault();
     var formData = {};
-    $.each($('#kreta-create-task').serializeArray(), function (field) {
+    $.each($('#issue-new').serializeArray(), function (field) {
       formData[this.name] = this.value;
     });
 
-    var projectId = formData['project'];
+    var projectId = formData.project;
 
     var issue = new Issue(formData);
     issue.save(null, {success: function(model) {

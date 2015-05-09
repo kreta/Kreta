@@ -1,35 +1,38 @@
-.kreta-selector {
+.selector {
   cursor: pointer;
   position: relative;
+  font-weight: lighter;
 
-  > span {
+  &.visible > .selector-choices  {
     display: block;
+  }
+}
+
+.selector-text {
+  display: block;
+  outline: 0;
+  padding: 30px 0;
+}
+
+.selector-choices {
+  background: $white;
+  border: 1px solid #e1e1e1;
+  display: none;
+  position: absolute;
+  top: 20px;
+  width: 100%;
+}
+
+.selector-selectable {
+  display: block;
+  padding: 12px;
+  transition-duration: .2s;
+
+  &:hover,
+  &:focus,
+  &.selected {
+    background: $main-green;
+    color: $white;
     outline: 0;
-    padding: 30px 0;
-  }
-
-  > div {
-    background: $white;
-    border: 1px solid #e1e1e1;
-    display: none;
-    position: absolute;
-    top: 20px;
-    width: 100%;
-
-    span {
-      display: block;
-      padding: 12px;
-      transition-duration: .2s;
-
-      &:hover,
-      &.selected {
-        background: $main-green;
-        color: $white;
-      }
-    }
-  }
-
-  &.visible > div {
-      display: block;
   }
 }
