@@ -20,9 +20,8 @@
     "require": {
         "php":                                 ">=5.4",
         "knplabs/knp-gaufrette-bundle":        "*@dev",
-        "symfony/http-foundation":             "2.3.*",
 
-        "kreta/core":                          "~0.1.0"
+        "kreta/core":                          "~0.2.0"
     },
     "require-dev": {
         "phpspec/phpspec":                     "~2.1",

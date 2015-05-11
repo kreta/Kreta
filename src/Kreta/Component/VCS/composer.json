@@ -19,11 +19,11 @@
     ],
     "require": {
         "php":                                 ">=5.4",
-        "symfony/event-dispatcher":            "2.3.*",
-        "symfony/http-foundation":             "2.3.*",
+        "symfony/event-dispatcher":            "~2.3",
+        "symfony/http-foundation":             "~2.3",
 
-        "kreta/core":                          "~0.1.0",
-        "kreta/issue":                         "~0.1.0"
+        "kreta/core":                          "~0.2.0",
+        "kreta/issue":                         "~0.2.0"
     },
     "require-dev": {
         "phpspec/phpspec":                     "~2.1",
