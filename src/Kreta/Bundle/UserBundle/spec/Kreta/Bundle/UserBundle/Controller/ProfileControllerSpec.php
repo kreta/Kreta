@@ -67,7 +67,7 @@ class ProfileControllerSpec extends ObjectBehavior
         UserInterface $user
     )
     {
-        $container->get('kreta_user.form_handler.user')->shouldBeCalled()->willReturn($handler);
+        $container->get('kreta_user.form_handler.profile')->shouldBeCalled()->willReturn($handler);
         $handler->processForm($request)->shouldBeCalled()->willReturn($user);
 
         $this->postProfileAction($request)->shouldReturn($user);

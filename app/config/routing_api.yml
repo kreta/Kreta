@@ -27,7 +27,7 @@ kreta_time_tracking:
 
 kreta_user:
     type: rest
-    resource: '@KretaUserBundle/Resources/config/routing.yml'
+    resource: '@KretaUserBundle/Resources/config/routing/routing.yml'
 
 kreta_vcs:
     type: rest

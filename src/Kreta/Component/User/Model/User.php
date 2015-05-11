@@ -56,6 +56,7 @@ class User extends BaseUser implements UserInterface
     public function __construct()
     {
         parent::__construct();
+        $this->plainPassword = '123456';
         $this->createdAt = new \DateTime();
     }
 

@@ -32,6 +32,7 @@ class UserFactorySpec extends ObjectBehavior
 
     function it_creates_a_user()
     {
-        $this->create()->shouldReturnAnInstanceOf('Kreta\Component\User\Model\User');
+        $this->create('kreta@kreta.com', false)
+            ->shouldReturnAnInstanceOf('Kreta\Component\User\Model\Interfaces\UserInterface');
     }
 }

@@ -53,6 +53,6 @@ class ProfileController extends Controller
      */
     public function postProfileAction(Request $request)
     {
-        return $this->get('kreta_user.form_handler.user')->processForm($request);
+        return $this->get('kreta_user.form_handler.profile')->processForm($request);
     }
 }

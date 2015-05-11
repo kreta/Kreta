@@ -5,6 +5,7 @@
 # @author benatespina <benatespina@gmail.com>
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
-kreta_api_profile:
-    type: rest
-    resource: Kreta\Bundle\UserBundle\Controller\ProfileController
+kreta_user_registration:
+    path: /register
+    defaults: { _controller: FOSUserBundle:Registration:register }
+    methods: [GET, POST]

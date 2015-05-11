@@ -94,17 +94,9 @@ class Handler implements HandlerInterface
     }
 
     /**
-     * Creates a form with the given parameters.
-     *
-     * To simplify the request body parameters, the form name
-     * is setting to '' when the form is going to be create.
-     *
-     * @param Object|null $object      Model related to the form
-     * @param array       $formOptions Array which contains the options that will be passed
-     *
-     * @return \Symfony\Component\Form\FormInterface
+     * {@inheritdoc}
      */
-    protected function createForm($object = null, array $formOptions = [])
+    public function createForm($object = null, array $formOptions = [])
     {
         return $this->formFactory->createNamedBuilder('', $this->formName, $object, $formOptions)->getForm();
     }

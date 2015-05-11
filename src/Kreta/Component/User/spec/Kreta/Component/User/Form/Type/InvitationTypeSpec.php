@@ -17,11 +17,11 @@ use Prophecy\Argument;
 use Symfony\Component\Form\FormBuilder;
 
 /**
- * Class UserTypeSpec.
+ * Class InvitationTypeSpec.
  *
  * @package spec\Kreta\Component\User\Form\Type
  */
-class UserTypeSpec extends ObjectBehavior
+class InvitationTypeSpec extends ObjectBehavior
 {
     function let(UserFactory $factory)
     {
@@ -30,7 +30,7 @@ class UserTypeSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('Kreta\Component\User\Form\Type\UserType');
+        $this->shouldHaveType('Kreta\Component\User\Form\Type\InvitationType');
     }
 
     function it_extends_kreta_abstract_type()
@@ -40,18 +40,13 @@ class UserTypeSpec extends ObjectBehavior
 
     function it_builds_a_form(FormBuilder $builder)
     {
-        $builder->add('firstName')->shouldBeCalled()->willReturn($builder);
-        $builder->add('lastName')->shouldBeCalled()->willReturn($builder);
         $builder->add('email')->shouldBeCalled()->willReturn($builder);
-        $builder->add('photo', 'file', [
-            'required' => false, 'mapped' => false
-        ])->shouldBeCalled()->willReturn($builder);
 
         $this->buildForm($builder, []);
     }
 
     function it_gets_name()
     {
-        $this->getName()->shouldReturn('kreta_user_user_type');
+        $this->getName()->shouldReturn('kreta_user_invitation_type');
     }
 }

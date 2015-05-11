@@ -16,24 +16,18 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
 
 /**
- * Class UserType.
+ * Class InvitationType.
  *
  * @package Kreta\Component\User\Form\Type
  */
-class UserType extends AbstractType
+class InvitationType extends AbstractType
 {
     /**
      * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder
-            ->add('firstName')
-            ->add('lastName')
-            ->add('email')
-            ->add('photo', 'file', [
-                'required' => false, 'mapped' => false
-            ]);
+        $builder->add('email');
     }
 
     /**
@@ -41,7 +35,7 @@ class UserType extends AbstractType
      */
     public function getName()
     {
-        return 'kreta_user_user_type';
+        return 'kreta_user_invitation_type';
     }
 
     /**
@@ -49,6 +43,6 @@ class UserType extends AbstractType
      */
     protected function createEmptyData(FormInterface $form)
     {
-        return $this->user;
+        return $this->factory->create($form->get('email')->getData());
     }
 }

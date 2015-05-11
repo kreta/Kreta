@@ -17,6 +17,9 @@ kreta_api:
 kreta_media_image:
     pattern: /media/image/{name}
 
+kreta_user_security:
+    resource: '@KretaUserBundle/Resources/config/routing/security.yml'
+
 kreta_vcs:
     resource: '@KretaVCSBundle/Resources/config/routing/webhooks.yml'
     prefix: /webhooks
@@ -26,8 +29,8 @@ kreta_vcs:
 fos_oauth_server_token:
     resource: "@FOSOAuthServerBundle/Resources/config/routing/token.xml"
 
-fos_user:
-    resource: '@FOSUserBundle/Resources/config/routing/all.xml'
+fos_user_security:
+    resource: '@FOSUserBundle/Resources/config/routing/security.xml'
 
 liip_imagine:
     resource: "@LiipImagineBundle/Resources/config/routing.xml"

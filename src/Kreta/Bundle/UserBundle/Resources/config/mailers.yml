@@ -1,0 +1,15 @@
+# This file belongs to Kreta.
+# The source code of application includes a LICENSE file
+# with all information about license.
+#
+# @author benatespina <benatespina@gmail.com>
+# @author gorkalaucirica <gorka.lauzirika@gmail.com>
+
+services:
+    kreta_user.mailer:
+        class: Kreta\Bundle\UserBundle\Mailer\Mailer
+        arguments: 
+            - @mailer
+            - @router
+            - @templating
+            - { invitation.template: '%kreta_user.invitation.email.template%'}

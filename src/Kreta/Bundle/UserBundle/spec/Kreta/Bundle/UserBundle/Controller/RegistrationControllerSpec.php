@@ -11,13 +11,24 @@
 
 namespace spec\Kreta\Bundle\UserBundle\Controller;
 
+use FOS\UserBundle\Doctrine\UserManager;
+use FOS\UserBundle\Event\FormEvent;
+use FOS\UserBundle\FOSUserEvents;
 use Kreta\Bundle\UserBundle\Event\AuthorizationEvent;
+use Kreta\Component\Core\Form\Handler\Interfaces\HandlerInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
+use Kreta\Component\User\Repository\UserRepository;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
+use Symfony\Bundle\FrameworkBundle\Templating\EngineInterface;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -45,12 +56,94 @@ class RegistrationControllerSpec extends ObjectBehavior
         $this->shouldHaveType('FOS\UserBundle\Controller\RegistrationController');
     }
 
-    function it_throws_access_denied_exception_when_confirmed_action(
+    function it_throws_not_found_http_exception_when_the_request_is_null(Request $request, ParameterBagInterface $bag)
+    {
+        $request->query = $bag;
+        $bag->get('token')->shouldBeCalled()->willReturn(null);
+        $request->getMethod()->shouldBeCalled()->willReturn('POST');
+        $bag->get('email')->shouldBeCalled()->willReturn(null);
+
+        $this->shouldThrow(new NotFoundHttpException())->during('registerAction', [$request]);
+    }
+
+    function it_renders_registration_view(
+        Request $request,
+        ParameterBagInterface $bag,
         ContainerInterface $container,
+        UserRepository $repository,
+        UserInterface $user,
+        HandlerInterface $handler,
+        FormInterface $form,
+        EngineInterface $engine,
+        FormView $formView,
+        Response $response
+    )
+    {
+        $request->query = $bag;
+        $bag->get('token')->shouldBeCalled()->willReturn(null);
+        $request->getMethod()->shouldBeCalled()->willReturn('POST');
+        $bag->get('email')->shouldBeCalled()->willReturn('kreta@kreta.com');
+
+        $container->get('kreta_user.repository.user')->shouldBeCalled()->willReturn($repository);
+        $repository->findOneBy(['email' => 'kreta@kreta.com'], false)->shouldBeCalled()->willReturn($user);
+        $container->get('kreta_user.form_handler.registration')->shouldBeCalled()->willReturn($handler);
+        $handler->createForm($user)->shouldBeCalled()->willReturn($form);
+        $form->setData($user)->shouldBeCalled()->willReturn($form);
+        $form->handleRequest($request)->shouldBeCalled()->willReturn($form);
+        $form->isValid()->shouldBeCalled()->willReturn(false);
+
+        $container->get('templating')->shouldBeCalled()->willReturn($engine);
+        $form->createView()->shouldBeCalled()->willReturn($formView);
+        $engine->renderResponse(
+            'FOSUserBundle:Registration:register.html.twig',
+            ['form' => $formView, 'user' => $user],
+            null
+        )->shouldBeCalled()->willReturn($response);
+
+        $this->registerAction($request)->shouldReturn($response);
+    }
+
+    function it_throws_access_denied_exception_because_the_user_is_not_logged(
+        Request $request,
+        ParameterBagInterface $bag,
+        ContainerInterface $container,
+        UserRepository $repository,
+        UserInterface $user,
+        HandlerInterface $handler,
+        FormInterface $form,
+        EventDispatcherInterface $eventDispatcher,
+        FormEvent $event,
+        UserManager $userManager,
         SecurityContextInterface $context,
         TokenInterface $token
     )
     {
+        $request->query = $bag;
+        $bag->get('token')->shouldBeCalled()->willReturn(null);
+        $request->getMethod()->shouldBeCalled()->willReturn('POST');
+        $bag->get('email')->shouldBeCalled()->willReturn('kreta@kreta.com');
+
+        $container->get('kreta_user.repository.user')->shouldBeCalled()->willReturn($repository);
+        $repository->findOneBy(['email' => 'kreta@kreta.com'], false)->shouldBeCalled()->willReturn($user);
+        $container->get('kreta_user.form_handler.registration')->shouldBeCalled()->willReturn($handler);
+        $handler->createForm($user)->shouldBeCalled()->willReturn($form);
+        $form->setData($user)->shouldBeCalled()->willReturn($form);
+        $form->handleRequest($request)->shouldBeCalled()->willReturn($form);
+        $form->isValid()->shouldBeCalled()->willReturn(true);
+
+        $user->setEnabled(true)->shouldBeCalled()->willReturn($user);
+        $user->setConfirmationToken(null)->shouldBeCalled()->willReturn($user);
+
+        $container->get('event_dispatcher')->shouldBeCalled()->willReturn($eventDispatcher);
+        $eventDispatcher->dispatch(
+            FOSUserEvents::REGISTRATION_SUCCESS, Argument::type('FOS\UserBundle\Event\FormEvent')
+        )->shouldBeCalled()->willReturn($event);
+        $container->get('fos_user.user_manager')->shouldBeCalled()->willReturn($userManager);
+        $userManager->updateUser($user)->shouldBeCalled();
+        $eventDispatcher->dispatch(
+            FOSUserEvents::REGISTRATION_COMPLETED, Argument::type('FOS\UserBundle\Event\FilterUserResponseEvent')
+        )->shouldBeCalled()->willReturn($event);
+
         $container->has('security.context')->willReturn(true);
         $container->has('security.token_storage')->willReturn(true);
         $container->get('security.context')->willReturn($context);
@@ -60,20 +153,51 @@ class RegistrationControllerSpec extends ObjectBehavior
         $token->getUser()->shouldBeCalled()->willReturn(null);
 
         $this->shouldThrow(new AccessDeniedException('This user does not have access to this section.'))
-            ->during('confirmedAction');
+            ->during('registerAction', [$request]);
     }
 
-    function its_confirmed_action(
+    function it_registers_successfully(
+        Request $request,
+        ParameterBagInterface $bag,
         ContainerInterface $container,
+        UserRepository $repository,
+        UserInterface $user,
+        HandlerInterface $handler,
+        FormInterface $form,
+        EventDispatcherInterface $eventDispatcher,
+        FormEvent $event,
+        UserManager $userManager,
         SecurityContextInterface $context,
         TokenInterface $token,
-        UserInterface $user,
-        Request $request,
-        EventDispatcherInterface $eventDispatcher,
-        AuthorizationEvent $event,
         RouterInterface $router
     )
     {
+        $request->query = $bag;
+        $bag->get('token')->shouldBeCalled()->willReturn(null);
+        $request->getMethod()->shouldBeCalled()->willReturn('POST');
+        $bag->get('email')->shouldBeCalled()->willReturn('kreta@kreta.com');
+
+        $container->get('kreta_user.repository.user')->shouldBeCalled()->willReturn($repository);
+        $repository->findOneBy(['email' => 'kreta@kreta.com'], false)->shouldBeCalled()->willReturn($user);
+        $container->get('kreta_user.form_handler.registration')->shouldBeCalled()->willReturn($handler);
+        $handler->createForm($user)->shouldBeCalled()->willReturn($form);
+        $form->setData($user)->shouldBeCalled()->willReturn($form);
+        $form->handleRequest($request)->shouldBeCalled()->willReturn($form);
+        $form->isValid()->shouldBeCalled()->willReturn(true);
+
+        $user->setEnabled(true)->shouldBeCalled()->willReturn($user);
+        $user->setConfirmationToken(null)->shouldBeCalled()->willReturn($user);
+
+        $container->get('event_dispatcher')->shouldBeCalled()->willReturn($eventDispatcher);
+        $eventDispatcher->dispatch(
+            FOSUserEvents::REGISTRATION_SUCCESS, Argument::type('FOS\UserBundle\Event\FormEvent')
+        )->shouldBeCalled()->willReturn($event);
+        $container->get('fos_user.user_manager')->shouldBeCalled()->willReturn($userManager);
+        $userManager->updateUser($user)->shouldBeCalled();
+        $eventDispatcher->dispatch(
+            FOSUserEvents::REGISTRATION_COMPLETED, Argument::type('FOS\UserBundle\Event\FilterUserResponseEvent')
+        )->shouldBeCalled()->willReturn($event);
+
         $container->has('security.context')->willReturn(true);
         $container->has('security.token_storage')->willReturn(true);
         $container->get('security.context')->willReturn($context);
@@ -81,15 +205,14 @@ class RegistrationControllerSpec extends ObjectBehavior
 
         $context->getToken()->shouldBeCalled()->willReturn($token);
         $token->getUser()->shouldBeCalled()->willReturn($user);
-        $container->get('request')->shouldBeCalled()->willReturn($request);
-        $container->get('event_dispatcher')->shouldBeCalled()->willReturn($eventDispatcher);
+
         $eventDispatcher->dispatch(
-            'kreta_user_event_authorization', Argument::type('Kreta\Bundle\UserBundle\Event\AuthorizationEvent')
+            AuthorizationEvent::NAME, Argument::type('Kreta\Bundle\UserBundle\Event\AuthorizationEvent')
         )->shouldBeCalled()->willReturn($event);
 
         $container->get('router')->shouldBeCalled()->willReturn($router);
-        $router->generate('kreta_web_homepage', [], false)->shouldBeCalled()->willReturn('/');
-        
-        $this->confirmedAction();
+        $router->generate('kreta_web_homepage', [], false)->shouldBeCalled()->willReturn('http://kreta.io/');
+
+        $this->registerAction($request);
     }
 }

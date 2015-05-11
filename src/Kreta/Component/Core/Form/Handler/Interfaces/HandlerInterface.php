@@ -47,4 +47,17 @@ interface HandlerInterface
      * @throws \Kreta\Component\Core\Form\Exception\InvalidFormException
      */
     public function handleForm(Request $request, $object = null, array $formOptions = []);
+
+    /**
+     * Creates a form with the given parameters.
+     *
+     * To simplify the request body parameters, the form name
+     * is setting to '' when the form is going to be create.
+     *
+     * @param Object|null $object      Model related to the form
+     * @param array       $formOptions Array which contains the options that will be passed
+     *
+     * @return \Symfony\Component\Form\FormInterface
+     */
+    public function createForm($object = null, array $formOptions = []);
 }

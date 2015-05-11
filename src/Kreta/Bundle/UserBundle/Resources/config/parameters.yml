@@ -14,6 +14,8 @@ parameters:
 
     kreta_user.form_user_handler.class: Kreta\Component\User\Form\Handler\UserHandler
 
-    kreta_user.form_type.user.class: Kreta\Component\User\Form\Type\UserType
+    kreta_user.invitation.email.template: KretaUserBundle::invitation.html.twig
 
-    kreta_user.security_user_provider.class: Kreta\Bundle\UserBundle\Security\UserProvider
+    kreta_user.form_type.invitation.class: Kreta\Component\User\Form\Type\InvitationType
+    kreta_user.form_type.profile.class: Kreta\Component\User\Form\Type\ProfileType
+    kreta_user.form_type.registration.class: Kreta\Component\User\Form\Type\RegistrationType
