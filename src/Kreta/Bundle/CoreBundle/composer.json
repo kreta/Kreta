@@ -27,7 +27,7 @@
         "jms/serializer-bundle":                "0.13.x",
         "willdurand/hateoas-bundle":            "0.3.x",
 
-        "kreta/simple-api-doc-bundle":          "0.1.*@dev",
+        "kreta/simple-api-doc-bundle":          "~0.1",
 
         "kreta/core":                           "~0.2.0"
     },

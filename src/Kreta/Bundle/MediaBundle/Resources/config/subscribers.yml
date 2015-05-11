@@ -8,5 +8,5 @@
 services:
     kreta_media.subscriber.media_url.abstract:
         abstract: true
-        class: Kreta\Bundle\MediaBundle\EventSubscriber\MediaUrlSubscriber
+        class: %kreta_media.subscriber.media_url.abstract.class%
         arguments: [@router]

@@ -11,3 +11,5 @@ parameters:
     kreta_media.factory_media.class: Kreta\Component\Media\Factory\MediaFactory
 
     kreta_media.uploader_media.class: Kreta\Component\Media\Uploader\MediaUploader
+
+    kreta_media.subscriber.media_url.abstract.class: Kreta\Bundle\MediaBundle\EventSubscriber\MediaUrlSubscriber

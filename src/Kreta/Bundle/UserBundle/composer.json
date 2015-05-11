@@ -22,6 +22,7 @@
         "hwi/oauth-bundle":                    "0.4.*@dev",
 
         "kreta/core-bundle":                   "~0.2.0",
+        "kreta/media-bundle":                  "~0.2.0",
         "kreta/user":                          "~0.2.0"
     },
     "require-dev": {
