@@ -6,6 +6,15 @@
   &.visible > .selector-choices  {
     display: block;
   }
+
+  &:hover .selector-selectable.selected {
+    background: $white;
+    color: $main-black;
+    &:hover {
+      background: $main-green;
+      color: $white;
+    }
+  }
 }
 
 .selector-text {

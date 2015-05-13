@@ -9,14 +9,14 @@
 
 import {SelectorView} from '../../component/selector';
 import {Issue} from '../../../models/issue';
-import {UserCollection} from '../../../collections/user';
+import {User} from '../../../models/user';
 import {ParticipantCollection} from '../../../collections/participant';
 import {ProjectCollection} from '../../../collections/project';
 import {IssueTypeCollection} from '../../../collections/issue-type';
 import {IssuePriorityCollection} from '../../../collections/issue-priority';
 
 export class IssueNewView extends Backbone.View {
-  constructor () {
+  constructor (options) {
     this.className = 'issue-new';
     this.template = _.template($('#issue-new-template').html());
     this.events = {
@@ -25,13 +25,20 @@ export class IssueNewView extends Backbone.View {
 
     super();
 
-    this.projects = new ProjectCollection();
+    this.issue = typeof options !== 'undefined' ? options.issue : new Issue();
+
+    if(this.issue.isNew) {
+      this.projects = new ProjectCollection();
+      this.listenTo(this.projects, 'add', this.updateProjects);
+      this.listenTo(this.projects, 'reset', this.updateProjects);
+
+      this.projects.fetch();
+    }
+
     this.participants = new ParticipantCollection();
     this.issuePriorities = new IssuePriorityCollection();
     this.issueTypes = new IssueTypeCollection();
 
-    this.listenTo(this.projects, 'add', this.updateProjects);
-    this.listenTo(this.projects, 'reset', this.updateProjects);
     this.listenTo(this.participants, 'add', this.updateSelectors);
     this.listenTo(this.participants, 'reset', this.updateSelectors);
     this.listenTo(this.issueTypes, 'add', this.updateSelectors);
@@ -39,7 +46,6 @@ export class IssueNewView extends Backbone.View {
     this.listenTo(this.issuePriorities, 'add', this.updateSelectors);
     this.listenTo(this.issuePriorities, 'reset', this.updateSelectors);
 
-    this.projects.fetch();
 
     this.render();
   }
@@ -47,9 +53,11 @@ export class IssueNewView extends Backbone.View {
   render () {
     this.$el.html(this.template({}));
 
+    this.$el.find('.issue-new-details').hide();
+
     this.$assignee = new SelectorView(this.$el.find('.selector-assignee'));
     this.$priorities = new SelectorView(this.$el.find('.selector-priority'));
-    this.$dueDate = new SelectorView(this.$el.find('.selector-due-date'));
+    /*this.$dueDate = new SelectorView(this.$el.find('.selector-due-date'));*/
     this.$type = new SelectorView(this.$el.find('.selector-type'));
     this.$project = new SelectorView(this.$el.find('.selector-project'));
 
@@ -58,24 +66,33 @@ export class IssueNewView extends Backbone.View {
     return this;
   }
 
-  onProjectSelected (id) {
-    this.participants.setProject(id).fetch();
-    this.issueTypes.setProject(id).fetch();
-    this.issuePriorities.setProject(id).fetch();
+  onProjectSelected (project) {
+    this.selectorsLeft = 2;
+    this.$el.find('.issue-new-details').hide();
+
+    var users = [];
+    project.get('participants').forEach((participant) => {
+      users.push(new User(participant.user));
+    });
+    this.$assignee.setSelectables(users);
+
+    this.issueTypes.setProject(project.id).fetch();
+    this.issuePriorities.setProject(project.id).fetch();
   }
 
   updateProjects () {
-    this.$project.setSelectables(this.projects);
+    this.$project.setSelectables(this.projects.models);
   }
 
   updateSelectors () {
-    var users = new UserCollection();
-    this.participants.each((participant) => {
-       users.push(participant.get('user'));
-    });
-    this.$assignee.setSelectables(users);
-    this.$type.setSelectables(this.issueTypes);
-    this.$priorities.setSelectables(this.issuePriorities);
+    this.$type.setSelectables(this.issueTypes.models);
+    this.$priorities.setSelectables(this.issuePriorities.models);
+
+    this.selectorsLeft--;
+
+    if(this.selectorsLeft == 0) {
+      this.$el.find('.issue-new-details').show();
+    }
   }
 
   save (ev) {
@@ -87,8 +104,9 @@ export class IssueNewView extends Backbone.View {
 
     var projectId = formData.project;
 
-    var issue = new Issue(formData);
-    issue.save(null, {success: function(model) {
+    this.issue.set(formData);
+
+    this.issue.save(null, {success: function(model) {
       App.router.navigate('/project/' + projectId, true);
       App.router.navigate('/issue/' + model.get('id'), true);
     }});

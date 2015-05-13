@@ -23,16 +23,21 @@ export class SelectorView extends Backbone.View {
       'mousedown', '.selector-selectable', ($.proxy(this.optionClicked, this))
     );
 
+    this.selectables = [];
     this.onOptionSelectedCallback = null;
   }
 
   setSelectables(selectables) {
+    this.selectables = selectables;
     this.$choices.html('');
-    selectables.each((model) => {
+    this.selectables.forEach((model) => {
       this.$choices.append(
         `<span class="selector-selectable" data-id="${model.get('id')}">${model.toString()}</span>`
       );
     });
+    if(selectables.length > 0) {
+      this.selectOption(0);
+    }
   }
 
   toggleSelector(ev) {
@@ -63,25 +68,25 @@ export class SelectorView extends Backbone.View {
       return;
     }
     if (ev.which === 13) {
-      this.selectOption(
-        $(this.$choices.find('.selector-selectable').get(this.currentPos))
-      );
+      this.selectOption(this.currentPos, true);
     }
   }
 
   optionClicked(ev) {
-    var $selected = $(ev.currentTarget);
-    this.selectOption($selected);
+    this.selectOption($(ev.currentTarget).index());
   }
 
-  selectOption($selected) {
-    var $input = $selected.parents('.selector').find('input');
-    var $span = $selected.parents('.selector').children('span');
-    $input.val($selected.attr('data-id')).trigger('change');
-    $span.text($selected.text());
-    $('[tabindex=' + (parseInt($span.attr('tabindex')) + 1) + ']').focus();
+  selectOption(pos, focusNext = false) {
+    var selectable = this.selectables[pos];
+    var $input = this.$el.find('input[type="hidden"]');
+    var $span = this.$el.find('.selector-text');
+    $input.val(selectable.id).trigger('change');
+    $span.text(selectable.toString());
+    if(focusNext) {
+      $('[tabindex=' + (parseInt($span.attr('tabindex')) + 1) + ']').focus();
+    }
     if (this.onOptionSelectedCallback) {
-      this.onOptionSelectedCallback($selected.attr('data-id'), $selected.text());
+      this.onOptionSelectedCallback(selectable);
     }
   }
 
