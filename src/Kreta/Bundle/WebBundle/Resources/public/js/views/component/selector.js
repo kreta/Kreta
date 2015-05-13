@@ -35,9 +35,6 @@ export class SelectorView extends Backbone.View {
         `<span class="selector-selectable" data-id="${model.get('id')}">${model.toString()}</span>`
       );
     });
-    if(selectables.length > 0) {
-      this.selectOption(0);
-    }
   }
 
   toggleSelector(ev) {

@@ -1,5 +1,8 @@
 <script type="text/html" id="issue-aside-template">
     <h2 class="full-issue-title"><%= title %></h2>
+    <section class="full-issue-actions">
+        <a class="button green" href="/issue/<%= id %>/edit">Edit</a>
+    </section>
     <section class="full-issue-dashboard">
         <p class="full-issue-dashboard-item">
             <img class="user-image" src="<%= assignee.photo.name %>">

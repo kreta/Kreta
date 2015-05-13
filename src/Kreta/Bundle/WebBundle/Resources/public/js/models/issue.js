@@ -9,6 +9,39 @@
 
 export class Issue extends Backbone.Model {
   urlRoot() {
-    return  App.config.getBaseUrl() + '/issues';
+    return App.config.getBaseUrl() + '/issues';
+  }
+
+  defaults() {
+    return {
+      title: '',
+      description: '',
+      project: {
+        id: '',
+        name: ''
+      },
+      assignee: {
+        id: '',
+        name: ''
+      },
+      type: {
+        id: '',
+        name: ''
+      },
+      priority: {
+        id: '',
+        name: ''
+      }
+    }
+  }
+
+  toJSON(options) {
+    var data = _.clone(this.attributes);
+
+    if (typeof(options) !== 'undefined' && options.parse) {
+      data = _.omit(data, 'id');
+    }
+
+    return data;
   }
 }
