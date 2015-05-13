@@ -1,0 +1,13 @@
+<script type="text/html" id="filter-template">
+    <% filters.forEach(function(filter) { %>
+        <div class="filter-group">
+            <% filter.forEach(function(item) { %>
+                <a class="filter-item <%= item.selected ? 'selected' : '' %>"
+                   data-filter="<%= item.filter %>"
+                   data-value="<%= item.value %>">
+                    <%= item.title %>
+                </a>
+            <% }) %>
+        </div>
+    <% }) %>
+</script>

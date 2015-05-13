@@ -13,12 +13,12 @@ import {AsideView} from '../../layout/aside';
 
 export class IssueShowView extends AsideView {
   constructor (options) {
-    this.className = 'issue-aside';
+    this.className = 'full-issue-aside';
 
     this.template = _.template($('#issue-aside-template').html());
 
     this.events = {
-      'click .issue-tab': 'tabClicked'
+      'click .full-issue-tab': 'tabClicked'
     };
 
     super();
@@ -39,10 +39,10 @@ export class IssueShowView extends AsideView {
       this.$el.html(this.template(this.model.toJSON()));
       this.$footer = this.$el.find('footer');
 
-      var commentTab = new CommentsTab({issueId: this.issueId});
-      this.$footer.append(commentTab.render().el);
+      /*var commentTab = new CommentsTab({issueId: this.issueId});
+      this.$footer.append(commentTab.render().el);*/
 
-      this.$tabContent = this.$footer.find('.issue-tab-content')
+      this.$tabContent = this.$footer.find('.full-issue-tab-content')
 
     } else {
       this.$el.html('Loading...');

@@ -8,83 +8,84 @@
  */
 
 export class SelectorView extends Backbone.View {
-    constructor($el) {
-        this.$el = $el;
+  constructor($el) {
+    this.$el = $el;
 
-        this.currentPos = 0;
+    this.currentPos = 0;
 
-        this.$selected = this.$el.children('span');
-        this.$selected.focusin($.proxy(this.toggleSelector, this));
-        this.$selected.focusout($.proxy(this.toggleSelector, this));
-        this.$selected.keydown($.proxy(this.moveSelected, this));
+    this.$selected = this.$el.children('.selector-text');
+    this.$selected.focusin($.proxy(this.toggleSelector, this));
+    this.$selected.focusout($.proxy(this.toggleSelector, this));
+    this.$selected.keydown($.proxy(this.moveSelected, this));
 
-        this.$selectables = this.$el.children('div');
-        this.$selectableSpans = this.$selectables.find('span');
-        this.$selectables.on(
-            'mousedown', 'span', ($.proxy(this.optionClicked, this))
-        );
+    this.$choices = this.$el.children('.selector-choices');
+    this.$choices.on(
+      'mousedown', '.selector-selectable', ($.proxy(this.optionClicked, this))
+    );
 
-        this.onOptionSelectedCallback = null;
+    this.onOptionSelectedCallback = null;
+  }
+
+  setSelectables(selectables) {
+    this.$choices.html('');
+    selectables.each((model) => {
+      this.$choices.append(
+        `<span class="selector-selectable" data-id="${model.get('id')}">${model.toString()}</span>`
+      );
+    });
+  }
+
+  toggleSelector(ev) {
+    $(ev.currentTarget).parent().toggleClass('visible');
+    if (this.$el.hasClass('visible')) {
+      this.currentPos = 0;
+      this.highlightOption(0);
     }
+  }
 
-    setSelectables(selectables) {
-        this.$selectables.html('');
-        selectables.each((model) => {
-            this.$selectables.append(
-                `<span data-id="${model.get('id')}">${model.toString()}</span>`
-            );
-        });
-        this.$selectableSpans = this.$selectables.find('span');
-    }
+  highlightOption(index) {
+    var $items = this.$choices.find('.selector-selectable');
+    $items.removeClass('selected');
+    $($items.get(index)).addClass('selected');
+  }
 
-    toggleSelector(ev) {
-        $(ev.currentTarget).parent().toggleClass('visible');
-        if (this.$el.hasClass('visible')) {
-            this.currentPos = 0;
-            this.highlightOption(0);
-        }
+  moveSelected(ev) {
+    if (ev.which === 38) { //Up
+      if (this.currentPos > 0) {
+        this.currentPos--;
+        this.highlightOption(this.currentPos);
+      }
+      return;
     }
+    if (ev.which === 40) { //Down
+      this.currentPos++;
+      this.highlightOption(this.currentPos);
+      return;
+    }
+    if (ev.which === 13) {
+      this.selectOption(
+        $(this.$choices.find('.selector-selectable').get(this.currentPos))
+      );
+    }
+  }
 
-    highlightOption(index) {
-        this.$selectableSpans.removeClass('selected');
-        $(this.$selectableSpans.get(index)).addClass('selected');
-    }
+  optionClicked(ev) {
+    var $selected = $(ev.currentTarget);
+    this.selectOption($selected);
+  }
 
-    moveSelected(ev) {
-        if (ev.which === 38) { //Up
-            if (this.currentPos > 0) {
-                this.currentPos--;
-                this.highlightOption(this.currentPos);
-            }
-            return;
-        }
-        if (ev.which === 40) { //Down
-            this.currentPos++;
-            this.highlightOption(this.currentPos);
-            return;
-        }
-        if (ev.which === 13) {
-            this.selectOption($(this.$selectableSpans.get(this.currentPos)));
-        }
+  selectOption($selected) {
+    var $input = $selected.parents('.selector').find('input');
+    var $span = $selected.parents('.selector').children('span');
+    $input.val($selected.attr('data-id')).trigger('change');
+    $span.text($selected.text());
+    $('[tabindex=' + (parseInt($span.attr('tabindex')) + 1) + ']').focus();
+    if (this.onOptionSelectedCallback) {
+      this.onOptionSelectedCallback($selected.attr('data-id'), $selected.text());
     }
+  }
 
-    optionClicked(ev) {
-        var $selected = $(ev.currentTarget);
-        this.selectOption($selected);
-    }
-
-    selectOption($selected) {
-        var $input = $selected.parents('.kreta-selector').find('input');
-        var $span = $selected.parents('.kreta-selector').children('span');
-        $input.val($selected.attr('data-id')).trigger('change');
-        $span.text($selected.text());
-        $('[tabindex=' + (parseInt($span.attr('tabindex')) + 1) + ']').focus();
-        if(this.onOptionSelectedCallback) {
-            this.onOptionSelectedCallback($selected.attr('data-id'), $selected.text());
-        }
-    }
-
-    onOptionSelected(callback) {
-        this.onOptionSelectedCallback = callback;
-    }
+  onOptionSelected(callback) {
+    this.onOptionSelectedCallback = callback;
+  }
 }

@@ -14,44 +14,21 @@
 @import 'components/buttons';
 @import 'components/filter';
 @import 'components/form';
+@import 'components/images';
+@import 'components/page-header';
 @import 'components/selectors';
-@import 'components/user-interaction';
+@import 'components/tab';
 @import 'components/tooltip';
+@import 'components/user-interaction';
 
 @import 'layout/aside';
 @import 'layout/main-content';
 @import 'layout/main-menu';
 
-@import 'views/create-issue';
+@import 'views/issue-new';
 @import 'views/issue-aside';
 @import 'views/issue-list';
 @import 'views/project-list';
 
-.project-header {
-  padding: 30px 0;
-  position: relative;
 
-  h2 {
-    display: inline-block;
-    font-size: 1.3em;
-    margin-left: 15px;
-    text-transform: uppercase;
-  }
-
-  .project-actions {
-    position: absolute;
-    right: 0;
-    top: 35px;
-
-    a {
-      color: $main-black;
-      font-size: .8em;
-      text-decoration: none;
-
-      img {
-        margin: 0 10px 0 30px;
-      }
-    }
-  }
-}
 

@@ -1,0 +1,11 @@
+.user-image,
+.project-image {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+
+  &.big {
+    height: 70px;
+    width: 70px;
+  }
+}
