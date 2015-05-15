@@ -26,16 +26,13 @@ export class ProjectListView extends AsideView {
   }
 
   render () {
-    var ul = '<span class="kreta-sort-by">Sort by <strong>priority</strong></span>' +
-      '<ul class="project-list">';
-    ul += '</ul>';
-    this.$el.html(ul);
+    this.$el.html($('#project-list-template').html());
     this.$projects = this.$el.find('.project-list');
     return this;
   }
 
   addOne (project) {
-    var ul = '<li><a href="/project/' + project.get('id') + '">' + project.get('short_name');
+    var ul = '<li><a href="/project/' + project.get('id') + '">' + project.get('name');
     if (project.progress !== undefined) {
       ul += '<span>progress ' + project.progress + '%</span>';
     }

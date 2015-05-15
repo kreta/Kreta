@@ -9,18 +9,21 @@
 
 import {IssueListView} from '../views/page/project/issueList';
 import {ProjectListView} from '../views/page/project/list';
+import {ProjectNewView} from '../views/page/project/new';
 
 export class ProjectController extends Backbone.Controller {
   initialize() {
     this.routes = {
-      'project/new': 'newAction',
       'project/:id': 'showAction',
+      'project/new': 'newAction',
       'projects': 'listAction'
     };
   }
 
   newAction() {
-    alert('TODO')
+    var view = new ProjectNewView();
+    App.views.main.render(view.render().el);
+    Backbone.trigger('main:full-screen');
   }
 
   listAction() {

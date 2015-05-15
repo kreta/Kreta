@@ -38,13 +38,13 @@
         </a>
     </div>
 </nav>
-<div id="kreta-left-aside"></div>
+<div class="left-aside"></div>
 <div id="kreta-content">
     <div>
         <div class="kreta-content-container"></div>
     </div>
 </div>
-<div id="kreta-right-aside"></div>
+<div class="right-aside"></div>
 <script type="text/html" id="kreta-menu-user-template">
     <div class="kreta-user-container">
         <img src="<%= photo.name %>">
@@ -58,6 +58,8 @@
 {% include 'KretaWebBundle:Default/templates:listIssue.html.twig' %}
 {% include 'KretaWebBundle:Default/component:filter.html.twig' %}
 {% include 'KretaWebBundle:Default/templates:issue/new.html.twig' %}
+{% include 'KretaWebBundle:Default/templates:project/list.html.twig' %}
+{% include 'KretaWebBundle:Default/templates:project/new.html.twig' %}
 
 {% if app.debug %}
     <script src="{{ asset(base_asset_vendor ~ 'jquery/dist/jquery.js') }}"></script>

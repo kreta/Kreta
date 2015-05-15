@@ -9,7 +9,7 @@
   font-size: 11px;
   min-width: 100px;
   outline: 0;
-  padding: 10px;
+  padding: 1em;
   text-align: center;
   text-transform: uppercase;
   transition-duration: .3s;
@@ -24,5 +24,10 @@
       border: 1px solid $main-green;
       color: $white;
     }
+  }
+
+  &.small {
+    font-size: .7em;
+    min-width: 0;
   }
 }
