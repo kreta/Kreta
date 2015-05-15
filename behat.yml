@@ -19,6 +19,13 @@ default:
                 - Kreta\Bundle\WebBundle\Behat\WebContext
             filters:
                 tags: "@authentication"
+        invitation:
+            contexts:
+                - Kreta\Bundle\CoreBundle\Behat\OauthContext
+                - Kreta\Bundle\UserBundle\Behat\UserContext
+                - Kreta\Bundle\WebBundle\Behat\WebContext
+            filters:
+                tags: "@invitation"
         comment:
             contexts:
                 - Kreta\Bundle\CoreBundle\Behat\OauthContext

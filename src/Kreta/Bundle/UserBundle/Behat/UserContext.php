@@ -33,13 +33,20 @@ class UserContext extends DefaultContext
     public function theFollowingUsersExist(TableNode $users)
     {
         foreach ($users as $userData) {
-            $user = $this->get('kreta_user.factory.user')->create();
+            $enabled = true;
+            if (isset($userData['enabled'])) {
+                $enabled = filter_var($userData['enabled'], FILTER_VALIDATE_BOOLEAN);
+            }
+            $user = $this->get('kreta_user.factory.user')->create($userData['email'], $enabled);
             $user
                 ->setFirstname($userData['firstName'])
                 ->setLastname($userData['lastName'])
-                ->setEmail($userData['email'])
-                ->setPlainPassword($userData['password'])
-                ->setEnabled(true);
+                ->setPlainPassword($userData['password']);
+
+            if (isset($userData['roles'])) {
+                $roles = explode(',', $userData['roles']);
+                $this->setField($user, 'roles', $roles);
+            }
 
             if (isset($userData['createdAt'])) {
                 $this->setField($user, 'createdAt', new \DateTime($userData['createdAt']));

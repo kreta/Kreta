@@ -12,26 +12,25 @@
 namespace spec\Kreta\Bundle\CoreBundle\EventListener;
 
 use Doctrine\Common\Annotations\Reader;
-use Kreta\Component\Core\Repository\EntityRepository;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
+use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
 use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
- * Class ResourceIfAllowedAnnotationListenerSpec.
+ * Class RoleAnnotationListenerSpec.
  *
  * @package spec\Kreta\Bundle\CoreBundle\EventListener
  */
-class ResourceIfAllowedAnnotationListenerSpec extends ObjectBehavior
+class RoleAnnotationListenerSpec extends ObjectBehavior
 {
-    function let(Reader $reader, SecurityContextInterface $context, EntityRepository $repository)
+    function let(Reader $reader, SecurityContextInterface $context)
     {
-        $repository->getClassName()->shouldBeCalled()->willReturn(Argument::type('string'));
-        $this->beConstructedWith($reader, $context, $repository);
+        $this->beConstructedWith($reader, $context);
     }
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('Kreta\Bundle\CoreBundle\EventListener\ResourceIfAllowedAnnotationListener');
+        $this->shouldHaveType('Kreta\Bundle\CoreBundle\EventListener\RoleAnnotationListener');
     }
 }

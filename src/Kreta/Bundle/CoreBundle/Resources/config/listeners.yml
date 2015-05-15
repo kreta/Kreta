@@ -17,3 +17,11 @@ services:
         arguments:
             - @annotations.reader
             - @security.context
+
+    kreta_core.event_listener.role_annotation:
+        class: %kreta_core.event_listener.role_annotation.class%
+        arguments:
+            - @annotations.reader
+            - @security.context
+        tags:
+            - { name: kernel.event_listener, event: kernel.controller, method: onRoleAnnotationMethod }

@@ -13,6 +13,7 @@ namespace Kreta\Bundle\UserBundle\Controller;
 
 use FOS\RestBundle\Controller\Annotations as Http;
 use FOS\RestBundle\Controller\Annotations\View;
+use Kreta\Component\Core\Annotation\Role as Role;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use Kreta\SimpleApiDocBundle\Annotation\ApiDoc;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -37,14 +38,20 @@ class InvitationController extends Controller
      * )
      * @Http\Post("/users")
      * @View(statusCode=201, serializerGroups={"user"})
+     * @Role("admin")
      *
      * @return \Kreta\Component\User\Model\Interfaces\UserInterface
      */
     public function postUsersAction(Request $request)
     {
+        $isForce = filter_var($request->request->get('force'), FILTER_VALIDATE_BOOLEAN);
+        $request->request->remove('force');
         $user = $this->get('kreta_user.repository.user')->findOneBy(['email' => $request->request->get('email')]);
-        if (!$user instanceof UserInterface || (true == $request->request->get('force') && $user->isEnabled())) {
-            $request->request->remove('force');
+
+        if (!$user instanceof UserInterface
+            || $user instanceof UserInterface && $user->isEnabled()
+            || $user instanceof UserInterface && !$isForce
+        ) {
             $user = $this->get('kreta_user.form_handler.invitation')->processForm($request, $user);
         }
         $this->get('kreta_user.mailer')->sendInvitationEmail($user);
