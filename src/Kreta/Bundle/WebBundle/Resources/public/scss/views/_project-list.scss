@@ -1,23 +1,10 @@
 .project-list li {
-  border-bottom: 1px solid #646570;
   padding: 25px 0;
   position: relative;
 
   a {
-    color: $white;
+    color: $main-black;
     font-size: 1.1em;
     text-decoration: none;
-
-    span {
-      bottom: 5px;
-      color: #a9aab1;
-      font-size: .7em;
-      left: 0;
-      position: absolute;
-    }
   }
-}
-
-.kreta-sort-by {
-  font-size: .9em;
 }

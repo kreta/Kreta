@@ -1,5 +1,5 @@
-#kreta-left-aside,
-#kreta-right-aside {
+.left-aside,
+.right-aside {
   > div {
     position: fixed;
     top: 0;
@@ -11,11 +11,12 @@
   }
 }
 
-#kreta-left-aside {
+.left-aside {
   > div {
     width: 280px;
     left: -240px;
-    background: #525461;
+    background: $white;
+    border-right: 1px solid $main-grey;
 
     &.visible {
       left: 80px;
@@ -23,7 +24,7 @@
   }
 }
 
-#kreta-right-aside {
+.right-aside {
   > div {
     width: 450px;
     right: -450px;

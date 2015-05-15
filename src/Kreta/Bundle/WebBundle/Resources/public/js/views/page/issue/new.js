@@ -89,6 +89,7 @@ export class IssueNewView extends Backbone.View {
       this.onProjectSelected(new Project(project));
     });
   }
+
   updateSelectors() {
     this.$type.setSelectables(this.issueTypes.models);
     this.$priorities.setSelectables(this.issuePriorities.models);
