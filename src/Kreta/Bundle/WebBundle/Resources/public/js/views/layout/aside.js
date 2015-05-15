@@ -8,8 +8,8 @@
  */
 
 export class AsideView extends Backbone.View {
-  constructor () {
-    super();
+  constructor (options) {
+    super(options);
 
     this.$container = $('.' + this.position() + '-aside');
 

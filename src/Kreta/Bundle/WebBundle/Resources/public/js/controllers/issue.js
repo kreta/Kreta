@@ -14,7 +14,7 @@ import {Issue} from '../models/issue';
 export class IssueController extends Backbone.Controller {
   initialize() {
     this.routes = {
-      'issue/:id': 'showAction',
+      'issue/:issue': 'showAction',
       'issue/:id/edit': 'editAction',
       'issue/new': 'newAction'
     };
@@ -27,14 +27,22 @@ export class IssueController extends Backbone.Controller {
   }
 
   editAction(id) {
-    var issue = new Issue({id: id})
+    var issue = new Issue({id: id});
     var view = new IssueNewView({issue: issue});
+
     App.views.main.render(view.render().el);
     Backbone.trigger('main:full-screen');
   }
 
-  showAction(id) {
-    var view = new IssueShowView({id: id});
+  showAction(issue) {
+    if(issue instanceof Issue) {
+      var model = issue;
+    } else {
+      var model = new Issue({id: issue});
+      model.fetch();
+    }
+
+    var view = new IssueShowView({model: model});
     view.show();
   }
 }

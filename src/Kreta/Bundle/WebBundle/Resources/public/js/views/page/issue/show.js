@@ -21,32 +21,24 @@ export class IssueShowView extends AsideView {
       'click .full-issue-tab': 'tabClicked'
     };
 
-    super();
+    super(options);
 
-    this.issueId = options.id;
-    this.model = new Issue({id: options.id});
-    this.model.fetch();
     this.model.on('sync', this.render, this);
 
-    Backbone.trigger('issue:highlight', this.issueId);
+    Backbone.trigger('issue:highlight', this.model.id);
     this.render();
 
     this.$container.append(this.$el);
   }
 
   render () {
-    if(this.model.hasChanged()) {
-      this.$el.html(this.template(this.model.toJSON()));
-      this.$footer = this.$el.find('footer');
+    this.$el.html(this.template(this.model.toJSON()));
+    this.$footer = this.$el.find('footer');
 
-      /*var commentTab = new CommentsTab({issueId: this.issueId});
-      this.$footer.append(commentTab.render().el);*/
+    /*var commentTab = new CommentsTab({issueId: this.issueId});
+    this.$footer.append(commentTab.render().el);*/
 
-      this.$tabContent = this.$footer.find('.full-issue-tab-content')
-
-    } else {
-      this.$el.html('Loading...');
-    }
+    this.$tabContent = this.$footer.find('.full-issue-tab-content')
 
     return this;
   }
