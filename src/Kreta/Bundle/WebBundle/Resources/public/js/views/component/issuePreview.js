@@ -7,8 +7,6 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-import {IssueController} from '../../controllers/issue';
-
 export class IssuePreviewView extends Backbone.View {
   constructor(options) {
     this.className = 'list-issue';
@@ -31,8 +29,9 @@ export class IssuePreviewView extends Backbone.View {
 
   showFullIssue() {
     App.router.navigate('/issue/' + this.model.id);
-    var controller = new IssueController();
-    controller.showAction(this.model);
+    App.controller.issue.showAction(this.model);
+
+    return false;
   }
 
   highlightIssue(issueId) {

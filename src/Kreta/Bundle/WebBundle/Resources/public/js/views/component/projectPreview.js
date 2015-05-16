@@ -7,8 +7,6 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-import {ProjectController} from '/../controllers/project';
-
 export class ProjectPreviewView extends Backbone.View {
   constructor(options) {
     this.className = 'project-preview';
@@ -30,7 +28,8 @@ export class ProjectPreviewView extends Backbone.View {
 
   showFullProject() {
     App.router.navigate('/project/' + this.model.id, true);
-    /*var controller = new ProjectController();
-    controller.showAction(this.model);*/
+    App.controller.project.showAction(this.model);
+
+    return false;
   }
 }

@@ -16,6 +16,7 @@ export class IssueShowView extends AsideView {
     this.template = _.template($('#issue-aside-template').html());
 
     this.events = {
+      'click .full-issue-edit': 'editClicked',
       'click .full-issue-tab': 'tabClicked'
     };
 
@@ -41,6 +42,13 @@ export class IssueShowView extends AsideView {
     var pos = $(ev.currentTarget).index();
     this.$tabContent.removeClass('visible');
     $(this.$tabContent.get(pos)).addClass('visible');
+
+    return false;
+  }
+
+  editClicked() {
+    App.router.navigate('/issue/' + this.model.id + '/edit');
+    App.controller.issue.editAction(this.model);
 
     return false;
   }

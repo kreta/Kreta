@@ -21,14 +21,19 @@ export class IssueController extends Backbone.Controller {
   }
 
   newAction() {
-    var view = new IssueNewView();
+    var view = new IssueNewView({model: new Issue()});
     App.views.main.render(view.render().el);
     Backbone.trigger('main:full-screen');
   }
 
-  editAction(id) {
-    var issue = new Issue({id: id});
-    var view = new IssueNewView({issue: issue});
+  editAction(issue) {
+    var model = issue;
+    if(!(issue instanceof Issue)) {
+      model = new Issue({id: issue});
+      model.fetch();
+    }
+
+    var view = new IssueNewView({model: model});
 
     App.views.main.render(view.render().el);
     Backbone.trigger('main:full-screen');

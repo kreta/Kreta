@@ -24,17 +24,15 @@ export class IssueNewView extends Backbone.View {
       'submit #issue-new': 'save'
     };
 
-    super();
+    super(options);
 
-    if (typeof options === 'undefined') {
-      this.issue = new Issue();
+    if (this.model.isNew()) {
       this.projects = new ProjectCollection();
       this.listenTo(this.projects, 'reset', this.updateProjects);
       this.projects.fetch({reset: true});
     } else {
-      this.issue = options.issue;
-      this.issue.on('sync', this.getCurrentProject, this);
-      this.issue.fetch();
+      this.model.on('sync', this.getCurrentProject, this);
+      this.getCurrentProject(this.model);
     }
 
     this.issuePriorities = new IssuePriorityCollection();
@@ -45,7 +43,7 @@ export class IssueNewView extends Backbone.View {
   }
 
   render() {
-    this.$el.html(this.template(this.issue.toJSON()));
+    this.$el.html(this.template(this.model.toJSON()));
 
     this.$el.find('.issue-new-details').hide();
 
@@ -85,10 +83,12 @@ export class IssueNewView extends Backbone.View {
   }
 
   getCurrentProject(issue) {
-    $.get(issue.get('_links').project.href, (project) => {
-      this.render();
-      this.onProjectSelected(new Project(project));
-    });
+    if(typeof issue.get('_links') !== 'undefined') {
+      $.get(issue.get('_links').project.href, (project) => {
+        this.render();
+        this.onProjectSelected(new Project(project));
+      });
+    }
   }
 
   updateSelectors() {
@@ -115,13 +115,13 @@ export class IssueNewView extends Backbone.View {
 
     formData.project = this.currentProject;
 
-    if(typeof(this.issue.id) !== 'undefined') {
-      formData.id = this.issue.id;
+    if(!this.model.isNew()) {
+      formData.id = this.model.id;
     }
 
-    this.issue = new Issue(formData);
+    this.model = new Issue(formData);
 
-    this.issue.save(null, {
+    this.model.save(null, {
       success: (model) => {
         App.router.navigate('/project/' + this.currentProject, true);
         App.router.navigate('/issue/' + model.get('id'), true);

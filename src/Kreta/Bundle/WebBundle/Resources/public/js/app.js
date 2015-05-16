@@ -29,6 +29,7 @@ $(() => {
     views: {},
     collections: {},
     config: new Config(),
+    controller: {},
     accessToken: getCookie('access_token'),
     currentUser: new Profile()
   };
