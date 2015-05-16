@@ -1,0 +1,36 @@
+$notification-height: 50px !default;
+
+.notification {
+  align-items: center;
+  display: flex;
+  background: $main-green;
+  color: $white;
+  height: 0;
+  overflow: hidden;
+
+  &.visible {
+    height: $notification-height;
+  }
+
+  &.error {
+    background: #a00000;
+  }
+}
+
+.notification-icon {
+  width: $notification-height;
+  height: $notification-height;
+  margin-right: .5em;
+  background: rgba($main-black, 0.2);
+  line-height: $notification-height;
+  text-align: center;
+}
+
+.notification-message {
+  flex: 1;
+}
+
+.notification-hide {
+  margin: 0 .5em;
+  cursor: pointer;
+}
