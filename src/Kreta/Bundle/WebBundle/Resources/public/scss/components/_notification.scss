@@ -2,9 +2,9 @@ $notification-height: 50px !default;
 
 .notification {
   align-items: center;
-  display: flex;
   background: $main-green;
   color: $white;
+  display: flex;
   height: 0;
   overflow: hidden;
 
@@ -13,17 +13,17 @@ $notification-height: 50px !default;
   }
 
   &.error {
-    background: #a00000;
+    background: $main-red;
   }
 }
 
 .notification-icon {
-  width: $notification-height;
+  background: rgba($main-black, .2);
   height: $notification-height;
-  margin-right: .5em;
-  background: rgba($main-black, 0.2);
   line-height: $notification-height;
+  margin-right: .5em;
   text-align: center;
+  width: $notification-height;
 }
 
 .notification-message {
@@ -31,6 +31,6 @@ $notification-height: 50px !default;
 }
 
 .notification-hide {
-  margin: 0 .5em;
   cursor: pointer;
+  margin: 0 .5em;
 }

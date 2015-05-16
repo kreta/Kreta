@@ -1,15 +1,16 @@
 .selector {
   cursor: pointer;
-  position: relative;
   font-weight: lighter;
+  position: relative;
 
-  &.visible > .selector-choices  {
+  &.visible > .selector-choices {
     display: block;
   }
 
   &:hover .selector-selectable.selected {
     background: $white;
     color: $main-black;
+
     &:hover {
       background: $main-green;
       color: $white;
@@ -25,7 +26,7 @@
 
 .selector-choices {
   background: $white;
-  border: 1px solid #e1e1e1;
+  border: 1px solid $main-grey;
   display: none;
   position: absolute;
   top: 20px;

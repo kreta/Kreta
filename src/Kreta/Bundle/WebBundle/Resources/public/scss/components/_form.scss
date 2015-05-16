@@ -1,10 +1,11 @@
-input, textarea {
+input,
+textarea {
   border: 0;
-  width: 100%;
   font-family: $font-open-sans;
   font-size: 1.3em;
   font-weight: lighter;
   padding: .5em 0;
+  width: 100%;
 
   &:focus {
     outline: 0;

@@ -11,28 +11,28 @@ $tooltip-arrow-height: 10px;
   font-size: 12px;
   height: 20px;
   margin-top: -10px;
+  opacity: 0;
   padding: .3em .6em;
   position: absolute;
   top: 50%;
   transition-duration: .5s;
-  opacity: 0;
   visibility: hidden;
   white-space: nowrap;
 
   &.visible {
-    visibility: visible;
     opacity: 1;
+    visibility: visible;
   }
 
   &:after {
-    content: " ";
-    height: 0;
-    width: 0;
-    position: absolute;
-    pointer-events: none;
     border: solid transparent;
     border-color: rgba($main-black, 0);
     border-width: $tooltip-arrow-height / 2;
+    content: ' ';
+    height: 0;
+    pointer-events: none;
+    position: absolute;
+    width: 0;
   }
 
   //Position modifiers
@@ -40,12 +40,11 @@ $tooltip-arrow-height: 10px;
     right: 100%;
 
     &:after {
-      top: 50%;
-      left: 100%;
-
       border-left-color: $main-black;
       border-width: $tooltip-arrow-height / 2;
+      left: 100%;
       margin-top: -$tooltip-arrow-height / 2;
+      top: 50%;
     }
 
     &.visible {
@@ -57,10 +56,10 @@ $tooltip-arrow-height: 10px;
     left: 100%;
 
     &:after {
-      top: 50%;
-      right: 100%;
       border-right-color: $main-black;
       margin-top: -$tooltip-arrow-height / 2;
+      right: 100%;
+      top: 50%;
     }
 
     &.visible {
