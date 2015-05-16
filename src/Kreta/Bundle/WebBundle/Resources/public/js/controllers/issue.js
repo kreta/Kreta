@@ -35,10 +35,9 @@ export class IssueController extends Backbone.Controller {
   }
 
   showAction(issue) {
-    if(issue instanceof Issue) {
-      var model = issue;
-    } else {
-      var model = new Issue({id: issue});
+    var model = issue;
+    if(!(issue instanceof Issue)) {
+      model = new Issue({id: issue});
       model.fetch();
     }
 

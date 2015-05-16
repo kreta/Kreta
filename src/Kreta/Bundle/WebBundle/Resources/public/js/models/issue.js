@@ -22,7 +22,10 @@ export class Issue extends Backbone.Model {
       },
       assignee: {
         id: '',
-        name: ''
+        name: '',
+        photo: {
+          name: ''
+        }
       },
       type: {
         id: '',
@@ -32,7 +35,7 @@ export class Issue extends Backbone.Model {
         id: '',
         name: ''
       }
-    }
+    };
   }
 
   toJSON(options) {

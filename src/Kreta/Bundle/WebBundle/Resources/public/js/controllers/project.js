@@ -10,6 +10,7 @@
 import {IssueListView} from '../views/page/project/issueList';
 import {ProjectListView} from '../views/page/project/list';
 import {ProjectNewView} from '../views/page/project/new';
+import {Project} from '../models/project';
 
 export class ProjectController extends Backbone.Controller {
   initialize() {
@@ -31,8 +32,14 @@ export class ProjectController extends Backbone.Controller {
     view.show();
   }
 
-  showAction(id) {
-    var view = new IssueListView({projectId: id});
+  showAction(project) {
+    var model = project;
+    if (!(project instanceof Project)) {
+      model = new Project({id: project});
+      model.fetch();
+    }
+
+    var view = new IssueListView({model: model});
     App.views.main.render(view.render().el);
     Backbone.trigger('main:full-screen');
   }

@@ -8,7 +8,7 @@
  */
 
 import {IssueController} from 'controllers/issue';
-import {ProjectController} from 'controllers/project'
+import {ProjectController} from 'controllers/project';
 
 export class Router extends Backbone.Router {
   constructor () {

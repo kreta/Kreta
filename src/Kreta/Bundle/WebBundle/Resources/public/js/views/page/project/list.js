@@ -8,6 +8,7 @@
  */
 
 import {ProjectCollection} from '../../../collections/project';
+import {ProjectPreviewView} from '../../component/projectPreview';
 import {AsideView} from '../../layout/aside';
 
 export class ProjectListView extends AsideView {
@@ -32,12 +33,8 @@ export class ProjectListView extends AsideView {
   }
 
   addOne (project) {
-    var ul = '<li><a href="/project/' + project.get('id') + '">' + project.get('name');
-    if (project.progress !== undefined) {
-      ul += '<span>progress ' + project.progress + '%</span>';
-    }
-    ul += '</a></li>';
-    this.$projects.append(ul);
+    var view = new ProjectPreviewView({model: project});
+    this.$projects.append(view.render().el);
   }
 
   addAll () {

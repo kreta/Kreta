@@ -7,8 +7,6 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-import {Issue} from '../../../models/issue';
-import {CommentsTab} from './tabs/commentsTab';
 import {AsideView} from '../../layout/aside';
 
 export class IssueShowView extends AsideView {
@@ -34,11 +32,7 @@ export class IssueShowView extends AsideView {
   render () {
     this.$el.html(this.template(this.model.toJSON()));
     this.$footer = this.$el.find('footer');
-
-    /*var commentTab = new CommentsTab({issueId: this.issueId});
-    this.$footer.append(commentTab.render().el);*/
-
-    this.$tabContent = this.$footer.find('.full-issue-tab-content')
+    this.$tabContent = this.$footer.find('.full-issue-tab-content');
 
     return this;
   }

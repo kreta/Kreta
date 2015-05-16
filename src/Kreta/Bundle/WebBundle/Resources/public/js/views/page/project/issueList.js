@@ -10,29 +10,28 @@
 import {IssueCollection} from '../../../collections/issue';
 import {IssuePreviewView} from '../../component/issuePreview';
 import {FilterView} from '../../component/filter';
+import {Project} from '../../../models/project';
 
 export class IssueListView extends Backbone.View {
   constructor(options) {
-    this.template = _.template($('#kreta-project-issues-template').html());
-
-    this.projectId = options.projectId;
-
-    this.issues = new IssueCollection();
-    this.issues.fetch({data: {project: this.projectId}});
+    this.template = _.template($('#project-issues-template').html());
 
     super(options);
+
+    this.issues = new IssueCollection();
+    this.issues.fetch({data: {project: this.model.id}});
 
     this.loadFilters();
     this.render();
 
+    this.model.on('sync', this.render, this);
     this.listenTo(this.issues, 'add', this.addOne);
     this.listenTo(this.issues, 'reset', this.addAll);
     this.listenTo(App.currentUser, 'change', this.loadFilters);
-    this.listenTo(Backbone, 'issue:highlight', this.highlightIssue);
   }
 
   render() {
-    this.$el.html(this.template({}));
+    this.$el.html(this.template(this.model.toJSON()));
     this.$issues = this.$el.find('.issues');
     this.$filter = this.$el.find('.filter');
 
@@ -101,15 +100,5 @@ export class IssueListView extends Backbone.View {
 
     this.issues.fetch({data: data, reset: true});
     this.$issues.html('');
-  }
-
-  highlightIssue(issueId) {
-    var index = this.issues.findIndexById(issueId);
-
-    this.$issues.children().removeClass('highlight');
-
-    if(index >= 0) {
-      $(this.$issues.children().get(index)).addClass('highlight');
-    }
   }
 }
