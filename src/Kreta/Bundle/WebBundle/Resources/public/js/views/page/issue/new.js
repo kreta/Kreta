@@ -97,22 +97,26 @@ export class IssueNewView extends Backbone.View {
 
     this.selectorsLeft--;
 
-    if (this.selectorsLeft == 0) {
+    if (this.selectorsLeft === 0) {
       this.$el.find('.issue-new-details').show();
     }
   }
 
   save(ev) {
     ev.preventDefault();
+
+    var $actions = $('.issue-new-actions');
+    $actions.hide();
+
     var formData = {};
-    $.each($('#issue-new').serializeArray(), function (field) {
+    $.each($('#issue-new').serializeArray(), function () {
       formData[this.name] = this.value;
     });
 
-    formData['project'] = this.currentProject;
+    formData.project = this.currentProject;
 
     if(typeof(this.issue.id) !== 'undefined') {
-      formData['id'] = this.issue.id;
+      formData.id = this.issue.id;
     }
 
     this.issue = new Issue(formData);
@@ -127,6 +131,7 @@ export class IssueNewView extends Backbone.View {
           message: 'Error while saving this issue'
         }});
         notification.render().show();
+        $actions.show();
       }
     });
   }
