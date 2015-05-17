@@ -36,11 +36,13 @@ class ProjectContext extends DefaultContext
             if (isset($projectData['workflow'])) {
                 $workflow = $this->get('kreta_workflow.repository.workflow')
                     ->findOneBy(['name' => $projectData['workflow']], false);
-                $project = $this->get('kreta_project.factory.project')->create($workflow->getCreator(), $workflow);
+                $project = $this->get('kreta_project.factory.project')
+                    ->create($workflow->getCreator(), $workflow, false);
             } else {
                 $creator = $this->get('kreta_user.repository.user')
                     ->findOneBy(['email' => $projectData['creator']], false);
-                $project = $this->get('kreta_project.factory.project')->create($creator);
+                $project = $this->get('kreta_project.factory.project')
+                    ->create($creator, null, false);
             }
             $project
                 ->setName($projectData['name'])
