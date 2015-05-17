@@ -10,6 +10,7 @@ Kreta\Component\User\Model\User:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
             fields: [email]
             message: 'This email is already invited'
+            groups: [invitation]
     properties:
         email:
             - Email:
@@ -17,7 +18,16 @@ Kreta\Component\User\Model\User:
                 checkMX: true
                 checkHost: true
             - NotBlank: ~
+        firstName:
+            - NotBlank: { groups: [profile] }
+        lastName:
+            - NotBlank: { groups: [profile] }
+        plainPassword:
+            - NotBlank: { groups: [registration] }
+            - Length: { min: 6, groups: [registration] }
     getters:
         enabled:
             - 'False':
                 message: 'This user is already an enabled kreta user'
+                groups: [invitation]
+

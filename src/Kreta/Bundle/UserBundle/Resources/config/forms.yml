@@ -32,6 +32,8 @@ services:
             - %kreta_user.user.class%
             - @kreta_user.factory.user
             - @security.context
+            - null
+            - [invitation]
         tags:
             - { name: form.type, alias: 'kreta_user_invitation_type' }
 
@@ -41,6 +43,8 @@ services:
             - %kreta_user.user.class%
             - @kreta_user.factory.user
             - @security.context
+            - null
+            - [profile]
         tags:
             - { name: form.type, alias: 'kreta_user_profile_type' }
 
@@ -49,6 +53,8 @@ services:
         arguments:
             - %kreta_user.user.class%
             - @kreta_user.factory.user
+            - null
+            - [registration]
         tags:
             - { name: form.type, alias: 'kreta_user_registration_type' }
 

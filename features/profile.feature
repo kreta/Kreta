@@ -65,7 +65,6 @@ Feature: Manage user profile
     When I send a POST request to "/app_test.php/api/profile" with body:
     """
       {
-        "email": "user@kreta.com",
         "firstName": "Updated name",
         "lastName": "Updated last name"
       }
@@ -110,18 +109,36 @@ Feature: Manage user profile
       {
         "firstName": [],
         "lastName": [],
-        "email": [],
         "photo": []
       }
     """
 
-  Scenario: Updating the profile without required parameters
+  Scenario: Updating the profile without required last name
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
     When I send a POST request to "/app_test.php/api/profile" with body:
     """
       {
-        "email": "user@kreta.com"
+        "first_name": "Updated name"
+      }
+    """
+    Then the response code should be 400
+    And the response should contain json:
+    """
+      {
+        "lastName": [
+          "This value should not be blank."
+        ]
+      }
+    """
+
+  Scenario: Updating the profile without required first name
+    Given I am authenticating with "access-token-0" token
+    Given I set header "content-type" with value "application/json"
+    When I send a POST request to "/app_test.php/api/profile" with body:
+    """
+      {
+        "last_name": "Updated last name"
       }
     """
     Then the response code should be 400
@@ -130,30 +147,6 @@ Feature: Manage user profile
       {
         "firstName": [
           "This value should not be blank."
-        ],
-        "lastName": [
-          "This value should not be blank."
-        ]
-      }
-    """
-
-  Scenario: Updating the profile with an existing email
-    Given I am authenticating with "access-token-0" token
-    Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/profile" with body:
-    """
-      {
-        "email": "user2@kreta.com",
-        "firstName": "The first name",
-        "lastName": "The last name"
-      }
-    """
-    Then the response code should be 400
-    And the response should contain json:
-    """
-      {
-        "email": [
-          "This email is already in use"
         ]
       }
     """
