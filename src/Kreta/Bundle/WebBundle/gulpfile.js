@@ -81,7 +81,7 @@ gulp.task('scss-lint', function () {
     .pipe(scsslint());
 });
 
-gulp.task('sass', [], function () {
+gulp.task('sass', ['scss-lint'], function () {
   return gulp.src(assets.sass)
     .pipe(sourcemaps.init())
     .pipe(sass({
@@ -135,4 +135,4 @@ gulp.task('watch', function () {
 
 gulp.task('default', ['clean', 'vendor', 'javascript', 'sass', 'images']);
 gulp.task('watcher', ['default', 'watch']);
-gulp.task('prod', ['clean', 'images', 'sass:prod', 'javascript:prod']);
+gulp.task('prod', ['clean', 'vendor', 'images', 'sass:prod', 'javascript:prod']);

@@ -1,12 +1,10 @@
-<script type="text/html" id="kreta-project-issues-template">
-    <div class="project-header">
+<script type="text/html" id="project-issues-template">
+    <div class="page-header">
+        <div class="project-image" style="background: #ebebeb"></div>
+        <h2 class="page-header-title"><%= name %></h2>
         <div>
-            <img src="{{ asset('images/temp-project-logo.jpg') }}">
-            <h2>Kreta</h2>
-        </div>
-        <div class="project-actions">
-            <a href="#"><img src="{{ asset('images/temp-dashboard-icon.jpg') }}">Dashboard</a>
-            <a href="#"><img src="{{ asset('images/temp-settings-icon.jpg') }}">Settings</a>
+            <a class="page-header-link" href="#"><i class="fa fa-dashboard"></i>Dashboard</a>
+            <a class="page-header-link" href="#"><i class="fa fa-settings"></i>Settings</a>
         </div>
     </div>
     <div class="filter"></div>

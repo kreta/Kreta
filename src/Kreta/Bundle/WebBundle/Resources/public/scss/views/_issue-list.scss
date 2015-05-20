@@ -19,33 +19,17 @@
 }
 
 .list-issue-icons {
+  align-items: center;
+  display: flex;
   height: 100%;
+  justify-content: flex-end;
   position: absolute;
   right: 0;
   text-align: right;
   top: 0;
   width: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
 }
 
 .list-issue-icon {
-  margin-right: 10px;
   font-size: .8em;
 }
-
-.list-issue-status {
-  width: 10px;
-  height: 10px;
-  border-radius: 50%;
-  margin: 0 10px;
-}
-
-.list-issue-assignee {
-  height: 40px;
-  width: 40px;
-  border-radius: 50%;
-}
-
-

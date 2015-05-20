@@ -7,46 +7,33 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-import {Issue} from '../../../models/issue';
-import {CommentsTab} from './tabs/commentsTab';
 import {AsideView} from '../../layout/aside';
 
 export class IssueShowView extends AsideView {
   constructor (options) {
-    this.className = 'issue-aside';
+    this.className = 'full-issue-aside';
 
     this.template = _.template($('#issue-aside-template').html());
 
     this.events = {
-      'click .issue-tab': 'tabClicked'
+      'click .full-issue-edit': 'editClicked',
+      'click .full-issue-tab': 'tabClicked'
     };
 
-    super();
+    super(options);
 
-    this.issueId = options.id;
-    this.model = new Issue({id: options.id});
-    this.model.fetch();
     this.model.on('sync', this.render, this);
 
-    Backbone.trigger('issue:highlight', this.issueId);
+    Backbone.trigger('issue:highlight', this.model.id);
     this.render();
 
     this.$container.append(this.$el);
   }
 
   render () {
-    if(this.model.hasChanged()) {
-      this.$el.html(this.template(this.model.toJSON()));
-      this.$footer = this.$el.find('footer');
-
-      var commentTab = new CommentsTab({issueId: this.issueId});
-      this.$footer.append(commentTab.render().el);
-
-      this.$tabContent = this.$footer.find('.issue-tab-content')
-
-    } else {
-      this.$el.html('Loading...');
-    }
+    this.$el.html(this.template(this.model.toJSON()));
+    this.$footer = this.$el.find('footer');
+    this.$tabContent = this.$footer.find('.full-issue-tab-content');
 
     return this;
   }
@@ -55,6 +42,13 @@ export class IssueShowView extends AsideView {
     var pos = $(ev.currentTarget).index();
     this.$tabContent.removeClass('visible');
     $(this.$tabContent.get(pos)).addClass('visible');
+
+    return false;
+  }
+
+  editClicked() {
+    App.router.navigate('/issue/' + this.model.id + '/edit');
+    App.controller.issue.editAction(this.model);
 
     return false;
   }

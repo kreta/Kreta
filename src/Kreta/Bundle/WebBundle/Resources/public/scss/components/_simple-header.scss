@@ -1,0 +1,10 @@
+.simple-header {
+  align-items: center;
+  color: $main-black;
+  display: flex;
+}
+
+.simple-header-filters {
+  flex: 1;
+  font-size: .9em;
+}

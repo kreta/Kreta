@@ -1,0 +1,30 @@
+.tab {
+  color: $main-grey;
+  display: inline-block;
+  margin: 0 -2px;
+  padding: 20px 0;
+  text-align: center;
+  text-decoration: none;
+  transition-duration: .4s;
+  width: 25%;
+
+  &:hover,
+  &.active {
+    color: $main-black;
+  }
+}
+
+.tab-text {
+  display: block;
+  font-size: .75em;
+  margin-top: 5px;
+}
+
+.tab-content {
+  display: none;
+  padding: 20px;
+
+  &.visible {
+    display: block;
+  }
+}

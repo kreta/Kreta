@@ -8,23 +8,29 @@
   color: $white;
   padding: 5px;
   z-index: 50;
+
   > img {
     margin: 10px 15px;
   }
+
   .kreta-menu-user {
     text-align: center;
+
     span {
-      color: #e6e6e7;
+      color: $main-grey;
       font-size: .9em;
     }
+
     img {
       border-radius: 50%;
       padding: 10px;
       width: 70px;
     }
   }
+
   .kreta-menu-actions {
     text-align: center;
+
     a {
       position: relative;
       display: block;
@@ -32,6 +38,7 @@
       text-decoration: none;
       padding: 20px;
       font-size: 1.3em;
+
       .kreta-notification-bubble {
         position: absolute;
         top: 15px;

@@ -20,8 +20,8 @@
     "require": {
         "php":                                 ">=5.4",
 
-        "kreta/core-bundle":                   "~0.1.0",
-        "kreta/vcs":                           "~0.1.0"
+        "kreta/core-bundle":                   "~0.2.0",
+        "kreta/vcs":                           "~0.2.0"
     },
     "require-dev": {
         "phpspec/phpspec":                     "~2.1",

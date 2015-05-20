@@ -1,33 +1,41 @@
 <script type="text/html" id="issue-aside-template">
-    <h2><%= title %></h2>
-    <section class="issue-overview">
-        <p>
-            <img class="list-issue-assignee" src="<%= assignee.photo.name %>">
+    <h2 class="full-issue-title"><%= title %></h2>
+    <section class="full-issue-actions">
+        <a class="button green full-issue-edit" data-bypass href="/issue/<%= id %>/edit">Edit</a>
+    </section>
+    <section class="full-issue-dashboard">
+        <p class="full-issue-dashboard-item">
+            <img class="user-image" src="<%= assignee.photo.name %>">
             <small>Assigned to</small>
             <strong><%= assignee.first_name %> <%= assignee.last_name %></strong>
         </p>
-        <p class="half"><i class="fa fa-exclamation" style="color: #8e44ad"></i><small>Priority</small> <%= priority.name %></p>
-        <p class="half"><i class="fa fa-coffee" style="color: #e67e22"></i><%= type.name %></p>
+        <p class="full-issue-dashboard-item half">
+            <i class="fa fa-exclamation" style="color: #8e44ad"></i>
+            <small>Priority</small> <%= priority.name %>
+        </p>
+        <p class="full-issue-dashboard-item half">
+            <i class="fa fa-coffee" style="color: #e67e22"></i><%= type.name %>
+        </p>
     </section>
-    <p class="description"><%= description %></p>
-    <footer>
-        <nav class="issue-tab-container">
-            <a href="#" class="issue-tab active">
+    <p class="full-issue-description"><%= description %></p>
+    {#<footer>
+        <nav class="full-issue-tab-container">
+            <a href="#" class="full-issue-tab active">
                 <img src="{{ asset('images/icons/search.png') }}"/>
-                <span>Comments</span>
+                <span class="full-issue-tab-text">Comments</span>
             </a>
-            <a href="#" class="issue-tab">
+            <a href="#" class="full-issue-tab">
                 <img src="{{ asset('images/icons/search.png') }}"/>
-                <span>Repository</span>
+                <span class="full-issue-tab-text">Repository</span>
             </a>
-            <a href="#" class="issue-tab">
+            <a href="#" class="full-issue-tab">
                 <img src="{{ asset('images/icons/search.png') }}"/>
-                <span>Time tracking</span>
+                <span class="full-issue-tab-text">Time tracking</span>
             </a>
-            <a href="#" class="issue-tab">
+            <a href="#" class="full-issue-tab">
                 <img src="{{ asset('images/icons/search.png') }}"/>
-                <span>Following</span>
+                <span class="full-issue-tab-text">Following</span>
             </a>
         </nav>
-    </footer>
+    </footer>#}
 </script>

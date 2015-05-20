@@ -1,0 +1,20 @@
+.page-header {
+  align-items: center;
+  display: flex;
+  padding: 30px 0;
+  position: relative;
+}
+
+.page-header-title {
+  flex: 1;
+  font-size: 1.3em;
+  margin-left: 15px;
+  text-transform: uppercase;
+}
+
+.page-header-link {
+  color: $main-black;
+  font-size: .8em;
+  padding-left: 1em;
+  text-decoration: none;
+}

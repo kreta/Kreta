@@ -20,10 +20,10 @@
     "require": {
         "php":                                 ">=5.4",
 
-        "kreta/comment-bundle":                "~0.1.0",
-        "kreta/issue-bundle":                  "~0.1.0",
-        "kreta/project-bundle":                "~0.1.0",
-        "kreta/workflow-bundle":               "~0.1.0"
+        "kreta/comment-bundle":                "~0.2.0",
+        "kreta/issue-bundle":                  "~0.2.0",
+        "kreta/project-bundle":                "~0.2.0",
+        "kreta/workflow-bundle":               "~0.2.0"
     },
     "require-dev": {
         "doctrine/data-fixtures":              "~1.0",

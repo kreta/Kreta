@@ -38,13 +38,13 @@
         </a>
     </div>
 </nav>
-<div id="kreta-left-aside"></div>
+<div class="left-aside"></div>
 <div id="kreta-content">
     <div>
         <div class="kreta-content-container"></div>
     </div>
 </div>
-<div id="kreta-right-aside"></div>
+<div class="right-aside"></div>
 <script type="text/html" id="kreta-menu-user-template">
     <div class="kreta-user-container">
         <img src="<%= photo.name %>">
@@ -54,9 +54,14 @@
 
 {% include 'KretaWebBundle:Default/templates:issueAside.html.twig' %}
 {% include 'KretaWebBundle:Default/templates:projectIssues.html.twig' %}
-{% include 'KretaWebBundle:Default/templates:createIssue.html.twig' %}
 {% include 'KretaWebBundle:Default/templates:userInteraction.html.twig' %}
 {% include 'KretaWebBundle:Default/templates:listIssue.html.twig' %}
+{% include 'KretaWebBundle:Default/component:filter.html.twig' %}
+{% include 'KretaWebBundle:Default/component:notification.html.twig' %}
+{% include 'KretaWebBundle:Default/component:projectPreview.html.twig' %}
+{% include 'KretaWebBundle:Default/templates:issue/new.html.twig' %}
+{% include 'KretaWebBundle:Default/templates:project/list.html.twig' %}
+{% include 'KretaWebBundle:Default/templates:project/new.html.twig' %}
 
 {% if app.debug %}
     <script src="{{ asset(base_asset_vendor ~ 'jquery/dist/jquery.js') }}"></script>
@@ -71,5 +76,6 @@
     <script src="{{ asset(base_asset_vendor ~ 'backbone.controller/backbone.controller.js') }}"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.17/require.min.js" data-main="{{ asset(base_asset_js ~ 'app.min') }}"></script>
 {% endif %}
+
 </body>
 </html>

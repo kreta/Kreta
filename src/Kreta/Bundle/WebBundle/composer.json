@@ -20,13 +20,13 @@
     "require": {
         "php":                                 ">=5.4",
 
-        "kreta/comment-bundle":                "~0.1.0",
-        "kreta/issue-bundle":                  "~0.1.0",
-        "kreta/media-bundle":                  "~0.1.0",
-        "kreta/notification-bundle":           "~0.1.0",
-        "kreta/project-bundle":                "~0.1.0",
-        "kreta/user-bundle":                   "~0.1.0",
-        "kreta/vcs-bundle":                    "~0.1.0"
+        "kreta/comment-bundle":                "~0.2.0",
+        "kreta/issue-bundle":                  "~0.2.0",
+        "kreta/media-bundle":                  "~0.2.0",
+        "kreta/notification-bundle":           "~0.2.0",
+        "kreta/project-bundle":                "~0.2.0",
+        "kreta/user-bundle":                   "~0.2.0",
+        "kreta/vcs-bundle":                    "~0.2.0"
     },
     "require-dev": {
         "phpspec/phpspec":                     "~2.1",

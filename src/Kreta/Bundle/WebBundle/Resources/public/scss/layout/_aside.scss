@@ -1,21 +1,22 @@
-#kreta-left-aside,
-#kreta-right-aside {
+.left-aside,
+.right-aside {
   > div {
+    color: $white;
+    height: 100%;
+    padding: 25px;
     position: fixed;
     top: 0;
-    height: 100%;
-    z-index: 20;
-    color: $white;
-    padding: 25px;
     transition-duration: .3s;
+    z-index: 20;
   }
 }
 
-#kreta-left-aside {
+.left-aside {
   > div {
-    width: 280px;
+    background: $white;
+    border-right: 1px solid $main-grey;
     left: -240px;
-    background: #525461;
+    width: 280px;
 
     &.visible {
       left: 80px;
@@ -23,11 +24,11 @@
   }
 }
 
-#kreta-right-aside {
+.right-aside {
   > div {
-    width: 450px;
-    right: -450px;
     background: $light-grey;
+    right: -450px;
+    width: 450px;
 
     &.visible {
       right: 0;

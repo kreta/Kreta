@@ -8,10 +8,14 @@
  */
 
 export class Project extends Backbone.Model {
+  urlRoot() {
+    return App.config.getBaseUrl() + '/projects';
+  }
+
   defaults () {
     return {
       name: '',
-      description: ''
+      shortName: ''
     };
   }
 

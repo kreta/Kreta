@@ -8,7 +8,7 @@
  */
 
 import {IssueController} from 'controllers/issue';
-import {ProjectController} from 'controllers/project'
+import {ProjectController} from 'controllers/project';
 
 export class Router extends Backbone.Router {
   constructor () {
@@ -27,8 +27,8 @@ export class Router extends Backbone.Router {
       '': 'showIndex'
     };
 
-    new IssueController({router: true});
-    new ProjectController({router: true});
+    App.controller.issue = new IssueController({router: true});
+    App.controller.project = new ProjectController({router: true});
 
     this._bindRoutes();
   }

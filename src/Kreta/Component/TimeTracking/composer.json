@@ -19,10 +19,10 @@
     ],
     "require": {
         "php":                                 ">=5.4",
-        "friendsofsymfony/user-bundle":        "2.0.*@dev",
-        
-        "kreta/core":                          "~0.1.0",
-        "kreta/issue":                         "~0.1.0"
+
+        "kreta/core":                          "~0.2.0",
+        "kreta/issue":                         "~0.2.0",
+        "kreta/user":                          "~0.2.0"
     },
     "require-dev": {
         "phpspec/phpspec":                     "~2.1",

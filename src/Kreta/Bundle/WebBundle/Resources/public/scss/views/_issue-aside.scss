@@ -1,94 +1,40 @@
-.issue-aside {
+.full-issue {
   padding: 45px;
-
-  h2 {
-    color: $main-black;
-    font-size: 1.8em;
-    font-weight: lighter;
-    line-height: 1.3em;
-    margin: 0;
-  }
-
-  .description {
-    color: $main-black;
-    font-weight: lighter;
-    line-height: 1.3em;
-    margin-top: 30px;
-    max-height: 200px;
-    overflow: hidden;
-  }
 }
 
-.issue-overview {
+.full-issue-title {
+  color: $main-black;
+  font-size: 1.8em;
+  font-weight: lighter;
+  line-height: 1.3em;
+  margin: 0;
+}
+
+.full-issue-description {
+  color: $main-black;
+  font-weight: lighter;
+  line-height: 1.3em;
+  margin-top: 30px;
+  max-height: 200px;
+  overflow: hidden;
+}
+
+.full-issue-dashboard {
   margin-top: 30px;
   overflow: hidden;
-
-  p {
-    border: 1px solid $main-grey;
-    color: $main-black;
-    font-size: .8em;
-    line-height: 3.5em;
-    text-align: center;
-    width: 100%;
-    margin: 0;
-
-    &.half {
-      float: left;
-      width: 50%;
-    }
-  }
-
-  small {
-    font-size: .8em;
-  }
 }
 
-.issue-tab-container {
-  background: $light-grey;
-  border-top: 1px solid $main-grey;
-  bottom: 0;
-  left: 0;
-  position: absolute;
-  right: 0;
-  z-index: 50;
-}
-
-.issue-tab {
-  background: $light-grey;
-  color: $main-grey;
-  display: inline-block;
-  margin: 0 -2px;
-  padding: 20px 0;
+.full-issue-dashboard-item {
+  border: 1px solid $main-grey;
+  color: $main-black;
+  font-size: .8em;
+  line-height: 3.5em;
+  margin: 0;
   text-align: center;
-  text-decoration: none;
-  transition-duration: .4s;
-  width: 25%;
-  z-index: 25;
+  width: 100%;
 
-  &:hover,
-  &.active {
-    color: $main-black;
-  }
-
-  span {
-    display: block;
-    font-size: .75em;
-    margin-top: 5px;
-  }
-}
-
-.issue-tab-content {
-  background: $light-grey;
-  border-top: 1px solid $main-grey;
-  bottom: -330px;
-  height: 400px;
-  left: 0;
-  overflow-y: scroll;
-  padding: 20px;
-  position: absolute;
-  transition: .4s ease;
-
-  &.visible {
-    bottom: 85px;
+  &.half {
+    float: left;
+    width: 50%;
   }
 }

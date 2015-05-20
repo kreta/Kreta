@@ -12,7 +12,7 @@ import {CommentCollection} from '../../../../collections/comment';
 
 export class CommentsTab extends Backbone.View {
   constructor (options) {
-    this.className = 'issue-tab-content';
+    this.className = 'full-issue-tab-content';
 
     this.comments = new CommentCollection();
     this.comments.setIssue(options.issueId);

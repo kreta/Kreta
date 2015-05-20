@@ -1,6 +1,6 @@
 <script type="text/html" id="list-issue-template">
     <div class="list-issue-details">
-        <a class="list-issue-title" href="/issue/<%= id %>"><%= title %></a>
+        <a class="list-issue-title" data-bypass href="/issue/<%= id %>"><%= title %></a>
     </div>
     <div class="list-issue-icons">
         <span class="list-issue-icon" data-tooltip-text="<%= status.name %>">
@@ -14,7 +14,7 @@
         </span>
         {#<span class="list-issue-status" style="background: <%= status.color %>"></span>#}
         <span data-tooltip-text="<%= assignee.first_name %> <%= assignee.last_name %>">
-            <img class="list-issue-assignee" src="<%= assignee.photo.name %>">
+            <img class="user-image" src="<%= assignee.photo.name %>">
         </span>
     </div>
 </script>

@@ -13,7 +13,6 @@ namespace spec\Kreta\Component\Core\Form\Handler;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Kreta\Component\Core\Form\Exception\InvalidFormException;
-use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\Form\FormError;
@@ -30,9 +29,15 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class HandlerSpec extends ObjectBehavior
 {
+    /**
+     * The object stub.
+     *
+     * @var Object
+     */
+    protected $object;
+
     function let(FormFactoryInterface $formFactory, ObjectManager $manager)
     {
-        $object = Argument::type('Object');
         $this->beConstructedWith($formFactory, $manager, 'kreta_dummy_type');
     }
 
@@ -63,17 +68,16 @@ class HandlerSpec extends ObjectBehavior
 
     function it_processes_form_returning_object(
         Request $request,
-        ProjectInterface $project,
         FormFactoryInterface $formFactory,
         FormBuilderInterface $formBuilder,
         FormInterface $form
     )
     {
-        $formFactory->createNamedBuilder('', 'kreta_dummy_type', $project, [])
+        $formFactory->createNamedBuilder('', 'kreta_dummy_type', $this->object, [])
             ->shouldBeCalled()->willReturn($formBuilder);
         $formBuilder->getForm()->shouldBeCalled()->willReturn($form);
 
-        $this->processForm($request, $project)->shouldReturn($project);
+        $this->processForm($request, $this->object)->shouldReturn($this->object);
     }
 
     function it_does_not_handle_form_when_the_form_is_invalid(
@@ -103,7 +107,7 @@ class HandlerSpec extends ObjectBehavior
         $this->shouldThrow(new InvalidFormException(['Form error', 'Child form error' => []]))
             ->during('handleForm', [$request]);
     }
-    
+
     function it_handles_form(
         Request $request,
         FormFactoryInterface $formFactory,
@@ -125,7 +129,7 @@ class HandlerSpec extends ObjectBehavior
         $request->files = $fileBag;
         $manager->persist($this->object)->shouldBeCalled();
         $manager->flush()->shouldBeCalled();
-        
+
         $this->handleForm($request)->shouldReturn($form);
     }
 }
