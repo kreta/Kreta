@@ -18,6 +18,8 @@ export class ProjectSettingsView extends Backbone.View {
 
     super(options);
 
+    this.model.on('sync', this.render, this);
+
     this.render();
   }
 
@@ -44,7 +46,11 @@ export class ProjectSettingsView extends Backbone.View {
   }
 
   addUser() {
+    var view = new UserSelector();
+    view.onUserSelected(function() {
 
+    });
+    view.show();
   }
 
   removeUser() {

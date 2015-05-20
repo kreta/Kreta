@@ -1,5 +1,5 @@
 <script type="text/html" id="project-settings-template">
-    <form id="project-edit" class="spacer-vertical-1" method="POST" action="#">
+    <form id="project-edit" class="spacer-top-4" method="POST" action="#">
         <div class="section-header">
             <div class="section-header-title"></div>
             <div>
@@ -8,7 +8,7 @@
             </div>
         </div>
         <input type="text" class="big" name="name" placeholder="Type your project name" tabindex="1" value="<%= name %>">
-        <input type="text" name="shortName" placeholder="Type a short name for your project" tabindex="2" value="">
+        <input type="text" name="shortName" placeholder="Type a short name for your project" tabindex="2" value="<%= short_name %>">
     </form>
     <section class="spacer-vertical-1">
         <div class="section-header">
@@ -17,14 +17,20 @@
                 <a class="button" href="#">Add people</a>
             </div>
         </div>
-        <div>
+        <div class="spacer-top-1">
             <% participants.forEach(function(participant) { %>
-                <div class="user-preview">
-                    <img class="user-image" src="<%= participant.user.photo.name %>">
-                    <span class="user-preview-title">
-                        <%= participant.user.first_name %> <%= participant.user.last_name %>
-                    </span>
-                    <span class="user-preview-subtitle"><%= participant.user.role %></span>
+                <div class="image-preview">
+                    <img class="image-preview-image user-image" src="<%= participant.user.photo.name %>">
+                    <div class="image-preview-container">
+                        <span class="image-preview-header">
+                            <%= participant.user.first_name %> <%= participant.user.last_name %>
+                        </span>
+                        <span class="image-preview-subheader"><%= participant.role %></span>
+                    </div>
+                    <div class="image-preview-actions">
+                        <span data-tooltip-text="Remove from project"
+                              data-tooltip-position="left"><i class="fa fa-close"></i></span>
+                    </div>
                 </div>
             <% }); %>
         </div>

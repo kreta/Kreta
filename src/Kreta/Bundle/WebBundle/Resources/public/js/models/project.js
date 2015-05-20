@@ -15,7 +15,7 @@ export class Project extends Backbone.Model {
   defaults () {
     return {
       name: '',
-      shortName: '',
+      short_name: '',
       participants: []
     };
   }
