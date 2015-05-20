@@ -9,7 +9,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\Bundle\CoreBundle\Behat;
+namespace Kreta\Bundle\CoreBundle\Behat\Context;
 
 use Behat\Gherkin\Node\TableNode;
 use Behat\Symfony2Extension\Context\KernelDictionary;
@@ -18,7 +18,7 @@ use Behat\WebApiExtension\Context\WebApiContext;
 /**
  * Class OauthContext.
  *
- * @package Kreta\Bundle\CoreBundle\Behat
+ * @package Kreta\Bundle\CoreBundle\Behat\Context
  */
 class OauthContext extends WebApiContext
 {

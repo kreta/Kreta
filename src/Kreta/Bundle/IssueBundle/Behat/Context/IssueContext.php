@@ -9,15 +9,15 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\Bundle\IssueBundle\Behat;
+namespace Kreta\Bundle\IssueBundle\Behat\Context;
 
 use Behat\Gherkin\Node\TableNode;
-use Kreta\Bundle\CoreBundle\Behat\DefaultContext;
+use Kreta\Bundle\CoreBundle\Behat\Context\DefaultContext;
 
 /**
  * Class IssueContext.
  *
- * @package Kreta\Bundle\IssueBundle\Behat
+ * @package Kreta\Bundle\IssueBundle\Behat\Context
  */
 class IssueContext extends DefaultContext
 {

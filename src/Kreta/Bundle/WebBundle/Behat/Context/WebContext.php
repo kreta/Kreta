@@ -9,14 +9,14 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\Bundle\WebBundle\Behat;
+namespace Kreta\Bundle\WebBundle\Behat\Context;
 
 use Behat\MinkExtension\Context\MinkContext;
 
 /**
  * Class WebContext.
  *
- * @package Kreta\Bundle\WebBundle\Behat
+ * @package Kreta\Bundle\WebBundle\Behat\Context
  */
 class WebContext extends MinkContext
 {

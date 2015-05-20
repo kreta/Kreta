@@ -9,15 +9,15 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\Bundle\TimeTrackingBundle\Behat;
+namespace Kreta\Bundle\TimeTrackingBundle\Behat\Context;
 
 use Behat\Gherkin\Node\TableNode;
-use Kreta\Bundle\CoreBundle\Behat\DefaultContext;
+use Kreta\Bundle\CoreBundle\Behat\Context\DefaultContext;
 
 /**
  * Class TimeEntryContext.
  *
- * @package Kreta\Bundle\TimeTrackingBundle\Behat
+ * @package Kreta\Bundle\TimeTrackingBundle\Behat\Context
  */
 class TimeEntryContext extends DefaultContext
 {

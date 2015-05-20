@@ -9,7 +9,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\Bundle\CoreBundle\Behat;
+namespace Kreta\Bundle\CoreBundle\Behat\Context;
 
 use Behat\MinkExtension\Context\RawMinkContext;
 use Behat\Symfony2Extension\Context\KernelAwareContext;
@@ -19,7 +19,7 @@ use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 /**
  * Class DefaultContext.
  *
- * @package Kreta\Bundle\CoreBundle\Behat
+ * @package Kreta\Bundle\CoreBundle\Behat\Context
  */
 class DefaultContext extends RawMinkContext implements KernelAwareContext
 {

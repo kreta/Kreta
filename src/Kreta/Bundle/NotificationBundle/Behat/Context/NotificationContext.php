@@ -9,15 +9,15 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\Bundle\NotificationBundle\Behat;
+namespace Kreta\Bundle\NotificationBundle\Behat\Context;
 
 use Behat\Gherkin\Node\TableNode;
-use Kreta\Bundle\CoreBundle\Behat\DefaultContext;
+use Kreta\Bundle\CoreBundle\Behat\Context\DefaultContext;
 
 /**
  * Class NotificationContext.
  *
- * @package Kreta\Bundle\NotificationBundle\Behat
+ * @package Kreta\Bundle\NotificationBundle\Behat\Context
  */
 class NotificationContext extends DefaultContext
 {

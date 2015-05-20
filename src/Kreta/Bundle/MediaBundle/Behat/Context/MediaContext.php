@@ -9,10 +9,10 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\Bundle\MediaBundle\Behat;
+namespace Kreta\Bundle\MediaBundle\Behat\Context;
 
 use Behat\Gherkin\Node\TableNode;
-use Kreta\Bundle\CoreBundle\Behat\DefaultContext;
+use Kreta\Bundle\CoreBundle\Behat\Context\DefaultContext;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
@@ -23,7 +23,7 @@ use Symfony\Component\Routing\Exception\RouteNotFoundException;
 /**
  * Class MediaContext.
  *
- * @package Kreta\Bundle\MediaBundle\Behat
+ * @package Kreta\Bundle\MediaBundle\Behat\Context
  */
 class MediaContext extends DefaultContext
 {
@@ -42,7 +42,7 @@ class MediaContext extends DefaultContext
             $finder = new Finder();
             $filename = $mediaData['name'];
             $uploader = $this->get($this->getUploader($filename));
-            foreach ($finder->files()->in(__DIR__ . $this->getPath($filename))->name($filename) as $file) {
+            foreach ($finder->files()->in(__DIR__ . '/..' . $this->getPath($filename))->name($filename) as $file) {
                 $media = $this->get('kreta_media.factory.media')
                     ->create(new UploadedFile($file->getRealPath(), $file->getFilename()));
 

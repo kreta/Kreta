@@ -65,7 +65,7 @@ before_script:
     - sleep 5
 
 script:
-    - bin/phpspec run -fpretty
+    - bin/phpspec run
 
     - bin/behat --stop-on-failure --suite=authentication
     - bin/behat --stop-on-failure --suite=invitation

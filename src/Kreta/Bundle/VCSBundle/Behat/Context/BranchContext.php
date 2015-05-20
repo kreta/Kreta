@@ -9,15 +9,15 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\Bundle\VCSBundle\Behat;
+namespace Kreta\Bundle\VCSBundle\Behat\Context;
 
 use Behat\Gherkin\Node\TableNode;
-use Kreta\Bundle\CoreBundle\Behat\DefaultContext;
+use Kreta\Bundle\CoreBundle\Behat\Context\DefaultContext;
 
 /**
  * Class BranchContext.
  *
- * @package Kreta\Bundle\VCSBundle\Behat
+ * @package Kreta\Bundle\VCSBundle\Behat\Context
  */
 class BranchContext extends DefaultContext
 {

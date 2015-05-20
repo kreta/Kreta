@@ -9,15 +9,15 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-namespace Kreta\Bundle\WorkflowBundle\Behat;
+namespace Kreta\Bundle\WorkflowBundle\Behat\Context;
 
 use Behat\Gherkin\Node\TableNode;
-use Kreta\Bundle\CoreBundle\Behat\DefaultContext;
+use Kreta\Bundle\CoreBundle\Behat\Context\DefaultContext;
 
 /**
  * Class StatusContext.
  *
- * @package Kreta\Bundle\WorkflowBundle\Behat
+ * @package Kreta\Bundle\WorkflowBundle\Behat\Context
  */
 class StatusContext extends DefaultContext
 {
