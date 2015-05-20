@@ -20,7 +20,8 @@
     "require": {
         "php":                                 ">=5.4",
         "friendsofsymfony/user-bundle":        "2.0.*@dev",
-        
+
+        "kreta/media":                         "~0.2.0",
         "kreta/core":                          "~0.2.0"
     },
     "require-dev": {

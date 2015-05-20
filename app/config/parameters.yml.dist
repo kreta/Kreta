@@ -26,12 +26,6 @@ parameters:
 
     oauth.web.client_secret:            dummy-client-secret
 
-    oauth.bitbucket.client_id:          client-id
-    oauth.bitbucket.client_secret:      client-secret
-
-    oauth.github.client_id:             client-id
-    oauth.github.client_secret:         client-secret
-
     users.image.uploader.filesystem:    kreta_image_users
     projects.image.uploader.filesystem: kreta_image_projects
 

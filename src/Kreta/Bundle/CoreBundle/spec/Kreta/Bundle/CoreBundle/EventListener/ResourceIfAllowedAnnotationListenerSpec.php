@@ -11,8 +11,11 @@
 
 namespace spec\Kreta\Bundle\CoreBundle\EventListener;
 
+use Doctrine\Common\Annotations\Reader;
+use Kreta\Component\Core\Repository\EntityRepository;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
+use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
  * Class ResourceIfAllowedAnnotationListenerSpec.
@@ -21,4 +24,14 @@ use Prophecy\Argument;
  */
 class ResourceIfAllowedAnnotationListenerSpec extends ObjectBehavior
 {
+    function let(Reader $reader, SecurityContextInterface $context, EntityRepository $repository)
+    {
+        $repository->getClassName()->shouldBeCalled()->willReturn(Argument::type('string'));
+        $this->beConstructedWith($reader, $context, $repository);
+    }
+
+    function it_is_initializable()
+    {
+        $this->shouldHaveType('Kreta\Bundle\CoreBundle\EventListener\ResourceIfAllowedAnnotationListener');
+    }
 }

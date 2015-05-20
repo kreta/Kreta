@@ -91,13 +91,10 @@ class LoadUserDataSpec extends DataFixturesSpec
     )
     {
         $container->get('kreta_user.factory.user')->shouldBeCalled()->willReturn($factory);
-        $factory->create()->shouldBeCalled()->willReturn($user);
+        $factory->create(Argument::type('string'), true)->shouldBeCalled()->willReturn($user);
 
         $user->setFirstName(Argument::type('string'))->shouldBeCalled()->willReturn($user);
         $user->setLastName(Argument::type('string'))->shouldBeCalled()->willReturn($user);
-        $user->setEmail(Argument::type('string'))->shouldBeCalled()->willReturn($user);
-        $user->setPlainPassword(123456)->shouldBeCalled()->willReturn($user);
         $user->setRoles([$role])->shouldBeCalled()->willReturn($user);
-        $user->setEnabled(true)->shouldBeCalled()->willReturn($user);
     }
 }

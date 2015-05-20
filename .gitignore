@@ -38,6 +38,7 @@ phpspec-coverage.xml
 #### Behat ####
 /coverage-behat
 behat-coverage.xml
+behat-page.html
 
 #### Vagrant ####
 .vagrant

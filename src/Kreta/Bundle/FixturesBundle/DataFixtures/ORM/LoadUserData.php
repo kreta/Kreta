@@ -63,19 +63,15 @@ class LoadUserData extends DataFixtures
      */
     protected function createUser(array $userInfo = [], array $roles = ['ROLE_USER'])
     {
-        $user = $this->container->get('kreta_user.factory.user')->create();
+        $user = $this->container->get('kreta_user.factory.user')->create($userInfo['email'], true);
         if ($userInfo['email'] === 'kreta@kreta.com') {
             $user->setFirstname('Kretauser');
             $user->setLastname('Kretasurname');
-            $user->setEmail($userInfo['email']);
         } else {
             $user->setFirstname($userInfo['firstName']);
             $user->setLastname($userInfo['lastName']);
-            $user->setEmail($userInfo['email']);
         }
-        $user->setPlainPassword(123456);
         $user->setRoles($roles);
-        $user->setEnabled(true);
 
         return $user;
     }

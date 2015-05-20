@@ -38,10 +38,21 @@ class UserFactory
     /**
      * Creates an instance of user.
      *
-     * @return Object
+     * @param string  $email   The email
+     * @param boolean $enabled Boolean that checks if the user is enabled or not, by default is false
+     *
+     * @return \Kreta\Component\User\Model\Interfaces\UserInterface
      */
-    public function create()
+    public function create($email, $enabled = false)
     {
-        return new $this->className();
+        $user = new $this->className();
+
+        if (false === $enabled) {
+            $user->setConfirmationToken(sprintf('%s%s', uniqid('kreta'), unixtojd()));
+        }
+
+        return $user
+            ->setEmail($email)
+            ->setEnabled($enabled);
     }
 }

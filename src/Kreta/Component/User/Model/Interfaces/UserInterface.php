@@ -29,38 +29,6 @@ interface UserInterface extends BaseUserInterface
     public function getId();
 
     /**
-     * Gets Bitbucket access token.
-     *
-     * @return string
-     */
-    public function getBitbucketAccessToken();
-
-    /**
-     * Sets Bitbucket access token.
-     *
-     * @param string $bitbucketAccessToken The Bitbucket access token
-     *
-     * @return $this self Object
-     */
-    public function setBitbucketAccessToken($bitbucketAccessToken);
-
-    /**
-     * Gets Bitbucket id.
-     *
-     * @return string
-     */
-    public function getBitbucketId();
-
-    /**
-     * Sets Bitbucket id.
-     *
-     * @param string $bitbucketId The Bitbucket id
-     *
-     * @return $this self Object
-     */
-    public function setBitbucketId($bitbucketId);
-
-    /**
      * Gets created at.
      *
      * @return \DateTime
@@ -91,38 +59,6 @@ interface UserInterface extends BaseUserInterface
      * @return $this self Object
      */
     public function setFirstName($firstName);
-
-    /**
-     * Gets GitHub access token.
-     *
-     * @return string
-     */
-    public function getGithubAccessToken();
-
-    /**
-     * Sets GitHub access token.
-     *
-     * @param string $githubAccessToken The GitHub access token
-     *
-     * @return $this self Object
-     */
-    public function setGithubAccessToken($githubAccessToken);
-
-    /**
-     * Gets GitHub id.
-     *
-     * @return string
-     */
-    public function getGithubId();
-
-    /**
-     * Sets GitHub id.
-     *
-     * @param string $githubId The GitHub id
-     *
-     * @return $this self Object
-     */
-    public function setGithubId($githubId);
 
     /**
      * Gets last name.

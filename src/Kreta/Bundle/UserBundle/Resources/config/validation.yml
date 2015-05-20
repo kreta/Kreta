@@ -6,18 +6,30 @@
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
 Kreta\Component\User\Model\User:
+    properties:
+        firstName:
+            - NotBlank: { groups: [profile] }
+        lastName:
+            - NotBlank: { groups: [profile] }
+    getters:
+        enabled:
+            - 'False':
+                message: 'This user is already an enabled kreta user'
+                groups: [invitation]
+
+FOS\UserBundle\Model\User:
     constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
             fields: [email]
-            message: 'This email is already in use'
+            message: 'This email is already invited'
+            groups: [invitation]
     properties:
-        firstName:
-            - NotBlank: ~
-        lastName:
-            - NotBlank: ~
         email:
             - Email:
-                # strict: true # Activate when Kreta updgrade to Symfony 2.7
+#                strict: true # Activate when Kreta updgrade to Symfony 2.7
                 checkMX: true
                 checkHost: true
             - NotBlank: ~
+        plainPassword:
+            - NotBlank: { groups: [registration] }
+            - Length: { min: 6, groups: [registration] }

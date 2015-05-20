@@ -15,7 +15,7 @@ security:
 
     providers:
         fos_userbundle:
-            id: fos_user.user_provider.username
+            id: fos_user.user_provider.username_email
 
     firewalls:
         dev:
@@ -39,15 +39,6 @@ security:
                 csrf_provider: form.csrf_provider
                 login_path: /login
                 check_path: /login_check
-            oauth:
-                resource_owners:
-                    bitbucket: "/oauth-login/check-bitbucket"
-                    github: "/oauth-login/check-github"
-                login_path: /login
-                failure_path: /login
-
-                oauth_user_provider:
-                    service: kreta_user.user_provider
             logout:
                 delete_cookies:
                     access_token: { path: null, domain: null }
@@ -57,9 +48,6 @@ security:
     access_control:
         - { path: ^/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/webhook, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/oauth-login, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/oauth-connect, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/resetting, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/, role: ROLE_USER }
         - { path: ^/admin/, role: ROLE_ADMIN }

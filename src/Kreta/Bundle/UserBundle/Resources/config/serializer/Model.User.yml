@@ -23,27 +23,15 @@ Kreta\Component\User\Model\User:
             exclusion:
                 groups: [profile]
     properties:
-        bitbucketAccessToken:
-            expose: true
-            groups: []
-        bitbucketId:
-            expose: true
-            groups: [profile]
         createdAt:
             expose: true
-            groups: [profile, projectList, project]
+            groups: [user, profile, projectList, project]
         firstName:
             expose: true
-            groups: [profile, projectList, project, issueList, issue, commentList, comment, participantList, participant]
-        githubAccessToken:
-            expose: true
-            groups: []
-        githubId:
-            expose: true
-            groups: [profile]
+            groups: [user, profile, projectList, project, issueList, issue, commentList, comment, participantList, participant]
         lastName:
             expose: true
-            groups: [profile, projectList, project, issueList, issue, commentList, comment, participantList, participant]
+            groups: [user, profile, projectList, project, issueList, issue, commentList, comment, participantList, participant]
         photo:
             expose: true
-            groups: [profile, projectList, project, issueList, issue, commentList, comment, participantList, participant]
+            groups: [user, profile, projectList, project, issueList, issue, commentList, comment, participantList, participant]

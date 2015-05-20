@@ -42,6 +42,13 @@ abstract class AbstractType extends BaseAbstractType
     protected $factory;
 
     /**
+     * The validation groups.
+     *
+     * @var array
+     */
+    protected $validationGroups;
+
+    /**
      * The object manager.
      *
      * @var \Doctrine\Common\Persistence\ObjectManager
@@ -65,19 +72,22 @@ abstract class AbstractType extends BaseAbstractType
     /**
      * Constructor.
      *
-     * @param string                                                         $dataClass The data class
-     * @param Object                                                         $factory   The factory
-     * @param \Symfony\Component\Security\Core\SecurityContextInterface|null $context   The security context
-     * @param \Doctrine\Common\Persistence\ObjectManager|null                $manager   The manager
+     * @param string                                                         $dataClass        The data class
+     * @param Object                                                         $factory          The factory
+     * @param \Symfony\Component\Security\Core\SecurityContextInterface|null $context          The security context
+     * @param \Doctrine\Common\Persistence\ObjectManager|null                $manager          The manager
+     * @param array                                                          $validationGroups The validation groups
      */
     public function __construct(
         $dataClass,
         $factory,
         SecurityContextInterface $context = null,
-        ObjectManager $manager = null
+        ObjectManager $manager = null,
+        $validationGroups = []
     )
     {
         $this->dataClass = $dataClass;
+        $this->validationGroups = $validationGroups;
         $this->factory = $factory;
         $this->manager = $manager;
         if ($context instanceof SecurityContextInterface) {
@@ -102,9 +112,10 @@ abstract class AbstractType extends BaseAbstractType
     public function setDefaultOptions(OptionsResolverInterface $resolver)
     {
         $resolver->setDefaults([
-            'csrf_protection' => false,
-            'data_class'      => $this->dataClass,
-            'empty_data'      => function (FormInterface $form) {
+            'csrf_protection'   => false,
+            'data_class'        => $this->dataClass,
+            'validation_groups' => $this->validationGroups,
+            'empty_data'        => function (FormInterface $form) {
                 return $this->createEmptyData($form);
             }
         ]);
