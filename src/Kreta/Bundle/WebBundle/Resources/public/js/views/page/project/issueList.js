@@ -16,6 +16,10 @@ export class IssueListView extends Backbone.View {
   constructor(options) {
     this.template = _.template($('#project-issues-template').html());
 
+    this.events = {
+      'click #project-settings-show': 'showSettings'
+    };
+
     super(options);
 
     this.issues = new IssueCollection();
@@ -100,5 +104,12 @@ export class IssueListView extends Backbone.View {
 
     this.issues.fetch({data: data, reset: true});
     this.$issues.html('');
+  }
+
+  showSettings(ev) {
+    ev.preventDefault();
+    App.router.navigate('/project/' + this.model.id + '/settings');
+    App.controller.project.settingsAction(this.model);
+    return false;
   }
 }

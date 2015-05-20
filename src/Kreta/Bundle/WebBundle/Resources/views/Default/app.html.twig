@@ -62,6 +62,7 @@
 {% include 'KretaWebBundle:Default/templates:issue/new.html.twig' %}
 {% include 'KretaWebBundle:Default/templates:project/list.html.twig' %}
 {% include 'KretaWebBundle:Default/templates:project/new.html.twig' %}
+{% include 'KretaWebBundle:Default/templates:project/settings.html.twig' %}
 
 {% if app.debug %}
     <script src="{{ asset(base_asset_vendor ~ 'jquery/dist/jquery.js') }}"></script>
@@ -74,7 +75,7 @@
     <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/3.8.0/lodash.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js"></script>
     <script src="{{ asset(base_asset_vendor ~ 'backbone.controller/backbone.controller.js') }}"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.17/require.min.js" data-main="{{ asset(base_asset_js ~ 'app.min') }}"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.17/require.min.js" data-main="{{ asset(base_asset_js ~ 'app') }}"></script>
 {% endif %}
 
 </body>

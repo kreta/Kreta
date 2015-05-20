@@ -1,0 +1,32 @@
+<script type="text/html" id="project-settings-template">
+    <form id="project-edit" class="spacer-vertical-1" method="POST" action="#">
+        <div class="section-header">
+            <div class="section-header-title"></div>
+            <div>
+                <button class="button">Cancel</button>
+                <button class="button green" type="submit" tabindex="3">Done</button>
+            </div>
+        </div>
+        <input type="text" class="big" name="name" placeholder="Type your project name" tabindex="1" value="<%= name %>">
+        <input type="text" name="shortName" placeholder="Type a short name for your project" tabindex="2" value="">
+    </form>
+    <section class="spacer-vertical-1">
+        <div class="section-header">
+            <h3 class="section-header-title"><strong>People</strong> in this project</h3>
+            <div class="section-header-actions">
+                <a class="button" href="#">Add people</a>
+            </div>
+        </div>
+        <div>
+            <% participants.forEach(function(participant) { %>
+                <div class="user-preview">
+                    <img class="user-image" src="<%= participant.user.photo.name %>">
+                    <span class="user-preview-title">
+                        <%= participant.user.first_name %> <%= participant.user.last_name %>
+                    </span>
+                    <span class="user-preview-subtitle"><%= participant.user.role %></span>
+                </div>
+            <% }); %>
+        </div>
+    </section>
+</script>

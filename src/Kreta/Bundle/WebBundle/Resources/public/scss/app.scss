@@ -11,6 +11,8 @@
 @import 'base/typography';
 @import 'base/generic';
 
+@import 'helpers/spacing';
+
 @import 'components/buttons';
 @import 'components/filter';
 @import 'components/form';
@@ -18,6 +20,7 @@
 @import 'components/notification';
 @import 'components/page-header';
 @import 'components/project-preview';
+@import 'components/section-header';
 @import 'components/selectors';
 @import 'components/simple-header';
 @import 'components/tab';
