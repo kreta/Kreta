@@ -21,6 +21,18 @@ use Behat\MinkExtension\Context\MinkContext;
 class WebContext extends MinkContext
 {
     /**
+     * Saves the html into a file of the current view.
+     *
+     * @return void
+     *
+     * @Then /^I save html of current view$/
+     */
+    public function saveHtmlFromCurrentView()
+    {
+        file_put_contents('behat-page.html', $this->getSession()->getDriver()->getContent());
+    }
+
+    /**
      * Log into the app with username and password given.
      *
      * @param string $user     The username

@@ -58,7 +58,7 @@ fos_oauth_server:
     client_class: Kreta\Bundle\CoreBundle\Model\Client
     refresh_token_class: Kreta\Bundle\CoreBundle\Model\RefreshToken
     service:
-        user_provider: fos_user.user_manager
+        user_provider: fos_user.user_provider.username_email
         options:
             supported_scopes: user
 
