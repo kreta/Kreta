@@ -48,11 +48,12 @@ class InvitationController extends Controller
         $request->request->remove('force');
         $user = $this->get('kreta_user.repository.user')->findOneBy(['email' => $request->request->get('email')]);
 
-        if (!$user instanceof UserInterface
-            || $user instanceof UserInterface && $user->isEnabled()
-            || $user instanceof UserInterface && !$isForce
-        ) {
-            $user = $this->get('kreta_user.form_handler.invitation')->processForm($request, $user);
+        $handler = $this->get('kreta_user.form_handler.invitation');
+        if ($user instanceof UserInterface && $user->isEnabled()) {
+            $user = $handler->processForm($request, $user);
+        }
+        if (!$user instanceof UserInterface || $user instanceof UserInterface && !$isForce) {
+            $user = $handler->processForm($request);
         }
         $this->get('kreta_user.mailer')->sendInvitationEmail($user);
 

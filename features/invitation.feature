@@ -45,12 +45,13 @@ Feature: Manage user invitations
         "email": "user4@kreta.com"
       }
     """
-    And print response
     Then the response code should be 400
     And the response should contain json:
     """
       {
-        "error": "This email is already invited"
+        "email": [
+          "This email is already invited"
+        ]
       }
     """
 
