@@ -20,6 +20,8 @@
     "require": {
         "php":                                 ">=5.4",
 
+        "doctrine/doctrine-fixtures-bundle":   "~2.2",
+
         "kreta/comment-bundle":                "~0.2.0",
         "kreta/issue-bundle":                  "~0.2.0",
         "kreta/project-bundle":                "~0.2.0",
