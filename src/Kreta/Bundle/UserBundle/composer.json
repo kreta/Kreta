@@ -19,7 +19,6 @@
     ],
     "require": {
         "php":                                 ">=5.4",
-        "hwi/oauth-bundle":                    "0.4.*@dev",
 
         "kreta/core-bundle":                   "~0.2.0",
         "kreta/media-bundle":                  "~0.2.0",
@@ -43,8 +42,9 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "0.3-dev"
+            "dev-master": "0.2-dev"
         }
     },
-    "minimum-stability": "dev"
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }

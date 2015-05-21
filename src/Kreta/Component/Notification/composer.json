@@ -22,9 +22,7 @@
         "symfony/routing":                     "~2.3",
         "symfony/swiftmailer-bundle":          "~2.3",
 
-        "kreta/core":                          "~0.2.0",
-        "kreta/project":                       "~0.2.0",
-        "kreta/user":                          "~0.2.0"
+        "kreta/project":                       "~0.2.0"
     },
     "require-dev": {
         "phpspec/phpspec":                     "~2.1",
@@ -44,7 +42,9 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "0.3-dev"
+            "dev-master": "0.2-dev"
         }
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }

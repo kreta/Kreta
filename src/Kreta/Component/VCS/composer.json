@@ -22,7 +22,6 @@
         "symfony/event-dispatcher":            "~2.3",
         "symfony/http-foundation":             "~2.3",
 
-        "kreta/core":                          "~0.2.0",
         "kreta/issue":                         "~0.2.0"
     },
     "require-dev": {
@@ -43,7 +42,9 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "0.3-dev"
+            "dev-master": "0.2-dev"
         }
-    }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
 }
