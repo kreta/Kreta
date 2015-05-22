@@ -108,7 +108,7 @@ export class IssueListView extends Backbone.View {
 
   showSettings(ev) {
     ev.preventDefault();
-    App.router.navigate('/project/' + this.model.id + '/settings');
+    App.router.base.navigate('/project/' + this.model.id + '/settings');
     App.controller.project.settingsAction(this.model);
     return false;
   }

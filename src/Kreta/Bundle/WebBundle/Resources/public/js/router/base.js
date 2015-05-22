@@ -7,12 +7,5 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-import {User} from '../models/user';
-
-export class UserCollection extends Backbone.Collection {
-  constructor (models, options) {
-    this.url = App.getBaseUrl() + '/users';
-    this.model = User;
-    super(models, options);
-  }
+export class BaseRouter extends Backbone.Marionette.AppRouter {
 }

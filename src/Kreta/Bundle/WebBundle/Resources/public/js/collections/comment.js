@@ -16,7 +16,7 @@ export class CommentCollection extends Backbone.Collection {
   }
 
   setIssue (issueId) {
-    this.url = App.config.getBaseUrl() + '/issues/' + issueId + '/comments';
+    this.url = App.getBaseUrl() + '/issues/' + issueId + '/comments';
     return this;
   }
 }

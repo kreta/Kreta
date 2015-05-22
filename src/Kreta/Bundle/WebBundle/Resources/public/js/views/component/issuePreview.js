@@ -28,7 +28,7 @@ export class IssuePreviewView extends Backbone.View {
   }
 
   showFullIssue() {
-    App.router.navigate('/issue/' + this.model.id);
+    App.router.base.navigate('/issue/' + this.model.id);
     App.controller.issue.showAction(this.model);
 
     return false;

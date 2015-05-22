@@ -7,9 +7,6 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-export class Config {
-  getBaseUrl () {
-    var host = location.hostname + (location.port != "" ? ":" + location.port : '');
-    return '//' + host + '/api';
-  }
+export class AsideLeftBehaviour extends Backbone.Marionette.Behaviour {
+
 }

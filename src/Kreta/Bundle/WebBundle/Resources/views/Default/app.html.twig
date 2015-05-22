@@ -15,36 +15,39 @@
     {% endif %}
 </head>
 <body>
-<nav id="kreta-menu-main">
-    <img class="logo" src="{{ asset('images/logo.png') }}"/>
-    <div class="kreta-menu-user">
+<div class="application"></div>
+<script id="base-layout-view-template" type="text/html">
+    <nav id="kreta-menu-main">
+        <img class="logo" src="{{ asset('images/logo.png') }}"/>
+        <div class="kreta-menu-user">
+        </div>
+        <div class="kreta-menu-actions">
+            <a href="/">
+                <img src="{{ asset('images/icons/notification.png') }}">
+                <span class="kreta-notification-bubble">4</span>
+            </a>
+            {#<a href="/"><img src="{{ asset('images/icons/search.png') }}"></a>#}
+            <a href="/issue/new" data-tooltip-text="Create issue" data-tooltip-position="right">
+                <img src="{{ asset('images/icons/new.png') }}">
+            </a>
+            {#<a href="/"><img src="{{ asset('images/icons/dashboard.png') }}"></a>
+            <a href="/"><img src="{{ asset('images/icons/lists.png') }}"></a>#}
+            <a href="/projects" data-tooltip-text="Project list" data-tooltip-position="right">
+                <img src="{{ asset('images/icons/projects.png') }}">
+            </a>
+            <a href="/logout" data-bypass data-tooltip-text="Logout" data-tooltip-position="right" title="Logout">
+                <i class="fa fa-sign-out"></i>
+            </a>
+        </div>
+    </nav>
+    <div class="left-aside"></div>
+    <div id="kreta-content">
+        <div>
+            <div class="kreta-content-container"></div>
+        </div>
     </div>
-    <div class="kreta-menu-actions">
-        <a href="/">
-            <img src="{{ asset('images/icons/notification.png') }}">
-            <span class="kreta-notification-bubble">4</span>
-        </a>
-        {#<a href="/"><img src="{{ asset('images/icons/search.png') }}"></a>#}
-        <a href="/issue/new" data-tooltip-text="Create issue" data-tooltip-position="right">
-            <img src="{{ asset('images/icons/new.png') }}">
-        </a>
-        {#<a href="/"><img src="{{ asset('images/icons/dashboard.png') }}"></a>
-        <a href="/"><img src="{{ asset('images/icons/lists.png') }}"></a>#}
-        <a href="/projects" data-tooltip-text="Project list" data-tooltip-position="right">
-            <img src="{{ asset('images/icons/projects.png') }}">
-        </a>
-        <a href="/logout" data-bypass data-tooltip-text="Logout" data-tooltip-position="right" title="Logout">
-            <i class="fa fa-sign-out"></i>
-        </a>
-    </div>
-</nav>
-<div class="left-aside"></div>
-<div id="kreta-content">
-    <div>
-        <div class="kreta-content-container"></div>
-    </div>
-</div>
-<div class="right-aside"></div>
+    <div class="right-aside"></div>
+</script>
 <script type="text/html" id="kreta-menu-user-template">
     <div class="kreta-user-container">
         <img src="<%= photo.name %>">
@@ -68,14 +71,13 @@
     <script src="{{ asset(base_asset_vendor ~ 'jquery/dist/jquery.js') }}"></script>
     <script src="{{ asset(base_asset_vendor ~ 'lodash/lodash.js') }}"></script>
     <script src="{{ asset(base_asset_vendor ~ 'backbone/backbone.js') }}"></script>
-    <script src="{{ asset(base_asset_vendor ~ 'backbone.controller/backbone.controller.js') }}"></script>
-    <script src="{{ asset(base_asset_vendor ~ 'requirejs/require.js') }}" data-main="{{ asset(base_asset_js ~ 'app') }}"></script>
+    <script src="{{ asset(base_asset_vendor ~ 'backbone.marionette/lib/backbone.marionette.min.js') }}"></script>
+    <script src="{{ asset(base_asset_vendor ~ 'requirejs/require.js') }}" data-main="{{ asset(base_asset_js ~ 'kreta') }}"></script>
 {% else %}
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/3.8.0/lodash.min.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js"></script>
-    <script src="{{ asset(base_asset_vendor ~ 'backbone.controller/backbone.controller.js') }}"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.17/require.min.js" data-main="{{ asset(base_asset_js ~ 'app') }}"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/require.js/2.1.17/require.min.js" data-main="{{ asset(base_asset_js ~ 'kreta') }}"></script>
 {% endif %}
 
 </body>

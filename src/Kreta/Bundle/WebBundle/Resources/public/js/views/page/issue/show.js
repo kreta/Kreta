@@ -47,7 +47,7 @@ export class IssueShowView extends AsideView {
   }
 
   editClicked() {
-    App.router.navigate('/issue/' + this.model.id + '/edit');
+    App.router.base.navigate('/issue/' + this.model.id + '/edit');
     App.controller.issue.editAction(this.model);
 
     return false;

@@ -9,44 +9,32 @@
 
 import {IssueShowView} from '../views/page/issue/show';
 import {IssueNewView} from '../views/page/issue/new';
+
 import {Issue} from '../models/issue';
 
-export class IssueController extends Backbone.Controller {
-  initialize() {
-    this.routes = {
-      'issue/:issue': 'showAction',
-      'issue/:id/edit': 'editAction',
-      'issue/new': 'newAction'
-    };
-  }
-
+export class IssueController extends Backbone.Marionette.Controller {
   newAction() {
-    var view = new IssueNewView({model: new Issue()});
-    App.views.main.render(view.render().el);
+    App.layout.getRegion('content').show(new IssueNewView({model: new Issue()}));
     Backbone.trigger('main:full-screen');
   }
 
   editAction(issue) {
-    var model = issue;
-    if(!(issue instanceof Issue)) {
-      model = new Issue({id: issue});
-      model.fetch();
-    }
-
-    var view = new IssueNewView({model: model});
-
-    App.views.main.render(view.render().el);
+    App.layout.getRegion('content').show(new IssueNewView({model: this.getCurrentIssue(issue)}));
     Backbone.trigger('main:full-screen');
   }
 
   showAction(issue) {
+    App.layout.getRegion('content').show(new IssueShowView({model: this.getCurrentIssue(issue)}));
+    Backbone.trigger('main:full-screen');
+  }
+
+  getCurrentIssue(issue) {
     var model = issue;
     if(!(issue instanceof Issue)) {
       model = new Issue({id: issue});
       model.fetch();
     }
 
-    var view = new IssueShowView({model: model});
-    view.show();
+    return model;
   }
 }

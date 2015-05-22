@@ -7,10 +7,8 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-export class AsideView extends Backbone.View {
-  constructor (options) {
-    super(options);
-
+export class Aside extends Backbone.Marionette.Region {
+  initialize() {
     this.$container = $('.' + this.position() + '-aside');
 
     this.listenTo(Backbone, 'aside:before-open', this.hide);

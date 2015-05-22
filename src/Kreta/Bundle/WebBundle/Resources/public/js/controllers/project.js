@@ -11,38 +11,25 @@ import {IssueListView} from '../views/page/project/issueList';
 import {ProjectListView} from '../views/page/project/list';
 import {ProjectNewView} from '../views/page/project/new';
 import {ProjectSettingsView} from '../views/page/project/settings';
+
 import {Project} from '../models/project';
 
-export class ProjectController extends Backbone.Controller {
-  initialize() {
-    this.routes = {
-      'project/:id': 'showAction',
-      'project/:id/settings': 'settingsAction',
-      'project/new': 'newAction',
-      'projects': 'listAction'
-    };
-  }
-
+export class ProjectController extends Backbone.Marionette.Controller {
   newAction() {
-    var view = new ProjectNewView();
-    App.views.main.render(view.render().el);
+    App.layout.getRegion('content').show(new ProjectNewView());
     Backbone.trigger('main:full-screen');
   }
 
   listAction() {
-    var view = new ProjectListView();
-    view.show();
+    App.layout.getRegion('left-aside').show(new ProjectListView());
   }
 
   showAction(project) {
-    var view = new IssueListView({model: this.getCurrentProject(project)});
-    App.views.main.render(view.render().el);
-    Backbone.trigger('main:full-screen');
+    App.layout.getRegion('content').show(new IssueListView({model: this.getCurrentProject(project)}));
   }
 
   settingsAction(project) {
-    var view = new ProjectSettingsView({model: this.getCurrentProject(project)});
-    App.views.main.render(view.render().el);
+    App.layout.getRegion('content').show(new ProjectSettingsView({model: this.getCurrentProject(project)}));
     Backbone.trigger('main:full-screen');
   }
 

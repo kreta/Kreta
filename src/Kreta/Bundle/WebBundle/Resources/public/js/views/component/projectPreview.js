@@ -27,7 +27,7 @@ export class ProjectPreviewView extends Backbone.View {
   }
 
   showFullProject() {
-    App.router.navigate('/project/' + this.model.id, true);
+    App.router.base.navigate('/project/' + this.model.id, true);
     App.controller.project.showAction(this.model);
 
     return false;

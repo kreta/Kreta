@@ -123,8 +123,8 @@ export class IssueNewView extends Backbone.View {
 
     this.model.save(null, {
       success: (model) => {
-        App.router.navigate('/project/' + this.currentProject, true);
-        App.router.navigate('/issue/' + model.get('id'), true);
+        App.router.base.navigate('/project/' + this.currentProject, true);
+        App.router.base.navigate('/issue/' + model.get('id'), true);
       }, error: function() {
         var notification = new NotificationView({ model: {
           type: 'error',

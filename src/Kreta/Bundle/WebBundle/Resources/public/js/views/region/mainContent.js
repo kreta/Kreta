@@ -7,9 +7,12 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-export class MainContentView extends Backbone.View {
-  constructor () {
-    this.setElement($('.kreta-content-container'), true);
+export class MainContentRegion extends Backbone.Marionette.Region {
+  constructor (options) {
+    this.el = '.kreta-content-container';
+
+    super(options);
+
     this.$spacer = this.$el.parent();
 
     this.listenTo(Backbone, 'left-aside:after-open', this.leftOpened);
@@ -17,12 +20,6 @@ export class MainContentView extends Backbone.View {
 
     this.listenTo(Backbone, 'right-aside:after-open', this.rightOpened);
     this.listenTo(Backbone, 'right-aside:close', this.rightClosed);
-
-    super();
-  }
-
-  render (el) {
-    this.$el.html(el);
   }
 
   leftOpened () {
