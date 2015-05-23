@@ -7,9 +7,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-import {AsideView} from '../../layout/aside';
-
-export class IssueShowView extends AsideView {
+export class IssueShowView extends Backbone.View {
   constructor (options) {
     this.className = 'full-issue-aside';
 
@@ -26,8 +24,6 @@ export class IssueShowView extends AsideView {
 
     Backbone.trigger('issue:highlight', this.model.id);
     this.render();
-
-    this.$container.append(this.$el);
   }
 
   render () {
@@ -51,9 +47,5 @@ export class IssueShowView extends AsideView {
     App.controller.issue.editAction(this.model);
 
     return false;
-  }
-
-  position() {
-    return 'right';
   }
 }

@@ -13,8 +13,6 @@ export class MainContentRegion extends Backbone.Marionette.Region {
 
     super(options);
 
-    this.$spacer = this.$el.parent();
-
     this.listenTo(Backbone, 'left-aside:after-open', this.leftOpened);
     this.listenTo(Backbone, 'left-aside:close', this.leftClosed);
 
@@ -23,18 +21,18 @@ export class MainContentRegion extends Backbone.Marionette.Region {
   }
 
   leftOpened () {
-    this.$spacer.addClass('left-open');
+    this.$el.parent().addClass('left-open');
   }
 
   leftClosed () {
-    this.$spacer.removeClass('left-open');
+    this.$el.parent().removeClass('left-open');
   }
 
   rightOpened () {
-    this.$spacer.addClass('right-open');
+    this.$el.parent().addClass('right-open');
   }
 
   rightClosed () {
-    this.$spacer.removeClass('right-open');
+    this.$el.parent().removeClass('right-open');
   }
 }

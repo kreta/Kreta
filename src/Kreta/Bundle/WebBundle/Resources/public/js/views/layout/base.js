@@ -7,6 +7,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
+import {AsideRegion} from '../region/aside';
 import {MainContentRegion} from '../region/mainContent';
 
 export class BaseLayoutView extends Backbone.Marionette.LayoutView {
@@ -15,8 +16,8 @@ export class BaseLayoutView extends Backbone.Marionette.LayoutView {
     this.template = "#base-layout-view-template";
     this.regions = {
       'menu': '.menu-main',
-      'left-aside': '.left-aside',
-      'right-aside': '.right-aside',
+      'left-aside': new AsideRegion({position: 'left'}),
+      'right-aside': new AsideRegion({position: 'right'}),
       'content': new MainContentRegion()
     };
     super(options);

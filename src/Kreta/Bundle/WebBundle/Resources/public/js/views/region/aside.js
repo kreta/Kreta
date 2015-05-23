@@ -7,37 +7,35 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-export class Aside extends Backbone.Marionette.Region {
-  initialize() {
-    this.$container = $('.' + this.position() + '-aside');
+export class AsideRegion extends Backbone.Marionette.Region {
+  constructor(options) {
+    this.position = options.position;
+    this.el = '.' + this.position + '-aside';
+
+    super(options);
 
     this.listenTo(Backbone, 'aside:before-open', this.hide);
     this.listenTo(Backbone, 'main:full-screen', this.hide);
   }
 
-  hide () {
-    if(this.$el.hasClass('visible')) {
-      this.$el.removeClass('visible');
-      Backbone.trigger(this.position() + '-aside:close');
-
-      setTimeout( () => { //Wait animation
-        this.undelegateEvents();
-        this.$el.removeData().unbind();
-        this.remove();
-      }, 500);
-    }
-  }
-
-  show () {
+  onShow() {
     Backbone.trigger('aside:before-open');
 
     setTimeout(() => {
-      this.$el.addClass('visible');
-      Backbone.trigger(this.position() + '-aside:after-open');
+      this.$el.children().addClass('visible');
+      Backbone.trigger(this.position + '-aside:after-open');
     }, 1);
+
   }
 
-  position() {
-    return 'left';
+  hide () {
+    if(this.$el.children().hasClass('visible')) {
+      this.$el.children().removeClass('visible');
+      Backbone.trigger(this.position + '-aside:close');
+
+      setTimeout( () => { //Wait animation
+        this.destroy();
+      }, 500);
+    }
   }
 }

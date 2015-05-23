@@ -24,7 +24,7 @@ export class IssueController extends Backbone.Marionette.Controller {
   }
 
   showAction(issue) {
-    App.layout.getRegion('content').show(new IssueShowView({model: this.getCurrentIssue(issue)}));
+    App.layout.getRegion('right-aside').show(new IssueShowView({model: this.getCurrentIssue(issue)}));
     Backbone.trigger('main:full-screen');
   }
 

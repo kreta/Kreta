@@ -13,6 +13,7 @@ import {ProjectNewView} from '../views/page/project/new';
 import {ProjectSettingsView} from '../views/page/project/settings';
 
 import {Project} from '../models/project';
+import {ProjectCollection} from '../collections/project';
 
 export class ProjectController extends Backbone.Marionette.Controller {
   newAction() {
@@ -21,11 +22,14 @@ export class ProjectController extends Backbone.Marionette.Controller {
   }
 
   listAction() {
-    App.layout.getRegion('left-aside').show(new ProjectListView());
+    var projects = new ProjectCollection();
+    projects.fetch();
+    App.layout.getRegion('left-aside').show(new ProjectListView({collection: projects}));
   }
 
   showAction(project) {
     App.layout.getRegion('content').show(new IssueListView({model: this.getCurrentProject(project)}));
+    Backbone.trigger('main:full-screen');
   }
 
   settingsAction(project) {
