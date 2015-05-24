@@ -1,7 +1,7 @@
 {% extends 'KretaWebBundle::layout.html.twig' %}
 
 {% block stylesheets %}
-    {% if app.debug %}
+    {% if production_assets == false %}
         <link href="{{ asset('css/login.css') }}" media="screen" rel="stylesheet" type="text/css"/>
     {% else %}
         <link href="{{ asset('css/login.min.css') }}" media="screen" rel="stylesheet" type="text/css"/>

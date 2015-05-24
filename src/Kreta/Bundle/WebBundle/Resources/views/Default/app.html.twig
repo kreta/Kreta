@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Kreta</title>
-    {% if app.debug %}
+    {% if production_assets == false %}
         <link href="{{ asset(base_asset_vendor ~ 'font-source-sans-pro/source-sans-pro.css') }}" rel="stylesheet" type="text/css"/>
         <link href="{{ asset(base_asset_vendor ~ 'font-awesome/css/font-awesome.css') }}" rel="stylesheet" type="text/css"/>
         <link href="{{ asset(base_asset_css ~ 'app.css') }}" media="screen" rel="stylesheet" type="text/css"/>
@@ -63,7 +63,7 @@
 {% include 'KretaWebBundle:Default/templates:project/list.html.twig' %}
 {% include 'KretaWebBundle:Default/templates:project/new.html.twig' %}
 
-{% if app.debug %}
+{% if production_assets == false %}
     <script src="{{ asset(base_asset_vendor ~ 'jquery/dist/jquery.js') }}"></script>
     <script src="{{ asset(base_asset_vendor ~ 'lodash/lodash.js') }}"></script>
     <script src="{{ asset(base_asset_vendor ~ 'backbone/backbone.js') }}"></script>

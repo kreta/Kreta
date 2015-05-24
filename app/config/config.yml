@@ -31,6 +31,7 @@ twig:
     debug: "%kernel.debug%"
     strict_variables: "%kernel.debug%"
     globals:
+        production_assets: "%production_assets%"
         base_asset_img: images/
         base_asset_js: js/
         base_asset_css: css/

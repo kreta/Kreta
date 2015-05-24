@@ -18,15 +18,21 @@ var header = require('gulp-header');
 var imagemin = require('gulp-imagemin');
 var jshint = require('gulp-jshint');
 var minifyCSS = require('gulp-minify-css');
+var minimist = require('minimist');
 var rename = require('gulp-rename');
 var sass = require('gulp-sass');
 var scsslint = require('gulp-scss-lint');
 var sourcemaps = require('gulp-sourcemaps');
 var uglify = require('gulp-uglify');
+
 var pkg = require('./package.json');
 
-var basePath = './../../../../web/bundles/kretaweb/';
-var resultPath = './../../../../web/';
+var knownOptions = {string: 'from', default: { from: ''}};
+var options = minimist(process.argv.slice(2), knownOptions);
+var fromVendorPath = options.from === 'vendor' ? '/../../../' : '/';
+
+var basePath = './../../../..' + fromVendorPath + 'web/bundles/kretaweb/';
+var resultPath = './../../../..' + fromVendorPath + 'web/';
 
 var license = [
   '/*',
@@ -49,7 +55,7 @@ var assets = {
 
 var watch = {
   sass: basePath + 'scss/**/*.scss'
-}
+};
 
 gulp.task('clean', function () {
   del.sync([
@@ -85,21 +91,21 @@ gulp.task('sass', ['scss-lint'], function () {
   return gulp.src(assets.sass)
     .pipe(sourcemaps.init())
     .pipe(sass({
-        style: 'expanded',
-        lineNumbers: true,
-        loadPath: true,
-        errLogToConsole: true
-     }))
+      style: 'expanded',
+      lineNumbers: true,
+      loadPath: true,
+      errLogToConsole: true
+    }))
     .pipe(autoprefixer())
     .pipe(sourcemaps.write())
     .pipe(gulp.dest(resultPath + 'css'));
 });
 
-gulp.task('sass:prod', ['scss-lint'], function () {
+gulp.task('sass:prod', function () {
   return gulp.src(assets.sass)
     .pipe(sass({
-        style: 'compressed',
-        errLogToConsole: true
+      style: 'compressed',
+      errLogToConsole: true
     }))
     .pipe(rename({
       suffix: '.min'

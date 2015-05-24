@@ -31,3 +31,5 @@ parameters:
 
     locale:                             en
     secret:                             23j12b3k54fgbpo23k2jb12ouh677khb456j
+
+    production_assets:                  true
