@@ -42,7 +42,9 @@ export class ProjectController extends Backbone.Marionette.Controller {
   }
 
   settingsAction(project) {
-    App.layout.getRegion('content').show(new ProjectSettingsView({model: this.getCurrentProject(project)}));
+    App.layout.getRegion('content').show(new ProjectSettingsView({
+      model: this.getCurrentProject(project)
+    }));
     Backbone.trigger('main:full-screen');
   }
 

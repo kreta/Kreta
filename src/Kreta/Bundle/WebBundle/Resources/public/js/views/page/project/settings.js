@@ -9,55 +9,57 @@
 
 import {Project} from '../../../models/project';
 
-export class ProjectSettingsView extends Backbone.View {
+import {UserCollection} from '../../../collections/user';
+
+import {UserSelectorView} from '../../component/user-selector';
+
+import {FormSerializerService} from '../../../service/form-serializer';
+import {NotificationService} from '../../../service/notification';
+
+export class ProjectSettingsView extends Backbone.Marionette.ItemView {
   constructor(options) {
-    this.template = _.template($('#project-settings-template').html());
+    this.template = '#project-settings-template';
+
+    this.ui = {
+      'addPeople': '#project-settings-add-people'
+    };
+
     this.events = {
-      'submit #project-edit': 'save'
+      'submit #project-edit': 'save',
+      'click @ui.addPeople': 'addUser'
     };
 
     super(options);
 
     this.model.on('sync', this.render, this);
-
-    this.render();
-  }
-
-  render() {
-    this.$el.html(this.template(this.model.toJSON()));
-
-    return this;
   }
 
   save(ev) {
     ev.preventDefault();
-    var formData = {};
-    $.each($('#project-settings').serializeArray(), function (field) {
-      formData[this.name] = this.value;
-    });
 
-    var project = new Project(formData);
+    var project = FormSerializerService.serialize(
+      $('#project-edit'), Project
+    );
 
     project.save(null, {
-      success: (model) => {
-
+      success: () => {
+        NotificationService.showNotification({
+          type: 'success',
+          message: 'Saved successfully'
+        });
       }
     });
   }
 
   addUser() {
-    var view = new UserSelector();
-    view.onUserSelected(function() {
+    var users = new UserCollection();
+    users.fetch();
+    var view = new UserSelectorView({collection: users});
 
-    });
-    view.show();
+    App.layout.getRegion('right-aside').show(view);
   }
 
   removeUser() {
-
-  }
-
-  changeRole() {
 
   }
 }

@@ -15,6 +15,7 @@ import {ProjectCollection} from '../../../collections/project';
 import {IssueTypeCollection} from '../../../collections/issue-type';
 import {IssuePriorityCollection} from '../../../collections/issue-priority';
 import {NotificationService} from '../../../service/notification';
+import {FormSerializerService} from '../../../service/form-serializer';
 
 export class IssueNewView extends Backbone.View {
   constructor(options) {
@@ -108,18 +109,12 @@ export class IssueNewView extends Backbone.View {
     var $actions = $('.issue-new-actions');
     $actions.hide();
 
-    var formData = {};
-    $.each($('#issue-new').serializeArray(), function () {
-      formData[this.name] = this.value;
-    });
+    this.model = FormSerializerService.serialize(
+      $('#issue-new'), Issue
+    );
 
-    formData.project = this.currentProject;
+    this.model.set('project', this.currentProject);
 
-    if(!this.model.isNew()) {
-      formData.id = this.model.id;
-    }
-
-    this.model = new Issue(formData);
 
     this.model.save(null, {
       success: (model) => {
