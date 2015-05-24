@@ -14,6 +14,7 @@ import {ProjectSettingsView} from '../views/page/project/settings';
 
 import {Project} from '../models/project';
 import {ProjectCollection} from '../collections/project';
+import {IssueCollection} from '../collections/issue';
 
 export class ProjectController extends Backbone.Marionette.Controller {
   newAction() {
@@ -28,7 +29,15 @@ export class ProjectController extends Backbone.Marionette.Controller {
   }
 
   showAction(project) {
-    App.layout.getRegion('content').show(new IssueListView({model: this.getCurrentProject(project)}));
+    var model = this.getCurrentProject(project);
+    var collection = new IssueCollection();
+    collection.fetch({data: {project: model.id}});
+
+    App.layout.getRegion('content').show(new IssueListView({
+      model: model,
+      collection: collection
+    }));
+
     Backbone.trigger('main:full-screen');
   }
 

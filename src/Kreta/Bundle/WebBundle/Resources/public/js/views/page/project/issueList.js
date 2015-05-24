@@ -7,46 +7,34 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-import {IssueCollection} from '../../../collections/issue';
-import {IssuePreviewView} from '../../component/issuePreview';
 import {FilterView} from '../../component/filter';
-import {Project} from '../../../models/project';
+import {IssuePreviewView} from '../../component/issuePreview';
 
-export class IssueListView extends Backbone.View {
-  constructor(options) {
-    this.template = _.template($('#project-issues-template').html());
+export class IssueListView extends Backbone.Marionette.CompositeView {
+  initialize() {
+    this.template = '#project-issues-template';
+    this.childView = IssuePreviewView;
+    this.childViewContainer = '.issues';
 
     this.events = {
       'click #project-settings-show': 'showSettings'
     };
 
-    super(options);
-
-    this.issues = new IssueCollection();
-    this.issues.fetch({data: {project: this.model.id}});
+    this.ui = {
+      issues: '.issues',
+      filter: '.filter'
+    };
 
     this.loadFilters();
-    this.render();
-
-    this.model.on('sync', this.render, this);
-    this.listenTo(this.issues, 'add', this.addOne);
-    this.listenTo(this.issues, 'reset', this.addAll);
-    this.listenTo(App.currentUser, 'change', this.loadFilters);
   }
 
-  render() {
-    this.$el.html(this.template(this.model.toJSON()));
-    this.$issues = this.$el.find('.issues');
-    this.$filter = this.$el.find('.filter');
-
+  onRender() {
     this.filterView = new FilterView(this.filters);
     this.filterView.onFilterClicked((filter) => {
       this.filterIssues(filter);
     });
 
-    this.$filter.html(this.filterView.render().el);
-
-    return this;
+    this.ui.filter.html(this.filterView.render().el);
   }
 
   loadFilters() {
@@ -81,16 +69,6 @@ export class IssueListView extends Backbone.View {
     this.render();
   }
 
-  addAll() {
-    this.$issues.html('');
-    this.issues.each(this.addOne, this);
-  }
-
-  addOne(model) {
-    var view = new IssuePreviewView({model});
-    this.$issues.append(view.render().el);
-  }
-
   filterIssues(filters) {
     var data = {project: this.projectId};
 
@@ -102,12 +80,11 @@ export class IssueListView extends Backbone.View {
       });
     });
 
-    this.issues.fetch({data: data, reset: true});
-    this.$issues.html('');
+    this.ui.issues.html('');
+    this.collection.fetch({data: data, reset: true});
   }
 
-  showSettings(ev) {
-    ev.preventDefault();
+  showSettings() {
     App.router.base.navigate('/project/' + this.model.id + '/settings');
     App.controller.project.settingsAction(this.model);
     return false;

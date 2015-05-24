@@ -14,17 +14,23 @@ import {Issue} from '../models/issue';
 
 export class IssueController extends Backbone.Marionette.Controller {
   newAction() {
-    App.layout.getRegion('content').show(new IssueNewView({model: new Issue()}));
+    App.layout.getRegion('content').show(new IssueNewView({
+      model: new Issue()
+    }));
     Backbone.trigger('main:full-screen');
   }
 
   editAction(issue) {
-    App.layout.getRegion('content').show(new IssueNewView({model: this.getCurrentIssue(issue)}));
+    App.layout.getRegion('content').show(new IssueNewView({
+      model: this.getCurrentIssue(issue)
+    }));
     Backbone.trigger('main:full-screen');
   }
 
   showAction(issue) {
-    App.layout.getRegion('right-aside').show(new IssueShowView({model: this.getCurrentIssue(issue)}));
+    App.layout.getRegion('right-aside').show(new IssueShowView({
+      model: this.getCurrentIssue(issue)
+    }));
     Backbone.trigger('main:full-screen');
   }
 

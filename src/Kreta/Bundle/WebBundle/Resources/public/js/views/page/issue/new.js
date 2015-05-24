@@ -14,7 +14,7 @@ import {Project} from '../../../models/project';
 import {ProjectCollection} from '../../../collections/project';
 import {IssueTypeCollection} from '../../../collections/issue-type';
 import {IssuePriorityCollection} from '../../../collections/issue-priority';
-import {NotificationView} from '../../component/notification';
+import {NotificationService} from '../../../service/notification';
 
 export class IssueNewView extends Backbone.View {
   constructor(options) {
@@ -125,12 +125,15 @@ export class IssueNewView extends Backbone.View {
       success: (model) => {
         App.router.base.navigate('/project/' + this.currentProject, true);
         App.router.base.navigate('/issue/' + model.get('id'), true);
+        NotificationService.showNotification({
+          type: 'success',
+          message: 'Issue created successfully'
+        });
       }, error: function() {
-        var notification = new NotificationView({ model: {
+        NotificationService.showNotification({
           type: 'error',
           message: 'Error while saving this issue'
-        }});
-        notification.render().show();
+        });
         $actions.show();
       }
     });

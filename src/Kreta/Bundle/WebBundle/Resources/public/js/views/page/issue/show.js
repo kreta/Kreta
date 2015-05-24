@@ -7,11 +7,14 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-export class IssueShowView extends Backbone.View {
-  constructor (options) {
+export class IssueShowView extends Backbone.Marionette.ItemView {
+  constructor(options) {
     this.className = 'full-issue-aside';
+    this.template = '#issue-aside-template';
 
-    this.template = _.template($('#issue-aside-template').html());
+    this.ui = {
+      'tabContent': '.full-issue-tab-content'
+    };
 
     this.events = {
       'click .full-issue-edit': 'editClicked',
@@ -23,21 +26,12 @@ export class IssueShowView extends Backbone.View {
     this.model.on('sync', this.render, this);
 
     Backbone.trigger('issue:highlight', this.model.id);
-    this.render();
-  }
-
-  render () {
-    this.$el.html(this.template(this.model.toJSON()));
-    this.$footer = this.$el.find('footer');
-    this.$tabContent = this.$footer.find('.full-issue-tab-content');
-
-    return this;
   }
 
   tabClicked(ev) {
     var pos = $(ev.currentTarget).index();
-    this.$tabContent.removeClass('visible');
-    $(this.$tabContent.get(pos)).addClass('visible');
+    this.ui.tabContent.removeClass('visible');
+    $(this.ui.tabContent.get(pos)).addClass('visible');
 
     return false;
   }

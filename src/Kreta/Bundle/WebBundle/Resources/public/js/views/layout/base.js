@@ -18,7 +18,8 @@ export class BaseLayoutView extends Backbone.Marionette.LayoutView {
       'menu': '.menu-main',
       'left-aside': new AsideRegion({position: 'left'}),
       'right-aside': new AsideRegion({position: 'right'}),
-      'content': new MainContentRegion()
+      'content': new MainContentRegion(),
+      'notification': '.notification-container'
     };
     super(options);
   }
