@@ -1,6 +1,6 @@
 <?php
 
-/**
+/*
  * This file belongs to Kreta.
  * The source code of application includes a LICENSE file
  * with all information about license.
@@ -45,26 +45,20 @@ class AppKernel extends Kernel
 
             new Kreta\SimpleApiDocBundle\KretaSimpleApiDocBundle(),
 
-            new Kreta\Bundle\CommentBundle\KretaCommentBundle(),
-            new Kreta\Bundle\FixturesBundle\KretaFixturesBundle(),
             new Kreta\Bundle\CoreBundle\KretaCoreBundle(),
             new Kreta\Bundle\IssueBundle\KretaIssueBundle(),
             new Kreta\Bundle\MediaBundle\KretaMediaBundle(),
             new Kreta\Bundle\NotificationBundle\KretaNotificationBundle(),
             new Kreta\Bundle\ProjectBundle\KretaProjectBundle(),
-            new Kreta\Bundle\TimeTrackingBundle\KretaTimeTrackingBundle(),
             new Kreta\Bundle\UserBundle\KretaUserBundle(),
             new Kreta\Bundle\WebBundle\KretaWebBundle(),
-            new Kreta\Bundle\WorkflowBundle\KretaWorkflowBundle(),
-            new Kreta\Bundle\VCSBundle\KretaVCSBundle(),
+            new Kreta\Bundle\WorkflowBundle\KretaWorkflowBundle()
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'])) {
             $bundles[] = new Symfony\Bundle\WebProfilerBundle\WebProfilerBundle();
             $bundles[] = new Sensio\Bundle\DistributionBundle\SensioDistributionBundle();
             $bundles[] = new Sensio\Bundle\GeneratorBundle\SensioGeneratorBundle();
-
-            $bundles[] = new Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle();
         }
 
         return $bundles;

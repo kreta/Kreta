@@ -20,10 +20,6 @@ kreta_media_image:
 kreta_user_security:
     resource: '@KretaUserBundle/Resources/config/routing/security.yml'
 
-kreta_vcs:
-    resource: '@KretaVCSBundle/Resources/config/routing/webhooks.yml'
-    prefix: /webhooks
-
 # Third party libraries/bundles
 
 fos_oauth_server_token:

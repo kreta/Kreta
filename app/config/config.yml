@@ -81,9 +81,6 @@ fos_user:
 jms_serializer:
     metadata:
         directories:
-            kreta-comment:
-                namespace_prefix: "Kreta\\Component\\Comment"
-                path: "@KretaCommentBundle/Resources/config/serializer"
             kreta-core:
                 namespace_prefix: "Kreta\\Component\\Core"
                 path: "@KretaCoreBundle/Resources/config/serializer"
@@ -99,15 +96,9 @@ jms_serializer:
             kreta-project:
                 namespace_prefix: "Kreta\\Component\\Project"
                 path: "@KretaProjectBundle/Resources/config/serializer"
-            kreta-time-tracking:
-                namespace_prefix: "Kreta\\Component\\TimeTracking"
-                path: "@KretaTimeTrackingBundle/Resources/config/serializer"
             kreta-user:
                 namespace_prefix: "Kreta\\Component\\User"
                 path: "@KretaUserBundle/Resources/config/serializer"
-            kreta-vcs:
-                namespace_prefix: "Kreta\\Component\\VCS"
-                path: "@KretaVCSBundle/Resources/config/serializer"
             kreta-workflow:
                 namespace_prefix: "Kreta\\Component\\Workflow"
                 path: "@KretaWorkflowBundle/Resources/config/serializer"

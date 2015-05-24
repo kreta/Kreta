@@ -53,29 +53,11 @@ doctrine:
                 dir: "Resources/config/doctrine"
                 prefix: 'Kreta\Component\User\Model'
                 is_bundle: true
-            KretaCommentBundle:
-                mapping: true
-                type: yml
-                dir: "Resources/config/doctrine"
-                prefix: 'Kreta\Component\Comment\Model'
-                is_bundle: true
             KretaNotificationBundle:
                 mapping: true
                 type: yml
                 dir: "Resources/config/doctrine"
                 prefix: 'Kreta\Component\Notification\Model'
-                is_bundle: true
-            KretaTimeTrackingBundle:
-                mapping: true
-                type: yml
-                dir: "Resources/config/doctrine"
-                prefix: 'Kreta\Component\TimeTracking\Model'
-                is_bundle: true
-            KretaVCSBundle:
-                mapping: true
-                type: yml
-                dir: "Resources/config/doctrine"
-                prefix: 'Kreta\Component\VCS\Model'
                 is_bundle: true
             KretaWorkflowBundle:
                 mapping: true
@@ -88,7 +70,6 @@ doctrine:
             Kreta\Bundle\CoreBundle\Model\Interfaces\AuthCodeInterface: Kreta\Bundle\CoreBundle\Model\AuthCode
             Kreta\Bundle\CoreBundle\Model\Interfaces\ClientInterface: Kreta\Bundle\CoreBundle\Model\Client
             Kreta\Bundle\CoreBundle\Model\Interfaces\RefreshTokenInterface: Kreta\Bundle\CoreBundle\Model\RefreshToken
-            Kreta\Component\Comment\Model\Interfaces\CommentInterface: Kreta\Component\Comment\Model\Comment
             Kreta\Component\Issue\Model\Interfaces\IssueInterface: Kreta\Component\Issue\Model\Issue
             Kreta\Component\Issue\Model\Interfaces\ResolutionInterface: Kreta\Component\Issue\Model\Resolution
             Kreta\Component\Media\Model\Interfaces\MediaInterface: Kreta\Component\Media\Model\Media
@@ -98,12 +79,8 @@ doctrine:
             Kreta\Component\Project\Model\Interfaces\IssuePriorityInterface: Kreta\Component\Project\Model\IssuePriority
             Kreta\Component\Project\Model\Interfaces\ProjectInterface: Kreta\Component\Project\Model\Project
             Kreta\Component\Project\Model\Interfaces\IssueTypeInterface: Kreta\Component\Project\Model\IssueType
-            Kreta\Component\TimeTracking\Model\Interfaces\TimeEntryInterface: Kreta\Component\TimeTracking\Model\TimeEntry
             Kreta\Component\User\Model\Interfaces\UserInterface: Kreta\Component\User\Model\User
             Kreta\Component\Workflow\Model\Interfaces\StatusInterface: Kreta\Component\Workflow\Model\Status
             Kreta\Component\Workflow\Model\Interfaces\StatusTransitionInterface: Kreta\Component\Workflow\Model\StatusTransition
             Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface: Kreta\Component\Workflow\Model\Workflow
-            Kreta\Component\VCS\Model\Interfaces\BranchInterface: Kreta\Component\VCS\Model\Branch
-            Kreta\Component\VCS\Model\Interfaces\CommitInterface: Kreta\Component\VCS\Model\Commit
-            Kreta\Component\VCS\Model\Interfaces\RepositoryInterface: Kreta\Component\VCS\Model\Repository
 
