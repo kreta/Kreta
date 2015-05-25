@@ -12,3 +12,7 @@ kreta_api_profile:
 kreta_api_invitation:
     type: rest
     resource: Kreta\Bundle\UserBundle\Controller\InvitationController
+
+kreta_api_user:
+    type: rest
+    resource: Kreta\Bundle\UserBundle\Controller\UserController

@@ -21,6 +21,16 @@ default:
                 - Kreta\Bundle\WebBundle\Behat\Context\WebContext
             filters:
                 tags: "@authentication"
+        user:
+            paths:
+                features: src/Kreta/Bundle/UserBundle
+            contexts:
+                - Kreta\Bundle\CoreBundle\Behat\Context\OauthContext
+                - Kreta\Bundle\UserBundle\Behat\Context\UserContext
+                - Kreta\Bundle\MediaBundle\Behat\Context\MediaContext
+                - Kreta\Bundle\WebBundle\Behat\Context\WebContext
+            filters:
+                tags: "@user"
         invitation:
             paths:
                 features: src/Kreta/Bundle/UserBundle
@@ -30,42 +40,6 @@ default:
                 - Kreta\Bundle\WebBundle\Behat\Context\WebContext
             filters:
                 tags: "@invitation"
-        comment:
-            paths:
-                features: src/Kreta/Bundle/CommentBundle
-            contexts:
-                - Kreta\Bundle\CoreBundle\Behat\Context\OauthContext
-                - Kreta\Bundle\MediaBundle\Behat\Context\MediaContext
-                - Kreta\Bundle\WorkflowBundle\Behat\Context\WorkflowContext
-                - Kreta\Bundle\WorkflowBundle\Behat\Context\StatusContext
-                - Kreta\Bundle\ProjectBundle\Behat\Context\ProjectContext
-                - Kreta\Bundle\ProjectBundle\Behat\Context\IssuePriorityContext
-                - Kreta\Bundle\ProjectBundle\Behat\Context\IssueTypeContext
-                - Kreta\Bundle\IssueBundle\Behat\Context\IssueContext
-                - Kreta\Bundle\UserBundle\Behat\Context\UserContext
-                - Kreta\Bundle\ProjectBundle\Behat\Context\ParticipantContext
-                - Kreta\Bundle\CommentBundle\Behat\Context\CommentContext
-            filters:
-                tags: "@comment"
-        vcs:
-            paths:
-                features: src/Kreta/Bundle/VCSBundle
-            contexts:
-                - Kreta\Bundle\WorkflowBundle\Behat\Context\WorkflowContext
-                - Kreta\Bundle\ProjectBundle\Behat\Context\ProjectContext
-                - Kreta\Bundle\ProjectBundle\Behat\Context\IssuePriorityContext
-                - Kreta\Bundle\ProjectBundle\Behat\Context\IssueTypeContext
-                - Kreta\Bundle\IssueBundle\Behat\Context\IssueContext
-                - Kreta\Bundle\VCSBundle\Behat\Context\CommitContext
-                - Kreta\Bundle\VCSBundle\Behat\Context\RepositoryContext
-                - Kreta\Bundle\VCSBundle\Behat\Context\BranchContext
-                - Kreta\Bundle\CoreBundle\Behat\Context\OauthContext
-                - Kreta\Bundle\UserBundle\Behat\Context\UserContext
-                - Kreta\Bundle\WorkflowBundle\Behat\Context\StatusContext
-                - Kreta\Bundle\WorkflowBundle\Behat\Context\StatusTransitionContext
-                - Kreta\Bundle\ProjectBundle\Behat\Context\ParticipantContext
-            filters:
-                tags: "@vcs && ~@TODO"
         issue:
             paths:
                 features: src/Kreta/Bundle/IssueBundle
@@ -186,22 +160,6 @@ default:
                 - Kreta\Bundle\ProjectBundle\Behat\Context\ParticipantContext
             filters:
                 tags: "@statusTransition"
-        timeEntry:
-            paths:
-                features: src/Kreta/Bundle/TimeTrackingBundle
-            contexts:
-                - Kreta\Bundle\CoreBundle\Behat\Context\OauthContext
-                - Kreta\Bundle\WorkflowBundle\Behat\Context\WorkflowContext
-                - Kreta\Bundle\ProjectBundle\Behat\Context\ProjectContext
-                - Kreta\Bundle\ProjectBundle\Behat\Context\IssuePriorityContext
-                - Kreta\Bundle\IssueBundle\Behat\Context\IssueContext
-                - Kreta\Bundle\ProjectBundle\Behat\Context\IssueTypeContext
-                - Kreta\Bundle\UserBundle\Behat\Context\UserContext
-                - Kreta\Bundle\WorkflowBundle\Behat\Context\StatusContext
-                - Kreta\Bundle\TimeTrackingBundle\Behat\Context\TimeEntryContext
-                - Kreta\Bundle\ProjectBundle\Behat\Context\ParticipantContext
-            filters:
-                tags: "@timeEntry"
         profile:
             paths:
                 features: src/Kreta/Bundle/UserBundle

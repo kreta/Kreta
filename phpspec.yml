@@ -6,15 +6,9 @@
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
 suites:
-    CommentBundle:
-        namespace: Kreta
-        spec_path: src/Kreta/Bundle/CommentBundle
     CoreBundle:
         namespace: Kreta
         spec_path: src/Kreta/Bundle/CoreBundle
-    FixturesBundle:
-        namespace: Kreta
-        spec_path: src/Kreta/Bundle/FixturesBundle
     IssueBundle:
         namespace: Kreta
         spec_path: src/Kreta/Bundle/IssueBundle
@@ -30,12 +24,6 @@ suites:
     ProjectBundle:
         namespace: Kreta
         spec_path: src/Kreta/Bundle/ProjectBundle
-    TimeTrackingBundle:
-        namespace: Kreta
-        spec_path: src/Kreta/Bundle/TimeTrackingBundle
-    VCSBundle:
-        namespace: Kreta
-        spec_path: src/Kreta/Bundle/VCSBundle
     WebBundle:
         namespace: Kreta
         spec_path: src/Kreta/Bundle/WebBundle
@@ -43,9 +31,6 @@ suites:
         namespace: Kreta
         spec_path: src/Kreta/Bundle/WorkflowBundle
 
-    CommentComponent:
-        namespace: Kreta
-        spec_path: src/Kreta/Component/Comment
     CoreComponent:
         namespace: Kreta
         spec_path: src/Kreta/Component/Core
@@ -58,18 +43,12 @@ suites:
     ProjectComponent:
         namespace: Kreta
         spec_path: src/Kreta/Component/Project
-    TimeTrackingComponent:
-        namespace: Kreta
-        spec_path: src/Kreta/Component/TimeTracking
     UserComponent:
         namespace: Kreta
         spec_path: src/Kreta/Component/User
     NotificationComponent:
         namespace: Kreta
         spec_path: src/Kreta/Component/Notification
-    VCSComponent:
-        namespace: Kreta
-        spec_path: src/Kreta/Component/VCS
     WorkflowComponent:
         namespace: Kreta
         spec_path: src/Kreta/Component/Workflow

@@ -10,19 +10,19 @@ FOS\UserBundle\Model\User:
     properties:
         id:
             expose: true
-            groups: [user, profile, projectList, project, issueList, issue, participantList, participant]
+            groups: [userList, user, profile, projectList, project, issueList, issue, participantList, participant]
         email:
             expose: true
-            groups: [user, profile, projectList, project, issueList, issue, participantList, participant]
+            groups: [userList, user, profile, projectList, project, issueList, issue, participantList, participant]
         emailCanonical:
             expose: true
             groups: []
         enabled:
             expose: true
-            groups: [user, profile]
+            groups: [userList, user, profile]
         lastLogin:
             expose: true
-            groups: [user, profile]
+            groups: [userList, user, profile]
         confirmationToken:
             expose: true
             groups: []

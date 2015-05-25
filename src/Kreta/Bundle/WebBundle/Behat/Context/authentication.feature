@@ -38,4 +38,4 @@ Feature: Manage authentication
       | username | invalid@kreta.com |
       | password | invalid           |
     And I press "Login"
-    Then I should see "Invalid credentials."
+    Then I should see "Invalid username or password"

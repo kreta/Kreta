@@ -25,13 +25,13 @@ Kreta\Component\User\Model\User:
     properties:
         createdAt:
             expose: true
-            groups: [user, profile, projectList, project]
+            groups: [userList, user, profile, projectList, project]
         firstName:
             expose: true
-            groups: [user, profile, projectList, project, issueList, issue, commentList, comment, participantList, participant]
+            groups: [userList, user, profile, projectList, project, issueList, issue, commentList, comment, participantList, participant]
         lastName:
             expose: true
-            groups: [user, profile, projectList, project, issueList, issue, commentList, comment, participantList, participant]
+            groups: [userList, user, profile, projectList, project, issueList, issue, commentList, comment, participantList, participant]
         photo:
             expose: true
-            groups: [user, profile, projectList, project, issueList, issue, commentList, comment, participantList, participant]
+            groups: [userList, user, profile, projectList, project, issueList, issue, commentList, comment, participantList, participant]

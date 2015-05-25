@@ -70,8 +70,6 @@ script:
     - bin/behat --stop-on-failure --suite=authentication
     - bin/behat --stop-on-failure --suite=invitation
     - bin/behat --stop-on-failure --suite=profile
-    - bin/behat --stop-on-failure --suite=comment
-    - bin/behat --stop-on-failure --suite=vcs
     - bin/behat --stop-on-failure --suite=issue
     - bin/behat --stop-on-failure --suite=issueType
     - bin/behat --stop-on-failure --suite=label
@@ -80,7 +78,6 @@ script:
     - bin/behat --stop-on-failure --suite=project
     - bin/behat --stop-on-failure --suite=status
     - bin/behat --stop-on-failure --suite=statusTransition
-    - bin/behat --stop-on-failure --suite=timeEntry
     - bin/behat --stop-on-failure --suite=workflow
 
 after_script:
