@@ -13,12 +13,12 @@ export class AsideRegion extends Backbone.Marionette.Region {
     this.el = '.' + this.position + '-aside';
 
     super(options);
-
-    this.listenTo(Backbone, 'aside:before-open', this.hide);
-    this.listenTo(Backbone, 'main:full-screen', this.hide);
   }
 
   onShow() {
+    this.listenTo(Backbone, 'aside:before-open', this.hide);
+    this.listenTo(Backbone, 'main:full-screen', this.hide);
+
     Backbone.trigger('aside:before-open');
 
     setTimeout(() => {

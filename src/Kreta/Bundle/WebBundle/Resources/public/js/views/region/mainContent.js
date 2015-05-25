@@ -12,7 +12,9 @@ export class MainContentRegion extends Backbone.Marionette.Region {
     this.el = '.kreta-content-container';
 
     super(options);
+  }
 
+  onShow() {
     this.listenTo(Backbone, 'left-aside:after-open', this.leftOpened);
     this.listenTo(Backbone, 'left-aside:close', this.leftClosed);
 
