@@ -1,11 +1,9 @@
 .image-preview {
-  border: 1px solid $main-grey;
   display: flex;
   float: left;
   font-size: 14px;
   padding: 2em 1em;
   position: relative;
-  width: 33.333%;
 }
 
 .image-preview-image {
@@ -13,6 +11,7 @@
 }
 
 .image-preview-actions {
+  cursor: pointer;
   position: absolute;
   top: .5em;
   right: .5em;

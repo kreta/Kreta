@@ -47,6 +47,12 @@ export class ProjectSettingsView extends Backbone.Marionette.ItemView {
           type: 'success',
           message: 'Saved successfully'
         });
+      },
+      error: () => {
+        NotificationService.showNotification({
+          type: 'error',
+          message: 'Error updating project settings'
+        });
       }
     });
   }
@@ -57,9 +63,7 @@ export class ProjectSettingsView extends Backbone.Marionette.ItemView {
     var view = new UserSelectorView({collection: users});
 
     App.layout.getRegion('right-aside').show(view);
-  }
 
-  removeUser() {
-
+    return false;
   }
 }

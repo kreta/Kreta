@@ -1,8 +1,8 @@
 .left-aside,
 .right-aside {
   > div {
-    color: $white;
     height: 100%;
+    overflow-y: scroll;
     padding: 25px;
     position: fixed;
     top: 0;

@@ -22,7 +22,7 @@
         </div>
         <div class="spacer-top-1">
             <% participants.forEach(function(participant) { %>
-                <div class="image-preview">
+                <div class="image-preview project-settings-participant">
                     <img class="image-preview-image user-image" src="<%= participant.user.photo.name %>">
                     <div class="image-preview-container">
                         <span class="image-preview-header">
@@ -30,10 +30,10 @@
                         </span>
                         <span class="image-preview-subheader"><%= participant.role %></span>
                     </div>
-                    <div class="image-preview-actions">
+                    {#<div class="image-preview-actions">
                         <span data-tooltip-text="Remove from project"
                               data-tooltip-position="left"><i class="fa fa-close"></i></span>
-                    </div>
+                    </div>#}
                 </div>
             <% }); %>
         </div>

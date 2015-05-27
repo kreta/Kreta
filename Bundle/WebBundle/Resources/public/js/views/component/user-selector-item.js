@@ -9,6 +9,14 @@
 
 export class UserSelectorItemView extends Backbone.Marionette.ItemView {
   initialize() {
-    this.template = '#user-selector-item-view';
+    this.template = '#user-selector-item-template';
+
+    this.ui = {
+
+    }
+
+    this.events = {
+
+    }
   }
 }
