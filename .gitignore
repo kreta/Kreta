@@ -5,43 +5,15 @@
 # @author benatespina <benatespina@gmail.com>
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
-#### Symfony ####
-/web/bundles/
-/app/bootstrap.php.cache
-/app/cache/*
-/app/config/parameters.yml
-/app/logs/*
-/app/sessions/*
-!app/cache/.gitkeep
-!app/logs/.gitkeep
-!app/sessions/.gitkeep
-web/bundles
-web/config.php
-web/css
-web/images
-web/js
-web/vendor
-web/media
-web/phpinfo.php
-!web/media/image/.gitkeep
-!web/media/cache/.gitkeep
-/vendor/
+#### PHP ####
 /bin/
-
-#### Composer ####
 /composer.phar
+/composer.lock
+/vendor/
 
 #### PHPSpec ####
 /coverage
 phpspec-coverage.xml
-
-#### Behat ####
-/coverage-behat
-behat-coverage.xml
-behat-page.html
-
-#### Vagrant ####
-.vagrant
 
 #### Front-end ####
 .sass-cache
