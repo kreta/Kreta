@@ -1,0 +1,21 @@
+{% extends 'KretaWebBundle::layout.html.twig' %}
+
+{% block stylesheets %}
+    {% if production_assets == false %}
+        <link href="{{ asset('css/login.css') }}" media="screen" rel="stylesheet" type="text/css"/>
+    {% else %}
+        <link href="{{ asset('css/login.min.css') }}" media="screen" rel="stylesheet" type="text/css"/>
+    {% endif %}
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:200,400' rel='stylesheet' type='text/css'>
+{% endblock %}
+
+{% block body %}
+    <div class="login-container spacer-2">
+        <p class="login-logo spacer-vertical-half">
+            <strong>kreta</strong>.io
+        </p>
+        {% block content %}
+        {% endblock %}
+    </div>
+{% endblock %}

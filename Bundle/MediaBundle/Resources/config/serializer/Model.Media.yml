@@ -1,0 +1,22 @@
+# This file belongs to Kreta.
+# The source code of application includes a LICENSE file
+# with all information about license.
+#
+# @author benatespina <benatespina@gmail.com>
+# @author gorkalaucirica <gorka.lauzirika@gmail.com>
+
+Kreta\Component\Media\Model\Media:
+    exclusion_policy: ALL
+    properties:
+        id:
+            expose: true
+            groups: [userList, user, profile, projectList, project, issueList, issue, commentList, comment, participantList, participant]
+        createdAt:
+            expose: true
+            groups: [userList, user, profile, project]
+        name:
+            expose: true
+            groups: [userList, user, profile, projectList, project, issueList, issue, commentList, comment, participantList, participant]
+        updatedAt:
+            expose: true
+            groups: [userList, user, profile, project]

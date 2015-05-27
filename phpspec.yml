@@ -6,82 +6,61 @@
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
 suites:
-    CommentBundle:
-        namespace: Kreta
-        spec_path: src/Kreta/Bundle/CommentBundle
     CoreBundle:
         namespace: Kreta
-        spec_path: src/Kreta/Bundle/CoreBundle
-    FixturesBundle:
-        namespace: Kreta
-        spec_path: src/Kreta/Bundle/FixturesBundle
+        spec_path: Bundle/CoreBundle
     IssueBundle:
         namespace: Kreta
-        spec_path: src/Kreta/Bundle/IssueBundle
+        spec_path: Bundle/IssueBundle
     MediaBundle:
         namespace: Kreta
-        spec_path: src/Kreta/Bundle/MediaBundle
+        spec_path: Bundle/MediaBundle
     NotificationBundle:
         namespace: Kreta
-        spec_path: src/Kreta/Bundle/NotificationBundle
+        spec_path: Bundle/NotificationBundle
     UserBundle:
         namespace: Kreta
-        spec_path: src/Kreta/Bundle/UserBundle
+        spec_path: Bundle/UserBundle
     ProjectBundle:
         namespace: Kreta
-        spec_path: src/Kreta/Bundle/ProjectBundle
-    TimeTrackingBundle:
-        namespace: Kreta
-        spec_path: src/Kreta/Bundle/TimeTrackingBundle
-    VCSBundle:
-        namespace: Kreta
-        spec_path: src/Kreta/Bundle/VCSBundle
+        spec_path: Bundle/ProjectBundle
     WebBundle:
         namespace: Kreta
-        spec_path: src/Kreta/Bundle/WebBundle
+        spec_path: Bundle/WebBundle
     WorkflowBundle:
         namespace: Kreta
-        spec_path: src/Kreta/Bundle/WorkflowBundle
+        spec_path: Bundle/WorkflowBundle
 
-    CommentComponent:
-        namespace: Kreta
-        spec_path: src/Kreta/Component/Comment
     CoreComponent:
         namespace: Kreta
-        spec_path: src/Kreta/Component/Core
+        spec_path: Component/Core
     IssueComponent:
         namespace: Kreta
-        spec_path: src/Kreta/Component/Issue
+        spec_path: Component/Issue
     MediaComponent:
         namespace: Kreta
-        spec_path: src/Kreta/Component/Media
+        spec_path: Component/Media
     ProjectComponent:
         namespace: Kreta
-        spec_path: src/Kreta/Component/Project
-    TimeTrackingComponent:
-        namespace: Kreta
-        spec_path: src/Kreta/Component/TimeTracking
+        spec_path: Component/Project
     UserComponent:
         namespace: Kreta
-        spec_path: src/Kreta/Component/User
+        spec_path: Component/User
     NotificationComponent:
         namespace: Kreta
-        spec_path: src/Kreta/Component/Notification
-    VCSComponent:
-        namespace: Kreta
-        spec_path: src/Kreta/Component/VCS
+        spec_path: Component/Notification
     WorkflowComponent:
         namespace: Kreta
-        spec_path: src/Kreta/Component/Workflow
+        spec_path: Component/Workflow
 
 extensions:
     - PhpSpec\Extension\CodeCoverageExtension
 
 code_coverage:
     blacklist:
-        - src/**/**/**/Behat
-        - src/**/**/**/spec
-        - src/**/**/**/Stubs
+        - **/**/Behat
+        - **/**/spec
+        - **/**/Stubs
     format:
         - html
         - clover

@@ -11,101 +11,9 @@
 [![Latest Stable Version](https://poser.pugx.org/kreta/kreta/v/stable.svg)](https://packagist.org/packages/kreta/kreta)
 [![Latest Unstable Version](https://poser.pugx.org/kreta/kreta/v/unstable.svg)](https://packagist.org/packages/kreta/kreta)
 
-Prerequisites
--------------
-To start to use this project, we recommend using a **Vagrant** virtual machine located in the root directory that provides a completely functional environment for running *Kreta*. This Vagrant that is imported as submodule is maintained by [benatespina](https://github.com/benatespina) in this [repository](https://github.com/benatespina/ansible-vagrant) so, we are pretty sure that you won`t any problems to use it; however, if you have any kind of question or doubt, do not hesitate to contact us.
-
-To make it work, first of all you need to install [Vagrant](http://docs.vagrantup.com/v2/installation/index.html) on your system, which in turn requires [RubyGems](https://rubygems.org/pages/download) and [VirtualBox](https://www.virtualbox.org/wiki/Downloads).
-
->  If you are on Windows, we recommend [RubyInstaller](http://rubyinstaller.org/) to install Ruby and any ssh client as [PuTTY](http://www.chiark.greenend.org.uk/~sgtatham/putty/download.html) for log into your Vagrant box.
-
-This box has some dependencies so you must install [vagrant-hostsupdater](https://github.com/cogitatio/vagrant-hostsupdater) plugin for Vagrant, which adds an entry to your `/etc/hosts` file on the host system and [vagrant-vbguest](https://github.com/dotless-de/vagrant-vbguest) which automatically installs the host's VirtualBox Guest Additions on the guest system.
-```
-$ vagrant plugin install vagrant-hostsupdater
-$ vagrant plugin install vagrant-vbguest
-```
-
-Getting started
----------------
-
-The recommended way to clone this project is using the following command in order to add *git submodules* too:
-
-    $ git clone --recursive https://github.com/kreta-io/kreta.git kreta
-
-Then, inside `/vagrant` directory you have to copy the `parameters.yml.dist` in the same directory to `parameters.yml`, modifying the values with your favorite preferences. This is what we recommend:
-
-```
-#### REQUIRED ####
-vm:
-  host_name:     kreta
-  domain:        localhost
-  host_path:     /var/www
-  public_dir:    /web
-  ip:            192.168.10.42
-  port:          8080
-  synced_folder: nfs
-  box:           http://files.vagrantup.com/precise64.box
-  cpu:           1
-  memory:        512
-
-#### OPTIONAL ####
-nginx: ~
-php:
-  version:  5.6
-  timezone: Europe/Madrid
-  xdebug:
-    version:           2.2.5
-    max_nesting_level: 256
-    ide_key:           PHPSTORM
-    remote:
-      host:            localhost
-      port:            9000
-mysql:
-  version:       5.6
-  root_password: root
-  user:          user
-  password:      123
-  database:      kreta
-nodejs:
-  version: 0.12.2
-  packages:
-    - gulp
-    - bower
-ruby:
-  version: 2.1
-  gems:
-    - sass
-    - scss-lint
-```
-
-In the next step, you have to build the *Vagrant* machine and then, you have to connect via **ssh** to the VM with the
-following commands:
-
-    $ cd /vagrant
-    $ vagrant up
-    $ vagrant ssh
-
-> NOTE: sometimes when you type `vagrant up` of provisioned box, the `/dev/shm/symfony/cache` and `/dev/shm/symfony/logs`
-folders are disappeared; to solve this problem you have to execute `sh scripts/clear_cache.sh`
-
-Once, you are inside the *Vagrant* box you need to download Kreta's dependencies using **[Composer][6]**.
+Firstly, you need to download Kreta's dependencies using **[Composer][6]**.
 
     $ composer install
-    
-Furthermore, you need to download front-end development dependencies using **[NPM][7]** and **[Bower][8]**.
-    
-    $ npm install
-    $ bower install
-
-After that, you have to load everything related to **database** (create database if it is not exist, create schema and load some fixtures). The fastest way is executing the following command.
-
-    $ sh scripts/update_doctrine_dev.sh
-
-Finally, you have to dump the assets files using **[Gulp][9]**:
-
-    $ gulp
-
-And that's all! Now, if you access `http://kreta.localhost`, you will see your site up and running.
 
 Tests
 -----
@@ -117,13 +25,15 @@ To run [PHPSpec][1] type the following
 
     $ bin/phpspec run -fpretty
 
-To run [Behat][5] tests run the following
-
-    $ sh scripts/pre_behat.sh
-    $ bin/behat
+>This repository is not a standalone and usable application so, you cannot execute Behat scenarios; to do this you
+>should use the [development repository][7] of Kreta that is a
+>complete Symfony application.
 
 Contributing
 ------------
+**The best practices of Kreta says that the recommend way to contribute to the project is using the
+[development repository][7] but anyway, if the PR or issue is simple you can contribute directly in this
+repository following this rules:**
 
 This projects follows PHP coding standards, so pull requests must pass PHP Code Sniffer and PHP Mess Detector
 checks. In the root directory of this project you have the **custom rulesets** ([ruleset.xml]() for PHPCS and
@@ -147,9 +57,7 @@ If you have any doubt or maybe you want to share some opinion, you can use our *
 [4]: http://symfony.com/doc/current/contributing/code/patches.html#make-a-pull-request
 [5]: http://behat.org
 [6]: http://getcomposer.org/download
-[7]: https://www.npmjs.com/
-[8]: http://bower.io/
-[9]: http://gulpjs.com/
+[7]: https://github.com/kreta-io/kreta-development
 
 Credits
 -------
@@ -160,4 +68,4 @@ Kreta is created by:
 
 Licensing Options
 -----------------
-[![License](https://poser.pugx.org/kreta/kreta/license.svg)](https://github.com/kreta-io/kreta/blob/master/LICENSE.md)
+[![License](https://poser.pugx.org/kreta/kreta/license.svg)](https://github.com/kreta-io/kreta/blob/master/LICENSE)

@@ -1,0 +1,16 @@
+# This file belongs to Kreta.
+# The source code of application includes a LICENSE file
+# with all information about license.
+#
+# @author benatespina <benatespina@gmail.com>
+# @author gorkalaucirica <gorka.lauzirika@gmail.com>
+
+services:
+    kreta_user.uploader.image_user:
+        class: %kreta_media.uploader_media.class%
+        arguments: [@kreta_user.uploader_filesystem.image_user]
+    kreta_user.uploader_filesystem.image_user:
+        class: Gaufrette\Filesystem
+        factory_service: knp_gaufrette.filesystem_map
+        factory_method: get
+        arguments: [%users.image.uploader.filesystem%]

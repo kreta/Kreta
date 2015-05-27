@@ -1,0 +1,15 @@
+{#{% trans_default_domain 'FOSUserBundle' %}#}
+{% block subject %}
+    {% autoescape false %}
+        Invitation to become a Kreta user!
+    {% endautoescape %}
+{% endblock %}
+{% block body %}
+    Hi {{ user.email }},
+
+    this email is a invitation to sign up into Kreta, if you want to
+    continue please visit {{ registerUrl }}, otherwise just omit this.
+
+    Regards,
+    the Kreta team.
+{% endblock %}

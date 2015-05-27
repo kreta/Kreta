@@ -35,7 +35,6 @@
         "friendsofsymfony/user-bundle":             "2.0.*@dev",
         "knplabs/knp-gaufrette-bundle":             "*@dev",
         "nelmio/cors-bundle":                       "1.3.x",
-        "hwi/oauth-bundle":                         "0.4.*@dev",
         "jms/serializer-bundle":                    "0.13.x",
         "yohang/finite":                            "~1.0",
         "willdurand/hateoas-bundle":                "0.3.x",
@@ -44,80 +43,45 @@
         "doctrine/migrations":                      "1.0.*@dev",
         "doctrine/doctrine-migrations-bundle":      "2.1.*@dev",
 
-        "kreta/simple-api-doc-bundle":              "0.1.*@dev"
+        "kreta/simple-api-doc-bundle":              "~0.2"
     },
     "require-dev": {
-        "behat/behat" :                             "~3.0",
-        "behat/symfony2-extension" :                "~2.0",
-        "behat/mink-extension" :                    "~2.0",
-        "behat/mink-browserkit-driver":             "~1.2",
-        "behat/web-api-extension":                  "~1.0@dev",
-
         "phpspec/phpspec":                          "~2.1",
         "henrikbjorn/phpspec-code-coverage":        "~1.0",
         "satooshi/php-coveralls":                   "0.6.1",
 
         "squizlabs/php_codesniffer":                "~1.0",
-        "phpmd/phpmd":                              "~2.1",
-
-        "doctrine/doctrine-fixtures-bundle":        "~2.2"
+        "phpmd/phpmd":                              "~2.1"
     },
     "replace": {
-        "kreta/comment-bundle":                     "self.version",
         "kreta/core-bundle":                        "self.version",
-        "kreta/fixtures-bundle":                    "self.version",
         "kreta/issue-bundle":                       "self.version",
         "kreta/media-bundle":                       "self.version",
         "kreta/notification-bundle":                "self.version",
         "kreta/project-bundle":                     "self.version",
-        "kreta/time-tracking-bundle":               "self.version",
         "kreta/user-bundle":                        "self.version",
-        "kreta/vcs-bundle":                         "self.version",
         "kreta/web-bundle":                         "self.version",
         "kreta/workflow-bundle":                    "self.version",
 
-        "kreta/comment":                            "self.version",
         "kreta/core":                               "self.version",
         "kreta/issue":                              "self.version",
         "kreta/media":                              "self.version",
         "kreta/notification":                       "self.version",
         "kreta/project":                            "self.version",
-        "kreta/time-tracking":                      "self.version",
         "kreta/user":                               "self.version",
-        "kreta/vcs":                                "self.version",
         "kreta/workflow":                           "self.version"
     },
-    "scripts": {
-        "post-install-cmd": [
-            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
-        ],
-        "post-update-cmd": [
-            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::buildBootstrap",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::clearCache",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installAssets",
-            "Sensio\\Bundle\\DistributionBundle\\Composer\\ScriptHandler::installRequirementsFile"
-        ]
-    },
     "autoload": {
-        "psr-4": { "Kreta\\": "src/Kreta" }
+        "psr-4": { 
+            "Kreta\\": ""
+        }
     },
     "config": {
         "bin-dir": "bin"
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "0.3-dev"
-        },
-        "symfony-app-dir": "app",
-        "symfony-web-dir": "web",
-        "symfony-assets-install": "symlink",
-        "incenteev-parameters": {
-            "file": "app/config/parameters.yml"
+            "dev-master": "0.2-dev"
         }
     }
 }
