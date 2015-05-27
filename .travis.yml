@@ -29,14 +29,14 @@ install:
     - npm install -g gulp
     - gem install scss-lint
 
-    - cd src/Kreta/Bundle/WebBundle
+    - cd Bundle/WebBundle
     - npm install
     - bower install
     - cd -
 
 before_script:
     - app/console assets:install --symlink
-    - cd src/Kreta/Bundle/WebBundle
+    - cd Bundle/WebBundle
     - gulp
     - cd -
 
