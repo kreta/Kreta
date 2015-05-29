@@ -32,10 +32,10 @@ class InvitationController extends Controller
      *
      * @param \Symfony\Component\HttpFoundation\Request $request The request
      *
-     * @ApiDoc(statusCodes={201, 400}, parameters={{
-     *     "name"="force", "dataType"="bool", "required"=false, "description"="Forces to send another invitation email"
-     *   }}
-     * )
+     * @ApiDoc(statusCodes={201, 400}, parameters={
+     *  {"name"="force", "dataType"="bool", "required"=false, "description"="Forces to send another invitation email"},
+     *  {"name"="email", "dataType"="string", "required"=true, "description"="The invitation email"}
+     * })
      * @Http\Post("/users")
      * @View(statusCode=201, serializerGroups={"user"})
      * @Role("admin")
