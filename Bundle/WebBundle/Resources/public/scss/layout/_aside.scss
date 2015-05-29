@@ -1,9 +1,8 @@
 .left-aside,
 .right-aside {
   > div {
-    color: $white;
     height: 100%;
-    padding: 25px;
+    overflow-y: scroll;
     position: fixed;
     top: 0;
     transition-duration: .3s;

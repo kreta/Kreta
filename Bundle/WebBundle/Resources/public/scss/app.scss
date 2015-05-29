@@ -11,18 +11,21 @@
 @import 'base/typography';
 @import 'base/generic';
 
+@import 'helpers/spacing';
+
 @import 'components/buttons';
 @import 'components/filter';
 @import 'components/form';
 @import 'components/images';
+@import 'components/image-preview';
 @import 'components/notification';
 @import 'components/page-header';
 @import 'components/project-preview';
+@import 'components/section-header';
 @import 'components/selectors';
 @import 'components/simple-header';
 @import 'components/tab';
 @import 'components/tooltip';
-@import 'components/user-interaction';
 
 @import 'layout/aside';
 @import 'layout/main-content';
@@ -32,4 +35,5 @@
 @import 'views/issue-aside';
 @import 'views/issue-list';
 @import 'views/project-new';
+@import 'views/project-settings';
 

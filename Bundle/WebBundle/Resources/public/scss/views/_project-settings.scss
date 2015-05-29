@@ -1,0 +1,53 @@
+.project-settings-participant {
+  border: 1px solid $main-grey;
+  width: 33.333%;
+}
+
+.project-settings-participant-selector {
+  width: 100%;
+}
+
+.user-selector-actions {
+  background: rgba($main-black, .9);
+  bottom: 0;
+  display: flex;
+  height: 40px;
+  position: fixed;
+  width: 450px;
+
+  &.selected {
+    bottom: 40px;
+  }
+}
+
+.user-selector-actions-item {
+  color: $white;
+  flex: 1;
+  line-height: 45px;
+  text-align: center;
+}
+
+.user-selector-invite-form {
+  background: $white;
+  bottom: -40px;
+  display: flex;
+  height: 40px;
+  position: fixed;
+  width: 450px;
+
+  &.visible {
+    bottom: 0;
+  }
+}
+
+.user-selector-invite-form-email {
+  flex: 1;
+  text-align: center;
+  width: auto;
+}
+
+.user-selector-invite-form-submit {
+  border-radius: 0;
+  min-width: 0;
+  width: 100px;
+}

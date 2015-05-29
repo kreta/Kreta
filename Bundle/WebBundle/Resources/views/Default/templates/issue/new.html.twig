@@ -12,6 +12,8 @@
             <div class="selector-choices">
             </div>
         </div>
+        <% } else { %>
+            <input name="id" type="hidden" value="<%= id %>">
         <% } %>
         <input type="text" class="big" name="title" placeholder="Type your task title" tabindex="2" value="<%= title %>">
         <textarea name="description" placeholder="Type your task description" tabindex="3"><%= description %></textarea>

@@ -10,37 +10,51 @@
 import {IssueListView} from '../views/page/project/issueList';
 import {ProjectListView} from '../views/page/project/list';
 import {ProjectNewView} from '../views/page/project/new';
+import {ProjectSettingsView} from '../views/page/project/settings';
+
 import {Project} from '../models/project';
+import {ProjectCollection} from '../collections/project';
+import {IssueCollection} from '../collections/issue';
 
-export class ProjectController extends Backbone.Controller {
-  initialize() {
-    this.routes = {
-      'project/:id': 'showAction',
-      'project/new': 'newAction',
-      'projects': 'listAction'
-    };
-  }
-
+export class ProjectController extends Backbone.Marionette.Controller {
   newAction() {
-    var view = new ProjectNewView();
-    App.views.main.render(view.render().el);
+    App.layout.getRegion('content').show(new ProjectNewView());
     Backbone.trigger('main:full-screen');
   }
 
   listAction() {
-    var view = new ProjectListView();
-    view.show();
+    var projects = new ProjectCollection();
+    projects.fetch();
+    App.layout.getRegion('left-aside').show(new ProjectListView({collection: projects}));
   }
 
   showAction(project) {
+    var model = this.getCurrentProject(project);
+    var collection = new IssueCollection();
+    collection.fetch({data: {project: model.id}});
+
+    App.layout.getRegion('content').show(new IssueListView({
+      model: model,
+      collection: collection
+    }));
+
+    Backbone.trigger('main:full-screen');
+  }
+
+  settingsAction(project) {
+    App.layout.getRegion('content').show(new ProjectSettingsView({
+      model: this.getCurrentProject(project)
+    }));
+    Backbone.trigger('main:full-screen');
+  }
+
+  getCurrentProject(project) {
     var model = project;
     if (!(project instanceof Project)) {
       model = new Project({id: project});
       model.fetch();
     }
 
-    var view = new IssueListView({model: model});
-    App.views.main.render(view.render().el);
-    Backbone.trigger('main:full-screen');
+    return model;
   }
 }

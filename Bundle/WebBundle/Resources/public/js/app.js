@@ -7,48 +7,47 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-import {HeaderView} from 'views/layout/mainMenu';
-import {MainContentView} from 'views/layout/mainContent';
-import {TooltipView} from 'views/component/tooltip';
+import {BaseRouter} from 'router/base';
+import {IssueRouter} from 'router/issue';
+import {ProjectRouter} from 'router/project';
+
+import {ProjectController} from 'controllers/project';
+import {IssueController} from 'controllers/issue';
+
 import {Profile} from 'models/profile';
-import {Router} from 'router';
-import {Config} from 'config';
 
-'use strict';
+import {BaseLayoutView} from 'views/layout/base';
 
-$(() => {
-  function getCookie(name) {
+export class App extends Backbone.Marionette.Application {
+  initialize() {
+    this.layout = new BaseLayoutView();
+    this.layout.render();
+
+    this.router = {
+      base: new BaseRouter(),
+      issue: new IssueRouter(),
+      project: new ProjectRouter()
+    };
+
+    this.controller = {
+      issue: new IssueController(),
+      project: new ProjectController()
+    };
+
+    this.accessToken = this.getCookie('access_token');
+    this.currentUser = new Profile();
+  }
+
+  getBaseUrl () {
+    var host = location.hostname + (location.port != "" ? ":" + location.port : '');
+    return '//' + host + '/api';
+  }
+
+  getCookie(name) {
     var value = '; ' + document.cookie;
     var parts = value.split('; ' + name + '=');
     if (parts.length === 2) {
       return parts.pop().split(';').shift();
     }
   }
-
-  var App = {
-    views: {},
-    collections: {},
-    config: new Config(),
-    controller: {},
-    accessToken: getCookie('access_token'),
-    currentUser: new Profile()
-  };
-
-  window.App = App;
-
-  Backbone.$.ajaxSetup({
-    headers: {'Authorization': 'Bearer ' + App.accessToken}
-  });
-
-  App.currentUser.fetch();
-
-  App.router = new Router();
-  new HeaderView();
-
-  new TooltipView();
-
-  App.views.main = new MainContentView();
-
-  Backbone.history.start({pushState: true});
-});
-
+}

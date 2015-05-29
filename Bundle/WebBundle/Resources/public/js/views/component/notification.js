@@ -7,14 +7,10 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-export class NotificationView extends Backbone.View {
-  constructor(options) {
+export class NotificationView extends Backbone.Marionette.ItemView {
+  constructor (options) {
     this.className = 'notification ' + options.model.type;
-
-    this.template = _.template($('#notification-template').html());
-
-    this.$container = $('#kreta-content');
-
+    this.template = '#notification-template';
     this.events = {
       'click .notification-hide': 'hide'
     };
@@ -22,17 +18,14 @@ export class NotificationView extends Backbone.View {
     super(options);
   }
 
-  render() {
-    this.$el.html(this.template(this.model));
-    this.$container.prepend(this.el);
-
-    return this;
+  serializeData() {
+    return this.model;
   }
 
   show() {
     setTimeout(() => { //Wait until is added to the DOM to get the animation
       this.$el.addClass('visible');
-    }, 10);
+    }, 50);
 
     setTimeout(() => {
       this.hide();
@@ -41,5 +34,9 @@ export class NotificationView extends Backbone.View {
 
   hide() {
     this.$el.removeClass('visible');
+
+    setTimeout(() => {
+      this.destroy();
+    }, 550); //Wait animation
   }
 }

@@ -7,6 +7,7 @@ $notification-height: 50px !default;
   display: flex;
   height: 0;
   overflow: hidden;
+  transition-duration: .5s;
 
   &.visible {
     height: $notification-height;
