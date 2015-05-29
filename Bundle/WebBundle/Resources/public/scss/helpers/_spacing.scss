@@ -1,0 +1,43 @@
+$spacer-amount: 4 !default;
+$spacer-separation: 1em !default;
+
+@mixin spacer($amount, $position: '') {
+  @if $position == '' {
+    padding: $spacer-separation * $amount;
+  } @else {
+    padding-#{$position}: $spacer-separation * $amount;
+  }
+}
+
+@mixin spacer-vertical($amount) {
+  padding: $spacer-separation * $amount 0;
+}
+
+$i: 1;
+@while $i <= $spacer-amount {
+  .spacer-#{$i} {
+    @include spacer($i);
+  }
+
+  .spacer-vertical-#{$i} {
+    @include spacer-vertical($i);
+  }
+
+  .spacer-top-#{$i} {
+    @include spacer($i, 'top');
+  }
+
+  .spacer-right-#{$i} {
+    @include spacer($i, 'right');
+  }
+
+  .spacer-bottom-#{$i} {
+    @include spacer($i, 'bottom');
+  }
+
+  .spacer-left-#{$i} {
+    @include spacer($i, 'left');
+  }
+
+  $i: $i + 1;
+}

@@ -1,0 +1,54 @@
+<script type="text/html" id="issue-new-template">
+    <form id="issue-new" method="POST" action="#">
+        <div class="issue-new-actions">
+            <button class="button">Cancel</button>
+            <button class="button green" type="submit" tabindex="7">Done</button>
+        </div>
+        <% if(typeof(id) === 'undefined') { %>
+        <div class="selector selector-project">
+            <span class="selector-text" tabindex="1">
+                <%= project.name ===  '' ? 'Select project' : project.name %></span>
+            <input name="project" type="hidden" value="<%= project.id %>">
+            <div class="selector-choices">
+            </div>
+        </div>
+        <% } else { %>
+            <input name="id" type="hidden" value="<%= id %>">
+        <% } %>
+        <input type="text" class="big" name="title" placeholder="Type your task title" tabindex="2" value="<%= title %>">
+        <textarea name="description" placeholder="Type your task description" tabindex="3"><%= description %></textarea>
+        <div class="issue-new-details">
+            <div class="selector selector-assignee">
+                <span class="selector-text" tabindex="4">
+                    <%= assignee.id === '' ? 'Unassigned' : assignee.first_name + ' ' + assignee.last_name %>
+                </span>
+                <input name="assignee" type="hidden" value="<%= assignee.id %>">
+                <div class="selector-choices">
+                </div>
+            </div>
+            <div class="selector selector-priority">
+                <span class="selector-text" tabindex="5">
+                    <%= priority.id === '' ? 'No priority' : priority.name %>
+                </span>
+                <input name="priority" type="hidden" value="<%= priority.id %>">
+                <div class="selector-choices">
+                </div>
+            </div>
+           {# <div class="selector selector-due-date">
+                <span class="selector-text" tabindex="6"></span>
+                <input type="hidden" value="">
+                <div class="selector-choices">
+                    <span class="selector-selectable">No due date</span>
+                </div>
+            </div>#}
+            <div class="selector selector-type">
+                <span class="selector-text" tabindex="6">
+                    <%= type.id === '' ? 'No type' : type.name %>
+                </span>
+                <input name="type" type="hidden" value="<%= type.id %>">
+                <div class="selector-choices">
+                </div>
+            </div>
+        </div>
+    </form>
+</script>

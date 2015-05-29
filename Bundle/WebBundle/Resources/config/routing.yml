@@ -1,0 +1,36 @@
+# This file belongs to Kreta.
+# The source code of application includes a LICENSE file
+# with all information about license.
+#
+# @author benatespina <benatespina@gmail.com>
+# @author gorkalaucirica <gorka.lauzirika@gmail.com>
+
+kreta_web_homepage:
+    path: /
+    defaults: { _controller: KretaWebBundle:Default:index }
+    methods: [GET]
+
+kreta_web_dashboard:
+    path: /dashboard
+    defaults: { _controller: KretaWebBundle:Default:dashboard }
+    methods: [GET]
+
+kreta_web_issue_edit:
+    path: /issue/{id}/edit
+    defaults: { _controller: KretaWebBundle:Default:index }
+    methods: [GET]
+
+kreta_web_issue:
+    path: /issue/{id}
+    defaults: { _controller: KretaWebBundle:Default:index }
+    methods: [GET]
+
+kreta_web_project:
+    path: /project/{id}
+    defaults: { _controller: KretaWebBundle:Default:index }
+    methods: [GET]
+
+kreta_web_project_settings:
+    path: /project/{id}/settings
+    defaults: { _controller: KretaWebBundle:Default:index }
+    methods: [GET]

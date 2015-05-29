@@ -1,0 +1,39 @@
+// This file belongs to Kreta.
+// The source code of application includes a LICENSE file
+// with all information about license.
+//
+// @author benatespina <benatespina@gmail.com>
+// @author gorkalaucirica <gorka.lauzirika@gmail.com>
+
+
+@import 'base/reset';
+@import 'base/colors';
+@import 'base/typography';
+@import 'base/generic';
+
+@import 'helpers/spacing';
+
+@import 'components/buttons';
+@import 'components/filter';
+@import 'components/form';
+@import 'components/images';
+@import 'components/image-preview';
+@import 'components/notification';
+@import 'components/page-header';
+@import 'components/project-preview';
+@import 'components/section-header';
+@import 'components/selectors';
+@import 'components/simple-header';
+@import 'components/tab';
+@import 'components/tooltip';
+
+@import 'layout/aside';
+@import 'layout/main-content';
+@import 'layout/main-menu';
+
+@import 'views/issue-new';
+@import 'views/issue-aside';
+@import 'views/issue-list';
+@import 'views/project-new';
+@import 'views/project-settings';
+
