@@ -60,7 +60,10 @@ export class ProjectSettingsView extends Backbone.Marionette.ItemView {
   addUser() {
     var users = new UserCollection();
     users.fetch();
-    var view = new UserSelectorView({collection: users});
+    var view = new UserSelectorView({
+      collection: users,
+      project: this.model.id
+    });
 
     App.layout.getRegion('right-aside').show(view);
 

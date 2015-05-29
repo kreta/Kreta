@@ -10,8 +10,11 @@
 import {UserSelectorItemView} from './user-selector-item';
 
 export class UserSelectorView extends Backbone.Marionette.CollectionView {
-  initialize() {
+  initialize(options) {
     this.template = '#user-selector-template';
     this.childView = UserSelectorItemView;
+    this.childViewOptions = {
+      'project': options.project
+    }
   }
 }
