@@ -9,7 +9,7 @@
 
 export class IssueShowView extends Backbone.Marionette.ItemView {
   constructor(options) {
-    this.className = 'full-issue-aside';
+    this.className = 'full-issue-aside spacer-2';
     this.template = '#issue-aside-template';
 
     this.ui = {

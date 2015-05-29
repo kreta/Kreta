@@ -10,10 +10,13 @@
 import {ProjectPreviewView} from '../../component/projectPreview';
 
 export class ProjectListView extends Backbone.Marionette.CompositeView {
-  initialize() {
+  constructor(options) {
+    this.className = "spacer-1";
     this.childView = ProjectPreviewView;
     this.childViewContainer = '.project-list';
     this.template = '#project-list-template';
+
+    super(options);
   }
 }
 
