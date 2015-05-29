@@ -16,7 +16,7 @@ export class ParticipantCollection extends Backbone.Collection {
   }
 
   setProject (projectId) {
-    this.url = App.config.getBaseUrl() + '/projects/' + projectId + '/participants';
+    this.url = App.getBaseUrl() + '/projects/' + projectId + '/participants';
     return this;
   }
 }

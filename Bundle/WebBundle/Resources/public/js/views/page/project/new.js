@@ -39,7 +39,7 @@ export class ProjectNewView extends Backbone.View {
 
     project.save(null, {
       success: (model) => {
-        App.router.navigate('/project/' + model.id, true);
+        App.router.base.navigate('/project/' + model.id, true);
       }
     });
   }

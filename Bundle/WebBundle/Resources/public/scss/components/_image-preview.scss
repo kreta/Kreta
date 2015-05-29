@@ -1,0 +1,38 @@
+.image-preview {
+  display: flex;
+  float: left;
+  font-size: 14px;
+  padding: 2em 1em;
+  position: relative;
+}
+
+.image-preview-image {
+  margin: 0 1em;
+}
+
+.image-preview-actions {
+  cursor: pointer;
+  position: absolute;
+  top: .5em;
+  right: .5em;
+}
+
+.image-preview-container {
+  flex: 1;
+}
+
+.image-preview-header {
+  display: block;
+  margin: 0.5em 0;
+}
+
+.image-preview-subheader {
+  display: block;
+  font-size: .8em;
+  font-weight: lighter;
+  margin: 0.5em 0;
+}
+
+.image-preview-content {
+
+}

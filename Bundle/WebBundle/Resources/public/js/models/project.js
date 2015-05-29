@@ -9,13 +9,14 @@
 
 export class Project extends Backbone.Model {
   urlRoot() {
-    return App.config.getBaseUrl() + '/projects';
+    return App.getBaseUrl() + '/projects';
   }
 
   defaults () {
     return {
       name: '',
-      shortName: ''
+      short_name: '',
+      participants: []
     };
   }
 

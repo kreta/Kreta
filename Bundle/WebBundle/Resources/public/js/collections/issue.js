@@ -12,7 +12,7 @@ import {Issue} from '../models/issue';
 export class IssueCollection extends Backbone.Collection {
   constructor (models, options) {
     this.model = Issue;
-    this.url = App.config.getBaseUrl() + '/issues';
+    this.url = App.getBaseUrl() + '/issues';
     super(models, options);
   }
 

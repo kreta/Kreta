@@ -9,7 +9,7 @@
 
 export class Profile extends Backbone.Model {
   urlRoot() {
-    return  App.config.getBaseUrl() + '/profile';
+    return  App.getBaseUrl() + '/profile';
   }
 
   toString () {

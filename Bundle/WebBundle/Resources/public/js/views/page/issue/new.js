@@ -14,7 +14,8 @@ import {Project} from '../../../models/project';
 import {ProjectCollection} from '../../../collections/project';
 import {IssueTypeCollection} from '../../../collections/issue-type';
 import {IssuePriorityCollection} from '../../../collections/issue-priority';
-import {NotificationView} from '../../component/notification';
+import {NotificationService} from '../../../service/notification';
+import {FormSerializerService} from '../../../service/form-serializer';
 
 export class IssueNewView extends Backbone.View {
   constructor(options) {
@@ -108,29 +109,26 @@ export class IssueNewView extends Backbone.View {
     var $actions = $('.issue-new-actions');
     $actions.hide();
 
-    var formData = {};
-    $.each($('#issue-new').serializeArray(), function () {
-      formData[this.name] = this.value;
-    });
+    this.model = FormSerializerService.serialize(
+      $('#issue-new'), Issue
+    );
 
-    formData.project = this.currentProject;
+    this.model.set('project', this.currentProject);
 
-    if(!this.model.isNew()) {
-      formData.id = this.model.id;
-    }
-
-    this.model = new Issue(formData);
 
     this.model.save(null, {
       success: (model) => {
-        App.router.navigate('/project/' + this.currentProject, true);
-        App.router.navigate('/issue/' + model.get('id'), true);
+        App.router.base.navigate('/project/' + this.currentProject, true);
+        App.router.base.navigate('/issue/' + model.get('id'), true);
+        NotificationService.showNotification({
+          type: 'success',
+          message: 'Issue created successfully'
+        });
       }, error: function() {
-        var notification = new NotificationView({ model: {
+        NotificationService.showNotification({
           type: 'error',
           message: 'Error while saving this issue'
-        }});
-        notification.render().show();
+        });
         $actions.show();
       }
     });

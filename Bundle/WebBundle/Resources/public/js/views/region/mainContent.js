@@ -7,37 +7,34 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-export class MainContentView extends Backbone.View {
-  constructor () {
-    this.setElement($('.kreta-content-container'), true);
-    this.$spacer = this.$el.parent();
+export class MainContentRegion extends Backbone.Marionette.Region {
+  constructor (options) {
+    this.el = '.kreta-content-container';
 
+    super(options);
+  }
+
+  onShow() {
     this.listenTo(Backbone, 'left-aside:after-open', this.leftOpened);
     this.listenTo(Backbone, 'left-aside:close', this.leftClosed);
 
     this.listenTo(Backbone, 'right-aside:after-open', this.rightOpened);
     this.listenTo(Backbone, 'right-aside:close', this.rightClosed);
-
-    super();
-  }
-
-  render (el) {
-    this.$el.html(el);
   }
 
   leftOpened () {
-    this.$spacer.addClass('left-open');
+    this.$el.parent().addClass('left-open');
   }
 
   leftClosed () {
-    this.$spacer.removeClass('left-open');
+    this.$el.parent().removeClass('left-open');
   }
 
   rightOpened () {
-    this.$spacer.addClass('right-open');
+    this.$el.parent().addClass('right-open');
   }
 
   rightClosed () {
-    this.$spacer.removeClass('right-open');
+    this.$el.parent().removeClass('right-open');
   }
 }

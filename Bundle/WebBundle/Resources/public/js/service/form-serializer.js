@@ -7,12 +7,13 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-import {User} from '../models/user';
+export class FormSerializerService {
+  static serialize($form, model) {
+    var formData = {};
+    $.each($form.serializeArray(), function () {
+      formData[this.name] = this.value;
+    });
 
-export class UserCollection extends Backbone.Collection {
-  constructor (models, options) {
-    this.url = App.getBaseUrl() + '/users';
-    this.model = User;
-    super(models, options);
+    return new model(formData);
   }
 }
