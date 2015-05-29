@@ -54,6 +54,8 @@ class ProjectType extends AbstractType
      */
     protected function createEmptyData(FormInterface $form)
     {
-        return $this->factory->create($this->user, $form->get('workflow')->getData());
+        return $this->factory->create(
+            $this->user, $form->get('workflow')->getData(), false, $form->get('image')->getData()
+        );
     }
 }

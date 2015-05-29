@@ -35,7 +35,6 @@ install:
     - cd -
 
 before_script:
-    - app/console assets:install --symlink
     - cd Bundle/WebBundle
     - gulp
     - cd -
