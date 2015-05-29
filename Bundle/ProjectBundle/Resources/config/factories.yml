@@ -24,3 +24,5 @@ services:
             - %kreta_project.project.class%
             - @kreta_project.factory.participant
             - @kreta_workflow.factory.workflow
+            - @kreta_media.factory.media
+            - @kreta_project.uploader.image_project

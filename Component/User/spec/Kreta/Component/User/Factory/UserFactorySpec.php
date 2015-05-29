@@ -11,7 +11,11 @@
 
 namespace spec\Kreta\Component\User\Factory;
 
+use Kreta\Component\Media\Factory\MediaFactory;
+use Kreta\Component\Media\Model\Interfaces\MediaInterface;
+use Kreta\Component\Media\Uploader\Interfaces\MediaUploaderInterface;
 use PhpSpec\ObjectBehavior;
+use Prophecy\Argument;
 
 /**
  * Class UserFactorySpec.
@@ -20,9 +24,9 @@ use PhpSpec\ObjectBehavior;
  */
 class UserFactorySpec extends ObjectBehavior
 {
-    function let()
+    function let(MediaFactory $mediaFactory, MediaUploaderInterface $uploader)
     {
-        $this->beConstructedWith('Kreta\Component\User\Model\User');
+        $this->beConstructedWith('Kreta\Component\User\Model\User', $mediaFactory, $uploader);
     }
 
     function it_is_initializable()
@@ -30,8 +34,12 @@ class UserFactorySpec extends ObjectBehavior
         $this->shouldHaveType('Kreta\Component\User\Factory\UserFactory');
     }
 
-    function it_creates_a_user()
+    function it_creates_a_user(MediaFactory $mediaFactory, MediaInterface $photo, MediaUploaderInterface $uploader)
     {
+        $mediaFactory->create(Argument::type('Symfony\Component\HttpFoundation\File\UploadedFile'))
+            ->shouldBeCalled()->willReturn($photo);
+        $uploader->upload($photo)->shouldBeCalled();
+
         $this->create('kreta@kreta.com', false)
             ->shouldReturnAnInstanceOf('Kreta\Component\User\Model\Interfaces\UserInterface');
     }

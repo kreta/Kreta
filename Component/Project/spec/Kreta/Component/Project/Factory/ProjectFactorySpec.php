@@ -11,6 +11,9 @@
 
 namespace spec\Kreta\Component\Project\Factory;
 
+use Kreta\Component\Media\Factory\MediaFactory;
+use Kreta\Component\Media\Model\Interfaces\MediaInterface;
+use Kreta\Component\Media\Uploader\Interfaces\MediaUploaderInterface;
 use Kreta\Component\Project\Factory\ParticipantFactory;
 use Kreta\Component\Project\Model\Interfaces\ParticipantInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
@@ -26,9 +29,16 @@ use Prophecy\Argument;
  */
 class ProjectFactorySpec extends ObjectBehavior
 {
-    function let(ParticipantFactory $participantFactory, WorkflowFactory $workflowFactory)
+    function let(
+        ParticipantFactory $participantFactory,
+        WorkflowFactory $workflowFactory,
+        MediaFactory $mediaFactory,
+        MediaUploaderInterface $uploader
+    )
     {
-        $this->beConstructedWith('Kreta\Component\Project\Model\Project', $participantFactory, $workflowFactory);
+        $this->beConstructedWith(
+            'Kreta\Component\Project\Model\Project', $participantFactory, $workflowFactory, $mediaFactory, $uploader
+        );
     }
 
     function it_is_initializable()
@@ -40,11 +50,18 @@ class ProjectFactorySpec extends ObjectBehavior
         UserInterface $user,
         ParticipantFactory $participantFactory,
         ParticipantInterface $participant,
-        WorkflowInterface $workflow
+        WorkflowInterface $workflow,
+        MediaFactory $mediaFactory,
+        MediaInterface $image,
+        MediaUploaderInterface $uploader
     )
     {
         $participantFactory->create(Argument::type('Kreta\Component\Project\Model\Project'), $user, 'ROLE_ADMIN')
             ->shouldBeCalled()->willReturn($participant);
+
+        $mediaFactory->create(Argument::type('Symfony\Component\HttpFoundation\File\UploadedFile'))
+            ->shouldBeCalled()->willReturn($image);
+        $uploader->upload($image)->shouldBeCalled();
 
         $this->create($user, $workflow, false)->shouldReturnAnInstanceOf('Kreta\Component\Project\Model\Project');
     }
@@ -54,7 +71,10 @@ class ProjectFactorySpec extends ObjectBehavior
         ParticipantFactory $participantFactory,
         ParticipantInterface $participant,
         WorkflowFactory $workflowFactory,
-        WorkflowInterface $workflow
+        WorkflowInterface $workflow,
+        MediaFactory $mediaFactory,
+        MediaInterface $image,
+        MediaUploaderInterface $uploader
     )
     {
         $participantFactory->create(Argument::type('Kreta\Component\Project\Model\Project'), $user, 'ROLE_ADMIN')
@@ -62,6 +82,29 @@ class ProjectFactorySpec extends ObjectBehavior
         $workflowFactory->create('Default KRETA workflow', $user, true)
             ->shouldBeCalled()->willReturn($workflow);
 
+        $mediaFactory->create(Argument::type('Symfony\Component\HttpFoundation\File\UploadedFile'))
+            ->shouldBeCalled()->willReturn($image);
+        $uploader->upload($image)->shouldBeCalled();
+
         $this->create($user, null, true)->shouldReturnAnInstanceOf('Kreta\Component\Project\Model\Project');
+    }
+
+    function it_creates_a_project_passing_the_image(
+        UserInterface $user,
+        ParticipantFactory $participantFactory,
+        ParticipantInterface $participant,
+        WorkflowInterface $workflow,
+        MediaInterface $image,
+        MediaUploaderInterface $uploader
+    )
+    {
+        $participantFactory->create(Argument::type('Kreta\Component\Project\Model\Project'), $user, 'ROLE_ADMIN')
+            ->shouldBeCalled()->willReturn($participant);
+
+        $uploader->upload($image)->shouldBeCalled();
+
+        $this->create($user, $workflow, false, $image)->shouldReturnAnInstanceOf(
+            'Kreta\Component\Project\Model\Project'
+        );
     }
 }
