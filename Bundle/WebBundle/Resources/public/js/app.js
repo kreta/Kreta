@@ -20,9 +20,6 @@ import {BaseLayoutView} from 'views/layout/base';
 
 export class App extends Backbone.Marionette.Application {
   initialize() {
-    this.layout = new BaseLayoutView();
-    this.layout.render();
-
     this.router = {
       base: new BaseRouter(),
       issue: new IssueRouter(),
@@ -34,8 +31,21 @@ export class App extends Backbone.Marionette.Application {
       project: new ProjectController()
     };
 
-    this.accessToken = this.getCookie('access_token');
+    this.addAutenticationHeader();
+  }
+
+  loadLayout() {
+    this.layout = new BaseLayoutView();
+    this.layout.render();
+
     this.currentUser = new Profile();
+    this.currentUser.fetch();
+  }
+
+  addAutenticationHeader() {
+    Backbone.$.ajaxSetup({
+      headers: {'Authorization': 'Bearer ' + this.getAccessToken()}
+    });
   }
 
   getBaseUrl () {
@@ -49,5 +59,9 @@ export class App extends Backbone.Marionette.Application {
     if (parts.length === 2) {
       return parts.pop().split(';').shift();
     }
+  }
+
+  getAccessToken() {
+    return this.getCookie('access_token');
   }
 }

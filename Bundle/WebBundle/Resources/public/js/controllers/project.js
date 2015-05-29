@@ -19,7 +19,7 @@ import {IssueCollection} from '../collections/issue';
 export class ProjectController extends Backbone.Marionette.Controller {
   newAction() {
     App.layout.getRegion('content').show(new ProjectNewView());
-    Backbone.trigger('main:full-screen');
+    App.vent.trigger('main:full-screen');
   }
 
   listAction() {
@@ -38,14 +38,14 @@ export class ProjectController extends Backbone.Marionette.Controller {
       collection: collection
     }));
 
-    Backbone.trigger('main:full-screen');
+    App.vent.trigger('main:full-screen');
   }
 
   settingsAction(project) {
     App.layout.getRegion('content').show(new ProjectSettingsView({
       model: this.getCurrentProject(project)
     }));
-    Backbone.trigger('main:full-screen');
+    App.vent.trigger('main:full-screen');
   }
 
   getCurrentProject(project) {

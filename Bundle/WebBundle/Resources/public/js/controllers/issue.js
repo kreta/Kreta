@@ -17,21 +17,21 @@ export class IssueController extends Backbone.Marionette.Controller {
     App.layout.getRegion('content').show(new IssueNewView({
       model: new Issue()
     }));
-    Backbone.trigger('main:full-screen');
+    App.vent.trigger('main:full-screen');
   }
 
   editAction(issue) {
     App.layout.getRegion('content').show(new IssueNewView({
       model: this.getCurrentIssue(issue)
     }));
-    Backbone.trigger('main:full-screen');
+    App.vent.trigger('main:full-screen');
   }
 
   showAction(issue) {
     App.layout.getRegion('right-aside').show(new IssueShowView({
       model: this.getCurrentIssue(issue)
     }));
-    Backbone.trigger('main:full-screen');
+    App.vent.trigger('main:full-screen');
   }
 
   getCurrentIssue(issue) {
