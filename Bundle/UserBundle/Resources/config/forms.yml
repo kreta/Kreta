@@ -54,6 +54,7 @@ services:
             - %kreta_user.user.class%
             - @kreta_user.factory.user
             - null
+            - null
             - [registration]
         tags:
             - { name: form.type, alias: 'kreta_user_registration_type' }
