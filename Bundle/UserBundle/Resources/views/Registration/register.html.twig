@@ -6,10 +6,18 @@
     <h1>Hi {{ user.email }}!</h1>
     {{ form_errors(form) }}
     <form class="spacer-vertical-2" action="{{ path('kreta_user_registration', {'email': user.email}) }}" method="post">
-        {{ form_widget(form.plainPassword.first, {'attr': {'placeholder': 'Password'}}) }}
-        {{ form_widget(form.plainPassword.second, {'attr': {'placeholder': 'Repeat the password'}}) }}
+        {{ form_widget(form.plainPassword.first, {
+            'attr': {
+                'placeholder': 'Password'
+            }, 'type': 'password'
+        }) }}
+        {{ form_widget(form.plainPassword.second, {
+            'attr': {
+                'placeholder': 'Repeat the password'
+            }, 'type': 'password'
+        }) }}
         {{ form_rest(form) }}
-        <button class="kreta-button green spacer-vertical-1" type="submit">
+        <button class="button green spacer-vertical-1" type="submit">
             {{ 'registration.submit'|trans }}
         </button>
     </form>

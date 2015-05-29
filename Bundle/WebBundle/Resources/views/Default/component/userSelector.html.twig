@@ -1,4 +1,19 @@
 <script type="text/html" id="user-selector-template">
+<div>
     <div class="user-selector-users"></div>
-    <div class="user-selector-actions"></div>
+    <div class="user-selector-actions">
+        <div class="user-selector-actions-item user-selector-actions-search">
+            <i class="fa fa-search"></i>
+            <span>Search user</span>
+        </div>
+        <div class="user-selector-actions-item user-selector-actions-invite">
+            <i class="fa fa-plus"></i>
+            <span>Invite people</span>
+        </div>
+    </div>
+    <form class="user-selector-invite-form">
+        <input class="user-selector-invite-form-email" type="email" placeholder="name@domain.com"/>
+        <input class="user-selector-invite-form-submit button green" type="submit" value="Invite"/>
+    </form>
+</div>
 </script>
