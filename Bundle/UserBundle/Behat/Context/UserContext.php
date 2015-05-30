@@ -54,6 +54,10 @@ class UserContext extends DefaultContext
             if (isset($userData['id'])) {
                 $this->setId($user, $userData['id']);
             }
+
+            // Removes default photo that generates problems with auto-generate id
+            $this->setField($user, 'photo', null);  
+
             $this->get('kreta_user.repository.user')->persist($user);
         }
     }
