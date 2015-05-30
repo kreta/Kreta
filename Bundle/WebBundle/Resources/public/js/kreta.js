@@ -14,10 +14,7 @@ import {App} from 'app';
 
 $(() => {
   window.App = new App();
-
-  Backbone.$.ajaxSetup({
-    headers: {'Authorization': 'Bearer ' + window.App.accessToken}
-  });
+  window.App.loadLayout();
 
   $(document).on('click', 'a:not([data-bypass])', function (evt) {
     var href = $(this).attr('href');

@@ -11,15 +11,21 @@ export class MainContentRegion extends Backbone.Marionette.Region {
   constructor (options) {
     this.el = '.kreta-content-container';
 
+    App.vent.on('left-aside:after-open', () => {
+      this.leftOpened();
+    });
+    App.vent.on('left-aside:close', () => {
+      this.leftClosed();
+    });
+
+    App.vent.on('right-aside:after-open', () => {
+      this.rightOpened();
+    });
+    App.vent.on('right-aside:close', () => {
+      this.rightClosed();
+    });
+
     super(options);
-  }
-
-  onShow() {
-    this.listenTo(Backbone, 'left-aside:after-open', this.leftOpened);
-    this.listenTo(Backbone, 'left-aside:close', this.leftClosed);
-
-    this.listenTo(Backbone, 'right-aside:after-open', this.rightOpened);
-    this.listenTo(Backbone, 'right-aside:close', this.rightClosed);
   }
 
   leftOpened () {

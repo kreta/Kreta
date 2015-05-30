@@ -25,7 +25,7 @@ export class IssueShowView extends Backbone.Marionette.ItemView {
 
     this.model.on('sync', this.render, this);
 
-    Backbone.trigger('issue:highlight', this.model.id);
+    App.vent.trigger('issue:highlight', this.model.id);
   }
 
   tabClicked(ev) {

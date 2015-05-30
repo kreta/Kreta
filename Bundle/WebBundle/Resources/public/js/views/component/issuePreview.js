@@ -19,7 +19,9 @@ export class IssuePreviewView extends Backbone.View {
 
     super(options);
 
-    this.listenTo(Backbone, 'issue:highlight', this.highlightIssue);
+    App.vent.on('issue:highlight', (issueId) => {
+      this.highlightIssue(issueId);
+    });
   }
 
   render() {

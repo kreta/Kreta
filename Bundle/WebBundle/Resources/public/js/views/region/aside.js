@@ -12,18 +12,22 @@ export class AsideRegion extends Backbone.Marionette.Region {
     this.position = options.position;
     this.el = '.' + this.position + '-aside';
 
+    App.vent.bind('aside:before-open', () => {
+      this.hide()
+    });
+    App.vent.bind('main:full-screen', () => {
+      this.hide()
+    });
+
     super(options);
   }
 
   onShow() {
-    this.listenTo(Backbone, 'aside:before-open', this.hide);
-    this.listenTo(Backbone, 'main:full-screen', this.hide);
-
-    Backbone.trigger('aside:before-open');
+    App.vent.trigger('aside:before-open');
 
     setTimeout(() => {
       this.$el.children().addClass('visible');
-      Backbone.trigger(this.position + '-aside:after-open');
+      App.vent.trigger(this.position + '-aside:after-open');
     }, 1);
 
   }
@@ -31,7 +35,7 @@ export class AsideRegion extends Backbone.Marionette.Region {
   hide () {
     if(this.$el.children().hasClass('visible')) {
       this.$el.children().removeClass('visible');
-      Backbone.trigger(this.position + '-aside:close');
+      App.vent.trigger(this.position + '-aside:close');
 
       setTimeout( () => { //Wait animation
         this.destroy();
