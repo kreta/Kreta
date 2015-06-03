@@ -31,7 +31,7 @@ var knownOptions = {string: 'from', default: { from: ''}};
 var options = minimist(process.argv.slice(2), knownOptions);
 var fromVendorPath = options.from === 'vendor' ? '/../../../' : '/';
 
-var basePath = './../../../..' + fromVendorPath + 'web/bundles/kretaweb/';
+var basePath = './../..' + fromVendorPath + 'web/bundles/kretaweb/';
 var resultPath = './../../../..' + fromVendorPath + 'web/';
 
 var license = [
