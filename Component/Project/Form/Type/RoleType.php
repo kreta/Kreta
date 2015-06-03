@@ -13,7 +13,7 @@ namespace Kreta\Component\Project\Form\Type;
 
 use Kreta\Component\Project\Model\Interfaces\ParticipantInterface;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Class RoleType.
@@ -25,7 +25,7 @@ class RoleType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'choices' => [

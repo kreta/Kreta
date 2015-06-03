@@ -142,8 +142,9 @@ class StatusTransitionController extends Controller
     /**
      * Creates an initial status of transition id and workflow id given.
      *
-     * @param string $workflowId   The workflow id
-     * @param string $transitionId The transition id
+     * @param \Symfony\Component\HttpFoundation\Request $request      The request
+     * @param string                                    $workflowId   The workflow id
+     * @param string                                    $transitionId The transition id
      *
      * @ApiDoc(statusCodes={201, 400, 403, 404, 409})
      * @Http\Post("/workflows/{workflowId}/transitions/{transitionId}/initial-statuses")
@@ -153,10 +154,10 @@ class StatusTransitionController extends Controller
      * @return \Kreta\Component\Workflow\Model\Interfaces\StatusInterface[]
      * @throws \Symfony\Component\HttpKernel\Exception\BadRequestHttpException
      */
-    public function postTransitionsInitialStatusAction($workflowId, $transitionId)
+    public function postTransitionsInitialStatusAction(Request $request, $workflowId, $transitionId)
     {
         $transition = $this->getTransition($transitionId);
-        if (($initialStatusId = $this->get('request')->get('initial_status')) === null) {
+        if (($initialStatusId = $request->get('initial_status')) === null) {
             throw new BadRequestHttpException('The initial status should not be blank');
         }
         $initialStatus = $this->get('kreta_workflow.repository.status')->find($initialStatusId, false);

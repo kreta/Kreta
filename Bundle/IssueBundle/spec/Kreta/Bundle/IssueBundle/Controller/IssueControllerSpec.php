@@ -22,8 +22,8 @@ use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
  * Class IssueControllerSpec.
@@ -50,7 +50,7 @@ class IssueControllerSpec extends ObjectBehavior
     function it_gets_issues(
         ContainerInterface $container,
         IssueRepository $issueRepository,
-        SecurityContextInterface $context,
+        TokenStorageInterface $context,
         ParamFetcher $paramFetcher,
         IssueInterface $issue,
         TokenInterface $token,
@@ -71,10 +71,8 @@ class IssueControllerSpec extends ObjectBehavior
         $paramFetcher->get('status')->shouldBeCalled()->willReturn(2);
         $paramFetcher->get('type')->shouldBeCalled()->willReturn(1);
 
-        $container->has('security.context')->willReturn(true);
-        $container->has('security.token_storage')->willReturn(true);
-        $container->get('security.context')->willReturn($context);
-        $container->get('security.token_storage')->willReturn($context);
+        $container->has('security.token_storage')->shouldBeCalled()->willReturn(true);
+        $container->get('security.token_storage')->shouldBeCalled()->willReturn($context);
 
         $context->getToken()->shouldBeCalled()->willReturn($token);
         $token->getUser()->shouldBeCalled()->willReturn($user);
@@ -113,17 +111,15 @@ class IssueControllerSpec extends ObjectBehavior
         Handler $handler,
         Request $request,
         IssueInterface $issue,
-        SecurityContextInterface $context,
+        TokenStorageInterface $context,
         TokenInterface $token,
         UserInterface $user
     )
     {
         $container->get('kreta_project.repository.project')->shouldBeCalled()->willReturn($projectRepository);
 
-        $container->has('security.context')->willReturn(true);
-        $container->has('security.token_storage')->willReturn(true);
-        $container->get('security.context')->willReturn($context);
-        $container->get('security.token_storage')->willReturn($context);
+        $container->has('security.token_storage')->shouldBeCalled()->willReturn(true);
+        $container->get('security.token_storage')->shouldBeCalled()->willReturn($context);
 
         $context->getToken()->shouldBeCalled()->willReturn($token);
         $token->getUser()->shouldBeCalled()->willReturn($user);
@@ -140,7 +136,7 @@ class IssueControllerSpec extends ObjectBehavior
         ContainerInterface $container,
         Handler $handler,
         IssueInterface $issue,
-        SecurityContextInterface $context,
+        TokenStorageInterface $context,
         ProjectRepository $projectRepository,
         ProjectInterface $project,
         TokenInterface $token,
@@ -150,10 +146,8 @@ class IssueControllerSpec extends ObjectBehavior
     {
         $container->get('kreta_project.repository.project')->shouldBeCalled()->willReturn($projectRepository);
 
-        $container->has('security.context')->willReturn(true);
-        $container->has('security.token_storage')->willReturn(true);
-        $container->get('security.context')->willReturn($context);
-        $container->get('security.token_storage')->willReturn($context);
+        $container->has('security.token_storage')->shouldBeCalled()->willReturn(true);
+        $container->get('security.token_storage')->shouldBeCalled()->willReturn($context);
 
         $context->getToken()->shouldBeCalled()->willReturn($token);
         $token->getUser()->shouldBeCalled()->willReturn($user);

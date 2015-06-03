@@ -16,8 +16,8 @@ use Kreta\Component\User\Model\Interfaces\UserInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\Form\FormBuilder;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
  * Class ProjectTypeSpec.
@@ -26,7 +26,7 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
  */
 class ProjectTypeSpec extends ObjectBehavior
 {
-    function let(SecurityContextInterface $context, TokenInterface $token, UserInterface $user, ProjectFactory $factory)
+    function let(TokenStorageInterface $context, TokenInterface $token, UserInterface $user, ProjectFactory $factory)
     {
         $context->getToken()->shouldBeCalled()->willReturn($token);
         $token->getUser()->shouldBeCalled()->willReturn($user);

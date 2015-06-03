@@ -159,11 +159,10 @@ class StatusTransitionControllerSpec extends ObjectBehavior
         $container->get('kreta_workflow.repository.status_transition')
             ->shouldBeCalled()->willReturn($transitionRepository);
         $transitionRepository->find('transition-id', false)->shouldBeCalled()->willReturn($transition);
-        $container->get('request')->shouldBeCalled()->willReturn($request);
         $request->get('initial_status')->shouldBeCalled()->willReturn(null);
 
         $this->shouldThrow(new BadRequestHttpException('The initial status should not be blank'))
-            ->during('postTransitionsInitialStatusAction', ['workflow-id', 'transition-id']);
+            ->during('postTransitionsInitialStatusAction', [$request, 'workflow-id', 'transition-id']);
     }
 
     function it_posts_initial_status(
@@ -178,7 +177,6 @@ class StatusTransitionControllerSpec extends ObjectBehavior
         $container->get('kreta_workflow.repository.status_transition')
             ->shouldBeCalled()->willReturn($transitionRepository);
         $transitionRepository->find('transition-id', false)->shouldBeCalled()->willReturn($transition);
-        $container->get('request')->shouldBeCalled()->willReturn($request);
         $request->get('initial_status')->shouldBeCalled()->willReturn('initial-status-id');
         $container->get('kreta_workflow.repository.status')->shouldBeCalled()->willReturn($statusRepository);
         $statusRepository->find('initial-status-id', false)->shouldBeCalled()->willReturn($initial);
@@ -187,7 +185,7 @@ class StatusTransitionControllerSpec extends ObjectBehavior
         $transitionRepository->persistInitialStatus($transition, $initial)->shouldBeCalled();
         $transition->getInitialStates()->shouldBeCalled()->willReturn([$initial]);
 
-        $this->postTransitionsInitialStatusAction('workflow-id', 'transition-id')->shouldReturn([$initial]);
+        $this->postTransitionsInitialStatusAction($request, 'workflow-id', 'transition-id')->shouldReturn([$initial]);
     }
 
     function it_does_not_delete_initial_status_because_transition_is_currently_in_use(

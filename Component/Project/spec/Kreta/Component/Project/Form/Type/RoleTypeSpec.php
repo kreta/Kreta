@@ -14,7 +14,7 @@ namespace spec\Kreta\Component\Project\Form\Type;
 use Kreta\Component\Project\Model\Interfaces\ParticipantInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Class RoleTypeSpec.
@@ -33,7 +33,7 @@ class RoleTypeSpec extends ObjectBehavior
         $this->shouldHaveType('Symfony\Component\Form\AbstractType');
     }
 
-    function it_sets_default_options(OptionsResolverInterface $resolver)
+    function it_sets_default_options(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'choices' => [
@@ -42,7 +42,7 @@ class RoleTypeSpec extends ObjectBehavior
             ]
         ])->shouldBeCalled()->willReturn($resolver);
 
-        $this->setDefaultOptions($resolver);
+        $this->configureOptions($resolver);
     }
 
     function it_gets_parent()

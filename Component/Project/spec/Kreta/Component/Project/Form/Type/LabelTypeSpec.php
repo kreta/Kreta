@@ -15,9 +15,9 @@ use Kreta\Component\Project\Factory\LabelFactory;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\Form\FormBuilder;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -27,7 +27,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class LabelTypeSpec extends ObjectBehavior
 {
-    function let(SecurityContextInterface $context, TokenInterface $token, UserInterface $user, LabelFactory $factory)
+    function let(TokenStorageInterface $context, TokenInterface $token, UserInterface $user, LabelFactory $factory)
     {
         $context->getToken()->shouldBeCalled()->willReturn($token);
         $token->getUser()->shouldBeCalled()->willReturn($user);
@@ -51,7 +51,7 @@ class LabelTypeSpec extends ObjectBehavior
         $this->buildForm($builder, []);
     }
 
-    function it_sets_default_options(OptionsResolverInterface $resolver)
+    function it_sets_default_options(OptionsResolver $resolver)
     {
         $resolver->setDefaults(Argument::withEntry('data_class', 'Kreta\Component\Project\Model\Label'))
             ->shouldBeCalled()->willReturn($resolver);
@@ -61,7 +61,7 @@ class LabelTypeSpec extends ObjectBehavior
             ->shouldBeCalled()->willReturn($resolver);
         $resolver->setRequired(['project'])->shouldBeCalled()->willReturn($resolver);
 
-        $this->setDefaultOptions($resolver);
+        $this->configureOptions($resolver);
     }
 
     function it_gets_name()

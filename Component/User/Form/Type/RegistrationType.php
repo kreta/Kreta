@@ -14,7 +14,7 @@ namespace Kreta\Component\User\Form\Type;
 use Kreta\Component\Core\Form\Type\Abstracts\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**
  * Class RegistrationType.
@@ -34,7 +34,7 @@ class RegistrationType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(['csrf_protection' => true, 'data_class' => $this->dataClass]);
     }

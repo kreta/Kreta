@@ -15,8 +15,8 @@ use Kreta\Component\Workflow\Factory\WorkflowFactory;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -27,7 +27,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class WorkflowTypeSpec extends ObjectBehavior
 {
     function let(
-        SecurityContextInterface $context,
+        TokenStorageInterface $context,
         TokenInterface $token,
         UserInterface $user,
         WorkflowFactory $factory

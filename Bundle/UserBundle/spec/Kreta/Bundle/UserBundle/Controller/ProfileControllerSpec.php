@@ -17,8 +17,8 @@ use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
  * Class ProfileControllerSpec.
@@ -44,15 +44,13 @@ class ProfileControllerSpec extends ObjectBehavior
 
     function it_gets_profile_action(
         ContainerInterface $container,
-        SecurityContextInterface $context,
+        TokenStorageInterface $context,
         TokenInterface $token,
         UserInterface $user
     )
     {
-        $container->has('security.context')->willReturn(true);
-        $container->has('security.token_storage')->willReturn(true);
-        $container->get('security.context')->willReturn($context);
-        $container->get('security.token_storage')->willReturn($context);
+        $container->has('security.token_storage')->shouldBeCalled()->willReturn(true);
+        $container->get('security.token_storage')->shouldBeCalled()->willReturn($context);
 
         $context->getToken()->shouldBeCalled()->willReturn($token);
         $token->getUser()->shouldBeCalled()->willReturn($user);

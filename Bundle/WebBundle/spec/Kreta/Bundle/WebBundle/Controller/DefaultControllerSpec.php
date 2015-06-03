@@ -21,8 +21,8 @@ use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\SecurityContext;
 
 /**
  * Class DefaultControllerSpec.
@@ -48,15 +48,14 @@ class DefaultControllerSpec extends ObjectBehavior
 
     function it_renders_landing_if_not_logged_in(
         ContainerInterface $container,
-        SecurityContext $context,
+        Request $request,
+        TokenStorageInterface $context,
         TokenInterface $token,
         TwigEngine $engine
     )
     {
-        $container->has('security.context')->willReturn(true);
-        $container->has('security.token_storage')->willReturn(true);
-        $container->get('security.context')->willReturn($context);
-        $container->get('security.token_storage')->willReturn($context);
+        $container->has('security.token_storage')->shouldBeCalled()->willReturn(true);
+        $container->get('security.token_storage')->shouldBeCalled()->willReturn($context);
 
         $context->getToken()->shouldBeCalled()->willReturn($token);
         $token->getUser()->shouldBeCalled()->willReturn(null);
@@ -64,12 +63,12 @@ class DefaultControllerSpec extends ObjectBehavior
         $container->get('templating')->shouldBeCalled()->willReturn($engine);
         $engine->renderResponse('KretaWebBundle::layout.html.twig');
 
-        $this->indexAction();
+        $this->indexAction($request);
     }
 
     function it_renders_dashboard_if_logged_in(
         ContainerInterface $container,
-        SecurityContext $context,
+        TokenStorageInterface $context,
         TokenInterface $token,
         UserInterface $user,
         EventDispatcherInterface $eventDispatcher,
@@ -80,15 +79,12 @@ class DefaultControllerSpec extends ObjectBehavior
         Response $response
     )
     {
-        $container->has('security.context')->willReturn(true);
-        $container->has('security.token_storage')->willReturn(true);
-        $container->get('security.context')->willReturn($context);
-        $container->get('security.token_storage')->willReturn($context);
+        $container->has('security.token_storage')->shouldBeCalled()->willReturn(true);
+        $container->get('security.token_storage')->shouldBeCalled()->willReturn($context);
 
         $context->getToken()->shouldBeCalled()->willReturn($token);
         $token->getUser()->shouldBeCalled()->willReturn($user);
 
-        $container->get('request')->shouldBeCalled()->willReturn($request);
         $request->getSession()->shouldBeCalled()->willReturn($session);
         $container->get('event_dispatcher')->shouldBeCalled()->willReturn($eventDispatcher);
         $eventDispatcher->dispatch(
@@ -99,7 +95,7 @@ class DefaultControllerSpec extends ObjectBehavior
         $event->getResponse()->shouldBeCalled()->willReturn($response);
         $engine->renderResponse('KretaWebBundle:Default:app.html.twig', [], $response);
 
-        $this->indexAction();
+        $this->indexAction($request);
     }
 
     function it_renders_dashboard(ContainerInterface $container, TwigEngine $engine, Response $response)

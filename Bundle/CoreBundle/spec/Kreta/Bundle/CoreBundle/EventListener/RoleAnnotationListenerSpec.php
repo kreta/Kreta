@@ -14,8 +14,7 @@ namespace spec\Kreta\Bundle\CoreBundle\EventListener;
 use Doctrine\Common\Annotations\Reader;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
-use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
-use Symfony\Component\Security\Core\SecurityContextInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
  * Class RoleAnnotationListenerSpec.
@@ -24,7 +23,7 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
  */
 class RoleAnnotationListenerSpec extends ObjectBehavior
 {
-    function let(Reader $reader, SecurityContextInterface $context)
+    function let(Reader $reader, TokenStorageInterface $context)
     {
         $this->beConstructedWith($reader, $context);
     }

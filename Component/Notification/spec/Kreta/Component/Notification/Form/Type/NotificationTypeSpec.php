@@ -14,8 +14,8 @@ namespace spec\Kreta\Component\Notification\Form\Type;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\Form\FormBuilder;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -25,7 +25,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class NotificationTypeSpec extends ObjectBehavior
 {
-    function let(SecurityContextInterface $context, TokenInterface $token, UserInterface $user)
+    function let(TokenStorageInterface $context, TokenInterface $token, UserInterface $user)
     {
         $context->getToken()->shouldBeCalled()->willReturn($token);
         $token->getUser()->shouldBeCalled()->willReturn($user);

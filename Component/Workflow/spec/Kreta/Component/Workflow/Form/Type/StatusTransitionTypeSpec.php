@@ -18,9 +18,9 @@ use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -31,7 +31,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class StatusTransitionTypeSpec extends ObjectBehavior
 {
     function let(
-        SecurityContextInterface $context,
+        TokenStorageInterface $context,
         TokenInterface $token,
         UserInterface $user,
         StatusTransitionFactory $factory,
@@ -68,7 +68,7 @@ class StatusTransitionTypeSpec extends ObjectBehavior
         $this->buildForm($builder, ['workflow' => $workflow]);
     }
 
-    function it_sets_default_options(OptionsResolverInterface $resolver)
+    function it_sets_default_options(OptionsResolver $resolver)
     {
         $resolver->setDefaults(Argument::withEntry('data_class', 'Kreta\Component\Workflow\Model\StatusTransition'))
             ->shouldBeCalled()->willReturn($resolver);
@@ -78,7 +78,7 @@ class StatusTransitionTypeSpec extends ObjectBehavior
             ->shouldBeCalled()->willReturn($resolver);
         $resolver->setRequired(['workflow'])->shouldBeCalled()->willReturn($resolver);
 
-        $this->setDefaultOptions($resolver);
+        $this->configureOptions($resolver);
     }
 
     function it_gets_name()

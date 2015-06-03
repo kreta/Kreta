@@ -15,9 +15,9 @@ use Doctrine\Common\Persistence\ObjectManager;
 use Symfony\Component\Form\AbstractType as BaseAbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -65,23 +65,23 @@ abstract class AbstractType extends BaseAbstractType
     /**
      * The user.
      *
-     * @var \Symfony\Component\Security\Core\SecurityContextInterface|null
+     * @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface|null
      */
     protected $user = null;
 
     /**
      * Constructor.
      *
-     * @param string                                                         $dataClass        The data class
-     * @param Object                                                         $factory          The factory
-     * @param \Symfony\Component\Security\Core\SecurityContextInterface|null $context          The security context
-     * @param \Doctrine\Common\Persistence\ObjectManager|null                $manager          The manager
-     * @param array                                                          $validationGroups The validation groups
+     * @param string                     $dataClass        The data class
+     * @param Object                     $factory          The factory
+     * @param TokenStorageInterface|null $context          The security context
+     * @param ObjectManager|null         $manager          The manager
+     * @param array                      $validationGroups The validation groups
      */
     public function __construct(
         $dataClass,
         $factory,
-        SecurityContextInterface $context = null,
+        TokenStorageInterface $context = null,
         ObjectManager $manager = null,
         $validationGroups = []
     )
@@ -90,7 +90,7 @@ abstract class AbstractType extends BaseAbstractType
         $this->validationGroups = $validationGroups;
         $this->factory = $factory;
         $this->manager = $manager;
-        if ($context instanceof SecurityContextInterface) {
+        if ($context instanceof TokenStorageInterface) {
             $this->user = $context->getToken()->getUser();
             if (!($this->user instanceof UserInterface)) {
                 throw new AccessDeniedException();
@@ -109,7 +109,7 @@ abstract class AbstractType extends BaseAbstractType
     /**
      * {@inheritdoc}
      */
-    public function setDefaultOptions(OptionsResolverInterface $resolver)
+    public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
             'csrf_protection'   => false,

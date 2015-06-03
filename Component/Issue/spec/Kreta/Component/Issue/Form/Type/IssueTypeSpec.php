@@ -17,9 +17,9 @@ use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Form\FormEvents;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -29,7 +29,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class IssueTypeSpec extends ObjectBehavior
 {
-    function let(SecurityContextInterface $context, TokenInterface $token, UserInterface $user, IssueFactory $factory)
+    function let(TokenStorageInterface $context, TokenInterface $token, UserInterface $user, IssueFactory $factory)
     {
         $context->getToken()->shouldBeCalled()->willReturn($token);
         $token->getUser()->shouldBeCalled()->willReturn($user);
@@ -62,7 +62,7 @@ class IssueTypeSpec extends ObjectBehavior
         $this->buildForm($builder, ['projects' => [$project]]);
     }
 
-    function it_sets_default_options(OptionsResolverInterface $resolver)
+    function it_sets_default_options(OptionsResolver $resolver)
     {
         $resolver->setDefaults(Argument::withEntry('data_class', 'Kreta\Component\Issue\Model\Issue'))
             ->shouldBeCalled()->willReturn($resolver);
@@ -72,7 +72,7 @@ class IssueTypeSpec extends ObjectBehavior
             ->shouldBeCalled()->willReturn($resolver);
         $resolver->setDefaults(['projects' => []])->shouldBeCalled()->willReturn($resolver);
 
-        $this->setDefaultOptions($resolver);
+        $this->configureOptions($resolver);
     }
 
     function it_gets_name()

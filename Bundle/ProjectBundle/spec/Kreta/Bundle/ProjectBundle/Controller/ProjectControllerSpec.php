@@ -22,7 +22,6 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
  * Class ProjectControllerSpec.
@@ -50,7 +49,7 @@ class ProjectControllerSpec extends ObjectBehavior
         ContainerInterface $container,
         ProjectRepository $projectRepository,
         ParamFetcher $paramFetcher,
-        SecurityContextInterface $context,
+        TokenStorageInterface $context,
         TokenInterface $token,
         UserInterface $user,
         ProjectInterface $project
@@ -58,10 +57,8 @@ class ProjectControllerSpec extends ObjectBehavior
     {
         $container->get('kreta_project.repository.project')->shouldBeCalled()->willReturn($projectRepository);
 
-        $container->has('security.context')->willReturn(true);
-        $container->has('security.token_storage')->willReturn(true);
-        $container->get('security.context')->willReturn($context);
-        $container->get('security.token_storage')->willReturn($context);
+        $container->has('security.token_storage')->shouldBeCalled()->willReturn(true);
+        $container->get('security.token_storage')->shouldBeCalled()->willReturn($context);
 
         $context->getToken()->shouldBeCalled()->willReturn($token);
         $token->getUser()->shouldBeCalled()->willReturn($user);

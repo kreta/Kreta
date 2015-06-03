@@ -16,9 +16,9 @@ use Kreta\Component\User\Model\Interfaces\UserInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\Form\FormBuilder;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
  * Class ParticipantTypeSpec.
@@ -28,7 +28,7 @@ use Symfony\Component\Security\Core\SecurityContextInterface;
 class ParticipantTypeSpec extends ObjectBehavior
 {
     function let(
-        SecurityContextInterface $context,
+        TokenStorageInterface $context,
         TokenInterface $token,
         UserInterface $user,
         ParticipantFactory $factory
@@ -60,7 +60,7 @@ class ParticipantTypeSpec extends ObjectBehavior
         $this->buildForm($builder, ['users' => [$user]]);
     }
 
-    function it_sets_default_options(OptionsResolverInterface $resolver)
+    function it_sets_default_options(OptionsResolver $resolver)
     {
         $resolver->setDefaults(Argument::withEntry('data_class', 'Kreta\Component\Project\Model\Participant'))
             ->shouldBeCalled()->willReturn($resolver);
@@ -71,7 +71,7 @@ class ParticipantTypeSpec extends ObjectBehavior
         $resolver->setRequired(['project'])->shouldBeCalled()->willReturn($resolver);
         $resolver->setDefaults(['users' => []])->shouldBeCalled()->willReturn($resolver);
 
-        $this->setDefaultOptions($resolver);
+        $this->configureOptions($resolver);
     }
 
     function it_gets_name()

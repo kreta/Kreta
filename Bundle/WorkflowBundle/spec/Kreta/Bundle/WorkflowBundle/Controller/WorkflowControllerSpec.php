@@ -20,8 +20,8 @@ use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
  * Class WorkflowControllerSpec.
@@ -48,7 +48,7 @@ class WorkflowControllerSpec extends ObjectBehavior
     function it_gets_workflows(
         ContainerInterface $container,
         WorkflowRepository $workflowRepository,
-        SecurityContextInterface $context,
+        TokenStorageInterface $context,
         TokenInterface $token,
         UserInterface $user,
         ParamFetcher $paramFetcher,
@@ -57,10 +57,8 @@ class WorkflowControllerSpec extends ObjectBehavior
     {
         $container->get('kreta_workflow.repository.workflow')->shouldBeCalled()->willReturn($workflowRepository);
 
-        $container->has('security.context')->willReturn(true);
-        $container->has('security.token_storage')->willReturn(true);
-        $container->get('security.context')->willReturn($context);
-        $container->get('security.token_storage')->willReturn($context);
+        $container->has('security.token_storage')->shouldBeCalled()->willReturn(true);
+        $container->get('security.token_storage')->shouldBeCalled()->willReturn($context);
 
         $context->getToken()->shouldBeCalled()->willReturn($token);
         $token->getUser()->shouldBeCalled()->willReturn($user);

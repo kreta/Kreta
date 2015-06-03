@@ -19,8 +19,8 @@ use Kreta\Component\User\Model\Interfaces\UserInterface;
 use PhpSpec\ObjectBehavior;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
  * Class NotificationControllerSpec.
@@ -47,7 +47,7 @@ class NotificationControllerSpec extends ObjectBehavior
     function it_gets_notifications(
         ContainerInterface $container,
         NotificationRepository $repository,
-        SecurityContextInterface $context,
+        TokenStorageInterface $context,
         TokenInterface $token,
         UserInterface $user,
         ParamFetcher $paramFetcher,
@@ -56,10 +56,8 @@ class NotificationControllerSpec extends ObjectBehavior
     {
         $container->get('kreta_notification.repository.notification')->shouldBeCalled()->willReturn($repository);
 
-        $container->has('security.context')->willReturn(true);
-        $container->has('security.token_storage')->willReturn(true);
-        $container->get('security.context')->willReturn($context);
-        $container->get('security.token_storage')->willReturn($context);
+        $container->has('security.token_storage')->shouldBeCalled()->willReturn(true);
+        $container->get('security.token_storage')->shouldBeCalled()->willReturn($context);
 
         $context->getToken()->shouldBeCalled()->willReturn($token);
         $token->getUser()->shouldBeCalled()->willReturn($user);
@@ -94,7 +92,7 @@ class NotificationControllerSpec extends ObjectBehavior
     function it_patches_notification(
         ContainerInterface $container,
         NotificationRepository $repository,
-        SecurityContextInterface $context,
+        TokenStorageInterface $context,
         TokenInterface $token,
         UserInterface $user,
         NotificationInterface $notification,
@@ -104,10 +102,8 @@ class NotificationControllerSpec extends ObjectBehavior
     {
         $container->get('kreta_notification.repository.notification')->shouldBeCalled()->willReturn($repository);
 
-        $container->has('security.context')->willReturn(true);
-        $container->has('security.token_storage')->willReturn(true);
-        $container->get('security.context')->willReturn($context);
-        $container->get('security.token_storage')->willReturn($context);
+        $container->has('security.token_storage')->shouldBeCalled()->willReturn(true);
+        $container->get('security.token_storage')->shouldBeCalled()->willReturn($context);
 
         $context->getToken()->shouldBeCalled()->willReturn($token);
         $token->getUser()->shouldBeCalled()->willReturn($user);

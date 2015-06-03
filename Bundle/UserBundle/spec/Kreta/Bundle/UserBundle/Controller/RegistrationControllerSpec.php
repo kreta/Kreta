@@ -30,9 +30,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\RouterInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Symfony\Component\Security\Core\SecurityContextInterface;
 
 /**
  * Class RegistrationControllerSpec.
@@ -114,7 +114,7 @@ class RegistrationControllerSpec extends ObjectBehavior
         EventDispatcherInterface $eventDispatcher,
         FormEvent $event,
         UserManager $userManager,
-        SecurityContextInterface $context,
+        TokenStorageInterface $context,
         TokenInterface $token
     )
     {
@@ -144,10 +144,8 @@ class RegistrationControllerSpec extends ObjectBehavior
             FOSUserEvents::REGISTRATION_COMPLETED, Argument::type('FOS\UserBundle\Event\FilterUserResponseEvent')
         )->shouldBeCalled()->willReturn($event);
 
-        $container->has('security.context')->willReturn(true);
-        $container->has('security.token_storage')->willReturn(true);
-        $container->get('security.context')->willReturn($context);
-        $container->get('security.token_storage')->willReturn($context);
+        $container->has('security.token_storage')->shouldBeCalled()->willReturn(true);
+        $container->get('security.token_storage')->shouldBeCalled()->willReturn($context);
 
         $context->getToken()->shouldBeCalled()->willReturn($token);
         $token->getUser()->shouldBeCalled()->willReturn(null);
@@ -167,7 +165,7 @@ class RegistrationControllerSpec extends ObjectBehavior
         EventDispatcherInterface $eventDispatcher,
         FormEvent $event,
         UserManager $userManager,
-        SecurityContextInterface $context,
+        TokenStorageInterface $context,
         TokenInterface $token,
         RouterInterface $router
     )
@@ -198,10 +196,8 @@ class RegistrationControllerSpec extends ObjectBehavior
             FOSUserEvents::REGISTRATION_COMPLETED, Argument::type('FOS\UserBundle\Event\FilterUserResponseEvent')
         )->shouldBeCalled()->willReturn($event);
 
-        $container->has('security.context')->willReturn(true);
-        $container->has('security.token_storage')->willReturn(true);
-        $container->get('security.context')->willReturn($context);
-        $container->get('security.token_storage')->willReturn($context);
+        $container->has('security.token_storage')->shouldBeCalled()->willReturn(true);
+        $container->get('security.token_storage')->shouldBeCalled()->willReturn($context);
 
         $context->getToken()->shouldBeCalled()->willReturn($token);
         $token->getUser()->shouldBeCalled()->willReturn($user);

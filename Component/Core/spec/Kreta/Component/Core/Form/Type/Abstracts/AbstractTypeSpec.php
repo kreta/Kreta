@@ -15,11 +15,10 @@ use Doctrine\Common\Persistence\ObjectManager;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\FormInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
-use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -29,7 +28,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class AbstractTypeSpec extends ObjectBehavior
 {
-    function let(SecurityContextInterface $context, TokenInterface $token)
+    function let(TokenStorageInterface $context, TokenInterface $token)
     {
         $this->beAnInstanceOf('Kreta\Component\Core\Stubs\Form\Type\AbstractTypeStub');
 
@@ -38,7 +37,7 @@ class AbstractTypeSpec extends ObjectBehavior
 
     function it_throws_access_denied_exception_because_the_user_is_not_logged_and_context_is_passed(
         ObjectManager $manager,
-        SecurityContextInterface $context,
+        TokenStorageInterface $context,
         TokenInterface $token
     )
     {
@@ -51,7 +50,7 @@ class AbstractTypeSpec extends ObjectBehavior
     function it_builds_form(
         FormBuilderInterface $builder,
         ObjectManager $manager,
-        SecurityContextInterface $context,
+        TokenStorageInterface $context,
         TokenInterface $token,
         UserInterface $user
     )
@@ -63,9 +62,9 @@ class AbstractTypeSpec extends ObjectBehavior
     }
 
     function it_sets_default_options(
-        OptionsResolverInterface $resolver,
+        OptionsResolver $resolver,
         ObjectManager $manager,
-        SecurityContextInterface $context,
+        TokenStorageInterface $context,
         TokenInterface $token,
         UserInterface $user
     )
@@ -80,12 +79,12 @@ class AbstractTypeSpec extends ObjectBehavior
         $resolver->setDefaults(Argument::withEntry('empty_data', Argument::type('closure')))
             ->shouldBeCalled()->willReturn($resolver);
 
-        $this->setDefaultOptions($resolver);
+        $this->configureOptions($resolver);
     }
     
     function it_gets_name(
         ObjectManager $manager,
-        SecurityContextInterface $context,
+        TokenStorageInterface $context,
         TokenInterface $token,
         UserInterface $user
     )

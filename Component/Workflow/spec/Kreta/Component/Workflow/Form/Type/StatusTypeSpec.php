@@ -16,9 +16,9 @@ use Kreta\Component\Workflow\Factory\StatusFactory;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\OptionsResolver\OptionsResolverInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\SecurityContextInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -28,7 +28,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class StatusTypeSpec extends ObjectBehavior
 {
-    function let(SecurityContextInterface $context, TokenInterface $token, UserInterface $user, StatusFactory $factory)
+    function let(TokenStorageInterface $context, TokenInterface $token, UserInterface $user, StatusFactory $factory)
     {
         $context->getToken()->shouldBeCalled()->willReturn($token);
         $token->getUser()->shouldBeCalled()->willReturn($user);
@@ -61,7 +61,7 @@ class StatusTypeSpec extends ObjectBehavior
         $this->buildForm($builder, []);
     }
 
-    function it_sets_default_options(OptionsResolverInterface $resolver)
+    function it_sets_default_options(OptionsResolver $resolver)
     {
         $resolver->setDefaults(Argument::withEntry('data_class', 'Kreta\Component\Workflow\Model\Status'))
             ->shouldBeCalled()->willReturn($resolver);
@@ -71,7 +71,7 @@ class StatusTypeSpec extends ObjectBehavior
             ->shouldBeCalled()->willReturn($resolver);
         $resolver->setOptional(['workflow'])->shouldBeCalled()->willReturn($resolver);
 
-        $this->setDefaultOptions($resolver);
+        $this->configureOptions($resolver);
     }
 
     function it_gets_name()
