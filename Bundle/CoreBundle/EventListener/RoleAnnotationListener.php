@@ -39,9 +39,9 @@ class RoleAnnotationListener
     protected $annotationReader;
 
     /**
-     * The security context.
+     * The token storage.
      *
-     * @var \Symfony\Component\Security\Core\SecurityContextInterface
+     * @var \Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface
      */
     protected $context;
 
@@ -49,7 +49,7 @@ class RoleAnnotationListener
      * Constructor.
      *
      * @param Reader                $reader  The annotation reader
-     * @param TokenStorageInterface $context The security context
+     * @param TokenStorageInterface $context The token storage
      */
     public function __construct(Reader $reader, TokenStorageInterface $context)
     {
