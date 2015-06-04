@@ -14,6 +14,7 @@
 #### PHPSpec ####
 /coverage
 phpspec-coverage.xml
+/web
 
 #### Front-end ####
 .sass-cache

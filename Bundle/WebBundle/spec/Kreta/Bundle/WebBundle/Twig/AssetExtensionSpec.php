@@ -43,6 +43,8 @@ class AssetExtensionSpec extends ObjectBehavior
     
     function it_gets_javascript_files()
     {
+        file_exists(__DIR__ . '/web') ?: @mkdir('web');
+
         $this->getJavaScriptFiles('web/')->shouldBeArray();
     }
 }

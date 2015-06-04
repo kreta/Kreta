@@ -58,9 +58,9 @@ extensions:
 
 code_coverage:
     blacklist:
-        - **/**/Behat
-        - **/**/spec
-        - **/**/Stubs
+        - ./**/**/Behat
+        - ./**/**/spec
+        - ./**/**/Stubs
     format:
         - html
         - clover
