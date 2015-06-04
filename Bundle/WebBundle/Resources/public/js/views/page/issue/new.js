@@ -119,7 +119,7 @@ export class IssueNewView extends Backbone.View {
     this.model.save(null, {
       success: (model) => {
         App.router.base.navigate('/project/' + this.currentProject, true);
-        App.router.base.navigate('/issue/' + model.get('id'), true);
+        App.controller.issue.showAction(model);
         NotificationService.showNotification({
           type: 'success',
           message: 'Issue created successfully'
