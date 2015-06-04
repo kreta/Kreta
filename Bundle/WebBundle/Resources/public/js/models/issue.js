@@ -38,6 +38,10 @@ export class Issue extends Backbone.Model {
     };
   }
 
+  canEdit(user) {
+    return this.get('assignee').id === user.id || this.get('reporter').id === user.id;
+  }
+
   toJSON(options) {
     var data = _.clone(this.attributes);
 

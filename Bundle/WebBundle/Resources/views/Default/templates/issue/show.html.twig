@@ -1,7 +1,9 @@
-<script type="text/html" id="issue-aside-template">
+<script type="text/html" id="issue-show-template">
     <h2 class="full-issue-title"><%= title %></h2>
     <section class="full-issue-actions">
-        <a class="button green full-issue-edit" data-bypass href="/issue/<%= id %>/edit">Edit</a>
+        <% if(canEdit) { %>
+            <a class="button green full-issue-edit" data-bypass href="/issue/<%= id %>/edit">Edit</a>
+        <% } %>
     </section>
     <section class="full-issue-dashboard">
         <p class="full-issue-dashboard-item">
