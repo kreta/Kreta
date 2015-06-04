@@ -18,6 +18,6 @@ services:
         arguments:
             - %kreta_issue.issue.class%
             - @kreta_issue.factory.issue
-            - @security.context
+            - @security.token_storage
         tags:
             - { name: form.type, alias: 'kreta_issue_issue_type' }

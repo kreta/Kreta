@@ -18,6 +18,6 @@ services:
         arguments:
             - %kreta_notification.notification.class%
             - @kreta_notification.factory.notification
-            - @security.context
+            - @security.token_storage
         tags:
             - { name: form.type, alias: 'kreta_notification_notification_type' }

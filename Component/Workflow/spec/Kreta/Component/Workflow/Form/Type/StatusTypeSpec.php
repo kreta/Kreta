@@ -50,12 +50,13 @@ class StatusTypeSpec extends ObjectBehavior
         $builder->add('color')->shouldBeCalled()->willReturn($builder);
         $builder->add('name')->shouldBeCalled()->willReturn($builder);
         $builder->add('type', 'choice', [
-            'required' => false,
-            'choices'  => [
-                StateInterface::TYPE_INITIAL => 'initial',
-                StateInterface::TYPE_NORMAL  => 'normal',
-                StateInterface::TYPE_FINAL   => 'final'
-            ]
+            'required'          => false,
+            'choices'           => [
+                'initial' => StateInterface::TYPE_INITIAL,
+                'normal'  => StateInterface::TYPE_NORMAL,
+                'final'   => StateInterface::TYPE_FINAL
+            ],
+            'choices_as_values' => true
         ])->shouldBeCalled()->willReturn($builder);
 
         $this->buildForm($builder, []);

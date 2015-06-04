@@ -44,7 +44,7 @@ services:
         arguments:
             - %kreta_project.label.class%
             - @kreta_project.factory.label
-            - @security.context
+            - @security.token_storage
         tags:
             - { name: form.type, alias: 'kreta_project_label_type' }
     kreta_project.form_type.issue_priority:
@@ -59,7 +59,7 @@ services:
         arguments:
             - %kreta_project.project.class%
             - @kreta_project.factory.project
-            - @security.context
+            - @security.token_storage
         tags:
             - { name: form.type, alias: 'kreta_project_project_type' }
     kreta_project.form_type.participant:
@@ -67,7 +67,7 @@ services:
         arguments:
             - %kreta_project.participant.class%
             - @kreta_project.factory.participant
-            - @security.context
+            - @security.token_storage
         tags:
             - { name: form.type, alias: 'kreta_project_participant_type' }
     kreta_project.form_type.role:

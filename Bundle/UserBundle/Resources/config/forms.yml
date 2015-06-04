@@ -31,7 +31,7 @@ services:
         arguments:
             - %kreta_user.user.class%
             - @kreta_user.factory.user
-            - @security.context
+            - @security.token_storage
             - null
             - [invitation]
         tags:
@@ -42,7 +42,7 @@ services:
         arguments:
             - %kreta_user.user.class%
             - @kreta_user.factory.user
-            - @security.context
+            - @security.token_storage
             - null
             - [profile]
         tags:

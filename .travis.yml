@@ -24,23 +24,6 @@ before_install:
 install:
     - composer update --no-interaction ${COMPOSER_OPTIONS}
 
-    - sudo apt-get install node
-    - npm install -g bower
-    - npm install -g gulp
-    - gem install scss-lint
-
-    - cd Bundle/WebBundle
-    - npm install
-    - bower install
-    - cd -
-
-before_script:
-    - cd Bundle/WebBundle
-    - gulp
-    - cd -
-
-    - sleep 5
-
 script:
     - bin/phpspec run -fpretty
 

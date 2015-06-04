@@ -36,10 +36,11 @@ class RoleTypeSpec extends ObjectBehavior
     function it_sets_default_options(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'choices' => [
-                ParticipantInterface::ADMIN       => 'ROLE_ADMIN',
-                ParticipantInterface::PARTICIPANT => 'ROLE_PARTICIPANT'
-            ]
+            'choices'           => [
+                'ROLE_ADMIN'       => ParticipantInterface::ADMIN,
+                'ROLE_PARTICIPANT' => ParticipantInterface::PARTICIPANT
+            ],
+            'choices_as_values' => true
         ])->shouldBeCalled()->willReturn($resolver);
 
         $this->configureOptions($resolver);
