@@ -17,7 +17,6 @@ use Kreta\Component\Project\Model\Interfaces\LabelInterface;
 use Kreta\Component\Project\Model\Interfaces\IssuePriorityInterface;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
-use Kreta\Component\Workflow\Model\Interfaces\StatusInterface;
 
 /**
  * Interface IssueInterface.
@@ -255,11 +254,11 @@ interface IssueInterface extends StatefulInterface
     /**
      * Sets status.
      *
-     * @param \Kreta\Component\Workflow\Model\Interfaces\StatusInterface $status The status
+     * @param \Kreta\Component\Workflow\Model\Interfaces\StatusInterface|string $status The status
      *
      * @return $this self Object
      */
-    public function setStatus(StatusInterface $status);
+    public function setStatus($status);
 
     /**
      * Gets type.

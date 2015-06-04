@@ -68,6 +68,12 @@ Feature: Manage issue
       | 2  | #f1c40f | Resolved    | Workflow 1 |
       | 3  | #c0392b | Closed      | Workflow 1 |
       | 4  | #27ae60 | Reopened    | Workflow 1 |
+    And the following status transitions exist:
+      | id | name            | status      | initialStates      |
+      | 0  | Start progress  | Open        | In progress        |
+      | 1  | Reopen progress | In progress | Open,Resolved      |
+      | 2  | Finish progress | Resolved    | Open,In progress   |
+      | 3  | Begin progress  | Reopened    | In progress,Closed |
     And the following participants exist:
       | project        | user            | role             |
       | Test project 1 | user3@kreta.com | ROLE_PARTICIPANT |
@@ -3823,5 +3829,152 @@ Feature: Manage issue
             "href": "http://localhost/app_test.php/api/issues"
           }
         }
+      }
+    """
+
+  Scenario: Updating the 0 issue state
+    Given I am authenticating with "access-token-0" token
+    Given I set header "content-type" with value "application/json"
+    When I send a PATCH request to "/app_test.php/api/issues/0/transitions" with body:
+    """
+      {
+        "transition": "1"
+      }
+    """
+    Then the response code should be 200
+    And the response should contain json:
+    """
+      {
+        "id": "0",
+        "assignee": {
+          "id": "0",
+          "email": "user@kreta.com",
+          "first_name": "Kreta",
+          "last_name": "User"
+        },
+        "children": [],
+        "created_at": "2014-12-15T00:00:00+0100",
+        "description": "Description",
+        "labels": [
+          {
+            "id": "0",
+            "name": "backbone.js"
+          },
+          {
+            "id": "2",
+            "name": "javascript"
+          },
+          {
+            "id": "3",
+            "name": "bdd"
+          },
+          {
+            "id": "6",
+            "name": "symfony"
+          },
+          {
+            "id": "8",
+            "name": "css3"
+          }
+        ],
+        "numeric_id": 1,
+        "priority": {
+          "id": "1",
+          "name": "Medium"
+        },
+        "reporter": {
+          "id": "0",
+          "email": "user@kreta.com",
+          "first_name": "Kreta",
+          "last_name": "User"
+        },
+        "status": {
+          "type": "normal",
+          "name": "In progress",
+          "id": "1",
+          "color": "#2c3e50"
+        },
+        "title": "Test issue 1",
+        "type": {
+          "id": "2",
+          "name": "New feature"
+        },
+        "_links": {
+          "self": {
+            "href": "http://localhost/app_test.php/api/issues/0"
+          },
+          "project": {
+            "href": "http://localhost/app_test.php/api/projects/0"
+          },
+          "issues": {
+            "href": "http://localhost/app_test.php/api/issues"
+          }
+        }
+      }
+    """
+
+  Scenario: Updating the 0 issue state without transition
+    Given I am authenticating with "access-token-0" token
+    Given I set header "content-type" with value "application/json"
+    When I send a PATCH request to "/app_test.php/api/issues/0/transitions" with body:
+    """
+      {}
+    """
+    Then the response code should be 400
+    And the response should contain json:
+    """
+      {
+        "error": "The transition id should not be blank"
+      }
+    """
+
+  Scenario: Updating the 1 issue state with user which is not participant
+    Given I am authenticating with "access-token-2" token
+    Given I set header "content-type" with value "application/json"
+    When I send a PATCH request to "/app_test.php/api/issues/0/transitions" with body:
+    """
+      {
+        "transition": "1"
+      }
+    """
+    Then the response code should be 403
+    And the response should contain json:
+    """
+      {
+        "error": "Not allowed to access this resource"
+      }
+    """
+
+  Scenario: Updating the issue state of unknown id
+    Given I am authenticating with "access-token-2" token
+    Given I set header "content-type" with value "application/json"
+    When I send a PATCH request to "/app_test.php/api/issues/unknown-id/transitions" with body:
+    """
+      {
+        "transition": "1"
+      }
+    """
+    Then the response code should be 404
+    And the response should contain json:
+    """
+      {
+        "error": "Does not exist any object with id passed"
+      }
+    """
+
+  Scenario: Updating the 3 issue state to invalid transition
+    Given I am authenticating with "access-token-0" token
+    Given I set header "content-type" with value "application/json"
+    When I send a PATCH request to "/app_test.php/api/issues/3/transitions" with body:
+    """
+      {
+        "transition": "2"
+      }
+    """
+    Then the response code should be 404
+    And the response should contain json:
+    """
+      {
+        "error": "The requested transition cannot be applied"
       }
     """

@@ -415,9 +415,11 @@ class Issue extends AbstractModel implements IssueInterface
     /**
      * {@inheritdoc}
      */
-    public function setStatus(StatusInterface $status)
+    public function setStatus($status)
     {
-        $this->status = $status;
+        !$status instanceof StatusInterface
+            ? $this->setFiniteState($status)
+            : $this->status = $status;
 
         return $this;
     }

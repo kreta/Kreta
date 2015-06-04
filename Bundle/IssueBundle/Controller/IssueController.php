@@ -18,6 +18,8 @@ use Kreta\Component\Core\Annotation\ResourceIfAllowed as Issue;
 use Kreta\SimpleApiDocBundle\Annotation\ApiDoc;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 /**
  * Class IssueController.
@@ -121,5 +123,42 @@ class IssueController extends Controller
         return $this->get('kreta_issue.form_handler.issue')->processForm(
             $request, $request->get('issue'), ['method' => 'PUT', 'projects' => $projects]
         );
+    }
+
+    /**
+     * Updates the issues's transition with the transition id given, if it is allowed.
+     *
+     * @param \Symfony\Component\HttpFoundation\Request $request The request
+     * @param string                                    $issueId The issue id
+     *
+     * @ApiDoc(statusCodes={200, 400, 403}, parameters={
+     *  {"name"="transition", "dataType"="string", "required"=true, "description"="The transition id"}
+     * })
+     * @View(statusCode=200, serializerGroups={"issue"})
+     * @Issue("edit")
+     *
+     * @return \Kreta\Component\Issue\Model\Interfaces\IssueInterface
+     */
+    public function patchIssuesTransitionsAction(Request $request, $issueId)
+    {
+        if (!$transitionId = $request->request->get('transition')) {
+            throw new BadRequestHttpException('The transition id should not be blank');
+        }
+        $issue = $request->get('issue');
+        $workflow = $issue->getProject()->getWorkflow();
+
+        $statuses = $this->get('kreta_workflow.repository.status')->findBy(['workflow' => $workflow]);
+        $transitionRepository = $this->get('kreta_workflow.repository.status_transition');
+        $transitions = $transitionRepository->findBy(['workflow' => $workflow]);
+        $transition = $transitionRepository->find($transitionId);
+
+        $stateMachine = $this->get('kreta_issue.state_machine.issue')->load($issue, $statuses, $transitions);
+        if (!$stateMachine->can($transition)) {
+            throw new NotFoundHttpException('The requested transition cannot be applied');
+        }
+        $stateMachine->apply($transition->getName());
+        $this->getDoctrine()->getManager()->flush();
+
+        return $issue;
     }
 }
