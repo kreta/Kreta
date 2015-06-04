@@ -57,6 +57,14 @@ export class ProjectSettingsView extends Backbone.Marionette.ItemView {
     });
   }
 
+  serializeData() {
+    var data = this.model.toJSON();
+
+    data['userIsAdmin'] = this.model.getUserRole(App.currentUser) === 'ROLE_ADMIN';
+
+    return data;
+  }
+
   addUser() {
     var users = new UserCollection();
     users.fetch();
