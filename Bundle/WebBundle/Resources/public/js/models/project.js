@@ -23,4 +23,15 @@ export class Project extends Backbone.Model {
   toString () {
     return this.get('name');
   }
+
+  getUserRole(user) {
+    var role = null;
+    this.get('participants').forEach(function(participant) {
+      if(participant.user.id == user.id) {
+        role = participant.role;
+      }
+    });
+
+    return role;
+  }
 }

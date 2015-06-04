@@ -14,10 +14,12 @@
         <div class="section-header">
             <h3 class="section-header-title"><strong>People</strong> in this project</h3>
             <div class="section-header-actions">
-                <a id="project-settings-add-people"
-                   class="button" href="#">
-                    Add people
-                </a>
+                <% if(userIsAdmin) { %>
+                    <a id="project-settings-add-people"
+                       class="button" href="#">
+                        Add people
+                    </a>
+                <% } %>
             </div>
         </div>
         <div class="spacer-top-1">
