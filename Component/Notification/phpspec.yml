@@ -9,6 +9,8 @@ extensions:
     - PhpSpec\Extension\CodeCoverageExtension
 
 code_coverage:
+    blacklist:
+        - ./spec
     format:
         - html
         - clover

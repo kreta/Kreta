@@ -9,6 +9,9 @@ extensions:
     - PhpSpec\Extension\CodeCoverageExtension
 
 code_coverage:
+    blacklist:
+        - ./Behat
+        - ./spec
     format:
         - html
         - clover
