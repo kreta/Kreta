@@ -7,7 +7,9 @@
 
 services:
     kreta_user.repository.user:
-        factory_service: doctrine.orm.entity_manager
-        factory_method: getRepository
         class: %kreta_user.repository_user.class%
-        arguments: [%kreta_user.user.class%]
+        factory: 
+            - @doctrine.orm.entity_manager
+            - getRepository
+        arguments: 
+            - %kreta_user.user.class%

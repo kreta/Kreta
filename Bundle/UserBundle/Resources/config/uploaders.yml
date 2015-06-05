@@ -8,9 +8,12 @@
 services:
     kreta_user.uploader.image_user:
         class: %kreta_media.uploader_media.class%
-        arguments: [@kreta_user.uploader_filesystem.image_user]
+        arguments:
+            - @kreta_user.uploader_filesystem.image_user
     kreta_user.uploader_filesystem.image_user:
         class: Gaufrette\Filesystem
-        factory_service: knp_gaufrette.filesystem_map
-        factory_method: get
-        arguments: [%users.image.uploader.filesystem%]
+        factory: 
+            - @knp_gaufrette.filesystem_map
+            - get
+        arguments: 
+            - %users.image.uploader.filesystem%

@@ -7,7 +7,9 @@
 
 services:
     kreta_notification.repository.notification:
-        factory_service: doctrine.orm.entity_manager
-        factory_method: getRepository
         class: %kreta_notification.repository_notification.class%
-        arguments: [%kreta_notification.notification.class%]
+        factory: 
+            - @doctrine.orm.entity_manager
+            - getRepository
+        arguments: 
+            - %kreta_notification.notification.class%

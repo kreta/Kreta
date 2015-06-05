@@ -14,7 +14,7 @@ namespace Kreta\Bundle\CoreBundle\EventListener;
 use Doctrine\Common\Annotations\Reader;
 use Kreta\Component\Core\Repository\EntityRepository;
 use Symfony\Component\HttpKernel\Event\FilterControllerEvent;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
@@ -63,11 +63,11 @@ class ResourceIfAllowedAnnotationListener
     /**
      * Constructor.
      *
-     * @param Reader                $reader     The annotation reader
-     * @param TokenStorageInterface $context    The security context
-     * @param EntityRepository      $repository The entity repository
+     * @param Reader                        $reader     The annotation reader
+     * @param AuthorizationCheckerInterface $context    The authorization checker
+     * @param EntityRepository              $repository The entity repository
      */
-    public function __construct(Reader $reader, TokenStorageInterface $context, EntityRepository $repository)
+    public function __construct(Reader $reader, AuthorizationCheckerInterface $context, EntityRepository $repository)
     {
         $this->annotationReader = $reader;
         $this->context = $context;

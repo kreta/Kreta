@@ -16,7 +16,7 @@ services:
         abstract: true
         arguments:
             - @annotations.reader
-            - @security.token_storage
+            - @security.authorization_checker
 
     kreta_core.event_listener.role_annotation:
         class: %kreta_core.event_listener.role_annotation.class%

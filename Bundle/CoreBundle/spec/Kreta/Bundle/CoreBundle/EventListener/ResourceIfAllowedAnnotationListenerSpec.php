@@ -15,7 +15,7 @@ use Doctrine\Common\Annotations\Reader;
 use Kreta\Component\Core\Repository\EntityRepository;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
  * Class ResourceIfAllowedAnnotationListenerSpec.
@@ -24,7 +24,7 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
  */
 class ResourceIfAllowedAnnotationListenerSpec extends ObjectBehavior
 {
-    function let(Reader $reader, TokenStorageInterface $context, EntityRepository $repository)
+    function let(Reader $reader, AuthorizationCheckerInterface $context, EntityRepository $repository)
     {
         $repository->getClassName()->shouldBeCalled()->willReturn(Argument::type('string'));
         $this->beConstructedWith($reader, $context, $repository);

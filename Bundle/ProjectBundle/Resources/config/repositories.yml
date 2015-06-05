@@ -7,27 +7,39 @@
 
 services:
     kreta_project.repository.issue_type:
-        factory_service: doctrine.orm.entity_manager
-        factory_method: getRepository
         class: %kreta_project.repository_issue_type.class%
-        arguments: [%kreta_project.issue_type.class%]
+        factory: 
+            - @doctrine.orm.entity_manager
+            - getRepository
+        arguments: 
+            - %kreta_project.issue_type.class%
     kreta_project.repository.label:
-        factory_service: doctrine.orm.entity_manager
-        factory_method: getRepository
         class: %kreta_project.repository_label.class%
-        arguments: [%kreta_project.label.class%]
+        factory: 
+            - @doctrine.orm.entity_manager
+            - getRepository
+        arguments: 
+            - %kreta_project.label.class%
     kreta_project.repository.participant:
-        factory_service: doctrine.orm.entity_manager
-        factory_method: getRepository
         class: %kreta_project.repository_participant.class%
-        arguments: [%kreta_project.participant.class%]
+        factory: 
+            - @doctrine.orm.entity_manager
+            - getRepository
+        arguments: 
+            - %kreta_project.participant.class%
+
     kreta_project.repository.issue_priority:
-        factory_service: doctrine.orm.entity_manager
-        factory_method: getRepository
         class: %kreta_project.repository_issue_priority.class%
-        arguments: [%kreta_project.issue_priority.class%]
+        factory: 
+            - @doctrine.orm.entity_manager
+            - getRepository
+        arguments: 
+            - %kreta_project.issue_priority.class%
+
     kreta_project.repository.project:
-        factory_service: doctrine.orm.entity_manager
-        factory_method: getRepository
         class: %kreta_project.repository_project.class%
-        arguments: [%kreta_project.project.class%]
+        factory: 
+            - @doctrine.orm.entity_manager
+            - getRepository
+        arguments: 
+            - %kreta_project.project.class%
