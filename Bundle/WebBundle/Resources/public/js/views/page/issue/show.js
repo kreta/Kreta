@@ -10,7 +10,7 @@
 export class IssueShowView extends Backbone.Marionette.ItemView {
   constructor(options) {
     this.className = 'full-issue-aside spacer-2';
-    this.template = '#issue-aside-template';
+    this.template = '#issue-show-template';
 
     this.ui = {
       'tabContent': '.full-issue-tab-content'
@@ -26,6 +26,12 @@ export class IssueShowView extends Backbone.Marionette.ItemView {
     this.model.on('sync', this.render, this);
 
     App.vent.trigger('issue:highlight', this.model.id);
+  }
+
+  serializeData() {
+    var data = this.model.toJSON();
+    data['canEdit'] = this.model.canEdit(App.currentUser);
+    return data;
   }
 
   tabClicked(ev) {

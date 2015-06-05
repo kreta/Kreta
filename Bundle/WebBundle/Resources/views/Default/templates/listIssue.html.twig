@@ -6,12 +6,12 @@
         <span class="list-issue-icon" data-tooltip-text="<%= status.name %>">
             <i class="fa fa-check" style="color: <%= status.color %>"></i>
         </span>
-        <span class="list-issue-icon" data-tooltip-text="<%= priority.name %>">
+        {#<span class="list-issue-icon" data-tooltip-text="<%= priority.name %>">
             <i class="fa fa-exclamation" style="color: #8e44ad"></i>
         </span>
         <span class="list-issue-icon" data-tooltip-text="<%= type.name %>">
             <i class="fa fa-coffee" style="color: #e67e22"></i>
-        </span>
+        </span>#}
         {#<span class="list-issue-status" style="background: <%= status.color %>"></span>#}
         <span data-tooltip-text="<%= assignee.first_name %> <%= assignee.last_name %>">
             <img class="user-image" src="<%= assignee.photo.name %>">

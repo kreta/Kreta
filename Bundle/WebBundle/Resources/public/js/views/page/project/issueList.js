@@ -26,6 +26,8 @@ export class IssueListView extends Backbone.Marionette.CompositeView {
     };
 
     this.loadFilters();
+
+    this.model.on('sync', $.proxy(this.render, this));
   }
 
   onRender() {
@@ -74,7 +76,7 @@ export class IssueListView extends Backbone.Marionette.CompositeView {
 
     filters.forEach((filter) => {
       filter.forEach((item) => {
-        if(item.selected) {
+        if (item.selected) {
           data[item.filter] = item.value;
         }
       });
