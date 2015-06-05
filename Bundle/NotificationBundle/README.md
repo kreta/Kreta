@@ -3,7 +3,7 @@
 
 [![Build Status](https://travis-ci.org/kreta-io/NotificationBundle.svg?branch=master)](https://travis-ci.org/kreta-io/NotificationBundle)
 [![Coverage Status](https://img.shields.io/coveralls/kreta-io/NotificationBundle.svg)](https://coveralls.io/r/kreta-io/NotificationBundle)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/kreta-io/NotificationBundle/badges/quality-sNotificationBundle.png?b=master)](https://scrutinizer-ci.com/g/kreta-io/NotificationBundle/?branch=master)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/kreta-io/NotificationBundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/kreta-io/NotificationBundle/?branch=master)
 [![HHVM Status](http://hhvm.h4cc.de/badge/kreta/notification-bundle.svg)](http://hhvm.h4cc.de/package/kreta/notification-bundle)
 [![Total Downloads](https://poser.pugx.org/kreta/notification-bundle/downloads)](https://packagist.org/packages/kreta/notification-bundle)
 
