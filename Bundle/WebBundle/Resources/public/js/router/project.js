@@ -13,9 +13,9 @@ export class ProjectRouter extends Backbone.Marionette.AppRouter {
   initialize() {
     this.controller = new ProjectController();
     this.appRoutes = {
+      'project/new': 'newAction',
       'project/:id': 'showAction',
       'project/:id/settings': 'settingsAction',
-      'project/new': 'newAction',
       'projects': 'listAction'
     };
   }
