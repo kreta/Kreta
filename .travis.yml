@@ -17,10 +17,6 @@ php:
 env:
     - COMPOSER_OPTIONS="--prefer-source"
 
-before_install:
-    - sudo apt-get update
-    - sudo apt-get -qq install ruby-sass
-
 install:
     - composer update --no-interaction ${COMPOSER_OPTIONS}
 

@@ -30,23 +30,20 @@
         "sensio/framework-extra-bundle":            "~3.0,>=3.0.2",
         "incenteev/composer-parameter-handler":     "~2.0",
 
-        "friendsofsymfony/oauth-server-bundle":     "~1.4",
-        "friendsofsymfony/rest-bundle":             "1.4.x",
+        "friendsofsymfony/oauth-server-bundle":     "~1.4,>=1.4.3",
+        "friendsofsymfony/rest-bundle":             "1.6.x",
         "friendsofsymfony/user-bundle":             "~2.0",
-        "knplabs/knp-gaufrette-bundle":             "*@dev",
+        "knplabs/knp-gaufrette-bundle":             "~0.1.7",
         "nelmio/cors-bundle":                       "1.3.x",
         "jms/serializer-bundle":                    "0.13.x",
-        "yohang/finite":                            "~1.0",
-        "willdurand/hateoas-bundle":                "0.3.x",
-        "liip/imagine-bundle":                      "~1.1",
-
-        "doctrine/migrations":                      "1.0.*@dev",
-        "doctrine/doctrine-migrations-bundle":      "2.1.*@dev",
+        "yohang/finite":                            "~1.0,>=1.0.4",
+        "willdurand/hateoas-bundle":                "0.5.x",
+        "liip/imagine-bundle":                      "~1.3",
 
         "kreta/simple-api-doc-bundle":              "~0.2"
     },
     "require-dev": {
-        "phpspec/phpspec":                          "~2.1",
+        "phpspec/phpspec":                          "~2.2",
         "henrikbjorn/phpspec-code-coverage":        "~1.0",
         "satooshi/php-coveralls":                   "0.6.1",
 
@@ -61,6 +58,10 @@
         {
             "type": "vcs",
             "url": "https://github.com/kreta-io/Finite"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/kreta-io/FOSOAuthServerBundle"
         }
     ],
     "replace": {
