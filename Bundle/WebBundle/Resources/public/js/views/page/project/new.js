@@ -8,6 +8,8 @@
  */
 
 import {Project} from '../../../models/project';
+import {FormSerializerService} from '../../../service/form-serializer';
+import {NotificationService} from '../../../service/notification';
 
 export class ProjectNewView extends Backbone.View {
   constructor () {
@@ -30,16 +32,26 @@ export class ProjectNewView extends Backbone.View {
 
   save (ev) {
     ev.preventDefault();
-    var formData = {};
-    $.each($('#project-new').serializeArray(), function (field) {
-      formData[this.name] = this.value;
-    });
 
-    var project = new Project(formData);
+    var $actions = $('.issue-new-actions').hide();
 
-    project.save(null, {
+    this.model = FormSerializerService.serialize(
+      $('#project-new'), Project
+    );
+
+    this.model.save(null, {
       success: (model) => {
         App.router.base.navigate('/project/' + model.id, true);
+        NotificationService.showNotification({
+          type: 'success',
+          message: 'Issue created successfully'
+        });
+      }, error: function() {
+        NotificationService.showNotification({
+          type: 'error',
+          message: 'Error while saving this issue'
+        });
+        $actions.show();
       }
     });
   }

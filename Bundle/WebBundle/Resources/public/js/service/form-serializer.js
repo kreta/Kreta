@@ -14,6 +14,8 @@ export class FormSerializerService {
       formData[this.name] = this.value;
     });
 
+    //Remove defaults to avoid issues with the API
+    model = model.extend({defaults: {}});
     return new model(formData);
   }
 }
