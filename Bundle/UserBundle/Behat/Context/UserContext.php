@@ -54,6 +54,9 @@ class UserContext extends DefaultContext
             if (isset($userData['id'])) {
                 $this->setId($user, $userData['id']);
             }
+            if (isset($userData['confirmationToken'])) {
+                $user->setConfirmationToken($userData['confirmationToken']);
+            }
 
             // Removes default photo that generates problems with auto-generate id
             $this->setField($user, 'photo', null);  

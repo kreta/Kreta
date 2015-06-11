@@ -28,11 +28,10 @@ class RoleType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'choices'           => [
-                'ROLE_ADMIN'       => ParticipantInterface::ADMIN,
-                'ROLE_PARTICIPANT' => ParticipantInterface::PARTICIPANT
-            ],
-            'choices_as_values' => true
+            'choices' => [
+                ParticipantInterface::ADMIN       => 'ROLE_ADMIN',
+                ParticipantInterface::PARTICIPANT => 'ROLE_PARTICIPANT'
+            ]
         ]);
     }
 

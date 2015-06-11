@@ -37,8 +37,8 @@ class OauthContext extends WebApiContext
     {
         $manager = $this->getContainer()->get('doctrine')->getManager();
 
-        $client = $this->getContainer()->get('kreta_core.command.create_client')
-            ->generateClient(['http://kreta.io'], ['password']);
+        $clientId = isset($token['clientId']) ? $token['clientId'] : null;
+        $client = $this->loadClient($clientId);
 
         $accessTokenManager = $this->getContainer()->get('fos_oauth_server.access_token_manager.default');
         foreach ($tokens as $token) {
@@ -75,18 +75,28 @@ class OauthContext extends WebApiContext
     /**
      * Loads OAuth2 client with hardcoded randomId and secret.
      *
-     * @return void
+     * @param string|null $id The client id
+     *
+     * @return \Kreta\Bundle\CoreBundle\Model\Interfaces\ClientInterface
      *
      * @Given /^the OAuth client is loaded$/
      */
-    public function loadClient()
+    public function loadClient($id = null)
     {
         $clientManager = $this->getContainer()->get('fos_oauth_server.client_manager.default');
         $client = $clientManager->createClient();
         $client->setRandomId('random-id');
+        $client->setRedirectUris(['http://kreta.io']);
         $client->setSecret('client-secret');
         $client->setAllowedGrantTypes(['password']);
 
+        if (null !== $id) {
+            $metadata = $this->getManager()->getClassMetaData(get_class($client));
+            $metadata->setIdGenerator(new \Doctrine\ORM\Id\AssignedGenerator());
+            $metadata->setIdentifierValues($client, ['id' => $id]);
+        }
         $clientManager->updateClient($client);
+
+        return $client;
     }
 }

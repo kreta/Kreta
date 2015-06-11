@@ -13,7 +13,7 @@ Kreta\Component\User\Model\User:
             - NotBlank: { groups: [profile] }
     getters:
         enabled:
-            - 'False':
+            - 'IsFalse':
                 message: 'This user is already an enabled kreta user'
                 groups: [invitation]
 
