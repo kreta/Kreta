@@ -44,12 +44,12 @@ export class ProjectNewView extends Backbone.View {
         App.router.base.navigate('/project/' + model.id, true);
         NotificationService.showNotification({
           type: 'success',
-          message: 'Issue created successfully'
+          message: 'Project created successfully'
         });
       }, error: function() {
         NotificationService.showNotification({
           type: 'error',
-          message: 'Error while saving this issue'
+          message: 'Error while saving this project'
         });
         $actions.show();
       }
