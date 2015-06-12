@@ -37,11 +37,14 @@ class UserContext extends DefaultContext
             if (isset($userData['enabled'])) {
                 $enabled = filter_var($userData['enabled'], FILTER_VALIDATE_BOOLEAN);
             }
-            $user = $this->get('kreta_user.factory.user')->create($userData['email'], $enabled);
-            $user
-                ->setFirstname($userData['firstName'])
-                ->setLastname($userData['lastName'])
-                ->setPlainPassword($userData['password']);
+            $user = $this->get('kreta_user.factory.user')->create(
+                $userData['email'],
+                $userData['username'],
+                $userData['firstName'],
+                $userData['lastName'],
+                $enabled
+            );
+            $user->setPlainPassword($userData['password']);
 
             if (isset($userData['roles'])) {
                 $roles = explode(',', $userData['roles']);

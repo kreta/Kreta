@@ -40,7 +40,7 @@ class UserFactorySpec extends ObjectBehavior
             ->shouldBeCalled()->willReturn($photo);
         $uploader->upload($photo)->shouldBeCalled();
 
-        $this->create('kreta@kreta.com', false)
+        $this->create('kreta@kreta.com', 'user', 'First Name', 'Last Name', false)
             ->shouldReturnAnInstanceOf('Kreta\Component\User\Model\Interfaces\UserInterface');
     }
 }

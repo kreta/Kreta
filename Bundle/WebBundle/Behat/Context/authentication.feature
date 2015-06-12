@@ -5,7 +5,7 @@
 # @author benatespina <benatespina@gmail.com>
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
-@authentication 
+@authentication
 Feature: Manage authentication
   In order to manage authentication
   As a logged user
@@ -13,8 +13,8 @@ Feature: Manage authentication
 
   Background:
     Given the following users exist:
-      | firstName | lastName | email          | password |
-      | Kreta     | User     | user@kreta.com | 123456   |
+      | username | firstName | lastName | email          | password |
+      | user     | Kreta     | User     | user@kreta.com | 123456   |
     And the OAuth client is loaded
 
   Scenario: Login successfully

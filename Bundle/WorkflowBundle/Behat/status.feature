@@ -13,10 +13,10 @@ Feature: Manage status
 
   Background:
     Given the following users exist:
-      | id | firstName | lastName | email           | password | createdAt  |
-      | 0  | Kreta     | User     | user@kreta.com  | 123456   | 2014-10-20 |
-      | 1  | Kreta     | User2    | user2@kreta.com | 123456   | 2014-10-20 |
-      | 2  | Kreta     | User3    | user3@kreta.com | 123456   | 2014-10-20 |
+      | id | firstName | lastName | username | email           | password | createdAt  |
+      | 0  | Kreta     | User     | user     | user@kreta.com  | 123456   | 2014-10-20 |
+      | 1  | Kreta     | User2    | user2    | user2@kreta.com | 123456   | 2014-10-20 |
+      | 2  | Kreta     | User3    | user3    | user3@kreta.com | 123456   | 2014-10-20 |
     And the following workflows exist:
       | id | name       | creator        |
       | 0  | Workflow 1 | user@kreta.com |

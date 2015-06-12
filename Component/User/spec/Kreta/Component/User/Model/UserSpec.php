@@ -98,18 +98,4 @@ class UserSpec extends ObjectBehavior
         $this->setPhoto($media)->shouldReturn($this);
         $this->getPhoto()->shouldReturn($media);
     }
-
-    function its_email_has_the_same_value_than_username()
-    {
-        $this->getUsername()->shouldReturn(null);
-        $this->setEmail('dummy@email.com')->shouldReturn($this);
-        $this->getUsername()->shouldReturn('dummy@email.com');
-    }
-
-    function its_email_canonical_has_the_same_value_than_username_canonical()
-    {
-        $this->getUsernameCanonical()->shouldReturn(null);
-        $this->setEmailCanonical('dummy@email-canonical.com')->shouldReturn($this);
-        $this->getUsernameCanonical()->shouldReturn('dummy@email-canonical.com');
-    }
 }

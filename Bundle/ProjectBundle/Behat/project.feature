@@ -13,10 +13,10 @@ Feature: Manage projects
 
   Background:
     Given the following users exist:
-      | id | firstName | lastName | email           | password | createdAt  |
-      | 0  | Kreta     | User     | user@kreta.com  | 123456   | 2014-10-20 |
-      | 1  | Kreta     | User2    | user2@kreta.com | 123456   | 2014-10-20 |
-      | 2  | Kreta     | User3    | user3@kreta.com | 123456   | 2014-10-20 |
+      | id | firstName | lastName | username | email           | password | createdAt  |
+      | 0  | Kreta     | User     | user     | user@kreta.com  | 123456   | 2014-10-20 |
+      | 1  | Kreta     | User2    | user2    | user2@kreta.com | 123456   | 2014-10-20 |
+      | 2  | Kreta     | User3    | user3    | user3@kreta.com | 123456   | 2014-10-20 |
     And the following workflows exist:
       | id | name       | creator        |
       | 0  | Workflow 1 | user@kreta.com |
@@ -57,19 +57,24 @@ Feature: Manage projects
           "name": "Test project 1",
           "participants": [
             {
+              "project": null,
               "role": "ROLE_ADMIN",
               "user": {
                 "id": "0",
+                "username": "user",
                 "email": "user@kreta.com",
                 "created_at": "2014-10-20T00:00:00+0200",
                 "first_name": "Kreta",
-                "last_name": "User"
+                "last_name": "User",
+                "photo": null
               }
             },
             {
+              "project": null,
               "role": "ROLE_PARTICIPANT",
               "user": {
                 "id": "2",
+                "username": "user3",
                 "email": "user3@kreta.com",
                 "created_at": "2014-10-20T00:00:00+0200",
                 "first_name": "Kreta",
@@ -115,19 +120,24 @@ Feature: Manage projects
           "name": "Test project 2",
           "participants": [
             {
+              "project": null,
               "role": "ROLE_ADMIN",
               "user": {
                 "id": "0",
+                "username": "user",
                 "email": "user@kreta.com",
                 "created_at": "2014-10-20T00:00:00+0200",
                 "first_name": "Kreta",
-                "last_name": "User"
+                "last_name": "User",
+                "photo": null
               }
             },
             {
+              "project": null,
               "role": "ROLE_PARTICIPANT",
               "user": {
                 "id": "1",
+                "username": "user2",
                 "email": "user2@kreta.com",
                 "created_at": "2014-10-20T00:00:00+0200",
                 "first_name": "Kreta",
@@ -178,24 +188,30 @@ Feature: Manage projects
         "image": {
           "id": "0",
           "created_at": "2014-10-30T00:00:00+0100",
-          "name": "http://localhost/app_test.php/media/image/project-1.jpg"
+          "name": "http://localhost/app_test.php/media/image/project-1.jpg",
+          "updated_at": null
         },
         "name": "Test project 1",
         "participants": [
           {
+            "project": null,
             "role": "ROLE_ADMIN",
             "user": {
               "id": "0",
+              "username": "user",
               "email": "user@kreta.com",
               "created_at": "2014-10-20T00:00:00+0200",
               "first_name": "Kreta",
-              "last_name": "User"
+              "last_name": "User",
+              "photo": null
             }
           },
           {
+            "project": null,
             "role": "ROLE_PARTICIPANT",
             "user": {
               "id": "2",
+              "username": "user3",
               "email": "user3@kreta.com",
               "created_at": "2014-10-20T00:00:00+0200",
               "first_name": "Kreta",
@@ -203,7 +219,8 @@ Feature: Manage projects
               "photo": {
                 "id": "3",
                 "created_at": "2014-10-30T00:00:00+0100",
-                "name": "http://localhost/app_test.php/media/image/user-3.jpg"
+                "name": "http://localhost/app_test.php/media/image/user-3.jpg",
+                "updated_at": null
               }
             }
           }
@@ -365,24 +382,30 @@ Feature: Manage projects
         "image": {
           "id": "0",
           "created_at": "2014-10-30T00:00:00+0100",
-          "name": "http://localhost/app_test.php/media/image/project-1.jpg"
+          "name": "http://localhost/app_test.php/media/image/project-1.jpg",
+          "updated_at": null
         },
         "name": "New project",
         "participants": [
           {
+            "project": null,
             "role": "ROLE_ADMIN",
             "user": {
               "id": "0",
+              "username": "user",
               "email": "user@kreta.com",
               "created_at": "2014-10-20T00:00:00+0200",
               "first_name": "Kreta",
-              "last_name": "User"
+              "last_name": "User",
+              "photo": null
             }
           },
           {
+            "project": null,
             "role": "ROLE_PARTICIPANT",
             "user": {
               "id": "2",
+              "username": "user3",
               "email": "user3@kreta.com",
               "created_at": "2014-10-20T00:00:00+0200",
               "first_name": "Kreta",
@@ -390,7 +413,8 @@ Feature: Manage projects
               "photo": {
                 "id": "3",
                 "created_at": "2014-10-30T00:00:00+0100",
-                "name": "http://localhost/app_test.php/media/image/user-3.jpg"
+                "name": "http://localhost/app_test.php/media/image/user-3.jpg",
+                "updated_at": null
               }
             }
           }

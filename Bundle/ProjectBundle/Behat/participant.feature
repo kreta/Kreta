@@ -13,11 +13,11 @@ Feature: Manage participant
 
   Background:
     Given the following users exist:
-      | id | firstName | lastName | email           | password | createdAt  |
-      | 0  | Kreta     | User     | user@kreta.com  | 123456   | 2014-10-20 |
-      | 1  | Kreta     | User2    | user2@kreta.com | 123456   | 2014-10-20 |
-      | 2  | Kreta     | User3    | user3@kreta.com | 123456   | 2014-10-20 |
-      | 3  | Kreta     | User4    | user4@kreta.com | 123456   | 2014-10-20 |
+      | id | firstName | lastName | username|email           | password | createdAt  |
+      | 0  | Kreta     | User     | user    |user@kreta.com  | 123456   | 2014-10-20 |
+      | 1  | Kreta     | User2    | user2   |user2@kreta.com | 123456   | 2014-10-20 |
+      | 2  | Kreta     | User3    | user3   |user3@kreta.com | 123456   | 2014-10-20 |
+      | 3  | Kreta     | User4    | user4   |user4@kreta.com | 123456   | 2014-10-20 |
     And the following projects exist:
       | id | name           | shortName | creator        |
       | 0  | Test project 1 | TPR1      | user@kreta.com |
@@ -56,9 +56,11 @@ Feature: Manage participant
           "role": "ROLE_ADMIN",
           "user": {
             "id": "0",
+            "username": "user",
             "email": "user@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User"
+            "last_name": "User",
+            "photo": null
           },
           "_links": {
             "participants": {
@@ -84,6 +86,7 @@ Feature: Manage participant
           "role": "ROLE_PARTICIPANT",
           "user": {
             "id": "1",
+            "username": "user2",
             "email": "user2@kreta.com",
             "first_name": "Kreta",
             "last_name": "User2",
@@ -148,9 +151,11 @@ Feature: Manage participant
           "role": "ROLE_ADMIN",
           "user": {
             "id": "0",
+            "username": "user",
             "email": "user@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User"
+            "last_name": "User",
+            "photo": null
           },
           "_links": {
             "participants": {
@@ -186,9 +191,11 @@ Feature: Manage participant
           "role": "ROLE_ADMIN",
           "user": {
             "id": "0",
+            "username": "user",
             "email": "user@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User"
+            "last_name": "User",
+            "photo": null
           },
           "_links": {
             "participants": {
@@ -214,6 +221,7 @@ Feature: Manage participant
           "role": "ROLE_PARTICIPANT",
           "user": {
             "id": "1",
+            "username": "user2",
             "email": "user2@kreta.com",
             "first_name": "Kreta",
             "last_name": "User2",
@@ -256,9 +264,11 @@ Feature: Manage participant
           "role": "ROLE_PARTICIPANT",
           "user": {
             "id": "3",
+            "username": "user4",
             "email": "user4@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User4"
+            "last_name": "User4",
+            "photo": null
           },
           "_links": {
             "participants": {
@@ -318,6 +328,7 @@ Feature: Manage participant
         "role": "ROLE_ADMIN",
         "user": {
           "id": "2",
+          "username": "user3",
           "email": "user3@kreta.com",
           "first_name": "Kreta",
           "last_name": "User3",

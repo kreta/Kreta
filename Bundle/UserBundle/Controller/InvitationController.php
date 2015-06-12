@@ -34,7 +34,10 @@ class InvitationController extends Controller
      *
      * @ApiDoc(statusCodes={201, 400}, parameters={
      *  {"name"="force", "dataType"="bool", "required"=false, "description"="Forces to send another invitation email"},
-     *  {"name"="email", "dataType"="string", "required"=true, "description"="The invitation email"}
+     *  {"name"="email", "dataType"="string", "required"=true, "description"="The invitation email"},
+     *  {"name"="username", "dataType"="string", "required"=true, "description"="The invitation username"},
+     *  {"name"="firstName", "dataType"="string", "required"=true, "description"="The invitation name"},
+     *  {"name"="lastName", "dataType"="string", "required"=true, "description"="The invitation surname"},
      * })
      * @Http\Post("/users")
      * @View(statusCode=201, serializerGroups={"user"})

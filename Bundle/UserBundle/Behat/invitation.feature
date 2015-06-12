@@ -13,11 +13,11 @@ Feature: Manage user invitations
 
   Background:
     Given the following users exist:
-      | id | firstName | lastName | email           | password | createdAt  | roles                      | enabled | confirmationToken |
-      | 0  | Kreta     | User     | user@kreta.com  | 123456   | 2014-10-20 | ROLE_ADMIN, ROLE_MARKETING | true    |                   |
-      | 1  | Kreta     | User2    | user2@kreta.com | 123456   | 2014-10-20 | ROLE_ADMIN                 | true    |                   |
-      | 2  | Kreta     | User3    | user3@kreta.com | 123456   | 2014-10-20 |                            | true    |                   |
-      | 3  | Kreta     | User4    | user4@kreta.com | 123456   | 2014-10-20 |                            | false   | dummy-token       |
+      | id | firstName | lastName | username | email           | password | createdAt  | roles                      | enabled | confirmationToken |
+      | 0  | Kreta     | User     | user     | user@kreta.com  | 123456   | 2014-10-20 | ROLE_ADMIN, ROLE_MARKETING | true    |                   |
+      | 1  | Kreta     | User2    | user2    | user2@kreta.com | 123456   | 2014-10-20 | ROLE_ADMIN                 | true    |                   |
+      | 2  | Kreta     | User3    | user3    | user3@kreta.com | 123456   | 2014-10-20 |                            | true    |                   |
+      | 3  | Kreta     | User4    | user4    | user4@kreta.com | 123456   | 2014-10-20 |                            | false   | dummy-token       |
     And the following tokens exist:
       | token          | expiresAt | scope | user            | clientId  |
       | access-token-0 | null      | user  | user@kreta.com  | client-id |
@@ -31,10 +31,12 @@ Feature: Manage user invitations
     When I send a POST request to "/app_test.php/api/users" with body:
     """
       {
-        "email": "newemail@kreta.com"
+        "username": "newuser",
+        "email": "newemail@kreta.com",
+        "firstName": "Kreta",
+        "lastName": "NewUser"
       }
     """
-    And print response
     Then the response code should be 201
 
   Scenario: Creating a user invitation of existing email
@@ -43,7 +45,10 @@ Feature: Manage user invitations
     When I send a POST request to "/app_test.php/api/users" with body:
     """
       {
-        "email": "user4@kreta.com"
+        "username": "user4",
+        "email": "user4@kreta.com",
+        "firstName": "Kreta",
+        "lastName": "User4"
       }
     """
     Then the response code should be 400
@@ -62,7 +67,10 @@ Feature: Manage user invitations
     When I send a POST request to "/app_test.php/api/users" with body:
     """
       {
-        "email": "user2@kreta.com"
+        "username": "user2",
+        "email": "user2@kreta.com",
+        "firstName": "Kreta",
+        "lastName": "User2"
       }
     """
     Then the response code should be 400
@@ -79,7 +87,10 @@ Feature: Manage user invitations
     When I send a POST request to "/app_test.php/api/users" with body:
     """
       {
+        "username": "user4",
         "email": "user4@kreta.com",
+        "firstName": "Kreta",
+        "lastName": "User4",
         "force": true
       }
     """

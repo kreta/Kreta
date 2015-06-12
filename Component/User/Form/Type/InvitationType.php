@@ -28,6 +28,9 @@ class InvitationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder->add('email');
+        $builder->add('username');
+        $builder->add('firstName');
+        $builder->add('lastName');
     }
 
     /**
@@ -43,6 +46,11 @@ class InvitationType extends AbstractType
      */
     protected function createEmptyData(FormInterface $form)
     {
-        return $this->factory->create($form->get('email')->getData());
+        return $this->factory->create(
+            $form->get('email')->getData(),
+            $form->get('username')->getData(),
+            $form->get('firstName')->getData(),
+            $form->get('lastName')->getData()
+        );
     }
 }

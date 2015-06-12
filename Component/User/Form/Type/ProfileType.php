@@ -29,6 +29,7 @@ class ProfileType extends AbstractType
     {
         parent::buildForm($builder, $options);
         $builder
+            ->add('username')
             ->add('firstName')
             ->add('lastName')
             ->add('photo', 'file', ['required' => false, 'mapped' => false]);

@@ -41,6 +41,9 @@ class InvitationTypeSpec extends ObjectBehavior
     function it_builds_a_form(FormBuilder $builder)
     {
         $builder->add('email')->shouldBeCalled()->willReturn($builder);
+        $builder->add('username')->shouldBeCalled()->willReturn($builder);
+        $builder->add('firstName')->shouldBeCalled()->willReturn($builder);
+        $builder->add('lastName')->shouldBeCalled()->willReturn($builder);
 
         $this->buildForm($builder, []);
     }

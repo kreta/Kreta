@@ -13,11 +13,11 @@ Feature: Manage user profile
 
   Background:
     Given the following users exist:
-      | id | firstName | lastName | email           | password | createdAt  |
-      | 0  | Kreta     | User     | user@kreta.com  | 123456   | 2014-10-20 |
-      | 1  | Kreta     | User2    | user2@kreta.com | 123456   | 2014-10-20 |
-      | 2  | Kreta     | User3    | user3@kreta.com | 123456   | 2014-10-20 |
-      | 3  | Kreta     | User4    | user4@kreta.com | 123456   | 2014-10-20 |
+      | id | firstName | lastName | username | email           | password | createdAt  |
+      | 0  | Kreta     | User     | user     | user@kreta.com  | 123456   | 2014-10-20 |
+      | 1  | Kreta     | User2    | user2    | user2@kreta.com | 123456   | 2014-10-20 |
+      | 2  | Kreta     | User3    | user3    | user3@kreta.com | 123456   | 2014-10-20 |
+      | 3  | Kreta     | User4    | user4    | user4@kreta.com | 123456   | 2014-10-20 |
     And the following medias exist:
       | id | name       | createdAt  | updatedAt | resource        |
       | 1  | user-1.jpg | 2014-10-30 | null      | user@kreta.com  |
@@ -38,15 +38,18 @@ Feature: Manage user profile
     """
       {
         "id": "0",
+        "username": "user",
         "email": "user@kreta.com",
         "enabled": true,
+        "last_login": null,
         "created_at": "2014-10-20T00:00:00+0200",
         "first_name": "Kreta",
         "last_name": "User",
         "photo": {
           "id": "1",
           "created_at": "2014-10-30T00:00:00+0100",
-          "name": "http://localhost/app_test.php/media/image/user-1.jpg"
+          "name": "http://localhost/app_test.php/media/image/user-1.jpg",
+          "updated_at": null
         },
         "_links": {
           "self": {
@@ -65,6 +68,7 @@ Feature: Manage user profile
     When I send a POST request to "/app_test.php/api/profile" with body:
     """
       {
+        "username": "user",
         "firstName": "Updated name",
         "lastName": "Updated last name"
       }
@@ -74,15 +78,18 @@ Feature: Manage user profile
     """
       {
         "id": "0",
+        "username": "user",
         "email": "user@kreta.com",
         "enabled": true,
+        "last_login": null,
         "created_at": "2014-10-20T00:00:00+0200",
         "first_name": "Updated name",
         "last_name": "Updated last name",
         "photo": {
           "id": "1",
           "created_at": "2014-10-30T00:00:00+0100",
-          "name": "http://localhost/app_test.php/media/image/user-1.jpg"
+          "name": "http://localhost/app_test.php/media/image/user-1.jpg",
+          "updated_at": null
         },
         "_links": {
           "self": {
@@ -107,6 +114,7 @@ Feature: Manage user profile
     And the response should contain json:
     """
       {
+        "username": [],
         "firstName": [],
         "lastName": [],
         "photo": []
@@ -119,6 +127,7 @@ Feature: Manage user profile
     When I send a POST request to "/app_test.php/api/profile" with body:
     """
       {
+        "username": "user",
         "first_name": "Updated name"
       }
     """
@@ -138,6 +147,7 @@ Feature: Manage user profile
     When I send a POST request to "/app_test.php/api/profile" with body:
     """
       {
+        "username": "user",
         "last_name": "Updated last name"
       }
     """
@@ -146,6 +156,26 @@ Feature: Manage user profile
     """
       {
         "firstName": [
+          "This value should not be blank."
+        ]
+      }
+    """
+
+  Scenario: Updating the profile without required username
+    Given I am authenticating with "access-token-0" token
+    Given I set header "content-type" with value "application/json"
+    When I send a POST request to "/app_test.php/api/profile" with body:
+    """
+      {
+        "first_name": "Updated first name",
+        "last_name": "Updated last name"
+      }
+    """
+    Then the response code should be 400
+    And the response should contain json:
+    """
+      {
+        "username": [
           "This value should not be blank."
         ]
       }

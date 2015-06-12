@@ -13,11 +13,11 @@ Feature: Manage issue
 
   Background:
     Given the following users exist:
-      | id | firstName | lastName | email           | password | createdAt  |
-      | 0  | Kreta     | User     | user@kreta.com  | 123456   | 2014-10-20 |
-      | 1  | Kreta     | User2    | user2@kreta.com | 123456   | 2014-10-20 |
-      | 2  | Kreta     | User3    | user3@kreta.com | 123456   | 2014-10-20 |
-      | 3  | Kreta     | User4    | user4@kreta.com | 123456   | 2014-10-20 |
+      | id | firstName | lastName | username | email           | password | createdAt  |
+      | 0  | Kreta     | User     | user     | user@kreta.com  | 123456   | 2014-10-20 |
+      | 1  | Kreta     | User2    | user2    | user2@kreta.com | 123456   | 2014-10-20 |
+      | 2  | Kreta     | User3    | user3    | user3@kreta.com | 123456   | 2014-10-20 |
+      | 3  | Kreta     | User4    | user4    | user4@kreta.com | 123456   | 2014-10-20 |
     And the following workflows exist:
       | id | name       | creator        |
       | 0  | Workflow 1 | user@kreta.com |
@@ -107,9 +107,11 @@ Feature: Manage issue
           "id": "0",
           "assignee": {
             "id": "0",
+            "username": "user",
             "email": "user@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User"
+            "last_name": "User",
+            "photo": null
           },
           "children": [],
           "created_at": "2014-12-15T00:00:00+0100",
@@ -137,15 +139,19 @@ Feature: Manage issue
             }
           ],
           "numeric_id": 1,
+          "parent": null,
           "priority": {
             "id": "1",
             "name": "Medium"
           },
+          "resolution": null,
           "reporter": {
             "id": "0",
+            "username": "user",
             "email": "user@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User"
+            "last_name": "User",
+            "photo": null
           },
           "status": {
             "type": "normal",
@@ -174,9 +180,11 @@ Feature: Manage issue
           "id": "3",
           "assignee": {
             "id": "3",
+            "username": "user4",
             "email": "user4@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User4"
+            "last_name": "User4",
+            "photo": null
           },
           "children": [],
           "created_at": "2014-10-21T00:00:00+0200",
@@ -204,15 +212,19 @@ Feature: Manage issue
             }
           ],
           "numeric_id": 1,
+          "parent": null,
           "priority": {
             "id": "5",
             "name": "Medium"
           },
+          "resolution": null,
           "reporter": {
             "id": "0",
+            "username": "user",
             "email": "user@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User"
+            "last_name": "User",
+            "photo": null
           },
           "status": {
             "type": "normal",
@@ -241,18 +253,22 @@ Feature: Manage issue
           "id": "4",
           "assignee": {
             "id": "0",
+            "username": "user",
             "email": "user@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User"
+            "last_name": "User",
+            "photo": null
           },
           "children": [
             {
               "id": "6",
               "assignee": {
                 "id": "0",
+                "username": "user",
                 "email": "user@kreta.com",
                 "first_name": "Kreta",
-                "last_name": "User"
+                "last_name": "User",
+                "photo": null
               },
               "children": [],
               "created_at": "2014-10-22T00:00:00+0200",
@@ -280,15 +296,19 @@ Feature: Manage issue
                 }
               ],
               "numeric_id": 3,
+              "parent": null,
               "priority": {
                 "id": "4",
                 "name": "Low"
               },
+              "resolution": null,
               "reporter": {
                 "id": "3",
+                "username": "user4",
                 "email": "user4@kreta.com",
                 "first_name": "Kreta",
-                "last_name": "User4"
+                "last_name": "User4",
+                "photo": null
               },
               "status": {
                 "type": "normal",
@@ -339,15 +359,19 @@ Feature: Manage issue
             }
           ],
           "numeric_id": 2,
+          "parent": null,
           "priority": {
             "id": "4",
             "name": "Low"
           },
+          "resolution": null,
           "reporter": {
             "id": "3",
+            "username": "user4",
             "email": "user4@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User4"
+            "last_name": "User4",
+            "photo": null
           },
           "status": {
             "type": "normal",
@@ -376,9 +400,11 @@ Feature: Manage issue
           "id": "1",
           "assignee": {
             "id": "0",
+            "username": "user",
             "email": "user@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User"
+            "last_name": "User",
+            "photo": null
           },
           "children": [],
           "created_at": "2014-11-07T00:00:00+0100",
@@ -406,15 +432,19 @@ Feature: Manage issue
             }
           ],
           "numeric_id": 2,
+          "parent": null,
           "priority": {
             "id": "0",
             "name": "Low"
           },
+          "resolution": null,
           "reporter": {
             "id": "0",
+            "username": "user",
             "email": "user@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User"
+            "last_name": "User",
+            "photo": null
           },
           "status": {
             "type": "normal",
@@ -443,9 +473,11 @@ Feature: Manage issue
           "id": "2",
           "assignee": {
             "id": "0",
+            "username": "user",
             "email": "user@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User"
+            "last_name": "User",
+            "photo": null
           },
           "children": [],
           "created_at": "2014-10-21T00:00:00+0200",
@@ -473,15 +505,19 @@ Feature: Manage issue
             }
           ],
           "numeric_id": 3,
+          "parent": null,
           "priority": {
             "id": "2",
             "name": "High"
           },
+          "resolution": null,
           "reporter": {
             "id": "0",
+            "username": "user",
             "email": "user@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User"
+            "last_name": "User",
+            "photo": null
           },
           "status": {
             "type": "normal",
@@ -510,9 +546,11 @@ Feature: Manage issue
           "id": "6",
           "assignee": {
             "id": "0",
+            "username": "user",
             "email": "user@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User"
+            "last_name": "User",
+            "photo": null
           },
           "children": [],
           "created_at": "2014-10-22T00:00:00+0200",
@@ -544,9 +582,11 @@ Feature: Manage issue
             "id": "4",
             "assignee": {
               "id": "0",
+              "username": "user",
               "email": "user@kreta.com",
               "first_name": "Kreta",
-              "last_name": "User"
+              "last_name": "User",
+              "photo": null
             },
             "children": [],
             "created_at": "2014-10-21T00:00:00+0200",
@@ -574,15 +614,19 @@ Feature: Manage issue
               }
             ],
             "numeric_id": 2,
+            "parent": null,
             "priority": {
               "id": "4",
               "name": "Low"
             },
+            "resolution": null,
             "reporter": {
               "id": "3",
+              "username": "user4",
               "email": "user4@kreta.com",
               "first_name": "Kreta",
-              "last_name": "User4"
+              "last_name": "User4",
+              "photo": null
             },
             "status": {
               "type": "normal",
@@ -611,11 +655,14 @@ Feature: Manage issue
             "id": "4",
             "name": "Low"
           },
+          "resolution": null,
           "reporter": {
             "id": "3",
+            "username": "user4",
             "email": "user4@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User4"
+            "last_name": "User4",
+            "photo": null
           },
           "status": {
             "type": "normal",
@@ -644,9 +691,11 @@ Feature: Manage issue
           "id": "5",
           "assignee": {
             "id": "0",
+            "username": "user",
             "email": "user@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User"
+            "last_name": "User",
+            "photo": null
           },
           "children": [],
           "created_at": "2014-10-21T00:00:00+0200",
@@ -674,12 +723,15 @@ Feature: Manage issue
             }
           ],
           "numeric_id": 4,
+          "parent": null,
           "priority": {
             "id": "3",
             "name": "Blocker"
           },
+          "resolution": null,
           "reporter": {
             "id": "1",
+            "username": "user2",
             "email": "user2@kreta.com",
             "first_name": "Kreta",
             "last_name": "User2",
@@ -725,9 +777,11 @@ Feature: Manage issue
           "id": "0",
           "assignee": {
             "id": "0",
+            "username": "user",
             "email": "user@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User"
+            "last_name": "User",
+            "photo": null
           },
           "children": [],
           "created_at": "2014-12-15T00:00:00+0100",
@@ -755,15 +809,19 @@ Feature: Manage issue
             }
           ],
           "numeric_id": 1,
+          "parent": null,
           "priority": {
             "id": "1",
             "name": "Medium"
           },
+          "resolution": null,
           "reporter": {
             "id": "0",
+            "username": "user",
             "email": "user@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User"
+            "last_name": "User",
+            "photo": null
           },
           "status": {
             "type": "normal",
@@ -792,9 +850,11 @@ Feature: Manage issue
           "id": "1",
           "assignee": {
             "id": "0",
+            "username": "user",
             "email": "user@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User"
+            "last_name": "User",
+            "photo": null
           },
           "children": [],
           "created_at": "2014-11-07T00:00:00+0100",
@@ -822,15 +882,19 @@ Feature: Manage issue
             }
           ],
           "numeric_id": 2,
+          "parent": null,
           "priority": {
             "id": "0",
             "name": "Low"
           },
+          "resolution": null,
           "reporter": {
             "id": "0",
+            "username": "user",
             "email": "user@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User"
+            "last_name": "User",
+            "photo": null
           },
           "status": {
             "type": "normal",
@@ -859,9 +923,11 @@ Feature: Manage issue
           "id": "2",
           "assignee": {
             "id": "0",
+            "username": "user",
             "email": "user@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User"
+            "last_name": "User",
+            "photo": null
           },
           "children": [],
           "created_at": "2014-10-21T00:00:00+0200",
@@ -889,15 +955,19 @@ Feature: Manage issue
             }
           ],
           "numeric_id": 3,
+          "parent": null,
           "priority": {
             "id": "2",
             "name": "High"
           },
+          "resolution": null,
           "reporter": {
             "id": "0",
+            "username": "user",
             "email": "user@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User"
+            "last_name": "User",
+            "photo": null
           },
           "status": {
             "type": "normal",
@@ -926,9 +996,11 @@ Feature: Manage issue
           "id": "5",
           "assignee": {
             "id": "0",
+            "username": "user",
             "email": "user@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User"
+            "last_name": "User",
+            "photo": null
           },
           "children": [],
           "created_at": "2014-10-21T00:00:00+0200",
@@ -956,12 +1028,15 @@ Feature: Manage issue
             }
           ],
           "numeric_id": 4,
+          "parent": null,
           "priority": {
             "id": "3",
             "name": "Blocker"
           },
+          "resolution": null,
           "reporter": {
             "id": "1",
+            "username": "user2",
             "email": "user2@kreta.com",
             "first_name": "Kreta",
             "last_name": "User2",
@@ -1007,9 +1082,11 @@ Feature: Manage issue
           "id": "2",
           "assignee": {
             "id": "0",
+            "username": "user",
             "email": "user@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User"
+            "last_name": "User",
+            "photo": null
           },
           "children": [],
           "created_at": "2014-10-21T00:00:00+0200",
@@ -1037,15 +1114,19 @@ Feature: Manage issue
             }
           ],
           "numeric_id": 3,
+          "parent": null,
           "priority": {
             "id": "2",
             "name": "High"
           },
+          "resolution": null,
           "reporter": {
             "id": "0",
+            "username": "user",
             "email": "user@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User"
+            "last_name": "User",
+            "photo": null
           },
           "status": {
             "type": "normal",
@@ -1074,9 +1155,11 @@ Feature: Manage issue
           "id": "5",
           "assignee": {
             "id": "0",
+            "username": "user",
             "email": "user@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User"
+            "last_name": "User",
+            "photo": null
           },
           "children": [],
           "created_at": "2014-10-21T00:00:00+0200",
@@ -1104,12 +1187,15 @@ Feature: Manage issue
             }
           ],
           "numeric_id": 4,
+          "parent": null,
           "priority": {
             "id": "3",
             "name": "Blocker"
           },
+          "resolution": null,
           "reporter": {
             "id": "1",
+            "username": "user2",
             "email": "user2@kreta.com",
             "first_name": "Kreta",
             "last_name": "User2",
@@ -1145,9 +1231,11 @@ Feature: Manage issue
           "id": "3",
           "assignee": {
             "id": "3",
+            "username": "user4",
             "email": "user4@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User4"
+            "last_name": "User4",
+            "photo": null
           },
           "children": [],
           "created_at": "2014-10-21T00:00:00+0200",
@@ -1175,15 +1263,19 @@ Feature: Manage issue
             }
           ],
           "numeric_id": 1,
+          "parent": null,
           "priority": {
             "id": "5",
             "name": "Medium"
           },
+          "resolution": null,
           "reporter": {
             "id": "0",
+            "username": "user",
             "email": "user@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User"
+            "last_name": "User",
+            "photo": null
           },
           "status": {
             "type": "normal",
@@ -1212,18 +1304,22 @@ Feature: Manage issue
           "id": "4",
           "assignee": {
             "id": "0",
+            "username": "user",
             "email": "user@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User"
+            "last_name": "User",
+            "photo": null
           },
           "children": [
             {
               "id": "6",
               "assignee": {
                 "id": "0",
+                "username": "user",
                 "email": "user@kreta.com",
                 "first_name": "Kreta",
-                "last_name": "User"
+                "last_name": "User",
+                "photo": null
               },
               "children": [],
               "created_at": "2014-10-22T00:00:00+0200",
@@ -1251,15 +1347,19 @@ Feature: Manage issue
                 }
               ],
               "numeric_id": 3,
+              "parent": null,
               "priority": {
                 "id": "4",
                 "name": "Low"
               },
+              "resolution": null,
               "reporter": {
                 "id": "3",
+                "username": "user4",
                 "email": "user4@kreta.com",
                 "first_name": "Kreta",
-                "last_name": "User4"
+                "last_name": "User4",
+                "photo": null
               },
               "status": {
                 "type": "normal",
@@ -1310,15 +1410,19 @@ Feature: Manage issue
             }
           ],
           "numeric_id": 2,
+          "parent": null,
           "priority": {
             "id": "4",
             "name": "Low"
           },
+          "resolution": null,
           "reporter": {
             "id": "3",
+            "username": "user4",
             "email": "user4@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User4"
+            "last_name": "User4",
+            "photo": null
           },
           "status": {
             "type": "normal",
@@ -1347,9 +1451,11 @@ Feature: Manage issue
           "id": "6",
           "assignee": {
             "id": "0",
+            "username": "user",
             "email": "user@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User"
+            "last_name": "User",
+            "photo": null
           },
           "children": [],
           "created_at": "2014-10-22T00:00:00+0200",
@@ -1381,9 +1487,11 @@ Feature: Manage issue
             "id": "4",
             "assignee": {
               "id": "0",
+              "username": "user",
               "email": "user@kreta.com",
               "first_name": "Kreta",
-              "last_name": "User"
+              "last_name": "User",
+              "photo": null
             },
             "children": [],
             "created_at": "2014-10-21T00:00:00+0200",
@@ -1411,15 +1519,19 @@ Feature: Manage issue
               }
             ],
             "numeric_id": 2,
+            "parent": null,
             "priority": {
               "id": "4",
               "name": "Low"
             },
+            "resolution": null,
             "reporter": {
               "id": "3",
+              "username": "user4",
               "email": "user4@kreta.com",
               "first_name": "Kreta",
-              "last_name": "User4"
+              "last_name": "User4",
+              "photo": null
             },
             "status": {
               "type": "normal",
@@ -1448,11 +1560,14 @@ Feature: Manage issue
             "id": "4",
             "name": "Low"
           },
+          "resolution": null,
           "reporter": {
             "id": "3",
+            "username": "user4",
             "email": "user4@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User4"
+            "last_name": "User4",
+            "photo": null
           },
           "status": {
             "type": "normal",
@@ -1481,9 +1596,11 @@ Feature: Manage issue
           "id": "1",
           "assignee": {
             "id": "0",
+            "username": "user",
             "email": "user@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User"
+            "last_name": "User",
+            "photo": null
           },
           "children": [],
           "created_at": "2014-11-07T00:00:00+0100",
@@ -1511,15 +1628,19 @@ Feature: Manage issue
             }
           ],
           "numeric_id": 2,
+          "parent": null,
           "priority": {
             "id": "0",
             "name": "Low"
           },
+          "resolution": null,
           "reporter": {
             "id": "0",
+            "username": "user",
             "email": "user@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User"
+            "last_name": "User",
+            "photo": null
           },
           "status": {
             "type": "normal",
@@ -1548,9 +1669,11 @@ Feature: Manage issue
           "id": "0",
           "assignee": {
             "id": "0",
+            "username": "user",
             "email": "user@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User"
+            "last_name": "User",
+            "photo": null
           },
           "children": [],
           "created_at": "2014-12-15T00:00:00+0100",
@@ -1578,15 +1701,19 @@ Feature: Manage issue
             }
           ],
           "numeric_id": 1,
+          "parent": null,
           "priority": {
             "id": "1",
             "name": "Medium"
           },
+          "resolution": null,
           "reporter": {
             "id": "0",
+            "username": "user",
             "email": "user@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User"
+            "last_name": "User",
+            "photo": null
           },
           "status": {
             "type": "normal",
@@ -1618,6 +1745,7 @@ Feature: Manage issue
     Given I am authenticating with "access-token-0" token
     When I send a GET request to "/app_test.php/api/issues?assignee=3"
     Then the response code should be 200
+    And print response
     And the response should contain json:
     """
       [
@@ -1625,9 +1753,11 @@ Feature: Manage issue
           "id": "3",
           "assignee": {
             "id": "3",
+            "username": "user4",
             "email": "user4@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User4"
+            "last_name": "User4",
+            "photo": null
           },
           "children": [],
           "created_at": "2014-10-21T00:00:00+0200",
@@ -1655,15 +1785,19 @@ Feature: Manage issue
             }
           ],
           "numeric_id": 1,
+          "parent": null,
           "priority": {
             "id": "5",
             "name": "Medium"
           },
+          "resolution": null,
           "reporter": {
             "id": "0",
+            "username": "user",
             "email": "user@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User"
+            "last_name": "User",
+            "photo": null
           },
           "status": {
             "type": "normal",
@@ -1702,18 +1836,22 @@ Feature: Manage issue
           "id": "4",
           "assignee": {
             "id": "0",
+            "username": "user",
             "email": "user@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User"
+            "last_name": "User",
+            "photo": null
           },
           "children": [
             {
               "id": "6",
               "assignee": {
                 "id": "0",
+                "username": "user",
                 "email": "user@kreta.com",
                 "first_name": "Kreta",
-                "last_name": "User"
+                "last_name": "User",
+                "photo": null
               },
               "children": [],
               "created_at": "2014-10-22T00:00:00+0200",
@@ -1741,15 +1879,19 @@ Feature: Manage issue
                 }
               ],
               "numeric_id": 3,
+              "parent": null,
               "priority": {
                 "id": "4",
                 "name": "Low"
               },
+              "resolution": null,
               "reporter": {
                 "id": "3",
+                "username": "user4",
                 "email": "user4@kreta.com",
                 "first_name": "Kreta",
-                "last_name": "User4"
+                "last_name": "User4",
+                "photo": null
               },
               "status": {
                 "type": "normal",
@@ -1800,15 +1942,19 @@ Feature: Manage issue
             }
           ],
           "numeric_id": 2,
+          "parent": null,
           "priority": {
             "id": "4",
             "name": "Low"
           },
+          "resolution": null,
           "reporter": {
             "id": "3",
+            "username": "user4",
             "email": "user4@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User4"
+            "last_name": "User4",
+            "photo": null
           },
           "status": {
             "type": "normal",
@@ -1837,9 +1983,11 @@ Feature: Manage issue
           "id": "6",
           "assignee": {
             "id": "0",
+            "username": "user",
             "email": "user@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User"
+            "last_name": "User",
+            "photo": null
           },
           "children": [],
           "created_at": "2014-10-22T00:00:00+0200",
@@ -1871,9 +2019,11 @@ Feature: Manage issue
             "id": "4",
             "assignee": {
               "id": "0",
+              "username": "user",
               "email": "user@kreta.com",
               "first_name": "Kreta",
-              "last_name": "User"
+              "last_name": "User",
+              "photo": null
             },
             "children": [],
             "created_at": "2014-10-21T00:00:00+0200",
@@ -1901,15 +2051,19 @@ Feature: Manage issue
               }
             ],
             "numeric_id": 2,
+            "parent": null,
             "priority": {
               "id": "4",
               "name": "Low"
             },
+            "resolution": null,
             "reporter": {
               "id": "3",
+              "username": "user4",
               "email": "user4@kreta.com",
               "first_name": "Kreta",
-              "last_name": "User4"
+              "last_name": "User4",
+              "photo": null
             },
             "status": {
               "type": "normal",
@@ -1938,11 +2092,14 @@ Feature: Manage issue
             "id": "4",
             "name": "Low"
           },
+          "resolution": null,
           "reporter": {
             "id": "3",
+            "username": "user4",
             "email": "user4@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User4"
+            "last_name": "User4",
+            "photo": null
           },
           "status": {
             "type": "normal",
@@ -1981,9 +2138,11 @@ Feature: Manage issue
           "id": "1",
           "assignee": {
             "id": "0",
+            "username": "user",
             "email": "user@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User"
+            "last_name": "User",
+            "photo": null
           },
           "children": [],
           "created_at": "2014-11-07T00:00:00+0100",
@@ -2011,15 +2170,19 @@ Feature: Manage issue
             }
           ],
           "numeric_id": 2,
+          "parent": null,
           "priority": {
             "id": "0",
             "name": "Low"
           },
+          "resolution": null,
           "reporter": {
             "id": "0",
+            "username": "user",
             "email": "user@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User"
+            "last_name": "User",
+            "photo": null
           },
           "status": {
             "type": "normal",
@@ -2058,9 +2221,11 @@ Feature: Manage issue
           "id": "5",
           "assignee": {
             "id": "0",
+            "username": "user",
             "email": "user@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User"
+            "last_name": "User",
+            "photo": null
           },
           "children": [],
           "created_at": "2014-10-21T00:00:00+0200",
@@ -2088,12 +2253,15 @@ Feature: Manage issue
             }
           ],
           "numeric_id": 4,
+          "parent": null,
           "priority": {
             "id": "3",
             "name": "Blocker"
           },
+          "resolution": null,
           "reporter": {
             "id": "1",
+            "username": "user2",
             "email": "user2@kreta.com",
             "first_name": "Kreta",
             "last_name": "User2",
@@ -2139,9 +2307,11 @@ Feature: Manage issue
           "id": "3",
           "assignee": {
             "id": "3",
+            "username": "user4",
             "email": "user4@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User4"
+            "last_name": "User4",
+            "photo": null
           },
           "children": [],
           "created_at": "2014-10-21T00:00:00+0200",
@@ -2169,15 +2339,19 @@ Feature: Manage issue
             }
           ],
           "numeric_id": 1,
+          "parent": null,
           "priority": {
             "id": "5",
             "name": "Medium"
           },
+          "resolution": null,
           "reporter": {
             "id": "0",
+            "username": "user",
             "email": "user@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User"
+            "last_name": "User",
+            "photo": null
           },
           "status": {
             "type": "normal",
@@ -2216,9 +2390,11 @@ Feature: Manage issue
           "id": "5",
           "assignee": {
             "id": "0",
+            "username": "user",
             "email": "user@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User"
+            "last_name": "User",
+            "photo": null
           },
           "children": [],
           "created_at": "2014-10-21T00:00:00+0200",
@@ -2246,12 +2422,15 @@ Feature: Manage issue
             }
           ],
           "numeric_id": 4,
+          "parent": null,
           "priority": {
             "id": "3",
             "name": "Blocker"
           },
+          "resolution": null,
           "reporter": {
             "id": "1",
+            "username": "user2",
             "email": "user2@kreta.com",
             "first_name": "Kreta",
             "last_name": "User2",
@@ -2297,9 +2476,11 @@ Feature: Manage issue
           "id": "0",
           "assignee": {
             "id": "0",
+            "username": "user",
             "email": "user@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User"
+            "last_name": "User",
+            "photo": null
           },
           "children": [],
           "created_at": "2014-12-15T00:00:00+0100",
@@ -2327,15 +2508,19 @@ Feature: Manage issue
             }
           ],
           "numeric_id": 1,
+          "parent": null,
           "priority": {
             "id": "1",
             "name": "Medium"
           },
+          "resolution": null,
           "reporter": {
             "id": "0",
+            "username": "user",
             "email": "user@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User"
+            "last_name": "User",
+            "photo": null
           },
           "status": {
             "type": "normal",
@@ -2364,9 +2549,11 @@ Feature: Manage issue
           "id": "3",
           "assignee": {
             "id": "3",
+            "username": "user4",
             "email": "user4@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User4"
+            "last_name": "User4",
+            "photo": null
           },
           "children": [],
           "created_at": "2014-10-21T00:00:00+0200",
@@ -2394,15 +2581,19 @@ Feature: Manage issue
             }
           ],
           "numeric_id": 1,
+          "parent": null,
           "priority": {
             "id": "5",
             "name": "Medium"
           },
+          "resolution": null,
           "reporter": {
             "id": "0",
+            "username": "user",
             "email": "user@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User"
+            "last_name": "User",
+            "photo": null
           },
           "status": {
             "type": "normal",
@@ -2427,7 +2618,7 @@ Feature: Manage issue
             }
           }
         }
-      ]      
+      ]
     """
 
   Scenario: Getting all the issues with offset 2
@@ -2441,18 +2632,22 @@ Feature: Manage issue
           "id": "4",
           "assignee": {
             "id": "0",
+            "username": "user",
             "email": "user@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User"
+            "last_name": "User",
+            "photo": null
           },
           "children": [
             {
               "id": "6",
               "assignee": {
                 "id": "0",
+                "username": "user",
                 "email": "user@kreta.com",
                 "first_name": "Kreta",
-                "last_name": "User"
+                "last_name": "User",
+                "photo": null
               },
               "children": [],
               "created_at": "2014-10-22T00:00:00+0200",
@@ -2480,15 +2675,19 @@ Feature: Manage issue
                 }
               ],
               "numeric_id": 3,
+              "parent": null,
               "priority": {
                 "id": "4",
                 "name": "Low"
               },
+              "resolution": null,
               "reporter": {
                 "id": "3",
+                "username": "user4",
                 "email": "user4@kreta.com",
                 "first_name": "Kreta",
-                "last_name": "User4"
+                "last_name": "User4",
+                "photo": null
               },
               "status": {
                 "type": "normal",
@@ -2539,15 +2738,19 @@ Feature: Manage issue
             }
           ],
           "numeric_id": 2,
+          "parent": null,
           "priority": {
             "id": "4",
             "name": "Low"
           },
+          "resolution": null,
           "reporter": {
             "id": "3",
+            "username": "user4",
             "email": "user4@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User4"
+            "last_name": "User4",
+            "photo": null
           },
           "status": {
             "type": "normal",
@@ -2576,9 +2779,11 @@ Feature: Manage issue
           "id": "1",
           "assignee": {
             "id": "0",
+            "username": "user",
             "email": "user@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User"
+            "last_name": "User",
+            "photo": null
           },
           "children": [],
           "created_at": "2014-11-07T00:00:00+0100",
@@ -2606,15 +2811,19 @@ Feature: Manage issue
             }
           ],
           "numeric_id": 2,
+          "parent": null,
           "priority": {
             "id": "0",
             "name": "Low"
           },
+          "resolution": null,
           "reporter": {
             "id": "0",
+            "username": "user",
             "email": "user@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User"
+            "last_name": "User",
+            "photo": null
           },
           "status": {
             "type": "normal",
@@ -2643,9 +2852,11 @@ Feature: Manage issue
           "id": "2",
           "assignee": {
             "id": "0",
+            "username": "user",
             "email": "user@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User"
+            "last_name": "User",
+            "photo": null
           },
           "children": [],
           "created_at": "2014-10-21T00:00:00+0200",
@@ -2673,15 +2884,19 @@ Feature: Manage issue
             }
           ],
           "numeric_id": 3,
+          "parent": null,
           "priority": {
             "id": "2",
             "name": "High"
           },
+          "resolution": null,
           "reporter": {
             "id": "0",
+            "username": "user",
             "email": "user@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User"
+            "last_name": "User",
+            "photo": null
           },
           "status": {
             "type": "normal",
@@ -2710,9 +2925,11 @@ Feature: Manage issue
           "id": "6",
           "assignee": {
             "id": "0",
+            "username": "user",
             "email": "user@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User"
+            "last_name": "User",
+            "photo": null
           },
           "children": [],
           "created_at": "2014-10-22T00:00:00+0200",
@@ -2744,9 +2961,11 @@ Feature: Manage issue
             "id": "4",
             "assignee": {
               "id": "0",
+              "username": "user",
               "email": "user@kreta.com",
               "first_name": "Kreta",
-              "last_name": "User"
+              "last_name": "User",
+              "photo": null
             },
             "children": [],
             "created_at": "2014-10-21T00:00:00+0200",
@@ -2774,15 +2993,19 @@ Feature: Manage issue
               }
             ],
             "numeric_id": 2,
+            "parent": null,
             "priority": {
               "id": "4",
               "name": "Low"
             },
+            "resolution": null,
             "reporter": {
               "id": "3",
+              "username": "user4",
               "email": "user4@kreta.com",
               "first_name": "Kreta",
-              "last_name": "User4"
+              "last_name": "User4",
+              "photo": null
             },
             "status": {
               "type": "normal",
@@ -2811,11 +3034,14 @@ Feature: Manage issue
             "id": "4",
             "name": "Low"
           },
+          "resolution": null,
           "reporter": {
             "id": "3",
+            "username": "user4",
             "email": "user4@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User4"
+            "last_name": "User4",
+            "photo": null
           },
           "status": {
             "type": "normal",
@@ -2844,9 +3070,11 @@ Feature: Manage issue
           "id": "5",
           "assignee": {
             "id": "0",
+            "username": "user",
             "email": "user@kreta.com",
             "first_name": "Kreta",
-            "last_name": "User"
+            "last_name": "User",
+            "photo": null
           },
           "children": [],
           "created_at": "2014-10-21T00:00:00+0200",
@@ -2874,12 +3102,15 @@ Feature: Manage issue
             }
           ],
           "numeric_id": 4,
+          "parent": null,
           "priority": {
             "id": "3",
             "name": "Blocker"
           },
+          "resolution": null,
           "reporter": {
             "id": "1",
+            "username": "user2",
             "email": "user2@kreta.com",
             "first_name": "Kreta",
             "last_name": "User2",
@@ -2924,9 +3155,11 @@ Feature: Manage issue
         "id": "0",
         "assignee": {
           "id": "0",
+          "username": "user",
           "email": "user@kreta.com",
           "first_name": "Kreta",
-          "last_name": "User"
+          "last_name": "User",
+          "photo": null
         },
         "children": [],
         "created_at": "2014-12-15T00:00:00+0100",
@@ -2954,15 +3187,19 @@ Feature: Manage issue
           }
         ],
         "numeric_id": 1,
+        "parent": null,
         "priority": {
           "id": "1",
           "name": "Medium"
         },
+        "resolution": null,
         "reporter": {
           "id": "0",
+          "username": "user",
           "email": "user@kreta.com",
           "first_name": "Kreta",
-          "last_name": "User"
+          "last_name": "User",
+          "photo": null
         },
         "status": {
           "type": "normal",
@@ -3290,6 +3527,7 @@ Feature: Manage issue
         "id": "0",
         "assignee": {
           "id": "1",
+          "username": "user2",
           "email": "user2@kreta.com",
           "first_name": "Kreta",
           "last_name": "User2",
@@ -3330,9 +3568,11 @@ Feature: Manage issue
         },
         "reporter": {
           "id": "0",
+          "username": "user",
           "email": "user@kreta.com",
           "first_name": "Kreta",
-          "last_name": "User"
+          "last_name": "User",
+          "photo": null
         },
         "status": {
           "type": "normal",
@@ -3381,6 +3621,7 @@ Feature: Manage issue
         "id": "0",
         "assignee": {
           "id": "1",
+          "username": "user2",
           "email": "user2@kreta.com",
           "first_name": "Kreta",
           "last_name": "User2",
@@ -3420,9 +3661,11 @@ Feature: Manage issue
         },
         "reporter": {
           "id": "0",
+          "username": "user",
           "email": "user@kreta.com",
           "first_name": "Kreta",
-          "last_name": "User"
+          "last_name": "User",
+          "photo": null
         },
         "status": {
           "type": "normal",
@@ -3586,6 +3829,7 @@ Feature: Manage issue
         "id": "2",
         "assignee": {
           "id": "1",
+          "username": "user2",
           "email": "user2@kreta.com",
           "first_name": "Kreta",
           "last_name": "User2",
@@ -3625,9 +3869,11 @@ Feature: Manage issue
         },
         "reporter": {
           "id": "0",
+          "username": "user",
           "email": "user@kreta.com",
           "first_name": "Kreta",
-          "last_name": "User"
+          "last_name": "User",
+          "photo": null
         },
         "status": {
           "type": "normal",
@@ -3675,6 +3921,7 @@ Feature: Manage issue
         "id": "3",
         "assignee": {
           "id": "1",
+          "username": "user2",
           "email": "user2@kreta.com",
           "first_name": "Kreta",
           "last_name": "User2",
@@ -3714,9 +3961,11 @@ Feature: Manage issue
         },
         "reporter": {
           "id": "0",
+          "username": "user",
           "email": "user@kreta.com",
           "first_name": "Kreta",
-          "last_name": "User"
+          "last_name": "User",
+          "photo": null
         },
         "status": {
           "type": "normal",
@@ -3764,6 +4013,7 @@ Feature: Manage issue
         "id": "0",
         "assignee": {
           "id": "1",
+          "username": "user2",
           "email": "user2@kreta.com",
           "first_name": "Kreta",
           "last_name": "User2",
@@ -3803,9 +4053,11 @@ Feature: Manage issue
         },
         "reporter": {
           "id": "0",
+          "username": "user",
           "email": "user@kreta.com",
           "first_name": "Kreta",
-          "last_name": "User"
+          "last_name": "User",
+          "photo": null
         },
         "status": {
           "type": "normal",
@@ -3848,9 +4100,11 @@ Feature: Manage issue
         "id": "0",
         "assignee": {
           "id": "0",
+          "username": "user",
           "email": "user@kreta.com",
           "first_name": "Kreta",
-          "last_name": "User"
+          "last_name": "User",
+          "photo": null
         },
         "children": [],
         "created_at": "2014-12-15T00:00:00+0100",
@@ -3884,9 +4138,11 @@ Feature: Manage issue
         },
         "reporter": {
           "id": "0",
+          "username": "user",
           "email": "user@kreta.com",
           "first_name": "Kreta",
-          "last_name": "User"
+          "last_name": "User",
+          "photo": null
         },
         "status": {
           "type": "normal",
@@ -3962,10 +4218,10 @@ Feature: Manage issue
       }
     """
 
-  Scenario: Updating the 3 issue state to invalid transition
+  Scenario: Updating the 5 issue state to invalid transition
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a PATCH request to "/app_test.php/api/issues/3/transitions" with body:
+    When I send a PATCH request to "/app_test.php/api/issues/5/transitions" with body:
     """
       {
         "transition": "2"

@@ -8,9 +8,9 @@
 Kreta\Component\User\Model\User:
     properties:
         firstName:
-            - NotBlank: { groups: [profile] }
+            - NotBlank: { groups: [profile, invitation] }
         lastName:
-            - NotBlank: { groups: [profile] }
+            - NotBlank: { groups: [profile, invitation] }
     getters:
         enabled:
             - 'IsFalse':
@@ -26,10 +26,11 @@ FOS\UserBundle\Model\User:
     properties:
         email:
             - Email:
-#                strict: true # Activate when Kreta updgrade to Symfony 2.7
                 checkMX: true
                 checkHost: true
             - NotBlank: ~
+        username:
+            - NotBlank: { groups: [profile, invitation] }
         plainPassword:
             - NotBlank: { groups: [registration] }
             - Length: { min: 6, groups: [registration] }

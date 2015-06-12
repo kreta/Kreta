@@ -40,6 +40,7 @@ class ProfileTypeSpec extends ObjectBehavior
 
     function it_builds_a_form(FormBuilder $builder)
     {
+        $builder->add('username')->shouldBeCalled()->willReturn($builder);
         $builder->add('firstName')->shouldBeCalled()->willReturn($builder);
         $builder->add('lastName')->shouldBeCalled()->willReturn($builder);
         $builder->add('photo', 'file', ['required' => false, 'mapped' => false])

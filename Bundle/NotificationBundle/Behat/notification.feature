@@ -13,9 +13,9 @@ Feature: Manage notification
 
   Background:
     Given the following users exist:
-      | id | firstName | lastName | email           | password | createdAt  |
-      | 0  | Kreta     | User     | user@kreta.com  | 123456   | 2014-10-20 |
-      | 1  | Kreta     | User2    | user2@kreta.com | 123456   | 2014-10-20 |
+      | id | firstName | lastName | username | email           | password | createdAt  |
+      | 0  | Kreta     | User     | user     | user@kreta.com  | 123456   | 2014-10-20 |
+      | 1  | Kreta     | User2    | user2    | user2@kreta.com | 123456   | 2014-10-20 |
     And the following projects exist:
       | id | name           | shortName | creator        |
       | 0  | Test project 1 | TPR1      | user@kreta.com |
@@ -810,7 +810,6 @@ Feature: Manage notification
         "read": false
       }
     """
-    And print response
     Then the response code should be 200
     And the response should contain json:
     """

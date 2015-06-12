@@ -13,11 +13,11 @@ Feature: Manage users
 
   Background:
     Given the following users exist:
-      | id | firstName | lastName | email           | password | createdAt  |
-      | 0  | Kreta     | User     | user@kreta.com  | 123456   | 2014-10-20 |
-      | 1  | Kreta     | User2    | user2@kreta.com | 123456   | 2014-10-20 |
-      | 2  | Kreta     | User3    | user3@kreta.com | 123456   | 2014-10-20 |
-      | 3  | Kreta     | User4    | user4@kreta.com | 123456   | 2014-10-20 |
+      | id | firstName | lastName | username | email           | password | createdAt  |
+      | 0  | Kreta     | User     | user     | user@kreta.com  | 123456   | 2014-10-20 |
+      | 1  | Kreta     | User2    | user2    | user2@kreta.com | 123456   | 2014-10-20 |
+      | 2  | Kreta     | User3    | user3    | user3@kreta.com | 123456   | 2014-10-20 |
+      | 3  | Kreta     | User4    | user4    | user4@kreta.com | 123456   | 2014-10-20 |
     And the following medias exist:
       | id | name       | createdAt  | updatedAt | resource        |
       | 1  | user-1.jpg | 2014-10-30 | null      | user@kreta.com  |

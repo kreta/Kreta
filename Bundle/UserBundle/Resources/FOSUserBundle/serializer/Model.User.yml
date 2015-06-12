@@ -11,6 +11,9 @@ FOS\UserBundle\Model\User:
         id:
             expose: true
             groups: [userList, user, profile, projectList, project, issueList, issue, participantList, participant]
+        username:
+            expose: true
+            groups: [userList, user, profile, projectList, project, issueList, issue, commentList, comment, participantList, participant]
         email:
             expose: true
             groups: [userList, user, profile, projectList, project, issueList, issue, participantList, participant]

@@ -63,12 +63,15 @@ class UserFactory
     /**
      * Creates an instance of user.
      *
-     * @param string  $email   The email
-     * @param boolean $enabled Boolean that checks if the user is enabled or not, by default is false
+     * @param string  $email     The email
+     * @param string  $username  The username
+     * @param string  $firstName The firstName
+     * @param string  $lastName  The lastName
+     * @param boolean $enabled   Boolean that checks if the user is enabled or not, by default is false
      *
      * @return \Kreta\Component\User\Model\Interfaces\UserInterface
      */
-    public function create($email, $enabled = false)
+    public function create($email, $username, $firstName, $lastName, $enabled = false)
     {
         $user = new $this->className();
 
@@ -84,6 +87,9 @@ class UserFactory
         $this->uploader->upload($photo);
 
         return $user
+            ->setUsername($username)
+            ->setFirstName($firstName)
+            ->setLastName($lastName)
             ->setEmail($email)
             ->setEnabled($enabled)
             ->setPhoto($photo);
