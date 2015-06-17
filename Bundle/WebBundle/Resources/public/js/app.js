@@ -17,6 +17,7 @@ import {IssueController} from 'controllers/issue';
 import {Profile} from 'models/profile';
 
 import {BaseLayoutView} from 'views/layout/base';
+import {HeaderView} from 'views/layout/mainMenu';
 
 export class App extends Backbone.Marionette.Application {
   initialize() {
@@ -35,11 +36,13 @@ export class App extends Backbone.Marionette.Application {
   }
 
   loadLayout() {
+    this.currentUser = new Profile();
+    this.currentUser.fetch();
+
     this.layout = new BaseLayoutView();
     this.layout.render();
 
-    this.currentUser = new Profile();
-    this.currentUser.fetch();
+    new HeaderView();
   }
 
   addAutenticationHeader() {
