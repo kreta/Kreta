@@ -1,57 +1,51 @@
-#kreta-menu-main {
-  position: fixed;
-  left: 0;
-  top: 0;
-  height: 100%;
-  width: 80px;
+.menu {
   background: #3f434a;
   color: $white;
+  height: 100%;
+  left: 0;
   padding: 5px;
-  z-index: 50;
+  position: fixed;
+  text-align: center;
+  top: 0;
+  width: 80px;
+  z-index: 20;
+}
 
-  > img {
-    margin: 10px 15px;
-  }
+.menu-logo {
+  margin: 10px 15px;
+}
 
-  .kreta-menu-user {
-    text-align: center;
+.menu-user-image {
+  border-radius: 50%;
+  padding: 10px;
+  width: 70px;
+}
 
-    span {
-      color: $main-grey;
-      font-size: .7em;
-    }
+.menu-user-name {
+  color: $main-grey;
+  font-size: .7em;
+}
 
-    img {
-      border-radius: 50%;
-      padding: 10px;
-      width: 70px;
-    }
-  }
 
-  .kreta-menu-actions {
-    text-align: center;
+.menu-action {
+  color: $white;
+  display: block;
+  font-size: 1.3em;
+  padding: 20px;
+  position: relative;
+  text-decoration: none;
+}
 
-    a {
-      position: relative;
-      display: block;
-      color: $white;
-      text-decoration: none;
-      padding: 20px;
-      font-size: 1.3em;
-
-      .kreta-notification-bubble {
-        position: absolute;
-        top: 15px;
-        left: 50%;
-        margin-left: -10px;
-        background: #eb4d4f;
-        color: $white;
-        width: 20px;
-        height: 20px;
-        line-height: 20px;
-        font-size: 12px;
-        border-radius: 50%;
-      }
-    }
-  }
+.menu-notification-bubble {
+  background: #eb4d4f;
+  border-radius: 50%;
+  color: $white;
+  font-size: .8em;
+  height: 20px;
+  left: 50%;
+  line-height: 20px;
+  margin-left: -10px;
+  position: absolute;
+  top: 15px;
+  width: 20px;
 }

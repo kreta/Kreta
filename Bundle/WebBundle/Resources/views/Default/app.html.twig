@@ -17,25 +17,25 @@
 <body>
 <div class="application"></div>
 <script id="base-layout-view-template" type="text/html">
-    <nav id="kreta-menu-main">
-        <img class="logo" src="{{ asset('images/logo.png') }}"/>
-        <div class="kreta-menu-user">
+    <nav class="menu">
+        <img class="menu-logo" src="{{ asset('images/logo.png') }}"/>
+        <div class="menu-user">
         </div>
-        <div class="kreta-menu-actions">
-            <a href="/">
+        <div>
+            <a class="menu-action" href="/">
                 <img src="{{ asset('images/icons/notification.png') }}">
-                <span class="kreta-notification-bubble">4</span>
+                <span class="menu-notification-bubble">4</span>
             </a>
             {#<a href="/"><img src="{{ asset('images/icons/search.png') }}"></a>#}
-            <a href="/issue/new" data-tooltip-text="Create issue" data-tooltip-position="right">
+            <a class="menu-action" href="/issue/new" data-tooltip-text="Create issue" data-tooltip-position="right">
                 <img src="{{ asset('images/icons/new.png') }}">
             </a>
             {#<a href="/"><img src="{{ asset('images/icons/dashboard.png') }}"></a>
             <a href="/"><img src="{{ asset('images/icons/lists.png') }}"></a>#}
-            <a href="/projects" data-tooltip-text="Project list" data-tooltip-position="right">
+            <a class="menu-action" href="/projects" data-tooltip-text="Project list" data-tooltip-position="right">
                 <img src="{{ asset('images/icons/projects.png') }}">
             </a>
-            <a href="/logout" data-bypass data-tooltip-text="Logout" data-tooltip-position="right" title="Logout">
+            <a class="menu-action" href="/logout" data-bypass data-tooltip-text="Logout" data-tooltip-position="right" title="Logout">
                 <i class="fa fa-sign-out"></i>
             </a>
         </div>
@@ -52,9 +52,9 @@
     <div class="modal-overlay"></div>
 </script>
 <script type="text/html" id="kreta-menu-user-template">
-    <div class="kreta-user-container">
-        <img src="<%= photo.name %>">
-        <span>@<%= username %></span>
+    <div class="menu-user">
+        <img class="menu-user-image" src="<%= photo.name %>">
+        <span class="menu-user-name">@<%= username %></span>
     </div>
 </script>
 
