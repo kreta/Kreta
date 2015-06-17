@@ -8,7 +8,7 @@
  */
 
 import {UserSelectorItemView} from './user-selector-item';
-import {NotificationService} from '../../service/notification';
+import {UserInviteView} from '../page/user/invite';
 
 export class UserSelectorView extends Backbone.Marionette.CompositeView {
   initialize(options) {
@@ -22,33 +22,17 @@ export class UserSelectorView extends Backbone.Marionette.CompositeView {
     this.ui = {
       actions: '.user-selector-actions',
       invite: '.user-selector-actions-invite',
-      search: '.user-selector-actions-search',
-      inviteForm: '.user-selector-invite-form',
-      inviteFormEmail: '.user-selector-invite-form-email'
+      search: '.user-selector-actions-search'
     };
 
     this.events = {
       'click @ui.invite': 'showInvitationForm',
-      'click @ui.search': 'showSearchForm',
-      'submit @ui.inviteForm': 'sendInvitation'
+      'click @ui.search': 'showSearchForm'
     }
   }
 
   showInvitationForm() {
-    this.ui.actions.addClass('selected');
-    this.ui.inviteForm.addClass('visible');
-  }
-
-  sendInvitation() {
-    this.ui.actions.removeClass('selected');
-    this.ui.inviteForm.removeClass('visible');
-    var email = this.ui.inviteFormEmail.val();
-    $.post(App.getBaseUrl() + '/users' , {'email': email}, function() {
-      NotificationService.showNotification({
-        type: 'success',
-        message: 'User invited to Kreta successfully'
-      });
-    });
-    return false;
+    var view = new UserInviteView({});
+    App.layout.getRegion('modal').show(view);
   }
 }

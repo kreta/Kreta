@@ -8,14 +8,19 @@
  */
 
 export class FormSerializerService {
-  static serialize($form, model) {
+  static serialize($form, model = null) {
     var formData = {};
     $.each($form.serializeArray(), function () {
       formData[this.name] = this.value;
     });
 
-    //Remove defaults to avoid issues with the API
-    model = model.extend({defaults: {}});
-    return new model(formData);
+    if(model) {
+      //Remove defaults to avoid issues with the API in case we are using a model
+      model = model.extend({defaults: {}});
+      return new model(formData);
+    }
+
+    //Key value form date is returned in case we are not using a model
+    return formData;
   }
 }

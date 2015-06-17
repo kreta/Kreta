@@ -48,6 +48,8 @@
         </div>
     </div>
     <div class="right-aside"></div>
+    <div class="modal-region"></div>
+    <div class="modal-overlay"></div>
 </script>
 <script type="text/html" id="kreta-menu-user-template">
     <div class="kreta-user-container">
@@ -69,6 +71,7 @@
 {% include 'KretaWebBundle:Default/templates:project/list.html.twig' %}
 {% include 'KretaWebBundle:Default/templates:project/new.html.twig' %}
 {% include 'KretaWebBundle:Default/templates:project/settings.html.twig' %}
+{% include 'KretaWebBundle:Default/templates:user/invite.html.twig' %}
 
 {% if production_assets == false %}
     <script src="{{ asset(base_asset_vendor ~ 'jquery/dist/jquery.js') }}"></script>
