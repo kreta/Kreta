@@ -9,11 +9,12 @@
 
 .user-selector-actions {
   background: rgba($main-black, .9);
-  bottom: 0;
   display: flex;
   height: 40px;
-  position: fixed;
+  position: absolute;
   width: 450px;
+  left: 0;
+  right: 0;
 
   &.selected {
     bottom: 40px;

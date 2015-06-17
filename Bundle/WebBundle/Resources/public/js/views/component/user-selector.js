@@ -27,8 +27,17 @@ export class UserSelectorView extends Backbone.Marionette.CompositeView {
 
     this.events = {
       'click @ui.invite': 'showInvitationForm',
-      'click @ui.search': 'showSearchForm'
+      'click @ui.search': 'showSearchForm',
+      'scroll': 'relocateFixedFooter',
     }
+  }
+
+  onRender() {
+    this.relocateFixedFooter();
+  }
+
+  relocateFixedFooter() {
+    this.ui.actions.css('top', this.$el.scrollTop() + $(window).height() - this.ui.actions.height());
   }
 
   showInvitationForm() {
