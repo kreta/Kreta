@@ -31,7 +31,10 @@ export class ProjectSettingsView extends Backbone.Marionette.ItemView {
 
     super(options);
 
-    this.model.on('sync', this.render, this);
+    this.listenTo(this.model, 'sync', this.render);
+    this.listenTo(App.vent, 'participant:added', () => {
+      this.model.fetch();
+    });
   }
 
   save(ev) {
@@ -76,5 +79,9 @@ export class ProjectSettingsView extends Backbone.Marionette.ItemView {
     App.layout.getRegion('right-aside').show(view);
 
     return false;
+  }
+
+  onDestroy () {
+    this.stopListening();
   }
 }

@@ -25,6 +25,8 @@ export class UserSelectorItemView extends Backbone.Marionette.ItemView {
   }
 
   addParticipant() {
+    this.ui.addButton.hide();
+
     var participant = {
       role: 'ROLE_PARTICIPANT',
       user: this.model.id
@@ -35,6 +37,7 @@ export class UserSelectorItemView extends Backbone.Marionette.ItemView {
         type: 'success',
         message: 'User added successfully to the project'
       });
+      App.vent.trigger('participant:added');
     });
   }
 }

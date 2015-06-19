@@ -29,7 +29,6 @@ export class UserInviteView extends Backbone.Marionette.ItemView {
 
   save (ev) {
     ev.preventDefault();
-    debugger;
     $.post(App.getBaseUrl() + '/users' , FormSerializerService.serialize(this.ui.form), () => {
       this.modalClose();
       NotificationService.showNotification({
