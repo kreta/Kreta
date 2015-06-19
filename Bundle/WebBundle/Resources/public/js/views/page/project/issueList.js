@@ -25,6 +25,26 @@ export class IssueListView extends Backbone.Marionette.CompositeView {
       filter: '.filter'
     };
 
+    this.highlightIndex = -1;
+
+    Mousetrap.bind('up', () => {
+      if(this.highlightIndex === 0) {
+        return;
+      }
+      this.highlightIndex--;
+      this.showHighlightedIssue();
+      return false;
+    });
+
+    Mousetrap.bind('down', () => {
+      if(this.highlightIndex >= this.collection.length - 1) {
+        return;
+      }
+      this.highlightIndex++;
+      this.showHighlightedIssue();
+      return false;
+    });
+
     this.loadFilters();
 
     this.model.on('sync', $.proxy(this.render, this));
@@ -90,5 +110,16 @@ export class IssueListView extends Backbone.Marionette.CompositeView {
     App.router.base.navigate('/project/' + this.model.id + '/settings');
     App.controller.project.settingsAction(this.model);
     return false;
+  }
+
+  showHighlightedIssue() {
+    var issue = this.collection.at(this.highlightIndex);
+    App.vent.trigger('issue:highlight', issue.get('id'));
+    App.controller.issue.showAction(issue);
+  }
+
+  onDestroy() {
+    Mousetrap.unbind('up');
+    Mousetrap.unbind('down');
   }
 }

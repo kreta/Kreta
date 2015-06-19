@@ -32,6 +32,7 @@ export class App extends Backbone.Marionette.Application {
       project: new ProjectController()
     };
 
+    this.initializeGlobalShortcuts();
     this.addAutenticationHeader();
   }
 
@@ -45,6 +46,15 @@ export class App extends Backbone.Marionette.Application {
     new HeaderView();
   }
 
+  initializeGlobalShortcuts() {
+    Mousetrap.bind('p', () => {
+      this.router.base.navigate('/projects', true);
+    });
+
+    Mousetrap.bind('n', () => {
+      this.router.base.navigate('/issue/new', true);
+    });
+  }
   addAutenticationHeader() {
     Backbone.$.ajaxSetup({
       headers: {'Authorization': 'Bearer ' + this.getAccessToken()}

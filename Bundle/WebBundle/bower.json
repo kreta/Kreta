@@ -35,6 +35,7 @@
     "backbone": "~1.1.2",
     "lodash": "~3.5.0",
     "requirejs": "~2.1.16",
-    "backbone.marionette": "~2.4.1"
+    "backbone.marionette": "~2.4.1",
+    "mousetrap": "~1.5.2"
   }
 }
