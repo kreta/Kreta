@@ -59,9 +59,27 @@ Kreta\Component\Project\Model\Project:
             exclusion:
                 groups: [projectList, project]
         -
+            rel: workflow
+            href:
+                route: get_workflow
+                parameters:
+                    workflowId: expr(object.getWorkflow().getId())
+                absolute: true
+            exclusion:
+                groups: [projectList, project]
+        -
             rel: statuses
             href:
                 route: get_workflow_statuses
+                parameters:
+                    workflowId: expr(object.getWorkflow().getId())
+                absolute: true
+            exclusion:
+                groups: [projectList, project]
+        -
+            rel: transitions
+            href:
+                route: get_workflow_transitions
                 parameters:
                     workflowId: expr(object.getWorkflow().getId())
                 absolute: true
