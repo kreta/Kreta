@@ -4,7 +4,9 @@
              src="<%= photo.name %>">
         <div class="image-preview-container">
         <span class="image-preview-header">
+            <% if(typeof(first_name) != "undefined") { %>
             <%= first_name %> <%= last_name %>
+            <% } %>
         </span>
             <span class="image-preview-subheader"></span>
         </div>

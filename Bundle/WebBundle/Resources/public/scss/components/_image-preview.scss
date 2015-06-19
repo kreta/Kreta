@@ -13,8 +13,8 @@
 .image-preview-actions {
   cursor: pointer;
   position: absolute;
-  top: .5em;
   right: .5em;
+  top: .5em;
 }
 
 .image-preview-container {
@@ -23,16 +23,12 @@
 
 .image-preview-header {
   display: block;
-  margin: 0.5em 0;
+  margin: .5em 0;
 }
 
 .image-preview-subheader {
   display: block;
   font-size: .8em;
   font-weight: lighter;
-  margin: 0.5em 0;
-}
-
-.image-preview-content {
-
+  margin: .5em 0;
 }

@@ -13,9 +13,9 @@ export class HeaderView extends Backbone.View {
   constructor () {
     super();
 
-    this.setElement($('#kreta-menu-main'));
+    this.setElement($('.menu'));
 
-    this.$userInfo = this.$el.find('.kreta-menu-user');
+    this.$userInfo = this.$el.find('.menu-user');
 
     this.userInfoTemplate = _.template($('#kreta-menu-user-template').html());
 
