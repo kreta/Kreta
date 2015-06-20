@@ -39,47 +39,59 @@ Feature: Manage users
       [
         {
           "id": "0",
+          "username": "user",
           "email": "user@kreta.com",
           "enabled": true,
+          "last_login": null,
           "created_at": "2014-10-20T00:00:00+0200",
           "first_name": "Kreta",
           "last_name": "User",
           "photo": {
-          "created_at": "2014-10-30T00:00:00+0100",
-            "name": "http://localhost/app_test.php/media/image/user-1.jpg"
+            "created_at": "2014-10-30T00:00:00+0100",
+            "name": "http://localhost/app_test.php/media/image/user-1.jpg",
+            "updated_at": null
           }
         },
         {
           "id": "1",
+          "username": "user2",
           "email": "user2@kreta.com",
           "enabled": true,
+          "last_login": null,
           "created_at": "2014-10-20T00:00:00+0200",
           "first_name": "Kreta",
           "last_name": "User2",
           "photo": {
             "created_at": "2014-10-30T00:00:00+0100",
-            "name": "http://localhost/app_test.php/media/image/user-2.jpg"
+            "name": "http://localhost/app_test.php/media/image/user-2.jpg",
+            "updated_at": null
           }
         },
         {
           "id": "2",
+          "username": "user3",
           "email": "user3@kreta.com",
           "enabled": true,
+          "last_login": null,
           "created_at": "2014-10-20T00:00:00+0200",
           "first_name": "Kreta",
           "last_name": "User3",
           "photo": {
             "created_at": "2014-10-30T00:00:00+0100",
-            "name": "http://localhost/app_test.php/media/image/user-3.jpg"
+            "name": "http://localhost/app_test.php/media/image/user-3.jpg",
+            "updated_at": null
           }
         },
         {
           "id": "3",
+          "username": "user4",
           "email": "user4@kreta.com",
           "enabled": true,
+          "last_login": null,
           "created_at": "2014-10-20T00:00:00+0200",
           "first_name": "Kreta",
-          "last_name": "User4"
+          "last_name": "User4",
+          "photo": null
         }
       ]
     """

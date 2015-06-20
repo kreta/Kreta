@@ -106,8 +106,14 @@ Feature: Manage projects
             "issue_priorities": {
               "href": "http://localhost/app_test.php/api/projects/0/issue-priorities"
             },
+            "workflow": {
+              "href": "http://localhost/app_test.php/api/workflows/0"
+            },
             "statuses": {
               "href": "http://localhost/app_test.php/api/workflows/0/statuses"
+            },
+            "transitions": {
+              "href": "http://localhost/app_test.php/api/workflows/0/transitions"
             }
           }
         },
@@ -169,8 +175,14 @@ Feature: Manage projects
             "issue_priorities": {
               "href": "http://localhost/app_test.php/api/projects/1/issue-priorities"
             },
+            "workflow": {
+              "href": "http://localhost/app_test.php/api/workflows/1"
+            },
             "statuses": {
               "href": "http://localhost/app_test.php/api/workflows/1/statuses"
+            },
+            "transitions": {
+              "href": "http://localhost/app_test.php/api/workflows/1/transitions"
             }
           }
         }
@@ -249,8 +261,14 @@ Feature: Manage projects
           "issue_priorities": {
             "href": "http://localhost/app_test.php/api/projects/0/issue-priorities"
           },
+          "workflow": {
+            "href": "http://localhost/app_test.php/api/workflows/0"
+          },
           "statuses": {
             "href": "http://localhost/app_test.php/api/workflows/0/statuses"
+          },
+          "transitions": {
+            "href": "http://localhost/app_test.php/api/workflows/0/transitions"
           }
         }
       }
@@ -443,8 +461,14 @@ Feature: Manage projects
           "issue_priorities": {
             "href": "http://localhost/app_test.php/api/projects/0/issue-priorities"
           },
+          "workflow": {
+            "href": "http://localhost/app_test.php/api/workflows/0"
+          },
           "statuses": {
             "href": "http://localhost/app_test.php/api/workflows/0/statuses"
+          },
+          "transitions": {
+            "href": "http://localhost/app_test.php/api/workflows/0/transitions"
           }
         }
       }

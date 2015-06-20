@@ -129,7 +129,7 @@ EOT
         if (!$this->input->getArgument($name)) {
             $field = $this->getHelper('dialog')->$method(
                 $this->output,
-                sprintf('Please choose a %s:', $name),
+                sprintf('Please choose a/an %s:', $name),
                 function ($field) {
                     if (empty($field)) {
                         throw new \Exception('This field can not be empty');
