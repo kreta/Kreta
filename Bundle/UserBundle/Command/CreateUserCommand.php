@@ -73,7 +73,7 @@ class CreateUserCommand extends ContainerAwareCommand
             )
             ->setHelp(<<<EOT
 The <info>%command.name%</info> command creates a new user.
-<info>php %command.full_name% [--redirect-uri=...] [--grant-type=...] name</info>
+<info>php %command.full_name%</info>
 EOT
             );
     }
