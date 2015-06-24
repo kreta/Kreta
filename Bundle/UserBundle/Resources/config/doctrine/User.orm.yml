@@ -35,22 +35,3 @@ Kreta\Component\User\Model\User:
                 name: photo
                 referencedColumnName: id
             cascade: ['persist', 'remove']
-    attributeOverride:
-        email:
-            type: string
-            length: 255
-            nullable: true
-        emailCanonical:
-            column: email_canonical
-            type: string
-            length: 255
-            nullable: true
-        username:
-            type: string
-            length: 255
-            nullable: true
-        usernameCanonical:
-            column: username_canonical
-            type: string
-            length: 255
-            nullable: true
