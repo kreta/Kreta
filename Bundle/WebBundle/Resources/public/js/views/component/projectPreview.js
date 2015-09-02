@@ -7,7 +7,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-export class ProjectPreviewView extends Backbone.View {
+export class ProjectPreviewView extends Backbone.Marionette.ItemView {
   constructor(options) {
     this.className = 'project-preview';
     this.tagName = 'li';
@@ -21,12 +21,9 @@ export class ProjectPreviewView extends Backbone.View {
     super(options);
   }
 
-  render() {
-    this.$el.html(this.template(this.model.toJSON()));
-    return this;
-  }
-
   showFullProject() {
+    this.triggerMethod('project:selected');
+
     App.router.base.navigate('/project/' + this.model.id);
     App.controller.project.showAction(this.model);
 

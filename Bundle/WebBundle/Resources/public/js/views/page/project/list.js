@@ -15,7 +15,11 @@ export class ProjectListView extends Backbone.Marionette.CompositeView {
     this.childView = ProjectPreviewView;
     this.childViewContainer = ".project-preview-list";
     this.collection = options.collection;
-
+    this.childEvents = {
+      'project:selected': function () {
+        App.layout.getRegion('modal').closeModal();
+      }
+    };
     super(options);
   }
 }
