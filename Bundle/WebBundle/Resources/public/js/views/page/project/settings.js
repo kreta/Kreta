@@ -69,10 +69,23 @@ export class ProjectSettingsView extends Backbone.Marionette.ItemView {
   }
 
   addUser() {
-    var users = new UserCollection();
-    users.fetch();
+    var notParticipating = new Backbone.Collection();
+    var participants = this.model.get('participants');
+    App.collection.user.each(function (user) {
+      for(var i = 0; i < participants.length; i++) {
+        var found = false;
+        if(participants[i].user.id === user.get('id')) {
+          found = true;
+          break;
+        }
+      }
+      if(!found) {
+        notParticipating.push(user);
+      }
+    });
+
     var view = new UserSelectorView({
-      collection: users,
+      collection: notParticipating,
       project: this.model.id
     });
 
@@ -81,7 +94,7 @@ export class ProjectSettingsView extends Backbone.Marionette.ItemView {
     return false;
   }
 
-  onDestroy () {
+  onDestroy() {
     this.stopListening();
   }
 }

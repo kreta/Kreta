@@ -10,10 +10,6 @@
 export class User extends Backbone.Model {
   defaults () {
     return {
-      name: '',
-      email: '',
-      notificationCount: 0,
-      image: 'images/default-user.jpg'
     };
   }
 

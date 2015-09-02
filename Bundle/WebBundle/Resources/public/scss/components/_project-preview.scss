@@ -1,5 +1,10 @@
+.project-preview-list {
+  max-height: 300px;
+  overflow-y: scroll;
+}
+
 .project-preview {
-  padding: 25px 0;
+  padding: 1em 0;
   position: relative;
 }
 
