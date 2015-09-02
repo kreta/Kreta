@@ -86,7 +86,7 @@ class RoleAnnotationListener
      *
      * @return boolean
      */
-    private function isAdmin()
+    protected function isAdmin()
     {
         return in_array('ROLE_ADMIN', $this->context->getToken()->getUser()->getRoles());
     }
