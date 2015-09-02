@@ -25,7 +25,7 @@ export class ProjectController extends Backbone.Marionette.Controller {
   listAction() {
     var projects = new ProjectCollection();
     projects.fetch();
-    App.layout.getRegion('left-aside').show(new ProjectListView({collection: projects}));
+    App.layout.getRegion('modal').show(new ProjectListView({collection: projects}));
   }
 
   showAction(project) {

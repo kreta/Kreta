@@ -48,7 +48,7 @@ export class App extends Backbone.Marionette.Application {
 
   initializeGlobalShortcuts() {
     Mousetrap.bind('p', () => {
-      this.router.base.navigate('/projects', true);
+      this.controller.project.listAction();
     });
 
     Mousetrap.bind('n', () => {

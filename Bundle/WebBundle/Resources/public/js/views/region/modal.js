@@ -12,17 +12,28 @@ export class ModalRegion extends Backbone.Marionette.Region {
     this.el = '.modal-region';
 
     super(options);
+
+    this.listenTo(App.vent, 'modal:close', this.closeModal());
   }
 
   onShow(view) {
     $('.modal-overlay').addClass('visible');
     this.listenTo(view, "modal:close", this.closeModal);
-    this.$el.addClass('visible')
+    this.$el.addClass('visible');
+
+    Mousetrap.bind('esc', () => {
+      this.closeModal();
+    });
+    $(".modal-overlay").click(() => {
+      this.closeModal();
+    });
   }
 
   closeModal() {
     this.$el.removeClass('visible');
     $('.modal-overlay').removeClass('visible');
     this.stopListening();
+    Mousetrap.unbind('esc');
+    this.empty();
   }
 }

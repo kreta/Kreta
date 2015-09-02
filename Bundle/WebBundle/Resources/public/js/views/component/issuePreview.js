@@ -7,7 +7,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-export class IssuePreviewView extends Backbone.View {
+export class IssuePreviewView extends Backbone.Marionette.ItemView {
   constructor(options) {
     this.className = 'list-issue';
 
@@ -24,14 +24,8 @@ export class IssuePreviewView extends Backbone.View {
     });
   }
 
-  render() {
-    this.$el.html(this.template(this.model.toJSON()));
-    return this;
-  }
-
   showFullIssue() {
     App.controller.issue.showAction(this.model);
-
     return false;
   }
 

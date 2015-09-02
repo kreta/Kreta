@@ -10,7 +10,7 @@
 import {Project} from '../models/project';
 
 export class ProjectCollection extends Backbone.Collection {
-  constructor () {
+  constructor() {
     this.model = Project;
     this.url = App.getBaseUrl() + '/projects';
     super();
