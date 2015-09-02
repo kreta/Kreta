@@ -34,4 +34,14 @@ export class Project extends Backbone.Model {
 
     return role;
   }
+
+  toJSON(options) {
+    var data = _.clone(this.attributes);
+
+    if (typeof(options) !== 'undefined' && options.parse) {
+      data = _.omit(data, 'id');
+    }
+
+    return data;
+  }
 }
