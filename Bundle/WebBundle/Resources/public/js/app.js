@@ -14,6 +14,8 @@ import {ProjectRouter} from 'router/project';
 import {ProjectController} from 'controllers/project';
 import {IssueController} from 'controllers/issue';
 
+import {ProjectCollection} from 'collections/project';
+
 import {Profile} from 'models/profile';
 
 import {BaseLayoutView} from 'views/layout/base';
@@ -32,6 +34,8 @@ export class App extends Backbone.Marionette.Application {
       project: new ProjectController()
     };
 
+
+
     this.initializeGlobalShortcuts();
     this.addAutenticationHeader();
   }
@@ -46,6 +50,14 @@ export class App extends Backbone.Marionette.Application {
     new HeaderView();
   }
 
+  loadCollections() {
+    this.collection = {
+      project: new ProjectCollection()
+    };
+
+    this.collection.project.fetch();
+  }
+
   initializeGlobalShortcuts() {
     Mousetrap.bind('p', () => {
       this.controller.project.listAction();
@@ -55,6 +67,7 @@ export class App extends Backbone.Marionette.Application {
       this.router.base.navigate('/issue/new', true);
     });
   }
+
   addAutenticationHeader() {
     Backbone.$.ajaxSetup({
       headers: {'Authorization': 'Bearer ' + this.getAccessToken()}
