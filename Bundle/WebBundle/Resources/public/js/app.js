@@ -15,6 +15,7 @@ import {ProjectController} from 'controllers/project';
 import {IssueController} from 'controllers/issue';
 
 import {ProjectCollection} from 'collections/project';
+import {UserCollection} from 'collections/user';
 
 import {Profile} from 'models/profile';
 
@@ -52,10 +53,12 @@ export class App extends Backbone.Marionette.Application {
 
   loadCollections() {
     this.collection = {
-      project: new ProjectCollection()
+      project: new ProjectCollection(),
+      user: new UserCollection()
     };
 
     this.collection.project.fetch();
+    this.collection.user.fetch();
   }
 
   initializeGlobalShortcuts() {
