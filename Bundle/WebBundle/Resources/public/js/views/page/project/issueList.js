@@ -27,23 +27,9 @@ export class IssueListView extends Backbone.Marionette.CompositeView {
 
     this.highlightIndex = -1;
 
-    Mousetrap.bind('up', () => {
-      if(this.highlightIndex === 0) {
-        return;
-      }
-      this.highlightIndex--;
-      this.showHighlightedIssue();
-      return false;
-    });
+    Mousetrap.bind('up', $.proxy(this.highlightPrevious, this));
 
-    Mousetrap.bind('down', () => {
-      if(this.highlightIndex >= this.collection.length - 1) {
-        return;
-      }
-      this.highlightIndex++;
-      this.showHighlightedIssue();
-      return false;
-    });
+    Mousetrap.bind('down', $.proxy(this.highlightNext, this));
 
     this.loadFilters();
 
@@ -112,6 +98,24 @@ export class IssueListView extends Backbone.Marionette.CompositeView {
     return false;
   }
 
+  highlightPrevious() {
+    if(this.highlightIndex === 0) {
+      return;
+    }
+    this.highlightIndex--;
+    this.showHighlightedIssue();
+    return false;
+  }
+
+  highlightNext() {
+    if(this.highlightIndex >= this.collection.length - 1) {
+      return;
+    }
+    this.highlightIndex++;
+    this.showHighlightedIssue();
+    return false;
+  }
+
   showHighlightedIssue() {
     var issue = this.collection.at(this.highlightIndex);
     App.vent.trigger('issue:highlight', issue.get('id'));
@@ -119,7 +123,7 @@ export class IssueListView extends Backbone.Marionette.CompositeView {
   }
 
   onDestroy() {
-    Mousetrap.unbind('up');
-    Mousetrap.unbind('down');
+    Mousetrap.unbind('up', $.proxy(this.highlightPrevious, this));
+    Mousetrap.unbind('down', $.proxy(this.highlightNext, this));
   }
 }
