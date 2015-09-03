@@ -32,7 +32,7 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/kreta-io/php-coveralls"
+            "url": "https://github.com/kreta/php-coveralls"
         }
     ],
     "autoload": {

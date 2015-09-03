@@ -34,11 +34,11 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/kreta-io/FOSUserBundle"
+            "url": "https://github.com/kreta/FOSUserBundle"
         },
         {
             "type": "vcs",
-            "url": "https://github.com/kreta-io/php-coveralls"
+            "url": "https://github.com/kreta/php-coveralls"
         }
     ],
     "autoload": {

@@ -1,9 +1,9 @@
 # Kreta Project Component
 > Project component of Kreta: modern project manager for software development.
 
-[![Build Status](https://travis-ci.org/kreta-io/Project.svg?branch=master)](https://travis-ci.org/kreta-io/Project)
-[![Coverage Status](https://img.shields.io/coveralls/kreta-io/Project.svg)](https://coveralls.io/r/kreta-io/Project)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/kreta-io/Project/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/kreta-io/Project/?branch=master)
+[![Build Status](https://travis-ci.org/kreta/Project.svg?branch=master)](https://travis-ci.org/kreta/Project)
+[![Coverage Status](https://img.shields.io/coveralls/kreta/Project.svg)](https://coveralls.io/r/kreta/Project)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/kreta/Project/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/kreta/Project/?branch=master)
 [![HHVM Status](http://hhvm.h4cc.de/badge/kreta/project.svg)](http://hhvm.h4cc.de/package/kreta/project)
 [![Total Downloads](https://poser.pugx.org/kreta/project/downloads)](https://packagist.org/packages/kreta/project)
 
@@ -40,7 +40,7 @@ documentation. If you are submitting a pull request, please follow the guideline
 in the [Submitting a Patch][3] section and use the [Pull Request Template][4].
 
 If you have any doubt or maybe you want to share some opinion, you can use our **Gitter chat**.
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/kreta-io/kreta?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/kreta/kreta?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 [1]: http://www.phpspec.net/
 [2]: http://symfony.com/doc/current/contributing/code/index.html
@@ -56,4 +56,4 @@ Kreta Project Component is created by:
 
 Licensing Options
 -----------------
-[![License](https://poser.pugx.org/kreta/project/license.svg)](https://github.com/kreta-io/kreta/blob/master/LICENSE)
+[![License](https://poser.pugx.org/kreta/project/license.svg)](https://github.com/kreta/kreta/blob/master/LICENSE)

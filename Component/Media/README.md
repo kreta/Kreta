@@ -1,9 +1,9 @@
 # Kreta Media Component
 > Media component of Kreta: modern project manager for software development.
 
-[![Build Status](https://travis-ci.org/kreta-io/Media.svg?branch=master)](https://travis-ci.org/kreta-io/Media)
-[![Coverage Status](https://img.shields.io/coveralls/kreta-io/Media.svg)](https://coveralls.io/r/kreta-io/Media)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/kreta-io/Media/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/kreta-io/Media/?branch=master)
+[![Build Status](https://travis-ci.org/kreta/Media.svg?branch=master)](https://travis-ci.org/kreta/Media)
+[![Coverage Status](https://img.shields.io/coveralls/kreta/Media.svg)](https://coveralls.io/r/kreta/Media)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/kreta/Media/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/kreta/Media/?branch=master)
 [![HHVM Status](http://hhvm.h4cc.de/badge/kreta/media.svg)](http://hhvm.h4cc.de/package/kreta/media)
 [![Total Downloads](https://poser.pugx.org/kreta/media/downloads)](https://packagist.org/packages/kreta/media)
 
@@ -40,7 +40,7 @@ documentation. If you are submitting a pull request, please follow the guideline
 in the [Submitting a Patch][3] section and use the [Pull Request Template][4].
 
 If you have any doubt or maybe you want to share some opinion, you can use our **Gitter chat**.
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/kreta-io/kreta?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/kreta/kreta?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 [1]: http://www.phpspec.net/
 [2]: http://symfony.com/doc/current/contributing/code/index.html
@@ -56,4 +56,4 @@ Kreta Media Component is created by:
 
 Licensing Options
 -----------------
-[![License](https://poser.pugx.org/kreta/media/license.svg)](https://github.com/kreta-io/kreta/blob/master/LICENSE)
+[![License](https://poser.pugx.org/kreta/media/license.svg)](https://github.com/kreta/kreta/blob/master/LICENSE)

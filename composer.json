@@ -53,19 +53,19 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/kreta-io/FOSUserBundle"
+            "url": "https://github.com/kreta/FOSUserBundle"
         },
         {
             "type": "vcs",
-            "url": "https://github.com/kreta-io/Finite"
+            "url": "https://github.com/kreta/Finite"
         },
         {
             "type": "vcs",
-            "url": "https://github.com/kreta-io/FOSOAuthServerBundle"
+            "url": "https://github.com/kreta/FOSOAuthServerBundle"
         },
         {
             "type": "vcs",
-            "url": "https://github.com/kreta-io/php-coveralls"
+            "url": "https://github.com/kreta/php-coveralls"
         }
     ],
     "replace": {
@@ -96,7 +96,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "0.2-dev"
+            "dev-master": "0.4-dev"
         }
     }
 }

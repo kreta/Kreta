@@ -1,9 +1,9 @@
 # Kreta
 > Modern project manager for software development.
 
-[![Build Status](https://travis-ci.org/kreta-io/kreta.svg?branch=master)](https://travis-ci.org/kreta-io/kreta)
-[![Coverage Status](https://img.shields.io/coveralls/kreta-io/kreta.svg)](https://coveralls.io/r/kreta-io/kreta)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/kreta-io/kreta/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/kreta-io/kreta/?branch=master)
+[![Build Status](https://travis-ci.org/kreta/kreta.svg?branch=master)](https://travis-ci.org/kreta/kreta)
+[![Coverage Status](https://img.shields.io/coveralls/kreta/kreta.svg)](https://coveralls.io/r/kreta/kreta)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/kreta/kreta/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/kreta/kreta/?branch=master)
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/c744caca-06bb-4b7f-9e0d-96282f4e8469/mini.png)](https://insight.sensiolabs.com/projects/c744caca-06bb-4b7f-9e0d-96282f4e8469)
 [![HHVM Status](http://hhvm.h4cc.de/badge/kreta/kreta.svg)](http://hhvm.h4cc.de/package/kreta/kreta)
 [![Total Downloads](https://poser.pugx.org/kreta/kreta/downloads)](https://packagist.org/packages/kreta/kreta)
@@ -49,7 +49,7 @@ documentation. If you are submitting a pull request, please follow the guideline
 in the [Submitting a Patch][3] section and use the [Pull Request Template][4].
 
 If you have any doubt or maybe you want to share some opinion, you can use our **Gitter chat**.
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/kreta-io/kreta?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/kreta/kreta?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 [1]: http://www.phpspec.net/
 [2]: http://symfony.com/doc/current/contributing/code/index.html
@@ -57,7 +57,7 @@ If you have any doubt or maybe you want to share some opinion, you can use our *
 [4]: http://symfony.com/doc/current/contributing/code/patches.html#make-a-pull-request
 [5]: http://behat.org
 [6]: http://getcomposer.org/download
-[7]: https://github.com/kreta-io/kreta-development
+[7]: https://github.com/kreta/kreta-development
 
 Credits
 -------
@@ -68,4 +68,4 @@ Kreta is created by:
 
 Licensing Options
 -----------------
-[![License](https://poser.pugx.org/kreta/kreta/license.svg)](https://github.com/kreta-io/kreta/blob/master/LICENSE)
+[![License](https://poser.pugx.org/kreta/kreta/license.svg)](https://github.com/kreta/kreta/blob/master/LICENSE)

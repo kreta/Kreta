@@ -1,9 +1,9 @@
 # Kreta Issue Bundle
 > Issue bundle of Kreta: modern project manager for software development.
 
-[![Build Status](https://travis-ci.org/kreta-io/CoreBundle.svg?branch=master)](https://travis-ci.org/kreta-io/CoreBundle)
-[![Coverage Status](https://img.shields.io/coveralls/kreta-io/CoreBundle.svg)](https://coveralls.io/r/kreta-io/CoreBundle)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/kreta-io/CoreBundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/kreta-io/CoreBundle/?branch=master)
+[![Build Status](https://travis-ci.org/kreta/CoreBundle.svg?branch=master)](https://travis-ci.org/kreta/CoreBundle)
+[![Coverage Status](https://img.shields.io/coveralls/kreta/CoreBundle.svg)](https://coveralls.io/r/kreta/CoreBundle)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/kreta/CoreBundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/kreta/CoreBundle/?branch=master)
 [![HHVM Status](http://hhvm.h4cc.de/badge/kreta/issue-bundle.svg)](http://hhvm.h4cc.de/package/kreta/issue-bundle)
 [![Total Downloads](https://poser.pugx.org/kreta/issue-bundle/downloads)](https://packagist.org/packages/kreta/issue-bundle)
 
@@ -40,7 +40,7 @@ documentation. If you are submitting a pull request, please follow the guideline
 in the [Submitting a Patch][3] section and use the [Pull Request Template][4].
 
 If you have any doubt or maybe you want to share some opinion, you can use our **Gitter chat**.
-[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/kreta-io/kreta?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+[![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/kreta/kreta?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 [1]: http://www.phpspec.net/
 [2]: http://symfony.com/doc/current/contributing/code/index.html
@@ -56,4 +56,4 @@ Kreta Issue Bundle is created by:
 
 Licensing Options
 -----------------
-[![License](https://poser.pugx.org/kreta/issue-bundle/license.svg)](https://github.com/kreta-io/kreta/blob/master/LICENSE)
+[![License](https://poser.pugx.org/kreta/issue-bundle/license.svg)](https://github.com/kreta/kreta/blob/master/LICENSE)
