@@ -78,7 +78,7 @@ export class IssueListView extends Backbone.Marionette.CompositeView {
   }
 
   filterIssues(filters) {
-    var data = {project: this.projectId};
+    var data = {project: this.model.id};
 
     filters.forEach((filter) => {
       filter.forEach((item) => {
