@@ -5,6 +5,8 @@
 # @author benatespina <benatespina@gmail.com>
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
+sudo: false
+
 language: php
 
 php:
