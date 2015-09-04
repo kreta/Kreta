@@ -20,8 +20,8 @@
     "require": {
         "php":                                 ">=5.4",
 
-        "kreta/user":                          "~0.2.0",
-        "kreta/workflow":                      "~0.2.0"
+        "kreta/user":                          "~0.3.0",
+        "kreta/workflow":                      "~0.3.0"
     },
     "require-dev": {
         "phpspec/phpspec":                     "~2.2",
@@ -47,7 +47,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "0.2-dev"
+            "dev-master": "0.3-dev"
         }
     }
 }

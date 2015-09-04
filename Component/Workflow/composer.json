@@ -21,7 +21,7 @@
         "php":                                 ">=5.4",
         "yohang/finite":                       "~1.0,>=1.0.4",
 
-        "kreta/issue":                         "~0.2.0"
+        "kreta/issue":                         "~0.3.0"
     },
     "require-dev": {
         "phpspec/phpspec":                     "~2.2",
@@ -51,7 +51,7 @@
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "0.2-dev"
+            "dev-master": "0.3-dev"
         }
     }
 }
