@@ -17,7 +17,7 @@ import {IssuePriorityCollection} from '../../../collections/issue-priority';
 import {NotificationService} from '../../../service/notification';
 import {FormSerializerService} from '../../../service/form-serializer';
 
-export class IssueNewView extends Backbone.View {
+export class IssueNewView extends Backbone.Marionette.ItemView {
   constructor(options) {
     this.className = 'issue-new';
     this.template = _.template($('#issue-new-template').html());
@@ -25,12 +25,19 @@ export class IssueNewView extends Backbone.View {
       'submit #issue-new': 'save'
     };
 
+    this.ui = {
+      project: 'select[name="project"]',
+      assignee: 'select[name="assignee"]',
+      priority: 'select[name="priority"]',
+      type: 'select[name="type"]',
+      issueDetails: '.issue-new-details'
+    };
+
     super(options);
 
     if (this.model.isNew()) {
-      this.projects = new ProjectCollection();
-      this.listenTo(this.projects, 'reset', this.updateProjects);
-      this.projects.fetch({reset: true});
+      this.projects = App.collection.project;
+      this.listenTo(App.collection.project, 'reset', this.updateProjects);
     } else {
       this.model.on('sync', this.getCurrentProject, this);
       this.getCurrentProject(this.model);
@@ -43,44 +50,44 @@ export class IssueNewView extends Backbone.View {
     this.listenTo(this.issuePriorities, 'reset', this.updateSelectors);
   }
 
-  render() {
-    this.$el.html(this.template(this.model.toJSON()));
-
-    this.$el.find('.issue-new-details').hide();
+  onRender() {
+    this.ui.issueDetails.hide();
 
     this.renderSelectors();
+    this.updateProjects();
 
-    this.$project.onOptionSelectedCallback = $.proxy(this.onProjectSelected, this);
+    this.$project.onOptionSelected($.proxy(this.onProjectSelected, this));
+    this.$project.select2("open");
 
     return this;
   }
 
   renderSelectors() {
-    this.$assignee = new SelectorView(this.$el.find('.selector-assignee'));
-    this.$priorities = new SelectorView(this.$el.find('.selector-priority'));
-    /*this.$dueDate = new SelectorView(this.$el.find('.selector-due-date'));*/
-    this.$type = new SelectorView(this.$el.find('.selector-type'));
-    this.$project = new SelectorView(this.$el.find('.selector-project'));
+    this.$assignee = new SelectorView(this.ui.assignee);
+    this.$priority = new SelectorView(this.ui.priority);
+    this.$type = new SelectorView(this.ui.type);
+    this.$project = new SelectorView(this.ui.project);
   }
 
   updateProjects() {
+    this.projects = App.collection.project;
     this.$project.setSelectables(this.projects.models);
   }
 
-  onProjectSelected(project) {
-    this.currentProject = project.id;
+  onProjectSelected(ev) {
+    this.currentProject = this.projects.get($(ev.currentTarget).val());
 
     this.selectorsLeft = 2;
     this.$el.find('.issue-new-details').hide();
 
     var users = [];
-    project.get('participants').forEach((participant) => {
+    this.currentProject.get('participants').forEach((participant) => {
       users.push(new User(participant.user));
     });
     this.$assignee.setSelectables(users);
 
-    this.issueTypes.setProject(project.id).fetch({reset: true});
-    this.issuePriorities.setProject(project.id).fetch({reset: true});
+    this.issueTypes.setProject(this.currentProject.id).fetch({reset: true});
+    this.issuePriorities.setProject(this.currentProject.id).fetch({reset: true});
   }
 
   getCurrentProject(issue) {
@@ -94,7 +101,7 @@ export class IssueNewView extends Backbone.View {
 
   updateSelectors() {
     this.$type.setSelectables(this.issueTypes.models);
-    this.$priorities.setSelectables(this.issuePriorities.models);
+    this.$priority.setSelectables(this.issuePriorities.models);
 
     this.selectorsLeft--;
 
