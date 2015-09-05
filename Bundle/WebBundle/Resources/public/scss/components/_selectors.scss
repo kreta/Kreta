@@ -61,6 +61,11 @@
   padding: 0 !important;
 }
 
+.select2-results__options {
+  max-height: 200px;
+  overflow-y: scroll;
+}
+
 .select2-results__option {
   font-size: 0.8em;
   padding: 10px;

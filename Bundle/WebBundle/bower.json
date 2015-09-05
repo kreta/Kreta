@@ -28,14 +28,15 @@
     "src/Kreta/Bundle/WebBundle/Resources/public/vendor"
   ],
   "dependencies": {
-    "jquery": "~2.1",
-    "foundation": "5.4.*",
+    "backbone": "~1.1.2",
+    "backbone.marionette": "~2.4.1",
     "font-awesome": "~4.3",
     "font-source-sans-pro": "~0.1",
-    "backbone": "~1.1.2",
+    "foundation": "5.4.*",
+    "jquery": "~2.1",
     "lodash": "~3.5.0",
+    "mousetrap": "~1.5.3",
     "requirejs": "~2.1.16",
-    "backbone.marionette": "~2.4.1",
-    "mousetrap": "~1.5.3"
+    "select2": "~4.0.0"
   }
 }

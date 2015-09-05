@@ -8,14 +8,16 @@
  */
 
 export class SelectorView extends Backbone.View {
-  constructor($el) {
+  constructor($el, options) {
     this.$el = $el;
-    this.onOptionSelectedCallback = null;
+
+    options = $.extend({
+      onSelect: null
+    }, options);
 
     this.$el.select2();
-    /*this.$el.siblings('.select2').find(".select2-selection").on('focus', () => {
-      $(this).select2('open');
-    });*/
+    this.$el.on('change', options.onSelect);
+
   }
 
   setSelectables(selectables) {
@@ -26,10 +28,15 @@ export class SelectorView extends Backbone.View {
         `<option value="${model.get('id')}">${model.toString()}</option>`
       );
     });
+    this.openOnFocus();
   }
 
-  onOptionSelected(callback) {
-    this.$el.on('change', callback)
+  openOnFocus() {
+    setTimeout(() => {
+      this.$el.next('.select2').find(".select2-selection").on('focus', () => {
+        this.$el.select2('open');
+      });
+    });
   }
 
   select2(method) {

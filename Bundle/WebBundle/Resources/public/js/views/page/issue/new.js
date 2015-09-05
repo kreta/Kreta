@@ -56,8 +56,9 @@ export class IssueNewView extends Backbone.Marionette.ItemView {
     this.renderSelectors();
     this.updateProjects();
 
-    this.$project.onOptionSelected($.proxy(this.onProjectSelected, this));
-    this.$project.select2("open");
+    setTimeout(() => {
+      this.$project.select2("open");
+    }, 1000);
 
     return this;
   }
@@ -66,7 +67,10 @@ export class IssueNewView extends Backbone.Marionette.ItemView {
     this.$assignee = new SelectorView(this.ui.assignee);
     this.$priority = new SelectorView(this.ui.priority);
     this.$type = new SelectorView(this.ui.type);
-    this.$project = new SelectorView(this.ui.project);
+    this.$project = new SelectorView(this.ui.project, {
+      onSelect: $.proxy(this.onProjectSelected, this),
+      containerCss: 'project-new__project-selector'
+    });
   }
 
   updateProjects() {
