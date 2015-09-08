@@ -12,3 +12,4 @@ services:
             - %kreta_user.user.class%
             - @kreta_media.factory.media
             - @kreta_user.uploader.image_user
+            - '../../../Bundle/UserBundle/Resources/public/img/'
