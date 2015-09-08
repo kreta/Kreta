@@ -26,12 +26,6 @@ Feature: Manage authentication
     Then I should be on the dashboard
     And I should see refresh_token and access_token cookies
 
-  Scenario: Logout successfully
-    Given I am a logged as 'user@kreta.com' with password '123456'
-    Then I follow "Logout"
-    Then I should be on the login
-    And I should not see refresh_token and access_token cookies
-
   Scenario: Login with invalid credentials
     Given I am on "/login"
     When I fill in the following:
