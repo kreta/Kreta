@@ -44,9 +44,9 @@ class MediaContext extends DefaultContext
             $uploader = $this->get($this->getUploader($filename));
 
             $reflectionClass = new \ReflectionClass($this);
-            $directory = dirname($reflectionClass->getFileName()) . '/..' . $this->getPath($filename)->name($filename);
+            $directory = dirname($reflectionClass->getFileName()) . '/..' . $this->getPath($filename);
 
-            foreach ($finder->files()->in($directory) as $file) {
+            foreach ($finder->files()->in($directory)->name($filename) as $file) {
                 $media = $this->get('kreta_media.factory.media')
                     ->create(new UploadedFile($file->getRealPath(), $file->getFilename()));
 
