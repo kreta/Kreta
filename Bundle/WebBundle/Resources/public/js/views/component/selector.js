@@ -8,86 +8,44 @@
  */
 
 export class SelectorView extends Backbone.View {
-  constructor($el) {
+  constructor($el, options) {
     this.$el = $el;
 
-    this.currentPos = 0;
+    options = $.extend({
+      onSelect: null
+    }, options);
 
-    this.$selected = this.$el.children('.selector-text');
-    this.$selected.focusin($.proxy(this.toggleSelector, this));
-    this.$selected.focusout($.proxy(this.toggleSelector, this));
-    this.$selected.keydown($.proxy(this.moveSelected, this));
+    this.$el.select2();
+    this.$el.on('change', options.onSelect);
 
-    this.$choices = this.$el.children('.selector-choices');
-    this.$choices.on(
-      'mousedown', '.selector-selectable', ($.proxy(this.optionClicked, this))
-    );
-
-    this.selectables = [];
-    this.onOptionSelectedCallback = null;
   }
 
   setSelectables(selectables) {
     this.selectables = selectables;
-    this.$choices.html('');
+    this.$el.html('');
     this.selectables.forEach((model) => {
-      this.$choices.append(
-        `<span class="selector-selectable" data-id="${model.get('id')}">${model.toString()}</span>`
+      this.$el.append(
+        `<option value="${model.get('id')}">${model.toString()}</option>`
       );
+    });
+    this.openOnFocus();
+
+    //Fixes issue when selecting first item, select2 doesn`t detect change otherwise
+    setTimeout(() => {
+      this.$el.select2('val', null);
+    }, 50);
+
+  }
+
+  openOnFocus() {
+    setTimeout(() => {
+      this.$el.next('.select2').find(".select2-selection").on('focus', () => {
+        this.$el.select2('open');
+      });
     });
   }
 
-  toggleSelector(ev) {
-    $(ev.currentTarget).parent().toggleClass('visible');
-    if (this.$el.hasClass('visible')) {
-      this.currentPos = 0;
-      this.highlightOption(0);
-    }
-  }
-
-  highlightOption(index) {
-    var $items = this.$choices.find('.selector-selectable');
-    $items.removeClass('selected');
-    $($items.get(index)).addClass('selected');
-  }
-
-  moveSelected(ev) {
-    if (ev.which === 38) { //Up
-      if (this.currentPos > 0) {
-        this.currentPos--;
-        this.highlightOption(this.currentPos);
-      }
-      return;
-    }
-    if (ev.which === 40) { //Down
-      this.currentPos++;
-      this.highlightOption(this.currentPos);
-      return;
-    }
-    if (ev.which === 13) {
-      this.selectOption(this.currentPos, true);
-    }
-  }
-
-  optionClicked(ev) {
-    this.selectOption($(ev.currentTarget).index());
-  }
-
-  selectOption(pos, focusNext = false) {
-    var selectable = this.selectables[pos];
-    var $input = this.$el.find('input[type="hidden"]');
-    var $span = this.$el.find('.selector-text');
-    $input.val(selectable.id).trigger('change');
-    $span.text(selectable.toString());
-    if(focusNext) {
-      $('[tabindex=' + (parseInt($span.attr('tabindex')) + 1) + ']').focus();
-    }
-    if (this.onOptionSelectedCallback) {
-      this.onOptionSelectedCallback(selectable);
-    }
-  }
-
-  onOptionSelected(callback) {
-    this.onOptionSelectedCallback = callback;
+  select2(method) {
+    this.$el.select2(method);
   }
 }
