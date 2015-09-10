@@ -106,11 +106,9 @@ export class IssueNewView extends Backbone.Marionette.ItemView {
     this.$type.setSelectables(this.issueTypes.models);
     this.$priority.setSelectables(this.issuePriorities.models);
 
-    setTimeout(() => {
-      this.ui.assignee.val(this.model.get('assignee').id).trigger('change');
-      this.ui.type.val(this.model.get('type').id).trigger('change');
-      this.ui.priority.val(this.model.get('priority').id).trigger('change');
-    }, 1000);
+    this.ui.assignee.val(this.model.get('assignee').id).trigger('change');
+    this.ui.type.val(this.model.get('type').id).trigger('change');
+    this.ui.priority.val(this.model.get('priority').id).trigger('change');
 
     this.selectorsLeft--;
 
