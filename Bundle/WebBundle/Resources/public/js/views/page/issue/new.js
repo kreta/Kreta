@@ -30,16 +30,14 @@ export class IssueNewView extends Backbone.Marionette.ItemView {
       assignee: 'select[name="assignee"]',
       priority: 'select[name="priority"]',
       type: 'select[name="type"]',
-      issueDetails: '.issue-new-details'
+      issueDetails: '.issue-new-details',
+      actions: '.issue-new-actions'
     };
 
     super(options);
 
-    if (this.model.isNew()) {
-      this.projects = App.collection.project;
-      this.listenTo(App.collection.project, 'reset', this.updateProjects);
-    } else {
-      this.model.on('sync', this.getCurrentProject, this);
+    this.projects = App.collection.project;
+    if (!this.model.isNew()) {
       this.getCurrentProject(this.model);
     }
 
@@ -53,33 +51,29 @@ export class IssueNewView extends Backbone.Marionette.ItemView {
   onRender() {
     this.ui.issueDetails.hide();
 
-    this.renderSelectors();
-    this.updateProjects();
+    this.$assignee = new SelectorView(this.ui.assignee);
+    this.$priority = new SelectorView(this.ui.priority);
+    this.$type = new SelectorView(this.ui.type);
 
-    setTimeout(() => {
-      this.$project.select2("open");
-    }, 1000);
+    if (this.model.isNew()) {
+      this.$project = new SelectorView(this.ui.project, {
+        onSelect: (ev) => {
+          this.onProjectSelected(this.projects.get($(ev.currentTarget).val()));
+        },
+        containerCss: 'project-new__project-selector'
+      });
+      this.$project.setSelectables(this.projects.models);
+
+      setTimeout(() => {
+        this.$project.select2("open");
+      }, 1000);
+    }
 
     return this;
   }
 
-  renderSelectors() {
-    this.$assignee = new SelectorView(this.ui.assignee);
-    this.$priority = new SelectorView(this.ui.priority);
-    this.$type = new SelectorView(this.ui.type);
-    this.$project = new SelectorView(this.ui.project, {
-      onSelect: $.proxy(this.onProjectSelected, this),
-      containerCss: 'project-new__project-selector'
-    });
-  }
-
-  updateProjects() {
-    this.projects = App.collection.project;
-    this.$project.setSelectables(this.projects.models);
-  }
-
-  onProjectSelected(ev) {
-    this.currentProject = this.projects.get($(ev.currentTarget).val());
+  onProjectSelected(project) {
+    this.currentProject = project;
 
     this.ui.issueDetails.hide();
 
@@ -112,6 +106,12 @@ export class IssueNewView extends Backbone.Marionette.ItemView {
     this.$type.setSelectables(this.issueTypes.models);
     this.$priority.setSelectables(this.issuePriorities.models);
 
+    setTimeout(() => {
+      this.ui.assignee.val(this.model.get('assignee').id).trigger('change');
+      this.ui.type.val(this.model.get('type').id).trigger('change');
+      this.ui.priority.val(this.model.get('priority').id).trigger('change');
+    }, 1000);
+
     this.selectorsLeft--;
 
     if (this.selectorsLeft === 0) {
@@ -122,8 +122,7 @@ export class IssueNewView extends Backbone.Marionette.ItemView {
   save(ev) {
     ev.preventDefault();
 
-    var $actions = $('.issue-new-actions');
-    $actions.hide();
+    this.ui.actions.hide();
 
     this.model = FormSerializerService.serialize(
       $('#issue-new'), Issue
@@ -140,12 +139,12 @@ export class IssueNewView extends Backbone.Marionette.ItemView {
           type: 'success',
           message: 'Issue created successfully'
         });
-      }, error: function() {
+      }, error: () => {
         NotificationService.showNotification({
           type: 'error',
           message: 'Error while saving this issue'
         });
-        $actions.show();
+        this.ui.actions.show();
       }
     });
   }
