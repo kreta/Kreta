@@ -29,6 +29,8 @@ export class SelectorView extends Backbone.View {
       );
     });
     this.openOnFocus();
+
+    //Fixes issue when selecting first item, select2 doesn`t detect change otherwise
     setTimeout(() => {
       this.$el.select2('val', null);
     }, 50);
