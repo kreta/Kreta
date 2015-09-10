@@ -124,12 +124,12 @@ export class IssueNewView extends Backbone.Marionette.ItemView {
       $('#issue-new'), Issue
     );
 
-    this.model.set('project', this.currentProject);
+    this.model.set('project', this.currentProject.id);
 
 
     this.model.save(null, {
       success: (model) => {
-        App.router.base.navigate('/project/' + this.currentProject, true);
+        App.router.base.navigate('/project/' + this.currentProject.id, true);
         App.controller.issue.showAction(model);
         NotificationService.showNotification({
           type: 'success',
