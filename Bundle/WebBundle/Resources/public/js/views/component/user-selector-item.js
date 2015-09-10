@@ -7,6 +7,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
+import {Config} from '../../config';
 import {NotificationService} from '../../service/notification';
 
 export class UserSelectorItemView extends Backbone.Marionette.ItemView {
@@ -32,7 +33,7 @@ export class UserSelectorItemView extends Backbone.Marionette.ItemView {
       user: this.model.id
     };
 
-    $.post(App.getBaseUrl() + '/projects/' + this.project + '/participants' , participant, function() {
+    $.post(Config.baseUrl + '/projects/' + this.project + '/participants' , participant, function() {
       NotificationService.showNotification({
         type: 'success',
         message: 'User added successfully to the project'

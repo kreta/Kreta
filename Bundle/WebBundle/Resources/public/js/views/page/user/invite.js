@@ -7,6 +7,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
+import {Config} from '../../../config';
 import {FormSerializerService} from '../../../service/form-serializer';
 import {NotificationService} from '../../../service/notification';
 
@@ -29,7 +30,7 @@ export class UserInviteView extends Backbone.Marionette.ItemView {
 
   save (ev) {
     ev.preventDefault();
-    $.post(App.getBaseUrl() + '/users' , FormSerializerService.serialize(this.ui.form), () => {
+    $.post(Config.baseUrl + '/users' , FormSerializerService.serialize(this.ui.form), () => {
       this.modalClose();
       NotificationService.showNotification({
         type: 'success',
