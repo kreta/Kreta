@@ -29,6 +29,10 @@ export class SelectorView extends Backbone.View {
       );
     });
     this.openOnFocus();
+    setTimeout(() => {
+      this.$el.select2('val', null);
+    }, 50);
+
   }
 
   openOnFocus() {

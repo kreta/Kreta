@@ -81,8 +81,13 @@ export class IssueNewView extends Backbone.Marionette.ItemView {
   onProjectSelected(ev) {
     this.currentProject = this.projects.get($(ev.currentTarget).val());
 
+    this.ui.issueDetails.hide();
+
+    if(!this.currentProject) {
+      return;
+    }
+
     this.selectorsLeft = 2;
-    this.$el.find('.issue-new-details').hide();
 
     var users = [];
     this.currentProject.get('participants').forEach((participant) => {
@@ -110,7 +115,7 @@ export class IssueNewView extends Backbone.Marionette.ItemView {
     this.selectorsLeft--;
 
     if (this.selectorsLeft === 0) {
-      this.$el.find('.issue-new-details').show();
+      this.ui.issueDetails.show();
     }
   }
 
