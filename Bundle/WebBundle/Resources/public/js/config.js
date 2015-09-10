@@ -7,14 +7,6 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-import {Config} from '../config';
-
-export class Profile extends Backbone.Model {
-  urlRoot() {
-    return  Config.baseUrl + '/profile';
-  }
-
-  toString () {
-    return this.get('name');
-  }
-}
+export var Config = {
+  baseUrl: '//' + location.hostname + (location.port != "" ? ":" + location.port : '') + '/api'
+};

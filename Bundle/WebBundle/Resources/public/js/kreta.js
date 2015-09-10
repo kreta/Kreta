@@ -15,7 +15,6 @@ import {App} from 'app';
 $(() => {
   window.App = new App();
   window.App.loadLayout();
-  window.App.loadCollections();
 
   $(document).on('click', 'a:not([data-bypass])', function (evt) {
     var href = $(this).attr('href');

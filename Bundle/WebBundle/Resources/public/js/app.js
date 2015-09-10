@@ -24,6 +24,8 @@ import {HeaderView} from 'views/layout/mainMenu';
 
 export class App extends Backbone.Marionette.Application {
   initialize() {
+    this.addAutenticationHeader();
+
     this.router = {
       base: new BaseRouter(),
       issue: new IssueRouter(),
@@ -35,10 +37,13 @@ export class App extends Backbone.Marionette.Application {
       project: new ProjectController()
     };
 
+    this.collection = {
+      project: new ProjectCollection(),
+      user: new UserCollection()
+    };
 
-
-    this.initializeGlobalShortcuts();
-    this.addAutenticationHeader();
+    this.collection.project.fetch();
+    this.collection.user.fetch();
   }
 
   loadLayout() {
@@ -51,35 +56,10 @@ export class App extends Backbone.Marionette.Application {
     new HeaderView();
   }
 
-  loadCollections() {
-    this.collection = {
-      project: new ProjectCollection(),
-      user: new UserCollection()
-    };
-
-    this.collection.project.fetch();
-    this.collection.user.fetch();
-  }
-
-  initializeGlobalShortcuts() {
-    Mousetrap.bind('p', () => {
-      this.controller.project.listAction();
-    });
-
-    Mousetrap.bind('n', () => {
-      this.router.base.navigate('/issue/new', true);
-    });
-  }
-
   addAutenticationHeader() {
     Backbone.$.ajaxSetup({
       headers: {'Authorization': 'Bearer ' + this.getAccessToken()}
     });
-  }
-
-  getBaseUrl () {
-    var host = location.hostname + (location.port != "" ? ":" + location.port : '');
-    return '//' + host + '/api';
   }
 
   getCookie(name) {

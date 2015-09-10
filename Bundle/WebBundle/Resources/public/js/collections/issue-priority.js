@@ -7,6 +7,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
+import {Config} from '../config';
 import {IssuePriority} from '../models/issue-priority';
 
 export class IssuePriorityCollection extends Backbone.Collection {
@@ -16,7 +17,7 @@ export class IssuePriorityCollection extends Backbone.Collection {
   }
 
   setProject(projectId) {
-    this.url = App.getBaseUrl() + '/projects/' + projectId + '/issue-priorities';
+    this.url = Config.baseUrl + '/projects/' + projectId + '/issue-priorities';
     return this;
   }
 }

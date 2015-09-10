@@ -23,6 +23,14 @@ export class HeaderView extends Backbone.View {
       'click .menu-action.projects': 'showProjectList'
     };
 
+    Mousetrap.bind('p', () => {
+      App.controller.project.listAction();
+    });
+
+    Mousetrap.bind('n', () => {
+      App.router.base.navigate('/issue/new', true);
+    });
+
     super();
     this.render();
   }

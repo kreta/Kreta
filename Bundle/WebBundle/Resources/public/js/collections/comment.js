@@ -7,6 +7,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
+import {Config} from '../config';
 import {Comment} from '../models/comment';
 
 export class CommentCollection extends Backbone.Collection {
@@ -16,7 +17,7 @@ export class CommentCollection extends Backbone.Collection {
   }
 
   setIssue (issueId) {
-    this.url = App.getBaseUrl() + '/issues/' + issueId + '/comments';
+    this.url = Config.baseUrl + '/issues/' + issueId + '/comments';
     return this;
   }
 }

@@ -7,6 +7,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
+import {Config} from '../config';
 import {Participant} from '../models/participant';
 
 export class ParticipantCollection extends Backbone.Collection {
@@ -16,7 +17,7 @@ export class ParticipantCollection extends Backbone.Collection {
   }
 
   setProject (projectId) {
-    this.url = App.getBaseUrl() + '/projects/' + projectId + '/participants';
+    this.url = Config.baseUrl + '/projects/' + projectId + '/participants';
     return this;
   }
 }

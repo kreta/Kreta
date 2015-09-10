@@ -7,12 +7,13 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
+import {Config} from '../config';
 import {Project} from '../models/project';
 
 export class ProjectCollection extends Backbone.Collection {
   constructor() {
     this.model = Project;
-    this.url = App.getBaseUrl() + '/projects';
+    this.url = Config.baseUrl + '/projects';
     super();
   }
 }

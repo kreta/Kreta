@@ -7,9 +7,11 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
+import {Config} from '../config';
+
 export class Project extends Backbone.Model {
   urlRoot() {
-    return App.getBaseUrl() + '/projects';
+    return Config.baseUrl + '/projects';
   }
 
   defaults () {

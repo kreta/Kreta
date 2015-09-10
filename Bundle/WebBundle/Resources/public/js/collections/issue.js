@@ -7,12 +7,13 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
+import {Config} from '../config';
 import {Issue} from '../models/issue';
 
 export class IssueCollection extends Backbone.Collection {
   constructor (models, options) {
     this.model = Issue;
-    this.url = App.getBaseUrl() + '/issues';
+    this.url = Config.baseUrl + '/issues';
     super(models, options);
   }
 
