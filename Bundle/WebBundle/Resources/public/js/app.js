@@ -10,6 +10,7 @@
 import {BaseRouter} from 'router/base';
 import {IssueRouter} from 'router/issue';
 import {ProjectRouter} from 'router/project';
+import {UserRouter} from 'router/user';
 
 import {ProjectController} from 'controllers/project';
 import {IssueController} from 'controllers/issue';
@@ -29,7 +30,8 @@ export class App extends Backbone.Marionette.Application {
     this.router = {
       base: new BaseRouter(),
       issue: new IssueRouter(),
-      project: new ProjectRouter()
+      project: new ProjectRouter(),
+      user: new UserRouter()
     };
 
     this.controller = {

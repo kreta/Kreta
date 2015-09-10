@@ -30,8 +30,10 @@
             <a class="menu-action" href="/issue/new" data-tooltip-text="Create issue" data-tooltip-position="right">
                 <img src="{{ asset('images/icons/new.png') }}">
             </a>
-            {#<a href="/"><img src="{{ asset('images/icons/dashboard.png') }}"></a>
-            <a href="/"><img src="{{ asset('images/icons/lists.png') }}"></a>#}
+            {#<a href="/"><img src="{{ asset('images/icons/dashboard.png') }}"></a>#}
+            <a class="menu-action" href="/profile/edit" data-tooltip-text="Edit profile" data-tooltip-position="right">
+                <img src="{{ asset('images/icons/lists.png') }}">
+            </a>
             <a class="menu-action projects" href="#" data-tooltip-text="Project list" data-tooltip-position="right">
                 <img src="{{ asset('images/icons/projects.png') }}">
             </a>
@@ -71,6 +73,7 @@
 {% include 'KretaWebBundle:Default/templates:project/list.html.twig' %}
 {% include 'KretaWebBundle:Default/templates:project/new.html.twig' %}
 {% include 'KretaWebBundle:Default/templates:project/settings.html.twig' %}
+{% include 'KretaWebBundle:Default/templates:user/edit.html.twig' %}
 {% include 'KretaWebBundle:Default/templates:user/invite.html.twig' %}
 
 {% if production_assets == false %}

@@ -34,3 +34,8 @@ kreta_web_project_settings:
     path: /project/{id}/settings
     defaults: { _controller: KretaWebBundle:Default:index }
     methods: [GET]
+
+kreta_web_profile/edit:
+    path: /profile/edit
+    defaults: { _controller: KretaWebBundle:Default:index }
+    methods: [GET]

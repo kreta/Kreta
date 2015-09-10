@@ -11,7 +11,7 @@ import {Config} from '../config';
 
 export class Issue extends Backbone.Model {
   urlRoot() {
-    return Config.baseUrl() + '/issues';
+    return Config.baseUrl + '/issues';
   }
 
   defaults() {
