@@ -17,7 +17,7 @@ Kreta\Component\Workflow\Model\StatusTransition:
                     transitionId: expr(object.getId())
                 absolute: true
             exclusion:
-                groups: [transitionList, transition]
+                groups: [workflowList, workflow, transitionList, transition]
         -
             rel: transitions
             href:
@@ -26,7 +26,7 @@ Kreta\Component\Workflow\Model\StatusTransition:
                     workflowId: expr(object.getWorkflow().getId())
                 absolute: true
             exclusion:
-                groups: [transitionList, transition]
+                groups: [workflowList, workflow, transitionList, transition]
         -
             rel: workflow
             href:
@@ -39,13 +39,13 @@ Kreta\Component\Workflow\Model\StatusTransition:
     properties:
         id:
             expose: true
-            groups: [transitionList, transition]
+            groups: [workflowList, workflow, transitionList, transition]
         initialStates:
             expose: true
-            groups: [transitionList, transition]
+            groups: [workflowList, workflow, transitionList, transition]
         name:
             expose: true
-            groups: [transitionList, transition]
+            groups: [workflowList, workflow, transitionList, transition]
         state:
             expose: true
             groups: []

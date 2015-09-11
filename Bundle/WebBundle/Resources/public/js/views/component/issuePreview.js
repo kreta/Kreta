@@ -22,6 +22,13 @@ export class IssuePreviewView extends Backbone.Marionette.ItemView {
     this.listenTo(App.vent, 'issue:highlight', (issueId) => {
       this.highlightIssue(issueId);
     });
+
+    this.listenTo(App.vent, 'issue:updated', (issue) => {
+      if(this.model.id === issue.id) {
+        this.model.set(issue);
+        this.render();
+      }
+    });
   }
 
   showFullIssue() {

@@ -24,24 +24,6 @@ Kreta\Component\Workflow\Model\Workflow:
                 absolute: true
             exclusion:
                 groups: [workflowList, workflow]
-        -
-            rel: transitions
-            href:
-                route: get_workflow_transitions
-                parameters:
-                    workflowId: expr(object.getId())
-                absolute: true
-            exclusion:
-                groups: [workflowList, workflow]
-        -
-            rel: statuses
-            href:
-                route: get_workflow_statuses
-                parameters:
-                    workflowId: expr(object.getId())
-                absolute: true
-            exclusion:
-                groups: [workflowList, workflow]
     properties:
         createdAt:
             expose: true
@@ -51,7 +33,7 @@ Kreta\Component\Workflow\Model\Workflow:
             groups: [workflowList, workflow, projectList, project]
         statuses:
             expose: true
-            groups: []
+            groups: [workflowList, workflow]
         statusTransitions:
             expose: true
-            groups: []
+            groups: [workflowList, workflow]

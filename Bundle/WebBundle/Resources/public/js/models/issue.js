@@ -14,6 +14,10 @@ export class Issue extends Backbone.Model {
     return Config.baseUrl + '/issues';
   }
 
+  urlTransition() {
+    return Config.baseUrl + '/issues/' + this.id + '/transitions';
+  }
+
   defaults() {
     return {
       title: '',
@@ -52,5 +56,42 @@ export class Issue extends Backbone.Model {
     }
 
     return data;
+  }
+
+  doTransition(transitionId, options = {}) {
+    var defaultOptions = {
+      success: null,
+      error: null
+    };
+
+    options = $.extend(defaultOptions, options);
+    Backbone.$.ajax(this.urlTransition(), {
+      method: 'PATCH',
+      data: {
+        'transition': transitionId
+      },
+      success: options.success,
+      error: options.error
+    });
+  }
+
+  getAllowedTransitions() {
+    var projectHref = this.attributes._links.project.href;
+    var projectId = projectHref.substring(projectHref.lastIndexOf('/') + 1);
+    var project = App.collection.project.get(projectId);
+
+    var workflowHref = project.attributes._links.workflow.href;
+    var workflowId = workflowHref.substring(workflowHref.lastIndexOf('/') + 1);
+
+    var allowedTransitions = [];
+    App.collection.workflow.get(workflowId).attributes.status_transitions.forEach((transition) => {
+      transition.initial_states.forEach((state) => {
+        if(state.id === this.get('status').id) {
+          allowedTransitions.push(transition);
+        }
+      });
+    });
+
+    return allowedTransitions;
   }
 }

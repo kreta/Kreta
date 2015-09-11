@@ -11,9 +11,7 @@
 
 namespace Kreta\Bundle\WorkflowBundle\Controller;
 
-use FOS\RestBundle\Controller\Annotations\QueryParam;
 use FOS\RestBundle\Controller\Annotations\View;
-use FOS\RestBundle\Request\ParamFetcher;
 use Kreta\Component\Core\Annotation\ResourceIfAllowed as Workflow;
 use Kreta\SimpleApiDocBundle\Annotation\ApiDoc;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -27,27 +25,16 @@ use Symfony\Component\HttpFoundation\Request;
 class WorkflowController extends Controller
 {
     /**
-     * Returns all the workflows of current user, it admits sort, limit and offset.
-     *
-     * @param \FOS\RestBundle\Request\ParamFetcher $paramFetcher The param fetcher
-     *
-     * @QueryParam(name="sort", requirements="(name|createdAt)", default="name", description="Sort")
-     * @QueryParam(name="limit", requirements="\d+", default="9999", description="Amount of workflows to be returned")
-     * @QueryParam(name="offset", requirements="\d+", default="0", description="Offset in pages")
+     * Returns all the workflows.
      *
      * @ApiDoc(resource=true, statusCodes={200})
      * @View(statusCode=200, serializerGroups={"workflowList"})
      *
      * @return \Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface[]
      */
-    public function getWorkflowsAction(ParamFetcher $paramFetcher)
+    public function getWorkflowsAction()
     {
-        return $this->get('kreta_workflow.repository.workflow')->findBy(
-            ['creator' => $this->getUser()],
-            [$paramFetcher->get('sort') => 'ASC'],
-            $paramFetcher->get('limit'),
-            $paramFetcher->get('offset')
-        );
+        return $this->get('kreta_workflow.repository.workflow')->findAll();
     }
 
     /**
@@ -91,6 +78,7 @@ class WorkflowController extends Controller
      * @ApiDoc(statusCodes={200, 400, 403, 404})
      * @View(statusCode=200, serializerGroups={"workflow"})
      * @Workflow("edit")
+     *
      * @return \Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface
      */
     public function putWorkflowAction(Request $request, $workflowId)

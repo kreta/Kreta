@@ -11,9 +11,7 @@
 
 namespace spec\Kreta\Bundle\WorkflowBundle\Controller;
 
-use FOS\RestBundle\Request\ParamFetcher;
 use Kreta\Component\Core\Form\Handler\Handler;
-use Kreta\Component\User\Model\Interfaces\UserInterface;
 use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
 use Kreta\Component\Workflow\Repository\WorkflowRepository;
 use PhpSpec\ObjectBehavior;
@@ -21,7 +19,6 @@ use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 /**
  * Class WorkflowControllerSpec.
@@ -48,28 +45,13 @@ class WorkflowControllerSpec extends ObjectBehavior
     function it_gets_workflows(
         ContainerInterface $container,
         WorkflowRepository $workflowRepository,
-        TokenStorageInterface $context,
-        TokenInterface $token,
-        UserInterface $user,
-        ParamFetcher $paramFetcher,
         WorkflowInterface $workflow
     )
     {
         $container->get('kreta_workflow.repository.workflow')->shouldBeCalled()->willReturn($workflowRepository);
+        $workflowRepository->findAll()->shouldBeCalled()->willReturn([$workflow]);
 
-        $container->has('security.token_storage')->shouldBeCalled()->willReturn(true);
-        $container->get('security.token_storage')->shouldBeCalled()->willReturn($context);
-
-        $context->getToken()->shouldBeCalled()->willReturn($token);
-        $token->getUser()->shouldBeCalled()->willReturn($user);
-
-        $paramFetcher->get('sort')->shouldBeCalled()->willReturn('createdAt');
-        $paramFetcher->get('limit')->shouldBeCalled()->willReturn(10);
-        $paramFetcher->get('offset')->shouldBeCalled()->willReturn(1);
-        $workflowRepository->findBy(['creator' => $user], ['createdAt' => 'ASC'], 10, 1)
-            ->shouldBeCalled()->willReturn([$workflow]);
-
-        $this->getWorkflowsAction($paramFetcher)->shouldReturn([$workflow]);
+        $this->getWorkflowsAction()->shouldReturn([$workflow]);
     }
 
     function it_gets_workflow(Request $request, WorkflowInterface $workflow)

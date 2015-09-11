@@ -34,6 +34,11 @@ Feature: Manage workflow
       | 0  | #27ae60 | Open        | Workflow 1 |
       | 1  | #2c3e50 | In progress | Workflow 1 |
       | 2  | #f1c40f | Resolved    | Workflow 1 |
+    And the following status transitions exist:
+      | id | name            | status      | initialStates    |
+      | 0  | Start progress  | Open        | In progress      |
+      | 1  | Reopen progress | In progress | Open,Resolved    |
+      | 2  | Finish progress | Resolved    | Open,In progress |
     And the following participants exist:
       | project        | user            | role             |
       | Test project 1 | user3@kreta.com | ROLE_PARTICIPANT |
@@ -45,7 +50,7 @@ Feature: Manage workflow
       | access-token-1 | null      | user  | user2@kreta.com |
       | access-token-2 | null      | user  | user3@kreta.com |
 
-  Scenario: Getting all the workflows that can see user@kreta.com
+  Scenario: Getting all the workflows
     Given I am authenticating with "access-token-0" token
     When I send a GET request to "/app_test.php/api/workflows"
     Then the response code should be 200
@@ -55,405 +60,245 @@ Feature: Manage workflow
         "id": "0",
         "created_at": "2014-11-29T00:00:00+0100",
         "name": "Workflow 1",
+        "statuses": [
+          {
+            "type": "normal",
+            "name": "Open",
+            "id": "0",
+            "color": "#27ae60",
+            "_links": {
+              "self": {
+                "href": "http://localhost/app_test.php/api/workflows/0/statuses/0"
+              },
+              "statuses": {
+                "href": "http://localhost/app_test.php/api/workflows/0/statuses"
+              }
+            }
+          },
+          {
+            "type": "normal",
+            "name": "In progress",
+            "id": "1",
+            "color": "#2c3e50",
+            "_links": {
+              "self": {
+                "href": "http://localhost/app_test.php/api/workflows/0/statuses/1"
+              },
+              "statuses": {
+                "href": "http://localhost/app_test.php/api/workflows/0/statuses"
+              }
+            }
+          },
+          {
+            "type": "normal",
+            "name": "Resolved",
+            "id": "2",
+            "color": "#f1c40f",
+            "_links": {
+              "self": {
+                "href": "http://localhost/app_test.php/api/workflows/0/statuses/2"
+              },
+              "statuses": {
+                "href": "http://localhost/app_test.php/api/workflows/0/statuses"
+              }
+            }
+          }
+        ],
+        "status_transitions": [
+          {
+            "initial_states": [
+              {
+                "type": "normal",
+                "name": "In progress",
+                "id": "1",
+                "color": "#2c3e50",
+                "_links": {
+                  "self": {
+                    "href": "http://localhost/app_test.php/api/workflows/0/statuses/1"
+                  },
+                  "statuses": {
+                    "href": "http://localhost/app_test.php/api/workflows/0/statuses"
+                  }
+                }
+              }
+            ],
+            "name": "Start progress",
+            "id": "0",
+            "_links": {
+              "self": {
+                "href": "http://localhost/app_test.php/api/workflows/0/transitions/0"
+              },
+              "transitions": {
+                "href": "http://localhost/app_test.php/api/workflows/0/transitions"
+              }
+            }
+          },
+          {
+            "initial_states": [
+              {
+                "type": "normal",
+                "name": "Open",
+                "id": "0",
+                "color": "#27ae60",
+                "_links": {
+                  "self": {
+                    "href": "http://localhost/app_test.php/api/workflows/0/statuses/0"
+                  },
+                  "statuses": {
+                    "href": "http://localhost/app_test.php/api/workflows/0/statuses"
+                  }
+                }
+              },
+              {
+                "type": "normal",
+                "name": "Resolved",
+                "id": "2",
+                "color": "#f1c40f",
+                "_links": {
+                  "self": {
+                    "href": "http://localhost/app_test.php/api/workflows/0/statuses/2"
+                  },
+                  "statuses": {
+                    "href": "http://localhost/app_test.php/api/workflows/0/statuses"
+                  }
+                }
+              }
+            ],
+            "name": "Reopen progress",
+            "id": "1",
+            "_links": {
+              "self": {
+                "href": "http://localhost/app_test.php/api/workflows/0/transitions/1"
+              },
+              "transitions": {
+                "href": "http://localhost/app_test.php/api/workflows/0/transitions"
+              }
+            }
+          },
+          {
+            "initial_states": [
+              {
+                "type": "normal",
+                "name": "Open",
+                "id": "0",
+                "color": "#27ae60",
+                "_links": {
+                  "self": {
+                    "href": "http://localhost/app_test.php/api/workflows/0/statuses/0"
+                  },
+                  "statuses": {
+                    "href": "http://localhost/app_test.php/api/workflows/0/statuses"
+                  }
+                }
+              },
+              {
+                "type": "normal",
+                "name": "In progress",
+                "id": "1",
+                "color": "#2c3e50",
+                "_links": {
+                  "self": {
+                    "href": "http://localhost/app_test.php/api/workflows/0/statuses/1"
+                  },
+                  "statuses": {
+                    "href": "http://localhost/app_test.php/api/workflows/0/statuses"
+                  }
+                }
+              }
+            ],
+            "name": "Finish progress",
+            "id": "2",
+            "_links": {
+              "self": {
+                "href": "http://localhost/app_test.php/api/workflows/0/transitions/2"
+              },
+              "transitions": {
+                "href": "http://localhost/app_test.php/api/workflows/0/transitions"
+              }
+            }
+          }
+        ],
         "_links": {
           "self": {
             "href": "http://localhost/app_test.php/api/workflows/0"
           },
           "workflows": {
             "href": "http://localhost/app_test.php/api/workflows"
-          },
-          "transitions": {
-            "href": "http://localhost/app_test.php/api/workflows/0/transitions"
-          },
-          "statuses": {
-            "href": "http://localhost/app_test.php/api/workflows/0/statuses"
           }
         }
-      }, {
+      },
+      {
         "id": "1",
         "created_at": "2014-11-30T00:00:00+0100",
         "name": "Workflow 2",
+        "statuses": [],
+        "status_transitions": [],
         "_links": {
           "self": {
             "href": "http://localhost/app_test.php/api/workflows/1"
           },
           "workflows": {
             "href": "http://localhost/app_test.php/api/workflows"
-          },
-          "transitions": {
-            "href": "http://localhost/app_test.php/api/workflows/1/transitions"
-          },
-          "statuses": {
-            "href": "http://localhost/app_test.php/api/workflows/1/statuses"
           }
         }
-      }, {
-        "id": "3",
-        "created_at": "2014-12-30T00:00:00+0100",
-        "name": "Workflow 4",
-        "_links": {
-          "self": {
-            "href": "http://localhost/app_test.php/api/workflows/3"
-          },
-          "workflows": {
-            "href": "http://localhost/app_test.php/api/workflows"
-          },
-          "transitions": {
-            "href": "http://localhost/app_test.php/api/workflows/3/transitions"
-          },
-          "statuses": {
-            "href": "http://localhost/app_test.php/api/workflows/3/statuses"
-          }
-        }
-      }, {
-        "id": "4",
-        "created_at": "2014-09-17T00:00:00+0200",
-        "name": "Workflow 5",
-        "_links": {
-          "self": {
-            "href": "http://localhost/app_test.php/api/workflows/4"
-          },
-          "workflows": {
-            "href": "http://localhost/app_test.php/api/workflows"
-          },
-          "transitions": {
-            "href": "http://localhost/app_test.php/api/workflows/4/transitions"
-          },
-          "statuses": {
-            "href": "http://localhost/app_test.php/api/workflows/4/statuses"
-          }
-        }
-      }, {
-        "id": "5",
-        "created_at": "2014-10-20T00:00:00+0200",
-        "name": "Workflow 6",
-        "_links": {
-          "self": {
-            "href": "http://localhost/app_test.php/api/workflows/5"
-          },
-          "workflows": {
-            "href": "http://localhost/app_test.php/api/workflows"
-          },
-          "transitions": {
-            "href": "http://localhost/app_test.php/api/workflows/5/transitions"
-          },
-          "statuses": {
-            "href": "http://localhost/app_test.php/api/workflows/5/statuses"
-          }
-        }
-      }]
-    """
-
-  Scenario: Getting all the workflows that can see user2@kreta.com
-    Given I am authenticating with "access-token-1" token
-    When I send a GET request to "/app_test.php/api/workflows"
-    Then the response code should be 200
-    And the response should contain json:
-    """
-      [{
+      },
+      {
         "id": "2",
         "created_at": "2014-11-20T00:00:00+0100",
         "name": "Workflow 3",
+        "statuses": [],
+        "status_transitions": [],
         "_links": {
           "self": {
             "href": "http://localhost/app_test.php/api/workflows/2"
           },
           "workflows": {
             "href": "http://localhost/app_test.php/api/workflows"
-          },
-          "transitions": {
-            "href": "http://localhost/app_test.php/api/workflows/2/transitions"
-          },
-          "statuses": {
-            "href": "http://localhost/app_test.php/api/workflows/2/statuses"
           }
         }
-      }]
-    """
-
-  Scenario: Getting all the workflows that can see user@kreta.com with limit 3
-    Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/workflows?limit=3"
-    Then the response code should be 200
-    And the response should contain json:
-    """
-      [{
-        "id": "0",
-        "created_at": "2014-11-29T00:00:00+0100",
-        "name": "Workflow 1",
-        "_links": {
-          "self": {
-            "href": "http://localhost/app_test.php/api/workflows/0"
-          },
-          "workflows": {
-            "href": "http://localhost/app_test.php/api/workflows"
-          },
-          "transitions": {
-            "href": "http://localhost/app_test.php/api/workflows/0/transitions"
-          },
-          "statuses": {
-            "href": "http://localhost/app_test.php/api/workflows/0/statuses"
-          }
-        }
-      }, {
-        "id": "1",
-        "created_at": "2014-11-30T00:00:00+0100",
-        "name": "Workflow 2",
-        "_links": {
-          "self": {
-            "href": "http://localhost/app_test.php/api/workflows/1"
-          },
-          "workflows": {
-            "href": "http://localhost/app_test.php/api/workflows"
-          },
-          "transitions": {
-            "href": "http://localhost/app_test.php/api/workflows/1/transitions"
-          },
-          "statuses": {
-            "href": "http://localhost/app_test.php/api/workflows/1/statuses"
-          }
-        }
-      }, {
+      },
+      {
         "id": "3",
         "created_at": "2014-12-30T00:00:00+0100",
         "name": "Workflow 4",
+        "statuses": [],
+        "status_transitions": [],
         "_links": {
           "self": {
             "href": "http://localhost/app_test.php/api/workflows/3"
           },
           "workflows": {
             "href": "http://localhost/app_test.php/api/workflows"
-          },
-          "transitions": {
-            "href": "http://localhost/app_test.php/api/workflows/3/transitions"
-          },
-          "statuses": {
-            "href": "http://localhost/app_test.php/api/workflows/3/statuses"
           }
         }
-      }]
-    """
-
-  Scenario: Getting all the workflows that can see user@kreta.com with offset 2
-    Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/workflows?offset=2"
-    Then the response code should be 200
-    And the response should contain json:
-    """
-      [{
-        "id": "3",
-        "created_at": "2014-12-30T00:00:00+0100",
-        "name": "Workflow 4",
-        "_links": {
-          "self": {
-            "href": "http://localhost/app_test.php/api/workflows/3"
-          },
-          "workflows": {
-            "href": "http://localhost/app_test.php/api/workflows"
-          },
-          "transitions": {
-            "href": "http://localhost/app_test.php/api/workflows/3/transitions"
-          },
-          "statuses": {
-            "href": "http://localhost/app_test.php/api/workflows/3/statuses"
-          }
-        }
-      }, {
+      },
+      {
         "id": "4",
         "created_at": "2014-09-17T00:00:00+0200",
         "name": "Workflow 5",
+        "statuses": [],
+        "status_transitions": [],
         "_links": {
           "self": {
             "href": "http://localhost/app_test.php/api/workflows/4"
           },
           "workflows": {
             "href": "http://localhost/app_test.php/api/workflows"
-          },
-          "transitions": {
-            "href": "http://localhost/app_test.php/api/workflows/4/transitions"
-          },
-          "statuses": {
-            "href": "http://localhost/app_test.php/api/workflows/4/statuses"
           }
         }
-      }, {
+      },
+      {
         "id": "5",
         "created_at": "2014-10-20T00:00:00+0200",
         "name": "Workflow 6",
+        "statuses": [],
+        "status_transitions": [],
         "_links": {
           "self": {
             "href": "http://localhost/app_test.php/api/workflows/5"
           },
           "workflows": {
             "href": "http://localhost/app_test.php/api/workflows"
-          },
-          "transitions": {
-            "href": "http://localhost/app_test.php/api/workflows/5/transitions"
-          },
-          "statuses": {
-            "href": "http://localhost/app_test.php/api/workflows/5/statuses"
-          }
-        }
-      }]
-    """
-
-  Scenario: Getting all the workflows that can see user@kreta.com sort by createdAt
-    Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/workflows?sort=createdAt"
-    Then the response code should be 200
-    And the response should contain json:
-    """
-      [{
-        "id": "4",
-        "created_at": "2014-09-17T00:00:00+0200",
-        "name": "Workflow 5",
-        "_links": {
-          "self": {
-            "href": "http://localhost/app_test.php/api/workflows/4"
-          },
-          "workflows": {
-            "href": "http://localhost/app_test.php/api/workflows"
-          },
-          "transitions": {
-            "href": "http://localhost/app_test.php/api/workflows/4/transitions"
-          },
-          "statuses": {
-            "href": "http://localhost/app_test.php/api/workflows/4/statuses"
-          }
-        }
-      }, {
-        "id": "5",
-        "created_at": "2014-10-20T00:00:00+0200",
-        "name": "Workflow 6",
-        "_links": {
-          "self": {
-            "href": "http://localhost/app_test.php/api/workflows/5"
-          },
-          "workflows": {
-            "href": "http://localhost/app_test.php/api/workflows"
-          },
-          "transitions": {
-            "href": "http://localhost/app_test.php/api/workflows/5/transitions"
-          },
-          "statuses": {
-            "href": "http://localhost/app_test.php/api/workflows/5/statuses"
-          }
-        }
-      }, {
-        "id": "0",
-        "created_at": "2014-11-29T00:00:00+0100",
-        "name": "Workflow 1",
-        "_links": {
-          "self": {
-            "href": "http://localhost/app_test.php/api/workflows/0"
-          },
-          "workflows": {
-            "href": "http://localhost/app_test.php/api/workflows"
-          },
-          "transitions": {
-            "href": "http://localhost/app_test.php/api/workflows/0/transitions"
-          },
-          "statuses": {
-            "href": "http://localhost/app_test.php/api/workflows/0/statuses"
-          }
-        }
-      }, {
-        "id": "1",
-        "created_at": "2014-11-30T00:00:00+0100",
-        "name": "Workflow 2",
-        "_links": {
-          "self": {
-            "href": "http://localhost/app_test.php/api/workflows/1"
-          },
-          "workflows": {
-            "href": "http://localhost/app_test.php/api/workflows"
-          },
-          "transitions": {
-            "href": "http://localhost/app_test.php/api/workflows/1/transitions"
-          },
-          "statuses": {
-            "href": "http://localhost/app_test.php/api/workflows/1/statuses"
-          }
-        }
-      }, {
-        "id": "3",
-        "created_at": "2014-12-30T00:00:00+0100",
-        "name": "Workflow 4",
-        "_links": {
-          "self": {
-            "href": "http://localhost/app_test.php/api/workflows/3"
-          },
-          "workflows": {
-            "href": "http://localhost/app_test.php/api/workflows"
-          },
-          "transitions": {
-            "href": "http://localhost/app_test.php/api/workflows/3/transitions"
-          },
-          "statuses": {
-            "href": "http://localhost/app_test.php/api/workflows/3/statuses"
-          }
-        }
-      }]
-    """
-
-  Scenario: Getting all the workflows that can see user@kreta.com sort by createdAt with limit 3 and offset 1
-    Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/workflows?sort=createdAt&limit=3&offset=1"
-    Then the response code should be 200
-    And the response should contain json:
-    """
-      [{
-        "id": "5",
-        "created_at": "2014-10-20T00:00:00+0200",
-        "name": "Workflow 6",
-        "_links": {
-          "self": {
-            "href": "http://localhost/app_test.php/api/workflows/5"
-          },
-          "workflows": {
-            "href": "http://localhost/app_test.php/api/workflows"
-          },
-          "transitions": {
-            "href": "http://localhost/app_test.php/api/workflows/5/transitions"
-          },
-          "statuses": {
-            "href": "http://localhost/app_test.php/api/workflows/5/statuses"
-          }
-        }
-      }, {
-        "id": "0",
-        "created_at": "2014-11-29T00:00:00+0100",
-        "name": "Workflow 1",
-        "_links": {
-          "self": {
-            "href": "http://localhost/app_test.php/api/workflows/0"
-          },
-          "workflows": {
-            "href": "http://localhost/app_test.php/api/workflows"
-          },
-          "transitions": {
-            "href": "http://localhost/app_test.php/api/workflows/0/transitions"
-          },
-          "statuses": {
-            "href": "http://localhost/app_test.php/api/workflows/0/statuses"
-          }
-        }
-      }, {
-        "id": "1",
-        "created_at": "2014-11-30T00:00:00+0100",
-        "name": "Workflow 2",
-        "_links": {
-          "self": {
-            "href": "http://localhost/app_test.php/api/workflows/1"
-          },
-          "workflows": {
-            "href": "http://localhost/app_test.php/api/workflows"
-          },
-          "transitions": {
-            "href": "http://localhost/app_test.php/api/workflows/1/transitions"
-          },
-          "statuses": {
-            "href": "http://localhost/app_test.php/api/workflows/1/statuses"
           }
         }
       }]
@@ -469,18 +314,170 @@ Feature: Manage workflow
         "id": "0",
         "created_at": "2014-11-29T00:00:00+0100",
         "name": "Workflow 1",
+        "statuses": [
+          {
+            "type": "normal",
+            "name": "Open",
+            "id": "0",
+            "color": "#27ae60",
+            "_links": {
+              "self": {
+                "href": "http://localhost/app_test.php/api/workflows/0/statuses/0"
+              },
+              "statuses": {
+                "href": "http://localhost/app_test.php/api/workflows/0/statuses"
+              }
+            }
+          },
+          {
+            "type": "normal",
+            "name": "In progress",
+            "id": "1",
+            "color": "#2c3e50",
+            "_links": {
+              "self": {
+                "href": "http://localhost/app_test.php/api/workflows/0/statuses/1"
+              },
+              "statuses": {
+                "href": "http://localhost/app_test.php/api/workflows/0/statuses"
+              }
+            }
+          },
+          {
+            "type": "normal",
+            "name": "Resolved",
+            "id": "2",
+            "color": "#f1c40f",
+            "_links": {
+              "self": {
+                "href": "http://localhost/app_test.php/api/workflows/0/statuses/2"
+              },
+              "statuses": {
+                "href": "http://localhost/app_test.php/api/workflows/0/statuses"
+              }
+            }
+          }
+        ],
+        "status_transitions": [
+          {
+            "initial_states": [
+              {
+                "type": "normal",
+                "name": "In progress",
+                "id": "1",
+                "color": "#2c3e50",
+                "_links": {
+                  "self": {
+                    "href": "http://localhost/app_test.php/api/workflows/0/statuses/1"
+                  },
+                  "statuses": {
+                    "href": "http://localhost/app_test.php/api/workflows/0/statuses"
+                  }
+                }
+              }
+            ],
+            "name": "Start progress",
+            "id": "0",
+            "_links": {
+              "self": {
+                "href": "http://localhost/app_test.php/api/workflows/0/transitions/0"
+              },
+              "transitions": {
+                "href": "http://localhost/app_test.php/api/workflows/0/transitions"
+              }
+            }
+          },
+          {
+            "initial_states": [
+              {
+                "type": "normal",
+                "name": "Open",
+                "id": "0",
+                "color": "#27ae60",
+                "_links": {
+                  "self": {
+                    "href": "http://localhost/app_test.php/api/workflows/0/statuses/0"
+                  },
+                  "statuses": {
+                    "href": "http://localhost/app_test.php/api/workflows/0/statuses"
+                  }
+                }
+              },
+              {
+                "type": "normal",
+                "name": "Resolved",
+                "id": "2",
+                "color": "#f1c40f",
+                "_links": {
+                  "self": {
+                    "href": "http://localhost/app_test.php/api/workflows/0/statuses/2"
+                  },
+                  "statuses": {
+                    "href": "http://localhost/app_test.php/api/workflows/0/statuses"
+                  }
+                }
+              }
+            ],
+            "name": "Reopen progress",
+            "id": "1",
+            "_links": {
+              "self": {
+                "href": "http://localhost/app_test.php/api/workflows/0/transitions/1"
+              },
+              "transitions": {
+                "href": "http://localhost/app_test.php/api/workflows/0/transitions"
+              }
+            }
+          },
+          {
+            "initial_states": [
+              {
+                "type": "normal",
+                "name": "Open",
+                "id": "0",
+                "color": "#27ae60",
+                "_links": {
+                  "self": {
+                    "href": "http://localhost/app_test.php/api/workflows/0/statuses/0"
+                  },
+                  "statuses": {
+                    "href": "http://localhost/app_test.php/api/workflows/0/statuses"
+                  }
+                }
+              },
+              {
+                "type": "normal",
+                "name": "In progress",
+                "id": "1",
+                "color": "#2c3e50",
+                "_links": {
+                  "self": {
+                    "href": "http://localhost/app_test.php/api/workflows/0/statuses/1"
+                  },
+                  "statuses": {
+                    "href": "http://localhost/app_test.php/api/workflows/0/statuses"
+                  }
+                }
+              }
+            ],
+            "name": "Finish progress",
+            "id": "2",
+            "_links": {
+              "self": {
+                "href": "http://localhost/app_test.php/api/workflows/0/transitions/2"
+              },
+              "transitions": {
+                "href": "http://localhost/app_test.php/api/workflows/0/transitions"
+              }
+            }
+          }
+        ],
         "_links": {
           "self": {
             "href": "http://localhost/app_test.php/api/workflows/0"
           },
           "workflows": {
             "href": "http://localhost/app_test.php/api/workflows"
-          },
-          "transitions": {
-            "href": "http://localhost/app_test.php/api/workflows/0/transitions"
-          },
-          "statuses": {
-            "href": "http://localhost/app_test.php/api/workflows/0/statuses"
           }
         }
       }

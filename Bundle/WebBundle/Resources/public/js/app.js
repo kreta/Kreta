@@ -17,6 +17,7 @@ import {IssueController} from 'controllers/issue';
 
 import {ProjectCollection} from 'collections/project';
 import {UserCollection} from 'collections/user';
+import {WorkflowCollection} from 'collections/workflow';
 
 import {Profile} from 'models/profile';
 
@@ -41,11 +42,13 @@ export class App extends Backbone.Marionette.Application {
 
     this.collection = {
       project: new ProjectCollection(),
-      user: new UserCollection()
+      user: new UserCollection(),
+      workflow: new WorkflowCollection()
     };
 
     this.collection.project.fetch();
     this.collection.user.fetch();
+    this.collection.workflow.fetch();
   }
 
   loadLayout() {
