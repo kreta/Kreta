@@ -53,4 +53,24 @@ export class Issue extends Backbone.Model {
 
     return data;
   }
+
+  getAllowedTransitions() {
+    var projectHref = this.attributes._links.project.href;
+    var projectId = projectHref.substring(projectHref.lastIndexOf('/') + 1);
+    var project = App.collection.project.get(projectId);
+
+    var workflowHref = project.attributes._links.workflow.href;
+    var workflowId = workflowHref.substring(workflowHref.lastIndexOf('/') + 1);
+
+    var allowedTransitions = [];
+    App.collection.workflow.get(workflowId).attributes.status_transitions.forEach((transition) => {
+      transition.initial_states.forEach((state) => {
+        if(state.id === this.get('status').id) {
+          allowedTransitions.push(transition);
+        }
+      });
+    });
+
+    return allowedTransitions;
+  }
 }

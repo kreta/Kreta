@@ -30,6 +30,7 @@ export class IssueShowView extends Backbone.Marionette.ItemView {
 
   serializeData() {
     var data = this.model.toJSON();
+    data['transitions'] = this.model.getAllowedTransitions();
     data['canEdit'] = this.model.canEdit(App.currentUser);
     return data;
   }
