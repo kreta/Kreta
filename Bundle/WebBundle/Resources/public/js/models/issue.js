@@ -14,6 +14,10 @@ export class Issue extends Backbone.Model {
     return Config.baseUrl + '/issues';
   }
 
+  urlTransition() {
+    return Config.baseUrl + '/issues/' + this.id + '/transitions';
+  }
+
   defaults() {
     return {
       title: '',
@@ -52,6 +56,23 @@ export class Issue extends Backbone.Model {
     }
 
     return data;
+  }
+
+  doTransition(transitionId, options = {}) {
+    var defaultOptions = {
+      success: null,
+      error: null
+    };
+
+    options = $.extend(defaultOptions, options);
+    Backbone.$.ajax(this.urlTransition(), {
+      method: 'PATCH',
+      data: {
+        'transition': transitionId
+      },
+      success: options.success,
+      error: options.error
+    });
   }
 
   getAllowedTransitions() {

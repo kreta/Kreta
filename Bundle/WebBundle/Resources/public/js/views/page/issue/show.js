@@ -13,17 +13,19 @@ export class IssueShowView extends Backbone.Marionette.ItemView {
     this.template = '#issue-show-template';
 
     this.ui = {
-      'tabContent': '.full-issue-tab-content'
+      'tabContent': '.full-issue-tab-content',
+      'transitions': '.full-issue-transitions'
     };
 
     this.events = {
       'click .full-issue-edit': 'editClicked',
-      'click .full-issue-tab': 'tabClicked'
+      'click .full-issue-tab': 'tabClicked',
+      'click .full-issue-transition': 'doTransition'
     };
 
     super(options);
 
-    this.model.on('sync', this.render, this);
+    this.model.on('change', this.render, this);
 
     App.vent.trigger('issue:highlight', this.model.id);
   }
@@ -48,5 +50,17 @@ export class IssueShowView extends Backbone.Marionette.ItemView {
     App.controller.issue.editAction(this.model);
 
     return false;
+  }
+
+  doTransition(ev) {
+    this.ui.transitions.hide();
+    this.model.doTransition($($(ev)[0].currentTarget).attr('data-transition'), {
+      success : (data) => {
+        this.model.set(data);
+        App.vent.trigger('issue:updated', data)
+      }
+    });
+
+    return false
   }
 }
