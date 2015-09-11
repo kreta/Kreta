@@ -17,7 +17,7 @@ Kreta\Component\Workflow\Model\Status:
                     statusId: expr(object.getId())
                 absolute: true
             exclusion:
-                groups: [statusList, status]
+                groups: [workflowList, workflow, statusList, status]
         -
             rel: statuses
             href:
@@ -26,7 +26,7 @@ Kreta\Component\Workflow\Model\Status:
                     workflowId: expr(object.getWorkflow().getId())
                 absolute: true
             exclusion:
-                groups: [statusList, status]
+                groups: [workflowList, workflow, statusList, status]
         -
             rel: workflow
             href:
@@ -39,19 +39,19 @@ Kreta\Component\Workflow\Model\Status:
     properties:
         id:
             expose: true
-            groups: [projectList, project, issueList, issue, statusList, status, transitionList, transition]
+            groups: [workflowList, workflow, projectList, project, issueList, issue, statusList, status, transitionList, transition]
         color:
             expose: true
-            groups: [projectList, project, issueList, issue, statusList, status, transitionList, transition]
+            groups: [workflowList, workflow, projectList, project, issueList, issue, statusList, status, transitionList, transition]
         name:
             expose: true
-            groups: [projectList, project, issueList, issue, statusList, status, transitionList, transition]
+            groups: [workflowList, workflow, projectList, project, issueList, issue, statusList, status, transitionList, transition]
         type:
             expose: true
-            groups: [projectList, project, issueList, issue, statusList, status, transitionList, transition]
+            groups: [workflowList, workflow, projectList, project, issueList, issue, statusList, status, transitionList, transition]
         transitions:
             expose: true
-            groups: [projectList, project, statusList, status]
+            groups: [workflowList, workflow, projectList, project, statusList, status]
         workflow:
             expose: true
             groups: []
