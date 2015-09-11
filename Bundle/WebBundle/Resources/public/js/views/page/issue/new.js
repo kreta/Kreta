@@ -66,7 +66,7 @@ export class IssueNewView extends Backbone.Marionette.ItemView {
 
       setTimeout(() => {
         this.$project.select2("open");
-      }, 1000);
+      }, 300);
     }
 
     return this;
