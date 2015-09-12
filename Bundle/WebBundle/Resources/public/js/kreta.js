@@ -13,8 +13,13 @@ import {App} from 'app';
 'use strict';
 
 $(() => {
-  window.App = new App();
-  window.App.loadLayout();
+  window.App = new App({
+    onLoad: function () {
+      window.App.loadLayout();
+      new TooltipView();
+      Backbone.history.start({pushState: true});
+    }
+  });
 
   $(document).on('click', 'a:not([data-bypass])', function (evt) {
     var href = $(this).attr('href');
@@ -25,7 +30,4 @@ $(() => {
       window.App.router.base.navigate(href, true);
     }
   });
-  new TooltipView();
-
-  Backbone.history.start({pushState: true});
 });

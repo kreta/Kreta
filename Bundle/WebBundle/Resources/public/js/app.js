@@ -25,7 +25,9 @@ import {BaseLayoutView} from 'views/layout/base';
 import {HeaderView} from 'views/layout/mainMenu';
 
 export class App extends Backbone.Marionette.Application {
-  initialize() {
+  constructor(options) {
+    super(options);
+
     this.addAutenticationHeader();
 
     this.router = {
@@ -46,15 +48,39 @@ export class App extends Backbone.Marionette.Application {
       workflow: new WorkflowCollection()
     };
 
-    this.collection.project.fetch();
-    this.collection.user.fetch();
-    this.collection.workflow.fetch();
+    this.currentUser = new Profile();
+
+    this.leftToLoad = 4;
+    this.currentUser.fetch({
+      success: () => {
+        this.dependencyLoaded()
+      }
+    });
+    this.collection.project.fetch({
+      success: () => {
+        this.dependencyLoaded()
+      }
+    });
+    this.collection.user.fetch({
+      success: () => {
+        this.dependencyLoaded()
+      }
+    });
+    this.collection.workflow.fetch({
+      success: () => {
+        this.dependencyLoaded()
+      }
+    });
+  }
+
+  dependencyLoaded() {
+    this.leftToLoad--;
+    if (this.leftToLoad == 0) {
+      this.options.onLoad();
+    }
   }
 
   loadLayout() {
-    this.currentUser = new Profile();
-    this.currentUser.fetch();
-
     this.layout = new BaseLayoutView();
     this.layout.render();
 
