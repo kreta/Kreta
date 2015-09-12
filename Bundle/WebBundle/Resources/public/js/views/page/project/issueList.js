@@ -27,9 +27,8 @@ export class IssueListView extends Backbone.Marionette.CompositeView {
 
     this.highlightIndex = -1;
 
-    Mousetrap.bind('up', $.proxy(this.highlightPrevious, this));
-
-    Mousetrap.bind('down', $.proxy(this.highlightNext, this));
+    Mousetrap.bind('j', $.proxy(this.highlightPrevious, this));
+    Mousetrap.bind('k', $.proxy(this.highlightNext, this));
 
     this.loadFilters();
 
@@ -123,7 +122,7 @@ export class IssueListView extends Backbone.Marionette.CompositeView {
   }
 
   onDestroy() {
-    Mousetrap.unbind('up', $.proxy(this.highlightPrevious, this));
-    Mousetrap.unbind('down', $.proxy(this.highlightNext, this));
+    Mousetrap.unbind('j');
+    Mousetrap.unbind('k');
   }
 }
