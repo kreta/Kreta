@@ -10,9 +10,10 @@
 .filter-item {
   color: $main-black;
   cursor: pointer;
+  display: inline-block;
   font-size: .75em;
   font-weight: lighter;
-  margin: 0 10px;
+  margin: 10px;
   text-decoration: none;
 
   &.selected {

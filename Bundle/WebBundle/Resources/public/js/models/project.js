@@ -14,22 +14,24 @@ export class Project extends Backbone.Model {
     return Config.baseUrl + '/projects';
   }
 
-  defaults () {
+  defaults() {
     return {
       name: '',
       short_name: '',
-      participants: []
+      participants: [],
+      issue_priorities: null,
+      statuses: null
     };
   }
 
-  toString () {
+  toString() {
     return this.get('name');
   }
 
   getUserRole(user) {
     var role = null;
-    this.get('participants').forEach(function(participant) {
-      if(participant.user.id == user.id) {
+    this.get('participants').forEach(function (participant) {
+      if (participant.user.id == user.id) {
         role = participant.role;
       }
     });
@@ -45,5 +47,18 @@ export class Project extends Backbone.Model {
     }
 
     return data;
+  }
+
+  get(attr) {
+    if (this.attributes[attr] === null &&
+        typeof this.attributes._links !== 'undefined' &&
+        typeof this.attributes._links[attr] !== 'undefined') {
+      this.attributes[attr] = [];
+      Backbone.$.get(this.attributes._links[attr].href, (data) => {
+        this.set(attr, data)
+      });
+    }
+
+    return this.attributes[attr];
   }
 }

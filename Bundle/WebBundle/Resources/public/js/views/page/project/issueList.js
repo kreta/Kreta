@@ -25,17 +25,19 @@ export class IssueListView extends Backbone.Marionette.CompositeView {
       filter: '.filter'
     };
 
+    this.filters = [];
     this.highlightIndex = -1;
 
     Mousetrap.bind('j', $.proxy(this.highlightPrevious, this));
     Mousetrap.bind('k', $.proxy(this.highlightNext, this));
 
-    this.loadFilters();
-
     this.model.on('sync', $.proxy(this.render, this));
+    this.model.on('change', $.proxy(this.render, this));
   }
 
   onRender() {
+    this.loadFilters();
+
     this.filterView = new FilterView(this.filters);
     this.filterView.onFilterClicked((filter) => {
       this.filterIssues(filter);
@@ -45,7 +47,7 @@ export class IssueListView extends Backbone.Marionette.CompositeView {
   }
 
   loadFilters() {
-    this.filters = [[
+    var assigneeFilters = [
       {
         title: 'All',
         filter: 'assignee',
@@ -57,23 +59,52 @@ export class IssueListView extends Backbone.Marionette.CompositeView {
         value: App.currentUser.get('id'),
         selected: false
       }
-    ], [
+    ];
+
+    var priorityFilters = [
       {
         title: 'All priorities',
         filter: 'priority',
         value: '',
         selected: true
       }
-    ], [
+    ];
+
+    var priorities = this.model.get('issue_priorities');
+    if(priorities) {
+      priorities.forEach(function (priority) {
+        priorityFilters.push({
+          title: priority.name,
+          filter: 'priority',
+          value: priority.id,
+          selected: false
+        })
+      });
+    }
+
+
+    var statusFilters = [
       {
         title: 'All statuses',
         filter: 'status',
         value: '',
         selected: true
       }
-    ]];
+    ];
 
-    this.render();
+    var statuses = this.model.get('statuses');
+    if(statuses) {
+      statuses.forEach(function (status) {
+        statusFilters.push({
+          title: status.name,
+          filter: 'status',
+          value: status.id,
+          selected: false
+        })
+      });
+    }
+
+    this.filters = [assigneeFilters, priorityFilters, statusFilters];
   }
 
   filterIssues(filters) {
@@ -98,7 +129,7 @@ export class IssueListView extends Backbone.Marionette.CompositeView {
   }
 
   highlightPrevious() {
-    if(this.highlightIndex === 0) {
+    if (this.highlightIndex === 0) {
       return;
     }
     this.highlightIndex--;
@@ -107,7 +138,7 @@ export class IssueListView extends Backbone.Marionette.CompositeView {
   }
 
   highlightNext() {
-    if(this.highlightIndex >= this.collection.length - 1) {
+    if (this.highlightIndex >= this.collection.length - 1) {
       return;
     }
     this.highlightIndex++;
