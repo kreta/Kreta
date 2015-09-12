@@ -50,32 +50,16 @@ export class App extends Backbone.Marionette.Application {
 
     this.currentUser = new Profile();
 
-    this.leftToLoad = 4;
-    this.currentUser.fetch({
-      success: () => {
-        this.dependencyLoaded()
-      }
-    });
-    this.collection.project.fetch({
-      success: () => {
-        this.dependencyLoaded()
-      }
-    });
-    this.collection.user.fetch({
-      success: () => {
-        this.dependencyLoaded()
-      }
-    });
-    this.collection.workflow.fetch({
-      success: () => {
-        this.dependencyLoaded()
-      }
-    });
+    this.dependenciesToLoad = 4;
+    this.currentUser.fetch({success: $.proxy(this.dependencyLoaded, this)});
+    this.collection.project.fetch({success: $.proxy(this.dependencyLoaded, this)});
+    this.collection.user.fetch({success: $.proxy(this.dependencyLoaded, this)});
+    this.collection.workflow.fetch({success: $.proxy(this.dependencyLoaded, this)});
   }
 
   dependencyLoaded() {
-    this.leftToLoad--;
-    if (this.leftToLoad == 0) {
+    this.dependenciesToLoad--;
+    if (this.dependenciesToLoad == 0) {
       this.options.onLoad();
     }
   }
