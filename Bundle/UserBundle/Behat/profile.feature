@@ -48,15 +48,15 @@ Feature: Manage user profile
         "photo": {
           "id": "1",
           "created_at": "2014-10-30T00:00:00+0100",
-          "name": "http://kreta.test:8000/app_test.php/media/image/user-1.jpg",
+          "name": "http://kreta.test:8000/media/image/user-1.jpg",
           "updated_at": null
         },
         "_links": {
           "self": {
-            "href": "http://kreta.test:8000/app_test.php/api/profile"
+            "href": "http://kreta.test:8000/api/profile"
           },
           "projects": {
-            "href": "http://kreta.test:8000/app_test.php/api/projects"
+            "href": "http://kreta.test:8000/api/projects"
           }
         }
       }
@@ -88,15 +88,15 @@ Feature: Manage user profile
         "photo": {
           "id": "1",
           "created_at": "2014-10-30T00:00:00+0100",
-          "name": "http://kreta.test:8000/app_test.php/media/image/user-1.jpg",
+          "name": "http://kreta.test:8000/media/image/user-1.jpg",
           "updated_at": null
         },
         "_links": {
           "self": {
-            "href": "http://kreta.test:8000/app_test.php/api/profile"
+            "href": "http://kreta.test:8000/api/profile"
           },
           "projects": {
-            "href": "http://kreta.test:8000/app_test.php/api/projects"
+            "href": "http://kreta.test:8000/api/projects"
           }
         }
       }

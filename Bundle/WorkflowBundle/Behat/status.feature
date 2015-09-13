@@ -75,13 +75,13 @@ Feature: Manage status
         "color": "#27ae60",
         "_links": {
           "self": {
-            "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses/0"
+            "href": "http://kreta.test:8000/api/workflows/0/statuses/0"
           },
           "statuses": {
-            "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses"
+            "href": "http://kreta.test:8000/api/workflows/0/statuses"
           },
           "workflow": {
-            "href": "http://kreta.test:8000/app_test.php/api/workflows/0"
+            "href": "http://kreta.test:8000/api/workflows/0"
           }
         },
         "type": "normal",
@@ -91,13 +91,13 @@ Feature: Manage status
         "color": "#2c3e50",
         "_links": {
           "self": {
-            "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses/1"
+            "href": "http://kreta.test:8000/api/workflows/0/statuses/1"
           },
           "statuses": {
-            "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses"
+            "href": "http://kreta.test:8000/api/workflows/0/statuses"
           },
           "workflow": {
-            "href": "http://kreta.test:8000/app_test.php/api/workflows/0"
+            "href": "http://kreta.test:8000/api/workflows/0"
           }
         },
         "type": "normal",
@@ -108,13 +108,13 @@ Feature: Manage status
         
         "_links": {
           "self": {
-            "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses/2"
+            "href": "http://kreta.test:8000/api/workflows/0/statuses/2"
           },
           "statuses": {
-            "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses"
+            "href": "http://kreta.test:8000/api/workflows/0/statuses"
           },
           "workflow": {
-            "href": "http://kreta.test:8000/app_test.php/api/workflows/0"
+            "href": "http://kreta.test:8000/api/workflows/0"
           }
         },
         "type": "normal",
@@ -124,13 +124,13 @@ Feature: Manage status
         "color": "#c0392b",
         "_links": {
           "self": {
-            "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses/3"
+            "href": "http://kreta.test:8000/api/workflows/0/statuses/3"
           },
           "statuses": {
-            "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses"
+            "href": "http://kreta.test:8000/api/workflows/0/statuses"
           },
           "workflow": {
-            "href": "http://kreta.test:8000/app_test.php/api/workflows/0"
+            "href": "http://kreta.test:8000/api/workflows/0"
           }
         },
         "type": "normal",
@@ -140,13 +140,13 @@ Feature: Manage status
         "color": "#27ae60",
         "_links": {
           "self": {
-            "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses/4"
+            "href": "http://kreta.test:8000/api/workflows/0/statuses/4"
           },
           "statuses": {
-            "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses"
+            "href": "http://kreta.test:8000/api/workflows/0/statuses"
           },
           "workflow": {
-            "href": "http://kreta.test:8000/app_test.php/api/workflows/0"
+            "href": "http://kreta.test:8000/api/workflows/0"
           }
         },
         "type": "normal",
@@ -165,13 +165,13 @@ Feature: Manage status
         "color": "#27ae60",
         "_links": {
           "self": {
-            "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses/0"
+            "href": "http://kreta.test:8000/api/workflows/0/statuses/0"
           },
           "statuses": {
-            "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses"
+            "href": "http://kreta.test:8000/api/workflows/0/statuses"
           },
           "workflow": {
-            "href": "http://kreta.test:8000/app_test.php/api/workflows/0"
+            "href": "http://kreta.test:8000/api/workflows/0"
           }
         }
       }
@@ -310,13 +310,13 @@ Feature: Manage status
         "color": "#FFFFFF",
         "_links": {
           "self": {
-            "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses/0"
+            "href": "http://kreta.test:8000/api/workflows/0/statuses/0"
           },
           "statuses": {
-            "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses"
+            "href": "http://kreta.test:8000/api/workflows/0/statuses"
           },
           "workflow": {
-            "href": "http://kreta.test:8000/app_test.php/api/workflows/0"
+            "href": "http://kreta.test:8000/api/workflows/0"
           }
         }
       }

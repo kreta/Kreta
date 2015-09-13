@@ -166,13 +166,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues/0"
+              "href": "http://kreta.test:8000/api/issues/0"
             },
             "project": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/api/projects/0"
             },
             "issues": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/api/issues"
             }
           }
         },
@@ -239,13 +239,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues/3"
+              "href": "http://kreta.test:8000/api/issues/3"
             },
             "project": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/1"
+              "href": "http://kreta.test:8000/api/projects/1"
             },
             "issues": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/api/issues"
             }
           }
         },
@@ -323,13 +323,13 @@ Feature: Manage issue
               },
               "_links": {
                 "self": {
-                  "href": "http://kreta.test:8000/app_test.php/api/issues/6"
+                  "href": "http://kreta.test:8000/api/issues/6"
                 },
                 "project": {
-                  "href": "http://kreta.test:8000/app_test.php/api/projects/1"
+                  "href": "http://kreta.test:8000/api/projects/1"
                 },
                 "issues": {
-                  "href": "http://kreta.test:8000/app_test.php/api/issues"
+                  "href": "http://kreta.test:8000/api/issues"
                 }
               }
             }
@@ -386,13 +386,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues/4"
+              "href": "http://kreta.test:8000/api/issues/4"
             },
             "project": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/1"
+              "href": "http://kreta.test:8000/api/projects/1"
             },
             "issues": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/api/issues"
             }
           }
         },
@@ -459,13 +459,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues/1"
+              "href": "http://kreta.test:8000/api/issues/1"
             },
             "project": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/api/projects/0"
             },
             "issues": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/api/issues"
             }
           }
         },
@@ -532,13 +532,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues/2"
+              "href": "http://kreta.test:8000/api/issues/2"
             },
             "project": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/api/projects/0"
             },
             "issues": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/api/issues"
             }
           }
         },
@@ -641,13 +641,13 @@ Feature: Manage issue
             },
             "_links": {
               "self": {
-                "href": "http://kreta.test:8000/app_test.php/api/issues/4"
+                "href": "http://kreta.test:8000/api/issues/4"
               },
               "project": {
-                "href": "http://kreta.test:8000/app_test.php/api/projects/1"
+                "href": "http://kreta.test:8000/api/projects/1"
               },
               "issues": {
-                "href": "http://kreta.test:8000/app_test.php/api/issues"
+                "href": "http://kreta.test:8000/api/issues"
               }
             }
           },
@@ -677,13 +677,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues/6"
+              "href": "http://kreta.test:8000/api/issues/6"
             },
             "project": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/1"
+              "href": "http://kreta.test:8000/api/projects/1"
             },
             "issues": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/api/issues"
             }
           }
         },
@@ -737,7 +737,7 @@ Feature: Manage issue
             "last_name": "User2",
             "photo": {
               "id": "2",
-              "name": "http://kreta.test:8000/app_test.php/media/image/user-2.jpg"
+              "name": "http://kreta.test:8000/media/image/user-2.jpg"
             }
           },
           "status": {
@@ -753,13 +753,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues/5"
+              "href": "http://kreta.test:8000/api/issues/5"
             },
             "project": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/api/projects/0"
             },
             "issues": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/api/issues"
             }
           }
         }
@@ -836,13 +836,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues/0"
+              "href": "http://kreta.test:8000/api/issues/0"
             },
             "project": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/api/projects/0"
             },
             "issues": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/api/issues"
             }
           }
         },
@@ -909,13 +909,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues/1"
+              "href": "http://kreta.test:8000/api/issues/1"
             },
             "project": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/api/projects/0"
             },
             "issues": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/api/issues"
             }
           }
         },
@@ -982,13 +982,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues/2"
+              "href": "http://kreta.test:8000/api/issues/2"
             },
             "project": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/api/projects/0"
             },
             "issues": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/api/issues"
             }
           }
         },
@@ -1042,7 +1042,7 @@ Feature: Manage issue
             "last_name": "User2",
             "photo": {
               "id": "2",
-              "name": "http://kreta.test:8000/app_test.php/media/image/user-2.jpg"
+              "name": "http://kreta.test:8000/media/image/user-2.jpg"
             }
           },
           "status": {
@@ -1058,13 +1058,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues/5"
+              "href": "http://kreta.test:8000/api/issues/5"
             },
             "project": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/api/projects/0"
             },
             "issues": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/api/issues"
             }
           }
         }
@@ -1141,13 +1141,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues/2"
+              "href": "http://kreta.test:8000/api/issues/2"
             },
             "project": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/api/projects/0"
             },
             "issues": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/api/issues"
             }
           }
         },
@@ -1201,7 +1201,7 @@ Feature: Manage issue
             "last_name": "User2",
             "photo": {
               "id": "2",
-              "name": "http://kreta.test:8000/app_test.php/media/image/user-2.jpg"
+              "name": "http://kreta.test:8000/media/image/user-2.jpg"
             }
           },
           "status": {
@@ -1217,13 +1217,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues/5"
+              "href": "http://kreta.test:8000/api/issues/5"
             },
             "project": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/api/projects/0"
             },
             "issues": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/api/issues"
             }
           }
         },
@@ -1290,13 +1290,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues/3"
+              "href": "http://kreta.test:8000/api/issues/3"
             },
             "project": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/1"
+              "href": "http://kreta.test:8000/api/projects/1"
             },
             "issues": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/api/issues"
             }
           }
         },
@@ -1374,13 +1374,13 @@ Feature: Manage issue
               },
               "_links": {
                 "self": {
-                  "href": "http://kreta.test:8000/app_test.php/api/issues/6"
+                  "href": "http://kreta.test:8000/api/issues/6"
                 },
                 "project": {
-                  "href": "http://kreta.test:8000/app_test.php/api/projects/1"
+                  "href": "http://kreta.test:8000/api/projects/1"
                 },
                 "issues": {
-                  "href": "http://kreta.test:8000/app_test.php/api/issues"
+                  "href": "http://kreta.test:8000/api/issues"
                 }
               }
             }
@@ -1437,13 +1437,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues/4"
+              "href": "http://kreta.test:8000/api/issues/4"
             },
             "project": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/1"
+              "href": "http://kreta.test:8000/api/projects/1"
             },
             "issues": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/api/issues"
             }
           }
         },
@@ -1546,13 +1546,13 @@ Feature: Manage issue
             },
             "_links": {
               "self": {
-                "href": "http://kreta.test:8000/app_test.php/api/issues/4"
+                "href": "http://kreta.test:8000/api/issues/4"
               },
               "project": {
-                "href": "http://kreta.test:8000/app_test.php/api/projects/1"
+                "href": "http://kreta.test:8000/api/projects/1"
               },
               "issues": {
-                "href": "http://kreta.test:8000/app_test.php/api/issues"
+                "href": "http://kreta.test:8000/api/issues"
               }
             }
           },
@@ -1582,13 +1582,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues/6"
+              "href": "http://kreta.test:8000/api/issues/6"
             },
             "project": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/1"
+              "href": "http://kreta.test:8000/api/projects/1"
             },
             "issues": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/api/issues"
             }
           }
         },
@@ -1655,13 +1655,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues/1"
+              "href": "http://kreta.test:8000/api/issues/1"
             },
             "project": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/api/projects/0"
             },
             "issues": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/api/issues"
             }
           }
         },
@@ -1728,13 +1728,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues/0"
+              "href": "http://kreta.test:8000/api/issues/0"
             },
             "project": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/api/projects/0"
             },
             "issues": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/api/issues"
             }
           }
         }
@@ -1812,13 +1812,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues/3"
+              "href": "http://kreta.test:8000/api/issues/3"
             },
             "project": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/1"
+              "href": "http://kreta.test:8000/api/projects/1"
             },
             "issues": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/api/issues"
             }
           }
         }
@@ -1906,13 +1906,13 @@ Feature: Manage issue
               },
               "_links": {
                 "self": {
-                  "href": "http://kreta.test:8000/app_test.php/api/issues/6"
+                  "href": "http://kreta.test:8000/api/issues/6"
                 },
                 "project": {
-                  "href": "http://kreta.test:8000/app_test.php/api/projects/1"
+                  "href": "http://kreta.test:8000/api/projects/1"
                 },
                 "issues": {
-                  "href": "http://kreta.test:8000/app_test.php/api/issues"
+                  "href": "http://kreta.test:8000/api/issues"
                 }
               }
             }
@@ -1969,13 +1969,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues/4"
+              "href": "http://kreta.test:8000/api/issues/4"
             },
             "project": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/1"
+              "href": "http://kreta.test:8000/api/projects/1"
             },
             "issues": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/api/issues"
             }
           }
         },
@@ -2078,13 +2078,13 @@ Feature: Manage issue
             },
             "_links": {
               "self": {
-                "href": "http://kreta.test:8000/app_test.php/api/issues/4"
+                "href": "http://kreta.test:8000/api/issues/4"
               },
               "project": {
-                "href": "http://kreta.test:8000/app_test.php/api/projects/1"
+                "href": "http://kreta.test:8000/api/projects/1"
               },
               "issues": {
-                "href": "http://kreta.test:8000/app_test.php/api/issues"
+                "href": "http://kreta.test:8000/api/issues"
               }
             }
           },
@@ -2114,13 +2114,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues/6"
+              "href": "http://kreta.test:8000/api/issues/6"
             },
             "project": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/1"
+              "href": "http://kreta.test:8000/api/projects/1"
             },
             "issues": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/api/issues"
             }
           }
         }
@@ -2197,13 +2197,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues/1"
+              "href": "http://kreta.test:8000/api/issues/1"
             },
             "project": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/api/projects/0"
             },
             "issues": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/api/issues"
             }
           }
         }
@@ -2267,7 +2267,7 @@ Feature: Manage issue
             "last_name": "User2",
             "photo": {
               "id": "2",
-              "name": "http://kreta.test:8000/app_test.php/media/image/user-2.jpg"
+              "name": "http://kreta.test:8000/media/image/user-2.jpg"
             }
           },
           "status": {
@@ -2283,13 +2283,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues/5"
+              "href": "http://kreta.test:8000/api/issues/5"
             },
             "project": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/api/projects/0"
             },
             "issues": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/api/issues"
             }
           }
         }
@@ -2366,13 +2366,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues/3"
+              "href": "http://kreta.test:8000/api/issues/3"
             },
             "project": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/1"
+              "href": "http://kreta.test:8000/api/projects/1"
             },
             "issues": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/api/issues"
             }
           }
         }
@@ -2436,7 +2436,7 @@ Feature: Manage issue
             "last_name": "User2",
             "photo": {
               "id": "2",
-              "name": "http://kreta.test:8000/app_test.php/media/image/user-2.jpg"
+              "name": "http://kreta.test:8000/media/image/user-2.jpg"
             }
           },
           "status": {
@@ -2452,13 +2452,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues/5"
+              "href": "http://kreta.test:8000/api/issues/5"
             },
             "project": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/api/projects/0"
             },
             "issues": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/api/issues"
             }
           }
         }
@@ -2535,13 +2535,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues/0"
+              "href": "http://kreta.test:8000/api/issues/0"
             },
             "project": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/api/projects/0"
             },
             "issues": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/api/issues"
             }
           }
         },
@@ -2608,13 +2608,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues/3"
+              "href": "http://kreta.test:8000/api/issues/3"
             },
             "project": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/1"
+              "href": "http://kreta.test:8000/api/projects/1"
             },
             "issues": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/api/issues"
             }
           }
         }
@@ -2702,13 +2702,13 @@ Feature: Manage issue
               },
               "_links": {
                 "self": {
-                  "href": "http://kreta.test:8000/app_test.php/api/issues/6"
+                  "href": "http://kreta.test:8000/api/issues/6"
                 },
                 "project": {
-                  "href": "http://kreta.test:8000/app_test.php/api/projects/1"
+                  "href": "http://kreta.test:8000/api/projects/1"
                 },
                 "issues": {
-                  "href": "http://kreta.test:8000/app_test.php/api/issues"
+                  "href": "http://kreta.test:8000/api/issues"
                 }
               }
             }
@@ -2765,13 +2765,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues/4"
+              "href": "http://kreta.test:8000/api/issues/4"
             },
             "project": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/1"
+              "href": "http://kreta.test:8000/api/projects/1"
             },
             "issues": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/api/issues"
             }
           }
         },
@@ -2838,13 +2838,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues/1"
+              "href": "http://kreta.test:8000/api/issues/1"
             },
             "project": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/api/projects/0"
             },
             "issues": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/api/issues"
             }
           }
         },
@@ -2911,13 +2911,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues/2"
+              "href": "http://kreta.test:8000/api/issues/2"
             },
             "project": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/api/projects/0"
             },
             "issues": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/api/issues"
             }
           }
         },
@@ -3020,13 +3020,13 @@ Feature: Manage issue
             },
             "_links": {
               "self": {
-                "href": "http://kreta.test:8000/app_test.php/api/issues/4"
+                "href": "http://kreta.test:8000/api/issues/4"
               },
               "project": {
-                "href": "http://kreta.test:8000/app_test.php/api/projects/1"
+                "href": "http://kreta.test:8000/api/projects/1"
               },
               "issues": {
-                "href": "http://kreta.test:8000/app_test.php/api/issues"
+                "href": "http://kreta.test:8000/api/issues"
               }
             }
           },
@@ -3056,13 +3056,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues/6"
+              "href": "http://kreta.test:8000/api/issues/6"
             },
             "project": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/1"
+              "href": "http://kreta.test:8000/api/projects/1"
             },
             "issues": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/api/issues"
             }
           }
         },
@@ -3116,7 +3116,7 @@ Feature: Manage issue
             "last_name": "User2",
             "photo": {
               "id": "2",
-              "name": "http://kreta.test:8000/app_test.php/media/image/user-2.jpg"
+              "name": "http://kreta.test:8000/media/image/user-2.jpg"
             }
           },
           "status": {
@@ -3132,13 +3132,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues/5"
+              "href": "http://kreta.test:8000/api/issues/5"
             },
             "project": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/api/projects/0"
             },
             "issues": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/api/issues"
             }
           }
         }
@@ -3214,13 +3214,13 @@ Feature: Manage issue
         },
         "_links": {
           "self": {
-            "href": "http://kreta.test:8000/app_test.php/api/issues/0"
+            "href": "http://kreta.test:8000/api/issues/0"
           },
           "project": {
-            "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+            "href": "http://kreta.test:8000/api/projects/0"
           },
           "issues": {
-            "href": "http://kreta.test:8000/app_test.php/api/issues"
+            "href": "http://kreta.test:8000/api/issues"
           }
         }
       }
@@ -3533,7 +3533,7 @@ Feature: Manage issue
           "last_name": "User2",
           "photo": {
             "id": "2",
-            "name": "http://kreta.test:8000/app_test.php/media/image/user-2.jpg"
+            "name": "http://kreta.test:8000/media/image/user-2.jpg"
           }
         },
         "children": [],
@@ -3587,13 +3587,13 @@ Feature: Manage issue
         },
         "_links": {
           "self": {
-            "href": "http://kreta.test:8000/app_test.php/api/issues/0"
+            "href": "http://kreta.test:8000/api/issues/0"
           },
           "project": {
-            "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+            "href": "http://kreta.test:8000/api/projects/0"
           },
           "issues": {
-            "href": "http://kreta.test:8000/app_test.php/api/issues"
+            "href": "http://kreta.test:8000/api/issues"
           }
         }
       }
@@ -3627,7 +3627,7 @@ Feature: Manage issue
           "last_name": "User2",
           "photo": {
             "id": "2",
-            "name": "http://kreta.test:8000/app_test.php/media/image/user-2.jpg"
+            "name": "http://kreta.test:8000/media/image/user-2.jpg"
           }
         },
         "created_at": "2014-12-15T00:00:00+0100",
@@ -3680,13 +3680,13 @@ Feature: Manage issue
         },
         "_links": {
           "self": {
-            "href": "http://kreta.test:8000/app_test.php/api/issues/0"
+            "href": "http://kreta.test:8000/api/issues/0"
           },
           "project": {
-            "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+            "href": "http://kreta.test:8000/api/projects/0"
           },
           "issues": {
-            "href": "http://kreta.test:8000/app_test.php/api/issues"
+            "href": "http://kreta.test:8000/api/issues"
           }
         }
       }
@@ -3835,7 +3835,7 @@ Feature: Manage issue
           "last_name": "User2",
           "photo": {
             "id": "2",
-            "name": "http://kreta.test:8000/app_test.php/media/image/user-2.jpg"
+            "name": "http://kreta.test:8000/media/image/user-2.jpg"
           }
         },
         "created_at": "2014-10-21T00:00:00+0200",
@@ -3888,13 +3888,13 @@ Feature: Manage issue
         },
         "_links": {
           "self": {
-            "href": "http://kreta.test:8000/app_test.php/api/issues/2"
+            "href": "http://kreta.test:8000/api/issues/2"
           },
           "project": {
-            "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+            "href": "http://kreta.test:8000/api/projects/0"
           },
           "issues": {
-            "href": "http://kreta.test:8000/app_test.php/api/issues"
+            "href": "http://kreta.test:8000/api/issues"
           }
         }
       }
@@ -3927,7 +3927,7 @@ Feature: Manage issue
           "last_name": "User2",
           "photo": {
             "id": "2",
-            "name": "http://kreta.test:8000/app_test.php/media/image/user-2.jpg"
+            "name": "http://kreta.test:8000/media/image/user-2.jpg"
           }
         },
         "created_at": "2014-10-21T00:00:00+0200",
@@ -3980,13 +3980,13 @@ Feature: Manage issue
         },
         "_links": {
           "self": {
-            "href": "http://kreta.test:8000/app_test.php/api/issues/3"
+            "href": "http://kreta.test:8000/api/issues/3"
           },
           "project": {
-            "href": "http://kreta.test:8000/app_test.php/api/projects/1"
+            "href": "http://kreta.test:8000/api/projects/1"
           },
           "issues": {
-            "href": "http://kreta.test:8000/app_test.php/api/issues"
+            "href": "http://kreta.test:8000/api/issues"
           }
         }
       }
@@ -4019,7 +4019,7 @@ Feature: Manage issue
           "last_name": "User2",
           "photo": {
             "id": "2",
-            "name": "http://kreta.test:8000/app_test.php/media/image/user-2.jpg"
+            "name": "http://kreta.test:8000/media/image/user-2.jpg"
           }
         },
         "created_at": "2014-12-15T00:00:00+0100",
@@ -4072,13 +4072,13 @@ Feature: Manage issue
         },
         "_links": {
           "self": {
-            "href": "http://kreta.test:8000/app_test.php/api/issues/0"
+            "href": "http://kreta.test:8000/api/issues/0"
           },
           "project": {
-            "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+            "href": "http://kreta.test:8000/api/projects/0"
           },
           "issues": {
-            "href": "http://kreta.test:8000/app_test.php/api/issues"
+            "href": "http://kreta.test:8000/api/issues"
           }
         }
       }
@@ -4157,13 +4157,13 @@ Feature: Manage issue
         },
         "_links": {
           "self": {
-            "href": "http://kreta.test:8000/app_test.php/api/issues/0"
+            "href": "http://kreta.test:8000/api/issues/0"
           },
           "project": {
-            "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+            "href": "http://kreta.test:8000/api/projects/0"
           },
           "issues": {
-            "href": "http://kreta.test:8000/app_test.php/api/issues"
+            "href": "http://kreta.test:8000/api/issues"
           }
         }
       }

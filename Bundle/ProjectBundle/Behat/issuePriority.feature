@@ -59,10 +59,10 @@ Feature: Manage issue priority
           "name": "Blocker",
           "_links": {
             "issue_priorities": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0/issue-priorities"
+              "href": "http://kreta.test:8000/api/projects/0/issue-priorities"
             },
             "project": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/api/projects/0"
             }
           }
         },
@@ -71,10 +71,10 @@ Feature: Manage issue priority
           "name": "High",
           "_links": {
             "issue_priorities": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0/issue-priorities"
+              "href": "http://kreta.test:8000/api/projects/0/issue-priorities"
             },
             "project": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/api/projects/0"
             }
           }
         },
@@ -83,10 +83,10 @@ Feature: Manage issue priority
           "name": "Low",
           "_links": {
             "issue_priorities": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0/issue-priorities"
+              "href": "http://kreta.test:8000/api/projects/0/issue-priorities"
             },
             "project": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/api/projects/0"
             }
           }
         },
@@ -95,10 +95,10 @@ Feature: Manage issue priority
           "name": "Medium",
           "_links": {
             "issue_priorities": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0/issue-priorities"
+              "href": "http://kreta.test:8000/api/projects/0/issue-priorities"
             },
             "project": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/api/projects/0"
             }
           }
         }
@@ -139,10 +139,10 @@ Feature: Manage issue priority
           "name": "Low",
           "_links": {
             "issue_priorities": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0/issue-priorities"
+              "href": "http://kreta.test:8000/api/projects/0/issue-priorities"
             },
             "project": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/api/projects/0"
             }
           }
         }
@@ -161,10 +161,10 @@ Feature: Manage issue priority
           "name": "Blocker",
           "_links": {
             "issue_priorities": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0/issue-priorities"
+              "href": "http://kreta.test:8000/api/projects/0/issue-priorities"
             },
             "project": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/api/projects/0"
             }
           }
         },
@@ -173,10 +173,10 @@ Feature: Manage issue priority
           "name": "High",
           "_links": {
             "issue_priorities": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0/issue-priorities"
+              "href": "http://kreta.test:8000/api/projects/0/issue-priorities"
             },
             "project": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/api/projects/0"
             }
           }
         }
@@ -195,10 +195,10 @@ Feature: Manage issue priority
           "name": "Low",
           "_links": {
             "issue_priorities": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0/issue-priorities"
+              "href": "http://kreta.test:8000/api/projects/0/issue-priorities"
             },
             "project": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/api/projects/0"
             }
           }
         },
@@ -207,10 +207,10 @@ Feature: Manage issue priority
           "name": "Medium",
           "_links": {
             "issue_priorities": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0/issue-priorities"
+              "href": "http://kreta.test:8000/api/projects/0/issue-priorities"
             },
             "project": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/api/projects/0"
             }
           }
         }

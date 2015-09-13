@@ -66,10 +66,10 @@ Feature: Manage label
         "name": "backbone.js",
         "_links": {
           "labels": {
-            "href": "http://kreta.test:8000/app_test.php/api/projects/0/labels"
+            "href": "http://kreta.test:8000/api/projects/0/labels"
           },
           "project": {
-            "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+            "href": "http://kreta.test:8000/api/projects/0"
           }
         }
       }, {
@@ -77,10 +77,10 @@ Feature: Manage label
         "name": "bdd",
         "_links": {
           "labels": {
-            "href": "http://kreta.test:8000/app_test.php/api/projects/0/labels"
+            "href": "http://kreta.test:8000/api/projects/0/labels"
           },
           "project": {
-            "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+            "href": "http://kreta.test:8000/api/projects/0"
           }
         }
       }, {
@@ -88,10 +88,10 @@ Feature: Manage label
         "name": "css3",
         "_links": {
           "labels": {
-            "href": "http://kreta.test:8000/app_test.php/api/projects/0/labels"
+            "href": "http://kreta.test:8000/api/projects/0/labels"
           },
           "project": {
-            "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+            "href": "http://kreta.test:8000/api/projects/0"
           }
         }
       }, {
@@ -99,10 +99,10 @@ Feature: Manage label
         "name": "java",
         "_links": {
           "labels": {
-            "href": "http://kreta.test:8000/app_test.php/api/projects/0/labels"
+            "href": "http://kreta.test:8000/api/projects/0/labels"
           },
           "project": {
-            "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+            "href": "http://kreta.test:8000/api/projects/0"
           }
         }
       }, {
@@ -110,10 +110,10 @@ Feature: Manage label
         "name": "javascript",
         "_links": {
           "labels": {
-            "href": "http://kreta.test:8000/app_test.php/api/projects/0/labels"
+            "href": "http://kreta.test:8000/api/projects/0/labels"
           },
           "project": {
-            "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+            "href": "http://kreta.test:8000/api/projects/0"
           }
         }
       }, {
@@ -121,10 +121,10 @@ Feature: Manage label
         "name": "mongodb",
         "_links": {
           "labels": {
-            "href": "http://kreta.test:8000/app_test.php/api/projects/0/labels"
+            "href": "http://kreta.test:8000/api/projects/0/labels"
           },
           "project":{
-            "href":"http://kreta.test:8000/app_test.php/api/projects/0"
+            "href":"http://kreta.test:8000/api/projects/0"
           }
         }
       }, {
@@ -132,10 +132,10 @@ Feature: Manage label
         "name": "mysql",
         "_links": {
           "labels": {
-            "href": "http://kreta.test:8000/app_test.php/api/projects/0/labels"
+            "href": "http://kreta.test:8000/api/projects/0/labels"
           },
           "project": {
-            "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+            "href": "http://kreta.test:8000/api/projects/0"
           }
         }
       }, {
@@ -143,10 +143,10 @@ Feature: Manage label
         "name": "sass",
         "_links": {
           "labels": {
-            "href": "http://kreta.test:8000/app_test.php/api/projects/0/labels"
+            "href": "http://kreta.test:8000/api/projects/0/labels"
           },
           "project": {
-            "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+            "href": "http://kreta.test:8000/api/projects/0"
           }
         }
       }, {
@@ -154,10 +154,10 @@ Feature: Manage label
         "name": "symfony",
         "_links": {
           "labels": {
-            "href": "http://kreta.test:8000/app_test.php/api/projects/0/labels"
+            "href": "http://kreta.test:8000/api/projects/0/labels"
           },
           "project": {
-            "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+            "href": "http://kreta.test:8000/api/projects/0"
           }
         }
       }]
@@ -196,10 +196,10 @@ Feature: Manage label
         "name": "java",
         "_links": {
           "labels": {
-            "href": "http://kreta.test:8000/app_test.php/api/projects/0/labels"
+            "href": "http://kreta.test:8000/api/projects/0/labels"
           },
           "project": {
-            "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+            "href": "http://kreta.test:8000/api/projects/0"
           }
         }
       }, {
@@ -207,10 +207,10 @@ Feature: Manage label
         "name": "javascript",
         "_links": {
           "labels": {
-            "href": "http://kreta.test:8000/app_test.php/api/projects/0/labels"
+            "href": "http://kreta.test:8000/api/projects/0/labels"
           },
           "project": {
-            "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+            "href": "http://kreta.test:8000/api/projects/0"
           }
         }
       }]
@@ -227,10 +227,10 @@ Feature: Manage label
         "name": "backbone.js",
         "_links": {
           "labels": {
-            "href": "http://kreta.test:8000/app_test.php/api/projects/0/labels"
+            "href": "http://kreta.test:8000/api/projects/0/labels"
           },
           "project": {
-            "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+            "href": "http://kreta.test:8000/api/projects/0"
           }
         }
       }, {
@@ -238,10 +238,10 @@ Feature: Manage label
         "name": "bdd",
         "_links": {
           "labels": {
-            "href": "http://kreta.test:8000/app_test.php/api/projects/0/labels"
+            "href": "http://kreta.test:8000/api/projects/0/labels"
           },
           "project": {
-            "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+            "href": "http://kreta.test:8000/api/projects/0"
           }
         }
       }]
@@ -258,10 +258,10 @@ Feature: Manage label
         "name": "css3",
         "_links": {
           "labels": {
-            "href": "http://kreta.test:8000/app_test.php/api/projects/0/labels"
+            "href": "http://kreta.test:8000/api/projects/0/labels"
           },
           "project": {
-            "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+            "href": "http://kreta.test:8000/api/projects/0"
           }
         }
       }, {
@@ -269,10 +269,10 @@ Feature: Manage label
         "name": "java",
         "_links": {
           "labels": {
-            "href": "http://kreta.test:8000/app_test.php/api/projects/0/labels"
+            "href": "http://kreta.test:8000/api/projects/0/labels"
           },
           "project": {
-            "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+            "href": "http://kreta.test:8000/api/projects/0"
           }
         }
       }, {
@@ -280,10 +280,10 @@ Feature: Manage label
         "name": "javascript",
         "_links": {
           "labels": {
-            "href": "http://kreta.test:8000/app_test.php/api/projects/0/labels"
+            "href": "http://kreta.test:8000/api/projects/0/labels"
           },
           "project": {
-            "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+            "href": "http://kreta.test:8000/api/projects/0"
           }
         }
       }, {
@@ -291,10 +291,10 @@ Feature: Manage label
         "name": "mongodb",
         "_links": {
           "labels": {
-            "href": "http://kreta.test:8000/app_test.php/api/projects/0/labels"
+            "href": "http://kreta.test:8000/api/projects/0/labels"
           },
           "project":{
-            "href":"http://kreta.test:8000/app_test.php/api/projects/0"
+            "href":"http://kreta.test:8000/api/projects/0"
           }
         }
       }, {
@@ -302,10 +302,10 @@ Feature: Manage label
         "name": "mysql",
         "_links": {
           "labels": {
-            "href": "http://kreta.test:8000/app_test.php/api/projects/0/labels"
+            "href": "http://kreta.test:8000/api/projects/0/labels"
           },
           "project": {
-            "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+            "href": "http://kreta.test:8000/api/projects/0"
           }
         }
       }, {
@@ -313,10 +313,10 @@ Feature: Manage label
         "name": "sass",
         "_links": {
           "labels": {
-            "href": "http://kreta.test:8000/app_test.php/api/projects/0/labels"
+            "href": "http://kreta.test:8000/api/projects/0/labels"
           },
           "project": {
-            "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+            "href": "http://kreta.test:8000/api/projects/0"
           }
         }
       }, {
@@ -324,10 +324,10 @@ Feature: Manage label
         "name": "symfony",
         "_links": {
           "labels": {
-            "href": "http://kreta.test:8000/app_test.php/api/projects/0/labels"
+            "href": "http://kreta.test:8000/api/projects/0/labels"
           },
           "project": {
-            "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+            "href": "http://kreta.test:8000/api/projects/0"
           }
         }
       }]

@@ -59,10 +59,10 @@ Feature: Manage issue type
           "name": "Bug",
           "_links": {
             "issue_types": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0/issue-types"
+              "href": "http://kreta.test:8000/api/projects/0/issue-types"
             },
             "project": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/api/projects/0"
             }
           }
         },
@@ -71,10 +71,10 @@ Feature: Manage issue type
           "name": "Epic",
           "_links": {
             "issue_types": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0/issue-types"
+              "href": "http://kreta.test:8000/api/projects/0/issue-types"
             },
             "project": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/api/projects/0"
             }
           }
         },
@@ -83,10 +83,10 @@ Feature: Manage issue type
           "name": "New feature",
           "_links": {
             "issue_types": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0/issue-types"
+              "href": "http://kreta.test:8000/api/projects/0/issue-types"
             },
             "project": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/api/projects/0"
             }
           }
         }
@@ -127,10 +127,10 @@ Feature: Manage issue type
           "name": "Bug",
           "_links": {
             "issue_types": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0/issue-types"
+              "href": "http://kreta.test:8000/api/projects/0/issue-types"
             },
             "project": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/api/projects/0"
             }
           }
         }
@@ -149,10 +149,10 @@ Feature: Manage issue type
           "name": "Bug",
           "_links": {
             "issue_types": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0/issue-types"
+              "href": "http://kreta.test:8000/api/projects/0/issue-types"
             },
             "project": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/api/projects/0"
             }
           }
         },
@@ -161,10 +161,10 @@ Feature: Manage issue type
           "name": "Epic",
           "_links": {
             "issue_types": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0/issue-types"
+              "href": "http://kreta.test:8000/api/projects/0/issue-types"
             },
             "project": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/api/projects/0"
             }
           }
         }
@@ -183,10 +183,10 @@ Feature: Manage issue type
           "name": "New feature",
           "_links": {
             "issue_types": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0/issue-types"
+              "href": "http://kreta.test:8000/api/projects/0/issue-types"
             },
             "project": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/api/projects/0"
             }
           }
         }

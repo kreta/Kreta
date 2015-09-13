@@ -87,13 +87,13 @@ Feature: Manage status transition
         "id": "0",
         "_links": {
           "self": {
-            "href": "http://kreta.test:8000/app_test.php/api/workflows/0/transitions/0"
+            "href": "http://kreta.test:8000/api/workflows/0/transitions/0"
           },
           "transitions": {
-            "href": "http://kreta.test:8000/app_test.php/api/workflows/0/transitions"
+            "href": "http://kreta.test:8000/api/workflows/0/transitions"
           },
           "workflow": {
-            "href": "http://kreta.test:8000/app_test.php/api/workflows/0"
+            "href": "http://kreta.test:8000/api/workflows/0"
           }
         }
       }, {
@@ -112,13 +112,13 @@ Feature: Manage status transition
         "id": "1",
         "_links": {
           "self": {
-            "href": "http://kreta.test:8000/app_test.php/api/workflows/0/transitions/1"
+            "href": "http://kreta.test:8000/api/workflows/0/transitions/1"
           },
           "transitions": {
-            "href": "http://kreta.test:8000/app_test.php/api/workflows/0/transitions"
+            "href": "http://kreta.test:8000/api/workflows/0/transitions"
           },
           "workflow": {
-            "href": "http://kreta.test:8000/app_test.php/api/workflows/0"
+            "href": "http://kreta.test:8000/api/workflows/0"
           }
         }
       }, {
@@ -137,13 +137,13 @@ Feature: Manage status transition
         "id": "2",
         "_links": {
           "self": {
-            "href": "http://kreta.test:8000/app_test.php/api/workflows/0/transitions/2"
+            "href": "http://kreta.test:8000/api/workflows/0/transitions/2"
           },
           "transitions": {
-            "href": "http://kreta.test:8000/app_test.php/api/workflows/0/transitions"
+            "href": "http://kreta.test:8000/api/workflows/0/transitions"
           },
           "workflow": {
-            "href": "http://kreta.test:8000/app_test.php/api/workflows/0"
+            "href": "http://kreta.test:8000/api/workflows/0"
           }
         }
       }]
@@ -177,13 +177,13 @@ Feature: Manage status transition
         "id": "0",
         "_links": {
           "self": {
-            "href": "http://kreta.test:8000/app_test.php/api/workflows/0/transitions/0"
+            "href": "http://kreta.test:8000/api/workflows/0/transitions/0"
           },
           "transitions": {
-            "href": "http://kreta.test:8000/app_test.php/api/workflows/0/transitions"
+            "href": "http://kreta.test:8000/api/workflows/0/transitions"
           },
           "workflow": {
-            "href": "http://kreta.test:8000/app_test.php/api/workflows/0"
+            "href": "http://kreta.test:8000/api/workflows/0"
           }
         }
       }

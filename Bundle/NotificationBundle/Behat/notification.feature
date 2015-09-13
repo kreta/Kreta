@@ -51,10 +51,10 @@ Feature: Manage notification
           "web_url": "/api/issues/id-issue",
           "_links": {
             "notifications": {
-              "href": "http://kreta.test:8000/app_test.php/api/notifications"
+              "href": "http://kreta.test:8000/api/notifications"
             },
             "projects": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/api/projects"
             }
           }
         },
@@ -69,10 +69,10 @@ Feature: Manage notification
           "web_url": "/api/issues/id-issue-2",
           "_links": {
             "notifications": {
-              "href": "http://kreta.test:8000/app_test.php/api/notifications"
+              "href": "http://kreta.test:8000/api/notifications"
             },
             "projects": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/api/projects"
             }
           }
         },
@@ -87,10 +87,10 @@ Feature: Manage notification
           "web_url": "/api/issues/id-issue-3",
           "_links": {
             "notifications": {
-              "href": "http://kreta.test:8000/app_test.php/api/notifications"
+              "href": "http://kreta.test:8000/api/notifications"
             },
             "projects": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/api/projects"
             }
           }
         },
@@ -105,10 +105,10 @@ Feature: Manage notification
           "web_url": "/api/issues/id-issue-4",
           "_links": {
             "notifications": {
-              "href": "http://kreta.test:8000/app_test.php/api/notifications"
+              "href": "http://kreta.test:8000/api/notifications"
             },
             "projects": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/api/projects"
             }
           }
         }
@@ -133,10 +133,10 @@ Feature: Manage notification
           "web_url": "/api/issues/id-issue",
           "_links": {
             "notifications": {
-              "href": "http://kreta.test:8000/app_test.php/api/notifications"
+              "href": "http://kreta.test:8000/api/notifications"
             },
             "projects": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/api/projects"
             }
           }
         }
@@ -161,10 +161,10 @@ Feature: Manage notification
           "web_url": "/api/issues/id-issue",
           "_links": {
             "notifications": {
-              "href": "http://kreta.test:8000/app_test.php/api/notifications"
+              "href": "http://kreta.test:8000/api/notifications"
             },
             "projects": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/api/projects"
             }
           }
         }
@@ -189,10 +189,10 @@ Feature: Manage notification
           "web_url": "/api/issues/id-issue",
           "_links": {
             "notifications": {
-              "href": "http://kreta.test:8000/app_test.php/api/notifications"
+              "href": "http://kreta.test:8000/api/notifications"
             },
             "projects": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/api/projects"
             }
           }
         }
@@ -217,10 +217,10 @@ Feature: Manage notification
           "web_url": "/api/issues/id-issue",
           "_links": {
             "notifications": {
-              "href": "http://kreta.test:8000/app_test.php/api/notifications"
+              "href": "http://kreta.test:8000/api/notifications"
             },
             "projects": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/api/projects"
             }
           }
         }
@@ -245,10 +245,10 @@ Feature: Manage notification
           "web_url": "/api/issues/id-issue",
           "_links": {
             "notifications": {
-              "href": "http://kreta.test:8000/app_test.php/api/notifications"
+              "href": "http://kreta.test:8000/api/notifications"
             },
             "projects": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/api/projects"
             }
           }
         },
@@ -263,10 +263,10 @@ Feature: Manage notification
           "web_url": "/api/issues/id-issue-2",
           "_links": {
             "notifications": {
-              "href": "http://kreta.test:8000/app_test.php/api/notifications"
+              "href": "http://kreta.test:8000/api/notifications"
             },
             "projects": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/api/projects"
             }
           }
         },
@@ -281,10 +281,10 @@ Feature: Manage notification
           "web_url": "/api/issues/id-issue-3",
           "_links": {
             "notifications": {
-              "href": "http://kreta.test:8000/app_test.php/api/notifications"
+              "href": "http://kreta.test:8000/api/notifications"
             },
             "projects": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/api/projects"
             }
           }
         },
@@ -299,10 +299,10 @@ Feature: Manage notification
           "web_url": "/api/issues/id-issue-4",
           "_links": {
             "notifications": {
-              "href": "http://kreta.test:8000/app_test.php/api/notifications"
+              "href": "http://kreta.test:8000/api/notifications"
             },
             "projects": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/api/projects"
             }
           }
         }
@@ -327,10 +327,10 @@ Feature: Manage notification
           "web_url": "/api/issues/id-issue-4",
           "_links": {
             "notifications": {
-              "href": "http://kreta.test:8000/app_test.php/api/notifications"
+              "href": "http://kreta.test:8000/api/notifications"
             },
             "projects": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/api/projects"
             }
           }
         }
@@ -355,10 +355,10 @@ Feature: Manage notification
           "web_url": "/api/issues/id-issue",
           "_links": {
             "notifications": {
-              "href": "http://kreta.test:8000/app_test.php/api/notifications"
+              "href": "http://kreta.test:8000/api/notifications"
             },
             "projects": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/api/projects"
             }
           }
         },
@@ -373,10 +373,10 @@ Feature: Manage notification
           "web_url": "/api/issues/id-issue-2",
           "_links": {
             "notifications": {
-              "href": "http://kreta.test:8000/app_test.php/api/notifications"
+              "href": "http://kreta.test:8000/api/notifications"
             },
             "projects": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/api/projects"
             }
           }
         },
@@ -391,10 +391,10 @@ Feature: Manage notification
           "web_url": "/api/issues/id-issue-3",
           "_links": {
             "notifications": {
-              "href": "http://kreta.test:8000/app_test.php/api/notifications"
+              "href": "http://kreta.test:8000/api/notifications"
             },
             "projects": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/api/projects"
             }
           }
         },
@@ -409,10 +409,10 @@ Feature: Manage notification
           "web_url": "/api/issues/id-issue-4",
           "_links": {
             "notifications": {
-              "href": "http://kreta.test:8000/app_test.php/api/notifications"
+              "href": "http://kreta.test:8000/api/notifications"
             },
             "projects": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/api/projects"
             }
           }
         }
@@ -437,10 +437,10 @@ Feature: Manage notification
           "web_url": "/api/issues/id-issue",
           "_links": {
             "notifications": {
-              "href": "http://kreta.test:8000/app_test.php/api/notifications"
+              "href": "http://kreta.test:8000/api/notifications"
             },
             "projects": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/api/projects"
             }
           }
         },
@@ -455,10 +455,10 @@ Feature: Manage notification
           "web_url": "/api/issues/id-issue-2",
           "_links": {
             "notifications": {
-              "href": "http://kreta.test:8000/app_test.php/api/notifications"
+              "href": "http://kreta.test:8000/api/notifications"
             },
             "projects": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/api/projects"
             }
           }
         },
@@ -473,10 +473,10 @@ Feature: Manage notification
           "web_url": "/api/issues/id-issue-3",
           "_links": {
             "notifications": {
-              "href": "http://kreta.test:8000/app_test.php/api/notifications"
+              "href": "http://kreta.test:8000/api/notifications"
             },
             "projects": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/api/projects"
             }
           }
         },
@@ -491,10 +491,10 @@ Feature: Manage notification
           "web_url": "/api/issues/id-issue-4",
           "_links": {
             "notifications": {
-              "href": "http://kreta.test:8000/app_test.php/api/notifications"
+              "href": "http://kreta.test:8000/api/notifications"
             },
             "projects": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/api/projects"
             }
           }
         }
@@ -519,10 +519,10 @@ Feature: Manage notification
           "web_url": "/api/issues/id-issue-5",
           "_links": {
             "notifications": {
-              "href": "http://kreta.test:8000/app_test.php/api/notifications"
+              "href": "http://kreta.test:8000/api/notifications"
             },
             "projects": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/api/projects"
             }
           }
         },
@@ -537,10 +537,10 @@ Feature: Manage notification
           "web_url": "/api/issues/id-issue-6",
           "_links": {
             "notifications": {
-              "href": "http://kreta.test:8000/app_test.php/api/notifications"
+              "href": "http://kreta.test:8000/api/notifications"
             },
             "projects": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/api/projects"
             }
           }
         }
@@ -565,10 +565,10 @@ Feature: Manage notification
           "web_url": "/api/issues/id-issue-2",
           "_links": {
             "notifications": {
-              "href": "http://kreta.test:8000/app_test.php/api/notifications"
+              "href": "http://kreta.test:8000/api/notifications"
             },
             "projects": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/api/projects"
             }
           }
         },
@@ -583,10 +583,10 @@ Feature: Manage notification
           "web_url": "/api/issues/id-issue-3",
           "_links": {
             "notifications": {
-              "href": "http://kreta.test:8000/app_test.php/api/notifications"
+              "href": "http://kreta.test:8000/api/notifications"
             },
             "projects": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/api/projects"
             }
           }
         },
@@ -601,10 +601,10 @@ Feature: Manage notification
           "web_url": "/api/issues/id-issue-4",
           "_links": {
             "notifications": {
-              "href": "http://kreta.test:8000/app_test.php/api/notifications"
+              "href": "http://kreta.test:8000/api/notifications"
             },
             "projects": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/api/projects"
             }
           }
         },
@@ -619,10 +619,10 @@ Feature: Manage notification
           "web_url": "/api/issues/id-issue",
           "_links": {
             "notifications": {
-              "href": "http://kreta.test:8000/app_test.php/api/notifications"
+              "href": "http://kreta.test:8000/api/notifications"
             },
             "projects": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/api/projects"
             }
           }
         }
@@ -647,10 +647,10 @@ Feature: Manage notification
           "web_url": "/api/issues/id-issue",
           "_links": {
             "notifications": {
-              "href": "http://kreta.test:8000/app_test.php/api/notifications"
+              "href": "http://kreta.test:8000/api/notifications"
             },
             "projects": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/api/projects"
             }
           }
         },
@@ -665,10 +665,10 @@ Feature: Manage notification
           "web_url": "/api/issues/id-issue-2",
           "_links": {
             "notifications": {
-              "href": "http://kreta.test:8000/app_test.php/api/notifications"
+              "href": "http://kreta.test:8000/api/notifications"
             },
             "projects": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/api/projects"
             }
           }
         }
@@ -693,10 +693,10 @@ Feature: Manage notification
           "web_url": "/api/issues/id-issue-4",
           "_links": {
             "notifications": {
-              "href": "http://kreta.test:8000/app_test.php/api/notifications"
+              "href": "http://kreta.test:8000/api/notifications"
             },
             "projects": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/api/projects"
             }
           }
         }
@@ -792,10 +792,10 @@ Feature: Manage notification
         "web_url": "/api/issues/id-issue-4",
         "_links": {
           "notifications": {
-            "href": "http://kreta.test:8000/app_test.php/api/notifications"
+            "href": "http://kreta.test:8000/api/notifications"
           },
           "projects": {
-            "href": "http://kreta.test:8000/app_test.php/api/projects"
+            "href": "http://kreta.test:8000/api/projects"
           }
         }
       }
@@ -823,10 +823,10 @@ Feature: Manage notification
         "web_url": "/api/issues/id-issue-4",
         "_links": {
           "notifications": {
-            "href": "http://kreta.test:8000/app_test.php/api/notifications"
+            "href": "http://kreta.test:8000/api/notifications"
           },
           "projects": {
-            "href": "http://kreta.test:8000/app_test.php/api/projects"
+            "href": "http://kreta.test:8000/api/projects"
           }
         }
       }

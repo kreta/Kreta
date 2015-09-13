@@ -64,16 +64,16 @@ Feature: Manage participant
           },
           "_links": {
             "participants": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0/participants"
+              "href": "http://kreta.test:8000/api/projects/0/participants"
             },
             "project": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/api/projects/0"
             },
             "projects": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/api/projects"
             },
             "issues": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/api/issues"
             }
           }
         },
@@ -92,21 +92,21 @@ Feature: Manage participant
             "last_name": "User2",
             "photo": {
               "id": "2",
-              "name": "http://kreta.test:8000/app_test.php/media/image/user-2.jpg"
+              "name": "http://kreta.test:8000/media/image/user-2.jpg"
             }
           },
           "_links": {
             "participants": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0/participants"
+              "href": "http://kreta.test:8000/api/projects/0/participants"
             },
             "project": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/api/projects/0"
             },
             "projects": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/api/projects"
             },
             "issues": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/api/issues"
             }
           }
         }
@@ -159,16 +159,16 @@ Feature: Manage participant
           },
           "_links": {
             "participants": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0/participants"
+              "href": "http://kreta.test:8000/api/projects/0/participants"
             },
             "project": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/api/projects/0"
             },
             "projects": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/api/projects"
             },
             "issues": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/api/issues"
             }
           }
         }
@@ -199,16 +199,16 @@ Feature: Manage participant
           },
           "_links": {
             "participants": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0/participants"
+              "href": "http://kreta.test:8000/api/projects/0/participants"
             },
             "project": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/api/projects/0"
             },
             "projects": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/api/projects"
             },
             "issues": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/api/issues"
             }
           }
         },
@@ -227,21 +227,21 @@ Feature: Manage participant
             "last_name": "User2",
             "photo": {
               "id": "2",
-              "name": "http://kreta.test:8000/app_test.php/media/image/user-2.jpg"
+              "name": "http://kreta.test:8000/media/image/user-2.jpg"
             }
           },
           "_links": {
             "participants": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0/participants"
+              "href": "http://kreta.test:8000/api/projects/0/participants"
             },
             "project": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/api/projects/0"
             },
             "projects": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/api/projects"
             },
             "issues": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/api/issues"
             }
           }
         }
@@ -272,16 +272,16 @@ Feature: Manage participant
           },
           "_links": {
             "participants": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/1/participants"
+              "href": "http://kreta.test:8000/api/projects/1/participants"
             },
             "project": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects/1"
+              "href": "http://kreta.test:8000/api/projects/1"
             },
             "projects": {
-              "href": "http://kreta.test:8000/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/api/projects"
             },
             "issues": {
-              "href": "http://kreta.test:8000/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/api/issues"
             }
           }
         }
@@ -334,21 +334,21 @@ Feature: Manage participant
           "last_name": "User3",
           "photo": {
             "id": "3",
-            "name": "http://kreta.test:8000/app_test.php/media/image/user-3.jpg"
+            "name": "http://kreta.test:8000/media/image/user-3.jpg"
           }
         },
         "_links": {
           "participants": {
-            "href": "http://kreta.test:8000/app_test.php/api/projects/0/participants"
+            "href": "http://kreta.test:8000/api/projects/0/participants"
           },
           "project": {
-            "href": "http://kreta.test:8000/app_test.php/api/projects/0"
+            "href": "http://kreta.test:8000/api/projects/0"
           },
           "projects": {
-            "href": "http://kreta.test:8000/app_test.php/api/projects"
+            "href": "http://kreta.test:8000/api/projects"
           },
           "issues": {
-            "href": "http://kreta.test:8000/app_test.php/api/issues"
+            "href": "http://kreta.test:8000/api/issues"
           }
         }
       }
