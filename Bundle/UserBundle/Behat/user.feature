@@ -32,7 +32,7 @@ Feature: Manage users
 
   Scenario: Getting all the users
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/users"
+    When I send a GET request to "/api/users"
     Then the response code should be 200
     And the response should contain json:
     """
@@ -48,7 +48,7 @@ Feature: Manage users
           "last_name": "User",
           "photo": {
             "created_at": "2014-10-30T00:00:00+0100",
-            "name": "http://localhost/app_test.php/media/image/user-1.jpg",
+            "name": "http://kreta.test:8000/app_test.php/media/image/user-1.jpg",
             "updated_at": null
           }
         },
@@ -63,7 +63,7 @@ Feature: Manage users
           "last_name": "User2",
           "photo": {
             "created_at": "2014-10-30T00:00:00+0100",
-            "name": "http://localhost/app_test.php/media/image/user-2.jpg",
+            "name": "http://kreta.test:8000/app_test.php/media/image/user-2.jpg",
             "updated_at": null
           }
         },
@@ -78,7 +78,7 @@ Feature: Manage users
           "last_name": "User3",
           "photo": {
             "created_at": "2014-10-30T00:00:00+0100",
-            "name": "http://localhost/app_test.php/media/image/user-3.jpg",
+            "name": "http://kreta.test:8000/app_test.php/media/image/user-3.jpg",
             "updated_at": null
           }
         },

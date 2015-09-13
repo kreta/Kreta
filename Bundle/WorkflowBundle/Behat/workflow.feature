@@ -52,7 +52,7 @@ Feature: Manage workflow
 
   Scenario: Getting all the workflows
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/workflows"
+    When I send a GET request to "/api/workflows"
     Then the response code should be 200
     And the response should contain json:
     """
@@ -68,10 +68,10 @@ Feature: Manage workflow
             "color": "#27ae60",
             "_links": {
               "self": {
-                "href": "http://localhost/app_test.php/api/workflows/0/statuses/0"
+                "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses/0"
               },
               "statuses": {
-                "href": "http://localhost/app_test.php/api/workflows/0/statuses"
+                "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses"
               }
             }
           },
@@ -82,10 +82,10 @@ Feature: Manage workflow
             "color": "#2c3e50",
             "_links": {
               "self": {
-                "href": "http://localhost/app_test.php/api/workflows/0/statuses/1"
+                "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses/1"
               },
               "statuses": {
-                "href": "http://localhost/app_test.php/api/workflows/0/statuses"
+                "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses"
               }
             }
           },
@@ -96,10 +96,10 @@ Feature: Manage workflow
             "color": "#f1c40f",
             "_links": {
               "self": {
-                "href": "http://localhost/app_test.php/api/workflows/0/statuses/2"
+                "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses/2"
               },
               "statuses": {
-                "href": "http://localhost/app_test.php/api/workflows/0/statuses"
+                "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses"
               }
             }
           }
@@ -114,10 +114,10 @@ Feature: Manage workflow
                 "color": "#2c3e50",
                 "_links": {
                   "self": {
-                    "href": "http://localhost/app_test.php/api/workflows/0/statuses/1"
+                    "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses/1"
                   },
                   "statuses": {
-                    "href": "http://localhost/app_test.php/api/workflows/0/statuses"
+                    "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses"
                   }
                 }
               }
@@ -126,10 +126,10 @@ Feature: Manage workflow
             "id": "0",
             "_links": {
               "self": {
-                "href": "http://localhost/app_test.php/api/workflows/0/transitions/0"
+                "href": "http://kreta.test:8000/app_test.php/api/workflows/0/transitions/0"
               },
               "transitions": {
-                "href": "http://localhost/app_test.php/api/workflows/0/transitions"
+                "href": "http://kreta.test:8000/app_test.php/api/workflows/0/transitions"
               }
             }
           },
@@ -142,10 +142,10 @@ Feature: Manage workflow
                 "color": "#27ae60",
                 "_links": {
                   "self": {
-                    "href": "http://localhost/app_test.php/api/workflows/0/statuses/0"
+                    "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses/0"
                   },
                   "statuses": {
-                    "href": "http://localhost/app_test.php/api/workflows/0/statuses"
+                    "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses"
                   }
                 }
               },
@@ -156,10 +156,10 @@ Feature: Manage workflow
                 "color": "#f1c40f",
                 "_links": {
                   "self": {
-                    "href": "http://localhost/app_test.php/api/workflows/0/statuses/2"
+                    "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses/2"
                   },
                   "statuses": {
-                    "href": "http://localhost/app_test.php/api/workflows/0/statuses"
+                    "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses"
                   }
                 }
               }
@@ -168,10 +168,10 @@ Feature: Manage workflow
             "id": "1",
             "_links": {
               "self": {
-                "href": "http://localhost/app_test.php/api/workflows/0/transitions/1"
+                "href": "http://kreta.test:8000/app_test.php/api/workflows/0/transitions/1"
               },
               "transitions": {
-                "href": "http://localhost/app_test.php/api/workflows/0/transitions"
+                "href": "http://kreta.test:8000/app_test.php/api/workflows/0/transitions"
               }
             }
           },
@@ -184,10 +184,10 @@ Feature: Manage workflow
                 "color": "#27ae60",
                 "_links": {
                   "self": {
-                    "href": "http://localhost/app_test.php/api/workflows/0/statuses/0"
+                    "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses/0"
                   },
                   "statuses": {
-                    "href": "http://localhost/app_test.php/api/workflows/0/statuses"
+                    "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses"
                   }
                 }
               },
@@ -198,10 +198,10 @@ Feature: Manage workflow
                 "color": "#2c3e50",
                 "_links": {
                   "self": {
-                    "href": "http://localhost/app_test.php/api/workflows/0/statuses/1"
+                    "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses/1"
                   },
                   "statuses": {
-                    "href": "http://localhost/app_test.php/api/workflows/0/statuses"
+                    "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses"
                   }
                 }
               }
@@ -210,20 +210,20 @@ Feature: Manage workflow
             "id": "2",
             "_links": {
               "self": {
-                "href": "http://localhost/app_test.php/api/workflows/0/transitions/2"
+                "href": "http://kreta.test:8000/app_test.php/api/workflows/0/transitions/2"
               },
               "transitions": {
-                "href": "http://localhost/app_test.php/api/workflows/0/transitions"
+                "href": "http://kreta.test:8000/app_test.php/api/workflows/0/transitions"
               }
             }
           }
         ],
         "_links": {
           "self": {
-            "href": "http://localhost/app_test.php/api/workflows/0"
+            "href": "http://kreta.test:8000/app_test.php/api/workflows/0"
           },
           "workflows": {
-            "href": "http://localhost/app_test.php/api/workflows"
+            "href": "http://kreta.test:8000/app_test.php/api/workflows"
           }
         }
       },
@@ -235,10 +235,10 @@ Feature: Manage workflow
         "status_transitions": [],
         "_links": {
           "self": {
-            "href": "http://localhost/app_test.php/api/workflows/1"
+            "href": "http://kreta.test:8000/app_test.php/api/workflows/1"
           },
           "workflows": {
-            "href": "http://localhost/app_test.php/api/workflows"
+            "href": "http://kreta.test:8000/app_test.php/api/workflows"
           }
         }
       },
@@ -250,10 +250,10 @@ Feature: Manage workflow
         "status_transitions": [],
         "_links": {
           "self": {
-            "href": "http://localhost/app_test.php/api/workflows/2"
+            "href": "http://kreta.test:8000/app_test.php/api/workflows/2"
           },
           "workflows": {
-            "href": "http://localhost/app_test.php/api/workflows"
+            "href": "http://kreta.test:8000/app_test.php/api/workflows"
           }
         }
       },
@@ -265,10 +265,10 @@ Feature: Manage workflow
         "status_transitions": [],
         "_links": {
           "self": {
-            "href": "http://localhost/app_test.php/api/workflows/3"
+            "href": "http://kreta.test:8000/app_test.php/api/workflows/3"
           },
           "workflows": {
-            "href": "http://localhost/app_test.php/api/workflows"
+            "href": "http://kreta.test:8000/app_test.php/api/workflows"
           }
         }
       },
@@ -280,10 +280,10 @@ Feature: Manage workflow
         "status_transitions": [],
         "_links": {
           "self": {
-            "href": "http://localhost/app_test.php/api/workflows/4"
+            "href": "http://kreta.test:8000/app_test.php/api/workflows/4"
           },
           "workflows": {
-            "href": "http://localhost/app_test.php/api/workflows"
+            "href": "http://kreta.test:8000/app_test.php/api/workflows"
           }
         }
       },
@@ -295,10 +295,10 @@ Feature: Manage workflow
         "status_transitions": [],
         "_links": {
           "self": {
-            "href": "http://localhost/app_test.php/api/workflows/5"
+            "href": "http://kreta.test:8000/app_test.php/api/workflows/5"
           },
           "workflows": {
-            "href": "http://localhost/app_test.php/api/workflows"
+            "href": "http://kreta.test:8000/app_test.php/api/workflows"
           }
         }
       }]
@@ -306,7 +306,7 @@ Feature: Manage workflow
 
   Scenario: Getting the 0 workflow
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/workflows/0"
+    When I send a GET request to "/api/workflows/0"
     Then the response code should be 200
     And the response should contain json:
     """
@@ -322,10 +322,10 @@ Feature: Manage workflow
             "color": "#27ae60",
             "_links": {
               "self": {
-                "href": "http://localhost/app_test.php/api/workflows/0/statuses/0"
+                "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses/0"
               },
               "statuses": {
-                "href": "http://localhost/app_test.php/api/workflows/0/statuses"
+                "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses"
               }
             }
           },
@@ -336,10 +336,10 @@ Feature: Manage workflow
             "color": "#2c3e50",
             "_links": {
               "self": {
-                "href": "http://localhost/app_test.php/api/workflows/0/statuses/1"
+                "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses/1"
               },
               "statuses": {
-                "href": "http://localhost/app_test.php/api/workflows/0/statuses"
+                "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses"
               }
             }
           },
@@ -350,10 +350,10 @@ Feature: Manage workflow
             "color": "#f1c40f",
             "_links": {
               "self": {
-                "href": "http://localhost/app_test.php/api/workflows/0/statuses/2"
+                "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses/2"
               },
               "statuses": {
-                "href": "http://localhost/app_test.php/api/workflows/0/statuses"
+                "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses"
               }
             }
           }
@@ -368,10 +368,10 @@ Feature: Manage workflow
                 "color": "#2c3e50",
                 "_links": {
                   "self": {
-                    "href": "http://localhost/app_test.php/api/workflows/0/statuses/1"
+                    "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses/1"
                   },
                   "statuses": {
-                    "href": "http://localhost/app_test.php/api/workflows/0/statuses"
+                    "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses"
                   }
                 }
               }
@@ -380,10 +380,10 @@ Feature: Manage workflow
             "id": "0",
             "_links": {
               "self": {
-                "href": "http://localhost/app_test.php/api/workflows/0/transitions/0"
+                "href": "http://kreta.test:8000/app_test.php/api/workflows/0/transitions/0"
               },
               "transitions": {
-                "href": "http://localhost/app_test.php/api/workflows/0/transitions"
+                "href": "http://kreta.test:8000/app_test.php/api/workflows/0/transitions"
               }
             }
           },
@@ -396,10 +396,10 @@ Feature: Manage workflow
                 "color": "#27ae60",
                 "_links": {
                   "self": {
-                    "href": "http://localhost/app_test.php/api/workflows/0/statuses/0"
+                    "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses/0"
                   },
                   "statuses": {
-                    "href": "http://localhost/app_test.php/api/workflows/0/statuses"
+                    "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses"
                   }
                 }
               },
@@ -410,10 +410,10 @@ Feature: Manage workflow
                 "color": "#f1c40f",
                 "_links": {
                   "self": {
-                    "href": "http://localhost/app_test.php/api/workflows/0/statuses/2"
+                    "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses/2"
                   },
                   "statuses": {
-                    "href": "http://localhost/app_test.php/api/workflows/0/statuses"
+                    "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses"
                   }
                 }
               }
@@ -422,10 +422,10 @@ Feature: Manage workflow
             "id": "1",
             "_links": {
               "self": {
-                "href": "http://localhost/app_test.php/api/workflows/0/transitions/1"
+                "href": "http://kreta.test:8000/app_test.php/api/workflows/0/transitions/1"
               },
               "transitions": {
-                "href": "http://localhost/app_test.php/api/workflows/0/transitions"
+                "href": "http://kreta.test:8000/app_test.php/api/workflows/0/transitions"
               }
             }
           },
@@ -438,10 +438,10 @@ Feature: Manage workflow
                 "color": "#27ae60",
                 "_links": {
                   "self": {
-                    "href": "http://localhost/app_test.php/api/workflows/0/statuses/0"
+                    "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses/0"
                   },
                   "statuses": {
-                    "href": "http://localhost/app_test.php/api/workflows/0/statuses"
+                    "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses"
                   }
                 }
               },
@@ -452,10 +452,10 @@ Feature: Manage workflow
                 "color": "#2c3e50",
                 "_links": {
                   "self": {
-                    "href": "http://localhost/app_test.php/api/workflows/0/statuses/1"
+                    "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses/1"
                   },
                   "statuses": {
-                    "href": "http://localhost/app_test.php/api/workflows/0/statuses"
+                    "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses"
                   }
                 }
               }
@@ -464,20 +464,20 @@ Feature: Manage workflow
             "id": "2",
             "_links": {
               "self": {
-                "href": "http://localhost/app_test.php/api/workflows/0/transitions/2"
+                "href": "http://kreta.test:8000/app_test.php/api/workflows/0/transitions/2"
               },
               "transitions": {
-                "href": "http://localhost/app_test.php/api/workflows/0/transitions"
+                "href": "http://kreta.test:8000/app_test.php/api/workflows/0/transitions"
               }
             }
           }
         ],
         "_links": {
           "self": {
-            "href": "http://localhost/app_test.php/api/workflows/0"
+            "href": "http://kreta.test:8000/app_test.php/api/workflows/0"
           },
           "workflows": {
-            "href": "http://localhost/app_test.php/api/workflows"
+            "href": "http://kreta.test:8000/app_test.php/api/workflows"
           }
         }
       }
@@ -485,7 +485,7 @@ Feature: Manage workflow
 
   Scenario: Getting the unknown workflow
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/workflows/unknown-workflow"
+    When I send a GET request to "/api/workflows/unknown-workflow"
     Then the response code should be 404
     And the response should contain json:
     """
@@ -496,7 +496,7 @@ Feature: Manage workflow
 
   Scenario: Getting the 2 workflow with the user that is not its project participant
     Given I am authenticating with "access-token-1" token
-    When I send a GET request to "/app_test.php/api/workflows/2"
+    When I send a GET request to "/api/workflows/2"
     Then the response code should be 403
     And the response should contain json:
     """
@@ -508,7 +508,7 @@ Feature: Manage workflow
   Scenario: Creating a workflow
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/workflows" with body:
+    When I send a POST request to "/api/workflows" with body:
     """
       {
         "name": "Dummy Workflow"
@@ -519,7 +519,7 @@ Feature: Manage workflow
   Scenario: Creating a workflow without required name
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/workflows" with body:
+    When I send a POST request to "/api/workflows" with body:
     """
       {
         "name": ""
@@ -538,7 +538,7 @@ Feature: Manage workflow
   Scenario: Creating a workflow with existing name
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/workflows" with body:
+    When I send a POST request to "/api/workflows" with body:
     """
       {
         "name": "Workflow 1"
@@ -557,7 +557,7 @@ Feature: Manage workflow
   Scenario: Updating a workflow
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a PUT request to "/app_test.php/api/workflows/0" with body:
+    When I send a PUT request to "/api/workflows/0" with body:
     """
       {
         "name": "New updated Workflow name"
@@ -572,16 +572,16 @@ Feature: Manage workflow
         "name": "New updated Workflow name",
         "_links": {
           "self": {
-            "href": "http://localhost/app_test.php/api/workflows/0"
+            "href": "http://kreta.test:8000/app_test.php/api/workflows/0"
           },
           "workflows": {
-            "href": "http://localhost/app_test.php/api/workflows"
+            "href": "http://kreta.test:8000/app_test.php/api/workflows"
           },
           "transitions": {
-            "href": "http://localhost/app_test.php/api/workflows/0/transitions"
+            "href": "http://kreta.test:8000/app_test.php/api/workflows/0/transitions"
           },
           "statuses": {
-            "href": "http://localhost/app_test.php/api/workflows/0/statuses"
+            "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses"
           }
         }
       }
@@ -590,7 +590,7 @@ Feature: Manage workflow
   Scenario: Updating a workflow without required name
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a PUT request to "/app_test.php/api/workflows/0" with body:
+    When I send a PUT request to "/api/workflows/0" with body:
     """
       {
         "name": ""
@@ -609,7 +609,7 @@ Feature: Manage workflow
   Scenario: Updating a workflow with existing name
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a PUT request to "/app_test.php/api/workflows/0" with body:
+    When I send a PUT request to "/api/workflows/0" with body:
     """
       {
         "name": "Workflow 2"
@@ -628,7 +628,7 @@ Feature: Manage workflow
   Scenario: Updating an unknown workflow
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a PUT request to "/app_test.php/api/workflows/unknown-workflow" with body:
+    When I send a PUT request to "/api/workflows/unknown-workflow" with body:
     """
       {
         "name": "Workflow 1"
@@ -645,7 +645,7 @@ Feature: Manage workflow
   Scenario: Updating 0 workflow with the user that is not workflow creator
     Given I am authenticating with "access-token-1" token
     Given I set header "content-type" with value "application/json"
-    When I send a PUT request to "/app_test.php/api/workflows/0" with body:
+    When I send a PUT request to "/api/workflows/0" with body:
     """
       {
         "name": "Workflow 1"

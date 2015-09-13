@@ -43,7 +43,7 @@ Feature: Manage projects
 
   Scenario: Getting all the project
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/projects"
+    When I send a GET request to "/api/projects"
     Then the response code should be 200
     And the response should contain json:
     """
@@ -52,7 +52,7 @@ Feature: Manage projects
           "id": "0",
           "image": {
             "id": "0",
-            "name": "http://localhost/app_test.php/media/image/project-1.jpg"
+            "name": "http://kreta.test:8000/app_test.php/media/image/project-1.jpg"
           },
           "name": "Test project 1",
           "participants": [
@@ -81,7 +81,7 @@ Feature: Manage projects
                 "last_name": "User3",
                 "photo": {
                   "id": "3",
-                  "name": "http://localhost/app_test.php/media/image/user-3.jpg"
+                  "name": "http://kreta.test:8000/app_test.php/media/image/user-3.jpg"
                 }
               }
             }
@@ -89,31 +89,31 @@ Feature: Manage projects
           "short_name": "TPR1",
           "_links": {
             "self": {
-              "href": "http://localhost/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
             },
             "projects": {
-              "href": "http://localhost/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/app_test.php/api/projects"
             },
             "issues": {
-              "href": "http://localhost/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/app_test.php/api/issues"
             },
             "issue_types": {
-              "href": "http://localhost/app_test.php/api/projects/0/issue-types"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/0/issue-types"
             },
             "labels": {
-              "href": "http://localhost/app_test.php/api/projects/0/labels"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/0/labels"
             },
             "issue_priorities": {
-              "href": "http://localhost/app_test.php/api/projects/0/issue-priorities"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/0/issue-priorities"
             },
             "workflow": {
-              "href": "http://localhost/app_test.php/api/workflows/0"
+              "href": "http://kreta.test:8000/app_test.php/api/workflows/0"
             },
             "statuses": {
-              "href": "http://localhost/app_test.php/api/workflows/0/statuses"
+              "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses"
             },
             "transitions": {
-              "href": "http://localhost/app_test.php/api/workflows/0/transitions"
+              "href": "http://kreta.test:8000/app_test.php/api/workflows/0/transitions"
             }
           }
         },
@@ -121,7 +121,7 @@ Feature: Manage projects
           "id": "1",
           "image": {
             "id": "1",
-            "name": "http://localhost/app_test.php/media/image/project-2.jpg"
+            "name": "http://kreta.test:8000/app_test.php/media/image/project-2.jpg"
           },
           "name": "Test project 2",
           "participants": [
@@ -150,7 +150,7 @@ Feature: Manage projects
                 "last_name": "User2",
                 "photo": {
                   "id": "2",
-                  "name": "http://localhost/app_test.php/media/image/user-2.jpg"
+                  "name": "http://kreta.test:8000/app_test.php/media/image/user-2.jpg"
                 }
               }
             }
@@ -158,31 +158,31 @@ Feature: Manage projects
           "short_name": "TPR2",
           "_links": {
             "self": {
-              "href": "http://localhost/app_test.php/api/projects/1"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/1"
             },
             "projects": {
-              "href": "http://localhost/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/app_test.php/api/projects"
             },
             "issues": {
-              "href": "http://localhost/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/app_test.php/api/issues"
             },
             "issue_types": {
-              "href": "http://localhost/app_test.php/api/projects/1/issue-types"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/1/issue-types"
             },
             "labels": {
-              "href": "http://localhost/app_test.php/api/projects/1/labels"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/1/labels"
             },
             "issue_priorities": {
-              "href": "http://localhost/app_test.php/api/projects/1/issue-priorities"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/1/issue-priorities"
             },
             "workflow": {
-              "href": "http://localhost/app_test.php/api/workflows/1"
+              "href": "http://kreta.test:8000/app_test.php/api/workflows/1"
             },
             "statuses": {
-              "href": "http://localhost/app_test.php/api/workflows/1/statuses"
+              "href": "http://kreta.test:8000/app_test.php/api/workflows/1/statuses"
             },
             "transitions": {
-              "href": "http://localhost/app_test.php/api/workflows/1/transitions"
+              "href": "http://kreta.test:8000/app_test.php/api/workflows/1/transitions"
             }
           }
         }
@@ -191,7 +191,7 @@ Feature: Manage projects
 
   Scenario: Getting the 0 project
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/projects/0"
+    When I send a GET request to "/api/projects/0"
     Then the response code should be 200
     And the response should contain json:
     """
@@ -200,7 +200,7 @@ Feature: Manage projects
         "image": {
           "id": "0",
           "created_at": "2014-10-30T00:00:00+0100",
-          "name": "http://localhost/app_test.php/media/image/project-1.jpg",
+          "name": "http://kreta.test:8000/app_test.php/media/image/project-1.jpg",
           "updated_at": null
         },
         "name": "Test project 1",
@@ -231,7 +231,7 @@ Feature: Manage projects
               "photo": {
                 "id": "3",
                 "created_at": "2014-10-30T00:00:00+0100",
-                "name": "http://localhost/app_test.php/media/image/user-3.jpg",
+                "name": "http://kreta.test:8000/app_test.php/media/image/user-3.jpg",
                 "updated_at": null
               }
             }
@@ -244,31 +244,31 @@ Feature: Manage projects
         },
         "_links": {
           "self": {
-            "href": "http://localhost/app_test.php/api/projects/0"
+            "href": "http://kreta.test:8000/app_test.php/api/projects/0"
           },
           "projects": {
-            "href": "http://localhost/app_test.php/api/projects"
+            "href": "http://kreta.test:8000/app_test.php/api/projects"
           },
           "issues": {
-            "href": "http://localhost/app_test.php/api/issues"
+            "href": "http://kreta.test:8000/app_test.php/api/issues"
           },
           "issue_types": {
-            "href": "http://localhost/app_test.php/api/projects/0/issue-types"
+            "href": "http://kreta.test:8000/app_test.php/api/projects/0/issue-types"
           },
           "labels": {
-            "href": "http://localhost/app_test.php/api/projects/0/labels"
+            "href": "http://kreta.test:8000/app_test.php/api/projects/0/labels"
           },
           "issue_priorities": {
-            "href": "http://localhost/app_test.php/api/projects/0/issue-priorities"
+            "href": "http://kreta.test:8000/app_test.php/api/projects/0/issue-priorities"
           },
           "workflow": {
-            "href": "http://localhost/app_test.php/api/workflows/0"
+            "href": "http://kreta.test:8000/app_test.php/api/workflows/0"
           },
           "statuses": {
-            "href": "http://localhost/app_test.php/api/workflows/0/statuses"
+            "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses"
           },
           "transitions": {
-            "href": "http://localhost/app_test.php/api/workflows/0/transitions"
+            "href": "http://kreta.test:8000/app_test.php/api/workflows/0/transitions"
           }
         }
       }
@@ -276,7 +276,7 @@ Feature: Manage projects
 
   Scenario: Getting the unknown project
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/projects/unknown-project"
+    When I send a GET request to "/api/projects/unknown-project"
     Then the response code should be 404
     And the response should contain json:
     """
@@ -287,7 +287,7 @@ Feature: Manage projects
 
   Scenario: Getting the project that the user is not allowed
     Given I am authenticating with "access-token-1" token
-    When I send a GET request to "/app_test.php/api/projects/0"
+    When I send a GET request to "/api/projects/0"
     Then the response code should be 403
     And the response should contain json:
     """
@@ -299,7 +299,7 @@ Feature: Manage projects
   Scenario: Creating a project
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/projects" with body:
+    When I send a POST request to "/api/projects" with body:
     """
       {
         "name": "New project",
@@ -311,7 +311,7 @@ Feature: Manage projects
   Scenario: Creating a project with workflow
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/projects" with body:
+    When I send a POST request to "/api/projects" with body:
     """
       {
         "name": "New project",
@@ -324,7 +324,7 @@ Feature: Manage projects
   Scenario: Creating a project with existing short name
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/projects" with body:
+    When I send a POST request to "/api/projects" with body:
     """
       {
         "name": "New project",
@@ -344,7 +344,7 @@ Feature: Manage projects
   Scenario: Creating a project without parameters
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/projects" with body:
+    When I send a POST request to "/api/projects" with body:
     """
       {
       }
@@ -362,7 +362,7 @@ Feature: Manage projects
   Scenario: Creating a project with the missing required parameters
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/projects" with body:
+    When I send a POST request to "/api/projects" with body:
     """
       {
         "name": ""
@@ -384,7 +384,7 @@ Feature: Manage projects
   Scenario: Updating the 0 project
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a PUT request to "/app_test.php/api/projects/0" with body:
+    When I send a PUT request to "/api/projects/0" with body:
     """
       {
         "name": "New project",
@@ -400,7 +400,7 @@ Feature: Manage projects
         "image": {
           "id": "0",
           "created_at": "2014-10-30T00:00:00+0100",
-          "name": "http://localhost/app_test.php/media/image/project-1.jpg",
+          "name": "http://kreta.test:8000/app_test.php/media/image/project-1.jpg",
           "updated_at": null
         },
         "name": "New project",
@@ -431,7 +431,7 @@ Feature: Manage projects
               "photo": {
                 "id": "3",
                 "created_at": "2014-10-30T00:00:00+0100",
-                "name": "http://localhost/app_test.php/media/image/user-3.jpg",
+                "name": "http://kreta.test:8000/app_test.php/media/image/user-3.jpg",
                 "updated_at": null
               }
             }
@@ -444,31 +444,31 @@ Feature: Manage projects
         },
         "_links": {
           "self": {
-            "href": "http://localhost/app_test.php/api/projects/0"
+            "href": "http://kreta.test:8000/app_test.php/api/projects/0"
           },
           "projects": {
-            "href": "http://localhost/app_test.php/api/projects"
+            "href": "http://kreta.test:8000/app_test.php/api/projects"
           },
           "issues": {
-            "href": "http://localhost/app_test.php/api/issues"
+            "href": "http://kreta.test:8000/app_test.php/api/issues"
           },
           "issue_types": {
-            "href": "http://localhost/app_test.php/api/projects/0/issue-types"
+            "href": "http://kreta.test:8000/app_test.php/api/projects/0/issue-types"
           },
           "labels": {
-            "href": "http://localhost/app_test.php/api/projects/0/labels"
+            "href": "http://kreta.test:8000/app_test.php/api/projects/0/labels"
           },
           "issue_priorities": {
-            "href": "http://localhost/app_test.php/api/projects/0/issue-priorities"
+            "href": "http://kreta.test:8000/app_test.php/api/projects/0/issue-priorities"
           },
           "workflow": {
-            "href": "http://localhost/app_test.php/api/workflows/0"
+            "href": "http://kreta.test:8000/app_test.php/api/workflows/0"
           },
           "statuses": {
-            "href": "http://localhost/app_test.php/api/workflows/0/statuses"
+            "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses"
           },
           "transitions": {
-            "href": "http://localhost/app_test.php/api/workflows/0/transitions"
+            "href": "http://kreta.test:8000/app_test.php/api/workflows/0/transitions"
           }
         }
       }
@@ -477,7 +477,7 @@ Feature: Manage projects
   Scenario: Updating the 0 project with the missing required parameters
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a PUT request to "/app_test.php/api/projects/0" with body:
+    When I send a PUT request to "/api/projects/0" with body:
     """
       {
         "name": "New project"

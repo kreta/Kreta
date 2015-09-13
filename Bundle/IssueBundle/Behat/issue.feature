@@ -98,7 +98,7 @@ Feature: Manage issue
 
   Scenario: Getting all the issues that user0 can see
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/issues"
+    When I send a GET request to "/api/issues"
     Then the response code should be 200
     And the response should contain json:
     """
@@ -166,13 +166,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://localhost/app_test.php/api/issues/0"
+              "href": "http://kreta.test:8000/app_test.php/api/issues/0"
             },
             "project": {
-              "href": "http://localhost/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
             },
             "issues": {
-              "href": "http://localhost/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/app_test.php/api/issues"
             }
           }
         },
@@ -239,13 +239,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://localhost/app_test.php/api/issues/3"
+              "href": "http://kreta.test:8000/app_test.php/api/issues/3"
             },
             "project": {
-              "href": "http://localhost/app_test.php/api/projects/1"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/1"
             },
             "issues": {
-              "href": "http://localhost/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/app_test.php/api/issues"
             }
           }
         },
@@ -323,13 +323,13 @@ Feature: Manage issue
               },
               "_links": {
                 "self": {
-                  "href": "http://localhost/app_test.php/api/issues/6"
+                  "href": "http://kreta.test:8000/app_test.php/api/issues/6"
                 },
                 "project": {
-                  "href": "http://localhost/app_test.php/api/projects/1"
+                  "href": "http://kreta.test:8000/app_test.php/api/projects/1"
                 },
                 "issues": {
-                  "href": "http://localhost/app_test.php/api/issues"
+                  "href": "http://kreta.test:8000/app_test.php/api/issues"
                 }
               }
             }
@@ -386,13 +386,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://localhost/app_test.php/api/issues/4"
+              "href": "http://kreta.test:8000/app_test.php/api/issues/4"
             },
             "project": {
-              "href": "http://localhost/app_test.php/api/projects/1"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/1"
             },
             "issues": {
-              "href": "http://localhost/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/app_test.php/api/issues"
             }
           }
         },
@@ -459,13 +459,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://localhost/app_test.php/api/issues/1"
+              "href": "http://kreta.test:8000/app_test.php/api/issues/1"
             },
             "project": {
-              "href": "http://localhost/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
             },
             "issues": {
-              "href": "http://localhost/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/app_test.php/api/issues"
             }
           }
         },
@@ -532,13 +532,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://localhost/app_test.php/api/issues/2"
+              "href": "http://kreta.test:8000/app_test.php/api/issues/2"
             },
             "project": {
-              "href": "http://localhost/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
             },
             "issues": {
-              "href": "http://localhost/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/app_test.php/api/issues"
             }
           }
         },
@@ -641,13 +641,13 @@ Feature: Manage issue
             },
             "_links": {
               "self": {
-                "href": "http://localhost/app_test.php/api/issues/4"
+                "href": "http://kreta.test:8000/app_test.php/api/issues/4"
               },
               "project": {
-                "href": "http://localhost/app_test.php/api/projects/1"
+                "href": "http://kreta.test:8000/app_test.php/api/projects/1"
               },
               "issues": {
-                "href": "http://localhost/app_test.php/api/issues"
+                "href": "http://kreta.test:8000/app_test.php/api/issues"
               }
             }
           },
@@ -677,13 +677,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://localhost/app_test.php/api/issues/6"
+              "href": "http://kreta.test:8000/app_test.php/api/issues/6"
             },
             "project": {
-              "href": "http://localhost/app_test.php/api/projects/1"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/1"
             },
             "issues": {
-              "href": "http://localhost/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/app_test.php/api/issues"
             }
           }
         },
@@ -737,7 +737,7 @@ Feature: Manage issue
             "last_name": "User2",
             "photo": {
               "id": "2",
-              "name": "http://localhost/app_test.php/media/image/user-2.jpg"
+              "name": "http://kreta.test:8000/app_test.php/media/image/user-2.jpg"
             }
           },
           "status": {
@@ -753,13 +753,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://localhost/app_test.php/api/issues/5"
+              "href": "http://kreta.test:8000/app_test.php/api/issues/5"
             },
             "project": {
-              "href": "http://localhost/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
             },
             "issues": {
-              "href": "http://localhost/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/app_test.php/api/issues"
             }
           }
         }
@@ -768,7 +768,7 @@ Feature: Manage issue
 
   Scenario: Getting all the issues of project 0
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/issues?project=0"
+    When I send a GET request to "/api/issues?project=0"
     Then the response code should be 200
     And the response should contain json:
     """
@@ -836,13 +836,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://localhost/app_test.php/api/issues/0"
+              "href": "http://kreta.test:8000/app_test.php/api/issues/0"
             },
             "project": {
-              "href": "http://localhost/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
             },
             "issues": {
-              "href": "http://localhost/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/app_test.php/api/issues"
             }
           }
         },
@@ -909,13 +909,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://localhost/app_test.php/api/issues/1"
+              "href": "http://kreta.test:8000/app_test.php/api/issues/1"
             },
             "project": {
-              "href": "http://localhost/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
             },
             "issues": {
-              "href": "http://localhost/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/app_test.php/api/issues"
             }
           }
         },
@@ -982,13 +982,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://localhost/app_test.php/api/issues/2"
+              "href": "http://kreta.test:8000/app_test.php/api/issues/2"
             },
             "project": {
-              "href": "http://localhost/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
             },
             "issues": {
-              "href": "http://localhost/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/app_test.php/api/issues"
             }
           }
         },
@@ -1042,7 +1042,7 @@ Feature: Manage issue
             "last_name": "User2",
             "photo": {
               "id": "2",
-              "name": "http://localhost/app_test.php/media/image/user-2.jpg"
+              "name": "http://kreta.test:8000/app_test.php/media/image/user-2.jpg"
             }
           },
           "status": {
@@ -1058,13 +1058,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://localhost/app_test.php/api/issues/5"
+              "href": "http://kreta.test:8000/app_test.php/api/issues/5"
             },
             "project": {
-              "href": "http://localhost/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
             },
             "issues": {
-              "href": "http://localhost/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/app_test.php/api/issues"
             }
           }
         }
@@ -1073,7 +1073,7 @@ Feature: Manage issue
 
   Scenario: Getting all the issues sorted by createdAt
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/issues?sort=createdAt"
+    When I send a GET request to "/api/issues?sort=createdAt"
     Then the response code should be 200
     And the response should contain json:
     """
@@ -1141,13 +1141,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://localhost/app_test.php/api/issues/2"
+              "href": "http://kreta.test:8000/app_test.php/api/issues/2"
             },
             "project": {
-              "href": "http://localhost/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
             },
             "issues": {
-              "href": "http://localhost/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/app_test.php/api/issues"
             }
           }
         },
@@ -1201,7 +1201,7 @@ Feature: Manage issue
             "last_name": "User2",
             "photo": {
               "id": "2",
-              "name": "http://localhost/app_test.php/media/image/user-2.jpg"
+              "name": "http://kreta.test:8000/app_test.php/media/image/user-2.jpg"
             }
           },
           "status": {
@@ -1217,13 +1217,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://localhost/app_test.php/api/issues/5"
+              "href": "http://kreta.test:8000/app_test.php/api/issues/5"
             },
             "project": {
-              "href": "http://localhost/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
             },
             "issues": {
-              "href": "http://localhost/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/app_test.php/api/issues"
             }
           }
         },
@@ -1290,13 +1290,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://localhost/app_test.php/api/issues/3"
+              "href": "http://kreta.test:8000/app_test.php/api/issues/3"
             },
             "project": {
-              "href": "http://localhost/app_test.php/api/projects/1"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/1"
             },
             "issues": {
-              "href": "http://localhost/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/app_test.php/api/issues"
             }
           }
         },
@@ -1374,13 +1374,13 @@ Feature: Manage issue
               },
               "_links": {
                 "self": {
-                  "href": "http://localhost/app_test.php/api/issues/6"
+                  "href": "http://kreta.test:8000/app_test.php/api/issues/6"
                 },
                 "project": {
-                  "href": "http://localhost/app_test.php/api/projects/1"
+                  "href": "http://kreta.test:8000/app_test.php/api/projects/1"
                 },
                 "issues": {
-                  "href": "http://localhost/app_test.php/api/issues"
+                  "href": "http://kreta.test:8000/app_test.php/api/issues"
                 }
               }
             }
@@ -1437,13 +1437,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://localhost/app_test.php/api/issues/4"
+              "href": "http://kreta.test:8000/app_test.php/api/issues/4"
             },
             "project": {
-              "href": "http://localhost/app_test.php/api/projects/1"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/1"
             },
             "issues": {
-              "href": "http://localhost/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/app_test.php/api/issues"
             }
           }
         },
@@ -1546,13 +1546,13 @@ Feature: Manage issue
             },
             "_links": {
               "self": {
-                "href": "http://localhost/app_test.php/api/issues/4"
+                "href": "http://kreta.test:8000/app_test.php/api/issues/4"
               },
               "project": {
-                "href": "http://localhost/app_test.php/api/projects/1"
+                "href": "http://kreta.test:8000/app_test.php/api/projects/1"
               },
               "issues": {
-                "href": "http://localhost/app_test.php/api/issues"
+                "href": "http://kreta.test:8000/app_test.php/api/issues"
               }
             }
           },
@@ -1582,13 +1582,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://localhost/app_test.php/api/issues/6"
+              "href": "http://kreta.test:8000/app_test.php/api/issues/6"
             },
             "project": {
-              "href": "http://localhost/app_test.php/api/projects/1"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/1"
             },
             "issues": {
-              "href": "http://localhost/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/app_test.php/api/issues"
             }
           }
         },
@@ -1655,13 +1655,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://localhost/app_test.php/api/issues/1"
+              "href": "http://kreta.test:8000/app_test.php/api/issues/1"
             },
             "project": {
-              "href": "http://localhost/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
             },
             "issues": {
-              "href": "http://localhost/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/app_test.php/api/issues"
             }
           }
         },
@@ -1728,13 +1728,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://localhost/app_test.php/api/issues/0"
+              "href": "http://kreta.test:8000/app_test.php/api/issues/0"
             },
             "project": {
-              "href": "http://localhost/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
             },
             "issues": {
-              "href": "http://localhost/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/app_test.php/api/issues"
             }
           }
         }
@@ -1743,7 +1743,7 @@ Feature: Manage issue
 
   Scenario: Getting all the issues of filter by assignee=user4@kreta.com
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/issues?assignee=3"
+    When I send a GET request to "/api/issues?assignee=3"
     Then the response code should be 200
     And print response
     And the response should contain json:
@@ -1812,13 +1812,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://localhost/app_test.php/api/issues/3"
+              "href": "http://kreta.test:8000/app_test.php/api/issues/3"
             },
             "project": {
-              "href": "http://localhost/app_test.php/api/projects/1"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/1"
             },
             "issues": {
-              "href": "http://localhost/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/app_test.php/api/issues"
             }
           }
         }
@@ -1827,7 +1827,7 @@ Feature: Manage issue
 
   Scenario: Getting all the issues filter by reporter=user4@kreta.com
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/issues?reporter=3"
+    When I send a GET request to "/api/issues?reporter=3"
     Then the response code should be 200
     And the response should contain json:
     """
@@ -1906,13 +1906,13 @@ Feature: Manage issue
               },
               "_links": {
                 "self": {
-                  "href": "http://localhost/app_test.php/api/issues/6"
+                  "href": "http://kreta.test:8000/app_test.php/api/issues/6"
                 },
                 "project": {
-                  "href": "http://localhost/app_test.php/api/projects/1"
+                  "href": "http://kreta.test:8000/app_test.php/api/projects/1"
                 },
                 "issues": {
-                  "href": "http://localhost/app_test.php/api/issues"
+                  "href": "http://kreta.test:8000/app_test.php/api/issues"
                 }
               }
             }
@@ -1969,13 +1969,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://localhost/app_test.php/api/issues/4"
+              "href": "http://kreta.test:8000/app_test.php/api/issues/4"
             },
             "project": {
-              "href": "http://localhost/app_test.php/api/projects/1"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/1"
             },
             "issues": {
-              "href": "http://localhost/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/app_test.php/api/issues"
             }
           }
         },
@@ -2078,13 +2078,13 @@ Feature: Manage issue
             },
             "_links": {
               "self": {
-                "href": "http://localhost/app_test.php/api/issues/4"
+                "href": "http://kreta.test:8000/app_test.php/api/issues/4"
               },
               "project": {
-                "href": "http://localhost/app_test.php/api/projects/1"
+                "href": "http://kreta.test:8000/app_test.php/api/projects/1"
               },
               "issues": {
-                "href": "http://localhost/app_test.php/api/issues"
+                "href": "http://kreta.test:8000/app_test.php/api/issues"
               }
             }
           },
@@ -2114,13 +2114,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://localhost/app_test.php/api/issues/6"
+              "href": "http://kreta.test:8000/app_test.php/api/issues/6"
             },
             "project": {
-              "href": "http://localhost/app_test.php/api/projects/1"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/1"
             },
             "issues": {
-              "href": "http://localhost/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/app_test.php/api/issues"
             }
           }
         }
@@ -2129,7 +2129,7 @@ Feature: Manage issue
 
   Scenario: Getting all the issues filter by low priority
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/issues?priority=0"
+    When I send a GET request to "/api/issues?priority=0"
     Then the response code should be 200
     And the response should contain json:
     """
@@ -2197,13 +2197,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://localhost/app_test.php/api/issues/1"
+              "href": "http://kreta.test:8000/app_test.php/api/issues/1"
             },
             "project": {
-              "href": "http://localhost/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
             },
             "issues": {
-              "href": "http://localhost/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/app_test.php/api/issues"
             }
           }
         }
@@ -2212,7 +2212,7 @@ Feature: Manage issue
 
   Scenario: Getting all the issues filter by status closed
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/issues?status=3"
+    When I send a GET request to "/api/issues?status=3"
     Then the response code should be 200
     And the response should contain json:
     """
@@ -2267,7 +2267,7 @@ Feature: Manage issue
             "last_name": "User2",
             "photo": {
               "id": "2",
-              "name": "http://localhost/app_test.php/media/image/user-2.jpg"
+              "name": "http://kreta.test:8000/app_test.php/media/image/user-2.jpg"
             }
           },
           "status": {
@@ -2283,13 +2283,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://localhost/app_test.php/api/issues/5"
+              "href": "http://kreta.test:8000/app_test.php/api/issues/5"
             },
             "project": {
-              "href": "http://localhost/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
             },
             "issues": {
-              "href": "http://localhost/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/app_test.php/api/issues"
             }
           }
         }
@@ -2298,7 +2298,7 @@ Feature: Manage issue
 
   Scenario: Getting all the issues filter by type bug
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/issues?type=3"
+    When I send a GET request to "/api/issues?type=3"
     Then the response code should be 200
     And the response should contain json:
     """
@@ -2366,13 +2366,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://localhost/app_test.php/api/issues/3"
+              "href": "http://kreta.test:8000/app_test.php/api/issues/3"
             },
             "project": {
-              "href": "http://localhost/app_test.php/api/projects/1"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/1"
             },
             "issues": {
-              "href": "http://localhost/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/app_test.php/api/issues"
             }
           }
         }
@@ -2381,7 +2381,7 @@ Feature: Manage issue
 
   Scenario: Getting all the issues filter by title=issue 4
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/issues?q=issue 4"
+    When I send a GET request to "/api/issues?q=issue 4"
     Then the response code should be 200
     And the response should contain json:
     """
@@ -2436,7 +2436,7 @@ Feature: Manage issue
             "last_name": "User2",
             "photo": {
               "id": "2",
-              "name": "http://localhost/app_test.php/media/image/user-2.jpg"
+              "name": "http://kreta.test:8000/app_test.php/media/image/user-2.jpg"
             }
           },
           "status": {
@@ -2452,13 +2452,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://localhost/app_test.php/api/issues/5"
+              "href": "http://kreta.test:8000/app_test.php/api/issues/5"
             },
             "project": {
-              "href": "http://localhost/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
             },
             "issues": {
-              "href": "http://localhost/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/app_test.php/api/issues"
             }
           }
         }
@@ -2467,7 +2467,7 @@ Feature: Manage issue
 
   Scenario: Getting all the issues with limit 2
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/issues?limit=2"
+    When I send a GET request to "/api/issues?limit=2"
     Then the response code should be 200
     And the response should contain json:
     """
@@ -2535,13 +2535,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://localhost/app_test.php/api/issues/0"
+              "href": "http://kreta.test:8000/app_test.php/api/issues/0"
             },
             "project": {
-              "href": "http://localhost/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
             },
             "issues": {
-              "href": "http://localhost/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/app_test.php/api/issues"
             }
           }
         },
@@ -2608,13 +2608,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://localhost/app_test.php/api/issues/3"
+              "href": "http://kreta.test:8000/app_test.php/api/issues/3"
             },
             "project": {
-              "href": "http://localhost/app_test.php/api/projects/1"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/1"
             },
             "issues": {
-              "href": "http://localhost/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/app_test.php/api/issues"
             }
           }
         }
@@ -2623,7 +2623,7 @@ Feature: Manage issue
 
   Scenario: Getting all the issues with offset 2
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/issues?offset=2"
+    When I send a GET request to "/api/issues?offset=2"
     Then the response code should be 200
     And the response should contain json:
     """
@@ -2702,13 +2702,13 @@ Feature: Manage issue
               },
               "_links": {
                 "self": {
-                  "href": "http://localhost/app_test.php/api/issues/6"
+                  "href": "http://kreta.test:8000/app_test.php/api/issues/6"
                 },
                 "project": {
-                  "href": "http://localhost/app_test.php/api/projects/1"
+                  "href": "http://kreta.test:8000/app_test.php/api/projects/1"
                 },
                 "issues": {
-                  "href": "http://localhost/app_test.php/api/issues"
+                  "href": "http://kreta.test:8000/app_test.php/api/issues"
                 }
               }
             }
@@ -2765,13 +2765,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://localhost/app_test.php/api/issues/4"
+              "href": "http://kreta.test:8000/app_test.php/api/issues/4"
             },
             "project": {
-              "href": "http://localhost/app_test.php/api/projects/1"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/1"
             },
             "issues": {
-              "href": "http://localhost/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/app_test.php/api/issues"
             }
           }
         },
@@ -2838,13 +2838,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://localhost/app_test.php/api/issues/1"
+              "href": "http://kreta.test:8000/app_test.php/api/issues/1"
             },
             "project": {
-              "href": "http://localhost/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
             },
             "issues": {
-              "href": "http://localhost/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/app_test.php/api/issues"
             }
           }
         },
@@ -2911,13 +2911,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://localhost/app_test.php/api/issues/2"
+              "href": "http://kreta.test:8000/app_test.php/api/issues/2"
             },
             "project": {
-              "href": "http://localhost/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
             },
             "issues": {
-              "href": "http://localhost/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/app_test.php/api/issues"
             }
           }
         },
@@ -3020,13 +3020,13 @@ Feature: Manage issue
             },
             "_links": {
               "self": {
-                "href": "http://localhost/app_test.php/api/issues/4"
+                "href": "http://kreta.test:8000/app_test.php/api/issues/4"
               },
               "project": {
-                "href": "http://localhost/app_test.php/api/projects/1"
+                "href": "http://kreta.test:8000/app_test.php/api/projects/1"
               },
               "issues": {
-                "href": "http://localhost/app_test.php/api/issues"
+                "href": "http://kreta.test:8000/app_test.php/api/issues"
               }
             }
           },
@@ -3056,13 +3056,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://localhost/app_test.php/api/issues/6"
+              "href": "http://kreta.test:8000/app_test.php/api/issues/6"
             },
             "project": {
-              "href": "http://localhost/app_test.php/api/projects/1"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/1"
             },
             "issues": {
-              "href": "http://localhost/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/app_test.php/api/issues"
             }
           }
         },
@@ -3116,7 +3116,7 @@ Feature: Manage issue
             "last_name": "User2",
             "photo": {
               "id": "2",
-              "name": "http://localhost/app_test.php/media/image/user-2.jpg"
+              "name": "http://kreta.test:8000/app_test.php/media/image/user-2.jpg"
             }
           },
           "status": {
@@ -3132,13 +3132,13 @@ Feature: Manage issue
           },
           "_links": {
             "self": {
-              "href": "http://localhost/app_test.php/api/issues/5"
+              "href": "http://kreta.test:8000/app_test.php/api/issues/5"
             },
             "project": {
-              "href": "http://localhost/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
             },
             "issues": {
-              "href": "http://localhost/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/app_test.php/api/issues"
             }
           }
         }
@@ -3147,7 +3147,7 @@ Feature: Manage issue
 
   Scenario: Getting the 0 issue
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/issues/0"
+    When I send a GET request to "/api/issues/0"
     Then the response code should be 200
     And the response should contain json:
     """
@@ -3214,13 +3214,13 @@ Feature: Manage issue
         },
         "_links": {
           "self": {
-            "href": "http://localhost/app_test.php/api/issues/0"
+            "href": "http://kreta.test:8000/app_test.php/api/issues/0"
           },
           "project": {
-            "href": "http://localhost/app_test.php/api/projects/0"
+            "href": "http://kreta.test:8000/app_test.php/api/projects/0"
           },
           "issues": {
-            "href": "http://localhost/app_test.php/api/issues"
+            "href": "http://kreta.test:8000/app_test.php/api/issues"
           }
         }
       }
@@ -3228,7 +3228,7 @@ Feature: Manage issue
 
   Scenario: Getting the 1 issue with user which is not a project participant
     Given I am authenticating with "access-token-3" token
-    When I send a GET request to "/app_test.php/api/issues/1"
+    When I send a GET request to "/api/issues/1"
     Then the response code should be 403
     And the response should contain json:
     """
@@ -3239,7 +3239,7 @@ Feature: Manage issue
 
   Scenario: Getting the unknown issue
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/issues/unknown-issue"
+    When I send a GET request to "/api/issues/unknown-issue"
     Then the response code should be 404
     And the response should contain json:
     """
@@ -3251,7 +3251,7 @@ Feature: Manage issue
   Scenario: Creating an issue
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/issues" with body:
+    When I send a POST request to "/api/issues" with body:
     """
       {
         "title": "New issue",
@@ -3267,7 +3267,7 @@ Feature: Manage issue
   Scenario: Creating an issue with parent issue
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/issues" with body:
+    When I send a POST request to "/api/issues" with body:
     """
       {
         "title": "New issue",
@@ -3284,7 +3284,7 @@ Feature: Manage issue
   Scenario: Creating an issue assigning to user which is not a project participant
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/issues" with body:
+    When I send a POST request to "/api/issues" with body:
     """
       {
         "title": "New issue",
@@ -3308,7 +3308,7 @@ Feature: Manage issue
   Scenario: Creating an issue with invalid priority
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/issues" with body:
+    When I send a POST request to "/api/issues" with body:
     """
       {
         "title": "New issue",
@@ -3332,7 +3332,7 @@ Feature: Manage issue
   Scenario: Creating an issue with invalid issue type
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/issues" with body:
+    When I send a POST request to "/api/issues" with body:
     """
       {
         "title": "New issue",
@@ -3356,7 +3356,7 @@ Feature: Manage issue
   Scenario: Creating an issue with invalid parent issue
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/issues" with body:
+    When I send a POST request to "/api/issues" with body:
     """
       {
         "title": "New issue",
@@ -3381,7 +3381,7 @@ Feature: Manage issue
   Scenario: Creating an issue without parameters
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/issues" with body:
+    When I send a POST request to "/api/issues" with body:
     """
       {
       }
@@ -3399,7 +3399,7 @@ Feature: Manage issue
   Scenario: Creating an issue without required parameters
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/issues" with body:
+    When I send a POST request to "/api/issues" with body:
     """
       {
         "description": "The description",
@@ -3426,7 +3426,7 @@ Feature: Manage issue
   Scenario: Creating an issue with already exists title
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/issues" with body:
+    When I send a POST request to "/api/issues" with body:
     """
       {
         "title": "Test issue 1",
@@ -3450,7 +3450,7 @@ Feature: Manage issue
   Scenario: Creating an issue without project
     Given I am authenticating with "access-token-2" token
     Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/issues" with body:
+    When I send a POST request to "/api/issues" with body:
     """
       {
         "title": "New issue",
@@ -3479,7 +3479,7 @@ Feature: Manage issue
   Scenario: Creating an issue with user which is not a participant
     Given I am authenticating with "access-token-2" token
     Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/issues" with body:
+    When I send a POST request to "/api/issues" with body:
     """
       {
         "title": "New issue",
@@ -3509,7 +3509,7 @@ Feature: Manage issue
   Scenario: Updating the 0 issue
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a PUT request to "/app_test.php/api/issues/0" with body:
+    When I send a PUT request to "/api/issues/0" with body:
     """
       {
         "title": "Test issue 1",
@@ -3533,7 +3533,7 @@ Feature: Manage issue
           "last_name": "User2",
           "photo": {
             "id": "2",
-            "name": "http://localhost/app_test.php/media/image/user-2.jpg"
+            "name": "http://kreta.test:8000/app_test.php/media/image/user-2.jpg"
           }
         },
         "children": [],
@@ -3587,13 +3587,13 @@ Feature: Manage issue
         },
         "_links": {
           "self": {
-            "href": "http://localhost/app_test.php/api/issues/0"
+            "href": "http://kreta.test:8000/app_test.php/api/issues/0"
           },
           "project": {
-            "href": "http://localhost/app_test.php/api/projects/0"
+            "href": "http://kreta.test:8000/app_test.php/api/projects/0"
           },
           "issues": {
-            "href": "http://localhost/app_test.php/api/issues"
+            "href": "http://kreta.test:8000/app_test.php/api/issues"
           }
         }
       }
@@ -3602,7 +3602,7 @@ Feature: Manage issue
   Scenario: Updating the 0 issue with parent
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a PUT request to "/app_test.php/api/issues/0" with body:
+    When I send a PUT request to "/api/issues/0" with body:
     """
       {
         "title": "Test issue 1",
@@ -3627,7 +3627,7 @@ Feature: Manage issue
           "last_name": "User2",
           "photo": {
             "id": "2",
-            "name": "http://localhost/app_test.php/media/image/user-2.jpg"
+            "name": "http://kreta.test:8000/app_test.php/media/image/user-2.jpg"
           }
         },
         "created_at": "2014-12-15T00:00:00+0100",
@@ -3680,13 +3680,13 @@ Feature: Manage issue
         },
         "_links": {
           "self": {
-            "href": "http://localhost/app_test.php/api/issues/0"
+            "href": "http://kreta.test:8000/app_test.php/api/issues/0"
           },
           "project": {
-            "href": "http://localhost/app_test.php/api/projects/0"
+            "href": "http://kreta.test:8000/app_test.php/api/projects/0"
           },
           "issues": {
-            "href": "http://localhost/app_test.php/api/issues"
+            "href": "http://kreta.test:8000/app_test.php/api/issues"
           }
         }
       }
@@ -3695,7 +3695,7 @@ Feature: Manage issue
   Scenario: Updating the 0 issue without parameters
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a PUT request to "/app_test.php/api/issues/0" with body:
+    When I send a PUT request to "/api/issues/0" with body:
     """
       {
       }
@@ -3713,7 +3713,7 @@ Feature: Manage issue
   Scenario: Updating the 0 issue with invalid parent issue
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a PUT request to "/app_test.php/api/issues/0" with body:
+    When I send a PUT request to "/api/issues/0" with body:
     """
       {
         "title": "New issue",
@@ -3738,7 +3738,7 @@ Feature: Manage issue
   Scenario: Updating the 0 issue without required parameters
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a PUT request to "/app_test.php/api/issues/0" with body:
+    When I send a PUT request to "/api/issues/0" with body:
     """
       {
         "description": "The description",
@@ -3765,7 +3765,7 @@ Feature: Manage issue
   Scenario: Updating the 1 issue with user which is not participant
     Given I am authenticating with "access-token-2" token
     Given I set header "content-type" with value "application/json"
-    When I send a PUT request to "/app_test.php/api/issues/0" with body:
+    When I send a PUT request to "/api/issues/0" with body:
     """
       {
         "title": "Updated issue",
@@ -3787,7 +3787,7 @@ Feature: Manage issue
   Scenario: Updating the 0 issue with assignee which is not participant
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a PUT request to "/app_test.php/api/issues/0" with body:
+    When I send a PUT request to "/api/issues/0" with body:
     """
       {
         "title": "Updated issue 0",
@@ -3811,7 +3811,7 @@ Feature: Manage issue
   Scenario: Updating the 1 issue with user which is assignee
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a PUT request to "/app_test.php/api/issues/2" with body:
+    When I send a PUT request to "/api/issues/2" with body:
     """
       {
         "title": "Updated issue 0",
@@ -3835,7 +3835,7 @@ Feature: Manage issue
           "last_name": "User2",
           "photo": {
             "id": "2",
-            "name": "http://localhost/app_test.php/media/image/user-2.jpg"
+            "name": "http://kreta.test:8000/app_test.php/media/image/user-2.jpg"
           }
         },
         "created_at": "2014-10-21T00:00:00+0200",
@@ -3888,13 +3888,13 @@ Feature: Manage issue
         },
         "_links": {
           "self": {
-            "href": "http://localhost/app_test.php/api/issues/2"
+            "href": "http://kreta.test:8000/app_test.php/api/issues/2"
           },
           "project": {
-            "href": "http://localhost/app_test.php/api/projects/0"
+            "href": "http://kreta.test:8000/app_test.php/api/projects/0"
           },
           "issues": {
-            "href": "http://localhost/app_test.php/api/issues"
+            "href": "http://kreta.test:8000/app_test.php/api/issues"
           }
         }
       }
@@ -3903,7 +3903,7 @@ Feature: Manage issue
   Scenario: Updating the 1 issue with user which is reporter
     Given I am authenticating with "access-token-3" token
     Given I set header "content-type" with value "application/json"
-    When I send a PUT request to "/app_test.php/api/issues/3" with body:
+    When I send a PUT request to "/api/issues/3" with body:
     """
       {
         "title": "Updated issue 1",
@@ -3927,7 +3927,7 @@ Feature: Manage issue
           "last_name": "User2",
           "photo": {
             "id": "2",
-            "name": "http://localhost/app_test.php/media/image/user-2.jpg"
+            "name": "http://kreta.test:8000/app_test.php/media/image/user-2.jpg"
           }
         },
         "created_at": "2014-10-21T00:00:00+0200",
@@ -3980,13 +3980,13 @@ Feature: Manage issue
         },
         "_links": {
           "self": {
-            "href": "http://localhost/app_test.php/api/issues/3"
+            "href": "http://kreta.test:8000/app_test.php/api/issues/3"
           },
           "project": {
-            "href": "http://localhost/app_test.php/api/projects/1"
+            "href": "http://kreta.test:8000/app_test.php/api/projects/1"
           },
           "issues": {
-            "href": "http://localhost/app_test.php/api/issues"
+            "href": "http://kreta.test:8000/app_test.php/api/issues"
           }
         }
       }
@@ -3995,7 +3995,7 @@ Feature: Manage issue
   Scenario: Updating the 1 issue with user which is admin
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a PUT request to "/app_test.php/api/issues/0" with body:
+    When I send a PUT request to "/api/issues/0" with body:
     """
       {
         "title": "Updated issue 2",
@@ -4019,7 +4019,7 @@ Feature: Manage issue
           "last_name": "User2",
           "photo": {
             "id": "2",
-            "name": "http://localhost/app_test.php/media/image/user-2.jpg"
+            "name": "http://kreta.test:8000/app_test.php/media/image/user-2.jpg"
           }
         },
         "created_at": "2014-12-15T00:00:00+0100",
@@ -4072,13 +4072,13 @@ Feature: Manage issue
         },
         "_links": {
           "self": {
-            "href": "http://localhost/app_test.php/api/issues/0"
+            "href": "http://kreta.test:8000/app_test.php/api/issues/0"
           },
           "project": {
-            "href": "http://localhost/app_test.php/api/projects/0"
+            "href": "http://kreta.test:8000/app_test.php/api/projects/0"
           },
           "issues": {
-            "href": "http://localhost/app_test.php/api/issues"
+            "href": "http://kreta.test:8000/app_test.php/api/issues"
           }
         }
       }
@@ -4087,7 +4087,7 @@ Feature: Manage issue
   Scenario: Updating the 0 issue state
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a PATCH request to "/app_test.php/api/issues/0/transitions" with body:
+    When I send a PATCH request to "/api/issues/0/transitions" with body:
     """
       {
         "transition": "1"
@@ -4157,13 +4157,13 @@ Feature: Manage issue
         },
         "_links": {
           "self": {
-            "href": "http://localhost/app_test.php/api/issues/0"
+            "href": "http://kreta.test:8000/app_test.php/api/issues/0"
           },
           "project": {
-            "href": "http://localhost/app_test.php/api/projects/0"
+            "href": "http://kreta.test:8000/app_test.php/api/projects/0"
           },
           "issues": {
-            "href": "http://localhost/app_test.php/api/issues"
+            "href": "http://kreta.test:8000/app_test.php/api/issues"
           }
         }
       }
@@ -4172,7 +4172,7 @@ Feature: Manage issue
   Scenario: Updating the 0 issue state without transition
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a PATCH request to "/app_test.php/api/issues/0/transitions" with body:
+    When I send a PATCH request to "/api/issues/0/transitions" with body:
     """
       {}
     """
@@ -4187,7 +4187,7 @@ Feature: Manage issue
   Scenario: Updating the 1 issue state with user which is not participant
     Given I am authenticating with "access-token-2" token
     Given I set header "content-type" with value "application/json"
-    When I send a PATCH request to "/app_test.php/api/issues/0/transitions" with body:
+    When I send a PATCH request to "/api/issues/0/transitions" with body:
     """
       {
         "transition": "1"
@@ -4204,7 +4204,7 @@ Feature: Manage issue
   Scenario: Updating the issue state of unknown id
     Given I am authenticating with "access-token-2" token
     Given I set header "content-type" with value "application/json"
-    When I send a PATCH request to "/app_test.php/api/issues/unknown-id/transitions" with body:
+    When I send a PATCH request to "/api/issues/unknown-id/transitions" with body:
     """
       {
         "transition": "1"
@@ -4221,7 +4221,7 @@ Feature: Manage issue
   Scenario: Updating the 5 issue state to invalid transition
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a PATCH request to "/app_test.php/api/issues/5/transitions" with body:
+    When I send a PATCH request to "/api/issues/5/transitions" with body:
     """
       {
         "transition": "2"

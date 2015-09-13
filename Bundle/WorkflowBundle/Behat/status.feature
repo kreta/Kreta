@@ -66,7 +66,7 @@ Feature: Manage status
 
   Scenario: Getting all the statuses of workflow 0
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/workflows/0/statuses"
+    When I send a GET request to "/api/workflows/0/statuses"
     Then the response code should be 200
     And the response should contain json:
     """
@@ -75,13 +75,13 @@ Feature: Manage status
         "color": "#27ae60",
         "_links": {
           "self": {
-            "href": "http://localhost/app_test.php/api/workflows/0/statuses/0"
+            "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses/0"
           },
           "statuses": {
-            "href": "http://localhost/app_test.php/api/workflows/0/statuses"
+            "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses"
           },
           "workflow": {
-            "href": "http://localhost/app_test.php/api/workflows/0"
+            "href": "http://kreta.test:8000/app_test.php/api/workflows/0"
           }
         },
         "type": "normal",
@@ -91,13 +91,13 @@ Feature: Manage status
         "color": "#2c3e50",
         "_links": {
           "self": {
-            "href": "http://localhost/app_test.php/api/workflows/0/statuses/1"
+            "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses/1"
           },
           "statuses": {
-            "href": "http://localhost/app_test.php/api/workflows/0/statuses"
+            "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses"
           },
           "workflow": {
-            "href": "http://localhost/app_test.php/api/workflows/0"
+            "href": "http://kreta.test:8000/app_test.php/api/workflows/0"
           }
         },
         "type": "normal",
@@ -108,13 +108,13 @@ Feature: Manage status
         
         "_links": {
           "self": {
-            "href": "http://localhost/app_test.php/api/workflows/0/statuses/2"
+            "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses/2"
           },
           "statuses": {
-            "href": "http://localhost/app_test.php/api/workflows/0/statuses"
+            "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses"
           },
           "workflow": {
-            "href": "http://localhost/app_test.php/api/workflows/0"
+            "href": "http://kreta.test:8000/app_test.php/api/workflows/0"
           }
         },
         "type": "normal",
@@ -124,13 +124,13 @@ Feature: Manage status
         "color": "#c0392b",
         "_links": {
           "self": {
-            "href": "http://localhost/app_test.php/api/workflows/0/statuses/3"
+            "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses/3"
           },
           "statuses": {
-            "href": "http://localhost/app_test.php/api/workflows/0/statuses"
+            "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses"
           },
           "workflow": {
-            "href": "http://localhost/app_test.php/api/workflows/0"
+            "href": "http://kreta.test:8000/app_test.php/api/workflows/0"
           }
         },
         "type": "normal",
@@ -140,13 +140,13 @@ Feature: Manage status
         "color": "#27ae60",
         "_links": {
           "self": {
-            "href": "http://localhost/app_test.php/api/workflows/0/statuses/4"
+            "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses/4"
           },
           "statuses": {
-            "href": "http://localhost/app_test.php/api/workflows/0/statuses"
+            "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses"
           },
           "workflow": {
-            "href": "http://localhost/app_test.php/api/workflows/0"
+            "href": "http://kreta.test:8000/app_test.php/api/workflows/0"
           }
         },
         "type": "normal",
@@ -156,7 +156,7 @@ Feature: Manage status
 
   Scenario: Getting the 0 status
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/workflows/0/statuses/0"
+    When I send a GET request to "/api/workflows/0/statuses/0"
     Then the response code should be 200
     And the response should contain json:
     """
@@ -165,13 +165,13 @@ Feature: Manage status
         "color": "#27ae60",
         "_links": {
           "self": {
-            "href": "http://localhost/app_test.php/api/workflows/0/statuses/0"
+            "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses/0"
           },
           "statuses": {
-            "href": "http://localhost/app_test.php/api/workflows/0/statuses"
+            "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses"
           },
           "workflow": {
-            "href": "http://localhost/app_test.php/api/workflows/0"
+            "href": "http://kreta.test:8000/app_test.php/api/workflows/0"
           }
         }
       }
@@ -179,7 +179,7 @@ Feature: Manage status
 
   Scenario: Getting the 0 status with user which is not a participant
     Given I am authenticating with "access-token-2" token
-    When I send a GET request to "/app_test.php/api/workflows/1/statuses/0"
+    When I send a GET request to "/api/workflows/1/statuses/0"
     Then the response code should be 403
     And the response should contain json:
     """
@@ -190,7 +190,7 @@ Feature: Manage status
 
   Scenario: Getting the unknown status
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/workflows/0/statuses/unknown-status"
+    When I send a GET request to "/api/workflows/0/statuses/unknown-status"
     Then the response code should be 404
     And the response should contain json:
     """
@@ -202,7 +202,7 @@ Feature: Manage status
   Scenario: Creating a status
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/workflows/0/statuses" with body:
+    When I send a POST request to "/api/workflows/0/statuses" with body:
     """
       {
         "color": "#FFFFFF",
@@ -215,7 +215,7 @@ Feature: Manage status
   Scenario: Creating a status without parameters
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/workflows/0/statuses" with body:
+    When I send a POST request to "/api/workflows/0/statuses" with body:
     """
       {}
     """
@@ -232,7 +232,7 @@ Feature: Manage status
   Scenario: Creating a status without some required parameters
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/workflows/0/statuses" with body:
+    When I send a POST request to "/api/workflows/0/statuses" with body:
     """
       {
         "name": "New status"
@@ -254,7 +254,7 @@ Feature: Manage status
   Scenario: Creating a status with already exists name
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/workflows/0/statuses" with body:
+    When I send a POST request to "/api/workflows/0/statuses" with body:
     """
       {
         "color": "#FFFFFF",
@@ -275,7 +275,7 @@ Feature: Manage status
   Scenario: Creating a status with user which is not a project admin
     Given I am authenticating with "access-token-1" token
     Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/workflows/0/statuses" with body:
+    When I send a POST request to "/api/workflows/0/statuses" with body:
     """
       {
         "color": "#FFFFFF",
@@ -294,7 +294,7 @@ Feature: Manage status
   Scenario: Updating the 0 status
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a PUT request to "/app_test.php/api/workflows/0/statuses/0" with body:
+    When I send a PUT request to "/api/workflows/0/statuses/0" with body:
     """
       {
         "color": "#FFFFFF",
@@ -310,13 +310,13 @@ Feature: Manage status
         "color": "#FFFFFF",
         "_links": {
           "self": {
-            "href": "http://localhost/app_test.php/api/workflows/0/statuses/0"
+            "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses/0"
           },
           "statuses": {
-            "href": "http://localhost/app_test.php/api/workflows/0/statuses"
+            "href": "http://kreta.test:8000/app_test.php/api/workflows/0/statuses"
           },
           "workflow": {
-            "href": "http://localhost/app_test.php/api/workflows/0"
+            "href": "http://kreta.test:8000/app_test.php/api/workflows/0"
           }
         }
       }
@@ -325,7 +325,7 @@ Feature: Manage status
   Scenario: Updating the 0 status without parameters
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a PUT request to "/app_test.php/api/workflows/0/statuses/0" with body:
+    When I send a PUT request to "/api/workflows/0/statuses/0" with body:
     """
       {}
     """
@@ -342,7 +342,7 @@ Feature: Manage status
   Scenario: Updating the 0 status without some required parameters
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a PUT request to "/app_test.php/api/workflows/0/statuses/0" with body:
+    When I send a PUT request to "/api/workflows/0/statuses/0" with body:
     """
       {
         "name": "New status"
@@ -364,7 +364,7 @@ Feature: Manage status
   Scenario: Updating the unknown status
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a PUT request to "/app_test.php/api/workflows/0/statuses/unknown-status" with body:
+    When I send a PUT request to "/api/workflows/0/statuses/unknown-status" with body:
     """
       {
         "color": "#FFFFFF",
@@ -383,7 +383,7 @@ Feature: Manage status
   Scenario: Updating the 0 status with user which is not a project admin
     Given I am authenticating with "access-token-1" token
     Given I set header "content-type" with value "application/json"
-    When I send a PUT request to "/app_test.php/api/workflows/0/statuses/0" with body:
+    When I send a PUT request to "/api/workflows/0/statuses/0" with body:
     """
       {
         "color": "#FFFFFF",
@@ -402,7 +402,7 @@ Feature: Manage status
   Scenario: Deleting the 1 status
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a DELETE request to "/app_test.php/api/workflows/0/statuses/1"
+    When I send a DELETE request to "/api/workflows/0/statuses/1"
     Then the response code should be 204
     And the response should contain json:
     """
@@ -412,7 +412,7 @@ Feature: Manage status
   Scenario: Deleting the 0 status
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a DELETE request to "/app_test.php/api/workflows/0/statuses/0"
+    When I send a DELETE request to "/api/workflows/0/statuses/0"
     Then the response code should be 409
     And the response should contain json:
     """
@@ -424,7 +424,7 @@ Feature: Manage status
   Scenario: Deleting the unknown status
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a DELETE request to "/app_test.php/api/workflows/0/statuses/unknown-status"
+    When I send a DELETE request to "/api/workflows/0/statuses/unknown-status"
     Then the response code should be 404
     And the response should contain json:
     """
@@ -436,7 +436,7 @@ Feature: Manage status
   Scenario: Deleting the 0 status with user which is not a project admin
     Given I am authenticating with "access-token-1" token
     Given I set header "content-type" with value "application/json"
-    When I send a DELETE request to "/app_test.php/api/workflows/0/statuses/0"
+    When I send a DELETE request to "/api/workflows/0/statuses/0"
     Then the response code should be 403
     And the response should contain json:
     """

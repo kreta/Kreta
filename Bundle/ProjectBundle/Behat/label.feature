@@ -57,7 +57,7 @@ Feature: Manage label
 
   Scenario: Getting all the labels of project 0
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/projects/0/labels"
+    When I send a GET request to "/api/projects/0/labels"
     Then the response code should be 200
     And the response should contain json:
     """
@@ -66,10 +66,10 @@ Feature: Manage label
         "name": "backbone.js",
         "_links": {
           "labels": {
-            "href": "http://localhost/app_test.php/api/projects/0/labels"
+            "href": "http://kreta.test:8000/app_test.php/api/projects/0/labels"
           },
           "project": {
-            "href": "http://localhost/app_test.php/api/projects/0"
+            "href": "http://kreta.test:8000/app_test.php/api/projects/0"
           }
         }
       }, {
@@ -77,10 +77,10 @@ Feature: Manage label
         "name": "bdd",
         "_links": {
           "labels": {
-            "href": "http://localhost/app_test.php/api/projects/0/labels"
+            "href": "http://kreta.test:8000/app_test.php/api/projects/0/labels"
           },
           "project": {
-            "href": "http://localhost/app_test.php/api/projects/0"
+            "href": "http://kreta.test:8000/app_test.php/api/projects/0"
           }
         }
       }, {
@@ -88,10 +88,10 @@ Feature: Manage label
         "name": "css3",
         "_links": {
           "labels": {
-            "href": "http://localhost/app_test.php/api/projects/0/labels"
+            "href": "http://kreta.test:8000/app_test.php/api/projects/0/labels"
           },
           "project": {
-            "href": "http://localhost/app_test.php/api/projects/0"
+            "href": "http://kreta.test:8000/app_test.php/api/projects/0"
           }
         }
       }, {
@@ -99,10 +99,10 @@ Feature: Manage label
         "name": "java",
         "_links": {
           "labels": {
-            "href": "http://localhost/app_test.php/api/projects/0/labels"
+            "href": "http://kreta.test:8000/app_test.php/api/projects/0/labels"
           },
           "project": {
-            "href": "http://localhost/app_test.php/api/projects/0"
+            "href": "http://kreta.test:8000/app_test.php/api/projects/0"
           }
         }
       }, {
@@ -110,10 +110,10 @@ Feature: Manage label
         "name": "javascript",
         "_links": {
           "labels": {
-            "href": "http://localhost/app_test.php/api/projects/0/labels"
+            "href": "http://kreta.test:8000/app_test.php/api/projects/0/labels"
           },
           "project": {
-            "href": "http://localhost/app_test.php/api/projects/0"
+            "href": "http://kreta.test:8000/app_test.php/api/projects/0"
           }
         }
       }, {
@@ -121,10 +121,10 @@ Feature: Manage label
         "name": "mongodb",
         "_links": {
           "labels": {
-            "href": "http://localhost/app_test.php/api/projects/0/labels"
+            "href": "http://kreta.test:8000/app_test.php/api/projects/0/labels"
           },
           "project":{
-            "href":"http://localhost/app_test.php/api/projects/0"
+            "href":"http://kreta.test:8000/app_test.php/api/projects/0"
           }
         }
       }, {
@@ -132,10 +132,10 @@ Feature: Manage label
         "name": "mysql",
         "_links": {
           "labels": {
-            "href": "http://localhost/app_test.php/api/projects/0/labels"
+            "href": "http://kreta.test:8000/app_test.php/api/projects/0/labels"
           },
           "project": {
-            "href": "http://localhost/app_test.php/api/projects/0"
+            "href": "http://kreta.test:8000/app_test.php/api/projects/0"
           }
         }
       }, {
@@ -143,10 +143,10 @@ Feature: Manage label
         "name": "sass",
         "_links": {
           "labels": {
-            "href": "http://localhost/app_test.php/api/projects/0/labels"
+            "href": "http://kreta.test:8000/app_test.php/api/projects/0/labels"
           },
           "project": {
-            "href": "http://localhost/app_test.php/api/projects/0"
+            "href": "http://kreta.test:8000/app_test.php/api/projects/0"
           }
         }
       }, {
@@ -154,10 +154,10 @@ Feature: Manage label
         "name": "symfony",
         "_links": {
           "labels": {
-            "href": "http://localhost/app_test.php/api/projects/0/labels"
+            "href": "http://kreta.test:8000/app_test.php/api/projects/0/labels"
           },
           "project": {
-            "href": "http://localhost/app_test.php/api/projects/0"
+            "href": "http://kreta.test:8000/app_test.php/api/projects/0"
           }
         }
       }]
@@ -165,7 +165,7 @@ Feature: Manage label
 
   Scenario: Getting all the labels of project 0 with user which is not a project participant
     Given I am authenticating with "access-token-3" token
-    When I send a GET request to "/app_test.php/api/projects/0/labels"
+    When I send a GET request to "/api/projects/0/labels"
     Then the response code should be 403
     And the response should contain json:
     """
@@ -176,7 +176,7 @@ Feature: Manage label
 
   Scenario: Getting all the labels of project unknown project
     Given I am authenticating with "access-token-3" token
-    When I send a GET request to "/app_test.php/api/projects/unknown-project/labels"
+    When I send a GET request to "/api/projects/unknown-project/labels"
     Then the response code should be 404
     And the response should contain json:
     """
@@ -187,7 +187,7 @@ Feature: Manage label
 
   Scenario: Getting all the labels of project 0 filter by name=java
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/projects/0/labels?q=java"
+    When I send a GET request to "/api/projects/0/labels?q=java"
     Then the response code should be 200
     And the response should contain json:
     """
@@ -196,10 +196,10 @@ Feature: Manage label
         "name": "java",
         "_links": {
           "labels": {
-            "href": "http://localhost/app_test.php/api/projects/0/labels"
+            "href": "http://kreta.test:8000/app_test.php/api/projects/0/labels"
           },
           "project": {
-            "href": "http://localhost/app_test.php/api/projects/0"
+            "href": "http://kreta.test:8000/app_test.php/api/projects/0"
           }
         }
       }, {
@@ -207,10 +207,10 @@ Feature: Manage label
         "name": "javascript",
         "_links": {
           "labels": {
-            "href": "http://localhost/app_test.php/api/projects/0/labels"
+            "href": "http://kreta.test:8000/app_test.php/api/projects/0/labels"
           },
           "project": {
-            "href": "http://localhost/app_test.php/api/projects/0"
+            "href": "http://kreta.test:8000/app_test.php/api/projects/0"
           }
         }
       }]
@@ -218,7 +218,7 @@ Feature: Manage label
 
   Scenario: Getting all the labels of project 0 with limit 2
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/projects/0/labels?limit=2"
+    When I send a GET request to "/api/projects/0/labels?limit=2"
     Then the response code should be 200
     And the response should contain json:
     """
@@ -227,10 +227,10 @@ Feature: Manage label
         "name": "backbone.js",
         "_links": {
           "labels": {
-            "href": "http://localhost/app_test.php/api/projects/0/labels"
+            "href": "http://kreta.test:8000/app_test.php/api/projects/0/labels"
           },
           "project": {
-            "href": "http://localhost/app_test.php/api/projects/0"
+            "href": "http://kreta.test:8000/app_test.php/api/projects/0"
           }
         }
       }, {
@@ -238,10 +238,10 @@ Feature: Manage label
         "name": "bdd",
         "_links": {
           "labels": {
-            "href": "http://localhost/app_test.php/api/projects/0/labels"
+            "href": "http://kreta.test:8000/app_test.php/api/projects/0/labels"
           },
           "project": {
-            "href": "http://localhost/app_test.php/api/projects/0"
+            "href": "http://kreta.test:8000/app_test.php/api/projects/0"
           }
         }
       }]
@@ -249,7 +249,7 @@ Feature: Manage label
 
   Scenario: Getting all the labels of project 0 with offset 2
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/projects/0/labels?offset=2"
+    When I send a GET request to "/api/projects/0/labels?offset=2"
     Then the response code should be 200
     And the response should contain json:
     """
@@ -258,10 +258,10 @@ Feature: Manage label
         "name": "css3",
         "_links": {
           "labels": {
-            "href": "http://localhost/app_test.php/api/projects/0/labels"
+            "href": "http://kreta.test:8000/app_test.php/api/projects/0/labels"
           },
           "project": {
-            "href": "http://localhost/app_test.php/api/projects/0"
+            "href": "http://kreta.test:8000/app_test.php/api/projects/0"
           }
         }
       }, {
@@ -269,10 +269,10 @@ Feature: Manage label
         "name": "java",
         "_links": {
           "labels": {
-            "href": "http://localhost/app_test.php/api/projects/0/labels"
+            "href": "http://kreta.test:8000/app_test.php/api/projects/0/labels"
           },
           "project": {
-            "href": "http://localhost/app_test.php/api/projects/0"
+            "href": "http://kreta.test:8000/app_test.php/api/projects/0"
           }
         }
       }, {
@@ -280,10 +280,10 @@ Feature: Manage label
         "name": "javascript",
         "_links": {
           "labels": {
-            "href": "http://localhost/app_test.php/api/projects/0/labels"
+            "href": "http://kreta.test:8000/app_test.php/api/projects/0/labels"
           },
           "project": {
-            "href": "http://localhost/app_test.php/api/projects/0"
+            "href": "http://kreta.test:8000/app_test.php/api/projects/0"
           }
         }
       }, {
@@ -291,10 +291,10 @@ Feature: Manage label
         "name": "mongodb",
         "_links": {
           "labels": {
-            "href": "http://localhost/app_test.php/api/projects/0/labels"
+            "href": "http://kreta.test:8000/app_test.php/api/projects/0/labels"
           },
           "project":{
-            "href":"http://localhost/app_test.php/api/projects/0"
+            "href":"http://kreta.test:8000/app_test.php/api/projects/0"
           }
         }
       }, {
@@ -302,10 +302,10 @@ Feature: Manage label
         "name": "mysql",
         "_links": {
           "labels": {
-            "href": "http://localhost/app_test.php/api/projects/0/labels"
+            "href": "http://kreta.test:8000/app_test.php/api/projects/0/labels"
           },
           "project": {
-            "href": "http://localhost/app_test.php/api/projects/0"
+            "href": "http://kreta.test:8000/app_test.php/api/projects/0"
           }
         }
       }, {
@@ -313,10 +313,10 @@ Feature: Manage label
         "name": "sass",
         "_links": {
           "labels": {
-            "href": "http://localhost/app_test.php/api/projects/0/labels"
+            "href": "http://kreta.test:8000/app_test.php/api/projects/0/labels"
           },
           "project": {
-            "href": "http://localhost/app_test.php/api/projects/0"
+            "href": "http://kreta.test:8000/app_test.php/api/projects/0"
           }
         }
       }, {
@@ -324,10 +324,10 @@ Feature: Manage label
         "name": "symfony",
         "_links": {
           "labels": {
-            "href": "http://localhost/app_test.php/api/projects/0/labels"
+            "href": "http://kreta.test:8000/app_test.php/api/projects/0/labels"
           },
           "project": {
-            "href": "http://localhost/app_test.php/api/projects/0"
+            "href": "http://kreta.test:8000/app_test.php/api/projects/0"
           }
         }
       }]
@@ -336,7 +336,7 @@ Feature: Manage label
   Scenario: Creating a label
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/projects/0/labels" with body:
+    When I send a POST request to "/api/projects/0/labels" with body:
     """
       {
         "name": "New label"
@@ -347,7 +347,7 @@ Feature: Manage label
   Scenario: Creating a label with user which is not a project participant
     Given I am authenticating with "access-token-3" token
     Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/projects/0/labels" with body:
+    When I send a POST request to "/api/projects/0/labels" with body:
     """
       {
         "name": "New label"
@@ -364,7 +364,7 @@ Feature: Manage label
   Scenario: Creating a label in unknown project
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/projects/unknown-project/labels" with body:
+    When I send a POST request to "/api/projects/unknown-project/labels" with body:
     """
       {
         "name": "New label"
@@ -381,7 +381,7 @@ Feature: Manage label
   Scenario: Creating a label without name
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/projects/1/labels" with body:
+    When I send a POST request to "/api/projects/1/labels" with body:
     """
       {
         "name": ""
@@ -400,7 +400,7 @@ Feature: Manage label
   Scenario: Creating a label with already exists name
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/projects/1/labels" with body:
+    When I send a POST request to "/api/projects/1/labels" with body:
     """
       {
         "name": "php"
@@ -418,12 +418,12 @@ Feature: Manage label
 
   Scenario: Deleting label 0 of project 0
     Given I am authenticating with "access-token-0" token
-    When I send a DELETE request to "/app_test.php/api/projects/0/labels/0"
+    When I send a DELETE request to "/api/projects/0/labels/0"
     Then the response code should be 204
 
   Scenario: Deleting label 0 with user which is not a project admin
     Given I am authenticating with "access-token-3" token
-    When I send a DELETE request to "/app_test.php/api/projects/0/labels/0"
+    When I send a DELETE request to "/api/projects/0/labels/0"
     Then the response code should be 403
     And the response should contain json:
     """
@@ -434,7 +434,7 @@ Feature: Manage label
 
   Scenario: Deleting label 0 of unknown project
     Given I am authenticating with "access-token-0" token
-    When I send a DELETE request to "/app_test.php/api/projects/unknown-project/labels/0"
+    When I send a DELETE request to "/api/projects/unknown-project/labels/0"
     Then the response code should be 404
     And the response should contain json:
     """

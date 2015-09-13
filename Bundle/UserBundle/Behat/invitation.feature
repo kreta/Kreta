@@ -28,7 +28,7 @@ Feature: Manage user invitations
   Scenario: Creating a user invitation
     Given I am authenticating with "access-token-0" token
     And I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/users" with body:
+    When I send a POST request to "/api/users" with body:
     """
       {
         "username": "newuser",
@@ -42,7 +42,7 @@ Feature: Manage user invitations
   Scenario: Creating a user invitation of existing email
     Given I am authenticating with "access-token-0" token
     And I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/users" with body:
+    When I send a POST request to "/api/users" with body:
     """
       {
         "username": "user4",
@@ -64,7 +64,7 @@ Feature: Manage user invitations
   Scenario: Creating a user invitation of enabled user email
     Given I am authenticating with "access-token-0" token
     And I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/users" with body:
+    When I send a POST request to "/api/users" with body:
     """
       {
         "username": "user2",
@@ -84,7 +84,7 @@ Feature: Manage user invitations
   Scenario: Creating a user invitation of existing email with force=true
     Given I am authenticating with "access-token-0" token
     And I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/users" with body:
+    When I send a POST request to "/api/users" with body:
     """
       {
         "username": "user4",
@@ -108,7 +108,7 @@ Feature: Manage user invitations
   Scenario: Creating a user invitation without ROLE_ADMIN
     Given I am authenticating with "access-token-2" token
     And I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/users"
+    When I send a POST request to "/api/users"
     Then the response code should be 403
     And the response should contain json:
     """

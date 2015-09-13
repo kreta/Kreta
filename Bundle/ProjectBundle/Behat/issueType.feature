@@ -49,7 +49,7 @@ Feature: Manage issue type
 
   Scenario: Getting all the issue types of project 0
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/projects/0/issue-types"
+    When I send a GET request to "/api/projects/0/issue-types"
     Then the response code should be 200
     And the response should contain json:
     """
@@ -59,10 +59,10 @@ Feature: Manage issue type
           "name": "Bug",
           "_links": {
             "issue_types": {
-              "href": "http://localhost/app_test.php/api/projects/0/issue-types"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/0/issue-types"
             },
             "project": {
-              "href": "http://localhost/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
             }
           }
         },
@@ -71,10 +71,10 @@ Feature: Manage issue type
           "name": "Epic",
           "_links": {
             "issue_types": {
-              "href": "http://localhost/app_test.php/api/projects/0/issue-types"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/0/issue-types"
             },
             "project": {
-              "href": "http://localhost/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
             }
           }
         },
@@ -83,10 +83,10 @@ Feature: Manage issue type
           "name": "New feature",
           "_links": {
             "issue_types": {
-              "href": "http://localhost/app_test.php/api/projects/0/issue-types"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/0/issue-types"
             },
             "project": {
-              "href": "http://localhost/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
             }
           }
         }
@@ -95,7 +95,7 @@ Feature: Manage issue type
 
   Scenario: Getting all the issue types of project 0 with user which is not a project participant
     Given I am authenticating with "access-token-3" token
-    When I send a GET request to "/app_test.php/api/projects/0/issue-types"
+    When I send a GET request to "/api/projects/0/issue-types"
     Then the response code should be 403
     And the response should contain json:
     """
@@ -106,7 +106,7 @@ Feature: Manage issue type
 
   Scenario: Getting all the issue types of project unknown project
     Given I am authenticating with "access-token-3" token
-    When I send a GET request to "/app_test.php/api/projects/unknown-project/issue-types"
+    When I send a GET request to "/api/projects/unknown-project/issue-types"
     Then the response code should be 404
     And the response should contain json:
     """
@@ -117,7 +117,7 @@ Feature: Manage issue type
 
   Scenario: Getting all the issue types of project 0 filter by name=Bug
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/projects/0/issue-types?q=Bug"
+    When I send a GET request to "/api/projects/0/issue-types?q=Bug"
     Then the response code should be 200
     And the response should contain json:
     """
@@ -127,10 +127,10 @@ Feature: Manage issue type
           "name": "Bug",
           "_links": {
             "issue_types": {
-              "href": "http://localhost/app_test.php/api/projects/0/issue-types"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/0/issue-types"
             },
             "project": {
-              "href": "http://localhost/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
             }
           }
         }
@@ -139,7 +139,7 @@ Feature: Manage issue type
 
   Scenario: Getting all the labels of project 0 with limit 2
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/projects/0/issue-types?limit=2"
+    When I send a GET request to "/api/projects/0/issue-types?limit=2"
     Then the response code should be 200
     And the response should contain json:
     """
@@ -149,10 +149,10 @@ Feature: Manage issue type
           "name": "Bug",
           "_links": {
             "issue_types": {
-              "href": "http://localhost/app_test.php/api/projects/0/issue-types"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/0/issue-types"
             },
             "project": {
-              "href": "http://localhost/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
             }
           }
         },
@@ -161,10 +161,10 @@ Feature: Manage issue type
           "name": "Epic",
           "_links": {
             "issue_types": {
-              "href": "http://localhost/app_test.php/api/projects/0/issue-types"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/0/issue-types"
             },
             "project": {
-              "href": "http://localhost/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
             }
           }
         }
@@ -173,7 +173,7 @@ Feature: Manage issue type
 
   Scenario: Getting all the issue types of project 0 with offset 2
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/projects/0/issue-types?offset=2"
+    When I send a GET request to "/api/projects/0/issue-types?offset=2"
     Then the response code should be 200
     And the response should contain json:
     """
@@ -183,10 +183,10 @@ Feature: Manage issue type
           "name": "New feature",
           "_links": {
             "issue_types": {
-              "href": "http://localhost/app_test.php/api/projects/0/issue-types"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/0/issue-types"
             },
             "project": {
-              "href": "http://localhost/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
             }
           }
         }
@@ -196,7 +196,7 @@ Feature: Manage issue type
   Scenario: Creating a issue type
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/projects/0/issue-types" with body:
+    When I send a POST request to "/api/projects/0/issue-types" with body:
     """
       {
         "name": "New issue type"
@@ -207,7 +207,7 @@ Feature: Manage issue type
   Scenario: Creating a issue type with user which is not a project participant
     Given I am authenticating with "access-token-3" token
     Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/projects/0/issue-types" with body:
+    When I send a POST request to "/api/projects/0/issue-types" with body:
     """
       {
         "name": "New issue type"
@@ -224,7 +224,7 @@ Feature: Manage issue type
   Scenario: Creating a issue type in unknown project
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/projects/unknown-project/issue-types" with body:
+    When I send a POST request to "/api/projects/unknown-project/issue-types" with body:
     """
       {
         "name": "New issue type"
@@ -241,7 +241,7 @@ Feature: Manage issue type
   Scenario: Creating a issue type without name
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/projects/1/issue-types" with body:
+    When I send a POST request to "/api/projects/1/issue-types" with body:
     """
       {
         "name": ""
@@ -260,7 +260,7 @@ Feature: Manage issue type
   Scenario: Creating a issue type with already exists name
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/projects/1/issue-types" with body:
+    When I send a POST request to "/api/projects/1/issue-types" with body:
     """
       {
         "name": "Bug"
@@ -278,12 +278,12 @@ Feature: Manage issue type
 
   Scenario: Deleting issue type 0 of project 0
     Given I am authenticating with "access-token-0" token
-    When I send a DELETE request to "/app_test.php/api/projects/0/issue-types/0"
+    When I send a DELETE request to "/api/projects/0/issue-types/0"
     Then the response code should be 204
 
   Scenario: Deleting issue type 0 with user which is not a project admin
     Given I am authenticating with "access-token-3" token
-    When I send a DELETE request to "/app_test.php/api/projects/0/issue-types/0"
+    When I send a DELETE request to "/api/projects/0/issue-types/0"
     Then the response code should be 403
     And the response should contain json:
     """
@@ -294,7 +294,7 @@ Feature: Manage issue type
 
   Scenario: Deleting issue type 0 of unknown project
     Given I am authenticating with "access-token-0" token
-    When I send a DELETE request to "/app_test.php/api/projects/unknown-project/issue-types/0"
+    When I send a DELETE request to "/api/projects/unknown-project/issue-types/0"
     Then the response code should be 404
     And the response should contain json:
     """

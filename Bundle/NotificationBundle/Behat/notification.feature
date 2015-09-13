@@ -35,7 +35,7 @@ Feature: Manage notification
 
   Scenario: Getting all the notifications of user@kreta.com
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/notifications"
+    When I send a GET request to "/api/notifications"
     Then the response code should be 200
     And the response should contain json:
     """
@@ -51,10 +51,10 @@ Feature: Manage notification
           "web_url": "/api/issues/id-issue",
           "_links": {
             "notifications": {
-              "href": "http://localhost/app_test.php/api/notifications"
+              "href": "http://kreta.test:8000/app_test.php/api/notifications"
             },
             "projects": {
-              "href": "http://localhost/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/app_test.php/api/projects"
             }
           }
         },
@@ -69,10 +69,10 @@ Feature: Manage notification
           "web_url": "/api/issues/id-issue-2",
           "_links": {
             "notifications": {
-              "href": "http://localhost/app_test.php/api/notifications"
+              "href": "http://kreta.test:8000/app_test.php/api/notifications"
             },
             "projects": {
-              "href": "http://localhost/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/app_test.php/api/projects"
             }
           }
         },
@@ -87,10 +87,10 @@ Feature: Manage notification
           "web_url": "/api/issues/id-issue-3",
           "_links": {
             "notifications": {
-              "href": "http://localhost/app_test.php/api/notifications"
+              "href": "http://kreta.test:8000/app_test.php/api/notifications"
             },
             "projects": {
-              "href": "http://localhost/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/app_test.php/api/projects"
             }
           }
         },
@@ -105,10 +105,10 @@ Feature: Manage notification
           "web_url": "/api/issues/id-issue-4",
           "_links": {
             "notifications": {
-              "href": "http://localhost/app_test.php/api/notifications"
+              "href": "http://kreta.test:8000/app_test.php/api/notifications"
             },
             "projects": {
-              "href": "http://localhost/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/app_test.php/api/projects"
             }
           }
         }
@@ -117,7 +117,7 @@ Feature: Manage notification
 
   Scenario: Getting all the notifications with filter read to false of user@kreta.com
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/notifications?read=false"
+    When I send a GET request to "/api/notifications?read=false"
     Then the response code should be 200
     And the response should contain json:
     """
@@ -133,10 +133,10 @@ Feature: Manage notification
           "web_url": "/api/issues/id-issue",
           "_links": {
             "notifications": {
-              "href": "http://localhost/app_test.php/api/notifications"
+              "href": "http://kreta.test:8000/app_test.php/api/notifications"
             },
             "projects": {
-              "href": "http://localhost/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/app_test.php/api/projects"
             }
           }
         }
@@ -145,7 +145,7 @@ Feature: Manage notification
 
   Scenario: Getting all the read notifications of user@kreta.com
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/notifications?read=true"
+    When I send a GET request to "/api/notifications?read=true"
     Then the response code should be 200
     And the response should contain json:
     """
@@ -161,10 +161,10 @@ Feature: Manage notification
           "web_url": "/api/issues/id-issue",
           "_links": {
             "notifications": {
-              "href": "http://localhost/app_test.php/api/notifications"
+              "href": "http://kreta.test:8000/app_test.php/api/notifications"
             },
             "projects": {
-              "href": "http://localhost/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/app_test.php/api/projects"
             }
           }
         }
@@ -173,7 +173,7 @@ Feature: Manage notification
 
   Scenario: Getting all the notifications of user@kreta.com filter by title
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/notifications?q=Notification 1"
+    When I send a GET request to "/api/notifications?q=Notification 1"
     Then the response code should be 200
     And the response should contain json:
     """
@@ -189,10 +189,10 @@ Feature: Manage notification
           "web_url": "/api/issues/id-issue",
           "_links": {
             "notifications": {
-              "href": "http://localhost/app_test.php/api/notifications"
+              "href": "http://kreta.test:8000/app_test.php/api/notifications"
             },
             "projects": {
-              "href": "http://localhost/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/app_test.php/api/projects"
             }
           }
         }
@@ -201,7 +201,7 @@ Feature: Manage notification
 
   Scenario: Getting all the notifications of user@kreta.com filter by project
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/notifications?project=0"
+    When I send a GET request to "/api/notifications?project=0"
     Then the response code should be 200
     And the response should contain json:
     """
@@ -217,10 +217,10 @@ Feature: Manage notification
           "web_url": "/api/issues/id-issue",
           "_links": {
             "notifications": {
-              "href": "http://localhost/app_test.php/api/notifications"
+              "href": "http://kreta.test:8000/app_test.php/api/notifications"
             },
             "projects": {
-              "href": "http://localhost/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/app_test.php/api/projects"
             }
           }
         }
@@ -229,7 +229,7 @@ Feature: Manage notification
 
   Scenario: Getting all the notifications of user@kreta.com filter by type
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/notifications?type=issue_new"
+    When I send a GET request to "/api/notifications?type=issue_new"
     Then the response code should be 200
     And the response should contain json:
     """
@@ -245,10 +245,10 @@ Feature: Manage notification
           "web_url": "/api/issues/id-issue",
           "_links": {
             "notifications": {
-              "href": "http://localhost/app_test.php/api/notifications"
+              "href": "http://kreta.test:8000/app_test.php/api/notifications"
             },
             "projects": {
-              "href": "http://localhost/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/app_test.php/api/projects"
             }
           }
         },
@@ -263,10 +263,10 @@ Feature: Manage notification
           "web_url": "/api/issues/id-issue-2",
           "_links": {
             "notifications": {
-              "href": "http://localhost/app_test.php/api/notifications"
+              "href": "http://kreta.test:8000/app_test.php/api/notifications"
             },
             "projects": {
-              "href": "http://localhost/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/app_test.php/api/projects"
             }
           }
         },
@@ -281,10 +281,10 @@ Feature: Manage notification
           "web_url": "/api/issues/id-issue-3",
           "_links": {
             "notifications": {
-              "href": "http://localhost/app_test.php/api/notifications"
+              "href": "http://kreta.test:8000/app_test.php/api/notifications"
             },
             "projects": {
-              "href": "http://localhost/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/app_test.php/api/projects"
             }
           }
         },
@@ -299,10 +299,10 @@ Feature: Manage notification
           "web_url": "/api/issues/id-issue-4",
           "_links": {
             "notifications": {
-              "href": "http://localhost/app_test.php/api/notifications"
+              "href": "http://kreta.test:8000/app_test.php/api/notifications"
             },
             "projects": {
-              "href": "http://localhost/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/app_test.php/api/projects"
             }
           }
         }
@@ -311,7 +311,7 @@ Feature: Manage notification
 
   Scenario: Getting all the notifications of user@kreta.com filter by date
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/notifications?date=2015-04-23"
+    When I send a GET request to "/api/notifications?date=2015-04-23"
     Then the response code should be 200
     And the response should contain json:
     """
@@ -327,10 +327,10 @@ Feature: Manage notification
           "web_url": "/api/issues/id-issue-4",
           "_links": {
             "notifications": {
-              "href": "http://localhost/app_test.php/api/notifications"
+              "href": "http://kreta.test:8000/app_test.php/api/notifications"
             },
             "projects": {
-              "href": "http://localhost/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/app_test.php/api/projects"
             }
           }
         }
@@ -339,7 +339,7 @@ Feature: Manage notification
 
   Scenario: Getting all the notifications of user@kreta.com order by title
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/notifications?sort=title"
+    When I send a GET request to "/api/notifications?sort=title"
     Then the response code should be 200
     And the response should contain json:
     """
@@ -355,10 +355,10 @@ Feature: Manage notification
           "web_url": "/api/issues/id-issue",
           "_links": {
             "notifications": {
-              "href": "http://localhost/app_test.php/api/notifications"
+              "href": "http://kreta.test:8000/app_test.php/api/notifications"
             },
             "projects": {
-              "href": "http://localhost/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/app_test.php/api/projects"
             }
           }
         },
@@ -373,10 +373,10 @@ Feature: Manage notification
           "web_url": "/api/issues/id-issue-2",
           "_links": {
             "notifications": {
-              "href": "http://localhost/app_test.php/api/notifications"
+              "href": "http://kreta.test:8000/app_test.php/api/notifications"
             },
             "projects": {
-              "href": "http://localhost/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/app_test.php/api/projects"
             }
           }
         },
@@ -391,10 +391,10 @@ Feature: Manage notification
           "web_url": "/api/issues/id-issue-3",
           "_links": {
             "notifications": {
-              "href": "http://localhost/app_test.php/api/notifications"
+              "href": "http://kreta.test:8000/app_test.php/api/notifications"
             },
             "projects": {
-              "href": "http://localhost/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/app_test.php/api/projects"
             }
           }
         },
@@ -409,10 +409,10 @@ Feature: Manage notification
           "web_url": "/api/issues/id-issue-4",
           "_links": {
             "notifications": {
-              "href": "http://localhost/app_test.php/api/notifications"
+              "href": "http://kreta.test:8000/app_test.php/api/notifications"
             },
             "projects": {
-              "href": "http://localhost/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/app_test.php/api/projects"
             }
           }
         }
@@ -421,7 +421,7 @@ Feature: Manage notification
 
   Scenario: Getting all the notifications of user@kreta.com order by date
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/notifications?sort=date"
+    When I send a GET request to "/api/notifications?sort=date"
     Then the response code should be 200
     And the response should contain json:
     """
@@ -437,10 +437,10 @@ Feature: Manage notification
           "web_url": "/api/issues/id-issue",
           "_links": {
             "notifications": {
-              "href": "http://localhost/app_test.php/api/notifications"
+              "href": "http://kreta.test:8000/app_test.php/api/notifications"
             },
             "projects": {
-              "href": "http://localhost/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/app_test.php/api/projects"
             }
           }
         },
@@ -455,10 +455,10 @@ Feature: Manage notification
           "web_url": "/api/issues/id-issue-2",
           "_links": {
             "notifications": {
-              "href": "http://localhost/app_test.php/api/notifications"
+              "href": "http://kreta.test:8000/app_test.php/api/notifications"
             },
             "projects": {
-              "href": "http://localhost/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/app_test.php/api/projects"
             }
           }
         },
@@ -473,10 +473,10 @@ Feature: Manage notification
           "web_url": "/api/issues/id-issue-3",
           "_links": {
             "notifications": {
-              "href": "http://localhost/app_test.php/api/notifications"
+              "href": "http://kreta.test:8000/app_test.php/api/notifications"
             },
             "projects": {
-              "href": "http://localhost/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/app_test.php/api/projects"
             }
           }
         },
@@ -491,10 +491,10 @@ Feature: Manage notification
           "web_url": "/api/issues/id-issue-4",
           "_links": {
             "notifications": {
-              "href": "http://localhost/app_test.php/api/notifications"
+              "href": "http://kreta.test:8000/app_test.php/api/notifications"
             },
             "projects": {
-              "href": "http://localhost/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/app_test.php/api/projects"
             }
           }
         }
@@ -503,7 +503,7 @@ Feature: Manage notification
 
   Scenario: Getting all the notifications of user2@kreta.com order by type
     Given I am authenticating with "access-token-1" token
-    When I send a GET request to "/app_test.php/api/notifications?sort=type"
+    When I send a GET request to "/api/notifications?sort=type"
     Then the response code should be 200
     And the response should contain json:
     """
@@ -519,10 +519,10 @@ Feature: Manage notification
           "web_url": "/api/issues/id-issue-5",
           "_links": {
             "notifications": {
-              "href": "http://localhost/app_test.php/api/notifications"
+              "href": "http://kreta.test:8000/app_test.php/api/notifications"
             },
             "projects": {
-              "href": "http://localhost/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/app_test.php/api/projects"
             }
           }
         },
@@ -537,10 +537,10 @@ Feature: Manage notification
           "web_url": "/api/issues/id-issue-6",
           "_links": {
             "notifications": {
-              "href": "http://localhost/app_test.php/api/notifications"
+              "href": "http://kreta.test:8000/app_test.php/api/notifications"
             },
             "projects": {
-              "href": "http://localhost/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/app_test.php/api/projects"
             }
           }
         }
@@ -549,7 +549,7 @@ Feature: Manage notification
 
   Scenario: Getting all the notifications of user@kreta.com order by read
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/notifications?sort=read"
+    When I send a GET request to "/api/notifications?sort=read"
     Then the response code should be 200
     And the response should contain json:
     """
@@ -565,10 +565,10 @@ Feature: Manage notification
           "web_url": "/api/issues/id-issue-2",
           "_links": {
             "notifications": {
-              "href": "http://localhost/app_test.php/api/notifications"
+              "href": "http://kreta.test:8000/app_test.php/api/notifications"
             },
             "projects": {
-              "href": "http://localhost/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/app_test.php/api/projects"
             }
           }
         },
@@ -583,10 +583,10 @@ Feature: Manage notification
           "web_url": "/api/issues/id-issue-3",
           "_links": {
             "notifications": {
-              "href": "http://localhost/app_test.php/api/notifications"
+              "href": "http://kreta.test:8000/app_test.php/api/notifications"
             },
             "projects": {
-              "href": "http://localhost/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/app_test.php/api/projects"
             }
           }
         },
@@ -601,10 +601,10 @@ Feature: Manage notification
           "web_url": "/api/issues/id-issue-4",
           "_links": {
             "notifications": {
-              "href": "http://localhost/app_test.php/api/notifications"
+              "href": "http://kreta.test:8000/app_test.php/api/notifications"
             },
             "projects": {
-              "href": "http://localhost/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/app_test.php/api/projects"
             }
           }
         },
@@ -619,10 +619,10 @@ Feature: Manage notification
           "web_url": "/api/issues/id-issue",
           "_links": {
             "notifications": {
-              "href": "http://localhost/app_test.php/api/notifications"
+              "href": "http://kreta.test:8000/app_test.php/api/notifications"
             },
             "projects": {
-              "href": "http://localhost/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/app_test.php/api/projects"
             }
           }
         }
@@ -631,7 +631,7 @@ Feature: Manage notification
 
   Scenario: Getting all the notifications of user@kreta.com limit by 2
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/notifications?limit=2"
+    When I send a GET request to "/api/notifications?limit=2"
     Then the response code should be 200
     And the response should contain json:
     """
@@ -647,10 +647,10 @@ Feature: Manage notification
           "web_url": "/api/issues/id-issue",
           "_links": {
             "notifications": {
-              "href": "http://localhost/app_test.php/api/notifications"
+              "href": "http://kreta.test:8000/app_test.php/api/notifications"
             },
             "projects": {
-              "href": "http://localhost/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/app_test.php/api/projects"
             }
           }
         },
@@ -665,10 +665,10 @@ Feature: Manage notification
           "web_url": "/api/issues/id-issue-2",
           "_links": {
             "notifications": {
-              "href": "http://localhost/app_test.php/api/notifications"
+              "href": "http://kreta.test:8000/app_test.php/api/notifications"
             },
             "projects": {
-              "href": "http://localhost/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/app_test.php/api/projects"
             }
           }
         }
@@ -677,7 +677,7 @@ Feature: Manage notification
 
   Scenario: Getting all the notifications of user@kreta.com offset by 3
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/notifications?offset=3"
+    When I send a GET request to "/api/notifications?offset=3"
     Then the response code should be 200
     And the response should contain json:
     """
@@ -693,10 +693,10 @@ Feature: Manage notification
           "web_url": "/api/issues/id-issue-4",
           "_links": {
             "notifications": {
-              "href": "http://localhost/app_test.php/api/notifications"
+              "href": "http://kreta.test:8000/app_test.php/api/notifications"
             },
             "projects": {
-              "href": "http://localhost/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/app_test.php/api/projects"
             }
           }
         }
@@ -706,7 +706,7 @@ Feature: Manage notification
   Scenario: Marking as read the 3 notification with user which is not participant
     Given I am authenticating with "access-token-1" token
     Given I set header "content-type" with value "application/json"
-    When I send a PATCH request to "/app_test.php/api/notifications/3" with body:
+    When I send a PATCH request to "/api/notifications/3" with body:
     """
       {
         "read": true
@@ -723,7 +723,7 @@ Feature: Manage notification
   Scenario: Marking as read the unknown notification
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a PATCH request to "/app_test.php/api/notifications/unknown-notification" with body:
+    When I send a PATCH request to "/api/notifications/unknown-notification" with body:
     """
       {
         "read": true
@@ -740,7 +740,7 @@ Feature: Manage notification
   Scenario: Marking as read the 3 notification without passing the read body parameter
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a PATCH request to "/app_test.php/api/notifications/3" with body:
+    When I send a PATCH request to "/api/notifications/3" with body:
     """
       {}
     """
@@ -755,7 +755,7 @@ Feature: Manage notification
   Scenario: Marking as read the 3 notification without read equals to true or false in the body
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a PATCH request to "/app_test.php/api/notifications/3" with body:
+    When I send a PATCH request to "/api/notifications/3" with body:
     """
       {
         "read": "other value"
@@ -772,7 +772,7 @@ Feature: Manage notification
   Scenario: Marking as read the 3 notification
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a PATCH request to "/app_test.php/api/notifications/3" with body:
+    When I send a PATCH request to "/api/notifications/3" with body:
     """
       {
         "read": true
@@ -792,10 +792,10 @@ Feature: Manage notification
         "web_url": "/api/issues/id-issue-4",
         "_links": {
           "notifications": {
-            "href": "http://localhost/app_test.php/api/notifications"
+            "href": "http://kreta.test:8000/app_test.php/api/notifications"
           },
           "projects": {
-            "href": "http://localhost/app_test.php/api/projects"
+            "href": "http://kreta.test:8000/app_test.php/api/projects"
           }
         }
       }
@@ -804,7 +804,7 @@ Feature: Manage notification
   Scenario: Marking as unread the 3 notification
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a PATCH request to "/app_test.php/api/notifications/3" with body:
+    When I send a PATCH request to "/api/notifications/3" with body:
     """
       {
         "read": false
@@ -823,10 +823,10 @@ Feature: Manage notification
         "web_url": "/api/issues/id-issue-4",
         "_links": {
           "notifications": {
-            "href": "http://localhost/app_test.php/api/notifications"
+            "href": "http://kreta.test:8000/app_test.php/api/notifications"
           },
           "projects": {
-            "href": "http://localhost/app_test.php/api/projects"
+            "href": "http://kreta.test:8000/app_test.php/api/projects"
           }
         }
       }
@@ -835,7 +835,7 @@ Feature: Manage notification
   Scenario: Marking as unread the 3 notification with user which is not participant
     Given I am authenticating with "access-token-1" token
     Given I set header "content-type" with value "application/json"
-    When I send a PATCH request to "/app_test.php/api/notifications/3" with body:
+    When I send a PATCH request to "/api/notifications/3" with body:
     """
       {
         "read": false
@@ -852,7 +852,7 @@ Feature: Manage notification
   Scenario: Marking as unread the unknown notification
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a PATCH request to "/app_test.php/api/notifications/unknown-notification" with body:
+    When I send a PATCH request to "/api/notifications/unknown-notification" with body:
     """
       {
         "read": false

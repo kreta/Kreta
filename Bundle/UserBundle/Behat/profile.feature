@@ -32,7 +32,7 @@ Feature: Manage user profile
 
   Scenario: Getting the profile of user logged
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/profile"
+    When I send a GET request to "/api/profile"
     Then the response code should be 200
     And the response should contain json:
     """
@@ -48,15 +48,15 @@ Feature: Manage user profile
         "photo": {
           "id": "1",
           "created_at": "2014-10-30T00:00:00+0100",
-          "name": "http://localhost/app_test.php/media/image/user-1.jpg",
+          "name": "http://kreta.test:8000/app_test.php/media/image/user-1.jpg",
           "updated_at": null
         },
         "_links": {
           "self": {
-            "href": "http://localhost/app_test.php/api/profile"
+            "href": "http://kreta.test:8000/app_test.php/api/profile"
           },
           "projects": {
-            "href": "http://localhost/app_test.php/api/projects"
+            "href": "http://kreta.test:8000/app_test.php/api/projects"
           }
         }
       }
@@ -65,7 +65,7 @@ Feature: Manage user profile
   Scenario: Updating the user profile
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/profile" with body:
+    When I send a POST request to "/api/profile" with body:
     """
       {
         "username": "user",
@@ -88,15 +88,15 @@ Feature: Manage user profile
         "photo": {
           "id": "1",
           "created_at": "2014-10-30T00:00:00+0100",
-          "name": "http://localhost/app_test.php/media/image/user-1.jpg",
+          "name": "http://kreta.test:8000/app_test.php/media/image/user-1.jpg",
           "updated_at": null
         },
         "_links": {
           "self": {
-            "href": "http://localhost/app_test.php/api/profile"
+            "href": "http://kreta.test:8000/app_test.php/api/profile"
           },
           "projects": {
-            "href": "http://localhost/app_test.php/api/projects"
+            "href": "http://kreta.test:8000/app_test.php/api/projects"
           }
         }
       }
@@ -105,7 +105,7 @@ Feature: Manage user profile
   Scenario: Updating the profile without parameters
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/profile" with body:
+    When I send a POST request to "/api/profile" with body:
     """
       {
       }
@@ -124,7 +124,7 @@ Feature: Manage user profile
   Scenario: Updating the profile without required last name
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/profile" with body:
+    When I send a POST request to "/api/profile" with body:
     """
       {
         "username": "user",
@@ -144,7 +144,7 @@ Feature: Manage user profile
   Scenario: Updating the profile without required first name
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/profile" with body:
+    When I send a POST request to "/api/profile" with body:
     """
       {
         "username": "user",
@@ -164,7 +164,7 @@ Feature: Manage user profile
   Scenario: Updating the profile without required username
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/profile" with body:
+    When I send a POST request to "/api/profile" with body:
     """
       {
         "first_name": "Updated first name",

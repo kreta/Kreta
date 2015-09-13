@@ -42,7 +42,7 @@ Feature: Manage participant
 
   Scenario: Getting all the participants of project 0
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/projects/0/participants"
+    When I send a GET request to "/api/projects/0/participants"
     Then the response code should be 200
     And the response should contain json:
     """
@@ -64,16 +64,16 @@ Feature: Manage participant
           },
           "_links": {
             "participants": {
-              "href": "http://localhost/app_test.php/api/projects/0/participants"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/0/participants"
             },
             "project": {
-              "href": "http://localhost/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
             },
             "projects": {
-              "href": "http://localhost/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/app_test.php/api/projects"
             },
             "issues": {
-              "href": "http://localhost/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/app_test.php/api/issues"
             }
           }
         },
@@ -92,21 +92,21 @@ Feature: Manage participant
             "last_name": "User2",
             "photo": {
               "id": "2",
-              "name": "http://localhost/app_test.php/media/image/user-2.jpg"
+              "name": "http://kreta.test:8000/app_test.php/media/image/user-2.jpg"
             }
           },
           "_links": {
             "participants": {
-              "href": "http://localhost/app_test.php/api/projects/0/participants"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/0/participants"
             },
             "project": {
-              "href": "http://localhost/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
             },
             "projects": {
-              "href": "http://localhost/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/app_test.php/api/projects"
             },
             "issues": {
-              "href": "http://localhost/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/app_test.php/api/issues"
             }
           }
         }
@@ -115,7 +115,7 @@ Feature: Manage participant
 
   Scenario: Getting all the participants of project 0 with user which is not a project participant
     Given I am authenticating with "access-token-3" token
-    When I send a GET request to "/app_test.php/api/projects/0/participants"
+    When I send a GET request to "/api/projects/0/participants"
     Then the response code should be 403
     And the response should contain json:
     """
@@ -126,7 +126,7 @@ Feature: Manage participant
 
   Scenario: Getting all the participants of project unknown project
     Given I am authenticating with "access-token-3" token
-    When I send a GET request to "/app_test.php/api/projects/unknown-project/participants"
+    When I send a GET request to "/api/projects/unknown-project/participants"
     Then the response code should be 404
     And the response should contain json:
     """
@@ -137,7 +137,7 @@ Feature: Manage participant
 
   Scenario: Getting all the participants of project 0 filter by name=user@kreta.com
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/projects/0/participants?q=user@kreta.com"
+    When I send a GET request to "/api/projects/0/participants?q=user@kreta.com"
     Then the response code should be 200
     And the response should contain json:
     """
@@ -159,16 +159,16 @@ Feature: Manage participant
           },
           "_links": {
             "participants": {
-              "href": "http://localhost/app_test.php/api/projects/0/participants"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/0/participants"
             },
             "project": {
-              "href": "http://localhost/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
             },
             "projects": {
-              "href": "http://localhost/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/app_test.php/api/projects"
             },
             "issues": {
-              "href": "http://localhost/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/app_test.php/api/issues"
             }
           }
         }
@@ -177,7 +177,7 @@ Feature: Manage participant
 
   Scenario: Getting all the participants of project 0 with limit 2
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/projects/0/participants?limit=2"
+    When I send a GET request to "/api/projects/0/participants?limit=2"
     Then the response code should be 200
     And the response should contain json:
     """
@@ -199,16 +199,16 @@ Feature: Manage participant
           },
           "_links": {
             "participants": {
-              "href": "http://localhost/app_test.php/api/projects/0/participants"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/0/participants"
             },
             "project": {
-              "href": "http://localhost/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
             },
             "projects": {
-              "href": "http://localhost/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/app_test.php/api/projects"
             },
             "issues": {
-              "href": "http://localhost/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/app_test.php/api/issues"
             }
           }
         },
@@ -227,21 +227,21 @@ Feature: Manage participant
             "last_name": "User2",
             "photo": {
               "id": "2",
-              "name": "http://localhost/app_test.php/media/image/user-2.jpg"
+              "name": "http://kreta.test:8000/app_test.php/media/image/user-2.jpg"
             }
           },
           "_links": {
             "participants": {
-              "href": "http://localhost/app_test.php/api/projects/0/participants"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/0/participants"
             },
             "project": {
-              "href": "http://localhost/app_test.php/api/projects/0"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/0"
             },
             "projects": {
-              "href": "http://localhost/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/app_test.php/api/projects"
             },
             "issues": {
-              "href": "http://localhost/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/app_test.php/api/issues"
             }
           }
         }
@@ -250,7 +250,7 @@ Feature: Manage participant
 
   Scenario: Getting all the participants of project 1 with offset 2
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/projects/1/participants?offset=2"
+    When I send a GET request to "/api/projects/1/participants?offset=2"
     Then the response code should be 200
     And the response should contain json:
     """
@@ -272,16 +272,16 @@ Feature: Manage participant
           },
           "_links": {
             "participants": {
-              "href": "http://localhost/app_test.php/api/projects/1/participants"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/1/participants"
             },
             "project": {
-              "href": "http://localhost/app_test.php/api/projects/1"
+              "href": "http://kreta.test:8000/app_test.php/api/projects/1"
             },
             "projects": {
-              "href": "http://localhost/app_test.php/api/projects"
+              "href": "http://kreta.test:8000/app_test.php/api/projects"
             },
             "issues": {
-              "href": "http://localhost/app_test.php/api/issues"
+              "href": "http://kreta.test:8000/app_test.php/api/issues"
             }
           }
         }
@@ -291,7 +291,7 @@ Feature: Manage participant
   Scenario: Creating a participant with user that does not have required grant
     Given I am authenticating with "access-token-3" token
     Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/projects/0/participants" with body:
+    When I send a POST request to "/api/projects/0/participants" with body:
     """
       {
         "role": "ROLE_ADMIN",
@@ -309,7 +309,7 @@ Feature: Manage participant
   Scenario: Creating a participant
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/projects/0/participants" with body:
+    When I send a POST request to "/api/projects/0/participants" with body:
     """
       {
         "role": "ROLE_ADMIN",
@@ -334,21 +334,21 @@ Feature: Manage participant
           "last_name": "User3",
           "photo": {
             "id": "3",
-            "name": "http://localhost/app_test.php/media/image/user-3.jpg"
+            "name": "http://kreta.test:8000/app_test.php/media/image/user-3.jpg"
           }
         },
         "_links": {
           "participants": {
-            "href": "http://localhost/app_test.php/api/projects/0/participants"
+            "href": "http://kreta.test:8000/app_test.php/api/projects/0/participants"
           },
           "project": {
-            "href": "http://localhost/app_test.php/api/projects/0"
+            "href": "http://kreta.test:8000/app_test.php/api/projects/0"
           },
           "projects": {
-            "href": "http://localhost/app_test.php/api/projects"
+            "href": "http://kreta.test:8000/app_test.php/api/projects"
           },
           "issues": {
-            "href": "http://localhost/app_test.php/api/issues"
+            "href": "http://kreta.test:8000/app_test.php/api/issues"
           }
         }
       }
@@ -357,7 +357,7 @@ Feature: Manage participant
   Scenario: Creating a participant that is already project participant
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/projects/0/participants" with body:
+    When I send a POST request to "/api/projects/0/participants" with body:
     """
       {
         "role": "ROLE_ADMIN",
@@ -377,7 +377,7 @@ Feature: Manage participant
   Scenario: Creating a participant in unknown project
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/projects/unknown-project/participants" with body:
+    When I send a POST request to "/api/projects/unknown-project/participants" with body:
     """
       {
         "role": "ROLE_ADMIN",
@@ -395,7 +395,7 @@ Feature: Manage participant
   Scenario: Creating a participant without role
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/projects/1/participants" with body:
+    When I send a POST request to "/api/projects/1/participants" with body:
     """
       {
         "user": "1"
@@ -414,7 +414,7 @@ Feature: Manage participant
   Scenario: Creating a participant without user
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/projects/1/participants" with body:
+    When I send a POST request to "/api/projects/1/participants" with body:
     """
       {
         "role": "ROLE_ADMIN"
@@ -432,12 +432,12 @@ Feature: Manage participant
 
   Scenario: Deleting participant 0 of project 0
     Given I am authenticating with "access-token-0" token
-    When I send a DELETE request to "/app_test.php/api/projects/0/participants/0"
+    When I send a DELETE request to "/api/projects/0/participants/0"
     Then the response code should be 204
 
   Scenario: Deleting participant 0 with user which is not a project admin
     Given I am authenticating with "access-token-3" token
-    When I send a DELETE request to "/app_test.php/api/projects/0/participants/0"
+    When I send a DELETE request to "/api/projects/0/participants/0"
     Then the response code should be 403
     And the response should contain json:
     """
@@ -448,7 +448,7 @@ Feature: Manage participant
 
   Scenario: Deleting participant 0 of unknown project
     Given I am authenticating with "access-token-0" token
-    When I send a DELETE request to "/app_test.php/api/projects/unknown-project/participants/0"
+    When I send a DELETE request to "/api/projects/unknown-project/participants/0"
     Then the response code should be 404
     And the response should contain json:
     """

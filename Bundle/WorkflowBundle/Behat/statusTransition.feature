@@ -72,7 +72,7 @@ Feature: Manage status transition
 
   Scenario: Getting all the transitions of workflow 0
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/workflows/0/transitions"
+    When I send a GET request to "/api/workflows/0/transitions"
     Then the response code should be 200
     And the response should contain json:
     """
@@ -87,13 +87,13 @@ Feature: Manage status transition
         "id": "0",
         "_links": {
           "self": {
-            "href": "http://localhost/app_test.php/api/workflows/0/transitions/0"
+            "href": "http://kreta.test:8000/app_test.php/api/workflows/0/transitions/0"
           },
           "transitions": {
-            "href": "http://localhost/app_test.php/api/workflows/0/transitions"
+            "href": "http://kreta.test:8000/app_test.php/api/workflows/0/transitions"
           },
           "workflow": {
-            "href": "http://localhost/app_test.php/api/workflows/0"
+            "href": "http://kreta.test:8000/app_test.php/api/workflows/0"
           }
         }
       }, {
@@ -112,13 +112,13 @@ Feature: Manage status transition
         "id": "1",
         "_links": {
           "self": {
-            "href": "http://localhost/app_test.php/api/workflows/0/transitions/1"
+            "href": "http://kreta.test:8000/app_test.php/api/workflows/0/transitions/1"
           },
           "transitions": {
-            "href": "http://localhost/app_test.php/api/workflows/0/transitions"
+            "href": "http://kreta.test:8000/app_test.php/api/workflows/0/transitions"
           },
           "workflow": {
-            "href": "http://localhost/app_test.php/api/workflows/0"
+            "href": "http://kreta.test:8000/app_test.php/api/workflows/0"
           }
         }
       }, {
@@ -137,13 +137,13 @@ Feature: Manage status transition
         "id": "2",
         "_links": {
           "self": {
-            "href": "http://localhost/app_test.php/api/workflows/0/transitions/2"
+            "href": "http://kreta.test:8000/app_test.php/api/workflows/0/transitions/2"
           },
           "transitions": {
-            "href": "http://localhost/app_test.php/api/workflows/0/transitions"
+            "href": "http://kreta.test:8000/app_test.php/api/workflows/0/transitions"
           },
           "workflow": {
-            "href": "http://localhost/app_test.php/api/workflows/0"
+            "href": "http://kreta.test:8000/app_test.php/api/workflows/0"
           }
         }
       }]
@@ -151,7 +151,7 @@ Feature: Manage status transition
 
   Scenario: Getting all the transitions of unknown workflow
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/workflows/unknown-workflow/transitions"
+    When I send a GET request to "/api/workflows/unknown-workflow/transitions"
     Then the response code should be 404
     And the response should contain json:
     """
@@ -162,7 +162,7 @@ Feature: Manage status transition
 
   Scenario: Getting the 0 transition
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/workflows/0/transitions/0"
+    When I send a GET request to "/api/workflows/0/transitions/0"
     Then the response code should be 200
     And the response should contain json:
     """
@@ -177,13 +177,13 @@ Feature: Manage status transition
         "id": "0",
         "_links": {
           "self": {
-            "href": "http://localhost/app_test.php/api/workflows/0/transitions/0"
+            "href": "http://kreta.test:8000/app_test.php/api/workflows/0/transitions/0"
           },
           "transitions": {
-            "href": "http://localhost/app_test.php/api/workflows/0/transitions"
+            "href": "http://kreta.test:8000/app_test.php/api/workflows/0/transitions"
           },
           "workflow": {
-            "href": "http://localhost/app_test.php/api/workflows/0"
+            "href": "http://kreta.test:8000/app_test.php/api/workflows/0"
           }
         }
       }
@@ -191,7 +191,7 @@ Feature: Manage status transition
 
   Scenario: Getting the 0 transition with user which is not a participant
     Given I am authenticating with "access-token-2" token
-    When I send a GET request to "/app_test.php/api/workflows/0/transitions/0"
+    When I send a GET request to "/api/workflows/0/transitions/0"
     Then the response code should be 403
     And the response should contain json:
     """
@@ -202,7 +202,7 @@ Feature: Manage status transition
 
   Scenario: Getting the unknown transition
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/workflows/0/transitions/unknown-transition"
+    When I send a GET request to "/api/workflows/0/transitions/unknown-transition"
     Then the response code should be 404
     And the response should contain json:
     """
@@ -213,7 +213,7 @@ Feature: Manage status transition
 
   Scenario: Getting the transition of unknown workflow
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/workflows/unknown-workflow/transitions/0"
+    When I send a GET request to "/api/workflows/unknown-workflow/transitions/0"
     Then the response code should be 404
     And the response should contain json:
     """
@@ -225,7 +225,7 @@ Feature: Manage status transition
   Scenario: Creating transition with user which is not workflow creator
     Given I am authenticating with "access-token-2" token
     Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/workflows/0/transitions" with body:
+    When I send a POST request to "/api/workflows/0/transitions" with body:
     """
       {
         "name": "Dummy name",
@@ -244,7 +244,7 @@ Feature: Manage status transition
   Scenario: Creating transition with unknown initial status
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/workflows/0/transitions" with body:
+    When I send a POST request to "/api/workflows/0/transitions" with body:
     """
       {
         "name": "Dummy name",
@@ -263,7 +263,7 @@ Feature: Manage status transition
   Scenario: Creating transition of unknown workflow
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/workflows/unknown-workflow/transitions" with body:
+    When I send a POST request to "/api/workflows/unknown-workflow/transitions" with body:
     """
       {
         "name": "Dummy name",
@@ -282,7 +282,7 @@ Feature: Manage status transition
   Scenario: Creating transition without name
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/workflows/0/transitions" with body:
+    When I send a POST request to "/api/workflows/0/transitions" with body:
     """
       {
         "state": 0,
@@ -302,7 +302,7 @@ Feature: Manage status transition
   Scenario: Creating transition without status
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/workflows/0/transitions" with body:
+    When I send a POST request to "/api/workflows/0/transitions" with body:
     """
       {
         "name": "Dummy name",
@@ -322,7 +322,7 @@ Feature: Manage status transition
   Scenario: Creating transition that the status and initial status are the same
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/workflows/0/transitions" with body:
+    When I send a POST request to "/api/workflows/0/transitions" with body:
     """
       {
         "name": "Dummy name",
@@ -341,7 +341,7 @@ Feature: Manage status transition
   Scenario: Creating transition with name that already exists
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/workflows/0/transitions" with body:
+    When I send a POST request to "/api/workflows/0/transitions" with body:
     """
       {
         "name": "Start progress",
@@ -362,7 +362,7 @@ Feature: Manage status transition
   Scenario: Creating transition
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/app_test.php/api/workflows/0/transitions" with body:
+    When I send a POST request to "/api/workflows/0/transitions" with body:
     """
       {
         "name": "Dummy name",
@@ -391,7 +391,7 @@ Feature: Manage status transition
 
   Scenario: Deleting the 0 transition with user which is not workflow creator
     Given I am authenticating with "access-token-2" token
-    When I send a DELETE request to "/app_test.php/api/workflows/0/transitions/0"
+    When I send a DELETE request to "/api/workflows/0/transitions/0"
     Then the response code should be 403
     And the response should contain json:
     """
@@ -402,7 +402,7 @@ Feature: Manage status transition
 
   Scenario: Deleting the 1 transition which is in use by an issue
     Given I am authenticating with "access-token-0" token
-    When I send a DELETE request to "/app_test.php/api/workflows/0/transitions/1"
+    When I send a DELETE request to "/api/workflows/0/transitions/1"
     Then the response code should be 409
     And the response should contain json:
     """
@@ -413,7 +413,7 @@ Feature: Manage status transition
 
   Scenario: Deleting the transition of unknown workflow
     Given I am authenticating with "access-token-0" token
-    When I send a DELETE request to "/app_test.php/api/workflows/unknown-workflow/transitions/0"
+    When I send a DELETE request to "/api/workflows/unknown-workflow/transitions/0"
     Then the response code should be 404
     And the response should contain json:
     """
@@ -424,7 +424,7 @@ Feature: Manage status transition
 
   Scenario: Deleting the 0 transition
     Given I am authenticating with "access-token-0" token
-    When I send a DELETE request to "/app_test.php/api/workflows/0/transitions/0"
+    When I send a DELETE request to "/api/workflows/0/transitions/0"
     Then the response code should be 204
     And the response should contain json:
     """
@@ -433,7 +433,7 @@ Feature: Manage status transition
 
   Scenario: Deleting the unknown transition
     Given I am authenticating with "access-token-0" token
-    When I send a DELETE request to "/app_test.php/api/workflows/0/transitions/unknown-transition"
+    When I send a DELETE request to "/api/workflows/0/transitions/unknown-transition"
     Then the response code should be 404
     And the response should contain json:
     """
@@ -444,7 +444,7 @@ Feature: Manage status transition
 
   Scenario: Getting the initial statuses of 0 transition with user which is not workflow creator
     Given I am authenticating with "access-token-2" token
-    When I send a GET request to "/app_test.php/api/workflows/0/transitions/0/initial-statuses"
+    When I send a GET request to "/api/workflows/0/transitions/0/initial-statuses"
     Then the response code should be 403
     And the response should contain json:
     """
@@ -455,7 +455,7 @@ Feature: Manage status transition
 
   Scenario: Getting the initial statuses of 0 transition of unknown workflow
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/workflows/unknown-workflow/transitions/0/initial-statuses"
+    When I send a GET request to "/api/workflows/unknown-workflow/transitions/0/initial-statuses"
     Then the response code should be 404
     And the response should contain json:
     """
@@ -466,7 +466,7 @@ Feature: Manage status transition
 
   Scenario: Getting the initial statuses of unknown transition
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/workflows/0/transitions/unknown-transition/initial-statuses"
+    When I send a GET request to "/api/workflows/0/transitions/unknown-transition/initial-statuses"
     Then the response code should be 404
     And the response should contain json:
     """
@@ -477,7 +477,7 @@ Feature: Manage status transition
 
   Scenario: Getting the initial statuses of 0 transition
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/workflows/0/transitions/0/initial-statuses"
+    When I send a GET request to "/api/workflows/0/transitions/0/initial-statuses"
     Then the response code should be 200
     And the response should contain json:
     """
@@ -491,7 +491,7 @@ Feature: Manage status transition
 
   Scenario: Getting the initial statuses of 1 transition
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/workflows/0/transitions/1/initial-statuses"
+    When I send a GET request to "/api/workflows/0/transitions/1/initial-statuses"
     Then the response code should be 200
     And the response should contain json:
     """
@@ -510,7 +510,7 @@ Feature: Manage status transition
 
   Scenario: Getting the 0 initial status of 0 transition with user which is not workflow creator
     Given I am authenticating with "access-token-2" token
-    When I send a GET request to "/app_test.php/api/workflows/0/transitions/0/initial-statuses/0"
+    When I send a GET request to "/api/workflows/0/transitions/0/initial-statuses/0"
     Then the response code should be 403
     And the response should contain json:
     """
@@ -521,7 +521,7 @@ Feature: Manage status transition
 
   Scenario: Getting the 0 initial status of 0 transition of unknown workflow
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/workflows/unknown-workflow/transitions/0/initial-statuses/0"
+    When I send a GET request to "/api/workflows/unknown-workflow/transitions/0/initial-statuses/0"
     Then the response code should be 404
     And the response should contain json:
     """
@@ -532,7 +532,7 @@ Feature: Manage status transition
 
   Scenario: Getting the 0 initial status of unknown transition
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/workflows/0/transitions/unknown-transition/initial-statuses/0"
+    When I send a GET request to "/api/workflows/0/transitions/unknown-transition/initial-statuses/0"
     Then the response code should be 404
     And the response should contain json:
     """
@@ -543,7 +543,7 @@ Feature: Manage status transition
 
   Scenario: Getting the unknown initial status of 0 transition
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/workflows/0/transitions/0/initial-statuses/unknown-initial-status"
+    When I send a GET request to "/api/workflows/0/transitions/0/initial-statuses/unknown-initial-status"
     Then the response code should be 404
     And the response should contain json:
     """
@@ -554,7 +554,7 @@ Feature: Manage status transition
 
   Scenario: Getting the 0 initial status of 0 transition
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/workflows/0/transitions/0/initial-statuses/1"
+    When I send a GET request to "/api/workflows/0/transitions/0/initial-statuses/1"
     Then the response code should be 200
     And the response should contain json:
     """
@@ -568,7 +568,7 @@ Feature: Manage status transition
 
   Scenario: Getting the end status of 0 transition with user which is not workflow creator
     Given I am authenticating with "access-token-2" token
-    When I send a GET request to "/app_test.php/api/workflows/0/transitions/0/end-status"
+    When I send a GET request to "/api/workflows/0/transitions/0/end-status"
     Then the response code should be 403
     And the response should contain json:
     """
@@ -579,7 +579,7 @@ Feature: Manage status transition
 
   Scenario: Getting the end status of 0 transition of unknown workflow
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/workflows/unknown-workflow/transitions/0/end-status"
+    When I send a GET request to "/api/workflows/unknown-workflow/transitions/0/end-status"
     Then the response code should be 404
     And the response should contain json:
     """
@@ -590,7 +590,7 @@ Feature: Manage status transition
 
   Scenario: Getting the end status of unknown transition
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/workflows/0/transitions/unknown-transition/end-status"
+    When I send a GET request to "/api/workflows/0/transitions/unknown-transition/end-status"
     Then the response code should be 404
     And the response should contain json:
     """
@@ -601,7 +601,7 @@ Feature: Manage status transition
 
   Scenario: Getting the end status of 0 transition
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/app_test.php/api/workflows/0/transitions/0/end-status"
+    When I send a GET request to "/api/workflows/0/transitions/0/end-status"
     Then the response code should be 200
     And the response should contain json:
     """
@@ -615,7 +615,7 @@ Feature: Manage status transition
 
   Scenario: Deleting the 0 initial status of 0 transition with user which is not workflow creator
     Given I am authenticating with "access-token-2" token
-    When I send a DELETE request to "/app_test.php/api/workflows/0/transitions/0/initial-statuses/0"
+    When I send a DELETE request to "/api/workflows/0/transitions/0/initial-statuses/0"
     Then the response code should be 403
     And the response should contain json:
     """
@@ -626,7 +626,7 @@ Feature: Manage status transition
 
   Scenario: Deleting the 0 initial status of 0 transition of unknown workflow
     Given I am authenticating with "access-token-0" token
-    When I send a DELETE request to "/app_test.php/api/workflows/unknown-workflow/transitions/0/initial-statuses/0"
+    When I send a DELETE request to "/api/workflows/unknown-workflow/transitions/0/initial-statuses/0"
     Then the response code should be 404
     And the response should contain json:
     """
@@ -637,7 +637,7 @@ Feature: Manage status transition
 
   Scenario: Deleting the 0 initial status of unknown transition
     Given I am authenticating with "access-token-0" token
-    When I send a DELETE request to "/app_test.php/api/workflows/0/transitions/unknown-transition/initial-statuses/0"
+    When I send a DELETE request to "/api/workflows/0/transitions/unknown-transition/initial-statuses/0"
     Then the response code should be 404
     And the response should contain json:
     """
@@ -648,7 +648,7 @@ Feature: Manage status transition
 
   Scenario: Deleting the unknown initial status of 0 transition
     Given I am authenticating with "access-token-0" token
-    When I send a DELETE request to "/app_test.php/api/workflows/0/transitions/0/initial-statuses/unknown-initial-status"
+    When I send a DELETE request to "/api/workflows/0/transitions/0/initial-statuses/unknown-initial-status"
     Then the response code should be 404
     And the response should contain json:
     """
@@ -659,7 +659,7 @@ Feature: Manage status transition
 
   Scenario: Deleting the 0 initial status where the transition is in use by an issue
     Given I am authenticating with "access-token-0" token
-    When I send a DELETE request to "/app_test.php/api/workflows/0/transitions/1/initial-statuses/0"
+    When I send a DELETE request to "/api/workflows/0/transitions/1/initial-statuses/0"
     Then the response code should be 409
     And the response should contain json:
     """
@@ -670,7 +670,7 @@ Feature: Manage status transition
 
   Scenario: Deleting the 0 initial status of 0 transition when the transition only has one initial status
     Given I am authenticating with "access-token-0" token
-    When I send a DELETE request to "/app_test.php/api/workflows/0/transitions/0/initial-statuses/1"
+    When I send a DELETE request to "/api/workflows/0/transitions/0/initial-statuses/1"
     Then the response code should be 409
     And the response should contain json:
     """
@@ -681,7 +681,7 @@ Feature: Manage status transition
 
   Scenario: Deleting the 0 initial status of 0 transition
     Given I am authenticating with "access-token-0" token
-    When I send a DELETE request to "/app_test.php/api/workflows/0/transitions/3/initial-statuses/1"
+    When I send a DELETE request to "/api/workflows/0/transitions/3/initial-statuses/1"
     Then the response code should be 204
     And the response should contain json:
     """
@@ -689,7 +689,7 @@ Feature: Manage status transition
     """
 
   Scenario: Creating an initial status of 0 transition without initial status
-    When I send a POST request to "/app_test.php/api/workflows/0/transitions/0/initial-statuses?access_token=access-token-0" with form data:
+    When I send a POST request to "/api/workflows/0/transitions/0/initial-statuses?access_token=access-token-0" with form data:
     """
         {}
     """
@@ -702,7 +702,7 @@ Feature: Manage status transition
     """
 
   Scenario: Creating an initial status of 0 transition with user which is not workflow creator
-    When I send a POST request to "/app_test.php/api/workflows/0/transitions/0/initial-statuses?access_token=access-token-2" with form data:
+    When I send a POST request to "/api/workflows/0/transitions/0/initial-statuses?access_token=access-token-2" with form data:
     """
         initial_status=0
     """
@@ -715,7 +715,7 @@ Feature: Manage status transition
     """
 
   Scenario: Creating an initial status of 0 transition of unknown workflow
-    When I send a POST request to "/app_test.php/api/workflows/unknown-workflow/transitions/0/initial-statuses?access_token=access-token-0" with form data:
+    When I send a POST request to "/api/workflows/unknown-workflow/transitions/0/initial-statuses?access_token=access-token-0" with form data:
     """
         initial_status=0
     """
@@ -728,7 +728,7 @@ Feature: Manage status transition
     """
 
   Scenario: Creating an initial status of unknown transition
-    When I send a POST request to "/app_test.php/api/workflows/0/transitions/unknown-transition/initial-statuses?access_token=access-token-0" with form data:
+    When I send a POST request to "/api/workflows/0/transitions/unknown-transition/initial-statuses?access_token=access-token-0" with form data:
     """
         initial_status=0
     """
@@ -741,7 +741,7 @@ Feature: Manage status transition
     """
 
   Scenario: Creating an initial status of 0 transition which the status does not exist
-    When I send a POST request to "/app_test.php/api/workflows/0/transitions/0/initial-statuses?access_token=access-token-0" with form data:
+    When I send a POST request to "/api/workflows/0/transitions/0/initial-statuses?access_token=access-token-0" with form data:
     """
         initial_status=unknown-initial-status
     """
@@ -754,7 +754,7 @@ Feature: Manage status transition
     """
 
   Scenario: Creating an initial status of 0 transition which the status is already added
-    When I send a POST request to "/app_test.php/api/workflows/0/transitions/0/initial-statuses?access_token=access-token-0" with form data:
+    When I send a POST request to "/api/workflows/0/transitions/0/initial-statuses?access_token=access-token-0" with form data:
     """
         initial_status=1
     """
@@ -767,7 +767,7 @@ Feature: Manage status transition
     """
 
   Scenario: Creating an initial status of 0 transition which the status is of another workflow
-    When I send a POST request to "/app_test.php/api/workflows/0/transitions/0/initial-statuses?access_token=access-token-0" with form data:
+    When I send a POST request to "/api/workflows/0/transitions/0/initial-statuses?access_token=access-token-0" with form data:
     """
         initial_status=5
     """
@@ -780,7 +780,7 @@ Feature: Manage status transition
     """
 
   Scenario: Creating an initial status of 0 transition
-    When I send a POST request to "/app_test.php/api/workflows/0/transitions/0/initial-statuses?access_token=access-token-0" with form data:
+    When I send a POST request to "/api/workflows/0/transitions/0/initial-statuses?access_token=access-token-0" with form data:
     """
         initial_status=2
     """
