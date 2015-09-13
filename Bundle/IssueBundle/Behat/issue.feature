@@ -1745,7 +1745,6 @@ Feature: Manage issue
     Given I am authenticating with "access-token-0" token
     When I send a GET request to "/api/issues?assignee=3"
     Then the response code should be 200
-    And print response
     And the response should contain json:
     """
       [
