@@ -3527,7 +3527,7 @@ Feature: Manage issue
     """
       {
         "project": [
-          "This value is not valid."
+          "This project is not valid so, assignee, priority and type will be invalid too."
         ],
         "assignee": [
           "This value is not valid."
