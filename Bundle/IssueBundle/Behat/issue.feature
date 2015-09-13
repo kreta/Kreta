@@ -3299,7 +3299,7 @@ Feature: Manage issue
     """
       {
         "project": [
-          "This project is not valid so, the assignee, the priority and the type will be invalid too."
+          "This project is not valid so, assignee, priority and type will be invalid too."
         ],
         "assignee": [
           "This value is not valid."
