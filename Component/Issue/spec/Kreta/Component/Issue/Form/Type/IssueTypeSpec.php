@@ -12,6 +12,7 @@
 namespace spec\Kreta\Component\Issue\Form\Type;
 
 use Kreta\Component\Issue\Factory\IssueFactory;
+use Kreta\Component\Issue\Form\Type\IssueType;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -51,8 +52,9 @@ class IssueTypeSpec extends ObjectBehavior
         $builder->add('title', 'text')->shouldBeCalled()->willReturn($builder);
         $builder->add('description', 'textarea', ['required' => false,])->shouldBeCalled()->willReturn($builder);
         $builder->add('project', 'entity', [
-            'class'   => 'Kreta\Component\Project\Model\Project',
-            'choices' => [$project]
+            'class'           => 'Kreta\Component\Project\Model\Project',
+            'choices'         => [$project],
+            'invalid_message' => IssueType::PROJECT_INVALID_MESSAGE
         ])->shouldBeCalled()->willReturn($builder);
 
         $builder->get('project')->shouldBeCalled()->willReturn($builder);

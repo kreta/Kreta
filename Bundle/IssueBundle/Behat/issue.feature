@@ -3280,7 +3280,7 @@ Feature: Manage issue
     """
     Then the response code should be 201
 
-  Scenario: Creating an issue assigning to user which is not a project participant
+  Scenario: Creating an issue with invalid project
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
     When I send a POST request to "/api/issues" with body:
@@ -3290,6 +3290,39 @@ Feature: Manage issue
         "description": "The description",
         "type": "4",
         "priority": "0",
+        "project": "3",
+        "assignee": "3"
+      }
+    """
+    Then the response code should be 400
+    And the response should contain json:
+    """
+      {
+        "project": [
+          "This project is not valid so, the assignee, the priority and the type will be invalid too."
+        ],
+        "assignee": [
+          "This value is not valid."
+        ],
+        "priority": [
+          "This value is not valid."
+        ],
+        "type": [
+          "This value is not valid."
+        ]
+      }
+    """
+
+  Scenario: Creating an issue assigning to user which is not a project participant
+    Given I am authenticating with "access-token-0" token
+    Given I set header "content-type" with value "application/json"
+    When I send a POST request to "/api/issues" with body:
+    """
+      {
+        "title": "New issue",
+        "description": "The description",
+        "type": "4",
+        "priority": "4",
         "project": "1",
         "assignee": "2"
       }
@@ -3312,10 +3345,10 @@ Feature: Manage issue
       {
         "title": "New issue",
         "description": "The description",
-        "type": "0",
+        "type": "4",
         "priority": "0",
         "project": "1",
-        "assignee": "2"
+        "assignee": "3"
       }
     """
     Then the response code should be 400
@@ -3337,7 +3370,7 @@ Feature: Manage issue
         "title": "New issue",
         "description": "The description",
         "type": "0",
-        "priority": "0",
+        "priority": "4",
         "project": "1",
         "assignee": "1"
       }

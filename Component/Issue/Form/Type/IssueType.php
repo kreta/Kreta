@@ -28,6 +28,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
  */
 class IssueType extends AbstractType
 {
+    const PROJECT_INVALID_MESSAGE = 'This project is not valid so, assignee, priority and type will be invalid too.';
+
     /**
      * {@inheritdoc}
      */
@@ -39,8 +41,9 @@ class IssueType extends AbstractType
                 'required' => false,
             ])
             ->add('project', 'entity', [
-                'class'   => 'Kreta\Component\Project\Model\Project',
-                'choices' => $options['projects']
+                'class'           => 'Kreta\Component\Project\Model\Project',
+                'choices'         => $options['projects'],
+                'invalid_message' => self::PROJECT_INVALID_MESSAGE
             ]);
 
         $formModifier = function (FormInterface $form, ProjectInterface $project = null) {
@@ -68,7 +71,7 @@ class IssueType extends AbstractType
                 ])
                 ->add('type', 'entity', [
                     'class'   => 'Kreta\Component\Project\Model\IssueType',
-                    'choices' => $types 
+                    'choices' => $types
                 ]);
         };
 
