@@ -11,6 +11,7 @@
 
 namespace spec\Kreta\Bundle\UserBundle\Controller;
 
+use FOS\RestBundle\Request\ParamFetcher;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use Kreta\Component\User\Repository\UserRepository;
 use PhpSpec\ObjectBehavior;
@@ -38,11 +39,39 @@ class UserControllerSpec extends ObjectBehavior
         $this->shouldHaveType('Symfony\Bundle\FrameworkBundle\Controller\Controller');
     }
 
-    function it_gets_users_action(ContainerInterface $container, UserRepository $userRepository, UserInterface $user)
+    function it_gets_users_action(
+        ContainerInterface $container,
+        UserRepository $userRepository,
+        UserInterface $user,
+        ParamFetcher $paramFetcher
+    )
     {
         $container->get('kreta_user.repository.user')->shouldBeCalled()->willReturn($userRepository);
-        $userRepository->findAll()->shouldBeCalled()->willReturn([$user]);
 
-        $this->getUsersAction()->shouldReturn([$user]);
+        $paramFetcher->get('email')->shouldBeCalled()->willReturn('kreta@kreta.com');
+        $paramFetcher->get('username')->shouldBeCalled()->willReturn('kreta');
+        $paramFetcher->get('firstName')->shouldBeCalled()->willReturn('KretaFirst');
+        $paramFetcher->get('lastName')->shouldBeCalled()->willReturn('KretaLast');
+        $paramFetcher->get('enabled')->shouldBeCalled()->willReturn(1);
+        $paramFetcher->get('sort')->shouldBeCalled()->willReturn('username');
+        $paramFetcher->get('limit')->shouldBeCalled()->willReturn(10);
+        $paramFetcher->get('offset')->shouldBeCalled()->willReturn(1);
+
+        $userRepository->findBy(
+            [
+                'like' => [
+                    'email'     => 'kreta@kreta.com',
+                    'username'  => 'kreta',
+                    'firstName' => 'KretaFirst',
+                    'lastName'  => 'KretaLast',
+                    'enabled'   => 1
+                ]
+            ],
+            ['username' => 'ASC'],
+            10,
+            1
+        )->shouldBeCalled()->willReturn([$user]);
+
+        $this->getUsersAction($paramFetcher)->shouldReturn([$user]);
     }
 }

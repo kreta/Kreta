@@ -142,8 +142,8 @@ class AuthenticationListener
         if (!($session->has('access_token')) || !($session->has('refresh_token'))) {
             throw new SessionUnavailableException();
         }
-        $event->getResponse()->headers->setCookie($this->createCookie('access_token', $session->get('access_token')));
-        $event->getResponse()->headers->setCookie($this->createCookie('refresh_token', $session->get('refresh_token')));
+        $event->getResponse()->headers->setCookie($this->cookie('access_token', $session->get('access_token')));
+        $event->getResponse()->headers->setCookie($this->cookie('refresh_token', $session->get('refresh_token')));
     }
 
     /**
@@ -154,7 +154,7 @@ class AuthenticationListener
      *
      * @return \Symfony\Component\HttpFoundation\Cookie
      */
-    protected function createCookie($key, $value)
+    private function cookie($key, $value)
     {
         return new Cookie($key, $value, 0, '/', null, false, false);
     }
