@@ -1,14 +1,13 @@
 {
   "name": "kreta",
-  "version": "0.2.1",
-  "homepage": "http://kreta.io",
   "description": "Modern project manager for software development",
-  "keywords": [
-    "project",
-    "manager",
-    "development",
-    "tool"
-  ],
+  "keywords": ["project", "manager", "development", "tool"],
+  "homepage": "http://kreta.io",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kreta/kreta.git"
+  },
   "authors": [
     {
       "name": "Beñat Espiña Diaz",
@@ -21,22 +20,21 @@
       "homepage": "http://gorkalaucirica.net"
     }
   ],
-  "license": "MIT",
   "ignore": [
     "**/.*",
     "node_modules",
     "src/Kreta/Bundle/WebBundle/Resources/public/vendor"
   ],
   "dependencies": {
-    "backbone": "~1.1.2",
-    "backbone.marionette": "~2.4.1",
-    "font-awesome": "~4.3",
+    "backbone":             "~1.1.2",
+    "backbone.marionette":  "~2.4.1",
+    "font-awesome":         "~4.3",
     "font-source-sans-pro": "~0.1",
-    "foundation": "5.4.*",
-    "jquery": "~2.1",
-    "lodash": "~3.5.0",
-    "mousetrap": "~1.5.3",
-    "requirejs": "~2.1.16",
-    "select2": "~4.0.0"
+    "foundation":           "5.4.*",
+    "jquery":               "~2.1",
+    "lodash":               "~3.5.0",
+    "mousetrap":            "~1.5.3",
+    "requirejs":            "~2.1.16",
+    "select2":              "~4.0.0"
   }
 }

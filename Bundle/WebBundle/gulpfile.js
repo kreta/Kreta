@@ -14,9 +14,9 @@ var autoprefixer = require('gulp-autoprefixer');
 var babel = require('gulp-babel');
 var del = require('del');
 var concat = require('gulp-concat');
+var eslint = require('gulp-eslint');
 var header = require('gulp-header');
 var imagemin = require('gulp-imagemin');
-var jshint = require('gulp-jshint');
 var minifyCSS = require('gulp-minify-css');
 var minimist = require('minimist');
 var rename = require('gulp-rename');
@@ -27,7 +27,7 @@ var uglify = require('gulp-uglify');
 
 var pkg = require('./package.json');
 
-var knownOptions = {string: 'from', default: { from: ''}};
+var knownOptions = {string: 'from', default: {from: ''}};
 var options = minimist(process.argv.slice(2), knownOptions);
 var fromVendorPath = options.from === 'vendor' ? '/../' : '/';
 
@@ -118,15 +118,15 @@ gulp.task('sass:prod', function () {
 
 gulp.task('javascript', function () {
   return gulp.src(assets.javascripts)
-    .pipe(jshint('.jshintrc'))
-    .pipe(jshint.reporter('default'))
-    .pipe(babel({blacklist: ['useStrict'], comments: false, modules: ['amd'] }))
+    .pipe(eslint({'configFile': './.eslint.yml'}))
+    .pipe(eslint.format())
+    .pipe(babel({blacklist: ['useStrict'], comments: false, modules: ['amd']}))
     .pipe(gulp.dest(resultPath + 'js'));
 });
 
 gulp.task('javascript:prod', function () {
   return gulp.src(assets.javascripts)
-    .pipe(babel({blacklist: ['useStrict'], comments: false, modules: ['amd'] }))
+    .pipe(babel({blacklist: ['useStrict'], comments: false, modules: ['amd']}))
     .pipe(concat('app.min.js'))
     .pipe(uglify())
     .pipe(header(license, {pkg: pkg}))
