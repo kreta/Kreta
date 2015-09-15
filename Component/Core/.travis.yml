@@ -23,9 +23,6 @@ install:
 script:
     - bin/phpspec run -fpretty
 
-after_script:
-    - bin/coveralls -v
-
 cache:
     directories:
         - $COMPOSER_CACHE_DIR
