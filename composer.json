@@ -19,6 +19,7 @@
     ],
     "require": {
         "php":                                      ">=5.4",
+
         "symfony/symfony":                          "2.7.*",
         "doctrine/orm":                             "2.5.*",
         "doctrine/dbal":                            "2.5.*",
@@ -43,12 +44,11 @@
         "kreta/simple-api-doc-bundle":              "~0.2"
     },
     "require-dev": {
-        "phpspec/phpspec":                          "~2.2",
+        "fabpot/php-cs-fixer":                      "^1.10",
         "henrikbjorn/phpspec-code-coverage":        "~1.0",
-        "satooshi/php-coveralls":                   "~0.6,>=0.6.2",
-
-        "squizlabs/php_codesniffer":                "~1.0",
-        "phpmd/phpmd":                              "~2.1"
+        "mmoreram/php-formatter":                   "^1.0",
+        "phpspec/phpspec":                          "~2.2",
+        "satooshi/php-coveralls":                   "~0.6,>=0.6.2"
     },
     "repositories": [
         {

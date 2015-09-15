@@ -5,13 +5,23 @@
 ; @author benatespina <benatespina@gmail.com>
 ; @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
-; top-most EditorConfig file
 root = true
 
-; Unix-style newlines
 [*]
 end_of_line = LF
 
-[*.php]
+[{*.php, *.yml}]
+indent_style = space
+indent_size = 4
+
+[*.{js, scss}]
+indent_style = space
+indent_size = 2
+
+[{package.json, bower.json, .bowerrc}]
+indent_style = space
+indent_size = 2
+
+[composer.json]
 indent_style = space
 indent_size = 4

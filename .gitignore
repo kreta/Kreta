@@ -5,19 +5,14 @@
 # @author benatespina <benatespina@gmail.com>
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
-#### PHP ####
-/bin/
-/composer.phar
-/composer.lock
-/vendor/
-
-#### PHPSpec ####
-/coverage
-phpspec-coverage.xml
-/web
-
-#### Front-end ####
 .sass-cache
+.bower-*
+bin
+composer.lock
+composer.phar
+coverage
 node_modules
 npm-debug.log
-.bower-*
+phpspec-coverage.xml
+vendor
+web
