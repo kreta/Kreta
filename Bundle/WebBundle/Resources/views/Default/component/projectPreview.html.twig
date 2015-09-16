@@ -1,5 +1,11 @@
 <script type="text/html" id="project-preview-template">
-    <a class="project-preview-link" href="/project/<%= id %>">
+    <span class="project-preview-title" href="/project/<%= id %>">
         <%= name %>
-    </a>
+    </span>
+    <div class="project-preview-shortcuts">
+        <% shortcuts.forEach(function(shortcut) { %>
+        <img class="project-preview-shortcut"
+             src="/bundles/kretaweb/svg/<%= shortcut.icon %>.svg">
+        <% }) %>
+    </div>
 </script>

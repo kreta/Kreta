@@ -4,12 +4,46 @@
 }
 
 .project-preview {
-  padding: 1em 0;
+  align-items: center;
+  display: flex;
+  padding: 1em;
   position: relative;
+
+  &:focus {
+    background: $main-green;
+    outline: 0;
+
+    .project-preview-title {
+      color: $white;
+    }
+
+    .project-preview-shortcuts {
+      opacity: 1;
+    }
+  }
 }
 
-.project-preview-link {
+.project-preview-title {
   color: $main-black;
   font-size: 1.1em;
-  text-decoration: none;
+  flex: 1;
 }
+
+.project-preview-shortcuts {
+  opacity: 0;
+}
+
+.project-preview-shortcut {
+  fill: $white;
+  margin: 0 .5em;
+  transition-duration: .2s;
+  height: 25px;
+  width: 25px;
+  opacity: .3;
+
+  &.selected {
+    opacity: 1;
+  }
+}
+
+

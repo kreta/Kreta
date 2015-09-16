@@ -20,6 +20,43 @@ export class ProjectListView extends Backbone.Marionette.CompositeView {
         App.layout.getRegion('modal').closeModal();
       }
     };
+    this.events = {
+      'keyup': 'onKeyUp'
+    };
+    this.ui = {
+      'project': '.project-preview-list'
+    };
+    this.selectedItem = 0;
+
     super(options);
+  }
+
+  onRender() {
+    setTimeout(() => {
+      this.focusSelectedItem();
+    },100);
+
+  }
+
+  onKeyUp(ev) {
+    if (ev.which == 40) { // Down
+      if (this.selectedItem + 1 < this.ui.project.children().length) {
+        this.selectedItem++;
+        this.focusSelectedItem();
+        return false;
+      }
+
+    }
+    else if (ev.which == 38) { // Up
+      if (this.selectedItem > 0) {
+        this.selectedItem--;
+        this.focusSelectedItem();
+        return false;
+      }
+    }
+  }
+
+  focusSelectedItem() {
+    this.ui.project.children().eq(this.selectedItem).focus();
   }
 }
