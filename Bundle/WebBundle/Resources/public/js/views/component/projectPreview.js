@@ -105,7 +105,7 @@ export class ProjectPreviewView extends Backbone.Marionette.ItemView {
   showNewTask() {
     this.triggerMethod('project:selected');
 
-    App.router.base.navigate('/issue/new');
-    App.controller.issue.newAction();
+    App.router.base.navigate('/issue/new/' + this.model.id);
+    App.controller.issue.newAction(this.model.id);
   }
 }

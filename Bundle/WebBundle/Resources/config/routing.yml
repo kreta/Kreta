@@ -10,13 +10,13 @@ kreta_web_homepage:
     defaults: { _controller: KretaWebBundle:Default:index }
     methods: [GET]
 
-kreta_web_dashboard:
-    path: /dashboard
-    defaults: { _controller: KretaWebBundle:Default:dashboard }
-    methods: [GET]
-
 kreta_web_issue_edit:
     path: /issue/{id}/edit
+    defaults: { _controller: KretaWebBundle:Default:index }
+    methods: [GET]
+
+kreta_web_issue_new:
+    path: /issue/new/{id}
     defaults: { _controller: KretaWebBundle:Default:index }
     methods: [GET]
 
