@@ -9,11 +9,6 @@
 
 import {SelectorView} from '../../component/selector';
 import {Issue} from '../../../models/issue';
-import {User} from '../../../models/user';
-import {Project} from '../../../models/project';
-import {ProjectCollection} from '../../../collections/project';
-import {IssueTypeCollection} from '../../../collections/issue-type';
-import {IssuePriorityCollection} from '../../../collections/issue-priority';
 import {NotificationService} from '../../../service/notification';
 import {FormSerializerService} from '../../../service/form-serializer';
 
@@ -22,11 +17,13 @@ export class IssueNewView extends Backbone.Marionette.ItemView {
     this.className = 'issue-new';
     this.template = _.template($('#issue-new-template').html());
     this.events = {
-      'submit #issue-new': 'save'
+      'submit @ui.form': 'save'
     };
 
     this.ui = {
+      form: '#issue-new',
       project: 'select[name="project"]',
+      title: 'input[name="title"]',
       assignee: 'select[name="assignee"]',
       priority: 'select[name="priority"]',
       type: 'select[name="type"]',
@@ -36,15 +33,11 @@ export class IssueNewView extends Backbone.Marionette.ItemView {
 
     super(options);
 
-    this.issuePriorities = new IssuePriorityCollection();
-    this.issueTypes = new IssueTypeCollection();
-
-    //Bad practise need to find a better way
+    //Bad practise need to find a better way, templateHelpers???
     this.model.set('selectableProjects', App.collection.project.models);
     this.onProjectSelected(this.model.get('project'));
 
-    this.listenTo(this.issueTypes, 'reset', this.updateSelectors);
-    this.listenTo(this.issuePriorities, 'reset', this.updateSelectors);
+    this.listenTo(this.model.get('project'), 'change', this.updateSelectors);
   }
 
   onRender() {
@@ -55,17 +48,16 @@ export class IssueNewView extends Backbone.Marionette.ItemView {
     new SelectorView(this.ui.assignee);
     new SelectorView(this.ui.priority);
     new SelectorView(this.ui.type);
-
-    this.$project = new SelectorView(this.ui.project, {
+    new SelectorView(this.ui.project, {
       onSelect: (ev) => {
         if($(ev.currentTarget).val() != "") {
           this.onProjectSelected(App.collection.project.get($(ev.currentTarget).val()));
           this.ui.issueDetails.hide();
         }
-      },
-      containerCss: 'project-new__project-selector'
+      }
     });
 
+    this.ui.title.focus();
   }
 
   onProjectSelected(project) {
@@ -77,34 +69,27 @@ export class IssueNewView extends Backbone.Marionette.ItemView {
 
     this.selectorsLeft = 2;
 
-    this.issueTypes.setProject(this.model.get('project').id).fetch({reset: true});
-    this.issuePriorities.setProject(this.model.get('project').id).fetch({reset: true});
+    this.model.get('project').get('issue_types');
+    this.model.get('project').get('issue_priorities');
   }
 
   updateSelectors() {
-    this.model.attributes.project.set('issue_types', this.issueTypes.models);
-    this.model.attributes.project.set('issue_priorities', this.issuePriorities.models);
     this.selectorsLeft--;
     this.render()
   }
 
-  save(ev) {
-    ev.preventDefault();
-
+  save() {
     this.ui.actions.hide();
 
-    var project = this.model.get('project').id;
+    var project = this.model.get('project');
 
     this.model = FormSerializerService.serialize(
-      $('#issue-new'), Issue
+      this.ui.form, Issue
     );
-
-    this.model.set('project', project);
-
 
     this.model.save(null, {
       success: (model) => {
-        App.router.base.navigate('/project/' + project, true);
+        App.router.base.navigate('/project/' + project.id, true);
         App.controller.issue.showAction(model);
         NotificationService.showNotification({
           type: 'success',
@@ -116,7 +101,10 @@ export class IssueNewView extends Backbone.Marionette.ItemView {
           message: 'Error while saving this issue'
         });
         this.ui.actions.show();
+        this.model.set('project', project);
       }
     });
+
+    return false;
   }
 }

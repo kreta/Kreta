@@ -26,13 +26,13 @@
             <select name="priority" class="select2-selector--big" tabindex="5" style="width:25%" data-placeholder="No priority">
                 <option></option>
                 <% project.get('issue_priorities').forEach(function(priority) { %>
-                    <option value="<%= priority.id %>"><%= priority.get('name') %></option>
+                    <option value="<%= priority.id %>"><%= priority.name %></option>
                 <% }) %>
             </select>
             <select name="type" class="select2-selector--big" tabindex="6" style="width:25%" data-placeholder="No type">
                 <option></option>
                 <% project.get('issue_types').forEach(function(type) { %>
-                    <option value="<%= type.id %>"><%= type.get('name') %></option>
+                    <option value="<%= type.id %>"><%= type.name %></option>
                 <% }) %>
             </select>
         </div>
