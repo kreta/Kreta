@@ -4,6 +4,8 @@
             <input type="text" name="firstName" placeholder="First name" value="<%= first_name %>">
             <input type="text" name="lastName" placeholder="Last name" value="<%= last_name %>">
             <input type="text" name="username" placeholder="Username" value="<%= username %>">
+            <img id="preview-image" src="<%= photo.name %>">
+            <input id="photo" type="file" name="photo" value="">
         </div>
         <div class="spacer-vertical-1">
             <button type="submit" class="button green">Update</button>

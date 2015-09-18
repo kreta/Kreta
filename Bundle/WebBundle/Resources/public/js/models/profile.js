@@ -10,11 +10,16 @@
 import {Config} from '../config';
 
 export class Profile extends Backbone.Model {
-  urlRoot() {
-    return  Config.baseUrl + '/profile';
+  constructor(attributes, options) {
+    this.fileAttribute = 'photo';
+    super(attributes, options);
   }
 
-  toString () {
+  urlRoot() {
+    return `${Config.baseUrl}/profile`;
+  }
+
+  toString() {
     return this.get('name');
   }
 }
