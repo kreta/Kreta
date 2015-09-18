@@ -13,9 +13,7 @@ export class IssueRouter extends Backbone.Marionette.AppRouter {
   initialize() {
     this.controller = new IssueController();
     this.appRoutes = {
-      'issue/new': 'newAction',
       'issue/new/:projectId': 'newAction',
-      'issue/:id/edit': 'editAction',
       'issue/:id': 'showAction'
     };
   }
