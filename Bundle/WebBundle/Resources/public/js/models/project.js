@@ -20,6 +20,7 @@ export class Project extends Backbone.Model {
       short_name: '',
       participants: [],
       issue_priorities: null,
+      issue_types: null,
       statuses: null
     };
   }

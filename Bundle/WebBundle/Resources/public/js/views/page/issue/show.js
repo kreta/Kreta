@@ -18,7 +18,6 @@ export class IssueShowView extends Backbone.Marionette.ItemView {
     };
 
     this.events = {
-      'click .full-issue-edit': 'editClicked',
       'click .full-issue-tab': 'tabClicked',
       'click .full-issue-transition': 'doTransition'
     };
@@ -41,13 +40,6 @@ export class IssueShowView extends Backbone.Marionette.ItemView {
     var pos = $(ev.currentTarget).index();
     this.ui.tabContent.removeClass('visible');
     $(this.ui.tabContent.get(pos)).addClass('visible');
-
-    return false;
-  }
-
-  editClicked() {
-    App.router.base.navigate('/issue/' + this.model.id + '/edit');
-    App.controller.issue.editAction(this.model);
 
     return false;
   }

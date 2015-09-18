@@ -9,11 +9,6 @@
 
 import {SelectorView} from '../../component/selector';
 import {Issue} from '../../../models/issue';
-import {User} from '../../../models/user';
-import {Project} from '../../../models/project';
-import {ProjectCollection} from '../../../collections/project';
-import {IssueTypeCollection} from '../../../collections/issue-type';
-import {IssuePriorityCollection} from '../../../collections/issue-priority';
 import {NotificationService} from '../../../service/notification';
 import {FormSerializerService} from '../../../service/form-serializer';
 
@@ -22,11 +17,13 @@ export class IssueNewView extends Backbone.Marionette.ItemView {
     this.className = 'issue-new';
     this.template = _.template($('#issue-new-template').html());
     this.events = {
-      'submit #issue-new': 'save'
+      'submit @ui.form': 'save'
     };
 
     this.ui = {
+      form: '#issue-new',
       project: 'select[name="project"]',
+      title: 'input[name="title"]',
       assignee: 'select[name="assignee"]',
       priority: 'select[name="priority"]',
       type: 'select[name="type"]',
@@ -36,102 +33,63 @@ export class IssueNewView extends Backbone.Marionette.ItemView {
 
     super(options);
 
-    this.projects = App.collection.project;
-    if (!this.model.isNew()) {
-      this.getCurrentProject(this.model);
-    }
+    //Bad practise need to find a better way, templateHelpers???
+    this.model.set('selectableProjects', App.collection.project.models);
+    this.onProjectSelected(this.model.get('project'));
 
-    this.issuePriorities = new IssuePriorityCollection();
-    this.issueTypes = new IssueTypeCollection();
-
-    this.listenTo(this.issueTypes, 'reset', this.updateSelectors);
-    this.listenTo(this.issuePriorities, 'reset', this.updateSelectors);
+    this.listenTo(this.model.get('project'), 'change', this.updateSelectors);
   }
 
   onRender() {
-    this.ui.issueDetails.hide();
-
-    this.$assignee = new SelectorView(this.ui.assignee);
-    this.$priority = new SelectorView(this.ui.priority);
-    this.$type = new SelectorView(this.ui.type);
-
-    if (this.model.isNew()) {
-      this.$project = new SelectorView(this.ui.project, {
-        onSelect: (ev) => {
-          this.onProjectSelected(this.projects.get($(ev.currentTarget).val()));
-        },
-        containerCss: 'project-new__project-selector'
-      });
-      this.$project.setSelectables(this.projects.models);
-
-      setTimeout(() => {
-        this.$project.select2("open");
-      }, 300);
+    if (this.selectorsLeft !== 0) {
+      this.ui.issueDetails.hide();
     }
 
-    return this;
+    new SelectorView(this.ui.assignee);
+    new SelectorView(this.ui.priority);
+    new SelectorView(this.ui.type);
+    new SelectorView(this.ui.project, {
+      onSelect: (ev) => {
+        if($(ev.currentTarget).val() != "") {
+          this.onProjectSelected(App.collection.project.get($(ev.currentTarget).val()));
+          this.ui.issueDetails.hide();
+        }
+      }
+    });
+
+    this.ui.title.focus();
   }
 
   onProjectSelected(project) {
-    this.currentProject = project;
-
-    this.ui.issueDetails.hide();
-
-    if(!this.currentProject) {
+    if(!project) {
       return;
     }
 
+    this.model.set('project', project);
+
     this.selectorsLeft = 2;
 
-    var users = [];
-    this.currentProject.get('participants').forEach((participant) => {
-      users.push(new User(participant.user));
-    });
-    this.$assignee.setSelectables(users);
-
-    this.issueTypes.setProject(this.currentProject.id).fetch({reset: true});
-    this.issuePriorities.setProject(this.currentProject.id).fetch({reset: true});
-  }
-
-  getCurrentProject(issue) {
-    if(typeof issue.get('_links') !== 'undefined') {
-      $.get(issue.get('_links').project.href, (project) => {
-        this.render();
-        this.onProjectSelected(new Project(project));
-      });
-    }
+    this.model.get('project').get('issue_types');
+    this.model.get('project').get('issue_priorities');
   }
 
   updateSelectors() {
-    this.$type.setSelectables(this.issueTypes.models);
-    this.$priority.setSelectables(this.issuePriorities.models);
-
-    this.ui.assignee.val(this.model.get('assignee').id).trigger('change');
-    this.ui.type.val(this.model.get('type').id).trigger('change');
-    this.ui.priority.val(this.model.get('priority').id).trigger('change');
-
     this.selectorsLeft--;
-
-    if (this.selectorsLeft === 0) {
-      this.ui.issueDetails.show();
-    }
+    this.render()
   }
 
-  save(ev) {
-    ev.preventDefault();
-
+  save() {
     this.ui.actions.hide();
 
+    var project = this.model.get('project');
+
     this.model = FormSerializerService.serialize(
-      $('#issue-new'), Issue
+      this.ui.form, Issue
     );
-
-    this.model.set('project', this.currentProject.id);
-
 
     this.model.save(null, {
       success: (model) => {
-        App.router.base.navigate('/project/' + this.currentProject.id, true);
+        App.router.base.navigate('/project/' + project.id, true);
         App.controller.issue.showAction(model);
         NotificationService.showNotification({
           type: 'success',
@@ -143,7 +101,10 @@ export class IssueNewView extends Backbone.Marionette.ItemView {
           message: 'Error while saving this issue'
         });
         this.ui.actions.show();
+        this.model.set('project', project);
       }
     });
+
+    return false;
   }
 }

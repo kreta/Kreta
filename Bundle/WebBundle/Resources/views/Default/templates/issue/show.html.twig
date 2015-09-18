@@ -1,9 +1,6 @@
 <script type="text/html" id="issue-show-template">
     <h2 class="full-issue-title"><%= title %></h2>
     <% if(canEdit) { %>
-        <section class="full-issue-actions">
-            <a class="button green full-issue-edit" data-bypass href="/issue/<%= id %>/edit">Edit</a>
-        </section>
         <section class="full-issue-transitions">
             <% transitions.forEach(function(transition) { %>
                 <button class="button green full-issue-transition" data-transition="<%= transition.id %>">

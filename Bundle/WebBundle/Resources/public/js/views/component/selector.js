@@ -17,6 +17,7 @@ export class SelectorView extends Backbone.View {
 
     this.$el.select2();
     this.$el.on('change', options.onSelect);
+    this.openOnFocus();
 
   }
 
@@ -34,8 +35,6 @@ export class SelectorView extends Backbone.View {
         `<option value="${model.get('id')}">${model.toString()}</option>`
       );
     });
-
-    this.openOnFocus();
   }
 
   openOnFocus() {

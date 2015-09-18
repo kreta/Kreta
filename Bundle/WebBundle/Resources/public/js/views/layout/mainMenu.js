@@ -27,10 +27,6 @@ export class HeaderView extends Backbone.View {
       App.controller.project.listAction();
     });
 
-    Mousetrap.bind('n', () => {
-      App.router.base.navigate('/issue/new', true);
-    });
-
     super();
     this.render();
   }

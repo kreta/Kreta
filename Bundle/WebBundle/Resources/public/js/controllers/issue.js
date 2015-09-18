@@ -13,16 +13,13 @@ import {IssueNewView} from '../views/page/issue/new';
 import {Issue} from '../models/issue';
 
 export class IssueController extends Backbone.Marionette.Controller {
-  newAction() {
+  newAction(projectId) {
+    var model = new Issue();
+    if(projectId != null) {
+      model.set('project', App.collection.project.get(projectId));
+    }
     App.layout.getRegion('content').show(new IssueNewView({
-      model: new Issue()
-    }));
-    App.vent.trigger('main:full-screen');
-  }
-
-  editAction(issue) {
-    App.layout.getRegion('content').show(new IssueNewView({
-      model: this.getCurrentIssue(issue)
+      model: model
     }));
     App.vent.trigger('main:full-screen');
   }
