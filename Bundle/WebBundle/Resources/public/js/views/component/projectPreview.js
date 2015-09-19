@@ -11,20 +11,16 @@ export class ProjectPreviewView extends Backbone.Marionette.ItemView {
   constructor(options) {
     this.className = 'project-preview';
     this.tagName = 'li';
-
     this.template = _.template($('#project-preview-template').html());
-
     this.events = {
       'keyup': 'onKeyUp',
       'mouseenter': 'onHover',
       'mouseenter .project-preview-shortcut': 'onShortcutHover',
       'click .project-preview-shortcut': 'onShortcutClick'
     };
-
     this.ui = {
       'shortcuts': '.project-preview-shortcut'
     };
-
     this.shortcuts = [{
       'icon': 'list',
       'method': $.proxy(this.showFullProject, this),
@@ -40,7 +36,7 @@ export class ProjectPreviewView extends Backbone.Marionette.ItemView {
   }
 
   onBeforeRender() {
-    this.model.set('shortcuts', this.shortcuts)
+    this.model.set('shortcuts', this.shortcuts);
   }
 
   onRender() {
@@ -49,30 +45,26 @@ export class ProjectPreviewView extends Backbone.Marionette.ItemView {
   }
 
   onKeyUp(ev) {
-    switch(ev.which) {
-      case 37: { // Left
-        if (this.selectedShortcut > 0) {
-          this.selectedShortcut--;
-          this.updateSelectedShortcut();
-          return false;
-        }
-        break;
+    switch (ev.which) {
+    case 37: { // Left
+      if (this.selectedShortcut > 0) {
+        this.selectedShortcut--;
+        this.updateSelectedShortcut();
+        return false;
       }
-      case 39: { // Right
-        if (this.selectedShortcut + 1 < this.shortcuts.length) {
-          this.selectedShortcut++;
-          this.updateSelectedShortcut();
-          return false;
-        }
-        break;
-      }
-      case 13: { // Enter
-        this.shortcuts[this.selectedShortcut].method()
-      }
-      default: {
-        break;
-      }
+      break;
     }
+    case 39: { // Right
+      if (this.selectedShortcut + 1 < this.shortcuts.length) {
+        this.selectedShortcut++;
+        this.updateSelectedShortcut();
+        return false;
+      }
+      break;
+    }
+    case 13: { // Enter
+      this.shortcuts[this.selectedShortcut].method();
+    }}
   }
 
   onHover() {
@@ -85,7 +77,7 @@ export class ProjectPreviewView extends Backbone.Marionette.ItemView {
   }
 
   onShortcutClick(ev) {
-    this.shortcuts[$(ev.currentTarget).index()].method()
+    this.shortcuts[$(ev.currentTarget).index()].method();
   }
 
   updateSelectedShortcut() {
@@ -95,8 +87,7 @@ export class ProjectPreviewView extends Backbone.Marionette.ItemView {
 
   showFullProject() {
     this.triggerMethod('project:selected');
-
-    App.router.base.navigate('/project/' + this.model.id);
+    App.router.base.navigate(`/project/${this.model.id}`);
     App.controller.project.showAction(this.model);
 
     return false;
@@ -104,8 +95,7 @@ export class ProjectPreviewView extends Backbone.Marionette.ItemView {
 
   showNewTask() {
     this.triggerMethod('project:selected');
-
-    App.router.base.navigate('/issue/new/' + this.model.id);
+    App.router.base.navigate(`/issue/new/${this.model.id}`);
     App.controller.issue.newAction(this.model.id);
   }
 }

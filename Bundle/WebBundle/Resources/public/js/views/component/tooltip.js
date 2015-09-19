@@ -14,11 +14,16 @@ export class TooltipView {
   }
 
   onMouseEnter() {
-    if($(this).children('.tooltip').length == 0) {
-      var tooltipPos = $(this).attr('data-tooltip-position') ? $(this).attr('data-tooltip-position') : 'left';
-      $(this).append('<span class="tooltip ' + tooltipPos + '">' +  $(this).attr('data-tooltip-text') + '</span>');
-    }
+    var tooltipPos;
 
+    if ($(this).children('.tooltip').length === 0) {
+      tooltipPos = $(this).attr('data-tooltip-position')
+        ? $(this).attr('data-tooltip-position')
+        : 'left';
+      $(this).append(
+        `<span class="tooltip ${tooltipPos}">${$(this).attr('data-tooltip-text')}</span>`
+      );
+    }
     $(this).find('.tooltip').addClass('visible');
   }
 

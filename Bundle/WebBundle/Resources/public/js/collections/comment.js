@@ -11,13 +11,15 @@ import {Config} from '../config';
 import {Comment} from '../models/comment';
 
 export class CommentCollection extends Backbone.Collection {
-  constructor (models, options) {
+  constructor(models, options) {
     this.model = Comment;
+
     super(models, options);
   }
 
-  setIssue (issueId) {
-    this.url = Config.baseUrl + '/issues/' + issueId + '/comments';
+  setIssue(issueId) {
+    this.url = `${Config.baseUrl}/issues/${issueId}/comments`;
+
     return this;
   }
 }

@@ -13,7 +13,8 @@ import {Project} from '../models/project';
 export class ProjectCollection extends Backbone.Collection {
   constructor() {
     this.model = Project;
-    this.url = Config.baseUrl + '/projects';
+    this.url = `${Config.baseUrl}/projects`;
+
     super();
   }
 }

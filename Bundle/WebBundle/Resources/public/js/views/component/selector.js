@@ -19,16 +19,15 @@ export class SelectorView extends Backbone.View {
     this.$el.on('change', options.onSelect);
     this.openOnFocus();
 
+    super(options);
   }
 
   setSelectables(selectables) {
     this.selectables = selectables;
     this.$el.html('');
 
-    //Fixes issues when selecting first item, select2 doesn`t detect change otherwise
-    this.$el.append(
-      `<option></option>`
-    );
+    // Fixes issues when selecting first item, select2 doesn't detect change
+    this.$el.append(`<option></option>`);
 
     this.selectables.forEach((model) => {
       this.$el.append(
@@ -39,7 +38,7 @@ export class SelectorView extends Backbone.View {
 
   openOnFocus() {
     setTimeout(() => {
-      this.$el.next('.select2').find(".select2-selection").on('focus', () => {
+      this.$el.next('.select2').find('.select2-selection').on('focus', () => {
         this.$el.select2('open');
       });
     });

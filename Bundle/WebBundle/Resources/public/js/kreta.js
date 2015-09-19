@@ -10,11 +10,9 @@
 import {TooltipView} from 'views/component/tooltip';
 import {App} from 'app';
 
-'use strict';
-
 $(() => {
   window.App = new App({
-    onLoad: function () {
+    onLoad: () => {
       window.App.loadLayout();
       new TooltipView();
       Backbone.history.start({pushState: true});
@@ -22,8 +20,8 @@ $(() => {
   });
 
   $(document).on('click', 'a:not([data-bypass])', function (evt) {
-    var href = $(this).attr('href');
-    var protocol = this.protocol + '//';
+    var href = $(this).attr('href'),
+      protocol = `${this.protocol}//`;
 
     if (href && href.slice(protocol.length) !== protocol) {
       evt.preventDefault();

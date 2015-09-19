@@ -13,10 +13,10 @@ export class ProjectListView extends Backbone.Marionette.CompositeView {
   constructor(options) {
     this.template = '#project-list-template';
     this.childView = ProjectPreviewView;
-    this.childViewContainer = ".project-preview-list";
+    this.childViewContainer = '.project-preview-list';
     this.collection = options.collection;
     this.childEvents = {
-      'project:selected': function () {
+      'project:selected': () => {
         App.layout.getRegion('modal').closeModal();
       }
     };
@@ -34,23 +34,23 @@ export class ProjectListView extends Backbone.Marionette.CompositeView {
   onRender() {
     setTimeout(() => {
       this.focusSelectedItem();
-    },100);
-
+    }, 100);
   }
 
   onKeyUp(ev) {
-    if (ev.which == 40) { // Down
+    if (ev.which === 40) { // Down
       if (this.selectedItem + 1 < this.ui.project.children().length) {
         this.selectedItem++;
         this.focusSelectedItem();
+
         return false;
       }
 
-    }
-    else if (ev.which == 38) { // Up
+    } else if (ev.which === 38) { // Up
       if (this.selectedItem > 0) {
         this.selectedItem--;
         this.focusSelectedItem();
+
         return false;
       }
     }

@@ -24,7 +24,7 @@ export class IssuePreviewView extends Backbone.Marionette.ItemView {
     });
 
     this.listenTo(App.vent, 'issue:updated', (issue) => {
-      if(this.model.id === issue.id) {
+      if (this.model.id === issue.id) {
         this.model.set(issue);
         this.render();
       }
@@ -33,6 +33,7 @@ export class IssuePreviewView extends Backbone.Marionette.ItemView {
 
   showFullIssue() {
     App.controller.issue.showAction(this.model);
+
     return false;
   }
 

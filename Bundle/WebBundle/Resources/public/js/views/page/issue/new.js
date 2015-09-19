@@ -33,7 +33,7 @@ export class IssueNewView extends Backbone.Marionette.ItemView {
 
     super(options);
 
-    //Bad practise need to find a better way, templateHelpers???
+    // Bad practise need to find a better way, templateHelpers???
     this.model.set('selectableProjects', App.collection.project.models);
     this.onProjectSelected(this.model.get('project'));
 
@@ -50,8 +50,10 @@ export class IssueNewView extends Backbone.Marionette.ItemView {
     new SelectorView(this.ui.type);
     new SelectorView(this.ui.project, {
       onSelect: (ev) => {
-        if($(ev.currentTarget).val() != "") {
-          this.onProjectSelected(App.collection.project.get($(ev.currentTarget).val()));
+        if ($(ev.currentTarget).val() !== '') {
+          this.onProjectSelected(
+            App.collection.project.get($(ev.currentTarget).val())
+          );
           this.ui.issueDetails.hide();
         }
       }
@@ -61,7 +63,7 @@ export class IssueNewView extends Backbone.Marionette.ItemView {
   }
 
   onProjectSelected(project) {
-    if(!project) {
+    if (!project) {
       return;
     }
 
@@ -75,7 +77,7 @@ export class IssueNewView extends Backbone.Marionette.ItemView {
 
   updateSelectors() {
     this.selectorsLeft--;
-    this.render()
+    this.render();
   }
 
   save() {
@@ -89,7 +91,7 @@ export class IssueNewView extends Backbone.Marionette.ItemView {
 
     this.model.save(null, {
       success: (model) => {
-        App.router.base.navigate('/project/' + project.id, true);
+        App.router.base.navigate(`/project/${project.id}`, true);
         App.controller.issue.showAction(model);
         NotificationService.showNotification({
           type: 'success',

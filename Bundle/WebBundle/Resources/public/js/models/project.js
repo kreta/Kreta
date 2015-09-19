@@ -11,7 +11,7 @@ import {Config} from '../config';
 
 export class Project extends Backbone.Model {
   urlRoot() {
-    return Config.baseUrl + '/projects';
+    return `${Config.baseUrl}/projects`;
   }
 
   defaults() {
@@ -31,8 +31,8 @@ export class Project extends Backbone.Model {
 
   getUserRole(user) {
     var role = null;
-    this.get('participants').forEach(function (participant) {
-      if (participant.user.id == user.id) {
+    this.get('participants').forEach((participant) => {
+      if (participant.user.id === user.id) {
         role = participant.role;
       }
     });
@@ -43,7 +43,7 @@ export class Project extends Backbone.Model {
   toJSON(options) {
     var data = _.clone(this.attributes);
 
-    if (typeof(options) !== 'undefined' && options.parse) {
+    if (typeof options !== 'undefined' && options.parse) {
       data = _.omit(data, 'id');
     }
 
@@ -51,12 +51,12 @@ export class Project extends Backbone.Model {
   }
 
   get(attr) {
-    if (this.attributes[attr] === null &&
-        typeof this.attributes._links !== 'undefined' &&
-        typeof this.attributes._links[attr] !== 'undefined') {
+    if (this.attributes[attr] === null
+      && typeof this.attributes._links !== 'undefined'
+      && typeof this.attributes._links[attr] !== 'undefined') {
       this.attributes[attr] = [];
       Backbone.$.get(this.attributes._links[attr].href, (data) => {
-        this.set(attr, data)
+        this.set(attr, data);
       });
     }
 

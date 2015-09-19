@@ -18,18 +18,16 @@ export class UserSelectorView extends Backbone.Marionette.CompositeView {
     this.childViewOptions = {
       project: options.project
     };
-
     this.ui = {
       actions: '.user-selector-actions',
       invite: '.user-selector-actions-invite',
       search: '.user-selector-actions-search'
     };
-
     this.events = {
       'click @ui.invite': 'showInvitationForm',
       'click @ui.search': 'showSearchForm',
       'scroll': 'relocateFixedFooter',
-    }
+    };
   }
 
   onRender() {
@@ -37,7 +35,10 @@ export class UserSelectorView extends Backbone.Marionette.CompositeView {
   }
 
   relocateFixedFooter() {
-    this.ui.actions.css('top', this.$el.scrollTop() + $(window).height() - this.ui.actions.height());
+    this.ui.actions.css(
+      'top',
+      `${this.$el.scrollTop()}${$(window).height() - this.ui.actions.height()}`
+    );
   }
 
   showInvitationForm() {

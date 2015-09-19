@@ -7,10 +7,8 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-import {User} from '../../models/user';
-
 export class HeaderView extends Backbone.View {
-  constructor () {
+  constructor() {
     this.setElement($('.menu'));
 
     this.$userInfo = this.$el.find('.menu-user');
@@ -28,17 +26,19 @@ export class HeaderView extends Backbone.View {
     });
 
     super();
+
     this.render();
   }
 
-  render () {
-    if(App.currentUser.get('id')) {
+  render() {
+    if (App.currentUser.get('id')) {
       this.$userInfo.html(this.userInfoTemplate(App.currentUser.toJSON()));
     }
   }
 
   showProjectList() {
     App.controller.project.listAction();
+
     return false;
   }
 }

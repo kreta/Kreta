@@ -11,11 +11,11 @@ import {Config} from '../config';
 
 export class Issue extends Backbone.Model {
   urlRoot() {
-    return Config.baseUrl + '/issues';
+    return `${Config.baseUrl}/issues`;
   }
 
   urlTransition() {
-    return Config.baseUrl + '/issues/' + this.id + '/transitions';
+    return `${Config.baseUrl}/issues/${this.id}/transitions`;
   }
 
   defaults() {
@@ -45,13 +45,14 @@ export class Issue extends Backbone.Model {
   }
 
   canEdit(user) {
-    return this.get('assignee').id === user.id || this.get('reporter').id === user.id;
+    return this.get('assignee').id === user.id
+      || this.get('reporter').id === user.id;
   }
 
   toJSON(options) {
     var data = _.clone(this.attributes);
 
-    if (typeof(options) !== 'undefined' && options.parse) {
+    if (typeof options !== 'undefined' && options.parse) {
       data = _.omit(data, 'id');
     }
 
@@ -76,21 +77,20 @@ export class Issue extends Backbone.Model {
   }
 
   getAllowedTransitions() {
-    var projectHref = this.attributes._links.project.href;
-    var projectId = projectHref.substring(projectHref.lastIndexOf('/') + 1);
-    var project = App.collection.project.get(projectId);
-
-    var workflowHref = project.attributes._links.workflow.href;
-    var workflowId = workflowHref.substring(workflowHref.lastIndexOf('/') + 1);
-
-    var allowedTransitions = [];
-    App.collection.workflow.get(workflowId).attributes.status_transitions.forEach((transition) => {
-      transition.initial_states.forEach((state) => {
-        if(state.id === this.get('status').id) {
-          allowedTransitions.push(transition);
-        }
+    var projectHref = this.attributes._links.project.href,
+      projectId = projectHref.substring(projectHref.lastIndexOf('/') + 1),
+      project = App.collection.project.get(projectId),
+      workflowHref = project.attributes._links.workflow.href,
+      workflowId = workflowHref.substring(workflowHref.lastIndexOf('/') + 1),
+      allowedTransitions = [];
+    App.collection.workflow.get(workflowId)
+      .attributes.status_transitions.forEach((transition) => {
+        transition.initial_states.forEach((state) => {
+          if (state.id === this.get('status').id) {
+            allowedTransitions.push(transition);
+          }
+        });
       });
-    });
 
     return allowedTransitions;
   }

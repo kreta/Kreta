@@ -8,12 +8,11 @@
  */
 
 export class User extends Backbone.Model {
-  defaults () {
-    return {
-    };
+  defaults() {
+    return {};
   }
 
-  toString () {
-    return this.get('first_name') + ' ' + this.get('last_name');
+  toString() {
+    return `${this.get('first_name')} ${this.get('last_name')}`;
   }
 }

@@ -8,7 +8,7 @@
  */
 
 export class IssuePriority extends Backbone.Model {
-  toString () {
+  toString() {
     return this.get('name');
   }
 }

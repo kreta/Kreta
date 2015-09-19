@@ -9,8 +9,6 @@
 
 import {Project} from '../../../models/project';
 
-import {UserCollection} from '../../../collections/user';
-
 import {UserSelectorView} from '../../component/user-selector';
 
 import {FormSerializerService} from '../../../service/form-serializer';
@@ -63,28 +61,31 @@ export class ProjectSettingsView extends Backbone.Marionette.ItemView {
   serializeData() {
     var data = this.model.toJSON();
 
-    data['userIsAdmin'] = this.model.getUserRole(App.currentUser) === 'ROLE_ADMIN';
+    data.userIsAdmin = this.model.getUserRole(App.currentUser) === 'ROLE_ADMIN';
 
     return data;
   }
 
   addUser() {
-    var notParticipating = new Backbone.Collection();
-    var participants = this.model.get('participants');
-    App.collection.user.each(function (user) {
-      for(var i = 0; i < participants.length; i++) {
-        var found = false;
-        if(participants[i].user.id === user.get('id')) {
+    var notParticipating = new Backbone.Collection(),
+      participants = this.model.get('participants'),
+      view,
+      found;
+
+    App.collection.user.each((user) => {
+      for (var i = 0; i < participants.length; i++) {
+        found = false;
+        if (participants[i].user.id === user.get('id')) {
           found = true;
           break;
         }
       }
-      if(!found) {
+      if (!found) {
         notParticipating.push(user);
       }
     });
 
-    var view = new UserSelectorView({
+    view = new UserSelectorView({
       collection: notParticipating,
       project: this.model.id
     });

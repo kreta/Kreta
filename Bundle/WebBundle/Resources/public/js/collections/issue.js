@@ -11,17 +11,18 @@ import {Config} from '../config';
 import {Issue} from '../models/issue';
 
 export class IssueCollection extends Backbone.Collection {
-  constructor (models, options) {
+  constructor(models, options) {
     this.model = Issue;
-    this.url = Config.baseUrl + '/issues';
+    this.url = `${Config.baseUrl}/issues`;
+
     super(models, options);
   }
 
   findIndexById(issueId) {
     var i = 0;
 
-    while(i < this.models.length ) {
-      if(this.models[i].get('id') == issueId) {
+    while (i < this.models.length) {
+      if (this.models[i].get('id') === issueId) {
         return i;
       }
       i++;

@@ -13,7 +13,6 @@ import {ProjectNewView} from '../views/page/project/new';
 import {ProjectSettingsView} from '../views/page/project/settings';
 
 import {Project} from '../models/project';
-import {ProjectCollection} from '../collections/project';
 import {IssueCollection} from '../collections/issue';
 
 export class ProjectController extends Backbone.Marionette.Controller {
@@ -23,26 +22,28 @@ export class ProjectController extends Backbone.Marionette.Controller {
   }
 
   listAction() {
-    App.layout.getRegion('modal').show(new ProjectListView({collection: App.collection.project}));
+    App.layout.getRegion('modal').show(
+      new ProjectListView({collection: App.collection.project})
+    );
   }
 
   showAction(project) {
-    var model = this.getCurrentProject(project);
-    var collection = new IssueCollection();
+    var model = this.getCurrentProject(project),
+      collection = new IssueCollection();
+
     collection.fetch({data: {project: model.id}});
 
-    App.layout.getRegion('content').show(new IssueListView({
-      model: model,
-      collection: collection
-    }));
+    App.layout.getRegion('content').show(
+      new IssueListView({model, collection})
+    );
 
     App.vent.trigger('main:full-screen');
   }
 
   settingsAction(project) {
-    App.layout.getRegion('content').show(new ProjectSettingsView({
-      model: this.getCurrentProject(project)
-    }));
+    App.layout.getRegion('content').show(
+      new ProjectSettingsView({model: this.getCurrentProject(project)})
+    );
     App.vent.trigger('main:full-screen');
   }
 

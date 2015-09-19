@@ -11,6 +11,6 @@ import {Config} from '../config';
 
 export class Workflow extends Backbone.Model {
   urlRoot() {
-    return Config.baseUrl + '/workflows';
+    return `${Config.baseUrl}/workflows`;
   }
 }

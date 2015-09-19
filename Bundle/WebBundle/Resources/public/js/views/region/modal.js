@@ -18,13 +18,13 @@ export class ModalRegion extends Backbone.Marionette.Region {
 
   onShow(view) {
     $('.modal-overlay').addClass('visible');
-    this.listenTo(view, "modal:close", this.closeModal);
+    this.listenTo(view, 'modal:close', this.closeModal);
     this.$el.addClass('visible');
 
     Mousetrap.bind('esc', () => {
       this.closeModal();
     });
-    $(".modal-overlay").click(() => {
+    $('.modal-overlay').click(() => {
       this.closeModal();
     });
   }

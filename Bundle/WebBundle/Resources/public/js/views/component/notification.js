@@ -8,8 +8,8 @@
  */
 
 export class NotificationView extends Backbone.Marionette.ItemView {
-  constructor (options) {
-    this.className = 'notification ' + options.model.type;
+  constructor(options) {
+    this.className = `notification ${options.model.type}`;
     this.template = '#notification-template';
     this.events = {
       'click .notification-hide': 'hide'
@@ -23,7 +23,7 @@ export class NotificationView extends Backbone.Marionette.ItemView {
   }
 
   show() {
-    setTimeout(() => { //Wait until is added to the DOM to get the animation
+    setTimeout(() => { // Wait until is added to the DOM to get the animation
       this.$el.addClass('visible');
     }, 50);
 
@@ -37,6 +37,6 @@ export class NotificationView extends Backbone.Marionette.ItemView {
 
     setTimeout(() => {
       this.destroy();
-    }, 550); //Wait animation
+    }, 550); // Wait animation
   }
 }

@@ -51,15 +51,23 @@ export class App extends Backbone.Marionette.Application {
     this.currentUser = new Profile();
 
     this.dependenciesToLoad = 4;
-    this.currentUser.fetch({success: $.proxy(this.dependencyLoaded, this)});
-    this.collection.project.fetch({success: $.proxy(this.dependencyLoaded, this)});
-    this.collection.user.fetch({success: $.proxy(this.dependencyLoaded, this)});
-    this.collection.workflow.fetch({success: $.proxy(this.dependencyLoaded, this)});
+    this.currentUser.fetch({
+      success: $.proxy(this.dependencyLoaded, this)
+    });
+    this.collection.project.fetch({
+      success: $.proxy(this.dependencyLoaded, this)
+    });
+    this.collection.user.fetch({
+      success: $.proxy(this.dependencyLoaded, this)
+    });
+    this.collection.workflow.fetch({
+      success: $.proxy(this.dependencyLoaded, this)
+    });
   }
 
   dependencyLoaded() {
     this.dependenciesToLoad--;
-    if (this.dependenciesToLoad == 0) {
+    if (this.dependenciesToLoad === 0) {
       this.options.onLoad();
     }
   }
@@ -73,13 +81,14 @@ export class App extends Backbone.Marionette.Application {
 
   addAutenticationHeader() {
     Backbone.$.ajaxSetup({
-      headers: {'Authorization': 'Bearer ' + this.getAccessToken()}
+      headers: {'Authorization': `Bearer ${this.getAccessToken()}`}
     });
   }
 
   getCookie(name) {
-    var value = '; ' + document.cookie;
-    var parts = value.split('; ' + name + '=');
+    var value = `; ${document.cookie}`,
+      parts = value.split(`; ${name}=`);
+
     if (parts.length === 2) {
       return parts.pop().split(';').shift();
     }

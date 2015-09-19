@@ -15,16 +15,13 @@ export class IssueListView extends Backbone.Marionette.CompositeView {
     this.template = '#project-issues-template';
     this.childView = IssuePreviewView;
     this.childViewContainer = '.issues';
-
     this.events = {
       'click #project-settings-show': 'showSettings'
     };
-
     this.ui = {
       issues: '.issues',
       filter: '.filter'
     };
-
     this.filters = [];
     this.highlightIndex = -1;
 
@@ -47,8 +44,7 @@ export class IssueListView extends Backbone.Marionette.CompositeView {
   }
 
   loadFilters() {
-    var assigneeFilters = [
-      {
+    var assigneeFilters = [{
         title: 'All',
         filter: 'assignee',
         value: '',
@@ -58,49 +54,43 @@ export class IssueListView extends Backbone.Marionette.CompositeView {
         filter: 'assignee',
         value: App.currentUser.get('id'),
         selected: false
-      }
-    ];
-
-    var priorityFilters = [
-      {
-        title: 'All priorities',
-        filter: 'priority',
+      }],
+      priorityFilters = [
+        {
+          title: 'All priorities',
+          filter: 'priority',
+          value: '',
+          selected: true
+        }
+      ],
+      priorities = this.model.get('issue_priorities'),
+      statusFilters = [{
+        title: 'All statuses',
+        filter: 'status',
         value: '',
         selected: true
-      }
-    ];
+      }],
+      statuses = this.model.get('statuses');
 
-    var priorities = this.model.get('issue_priorities');
-    if(priorities) {
-      priorities.forEach(function (priority) {
+    if (priorities) {
+      priorities.forEach((priority) => {
         priorityFilters.push({
           title: priority.name,
           filter: 'priority',
           value: priority.id,
           selected: false
-        })
+        });
       });
     }
 
-
-    var statusFilters = [
-      {
-        title: 'All statuses',
-        filter: 'status',
-        value: '',
-        selected: true
-      }
-    ];
-
-    var statuses = this.model.get('statuses');
-    if(statuses) {
-      statuses.forEach(function (status) {
+    if (statuses) {
+      statuses.forEach((status) => {
         statusFilters.push({
           title: status.name,
           filter: 'status',
           value: status.id,
           selected: false
-        })
+        });
       });
     }
 
@@ -119,12 +109,13 @@ export class IssueListView extends Backbone.Marionette.CompositeView {
     });
 
     this.ui.issues.html('');
-    this.collection.fetch({data: data, reset: true});
+    this.collection.fetch({data, reset: true});
   }
 
   showSettings() {
-    App.router.base.navigate('/project/' + this.model.id + '/settings');
+    App.router.base.navigate(`/project/${this.model.id}/settings`);
     App.controller.project.settingsAction(this.model);
+
     return false;
   }
 
@@ -134,7 +125,6 @@ export class IssueListView extends Backbone.Marionette.CompositeView {
     }
     this.highlightIndex--;
     this.showHighlightedIssue();
-    return false;
   }
 
   highlightNext() {
@@ -143,11 +133,11 @@ export class IssueListView extends Backbone.Marionette.CompositeView {
     }
     this.highlightIndex++;
     this.showHighlightedIssue();
-    return false;
   }
 
   showHighlightedIssue() {
     var issue = this.collection.at(this.highlightIndex);
+
     App.vent.trigger('issue:highlight', issue.get('id'));
     App.controller.issue.showAction(issue);
   }

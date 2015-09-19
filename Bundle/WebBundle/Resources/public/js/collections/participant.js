@@ -13,11 +13,13 @@ import {Participant} from '../models/participant';
 export class ParticipantCollection extends Backbone.Collection {
   constructor (models, options) {
     this.model = Participant;
+
     super(models, options);
   }
 
   setProject (projectId) {
-    this.url = Config.baseUrl + '/projects/' + projectId + '/participants';
+    this.url = `${Config.baseUrl}/projects/${projectId}/participants`;
+
     return this;
   }
 }

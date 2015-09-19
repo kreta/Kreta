@@ -14,7 +14,7 @@ import {ModalRegion} from '../region/modal';
 export class BaseLayoutView extends Backbone.Marionette.LayoutView {
   constructor(options) {
     this.el = '.application';
-    this.template = "#base-layout-view-template";
+    this.template = '#base-layout-view-template';
     this.regions = {
       'menu': '.menu-main',
       'left-aside': new AsideRegion({position: 'left'}),
@@ -23,6 +23,7 @@ export class BaseLayoutView extends Backbone.Marionette.LayoutView {
       'notification': '.notification-container',
       'modal': new ModalRegion()
     };
+
     super(options);
   }
 }

@@ -18,7 +18,8 @@ export class IssueTypeCollection extends Backbone.Collection {
   }
 
   setProject(projectId) {
-    this.url = Config.baseUrl + '/projects/' + projectId + '/issue-types';
+    this.url = `${Config.baseUrl}/projects/${projectId}/issue-types`;
+
     return this;
   }
 }

@@ -8,5 +8,5 @@
  */
 
 export var Config = {
-  baseUrl: '//' + location.hostname + (location.port != "" ? ":" + location.port : '') + '/api'
+  baseUrl: `//${location.hostname}${location.port !== '' ? `:${location.port}` : ''}/api`
 };

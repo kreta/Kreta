@@ -8,7 +8,7 @@
  */
 
 export class IssueType extends Backbone.Model {
-  toString () {
+  toString() {
     return this.get('name');
   }
 }

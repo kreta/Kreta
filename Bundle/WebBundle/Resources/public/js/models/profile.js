@@ -12,6 +12,7 @@ import {Config} from '../config';
 export class Profile extends Backbone.Model {
   constructor(attributes, options) {
     this.fileAttribute = 'photo';
+
     super(attributes, options);
   }
 

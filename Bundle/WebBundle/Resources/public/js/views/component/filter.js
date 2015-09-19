@@ -22,10 +22,11 @@ export class FilterView extends Backbone.View {
 
   render() {
     this.$el.html(this.template({'filters': this.filters}));
+
     return this;
   }
 
-  //Callback register to notify event to external subscribers
+  // Callback register to notify event to external subscribers
   onFilterClicked(callback) {
     this.callbacks.push(callback);
   }
@@ -39,16 +40,17 @@ export class FilterView extends Backbone.View {
   }
 
   selectFilterItem($item) {
+    var itemGroup = $item.parent().index();
+
     $item.parent().find('a').removeClass('selected');
     $item.addClass('selected');
 
-    //Get location of selected in filters array and change selected item
-    var itemGroup = $item.parent().index();
     this.filters[itemGroup].forEach((item) => {
       item.selected = false;
     });
 
     this.filters[itemGroup][$item.index()].selected = true;
+
     return this.filters;
   }
 }

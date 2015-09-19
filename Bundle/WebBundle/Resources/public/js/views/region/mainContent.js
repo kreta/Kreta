@@ -8,7 +8,7 @@
  */
 
 export class MainContentRegion extends Backbone.Marionette.Region {
-  constructor (options) {
+  constructor(options) {
     this.el = '.kreta-content-container';
 
     App.vent.on('left-aside:after-open', () => {
@@ -28,19 +28,19 @@ export class MainContentRegion extends Backbone.Marionette.Region {
     super(options);
   }
 
-  leftOpened () {
+  leftOpened() {
     this.$el.parent().addClass('left-open');
   }
 
-  leftClosed () {
+  leftClosed() {
     this.$el.parent().removeClass('left-open');
   }
 
-  rightOpened () {
+  rightOpened() {
     this.$el.parent().addClass('right-open');
   }
 
-  rightClosed () {
+  rightClosed() {
     this.$el.parent().removeClass('right-open');
   }
 }

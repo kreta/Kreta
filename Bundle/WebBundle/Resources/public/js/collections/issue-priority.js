@@ -13,11 +13,13 @@ import {IssuePriority} from '../models/issue-priority';
 export class IssuePriorityCollection extends Backbone.Collection {
   constructor(models, options) {
     this.model = IssuePriority;
+
     super(models, options);
   }
 
   setProject(projectId) {
-    this.url = Config.baseUrl + '/projects/' + projectId + '/issue-priorities';
+    this.url = `${Config.baseUrl}/projects/${projectId}/issue-priorities`;
+
     return this;
   }
 }

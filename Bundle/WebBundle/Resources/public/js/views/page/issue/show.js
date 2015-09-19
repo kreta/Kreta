@@ -31,13 +31,16 @@ export class IssueShowView extends Backbone.Marionette.ItemView {
 
   serializeData() {
     var data = this.model.toJSON();
-    data['transitions'] = this.model.getAllowedTransitions();
-    data['canEdit'] = this.model.canEdit(App.currentUser);
+
+    data.transitions = this.model.getAllowedTransitions();
+    data.canEdit = this.model.canEdit(App.currentUser);
+
     return data;
   }
 
   tabClicked(ev) {
     var pos = $(ev.currentTarget).index();
+
     this.ui.tabContent.removeClass('visible');
     $(this.ui.tabContent.get(pos)).addClass('visible');
 
@@ -47,12 +50,12 @@ export class IssueShowView extends Backbone.Marionette.ItemView {
   doTransition(ev) {
     this.ui.transitions.hide();
     this.model.doTransition($($(ev)[0].currentTarget).attr('data-transition'), {
-      success : (data) => {
+      success: (data) => {
         this.model.set(data);
-        App.vent.trigger('issue:updated', data)
+        App.vent.trigger('issue:updated', data);
       }
     });
 
-    return false
+    return false;
   }
 }

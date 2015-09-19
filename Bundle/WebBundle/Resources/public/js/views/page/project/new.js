@@ -12,7 +12,7 @@ import {FormSerializerService} from '../../../service/form-serializer';
 import {NotificationService} from '../../../service/notification';
 
 export class ProjectNewView extends Backbone.View {
-  constructor () {
+  constructor() {
     this.className = 'project-new';
     this.template = _.template($('#project-new-template').html());
     this.events = {
@@ -24,13 +24,13 @@ export class ProjectNewView extends Backbone.View {
     this.render();
   }
 
-  render () {
+  render() {
     this.$el.html(this.template());
 
     return this;
   }
 
-  save (ev) {
+  save(ev) {
     ev.preventDefault();
 
     var $actions = $('.issue-new-actions').hide();
@@ -41,12 +41,12 @@ export class ProjectNewView extends Backbone.View {
 
     this.model.save(null, {
       success: (model) => {
-        App.router.base.navigate('/project/' + model.id, true);
+        App.router.base.navigate(`/project/${model.id}`, true);
         NotificationService.showNotification({
           type: 'success',
           message: 'Project created successfully'
         });
-      }, error: function() {
+      }, error: () => {
         NotificationService.showNotification({
           type: 'error',
           message: 'Error while saving this project'
