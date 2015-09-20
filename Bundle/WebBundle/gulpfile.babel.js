@@ -1,7 +1,7 @@
 /*
  * This file belongs to Kreta.
  * The source code of application includes a LICENSE file
- * with all information about license.
+ * with all information about LICENSE.
  *
  * @author benatespina <benatespina@gmail.com>
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
@@ -27,12 +27,12 @@ import pkg from './package.json';
 
 var knownOptions = {string: 'from', default: {from: ''}},
   options = minimist(process.argv.slice(2), knownOptions),
+  fromVendorPath = options.from === 'vendor' ? '/../' : '/';
 
-  fromVendorPath = options.from === 'vendor' ? '/../' : '/',
-  basePath = `./../../../..${fromVendorPath}web/bundles/kretaweb/`,
-  resultPath = `./../../../..${fromVendorPath}web/`,
+const BASE_PATH = `./../../../..${fromVendorPath}web/bundles/kretaweb/`,
+  RESULT_PATH = `./../../../..${fromVendorPath}web/`,
 
-  license = [`/*
+  LICENSE = [`/*
  * <%= pkg.name %> - <%= pkg.description %>
  *
  * @link    <%= pkg.homepage %>
@@ -40,54 +40,54 @@ var knownOptions = {string: 'from', default: {from: ''}},
  * @author  <%= pkg.authors[0].name %> (<%= pkg.authors[0].homepage %>)
  * @author  <%= pkg.authors[1].name %> (<%= pkg.authors[1].homepage %>)
  *
- * @license <%= pkg.license %>
+ * @LICENSE <%= pkg.LICENSE %>
  */
 
 `],
 
-  assets = {
-    images: `${basePath}img/**`,
-    javascripts: `${basePath}js/**/*.js`,
-    sass: `${basePath}scss/**.scss`,
-    vendors: `${basePath}vendor/**`
+  ASSETS = {
+    images: `${BASE_PATH}img/**`,
+    javascripts: `${BASE_PATH}js/**/*.js`,
+    sass: `${BASE_PATH}scss/**.scss`,
+    vendors: `${BASE_PATH}vendor/**`
   },
 
-  watch = {
-    sass: `${basePath}scss/**/*.scss`
+  WATCH = {
+    sass: `${BASE_PATH}scss/**/*.scss`
   };
 
 gulp.task('clean', () => {
   del.sync([
-    `${resultPath}css*`,
-    `${resultPath}images*`,
-    `${resultPath}js*`,
-    `${resultPath}vendor*`
+    `${RESULT_PATH}css*`,
+    `${RESULT_PATH}images*`,
+    `${RESULT_PATH}js*`,
+    `${RESULT_PATH}vendor*`
   ], {force: true});
 });
 
 gulp.task('images', () => {
-  return gulp.src(assets.images)
+  return gulp.src(ASSETS.images)
     .pipe(imagemin({optimizationLevel: 5}))
-    .pipe(gulp.dest(`${resultPath}images`));
+    .pipe(gulp.dest(`${RESULT_PATH}images`));
 });
 
 gulp.task('vendor', () => {
-  return gulp.src(assets.vendors)
-    .pipe(gulp.dest(`${resultPath}vendor`));
+  return gulp.src(ASSETS.vendors)
+    .pipe(gulp.dest(`${RESULT_PATH}vendor`));
 });
 
 gulp.task('vendor:prod', () => {
-  return gulp.src(assets.vendors)
-    .pipe(gulp.dest(`${resultPath}vendor`));
+  return gulp.src(ASSETS.vendors)
+    .pipe(gulp.dest(`${RESULT_PATH}vendor`));
 });
 
 gulp.task('scss-lint', () => {
-  return gulp.src(watch.sass)
+  return gulp.src(WATCH.sass)
     .pipe(scsslint());
 });
 
 gulp.task('sass', ['scss-lint'], () => {
-  return gulp.src(assets.sass)
+  return gulp.src(ASSETS.sass)
     .pipe(sourcemaps.init())
     .pipe(sass({
       style: 'expanded',
@@ -97,11 +97,11 @@ gulp.task('sass', ['scss-lint'], () => {
     }))
     .pipe(autoprefixer())
     .pipe(sourcemaps.write())
-    .pipe(gulp.dest(`${resultPath}css`));
+    .pipe(gulp.dest(`${RESULT_PATH}css`));
 });
 
 gulp.task('sass:prod', () => {
-  return gulp.src(assets.sass)
+  return gulp.src(ASSETS.sass)
     .pipe(sass({
       style: 'compressed',
       errLogToConsole: true
@@ -111,31 +111,31 @@ gulp.task('sass:prod', () => {
     }))
     .pipe(autoprefixer())
     .pipe(minifyCSS({keepSpecialComments: 0}))
-    .pipe(header(license, {pkg}))
-    .pipe(gulp.dest(`${resultPath}css`));
+    .pipe(header(LICENSE, {pkg}))
+    .pipe(gulp.dest(`${RESULT_PATH}css`));
 });
 
 gulp.task('js', () => {
-  return gulp.src(assets.javascripts)
+  return gulp.src(ASSETS.javascripts)
     .pipe(eslint({'configFile': './.eslint.yml'}))
     .pipe(eslint.format())
-    .pipe(babel({comments: false}))
-    .pipe(gulp.dest(`${resultPath}js`));
+    .pipe(babel({blacklist: ['useStrict'], comments: false, modules: 'amd'}))
+    .pipe(gulp.dest(`${RESULT_PATH}js`));
 });
 
 gulp.task('js:prod', () => {
-  return gulp.src(assets.javascripts)
-    .pipe(babel({comments: false}))
+  return gulp.src(ASSETS.javascripts)
+    .pipe(babel({blacklist: ['useStrict'], comments: false, modules: 'amd'}))
     .pipe(concat('app.min.js'))
     .pipe(uglify())
-    .pipe(header(license, {pkg}))
-    .pipe(gulp.dest(`${resultPath}js`));
+    .pipe(header(LICENSE, {pkg}))
+    .pipe(gulp.dest(`${RESULT_PATH}js`));
 });
 
 gulp.task('watch', () => {
-  gulp.watch(assets.javascripts, ['javascript']);
-  gulp.watch(watch.sass, ['sass']);
-  gulp.watch(assets.images, ['images']);
+  gulp.watch(ASSETS.javascripts, ['js']);
+  gulp.watch(WATCH.sass, ['sass']);
+  gulp.watch(ASSETS.images, ['images']);
 });
 
 gulp.task('default', ['clean', 'vendor', 'js', 'sass', 'images']);
