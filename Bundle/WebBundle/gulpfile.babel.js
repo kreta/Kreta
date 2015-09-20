@@ -1,7 +1,7 @@
 /*
  * This file belongs to Kreta.
  * The source code of application includes a LICENSE file
- * with all information about LICENSE.
+ * with all information about license.
  *
  * @author benatespina <benatespina@gmail.com>
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
@@ -40,7 +40,7 @@ const BASE_PATH = `./../../../..${fromVendorPath}web/bundles/kretaweb/`,
  * @author  <%= pkg.authors[0].name %> (<%= pkg.authors[0].homepage %>)
  * @author  <%= pkg.authors[1].name %> (<%= pkg.authors[1].homepage %>)
  *
- * @LICENSE <%= pkg.LICENSE %>
+ * @license <%= pkg.LICENSE %>
  */
 
 `],
