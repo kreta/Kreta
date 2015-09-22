@@ -11,6 +11,10 @@ export class ModalRegion extends Backbone.Marionette.Region {
   constructor(options) {
     this.el = '.modal-region';
 
+    this.events = {
+      'keyup': 'onKeyUp'
+    };
+
     super(options);
 
     this.listenTo(App.vent, 'modal:close', this.closeModal());
@@ -21,19 +25,21 @@ export class ModalRegion extends Backbone.Marionette.Region {
     this.listenTo(view, 'modal:close', this.closeModal);
     this.$el.addClass('visible');
 
-    Mousetrap.bind('esc', () => {
-      this.closeModal();
-    });
     $('.modal-overlay').click(() => {
       this.closeModal();
     });
+  }
+
+  onKeyUp(ev) {
+    if (ev.which === 27) { // Esc
+      this.closeModal();
+    }
   }
 
   closeModal() {
     this.$el.removeClass('visible');
     $('.modal-overlay').removeClass('visible');
     this.stopListening();
-    Mousetrap.unbind('esc');
     this.empty();
   }
 }
