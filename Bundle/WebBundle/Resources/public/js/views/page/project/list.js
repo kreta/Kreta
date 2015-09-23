@@ -13,7 +13,7 @@ export class ProjectListView extends Backbone.Marionette.CompositeView {
   constructor(options) {
     this.template = '#project-list-template';
     this.childView = ProjectPreviewView;
-    this.childViewContainer = '.project-preview-list';
+    this.childViewContainer = '.project-preview__list';
     this.collection = options.collection;
     this.childEvents = {
       'project:selected': () => {
@@ -21,10 +21,13 @@ export class ProjectListView extends Backbone.Marionette.CompositeView {
       }
     };
     this.events = {
-      'keyup': 'onKeyUp'
+      'keyup': 'onKeyUp',
+      'mouseenter @ui.projectPreview': 'onMouseEnter'
     };
     this.ui = {
-      'project': '.project-preview-list'
+      'project': '.project-preview__list',
+      'projectPreview': '.project-preview',
+      'filter': '.project-list__filter'
     };
     this.selectedItem = 0;
 
@@ -34,6 +37,7 @@ export class ProjectListView extends Backbone.Marionette.CompositeView {
   onRender() {
     setTimeout(() => {
       this.focusSelectedItem();
+      this.ui.filter.focus();
     }, 100);
   }
 
@@ -42,6 +46,7 @@ export class ProjectListView extends Backbone.Marionette.CompositeView {
       if (this.selectedItem + 1 < this.ui.project.children().length) {
         this.selectedItem++;
         this.focusSelectedItem();
+        this.centerListScroll();
 
         return false;
       }
@@ -50,13 +55,28 @@ export class ProjectListView extends Backbone.Marionette.CompositeView {
       if (this.selectedItem > 0) {
         this.selectedItem--;
         this.focusSelectedItem();
+        this.centerListScroll();
 
         return false;
       }
+    } else {
+      // Delegate event handling to selected view
+      this.children.findByIndex(this.selectedItem).onKeyUp(ev);
     }
   }
 
+  onMouseEnter(ev) {
+    this.selectedItem = $(ev.currentTarget).index();
+    this.focusSelectedItem();
+  }
+
   focusSelectedItem() {
-    this.ui.project.children().eq(this.selectedItem).focus();
+    this.ui.project.children().removeClass('project-preview--selected');
+    this.ui.project.children().eq(this.selectedItem)
+      .addClass('project-preview--selected');
+  }
+
+  centerListScroll() {
+    this.ui.project.scrollTop(this.selectedItem * 60 - 60 * 2);
   }
 }

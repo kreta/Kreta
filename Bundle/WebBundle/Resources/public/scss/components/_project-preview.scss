@@ -1,4 +1,4 @@
-.project-preview-list {
+.project-preview__list {
   max-height: 300px;
   overflow-y: scroll;
 }
@@ -8,32 +8,19 @@
   display: flex;
   padding: 1em;
   position: relative;
-
-  &:focus {
-    background: $main-green;
-    outline: 0;
-
-    .project-preview-title {
-      color: $white;
-    }
-
-    .project-preview-shortcuts {
-      opacity: 1;
-    }
-  }
 }
 
-.project-preview-title {
+.project-preview__title {
   color: $main-black;
   font-size: 1.1em;
   flex: 1;
 }
 
-.project-preview-shortcuts {
+.project-preview__shortcuts {
   opacity: 0;
 }
 
-.project-preview-shortcut {
+.project-preview__shortcut {
   fill: $white;
   margin: 0 .5em;
   transition-duration: .2s;
@@ -42,6 +29,19 @@
   opacity: .3;
 
   &.selected {
+    opacity: 1;
+  }
+}
+
+.project-preview--selected {
+  background: $main-green;
+  outline: 0;
+
+  .project-preview__title {
+    color: $white;
+  }
+
+  .project-preview__shortcuts {
     opacity: 1;
   }
 }

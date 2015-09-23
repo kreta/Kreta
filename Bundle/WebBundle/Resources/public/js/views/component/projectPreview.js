@@ -15,11 +15,11 @@ export class ProjectPreviewView extends Backbone.Marionette.ItemView {
     this.events = {
       'keyup': 'onKeyUp',
       'mouseenter': 'onHover',
-      'mouseenter .project-preview-shortcut': 'onShortcutHover',
-      'click .project-preview-shortcut': 'onShortcutClick'
+      'mouseenter .project-preview__shortcut': 'onShortcutHover',
+      'click .project-preview__shortcut': 'onShortcutClick'
     };
     this.ui = {
-      'shortcuts': '.project-preview-shortcut'
+      'shortcuts': '.project-preview__shortcut'
     };
     this.shortcuts = [{
       'icon': 'list',
@@ -64,11 +64,11 @@ export class ProjectPreviewView extends Backbone.Marionette.ItemView {
     }
     case 13: { // Enter
       this.shortcuts[this.selectedShortcut].method();
+      return false;
+    }
+    default: {
+      return true;
     }}
-  }
-
-  onHover() {
-    this.$el.focus();
   }
 
   onShortcutHover(ev) {
