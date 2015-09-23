@@ -7,7 +7,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-export class SelectorView extends Backbone.View {
+export class SelectorView {
   constructor($el, options) {
     this.$el = $el;
 
@@ -18,8 +18,6 @@ export class SelectorView extends Backbone.View {
     this.$el.select2();
     this.$el.on('change', options.onSelect);
     this.openOnFocus();
-
-    super(options);
   }
 
   setSelectables(selectables) {
@@ -37,10 +35,8 @@ export class SelectorView extends Backbone.View {
   }
 
   openOnFocus() {
-    setTimeout(() => {
-      this.$el.next('.select2').find('.select2-selection').on('focus', () => {
-        this.$el.select2('open');
-      });
+    this.$el.next('.select2').find('.select2-selection').on('focus', () => {
+      this.$el.select2('open');
     });
   }
 
