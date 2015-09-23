@@ -11,7 +11,7 @@ import {UserSelectorItemView} from './user-selector-item';
 import {UserInviteView} from '../page/user/invite';
 
 export class UserSelectorView extends Backbone.Marionette.CompositeView {
-  initialize(options) {
+  initialize(options = {}) {
     this.template = '#user-selector-template';
     this.childView = UserSelectorItemView;
     this.childViewContainer = '.user-selector-users';
@@ -26,7 +26,7 @@ export class UserSelectorView extends Backbone.Marionette.CompositeView {
     this.events = {
       'click @ui.invite': 'showInvitationForm',
       'click @ui.search': 'showSearchForm',
-      'scroll': 'relocateFixedFooter',
+      'scroll': 'relocateFixedFooter'
     };
   }
 

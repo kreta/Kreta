@@ -51,8 +51,7 @@ export class ProjectPreviewView extends Backbone.Marionette.ItemView {
 
   onKeyUp(ev) {
     switch (ev.which) {
-      case 37:
-      { // Left
+      case 37: { // Left
         if (this.selectedShortcut > 0) {
           this.selectedShortcut--;
           this.updateSelectedShortcut();
@@ -60,8 +59,7 @@ export class ProjectPreviewView extends Backbone.Marionette.ItemView {
         }
         break;
       }
-      case 39:
-      { // Right
+      case 39: { // Right
         if (this.selectedShortcut + 1 < this.shortcuts.length) {
           this.selectedShortcut++;
           this.updateSelectedShortcut();
@@ -69,13 +67,11 @@ export class ProjectPreviewView extends Backbone.Marionette.ItemView {
         }
         break;
       }
-      case 13:
-      { // Enter
+      case 13: { // Enter
         this.shortcuts[this.selectedShortcut].method();
         return false;
       }
-      default:
-      {
+      default: {
         return true;
       }
     }

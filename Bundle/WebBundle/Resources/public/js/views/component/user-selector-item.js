@@ -11,7 +11,7 @@ import {Config} from '../../config';
 import {NotificationService} from '../../service/notification';
 
 export class UserSelectorItemView extends Backbone.Marionette.ItemView {
-  initialize(options) {
+  initialize(options = {}) {
     this.template = '#user-selector-item-template';
     this.ui = {
       'addButton': '.project-settings-participant-add'
