@@ -18,7 +18,7 @@ export class ProjectCollection extends Backbone.Collection {
     super();
   }
 
-  filterByName(name) {
+  filter(name) {
     var filtered = [];
     this.models.forEach((model) => {
       if (model.get('name').indexOf(name) > -1) {
