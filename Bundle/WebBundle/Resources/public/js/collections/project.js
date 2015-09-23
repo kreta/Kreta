@@ -11,11 +11,15 @@ import {Config} from '../config';
 import {Project} from '../models/project';
 
 export class ProjectCollection extends Backbone.Collection {
-  constructor() {
-    this.model = Project;
-    this.url = `${Config.baseUrl}/projects`;
+  constructor(models, options = {}) {
+    _.defaults(options, {
+      model: Project
+    });
+    super(models, options);
+  }
 
-    super();
+  url() {
+    return `${Config.baseUrl}/projects`;
   }
 
   filter(name) {

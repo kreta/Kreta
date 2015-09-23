@@ -8,16 +8,16 @@
  */
 
 export class FilterView extends Backbone.View {
-  constructor(filters) {
+  constructor(options = {}) {
+    super({
+      events: {
+        'click .filter-item': 'filterClicked'
+      }
+    });
+
     this.template = _.template($('#filter-template').html());
-    this.filters = filters;
-
+    this.filters = options;
     this.callbacks = [];
-    this.events = {
-      'click .filter-item': 'filterClicked'
-    };
-
-    super();
   }
 
   render() {

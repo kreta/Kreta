@@ -12,20 +12,23 @@ import {FormSerializerService} from '../../../service/form-serializer';
 import {NotificationService} from '../../../service/notification';
 
 export class UserInviteView extends Backbone.Marionette.ItemView {
-  constructor(options) {
-    this.className = 'user-invite';
-    this.template = _.template($('#user-invite-template').html());
-    this.events = {
-      'click @ui.close': 'modalClose',
-      'submit @ui.form': 'save'
-    };
+  constructor(options = {}) {
+    _.defaults(options, {
+      className: 'user-invite',
+      template: _.template($('#user-invite-template').html()),
+      events: {
+        'click @ui.close': 'modalClose',
+        'submit @ui.form': 'save'
+      }
+    });
+    super(options);
+  }
 
-    this.ui = {
+  ui() {
+    return {
       'close': '.modal-close',
       'form': '#user-invite-form'
     };
-
-    super(options);
   }
 
   save(ev) {
@@ -33,12 +36,12 @@ export class UserInviteView extends Backbone.Marionette.ItemView {
 
     $.post(`${Config.baseUrl}/users`,
       FormSerializerService.serialize(this.ui.form), () => {
-      this.modalClose();
-      NotificationService.showNotification({
-        type: 'success',
-        message: 'User invited to Kreta successfully'
+        this.modalClose();
+        NotificationService.showNotification({
+          type: 'success',
+          message: 'User invited to Kreta successfully'
+        });
       });
-    });
 
     return false;
   }

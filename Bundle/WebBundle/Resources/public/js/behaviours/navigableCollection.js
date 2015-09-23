@@ -7,33 +7,36 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-/*
+/**
  * This behavior allows to make any CompositeView navigable using keyboard
  * and mouse.
  * The following options need to be added in order to make it work:
  *     - originalCollection: The collection that will be used to show filtered
  *                          results. It must implement filter(name) method.
  *     - childViewEl: Selector that points to the childView elements. It's
- *                    required to trigger the mouseenter event.
+ *                    required to trigger the "mouse enter" event.
  *     - childHighlightClass: The class that will be added to the childView
  *                            to style the highlight status
  */
 export class NavigableCollectionBehavior extends Backbone.Marionette.Behavior {
   constructor(options, view) {
-    this.selectedItem = 0;
-
-    this.events = {
-      'keyup': 'onKeyUp',
-      'mouseenter @ui.childViewEl': 'onMouseEnter'
-    };
-
-    this.ui = {
-      filter: 'input',
-      childView: view.childViewContainer,
-      childViewEl: options.childViewEl
-    };
-
+    _.defaults(options, {
+      events: {
+        'keyup': 'onKeyUp',
+        'mouseenter @ui.childViewEl': 'onMouseEnter'
+      }
+    });
     super(options, view);
+
+    this.selectedItem = 0;
+  }
+
+  ui() {
+    return {
+      filter: 'input',
+      childView: this.view.childViewContainer,
+      childViewEl: this.options.childViewEl
+    };
   }
 
   onRender() {
@@ -63,8 +66,7 @@ export class NavigableCollectionBehavior extends Backbone.Marionette.Behavior {
       }
     } else {
       // Delegate keyUp event handling to selected view if selected
-      if (this.view.children.length > 0 &&
-        !this.view.children.findByIndex(this.selectedItem).onKeyUp(ev)) {
+      if (this.view.children.length > 0 && !this.view.children.findByIndex(this.selectedItem).onKeyUp(ev)) {
         return false;
       }
 

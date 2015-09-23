@@ -13,7 +13,7 @@ import {NavigableCollectionBehavior}
   from '../../../behaviours/navigableCollection';
 
 export class ProjectListView extends Backbone.Marionette.CompositeView {
-  constructor(options) {
+  initialize() {
     this.template = '#project-list-template';
     this.childView = ProjectPreviewView;
     this.childViewContainer = '.project-preview__list';
@@ -33,7 +33,5 @@ export class ProjectListView extends Backbone.Marionette.CompositeView {
         childHighlightClass: 'project-preview--selected'
       }
     };
-
-    super(options);
   }
 }

@@ -15,24 +15,27 @@ import {FormSerializerService} from '../../../service/form-serializer';
 import {NotificationService} from '../../../service/notification';
 
 export class ProjectSettingsView extends Backbone.Marionette.ItemView {
-  constructor(options) {
-    this.template = '#project-settings-template';
-
-    this.ui = {
-      'addPeople': '#project-settings-add-people'
-    };
-
-    this.events = {
-      'submit #project-edit': 'save',
-      'click @ui.addPeople': 'addUser'
-    };
-
+  constructor(options = {}) {
+    _.defaults(options, {
+      className: `notification ${options.model.type}`,
+      template: '#project-settings-template',
+      events: {
+        'submit #project-edit': 'save',
+        'click @ui.addPeople': 'addUser'
+      }
+    });
     super(options);
 
     this.listenTo(this.model, 'sync', this.render);
     this.listenTo(App.vent, 'participant:added', () => {
       this.model.fetch();
     });
+  }
+
+  ui() {
+    return {
+      'addPeople': '#project-settings-add-people'
+    };
   }
 
   save(ev) {

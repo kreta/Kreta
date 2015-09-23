@@ -12,14 +12,15 @@ import {FormSerializerService} from '../../../service/form-serializer';
 import {NotificationService} from '../../../service/notification';
 
 export class ProjectNewView extends Backbone.View {
-  constructor() {
-    this.className = 'project-new';
-    this.template = _.template($('#project-new-template').html());
-    this.events = {
-      'submit #project-new': 'save'
-    };
-
-    super();
+  constructor(options = {}) {
+    _.defaults(options, {
+      className: 'project-new',
+      template: _.template($('#project-new-template').html()),
+      events: {
+        'submit #project-new': 'save'
+      }
+    });
+    super(options);
 
     this.render();
   }

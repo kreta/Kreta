@@ -27,6 +27,7 @@
   ],
   "main": "gulpfile.js",
   "devDependencies": {
+    "babel-core": "^5.8.25",
     "bower": "^1.5.2",
     "del": "^2.0.2",
     "gulp": "^3.9.0",

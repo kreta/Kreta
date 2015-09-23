@@ -18,10 +18,6 @@ export class IssueListView extends Backbone.Marionette.CompositeView {
     this.events = {
       'click #project-settings-show': 'showSettings'
     };
-    this.ui = {
-      issues: '.issues',
-      filter: '.filter'
-    };
     this.filters = [];
     this.highlightIndex = -1;
 
@@ -30,6 +26,13 @@ export class IssueListView extends Backbone.Marionette.CompositeView {
 
     this.model.on('sync', $.proxy(this.render, this));
     this.model.on('change', $.proxy(this.render, this));
+  }
+
+  ui() {
+    return {
+      issues: '.issues',
+      filter: '.filter'
+    };
   }
 
   onRender() {

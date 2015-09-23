@@ -11,10 +11,14 @@ import {Config} from '../config';
 import {User} from '../models/user';
 
 export class UserCollection extends Backbone.Collection {
-  constructor(models, options) {
-    this.url = `${Config.baseUrl}/users`;
-    this.model = User;
-
+  constructor(models, options = {}) {
+    _.defaults(options, {
+      model: User
+    });
     super(models, options);
+  }
+
+  url() {
+    return `${Config.baseUrl}/users`;
   }
 }

@@ -11,11 +11,15 @@ import {Config} from '../config';
 import {Issue} from '../models/issue';
 
 export class IssueCollection extends Backbone.Collection {
-  constructor(models, options) {
-    this.model = Issue;
-    this.url = `${Config.baseUrl}/issues`;
-
+  constructor(models, options = {}) {
+    _.defaults(options, {
+      model: Issue
+    });
     super(models, options);
+  }
+
+  url() {
+    return `${Config.baseUrl}/issues`;
   }
 
   findIndexById(issueId) {

@@ -8,19 +8,20 @@
  */
 
 export class ProjectPreviewView extends Backbone.Marionette.ItemView {
-  constructor(options) {
-    this.className = 'project-preview';
-    this.tagName = 'li';
-    this.template = _.template($('#project-preview-template').html());
-    this.events = {
-      'keyup': 'onKeyUp',
-      'mouseenter': 'onHover',
-      'mouseenter .project-preview__shortcut': 'onShortcutHover',
-      'click .project-preview__shortcut': 'onShortcutClick'
-    };
-    this.ui = {
-      'shortcuts': '.project-preview__shortcut'
-    };
+  constructor(options = {}) {
+    _.defaults(options, {
+      className: 'project-preview',
+      tagName: 'li',
+      template: _.template($('#project-preview-template').html()),
+      events: {
+        'keyup': 'onKeyUp',
+        'mouseenter': 'onHover',
+        'mouseenter .project-preview__shortcut': 'onShortcutHover',
+        'click .project-preview__shortcut': 'onShortcutClick'
+      }
+    });
+    super(options);
+
     this.shortcuts = [{
       'icon': 'list',
       'method': $.proxy(this.showFullProject, this),
@@ -31,8 +32,12 @@ export class ProjectPreviewView extends Backbone.Marionette.ItemView {
       'tooltip': 'New task'
     }];
     this.selectedShortcut = 0;
+  }
 
-    super(options);
+  ui() {
+    return {
+      'shortcuts': '.project-preview__shortcut'
+    };
   }
 
   onBeforeRender() {
@@ -46,29 +51,34 @@ export class ProjectPreviewView extends Backbone.Marionette.ItemView {
 
   onKeyUp(ev) {
     switch (ev.which) {
-    case 37: { // Left
-      if (this.selectedShortcut > 0) {
-        this.selectedShortcut--;
-        this.updateSelectedShortcut();
+      case 37:
+      { // Left
+        if (this.selectedShortcut > 0) {
+          this.selectedShortcut--;
+          this.updateSelectedShortcut();
+          return false;
+        }
+        break;
+      }
+      case 39:
+      { // Right
+        if (this.selectedShortcut + 1 < this.shortcuts.length) {
+          this.selectedShortcut++;
+          this.updateSelectedShortcut();
+          return false;
+        }
+        break;
+      }
+      case 13:
+      { // Enter
+        this.shortcuts[this.selectedShortcut].method();
         return false;
       }
-      break;
-    }
-    case 39: { // Right
-      if (this.selectedShortcut + 1 < this.shortcuts.length) {
-        this.selectedShortcut++;
-        this.updateSelectedShortcut();
-        return false;
+      default:
+      {
+        return true;
       }
-      break;
     }
-    case 13: { // Enter
-      this.shortcuts[this.selectedShortcut].method();
-      return false;
-    }
-    default: {
-      return true;
-    }}
   }
 
   onShortcutHover(ev) {

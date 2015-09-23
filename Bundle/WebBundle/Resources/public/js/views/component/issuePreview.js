@@ -8,15 +8,14 @@
  */
 
 export class IssuePreviewView extends Backbone.Marionette.ItemView {
-  constructor(options) {
-    this.className = 'list-issue';
-
-    this.template = _.template($('#list-issue-template').html());
-
-    this.events = {
-      'click .list-issue-title': 'showFullIssue'
-    };
-
+  constructor(options = {}) {
+    _.defaults(options, {
+      className: 'list-issue',
+      template: _.template($('#list-issue-template').html()),
+      events: {
+        'click .list-issue-title': 'showFullIssue'
+      }
+    });
     super(options);
 
     this.listenTo(App.vent, 'issue:highlight', (issueId) => {

@@ -8,13 +8,13 @@
  */
 
 export class ModalRegion extends Backbone.Marionette.Region {
-  constructor(options) {
-    this.el = '.modal-region';
-
-    this.events = {
-      'keyup': 'onKeyUp'
-    };
-
+  constructor(options = {}) {
+    _.defaults(options, {
+      el: '.modal-region',
+      events: {
+        'keyup': 'onKeyUp'
+      }
+    });
     super(options);
 
     this.listenTo(App.vent, 'modal:close', this.closeModal());

@@ -13,23 +13,22 @@ import {NotificationService} from '../../../service/notification';
 import {Profile} from '../../../models/profile';
 
 export class UserEditView extends Backbone.Marionette.ItemView {
-  constructor(options) {
+  initialize() {
     this.className = 'user-edit';
     this.template = _.template($('#user-edit-template').html());
     this.events = {
       'submit @ui.form': 'save',
       'change @ui.photo': 'onPhotoChange'
     };
+    this.originalImage = this.model.get('photo').name;
+  }
 
-    this.ui = {
+  ui() {
+    return {
       'form': '#user-edit-form',
       'photo': '#photo',
       'previewImage': '#preview-image'
     };
-
-    super(options);
-
-    this.originalImage = this.model.get('photo').name;
   }
 
   onPhotoChange(ev) {

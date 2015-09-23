@@ -8,9 +8,12 @@
  */
 
 export class AsideRegion extends Backbone.Marionette.Region {
-  constructor(options) {
-    this.position = options.position;
-    this.el = `.${this.position}-aside`;
+  constructor(options = {}) {
+    _.defaults(options, {
+      position: options.position,
+      el: `.${options.position}-aside`
+    });
+    super(options);
 
     App.vent.bind('aside:before-open', () => {
       this.hide();
@@ -18,8 +21,6 @@ export class AsideRegion extends Backbone.Marionette.Region {
     App.vent.bind('main:full-screen', () => {
       this.hide();
     });
-
-    super(options);
   }
 
   onShow() {
