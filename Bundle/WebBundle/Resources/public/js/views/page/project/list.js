@@ -8,13 +8,15 @@
  */
 
 import {ProjectPreviewView} from '../../component/projectPreview';
+import {ProjectCollection} from '../../../collections/project';
 
 export class ProjectListView extends Backbone.Marionette.CompositeView {
   constructor(options) {
     this.template = '#project-list-template';
     this.childView = ProjectPreviewView;
     this.childViewContainer = '.project-preview__list';
-    this.collection = options.collection;
+    this.collection = new ProjectCollection();
+    this.collection.reset(App.collection.project.toJSON());
     this.childEvents = {
       'project:selected': () => {
         App.layout.getRegion('modal').closeModal();
@@ -61,7 +63,16 @@ export class ProjectListView extends Backbone.Marionette.CompositeView {
       }
     } else {
       // Delegate event handling to selected view
-      this.children.findByIndex(this.selectedItem).onKeyUp(ev);
+      if (this.children.length > 0 &&
+        !this.children.findByIndex(this.selectedItem).onKeyUp(ev)) {
+        return false;
+      }
+
+      this.collection.reset(
+        App.collection.project.filterByName(this.ui.filter.val())
+      );
+      this.selectedItem = 0;
+      this.focusSelectedItem();
     }
   }
 

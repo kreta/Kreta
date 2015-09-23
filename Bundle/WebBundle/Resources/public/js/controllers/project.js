@@ -23,7 +23,7 @@ export class ProjectController extends Backbone.Marionette.Controller {
 
   listAction() {
     App.layout.getRegion('modal').show(
-      new ProjectListView({collection: App.collection.project})
+      new ProjectListView()
     );
   }
 
