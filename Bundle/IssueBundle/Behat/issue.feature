@@ -2378,6 +2378,133 @@ Feature: Manage issue
       ]
     """
 
+  Scenario: Getting all the issues filter by label=12
+    Given I am authenticating with "access-token-0" token
+    When I send a GET request to "/api/issues?label=12"
+    Then the response code should be 200
+    And the response should contain json:
+    """
+      [
+        {
+          "id": "2",
+          "assignee": {
+            "id": "0",
+            "username": "user",
+            "email": "user@kreta.com",
+            "first_name": "Kreta",
+            "last_name": "User",
+            "photo": null
+          },
+          "children": [],
+          "created_at": "2014-10-21T00:00:00+0200",
+          "description": "Description",
+          "labels": [
+            {
+              "id": "12",
+              "name": "mongodb"
+            }
+          ],
+          "numeric_id": 3,
+          "parent": null,
+          "priority": {
+            "id": "2",
+            "name": "High"
+          },
+          "resolution": null,
+          "reporter": {
+            "id": "0",
+            "username": "user",
+            "email": "user@kreta.com",
+            "first_name": "Kreta",
+            "last_name": "User",
+            "photo": null
+          },
+          "status": {
+            "type": "normal",
+            "name": "Resolved",
+            "id": "2",
+            "color": "#f1c40f"
+          },
+          "title": "Test issue 3",
+          "type": {
+            "id": "1",
+            "name": "Epic"
+          },
+          "_links": {
+            "self": {
+              "href": "http://kreta.test:8000/api/issues/2"
+            },
+            "project": {
+              "href": "http://kreta.test:8000/api/projects/0"
+            },
+            "issues": {
+              "href": "http://kreta.test:8000/api/issues"
+            }
+          }
+        },
+        {
+          "id": "5",
+          "assignee": {
+            "id": "0",
+            "username": "user",
+            "email": "user@kreta.com",
+            "first_name": "Kreta",
+            "last_name": "User",
+            "photo": null
+          },
+          "children": [],
+          "created_at": "2014-10-21T00:00:00+0200",
+          "description": "Description",
+          "labels": [
+            {
+              "id": "12",
+              "name": "mongodb"
+            }
+          ],
+          "numeric_id": 4,
+          "parent": null,
+          "priority": {
+            "id": "3",
+            "name": "Blocker"
+          },
+          "resolution": null,
+          "reporter": {
+            "id": "1",
+            "username": "user2",
+            "email": "user2@kreta.com",
+            "first_name": "Kreta",
+            "last_name": "User2",
+            "photo": {
+              "id": "2",
+              "name": "http://kreta.test:8000/media/image/user-2.jpg"
+            }
+          },
+          "status": {
+            "type": "normal",
+            "name": "Closed",
+            "id": "3",
+            "color": "#c0392b"
+          },
+          "title": "Test issue 4",
+          "type": {
+            "id": "0",
+            "name": "Bug"
+          },
+          "_links": {
+            "self": {
+              "href": "http://kreta.test:8000/api/issues/5"
+            },
+            "project": {
+              "href": "http://kreta.test:8000/api/projects/0"
+            },
+            "issues": {
+              "href": "http://kreta.test:8000/api/issues"
+            }
+          }
+        }
+      ]
+    """
+
   Scenario: Getting all the issues filter by title=issue 4
     Given I am authenticating with "access-token-0" token
     When I send a GET request to "/api/issues?q=issue 4"
@@ -3571,28 +3698,7 @@ Feature: Manage issue
         "children": [],
         "created_at": "2014-12-15T00:00:00+0100",
         "description": "The description",
-        "labels": [
-          {
-            "id": "0",
-            "name": "backbone.js"
-          },
-          {
-            "id": "2",
-            "name": "javascript"
-          },
-          {
-            "id": "3",
-            "name": "bdd"
-          },
-          {
-            "id": "6",
-            "name": "symfony"
-          },
-          {
-            "id": "8",
-            "name": "css3"
-          }
-        ],
+        "labels": [],
         "numeric_id": 1,
         "priority": {
           "id": "0",
@@ -3664,28 +3770,7 @@ Feature: Manage issue
         },
         "created_at": "2014-12-15T00:00:00+0100",
         "description": "The description",
-        "labels": [
-          {
-            "id": "0",
-            "name": "backbone.js"
-          },
-          {
-            "id": "2",
-            "name": "javascript"
-          },
-          {
-            "id": "3",
-            "name": "bdd"
-          },
-          {
-            "id": "6",
-            "name": "symfony"
-          },
-          {
-            "id": "8",
-            "name": "css3"
-          }
-        ],
+        "labels": [],
         "numeric_id": 1,
         "priority": {
           "id": "0",
@@ -3872,28 +3957,7 @@ Feature: Manage issue
         },
         "created_at": "2014-10-21T00:00:00+0200",
         "description": "The description",
-        "labels": [
-          {
-            "id": "0",
-            "name": "backbone.js"
-          },
-          {
-            "id": "11",
-            "name": "mysql"
-          },
-          {
-            "id": "12",
-            "name": "mongodb"
-          },
-          {
-            "id": "2",
-            "name": "javascript"
-          },
-          {
-            "id": "3",
-            "name": "bdd"
-          }
-        ],
+        "labels": [],
         "numeric_id": 3,
         "priority": {
           "id": "0",
@@ -3964,28 +4028,7 @@ Feature: Manage issue
         },
         "created_at": "2014-10-21T00:00:00+0200",
         "description": "The description",
-        "labels": [
-          {
-            "id": "1",
-            "name": "php"
-          },
-          {
-            "id": "10",
-            "name": "compass"
-          },
-          {
-            "id": "4",
-            "name": "behat"
-          },
-          {
-            "id": "5",
-            "name": "phpspec"
-          },
-          {
-            "id": "7",
-            "name": "html5"
-          }
-        ],
+        "labels": [],
         "numeric_id": 1,
         "priority": {
           "id": "4",
@@ -4035,7 +4078,15 @@ Feature: Manage issue
         "priority": "0",
         "description": "The description",
         "assignee": "1",
-        "project": "0"
+        "project": "0",
+        "labels": [
+          {
+            "name": "backbone"
+          },
+          {
+            "name": "javascript"
+          }
+        ]
       }
     """
     Then the response code should be 200
@@ -4064,18 +4115,6 @@ Feature: Manage issue
           {
             "id": "2",
             "name": "javascript"
-          },
-          {
-            "id": "3",
-            "name": "bdd"
-          },
-          {
-            "id": "6",
-            "name": "symfony"
-          },
-          {
-            "id": "8",
-            "name": "css3"
           }
         ],
         "numeric_id": 1,
@@ -4141,28 +4180,7 @@ Feature: Manage issue
         "children": [],
         "created_at": "2014-12-15T00:00:00+0100",
         "description": "Description",
-        "labels": [
-          {
-            "id": "0",
-            "name": "backbone.js"
-          },
-          {
-            "id": "2",
-            "name": "javascript"
-          },
-          {
-            "id": "3",
-            "name": "bdd"
-          },
-          {
-            "id": "6",
-            "name": "symfony"
-          },
-          {
-            "id": "8",
-            "name": "css3"
-          }
-        ],
+        "labels": [],
         "numeric_id": 1,
         "priority": {
           "id": "1",
