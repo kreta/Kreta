@@ -13,6 +13,7 @@ namespace spec\Kreta\Component\Issue\Form\Type;
 
 use Kreta\Component\Issue\Factory\IssueFactory;
 use Kreta\Component\Issue\Form\Type\IssueType;
+use Kreta\Component\Project\Form\Type\LabelType;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -30,11 +31,17 @@ use Symfony\Component\Security\Core\User\UserInterface;
  */
 class IssueTypeSpec extends ObjectBehavior
 {
-    function let(TokenStorageInterface $context, TokenInterface $token, UserInterface $user, IssueFactory $factory)
+    function let(
+        TokenStorageInterface $context,
+        TokenInterface $token,
+        UserInterface $user,
+        IssueFactory $factory,
+        LabelType $labelType
+    )
     {
         $context->getToken()->shouldBeCalled()->willReturn($token);
         $token->getUser()->shouldBeCalled()->willReturn($user);
-        $this->beConstructedWith('Kreta\Component\Issue\Model\Issue', $factory, $context);
+        $this->beConstructedWith('Kreta\Component\Issue\Model\Issue', $factory, $context, null, null, $labelType);
     }
 
     function it_is_initializable()

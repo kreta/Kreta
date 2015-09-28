@@ -46,5 +46,6 @@ class LabelSpec extends ObjectBehavior
     {
         $this->setName('The dummy label')->shouldReturn($this);
         $this->getName()->shouldReturn('The dummy label');
+        $this->__toString()->shouldReturn('The dummy label');
     }
 }
