@@ -192,6 +192,11 @@ class Project extends AbstractModel implements ProjectInterface
      */
     public function addLabel(LabelInterface $label)
     {
+        foreach ($this->labels as $el) {
+            if (strtolower($el->getName()) === strtolower($label->getName())) {
+                return $this;
+            }
+        }
         $this->labels[] = $label;
 
         return $this;

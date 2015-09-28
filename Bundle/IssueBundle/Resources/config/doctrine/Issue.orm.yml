@@ -33,6 +33,7 @@ Kreta\Component\Issue\Model\Issue:
     manyToMany:
         labels:
             targetEntity: Kreta\Component\Project\Model\Interfaces\LabelInterface
+            cascade: ['persist']
             joinTable:
                 name: issue_label
                 joinColumns:
