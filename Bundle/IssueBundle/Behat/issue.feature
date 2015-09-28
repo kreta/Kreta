@@ -2619,7 +2619,70 @@ Feature: Manage issue
             {
               "id": "2",
               "name": "javascript"
+            }
+          ],
+          "numeric_id": 1,
+          "parent": null,
+          "priority": {
+            "id": "1",
+            "name": "Medium"
+          },
+          "resolution": null,
+          "reporter": {
+            "id": "0",
+            "username": "user",
+            "email": "user@kreta.com",
+            "first_name": "Kreta",
+            "last_name": "User",
+            "photo": null
+          },
+          "status": {
+            "type": "normal",
+            "name": "Open",
+            "id": "0",
+            "color": "#27ae60"
+          },
+          "title": "Test issue 1",
+          "type": {
+            "id": "2",
+            "name": "New feature"
+          },
+          "_links": {
+            "self": {
+              "href": "http://kreta.test:8000/api/issues/0"
             },
+            "project": {
+              "href": "http://kreta.test:8000/api/projects/0"
+            },
+            "issues": {
+              "href": "http://kreta.test:8000/api/issues"
+            }
+          }
+        }
+      ]
+    """
+
+  Scenario: Getting all the issues with offset 2
+    Given I am authenticating with "access-token-0" token
+    When I send a GET request to "/api/issues?offset=2"
+    Then the response code should be 200
+    And the response should contain json:
+    """
+      [
+        {
+          "id": "0",
+          "assignee": {
+            "id": "0",
+            "username": "user",
+            "email": "user@kreta.com",
+            "first_name": "Kreta",
+            "last_name": "User",
+            "photo": null
+          },
+          "children": [],
+          "created_at": "2014-12-15T00:00:00+0100",
+          "description": "Description",
+          "labels": [
             {
               "id": "3",
               "name": "bdd"
@@ -2743,17 +2806,7 @@ Feature: Manage issue
               "href": "http://kreta.test:8000/api/issues"
             }
           }
-        }
-      ]
-    """
-
-  Scenario: Getting all the issues with offset 2
-    Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/api/issues?offset=2"
-    Then the response code should be 200
-    And the response should contain json:
-    """
-      [
+        },
         {
           "id": "4",
           "assignee": {
@@ -4081,7 +4134,7 @@ Feature: Manage issue
         "project": "0",
         "labels": [
           {
-            "name": "backbone"
+            "name": "backbone.js"
           },
           {
             "name": "javascript"
@@ -4180,7 +4233,28 @@ Feature: Manage issue
         "children": [],
         "created_at": "2014-12-15T00:00:00+0100",
         "description": "Description",
-        "labels": [],
+        "labels": [
+          {
+            "id": "0",
+            "name": "backbone.js"
+          },
+          {
+            "id": "2",
+            "name": "javascript"
+          },
+          {
+            "id": "3",
+            "name": "bdd"
+          },
+          {
+            "id": "6",
+            "name": "symfony"
+          },
+          {
+            "id": "8",
+            "name": "css3"
+          }
+        ],
         "numeric_id": 1,
         "priority": {
           "id": "1",
