@@ -13,14 +13,25 @@ import {NotificationService} from '../../../service/notification';
 import {FormSerializerService} from '../../../service/form-serializer';
 
 export class IssueNewView extends Backbone.Marionette.ItemView {
-  constructor(options) {
-    this.className = 'issue-new';
-    this.template = _.template($('#issue-new-template').html());
-    this.events = {
-      'submit @ui.form': 'save'
-    };
+  constructor(options = {}) {
+    _.defaults(options, {
+      className: 'issue-new',
+      template: _.template($('#issue-new-template').html()),
+      events: {
+        'submit @ui.form': 'save'
+      }
+    });
+    super(options);
 
-    this.ui = {
+    // Bad practise need to find a better way, templateHelpers???
+    this.model.set('selectableProjects', App.collection.project.models);
+    this.onProjectSelected(this.model.get('project'));
+
+    this.listenTo(this.model.get('project'), 'change', this.updateSelectors);
+  }
+
+  ui() {
+    return {
       form: '#issue-new',
       project: 'select[name="project"]',
       title: 'input[name="title"]',
@@ -30,14 +41,6 @@ export class IssueNewView extends Backbone.Marionette.ItemView {
       issueDetails: '.issue-new-details',
       actions: '.issue-new-actions'
     };
-
-    super(options);
-
-    // Bad practise need to find a better way, templateHelpers???
-    this.model.set('selectableProjects', App.collection.project.models);
-    this.onProjectSelected(this.model.get('project'));
-
-    this.listenTo(this.model.get('project'), 'change', this.updateSelectors);
   }
 
   onRender() {

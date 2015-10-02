@@ -10,10 +10,10 @@
 import {Config} from '../config';
 
 export class Profile extends Backbone.Model {
-  constructor(attributes, options) {
-    this.fileAttribute = 'photo';
-
+  constructor(attributes, options = {}) {
     super(attributes, options);
+
+    this.fileAttribute = 'photo';
   }
 
   urlRoot() {

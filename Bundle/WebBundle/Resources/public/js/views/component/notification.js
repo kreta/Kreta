@@ -8,13 +8,14 @@
  */
 
 export class NotificationView extends Backbone.Marionette.ItemView {
-  constructor(options) {
-    this.className = `notification ${options.model.type}`;
-    this.template = '#notification-template';
-    this.events = {
-      'click .notification-hide': 'hide'
-    };
-
+  constructor(options = {}) {
+    _.defaults(options, {
+      className: `notification ${options.model.type}`,
+      template: '#notification-template',
+      events: {
+        'click .notification-hide': 'hide'
+      }
+    });
     super(options);
   }
 

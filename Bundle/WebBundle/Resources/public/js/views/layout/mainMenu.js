@@ -8,25 +8,20 @@
  */
 
 export class HeaderView extends Backbone.View {
-  constructor() {
-    this.setElement($('.menu'));
-
-    this.$userInfo = this.$el.find('.menu-user');
-
+  constructor(options = {}) {
+    _.defaults(options, {
+      el: '.menu',
+      events: {
+        'click .menu-action.projects': 'showProjectList'
+      }
+    });
+    super(options);
+    this.$userInfo = $('.menu-user');
     this.userInfoTemplate = _.template($('#kreta-menu-user-template').html());
-
     this.listenTo(App.currentUser, 'change', this.render);
-
-    this.events = {
-      'click .menu-action.projects': 'showProjectList'
-    };
-
     Mousetrap.bind('p', () => {
       App.controller.project.listAction();
     });
-
-    super();
-
     this.render();
   }
 

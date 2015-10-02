@@ -29,6 +29,8 @@ rules:
     indent:
         - 2
         - 2
+        -
+            SwitchCase: 1
     quotes:
         - 2
         - single
@@ -253,6 +255,7 @@ rules:
     no-class-assign: 2
     no-const-assign: 2
     no-dupe-class-members: 2
+    no-this-before-super: 0
     object-shorthand:
         - 2
         - always

@@ -11,9 +11,10 @@ import {Config} from '../config';
 import {IssuePriority} from '../models/issue-priority';
 
 export class IssuePriorityCollection extends Backbone.Collection {
-  constructor(models, options) {
-    this.model = IssuePriority;
-
+  constructor(models, options = {}) {
+    _.defaults(options, {
+      model: IssuePriority
+    });
     super(models, options);
   }
 

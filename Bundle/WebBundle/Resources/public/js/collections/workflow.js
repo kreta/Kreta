@@ -11,10 +11,14 @@ import {Config} from '../config';
 import {Workflow} from '../models/workflow';
 
 export class WorkflowCollection extends Backbone.Collection {
-  constructor(models, options) {
-    this.url = `${Config.baseUrl}/workflows`;
-    this.model = Workflow;
-
+  constructor(models, options = {}) {
+    _.defaults(options, {
+      model: Workflow
+    });
     super(models, options);
+  }
+
+  url() {
+    return `${Config.baseUrl}/workflows`;
   }
 }

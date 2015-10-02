@@ -8,8 +8,10 @@
  */
 
 export class MainContentRegion extends Backbone.Marionette.Region {
-  constructor(options) {
-    this.el = '.kreta-content-container';
+  constructor(options = {}) {
+    _.defaults(options, {
+      el: '.kreta-content-container'
+    });
 
     App.vent.on('left-aside:after-open', () => {
       this.leftOpened();

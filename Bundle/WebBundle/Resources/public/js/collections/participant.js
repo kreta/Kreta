@@ -11,13 +11,14 @@ import {Config} from '../config';
 import {Participant} from '../models/participant';
 
 export class ParticipantCollection extends Backbone.Collection {
-  constructor (models, options) {
-    this.model = Participant;
-
+  constructor(models, options = {}) {
+    _.defaults(options, {
+      model: Participant
+    });
     super(models, options);
   }
 
-  setProject (projectId) {
+  setProject(projectId) {
     this.url = `${Config.baseUrl}/projects/${projectId}/participants`;
 
     return this;

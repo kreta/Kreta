@@ -11,9 +11,10 @@ import {Config} from '../config';
 import {IssueType} from '../models/issue-type';
 
 export class IssueTypeCollection extends Backbone.Collection {
-  constructor(models, options) {
-    this.model = IssueType;
-
+  constructor(models, options = {}) {
+    _.defaults(options, {
+      model: IssueType
+    });
     super(models, options);
   }
 

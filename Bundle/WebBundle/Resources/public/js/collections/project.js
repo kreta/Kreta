@@ -11,14 +11,18 @@ import {Config} from '../config';
 import {Project} from '../models/project';
 
 export class ProjectCollection extends Backbone.Collection {
-  constructor() {
-    this.model = Project;
-    this.url = `${Config.baseUrl}/projects`;
-
-    super();
+  constructor(models, options = {}) {
+    _.defaults(options, {
+      model: Project
+    });
+    super(models, options);
   }
 
-  filterByName(name) {
+  url() {
+    return `${Config.baseUrl}/projects`;
+  }
+
+  filter(name) {
     var filtered = [];
     this.models.forEach((model) => {
       if (model.get('name').indexOf(name) > -1) {
