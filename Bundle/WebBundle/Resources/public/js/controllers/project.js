@@ -8,7 +8,7 @@
  */
 
 import {IssueListView} from '../views/page/project/issueList';
-import {ProjectListView} from '../views/page/project/list';
+import {ProjectList} from '../views/page/project/list';
 import {ProjectNewView} from '../views/page/project/new';
 import {ProjectSettingsView} from '../views/page/project/settings';
 
@@ -23,7 +23,7 @@ export class ProjectController extends Backbone.Marionette.Controller {
 
   listAction() {
     App.layout.getRegion('modal').show(
-      new ProjectListView()
+      React.render('<ProjectList>')
     );
   }
 

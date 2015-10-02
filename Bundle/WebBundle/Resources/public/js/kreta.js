@@ -7,25 +7,31 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-import {TooltipView} from './views/component/tooltip';
+
+//import {TooltipView} from 'views/component/tooltip';
 import {App} from './app';
+import {BaseLayout} from './views/layout/base.js';
+import {ProjectShow} from './views/page/project/issueList.js';
+import {ProjectSettings} from './views/page/project/settings.js';
+import {ProjectSettings} from './views/page/user/edit.js';
 
 $(() => {
   window.App = new App({
     onLoad: () => {
-      window.App.loadLayout();
-      new TooltipView();
-      Backbone.history.start({pushState: true});
-    }
-  });
+      //new TooltipView();
+      window.React = React;
 
-  $(document).on('click', 'a:not([data-bypass])', function (evt) {
-    var href = $(this).attr('href'),
-      protocol = `${this.protocol}//`;
-
-    if (href && href.slice(protocol.length) !== protocol) {
-      evt.preventDefault();
-      window.App.router.base.navigate(href, true);
+      React.render(
+        <Router>
+          <Route path="/" component={BaseLayout}>
+            /*<Route path="issue/new" component={IssueNew}/>*/
+            <Route path="project/:projectId" component={ProjectShow}/>
+            <Route path="project/:projectId/settings" component={ProjectSettings}/>
+            <Route path="profile" component={Profile}/>
+          </Router>
+        </Router>
+        , document.getElementById('app')
+      );
     }
   });
 });

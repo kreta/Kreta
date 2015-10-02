@@ -10,42 +10,28 @@
 import {FilterView} from '../../component/filter';
 import {IssuePreviewView} from '../../component/issuePreview';
 
-export class IssueListView extends Backbone.Marionette.CompositeView {
-  initialize() {
-    this.template = '#project-issues-template';
-    this.childView = IssuePreviewView;
-    this.childViewContainer = '.issues';
-    this.events = {
-      'click #project-settings-show': 'showSettings'
-    };
-    this.filters = [];
-    this.highlightIndex = -1;
+export default React.createClass({
+  willRecieveProps() {
 
-    Mousetrap.bind('j', $.proxy(this.highlightPrevious, this));
-    Mousetrap.bind('k', $.proxy(this.highlightNext, this));
+  },
+  componentWillMount() {
+    this.props.project.on('sync', this.render);
+    this.props.project.on('change', this.render);
+  },
+  filterIssues(filters) {
+    var data = {project: this.props.project.id};
 
-    this.model.on('sync', $.proxy(this.render, this));
-    this.model.on('change', $.proxy(this.render, this));
-  }
-
-  ui() {
-    return {
-      issues: '.issues',
-      filter: '.filter'
-    };
-  }
-
-  onRender() {
-    this.loadFilters();
-
-    this.filterView = new FilterView(this.filters);
-    this.filterView.onFilterClicked((filter) => {
-      this.filterIssues(filter);
+    filters.forEach((filter) => {
+      filter.forEach((item) => {
+        if (item.selected) {
+          data[item.filter] = item.value;
+        }
+      });
     });
 
-    this.ui.filter.html(this.filterView.render().el);
-  }
-
+    this.setState({fetchingIssues: true});
+    this.collection.fetch({data, reset: true});
+  },
   loadFilters() {
     var assigneeFilters = [{
         title: 'All',
@@ -98,55 +84,31 @@ export class IssueListView extends Backbone.Marionette.CompositeView {
     }
 
     this.filters = [assigneeFilters, priorityFilters, statusFilters];
+  },
+  render() {
+    let issues = [];
+    return (
+      <div>
+        <div class="page-header">
+          <div class="project-image" style="background: #ebebeb"></div>
+          <h2 class="page-header-title">{this.props.project.name}</h2>
+            <div>
+              <a class="page-header-link" href="#">
+                <i class="fa fa-dashboard"></i>Dashboard
+              </a>
+              <a id="project-settings-show"
+                 class="page-header-link"
+                 href={`/projects/${this.props.project.id}/settings`}
+                 data-bypass>
+                <i class="fa fa-settings"></i>Settings
+              </a>
+            </div>
+          </div>
+          <Filter filters={this.filters} onFilterSelected={this.filterIssues}/>
+          <div class="issues">
+            {issues}
+          </div>
+      </div>
+    );
   }
-
-  filterIssues(filters) {
-    var data = {project: this.model.id};
-
-    filters.forEach((filter) => {
-      filter.forEach((item) => {
-        if (item.selected) {
-          data[item.filter] = item.value;
-        }
-      });
-    });
-
-    this.ui.issues.html('');
-    this.collection.fetch({data, reset: true});
-  }
-
-  showSettings() {
-    App.router.base.navigate(`/project/${this.model.id}/settings`);
-    App.controller.project.settingsAction(this.model);
-
-    return false;
-  }
-
-  highlightPrevious() {
-    if (this.highlightIndex === 0) {
-      return;
-    }
-    this.highlightIndex--;
-    this.showHighlightedIssue();
-  }
-
-  highlightNext() {
-    if (this.highlightIndex >= this.collection.length - 1) {
-      return;
-    }
-    this.highlightIndex++;
-    this.showHighlightedIssue();
-  }
-
-  showHighlightedIssue() {
-    var issue = this.collection.at(this.highlightIndex);
-
-    App.vent.trigger('issue:highlight', issue.get('id'));
-    App.controller.issue.showAction(issue);
-  }
-
-  onDestroy() {
-    Mousetrap.unbind('j');
-    Mousetrap.unbind('k');
-  }
-}
+})

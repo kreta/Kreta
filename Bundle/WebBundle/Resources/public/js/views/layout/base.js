@@ -7,6 +7,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
+/*
 import {AsideRegion} from '../region/aside';
 import {MainContentRegion} from '../region/mainContent';
 import {ModalRegion} from '../region/modal';
@@ -28,3 +29,20 @@ export class BaseLayoutView extends Backbone.Marionette.LayoutView {
     super(options);
   }
 }
+*/
+
+import {MainMenu} from './mainMenu.js';
+
+export default React.createClass({
+  render() {
+    return (
+      <div>
+        <Notifications/>
+        <MainMenu/>
+        <div class="content">
+          {this.props.children}
+        </div>
+      </div>
+    )
+  }
+});

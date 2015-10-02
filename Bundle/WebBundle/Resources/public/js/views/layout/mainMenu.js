@@ -7,33 +7,47 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-export class HeaderView extends Backbone.View {
-  constructor(options = {}) {
-    _.defaults(options, {
-      el: '.menu',
-      events: {
-        'click .menu-action.projects': 'showProjectList'
-      }
-    });
-    super(options);
-    this.$userInfo = $('.menu-user');
-    this.userInfoTemplate = _.template($('#kreta-menu-user-template').html());
-    this.listenTo(App.currentUser, 'change', this.render);
-    Mousetrap.bind('p', () => {
-      App.controller.project.listAction();
-    });
-    this.render();
-  }
-
-  render() {
-    if (App.currentUser.get('id')) {
-      this.$userInfo.html(this.userInfoTemplate(App.currentUser.toJSON()));
+export default React.createClass({
+  getInitialState() {
+    return {
+      user: App.currentUser
     }
-  }
-
+  },
+  componentWillMount() {
+    this.listenTo(App.currentUser, 'change', this.render);
+  },
   showProjectList() {
-    App.controller.project.listAction();
-
-    return false;
+    console.log('Show project list');
+  },
+  render() {
+    return (
+      <nav className="menu">
+        <img className="menu-logo" src=""/>
+        <div className="menu-user">
+          <div className="menu-user">
+            <img className="menu-user-image" src={this.state.user.photo.name}/>
+            <span className="menu-user-name">@{this.state.user.username}</span>
+          </div>
+        </div>
+        <div>
+          <a className="menu-action" href="/">
+            <i className="fa fa-sign-out"></i>
+            <span className="menu-notification-bubble">4</span>
+          </a>
+          <a className="menu-action projects" onClick={this.showProjectList}
+             href="#" data-tooltip-text="Project list" data-tooltip-position="right">
+            <i className="fa fa-sign-out"></i>
+          </a>
+          <a className="menu-action" href="/profile/edit" data-tooltip-text="Edit profile"
+             data-tooltip-position="right">
+            <i className="fa fa-sign-out"></i>
+          </a>
+          <a className="menu-action" href="/logout" data-bypass data-tooltip-text="Logout"
+             data-tooltip-position="right" title="Logout">
+            <i className="fa fa-sign-out"></i>
+          </a>
+        </div>
+      </nav>
+    );
   }
-}
+});
