@@ -7,8 +7,8 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-import {TooltipView} from 'views/component/tooltip';
-import {App} from 'app';
+import {TooltipView} from './views/component/tooltip';
+import {App} from './app';
 
 $(() => {
   window.App = new App({

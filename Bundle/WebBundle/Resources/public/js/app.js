@@ -7,22 +7,22 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-import {BaseRouter} from 'router/base';
-import {IssueRouter} from 'router/issue';
-import {ProjectRouter} from 'router/project';
-import {UserRouter} from 'router/user';
+import {BaseRouter} from './router/base';
+import {IssueRouter} from './router/issue';
+import {ProjectRouter} from './router/project';
+import {UserRouter} from './router/user';
 
-import {ProjectController} from 'controllers/project';
-import {IssueController} from 'controllers/issue';
+import {ProjectController} from './controllers/project';
+import {IssueController} from './controllers/issue';
 
-import {ProjectCollection} from 'collections/project';
-import {UserCollection} from 'collections/user';
-import {WorkflowCollection} from 'collections/workflow';
+import {ProjectCollection} from './collections/project';
+import {UserCollection} from './collections/user';
+import {WorkflowCollection} from './collections/workflow';
 
-import {Profile} from 'models/profile';
+import {Profile} from './models/profile';
 
-import {BaseLayoutView} from 'views/layout/base';
-import {HeaderView} from 'views/layout/mainMenu';
+import {BaseLayoutView} from './views/layout/base';
+import {HeaderView} from './views/layout/mainMenu';
 
 export class App extends Backbone.Marionette.Application {
   constructor(options) {

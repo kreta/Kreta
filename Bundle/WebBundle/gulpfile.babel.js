@@ -10,6 +10,9 @@
 import gulp from 'gulp';
 import autoprefixer from 'gulp-autoprefixer';
 import babel from 'gulp-babel';
+import babelify from 'babelify';
+import browserify from 'browserify';
+import buffer from 'vinyl-buffer';
 import del from 'del';
 import concat from 'gulp-concat';
 import eslint from 'gulp-eslint';
@@ -19,8 +22,9 @@ import minifyCSS from 'gulp-minify-css';
 import minimist from 'minimist';
 import rename from 'gulp-rename';
 import sass from 'gulp-sass';
-import scsslint from 'gulp-scss-lint';
+import source from 'vinyl-source-stream';
 import sourcemaps from 'gulp-sourcemaps';
+import scsslint from 'gulp-scss-lint';
 import uglify from 'gulp-uglify';
 
 import pkg from './package.json';
@@ -35,19 +39,22 @@ const BASE_PATH = `./../../../..${fromVendorPath}web/bundles/kretaweb/`,
   LICENSE = [`/*
  * <%= pkg.name %> - <%= pkg.description %>
  *
- * @link    <%= pkg.homepage %>
+ * @link <%= pkg.homepage %>
  *
- * @author  <%= pkg.authors[0].name %> (<%= pkg.authors[0].homepage %>)
- * @author  <%= pkg.authors[1].name %> (<%= pkg.authors[1].homepage %>)
+ * @author <%= pkg.authors[0].name %> (<%= pkg.authors[0].homepage %>)
+ * @author <%= pkg.authors[1].name %> (<%= pkg.authors[1].homepage %>)
  *
- * @license <%= pkg.LICENSE %>
+ * @license <%= pkg.license %>
  */
 
 `],
 
   ASSETS = {
     images: `${BASE_PATH}img/**`,
-    javascripts: `${BASE_PATH}js/**/*.js`,
+    javascripts: {
+      path: `${BASE_PATH}js/**/*.js`,
+      index: `${BASE_PATH}js/kreta.js`
+    },
     sass: `${BASE_PATH}scss/**.scss`,
     vendors: `${BASE_PATH}vendor/**`
   },
@@ -115,30 +122,40 @@ gulp.task('sass:prod', () => {
     .pipe(gulp.dest(`${RESULT_PATH}css`));
 });
 
-gulp.task('js', () => {
-  return gulp.src(ASSETS.javascripts)
+gulp.task('eslint', () => {
+  return gulp.src(ASSETS.javascripts.path)
     .pipe(eslint({'configFile': './.eslint.yml'}))
-    .pipe(eslint.format())
-    .pipe(babel({blacklist: ['useStrict'], comments: false, modules: 'amd'}))
+    .pipe(eslint.format());
+});
+
+gulp.task('browserify', () => {
+  browserify(ASSETS.javascripts.index)
+    .transform(babelify)
+    .bundle()
+    .pipe(source('kreta.js'))
+    .pipe(buffer())
+    .pipe(sourcemaps.init())
+    .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(`${RESULT_PATH}js`));
 });
 
-gulp.task('js:prod', () => {
-  return gulp.src(ASSETS.javascripts)
-    .pipe(babel({blacklist: ['useStrict'], comments: false, modules: 'amd'}))
-    .pipe(concat('app.min.js'))
+gulp.task('browserify:prod', () => {
+  browserify(ASSETS.javascripts.index)
+    .transform(babelify)
+    .bundle()
+    .pipe(source('kreta.min.js'))
+    .pipe(buffer())
     .pipe(uglify())
     .pipe(header(LICENSE, {pkg}))
     .pipe(gulp.dest(`${RESULT_PATH}js`));
 });
 
 gulp.task('watch', () => {
-  gulp.watch(ASSETS.javascripts, ['js']);
+  gulp.watch(ASSETS.javascripts.path, ['eslint', 'browserify']);
   gulp.watch(WATCH.sass, ['sass']);
   gulp.watch(ASSETS.images, ['images']);
 });
 
-gulp.task('default', ['clean', 'vendor', 'js', 'sass', 'images']);
+gulp.task('default', ['clean', 'vendor', 'eslint', 'browserify', 'sass', 'images']);
+gulp.task('prod', ['clean', 'vendor', 'eslint', 'browserify:prod', 'sass:prod', 'images']);
 gulp.task('watcher', ['default', 'watch']);
-gulp.task('prod', ['clean', 'vendor', 'images', 'sass:prod', 'js']);
-// gulp.task('prod', ['clean', 'vendor', 'images', 'sass:prod', 'js:prod']);
