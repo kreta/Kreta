@@ -9,7 +9,6 @@
 
 import {ProjectPreview} from '../../component/projectPreview';
 import {ProjectCollection} from '../../../collections/project';
-import {React} from 'react'
 
 export default React.createClass({
   getInitialState() {

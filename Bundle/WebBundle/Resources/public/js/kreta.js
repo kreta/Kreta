@@ -13,7 +13,7 @@ import {App} from './app';
 import {BaseLayout} from './views/layout/base.js';
 import {ProjectShow} from './views/page/project/issueList.js';
 import {ProjectSettings} from './views/page/project/settings.js';
-import {ProjectSettings} from './views/page/user/edit.js';
+import {Profile} from './views/page/user/edit.js';
 
 $(() => {
   window.App = new App({
@@ -28,9 +28,9 @@ $(() => {
             <Route path="project/:projectId" component={ProjectShow}/>
             <Route path="project/:projectId/settings" component={ProjectSettings}/>
             <Route path="profile" component={Profile}/>
-          </Router>
+          </Route>
         </Router>
-        , document.getElementById('app')
+        , document.getElementById('application')
       );
     }
   });

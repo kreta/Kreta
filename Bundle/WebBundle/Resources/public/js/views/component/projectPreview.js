@@ -7,8 +7,6 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-import {React} from 'react';
-
 export default React.createClass({
   getInitialState() {
     return {

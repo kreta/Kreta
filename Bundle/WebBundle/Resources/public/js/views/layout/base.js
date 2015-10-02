@@ -37,9 +37,9 @@ export default React.createClass({
   render() {
     return (
       <div>
-        <Notifications/>
+        /*<Notifications/>*/
         <MainMenu/>
-        <div class="content">
+        <div className="kreta-content-container">
           {this.props.children}
         </div>
       </div>
