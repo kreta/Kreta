@@ -97,7 +97,7 @@ class IssueRepository extends EntityRepository
     protected function getQueryBuilder()
     {
         return parent::getQueryBuilder()
-            ->addSelect(['a', 't', 'pr', 'p', 'r', 'rep', 's', 'w'])
+            ->addSelect(['a', 't', 'pr', 'p', 'r', 'rep', 's', 'w', 'l'])
             ->leftJoin('i.assignee', 'a')
             ->leftJoin('i.type', 't')
             ->leftJoin('i.priority', 'pr')
@@ -105,7 +105,8 @@ class IssueRepository extends EntityRepository
             ->leftJoin('i.resolution', 'r')
             ->leftJoin('i.reporter', 'rep')
             ->leftJoin('i.status', 's')
-            ->leftJoin('i.watchers', 'w');
+            ->leftJoin('i.watchers', 'w')
+            ->leftJoin('i.labels', 'l');
     }
 
     /**

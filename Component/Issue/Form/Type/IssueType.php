@@ -11,7 +11,9 @@
 
 namespace Kreta\Component\Issue\Form\Type;
 
+use Doctrine\Common\Persistence\ObjectManager;
 use Kreta\Component\Core\Form\Type\Abstracts\AbstractType;
+use Kreta\Component\Project\Form\Type\LabelType;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Project\Model\IssuePriority;
 use Kreta\Component\Project\Model\IssueType as Type;
@@ -20,6 +22,7 @@ use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
  * Class IssueType.
@@ -29,6 +32,36 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 class IssueType extends AbstractType
 {
     const PROJECT_INVALID_MESSAGE = 'This project is not valid so, assignee, priority and type will be invalid too.';
+
+    /**
+     * The label form type.
+     *
+     * @var \Kreta\Component\Project\Form\Type\LabelType
+     */
+    protected $labelType;
+
+    /**
+     * Constructor.
+     *
+     * @param string                     $dataClass        The data class
+     * @param Object                     $factory          The factory
+     * @param TokenStorageInterface|null $context          The security context
+     * @param ObjectManager|null         $manager          The manager
+     * @param array                      $validationGroups The validation groups
+     * @param LabelType                  $labelType        The label form type
+     */
+    public function __construct(
+        $dataClass,
+        $factory,
+        TokenStorageInterface $context = null,
+        ObjectManager $manager = null,
+        $validationGroups = [],
+        LabelType $labelType
+    )
+    {
+        parent::__construct($dataClass, $factory, $context, $manager, $validationGroups);
+        $this->labelType = $labelType;
+    }
 
     /**
      * {@inheritdoc}
@@ -72,6 +105,14 @@ class IssueType extends AbstractType
                 ->add('type', 'entity', [
                     'class'   => 'Kreta\Component\Project\Model\IssueType',
                     'choices' => $types
+                ])
+                ->add('labels', 'collection', [
+                    'type'         => $this->labelType,
+                    'allow_add'    => true,
+                    'allow_delete' => true,
+                    'by_reference' => false,
+                    'delete_empty' => true,
+                    'options'      => ['project' => $project]
                 ]);
         };
 

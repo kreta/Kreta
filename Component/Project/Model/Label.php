@@ -71,4 +71,12 @@ class Label extends AbstractModel implements LabelInterface
 
         return $this;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function __toString()
+    {
+        return $this->name;
+    }
 }
