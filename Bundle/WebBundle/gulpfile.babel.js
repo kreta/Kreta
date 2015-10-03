@@ -20,12 +20,14 @@ import header from 'gulp-header';
 import imagemin from 'gulp-imagemin';
 import minifyCSS from 'gulp-minify-css';
 import minimist from 'minimist';
+import notify from 'gulp-notify';
 import rename from 'gulp-rename';
 import sass from 'gulp-sass';
 import source from 'vinyl-source-stream';
 import sourcemaps from 'gulp-sourcemaps';
 import scsslint from 'gulp-scss-lint';
 import uglify from 'gulp-uglify';
+import watchify from 'watchify';
 
 import pkg from './package.json';
 
@@ -128,18 +130,28 @@ gulp.task('eslint', () => {
     .pipe(eslint.format());
 });
 
-gulp.task('browserify', () => {
-  browserify(ASSETS.javascripts.index)
-    .transform(babelify)
-    .bundle()
-    .pipe(source('kreta.js'))
-    .pipe(buffer())
-    .pipe(sourcemaps.init())
-    .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest(`${RESULT_PATH}js`));
+gulp.task('js', ['eslint'], () => {
+  const bundler = watchify(
+    browserify(
+      ASSETS.javascripts.index, watchify.args
+    )
+  );
+
+  function rebundle() {
+    return bundler
+      .bundle()
+      .on('error', notify.onError())
+      .pipe(source('kreta.js'))
+      .pipe(gulp.dest(`${RESULT_PATH}js`))
+      .pipe(reload({stream: true}));
+  }
+
+  bundler.transform(babelify)
+    .on('update', rebundle);
+  return rebundle();
 });
 
-gulp.task('browserify:prod', () => {
+gulp.task('js:prod', () => {
   browserify(ASSETS.javascripts.index)
     .transform(babelify)
     .bundle()
@@ -151,11 +163,11 @@ gulp.task('browserify:prod', () => {
 });
 
 gulp.task('watch', () => {
-  gulp.watch(ASSETS.javascripts.path, ['eslint', 'browserify']);
+  gulp.watch(ASSETS.javascripts.path, ['js']);
   gulp.watch(WATCH.sass, ['sass']);
   gulp.watch(ASSETS.images, ['images']);
 });
 
-gulp.task('default', ['clean', 'vendor', 'eslint', 'browserify', 'sass', 'images']);
-gulp.task('prod', ['clean', 'vendor', 'eslint', 'browserify:prod', 'sass:prod', 'images']);
+gulp.task('default', ['clean', 'vendor', 'js', 'sass', 'images']);
+gulp.task('prod', ['clean', 'vendor', 'js:prod', 'sass:prod', 'images']);
 gulp.task('watcher', ['default', 'watch']);
