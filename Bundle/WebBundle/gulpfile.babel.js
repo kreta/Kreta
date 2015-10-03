@@ -142,8 +142,7 @@ gulp.task('js', ['eslint'], () => {
       .bundle()
       .on('error', notify.onError())
       .pipe(source('kreta.js'))
-      .pipe(gulp.dest(`${RESULT_PATH}js`))
-      .pipe(reload({stream: true}));
+      .pipe(gulp.dest(`${RESULT_PATH}js`));
   }
 
   bundler.transform(babelify)

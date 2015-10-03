@@ -14,7 +14,7 @@ export default React.createClass({
     }
   },
   componentWillMount() {
-    this.listenTo(App.currentUser, 'change', this.render);
+    //this.listenTo(App.currentUser, 'change', this.render);
   },
   showProjectList() {
     console.log('Show project list');
@@ -25,8 +25,8 @@ export default React.createClass({
         <img className="menu-logo" src=""/>
         <div className="menu-user">
           <div className="menu-user">
-            <img className="menu-user-image" src={this.state.user.photo.name}/>
-            <span className="menu-user-name">@{this.state.user.username}</span>
+            <img className="menu-user-image" src={this.state.user.get('photo').name}/>
+            <span className="menu-user-name">@{this.state.user.get('username')}</span>
           </div>
         </div>
         <div>

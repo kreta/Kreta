@@ -31,15 +31,16 @@
     "src/Kreta/Bundle/WebBundle/Resources/public/vendor"
   ],
   "dependencies": {
-    "backbone":                   "~1.1",
+    "backbone": "~1.1",
     "backbone-model-file-upload": "~1.0",
-    "backbone.marionette":        "~2.4",
-    "font-awesome":               "~4.3",
-    "font-source-sans-pro":       "~0.1",
-    "jquery":                     "~2.1",
-    "lodash":                     "~3.5",
-    "mousetrap":                  "~1.5.3",
-    "react":                      "~0.13",
-    "select2":                    "~4.0"
+    "backbone.marionette": "~2.4",
+    "font-awesome": "~4.3",
+    "font-source-sans-pro": "~0.1",
+    "jquery": "~2.1",
+    "lodash": "~3.5",
+    "mousetrap": "~1.5.3",
+    "react": "~0.13",
+    "react-router": "~0.13.3",
+    "select2": "~4.0"
   }
 }

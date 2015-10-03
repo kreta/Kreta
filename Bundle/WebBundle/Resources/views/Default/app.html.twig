@@ -15,7 +15,7 @@
     {% endif %}
 </head>
 <body>
-<div class="application">
+<div id="application">
     <p style="position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%)">Loading</p>
 </div>
 <script id="base-layout-view-template" type="text/html">
@@ -76,6 +76,7 @@
 {% if production_assets == false %}
     <script src="{{ asset(base_asset_vendor ~ 'jquery/dist/jquery.js') }}"></script>
     <script src="{{ asset(base_asset_vendor ~ 'react/react.js') }}"></script>
+    <script src="{{ asset(base_asset_vendor ~ 'react-router/build/umd/ReactRouter.min.js') }}"></script>
     <script src="{{ asset(base_asset_vendor ~ 'mousetrap/mousetrap.js') }}"></script>
     <script src="{{ asset(base_asset_vendor ~ 'lodash/lodash.js') }}"></script>
     <script src="{{ asset(base_asset_vendor ~ 'backbone/backbone.js') }}"></script>

@@ -7,40 +7,20 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-/*
-import {AsideRegion} from '../region/aside';
-import {MainContentRegion} from '../region/mainContent';
-import {ModalRegion} from '../region/modal';
-
-export class BaseLayoutView extends Backbone.Marionette.LayoutView {
-  constructor(options = {}) {
-    _.defaults(options, {
-      el: '.application',
-      template: '#base-layout-view-template',
-      regions: {
-        'menu': '.menu-main',
-        'left-aside': new AsideRegion({position: 'left'}),
-        'right-aside': new AsideRegion({position: 'right'}),
-        'content': new MainContentRegion(),
-        'notification': '.notification-container',
-        'modal': new ModalRegion()
-      }
-    });
-    super(options);
-  }
-}
-*/
-
-import {MainMenu} from './mainMenu.js';
+import MainMenu from './mainMenu.js';
 
 export default React.createClass({
   render() {
     return (
       <div>
-        /*<Notifications/>*/
         <MainMenu/>
-        <div className="kreta-content-container">
-          {this.props.children}
+        <div id="kreta-content">
+          <div>
+            <div className="notification-container"></div>
+            <div className="kreta-content-container">
+              {this.props.children || 'Welcome'}
+            </div>
+          </div>
         </div>
       </div>
     )

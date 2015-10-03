@@ -8,15 +8,29 @@
  */
 
 import {FilterView} from '../../component/filter';
-import {IssuePreviewView} from '../../component/issuePreview';
+import {IssueCollection} from '../../../collections/issue';
+import IssuePreview from '../../component/issuePreview.js';
+import Filter from '../../component/filter.js';
 
 export default React.createClass({
-  willRecieveProps() {
-
+  propTypes: {
+    project: React.PropTypes.object.isRequired
   },
-  componentWillMount() {
+  getInitialState() {
+    return {
+      filters: [],
+      issues: []
+    }
+  },
+  componentDidMount() {
     this.props.project.on('sync', this.render);
     this.props.project.on('change', this.render);
+    this.collection = new IssueCollection();
+    this.collection.fetch({data: {project: this.props.project.id}, success:
+      (data) => {
+        this.setState({issues: data});
+    }});
+    this.loadFilters();
   },
   filterIssues(filters) {
     var data = {project: this.props.project.id};
@@ -52,14 +66,14 @@ export default React.createClass({
           selected: true
         }
       ],
-      priorities = this.model.get('issue_priorities'),
+      priorities = this.props.project.get('issue_priorities'),
       statusFilters = [{
         title: 'All statuses',
         filter: 'status',
         value: '',
         selected: true
       }],
-      statuses = this.model.get('statuses');
+      statuses = this.props.project.get('statuses');
 
     if (priorities) {
       priorities.forEach((priority) => {
@@ -83,30 +97,32 @@ export default React.createClass({
       });
     }
 
-    this.filters = [assigneeFilters, priorityFilters, statusFilters];
+    this.setState({filters: [assigneeFilters, priorityFilters, statusFilters]});
   },
   render() {
-    let issues = [];
+    let issuesEl = this.state.issues.map((issue) => {
+      return <IssuePreview issue={issue}/>
+    });
     return (
       <div>
-        <div class="page-header">
-          <div class="project-image" style="background: #ebebeb"></div>
-          <h2 class="page-header-title">{this.props.project.name}</h2>
+        <div className="page-header">
+          <div className="project-image" style={{background: '#ebebeb'}}></div>
+          <h2 className="page-header-title">{this.props.project.get('name')}</h2>
             <div>
-              <a class="page-header-link" href="#">
-                <i class="fa fa-dashboard"></i>Dashboard
+              <a className="page-header-link" href="#">
+                <i className="fa fa-dashboard"></i>Dashboard
               </a>
               <a id="project-settings-show"
-                 class="page-header-link"
+                 className="page-header-link"
                  href={`/projects/${this.props.project.id}/settings`}
                  data-bypass>
-                <i class="fa fa-settings"></i>Settings
+                <i className="fa fa-settings"></i>Settings
               </a>
             </div>
           </div>
-          <Filter filters={this.filters} onFilterSelected={this.filterIssues}/>
-          <div class="issues">
-            {issues}
+          <Filter filters={this.state.filters} onFilterSelected={this.filterIssues}/>
+          <div className="issues">
+            {issuesEl}
           </div>
       </div>
     );
