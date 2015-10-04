@@ -24,6 +24,7 @@ globals:
     Config: true
     jQuery: true
     Kreta: true
+    module: true
     Mousetrap: true
     React: true
 

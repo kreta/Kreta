@@ -4,14 +4,12 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Kreta</title>
+    <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+    <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
     {% if production_assets == false %}
-        <link href="{{ asset(base_asset_vendor ~ 'font-source-sans-pro/source-sans-pro.css') }}" rel="stylesheet" type="text/css"/>
-        <link href="{{ asset(base_asset_vendor ~ 'font-awesome/css/font-awesome.css') }}" rel="stylesheet" type="text/css"/>
-        <link href="{{ asset(base_asset_css ~ 'app.css') }}" media="screen" rel="stylesheet" type="text/css"/>
+        <link href="css/app.css" media="screen" rel="stylesheet" type="text/css">
     {% else %}
-        <link href="{{ asset(base_asset_css ~ 'app.min.css') }}" media="screen" rel="stylesheet" type="text/css"/>
-        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
-        <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'>
+        <link href="css/app.min.css" media="screen" rel="stylesheet" type="text/css">
     {% endif %}
 </head>
 <body>
@@ -74,26 +72,11 @@
 {% include 'KretaWebBundle:Default/templates:user/invite.html.twig' %}
 
 {% if production_assets == false %}
-    <script src="{{ asset(base_asset_vendor ~ 'jquery/dist/jquery.js') }}"></script>
-    <script src="{{ asset(base_asset_vendor ~ 'react/react.js') }}"></script>
-    <script src="{{ asset(base_asset_vendor ~ 'react-router/build/umd/ReactRouter.min.js') }}"></script>
-    <script src="{{ asset(base_asset_vendor ~ 'mousetrap/mousetrap.js') }}"></script>
-    <script src="{{ asset(base_asset_vendor ~ 'lodash/lodash.js') }}"></script>
-    <script src="{{ asset(base_asset_vendor ~ 'backbone/backbone.js') }}"></script>
-    <script src="{{ asset(base_asset_vendor ~ 'backbone.marionette/lib/backbone.marionette.js') }}"></script>
-    <script src="{{ asset(base_asset_vendor ~ 'backbone-model-file-upload/backbone-model-file-upload.js') }}"></script>
-    <script src="{{ asset(base_asset_vendor ~ 'select2/dist/js/select2.full.js') }}"></script>
-    <script src="{{ asset(base_asset_js ~ 'kreta.js') }}"></script>
+    <script src="js/vendors.js"></script>
+    <script src="js/kreta.js"></script>
 {% else %}
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/react/0.13.3/react.min.js"></script>
-    <script src="{{ asset(base_asset_vendor ~ 'mousetrap/mousetrap.min.js') }}"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/3.8.0/lodash.min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.js/1.1.2/backbone-min.js"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/backbone.marionette/2.4.1/backbone.marionette.min.js"></script>
-    <script src="{{ asset(base_asset_vendor ~ 'backbone-model-file-upload/backbone-model-file-upload.js') }}"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/js/select2.full.min.js"></script>
-    <script src="{{ asset(base_asset_js ~ 'kreta.min.js') }}"></script>
+    <script src="js/vendors.min.js"></script>
+    <script src="js/kreta.min.js"></script>
 {% endif %}
 </body>
 </html>
