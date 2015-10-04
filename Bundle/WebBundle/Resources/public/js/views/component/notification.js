@@ -7,7 +7,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-export class NotificationView extends Backbone.Marionette.ItemView {
+export class NotificationView {
   constructor(options = {}) {
     _.defaults(options, {
       className: `notification ${options.model.type}`,
@@ -16,7 +16,6 @@ export class NotificationView extends Backbone.Marionette.ItemView {
         'click .notification-hide': 'hide'
       }
     });
-    super(options);
   }
 
   serializeData() {

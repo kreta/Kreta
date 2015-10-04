@@ -7,6 +7,8 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
+import React from 'react';
+
 export default React.createClass({
   propTypes: {
     onFilterSelected: React.PropTypes.func.isRequired

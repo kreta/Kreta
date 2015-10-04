@@ -130,7 +130,7 @@ gulp.task('eslint', () => {
     .pipe(eslint.format());
 });
 
-gulp.task('js', ['eslint'], () => {
+gulp.task('js', [], () => {
   const bundler = watchify(
     browserify(
       ASSETS.javascripts.index, watchify.args

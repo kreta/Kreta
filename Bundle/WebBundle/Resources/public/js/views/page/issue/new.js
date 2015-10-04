@@ -7,109 +7,80 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
+import React from 'react';
+
 import {SelectorView} from '../../component/selector';
 import {Issue} from '../../../models/issue';
 import {NotificationService} from '../../../service/notification';
 import {FormSerializerService} from '../../../service/form-serializer';
 
-export class IssueNewView extends Backbone.Marionette.ItemView {
-  constructor(options = {}) {
-    _.defaults(options, {
-      className: 'issue-new',
-      template: _.template($('#issue-new-template').html()),
-      events: {
-        'submit @ui.form': 'save'
-      }
-    });
-    super(options);
-
-    // Bad practise need to find a better way, templateHelpers???
-    this.model.set('selectableProjects', App.collection.project.models);
-    this.onProjectSelected(this.model.get('project'));
-
-    this.listenTo(this.model.get('project'), 'change', this.updateSelectors);
-  }
-
-  ui() {
+export default React.createClass({
+  getInitialState() {
     return {
-      form: '#issue-new',
-      project: 'select[name="project"]',
-      title: 'input[name="title"]',
-      assignee: 'select[name="assignee"]',
-      priority: 'select[name="priority"]',
-      type: 'select[name="type"]',
-      issueDetails: '.issue-new-details',
-      actions: '.issue-new-actions'
+      project: null,
+      selectableProjects: []
     };
-  }
-
-  onRender() {
-    if (this.selectorsLeft !== 0) {
-      this.ui.issueDetails.hide();
-    }
-
-    new SelectorView(this.ui.assignee);
-    new SelectorView(this.ui.priority);
-    new SelectorView(this.ui.type);
-    new SelectorView(this.ui.project, {
-      onSelect: (ev) => {
-        if ($(ev.currentTarget).val() !== '') {
-          this.onProjectSelected(
-            App.collection.project.get($(ev.currentTarget).val())
-          );
-          this.ui.issueDetails.hide();
-        }
-      }
+  },
+  componentDidMount() {
+    this.setState({
+      project: App.collection.project.get(this.props.params.projectId),
+      selectableProjects: App.collection.project
     });
-
-    this.ui.title.focus();
-  }
-
-  onProjectSelected(project) {
-    if (!project) {
-      return;
+  },
+  render() {
+    if(!this.state.project) {
+      return <div>Loading</div>;
     }
-
-    this.model.set('project', project);
-
-    this.selectorsLeft = 2;
-
-    this.model.get('project').get('issue_types');
-    this.model.get('project').get('issue_priorities');
-  }
-
-  updateSelectors() {
-    this.selectorsLeft--;
-    this.render();
-  }
-
-  save() {
-    this.ui.actions.hide();
-
-    var project = this.model.get('project');
-
-    this.model = FormSerializerService.serialize(
-      this.ui.form, Issue
-    );
-
-    this.model.save(null, {
-      success: (model) => {
-        App.router.base.navigate(`/project/${project.id}`, true);
-        App.controller.issue.showAction(model);
-        NotificationService.showNotification({
-          type: 'success',
-          message: 'Issue created successfully'
-        });
-      }, error: () => {
-        NotificationService.showNotification({
-          type: 'error',
-          message: 'Error while saving this issue'
-        });
-        this.ui.actions.show();
-        this.model.set('project', project);
-      }
+    let selectableProjects = this.state.selectableProjects.map((project) => {
+      return (
+        <option value={project.id}>
+          {project.get('name')}
+        </option>
+      );
     });
-
-    return false;
+    let assignee = this.state.project.get('participants').map((participant) => {
+      return (
+        <option value={participant.user.id}>
+          { participant.user.first_name } { participant.user.last_name }
+        </option>
+      )
+    });
+    let priority = this.state.project.get('issue_priorities').map((priority) => {
+      return <option value={priority.id}>{priority.name}</option>
+    });
+    let type = this.state.project.get('issue_types').map((type) => {
+      return <option value={type.id}>{ type.name }</option>
+    });
+    return (
+      <form id="issue-new" method="POST" action="#">
+        <div className="issue-new-actions">
+          <button className="button">Cancel</button>
+          <button className="button green" type="submit" tabIndex="7">Done</button>
+        </div>
+        <select name="project" value={this.state.project.id} tabIndex="1" style={{width:'100%'}} data-placeholder="Select project">
+          {selectableProjects}
+        </select>
+        <input type="text" className="big" name="title"
+               placeholder="Type your task title"
+               tabIndex="2" value={this.state.project.title}/>
+        <textarea name="description" placeholder="Type your task description"
+                  tabIndex="3" value={this.state.project.description}></textarea>
+        <div className="issue-new-details">
+          <select name="assignee" data-container-css="select2-selector--big" tabIndex="4" style={{width:'25%'}} data-placeholder="Unassigned">
+            <option></option>
+            {assignee}
+          </select>
+          <select name="priority" className="select2-selector--big" tabIndex="5" style={{width:'25%'}} data-placeholder="No priority">
+            <option></option>
+            {priority}
+          </select>
+          <select name="type" className="select2-selector--big" tabIndex="6" style={{width:'25%'}} data-placeholder="No type">
+            <option></option>
+            {type}
+          </select>
+        </div>
+      </form>
+    )
   }
-}
+});
+
