@@ -15,11 +15,11 @@ export default React.createClass({
     return {
       projects: App.collection.project,
       selectedItem: 0
-    }
+    };
   },
   onKeyUp(ev) {
     if (ev.which === 40) { // Down
-      if (this.state.selectedItem + 1 < this.ref.projectList.children().length) {
+      if (this.state.selectedItem + 1 < this.refs.projectList.children().length) {
         this.state.selectedItem++;
         this.focusSelectedItem();
         this.centerListScroll();

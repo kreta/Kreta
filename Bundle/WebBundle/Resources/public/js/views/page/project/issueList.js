@@ -7,7 +7,6 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-import {FilterView} from '../../component/filter';
 import {IssueCollection} from '../../../collections/issue';
 import IssuePreview from '../../component/issuePreview.js';
 import Filter from '../../component/filter.js';
@@ -19,18 +18,25 @@ export default React.createClass({
   getInitialState() {
     return {
       filters: [],
-      issues: []
-    }
+      issues: [],
+      fetchingIssues: true
+    };
   },
   componentDidMount() {
-    this.props.project.on('sync', this.render);
-    this.props.project.on('change', this.render);
+    this.props.project.on('sync', $.proxy(this.loadFilters, this));
+    this.props.project.on('change', $.proxy(this.loadFilters, this));
+
     this.collection = new IssueCollection();
-    this.collection.fetch({data: {project: this.props.project.id}, success:
-      (data) => {
-        this.setState({issues: data});
-    }});
+    this.collection.on('sync', $.proxy(this.issuesUpdated, this));
+    this.collection.fetch({data: {project: this.props.project.id}});
+
     this.loadFilters();
+  },
+  issuesUpdated(data) {
+    this.setState({
+      issues: data,
+      fetchingIssues: false
+    });
   },
   filterIssues(filters) {
     var data = {project: this.props.project.id};
@@ -108,22 +114,24 @@ export default React.createClass({
         <div className="page-header">
           <div className="project-image" style={{background: '#ebebeb'}}></div>
           <h2 className="page-header-title">{this.props.project.get('name')}</h2>
-            <div>
-              <a className="page-header-link" href="#">
-                <i className="fa fa-dashboard"></i>Dashboard
-              </a>
-              <a id="project-settings-show"
-                 className="page-header-link"
-                 href={`/projects/${this.props.project.id}/settings`}
-                 data-bypass>
-                <i className="fa fa-settings"></i>Settings
-              </a>
-            </div>
+          <div>
+            <a className="page-header-link" href="#">
+              <i className="fa fa-dashboard"></i>
+            Dashboard
+            </a>
+            <a id="project-settings-show"
+            className="page-header-link"
+            href={`/projects/${this.props.project.id}/settings`}
+            data-bypass>
+              <i className="fa fa-settings"></i>
+            Settings
+            </a>
           </div>
-          <Filter filters={this.state.filters} onFilterSelected={this.filterIssues}/>
-          <div className="issues">
-            {issuesEl}
-          </div>
+        </div>
+        <Filter filters={this.state.filters} onFilterSelected={this.filterIssues}/>
+        <div className="issues">
+            {this.state.fetchingIssues ? 'Loading...' : issuesEl}
+        </div>
       </div>
     );
   }
