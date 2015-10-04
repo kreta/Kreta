@@ -26,6 +26,10 @@
     }
   ],
   "main": "gulpfile.js",
+  "dependencies": {
+    "react": "^0.13.3",
+    "react-router": "^1.0.0-rc1"
+  },
   "devDependencies": {
     "babel-core":           "^5.8",
     "babelify":             "^6.3",

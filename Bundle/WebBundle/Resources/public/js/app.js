@@ -7,11 +7,6 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-import {BaseRouter} from './router/base';
-import {IssueRouter} from './router/issue';
-import {ProjectRouter} from './router/project';
-import {UserRouter} from './router/user';
-
 import {ProjectController} from './controllers/project';
 import {IssueController} from './controllers/issue';
 
@@ -29,13 +24,6 @@ export class App extends Backbone.Marionette.Application {
     super(options);
 
     this.addAutenticationHeader();
-
-    this.router = {
-      base: new BaseRouter(),
-      issue: new IssueRouter(),
-      project: new ProjectRouter(),
-      user: new UserRouter()
-    };
 
     this.controller = {
       issue: new IssueController(),

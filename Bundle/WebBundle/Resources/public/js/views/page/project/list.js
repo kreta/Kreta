@@ -6,6 +6,7 @@
  * @author benatespina <benatespina@gmail.com>
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
+import React from 'react';
 
 import {ProjectPreview} from '../../component/projectPreview';
 import {ProjectCollection} from '../../../collections/project';

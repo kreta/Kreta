@@ -6,6 +6,7 @@
  * @author benatespina <benatespina@gmail.com>
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
+import React from 'react';
 
 import {IssueCollection} from '../../../collections/issue';
 import IssuePreview from '../../component/issuePreview.js';

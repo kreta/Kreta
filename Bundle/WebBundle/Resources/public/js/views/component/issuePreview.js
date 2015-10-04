@@ -7,6 +7,8 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
+import React from 'react';
+
 export default React.createClass({
   componentWillMount() {
     /*this.listenTo(App.vent, 'issue:highlight', (issueId) => {
