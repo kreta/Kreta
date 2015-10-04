@@ -10,8 +10,6 @@ const config = {
       'backbone',
       'backbone-model-file-upload',
       'backbone.marionette',
-      'react',
-      'react-router',
       'select2',
       'mousetrap'
     ]
@@ -21,6 +19,13 @@ const config = {
     filename: 'kreta.js'
   },
   module: {
+    preLoaders: [{
+      test: /\.js$/,
+      exclude: /node_modules/,
+      loaders: [
+        'eslint-loader'
+      ]
+    }],
     loaders: [{
       test: /\.js$/,
       exclude: /node_modules/,
@@ -32,9 +37,11 @@ const config = {
       underscore: 'lodash'
     }
   },
+  eslint: {
+    configFile: '.eslint.yml'
+  },
   plugins: [
     new webpack.ProvidePlugin({
-      React: 'react',
       _: 'lodash',
       Backbone: 'backbone',
       $: 'jquery',

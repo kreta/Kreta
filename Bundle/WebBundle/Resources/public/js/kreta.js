@@ -8,7 +8,7 @@
  */
 
 import React from 'react';
-import { Router, Route, Link } from 'react-router';
+import {Router, Route, Link} from 'react-router';
 
 //import {TooltipView} from 'views/component/tooltip';
 import {App} from './app';

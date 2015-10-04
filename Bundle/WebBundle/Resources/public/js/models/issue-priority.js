@@ -7,6 +7,8 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
+import Backbone from 'backbone';
+
 export class IssuePriority extends Backbone.Model {
   toString() {
     return this.get('name');

@@ -7,6 +7,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
+import Backbone from 'backbone';
 import {Config} from '../config';
 import {Issue} from '../models/issue';
 

@@ -7,5 +7,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
+import Backbone from 'backbone';
+
 export class TypeCollection extends Backbone.Collection {
 }

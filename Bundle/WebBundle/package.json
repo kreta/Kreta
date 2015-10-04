@@ -44,6 +44,7 @@
     "babelify": "^6.3",
     "browserify": "^11.2",
     "del": "^2.0",
+    "eslint-loader": "^1.0.0",
     "gulp": "^3.9",
     "gulp-autoprefixer": "^3.0",
     "gulp-babel": "^5.2",

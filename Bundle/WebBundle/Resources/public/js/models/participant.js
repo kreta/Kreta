@@ -7,6 +7,8 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
+import Backbone from 'backbone';
+
 export class Participant extends Backbone.Model {
   toString() {
     return `${this.get('user').first_name} ${this.get('user').last_name}`;

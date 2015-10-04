@@ -7,6 +7,8 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
+import Backbone from 'backbone';
+
 export class User extends Backbone.Model {
   defaults() {
     return {};

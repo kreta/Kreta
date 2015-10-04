@@ -12,7 +12,7 @@ export default React.createClass({
   getInitialState() {
     return {
       selectedShortcut: 0
-    }
+    };
   },
   getDefaultProps() {
     return {
@@ -96,7 +96,7 @@ export default React.createClass({
     );
   }
 });
-/*constructor(options = {}) {
+/* constructor(options = {}) {
  _.defaults(options, {
  className: 'project-preview',
  tagName: 'li',
