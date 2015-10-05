@@ -41,6 +41,7 @@
     "path": "^0.12.7",
     "react": "^0.13.3",
     "react-router": "1.0.0-rc1",
+    "react-select": "^0.6.12",
     "select2": "^4.0.0"
   },
   "devDependencies": {
