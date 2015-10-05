@@ -26,6 +26,11 @@
     }
   ],
   "main": "gulpfile.js",
+  "scripts": {
+    "webpackwatcher": "webpack --progress --colors --watch",
+    "webpackprod": "webpack --progress --colors --env=prod",
+    "webpack": "webpack --progress --colors"
+  },
   "dependencies": {
     "backbone": "^1.2.3",
     "backbone-model-file-upload": "^1.0.0",

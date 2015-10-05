@@ -6,7 +6,6 @@
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
 .sass-cache
-.bower-*
 bin
 composer.lock
 composer.phar
