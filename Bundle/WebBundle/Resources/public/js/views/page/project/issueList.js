@@ -18,18 +18,20 @@ export default React.createClass({
   },
   getInitialState() {
     return {
+      project: null,
       filters: [],
       issues: [],
       fetchingIssues: true
     };
   },
   componentDidMount() {
-    this.props.project.on('sync', $.proxy(this.loadFilters, this));
-    this.props.project.on('change', $.proxy(this.loadFilters, this));
+    this.state.project = App.collection.project.get(this.props.params.projectId);
+    this.state.project.on('sync', $.proxy(this.loadFilters, this));
+    this.state.project.on('change', $.proxy(this.loadFilters, this));
 
     this.collection = new IssueCollection();
     this.collection.on('sync', $.proxy(this.issuesUpdated, this));
-    this.collection.fetch({data: {project: this.props.project.id}});
+    this.collection.fetch({data: {project: this.state.project.id}});
 
     this.loadFilters();
   },
@@ -40,7 +42,7 @@ export default React.createClass({
     });
   },
   filterIssues(filters) {
-    var data = {project: this.props.project.id};
+    var data = {project: this.state.project.id};
 
     filters.forEach((filter) => {
       filter.forEach((item) => {
@@ -73,14 +75,14 @@ export default React.createClass({
           selected: true
         }
       ],
-      priorities = this.props.project.get('issue_priorities'),
+      priorities = this.state.project.get('issue_priorities'),
       statusFilters = [{
         title: 'All statuses',
         filter: 'status',
         value: '',
         selected: true
       }],
-      statuses = this.props.project.get('statuses');
+      statuses = this.state.project.get('statuses');
 
     if (priorities) {
       priorities.forEach((priority) => {
@@ -107,6 +109,9 @@ export default React.createClass({
     this.setState({filters: [assigneeFilters, priorityFilters, statusFilters]});
   },
   render() {
+    if(!this.state.project) {
+      return <p>Loading...</p>
+    }
     let issuesEl = this.state.issues.map((issue) => {
       return <IssuePreview issue={issue}/>
     });
@@ -114,7 +119,7 @@ export default React.createClass({
       <div>
         <div className="page-header">
           <div className="project-image" style={{background: '#ebebeb'}}></div>
-          <h2 className="page-header-title">{this.props.project.get('name')}</h2>
+          <h2 className="page-header-title">{this.state.project.get('name')}</h2>
           <div>
             <a className="page-header-link" href="#">
               <i className="fa fa-dashboard"></i>
@@ -122,7 +127,7 @@ export default React.createClass({
             </a>
             <a id="project-settings-show"
             className="page-header-link"
-            href={`/projects/${this.props.project.id}/settings`}
+            href={`/projects/${this.state.project.id}/settings`}
             data-bypass>
               <i className="fa fa-settings"></i>
             Settings
