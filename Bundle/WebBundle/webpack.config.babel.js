@@ -37,12 +37,13 @@ let config = {
   },
   module: {
     preLoaders: [
-      {test: /\.js$/, exclude: /node_modules/, loaders: ['eslint-loader']}
+      {test: /\.js$/, exclude: /node_modules/, loaders: ['eslint-loader']},
+      //{test: /\.scss$/, exclude: /node_modules/, loaders: ['scss-lint-loader']}
     ],
     loaders: [
       {test: /\.js$/, exclude: /node_modules/, loaders: ['babel']},
       {test: /\.(jpe?g|png|gif|svg)$/, loader: 'file-loader'},
-      {test: /\.scss$/, loader: ExtractTextPlugin.extract('style-loader!scss-lint-loader!css-loader!postcss!sass-loader')}
+      {test: /\.scss$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader!postcss!sass-loader')}
     ]
   },
   resolve: {
@@ -65,10 +66,12 @@ if (cliOptions.hasOwnProperty('env') && cliOptions.env === 'prod') {
   config.devtool = 'source-map';
   config.plugins.push(new webpack.optimize.UglifyJsPlugin());
   config.output.filename = 'kreta.min.js';
-  config.module.loaders.push({
-    test: /\.css$/,
-    loader: 'style-loader/useable!css-loader?minimize!postcss-loader'
-  });
+  config.module.loaders.push(
+    {test: /\.css$/, loader: 'style-loader/useable!css-loader?minimize!postcss-loader'}
+  );
+  config.plugins.push(
+    new ExtractTextPlugin('../css/[name].min.css', {allChunks: false})
+  );
 }
 
 export default config;
