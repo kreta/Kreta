@@ -27,36 +27,36 @@
   ],
   "main": "gulpfile.js",
   "scripts": {
-    "webpackwatcher": "webpack --progress --colors --watch",
-    "webpackprod": "webpack --progress --colors --env=prod",
-    "webpack": "webpack --progress --colors"
+    "watch": "node_modules/.bin/webpack --progress --colors --watch",
+    "prod": "node_modules/.bin/webpack --progress --colors --env=prod",
+    "dev": "node_modules/.bin/webpack --progress --colors"
   },
   "dependencies": {
-    "backbone": "^1.2.3",
-    "backbone-model-file-upload": "^1.0.0",
-    "backbone.marionette": "^2.4.3",
-    "jquery": "^2.1.4",
-    "lodash": "^3.10.1",
+    "backbone": "^1.2",
+    "backbone-model-file-upload": "^1.0",
+    "backbone.marionette": "^2.4",
+    "jquery": "^2.1",
+    "lodash": "^3.10",
     "mousetrap": "^1.5.3",
-    "path": "^0.12.7",
-    "react": "^0.13.3",
+    "path": "^0.12",
+    "react": "^0.13",
     "react-router": "1.0.0-rc1",
-    "react-select": "^0.6.12",
-    "select2": "^4.0.0"
+    "react-select": "^0.6",
+    "select2": "^4.0"
   },
   "devDependencies": {
-    "autoprefixer": "^6.0.3",
-    "babel-loader": "^5.3.2",
-    "css-loader": "^0.19.0",
-    "eslint-loader": "^1.0.0",
-    "extract-text-webpack-plugin": "^0.8.2",
-    "file-loader": "^0.8.4",
+    "autoprefixer": "^6.0",
+    "babel-loader": "^5.3",
+    "copy-dir": "0.0",
+    "css-loader": "^0.19",
+    "eslint-loader": "^1.0",
+    "extract-text-webpack-plugin": "^0.8",
     "minimist": "^1.2",
-    "node-sass": "^3.3.3",
-    "postcss-loader": "^0.6.0",
-    "sass-loader": "^3.0.0",
-    "source-map": "^0.5.1",
-    "style-loader": "^0.12.4",
-    "webpack": "^1.12.2"
+    "node-sass": "^3.3",
+    "postcss-loader": "^0.6",
+    "sass-loader": "^3.0",
+    "source-map": "^0.5",
+    "style-loader": "^0.12",
+    "webpack": "^1.12"
   }
 }

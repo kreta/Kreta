@@ -8,6 +8,7 @@
  */
 
 import autoprefixer from 'autoprefixer';
+import copy from 'copy-dir';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import minimist from 'minimist';
 import path from 'path';
@@ -37,20 +38,20 @@ let config = {
   },
   module: {
     preLoaders: [
-      {test: /\.js$/, exclude: /node_modules/, loaders: ['eslint-loader']},
-      //{test: /\.scss$/, exclude: /node_modules/, loaders: ['scss-lint-loader']}
+      {test: /\.js$/, exclude: /node_modules/, loaders: ['eslint']}
     ],
     loaders: [
       {test: /\.js$/, exclude: /node_modules/, loaders: ['babel']},
-      {test: /\.(jpe?g|png|gif|svg)$/, loader: 'file-loader'},
-      {test: /\.scss$/, loader: ExtractTextPlugin.extract('style-loader', 'css-loader!postcss!sass-loader')}
+      {test: /\.scss$/, loader: ExtractTextPlugin.extract(
+        'style', 'css!postcss!sass?outputStyle=expanded&sourceComments=true'
+      )}
     ]
   },
   resolve: {
     alias: {underscore: 'lodash'}
   },
   eslint: {configFile: '.eslint.yml'},
-  postcss: [autoprefixer({browsers: ['last 2 version']})],
+  postcss: [autoprefixer()],
   plugins: [
     new webpack.ProvidePlugin({
       _: 'lodash', Backbone: 'backbone', $: 'jquery', jQuery: 'jquery'
@@ -69,9 +70,7 @@ if (cliOptions.hasOwnProperty('env') && cliOptions.env === 'prod') {
   config.module.loaders.push(
     {test: /\.css$/, loader: 'style-loader/useable!css-loader?minimize!postcss-loader'}
   );
-  config.plugins.push(
-    new ExtractTextPlugin('../css/[name].min.css', {allChunks: false})
-  );
 }
+copy.sync(path.resolve(__dirname, 'Resources/public/img'), path.resolve(__dirname, '../../../../web/images'));
 
 export default config;
