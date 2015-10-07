@@ -1,0 +1,132 @@
+# This file belongs to Kreta.
+# The source code of application includes a LICENSE file
+# with all information about license.
+#
+# @author benatespina <benatespina@gmail.com>
+# @author gorkalaucirica <gorka.lauzirika@gmail.com>
+
+options:
+    formatter: stylish
+files:
+    include: './Resources/**/*.s+(a|c)ss'
+    ignore:
+        - './Resources/**/base/_reset.scss'
+        - './Resources/**/helpers/_spacing.scss'
+rules:
+    border-zero:
+        - 2
+        -
+            convention: 0
+  
+    clean-import-paths:
+        - 2
+        -
+            leading-underscore: false
+            ilename-extension: false
+    empty-args: 
+        - 2
+        -
+            include: false
+    empty-line-between-blocks:
+        - 2
+        -
+            include: true
+    extends-before-declarations: 2
+    extends-before-mixins: 2
+    final-newline:
+        - 2
+        -
+            include: true
+    hex-length:
+        - 2
+        -
+            style: short
+    hex-notation:
+        - 2
+        -
+            style: lowercase
+    indentation:
+        - 2
+        -
+            size: 2
+    leading-zero:
+        - 2
+        -
+            include: false
+    mixins-before-declaration:
+        - 2
+        -
+            exclude:
+                - breakpoint
+                - mq
+    nesting-depth:
+        - 2
+        -
+            max-depth: 3
+    no-color-keywords: 2
+    no-color-literals:
+        - 2
+        -
+            allow-rgba: true
+    no-css-comments: 2
+    no-debug: 2
+    no-duplicate-properties: 2
+    no-empty-rulesets: 2
+    no-empty-rulesets: 2
+    no-extends: 2
+    no-ids: 2
+    no-important: 2
+    no-invalid-hex: 2
+    no-warn: 2
+    one-declaration-per-line: 2
+    placeholder-in-extend: 2
+    property-sort-order:
+        - 2
+        -
+            order: alphabetical
+    quotes:
+        - 2
+        -
+            style: single
+    single-line-per-selector: 2
+    space-after-bang:
+        - 2
+        -
+            include: false
+    space-after-colon:
+        - 2
+        -
+            include: true
+    space-after-comma:
+        - 2
+        -
+            include: true
+    space-before-bang:
+        - 2
+        -
+            include: true
+    space-before-colon:
+        - 2
+        -
+            include: false
+    space-before-brace:
+        - 2
+        -
+            include: true
+    space-between-parens:
+        - 2
+        -
+            include: false
+    trailing-semicolon:
+        - 2
+        -
+            include: true
+    
+    variable-for-property:
+        - 2
+        -
+            properties: []
+    zero-unit:
+        - 2
+        -
+            include: false
