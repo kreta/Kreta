@@ -162,7 +162,6 @@ gulp.task('js:prod', () => {
 });
 
 gulp.task('watch', () => {
-  gulp.watch(ASSETS.javascripts.path, ['js']);
   gulp.watch(WATCH.sass, ['sass']);
   gulp.watch(ASSETS.images, ['images']);
 });

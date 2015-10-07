@@ -42,13 +42,13 @@ export default React.createClass({
           >{item.title}</a>
         );
       });
-      return <div className="filter-group">{groupFilters}</div>
+      return <div className="filter-group">{groupFilters}</div>;
     });
 
     return (
       <div className="filter">
         {filtersEl}
       </div>
-    )
+    );
   }
-})
+});

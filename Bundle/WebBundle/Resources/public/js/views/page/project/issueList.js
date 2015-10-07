@@ -13,9 +13,6 @@ import IssuePreview from '../../component/issuePreview.js';
 import Filter from '../../component/filter.js';
 
 export default React.createClass({
-  propTypes: {
-    project: React.PropTypes.object.isRequired
-  },
   getInitialState() {
     return {
       project: null,
@@ -109,36 +106,38 @@ export default React.createClass({
     this.setState({filters: [assigneeFilters, priorityFilters, statusFilters]});
   },
   render() {
-    if(!this.state.project) {
-      return <p>Loading...</p>
+    if (!this.state.project) {
+      return <p>Loading...</p>;
     }
-    let issuesEl = this.state.issues.map((issue) => {
-      return <IssuePreview issue={issue}/>
+    const issuesEl = this.state.issues.map((issue, index) => {
+      return <IssuePreview issue={issue} key={index}/>;
     });
     return (
       <div>
         <div className="page-header">
           <div className="project-image" style={{background: '#ebebeb'}}></div>
           <h2 className="page-header-title">{this.state.project.get('name')}</h2>
+
           <div>
             <a className="page-header-link" href="#">
               <i className="fa fa-dashboard"></i>
-            Dashboard
+              Dashboard
             </a>
             <a id="project-settings-show"
-            className="page-header-link"
-            href={`/projects/${this.state.project.id}/settings`}
-            data-bypass>
+               className="page-header-link"
+               href={`/projects/${this.state.project.id}/settings`}
+               data-bypass>
               <i className="fa fa-settings"></i>
-            Settings
+              Settings
             </a>
           </div>
         </div>
         <Filter filters={this.state.filters} onFilterSelected={this.filterIssues}/>
+
         <div className="issues">
-            {this.state.fetchingIssues ? 'Loading...' : issuesEl}
+          {this.state.fetchingIssues ? 'Loading...' : issuesEl}
         </div>
       </div>
     );
   }
-})
+});

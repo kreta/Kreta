@@ -30,6 +30,6 @@ export class ProjectCollection extends Backbone.Collection {
         filtered.push(model.toJSON());
       }
     });
-    return filtered;
+    return new ProjectCollection(filtered);
   }
 }

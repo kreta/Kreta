@@ -1,35 +1,32 @@
 $modal-overlay-z-index: 90;
 $modal-z-index: 100;
 
-.modal-overlay {
+.modal,
+.modal__overlay {
   display: none;
-
-  &.visible {
-    background: rgba($main-black, .5);
-    bottom: 0;
-    display: block;
-    left: 0;
-    position: fixed;
-    right: 0;
-    top: 0;
-    z-index: $modal-overlay-z-index;
-  }
 }
 
-.modal-region {
-  display: none;
+.modal--visible {
+  background: $white;
+  border-radius: 3px;
+  box-shadow: 1px 1px 10px rgba($main-black, .1);
+  display: block;
+  left: 50%;
+  max-width: 500px;
+  width: 100%;
+  position: fixed;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: $modal-z-index;
+}
 
-  &.visible {
-    background: $white;
-    border-radius: 3px;
-    box-shadow: 1px 1px 10px rgba($main-black, .1);
-    display: block;
-    left: 50%;
-    max-width: 500px;
-    width: 100%;
-    position: fixed;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    z-index: $modal-z-index;
-  }
+.modal__overlay--visible {
+  background: rgba($main-black, .5);
+  bottom: 0;
+  display: block;
+  left: 0;
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: $modal-overlay-z-index;
 }

@@ -7,188 +7,47 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 import React from 'react';
+import {Link} from 'react-router';
+import classNames from 'classNames';
 
 export default React.createClass({
-  getInitialState() {
-    return {
-      selectedShortcut: 0
-    };
-  },
-  getDefaultProps() {
-    return {
-      shortcuts: [{
-        'icon': 'list',
-        'method': $.proxy(this.showFullProject, this),
-        'tooltip': 'Show full project'
-      }, {
-        'icon': 'add',
-        'method': $.proxy(this.showNewTask, this),
-        'tooltip': 'New task'
-      }]
-    };
-  },
-  onKeyUp(ev) {
-    switch (ev.which) {
-      case 37:
-      { // Left
-        if (this.selectedShortcut > 0) {
-          this.selectedShortcut--;
-          this.updateSelectedShortcut();
-          return false;
-        }
-        break;
-      }
-      case 39:
-      { // Right
-        if (this.selectedShortcut + 1 < this.shortcuts.length) {
-          this.selectedShortcut++;
-          this.updateSelectedShortcut();
-          return false;
-        }
-        break;
-      }
-      case 13:
-      { // Enter
-        this.shortcuts[this.selectedShortcut].method();
-        return false;
-      }
-      default:
-      {
-        return true;
-      }
-    }
-  },
-  showFullProject() {
-    this.triggerMethod('project:selected');
-    App.router.base.navigate(`/project/${this.model.id}`);
-    App.controller.project.showAction(this.model);
-
-    return false;
-  },
-
-  showNewTask() {
-    this.triggerMethod('project:selected');
-    App.router.base.navigate(`/issue/new/${this.model.id}`);
-    App.controller.issue.newAction(this.model.id);
+  propTypes: {
+    project: React.PropTypes.object.isRequired,
+    shortcuts: React.PropTypes.array.isRequired,
+    onMouseEnter: React.PropTypes.func,
+    onShortcutEnter: React.PropTypes.func,
+    onShortcutClick: React.PropTypes.func,
+    selected: React.PropTypes.bool,
+    selectedShortcut: React.PropTypes.number
   },
   render() {
     var shortcutItems = this.props.shortcuts.map((shortcut, index) => {
+      const classes = classNames({
+        'project-preview__shortcut': true,
+        'project-preview__shortcut--selected': index === this.props.selectedShortcut
+      });
       return (
-        <img className={`project-preview__shortcut
-              ${ index === this.state.selectedShortcut ?
-                ' project-preview__shortcut--selected' : ''}`}
-             onClick={shortcut.method}
-             onHover={this.setState({selectedShortcut: index})}
-             onKeyUp={this.onKeyUp}
-             src={`/bundles/kretaweb/svg/${shortcut.icon}.svg`}/>
+        <img className={classes}
+             onClick={this.props.onShortcutClick}
+             onMouseEnter={this.props.onShortcutEnter}
+             src={`/bundles/kretaweb/svg/${shortcut.icon}.svg`}
+             key={index}/>
       );
     });
+    const classes = classNames({
+      'project-preview': true,
+      'project-preview--selected': this.props.selected
+    });
     return (
-      <div>
-        <span class="project-preview__title" href="/project/<%= id %>">
+      <div className={ classes } onMouseEnter={ this.props.onMouseEnter }>
+        <Link className="project-preview__title" to={`/project/${this.props.project.id}`}>
           {this.props.project.get('name')}
-        </span>
+        </Link>
 
-        <div class="project-preview__shortcuts">
+        <div className="project-preview__shortcuts">
           {shortcutItems}
         </div>
       </div>
     );
   }
 });
-/* constructor(options = {}) {
- _.defaults(options, {
- className: 'project-preview',
- tagName: 'li',
- template: _.template($('#project-preview-template').html()),
- events: {
- 'keyup': 'onKeyUp',
- 'mouseenter': 'onHover',
- 'mouseenter .project-preview__shortcut': 'onShortcutHover',
- 'click .project-preview__shortcut': 'onShortcutClick'
- }
- });
- super(options);
-
- this.shortcuts = [{
- 'icon': 'list',
- 'method': $.proxy(this.showFullProject, this),
- 'tooltip': 'Show full project'
- }, {
- 'icon': 'add',
- 'method': $.proxy(this.showNewTask, this),
- 'tooltip': 'New task'
- }];
- this.selectedShortcut = 0;
- }
-
- ui() {
- return {
- 'shortcuts': '.project-preview__shortcut'
- };
- }
-
- onBeforeRender() {
- this.model.set('shortcuts', this.shortcuts);
- }
-
- onRender() {
- this.$el.attr('tabindex', '-1');
- this.updateSelectedShortcut();
- }
-
- onKeyUp(ev) {
- switch (ev.which) {
- case 37: { // Left
- if (this.selectedShortcut > 0) {
- this.selectedShortcut--;
- this.updateSelectedShortcut();
- return false;
- }
- break;
- }
- case 39: { // Right
- if (this.selectedShortcut + 1 < this.shortcuts.length) {
- this.selectedShortcut++;
- this.updateSelectedShortcut();
- return false;
- }
- break;
- }
- case 13: { // Enter
- this.shortcuts[this.selectedShortcut].method();
- return false;
- }
- default: {
- return true;
- }
- }
- }
-
- onShortcutHover(ev) {
- this.selectedShortcut = $(ev.currentTarget).index();
- this.updateSelectedShortcut();
- }
-
- onShortcutClick(ev) {
- this.shortcuts[$(ev.currentTarget).index()].method();
- }
-
- updateSelectedShortcut() {
- this.ui.shortcuts.removeClass('selected');
- this.ui.shortcuts.eq(this.selectedShortcut).addClass('selected');
- }
-
- showFullProject() {
- this.triggerMethod('project:selected');
- App.router.base.navigate(`/project/${this.model.id}`);
- App.controller.project.showAction(this.model);
-
- return false;
- }
-
- showNewTask() {
- this.triggerMethod('project:selected');
- App.router.base.navigate(`/issue/new/${this.model.id}`);
- App.controller.issue.newAction(this.model.id);
- }*/

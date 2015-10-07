@@ -8,27 +8,30 @@
  */
 import React from 'react';
 
+import Modal from '../component/modal.js';
+import ProjectList from '../page/project/list.js';
+
 export default React.createClass({
   getInitialState() {
     return {
-      user: App.currentUser
-    }
+      user: App.currentUser,
+      projectListVisible: false
+    };
   },
-  componentWillMount() {
-    //this.listenTo(App.currentUser, 'change', this.render);
+  showProjectList(ev) {
+    this.refs.projectListModal.openModal();
+    ev.preventDefault();
   },
-  showProjectList() {
-    console.log('Show project list');
+  hideProjectList() {
+    this.refs.projectListModal.closeModal();
   },
   render() {
     return (
       <nav className="menu">
         <img className="menu-logo" src=""/>
         <div className="menu-user">
-          <div className="menu-user">
-            <img className="menu-user-image" src={this.state.user.get('photo').name}/>
-            <span className="menu-user-name">@{this.state.user.get('username')}</span>
-          </div>
+          <img className="menu-user-image" src={this.state.user.get('photo').name}/>
+          <span className="menu-user-name">@{this.state.user.get('username')}</span>
         </div>
         <div>
           <a className="menu-action" href="/">
@@ -48,6 +51,9 @@ export default React.createClass({
             <i className="fa fa-sign-out"></i>
           </a>
         </div>
+        <Modal ref="projectListModal">
+          <ProjectList onProjectSelected={this.hideProjectList}/>
+        </Modal>
       </nav>
     );
   }
