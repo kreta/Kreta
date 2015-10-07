@@ -35,6 +35,7 @@
     "backbone": "^1.2",
     "backbone-model-file-upload": "^1.0",
     "backbone.marionette": "^2.4",
+    "install": "^0.1.8",
     "jquery": "^2.1",
     "lodash": "^3.10",
     "mousetrap": "^1.5.3",
