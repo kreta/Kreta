@@ -7,6 +7,8 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
+import Style from '../../../scss/components/_notification.scss';
+
 export class NotificationView {
   constructor(options = {}) {
     _.defaults(options, {

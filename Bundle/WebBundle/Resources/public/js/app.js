@@ -7,6 +7,8 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
+import Style from '../scss/app.scss';
+
 import {ProjectController} from './controllers/project';
 import {IssueController} from './controllers/issue';
 

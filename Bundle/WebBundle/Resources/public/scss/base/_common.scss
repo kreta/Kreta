@@ -1,3 +1,10 @@
+@import 'colors';
+@import 'typography';
+
+body {
+  font-family: $font-open-sans;
+}
+
 h1,
 h2,
 h3,

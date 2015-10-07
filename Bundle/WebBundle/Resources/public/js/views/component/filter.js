@@ -7,6 +7,8 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
+import Style from '../../../scss/components/_filter.scss';
+
 import React from 'react';
 
 export default React.createClass({

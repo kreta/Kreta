@@ -7,6 +7,8 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
+import Style from '../../../scss/components/_tooltip.scss';
+
 export class TooltipView {
   constructor() {
     $(document.body).on('mouseenter', '[data-tooltip-text]', this.onMouseEnter);

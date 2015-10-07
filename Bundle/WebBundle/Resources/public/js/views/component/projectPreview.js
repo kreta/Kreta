@@ -6,6 +6,9 @@
  * @author benatespina <benatespina@gmail.com>
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
+
+import Style from '../../../scss/components/_project-preview.scss';
+
 import React from 'react';
 import {Link} from 'react-router';
 import classNames from 'classnames';
