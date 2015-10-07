@@ -6,7 +6,6 @@
  * @author benatespina <benatespina@gmail.com>
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
-
 import React from 'react';
 import {Link} from 'react-router';
 
@@ -24,9 +23,7 @@ export default React.createClass({
     };
   },
   componentDidMount() {
-    this.setState({
-      project: App.collection.project.get(this.props.params.projectId)
-    });
+    this.state.project = App.collection.project.get(this.props.params.projectId);
     this.state.project.on('sync', $.proxy(this.loadFilters, this));
     this.state.project.on('change', $.proxy(this.loadFilters, this));
 
@@ -128,7 +125,7 @@ export default React.createClass({
               Dashboard
             </a>
             <Link className="page-header-link"
-                  to={`/projects/${this.state.project.id}/settings`}>
+                  to={`/project/${this.state.project.id}/settings`}>
               <i className="fa fa-settings"></i>
               Settings
             </Link>
