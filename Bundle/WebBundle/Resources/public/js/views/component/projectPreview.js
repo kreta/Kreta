@@ -8,17 +8,17 @@
  */
 import React from 'react';
 import {Link} from 'react-router';
-import classNames from 'classNames';
+import classNames from 'classnames';
 
 export default React.createClass({
   propTypes: {
-    project: React.PropTypes.object.isRequired,
-    shortcuts: React.PropTypes.array.isRequired,
     onMouseEnter: React.PropTypes.func,
-    onShortcutEnter: React.PropTypes.func,
     onShortcutClick: React.PropTypes.func,
+    onShortcutEnter: React.PropTypes.func,
+    project: React.PropTypes.object.isRequired,
     selected: React.PropTypes.bool,
-    selectedShortcut: React.PropTypes.number
+    selectedShortcut: React.PropTypes.number,
+    shortcuts: React.PropTypes.array.isRequired
   },
   render() {
     var shortcutItems = this.props.shortcuts.map((shortcut, index) => {
@@ -28,10 +28,10 @@ export default React.createClass({
       });
       return (
         <img className={classes}
+             key={index}
              onClick={this.props.onShortcutClick}
              onMouseEnter={this.props.onShortcutEnter}
-             src={`/bundles/kretaweb/svg/${shortcut.icon}.svg`}
-             key={index}/>
+             src={`/bundles/kretaweb/svg/${shortcut.icon}.svg`}/>
       );
     });
     const classes = classNames({

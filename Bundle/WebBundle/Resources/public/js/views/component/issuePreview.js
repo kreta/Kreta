@@ -41,16 +41,17 @@ export default React.createClass({
         <div className="list-issue-icons">
           <span className="list-issue-icon"
                 data-tooltip-text={ this.props.issue.get('status').name }>
-            <i className="fa fa-check" style={{color: this.props.issue.get('status').color }}></i>
+            <i className="fa fa-check"
+               style={{color: this.props.issue.get('status').color }}></i>
           </span>
-          <span
-            data-tooltip-text={`
+          <span data-tooltip-text={`
               ${this.props.issue.get('assignee').first_name}
               ${this.props.issue.get('assignee').last_name}`}>
-            <img className="user-image" src={this.props.issue.get('assignee').photo.name }/>
+            <img className="user-image"
+                 src={this.props.issue.get('assignee').photo.name }/>
           </span>
         </div>
       </div>
     );
   }
-})
+});

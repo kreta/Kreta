@@ -6,7 +6,9 @@
  * @author benatespina <benatespina@gmail.com>
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
+
 import React from 'react';
+import {Link} from 'react-router';
 
 import {IssueCollection} from '../../../collections/issue';
 import IssuePreview from '../../component/issuePreview.js';
@@ -22,7 +24,9 @@ export default React.createClass({
     };
   },
   componentDidMount() {
-    this.state.project = App.collection.project.get(this.props.params.projectId);
+    this.setState({
+      project: App.collection.project.get(this.props.params.projectId)
+    });
     this.state.project.on('sync', $.proxy(this.loadFilters, this));
     this.state.project.on('change', $.proxy(this.loadFilters, this));
 
@@ -123,13 +127,11 @@ export default React.createClass({
               <i className="fa fa-dashboard"></i>
               Dashboard
             </a>
-            <a id="project-settings-show"
-               className="page-header-link"
-               href={`/projects/${this.state.project.id}/settings`}
-               data-bypass>
+            <Link className="page-header-link"
+                  to={`/projects/${this.state.project.id}/settings`}>
               <i className="fa fa-settings"></i>
               Settings
-            </a>
+            </Link>
           </div>
         </div>
         <Filter filters={this.state.filters} onFilterSelected={this.filterIssues}/>

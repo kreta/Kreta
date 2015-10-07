@@ -34,20 +34,16 @@ export default React.createClass({
           <span className="menu-user-name">@{this.state.user.get('username')}</span>
         </div>
         <div>
-          <a className="menu-action" href="/">
+          <a className="menu-action">
             <i className="fa fa-sign-out"></i>
             <span className="menu-notification-bubble">4</span>
           </a>
-          <a className="menu-action projects" onClick={this.showProjectList}
-             href="#" data-tooltip-text="Project list" data-tooltip-position="right">
+          <a className="menu-action projects"
+             onClick={this.showProjectList}>
             <i className="fa fa-sign-out"></i>
           </a>
-          <a className="menu-action" href="/profile/edit" data-tooltip-text="Edit profile"
-             data-tooltip-position="right">
-            <i className="fa fa-sign-out"></i>
-          </a>
-          <a className="menu-action" href="/logout" data-bypass data-tooltip-text="Logout"
-             data-tooltip-position="right" title="Logout">
+          <a className="menu-action"
+             href="/logout">
             <i className="fa fa-sign-out"></i>
           </a>
         </div>

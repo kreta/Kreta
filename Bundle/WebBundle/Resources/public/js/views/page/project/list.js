@@ -91,15 +91,14 @@ export default React.createClass({
   },
   render() {
     var projectItems = this.state.projects.map((project, index) => {
-      return <ProjectPreview project={project}
-                             shortcuts={this.props.shortcuts}
+      return <ProjectPreview key={index}
                              onMouseEnter={this.onMouseEnter}
-                             onShortcutEnter={this.onShortcutSelected}
                              onShortcutClick={this.onShortcutClick}
-                             key={index}
+                             onShortcutEnter={this.onShortcutSelected}
+                             project={project}
                              selected={this.state.selectedItem === index}
                              selectedShortcut={this.state.selectedShortcut}
-        />;
+                             shortcuts={this.props.shortcuts}/>;
     });
 
     return (
@@ -109,11 +108,13 @@ export default React.createClass({
             <span className="simple-header-filter">Sort by <strong>priority</strong></span>
           </div>
           <div className="simple-header-actions">
-            <Link to="/project/new" className="button green small">New</Link>
+            <Link className="button green small" to="/project/new">New</Link>
           </div>
         </div>
-        <input className="project-list__filter" type="text" ref="filter"
-               onKeyUp={this.onKeyUp}/>
+        <input className="project-list__filter"
+               onKeyUp={this.onKeyUp}
+               ref="filter"
+               type="text"/>
         <ul className="project-preview__list" ref="projectList">
           { projectItems }
         </ul>

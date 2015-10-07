@@ -6,6 +6,7 @@
  * @author benatespina <benatespina@gmail.com>
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
+
 import React from 'react';
 
 import MainMenu from './mainMenu.js';
@@ -24,6 +25,6 @@ export default React.createClass({
           </div>
         </div>
       </div>
-    )
+    );
   }
 });

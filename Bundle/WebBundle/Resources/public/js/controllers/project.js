@@ -8,7 +8,6 @@
  */
 
 import {IssueListView} from '../views/page/project/issueList';
-import {ProjectList} from '../views/page/project/list';
 import {ProjectNewView} from '../views/page/project/new';
 import {ProjectSettingsView} from '../views/page/project/settings';
 

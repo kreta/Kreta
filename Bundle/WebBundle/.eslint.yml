@@ -28,6 +28,8 @@ globals:
     Mousetrap: true
     React: true
 
+plugins:
+    - react
 rules:
     indent:
         - 2
@@ -270,3 +272,36 @@ rules:
     prefer-reflect: 2
     prefer-template: 2
     require-yield: 2
+    
+###############################
+########### REACT #############
+###############################
+
+    react/display-name: 0
+    react/forbid-prop-types: 0
+    react/jsx-boolean-value: 0
+    react/jsx-closing-bracket-location: 0
+    react/jsx-curly-spacing: 0
+    react/jsx-indent-props: 0
+    react/jsx-max-props-per-line: 0
+    react/jsx-no-duplicate-props: 1
+    react/jsx-no-literals: 0
+    react/jsx-no-undef: 1
+    jsx-quotes: 1
+    react/jsx-sort-prop-types: 1
+    react/jsx-sort-props: 1
+    react/jsx-uses-react: 1
+    react/jsx-uses-vars: 1
+    react/no-danger: 1
+    react/no-did-mount-set-state: 1
+    react/no-did-update-set-state: 1
+    react/no-direct-mutation-state: 1
+    react/no-multi-comp: 1
+    react/no-set-state: 0
+    react/no-unknown-property: 1
+    react/prop-types: 0
+    react/react-in-jsx-scope: 0
+    react/require-extension: 0
+    react/self-closing-comp: 0
+    react/sort-comp: 0
+    react/wrap-multilines: 0
