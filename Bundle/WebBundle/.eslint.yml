@@ -17,19 +17,11 @@ ecmaFeatures:
     jsx: true
 
 globals:
-    $: true
-    _: true
-    App: true
-    Backbone: true
-    Config: true
-    jQuery: true
-    Kreta: true
-    module: true
-    Mousetrap: true
-    React: true
+    process: true
 
 plugins:
     - react
+
 rules:
     indent:
         - 2
@@ -276,7 +268,6 @@ rules:
 ###############################
 ########### REACT #############
 ###############################
-
     react/display-name: 0
     react/forbid-prop-types: 0
     react/jsx-boolean-value: 0

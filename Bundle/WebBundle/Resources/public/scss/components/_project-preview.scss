@@ -1,3 +1,5 @@
+@import '../base/colors';
+
 .project-preview__list {
   text-align: left;
   max-height: 300px;
@@ -46,7 +48,3 @@
 .project-preview__shortcut--selected {
   opacity: 1;
 }
-
-
-
-

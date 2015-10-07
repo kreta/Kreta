@@ -7,7 +7,9 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-import Style from '../../../scss/components/_project-preview.scss';
+import Style from './../../../scss/components/_project-preview.scss';
+import addIcon from './../../../svg/add.svg';
+import listIcon from './../../../svg/list.svg';
 
 import React from 'react';
 import {Link} from 'react-router';
