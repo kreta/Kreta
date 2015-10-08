@@ -8,8 +8,8 @@
  */
 
 import Backbone from 'backbone';
-import {Config} from '../config';
-import {Project} from '../models/project';
+import {Config} from '../Config';
+import {Project} from '../models/Project';
 
 export class ProjectCollection extends Backbone.Collection {
   constructor(models, options = {}) {

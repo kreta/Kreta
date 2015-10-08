@@ -7,8 +7,8 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-import {UserSelectorItemView} from './user-selector-item';
-import {UserInviteView} from '../page/user/invite';
+import {UserSelectorItemView} from './UserSelectorItem';
+import {UserInviteView} from '../page/user/Invite';
 
 export class UserSelectorView extends Backbone.Marionette.CompositeView {
   initialize(options = {}) {

@@ -7,9 +7,9 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-import {Issue} from '../models/issue';
-import {IssueShowView} from '../views/page/issue/show';
-import {IssueNewView} from '../views/page/issue/new';
+import {Issue} from '../models/Issue';
+import {IssueShowView} from '../views/page/issue/Show';
+import {IssueNewView} from '../views/page/issue/New';
 
 export class IssueController extends Backbone.Marionette.Controller {
   newAction(projectId) {

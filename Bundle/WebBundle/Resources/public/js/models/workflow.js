@@ -8,7 +8,7 @@
  */
 
 import Backbone from 'backbone';
-import {Config} from '../config';
+import {Config} from '../Config';
 
 export class Workflow extends Backbone.Model {
   urlRoot() {

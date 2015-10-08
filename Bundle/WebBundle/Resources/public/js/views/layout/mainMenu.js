@@ -6,10 +6,13 @@
  * @author benatespina <benatespina@gmail.com>
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
+
+import '../../../scss/layout/_main-menu.scss';
+
 import React from 'react';
 
-import Modal from '../component/modal.js';
-import ProjectList from '../page/project/list.js';
+import Modal from '../component/Modal.js';
+import ProjectList from '../page/project/List.js';
 
 export default React.createClass({
   getInitialState() {

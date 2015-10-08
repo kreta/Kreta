@@ -7,8 +7,8 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-import {Config} from '../../config';
-import {NotificationService} from '../../service/notification';
+import {Config} from '../../Config';
+import {NotificationService} from '../../service/Notification';
 
 export class UserSelectorItemView extends Backbone.Marionette.ItemView {
   initialize(options = {}) {

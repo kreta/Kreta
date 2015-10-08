@@ -7,12 +7,12 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-import {IssueListView} from '../views/page/project/issueList';
-import {ProjectNewView} from '../views/page/project/new';
-import {ProjectSettingsView} from '../views/page/project/settings';
+import {IssueListView} from '../views/page/project/IssueList';
+import {ProjectNewView} from '../views/page/project/New';
+import {ProjectSettingsView} from '../views/page/project/Settings';
 
-import {Project} from '../models/project';
-import {IssueCollection} from '../collections/issue';
+import {Project} from '../models/Project';
+import {IssueCollection} from '../collections/Issue';
 
 export class ProjectController extends Backbone.Marionette.Controller {
   newAction() {

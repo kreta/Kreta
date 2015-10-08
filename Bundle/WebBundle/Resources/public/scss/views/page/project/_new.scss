@@ -5,14 +5,8 @@
 // @author benatespina <benatespina@gmail.com>
 // @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
-.user-image,
-.project-image {
-  border-radius: 50%;
-  height: 40px;
-  width: 40px;
-
-  &.big {
-    height: 70px;
-    width: 70px;
-  }
+.project-new {
+  padding-top: 100px;
+  position: relative;
+  width: 100%;
 }

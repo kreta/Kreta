@@ -7,6 +7,8 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
+import '../../../scss/layout/_main-content.scss';
+
 export class MainContentRegion extends Backbone.Marionette.Region {
   constructor(options = {}) {
     _.defaults(options, {

@@ -7,12 +7,14 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-import {Project} from '../../../models/project';
+import '../../../../scss/views/page/project/_settings.scss';
 
-import {UserSelectorView} from '../../component/user-selector';
+import {Project} from '../../../models/Project';
 
-import {FormSerializerService} from '../../../service/form-serializer';
-import {NotificationService} from '../../../service/notification';
+import {UserSelectorView} from '../../component/UserSelector';
+
+import {FormSerializerService} from '../../../service/FormSerializer';
+import {NotificationService} from '../../../service/Notification';
 
 export class ProjectSettingsView extends Backbone.Marionette.ItemView {
   constructor(options = {}) {

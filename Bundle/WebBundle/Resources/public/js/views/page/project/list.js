@@ -6,10 +6,11 @@
  * @author benatespina <benatespina@gmail.com>
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
+
 import React from 'react';
 import {Link, History} from 'react-router';
 
-import ProjectPreview from '../../component/projectPreview';
+import ProjectPreview from '../../component/ProjectPreview';
 
 export default React.createClass({
   propTypes: {

@@ -11,13 +11,12 @@ import React from 'react';
 import {Router, Route} from 'react-router';
 
 // import {TooltipView} from 'views/component/tooltip';
-import {App} from './app';
-import BaseLayout from './views/layout/base';
-import ProjectShow from './views/page/project/issueList.js';
-import ProjectSettings from './views/page/project/settings.js';
-import Profile from './views/page/user/edit.js';
-import IssueNew from './views/page/issue/new.js';
-
+import {App} from './App';
+import BaseLayout from './views/layout/Base';
+import ProjectShow from './views/page/project/IssueList.js';
+import ProjectSettings from './views/page/project/Settings.js';
+import Profile from './views/page/user/Edit.js';
+import IssueNew from './views/page/issue/New.js';
 
 $(() => {
   window.App = new App({

@@ -7,7 +7,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-import {UserEditView} from '../views/page/user/edit';
+import {UserEditView} from '../views/page/user/Edit';
 
 export class UserController extends Backbone.Marionette.Controller {
   editAction() {

@@ -7,6 +7,8 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
+import '../../../scss/layout/_aside.scss';
+
 export class AsideRegion extends Backbone.Marionette.Region {
   constructor(options = {}) {
     _.defaults(options, {

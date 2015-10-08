@@ -1,5 +1,14 @@
+// This file belongs to Kreta.
+// The source code of application includes a LICENSE file
+// with all information about license.
+//
+// @author benatespina <benatespina@gmail.com>
+// @author gorkalaucirica <gorka.lauzirika@gmail.com>
+
+@import '../base/colors';
+
 .menu {
-  background: #3f434a;
+  background: $grey;
   color: $white;
   height: 100%;
   left: 0;
@@ -26,7 +35,6 @@
   font-size: .7em;
 }
 
-
 .menu-action {
   color: $white;
   display: block;
@@ -37,7 +45,7 @@
 }
 
 .menu-notification-bubble {
-  background: #eb4d4f;
+  background: $light-red;
   border-radius: 50%;
   color: $white;
   font-size: .8em;

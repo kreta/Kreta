@@ -7,7 +7,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-import Style from '../../../scss/components/_tooltip.scss';
+import '../../../scss/components/_tooltip.scss';
 
 export class TooltipView {
   constructor() {

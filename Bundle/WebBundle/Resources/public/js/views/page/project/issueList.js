@@ -6,12 +6,15 @@
  * @author benatespina <benatespina@gmail.com>
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
+
+import '../../../../scss/views/page/project/_issue-list.scss';
+
 import React from 'react';
 import {Link} from 'react-router';
 
-import {IssueCollection} from '../../../collections/issue';
-import IssuePreview from '../../component/issuePreview.js';
-import Filter from '../../component/filter.js';
+import {IssueCollection} from '../../../collections/Issue';
+import IssuePreview from '../../component/IssuePreview.js';
+import Filter from '../../component/Filter.js';
 
 export default React.createClass({
   getInitialState() {

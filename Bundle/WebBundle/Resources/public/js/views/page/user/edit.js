@@ -7,10 +7,10 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-import {FormSerializerService} from '../../../service/form-serializer';
-import {NotificationService} from '../../../service/notification';
+import {FormSerializerService} from '../../../service/FormSerializer';
+import {NotificationService} from '../../../service/Notification';
 
-import {Profile} from '../../../models/profile';
+import {Profile} from '../../../models/Profile';
 
 export class UserEditView extends Backbone.Marionette.ItemView {
   initialize() {

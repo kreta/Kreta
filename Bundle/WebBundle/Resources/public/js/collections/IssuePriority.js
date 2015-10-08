@@ -8,8 +8,8 @@
  */
 
 import Backbone from 'backbone';
-import {Config} from '../config';
-import {IssuePriority} from '../models/issue-priority';
+import {Config} from '../Config';
+import {IssuePriority} from '../models/IssuePriority';
 
 export class IssuePriorityCollection extends Backbone.Collection {
   constructor(models, options = {}) {

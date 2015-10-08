@@ -7,9 +7,9 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-import {Config} from '../../../config';
-import {FormSerializerService} from '../../../service/form-serializer';
-import {NotificationService} from '../../../service/notification';
+import {Config} from '../../../Config';
+import {FormSerializerService} from '../../../service/FormSerializer';
+import {NotificationService} from '../../../service/Notification';
 
 export class UserInviteView extends Backbone.Marionette.ItemView {
   constructor(options = {}) {

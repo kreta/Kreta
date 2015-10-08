@@ -7,7 +7,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-import Style from '../../../scss/components/_filter.scss';
+import '../../../scss/components/_filter.scss';
 
 import React from 'react';
 
@@ -38,10 +38,9 @@ export default React.createClass({
       var groupFilters = filter.map((item) => {
         return (
           <a className={`filter-item ${ item.selected ? 'selected' : ''} `}
-          data-filter={ item.filter }
-          data-value={ item.value }
-          onClick={this.filterSelected}
-          >{item.title}</a>
+             data-filter={ item.filter }
+             data-value={ item.value }
+             onClick={this.filterSelected}>{item.title}</a>
         );
       });
       return <div className="filter-group">{groupFilters}</div>;

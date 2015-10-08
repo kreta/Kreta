@@ -7,12 +7,14 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
+import '../../../../scss/views/page/issue/_new.scss';
+
 import React from 'react';
 
 import Select from 'react-select';
-import {Issue} from '../../../models/issue';
-import {NotificationService} from '../../../service/notification';
-import {FormSerializerService} from '../../../service/form-serializer';
+import {Issue} from '../../../models/Issue';
+import {NotificationService} from '../../../service/Notification';
+import {FormSerializerService} from '../../../service/FormSerializer';
 
 export default React.createClass({
   getInitialState() {

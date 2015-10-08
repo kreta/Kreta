@@ -9,7 +9,7 @@
 
 import React from 'react';
 
-import MainMenu from './mainMenu.js';
+import MainMenu from './MainMenu.js';
 
 export default React.createClass({
   render() {

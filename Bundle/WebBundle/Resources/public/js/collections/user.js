@@ -8,8 +8,8 @@
  */
 
 import Backbone from 'backbone';
-import {Config} from '../config';
-import {User} from '../models/user';
+import {Config} from '../Config';
+import {User} from '../models/User';
 
 export class UserCollection extends Backbone.Collection {
   constructor(models, options = {}) {

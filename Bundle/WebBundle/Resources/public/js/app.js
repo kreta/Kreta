@@ -7,19 +7,19 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-import Style from '../scss/app.scss';
+import '../scss/app.scss';
 
-import {ProjectController} from './controllers/project';
-import {IssueController} from './controllers/issue';
+import {ProjectController} from './controllers/Project';
+import {IssueController} from './controllers/Issue';
 
-import {ProjectCollection} from './collections/project';
-import {UserCollection} from './collections/user';
-import {WorkflowCollection} from './collections/workflow';
+import {ProjectCollection} from './collections/Project';
+import {UserCollection} from './collections/User';
+import {WorkflowCollection} from './collections/Workflow';
 
-import {Profile} from './models/profile';
+import {Profile} from './models/Profile';
 
-import {BaseLayoutView} from './views/layout/base';
-import {HeaderView} from './views/layout/mainMenu';
+import {BaseLayoutView} from './views/layout/Base';
+import {HeaderView} from './views/layout/MainMenu';
 
 export class App extends Backbone.Marionette.Application {
   constructor(options) {

@@ -7,6 +7,8 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
+import './../../../../scss/views/page/issue/_show.scss';
+
 export class IssueShowView extends Backbone.Marionette.ItemView {
   constructor(options = {}) {
     _.defaults(options, {

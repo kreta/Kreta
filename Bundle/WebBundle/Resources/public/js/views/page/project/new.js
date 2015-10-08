@@ -7,9 +7,11 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-import {Project} from '../../../models/project';
-import {FormSerializerService} from '../../../service/form-serializer';
-import {NotificationService} from '../../../service/notification';
+import '../../../../scss/views/page/project/_new.scss';
+
+import {Project} from '../../../models/Project';
+import {FormSerializerService} from '../../../service/FormSerializer';
+import {NotificationService} from '../../../service/Notification';
 
 export class ProjectNewView extends Backbone.Marionette.ItemView {
   constructor(options = {}) {

@@ -8,8 +8,8 @@
  */
 
 import Backbone from 'backbone';
-import {Config} from '../config';
-import {IssueType} from '../models/issue-type';
+import {Config} from '../Config';
+import {IssueType} from '../models/IssueType';
 
 export class IssueTypeCollection extends Backbone.Collection {
   constructor(models, options = {}) {

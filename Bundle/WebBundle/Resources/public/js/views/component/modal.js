@@ -7,6 +7,8 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
+import '../../../scss/components/_modal.scss';
+
 import React from 'react';
 import classNames from 'classnames';
 
