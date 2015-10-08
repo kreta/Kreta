@@ -9,50 +9,45 @@
 
 import '../../../../scss/views/page/project/_new.scss';
 
-import React from 'react';
-
 import {Project} from '../../../models/Project';
 import {FormSerializerService} from '../../../service/FormSerializer';
+import {NotificationService} from '../../../service/Notification';
 
-export default React.createClass({
+export class ProjectNewView extends Backbone.Marionette.ItemView {
+  constructor(options = {}) {
+    _.defaults(options, {
+      className: 'project-new',
+      template: _.template($('#project-new-template').html()),
+      events: {
+        'submit #project-new': 'save'
+      }
+    });
+    super(options);
+  }
+
   save(ev) {
     ev.preventDefault();
 
-    const project = FormSerializerService.serialize(
-      $(this.refs.form), Project
+    var $actions = $('.issue-new-actions').hide();
+
+    this.model = FormSerializerService.serialize(
+      $('#project-new'), Project
     );
 
-    project.save(null, {
-      success: () => {
-        console.log('Project new OK');
+    this.model.save(null, {
+      success: (model) => {
+        App.router.base.navigate(`/project/${model.id}`, true);
+        NotificationService.showNotification({
+          type: 'success',
+          message: 'Project created successfully'
+        });
       }, error: () => {
-        console.log('Project new KO');
+        NotificationService.showNotification({
+          type: 'error',
+          message: 'Error while saving this project'
+        });
+        $actions.show();
       }
     });
-  },
-  render() {
-    return (
-      <div>
-        <form ref="form">
-          <div className="issue-new-actions">
-            <button className="button">Cancel</button>
-            <button className="button green"
-                    tabIndex="3"
-                    type="submit">
-              Done
-            </button>
-          </div>
-          <input className="big"
-                 name="name"
-                 placeholder="Type your project name"
-                 tabIndex="1"
-                 type="text"/>
-          <input name="shortName"
-                 placeholder="Type a short name for your project"
-                 tabIndex="2"
-                 type="text"/>
-        </form>
-      </div>
-    );
   }
-});
+}
