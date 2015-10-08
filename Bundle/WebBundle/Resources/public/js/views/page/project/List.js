@@ -65,6 +65,8 @@ export default React.createClass({
           selectedShortcut: this.state.selectedShortcut + 1
         });
       }
+    } else if (ev.which === 13) { // Enter
+      this.onShortcutClick();
     } else { // Filter
       this.setState({
         projects: App.collection.project.filter(this.refs.filter.getDOMNode().value),
