@@ -11,16 +11,16 @@ import React from 'react';
 import {Link, History} from 'react-router';
 
 import ProjectPreview from '../../component/ProjectPreview';
+import NavigableCollection from '../../../mixins/NavigableCollection.js';
 
 export default React.createClass({
   propTypes: {
     onProjectSelected: React.PropTypes.func
   },
-  mixins: [History],
+  mixins: [History, NavigableCollection],
   getInitialState() {
     return {
       projects: App.collection.project.clone(),
-      selectedItem: 0,
       selectedShortcut: 0
     };
   },
@@ -38,22 +38,7 @@ export default React.createClass({
     };
   },
   onKeyUp(ev) {
-    if (ev.which === 40) { // Down
-      if (this.state.selectedItem + 1 < this.state.projects.length) {
-        this.setState({
-          selectedItem: this.state.selectedItem + 1
-        });
-        this.centerListScroll();
-      }
-
-    } else if (ev.which === 38) { // Up
-      if (this.state.selectedItem > 0) {
-        this.setState({
-          selectedItem: this.state.selectedItem - 1
-        });
-        this.centerListScroll();
-      }
-    } else if (ev.which === 37) { // Left
+    if (ev.which === 37) { // Left
       if (this.state.selectedShortcut > 0) {
         this.setState({
           selectedShortcut: this.state.selectedShortcut - 1
@@ -69,7 +54,7 @@ export default React.createClass({
       this.onShortcutClick();
     } else { // Filter
       this.setState({
-        projects: App.collection.project.filter(this.refs.filter.getDOMNode().value),
+        projects: App.collection.project.filter(this.refs.filter.value),
         selectedItem: 0
       });
     }
@@ -88,9 +73,6 @@ export default React.createClass({
     const projectId = this.state.projects.at(this.state.selectedItem).id;
     this.history.pushState(null, this.props.shortcuts[this.state.selectedShortcut].path + projectId);
     this.props.onProjectSelected();
-  },
-  centerListScroll() {
-    this.refs.projectList.getDOMNode().scrollTop = this.state.selectedItem * 60 - 60 * 2;
   },
   render() {
     var projectItems = this.state.projects.map((project, index) => {
@@ -114,11 +96,12 @@ export default React.createClass({
             <Link className="button green small" to="/project/new">New</Link>
           </div>
         </div>
-        <input className="project-list__filter"
+        <input autofocus
+               className="project-list__filter"
                onKeyUp={this.onKeyUp}
                ref="filter"
                type="text"/>
-        <ul className="project-preview__list" ref="projectList">
+        <ul className="project-preview__list" ref="navigableList">
           { projectItems }
         </ul>
       </div>

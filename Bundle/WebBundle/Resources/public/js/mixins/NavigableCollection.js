@@ -7,26 +7,44 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-/**
- * This behavior allows to make any CompositeView navigable using keyboard
- * and mouse.
- * The following options need to be added in order to make it work:
- *     - originalCollection: The collection that will be used to show filtered
- *                          results. It must implement filter(name) method.
- *     - childViewEl: Selector that points to the childView elements. It's
- *                    required to trigger the "mouse enter" event.
- *     - childHighlightClass: The class that will be added to the childView
- *                            to style the highlight status
- */
 export default {
-  getInialState() {
+  getInitialState() {
     return {
       selectedItem: 0
     }
   },
- componentDidMount() {
-
- }
+  componentDidMount() {
+    $(document.body).on('keyup', this.handleNavigation)
+  },
+  selectNext() {
+    if (this.state.selectedItem + 1 < this.state.projects.length) {
+      this.setState({
+        selectedItem: this.state.selectedItem + 1
+      });
+      this.centerListScroll();
+    }
+  },
+  selectPrev() {
+    if (this.state.selectedItem > 0) {
+      this.setState({
+        selectedItem: this.state.selectedItem - 1
+      });
+      this.centerListScroll();
+    }
+  },
+  handleNavigation(ev) {
+    if (ev.which === 40) { // Down
+      this.selectNext();
+    } else if (ev.which === 38) { // Up
+      this.selectPrev();
+    }
+  },
+  centerListScroll() {
+    this.refs.navigableList.scrollTop = this.state.selectedItem * 60 - 60 * 2;
+  },
+  componentWillUnmount() {
+    $(document.body).off('keyup', this.handleNavigation)
+  }
 }
 
 /*
