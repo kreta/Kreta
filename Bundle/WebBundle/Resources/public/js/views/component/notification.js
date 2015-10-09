@@ -9,36 +9,24 @@
 
 import '../../../scss/components/_notification.scss';
 
-export class NotificationView {
-  constructor(options = {}) {
-    _.defaults(options, {
-      className: `notification ${options.model.type}`,
-      template: '#notification-template',
-      events: {
-        'click .notification-hide': 'hide'
-      }
+import React from 'react';
+import classnames from 'classnames';
+
+export default React.createClass({
+  render() {
+    const classes = classnames({
+      'notification': true,
+      'notification--visible': this.state.notification != null
     });
+    return (
+      <div className={classes}>
+        <div class="notification-icon">
+          <i class="fa fa-exclamation-circle"></i>
+        </div>
+        <p class="notification-message">{this.props.message}</p>
+        <i class="notification-hide fa fa-times"
+           onClick={this.props.onCloseClick}></i>
+      </div>
+    );
   }
-
-  serializeData() {
-    return this.model;
-  }
-
-  show() {
-    setTimeout(() => { // Wait until is added to the DOM to get the animation
-      this.$el.addClass('visible');
-    }, 50);
-
-    setTimeout(() => {
-      this.hide();
-    }, 5000);
-  }
-
-  hide() {
-    this.$el.removeClass('visible');
-
-    setTimeout(() => {
-      this.destroy();
-    }, 550); // Wait animation
-  }
-}
+});

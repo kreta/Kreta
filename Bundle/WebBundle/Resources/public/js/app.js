@@ -9,9 +9,6 @@
 
 import '../scss/app.scss';
 
-import {ProjectController} from './controllers/Project';
-import {IssueController} from './controllers/Issue';
-
 import {ProjectCollection} from './collections/Project';
 import {UserCollection} from './collections/User';
 import {WorkflowCollection} from './collections/Workflow';
@@ -26,11 +23,6 @@ export class App extends Backbone.Marionette.Application {
     super(options);
 
     this.addAutenticationHeader();
-
-    this.controller = {
-      issue: new IssueController(),
-      project: new ProjectController()
-    };
 
     this.collection = {
       project: new ProjectCollection(),

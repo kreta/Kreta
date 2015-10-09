@@ -13,22 +13,22 @@ import React from 'react';
 
 export default React.createClass({
   propTypes: {
-    visible: React.PropTypes.bool
+    issue: React.PropTypes.object
   },
   render() {
-    const issue = this.props.issue,
-      transitions = this.props.issue.get('transitions').map((transition) => {
+    const issue = this.props.issue.toJSON();
+      /*transitions = this.props.issue.get('transitions').map((transition) => {
         return (
-          <button class="button green full-issue-transition" data-transition={transition.id}>
+          <button className="button green full-issue-transition" data-transition={transition.id}>
             {transition.name}
           </button>
         );
-      });
+      });*/
     return (
-      <div>
-        <h2 className="full-issue-title">{issue.get('title')}</h2>
+      <div className="full-issue">
+        <h2 className="full-issue-title">{issue.title}</h2>
         <section className="full-issue-transitions">
-          {transitions}
+
         </section>
         <section className="full-issue-dashboard">
           <p className="full-issue-dashboard-item">

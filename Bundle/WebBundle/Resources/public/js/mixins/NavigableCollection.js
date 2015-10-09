@@ -17,7 +17,7 @@ export default {
     $(document.body).on('keyup', this.handleNavigation)
   },
   selectNext() {
-    if (this.state.selectedItem + 1 < this.state.projects.length) {
+    if (this.state.selectedItem + 1 < this.refs.navigableList.children.length) {
       this.setState({
         selectedItem: this.state.selectedItem + 1
       });
@@ -33,8 +33,10 @@ export default {
     }
   },
   handleNavigation(ev) {
+    console.log('NavigableCollection disabled');
+    return false;
     if (ev.which === 40) { // Down
-      this.selectNext();
+      this.selectNext(ev);
     } else if (ev.which === 38) { // Up
       this.selectPrev();
     }

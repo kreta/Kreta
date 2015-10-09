@@ -9,20 +9,15 @@
 
 import React from 'react';
 
-import MainMenu from './MainMenu.js';
-import NotificationLayout from './NotificationLayout.js';
-
 export default React.createClass({
-
+  propTypes: {
+    open: React.PropTypes.bool
+  },
   render() {
     return (
       <div>
-        <NotificationLayout/>
-        <MainMenu/>
-        <ContentLayout>
-          {this.props.children}
-        </ContentLayout>
+        {this.props.children}
       </div>
     );
   }
-});
+})

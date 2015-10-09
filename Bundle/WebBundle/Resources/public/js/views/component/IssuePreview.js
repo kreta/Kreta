@@ -8,38 +8,25 @@
  */
 
 import React from 'react';
+import classnames from 'classnames';
+
+import '../../../scss/components/_issue-preview.scss';
 
 export default React.createClass({
-  componentWillMount() {
-    /* this.listenTo(App.vent, 'issue:highlight', (issueId) => {
-     this.highlightIssue(issueId);
-     });
-
-     this.listenTo(App.vent, 'issue:updated', (issue) => {
-     if (this.model.id === issue.id) {
-     this.model.set(issue);
-     this.render();
-     }
-     }); */
-  },
-  showFullIssue() {
-    if (this.props.onIssueSelected) {
-      this.props.onIssueSelected();
-    }
-  },
-  hightlightIssue(issueId) {
-    this.setState({highlighted: issueId === this.props.issue.id});
-  },
   render() {
+    const classes = classnames({
+      'issue-preview': true,
+      'issue-preview--highlight': this.props.selected
+    });
     return (
-      <div className="list-issue">
-        <div className="list-issue-details">
-          <a className="list-issue-title">
+      <div className={classes} onClick={this.props.onClick}>
+        <div className="issue-preview__details">
+          <a className="issue-preview__title">
             {this.props.issue.get('title')}
           </a>
         </div>
-        <div className="list-issue-icons">
-          <span className="list-issue-icon"
+        <div className="issue-preview__icons">
+          <span className="issue-preview__icon"
                 data-tooltip-text={ this.props.issue.get('status').name }>
             <i className="fa fa-check"
                style={{color: this.props.issue.get('status').color }}></i>

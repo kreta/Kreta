@@ -17,14 +17,14 @@ $notification-height: 50px !default;
   height: 0;
   overflow: hidden;
   transition-duration: .5s;
+}
 
-  &.visible {
-    height: $notification-height;
-  }
+.notification--visible {
+  height: $notification-height;
+}
 
-  &.error {
-    background: $main-red;
-  }
+.notification--error {
+  background: $main-red;
 }
 
 .notification-icon {

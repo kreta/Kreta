@@ -7,8 +7,6 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-import '../../../../scss/views/page/project/_issue-list.scss';
-
 import React from 'react';
 import {Link} from 'react-router';
 
@@ -17,6 +15,9 @@ import IssuePreview from '../../component/IssuePreview.js';
 import Filter from '../../component/Filter.js';
 import IssueShow from '../../page/issue/Show.js';
 import NavigableCollection from '../../../mixins/NavigableCollection.js';
+import MiddleContentLayout from '../../layout/MiddleContentLayout.js';
+import RightContentLayout from '../../layout/RightContentLayout.js';
+import PageHeader from '../../component/PageHeader.js';
 
 export default React.createClass({
   getInitialState() {
@@ -37,7 +38,6 @@ export default React.createClass({
     this.collection.on('sync', $.proxy(this.issuesUpdated, this));
     this.collection.fetch({data: {project: this.state.project.id}});
 
-    Mousetrap
     this.loadFilters();
   },
   issuesUpdated(data) {
@@ -113,41 +113,46 @@ export default React.createClass({
 
     this.setState({filters: [assigneeFilters, priorityFilters, statusFilters]});
   },
+  changeSelected(ev) {
+    this.setState({
+      selectedItem: $(ev.currentTarget).index()
+    });
+  },
   render() {
     if (!this.state.project) {
       return <p>Loading...</p>;
     }
     const issuesEl = this.state.issues.map((issue, index) => {
-      return <IssuePreview issue={issue} key={index}/>;
+      return <IssuePreview issue={issue}
+                           key={index}
+                           selected={this.state.selectedItem === index}
+                           onClick={this.changeSelected}/>;
     });
-
+    let issue = '';
+    if(this.state.issues.length > 0 || this.state.fetchingIssues) {
+      issue = <IssueShow issue={this.state.issues.at(this.state.selectedItem)}/>;
+    }
+    const links = [{
+      title: 'Dashboard',
+      icon: 'dashboard',
+      href: '#'
+    }, {
+      title: 'Settings',
+      icon: 'settings',
+      href: `/project/${this.state.project.id}/settings`
+    }];
     return (
       <div>
-        <div>
-          <div className="page-header">
-            <div className="project-image" style={{background: '#ebebeb'}}></div>
-            <h2 className="page-header-title">{this.state.project.get('name')}</h2>
-
-            <div>
-              <a className="page-header-link" href="#">
-                <i className="fa fa-dashboard"></i>
-                Dashboard
-              </a>
-              <Link className="page-header-link"
-                    to={`/project/${this.state.project.id}/settings`}>
-                <i className="fa fa-settings"></i>
-                Settings
-              </Link>
-            </div>
-          </div>
+        <MiddleContentLayout>
+          <PageHeader image="" title="" links={links}/>
           <Filter filters={this.state.filters} onFilterSelected={this.filterIssues}/>
-
           <div className="issues">
             {this.state.fetchingIssues ? 'Loading...' : issuesEl}
           </div>
-        </div>
-        <div>
-        </div>
+        </MiddleContentLayout>
+        <RightContentLayout>
+          {issue}
+        </RightContentLayout>
       </div>
     );
   }
