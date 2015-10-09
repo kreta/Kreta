@@ -8,6 +8,7 @@
  */
 
 import React from 'react';
+import ReactDOM from 'react-dom';
 import {Router, Route} from 'react-router';
 
 // import {TooltipView} from 'views/component/tooltip';
@@ -24,7 +25,7 @@ $(() => {
       // new TooltipView();
       window.React = React;
 
-      React.render(
+      ReactDOM.render(
         <Router>
           <Route component={BaseLayout} path="/">
             <Route component={IssueNew} path="issue/new"/>
