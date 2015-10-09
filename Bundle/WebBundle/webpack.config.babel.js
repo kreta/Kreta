@@ -41,7 +41,7 @@ License: ${pkg.license}`,
       loaders: [
         {test: /\.js$/, exclude: /node_modules/, loaders: ['babel']},
         {test: /\.(jpe?g|png|gif|ico)$/, loader: 'file?name=../images/[hash].[ext]'},
-        {test: /\.svg$/, loader: 'file?name=../svg/[hash].svg'},
+        {test: /\.svg$/, loader: 'svg-sprite?name=[name]_[hash].svg'},
         {test: /\.scss$/, loader: ExtractTextPlugin.extract(
           'style', 'css!postcss!sass?outputStyle=expanded&sourceComments=true'
         )}
