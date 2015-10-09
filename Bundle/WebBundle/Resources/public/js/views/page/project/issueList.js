@@ -15,6 +15,8 @@ import {Link} from 'react-router';
 import {IssueCollection} from '../../../collections/Issue';
 import IssuePreview from '../../component/IssuePreview.js';
 import Filter from '../../component/Filter.js';
+import IssueShow from '../../page/issue/Show.js';
+import NavigableCollection from '../../../mixins/NavigableCollection.js';
 
 export default React.createClass({
   getInitialState() {
@@ -25,15 +27,17 @@ export default React.createClass({
       fetchingIssues: true
     };
   },
+  mixins: [NavigableCollection],
   componentDidMount() {
     this.state.project = App.collection.project.get(this.props.params.projectId);
-    this.state.project.on('sync', $.proxy(this.loadFilters, this));
-    this.state.project.on('change', $.proxy(this.loadFilters, this));
+    this.state.project.on('sync', this.loadFilters);
+    this.state.project.on('change', this.loadFilters);
 
     this.collection = new IssueCollection();
     this.collection.on('sync', $.proxy(this.issuesUpdated, this));
     this.collection.fetch({data: {project: this.state.project.id}});
 
+    Mousetrap
     this.loadFilters();
   },
   issuesUpdated(data) {
@@ -116,28 +120,33 @@ export default React.createClass({
     const issuesEl = this.state.issues.map((issue, index) => {
       return <IssuePreview issue={issue} key={index}/>;
     });
+
     return (
       <div>
-        <div className="page-header">
-          <div className="project-image" style={{background: '#ebebeb'}}></div>
-          <h2 className="page-header-title">{this.state.project.get('name')}</h2>
+        <div>
+          <div className="page-header">
+            <div className="project-image" style={{background: '#ebebeb'}}></div>
+            <h2 className="page-header-title">{this.state.project.get('name')}</h2>
 
-          <div>
-            <a className="page-header-link" href="#">
-              <i className="fa fa-dashboard"></i>
-              Dashboard
-            </a>
-            <Link className="page-header-link"
-                  to={`/project/${this.state.project.id}/settings`}>
-              <i className="fa fa-settings"></i>
-              Settings
-            </Link>
+            <div>
+              <a className="page-header-link" href="#">
+                <i className="fa fa-dashboard"></i>
+                Dashboard
+              </a>
+              <Link className="page-header-link"
+                    to={`/project/${this.state.project.id}/settings`}>
+                <i className="fa fa-settings"></i>
+                Settings
+              </Link>
+            </div>
+          </div>
+          <Filter filters={this.state.filters} onFilterSelected={this.filterIssues}/>
+
+          <div className="issues">
+            {this.state.fetchingIssues ? 'Loading...' : issuesEl}
           </div>
         </div>
-        <Filter filters={this.state.filters} onFilterSelected={this.filterIssues}/>
-
-        <div className="issues">
-          {this.state.fetchingIssues ? 'Loading...' : issuesEl}
+        <div>
         </div>
       </div>
     );

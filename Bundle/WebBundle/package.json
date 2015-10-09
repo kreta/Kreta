@@ -40,7 +40,8 @@
     "jquery": "^2.1",
     "lodash": "^3.10",
     "mousetrap": "^1.5.3",
-    "react": "^0.13",
+    "react": "^0.14",
+    "react-dom": "^0.14.0",
     "react-router": "1.0.0-rc1",
     "react-select": "^0.6",
     "select2": "^4.0"
