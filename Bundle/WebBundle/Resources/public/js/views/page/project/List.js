@@ -96,7 +96,7 @@ export default React.createClass({
             <Link className="button green small" to="/project/new">New</Link>
           </div>
         </div>
-        <input autofocus
+        <input autoFocus
                className="project-list__filter"
                onKeyUp={this.onKeyUp}
                ref="filter"

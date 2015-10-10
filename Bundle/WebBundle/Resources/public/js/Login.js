@@ -7,17 +7,4 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-import React from 'react';
-
-export default React.createClass({
-  propTypes: {
-    open: React.PropTypes.bool
-  },
-  render() {
-    return (
-      <div>
-        {this.props.children}
-      </div>
-    );
-  }
-});
+import '../scss/login.scss';

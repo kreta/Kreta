@@ -6,7 +6,7 @@
     <title>Kreta</title>
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"/>
     <link href='//fonts.googleapis.com/css?family=Open+Sans:400,300,600' rel='stylesheet' type='text/css'/>
-    <link href="css/kreta.css" media="screen" rel="stylesheet" type="text/css"/>
+    <link href="css/app.css" media="screen" rel="stylesheet" type="text/css"/>
 </head>
 <body>
 <div id="application">
@@ -67,12 +67,7 @@
 {% include 'KretaWebBundle:Default/templates:user/edit.html.twig' %}
 {% include 'KretaWebBundle:Default/templates:user/invite.html.twig' %}
 
-{% if production_assets == false %}
-    <script src="js/vendors.js"></script>
-    <script src="js/kreta.js"></script>
-{% else %}
-    <script src="js/vendors.min.js"></script>
-    <script src="js/kreta.min.js"></script>
-{% endif %}
+    <script src="js/vendor.js"></script>
+    <script src="js/app.js"></script>
 </body>
 </html>

@@ -8,6 +8,7 @@
  */
 
 import Backbone from 'backbone';
+
 import {Config} from '../Config';
 import {User} from '../models/User';
 

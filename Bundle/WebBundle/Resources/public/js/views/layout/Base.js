@@ -9,6 +9,7 @@
 
 import React from 'react';
 
+import ContentLayout from './ContentLayout.js';
 import MainMenu from './MainMenu.js';
 import NotificationLayout from './NotificationLayout.js';
 

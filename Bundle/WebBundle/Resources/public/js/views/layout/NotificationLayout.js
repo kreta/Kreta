@@ -7,8 +7,9 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-
 import React from 'react';
+
+import App from '../../App';
 
 export default React.createClass({
   componentDidMount() {
@@ -22,12 +23,15 @@ export default React.createClass({
   },
   render() {
     const notifications = App.collection.notifications.map((notification) => {
-      return <Notification notification={this.state.notification}/>
+      return (
+        <Notification notification={this.state.notification}/>
+      );
     });
+
     return (
-      <div className='notification-layout'>
+      <div className="notification-layout">
         {notifications}
       </div>
     );
   }
-})
+});

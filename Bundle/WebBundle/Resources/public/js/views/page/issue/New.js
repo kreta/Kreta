@@ -10,18 +10,19 @@
 import '../../../../scss/views/page/issue/_new.scss';
 
 import React from 'react';
-
 import Select from 'react-select';
-import {Issue} from '../../../models/Issue';
-import {NotificationService} from '../../../service/Notification';
-import {FormSerializerService} from '../../../service/FormSerializer';
+
+import App from '../../../App';
+import FormSerializerService from '../../../service/FormSerializer';
+import Issue from '../../../models/Issue';
+import NotificationService from '../../../service/Notification';
 
 export default React.createClass({
   getInitialState() {
     return {
+      isLoading: true,
       project: null,
-      selectableProjects: [],
-      isLoading: true
+      selectableProjects: []
     };
   },
   componentDidMount() {
@@ -29,27 +30,28 @@ export default React.createClass({
     this.updateSelectors(this.props.params.projectId);
   },
   updateSelectors(projectId) {
+    const project = App.collection.project.get(projectId);
     this.selectorsLeft = 3;
-    let project = App.collection.project.get(projectId);
+
     project.on('change', $.proxy(this.onProjectUpdated, this));
     this.setState({
-      project: project,
+      project,
       selectableProjects: App.collection.project
     });
   },
   onProjectUpdated(model) {
     this.setState({
-      project: model,
-      isLoading: this.selectorsLeft
+      isLoading: this.selectorsLeft,
+      project: model
     });
   },
   save() {
+    const issue = FormSerializerService.serialize(
+      $(React.findDOMNode(this.refs.form)), Issue
+    );
     var project = this.state.project.get('project');
 
     this.setState({isLoading: true});
-    let issue = FormSerializerService.serialize(
-      $(React.findDOMNode(this.refs.form)), Issue
-    );
 
     issue.save(null, {
       success: (model) => {
@@ -65,76 +67,85 @@ export default React.createClass({
         this.setState({isLoading: false});
       }
     });
+
     return false;
   },
   render() {
     if (!this.state.project) {
       return <div>Loading</div>;
     }
-    let selectableProjects = this.state.selectableProjects.map((project) => {
-      return {
-        label: project.get('name'),
-        value: project.id
-      }
-    });
-    let assignee = this.state.project.get('participants').map((participant) => {
-      return {
-        value: participant.user.id,
-        label: participant.user.first_name + ' ' + participant.user.last_name
-      }
-    });
-    let priority = this.state.project.get('issue_priorities').map((priority) => {
-      return {
-        value: priority.id,
-        label: priority.name
-      }
-    });
-    let type = this.state.project.get('issue_types').map((type) => {
-      return {
-        value: type.id,
-        label: type.name
-      }
-    });
+    const selectableProjects = this.state.selectableProjects.map((project) => {
+        return {
+          label: project.get('name'),
+          value: project.id
+        };
+      }),
+      assignee = this.state.project.get('participants').map((participant) => {
+        return {
+          value: participant.user.id,
+          label: `${participant.user.first_name} ${participant.user.last_name}`
+        };
+      }),
+      priority = this.state.project.get('issue_priorities').map((priority) => {
+        return {
+          label: priority.name,
+          value: priority.id
+        };
+      }),
+      type = this.state.project.get('issue_types').map((type) => {
+        return {
+          label: type.name,
+          value: type.id
+        };
+      });
+
     return (
       <form id="issue-new"
             method="POST"
-            ref="form"
-            onSubmit={this.save}>
+            onSubmit={this.save}
+            ref="form">
         <div className="issue-new-actions">
           <button className="button">Cancel</button>
-          <button className="button green" type="submit" tabIndex="7">Done</button>
+          <button className="button green"
+                  tabIndex="7"
+                  type="submit">Done</button>
         </div>
-        <Select name="project"
-                value={this.state.project.id}
-                tabIndex="1" style={{width:'100%'}}
-                data-placeholder="Select project"
+        <Select data-placeholder="Select project"
+                name="project"
+                onChange={this.updateSelectors}
                 options={selectableProjects}
-                onChange={this.updateSelectors}/>
-        <input type="text" className="big" name="title"
+                style={{width: '100%'}}
+                tabIndex="1"
+                value={this.state.project.id}/>
+        <input className="big"
+               name="title"
                placeholder="Type your task title"
-               tabIndex="2" value={this.state.project.title}/>
-        <textarea name="description" placeholder="Type your task description"
-                  tabIndex="3" value={this.state.project.description}></textarea>
-
-        <div className={`issue-new-details${this.state.isLoading ? ' issue-new__details--hidden': ''}`}>
-          <Select name="assignee"
-                  tabIndex="4"
-                  style={{width:'25%'}}
+               tabIndex="2"
+               type="text"
+               value={this.state.project.title}/>
+        <textarea name="description"
+                  placeholder="Type your task description"
+                  tabIndex="3"
+                  value={this.state.project.description}></textarea>
+        <div className={`issue-new-details${this.state.isLoading ? ' issue-new__details--hidden' : ''}`}>
+          <Select data-placeholder="Unassigned"
+                  name="assignee"
                   options={assignee}
-                  data-placeholder="Unassigned"/>
-          <Select name="priority"
-                  tabIndex="5"
-                  style={{width:'25%'}}
+                  style={{width: '25%'}}
+                  tabIndex="4"/>
+          <Select data-placeholder="No priority"
+                  name="priority"
                   options={priority}
-                  data-placeholder="No priority"/>
-          <Select name="type"
-                  tabIndex="6"
-                  style={{width:'25%'}}
+                  style={{width: '25%'}}
+                  tabIndex="5"/>
+          <Select data-placeholder="No priority"
+                  name="type"
                   options={type}
-                  data-placeholder="No priority"/>
+                  style={{width: '25%'}}
+                  tabIndex="6"/>
         </div>
       </form>
-    )
+    );
   }
 });
 

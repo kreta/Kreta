@@ -26,13 +26,14 @@ License: ${pkg.license}`,
     devtool: 'eval',
     context: __dirname,
     entry: {
-      js: `${SOURCE_PATH}/js/kreta.js`,
+      app: `${SOURCE_PATH}/js/Kreta.js`,
+      login: `${SOURCE_PATH}/js/Login.js`,
       vendors: [
         'jquery', 'lodash', 'backbone', 'backbone-model-file-upload', 'backbone.marionette', 'select2', 'mousetrap'
       ]
     },
     output: {
-      path: `${BUILD_PATH}/js`, filename: 'kreta.js'
+      path: `${BUILD_PATH}/js`, filename: '[name].js'
     },
     module: {
       preLoaders: [
@@ -56,8 +57,8 @@ License: ${pkg.license}`,
       new webpack.ProvidePlugin({
         _: 'lodash', Backbone: 'backbone', $: 'jquery', jQuery: 'jquery'
       }),
-      new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js'),
-      new ExtractTextPlugin('../css/kreta.css', {allChunks: false}),
+      new webpack.optimize.CommonsChunkPlugin('vendors', 'vendor.js'),
+      new ExtractTextPlugin('../css/[name].css', {allChunks: false}),
       new webpack.BannerPlugin(LICENSE)
     ]
   };
@@ -66,7 +67,6 @@ if (CLI_OPTIONS.hasOwnProperty('env') && CLI_OPTIONS.env === 'prod') {
   config.debug = false;
   config.devtool = 'source-map';
   config.plugins.push(new webpack.optimize.UglifyJsPlugin());
-  config.output.filename = 'kreta.min.js';
   config.module.loaders.push(
     {test: /\.css$/, loader: 'style-loader/useable!css-loader?minimize!postcss-loader'}
   );

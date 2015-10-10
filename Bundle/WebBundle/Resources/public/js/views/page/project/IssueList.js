@@ -8,7 +8,6 @@
  */
 
 import React from 'react';
-import {Link} from 'react-router';
 
 import {IssueCollection} from '../../../collections/Issue';
 import IssuePreview from '../../component/IssuePreview.js';
@@ -62,40 +61,39 @@ export default React.createClass({
   },
   loadFilters() {
     var assigneeFilters = [{
+        filter: 'assignee',
+        selected: true,
         title: 'All',
-        filter: 'assignee',
-        value: '',
-        selected: true
+        value: ''
       }, {
-        title: 'Assigned to me',
         filter: 'assignee',
-        value: App.currentUser.get('id'),
-        selected: false
+        selected: false,
+        title: 'Assigned to me',
+        value: App.currentUser.get('id')
       }],
-      priorityFilters = [
-        {
-          title: 'All priorities',
-          filter: 'priority',
-          value: '',
-          selected: true
-        }
+      priorityFilters = [{
+        filter: 'priority',
+        selected: true,
+        title: 'All priorities',
+        value: ''
+      }
       ],
       priorities = this.state.project.get('issue_priorities'),
       statusFilters = [{
-        title: 'All statuses',
         filter: 'status',
-        value: '',
-        selected: true
+        selected: true,
+        title: 'All statuses',
+        value: ''
       }],
       statuses = this.state.project.get('statuses');
 
     if (priorities) {
       priorities.forEach((priority) => {
         priorityFilters.push({
-          title: priority.name,
           filter: 'priority',
-          value: priority.id,
-          selected: false
+          selected: false,
+          title: priority.name,
+          value: priority.id
         });
       });
     }
@@ -103,14 +101,13 @@ export default React.createClass({
     if (statuses) {
       statuses.forEach((status) => {
         statusFilters.push({
-          title: status.name,
           filter: 'status',
-          value: status.id,
-          selected: false
+          selected: false,
+          title: status.name,
+          value: status.id
         });
       });
     }
-
     this.setState({filters: [assigneeFilters, priorityFilters, statusFilters]});
   },
   changeSelected(ev) {
@@ -125,27 +122,29 @@ export default React.createClass({
     const issuesEl = this.state.issues.map((issue, index) => {
       return <IssuePreview issue={issue}
                            key={index}
-                           selected={this.state.selectedItem === index}
-                           onClick={this.changeSelected}/>;
+                           onClick={this.changeSelected}
+                           selected={this.state.selectedItem === index}/>;
     });
     let issue = '';
-    if(this.state.issues.length > 0 || this.state.fetchingIssues) {
+    if (this.state.issues.length > 0 || this.state.fetchingIssues) {
       issue = <IssueShow issue={this.state.issues.at(this.state.selectedItem)}/>;
     }
     const links = [{
-      title: 'Dashboard',
+      href: '#',
       icon: 'dashboard',
-      href: '#'
+      title: 'Dashboard'
     }, {
-      title: 'Settings',
+      href: `/project/${this.state.project.id}/settings`,
       icon: 'settings',
-      href: `/project/${this.state.project.id}/settings`
+      title: 'Settings'
     }];
+
     return (
       <div>
         <MiddleContentLayout>
-          <PageHeader image="" title="" links={links}/>
+          <PageHeader image="" links={links} title=""/>
           <Filter filters={this.state.filters} onFilterSelected={this.filterIssues}/>
+
           <div className="issues">
             {this.state.fetchingIssues ? 'Loading...' : issuesEl}
           </div>

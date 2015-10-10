@@ -8,15 +8,16 @@
  */
 
 import React from 'react';
+import {Link} from 'react-router';
 
 export default React.createClass({
   propTypes: {
     image: React.PropTypes.string,
-    title: React.PropTypes.string,
-    links: React.PropTypes.array
+    links: React.PropTypes.array,
+    title: React.PropTypes.string
   },
   render() {
-    let links = this.props.links.map((link) => {
+    const links = this.props.links.map((link) => {
       return (
         <Link className="page-header-link" to={link.href}>
           <i className={`fa fa-${link.icon}`}></i>
@@ -24,6 +25,7 @@ export default React.createClass({
         </Link>
       );
     });
+
     return (
       <div className="page-header">
         <div className="project-image" style={{background: '#ebebeb'}}></div>
@@ -34,4 +36,4 @@ export default React.createClass({
       </div>
     );
   }
-})
+});

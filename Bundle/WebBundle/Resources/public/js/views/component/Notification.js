@@ -9,22 +9,23 @@
 
 import '../../../scss/components/_notification.scss';
 
-import React from 'react';
 import classnames from 'classnames';
+import React from 'react';
 
 export default React.createClass({
   render() {
     const classes = classnames({
       'notification': true,
-      'notification--visible': this.state.notification != null
+      'notification--visible': this.state.notification !== null
     });
+
     return (
       <div className={classes}>
-        <div class="notification-icon">
-          <i class="fa fa-exclamation-circle"></i>
+        <div className="notification-icon">
+          <i className="fa fa-exclamation-circle"></i>
         </div>
-        <p class="notification-message">{this.props.message}</p>
-        <i class="notification-hide fa fa-times"
+        <p className="notification-message">{this.props.message}</p>
+        <i className="notification-hide fa fa-times"
            onClick={this.props.onCloseClick}></i>
       </div>
     );
