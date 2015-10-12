@@ -7,8 +7,6 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-import {NotificationView} from '../views/component/Notification';
-
 export class NotificationService {
   static showNotification(notification) {
     App.collection.notification.add(notification);

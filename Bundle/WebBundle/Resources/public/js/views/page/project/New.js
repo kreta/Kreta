@@ -10,9 +10,11 @@
 import '../../../../scss/views/page/project/_new.scss';
 
 import React from 'react';
+import $ from 'jquery';
 
 import {Project} from '../../../models/Project';
 import {FormSerializerService} from '../../../service/FormSerializer';
+import {NotificationService} from '../../../service/Notification.js';
 import ContentMiddleLayout from '../../layout/ContentMiddleLayout.js';
 
 export default React.createClass({
@@ -25,16 +27,21 @@ export default React.createClass({
 
     project.save(null, {
       success: () => {
-        console.log('Project new OK');
+        NotificationService.showNotification({
+          message: 'Project created successfully'
+        });
       }, error: () => {
-        console.log('Project new KO');
+        NotificationService.showNotification({
+          type: 'error',
+          message: 'Error while saving this project'
+        });
       }
     });
   },
   render() {
     return (
       <ContentMiddleLayout>
-        <form ref="form">
+        <form onSubmit={this.save} ref="form">
           <div className="issue-new-actions">
             <button className="button">Cancel</button>
             <button className="button green"
@@ -48,7 +55,8 @@ export default React.createClass({
                  placeholder="Type your project name"
                  tabIndex="1"
                  type="text"/>
-          <input name="shortName"
+          <input maxLength="4"
+                 name="shortName"
                  placeholder="Type a short name for your project"
                  tabIndex="2"
                  type="text"/>
