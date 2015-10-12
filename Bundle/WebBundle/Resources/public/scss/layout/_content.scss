@@ -7,6 +7,7 @@
 
 $content-width: 900px;
 $content-right-width: 450px;
+$content-transition: .3s;
 
 .content {
   width: 100%;
@@ -14,13 +15,13 @@ $content-right-width: 450px;
 
 .content__middle {
   margin-left: 90px;
-  transition-duration: .3s;
+  transition-duration: $content-transition;
   padding: 20px calc(50% - #{$content-width / 2});
 }
 
 .content__middle--right-open {
   padding: 20px calc(50% - #{$content-width / 2} + #{$content-right-width / 2})
-           20px  calc(50% - #{$content-width / 2} - #{$content-right-width / 2});
+           20px calc(50% - #{$content-width / 2} - #{$content-right-width / 2});
 }
 
 .content__right {
@@ -28,9 +29,14 @@ $content-right-width: 450px;
   bottom: 0;
   border-left: 1px solid #e8e8e8;
   box-sizing: border-box;
-  right: 0;
-  padding: 45px;
+  padding: 20px;
   position: fixed;
+  right: -$content-right-width;
   top: 0;
+  transition: right $content-transition;
   width: $content-right-width;
+}
+
+.content__right--visible {
+  right: 0;
 }

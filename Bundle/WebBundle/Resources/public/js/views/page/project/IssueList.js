@@ -164,7 +164,7 @@ export default React.createClass({
             {this.state.fetchingIssues ? 'Loading...' : issuesEl}
           </div>
         </ContentMiddleLayout>
-        <ContentRightLayout>
+        <ContentRightLayout open={true}>
           {issue}
         </ContentRightLayout>
       </div>

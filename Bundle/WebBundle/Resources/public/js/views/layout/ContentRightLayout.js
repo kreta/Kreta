@@ -8,14 +8,19 @@
  */
 
 import React from 'react';
+import classnames from 'classnames';
 
 export default React.createClass({
   propTypes: {
     open: React.PropTypes.bool
   },
   render() {
+    const classes = classnames({
+      'content__right': true,
+      'content__right--visible': this.props.open
+    });
     return (
-      <div className="content__right">
+      <div className={classes}>
         {this.props.children}
       </div>
     );
