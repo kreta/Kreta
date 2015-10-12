@@ -11,8 +11,6 @@ import {NotificationView} from '../views/component/Notification';
 
 export class NotificationService {
   static showNotification(notification) {
-    var view = new NotificationView({model: notification});
-    App.layout.getRegion('notification').show(view);
-    view.show();
+    App.collection.notification.add(notification);
   }
 }

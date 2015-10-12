@@ -12,9 +12,9 @@ import '../../../../scss/views/page/issue/_new.scss';
 import React from 'react';
 import Select from 'react-select';
 
-import FormSerializerService from '../../../service/FormSerializer';
-import Issue from '../../../models/Issue';
-import NotificationService from '../../../service/Notification';
+import {FormSerializerService} from '../../../service/FormSerializer';
+import {Issue} from '../../../models/Issue';
+import {NotificationService} from '../../../service/Notification';
 import ContentMiddleLayout from '../../layout/ContentMiddleLayout.js';
 
 export default React.createClass({
@@ -45,9 +45,11 @@ export default React.createClass({
       project: model
     });
   },
-  save() {
+  save(ev) {
+    ev.preventDefault();
+
     const issue = FormSerializerService.serialize(
-      $(React.findDOMNode(this.refs.form)), Issue
+      $(this.refs.form), Issue
     );
     var project = this.state.project.get('project');
 
@@ -67,8 +69,6 @@ export default React.createClass({
         this.setState({isLoading: false});
       }
     });
-
-    return false;
   },
   render() {
     if (!this.state.project) {

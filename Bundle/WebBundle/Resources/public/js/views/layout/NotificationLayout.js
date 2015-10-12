@@ -9,6 +9,8 @@
 
 import React from 'react';
 
+import Notification from '../component/Notification.js';
+
 export default React.createClass({
   getInitialState() {
     return {
@@ -19,15 +21,18 @@ export default React.createClass({
     App.collection.notification.on('add', this.updateNotifications);
     App.collection.notification.on('remove', this.updateNotifications);
   },
-  updateNotifications(notifications) {
+  updateNotifications() {
     this.setState({
-      notifications
+      notifications: App.collection.notification.models
     });
   },
   render() {
-    const notifications = this.state.notifications.map((notification) => {
+    const notifications = this.state.notifications.map((notification, index) => {
       return (
-        <Notification notification={notification}/>
+        <Notification message={notification.get('message')}
+                      key={index}
+                      type={notification.get('type')}
+                      value={index}/>
       );
     });
 
