@@ -13,6 +13,7 @@ import React from 'react';
 
 import {Project} from '../../../models/Project';
 import {FormSerializerService} from '../../../service/FormSerializer';
+import ContentMiddleLayout from '../../layout/ContentMiddleLayout.js';
 
 export default React.createClass({
   save(ev) {
@@ -32,7 +33,7 @@ export default React.createClass({
   },
   render() {
     return (
-      <div>
+      <ContentMiddleLayout>
         <form ref="form">
           <div className="issue-new-actions">
             <button className="button">Cancel</button>
@@ -52,7 +53,7 @@ export default React.createClass({
                  tabIndex="2"
                  type="text"/>
         </form>
-      </div>
+      </ContentMiddleLayout>
     );
   }
 });

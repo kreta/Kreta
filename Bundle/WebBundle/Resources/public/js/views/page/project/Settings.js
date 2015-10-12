@@ -14,6 +14,7 @@ import React from 'react';
 import {Project} from '../../../models/Project';
 import UserPreview from '../../component/UserPreview';
 import {FormSerializerService} from '../../../service/FormSerializer';
+import ContentMiddleLayout from '../../layout/ContentMiddleLayout.js';
 
 export default React.createClass({
   getInitialState() {
@@ -53,7 +54,7 @@ export default React.createClass({
       return <UserPreview key={index} user={participant}/>;
     });
     return (
-      <div>
+      <ContentMiddleLayout>
         <form className="spacer-top-4"
               onSubmit={this.saveProject}
               ref="settingsForm">
@@ -96,7 +97,7 @@ export default React.createClass({
           <div>
           </div>
         </section>
-      </div>
+      </ContentMiddleLayout>
     );
   }
 });

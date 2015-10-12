@@ -15,12 +15,12 @@ $content-right-width: 450px;
 .content__middle {
   margin-left: 80px;
   transition-duration: .3s;
-  padding: 20px calc(50% - #{$content-width / 2} + #{$content-right-width / 2})
-           20px  calc(50% - #{$content-width / 2} - #{$content-right-width / 2});
+  padding: 20px calc(50% - #{$content-width / 2});
 }
 
 .content__middle--right-open {
-  padding: 20px calc(50)
+  padding: 20px calc(50% - #{$content-width / 2} + #{$content-right-width / 2})
+           20px  calc(50% - #{$content-width / 2} - #{$content-right-width / 2});
 }
 
 .content__right {

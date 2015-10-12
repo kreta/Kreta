@@ -126,7 +126,7 @@ export default React.createClass({
                            selected={this.state.selectedItem === index}/>;
     });
     let issue = '';
-    if (this.state.issues.length > 0 || this.state.fetchingIssues) {
+    if (this.state.issues.length > 0 && !this.state.fetchingIssues) {
       issue = <IssueShow issue={this.state.issues.at(this.state.selectedItem)}/>;
     }
     const links = [{
@@ -141,9 +141,10 @@ export default React.createClass({
 
     return (
       <div>
-        <ContentMiddleLayout>
+        <ContentMiddleLayout rightOpen={true}>
           <PageHeader image="" links={links} title=""/>
           <Filter filters={this.state.filters} onFilterSelected={this.filterIssues}/>
+
 
           <div className="issues">
             {this.state.fetchingIssues ? 'Loading...' : issuesEl}

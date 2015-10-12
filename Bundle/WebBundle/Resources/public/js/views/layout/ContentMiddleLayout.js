@@ -14,6 +14,11 @@ export default React.createClass({
   propTypes: {
     rightOpen: React.PropTypes.bool
   },
+  getDefaultProps() {
+    return {
+      rightOpen: false
+    }
+  },
   render() {
     const classes = classnames({
       'content__middle': true,
