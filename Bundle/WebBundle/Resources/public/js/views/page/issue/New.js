@@ -11,6 +11,7 @@ import '../../../../scss/views/page/issue/_new.scss';
 
 import React from 'react';
 import Select from 'react-select';
+import $ from 'jquery';
 
 import {FormSerializerService} from '../../../service/FormSerializer';
 import {Issue} from '../../../models/Issue';
@@ -29,17 +30,27 @@ export default React.createClass({
     this.selectorsLeft = 0;
     this.updateSelectors(this.props.params.projectId);
   },
+  componentDidUpdate (prevProps) {
+    const oldId = prevProps.params.projectId,
+      newId = this.props.params.projectId;
+    if (newId !== oldId) {
+      this.updateSelectors(this.props.params.projectId);
+    }
+  },
+
   updateSelectors(projectId) {
     const project = App.collection.project.get(projectId);
-    this.selectorsLeft = 3;
+    this.selectorsLeft = 2;
 
     project.on('change', $.proxy(this.onProjectUpdated, this));
     this.setState({
       project,
-      selectableProjects: App.collection.project
+      selectableProjects: App.collection.project,
+      isLoading: true
     });
   },
   onProjectUpdated(model) {
+    this.selectorsLeft--;
     this.setState({
       isLoading: this.selectorsLeft,
       project: model
@@ -51,12 +62,11 @@ export default React.createClass({
     const issue = FormSerializerService.serialize(
       $(this.refs.form), Issue
     );
-    var project = this.state.project.get('project');
 
     this.setState({isLoading: true});
 
     issue.save(null, {
-      success: (model) => {
+      success: () => {
         NotificationService.showNotification({
           type: 'success',
           message: 'Issue created successfully'
@@ -80,22 +90,22 @@ export default React.createClass({
           value: project.id
         };
       }),
-      assignee = this.state.project.get('participants').map((participant) => {
+      assignee = this.state.project.get('participants').map((p) => {
         return {
-          value: participant.user.id,
-          label: `${participant.user.first_name} ${participant.user.last_name}`
+          value: p.user.id,
+          label: `${p.user.first_name} ${p.user.last_name}`
         };
       }),
-      priority = this.state.project.get('issue_priorities').map((priority) => {
+      priority = this.state.project.get('issue_priorities').map((p) => {
         return {
-          label: priority.name,
-          value: priority.id
+          label: p.name,
+          value: p.id
         };
       }),
-      type = this.state.project.get('issue_types').map((type) => {
+      type = this.state.project.get('issue_types').map((t) => {
         return {
-          label: type.name,
-          value: type.id
+          label: t.name,
+          value: t.id
         };
       });
 
@@ -128,7 +138,7 @@ export default React.createClass({
                     placeholder="Type your task description"
                     tabIndex="3"
                     value={this.state.project.description}></textarea>
-          <div className={`issue-new-details${this.state.isLoading ? ' issue-new__details--hidden' : ''}`}>
+          <div className={`issue-new__details${this.state.isLoading ? ' issue-new__details--hidden' : ''}`}>
             <Select data-placeholder="Unassigned"
                     name="assignee"
                     options={assignee}

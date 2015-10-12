@@ -33,7 +33,7 @@
   }
 }
 
-.issue-new-details {
+.issue-new__details {
   border-top: 1px solid $main-grey;
   font-size: .9em;
 
@@ -43,4 +43,8 @@
     text-align: center;
     width: 25%;
   }
+}
+
+.issue-new__details--hidden {
+  display: none;
 }

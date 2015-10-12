@@ -29,15 +29,31 @@ export default React.createClass({
   },
   mixins: [NavigableCollection],
   componentDidMount() {
-    this.state.project = App.collection.project.get(this.props.params.projectId);
-    this.state.project.on('sync', this.loadFilters);
-    this.state.project.on('change', this.loadFilters);
+    this.loadData()
+  },
+  componentDidUpdate(prevProps) {
+    const oldId = prevProps.params.projectId,
+      newId = this.props.params.projectId;
+    if (newId !== oldId) {
+      this.loadData();
+    }
+  },
+  loadData() {
+    const project = App.collection.project.get(this.props.params.projectId);
+    project.on('sync', this.loadFilters);
+    project.on('change', this.loadFilters);
+
+    this.setState({
+      project,
+      issues: [],
+      fetchingIssues: true
+    });
 
     this.collection = new IssueCollection();
     this.collection.on('sync', $.proxy(this.issuesUpdated, this));
-    this.collection.fetch({data: {project: this.state.project.id}});
+    this.collection.fetch({data: {project: project.id}});
 
-    this.loadFilters();
+    this.loadFilters(project);
   },
   issuesUpdated(data) {
     this.setState({
@@ -59,7 +75,7 @@ export default React.createClass({
     this.setState({fetchingIssues: true});
     this.collection.fetch({data, reset: true});
   },
-  loadFilters() {
+  loadFilters(project) {
     var assigneeFilters = [{
         filter: 'assignee',
         selected: true,
@@ -78,14 +94,14 @@ export default React.createClass({
         value: ''
       }
       ],
-      priorities = this.state.project.get('issue_priorities'),
+      priorities = project.get('issue_priorities'),
       statusFilters = [{
         filter: 'status',
         selected: true,
         title: 'All statuses',
         value: ''
       }],
-      statuses = this.state.project.get('statuses');
+      statuses = project.get('statuses');
 
     if (priorities) {
       priorities.forEach((priority) => {
@@ -121,9 +137,9 @@ export default React.createClass({
     }
     const issuesEl = this.state.issues.map((issue, index) => {
       return <IssuePreview issue={issue}
-                           key={index}
-                           onClick={this.changeSelected}
-                           selected={this.state.selectedItem === index}/>;
+      key={index}
+      onClick={this.changeSelected}
+      selected={this.state.selectedItem === index}/>;
     });
     let issue = '';
     if (this.state.issues.length > 0 && !this.state.fetchingIssues) {
@@ -142,10 +158,8 @@ export default React.createClass({
     return (
       <div>
         <ContentMiddleLayout rightOpen={true}>
-          <PageHeader image="" links={links} title=""/>
+          <PageHeader image="" links={links} title={this.state.project.get('name')}/>
           <Filter filters={this.state.filters} onFilterSelected={this.filterIssues}/>
-
-
           <div className="issues">
             {this.state.fetchingIssues ? 'Loading...' : issuesEl}
           </div>
