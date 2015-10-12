@@ -14,8 +14,8 @@ import IssuePreview from '../../component/IssuePreview.js';
 import Filter from '../../component/Filter.js';
 import IssueShow from '../../page/issue/Show.js';
 import NavigableCollection from '../../../mixins/NavigableCollection.js';
-import MiddleContentLayout from '../../layout/MiddleContentLayout.js';
-import RightContentLayout from '../../layout/RightContentLayout.js';
+import ContentMiddleLayout from '../../layout/ContentMiddleLayout.js';
+import ContentRightLayout from '../../layout/ContentRightLayout.js';
 import PageHeader from '../../component/PageHeader.js';
 
 export default React.createClass({
@@ -141,17 +141,17 @@ export default React.createClass({
 
     return (
       <div>
-        <MiddleContentLayout>
+        <ContentMiddleLayout>
           <PageHeader image="" links={links} title=""/>
           <Filter filters={this.state.filters} onFilterSelected={this.filterIssues}/>
 
           <div className="issues">
             {this.state.fetchingIssues ? 'Loading...' : issuesEl}
           </div>
-        </MiddleContentLayout>
-        <RightContentLayout>
+        </ContentMiddleLayout>
+        <ContentRightLayout>
           {issue}
-        </RightContentLayout>
+        </ContentRightLayout>
       </div>
     );
   }

@@ -9,12 +9,15 @@
 
 import React from 'react';
 
-import App from '../../App';
-
 export default React.createClass({
+  getInitialState() {
+    return {
+      notifications: []
+    }
+  },
   componentDidMount() {
-    App.collection.notifications.on('add', this.updateNotifications);
-    App.collection.notifications.on('remove', this.updateNotifications);
+    App.collection.notification.on('add', this.updateNotifications);
+    App.collection.notification.on('remove', this.updateNotifications);
   },
   updateNotifications(notifications) {
     this.setState({
@@ -22,9 +25,9 @@ export default React.createClass({
     });
   },
   render() {
-    const notifications = App.collection.notifications.map((notification) => {
+    const notifications = this.state.notifications.map((notification) => {
       return (
-        <Notification notification={this.state.notification}/>
+        <Notification notification={notification}/>
       );
     });
 

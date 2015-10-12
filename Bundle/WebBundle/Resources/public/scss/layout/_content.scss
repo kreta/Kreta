@@ -1,0 +1,36 @@
+// This file belongs to Kreta.
+// The source code of application includes a LICENSE file
+// with all information about license.
+//
+// @author benatespina <benatespina@gmail.com>
+// @author gorkalaucirica <gorka.lauzirika@gmail.com>
+
+$content-width: 900px;
+$content-right-width: 450px;
+
+.content {
+  width: 100%;
+}
+
+.content__middle {
+  margin-left: 80px;
+  transition-duration: .3s;
+  padding: 20px calc(50% - #{$content-width / 2} + #{$content-right-width / 2})
+           20px  calc(50% - #{$content-width / 2} - #{$content-right-width / 2});
+}
+
+.content__middle--right-open {
+  padding: 20px calc(50)
+}
+
+.content__right {
+  background-color: #f1f1f1;
+  bottom: 0;
+  border-left: 1px solid #e8e8e8;
+  box-sizing: border-box;
+  right: 0;
+  padding: 45px;
+  position: fixed;
+  top: 0;
+  width: $content-right-width;
+}

@@ -7,14 +7,15 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-import '../../../scss/layout/_content.scss';
-
 import React from 'react';
 
 export default React.createClass({
+  propTypes: {
+    open: React.PropTypes.bool
+  },
   render() {
     return (
-      <div id="content">
+      <div className="content__right">
         {this.props.children}
       </div>
     );

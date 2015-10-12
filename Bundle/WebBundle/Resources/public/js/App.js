@@ -12,6 +12,7 @@ import '../scss/app.scss';
 import {ProjectCollection} from './collections/Project';
 import {UserCollection} from './collections/User';
 import {WorkflowCollection} from './collections/Workflow';
+import {NotificationCollection} from './collections/Notification';
 
 import {Profile} from './models/Profile';
 
@@ -27,7 +28,8 @@ export class App extends Backbone.Marionette.Application {
     this.collection = {
       project: new ProjectCollection(),
       user: new UserCollection(),
-      workflow: new WorkflowCollection()
+      workflow: new WorkflowCollection(),
+      notification: new NotificationCollection()
     };
 
     this.currentUser = new Profile();

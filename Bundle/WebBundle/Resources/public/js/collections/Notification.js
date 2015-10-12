@@ -7,17 +7,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-import React from 'react';
+import Backbone from 'backbone';
 
-export default React.createClass({
-  propTypes: {
-    open: React.PropTypes.bool
-  },
-  render() {
-    return (
-      <div>
-        {this.props.children}
-      </div>
-    );
-  }
-});
+export class NotificationCollection extends Backbone.Collection {
+}
