@@ -10,6 +10,7 @@
 import '../../../../scss/views/page/issue/_new.scss';
 
 import React from 'react';
+import {History} from 'react-router';
 import Select from 'react-select';
 import $ from 'jquery';
 
@@ -26,6 +27,7 @@ export default React.createClass({
       selectableProjects: []
     };
   },
+  mixins: [History],
   componentDidMount() {
     this.selectorsLeft = 0;
     this.updateSelectors(this.props.params.projectId);
@@ -37,7 +39,6 @@ export default React.createClass({
       this.updateSelectors(this.props.params.projectId);
     }
   },
-
   updateSelectors(projectId) {
     const project = App.collection.project.get(projectId);
     this.selectorsLeft = 2;
@@ -66,11 +67,12 @@ export default React.createClass({
     this.setState({isLoading: true});
 
     issue.save(null, {
-      success: () => {
+      success: (model) => {
         NotificationService.showNotification({
           type: 'success',
           message: 'Issue created successfully'
         });
+        this.history.pushState(null, `/project/${model.get('project')}`);
       }, error: () => {
         NotificationService.showNotification({
           type: 'error',

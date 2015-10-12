@@ -10,6 +10,7 @@
 import '../../../../scss/views/page/project/_new.scss';
 
 import React from 'react';
+import {History} from 'react-router';
 import $ from 'jquery';
 
 import {Project} from '../../../models/Project';
@@ -18,6 +19,7 @@ import {NotificationService} from '../../../service/Notification.js';
 import ContentMiddleLayout from '../../layout/ContentMiddleLayout.js';
 
 export default React.createClass({
+  mixins: [History],
   save(ev) {
     ev.preventDefault();
 
@@ -26,10 +28,12 @@ export default React.createClass({
     );
 
     project.save(null, {
-      success: () => {
+      success: (model) => {
         NotificationService.showNotification({
           message: 'Project created successfully'
         });
+        App.collection.project.add(model);
+        this.history.pushState(null, `/project/${model.id}`);
       }, error: () => {
         NotificationService.showNotification({
           type: 'error',

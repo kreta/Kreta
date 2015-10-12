@@ -16,7 +16,7 @@ export default React.createClass({
   propTypes: {
     message: React.PropTypes.string.isRequired,
     type: React.PropTypes.string,
-    value: React.PropTypes.string.isRequired
+    value: React.PropTypes.number.isRequired
   },
   getDefaultProps() {
     return {
