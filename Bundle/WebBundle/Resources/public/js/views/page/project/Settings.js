@@ -29,6 +29,12 @@ export default React.createClass({
   },
   componentDidMount() {
     const project = App.collection.project.get(this.props.params.projectId);
+    project.on('change', (project) => {
+     this.setState({
+       project,
+       notParticipating: this.getNotParticipating(project.get('participants'))
+     });
+    });
     this.setState({
       project,
       notParticipating: this.getNotParticipating(project.get('participants'))
@@ -85,6 +91,8 @@ export default React.createClass({
         NotificationService.showNotification({
           message: 'User added successfully to the project'
         });
+        //Update participants
+        this.state.project.fetch();
       }
     );
   },
