@@ -29,7 +29,7 @@
   "scripts": {
     "watch": "node_modules/.bin/webpack --progress --colors --watch",
     "prod": "node_modules/.bin/webpack --progress --colors --env=prod",
-    "dev": "node_modules/.bin/webpack --progress --colors && ./node_modules/.bin/sass-lint -c .sass-lint.yml -q -v",
+    "dev": "node_modules/.bin/webpack --progress --colors",
     "scss-lint": "./node_modules/.bin/sass-lint -c .sass-lint.yml -q -v"
   },
   "dependencies": {
@@ -61,7 +61,7 @@
     "sass-loader": "^3.0",
     "source-map": "^0.5",
     "style-loader": "^0.12",
-    "svg-sprite-loader": "0.0.10",
+    "svg-sprite-loader": "^0.0.10",
     "webpack": "^1.12"
   }
 }

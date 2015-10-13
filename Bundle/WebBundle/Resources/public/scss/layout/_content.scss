@@ -15,8 +15,8 @@ $content-transition: .3s;
 
 .content__middle {
   margin-left: 90px;
-  transition-duration: $content-transition;
   padding: 20px calc(50% - #{$content-width / 2});
+  transition-duration: $content-transition;
 }
 
 .content__middle--right-open {
@@ -25,9 +25,9 @@ $content-transition: .3s;
 }
 
 .content__right {
-  background-color: #f1f1f1;
+  background-color: $light-grey;
+  border-left: 1px solid $main-grey;
   bottom: 0;
-  border-left: 1px solid #e8e8e8;
   box-sizing: border-box;
   padding: 20px;
   position: fixed;
