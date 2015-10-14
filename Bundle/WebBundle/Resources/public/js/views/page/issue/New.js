@@ -11,13 +11,13 @@ import '../../../../scss/views/page/issue/_new.scss';
 
 import React from 'react';
 import {History} from 'react-router';
-import Select from 'react-select';
 import $ from 'jquery';
 
 import {FormSerializerService} from '../../../service/FormSerializer';
 import {Issue} from '../../../models/Issue';
 import {NotificationService} from '../../../service/Notification';
 import ContentMiddleLayout from '../../layout/ContentMiddleLayout.js';
+import Selector from '../../component/Selector.js';
 
 export default React.createClass({
   getInitialState() {
@@ -113,7 +113,8 @@ export default React.createClass({
 
     return (
       <ContentMiddleLayout>
-        <form id="issue-new"
+        <form className="issue-new"
+              id="issue-new"
               method="POST"
               onSubmit={this.save}
               ref="form">
@@ -123,7 +124,7 @@ export default React.createClass({
                     tabIndex="7"
                     type="submit">Done</button>
           </div>
-          <Select data-placeholder="Select project"
+          <Selector placeholder="Select project"
                   name="project"
                   onChange={this.updateSelectors}
                   options={selectableProjects}
@@ -141,17 +142,17 @@ export default React.createClass({
                     tabIndex="3"
                     value={this.state.project.description}></textarea>
           <div className={`issue-new__details${this.state.isLoading ? ' issue-new__details--hidden' : ''}`}>
-            <Select data-placeholder="Unassigned"
+            <Selector data-placeholder="Unassigned"
                     name="assignee"
                     options={assignee}
                     style={{width: '25%'}}
                     tabIndex="4"/>
-            <Select data-placeholder="No priority"
+            <Selector data-placeholder="No priority"
                     name="priority"
                     options={priority}
                     style={{width: '25%'}}
                     tabIndex="5"/>
-            <Select data-placeholder="No priority"
+            <Selector data-placeholder="No priority"
                     name="type"
                     options={type}
                     style={{width: '25%'}}

@@ -7,6 +7,8 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
+import $ from 'jquery';
+
 export default {
   getInitialState() {
     return {
@@ -14,7 +16,7 @@ export default {
     };
   },
   componentDidMount() {
-    $(document.body).on('keyup', this.handleNavigation);
+    $(this.getDOMNode(this)).on('keyup', $.proxy(this.handleNavigation, this));
   },
   selectNext() {
     if (this.state.selectedItem + 1 < this.refs.navigableList.children.length) {
@@ -33,9 +35,6 @@ export default {
     }
   },
   handleNavigation(ev) {
-    console.log('NavigableCollection disabled');
-    return false;
-
     if (ev.which === 40) { // Down
       this.selectNext(ev);
     } else if (ev.which === 38) { // Up
