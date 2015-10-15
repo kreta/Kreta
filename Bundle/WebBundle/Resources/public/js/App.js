@@ -9,19 +9,20 @@
 
 import '../scss/app.scss';
 
-import {ProjectCollection} from './collections/Project';
-import {UserCollection} from './collections/User';
-import {WorkflowCollection} from './collections/Workflow';
-import {NotificationCollection} from './collections/Notification';
-
-import {Profile} from './models/Profile';
+import Backbone from 'backbone';
+import $ from 'jquery';
 
 import {BaseLayoutView} from './views/layout/Base';
 import {HeaderView} from './views/layout/MainMenu';
+import {NotificationCollection} from './collections/Notification';
+import {Profile} from './models/Profile';
+import {ProjectCollection} from './collections/Project';
+import {UserCollection} from './collections/User';
+import {WorkflowCollection} from './collections/Workflow';
 
-export class App extends Backbone.Marionette.Application {
+export class App {
   constructor(options) {
-    super(options);
+    this.options = options;
 
     this.addAutenticationHeader();
 

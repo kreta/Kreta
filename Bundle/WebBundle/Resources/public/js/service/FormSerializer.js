@@ -7,6 +7,8 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
+import $ from 'jquery';
+
 export class FormSerializerService {
   static serialize($form, model = null) {
     var formData = {}, Model;

@@ -29,7 +29,16 @@ License: ${pkg.license}`,
       app: `${SOURCE_PATH}/js/Kreta.js`,
       login: `${SOURCE_PATH}/js/Login.js`,
       vendors: [
-        'jquery', 'lodash', 'backbone', 'backbone-model-file-upload', 'backbone.marionette', 'select2', 'mousetrap'
+        'backbone',
+        'backbone-model-file-upload',
+        'backbone.marionette',
+        'classnames',
+        'jquery',
+        'lodash',
+        'mousetrap',
+        'react',
+        'react-dom',
+        'react-router'
       ]
     },
     output: {
@@ -54,9 +63,6 @@ License: ${pkg.license}`,
     eslint: {configFile: '.eslint.yml'},
     postcss: [autoprefixer()],
     plugins: [
-      new webpack.ProvidePlugin({
-        _: 'lodash', Backbone: 'backbone', $: 'jquery', jQuery: 'jquery'
-      }),
       new webpack.optimize.CommonsChunkPlugin('vendors', 'vendor.js'),
       new ExtractTextPlugin('../css/[name].css', {allChunks: false}),
       new webpack.BannerPlugin(LICENSE)

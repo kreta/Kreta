@@ -15,7 +15,7 @@ export default React.createClass({
   getInitialState() {
     return {
       notifications: []
-    }
+    };
   },
   componentDidMount() {
     App.collection.notification.on('add', this.updateNotifications);
@@ -29,8 +29,8 @@ export default React.createClass({
   render() {
     const notifications = this.state.notifications.map((notification, index) => {
       return (
-        <Notification message={notification.get('message')}
-                      key={index}
+        <Notification key={index}
+                      message={notification.get('message')}
                       type={notification.get('type')}
                       value={index}/>
       );

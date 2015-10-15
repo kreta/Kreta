@@ -10,10 +10,10 @@
 import React from 'react';
 import $ from 'jquery';
 
+import ContentMiddleLayout from '../../layout/ContentMiddleLayout';
 import {FormSerializerService} from '../../../service/FormSerializer';
 import {NotificationService} from '../../../service/Notification';
 import {Profile} from '../../../models/Profile';
-import ContentMiddleLayout from '../../layout/ContentMiddleLayout.js'
 
 export default React.createClass({
   componentWillMount() {
@@ -50,31 +50,33 @@ export default React.createClass({
         });
       }
     });
+
     return false;
   },
   render() {
     const user = this.state.user.toJSON();
+
     return (
       <ContentMiddleLayout>
-        <form className="user-edit" ref="form" onSubmit={this.save}>
+        <form className="user-edit" onSubmit={this.save} ref="form">
           <div>
-            <input name="firstName"
+            <input defaultValue={user.first_name}
+                   name="firstName"
                    placeholder="First name"
-                   type="text"
-                   defaultValue={user.first_name}/>
-            <input name="lastName"
+                   type="text"/>
+            <input defaultValue={user.last_name}
+                   name="lastName"
                    placeholder="Last name"
-                   type="text"
-                   defaultValue={user.last_name}/>
-            <input name="username"
+                   type="text"/>
+            <input defaultValue={user.username}
+                   name="username"
                    placeholder="Username"
-                   type="text"
-                   defaultValue={user.username}/>
+                   type="text"/>
             <img ref="previewImage" src={user.photo.name}/>
-            <input name="photo"
+            <input defaultValue=""
+                   name="photo"
                    onChange={this.onPhotoChange}
-                   type="file"
-                   defaultValue="" />
+                   type="file"/>
           </div>
           <div className="spacer-vertical-1">
             <button className="button green" type="submit">Update</button>

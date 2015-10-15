@@ -21,7 +21,7 @@ export default React.createClass({
   getDefaultProps() {
     return {
       type: 'success'
-    }
+    };
   },
   onCloseClick() {
     App.collection.notification.remove(

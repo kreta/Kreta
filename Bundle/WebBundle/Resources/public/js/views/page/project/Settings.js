@@ -10,7 +10,6 @@
 import '../../../../scss/views/page/project/_settings.scss';
 
 import React from 'react';
-import $ from 'jquery';
 
 import UserPreview from '../../component/UserPreview';
 import ContentMiddleLayout from '../../layout/ContentMiddleLayout.js';

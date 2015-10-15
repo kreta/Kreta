@@ -7,6 +7,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
+import _ from 'lodash';
 import Backbone from 'backbone';
 
 import {Config} from '../Config';

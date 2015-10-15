@@ -9,9 +9,10 @@
 
 import React from 'react';
 import {Link, History} from 'react-router';
+import $ from 'jquery';
 
-import ProjectPreview from '../../component/ProjectPreview';
 import NavigableCollection from '../../../mixins/NavigableCollection.js';
+import ProjectPreview from '../../component/ProjectPreview';
 
 export default React.createClass({
   propTypes: {

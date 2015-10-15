@@ -10,6 +10,7 @@
 import '../../../../scss/views/page/project/_settings.scss';
 
 import React from 'react';
+import $ from 'jquery';
 
 import UserPreview from '../../component/UserPreview';
 import {Config} from '../../../Config.js';
@@ -40,23 +41,24 @@ export default React.createClass({
   render() {
     const notParticipating = this.props.project.getNotParticipating()
       .map((user, index) => {
-      const actions = (
-        <button className="button green button--icon"
-          onClick={this.addParticipant.bind(this, index)}>
-          <i className="fa fa-plus"></i>
-        </button>
-      );
-      return (
-        <UserPreview actions={actions}
-                     key={index}
-                     user={user.toJSON()}/>
-      );
-    });
+        const actions = (
+          <button className="button green button--icon"
+                  onClick={this.addParticipant.bind(this, index)}>
+            <i className="fa fa-plus"></i>
+          </button>
+        );
+
+        return (
+          <UserPreview actions={actions}
+                       key={index}
+                       user={user.toJSON()}/>
+        );
+      });
 
     return (
       <div className="project-settings__not-participating">
         {notParticipating}
       </div>
-    )
+    );
   }
 });

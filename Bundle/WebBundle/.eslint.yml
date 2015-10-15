@@ -18,6 +18,7 @@ ecmaFeatures:
 
 globals:
     process: true
+    App: true
 
 plugins:
     - react

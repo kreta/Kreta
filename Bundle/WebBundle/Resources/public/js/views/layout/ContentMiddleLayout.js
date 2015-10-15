@@ -17,13 +17,14 @@ export default React.createClass({
   getDefaultProps() {
     return {
       rightOpen: false
-    }
+    };
   },
   render() {
     const classes = classnames({
       'content__middle': true,
       'content__middle--right-open': this.props.rightOpen
     });
+
     return (
       <div className={classes}>
         {this.props.children}

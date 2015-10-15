@@ -8,6 +8,7 @@
  */
 
 import React from 'react';
+import $ from 'jquery';
 
 import {IssueCollection} from '../../../collections/Issue';
 import IssuePreview from '../../component/IssuePreview.js';
@@ -29,7 +30,7 @@ export default React.createClass({
   },
   mixins: [NavigableCollection],
   componentDidMount() {
-    this.loadData()
+    this.loadData();
   },
   componentDidUpdate(prevProps) {
     const oldId = prevProps.params.projectId,
@@ -136,30 +137,31 @@ export default React.createClass({
       return <p>Loading...</p>;
     }
     const issuesEl = this.state.issues.map((issue, index) => {
-      return <IssuePreview issue={issue}
-      key={index}
-      onClick={this.changeSelected}
-      selected={this.state.selectedItem === index}/>;
-    });
+        return <IssuePreview issue={issue}
+                             key={index}
+                             onClick={this.changeSelected}
+                             selected={this.state.selectedItem === index}/>;
+      }),
+      links = [{
+        href: '#',
+        icon: 'dashboard',
+        title: 'Dashboard'
+      }, {
+        href: `/project/${this.state.project.id}/settings`,
+        icon: 'settings',
+        title: 'Settings'
+      }];
     let issue = '';
     if (this.state.issues.length > 0 && !this.state.fetchingIssues) {
       issue = <IssueShow issue={this.state.issues.at(this.state.selectedItem)}/>;
     }
-    const links = [{
-      href: '#',
-      icon: 'dashboard',
-      title: 'Dashboard'
-    }, {
-      href: `/project/${this.state.project.id}/settings`,
-      icon: 'settings',
-      title: 'Settings'
-    }];
 
     return (
       <div>
         <ContentMiddleLayout rightOpen={true}>
           <PageHeader image="" links={links} title={this.state.project.get('name')}/>
           <Filter filters={this.state.filters} onFilterSelected={this.filterIssues}/>
+
           <div className="issues">
             {this.state.fetchingIssues ? 'Loading...' : issuesEl}
           </div>

@@ -51,7 +51,7 @@ export default React.createClass({
   closeDropdown() {
     this.setState({
       dropdownVisible: false
-    })
+    });
   },
   selectOption(index) {
     this.setState({
@@ -59,7 +59,7 @@ export default React.createClass({
       dropdownVisible: false
     });
     this.goToNextTabIndex();
-    if(this.props.onChange) {
+    if (this.props.onChange) {
       this.props.onChange(this.state.selectedValue);
     }
   },
@@ -76,38 +76,40 @@ export default React.createClass({
     }
   },
   goToNextTabIndex() {
-     $(`[tabindex="${parseInt(this.props.tabIndex) + 1}"]`).focus();
+    $(`[tabindex="${parseInt(this.props.tabIndex, 10) + 1}"]`).focus();
   },
   render() {
     const options = this.props.options.map((option, index) => {
-      const classes = classnames(
-        'selector__option',
-        {'selector__option--selected': this.state.selectedItem === index}
+        const classes = classnames(
+          'selector__option',
+          {'selector__option--selected': this.state.selectedItem === index}
+        );
+
+        return (
+          <div className={classes}
+               onClick={this.selectOption.bind(this, index)}
+               onMouseEnter={this.highlightItem.bind(this, index)}>
+            {option.label}
+          </div>
+        );
+      }),
+      dropdownClasses = classnames(
+        'selector__dropdown',
+        {'selector__dropdown--open': this.state.dropdownVisible}
       );
-      return (
-        <div className={classes}
-             onClick={this.selectOption.bind(this, index)}
-             onMouseEnter={this.highlightItem.bind(this, index)}>
-          {option.label}
-        </div>
-      );
-    });
-    const dropdownClasses = classnames(
-      'selector__dropdown',
-      {'selector__dropdown--open': this.state.dropdownVisible}
-    );
+
     return (
       <div className="selector"
-           onFocus={this.openDropdown}
            onBlur={this.closeDropdown}
+           onFocus={this.openDropdown}
            tabIndex={this.props.tabIndex}>
-        <input value={this.state.selectedValue}
-               name={this.props.name}
+        <input name={this.props.name}
                ref="value"
-               type="hidden"/>
+               type="hidden"
+               value={this.state.selectedValue}/>
         <span className="selector__selected" onClick={this.openDropdown}>
           {this.getLabelByValue(this.state.selectedValue) ||
-            this.props.placeholder || 'Select...'}
+          this.props.placeholder || 'Select...'}
         </span>
 
         <div className={dropdownClasses}>
@@ -115,6 +117,7 @@ export default React.createClass({
                  onKeyDown={this.filter}
                  ref="filter"
                  type="text"/>
+
           <div className="selector__options" ref="navigableList">
             {options}
           </div>

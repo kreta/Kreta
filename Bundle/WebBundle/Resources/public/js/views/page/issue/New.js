@@ -122,15 +122,16 @@ export default React.createClass({
             <button className="button">Cancel</button>
             <button className="button green"
                     tabIndex="7"
-                    type="submit">Done</button>
+                    type="submit">Done
+            </button>
           </div>
-          <Selector placeholder="Select project"
-                  name="project"
-                  onChange={this.updateSelectors}
-                  options={selectableProjects}
-                  style={{width: '100%'}}
-                  tabIndex="1"
-                  value={this.state.project.id}/>
+          <Selector name="project"
+                    onChange={this.updateSelectors}
+                    options={selectableProjects}
+                    placeholder="Select project"
+                    style={{width: '100%'}}
+                    tabIndex="1"
+                    value={this.state.project.id}/>
           <input className="big"
                  name="title"
                  placeholder="Type your task title"
@@ -141,22 +142,23 @@ export default React.createClass({
                     placeholder="Type your task description"
                     tabIndex="3"
                     value={this.state.project.description}></textarea>
+
           <div className={`issue-new__details${this.state.isLoading ? ' issue-new__details--hidden' : ''}`}>
             <Selector data-placeholder="Unassigned"
-                    name="assignee"
-                    options={assignee}
-                    style={{width: '25%'}}
-                    tabIndex="4"/>
+                      name="assignee"
+                      options={assignee}
+                      style={{width: '25%'}}
+                      tabIndex="4"/>
             <Selector data-placeholder="No priority"
-                    name="priority"
-                    options={priority}
-                    style={{width: '25%'}}
-                    tabIndex="5"/>
+                      name="priority"
+                      options={priority}
+                      style={{width: '25%'}}
+                      tabIndex="5"/>
             <Selector data-placeholder="No priority"
-                    name="type"
-                    options={type}
-                    style={{width: '25%'}}
-                    tabIndex="6"/>
+                      name="type"
+                      options={type}
+                      style={{width: '25%'}}
+                      tabIndex="6"/>
           </div>
         </form>
       </ContentMiddleLayout>

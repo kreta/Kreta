@@ -11,7 +11,6 @@ import React from 'react';
 import $ from 'jquery';
 
 import {FormSerializerService} from '../../../service/FormSerializer';
-import {NotificationService} from '../../../service/Notification.js';
 import {Project} from '../../../models/Project';
 
 export default React.createClass({
