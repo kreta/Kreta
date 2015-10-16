@@ -28,6 +28,11 @@ export default React.createClass({
       visible: false
     });
   },
+  handleKeyUp(ev) {
+    if(ev.which === 27) {
+      this.closeModal()
+    }
+  },
   render() {
     const modalClasses = classNames({
         'modal': true,
@@ -39,7 +44,7 @@ export default React.createClass({
       });
 
     return (
-      <div>
+      <div onKeyUp={this.handleKeyUp}>
         <div className={ modalClasses }>
           { this.props.children }
         </div>
