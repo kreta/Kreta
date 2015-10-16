@@ -143,10 +143,6 @@ export default React.createClass({
                              selected={this.state.selectedItem === index}/>;
       }),
       links = [{
-        href: '#',
-        icon: 'dashboard',
-        title: 'Dashboard'
-      }, {
         href: `/project/${this.state.project.id}/settings`,
         icon: 'settings',
         title: 'Settings'
