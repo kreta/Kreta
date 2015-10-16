@@ -1,29 +1,51 @@
-jest.dontMock('../../../views/component/Icon.js');
+/*
+ * This file is part of the Kreta package.
+ *
+ * (c) Beñat Espiña <benatespina@gmail.com>
+ * (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
-import expect from 'expect';
+jest.dontMock('./../../../views/component/Icon');
+
+import {expect} from 'chai';
 import React from 'react';
-import ReactDOM from 'react-dom';
 import ReactTestUtils from 'react-addons-test-utils';
 
-import Icon from '../../../views/component/Icon';
-
-const addIcon = './../../../../svg/add.svg';
+const Icon = require('../../../views/component/Icon'),
+  addIcon = '../../../../svg/add.svg';
 
 describe('Icon', () => {
-  it('renders a svg', () => {
+  const shallowRenderer = ReactTestUtils.createRenderer();
 
-    let shallowRenderer = ReactTestUtils.createRenderer();
-    //let icon = ReactTestUtils.renderIntoDocument(
-    //    <Icon glyph={addIcon}/>
-    //  ),
-    //  iconNode = ReactDOM.findDOMNode(icon);
-
+  it('renders a svg with default values', () => {
     shallowRenderer.render(
       <Icon glyph={addIcon}/>
     );
-    let result = shallowRenderer.getRenderOutput();
-    console.log(result);
-    expect(result.type).toBe('svg');
+    const result = shallowRenderer.getRenderOutput();
+
+    expect(result.type).to.equal('svg');
+
+    expect(result.props.className).to.be.a('string');
+    expect(result.props.className).to.equal('icon');
+
+    expect(result.props.children.props.xlinkHref).to.be.a('string');
+    expect(result.props.children.props).to.have.property('xlinkHref');
+    expect(result.props.children.props.xlinkHref).to.equal(addIcon);
   });
 
+  it('renders a svg without required props', () => {
+    shallowRenderer.render(
+      <Icon/>
+    );
+    const result = shallowRenderer.getRenderOutput();
+
+    expect(result.type).to.equal('svg');
+
+    expect(result.props.className).to.be.a('string');
+    expect(result.props.children.props.xlinkHref).to.be.a('undefined');
+    expect(result.props.className).to.equal('icon');
+  });
 });
