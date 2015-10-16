@@ -6,14 +6,26 @@
 // For the full copyright and license information, please view the LICENSE
 // file that was distributed with this source code.
 
-.user-image,
-.project-image {
-  border-radius: 50%;
-  height: 40px;
-  width: 40px;
+@import '../base/colors';
 
-  &.big {
-    height: 70px;
-    width: 70px;
-  }
+.user-image {
+  background: $main-green;
+  border-radius: 50%;
+  display: inline-block;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  width: 40px;
 }
+
+.user-image--big {
+  height: 70px;
+  line-height: 70px;
+  width: 70px;
+}
+
+.user-image__char {
+  color: $white;
+  font-size: 20px;
+}
+

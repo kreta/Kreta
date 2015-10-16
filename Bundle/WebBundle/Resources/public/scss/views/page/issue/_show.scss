@@ -8,7 +8,7 @@
 
 @import '../../../base/colors';
 
-.full-issue-title {
+.issue-show__title {
   color: $main-black;
   font-size: 1.8em;
   font-weight: lighter;
@@ -16,7 +16,7 @@
   margin: 0;
 }
 
-.full-issue-description {
+.issue-show__description {
   color: $main-black;
   font-weight: lighter;
   line-height: 1.3em;
@@ -25,22 +25,12 @@
   overflow: hidden;
 }
 
-.full-issue-dashboard {
+.issue-show__fields {
   margin-top: 30px;
   overflow: hidden;
 }
 
-.full-issue-dashboard-item {
-  border: 1px solid $main-grey;
-  color: $main-black;
-  font-size: .8em;
-  line-height: 3.5em;
-  margin: 0;
+.issue-show__save {
+  margin: 30px 0;
   text-align: center;
-  width: 100%;
-
-  &.half {
-    float: left;
-    width: 50%;
-  }
 }

@@ -31,6 +31,9 @@ export default React.createClass({
     this.setState({
       selectedValue: this.props.value
     });
+    React.Children.forEach(this.props.children, function(children) {
+      console.log(children)
+    });
   },
   getLabelByValue(value) {
     let found = null;
@@ -80,25 +83,10 @@ export default React.createClass({
     $(`[tabindex="${parseInt(this.props.tabIndex, 10) + 1}"]`).focus();
   },
   render() {
-    const options = this.props.options.map((option, index) => {
-        const classes = classnames(
-          'selector__option',
-          {'selector__option--selected': this.state.selectedItem === index}
-        );
-
-        return (
-          <div className={classes}
-               key={index}
-               onClick={this.selectOption.bind(this, index)}
-               onMouseEnter={this.highlightItem.bind(this, index)}>
-            {option.label}
-          </div>
-        );
-      }),
-      dropdownClasses = classnames(
-        'selector__dropdown',
-        {'selector__dropdown--open': this.state.dropdownVisible}
-      );
+    dropdownClasses = classnames(
+      'selector__dropdown',
+      {'selector__dropdown--open': this.state.dropdownVisible}
+    );
 
     return (
       <div className="selector"
@@ -121,7 +109,7 @@ export default React.createClass({
                  type="text"/>
 
           <div className="selector__options" ref="navigableList">
-            {options}
+            {this.props.children}
           </div>
         </div>
       </div>

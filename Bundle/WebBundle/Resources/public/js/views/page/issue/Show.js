@@ -12,35 +12,94 @@ import './../../../../scss/views/page/issue/_show.scss';
 
 import React from 'react';
 
+import UserImage from '../../component/UserImage.js';
+import IssueField from '../../component/IssueField.js';
+import HelpText from '../../component/HelpText.js';
+
 export default React.createClass({
   propTypes: {
     issue: React.PropTypes.object
   },
+  getInitialState() {
+    return {
+      issueChanged: false
+    };
+  },
+  componentDidUpdate () {
+    this.setState({issueChanged: false});
+  },
+  issueChanged() {
+    if(!this.state.issueChanged) {
+      this.setState({issueChanged: true})
+    }
+  },
+  getProjectOptions() {
+    var project = App.collection.project.get(this.props.issue.get('project').id);
+    var assignee = project.get('participants').map((p) => {
+      return (
+        <IssueField image={<UserImage user={p.user}/>}
+                    label="Assigned to"
+                    text={`${p.user.first_name} ${p.user.last_name}`}
+                    value={p.user.id}/>
+      );
+
+    }),
+    priority = project.get('issue_priorities').map((p) => {
+      return (
+        <IssueField halfColumn={true}
+                    image={<i className="fa fa-exclamation"></i>}
+                    label="Priority"
+                    text={p.name}
+                    value={p.id}/>
+      );
+    }),
+    type = project.get('issue_types').map((t) => {
+      return (
+        <IssueField halfColumn={true}
+                    image={<i className="fa fa-coffee"></i>}
+                    label="Type"
+                    text={t.name}
+                    value={t.id}/>
+      );
+    });
+
+    return {assignee, priority, type};
+  },
   render() {
     const issue = this.props.issue.toJSON();
-
+    let saveButton = <HelpText text="You can change issue details inline"/>;
+    if(this.state.issueChanged) {
+      saveButton = <button className="button green">Save changes</button>;
+    }
+    const options = this.getProjectOptions();
     return (
-      <div className="full-issue">
-        <h2 className="full-issue-title">{issue.title}</h2>
+      <div className="issue-show">
+        <h2 className="issue-show__title">
+          {issue.title}
+        </h2>
         <section className="full-issue-transitions">
 
         </section>
-        <section className="full-issue-dashboard">
-          <p className="full-issue-dashboard-item">
-            <img className="user-image" src={issue.assignee.photo.name}/>
-            <small>Assigned to</small>
-            <strong>{issue.assignee.first_name} {issue.assignee.last_name}</strong>
-          </p>
-          <p className="full-issue-dashboard-item half">
-            <i className="fa fa-exclamation"></i>
-            <small>Priority</small>
-            {issue.priority.name}
-          </p>
-          <p className="full-issue-dashboard-item half">
-            <i className="fa fa-coffee"></i>{issue.type.name}
-          </p>
+        <section className="issue-show__fields">
+          <Selector name="assignee"
+                    value={issue.assignee.id}>
+            {options.assignee}
+          </Selector>
+          <Selector name="priority"
+                    value={issue.priority.id}>
+            {options.priority}
+          </Selector>
+          <Selector name="priority"
+                    value={issue.type.id}>
+            {options.type}
+          </Selector>
         </section>
-        <p className="full-issue-description">{issue.description}</p>
+        <p className="issue-show__description">
+          {issue.description}
+        </p>
+        <div className="issue-show__save">
+          {saveButton}
+        </div>
       </div>
     );
   }
