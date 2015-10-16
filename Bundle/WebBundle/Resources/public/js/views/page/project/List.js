@@ -53,7 +53,7 @@ export default React.createClass({
       }
     } else if (ev.which === 13) { // Enter
       this.onShortcutClick();
-    } else { // Filter
+    } else if(ev.which !== 38 && ev.which !== 40) { // Filter
       this.setState({
         projects: App.collection.project.filter(this.refs.filter.value),
         selectedItem: 0
@@ -97,8 +97,7 @@ export default React.createClass({
             <Link className="button green small" to="/project/new">New</Link>
           </div>
         </div>
-        <input autoFocus
-               className="project-list__filter"
+        <input className="project-list__filter"
                onKeyUp={this.onKeyUp}
                ref="filter"
                type="text"/>

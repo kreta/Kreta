@@ -7,6 +7,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
+import ReactDOM from 'react-dom';
 import $ from 'jquery';
 
 export default {
@@ -16,7 +17,7 @@ export default {
     };
   },
   componentDidMount() {
-    $(this.getDOMNode(this)).on('keyup', $.proxy(this.handleNavigation, this));
+    $(ReactDOM.findDOMNode(this)).on('keyup', $.proxy(this.handleNavigation, this));
   },
   selectNext() {
     if (this.state.selectedItem + 1 < this.refs.navigableList.children.length) {
@@ -45,6 +46,6 @@ export default {
     this.refs.navigableList.scrollTop = this.state.selectedItem * 60 - 60 * 2;
   },
   componentWillUnmount() {
-    $(document.body).off('keyup', this.handleNavigation);
+    $(ReactDOM.findDOMNode(this)).off('keyup', this.handleNavigation);
   }
 };

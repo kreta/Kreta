@@ -87,6 +87,7 @@ export default React.createClass({
 
         return (
           <div className={classes}
+               key={index}
                onClick={this.selectOption.bind(this, index)}
                onMouseEnter={this.highlightItem.bind(this, index)}>
             {option.label}

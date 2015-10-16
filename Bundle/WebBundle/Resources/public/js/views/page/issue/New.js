@@ -130,17 +130,17 @@ export default React.createClass({
                     options={selectableProjects}
                     placeholder="Select project"
                     style={{width: '100%'}}
-                    tabIndex="1"
+                    tabIndex={1}
                     value={this.state.project.id}/>
           <input className="big"
                  name="title"
                  placeholder="Type your task title"
-                 tabIndex="2"
+                 tabIndex={2}
                  type="text"
                  value={this.state.project.title}/>
           <textarea name="description"
                     placeholder="Type your task description"
-                    tabIndex="3"
+                    tabIndex={3}
                     value={this.state.project.description}></textarea>
 
           <div className={`issue-new__details${this.state.isLoading ? ' issue-new__details--hidden' : ''}`}>
@@ -148,17 +148,17 @@ export default React.createClass({
                       name="assignee"
                       options={assignee}
                       style={{width: '25%'}}
-                      tabIndex="4"/>
+                      tabIndex={4}/>
             <Selector data-placeholder="No priority"
                       name="priority"
                       options={priority}
                       style={{width: '25%'}}
-                      tabIndex="5"/>
+                      tabIndex={5}/>
             <Selector data-placeholder="No priority"
                       name="type"
                       options={type}
                       style={{width: '25%'}}
-                      tabIndex="6"/>
+                      tabIndex={6}/>
           </div>
         </form>
       </ContentMiddleLayout>
