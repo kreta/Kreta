@@ -150,7 +150,8 @@ export default React.createClass({
       }];
     let issue = '';
     if (this.state.issues.length > 0 && !this.state.fetchingIssues) {
-      issue = <IssueShow issue={this.state.issues.at(this.state.selectedItem)}/>;
+      issue = <IssueShow issue={this.state.issues.at(this.state.selectedItem)}
+                         project={this.state.project}/>;
     }
 
     return (

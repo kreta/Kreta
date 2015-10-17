@@ -15,26 +15,27 @@ import React from 'react';
 import UserImage from '../../component/UserImage.js';
 import IssueField from '../../component/IssueField.js';
 import HelpText from '../../component/HelpText.js';
+import Selector from '../../component/Selector.js';
 
 export default React.createClass({
   propTypes: {
-    issue: React.PropTypes.object
+    issue: React.PropTypes.object.isRequired,
+    project: React.PropTypes.object.isRequired
   },
   getInitialState() {
     return {
       issueChanged: false
     };
   },
-  componentDidUpdate () {
-    this.setState({issueChanged: false});
-  },
-  issueChanged() {
-    if(!this.state.issueChanged) {
-      this.setState({issueChanged: true})
-    }
-  },
   getProjectOptions() {
-    var project = App.collection.project.get(this.props.issue.get('project').id);
+    var project = App.collection.project.get(this.props.project.id);
+    if(!project) {
+      return {
+        asignee: [],
+        priority: [],
+        type: []
+      };
+    }
     var assignee = project.get('participants').map((p) => {
       return (
         <IssueField image={<UserImage user={p.user}/>}
@@ -46,8 +47,7 @@ export default React.createClass({
     }),
     priority = project.get('issue_priorities').map((p) => {
       return (
-        <IssueField halfColumn={true}
-                    image={<i className="fa fa-exclamation"></i>}
+        <IssueField image={<i className="fa fa-exclamation"></i>}
                     label="Priority"
                     text={p.name}
                     value={p.id}/>
@@ -55,8 +55,7 @@ export default React.createClass({
     }),
     type = project.get('issue_types').map((t) => {
       return (
-        <IssueField halfColumn={true}
-                    image={<i className="fa fa-coffee"></i>}
+        <IssueField image={<i className="fa fa-coffee"></i>}
                     label="Type"
                     text={t.name}
                     value={t.id}/>
@@ -67,11 +66,11 @@ export default React.createClass({
   },
   render() {
     const issue = this.props.issue.toJSON();
+    const options = this.getProjectOptions();
     let saveButton = <HelpText text="You can change issue details inline"/>;
     if(this.state.issueChanged) {
       saveButton = <button className="button green">Save changes</button>;
     }
-    const options = this.getProjectOptions();
     return (
       <div className="issue-show">
         <h2 className="issue-show__title">

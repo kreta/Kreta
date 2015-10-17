@@ -21,25 +21,21 @@ export default React.createClass({
     label: React.PropTypes.string,
     name: React.PropTypes.string.isRequired,
     onChange: React.PropTypes.func,
-    options: React.PropTypes.array.isRequired,
     placeholder: React.PropTypes.string,
     tabIndex: React.PropTypes.number,
-    value: React.PropTypes.string
+    value: React.PropTypes.string.isRequired
   },
   mixins: [NavigableCollection],
   componentWillMount() {
     this.setState({
       selectedValue: this.props.value
     });
-    React.Children.forEach(this.props.children, function(children) {
-      console.log(children)
-    });
   },
-  getLabelByValue(value) {
-    let found = null;
-    this.props.options.forEach((option) => {
-      if (option.value === value) {
-        found = option.label;
+  getElementByValue(value) {
+    let found = '';
+    this.props.children.forEach((child) => {
+      if (child.props.value === value) {
+        found = child;
       }
     });
     return found;
@@ -59,7 +55,7 @@ export default React.createClass({
   },
   selectOption(index) {
     this.setState({
-      selectedValue: this.props.options[index].value,
+      selectedValue: this.props.children[index].props.value,
       dropdownVisible: false
     });
     this.goToNextTabIndex();
@@ -83,10 +79,12 @@ export default React.createClass({
     $(`[tabindex="${parseInt(this.props.tabIndex, 10) + 1}"]`).focus();
   },
   render() {
-    dropdownClasses = classnames(
+    const dropdownClasses = classnames(
       'selector__dropdown',
       {'selector__dropdown--open': this.state.dropdownVisible}
     );
+
+    const selectedElement = this.getElementByValue(this.state.selectedValue);
 
     return (
       <div className="selector"
@@ -97,10 +95,9 @@ export default React.createClass({
                ref="value"
                type="hidden"
                value={this.state.selectedValue}/>
-        <span className="selector__selected" onClick={this.openDropdown}>
-          {this.getLabelByValue(this.state.selectedValue) ||
-          this.props.placeholder || 'Select...'}
-        </span>
+        <div className="selector__selected" onClick={this.openDropdown}>
+          {selectedElement}
+        </div>
 
         <div className={dropdownClasses}>
           <input className="selector__filter"

@@ -17,6 +17,7 @@ export default React.createClass({
     halfColumn: React.PropTypes.bool,
     image: React.PropTypes.node,
     label: React.PropTypes.string,
+    text: React.PropTypes.string,
     value: React.PropTypes.string.isRequired
   },
   render() {
@@ -29,7 +30,7 @@ export default React.createClass({
           {this.props.image}
         </div>
         <span className="issue-field__label">{this.props.label}</span>
-        <span className="issue-field__value">{this.props.value}</span>
+        <span className="issue-field__value">{this.props.text}</span>
       </div>
     );
   }
