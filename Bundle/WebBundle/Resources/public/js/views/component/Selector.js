@@ -32,7 +32,7 @@ export default React.createClass({
     });
   },
   getElementByValue(value) {
-    let found = '';
+    let found = this.props.placeholder || 'Select...';
     this.props.children.forEach((child) => {
       if (child.props.value === value) {
         found = child;

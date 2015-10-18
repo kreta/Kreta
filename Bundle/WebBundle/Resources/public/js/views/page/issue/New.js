@@ -19,6 +19,8 @@ import {Issue} from '../../../models/Issue';
 import {NotificationService} from '../../../service/Notification';
 import ContentMiddleLayout from '../../layout/ContentMiddleLayout.js';
 import Selector from '../../component/Selector.js';
+import IssueField from '../../component/IssueField.js';
+import UserImage from '../../component/UserImage.js';
 
 export default React.createClass({
   getInitialState() {
@@ -58,6 +60,50 @@ export default React.createClass({
       project: model
     });
   },
+  getProjectOptions() {
+    const project = App.collection.project.get(this.state.project.id);
+    if (!project) {
+      return {
+        asignee: [],
+        priority: [],
+        type: []
+      };
+    }
+    var selectableProjects = this.state.selectableProjects.map((p) => {
+        return (
+          <IssueField
+            text={p.get('name')}
+            value={p.id}/>
+        );
+      }),
+      assignee = project.get('participants').map((p) => {
+        return (
+          <IssueField image={<UserImage user={p.user}/>}
+          label="Assigned to"
+          text={`${p.user.first_name} ${p.user.last_name}`}
+          value={p.user.id}/>
+        );
+
+      }),
+      priority = project.get('issue_priorities').map((p) => {
+        return (
+          <IssueField image={<i className="fa fa-exclamation"></i>}
+          label="Priority"
+          text={p.name}
+          value={p.id}/>
+        );
+      }),
+      type = project.get('issue_types').map((t) => {
+        return (
+          <IssueField image={<i className="fa fa-coffee"></i>}
+          label="Type"
+          text={t.name}
+          value={t.id}/>
+        );
+      });
+
+    return {selectableProjects, assignee, priority, type};
+  },
   save(ev) {
     ev.preventDefault();
 
@@ -87,30 +133,8 @@ export default React.createClass({
     if (!this.state.project) {
       return <div>Loading</div>;
     }
-    const selectableProjects = this.state.selectableProjects.map((project) => {
-        return {
-          label: project.get('name'),
-          value: project.id
-        };
-      }),
-      assignee = this.state.project.get('participants').map((p) => {
-        return {
-          value: p.user.id,
-          label: `${p.user.first_name} ${p.user.last_name}`
-        };
-      }),
-      priority = this.state.project.get('issue_priorities').map((p) => {
-        return {
-          label: p.name,
-          value: p.id
-        };
-      }),
-      type = this.state.project.get('issue_types').map((t) => {
-        return {
-          label: t.name,
-          value: t.id
-        };
-      });
+
+    const options = this.getProjectOptions();
 
     return (
       <ContentMiddleLayout>
@@ -128,11 +152,10 @@ export default React.createClass({
           </div>
           <Selector name="project"
                     onChange={this.updateSelectors}
-                    options={selectableProjects}
-                    placeholder="Select project"
-                    style={{width: '100%'}}
                     tabIndex={1}
-                    value={this.state.project.id}/>
+                    value={this.state.project.id}>
+            {options.selectableProjects}
+          </Selector>
           <input className="big"
                  name="title"
                  placeholder="Type your task title"
@@ -145,21 +168,25 @@ export default React.createClass({
                     value={this.state.project.description}></textarea>
 
           <div className={`issue-new__details${this.state.isLoading ? ' issue-new__details--hidden' : ''}`}>
-            <Selector data-placeholder="Unassigned"
-                      name="assignee"
-                      options={assignee}
+            <Selector name="assignee"
                       style={{width: '25%'}}
-                      tabIndex={4}/>
-            <Selector data-placeholder="No priority"
-                      name="priority"
-                      options={priority}
+                      tabIndex={4}
+                      value=""
+                      >
+              {options.assignee}
+            </Selector>
+            <Selector name="priority"
                       style={{width: '25%'}}
-                      tabIndex={5}/>
-            <Selector data-placeholder="No priority"
-                      name="type"
-                      options={type}
+                      tabIndex={5}
+                      value="">
+              {options.priority}
+            </Selector>
+            <Selector name="priority"
                       style={{width: '25%'}}
-                      tabIndex={6}/>
+                      tabIndex={6}
+                      value="">
+              {options.type}
+            </Selector>
           </div>
         </form>
       </ContentMiddleLayout>
