@@ -23,6 +23,10 @@
   width: 50%;
 }
 
+.issue-field--selected {
+  background: $light-grey;
+}
+
 .issue-field__image {
   margin-right: 10px;
 }

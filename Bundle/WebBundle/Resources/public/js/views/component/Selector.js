@@ -86,6 +86,15 @@ export default React.createClass({
 
     const selectedElement = this.getElementByValue(this.state.selectedValue);
 
+    const children = this.props.children.map((child, index) => {
+      return React.cloneElement(child, {
+        selected: this.state.selectedItem === index,
+        fieldSelected: this.selectOption.bind(this, index),
+        fieldHovered: this.highlightItem.bind(this, index),
+        key: index
+      });
+    });
+
     return (
       <div className="selector"
            onBlur={this.closeDropdown}
@@ -106,7 +115,7 @@ export default React.createClass({
                  type="text"/>
 
           <div className="selector__options" ref="navigableList">
-            {this.props.children}
+            {children}
           </div>
         </div>
       </div>
