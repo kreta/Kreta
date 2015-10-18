@@ -14,6 +14,7 @@ import React from 'react';
 import {Link} from 'react-router';
 
 import Modal from '../component/Modal.js';
+import UserImage from '../component/UserImage.js';
 import ProjectList from '../page/project/List.js';
 
 export default React.createClass({
@@ -35,7 +36,7 @@ export default React.createClass({
       <nav className="menu">
         <img className="menu-logo" src=""/>
         <div className="menu-user">
-          <img className="menu-user-image" src={this.state.user.get('photo').name}/>
+          <UserImage user={this.state.user.toJSON()}/>
           <span className="menu-user-name">@{this.state.user.get('username')}</span>
         </div>
         <div>
