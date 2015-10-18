@@ -82,11 +82,9 @@ export default React.createClass({
     const dropdownClasses = classnames(
       'selector__dropdown',
       {'selector__dropdown--open': this.state.dropdownVisible}
-    );
-
-    const selectedElement = this.getElementByValue(this.state.selectedValue);
-
-    const children = this.props.children.map((child, index) => {
+    ),
+    selectedElement = this.getElementByValue(this.state.selectedValue),
+    children = this.props.children.map((child, index) => {
       return React.cloneElement(child, {
         selected: this.state.selectedItem === index,
         fieldSelected: this.selectOption.bind(this, index),

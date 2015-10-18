@@ -23,11 +23,6 @@ export default React.createClass({
     text: React.PropTypes.string,
     value: React.PropTypes.string.isRequired
   },
-  fieldSelected() {
-    if(this.props.fieldSelected) {
-      this.props.fieldSelected();
-    }
-  },
   render() {
     const classes = classnames(
       'issue-field', {
