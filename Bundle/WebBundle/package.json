@@ -32,7 +32,7 @@
     "watch": "npm run dev -- --watch",
     "scss-lint": "./node_modules/.bin/sass-lint -c .sass-lint.yml -q -v",
     "test": "./node_modules/.bin/jest",
-    "test:coverage": "npm test -- --coverage"
+    "test:coverage": "npm test -- --verbose --coverage"
   },
   "jest": {
     "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",

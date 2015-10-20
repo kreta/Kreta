@@ -1,9 +1,10 @@
-# This file belongs to Kreta.
-# The source code of application includes a LICENSE file
-# with all information about license.
+# This file is part of the Kreta package.
 #
-# @author benatespina <benatespina@gmail.com>
-# @author gorkalaucirica <gorka.lauzirika@gmail.com>
+# (c) Beñat Espiña <benatespina@gmail.com>
+# (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
 
 extends: eslint:recommended
 
@@ -61,20 +62,20 @@ rules:
         - 2
         - all
     default-case: 0
-    dot-notation: 
+    dot-notation:
         - 2
         -
             allowKeywords: true
     eol-last: 2
     eqeqeq: 2
     func-names: 0
-    func-style: 
+    func-style:
         - 2
         - declaration
     generator-star: 0
     guard-for-in: 0
     handle-callback-err: 2
-    key-spacing: 
+    key-spacing:
         - 2
         -
             beforeColon: false
@@ -82,13 +83,13 @@ rules:
     max-depth:
         - 1
         - 4
-    max-len: 
+    max-len:
         - 2
         - 120
     max-nested-callbacks:
         - 1
         - 2
-    max-params: 
+    max-params:
         - 1
         - 4
     max-statements:
@@ -101,7 +102,7 @@ rules:
     no-bitwise: 0
     no-caller: 2
     no-catch-shadow: 2
-    no-cond-assign: 
+    no-cond-assign:
         - 2
         - always
     no-console: 0
@@ -144,12 +145,12 @@ rules:
     no-mixed-requires:
         - 0
         - false
-    no-mixed-spaces-and-tabs: 
+    no-mixed-spaces-and-tabs:
         - 2
         - false
     no-multi-spaces: 2
     no-multi-str: 2
-    no-multiple-empty-lines: 
+    no-multiple-empty-lines:
         - 2
         -
             max: 2
@@ -200,7 +201,7 @@ rules:
     no-var: 0
     no-warning-comments:
         - 0
-        - 
+        -
             terms:
                 - todo
                 - fixme
@@ -241,7 +242,7 @@ rules:
     vars-on-top: 0
     wrap-iife: 0
     wrap-regex: 0
-    yoda: 
+    yoda:
         - 2
         - never
 
@@ -251,7 +252,7 @@ rules:
     arrow-parens: 2
     arrow-spacing:
         - 2
-        - 
+        -
             before: true
             after: true
     constructor-super: 2
@@ -269,7 +270,7 @@ rules:
     prefer-reflect: 2
     prefer-template: 2
     require-yield: 2
-    
+
 ###############################
 ########### REACT #############
 ###############################
