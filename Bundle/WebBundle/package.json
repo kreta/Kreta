@@ -37,6 +37,7 @@
   "jest": {
     "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
     "unmockedModulePathPatterns": [
+      "<rootDir>/Resources/public/js/__tests__/TestUtils.js",
       "<rootDir>/node_modules/chai",
       "<rootDir>/node_modules/react",
       "<rootDir>/node_modules/react-addons-test-utils",

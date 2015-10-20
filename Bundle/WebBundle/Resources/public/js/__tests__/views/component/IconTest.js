@@ -10,17 +10,13 @@
 
 jest.dontMock('./../../../views/component/Icon');
 
-import {expect} from 'chai';
-import React from 'react';
-import ReactTestUtils from 'react-addons-test-utils';
+import {expect, React, shallowRenderer} from '../../TestUtils';
 
 const Icon = require('../../../views/component/Icon'),
   addIcon = '../../../../svg/add.svg';
 
 describe('Icon', () => {
-  const shallowRenderer = ReactTestUtils.createRenderer();
-
-  it('renders a svg with default values', () => {
+  it('should be rendered', () => {
     shallowRenderer.render(
       <Icon glyph={addIcon}/>
     );
@@ -36,16 +32,27 @@ describe('Icon', () => {
     expect(result.props.children.props.xlinkHref).to.equal(addIcon);
   });
 
-  it('renders a svg without required props', () => {
-    shallowRenderer.render(
+  it('should not render without required glyph prop', () => {
+    expect(() => shallowRenderer.render(
       <Icon/>
+    )).to.throw(
+      'Warning: Failed propType: Required prop `glyph` was not specified in `Icon`'
     );
-    const result = shallowRenderer.getRenderOutput();
+  });
 
-    expect(result.type).to.equal('svg');
+  it('should not render with className prop different of string type', () => {
+    expect(() => shallowRenderer.render(
+      <Icon className={{key: 'value'}}/>
+    )).to.throw(
+      'Warning: Failed propType: Invalid prop `className` of type `object` supplied to `Icon`, expected `string`.'
+    );
+  });
 
-    expect(result.props.className).to.be.a('string');
-    expect(result.props.children.props.xlinkHref).to.be.a('undefined');
-    expect(result.props.className).to.equal('icon');
+  it('should not render with glyph prop different of string type', () => {
+    expect(() => shallowRenderer.render(
+      <Icon glyph={{key: 'value'}}/>
+    )).to.throw(
+      'Warning: Failed propType: Invalid prop `glyph` of type `object` supplied to `Icon`, expected `string`.'
+    );
   });
 });
