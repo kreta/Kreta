@@ -97,7 +97,7 @@ Kreta\Component\Project\Model\Project:
             groups: []
         labels:
             expose: true
-            groups: []
+            groups: [projectList, project]
         name:
             expose: true
             groups: [projectList, project, participantList, participant]
@@ -106,7 +106,7 @@ Kreta\Component\Project\Model\Project:
             groups: [projectList, project]
         issuePriorities:
             expose: true
-            groups: []
+            groups: [projectList, project]
         shortName:
             expose: true
             groups: [projectList, project, participantList, participant]

@@ -27,7 +27,7 @@ install:
 
 script:
     - cd Bundle/WebBundle
-    - npm test:coverage
+#    - npm test:coverage
     - cd -
     - bin/phpspec run -fpretty
 
