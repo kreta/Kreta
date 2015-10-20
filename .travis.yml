@@ -21,8 +21,14 @@ env:
 
 install:
     - composer update --no-interaction ${COMPOSER_OPTIONS}
+    - cd Bundle/WebBundle
+    - npm install
+    - cd -
 
 script:
+    - cd Bundle/WebBundle
+    - npm test -- --verbose
+    - cd -
     - bin/phpspec run -fpretty
 
 after_script:
