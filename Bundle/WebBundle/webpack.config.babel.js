@@ -9,15 +9,14 @@
 
 import autoprefixer from 'autoprefixer';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import minimist from 'minimist';
 import webpack from 'webpack';
 
 import pkg from './package.json';
 
-const CLI_OPTIONS = minimist(process.argv),
-  SOURCE_PATH = './Resources/public',
+const SOURCE_PATH = './Resources/public',
   BUILD_PATH = './../../../../web',
-  LICENSE = `${pkg.name} - ${pkg.description}
+  LICENSE =
+`${pkg.name} - ${pkg.description}
 Authors: ${pkg.authors[0].name} - ${pkg.authors[1].name}
 Url: ${pkg.homepage}
 License: ${pkg.license}`,
@@ -69,7 +68,7 @@ License: ${pkg.license}`,
     ]
   };
 
-if (CLI_OPTIONS.hasOwnProperty('env') && CLI_OPTIONS.env === 'prod') {
+if (process.env.NODE_ENV === 'production') {
   config.debug = false;
   config.devtool = 'source-map';
   config.plugins.push(new webpack.optimize.UglifyJsPlugin());

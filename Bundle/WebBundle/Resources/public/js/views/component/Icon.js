@@ -10,6 +10,10 @@
 import React from 'react';
 
 export default React.createClass({
+  propTypes: {
+    className: React.PropTypes.string,
+    glyph: React.PropTypes.string.isRequired
+  },
   getDefaultProps() {
     return {
       className: 'icon'
