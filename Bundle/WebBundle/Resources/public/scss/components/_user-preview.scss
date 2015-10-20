@@ -5,35 +5,36 @@
 // @author benatespina <benatespina@gmail.com>
 // @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
-.image-preview {
+.user-preview {
   display: flex;
-  float: left;
   font-size: 14px;
-  padding: 2em 1em;
+  padding: 15px 20px;
   position: relative;
+  width: 100%;
 }
 
-.image-preview-image {
+.user-preview__image {
   margin: 0 1em;
 }
 
-.image-preview-actions {
+.user-preview__actions {
   cursor: pointer;
   position: absolute;
   right: .5em;
-  top: .5em;
+  top: 50%;
+  transform: translateY(-50%);
 }
 
-.image-preview-container {
+.user-preview__container {
   flex: 1;
 }
 
-.image-preview-header {
+.user-preview__header {
   display: block;
   margin: .5em 0;
 }
 
-.image-preview-subheader {
+.user-preview__subheader {
   display: block;
   font-size: .8em;
   font-weight: lighter;

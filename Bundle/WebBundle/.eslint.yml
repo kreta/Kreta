@@ -17,7 +17,12 @@ ecmaFeatures:
     jsx: true
 
 globals:
+    App: true
+    describe: true
+    it: true
+    jest: true
     process: true
+    require: true
 
 plugins:
     - react

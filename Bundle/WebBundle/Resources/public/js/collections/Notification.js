@@ -7,8 +7,7 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-export class NotificationService {
-  static showNotification(notification) {
-    App.collection.notification.add(notification);
-  }
+import Backbone from 'backbone';
+
+export class NotificationCollection extends Backbone.Collection {
 }

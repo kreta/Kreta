@@ -27,10 +27,22 @@
   ],
   "main": "gulpfile.js",
   "scripts": {
-    "watch": "node_modules/.bin/webpack --progress --colors --watch",
-    "prod": "node_modules/.bin/webpack --progress --colors --env=prod",
-    "dev": "node_modules/.bin/webpack --progress --colors && ./node_modules/.bin/sass-lint -c .sass-lint.yml -q -v",
-    "scss-lint": "./node_modules/.bin/sass-lint -c .sass-lint.yml -q -v"
+    "dev": "./node_modules/.bin/webpack --progress --colors",
+    "prod": "NODE_ENV=production npm run dev",
+    "watch": "npm run dev -- --watch",
+    "scss-lint": "./node_modules/.bin/sass-lint -c .sass-lint.yml -q -v",
+    "test": "./node_modules/.bin/jest",
+    "test:coverage": "npm test -- --coverage"
+  },
+  "jest": {
+    "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
+    "unmockedModulePathPatterns": [
+      "<rootDir>/Resources/public/js/__tests__/TestUtils.js",
+      "<rootDir>/node_modules/chai",
+      "<rootDir>/node_modules/react",
+      "<rootDir>/node_modules/react-addons-test-utils",
+      "<rootDir>/node_modules/react-dom"
+    ]
   },
   "dependencies": {
     "backbone": "^1.2",
@@ -42,26 +54,27 @@
     "mousetrap": "^1.5.3",
     "react": "^0.14",
     "react-dom": "^0.14",
-    "react-router": "1.0.0-rc3",
-    "react-select": "^0.6",
-    "select2": "^4.0"
+    "react-router": "1.0.0-rc3"
   },
   "devDependencies": {
     "autoprefixer": "^6.0",
+    "babel-jest": "^5.3",
     "babel-loader": "^5.3",
+    "chai": "^3.3",
     "css-loader": "^0.19",
     "eslint-loader": "^1.0",
     "eslint-plugin-react": "^3.5",
     "extract-text-webpack-plugin": "^0.8",
     "file-loader": "^0.8",
-    "minimist": "^1.2",
+    "jest-cli": "^0.5",
     "node-sass": "^3.3",
     "postcss-loader": "^0.6",
+    "react-addons-test-utils": "^0.14",
     "sass-lint": "^1.2",
     "sass-loader": "^3.0",
     "source-map": "^0.5",
     "style-loader": "^0.12",
-    "svg-sprite-loader": "0.0.10",
+    "svg-sprite-loader": "^0.0.10",
     "webpack": "^1.12"
   }
 }

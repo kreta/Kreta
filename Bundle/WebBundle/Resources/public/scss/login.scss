@@ -1,11 +1,17 @@
+// This file belongs to Kreta.
+// The source code of application includes a LICENSE file
+// with all information about license.
+//
+// @author benatespina <benatespina@gmail.com>
+// @author gorkalaucirica <gorka.lauzirika@gmail.com>
+
 @import 'base/reset';
 @import 'base/colors';
-@import 'base/typography';
-@import 'base/generic';
+@import 'base/common';
 
 @import 'helpers/spacing';
 
-@import 'components/buttons';
+@import 'components/button';
 @import 'components/form';
 
 .login-container {

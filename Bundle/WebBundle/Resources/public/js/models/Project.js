@@ -7,7 +7,9 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
+import _ from 'lodash';
 import Backbone from 'backbone';
+
 import {Config} from '../Config';
 
 export class Project extends Backbone.Model {
@@ -62,5 +64,22 @@ export class Project extends Backbone.Model {
     }
 
     return this.attributes[attr];
+  }
+
+  getNotParticipating() {
+    const notParticipating = [];
+    App.collection.user.each((user) => {
+      let found = false;
+      for (var i = 0; i < this.attributes.participants.length; i++) {
+        if (this.attributes.participants[i].user.id === user.get('id')) {
+          found = true;
+          break;
+        }
+      }
+      if (!found) {
+        notParticipating.push(user);
+      }
+    });
+    return notParticipating;
   }
 }

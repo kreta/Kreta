@@ -7,8 +7,16 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-export class NotificationService {
-  static showNotification(notification) {
-    App.collection.notification.add(notification);
+import '../../../scss/layout/_content.scss';
+
+import React from 'react';
+
+export default React.createClass({
+  render() {
+    return (
+      <div id="content">
+        {this.props.children}
+      </div>
+    );
   }
-}
+});

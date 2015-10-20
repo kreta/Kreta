@@ -5,29 +5,29 @@
 // @author benatespina <benatespina@gmail.com>
 // @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
-@import '../../../base/colors';
+@import '../base/colors';
 
-.list-issue {
+.issue-preview {
   border-top: 1px solid $main-grey;
   padding: 20px 0;
   position: relative;
   transition-duration: .4s;
-
-  &.highlight {
-    background: $main-grey;
-  }
 }
 
-.list-issue-details {
+.issue-preview--highlight {
+  background: $main-grey;
+}
+
+.issue-preview__details {
   margin: 0 100px 0 10px;
 }
 
-.list-issue-title {
+.issue-preview__title {
   color: $main-black;
   text-decoration: none;
 }
 
-.list-issue-icons {
+.issue-preview__icons {
   align-items: center;
   display: flex;
   height: 100%;
@@ -39,6 +39,6 @@
   width: 100px;
 }
 
-.list-issue-icon {
+.issue-preview__icon {
   font-size: .8em;
 }

@@ -8,22 +8,21 @@
  */
 
 import React from 'react';
+import classnames from 'classnames';
 
 export default React.createClass({
   propTypes: {
-    className: React.PropTypes.string,
-    glyph: React.PropTypes.string.isRequired
-  },
-  getDefaultProps() {
-    return {
-      className: 'icon'
-    };
+    open: React.PropTypes.bool
   },
   render() {
+    const classes = classnames({
+      'content__right': true,
+      'content__right--visible': this.props.open
+    });
     return (
-      <svg className={this.props.className}>
-        <use xlinkHref={this.props.glyph}/>
-      </svg>
+      <div className={classes}>
+        {this.props.children}
+      </div>
     );
   }
 });

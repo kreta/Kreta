@@ -9,33 +9,28 @@
 
 import '../scss/app.scss';
 
-import {ProjectController} from './controllers/Project';
-import {IssueController} from './controllers/Issue';
+import Backbone from 'backbone';
+import $ from 'jquery';
 
+import {BaseLayoutView} from './views/layout/Base';
+import {HeaderView} from './views/layout/MainMenu';
+import {NotificationCollection} from './collections/Notification';
+import {Profile} from './models/Profile';
 import {ProjectCollection} from './collections/Project';
 import {UserCollection} from './collections/User';
 import {WorkflowCollection} from './collections/Workflow';
 
-import {Profile} from './models/Profile';
-
-import {BaseLayoutView} from './views/layout/Base';
-import {HeaderView} from './views/layout/MainMenu';
-
-export class App extends Backbone.Marionette.Application {
+export class App {
   constructor(options) {
-    super(options);
+    this.options = options;
 
     this.addAutenticationHeader();
-
-    this.controller = {
-      issue: new IssueController(),
-      project: new ProjectController()
-    };
 
     this.collection = {
       project: new ProjectCollection(),
       user: new UserCollection(),
-      workflow: new WorkflowCollection()
+      workflow: new WorkflowCollection(),
+      notification: new NotificationCollection()
     };
 
     this.currentUser = new Profile();

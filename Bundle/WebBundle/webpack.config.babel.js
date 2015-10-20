@@ -9,15 +9,14 @@
 
 import autoprefixer from 'autoprefixer';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import minimist from 'minimist';
 import webpack from 'webpack';
 
 import pkg from './package.json';
 
-const CLI_OPTIONS = minimist(process.argv),
-  SOURCE_PATH = './Resources/public',
+const SOURCE_PATH = './Resources/public',
   BUILD_PATH = './../../../../web',
-  LICENSE = `${pkg.name} - ${pkg.description}
+  LICENSE =
+`${pkg.name} - ${pkg.description}
 Authors: ${pkg.authors[0].name} - ${pkg.authors[1].name}
 Url: ${pkg.homepage}
 License: ${pkg.license}`,
@@ -26,13 +25,23 @@ License: ${pkg.license}`,
     devtool: 'eval',
     context: __dirname,
     entry: {
-      js: `${SOURCE_PATH}/js/kreta.js`,
+      app: `${SOURCE_PATH}/js/Kreta.js`,
+      login: `${SOURCE_PATH}/js/Login.js`,
       vendors: [
-        'jquery', 'lodash', 'backbone', 'backbone-model-file-upload', 'backbone.marionette', 'select2', 'mousetrap'
+        'backbone',
+        'backbone-model-file-upload',
+        'backbone.marionette',
+        'classnames',
+        'jquery',
+        'lodash',
+        'mousetrap',
+        'react',
+        'react-dom',
+        'react-router'
       ]
     },
     output: {
-      path: `${BUILD_PATH}/js`, filename: 'kreta.js'
+      path: `${BUILD_PATH}/js`, filename: '[name].js'
     },
     module: {
       preLoaders: [
@@ -53,20 +62,16 @@ License: ${pkg.license}`,
     eslint: {configFile: '.eslint.yml'},
     postcss: [autoprefixer()],
     plugins: [
-      new webpack.ProvidePlugin({
-        _: 'lodash', Backbone: 'backbone', $: 'jquery', jQuery: 'jquery'
-      }),
-      new webpack.optimize.CommonsChunkPlugin('vendors', 'vendors.js'),
-      new ExtractTextPlugin('../css/kreta.css', {allChunks: false}),
+      new webpack.optimize.CommonsChunkPlugin('vendors', 'vendor.js'),
+      new ExtractTextPlugin('../css/[name].css', {allChunks: false}),
       new webpack.BannerPlugin(LICENSE)
     ]
   };
 
-if (CLI_OPTIONS.hasOwnProperty('env') && CLI_OPTIONS.env === 'prod') {
+if (process.env.NODE_ENV === 'production') {
   config.debug = false;
   config.devtool = 'source-map';
   config.plugins.push(new webpack.optimize.UglifyJsPlugin());
-  config.output.filename = 'kreta.min.js';
   config.module.loaders.push(
     {test: /\.css$/, loader: 'style-loader/useable!css-loader?minimize!postcss-loader'}
   );

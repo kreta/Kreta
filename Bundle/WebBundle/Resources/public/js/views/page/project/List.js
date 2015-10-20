@@ -9,9 +9,10 @@
 
 import React from 'react';
 import {Link, History} from 'react-router';
+import $ from 'jquery';
 
-import ProjectPreview from '../../component/ProjectPreview';
 import NavigableCollection from '../../../mixins/NavigableCollection.js';
+import ProjectPreview from '../../component/ProjectPreview';
 
 export default React.createClass({
   propTypes: {
@@ -96,7 +97,7 @@ export default React.createClass({
             <Link className="button green small" to="/project/new">New</Link>
           </div>
         </div>
-        <input autofocus
+        <input autoFocus
                className="project-list__filter"
                onKeyUp={this.onKeyUp}
                ref="filter"

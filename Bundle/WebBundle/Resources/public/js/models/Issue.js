@@ -7,7 +7,10 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
+import _ from 'lodash';
 import Backbone from 'backbone';
+import $ from 'jquery';
+
 import {Config} from '../Config';
 
 export class Issue extends Backbone.Model {

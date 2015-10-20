@@ -10,6 +10,7 @@
 import '../../../scss/layout/_main-menu.scss';
 
 import React from 'react';
+import {Link} from 'react-router';
 
 import Modal from '../component/Modal.js';
 import ProjectList from '../page/project/List.js';
@@ -45,6 +46,9 @@ export default React.createClass({
              onClick={this.showProjectList}>
             <i className="fa fa-sign-out"></i>
           </a>
+          <Link to="/profile">
+            <i className="fa fa-sign-out"></i>
+          </Link>
           <a className="menu-action"
              href="/logout">
             <i className="fa fa-sign-out"></i>

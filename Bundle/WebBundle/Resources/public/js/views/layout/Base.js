@@ -9,21 +9,20 @@
 
 import React from 'react';
 
+import ContentLayout from './ContentLayout.js';
 import MainMenu from './MainMenu.js';
+import NotificationLayout from './NotificationLayout.js';
 
 export default React.createClass({
+
   render() {
     return (
       <div>
+        <NotificationLayout/>
         <MainMenu/>
-        <div id="kreta-content">
-          <div>
-            <div className="notification-container"></div>
-            <div className="kreta-content-container">
-              {this.props.children || 'Welcome'}
-            </div>
-          </div>
-        </div>
+        <ContentLayout>
+          {this.props.children}
+        </ContentLayout>
       </div>
     );
   }

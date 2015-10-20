@@ -16,7 +16,7 @@ rules:
     border-zero:
         - 2
         -
-            convention: 0
+            convention: '0'
   
     clean-import-paths:
         - 2
@@ -37,6 +37,14 @@ rules:
         - 2
         -
             include: true
+    force-attribute-nesting: 0
+    force-element-nesting: 0
+    force-pseudo-nesting: 0
+    function-name-format:
+        - 2
+        -
+            allow-leading-underscore: false
+            convention: camelcase
     hex-length:
         - 2
         -
@@ -59,6 +67,11 @@ rules:
             exclude:
                 - breakpoint
                 - mq
+    mixin-name-format:
+        - 2
+        -
+            allow-leading-underscore: false
+            convention: camelcase
     nesting-depth:
         - 2
         -
@@ -77,9 +90,30 @@ rules:
     no-ids: 2
     no-important: 2
     no-invalid-hex: 2
+    no-mergeable-selectors: 2
+    no-misspelled-properties: 2
+    no-qualifying-elements:
+        - 2
+        -
+            allow-element-with-attribute: true
+            allow-element-with-class: false
+            allow-element-with-id: false
+    no-trailing-zero: 2
+    no-transition-all: 2
+    no-url-protocols: 2
+    no-vendor-prefixes:
+        - 2
+        -
+            additional-identifiers: []
+            excluded-identifiers: []
     no-warn: 2
     one-declaration-per-line: 2
     placeholder-in-extend: 2
+    placeholder-name-format:
+        - 2
+        -
+            allow-leading-underscore: false
+            convention: camelcase
     property-sort-order:
         - 2
         -
@@ -88,6 +122,7 @@ rules:
         - 2
         -
             style: single
+    shorthand-values: 2
     single-line-per-selector: 2
     space-after-bang:
         - 2
@@ -121,11 +156,16 @@ rules:
         - 2
         -
             include: true
-    
+    url-quotes: 2
     variable-for-property:
         - 2
         -
             properties: []
+    variable-name-format:
+        - 2
+        -
+            allow-leading-underscore: false
+            convention: hyphenatedlowercase
     zero-unit:
         - 2
         -

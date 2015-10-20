@@ -41,7 +41,7 @@ class DefaultController extends Controller
             return $this->dashboardAction($event->getResponse());
         }
 
-        return $this->render('KretaWebBundle:Default:index.html.twig');
+        return $this->render('KretaWebBundle::index.html.twig');
     }
 
     /**
@@ -53,6 +53,6 @@ class DefaultController extends Controller
      */
     public function dashboardAction(Response $response)
     {
-        return $this->render('KretaWebBundle:Default:app.html.twig', [], $response);
+        return $this->render('KretaWebBundle::app.html.twig', [], $response);
     }
 }

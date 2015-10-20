@@ -7,22 +7,27 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
+import '../../../scss/components/_user-preview.scss';
+
 import React from 'react';
 
 export default React.createClass({
   render() {
-    const participant = this.props.user;
+    const user = this.props.user;
 
     return (
-      <div className="image-preview project-settings-participant">
-        <img className="image-preview-image user-image"
-             src={participant.user.photo.name}/>
+      <div className="user-preview">
+        <img className="user-preview__image user-image"
+             src={user.photo.name}/>
 
-        <div className="image-preview-container">
-              <span className="image-preview-header">
-                  {participant.user.first_name} {participant.user.last_name}
+        <div className="user-preview__container">
+              <span className="user-preview__header">
+                  {user.first_name} {user.last_name}
               </span>
-          <span className="image-preview-subheader">{this.props.user.role}</span>
+          <span className="user-preview__subheader">@{user.username}</span>
+        </div>
+        <div className="user-preview__actions">
+          {this.props.actions}
         </div>
       </div>
     );

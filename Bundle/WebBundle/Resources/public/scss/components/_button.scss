@@ -27,7 +27,6 @@
     border: 1px solid $main-green;
     color: $main-green;
 
-    &:focus,
     &:hover {
       background: $main-green;
       border: 1px solid $main-green;
@@ -39,4 +38,12 @@
     font-size: .7em;
     min-width: 0;
   }
+}
+
+.button--icon {
+  border-radius: 50%;
+  height: 25px;
+  min-width: 0;
+  padding: 0;
+  width: 25px;
 }

@@ -7,8 +7,4 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-export class NotificationService {
-  static showNotification(notification) {
-    App.collection.notification.add(notification);
-  }
-}
+import '../scss/login.scss';

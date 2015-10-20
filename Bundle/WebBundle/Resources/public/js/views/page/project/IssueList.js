@@ -7,16 +7,17 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
-import '../../../../scss/views/page/project/_issue-list.scss';
-
 import React from 'react';
-import {Link} from 'react-router';
+import $ from 'jquery';
 
 import {IssueCollection} from '../../../collections/Issue';
 import IssuePreview from '../../component/IssuePreview.js';
 import Filter from '../../component/Filter.js';
 import IssueShow from '../../page/issue/Show.js';
 import NavigableCollection from '../../../mixins/NavigableCollection.js';
+import ContentMiddleLayout from '../../layout/ContentMiddleLayout.js';
+import ContentRightLayout from '../../layout/ContentRightLayout.js';
+import PageHeader from '../../component/PageHeader.js';
 
 export default React.createClass({
   getInitialState() {
@@ -29,16 +30,31 @@ export default React.createClass({
   },
   mixins: [NavigableCollection],
   componentDidMount() {
-    this.state.project = App.collection.project.get(this.props.params.projectId);
-    this.state.project.on('sync', this.loadFilters);
-    this.state.project.on('change', this.loadFilters);
+    this.loadData();
+  },
+  componentDidUpdate(prevProps) {
+    const oldId = prevProps.params.projectId,
+      newId = this.props.params.projectId;
+    if (newId !== oldId) {
+      this.loadData();
+    }
+  },
+  loadData() {
+    const project = App.collection.project.get(this.props.params.projectId);
+    project.on('sync', this.loadFilters);
+    project.on('change', this.loadFilters);
+
+    this.setState({
+      project,
+      issues: [],
+      fetchingIssues: true
+    });
 
     this.collection = new IssueCollection();
     this.collection.on('sync', $.proxy(this.issuesUpdated, this));
-    this.collection.fetch({data: {project: this.state.project.id}});
+    this.collection.fetch({data: {project: project.id}});
 
-    Mousetrap
-    this.loadFilters();
+    this.loadFilters(project);
   },
   issuesUpdated(data) {
     this.setState({
@@ -60,42 +76,41 @@ export default React.createClass({
     this.setState({fetchingIssues: true});
     this.collection.fetch({data, reset: true});
   },
-  loadFilters() {
+  loadFilters(project) {
     var assigneeFilters = [{
+        filter: 'assignee',
+        selected: true,
         title: 'All',
-        filter: 'assignee',
-        value: '',
-        selected: true
+        value: ''
       }, {
-        title: 'Assigned to me',
         filter: 'assignee',
-        value: App.currentUser.get('id'),
-        selected: false
+        selected: false,
+        title: 'Assigned to me',
+        value: App.currentUser.get('id')
       }],
-      priorityFilters = [
-        {
-          title: 'All priorities',
-          filter: 'priority',
-          value: '',
-          selected: true
-        }
+      priorityFilters = [{
+        filter: 'priority',
+        selected: true,
+        title: 'All priorities',
+        value: ''
+      }
       ],
-      priorities = this.state.project.get('issue_priorities'),
+      priorities = project.get('issue_priorities'),
       statusFilters = [{
-        title: 'All statuses',
         filter: 'status',
-        value: '',
-        selected: true
+        selected: true,
+        title: 'All statuses',
+        value: ''
       }],
-      statuses = this.state.project.get('statuses');
+      statuses = project.get('statuses');
 
     if (priorities) {
       priorities.forEach((priority) => {
         priorityFilters.push({
-          title: priority.name,
           filter: 'priority',
-          value: priority.id,
-          selected: false
+          selected: false,
+          title: priority.name,
+          value: priority.id
         });
       });
     }
@@ -103,51 +118,57 @@ export default React.createClass({
     if (statuses) {
       statuses.forEach((status) => {
         statusFilters.push({
-          title: status.name,
           filter: 'status',
-          value: status.id,
-          selected: false
+          selected: false,
+          title: status.name,
+          value: status.id
         });
       });
     }
-
     this.setState({filters: [assigneeFilters, priorityFilters, statusFilters]});
+  },
+  changeSelected(ev) {
+    this.setState({
+      selectedItem: $(ev.currentTarget).index()
+    });
   },
   render() {
     if (!this.state.project) {
       return <p>Loading...</p>;
     }
     const issuesEl = this.state.issues.map((issue, index) => {
-      return <IssuePreview issue={issue} key={index}/>;
-    });
+        return <IssuePreview issue={issue}
+                             key={index}
+                             onClick={this.changeSelected}
+                             selected={this.state.selectedItem === index}/>;
+      }),
+      links = [{
+        href: '#',
+        icon: 'dashboard',
+        title: 'Dashboard'
+      }, {
+        href: `/project/${this.state.project.id}/settings`,
+        icon: 'settings',
+        title: 'Settings'
+      }];
+    let issue = '';
+    if (this.state.issues.length > 0 && !this.state.fetchingIssues) {
+      issue = <IssueShow issue={this.state.issues.at(this.state.selectedItem)}/>;
+    }
 
     return (
       <div>
-        <div>
-          <div className="page-header">
-            <div className="project-image" style={{background: '#ebebeb'}}></div>
-            <h2 className="page-header-title">{this.state.project.get('name')}</h2>
-
-            <div>
-              <a className="page-header-link" href="#">
-                <i className="fa fa-dashboard"></i>
-                Dashboard
-              </a>
-              <Link className="page-header-link"
-                    to={`/project/${this.state.project.id}/settings`}>
-                <i className="fa fa-settings"></i>
-                Settings
-              </Link>
-            </div>
-          </div>
+        <ContentMiddleLayout rightOpen={true}>
+          <PageHeader image="" links={links} title={this.state.project.get('name')}/>
           <Filter filters={this.state.filters} onFilterSelected={this.filterIssues}/>
 
           <div className="issues">
             {this.state.fetchingIssues ? 'Loading...' : issuesEl}
           </div>
-        </div>
-        <div>
-        </div>
+        </ContentMiddleLayout>
+        <ContentRightLayout open={true}>
+          {issue}
+        </ContentRightLayout>
       </div>
     );
   }

@@ -7,46 +7,37 @@
  * @author gorkalaucirica <gorka.lauzirika@gmail.com>
  */
 
+import React from 'react';
+import $ from 'jquery';
+
+import ContentMiddleLayout from '../../layout/ContentMiddleLayout';
 import {FormSerializerService} from '../../../service/FormSerializer';
 import {NotificationService} from '../../../service/Notification';
-
 import {Profile} from '../../../models/Profile';
 
-export class UserEditView extends Backbone.Marionette.ItemView {
-  initialize() {
-    this.className = 'user-edit';
-    this.template = _.template($('#user-edit-template').html());
-    this.events = {
-      'submit @ui.form': 'save',
-      'change @ui.photo': 'onPhotoChange'
-    };
-    this.originalImage = this.model.get('photo').name;
-  }
-
-  ui() {
-    return {
-      'form': '#user-edit-form',
-      'photo': '#photo',
-      'previewImage': '#preview-image'
-    };
-  }
-
+export default React.createClass({
+  componentWillMount() {
+    this.originalImage = App.currentUser.get('photo');
+    this.setState({
+      user: App.currentUser
+    });
+  },
   onPhotoChange(ev) {
     var file = $(ev.currentTarget)[0].files[0];
     if (typeof file === 'undefined') {
-      this.ui.previewImage[0].src = this.originalImage;
+      this.refs.previewImage.src = this.originalImage;
     } else {
-      this.ui.previewImage[0].src = window.URL.createObjectURL(file);
+      this.refs.previewImage.src = window.URL.createObjectURL(file);
     }
-  }
-
+  },
   save(ev) {
     ev.preventDefault();
-    this.model = FormSerializerService.serialize(
-      this.ui.form, Profile
+
+    const user = FormSerializerService.serialize(
+      $(this.refs.form), Profile
     );
 
-    this.model.save(null, {
+    user.save(null, {
       success: () => {
         NotificationService.showNotification({
           type: 'success',
@@ -59,6 +50,39 @@ export class UserEditView extends Backbone.Marionette.ItemView {
         });
       }
     });
+
     return false;
+  },
+  render() {
+    const user = this.state.user.toJSON();
+
+    return (
+      <ContentMiddleLayout>
+        <form className="user-edit" onSubmit={this.save} ref="form">
+          <div>
+            <input defaultValue={user.first_name}
+                   name="firstName"
+                   placeholder="First name"
+                   type="text"/>
+            <input defaultValue={user.last_name}
+                   name="lastName"
+                   placeholder="Last name"
+                   type="text"/>
+            <input defaultValue={user.username}
+                   name="username"
+                   placeholder="Username"
+                   type="text"/>
+            <img ref="previewImage" src={user.photo.name}/>
+            <input defaultValue=""
+                   name="photo"
+                   onChange={this.onPhotoChange}
+                   type="file"/>
+          </div>
+          <div className="spacer-vertical-1">
+            <button className="button green" type="submit">Update</button>
+          </div>
+        </form>
+      </ContentMiddleLayout>
+    );
   }
-}
+});
