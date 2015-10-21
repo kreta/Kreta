@@ -27,6 +27,9 @@ export default React.createClass({
       issueChanged: false
     };
   },
+  issueChanged() {
+    this.setState({issueChanged: true});
+  },
   getProjectOptions() {
     var project = App.collection.project.get(this.props.project.id);
     if(!project) {
@@ -52,17 +55,9 @@ export default React.createClass({
                     text={p.name}
                     value={p.id}/>
       );
-    }),
-    type = project.get('issue_types').map((t) => {
-      return (
-        <IssueField image={<i className="fa fa-coffee"></i>}
-                    label="Type"
-                    text={t.name}
-                    value={t.id}/>
-      );
     });
 
-    return {assignee, priority, type};
+    return {assignee, priority};
   },
   render() {
     const issue = this.props.issue.toJSON();
@@ -81,16 +76,14 @@ export default React.createClass({
         </section>
         <section className="issue-show__fields">
           <Selector name="assignee"
+                    onChange={this.issueChanged}
                     value={issue.assignee.id}>
             {options.assignee}
           </Selector>
           <Selector name="priority"
+                    onChange={this.issueChanged}
                     value={issue.priority.id}>
             {options.priority}
-          </Selector>
-          <Selector name="priority"
-                    value={issue.type.id}>
-            {options.type}
           </Selector>
         </section>
         <p className="issue-show__description">
