@@ -96,8 +96,11 @@ export default React.createClass({
       <form className="issue-show"
             onSubmit={this.save}
             ref="form">
-        <input type="hidden" value={issue.id}/>
-        <input className="issue-show__title" defaultValue={issue.title}/>
+        <input name="id" type="hidden" value={issue.id}/>
+        <input name="project" type="hidden" value={this.props.project.id}/>
+        <input className="issue-show__title"
+               defaultValue={issue.title}
+               name="title"/>
         <section className="full-issue-transitions">
 
         </section>
