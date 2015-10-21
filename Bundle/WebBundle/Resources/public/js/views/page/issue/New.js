@@ -25,7 +25,7 @@ import UserImage from '../../component/UserImage.js';
 export default React.createClass({
   getInitialState() {
     return {
-      project: null,
+      project: null
     };
   },
   mixins: [History],
@@ -157,7 +157,7 @@ export default React.createClass({
           </div>
           <div className="issue-new__actions">
             <button className="button green"
-                    tabIndex="7"
+                    tabIndex="6"
                     type="submit">Done
             </button>
           </div>
