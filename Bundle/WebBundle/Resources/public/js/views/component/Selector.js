@@ -21,7 +21,7 @@ export default React.createClass({
     label: React.PropTypes.string,
     name: React.PropTypes.string.isRequired,
     onChange: React.PropTypes.func,
-    placeholder: React.PropTypes.string,
+    placeholder: React.PropTypes.node,
     tabIndex: React.PropTypes.number,
     value: React.PropTypes.string.isRequired
   },
@@ -32,7 +32,7 @@ export default React.createClass({
     });
   },
   getElementByValue(value) {
-    let found = this.props.placeholder || 'Select...';
+    let found = this.props.placeholder || this.props.placeholder || 'Select...';
     this.props.children.forEach((child) => {
       if (child.props.value === value) {
         found = child;

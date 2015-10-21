@@ -136,12 +136,21 @@ export default React.createClass({
 
           <div className={`issue-new__details${this.state.isLoading ? ' issue-new__details--hidden' : ''}`}>
             <Selector name="assignee"
+                      placeholder={
+                        <IssueField text="Unassigned"
+                                    value=""/>
+                      }
                       tabIndex={4}
                       value="">
               {options.assignee}
             </Selector>
             <Selector name="priority"
                       tabIndex={5}
+                      placeholder={
+                        <IssueField label="Priority"
+                                    text="Not selected"
+                                    value=""/>
+                      }
                       value="">
               {options.priority}
             </Selector>
