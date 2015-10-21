@@ -16,7 +16,6 @@ use Kreta\Component\Core\Form\Type\Abstracts\AbstractType;
 use Kreta\Component\Project\Form\Type\LabelType;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Project\Model\IssuePriority;
-use Kreta\Component\Project\Model\IssueType as Type;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormEvent;
 use Symfony\Component\Form\FormEvents;
@@ -81,7 +80,6 @@ class IssueType extends AbstractType
 
         $formModifier = function (FormInterface $form, ProjectInterface $project = null) {
             $participants = null === $project ? [] : $project->getParticipants();
-            $types = null === $project ? [] : $project->getIssueTypes();
             $priorities = null === $project ? [] : $project->getIssuePriorities();
             $issues = null === $project ? [] : $project->getIssues();
             $users = [];
@@ -101,10 +99,6 @@ class IssueType extends AbstractType
                 ->add('parent', 'entity', [
                     'class'   => 'Kreta\Component\Issue\Model\Issue',
                     'choices' => $issues
-                ])
-                ->add('type', 'entity', [
-                    'class'   => 'Kreta\Component\Project\Model\IssueType',
-                    'choices' => $types
                 ])
                 ->add('labels', 'collection', [
                     'type'         => $this->labelType,
@@ -147,15 +141,12 @@ class IssueType extends AbstractType
      */
     protected function createEmptyData(FormInterface $form)
     {
-        $type = null === $form->get('type')->getData()
-            ? new Type()
-            : $form->get('type')->getData();
         $priority = null === $form->get('priority')->getData()
             ? new IssuePriority()
             : $form->get('priority')->getData();
 
         return $this->factory->create(
-            $this->user, $type, $priority, $form->get('project')->getData(), $form->get('parent')->getData()
+            $this->user, $priority, $form->get('project')->getData(), $form->get('parent')->getData()
         );
     }
 }

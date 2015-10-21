@@ -35,7 +35,6 @@ class IssueContext extends DefaultContext
         foreach ($issues as $issueData) {
             $reporter = $this->get('kreta_user.repository.user')->findOneBy(['email' => $issueData['reporter']], false);
             $assignee = $this->get('kreta_user.repository.user')->findOneBy(['email' => $issueData['assignee']], false);
-            $type = $this->get('kreta_project.repository.issue_type')->find($issueData['type'], false);
             $priority = $this->get('kreta_project.repository.issue_priority')->find($issueData['priority'], false);
             $project = $this->get('kreta_project.repository.project')
                 ->findOneBy(['name' => $issueData['project']], false);

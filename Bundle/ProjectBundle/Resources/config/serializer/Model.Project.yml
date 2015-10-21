@@ -32,15 +32,6 @@ Kreta\Component\Project\Model\Project:
             exclusion:
                 groups: [projectList, project]
         -
-            rel: issue_types
-            href:
-                route: get_projects_issue_types
-                parameters:
-                    projectId: expr(object.getId())
-                absolute: true
-            exclusion:
-                groups: [projectList, project]
-        -
             rel: labels
             href:
                 route: get_projects_labels
@@ -90,9 +81,6 @@ Kreta\Component\Project\Model\Project:
             expose: true
             groups: [projectList, project]
         issues:
-            expose: true
-            groups: []
-        issueTypes:
             expose: true
             groups: []
         labels:

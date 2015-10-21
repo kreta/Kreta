@@ -16,8 +16,6 @@ parameters:
     kreta_issue.repository_resolution.class: Kreta\Component\Issue\Repository\ResolutionRepository
 
     kreta_issue.form_type.issue.class: Kreta\Component\Issue\Form\Type\IssueType
-    kreta_issue.form_type.priority.class: Kreta\Component\Issue\Form\Type\PriorityType
-    kreta_issue.form_type.type.class: Kreta\Component\Issue\Form\Type\TypeType
 
     kreta_issue.state_machine_issue.class: Kreta\Component\Issue\StateMachine\IssueStateMachine
     kreta_issue.security_issue_voter.class: Kreta\Bundle\IssueBundle\Security\Authorization\Voter\IssueVoter

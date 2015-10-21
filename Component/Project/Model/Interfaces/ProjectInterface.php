@@ -72,31 +72,6 @@ interface ProjectInterface
     public function removeIssue(IssueInterface $issue);
 
     /**
-     * Gets issue types.
-     *
-     * @return \Kreta\Component\Project\Model\Interfaces\IssueTypeInterface[]
-     */
-    public function getIssueTypes();
-
-    /**
-     * Adds the issue type.
-     *
-     * @param \Kreta\Component\Project\Model\Interfaces\IssueTypeInterface $issueType The issue type
-     *
-     * @return $this self Object
-     */
-    public function addIssueType(IssueTypeInterface $issueType);
-
-    /**
-     * Removes the issue type.
-     *
-     * @param \Kreta\Component\Project\Model\Interfaces\IssueTypeInterface $issueType The issue type
-     *
-     * @return $this self Object
-     */
-    public function removeIssueType(IssueTypeInterface $issueType);
-
-    /**
      * Gets labels.
      *
      * @return \Kreta\Component\Project\Model\Interfaces\LabelInterface[]

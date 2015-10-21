@@ -13,7 +13,6 @@ namespace spec\Kreta\Component\Project\Model;
 
 use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
 use Kreta\Component\Media\Model\Interfaces\MediaInterface;
-use Kreta\Component\Project\Model\Interfaces\IssueTypeInterface;
 use Kreta\Component\Project\Model\Interfaces\LabelInterface;
 use Kreta\Component\Project\Model\Interfaces\ParticipantInterface;
 use Kreta\Component\Project\Model\Interfaces\IssuePriorityInterface;
@@ -41,10 +40,9 @@ class ProjectSpec extends ObjectBehavior
         $this->shouldImplement('Kreta\Component\Project\Model\Interfaces\ProjectInterface');
     }
 
-    function its_issues_issue_types_labels_participants_and_issue_priorities_are_collection()
+    function its_issues_labels_participants_and_issue_priorities_are_collection()
     {
         $this->getIssues()->shouldHaveType('Doctrine\Common\Collections\ArrayCollection');
-        $this->getIssueTypes()->shouldHaveType('Doctrine\Common\Collections\ArrayCollection');
         $this->getLabels()->shouldHaveType('Doctrine\Common\Collections\ArrayCollection');
         $this->getParticipants()->shouldHaveType('Doctrine\Common\Collections\ArrayCollection');
         $this->getIssuePriorities()->shouldHaveType('Doctrine\Common\Collections\ArrayCollection');
@@ -67,19 +65,6 @@ class ProjectSpec extends ObjectBehavior
         $this->removeIssue($issue);
 
         $this->getIssues()->shouldHaveCount(0);
-    }
-
-    function its_issue_types_are_be_mutable(IssueTypeInterface $issueType)
-    {
-        $this->getIssueTypes()->shouldHaveCount(0);
-
-        $this->addIssueType($issueType);
-
-        $this->getIssueTypes()->shouldHaveCount(1);
-
-        $this->removeIssueType($issueType);
-
-        $this->getIssueTypes()->shouldHaveCount(0);
     }
 
     function its_labels_are_be_mutable(LabelInterface $label)

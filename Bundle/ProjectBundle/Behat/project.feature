@@ -172,9 +172,6 @@ Feature: Manage projects
             "issues": {
               "href": "http://kreta.test:8000/api/issues"
             },
-            "issue_types": {
-              "href": "http://kreta.test:8000/api/projects/0/issue-types"
-            },
             "labels": {
               "href": "http://kreta.test:8000/api/projects/0/labels"
             },
@@ -272,9 +269,6 @@ Feature: Manage projects
             },
             "issues": {
               "href": "http://kreta.test:8000/api/issues"
-            },
-            "issue_types": {
-              "href": "http://kreta.test:8000/api/projects/1/issue-types"
             },
             "labels": {
               "href": "http://kreta.test:8000/api/projects/1/labels"
@@ -410,9 +404,6 @@ Feature: Manage projects
           },
           "issues": {
             "href": "http://kreta.test:8000/api/issues"
-          },
-          "issue_types": {
-            "href": "http://kreta.test:8000/api/projects/0/issue-types"
           },
           "labels": {
             "href": "http://kreta.test:8000/api/projects/0/labels"
@@ -662,9 +653,6 @@ Feature: Manage projects
           },
           "issues": {
             "href": "http://kreta.test:8000/api/issues"
-          },
-          "issue_types": {
-            "href": "http://kreta.test:8000/api/projects/0/issue-types"
           },
           "labels": {
             "href": "http://kreta.test:8000/api/projects/0/labels"

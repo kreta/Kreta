@@ -73,6 +73,3 @@ Kreta\Component\Issue\Model\Issue:
         title:
             expose: true
             groups: [issueList, issue]
-        type:
-            expose: true
-            groups: [issueList, issue]

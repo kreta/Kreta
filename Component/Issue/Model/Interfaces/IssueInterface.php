@@ -12,7 +12,6 @@
 namespace Kreta\Component\Issue\Model\Interfaces;
 
 use Finite\StatefulInterface;
-use Kreta\Component\Project\Model\Interfaces\IssueTypeInterface;
 use Kreta\Component\Project\Model\Interfaces\LabelInterface;
 use Kreta\Component\Project\Model\Interfaces\IssuePriorityInterface;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
@@ -259,22 +258,6 @@ interface IssueInterface extends StatefulInterface
      * @return $this self Object
      */
     public function setStatus($status);
-
-    /**
-     * Gets type.
-     *
-     * @return \Kreta\Component\Project\Model\Interfaces\IssueTypeInterface|null
-     */
-    public function getType();
-
-    /**
-     * Sets type.
-     *
-     * @param \Kreta\Component\Project\Model\Interfaces\IssueTypeInterface|null $type The type
-     *
-     * @return $this self Object
-     */
-    public function setType(IssueTypeInterface $type = null);
 
     /**
      * Gets title.
