@@ -47,7 +47,7 @@ class IssueContext extends DefaultContext
                 }
             }
             
-            $issue = $this->get('kreta_issue.factory.issue')->create($reporter, $type, $priority, $project);
+            $issue = $this->get('kreta_issue.factory.issue')->create($reporter, $priority, $project);
             $issue
                 ->setAssignee($assignee)
                 ->setStatus($status)

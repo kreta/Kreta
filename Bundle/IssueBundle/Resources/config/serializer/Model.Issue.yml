@@ -59,6 +59,7 @@ Kreta\Component\Issue\Model\Issue:
             expose: true
             groups: [issueList, issue]
         project:
+        project:
             expose: true
             groups: []
         resolution:

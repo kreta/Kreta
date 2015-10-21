@@ -80,7 +80,6 @@ class IssueControllerSpec extends ObjectBehavior
         $paramFetcher->get('watcher')->shouldBeCalled()->willReturn(1);
         $paramFetcher->get('priority')->shouldBeCalled()->willReturn(2);
         $paramFetcher->get('status')->shouldBeCalled()->willReturn(2);
-        $paramFetcher->get('type')->shouldBeCalled()->willReturn(1);
         $paramFetcher->get('label')->shouldBeCalled()->willReturn(1);
 
         $container->has('security.token_storage')->shouldBeCalled()->willReturn(true);
@@ -99,7 +98,6 @@ class IssueControllerSpec extends ObjectBehavior
                 'w.id'   => 1,
                 'pr.id'  => 2,
                 's.id'   => 2,
-                't.id'   => 1,
                 'l.id'   => 1
             ],
             ['createdAt' => 'ASC'],
