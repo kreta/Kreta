@@ -11,11 +11,15 @@
 import './../../../../scss/views/page/issue/_show.scss';
 
 import React from 'react';
+import $ from 'jQuery';
 
+import {Issue} from '../../../models/Issue.js';
 import UserImage from '../../component/UserImage.js';
 import IssueField from '../../component/IssueField.js';
 import HelpText from '../../component/HelpText.js';
 import Selector from '../../component/Selector.js';
+import {FormSerializerService} from '../../../service/FormSerializer.js';
+import {NotificationService} from '../../../service/Notification.js';
 
 export default React.createClass({
   propTypes: {
@@ -59,18 +63,41 @@ export default React.createClass({
 
     return {assignee, priority};
   },
+  save(ev) {
+    ev.preventDefault();
+
+    const issue = FormSerializerService.serialize(
+      $(this.refs.form), Issue
+    );
+
+    this.setState({issueChanged: false});
+    issue.save(null, {
+      success: () => {
+        NotificationService.showNotification({
+          type: 'success',
+          message: 'Issue edited successfully'
+        });
+      }, error: () => {
+        NotificationService.showNotification({
+          type: 'error',
+          message: 'Error while editing this issue'
+        });
+      }
+    });
+  },
   render() {
     const issue = this.props.issue.toJSON();
     const options = this.getProjectOptions();
     let saveButton = <HelpText text="You can change issue details inline"/>;
     if(this.state.issueChanged) {
-      saveButton = <button className="button green">Save changes</button>;
+      saveButton = <button className="button green" type="submit">Save changes</button>;
     }
     return (
-      <div className="issue-show">
-        <h2 className="issue-show__title">
-          {issue.title}
-        </h2>
+      <form className="issue-show"
+            onSubmit={this.save}
+            ref="form">
+        <input type="hidden" value={issue.id}/>
+        <input className="issue-show__title" defaultValue={issue.title}/>
         <section className="full-issue-transitions">
 
         </section>
@@ -86,13 +113,14 @@ export default React.createClass({
             {options.priority}
           </Selector>
         </section>
-        <p className="issue-show__description">
-          {issue.description}
-        </p>
+        <textarea className="issue-show__description"
+                  name="description"
+                  onKeyUp={this.issueChanged}
+                  defaultValue={issue.description}/>
         <div className="issue-show__save">
           {saveButton}
         </div>
-      </div>
+      </form>
     );
   }
 });
