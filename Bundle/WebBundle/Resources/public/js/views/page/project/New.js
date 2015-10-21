@@ -47,14 +47,6 @@ export default React.createClass({
     return (
       <ContentMiddleLayout>
         <form onSubmit={this.save} ref="form">
-          <div className="issue-new-actions">
-            <button className="button">Cancel</button>
-            <button className="button green"
-                    tabIndex="3"
-                    type="submit">
-              Done
-            </button>
-          </div>
           <input className="big"
                  name="name"
                  placeholder="Type your project name"
@@ -65,6 +57,13 @@ export default React.createClass({
                  placeholder="Type a short name for your project"
                  tabIndex="2"
                  type="text"/>
+          <div className="issue-new__actions">
+            <button className="button green"
+                    tabIndex="3"
+                    type="submit">
+              Done
+            </button>
+          </div>
         </form>
       </ContentMiddleLayout>
     );
