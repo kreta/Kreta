@@ -8,44 +8,22 @@
 
 @import '../../../base/colors';
 
-.issue-new-actions {
-  position: absolute;
-  right: 0;
-  z-index: 10;
-}
-
 .issue-new {
   padding-top: 100px;
   position: relative;
   width: 100%;
 }
 
-.selector.selector-project {
-  font-size: .8em;
-
-  > span {
-    line-height: 35px;
-    padding: 0;
-  }
-
-  > div {
-    top: 0;
-    z-index: 20;
-  }
-}
-
 .issue-new__details {
   border-top: 1px solid $main-grey;
-  font-size: .9em;
+  display: flex;
 
   > div {
-    float: left;
-    font-weight: lighter;
-    text-align: center;
     width: 25%;
   }
 }
 
-.issue-new__details--hidden {
-  display: none;
+.issue-new__actions {
+  margin-top: 30px;
+  text-align: center;
 }

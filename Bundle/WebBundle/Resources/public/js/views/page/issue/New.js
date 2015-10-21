@@ -25,14 +25,11 @@ import UserImage from '../../component/UserImage.js';
 export default React.createClass({
   getInitialState() {
     return {
-      isLoading: true,
       project: null,
-      selectableProjects: []
     };
   },
   mixins: [History],
   componentDidMount() {
-    this.selectorsLeft = 0;
     this.updateSelectors(this.props.params.projectId);
   },
   componentDidUpdate (prevProps) {
@@ -43,22 +40,7 @@ export default React.createClass({
     }
   },
   updateSelectors(projectId) {
-    const project = App.collection.project.get(projectId);
-    this.selectorsLeft = 2;
-
-    project.on('change', $.proxy(this.onProjectUpdated, this));
-    this.setState({
-      project,
-      selectableProjects: App.collection.project,
-      isLoading: true
-    });
-  },
-  onProjectUpdated(model) {
-    this.selectorsLeft--;
-    this.setState({
-      isLoading: this.selectorsLeft,
-      project: model
-    });
+    this.setState({project: App.collection.project.get(projectId)});
   },
   getProjectOptions() {
     const project = App.collection.project.get(this.state.project.id);
@@ -69,7 +51,7 @@ export default React.createClass({
         type: []
       };
     }
-    var selectableProjects = this.state.selectableProjects.map((p) => {
+    var selectableProjects = App.collection.project.map((p) => {
         return (
           <IssueField
             text={p.get('name')}
@@ -92,17 +74,9 @@ export default React.createClass({
           text={p.name}
           value={p.id}/>
         );
-      }),
-      type = project.get('issue_types').map((t) => {
-        return (
-          <IssueField image={<i className="fa fa-coffee"></i>}
-          label="Type"
-          text={t.name}
-          value={t.id}/>
-        );
       });
 
-    return {selectableProjects, assignee, priority, type};
+    return {selectableProjects, assignee, priority};
   },
   save(ev) {
     ev.preventDefault();
@@ -143,13 +117,6 @@ export default React.createClass({
               method="POST"
               onSubmit={this.save}
               ref="form">
-          <div className="issue-new-actions">
-            <button className="button">Cancel</button>
-            <button className="button green"
-                    tabIndex="7"
-                    type="submit">Done
-            </button>
-          </div>
           <Selector name="project"
                     onChange={this.updateSelectors}
                     tabIndex={1}
@@ -169,24 +136,21 @@ export default React.createClass({
 
           <div className={`issue-new__details${this.state.isLoading ? ' issue-new__details--hidden' : ''}`}>
             <Selector name="assignee"
-                      style={{width: '25%'}}
                       tabIndex={4}
-                      value=""
-                      >
+                      value="">
               {options.assignee}
             </Selector>
             <Selector name="priority"
-                      style={{width: '25%'}}
                       tabIndex={5}
                       value="">
               {options.priority}
             </Selector>
-            <Selector name="priority"
-                      style={{width: '25%'}}
-                      tabIndex={6}
-                      value="">
-              {options.type}
-            </Selector>
+          </div>
+          <div className="issue-new__actions">
+            <button className="button green"
+                    tabIndex="7"
+                    type="submit">Done
+            </button>
           </div>
         </form>
       </ContentMiddleLayout>

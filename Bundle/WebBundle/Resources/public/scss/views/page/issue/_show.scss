@@ -27,6 +27,10 @@
 
 .issue-show__fields {
   margin-top: 30px;
+
+  .issue-field {
+    border: 1px solid $main-grey;
+  }
 }
 
 .issue-show__save {
