@@ -38,6 +38,10 @@ Feature: Manage status
       | Test project 1 | user3@kreta.com | ROLE_PARTICIPANT |
       | Test project 1 | user2@kreta.com | ROLE_PARTICIPANT |
       | Test project 2 | user2@kreta.com | ROLE_PARTICIPANT |
+    And the following issues exist:
+      | id | numericId | project        | title        | description | reporter       | assignee       | type | status   | priority | createdAt  |
+      | 0  | 1         | Test project 1 | Test issue 1 | Description | user@kreta.com | user@kreta.com | 2    | Open     | 1        | 2014-10-21 |
+      | 1  | 2         | Test project 1 | Test issue 2 | Description | user@kreta.com | user@kreta.com | 1    | Resolved | 1        | 2014-10-21 |
     And the following tokens exist:
       | token          | expiresAt | scope | user            |
       | access-token-0 | null      | user  | user@kreta.com  |
@@ -85,7 +89,7 @@ Feature: Manage status
       }, {
         "id": "2",
         "color": "#f1c40f",
-        
+
         "_links": {
           "self": {
             "href": "http://kreta.test:8000/api/workflows/0/statuses/2"
@@ -249,7 +253,7 @@ Feature: Manage status
         "name": [
           "A status with identical name is already exists in this workflow"
         ]
-      } 
+      }
     """
 
   Scenario: Creating a status with user which is not a project admin

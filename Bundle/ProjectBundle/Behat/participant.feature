@@ -443,7 +443,7 @@ Feature: Manage participant
     """
       {
         "error": "Not allowed to access this resource"
-      } 
+      }
     """
 
   Scenario: Deleting participant 0 of unknown project
@@ -454,5 +454,5 @@ Feature: Manage participant
     """
       {
         "error": "Does not exist any object with id passed"
-      } 
+      }
     """
