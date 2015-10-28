@@ -62,6 +62,7 @@ export default React.createClass({
     var assignee = project.get('participants').map((p) => {
       return (
         <IssueField image={<UserImage user={p.user}/>}
+                    key={p.user.id}
                     label="Assigned to"
                     text={`${p.user.first_name} ${p.user.last_name}`}
                     value={p.user.id}/>
@@ -71,6 +72,7 @@ export default React.createClass({
     priority = project.get('issue_priorities').map((p) => {
       return (
         <IssueField image={<i className="fa fa-exclamation"></i>}
+                    key={p.id}
                     label="Priority"
                     text={p.name}
                     value={p.id}/>
@@ -137,7 +139,6 @@ export default React.createClass({
         </section>
         <textarea className="issue-show__description"
                   name="description"
-                  onKeyUp={this.issueChanged}
                   onChange={this.updateInput}
                   value={issue.description}/>
         <div className="issue-show__save">
