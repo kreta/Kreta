@@ -76,6 +76,10 @@ export default React.createClass({
     this.history.pushState(null, this.props.shortcuts[this.state.selectedShortcut].path + projectId);
     this.props.onProjectSelected();
   },
+  goToNewProjectPage() {
+    this.history.pushState(null, '/project/new');
+    this.props.onProjectSelected();
+  },
   render() {
     var projectItems = this.state.projects.map((project, index) => {
       return <ProjectPreview key={index}
@@ -95,7 +99,10 @@ export default React.createClass({
             <span className="simple-header-filter">Sort by <strong>priority</strong></span>
           </div>
           <div className="simple-header-actions">
-            <Link className="button green small" to="/project/new">New</Link>
+            <button className="button green small"
+                    onClick={this.goToNewProjectPage}>
+              New
+            </button>
           </div>
         </div>
         <input className="project-list__filter"
