@@ -28,11 +28,27 @@ export default React.createClass({
   },
   getInitialState() {
     return {
-      issueChanged: false
+      issueChanged: false,
+      issue: this.props.issue
     };
   },
-  issueChanged() {
-    this.setState({issueChanged: true});
+  componentWillReceiveProps: function(nextProps) {
+    this.setState({
+      issue: nextProps.issue,
+      issueChanged: false
+    });
+  },
+  selectorChanged(value, name) {
+    /*this.setState({
+      issue: this.state.issue.set(name, {id: value}),
+      issueChanged: true
+    });*/
+  },
+  updateInput(ev) {
+    this.setState({
+      issue: this.state.issue.set(ev.target.name, ev.target.value),
+      issueChanged: true
+    });
   },
   getProjectOptions() {
     var project = App.collection.project.get(this.props.project.id);
@@ -86,7 +102,7 @@ export default React.createClass({
     });
   },
   render() {
-    const issue = this.props.issue.toJSON();
+    const issue = this.state.issue.toJSON();
     const options = this.getProjectOptions();
     let saveButton = <HelpText text="You can change issue details inline"/>;
     if(this.state.issueChanged) {
@@ -99,19 +115,22 @@ export default React.createClass({
         <input name="id" type="hidden" value={issue.id}/>
         <input name="project" type="hidden" value={this.props.project.id}/>
         <input className="issue-show__title"
-               defaultValue={issue.title}
-               name="title"/>
+               name="title"
+               onChange={this.updateInput}
+               value={issue.title}/>
         <section className="full-issue-transitions">
 
         </section>
         <section className="issue-show__fields">
-          <Selector name="assignee"
-                    onChange={this.issueChanged}
+          <Selector disabled={true}
+                    name="assignee"
+                    onChange={this.selectorChanged}
                     value={issue.assignee.id}>
             {options.assignee}
           </Selector>
-          <Selector name="priority"
-                    onChange={this.issueChanged}
+          <Selector disabled={true}
+                    name="priority"
+                    onChange={this.selectorChanged}
                     value={issue.priority.id}>
             {options.priority}
           </Selector>
@@ -119,7 +138,8 @@ export default React.createClass({
         <textarea className="issue-show__description"
                   name="description"
                   onKeyUp={this.issueChanged}
-                  defaultValue={issue.description}/>
+                  onChange={this.updateInput}
+                  value={issue.description}/>
         <div className="issue-show__save">
           {saveButton}
         </div>

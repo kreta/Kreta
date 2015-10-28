@@ -18,6 +18,7 @@ import NavigableCollection from '../../mixins/NavigableCollection.js';
 
 export default React.createClass({
   propTypes: {
+    disabled: React.PropTypes.bool,
     label: React.PropTypes.string,
     name: React.PropTypes.string.isRequired,
     onChange: React.PropTypes.func,
@@ -31,6 +32,11 @@ export default React.createClass({
       selectedValue: this.props.value
     });
   },
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      selectedValue: nextProps.value
+    });
+  },
   getElementByValue(value) {
     let found = this.props.placeholder || this.props.placeholder || 'Select...';
     this.props.children.forEach((child) => {
@@ -41,6 +47,9 @@ export default React.createClass({
     return found;
   },
   openDropdown() {
+    if(this.props.disabled === true) {
+      return;
+    }
     this.setState({
       dropdownVisible: true
     });
@@ -60,7 +69,7 @@ export default React.createClass({
     });
     this.goToNextTabIndex();
     if (this.props.onChange) {
-      this.props.onChange(this.state.selectedValue);
+      this.props.onChange(this.state.selectedValue, this.props.name);
     }
   },
   highlightItem(index) {
