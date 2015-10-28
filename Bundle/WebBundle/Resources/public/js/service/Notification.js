@@ -10,6 +10,10 @@
 
 export class NotificationService {
   static showNotification(notification) {
-    App.collection.notification.add(notification);
+    const model = App.collection.notification.add(notification);
+
+    setTimeout(() => {
+      App.collection.notification.remove(model);
+    }, 5000)
   }
 }
