@@ -1,10 +1,11 @@
 /*
- * This file belongs to Kreta.
- * The source code of application includes a LICENSE file
- * with all information about license.
+ * This file is part of the Kreta package.
  *
- * @author benatespina <benatespina@gmail.com>
- * @author gorkalaucirica <gorka.lauzirika@gmail.com>
+ * (c) Beñat Espiña <benatespina@gmail.com>
+ * (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 import '../../../../scss/views/page/project/_new.scss';
@@ -46,14 +47,6 @@ export default React.createClass({
     return (
       <ContentMiddleLayout>
         <form onSubmit={this.save} ref="form">
-          <div className="issue-new-actions">
-            <button className="button">Cancel</button>
-            <button className="button green"
-                    tabIndex="3"
-                    type="submit">
-              Done
-            </button>
-          </div>
           <input className="big"
                  name="name"
                  placeholder="Type your project name"
@@ -64,6 +57,13 @@ export default React.createClass({
                  placeholder="Type a short name for your project"
                  tabIndex="2"
                  type="text"/>
+          <div className="issue-new__actions">
+            <button className="button green"
+                    tabIndex="3"
+                    type="submit">
+              Done
+            </button>
+          </div>
         </form>
       </ContentMiddleLayout>
     );

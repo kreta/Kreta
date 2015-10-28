@@ -1,22 +1,27 @@
-// This file belongs to Kreta.
-// The source code of application includes a LICENSE file
-// with all information about license.
+// This file is part of the Kreta package.
 //
-// @author benatespina <benatespina@gmail.com>
-// @author gorkalaucirica <gorka.lauzirika@gmail.com>
+// (c) Beñat Espiña <benatespina@gmail.com>
+// (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+//
+// For the full copyright and license information, please view the LICENSE
+// file that was distributed with this source code.
 
 @import '../../../base/colors';
 
-.full-issue-title {
+.issue-show__title {
+  background: $light-grey;
   color: $main-black;
   font-size: 1.8em;
   font-weight: lighter;
   line-height: 1.3em;
   margin: 0;
+  padding: 0;
 }
 
-.full-issue-description {
+.issue-show__description {
+  background: $light-grey;
   color: $main-black;
+  font-size: 16px;
   font-weight: lighter;
   line-height: 1.3em;
   margin-top: 30px;
@@ -24,22 +29,15 @@
   overflow: hidden;
 }
 
-.full-issue-dashboard {
+.issue-show__fields {
   margin-top: 30px;
-  overflow: hidden;
+
+  .issue-field {
+    border: 1px solid $main-grey;
+  }
 }
 
-.full-issue-dashboard-item {
-  border: 1px solid $main-grey;
-  color: $main-black;
-  font-size: .8em;
-  line-height: 3.5em;
-  margin: 0;
+.issue-show__save {
+  margin: 30px 0;
   text-align: center;
-  width: 100%;
-
-  &.half {
-    float: left;
-    width: 50%;
-  }
 }

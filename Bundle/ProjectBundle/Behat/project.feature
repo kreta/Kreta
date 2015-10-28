@@ -31,6 +31,29 @@ Feature: Manage projects
       | 1  | project-2.jpg | 2014-10-30 | null      | Test project 2  |
       | 2  | user-2.jpg    | 2014-10-30 | null      | user2@kreta.com |
       | 3  | user-3.jpg    | 2014-10-30 | null      | user3@kreta.com |
+    And the following issue priorities exist:
+      | id | name    | project        |
+      | 0  | Low     | Test project 1 |
+      | 1  | Medium  | Test project 1 |
+      | 2  | High    | Test project 1 |
+      | 3  | Blocker | Test project 1 |
+      | 4  | Low     | Test project 2 |
+      | 5  | Medium  | Test project 2 |
+    And the following labels exist:
+      | id | name        | project        |
+      | 0  | backbone.js | Test project 1 |
+      | 1  | php         | Test project 2 |
+      | 2  | javascript  | Test project 1 |
+      | 3  | bdd         | Test project 1 |
+      | 4  | behat       | Test project 2 |
+      | 5  | phpspec     | Test project 2 |
+      | 6  | symfony     | Test project 1 |
+      | 7  | html5       | Test project 2 |
+      | 8  | css3        | Test project 1 |
+      | 9  | sass        | Test project 1 |
+      | 10 | compass     | Test project 2 |
+      | 11 | mysql       | Test project 1 |
+      | 12 | mongodb     | Test project 1 |
     And the following participants exist:
       | project        | user            | role             |
       | Test project 1 | user3@kreta.com | ROLE_PARTICIPANT |
@@ -54,6 +77,40 @@ Feature: Manage projects
             "id": "0",
             "name": "http://kreta.test:8000/media/image/project-1.jpg"
           },
+          "labels": [
+            {
+              "id": "0",
+              "name": "backbone.js"
+            },
+            {
+              "id": "11",
+              "name": "mysql"
+            },
+            {
+              "id": "12",
+              "name": "mongodb"
+            },
+            {
+              "id": "2",
+              "name": "javascript"
+            },
+            {
+              "id": "3",
+              "name": "bdd"
+            },
+            {
+              "id": "6",
+              "name": "symfony"
+            },
+            {
+              "id": "8",
+              "name": "css3"
+            },
+            {
+              "id": "9",
+              "name": "sass"
+            }
+          ],
           "name": "Test project 1",
           "participants": [
             {
@@ -86,6 +143,24 @@ Feature: Manage projects
               }
             }
           ],
+          "issue_priorities": [
+            {
+              "id": "0",
+              "name": "Low"
+            },
+            {
+              "id": "1",
+              "name": "Medium"
+            },
+            {
+              "id": "2",
+              "name": "High"
+            },
+            {
+              "id": "3",
+              "name": "Blocker"
+            }
+          ],
           "short_name": "TPR1",
           "_links": {
             "self": {
@@ -96,9 +171,6 @@ Feature: Manage projects
             },
             "issues": {
               "href": "http://kreta.test:8000/api/issues"
-            },
-            "issue_types": {
-              "href": "http://kreta.test:8000/api/projects/0/issue-types"
             },
             "labels": {
               "href": "http://kreta.test:8000/api/projects/0/labels"
@@ -123,6 +195,28 @@ Feature: Manage projects
             "id": "1",
             "name": "http://kreta.test:8000/media/image/project-2.jpg"
           },
+          "labels": [
+            {
+              "id": "1",
+              "name": "php"
+            },
+            {
+              "id": "10",
+              "name": "compass"
+            },
+            {
+              "id": "4",
+              "name": "behat"
+            },
+            {
+              "id": "5",
+              "name": "phpspec"
+            },
+            {
+              "id": "7",
+              "name": "html5"
+            }
+          ],
           "name": "Test project 2",
           "participants": [
             {
@@ -155,6 +249,16 @@ Feature: Manage projects
               }
             }
           ],
+          "issue_priorities": [
+            {
+              "id": "4",
+              "name": "Low"
+            },
+            {
+              "id": "5",
+              "name": "Medium"
+            }
+          ],
           "short_name": "TPR2",
           "_links": {
             "self": {
@@ -165,9 +269,6 @@ Feature: Manage projects
             },
             "issues": {
               "href": "http://kreta.test:8000/api/issues"
-            },
-            "issue_types": {
-              "href": "http://kreta.test:8000/api/projects/1/issue-types"
             },
             "labels": {
               "href": "http://kreta.test:8000/api/projects/1/labels"
@@ -203,6 +304,40 @@ Feature: Manage projects
           "name": "http://kreta.test:8000/media/image/project-1.jpg",
           "updated_at": null
         },
+        "labels": [
+          {
+            "id": "0",
+            "name": "backbone.js"
+          },
+          {
+            "id": "11",
+            "name": "mysql"
+          },
+          {
+            "id": "12",
+            "name": "mongodb"
+          },
+          {
+            "id": "2",
+            "name": "javascript"
+          },
+          {
+            "id": "3",
+            "name": "bdd"
+          },
+          {
+            "id": "6",
+            "name": "symfony"
+          },
+          {
+            "id": "8",
+            "name": "css3"
+          },
+          {
+            "id": "9",
+            "name": "sass"
+          }
+        ],
         "name": "Test project 1",
         "participants": [
           {
@@ -237,6 +372,24 @@ Feature: Manage projects
             }
           }
         ],
+        "issue_priorities": [
+          {
+            "id": "0",
+            "name": "Low"
+          },
+          {
+            "id": "1",
+            "name": "Medium"
+          },
+          {
+            "id": "2",
+            "name": "High"
+          },
+          {
+            "id": "3",
+            "name": "Blocker"
+          }
+        ],
         "short_name": "TPR1",
         "workflow": {
           "id": "0",
@@ -251,9 +404,6 @@ Feature: Manage projects
           },
           "issues": {
             "href": "http://kreta.test:8000/api/issues"
-          },
-          "issue_types": {
-            "href": "http://kreta.test:8000/api/projects/0/issue-types"
           },
           "labels": {
             "href": "http://kreta.test:8000/api/projects/0/labels"
@@ -403,6 +553,40 @@ Feature: Manage projects
           "name": "http://kreta.test:8000/media/image/project-1.jpg",
           "updated_at": null
         },
+        "labels": [
+          {
+            "id": "0",
+            "name": "backbone.js"
+          },
+          {
+            "id": "11",
+            "name": "mysql"
+          },
+          {
+            "id": "12",
+            "name": "mongodb"
+          },
+          {
+            "id": "2",
+            "name": "javascript"
+          },
+          {
+            "id": "3",
+            "name": "bdd"
+          },
+          {
+            "id": "6",
+            "name": "symfony"
+          },
+          {
+            "id": "8",
+            "name": "css3"
+          },
+          {
+            "id": "9",
+            "name": "sass"
+          }
+        ],
         "name": "New project",
         "participants": [
           {
@@ -437,6 +621,24 @@ Feature: Manage projects
             }
           }
         ],
+        "issue_priorities": [
+          {
+            "id": "0",
+            "name": "Low"
+          },
+          {
+            "id": "1",
+            "name": "Medium"
+          },
+          {
+            "id": "2",
+            "name": "High"
+          },
+          {
+            "id": "3",
+            "name": "Blocker"
+          }
+        ],
         "short_name": "NPR",
         "workflow": {
           "id": "0",
@@ -451,9 +653,6 @@ Feature: Manage projects
           },
           "issues": {
             "href": "http://kreta.test:8000/api/issues"
-          },
-          "issue_types": {
-            "href": "http://kreta.test:8000/api/projects/0/issue-types"
           },
           "labels": {
             "href": "http://kreta.test:8000/api/projects/0/labels"

@@ -16,7 +16,6 @@ use Kreta\Component\Media\Model\Interfaces\MediaInterface;
 use Kreta\Component\Media\Uploader\Interfaces\MediaUploaderInterface;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Project\Model\IssuePriority;
-use Kreta\Component\Project\Model\IssueType;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use Kreta\Component\Workflow\Factory\WorkflowFactory;
 use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
@@ -149,11 +148,6 @@ class ProjectFactory
             $priority->setProject($project);
             $project->addIssuePriority($priority);
         }
-        $types = $this->createDefaultTypes();
-        foreach ($types as $type) {
-            $type->setProject($project);
-            $project->addIssueType($type);
-        }
 
         return $project;
     }
@@ -174,23 +168,5 @@ class ProjectFactory
         }
 
         return $priorities;
-    }
-
-    /**
-     * Creates some default priorities to add into project when this is created.
-     *
-     * @return \Kreta\Component\Project\Model\Interfaces\IssueTypeInterface[]
-     */
-    protected function createDefaultTypes()
-    {
-        $defaultTypeNames = ['Improvement', 'Story', 'Bug', 'Feature'];
-        $types = [];
-        foreach ($defaultTypeNames as $name) {
-            $type = new IssueType();
-            $type->setName($name);
-            $types[$name] = $type;
-        }
-
-        return $types;
     }
 }

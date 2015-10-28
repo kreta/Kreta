@@ -1,17 +1,12 @@
-// This file belongs to Kreta.
-// The source code of application includes a LICENSE file
-// with all information about license.
+// This file is part of the Kreta package.
 //
-// @author benatespina <benatespina@gmail.com>
-// @author gorkalaucirica <gorka.lauzirika@gmail.com>
+// (c) Beñat Espiña <benatespina@gmail.com>
+// (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+//
+// For the full copyright and license information, please view the LICENSE
+// file that was distributed with this source code.
 
 @import '../../../base/colors';
-
-.issue-new-actions {
-  position: absolute;
-  right: 0;
-  z-index: 10;
-}
 
 .issue-new {
   padding-top: 100px;
@@ -19,32 +14,16 @@
   width: 100%;
 }
 
-.selector.selector-project {
-  font-size: .8em;
-
-  > span {
-    line-height: 35px;
-    padding: 0;
-  }
-
-  > div {
-    top: 0;
-    z-index: 20;
-  }
-}
-
 .issue-new__details {
   border-top: 1px solid $main-grey;
-  font-size: .9em;
+  display: flex;
 
   > div {
-    float: left;
-    font-weight: lighter;
-    text-align: center;
     width: 25%;
   }
 }
 
-.issue-new__details--hidden {
-  display: none;
+.issue-new__actions {
+  margin-top: 30px;
+  text-align: center;
 }

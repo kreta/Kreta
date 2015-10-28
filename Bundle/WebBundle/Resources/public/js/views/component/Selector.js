@@ -1,10 +1,11 @@
 /*
- * This file belongs to Kreta.
- * The source code of application includes a LICENSE file
- * with all information about license.
+ * This file is part of the Kreta package.
  *
- * @author benatespina <benatespina@gmail.com>
- * @author gorkalaucirica <gorka.lauzirika@gmail.com>
+ * (c) Beñat Espiña <benatespina@gmail.com>
+ * (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 import '../../../scss/components/_selector.scss';
@@ -17,13 +18,13 @@ import NavigableCollection from '../../mixins/NavigableCollection.js';
 
 export default React.createClass({
   propTypes: {
+    disabled: React.PropTypes.bool,
     label: React.PropTypes.string,
     name: React.PropTypes.string.isRequired,
     onChange: React.PropTypes.func,
-    options: React.PropTypes.array.isRequired,
-    placeholder: React.PropTypes.string,
+    placeholder: React.PropTypes.node,
     tabIndex: React.PropTypes.number,
-    value: React.PropTypes.string
+    value: React.PropTypes.string.isRequired
   },
   mixins: [NavigableCollection],
   componentWillMount() {
@@ -31,16 +32,24 @@ export default React.createClass({
       selectedValue: this.props.value
     });
   },
-  getLabelByValue(value) {
-    let found = null;
-    this.props.options.forEach((option) => {
-      if (option.value === value) {
-        found = option.label;
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      selectedValue: nextProps.value
+    });
+  },
+  getElementByValue(value) {
+    let found = this.props.placeholder || this.props.placeholder || 'Select...';
+    this.props.children.forEach((child) => {
+      if (child.props.value === value) {
+        found = child;
       }
     });
     return found;
   },
   openDropdown() {
+    if(this.props.disabled === true) {
+      return;
+    }
     this.setState({
       dropdownVisible: true
     });
@@ -55,12 +64,12 @@ export default React.createClass({
   },
   selectOption(index) {
     this.setState({
-      selectedValue: this.props.options[index].value,
+      selectedValue: this.props.children[index].props.value,
       dropdownVisible: false
     });
     this.goToNextTabIndex();
     if (this.props.onChange) {
-      this.props.onChange(this.state.selectedValue);
+      this.props.onChange(this.state.selectedValue, this.props.name);
     }
   },
   highlightItem(index) {
@@ -79,25 +88,19 @@ export default React.createClass({
     $(`[tabindex="${parseInt(this.props.tabIndex, 10) + 1}"]`).focus();
   },
   render() {
-    const options = this.props.options.map((option, index) => {
-        const classes = classnames(
-          'selector__option',
-          {'selector__option--selected': this.state.selectedItem === index}
-        );
-
-        return (
-          <div className={classes}
-               key={index}
-               onClick={this.selectOption.bind(this, index)}
-               onMouseEnter={this.highlightItem.bind(this, index)}>
-            {option.label}
-          </div>
-        );
-      }),
-      dropdownClasses = classnames(
-        'selector__dropdown',
-        {'selector__dropdown--open': this.state.dropdownVisible}
-      );
+    const dropdownClasses = classnames(
+      'selector__dropdown',
+      {'selector__dropdown--open': this.state.dropdownVisible}
+    ),
+    selectedElement = this.getElementByValue(this.state.selectedValue),
+    children = this.props.children.map((child, index) => {
+      return React.cloneElement(child, {
+        selected: this.state.selectedItem === index,
+        fieldSelected: this.selectOption.bind(this, index),
+        fieldHovered: this.highlightItem.bind(this, index),
+        key: index
+      });
+    });
 
     return (
       <div className="selector"
@@ -108,10 +111,9 @@ export default React.createClass({
                ref="value"
                type="hidden"
                value={this.state.selectedValue}/>
-        <span className="selector__selected" onClick={this.openDropdown}>
-          {this.getLabelByValue(this.state.selectedValue) ||
-          this.props.placeholder || 'Select...'}
-        </span>
+        <div className="selector__selected" onClick={this.openDropdown}>
+          {selectedElement}
+        </div>
 
         <div className={dropdownClasses}>
           <input className="selector__filter"
@@ -120,7 +122,7 @@ export default React.createClass({
                  type="text"/>
 
           <div className="selector__options" ref="navigableList">
-            {options}
+            {children}
           </div>
         </div>
       </div>

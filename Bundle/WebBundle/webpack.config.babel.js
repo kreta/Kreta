@@ -1,23 +1,23 @@
 /*
- * This file belongs to Kreta.
- * The source code of application includes a LICENSE file
- * with all information about license.
+ * This file is part of the Kreta package.
  *
- * @author benatespina <benatespina@gmail.com>
- * @author gorkalaucirica <gorka.lauzirika@gmail.com>
+ * (c) Beñat Espiña <benatespina@gmail.com>
+ * (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 import autoprefixer from 'autoprefixer';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import minimist from 'minimist';
 import webpack from 'webpack';
 
 import pkg from './package.json';
 
-const CLI_OPTIONS = minimist(process.argv),
-  SOURCE_PATH = './Resources/public',
+const SOURCE_PATH = './Resources/public',
   BUILD_PATH = './../../../../web',
-  LICENSE = `${pkg.name} - ${pkg.description}
+  LICENSE =
+`${pkg.name} - ${pkg.description}
 Authors: ${pkg.authors[0].name} - ${pkg.authors[1].name}
 Url: ${pkg.homepage}
 License: ${pkg.license}`,
@@ -69,7 +69,7 @@ License: ${pkg.license}`,
     ]
   };
 
-if (CLI_OPTIONS.hasOwnProperty('env') && CLI_OPTIONS.env === 'prod') {
+if (process.env.NODE_ENV === 'production') {
   config.debug = false;
   config.devtool = 'source-map';
   config.plugins.push(new webpack.optimize.UglifyJsPlugin());

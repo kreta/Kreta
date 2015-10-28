@@ -40,7 +40,6 @@ class IssueController extends Controller
      * @QueryParam(name="watcher", requirements="(.*)", strict=true, nullable=true, description="Watcher filter")
      * @QueryParam(name="priority", requirements="(.*)", strict=true, nullable=true, description="Priority filter")
      * @QueryParam(name="status", requirements="(.*)", strict=true, nullable=true, description="Status filter")
-     * @QueryParam(name="type", requirements="(.*)", strict=true, nullable=true, description="Type filter")
      * @QueryParam(name="label", requirements="(.*)", strict=true, nullable=true, description="Label filter")
      * @QueryParam(name="q", requirements="(.*)", strict=true, nullable=true, description="Title filter")
      * @QueryParam(name="limit", requirements="\d+", default="9999", description="Amount of issues to be returned")
@@ -63,7 +62,6 @@ class IssueController extends Controller
                 'w.id'   => $paramFetcher->get('watcher'),
                 'pr.id'  => $paramFetcher->get('priority'),
                 's.id'   => $paramFetcher->get('status'),
-                't.id'   => $paramFetcher->get('type'),
                 'l.id'   => $paramFetcher->get('label')
             ],
             [$paramFetcher->get('sort') => 'ASC'],
@@ -90,7 +88,7 @@ class IssueController extends Controller
     }
 
     /**
-     * Creates new issue for title, description, type priority and assignee given.
+     * Creates new issue for title, description, priority and assignee given.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request The request
      *

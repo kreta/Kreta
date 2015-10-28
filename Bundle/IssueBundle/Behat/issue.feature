@@ -38,14 +38,6 @@ Feature: Manage issue
       | 3  | Blocker | Test project 1 |
       | 4  | Low     | Test project 2 |
       | 5  | Medium  | Test project 2 |
-    And the following issue types exist:
-      | id | name        | project        |
-      | 0  | Bug         | Test project 1 |
-      | 1  | Epic        | Test project 1 |
-      | 2  | New feature | Test project 1 |
-      | 3  | Bug         | Test project 2 |
-      | 4  | Error       | Test project 2 |
-      | 5  | Story       | Test project 2 |
     And the following labels exist:
       | id | name        | project        |
       | 0  | backbone.js | Test project 1 |
@@ -99,6 +91,7 @@ Feature: Manage issue
   Scenario: Getting all the issues that user0 can see
     Given I am authenticating with "access-token-0" token
     When I send a GET request to "/api/issues"
+    And print response
     Then the response code should be 200
     And the response should contain json:
     """
@@ -160,10 +153,6 @@ Feature: Manage issue
             "color": "#27ae60"
           },
           "title": "Test issue 1",
-          "type": {
-            "id": "2",
-            "name": "New feature"
-          },
           "_links": {
             "self": {
               "href": "http://kreta.test:8000/api/issues/0"
@@ -233,10 +222,6 @@ Feature: Manage issue
             "color": "#f1c40f"
           },
           "title": "Test issue 1",
-          "type": {
-            "id": "3",
-            "name": "Bug"
-          },
           "_links": {
             "self": {
               "href": "http://kreta.test:8000/api/issues/3"
@@ -317,10 +302,6 @@ Feature: Manage issue
                 "color": "#f1c40f"
               },
               "title": "Test issue 3",
-              "type": {
-                "id": "4",
-                "name": "Error"
-              },
               "_links": {
                 "self": {
                   "href": "http://kreta.test:8000/api/issues/6"
@@ -380,10 +361,6 @@ Feature: Manage issue
             "color": "#f1c40f"
           },
           "title": "Test issue 1",
-          "type": {
-            "id": "4",
-            "name": "Error"
-          },
           "_links": {
             "self": {
               "href": "http://kreta.test:8000/api/issues/4"
@@ -453,10 +430,6 @@ Feature: Manage issue
             "color": "#f1c40f"
           },
           "title": "Test issue 2",
-          "type": {
-            "id": "1",
-            "name": "Epic"
-          },
           "_links": {
             "self": {
               "href": "http://kreta.test:8000/api/issues/1"
@@ -526,10 +499,6 @@ Feature: Manage issue
             "color": "#f1c40f"
           },
           "title": "Test issue 3",
-          "type": {
-            "id": "1",
-            "name": "Epic"
-          },
           "_links": {
             "self": {
               "href": "http://kreta.test:8000/api/issues/2"
@@ -635,10 +604,6 @@ Feature: Manage issue
               "color": "#f1c40f"
             },
             "title": "Test issue 1",
-            "type": {
-              "id": "4",
-              "name": "Error"
-            },
             "_links": {
               "self": {
                 "href": "http://kreta.test:8000/api/issues/4"
@@ -671,10 +636,6 @@ Feature: Manage issue
             "color": "#f1c40f"
           },
           "title": "Test issue 3",
-          "type": {
-            "id": "4",
-            "name": "Error"
-          },
           "_links": {
             "self": {
               "href": "http://kreta.test:8000/api/issues/6"
@@ -747,10 +708,6 @@ Feature: Manage issue
             "color": "#c0392b"
           },
           "title": "Test issue 4",
-          "type": {
-            "id": "0",
-            "name": "Bug"
-          },
           "_links": {
             "self": {
               "href": "http://kreta.test:8000/api/issues/5"
@@ -830,10 +787,6 @@ Feature: Manage issue
             "color": "#27ae60"
           },
           "title": "Test issue 1",
-          "type": {
-            "id": "2",
-            "name": "New feature"
-          },
           "_links": {
             "self": {
               "href": "http://kreta.test:8000/api/issues/0"
@@ -903,10 +856,6 @@ Feature: Manage issue
             "color": "#f1c40f"
           },
           "title": "Test issue 2",
-          "type": {
-            "id": "1",
-            "name": "Epic"
-          },
           "_links": {
             "self": {
               "href": "http://kreta.test:8000/api/issues/1"
@@ -976,10 +925,6 @@ Feature: Manage issue
             "color": "#f1c40f"
           },
           "title": "Test issue 3",
-          "type": {
-            "id": "1",
-            "name": "Epic"
-          },
           "_links": {
             "self": {
               "href": "http://kreta.test:8000/api/issues/2"
@@ -1052,10 +997,6 @@ Feature: Manage issue
             "color": "#c0392b"
           },
           "title": "Test issue 4",
-          "type": {
-            "id": "0",
-            "name": "Bug"
-          },
           "_links": {
             "self": {
               "href": "http://kreta.test:8000/api/issues/5"
@@ -1135,10 +1076,6 @@ Feature: Manage issue
             "color": "#f1c40f"
           },
           "title": "Test issue 3",
-          "type": {
-            "id": "1",
-            "name": "Epic"
-          },
           "_links": {
             "self": {
               "href": "http://kreta.test:8000/api/issues/2"
@@ -1211,10 +1148,6 @@ Feature: Manage issue
             "color": "#c0392b"
           },
           "title": "Test issue 4",
-          "type": {
-            "id": "0",
-            "name": "Bug"
-          },
           "_links": {
             "self": {
               "href": "http://kreta.test:8000/api/issues/5"
@@ -1284,10 +1217,6 @@ Feature: Manage issue
             "color": "#f1c40f"
           },
           "title": "Test issue 1",
-          "type": {
-            "id": "3",
-            "name": "Bug"
-          },
           "_links": {
             "self": {
               "href": "http://kreta.test:8000/api/issues/3"
@@ -1368,10 +1297,6 @@ Feature: Manage issue
                 "color": "#f1c40f"
               },
               "title": "Test issue 3",
-              "type": {
-                "id": "4",
-                "name": "Error"
-              },
               "_links": {
                 "self": {
                   "href": "http://kreta.test:8000/api/issues/6"
@@ -1431,10 +1356,6 @@ Feature: Manage issue
             "color": "#f1c40f"
           },
           "title": "Test issue 1",
-          "type": {
-            "id": "4",
-            "name": "Error"
-          },
           "_links": {
             "self": {
               "href": "http://kreta.test:8000/api/issues/4"
@@ -1540,10 +1461,6 @@ Feature: Manage issue
               "color": "#f1c40f"
             },
             "title": "Test issue 1",
-            "type": {
-              "id": "4",
-              "name": "Error"
-            },
             "_links": {
               "self": {
                 "href": "http://kreta.test:8000/api/issues/4"
@@ -1576,10 +1493,6 @@ Feature: Manage issue
             "color": "#f1c40f"
           },
           "title": "Test issue 3",
-          "type": {
-            "id": "4",
-            "name": "Error"
-          },
           "_links": {
             "self": {
               "href": "http://kreta.test:8000/api/issues/6"
@@ -1649,10 +1562,6 @@ Feature: Manage issue
             "color": "#f1c40f"
           },
           "title": "Test issue 2",
-          "type": {
-            "id": "1",
-            "name": "Epic"
-          },
           "_links": {
             "self": {
               "href": "http://kreta.test:8000/api/issues/1"
@@ -1722,10 +1631,6 @@ Feature: Manage issue
             "color": "#27ae60"
           },
           "title": "Test issue 1",
-          "type": {
-            "id": "2",
-            "name": "New feature"
-          },
           "_links": {
             "self": {
               "href": "http://kreta.test:8000/api/issues/0"
@@ -1805,10 +1710,6 @@ Feature: Manage issue
             "color": "#f1c40f"
           },
           "title": "Test issue 1",
-          "type": {
-            "id": "3",
-            "name": "Bug"
-          },
           "_links": {
             "self": {
               "href": "http://kreta.test:8000/api/issues/3"
@@ -1899,10 +1800,6 @@ Feature: Manage issue
                 "color": "#f1c40f"
               },
               "title": "Test issue 3",
-              "type": {
-                "id": "4",
-                "name": "Error"
-              },
               "_links": {
                 "self": {
                   "href": "http://kreta.test:8000/api/issues/6"
@@ -1962,10 +1859,6 @@ Feature: Manage issue
             "color": "#f1c40f"
           },
           "title": "Test issue 1",
-          "type": {
-            "id": "4",
-            "name": "Error"
-          },
           "_links": {
             "self": {
               "href": "http://kreta.test:8000/api/issues/4"
@@ -2071,10 +1964,6 @@ Feature: Manage issue
               "color": "#f1c40f"
             },
             "title": "Test issue 1",
-            "type": {
-              "id": "4",
-              "name": "Error"
-            },
             "_links": {
               "self": {
                 "href": "http://kreta.test:8000/api/issues/4"
@@ -2107,10 +1996,6 @@ Feature: Manage issue
             "color": "#f1c40f"
           },
           "title": "Test issue 3",
-          "type": {
-            "id": "4",
-            "name": "Error"
-          },
           "_links": {
             "self": {
               "href": "http://kreta.test:8000/api/issues/6"
@@ -2190,10 +2075,6 @@ Feature: Manage issue
             "color": "#f1c40f"
           },
           "title": "Test issue 2",
-          "type": {
-            "id": "1",
-            "name": "Epic"
-          },
           "_links": {
             "self": {
               "href": "http://kreta.test:8000/api/issues/1"
@@ -2276,99 +2157,12 @@ Feature: Manage issue
             "color": "#c0392b"
           },
           "title": "Test issue 4",
-          "type": {
-            "id": "0",
-            "name": "Bug"
-          },
           "_links": {
             "self": {
               "href": "http://kreta.test:8000/api/issues/5"
             },
             "project": {
               "href": "http://kreta.test:8000/api/projects/0"
-            },
-            "issues": {
-              "href": "http://kreta.test:8000/api/issues"
-            }
-          }
-        }
-      ]
-    """
-
-  Scenario: Getting all the issues filter by type bug
-    Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/api/issues?type=3"
-    Then the response code should be 200
-    And the response should contain json:
-    """
-      [
-        {
-          "id": "3",
-          "assignee": {
-            "id": "3",
-            "username": "user4",
-            "email": "user4@kreta.com",
-            "first_name": "Kreta",
-            "last_name": "User4",
-            "photo": null
-          },
-          "children": [],
-          "created_at": "2014-10-21T00:00:00+0200",
-          "description": "Description",
-          "labels": [
-            {
-              "id": "1",
-              "name": "php"
-            },
-            {
-              "id": "10",
-              "name": "compass"
-            },
-            {
-              "id": "4",
-              "name": "behat"
-            },
-            {
-              "id": "5",
-              "name": "phpspec"
-            },
-            {
-              "id": "7",
-              "name": "html5"
-            }
-          ],
-          "numeric_id": 1,
-          "parent": null,
-          "priority": {
-            "id": "5",
-            "name": "Medium"
-          },
-          "resolution": null,
-          "reporter": {
-            "id": "0",
-            "username": "user",
-            "email": "user@kreta.com",
-            "first_name": "Kreta",
-            "last_name": "User",
-            "photo": null
-          },
-          "status": {
-            "type": "normal",
-            "name": "Resolved",
-            "id": "2",
-            "color": "#f1c40f"
-          },
-          "title": "Test issue 1",
-          "type": {
-            "id": "3",
-            "name": "Bug"
-          },
-          "_links": {
-            "self": {
-              "href": "http://kreta.test:8000/api/issues/3"
-            },
-            "project": {
-              "href": "http://kreta.test:8000/api/projects/1"
             },
             "issues": {
               "href": "http://kreta.test:8000/api/issues"
@@ -2426,10 +2220,6 @@ Feature: Manage issue
             "color": "#f1c40f"
           },
           "title": "Test issue 3",
-          "type": {
-            "id": "1",
-            "name": "Epic"
-          },
           "_links": {
             "self": {
               "href": "http://kreta.test:8000/api/issues/2"
@@ -2486,10 +2276,6 @@ Feature: Manage issue
             "color": "#c0392b"
           },
           "title": "Test issue 4",
-          "type": {
-            "id": "0",
-            "name": "Bug"
-          },
           "_links": {
             "self": {
               "href": "http://kreta.test:8000/api/issues/5"
@@ -2572,10 +2358,6 @@ Feature: Manage issue
             "color": "#c0392b"
           },
           "title": "Test issue 4",
-          "type": {
-            "id": "0",
-            "name": "Bug"
-          },
           "_links": {
             "self": {
               "href": "http://kreta.test:8000/api/issues/5"
@@ -2643,10 +2425,6 @@ Feature: Manage issue
             "color": "#27ae60"
           },
           "title": "Test issue 1",
-          "type": {
-            "id": "2",
-            "name": "New feature"
-          },
           "_links": {
             "self": {
               "href": "http://kreta.test:8000/api/issues/0"
@@ -2718,10 +2496,6 @@ Feature: Manage issue
             "color": "#27ae60"
           },
           "title": "Test issue 1",
-          "type": {
-            "id": "2",
-            "name": "New feature"
-          },
           "_links": {
             "self": {
               "href": "http://kreta.test:8000/api/issues/0"
@@ -2791,10 +2565,6 @@ Feature: Manage issue
             "color": "#f1c40f"
           },
           "title": "Test issue 1",
-          "type": {
-            "id": "3",
-            "name": "Bug"
-          },
           "_links": {
             "self": {
               "href": "http://kreta.test:8000/api/issues/3"
@@ -2875,10 +2645,6 @@ Feature: Manage issue
                 "color": "#f1c40f"
               },
               "title": "Test issue 3",
-              "type": {
-                "id": "4",
-                "name": "Error"
-              },
               "_links": {
                 "self": {
                   "href": "http://kreta.test:8000/api/issues/6"
@@ -2938,10 +2704,6 @@ Feature: Manage issue
             "color": "#f1c40f"
           },
           "title": "Test issue 1",
-          "type": {
-            "id": "4",
-            "name": "Error"
-          },
           "_links": {
             "self": {
               "href": "http://kreta.test:8000/api/issues/4"
@@ -3011,10 +2773,6 @@ Feature: Manage issue
             "color": "#f1c40f"
           },
           "title": "Test issue 2",
-          "type": {
-            "id": "1",
-            "name": "Epic"
-          },
           "_links": {
             "self": {
               "href": "http://kreta.test:8000/api/issues/1"
@@ -3084,10 +2842,6 @@ Feature: Manage issue
             "color": "#f1c40f"
           },
           "title": "Test issue 3",
-          "type": {
-            "id": "1",
-            "name": "Epic"
-          },
           "_links": {
             "self": {
               "href": "http://kreta.test:8000/api/issues/2"
@@ -3193,10 +2947,6 @@ Feature: Manage issue
               "color": "#f1c40f"
             },
             "title": "Test issue 1",
-            "type": {
-              "id": "4",
-              "name": "Error"
-            },
             "_links": {
               "self": {
                 "href": "http://kreta.test:8000/api/issues/4"
@@ -3229,10 +2979,6 @@ Feature: Manage issue
             "color": "#f1c40f"
           },
           "title": "Test issue 3",
-          "type": {
-            "id": "4",
-            "name": "Error"
-          },
           "_links": {
             "self": {
               "href": "http://kreta.test:8000/api/issues/6"
@@ -3305,10 +3051,6 @@ Feature: Manage issue
             "color": "#c0392b"
           },
           "title": "Test issue 4",
-          "type": {
-            "id": "0",
-            "name": "Bug"
-          },
           "_links": {
             "self": {
               "href": "http://kreta.test:8000/api/issues/5"
@@ -3387,10 +3129,6 @@ Feature: Manage issue
           "color": "#27ae60"
         },
         "title": "Test issue 1",
-        "type": {
-          "id": "2",
-          "name": "New feature"
-        },
         "_links": {
           "self": {
             "href": "http://kreta.test:8000/api/issues/0"
@@ -3435,7 +3173,6 @@ Feature: Manage issue
       {
         "title": "New issue",
         "description": "The description",
-        "type": "0",
         "priority": "0",
         "project": "0",
         "assignee": "1"
@@ -3451,7 +3188,6 @@ Feature: Manage issue
       {
         "title": "New issue",
         "description": "The description",
-        "type": "0",
         "priority": "0",
         "project": "0",
         "assignee": "1",
@@ -3468,7 +3204,6 @@ Feature: Manage issue
       {
         "title": "New issue",
         "description": "The description",
-        "type": "4",
         "priority": "0",
         "project": "3",
         "assignee": "3"
@@ -3486,9 +3221,6 @@ Feature: Manage issue
         ],
         "priority": [
           "This value is not valid."
-        ],
-        "type": [
-          "This value is not valid."
         ]
       }
     """
@@ -3501,7 +3233,6 @@ Feature: Manage issue
       {
         "title": "New issue",
         "description": "The description",
-        "type": "4",
         "priority": "4",
         "project": "1",
         "assignee": "2"
@@ -3525,7 +3256,6 @@ Feature: Manage issue
       {
         "title": "New issue",
         "description": "The description",
-        "type": "4",
         "priority": "0",
         "project": "1",
         "assignee": "3"
@@ -3541,30 +3271,6 @@ Feature: Manage issue
       }
     """
 
-  Scenario: Creating an issue with invalid issue type
-    Given I am authenticating with "access-token-0" token
-    Given I set header "content-type" with value "application/json"
-    When I send a POST request to "/api/issues" with body:
-    """
-      {
-        "title": "New issue",
-        "description": "The description",
-        "type": "0",
-        "priority": "4",
-        "project": "1",
-        "assignee": "1"
-      }
-    """
-    Then the response code should be 400
-    And the response should contain json:
-    """
-      {
-        "type": [
-          "This value is not valid."
-        ]
-      }
-    """
-
   Scenario: Creating an issue with invalid parent issue
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
@@ -3573,7 +3279,6 @@ Feature: Manage issue
       {
         "title": "New issue",
         "description": "The description",
-        "type": "0",
         "priority": "0",
         "project": "0",
         "assignee": "1",
@@ -3626,9 +3331,6 @@ Feature: Manage issue
         "title": [
           "This value should not be blank."
         ],
-        "type": [
-          "This value should not be blank."
-        ],
         "priority": [
           "This value should not be blank."
         ]
@@ -3642,7 +3344,6 @@ Feature: Manage issue
     """
       {
         "title": "Test issue 1",
-        "type": "0",
         "priority": "0",
         "description": "The description",
         "project": "0",
@@ -3666,7 +3367,6 @@ Feature: Manage issue
     """
       {
         "title": "New issue",
-        "type": "0",
         "priority": "0",
         "description": "The description",
         "assignee": "1"
@@ -3681,9 +3381,6 @@ Feature: Manage issue
         ],
         "assignee": [
           "This value is not valid."
-        ],
-        "type": [
-          "This value is not valid."
         ]
       }
     """
@@ -3695,7 +3392,6 @@ Feature: Manage issue
     """
       {
         "title": "New issue",
-        "type": "0",
         "priority": "0",
         "description": "The description",
         "project": "1",
@@ -3711,9 +3407,6 @@ Feature: Manage issue
         ],
         "assignee": [
           "This value is not valid."
-        ],
-        "type": [
-          "This value is not valid."
         ]
       }
     """
@@ -3725,7 +3418,6 @@ Feature: Manage issue
     """
       {
         "title": "Test issue 1",
-        "type": "0",
         "priority": "0",
         "description": "The description",
         "project": "0",
@@ -3772,10 +3464,6 @@ Feature: Manage issue
           "color": "#27ae60"
         },
         "title": "Test issue 1",
-        "type": {
-          "id": "0",
-          "name": "Bug"
-        },
         "_links": {
           "self": {
             "href": "http://kreta.test:8000/api/issues/0"
@@ -3797,7 +3485,6 @@ Feature: Manage issue
     """
       {
         "title": "Test issue 1",
-        "type": "0",
         "priority": "0",
         "description": "The description",
         "project": "0",
@@ -3844,10 +3531,6 @@ Feature: Manage issue
           "color": "#27ae60"
         },
         "title": "Test issue 1",
-        "type": {
-          "id": "0",
-          "name": "Bug"
-        },
         "_links": {
           "self": {
             "href": "http://kreta.test:8000/api/issues/0"
@@ -3888,7 +3571,6 @@ Feature: Manage issue
       {
         "title": "New issue",
         "description": "The description",
-        "type": "0",
         "priority": "0",
         "project": "0",
         "assignee": "1",
@@ -3923,9 +3605,6 @@ Feature: Manage issue
         "title": [
           "This value should not be blank."
         ],
-        "type": [
-          "This value should not be blank."
-        ],
         "priority": [
           "This value should not be blank."
         ]
@@ -3939,7 +3618,6 @@ Feature: Manage issue
     """
       {
         "title": "Updated issue",
-        "type": "0",
         "priority": "0",
         "description": "The description",
         "project": "1",
@@ -3961,7 +3639,6 @@ Feature: Manage issue
     """
       {
         "title": "Updated issue 0",
-        "type": "0",
         "priority": "0",
         "description": "The description",
         "project": "0",
@@ -3985,7 +3662,6 @@ Feature: Manage issue
     """
       {
         "title": "Updated issue 0",
-        "type": "0",
         "priority": "0",
         "description": "The description",
         "project": "0",
@@ -4031,10 +3707,6 @@ Feature: Manage issue
           "color": "#f1c40f"
         },
         "title": "Updated issue 0",
-        "type": {
-          "id": "0",
-          "name": "Bug"
-        },
         "_links": {
           "self": {
             "href": "http://kreta.test:8000/api/issues/2"
@@ -4056,7 +3728,6 @@ Feature: Manage issue
     """
       {
         "title": "Updated issue 1",
-        "type": "3",
         "priority": "4",
         "description": "The description",
         "project": "1",
@@ -4102,10 +3773,6 @@ Feature: Manage issue
           "color": "#f1c40f"
         },
         "title": "Updated issue 1",
-        "type": {
-          "id": "3",
-          "name": "Bug"
-        },
         "_links": {
           "self": {
             "href": "http://kreta.test:8000/api/issues/3"
@@ -4127,7 +3794,6 @@ Feature: Manage issue
     """
       {
         "title": "Updated issue 2",
-        "type": "0",
         "priority": "0",
         "description": "The description",
         "assignee": "1",
@@ -4190,10 +3856,6 @@ Feature: Manage issue
           "color": "#27ae60"
         },
         "title": "Updated issue 2",
-        "type": {
-          "id": "0",
-          "name": "Bug"
-        },
         "_links": {
           "self": {
             "href": "http://kreta.test:8000/api/issues/0"
@@ -4275,10 +3937,6 @@ Feature: Manage issue
           "color": "#2c3e50"
         },
         "title": "Test issue 1",
-        "type": {
-          "id": "2",
-          "name": "New feature"
-        },
         "_links": {
           "self": {
             "href": "http://kreta.test:8000/api/issues/0"

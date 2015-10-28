@@ -1,10 +1,11 @@
 /*
- * This file belongs to Kreta.
- * The source code of application includes a LICENSE file
- * with all information about license.
+ * This file is part of the Kreta package.
  *
- * @author benatespina <benatespina@gmail.com>
- * @author gorkalaucirica <gorka.lauzirika@gmail.com>
+ * (c) Beñat Espiña <benatespina@gmail.com>
+ * (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 import '../../../../scss/views/page/issue/_new.scss';
@@ -18,18 +19,17 @@ import {Issue} from '../../../models/Issue';
 import {NotificationService} from '../../../service/Notification';
 import ContentMiddleLayout from '../../layout/ContentMiddleLayout.js';
 import Selector from '../../component/Selector.js';
+import IssueField from '../../component/IssueField.js';
+import UserImage from '../../component/UserImage.js';
 
 export default React.createClass({
   getInitialState() {
     return {
-      isLoading: true,
-      project: null,
-      selectableProjects: []
+      project: null
     };
   },
   mixins: [History],
   componentDidMount() {
-    this.selectorsLeft = 0;
     this.updateSelectors(this.props.params.projectId);
   },
   componentDidUpdate (prevProps) {
@@ -40,22 +40,43 @@ export default React.createClass({
     }
   },
   updateSelectors(projectId) {
-    const project = App.collection.project.get(projectId);
-    this.selectorsLeft = 2;
-
-    project.on('change', $.proxy(this.onProjectUpdated, this));
-    this.setState({
-      project,
-      selectableProjects: App.collection.project,
-      isLoading: true
-    });
+    this.setState({project: App.collection.project.get(projectId)});
   },
-  onProjectUpdated(model) {
-    this.selectorsLeft--;
-    this.setState({
-      isLoading: this.selectorsLeft,
-      project: model
-    });
+  getProjectOptions() {
+    const project = App.collection.project.get(this.state.project.id);
+    if (!project) {
+      return {
+        asignee: [],
+        priority: [],
+        type: []
+      };
+    }
+    var selectableProjects = App.collection.project.map((p) => {
+        return (
+          <IssueField
+            text={p.get('name')}
+            value={p.id}/>
+        );
+      }),
+      assignee = project.get('participants').map((p) => {
+        return (
+          <IssueField image={<UserImage user={p.user}/>}
+          label="Assigned to"
+          text={`${p.user.first_name} ${p.user.last_name}`}
+          value={p.user.id}/>
+        );
+
+      }),
+      priority = project.get('issue_priorities').map((p) => {
+        return (
+          <IssueField image={<i className="fa fa-exclamation"></i>}
+          label="Priority"
+          text={p.name}
+          value={p.id}/>
+        );
+      });
+
+    return {selectableProjects, assignee, priority};
   },
   save(ev) {
     ev.preventDefault();
@@ -86,30 +107,8 @@ export default React.createClass({
     if (!this.state.project) {
       return <div>Loading</div>;
     }
-    const selectableProjects = this.state.selectableProjects.map((project) => {
-        return {
-          label: project.get('name'),
-          value: project.id
-        };
-      }),
-      assignee = this.state.project.get('participants').map((p) => {
-        return {
-          value: p.user.id,
-          label: `${p.user.first_name} ${p.user.last_name}`
-        };
-      }),
-      priority = this.state.project.get('issue_priorities').map((p) => {
-        return {
-          label: p.name,
-          value: p.id
-        };
-      }),
-      type = this.state.project.get('issue_types').map((t) => {
-        return {
-          label: t.name,
-          value: t.id
-        };
-      });
+
+    const options = this.getProjectOptions();
 
     return (
       <ContentMiddleLayout>
@@ -118,20 +117,12 @@ export default React.createClass({
               method="POST"
               onSubmit={this.save}
               ref="form">
-          <div className="issue-new-actions">
-            <button className="button">Cancel</button>
-            <button className="button green"
-                    tabIndex="7"
-                    type="submit">Done
-            </button>
-          </div>
           <Selector name="project"
                     onChange={this.updateSelectors}
-                    options={selectableProjects}
-                    placeholder="Select project"
-                    style={{width: '100%'}}
                     tabIndex={1}
-                    value={this.state.project.id}/>
+                    value={this.state.project.id}>
+            {options.selectableProjects}
+          </Selector>
           <input className="big"
                  name="title"
                  placeholder="Type your task title"
@@ -144,21 +135,31 @@ export default React.createClass({
                     value={this.state.project.description}></textarea>
 
           <div className={`issue-new__details${this.state.isLoading ? ' issue-new__details--hidden' : ''}`}>
-            <Selector data-placeholder="Unassigned"
-                      name="assignee"
-                      options={assignee}
-                      style={{width: '25%'}}
-                      tabIndex={4}/>
-            <Selector data-placeholder="No priority"
-                      name="priority"
-                      options={priority}
-                      style={{width: '25%'}}
-                      tabIndex={5}/>
-            <Selector data-placeholder="No priority"
-                      name="type"
-                      options={type}
-                      style={{width: '25%'}}
-                      tabIndex={6}/>
+            <Selector name="assignee"
+                      placeholder={
+                        <IssueField text="Unassigned"
+                                    value=""/>
+                      }
+                      tabIndex={4}
+                      value="">
+              {options.assignee}
+            </Selector>
+            <Selector name="priority"
+                      tabIndex={5}
+                      placeholder={
+                        <IssueField label="Priority"
+                                    text="Not selected"
+                                    value=""/>
+                      }
+                      value="">
+              {options.priority}
+            </Selector>
+          </div>
+          <div className="issue-new__actions">
+            <button className="button green"
+                    tabIndex="6"
+                    type="submit">Done
+            </button>
           </div>
         </form>
       </ContentMiddleLayout>

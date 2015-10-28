@@ -45,8 +45,8 @@ the license header manually.
 $ bin/php-cs-fixer fix
 $ bin/php-cs-fixer fix --config-file .phpspec_cs
 
-$ bin/php-formatter formatter:use:sort
-$ bin/php-formatter formatter:header:fix
+$ bin/php-formatter formatter:use:sort .
+$ bin/php-formatter formatter:header:fix .
 ```
 
 There is also a policy for contributing to this project. Pull requests must be explained step by step to make the

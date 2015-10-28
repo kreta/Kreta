@@ -81,8 +81,6 @@ Kreta\Component\Issue\Model\Issue:
             nullable: true
         status:
             targetEntity: Kreta\Component\Workflow\Model\Interfaces\StatusInterface
-        type:
-            targetEntity: Kreta\Component\Project\Model\Interfaces\IssueTypeInterface
     oneToMany:
         children:
             targetEntity: Kreta\Component\Issue\Model\Interfaces\IssueInterface

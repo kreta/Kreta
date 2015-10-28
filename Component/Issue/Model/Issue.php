@@ -15,7 +15,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Kreta\Component\Core\Model\Abstracts\AbstractModel;
 use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
 use Kreta\Component\Issue\Model\Interfaces\ResolutionInterface;
-use Kreta\Component\Project\Model\Interfaces\IssueTypeInterface;
 use Kreta\Component\Project\Model\Interfaces\LabelInterface;
 use Kreta\Component\Project\Model\Interfaces\IssuePriorityInterface;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
@@ -119,13 +118,6 @@ class Issue extends AbstractModel implements IssueInterface
      * @var string
      */
     protected $title;
-
-    /**
-     * The type.
-     *
-     * @var \Kreta\Component\Project\Model\Interfaces\IssueTypeInterface
-     */
-    protected $type;
 
     /**
      * Array that contains the watchers.
@@ -438,24 +430,6 @@ class Issue extends AbstractModel implements IssueInterface
     public function setTitle($title)
     {
         $this->title = $title;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getType()
-    {
-        return $this->type;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function setType(IssueTypeInterface $type = null)
-    {
-        $this->type = $type;
 
         return $this;
     }

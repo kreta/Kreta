@@ -1,10 +1,11 @@
 /*
- * This file belongs to Kreta.
- * The source code of application includes a LICENSE file
- * with all information about license.
+ * This file is part of the Kreta package.
  *
- * @author benatespina <benatespina@gmail.com>
- * @author gorkalaucirica <gorka.lauzirika@gmail.com>
+ * (c) Beñat Espiña <benatespina@gmail.com>
+ * (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 import '../../../scss/layout/_main-menu.scss';
@@ -13,6 +14,7 @@ import React from 'react';
 import {Link} from 'react-router';
 
 import Modal from '../component/Modal.js';
+import UserImage from '../component/UserImage.js';
 import ProjectList from '../page/project/List.js';
 
 export default React.createClass({
@@ -34,7 +36,7 @@ export default React.createClass({
       <nav className="menu">
         <img className="menu-logo" src=""/>
         <div className="menu-user">
-          <img className="menu-user-image" src={this.state.user.get('photo').name}/>
+          <UserImage user={this.state.user.toJSON()}/>
           <span className="menu-user-name">@{this.state.user.get('username')}</span>
         </div>
         <div>

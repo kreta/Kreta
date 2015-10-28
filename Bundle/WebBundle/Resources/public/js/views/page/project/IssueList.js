@@ -1,10 +1,11 @@
 /*
- * This file belongs to Kreta.
- * The source code of application includes a LICENSE file
- * with all information about license.
+ * This file is part of the Kreta package.
  *
- * @author benatespina <benatespina@gmail.com>
- * @author gorkalaucirica <gorka.lauzirika@gmail.com>
+ * (c) Beñat Espiña <benatespina@gmail.com>
+ * (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 import React from 'react';
@@ -149,7 +150,8 @@ export default React.createClass({
       }];
     let issue = '';
     if (this.state.issues.length > 0 && !this.state.fetchingIssues) {
-      issue = <IssueShow issue={this.state.issues.at(this.state.selectedItem)}/>;
+      issue = <IssueShow issue={this.state.issues.at(this.state.selectedItem)}
+                         project={this.state.project}/>;
     }
 
     return (
