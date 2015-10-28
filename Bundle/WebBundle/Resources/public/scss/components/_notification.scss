@@ -1,3 +1,13 @@
+// This file is part of the Kreta package.
+//
+// (c) Beñat Espiña <benatespina@gmail.com>
+// (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+//
+// For the full copyright and license information, please view the LICENSE
+// file that was distributed with this source code.
+
+@import '../base/colors';
+
 $notification-height: 50px !default;
 
 .notification {
@@ -6,16 +16,17 @@ $notification-height: 50px !default;
   color: $white;
   display: flex;
   height: 0;
+  margin-left: 80px;
   overflow: hidden;
   transition-duration: .5s;
+}
 
-  &.visible {
-    height: $notification-height;
-  }
+.notification--visible {
+  height: $notification-height;
+}
 
-  &.error {
-    background: $main-red;
-  }
+.notification--error {
+  background: $main-red;
 }
 
 .notification-icon {

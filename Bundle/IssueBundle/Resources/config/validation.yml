@@ -13,8 +13,6 @@ Kreta\Component\Issue\Model\Issue:
     properties:
         title:
             - NotBlank: ~
-        type:
-            - NotBlank: ~
         assignee:
             - NotBlank: ~
         priority:

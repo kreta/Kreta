@@ -20,9 +20,17 @@ env:
     - COMPOSER_OPTIONS="--prefer-source"
 
 install:
+    - nvm install 4.1
+    - nvm use 4.1
     - composer update --no-interaction ${COMPOSER_OPTIONS}
+    - cd Bundle/WebBundle
+    - npm install
+    - cd -
 
 script:
+    - cd Bundle/WebBundle
+    - node_modules/.bin/jest --verbose --coverage
+    - cd -
     - bin/phpspec run -fpretty
 
 after_script:

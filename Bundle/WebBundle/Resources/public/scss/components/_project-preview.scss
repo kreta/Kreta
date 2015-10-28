@@ -1,6 +1,17 @@
+// This file is part of the Kreta package.
+//
+// (c) Beñat Espiña <benatespina@gmail.com>
+// (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+//
+// For the full copyright and license information, please view the LICENSE
+// file that was distributed with this source code.
+
+@import '../base/colors';
+
 .project-preview__list {
   max-height: 300px;
   overflow-y: scroll;
+  text-align: left;
 }
 
 .project-preview {
@@ -8,29 +19,6 @@
   display: flex;
   padding: 1em;
   position: relative;
-}
-
-.project-preview__title {
-  color: $main-black;
-  font-size: 1.1em;
-  flex: 1;
-}
-
-.project-preview__shortcuts {
-  opacity: 0;
-}
-
-.project-preview__shortcut {
-  fill: $white;
-  margin: 0 .5em;
-  transition-duration: .2s;
-  height: 25px;
-  width: 25px;
-  opacity: .3;
-
-  &.selected {
-    opacity: 1;
-  }
 }
 
 .project-preview--selected {
@@ -46,4 +34,25 @@
   }
 }
 
+.project-preview__title {
+  color: $main-black;
+  flex: 1;
+  font-size: 1.1em;
+}
 
+.project-preview__shortcuts {
+  opacity: 0;
+}
+
+.project-preview__shortcut {
+  fill: $white;
+  height: 25px;
+  margin: 0 .5em;
+  opacity: .3;
+  transition-duration: .2s;
+  width: 25px;
+}
+
+.project-preview__shortcut--selected {
+  opacity: 1;
+}

@@ -1,0 +1,31 @@
+// This file is part of the Kreta package.
+//
+// (c) Beñat Espiña <benatespina@gmail.com>
+// (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+//
+// For the full copyright and license information, please view the LICENSE
+// file that was distributed with this source code.
+
+@import '../base/colors';
+
+.user-image {
+  background: $main-green;
+  border-radius: 50%;
+  display: inline-block;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  width: 40px;
+}
+
+.user-image--big {
+  height: 70px;
+  line-height: 70px;
+  width: 70px;
+}
+
+.user-image__char {
+  color: $white;
+  font-size: 20px;
+}
+

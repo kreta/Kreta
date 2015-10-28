@@ -43,10 +43,6 @@ Kreta\Component\Project\Model\Project:
             targetEntity: Kreta\Component\Issue\Model\Interfaces\IssueInterface
             mappedBy: project
             cascade: ['persist', 'remove']
-        issueTypes:
-            targetEntity: Kreta\Component\Project\Model\Interfaces\IssueTypeInterface
-            mappedBy: project
-            cascade: ['persist', 'remove']
         labels:
             targetEntity: Kreta\Component\Project\Model\Interfaces\LabelInterface
             mappedBy: project

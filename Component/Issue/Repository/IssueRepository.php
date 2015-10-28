@@ -97,9 +97,8 @@ class IssueRepository extends EntityRepository
     protected function getQueryBuilder()
     {
         return parent::getQueryBuilder()
-            ->addSelect(['a', 't', 'pr', 'p', 'r', 'rep', 's', 'w', 'l'])
+            ->addSelect(['a', 'pr', 'p', 'r', 'rep', 's', 'w', 'l'])
             ->leftJoin('i.assignee', 'a')
-            ->leftJoin('i.type', 't')
             ->leftJoin('i.priority', 'pr')
             ->leftJoin('i.project', 'p')
             ->leftJoin('i.resolution', 'r')

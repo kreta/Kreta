@@ -15,7 +15,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Kreta\Component\Core\Model\Abstracts\AbstractModel;
 use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
 use Kreta\Component\Media\Model\Interfaces\MediaInterface;
-use Kreta\Component\Project\Model\Interfaces\IssueTypeInterface;
 use Kreta\Component\Project\Model\Interfaces\LabelInterface;
 use Kreta\Component\Project\Model\Interfaces\ParticipantInterface;
 use Kreta\Component\Project\Model\Interfaces\IssuePriorityInterface;
@@ -43,13 +42,6 @@ class Project extends AbstractModel implements ProjectInterface
      * @var \Doctrine\Common\Collections\ArrayCollection
      */
     protected $issues;
-
-    /**
-     * Array that contains all the issue types of the project.
-     *
-     * @var \Doctrine\Common\Collections\ArrayCollection
-     */
-    protected $issueTypes;
 
     /**
      * Array that contains labels.
@@ -99,7 +91,6 @@ class Project extends AbstractModel implements ProjectInterface
     public function __construct()
     {
         $this->issues = new ArrayCollection();
-        $this->issueTypes = new ArrayCollection();
         $this->labels = new ArrayCollection();
         $this->participants = new ArrayCollection();
         $this->issuePriorities = new ArrayCollection();
@@ -147,34 +138,6 @@ class Project extends AbstractModel implements ProjectInterface
     public function removeIssue(IssueInterface $issue)
     {
         $this->issues->removeElement($issue);
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getIssueTypes()
-    {
-        return $this->issueTypes;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function addIssueType(IssueTypeInterface $issueType)
-    {
-        $this->issueTypes[] = $issueType;
-
-        return $this;
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function removeIssueType(IssueTypeInterface $issueType)
-    {
-        $this->issueTypes->removeElement($issueType);
 
         return $this;
     }

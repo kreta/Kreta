@@ -1,0 +1,43 @@
+// This file is part of the Kreta package.
+//
+// (c) Beñat Espiña <benatespina@gmail.com>
+// (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+//
+// For the full copyright and license information, please view the LICENSE
+// file that was distributed with this source code.
+
+@import '../../../base/colors';
+
+.issue-show__title {
+  background: $light-grey;
+  color: $main-black;
+  font-size: 1.8em;
+  font-weight: lighter;
+  line-height: 1.3em;
+  margin: 0;
+  padding: 0;
+}
+
+.issue-show__description {
+  background: $light-grey;
+  color: $main-black;
+  font-size: 16px;
+  font-weight: lighter;
+  line-height: 1.3em;
+  margin-top: 30px;
+  max-height: 200px;
+  overflow: hidden;
+}
+
+.issue-show__fields {
+  margin-top: 30px;
+
+  .issue-field {
+    border: 1px solid $main-grey;
+  }
+}
+
+.issue-show__save {
+  margin: 30px 0;
+  text-align: center;
+}

@@ -1,12 +1,13 @@
 <?php
 
 /*
- * This file belongs to Kreta.
- * The source code of application includes a LICENSE file
- * with all information about license.
+ * This file is part of the Kreta package.
  *
- * @author benatespina <benatespina@gmail.com>
- * @author gorkalaucirica <gorka.lauzirika@gmail.com>
+ * (c) Beñat Espiña <benatespina@gmail.com>
+ * (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Kreta\Bundle\WebBundle\Controller;
@@ -18,9 +19,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * Class DefaultController.
+ * Default controller class.
  *
- * @package Kreta\Bundle\WebBundle\Controller
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class DefaultController extends Controller
 {
@@ -41,7 +43,7 @@ class DefaultController extends Controller
             return $this->dashboardAction($event->getResponse());
         }
 
-        return $this->render('KretaWebBundle:Default:index.html.twig');
+        return $this->render('KretaWebBundle::index.html.twig');
     }
 
     /**
@@ -53,6 +55,6 @@ class DefaultController extends Controller
      */
     public function dashboardAction(Response $response)
     {
-        return $this->render('KretaWebBundle:Default:app.html.twig', [], $response);
+        return $this->render('KretaWebBundle::app.html.twig', [], $response);
     }
 }

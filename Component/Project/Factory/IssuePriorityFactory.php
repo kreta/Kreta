@@ -47,9 +47,9 @@ class IssuePriorityFactory
      */
     public function create(ProjectInterface $project, $name)
     {
-        $issueType = new $this->className();
+        $issuePriority = new $this->className();
 
-        return $issueType
+        return $issuePriority
             ->setProject($project)
             ->setName($name);
     }

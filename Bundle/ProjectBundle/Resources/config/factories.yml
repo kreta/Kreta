@@ -6,9 +6,6 @@
 # @author gorkalaucirica <gorka.lauzirika@gmail.com>
 
 services:
-    kreta_project.factory.issue_type:
-        class: %kreta_project.factory_issue_type.class%
-        arguments: [%kreta_project.issue_type.class%]
     kreta_project.factory.label:
         class: %kreta_project.factory_label.class%
         arguments: [%kreta_project.label.class%]

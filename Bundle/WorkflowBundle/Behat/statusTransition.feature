@@ -25,22 +25,6 @@ Feature: Manage status transition
       | id | name           | shortName | creator        | workflow   |
       | 0  | Test project 1 | TPR1      | user@kreta.com | Workflow 1 |
       | 1  | Test project 2 | TPR2      | user@kreta.com | Workflow 2 |
-    And the following issue priorities exist:
-      | id | name    | project        |
-      | 0  | Low     | Test project 1 |
-      | 1  | Medium  | Test project 1 |
-      | 2  | High    | Test project 1 |
-      | 3  | Blocker | Test project 1 |
-      | 4  | Low     | Test project 2 |
-      | 5  | Medium  | Test project 2 |
-    And the following issue types exist:
-      | id | name        | project        |
-      | 0  | Bug         | Test project 1 |
-      | 1  | Epic        | Test project 1 |
-      | 2  | New feature | Test project 1 |
-      | 3  | Bug         | Test project 2 |
-      | 4  | Error       | Test project 2 |
-      | 5  | Story       | Test project 2 |
     And the following statuses exist:
       | id | color   | name        | workflow   |
       | 0  | #27ae60 | Open        | Workflow 1 |
