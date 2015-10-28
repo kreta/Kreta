@@ -16,7 +16,6 @@ $notification-height: 50px !default;
   color: $white;
   display: flex;
   height: 0;
-  margin-left: 80px;
   overflow: hidden;
   transition-duration: .5s;
 }
@@ -29,7 +28,7 @@ $notification-height: 50px !default;
   background: $main-red;
 }
 
-.notification-icon {
+.notification__icon {
   background: rgba($main-black, .2);
   height: $notification-height;
   line-height: $notification-height;
@@ -38,11 +37,11 @@ $notification-height: 50px !default;
   width: $notification-height;
 }
 
-.notification-message {
+.notification__message {
   flex: 1;
 }
 
-.notification-hide {
+.notification__hide {
   cursor: pointer;
   margin: 0 .5em;
 }

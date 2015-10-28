@@ -8,6 +8,8 @@
  * file that was distributed with this source code.
  */
 
+import '../../../scss/layout/_base.scss';
+
 import React from 'react';
 
 import ContentLayout from './ContentLayout.js';
@@ -18,7 +20,7 @@ export default React.createClass({
 
   render() {
     return (
-      <div>
+      <div className="base-layout">
         <NotificationLayout/>
         <MainMenu/>
         <ContentLayout>

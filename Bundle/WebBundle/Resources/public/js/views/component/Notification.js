@@ -38,11 +38,11 @@ export default React.createClass({
 
     return (
       <div className={classes}>
-        <div className="notification-icon">
+        <div className="notification__icon">
           <i className="fa fa-exclamation-circle"></i>
         </div>
-        <p className="notification-message">{this.props.message}</p>
-        <i className="notification-hide fa fa-times"
+        <p className="notification__message">{this.props.message}</p>
+        <i className="notification__hide fa fa-times"
            onClick={this.onCloseClick}></i>
       </div>
     );

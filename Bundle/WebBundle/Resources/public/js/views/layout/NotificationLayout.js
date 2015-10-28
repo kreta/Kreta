@@ -8,6 +8,8 @@
  * file that was distributed with this source code.
  */
 
+import '../../../scss/layout/_notification.scss';
+
 import React from 'react';
 
 import Notification from '../component/Notification.js';

@@ -22,7 +22,9 @@ export default React.createClass({
     });
     return (
       <div className={classes}>
-        {this.props.children}
+        <div className="content__right-content">
+          {this.props.children}
+        </div>
       </div>
     );
   }

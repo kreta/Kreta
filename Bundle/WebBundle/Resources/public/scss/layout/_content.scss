@@ -5,7 +5,6 @@
 //
 // For the full copyright and license information, please view the LICENSE
 // file that was distributed with this source code.
-
 @import '../../scss/base/colors';
 
 $content-width: 900px;
@@ -13,33 +12,40 @@ $content-right-width: 450px;
 $content-transition: .3s;
 
 .content {
-  width: 100%;
+  flex: 1;
+
+  > div {
+    display: flex;
+    height: 100vh;
+  }
 }
 
 .content__middle {
-  margin-left: 90px;
-  padding: 20px calc(50% - #{$content-width / 2});
+  flex: 1;
+  overflow-y: scroll;
   transition-duration: $content-transition;
 }
 
-.content__middle--right-open {
-  padding: 20px calc(50% - #{$content-width / 2} + #{$content-right-width / 2})
-           20px calc(50% - #{$content-width / 2} - #{$content-right-width / 2});
+.content__middle-content {
+  max-width: $content-width;
+  margin: auto;
+  width: 100%;
 }
 
 .content__right {
   background-color: $light-grey;
   border-left: 1px solid $main-grey;
-  bottom: 0;
   box-sizing: border-box;
-  padding: 20px;
-  position: fixed;
-  right: -$content-right-width;
-  top: 0;
-  transition: right $content-transition;
-  width: $content-right-width;
+  overflow-y: scroll;
+  transition: width $content-transition;
+  width: 0;
 }
 
 .content__right--visible {
-  right: 0;
+  width: $content-right-width;
+}
+
+.content__right-content {
+  padding: 20px;
+  width: $content-right-width;
 }

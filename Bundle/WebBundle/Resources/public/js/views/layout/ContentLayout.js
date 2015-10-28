@@ -15,7 +15,7 @@ import React from 'react';
 export default React.createClass({
   render() {
     return (
-      <div id="content">
+      <div className="content">
         {this.props.children}
       </div>
     );
