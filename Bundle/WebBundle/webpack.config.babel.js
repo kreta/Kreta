@@ -14,10 +14,13 @@ import webpack from 'webpack';
 
 import pkg from './package.json';
 
+let buildPath = './../../../../web';
+if (process.argv[4] === '--from-vendor') {
+  buildPath = './../../../../../web'
+}
+
 const SOURCE_PATH = './Resources/public',
-  BUILD_PATH = './../../../../web',
-  LICENSE =
-`${pkg.name} - ${pkg.description}
+  LICENSE = `${pkg.name} - ${pkg.description}
 Authors: ${pkg.authors[0].name} - ${pkg.authors[1].name}
 Url: ${pkg.homepage}
 License: ${pkg.license}`,
@@ -42,7 +45,7 @@ License: ${pkg.license}`,
       ]
     },
     output: {
-      path: `${BUILD_PATH}/js`, filename: '[name].js'
+      path: `${buildPath}/js`, filename: '[name].js'
     },
     module: {
       preLoaders: [

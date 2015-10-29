@@ -29,6 +29,7 @@
   "scripts": {
     "dev": "./node_modules/.bin/webpack --progress --colors",
     "prod": "NODE_ENV=production npm run dev",
+    "prod:deploy": "NODE_ENV=production ./node_modules/.bin/webpack --progress --colors --from-vendor",
     "watch": "npm run dev -- --watch",
     "scss-lint": "./node_modules/.bin/sass-lint -c .sass-lint.yml -q -v",
     "test": "./node_modules/.bin/jest",
