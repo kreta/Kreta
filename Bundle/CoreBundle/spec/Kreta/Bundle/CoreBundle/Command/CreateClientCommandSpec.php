@@ -53,6 +53,8 @@ class CreateClientCommandSpec extends ObjectBehavior
         $container->get('fos_oauth_server.client_manager.default')->shouldBeCalled()->willReturn($clientManager);
         $clientManager->createClient()->shouldBeCalled()->willReturn($client);
 
+        $input->hasArgument('command')->shouldBeCalled()->willReturn(true);
+        $input->getArgument('command')->shouldBeCalled()->willReturn('command');
         $input->bind(Argument::any())->shouldBeCalled();
         $input->isInteractive()->shouldBeCalled()->willReturn(false);
         $input->validate()->shouldBeCalled();
@@ -80,7 +82,7 @@ class CreateClientCommandSpec extends ObjectBehavior
 
         $this->run($input, $output);
     }
-    
+
     function it_generates_client(
         ContainerInterface $container,
         ClientManagerInterface $clientManager,

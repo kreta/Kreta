@@ -57,6 +57,8 @@ class CreateUserCommandSpec extends ObjectBehavior
         $input->isInteractive()->shouldBeCalled()->willReturn(true);
         $input->validate()->shouldBeCalled();
 
+        $input->hasArgument('command')->shouldBeCalled()->willReturn(true);
+        $input->getArgument('command')->shouldBeCalled()->willReturn('command');
         $input->getArgument('email')->shouldBeCalled()->willReturn('kreta@kreta.com');
         $input->getArgument('username')->shouldBeCalled()->willReturn('kreta');
         $input->getArgument('firstName')->shouldBeCalled()->willReturn('Kreta');
