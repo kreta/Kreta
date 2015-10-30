@@ -23,22 +23,22 @@
   text-align: center;
   text-transform: uppercase;
   transition-duration: .3s;
+}
 
-  &.green {
+.button--green {
+  border: 1px solid $main-green;
+  color: $main-green;
+
+  &:hover {
+    background: $main-green;
     border: 1px solid $main-green;
-    color: $main-green;
-
-    &:hover {
-      background: $main-green;
-      border: 1px solid $main-green;
-      color: $white;
-    }
+    color: $white;
   }
+}
 
-  &.small {
-    font-size: .7em;
-    min-width: 0;
-  }
+.button--small {
+  font-size: .7em;
+  min-width: 0;
 }
 
 .button--icon {

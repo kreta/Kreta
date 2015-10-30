@@ -12,6 +12,7 @@ import React from 'react';
 import $ from 'jquery';
 
 import ContentMiddleLayout from '../../layout/ContentMiddleLayout';
+import Button from '../../component/Button.js';
 import {FormSerializerService} from '../../../service/FormSerializer';
 import {NotificationService} from '../../../service/Notification';
 import {Profile} from '../../../models/Profile';
@@ -80,7 +81,7 @@ export default React.createClass({
                    type="file"/>
           </div>
           <div className="spacer-vertical-1">
-            <button className="button green" type="submit">Update</button>
+            <Button color="green" type="submit">Update</Button>
           </div>
         </form>
       </ContentMiddleLayout>

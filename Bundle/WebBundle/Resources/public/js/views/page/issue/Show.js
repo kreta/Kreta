@@ -18,6 +18,7 @@ import UserImage from '../../component/UserImage.js';
 import IssueField from '../../component/IssueField.js';
 import HelpText from '../../component/HelpText.js';
 import Selector from '../../component/Selector.js';
+import Button from '../../component/Button.js';
 import {FormSerializerService} from '../../../service/FormSerializer.js';
 import {NotificationService} from '../../../service/Notification.js';
 
@@ -115,15 +116,15 @@ export default React.createClass({
     const options = this.getProjectOptions();
     let saveButton = <HelpText text="You can change issue details inline"/>;
     if(this.state.issueChanged) {
-      saveButton = <button className="button green" type="submit">Save changes</button>;
+      saveButton = <Button color="green" type="submit">Done</Button>;
     }
     const allowedTransitions = this.state.issue.getAllowedTransitions().map((transition, index) => {
       return (
-        <button className="button green"
+        <Button color="green"
                 key={index}
                 onClick={this.doTransition.bind(this, transition.id)}>
           {transition.name}
-        </button>
+        </Button>
       );
     });
     return (

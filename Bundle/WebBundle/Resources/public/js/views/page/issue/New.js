@@ -21,6 +21,7 @@ import ContentMiddleLayout from '../../layout/ContentMiddleLayout.js';
 import Selector from '../../component/Selector.js';
 import IssueField from '../../component/IssueField.js';
 import UserImage from '../../component/UserImage.js';
+import Button from '../../component/Button.js';
 
 export default React.createClass({
   getInitialState() {
@@ -156,10 +157,7 @@ export default React.createClass({
             </Selector>
           </div>
           <div className="issue-new__actions">
-            <button className="button green"
-                    tabIndex="6"
-                    type="submit">Done
-            </button>
+            <Button color="green" tabIndex="6" type="submit">Done</Button>
           </div>
         </form>
       </ContentMiddleLayout>

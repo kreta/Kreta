@@ -18,6 +18,7 @@ import {Project} from '../../../models/Project';
 import {FormSerializerService} from '../../../service/FormSerializer';
 import {NotificationService} from '../../../service/Notification.js';
 import ContentMiddleLayout from '../../layout/ContentMiddleLayout.js';
+import Button from '../../component/Button.js';
 
 export default React.createClass({
   mixins: [History],
@@ -58,11 +59,11 @@ export default React.createClass({
                  tabIndex="2"
                  type="text"/>
           <div className="issue-new__actions">
-            <button className="button green"
+            <Button color="green"
                     tabIndex="3"
                     type="submit">
               Done
-            </button>
+            </Button>
           </div>
         </form>
       </ContentMiddleLayout>

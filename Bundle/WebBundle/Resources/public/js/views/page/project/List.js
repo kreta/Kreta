@@ -14,6 +14,7 @@ import $ from 'jquery';
 
 import NavigableCollection from '../../../mixins/NavigableCollection.js';
 import ProjectPreview from '../../component/ProjectPreview';
+import Button from '../../component/Button.js';
 
 export default React.createClass({
   propTypes: {
@@ -105,10 +106,10 @@ export default React.createClass({
             <span className="simple-header-filter">Sort by <strong>priority</strong></span>
           </div>
           <div className="simple-header-actions">
-            <button className="button green small"
+            <Button color="green" size="small"
                     onClick={this.goToNewProjectPage}>
               New
-            </button>
+            </Button>
           </div>
         </div>
         <input className="project-list__filter"

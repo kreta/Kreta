@@ -14,6 +14,7 @@ import React from 'react';
 import $ from 'jquery';
 
 import UserPreview from '../../component/UserPreview';
+import Button from '../../component/Button.js';
 import {Config} from '../../../Config.js';
 import {NotificationService} from '../../../service/Notification.js';
 
@@ -43,10 +44,11 @@ export default React.createClass({
     const notParticipating = this.props.project.getNotParticipating()
       .map((user, index) => {
         const actions = (
-          <button className="button green button--icon"
+          <Button color="green"
+                  type="icon"
                   onClick={this.addParticipant.bind(this, index)}>
             <i className="fa fa-plus"></i>
-          </button>
+          </Button>
         );
 
         return (

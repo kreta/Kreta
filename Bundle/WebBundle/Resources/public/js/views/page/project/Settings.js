@@ -13,10 +13,12 @@ import '../../../../scss/views/page/project/_settings.scss';
 import React from 'react';
 
 import UserPreview from '../../component/UserPreview';
+import Button from '../../component/Button.js';
 import ContentMiddleLayout from '../../layout/ContentMiddleLayout.js';
 import ContentRightLayout from '../../layout/ContentRightLayout.js';
 import SettingsParticipants from './SettingsParticipants.js';
 import ProjectEdit from './Edit.js';
+
 
 export default React.createClass({
   getInitialState() {
@@ -59,11 +61,10 @@ export default React.createClass({
               in this project
               </h3>
               <div className="section-header-actions">
-                <a className="button green"
-                href="#"
-                onClick={this.showNotParticipantingList}>
-                Add people
-                </a>
+                <Button color="green"
+                  onClick={this.showNotParticipantingList}>
+                  Add people
+                </Button>
               </div>
             </div>
             <div className="project-settings__participants">
