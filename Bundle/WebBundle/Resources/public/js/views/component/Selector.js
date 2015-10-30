@@ -29,12 +29,14 @@ export default React.createClass({
   mixins: [NavigableCollection],
   componentWillMount() {
     this.setState({
-      selectedValue: this.props.value
+      selectedValue: this.props.value,
+      filter: ''
     });
   },
   componentWillReceiveProps(nextProps) {
     this.setState({
-      selectedValue: nextProps.value
+      selectedValue: nextProps.value,
+      filter: ''
     });
   },
   getElementByValue(value) {
@@ -47,12 +49,16 @@ export default React.createClass({
     return found;
   },
   openDropdown() {
-    if(this.props.disabled === true) {
+    if (this.props.disabled) {
       return;
     }
     this.setState({
-      dropdownVisible: true
+      dropdownVisible: true,
+      filter: ''
     });
+
+    this.refs.filter.value = '';
+
     setTimeout(() => { // Wait render to focus
       this.refs.filter.focus();
     }, 200);
@@ -64,12 +70,12 @@ export default React.createClass({
   },
   selectOption(index) {
     this.setState({
-      selectedValue: this.props.children[index].props.value,
-      dropdownVisible: false
+      selectedValue: this.filteredValues[index]
     });
+    this.closeDropdown();
     this.goToNextTabIndex();
     if (this.props.onChange) {
-      this.props.onChange(this.state.selectedValue, this.props.name);
+      this.props.onChange(this.filteredValues[index], this.props.name);
     }
   },
   highlightItem(index) {
@@ -77,23 +83,32 @@ export default React.createClass({
       selectedItem: index
     });
   },
-  filter(ev) {
+  keyboardSelected(ev) {
     if (ev.which === 13 || ev.which === 9) { // Enter or tab
+      // Prevent submiting form
       ev.stopPropagation();
       ev.preventDefault();
       this.selectOption(this.state.selectedItem);
     }
   },
+  filter() {
+    this.setState({
+      filter: this.refs.filter.value,
+      selectedItem: 0
+    });
+  },
   goToNextTabIndex() {
     $(`[tabindex="${parseInt(this.props.tabIndex, 10) + 1}"]`).focus();
   },
-  render() {
-    const dropdownClasses = classnames(
-      'selector__dropdown',
-      {'selector__dropdown--open': this.state.dropdownVisible}
-    ),
-    selectedElement = this.getElementByValue(this.state.selectedValue),
-    children = this.props.children.map((child, index) => {
+  getFilteredOptions() {
+    // Keeps filtered values in memory to select correct item
+    this.filteredValues = [];
+
+    return this.props.children.filter((child) => {
+      return !(this.state.filter !== '' && child.props.text &&
+      child.props.text.toLowerCase().indexOf(this.state.filter.toLowerCase()) === -1);
+    }).map((child, index) => {
+      this.filteredValues.push(child.props.value);
       return React.cloneElement(child, {
         selected: this.state.selectedItem === index,
         fieldSelected: this.selectOption.bind(this, index),
@@ -101,6 +116,13 @@ export default React.createClass({
         key: index
       });
     });
+  },
+  render() {
+    const dropdownClasses = classnames(
+        'selector__dropdown',
+        {'selector__dropdown--open': this.state.dropdownVisible}
+      ),
+      selectedElement = this.getElementByValue(this.state.selectedValue);
 
     return (
       <div className="selector"
@@ -111,18 +133,20 @@ export default React.createClass({
                ref="value"
                type="hidden"
                value={this.state.selectedValue}/>
-        <div className="selector__selected" onClick={this.openDropdown}>
+
+        <div className="selector__selected" onMouseUp={this.openDropdown}>
           {selectedElement}
         </div>
 
         <div className={dropdownClasses}>
           <input className="selector__filter"
-                 onKeyDown={this.filter}
+                 onChange={this.filter}
+                 onKeyDown={this.keyboardSelected}
                  ref="filter"
                  type="text"/>
 
           <div className="selector__options" ref="navigableList">
-            {children}
+            {this.getFilteredOptions()}
           </div>
         </div>
       </div>
