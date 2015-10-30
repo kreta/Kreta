@@ -50,7 +50,7 @@ export default React.createClass({
 
     return (
       <div>
-        <ContentMiddleLayout rightOpen={this.state.userSelectorVisible}>
+        <ContentMiddleLayout>
           <ProjectEdit project={this.state.project}/>
           <section className="spacer-vertical-1">
             <div className="section-header">

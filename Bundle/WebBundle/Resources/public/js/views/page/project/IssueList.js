@@ -23,10 +23,10 @@ import PageHeader from '../../component/PageHeader.js';
 export default React.createClass({
   getInitialState() {
     return {
-      project: null,
+      fetchingIssues: true,
       filters: [],
       issues: [],
-      fetchingIssues: true
+      project: null
     };
   },
   mixins: [NavigableCollection],
@@ -46,9 +46,10 @@ export default React.createClass({
     project.on('change', this.loadFilters);
 
     this.setState({
-      project,
+      fetchingIssues: true,
       issues: [],
-      fetchingIssues: true
+      project,
+      selectedItem: 0
     });
 
     this.collection = new IssueCollection();
@@ -59,8 +60,9 @@ export default React.createClass({
   },
   issuesUpdated(data) {
     this.setState({
+      fetchingIssues: false,
       issues: data,
-      fetchingIssues: false
+      selectedItem: 0
     });
   },
   filterIssues(filters) {
@@ -156,7 +158,7 @@ export default React.createClass({
 
     return (
       <div>
-        <ContentMiddleLayout rightOpen={true}>
+        <ContentMiddleLayout>
           <PageHeader image="" links={links} title={this.state.project.get('name')}/>
           <Filter filters={this.state.filters} onFilterSelected={this.filterIssues}/>
 
@@ -164,7 +166,7 @@ export default React.createClass({
             {this.state.fetchingIssues ? 'Loading...' : issuesEl}
           </div>
         </ContentMiddleLayout>
-        <ContentRightLayout open={true}>
+        <ContentRightLayout open={issue !== ''}>
           {issue}
         </ContentRightLayout>
       </div>
