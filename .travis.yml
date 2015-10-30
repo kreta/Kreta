@@ -20,8 +20,8 @@ env:
     - COMPOSER_OPTIONS="--prefer-source"
 
 install:
-    - nvm install 4.1
-    - nvm use 4.1
+    - nvm install 4.2.1
+    - nvm use 4.2.1
     - composer update --no-interaction ${COMPOSER_OPTIONS}
     - cd Bundle/WebBundle
     - npm install
@@ -45,6 +45,3 @@ matrix:
     allow_failures:
         - php: 7.0
         - php: hhvm
-    include:
-        - php: 5.4
-          env: COMPOSER_OPTIONS="--prefer-lowest"
