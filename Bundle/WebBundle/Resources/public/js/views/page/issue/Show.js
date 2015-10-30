@@ -50,6 +50,13 @@ export default React.createClass({
       issueChanged: true
     });
   },
+  doTransition(id) {
+    this.state.issue.doTransition(id, {
+      success : (data) => {
+        this.setState({issue: this.state.issue.set(data)});
+      }
+    });
+  },
   getProjectOptions() {
     var project = App.collection.project.get(this.props.project.id);
     if(!project) {
@@ -110,6 +117,14 @@ export default React.createClass({
     if(this.state.issueChanged) {
       saveButton = <button className="button green" type="submit">Save changes</button>;
     }
+    const allowedTransitions = this.state.issue.getAllowedTransitions().map((transition) => {
+      return (
+        <button className="button green"
+                onClick={this.doTransition.bind(this, transition.id)}>
+          {transition.name}
+        </button>
+      );
+    });
     return (
       <form className="issue-show"
             onSubmit={this.save}
@@ -121,7 +136,7 @@ export default React.createClass({
                onChange={this.updateInput}
                value={issue.title}/>
         <section className="full-issue-transitions">
-
+          {allowedTransitions}
         </section>
         <section className="issue-show__fields">
           <Selector disabled={true}
