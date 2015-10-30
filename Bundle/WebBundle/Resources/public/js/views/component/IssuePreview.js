@@ -13,6 +13,8 @@ import classnames from 'classnames';
 
 import '../../../scss/components/_issue-preview.scss';
 
+import UserImage from '../component/UserImage.js';
+
 export default React.createClass({
   render() {
     const classes = classnames({
@@ -35,8 +37,7 @@ export default React.createClass({
           <span data-tooltip-text={`
               ${this.props.issue.get('assignee').first_name}
               ${this.props.issue.get('assignee').last_name}`}>
-            <img className="user-image"
-                 src={this.props.issue.get('assignee').photo.name }/>
+            <UserImage user={this.props.issue.get('assignee')}/>
           </span>
         </div>
       </div>

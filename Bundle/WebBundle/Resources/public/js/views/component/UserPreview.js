@@ -12,14 +12,15 @@ import '../../../scss/components/_user-preview.scss';
 
 import React from 'react';
 
+import UserImage from '../component/UserImage.js';
+
 export default React.createClass({
   render() {
     const user = this.props.user;
 
     return (
       <div className="user-preview">
-        <img className="user-preview__image user-image"
-             src={user.photo.name}/>
+        <UserImage user={user}/>
 
         <div className="user-preview__container">
               <span className="user-preview__header">

@@ -16,14 +16,17 @@ export default React.createClass({
     user: React.PropTypes.object.isRequired
   },
   render() {
-    if (false) {
+    if (this.props.user.photo) {
       return (
         <img className="user-image" src={this.props.user.photo.name}/>
       );
     } else {
       return (
         <div className="user-image user-image--has-char">
-          <span className="user-image__char">{this.props.user.first_name.charAt(0)}</span>
+          <span className="user-image__char">
+            {this.props.user.first_name.charAt(0)}
+            {this.props.user.last_name.charAt(0)}
+          </span>
         </div>
       )
     }
