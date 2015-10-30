@@ -11,7 +11,7 @@
 import './../../../../scss/views/page/issue/_show.scss';
 
 import React from 'react';
-import $ from 'jQuery';
+import $ from 'jquery';
 
 import {Issue} from '../../../models/Issue.js';
 import UserImage from '../../component/UserImage.js';
