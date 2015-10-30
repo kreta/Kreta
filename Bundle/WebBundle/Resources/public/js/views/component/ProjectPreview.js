@@ -9,11 +9,8 @@
  */
 
 import './../../../scss/components/_project-preview.scss';
-import addIcon from './../../../svg/add.svg';
-import listIcon from './../../../svg/list.svg';
 
 import React from 'react';
-import {Link} from 'react-router';
 import classNames from 'classnames';
 
 export default React.createClass({
@@ -21,6 +18,7 @@ export default React.createClass({
     onMouseEnter: React.PropTypes.func,
     onShortcutClick: React.PropTypes.func,
     onShortcutEnter: React.PropTypes.func,
+    onTitleClick: React.PropTypes.func,
     project: React.PropTypes.object.isRequired,
     selected: React.PropTypes.bool,
     selectedShortcut: React.PropTypes.number,
@@ -46,9 +44,9 @@ export default React.createClass({
     });
     return (
       <div className={ classes } onMouseEnter={ this.props.onMouseEnter }>
-        <Link className="project-preview__title" to={`/project/${this.props.project.id}`}>
+        <div className="project-preview__title" onClick={this.props.onTitleClick}>
           {this.props.project.get('name')}
-        </Link>
+        </div>
 
         <div className="project-preview__shortcuts">
           {shortcutItems}

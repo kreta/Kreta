@@ -9,7 +9,7 @@
  */
 
 import React from 'react';
-import {Link, History} from 'react-router';
+import {History} from 'react-router';
 import $ from 'jquery';
 
 import NavigableCollection from '../../../mixins/NavigableCollection.js';
@@ -54,7 +54,7 @@ export default React.createClass({
       }
     } else if (ev.which === 13) { // Enter
       this.onShortcutClick();
-    } else if(ev.which !== 38 && ev.which !== 40) { // Filter
+    } else if (ev.which !== 38 && ev.which !== 40) { // Filter
       this.setState({
         projects: App.collection.project.filter(this.refs.filter.value),
         selectedItem: 0
@@ -76,6 +76,11 @@ export default React.createClass({
     this.history.pushState(null, this.props.shortcuts[this.state.selectedShortcut].path + projectId);
     this.props.onProjectSelected();
   },
+  onTitleClick() {
+    const projectId = this.state.projects.at(this.state.selectedItem).id;
+    this.history.pushState(null, this.props.shortcuts[0].path + projectId);
+    this.props.onProjectSelected();
+  },
   goToNewProjectPage() {
     this.history.pushState(null, '/project/new');
     this.props.onProjectSelected();
@@ -86,6 +91,7 @@ export default React.createClass({
                              onMouseEnter={this.onMouseEnter}
                              onShortcutClick={this.onShortcutClick}
                              onShortcutEnter={this.onShortcutSelected}
+                             onTitleClick={this.onTitleClick}
                              project={project}
                              selected={this.state.selectedItem === index}
                              selectedShortcut={this.state.selectedShortcut}
