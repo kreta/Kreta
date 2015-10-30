@@ -117,9 +117,10 @@ export default React.createClass({
     if(this.state.issueChanged) {
       saveButton = <button className="button green" type="submit">Save changes</button>;
     }
-    const allowedTransitions = this.state.issue.getAllowedTransitions().map((transition) => {
+    const allowedTransitions = this.state.issue.getAllowedTransitions().map((transition, index) => {
       return (
         <button className="button green"
+                key={index}
                 onClick={this.doTransition.bind(this, transition.id)}>
           {transition.name}
         </button>
