@@ -30,6 +30,7 @@ export default React.createClass({
         'issue-field--selected': this.props.selected
       }
     );
+
     return (
       <div className={classes}
            onMouseUp={this.props.fieldSelected}
