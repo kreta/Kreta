@@ -1,13 +1,14 @@
 #Kreta
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/c744caca-06bb-4b7f-9e0d-96282f4e8469/mini.png)](https://insight.sensiolabs.com/projects/c744caca-06bb-4b7f-9e0d-96282f4e8469)
 [![Build Status](https://travis-ci.org/kreta/kreta.svg?branch=master)](https://travis-ci.org/kreta/kreta)
-[![Coverage Status](https://img.shields.io/coveralls/kreta/kreta.svg)](https://coveralls.io/r/kreta/kreta)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/kreta/kreta/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/kreta/kreta/?branch=master)
 [![Total Downloads](https://poser.pugx.org/kreta/kreta/downloads)](https://packagist.org/packages/kreta/kreta)
 [![Latest Stable Version](https://poser.pugx.org/kreta/kreta/v/stable.svg)](https://packagist.org/packages/kreta/kreta)
 [![Latest Unstable Version](https://poser.pugx.org/kreta/kreta/v/unstable.svg)](https://packagist.org/packages/kreta/kreta)
 
-Kreta is a package of components and bundles focused on **project management**, built on top of *Symfony*.
+Kreta is a set of components and bundles focused on **project management** for **PHP**, based on the
+**[Symfony][9]** framework. It has a very rich front-end that it is developed with the
+**[Backbone.js][10]** + **[React.js][11]** stuff and designed with [Sass][12].
 
 Also, Kreta provides an **[standard edition][1]** that is a fully functional web application that shows in an easy
 way all the possibilities of the platform.
@@ -16,13 +17,11 @@ Kreta is developed following the decoupling and reuse principles so, it provides
 in [kreta-plugins][2].
 
 ##Tests
-This repository is completely tested by **[PHPSpec][3], SpecBDD framework for PHP**.
+This repository is completely tested following *BDD* methodology with **[PHPSpec][3]** and **[Behat][13]**,
+SpecBDD and StoryBDD frameworks for PHP. Also, the JavaScript code is tested following the *Swallow Rendering*
+methodology with **[Jest][14]**.
 
-Because you want to contribute or simply because you want to throw the tests, you have to type the following command
-in your terminal.
-```
-$ vendor/bin/phpspec run -fpretty
-```
+[![Coverage Status](https://img.shields.io/coveralls/kreta/kreta.svg)](https://coveralls.io/r/kreta/kreta)
 ##Contributing
 This project follows PHP coding standards, so pull requests need to execute the Fabien Potencier's [PHP-CS-Fixer][4]
 and Marc Morera's [PHP-Formatter][5]. Furthermore, if the PR creates some not-PHP file remember that you have to put
@@ -60,3 +59,9 @@ Kreta is created by:
 [6]: http://symfony.com/doc/current/contributing/code/index.html
 [7]: http://symfony.com/doc/current/contributing/code/patches.html#check-list
 [8]: http://symfony.com/doc/current/contributing/code/patches.html#make-a-pull-request
+[9]: http://symfony.com/
+[10]: http://backbonejs.org/
+[11]: https://facebook.github.io/react/
+[12]: http://sass-lang.com/
+[13]: http://docs.behat.org/en/latest/
+[14]:https://facebook.github.io/jest/

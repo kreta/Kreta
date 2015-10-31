@@ -32,10 +32,10 @@ script:
     - cd Bundle/WebBundle
     - node_modules/.bin/jest --verbose --coverage
     - cd -
-    - bin/phpspec run -fpretty
+    - vendor/bin/phpspec run -fpretty
 
 after_script:
-    - bin/coveralls -v
+    - vendor/bin/coveralls -v
 
 cache:
     directories:
