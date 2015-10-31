@@ -9,62 +9,47 @@
 suites:
     CoreBundle:
         namespace: Kreta
-        spec_path: Bundle/CoreBundle
+        spec_path: src/Kreta/Bundle/CoreBundle
     IssueBundle:
         namespace: Kreta
-        spec_path: Bundle/IssueBundle
+        spec_path: src/Kreta/Bundle/IssueBundle
     MediaBundle:
         namespace: Kreta
-        spec_path: Bundle/MediaBundle
+        spec_path: src/Kreta/Bundle/MediaBundle
     NotificationBundle:
         namespace: Kreta
-        spec_path: Bundle/NotificationBundle
+        spec_path: src/Kreta/Bundle/NotificationBundle
     UserBundle:
         namespace: Kreta
-        spec_path: Bundle/UserBundle
+        spec_path: src/Kreta/Bundle/UserBundle
     ProjectBundle:
         namespace: Kreta
-        spec_path: Bundle/ProjectBundle
+        spec_path: src/Kreta/Bundle/ProjectBundle
     WebBundle:
         namespace: Kreta
-        spec_path: Bundle/WebBundle
+        spec_path: src/Kreta/Bundle/WebBundle
     WorkflowBundle:
         namespace: Kreta
-        spec_path: Bundle/WorkflowBundle
+        spec_path: src/Kreta/Bundle/WorkflowBundle
 
     CoreComponent:
         namespace: Kreta
-        spec_path: Component/Core
+        spec_path: src/Kreta/Component/Core
     IssueComponent:
         namespace: Kreta
-        spec_path: Component/Issue
+        spec_path: src/Kreta/Component/Issue
     MediaComponent:
         namespace: Kreta
-        spec_path: Component/Media
+        spec_path: src/Kreta/Component/Media
     ProjectComponent:
         namespace: Kreta
-        spec_path: Component/Project
+        spec_path: src/Kreta/Component/Project
     UserComponent:
         namespace: Kreta
-        spec_path: Component/User
+        spec_path: src/Kreta/Component/User
     NotificationComponent:
         namespace: Kreta
-        spec_path: Component/Notification
+        spec_path: src/Kreta/Component/Notification
     WorkflowComponent:
         namespace: Kreta
-        spec_path: Component/Workflow
-
-extensions:
-    - PhpSpec\Extension\CodeCoverageExtension
-
-code_coverage:
-    blacklist:
-        - ./**/**/Behat
-        - ./**/**/spec
-        - ./**/**/Stubs
-    format:
-        - html
-        - clover
-    output:
-        html: coverage
-        clover: phpspec-coverage.xml
+        spec_path: src/Kreta/Component/Workflow

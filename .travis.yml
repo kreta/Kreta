@@ -8,6 +8,10 @@
 
 sudo: false
 
+addons:
+    hosts:
+        - kreta.test
+
 language: php
 
 php:
