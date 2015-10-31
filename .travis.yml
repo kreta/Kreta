@@ -30,11 +30,11 @@ install:
     - cd -
 
 before_script:
-    - app/console doctrine:database:create --env=test
-    - app/console doctrine:schema:create --env=test
-    - app/console cache:warmup --env=test
+    - tests/functional/fixtures/app/console doctrine:database:create --env=test
+    - tests/functional/fixtures/app/console doctrine:schema:create --env=test
+    - tests/functional/fixtures/app/console cache:warmup --env=test
 
-    - app/console assets:install --relative
+    - tests/functional/fixtures/app/console assets:install --relative
     - cd src/Kreta/Bundle/WebBundle
     - npm run dev
     - cd -
