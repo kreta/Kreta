@@ -1,23 +1,22 @@
 <?php
 
 /*
- * This file belongs to Kreta.
- * The source code of application includes a LICENSE file
- * with all information about license.
+ * This file is part of the Kreta package.
  *
- * @author benatespina <benatespina@gmail.com>
- * @author gorkalaucirica <gorka.lauzirika@gmail.com>
+ * (c) Beñat Espiña <benatespina@gmail.com>
+ * (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Kreta\Bundle\CoreBundle\DependencyInjection\Loader;
 
-use Symfony\Component\Yaml\Parser;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader as BaseYamlFileLoader;
+use Symfony\Component\Yaml\Parser;
 
 /**
  * Class YamlFileLoader.
- *
- * @package Kreta\Bundle\CoreBundle\DependencyInjection\Loader
  */
 class YamlFileLoader extends BaseYamlFileLoader
 {
@@ -25,8 +24,6 @@ class YamlFileLoader extends BaseYamlFileLoader
      * Loads all YAML files from directory.
      *
      * @param string $path Path for resources
-     *
-     * @return void
      */
     public function loadFilesFromDirectory($path)
     {
@@ -47,7 +44,7 @@ class YamlFileLoader extends BaseYamlFileLoader
      * @param string $file        Path for search content
      * @param array  $searchTerms Array which contains terms for search
      *
-     * @return boolean
+     * @return bool
      */
     protected function existInFile($file, array $searchTerms)
     {

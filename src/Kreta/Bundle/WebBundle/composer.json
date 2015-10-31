@@ -1,7 +1,14 @@
 {
     "name": "kreta/web-bundle",
     "description": "Kreta web bundle",
-    "keywords": ["project", "manager", "development", "tool", "web", "bundle"],
+    "keywords": [
+        "project",
+        "manager",
+        "development",
+        "tool",
+        "web",
+        "bundle"
+    ],
     "homepage": "http://kreta.io",
     "license": "MIT",
     "type": "symfony-bundle",
@@ -18,16 +25,15 @@
         }
     ],
     "require": {
-        "php":                           ">=5.4",
-
-        "kreta/issue-bundle":            "^0.3.0",
-        "kreta/media-bundle":            "^0.3.0",
-        "kreta/notification-bundle":     "^0.3.0",
-        "kreta/project-bundle":          "^0.3.0",
-        "kreta/user-bundle":             "^0.3.0"
+        "php":                       ">=5.4",
+        "kreta/issue-bundle":        "^0.4.0",
+        "kreta/media-bundle":        "^0.4.0",
+        "kreta/notification-bundle": "^0.4.0",
+        "kreta/project-bundle":      "^0.4.0",
+        "kreta/user-bundle":         "^0.4.0"
     },
     "require-dev": {
-        "phpspec/phpspec":               "^2.3"
+        "phpspec/phpspec":           "^2.3"
     },
     "autoload": {
         "psr-4": {
@@ -36,12 +42,12 @@
     },
     "autoload-dev": {
         "psr-4": {
-            "Kreta\\Bundle\\WebBundle\\spec\\": "spec"
+            "Kreta\\Bundle\\WebBundle\\spec\\": "spec/"
         }
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "0.3-dev"
+            "dev-master": "0.4-dev"
         }
     }
 }

@@ -1,12 +1,13 @@
 <?php
 
 /*
- * This file belongs to Kreta.
- * The source code of application includes a LICENSE file
- * with all information about license.
+ * This file is part of the Kreta package.
  *
- * @author benatespina <benatespina@gmail.com>
- * @author gorkalaucirica <gorka.lauzirika@gmail.com>
+ * (c) Beñat Espiña <benatespina@gmail.com>
+ * (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace spec\Kreta\Component\Project\Form\Handler;
@@ -14,8 +15,8 @@ namespace spec\Kreta\Component\Project\Form\Handler;
 use Doctrine\Common\Persistence\ObjectManager;
 use Kreta\Component\Media\Factory\MediaFactory;
 use Kreta\Component\Media\Model\Interfaces\MediaInterface;
-use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Media\Uploader\MediaUploader;
+use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\Form\FormBuilderInterface;

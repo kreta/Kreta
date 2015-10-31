@@ -34,6 +34,8 @@ install:
     - cd -
 
 before_script:
+    - if [[ "$TRAVIS_PHP_VERSION" == '5.4' ]]; then composer require ircmaxell/password-compat -n ; fi
+
     - cd tests/functional/fixtures
 
     - app/console doctrine:database:create --env=test
@@ -65,8 +67,6 @@ script:
     - vendor/bin/behat --stop-on-failure --suite=user
     - vendor/bin/behat --stop-on-failure --suite=invitation
     - vendor/bin/behat --stop-on-failure --suite=profile
-    - vendor/bin/behat --stop-on-failure --suite=comment
-    - vendor/bin/behat --stop-on-failure --suite=vcs
     - vendor/bin/behat --stop-on-failure --suite=issue
     - vendor/bin/behat --stop-on-failure --suite=label
     - vendor/bin/behat --stop-on-failure --suite=participant
@@ -74,7 +74,6 @@ script:
     - vendor/bin/behat --stop-on-failure --suite=project
     - vendor/bin/behat --stop-on-failure --suite=status
     - vendor/bin/behat --stop-on-failure --suite=statusTransition
-    - vendor/bin/behat --stop-on-failure --suite=timeEntry
     - vendor/bin/behat --stop-on-failure --suite=workflow
 
 after_script:

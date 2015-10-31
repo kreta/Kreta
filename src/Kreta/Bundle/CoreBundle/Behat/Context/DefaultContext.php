@@ -1,12 +1,13 @@
 <?php
 
 /*
- * This file belongs to Kreta.
- * The source code of application includes a LICENSE file
- * with all information about license.
+ * This file is part of the Kreta package.
  *
- * @author benatespina <benatespina@gmail.com>
- * @author gorkalaucirica <gorka.lauzirika@gmail.com>
+ * (c) Beñat Espiña <benatespina@gmail.com>
+ * (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Kreta\Bundle\CoreBundle\Behat\Context;
@@ -18,8 +19,6 @@ use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 
 /**
  * Class DefaultContext.
- *
- * @package Kreta\Bundle\CoreBundle\Behat\Context
  */
 class DefaultContext extends RawMinkContext implements KernelAwareContext
 {
@@ -28,7 +27,6 @@ class DefaultContext extends RawMinkContext implements KernelAwareContext
     /**
      * Method that allows to purge database before load the scenario.
      *
-     * @return void
      *
      * @BeforeScenario
      */
@@ -71,8 +69,6 @@ class DefaultContext extends RawMinkContext implements KernelAwareContext
      *
      * @param Object $object The object that will be set
      * @param string $id     The id
-     *
-     * @return void
      */
     public function setId($object, $id)
     {
@@ -87,8 +83,6 @@ class DefaultContext extends RawMinkContext implements KernelAwareContext
      * @param Object $object The object that will be set
      * @param string $field  The field
      * @param mixed  $value  The value
-     *
-     * @return void
      */
     public function setField($object, $field, $value)
     {

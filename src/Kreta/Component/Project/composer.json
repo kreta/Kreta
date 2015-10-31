@@ -1,7 +1,13 @@
 {
     "name": "kreta/project",
     "description": "Kreta project component",
-    "keywords": ["project", "manager", "development", "tool", "component"],
+    "keywords": [
+        "project",
+        "manager",
+        "development",
+        "tool",
+        "component"
+    ],
     "homepage": "http://kreta.io",
     "license": "MIT",
     "type": "library",
@@ -18,26 +24,26 @@
         }
     ],
     "require": {
-        "php":                                 ">=5.4",
-
-        "kreta/user":                          "~0.3.0",
-        "kreta/workflow":                      "~0.3.0"
+        "php":             ">=5.4",
+        "kreta/user":      "^0.4.0",
+        "kreta/workflow":  "^0.4.0"
     },
     "require-dev": {
-        "phpspec/phpspec":                     "~2.2"
+        "phpspec/phpspec": "^2.3"
     },
     "autoload": {
-        "psr-4": { "Kreta\\Component\\Project\\": "" }
+        "psr-4": {
+            "Kreta\\Component\\Project\\": ""
+        }
     },
     "autoload-dev": {
-        "psr-4": { "Kreta\\Component\\Project\\spec\\": "spec"}
-    },
-    "config": {
-        "bin-dir": "bin"
+        "psr-4": {
+            "Kreta\\Component\\Project\\spec\\": "spec/"
+        }
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "0.3-dev"
+            "dev-master": "0.4-dev"
         }
     }
 }

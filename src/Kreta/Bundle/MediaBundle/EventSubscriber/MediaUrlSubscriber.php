@@ -1,12 +1,13 @@
 <?php
 
 /*
- * This file belongs to Kreta.
- * The source code of application includes a LICENSE file
- * with all information about license.
+ * This file is part of the Kreta package.
  *
- * @author benatespina <benatespina@gmail.com>
- * @author gorkalaucirica <gorka.lauzirika@gmail.com>
+ * (c) Beñat Espiña <benatespina@gmail.com>
+ * (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Kreta\Bundle\MediaBundle\EventSubscriber;
@@ -18,8 +19,6 @@ use Symfony\Bundle\FrameworkBundle\Routing\Router;
 
 /**
  * Class MediaUrlSubscriber.
- *
- * @package Kreta\Bundle\MediaBundle\EventSubscriber
  */
 class MediaUrlSubscriber implements EventSubscriberInterface
 {
@@ -76,7 +75,7 @@ class MediaUrlSubscriber implements EventSubscriberInterface
     public static function getSubscribedEvents()
     {
         return [
-            ['event' => 'serializer.pre_serialize', 'method' => 'onChangeObjectMedia']
+            ['event' => 'serializer.pre_serialize', 'method' => 'onChangeObjectMedia'],
         ];
     }
 
@@ -85,8 +84,6 @@ class MediaUrlSubscriber implements EventSubscriberInterface
      * turning the name of the media into the absolute url.
      *
      * @param \JMS\Serializer\EventDispatcher\ObjectEvent $event The event
-     *
-     * @return void
      */
     public function onChangeObjectMedia(ObjectEvent $event)
     {

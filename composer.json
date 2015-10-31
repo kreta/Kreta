@@ -98,10 +98,8 @@
         "cs": [
             "php-cs-fixer fix --config-file=.php_cs",
             "php-cs-fixer fix --config-file=.phpspec_cs",
-            "php-formatter f:h:f src",
-            "php-formatter f:h:f spec",
-            "php-formatter f:u:s src",
-            "php-formatter f:u:s spec"
+            "php-formatter f:h:f src/Kreta",
+            "php-formatter f:u:s src/Kreta"
         ],
         "test": "phpspec run"
     },

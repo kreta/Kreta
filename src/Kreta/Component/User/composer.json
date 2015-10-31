@@ -1,7 +1,14 @@
 {
     "name": "kreta/user",
     "description": "Kreta user component",
-    "keywords": ["project", "manager", "development", "tool", "user", "component"],
+    "keywords": [
+        "project",
+        "manager",
+        "development",
+        "tool",
+        "user",
+        "component"
+    ],
     "homepage": "http://kreta.io",
     "license": "MIT",
     "type": "library",
@@ -18,15 +25,13 @@
         }
     ],
     "require": {
-        "php":                                 ">=5.4",
-
-        "friendsofsymfony/user-bundle":        "~2.0",
-
-        "kreta/media":                         "~0.3.0",
-        "kreta/core":                          "~0.3.0"
+        "php":                          ">=5.4",
+        "friendsofsymfony/user-bundle": "^2.0",
+        "kreta/core":                   "^0.4.0",
+        "kreta/media":                  "^0.4.0"
     },
     "require-dev": {
-        "phpspec/phpspec":                     "~2.2"
+        "phpspec/phpspec":              "^2.3"
     },
     "repositories": [
         {
@@ -35,17 +40,18 @@
         }
     ],
     "autoload": {
-        "psr-4": { "Kreta\\Component\\User\\": "" }
+        "psr-4": {
+            "Kreta\\Component\\User\\": ""
+        }
     },
     "autoload-dev": {
-        "psr-4": { "Kreta\\Component\\User\\spec\\": "spec"}
-    },
-    "config": {
-        "bin-dir": "bin"
+        "psr-4": {
+            "Kreta\\Component\\User\\spec\\": "spec/"
+        }
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "0.3-dev"
+            "dev-master": "0.4-dev"
         }
     }
 }

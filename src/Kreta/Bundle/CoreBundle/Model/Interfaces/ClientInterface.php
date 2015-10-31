@@ -1,12 +1,13 @@
 <?php
 
 /*
- * This file belongs to Kreta.
- * The source code of application includes a LICENSE file
- * with all information about license.
+ * This file is part of the Kreta package.
  *
- * @author benatespina <benatespina@gmail.com>
- * @author gorkalaucirica <gorka.lauzirika@gmail.com>
+ * (c) Beñat Espiña <benatespina@gmail.com>
+ * (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Kreta\Bundle\CoreBundle\Model\Interfaces;
@@ -15,8 +16,6 @@ use FOS\OAuthServerBundle\Model\ClientInterface as BaseClientInterface;
 
 /**
  * Interface ClientInterface.
- *
- * @package Kreta\Bundle\CoreBundle\Model\Interfaces
  */
 interface ClientInterface extends BaseClientInterface
 {

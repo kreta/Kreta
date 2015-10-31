@@ -1,12 +1,13 @@
 <?php
 
 /*
- * This file belongs to Kreta.
- * The source code of application includes a LICENSE file
- * with all information about license.
+ * This file is part of the Kreta package.
  *
- * @author benatespina <benatespina@gmail.com>
- * @author gorkalaucirica <gorka.lauzirika@gmail.com>
+ * (c) Beñat Espiña <benatespina@gmail.com>
+ * (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Kreta\Bundle\NotificationBundle\Controller;
@@ -20,8 +21,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class NotificationController.
- *
- * @package Kreta\Bundle\NotificationBundle\Controller
  */
 class NotificationController extends Controller
 {
@@ -53,7 +52,7 @@ class NotificationController extends Controller
                 'p.id'  => $paramFetcher->get('project'),
                 'type'  => $paramFetcher->get('type'),
                 'read'  => $paramFetcher->get('read') ? true : false,
-                'date'  => !$paramFetcher->get('date') ?: new \DateTime($paramFetcher->get('date'))
+                'date'  => !$paramFetcher->get('date') ?: new \DateTime($paramFetcher->get('date')),
             ],
             [$paramFetcher->get('sort') => 'ASC'],
             $paramFetcher->get('limit'),

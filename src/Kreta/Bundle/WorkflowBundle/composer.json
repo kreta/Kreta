@@ -1,7 +1,14 @@
 {
     "name": "kreta/workflow-bundle",
     "description": "Kreta workflow bundle",
-    "keywords": ["project", "manager", "development", "tool", "workflow", "bundle"],
+    "keywords": [
+        "project",
+        "manager",
+        "development",
+        "tool",
+        "workflow",
+        "bundle"
+    ],
     "homepage": "http://kreta.io",
     "license": "MIT",
     "type": "symfony-bundle",
@@ -18,26 +25,26 @@
         }
     ],
     "require": {
-        "php":                                 ">=5.4",
-
-        "kreta/core-bundle":                   "~0.3.0",
-        "kreta/workflow":                      "~0.3.0"
+        "php":               ">=5.4",
+        "kreta/core-bundle": "^0.4.0",
+        "kreta/workflow":    "^0.4.0"
     },
     "require-dev": {
-        "phpspec/phpspec":                     "~2.2"
+        "phpspec/phpspec":   "^2.3"
     },
     "autoload": {
-        "psr-4": { "Kreta\\Bundle\\WorkflowBundle\\": "" }
+        "psr-4": {
+            "Kreta\\Bundle\\WorkflowBundle\\": ""
+        }
     },
     "autoload-dev": {
-        "psr-4": { "Kreta\\Bundle\\WorkflowBundle\\spec\\": "spec"}
-    },
-    "config": {
-        "bin-dir": "bin"
+        "psr-4": {
+            "Kreta\\Bundle\\WorkflowBundle\\spec\\": "spec/"
+        }
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "0.3-dev"
+            "dev-master": "0.4-dev"
         }
     }
 }

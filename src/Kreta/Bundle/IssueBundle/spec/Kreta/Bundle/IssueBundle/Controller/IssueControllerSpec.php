@@ -1,12 +1,13 @@
 <?php
 
 /*
- * This file belongs to Kreta.
- * The source code of application includes a LICENSE file
- * with all information about license.
+ * This file is part of the Kreta package.
  *
- * @author benatespina <benatespina@gmail.com>
- * @author gorkalaucirica <gorka.lauzirika@gmail.com>
+ * (c) Beñat Espiña <benatespina@gmail.com>
+ * (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace spec\Kreta\Bundle\IssueBundle\Controller;
@@ -16,9 +17,9 @@ use Doctrine\Common\Persistence\ObjectManager;
 use FOS\RestBundle\Request\ParamFetcher;
 use Kreta\Component\Core\Form\Handler\Handler;
 use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
+use Kreta\Component\Issue\Repository\IssueRepository;
 use Kreta\Component\Issue\StateMachine\IssueStateMachine;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
-use Kreta\Component\Issue\Repository\IssueRepository;
 use Kreta\Component\Project\Repository\ProjectRepository;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use Kreta\Component\Workflow\Model\Interfaces\StatusInterface;

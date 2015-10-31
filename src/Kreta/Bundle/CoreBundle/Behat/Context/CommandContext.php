@@ -1,12 +1,13 @@
 <?php
 
 /*
- * This file belongs to Kreta.
- * The source code of application includes a LICENSE file
- * with all information about license.
+ * This file is part of the Kreta package.
  *
- * @author benatespina <benatespina@gmail.com>
- * @author gorkalaucirica <gorka.lauzirika@gmail.com>
+ * (c) Beñat Espiña <benatespina@gmail.com>
+ * (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Kreta\Bundle\CoreBundle\Behat\Context;
@@ -15,14 +16,12 @@ use Behat\Gherkin\Node\PyStringNode;
 use Behat\Gherkin\Node\TableNode;
 use Kreta\Bundle\CoreBundle\Command\CreateClientCommand;
 use Kreta\Bundle\UserBundle\Command\CreateUserCommand;
-use Symfony\Component\Console\Tester\CommandTester;
-use Symfony\Bundle\FrameworkBundle\Console\Application;
 use PHPUnit_Framework_Assert as Assertions;
+use Symfony\Bundle\FrameworkBundle\Console\Application;
+use Symfony\Component\Console\Tester\CommandTester;
 
 /**
  * Class CommandContext.
- *
- * @package Kreta\Bundle\CoreBundle\Behat\Context
  */
 class CommandContext extends DefaultContext
 {
@@ -56,8 +55,6 @@ class CommandContext extends DefaultContext
 
     /**
      * Method that loads all the commands of the Kreta.
-     *
-     * @return void
      */
     protected function loadCommands()
     {
@@ -72,7 +69,6 @@ class CommandContext extends DefaultContext
      *
      * @param string $command The command name
      *
-     * @return void
      *
      * @When /^I run "([^"]*)" command$/
      */
@@ -94,7 +90,6 @@ class CommandContext extends DefaultContext
      *
      * @param string $command The command name
      *
-     * @return void
      *
      * @When /^I run "([^"]*)" interactive command$/
      */
@@ -119,7 +114,6 @@ class CommandContext extends DefaultContext
      *
      * @param \Behat\Gherkin\Node\TableNode $inputs Table of inputs value
      *
-     * @return void
      *
      * @Given /^the following command inputs:$/
      */
@@ -133,7 +127,6 @@ class CommandContext extends DefaultContext
      *
      * @param \Behat\Gherkin\Node\TableNode $options Table of options value
      *
-     * @return void
      *
      * @Given /^the following command options:$/
      */
@@ -147,7 +140,6 @@ class CommandContext extends DefaultContext
      *
      * @param \Behat\Gherkin\Node\PyStringNode $output The output
      *
-     * @return void
      *
      * @Then /^I should see the following output:$/
      */
@@ -161,8 +153,6 @@ class CommandContext extends DefaultContext
 
     /**
      * Initializes the inputs and options array.
-     *
-     * @return void
      */
     private function initialize()
     {

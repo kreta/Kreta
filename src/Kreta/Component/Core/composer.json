@@ -1,7 +1,14 @@
 {
     "name": "kreta/core",
     "description": "Kreta core component",
-    "keywords": ["project", "manager", "development", "tool", "core", "component"],
+    "keywords": [
+        "project",
+        "manager",
+        "development",
+        "tool",
+        "core",
+        "component"
+    ],
     "homepage": "http://kreta.io",
     "license": "MIT",
     "type": "library",
@@ -18,29 +25,29 @@
         }
     ],
     "require": {
-        "php":                                 ">=5.4",
-
-        "doctrine/orm":                        "2.5.*",
-        "doctrine/dbal":                       "2.5.*",
-        "symfony/form":                        "~2.7",
-        "symfony/http-foundation":             "~2.7",
-        "symfony/security":                    "~2.7"
+        "php":                     ">=5.4",
+        "doctrine/dbal":           "2.5.*",
+        "doctrine/orm":            "2.5.*",
+        "symfony/form":            "^2.7",
+        "symfony/http-foundation": "^2.7",
+        "symfony/security":        "^2.7"
     },
     "require-dev": {
-        "phpspec/phpspec":                     "~2.2"
+        "phpspec/phpspec":         "^2.3"
     },
     "autoload": {
-        "psr-4": { "Kreta\\Component\\Core\\": "" }
+        "psr-4": {
+            "Kreta\\Component\\Core\\": ""
+        }
     },
     "autoload-dev": {
-        "psr-4": { "Kreta\\Component\\Core\\spec\\": "spec"}
-    },
-    "config": {
-        "bin-dir": "bin"
+        "psr-4": {
+            "Kreta\\Component\\Core\\spec\\": "spec/"
+        }
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "0.3-dev"
+            "dev-master": "0.4-dev"
         }
     }
 }

@@ -1,12 +1,13 @@
 <?php
 
 /*
- * This file belongs to Kreta.
- * The source code of application includes a LICENSE file
- * with all information about license.
+ * This file is part of the Kreta package.
  *
- * @author benatespina <benatespina@gmail.com>
- * @author gorkalaucirica <gorka.lauzirika@gmail.com>
+ * (c) Beñat Espiña <benatespina@gmail.com>
+ * (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Kreta\Bundle\UserBundle\EventListener;
@@ -24,8 +25,6 @@ use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 
 /**
  * Class AuthenticationListener.
- *
- * @package Kreta\Bundle\UserBundle\EventListener\LoginListener
  */
 class AuthenticationListener
 {
@@ -68,8 +67,6 @@ class AuthenticationListener
      * If the user is logged generates the access token and sets into response creating a cookie.
      *
      * @param \Kreta\Bundle\UserBundle\Event\AuthorizationEvent $event The authorization event
-     *
-     * @return void
      */
     public function onAuthorizationEvent(AuthorizationEvent $event)
     {
@@ -90,7 +87,7 @@ class AuthenticationListener
         $event->getRequest()->getSession()->remove('_password');
         $event->getRequest()->getSession()->replace([
             'access_token'  => $token['access_token'],
-            'refresh_token' => $token['refresh_token']
+            'refresh_token' => $token['refresh_token'],
         ]);
     }
 
@@ -98,8 +95,6 @@ class AuthenticationListener
      * Listens in the login form saving in the session the username and the plain password.
      *
      * @param \Symfony\Component\Security\Http\Event\InteractiveLoginEvent $event The interactive login event
-     *
-     * @return void
      */
     public function onInteractiveLogin(InteractiveLoginEvent $event)
     {
@@ -116,8 +111,6 @@ class AuthenticationListener
      * Listens in the registration form saving in the session the username and the plain password.
      *
      * @param \FOS\UserBundle\Event\FormEvent $event The form event
-     *
-     * @return void
      */
     public function onRegistrationSuccess(FormEvent $event)
     {
@@ -133,8 +126,6 @@ class AuthenticationListener
      * Checks if the session has the tokens to create cookies that will be add into response.
      *
      * @param \Kreta\Bundle\UserBundle\Event\CookieEvent $event The cookie event
-     *
-     * @return void
      */
     public function onCookieEvent(CookieEvent $event)
     {

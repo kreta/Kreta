@@ -1,24 +1,25 @@
 <?php
 
 /*
- * This file belongs to Kreta.
- * The source code of application includes a LICENSE file
- * with all information about license.
+ * This file is part of the Kreta package.
  *
- * @author benatespina <benatespina@gmail.com>
- * @author gorkalaucirica <gorka.lauzirika@gmail.com>
+ * (c) Beñat Espiña <benatespina@gmail.com>
+ * (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace spec\Kreta\Component\Project\Model;
 
 use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
 use Kreta\Component\Media\Model\Interfaces\MediaInterface;
+use Kreta\Component\Project\Model\Interfaces\IssuePriorityInterface;
 use Kreta\Component\Project\Model\Interfaces\LabelInterface;
 use Kreta\Component\Project\Model\Interfaces\ParticipantInterface;
-use Kreta\Component\Project\Model\Interfaces\IssuePriorityInterface;
-use Kreta\Component\User\Model\Interfaces\UserInterface;
 use Kreta\Component\Project\Model\Participant;
 use Kreta\Component\Project\Model\Project;
+use Kreta\Component\User\Model\Interfaces\UserInterface;
 use Kreta\Component\User\Model\User;
 use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
 use PhpSpec\ObjectBehavior;

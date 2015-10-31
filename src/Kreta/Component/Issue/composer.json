@@ -1,7 +1,14 @@
 {
     "name": "kreta/issue",
     "description": "Kreta issue component",
-    "keywords": ["project", "manager", "development", "tool", "issue", "component"],
+    "keywords": [
+        "project",
+        "manager",
+        "development",
+        "tool",
+        "issue",
+        "component"
+    ],
     "homepage": "http://kreta.io",
     "license": "MIT",
     "type": "library",
@@ -18,25 +25,25 @@
         }
     ],
     "require": {
-        "php":                                 ">=5.4",
-
-        "kreta/project":                       "~0.3.0"
+        "php":             ">=5.4",
+        "kreta/project":   "^0.4.0"
     },
     "require-dev": {
-        "phpspec/phpspec":                     "~2.2"
+        "phpspec/phpspec": "^2.3"
     },
     "autoload": {
-        "psr-4": { "Kreta\\Component\\Issue\\": "" }
+        "psr-4": {
+            "Kreta\\Component\\Issue\\": ""
+        }
     },
     "autoload-dev": {
-        "psr-4": { "Kreta\\Component\\Issue\\spec\\": "spec"}
-    },
-    "config": {
-        "bin-dir": "bin"
+        "psr-4": {
+            "Kreta\\Component\\Issue\\spec\\": "spec/"
+        }
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "0.3-dev"
+            "dev-master": "0.4-dev"
         }
     }
 }

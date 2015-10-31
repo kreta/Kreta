@@ -1,29 +1,30 @@
-# This file belongs to Kreta.
-# The source code of application includes a LICENSE file
-# with all information about license.
+# This file is part of the Kreta package.
 #
-# @author benatespina <benatespina@gmail.com>
-# @author gorkalaucirica <gorka.lauzirika@gmail.com>
+# (c) Beñat Espiña <benatespina@gmail.com>
+# (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
 
 services:
     kreta_workflow.repository.workflow:
         class: %kreta_workflow.repository_workflow.class%
-        factory: 
+        factory:
             - @doctrine.orm.entity_manager
             - getRepository
-        arguments: 
+        arguments:
             - %kreta_workflow.workflow.class%
     kreta_workflow.repository.status:
         class: %kreta_workflow.repository_status.class%
-        factory: 
+        factory:
             - @doctrine.orm.entity_manager
             - getRepository
-        arguments: 
+        arguments:
             - %kreta_workflow.status.class%
     kreta_workflow.repository.status_transition:
         class: %kreta_workflow.repository_status_transition.class%
-        factory: 
+        factory:
             - @doctrine.orm.entity_manager
             - getRepository
-        arguments: 
+        arguments:
             - %kreta_workflow.status_transition.class%

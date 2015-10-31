@@ -1,7 +1,14 @@
 {
     "name": "kreta/media-bundle",
-    "description": "Kreta core bundle",
-    "keywords": ["project", "manager", "development", "tool", "media", "bundle"],
+    "description": "Kreta media bundle",
+    "keywords": [
+        "project",
+        "manager",
+        "development",
+        "tool",
+        "media",
+        "bundle"
+    ],
     "homepage": "http://kreta.io",
     "license": "MIT",
     "type": "symfony-bundle",
@@ -18,28 +25,27 @@
         }
     ],
     "require": {
-        "php":                                 ">=5.4",
-
-        "knplabs/knp-gaufrette-bundle":        "~0.1.7",
-
-        "kreta/core-bundle":                   "~0.3.0",
-        "kreta/media":                         "~0.3.0"
+        "php":                          ">=5.4",
+        "knplabs/knp-gaufrette-bundle": "^0.1.7",
+        "kreta/core-bundle":            "~0.4.0",
+        "kreta/media":                  "^0.4.0"
     },
     "require-dev": {
-        "phpspec/phpspec":                     "~2.2"
+        "phpspec/phpspec":              "^2.3"
     },
     "autoload": {
-        "psr-4": { "Kreta\\Bundle\\MediaBundle\\": "" }
+        "psr-4": {
+            "Kreta\\Bundle\\MediaBundle\\": ""
+        }
     },
     "autoload-dev": {
-        "psr-4": { "Kreta\\Bundle\\MediaBundle\\spec\\": "spec"}
-    },
-    "config": {
-        "bin-dir": "bin"
+        "psr-4": {
+            "Kreta\\Bundle\\MediaBundle\\spec\\": "spec/"
+        }
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "0.3-dev"
+            "dev-master": "0.4-dev"
         }
     }
 }

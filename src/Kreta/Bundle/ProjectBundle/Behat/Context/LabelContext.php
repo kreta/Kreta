@@ -1,12 +1,13 @@
 <?php
 
 /*
- * This file belongs to Kreta.
- * The source code of application includes a LICENSE file
- * with all information about license.
+ * This file is part of the Kreta package.
  *
- * @author benatespina <benatespina@gmail.com>
- * @author gorkalaucirica <gorka.lauzirika@gmail.com>
+ * (c) Beñat Espiña <benatespina@gmail.com>
+ * (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Kreta\Bundle\ProjectBundle\Behat\Context;
@@ -16,8 +17,6 @@ use Kreta\Bundle\CoreBundle\Behat\Context\DefaultContext;
 
 /**
  * Class LabelContext.
- *
- * @package Kreta\Bundle\ProjectBundle\Behat
  */
 class LabelContext extends DefaultContext
 {
@@ -26,7 +25,6 @@ class LabelContext extends DefaultContext
      *
      * @param \Behat\Gherkin\Node\TableNode $labels The labels
      *
-     * @return void
      *
      * @Given /^the following labels exist:$/
      */

@@ -1,28 +1,29 @@
-# This file belongs to Kreta.
-# The source code of application includes a LICENSE file
-# with all information about license.
+# This file is part of the Kreta package.
 #
-# @author benatespina <benatespina@gmail.com>
-# @author gorkalaucirica <gorka.lauzirika@gmail.com>
+# (c) Beñat Espiña <benatespina@gmail.com>
+# (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
 
 services:
 #### HANDLERS ####
     kreta_user.form_handler.invitation:
         parent: kreta_core.form_handler.handler
-        arguments: 
+        arguments:
             - kreta_user_invitation_type
 
     kreta_user.form_handler.profile:
         class: %kreta_user.form_user_handler.class%
         parent: kreta_core.form_handler.handler
-        arguments: 
+        arguments:
             - kreta_user_profile_type
             - @kreta_media.factory.media
             - @kreta_user.uploader.image_user
 
     kreta_user.form_handler.registration:
         parent: kreta_core.form_handler.handler
-        arguments: 
+        arguments:
             - kreta_user_registration_type
 
 #### TYPES ####

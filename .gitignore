@@ -17,5 +17,7 @@ npm-debug.log
 phpspec-coverage.xml
 tests/functional/fixtures/app/cache
 tests/functional/fixtures/app/logs
+tests/functional/fixtures/web/bundles
 tests/functional/fixtures/web/media
 vendor
+/web

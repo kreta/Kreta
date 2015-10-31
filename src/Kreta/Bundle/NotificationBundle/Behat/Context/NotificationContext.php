@@ -1,12 +1,13 @@
 <?php
 
 /*
- * This file belongs to Kreta.
- * The source code of application includes a LICENSE file
- * with all information about license.
+ * This file is part of the Kreta package.
  *
- * @author benatespina <benatespina@gmail.com>
- * @author gorkalaucirica <gorka.lauzirika@gmail.com>
+ * (c) Beñat Espiña <benatespina@gmail.com>
+ * (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Kreta\Bundle\NotificationBundle\Behat\Context;
@@ -16,8 +17,6 @@ use Kreta\Bundle\CoreBundle\Behat\Context\DefaultContext;
 
 /**
  * Class NotificationContext.
- *
- * @package Kreta\Bundle\NotificationBundle\Behat\Context
  */
 class NotificationContext extends DefaultContext
 {
@@ -26,7 +25,6 @@ class NotificationContext extends DefaultContext
      *
      * @param \Behat\Gherkin\Node\TableNode $notifications The notifications
      *
-     * @return void
      *
      * @Given /^the following notifications exist:$/
      */

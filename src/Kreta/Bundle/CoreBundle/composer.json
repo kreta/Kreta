@@ -1,7 +1,14 @@
 {
     "name": "kreta/core-bundle",
     "description": "Kreta core bundle",
-    "keywords": ["project", "manager", "development", "tool", "core", "bundle"],
+    "keywords": [
+        "project",
+        "manager",
+        "development",
+        "tool",
+        "core",
+        "bundle"
+    ],
     "homepage": "http://kreta.io",
     "license": "MIT",
     "type": "symfony-bundle",
@@ -19,21 +26,17 @@
     ],
     "require": {
         "php":                                  ">=5.4",
-
         "symfony/framework-bundle":             "~2.7",
-
         "friendsofsymfony/oauth-server-bundle": "~1.4,>=1.4.3",
         "friendsofsymfony/rest-bundle":         "1.6.x",
-        "nelmio/cors-bundle":                   "1.3.x",
         "jms/serializer-bundle":                "0.13.x",
-        "willdurand/hateoas-bundle":            "0.5.x",
-
-        "kreta/simple-api-doc-bundle":          "~0.2",
-
-        "kreta/core":                           "~0.3.0"
+        "kreta/core":                           "^0.4.0",
+        "kreta/simple-api-doc-bundle":          "^0.2",
+        "nelmio/cors-bundle":                   "1.3.x",
+        "willdurand/hateoas-bundle":            "0.5.x"
     },
     "require-dev": {
-        "phpspec/phpspec":                      "~2.2"
+        "phpspec/phpspec":                      "^2.3"
     },
     "repositories": [
         {
@@ -42,17 +45,18 @@
         }
     ],
     "autoload": {
-        "psr-4": { "Kreta\\Bundle\\CoreBundle\\": "" }
+        "psr-4": {
+            "Kreta\\Bundle\\CoreBundle\\": ""
+        }
     },
     "autoload-dev": {
-        "psr-4": { "Kreta\\Bundle\\CoreBundle\\spec\\": "spec"}
-    },
-    "config": {
-        "bin-dir": "bin"
+        "psr-4": {
+            "Kreta\\Bundle\\CoreBundle\\spec\\": "spec/"
+        }
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "0.3-dev"
+            "dev-master": "0.4-dev"
         }
     }
 }

@@ -1,7 +1,14 @@
 {
     "name": "kreta/workflow",
     "description": "Kreta workflow component",
-    "keywords": ["project", "manager", "development", "tool", "workflow", "component"],
+    "keywords": [
+        "project",
+        "manager",
+        "development",
+        "tool",
+        "workflow",
+        "component"
+    ],
     "homepage": "http://kreta.io",
     "license": "MIT",
     "type": "library",
@@ -18,14 +25,12 @@
         }
     ],
     "require": {
-        "php":                                 ">=5.4",
-
-        "yohang/finite":                       "~1.0,>=1.0.4",
-
-        "kreta/issue":                         "~0.3.0"
+        "php":             ">=5.4",
+        "kreta/issue":     "^0.4.0",
+        "yohang/finite":   "^1.0,>=1.0.4"
     },
     "require-dev": {
-        "phpspec/phpspec":                     "~2.2"
+        "phpspec/phpspec": "^2.3"
     },
     "repositories": [
         {
@@ -34,17 +39,18 @@
         }
     ],
     "autoload": {
-        "psr-4": { "Kreta\\Component\\Workflow\\": "" }
+        "psr-4": {
+            "Kreta\\Component\\Workflow\\": ""
+        }
     },
     "autoload-dev": {
-        "psr-4": { "Kreta\\Component\\Workflow\\spec\\": "spec"}
-    },
-    "config": {
-        "bin-dir": "bin"
+        "psr-4": {
+            "Kreta\\Component\\Workflow\\spec\\": "spec/"
+        }
     },
     "extra": {
         "branch-alias": {
-            "dev-master": "0.3-dev"
+            "dev-master": "0.4-dev"
         }
     }
 }

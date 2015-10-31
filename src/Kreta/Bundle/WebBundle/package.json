@@ -1,11 +1,13 @@
 {
   "name": "kreta",
-  "description": "Modern project manager for software development",
+  "description": "Kreta web bundle",
   "keywords": [
     "project",
     "manager",
     "development",
-    "tool"
+    "tool",
+    "web",
+    "bundle"
   ],
   "homepage": "http://kreta.io",
   "license": "MIT",

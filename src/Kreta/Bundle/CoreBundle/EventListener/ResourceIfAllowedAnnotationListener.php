@@ -1,12 +1,13 @@
 <?php
 
 /*
- * This file belongs to Kreta.
- * The source code of application includes a LICENSE file
- * with all information about license.
+ * This file is part of the Kreta package.
  *
- * @author benatespina <benatespina@gmail.com>
- * @author gorkalaucirica <gorka.lauzirika@gmail.com>
+ * (c) Beñat Espiña <benatespina@gmail.com>
+ * (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Kreta\Bundle\CoreBundle\EventListener;
@@ -19,8 +20,6 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Class ResourceIfAllowedAnnotationListener.
- *
- * @package Kreta\Bundle\CoreBundle\EventListener
  */
 class ResourceIfAllowedAnnotationListener
 {
@@ -81,8 +80,6 @@ class ResourceIfAllowedAnnotationListener
      * Listens when the annotation exists loading the resource of id given and if it is allowed.
      *
      * @param \Symfony\Component\HttpKernel\Event\FilterControllerEvent $event The filter controller event
-     *
-     * @return void
      */
     public function onResourceIfAllowedAnnotationMethod(FilterControllerEvent $event)
     {
@@ -106,8 +103,9 @@ class ResourceIfAllowedAnnotationListener
      * @param string $resourceId The resource id
      * @param string $grant      The grant, by default is view
      *
-     * @return Object
      * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
+     *
+     * @return Object
      */
     protected function getResourceIfAllowed($resourceId, $grant = 'view')
     {

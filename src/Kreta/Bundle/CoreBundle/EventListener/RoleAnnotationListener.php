@@ -1,12 +1,13 @@
 <?php
 
 /*
- * This file belongs to Kreta.
- * The source code of application includes a LICENSE file
- * with all information about license.
+ * This file is part of the Kreta package.
  *
- * @author benatespina <benatespina@gmail.com>
- * @author gorkalaucirica <gorka.lauzirika@gmail.com>
+ * (c) Beñat Espiña <benatespina@gmail.com>
+ * (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 namespace Kreta\Bundle\CoreBundle\EventListener;
@@ -18,8 +19,6 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Class RoleAnnotationListener.
- *
- * @package Kreta\Bundle\CoreBundle\EventListener
  */
 class RoleAnnotationListener
 {
@@ -61,8 +60,6 @@ class RoleAnnotationListener
      * Listens when the annotation exists checking the user has role to execute this method.
      *
      * @param \Symfony\Component\HttpKernel\Event\FilterControllerEvent $event The filter controller event
-     *
-     * @return void
      */
     public function onRoleAnnotationMethod(FilterControllerEvent $event)
     {
@@ -84,10 +81,10 @@ class RoleAnnotationListener
     /**
      * Checks if the user logged has role admin.
      *
-     * @return boolean
+     * @return bool
      */
     protected function isAdmin()
     {
-        return in_array('ROLE_ADMIN', $this->context->getToken()->getUser()->getRoles());
+        return in_array('ROLE_ADMIN', $this->context->getToken()->getUser()->getRoles(), true);
     }
 }
