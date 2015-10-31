@@ -25,7 +25,7 @@
       "homepage": "http://gorkalaucirica.net"
     }
   ],
-  "main": "gulpfile.js",
+  "main": "webpack.config.babel.js",
   "scripts": {
     "dev": "./node_modules/.bin/webpack --progress --colors",
     "prod": "NODE_ENV=production npm run dev",

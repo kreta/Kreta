@@ -10,7 +10,7 @@
 
 import autoprefixer from 'autoprefixer';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import webpack from 'webpack.config.babel';
+import webpack from 'webpack';
 
 import pkg from './package.json';
 
