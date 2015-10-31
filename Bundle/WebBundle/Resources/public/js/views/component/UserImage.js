@@ -1,10 +1,11 @@
 /*
- * This file belongs to Kreta.
- * The source code of application includes a LICENSE file
- * with all information about license.
+ * This file is part of the Kreta package.
  *
- * @author benatespina <benatespina@gmail.com>
- * @author gorkalaucirica <gorka.lauzirika@gmail.com>
+ * (c) Beñat Espiña <benatespina@gmail.com>
+ * (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
  */
 
 import '../../../scss/components/_user-image.scss';
@@ -21,12 +22,14 @@ export default React.createClass({
         <img className="user-image" src={this.props.user.photo.name}/>
       );
     } else {
+      let resultChar = `${this.props.user.first_name.charAt(0)}${this.props.user.last_name.charAt(0)}`;
+      if ('' === this.props.user.first_name) {
+        resultChar = this.props.user.username.substring(0,2);
+      }
+
       return (
         <div className="user-image user-image--has-char">
-          <span className="user-image__char">
-            {this.props.user.first_name.charAt(0)}
-            {this.props.user.last_name.charAt(0)}
-          </span>
+          <span className="user-image__char">{resultChar}</span>
         </div>
       )
     }

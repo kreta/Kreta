@@ -68,11 +68,16 @@ export default React.createClass({
       };
     }
     var assignee = project.get('participants').map((p) => {
+        let assignee = `${p.user.first_name} ${p.user.last_name}`;
+        if ('' === p.user.first_name) {
+          assignee = p.user.username;
+        }
+
       return (
         <IssueField image={<UserImage user={p.user}/>}
                     key={p.user.id}
                     label="Assigned to"
-                    text={`${p.user.first_name} ${p.user.last_name}`}
+                    text={assignee}
                     value={p.user.id}/>
       );
 
