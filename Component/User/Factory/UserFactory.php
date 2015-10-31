@@ -22,8 +22,6 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
  */
 class UserFactory
 {
-    const DEFAULT_PHOTO_FILENAME = 'default.png';
-
     /**
      * The class name.
      *
@@ -55,17 +53,11 @@ class UserFactory
     /**
      * Constructor.
      *
-     * @param string                                                            $className    The class name
-     * @param \Kreta\Component\Media\Factory\MediaFactory                       $mediaFactory The media factory
-     * @param \Kreta\Component\Media\Uploader\Interfaces\MediaUploaderInterface $uploader     The uploader
-     * @param string|null                                                       $path         The path, by default null
+     * @param string $className The class name
      */
-    public function __construct($className, MediaFactory $mediaFactory, MediaUploaderInterface $uploader, $path = null)
+    public function __construct($className)
     {
         $this->className = $className;
-        $this->mediaFactory = $mediaFactory;
-        $this->path = $path;
-        $this->uploader = $uploader;
     }
 
     /**
@@ -85,16 +77,6 @@ class UserFactory
 
         if (false === $enabled) {
             $user->setConfirmationToken(sprintf('%s%s', uniqid('kreta'), unixtojd()));
-        }
-
-        if (null !== $this->path) {
-            $photo = $this->mediaFactory->create(
-                new UploadedFile(
-                    __DIR__ . '/' . $this->path . self::DEFAULT_PHOTO_FILENAME, self::DEFAULT_PHOTO_FILENAME
-                )
-            );
-            $this->uploader->upload($photo);
-            $user->setPhoto($photo);
         }
 
         return $user

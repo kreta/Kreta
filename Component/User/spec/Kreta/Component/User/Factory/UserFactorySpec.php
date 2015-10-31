@@ -23,9 +23,9 @@ use Prophecy\Argument;
  */
 class UserFactorySpec extends ObjectBehavior
 {
-    function let(MediaFactory $mediaFactory, MediaUploaderInterface $uploader)
+    function let()
     {
-        $this->beConstructedWith('Kreta\Component\User\Model\User', $mediaFactory, $uploader);
+        $this->beConstructedWith('Kreta\Component\User\Model\User');
     }
 
     function it_is_initializable()
