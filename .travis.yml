@@ -25,7 +25,7 @@ install:
     - nvm use 4.2.1
     - composer self-update
     - composer update --no-interaction ${COMPOSER_OPTIONS}
-    - cd Bundle/WebBundle
+    - cd src/Kreta/Bundle/WebBundle
     - npm install
     - cd -
 
