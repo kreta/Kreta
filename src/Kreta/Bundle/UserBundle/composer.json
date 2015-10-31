@@ -1,0 +1,44 @@
+{
+    "name": "kreta/user-bundle",
+    "description": "Kreta core bundle",
+    "keywords": ["project", "manager", "development", "tool", "user", "bundle"],
+    "homepage": "http://kreta.io",
+    "license": "MIT",
+    "type": "symfony-bundle",
+    "authors": [
+        {
+            "name": "Beñat Espiña Diaz",
+            "email": "benatespina@gmail.com",
+            "homepage": "http://benatespina.com"
+        },
+        {
+            "name": "Gorka Laucirica Ibarra",
+            "email": "gorka.lauzirika@gmail.com",
+            "homepage": "http://gorkalaucirica.net"
+        }
+    ],
+    "require": {
+        "php":                                 ">=5.4",
+
+        "kreta/core-bundle":                   "~0.3.0",
+        "kreta/media-bundle":                  "~0.3.0",
+        "kreta/user":                          "~0.3.0"
+    },
+    "require-dev": {
+        "phpspec/phpspec":                     "~2.2"
+    },
+    "autoload": {
+        "psr-4": { "Kreta\\Bundle\\UserBundle\\": "" }
+    },
+    "autoload-dev": {
+        "psr-4": { "Kreta\\Bundle\\UserBundle\\spec\\": "spec"}
+    },
+    "config": {
+        "bin-dir": "bin"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.3-dev"
+        }
+    }
+}

@@ -1,0 +1,85 @@
+# This file is part of the Kreta package.
+#
+# (c) Beñat Espiña <benatespina@gmail.com>
+# (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+
+doctrine:
+    dbal:
+        driver: "%database_driver%"
+        host: "%database_host%"
+        port: "%database_port%"
+        dbname: %database_name%_test
+        user: "%database_user%"
+        password: "%database_password%"
+        charset: UTF8
+    orm:
+        auto_generate_proxy_classes: "%kernel.debug%"
+        mappings:
+            FOSOAuthServerBundle:
+                mapping: true
+                type: xml
+                dir: "Resources/config/doctrine"
+                prefix: 'FOS\OAuthServerBundle\Entity'
+                is_bundle: true
+            KretaCoreBundle:
+                mapping: true
+                type: yml
+                dir: "Resources/config/doctrine"
+                prefix: 'Kreta\Bundle\CoreBundle\Model'
+                is_bundle: true
+            KretaIssueBundle:
+                mapping: true
+                type: yml
+                dir: "Resources/config/doctrine"
+                prefix: 'Kreta\Component\Issue\Model'
+            KretaMediaBundle:
+                mapping: true
+                type: yml
+                dir: "Resources/config/doctrine"
+                prefix: 'Kreta\Component\Media\Model'
+                is_bundle: true
+                is_bundle: true
+            KretaProjectBundle:
+                mapping: true
+                type: yml
+                dir: "Resources/config/doctrine"
+                prefix: 'Kreta\Component\Project\Model'
+                is_bundle: true
+            KretaUserBundle:
+                mapping: true
+                type: yml
+                dir: "Resources/config/doctrine"
+                prefix: 'Kreta\Component\User\Model'
+                is_bundle: true
+            KretaNotificationBundle:
+                mapping: true
+                type: yml
+                dir: "Resources/config/doctrine"
+                prefix: 'Kreta\Component\Notification\Model'
+                is_bundle: true
+            KretaWorkflowBundle:
+                mapping: true
+                type: yml
+                dir: "Resources/config/doctrine"
+                prefix: 'Kreta\Component\Workflow\Model'
+                is_bundle: true
+        resolve_target_entities:
+            Kreta\Bundle\CoreBundle\Model\Interfaces\AccessTokenInterface: Kreta\Bundle\CoreBundle\Model\AccessToken
+            Kreta\Bundle\CoreBundle\Model\Interfaces\AuthCodeInterface: Kreta\Bundle\CoreBundle\Model\AuthCode
+            Kreta\Bundle\CoreBundle\Model\Interfaces\ClientInterface: Kreta\Bundle\CoreBundle\Model\Client
+            Kreta\Bundle\CoreBundle\Model\Interfaces\RefreshTokenInterface: Kreta\Bundle\CoreBundle\Model\RefreshToken
+            Kreta\Component\Issue\Model\Interfaces\IssueInterface: Kreta\Component\Issue\Model\Issue
+            Kreta\Component\Issue\Model\Interfaces\ResolutionInterface: Kreta\Component\Issue\Model\Resolution
+            Kreta\Component\Media\Model\Interfaces\MediaInterface: Kreta\Component\Media\Model\Media
+            Kreta\Component\Notification\Model\Interfaces\NotificationInterface: Kreta\Component\Notification\Model\Notification
+            Kreta\Component\Project\Model\Interfaces\LabelInterface: Kreta\Component\Project\Model\Label
+            Kreta\Component\Project\Model\Interfaces\ParticipantInterface: Kreta\Component\Project\Model\Participant
+            Kreta\Component\Project\Model\Interfaces\IssuePriorityInterface: Kreta\Component\Project\Model\IssuePriority
+            Kreta\Component\Project\Model\Interfaces\ProjectInterface: Kreta\Component\Project\Model\Project
+            Kreta\Component\User\Model\Interfaces\UserInterface: Kreta\Component\User\Model\User
+            Kreta\Component\Workflow\Model\Interfaces\StatusInterface: Kreta\Component\Workflow\Model\Status
+            Kreta\Component\Workflow\Model\Interfaces\StatusTransitionInterface: Kreta\Component\Workflow\Model\StatusTransition
+            Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface: Kreta\Component\Workflow\Model\Workflow

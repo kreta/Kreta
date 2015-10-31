@@ -1,0 +1,45 @@
+{
+    "name": "kreta/notification",
+    "description": "Kreta notification component",
+    "keywords": ["project", "management", "development", "tool", "notification", "component"],
+    "homepage": "http://kreta.io",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Beñat Espiña Diaz",
+            "email": "benatespina@gmail.com",
+            "homepage": "http://benatespina.com"
+        },
+        {
+            "name": "Gorka Laucirica Ibarra",
+            "email": "gorka.lauzirika@gmail.com",
+            "homepage": "http://gorkalaucirica.net"
+        }
+    ],
+    "require": {
+        "php":                                 ">=5.4",
+
+        "symfony/routing":                     "~2.7",
+        "symfony/swiftmailer-bundle":          "~2.3",
+
+        "kreta/project":                       "~0.3.0"
+    },
+    "require-dev": {
+        "phpspec/phpspec":                     "~2.2"
+    },
+    "autoload": {
+        "psr-4": { "Kreta\\Component\\Notification\\": "" }
+    },
+    "autoload-dev": {
+        "psr-4": { "Kreta\\Component\\Notification\\spec\\": "spec"}
+    },
+    "config": {
+        "bin-dir": "bin"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.3-dev"
+        }
+    }
+}

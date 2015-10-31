@@ -1,0 +1,51 @@
+{
+    "name": "kreta/user",
+    "description": "Kreta user component",
+    "keywords": ["project", "manager", "development", "tool", "user", "component"],
+    "homepage": "http://kreta.io",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Beñat Espiña Diaz",
+            "email": "benatespina@gmail.com",
+            "homepage": "http://benatespina.com"
+        },
+        {
+            "name": "Gorka Laucirica Ibarra",
+            "email": "gorka.lauzirika@gmail.com",
+            "homepage": "http://gorkalaucirica.net"
+        }
+    ],
+    "require": {
+        "php":                                 ">=5.4",
+
+        "friendsofsymfony/user-bundle":        "~2.0",
+
+        "kreta/media":                         "~0.3.0",
+        "kreta/core":                          "~0.3.0"
+    },
+    "require-dev": {
+        "phpspec/phpspec":                     "~2.2"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/kreta/FOSUserBundle"
+        }
+    ],
+    "autoload": {
+        "psr-4": { "Kreta\\Component\\User\\": "" }
+    },
+    "autoload-dev": {
+        "psr-4": { "Kreta\\Component\\User\\spec\\": "spec"}
+    },
+    "config": {
+        "bin-dir": "bin"
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.3-dev"
+        }
+    }
+}

@@ -46,6 +46,12 @@
         "yohang/finite":                            "^1.0,>=1.0.4"
     },
     "require-dev": {
+        "behat/behat" :                             "^3.0",
+        "behat/mink-browserkit-driver":             "^1.2",
+        "behat/mink-extension" :                    "^2.0",
+        "behat/symfony2-extension" :                "^2.0",
+        "behat/web-api-extension":                  "^1.0@dev",
+        "doctrine/doctrine-fixtures-bundle":        "^2.2",
         "fabpot/php-cs-fixer":                      "^1.10",
         "henrikbjorn/phpspec-code-coverage":        "^1.0",
         "mmoreram/php-formatter":                   "^1.0",
@@ -101,7 +107,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Kreta\\": ""
+            "": "src/"
         }
     },
     "extra": {

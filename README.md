@@ -8,13 +8,13 @@
 
 Kreta is a set of components and bundles focused on **project management** for **PHP**, based on the
 **[Symfony][9]** framework. It has a very rich front-end that it is developed with the
-**[Backbone.js][10]** + **[React.js][11]** stuff and designed with [Sass][12].
+**[Backbone.js][10]** + **[React.js][11]** stuff and designed with **[Sass][12]**.
 
 Also, Kreta provides an **[standard edition][1]** that is a fully functional web application that shows in an easy
 way all the possibilities of the platform.
 
 Kreta is developed following the decoupling and reuse principles so, it provides a set of plugins that are available
-in [kreta-plugins][2].
+in **[kreta-plugins][2]**.
 
 ##Tests
 This repository is completely tested following *BDD* methodology with **[PHPSpec][3]** and **[Behat][13]**,
