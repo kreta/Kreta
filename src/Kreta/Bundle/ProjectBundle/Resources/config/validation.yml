@@ -1,0 +1,49 @@
+# This file is part of the Kreta package.
+#
+# (c) Beñat Espiña <benatespina@gmail.com>
+# (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+
+Kreta\Component\Project\Model\Label:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [name, project]
+            message: 'A label with identical name is already exists in this project'
+    properties:
+        name:
+            - NotBlank: ~
+Kreta\Component\Project\Model\Participant:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [user, project]
+            message: 'This participant is already exists in this project'
+    properties:
+        role:
+            - NotBlank: ~
+        user:
+            - NotBlank: ~
+Kreta\Component\Project\Model\IssuePriority:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [name, project]
+            message: 'A issue priority with identical name is already exists in this project'
+    properties:
+        name:
+            - NotBlank: ~
+Kreta\Component\Project\Model\Project:
+    constraints:
+        - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
+            fields: [shortName]
+            message: 'Short name is already in use'
+    properties:
+        name:
+            - NotBlank: ~
+        shortName:
+            - NotBlank: ~
+            - Length:
+                min: 3
+                max: 4
+                minMessage: 'Short name must be at least 3 characters long'
+                maxMessage: 'Short name cannot be longer than 4 characters long'

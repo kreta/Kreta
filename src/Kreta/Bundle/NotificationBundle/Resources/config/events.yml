@@ -1,0 +1,17 @@
+# This file is part of the Kreta package.
+#
+# (c) Beñat Espiña <benatespina@gmail.com>
+# (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+
+services:
+    kreta_notification.notifiable_event_registry:
+        class: %kreta_notification.notifiable_event_registry.class%
+
+    kreta_notification.notifiable_event.issue:
+        class: Kreta\Component\Notification\NotifiableEvent\IssueEvents
+        arguments: [@kreta_notification.factory.notification, @router]
+        tags:
+            - { name: kreta_notification.notifiable_event, label: issue }

@@ -1,0 +1,72 @@
+<?php
+
+/*
+ * This file is part of the Kreta package.
+ *
+ * (c) Beñat Espiña <benatespina@gmail.com>
+ * (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+namespace Kreta\Component\Project\Form\Type;
+
+use Kreta\Component\Core\Form\Type\Abstracts\AbstractType;
+use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormInterface;
+use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Security\Core\User\UserInterface;
+
+/**
+ * Class ParticipantType.
+ *
+ * @package Kreta\Component\Project\Form\Type
+ */
+class ParticipantType extends AbstractType
+{
+    /**
+     * {@inheritdoc}
+     */
+    public function buildForm(FormBuilderInterface $builder, array $options)
+    {
+        parent::buildForm($builder, $options);
+        $builder
+            ->add('role', 'kreta_project_role_type')
+            ->add('user', 'entity', [
+                'class'   => 'Kreta\Component\User\Model\User',
+                'choices' => $options['users']
+            ]);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function configureOptions(OptionsResolver $resolver)
+    {
+        parent::configureOptions($resolver);
+        $resolver
+            ->setRequired(['project'])
+            ->setDefaults(['users' => []]);
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getName()
+    {
+        return 'kreta_project_participant_type';
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function createEmptyData(FormInterface $form)
+    {
+        $user = $form->get('user')->getData();
+        if (!($user instanceof UserInterface)) {
+            $user = $this->user;
+        }
+        return $this->factory->create($this->options['project'], $user, $form->get('role')->getData());
+    }
+}

@@ -1,0 +1,36 @@
+# This file is part of the Kreta package.
+#
+# (c) Beñat Espiña <benatespina@gmail.com>
+# (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+
+Kreta\Component\Project\Model\IssuePriority:
+    exclusion_policy: ALL
+    relations:
+        -
+            rel: issue_priorities
+            href:
+                route: get_projects_issue_priorities
+                parameters:
+                    projectId: expr(object.getProject().getId())
+                absolute: true
+            exclusion:
+                groups: [issuePriorityList, issuePriority]
+        -
+            rel: project
+            href:
+                route: get_project
+                parameters:
+                    projectId: expr(object.getProject().getId())
+                absolute: true
+            exclusion:
+                groups: [issuePriorityList, issuePriority]
+    properties:
+        id:
+            expose: true
+            groups: [projectList, project, issueList, issue, issuePriorityList, issuePriority]
+        name:
+            expose: true
+            groups: [projectList, project, issueList, issue, issuePriorityList, issuePriority]

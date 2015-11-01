@@ -1,0 +1,16 @@
+# This file is part of the Kreta package.
+#
+# (c) Beñat Espiña <benatespina@gmail.com>
+# (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+
+parameters:
+    kreta_core.form_handler.handler.class: Kreta\Component\Core\Form\Handler\Handler
+
+    kreta_core.event_listener.json_exception.class: Kreta\Bundle\CoreBundle\EventListener\JsonExceptionListener
+
+    kreta_core.event_listener.resource_if_allowed_annotation.class: Kreta\Bundle\CoreBundle\EventListener\ResourceIfAllowedAnnotationListener
+
+    kreta_core.event_listener.role_annotation.class: Kreta\Bundle\CoreBundle\EventListener\RoleAnnotationListener

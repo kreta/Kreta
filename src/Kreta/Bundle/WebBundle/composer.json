@@ -1,0 +1,67 @@
+{
+    "name": "kreta/web-bundle",
+    "description": "Kreta web bundle",
+    "keywords": [
+        "project",
+        "manager",
+        "development",
+        "tool",
+        "web",
+        "bundle"
+    ],
+    "homepage": "http://kreta.io",
+    "license": "MIT",
+    "type": "symfony-bundle",
+    "authors": [
+        {
+            "name": "Beñat Espiña Diaz",
+            "email": "benatespina@gmail.com",
+            "homepage": "http://benatespina.com"
+        },
+        {
+            "name": "Gorka Laucirica Ibarra",
+            "email": "gorka.lauzirika@gmail.com",
+            "homepage": "http://gorkalaucirica.net"
+        }
+    ],
+    "require": {
+        "php":                       ">=5.4",
+        "kreta/issue-bundle":        "^0.4.0",
+        "kreta/media-bundle":        "^0.4.0",
+        "kreta/notification-bundle": "^0.4.0",
+        "kreta/project-bundle":      "^0.4.0",
+        "kreta/user-bundle":         "^0.4.0"
+    },
+    "require-dev": {
+        "phpspec/phpspec":           "^2.3"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/kreta/FOSOAuthServerBundle"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/kreta/FOSUserBundle"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/kreta/Finite"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Kreta\\Bundle\\WebBundle\\": ""
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Kreta\\Bundle\\WebBundle\\spec\\": "spec/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.4-dev"
+        }
+    }
+}

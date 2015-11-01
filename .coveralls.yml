@@ -8,7 +8,7 @@
 
 service_name: travis-ci
 
-src_dir: src
+src_dir: src/Kreta
 coverage_clover:
     - phpspec-coverage.xml
 json_path: coveralls-upload.json

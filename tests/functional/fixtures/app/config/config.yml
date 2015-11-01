@@ -1,0 +1,158 @@
+# This file is part of the Kreta package.
+#
+# (c) Beñat Espiña <benatespina@gmail.com>
+# (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+
+imports:
+    - { resource: parameters.yml }
+    - { resource: security.yml }
+    - { resource: doctrine.yml }
+
+framework:
+    translator: { fallback: "%locale%" }
+    secret: "%secret%"
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: true
+    profiler:
+        collect: false
+    form: ~
+    csrf_protection: ~
+    validation: { enable_annotations: true }
+    templating:
+        engines: ['twig']
+    default_locale:  "%locale%"
+    trusted_proxies: ~
+    test: ~
+    session:
+        storage_id: session.storage.mock_file
+    fragments: ~
+    http_method_override: true
+
+twig:
+    debug: "%kernel.debug%"
+    strict_variables: "%kernel.debug%"
+
+swiftmailer:
+    disable_delivery: true
+    transport: %mailer_transport%
+    encryption: %mailer_encryption%
+    port: %mailer_port%
+    host: %mailer_host%
+    username: %mailer_user%
+    password: %mailer_password%
+    spool: { type: memory }
+
+bazinga_hateoas:
+    metadata:
+        cache: file
+        file_cache:
+            dir: %kernel.cache_dir%/hateoas
+
+fos_oauth_server:
+    db_driver: orm
+    access_token_class: Kreta\Bundle\CoreBundle\Model\AccessToken
+    auth_code_class: Kreta\Bundle\CoreBundle\Model\AuthCode
+    client_class: Kreta\Bundle\CoreBundle\Model\Client
+    refresh_token_class: Kreta\Bundle\CoreBundle\Model\RefreshToken
+    service:
+        user_provider: fos_user.user_provider.username_email
+        options:
+            supported_scopes: user
+
+fos_rest:
+    routing_loader:
+        include_format: false
+        default_format: json
+    param_fetcher_listener: true
+    body_listener:
+        array_normalizer: fos_rest.normalizer.camel_keys
+    view:
+        view_response_listener: force
+    serializer:
+        serialize_null: true
+
+fos_user:
+    db_driver: orm
+    firewall_name: main
+    user_class: Kreta\Component\User\Model\User
+
+jms_serializer:
+    metadata:
+        directories:
+            kreta-core:
+                namespace_prefix: "Kreta\\Component\\Core"
+                path: "@KretaCoreBundle/Resources/config/serializer"
+            kreta-issue:
+                namespace_prefix: "Kreta\\Component\\Issue"
+                path: "@KretaIssueBundle/Resources/config/serializer"
+            kreta-media:
+                namespace_prefix: "Kreta\\Component\\Media"
+                path: "@KretaMediaBundle/Resources/config/serializer"
+            kreta-notification:
+                namespace_prefix: "Kreta\\Component\\Notification"
+                path: "@KretaNotificationBundle/Resources/config/serializer"
+            kreta-project:
+                namespace_prefix: "Kreta\\Component\\Project"
+                path: "@KretaProjectBundle/Resources/config/serializer"
+            kreta-user:
+                namespace_prefix: "Kreta\\Component\\User"
+                path: "@KretaUserBundle/Resources/config/serializer"
+            kreta-workflow:
+                namespace_prefix: "Kreta\\Component\\Workflow"
+                path: "@KretaWorkflowBundle/Resources/config/serializer"
+            FOSUserBundle:
+                namespace_prefix: "FOS\\UserBundle"
+                path: "@KretaUserBundle/Resources/FOSUserBundle/serializer"
+
+knp_gaufrette:
+    adapters:
+        kreta_image_users:
+            local:
+                directory: %kernel.root_dir%/../web/media/image
+                create: true
+        kreta_image_projects:
+            local:
+                directory: %kernel.root_dir%/../web/media/image
+                create: true
+    filesystems:
+        kreta_image_users:
+            adapter: %users.image.uploader.filesystem%
+        kreta_image_projects:
+            adapter: %projects.image.uploader.filesystem%
+
+liip_imagine:
+    loaders:
+        default:
+            filesystem:
+                data_root: %kernel.root_dir%/../web/media/image
+    filter_sets:
+        kreta_small:
+            filters:
+                thumbnail: { size: [150, 150], mode: outbound }
+        kreta_medium:
+            filters:
+                thumbnail: { size: [240, 180], mode: outbound }
+        kreta_large:
+            filters:
+                thumbnail: { size: [640, 480], mode: outbound }
+
+nelmio_cors:
+    paths:
+        '^/':
+            allow_origin: ['*']
+            allow_headers: ['X-Custom-Auth', 'Authorization']
+            allow_methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+            max_age: 3600
+
+sensio_framework_extra:
+    view:
+        annotations: false
+
+kreta_notification:
+    notifier:
+        email:
+            enabled: false

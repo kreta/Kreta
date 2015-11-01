@@ -1,0 +1,50 @@
+{
+    "name": "kreta/media",
+    "description": "Kreta media component",
+    "keywords": [
+        "project",
+        "manager",
+        "development",
+        "tool",
+        "media",
+        "component"
+    ],
+    "homepage": "http://kreta.io",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Beñat Espiña Diaz",
+            "email": "benatespina@gmail.com",
+            "homepage": "http://benatespina.com"
+        },
+        {
+            "name": "Gorka Laucirica Ibarra",
+            "email": "gorka.lauzirika@gmail.com",
+            "homepage": "http://gorkalaucirica.net"
+        }
+    ],
+    "require": {
+        "php":               ">=5.4",
+        "knplabs/gaufrette": "^0.1.9",
+        "kreta/core":        "^0.4.0"
+    },
+    "require-dev": {
+        "phpspec/phpspec":   "^2.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "Kreta\\Component\\Media\\": ""
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Kreta\\Component\\Media\\spec\\": "spec/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.4-dev"
+        }
+    }
+}

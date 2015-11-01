@@ -1,0 +1,60 @@
+{
+    "name": "kreta/workflow",
+    "description": "Kreta workflow component",
+    "keywords": [
+        "project",
+        "manager",
+        "development",
+        "tool",
+        "workflow",
+        "component"
+    ],
+    "homepage": "http://kreta.io",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Beñat Espiña Diaz",
+            "email": "benatespina@gmail.com",
+            "homepage": "http://benatespina.com"
+        },
+        {
+            "name": "Gorka Laucirica Ibarra",
+            "email": "gorka.lauzirika@gmail.com",
+            "homepage": "http://gorkalaucirica.net"
+        }
+    ],
+    "require": {
+        "php":             ">=5.4",
+        "kreta/issue":     "^0.4.0",
+        "yohang/finite":   "^1.0,>=1.0.4"
+    },
+    "require-dev": {
+        "phpspec/phpspec": "^2.3"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/kreta/FOSUserBundle"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/kreta/Finite"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Kreta\\Component\\Workflow\\": ""
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Kreta\\Component\\Workflow\\spec\\": "spec/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.4-dev"
+        }
+    }
+}

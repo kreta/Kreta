@@ -1,0 +1,55 @@
+# This file is part of the Kreta package.
+#
+# (c) Beñat Espiña <benatespina@gmail.com>
+# (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+
+Kreta\Component\Workflow\Model\StatusTransition:
+    exclusion_policy: ALL
+    relations:
+        -
+            rel: self
+            href:
+                route: get_workflow_transition
+                parameters:
+                    workflowId: expr(object.getWorkflow().getId())
+                    transitionId: expr(object.getId())
+                absolute: true
+            exclusion:
+                groups: [workflowList, workflow, transitionList, transition]
+        -
+            rel: transitions
+            href:
+                route: get_workflow_transitions
+                parameters:
+                    workflowId: expr(object.getWorkflow().getId())
+                absolute: true
+            exclusion:
+                groups: [workflowList, workflow, transitionList, transition]
+        -
+            rel: workflow
+            href:
+                route: get_workflow
+                parameters:
+                    workflowId: expr(object.getWorkflow().getId())
+                absolute: true
+            exclusion:
+                groups: [transitionList, transition]
+    properties:
+        id:
+            expose: true
+            groups: [workflowList, workflow, transitionList, transition]
+        initialStates:
+            expose: true
+            groups: [workflowList, workflow, transitionList, transition]
+        name:
+            expose: true
+            groups: [workflowList, workflow, transitionList, transition]
+        state:
+            expose: true
+            groups: []
+        workflow:
+            expose: true
+            groups: []

@@ -1,0 +1,55 @@
+# This file is part of the Kreta package.
+#
+# (c) Beñat Espiña <benatespina@gmail.com>
+# (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+
+suites:
+    CoreBundle:
+        namespace: Kreta
+        spec_path: src/Kreta/Bundle/CoreBundle
+    IssueBundle:
+        namespace: Kreta
+        spec_path: src/Kreta/Bundle/IssueBundle
+    MediaBundle:
+        namespace: Kreta
+        spec_path: src/Kreta/Bundle/MediaBundle
+    NotificationBundle:
+        namespace: Kreta
+        spec_path: src/Kreta/Bundle/NotificationBundle
+    UserBundle:
+        namespace: Kreta
+        spec_path: src/Kreta/Bundle/UserBundle
+    ProjectBundle:
+        namespace: Kreta
+        spec_path: src/Kreta/Bundle/ProjectBundle
+    WebBundle:
+        namespace: Kreta
+        spec_path: src/Kreta/Bundle/WebBundle
+    WorkflowBundle:
+        namespace: Kreta
+        spec_path: src/Kreta/Bundle/WorkflowBundle
+
+    CoreComponent:
+        namespace: Kreta
+        spec_path: src/Kreta/Component/Core
+    IssueComponent:
+        namespace: Kreta
+        spec_path: src/Kreta/Component/Issue
+    MediaComponent:
+        namespace: Kreta
+        spec_path: src/Kreta/Component/Media
+    ProjectComponent:
+        namespace: Kreta
+        spec_path: src/Kreta/Component/Project
+    UserComponent:
+        namespace: Kreta
+        spec_path: src/Kreta/Component/User
+    NotificationComponent:
+        namespace: Kreta
+        spec_path: src/Kreta/Component/Notification
+    WorkflowComponent:
+        namespace: Kreta
+        spec_path: src/Kreta/Component/Workflow
