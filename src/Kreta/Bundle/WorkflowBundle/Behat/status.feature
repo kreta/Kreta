@@ -39,10 +39,14 @@ Feature: Manage status
       | Test project 1 | user3@kreta.com | ROLE_PARTICIPANT |
       | Test project 1 | user2@kreta.com | ROLE_PARTICIPANT |
       | Test project 2 | user2@kreta.com | ROLE_PARTICIPANT |
+    And the following issue priorities exist:
+      | id | name    | project        |
+      | 0  | Low     | Test project 1 |
+      | 1  | Medium  | Test project 1 |
     And the following issues exist:
-      | id | numericId | project        | title        | description | reporter       | assignee       | type | status   | priority | createdAt  |
-      | 0  | 1         | Test project 1 | Test issue 1 | Description | user@kreta.com | user@kreta.com | 2    | Open     | 1        | 2014-10-21 |
-      | 1  | 2         | Test project 1 | Test issue 2 | Description | user@kreta.com | user@kreta.com | 1    | Resolved | 1        | 2014-10-21 |
+      | id | numericId | project        | title        | description | reporter       | assignee       | status   | priority | createdAt  |
+      | 0  | 1         | Test project 1 | Test issue 1 | Description | user@kreta.com | user@kreta.com | Open     | 1        | 2014-10-21 |
+      | 1  | 2         | Test project 1 | Test issue 2 | Description | user@kreta.com | user@kreta.com | Resolved | 1        | 2014-10-21 |
     And the following tokens exist:
       | token          | expiresAt | scope | user            |
       | access-token-0 | null      | user  | user@kreta.com  |

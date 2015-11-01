@@ -60,7 +60,7 @@ script:
     - node_modules/.bin/jest --verbose --coverage
     - cd -
 
-    - vendor/bin/phpspec run -fpretty
+    - vendor/bin/phpspec run
 
     - vendor/bin/behat --stop-on-failure --suite=oauth
     - vendor/bin/behat --stop-on-failure --suite=authentication

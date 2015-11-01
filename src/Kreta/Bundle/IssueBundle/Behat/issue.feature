@@ -74,14 +74,14 @@ Feature: Manage issue
       | Test project 2 | user2@kreta.com | ROLE_PARTICIPANT |
       | Test project 2 | user4@kreta.com | ROLE_PARTICIPANT |
     And the following issues exist:
-      | id | numericId | project        | title        | description | reporter        | assignee        | type | status   | priority | createdAt  | labels                                   | parent |
-      | 0  | 1         | Test project 1 | Test issue 1 | Description | user@kreta.com  | user@kreta.com  | 2    | Open     | 1        | 2014-12-15 | backbone.js,javascript,bdd,symfony,css3  |        |
-      | 1  | 2         | Test project 1 | Test issue 2 | Description | user@kreta.com  | user@kreta.com  | 1    | Resolved | 0        | 2014-11-07 | backbone.js,javascript,bdd,symfony,css3  |        |
-      | 2  | 3         | Test project 1 | Test issue 3 | Description | user@kreta.com  | user@kreta.com  | 1    | Resolved | 2        | 2014-10-21 | backbone.js,javascript,bdd,mysql,mongodb |        |
-      | 3  | 1         | Test project 2 | Test issue 1 | Description | user@kreta.com  | user4@kreta.com | 3    | Resolved | 5        | 2014-10-21 | php,behat,phpspec,html5,compass          |        |
-      | 4  | 2         | Test project 2 | Test issue 1 | Description | user4@kreta.com | user@kreta.com  | 4    | Resolved | 4        | 2014-10-21 | php,behat,phpspec,html5,compass          |        |
-      | 5  | 4         | Test project 1 | Test issue 4 | Description | user2@kreta.com | user@kreta.com  | 0    | Closed   | 3        | 2014-10-21 | backbone.js,javascript,bdd,mysql,mongodb |        |
-      | 6  | 3         | Test project 2 | Test issue 3 | Description | user4@kreta.com | user@kreta.com  | 4    | Resolved | 4        | 2014-10-22 | php,behat,phpspec,html5,compass          | 4      |
+      | id | numericId | project        | title        | description | reporter        | assignee        | status   | priority | createdAt  | labels                                   | parent |
+      | 0  | 1         | Test project 1 | Test issue 1 | Description | user@kreta.com  | user@kreta.com  | Open     | 1        | 2014-12-15 | backbone.js,javascript,bdd,symfony,css3  |        |
+      | 1  | 2         | Test project 1 | Test issue 2 | Description | user@kreta.com  | user@kreta.com  | Resolved | 0        | 2014-11-07 | backbone.js,javascript,bdd,symfony,css3  |        |
+      | 2  | 3         | Test project 1 | Test issue 3 | Description | user@kreta.com  | user@kreta.com  | Resolved | 2        | 2014-10-21 | backbone.js,javascript,bdd,mysql,mongodb |        |
+      | 3  | 1         | Test project 2 | Test issue 1 | Description | user@kreta.com  | user4@kreta.com | Resolved | 5        | 2014-10-21 | php,behat,phpspec,html5,compass          |        |
+      | 4  | 2         | Test project 2 | Test issue 1 | Description | user4@kreta.com | user@kreta.com  | Resolved | 4        | 2014-10-21 | php,behat,phpspec,html5,compass          |        |
+      | 5  | 4         | Test project 1 | Test issue 4 | Description | user2@kreta.com | user@kreta.com  | Closed   | 3        | 2014-10-21 | backbone.js,javascript,bdd,mysql,mongodb |        |
+      | 6  | 3         | Test project 2 | Test issue 3 | Description | user4@kreta.com | user@kreta.com  | Resolved | 4        | 2014-10-22 | php,behat,phpspec,html5,compass          | 4      |
     And the following tokens exist:
       | token          | expiresAt | scope | user            |
       | access-token-0 | null      | user  | user@kreta.com  |
