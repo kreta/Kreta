@@ -14,9 +14,9 @@ import webpack from 'webpack';
 
 import pkg from './package.json';
 
-let buildPath = './../../../../web';
+let buildPath = './../../../../../../web';
 if (process.argv[4] === '--from-vendor') {
-  buildPath = './../../../../../web';
+  buildPath = './../../../../../../../web';
 }
 
 const SOURCE_PATH = './Resources/public',
