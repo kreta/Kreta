@@ -33,6 +33,16 @@
     "require-dev": {
         "phpspec/phpspec":            "^2.3"
     },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/kreta/FOSUserBundle"
+        },
+        {
+            "type": "vcs",
+            "url": "https://github.com/kreta/Finite"
+        }
+    ],
     "autoload": {
         "psr-4": {
             "Kreta\\Component\\Notification\\": ""

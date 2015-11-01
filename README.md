@@ -39,7 +39,8 @@ If you would like to contribute it is a good point to follow Symfony contributio
 [Contributing Code][6] in the project documentation. If you are submitting a pull request, please follow the guidelines
 in the [Submitting a Patch][7] section and use the [Pull Request Template][8].
 
-If you have any doubt or maybe you want to share some opinion, you can use our **Gitter chat**.<br>
+If you have any doubt or maybe you want to share some opinion, you can use our **Gitter chat**.
+
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/kreta/kreta?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 ##Credits
