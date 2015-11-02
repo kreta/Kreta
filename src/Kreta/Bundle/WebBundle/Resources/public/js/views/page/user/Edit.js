@@ -74,7 +74,7 @@ export default React.createClass({
                    name="username"
                    placeholder="Username"
                    type="text"/>
-            <img ref="previewImage" src={user.photo.name}/>
+            <img ref="previewImage" src={user.photo ? user.photo.name : ''}/>
             <input defaultValue=""
                    name="photo"
                    onChange={this.onPhotoChange}
