@@ -20,7 +20,6 @@ use Kreta\Component\Project\Model\IssuePriority;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use Kreta\Component\Workflow\Factory\WorkflowFactory;
 use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Class ProjectFactory.
@@ -30,8 +29,6 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 class ProjectFactory
 {
     const DEFAULT_WORKFLOW_NAME = 'Default KRETA workflow';
-    const DEFAULT_IMAGE_PATH = '/../../../Bundle/ProjectBundle/Resources/public/img/';
-    const DEFAULT_IMAGE_FILENAME = 'default.png';
 
     /**
      * The class name.
@@ -83,8 +80,7 @@ class ProjectFactory
         WorkflowFactory $workflowFactory,
         MediaFactory $mediaFactory,
         MediaUploaderInterface $uploader
-    )
-    {
+    ) {
         $this->className = $className;
         $this->participantFactory = $participantFactory;
         $this->workflowFactory = $workflowFactory;
@@ -107,8 +103,7 @@ class ProjectFactory
         WorkflowInterface $workflow = null,
         $load = true,
         MediaInterface $image = null
-    )
-    {
+    ) {
         $project = new $this->className();
 
         $participant = $this->participantFactory->create($project, $user, 'ROLE_ADMIN');
@@ -120,17 +115,12 @@ class ProjectFactory
             $project = $this->loadPrioritiesAndTypes($project);
         }
 
-        if (!$image instanceof MediaInterface) {
-            $image = $this->mediaFactory->create(
-                new UploadedFile(
-                    __DIR__ . self::DEFAULT_IMAGE_PATH . self::DEFAULT_IMAGE_FILENAME, self::DEFAULT_IMAGE_FILENAME
-                )
-            );
+        if ($image instanceof MediaInterface) {
+            $this->uploader->upload($image);
+            $project->setImage($image);
         }
-        $this->uploader->upload($image);
 
         return $project
-            ->setImage($image)
             ->addParticipant($participant)
             ->setWorkflow($workflow);
     }

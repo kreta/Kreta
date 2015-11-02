@@ -35,8 +35,7 @@ class ProjectFactorySpec extends ObjectBehavior
         WorkflowFactory $workflowFactory,
         MediaFactory $mediaFactory,
         MediaUploaderInterface $uploader
-    )
-    {
+    ) {
         $this->beConstructedWith(
             'Kreta\Component\Project\Model\Project', $participantFactory, $workflowFactory, $mediaFactory, $uploader
         );
@@ -51,18 +50,10 @@ class ProjectFactorySpec extends ObjectBehavior
         UserInterface $user,
         ParticipantFactory $participantFactory,
         ParticipantInterface $participant,
-        WorkflowInterface $workflow,
-        MediaFactory $mediaFactory,
-        MediaInterface $image,
-        MediaUploaderInterface $uploader
-    )
-    {
+        WorkflowInterface $workflow
+    ) {
         $participantFactory->create(Argument::type('Kreta\Component\Project\Model\Project'), $user, 'ROLE_ADMIN')
             ->shouldBeCalled()->willReturn($participant);
-
-        $mediaFactory->create(Argument::type('Symfony\Component\HttpFoundation\File\UploadedFile'))
-            ->shouldBeCalled()->willReturn($image);
-        $uploader->upload($image)->shouldBeCalled();
 
         $this->create($user, $workflow, false)->shouldReturnAnInstanceOf('Kreta\Component\Project\Model\Project');
     }
@@ -72,20 +63,12 @@ class ProjectFactorySpec extends ObjectBehavior
         ParticipantFactory $participantFactory,
         ParticipantInterface $participant,
         WorkflowFactory $workflowFactory,
-        WorkflowInterface $workflow,
-        MediaFactory $mediaFactory,
-        MediaInterface $image,
-        MediaUploaderInterface $uploader
-    )
-    {
-        $participantFactory->create(Argument::type('Kreta\Component\Project\Model\Project'), $user, 'ROLE_ADMIN')
-            ->shouldBeCalled()->willReturn($participant);
-        $workflowFactory->create('Default KRETA workflow', $user, true)
-            ->shouldBeCalled()->willReturn($workflow);
-
-        $mediaFactory->create(Argument::type('Symfony\Component\HttpFoundation\File\UploadedFile'))
-            ->shouldBeCalled()->willReturn($image);
-        $uploader->upload($image)->shouldBeCalled();
+        WorkflowInterface $workflow
+    ) {
+        $participantFactory->create(
+            Argument::type('Kreta\Component\Project\Model\Project'), $user, 'ROLE_ADMIN'
+        )->shouldBeCalled()->willReturn($participant);
+        $workflowFactory->create('Default KRETA workflow', $user, true)->shouldBeCalled()->willReturn($workflow);
 
         $this->create($user, null, true)->shouldReturnAnInstanceOf('Kreta\Component\Project\Model\Project');
     }
@@ -97,8 +80,7 @@ class ProjectFactorySpec extends ObjectBehavior
         WorkflowInterface $workflow,
         MediaInterface $image,
         MediaUploaderInterface $uploader
-    )
-    {
+    ) {
         $participantFactory->create(Argument::type('Kreta\Component\Project\Model\Project'), $user, 'ROLE_ADMIN')
             ->shouldBeCalled()->willReturn($participant);
 
