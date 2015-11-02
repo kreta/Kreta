@@ -22,8 +22,11 @@ export default React.createClass({
         <img className="user-image" src={this.props.user.photo.name}/>
       );
     } else {
-      let resultChar = `${this.props.user.first_name.charAt(0)}${this.props.user.last_name.charAt(0)}`;
-      if ('' === this.props.user.first_name) {
+      let resultChar = '';
+      if(this.props.user.first_name && this.props.user.last_name &&
+         this.props.user.first_name.length > 0 && this.props.user.last_name.length > 0) {
+        resultChar = `${this.props.user.first_name.charAt(0)}${this.props.user.last_name.charAt(0)}`;
+      } else {
         resultChar = this.props.user.username.substring(0,2);
       }
 
