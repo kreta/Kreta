@@ -142,7 +142,7 @@ export default React.createClass({
                name="title"
                onChange={this.updateInput}
                value={issue.title}/>
-        <section className="full-issue-transitions">
+        <section className="issue-show__transitions">
           {allowedTransitions}
         </section>
         <section className="issue-show__fields">

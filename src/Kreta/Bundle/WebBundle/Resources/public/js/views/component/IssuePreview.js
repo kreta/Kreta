@@ -23,11 +23,9 @@ export default React.createClass({
     });
     return (
       <div className={classes} onClick={this.props.onClick}>
-        <div className="issue-preview__details">
-          <a className="issue-preview__title">
-            {this.props.issue.get('title')}
-          </a>
-        </div>
+        <a className="issue-preview__title">
+          {this.props.issue.get('title')}
+        </a>
         <div className="issue-preview__icons">
           <span className="issue-preview__icon"
                 data-tooltip-text={ this.props.issue.get('status').name }>

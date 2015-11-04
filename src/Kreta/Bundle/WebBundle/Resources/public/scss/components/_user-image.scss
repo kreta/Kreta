@@ -8,14 +8,17 @@
 
 @import '../base/colors';
 
+$user-image-size: 32px;
+$user-image-bg: #ddd;
+
 .user-image {
-  background: $main-green;
+  background: $user-image-bg;
   border-radius: 50%;
   display: inline-block;
-  height: 40px;
-  line-height: 40px;
+  height: $user-image-size;
+  line-height: $user-image-size;
   text-align: center;
-  width: 40px;
+  width: $user-image-size;
 }
 
 .user-image--big {
@@ -26,6 +29,6 @@
 
 .user-image__char {
   color: $white;
-  font-size: 20px;
+  font-size: 13px;
 }
 
