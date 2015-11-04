@@ -26,13 +26,12 @@
 }
 
 .button--green {
+  background: $main-green;
   border: 1px solid $main-green;
-  color: $main-green;
+  color: $white;
 
   &:hover {
-    background: $main-green;
-    border: 1px solid $main-green;
-    color: $white;
+    background: lighten($main-green, 20%);
   }
 }
 
