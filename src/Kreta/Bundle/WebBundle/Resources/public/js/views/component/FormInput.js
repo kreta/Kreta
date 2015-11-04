@@ -28,7 +28,7 @@ export default React.createClass({
     this.setState({value: event.target.value});
   },
   getInputField() {
-    let {label, ...props} = this.props;
+    let {label, value, ...props} = this.props;
     const inputClasses = classnames('form-input__input', {
       'form-input__input--filled': this.state.value.length > 0
     });
@@ -38,6 +38,7 @@ export default React.createClass({
         <textarea className={inputClasses}
                   onChange={this.onChange}
                   ref="input"
+                  value={this.state.value}
           {...props}>
         </textarea>
       );
@@ -47,6 +48,7 @@ export default React.createClass({
         <input className={inputClasses}
                onChange={this.onChange}
                ref="input"
+               value={this.state.value}
           {...props}/>
       );
     }

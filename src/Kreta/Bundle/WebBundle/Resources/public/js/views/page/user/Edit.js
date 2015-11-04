@@ -11,10 +11,10 @@
 import React from 'react';
 import $ from 'jquery';
 
-import ContentMiddleLayout from '../../layout/ContentMiddleLayout';
 import Button from '../../component/Button.js';
-import {FormSerializerService} from '../../../service/FormSerializer';
-import {NotificationService} from '../../../service/Notification';
+import ContentMiddleLayout from '../../layout/ContentMiddleLayout';
+import Form from '../../component/Form.js';
+import FormInput from '../../component/FormInput.js';
 import {Profile} from '../../../models/Profile';
 
 export default React.createClass({
@@ -32,58 +32,40 @@ export default React.createClass({
       this.refs.previewImage.src = window.URL.createObjectURL(file);
     }
   },
-  save(ev) {
-    ev.preventDefault();
-
-    const user = FormSerializerService.serialize(
-      $(this.refs.form), Profile
-    );
-
-    user.save(null, {
-      success: () => {
-        NotificationService.showNotification({
-          type: 'success',
-          message: 'Your profile was updated successfully'
-        });
-      }, error: () => {
-        NotificationService.showNotification({
-          type: 'error',
-          message: 'Error while saving changes'
-        });
-      }
-    });
-
-    return false;
+  showErrors(errors) {
+    console.log(errors);
   },
   render() {
     const user = this.state.user.toJSON();
 
     return (
       <ContentMiddleLayout>
-        <form className="user-edit" onSubmit={this.save} ref="form">
-          <div>
-            <input defaultValue={user.first_name}
-                   name="firstName"
-                   placeholder="First name"
-                   type="text"/>
-            <input defaultValue={user.last_name}
-                   name="lastName"
-                   placeholder="Last name"
-                   type="text"/>
-            <input defaultValue={user.username}
-                   name="username"
-                   placeholder="Username"
-                   type="text"/>
+        <Form model={Profile}
+              onSaveError={this.showErrors}>
+          <FormInput name="firstName"
+                     label="First Name"
+                     tabIndex={2}
+                     type="text"
+                     value={user.first_name}/>
+          <FormInput name="lastName"
+                     label="Last Name"
+                     tabIndex={3}
+                     type="text"
+                     value={user.last_name}/>
+          <FormInput name="username"
+                     label="Username"
+                     tabIndex={3}
+                     type="text"
+                     value={user.username}/>
             <img ref="previewImage" src={user.photo ? user.photo.name : ''}/>
             <input defaultValue=""
                    name="photo"
                    onChange={this.onPhotoChange}
                    type="file"/>
-          </div>
-          <div className="spacer-vertical-1">
+          <div className="issue-new__actions">
             <Button color="green" type="submit">Update</Button>
           </div>
-        </form>
+        </Form>
       </ContentMiddleLayout>
     );
   }
