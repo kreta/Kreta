@@ -30,7 +30,8 @@
   border: 1px solid $main-green;
   color: $white;
 
-  &:hover {
+  &:hover,
+  &:focus {
     background: lighten($main-green, 20%);
   }
 }
