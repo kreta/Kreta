@@ -22,6 +22,7 @@ import Selector from '../../component/Selector.js';
 import IssueField from '../../component/IssueField.js';
 import UserImage from '../../component/UserImage.js';
 import Button from '../../component/Button.js';
+import FormInput from '../../component/FormInput.js';
 
 export default React.createClass({
   getInitialState() {
@@ -67,18 +68,18 @@ export default React.createClass({
 
         return (
           <IssueField image={<UserImage user={p.user}/>}
-          label="Assigned to"
-          text={assignee}
-          value={p.user.id}/>
+                      label="Assigned to"
+                      text={assignee}
+                      value={p.user.id}/>
         );
 
       }),
       priority = project.get('issue_priorities').map((p) => {
         return (
           <IssueField image={<i className="fa fa-exclamation"></i>}
-          label="Priority"
-          text={p.name}
-          value={p.id}/>
+                      label="Priority"
+                      text={p.name}
+                      value={p.id}/>
         );
       });
 
@@ -129,16 +130,16 @@ export default React.createClass({
                     value={this.state.project.id}>
             {options.selectableProjects}
           </Selector>
-          <input className="big"
-                 name="title"
-                 placeholder="Type your task title"
-                 tabIndex={2}
-                 type="text"
-                 value={this.state.project.title}/>
-          <textarea name="description"
-                    placeholder="Type your task description"
-                    tabIndex={3}
-                    value={this.state.project.description}></textarea>
+          <FormInput name="title"
+                     label="Title"
+                     tabIndex={2}
+                     type="text"
+                     value={this.state.project.title}/>
+          <FormInput multiline={true}
+                     name="description"
+                     label="Description"
+                     tabIndex={3}
+                     value={this.state.project.description}/>
 
           <div className={`issue-new__details${this.state.isLoading ? ' issue-new__details--hidden' : ''}`}>
             <Selector name="assignee"

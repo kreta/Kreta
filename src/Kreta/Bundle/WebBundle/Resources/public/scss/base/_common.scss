@@ -66,3 +66,16 @@ small {
 i {
   margin: 0 .25em;
 }
+
+input,
+textarea {
+  border: 0;
+  font-family: $font-open-sans;
+  font-size: 1.3em;
+  font-weight: lighter;
+  width: 100%;
+
+  &:focus {
+    outline: 0;
+  }
+}

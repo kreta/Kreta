@@ -6,25 +6,9 @@
 // For the full copyright and license information, please view the LICENSE
 // file that was distributed with this source code.
 
+@import '../base/colors';
 @import '../base/typography';
 
-input,
-textarea {
-  border: 0;
-  font-family: $font-open-sans;
-  font-size: 1.3em;
-  font-weight: lighter;
-  padding: .5em 0;
-  width: 100%;
-
-  &:focus {
-    outline: 0;
-  }
-
-  &.big {
-    font-size: 2em;
-  }
-}
 
 input[type='checkbox'] {
   display: inline-block;
@@ -33,4 +17,76 @@ input[type='checkbox'] {
 
 textarea {
   min-height: 200px;
+}
+
+.form-input {
+  position: relative;
+}
+
+.form-input--error {
+  .form-input__label {
+    color: $main-red;
+  }
+
+  .form-input__bar:after {
+    background: $main-red;
+  }
+}
+
+.form-input--success {
+  .form-input__label {
+    color: $main-green;
+  }
+
+  .form-input__bar:after {
+    background: $main-green;
+  }
+}
+
+.form-input__input {
+  padding: 20px 0;
+
+  &:focus {
+    ~ .form-input__bar:after {
+      width: 100%;
+    }
+  }
+
+  &:focus,
+  &.form-input__input--filled {
+    ~ .form-input__label {
+      font-size: 14px;
+      top: 0;
+      transform: translateY(0);
+    }
+  }
+}
+
+.form-input__label {
+  color: $grey;
+  font-size: 25px;
+  font-weight: lighter;
+  left: 0;
+  position: absolute;
+  top: 20px;
+  transition: top .2s, font-size .2s;
+}
+
+.form-input__bar {
+  background: $main-grey;
+  bottom: 10px;
+  height: 1px;
+  left: 0;
+  position: absolute;
+  width: 100%;
+
+  &:after {
+    background: $main-black;
+    content: '';
+    height: 100%;
+    position: absolute;
+    top: 0;
+    transition: width .2s;
+    width: 0;
+  }
 }
