@@ -11,35 +11,18 @@
 import React from 'react';
 import $ from 'jquery';
 
-import {FormSerializerService} from '../../../service/FormSerializer';
 import {Project} from '../../../models/Project';
 import Button from '../../component/Button.js';
+import Form from '../../component/Form.js';
+import FormInput from '../../component/FormInput.js';
 
 export default React.createClass({
   propTypes: {
     project: React.PropTypes.object
   },
-  saveProject(ev) {
-    ev.preventDefault();
-
-    var project = FormSerializerService.serialize(
-      $(this.refs.settingsForm), Project
-    );
-
-    project.save(null, {
-      success: () => {
-        console.log('Project settings Ok');
-      },
-      error: () => {
-        console.log('Project settings Ko');
-      }
-    });
-  },
   render() {
     return (
-      <form className="spacer-top-4"
-      onSubmit={this.saveProject}
-      ref="settingsForm">
+      <Form model={Project}>
         <div className="section-header">
           <div className="section-header-title"></div>
           <div>
@@ -51,18 +34,17 @@ export default React.createClass({
           </div>
         </div>
         <input name="id" type="hidden" value={this.props.project.id}/>
-        <input className="big"
-          defaultValue={this.props.project.get('name')}
-          name="name"
-          placeholder="Type your project name"
-          tabIndex="1"
-          type="text"/>
-        <input defaultValue={this.props.project.get('short_name')}
-          name="short_name"
-          placeholder="Type a short name for your project"
-          tabIndex="2"
-          type="text"/>
-      </form>
+        <FormInput label="Project name"
+                   name="name"
+                   tabIndex="1"
+                   type="text"
+                   value={this.props.project.get('name')}/>
+        <FormInput label="Project short name"
+                   name="short_name"
+                   tabIndex="2"
+                   type="text"
+                   value={this.props.project.get('short_name')}/>
+      </Form>
     );
   }
 });
