@@ -8,6 +8,8 @@
  * file that was distributed with this source code.
  */
 
+import SettingsIcon from '../../../../svg/settings.svg';
+
 import React from 'react';
 import $ from 'jquery';
 
@@ -147,8 +149,9 @@ export default React.createClass({
       }),
       links = [{
         href: `/project/${this.state.project.id}/settings`,
-        icon: 'settings',
-        title: 'Settings'
+        icon: SettingsIcon,
+        title: 'Settings',
+        color: 'green'
       }];
     let issue = '';
     if (this.state.issues.length > 0 && !this.state.fetchingIssues) {

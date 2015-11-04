@@ -8,8 +8,13 @@
  * file that was distributed with this source code.
  */
 
+import '../../../scss/components/_page-header.scss';
+
 import React from 'react';
 import {Link} from 'react-router';
+import classnames from 'classnames';
+
+import Icon from '../component/Icon.js';
 
 export default React.createClass({
   propTypes: {
@@ -19,9 +24,13 @@ export default React.createClass({
   },
   render() {
     const links = this.props.links.map((link) => {
+      const classes = classnames('page-header__icon', {
+        'page-header__icon--green': link.color === 'green'
+      });
       return (
-        <Link className="page-header-link" to={link.href}>
-          <i className={`fa fa-${link.icon}`}></i>
+        <Link className="page-header__link" to={link.href}>
+          <Icon className={classes}
+                glyph={link.icon}/>
           {link.title}
         </Link>
       );
@@ -30,7 +39,7 @@ export default React.createClass({
     return (
       <div className="page-header">
         <div className="project-image" style={{background: '#ebebeb'}}></div>
-        <h2 className="page-header-title">{this.props.title}</h2>
+        <h2 className="page-header__title">{this.props.title}</h2>
         <div>
           {links}
         </div>

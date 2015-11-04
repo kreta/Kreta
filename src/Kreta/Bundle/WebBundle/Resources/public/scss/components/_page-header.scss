@@ -15,16 +15,29 @@
   position: relative;
 }
 
-.page-header-title {
+.page-header__title {
   flex: 1;
   font-size: 1.3em;
   margin-left: 15px;
   text-transform: uppercase;
 }
 
-.page-header-link {
+.page-header__link {
+  align-items: center;
   color: $main-black;
+  display: flex;
   font-size: .8em;
   padding-left: 1em;
   text-decoration: none;
+}
+
+.page-header__icon {
+  fill: $main-black;
+  height: 16px;
+  margin-right: 5px;
+  width: 16px;
+}
+
+.page-header__icon--green {
+  fill: $main-green;
 }
