@@ -11,12 +11,9 @@
 $selector-input-height: 40px;
 
 .selector {
+  background: $white;
   position: relative;
   width: 100%;
-
-  &:focus {
-    outline: 0;
-  }
 }
 
 .selector__selected {
@@ -25,28 +22,36 @@ $selector-input-height: 40px;
 }
 
 .selector__filter {
+  border: 1px solid $main-grey;
+  cursor: pointer;
   height: $selector-input-height;
   line-height: $selector-input-height;
+  opacity: 0;
   padding: 0 10px;
-}
-
-.selector__dropdown {
-  display: none;
-}
-
-.selector__dropdown--open {
-  background: $white;
-  border: 1px solid $main-grey;
-  display: block;
   position: absolute;
   top: 0;
-  width: 100%;
-  z-index: 20;
+
+  &:focus {
+    opacity: 1;
+
+    ~ .selector__options {
+      visibility: visible;
+    }
+  }
 }
 
 .selector__options {
-  height: 300px;
+  background: $white;
+  border: solid $main-grey;
+  border-width: 0 1px 1px;
+  cursor: pointer;
+  max-height: 300px;
   overflow-y: scroll;
+  position: absolute;
+  top: $selector-input-height;
+  visibility: hidden;
+  width: 100%;
+  z-index: 20;
 }
 
 .selector__option {
@@ -56,6 +61,20 @@ $selector-input-height: 40px;
   &--selected {
     background: $main-green;
     color: $white;
+  }
+}
+
+.selector--disabled {
+  .selector__filter {
+    cursor: default;
+  }
+
+  .selector__filter:focus {
+    opacity: 0;
+
+    ~ .selector__options {
+      visibility: hidden;
+    }
   }
 }
 

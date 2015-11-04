@@ -34,7 +34,7 @@ export default React.createClass({
 
     return (
       <div className={classes}
-           onMouseUp={this.props.fieldSelected}
+           onMouseDown={this.props.fieldSelected}
            onMouseEnter={this.props.fieldHovered}>
         <div className="issue-field__image">
           {this.props.image}

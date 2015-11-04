@@ -11,8 +11,8 @@
 import '../../../scss/components/_selector.scss';
 
 import React from 'react';
-import classnames from 'classnames';
 import $ from 'jquery';
+import classnames from 'classnames';
 
 import NavigableCollection from '../../mixins/NavigableCollection.js';
 
@@ -48,46 +48,25 @@ export default React.createClass({
     });
     return found;
   },
-  openDropdown() {
-    if (this.props.disabled) {
-      return;
-    }
-    this.setState({
-      dropdownVisible: true,
-      filter: ''
-    });
-
-    this.refs.filter.value = '';
-
-    setTimeout(() => { // Wait render to focus
-      this.refs.filter.focus();
-    }, 200);
-  },
-  closeDropdown() {
-    this.setState({
-      dropdownVisible: false
-    });
-  },
   selectOption(index) {
     this.setState({
       selectedValue: this.filteredValues[index]
     });
-    this.closeDropdown();
-    this.goToNextTabIndex();
     if (this.props.onChange) {
       this.props.onChange(this.filteredValues[index], this.props.name);
     }
   },
   highlightItem(index) {
-    this.setState({
-      selectedItem: index
-    });
+    this.setState({selectedItem: index});
   },
   keyboardSelected(ev) {
     if (ev.which === 13 || ev.which === 9) { // Enter or tab
-      // Prevent submiting form
-      ev.stopPropagation();
-      ev.preventDefault();
+      if (ev.which === 13) {
+        // Prevent submiting form
+        ev.stopPropagation();
+        ev.preventDefault();
+        $(`[tabindex="${parseInt(this.props.tabIndex, 10) + 1}"]`).focus();
+      }
       this.selectOption(this.state.selectedItem);
     }
   },
@@ -96,9 +75,6 @@ export default React.createClass({
       filter: this.refs.filter.value,
       selectedItem: 0
     });
-  },
-  goToNextTabIndex() {
-    $(`[tabindex="${parseInt(this.props.tabIndex, 10) + 1}"]`).focus();
   },
   getFilteredOptions() {
     // Keeps filtered values in memory to select correct item
@@ -118,38 +94,33 @@ export default React.createClass({
     });
   },
   render() {
-    const dropdownClasses = classnames(
-        'selector__dropdown',
-        {'selector__dropdown--open': this.state.dropdownVisible}
-      ),
-      selectedElement = this.getElementByValue(this.state.selectedValue);
-
+    const selectedElement = this.getElementByValue(this.state.selectedValue),
+      classes = classnames('selector', {
+        'selector--disabled': this.props.disabled
+      });
     return (
-      <div className="selector"
-           onBlur={this.closeDropdown}
-           onFocus={this.openDropdown}
-           tabIndex={this.props.tabIndex}>
+      <div className={classes}>
         <input name={this.props.name}
                ref="value"
                type="hidden"
                value={this.state.selectedValue}/>
-
-        <div className="selector__selected" onMouseUp={this.openDropdown}>
+        <input className="selector__filter"
+               onChange={this.filter}
+               onKeyDown={this.keyboardSelected}
+               ref="filter"
+               tabIndex={this.props.tabIndex}
+               type="text"/>
+        <div className="selector__selected">
           {selectedElement}
         </div>
-
-        <div className={dropdownClasses}>
-          <input className="selector__filter"
-                 onChange={this.filter}
-                 onKeyDown={this.keyboardSelected}
-                 ref="filter"
-                 type="text"/>
-
-          <div className="selector__options" ref="navigableList">
+        <div className="selector__options" ref="navigableList">
             {this.getFilteredOptions()}
-          </div>
         </div>
       </div>
     );
+  },
+  focus() {
+    this.refs.filter.value = '';
+    this.refs.filter.focus();
   }
 });
