@@ -12,52 +12,37 @@ import '../../../../scss/views/page/project/_new.scss';
 
 import React from 'react';
 import {History} from 'react-router';
-import $ from 'jquery';
 
 import {Project} from '../../../models/Project';
-import {FormSerializerService} from '../../../service/FormSerializer';
-import {NotificationService} from '../../../service/Notification.js';
-import ContentMiddleLayout from '../../layout/ContentMiddleLayout.js';
 import Button from '../../component/Button.js';
+import ContentMiddleLayout from '../../layout/ContentMiddleLayout.js';
+import Form from '../../component/Form.js';
+import FormInput from '../../component/FormInput.js';
 
 export default React.createClass({
   mixins: [History],
-  save(ev) {
-    ev.preventDefault();
-
-    const project = FormSerializerService.serialize(
-      $(this.refs.form), Project
-    );
-
-    project.save(null, {
-      success: (model) => {
-        NotificationService.showNotification({
-          message: 'Project created successfully'
-        });
-        App.collection.project.add(model);
-        this.history.pushState(null, `/project/${model.id}`);
-      }, error: () => {
-        NotificationService.showNotification({
-          type: 'error',
-          message: 'Error while saving this project'
-        });
-      }
-    });
+  goToCreatedProject(model) {
+    App.collection.project.add(model);
+    this.history.pushState(null, `/project/${model.id}`);
+  },
+  showErrors(errors) {
+    console.log(errors);
   },
   render() {
     return (
       <ContentMiddleLayout>
-        <form onSubmit={this.save} ref="form">
-          <input className="big"
-                 name="name"
-                 placeholder="Type your project name"
-                 tabIndex="1"
-                 type="text"/>
-          <input maxLength="4"
-                 name="shortName"
-                 placeholder="Type a short name for your project"
-                 tabIndex="2"
-                 type="text"/>
+        <Form model={Project}
+              onSaveError={this.showErrors}
+              onSaveSuccess={this.goToCreatedProject}>
+          <FormInput label="Project name"
+                     name="name"
+                     tabIndex="1"
+                     type="text"/>
+          <FormInput label="Short name"
+                     maxLength="4"
+                     name="shortName"
+                     tabIndex="2"
+                     type="text"/>
           <div className="issue-new__actions">
             <Button color="green"
                     tabIndex="3"
@@ -65,7 +50,7 @@ export default React.createClass({
               Done
             </Button>
           </div>
-        </form>
+        </Form>
       </ContentMiddleLayout>
     );
   }
