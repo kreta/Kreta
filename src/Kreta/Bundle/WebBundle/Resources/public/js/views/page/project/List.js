@@ -106,12 +106,12 @@ export default React.createClass({
       <div>
         <div className="simple-header">
           <div className="simple-header-filters">
-            <span className="simple-header-filter">Sort by <strong>priority</strong></span>
+            <span className="simple-header-filter"></span>
           </div>
           <div className="simple-header-actions">
             <Button color="green" size="small"
                     onClick={this.goToNewProjectPage}>
-              New
+              New project
             </Button>
           </div>
         </div>
