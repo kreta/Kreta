@@ -9,6 +9,7 @@
 @import '../base/colors';
 
 .main-menu {
+  align-items: center;
   background: $main-black;
   color: $white;
   display: flex;
@@ -19,6 +20,11 @@
   width: 80px;
 }
 
+.main-menu__logo {
+  height: 70px;
+  fill: $white;
+  width: 50px;
+}
 .main-menu__actions {
   align-items: center;
   display: flex;

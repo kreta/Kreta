@@ -13,6 +13,7 @@ import '../../../scss/layout/_main-menu.scss';
 import ExitIcon from '../../../svg/exit.svg';
 import InboxIcon from '../../../svg/inbox.svg';
 import ProjectsIcon from '../../../svg/projects.svg';
+import LogoIcon from '../../../svg/logo.svg';
 
 import React from 'react';
 import {Link} from 'react-router';
@@ -39,7 +40,8 @@ export default React.createClass({
   render() {
     return (
       <nav className="main-menu">
-        <img className="main-menu__logo" src=""/>
+        <Icon className="main-menu__logo"
+              glyph={LogoIcon}/>
         <div className="main-menu__actions">
           <Icon glyph={ProjectsIcon}
             className="main-menu__action main-menu__action--green"
