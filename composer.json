@@ -33,7 +33,7 @@
         "incenteev/composer-parameter-handler":     "^2.0",
         "jms/serializer-bundle":                    "0.13.x",
         "knplabs/knp-gaufrette-bundle":             "^0.1.7",
-        "kreta/simple-api-doc-bundle":              "^0.2",
+        "kreta/simple-api-doc-bundle":              "^0.3",
         "liip/imagine-bundle":                      "^1.3",
         "nelmio/cors-bundle":                       "1.3.x",
         "sensio/distribution-bundle":               "^3.0,>=3.0.12",
