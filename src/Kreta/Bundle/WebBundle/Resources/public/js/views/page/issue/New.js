@@ -12,17 +12,15 @@ import '../../../../scss/views/page/issue/_new.scss';
 
 import React from 'react';
 import {History} from 'react-router';
-import $ from 'jquery';
 
-import {FormSerializerService} from '../../../service/FormSerializer';
-import {Issue} from '../../../models/Issue';
-import {NotificationService} from '../../../service/Notification';
-import ContentMiddleLayout from '../../layout/ContentMiddleLayout.js';
-import Selector from '../../component/Selector.js';
-import IssueField from '../../component/IssueField.js';
-import UserImage from '../../component/UserImage.js';
 import Button from '../../component/Button.js';
+import ContentMiddleLayout from '../../layout/ContentMiddleLayout.js';
+import Form from '../../component/Form.js';
 import FormInput from '../../component/FormInput.js';
+import {Issue} from '../../../models/Issue';
+import IssueField from '../../component/IssueField.js';
+import Selector from '../../component/Selector.js';
+import UserImage from '../../component/UserImage.js';
 
 export default React.createClass({
   getInitialState() {
@@ -85,30 +83,11 @@ export default React.createClass({
 
     return {selectableProjects, assignee, priority};
   },
-  save(ev) {
-    ev.preventDefault();
-
-    const issue = FormSerializerService.serialize(
-      $(this.refs.form), Issue
-    );
-
-    this.setState({isLoading: true});
-
-    issue.save(null, {
-      success: (model) => {
-        NotificationService.showNotification({
-          type: 'success',
-          message: 'Issue created successfully'
-        });
-        this.history.pushState(null, `/project/${model.get('project')}`);
-      }, error: () => {
-        NotificationService.showNotification({
-          type: 'error',
-          message: 'Error while saving this issue'
-        });
-        this.setState({isLoading: false});
-      }
-    });
+  goToCreatedIssue(model) {
+    this.history.pushState(null, `/project/${model.get('project')}`)
+  },
+  showErrors(errors) {
+    console.log(errors);
   },
   render() {
     if (!this.state.project) {
@@ -119,11 +98,9 @@ export default React.createClass({
 
     return (
       <ContentMiddleLayout>
-        <form className="issue-new"
-              id="issue-new"
-              method="POST"
-              onSubmit={this.save}
-              ref="form">
+        <Form model={Issue}
+              onSaveSuccess={this.goToCreatedIssue}
+              onSaveError={this.showErrors}>
           <Selector name="project"
                     onChange={this.updateSelectors}
                     tabIndex={1}
@@ -141,7 +118,7 @@ export default React.createClass({
                      tabIndex={3}
                      value={this.state.project.description}/>
 
-          <div className={`issue-new__details${this.state.isLoading ? ' issue-new__details--hidden' : ''}`}>
+          <div className="issue-new__details">
             <Selector name="assignee"
                       placeholder={
                         <IssueField text="Unassigned"
@@ -165,7 +142,7 @@ export default React.createClass({
           <div className="issue-new__actions">
             <Button color="green" tabIndex="6" type="submit">Done</Button>
           </div>
-        </form>
+        </Form>
       </ContentMiddleLayout>
     );
   }
