@@ -8,40 +8,57 @@
 
 @import '../base/colors';
 
-.menu {
+.main-menu {
   background: $main-black;
   color: $white;
+  display: flex;
+  flex-flow: column;
   height: 100%;
   padding: 5px;
   text-align: center;
   width: 80px;
 }
 
-.menu-logo {
-  margin: 10px 15px;
+.main-menu__actions {
+  align-items: center;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  justify-content: center;
 }
 
-.menu-user-image {
-  border-radius: 50%;
-  padding: 10px;
-  width: 70px;
+.main-menu__action {
+  cursor: pointer;
+  fill: $white;
+  height: 30px;
+  margin: 25px 0;
+  width: 30px;
 }
 
-.menu-user-name {
-  color: $main-grey;
-  font-size: .7em;
+.main-menu__action--green {
+  fill: $main-green;
 }
 
-.menu-action {
-  color: $white;
-  display: block;
-  font-size: 1.3em;
-  padding: 20px;
+.main-menu__action--red {
+  fill: $light-red;
+}
+
+.main-menu__user {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.main-menu__username {
+  font-size: 10px;
+  margin: 10px 0;
+}
+
+.main-menu__notification {
   position: relative;
-  text-decoration: none;
 }
 
-.menu-notification-bubble {
+.main-menu__notification-bubble {
   background: $light-red;
   border-radius: 50%;
   color: $white;

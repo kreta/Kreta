@@ -10,9 +10,14 @@
 
 import '../../../scss/layout/_main-menu.scss';
 
+import ExitIcon from '../../../svg/exit.svg';
+import InboxIcon from '../../../svg/inbox.svg';
+import ProjectsIcon from '../../../svg/projects.svg';
+
 import React from 'react';
 import {Link} from 'react-router';
 
+import Icon from '../component/Icon.js';
 import Modal from '../component/Modal.js';
 import UserImage from '../component/UserImage.js';
 import ProjectList from '../page/project/List.js';
@@ -33,28 +38,23 @@ export default React.createClass({
   },
   render() {
     return (
-      <nav className="menu">
-        <img className="menu-logo" src=""/>
-        <div className="menu-user">
-          <UserImage user={this.state.user.toJSON()}/>
-          <span className="menu-user-name">@{this.state.user.get('username')}</span>
+      <nav className="main-menu">
+        <img className="main-menu__logo" src=""/>
+        <div className="main-menu__actions">
+          <Icon glyph={ProjectsIcon}
+            className="main-menu__action main-menu__action--green"
+            onClick={this.showProjectList}/>
+          <Icon glyph={ExitIcon}
+                className="main-menu__action main-menu__action--red"/>
         </div>
-        <div>
-          <a className="menu-action">
-            <i className="fa fa-sign-out"></i>
-            <span className="menu-notification-bubble">4</span>
-          </a>
-          <a className="menu-action projects"
-             onClick={this.showProjectList}>
-            <i className="fa fa-sign-out"></i>
-          </a>
-          <Link to="/profile">
-            <i className="fa fa-sign-out"></i>
-          </Link>
-          <a className="menu-action"
-             href="/logout">
-            <i className="fa fa-sign-out"></i>
-          </a>
+        <div className="main-menu__user">
+          <div className="main-menu__notification">
+            <Icon glyph={InboxIcon}
+                  className="main-menu__action"/>
+            <span className="main-menu__notification-bubble">4</span>
+          </div>
+          <UserImage user={this.state.user.toJSON()}/>
+          <span className="main-menu__username">@{this.state.user.get('username')}</span>
         </div>
         <Modal ref="projectListModal">
           <ProjectList onProjectSelected={this.hideProjectList}/>

@@ -8,6 +8,9 @@
  * file that was distributed with this source code.
  */
 
+import AddIcon from './../../../../svg/add.svg';
+import ListIcon from './../../../../svg/list.svg';
+
 import React from 'react';
 import {History} from 'react-router';
 import $ from 'jquery';
@@ -30,11 +33,11 @@ export default React.createClass({
   getDefaultProps() {
     return {
       shortcuts: [{
-        'icon': 'list',
+        'icon': ListIcon,
         'path': '/project/',
         'tooltip': 'Show full project'
       }, {
-        'icon': 'add',
+        'icon': AddIcon,
         'path': '/issue/new/',
         'tooltip': 'New task'
       }]

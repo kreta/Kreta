@@ -21,9 +21,10 @@ export default React.createClass({
     };
   },
   render() {
+    var { glyph, ...props} = this.props;
     return (
-      <svg className={this.props.className}>
-        <use xlinkHref={this.props.glyph}/>
+      <svg {...props}>
+        <use xlinkHref={glyph}/>
       </svg>
     );
   }

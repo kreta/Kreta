@@ -13,6 +13,8 @@ import './../../../scss/components/_project-preview.scss';
 import React from 'react';
 import classNames from 'classnames';
 
+import Icon from './Icon.js';
+
 export default React.createClass({
   propTypes: {
     onMouseEnter: React.PropTypes.func,
@@ -31,11 +33,11 @@ export default React.createClass({
         'project-preview__shortcut--selected': index === this.props.selectedShortcut
       });
       return (
-        <img className={classes}
+        <Icon className={classes}
              key={index}
              onClick={this.props.onShortcutClick}
              onMouseEnter={this.props.onShortcutEnter}
-             src={`/bundles/kretaweb/svg/${shortcut.icon}.svg`}/>
+             glyph={shortcut.icon}/>
       );
     });
     const classes = classNames({
