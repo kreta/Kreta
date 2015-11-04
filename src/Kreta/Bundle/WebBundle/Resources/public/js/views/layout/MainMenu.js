@@ -55,8 +55,10 @@ export default React.createClass({
                   className="main-menu__action"/>
             <span className="main-menu__notification-bubble">4</span>
           </div>
-          <UserImage user={this.state.user.toJSON()}/>
-          <span className="main-menu__username">@{this.state.user.get('username')}</span>
+          <Link to="/profile">
+            <UserImage user={this.state.user.toJSON()}/>
+            <span className="main-menu__username">@{this.state.user.get('username')}</span>
+          </Link>
         </div>
         <Modal ref="projectListModal">
           <ProjectList onProjectSelected={this.hideProjectList}/>
