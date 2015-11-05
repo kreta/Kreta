@@ -17,7 +17,7 @@ import Button from './../../component/Button';
 import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
 import Form from './../../component/Form';
 import FormInput from './../../component/FormInput';
-import {Issue} from './../../../models/Issue';
+import Issue from './../../../models/Issue';
 import IssueField from './../../component/IssueField';
 import Selector from './../../component/Selector';
 import UserImage from './../../component/UserImage';

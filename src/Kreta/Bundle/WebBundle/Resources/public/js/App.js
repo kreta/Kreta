@@ -15,13 +15,13 @@ import Backbone from 'backbone';
 
 import BaseLayoutView from './views/layout/Base';
 import HeaderView from './views/layout/MainMenu';
-import {NotificationCollection} from './collections/Notification';
-import {Profile} from './models/Profile';
-import {ProjectCollection} from './collections/Project';
-import {UserCollection} from './collections/User';
-import {WorkflowCollection} from './collections/Workflow';
+import NotificationCollection from './collections/Notification';
+import Profile from './models/Profile';
+import ProjectCollection from './collections/Project';
+import UserCollection from './collections/User';
+import WorkflowCollection from './collections/Workflow';
 
-export class App {
+class App {
   constructor(options) {
     this.options = options;
 
@@ -84,3 +84,5 @@ export class App {
     return this.getCookie('access_token');
   }
 }
+
+export default App;

@@ -11,10 +11,10 @@
 import _ from 'lodash';
 import Backbone from 'backbone';
 
-import {Config} from './../Config';
-import {User} from './../models/User';
+import Config from './../Config';
+import User from './../models/User';
 
-export class UserCollection extends Backbone.Collection {
+class UserCollection extends Backbone.Collection {
   constructor(models, options = {}) {
     _.defaults(options, {
       model: User
@@ -26,3 +26,5 @@ export class UserCollection extends Backbone.Collection {
     return `${Config.baseUrl}/users`;
   }
 }
+
+export default UserCollection;

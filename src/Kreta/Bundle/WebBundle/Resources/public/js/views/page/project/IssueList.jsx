@@ -16,7 +16,7 @@ import React from 'react';
 import Filter from './../../component/Filter';
 import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
 import ContentRightLayout from './../../layout/ContentRightLayout';
-import {IssueCollection} from './../../../collections/Issue';
+import IssueCollection from './../../../collections/Issue';
 import IssuePreview from './../../component/IssuePreview';
 import IssueShow from './../issue/Show';
 import NavigableCollection from './../../../mixins/NavigableCollection';

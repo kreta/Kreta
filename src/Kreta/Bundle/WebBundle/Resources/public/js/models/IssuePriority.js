@@ -10,8 +10,10 @@
 
 import Backbone from 'backbone';
 
-export class IssuePriority extends Backbone.Model {
+class IssuePriority extends Backbone.Model {
   toString() {
     return this.get('name');
   }
 }
+
+export default IssuePriority;

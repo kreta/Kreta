@@ -11,10 +11,10 @@
 import _ from 'lodash';
 import Backbone from 'backbone';
 
-import {Config} from './../Config';
-import {IssueType} from './../models/IssueType';
+import Config from './../Config';
+import IssueType from './../models/IssueType';
 
-export class IssueTypeCollection extends Backbone.Collection {
+class IssueTypeCollection extends Backbone.Collection {
   constructor(models, options = {}) {
     _.defaults(options, {
       model: IssueType
@@ -28,3 +28,5 @@ export class IssueTypeCollection extends Backbone.Collection {
     return this;
   }
 }
+
+export default IssueTypeCollection;

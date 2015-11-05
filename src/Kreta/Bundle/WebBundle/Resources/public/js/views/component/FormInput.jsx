@@ -51,11 +51,11 @@ export default React.createClass({
     );
   },
   render() {
-    const {label, ...props} = this.props;
-    const rootClasses = classnames('form-input', {
-      'form-input--error': this.props.error,
-      'form-input--success': this.props.success
-    });
+    const {label, ...props} = this.props,
+      rootClasses = classnames('form-input', {
+        'form-input--error': this.props.error,
+        'form-input--success': this.props.success
+      });
 
     return (
       <div className={rootClasses} onClick={this.focus}>

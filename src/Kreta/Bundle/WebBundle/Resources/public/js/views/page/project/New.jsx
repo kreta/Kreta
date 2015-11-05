@@ -17,7 +17,7 @@ import Button from './../../component/Button';
 import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
 import Form from './../../component/Form';
 import FormInput from './../../component/FormInput';
-import {Project} from './../../../models/Project';
+import Project from './../../../models/Project';
 
 export default React.createClass({
   mixins: [History],

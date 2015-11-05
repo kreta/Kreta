@@ -10,5 +10,7 @@
 
 import Backbone from 'backbone';
 
-export class TypeCollection extends Backbone.Collection {
+class TypeCollection extends Backbone.Collection {
 }
+
+export default TypeCollection;

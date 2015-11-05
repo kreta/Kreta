@@ -8,6 +8,8 @@
  * file that was distributed with this source code.
  */
 
-export var Config = {
+var Config = {
   baseUrl: `//${location.hostname}${location.port !== '' ? `:${location.port}` : ''}/api`
 };
+
+export default Config;

@@ -10,7 +10,7 @@
 
 import $ from 'jquery';
 
-export class FormSerializerService {
+class FormSerializerService {
   static serialize($form, model = null) {
     var formData = {}, Model;
 
@@ -32,3 +32,5 @@ export class FormSerializerService {
     return formData;
   }
 }
+
+export default FormSerializerService;

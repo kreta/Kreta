@@ -14,8 +14,8 @@ import $ from 'jquery';
 import React from 'react';
 
 import Button from './../../component/Button';
-import {Config} from './../../../Config';
-import {NotificationService} from './../../../service/Notification';
+import Config from './../../../Config';
+import NotificationService from './../../../service/Notification';
 import UserPreview from './../../component/UserPreview';
 
 class SettingsParticipants extends React.Component {

@@ -12,7 +12,7 @@ import $ from 'jquery';
 import React from 'react';
 import {Router, Route} from 'react-router';
 
-import {App} from './App';
+import App from './App';
 import BaseLayout from './views/layout/Base';
 import IssueNew from './views/page/issue/New';
 import Profile from './views/page/user/Edit';

@@ -10,7 +10,7 @@
 
 import Backbone from 'backbone';
 
-export class User extends Backbone.Model {
+class User extends Backbone.Model {
   defaults() {
     return {};
   }
@@ -19,3 +19,5 @@ export class User extends Backbone.Model {
     return `${this.get('first_name')} ${this.get('last_name')}`;
   }
 }
+
+export default User;

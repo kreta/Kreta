@@ -10,8 +10,10 @@
 
 import Backbone from 'backbone';
 
-export class Participant extends Backbone.Model {
+class Participant extends Backbone.Model {
   toString() {
     return `${this.get('user').first_name} ${this.get('user').last_name}`;
   }
 }
+
+export default Participant;

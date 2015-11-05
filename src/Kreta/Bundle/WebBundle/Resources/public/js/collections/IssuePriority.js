@@ -11,10 +11,10 @@
 import _ from 'lodash';
 import Backbone from 'backbone';
 
-import {Config} from './../Config';
-import {IssuePriority} from './../models/IssuePriority';
+import Config from './../Config';
+import IssuePriority from './../models/IssuePriority';
 
-export class IssuePriorityCollection extends Backbone.Collection {
+class IssuePriorityCollection extends Backbone.Collection {
   constructor(models, options = {}) {
     _.defaults(options, {
       model: IssuePriority
@@ -28,3 +28,5 @@ export class IssuePriorityCollection extends Backbone.Collection {
     return this;
   }
 }
+
+export default IssuePriorityCollection;

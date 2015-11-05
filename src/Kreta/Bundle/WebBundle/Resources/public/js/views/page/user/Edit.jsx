@@ -15,7 +15,7 @@ import Button from './../../component/Button';
 import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
 import Form from './../../component/Form';
 import FormInput from './../../component/FormInput';
-import {Profile} from './../../../models/Profile';
+import Profile from './../../../models/Profile';
 
 class Edit extends React.Component {
   componentWillMount() {

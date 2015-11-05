@@ -13,7 +13,7 @@ import React from 'react';
 import Button from './../../component/Button';
 import Form from './../../component/Form';
 import FormInput from './../../component/FormInput';
-import {Project} from './../../../models/Project';
+import Project from './../../../models/Project';
 
 class Edit extends React.Component {
   static propTypes = {

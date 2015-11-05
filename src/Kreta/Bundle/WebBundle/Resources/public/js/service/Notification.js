@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-export class NotificationService {
+class NotificationService {
   static showNotification(notification) {
     const model = App.collection.notification.add(notification);
 
@@ -17,3 +17,5 @@ export class NotificationService {
     }, 5000);
   }
 }
+
+export default NotificationService;

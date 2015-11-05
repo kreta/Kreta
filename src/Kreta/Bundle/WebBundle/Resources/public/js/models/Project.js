@@ -11,9 +11,9 @@
 import _ from 'lodash';
 import Backbone from 'backbone';
 
-import {Config} from './../Config';
+import Config from './../Config';
 
-export class Project extends Backbone.Model {
+class Project extends Backbone.Model {
   urlRoot() {
     return `${Config.baseUrl}/projects`;
   }
@@ -84,3 +84,5 @@ export class Project extends Backbone.Model {
     return notParticipating;
   }
 }
+
+export default Project;

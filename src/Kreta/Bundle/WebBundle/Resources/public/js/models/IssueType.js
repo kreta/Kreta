@@ -10,8 +10,10 @@
 
 import Backbone from 'backbone';
 
-export class IssueType extends Backbone.Model {
+class IssueType extends Backbone.Model {
   toString() {
     return this.get('name');
   }
 }
+
+export default IssueType;
