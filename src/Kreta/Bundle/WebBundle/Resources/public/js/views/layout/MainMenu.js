@@ -53,7 +53,7 @@ export default React.createClass({
           <div className="main-menu__notification">
             <Icon glyph={InboxIcon}
                   className="main-menu__action"/>
-            <span className="main-menu__notification-bubble">4</span>
+            <span className="main-menu__notification-bubble">0</span>
           </div>
           <Link to="/profile">
             <UserImage user={this.state.user.toJSON()}/>
