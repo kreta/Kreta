@@ -34,10 +34,10 @@ export default React.createClass({
       });
       return (
         <Icon className={classes}
-             key={index}
-             onClick={this.props.onShortcutClick}
-             onMouseEnter={this.props.onShortcutEnter}
-             glyph={shortcut.icon}/>
+              glyph={shortcut.icon}
+              key={index}
+              onClick={this.props.onShortcutClick}
+              onMouseEnter={this.props.onShortcutEnter}/>
       );
     });
     const classes = classNames({

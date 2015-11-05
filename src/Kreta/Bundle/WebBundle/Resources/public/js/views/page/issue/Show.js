@@ -31,17 +31,11 @@ export default React.createClass({
       issue: this.props.issue
     };
   },
-  componentWillReceiveProps: function(nextProps) {
+  componentWillReceiveProps(nextProps) {
     this.setState({
       issue: nextProps.issue,
       issueChanged: false
     });
-  },
-  selectorChanged(value, name) {
-    /*this.setState({
-      issue: this.state.issue.set(name, {id: value}),
-      issueChanged: true
-    });*/
   },
   updateInput(ev) {
     this.setState({
@@ -51,44 +45,44 @@ export default React.createClass({
   },
   doTransition(id) {
     this.state.issue.doTransition(id, {
-      success : (data) => {
+      success: (data) => {
         this.setState({issue: this.state.issue.set(data)});
       }
     });
   },
   getProjectOptions() {
-    var project = App.collection.project.get(this.props.project.id);
-    if(!project) {
+    const project = App.collection.project.get(this.props.project.id);
+    if (!project) {
       return {
         asignee: [],
         priority: [],
         type: []
       };
     }
-    var assignee = project.get('participants').map((p) => {
-        let assignee = `${p.user.first_name} ${p.user.last_name}`;
-        if ('' === p.user.first_name) {
-          assignee = p.user.username;
+    const assignee = project.get('participants').map((p) => {
+        let assigneeName = `${p.user.first_name} ${p.user.last_name}`;
+        if (p.user.first_name === '') {
+          assigneeName = p.user.username;
         }
 
-      return (
-        <IssueField image={<UserImage user={p.user}/>}
-                    key={p.user.id}
-                    label="Assigned to"
-                    text={assignee}
-                    value={p.user.id}/>
-      );
+        return (
+          <IssueField image={<UserImage user={p.user}/>}
+                      key={p.user.id}
+                      label="Assigned to"
+                      text={assigneeName}
+                      value={p.user.id}/>
+        );
 
-    }),
-    priority = project.get('issue_priorities').map((p) => {
-      return (
-        <IssueField image={<i className="fa fa-exclamation"></i>}
-                    key={p.id}
-                    label="Priority"
-                    text={p.name}
-                    value={p.id}/>
-      );
-    });
+      }),
+      priority = project.get('issue_priorities').map((p) => {
+        return (
+          <IssueField image={<i className="fa fa-exclamation"></i>}
+                      key={p.id}
+                      label="Priority"
+                      text={p.name}
+                      value={p.id}/>
+        );
+      });
 
     return {assignee, priority};
   },
@@ -96,10 +90,10 @@ export default React.createClass({
     this.setState({issueChanged: false});
   },
   render() {
-    const issue = this.state.issue.toJSON();
-    const options = this.getProjectOptions();
+    const issue = this.state.issue.toJSON(),
+      options = this.getProjectOptions();
     let saveButton = <HelpText text="You can change issue details inline"/>;
-    if(this.state.issueChanged) {
+    if (this.state.issueChanged) {
       saveButton = <Button color="green" type="submit">Done</Button>;
     }
     const allowedTransitions = this.state.issue.getAllowedTransitions().map((transition, index) => {
@@ -141,6 +135,7 @@ export default React.createClass({
                   name="description"
                   onChange={this.updateInput}
                   value={issue.description}/>
+
         <div className="issue-show__save">
           {saveButton}
         </div>

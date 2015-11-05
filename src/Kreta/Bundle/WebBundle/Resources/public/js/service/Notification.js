@@ -14,6 +14,6 @@ export class NotificationService {
 
     setTimeout(() => {
       App.collection.notification.remove(model);
-    }, 5000)
+    }, 5000);
   }
 }

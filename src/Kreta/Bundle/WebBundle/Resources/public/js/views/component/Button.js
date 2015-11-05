@@ -36,4 +36,4 @@ export default React.createClass({
       </button>
     );
   }
-})
+});

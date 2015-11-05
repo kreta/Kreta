@@ -16,7 +16,7 @@ import {FormSerializerService} from '../../service/FormSerializer';
 
 export default React.createClass({
   propTypes: {
-    model: React.PropTypes.object.isRequired,
+    model: React.PropTypes.func.isRequired,
     onSaveError: React.PropTypes.func,
     onSaveSuccess: React.PropTypes.func,
     saveErrorMessage: React.PropTypes.string,

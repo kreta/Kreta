@@ -9,7 +9,6 @@
  */
 
 import React from 'react';
-import $ from 'jquery';
 
 import {Project} from '../../../models/Project';
 import Button from '../../component/Button.js';

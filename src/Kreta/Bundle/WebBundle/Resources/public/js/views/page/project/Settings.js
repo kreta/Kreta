@@ -29,8 +29,8 @@ export default React.createClass({
   },
   componentDidMount() {
     const project = App.collection.project.get(this.props.params.projectId);
-    project.on('change', (project) => {
-      this.setState({project});
+    project.on('change', (p) => {
+      this.setState({p});
     });
     this.setState({project});
   },

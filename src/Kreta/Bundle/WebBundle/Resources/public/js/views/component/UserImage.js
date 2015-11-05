@@ -21,20 +21,20 @@ export default React.createClass({
       return (
         <img className="user-image" src={this.props.user.photo.name}/>
       );
-    } else {
-      let resultChar = '';
-      if(this.props.user.first_name && this.props.user.last_name &&
-         this.props.user.first_name.length > 0 && this.props.user.last_name.length > 0) {
-        resultChar = `${this.props.user.first_name.charAt(0)}${this.props.user.last_name.charAt(0)}`;
-      } else {
-        resultChar = this.props.user.username.substring(0,2);
-      }
-
-      return (
-        <div className="user-image user-image--has-char">
-          <span className="user-image__char">{resultChar}</span>
-        </div>
-      )
     }
+
+    let resultChar = '';
+    if (this.props.user.first_name && this.props.user.last_name &&
+      this.props.user.first_name.length > 0 && this.props.user.last_name.length > 0) {
+      resultChar = `${this.props.user.first_name.charAt(0)}${this.props.user.last_name.charAt(0)}`;
+    } else {
+      resultChar = this.props.user.username.substring(0, 2);
+    }
+
+    return (
+      <div className="user-image user-image--has-char">
+        <span className="user-image__char">{resultChar}</span>
+      </div>
+    );
   }
-})
+});

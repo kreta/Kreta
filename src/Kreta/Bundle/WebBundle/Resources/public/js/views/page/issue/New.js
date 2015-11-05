@@ -59,15 +59,15 @@ export default React.createClass({
         );
       }),
       assignee = project.get('participants').map((p) => {
-        let assignee = `${p.user.first_name} ${p.user.last_name}`;
-        if ('' === p.user.first_name) {
-          assignee = p.user.username;
+        let assigneeName = `${p.user.first_name} ${p.user.last_name}`;
+        if (p.user.first_name === '') {
+          assigneeName = p.user.username;
         }
 
         return (
           <IssueField image={<UserImage user={p.user}/>}
                       label="Assigned to"
-                      text={assignee}
+                      text={assigneeName}
                       value={p.user.id}/>
         );
 
@@ -84,7 +84,7 @@ export default React.createClass({
     return {selectableProjects, assignee, priority};
   },
   goToCreatedIssue(model) {
-    this.history.pushState(null, `/project/${model.get('project')}`)
+    this.history.pushState(null, `/project/${model.get('project')}`);
   },
   render() {
     if (!this.state.project) {
@@ -103,14 +103,14 @@ export default React.createClass({
                     value={this.state.project.id}>
             {options.selectableProjects}
           </Selector>
-          <FormInput name="title"
-                     label="Title"
+          <FormInput label="Title"
+                     name="title"
                      tabIndex={2}
                      type="text"
                      value={this.state.project.title}/>
-          <FormInput multiline={true}
+          <FormInput label="Description"
+                     multiline={true}
                      name="description"
-                     label="Description"
                      tabIndex={3}
                      value={this.state.project.description}/>
 
@@ -125,12 +125,12 @@ export default React.createClass({
               {options.assignee}
             </Selector>
             <Selector name="priority"
-                      tabIndex={5}
                       placeholder={
                         <IssueField label="Priority"
                                     text="Not selected"
                                     value=""/>
                       }
+                      tabIndex={5}
                       value="">
               {options.priority}
             </Selector>

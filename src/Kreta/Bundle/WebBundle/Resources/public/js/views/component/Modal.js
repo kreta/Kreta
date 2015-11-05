@@ -30,8 +30,8 @@ export default React.createClass({
     });
   },
   handleKeyUp(ev) {
-    if(ev.which === 27) {
-      this.closeModal()
+    if (ev.which === 27) {
+      this.closeModal();
     }
   },
   render() {
