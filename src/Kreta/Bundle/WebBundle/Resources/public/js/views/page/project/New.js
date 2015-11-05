@@ -25,14 +25,10 @@ export default React.createClass({
     App.collection.project.add(model);
     this.history.pushState(null, `/project/${model.id}`);
   },
-  showErrors(errors) {
-    console.log(errors);
-  },
   render() {
     return (
       <ContentMiddleLayout>
         <Form model={Project}
-              onSaveError={this.showErrors}
               onSaveSuccess={this.goToCreatedProject}>
           <FormInput label="Project name"
                      name="name"

@@ -32,16 +32,12 @@ export default React.createClass({
       this.refs.previewImage.src = window.URL.createObjectURL(file);
     }
   },
-  showErrors(errors) {
-    console.log(errors);
-  },
   render() {
     const user = this.state.user.toJSON();
 
     return (
       <ContentMiddleLayout>
-        <Form model={Profile}
-              onSaveError={this.showErrors}>
+        <Form model={Profile}>
           <FormInput name="firstName"
                      label="First Name"
                      tabIndex={2}

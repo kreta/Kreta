@@ -86,9 +86,6 @@ export default React.createClass({
   goToCreatedIssue(model) {
     this.history.pushState(null, `/project/${model.get('project')}`)
   },
-  showErrors(model, errors) {
-    console.log(errors);
-  },
   render() {
     if (!this.state.project) {
       return <div>Loading</div>;
@@ -99,8 +96,7 @@ export default React.createClass({
     return (
       <ContentMiddleLayout>
         <Form model={Issue}
-              onSaveSuccess={this.goToCreatedIssue}
-              onSaveError={this.showErrors}>
+              onSaveSuccess={this.goToCreatedIssue}>
           <Selector name="project"
                     onChange={this.updateSelectors}
                     tabIndex={1}
