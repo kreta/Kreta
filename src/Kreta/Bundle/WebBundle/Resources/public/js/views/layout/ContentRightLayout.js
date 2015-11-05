@@ -8,18 +8,20 @@
  * file that was distributed with this source code.
  */
 
-import React from 'react';
 import classnames from 'classnames';
+import React from 'react';
 
-export default React.createClass({
-  propTypes: {
+class ContentRightLayout extends React.Component {
+  static propTypes = {
     open: React.PropTypes.bool
-  },
+  };
+
   render() {
     const classes = classnames({
       'content__right': true,
       'content__right--visible': this.props.open
     });
+
     return (
       <div className={classes}>
         <div className="content__right-content">
@@ -28,4 +30,6 @@ export default React.createClass({
       </div>
     );
   }
-});
+}
+
+export default ContentRightLayout;

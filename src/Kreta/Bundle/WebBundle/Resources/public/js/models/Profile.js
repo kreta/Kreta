@@ -10,7 +10,7 @@
 
 import Backbone from 'backbone';
 
-import {Config} from '../Config';
+import {Config} from './../Config';
 
 export class Profile extends Backbone.Model {
   constructor(attributes, options = {}) {

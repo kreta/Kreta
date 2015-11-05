@@ -8,19 +8,20 @@
  * file that was distributed with this source code.
  */
 
-import React from 'react';
+import './../../../scss/components/_issue-preview';
+
 import classnames from 'classnames';
+import React from 'react';
 
-import '../../../scss/components/_issue-preview.scss';
+import UserImage from './UserImage';
 
-import UserImage from '../component/UserImage.js';
-
-export default React.createClass({
+class IssuePreview extends React.Component {
   render() {
     const classes = classnames({
       'issue-preview': true,
       'issue-preview--highlight': this.props.selected
     });
+
     return (
       <div className={classes} onClick={this.props.onClick}>
         <a className="issue-preview__title">
@@ -41,4 +42,6 @@ export default React.createClass({
       </div>
     );
   }
-});
+}
+
+export default IssuePreview;

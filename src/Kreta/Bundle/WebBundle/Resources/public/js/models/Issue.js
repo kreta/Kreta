@@ -9,10 +9,10 @@
  */
 
 import _ from 'lodash';
-import Backbone from 'backbone';
 import $ from 'jquery';
+import Backbone from 'backbone';
 
-import {Config} from '../Config';
+import {Config} from './../Config';
 
 export class Issue extends Backbone.Model {
   urlRoot() {

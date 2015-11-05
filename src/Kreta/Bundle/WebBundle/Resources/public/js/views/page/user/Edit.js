@@ -8,22 +8,23 @@
  * file that was distributed with this source code.
  */
 
-import React from 'react';
 import $ from 'jquery';
+import React from 'react';
 
-import Button from '../../component/Button.js';
-import ContentMiddleLayout from '../../layout/ContentMiddleLayout';
-import Form from '../../component/Form.js';
-import FormInput from '../../component/FormInput.js';
-import {Profile} from '../../../models/Profile';
+import Button from './../../component/Button';
+import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
+import Form from './../../component/Form';
+import FormInput from './../../component/FormInput';
+import {Profile} from './../../../models/Profile';
 
-export default React.createClass({
+class Edit extends React.Component {
   componentWillMount() {
     this.originalImage = App.currentUser.get('photo');
     this.setState({
       user: App.currentUser
     });
-  },
+  }
+
   onPhotoChange(ev) {
     var file = $(ev.currentTarget)[0].files[0];
     if (typeof file === 'undefined') {
@@ -31,33 +32,34 @@ export default React.createClass({
     } else {
       this.refs.previewImage.src = window.URL.createObjectURL(file);
     }
-  },
+  }
+
   render() {
     const user = this.state.user.toJSON();
 
     return (
       <ContentMiddleLayout>
         <Form model={Profile}>
-          <FormInput name="firstName"
-                     label="First Name"
+          <FormInput label="First Name"
+                     name="firstName"
                      tabIndex={2}
                      type="text"
                      value={user.first_name}/>
-          <FormInput name="lastName"
-                     label="Last Name"
+          <FormInput label="Last Name"
+                     name="lastName"
                      tabIndex={3}
                      type="text"
                      value={user.last_name}/>
-          <FormInput name="username"
-                     label="Username"
+          <FormInput label="Username"
+                     name="username"
                      tabIndex={3}
                      type="text"
                      value={user.username}/>
-            <img ref="previewImage" src={user.photo ? user.photo.name : ''}/>
-            <input defaultValue=""
-                   name="photo"
-                   onChange={this.onPhotoChange}
-                   type="file"/>
+          <img ref="previewImage" src={user.photo ? user.photo.name : ''}/>
+          <input defaultValue=""
+                 name="photo"
+                 onChange={this.onPhotoChange}
+                 type="file"/>
           <div className="issue-new__actions">
             <Button color="green" type="submit">Update</Button>
           </div>
@@ -65,4 +67,6 @@ export default React.createClass({
       </ContentMiddleLayout>
     );
   }
-});
+}
+
+export default Edit;

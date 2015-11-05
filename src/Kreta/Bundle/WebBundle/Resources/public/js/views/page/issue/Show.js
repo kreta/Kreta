@@ -8,17 +8,17 @@
  * file that was distributed with this source code.
  */
 
-import './../../../../scss/views/page/issue/_show.scss';
+import './../../../../scss/views/page/issue/_show';
 
 import React from 'react';
 
-import {Issue} from '../../../models/Issue.js';
-import Button from '../../component/Button.js';
-import Form from '../../component/Form.js';
-import HelpText from '../../component/HelpText.js';
-import IssueField from '../../component/IssueField.js';
-import Selector from '../../component/Selector.js';
-import UserImage from '../../component/UserImage.js';
+import Button from '../../component/Button';
+import Form from '../../component/Form';
+import HelpText from '../../component/HelpText';
+import {Issue} from '../../../models/Issue';
+import IssueField from '../../component/IssueField';
+import Selector from '../../component/Selector';
+import UserImage from '../../component/UserImage';
 
 export default React.createClass({
   propTypes: {

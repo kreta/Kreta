@@ -8,13 +8,13 @@
  * file that was distributed with this source code.
  */
 
-import '../scss/app.scss';
+import './../scss/app';
 
-import Backbone from 'backbone';
 import $ from 'jquery';
+import Backbone from 'backbone';
 
-import {BaseLayoutView} from './views/layout/Base';
-import {HeaderView} from './views/layout/MainMenu';
+import BaseLayoutView from './views/layout/Base';
+import HeaderView from './views/layout/MainMenu';
 import {NotificationCollection} from './collections/Notification';
 import {Profile} from './models/Profile';
 import {ProjectCollection} from './collections/Project';

@@ -10,15 +10,16 @@
 
 import React from 'react';
 
-import {Project} from '../../../models/Project';
-import Button from '../../component/Button.js';
-import Form from '../../component/Form.js';
-import FormInput from '../../component/FormInput.js';
+import Button from './../../component/Button';
+import Form from './../../component/Form';
+import FormInput from './../../component/FormInput';
+import {Project} from './../../../models/Project';
 
-export default React.createClass({
-  propTypes: {
+class Edit extends React.Component {
+  static propTypes = {
     project: React.PropTypes.object
-  },
+  };
+
   render() {
     return (
       <Form model={Project}>
@@ -46,4 +47,6 @@ export default React.createClass({
       </Form>
     );
   }
-});
+}
+
+export default Edit;

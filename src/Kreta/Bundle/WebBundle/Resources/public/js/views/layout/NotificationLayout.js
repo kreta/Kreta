@@ -8,11 +8,11 @@
  * file that was distributed with this source code.
  */
 
-import '../../../scss/layout/_notification.scss';
+import './../../../scss/layout/_notification';
 
 import React from 'react';
 
-import Notification from '../component/Notification.js';
+import Notification from './../component/Notification';
 
 export default React.createClass({
   getInitialState() {

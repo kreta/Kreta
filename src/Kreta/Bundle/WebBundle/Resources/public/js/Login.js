@@ -8,4 +8,4 @@
  * file that was distributed with this source code.
  */
 
-import '../scss/login.scss';
+import './../scss/login';

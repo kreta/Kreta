@@ -10,22 +10,20 @@
 
 import React from 'react';
 
-export default React.createClass({
-  propTypes: {
-    className: React.PropTypes.string,
+class Icon extends React.Component {
+  static propTypes = {
     glyph: React.PropTypes.string.isRequired
-  },
-  getDefaultProps() {
-    return {
-      className: 'icon'
-    };
-  },
+  };
+
   render() {
-    var { glyph, ...props} = this.props;
+    const {glyph, ...props} = this.props;
+
     return (
       <svg {...props}>
         <use xlinkHref={glyph}/>
       </svg>
     );
   }
-});
+}
+
+export default Icon;

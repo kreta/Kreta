@@ -49,10 +49,10 @@ License: ${pkg.license}`,
     },
     module: {
       preLoaders: [
-        {test: /\.js$/, exclude: /node_modules/, loaders: ['eslint']}
+        {test: /\.js(x)?$/, exclude: /node_modules/, loaders: ['eslint']}
       ],
       loaders: [
-        {test: /\.js$/, exclude: /node_modules/, loaders: ['babel']},
+        {test: /\.js(x)?$/, exclude: /node_modules/, loaders: ['babel']},
         {test: /\.(jpe?g|png|gif|ico)$/, loader: 'file?name=../images/[hash].[ext]'},
         {test: /\.svg$/, loader: 'svg-sprite?name=[name]_[hash].svg'},
         {test: /\.scss$/, loader: ExtractTextPlugin.extract(
@@ -61,7 +61,8 @@ License: ${pkg.license}`,
       ]
     },
     resolve: {
-      alias: {underscore: 'lodash'}
+      alias: {underscore: 'lodash'},
+      extensions: ['', '.js', '.jsx', '.svg', '.scss']
     },
     eslint: {configFile: '.eslint.yml'},
     postcss: [autoprefixer()],

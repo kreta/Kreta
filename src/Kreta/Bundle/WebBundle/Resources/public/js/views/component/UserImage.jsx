@@ -8,14 +8,15 @@
  * file that was distributed with this source code.
  */
 
-import '../../../scss/components/_user-image.scss';
+import './../../../scss/components/_user-image';
 
 import React from 'react';
 
-export default React.createClass({
-  propTypes: {
+class UserImage extends React.Component {
+  static propTypes = {
     user: React.PropTypes.object.isRequired
-  },
+  };
+
   render() {
     if (this.props.user.photo) {
       return (
@@ -37,4 +38,6 @@ export default React.createClass({
       </div>
     );
   }
-});
+}
+
+export default UserImage;

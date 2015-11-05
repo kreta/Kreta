@@ -11,8 +11,8 @@
 import _ from 'lodash';
 import Backbone from 'backbone';
 
-import {Config} from '../Config';
-import {Project} from '../models/Project';
+import {Config} from './../Config';
+import {Project} from './../models/Project';
 
 export class ProjectCollection extends Backbone.Collection {
   constructor(models, options = {}) {
@@ -27,12 +27,13 @@ export class ProjectCollection extends Backbone.Collection {
   }
 
   filter(name) {
-    var filtered = [];
+    let filtered = [];
     this.models.forEach((model) => {
       if (model.get('name').indexOf(name) > -1) {
         filtered.push(model.toJSON());
       }
     });
+
     return new ProjectCollection(filtered);
   }
 }

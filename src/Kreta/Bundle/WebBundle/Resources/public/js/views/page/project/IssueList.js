@@ -8,19 +8,19 @@
  * file that was distributed with this source code.
  */
 
-import SettingsIcon from '../../../../svg/settings.svg';
+import SettingsIcon from './../../../../svg/settings';
 
-import React from 'react';
 import $ from 'jquery';
+import React from 'react';
 
-import {IssueCollection} from '../../../collections/Issue';
-import IssuePreview from '../../component/IssuePreview.js';
-import Filter from '../../component/Filter.js';
-import IssueShow from '../issue/Show.js';
-import NavigableCollection from '../../../mixins/NavigableCollection.js';
-import ContentMiddleLayout from '../../layout/ContentMiddleLayout.js';
-import ContentRightLayout from '../../layout/ContentRightLayout.js';
-import PageHeader from '../../component/PageHeader.js';
+import Filter from './../../component/Filter';
+import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
+import ContentRightLayout from './../../layout/ContentRightLayout';
+import {IssueCollection} from './../../../collections/Issue';
+import IssuePreview from './../../component/IssuePreview';
+import IssueShow from './../issue/Show';
+import NavigableCollection from './../../../mixins/NavigableCollection';
+import PageHeader from './../../component/PageHeader';
 
 export default React.createClass({
   getInitialState() {

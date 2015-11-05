@@ -8,10 +8,10 @@
  * file that was distributed with this source code.
  */
 
-import '../../../scss/components/_modal.scss';
+import './../../../scss/components/_modal';
 
-import React from 'react';
 import classNames from 'classnames';
+import React from 'react';
 
 export default React.createClass({
   getInitialState() {

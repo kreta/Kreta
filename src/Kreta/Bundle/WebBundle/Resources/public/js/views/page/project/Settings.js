@@ -8,17 +8,16 @@
  * file that was distributed with this source code.
  */
 
-import '../../../../scss/views/page/project/_settings.scss';
+import './../../../../scss/views/page/project/_settings';
 
 import React from 'react';
 
-import UserPreview from '../../component/UserPreview';
-import Button from '../../component/Button.js';
-import ContentMiddleLayout from '../../layout/ContentMiddleLayout.js';
-import ContentRightLayout from '../../layout/ContentRightLayout.js';
-import SettingsParticipants from './SettingsParticipants.js';
-import ProjectEdit from './Edit.js';
-
+import Button from './../../component/Button';
+import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
+import ContentRightLayout from './../../layout/ContentRightLayout';
+import ProjectEdit from './Edit';
+import SettingsParticipants from './SettingsParticipants';
+import UserPreview from './../../component/UserPreview';
 
 export default React.createClass({
   getInitialState() {

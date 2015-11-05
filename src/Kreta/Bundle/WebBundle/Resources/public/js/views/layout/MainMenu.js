@@ -8,20 +8,20 @@
  * file that was distributed with this source code.
  */
 
-import '../../../scss/layout/_main-menu.scss';
+import './../../../scss/layout/_main-menu';
 
-import ExitIcon from '../../../svg/exit.svg';
-import InboxIcon from '../../../svg/inbox.svg';
-import ProjectsIcon from '../../../svg/projects.svg';
-import LogoIcon from '../../../svg/logo.svg';
+import ExitIcon from './../../../svg/exit';
+import InboxIcon from './../../../svg/inbox';
+import LogoIcon from './../../../svg/logo';
+import ProjectsIcon from './../../../svg/projects';
 
 import React from 'react';
 import {Link} from 'react-router';
 
-import Icon from '../component/Icon.js';
-import Modal from '../component/Modal.js';
-import UserImage from '../component/UserImage.js';
-import ProjectList from '../page/project/List.js';
+import Icon from './../component/Icon';
+import Modal from './../component/Modal';
+import ProjectList from './../page/project/List';
+import UserImage from './../component/UserImage';
 
 export default React.createClass({
   getInitialState() {
@@ -43,16 +43,16 @@ export default React.createClass({
         <Icon className="main-menu__logo"
               glyph={LogoIcon}/>
         <div className="main-menu__actions">
-          <Icon glyph={ProjectsIcon}
-            className="main-menu__action main-menu__action--green"
-            onClick={this.showProjectList}/>
-          <Icon glyph={ExitIcon}
-                className="main-menu__action main-menu__action--red"/>
+          <Icon className="main-menu__action main-menu__action--green"
+                glyph={ProjectsIcon}
+                onClick={this.showProjectList}/>
+          <Icon className="main-menu__action main-menu__action--red"
+                glyph={ExitIcon}/>
         </div>
         <div className="main-menu__user">
           <div className="main-menu__notification">
-            <Icon glyph={InboxIcon}
-                  className="main-menu__action"/>
+            <Icon className="main-menu__action"
+                  glyph={InboxIcon}/>
             <span className="main-menu__notification-bubble">0</span>
           </div>
           <Link to="/profile">

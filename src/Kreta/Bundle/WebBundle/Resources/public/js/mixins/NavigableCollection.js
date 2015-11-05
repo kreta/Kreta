@@ -8,8 +8,8 @@
  * file that was distributed with this source code.
  */
 
-import ReactDOM from 'react-dom';
 import $ from 'jquery';
+import ReactDOM from 'react-dom';
 
 export default {
   getInitialState() {

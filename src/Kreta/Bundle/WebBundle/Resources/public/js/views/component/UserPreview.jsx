@@ -8,13 +8,13 @@
  * file that was distributed with this source code.
  */
 
-import '../../../scss/components/_user-preview.scss';
+import './../../../scss/components/_user-preview';
 
 import React from 'react';
 
-import UserImage from '../component/UserImage.js';
+import UserImage from './UserImage';
 
-export default React.createClass({
+class UserPreview extends React.Component {
   render() {
     const user = this.props.user;
 
@@ -26,7 +26,9 @@ export default React.createClass({
               <span className="user-preview__header">
                   {user.first_name} {user.last_name}
               </span>
-          <span className="user-preview__subheader">@{user.username}</span>
+          <span className="user-preview__subheader">
+            @{user.username}
+          </span>
         </div>
         <div className="user-preview__actions">
           {this.props.actions}
@@ -34,4 +36,6 @@ export default React.createClass({
       </div>
     );
   }
-});
+}
+
+export default UserPreview;

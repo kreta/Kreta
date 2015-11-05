@@ -8,15 +8,15 @@
  * file that was distributed with this source code.
  */
 
-import './../../../scss/components/_project-preview.scss';
+import './../../../scss/components/_project-preview';
 
-import React from 'react';
 import classNames from 'classnames';
+import React from 'react';
 
-import Icon from './Icon.js';
+import Icon from './Icon';
 
-export default React.createClass({
-  propTypes: {
+class ProjectPreview extends React.Component {
+  static propTypes = {
     onMouseEnter: React.PropTypes.func,
     onShortcutClick: React.PropTypes.func,
     onShortcutEnter: React.PropTypes.func,
@@ -25,13 +25,15 @@ export default React.createClass({
     selected: React.PropTypes.bool,
     selectedShortcut: React.PropTypes.number,
     shortcuts: React.PropTypes.array.isRequired
-  },
+  };
+
   render() {
     var shortcutItems = this.props.shortcuts.map((shortcut, index) => {
       const classes = classNames({
         'project-preview__shortcut': true,
         'project-preview__shortcut--selected': index === this.props.selectedShortcut
       });
+
       return (
         <Icon className={classes}
               glyph={shortcut.icon}
@@ -44,8 +46,9 @@ export default React.createClass({
       'project-preview': true,
       'project-preview--selected': this.props.selected
     });
+
     return (
-      <div className={ classes } onMouseEnter={ this.props.onMouseEnter }>
+      <div className={classes} onMouseEnter={ this.props.onMouseEnter }>
         <div className="project-preview__title" onClick={this.props.onTitleClick}>
           {this.props.project.get('name')}
         </div>
@@ -56,4 +59,6 @@ export default React.createClass({
       </div>
     );
   }
-});
+}
+
+export default ProjectPreview;

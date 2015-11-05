@@ -8,23 +8,21 @@
  * file that was distributed with this source code.
  */
 
+import $ from 'jquery';
 import React from 'react';
 import {Router, Route} from 'react-router';
-import $ from 'jquery';
 
-// import {TooltipView} from 'views/component/tooltip';
 import {App} from './App';
 import BaseLayout from './views/layout/Base';
-import ProjectNew from './views/page/project/New.js';
-import ProjectShow from './views/page/project/IssueList.js';
-import ProjectSettings from './views/page/project/Settings.js';
-import Profile from './views/page/user/Edit.js';
-import IssueNew from './views/page/issue/New.js';
+import IssueNew from './views/page/issue/New';
+import Profile from './views/page/user/Edit';
+import ProjectNew from './views/page/project/New';
+import ProjectSettings from './views/page/project/Settings';
+import ProjectShow from './views/page/project/IssueList';
 
 $(() => {
   window.App = new App({
     onLoad: () => {
-      // new TooltipView();
       window.React = React;
 
       React.render(

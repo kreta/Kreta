@@ -8,19 +8,19 @@
  * file that was distributed with this source code.
  */
 
-import '../../../../scss/views/page/issue/_new.scss';
+import './../../../../scss/views/page/issue/_new';
 
-import React from 'react';
 import {History} from 'react-router';
+import React from 'react';
 
-import Button from '../../component/Button.js';
-import ContentMiddleLayout from '../../layout/ContentMiddleLayout.js';
-import Form from '../../component/Form.js';
-import FormInput from '../../component/FormInput.js';
-import {Issue} from '../../../models/Issue';
-import IssueField from '../../component/IssueField.js';
-import Selector from '../../component/Selector.js';
-import UserImage from '../../component/UserImage.js';
+import Button from './../../component/Button';
+import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
+import Form from './../../component/Form';
+import FormInput from './../../component/FormInput';
+import {Issue} from './../../../models/Issue';
+import IssueField from './../../component/IssueField';
+import Selector from './../../component/Selector';
+import UserImage from './../../component/UserImage';
 
 export default React.createClass({
   getInitialState() {
@@ -143,4 +143,3 @@ export default React.createClass({
     );
   }
 });
-

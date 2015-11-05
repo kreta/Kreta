@@ -10,7 +10,7 @@
 
 import React from 'react';
 
-export default React.createClass({
+class ContentMiddleLayout extends React.Component {
   render() {
     return (
       <div className="content__middle">
@@ -20,4 +20,6 @@ export default React.createClass({
       </div>
     );
   }
-});
+}
+
+export default ContentMiddleLayout;

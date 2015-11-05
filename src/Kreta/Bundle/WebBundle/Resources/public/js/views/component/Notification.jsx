@@ -8,27 +8,28 @@
  * file that was distributed with this source code.
  */
 
-import '../../../scss/components/_notification.scss';
+import './../../../scss/components/_notification';
 
 import classnames from 'classnames';
 import React from 'react';
 
-export default React.createClass({
-  propTypes: {
+class Notification extends React.Component {
+  static propTypes = {
     message: React.PropTypes.string.isRequired,
     type: React.PropTypes.string,
     value: React.PropTypes.number.isRequired
-  },
-  getDefaultProps() {
-    return {
-      type: 'success'
-    };
-  },
+  };
+
+  static defaultProps = {
+    type: 'success'
+  };
+
   onCloseClick() {
     App.collection.notification.remove(
       App.collection.notification.at(this.props.value)
     );
-  },
+  }
+
   render() {
     const classes = classnames({
       'notification': true,
@@ -47,4 +48,6 @@ export default React.createClass({
       </div>
     );
   }
-});
+}
+
+export default Notification;

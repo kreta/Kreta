@@ -11,8 +11,8 @@
 import _ from 'lodash';
 import Backbone from 'backbone';
 
-import {Config} from '../Config';
-import {Participant} from '../models/Participant';
+import {Config} from './../Config';
+import {Participant} from './../models/Participant';
 
 export class ParticipantCollection extends Backbone.Collection {
   constructor(models, options = {}) {

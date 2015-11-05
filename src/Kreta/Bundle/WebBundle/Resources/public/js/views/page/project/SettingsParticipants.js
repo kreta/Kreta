@@ -8,21 +8,22 @@
  * file that was distributed with this source code.
  */
 
-import '../../../../scss/views/page/project/_settings.scss';
+import './../../../../scss/views/page/project/_settings';
 
-import React from 'react';
 import $ from 'jquery';
+import React from 'react';
 
-import UserPreview from '../../component/UserPreview';
-import Button from '../../component/Button.js';
-import {Config} from '../../../Config.js';
-import {NotificationService} from '../../../service/Notification.js';
+import Button from './../../component/Button';
+import {Config} from './../../../Config';
+import {NotificationService} from './../../../service/Notification';
+import UserPreview from './../../component/UserPreview';
 
-export default React.createClass({
-  propTypes: {
+class SettingsParticipants extends React.Component {
+  static propTypes = {
     onParticipantAdded: React.PropTypes.func,
     project: React.PropTypes.object
-  },
+  };
+
   addParticipant(index) {
     const participant = {
       role: 'ROLE_PARTICIPANT',
@@ -39,14 +40,15 @@ export default React.createClass({
         this.props.onParticipantAdded();
       }
     );
-  },
+  }
+
   render() {
     const notParticipating = this.props.project.getNotParticipating()
       .map((user, index) => {
         const actions = (
           <Button color="green"
-                  type="icon"
-                  onClick={this.addParticipant.bind(this, index)}>
+                  onClick={this.addParticipant.bind(this, index)}
+                  type="icon">
             <i className="fa fa-plus"></i>
           </Button>
         );
@@ -64,4 +66,6 @@ export default React.createClass({
       </div>
     );
   }
-});
+}
+
+export default SettingsParticipants;

@@ -8,16 +8,15 @@
  * file that was distributed with this source code.
  */
 
-import '../../../scss/layout/_base.scss';
+import './../../../scss/layout/_base';
 
 import React from 'react';
 
-import ContentLayout from './ContentLayout.js';
-import MainMenu from './MainMenu.js';
-import NotificationLayout from './NotificationLayout.js';
+import ContentLayout from './ContentLayout';
+import MainMenu from './MainMenu';
+import NotificationLayout from './NotificationLayout';
 
-export default React.createClass({
-
+class Base extends React.Component {
   render() {
     return (
       <div className="base-layout">
@@ -29,4 +28,6 @@ export default React.createClass({
       </div>
     );
   }
-});
+}
+
+export default Base;

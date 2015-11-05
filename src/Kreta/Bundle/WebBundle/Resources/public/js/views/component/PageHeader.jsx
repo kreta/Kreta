@@ -8,22 +8,23 @@
  * file that was distributed with this source code.
  */
 
-import '../../../scss/components/_page-header.scss';
+import './../../../scss/components/_page-header';
 
-import React from 'react';
-import {Link} from 'react-router';
 import classnames from 'classnames';
+import {Link} from 'react-router';
+import React from 'react';
 
-import Icon from '../component/Icon.js';
+import Icon from './Icon';
 
-export default React.createClass({
-  propTypes: {
+class PageHeader extends React.Component {
+  static propTypes = {
     image: React.PropTypes.string,
     links: React.PropTypes.array,
     title: React.PropTypes.string
-  },
+  };
+
   render() {
-    const links = this.props.links.map((link) => {
+    var links = this.props.links.map((link) => {
       const classes = classnames('page-header__icon', {
         'page-header__icon--green': link.color === 'green'
       });
@@ -46,4 +47,6 @@ export default React.createClass({
       </div>
     );
   }
-});
+}
+
+export default PageHeader;

@@ -10,10 +10,11 @@
 
 import React from 'react';
 
-export default React.createClass({
-  propTypes: {
+class HelpText extends React.Component {
+  static propTypes = {
     text: React.PropTypes.string.isRequired
-  },
+  };
+
   render() {
     return (
       <p className="help-text">
@@ -21,4 +22,6 @@ export default React.createClass({
       </p>
     );
   }
-});
+}
+
+export default HelpText;

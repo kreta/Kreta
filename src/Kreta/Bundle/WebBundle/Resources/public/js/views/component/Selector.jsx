@@ -8,13 +8,13 @@
  * file that was distributed with this source code.
  */
 
-import '../../../scss/components/_selector.scss';
+import './../../../scss/components/_selector';
 
-import React from 'react';
 import $ from 'jquery';
 import classnames from 'classnames';
+import React from 'react';
 
-import NavigableCollection from '../../mixins/NavigableCollection.js';
+import NavigableCollection from './../../mixins/NavigableCollection';
 
 export default React.createClass({
   propTypes: {

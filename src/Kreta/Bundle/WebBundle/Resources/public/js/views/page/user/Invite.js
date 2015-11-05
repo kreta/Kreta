@@ -10,10 +10,9 @@
 
 import React from 'react';
 
-import {Config} from '../../../Config';
-import {FormSerializerService} from '../../../service/FormSerializer';
-import {NotificationService} from '../../../service/Notification';
-
+import {Config} from './../../../Config';
+import {FormSerializerService} from './../../../service/FormSerializer';
+import {NotificationService} from './../../../service/Notification';
 
 export class UserInviteView extends Backbone.Marionette.ItemView {
   constructor(options = {}) {

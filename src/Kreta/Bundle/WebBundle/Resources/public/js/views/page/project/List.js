@@ -8,16 +8,16 @@
  * file that was distributed with this source code.
  */
 
-import AddIcon from './../../../../svg/add.svg';
-import ListIcon from './../../../../svg/list.svg';
+import AddIcon from './../../../../svg/add';
+import ListIcon from './../../../../svg/list';
 
-import React from 'react';
-import {History} from 'react-router';
 import $ from 'jquery';
+import {History} from 'react-router';
+import React from 'react';
 
-import NavigableCollection from '../../../mixins/NavigableCollection.js';
-import ProjectPreview from '../../component/ProjectPreview';
-import Button from '../../component/Button.js';
+import Button from './../../component/Button';
+import NavigableCollection from './../../../mixins/NavigableCollection';
+import ProjectPreview from './../../component/ProjectPreview';
 
 export default React.createClass({
   propTypes: {
@@ -109,8 +109,9 @@ export default React.createClass({
             <span className="simple-header-filter"></span>
           </div>
           <div className="simple-header-actions">
-            <Button color="green" size="small"
-                    onClick={this.goToNewProjectPage}>
+            <Button color="green"
+                    onClick={this.goToNewProjectPage}
+                    size="small">
               New project
             </Button>
           </div>

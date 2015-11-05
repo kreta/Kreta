@@ -8,11 +8,11 @@
  * file that was distributed with this source code.
  */
 
-import '../../../scss/layout/_content.scss';
+import './../../../scss/layout/_content';
 
 import React from 'react';
 
-export default React.createClass({
+class ContentLayout extends React.Component {
   render() {
     return (
       <div className="content">
@@ -20,4 +20,6 @@ export default React.createClass({
       </div>
     );
   }
-});
+}
+
+export default ContentLayout;

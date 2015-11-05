@@ -8,13 +8,13 @@
  * file that was distributed with this source code.
  */
 
-import '../../../scss/components/_issue-field.scss';
+import './../../../scss/components/_issue-field';
 
-import React from 'react';
 import classnames from 'classnames';
+import React from 'react';
 
-export default React.createClass({
-  propTypes: {
+class IssueField extends React.Component {
+  static propTypes = {
     fieldHovered: React.PropTypes.func,
     fieldSelected: React.PropTypes.func,
     halfColumn: React.PropTypes.bool,
@@ -23,7 +23,8 @@ export default React.createClass({
     selected: React.PropTypes.bool,
     text: React.PropTypes.string,
     value: React.PropTypes.string.isRequired
-  },
+  };
+
   render() {
     const classes = classnames(
       'issue-field', {
@@ -44,4 +45,6 @@ export default React.createClass({
       </div>
     );
   }
-});
+}
+
+export default IssueField;

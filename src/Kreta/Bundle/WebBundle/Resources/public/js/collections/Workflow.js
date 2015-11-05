@@ -11,8 +11,8 @@
 import _ from 'lodash';
 import Backbone from 'backbone';
 
-import {Config} from '../Config';
-import {Workflow} from '../models/Workflow';
+import {Config} from './../Config';
+import {Workflow} from './../models/Workflow';
 
 export class WorkflowCollection extends Backbone.Collection {
   constructor(models, options = {}) {

@@ -8,11 +8,11 @@
  * file that was distributed with this source code.
  */
 
-import React from 'react';
 import $ from 'jquery';
+import React from 'react';
 
-import {NotificationService} from '../../service/Notification.js';
-import {FormSerializerService} from '../../service/FormSerializer';
+import {NotificationService} from './../../service/Notification';
+import {FormSerializerService} from './../../service/FormSerializer';
 
 export default React.createClass({
   propTypes: {

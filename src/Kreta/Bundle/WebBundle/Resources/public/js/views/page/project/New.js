@@ -8,16 +8,16 @@
  * file that was distributed with this source code.
  */
 
-import '../../../../scss/views/page/project/_new.scss';
+import './../../../../scss/views/page/project/_new';
 
-import React from 'react';
 import {History} from 'react-router';
+import React from 'react';
 
-import {Project} from '../../../models/Project';
-import Button from '../../component/Button.js';
-import ContentMiddleLayout from '../../layout/ContentMiddleLayout.js';
-import Form from '../../component/Form.js';
-import FormInput from '../../component/FormInput.js';
+import Button from './../../component/Button';
+import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
+import Form from './../../component/Form';
+import FormInput from './../../component/FormInput';
+import {Project} from './../../../models/Project';
 
 export default React.createClass({
   mixins: [History],

@@ -8,9 +8,11 @@
  * file that was distributed with this source code.
  */
 
-import '../../../scss/components/_tooltip.scss';
+import './../../../scss/components/_tooltip';
 
-export class TooltipView {
+import $ from 'jquery';
+
+class Tooltip {
   constructor() {
     $(document.body).on('mouseenter', '[data-tooltip-text]', this.onMouseEnter);
     $(document.body).on('mouseleave', '[data-tooltip-text]', this.onMouseLeave);
@@ -34,3 +36,5 @@ export class TooltipView {
     $(this).find('.tooltip').removeClass('visible');
   }
 }
+
+export default Tooltip;

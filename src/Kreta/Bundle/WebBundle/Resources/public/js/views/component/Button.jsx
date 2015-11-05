@@ -8,18 +8,19 @@
  * file that was distributed with this source code.
  */
 
-import '../../../scss/components/_button.scss';
+import './../../../scss/components/_button';
 
-import React from 'react';
 import classnames from 'classnames';
+import React from 'react';
 
-export default React.createClass({
-  propTypes: {
+class Button extends React.Component {
+  static propTypes = {
     color: React.PropTypes.string,
     onClick: React.PropTypes.func,
     size: React.PropTypes.string,
     type: React.PropTypes.string
-  },
+  };
+
   render() {
     const classes = classnames(
       'button',
@@ -36,4 +37,6 @@ export default React.createClass({
       </button>
     );
   }
-});
+}
+
+export default Button;
