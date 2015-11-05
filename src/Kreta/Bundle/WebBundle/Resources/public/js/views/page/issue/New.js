@@ -86,7 +86,7 @@ export default React.createClass({
   goToCreatedIssue(model) {
     this.history.pushState(null, `/project/${model.get('project')}`)
   },
-  showErrors(errors) {
+  showErrors(model, errors) {
     console.log(errors);
   },
   render() {

@@ -9,6 +9,11 @@
 @import '../base/colors';
 @import '../base/typography';
 
+@mixin form-label-up {
+  font-size: 14px;
+  top: 0;
+  transform: translateY(0);
+}
 
 input[type='checkbox'] {
   display: inline-block;
@@ -26,8 +31,10 @@ textarea {
 .form-input--error {
   .form-input__label {
     color: $main-red;
+    @include form-label-up;
   }
 
+  .form-input__bar,
   .form-input__bar:after {
     background: $main-red;
   }
@@ -55,9 +62,7 @@ textarea {
   &:focus,
   &.form-input__input--filled {
     ~ .form-input__label {
-      font-size: 14px;
-      top: 0;
-      transform: translateY(0);
+      @include form-label-up;
     }
   }
 }
