@@ -11,16 +11,14 @@
 import './../../../../scss/views/page/issue/_show.scss';
 
 import React from 'react';
-import $ from 'jquery';
 
 import {Issue} from '../../../models/Issue.js';
-import UserImage from '../../component/UserImage.js';
-import IssueField from '../../component/IssueField.js';
-import HelpText from '../../component/HelpText.js';
-import Selector from '../../component/Selector.js';
 import Button from '../../component/Button.js';
-import {FormSerializerService} from '../../../service/FormSerializer.js';
-import {NotificationService} from '../../../service/Notification.js';
+import Form from '../../component/Form.js';
+import HelpText from '../../component/HelpText.js';
+import IssueField from '../../component/IssueField.js';
+import Selector from '../../component/Selector.js';
+import UserImage from '../../component/UserImage.js';
 
 export default React.createClass({
   propTypes: {
@@ -94,27 +92,8 @@ export default React.createClass({
 
     return {assignee, priority};
   },
-  save(ev) {
-    ev.preventDefault();
-
-    const issue = FormSerializerService.serialize(
-      $(this.refs.form), Issue
-    );
-
+  onIssueSaved() {
     this.setState({issueChanged: false});
-    issue.save(null, {
-      success: () => {
-        NotificationService.showNotification({
-          type: 'success',
-          message: 'Issue edited successfully'
-        });
-      }, error: () => {
-        NotificationService.showNotification({
-          type: 'error',
-          message: 'Error while editing this issue'
-        });
-      }
-    });
   },
   render() {
     const issue = this.state.issue.toJSON();
@@ -133,9 +112,8 @@ export default React.createClass({
       );
     });
     return (
-      <form className="issue-show"
-            onSubmit={this.save}
-            ref="form">
+      <Form model={Issue}
+            onSaveSuccess={this.onIssueSaved}>
         <input name="id" type="hidden" value={issue.id}/>
         <input name="project" type="hidden" value={this.props.project.id}/>
         <input className="issue-show__title"
@@ -166,7 +144,7 @@ export default React.createClass({
         <div className="issue-show__save">
           {saveButton}
         </div>
-      </form>
+      </Form>
     );
   }
 });
