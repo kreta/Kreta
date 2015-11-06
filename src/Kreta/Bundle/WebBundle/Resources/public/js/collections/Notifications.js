@@ -10,7 +10,7 @@
 
 import Backbone from 'backbone';
 
-class TypeCollection extends Backbone.Collection {
+class Notifications extends Backbone.Collection {
 }
 
-export default TypeCollection;
+export default Notifications;

@@ -15,11 +15,11 @@ import Backbone from 'backbone';
 
 import BaseLayoutView from './views/layout/Base';
 import HeaderView from './views/layout/MainMenu';
-import NotificationCollection from './collections/Notification';
+import Notifications from './collections/Notifications';
 import Profile from './models/Profile';
-import ProjectCollection from './collections/Project';
-import UserCollection from './collections/User';
-import WorkflowCollection from './collections/Workflow';
+import Projects from './collections/Projects';
+import Users from './collections/Users';
+import Workflows from './collections/Workflows';
 
 class App {
   constructor(options) {
@@ -28,10 +28,10 @@ class App {
     this.addAutenticationHeader();
 
     this.collection = {
-      project: new ProjectCollection(),
-      user: new UserCollection(),
-      workflow: new WorkflowCollection(),
-      notification: new NotificationCollection()
+      project: new Projects(),
+      user: new Users(),
+      workflow: new Workflows(),
+      notification: new Notifications()
     };
 
     this.currentUser = new Profile();

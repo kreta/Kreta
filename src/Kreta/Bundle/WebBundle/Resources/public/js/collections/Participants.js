@@ -12,32 +12,21 @@ import _ from 'lodash';
 import Backbone from 'backbone';
 
 import Config from './../Config';
-import Issue from './../models/Issue';
+import Participant from './../models/Participant';
 
-class IssueCollection extends Backbone.Collection {
+class Participants extends Backbone.Collection {
   constructor(models, options = {}) {
     _.defaults(options, {
-      model: Issue
+      model: Participant
     });
     super(models, options);
   }
 
-  url() {
-    return `${Config.baseUrl}/issues`;
-  }
+  setProject(projectId) {
+    this.url = `${Config.baseUrl}/projects/${projectId}/participants`;
 
-  findIndexById(issueId) {
-    var i = 0;
-
-    while (i < this.models.length) {
-      if (this.models[i].get('id') === issueId) {
-        return i;
-      }
-      i++;
-    }
-
-    return -1;
+    return this;
   }
 }
 
-export default IssueCollection;
+export default Participants;

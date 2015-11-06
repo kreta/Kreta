@@ -12,19 +12,19 @@ import _ from 'lodash';
 import Backbone from 'backbone';
 
 import Config from './../Config';
-import Workflow from './../models/Workflow';
+import User from './../models/User';
 
-class WorkflowCollection extends Backbone.Collection {
+class Users extends Backbone.Collection {
   constructor(models, options = {}) {
     _.defaults(options, {
-      model: Workflow
+      model: User
     });
     super(models, options);
   }
 
   url() {
-    return `${Config.baseUrl}/workflows`;
+    return `${Config.baseUrl}/users`;
   }
 }
 
-export default WorkflowCollection;
+export default Users;

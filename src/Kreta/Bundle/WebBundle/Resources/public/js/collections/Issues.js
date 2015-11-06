@@ -12,21 +12,32 @@ import _ from 'lodash';
 import Backbone from 'backbone';
 
 import Config from './../Config';
-import IssuePriority from './../models/IssuePriority';
+import Issue from './../models/Issue';
 
-class IssuePriorityCollection extends Backbone.Collection {
+class Issues extends Backbone.Collection {
   constructor(models, options = {}) {
     _.defaults(options, {
-      model: IssuePriority
+      model: Issue
     });
     super(models, options);
   }
 
-  setProject(projectId) {
-    this.url = `${Config.baseUrl}/projects/${projectId}/issue-priorities`;
+  url() {
+    return `${Config.baseUrl}/issues`;
+  }
 
-    return this;
+  findIndexById(issueId) {
+    var i = 0;
+
+    while (i < this.models.length) {
+      if (this.models[i].get('id') === issueId) {
+        return i;
+      }
+      i++;
+    }
+
+    return -1;
   }
 }
 
-export default IssuePriorityCollection;
+export default Issues;

@@ -12,21 +12,19 @@ import _ from 'lodash';
 import Backbone from 'backbone';
 
 import Config from './../Config';
-import Participant from './../models/Participant';
+import Workflow from './../models/Workflow';
 
-class ParticipantCollection extends Backbone.Collection {
+class Workflows extends Backbone.Collection {
   constructor(models, options = {}) {
     _.defaults(options, {
-      model: Participant
+      model: Workflow
     });
     super(models, options);
   }
 
-  setProject(projectId) {
-    this.url = `${Config.baseUrl}/projects/${projectId}/participants`;
-
-    return this;
+  url() {
+    return `${Config.baseUrl}/workflows`;
   }
 }
 
-export default ParticipantCollection;
+export default Workflows;

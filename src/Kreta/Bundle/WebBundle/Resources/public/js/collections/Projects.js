@@ -12,19 +12,30 @@ import _ from 'lodash';
 import Backbone from 'backbone';
 
 import Config from './../Config';
-import User from './../models/User';
+import Project from './../models/Project';
 
-class UserCollection extends Backbone.Collection {
+class Projects extends Backbone.Collection {
   constructor(models, options = {}) {
     _.defaults(options, {
-      model: User
+      model: Project
     });
     super(models, options);
   }
 
   url() {
-    return `${Config.baseUrl}/users`;
+    return `${Config.baseUrl}/projects`;
+  }
+
+  filter(name) {
+    let filtered = [];
+    this.models.forEach((model) => {
+      if (model.get('name').indexOf(name) > -1) {
+        filtered.push(model.toJSON());
+      }
+    });
+
+    return new Projects(filtered);
   }
 }
 
-export default UserCollection;
+export default Projects;

@@ -16,8 +16,8 @@ import React from 'react';
 import Filter from './../../component/Filter';
 import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
 import ContentRightLayout from './../../layout/ContentRightLayout';
-import IssueCollection from './../../../collections/Issue';
 import IssuePreview from './../../component/IssuePreview';
+import Issues from './../../../collections/Issues';
 import IssueShow from './../issue/Show';
 import NavigableCollection from './../../../mixins/NavigableCollection';
 import PageHeader from './../../component/PageHeader';
@@ -54,7 +54,7 @@ export default React.createClass({
       selectedItem: 0
     });
 
-    this.collection = new IssueCollection();
+    this.collection = new Issues();
     this.collection.on('sync', $.proxy(this.issuesUpdated, this));
     this.collection.fetch({data: {project: project.id}});
 

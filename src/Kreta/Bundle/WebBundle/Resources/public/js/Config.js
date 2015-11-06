@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-var Config = {
+const Config = {
   baseUrl: `//${location.hostname}${location.port !== '' ? `:${location.port}` : ''}/api`
 };
 

@@ -12,30 +12,21 @@ import _ from 'lodash';
 import Backbone from 'backbone';
 
 import Config from './../Config';
-import Project from './../models/Project';
+import IssueType from './../models/IssueType';
 
-class ProjectCollection extends Backbone.Collection {
+class IssueTypes extends Backbone.Collection {
   constructor(models, options = {}) {
     _.defaults(options, {
-      model: Project
+      model: IssueType
     });
     super(models, options);
   }
 
-  url() {
-    return `${Config.baseUrl}/projects`;
-  }
+  setProject(projectId) {
+    this.url = `${Config.baseUrl}/projects/${projectId}/issue-types`;
 
-  filter(name) {
-    let filtered = [];
-    this.models.forEach((model) => {
-      if (model.get('name').indexOf(name) > -1) {
-        filtered.push(model.toJSON());
-      }
-    });
-
-    return new ProjectCollection(filtered);
+    return this;
   }
 }
 
-export default ProjectCollection;
+export default IssueTypes;

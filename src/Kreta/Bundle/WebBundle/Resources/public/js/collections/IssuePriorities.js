@@ -12,21 +12,21 @@ import _ from 'lodash';
 import Backbone from 'backbone';
 
 import Config from './../Config';
-import IssueType from './../models/IssueType';
+import IssuePriority from './../models/IssuePriority';
 
-class IssueTypeCollection extends Backbone.Collection {
+class IssuePriorities extends Backbone.Collection {
   constructor(models, options = {}) {
     _.defaults(options, {
-      model: IssueType
+      model: IssuePriority
     });
     super(models, options);
   }
 
   setProject(projectId) {
-    this.url = `${Config.baseUrl}/projects/${projectId}/issue-types`;
+    this.url = `${Config.baseUrl}/projects/${projectId}/issue-priorities`;
 
     return this;
   }
 }
 
-export default IssueTypeCollection;
+export default IssuePriorities;
