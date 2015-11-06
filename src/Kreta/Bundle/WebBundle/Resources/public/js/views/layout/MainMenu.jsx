@@ -42,12 +42,15 @@ export default React.createClass({
       <nav className="main-menu">
         <Icon className="main-menu__logo"
               glyph={LogoIcon}/>
+
         <div className="main-menu__actions">
           <Icon className="main-menu__action main-menu__action--green"
                 glyph={ProjectsIcon}
                 onClick={this.showProjectList}/>
-          <Icon className="main-menu__action main-menu__action--red"
-                glyph={ExitIcon}/>
+          <a href="/logout">
+            <Icon className="main-menu__action main-menu__action--red"
+                  glyph={ExitIcon}/>
+          </a>
         </div>
         <div className="main-menu__user">
           <div className="main-menu__notification">
