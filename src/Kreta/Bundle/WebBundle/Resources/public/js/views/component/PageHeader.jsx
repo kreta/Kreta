@@ -14,35 +14,56 @@ import classnames from 'classnames';
 import {Link} from 'react-router';
 import React from 'react';
 
+import Button from './Button';
 import Icon from './Icon';
 
 class PageHeader extends React.Component {
   static propTypes = {
+    buttons: React.PropTypes.array,
     image: React.PropTypes.string,
     links: React.PropTypes.array,
     title: React.PropTypes.string
   };
 
-  render() {
-    var links = this.props.links.map((link) => {
-      const classes = classnames('page-header__icon', {
-        'page-header__icon--green': link.color === 'green'
+  renderLinks() {
+    return this.props.links.map((link) => {
+      const classes = classnames('page-header__link-icon', {
+        'page-header__link-icon--green': link.color === 'green'
       });
       return (
         <Link className="page-header__link" to={link.href}>
           <Icon className={classes}
-                glyph={link.icon}/>
+          glyph={link.icon}/>
           {link.title}
         </Link>
       );
     });
+  }
 
+  renderButtons() {
+    return this.props.buttons.map((button) => {
+      return (
+        <Link className="page-header__link" to={button.href}>
+          <Button color="green">
+            {button.title}
+          </Button>
+        </Link>
+      );
+    });
+  }
+
+  render() {
     return (
       <div className="page-header">
         <div className="project-image" style={{background: '#ebebeb'}}></div>
         <h2 className="page-header__title">{this.props.title}</h2>
-        <div>
-          {links}
+        <div className="page-header__actions">
+          <div className="page-header__links">
+            {this.renderLinks()}
+          </div>
+          <div className="page-header__buttons">
+            {this.renderButtons()}
+          </div>
         </div>
       </div>
     );

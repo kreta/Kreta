@@ -22,6 +22,17 @@
   text-transform: uppercase;
 }
 
+.page-header__actions {
+  align-items: flex-end;
+  display: flex;
+  flex-flow: column;
+}
+
+.page-header__links,
+.page-header__buttons {
+  margin: 7px 0;
+}
+
 .page-header__link {
   align-items: center;
   color: $main-black;
@@ -31,13 +42,13 @@
   text-decoration: none;
 }
 
-.page-header__icon {
+.page-header__link-icon {
   fill: $main-black;
   height: 16px;
   margin-right: 5px;
   width: 16px;
 }
 
-.page-header__icon--green {
+.page-header__link-icon--green {
   fill: $main-green;
 }

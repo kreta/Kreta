@@ -152,6 +152,10 @@ export default React.createClass({
         icon: SettingsIcon,
         title: 'Settings',
         color: 'green'
+      }],
+      buttons = [{
+        href: `/issue/new/${this.state.project.id}`,
+        title: 'New issue'
       }];
     let issue = '';
     if (this.state.issues.length > 0 && !this.state.fetchingIssues) {
@@ -162,7 +166,10 @@ export default React.createClass({
     return (
       <div>
         <ContentMiddleLayout>
-          <PageHeader image="" links={links} title={this.state.project.get('name')}/>
+          <PageHeader buttons={buttons}
+                      image=""
+                      links={links}
+                      title={this.state.project.get('name')}/>
           <Filter filters={this.state.filters} onFilterSelected={this.filterIssues}/>
 
           <div className="issues">
