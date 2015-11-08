@@ -22,7 +22,7 @@ $content-transition: .3s;
 
 .content__middle {
   flex: 1;
-  margin: 0 40px;
+  padding: 0 40px;
   overflow-y: scroll;
   transition-duration: $content-transition;
 }

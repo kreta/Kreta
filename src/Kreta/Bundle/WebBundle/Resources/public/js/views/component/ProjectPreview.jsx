@@ -27,6 +27,18 @@ class ProjectPreview extends React.Component {
     shortcuts: React.PropTypes.array.isRequired
   };
 
+  onShortcutClick(index) {
+    if (this.props.onShortcutClick) {
+      this.props.onShortcutClick(index);
+    }
+  }
+
+  onShortcutEnter(index) {
+    if (this.props.onShortcutEnter) {
+      this.props.onShortcutEnter(index);
+    }
+  }
+
   render() {
     var shortcutItems = this.props.shortcuts.map((shortcut, index) => {
       const classes = classNames({
@@ -38,8 +50,8 @@ class ProjectPreview extends React.Component {
         <Icon className={classes}
               glyph={shortcut.icon}
               key={index}
-              onClick={this.props.onShortcutClick}
-              onMouseEnter={this.props.onShortcutEnter}/>
+              onClick={this.onShortcutClick.bind(this, index)}
+              onMouseEnter={this.onShortcutEnter.bind(this, index)}/>
       );
     });
     const classes = classNames({

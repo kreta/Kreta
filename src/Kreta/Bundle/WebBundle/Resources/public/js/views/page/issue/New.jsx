@@ -31,7 +31,6 @@ export default React.createClass({
   mixins: [History],
   componentDidMount() {
     this.updateSelectors(this.props.params.projectId);
-    this.refs.title.focus();
   },
   componentDidUpdate (prevProps) {
     const oldId = prevProps.params.projectId,

@@ -11,93 +11,90 @@
 import AddIcon from './../../../../svg/add';
 import ListIcon from './../../../../svg/list';
 
-import $ from 'jquery';
-import {History} from 'react-router';
 import React from 'react';
 
 import Button from './../../component/Button';
-import NavigableCollection from './../../../mixins/NavigableCollection';
+import NavigableList from './../../component/NavigableList';
 import ProjectPreview from './../../component/ProjectPreview';
 
-export default React.createClass({
-  propTypes: {
+class List extends React.Component {
+  static propTypes = {
     onProjectSelected: React.PropTypes.func
-  },
-  mixins: [History, NavigableCollection],
-  getInitialState() {
-    return {
-      projects: App.collection.project.clone(),
-      selectedShortcut: 0
-    };
-  },
-  getDefaultProps() {
-    return {
-      shortcuts: [{
-        'icon': ListIcon,
-        'path': '/project/',
-        'tooltip': 'Show full project'
-      }, {
-        'icon': AddIcon,
-        'path': '/issue/new/',
-        'tooltip': 'New task'
-      }]
-    };
-  },
+  };
+
+  static contextTypes = {
+    history: React.PropTypes.object
+  };
+
+  static defaultProps = {
+    shortcuts: [{
+      'icon': ListIcon,
+      'path': '/project/',
+      'tooltip': 'Show full project'
+    }, {
+      'icon': AddIcon,
+      'path': '/issue/new/',
+      'tooltip': 'New task'
+    }]
+  };
+
+  state = {
+    projects: App.collection.project.clone(),
+    selectedRow: 0,
+    selectedShortcut: 0
+  };
+
   onKeyUp(ev) {
-    if (ev.which === 37) { // Left
-      if (this.state.selectedShortcut > 0) {
-        this.setState({
-          selectedShortcut: this.state.selectedShortcut - 1
-        });
-      }
-    } else if (ev.which === 39) { // Right
-      if (this.state.selectedShortcut + 1 < this.props.shortcuts.length) {
-        this.setState({
-          selectedShortcut: this.state.selectedShortcut + 1
-        });
-      }
-    } else if (ev.which === 13) { // Enter
-      this.onShortcutClick();
-    } else if (ev.which !== 38 && ev.which !== 40) { // Filter
+    if (ev.which === 13) { // Enter
+      this.goToShortcutLink();
+    } else if (ev.which < 37 || ev.which > 40) { // Filter
       this.setState({
         projects: App.collection.project.filter(this.refs.filter.value),
         selectedItem: 0
       });
+    } else {
+      this.refs.navigableList.handleNavigation(ev);
     }
-  },
-  onMouseEnter(ev) {
+  }
+
+  changeSelectedRow(index) {
     this.setState({
-      selectedItem: $(ev.currentTarget).index()
+      selectedRow: index
     });
-  },
-  onShortcutSelected(ev) {
+  }
+
+  changeSelectedShortcut(index) {
     this.setState({
-      selectedShortcut: $(ev.currentTarget).index()
+      selectedShortcut: index
     });
-  },
-  onShortcutClick() {
-    const projectId = this.state.projects.at(this.state.selectedItem).id;
-    this.history.pushState(null, this.props.shortcuts[this.state.selectedShortcut].path + projectId);
+  }
+
+  goToShortcutLink() {
+    const projectId = this.state.projects.at(this.state.selectedRow).id;
+    this.context.history.pushState(null, this.props.shortcuts[this.state.selectedShortcut].path + projectId);
     this.props.onProjectSelected();
-  },
+  }
+
   onTitleClick() {
-    const projectId = this.state.projects.at(this.state.selectedItem).id;
-    this.history.pushState(null, this.props.shortcuts[0].path + projectId);
+    const projectId = this.state.projects.at(this.state.selectedRow).id;
+    this.context.history.pushState(null, this.props.shortcuts[0].path + projectId);
     this.props.onProjectSelected();
-  },
+  }
+
   goToNewProjectPage() {
     this.history.pushState(null, '/project/new');
     this.props.onProjectSelected();
-  },
+  }
+
   render() {
-    var projectItems = this.state.projects.map((project, index) => {
+    const projectItems = this.state.projects.map((project, index) => {
       return <ProjectPreview key={index}
-                             onMouseEnter={this.onMouseEnter}
-                             onShortcutClick={this.onShortcutClick}
-                             onShortcutEnter={this.onShortcutSelected}
-                             onTitleClick={this.onTitleClick}
+                             onMouseEnter={this.changeSelectedRow.bind(this, index)}
+                             onShortcutClick={this.goToShortcutLink.bind(this)}
+                             onShortcutEnter={this.changeSelectedShortcut.bind(this)}
+                             onTitleClick={this.onTitleClick.bind(this)}
                              project={project}
-                             selected={this.state.selectedItem === index}
+                             selected={this.state.selectedRow === index}
                              selectedShortcut={this.state.selectedShortcut}
                              shortcuts={this.props.shortcuts}/>;
     });
@@ -117,13 +114,20 @@ export default React.createClass({
           </div>
         </div>
         <input className="project-list__filter"
-               onKeyUp={this.onKeyUp}
+               onKeyUp={this.onKeyUp.bind(this)}
                ref="filter"
                type="text"/>
-        <ul className="project-preview__list" ref="navigableList">
+        <NavigableList className="project-preview__list"
+                       onXChanged={this.changeSelectedShortcut.bind(this)}
+                       onYChanged={this.changeSelectedRow.bind(this)}
+                       ref="navigableList"
+                       xLength={this.props.shortcuts.length}
+                       yLength={projectItems.length}>
           { projectItems }
-        </ul>
+        </NavigableList>
       </div>
     );
   }
-});
+}
+
+export default List;
