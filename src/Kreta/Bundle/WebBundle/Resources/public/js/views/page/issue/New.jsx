@@ -31,6 +31,7 @@ export default React.createClass({
   mixins: [History],
   componentDidMount() {
     this.updateSelectors(this.props.params.projectId);
+    this.refs.title.focus();
   },
   componentDidUpdate (prevProps) {
     const oldId = prevProps.params.projectId,
@@ -103,7 +104,8 @@ export default React.createClass({
                     value={this.state.project.id}>
             {options.selectableProjects}
           </Selector>
-          <FormInput label="Title"
+          <FormInput autoFocus
+                     label="Title"
                      name="title"
                      tabIndex={2}
                      type="text"
