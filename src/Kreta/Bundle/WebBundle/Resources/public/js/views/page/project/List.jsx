@@ -82,7 +82,7 @@ class List extends React.Component {
   }
 
   goToNewProjectPage() {
-    this.history.pushState(null, '/project/new');
+    this.context.history.pushState(null, '/project/new');
     this.props.onProjectSelected();
   }
 
@@ -107,7 +107,7 @@ class List extends React.Component {
           </div>
           <div className="simple-header-actions">
             <Button color="green"
-                    onClick={this.goToNewProjectPage}
+                    onClick={this.goToNewProjectPage.bind(this)}
                     size="small">
               New project
             </Button>
