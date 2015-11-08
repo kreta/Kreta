@@ -22,36 +22,39 @@ import IssueShow from './../issue/Show';
 import PageHeader from './../../component/PageHeader';
 import NavigableList from './../../component/NavigableList';
 
-export default React.createClass({
-  getInitialState() {
-    return {
-      fetchingIssues: true,
-      filters: [],
-      issues: [],
-      project: null
-    };
-  },
+class IssueList extends React.Component {
+  state = {
+    fetchingIssues: true,
+    filters: [],
+    issues: [],
+    project: null
+  };
+
   componentDidMount() {
     this.loadData();
-    document.addEventListener('keyup', this.keyboardNavigate);
-  },
+    document.addEventListener('keyup', this.keyboardNavigate.bind(this));
+  }
+
   componentDidUpdate(prevProps) {
     const oldId = prevProps.params.projectId,
       newId = this.props.params.projectId;
     if (newId !== oldId) {
       this.loadData();
     }
-  },
+  }
+
   componentWillUnmount() {
-    document.addEventListener('keyup', this.keyboardNavigate);
-  },
+    document.addEventListener('keyup', this.keyboardNavigate.bind(this));
+  }
+
   keyboardNavigate(ev) {
     this.refs.navigableList.handleNavigation(ev);
-  },
+  }
+
   loadData() {
     const project = App.collection.project.get(this.props.params.projectId);
-    project.on('sync', this.loadFilters);
-    project.on('change', this.loadFilters);
+    project.on('sync', this.loadFilters.bind(this));
+    project.on('change', this.loadFilters.bind(this));
 
     this.setState({
       fetchingIssues: true,
@@ -65,14 +68,16 @@ export default React.createClass({
     this.collection.fetch({data: {project: project.id}});
 
     this.loadFilters(project);
-  },
+  }
+
   issuesUpdated(data) {
     this.setState({
       fetchingIssues: false,
       issues: data,
       selectedRow: 0
     });
-  },
+  }
+
   filterIssues(filters) {
     var data = {project: this.state.project.id};
 
@@ -86,7 +91,8 @@ export default React.createClass({
 
     this.setState({fetchingIssues: true});
     this.collection.fetch({data, reset: true});
-  },
+  }
+
   loadFilters(project) {
     var assigneeFilters = [{
         filter: 'assignee',
@@ -137,10 +143,12 @@ export default React.createClass({
       });
     }
     this.setState({filters: [assigneeFilters, priorityFilters, statusFilters]});
-  },
+  }
+
   changeSelected(index) {
     this.setState({selectedRow: index});
-  },
+  }
+
   render() {
     if (!this.state.project) {
       return <p>Loading...</p>;
@@ -174,10 +182,10 @@ export default React.createClass({
                       image=""
                       links={links}
                       title={this.state.project.get('name')}/>
-          <Filter filters={this.state.filters} onFilterSelected={this.filterIssues}/>
+          <Filter filters={this.state.filters} onFilterSelected={this.filterIssues.bind(this)}/>
 
           <NavigableList className="issues"
-                         onYChanged={this.changeSelected}
+                         onYChanged={this.changeSelected.bind(this)}
                          ref="navigableList"
                          yLength={issuesEl.length}>
             {this.state.fetchingIssues ? 'Loading...' : issuesEl}
@@ -189,4 +197,6 @@ export default React.createClass({
       </div>
     );
   }
-});
+}
+
+export default IssueList;
