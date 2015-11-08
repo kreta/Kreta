@@ -44,7 +44,7 @@ class IssueList extends React.Component {
   }
 
   componentWillUnmount() {
-    document.addEventListener('keyup', $.proxy(this.keyboardNavigate, this));
+    document.removeEventListener('keyup', $.proxy(this.keyboardNavigate, this));
   }
 
   keyboardNavigate(ev) {

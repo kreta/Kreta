@@ -89,7 +89,7 @@ class New extends React.Component {
   }
 
   goToCreatedIssue(model) {
-    this.history.pushState(null, `/project/${model.get('project')}`);
+    this.context.history.pushState(null, `/project/${model.get('project')}`);
   }
 
   render() {
