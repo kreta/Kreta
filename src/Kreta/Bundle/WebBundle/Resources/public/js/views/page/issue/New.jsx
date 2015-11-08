@@ -10,7 +10,6 @@
 
 import './../../../../scss/views/page/issue/_new';
 
-import {History} from 'react-router';
 import React from 'react';
 
 import Button from './../../component/Button';
@@ -22,26 +21,31 @@ import IssueField from './../../component/IssueField';
 import Selector from './../../component/Selector';
 import UserImage from './../../component/UserImage';
 
-export default React.createClass({
-  getInitialState() {
-    return {
-      project: null
-    };
-  },
-  mixins: [History],
+class New extends React.Component {
+  static contextTypes = {
+    history: React.PropTypes.object
+  };
+
+  state = {
+    project: null
+  };
+
   componentDidMount() {
     this.updateSelectors(this.props.params.projectId);
-  },
+  }
+
   componentDidUpdate (prevProps) {
     const oldId = prevProps.params.projectId,
       newId = this.props.params.projectId;
     if (newId !== oldId) {
       this.updateSelectors(this.props.params.projectId);
     }
-  },
+  }
+
   updateSelectors(projectId) {
     this.setState({project: App.collection.project.get(projectId)});
-  },
+  }
+
   getProjectOptions() {
     const project = App.collection.project.get(this.state.project.id);
     if (!project) {
@@ -82,10 +86,12 @@ export default React.createClass({
       });
 
     return {selectableProjects, assignee, priority};
-  },
+  }
+
   goToCreatedIssue(model) {
     this.history.pushState(null, `/project/${model.get('project')}`);
-  },
+  }
+
   render() {
     if (!this.state.project) {
       return <div>Loading</div>;
@@ -96,9 +102,9 @@ export default React.createClass({
     return (
       <ContentMiddleLayout>
         <Form model={Issue}
-              onSaveSuccess={this.goToCreatedIssue}>
+              onSaveSuccess={this.goToCreatedIssue.bind(this)}>
           <Selector name="project"
-                    onChange={this.updateSelectors}
+                    onChange={this.updateSelectors.bind(this)}
                     tabIndex={1}
                     value={this.state.project.id}>
             {options.selectableProjects}
@@ -143,4 +149,6 @@ export default React.createClass({
       </ContentMiddleLayout>
     );
   }
-});
+}
+
+export default New;

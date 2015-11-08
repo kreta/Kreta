@@ -32,7 +32,7 @@ class IssueList extends React.Component {
 
   componentDidMount() {
     this.loadData();
-    document.addEventListener('keyup', this.keyboardNavigate.bind(this));
+    document.addEventListener('keyup', $.proxy(this.keyboardNavigate, this));
   }
 
   componentDidUpdate(prevProps) {
@@ -44,7 +44,7 @@ class IssueList extends React.Component {
   }
 
   componentWillUnmount() {
-    document.addEventListener('keyup', this.keyboardNavigate.bind(this));
+    document.addEventListener('keyup', $.proxy(this.keyboardNavigate, this));
   }
 
   keyboardNavigate(ev) {
