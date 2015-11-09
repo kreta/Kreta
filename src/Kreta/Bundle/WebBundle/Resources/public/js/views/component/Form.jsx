@@ -14,20 +14,20 @@ import React from 'react';
 import NotificationService from './../../service/Notification';
 import FormSerializerService from './../../service/FormSerializer';
 
-export default React.createClass({
-  propTypes: {
+class Form extends React.Component {
+  static propTypes = {
     model: React.PropTypes.func.isRequired,
     onSaveError: React.PropTypes.func,
     onSaveSuccess: React.PropTypes.func,
     saveErrorMessage: React.PropTypes.string,
     saveSuccessMessage: React.PropTypes.string
-  },
-  getInitialState() {
-    return {
-      errors: [],
-      lastValues: []
-    };
-  },
+  };
+
+  state = {
+    errors: [],
+    lastValues: []
+  };
+
   save(ev) {
     ev.preventDefault();
 
@@ -56,7 +56,8 @@ export default React.createClass({
         }
       }
     });
-  },
+  }
+
   renderFormElements () {
     return this.props.children.map((child, index) => {
       if (child.type.displayName === 'FormInput' && child.props.name in this.state.errors) {
@@ -75,14 +76,17 @@ export default React.createClass({
       }
       return child;
     });
-  },
+  }
+
   render() {
     return (
       <form method="POST"
-            onSubmit={this.save}
+            onSubmit={this.save.bind(this)}
             ref="form">
         {this.renderFormElements()}
       </form>
     );
   }
-});
+}
+
+export default Form;
