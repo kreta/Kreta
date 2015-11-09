@@ -13,27 +13,25 @@ import './../../../scss/components/_modal';
 import classNames from 'classnames';
 import React from 'react';
 
-export default React.createClass({
-  getInitialState() {
-    return {
-      visible: false
-    };
-  },
+class Modal extends React.Component {
+  state = {
+    visible: false
+  };
+
   openModal() {
-    this.setState({
-      visible: true
-    });
-  },
+    this.setState({visible: true});
+  }
+
   closeModal() {
-    this.setState({
-      visible: false
-    });
-  },
+    this.setState({visible: false});
+  }
+
   handleKeyUp(ev) {
     if (ev.which === 27) {
       this.closeModal();
     }
-  },
+  }
+
   render() {
     const modalClasses = classNames({
         'modal': true,
@@ -45,13 +43,15 @@ export default React.createClass({
       });
 
     return (
-      <div onKeyUp={this.handleKeyUp}>
+      <div onKeyUp={this.handleKeyUp.bind(this)}>
         <div className={ modalClasses }>
           { this.props.children }
         </div>
         <div className={ overlayClasses }
-             onClick={this.closeModal}/>
+             onClick={this.closeModal.bind(this)}/>
       </div>
     );
   }
-});
+}
+
+export default Modal;
