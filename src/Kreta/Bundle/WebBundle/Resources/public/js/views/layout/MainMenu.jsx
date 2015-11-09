@@ -23,23 +23,22 @@ import Modal from './../component/Modal';
 import ProjectList from './../page/project/List';
 import UserImage from './../component/UserImage';
 
-export default React.createClass({
-  getInitialState() {
-    return {
-      user: App.currentUser,
-      projectListVisible: false
-    };
-  },
-  showProjectList(ev) {
+class MainMenu extends React.Component {
+  state = {
+    user: App.currentUser
+  };
+
+  showProjectList() {
     this.refs.projectListModal.openModal();
     setTimeout(() => {
       this.refs.projectList.focus();
     }, 0);
-    ev.preventDefault();
-  },
+  }
+
   hideProjectList() {
     this.refs.projectListModal.closeModal();
-  },
+  }
+
   render() {
     return (
       <nav className="main-menu">
@@ -49,7 +48,7 @@ export default React.createClass({
         <div className="main-menu__actions">
           <Icon className="main-menu__action main-menu__action--green"
                 glyph={ProjectsIcon}
-                onClick={this.showProjectList}/>
+                onClick={this.showProjectList.bind(this)}/>
           <a href="/logout">
             <Icon className="main-menu__action main-menu__action--red"
                   glyph={ExitIcon}/>
@@ -67,9 +66,11 @@ export default React.createClass({
           </Link>
         </div>
         <Modal ref="projectListModal">
-          <ProjectList onProjectSelected={this.hideProjectList} ref="projectList"/>
+          <ProjectList onProjectSelected={this.hideProjectList.bind(this)} ref="projectList"/>
         </Modal>
       </nav>
     );
   }
-});
+}
+
+export default MainMenu;
