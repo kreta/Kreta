@@ -8,19 +8,13 @@
  * file that was distributed with this source code.
  */
 
-import _ from 'lodash';
 import Backbone from 'backbone';
 
 import Config from './../Config';
 import IssuePriority from './../models/IssuePriority';
 
 class IssuePriorities extends Backbone.Collection {
-  constructor(models, options = {}) {
-    _.defaults(options, {
-      model: IssuePriority
-    });
-    super(models, options);
-  }
+  model = IssuePriority;
 
   setProject(projectId) {
     this.url = `${Config.baseUrl}/projects/${projectId}/issue-priorities`;

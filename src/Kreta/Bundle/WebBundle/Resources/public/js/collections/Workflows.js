@@ -8,19 +8,13 @@
  * file that was distributed with this source code.
  */
 
-import _ from 'lodash';
 import Backbone from 'backbone';
 
 import Config from './../Config';
 import Workflow from './../models/Workflow';
 
 class Workflows extends Backbone.Collection {
-  constructor(models, options = {}) {
-    _.defaults(options, {
-      model: Workflow
-    });
-    super(models, options);
-  }
+  model = Workflow;
 
   url() {
     return `${Config.baseUrl}/workflows`;

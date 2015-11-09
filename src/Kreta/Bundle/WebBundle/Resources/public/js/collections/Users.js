@@ -8,19 +8,13 @@
  * file that was distributed with this source code.
  */
 
-import _ from 'lodash';
 import Backbone from 'backbone';
 
 import Config from './../Config';
 import User from './../models/User';
 
 class Users extends Backbone.Collection {
-  constructor(models, options = {}) {
-    _.defaults(options, {
-      model: User
-    });
-    super(models, options);
-  }
+  model = User;
 
   url() {
     return `${Config.baseUrl}/users`;

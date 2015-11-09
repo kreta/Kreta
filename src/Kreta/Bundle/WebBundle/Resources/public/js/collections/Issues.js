@@ -8,19 +8,13 @@
  * file that was distributed with this source code.
  */
 
-import _ from 'lodash';
 import Backbone from 'backbone';
 
 import Config from './../Config';
 import Issue from './../models/Issue';
 
 class Issues extends Backbone.Collection {
-  constructor(models, options = {}) {
-    _.defaults(options, {
-      model: Issue
-    });
-    super(models, options);
-  }
+  model = Issue;
 
   url() {
     return `${Config.baseUrl}/issues`;

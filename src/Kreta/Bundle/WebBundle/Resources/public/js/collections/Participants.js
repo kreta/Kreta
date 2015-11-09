@@ -8,19 +8,13 @@
  * file that was distributed with this source code.
  */
 
-import _ from 'lodash';
 import Backbone from 'backbone';
 
 import Config from './../Config';
 import Participant from './../models/Participant';
 
 class Participants extends Backbone.Collection {
-  constructor(models, options = {}) {
-    _.defaults(options, {
-      model: Participant
-    });
-    super(models, options);
-  }
+  model = Participant;
 
   setProject(projectId) {
     this.url = `${Config.baseUrl}/projects/${projectId}/participants`;
