@@ -86,6 +86,10 @@ class List extends React.Component {
     this.props.onProjectSelected();
   }
 
+  focus() {
+    this.refs.filter.focus();
+  }
+
   render() {
     const projectItems = this.state.projects.map((project, index) => {
       return <ProjectPreview key={index}

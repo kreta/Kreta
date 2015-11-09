@@ -32,6 +32,9 @@ export default React.createClass({
   },
   showProjectList(ev) {
     this.refs.projectListModal.openModal();
+    setTimeout(() => {
+      this.refs.projectList.focus();
+    }, 0);
     ev.preventDefault();
   },
   hideProjectList() {
@@ -64,7 +67,7 @@ export default React.createClass({
           </Link>
         </div>
         <Modal ref="projectListModal">
-          <ProjectList onProjectSelected={this.hideProjectList}/>
+          <ProjectList onProjectSelected={this.hideProjectList} ref="projectList"/>
         </Modal>
       </nav>
     );
