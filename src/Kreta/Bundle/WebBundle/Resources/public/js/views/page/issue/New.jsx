@@ -9,6 +9,7 @@
  */
 
 import './../../../../scss/views/page/issue/_new';
+import PriorityIcon from './../../../../svg/priority';
 
 import React from 'react';
 
@@ -16,6 +17,7 @@ import Button from './../../component/Button';
 import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
 import Form from './../../component/Form';
 import FormInput from './../../component/FormInput';
+import Icon from './../../component/Icon';
 import Issue from './../../../models/Issue';
 import IssueField from './../../component/IssueField';
 import Selector from './../../component/Selector';
@@ -78,7 +80,10 @@ class New extends React.Component {
       }),
       priority = project.get('issue_priorities').map((p) => {
         return (
-          <IssueField image={<i className="fa fa-exclamation"></i>}
+          <IssueField image={
+                        <Icon glyph={PriorityIcon}
+                              style={{width: '20px'}}/>
+                      }
                       label="Priority"
                       text={p.name}
                       value={p.id}/>
