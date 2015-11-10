@@ -63,7 +63,7 @@
     "mousetrap": "^1.5.3",
     "react": "^0.14",
     "react-dom": "^0.14",
-    "react-router": "1.0.0-rc3"
+    "react-router": "^1.0.0"
   },
   "devDependencies": {
     "autoprefixer": "^6.0",
