@@ -42,8 +42,10 @@ class MainMenu extends React.Component {
   render() {
     return (
       <nav className="main-menu">
-        <Icon className="main-menu__logo"
-              glyph={LogoIcon}/>
+        <div className="main-menu__logo-container">
+          <Icon className="main-menu__logo"
+                glyph={LogoIcon}/>
+        </div>
 
         <div className="main-menu__actions">
           <Icon className="main-menu__action main-menu__action--green"

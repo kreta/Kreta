@@ -15,15 +15,20 @@
   display: flex;
   flex-flow: column;
   height: 100%;
-  padding: 5px;
+  padding: 0 0 5px 0;
   text-align: center;
   width: 80px;
+}
+
+.main-menu__logo-container {
+  background: $main-green;
+  width: 100%;
 }
 
 .main-menu__logo {
   height: 70px;
   fill: $white;
-  width: 50px;
+  width: 70px;
 }
 .main-menu__actions {
   align-items: center;
