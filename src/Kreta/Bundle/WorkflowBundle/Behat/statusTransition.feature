@@ -46,9 +46,9 @@ Feature: Manage status transition
       | Test project 1 | user2@kreta.com | ROLE_PARTICIPANT |
       | Test project 2 | user2@kreta.com | ROLE_PARTICIPANT |
     And the following issue priorities exist:
-      | id | name   | project        |
-      | 0  | Low    | Test project 1 |
-      | 1  | Medium | Test project 1 |
+      | id | name    | color   | project        |
+      | 0  | Low     | #969696 | Test project 1 |
+      | 1  | Medium  | #67b86a | Test project 1 |
     And the following issues exist:
       | id | numericId | project        | title        | description | reporter       | assignee       | status   | priority | createdAt  |
       | 0  | 1         | Test project 1 | Test issue 1 | Description | user@kreta.com | user@kreta.com | Open     | 1        | 2014-10-21 |
