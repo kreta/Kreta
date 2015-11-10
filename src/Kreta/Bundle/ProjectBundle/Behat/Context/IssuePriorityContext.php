@@ -25,7 +25,6 @@ class IssuePriorityContext extends DefaultContext
      *
      * @param \Behat\Gherkin\Node\TableNode $issuePriorities The priorities
      *
-     *
      * @Given /^the following issue priorities exist:$/
      */
     public function theFollowingIssuePrioritiesExist(TableNode $issuePriorities)
@@ -34,7 +33,9 @@ class IssuePriorityContext extends DefaultContext
             $project = $this->get('kreta_project.repository.project')
                 ->findOneBy(['name' => $priorityData['project']], false);
 
-            $priority = $this->get('kreta_project.factory.issue_priority')->create($project, $priorityData['name']);
+            $priority = $this->get('kreta_project.factory.issue_priority')->create(
+                $project, $priorityData['name'], $priorityData['color']
+            );
 
             if (isset($priorityData['id'])) {
                 $this->setId($priority, $priorityData['id']);

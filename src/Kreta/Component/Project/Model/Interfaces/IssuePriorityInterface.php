@@ -27,20 +27,20 @@ interface IssuePriorityInterface
     public function getId();
 
     /**
-     * Gets project.
+     * Gets color.
      *
-     * @return \Kreta\Component\Project\Model\Interfaces\ProjectInterface
+     * @return string
      */
-    public function getProject();
+    public function getColor();
 
     /**
-     * Sets the project.
+     * Sets color.
      *
-     * @param \Kreta\Component\Project\Model\Interfaces\ProjectInterface $project The project
+     * @param string $color The color
      *
      * @return $this self Object
      */
-    public function setProject(ProjectInterface $project);
+    public function setColor($color);
 
     /**
      * Gets name.
@@ -57,4 +57,20 @@ interface IssuePriorityInterface
      * @return $this self Object
      */
     public function setName($name);
+
+    /**
+     * Gets project.
+     *
+     * @return \Kreta\Component\Project\Model\Interfaces\ProjectInterface
+     */
+    public function getProject();
+
+    /**
+     * Sets the project.
+     *
+     * @param \Kreta\Component\Project\Model\Interfaces\ProjectInterface $project The project
+     *
+     * @return $this self Object
+     */
+    public function setProject(ProjectInterface $project);
 }

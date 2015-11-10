@@ -150,11 +150,14 @@ class ProjectFactory
      */
     protected function createDefaultPriorities()
     {
-        $defaultPriorityNames = ['Low', 'Medium', 'High', 'Blocker'];
+        $defaultPriorities = [
+            'Low' => '#969696', 'Medium' => '#67b86a', 'High' => '#f07f2c', 'Blocker' => '#f02c4c'
+        ];
         $priorities = [];
-        foreach ($defaultPriorityNames as $name) {
+        foreach ($defaultPriorities as $name => $color) {
             $priority = new IssuePriority();
             $priority->setName($name);
+            $priority->setColor($color);
             $priorities[$name] = $priority;
         }
 

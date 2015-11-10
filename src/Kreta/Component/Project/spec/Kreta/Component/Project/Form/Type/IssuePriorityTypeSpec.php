@@ -52,6 +52,7 @@ class IssuePriorityTypeSpec extends ObjectBehavior
 
     function it_builds_a_form(FormBuilder $builder)
     {
+        $builder->add('color')->shouldBeCalled()->willReturn($builder);
         $builder->add('name')->shouldBeCalled()->willReturn($builder);
 
         $this->buildForm($builder, []);

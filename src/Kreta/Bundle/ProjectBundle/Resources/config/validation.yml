@@ -30,6 +30,8 @@ Kreta\Component\Project\Model\IssuePriority:
             fields: [name, project]
             message: 'A issue priority with identical name is already exists in this project'
     properties:
+        color:
+            - NotBlank: ~
         name:
             - NotBlank: ~
 Kreta\Component\Project\Model\Project:

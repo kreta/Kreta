@@ -66,12 +66,13 @@ class New extends React.Component {
       }),
       assignee = project.get('participants').map((p) => {
         let assigneeName = `${p.user.first_name} ${p.user.last_name}`;
-        if (p.user.first_name === '') {
+        if (p.user.first_name === '' || p.user.first_name === undefined) {
           assigneeName = p.user.username;
         }
 
         return (
-          <IssueField image={<UserImage user={p.user}/>}
+          <IssueField alignLeft={true}
+                      image={<UserImage user={p.user}/>}
                       label="Assigned to"
                       text={assigneeName}
                       value={p.user.id}/>
@@ -80,9 +81,10 @@ class New extends React.Component {
       }),
       priority = project.get('issue_priorities').map((p) => {
         return (
-          <IssueField image={
+          <IssueField alignLeft={true}
+                      image={
                         <Icon glyph={PriorityIcon}
-                              style={{width: '20px'}}/>
+                              style={{width: '20px', fill: p.color}}/>
                       }
                       label="Priority"
                       text={p.name}

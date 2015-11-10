@@ -33,13 +33,13 @@ Feature: Manage projects
       | 2  | user-2.jpg    | 2014-10-30 | null      | user2@kreta.com |
       | 3  | user-3.jpg    | 2014-10-30 | null      | user3@kreta.com |
     And the following issue priorities exist:
-      | id | name    | project        |
-      | 0  | Low     | Test project 1 |
-      | 1  | Medium  | Test project 1 |
-      | 2  | High    | Test project 1 |
-      | 3  | Blocker | Test project 1 |
-      | 4  | Low     | Test project 2 |
-      | 5  | Medium  | Test project 2 |
+      | id | name    | color   | project        |
+      | 0  | Low     | #969696 | Test project 1 |
+      | 1  | Medium  | #67b86a | Test project 1 |
+      | 2  | High    | #f07f2c | Test project 1 |
+      | 3  | Blocker | #f02c4c | Test project 1 |
+      | 4  | Low     | #969696 | Test project 2 |
+      | 5  | Medium  | #67b86a | Test project 2 |
     And the following labels exist:
       | id | name        | project        |
       | 0  | backbone.js | Test project 1 |
@@ -147,19 +147,23 @@ Feature: Manage projects
           "issue_priorities": [
             {
               "id": "0",
-              "name": "Low"
+              "name": "Low",
+              "color": "#969696"
             },
             {
               "id": "1",
-              "name": "Medium"
+              "name": "Medium",
+              "color": "#67b86a"
             },
             {
               "id": "2",
-              "name": "High"
+              "name": "High",
+              "color": "#f07f2c"
             },
             {
               "id": "3",
-              "name": "Blocker"
+              "name": "Blocker",
+              "color": "#f02c4c"
             }
           ],
           "short_name": "TPR1",
@@ -253,11 +257,13 @@ Feature: Manage projects
           "issue_priorities": [
             {
               "id": "4",
-              "name": "Low"
+              "name": "Low",
+              "color": "#969696"
             },
             {
               "id": "5",
-              "name": "Medium"
+              "name": "Medium",
+              "color": "#67b86a"
             }
           ],
           "short_name": "TPR2",
@@ -376,19 +382,23 @@ Feature: Manage projects
         "issue_priorities": [
           {
             "id": "0",
-            "name": "Low"
+            "name": "Low",
+            "color": "#969696"
           },
           {
             "id": "1",
-            "name": "Medium"
+            "name": "Medium",
+            "color": "#67b86a"
           },
           {
             "id": "2",
-            "name": "High"
+            "name": "High",
+            "color": "#f07f2c"
           },
           {
             "id": "3",
-            "name": "Blocker"
+            "name": "Blocker",
+            "color": "#f02c4c"
           }
         ],
         "short_name": "TPR1",
@@ -625,19 +635,23 @@ Feature: Manage projects
         "issue_priorities": [
           {
             "id": "0",
-            "name": "Low"
+            "name": "Low",
+            "color": "#969696"
           },
           {
             "id": "1",
-            "name": "Medium"
+            "name": "Medium",
+            "color": "#67b86a"
           },
           {
             "id": "2",
-            "name": "High"
+            "name": "High",
+            "color": "#f07f2c"
           },
           {
             "id": "3",
-            "name": "Blocker"
+            "name": "Blocker",
+            "color": "#f02c4c"
           }
         ],
         "short_name": "NPR",

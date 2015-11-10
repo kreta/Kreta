@@ -19,6 +19,9 @@ Kreta\Component\Project\Model\IssuePriority:
         name:
             type: string
             length: 20
+        color:
+            type: string
+            length: 8
     manyToOne:
         project:
             targetEntity: Kreta\Component\Project\Model\Interfaces\ProjectInterface

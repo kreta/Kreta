@@ -30,9 +30,11 @@ class IssuePriorityType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         parent::buildForm($builder, $options);
-        $builder->add('name');
+        $builder
+            ->add('color')
+            ->add('name');
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -55,6 +57,8 @@ class IssuePriorityType extends AbstractType
      */
     public function createEmptyData(FormInterface $form)
     {
-        return $this->factory->create($this->options['project'], $form->get('name')->getData());
+        return $this->factory->create(
+            $this->options['project'], $form->get('name')->getData(), $form->get('color')->getData()
+        );
     }
 }

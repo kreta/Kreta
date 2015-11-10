@@ -23,6 +23,11 @@
   width: 50%;
 }
 
+.issue-field--left {
+  justify-content: flex-start;
+  padding-left: 10px;
+}
+
 .issue-field--selected {
   background: $light-grey;
 }

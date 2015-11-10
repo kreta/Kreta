@@ -32,13 +32,13 @@ Feature: Manage issue
       | 2  | user-2.jpg | 2014-10-30 | null      | user2@kreta.com |
       | 3  | user-3.jpg | 2014-10-30 | null      | user3@kreta.com |
     And the following issue priorities exist:
-      | id | name    | project        |
-      | 0  | Low     | Test project 1 |
-      | 1  | Medium  | Test project 1 |
-      | 2  | High    | Test project 1 |
-      | 3  | Blocker | Test project 1 |
-      | 4  | Low     | Test project 2 |
-      | 5  | Medium  | Test project 2 |
+      | id | name    | color   | project        |
+      | 0  | Low     | #969696 | Test project 1 |
+      | 1  | Medium  | #67b86a | Test project 1 |
+      | 2  | High    | #f07f2c | Test project 1 |
+      | 3  | Blocker | #f02c4c | Test project 1 |
+      | 4  | Low     | #969696 | Test project 2 |
+      | 5  | Medium  | #67b86a | Test project 2 |
     And the following labels exist:
       | id | name        | project        |
       | 0  | backbone.js | Test project 1 |
@@ -92,7 +92,6 @@ Feature: Manage issue
   Scenario: Getting all the issues that user0 can see
     Given I am authenticating with "access-token-0" token
     When I send a GET request to "/api/issues"
-    And print response
     Then the response code should be 200
     And the response should contain json:
     """
@@ -136,7 +135,8 @@ Feature: Manage issue
           "parent": null,
           "priority": {
             "id": "1",
-            "name": "Medium"
+            "name": "Medium",
+            "color": "#67b86a"
           },
           "resolution": null,
           "reporter": {
@@ -205,7 +205,8 @@ Feature: Manage issue
           "parent": null,
           "priority": {
             "id": "5",
-            "name": "Medium"
+            "name": "Medium",
+            "color": "#67b86a"
           },
           "resolution": null,
           "reporter": {
@@ -285,7 +286,8 @@ Feature: Manage issue
               "parent": null,
               "priority": {
                 "id": "4",
-                "name": "Low"
+                "name": "Low",
+                "color": "#969696"
               },
               "resolution": null,
               "reporter": {
@@ -344,7 +346,8 @@ Feature: Manage issue
           "parent": null,
           "priority": {
             "id": "4",
-            "name": "Low"
+            "name": "Low",
+            "color": "#969696"
           },
           "resolution": null,
           "reporter": {
@@ -413,7 +416,8 @@ Feature: Manage issue
           "parent": null,
           "priority": {
             "id": "0",
-            "name": "Low"
+            "name": "Low",
+            "color": "#969696"
           },
           "resolution": null,
           "reporter": {
@@ -482,7 +486,8 @@ Feature: Manage issue
           "parent": null,
           "priority": {
             "id": "2",
-            "name": "High"
+            "name": "High",
+            "color": "#f07f2c"
           },
           "resolution": null,
           "reporter": {
@@ -587,7 +592,8 @@ Feature: Manage issue
             "parent": null,
             "priority": {
               "id": "4",
-              "name": "Low"
+              "name": "Low",
+              "color": "#969696"
             },
             "resolution": null,
             "reporter": {
@@ -619,7 +625,8 @@ Feature: Manage issue
           },
           "priority": {
             "id": "4",
-            "name": "Low"
+            "name": "Low",
+            "color": "#969696"
           },
           "resolution": null,
           "reporter": {
@@ -688,7 +695,8 @@ Feature: Manage issue
           "parent": null,
           "priority": {
             "id": "3",
-            "name": "Blocker"
+            "name": "Blocker",
+            "color": "#f02c4c"
           },
           "resolution": null,
           "reporter": {
@@ -770,7 +778,8 @@ Feature: Manage issue
           "parent": null,
           "priority": {
             "id": "1",
-            "name": "Medium"
+            "name": "Medium",
+            "color": "#67b86a"
           },
           "resolution": null,
           "reporter": {
@@ -839,7 +848,8 @@ Feature: Manage issue
           "parent": null,
           "priority": {
             "id": "0",
-            "name": "Low"
+            "name": "Low",
+            "color": "#969696"
           },
           "resolution": null,
           "reporter": {
@@ -908,7 +918,8 @@ Feature: Manage issue
           "parent": null,
           "priority": {
             "id": "2",
-            "name": "High"
+            "name": "High",
+            "color": "#f07f2c"
           },
           "resolution": null,
           "reporter": {
@@ -977,7 +988,8 @@ Feature: Manage issue
           "parent": null,
           "priority": {
             "id": "3",
-            "name": "Blocker"
+            "name": "Blocker",
+            "color": "#f02c4c"
           },
           "resolution": null,
           "reporter": {
@@ -1059,7 +1071,8 @@ Feature: Manage issue
           "parent": null,
           "priority": {
             "id": "2",
-            "name": "High"
+            "name": "High",
+            "color": "#f07f2c"
           },
           "resolution": null,
           "reporter": {
@@ -1128,7 +1141,8 @@ Feature: Manage issue
           "parent": null,
           "priority": {
             "id": "3",
-            "name": "Blocker"
+            "name": "Blocker",
+            "color": "#f02c4c"
           },
           "resolution": null,
           "reporter": {
@@ -1200,7 +1214,8 @@ Feature: Manage issue
           "parent": null,
           "priority": {
             "id": "5",
-            "name": "Medium"
+            "name": "Medium",
+            "color": "#67b86a"
           },
           "resolution": null,
           "reporter": {
@@ -1280,7 +1295,8 @@ Feature: Manage issue
               "parent": null,
               "priority": {
                 "id": "4",
-                "name": "Low"
+                "name": "Low",
+                "color": "#969696"
               },
               "resolution": null,
               "reporter": {
@@ -1339,7 +1355,8 @@ Feature: Manage issue
           "parent": null,
           "priority": {
             "id": "4",
-            "name": "Low"
+            "name": "Low",
+            "color": "#969696"
           },
           "resolution": null,
           "reporter": {
@@ -1444,7 +1461,8 @@ Feature: Manage issue
             "parent": null,
             "priority": {
               "id": "4",
-              "name": "Low"
+              "name": "Low",
+              "color": "#969696"
             },
             "resolution": null,
             "reporter": {
@@ -1476,7 +1494,8 @@ Feature: Manage issue
           },
           "priority": {
             "id": "4",
-            "name": "Low"
+            "name": "Low",
+            "color": "#969696"
           },
           "resolution": null,
           "reporter": {
@@ -1545,7 +1564,8 @@ Feature: Manage issue
           "parent": null,
           "priority": {
             "id": "0",
-            "name": "Low"
+            "name": "Low",
+            "color": "#969696"
           },
           "resolution": null,
           "reporter": {
@@ -1614,7 +1634,8 @@ Feature: Manage issue
           "parent": null,
           "priority": {
             "id": "1",
-            "name": "Medium"
+            "name": "Medium",
+            "color": "#67b86a"
           },
           "resolution": null,
           "reporter": {
@@ -1693,7 +1714,8 @@ Feature: Manage issue
           "parent": null,
           "priority": {
             "id": "5",
-            "name": "Medium"
+            "name": "Medium",
+            "color": "#67b86a"
           },
           "resolution": null,
           "reporter": {
@@ -1783,7 +1805,8 @@ Feature: Manage issue
               "parent": null,
               "priority": {
                 "id": "4",
-                "name": "Low"
+                "name": "Low",
+                "color": "#969696"
               },
               "resolution": null,
               "reporter": {
@@ -1842,7 +1865,8 @@ Feature: Manage issue
           "parent": null,
           "priority": {
             "id": "4",
-            "name": "Low"
+            "name": "Low",
+            "color": "#969696"
           },
           "resolution": null,
           "reporter": {
@@ -1947,7 +1971,8 @@ Feature: Manage issue
             "parent": null,
             "priority": {
               "id": "4",
-              "name": "Low"
+              "name": "Low",
+              "color": "#969696"
             },
             "resolution": null,
             "reporter": {
@@ -1979,7 +2004,8 @@ Feature: Manage issue
           },
           "priority": {
             "id": "4",
-            "name": "Low"
+            "name": "Low",
+            "color": "#969696"
           },
           "resolution": null,
           "reporter": {
@@ -2058,7 +2084,8 @@ Feature: Manage issue
           "parent": null,
           "priority": {
             "id": "0",
-            "name": "Low"
+            "name": "Low",
+            "color": "#969696"
           },
           "resolution": null,
           "reporter": {
@@ -2137,7 +2164,8 @@ Feature: Manage issue
           "parent": null,
           "priority": {
             "id": "3",
-            "name": "Blocker"
+            "name": "Blocker",
+            "color": "#f02c4c"
           },
           "resolution": null,
           "reporter": {
@@ -2203,7 +2231,8 @@ Feature: Manage issue
           "parent": null,
           "priority": {
             "id": "2",
-            "name": "High"
+            "name": "High",
+            "color": "#f07f2c"
           },
           "resolution": null,
           "reporter": {
@@ -2256,7 +2285,8 @@ Feature: Manage issue
           "parent": null,
           "priority": {
             "id": "3",
-            "name": "Blocker"
+            "name": "Blocker",
+            "color": "#f02c4c"
           },
           "resolution": null,
           "reporter": {
@@ -2338,7 +2368,8 @@ Feature: Manage issue
           "parent": null,
           "priority": {
             "id": "3",
-            "name": "Blocker"
+            "name": "Blocker",
+            "color": "#f02c4c"
           },
           "resolution": null,
           "reporter": {
@@ -2408,7 +2439,8 @@ Feature: Manage issue
           "parent": null,
           "priority": {
             "id": "1",
-            "name": "Medium"
+            "name": "Medium",
+            "color": "#67b86a"
           },
           "resolution": null,
           "reporter": {
@@ -2479,7 +2511,8 @@ Feature: Manage issue
           "parent": null,
           "priority": {
             "id": "1",
-            "name": "Medium"
+            "name": "Medium",
+            "color": "#67b86a"
           },
           "resolution": null,
           "reporter": {
@@ -2548,7 +2581,8 @@ Feature: Manage issue
           "parent": null,
           "priority": {
             "id": "5",
-            "name": "Medium"
+            "name": "Medium",
+            "color": "#67b86a"
           },
           "resolution": null,
           "reporter": {
@@ -2628,7 +2662,8 @@ Feature: Manage issue
               "parent": null,
               "priority": {
                 "id": "4",
-                "name": "Low"
+                "name": "Low",
+                "color": "#969696"
               },
               "resolution": null,
               "reporter": {
@@ -2687,7 +2722,8 @@ Feature: Manage issue
           "parent": null,
           "priority": {
             "id": "4",
-            "name": "Low"
+            "name": "Low",
+            "color": "#969696"
           },
           "resolution": null,
           "reporter": {
@@ -2756,7 +2792,8 @@ Feature: Manage issue
           "parent": null,
           "priority": {
             "id": "0",
-            "name": "Low"
+            "name": "Low",
+            "color": "#969696"
           },
           "resolution": null,
           "reporter": {
@@ -2825,7 +2862,8 @@ Feature: Manage issue
           "parent": null,
           "priority": {
             "id": "2",
-            "name": "High"
+            "name": "High",
+            "color": "#f07f2c"
           },
           "resolution": null,
           "reporter": {
@@ -2930,7 +2968,8 @@ Feature: Manage issue
             "parent": null,
             "priority": {
               "id": "4",
-              "name": "Low"
+              "name": "Low",
+              "color": "#969696"
             },
             "resolution": null,
             "reporter": {
@@ -2962,7 +3001,8 @@ Feature: Manage issue
           },
           "priority": {
             "id": "4",
-            "name": "Low"
+            "name": "Low",
+            "color": "#969696"
           },
           "resolution": null,
           "reporter": {
@@ -3031,7 +3071,8 @@ Feature: Manage issue
           "parent": null,
           "priority": {
             "id": "3",
-            "name": "Blocker"
+            "name": "Blocker",
+            "color": "#f02c4c"
           },
           "resolution": null,
           "reporter": {
@@ -3112,7 +3153,8 @@ Feature: Manage issue
         "parent": null,
         "priority": {
           "id": "1",
-          "name": "Medium"
+          "name": "Medium",
+          "color": "#67b86a"
         },
         "resolution": null,
         "reporter": {
@@ -3448,7 +3490,8 @@ Feature: Manage issue
         "numeric_id": 1,
         "priority": {
           "id": "0",
-          "name": "Low"
+          "name": "Low",
+          "color": "#969696"
         },
         "reporter": {
           "id": "0",
@@ -3515,7 +3558,8 @@ Feature: Manage issue
         "numeric_id": 1,
         "priority": {
           "id": "0",
-          "name": "Low"
+          "name": "Low",
+          "color": "#969696"
         },
         "reporter": {
           "id": "0",
@@ -3691,7 +3735,8 @@ Feature: Manage issue
         "numeric_id": 3,
         "priority": {
           "id": "0",
-          "name": "Low"
+          "name": "Low",
+          "color": "#969696"
         },
         "reporter": {
           "id": "0",
@@ -3757,7 +3802,8 @@ Feature: Manage issue
         "numeric_id": 1,
         "priority": {
           "id": "4",
-          "name": "Low"
+          "name": "Low",
+          "color": "#969696"
         },
         "reporter": {
           "id": "0",
@@ -3840,7 +3886,8 @@ Feature: Manage issue
         "numeric_id": 1,
         "priority": {
           "id": "0",
-          "name": "Low"
+          "name": "Low",
+          "color": "#969696"
         },
         "reporter": {
           "id": "0",
@@ -3921,7 +3968,8 @@ Feature: Manage issue
         "numeric_id": 1,
         "priority": {
           "id": "1",
-          "name": "Medium"
+          "name": "Medium",
+          "color": "#67b86a"
         },
         "reporter": {
           "id": "0",

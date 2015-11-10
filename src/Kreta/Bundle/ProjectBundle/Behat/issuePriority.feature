@@ -28,13 +28,13 @@ Feature: Manage issue priority
       | 0  | Test project 1 | TPR1      | user@kreta.com | Workflow 1 |
       | 1  | Test project 2 | TPR2      | user@kreta.com | Workflow 2 |
     And the following issue priorities exist:
-      | id | name    | project        |
-      | 0  | Low     | Test project 1 |
-      | 1  | Medium  | Test project 1 |
-      | 2  | High    | Test project 1 |
-      | 3  | Blocker | Test project 1 |
-      | 4  | Low     | Test project 2 |
-      | 5  | Medium  | Test project 2 |
+      | id | name    | color   | project        |
+      | 0  | Low     | #969696 | Test project 1 |
+      | 1  | Medium  | #67b86a | Test project 1 |
+      | 2  | High    | #f07f2c | Test project 1 |
+      | 3  | Blocker | #f02c4c | Test project 1 |
+      | 4  | Low     | #969696 | Test project 2 |
+      | 5  | Medium  | #67b86a | Test project 2 |
     And the following participants exist:
       | project        | user            | role             |
       | Test project 1 | user3@kreta.com | ROLE_PARTICIPANT |
@@ -58,6 +58,7 @@ Feature: Manage issue priority
         {
           "id": "3",
           "name": "Blocker",
+          "color": "#f02c4c",
           "_links": {
             "issue_priorities": {
               "href": "http://kreta.test:8000/api/projects/0/issue-priorities"
@@ -70,6 +71,7 @@ Feature: Manage issue priority
         {
           "id": "2",
           "name": "High",
+          "color": "#f07f2c",
           "_links": {
             "issue_priorities": {
               "href": "http://kreta.test:8000/api/projects/0/issue-priorities"
@@ -82,6 +84,7 @@ Feature: Manage issue priority
         {
           "id": "0",
           "name": "Low",
+          "color": "#969696",
           "_links": {
             "issue_priorities": {
               "href": "http://kreta.test:8000/api/projects/0/issue-priorities"
@@ -94,6 +97,7 @@ Feature: Manage issue priority
         {
           "id": "1",
           "name": "Medium",
+          "color": "#67b86a",
           "_links": {
             "issue_priorities": {
               "href": "http://kreta.test:8000/api/projects/0/issue-priorities"
@@ -138,6 +142,7 @@ Feature: Manage issue priority
         {
           "id": "0",
           "name": "Low",
+          "color": "#969696",
           "_links": {
             "issue_priorities": {
               "href": "http://kreta.test:8000/api/projects/0/issue-priorities"
@@ -160,6 +165,7 @@ Feature: Manage issue priority
         {
           "id": "3",
           "name": "Blocker",
+          "color": "#f02c4c",
           "_links": {
             "issue_priorities": {
               "href": "http://kreta.test:8000/api/projects/0/issue-priorities"
@@ -172,6 +178,7 @@ Feature: Manage issue priority
         {
           "id": "2",
           "name": "High",
+          "color": "#f07f2c",
           "_links": {
             "issue_priorities": {
               "href": "http://kreta.test:8000/api/projects/0/issue-priorities"
@@ -194,6 +201,7 @@ Feature: Manage issue priority
         {
           "id": "0",
           "name": "Low",
+          "color": "#969696",
           "_links": {
             "issue_priorities": {
               "href": "http://kreta.test:8000/api/projects/0/issue-priorities"
@@ -206,6 +214,7 @@ Feature: Manage issue priority
         {
           "id": "1",
           "name": "Medium",
+          "color": "#67b86a",
           "_links": {
             "issue_priorities": {
               "href": "http://kreta.test:8000/api/projects/0/issue-priorities"
@@ -224,7 +233,8 @@ Feature: Manage issue priority
     When I send a POST request to "/api/projects/0/issue-priorities" with body:
     """
       {
-        "name": "New issue priority"
+        "name": "New issue priority",
+        "color": "#969696"
       }
     """
     Then the response code should be 201
@@ -235,7 +245,8 @@ Feature: Manage issue priority
     When I send a POST request to "/api/projects/0/issue-priorities" with body:
     """
       {
-        "name": "New issue priority"
+        "name": "New issue priority",
+        "color": "#969696"
       }
     """
     Then the response code should be 403
@@ -252,7 +263,8 @@ Feature: Manage issue priority
     When I send a POST request to "/api/projects/unknown-project/issue-priorities" with body:
     """
       {
-        "name": "New issue priority"
+        "name": "New issue priority",
+        "color": "#969696"
       }
     """
     Then the response code should be 404
@@ -269,7 +281,8 @@ Feature: Manage issue priority
     When I send a POST request to "/api/projects/1/issue-priorities" with body:
     """
       {
-        "name": ""
+        "name": "",
+        "color": "#969696"
       }
     """
     Then the response code should be 400
@@ -282,13 +295,34 @@ Feature: Manage issue priority
       }
     """
 
+  Scenario: Creating a issue priority without color
+    Given I am authenticating with "access-token-0" token
+    Given I set header "content-type" with value "application/json"
+    When I send a POST request to "/api/projects/1/issue-priorities" with body:
+    """
+      {
+        "name": "New awesome priority",
+        "color": ""
+      }
+    """
+    Then the response code should be 400
+    And the response should contain json:
+    """
+      {
+        "color": [
+          "This value should not be blank."
+        ]
+      }
+    """
+
   Scenario: Creating a issue priority with already exists name
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
     When I send a POST request to "/api/projects/1/issue-priorities" with body:
     """
       {
-        "name": "Low"
+        "name": "Low",
+        "color": "#969696"
       }
     """
     Then the response code should be 400

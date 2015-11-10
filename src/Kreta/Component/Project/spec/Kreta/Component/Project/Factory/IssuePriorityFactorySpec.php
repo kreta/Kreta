@@ -34,6 +34,8 @@ class IssuePriorityFactorySpec extends ObjectBehavior
 
     function it_creates_a_issue_priority(ProjectInterface $project)
     {
-        $this->create($project, 'Priority name')->shouldReturnAnInstanceOf('Kreta\Component\Project\Model\IssuePriority');
+        $this->create($project, 'Priority name', '#67b86a')->shouldReturnAnInstanceOf(
+            'Kreta\Component\Project\Model\IssuePriority'
+        );
     }
 }

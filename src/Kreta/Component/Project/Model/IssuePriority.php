@@ -30,6 +30,13 @@ class IssuePriority implements IssuePriorityInterface
     protected $id;
 
     /**
+     * The color.
+     *
+     * @var string
+     */
+    protected $color;
+
+    /**
      * The name.
      *
      * @var string
@@ -67,6 +74,24 @@ class IssuePriority implements IssuePriorityInterface
     public function setProject(ProjectInterface $project)
     {
         $this->project = $project;
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getColor()
+    {
+        return $this->color;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setColor($color)
+    {
+        $this->color = $color;
 
         return $this;
     }

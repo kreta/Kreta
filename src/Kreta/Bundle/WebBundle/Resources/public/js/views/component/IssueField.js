@@ -18,6 +18,7 @@ class IssueField extends React.Component {
     fieldHovered: React.PropTypes.func,
     fieldSelected: React.PropTypes.func,
     halfColumn: React.PropTypes.bool,
+    alignLeft: React.PropTypes.bool,
     image: React.PropTypes.node,
     label: React.PropTypes.string,
     selected: React.PropTypes.bool,
@@ -29,6 +30,7 @@ class IssueField extends React.Component {
     const classes = classnames(
       'issue-field', {
         'issue-field--half': this.props.halfColumn,
+        'issue-field--left': this.props.alignLeft,
         'issue-field--selected': this.props.selected
       }
     );

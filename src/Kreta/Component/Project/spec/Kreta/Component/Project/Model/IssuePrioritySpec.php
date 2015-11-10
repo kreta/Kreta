@@ -38,6 +38,12 @@ class IssuePrioritySpec extends ObjectBehavior
         $this->__toString()->shouldReturn(null);
     }
 
+    function its_color_is_mutable()
+    {
+        $this->setColor('#969696')->shouldReturn($this);
+        $this->getColor()->shouldReturn('#969696');
+    }
+
     function its_name_is_mutable()
     {
         $this->setName('The dummy priority')->shouldReturn($this);

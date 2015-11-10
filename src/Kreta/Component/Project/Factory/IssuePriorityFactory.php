@@ -43,15 +43,17 @@ class IssuePriorityFactory
      *
      * @param \Kreta\Component\Project\Model\Interfaces\ProjectInterface $project The project
      * @param string                                                     $name    The name
+     * @param string                                                     $color   The color
      *
      * @return \Kreta\Component\Project\Model\Interfaces\IssuePriorityInterface
      */
-    public function create(ProjectInterface $project, $name)
+    public function create(ProjectInterface $project, $name, $color)
     {
         $issuePriority = new $this->className();
 
         return $issuePriority
             ->setProject($project)
+            ->setColor($color)
             ->setName($name);
     }
 }
