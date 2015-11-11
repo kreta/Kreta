@@ -37,7 +37,10 @@ $content-transition: .3s;
   background-color: $light-grey;
   border-left: 1px solid $main-grey;
   box-sizing: border-box;
+  height: 100vh;
   overflow-y: scroll;
+  position: absolute;
+  right: 0;
   transition: width $content-transition;
   width: 0;
 }
@@ -49,4 +52,10 @@ $content-transition: .3s;
 .content__right-content {
   padding: 40px;
   width: $content-right-width;
+}
+
+@media screen and (min-width: 1024px) {
+  .content__right {
+    position: initial;
+  }
 }
