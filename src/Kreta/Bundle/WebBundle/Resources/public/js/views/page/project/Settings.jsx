@@ -19,27 +19,28 @@ import ProjectEdit from './Edit';
 import SettingsParticipants from './SettingsParticipants';
 import UserPreview from './../../component/UserPreview';
 
-export default React.createClass({
-  getInitialState() {
-    return {
-      project: null,
-      userSelectorVisible: false
-    };
-  },
+class Settings extends React.Component {
+  state = {
+    project: null,
+    userSelectorVisible: false
+  };
+
   componentDidMount() {
     const project = App.collection.project.get(this.props.params.projectId);
     project.on('change', (p) => {
-      this.setState({p});
+      this.setState({project: p});
     });
     this.setState({project});
-  },
-  showNotParticipantingList(ev) {
-    ev.preventDefault();
+  }
+
+  showNotParticipantingList() {
     this.setState({userSelectorVisible: true});
-  },
+  }
+
   updateParticipants() {
     this.state.project.fetch();
-  },
+  }
+
   render() {
     if (!this.state.project) {
       return <div>Loading...</div>;
@@ -61,7 +62,7 @@ export default React.createClass({
               </h3>
               <div className="section-header-actions">
                 <Button color="green"
-                  onClick={this.showNotParticipantingList}>
+                  onClick={this.showNotParticipantingList.bind(this)}>
                   Add people
                 </Button>
               </div>
@@ -73,11 +74,13 @@ export default React.createClass({
         </ContentMiddleLayout>
         <ContentRightLayout open={this.state.userSelectorVisible}>
           <SettingsParticipants
-            onParticipantAdded={this.updateParticipants}
+            onParticipantAdded={this.updateParticipants.bind(this)}
             project={this.state.project}
           />
         </ContentRightLayout>
       </div>
     );
   }
-});
+}
+
+export default Settings;
