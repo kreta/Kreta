@@ -15,10 +15,10 @@ import React from 'react';
 
 class IssueField extends React.Component {
   static propTypes = {
+    alignLeft: React.PropTypes.bool,
     fieldHovered: React.PropTypes.func,
     fieldSelected: React.PropTypes.func,
     halfColumn: React.PropTypes.bool,
-    alignLeft: React.PropTypes.bool,
     image: React.PropTypes.node,
     label: React.PropTypes.string,
     selected: React.PropTypes.bool,

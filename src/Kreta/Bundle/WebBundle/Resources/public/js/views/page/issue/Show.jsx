@@ -96,19 +96,22 @@ export default React.createClass({
   render() {
     const issue = this.state.issue.toJSON(),
       options = this.getProjectOptions();
-    let saveButton = <HelpText text="You can change issue details inline"/>;
+    let saveButton = <HelpText text="You can change issue details inline"/>,
+      allowedTransitions = [];
     if (this.state.issueChanged) {
       saveButton = <Button color="green" type="submit">Done</Button>;
     }
-    const allowedTransitions = this.state.issue.getAllowedTransitions().map((transition, index) => {
-      return (
-        <Button color="green"
-                key={index}
-                onClick={this.doTransition.bind(this, transition.id)}>
-          {transition.name}
-        </Button>
-      );
-    });
+    if (this.state.issue.canEdit(App.currentUser)) {
+      allowedTransitions = this.state.issue.getAllowedTransitions().map((transition, index) => {
+        return (
+          <Button color="green"
+                  key={index}
+                  onClick={this.doTransition.bind(this, transition.id)}>
+            {transition.name}
+          </Button>
+        );
+      });
+    }
     return (
       <Form model={Issue}
             onSaveSuccess={this.onIssueSaved}>

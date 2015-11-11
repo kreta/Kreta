@@ -23,14 +23,8 @@
 }
 
 .page-header__actions {
-  align-items: flex-end;
+  align-items: center;
   display: flex;
-  flex-flow: column;
-}
-
-.page-header__links,
-.page-header__buttons {
-  margin: 7px 0;
 }
 
 .page-header__link {

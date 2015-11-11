@@ -9,10 +9,13 @@
 @import '../../../base/colors';
 
 .project-settings__participants {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
   .user-preview {
     border: 1px solid $main-grey;
-    float: left;
-    width: 33.333%;
+    flex: 1 0 300px;
   }
 }
 

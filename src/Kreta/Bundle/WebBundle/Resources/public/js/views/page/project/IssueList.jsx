@@ -12,6 +12,9 @@ import SettingsIcon from './../../../../svg/settings';
 
 import $ from 'jquery';
 import React from 'react';
+import Mousetrap from 'mousetrap';
+
+import Config from './../../../Config';
 
 import Filter from './../../component/Filter';
 import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
@@ -23,6 +26,10 @@ import PageHeader from './../../component/PageHeader';
 import NavigableList from './../../component/NavigableList';
 
 class IssueList extends React.Component {
+  static contextTypes = {
+    history: React.PropTypes.object
+  };
+
   state = {
     fetchingIssues: true,
     filters: [],
@@ -31,8 +38,17 @@ class IssueList extends React.Component {
   };
 
   componentDidMount() {
+    Mousetrap.bind(Config.shortcuts.issueNew, () => {
+      this.context.history.pushState(null, `/issue/new/${this.props.params.projectId}`);
+    });
+    Mousetrap.bind(Config.shortcuts.projectSettings, () => {
+      this.context.history.pushState(null, `/project/${this.state.project.id}/settings`);
+    });
+
+    this.keyUpListenerRef = this.keyboardNavigate.bind(this);
+    window.addEventListener('keyup', this.keyUpListenerRef);
+
     this.loadData();
-    document.addEventListener('keyup', $.proxy(this.keyboardNavigate, this));
   }
 
   componentDidUpdate(prevProps) {
@@ -44,7 +60,7 @@ class IssueList extends React.Component {
   }
 
   componentWillUnmount() {
-    document.removeEventListener('keyup', $.proxy(this.keyboardNavigate, this));
+    window.removeEventListener('keyup', this.keyUpListenerRef);
   }
 
   keyboardNavigate(ev) {

@@ -50,7 +50,7 @@ class List extends React.Component {
     } else if (ev.which < 37 || ev.which > 40) { // Filter
       this.setState({
         projects: App.collection.project.filter(this.refs.filter.value),
-        selectedItem: 0
+        selectedRow: 0
       });
     } else {
       this.refs.navigableList.handleNavigation(ev);

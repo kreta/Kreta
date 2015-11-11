@@ -17,7 +17,9 @@ import ProjectsIcon from './../../../svg/projects';
 
 import React from 'react';
 import {Link} from 'react-router';
+import Mousetrap from 'mousetrap';
 
+import Config from './../../Config';
 import Icon from './../component/Icon';
 import Modal from './../component/Modal';
 import ProjectList from './../page/project/List';
@@ -27,6 +29,10 @@ class MainMenu extends React.Component {
   state = {
     user: App.currentUser
   };
+
+  componentDidMount() {
+    Mousetrap.bind(Config.shortcuts.projectList, this.showProjectList.bind(this));
+  }
 
   showProjectList() {
     this.refs.projectListModal.openModal();

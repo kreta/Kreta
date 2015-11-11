@@ -9,7 +9,15 @@
  */
 
 const Config = {
-  baseUrl: `//${location.hostname}${location.port !== '' ? `:${location.port}` : ''}/api`
+  baseUrl: `//${location.hostname}${location.port !== '' ? `:${location.port}` : ''}/api`,
+  shortcuts: {
+    issueNew: 'n',
+    notificationList: 'w',
+    projectList: 'p',
+    projectNew: 'x',
+    projectSettings: 's',
+    userProfile: 'm'
+  }
 };
 
 export default Config;

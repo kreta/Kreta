@@ -82,8 +82,9 @@ class New extends React.Component {
         return (
           <IssueField alignLeft={true}
                       image={
-                        <Icon glyph={PriorityIcon}
-                              style={{width: '20px', fill: p.color}}/>
+                        <Icon className="issue-field__icon"
+                              glyph={PriorityIcon}
+                              style={{fill: p.color}}/>
                       }
                       label="Priority"
                       text={p.name}
