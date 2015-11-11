@@ -60,7 +60,7 @@ class Form extends React.Component {
 
   renderFormElements () {
     return this.props.children.map((child, index) => {
-      if (child.type.displayName === 'FormInput' && child.props.name in this.state.errors) {
+      if (child.type.name === 'FormInput' && child.props.name in this.state.errors) {
         return React.cloneElement(child, {
           error: true,
           key: index,
@@ -68,7 +68,7 @@ class Form extends React.Component {
           value: child.props.name in this.state.lastValues ?
             this.state.lastValues[child.props.name] : child.props.value
         });
-      } else if (child.type.displayName === 'FormInput') {
+      } else if (child.type.name === 'FormInput') {
         return React.cloneElement(child, {
           value: child.props.name in this.state.lastValues ?
             this.state.lastValues[child.props.name] : child.props.value
