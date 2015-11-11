@@ -13,6 +13,7 @@ import React from 'react';
 import Button from './../../component/Button';
 import Form from './../../component/Form';
 import FormInput from './../../component/FormInput';
+import FormInputFile from './../../component/FormInputFile';
 import Project from './../../../models/Project';
 
 class Edit extends React.Component {
@@ -21,6 +22,9 @@ class Edit extends React.Component {
   };
 
   render() {
+    const project = this.props.project,
+      image = project.get('image');
+
     return (
       <Form model={Project}>
         <div className="section-header">
@@ -33,17 +37,20 @@ class Edit extends React.Component {
             </Button>
           </div>
         </div>
-        <input name="id" type="hidden" value={this.props.project.id}/>
+        <input name="id" type="hidden" value={project.id}/>
+        <FormInputFile filename={image ? image.name : ''}
+                       name="image"
+                       value=""/>
         <FormInput label="Project name"
                    name="name"
                    tabIndex="1"
                    type="text"
-                   value={this.props.project.get('name')}/>
+                   value={project.get('name')}/>
         <FormInput label="Project short name"
                    name="short_name"
                    tabIndex="2"
                    type="text"
-                   value={this.props.project.get('short_name')}/>
+                   value={project.get('short_name')}/>
       </Form>
     );
   }

@@ -14,6 +14,12 @@ import Backbone from 'backbone';
 import Config from './../Config';
 
 class Project extends Backbone.Model {
+  constructor(attributes, options = {}) {
+    super(attributes, options);
+
+    this.fileAttribute = 'image';
+  }
+
   urlRoot() {
     return `${Config.baseUrl}/projects`;
   }

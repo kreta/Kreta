@@ -12,10 +12,6 @@
 
 namespace Kreta\Component\User\Factory;
 
-use Kreta\Component\Media\Factory\MediaFactory;
-use Kreta\Component\Media\Uploader\Interfaces\MediaUploaderInterface;
-use Symfony\Component\HttpFoundation\File\UploadedFile;
-
 /**
  * Class UserFactory.
  *
@@ -29,27 +25,6 @@ class UserFactory
      * @var string
      */
     protected $className;
-
-    /**
-     * The media factory.
-     *
-     * @var \Kreta\Component\Media\Factory\MediaFactory
-     */
-    protected $mediaFactory;
-
-    /**
-     * The path.
-     *
-     * @var string|null
-     */
-    protected $path;
-
-    /**
-     * The uploader.
-     *
-     * @var \Kreta\Component\Media\Uploader\Interfaces\MediaUploaderInterface
-     */
-    protected $uploader;
 
     /**
      * Constructor.

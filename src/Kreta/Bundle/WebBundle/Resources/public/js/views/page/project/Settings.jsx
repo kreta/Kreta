@@ -56,8 +56,7 @@ export default React.createClass({
           <section className="spacer-vertical-1">
             <div className="section-header">
               <h3 className="section-header-title">
-                <strong>People</strong>
-              in this project
+                <strong>People</strong> in this project
               </h3>
               <div className="section-header-actions">
                 <Button color="green"

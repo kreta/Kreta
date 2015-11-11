@@ -13,13 +13,13 @@
 namespace Kreta\Component\Project\Factory;
 
 use Kreta\Component\Media\Factory\MediaFactory;
-use Kreta\Component\Media\Model\Interfaces\MediaInterface;
 use Kreta\Component\Media\Uploader\Interfaces\MediaUploaderInterface;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Project\Model\IssuePriority;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use Kreta\Component\Workflow\Factory\WorkflowFactory;
 use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Class ProjectFactory.
@@ -94,7 +94,7 @@ class ProjectFactory
      * @param \Kreta\Component\User\Model\Interfaces\UserInterface              $user     The project creator
      * @param \Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface|null $workflow The workflow
      * @param boolean                                                           $load     Load boolean, by default true
-     * @param \Kreta\Component\Media\Model\Interfaces\MediaInterface            $image    The image, can be null
+     * @param \Symfony\Component\HttpFoundation\File\UploadedFile               $image    The image, can be null
      *
      * @return \Kreta\Component\Project\Model\Interfaces\ProjectInterface
      */
@@ -102,7 +102,7 @@ class ProjectFactory
         UserInterface $user,
         WorkflowInterface $workflow = null,
         $load = true,
-        MediaInterface $image = null
+        UploadedFile $image = null
     ) {
         $project = new $this->className();
 
@@ -115,9 +115,10 @@ class ProjectFactory
             $project = $this->loadPrioritiesAndTypes($project);
         }
 
-        if ($image instanceof MediaInterface) {
-            $this->uploader->upload($image);
-            $project->setImage($image);
+        if ($image instanceof UploadedFile) {
+            $media = $this->mediaFactory->create($image);
+            $this->uploader->upload($media);
+            $project->setImage($media);
         }
 
         return $project

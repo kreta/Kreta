@@ -8,13 +8,13 @@
  * file that was distributed with this source code.
  */
 
-import $ from 'jquery';
 import React from 'react';
 
 import Button from './../../component/Button';
 import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
 import Form from './../../component/Form';
 import FormInput from './../../component/FormInput';
+import FormInputFile from './../../component/FormInputFile';
 import Profile from './../../../models/Profile';
 
 class Edit extends React.Component {
@@ -25,21 +25,15 @@ class Edit extends React.Component {
     });
   }
 
-  onPhotoChange(ev) {
-    var file = $(ev.currentTarget)[0].files[0];
-    if (typeof file === 'undefined') {
-      this.refs.previewImage.src = this.originalImage;
-    } else {
-      this.refs.previewImage.src = window.URL.createObjectURL(file);
-    }
-  }
-
   render() {
     const user = this.state.user.toJSON();
 
     return (
       <ContentMiddleLayout>
         <Form model={Profile}>
+          <FormInputFile filename={user.photo ? user.photo.name : ''}
+                         name="photo"
+                         value=""/>
           <FormInput label="First Name"
                      name="firstName"
                      tabIndex={2}
@@ -52,14 +46,10 @@ class Edit extends React.Component {
                      value={user.last_name}/>
           <FormInput label="Username"
                      name="username"
-                     tabIndex={3}
+                     tabIndex={4}
                      type="text"
                      value={user.username}/>
-          <img ref="previewImage" src={user.photo ? user.photo.name : ''}/>
-          <input defaultValue=""
-                 name="photo"
-                 onChange={this.onPhotoChange}
-                 type="file"/>
+
           <div className="issue-new__actions">
             <Button color="green" type="submit">Update</Button>
           </div>

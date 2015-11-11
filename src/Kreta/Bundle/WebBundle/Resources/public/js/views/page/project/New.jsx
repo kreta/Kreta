@@ -16,6 +16,7 @@ import Button from './../../component/Button';
 import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
 import Form from './../../component/Form';
 import FormInput from './../../component/FormInput';
+import FormInputFile from './../../component/FormInputFile';
 import Project from './../../../models/Project';
 
 class New extends React.Component {
@@ -33,6 +34,8 @@ class New extends React.Component {
       <ContentMiddleLayout>
         <Form model={Project}
               onSaveSuccess={this.goToCreatedProject.bind(this)}>
+          <FormInputFile name="image"
+                         value=""/>
           <FormInput label="Project name"
                      name="name"
                      tabIndex="1"
@@ -42,6 +45,7 @@ class New extends React.Component {
                      name="shortName"
                      tabIndex="2"
                      type="text"/>
+
           <div className="issue-new__actions">
             <Button color="green"
                     tabIndex="3"

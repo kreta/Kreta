@@ -67,7 +67,7 @@ class ProjectHandlerSpec extends ObjectBehavior
         MediaUploader $uploader
     )
     {
-        $image = new UploadedFile('', '', null, null, 99, true); //Avoids file not found exception
+        $image = new UploadedFile('', '', null, null, 99, true); // Avoids file not found exception
         $formFactory->createNamedBuilder('', 'kreta_project_project_type', $project, [])
             ->shouldBeCalled()->willReturn($formBuilder);
         $formBuilder->getForm()->shouldBeCalled()->willReturn($form);

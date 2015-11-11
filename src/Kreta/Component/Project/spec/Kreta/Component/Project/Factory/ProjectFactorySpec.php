@@ -22,6 +22,7 @@ use Kreta\Component\Workflow\Factory\WorkflowFactory;
 use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * Class ProjectFactorySpec.
@@ -78,13 +79,16 @@ class ProjectFactorySpec extends ObjectBehavior
         ParticipantFactory $participantFactory,
         ParticipantInterface $participant,
         WorkflowInterface $workflow,
-        MediaInterface $image,
-        MediaUploaderInterface $uploader
+        MediaUploaderInterface $uploader,
+        MediaFactory $mediaFactory,
+        MediaInterface $media
     ) {
+        $image = new UploadedFile('', '', null, null, 99, true); // Avoids file not found exception
         $participantFactory->create(Argument::type('Kreta\Component\Project\Model\Project'), $user, 'ROLE_ADMIN')
             ->shouldBeCalled()->willReturn($participant);
 
-        $uploader->upload($image)->shouldBeCalled();
+        $mediaFactory->create($image)->shouldBeCalled()->willReturn($media);
+        $uploader->upload($media)->shouldBeCalled();
 
         $this->create($user, $workflow, false, $image)->shouldReturnAnInstanceOf(
             'Kreta\Component\Project\Model\Project'

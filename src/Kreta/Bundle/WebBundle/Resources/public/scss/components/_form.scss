@@ -9,7 +9,7 @@
 @import '../base/colors';
 @import '../base/typography';
 
-@mixin form-label-up {
+%form-label-up {
   font-size: 14px;
   top: 0;
   transform: translateY(0);
@@ -31,7 +31,7 @@ textarea {
 .form-input--error {
   .form-input__label {
     color: $main-red;
-    @include form-label-up;
+    @extend %form-label-up;
   }
 
   .form-input__bar,
@@ -62,7 +62,7 @@ textarea {
   &:focus,
   &.form-input__input--filled {
     ~ .form-input__label {
-      @include form-label-up;
+      @extend %form-label-up;
     }
   }
 }
