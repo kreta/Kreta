@@ -58,12 +58,8 @@ class PageHeader extends React.Component {
         <div className="project-image" style={{background: '#ebebeb'}}></div>
         <h2 className="page-header__title">{this.props.title}</h2>
         <div className="page-header__actions">
-          <div className="page-header__links">
-            {this.renderLinks()}
-          </div>
-          <div className="page-header__buttons">
-            {this.renderButtons()}
-          </div>
+          {this.renderLinks()}
+          {this.renderButtons()}
         </div>
       </div>
     );
