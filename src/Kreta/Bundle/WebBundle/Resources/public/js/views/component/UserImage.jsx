@@ -34,7 +34,7 @@ class UserImage extends React.Component {
 
     return (
       <div className="user-image user-image--has-char">
-        <span className="user-image__char">{resultChar}</span>
+        <span className="user-image__char">{resultChar.toUpperCase()}</span>
       </div>
     );
   }

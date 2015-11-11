@@ -77,7 +77,6 @@ class New extends React.Component {
                       text={assigneeName}
                       value={p.user.id}/>
         );
-
       }),
       priority = project.get('issue_priorities').map((p) => {
         return (
