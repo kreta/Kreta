@@ -16,7 +16,7 @@ import Notification from './../component/Notification';
 
 class NotificationLayout extends React.Component {
   state = {
-      notifications: []
+    notifications: []
   };
 
   componentDidMount() {
