@@ -8,26 +8,55 @@
 
 @import '../base/colors';
 
-$form-input-file-image-bg: #ddd;
 $form-input-file-image-size: 150px;
 
-.form-input-file {
-  margin: 40px 0;
-  text-align: center;
-}
-
-.form-input-file__image {
+%border-circle {
   border-radius: 50%;
   height: $form-input-file-image-size;
+  margin: 0 auto;
+  text-align: center;
   width: $form-input-file-image-size;
 }
 
-.form-input-file__image--default {
-  background: $form-input-file-image-bg;
-  margin: 0 auto;
-  padding: 65px 0;
+.form-input-file {
+  @extend %border-circle;
+
+  &:hover {
+    .form-input-file__background {
+      opacity: .6;
+      z-index: 2;
+    }
+  }
 }
 
 .form-input-file__input {
   display: none;
+}
+
+.form-input-file__image-container {
+  display: flex;
+  position: relative;
+}
+
+.form-input-file__image {
+  @extend %border-circle;
+  position: absolute;
+  z-index: 1;
+}
+
+.form-input-file__background {
+  @extend %border-circle;
+  background: $grey;
+  position: absolute;
+  transition: all .3s ease-in-out;
+}
+
+.form-input-file__background--hidden {
+  opacity: 0;
+}
+
+.form-input-file__background-icon {
+  fill: $white;
+  height: 100%;
+  width: 50%;
 }

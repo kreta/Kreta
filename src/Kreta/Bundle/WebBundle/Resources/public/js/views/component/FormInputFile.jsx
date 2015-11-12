@@ -8,9 +8,12 @@
  * file that was distributed with this source code.
  */
 
-import '../../../scss/components/_form-input-file.scss';
+import './../../../scss/components/_form-input-file';
+import ImageIcon from './../../../svg/image';
 
 import React from 'react';
+
+import Icon from './../component/Icon';
 
 class FormInputFile extends React.Component {
   static propTypes = {
@@ -33,18 +36,24 @@ class FormInputFile extends React.Component {
       this.setState({filename: window.URL.createObjectURL(file)});
     }
   }
-  
+
   renderImageElement() {
     if (this.state.filename === '') {
       return (
-        <div className="form-input-file__image form-input-file__image--default">
-          Click to upload 
+        <div className="form-input-file__background">
+          <Icon className="form-input-file__background-icon"
+                glyph={ImageIcon}/>
         </div>
       )
     }
-    
+
     return (
-      <img className="form-input-file__image" src={this.state.filename}/>
+      <div className="form-input-file__image-container">
+        <img className="form-input-file__image" src={this.state.filename}/>
+        <div className="form-input-file__background form-input-file__background--hidden">
+          <Icon className="form-input-file__background-icon" glyph={ImageIcon}/>
+        </div>
+      </div>
     )
   }
 
