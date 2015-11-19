@@ -9,18 +9,21 @@
  */
 
 import './../../../scss/components/_issue-preview';
+import PriorityIcon from './../../../svg/priority';
 
 import classnames from 'classnames';
 import React from 'react';
 
+import Icon from '../component/Icon';
 import UserImage from './UserImage';
 
 class IssuePreview extends React.Component {
   render() {
     const classes = classnames({
-      'issue-preview': true,
-      'issue-preview--highlight': this.props.selected
-    });
+        'issue-preview': true,
+        'issue-preview--highlight': this.props.selected
+      }),
+      priority = this.props.issue.get('priority');
 
     return (
       <div className={classes} onClick={this.props.onClick}>
@@ -28,14 +31,15 @@ class IssuePreview extends React.Component {
           {this.props.issue.get('title')}
         </a>
         <div className="issue-preview__icons">
-          <span className="issue-preview__icon"
-                data-tooltip-text={ this.props.issue.get('status').name }>
-            <i className="fa fa-check"
-               style={{color: this.props.issue.get('status').color }}></i>
-          </span>
           <span data-tooltip-text={`
               ${this.props.issue.get('assignee').first_name}
               ${this.props.issue.get('assignee').last_name}`}>
+            <Icon className="issue-preview__priority issue-preview__priority--background"
+                  glyph={PriorityIcon}
+                  style={{fill: priority.color}}/>
+            <Icon className="issue-preview__priority"
+                  glyph={PriorityIcon}
+                  style={{fill: priority.color}}/>
             <UserImage user={this.props.issue.get('assignee')}/>
           </span>
         </div>

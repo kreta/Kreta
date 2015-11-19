@@ -33,8 +33,17 @@
 .issue-preview__icons {
   align-items: center;
   display: flex;
+  position: relative;
 }
 
-.issue-preview__icon {
-  font-size: .8em;
+.issue-preview__priority {
+  height: 42px;
+  left: -14px;
+  position: absolute;
+  top: -5px;
+  width: 60px;
+}
+
+.issue-preview__priority--background {
+  opacity: .2;
 }
