@@ -5,18 +5,20 @@
 //
 // For the full copyright and license information, please view the LICENSE
 // file that was distributed with this source code.
+
 @import '../base/colors';
+@import '../base/media';
 
 $content-width: 900px;
 $content-right-width: 450px;
 $content-transition: .3s;
 
 .content {
-  flex: 1;
+  flex: 1 1 100%;
 
   > div {
     display: flex;
-    height: 100vh;
+    height: calc(100vh - 80px);
   }
 }
 
@@ -54,8 +56,17 @@ $content-transition: .3s;
   width: $content-right-width;
 }
 
-@media screen and (min-width: 1024px) {
+@media #{$large-up} {
+  .content {
+    flex: 1 1 auto;
+    
+    > div {
+      height: 100vh;
+    }
+  }
+  
   .content__right {
+    height: calc(100% - 80px);
     position: initial;
   }
 }
