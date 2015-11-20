@@ -14,7 +14,7 @@ $content-right-width: 450px;
 $content-transition: .3s;
 
 .content {
-  flex: 1 1 100%;
+  height: 100%;
 
   > div {
     display: flex;
@@ -39,7 +39,7 @@ $content-transition: .3s;
   background-color: $light-grey;
   border-left: 1px solid $main-grey;
   box-sizing: border-box;
-  height: 100vh;
+  height: calc(100% - 80px);
   overflow-y: scroll;
   position: absolute;
   right: 0;
@@ -48,17 +48,18 @@ $content-transition: .3s;
 }
 
 .content__right--visible {
-  width: $content-right-width;
+  width: 100%;
 }
 
 .content__right-content {
   padding: 40px;
+  margin: auto;
   width: $content-right-width;
 }
 
 @media #{$large-up} {
   .content {
-    flex: 1 1 auto;
+    flex: 1;
     
     > div {
       height: 100vh;
@@ -66,7 +67,15 @@ $content-transition: .3s;
   }
   
   .content__right {
-    height: calc(100% - 80px);
+    height: 100vh;
     position: initial;
+  }
+
+  .content__right-content {
+    width: $content-right-width;
+  }
+
+  .content__right--visible {
+    width: $content-right-width;
   }
 }
