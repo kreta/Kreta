@@ -8,6 +8,10 @@
 
 @import '../base/colors';
 
+$issue-preview-priority-radius: 20px;
+$issue-preview-priority-stroke-width: 1px;
+$issue-preview-priority-user-image-size: 32px;
+
 .issue-preview {
   align-items: center;
   border-top: 1px solid $main-grey;
@@ -21,6 +25,10 @@
 
 .issue-preview--highlight {
   background: $light-grey;
+}
+
+.issue-preview--closed {
+  opacity: .3;
 }
 
 .issue-preview__title {
@@ -37,13 +45,29 @@
 }
 
 .issue-preview__priority {
-  height: 42px;
-  left: -14px;
+  height: $issue-preview-priority-radius * 2 + $issue-preview-priority-stroke-width * 2;
   position: absolute;
-  top: -5px;
-  width: 60px;
+  transform: translate(
+    -#{($issue-preview-priority-radius * 2 - $issue-preview-priority-user-image-size) / 2 + $issue-preview-priority-stroke-width},
+    -#{($issue-preview-priority-radius * 2 - $issue-preview-priority-user-image-size) / 2 + $issue-preview-priority-stroke-width}
+  );
+  width: $issue-preview-priority-radius * 2 + $issue-preview-priority-stroke-width * 2;
 }
 
-.issue-preview__priority--background {
+.issue-preview__priority-back {
+  fill: transparent;
   opacity: .2;
+}
+
+.issue-preview__priority-front {
+  fill: transparent;
+  stroke-dasharray: #{2 * 3.14 * $issue-preview-priority-radius};
+}
+
+.issue-preview__priority--initial {
+  stroke-dashoffset: #{2 * 3.14 * $issue-preview-priority-radius * 0.66};
+}
+
+.issue-preview__priority--normal {
+  stroke-dashoffset: #{2 * 3.14 * $issue-preview-priority-radius * 0.25};
 }
