@@ -68,7 +68,7 @@ class MainMenu extends React.Component {
                   glyph={InboxIcon}/>
             <span className="main-menu__notification-bubble">0</span>
           </div>
-          <Link to="/profile">
+          <Link className="main-menu__profile" to="/profile">
             <UserImage user={this.state.user.toJSON()}/>
             <span className="main-menu__username">@{this.state.user.get('username')}</span>
           </Link>
