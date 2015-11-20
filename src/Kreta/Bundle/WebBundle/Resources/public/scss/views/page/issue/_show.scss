@@ -43,6 +43,10 @@
   .issue-field {
     border: 1px solid $main-grey;
   }
+
+  .selector__selected {
+    background: $light-grey;
+  }
 }
 
 .issue-show__save {

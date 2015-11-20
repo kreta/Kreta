@@ -29,20 +29,12 @@ export default React.createClass({
   },
   getInitialState() {
     return {
-      issueChanged: false,
       issue: this.props.issue
     };
   },
   componentWillReceiveProps(nextProps) {
     this.setState({
-      issue: nextProps.issue,
-      issueChanged: false
-    });
-  },
-  updateInput(ev) {
-    this.setState({
-      issue: this.state.issue.set(ev.target.name, ev.target.value),
-      issueChanged: true
+      issue: nextProps.issue
     });
   },
   doTransition(id) {
@@ -90,17 +82,11 @@ export default React.createClass({
 
     return {assignee, priority};
   },
-  onIssueSaved() {
-    this.setState({issueChanged: false});
-  },
   render() {
     const issue = this.state.issue.toJSON(),
       options = this.getProjectOptions();
-    let saveButton = <HelpText text="You can change issue details inline"/>,
-      allowedTransitions = [];
-    if (this.state.issueChanged) {
-      saveButton = <Button color="green" type="submit">Done</Button>;
-    }
+    let allowedTransitions = [];
+
     if (this.state.issue.canEdit(App.currentUser)) {
       allowedTransitions = this.state.issue.getAllowedTransitions().map((transition, index) => {
         return (
@@ -125,26 +111,21 @@ export default React.createClass({
           {allowedTransitions}
         </section>
         <section className="issue-show__fields">
-          <Selector disabled={true}
-                    name="assignee"
-                    onChange={this.selectorChanged}
+          <Selector name="assignee"
                     value={issue.assignee.id}>
             {options.assignee}
           </Selector>
-          <Selector disabled={true}
-                    name="priority"
-                    onChange={this.selectorChanged}
+          <Selector name="priority"
                     value={issue.priority.id}>
             {options.priority}
           </Selector>
         </section>
         <textarea className="issue-show__description"
                   name="description"
-                  onChange={this.updateInput}
                   value={issue.description}/>
 
         <div className="issue-show__save">
-          {saveButton}
+            <Button color="green" type="submit">Save changes</Button>
         </div>
       </Form>
     );
