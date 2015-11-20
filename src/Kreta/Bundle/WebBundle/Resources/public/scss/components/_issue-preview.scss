@@ -62,6 +62,7 @@ $issue-preview-priority-user-image-size: 32px;
 .issue-preview__priority-front {
   fill: transparent;
   stroke-dasharray: #{2 * 3.14 * $issue-preview-priority-radius};
+  stroke-width: 2px;
 }
 
 .issue-preview__priority--initial {
