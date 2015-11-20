@@ -8,6 +8,10 @@
 
 @import '../base/colors';
 
+$issue-preview-priority-radius: 20px;
+$issue-preview-priority-stroke-width: 1px;
+$issue-preview-priority-user-image-size: 32px;
+
 .issue-preview {
   align-items: center;
   border-top: 1px solid $main-grey;
@@ -23,6 +27,10 @@
   background: $light-grey;
 }
 
+.issue-preview--closed {
+  opacity: .3;
+}
+
 .issue-preview__title {
   color: $main-black;
   flex: 1;
@@ -33,8 +41,33 @@
 .issue-preview__icons {
   align-items: center;
   display: flex;
+  position: relative;
 }
 
-.issue-preview__icon {
-  font-size: .8em;
+.issue-preview__priority {
+  height: $issue-preview-priority-radius * 2 + $issue-preview-priority-stroke-width * 2;
+  position: absolute;
+  transform: translate(
+    -#{($issue-preview-priority-radius * 2 - $issue-preview-priority-user-image-size) / 2 + $issue-preview-priority-stroke-width},
+    -#{($issue-preview-priority-radius * 2 - $issue-preview-priority-user-image-size) / 2 + $issue-preview-priority-stroke-width}
+  );
+  width: $issue-preview-priority-radius * 2 + $issue-preview-priority-stroke-width * 2;
+}
+
+.issue-preview__priority-back {
+  fill: transparent;
+  opacity: .2;
+}
+
+.issue-preview__priority-front {
+  fill: transparent;
+  stroke-dasharray: #{2 * 3.14 * $issue-preview-priority-radius};
+}
+
+.issue-preview__priority--initial {
+  stroke-dashoffset: #{2 * 3.14 * $issue-preview-priority-radius * 0.66};
+}
+
+.issue-preview__priority--normal {
+  stroke-dashoffset: #{2 * 3.14 * $issue-preview-priority-radius * 0.25};
 }

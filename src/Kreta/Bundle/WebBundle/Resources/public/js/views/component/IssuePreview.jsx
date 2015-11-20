@@ -17,10 +17,13 @@ import UserImage from './UserImage';
 
 class IssuePreview extends React.Component {
   render() {
-    const classes = classnames({
-      'issue-preview': true,
-      'issue-preview--highlight': this.props.selected
-    });
+    const priority = this.props.issue.get('priority'),
+      statusType = this.props.issue.get('status').type,
+      classes = classnames({
+        'issue-preview': true,
+        'issue-preview--highlight': this.props.selected,
+        'issue-preview--closed': statusType === 'final'
+      });
 
     return (
       <div className={classes} onClick={this.props.onClick}>
@@ -28,14 +31,17 @@ class IssuePreview extends React.Component {
           {this.props.issue.get('title')}
         </a>
         <div className="issue-preview__icons">
-          <span className="issue-preview__icon"
-                data-tooltip-text={ this.props.issue.get('status').name }>
-            <i className="fa fa-check"
-               style={{color: this.props.issue.get('status').color }}></i>
-          </span>
           <span data-tooltip-text={`
               ${this.props.issue.get('assignee').first_name}
               ${this.props.issue.get('assignee').last_name}`}>
+            <svg className={`issue-preview__priority issue-preview__priority--${statusType}`}>
+              <circle r="20" cx="21" cy="21"
+                      className="issue-preview__priority-back"
+                      style={{stroke: priority.color}}/>
+              <circle r="20" cx="21" cy="21" transform="rotate(-90, 21, 21)"
+                      className="issue-preview__priority-front"
+                      style={{stroke: priority.color}}/>
+            </svg>
             <UserImage user={this.props.issue.get('assignee')}/>
           </span>
         </div>
