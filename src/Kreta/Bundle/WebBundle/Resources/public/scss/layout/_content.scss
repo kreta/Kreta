@@ -14,11 +14,12 @@ $content-right-width: 450px;
 $content-transition: .3s;
 
 .content {
-  height: 100%;
+  flex: 1 1 100%;
+  height: calc(100vh - 60px);
 
   > div {
     display: flex;
-    height: calc(100vh - 80px);
+    height: 100%;
   }
 }
 
