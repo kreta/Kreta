@@ -8,22 +8,37 @@
  * file that was distributed with this source code.
  */
 
+import CrossIcon from './../../../svg/cross';
+
 import classnames from 'classnames';
 import React from 'react';
 
+import Icon from './../component/Icon';
+
 class ContentRightLayout extends React.Component {
-  static propTypes = {
-    open: React.PropTypes.bool
+  state = {
+    visible: false
   };
+
+  openContentRightLayout() {
+    this.setState({visible: true});
+  }
+
+  closeContentRightLayout() {
+    this.setState({visible: false});
+  }
 
   render() {
     const classes = classnames({
       'content__right': true,
-      'content__right--visible': this.props.open
+      'content__right--visible': this.state.visible
     });
 
     return (
       <div className={classes}>
+        <Icon className="content-right-layout__cross"
+              glyph={CrossIcon}
+              onClick={this.closeContentRightLayout.bind(this)}/>
         <div className="content__right-content">
           {this.props.children}
         </div>

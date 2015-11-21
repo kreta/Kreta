@@ -163,7 +163,17 @@ class IssueList extends React.Component {
 
   changeSelected(index) {
     this.setState({selectedRow: index});
+    this.showIssue();
   }
+
+  showIssue() {
+    this.refs.issueFullInformation.openContentRightLayout();
+  }
+
+  hideIssue() {
+    this.refs.issueFullInformation.closeContentRightLayout();
+  }
+
 
   render() {
     if (!this.state.project) {
@@ -207,7 +217,7 @@ class IssueList extends React.Component {
             {this.state.fetchingIssues ? 'Loading...' : issuesEl}
           </NavigableList>
         </ContentMiddleLayout>
-        <ContentRightLayout open={issue !== ''}>
+        <ContentRightLayout ref="issueFullInformation">
           {issue}
         </ContentRightLayout>
       </div>

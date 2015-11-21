@@ -26,7 +26,7 @@ $content-transition: .3s;
 .content__middle {
   flex: 1;
   padding: 0 40px;
-  overflow-y: scroll;
+  overflow-y: auto;
   transition-duration: $content-transition;
 }
 
@@ -37,11 +37,14 @@ $content-transition: .3s;
 }
 
 .content__right {
+  align-items: flex-end;
   background-color: $light-grey;
   border-left: 1px solid $main-grey;
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
   height: calc(100% - 80px);
-  overflow-y: scroll;
+  overflow: auto;
   position: absolute;
   right: 0;
   transition: width $content-transition;
@@ -55,20 +58,30 @@ $content-transition: .3s;
 .content__right-content {
   padding: 40px;
   margin: auto;
-  width: $content-right-width;
+  max-width: $content-right-width;
+}
+
+.content-right-layout__cross {
+  cursor: pointer;
+  fill: $main-black;
+  height: 30px;
+  margin: 10px 10px 0;
+  width: 30px;
 }
 
 @media #{$large-up} {
   .content {
     flex: 1;
-    
+
     > div {
       height: 100vh;
     }
   }
-  
+
   .content__right {
     height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
     position: initial;
   }
 
@@ -78,5 +91,9 @@ $content-transition: .3s;
 
   .content__right--visible {
     width: $content-right-width;
+  }
+
+  .content-right-layout__cross {
+    display: none;
   }
 }
