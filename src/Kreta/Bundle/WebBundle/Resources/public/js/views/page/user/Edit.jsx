@@ -16,6 +16,7 @@ import Form from './../../component/Form';
 import FormInput from './../../component/FormInput';
 import FormInputFile from './../../component/FormInputFile';
 import Profile from './../../../models/Profile';
+import {saveProfile} from './../../../actions/AppActions';
 
 class Edit extends React.Component {
   componentWillMount() {
@@ -23,6 +24,10 @@ class Edit extends React.Component {
     this.setState({
       user: App.currentUser
     });
+  }
+
+  _save() {
+    saveProfile(this.state.user);
   }
 
   render() {
@@ -51,7 +56,7 @@ class Edit extends React.Component {
                      value={user.username}/>
 
           <div className="issue-new__actions">
-            <Button color="green" type="submit">Update</Button>
+            <Button color="green" onClick={this._save} type="submit">Update</Button>
           </div>
         </Form>
       </ContentMiddleLayout>
