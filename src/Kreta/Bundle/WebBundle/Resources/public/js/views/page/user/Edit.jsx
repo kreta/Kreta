@@ -35,7 +35,7 @@ class Edit extends React.Component {
 
     return (
       <ContentMiddleLayout>
-        <Form model={Profile}>
+        <Form model={Profile} store={}>
           <FormInputFile filename={user.photo ? user.photo.name : ''}
                          name="photo"
                          value=""/>

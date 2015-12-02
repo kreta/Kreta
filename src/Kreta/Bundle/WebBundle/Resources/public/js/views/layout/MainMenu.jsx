@@ -32,6 +32,7 @@ class MainMenu extends React.Component {
 
   componentDidMount() {
     Mousetrap.bind(Config.shortcuts.projectList, this.showProjectList.bind(this));
+    ProfileStore.addChangeSuccessListener(this.onProfileChange);
   }
 
   showProjectList() {
@@ -43,6 +44,10 @@ class MainMenu extends React.Component {
 
   hideProjectList() {
     this.refs.projectListModal.closeModal();
+  }
+  
+  onProfileChange(user) {
+    this.setState(user);
   }
 
   render() {
