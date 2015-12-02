@@ -36,6 +36,8 @@ class Form extends React.Component {
     );
 
     this.setState({lastValues: serializedModel.toJSON()});
+
+    saveProfile(serializedModel);
     serializedModel.save(null, {
       success: (model) => {
         NotificationService.showNotification({

@@ -9,7 +9,7 @@
  */
 
 import AppDispatcher from './../dispatcher/AppDispatcher';
-import AppConstants from '../constants/AppConstants';
+import AppConstants from './../constants/AppConstants';
 
 export function addIssue() {
   AppDispatcher.handleViewAction({
