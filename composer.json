@@ -43,20 +43,20 @@
         "symfony/symfony":                          "2.7.*",
         "twig/extensions":                          "1.2.*",
         "willdurand/hateoas-bundle":                "0.5.x",
-        "yohang/finite":                            "^1.0,>=1.0.4"
+        "yohang/finite":                            "^1.1.0"
     },
     "require-dev": {
         "behat/behat" :                             "^3.0",
         "behat/mink-browserkit-driver":             "^1.2",
         "behat/mink-extension" :                    "^2.0",
-        "behat/symfony2-extension" :                "^2.0",
+        "behat/symfony2-extension" :                "^2.1.1",
         "behat/web-api-extension":                  "^1.0@dev",
-        "doctrine/doctrine-fixtures-bundle":        "^2.2",
+        "doctrine/doctrine-fixtures-bundle":        "^2.3",
         "fabpot/php-cs-fixer":                      "^1.10",
         "henrikbjorn/phpspec-code-coverage":        "^1.0",
         "mmoreram/php-formatter":                   "^1.0",
         "phpspec/phpspec":                          "^2.3",
-        "satooshi/php-coveralls":                   "^0.6,>=0.6.2"
+        "satooshi/php-coveralls":                   "^1.0.0"
     },
     "repositories": [
         {
@@ -65,15 +65,7 @@
         },
         {
             "type": "vcs",
-            "url": "https://github.com/kreta/Finite"
-        },
-        {
-            "type": "vcs",
             "url": "https://github.com/kreta/FOSOAuthServerBundle"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/kreta/php-coveralls"
         }
     ],
     "replace": {
@@ -96,16 +88,16 @@
     },
     "scripts": {
         "cs": [
-            "php-cs-fixer fix --config-file=.php_cs",
-            "php-cs-fixer fix --config-file=.phpspec_cs",
             "php-formatter f:h:f src/Kreta",
-            "php-formatter f:u:s src/Kreta"
+            "php-formatter f:u:s src/Kreta",
+            "php-cs-fixer fix --config-file=.php_cs",
+            "php-cs-fixer fix --config-file=.phpspec_cs"
         ],
         "test": "phpspec run"
     },
     "autoload": {
         "psr-4": {
-            "": "src/"
+            "Kreta\\": "src/Kreta/"
         }
     },
     "extra": {

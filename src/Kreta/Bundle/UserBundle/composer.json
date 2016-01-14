@@ -41,10 +41,6 @@
         {
             "type": "vcs",
             "url": "https://github.com/kreta/FOSUserBundle"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/kreta/Finite"
         }
     ],
     "autoload": {
