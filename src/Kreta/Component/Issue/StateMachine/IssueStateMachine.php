@@ -74,7 +74,6 @@ class IssueStateMachine extends StateMachine
                 'property_path' => 'status',
                 'states'        => $this->getStates(),
                 'transitions'   => $this->getTransitions(),
-                'guard' => true
             ]
         );
     }

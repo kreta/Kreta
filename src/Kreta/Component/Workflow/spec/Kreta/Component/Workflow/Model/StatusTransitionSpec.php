@@ -13,6 +13,7 @@
 namespace spec\Kreta\Component\Workflow\Model;
 
 use Doctrine\ORM\NoResultException;
+use Finite\StateMachine\StateMachineInterface;
 use Kreta\Component\Core\Exception\CollectionMinLengthException;
 use Kreta\Component\Core\Exception\ResourceAlreadyPersistException;
 use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
@@ -39,11 +40,6 @@ class StatusTransitionSpec extends ObjectBehavior
     function it_is_initializable()
     {
         $this->shouldHaveType('Kreta\Component\Workflow\Model\StatusTransition');
-    }
-
-    function it_extends_finite_state()
-    {
-        $this->shouldHaveType('Finite\Transition\Transition');
     }
 
     function it_implements_status_interface()
@@ -106,8 +102,7 @@ class StatusTransitionSpec extends ObjectBehavior
         StatusInterface $status,
         WorkflowInterface $workflow,
         StatusInterface $status2
-    )
-    {
+    ) {
         $this->getInitialStates()->shouldHaveCount(0);
 
         $status->getWorkflow()->shouldBeCalled()->willReturn($workflow);
@@ -129,8 +124,7 @@ class StatusTransitionSpec extends ObjectBehavior
 
     function it_does_not_remove_the_initial_because_the_transition_must_have_at_least_one_initial_status(
         StatusInterface $status
-    )
-    {
+    ) {
         $this->shouldThrow(new CollectionMinLengthException())->during('removeInitialState', [$status]);
     }
 
@@ -139,8 +133,7 @@ class StatusTransitionSpec extends ObjectBehavior
         WorkflowInterface $workflow,
         StatusInterface $status2,
         StatusInterface $status3
-    )
-    {
+    ) {
         $status->getWorkflow()->shouldBeCalled()->willReturn($workflow);
         $workflow->getId()->shouldBeCalled()->willReturn('workflow-id');
         $status->getId()->shouldBeCalled()->willReturn('status-id-1');
@@ -165,8 +158,7 @@ class StatusTransitionSpec extends ObjectBehavior
         IssueInterface $issue,
         StatusTransitionInterface $transition2,
         StatusInterface $status
-    )
-    {
+    ) {
         $this->getWorkflow()->shouldReturn($workflow);
         $workflow->getProjects()->shouldBeCalled()->willReturn([$project]);
         $project->getIssues()->shouldBeCalled()->willReturn([$issue]);
@@ -186,8 +178,7 @@ class StatusTransitionSpec extends ObjectBehavior
         IssueInterface $issue,
         StatusTransitionInterface $transition2,
         StatusInterface $status
-    )
-    {
+    ) {
         $this->getWorkflow()->shouldReturn($workflow);
         $workflow->getProjects()->shouldBeCalled()->willReturn([$project]);
         $project->getIssues()->shouldBeCalled()->willReturn([$issue]);
@@ -209,8 +200,7 @@ class StatusTransitionSpec extends ObjectBehavior
         StatusInterface $initial,
         WorkflowInterface $workflow,
         StatusInterface $statusTo
-    )
-    {
+    ) {
         $initial->getWorkflow()->shouldBeCalled()->willReturn($workflow);
         $workflow->getId()->shouldBeCalled()->willReturn('workflow-id');
         $initial->getId()->shouldBeCalled()->willReturn('status-id');
@@ -219,5 +209,27 @@ class StatusTransitionSpec extends ObjectBehavior
         $statusTo->getId()->shouldBeCalled()->willReturn('status-id');
 
         $this->isValidState()->shouldReturn(false);
+    }
+
+    function it_gets_initial_states()
+    {
+        $this->getInitialStates()->shouldBeArray();
+    }
+
+    function it_gets_state(StatusInterface $statusTo)
+    {
+        $this->getState()->shouldReturn($statusTo);
+    }
+
+    function it_gets_name()
+    {
+        $this->getName()->shouldReturn('Transition name');
+        $this->__toString()->shouldReturn('Transition name');
+    }
+
+    function it_gets_a_null_in_guard_and_process_methods(StateMachineInterface $stateMachine)
+    {
+        $this->process($stateMachine)->shouldReturn(null);
+        $this->getGuard()->shouldReturn(null);
     }
 }
