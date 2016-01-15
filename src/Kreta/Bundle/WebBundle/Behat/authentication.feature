@@ -23,7 +23,7 @@ Feature: Manage authentication
     When I fill in the following:
       | username | user@kreta.com |
       | password | 123456         |
-    And I press "Login"
+    And I press "_submit"
     Then I should be on the dashboard
     And I should see refresh_token and access_token cookies
 
@@ -32,5 +32,5 @@ Feature: Manage authentication
     When I fill in the following:
       | username | invalid@kreta.com |
       | password | invalid           |
-    And I press "Login"
+    And I press "_submit"
     Then I should see "Invalid credentials."
