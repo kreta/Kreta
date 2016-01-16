@@ -26,11 +26,10 @@
     ],
     "require": {
         "php":                     ">=5.4",
-        "doctrine/dbal":           "2.5.*",
-        "doctrine/orm":            "2.5.*",
-        "symfony/form":            "^2.7",
-        "symfony/http-foundation": "^2.7",
-        "symfony/security":        "^2.7"
+        "doctrine/orm":            "^2.5",
+        "symfony/form":            "^2.7|^3.0",
+        "symfony/http-foundation": "^2.7|^3.0",
+        "symfony/security":        "^2.7|^3.0"
     },
     "require-dev": {
         "phpspec/phpspec":         "^2.3"
