@@ -35,7 +35,8 @@
     "autoload": {
         "psr-4": {
             "Kreta\\Component\\Media\\": ""
-        }
+        },
+        "exclude-from-classmap": ["/spec/"]
     },
     "autoload-dev": {
         "psr-4": {

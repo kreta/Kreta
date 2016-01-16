@@ -51,7 +51,8 @@
     "autoload-dev": {
         "psr-4": {
             "Kreta\\Bundle\\MediaBundle\\spec\\": "spec/"
-        }
+        },
+        "exclude-from-classmap": ["/spec/"]
     },
     "extra": {
         "branch-alias": {

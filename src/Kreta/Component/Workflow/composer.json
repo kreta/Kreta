@@ -41,7 +41,8 @@
     "autoload": {
         "psr-4": {
             "Kreta\\Component\\Workflow\\": ""
-        }
+        },
+        "exclude-from-classmap": ["/spec/"]
     },
     "autoload-dev": {
         "psr-4": {

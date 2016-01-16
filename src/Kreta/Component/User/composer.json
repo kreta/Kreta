@@ -42,7 +42,8 @@
     "autoload": {
         "psr-4": {
             "Kreta\\Component\\User\\": ""
-        }
+        },
+        "exclude-from-classmap": ["/spec/"]
     },
     "autoload-dev": {
         "psr-4": {
