@@ -50,13 +50,14 @@ class StatusTypeSpec extends ObjectBehavior
     {
         $builder->add('color')->shouldBeCalled()->willReturn($builder);
         $builder->add('name')->shouldBeCalled()->willReturn($builder);
-        $builder->add('type', 'choice', [
-            'required' => false,
-            'choices'  => [
+        $builder->add('type', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', [
+            'required'          => false,
+            'choices'           => [
                 StateInterface::TYPE_INITIAL => 'initial',
                 StateInterface::TYPE_NORMAL  => 'normal',
-                StateInterface::TYPE_FINAL   => 'final'
-            ]
+                StateInterface::TYPE_FINAL   => 'final',
+            ],
+            'choices_as_values' => true,
         ])->shouldBeCalled()->willReturn($builder);
 
         $this->buildForm($builder, []);
@@ -73,10 +74,5 @@ class StatusTypeSpec extends ObjectBehavior
         $resolver->setOptional(['workflow'])->shouldBeCalled()->willReturn($resolver);
 
         $this->configureOptions($resolver);
-    }
-
-    function it_gets_name()
-    {
-        $this->getName()->shouldReturn('kreta_workflow_status_type');
     }
 }

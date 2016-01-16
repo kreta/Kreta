@@ -36,14 +36,14 @@ services:
             - @kreta_project.factory.label
             - @security.token_storage
         tags:
-            - { name: form.type, alias: 'kreta_project_label_type' }
+            - { name: form.type }
     kreta_project.form_type.issue_priority:
         class: %kreta_project.form_type.issue_priority.class%
         arguments:
             - %kreta_project.issue_priority.class%
             - @kreta_project.factory.issue_priority
         tags:
-            - { name: form.type, alias: 'kreta_project_issue_priority_type' }
+            - { name: form.type }
     kreta_project.form_type.project:
         class: %kreta_project.form_type.project.class%
         arguments:
@@ -51,7 +51,7 @@ services:
             - @kreta_project.factory.project
             - @security.token_storage
         tags:
-            - { name: form.type, alias: 'kreta_project_project_type' }
+            - { name: form.type }
     kreta_project.form_type.participant:
         class: %kreta_project.form_type.participant.class%
         arguments:
@@ -59,8 +59,8 @@ services:
             - @kreta_project.factory.participant
             - @security.token_storage
         tags:
-            - { name: form.type, alias: 'kreta_project_participant_type' }
+            - { name: form.type }
     kreta_project.form_type.role:
         class: %kreta_project.form_type.role.class%
         tags:
-            - { name: form.type, alias: 'kreta_project_role_type' }
+            - { name: form.type }

@@ -39,7 +39,7 @@
         "sensio/framework-extra-bundle":            "^3.0.2",
         "symfony/monolog-bundle":                   "^2.8",
         "symfony/swiftmailer-bundle":               "^2.3",
-        "symfony/symfony":                          "2.7.*",
+        "symfony/symfony":                          "2.8.*",
         "twig/extensions":                          "^1.3",
         "willdurand/hateoas-bundle":                "^1.1",
         "yohang/finite":                            "^1.1"

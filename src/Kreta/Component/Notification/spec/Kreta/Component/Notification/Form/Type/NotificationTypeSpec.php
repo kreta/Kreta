@@ -45,15 +45,14 @@ class NotificationTypeSpec extends ObjectBehavior
 
     function it_builds_a_form(FormBuilder $builder)
     {
-        $builder->add('read', 'choice', [
-            'choices'  => [true => 'read', false  => 'unread']
+        $builder->add('read', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', [
+            'choices'           => [
+                true  => 'read',
+                false => 'unread',
+            ],
+            'choices_as_values' => true,
         ])->shouldBeCalled()->willReturn($builder);
 
         $this->buildForm($builder, []);
-    }
-
-    function it_gets_name()
-    {
-        $this->getName()->shouldReturn('kreta_notification_notification_type');
     }
 }

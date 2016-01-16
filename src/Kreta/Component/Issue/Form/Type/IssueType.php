@@ -57,8 +57,7 @@ class IssueType extends AbstractType
         ObjectManager $manager = null,
         $validationGroups = [],
         LabelType $labelType
-    )
-    {
+    ) {
         parent::__construct($dataClass, $factory, $context, $manager, $validationGroups);
         $this->labelType = $labelType;
     }
@@ -69,14 +68,14 @@ class IssueType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('title', 'text')
-            ->add('description', 'textarea', [
+            ->add('title', 'Symfony\Component\Form\Extension\Core\Type\TextType')
+            ->add('description', 'Symfony\Component\Form\Extension\Core\Type\TextareaType', [
                 'required' => false,
             ])
-            ->add('project', 'entity', [
+            ->add('project', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', [
                 'class'           => 'Kreta\Component\Project\Model\Project',
                 'choices'         => $options['projects'],
-                'invalid_message' => self::PROJECT_INVALID_MESSAGE
+                'invalid_message' => self::PROJECT_INVALID_MESSAGE,
             ]);
 
         $formModifier = function (FormInterface $form, ProjectInterface $project = null) {
@@ -89,25 +88,25 @@ class IssueType extends AbstractType
             }
 
             $form
-                ->add('assignee', 'entity', [
+                ->add('assignee', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', [
                     'class'   => 'Kreta\Component\User\Model\User',
-                    'choices' => $users
+                    'choices' => $users,
                 ])
-                ->add('priority', 'entity', [
+                ->add('priority', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', [
                     'class'   => 'Kreta\Component\Project\Model\IssuePriority',
-                    'choices' => $priorities
+                    'choices' => $priorities,
                 ])
-                ->add('parent', 'entity', [
+                ->add('parent', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', [
                     'class'   => 'Kreta\Component\Issue\Model\Issue',
-                    'choices' => $issues
+                    'choices' => $issues,
                 ])
-                ->add('labels', 'collection', [
-                    'type'         => $this->labelType,
-                    'allow_add'    => true,
-                    'allow_delete' => true,
-                    'by_reference' => false,
-                    'delete_empty' => true,
-                    'options'      => ['project' => $project]
+                ->add('labels', 'Symfony\Component\Form\Extension\Core\Type\CollectionType', [
+                    'entry_type'    => get_class($this->labelType),
+                    'allow_add'     => true,
+                    'allow_delete'  => true,
+                    'by_reference'  => false,
+                    'delete_empty'  => true,
+                    'entry_options' => ['project' => $project],
                 ]);
         };
 
@@ -127,14 +126,6 @@ class IssueType extends AbstractType
     {
         parent::configureOptions($resolver);
         $resolver->setDefaults(['projects' => []]);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'kreta_issue_issue_type';
     }
 
     /**

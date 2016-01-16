@@ -57,9 +57,11 @@ class IssueTypeSpec extends ObjectBehavior
 
     function it_builds_a_form(FormBuilder $builder, ProjectInterface $project)
     {
-        $builder->add('title', 'text')->shouldBeCalled()->willReturn($builder);
-        $builder->add('description', 'textarea', ['required' => false,])->shouldBeCalled()->willReturn($builder);
-        $builder->add('project', 'entity', [
+        $builder->add('title', 'Symfony\Component\Form\Extension\Core\Type\TextType')
+            ->shouldBeCalled()->willReturn($builder);
+        $builder->add('description', 'Symfony\Component\Form\Extension\Core\Type\TextareaType', ['required' => false,])
+            ->shouldBeCalled()->willReturn($builder);
+        $builder->add('project', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', [
             'class'           => 'Kreta\Component\Project\Model\Project',
             'choices'         => [$project],
             'invalid_message' => IssueType::PROJECT_INVALID_MESSAGE
@@ -83,10 +85,5 @@ class IssueTypeSpec extends ObjectBehavior
         $resolver->setDefaults(['projects' => []])->shouldBeCalled()->willReturn($resolver);
 
         $this->configureOptions($resolver);
-    }
-
-    function it_gets_name()
-    {
-        $this->getName()->shouldReturn('kreta_issue_issue_type');
     }
 }

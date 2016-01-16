@@ -32,11 +32,11 @@ class StatusTransitionType extends AbstractType
         parent::buildForm($builder, $options);
         $builder
             ->add('name')
-            ->add('state', 'entity', [
+            ->add('state', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', [
                 'class'   => 'Kreta\Component\Workflow\Model\Status',
                 'choices' => $options['workflow']->getStatuses(),
             ])
-            ->add('initials', null, [
+            ->add('initials', 'Symfony\Component\Form\Extension\Core\Type\TextType', [
                 'mapped' => false
             ]);
     }
@@ -48,14 +48,6 @@ class StatusTransitionType extends AbstractType
     {
         parent::configureOptions($resolver);
         $resolver->setRequired(['workflow']);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'kreta_workflow_status_transition_type';
     }
 
     /**

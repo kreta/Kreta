@@ -29,7 +29,7 @@ class RegistrationType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('plainPassword', 'repeated');
+        $builder->add('plainPassword', 'Symfony\Component\Form\Extension\Core\Type\RepeatedType');
     }
 
     /**
@@ -38,14 +38,6 @@ class RegistrationType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(['csrf_protection' => true, 'data_class' => $this->dataClass]);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'kreta_user_registration_type';
     }
 
     /**

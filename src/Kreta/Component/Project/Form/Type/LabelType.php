@@ -32,7 +32,7 @@ class LabelType extends AbstractType
         parent::buildForm($builder, $options);
         $builder->add('name');
     }
-    
+
     /**
      * {@inheritdoc}
      */
@@ -40,14 +40,6 @@ class LabelType extends AbstractType
     {
         parent::configureOptions($resolver);
         $resolver->setRequired(['project']);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'kreta_project_label_type';
     }
 
     /**

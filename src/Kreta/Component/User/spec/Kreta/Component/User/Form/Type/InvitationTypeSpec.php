@@ -48,9 +48,4 @@ class InvitationTypeSpec extends ObjectBehavior
 
         $this->buildForm($builder, []);
     }
-
-    function it_gets_name()
-    {
-        $this->getName()->shouldReturn('kreta_user_invitation_type');
-    }
 }

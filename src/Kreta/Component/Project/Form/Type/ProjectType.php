@@ -31,23 +31,15 @@ class ProjectType extends AbstractType
         $builder
             ->add('name')
             ->add('shortName')
-            ->add('image', 'file', [
+            ->add('image', 'Symfony\Component\Form\Extension\Core\Type\FileType', [
                 'required' => false,
                 'mapped'   => false
             ])
-            ->add('workflow', 'entity', [
+            ->add('workflow', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', [
                 'class'    => 'Kreta\Component\Workflow\Model\Workflow',
                 'required' => false,
                 'mapped'   => false
             ]);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'kreta_project_project_type';
     }
 
     /**

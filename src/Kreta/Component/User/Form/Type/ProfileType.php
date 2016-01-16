@@ -33,15 +33,10 @@ class ProfileType extends AbstractType
             ->add('username')
             ->add('firstName')
             ->add('lastName')
-            ->add('photo', 'file', ['required' => false, 'mapped' => false]);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'kreta_user_profile_type';
+            ->add('photo', 'Symfony\Component\Form\Extension\Core\Type\FileType', [
+                'required' => false,
+                'mapped'   => false,
+            ]);
     }
 
     /**

@@ -21,4 +21,4 @@ services:
             - @kreta_notification.factory.notification
             - @security.token_storage
         tags:
-            - { name: form.type, alias: 'kreta_notification_notification_type' }
+            - { name: form.type }

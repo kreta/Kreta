@@ -24,4 +24,4 @@ services:
             - null
             - @kreta_project.form_type.label
         tags:
-            - { name: form.type, alias: 'kreta_issue_issue_type' }
+            - { name: form.type }

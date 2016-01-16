@@ -36,7 +36,7 @@ services:
             - null
             - [invitation]
         tags:
-            - { name: form.type, alias: 'kreta_user_invitation_type' }
+            - { name: form.type }
 
     kreta_user.form_type.profile:
         class: %kreta_user.form_type.profile.class%
@@ -47,7 +47,7 @@ services:
             - null
             - [profile]
         tags:
-            - { name: form.type, alias: 'kreta_user_profile_type' }
+            - { name: form.type }
 
     kreta_user.form_type.registration:
         class: %kreta_user.form_type.registration.class%
@@ -58,5 +58,5 @@ services:
             - null
             - [registration]
         tags:
-            - { name: form.type, alias: 'kreta_user_registration_type' }
+            - { name: form.type }
 

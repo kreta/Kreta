@@ -37,14 +37,6 @@ class InvitationType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getName()
-    {
-        return 'kreta_user_invitation_type';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     protected function createEmptyData(FormInterface $form)
     {
         return $this->factory->create(

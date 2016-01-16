@@ -29,7 +29,7 @@ services:
             - @kreta_workflow.factory.status
             - @security.token_storage
         tags:
-            - { name: form.type, alias: 'kreta_workflow_status_type' }
+            - { name: form.type }
     kreta_workflow.form_type.status_transition:
         class: %kreta_workflow.form_type.status_transition.class%
         arguments:
@@ -38,7 +38,7 @@ services:
             - @security.token_storage
             - @doctrine.orm.entity_manager
         tags:
-            - { name: form.type, alias: 'kreta_workflow_status_transition_type' }
+            - { name: form.type }
     kreta_workflow.form_type.workflow:
         class: %kreta_workflow.form_type.workflow.class%
         arguments:
@@ -46,4 +46,4 @@ services:
             - @kreta_workflow.factory.workflow
             - @security.token_storage
         tags:
-            - { name: form.type, alias: 'kreta_workflow_workflow_type' }
+            - { name: form.type }

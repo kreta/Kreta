@@ -33,7 +33,7 @@ class ParticipantType extends AbstractType
         parent::buildForm($builder, $options);
         $builder
             ->add('role', 'kreta_project_role_type')
-            ->add('user', 'entity', [
+            ->add('user', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', [
                 'class'   => 'Kreta\Component\User\Model\User',
                 'choices' => $options['users']
             ]);
@@ -48,14 +48,6 @@ class ParticipantType extends AbstractType
         $resolver
             ->setRequired(['project'])
             ->setDefaults(['users' => []]);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'kreta_project_participant_type';
     }
 
     /**

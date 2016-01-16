@@ -44,14 +44,9 @@ class ProfileTypeSpec extends ObjectBehavior
         $builder->add('username')->shouldBeCalled()->willReturn($builder);
         $builder->add('firstName')->shouldBeCalled()->willReturn($builder);
         $builder->add('lastName')->shouldBeCalled()->willReturn($builder);
-        $builder->add('photo', 'file', ['required' => false, 'mapped' => false])
+        $builder->add('photo', 'Symfony\Component\Form\Extension\Core\Type\FileType', ['required' => false, 'mapped' => false])
             ->shouldBeCalled()->willReturn($builder);
 
         $this->buildForm($builder, []);
-    }
-
-    function it_gets_name()
-    {
-        $this->getName()->shouldReturn('kreta_user_profile_type');
     }
 }

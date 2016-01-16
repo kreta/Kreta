@@ -28,6 +28,7 @@ framework:
     trusted_proxies: ~
     test: ~
     session:
+        cookie_httponly: false
         storage_id: session.storage.mock_file
     fragments: ~
     http_method_override: true
