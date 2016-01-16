@@ -11,15 +11,15 @@ services:
     kreta_workflow.form_handler.status:
         parent: kreta_core.form_handler.handler
         arguments:
-            - kreta_workflow_status_type
+            - Kreta\Component\Workflow\Form\Type\StatusType
     kreta_workflow.form_handler.status_transition:
         parent: kreta_core.form_handler.handler
         arguments:
-            - kreta_workflow_status_transition_type
+            - Kreta\Component\Workflow\Form\Type\StatusTransitionType
     kreta_workflow.form_handler.workflow:
         parent: kreta_core.form_handler.handler
         arguments:
-            - kreta_workflow_workflow_type
+            - Kreta\Component\Workflow\Form\Type\WorkflowType
 
 #### TYPES ####
     kreta_workflow.form_type.status:

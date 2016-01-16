@@ -11,7 +11,7 @@ services:
     kreta_user.form_handler.invitation:
         parent: kreta_core.form_handler.handler
         arguments:
-            - kreta_user_invitation_type
+            - Kreta\Component\User\Form\Type\InvitationType
 
     kreta_user.form_handler.profile:
         class: %kreta_user.form_user_handler.class%
@@ -24,7 +24,7 @@ services:
     kreta_user.form_handler.registration:
         parent: kreta_core.form_handler.handler
         arguments:
-            - kreta_user_registration_type
+            - Kreta\Component\User\Form\Type\RegistrationType
 
 #### TYPES ####
     kreta_user.form_type.invitation:

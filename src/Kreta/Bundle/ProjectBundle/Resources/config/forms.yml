@@ -11,22 +11,22 @@ services:
     kreta_project.form_handler.label:
         parent: kreta_core.form_handler.handler
         arguments:
-            - kreta_project_label_type
+            - Kreta\Component\Project\Form\Type\LabelType
     kreta_project.form_handler.issue_priority:
         parent: kreta_core.form_handler.handler
         arguments:
-            - kreta_project_issue_priority_type
+            - Kreta\Component\Project\Form\Type\PriorityType
     kreta_project.form_handler.project:
         class: %kreta_project.form_handler.project.class%
         parent: kreta_core.form_handler.handler
         arguments:
-            - kreta_project_project_type
+            - Kreta\Component\Project\Form\Type\ProjectType
             - @kreta_media.factory.media
             - @kreta_project.uploader.image_project
     kreta_project.form_handler.participant:
         parent: kreta_core.form_handler.handler
         arguments:
-            - kreta_project_participant_type
+            - Kreta\Component\Project\Form\Type\ParticipantType
 
 #### TYPES ####
     kreta_project.form_type.label:

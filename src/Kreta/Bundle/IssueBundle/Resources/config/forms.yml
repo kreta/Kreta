@@ -11,7 +11,7 @@ services:
     kreta_issue.form_handler.issue:
         parent: kreta_core.form_handler.handler
         arguments:
-            - kreta_issue_issue_type
+            - Kreta\Component\Issue\Form\Type\IssueType
 
 #### TYPES ####
     kreta_issue.form_type.issue:

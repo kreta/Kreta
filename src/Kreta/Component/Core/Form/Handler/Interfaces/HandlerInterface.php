@@ -32,6 +32,7 @@ interface HandlerInterface
      *
      * @return mixed
      * @throws \Kreta\Component\Core\Form\Exception\InvalidFormException
+     * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      */
     public function processForm(Request $request, $object = null, array $formOptions = []);
 
@@ -46,6 +47,7 @@ interface HandlerInterface
      *
      * @return \Symfony\Component\Form\FormInterface
      * @throws \Kreta\Component\Core\Form\Exception\InvalidFormException
+     * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      */
     public function handleForm(Request $request, $object = null, array $formOptions = []);
 
@@ -59,6 +61,7 @@ interface HandlerInterface
      * @param array       $formOptions Array which contains the options that will be passed
      *
      * @return \Symfony\Component\Form\FormInterface
+     * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
      */
     public function createForm($object = null, array $formOptions = []);
 }

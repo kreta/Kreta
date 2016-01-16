@@ -11,7 +11,7 @@ services:
     kreta_notification.form_handler.notification:
         parent: kreta_core.form_handler.handler
         arguments:
-            - kreta_notification_notification_type
+            - Kreta\Component\Notification\Form\Type\NotificationType
 
 #### TYPES ####
     kreta_notification.form_type.notifcation:
