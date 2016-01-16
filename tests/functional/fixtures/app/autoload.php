@@ -12,8 +12,9 @@
 
 use Doctrine\Common\Annotations\AnnotationRegistry;
 
+error_reporting(error_reporting() & ~E_USER_DEPRECATED);
+
 $loader = require __DIR__ . '/../../../../vendor/autoload.php';
 AnnotationRegistry::registerLoader([$loader, 'loadClass']);
-require __DIR__ . '/AppKernel.php';
 
 return $loader;

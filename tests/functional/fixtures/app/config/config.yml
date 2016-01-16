@@ -12,7 +12,7 @@ imports:
     - { resource: doctrine.yml }
 
 framework:
-    translator: { fallback: "%locale%" }
+    translator: { fallbacks: ["%locale%"] }
     secret: "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -32,6 +32,11 @@ framework:
         storage_id: session.storage.mock_file
     fragments: ~
     http_method_override: true
+    assets: ~
+
+web_profiler:
+    toolbar: false
+    intercept_redirects: false
 
 twig:
     debug: "%kernel.debug%"
