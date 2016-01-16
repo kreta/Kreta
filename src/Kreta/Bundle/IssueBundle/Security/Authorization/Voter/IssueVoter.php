@@ -45,7 +45,7 @@ class IssueVoter extends AbstractVoter
     /**
      * {@inheritdoc}
      */
-    public function checkAttribute(UserInterface $user, $issue, $attribute)
+    protected function checkAttribute(UserInterface $user, $issue, $attribute)
     {
         switch ($attribute) {
             case self::ASSIGN:

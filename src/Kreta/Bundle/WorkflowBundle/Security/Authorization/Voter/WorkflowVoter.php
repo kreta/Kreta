@@ -44,7 +44,7 @@ class WorkflowVoter extends AbstractVoter
     /**
      * {@inheritdoc}
      */
-    public function checkAttribute(UserInterface $user, $workflow, $attribute)
+    protected function checkAttribute(UserInterface $user, $workflow, $attribute)
     {
         switch ($attribute) {
             case self::EDIT:
