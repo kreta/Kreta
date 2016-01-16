@@ -40,7 +40,8 @@
     "autoload": {
         "psr-4": {
             "Kreta\\Component\\Issue\\": ""
-        }
+        },
+        "exclude-from-classmap": ["/spec/"]
     },
     "autoload-dev": {
         "psr-4": {

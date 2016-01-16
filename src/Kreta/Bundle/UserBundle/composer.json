@@ -46,7 +46,8 @@
     "autoload": {
         "psr-4": {
             "Kreta\\Bundle\\UserBundle\\": ""
-        }
+        },
+        "exclude-from-classmap": ["/spec/"]
     },
     "autoload-dev": {
         "psr-4": {
