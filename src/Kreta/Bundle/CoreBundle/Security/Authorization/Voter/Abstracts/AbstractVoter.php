@@ -36,7 +36,11 @@ abstract class AbstractVoter implements VoterInterface
     protected $supportedClass;
 
     /**
-     * {@inheritdoc}
+     * Checks if the voter supports the given attribute.
+     *
+     * @param string $attribute An attribute
+     *
+     * @return bool true if this Voter supports the attribute, false otherwise
      */
     public function supportsAttribute($attribute)
     {
@@ -44,7 +48,11 @@ abstract class AbstractVoter implements VoterInterface
     }
 
     /**
-     * {@inheritdoc}
+     * Checks if the voter supports the given class.
+     *
+     * @param string $class A class name
+     *
+     * @return bool true if this Voter can process the class
      */
     public function supportsClass($class)
     {
@@ -87,5 +95,5 @@ abstract class AbstractVoter implements VoterInterface
      *
      * @return int
      */
-    abstract public function checkAttribute(UserInterface $user, $object, $attribute);
+    abstract protected function checkAttribute(UserInterface $user, $object, $attribute);
 }

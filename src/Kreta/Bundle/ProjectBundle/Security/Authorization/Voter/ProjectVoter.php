@@ -61,7 +61,7 @@ class ProjectVoter extends AbstractVoter
     /**
      * {@inheritdoc}
      */
-    public function checkAttribute(UserInterface $user, $project, $attribute)
+    protected function checkAttribute(UserInterface $user, $project, $attribute)
     {
         switch ($attribute) {
             case self::ADD_PARTICIPANT:
