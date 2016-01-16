@@ -11,5 +11,5 @@ services:
         class: %kreta_core.form_handler.handler.class%
         abstract: true
         arguments:
-            - @form.factory
-            - @doctrine.orm.entity_manager
+            - '@form.factory'
+            - '@doctrine.orm.entity_manager'

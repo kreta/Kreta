@@ -10,21 +10,21 @@ services:
     kreta_workflow.repository.workflow:
         class: %kreta_workflow.repository_workflow.class%
         factory:
-            - @doctrine.orm.entity_manager
+            - '@doctrine.orm.entity_manager'
             - getRepository
         arguments:
             - %kreta_workflow.workflow.class%
     kreta_workflow.repository.status:
         class: %kreta_workflow.repository_status.class%
         factory:
-            - @doctrine.orm.entity_manager
+            - '@doctrine.orm.entity_manager'
             - getRepository
         arguments:
             - %kreta_workflow.status.class%
     kreta_workflow.repository.status_transition:
         class: %kreta_workflow.repository_status_transition.class%
         factory:
-            - @doctrine.orm.entity_manager
+            - '@doctrine.orm.entity_manager'
             - getRepository
         arguments:
             - %kreta_workflow.status_transition.class%

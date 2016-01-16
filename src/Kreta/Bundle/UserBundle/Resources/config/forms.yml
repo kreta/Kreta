@@ -18,8 +18,8 @@ services:
         parent: kreta_core.form_handler.handler
         arguments:
             - Kreta\Component\User\Form\Type\ProfileType
-            - @kreta_media.factory.media
-            - @kreta_user.uploader.image_user
+            - '@kreta_media.factory.media'
+            - '@kreta_user.uploader.image_user'
 
     kreta_user.form_handler.registration:
         parent: kreta_core.form_handler.handler
@@ -31,8 +31,8 @@ services:
         class: %kreta_user.form_type.invitation.class%
         arguments:
             - %kreta_user.user.class%
-            - @kreta_user.factory.user
-            - @security.token_storage
+            - '@kreta_user.factory.user'
+            - '@security.token_storage'
             - null
             - [invitation]
         tags:
@@ -42,8 +42,8 @@ services:
         class: %kreta_user.form_type.profile.class%
         arguments:
             - %kreta_user.user.class%
-            - @kreta_user.factory.user
-            - @security.token_storage
+            - '@kreta_user.factory.user'
+            - '@security.token_storage'
             - null
             - [profile]
         tags:
@@ -53,7 +53,7 @@ services:
         class: %kreta_user.form_type.registration.class%
         arguments:
             - %kreta_user.user.class%
-            - @kreta_user.factory.user
+            - '@kreta_user.factory.user'
             - null
             - null
             - [registration]

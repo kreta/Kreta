@@ -71,7 +71,7 @@ class StatusTypeSpec extends ObjectBehavior
             ->shouldBeCalled()->willReturn($resolver);
         $resolver->setDefaults(Argument::withEntry('empty_data', Argument::type('closure')))
             ->shouldBeCalled()->willReturn($resolver);
-        $resolver->setOptional(['workflow'])->shouldBeCalled()->willReturn($resolver);
+        $resolver->setDefined(['workflow'])->shouldBeCalled()->willReturn($resolver);
 
         $this->configureOptions($resolver);
     }

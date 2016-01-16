@@ -16,13 +16,13 @@ services:
         class: %kreta_core.event_listener.resource_if_allowed_annotation.class%
         abstract: true
         arguments:
-            - @annotations.reader
-            - @security.authorization_checker
+            - '@annotations.reader'
+            - '@security.authorization_checker'
 
     kreta_core.event_listener.role_annotation:
         class: %kreta_core.event_listener.role_annotation.class%
         arguments:
-            - @annotations.reader
-            - @security.token_storage
+            - '@annotations.reader'
+            - '@security.token_storage'
         tags:
             - { name: kernel.event_listener, event: kernel.controller, method: onRoleAnnotationMethod }

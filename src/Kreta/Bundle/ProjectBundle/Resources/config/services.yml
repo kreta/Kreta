@@ -18,11 +18,11 @@ services:
     kreta_project.uploader.image_project:
         class: %kreta_media.uploader_media.class%
         arguments:
-            - @kreta_project.uploader_filesystem.image_project
+            - '@kreta_project.uploader_filesystem.image_project'
     kreta_project.uploader_filesystem.image_project:
         class: Gaufrette\Filesystem
         factory:
-            - @knp_gaufrette.filesystem_map
+            - '@knp_gaufrette.filesystem_map'
             - get
         arguments:
             - %projects.image.uploader.filesystem%

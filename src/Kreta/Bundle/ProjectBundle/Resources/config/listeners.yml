@@ -10,6 +10,6 @@ services:
     kreta_project.event_listener.project_if_allowed_annotation:
         parent: kreta_core.event_listener.resource_if_allowed_annotation
         arguments:
-            - @kreta_project.repository.project
+            - '@kreta_project.repository.project'
         tags:
             - { name: kernel.event_listener, event: kernel.controller, method: onResourceIfAllowedAnnotationMethod }

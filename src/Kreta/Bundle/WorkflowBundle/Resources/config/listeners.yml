@@ -10,6 +10,6 @@ services:
     kreta_workflow.event_listener.workflow_if_allowed_annotation:
         parent: kreta_core.event_listener.resource_if_allowed_annotation
         arguments:
-            - @kreta_workflow.repository.workflow
+            - '@kreta_workflow.repository.workflow'
         tags:
             - { name: kernel.event_listener, event: kernel.controller, method: onResourceIfAllowedAnnotationMethod }

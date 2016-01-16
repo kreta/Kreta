@@ -51,7 +51,7 @@ class StatusType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         parent::configureOptions($resolver);
-        $resolver->setOptional(['workflow']);
+        $resolver->setDefined(['workflow']);
     }
 
     /**

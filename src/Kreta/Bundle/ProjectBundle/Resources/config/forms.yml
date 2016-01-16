@@ -21,8 +21,8 @@ services:
         parent: kreta_core.form_handler.handler
         arguments:
             - Kreta\Component\Project\Form\Type\ProjectType
-            - @kreta_media.factory.media
-            - @kreta_project.uploader.image_project
+            - '@kreta_media.factory.media'
+            - '@kreta_project.uploader.image_project'
     kreta_project.form_handler.participant:
         parent: kreta_core.form_handler.handler
         arguments:
@@ -33,31 +33,31 @@ services:
         class: %kreta_project.form_type.label.class%
         arguments:
             - %kreta_project.label.class%
-            - @kreta_project.factory.label
-            - @security.token_storage
+            - '@kreta_project.factory.label'
+            - '@security.token_storage'
         tags:
             - { name: form.type }
     kreta_project.form_type.issue_priority:
         class: %kreta_project.form_type.issue_priority.class%
         arguments:
             - %kreta_project.issue_priority.class%
-            - @kreta_project.factory.issue_priority
+            - '@kreta_project.factory.issue_priority'
         tags:
             - { name: form.type }
     kreta_project.form_type.project:
         class: %kreta_project.form_type.project.class%
         arguments:
             - %kreta_project.project.class%
-            - @kreta_project.factory.project
-            - @security.token_storage
+            - '@kreta_project.factory.project'
+            - '@security.token_storage'
         tags:
             - { name: form.type }
     kreta_project.form_type.participant:
         class: %kreta_project.form_type.participant.class%
         arguments:
             - %kreta_project.participant.class%
-            - @kreta_project.factory.participant
-            - @security.token_storage
+            - '@kreta_project.factory.participant'
+            - '@security.token_storage'
         tags:
             - { name: form.type }
     kreta_project.form_type.role:
