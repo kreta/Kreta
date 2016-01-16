@@ -27,7 +27,7 @@
     "require": {
         "php":             ">=5.4",
         "kreta/issue":     "^0.4.0",
-        "yohang/finite":   "^1.1.0"
+        "yohang/finite":   "^1.1"
     },
     "require-dev": {
         "phpspec/phpspec": "^2.3"

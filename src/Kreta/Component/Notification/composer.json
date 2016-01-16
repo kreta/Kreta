@@ -27,7 +27,7 @@
     "require": {
         "php":                        ">=5.4",
         "kreta/project":              "^0.4.0",
-        "symfony/routing":            "^2.7",
+        "symfony/routing":            "^2.7|^3.0",
         "symfony/swiftmailer-bundle": "^2.3"
     },
     "require-dev": {

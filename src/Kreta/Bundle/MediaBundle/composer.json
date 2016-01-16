@@ -26,8 +26,8 @@
     ],
     "require": {
         "php":                          ">=5.4",
-        "knplabs/knp-gaufrette-bundle": "^0.1.7",
-        "kreta/core-bundle":            "~0.4.0",
+        "knplabs/knp-gaufrette-bundle": "^0.3",
+        "kreta/core-bundle":            "^0.4.0",
         "kreta/media":                  "^0.4.0"
     },
     "require-dev": {

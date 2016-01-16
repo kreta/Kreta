@@ -26,14 +26,14 @@
     ],
     "require": {
         "php":                                  ">=5.4",
-        "symfony/framework-bundle":             "~2.7",
-        "friendsofsymfony/oauth-server-bundle": "~1.4,>=1.4.3",
-        "friendsofsymfony/rest-bundle":         "1.6.x",
-        "jms/serializer-bundle":                "0.13.x",
+        "symfony/framework-bundle":             "^2.7|^3.0",
+        "friendsofsymfony/oauth-server-bundle": "^1.4.3",
+        "friendsofsymfony/rest-bundle":         "^1.7",
+        "jms/serializer-bundle":                "^1.1",
         "kreta/core":                           "^0.4.0",
-        "kreta/simple-api-doc-bundle":          "^0.2",
-        "nelmio/cors-bundle":                   "1.3.x",
-        "willdurand/hateoas-bundle":            "0.5.x"
+        "kreta/simple-api-doc-bundle":          "^0.3.3",
+        "nelmio/cors-bundle":                   "^1.4",
+        "willdurand/hateoas-bundle":            "^1.1"
     },
     "require-dev": {
         "phpspec/phpspec":                      "^2.3"
