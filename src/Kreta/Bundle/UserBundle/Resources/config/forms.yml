@@ -17,7 +17,7 @@ services:
         class: %kreta_user.form_user_handler.class%
         parent: kreta_core.form_handler.handler
         arguments:
-            - kreta_user_profile_type
+            - Kreta\Component\User\Form\Type\ProfileType
             - @kreta_media.factory.media
             - @kreta_user.uploader.image_user
 

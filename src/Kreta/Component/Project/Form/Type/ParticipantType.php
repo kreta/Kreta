@@ -32,10 +32,10 @@ class ParticipantType extends AbstractType
     {
         parent::buildForm($builder, $options);
         $builder
-            ->add('role', 'kreta_project_role_type')
+            ->add('role', 'Kreta\Component\Project\Form\Type\RoleType')
             ->add('user', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', [
                 'class'   => 'Kreta\Component\User\Model\User',
-                'choices' => $options['users']
+                'choices' => $options['users'],
             ]);
     }
 
@@ -59,6 +59,7 @@ class ParticipantType extends AbstractType
         if (!($user instanceof UserInterface)) {
             $user = $this->user;
         }
+
         return $this->factory->create($this->options['project'], $user, $form->get('role')->getData());
     }
 }

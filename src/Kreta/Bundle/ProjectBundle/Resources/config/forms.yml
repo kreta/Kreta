@@ -15,7 +15,7 @@ services:
     kreta_project.form_handler.issue_priority:
         parent: kreta_core.form_handler.handler
         arguments:
-            - Kreta\Component\Project\Form\Type\PriorityType
+            - Kreta\Component\Project\Form\Type\IssuePriorityType
     kreta_project.form_handler.project:
         class: %kreta_project.form_handler.project.class%
         parent: kreta_core.form_handler.handler
