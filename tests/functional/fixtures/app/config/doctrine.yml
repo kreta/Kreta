@@ -15,10 +15,6 @@ doctrine:
         user: "%database_user%"
         password: "%database_password%"
         charset: UTF8
-        default_table_options:
-            charset: utf8mb4
-            collate: utf8mb4_unicode_ci
-            engine: InnoDB
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
         naming_strategy: doctrine.orm.naming_strategy.underscore

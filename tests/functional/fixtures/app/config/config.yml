@@ -72,6 +72,12 @@ fos_rest:
         array_normalizer: fos_rest.normalizer.camel_keys
     view:
         view_response_listener: force
+        formats:
+            json: true
+            xml: true
+        mime_types:
+            json: ['application/json', 'application/x-json']
+            xml: ['application/xml', 'application/xml']
     serializer:
         serialize_null: true
 
