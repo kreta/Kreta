@@ -34,10 +34,6 @@ framework:
     http_method_override: true
     assets: ~
 
-web_profiler:
-    toolbar: false
-    intercept_redirects: false
-
 twig:
     debug: "%kernel.debug%"
     strict_variables: "%kernel.debug%"
