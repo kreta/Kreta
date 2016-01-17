@@ -28,15 +28,7 @@ class WorkflowType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $builder->add('name', 'text');
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'kreta_workflow_workflow_type';
+        $builder->add('name', 'Symfony\Component\Form\Extension\Core\Type\TextType');
     }
 
     /**

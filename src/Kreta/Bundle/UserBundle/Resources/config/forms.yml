@@ -11,52 +11,52 @@ services:
     kreta_user.form_handler.invitation:
         parent: kreta_core.form_handler.handler
         arguments:
-            - kreta_user_invitation_type
+            - Kreta\Component\User\Form\Type\InvitationType
 
     kreta_user.form_handler.profile:
         class: %kreta_user.form_user_handler.class%
         parent: kreta_core.form_handler.handler
         arguments:
-            - kreta_user_profile_type
-            - @kreta_media.factory.media
-            - @kreta_user.uploader.image_user
+            - Kreta\Component\User\Form\Type\ProfileType
+            - '@kreta_media.factory.media'
+            - '@kreta_user.uploader.image_user'
 
     kreta_user.form_handler.registration:
         parent: kreta_core.form_handler.handler
         arguments:
-            - kreta_user_registration_type
+            - Kreta\Component\User\Form\Type\RegistrationType
 
 #### TYPES ####
     kreta_user.form_type.invitation:
         class: %kreta_user.form_type.invitation.class%
         arguments:
             - %kreta_user.user.class%
-            - @kreta_user.factory.user
-            - @security.token_storage
+            - '@kreta_user.factory.user'
+            - '@security.token_storage'
             - null
             - [invitation]
         tags:
-            - { name: form.type, alias: 'kreta_user_invitation_type' }
+            - { name: form.type }
 
     kreta_user.form_type.profile:
         class: %kreta_user.form_type.profile.class%
         arguments:
             - %kreta_user.user.class%
-            - @kreta_user.factory.user
-            - @security.token_storage
+            - '@kreta_user.factory.user'
+            - '@security.token_storage'
             - null
             - [profile]
         tags:
-            - { name: form.type, alias: 'kreta_user_profile_type' }
+            - { name: form.type }
 
     kreta_user.form_type.registration:
         class: %kreta_user.form_type.registration.class%
         arguments:
             - %kreta_user.user.class%
-            - @kreta_user.factory.user
+            - '@kreta_user.factory.user'
             - null
             - null
             - [registration]
         tags:
-            - { name: form.type, alias: 'kreta_user_registration_type' }
+            - { name: form.type }
 

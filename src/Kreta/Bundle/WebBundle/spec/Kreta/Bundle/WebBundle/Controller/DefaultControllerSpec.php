@@ -62,6 +62,7 @@ class DefaultControllerSpec extends ObjectBehavior
         $context->getToken()->shouldBeCalled()->willReturn($token);
         $token->getUser()->shouldBeCalled()->willReturn(null);
 
+        $container->has('templating')->shouldBeCalled()->willReturn(true);
         $container->get('templating')->shouldBeCalled()->willReturn($engine);
         $engine->renderResponse('KretaWebBundle::layout.html.twig');
 
@@ -93,6 +94,7 @@ class DefaultControllerSpec extends ObjectBehavior
             'kreta_user_event_cookie', Argument::type('Kreta\Bundle\UserBundle\Event\CookieEvent')
         )->shouldBeCalled()->willReturn($event);
 
+        $container->has('templating')->shouldBeCalled()->willReturn(true);
         $container->get('templating')->shouldBeCalled()->willReturn($engine);
         $event->getResponse()->shouldBeCalled()->willReturn($response);
         $engine->renderResponse('KretaWebBundle:Default:app.html.twig', [], $response);
@@ -102,6 +104,7 @@ class DefaultControllerSpec extends ObjectBehavior
 
     function it_renders_dashboard(ContainerInterface $container, TwigEngine $engine, Response $response)
     {
+        $container->has('templating')->shouldBeCalled()->willReturn(true);
         $container->get('templating')->shouldBeCalled()->willReturn($engine);
         $engine->renderResponse('KretaWebBundle:Default:app.html.twig', [], $response);
 

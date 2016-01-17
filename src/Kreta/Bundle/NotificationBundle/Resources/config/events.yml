@@ -12,6 +12,6 @@ services:
 
     kreta_notification.notifiable_event.issue:
         class: Kreta\Component\Notification\NotifiableEvent\IssueEvents
-        arguments: [@kreta_notification.factory.notification, @router]
+        arguments: ['@kreta_notification.factory.notification', '@router']
         tags:
             - { name: kreta_notification.notifiable_event, label: issue }

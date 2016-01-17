@@ -29,10 +29,11 @@ class RoleType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'choices' => [
+            'choices'           => [
                 ParticipantInterface::ADMIN       => 'ROLE_ADMIN',
-                ParticipantInterface::PARTICIPANT => 'ROLE_PARTICIPANT'
-            ]
+                ParticipantInterface::PARTICIPANT => 'ROLE_PARTICIPANT',
+            ],
+            'choices_as_values' => true,
         ]);
     }
 
@@ -41,14 +42,6 @@ class RoleType extends AbstractType
      */
     public function getParent()
     {
-        return 'choice';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'kreta_project_role_type';
+        return 'Symfony\Component\Form\Extension\Core\Type\ChoiceType';
     }
 }

@@ -70,9 +70,4 @@ class IssuePriorityTypeSpec extends ObjectBehavior
 
         $this->configureOptions($resolver);
     }
-
-    function it_gets_name()
-    {
-        $this->getName()->shouldReturn('kreta_project_issue_priority_type');
-    }
 }

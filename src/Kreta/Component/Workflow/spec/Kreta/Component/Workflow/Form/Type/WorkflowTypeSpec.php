@@ -51,13 +51,9 @@ class WorkflowTypeSpec extends ObjectBehavior
 
     function it_builds_a_form(FormBuilderInterface $builder)
     {
-        $builder->add('name', 'text')->shouldBeCalled()->willReturn($builder);
+        $builder->add('name', 'Symfony\Component\Form\Extension\Core\Type\TextType')
+            ->shouldBeCalled()->willReturn($builder);
 
         $this->buildForm($builder, []);
-    }
-
-    function it_gets_name()
-    {
-        $this->getName()->shouldReturn('kreta_workflow_workflow_type');
     }
 }

@@ -41,13 +41,9 @@ class RegistrationTypeSpec extends ObjectBehavior
 
     function it_builds_a_form(FormBuilder $builder)
     {
-        $builder->add('plainPassword', 'repeated')->shouldBeCalled()->willReturn($builder);
+        $builder->add('plainPassword', 'Symfony\Component\Form\Extension\Core\Type\RepeatedType')
+            ->shouldBeCalled()->willReturn($builder);
 
         $this->buildForm($builder, []);
-    }
-
-    function it_gets_name()
-    {
-        $this->getName()->shouldReturn('kreta_user_registration_type');
     }
 }

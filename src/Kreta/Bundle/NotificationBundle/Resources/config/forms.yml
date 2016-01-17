@@ -11,14 +11,14 @@ services:
     kreta_notification.form_handler.notification:
         parent: kreta_core.form_handler.handler
         arguments:
-            - kreta_notification_notification_type
+            - Kreta\Component\Notification\Form\Type\NotificationType
 
 #### TYPES ####
     kreta_notification.form_type.notifcation:
         class: %kreta_notification.form_type.notification.class%
         arguments:
             - %kreta_notification.notification.class%
-            - @kreta_notification.factory.notification
-            - @security.token_storage
+            - '@kreta_notification.factory.notification'
+            - '@security.token_storage'
         tags:
-            - { name: form.type, alias: 'kreta_notification_notification_type' }
+            - { name: form.type }

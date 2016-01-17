@@ -13,7 +13,7 @@
 namespace Kreta\Component\Workflow\Model;
 
 use Doctrine\ORM\NoResultException;
-use Finite\Transition\Transition;
+use Finite\StateMachine\StateMachineInterface;
 use Kreta\Component\Core\Exception\CollectionMinLengthException;
 use Kreta\Component\Core\Exception\ResourceAlreadyPersistException;
 use Kreta\Component\Workflow\Model\Interfaces\StatusInterface;
@@ -24,7 +24,7 @@ use Kreta\Component\Workflow\Model\Interfaces\StatusTransitionInterface;
  *
  * @package Kreta\Component\Workflow\Model
  */
-class StatusTransition extends Transition implements StatusTransitionInterface
+class StatusTransition implements StatusTransitionInterface
 {
     /**
      * The id.
@@ -34,12 +34,17 @@ class StatusTransition extends Transition implements StatusTransitionInterface
     protected $id;
 
     /**
-     * {@inheritdoc}
+     * Array which contains the
+     * initial status transitions.
+     *
+     * @var array
      */
     protected $initialStates;
 
     /**
-     * {@inheritdoc}
+     * The name.
+     *
+     * @var string
      */
     protected $name;
 
@@ -67,7 +72,9 @@ class StatusTransition extends Transition implements StatusTransitionInterface
      */
     public function __construct($name, array $initialStates = [], StatusInterface $state = null)
     {
-        parent::__construct($name, $initialStates, $state);
+        $this->name = $name;
+        $this->state = $state;
+        $this->initialStates = (array)$initialStates;
 
         if ($state instanceof StatusInterface) {
             $this->workflow = $state->getWorkflow();
@@ -131,6 +138,7 @@ class StatusTransition extends Transition implements StatusTransitionInterface
         foreach ($this->initialStates as $index => $initialStatus) {
             if ($initialStatus->getId() === $status->getId()) {
                 unset($this->initialStates[$index]);
+
                 return $this;
             }
         }
@@ -180,5 +188,54 @@ class StatusTransition extends Transition implements StatusTransitionInterface
         }
 
         return true;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getInitialStates()
+    {
+        return $this->initialStates;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getState()
+    {
+        return $this->state;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function process(StateMachineInterface $stateMachine)
+    {
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getGuard()
+    {
+        return null;
+    }
+
+    /**
+     * Magic method that represents the class in plain string.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->getName();
     }
 }

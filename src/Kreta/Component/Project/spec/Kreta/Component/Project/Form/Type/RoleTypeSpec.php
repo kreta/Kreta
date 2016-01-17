@@ -37,10 +37,11 @@ class RoleTypeSpec extends ObjectBehavior
     function it_sets_default_options(OptionsResolver $resolver)
     {
         $resolver->setDefaults([
-            'choices' => [
+            'choices'           => [
                 ParticipantInterface::ADMIN       => 'ROLE_ADMIN',
-                ParticipantInterface::PARTICIPANT => 'ROLE_PARTICIPANT'
-            ]
+                ParticipantInterface::PARTICIPANT => 'ROLE_PARTICIPANT',
+            ],
+            'choices_as_values' => true,
         ])->shouldBeCalled()->willReturn($resolver);
 
         $this->configureOptions($resolver);
@@ -48,11 +49,6 @@ class RoleTypeSpec extends ObjectBehavior
 
     function it_gets_parent()
     {
-        $this->getParent()->shouldReturn('choice');
-    }
-
-    function it_gets_name()
-    {
-        $this->getName()->shouldReturn('kreta_project_role_type');
+        $this->getParent()->shouldReturn('Symfony\Component\Form\Extension\Core\Type\ChoiceType');
     }
 }

@@ -11,17 +11,17 @@ services:
     kreta_issue.form_handler.issue:
         parent: kreta_core.form_handler.handler
         arguments:
-            - kreta_issue_issue_type
+            - Kreta\Component\Issue\Form\Type\IssueType
 
 #### TYPES ####
     kreta_issue.form_type.issue:
         class: %kreta_issue.form_type.issue.class%
         arguments:
             - %kreta_issue.issue.class%
-            - @kreta_issue.factory.issue
-            - @security.token_storage
+            - '@kreta_issue.factory.issue'
+            - '@security.token_storage'
             - null
             - null
-            - @kreta_project.form_type.label
+            - '@kreta_project.form_type.label'
         tags:
-            - { name: form.type, alias: 'kreta_issue_issue_type' }
+            - { name: form.type }

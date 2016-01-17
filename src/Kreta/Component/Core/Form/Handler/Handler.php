@@ -35,11 +35,11 @@ class Handler implements HandlerInterface
     protected $formFactory;
 
     /**
-     * The name of the form.
+     * The fully qualified namespace class of the form type.
      *
      * @var string
      */
-    protected $formName;
+    protected $fqcn;
 
     /**
      * Manager used to persist and flush the object.
@@ -53,13 +53,13 @@ class Handler implements HandlerInterface
      *
      * @param \Symfony\Component\Form\FormFactoryInterface $formFactory Creates a new Form instance
      * @param \Doctrine\Common\Persistence\ObjectManager   $manager     Persists and flush the object
-     * @param string                                       $formName    The name of the form
+     * @param string                                       $fqcn        The fully qualified namespace class of the form
      */
-    public function __construct(FormFactoryInterface $formFactory, ObjectManager $manager, $formName = 'form')
+    public function __construct(FormFactoryInterface $formFactory, ObjectManager $manager, $fqcn = 'form')
     {
         $this->formFactory = $formFactory;
         $this->manager = $manager;
-        $this->formName = $formName;
+        $this->fqcn = $fqcn;
     }
 
     /**
@@ -99,7 +99,7 @@ class Handler implements HandlerInterface
      */
     public function createForm($object = null, array $formOptions = [])
     {
-        return $this->formFactory->createNamedBuilder('', $this->formName, $object, $formOptions)->getForm();
+        return $this->formFactory->createNamedBuilder('', $this->fqcn, $object, $formOptions)->getForm();
     }
 
     /**

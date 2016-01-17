@@ -37,8 +37,7 @@ class StatusTransitionTypeSpec extends ObjectBehavior
         UserInterface $user,
         StatusTransitionFactory $factory,
         ObjectManager $manager
-    )
-    {
+    ) {
         $context->getToken()->shouldBeCalled()->willReturn($token);
         $token->getUser()->shouldBeCalled()->willReturn($user);
         $this->beConstructedWith('Kreta\Component\Workflow\Model\StatusTransition', $factory, $context, $manager);
@@ -58,12 +57,12 @@ class StatusTransitionTypeSpec extends ObjectBehavior
     {
         $builder->add('name')->shouldBeCalled()->willReturn($builder);
         $workflow->getStatuses()->shouldBeCalled()->willReturn([$status]);
-        $builder->add('state', 'entity', [
+        $builder->add('state', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', [
             'class'   => 'Kreta\Component\Workflow\Model\Status',
-            'choices' => [$status]
+            'choices' => [$status],
         ])->shouldBeCalled()->willReturn($builder);
-        $builder->add('initials', null, [
-            'mapped' => false
+        $builder->add('initials', 'Symfony\Component\Form\Extension\Core\Type\TextType', [
+            'mapped' => false,
         ])->shouldBeCalled()->willReturn($builder);
 
         $this->buildForm($builder, ['workflow' => $workflow]);
@@ -80,10 +79,5 @@ class StatusTransitionTypeSpec extends ObjectBehavior
         $resolver->setRequired(['workflow'])->shouldBeCalled()->willReturn($resolver);
 
         $this->configureOptions($resolver);
-    }
-
-    function it_gets_name()
-    {
-        $this->getName()->shouldReturn('kreta_workflow_status_transition_type');
     }
 }

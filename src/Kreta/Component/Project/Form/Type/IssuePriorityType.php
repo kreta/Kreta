@@ -47,14 +47,6 @@ class IssuePriorityType extends AbstractType
     /**
      * {@inheritdoc}
      */
-    public function getName()
-    {
-        return 'kreta_project_issue_priority_type';
-    }
-
-    /**
-     * {@inheritdoc}
-     */
     public function createEmptyData(FormInterface $form)
     {
         return $this->factory->create(

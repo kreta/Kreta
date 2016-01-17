@@ -12,7 +12,7 @@ imports:
     - { resource: doctrine.yml }
 
 framework:
-    translator: { fallback: "%locale%" }
+    translator: { fallbacks: ["%locale%"] }
     secret: "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -28,9 +28,11 @@ framework:
     trusted_proxies: ~
     test: ~
     session:
+        cookie_httponly: false
         storage_id: session.storage.mock_file
     fragments: ~
     http_method_override: true
+    assets: ~
 
 twig:
     debug: "%kernel.debug%"
@@ -72,6 +74,12 @@ fos_rest:
         array_normalizer: fos_rest.normalizer.camel_keys
     view:
         view_response_listener: force
+        formats:
+            json: true
+            xml: true
+        mime_types:
+            json: ['application/json', 'application/x-json']
+            xml: ['application/xml', 'application/xml']
     serializer:
         serialize_null: true
 

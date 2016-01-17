@@ -15,8 +15,14 @@ node_modules
 npm-debug.log
 /phpspec.yml
 phpspec-coverage.xml
-tests/functional/fixtures/app/cache
-tests/functional/fixtures/app/logs
+tests/functional/fixtures/bin/
+!tests/functional/fixtures/bin/console
+tests/functional/fixtures/var/cache
+tests/functional/fixtures/var/logs
+tests/functional/fixtures/var/sessions/
+!tests/functional/fixtures/var/cache/.gitkeep
+!tests/functional/fixtures/var/logs/.gitkeep
+!tests/functional/fixtures/var/sessions/.gitkeep
 tests/functional/fixtures/web/bundles
 tests/functional/fixtures/web/media
 vendor

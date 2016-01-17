@@ -52,8 +52,8 @@ class ParticipantTypeSpec extends ObjectBehavior
 
     function it_builds_a_form(FormBuilder $builder, UserInterface $user)
     {
-        $builder->add('role', 'kreta_project_role_type')->shouldBeCalled()->willReturn($builder);
-        $builder->add('user', 'entity', [
+        $builder->add('role', 'Kreta\Component\Project\Form\Type\RoleType')->shouldBeCalled()->willReturn($builder);
+        $builder->add('user', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', [
             'class'   => 'Kreta\Component\User\Model\User',
             'choices' => [$user]
         ])->shouldBeCalled()->willReturn($builder);
@@ -73,10 +73,5 @@ class ParticipantTypeSpec extends ObjectBehavior
         $resolver->setDefaults(['users' => []])->shouldBeCalled()->willReturn($resolver);
 
         $this->configureOptions($resolver);
-    }
-
-    function it_gets_name()
-    {
-        $this->getName()->shouldReturn('kreta_project_participant_type');
     }
 }

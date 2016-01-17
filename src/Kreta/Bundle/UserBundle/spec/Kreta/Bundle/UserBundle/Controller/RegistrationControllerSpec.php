@@ -30,6 +30,7 @@ use Symfony\Component\Form\FormView;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Routing\RouterInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -93,6 +94,7 @@ class RegistrationControllerSpec extends ObjectBehavior
         $form->handleRequest($request)->shouldBeCalled()->willReturn($form);
         $form->isValid()->shouldBeCalled()->willReturn(false);
 
+        $container->has('templating')->shouldBeCalled()->willReturn(true);
         $container->get('templating')->shouldBeCalled()->willReturn($engine);
         $form->createView()->shouldBeCalled()->willReturn($formView);
         $engine->renderResponse(
@@ -208,7 +210,8 @@ class RegistrationControllerSpec extends ObjectBehavior
         )->shouldBeCalled()->willReturn($event);
 
         $container->get('router')->shouldBeCalled()->willReturn($router);
-        $router->generate('kreta_web_homepage', [], false)->shouldBeCalled()->willReturn('http://kreta.io/');
+        $router->generate('kreta_web_homepage', [], UrlGeneratorInterface::ABSOLUTE_PATH)
+            ->shouldBeCalled()->willReturn('http://kreta.io/');
 
         $this->registerAction($request);
     }

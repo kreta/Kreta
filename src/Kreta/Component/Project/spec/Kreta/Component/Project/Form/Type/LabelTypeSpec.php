@@ -64,9 +64,4 @@ class LabelTypeSpec extends ObjectBehavior
 
         $this->configureOptions($resolver);
     }
-
-    function it_gets_name()
-    {
-        $this->getName()->shouldReturn('kreta_project_label_type');
-    }
 }

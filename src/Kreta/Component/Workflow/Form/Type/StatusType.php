@@ -34,13 +34,14 @@ class StatusType extends AbstractType
         $builder
             ->add('color')
             ->add('name')
-            ->add('type', 'choice', [
-                'required' => false,
-                'choices'  => [
+            ->add('type', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', [
+                'required'          => false,
+                'choices'           => [
                     StateInterface::TYPE_INITIAL => 'initial',
                     StateInterface::TYPE_NORMAL  => 'normal',
-                    StateInterface::TYPE_FINAL   => 'final'
-                ]
+                    StateInterface::TYPE_FINAL   => 'final',
+                ],
+                'choices_as_values' => true,
             ]);
     }
 
@@ -50,15 +51,7 @@ class StatusType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         parent::configureOptions($resolver);
-        $resolver->setOptional(['workflow']);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'kreta_workflow_status_type';
+        $resolver->setDefined(['workflow']);
     }
 
     /**

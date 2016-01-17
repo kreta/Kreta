@@ -9,6 +9,6 @@
 services:
     kreta_notification.doctrine_event_subscriber:
         class: %kreta_notification.event_subscriber_doctrine.class%
-        arguments: [@kreta_notification.notifiable_event_registry, @kreta_notification.notifier_registry]
+        arguments: ['@kreta_notification.notifiable_event_registry', '@kreta_notification.notifier_registry']
         tags:
             - { name: doctrine.event_subscriber }

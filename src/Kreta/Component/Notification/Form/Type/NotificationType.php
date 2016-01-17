@@ -29,17 +29,13 @@ class NotificationType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         parent::buildForm($builder, $options);
-        $builder->add('read', 'choice', [
-            'choices'  => [true => 'read', false  => 'unread']
+        $builder->add('read', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', [
+            'choices'           => [
+                true  => 'read',
+                false => 'unread',
+            ],
+            'choices_as_values' => true,
         ]);
-    }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'kreta_notification_notification_type';
     }
 
     /**

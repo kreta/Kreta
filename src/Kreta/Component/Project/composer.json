@@ -35,16 +35,13 @@
         {
             "type": "vcs",
             "url": "https://github.com/kreta/FOSUserBundle"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/kreta/Finite"
         }
     ],
     "autoload": {
         "psr-4": {
             "Kreta\\Component\\Project\\": ""
-        }
+        },
+        "exclude-from-classmap": ["/spec/"]
     },
     "autoload-dev": {
         "psr-4": {

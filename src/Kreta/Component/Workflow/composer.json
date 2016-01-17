@@ -27,7 +27,7 @@
     "require": {
         "php":             ">=5.4",
         "kreta/issue":     "^0.4.0",
-        "yohang/finite":   "^1.0,>=1.0.4"
+        "yohang/finite":   "^1.1"
     },
     "require-dev": {
         "phpspec/phpspec": "^2.3"
@@ -36,16 +36,13 @@
         {
             "type": "vcs",
             "url": "https://github.com/kreta/FOSUserBundle"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/kreta/Finite"
         }
     ],
     "autoload": {
         "psr-4": {
             "Kreta\\Component\\Workflow\\": ""
-        }
+        },
+        "exclude-from-classmap": ["/spec/"]
     },
     "autoload-dev": {
         "psr-4": {

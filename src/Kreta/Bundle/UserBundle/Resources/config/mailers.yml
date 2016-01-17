@@ -10,7 +10,7 @@ services:
     kreta_user.mailer:
         class: Kreta\Bundle\UserBundle\Mailer\Mailer
         arguments:
-            - @mailer
-            - @router
-            - @templating
+            - '@mailer'
+            - '@router'
+            - '@templating'
             - { invitation.template: '%kreta_user.invitation.email.template%'}
