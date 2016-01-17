@@ -27,8 +27,8 @@
     "require": {
         "php":                          ">=5.4",
         "knplabs/knp-gaufrette-bundle": "^0.3",
-        "kreta/core-bundle":            "^0.4.0",
-        "kreta/media":                  "^0.4.0"
+        "kreta/core-bundle":            "^0.5.0",
+        "kreta/media":                  "^0.5.0"
     },
     "require-dev": {
         "phpspec/phpspec":              "^2.3"
