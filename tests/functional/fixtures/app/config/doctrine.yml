@@ -8,64 +8,64 @@
 
 doctrine:
     dbal:
-        driver: "%database_driver%"
-        host: "%database_host%"
-        port: "%database_port%"
+        driver: %database_driver%
+        host: %database_host%
+        port: %database_port%
         dbname: %database_name%_test
-        user: "%database_user%"
-        password: "%database_password%"
+        user: %database_user%
+        password: %database_password%
         charset: UTF8
     orm:
-        auto_generate_proxy_classes: "%kernel.debug%"
+        auto_generate_proxy_classes: %kernel.debug%
         naming_strategy: doctrine.orm.naming_strategy.underscore
         mappings:
             FOSOAuthServerBundle:
                 mapping: true
                 type: xml
-                dir: "Resources/config/doctrine"
-                prefix: 'FOS\OAuthServerBundle\Entity'
+                dir: Resources/config/doctrine
+                prefix: FOS\OAuthServerBundle\Entity
                 is_bundle: true
             KretaCoreBundle:
                 mapping: true
                 type: yml
-                dir: "Resources/config/doctrine"
-                prefix: 'Kreta\Bundle\CoreBundle\Model'
+                dir: Resources/config/doctrine
+                prefix: Kreta\Bundle\CoreBundle\Model
                 is_bundle: true
             KretaIssueBundle:
                 mapping: true
                 type: yml
-                dir: "Resources/config/doctrine"
-                prefix: 'Kreta\Component\Issue\Model'
+                dir: Resources/config/doctrine
+                prefix: Kreta\Component\Issue\Model
             KretaMediaBundle:
                 mapping: true
                 type: yml
-                dir: "Resources/config/doctrine"
-                prefix: 'Kreta\Component\Media\Model'
+                dir: Resources/config/doctrine
+                prefix: Kreta\Component\Media\Model
                 is_bundle: true
                 is_bundle: true
             KretaProjectBundle:
                 mapping: true
                 type: yml
-                dir: "Resources/config/doctrine"
-                prefix: 'Kreta\Component\Project\Model'
+                dir: Resources/config/doctrine
+                prefix: Kreta\Component\Project\Model
                 is_bundle: true
             KretaUserBundle:
                 mapping: true
                 type: yml
-                dir: "Resources/config/doctrine"
-                prefix: 'Kreta\Component\User\Model'
+                dir: Resources/config/doctrine
+                prefix: Kreta\Component\User\Model
                 is_bundle: true
             KretaNotificationBundle:
                 mapping: true
                 type: yml
-                dir: "Resources/config/doctrine"
-                prefix: 'Kreta\Component\Notification\Model'
+                dir: Resources/config/doctrine
+                prefix: Kreta\Component\Notification\Model
                 is_bundle: true
             KretaWorkflowBundle:
                 mapping: true
                 type: yml
-                dir: "Resources/config/doctrine"
-                prefix: 'Kreta\Component\Workflow\Model'
+                dir: Resources/config/doctrine
+                prefix: Kreta\Component\Workflow\Model
                 is_bundle: true
         resolve_target_entities:
             Kreta\Bundle\CoreBundle\Model\Interfaces\AccessTokenInterface: Kreta\Bundle\CoreBundle\Model\AccessToken

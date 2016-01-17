@@ -12,10 +12,10 @@ imports:
     - { resource: doctrine.yml }
 
 framework:
-    translator: { fallbacks: ["%locale%"] }
-    secret: "%secret%"
+    translator: { fallbacks: [%locale%] }
+    secret: %secret%
     router:
-        resource: "%kernel.root_dir%/config/routing.yml"
+        resource: %kernel.root_dir%/config/routing.yml
         strict_requirements: true
     profiler:
         collect: false
@@ -23,8 +23,8 @@ framework:
     csrf_protection: ~
     validation: { enable_annotations: true }
     templating:
-        engines: ['twig']
-    default_locale:  "%locale%"
+        engines: [twig]
+    default_locale:  %locale%
     trusted_proxies: ~
     test: ~
     session:
@@ -35,8 +35,8 @@ framework:
     assets: ~
 
 twig:
-    debug: "%kernel.debug%"
-    strict_variables: "%kernel.debug%"
+    debug: %kernel.debug%
+    strict_variables: %kernel.debug%
 
 swiftmailer:
     disable_delivery: true
@@ -78,8 +78,8 @@ fos_rest:
             json: true
             xml: true
         mime_types:
-            json: ['application/json', 'application/x-json']
-            xml: ['application/xml', 'application/xml']
+            json: [application/json, application/x-json]
+            xml: [application/xml, application/xml]
     serializer:
         serialize_null: true
 
@@ -92,29 +92,29 @@ jms_serializer:
     metadata:
         directories:
             kreta-core:
-                namespace_prefix: "Kreta\\Component\\Core"
-                path: "@KretaCoreBundle/Resources/config/serializer"
+                namespace_prefix: Kreta\Component\Core
+                path: '@KretaCoreBundle/Resources/config/serializer'
             kreta-issue:
-                namespace_prefix: "Kreta\\Component\\Issue"
-                path: "@KretaIssueBundle/Resources/config/serializer"
+                namespace_prefix: Kreta\Component\Issue
+                path: '@KretaIssueBundle/Resources/config/serializer'
             kreta-media:
-                namespace_prefix: "Kreta\\Component\\Media"
-                path: "@KretaMediaBundle/Resources/config/serializer"
+                namespace_prefix: Kreta\Component\Media
+                path: '@KretaMediaBundle/Resources/config/serializer'
             kreta-notification:
-                namespace_prefix: "Kreta\\Component\\Notification"
-                path: "@KretaNotificationBundle/Resources/config/serializer"
+                namespace_prefix: Kreta\Component\Notification
+                path: '@KretaNotificationBundle/Resources/config/serializer'
             kreta-project:
-                namespace_prefix: "Kreta\\Component\\Project"
-                path: "@KretaProjectBundle/Resources/config/serializer"
+                namespace_prefix: Kreta\Component\Project
+                path: '@KretaProjectBundle/Resources/config/serializer'
             kreta-user:
-                namespace_prefix: "Kreta\\Component\\User"
-                path: "@KretaUserBundle/Resources/config/serializer"
+                namespace_prefix: Kreta\Component\User
+                path: '@KretaUserBundle/Resources/config/serializer'
             kreta-workflow:
-                namespace_prefix: "Kreta\\Component\\Workflow"
-                path: "@KretaWorkflowBundle/Resources/config/serializer"
+                namespace_prefix: Kreta\Component\Workflow
+                path: '@KretaWorkflowBundle/Resources/config/serializer'
             FOSUserBundle:
-                namespace_prefix: "FOS\\UserBundle"
-                path: "@KretaUserBundle/Resources/FOSUserBundle/serializer"
+                namespace_prefix: FOS\UserBundle
+                path: '@KretaUserBundle/Resources/FOSUserBundle/serializer'
 
 knp_gaufrette:
     adapters:
@@ -150,10 +150,10 @@ liip_imagine:
 
 nelmio_cors:
     paths:
-        '^/':
+        ^/:
             allow_origin: ['*']
-            allow_headers: ['X-Custom-Auth', 'Authorization']
-            allow_methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+            allow_headers: [X-Custom-Auth, Authorization]
+            allow_methods: [GET, POST, PUT, DELETE, OPTIONS]
             max_age: 3600
 
 sensio_framework_extra:

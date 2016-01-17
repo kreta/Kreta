@@ -10,7 +10,7 @@
 
 import $ from 'jquery';
 import React from 'react';
-import {Router, Route} from 'react-router';
+import {Router, Route, IndexRoute} from 'react-router';
 
 import App from './App';
 import BaseLayout from './views/layout/Base';
@@ -19,6 +19,7 @@ import Profile from './views/page/user/Edit';
 import ProjectNew from './views/page/project/New';
 import ProjectSettings from './views/page/project/Settings';
 import ProjectShow from './views/page/project/IssueList';
+import Index from './views/page/Index';
 
 $(() => {
   window.App = new App({
@@ -28,6 +29,8 @@ $(() => {
       React.render(
         <Router>
           <Route component={BaseLayout} path="/">
+            <IndexRoute component={Index}/>
+
             <Route component={IssueNew} path="issue/new"/>
             <Route component={IssueNew} path="issue/new/:projectId"/>
 
