@@ -38,10 +38,6 @@
     "repositories": [
         {
             "type": "vcs",
-            "url": "https://github.com/kreta/FOSOAuthServerBundle"
-        },
-        {
-            "type": "vcs",
             "url": "https://github.com/kreta/FOSUserBundle"
         }
     ],

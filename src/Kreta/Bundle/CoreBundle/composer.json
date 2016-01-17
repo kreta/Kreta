@@ -27,7 +27,7 @@
     "require": {
         "php":                                  ">=5.4",
         "symfony/framework-bundle":             "^2.7|^3.0",
-        "friendsofsymfony/oauth-server-bundle": "^1.4.3",
+        "friendsofsymfony/oauth-server-bundle": "^1.5",
         "friendsofsymfony/rest-bundle":         "^1.7",
         "jms/serializer-bundle":                "^1.1",
         "kreta/core":                           "^0.5.0",
@@ -39,10 +39,6 @@
         "phpspec/phpspec":                      "^2.3"
     },
     "repositories": [
-        {
-            "type": "vcs",
-            "url": "https://github.com/kreta/FOSOAuthServerBundle"
-        },
         {
             "type": "vcs",
             "url": "https://github.com/kreta/FOSUserBundle"

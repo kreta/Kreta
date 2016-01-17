@@ -26,7 +26,7 @@
         "php":                                      ">=5.4",
         "doctrine/doctrine-bundle":                 "^1.6",
         "doctrine/orm":                             "^2.5",
-        "friendsofsymfony/oauth-server-bundle":     "^1.4.3",
+        "friendsofsymfony/oauth-server-bundle":     "^1.5",
         "friendsofsymfony/rest-bundle":             "^1.7",
         "friendsofsymfony/user-bundle":             "^2.0",
         "incenteev/composer-parameter-handler":     "^2.0",
@@ -61,10 +61,6 @@
         {
             "type": "vcs",
             "url": "https://github.com/kreta/FOSUserBundle"
-        },
-        {
-            "type": "vcs",
-            "url": "https://github.com/kreta/FOSOAuthServerBundle"
         }
     ],
     "replace": {
