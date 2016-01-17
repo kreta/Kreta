@@ -22,6 +22,7 @@ import Issue from './../../../models/Issue';
 import IssueField from './../../component/IssueField';
 import Selector from './../../component/Selector';
 import UserImage from './../../component/UserImage';
+import IssueStore from '../../../stores/IssueStore';
 
 class New extends React.Component {
   static contextTypes = {
@@ -33,6 +34,8 @@ class New extends React.Component {
   };
 
   componentDidMount() {
+    const store = new IssueStore();
+    store.register(this.handleStoreEvent);
     this.updateSelectors(this.props.params.projectId);
   }
 
