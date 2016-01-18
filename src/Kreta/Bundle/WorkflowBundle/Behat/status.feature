@@ -393,10 +393,6 @@ Feature: Manage status
     Given I set header "content-type" with value "application/json"
     When I send a DELETE request to "/api/workflows/0/statuses/1"
     Then the response code should be 204
-    And the response should contain json:
-    """
-      {}
-    """
 
   Scenario: Deleting the 0 status
     Given I am authenticating with "access-token-0" token

@@ -150,4 +150,11 @@ class User extends BaseUser implements UserInterface
 
         return $this;
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSalt()
+    {
+    }
 }

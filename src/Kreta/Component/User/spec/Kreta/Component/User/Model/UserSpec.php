@@ -99,4 +99,9 @@ class UserSpec extends ObjectBehavior
         $this->setPhoto($media)->shouldReturn($this);
         $this->getPhoto()->shouldReturn($media);
     }
+
+    function its_salt_returns_null()
+    {
+        $this->getSalt(->shouldReturn(null);
+    }
 }

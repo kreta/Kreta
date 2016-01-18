@@ -415,10 +415,6 @@ Feature: Manage status transition
     Given I am authenticating with "access-token-0" token
     When I send a DELETE request to "/api/workflows/0/transitions/0"
     Then the response code should be 204
-    And the response should contain json:
-    """
-      {}
-    """
 
   Scenario: Deleting the unknown transition
     Given I am authenticating with "access-token-0" token
@@ -672,10 +668,6 @@ Feature: Manage status transition
     Given I am authenticating with "access-token-0" token
     When I send a DELETE request to "/api/workflows/0/transitions/3/initial-statuses/1"
     Then the response code should be 204
-    And the response should contain json:
-    """
-      {}
-    """
 
   Scenario: Creating an initial status of 0 transition without initial status
     When I send a POST request to "/api/workflows/0/transitions/0/initial-statuses?access_token=access-token-0" with form data:
