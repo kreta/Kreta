@@ -15,7 +15,7 @@ Kreta\Component\Issue\Model\Issue:
                 route: get_issue
                 parameters:
                     issueId: expr(object.getId())
-                absolute: true
+                absolute: 0
             exclusion:
                 groups: [issueList, issue]
         -
@@ -24,14 +24,14 @@ Kreta\Component\Issue\Model\Issue:
                 route: get_project
                 parameters:
                     projectId: expr(object.getProject().getId())
-                absolute: true
+                absolute: 0
             exclusion:
                 groups: [issueList, issue]
         -
             rel: issues
             href:
                 route: get_issues
-                absolute: true
+                absolute: 0
             exclusion:
                 groups: [issueList, issue]
     properties:

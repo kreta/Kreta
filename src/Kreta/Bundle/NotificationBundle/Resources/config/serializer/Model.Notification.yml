@@ -13,14 +13,14 @@ Kreta\Component\Notification\Model\Notification:
             rel: notifications
             href:
                 route: get_notifications
-                absolute: true
+                absolute: 0
             exclusion:
                 groups: [notificationList, notification]
         -
             rel: projects
             href:
                 route: get_projects
-                absolute: true
+                absolute: 0
             exclusion:
                 groups: [notificationList, notification]
     properties:

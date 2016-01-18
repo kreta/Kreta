@@ -15,14 +15,14 @@ Kreta\Component\Workflow\Model\Workflow:
                 route: get_workflow
                 parameters:
                     workflowId: expr(object.getId())
-                absolute: true
+                absolute: 0
             exclusion:
                 groups: [workflowList, workflow]
         -
             rel: workflows
             href:
                 route: get_workflows
-                absolute: true
+                absolute: 0
             exclusion:
                 groups: [workflowList, workflow]
     properties:
