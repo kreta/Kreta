@@ -23,7 +23,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * Class WorkflowTypeSpec.
  *
- * @package spec\Kreta\Component\Workflow\Form\Type
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class WorkflowTypeSpec extends ObjectBehavior
 {

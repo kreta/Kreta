@@ -15,7 +15,8 @@ namespace Kreta\Component\Project\Model\Interfaces;
 /**
  * Interface IssuePriorityInterface.
  *
- * @package Kreta\Component\Project\Model\Interfaces
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 interface IssuePriorityInterface
 {

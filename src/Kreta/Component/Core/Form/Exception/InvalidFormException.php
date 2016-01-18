@@ -15,7 +15,8 @@ namespace Kreta\Component\Core\Form\Exception;
 /**
  * Class InvalidFormException.
  *
- * @package Kreta\Component\Core\Form\Exception
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class InvalidFormException extends \Exception
 {

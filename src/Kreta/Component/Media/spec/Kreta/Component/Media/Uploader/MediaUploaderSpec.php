@@ -21,7 +21,8 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 /**
  * Class MediaUploaderSpec.
  *
- * @package spec\Kreta\Component\Media\Uploader
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class MediaUploaderSpec extends ObjectBehavior
 {

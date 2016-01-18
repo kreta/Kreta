@@ -20,7 +20,8 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 /**
  * Class RoleAnnotationListenerSpec.
  *
- * @package spec\Kreta\Bundle\CoreBundle\EventListener
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class RoleAnnotationListenerSpec extends ObjectBehavior
 {

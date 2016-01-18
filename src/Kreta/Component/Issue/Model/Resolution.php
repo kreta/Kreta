@@ -18,7 +18,8 @@ use Kreta\Component\Issue\Model\Interfaces\ResolutionInterface;
 /**
  * Class Resolution.
  *
- * @package Kreta\Component\Core\Model
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class Resolution extends AbstractModel implements ResolutionInterface
 {

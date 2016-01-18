@@ -27,7 +27,8 @@ use Prophecy\Argument;
 /**
  * Class StatusTransitionSpec.
  *
- * @package spec\Kreta\Component\Workflow\Model
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class StatusTransitionSpec extends ObjectBehavior
 {

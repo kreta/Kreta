@@ -18,7 +18,8 @@ use Kreta\Component\User\Model\Interfaces\UserInterface;
 /**
  * Class ProjectRepository.
  *
- * @package Kreta\Component\Project\Repository
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class ProjectRepository extends EntityRepository
 {

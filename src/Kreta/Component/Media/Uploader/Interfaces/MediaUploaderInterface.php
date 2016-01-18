@@ -17,7 +17,8 @@ use Kreta\Component\Media\Model\Interfaces\MediaInterface;
 /**
  * Interface MediaUploaderInterface.
  *
- * @package Kreta\Component\Media\Uploader\Interfaces
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 interface MediaUploaderInterface
 {

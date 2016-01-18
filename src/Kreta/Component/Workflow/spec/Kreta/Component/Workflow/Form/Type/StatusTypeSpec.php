@@ -25,7 +25,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * Class StatusTypeSpec.
  *
- * @package spec\Kreta\Component\Workflow\Form\Type
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class StatusTypeSpec extends ObjectBehavior
 {

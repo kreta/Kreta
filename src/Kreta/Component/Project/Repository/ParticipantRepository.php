@@ -18,7 +18,8 @@ use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 /**
  * Class ParticipantRepository.
  *
- * @package Kreta\Component\Project\Repository
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class ParticipantRepository extends EntityRepository
 {
@@ -56,5 +57,5 @@ class ParticipantRepository extends EntityRepository
     protected function getAlias()
     {
         return 'par';
-    } 
+    }
 }

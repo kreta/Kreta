@@ -19,7 +19,8 @@ use Prophecy\Argument;
 /**
  * Class StatusTransitionFactorySpec.
  *
- * @package spec\Kreta\Component\Workflow\Factory
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class StatusTransitionFactorySpec extends ObjectBehavior
 {

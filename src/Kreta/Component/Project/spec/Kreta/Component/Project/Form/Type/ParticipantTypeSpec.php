@@ -24,7 +24,8 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 /**
  * Class ParticipantTypeSpec.
  *
- * @package spec\Kreta\Component\Project\Form\Type\
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class ParticipantTypeSpec extends ObjectBehavior
 {

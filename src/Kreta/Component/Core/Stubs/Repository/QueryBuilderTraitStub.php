@@ -17,7 +17,8 @@ use Kreta\Component\Core\Repository\Traits\QueryBuilderTrait;
 /**
  * Class QueryBuilderTraitStub.
  *
- * @package Kreta\Component\Core\Stubs\Repository
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class QueryBuilderTraitStub
 {

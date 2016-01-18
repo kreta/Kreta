@@ -21,7 +21,8 @@ use PhpSpec\ObjectBehavior;
 /**
  * Class WorkflowSpec.
  *
- * @package spec\Kreta\Component\Workflow\Model
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class WorkflowSpec extends ObjectBehavior
 {

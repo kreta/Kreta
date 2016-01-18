@@ -24,7 +24,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Class CreateClientCommandSpec.
  *
- * @package spec\Kreta\Bundle\CoreBundle\Command
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class CreateClientCommandSpec extends ObjectBehavior
 {
@@ -49,8 +50,7 @@ class CreateClientCommandSpec extends ObjectBehavior
         ClientInterface $client,
         InputInterface $input,
         OutputInterface $output
-    )
-    {
+    ) {
         $container->get('fos_oauth_server.client_manager.default')->shouldBeCalled()->willReturn($clientManager);
         $clientManager->createClient()->shouldBeCalled()->willReturn($client);
 
@@ -88,8 +88,7 @@ class CreateClientCommandSpec extends ObjectBehavior
         ContainerInterface $container,
         ClientManagerInterface $clientManager,
         ClientInterface $client
-    )
-    {
+    ) {
         $container->get('fos_oauth_server.client_manager.default')->shouldBeCalled()->willReturn($clientManager);
         $clientManager->createClient()->shouldBeCalled()->willReturn($client);
         $client->setRedirectUris(['http://kreta.io'])->shouldBeCalled();

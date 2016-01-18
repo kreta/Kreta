@@ -17,6 +17,9 @@ use Kreta\Bundle\CoreBundle\Model\Interfaces\RefreshTokenInterface;
 
 /**
  * Class RefreshToken.
+ *
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class RefreshToken extends BaseRefreshToken implements RefreshTokenInterface
 {

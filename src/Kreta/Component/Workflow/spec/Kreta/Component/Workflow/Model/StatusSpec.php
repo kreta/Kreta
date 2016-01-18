@@ -21,7 +21,8 @@ use PhpSpec\ObjectBehavior;
 /**
  * Class StatusSpec.
  *
- * @package spec\Kreta\Component\Core\Model
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class StatusSpec extends ObjectBehavior
 {

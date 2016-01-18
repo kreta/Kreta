@@ -20,7 +20,8 @@ use Prophecy\Argument;
 /**
  * Class ResolutionRepositorySpec.
  *
- * @package spec\Kreta\Component\Issue\Repository
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class ResolutionRepositorySpec extends ObjectBehavior
 {

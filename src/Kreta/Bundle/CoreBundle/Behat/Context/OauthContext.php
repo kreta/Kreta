@@ -18,6 +18,9 @@ use Behat\WebApiExtension\Context\WebApiContext;
 
 /**
  * Class OauthContext.
+ *
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class OauthContext extends WebApiContext
 {

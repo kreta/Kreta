@@ -22,6 +22,9 @@ use Symfony\Component\Console\Tester\CommandTester;
 
 /**
  * Class CommandContext.
+ *
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class CommandContext extends DefaultContext
 {

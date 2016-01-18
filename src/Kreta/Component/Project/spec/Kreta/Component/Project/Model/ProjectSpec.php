@@ -27,7 +27,8 @@ use PhpSpec\ObjectBehavior;
 /**
  * Class ProjectSpec.
  *
- * @package spec\Kreta\Component\Project\Model
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class ProjectSpec extends ObjectBehavior
 {

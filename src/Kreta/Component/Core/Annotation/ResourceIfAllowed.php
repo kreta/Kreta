@@ -15,7 +15,8 @@ namespace Kreta\Component\Core\Annotation;
 /**
  * Class ResourceIfAllowed.
  *
- * @package Kreta\Component\Core\Annotation
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  *
  * @Annotation
  */

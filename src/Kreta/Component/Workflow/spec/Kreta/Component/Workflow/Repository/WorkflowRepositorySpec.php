@@ -21,7 +21,8 @@ use Prophecy\Argument;
 /**
  * Class WorkflowRepositorySpec.
  *
- * @package spec\Kreta\Component\Workflow\Repository
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class WorkflowRepositorySpec extends BaseEntityRepository
 {

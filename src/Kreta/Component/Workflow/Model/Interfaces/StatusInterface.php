@@ -17,7 +17,8 @@ use Finite\State\StateInterface;
 /**
  * Interface StatusInterface.
  *
- * @package Kreta\Component\Workflow\Model\Interfaces
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 interface StatusInterface extends StateInterface
 {

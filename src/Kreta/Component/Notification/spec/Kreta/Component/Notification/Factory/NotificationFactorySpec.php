@@ -18,7 +18,8 @@ use Prophecy\Argument;
 /**
  * Class NotificationFactorySpec.
  *
- * @package spec\Kreta\Component\Notification\Factory
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class NotificationFactorySpec extends ObjectBehavior
 {

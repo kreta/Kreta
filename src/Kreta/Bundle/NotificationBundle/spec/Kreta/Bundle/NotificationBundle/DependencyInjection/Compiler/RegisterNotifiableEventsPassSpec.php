@@ -20,7 +20,8 @@ use Symfony\Component\DependencyInjection\Definition;
 /**
  * Class RegisterNotifiableEventsPassSpec.
  *
- * @package spec\Kreta\Bundle\NotificationBundle\DependencyInjection\Compiler
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class RegisterNotifiableEventsPassSpec extends ObjectBehavior
 {

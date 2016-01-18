@@ -14,6 +14,9 @@ namespace Kreta\Bundle\CoreBundle\DependencyInjection;
 
 /**
  * Class KretaCoreExtension.
+ *
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class KretaCoreExtension extends Extension
 {

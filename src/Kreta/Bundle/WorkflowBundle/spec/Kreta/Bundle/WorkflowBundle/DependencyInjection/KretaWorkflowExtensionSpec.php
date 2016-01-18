@@ -17,7 +17,8 @@ use PhpSpec\ObjectBehavior;
 /**
  * Class KretaWorkflowExtensionSpec.
  *
- * @package spec\Kreta\Bundle\WorkflowBundle\DependencyInjection
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class KretaWorkflowExtensionSpec extends ObjectBehavior
 {

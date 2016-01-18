@@ -24,7 +24,8 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 /**
  * Class WorkflowVoterSpec.
  *
- * @package spec\Kreta\Bundle\WorkflowBundle\Security\Authorization\Voter
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class WorkflowVoterSpec extends ObjectBehavior
 {

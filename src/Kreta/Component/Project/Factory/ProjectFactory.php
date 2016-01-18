@@ -24,7 +24,8 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 /**
  * Class ProjectFactory.
  *
- * @package Kreta\Component\Project\Factory
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class ProjectFactory
 {

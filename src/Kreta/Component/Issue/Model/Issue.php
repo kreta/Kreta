@@ -25,7 +25,8 @@ use Kreta\Component\Workflow\Model\Interfaces\StatusInterface;
 /**
  * Class Issue.
  *
- * @package Kreta\Component\Issue\Model
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class Issue extends AbstractModel implements IssueInterface
 {

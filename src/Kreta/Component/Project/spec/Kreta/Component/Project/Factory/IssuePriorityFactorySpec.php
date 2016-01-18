@@ -18,7 +18,8 @@ use PhpSpec\ObjectBehavior;
 /**
  * Class IssuePriorityFactorySpec.
  *
- * @package spec\Kreta\Component\Project\Factory
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class IssuePriorityFactorySpec extends ObjectBehavior
 {

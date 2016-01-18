@@ -26,7 +26,8 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 /**
  * Class NotificationRepositorySpec.
  *
- * @package spec\Kreta\Component\Notification\Repository
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class NotificationRepositorySpec extends BaseEntityRepository
 {

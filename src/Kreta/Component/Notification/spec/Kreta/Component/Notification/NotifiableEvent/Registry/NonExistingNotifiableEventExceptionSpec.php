@@ -18,7 +18,8 @@ use Prophecy\Argument;
 /**
  * Class NonExistingNotifiableEventExceptionSpec.
  *
- * @package spec\Kreta\Component\Notification\NotifiableEvent\Registry
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class NonExistingNotifiableEventExceptionSpec extends ObjectBehavior
 {

@@ -18,7 +18,8 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * Class AuthorizationEventSpec.
  *
- * @package spec\Kreta\Bundle\UserBundle\Event
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class AuthorizationEventSpec extends ObjectBehavior
 {

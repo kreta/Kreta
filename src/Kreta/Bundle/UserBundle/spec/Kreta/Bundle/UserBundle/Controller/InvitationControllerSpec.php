@@ -24,7 +24,8 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * Class InvitationControllerSpec.
  *
- * @package spec\Kreta\Bundle\UserBundle\Controller
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class InvitationControllerSpec extends ObjectBehavior
 {
@@ -59,7 +60,7 @@ class InvitationControllerSpec extends ObjectBehavior
         $container->get('kreta_user.repository.user')->shouldBeCalled()->willReturn($repository);
         $bag->get('email')->shouldBeCalled()->willReturn('kreta@kreta.com');
         $repository->findOneBy(['email' => 'kreta@kreta.com'])->shouldBeCalled()->willReturn($user);
-        
+
         $container->get('kreta_user.form_handler.invitation')->shouldBeCalled()->willReturn($handler);
         $user->isEnabled()->shouldBeCalled()->willReturn(true);
         $handler->processForm($request, $user)->shouldBeCalled()->willReturn($user);

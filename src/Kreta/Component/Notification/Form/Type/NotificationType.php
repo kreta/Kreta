@@ -19,7 +19,8 @@ use Symfony\Component\Form\FormInterface;
 /**
  * Class NotificationType.
  *
- * @package Kreta\Component\Notification\Form\Type
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class NotificationType extends AbstractType
 {

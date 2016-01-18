@@ -20,7 +20,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * Class RoleTypeSpec.
  *
- * @package spec\Kreta\Bundle\ProjectBundle\Form\Type
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class RoleTypeSpec extends ObjectBehavior
 {

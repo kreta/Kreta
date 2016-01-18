@@ -17,7 +17,8 @@ use Kreta\Component\Core\Repository\EntityRepository;
 /**
  * Class ResolutionRepository.
  *
- * @package Kreta\Component\Issue\Repository
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class ResolutionRepository extends EntityRepository
 {

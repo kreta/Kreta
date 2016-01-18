@@ -30,7 +30,8 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * Class UserHandlerSpec.
  *
- * @package spec\Kreta\Component\User\Form\Handler
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class UserHandlerSpec extends ObjectBehavior
 {

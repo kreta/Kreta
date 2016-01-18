@@ -15,7 +15,8 @@ namespace Kreta\Component\User\Factory;
 /**
  * Class UserFactory.
  *
- * @package Kreta\Component\User\Factory
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class UserFactory
 {

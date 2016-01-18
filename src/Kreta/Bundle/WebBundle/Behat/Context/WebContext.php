@@ -17,7 +17,8 @@ use Behat\MinkExtension\Context\MinkContext;
 /**
  * Class WebContext.
  *
- * @package Kreta\Bundle\WebBundle\Behat\Context
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class WebContext extends MinkContext
 {

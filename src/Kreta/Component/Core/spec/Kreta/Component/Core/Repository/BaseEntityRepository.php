@@ -21,7 +21,8 @@ use Prophecy\Argument;
 /**
  * Class BaseEntityRepository.
  *
- * @package Kreta\Component\Core\spec\Kreta\Component\Core\Repository
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class BaseEntityRepository extends ObjectBehavior
 {

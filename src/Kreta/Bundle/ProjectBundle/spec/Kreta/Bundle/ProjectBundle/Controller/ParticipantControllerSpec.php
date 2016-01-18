@@ -27,7 +27,8 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * Class ParticipantControllerSpec.
  *
- * @package spec\Kreta\Bundle\ProjectBundle\Controller
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class ParticipantControllerSpec extends ObjectBehavior
 {

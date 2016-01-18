@@ -26,6 +26,9 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Class RegistrationController.
+ *
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class RegistrationController extends BaseRegistrationController
 {

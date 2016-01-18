@@ -23,6 +23,9 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Class JsonExceptionListener.
+ *
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class JsonExceptionListener
 {

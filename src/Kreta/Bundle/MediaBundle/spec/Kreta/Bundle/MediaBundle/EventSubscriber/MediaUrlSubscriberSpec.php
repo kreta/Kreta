@@ -23,7 +23,8 @@ use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 /**
  * Class MediaUrlSubscriberSpec.
  *
- * @package spec\Kreta\Bundle\MediaBundle\EventSubscriber
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class MediaUrlSubscriberSpec extends ObjectBehavior
 {

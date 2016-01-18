@@ -16,6 +16,9 @@ use Kreta\Bundle\CoreBundle\DependencyInjection\Extension;
 
 /**
  * Class KretaUserExtension.
+ *
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class KretaUserExtension extends Extension
 {

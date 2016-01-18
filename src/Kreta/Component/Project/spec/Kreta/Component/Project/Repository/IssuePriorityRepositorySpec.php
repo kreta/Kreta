@@ -25,7 +25,8 @@ use Prophecy\Argument;
 /**
  * Class IssuePriorityRepositorySpec.
  *
- * @package spec\Kreta\Component\Project\Repository
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class IssuePriorityRepositorySpec extends BaseEntityRepository
 {

@@ -20,7 +20,8 @@ use Prophecy\Argument;
 /**
  * Class EmailNotifierSpec.
  *
- * @package spec\Kreta\Component\Notification\Notifier
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class EmailNotifierSpec extends ObjectBehavior
 {

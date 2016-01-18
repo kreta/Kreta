@@ -22,6 +22,9 @@ use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class LabelController.
+ *
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class LabelController extends Controller
 {

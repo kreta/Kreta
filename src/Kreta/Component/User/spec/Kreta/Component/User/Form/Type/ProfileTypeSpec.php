@@ -20,7 +20,8 @@ use Symfony\Component\Form\FormBuilder;
 /**
  * Class ProfileTypeSpec.
  *
- * @package spec\Kreta\Component\User\Form\Type
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class ProfileTypeSpec extends ObjectBehavior
 {

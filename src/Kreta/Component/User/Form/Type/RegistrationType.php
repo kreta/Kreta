@@ -20,7 +20,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * Class RegistrationType.
  *
- * @package Kreta\Component\User\Form\Type
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class RegistrationType extends AbstractType
 {

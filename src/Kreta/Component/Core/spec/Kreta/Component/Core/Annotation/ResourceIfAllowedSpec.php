@@ -17,7 +17,8 @@ use PhpSpec\ObjectBehavior;
 /**
  * Class ResourceIfAllowedSpecSpec.
  *
- * @package spec\Kreta\Component\Core\Annotation
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class ResourceIfAllowedSpec extends ObjectBehavior
 {

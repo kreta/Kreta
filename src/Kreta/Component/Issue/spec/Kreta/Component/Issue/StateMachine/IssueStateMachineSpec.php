@@ -21,7 +21,8 @@ use Prophecy\Argument;
 /**
  * Class IssueStateMachineSpec.
  *
- * @package spec\Kreta\Component\Issue\StateMachine
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class IssueStateMachineSpec extends ObjectBehavior
 {

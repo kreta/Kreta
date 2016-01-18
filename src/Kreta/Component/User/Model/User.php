@@ -19,7 +19,8 @@ use Kreta\Component\User\Model\Interfaces\UserInterface;
 /**
  * Class User.
  *
- * @package Kreta\Component\User\Model
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class User extends BaseUser implements UserInterface
 {

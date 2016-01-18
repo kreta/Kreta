@@ -21,7 +21,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * Class StatusType.
  *
- * @package Kreta\Component\Workflow\Form\Type
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class StatusType extends AbstractType
 {

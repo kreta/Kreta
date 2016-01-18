@@ -18,7 +18,8 @@ use Kreta\Component\Core\Repository\Traits\QueryBuilderTrait;
 /**
  * Class EntityRepository.
  *
- * @package Kreta\Component\Core\Repository
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class EntityRepository extends BaseEntityRepository
 {

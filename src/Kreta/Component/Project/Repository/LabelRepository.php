@@ -18,7 +18,8 @@ use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 /**
  * Class LabelRepository.
  *
- * @package Kreta\Component\Project\Repository
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class LabelRepository extends EntityRepository
 {

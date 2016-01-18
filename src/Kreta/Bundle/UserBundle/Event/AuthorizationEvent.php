@@ -17,6 +17,9 @@ use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class AuthorizationEvent.
+ *
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class AuthorizationEvent extends Event
 {

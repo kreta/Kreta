@@ -24,7 +24,8 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 /**
  * Class StatusTransitionController.
  *
- * @package Kreta\Bundle\WorkflowBundle\Controller
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class StatusTransitionController extends Controller
 {

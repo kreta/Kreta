@@ -22,7 +22,8 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 /**
  * Class IssueVoterSpec.
  *
- * @package spec\Kreta\Bundle\IssueBundle\Security\Authorization\Voter
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class IssueVoterSpec extends ObjectBehavior
 {

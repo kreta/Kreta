@@ -19,7 +19,8 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 /**
  * Class CookieEventSpec.
  *
- * @package spec\Kreta\Bundle\UserBundle\Event
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class CookieEventSpec extends ObjectBehavior
 {
@@ -44,7 +45,7 @@ class CookieEventSpec extends ObjectBehavior
         $this->setResponse($newResponse)->shouldReturn($this);
         $this->getResponse()->shouldReturn($newResponse);
     }
-    
+
     function it_gets_session(SessionInterface $session)
     {
         $this->getSession()->shouldReturn($session);

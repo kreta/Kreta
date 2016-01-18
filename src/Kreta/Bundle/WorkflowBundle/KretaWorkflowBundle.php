@@ -17,7 +17,8 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 /**
  * Class KretaWorkflowBundle.
  *
- * @package Kreta\WorkflowBundle
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class KretaWorkflowBundle extends Bundle
 {

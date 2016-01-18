@@ -18,7 +18,8 @@ use Kreta\Component\User\Model\Interfaces\UserInterface;
 /**
  * Class ParticipantFactory.
  *
- * @package Kreta\Component\Project\Factory
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class ParticipantFactory
 {

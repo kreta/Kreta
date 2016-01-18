@@ -20,7 +20,8 @@ use Kreta\Component\Notification\EventSubscriber\Abstracts\AbstractEventSubscrib
 /**
  * Class DoctrineEventListener.
  *
- * @package Kreta\Component\Notification\EventListener
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class DoctrineEventSubscriber extends AbstractEventSubscriber implements EventSubscriber
 {

@@ -25,7 +25,8 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * Class IssuePriorityControllerSpec.
  *
- * @package spec\Kreta\Bundle\ProjectBundle\Controller
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class IssuePriorityControllerSpec extends ObjectBehavior
 {

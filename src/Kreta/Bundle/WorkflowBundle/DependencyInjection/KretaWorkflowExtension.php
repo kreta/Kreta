@@ -17,7 +17,8 @@ use Kreta\Bundle\CoreBundle\DependencyInjection\Extension;
 /**
  * Class KretaWorkflowExtension.
  *
- * @package Kreta\Bundle\WorkflowBundle\DependencyInjection
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class KretaWorkflowExtension extends Extension
 {

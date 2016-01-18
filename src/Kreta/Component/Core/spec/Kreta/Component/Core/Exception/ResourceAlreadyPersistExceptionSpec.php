@@ -17,9 +17,10 @@ use PhpSpec\ObjectBehavior;
 /**
  * Class ResourceAlreadyPersistExceptionSpec.
  *
- * @package spec\Kreta\Component\Core\Exception
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
-class ResourceAlreadyPersistExceptionSpec extends ObjectBehavior 
+class ResourceAlreadyPersistExceptionSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {

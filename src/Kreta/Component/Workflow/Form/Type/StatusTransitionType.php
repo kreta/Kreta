@@ -20,7 +20,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * Class StatusTransitionType.
  *
- * @package Kreta\Component\Workflow\Form\Type
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class StatusTransitionType extends AbstractType
 {

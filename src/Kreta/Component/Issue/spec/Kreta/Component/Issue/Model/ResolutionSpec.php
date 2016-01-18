@@ -17,7 +17,8 @@ use PhpSpec\ObjectBehavior;
 /**
  * Class ResolutionSpec.
  *
- * @package spec\Kreta\Component\Issue\Model
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class ResolutionSpec extends ObjectBehavior
 {

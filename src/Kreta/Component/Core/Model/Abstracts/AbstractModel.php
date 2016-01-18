@@ -15,7 +15,8 @@ namespace Kreta\Component\Core\Model\Abstracts;
 /**
  * Abstract class AbstractModel.
  *
- * @package Kreta\Component\Core\Model\Abstracts
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 abstract class AbstractModel
 {

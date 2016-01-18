@@ -18,7 +18,8 @@ use Kreta\Bundle\CoreBundle\Behat\Context\DefaultContext;
 /**
  * Class StatusContext.
  *
- * @package Kreta\Bundle\WorkflowBundle\Behat\Context
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class StatusContext extends DefaultContext
 {

@@ -15,7 +15,8 @@ namespace Kreta\Component\Issue\Factory;
 /**
  * Class BaseFactory.
  *
- * @package Kreta\Component\Issue\Factory
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class ResolutionFactory
 {

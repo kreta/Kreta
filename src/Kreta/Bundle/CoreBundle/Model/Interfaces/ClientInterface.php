@@ -16,6 +16,9 @@ use FOS\OAuthServerBundle\Model\ClientInterface as BaseClientInterface;
 
 /**
  * Interface ClientInterface.
+ *
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 interface ClientInterface extends BaseClientInterface
 {

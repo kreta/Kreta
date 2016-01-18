@@ -15,7 +15,8 @@ namespace Kreta\Component\Notification\NotifiableEvent\Interfaces;
 /**
  * Interface NotifiableEventInterface.
  *
- * @package Kreta\Component\Notification\Event\Interfaces
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 interface NotifiableEventInterface
 {

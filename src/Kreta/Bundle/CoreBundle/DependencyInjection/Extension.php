@@ -19,6 +19,9 @@ use Symfony\Component\HttpKernel\DependencyInjection\Extension as BaseExtension;
 
 /**
  * Class Extension.
+ *
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class Extension extends BaseExtension
 {

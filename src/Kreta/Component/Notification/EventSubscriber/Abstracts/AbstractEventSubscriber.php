@@ -19,7 +19,8 @@ use Kreta\Component\Notification\Notifier\Registry\Interfaces\NotifierRegistryIn
 /**
  * Abstract class AbstractEventSubscriber.
  *
- * @package Kreta\Component\Notification\EventSubscriber\Abstracts
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 abstract class AbstractEventSubscriber
 {

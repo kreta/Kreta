@@ -18,7 +18,8 @@ use Kreta\Component\User\Model\Interfaces\UserInterface;
 /**
  * Class NotificationInterface.
  *
- * @package Kreta\Component\Notification\Model\Interfaces
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 interface NotificationInterface
 {

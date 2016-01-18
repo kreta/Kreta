@@ -18,7 +18,8 @@ use Symfony\Component\Config\Definition\ConfigurationInterface;
 /**
  * Class Configuration.
  *
- * @package Kreta\Bundle\WorkflowBundle\DependencyInjection
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class Configuration implements ConfigurationInterface
 {

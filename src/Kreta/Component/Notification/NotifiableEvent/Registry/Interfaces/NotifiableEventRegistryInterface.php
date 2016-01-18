@@ -17,7 +17,8 @@ use Kreta\Component\Notification\NotifiableEvent\Interfaces\NotifiableEventInter
 /**
  * Interface NotifiableEventRegistryInterface.
  *
- * @package Kreta\Component\Notification\NotifiableEvent\Registry\Interfaces
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 interface NotifiableEventRegistryInterface
 {

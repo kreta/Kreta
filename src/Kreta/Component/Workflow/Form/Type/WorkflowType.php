@@ -19,7 +19,8 @@ use Symfony\Component\Form\FormInterface;
 /**
  * Class WorkflowType.
  *
- * @package Kreta\Component\Workflow\Form\Type
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class WorkflowType extends AbstractType
 {

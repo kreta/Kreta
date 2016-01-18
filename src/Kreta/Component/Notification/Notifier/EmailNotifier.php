@@ -18,7 +18,8 @@ use Kreta\Component\Notification\Notifier\Interfaces\NotifierInterface;
 /**
  * Class EmailNotifier.
  *
- * @package Kreta\Component\Notification\Notifier
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class EmailNotifier implements NotifierInterface
 {

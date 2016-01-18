@@ -20,7 +20,8 @@ use Kreta\Component\User\Model\Interfaces\UserInterface;
 /**
  * Class Notification.
  *
- * @package Kreta\Component\Notification\Model
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class Notification extends AbstractModel implements NotificationInterface
 {

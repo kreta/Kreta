@@ -24,7 +24,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * Class IssuePriorityTypeSpec.
  *
- * @package spec\Kreta\Component\Project\Form\Type
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class IssuePriorityTypeSpec extends ObjectBehavior
 {

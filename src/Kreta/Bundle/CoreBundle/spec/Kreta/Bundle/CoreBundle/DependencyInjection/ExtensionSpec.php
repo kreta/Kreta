@@ -18,7 +18,8 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 /**
  * Class ExtensionSpec.
  *
- * @package spec\Kreta\Bundle\CoreBundle\DependencyInjection
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class ExtensionSpec extends ObjectBehavior
 {

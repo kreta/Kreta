@@ -19,6 +19,9 @@ use Doctrine\Common\DataFixtures\Purger\ORMPurger;
 
 /**
  * Class DefaultContext.
+ *
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class DefaultContext extends RawMinkContext implements KernelAwareContext
 {

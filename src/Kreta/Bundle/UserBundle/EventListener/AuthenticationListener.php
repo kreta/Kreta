@@ -25,6 +25,9 @@ use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 
 /**
  * Class AuthenticationListener.
+ *
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class AuthenticationListener
 {

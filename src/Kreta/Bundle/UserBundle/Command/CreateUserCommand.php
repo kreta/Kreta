@@ -19,6 +19,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Class CreateUserCommand.
+ *
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class CreateUserCommand extends ContainerAwareCommand
 {

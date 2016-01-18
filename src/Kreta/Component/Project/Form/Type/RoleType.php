@@ -19,7 +19,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 /**
  * Class RoleType.
  *
- * @package Kreta\Component\Project\Form\Type
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class RoleType extends AbstractType
 {

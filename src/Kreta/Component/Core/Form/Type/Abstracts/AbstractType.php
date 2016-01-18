@@ -24,7 +24,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * Abstract class AbstractType.
  *
- * @package Kreta\Component\Core\Form\Type\Abstracts
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 abstract class AbstractType extends BaseAbstractType
 {

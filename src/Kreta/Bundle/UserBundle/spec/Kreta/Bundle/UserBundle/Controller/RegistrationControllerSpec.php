@@ -39,7 +39,8 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 /**
  * Class RegistrationControllerSpec.
  *
- * @package spec\Kreta\Bundle\UserBundle\Controller
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class RegistrationControllerSpec extends ObjectBehavior
 {

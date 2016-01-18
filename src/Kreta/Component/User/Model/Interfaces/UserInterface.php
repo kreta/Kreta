@@ -18,7 +18,8 @@ use Kreta\Component\Media\Model\Interfaces\MediaInterface;
 /**
  * Interface UserInterface.
  *
- * @package Kreta\Component\User\Model\Interfaces
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 interface UserInterface extends BaseUserInterface
 {

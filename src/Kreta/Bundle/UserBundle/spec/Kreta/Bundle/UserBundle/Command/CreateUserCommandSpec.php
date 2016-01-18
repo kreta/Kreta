@@ -24,7 +24,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Class CreateUserCommandSpec.
  *
- * @package spec\Kreta\Bundle\UserBundle\Command
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class CreateUserCommandSpec extends ObjectBehavior
 {

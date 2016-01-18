@@ -17,7 +17,8 @@ use Finite\Transition\TransitionInterface;
 /**
  * Interface StatusTransitionInterface.
  *
- * @package Kreta\Component\Workflow\Model\Interfaces
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 interface StatusTransitionInterface extends TransitionInterface
 {

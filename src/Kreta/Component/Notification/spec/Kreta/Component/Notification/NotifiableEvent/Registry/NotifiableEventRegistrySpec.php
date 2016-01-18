@@ -19,7 +19,8 @@ use Prophecy\Argument;
 /**
  * Class NotifiableEventRegistrySpec.
  *
- * @package spec\Kreta\Component\Notification\NotifiableEvent\Registry
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class NotifiableEventRegistrySpec extends ObjectBehavior
 {

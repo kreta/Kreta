@@ -17,6 +17,9 @@ use Kreta\Bundle\CoreBundle\Behat\Context\DefaultContext;
 
 /**
  * Class LabelContext.
+ *
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class LabelContext extends DefaultContext
 {

@@ -23,7 +23,8 @@ use Symfony\Component\HttpFoundation\FileBag;
 /**
  * Class UserHandler.
  *
- * @package Kreta\Component\User\Form\Handler
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class UserHandler extends Handler
 {

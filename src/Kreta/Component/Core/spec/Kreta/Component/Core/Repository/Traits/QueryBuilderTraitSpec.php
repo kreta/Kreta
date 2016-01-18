@@ -20,7 +20,8 @@ use Prophecy\Argument;
 /**
  * Class QueryBuilderTraitSpec.
  *
- * @package spec\Kreta\Component\Core\Repository\Traits
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class QueryBuilderTraitSpec extends BaseEntityRepository
 {

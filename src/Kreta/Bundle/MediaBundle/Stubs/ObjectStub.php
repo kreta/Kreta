@@ -16,6 +16,9 @@ use Kreta\Component\Media\Model\Interfaces\MediaInterface;
 
 /**
  * Class ObjectStub.
+ *
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class ObjectStub
 {
@@ -33,7 +36,7 @@ class ObjectStub
      */
     public function getImage()
     {
-        return $media;
+        return $this->media;
     }
 
     /**

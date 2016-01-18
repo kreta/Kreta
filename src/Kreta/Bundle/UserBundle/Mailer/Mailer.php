@@ -18,7 +18,8 @@ use FOS\UserBundle\Model\UserInterface;
 /**
  * Class Mailer.
  *
- * @package Kreta\Bundle\UserBundle\Mailer
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class Mailer extends BaseMailer
 {

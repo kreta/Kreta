@@ -19,6 +19,9 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Class CreateClientCommand.
+ *
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class CreateClientCommand extends ContainerAwareCommand
 {

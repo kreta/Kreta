@@ -17,7 +17,8 @@ use Kreta\Component\User\Model\Interfaces\UserInterface;
 /**
  * Interface ParticipantInterface.
  *
- * @package Kreta\Component\Project\Model\Interfaces
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 interface ParticipantInterface
 {

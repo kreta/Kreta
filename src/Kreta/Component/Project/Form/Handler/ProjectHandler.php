@@ -23,7 +23,8 @@ use Symfony\Component\HttpFoundation\FileBag;
 /**
  * Class ProjectHandler.
  *
- * @package Kreta\Component\Project\Form\Handler
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class ProjectHandler extends Handler
 {

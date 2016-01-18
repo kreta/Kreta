@@ -17,7 +17,8 @@ use Kreta\Component\Core\Repository\EntityRepository;
 /**
  * Class WorkflowRepository.
  *
- * @package Kreta\Component\Workflow\Repository
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class WorkflowRepository extends EntityRepository
 {

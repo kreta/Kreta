@@ -18,7 +18,8 @@ use Kreta\Component\User\Model\Interfaces\UserInterface;
 /**
  * Interface WorkflowInterface.
  *
- * @package Kreta\Component\Workflow\Model\Interfaces
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 interface WorkflowInterface
 {

@@ -18,7 +18,8 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 /**
  * Class MediaFactorySpec.
  *
- * @package spec\Kreta\Component\Media\Factory
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class MediaFactorySpec extends ObjectBehavior
 {

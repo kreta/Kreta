@@ -23,7 +23,8 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 /**
  * Class ProjectVoterSpec.
  *
- * @package spec\Kreta\Bundle\ProjectBundle\Security\Authorization\Voter
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class ProjectVoterSpec extends ObjectBehavior
 {

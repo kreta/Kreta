@@ -24,7 +24,8 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 /**
  * Class WorkflowControllerSpec.
  *
- * @package spec\Kreta\Bundle\WorkflowBundle\Controller
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class WorkflowControllerSpec extends ObjectBehavior
 {

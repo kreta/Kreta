@@ -19,7 +19,8 @@ use PhpSpec\ObjectBehavior;
 /**
  * Class ParticipantFactorySpec.
  *
- * @package spec\Kreta\Component\Project\Factory
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class ParticipantFactorySpec extends ObjectBehavior
 {

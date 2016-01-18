@@ -18,7 +18,8 @@ use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
 /**
  * Class StatusFactory.
  *
- * @package Kreta\Component\Workflow\Factory
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class StatusFactory
 {

@@ -22,7 +22,8 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * Class StatusController.
  *
- * @package Kreta\Bundle\WorkflowBundle\Controller
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class StatusController extends Controller
 {

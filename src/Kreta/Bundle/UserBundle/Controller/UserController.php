@@ -20,6 +20,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 
 /**
  * Class UserController.
+ *
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class UserController extends Controller
 {

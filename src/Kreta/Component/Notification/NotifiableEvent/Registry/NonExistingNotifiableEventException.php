@@ -15,7 +15,8 @@ namespace Kreta\Component\Notification\NotifiableEvent\Registry;
 /**
  * Class NonExistingNotifierException.
  *
- * @package Kreta\Component\Notification\Notifier\Registry
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class NonExistingNotifiableEventException extends \InvalidArgumentException
 {

@@ -21,7 +21,8 @@ use Symfony\Component\DependencyInjection\ContainerInterface;
 /**
  * Class UserControllerSpec.
  *
- * @package spec\Kreta\Bundle\UserBundle\Controller
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class UserControllerSpec extends ObjectBehavior
 {

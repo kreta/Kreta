@@ -17,7 +17,8 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * Interface HandlerInterface.
  *
- * @package Kreta\Component\Core\Form\Handler\Interfaces
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 interface HandlerInterface
 {

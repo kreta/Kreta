@@ -18,7 +18,8 @@ use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 /**
  * Class IssuePriority.
  *
- * @package Kreta\Component\Project\Model
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class IssuePriority implements IssuePriorityInterface
 {

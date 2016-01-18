@@ -17,9 +17,10 @@ use PhpSpec\ObjectBehavior;
 /**
  * Class CollectionMinLengthExceptionSpec.
  *
- * @package spec\Kreta\Component\Core\Exception
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
-class CollectionMinLengthExceptionSpec extends ObjectBehavior 
+class CollectionMinLengthExceptionSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {

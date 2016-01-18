@@ -24,7 +24,8 @@ use Prophecy\Argument;
 /**
  * Class IssueFactorySpec.
  *
- * @package spec\Kreta\Component\Issue\Factory
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class IssueFactorySpec extends ObjectBehavior
 {

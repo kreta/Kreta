@@ -20,7 +20,8 @@ use Symfony\Component\Routing\RouterInterface;
 /**
  * Class IssueEvents.
  *
- * @package Kreta\Component\Notification\NotifiableEvent
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class IssueEvents implements NotifiableEventInterface
 {

@@ -20,7 +20,8 @@ use Prophecy\Argument;
 /**
  * Class UserFactorySpec.
  *
- * @package spec\Kreta\Component\User\Factory
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class UserFactorySpec extends ObjectBehavior
 {

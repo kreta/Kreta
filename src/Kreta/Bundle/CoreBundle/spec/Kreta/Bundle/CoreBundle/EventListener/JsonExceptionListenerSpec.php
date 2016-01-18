@@ -24,7 +24,8 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 /**
  * Class JsonExceptionListenerSpec.
  *
- * @package spec\Kreta\Bundle\CoreBundle\EventListener
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class JsonExceptionListenerSpec extends ObjectBehavior
 {

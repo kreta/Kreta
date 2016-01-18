@@ -18,6 +18,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Abstract class AbstractVoter.
+ *
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 abstract class AbstractVoter implements VoterInterface
 {

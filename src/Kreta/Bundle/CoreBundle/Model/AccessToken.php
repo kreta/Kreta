@@ -17,6 +17,9 @@ use Kreta\Bundle\CoreBundle\Model\Interfaces\AccessTokenInterface;
 
 /**
  * Class AccessToken.
+ *
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class AccessToken extends BaseAccessToken implements AccessTokenInterface
 {

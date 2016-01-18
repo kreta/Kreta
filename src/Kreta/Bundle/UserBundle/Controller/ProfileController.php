@@ -20,6 +20,9 @@ use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class ProfileController.
+ *
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class ProfileController extends Controller
 {

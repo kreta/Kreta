@@ -25,7 +25,8 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * Class StatusControllerSpec.
  *
- * @package spec\Kreta\Bundle\WorkflowBundle\Controller
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class StatusControllerSpec extends ObjectBehavior
 {

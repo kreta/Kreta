@@ -18,7 +18,8 @@ use Prophecy\Argument;
 /**
  * Class ConfigurationSpec.
  *
- * @package spec\Kreta\Bundle\ProjectBundle\DependencyInjection
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class ConfigurationSpec extends ObjectBehavior
 {

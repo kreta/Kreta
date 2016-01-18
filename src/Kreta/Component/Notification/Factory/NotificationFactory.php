@@ -15,7 +15,8 @@ namespace Kreta\Component\Notification\Factory;
 /**
  * Class NotificationFactory.
  *
- * @package Kreta\Component\Notification\Factory
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class NotificationFactory
 {

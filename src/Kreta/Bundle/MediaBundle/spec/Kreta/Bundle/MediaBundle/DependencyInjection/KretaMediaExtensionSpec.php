@@ -17,7 +17,8 @@ use PhpSpec\ObjectBehavior;
 /**
  * Class KretaMediaExtensionSpec.
  *
- * @package spec\Kreta\Bundle\MediaBundle\DependencyInjection
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class KretaMediaExtensionSpec extends ObjectBehavior
 {

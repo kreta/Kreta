@@ -23,7 +23,8 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * Class Handler.
  *
- * @package Kreta\Component\Core\Form\Handler
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class Handler implements HandlerInterface
 {

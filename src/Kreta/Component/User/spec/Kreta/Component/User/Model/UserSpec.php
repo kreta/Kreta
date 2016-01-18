@@ -18,7 +18,8 @@ use PhpSpec\ObjectBehavior;
 /**
  * Class UserSpec.
  *
- * @package spec\Kreta\Component\User\Model
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class UserSpec extends ObjectBehavior
 {

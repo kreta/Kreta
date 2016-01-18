@@ -18,7 +18,8 @@ use Kreta\Component\Notification\Notifier\Registry\Interfaces\NotifierRegistryIn
 /**
  * Class NotifierRegistry.
  *
- * @package Kreta\Component\Notification\Notifier\Registry
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class NotifierRegistry implements NotifierRegistryInterface
 {

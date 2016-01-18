@@ -40,7 +40,8 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 /**
  * Class IssueControllerSpec.
  *
- * @package spec\Kreta\Bundle\IssueBundle\Controller
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class IssueControllerSpec extends ObjectBehavior
 {
@@ -207,7 +208,7 @@ class IssueControllerSpec extends ObjectBehavior
             ->shouldBeCalled()->willReturn([$statusTransition]);
         $statusTransitionRepository->find('transition-id')
             ->shouldBeCalled()->willReturn($statusTransition);
-        
+
         $container->get('kreta_issue.state_machine.issue')->shouldBeCalled()->willReturn($stateMachine);
         $stateMachine->load($issue, [$status], [$statusTransition])->shouldBeCalled()->willReturn($stateMachine);
         $stateMachine->can($statusTransition)->shouldBeCalled()->willReturn(true);

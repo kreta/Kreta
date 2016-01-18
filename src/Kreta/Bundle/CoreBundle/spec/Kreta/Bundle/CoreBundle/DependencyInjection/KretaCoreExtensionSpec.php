@@ -17,7 +17,8 @@ use PhpSpec\ObjectBehavior;
 /**
  * Class KretaCoreExtensionSpec.
  *
- * @package spec\Kreta\Bundle\CoreBundle\DependencyInjection
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class KretaCoreExtensionSpec extends ObjectBehavior
 {

@@ -23,7 +23,8 @@ use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
 /**
  * Class Workflow.
  *
- * @package Kreta\Component\Workflow\Model
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class Workflow extends AbstractModel implements WorkflowInterface
 {

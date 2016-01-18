@@ -17,7 +17,8 @@ use Kreta\Component\Core\Model\Abstracts\AbstractModel;
 /**
  * Class AbstractModelStub.
  *
- * @package Kreta\Component\Core\Stubs\Model
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class AbstractModelStub extends AbstractModel
 {

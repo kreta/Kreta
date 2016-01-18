@@ -16,6 +16,9 @@ use FOS\OAuthServerBundle\Model\AccessTokenInterface as BaseAccessTokenInterface
 
 /**
  * Interface AccessTokenInterface.
+ *
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 interface AccessTokenInterface extends BaseAccessTokenInterface
 {

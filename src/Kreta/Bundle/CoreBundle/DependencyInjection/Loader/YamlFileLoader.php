@@ -17,6 +17,9 @@ use Symfony\Component\Yaml\Parser;
 
 /**
  * Class YamlFileLoader.
+ *
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class YamlFileLoader extends BaseYamlFileLoader
 {

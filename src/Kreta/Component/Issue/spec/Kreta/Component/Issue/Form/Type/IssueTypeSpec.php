@@ -28,7 +28,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * Class IssueTypeSpec.
  *
- * @package sspec\Kreta\Component\Issue\Form\Type
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class IssueTypeSpec extends ObjectBehavior
 {

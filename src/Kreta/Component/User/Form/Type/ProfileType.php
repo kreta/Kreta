@@ -19,7 +19,8 @@ use Symfony\Component\Form\FormInterface;
 /**
  * Class UserType.
  *
- * @package Kreta\Component\User\Form\Type
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class ProfileType extends AbstractType
 {

@@ -17,7 +17,8 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 /**
  * Interface MediaInterface.
  *
- * @package Kreta\Component\Media\Model\Interfaces
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 interface MediaInterface
 {

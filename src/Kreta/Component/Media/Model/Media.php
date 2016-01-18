@@ -19,7 +19,8 @@ use Symfony\Component\HttpFoundation\File\UploadedFile;
 /**
  * Class Media.
  *
- * @package Kreta\Component\Media\Model
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class Media extends AbstractModel implements MediaInterface
 {

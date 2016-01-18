@@ -19,7 +19,8 @@ use Kreta\Component\User\Model\Interfaces\UserInterface;
 /**
  * Class Project Role.
  *
- * @package Kreta\Component\Project\Model
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class Participant implements ParticipantInterface
 {

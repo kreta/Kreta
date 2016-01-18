@@ -17,6 +17,9 @@ use Kreta\Bundle\CoreBundle\Model\Interfaces\ClientInterface;
 
 /**
  * Class Client.
+ *
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class Client extends BaseClient implements ClientInterface
 {

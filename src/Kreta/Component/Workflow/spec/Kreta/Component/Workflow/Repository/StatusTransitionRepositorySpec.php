@@ -23,7 +23,8 @@ use Prophecy\Argument;
 /**
  * Class StatusTransitionRepositorySpec.
  *
- * @package spec\Kreta\Component\Workflow\Repository
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class StatusTransitionRepositorySpec extends BaseEntityRepository
 {
@@ -41,7 +42,7 @@ class StatusTransitionRepositorySpec extends BaseEntityRepository
     {
         $this->shouldHaveType('Kreta\Component\Core\Repository\EntityRepository');
     }
-    
+
     function it_persists_initial_status(StatusTransitionInterface $transition, StatusInterface $initialStatus)
     {
         $transition->addInitialState($initialStatus)->shouldBeCalled()->willReturn($transition);

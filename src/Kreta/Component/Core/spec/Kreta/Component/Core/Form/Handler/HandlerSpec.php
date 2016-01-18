@@ -26,7 +26,8 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * Class HandlerSpec.
  *
- * @package spec\Kreta\Component\Core\Form\Handler
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class HandlerSpec extends ObjectBehavior
 {

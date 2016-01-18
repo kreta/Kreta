@@ -19,7 +19,8 @@ use Symfony\Component\DependencyInjection\ContainerBuilder;
 /**
  * Class YamlFileLoaderSpec.
  *
- * @package spec\Kreta\Bundle\CoreBundle\DependencyInjection\Loader
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class YamlFileLoaderSpec extends ObjectBehavior
 {

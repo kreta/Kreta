@@ -17,7 +17,8 @@ use PhpSpec\ObjectBehavior;
 /**
  * Class KretaUserBundleSpec.
  *
- * @package spec\Kreta\UserBundle
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class KretaUserBundleSpec extends ObjectBehavior
 {
@@ -30,7 +31,7 @@ class KretaUserBundleSpec extends ObjectBehavior
     {
         $this->shouldHaveType('Symfony\Component\HttpKernel\Bundle\Bundle');
     }
-    
+
     function it_gets_parent()
     {
         $this->getParent()->shouldReturn('FOSUserBundle');

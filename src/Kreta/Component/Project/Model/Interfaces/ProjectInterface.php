@@ -20,7 +20,8 @@ use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
 /**
  * Interface Project.
  *
- * @package Kreta\Component\Project\Model\Interfaces
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 interface ProjectInterface
 {

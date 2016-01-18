@@ -24,7 +24,8 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 /**
  * Class ProfileControllerSpec.
  *
- * @package spec\Kreta\Bundle\UserBundle\Controller
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class ProfileControllerSpec extends ObjectBehavior
 {

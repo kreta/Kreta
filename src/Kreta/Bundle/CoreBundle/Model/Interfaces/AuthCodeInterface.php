@@ -16,6 +16,9 @@ use FOS\OAuthServerBundle\Model\AuthCodeInterface as BaseAuthCode;
 
 /**
  * Interface AuthCodeInterface.
+ *
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 interface AuthCodeInterface extends BaseAuthCode
 {

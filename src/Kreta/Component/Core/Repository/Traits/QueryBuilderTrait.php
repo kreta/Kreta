@@ -17,7 +17,8 @@ use Doctrine\ORM\QueryBuilder;
 /**
  * Trait QueryBuilderTrait.
  *
- * @package Kreta\Component\Core\Repository\Traits
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 trait QueryBuilderTrait
 {

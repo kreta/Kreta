@@ -19,7 +19,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * Class WorkflowVoter.
  *
- * @package Kreta\Bundle\WorkflowBundle\Security\Authorization\Voter
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class WorkflowVoter extends AbstractVoter
 {

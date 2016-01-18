@@ -17,6 +17,9 @@ use Kreta\Bundle\CoreBundle\Model\Interfaces\AuthCodeInterface;
 
 /**
  * Class AuthCode.
+ *
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class AuthCode extends BaseAuthCode implements AuthCodeInterface
 {

@@ -19,7 +19,8 @@ use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
 /**
  * Class Status.
  *
- * @package Kreta\Component\Workflow\Model
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class Status extends State implements StatusInterface
 {

@@ -20,7 +20,8 @@ use Prophecy\Argument;
 /**
  * Class NotificationSpec.
  *
- * @package spec\Kreta\Component\Notification\Model
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class NotificationSpec extends ObjectBehavior
 {

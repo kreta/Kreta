@@ -21,7 +21,8 @@ use Symfony\Component\HttpFoundation\Request;
 /**
  * Class WorkflowController.
  *
- * @package Kreta\Bundle\WorkflowBundle\Controller
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class WorkflowController extends Controller
 {

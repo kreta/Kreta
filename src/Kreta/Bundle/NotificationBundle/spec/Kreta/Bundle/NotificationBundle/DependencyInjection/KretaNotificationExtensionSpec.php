@@ -18,7 +18,8 @@ use Prophecy\Argument;
 /**
  * Class KretaNotificationExtensionSpec.
  *
- * @package spec\Kreta\Bundle\NotificationBundle\DependencyInjection
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class KretaNotificationExtensionSpec extends ObjectBehavior
 {

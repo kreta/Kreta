@@ -21,7 +21,8 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 /**
  * Class ResourceIfAllowedAnnotationListenerSpec.
  *
- * @package spec\Kreta\Bundle\CoreBundle\EventListener
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class ResourceIfAllowedAnnotationListenerSpec extends ObjectBehavior
 {

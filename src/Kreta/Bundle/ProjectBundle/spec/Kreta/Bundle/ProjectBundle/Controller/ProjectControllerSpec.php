@@ -27,7 +27,8 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 /**
  * Class ProjectControllerSpec.
  *
- * @package spec\Kreta\Bundle\ProjectBundle\Controller
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class ProjectControllerSpec extends ObjectBehavior
 {

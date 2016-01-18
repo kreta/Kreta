@@ -23,7 +23,8 @@ use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 /**
  * Class ProjectTypeSpec.
  *
- * @package spec\Kreta\Component\Project\Form\Type
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class ProjectTypeSpec extends ObjectBehavior
 {

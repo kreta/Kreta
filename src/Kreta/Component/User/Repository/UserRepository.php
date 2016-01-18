@@ -17,7 +17,8 @@ use Kreta\Component\Core\Repository\EntityRepository;
 /**
  * Class UserRepository.
  *
- * @package Kreta\Component\User\Repository
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class UserRepository extends EntityRepository
 {

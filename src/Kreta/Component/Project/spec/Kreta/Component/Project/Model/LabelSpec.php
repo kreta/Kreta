@@ -18,7 +18,8 @@ use PhpSpec\ObjectBehavior;
 /**
  * Class LabelSpec.
  *
- * @package spec\Kreta\Component\Project\Model
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class LabelSpec extends ObjectBehavior
 {

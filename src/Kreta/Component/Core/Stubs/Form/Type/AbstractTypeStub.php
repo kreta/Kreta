@@ -18,7 +18,8 @@ use Symfony\Component\Form\FormInterface;
 /**
  * Class AbstractTypeStub.
  *
- * @package Kreta\Component\Core\Stubs\Form\Type
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class AbstractTypeStub extends AbstractType
 {

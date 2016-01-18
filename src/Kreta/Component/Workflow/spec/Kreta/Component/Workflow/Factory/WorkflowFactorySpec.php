@@ -18,7 +18,8 @@ use PhpSpec\ObjectBehavior;
 /**
  * Class WorkflowFactorySpec.
  *
- * @package spec\Kreta\Component\Workflow\Factory
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class WorkflowFactorySpec extends ObjectBehavior
 {

@@ -22,7 +22,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * Class NotificationTypeSpec.
  *
- * @package spec\Kreta\Component\Notification\Form\Type
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class NotificationTypeSpec extends ObjectBehavior
 {

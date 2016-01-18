@@ -34,7 +34,8 @@ use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 /**
  * Class AuthenticationListenerSpec.
  *
- * @package spec\Kreta\Bundle\UserBundle\EventListener
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class AuthenticationListenerSpec extends ObjectBehavior
 {

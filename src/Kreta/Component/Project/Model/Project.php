@@ -26,7 +26,8 @@ use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
 /**
  * Class Project.
  *
- * @package Kreta\Component\Project\Model
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class Project extends AbstractModel implements ProjectInterface
 {

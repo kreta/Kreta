@@ -25,7 +25,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * Class AbstractTypeSpec.
  *
- * @package spec\Kreta\Component\Core\Form\Type\Abstracts
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class AbstractTypeSpec extends ObjectBehavior
 {
@@ -82,7 +83,7 @@ class AbstractTypeSpec extends ObjectBehavior
 
         $this->configureOptions($resolver);
     }
-    
+
     function it_gets_name(
         ObjectManager $manager,
         TokenStorageInterface $context,

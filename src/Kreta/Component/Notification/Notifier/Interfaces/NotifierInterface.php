@@ -17,7 +17,8 @@ use Kreta\Component\Notification\Model\Interfaces\NotificationInterface;
 /**
  * Interface NotifierInterface.
  *
- * @package Kreta\Component\Notification\Notifier\Interfaces
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 interface NotifierInterface
 {

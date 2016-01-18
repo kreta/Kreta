@@ -27,7 +27,8 @@ use stdClass;
 /**
  * Class DoctrineEventSubscriberSpec.
  *
- * @package spec\Kreta\Component\Notification\EventSubscriber
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class DoctrineEventSubscriberSpec extends ObjectBehavior
 {

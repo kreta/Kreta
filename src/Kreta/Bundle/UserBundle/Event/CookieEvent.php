@@ -18,6 +18,9 @@ use Symfony\Component\HttpFoundation\Session\SessionInterface;
 
 /**
  * Class CookieEvent.
+ *
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class CookieEvent extends Event
 {

@@ -15,7 +15,8 @@ namespace Kreta\Component\Issue\Model\Interfaces;
 /**
  * Interface ResolutionInterface.
  *
- * @package Kreta\Component\Issue\Model\Interfaces
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 interface ResolutionInterface
 {

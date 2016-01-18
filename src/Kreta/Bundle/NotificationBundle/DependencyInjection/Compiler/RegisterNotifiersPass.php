@@ -18,6 +18,9 @@ use Symfony\Component\DependencyInjection\Reference;
 
 /**
  * Class RegisterNotifiersPass.
+ *
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class RegisterNotifiersPass implements CompilerPassInterface
 {

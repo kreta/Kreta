@@ -27,7 +27,8 @@ use Symfony\Component\Security\Core\User\UserInterface;
 /**
  * Class StatusTransitionTypeSpec.
  *
- * @package spec\Kreta\Component\Workflow\Form\Type
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class StatusTransitionTypeSpec extends ObjectBehavior
 {

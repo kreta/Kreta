@@ -15,7 +15,8 @@ namespace Kreta\Component\Core\Exception;
 /**
  * Class ResourceAlreadyPersistException.
  *
- * @package Kreta\Component\Core\Exception
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class ResourceAlreadyPersistException extends \Exception
 {

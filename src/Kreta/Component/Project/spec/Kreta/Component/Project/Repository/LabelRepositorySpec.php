@@ -25,7 +25,8 @@ use Prophecy\Argument;
 /**
  * Class LabelRepositorySpec.
  *
- * @package spec\Kreta\Component\Project\Repository
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class LabelRepositorySpec extends BaseEntityRepository
 {
@@ -43,7 +44,7 @@ class LabelRepositorySpec extends BaseEntityRepository
     {
         $this->shouldHaveType('Kreta\Component\Core\Repository\EntityRepository');
     }
-    
+
     function it_finds_by_project(
         ProjectInterface $project,
         EntityManager $manager,

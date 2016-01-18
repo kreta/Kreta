@@ -19,6 +19,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Class IssueVoter.
+ *
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class IssueVoter extends AbstractVoter
 {

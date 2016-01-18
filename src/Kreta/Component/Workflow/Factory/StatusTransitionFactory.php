@@ -17,7 +17,8 @@ use Kreta\Component\Workflow\Model\Interfaces\StatusInterface;
 /**
  * Class StatusTransitionFactory.
  *
- * @package Kreta\Component\Workflow\Factory
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class StatusTransitionFactory
 {

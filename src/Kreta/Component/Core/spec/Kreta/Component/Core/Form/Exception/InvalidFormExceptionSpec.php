@@ -18,7 +18,8 @@ use Prophecy\Argument;
 /**
  * Class InvalidFormExceptionSpec.
  *
- * @package spec\Kreta\Component\Core\Form\Exception
+ * @author Beñat Espiña <benatespina@gmail.com>
+ * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
 class InvalidFormExceptionSpec extends ObjectBehavior
 {
@@ -36,13 +37,13 @@ class InvalidFormExceptionSpec extends ObjectBehavior
     {
         $this->getFormErrors()->shouldReturn([]);
     }
-    
+
     function it_gets_form_errors()
     {
         $this->beConstructedWith(
             ['name' => ['This value should not be blank', 'An object with identical name is already exists']]
         );
-        
+
         $this->getFormErrors()->shouldReturn(
             ['name' => ['This value should not be blank', 'An object with identical name is already exists']]
         );
