@@ -100,7 +100,7 @@ class CommandContext extends DefaultContext
         $command = $this->application->find($command);
         $this->tester = new CommandTester($command);
 
-        $helper = $command->getHelper('dialog');
+        $helper = $command->getHelper('question');
         $helper->setInputStream($this->getInputStream('Test\\n'));
 
         $this->inputs['command'] = $command->getName();
