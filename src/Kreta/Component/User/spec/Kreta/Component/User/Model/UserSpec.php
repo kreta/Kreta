@@ -102,6 +102,6 @@ class UserSpec extends ObjectBehavior
 
     function its_salt_returns_null()
     {
-        $this->getSalt(->shouldReturn(null);
+        $this->getSalt()->shouldReturn(null);
     }
 }
