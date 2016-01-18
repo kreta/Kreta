@@ -35,7 +35,7 @@ Kreta\Component\Workflow\Model\StatusTransition:
             - NotBlank: ~
     getters:
         validState:
-            - 'True':
+            - IsTrue:
                 message: 'The state cannot be an initial state too'
 
 Kreta\Component\Workflow\Model\Workflow:
