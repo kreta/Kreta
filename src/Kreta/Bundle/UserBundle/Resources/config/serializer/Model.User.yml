@@ -13,14 +13,14 @@ Kreta\Component\User\Model\User:
             rel: self
             href:
                 route: get_profile
-                absolute: true
+                absolute: 0
             exclusion:
                 groups: [profile]
         -
             rel: projects
             href:
                 route: get_projects
-                absolute: true
+                absolute: 0
             exclusion:
                 groups: [profile]
     properties:

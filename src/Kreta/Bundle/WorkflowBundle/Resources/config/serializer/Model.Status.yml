@@ -16,7 +16,7 @@ Kreta\Component\Workflow\Model\Status:
                 parameters:
                     workflowId: expr(object.getWorkflow().getId())
                     statusId: expr(object.getId())
-                absolute: true
+                absolute: 0
             exclusion:
                 groups: [workflowList, workflow, statusList, status]
         -
@@ -25,7 +25,7 @@ Kreta\Component\Workflow\Model\Status:
                 route: get_workflow_statuses
                 parameters:
                     workflowId: expr(object.getWorkflow().getId())
-                absolute: true
+                absolute: 0
             exclusion:
                 groups: [workflowList, workflow, statusList, status]
         -
@@ -34,7 +34,7 @@ Kreta\Component\Workflow\Model\Status:
                 route: get_workflow
                 parameters:
                     workflowId: expr(object.getWorkflow().getId())
-                absolute: true
+                absolute: 0
             exclusion:
                 groups: [statusList, status]
     properties:
