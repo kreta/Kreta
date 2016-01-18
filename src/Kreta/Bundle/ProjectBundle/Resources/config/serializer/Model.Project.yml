@@ -15,21 +15,21 @@ Kreta\Component\Project\Model\Project:
                 route: get_project
                 parameters:
                     projectId: expr(object.getId())
-                absolute: true
+                absolute: 0
             exclusion:
                 groups: [projectList, project]
         -
             rel: projects
             href:
                 route: get_projects
-                absolute: true
+                absolute: 0
             exclusion:
                 groups: [projectList, project]
         -
             rel: issues
             href:
                 route: get_issues
-                absolute: true
+                absolute: 0
             exclusion:
                 groups: [projectList, project]
         -
@@ -38,7 +38,7 @@ Kreta\Component\Project\Model\Project:
                 route: get_projects_labels
                 parameters:
                     projectId: expr(object.getId())
-                absolute: true
+                absolute: 0
             exclusion:
                 groups: [projectList, project]
         -
@@ -47,7 +47,7 @@ Kreta\Component\Project\Model\Project:
                 route: get_projects_issue_priorities
                 parameters:
                     projectId: expr(object.getId())
-                absolute: true
+                absolute: 0
             exclusion:
                 groups: [projectList, project]
         -
@@ -56,7 +56,7 @@ Kreta\Component\Project\Model\Project:
                 route: get_workflow
                 parameters:
                     workflowId: expr(object.getWorkflow().getId())
-                absolute: true
+                absolute: 0
             exclusion:
                 groups: [projectList, project]
         -
@@ -65,7 +65,7 @@ Kreta\Component\Project\Model\Project:
                 route: get_workflow_statuses
                 parameters:
                     workflowId: expr(object.getWorkflow().getId())
-                absolute: true
+                absolute: 0
             exclusion:
                 groups: [projectList, project]
         -
@@ -74,7 +74,7 @@ Kreta\Component\Project\Model\Project:
                 route: get_workflow_transitions
                 parameters:
                     workflowId: expr(object.getWorkflow().getId())
-                absolute: true
+                absolute: 0
             exclusion:
                 groups: [projectList, project]
     properties:
