@@ -15,10 +15,10 @@ namespace spec\Kreta\Bundle\MediaBundle\EventSubscriber;
 use JMS\Serializer\EventDispatcher\ObjectEvent;
 use Kreta\Bundle\MediaBundle\Stubs\ObjectStub;
 use Kreta\Component\Media\Model\Interfaces\MediaInterface;
-use Kreta\Component\Project\Model\Project;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * Class MediaUrlSubscriberSpec.
@@ -48,8 +48,8 @@ class MediaUrlSubscriberSpec extends ObjectBehavior
             [
                 [
                     'event'  => 'serializer.pre_serialize',
-                    'method' => 'onChangeObjectMedia'
-                ]
+                    'method' => 'onChangeObjectMedia',
+                ],
             ]
         );
     }
@@ -64,8 +64,7 @@ class MediaUrlSubscriberSpec extends ObjectBehavior
     function it_does_not_change_object_media_because_the_image_does_not_be_an_media(
         ObjectEvent $event,
         ObjectStub $object
-    )
-    {
+    ) {
         $event->getObject()->shouldBeCalled()->willReturn($object);
         $object->getImage()->shouldBeCalled()->willReturn(Argument::not('Kreta\Component\Core\Model\Media'));
 
@@ -76,8 +75,7 @@ class MediaUrlSubscriberSpec extends ObjectBehavior
         ObjectEvent $event,
         ObjectStub $object,
         MediaInterface $media
-    )
-    {
+    ) {
         $event->getObject()->shouldBeCalled()->willReturn($object);
         $object->getImage()->shouldBeCalled()->willReturn($media);
         $media->getName()->shouldBeCalled()->willReturn('http://kreta.io/media/media/media-name.jpg');
@@ -90,14 +88,13 @@ class MediaUrlSubscriberSpec extends ObjectBehavior
         ObjectStub $object,
         MediaInterface $media,
         Router $router
-    )
-    {
+    ) {
         $event->getObject()->shouldBeCalled()->willReturn($object);
         $object->getImage()->shouldBeCalled()->willReturn($media);
 
         $media->getName()->shouldBeCalled()->willReturn('media-name.jpg');
 
-        $router->generate('kreta_media_image', ['name' => 'media-name.jpg'], true)
+        $router->generate('kreta_media_image', ['name' => 'media-name.jpg'], UrlGeneratorInterface::ABSOLUTE_URL)
             ->shouldBeCalled()->willReturn('http://kreta.io/media/media/media-name.jpg');
 
         $media->setName('http://kreta.io/media/media/media-name.jpg')->shouldBeCalled()->willReturn($media);

@@ -16,6 +16,7 @@ use JMS\Serializer\EventDispatcher\EventSubscriberInterface;
 use JMS\Serializer\EventDispatcher\ObjectEvent;
 use Kreta\Component\Media\Model\Interfaces\MediaInterface;
 use Symfony\Bundle\FrameworkBundle\Routing\Router;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 /**
  * Class MediaUrlSubscriber.
@@ -97,7 +98,8 @@ class MediaUrlSubscriber implements EventSubscriberInterface
                 $object->$method(
                     $media->setName(
                         $this->router->generate(
-                            'kreta_media_' . $this->mediaType, ['name' => $media->getName()], true
+                            'kreta_media_' . $this->mediaType, ['name' => $media->getName()],
+                            UrlGeneratorInterface::ABSOLUTE_URL
                         )
                     )
                 );
