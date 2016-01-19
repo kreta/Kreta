@@ -55,9 +55,9 @@ before_script:
 
 #### create config file for HHVM ####
     - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || echo "pid = /tmp/hhvm.pid" >>/tmp/hhvm.ini'
-    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || echo "hhvm.server.port = 9000" >>/tmp/hhvm.ini'
+    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || echo "hhvm.server.port = 8000" >>/tmp/hhvm.ini'
     - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || echo "hhvm.server.type = fastcgi" >>/tmp/hhvm.ini'
-    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || echo "hhvm.server.default_document = index.php" >>/tmp/hhvm.ini'
+    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || echo "hhvm.server.default_document = app.php" >>/tmp/hhvm.ini'
     - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || echo "hhvm.log.use_log_file = true" >>/tmp/hhvm.ini'
     - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || echo "hhvm.log.file = /tmp/hhvm-error.log" >>/tmp/hhvm.ini'
     - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || echo "hhvm.repo.central.path = /tmp/hhvm.hhbc" >>/tmp/hhvm.ini'
