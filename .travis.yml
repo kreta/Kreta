@@ -68,7 +68,7 @@ before_script:
 #### starting PHP built-in server ####
     - '[[ "$TRAVIS_PHP_VERSION" == "hhvm" ]] || tests/functional/fixtures/bin/console server:start kreta.test:8000 --router=tests/functional/fixtures/web/app.php  >/dev/null 2>&1 &'
 #### use berbeley's FastCGI-Serve instead of PHP built-in server ####
-    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || hhvm-serve --document-root=tests/functional/fixtures/web --listen=kreta.test:8000  >/dev/null 2>&1 &'
+    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || hhvm-serve --document-root=tests/functional/fixtures/web --listen=kreta.test:8000 --index=app.php  >/dev/null 2>&1 &'
 
 
     - sleep 5
@@ -78,21 +78,21 @@ script:
 #    - node_modules/.bin/jest --verbose --coverage
 #    - cd -
 
-    - vendor/bin/phpspec run
+#    - vendor/bin/phpspec run
 
-    - vendor/bin/behat --stop-on-failure --suite=oauth
-    - vendor/bin/behat --stop-on-failure --suite=authentication
+#    - vendor/bin/behat --stop-on-failure --suite=oauth
+#    - vendor/bin/behat --stop-on-failure --suite=authentication
     - vendor/bin/behat --stop-on-failure --suite=user
     - vendor/bin/behat --stop-on-failure --suite=invitation
-    - vendor/bin/behat --stop-on-failure --suite=profile
-    - vendor/bin/behat --stop-on-failure --suite=issue
-    - vendor/bin/behat --stop-on-failure --suite=label
-    - vendor/bin/behat --stop-on-failure --suite=participant
-    - vendor/bin/behat --stop-on-failure --suite=issuePriority
-    - vendor/bin/behat --stop-on-failure --suite=project
-    - vendor/bin/behat --stop-on-failure --suite=status
-    - vendor/bin/behat --stop-on-failure --suite=statusTransition
-    - vendor/bin/behat --stop-on-failure --suite=workflow
+#    - vendor/bin/behat --stop-on-failure --suite=profile
+#    - vendor/bin/behat --stop-on-failure --suite=issue
+#    - vendor/bin/behat --stop-on-failure --suite=label
+#    - vendor/bin/behat --stop-on-failure --suite=participant
+#    - vendor/bin/behat --stop-on-failure --suite=issuePriority
+#    - vendor/bin/behat --stop-on-failure --suite=project
+#    - vendor/bin/behat --stop-on-failure --suite=status
+#    - vendor/bin/behat --stop-on-failure --suite=statusTransition
+#    - vendor/bin/behat --stop-on-failure --suite=workflow
 
 #after_script:
 #    - vendor/bin/coveralls -v
