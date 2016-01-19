@@ -17,6 +17,10 @@ way all the possibilities of the platform.
 Kreta is developed following the decoupling and reuse principles so, it provides a set of plugins that are available
 in **[kreta-plugins][2]**.
 
+If you want to test the project without any installation, you can play with a **public demo site in
+[demo.kreta.io][15]**.
+> Feel free to change anything you can, it has a cron that reloads all the dummy content everyday :)
+
 ##Tests
 This repository is completely tested following *BDD* methodology with **[PHPSpec][3]** and **[Behat][13]**,
 SpecBDD and StoryBDD frameworks for PHP. Also, the JavaScript code is tested following the *Swallow Rendering*
@@ -66,4 +70,5 @@ Kreta is created by:
 [11]: https://facebook.github.io/react/
 [12]: http://sass-lang.com/
 [13]: http://docs.behat.org/en/latest/
-[14]:https://facebook.github.io/jest/
+[14]: https://facebook.github.io/jest/
+[15]: http://demo.kreta.io/
