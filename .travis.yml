@@ -15,15 +15,20 @@ addons:
 language: php
 
 php:
-    - 5.5
-    - 5.6
-    - 7.0
+#    - 5.5
+#    - 5.6
+#    - 7.0
     - hhvm
 
 env:
     - COMPOSER_OPTIONS="--prefer-source"
 
 install:
+    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || mkdir -p /home/travis/go/{src,bin,pkg}'
+    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || export GOPATH="/home/travis/go"'
+    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || export PATH="$GOPATH/bin:$PATH"'
+    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || go get github.com/beberlei/fastcgi-serve'
+
     - nvm install 4.2.1
     - nvm use 4.2.1
     - composer self-update
@@ -48,7 +53,23 @@ before_script:
     - cd -
     - cp tests/behat.yml.dist behat.yml && cp tests/phpspec.yml.dist phpspec.yml
 
-    - tests/functional/fixtures/bin/console server:start kreta.test:8000 --router=tests/functional/fixtures/web/app.php
+#### create config file for HHVM ####
+    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || echo "pid = /tmp/hhvm.pid" >>/tmp/hhvm.ini'
+    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || echo "hhvm.server.port = 9000" >>/tmp/hhvm.ini'
+    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || echo "hhvm.server.type = fastcgi" >>/tmp/hhvm.ini'
+    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || echo "hhvm.server.default_document = index.php" >>/tmp/hhvm.ini'
+    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || echo "hhvm.log.use_log_file = true" >>/tmp/hhvm.ini'
+    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || echo "hhvm.log.file = /tmp/hhvm-error.log" >>/tmp/hhvm.ini'
+    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || echo "hhvm.repo.central.path = /tmp/hhvm.hhbc" >>/tmp/hhvm.ini'
+#### start HHVM ####
+    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || hhvm --config "/tmp/hhvm.ini" --mode daemon'
+    - sleep 5
+
+#### starting PHP built-in server ####
+    - '[[ "$TRAVIS_PHP_VERSION" == "hhvm" ]] || tests/functional/fixtures/bin/console server:start kreta.test:8000 --router=tests/functional/fixtures/web/app.php  >/dev/null 2>&1 &'
+#### use berbeley's FastCGI-Serve instead of PHP built-in server ####
+    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || hhvm-serve --document-root=tests/functional/fixtures/web/app.php --listen=kreta.test:8000  >/dev/null 2>&1 &'
+
 
     - sleep 5
 
@@ -83,5 +104,5 @@ cache:
 matrix:
     fast_finish: true
     allow_failures:
-        - php: 7.0
+#        - php: 7.0
         - php: hhvm
