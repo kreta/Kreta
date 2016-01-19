@@ -91,8 +91,7 @@ class StatusSpec extends ObjectBehavior
         WorkflowInterface $workflow,
         StatusInterface $status,
         ProjectInterface $project,
-        IssueInterface $issue,
-        StatusInterface $status
+        IssueInterface $issue
     )
     {
         $this->setWorkflow($workflow)->shouldReturn($this);
@@ -109,7 +108,6 @@ class StatusSpec extends ObjectBehavior
 
     function it_returns_true_because_the_transition_is_in_use_by_any_issue(
         WorkflowInterface $workflow,
-        StatusInterface $status,
         ProjectInterface $project,
         IssueInterface $issue,
         StatusInterface $status

@@ -69,7 +69,6 @@ class ParticipantControllerSpec extends ObjectBehavior
 
     function it_posts_participant(
         ContainerInterface $container,
-        Request $request,
         ProjectInterface $project,
         UserRepository $userRepository,
         UserInterface $user,

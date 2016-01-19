@@ -66,8 +66,7 @@ class StatusControllerSpec extends ObjectBehavior
         Request $request,
         Handler $handler,
         StatusInterface $status,
-        WorkflowInterface $workflow,
-        Request $request
+        WorkflowInterface $workflow
     )
     {
         $container->get('kreta_workflow.form_handler.status')->shouldBeCalled()->willReturn($handler);
