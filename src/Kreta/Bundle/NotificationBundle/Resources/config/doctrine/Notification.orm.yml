@@ -24,6 +24,7 @@ Kreta\Component\Notification\Model\Notification:
             column: is_read # Avoids using reserved SQL word (read)
             type: boolean
         resourceUrl:
+            column: resource_url
             type: string
         title:
             type: string
@@ -32,6 +33,7 @@ Kreta\Component\Notification\Model\Notification:
             type: string
             length: 50
         webUrl:
+            column: web_url
             type: string
     manyToOne:
         project:
