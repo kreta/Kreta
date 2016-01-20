@@ -8,7 +8,7 @@
 
 default:
     formatters:
-        progress:
+        pretty:
             verbose: true
             paths: true
             snippets: false
