@@ -84,8 +84,7 @@ class ProjectControllerSpec extends ObjectBehavior
         ContainerInterface $container,
         Request $request,
         ProjectHandler $projectHandler,
-        ProjectInterface $project,
-        Request $request
+        ProjectInterface $project
     )
     {
         $container->get('kreta_project.form_handler.project')->shouldBeCalled()->willReturn($projectHandler);

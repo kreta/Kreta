@@ -20,6 +20,8 @@ use Doctrine\ORM\QueryBuilder;
 use Kreta\Component\Core\spec\Kreta\Component\Core\Repository\BaseEntityRepository;
 use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
+use PhpSpec\ObjectBehavior;
+use PhpSpec\Wrapper\Collaborator;
 use Prophecy\Argument;
 
 /**
@@ -28,8 +30,10 @@ use Prophecy\Argument;
  * @author Beñat Espiña <benatespina@gmail.com>
  * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
-class IssueRepositorySpec extends BaseEntityRepository
+class IssueRepositorySpec extends ObjectBehavior
 {
+    use BaseEntityRepository;
+
     function let(EntityManager $manager, ClassMetadata $metadata)
     {
         $this->beConstructedWith($manager, $metadata);
