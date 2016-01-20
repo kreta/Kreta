@@ -70,7 +70,7 @@ class Issue extends Backbone.Model {
       error: null
     };
 
-    options = $.extend(defaultOptions, options);
+    options = _.extend(defaultOptions, options);
     Backbone.$.ajax(this.urlTransition(), {
       method: 'PATCH',
       data: {

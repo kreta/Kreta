@@ -38,16 +38,16 @@ class App {
 
     this.dependenciesToLoad = 4;
     this.currentUser.fetch({
-      success: $.proxy(this.dependencyLoaded, this)
+      success: this.dependencyLoaded.bind(this)
     });
     this.collection.project.fetch({
-      success: $.proxy(this.dependencyLoaded, this)
+      success: this.dependencyLoaded.bind(this)
     });
     this.collection.user.fetch({
-      success: $.proxy(this.dependencyLoaded, this)
+      success: this.dependencyLoaded.bind(this)
     });
     this.collection.workflow.fetch({
-      success: $.proxy(this.dependencyLoaded, this)
+      success: this.dependencyLoaded.bind(this)
     });
   }
 
