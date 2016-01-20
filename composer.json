@@ -97,7 +97,8 @@
             "Behat\\WebApiExtension\\": "vendor/behat/web-api-extension/src/",
             "GuzzleHttp\\": "vendor/guzzlehttp/guzzle/src/",
             "GuzzleHttp\\Ring\\": "vendor/guzzlehttp/ringphp/src/",
-            "GuzzleHttp\\Stream\\": "vendor/guzzlehttp/streams/src/"
+            "GuzzleHttp\\Stream\\": "vendor/guzzlehttp/streams/src/",
+            "React\\Promise\\": "vendor/react/promise/src/"
         },
         "exclude-from-classmap": ["/spec/"]
     },
