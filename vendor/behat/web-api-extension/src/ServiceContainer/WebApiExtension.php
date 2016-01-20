@@ -62,7 +62,6 @@ class WebApiExtension implements ExtensionInterface
      */
     public function load(ContainerBuilder $container, array $config)
     {
-        var_dump($config);
         $this->loadClient($container, $config);
         $this->loadContextInitializer($container, $config);
     }

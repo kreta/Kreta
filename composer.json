@@ -94,7 +94,10 @@
     "autoload": {
         "psr-4": {
             "Kreta\\": "src/Kreta/",
-            "Behat\\WebApiExtension\\": "vendor/behat/web-api-extension/src/"
+            "Behat\\WebApiExtension\\": "vendor/behat/web-api-extension/src/",
+            "GuzzleHttp\\": "vendor/guzzlehttp/guzzle/src/",
+            "GuzzleHttp\\Ring\\": "vendor/guzzlehttp/ringphp/src/",
+            "GuzzleHttp\\Stream\\": "vendor/guzzlehttp/streams/src/"
         },
         "exclude-from-classmap": ["/spec/"]
     },
