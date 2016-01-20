@@ -93,7 +93,8 @@
     },
     "autoload": {
         "psr-4": {
-            "Kreta\\": "src/Kreta/"
+            "Kreta\\": "src/Kreta/",
+            "Behat\\WebApiExtension\\": "vendor/behat/web-api-extension/src/"
         },
         "exclude-from-classmap": ["/spec/"]
     },
