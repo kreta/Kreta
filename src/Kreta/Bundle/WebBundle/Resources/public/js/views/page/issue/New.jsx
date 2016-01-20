@@ -12,31 +12,31 @@ import './../../../../scss/views/page/issue/_new';
 import PriorityIcon from './../../../../svg/priority';
 
 import React from 'react';
+import $ from 'jquery';
 
 import Button from './../../component/Button';
 import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
 import Form from './../../component/Form';
 import FormInput from './../../component/FormInput';
+import FormSerializerService from '../../../service/FormSerializer';
 import Icon from './../../component/Icon';
 import Issue from './../../../models/Issue';
+import {issueCreate} from '../../../actions/IssueActionCreator';
 import IssueField from './../../component/IssueField';
+import IssuesCollection from '../../../collections/Issues';
 import Selector from './../../component/Selector';
 import UserImage from './../../component/UserImage';
-import IssueStore from '../../../stores/IssueStore';
+import ActionTypes from '../../../constants/ActionTypes';
 
 class New extends React.Component {
-  static contextTypes = {
-    history: React.PropTypes.object
-  };
-
   state = {
     project: null
   };
 
   componentDidMount() {
-    const store = new IssueStore();
-    store.register(this.handleStoreEvent);
     this.updateSelectors(this.props.params.projectId);
+    IssuesCollection.on(ActionTypes.ISSUE_CREATE_ERROR, this._handleErrors.bind(this));
+    IssuesCollection.on(ActionTypes.ISSUE_CREATED, this._handleSuccess.bind(this));
   }
 
   componentDidUpdate (prevProps) {
@@ -45,6 +45,23 @@ class New extends React.Component {
     if (newId !== oldId) {
       this.updateSelectors(this.props.params.projectId);
     }
+  }
+
+  _save(ev) {
+    ev.preventDefault();
+
+    const issue = FormSerializerService.serialize(
+      $(this.refs.form.refs.form), Issue
+    );
+    issueCreate(issue);
+  }
+
+  _handleSuccess(model) {
+    console.log(model);
+  }
+
+  _handleErrors(errors) {
+    console.log(errors);
   }
 
   updateSelectors(projectId) {
@@ -98,10 +115,6 @@ class New extends React.Component {
     return {selectableProjects, assignee, priority};
   }
 
-  goToCreatedIssue(model) {
-    this.context.history.pushState(null, `/project/${model.get('project')}`);
-  }
-
   render() {
     if (!this.state.project) {
       return <div>Loading</div>;
@@ -111,8 +124,7 @@ class New extends React.Component {
 
     return (
       <ContentMiddleLayout>
-        <Form model={Issue}
-              onSaveSuccess={this.goToCreatedIssue.bind(this)}>
+        <Form onSubmit={this._save.bind(this)} ref="form">
           <Selector name="project"
                     onChange={this.updateSelectors.bind(this)}
                     tabIndex={1}

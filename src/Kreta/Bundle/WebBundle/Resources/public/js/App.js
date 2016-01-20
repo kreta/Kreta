@@ -28,7 +28,7 @@ class App {
     this.addAutenticationHeader();
 
     this.collection = {
-      project: new Projects(),
+      project: new Projects,
       user: Users,
       workflow: new Workflows(),
       notification: new Notifications()

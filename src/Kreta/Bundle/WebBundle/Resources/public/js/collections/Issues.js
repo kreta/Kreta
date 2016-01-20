@@ -12,12 +12,34 @@ import Backbone from 'backbone';
 
 import Config from './../Config';
 import Issue from './../models/Issue';
+import ActionTypes from '../constants/ActionTypes';
+import Store from '../stores/Store';
 
-class Issues extends Backbone.Collection {
+class Issues extends Store.Collection {
   model = Issue;
 
   url() {
     return `${Config.baseUrl}/issues`;
+  }
+
+  handleDispatch(payload) {
+    switch (payload.type) {
+
+      case ActionTypes.ISSUE_CREATE:
+        this.create(payload.issue, {
+          success: (model) => {
+            this.emitter.emit(ActionTypes.ISSUE_CREATED, model);
+          },
+          error: (model, errors) => {
+            this.emitter.emit(ActionTypes.ISSUE_CREATE_ERROR, errors)
+          }
+        });
+
+        break;
+
+      default:
+        return true;
+    }
   }
 
   findIndexById(issueId) {
@@ -34,4 +56,7 @@ class Issues extends Backbone.Collection {
   }
 }
 
-export default Issues;
+
+let IssuesCollection = new Issues();
+
+export default IssuesCollection;
