@@ -161,9 +161,12 @@ class Client implements ClientInterface
         $trans = new Transaction($this, $request, $isFuture);
         $fn = $this->fsm;
 
+        var_dump($request);
         try {
             $fn($trans);
             if ($isFuture) {
+                echo 'ENTRA1';
+                var_dump($trans->response);
                 // Turn the normal response into a future if needed.
                 return $trans->response instanceof FutureInterface
                     ? $trans->response
@@ -173,11 +176,17 @@ class Client implements ClientInterface
             // transaction. This accounts for things like retries
             // that do not have an immediate side-effect.
             while ($trans->response instanceof FutureInterface) {
+                echo 'ENTRA2';
                 $trans->response = $trans->response->wait();
-            }
+                var_dump($trans->response);
+            }die;
             return $trans->response;
         } catch (\Exception $e) {
+            echo 'ENTRA3';
+            var_dump($e);
             if ($isFuture) {
+                echo 'ENTRA4';
+                var_dump(new FutureResponse(new RejectedPromise($e)));die;
                 // Wrap the exception in a promise
                 return new FutureResponse(new RejectedPromise($e));
             }
