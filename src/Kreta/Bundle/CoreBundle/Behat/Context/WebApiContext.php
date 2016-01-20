@@ -97,7 +97,7 @@ class WebApiContext implements ApiClientAwareContext
      */
     public function iSendARequest($method, $url)
     {
-        $url = $this->prepareUrl($url);
+        $url = $this->prepareUrl('http://kreta.test:8000/app.php' . $url);
         echo $url;
         $this->request = $this->getClient()->createRequest($method, $url);
         if (!empty($this->headers)) {
