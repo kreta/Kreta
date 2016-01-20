@@ -14,7 +14,6 @@ namespace Kreta\Bundle\CoreBundle\Behat\Context;
 
 use Behat\Gherkin\Node\TableNode;
 use Behat\Symfony2Extension\Context\KernelDictionary;
-use Behat\WebApiExtension\Context\WebApiContext;
 
 /**
  * Class OauthContext.
