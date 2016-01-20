@@ -98,6 +98,8 @@ class WebApiContext implements ApiClientAwareContext
     {
         $url = $this->prepareUrl($url);
         $this->request = $this->getClient()->createRequest($method, $url);
+        echo $url;
+        var_dump($this->request);die;
         if (!empty($this->headers)) {
             $this->request->addHeaders($this->headers);
         }
