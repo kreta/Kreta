@@ -100,7 +100,10 @@
             "GuzzleHttp\\Stream\\": "vendor/guzzlehttp/streams/src/",
             "React\\Promise\\": "vendor/react/promise/src/"
         },
-        "files": ["vendor/react/promise/src/functions_include.php"],
+        "files": [
+            "vendor/react/promise/src/functions_include.php",
+            "vendor/phpunit/phpunit/src/Framework/Assert.php"
+        ],
         "exclude-from-classmap": ["/spec/"]
     },
     "autoload-dev": {
