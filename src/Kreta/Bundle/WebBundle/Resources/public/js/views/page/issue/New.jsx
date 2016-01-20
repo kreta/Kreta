@@ -34,6 +34,8 @@ class New extends React.Component {
   };
 
   componentDidMount() {
+    const store = new IssueStore();
+    store.register(this.handleStoreEvent);
     this.updateSelectors(this.props.params.projectId);
   }
 
