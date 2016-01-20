@@ -51,7 +51,6 @@
         "behat/mink-browserkit-driver":             "^1.3.1",
         "behat/mink-extension" :                    "dev-master",
         "behat/symfony2-extension" :                "^2.1",
-        "behat/web-api-extension":                  "^1.0@dev",
         "doctrine/doctrine-fixtures-bundle":        "^2.3",
         "fabpot/php-cs-fixer":                      "^1.11",
         "henrikbjorn/phpspec-code-coverage":        "^1.0",

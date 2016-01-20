@@ -27,3 +27,4 @@ tests/functional/fixtures/web/bundles
 tests/functional/fixtures/web/media
 vendor
 /web
+!vendor/behat/web-api-extension
