@@ -362,6 +362,8 @@ class WebApiContext implements ApiClientAwareContext
     {
         try {
             $this->response = $this->getClient()->send($this->request);
+            var_dump($this->request);
+            var_dump($this->response);die;
         } catch (RequestException $e) {
             $this->response = $e->getResponse();
 
