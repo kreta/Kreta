@@ -11,6 +11,7 @@
 import $ from 'jquery';
 import React from 'react';
 import {Router, Route, IndexRoute} from 'react-router';
+import ReactDOM from 'react-dom';
 
 import App from './App';
 import BaseLayout from './views/layout/Base';
@@ -26,7 +27,7 @@ $(() => {
     onLoad: () => {
       window.React = React;
 
-      React.render(
+      ReactDOM.render(
         <Router>
           <Route component={BaseLayout} path="/">
             <IndexRoute component={Index}/>
