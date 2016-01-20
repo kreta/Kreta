@@ -13,15 +13,35 @@ import {EventEmitter} from 'events';
 
 import AppDispatcher from './../dispatcher/AppDispatcher';
 
-class Store extends EventEmitter {
+class CollectionStore extends Backbone.Collection {
   constructor() {
+    super();
     this.dispatchId = AppDispatcher.register(this.handleDispatch.bind(this));
+    this.emitter = new EventEmitter();
+  }
+
+  on(action, callback) {
+    this.emitter.on(action, callback);
+  }
+
+  handleDispatch(payload) {}
+}
+
+class ModelStore extends Backbone.Model {
+  constructor(attributes, options) {
+    super(attributes, options);
+    this.dispatchId = AppDispatcher.register(this.handleDispatch.bind(this));
+    this.emitter = new EventEmitter();
+  }
+
+  on(action, callback) {
+    this.emitter.on(action, callback);
   }
 
   handleDispatch(payload) {}
 }
 
 export default {
-  Model: Backbone.Model.extend(Store),
-  Collection: Backbone.Collection.extend(Store)
+  Model: ModelStore,
+  Collection: CollectionStore
 };

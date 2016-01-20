@@ -11,8 +11,10 @@
 import Backbone from 'backbone';
 
 import Config from './../Config';
+import Store from '../stores/Store';
+import ActionTypes from '../constants/ActionTypes';
 
-class Profile extends Backbone.Model {
+class Profile extends Store.Model {
   constructor(attributes, options = {}) {
     super(attributes, options);
 

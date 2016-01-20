@@ -14,23 +14,23 @@ import AppDispatcher from './../dispatcher/AppDispatcher';
 import Config from './../Config';
 import Store from './../stores/Store';
 import User from './../models/User';
+import ActionTypes from '../constants/ActionTypes';
+import {EventEmitter} from 'events';
 
 class Users extends Store.Collection {
   model = User;
   url = `${Config.baseUrl}/users`;
 
   handleDispatch(payload) {
-    const action = payload.action;
+    switch (payload.type) {
 
-    switch (action.actionType) {
-
-      case Constants.UPDATE_PROFILE:
-        this.create(payload, {
+      case ActionTypes.PROFILE_UPDATE:
+        this.create(payload.profile, {
           success: (model) => {
-            this.emit(CHANGE_SUCCESS_EVENT, model);
+            this.emitter.emit(ActionTypes.PROFILE_UPDATED, model);
           },
           error: (model, erros) => {
-            this.emit(CHANGE_ERROR_EVENT, errors)
+            this.emitter.emit(ActionTypes.PROFILE_UPDATE_ERROR, errors)
           }
         });
 

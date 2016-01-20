@@ -29,7 +29,7 @@ class App {
 
     this.collection = {
       project: new Projects(),
-      user: new Users(),
+      user: Users,
       workflow: new Workflows(),
       notification: new Notifications()
     };

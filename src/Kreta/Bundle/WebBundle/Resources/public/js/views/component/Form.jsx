@@ -19,6 +19,7 @@ class Form extends React.Component {
     model: React.PropTypes.func.isRequired,
     onSaveError: React.PropTypes.func,
     onSaveSuccess: React.PropTypes.func,
+    onSubmit: React.PropTypes.func,
     saveErrorMessage: React.PropTypes.string,
     saveSuccessMessage: React.PropTypes.string
   };
@@ -37,7 +38,6 @@ class Form extends React.Component {
 
     this.setState({lastValues: serializedModel.toJSON()});
 
-    saveProfile(serializedModel);
     serializedModel.save(null, {
       success: (model) => {
         NotificationService.showNotification({
@@ -81,10 +81,12 @@ class Form extends React.Component {
   }
 
   render() {
+    const onSubmit = typeof this.props.onSubmit !== "undefined" ? this.props.onSubmit : this.save.bind(this);
     return (
       <form method="POST"
-            onSubmit={this.save.bind(this)}
-            ref="form">
+            ref="form"
+            onSubmit={onSubmit}
+        {...this.props}>
         {this.renderFormElements()}
       </form>
     );

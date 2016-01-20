@@ -24,6 +24,8 @@ import Icon from './../component/Icon';
 import Modal from './../component/Modal';
 import ProjectList from './../page/project/List';
 import UserImage from './../component/UserImage';
+import UsersCollection from '../../collections/Users';
+import ActionTypes from '../../constants/ActionTypes';
 
 class MainMenu extends React.Component {
   state = {
@@ -32,7 +34,7 @@ class MainMenu extends React.Component {
 
   componentDidMount() {
     Mousetrap.bind(Config.shortcuts.projectList, this.showProjectList.bind(this));
-    ProfileStore.addChangeSuccessListener(this.onProfileChange);
+    UsersCollection.on(ActionTypes.PROFILE_UPDATED, this.onProfileChange.bind(this));
   }
 
   showProjectList() {
@@ -46,8 +48,9 @@ class MainMenu extends React.Component {
     this.refs.projectListModal.closeModal();
   }
 
-  onProfileChange(user) {
-    this.setState(user);
+  onProfileChange(profile) {
+    console.log('MainMenu', profile);
+    this.setState({user: profile});
   }
 
   render() {

@@ -9,6 +9,7 @@
  */
 
 import React from 'react';
+import $ from 'jquery';
 
 import Button from './../../component/Button';
 import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
@@ -16,7 +17,10 @@ import Form from './../../component/Form';
 import FormInput from './../../component/FormInput';
 import FormInputFile from './../../component/FormInputFile';
 import Profile from './../../../models/Profile';
-import {saveProfile} from './../../../actions/AppActions';
+import {profileUpdate} from './../../../actions/ProfileActionCreator';
+import UsersCollection from '../../../collections/Users';
+import ActionTypes from '../../../constants/ActionTypes';
+import FormSerializerService from '../../../service/FormSerializer';
 
 class Edit extends React.Component {
   componentWillMount() {
@@ -26,8 +30,26 @@ class Edit extends React.Component {
     });
   }
 
-  _save() {
-    saveProfile(this.state.user);
+  componentDidMount() {
+    UsersCollection.on(ActionTypes.PROFILE_UPDATE_ERROR, this._handleProfileErrors);
+    UsersCollection.on(ActionTypes.PROFILE_UPDATED, this._handleProfileSuccess);
+  }
+
+  _save(ev) {
+    ev.preventDefault();
+
+    const profile = FormSerializerService.serialize(
+      $(this.refs.form.refs.form), Profile
+    );
+    profileUpdate(profile);
+  }
+
+  _handleProfileErrors() {
+    console.log("Profile error!!")
+  }
+
+  _handleProfileSuccess() {
+    console.log("Profile success!!");
   }
 
   render() {
@@ -35,7 +57,7 @@ class Edit extends React.Component {
 
     return (
       <ContentMiddleLayout>
-        <Form model={Profile} store={}>
+        <Form onSubmit={this._save.bind(this)} ref="form">
           <FormInputFile filename={user.photo ? user.photo.name : ''}
                          name="photo"
                          value=""/>
@@ -56,7 +78,7 @@ class Edit extends React.Component {
                      value={user.username}/>
 
           <div className="issue-new__actions">
-            <Button color="green" onClick={this._save} type="submit">Update</Button>
+            <Button color="green" type="submit">Update</Button>
           </div>
         </Form>
       </ContentMiddleLayout>
