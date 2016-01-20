@@ -66,7 +66,6 @@ class Client implements ClientInterface
      */
     public function __construct(array $config = [])
     {
-        var_dump($config);die;
         $this->configureBaseUrl($config);
         $this->configureDefaults($config);
 
