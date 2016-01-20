@@ -52,11 +52,7 @@
         "behat/mink-extension" :                    "dev-master",
         "behat/symfony2-extension" :                "^2.1",
         "doctrine/doctrine-fixtures-bundle":        "^2.3",
-        "fabpot/php-cs-fixer":                      "^1.11",
-        "henrikbjorn/phpspec-code-coverage":        "^1.0",
-        "mmoreram/php-formatter":                   "^1.1",
-        "phpspec/phpspec":                          "^2.4",
-        "satooshi/php-coveralls":                   "^1.0"
+        "phpunit/phpunit": "4 - 5"
     },
     "repositories": [
         {
