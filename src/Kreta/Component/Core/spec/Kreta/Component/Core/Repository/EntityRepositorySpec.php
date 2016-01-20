@@ -18,6 +18,7 @@ use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
 use Kreta\Component\Core\spec\Kreta\Component\Core\Repository\BaseEntityRepository;
+use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
 /**
@@ -26,8 +27,10 @@ use Prophecy\Argument;
  * @author Beñat Espiña <benatespina@gmail.com>
  * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
-class EntityRepositorySpec extends BaseEntityRepository
+class EntityRepositorySpec extends ObjectBehavior
 {
+    use BaseEntityRepository;
+
     function let(EntityManager $manager, ClassMetadata $metadata)
     {
         $this->beConstructedWith($manager, $metadata);
