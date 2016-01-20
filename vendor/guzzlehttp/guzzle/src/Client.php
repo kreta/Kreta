@@ -223,6 +223,14 @@ class Client implements ClientInterface
     {
         // URI template (absolute or relative)
         if (!is_array($url)) {
+            if (strpos($url, '://')) {
+                echo "Opt1";
+                var_dump($url);
+            } else {
+                echo "Opt2";
+                var_dump($this->baseUrl->combine($url));
+            }
+            die;
             return strpos($url, '://')
                 ? (string) $url
                 : (string) $this->baseUrl->combine($url);
