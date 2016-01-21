@@ -190,4 +190,4 @@ default:
                  path: tests/functional/fixtures/app/AppKernel.php
                  class: AppKernel
         Behat\WebApiExtension:
-            base_url: http://kreta.test:8000/app.php
+            base_url: http://kreta.test:8000/index.php
