@@ -55,7 +55,7 @@ class StatusRepository extends EntityRepository
             }
         }
 
-        return array_unique($result);
+        return array_unique($result, SORT_REGULAR);
     }
 
     /**
