@@ -24,6 +24,8 @@ env:
     - COMPOSER_OPTIONS="--prefer-source"
 
 install:
+    - phpenv config-rm xdebug.ini
+
     - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || mkdir -p /home/travis/go/{src,bin,pkg}'
     - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || export GOPATH="/home/travis/go"'
     - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || export PATH="$GOPATH/bin:$PATH"'
