@@ -38,7 +38,6 @@ install:
 #    - cd -
 
 before_script:
-    - echo "memory_limit=-1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini
     - cd tests/functional/fixtures
 
     - bin/console doctrine:database:create --env=test
@@ -64,7 +63,7 @@ before_script:
     - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || echo "hhvm.repo.central.path = /tmp/hhvm.hhbc" >>/tmp/hhvm.ini'
 #### start HHVM ####
     - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || hhvm --config "/tmp/hhvm.ini" --mode daemon'
-#    - sleep 5
+    - sleep 5
 
 #### starting PHP built-in server ####
 #    - '[[ "$TRAVIS_PHP_VERSION" == "hhvm" ]] || tests/functional/fixtures/bin/console server:start kreta.test:8000 --router=tests/functional/fixtures/web/app.php  >/dev/null 2>&1 &'
