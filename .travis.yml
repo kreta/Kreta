@@ -24,8 +24,6 @@ env:
     - COMPOSER_OPTIONS="--prefer-source"
 
 install:
-    - phpenv config-rm xdebug.ini
-
     - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || mkdir -p /home/travis/go/{src,bin,pkg}'
     - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || export GOPATH="/home/travis/go"'
     - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || export PATH="$GOPATH/bin:$PATH"'
@@ -57,6 +55,7 @@ before_script:
 
 #### create config file for HHVM ####
     - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || echo "pid = /tmp/hhvm.pid" >>/tmp/hhvm.ini'
+    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || echo "memory_limit = -1" >>/tmp/hhvm.ini'
     - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || echo "hhvm.server.port = 9000" >>/tmp/hhvm.ini'
     - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || echo "hhvm.server.type = fastcgi" >>/tmp/hhvm.ini'
     - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || echo "hhvm.server.default_document = index.php" >>/tmp/hhvm.ini'
