@@ -55,7 +55,6 @@ before_script:
 
 #### create config file for HHVM ####
     - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || echo "pid = /tmp/hhvm.pid" >>/tmp/hhvm.ini'
-    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || echo "memory_limit = -1" >>/tmp/hhvm.ini'
     - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || echo "hhvm.server.port = 9000" >>/tmp/hhvm.ini'
     - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || echo "hhvm.server.type = fastcgi" >>/tmp/hhvm.ini'
     - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || echo "hhvm.server.default_document = index.php" >>/tmp/hhvm.ini'
@@ -69,7 +68,7 @@ before_script:
 #### starting PHP built-in server ####
 #    - '[[ "$TRAVIS_PHP_VERSION" == "hhvm" ]] || tests/functional/fixtures/bin/console server:start kreta.test:8000 --router=tests/functional/fixtures/web/app.php  >/dev/null 2>&1 &'
 #### use berbeley's FastCGI-Serve instead of PHP built-in server ####
-    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || while :; do hhvm-serve --document-root=tests/functional/fixtures/web --listen=kreta.test:8000 >/dev/null 2>&1 &; done'
+    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || hhvm-serve --document-root=tests/functional/fixtures/web --listen=kreta.test:8000 >/dev/null 2>&1 &'
 
 
     - sleep 5
@@ -81,11 +80,11 @@ script:
 
 #    - vendor/bin/phpspec run
 
-#    - vendor/bin/behat --stop-on-failure --suite=oauth
-#    - vendor/bin/behat --stop-on-failure --suite=authentication
+    - vendor/bin/behat --stop-on-failure --suite=oauth
+    - vendor/bin/behat --stop-on-failure --suite=authentication
     - vendor/bin/behat --stop-on-failure --suite=user
     - vendor/bin/behat --stop-on-failure --suite=invitation
-#    - vendor/bin/behat --stop-on-failure --suite=profile
+    - vendor/bin/behat --stop-on-failure --suite=profile
 #    - vendor/bin/behat --stop-on-failure --suite=issue
 #    - vendor/bin/behat --stop-on-failure --suite=label
 #    - vendor/bin/behat --stop-on-failure --suite=participant
