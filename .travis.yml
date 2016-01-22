@@ -33,8 +33,8 @@ install:
     - sudo a2enmod rewrite actions fastcgi alias
 
     # Configure apache virtual hosts
-    - sudo cp -f tests/functional/fixtures/ci/travis-ci-apache-hhvm /etc/apache2/sites-available/kreta
-    - sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/kreta
+    - sudo cp -f tests/functional/fixtures/ci/travis-ci-apache-hhvm /etc/apache2/sites-available/kreta.conf
+    - sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/kreta.conf
 #    - echo "127.0.0.1 kreta.test" | sudo tee -a /etc/hosts
     - sudo a2ensite kreta
     - sudo service apache2 restart
