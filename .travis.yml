@@ -35,7 +35,7 @@ install:
     # Configure apache virtual hosts
     - sudo cp -f tests/functional/fixtures/ci/travis-ci-apache-hhvm /etc/apache2/sites-available/default
     - sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/default
-    - echo "127.0.0.1 kreta.test" | sudo tee -a /etc/hosts
+#    - echo "127.0.0.1 kreta.test" | sudo tee -a /etc/hosts
     - sudo service apache2 restart
 
     # Run HHVM
