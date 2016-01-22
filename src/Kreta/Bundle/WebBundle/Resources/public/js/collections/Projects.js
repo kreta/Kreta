@@ -21,7 +21,7 @@ class Projects extends Backbone.Collection {
   }
 
   filter(name) {
-    let filtered = [];
+    const filtered = [];
     this.models.forEach((model) => {
       if (model.get('name').indexOf(name) > -1) {
         filtered.push(model.toJSON());

@@ -15,7 +15,6 @@ import React from 'react';
 
 import Button from '../../component/Button';
 import Form from '../../component/Form';
-import HelpText from '../../component/HelpText';
 import Icon from '../../component/Icon';
 import Issue from '../../../models/Issue';
 import IssueField from '../../component/IssueField';

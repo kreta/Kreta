@@ -10,7 +10,6 @@
 
 import './../scss/app';
 
-import $ from 'jquery';
 import Backbone from 'backbone';
 
 import BaseLayoutView from './views/layout/Base';

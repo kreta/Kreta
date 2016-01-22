@@ -35,6 +35,7 @@ $form-input-file-image-size: 150px;
 }
 
 .form-input-file__image-container {
+  cursor: pointer;
   display: flex;
   position: relative;
 }

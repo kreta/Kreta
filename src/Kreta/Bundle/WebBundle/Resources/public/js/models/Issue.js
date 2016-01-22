@@ -9,7 +9,6 @@
  */
 
 import _ from 'lodash';
-import $ from 'jquery';
 import Backbone from 'backbone';
 
 import Config from './../Config';

@@ -106,10 +106,19 @@ class List extends React.Component {
     return (
       <div>
         <div className="simple-header">
-          <div className="simple-header-filters">
-            <span className="simple-header-filter"></span>
-          </div>
-          <div className="simple-header-actions">
+          <div className="simple-header__actions">
+            <div className="simple-header__action">
+              <span className="simple-header__action-key">← →</span>navigate between actions
+            </div>
+            <div className="simple-header__action">
+              <span className="simple-header__action-key">↑ ↓</span>navigate between projects
+            </div>
+            <div className="simple-header__action">
+              <span className="simple-header__action-key">↵</span>to select
+            </div>
+            <div className="simple-header__action">
+              <span className="simple-header__action-key simple-header__action-key--escape">esc</span>to dismiss
+            </div>
             <Button color="green"
                     onClick={this.goToNewProjectPage.bind(this)}
                     size="small">
@@ -117,8 +126,9 @@ class List extends React.Component {
             </Button>
           </div>
         </div>
-        <input className="project-list__filter"
+        <input className="project-preview__filter"
                onKeyUp={this.onKeyUp.bind(this)}
+               placeholder="Type the project"
                ref="filter"
                type="text"/>
         <NavigableList className="project-preview__list"
