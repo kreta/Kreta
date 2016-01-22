@@ -55,7 +55,9 @@ class StatusRepository extends EntityRepository
             }
         }
 
-        return array_unique($result, SORT_REGULAR);
+        return defined('HHVM_VERSION')
+            ? array_unique($result, SORT_REGULAR)
+            : array_unique($result);
     }
 
     /**
