@@ -9,7 +9,6 @@ Listen 8000
     AllowOverride All
     Order deny,allow
     Allow from all
-    Require all granted
   </Directory>
 
   # Configure Apache for HHVM FastCGI.
