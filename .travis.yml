@@ -30,18 +30,22 @@ install:
 #    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || go get github.com/Naktibalda/hhvm-serve'
 
     - sudo apt-get install apache2 libapache2-mod-fastcgi
-    - sudo a2enmod rewrite actions fastcgi alias
+    - sudo a2enmod rewrite actions fastcgi alias proxy
+
+    # HHVM Daemon
+    - hhvm --mode server -d hhvm.server.type=fastcgi -d hhvm.server.port=9090
 
     # Configure apache virtual hosts
-    - sudo cp -f tests/functional/fixtures/ci/travis-ci-apache-hhvm /etc/apache2/sites-available/kreta.conf
-    - sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/kreta.conf
+    - sudo cp -f tests/functional/fixtures/ci/travis-ci-apache-hhvm /etc/apache2/sites-available/kreta
+    - sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/kreta
 #    - echo "127.0.0.1 kreta.test" | sudo tee -a /etc/hosts
     - sudo a2ensite kreta
     - sudo service apache2 restart
 
     # Run HHVM
 #    - sudo echo "PIDFILE=\"/tmp/hhvm.pid\"" >> /etc/default/hhvm
-    - hhvm -m daemon -vServer.Type=fastcgi -vServer.Port=9090 -vServer.FixPathInfo=true -vLog.Level=verbose -vLog.UseLogFile=true -vLog.File=/tmp/hhvm.log -vLog.AlwaysLogUnhandledExceptions=true
+#    - hhvm -m daemon -vServer.Type=fastcgi -vServer.Port=9090 -vServer.FixPathInfo=true -vLog.Level=verbose -vLog.UseLogFile=true -vLog.File=/tmp/hhvm.log -vLog.AlwaysLogUnhandledExceptions=true
+
 
 
 #    - nvm install 4.2.1
