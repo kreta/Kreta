@@ -39,7 +39,7 @@ install:
     - sudo service apache2 restart
 
     # Run HHVM
-    - echo "PIDFILE=\"/tmp/hhvm.pid\"" >> /etc/default/hhvm
+    - sudo echo "PIDFILE=\"/tmp/hhvm.pid\"" >> /etc/default/hhvm
     - hhvm -m daemon -vServer.Type=fastcgi -vServer.Port=9090 -vServer.FixPathInfo=true -vLog.Level=verbose -vLog.UseLogFile=true -vLog.File=/tmp/hhvm.log -vLog.AlwaysLogUnhandledExceptions=true
 
 
