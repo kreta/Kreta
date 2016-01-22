@@ -31,6 +31,7 @@ Feature: Manage users
   Scenario: Getting all the users
     Given I am authenticating with "access-token-0" token
     When I send a GET request to "/api/users"
+    And print response
     Then the response code should be 200
     And the response should contain json:
     """

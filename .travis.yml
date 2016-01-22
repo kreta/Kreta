@@ -94,8 +94,8 @@ script:
 
 #    - vendor/bin/phpspec run
 
-    - vendor/bin/behat --stop-on-failure --suite=oauth
-    - vendor/bin/behat --stop-on-failure --suite=authentication
+#    - vendor/bin/behat --stop-on-failure --suite=oauth
+#    - vendor/bin/behat --stop-on-failure --suite=authentication
     - vendor/bin/behat --stop-on-failure --suite=user
     - vendor/bin/behat --stop-on-failure --suite=invitation
 #    - vendor/bin/behat --stop-on-failure --suite=profile
