@@ -33,7 +33,7 @@ install:
     - sudo a2enmod rewrite actions fastcgi alias proxy
 
     # HHVM Daemon
-    - hhvm --mode server -d hhvm.server.type=fastcgi -d hhvm.server.port=9090
+    - hhvm --mode daemon -d hhvm.server.type=fastcgi -d hhvm.server.port=9090
 
     # Configure apache virtual hosts
     - sudo cp -f tests/functional/fixtures/ci/travis-ci-apache-hhvm /etc/apache2/sites-available/kreta
