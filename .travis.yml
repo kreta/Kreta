@@ -6,7 +6,7 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 
-sudo: false
+#sudo: false
 
 addons:
     hosts:
@@ -28,15 +28,15 @@ install:
 #    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || export GOPATH="/home/travis/go"'
 #    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || export PATH="$GOPATH/bin:$PATH"'
 #    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || go get github.com/Naktibalda/hhvm-serve'
-#
-    - apt-get install apache2 libapache2-mod-fastcgi
-    - a2enmod rewrite actions fastcgi alias
+
+    - sudo apt-get install apache2 libapache2-mod-fastcgi
+    - sudo a2enmod rewrite actions fastcgi alias
 
     # Configure apache virtual hosts
-    - cp -f tests/functional/fixtures/ci/travis-ci-apache-hhvm /etc/apache2/sites-available/default
-    - sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/default
+    - sudo cp -f tests/functional/fixtures/ci/travis-ci-apache-hhvm /etc/apache2/sites-available/default
+    - sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/default
 #    - echo "127.0.0.1 kreta.test" | sudo tee -a /etc/hosts
-    - service apache2 restart
+    - sudo service apache2 restart
 
     # Run HHVM
     - echo "PIDFILE=\"/tmp/hhvm.pid\"" >> /etc/default/hhvm
