@@ -15,9 +15,9 @@ addons:
 language: php
 
 php:
-    - 5.5
-    - 5.6
-    - 7.0
+#    - 5.5
+#    - 5.6
+#    - 7.0
     - hhvm
 
 env:
@@ -29,13 +29,27 @@ install:
     - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || export PATH="$GOPATH/bin:$PATH"'
     - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || go get github.com/Naktibalda/hhvm-serve'
 
-    - nvm install 4.2.1
-    - nvm use 4.2.1
+    - sudo apt-get install apache2 libapache2-mod-fastcgi
+    - sudo a2enmod rewrite actions fastcgi alias
+
+    # Configure apache virtual hosts
+    - sudo cp -f tests/functional/fixtures/ci/travis-ci-apache-hhvm /etc/apache2/sites-available/default
+    - sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/default
+#    - echo "127.0.0.1 kreta.test" | sudo tee -a /etc/hosts
+    - sudo service apache2 restart
+
+    # Run HHVM
+    - echo "PIDFILE=\"/tmp/hhvm.pid\"" >> /etc/default/hhvm
+    - hhvm -m daemon -vServer.Type=fastcgi -vServer.Port=9090 -vServer.FixPathInfo=true -vLog.Level=verbose -vLog.UseLogFile=true -vLog.File=/tmp/hhvm.log -vLog.AlwaysLogUnhandledExceptions=true
+
+
+#    - nvm install 4.2.1
+#    - nvm use 4.2.1
     - composer self-update
     - composer update --no-interaction ${COMPOSER_OPTIONS}
-    - cd src/Kreta/Bundle/WebBundle
-    - npm install
-    - cd -
+#    - cd src/Kreta/Bundle/WebBundle
+#    - npm install
+#    - cd -
 
 before_script:
     - cd tests/functional/fixtures
@@ -46,56 +60,56 @@ before_script:
 
     - bin/console assets:install --relative
 
-    - cd -
-    - cd src/Kreta/Bundle/WebBundle
-    - npm run dev
+#    - cd -
+#    - cd src/Kreta/Bundle/WebBundle
+#    - npm run dev
 
     - cd -
     - cp tests/behat.yml.dist behat.yml && cp tests/phpspec.yml.dist phpspec.yml
 
 #### create config file for HHVM ####
-    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || echo "pid = /tmp/hhvm.pid" >>/tmp/hhvm.ini'
-    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || echo "hhvm.server.port = 9000" >>/tmp/hhvm.ini'
-    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || echo "hhvm.server.type = fastcgi" >>/tmp/hhvm.ini'
-    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || echo "hhvm.server.default_document = index.php" >>/tmp/hhvm.ini'
-    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || echo "hhvm.log.use_log_file = true" >>/tmp/hhvm.ini'
-    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || echo "hhvm.log.file = /tmp/hhvm-error.log" >>/tmp/hhvm.ini'
-    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || echo "hhvm.repo.central.path = /tmp/hhvm.hhbc" >>/tmp/hhvm.ini'
+#    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || echo "pid = /tmp/hhvm.pid" >>/tmp/hhvm.ini'
+#    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || echo "hhvm.server.port = 9000" >>/tmp/hhvm.ini'
+#    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || echo "hhvm.server.type = fastcgi" >>/tmp/hhvm.ini'
+#    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || echo "hhvm.server.default_document = index.php" >>/tmp/hhvm.ini'
+#    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || echo "hhvm.log.use_log_file = true" >>/tmp/hhvm.ini'
+#    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || echo "hhvm.log.file = /tmp/hhvm-error.log" >>/tmp/hhvm.ini'
+#    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || echo "hhvm.repo.central.path = /tmp/hhvm.hhbc" >>/tmp/hhvm.ini'
 #### start HHVM ####
-    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || hhvm --config "/tmp/hhvm.ini" --mode daemon'
-
-    - sleep 5
+#    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || hhvm --config "/tmp/hhvm.ini" --mode daemon'
+#
+#    - sleep 5
 
 #### starting PHP built-in server ####
     - '[[ "$TRAVIS_PHP_VERSION" == "hhvm" ]] || tests/functional/fixtures/bin/console server:start kreta.test:8000 --router=tests/functional/fixtures/web/index.php'
 #### use berbeley's FastCGI-Serve instead of PHP built-in server ####
-    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || hhvm-serve --document-root=tests/functional/fixtures/web --listen=kreta.test:8000 >/dev/null 2>&1 &'
+#    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || hhvm-serve --document-root=tests/functional/fixtures/web --listen=kreta.test:8000 >/dev/null 2>&1 &'
 
     - sleep 5
 
 script:
-    - cd src/Kreta/Bundle/WebBundle
-    - node_modules/.bin/jest --verbose --coverage
-    - cd -
+#    - cd src/Kreta/Bundle/WebBundle
+#    - node_modules/.bin/jest --verbose --coverage
+#    - cd -
 
-    - vendor/bin/phpspec run
+#    - vendor/bin/phpspec run
 
     - vendor/bin/behat --stop-on-failure --suite=oauth
     - vendor/bin/behat --stop-on-failure --suite=authentication
     - vendor/bin/behat --stop-on-failure --suite=user
     - vendor/bin/behat --stop-on-failure --suite=invitation
-    - vendor/bin/behat --stop-on-failure --suite=profile
-    - vendor/bin/behat --stop-on-failure --suite=issue
-    - vendor/bin/behat --stop-on-failure --suite=label
-    - vendor/bin/behat --stop-on-failure --suite=participant
-    - vendor/bin/behat --stop-on-failure --suite=issuePriority
-    - vendor/bin/behat --stop-on-failure --suite=project
-    - vendor/bin/behat --stop-on-failure --suite=status
-    - vendor/bin/behat --stop-on-failure --suite=statusTransition
-    - vendor/bin/behat --stop-on-failure --suite=workflow
+#    - vendor/bin/behat --stop-on-failure --suite=profile
+#    - vendor/bin/behat --stop-on-failure --suite=issue
+#    - vendor/bin/behat --stop-on-failure --suite=label
+#    - vendor/bin/behat --stop-on-failure --suite=participant
+#    - vendor/bin/behat --stop-on-failure --suite=issuePriority
+#    - vendor/bin/behat --stop-on-failure --suite=project
+#    - vendor/bin/behat --stop-on-failure --suite=status
+#    - vendor/bin/behat --stop-on-failure --suite=statusTransition
+#    - vendor/bin/behat --stop-on-failure --suite=workflow
 
-after_script:
-    - vendor/bin/coveralls -v
+#after_script:
+#    - vendor/bin/coveralls -v
 
 cache:
     directories:
@@ -103,5 +117,5 @@ cache:
 
 matrix:
     fast_finish: true
-    allow_failures:
-        - php: hhvm
+#    allow_failures:
+#        - php: hhvm
