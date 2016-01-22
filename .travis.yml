@@ -8,9 +8,9 @@
 
 #sudo: false
 
-#addons:
-#    hosts:
-#        - kreta.test
+addons:
+    hosts:
+        - kreta.test
 
 language: php
 
