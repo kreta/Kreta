@@ -54,6 +54,7 @@
     ]
   },
   "dependencies": {
+    "alloyeditor": "^0.7.5",
     "backbone": "^1.2",
     "backbone-model-file-upload": "^1.0",
     "backbone.marionette": "^2.4",
@@ -71,6 +72,7 @@
     "babel-jest": "^5.3",
     "babel-loader": "^5.3",
     "chai": "^3.3",
+    "copy-webpack-plugin": "^0.3.3",
     "css-loader": "^0.19",
     "eslint-loader": "^1.0",
     "eslint-plugin-react": "^3.5",

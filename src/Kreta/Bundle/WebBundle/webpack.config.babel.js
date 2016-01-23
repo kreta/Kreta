@@ -9,6 +9,7 @@
  */
 
 import autoprefixer from 'autoprefixer';
+import CopyWebpackPlugin from 'copy-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import webpack from 'webpack';
 
@@ -32,6 +33,7 @@ License: ${pkg.license}`,
       app: `${SOURCE_PATH}/js/Kreta.js`,
       login: `${SOURCE_PATH}/js/Login.js`,
       vendors: [
+        'alloyeditor',
         'backbone',
         'backbone-model-file-upload',
         'backbone.marionette',
@@ -67,6 +69,9 @@ License: ${pkg.license}`,
     eslint: {configFile: '.eslint.yml'},
     postcss: [autoprefixer()],
     plugins: [
+      new CopyWebpackPlugin([
+        {from: `${SOURCE_PATH}/../../node_modules/alloyeditor/dist/alloy-editor`, to: '../alloyeditor'}
+      ]),
       new webpack.optimize.CommonsChunkPlugin('vendors', 'vendor.js'),
       new ExtractTextPlugin('../css/[name].css', {allChunks: false}),
       new webpack.BannerPlugin(LICENSE)

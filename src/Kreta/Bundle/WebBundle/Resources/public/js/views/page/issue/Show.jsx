@@ -19,6 +19,7 @@ import Icon from '../../component/Icon';
 import Issue from '../../../models/Issue';
 import IssueField from '../../component/IssueField';
 import Selector from '../../component/Selector';
+import Textarea from '../../component/Textarea';
 import UserImage from '../../component/UserImage';
 
 export default React.createClass({
@@ -97,6 +98,7 @@ export default React.createClass({
         );
       });
     }
+
     return (
       <Form model={Issue}
             onSaveSuccess={this.onIssueSaved}>
@@ -119,9 +121,11 @@ export default React.createClass({
             {options.priority}
           </Selector>
         </section>
-        <textarea className="issue-show__description"
-                  name="description"
-                  value={issue.description}/>
+        <Textarea
+                  className="issue-show__description"
+                  content={issue.description}
+                  id="issue-show"
+                  name="description"/>
 
         <div className="issue-show__save">
             <Button color="green" type="submit">Save changes</Button>
