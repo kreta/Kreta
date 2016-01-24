@@ -8,9 +8,17 @@
  * file that was distributed with this source code.
  */
 
-import './../../../scss/components/_page-header';
+import './../../../../../node_modules/froala-editor/js/froala_editor.min';
 
-import AlloyEditor from 'alloyeditor';
+import './../../../../../node_modules/froala-editor/js/plugins/align.min';
+import './../../../../../node_modules/froala-editor/js/plugins/image.min';
+import './../../../../../node_modules/froala-editor/js/plugins/link.min';
+import './../../../../../node_modules/froala-editor/js/plugins/lists.min';
+import './../../../../../node_modules/froala-editor/js/plugins/paragraph_format.min';
+
+import './../../../scss/components/_froala';
+
+import $ from 'jquery';
 import React from 'react';
 
 class Textarea extends React.Component {
@@ -20,40 +28,53 @@ class Textarea extends React.Component {
   };
 
   componentDidMount() {
-    this._editor = AlloyEditor.editable(this.props.id, {
-      toolbars: {
-        add: {
-          buttons: ['image', 'hline', 'table'],
-          tabIndex: 2
-        },
-        styles: {
-          selections: [{
-            name: 'link',
-            buttons: ['linkEdit'],
-            test: AlloyEditor.SelectionTest.link
-          }, {
-            name: 'image',
-            buttons: ['imageLeft', 'imageRight'],
-            test: AlloyEditor.SelectionTest.image
-          }, {
-            name: 'text',
-            buttons: ['styles', 'bold', 'italic', 'underline', 'link'],
-            test: AlloyEditor.SelectionTest.text
-          }, {
-            name: 'table',
-            buttons: ['tableRow', 'tableColumn', 'tableCell', 'tableRemove'],
-            getArrowBoxClasses: AlloyEditor.SelectionGetArrowBoxClasses.table,
-            setPosition: AlloyEditor.SelectionSetPosition.table,
-            test: AlloyEditor.SelectionTest.table
-          }],
-          tabIndex: 1
-        }
+    $.FroalaEditor.DefineIcon('imageInfo', {NAME: 'info'});
+    $.FroalaEditor.RegisterCommand('imageInfo', {
+      title: 'Info',
+      focus: false,
+      undo: false,
+      refreshAfterCallback: false,
+      callback: function () {
+        var $img = this.image.get();
+        alert($img.attr('src'));
       }
+    });
+
+    const toolbarButtons = [
+      'bold',
+      'italic',
+      'underline',
+      'insertLink',
+      'insertImage',
+      'paragraphFormat',
+      'strikeThrough',
+      'align',
+      'formatOL',
+      'formatUL',
+      'insertHR'
+    ];
+
+    $(`#${this.props.id}`).froalaEditor({
+      enter: $.FroalaEditor.ENTER_BR,
+      heightMax: 300,
+      imageEditButtons: [
+        'imageDisplay',
+        'imageAlign',
+        'imageInfo',
+        'removeImage'
+      ],
+      placeholderText: 'Description',
+      tabSpaces: 4,
+      toolbarButtons: toolbarButtons,
+      toolbarButtonsMD: toolbarButtons,
+      toolbarButtonsSM: toolbarButtons,
+      toolbarButtonsXS: toolbarButtons,
+      toolbarSticky: false
     });
   }
 
   componentWillUnmount() {
-    this._editor.destroy();
+    $(`#${this.props.id}`).froalaEditor('destroy');
   }
 
   render() {

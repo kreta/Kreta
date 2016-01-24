@@ -54,11 +54,11 @@
     ]
   },
   "dependencies": {
-    "alloyeditor": "^0.7.5",
     "backbone": "^1.2",
     "backbone-model-file-upload": "^1.0",
     "backbone.marionette": "^2.4",
     "classnames": "^2.1",
+    "froala-editor": "^2.0.5",
     "jquery": "^2.1",
     "lodash": "^3.10",
     "mousetrap": "^1.5.3",
@@ -72,7 +72,6 @@
     "babel-jest": "^5.3",
     "babel-loader": "^5.3",
     "chai": "^3.3",
-    "copy-webpack-plugin": "^0.3.3",
     "css-loader": "^0.19",
     "eslint-loader": "^1.0",
     "eslint-plugin-react": "^3.5",

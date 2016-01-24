@@ -17,6 +17,7 @@
 
 body {
   font-family: $font-open-sans;
+  font-size: 14px;
 }
 
 h1,
@@ -25,24 +26,24 @@ h3,
 h4,
 h5,
 h6 {
-  font-weight: bold;
-  margin: .5em 0;
+  font-weight: $font-weight-bold;
+  margin-bottom: 10px;
 }
 
 h1 {
-  font-size: 1.8em;
+  font-size: 24px;
 }
 
 h2 {
-  font-size: 1.6em;
+  font-size: 20px;
 }
 
 h3 {
-  font-size: 1.4em;
+  font-size: 16px;
 }
 
 h4 {
-  font-size: 1.2em;
+  font-size: 14px;
 }
 
 a {
@@ -51,31 +52,50 @@ a {
 }
 
 p {
-  font-size: .9em;
-  margin: .5em 0;
+  margin-bottom: 10px;
 }
 
 strong {
-  font-weight: bold;
+  font-weight: $font-weight-bold;
+}
+
+em {
+  font-style: italic;
 }
 
 small {
-  font-size: .8em;
-}
-
-i {
-  margin: 0 .25em;
+  font-size: 12px;
 }
 
 input,
 textarea {
   border: 0;
   font-family: $font-open-sans;
-  font-size: 1.3em;
-  font-weight: lighter;
+  font-size: 20px;
+  font-weight: $font-weight-light;
   width: 100%;
 
   &:focus {
     outline: 0;
   }
+}
+
+ol {
+  list-style: decimal;
+  padding: 20px;
+}
+
+ul {
+  list-style: circle;
+  padding: 20px;
+}
+
+pre {
+  background-color: $light-grey;
+  border-radius: 2px;
+  color: rgba($main-black, .7);
+  display: block;
+  font-family: $font-code;
+  padding: 10px 20px;
+  white-space: pre-wrap;
 }
