@@ -23,8 +23,8 @@ import React from 'react';
 
 class Textarea extends React.Component {
   static propTypes = {
-    content: React.PropTypes.string,
-    id: React.PropTypes.string.isRequired
+    id: React.PropTypes.string.isRequired,
+    value: React.PropTypes.string
   };
 
   componentDidMount() {
@@ -54,9 +54,10 @@ class Textarea extends React.Component {
       'insertHR'
     ];
 
-    $(`#${this.props.id}`).froalaEditor({
+    $(`textarea#${this.props.id}`).froalaEditor({
       enter: $.FroalaEditor.ENTER_BR,
       heightMax: 300,
+      heightMin: 300,
       imageEditButtons: [
         'imageDisplay',
         'imageAlign',
@@ -74,15 +75,15 @@ class Textarea extends React.Component {
   }
 
   componentWillUnmount() {
-    $(`#${this.props.id}`).froalaEditor('destroy');
+    $(`textarea#${this.props.id}`).froalaEditor('destroy');
   }
 
   render() {
-    const {content, ...props} = this.props;
+    const {className, ...props} = this.props;
 
     return (
-      <div {...props}>
-        {content}
+      <div className={className}>
+        <textarea {...props}/>
       </div>
     );
   }

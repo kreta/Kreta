@@ -48,7 +48,7 @@ export default React.createClass({
     const project = App.collection.project.get(this.props.project.id);
     if (!project) {
       return {
-        asignee: [],
+        assignee: [],
         priority: [],
         type: []
       };
@@ -85,7 +85,8 @@ export default React.createClass({
   render() {
     const issue = this.state.issue.toJSON(),
       options = this.getProjectOptions();
-    let allowedTransitions = [];
+    let allowedTransitions = [],
+      submitButton = null;
 
     if (this.state.issue.canEdit(App.currentUser)) {
       allowedTransitions = this.state.issue.getAllowedTransitions().map((transition, index) => {
@@ -97,6 +98,7 @@ export default React.createClass({
           </Button>
         );
       });
+      submitButton = <Button color="green" type="submit">Save changes</Button>;
     }
 
     return (
@@ -122,13 +124,13 @@ export default React.createClass({
           </Selector>
         </section>
         <Textarea
-                  className="issue-show__description"
-                  content={issue.description}
-                  id="issue-show"
-                  name="description"/>
+          className="issue-show__description"
+          id={`issue-show-${issue.id}`}
+          name="description"
+          value={issue.description}/>
 
         <div className="issue-show__save">
-            <Button color="green" type="submit">Save changes</Button>
+          {submitButton}
         </div>
       </Form>
     );
