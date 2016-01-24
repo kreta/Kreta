@@ -23,38 +23,41 @@ import React from 'react';
 
 class Textarea extends React.Component {
   static propTypes = {
+    editable: React.PropTypes.oneOf(['on', 'off']),
     id: React.PropTypes.string.isRequired,
     value: React.PropTypes.string
   };
 
-  componentDidMount() {
+  componentDidUpdate() {
     $.FroalaEditor.DefineIcon('imageInfo', {NAME: 'info'});
     $.FroalaEditor.RegisterCommand('imageInfo', {
       title: 'Info',
       focus: false,
       undo: false,
       refreshAfterCallback: false,
-      callback: function () {
-        var $img = this.image.get();
+      callback: () => {
+        const $img = this.image.get();
         alert($img.attr('src'));
       }
     });
 
-    const toolbarButtons = [
-      'bold',
-      'italic',
-      'underline',
-      'insertLink',
-      'insertImage',
-      'paragraphFormat',
-      'strikeThrough',
-      'align',
-      'formatOL',
-      'formatUL',
-      'insertHR'
-    ];
+    const
+      $editor = $(`textarea#${this.props.id}`),
+      toolbarProps = [
+        'bold',
+        'italic',
+        'underline',
+        'insertLink',
+        'insertImage',
+        'paragraphFormat',
+        'strikeThrough',
+        'align',
+        'formatOL',
+        'formatUL',
+        'insertHR'
+      ];
 
-    $(`textarea#${this.props.id}`).froalaEditor({
+    $editor.froalaEditor({
       enter: $.FroalaEditor.ENTER_BR,
       heightMax: 300,
       heightMin: 300,
@@ -66,12 +69,14 @@ class Textarea extends React.Component {
       ],
       placeholderText: 'Description',
       tabSpaces: 4,
-      toolbarButtons: toolbarButtons,
-      toolbarButtonsMD: toolbarButtons,
-      toolbarButtonsSM: toolbarButtons,
-      toolbarButtonsXS: toolbarButtons,
+      toolbarButtons: toolbarProps,
+      toolbarButtonsMD: toolbarProps,
+      toolbarButtonsSM: toolbarProps,
+      toolbarButtonsXS: toolbarProps,
       toolbarSticky: false
     });
+
+    $editor.froalaEditor(`edit.${this.props.editable}`);
   }
 
   componentWillUnmount() {
