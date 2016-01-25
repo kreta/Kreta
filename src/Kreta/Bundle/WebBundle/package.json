@@ -59,6 +59,7 @@
     "backbone.marionette": "^2.4",
     "classnames": "^2.1",
     "froala-editor": "^2.0.5",
+    "history": "^1.17.0",
     "jquery": "^2.1",
     "lodash": "^3.10",
     "mousetrap": "^1.5.3",

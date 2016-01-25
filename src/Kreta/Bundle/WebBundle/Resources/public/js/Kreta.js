@@ -8,6 +8,7 @@
  * file that was distributed with this source code.
  */
 
+import createHistory from 'history/lib/createHashHistory';
 import React from 'react';
 import {Router, Route, IndexRoute} from 'react-router';
 import ReactDOM from 'react-dom';
@@ -27,7 +28,7 @@ import ProjectShow from './views/page/project/IssueList';
       window.React = React;
 
       ReactDOM.render(
-        <Router>
+        <Router history={createHistory()}>
           <Route component={BaseLayout} path="/">
             <IndexRoute component={Index}/>
 
