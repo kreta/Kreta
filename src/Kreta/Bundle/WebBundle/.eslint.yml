@@ -26,6 +26,7 @@ globals:
     App: true
     process: true
     require: true
+    tinymce: true
 
 plugins:
     - react

@@ -8,17 +8,8 @@
  * file that was distributed with this source code.
  */
 
-import './../../../../../node_modules/froala-editor/js/froala_editor.min';
+import './../../../scss/components/_textarea';
 
-import './../../../../../node_modules/froala-editor/js/plugins/align.min';
-import './../../../../../node_modules/froala-editor/js/plugins/image.min';
-import './../../../../../node_modules/froala-editor/js/plugins/link.min';
-import './../../../../../node_modules/froala-editor/js/plugins/lists.min';
-import './../../../../../node_modules/froala-editor/js/plugins/paragraph_format.min';
-
-import './../../../scss/components/_froala';
-
-import $ from 'jquery';
 import React from 'react';
 
 class Textarea extends React.Component {
@@ -28,59 +19,60 @@ class Textarea extends React.Component {
     value: React.PropTypes.string
   };
 
-  componentDidUpdate() {
-    $.FroalaEditor.DefineIcon('imageInfo', {NAME: 'info'});
-    $.FroalaEditor.RegisterCommand('imageInfo', {
-      title: 'Info',
-      focus: false,
-      undo: false,
-      refreshAfterCallback: false,
-      callback: () => {
-        const $img = this.image.get();
-        alert($img.attr('src'));
-      }
-    });
-
-    const
-      $editor = $(`textarea#${this.props.id}`),
-      toolbarProps = [
-        'bold',
-        'italic',
-        'underline',
-        'insertLink',
-        'insertImage',
-        'paragraphFormat',
-        'strikeThrough',
-        'align',
-        'formatOL',
-        'formatUL',
-        'insertHR'
-      ];
-
-    $editor.froalaEditor({
-      enter: $.FroalaEditor.ENTER_BR,
-      heightMax: 300,
-      heightMin: 300,
-      imageEditButtons: [
-        'imageDisplay',
-        'imageAlign',
-        'imageInfo',
-        'removeImage'
+  componentDidMount() {
+    tinymce.init({
+      content_css: '/css/tinycme.css',
+      forced_root_block: false,
+      force_br_newlines: true,
+      force_p_newlines: false,
+      selector: `#${this.props.id}`,
+      height: 300,
+      menubar: false,
+      plugins: 'autolink link image lists code',
+      style_formats: [
+        {title: 'normal', block: 'div'},
+        {title: 'code', inline: 'code'},
+        {title: 'h1', block: 'h1'},
+        {title: 'h2', block: 'h2'},
+        {title: 'h3', block: 'h3'},
+        {title: 'h4', block: 'h4'}
       ],
-      placeholderText: 'Description',
-      tabSpaces: 4,
-      toolbarButtons: toolbarProps,
-      toolbarButtonsMD: toolbarProps,
-      toolbarButtonsSM: toolbarProps,
-      toolbarButtonsXS: toolbarProps,
-      toolbarSticky: false
+      setup: (editor) => {
+        editor.on('keydown', function (event) {
+          if (event.keyCode === 9) {
+            if (event.shiftKey) {
+              tinymce.execCommand('Outdent');
+            } else {
+              tinymce.execCommand('Indent');
+              // tinymce.execCommand('mceInsertContent', false, '&nbsp;&nbsp;&nbsp;&nbsp;');
+            }
+            event.preventDefault();
+
+            return false;
+          }
+        });
+        editor.addButton('alignment', {
+          type: 'listbox',
+          text: false,
+          icon: 'aligncenter',
+          onselect: function () {
+            tinymce.execCommand(this.value());
+          },
+          values: [
+            {icon: 'alignleft', value: 'JustifyLeft'},
+            {icon: 'alignright', value: 'JustifyRight'},
+            {icon: 'aligncenter', value: 'JustifyCenter'},
+            {icon: 'alignjustify', value: 'JustifyFull'}
+          ],
+          onPostRender: function () {
+            this.value('JustifyLeft');
+          }
+        })
+      },
+      statusbar: false,
+      toolbar: 'bold italic underline link image styleselect strikethrough alignment bullist numlist separator'
     });
-
-    $editor.froalaEditor(`edit.${this.props.editable}`);
-  }
-
-  componentWillUnmount() {
-    $(`textarea#${this.props.id}`).froalaEditor('destroy');
+    document.getElementById('mceu_5-open').querySelector('span').innerHTML = 'P';
   }
 
   render() {

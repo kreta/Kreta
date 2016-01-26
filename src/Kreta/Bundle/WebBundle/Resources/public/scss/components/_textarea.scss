@@ -1,0 +1,105 @@
+// This file is part of the Kreta package.
+//
+// (c) Beñat Espiña <benatespina@gmail.com>
+// (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+//
+// For the full copyright and license information, please view the LICENSE
+// file that was distributed with this source code.
+@import '../base/colors';
+
+.mce-tinymce.mce-container.mce-panel {
+  background-color: $light-grey;
+  border: 1px solid $main-grey;
+  box-shadow: none;
+
+  .mce-toolbar-grp {
+    background-color: $light-grey;
+    box-shadow: none;
+    display: flex;
+    justify-content: space-between;
+    padding: 0;
+  }
+}
+
+.mce-edit-area.mce-container.mce-panel {
+  border-bottom: 1px solid $main-grey;
+  border-left: 1px solid $main-grey;
+  border-right: 1px solid $main-grey;
+  border-top: 0;
+  box-shadow: none;
+}
+
+.mce-flow-layout-item.mce-last {
+  margin: 0;
+
+  &.mce-btn-group .mce-btn {
+    float: left;
+    margin: 0;
+
+    button {
+      padding: 10px;
+    }
+  }
+}
+
+.mce-widget.mce-btn {
+  background-color: $light-grey;
+  border: 0;
+
+  &:focus,
+  &.mce-active {
+    background-color: $main-grey;
+    outline: none;
+    color: $main-green;
+
+    i {
+      color: $main-green;
+    }
+  }
+
+  &.mce-active.mce-menubtn button {
+    color: $main-green;
+  }
+
+  i {
+    margin-left: 2px;
+    margin-right: 2px;
+  }
+}
+
+.mce-container {
+  &.mce-menu {
+    min-width: 60px;
+    width: 60px;
+  }
+
+  .mce-menu-item {
+    padding: 6px 0;
+
+    &:hover {
+      background-color: $light-grey;
+      color: $main-grey;
+    }
+
+    &:focus {
+      background-color: $light-grey;
+      color: $main-green;
+    }
+
+    &.mce-menu-item-normal,
+    &.mce-menu-item-preview {
+      border: 0;
+      display: flex;
+      justify-content: center;
+
+      &.mce-active {
+        background-color: $light-grey;
+
+        .mce-ico,
+        .mce-text {
+          color: $main-green !important;
+        }
+      }
+    }
+  }
+}

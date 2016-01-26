@@ -26,17 +26,7 @@
 }
 
 .issue-show__description {
-  background: $light-grey;
-  color: $main-black;
-  font-size: 12px;
-  font-weight: lighter;
-  line-height: 20px;
   margin-top: 30px;
-
-  &:focus {
-    border: 1px solid $main-grey;
-    outline: none;
-  }
 }
 
 .issue-show__fields {
