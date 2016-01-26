@@ -16,4 +16,8 @@
   font-weight: lighter;
   line-height: 20px;
   padding: 5px 10px;
+
+  *[contentEditable=false][data-mce-selected] {
+    outline: none;
+  }
 }

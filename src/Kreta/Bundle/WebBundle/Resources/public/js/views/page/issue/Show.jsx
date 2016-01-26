@@ -88,7 +88,7 @@ export default React.createClass({
       options = this.getProjectOptions();
     let
       allowedTransitions = [],
-      editable = 'off',
+      editable = false,
       submitButton = null;
 
     if (this.state.issue.canEdit(App.currentUser)) {
@@ -101,7 +101,7 @@ export default React.createClass({
           </Button>
         );
       });
-      editable = 'on';
+      editable = true;
       submitButton = <Button color="green" type="submit">Save changes</Button>;
     }
 

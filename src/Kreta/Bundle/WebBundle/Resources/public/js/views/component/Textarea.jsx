@@ -14,12 +14,16 @@ import React from 'react';
 
 class Textarea extends React.Component {
   static propTypes = {
-    editable: React.PropTypes.oneOf(['on', 'off']),
+    editable: React.PropTypes.bool.isRequired,
     id: React.PropTypes.string.isRequired,
     value: React.PropTypes.string
   };
 
-  componentDidMount() {
+  componentDidUpdate() {
+    const toolbarElements = true === this.props.editable
+      ? 'bold italic underline link image styleselect strikethrough alignment bullist numlist separator'
+      : false;
+
     tinymce.init({
       content_css: '/css/tinycme.css',
       forced_root_block: false,
@@ -28,7 +32,7 @@ class Textarea extends React.Component {
       selector: `#${this.props.id}`,
       height: 300,
       menubar: false,
-      plugins: 'autolink link image lists code',
+      plugins: 'autolink image link lists noneditable',
       style_formats: [
         {title: 'normal', block: 'div'},
         {title: 'code', inline: 'code'},
@@ -70,17 +74,20 @@ class Textarea extends React.Component {
         })
       },
       statusbar: false,
-      toolbar: 'bold italic underline link image styleselect strikethrough alignment bullist numlist separator'
+      toolbar: toolbarElements
     });
     document.getElementById('mceu_5-open').querySelector('span').innerHTML = 'P';
   }
 
   render() {
-    const {className, ...props} = this.props;
+    const
+      {className, editable, value, ...props} = this.props,
+      editableClass = editable === true ? 'mceEditable' : 'mceNonEditable',
+      content = `<div class=${editableClass}>${value}</div>`;
 
     return (
       <div className={className}>
-        <textarea {...props}/>
+        <textarea value={content} {...props}/>
       </div>
     );
   }
