@@ -42,6 +42,7 @@ License: ${pkg.license}`,
         'mousetrap',
         'react',
         'react-dom',
+        'react-quill',
         'react-router'
       ]
     },

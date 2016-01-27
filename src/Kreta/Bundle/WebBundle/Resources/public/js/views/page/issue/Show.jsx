@@ -88,7 +88,7 @@ export default React.createClass({
       options = this.getProjectOptions();
     let
       allowedTransitions = [],
-      editable = false,
+      readOnly = true,
       submitButton = null;
 
     if (this.state.issue.canEdit(App.currentUser)) {
@@ -101,7 +101,7 @@ export default React.createClass({
           </Button>
         );
       });
-      editable = true;
+      readOnly = false;
       submitButton = <Button color="green" type="submit">Save changes</Button>;
     }
 
@@ -129,7 +129,7 @@ export default React.createClass({
         </section>
         <Textarea
           className="issue-show__description"
-          editable={editable}
+          readOnly={readOnly}
           id={`issue-show-${issue.id}`}
           name="description"
           value={issue.description}/>
