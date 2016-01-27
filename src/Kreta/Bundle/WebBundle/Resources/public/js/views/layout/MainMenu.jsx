@@ -17,6 +17,7 @@ import ProjectsIcon from './../../../svg/projects';
 
 import React from 'react';
 import {Link} from 'react-router';
+import { connect } from 'react-redux';
 import Mousetrap from 'mousetrap';
 
 import Config from './../../Config';
@@ -24,17 +25,11 @@ import Icon from './../component/Icon';
 import Modal from './../component/Modal';
 import ProjectList from './../page/project/List';
 import UserImage from './../component/UserImage';
-import UsersCollection from '../../collections/Users';
 import ActionTypes from '../../constants/ActionTypes';
 
 class MainMenu extends React.Component {
-  state = {
-    user: App.currentUser
-  };
-
   componentDidMount() {
     Mousetrap.bind(Config.shortcuts.projectList, this.showProjectList.bind(this));
-    UsersCollection.on(ActionTypes.PROFILE_UPDATED, this.onProfileChange.bind(this));
   }
 
   showProjectList() {
@@ -54,6 +49,16 @@ class MainMenu extends React.Component {
   }
 
   render() {
+    let profileWidget = "";
+    if(this.props.profile) {
+      profileWidget = (
+        <Link className="main-menu__profile" to="/profile">
+          <UserImage user={this.props.profile}/>
+          <span className="main-menu__username">@{this.props.profile.username}</span>
+        </Link>
+      );
+    }
+
     return (
       <nav className="main-menu">
         <Link className="main-menu__logo-container" to="/">
@@ -76,10 +81,7 @@ class MainMenu extends React.Component {
                   glyph={InboxIcon}/>
             <span className="main-menu__notification-bubble">0</span>
           </div>
-          <Link className="main-menu__profile" to="/profile">
-            <UserImage user={this.state.user.toJSON()}/>
-            <span className="main-menu__username">@{this.state.user.get('username')}</span>
-          </Link>
+          { profileWidget }
         </div>
         <Modal ref="projectListModal">
           <ProjectList onProjectSelected={this.hideProjectList.bind(this)} ref="projectList"/>
@@ -89,4 +91,10 @@ class MainMenu extends React.Component {
   }
 }
 
-export default MainMenu;
+const mapStateToProps = (state) => {
+  return {
+    profile: state.profile.profile
+  }
+};
+
+export default connect(mapStateToProps)(MainMenu);

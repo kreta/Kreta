@@ -12,6 +12,7 @@ import AddIcon from './../../../../svg/add';
 import ListIcon from './../../../../svg/list';
 
 import React from 'react';
+import { connect } from 'react-redux';
 
 import Button from './../../component/Button';
 import NavigableList from './../../component/NavigableList';
@@ -39,7 +40,6 @@ class List extends React.Component {
   };
 
   state = {
-    projects: App.collection.project.clone(),
     selectedRow: 0,
     selectedShortcut: 0
   };
@@ -48,8 +48,9 @@ class List extends React.Component {
     if (ev.which === 13) { // Enter
       this.goToShortcutLink();
     } else if (ev.which < 37 || ev.which > 40) { // Filter
+      // dispatch filter action
+
       this.setState({
-        projects: App.collection.project.filter(this.refs.filter.value),
         selectedRow: 0
       });
     } else {
@@ -70,13 +71,13 @@ class List extends React.Component {
   }
 
   goToShortcutLink() {
-    const projectId = this.state.projects.at(this.state.selectedRow).id;
+    const projectId = this.props.projects.at(this.state.selectedRow).id;
     this.context.history.pushState(null, this.props.shortcuts[this.state.selectedShortcut].path + projectId);
     this.props.onProjectSelected();
   }
 
   onTitleClick() {
-    const projectId = this.state.projects.at(this.state.selectedRow).id;
+    const projectId = this.props.projects.at(this.state.selectedRow).id;
     this.context.history.pushState(null, this.props.shortcuts[0].path + projectId);
     this.props.onProjectSelected();
   }
@@ -91,7 +92,7 @@ class List extends React.Component {
   }
 
   render() {
-    const projectItems = this.state.projects.map((project, index) => {
+    const projectItems = this.props.projects.map((project, index) => {
       return <ProjectPreview key={index}
                              onMouseEnter={this.changeSelectedRow.bind(this, index)}
                              onShortcutClick={this.goToShortcutLink.bind(this)}
@@ -134,4 +135,10 @@ class List extends React.Component {
   }
 }
 
-export default List;
+const mapStateToProps = (state) => {
+  return {
+    projects: state.projects.projects
+  }
+};
+
+export default connect(mapStateToProps)(List);

@@ -42,7 +42,11 @@ License: ${pkg.license}`,
         'mousetrap',
         'react',
         'react-dom',
-        'react-router'
+        'react-router',
+        'react-router-redux',
+        'redux',
+        'redux-logger',
+        'redux-thunk'
       ]
     },
     output: {

@@ -17,7 +17,6 @@ import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
 import Form from './../../component/Form';
 import FormInput from './../../component/FormInput';
 import FormInputFile from './../../component/FormInputFile';
-import Project from './../../../models/Project';
 
 class New extends React.Component {
   static contextTypes = {
@@ -32,7 +31,7 @@ class New extends React.Component {
   render() {
     return (
       <ContentMiddleLayout>
-        <Form model={Project}
+        <Form
               onSaveSuccess={this.goToCreatedProject.bind(this)}>
           <FormInputFile name="image"
                          value=""/>

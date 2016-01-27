@@ -20,10 +20,8 @@ import Form from './../../component/Form';
 import FormInput from './../../component/FormInput';
 import FormSerializerService from '../../../service/FormSerializer';
 import Icon from './../../component/Icon';
-import Issue from './../../../models/Issue';
 import {issueCreate} from '../../../actions/IssueActionCreator';
 import IssueField from './../../component/IssueField';
-import IssuesCollection from '../../../collections/Issues';
 import Selector from './../../component/Selector';
 import UserImage from './../../component/UserImage';
 import ActionTypes from '../../../constants/ActionTypes';
@@ -35,8 +33,6 @@ class New extends React.Component {
 
   componentDidMount() {
     this.updateSelectors(this.props.params.projectId);
-    IssuesCollection.on(ActionTypes.ISSUE_CREATE_ERROR, this._handleErrors.bind(this));
-    IssuesCollection.on(ActionTypes.ISSUE_CREATED, this._handleSuccess.bind(this));
   }
 
   componentDidUpdate (prevProps) {
@@ -51,17 +47,9 @@ class New extends React.Component {
     ev.preventDefault();
 
     const issue = FormSerializerService.serialize(
-      $(this.refs.form.refs.form), Issue
+      $(this.refs.form.refs.form), {}
     );
     issueCreate(issue);
-  }
-
-  _handleSuccess(model) {
-    console.log(model);
-  }
-
-  _handleErrors(errors) {
-    console.log(errors);
   }
 
   updateSelectors(projectId) {

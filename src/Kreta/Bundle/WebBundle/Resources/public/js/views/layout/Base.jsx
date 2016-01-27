@@ -11,12 +11,22 @@
 import './../../../scss/layout/_base';
 
 import React from 'react';
+import { connect }      from 'react-redux';
 
 import ContentLayout from './ContentLayout';
 import MainMenu from './MainMenu';
 import NotificationLayout from './NotificationLayout';
 
+import ProjectActions from '../../actions/Projects';
+import ProfileActions from '../../actions/Profile';
+
 class Base extends React.Component {
+  componentDidMount() {
+    const { dispatch } = this.props;
+    dispatch(ProjectActions.fetchProjects());
+    dispatch(ProfileActions.fetchProfile());
+  }
+
   render() {
     return (
       <div className="base-layout">
@@ -30,4 +40,9 @@ class Base extends React.Component {
   }
 }
 
-export default Base;
+const mapStateToProps = (state) => {
+  return {};
+};
+
+
+export default connect(mapStateToProps)(Base);

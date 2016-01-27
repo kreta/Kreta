@@ -62,7 +62,7 @@ class ProjectPreview extends React.Component {
     return (
       <div className={classes} onMouseEnter={ this.props.onMouseEnter }>
         <div className="project-preview__title" onClick={this.props.onTitleClick}>
-          {this.props.project.get('name')}
+          {this.props.project.name}
         </div>
 
         <div className="project-preview__shortcuts">

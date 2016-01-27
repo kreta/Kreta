@@ -20,7 +20,6 @@ import Filter from './../../component/Filter';
 import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
 import ContentRightLayout from './../../layout/ContentRightLayout';
 import IssuePreview from './../../component/IssuePreview';
-import Issues from './../../../collections/Issues';
 import IssueShow from './../issue/Show';
 import PageHeader from './../../component/PageHeader';
 import NavigableList from './../../component/NavigableList';

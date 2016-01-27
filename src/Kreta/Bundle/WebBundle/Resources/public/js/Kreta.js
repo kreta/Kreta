@@ -8,42 +8,18 @@
  * file that was distributed with this source code.
  */
 
-import $ from 'jquery';
-import React from 'react';
-import {Router, Route, IndexRoute} from 'react-router';
-import ReactDOM from 'react-dom';
+import './../scss/app';
 
-import App from './App';
-import BaseLayout from './views/layout/Base';
-import IssueNew from './views/page/issue/New';
-import Profile from './views/page/user/Edit';
-import ProjectNew from './views/page/project/New';
-import ProjectSettings from './views/page/project/Settings';
-import ProjectShow from './views/page/project/IssueList';
-import Index from './views/page/Index';
+import React                    from 'react';
+import ReactDOM                 from 'react-dom';
+import createBrowserHistory     from 'history/lib/createBrowserHistory';
+import configureStore           from './stores/Store';
+import Root                     from './views/layout/Root';
 
-$(() => {
-  window.App = new App({
-    onLoad: () => {
-      window.React = React;
+const history = createBrowserHistory();
+const store  = configureStore(history);
 
-      ReactDOM.render(
-        <Router>
-          <Route component={BaseLayout} path="/">
-            <IndexRoute component={Index}/>
+const node = <Root routerHistory={history} store={store}/>;
 
-            <Route component={IssueNew} path="issue/new"/>
-            <Route component={IssueNew} path="issue/new/:projectId"/>
+ReactDOM.render(node, document.getElementById('application'));
 
-            <Route component={ProjectNew} path="project/new"/>
-            <Route component={ProjectShow} path="project/:projectId"/>
-            <Route component={ProjectSettings} path="project/:projectId/settings"/>
-
-            <Route component={Profile} path="profile"/>
-          </Route>
-        </Router>
-        , document.getElementById('application')
-      );
-    }
-  });
-});

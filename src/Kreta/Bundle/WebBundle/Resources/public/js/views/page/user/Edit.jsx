@@ -16,9 +16,6 @@ import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
 import Form from './../../component/Form';
 import FormInput from './../../component/FormInput';
 import FormInputFile from './../../component/FormInputFile';
-import Profile from './../../../models/Profile';
-import {profileUpdate} from './../../../actions/ProfileActionCreator';
-import UsersCollection from '../../../collections/Users';
 import ActionTypes from '../../../constants/ActionTypes';
 import FormSerializerService from '../../../service/FormSerializer';
 
@@ -30,18 +27,14 @@ class Edit extends React.Component {
     });
   }
 
-  componentDidMount() {
-    UsersCollection.on(ActionTypes.PROFILE_UPDATE_ERROR, this._handleProfileErrors);
-    UsersCollection.on(ActionTypes.PROFILE_UPDATED, this._handleProfileSuccess);
-  }
-
   _save(ev) {
     ev.preventDefault();
 
     const profile = FormSerializerService.serialize(
-      $(this.refs.form.refs.form), Profile
+      $(this.refs.form.refs.form), {}
     );
-    profileUpdate(profile);
+
+    // TODO dispatch call profileUpdate
   }
 
   _handleProfileErrors() {

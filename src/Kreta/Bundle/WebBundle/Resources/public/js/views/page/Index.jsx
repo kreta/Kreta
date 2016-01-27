@@ -14,19 +14,13 @@ import ListIcon from './../../../svg/list';
 
 import React from 'react';
 import {Link} from 'react-router';
+import { connect } from 'react-redux';
 
 import Button from './../component/Button';
 import ContentMiddleLayout from './../layout/ContentMiddleLayout';
 import ProjectPreview from './../component/ProjectPreview';
 
 class Index extends React.Component {
-  componentWillMount() {
-    this.setState({
-      user: App.currentUser,
-      projects: App.collection.project
-    });
-  }
-
   static contextTypes = {
     history: React.PropTypes.object
   };
@@ -44,12 +38,12 @@ class Index extends React.Component {
   };
 
   goToShortcutLink(index, shortcut) {
-    const projectId = this.state.projects.at(index).id;
+    const projectId = this.props.projects.at(index).id;
     this.context.history.pushState(null, this.props.shortcuts[shortcut].path + projectId);
   }
 
   render() {
-    const projectItems = this.state.projects.map((project, index) => {
+    const projectItems = this.props.projects.map((project, index) => {
       return <ProjectPreview key={index}
                              project={project}
                              onShortcutClick={this.goToShortcutLink.bind(this, index)}
@@ -82,4 +76,11 @@ class Index extends React.Component {
   }
 }
 
-export default Index;
+const mapStateToProps = (state) => {
+  return {
+    projects: state.projects.projects
+  }
+};
+
+export default connect(mapStateToProps)(Index);
+

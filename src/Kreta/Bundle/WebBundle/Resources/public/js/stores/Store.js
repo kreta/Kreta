@@ -8,40 +8,21 @@
  * file that was distributed with this source code.
  */
 
-import Backbone from 'backbone';
-import {EventEmitter} from 'events';
+import { createStore, applyMiddleware } from 'redux';
+import createLogger                     from 'redux-logger';
+import thunkMiddleware                  from 'redux-thunk';
+import { syncHistory }                  from 'react-router-redux';
+import reducers                         from '../Reducers';
 
-import AppDispatcher from './../dispatcher/AppDispatcher';
+const loggerMiddleware = createLogger({
+  level: 'info',
+  collapsed: true
+});
 
-class CollectionStore extends Backbone.Collection {
-  constructor() {
-    super();
-    this.dispatchId = AppDispatcher.register(this.handleDispatch.bind(this));
-    this.emitter = new EventEmitter();
-  }
+export default function configureStore(browserHistory) {
+  const reduxRouterMiddleware = syncHistory(browserHistory);
+  const createStoreWithMiddleware = applyMiddleware(reduxRouterMiddleware, thunkMiddleware, loggerMiddleware)(createStore);
 
-  on(action, callback) {
-    this.emitter.on(action, callback);
-  }
-
-  handleDispatch(payload) {}
+  return createStoreWithMiddleware(reducers);
 }
 
-class ModelStore extends Backbone.Model {
-  constructor(attributes, options) {
-    super(attributes, options);
-    this.dispatchId = AppDispatcher.register(this.handleDispatch.bind(this));
-    this.emitter = new EventEmitter();
-  }
-
-  on(action, callback) {
-    this.emitter.on(action, callback);
-  }
-
-  handleDispatch(payload) {}
-}
-
-export default {
-  Model: ModelStore,
-  Collection: CollectionStore
-};

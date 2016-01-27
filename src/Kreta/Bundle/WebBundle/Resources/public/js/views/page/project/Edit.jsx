@@ -14,7 +14,6 @@ import Button from './../../component/Button';
 import Form from './../../component/Form';
 import FormInput from './../../component/FormInput';
 import FormInputFile from './../../component/FormInputFile';
-import Project from './../../../models/Project';
 
 class Edit extends React.Component {
   static propTypes = {
@@ -26,7 +25,7 @@ class Edit extends React.Component {
       image = project.get('image');
 
     return (
-      <Form model={Project}>
+      <Form>
         <div className="section-header">
           <div className="section-header-title"></div>
           <div>

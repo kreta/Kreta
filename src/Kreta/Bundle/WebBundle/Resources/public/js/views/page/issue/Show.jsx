@@ -17,7 +17,6 @@ import Button from '../../component/Button';
 import Form from '../../component/Form';
 import HelpText from '../../component/HelpText';
 import Icon from '../../component/Icon';
-import Issue from '../../../models/Issue';
 import IssueField from '../../component/IssueField';
 import Selector from '../../component/Selector';
 import UserImage from '../../component/UserImage';
@@ -99,7 +98,7 @@ export default React.createClass({
       });
     }
     return (
-      <Form model={Issue}
+      <Form
             onSaveSuccess={this.onIssueSaved}>
         <input name="id" type="hidden" value={issue.id}/>
         <input name="project" type="hidden" value={this.props.project.id}/>
