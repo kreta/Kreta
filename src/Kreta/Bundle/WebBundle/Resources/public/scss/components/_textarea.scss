@@ -5,102 +5,67 @@
 //
 // For the full copyright and license information, please view the LICENSE
 // file that was distributed with this source code.
-
 @import '../base/colors';
+@import '../base/typography';
 
-.mce-tinymce.mce-container.mce-panel {
-  background-color: $light-grey;
-  border: 1px solid $main-grey;
-  box-shadow: none;
+.ql-format-button {
+  font-size: 18px;
+  font-weight: $font-weight-bold;
 
-  .mce-toolbar-grp {
-    background-color: $light-grey;
-    box-shadow: none;
-    display: flex;
-    justify-content: space-between;
-    padding: 0;
+  .ql-active {
+    background-color: $grey;
+    color: $main-green
   }
 }
 
-.mce-edit-area.mce-container.mce-panel {
-  border-bottom: 1px solid $main-grey;
+.ql-h1,
+.ql-h2,
+.ql-h3,
+.ql-code {
+  margin-left: 7px;
+}
+
+.ql-h1 {
+  &:after {
+    content: 'H1';
+  }
+}
+
+.ql-h2 {
+  &:after {
+    content: 'H2';
+  }
+}
+
+.ql-h3 {
+  &:after {
+    content: 'H3';
+  }
+}
+
+.ql-code {
+  background-image: url('data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/PjwhRE9DVFlQRSBzdmcgIFBVQkxJQyAnLS8vVzNDLy9EVEQgU1ZHIDEuMS8vRU4nICAnaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkJz48c3ZnIGhlaWdodD0iMzJweCIgaWQ9IkxheWVyXzEiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDMyIDMyOyIgdmVyc2lvbj0iMS4xIiB2aWV3Qm94PSIwIDAgMzIgMzIiIHdpZHRoPSIzMnB4IiB4bWw6c3BhY2U9InByZXNlcnZlIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIj48cGF0aCBkPSJNMTQsNmMwLTAuOTg0LTAuODEzLTItMi0yYy0wLjUzMSwwLTAuOTk0LDAuMTkzLTEuMzgsMC41OGwtOS45NTgsOS45NThDMC4zMzQsMTQuODY2LDAsMTUuMjcxLDAsMTZzMC4yNzksMS4wOCwwLjY0NiwxLjQ0NyAgbDkuOTc0LDkuOTczQzExLjAwNiwyNy44MDcsMTEuNDY5LDI4LDEyLDI4YzEuMTg4LDAsMi0xLjAxNiwyLTJjMC0wLjUxNi0wLjE4Ni0wLjk4Ni0wLjU4LTEuMzhMNC44LDE2bDguNjItOC42MiAgQzEzLjgxNCw2Ljk4NiwxNCw2LjUxNiwxNCw2eiBNMzEuMzM4LDE0LjUzOEwyMS4zOCw0LjU4QzIwLjk5NCw0LjE5MywyMC41MzEsNCwyMCw0Yy0xLjE4OCwwLTIsMS4wMTYtMiwyICBjMCwwLjUxNiwwLjE4NiwwLjk4NiwwLjU4LDEuMzhMMjcuMiwxNmwtOC42Miw4LjYyQzE4LjE4NiwyNS4wMTQsMTgsMjUuNDg0LDE4LDI2YzAsMC45ODQsMC44MTMsMiwyLDIgIGMwLjUzMSwwLDAuOTk0LTAuMTkzLDEuMzgtMC41OGw5Ljk3NC05Ljk3M0MzMS43MjEsMTcuMDgsMzIsMTYuNzI5LDMyLDE2UzMxLjY2NiwxNC44NjYsMzEuMzM4LDE0LjUzOHoiLz48L3N2Zz4=');
+}
+
+.ql-snow.ql-toolbar {
   border-left: 1px solid $main-grey;
   border-right: 1px solid $main-grey;
-  border-top: 0;
-  box-shadow: none;
-}
+  border-top: 1px solid $main-grey;
+  display: flex;
+  justify-content: center;
 
-.mce-flow-layout-item.mce-last {
-  margin: 0;
+  .ql-format-group {
+    margin-right: 0;
+  }
 
-  &.mce-btn-group .mce-btn {
-    float: left;
-    margin: 0;
-
-    button {
-      padding: 10px;
-    }
+  .ql-picker .ql-picker-label {
+    background-color: inherit;
   }
 }
 
-.mce-widget.mce-btn {
-  background-color: $light-grey;
-  border: 0;
-
-  &:focus,
-  &.mce-active {
-    background-color: $main-grey;
-    outline: none;
-    color: $main-green;
-
-    i {
-      color: $main-green;
-    }
-  }
-
-  &.mce-active.mce-menubtn button {
-    color: $main-green;
-  }
-
-  i {
-    margin-left: 2px;
-    margin-right: 2px;
-  }
+.quill-contents.ql-container {
+  background-color: $white;
+  border: 1px solid $main-grey;
+  height: 300px;
 }
 
-.mce-container {
-  &.mce-menu {
-    min-width: 60px;
-    width: 60px;
-  }
-
-  .mce-menu-item {
-    padding: 6px 0;
-
-    &:hover {
-      background-color: $light-grey;
-      color: $main-grey;
-    }
-
-    &:focus {
-      background-color: $light-grey;
-      color: $main-green;
-    }
-
-    &.mce-menu-item-normal,
-    &.mce-menu-item-preview {
-      border: 0;
-      display: flex;
-      justify-content: center;
-
-      &.mce-active {
-        background-color: $light-grey;
-
-        .mce-ico,
-        .mce-text {
-          color: $main-green !important;
-        }
-      }
-    }
-  }
-}

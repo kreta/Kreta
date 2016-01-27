@@ -71,7 +71,7 @@ export default React.createClass({
         return (
           <IssueField image={
                         <Icon glyph={PriorityIcon}
-                              style={{width: '20px', fill: p.color}}/>
+                              style={{height: '20px', width: '20px', fill: p.color}}/>
                       }
                       key={p.id}
                       label="Priority"

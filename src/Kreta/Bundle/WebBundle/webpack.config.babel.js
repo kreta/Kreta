@@ -31,7 +31,6 @@ License: ${pkg.license}`,
     entry: {
       app: `${SOURCE_PATH}/js/Kreta.js`,
       login: `${SOURCE_PATH}/js/Login.js`,
-      tinycme: `${SOURCE_PATH}/js/Tinycme.js`,
       vendors: [
         'backbone',
         'backbone-model-file-upload',

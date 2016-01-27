@@ -8,9 +8,9 @@
  * file that was distributed with this source code.
  */
 
-import './../../../scss/components/_textarea';
-
 import '../../../../../node_modules/quill/dist/quill.snow.css';
+
+import './../../../scss/components/_textarea';
 
 import React from 'react';
 import ReactQuill from 'react-quill';
@@ -26,7 +26,10 @@ class Textarea extends React.Component {
     const
       { ...props} = this.props,
       formats = [
-        { name: "h1", tag: "H1", prepare: "heading", type: "line" }
+        { name: 'h1', tag: 'H1', prepare: 'heading', type: 'line' },
+        { name: 'h2', tag: 'H2', prepare: 'heading', type: 'line' },
+        { name: 'h3', tag: 'H3', prepare: 'heading', type: 'line' },
+        { name: 'code', tag: 'code', prepare: 'heading', type: 'line' }
       ];
 
     let toolbar = [{
@@ -36,9 +39,10 @@ class Textarea extends React.Component {
         {type: 'underline', label: 'Underline'},
         {type: 'link', label: 'Link'},
         {type: 'image', label: 'Image'},
-        {type: 'h1', label: 'Header 1', value: "H1"},
-//        {type: 'h2', label: 'Header 2', value: "H2"},
-//        {type: 'h3', label: 'Header 3', value: "H3"},
+        {type: 'h1', label: 'Header 1', value: 'H1'},
+        {type: 'h2', label: 'Header 2', value: 'H2'},
+        {type: 'h3', label: 'Header 3', value: 'H3'},
+        {type: 'code', label: 'Code', value: 'code'},
         {type: 'strike', label: 'Strike'},
         {
           label: 'Alignment', type: 'align', items: [
@@ -57,10 +61,6 @@ class Textarea extends React.Component {
     if (true === this.props.readOnly) {
       toolbar = false;
     }
-
-    formats.forEach(function(format) {
-      editor.addFormat(format.name||format, format);
-    });
 
     return (
       <ReactQuill
