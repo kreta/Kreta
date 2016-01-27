@@ -71,7 +71,8 @@ class Textarea extends React.Component {
           onPostRender: function () {
             this.value('JustifyLeft');
           }
-        })
+        });
+        this.activeEditor = editor;
       },
       statusbar: false,
       toolbar: toolbarElements
@@ -84,6 +85,10 @@ class Textarea extends React.Component {
       {className, editable, value, ...props} = this.props,
       editableClass = editable === true ? 'mceEditable' : 'mceNonEditable',
       content = `<div class=${editableClass}>${value}</div>`;
+
+    if (null !== this.activeEditor) {
+      this.activeEditor.setContent(content);
+    }
 
     return (
       <div className={className}>
