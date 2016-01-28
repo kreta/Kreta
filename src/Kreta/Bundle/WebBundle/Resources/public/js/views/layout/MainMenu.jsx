@@ -25,7 +25,7 @@ import Icon from './../component/Icon';
 import Modal from './../component/Modal';
 import ProjectList from './../page/project/List';
 import UserImage from './../component/UserImage';
-import ActionTypes from '../../constants/ActionTypes';
+import MainMenuActions from '../../actions/MainMenu';
 
 class MainMenu extends React.Component {
   componentDidMount() {
@@ -33,19 +33,13 @@ class MainMenu extends React.Component {
   }
 
   showProjectList() {
-    this.refs.projectListModal.openModal();
-    setTimeout(() => {
-      this.refs.projectList.focus();
-    }, 0);
+    const { dispatch } = this.props;
+    dispatch(MainMenuActions.showProjects());
   }
 
-  hideProjectList() {
-    this.refs.projectListModal.closeModal();
-  }
-
-  onProfileChange(profile) {
-    console.log('MainMenu', profile);
-    this.setState({user: profile});
+  hideProjectsList() {
+    const { dispatch } = this.props;
+    dispatch(MainMenuActions.hideProjects());
   }
 
   render() {
@@ -83,8 +77,10 @@ class MainMenu extends React.Component {
           </div>
           { profileWidget }
         </div>
-        <Modal ref="projectListModal">
-          <ProjectList onProjectSelected={this.hideProjectList.bind(this)} ref="projectList"/>
+        <Modal isOpen={this.props.mainMenu.projectsVisible}
+               ref="projectListModal"
+               onRequestClose={this.hideProjectsList.bind(this)}>
+          <ProjectList onProjectSelected={this.hideProjectsList.bind(this)} ref="projectList"/>
         </Modal>
       </nav>
     );
@@ -93,7 +89,8 @@ class MainMenu extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    profile: state.profile.profile
+    profile: state.profile.profile,
+    mainMenu: state.mainMenu
   }
 };
 
