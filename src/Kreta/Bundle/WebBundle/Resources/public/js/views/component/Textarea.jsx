@@ -14,6 +14,7 @@ import './../../../scss/components/_textarea';
 
 import React from 'react';
 import ReactQuill from 'react-quill';
+import ReactDOM from 'react-dom';
 
 class Textarea extends React.Component {
   static propTypes = {
@@ -22,14 +23,18 @@ class Textarea extends React.Component {
     value: React.PropTypes.string
   };
 
+  getValue() {
+    return this.refs.editor.getEditor().editor.innerHTML;
+  }
+
   render() {
     const
       { ...props} = this.props,
       formats = [
-        { name: 'h1', tag: 'H1', prepare: 'heading', type: 'line' },
-        { name: 'h2', tag: 'H2', prepare: 'heading', type: 'line' },
-        { name: 'h3', tag: 'H3', prepare: 'heading', type: 'line' },
-        { name: 'code', tag: 'code', prepare: 'heading', type: 'line' }
+        {name: 'h1', tag: 'H1', prepare: 'heading', type: 'line'},
+//        { name: 'h2', tag: 'H2', prepare: 'heading', type: 'line' },
+//        { name: 'h3', tag: 'H3', prepare: 'heading', type: 'line' },
+//        { name: 'code', tag: 'code', prepare: 'heading', type: 'line' }
       ];
 
     let toolbar = [{
@@ -40,17 +45,17 @@ class Textarea extends React.Component {
         {type: 'link', label: 'Link'},
         {type: 'image', label: 'Image'},
         {type: 'h1', label: 'Header 1', value: 'H1'},
-        {type: 'h2', label: 'Header 2', value: 'H2'},
-        {type: 'h3', label: 'Header 3', value: 'H3'},
-        {type: 'code', label: 'Code', value: 'code'},
+//        {type: 'h2', label: 'Header 2', value: 'H2'},
+//        {type: 'h3', label: 'Header 3', value: 'H3'},
+//        {type: 'code', label: 'Code', value: 'code'},
         {type: 'strike', label: 'Strike'},
         {
           label: 'Alignment', type: 'align', items: [
-            {label: '', value: 'center'},
-            {label: '', value: 'left'},
-            {label: '', value: 'right'},
-            {label: '', value: 'justify'}
-          ]
+          {label: '', value: 'center'},
+          {label: '', value: 'left'},
+          {label: '', value: 'right'},
+          {label: '', value: 'justify'}
+        ]
         },
         {type: 'color', label: 'Color', items: ReactQuill.Toolbar.defaultColors},
         {type: 'list', label: 'List'},
@@ -65,6 +70,7 @@ class Textarea extends React.Component {
     return (
       <ReactQuill
         formats={formats}
+        ref="editor"
         theme="snow"
         toolbar={toolbar}
         { ...props}
