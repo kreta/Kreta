@@ -18,6 +18,9 @@ export default function reducer(state = initialState, action = {}) {
     case ActionTypes.PROJECTS_FETCH_ERROR:
       return {...state, error: true};
 
+    case ActionTypes.PROJECTS_CREATED:
+      return {...state, projects: [...state.projects, action.project]};
+
     default:
       return state;
   }

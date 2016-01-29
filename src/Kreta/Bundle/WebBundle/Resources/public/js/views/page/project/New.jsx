@@ -11,28 +11,29 @@
 import './../../../../scss/views/page/project/_new';
 
 import React from 'react';
+import ReactDOM from 'react-dom';
+import { connect } from 'react-redux';
 
 import Button from './../../component/Button';
 import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
 import Form from './../../component/Form';
 import FormInput from './../../component/FormInput';
 import FormInputFile from './../../component/FormInputFile';
+import FormSerializer from '../../../service/FormSerializer';
+import ProjectsActions from '../../../actions/Projects';
 
 class New extends React.Component {
-  static contextTypes = {
-    history: React.PropTypes.object
-  };
-
-  goToCreatedProject(model) {
-    App.collection.project.add(model);
-    this.context.history.pushState(null, `/project/${model.id}`);
+  createProject(ev) {
+    ev.preventDefault();
+    const project = FormSerializer.serialize(ReactDOM.findDOMNode(this.refs.form));
+    this.props.dispatch(ProjectsActions.createProject(project));
   }
 
   render() {
     return (
       <ContentMiddleLayout>
-        <Form
-              onSaveSuccess={this.goToCreatedProject.bind(this)}>
+        <Form onSubmit={this.createProject.bind(this)}
+              ref="form">
           <FormInputFile name="image"
                          value=""/>
           <FormInput label="Project name"
@@ -58,4 +59,9 @@ class New extends React.Component {
   }
 }
 
-export default New;
+
+const mapStateToProps = (state) => {
+  return {}
+};
+
+export default connect(mapStateToProps)(New);
