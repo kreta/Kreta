@@ -132,7 +132,7 @@ class IssueList extends React.Component {
   }
 
   render() {
-    if (this.props.currentProject.fetching || !this.props.currentProject.project) {
+    if (this.props.currentProject.fetchingProjects || this.props.currentProject.fetchingIssues) {
       return <p>Loading...</p>;
     }
     const issuesEl = this.props.currentProject.issues.map((issue, index) => {
@@ -171,7 +171,7 @@ class IssueList extends React.Component {
                          //onYChanged={this.changeSelected.bind(this)}
                          ref="navigableList"
                          yLength={issuesEl.length}>
-            {this.props.currentProject.fetching ? 'Loading...' : issuesEl}
+            {issuesEl}
           </NavigableList>
         </ContentMiddleLayout>
         <ContentRightLayout isOpen={this.props.currentProject.selectedIssue ? true : false}

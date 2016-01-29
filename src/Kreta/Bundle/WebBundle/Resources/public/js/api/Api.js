@@ -19,6 +19,27 @@ function _getCookie(name) {
   }
 }
 
+function _toQueryParams(query = null) {
+  if (null === query) {
+    return '';
+  }
+
+  let result = '?';
+  if (query instanceof Array) {
+    query.map((value, key) => {
+      result = `${result}${key}=${value}&`
+    });
+  } else if (typeof query === 'object') {
+    for(let key in query) {
+      if(query.hasOwnProperty(key)) {
+        result = `${result}${key}=${query[key]}&`;
+      }
+    }
+  }
+
+  return result;
+}
+
 class Api {
   constructor() {
     if (new.target === Api) {
@@ -34,8 +55,8 @@ class Api {
     return _getCookie('access_token');
   }
 
-  get(url) {
-    return fetch(`${this.baseUrl()}${url}`, {
+  get(url, query = null) {
+    return fetch(`${this.baseUrl()}${url}${_toQueryParams(query)}`, {
       credentials: 'include',
       headers: {
         'Authorization': `Bearer ${this.accessToken()}`
@@ -53,6 +74,7 @@ class Api {
       credentials: 'include',
       headers: {
         'Authorization': `Bearer ${this.accessToken()}`,
+        'Accept': 'application/json',
         'Content-type': 'application/json'
       },
       method: 'post',

@@ -10,16 +10,16 @@
 
 import Api from './Api';
 
-class ProjectApi extends Api {
-  getProjects(query = null) {
-    return this.get('/projects', query);
+class IssueApi extends Api {
+  getIssues(query = null) {
+    return this.get('/issues', query);
   }
 
-  getProject(projectId, query = null) {
-    return this.get(`/projects/${projectId}`, query);
+  getIssue(issueId, query = null) {
+    return this.get(`/issues/${issueId}`, query);
   }
 }
 
-const instance = new ProjectApi();
+const instance = new IssueApi();
 
 export default instance;
