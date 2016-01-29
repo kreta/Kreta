@@ -9,7 +9,7 @@ const Actions = {
       // Simulate API call
       setTimeout(() => {
         dispatch({
-          type: ActionTypes. PROJECTS_RECEIVED,
+          type: ActionTypes.PROJECTS_RECEIVED,
           projects: [{
             id: 0,
             name: "Test 0"
@@ -20,6 +20,14 @@ const Actions = {
         });
       }, 200);
     };
+  },
+  showCreateForm: () => {
+    return dispatch => {
+      dispatch(routeActions.push('/project/new'));
+      dispatch({
+        type: ActionTypes.PROJECTS_CREATE_FORM_SHOW
+      });
+    }
   }
 };
 

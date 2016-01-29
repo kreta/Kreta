@@ -13,6 +13,7 @@ import SettingsIcon from './../../../../svg/settings';
 import $ from 'jquery';
 import React from 'react';
 import Mousetrap from 'mousetrap';
+import { connect } from 'react-redux';
 
 import Config from './../../../Config';
 
@@ -23,38 +24,30 @@ import IssuePreview from './../../component/IssuePreview';
 import IssueShow from './../issue/Show';
 import PageHeader from './../../component/PageHeader';
 import NavigableList from './../../component/NavigableList';
+import ProjectsActions from '../../../actions/Projects';
+import CurrentProjectActions from '../../../actions/CurrentProject';
 
 class IssueList extends React.Component {
-  static contextTypes = {
-    history: React.PropTypes.object
-  };
-
-  state = {
-    fetchingIssues: true,
-    filters: [],
-    issues: [],
-    project: null
-  };
-
   componentDidMount() {
+    const projectId = this.props.params.projectId;
     Mousetrap.bind(Config.shortcuts.issueNew, () => {
-      this.context.history.pushState(null, `/issue/new/${this.props.params.projectId}`);
+      this.props.dispatch(ProjectActions.showCreateForm());
     });
     Mousetrap.bind(Config.shortcuts.projectSettings, () => {
-      this.context.history.pushState(null, `/project/${this.state.project.id}/settings`);
+      this.props.dispatch(CurrentProjectActions.showSettings(projectId));
     });
 
     this.keyUpListenerRef = this.keyboardNavigate.bind(this);
     window.addEventListener('keyup', this.keyUpListenerRef);
 
-    this.loadData();
+    this.props.dispatch(CurrentProjectActions.fetchProject(projectId));
   }
 
   componentDidUpdate(prevProps) {
     const oldId = prevProps.params.projectId,
       newId = this.props.params.projectId;
     if (newId !== oldId) {
-      this.loadData();
+      this.props.dispatch(CurrentProjectActions.fetchProject(newId));
     }
   }
 
@@ -64,33 +57,6 @@ class IssueList extends React.Component {
 
   keyboardNavigate(ev) {
     this.refs.navigableList.handleNavigation(ev);
-  }
-
-  loadData() {
-    const project = App.collection.project.get(this.props.params.projectId);
-    project.on('sync', this.loadFilters.bind(this));
-    project.on('change', this.loadFilters.bind(this));
-
-    this.setState({
-      fetchingIssues: true,
-      issues: [],
-      project,
-      selectedRow: 0
-    });
-
-    this.collection = new Issues();
-    this.collection.on('sync', $.proxy(this.issuesUpdated, this));
-    this.collection.fetch({data: {project: project.id}});
-
-    this.loadFilters(project);
-  }
-
-  issuesUpdated(data) {
-    this.setState({
-      fetchingIssues: false,
-      issues: data,
-      selectedRow: 0
-    });
   }
 
   filterIssues(filters) {
@@ -104,100 +70,93 @@ class IssueList extends React.Component {
       });
     });
 
-    this.setState({fetchingIssues: true});
-    this.collection.fetch({data, reset: true});
+    this.props.dispatch(CurrentProjectActions.filterIssues(data));
   }
 
   loadFilters(project) {
-    var assigneeFilters = [{
-        filter: 'assignee',
-        selected: true,
-        title: 'All',
-        value: ''
-      }, {
-        filter: 'assignee',
-        selected: false,
-        title: 'Assigned to me',
-        value: App.currentUser.get('id')
-      }],
-      priorityFilters = [{
-        filter: 'priority',
-        selected: true,
-        title: 'All priorities',
-        value: ''
-      }
-      ],
-      priorities = project.get('issue_priorities'),
-      statusFilters = [{
-        filter: 'status',
-        selected: true,
-        title: 'All statuses',
-        value: ''
-      }],
-      statuses = project.get('statuses');
-
-    if (priorities) {
-      priorities.forEach((priority) => {
-        priorityFilters.push({
-          filter: 'priority',
-          selected: false,
-          title: priority.name,
-          value: priority.id
-        });
-      });
-    }
-
-    if (statuses) {
-      statuses.forEach((status) => {
-        statusFilters.push({
-          filter: 'status',
-          selected: false,
-          title: status.name,
-          value: status.id
-        });
-      });
-    }
-    this.setState({filters: [assigneeFilters, priorityFilters, statusFilters]});
+//    var assigneeFilters = [{
+//        filter: 'assignee',
+//        selected: true,
+//        title: 'All',
+//        value: ''
+//      }, {
+//        filter: 'assignee',
+//        selected: false,
+//        title: 'Assigned to me',
+//        value: this.props.profile.profile.id
+//      }],
+//      priorityFilters = [{
+//        filter: 'priority',
+//        selected: true,
+//        title: 'All priorities',
+//        value: ''
+//      }
+//      ],
+//      priorities = [], //project.get('issue_priorities'),
+//      statusFilters = [{
+//        filter: 'status',
+//        selected: true,
+//        title: 'All statuses',
+//        value: ''
+//      }],
+//      statuses = [];// project.get('statuses');
+//
+//    if (priorities) {
+//      priorities.forEach((priority) => {
+//        priorityFilters.push({
+//          filter: 'priority',
+//          selected: false,
+//          title: priority.name,
+//          value: priority.id
+//        });
+//      });
+//    }
+//
+//    if (statuses) {
+//      statuses.forEach((status) => {
+//        statusFilters.push({
+//          filter: 'status',
+//          selected: false,
+//          title: status.name,
+//          value: status.id
+//        });
+//      });
+//    }
+//    this.setState({filters: [assigneeFilters, priorityFilters, statusFilters]});
   }
 
-  changeSelected(index) {
-    this.setState({selectedRow: index});
-    this.showIssue();
-  }
-
-  showIssue() {
-    this.refs.issueFullInformation.openContentRightLayout();
+  selectCurrentIssue(issue) {
+    this.props.dispatch(CurrentProjectActions.selectCurrentIssue(issue));
   }
 
   hideIssue() {
-    this.refs.issueFullInformation.closeContentRightLayout();
+
   }
 
-
   render() {
-    if (!this.state.project) {
+    if (this.props.currentProject.fetching || !this.props.currentProject.project) {
       return <p>Loading...</p>;
     }
-    const issuesEl = this.state.issues.map((issue, index) => {
+    const issuesEl = this.props.currentProject.issues.map((issue, index) => {
         return <IssuePreview issue={issue}
                              key={index}
-                             onClick={this.changeSelected.bind(this, index)}
-                             selected={this.state.selectedRow === index}/>;
+                             onClick={this.selectCurrentIssue.bind(this, issue)}
+                             selected={this.props.selectedIssue && this.props.selectedIssue.id === issue.id}/>;
       }),
       links = [{
-        href: `/project/${this.state.project.id}/settings`,
+        href: `/project/${this.props.currentProject.project.id}/settings`,
         icon: SettingsIcon,
         title: 'Settings',
         color: 'green'
       }],
       buttons = [{
-        href: `/issue/new/${this.state.project.id}`,
+        href: `/issue/new/${this.props.currentProject.project.id}`,
         title: 'New issue'
       }];
     let issue = '';
-    if (this.state.issues.length > 0 && !this.state.fetchingIssues) {
-      issue = <IssueShow issue={this.state.issues.at(this.state.selectedRow)}
-                         project={this.state.project}/>;
+    if (this.props.currentProject.selectedIssue) {
+      issue = <IssueShow issue={this.props.currentProject.selectedIssue}
+                         project={this.props.currentProject.project}/>;
     }
 
     return (
@@ -206,17 +165,19 @@ class IssueList extends React.Component {
           <PageHeader buttons={buttons}
                       image=""
                       links={links}
-                      title={this.state.project.get('name')}/>
-          <Filter filters={this.state.filters} onFilterSelected={this.filterIssues.bind(this)}/>
+                      title={this.props.currentProject.project.name}/>
+          <Filter filters={this.props.currentProject.filters}
+                  onFilterSelected={this.filterIssues.bind(this)}/>
 
           <NavigableList className="issues"
-                         onYChanged={this.changeSelected.bind(this)}
+                         //onYChanged={this.changeSelected.bind(this)}
                          ref="navigableList"
                          yLength={issuesEl.length}>
-            {this.state.fetchingIssues ? 'Loading...' : issuesEl}
+            {this.props.currentProject.fetching ? 'Loading...' : issuesEl}
           </NavigableList>
         </ContentMiddleLayout>
-        <ContentRightLayout ref="issueFullInformation">
+        <ContentRightLayout isOpen={this.props.currentProject.selectedIssue}
+                            onRequestClose={this.hideIssue.bind(this)}>
           {issue}
         </ContentRightLayout>
       </div>
@@ -224,4 +185,10 @@ class IssueList extends React.Component {
   }
 }
 
-export default IssueList;
+const mapStateToProps = (state) => {
+  return {
+    currentProject: state.currentProject
+  }
+};
+
+export default connect(mapStateToProps)(IssueList);

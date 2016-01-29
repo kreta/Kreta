@@ -17,6 +17,7 @@ import { connect } from 'react-redux';
 import Button from './../../component/Button';
 import NavigableList from './../../component/NavigableList';
 import ProjectPreview from './../../component/ProjectPreview';
+import ProjectsActions from './../../../actions/Projects'
 
 class List extends React.Component {
   static propTypes = {
@@ -30,7 +31,7 @@ class List extends React.Component {
   static defaultProps = {
     shortcuts: [{
       'icon': ListIcon,
-      'path': '/project/',
+      'action': '',
       'tooltip': 'Show full project'
     }, {
       'icon': AddIcon,
@@ -71,19 +72,19 @@ class List extends React.Component {
   }
 
   goToShortcutLink() {
-    const projectId = this.props.projects.at(this.state.selectedRow).id;
+    const projectId = this.props.projects[this.state.selectedRow].id;
     this.context.history.pushState(null, this.props.shortcuts[this.state.selectedShortcut].path + projectId);
     this.props.onProjectSelected();
   }
 
   onTitleClick() {
-    const projectId = this.props.projects.at(this.state.selectedRow).id;
-    this.context.history.pushState(null, this.props.shortcuts[0].path + projectId);
+    const projectId = this.props.projects[this.state.selectedRow].id;
+    ProjectsActions.showProject(projectId);
     this.props.onProjectSelected();
   }
 
   goToNewProjectPage() {
-    this.context.history.pushState(null, '/project/new');
+    ProjectsActions.showCreateForm();
     this.props.onProjectSelected();
   }
 

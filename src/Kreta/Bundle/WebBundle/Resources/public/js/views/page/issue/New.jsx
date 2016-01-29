@@ -20,7 +20,6 @@ import Form from './../../component/Form';
 import FormInput from './../../component/FormInput';
 import FormSerializerService from '../../../service/FormSerializer';
 import Icon from './../../component/Icon';
-import {issueCreate} from '../../../actions/IssueActionCreator';
 import IssueField from './../../component/IssueField';
 import Selector from './../../component/Selector';
 import UserImage from './../../component/UserImage';
@@ -49,7 +48,6 @@ class New extends React.Component {
     const issue = FormSerializerService.serialize(
       $(this.refs.form.refs.form), {}
     );
-    issueCreate(issue);
   }
 
   updateSelectors(projectId) {
