@@ -27,12 +27,20 @@ const Actions = {
         });
     };
   },
-  showCreateForm: () => {
+  createProject: (project) => {
     return dispatch => {
-      dispatch(routeActions.push('/project/new'));
-      dispatch({
-        type: ActionTypes.PROJECTS_CREATE_FORM_SHOW
-      });
+      dispatch({type: ActionTypes.PROJECTS_CREATING});
+
+      setTimeout(function() {
+        project.id = "123213213";
+        dispatch({
+          type: ActionTypes.PROJECTS_CREATED,
+          project: project
+        });
+        dispatch(
+          routeActions.push(`/project/${project.id}`)
+        );
+      })
     }
   }
 };

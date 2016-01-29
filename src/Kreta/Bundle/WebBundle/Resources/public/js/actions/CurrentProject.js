@@ -42,10 +42,23 @@ const Actions = {
       selectedIssue: issue
     };
   },
-  filterIssues: (filter) => {
+  createIssue: (issue) => {
+    return dispatch => {
+      dispatch({type: ActionTypes.CURRENT_PROJECT_ISSUE_CREATING});
 
+      setTimeout(() => {
+        issue.id = Math.floor((Math.random() * 100000) + 1);
+        dispatch({
+          type: ActionTypes.CURRENT_PROJECT_ISSUE_CREATED,
+          issue: issue
+        });
+        dispatch(
+          routeActions.push(`/project/${issue.project}/issue/${issue.id}`)
+        );
+      }, 200);
+    }
   },
-  showSettings: (projectId) => {
+  filterIssues: (filter) => {
 
   }
 };

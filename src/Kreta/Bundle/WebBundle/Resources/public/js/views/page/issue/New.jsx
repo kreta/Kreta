@@ -12,14 +12,14 @@ import './../../../../scss/views/page/issue/_new';
 import PriorityIcon from './../../../../svg/priority';
 
 import React from 'react';
-import $ from 'jquery';
+import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
 
 import Button from './../../component/Button';
 import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
 import Form from './../../component/Form';
 import FormInput from './../../component/FormInput';
-import FormSerializerService from '../../../service/FormSerializer';
+import FormSerializer from '../../../service/FormSerializer';
 import Icon from './../../component/Icon';
 import IssueField from './../../component/IssueField';
 import Selector from './../../component/Selector';
@@ -27,16 +27,10 @@ import UserImage from './../../component/UserImage';
 import CurrentProjectActions from '../../../actions/CurrentProject';
 
 class New extends React.Component {
-  static contextTypes = {
-    history: React.PropTypes.object
-  };
-
-  _save(ev) {
+  createIssue(ev) {
     ev.preventDefault();
-
-    const issue = FormSerializerService.serialize(
-      $(this.refs.form.refs.form), {}
-    );
+    const issue = FormSerializer.serialize(ReactDOM.findDOMNode(this.refs.form));
+    this.props.dispatch(CurrentProjectActions.createIssue(issue));
   }
 
   updateSelectors(projectId) {
@@ -94,7 +88,7 @@ class New extends React.Component {
 
     return (
       <ContentMiddleLayout>
-        <Form onSubmit={this._save.bind(this)} ref="form">
+        <Form onSubmit={this.createIssue.bind(this)} ref="form">
           <Selector name="project"
                     onChange={this.updateSelectors.bind(this)}
                     tabIndex={1}
