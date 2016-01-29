@@ -23,9 +23,10 @@ ecmaFeatures:
     templateStrings: true
 
 globals:
-    App: true
+    new: true
     process: true
     require: true
+    target: true
 
 plugins:
     - react

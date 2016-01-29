@@ -42,6 +42,7 @@ License: ${pkg.license}`,
         'mousetrap',
         'react',
         'react-dom',
+        'react-redux',
         'react-router',
         'react-router-redux',
         'redux',
@@ -72,6 +73,9 @@ License: ${pkg.license}`,
     eslint: {configFile: '.eslint.yml'},
     postcss: [autoprefixer()],
     plugins: [
+//      new webpack.ProvidePlugin({
+//        'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
+//      }),
       new webpack.optimize.CommonsChunkPlugin('vendors', 'vendor.js'),
       new ExtractTextPlugin('../css/[name].css', {allChunks: false}),
       new webpack.BannerPlugin(LICENSE)
