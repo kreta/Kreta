@@ -16,29 +16,26 @@ import React from 'react';
 import Icon from './../component/Icon';
 
 class ContentRightLayout extends React.Component {
-  state = {
-    visible: false
+  static propTypes = {
+    isOpen: React.PropTypes.bool.isRequired,
+    onRequestClose: React.PropTypes.func
   };
 
-  openContentRightLayout() {
-    this.setState({visible: true});
-  }
-
-  closeContentRightLayout() {
-    this.setState({visible: false});
+  triggerOnRequestClose() {
+    this.props.onRequestClose();
   }
 
   render() {
     const classes = classnames({
       'content__right': true,
-      'content__right--visible': this.state.visible
+      'content__right--visible': this.props.isOpen
     });
 
     return (
       <div className={classes}>
         <Icon className="content-right-layout__cross"
               glyph={CrossIcon}
-              onClick={this.closeContentRightLayout.bind(this)}/>
+              onClick={this.triggerOnRequestClose.bind(this)}/>
         <div className="content__right-content">
           {this.props.children}
         </div>

@@ -26,33 +26,13 @@ export default React.createClass({
     issue: React.PropTypes.object.isRequired,
     project: React.PropTypes.object.isRequired
   },
-  getInitialState() {
-    return {
-      issue: this.props.issue
-    };
-  },
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      issue: nextProps.issue
-    });
-  },
   doTransition(id) {
-    this.state.issue.doTransition(id, {
-      success: (data) => {
-        this.setState({issue: this.state.issue.set(data)});
-      }
-    });
+    // Trigger doTransitionAction
   },
   getProjectOptions() {
-    const project = App.collection.project.get(this.props.project.id);
-    if (!project) {
-      return {
-        asignee: [],
-        priority: [],
-        type: []
-      };
-    }
-    const assignee = project.get('participants').map((p) => {
+    const project = this.props.project;
+
+    const assignee = project.participants.map((p) => {
         let assigneeName = `${p.user.first_name} ${p.user.last_name}`;
         if (p.user.first_name === '' || p.user.first_name === undefined) {
           assigneeName = p.user.username;
@@ -66,7 +46,7 @@ export default React.createClass({
                       value={p.user.id}/>
         );
       }),
-      priority = project.get('issue_priorities').map((p) => {
+      priority = project.issue_priorities.map((p) => {
         return (
           <IssueField image={
                         <Icon glyph={PriorityIcon}
@@ -82,24 +62,12 @@ export default React.createClass({
     return {assignee, priority};
   },
   render() {
-    const issue = this.state.issue.toJSON(),
+    const issue = this.props.issue,
       options = this.getProjectOptions();
     let allowedTransitions = [];
 
-    if (this.state.issue.canEdit(App.currentUser)) {
-      allowedTransitions = this.state.issue.getAllowedTransitions().map((transition, index) => {
-        return (
-          <Button color="green"
-                  key={index}
-                  onClick={this.doTransition.bind(this, transition.id)}>
-            {transition.name}
-          </Button>
-        );
-      });
-    }
     return (
-      <Form
-            onSaveSuccess={this.onIssueSaved}>
+      <Form onSaveSuccess={this.onIssueSaved}>
         <input name="id" type="hidden" value={issue.id}/>
         <input name="project" type="hidden" value={this.props.project.id}/>
         <input className="issue-show__title"

@@ -38,7 +38,7 @@ class Index extends React.Component {
   };
 
   goToShortcutLink(index, shortcut) {
-    const projectId = this.props.projects.at(index).id;
+    const projectId = this.props.projects[index].id;
     this.context.history.pushState(null, this.props.shortcuts[shortcut].path + projectId);
   }
 
