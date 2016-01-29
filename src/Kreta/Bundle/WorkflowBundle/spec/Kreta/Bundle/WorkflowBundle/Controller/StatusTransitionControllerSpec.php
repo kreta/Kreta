@@ -78,8 +78,7 @@ class StatusTransitionControllerSpec extends ObjectBehavior
         Request $request,
         StatusTransitionInterface $transition,
         Handler $handler,
-        WorkflowInterface $workflow,
-        Request $request
+        WorkflowInterface $workflow
     )
     {
         $container->get('kreta_workflow.form_handler.status_transition')->shouldBeCalled()->willReturn($handler);

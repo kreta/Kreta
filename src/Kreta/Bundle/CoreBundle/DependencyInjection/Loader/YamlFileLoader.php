@@ -13,6 +13,7 @@
 namespace Kreta\Bundle\CoreBundle\DependencyInjection\Loader;
 
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader as BaseYamlFileLoader;
+use Symfony\Component\Filesystem\Filesystem;
 use Symfony\Component\Yaml\Parser;
 
 /**
@@ -52,7 +53,10 @@ class YamlFileLoader extends BaseYamlFileLoader
     protected function existInFile($file, array $searchTerms)
     {
         $parser = new Parser();
-        $parsedResult = $parser->parse(file_get_contents($file));
+        $filesystem = new Filesystem();
+        if (true === $filesystem->exists($file)) {
+            $parsedResult = $parser->parse(file_get_contents($file));
+        }
 
         if (isset($parsedResult)) {
             foreach ($searchTerms as $searchTerm) {

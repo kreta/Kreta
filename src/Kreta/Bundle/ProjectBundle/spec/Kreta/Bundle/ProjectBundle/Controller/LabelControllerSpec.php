@@ -68,7 +68,6 @@ class LabelControllerSpec extends ObjectBehavior
         ContainerInterface $container,
         Request $request,
         ProjectInterface $project,
-        Request $request,
         Handler $handler,
         LabelInterface $label
     )

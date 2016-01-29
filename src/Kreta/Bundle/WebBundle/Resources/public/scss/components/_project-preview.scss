@@ -8,21 +8,33 @@
 
 @import '../base/colors';
 
+.project-preview__filter {
+  background: $main-grey;
+  padding: 15px;
+
+  &::placeholder {
+    color: rgba($grey, .4);
+  }
+}
+
 .project-preview__list {
   height: 300px;
   overflow-y: scroll;
+  padding-left: 5px;
+  padding-right: 5px;
   text-align: left;
 }
 
 .project-preview {
   align-items: center;
   display: flex;
-  padding: 1em;
+  padding: 15px;
   position: relative;
+  transition: background-color .3s;
 }
 
 .project-preview--selected {
-  background: $main-green;
+  background-color: $main-green;
   outline: 0;
 
   .project-preview__title {
@@ -37,7 +49,8 @@
 .project-preview__title {
   color: $main-black;
   flex: 1;
-  font-size: 1.1em;
+  font-size: 16px;
+  transition: color .3s;
 }
 
 .project-preview__shortcuts {
@@ -47,9 +60,9 @@
 .project-preview__shortcut {
   fill: $white;
   height: 25px;
-  margin: 0 .5em;
+  margin-right: 10px;
   opacity: .3;
-  transition-duration: .2s;
+  transition: opacity .2s;
   width: 25px;
 }
 

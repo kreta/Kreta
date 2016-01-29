@@ -12,10 +12,8 @@
 
 namespace Kreta\Component\Core\spec\Kreta\Component\Core\Repository;
 
-use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Query\Expr;
-use Doctrine\ORM\QueryBuilder;
-use PhpSpec\ObjectBehavior;
+use PhpSpec\Wrapper\Collaborator;
 use Prophecy\Argument;
 
 /**
@@ -24,9 +22,9 @@ use Prophecy\Argument;
  * @author Beñat Espiña <benatespina@gmail.com>
  * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
-class BaseEntityRepository extends ObjectBehavior
+trait BaseEntityRepository
 {
-    protected function getQueryBuilderSpec(EntityManager $manager, QueryBuilder $queryBuilder)
+    protected function getQueryBuilderSpec(Collaborator $manager, Collaborator $queryBuilder)
     {
         $manager->createQueryBuilder()->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->select('kreta')->shouldBeCalled()->willReturn($queryBuilder);
@@ -36,20 +34,20 @@ class BaseEntityRepository extends ObjectBehavior
     }
 
     protected function addCriteriaSpec(
-        QueryBuilder $queryBuilder,
-        Expr $expr,
+        Collaborator $queryBuilder,
+        Collaborator $expr,
         array $values,
-        Expr\Comparison $comparison
+        Collaborator $comparison
     )
     {
         return $this->addEqCriteriaSpec($queryBuilder, $expr, $values, $comparison);
     }
 
     protected function addEqCriteriaSpec(
-        QueryBuilder $queryBuilder,
-        Expr $expr,
+        Collaborator $queryBuilder,
+        Collaborator $expr,
         array $values,
-        Expr\Comparison $comparison
+        Collaborator $comparison
     )
     {
         $queryBuilder->expr()->shouldBeCalled()->willReturn($expr);
@@ -63,10 +61,10 @@ class BaseEntityRepository extends ObjectBehavior
     }
 
     protected function addNeqCriteriaSpec(
-        QueryBuilder $queryBuilder,
-        Expr $expr,
+        Collaborator $queryBuilder,
+        Collaborator $expr,
         array $values,
-        Expr\Comparison $comparison
+        Collaborator $comparison
     )
     {
         $queryBuilder->expr()->shouldBeCalled()->willReturn($expr);
@@ -80,10 +78,10 @@ class BaseEntityRepository extends ObjectBehavior
     }
 
     protected function addLikeCriteriaSpec(
-        QueryBuilder $queryBuilder,
-        Expr $expr,
+        Collaborator $queryBuilder,
+        Collaborator $expr,
         array $values,
-        Expr\Comparison $comparison
+        Collaborator $comparison
     )
     {
         $queryBuilder->expr()->shouldBeCalled()->willReturn($expr);
@@ -96,7 +94,7 @@ class BaseEntityRepository extends ObjectBehavior
         return $queryBuilder;
     }
 
-    protected function addIsNullCriteriaSpec(QueryBuilder $queryBuilder, Expr $expr, $property)
+    protected function addIsNullCriteriaSpec(Collaborator $queryBuilder, Collaborator $expr, $property)
     {
         $queryBuilder->expr()->shouldBeCalled()->willReturn($expr);
         $expr->isNull($this->getPropertyNameSpec($property))->shouldBeCalled()->willReturn('kreta.property IS NULL');
@@ -105,7 +103,7 @@ class BaseEntityRepository extends ObjectBehavior
         return $queryBuilder;
     }
 
-    protected function addInCriteriaSpec(QueryBuilder $queryBuilder, Expr $expr, Expr\Func $func, array $values)
+    protected function addInCriteriaSpec(Collaborator $queryBuilder, Collaborator $expr, Collaborator $func, array $values)
     {
         $queryBuilder->expr()->shouldBeCalled()->willReturn($expr);
         $expr->in($this->getPropertyNameSpec(key($values)), $values[key($values)])->shouldBeCalled()->willReturn($func);
@@ -114,7 +112,7 @@ class BaseEntityRepository extends ObjectBehavior
         return $queryBuilder;
     }
 
-    protected function addBetweenCriteriaSpec(QueryBuilder $queryBuilder, Expr $expr, Expr\Func $func, array $values)
+    protected function addBetweenCriteriaSpec(Collaborator $queryBuilder, Collaborator $expr, Collaborator $func, array $values)
     {
         $now = new \DateTime();
         $queryBuilder->expr()->shouldBeCalled()->willReturn($expr);
@@ -127,7 +125,7 @@ class BaseEntityRepository extends ObjectBehavior
         return $queryBuilder;
     }
 
-    protected function orderBySpec(QueryBuilder $queryBuilder, array $sorting)
+    protected function orderBySpec(Collaborator $queryBuilder, array $sorting)
     {
         $queryBuilder->addOrderBy($this->getPropertyNameSpec(key($sorting)), $sorting[key($sorting)])
             ->shouldBeCalled()->willReturn($queryBuilder);

@@ -157,8 +157,7 @@ class StatusTransitionSpec extends ObjectBehavior
         StatusInterface $status,
         ProjectInterface $project,
         IssueInterface $issue,
-        StatusTransitionInterface $transition2,
-        StatusInterface $status
+        StatusTransitionInterface $transition2
     ) {
         $this->getWorkflow()->shouldReturn($workflow);
         $workflow->getProjects()->shouldBeCalled()->willReturn([$project]);
@@ -177,8 +176,7 @@ class StatusTransitionSpec extends ObjectBehavior
         StatusInterface $status,
         ProjectInterface $project,
         IssueInterface $issue,
-        StatusTransitionInterface $transition2,
-        StatusInterface $status
+        StatusTransitionInterface $transition2
     ) {
         $this->getWorkflow()->shouldReturn($workflow);
         $workflow->getProjects()->shouldBeCalled()->willReturn([$project]);

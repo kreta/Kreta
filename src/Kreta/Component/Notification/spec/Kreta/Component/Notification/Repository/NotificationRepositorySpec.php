@@ -20,6 +20,7 @@ use Doctrine\ORM\QueryBuilder;
 use Kreta\Component\Core\spec\Kreta\Component\Core\Repository\BaseEntityRepository;
 use Kreta\Component\Notification\Model\Interfaces\NotificationInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
+use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
@@ -29,8 +30,10 @@ use Symfony\Component\Security\Core\Exception\AccessDeniedException;
  * @author Beñat Espiña <benatespina@gmail.com>
  * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
-class NotificationRepositorySpec extends BaseEntityRepository
+class NotificationRepositorySpec extends ObjectBehavior
 {
+    use BaseEntityRepository;
+
     function let(EntityManager $manager, ClassMetadata $classMetadata)
     {
         $this->beConstructedWith($manager, $classMetadata);

@@ -53,7 +53,7 @@ class UserFactory
         $user = new $this->className();
 
         if (false === $enabled) {
-            $user->setConfirmationToken(sprintf('%s%s', uniqid('kreta'), unixtojd()));
+            $user->setConfirmationToken(sprintf('%s%s', uniqid('kreta'), uniqid()));
         }
 
         return $user

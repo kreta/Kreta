@@ -44,7 +44,7 @@ class FormInputFile extends React.Component {
           <Icon className="form-input-file__background-icon"
                 glyph={ImageIcon}/>
         </div>
-      )
+      );
     }
 
     return (
@@ -54,7 +54,7 @@ class FormInputFile extends React.Component {
           <Icon className="form-input-file__background-icon" glyph={ImageIcon}/>
         </div>
       </div>
-    )
+    );
   }
 
   render() {

@@ -68,7 +68,6 @@ class IssuePriorityControllerSpec extends ObjectBehavior
         ContainerInterface $container,
         Request $request,
         ProjectInterface $project,
-        Request $request,
         Handler $handler,
         IssuePriorityInterface $issuePriority
     )
