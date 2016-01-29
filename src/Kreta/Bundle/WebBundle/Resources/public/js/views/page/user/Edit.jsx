@@ -10,6 +10,7 @@
 
 import React from 'react';
 import $ from 'jquery';
+import { connect } from 'react-redux';
 
 import Button from './../../component/Button';
 import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
@@ -20,13 +21,6 @@ import ActionTypes from '../../../constants/ActionTypes';
 import FormSerializerService from '../../../service/FormSerializer';
 
 class Edit extends React.Component {
-  componentWillMount() {
-    this.originalImage = App.currentUser.get('photo');
-    this.setState({
-      user: App.currentUser
-    });
-  }
-
   _save(ev) {
     ev.preventDefault();
 
@@ -37,16 +31,8 @@ class Edit extends React.Component {
     // TODO dispatch call profileUpdate
   }
 
-  _handleProfileErrors() {
-    console.log("Profile error!!")
-  }
-
-  _handleProfileSuccess() {
-    console.log("Profile success!!");
-  }
-
   render() {
-    const user = this.state.user.toJSON();
+    const user = this.props.profile.profile;
 
     return (
       <ContentMiddleLayout>
@@ -79,4 +65,10 @@ class Edit extends React.Component {
   }
 }
 
-export default Edit;
+const mapStateToProps = (state) => {
+  return {
+    profile: state.profile
+  }
+};
+
+export default connect(mapStateToProps)(Edit);
