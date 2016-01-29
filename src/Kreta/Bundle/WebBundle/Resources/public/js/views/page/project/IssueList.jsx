@@ -39,8 +39,6 @@ class IssueList extends React.Component {
 
     this.keyUpListenerRef = this.keyboardNavigate.bind(this);
     window.addEventListener('keyup', this.keyUpListenerRef);
-
-    this.props.dispatch(CurrentProjectActions.fetchProject(projectId));
   }
 
   componentDidUpdate(prevProps) {
@@ -150,7 +148,7 @@ class IssueList extends React.Component {
         color: 'green'
       }],
       buttons = [{
-        href: `/issue/new/${this.props.currentProject.project.id}`,
+        href: `/project/${this.props.currentProject.project.id}/issue/new`,
         title: 'New issue'
       }];
     let issue = '';
@@ -176,7 +174,7 @@ class IssueList extends React.Component {
             {this.props.currentProject.fetching ? 'Loading...' : issuesEl}
           </NavigableList>
         </ContentMiddleLayout>
-        <ContentRightLayout isOpen={this.props.currentProject.selectedIssue}
+        <ContentRightLayout isOpen={this.props.currentProject.selectedIssue ? true : false}
                             onRequestClose={this.hideIssue.bind(this)}>
           {issue}
         </ContentRightLayout>

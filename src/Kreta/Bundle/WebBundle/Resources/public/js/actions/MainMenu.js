@@ -11,6 +11,12 @@ const Actions = {
     return {
       type: ActionTypes.MAIN_MENU_HIDE_PROJECTS
     };
+  },
+  highlightProject: (project) => {
+    return {
+      type: ActionTypes.MAIN_MENU_HIGHLIGHT_PROJECT,
+      highlightedProject: project
+    }
   }
 };
 

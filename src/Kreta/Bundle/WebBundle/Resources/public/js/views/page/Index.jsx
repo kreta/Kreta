@@ -21,34 +21,10 @@ import ContentMiddleLayout from './../layout/ContentMiddleLayout';
 import ProjectPreview from './../component/ProjectPreview';
 
 class Index extends React.Component {
-  static contextTypes = {
-    history: React.PropTypes.object
-  };
-
-  static defaultProps = {
-    shortcuts: [{
-      'icon': ListIcon,
-      'path': '/project/',
-      'tooltip': 'Show full project'
-    }, {
-      'icon': AddIcon,
-      'path': '/issue/new/',
-      'tooltip': 'New task'
-    }]
-  };
-
-  goToShortcutLink(index, shortcut) {
-    const projectId = this.props.projects[index].id;
-    this.context.history.pushState(null, this.props.shortcuts[shortcut].path + projectId);
-  }
-
   render() {
     const projectItems = this.props.projects.map((project, index) => {
       return <ProjectPreview key={index}
-                             project={project}
-                             onShortcutClick={this.goToShortcutLink.bind(this, index)}
-                             onTitleClick={this.goToShortcutLink.bind(this, index, 0)}
-                             shortcuts={this.props.shortcuts}/>;
+                             project={project}/>;
     });
 
     return (

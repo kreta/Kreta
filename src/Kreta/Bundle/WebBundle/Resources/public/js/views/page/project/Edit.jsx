@@ -22,7 +22,7 @@ class Edit extends React.Component {
 
   render() {
     const project = this.props.project,
-      image = project.get('image');
+      image = project.image;
 
     return (
       <Form>
@@ -44,12 +44,12 @@ class Edit extends React.Component {
                    name="name"
                    tabIndex="1"
                    type="text"
-                   value={project.get('name')}/>
+                   value={project.name}/>
         <FormInput label="Project short name"
                    name="short_name"
                    tabIndex="2"
                    type="text"
-                   value={project.get('short_name')}/>
+                   value={project.short_name}/>
       </Form>
     );
   }
