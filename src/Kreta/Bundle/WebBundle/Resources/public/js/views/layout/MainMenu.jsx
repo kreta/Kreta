@@ -33,13 +33,11 @@ class MainMenu extends React.Component {
   }
 
   showProjectList() {
-    const { dispatch } = this.props;
-    dispatch(MainMenuActions.showProjects());
+    this.props.dispatch(MainMenuActions.showProjects());
   }
 
   hideProjectsList() {
-    const { dispatch } = this.props;
-    dispatch(MainMenuActions.hideProjects());
+    this.props.dispatch(MainMenuActions.hideProjects());
   }
 
   render() {

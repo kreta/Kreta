@@ -8,10 +8,13 @@
  * file that was distributed with this source code.
  */
 
+import AddIcon from './../../../svg/add';
+import ListIcon from './../../../svg/list';
 import './../../../scss/components/_project-preview';
 
 import classNames from 'classnames';
 import React from 'react';
+import {Link} from 'react-router';
 
 import Icon from './Icon';
 
@@ -24,19 +27,27 @@ class ProjectPreview extends React.Component {
     project: React.PropTypes.object.isRequired,
     selected: React.PropTypes.bool,
     selectedShortcut: React.PropTypes.number,
-    shortcuts: React.PropTypes.array.isRequired
+    shortcuts: React.PropTypes.array
   };
 
-  onShortcutClick(index) {
-    if (this.props.onShortcutClick) {
-      this.props.onShortcutClick(index);
-    }
+  static defaultProps = {
+    shortcuts: [{
+      'icon': ListIcon,
+      'link': '/project/0',
+      'tooltip': 'Show full project'
+    }, {
+      'icon': AddIcon,
+      'link': '/issue/new/',
+      'tooltip': 'New task'
+    }]
+  };
+
+  triggerOnShortcutClick(index) {
+    this.props.onShortcutClick(index);
   }
 
-  onShortcutEnter(index) {
-    if (this.props.onShortcutEnter) {
-      this.props.onShortcutEnter(index);
-    }
+  triggerOnShortcutEnter(index) {
+    this.props.onShortcutEnter(index);
   }
 
   render() {
@@ -50,8 +61,8 @@ class ProjectPreview extends React.Component {
         <Icon className={classes}
               glyph={shortcut.icon}
               key={index}
-              onClick={this.onShortcutClick.bind(this, index)}
-              onMouseEnter={this.onShortcutEnter.bind(this, index)}/>
+              onClick={this.triggerOnShortcutClick.bind(this, index)}
+              onMouseEnter={this.triggerOnShortcutEnter.bind(this, index)}/>
       );
     });
     const classes = classNames({
@@ -61,9 +72,11 @@ class ProjectPreview extends React.Component {
 
     return (
       <div className={classes} onMouseEnter={ this.props.onMouseEnter }>
-        <div className="project-preview__title" onClick={this.props.onTitleClick}>
+        <Link className="project-preview__title"
+              onClick={this.props.onTitleClick}
+              to={`/project/${this.props.project.id}`}>
           {this.props.project.name}
-        </div>
+        </Link>
 
         <div className="project-preview__shortcuts">
           {shortcutItems}

@@ -176,7 +176,7 @@ class IssueList extends React.Component {
             {this.props.currentProject.fetching ? 'Loading...' : issuesEl}
           </NavigableList>
         </ContentMiddleLayout>
-        <ContentRightLayout isOpen={this.props.currentProject.selectedIssue}
+        <ContentRightLayout isOpen={this.props.currentProject.selectedIssue ? true : false}
                             onRequestClose={this.hideIssue.bind(this)}>
           {issue}
         </ContentRightLayout>

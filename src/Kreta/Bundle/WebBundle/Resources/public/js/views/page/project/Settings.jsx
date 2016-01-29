@@ -11,6 +11,7 @@
 import './../../../../scss/views/page/project/_settings';
 
 import React from 'react';
+import { connect } from 'react-redux';
 
 import Button from './../../component/Button';
 import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
@@ -18,50 +19,37 @@ import ContentRightLayout from './../../layout/ContentRightLayout';
 import ProjectEdit from './Edit';
 import SettingsParticipants from './SettingsParticipants';
 import UserPreview from './../../component/UserPreview';
+import CurrentProjectActions from '../../../actions/CurrentProject';
 
 class Settings extends React.Component {
-  state = {
-    project: null,
-    userSelectorVisible: false
-  };
-
   componentDidMount() {
-    const project = App.collection.project.get(this.props.params.projectId);
-    project.on('change', (p) => {
-      this.setState({project: p});
-    });
-    this.setState({project});
+    this.props.dispatch(CurrentProjectActions.fetchProject(this.props.params.projectId));
   }
 
-  showNotParticipantingList() {
-    this.setState({userSelectorVisible: true});
-  }
-
-  updateParticipants() {
-    this.state.project.fetch();
+  addParticipant(participant) {
+    this.props.dispatch(CurrentProjectActions.addParticipant(participant));
   }
 
   render() {
-    if (!this.state.project) {
+    if (!this.props.project) {
       return <div>Loading...</div>;
     }
 
-    const participants = this.state.project.get('participants').map((participant, index) => {
+    const participants = this.props.project.participants.map((participant, index) => {
       return <UserPreview key={index} user={participant.user}/>;
     });
 
     return (
       <div>
         <ContentMiddleLayout>
-          <ProjectEdit project={this.state.project}/>
+          <ProjectEdit project={this.props.project}/>
           <section className="spacer-vertical-1">
             <div className="section-header">
               <h3 className="section-header-title">
                 <strong>People</strong> in this project
               </h3>
               <div className="section-header-actions">
-                <Button color="green"
-                  onClick={this.showNotParticipantingList.bind(this)}>
+                <Button color="green">
                   Add people
                 </Button>
               </div>
@@ -71,10 +59,10 @@ class Settings extends React.Component {
             </div>
           </section>
         </ContentMiddleLayout>
-        <ContentRightLayout open={this.state.userSelectorVisible}>
+        <ContentRightLayout isOpen={true}>
           <SettingsParticipants
-            onParticipantAdded={this.updateParticipants.bind(this)}
-            project={this.state.project}
+            onParticipantAddClicked={this.addParticipant.bind(this)}
+            project={this.props.project}
           />
         </ContentRightLayout>
       </div>
@@ -82,4 +70,10 @@ class Settings extends React.Component {
   }
 }
 
-export default Settings;
+const mapStateToProps = (state) => {
+  return {
+    project: state.currentProject.project
+  }
+};
+
+export default connect(mapStateToProps)(Settings);

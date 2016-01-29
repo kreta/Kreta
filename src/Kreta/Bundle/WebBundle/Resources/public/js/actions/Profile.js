@@ -22,7 +22,7 @@ const Actions = {
             photo: {
               id: '1',
               created_at: '2014-10-30T00:00:00+0100',
-              name: 'http://kreta.test:8000/media/image/user-1.jpg',
+              name: '/media/image/0c7784305351d3024f12864713285d79.png',
               updated_at: null
             }
           }
