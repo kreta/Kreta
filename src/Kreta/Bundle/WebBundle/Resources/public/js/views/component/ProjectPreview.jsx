@@ -33,7 +33,7 @@ class ProjectPreview extends React.Component {
   static defaultProps = {
     shortcuts: [{
       'icon': ListIcon,
-      'link': '/project/0',
+      'link': '',
       'tooltip': 'Show full project'
     }, {
       'icon': AddIcon,

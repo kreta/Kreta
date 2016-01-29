@@ -11,10 +11,10 @@ const Actions = {
         dispatch({
           type: ActionTypes.PROJECTS_RECEIVED,
           projects: [{
-            id: 0,
+            id: "0",
             name: "Test 0"
           }, {
-            id: 1,
+            id: "1",
             name: "Test 1"
           }]
         });

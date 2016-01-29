@@ -22,10 +22,6 @@ import UserPreview from './../../component/UserPreview';
 import CurrentProjectActions from '../../../actions/CurrentProject';
 
 class Settings extends React.Component {
-  componentDidMount() {
-    this.props.dispatch(CurrentProjectActions.fetchProject(this.props.params.projectId));
-  }
-
   addParticipant(participant) {
     this.props.dispatch(CurrentProjectActions.addParticipant(participant));
   }
