@@ -27,17 +27,28 @@ function _toQueryParams(query = null) {
   let result = '?';
   if (query instanceof Array) {
     query.map((value, key) => {
-      result = `${result}${key}=${value}&`
+      result = `${result}${key}=${value}&`;
     });
   } else if (typeof query === 'object') {
-    for(let key in query) {
-      if(query.hasOwnProperty(key)) {
+    for (const key in query) {
+      if (query.hasOwnProperty(key)) {
         result = `${result}${key}=${query[key]}&`;
       }
     }
   }
 
   return result;
+}
+
+function _toFormData(body) {
+  let data = new FormData();
+  for (const key in body) {
+    if (body.hasOwnProperty(key)) {
+        data.append(key, body[key]);
+    }
+  }
+
+  return data;
 }
 
 class Api {
@@ -70,12 +81,10 @@ class Api {
 
   post(url, payload) {
     return fetch(`${this.baseUrl()}${url}`, {
-      body: payload,
+      body: _toFormData(payload),
       credentials: 'include',
       headers: {
-        'Authorization': `Bearer ${this.accessToken()}`,
-        'Accept': 'application/json',
-        'Content-type': 'application/json'
+        'Authorization': `Bearer ${this.accessToken()}`
       },
       method: 'post',
       mode: 'cors'

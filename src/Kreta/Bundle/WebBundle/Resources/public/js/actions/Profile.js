@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-import ActionTypes from '../constants/ActionTypes';
+import ActionTypes from './../constants/ActionTypes';
 import {routeActions} from 'react-router-redux';
 
 import ProfileApi from './../api/Profile';

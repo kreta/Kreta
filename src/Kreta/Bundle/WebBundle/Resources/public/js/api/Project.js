@@ -18,6 +18,10 @@ class ProjectApi extends Api {
   getProject(projectId, query = null) {
     return this.get(`/projects/${projectId}`, query);
   }
+
+  postProject(payload) {
+    return this.post('/projects', payload)
+  }
 }
 
 const instance = new ProjectApi();

@@ -18,6 +18,10 @@ class IssueApi extends Api {
   getIssue(issueId, query = null) {
     return this.get(`/issues/${issueId}`, query);
   }
+
+  postIssue(payload) {
+    return this.post('/issues', payload);
+  }
 }
 
 const instance = new IssueApi();

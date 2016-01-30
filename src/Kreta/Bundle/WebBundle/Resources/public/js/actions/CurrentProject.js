@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-import ActionTypes from '../constants/ActionTypes';
+import ActionTypes from './../constants/ActionTypes';
 import {routeActions} from 'react-router-redux';
 
 import IssueApi from './../api/Issue';
@@ -42,20 +42,21 @@ const Actions = {
       selectedIssue: issue
     };
   },
-  createIssue: (issue) => {
+  createIssue: (issueData) => {
     return dispatch => {
       dispatch({type: ActionTypes.CURRENT_PROJECT_ISSUE_CREATING});
 
-      setTimeout(() => {
-        issue.id = Math.floor((Math.random() * 100000) + 1);
-        dispatch({
-          type: ActionTypes.CURRENT_PROJECT_ISSUE_CREATED,
-          issue: issue
+      IssueApi.postIssue(issueData)
+        .then((createdIssue) => {
+          dispatch({
+            type: ActionTypes.CURRENT_PROJECT_ISSUE_CREATED,
+            issue: createdIssue
+          });
+          dispatch(
+            // This route does not exist yet
+            routeActions.push(`/project/${issueData.project}/issue/${createdIssue.id}`)
+          );
         });
-        dispatch(
-          routeActions.push(`/project/${issue.project}/issue/${issue.id}`)
-        );
-      }, 200);
     }
   },
   filterIssues: (filter) => {

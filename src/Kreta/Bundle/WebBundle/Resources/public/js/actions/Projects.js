@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-import ActionTypes from '../constants/ActionTypes';
+import ActionTypes from './../constants/ActionTypes';
 import {routeActions} from 'react-router-redux';
 
 import ProjectApi from './../api/Project';
@@ -27,21 +27,21 @@ const Actions = {
         });
     };
   },
-  createProject: (project) => {
+  createProject: (projectData) => {
     return dispatch => {
       dispatch({type: ActionTypes.PROJECTS_CREATING});
 
-      setTimeout(function() {
-        project.id = "123213213";
-        dispatch({
-          type: ActionTypes.PROJECTS_CREATED,
-          project: project
+      ProjectApi.postProject(projectData)
+        .then((createdProject) => {
+          dispatch({
+            type: ActionTypes.PROJECTS_CREATED,
+            project: createdProject
+          });
+          dispatch(
+            routeActions.push(`/project/${createdProject.id}`)
+          );
         });
-        dispatch(
-          routeActions.push(`/project/${project.id}`)
-        );
-      })
-    }
+    };
   }
 };
 
