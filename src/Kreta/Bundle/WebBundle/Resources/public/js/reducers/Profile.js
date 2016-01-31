@@ -14,6 +14,9 @@ export default function reducer(state = initialState, action = {}) {
     case ActionTypes.PROFILE_RECEIVED:
       return {...state, profile: action.profile, fetching: false};
 
+    case ActionTypes.PROFILE_UPDATED:
+      return {...state, profile: action.profile};
+
     case ActionTypes.PROFILE_FETCH_ERROR:
       return {...state, error: true};
 
