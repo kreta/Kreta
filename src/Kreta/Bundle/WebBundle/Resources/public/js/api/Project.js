@@ -20,7 +20,7 @@ class ProjectApi extends Api {
   }
 
   postProject(payload) {
-    return this.post('/projects', payload)
+    return this.post('/projects', payload);
   }
 }
 

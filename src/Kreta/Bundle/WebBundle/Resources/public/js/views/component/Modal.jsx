@@ -25,7 +25,7 @@ class Modal extends React.Component {
 
   handleKeyUp(ev) {
     if (ev.which === 27) {
-      this.props.onRequestClose()
+      this.props.onRequestClose();
     }
   }
 

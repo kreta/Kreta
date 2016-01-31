@@ -41,10 +41,10 @@ function _toQueryParams(query = null) {
 }
 
 function _toFormData(body) {
-  let data = new FormData();
+  const data = new FormData();
   for (const key in body) {
     if (body.hasOwnProperty(key)) {
-        data.append(key, body[key]);
+      data.append(key, body[key]);
     }
   }
 

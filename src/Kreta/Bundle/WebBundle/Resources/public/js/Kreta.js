@@ -10,16 +10,16 @@
 
 import './../scss/app';
 
-import React                    from 'react';
-import ReactDOM                 from 'react-dom';
-import createBrowserHistory     from 'history/lib/createBrowserHistory';
-import configureStore           from './stores/Store';
-import Root                     from './views/layout/Root';
+import createBrowserHistory from 'history/lib/createBrowserHistory';
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-const history = createBrowserHistory();
-const store  = configureStore(history);
+import configureStore from './stores/Store';
+import Root from './views/layout/Root';
 
-const node = <Root routerHistory={history} store={store}/>;
+const
+  history = createBrowserHistory(),
+  store = configureStore(history),
+  node = <Root routerHistory={history} store={store}/>;
 
 ReactDOM.render(node, document.getElementById('application'));
-

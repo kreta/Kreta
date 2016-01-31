@@ -8,27 +8,24 @@
  * file that was distributed with this source code.
  */
 
+import {connect} from 'react-redux';
 import React from 'react';
-import $ from 'jquery';
-import { connect } from 'react-redux';
+import ReactDOM from 'react-dom';
 
 import Button from './../../component/Button';
 import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
 import Form from './../../component/Form';
 import FormInput from './../../component/FormInput';
 import FormInputFile from './../../component/FormInputFile';
-import ActionTypes from '../../../constants/ActionTypes';
-import FormSerializerService from '../../../service/FormSerializer';
+import FormSerializer from './../../../service/FormSerializer';
+import ProfileActions from './../../../actions/Profile';
 
 class Edit extends React.Component {
   _save(ev) {
     ev.preventDefault();
 
-    const profile = FormSerializerService.serialize(
-      $(this.refs.form.refs.form), {}
-    );
-
-    // TODO dispatch call profileUpdate
+    const profile = FormSerializer.serialize(ReactDOM.findDOMNode(this.refs.form));
+    this.props.dispatch(ProfileActions.updateProfile(profile));
   }
 
   render() {
@@ -68,7 +65,7 @@ class Edit extends React.Component {
 const mapStateToProps = (state) => {
   return {
     profile: state.profile
-  }
+  };
 };
 
 export default connect(mapStateToProps)(Edit);

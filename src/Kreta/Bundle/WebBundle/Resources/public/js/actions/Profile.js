@@ -26,6 +26,19 @@ const Actions = {
           });
         });
     };
+  },
+  updateProfile: (profileData) => {
+    return dispatch => {
+      dispatch({type: ActionTypes.PROFILE_UPDATE});
+
+      ProfileApi.putProfile(profileData)
+        .then((updatedProfile) => {
+          dispatch({
+            type: ActionTypes.PROFILE_UPDATED,
+            profile: updatedProfile
+          });
+        });
+    };
   }
 };
 

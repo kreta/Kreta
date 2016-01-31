@@ -54,9 +54,6 @@
     ]
   },
   "dependencies": {
-    "backbone": "^1.2",
-    "backbone-model-file-upload": "^1.0",
-    "backbone.marionette": "^2.4",
     "classnames": "^2.1",
     "flux": "^2.1.1",
     "history": "^1.17.0",

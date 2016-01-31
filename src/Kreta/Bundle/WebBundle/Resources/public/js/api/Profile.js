@@ -15,7 +15,7 @@ class ProfileApi extends Api {
     return this.get('/profile');
   }
 
-  postProfile(profile) {
+  putProfile(profile) {
     return this.post('/profile', profile);
   }
 }
