@@ -13,7 +13,7 @@ import $ from 'jquery';
 class FormSerializerService {
   static serialize(formRef) {
     var formData = {},
-        $form = $(formRef);
+      $form = $(formRef);
 
     $.each($form.serializeArray(), function () {
       formData[this.name] = this.value;

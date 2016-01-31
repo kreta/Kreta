@@ -22,8 +22,16 @@ import UserPreview from './../../component/UserPreview';
 import CurrentProjectActions from '../../../actions/CurrentProject';
 
 class Settings extends React.Component {
+  state = {
+    addParticipantsVisible: false
+  };
+
   addParticipant(participant) {
     this.props.dispatch(CurrentProjectActions.addParticipant(participant));
+  }
+
+  showAddParticipants() {
+    this.setState({addParticipantsVisible: true});
   }
 
   render() {
@@ -45,7 +53,7 @@ class Settings extends React.Component {
                 <strong>People</strong> in this project
               </h3>
               <div className="section-header-actions">
-                <Button color="green">
+                <Button color="green" onClick={this.showAddParticipants.bind(this)}>
                   Add people
                 </Button>
               </div>
@@ -55,7 +63,7 @@ class Settings extends React.Component {
             </div>
           </section>
         </ContentMiddleLayout>
-        <ContentRightLayout isOpen={true}>
+        <ContentRightLayout isOpen={this.state.addParticipantsVisible}>
           <SettingsParticipants
             onParticipantAddClicked={this.addParticipant.bind(this)}
             project={this.props.project}
@@ -69,7 +77,7 @@ class Settings extends React.Component {
 const mapStateToProps = (state) => {
   return {
     project: state.currentProject.project
-  }
+  };
 };
 
 export default connect(mapStateToProps)(Settings);

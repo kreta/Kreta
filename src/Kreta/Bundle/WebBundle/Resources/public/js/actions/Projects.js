@@ -15,20 +15,20 @@ import ProjectApi from './../api/Project';
 
 const Actions = {
   fetchProjects: () => {
-    return dispatch => {
+    return (dispatch) => {
       dispatch({type: ActionTypes.PROJECTS_FETCHING});
 
       ProjectApi.getProjects()
         .then((projects) => {
           dispatch({
             type: ActionTypes.PROJECTS_RECEIVED,
-            projects: projects
+            projects
           });
         });
     };
   },
   createProject: (projectData) => {
-    return dispatch => {
+    return (dispatch) => {
       dispatch({type: ActionTypes.PROJECTS_CREATING});
 
       ProjectApi.postProject(projectData)

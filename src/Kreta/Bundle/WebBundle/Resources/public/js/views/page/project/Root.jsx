@@ -16,7 +16,7 @@ import CurrentProjectActions from '../../../actions/CurrentProject';
 export default class ProjectRoot extends React.Component {
   componentDidMount() {
     this.props.dispatch(CurrentProjectActions.fetchProject(this.props.params.projectId));
-    if(typeof this.props.params.issueId !== "undefined") {
+    if (typeof this.props.params.issueId !== 'undefined') {
       this.props.dispatch(CurrentProjectActions.selectCurrentIssue(this.props.params.issueId));
     } else {
       this.props.dispatch(CurrentProjectActions.selectCurrentIssue(null));
@@ -33,9 +33,9 @@ export default class ProjectRoot extends React.Component {
       this.props.dispatch(CurrentProjectActions.fetchProject(newProjectId));
     }
 
-    if(newIssueId !== oldIssueId && typeof newIssueId !== "undefined") {
+    if (newIssueId !== oldIssueId && typeof newIssueId !== 'undefined') {
       this.props.dispatch(CurrentProjectActions.selectCurrentIssue(newIssueId));
-    } else if (typeof newIssueId === "undefined") {
+    } else if (typeof newIssueId === 'undefined') {
       this.props.dispatch(CurrentProjectActions.selectCurrentIssue(null));
     }
   }
@@ -43,12 +43,12 @@ export default class ProjectRoot extends React.Component {
   render() {
     return (
       this.props.children
-    )
+    );
   }
 }
 
 const mapStateToProps = (state) => {
-  return {}
+  return {};
 };
 
 export default connect(mapStateToProps)(ProjectRoot);

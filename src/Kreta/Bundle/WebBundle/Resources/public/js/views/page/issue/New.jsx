@@ -84,7 +84,7 @@ class New extends React.Component {
     }
 
     const options = this.getProjectOptions(),
-          project = this.props.currentProject.project;
+      project = this.props.currentProject.project;
 
     return (
       <ContentMiddleLayout>
@@ -141,7 +141,7 @@ const mapStateToProps = (state) => {
   return {
     projects: state.projects,
     currentProject: state.currentProject
-  }
+  };
 };
 
 export default connect(mapStateToProps)(New);

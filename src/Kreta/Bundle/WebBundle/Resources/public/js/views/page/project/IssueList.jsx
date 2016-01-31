@@ -10,7 +10,6 @@
 
 import SettingsIcon from './../../../../svg/settings';
 
-import $ from 'jquery';
 import React from 'react';
 import Mousetrap from 'mousetrap';
 import { connect } from 'react-redux';
@@ -25,7 +24,6 @@ import IssuePreview from './../../component/IssuePreview';
 import IssueShow from './../issue/Show';
 import PageHeader from './../../component/PageHeader';
 import NavigableList from './../../component/NavigableList';
-import ProjectsActions from '../../../actions/Projects';
 import CurrentProjectActions from '../../../actions/CurrentProject';
 
 class IssueList extends React.Component {
@@ -166,7 +164,7 @@ class IssueList extends React.Component {
                   onFilterSelected={this.filterIssues.bind(this)}/>
 
           <NavigableList className="issues"
-                         //onYChanged={this.changeSelected.bind(this)}
+                         // onYChanged={this.changeSelected.bind(this)}
                          ref="navigableList"
                          yLength={issuesEl.length}>
             {issuesEl}
@@ -184,7 +182,7 @@ class IssueList extends React.Component {
 const mapStateToProps = (state) => {
   return {
     currentProject: state.currentProject
-  }
+  };
 };
 
 export default connect(mapStateToProps)(IssueList);

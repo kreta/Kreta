@@ -41,8 +41,8 @@ class MainMenu extends React.Component {
   }
 
   render() {
-    let profileWidget = "";
-    if(this.props.profile) {
+    let profileWidget = '';
+    if (this.props.profile) {
       profileWidget = (
         <Link className="main-menu__profile" to="/profile">
           <UserImage user={this.props.profile}/>
@@ -76,8 +76,8 @@ class MainMenu extends React.Component {
           { profileWidget }
         </div>
         <Modal isOpen={this.props.mainMenu.projectsVisible}
-               ref="projectListModal"
-               onRequestClose={this.hideProjectsList.bind(this)}>
+               onRequestClose={this.hideProjectsList.bind(this)}
+               ref="projectListModal">
           <ProjectList onProjectSelected={this.hideProjectsList.bind(this)} ref="projectList"/>
         </Modal>
       </nav>
@@ -89,7 +89,7 @@ const mapStateToProps = (state) => {
   return {
     profile: state.profile.profile,
     mainMenu: state.mainMenu
-  }
+  };
 };
 
 export default connect(mapStateToProps)(MainMenu);

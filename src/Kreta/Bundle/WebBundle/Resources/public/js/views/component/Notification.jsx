@@ -16,6 +16,7 @@ import React from 'react';
 class Notification extends React.Component {
   static propTypes = {
     message: React.PropTypes.string.isRequired,
+    onCloseRequest: React.PropTypes.func,
     type: React.PropTypes.string,
     value: React.PropTypes.number.isRequired
   };
@@ -24,10 +25,8 @@ class Notification extends React.Component {
     type: 'success'
   };
 
-  onCloseClick() {
-    App.collection.notification.remove(
-      App.collection.notification.at(this.props.value)
-    );
+  triggerOnCloseRequest() {
+    this.props.onCloseRequest();
   }
 
   render() {
@@ -44,7 +43,7 @@ class Notification extends React.Component {
         </div>
         <p className="notification__message">{this.props.message}</p>
         <i className="notification__hide fa fa-times"
-           onClick={this.onCloseClick}></i>
+           onClick={this.triggerOnCloseRequest}></i>
       </div>
     );
   }
