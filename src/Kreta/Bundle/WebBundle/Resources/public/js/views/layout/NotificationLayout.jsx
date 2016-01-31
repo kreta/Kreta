@@ -11,21 +11,22 @@
 import './../../../scss/layout/_notification';
 
 import React from 'react';
+import { connect } from 'react-redux';
 
 import Notification from './../component/Notification';
+import NotificationActions from '../../actions/Notification';
 
 class NotificationLayout extends React.Component {
-  state = {
-    notifications: []
-  };
+  removeNotification(notification) {
+    this.props.dispatch(NotificationActions.removeNotification(notification));
+  }
 
   render() {
-    const notifications = this.state.notifications.map((notification, index) => {
+    const notifications = this.props.notifications.map((notification, index) => {
       return (
         <Notification key={index}
-                      message={notification.get('message')}
-                      type={notification.get('type')}
-                      value={index}/>
+                      notification={notification}
+                      onCloseRequest={this.removeNotification.bind(this, notification)}/>
       );
     });
 
@@ -37,4 +38,10 @@ class NotificationLayout extends React.Component {
   }
 }
 
-export default NotificationLayout;
+const mapStateToProps = (state) => {
+  return {
+    notifications: state.notification.notifications
+  };
+};
+
+export default connect(mapStateToProps)(NotificationLayout);
