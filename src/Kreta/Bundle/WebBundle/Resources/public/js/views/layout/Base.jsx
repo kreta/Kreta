@@ -19,6 +19,7 @@ import NotificationLayout from './NotificationLayout';
 
 import ProjectActions from '../../actions/Projects';
 import ProfileActions from '../../actions/Profile';
+import LoadingSpinner from '../component/LoadingSpinner';
 
 class Base extends React.Component {
   componentDidMount() {
@@ -28,6 +29,10 @@ class Base extends React.Component {
   }
 
   render() {
+    if(this.props.fetching) {
+      return <LoadingSpinner/>
+    }
+
     return (
       <div className="base-layout">
         <NotificationLayout/>
@@ -41,7 +46,9 @@ class Base extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    fetching: state.projects.fetching || state.profile.fetching
+  };
 };
 
 
