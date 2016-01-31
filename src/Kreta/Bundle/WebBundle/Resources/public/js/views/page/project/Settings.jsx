@@ -19,6 +19,7 @@ import ContentRightLayout from './../../layout/ContentRightLayout';
 import ProjectEdit from './Edit';
 import SettingsParticipants from './SettingsParticipants';
 import UserPreview from './../../component/UserPreview';
+import LoadingSpinner from '../../component/LoadingSpinner.jsx';
 import CurrentProjectActions from '../../../actions/CurrentProject';
 
 class Settings extends React.Component {
@@ -36,7 +37,7 @@ class Settings extends React.Component {
 
   render() {
     if (!this.props.project) {
-      return <div>Loading...</div>;
+      return <LoadingSpinner/>;
     }
 
     const participants = this.props.project.participants.map((participant, index) => {

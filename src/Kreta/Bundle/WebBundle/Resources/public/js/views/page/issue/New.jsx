@@ -14,6 +14,7 @@ import PriorityIcon from './../../../../svg/priority';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { connect } from 'react-redux';
+import {routeActions} from 'react-router-redux';
 
 import Button from './../../component/Button';
 import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
@@ -24,6 +25,7 @@ import Icon from './../../component/Icon';
 import IssueField from './../../component/IssueField';
 import Selector from './../../component/Selector';
 import UserImage from './../../component/UserImage';
+import LoadingSpinner from '../../component/LoadingSpinner';
 import CurrentProjectActions from '../../../actions/CurrentProject';
 
 class New extends React.Component {
@@ -34,7 +36,7 @@ class New extends React.Component {
   }
 
   updateSelectors(projectId) {
-    this.context.history.pushState(null, `/project/${projectId}/issue/new`);
+    this.props.dispatch(routeActions.push(`/project/${projectId}/issue/new`));
   }
 
   getProjectOptions() {
@@ -80,7 +82,7 @@ class New extends React.Component {
 
   render() {
     if (this.props.currentProject.fetching || !this.props.currentProject.project) {
-      return <div>Loading</div>;
+      return <LoadingSpinner/>;
     }
 
     const options = this.getProjectOptions(),
@@ -88,7 +90,9 @@ class New extends React.Component {
 
     return (
       <ContentMiddleLayout>
-        <Form onSubmit={this.createIssue.bind(this)} ref="form">
+        <Form errors={this.props.currentProject.errors}
+              onSubmit={this.createIssue.bind(this)}
+              ref="form">
           <Selector name="project"
                     onChange={this.updateSelectors.bind(this)}
                     tabIndex={1}

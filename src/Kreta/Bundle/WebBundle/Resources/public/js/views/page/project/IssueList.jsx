@@ -22,6 +22,7 @@ import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
 import ContentRightLayout from './../../layout/ContentRightLayout';
 import IssuePreview from './../../component/IssuePreview';
 import IssueShow from './../issue/Show';
+import LoadingSpinner from './../../component/LoadingSpinner.jsx';
 import PageHeader from './../../component/PageHeader';
 import NavigableList from './../../component/NavigableList';
 import CurrentProjectActions from '../../../actions/CurrentProject';
@@ -128,7 +129,7 @@ class IssueList extends React.Component {
 
   render() {
     if (this.props.currentProject.fetchingProjects || this.props.currentProject.fetchingIssues) {
-      return <p>Loading...</p>;
+      return <LoadingSpinner/>;
     }
     const issuesEl = this.props.currentProject.issues.map((issue, index) => {
         return <IssuePreview issue={issue}

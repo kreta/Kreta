@@ -12,11 +12,12 @@ import React from 'react';
 
 class Form extends React.Component {
   static propTypes = {
-    onSaveError: React.PropTypes.func,
-    onSaveSuccess: React.PropTypes.func,
-    onSubmit: React.PropTypes.func,
-    saveErrorMessage: React.PropTypes.string,
-    saveSuccessMessage: React.PropTypes.string
+    errors: React.PropTypes.array,
+    onSubmit: React.PropTypes.func
+  };
+
+  static defaultProps = {
+    errors: []
   };
 
   renderFormElements () {
@@ -26,13 +27,11 @@ class Form extends React.Component {
           error: true,
           key: index,
           label: `${child.props.label}: ${this.props.errors[child.props.name][0]}`,
-          value: child.props.name in this.state.lastValues ?
-            this.state.lastValues[child.props.name] : child.props.value
+          value: child.props.value
         });
       } else if (child.type.name === 'FormInput') {
         return React.cloneElement(child, {
-          value: child.props.name in this.state.lastValues ?
-            this.state.lastValues[child.props.name] : child.props.value
+          value: child.props.value
         });
       }
       return child;
@@ -45,7 +44,7 @@ class Form extends React.Component {
             onSubmit={this.props.onSubmit}
             ref="form"
         {...this.props}>
-        {this.props.children}
+        {this.renderFormElements()}
       </form>
     );
   }

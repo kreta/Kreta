@@ -6,7 +6,7 @@ const initialState = {
   fetchingIssues: true,
   filters: [],
   issues: [],
-  error: false,
+  errors: [],
   selectedIssue: null
 };
 
@@ -24,8 +24,14 @@ export default function reducer(state = initialState, action = {}) {
     case ActionTypes.CURRENT_PROJECT_SELECTED_ISSUE_FETCHING:
       return {...state, selectedIssue: null};
 
+    case ActionTypes.CURRENT_PROJECT_ISSUE_CREATING:
+      return {...state, errors: []};
+
     case ActionTypes.CURRENT_PROJECT_ISSUE_CREATED:
       return {...state, issues: [...state.issues, action.issue]};
+
+    case ActionTypes.CURRENT_PROJECT_ISSUE_CREATE_ERROR:
+      return {...state, errors: action.errors};
 
     case ActionTypes.CURRENT_PROJECT_SELECTED_ISSUE_CHANGED:
       return {...state, selectedIssue: action.selectedIssue};
