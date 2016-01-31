@@ -8,20 +8,27 @@
  * file that was distributed with this source code.
  */
 
-import $ from 'jquery';
+import ReactDOM from 'react-dom';
+
+function _forEach(array, callback, scope) {
+  for (let i = 0; i < array.length; i++) {
+    callback.call(scope, array[i], i);
+  }
+}
 
 class FormSerializerService {
   static serialize(formRef) {
-    var formData = {},
-      $form = $(formRef);
+    const
+      formData = {},
+      form = ReactDOM.findDOMNode(formRef);
 
-    $.each($form.serializeArray(), function () {
-      formData[this.name] = this.value;
-    });
-
-    $.each($form.find(':file'), function () {
-      if (this.files.length > 0) {
-        formData[this.name] = this.files[0];
+    _forEach(form, (input) => {
+      if (input.type === 'file') {
+        if (input.files.length > 0) {
+          formData[input.name] = input.files[0];
+        }
+      } else {
+        formData[input.name] = input.value;
       }
     });
 
