@@ -1,9 +1,9 @@
-import React              from 'react';
-import { Provider }       from 'react-redux';
-import { Router }         from 'react-router';
-import invariant          from 'invariant';
+import React from 'react';
+import { Provider } from 'react-redux';
+import { Router } from 'react-router';
+import invariant from 'invariant';
 import { RoutingContext } from 'react-router';
-import routes             from '../../Routes';
+import routes from '../../Routes';
 
 export default class Root extends React.Component {
   _renderRouter() {
@@ -14,13 +14,13 @@ export default class Root extends React.Component {
 
     if (this.props.routingContext) {
       return <RoutingContext {...this.props.routingContext} />;
-    } else {
-      return (
-        <Router history={this.props.routerHistory}>
-          {routes}
-        </Router>
-      );
     }
+
+    return (
+      <Router history={this.props.routerHistory}>
+        {routes}
+      </Router>
+    );
   }
 
   render() {

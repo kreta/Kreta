@@ -17,8 +17,8 @@ export default function reducer(state = initialState, action = {}) {
       return {...state, highlightedProject: action.highlightedProject};
 
     case ActionTypes.PROJECTS_RECEIVED:
-      if(action.projects.length > 0) {
-        return {...state, highlightedProject: action.projects[0]}
+      if (action.projects.length > 0) {
+        return {...state, highlightedProject: action.projects[0]};
       }
       return state;
 

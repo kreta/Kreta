@@ -11,7 +11,7 @@
 import './../../../scss/layout/_base';
 
 import React from 'react';
-import { connect }      from 'react-redux';
+import { connect } from 'react-redux';
 
 import ContentLayout from './ContentLayout';
 import MainMenu from './MainMenu';

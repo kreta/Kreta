@@ -9,8 +9,6 @@
  */
 
 import './../../../scss/views/page/_index';
-import AddIcon from './../../../svg/add';
-import ListIcon from './../../../svg/list';
 
 import React from 'react';
 import {Link} from 'react-router';
@@ -55,7 +53,7 @@ class Index extends React.Component {
 const mapStateToProps = (state) => {
   return {
     projects: state.projects.projects
-  }
+  };
 };
 
 export default connect(mapStateToProps)(Index);

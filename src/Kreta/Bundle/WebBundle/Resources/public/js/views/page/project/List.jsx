@@ -15,8 +15,7 @@ import { connect } from 'react-redux';
 import Button from './../../component/Button';
 import NavigableList from './../../component/NavigableList';
 import ProjectPreview from './../../component/ProjectPreview';
-import ProjectsActions from './../../../actions/Projects'
-import MainMenuActions from './../../../actions/MainMenu'
+import MainMenuActions from './../../../actions/MainMenu';
 
 class List extends React.Component {
   static propTypes = {
@@ -37,7 +36,7 @@ class List extends React.Component {
     this.props.dispatch(MainMenuActions.highlightProject(this.props.projects[index]));
   }
 
-  changeSelectedShortcut(index) {
+  changeSelectedShortcut() {
     // dispatch
   }
 
@@ -79,7 +78,7 @@ class List extends React.Component {
             </div>
             <Link to="/project/new">
               <Button color="green"
-                      onClick={this.triggerOnProjectSelected.bind(this,null)}
+                      onClick={this.triggerOnProjectSelected.bind(this, null)}
                       size="small">
                 New project
               </Button>
@@ -109,7 +108,7 @@ const mapStateToProps = (state) => {
     projects: state.projects.projects,
     highlightedProject: state.mainMenu.highlightedProject,
     selectedShortcut: 0
-  }
+  };
 };
 
 export default connect(mapStateToProps)(List);

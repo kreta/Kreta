@@ -10,12 +10,9 @@
 
 import './../../../../scss/views/page/project/_settings';
 
-import $ from 'jquery';
 import React from 'react';
 
 import Button from './../../component/Button';
-import Config from './../../../Config';
-import NotificationService from './../../../service/Notification';
 import UserPreview from './../../component/UserPreview';
 
 class SettingsParticipants extends React.Component {
@@ -26,24 +23,6 @@ class SettingsParticipants extends React.Component {
 
   triggerOnParticipantAddClicked(participant) {
     this.props.onParticipantAddClicked(participant);
-  }
-
-  addParticipant(index) {
-    const participant = {
-      role: 'ROLE_PARTICIPANT',
-      user: this.props.project.getNotParticipating()[index].id
-    };
-
-    $.post(
-      `${Config.baseUrl}/projects/${this.props.project.id}/participants`,
-      participant,
-      () => {
-        NotificationService.showNotification({
-          message: 'User added successfully to the project'
-        });
-        this.props.onParticipantAdded();
-      }
-    );
   }
 
   render() {

@@ -16,14 +16,14 @@ import ProjectApi from './../api/Project';
 
 const Actions = {
   fetchProject: (projectId) => {
-    return dispatch => {
+    return (dispatch) => {
       dispatch({type: ActionTypes.CURRENT_PROJECT_FETCHING});
 
       ProjectApi.getProject(projectId)
         .then((project) => {
           dispatch({
             type: ActionTypes.CURRENT_PROJECT_RECEIVED,
-            project: project
+            project
           });
         });
 
@@ -31,7 +31,7 @@ const Actions = {
         .then((issues) => {
           dispatch({
             type: ActionTypes.CURRENT_PROJECT_ISSUES_RECEIVED,
-            issues: issues
+            issues
           });
         });
     };
@@ -42,23 +42,23 @@ const Actions = {
         type: ActionTypes.CURRENT_PROJECT_SELECTED_ISSUE_CHANGED,
         selectedIssue: issue
       };
-    } else {
-      return dispatch => {
-        dispatch({
-          type: ActionTypes.CURRENT_PROJECT_SELECTED_ISSUE_FETCHING
-        });
-        IssueApi.getIssue(issue)
-          .then((receivedIssue) => {
-            dispatch({
-              type: ActionTypes.CURRENT_PROJECT_SELECTED_ISSUE_CHANGED,
-              selectedIssue: receivedIssue
-            })
-          })
-        }
     }
+
+    return (dispatch) => {
+      dispatch({
+        type: ActionTypes.CURRENT_PROJECT_SELECTED_ISSUE_FETCHING
+      });
+      IssueApi.getIssue(issue)
+        .then((receivedIssue) => {
+          dispatch({
+            type: ActionTypes.CURRENT_PROJECT_SELECTED_ISSUE_CHANGED,
+            selectedIssue: receivedIssue
+          });
+        });
+    };
   },
   createIssue: (issueData) => {
-    return dispatch => {
+    return (dispatch) => {
       dispatch({type: ActionTypes.CURRENT_PROJECT_ISSUE_CREATING});
 
       IssueApi.postIssue(issueData)
@@ -71,10 +71,28 @@ const Actions = {
             routeActions.push(`/project/${issueData.project}/issue/${createdIssue.id}`)
           );
         });
-    }
+    };
   },
   filterIssues: (filter) => {
+    return {
+      type: ActionTypes.CURRENT_PROJECT_FILTER,
+      filter
+    };
+  },
+  addParticipant: (user) => {
+    return (dispatch) => {
+      const participant = {
+        role: 'ROLE_PARTICIPANT',
+        user
+      };
 
+      setTimeout(() => {
+        dispatch({
+          type: ActionTypes.CURRENT_PROJECT_PARTICIPANT_ADDED,
+          participant
+        });
+      });
+    };
   }
 };
 

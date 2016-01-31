@@ -33,7 +33,6 @@ License: ${pkg.license}`,
       login: `${SOURCE_PATH}/js/Login.js`,
       vendors: [
         'classnames',
-        'flux',
         'jquery',
         'lodash',
         'mousetrap',

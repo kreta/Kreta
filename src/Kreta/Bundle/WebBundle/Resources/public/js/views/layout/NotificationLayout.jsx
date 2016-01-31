@@ -13,7 +13,6 @@ import './../../../scss/layout/_notification';
 import React from 'react';
 
 import Notification from './../component/Notification';
-import ActionTypes from '../../constants/ActionTypes';
 
 class NotificationLayout extends React.Component {
   state = {
