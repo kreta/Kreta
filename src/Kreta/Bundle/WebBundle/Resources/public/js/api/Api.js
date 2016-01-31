@@ -51,15 +51,13 @@ function _toFormData(body) {
   return data;
 }
 
-function _status(response) {
-  if (response.status >= 200 && response.status < 300) {
-    return Promise.resolve(response);
-  }
-  throw Promise.resolve(response.json());
-}
-
 function _json(response) {
-  return response.json();
+  const json = response.json();
+  if (response.status >= 400) {
+    throw json;
+  }
+
+  return json;
 }
 
 class Api {
@@ -84,8 +82,7 @@ class Api {
         'Authorization': `Bearer ${this.accessToken()}`
       },
       method: 'get'
-    }).then(_status)
-      .then(_json);
+    }).then(_json);
   }
 
   post(url, payload) {
@@ -96,8 +93,7 @@ class Api {
         'Authorization': `Bearer ${this.accessToken()}`
       },
       method: 'post'
-    }).then(_status)
-      .then(_json);
+    }).then(_json);
   }
 }
 

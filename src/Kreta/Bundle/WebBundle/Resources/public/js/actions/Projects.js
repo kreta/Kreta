@@ -40,6 +40,14 @@ const Actions = {
           dispatch(
             routeActions.push(`/project/${createdProject.id}`)
           );
+        })
+        .catch((errorData) => {
+          errorData.then((errors) => {
+            dispatch({
+              type: ActionTypes.PROJECTS_CREATE_ERROR,
+              errors
+            });
+          });
         });
     };
   }

@@ -10,17 +10,17 @@
 
 import './../../../../scss/views/page/project/_new';
 
+import {connect} from 'react-redux';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { connect } from 'react-redux';
 
 import Button from './../../component/Button';
 import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
 import Form from './../../component/Form';
 import FormInput from './../../component/FormInput';
 import FormInputFile from './../../component/FormInputFile';
-import FormSerializer from '../../../service/FormSerializer';
-import ProjectsActions from '../../../actions/Projects';
+import FormSerializer from './../../../service/FormSerializer';
+import ProjectsActions from './../../../actions/Projects';
 
 class New extends React.Component {
   createProject(ev) {
@@ -32,7 +32,8 @@ class New extends React.Component {
   render() {
     return (
       <ContentMiddleLayout>
-        <Form onSubmit={this.createProject.bind(this)}
+        <Form errors={this.props.projects.errors}
+              onSubmit={this.createProject.bind(this)}
               ref="form">
           <FormInputFile name="image"
                          value=""/>
@@ -59,9 +60,10 @@ class New extends React.Component {
   }
 }
 
-
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    projects: state.projects
+  };
 };
 
 export default connect(mapStateToProps)(New);
