@@ -49,7 +49,7 @@ class IssueList extends React.Component {
   }
 
   keyboardNavigate(ev) {
-    this.refs.navigableList.handleNavigation(ev);
+    //this.refs.navigableList.handleNavigation(ev);
   }
 
   filterIssues(filters) {
