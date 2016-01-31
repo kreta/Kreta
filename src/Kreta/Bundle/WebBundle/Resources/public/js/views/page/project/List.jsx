@@ -8,40 +8,66 @@
  * file that was distributed with this source code.
  */
 
+import AddIcon from './../../../../svg/add';
+import ListIcon from './../../../../svg/list';
+
 import React from 'react';
 import {Link} from 'react-router';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
+import {routeActions} from 'react-router-redux';
 
 import Button from './../../component/Button';
 import NavigableList from './../../component/NavigableList';
 import ProjectPreview from './../../component/ProjectPreview';
-import MainMenuActions from './../../../actions/MainMenu';
 
 class List extends React.Component {
   static propTypes = {
     onProjectSelected: React.PropTypes.func
   };
 
+  state = {
+    selectedProject: null,
+    selectedShortcut: 0
+  };
+
+  shortcuts = [{
+    'icon': ListIcon,
+    'link': '',
+    'tooltip': 'Show full project'
+  }, {
+    'icon': AddIcon,
+    'link': '/issue/new/',
+    'tooltip': 'New task'
+  }];
+
   onKeyUp(ev) {
     if (ev.which === 13) { // Enter
-      // Use refs to call selectShortcut()
+      this.goToShortcutLink(this.state.selectedShortcut);
     } else if (ev.which < 37 || ev.which > 40) { // Filter
       // dispatch filter action
     } else {
       this.refs.navigableList.handleNavigation(ev);
     }
+
+    ev.stopPropagation();
   }
 
   changeSelectedRow(index) {
-    this.props.dispatch(MainMenuActions.highlightProject(this.props.projects[index]));
+    this.setState({selectedProject: this.props.projects[index]});
   }
 
-  changeSelectedShortcut() {
-    // dispatch
+  changeSelectedShortcut(index) {
+    this.setState({selectedShortcut: index});
   }
 
-  triggerOnProjectSelected(project) {
-    this.props.onProjectSelected(project);
+  goToShortcutLink(index) {
+    const link = `/project/${this.state.selectedProject.id}/${this.shortcuts[index].link}`;
+    this.props.dispatch(routeActions.push(link));
+    this.triggerOnProjectSelected();
+  }
+
+  triggerOnProjectSelected() {
+    this.props.onProjectSelected();
   }
 
   focus() {
@@ -52,12 +78,13 @@ class List extends React.Component {
     const projectItems = this.props.projects.map((project, index) => {
       return <ProjectPreview key={index}
                              onMouseEnter={this.changeSelectedRow.bind(this, index)}
-                             onShortcutClick={this.triggerOnProjectSelected.bind(this, project)}
+                             onShortcutClick={this.goToShortcutLink.bind(this)}
                              onShortcutEnter={this.changeSelectedShortcut.bind(this)}
                              onTitleClick={this.triggerOnProjectSelected.bind(this, project)}
                              project={project}
-                             selected={this.props.highlightedProject && this.props.highlightedProject.id === project.id}
-                             selectedShortcut={this.props.selectedShortcut}/>;
+                             selected={this.state.selectedProject && this.state.selectedProject.id === project.id}
+                             selectedShortcut={this.state.selectedShortcut}
+                             shortcuts={this.shortcuts}/>;
     });
 
     return (
@@ -105,9 +132,7 @@ class List extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    projects: state.projects.projects,
-    highlightedProject: state.mainMenu.highlightedProject,
-    selectedShortcut: 0
+    projects: state.projects.projects
   };
 };
 

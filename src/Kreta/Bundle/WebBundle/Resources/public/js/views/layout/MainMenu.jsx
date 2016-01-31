@@ -76,8 +76,7 @@ class MainMenu extends React.Component {
           { profileWidget }
         </div>
         <Modal isOpen={this.props.mainMenu.projectsVisible}
-               onRequestClose={this.hideProjectsList.bind(this)}
-               ref="projectListModal">
+               onRequestClose={this.hideProjectsList.bind(this)}>
           <ProjectList onProjectSelected={this.hideProjectsList.bind(this)} ref="projectList"/>
         </Modal>
       </nav>

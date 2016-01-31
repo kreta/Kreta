@@ -8,8 +8,7 @@
  * file that was distributed with this source code.
  */
 
-import AddIcon from './../../../svg/add';
-import ListIcon from './../../../svg/list';
+
 import './../../../scss/components/_project-preview';
 
 import classNames from 'classnames';
@@ -31,23 +30,15 @@ class ProjectPreview extends React.Component {
   };
 
   static defaultProps = {
-    shortcuts: [{
-      'icon': ListIcon,
-      'link': '',
-      'tooltip': 'Show full project'
-    }, {
-      'icon': AddIcon,
-      'link': '/issue/new/',
-      'tooltip': 'New task'
-    }]
+    shortcuts: []
   };
 
-  triggerOnShortcutClick(index) {
-    this.props.onShortcutClick(index);
+  triggerOnShortcutClick(index, link) {
+    this.props.onShortcutClick(index, link);
   }
 
-  triggerOnShortcutEnter(index) {
-    this.props.onShortcutEnter(index);
+  triggerOnShortcutEnter(index, link) {
+    this.props.onShortcutEnter(index, link);
   }
 
   render() {
@@ -61,8 +52,16 @@ class ProjectPreview extends React.Component {
         <Icon className={classes}
               glyph={shortcut.icon}
               key={index}
-              onClick={this.triggerOnShortcutClick.bind(this, index)}
-              onMouseEnter={this.triggerOnShortcutEnter.bind(this, index)}/>
+              onClick={this.triggerOnShortcutClick.bind(
+                this,
+                index,
+                `/project/${this.props.project.id}/${shortcut.link}`
+              )}
+              onMouseEnter={this.triggerOnShortcutEnter.bind(
+                this,
+                index,
+                `/project/${this.props.project.id}/${shortcut.link}`
+              )}/>
       );
     });
     const classes = classNames({
