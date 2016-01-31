@@ -16,13 +16,27 @@ import CurrentProjectActions from '../../../actions/CurrentProject';
 export default class ProjectRoot extends React.Component {
   componentDidMount() {
     this.props.dispatch(CurrentProjectActions.fetchProject(this.props.params.projectId));
+    if(typeof this.props.params.issueId !== "undefined") {
+      this.props.dispatch(CurrentProjectActions.selectCurrentIssue(this.props.params.issueId));
+    } else {
+      this.props.dispatch(CurrentProjectActions.selectCurrentIssue(null));
+    }
   }
 
   componentDidUpdate(prevProps) {
-    const oldId = prevProps.params.projectId,
-      newId = this.props.params.projectId;
-    if (newId !== oldId) {
-      this.props.dispatch(CurrentProjectActions.fetchProject(newId));
+    const oldProjectId = prevProps.params.projectId,
+      newProjectId = this.props.params.projectId,
+      oldIssueId = prevProps.params.issueId,
+      newIssueId = this.props.params.issueId;
+
+    if (newProjectId !== oldProjectId) {
+      this.props.dispatch(CurrentProjectActions.fetchProject(newProjectId));
+    }
+
+    if(newIssueId !== oldIssueId && typeof newIssueId !== "undefined") {
+      this.props.dispatch(CurrentProjectActions.selectCurrentIssue(newIssueId));
+    } else if (typeof newIssueId === "undefined") {
+      this.props.dispatch(CurrentProjectActions.selectCurrentIssue(null));
     }
   }
 

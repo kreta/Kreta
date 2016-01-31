@@ -14,6 +14,7 @@ import $ from 'jquery';
 import React from 'react';
 import Mousetrap from 'mousetrap';
 import { connect } from 'react-redux';
+import {routeActions} from 'react-router-redux';
 
 import Config from './../../../Config';
 
@@ -31,22 +32,18 @@ class IssueList extends React.Component {
   componentDidMount() {
     const projectId = this.props.params.projectId;
     Mousetrap.bind(Config.shortcuts.issueNew, () => {
-      this.props.dispatch(ProjectActions.showCreateForm());
+      this.props.dispatch(
+        routeActions.push(`/project/${projectId}/issue/new`)
+      );
     });
     Mousetrap.bind(Config.shortcuts.projectSettings, () => {
-      this.props.dispatch(CurrentProjectActions.showSettings(projectId));
+      this.props.dispatch(
+        routeActions.push(`/project/${projectId}/settings`)
+      );
     });
 
     this.keyUpListenerRef = this.keyboardNavigate.bind(this);
     window.addEventListener('keyup', this.keyUpListenerRef);
-  }
-
-  componentDidUpdate(prevProps) {
-    const oldId = prevProps.params.projectId,
-      newId = this.props.params.projectId;
-    if (newId !== oldId) {
-      this.props.dispatch(CurrentProjectActions.fetchProject(newId));
-    }
   }
 
   componentWillUnmount() {
@@ -128,7 +125,7 @@ class IssueList extends React.Component {
   }
 
   hideIssue() {
-
+    this.props.dispatch(CurrentProjectActions.selectCurrentIssue(null));
   }
 
   render() {
@@ -139,7 +136,8 @@ class IssueList extends React.Component {
         return <IssuePreview issue={issue}
                              key={index}
                              onClick={this.selectCurrentIssue.bind(this, issue)}
-                             selected={this.props.selectedIssue && this.props.selectedIssue.id === issue.id}/>;
+                             selected={this.props.currentProject.selectedIssue &&
+                                       this.props.currentProject.selectedIssue.id === issue.id}/>;
       }),
       links = [{
         href: `/project/${this.props.currentProject.project.id}/settings`,

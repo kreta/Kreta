@@ -16,10 +16,13 @@ export default function reducer(state = initialState, action = {}) {
       return {...state, fetchingProjects: true, fetchingIssues: true};
 
     case ActionTypes.CURRENT_PROJECT_RECEIVED:
-      return {...state, project: action.project, issues: action.issues, fetchingProjects: false};
+      return {...state, project: action.project, fetchingProjects: false};
 
     case ActionTypes.CURRENT_PROJECT_ISSUES_RECEIVED:
       return {...state, issues: action.issues, fetchingIssues: false};
+
+    case ActionTypes.CURRENT_PROJECT_SELECTED_ISSUE_FETCHING:
+      return {...state, selectedIssue: null};
 
     case ActionTypes.CURRENT_PROJECT_ISSUE_CREATED:
       return {...state, issues: [...state.issues, action.issue]};

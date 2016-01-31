@@ -17,6 +17,7 @@ export default (
     <Route component={ProjectRoot}>
         <Route component={ProjectShow} path="project/:projectId"/>
         <Route component={IssueNew} path="project/:projectId/issue/new"/>
+        <Route component={ProjectShow} path="project/:projectId/issue/:issueId"/>
         <Route component={ProjectSettings} path="project/:projectId/settings"/>
     </Route>
 

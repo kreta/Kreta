@@ -37,10 +37,25 @@ const Actions = {
     };
   },
   selectCurrentIssue: (issue) => {
-    return {
-      type: ActionTypes.CURRENT_PROJECT_SELECTED_ISSUE_CHANGED,
-      selectedIssue: issue
-    };
+    if (typeof issue === 'object' || issue === null) {
+      return {
+        type: ActionTypes.CURRENT_PROJECT_SELECTED_ISSUE_CHANGED,
+        selectedIssue: issue
+      };
+    } else {
+      return dispatch => {
+        dispatch({
+          type: ActionTypes.CURRENT_PROJECT_SELECTED_ISSUE_FETCHING
+        });
+        IssueApi.getIssue(issue)
+          .then((receivedIssue) => {
+            dispatch({
+              type: ActionTypes.CURRENT_PROJECT_SELECTED_ISSUE_CHANGED,
+              selectedIssue: receivedIssue
+            })
+          })
+        }
+    }
   },
   createIssue: (issueData) => {
     return dispatch => {
@@ -53,7 +68,6 @@ const Actions = {
             issue: createdIssue
           });
           dispatch(
-            // This route does not exist yet
             routeActions.push(`/project/${issueData.project}/issue/${createdIssue.id}`)
           );
         });
