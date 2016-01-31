@@ -51,6 +51,21 @@ function _toFormData(body) {
   return data;
 }
 
+function _status(response) {
+  if (response.status >= 200 && response.status < 300) {
+    return response;
+  }
+
+  const error = new Error(response.statusText);
+  error.response = response;
+
+  throw error;
+}
+
+function _json(response) {
+  return response.json();
+}
+
 class Api {
   constructor() {
     if (new.target === Api) {
@@ -72,11 +87,9 @@ class Api {
       headers: {
         'Authorization': `Bearer ${this.accessToken()}`
       },
-      method: 'get',
-      mode: 'cors'
-    }).then((response) => {
-      return response.json();
-    });
+      method: 'get'
+    }).then(_status)
+      .then(_json);
   }
 
   post(url, payload) {
@@ -86,11 +99,9 @@ class Api {
       headers: {
         'Authorization': `Bearer ${this.accessToken()}`
       },
-      method: 'post',
-      mode: 'cors'
-    }).then((response) => {
-      return response.json();
-    });
+      method: 'post'
+    }).then(_status)
+      .then(_json);
   }
 }
 
