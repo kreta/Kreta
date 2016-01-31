@@ -12,12 +12,15 @@ import React from 'react';
 
 class Form extends React.Component {
   static propTypes = {
-    errors: React.PropTypes.array,
+    errors: React.PropTypes.oneOfType([
+      React.PropTypes.array,
+      React.PropTypes.object
+    ]),
     onSubmit: React.PropTypes.func
   };
 
   static defaultProps = {
-    errors: []
+    errors: {}
   };
 
   renderFormElements () {

@@ -71,10 +71,12 @@ const Actions = {
             routeActions.push(`/project/${issueData.project}/issue/${createdIssue.id}`)
           );
         })
-        .catch((errors) => {
-          dispatch({
-            type: ActionTypes.CURRENT_PROJECT_ISSUE_CREATE_ERROR,
-            errors: errors
+        .catch((errorData) => {
+          errorData.then((errors) => {
+            dispatch({
+              type: ActionTypes.CURRENT_PROJECT_ISSUE_CREATE_ERROR,
+              errors
+            });
           });
         });
     };
