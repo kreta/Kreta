@@ -21,6 +21,7 @@ import SettingsParticipants from './SettingsParticipants';
 import UserPreview from './../../component/UserPreview';
 import LoadingSpinner from '../../component/LoadingSpinner.jsx';
 import CurrentProjectActions from '../../../actions/CurrentProject';
+import PageHeader from '../../component/PageHeader';
 
 class Settings extends React.Component {
   state = {
@@ -47,6 +48,10 @@ class Settings extends React.Component {
     return (
       <div>
         <ContentMiddleLayout>
+          <PageHeader buttons={[]}
+                      image={this.props.project.image.name}
+                      links={[]}
+                      title={this.props.project.name}/>
           <ProjectEdit project={this.props.project}/>
           <section className="spacer-vertical-1">
             <div className="section-header">

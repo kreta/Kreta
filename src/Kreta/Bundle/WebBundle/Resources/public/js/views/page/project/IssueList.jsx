@@ -158,7 +158,7 @@ class IssueList extends React.Component {
       <div>
         <ContentMiddleLayout>
           <PageHeader buttons={buttons}
-                      image=""
+                      image={this.props.currentProject.project.image.name}
                       links={links}
                       title={this.props.currentProject.project.name}/>
           <Filter filters={this.props.currentProject.filters}

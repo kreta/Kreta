@@ -53,9 +53,13 @@ class PageHeader extends React.Component {
   }
 
   render() {
+    let image = <div className="page-header__image"></div>;
+    if(this.props.image) {
+      image = <img className="page-header__image" src={this.props.image}/>
+    }
     return (
       <div className="page-header">
-        <div className="project-image" style={{background: '#ebebeb'}}></div>
+        {image}
         <h2 className="page-header__title">{this.props.title}</h2>
         <div className="page-header__actions">
           {this.renderLinks()}
