@@ -29,7 +29,7 @@ class ProfileController extends Controller
     /**
      * Returns the info of user logged.
      *
-     * @ApiDoc(statusCodes={200})
+     * @ApiDoc(resource=true, statusCodes={200})
      * @View(statusCode=200, serializerGroups={"profile"})
      *
      * @return \Kreta\Component\User\Model\Interfaces\UserInterface
