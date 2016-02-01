@@ -17,8 +17,9 @@ import ProjectApi from './../api/Project';
 const Actions = {
   fetchProject: (projectId) => {
     return (dispatch) => {
-      dispatch({type: ActionTypes.CURRENT_PROJECT_FETCHING});
-
+      dispatch({
+        type: ActionTypes.CURRENT_PROJECT_FETCHING
+      });
       ProjectApi.getProject(projectId)
         .then((project) => {
           dispatch({
@@ -59,8 +60,9 @@ const Actions = {
   },
   createIssue: (issueData) => {
     return (dispatch) => {
-      dispatch({type: ActionTypes.CURRENT_PROJECT_ISSUE_CREATING});
-
+      dispatch({
+        type: ActionTypes.CURRENT_PROJECT_ISSUE_CREATING
+      });
       IssueApi.postIssue(issueData)
         .then((createdIssue) => {
           dispatch({
@@ -82,9 +84,17 @@ const Actions = {
     };
   },
   filterIssues: (filter) => {
-    return {
-      type: ActionTypes.CURRENT_PROJECT_FILTER,
-      filter
+    return (dispatch) => {
+      dispatch({
+        type: ActionTypes.CURRENT_PROJECT_ISSUE_FILTERING
+      });
+      IssueApi.getIssues(filter)
+        .then((filteredIssues) => {
+          dispatch({
+            type: ActionTypes.CURRENT_PROJECT_ISSUE_FILTERED,
+            filter: filteredIssues
+          });
+        });
     };
   },
   addParticipant: (user) => {
