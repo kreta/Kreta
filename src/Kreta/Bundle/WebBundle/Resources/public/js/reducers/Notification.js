@@ -45,6 +45,14 @@ export default function reducer(state = initialState, action = {}) {
       };
 
     // Action listeners
+    case ActionTypes.ISSUE_UPDATED:
+      return _addNotification(state, 'Issue updated successfully');
+
+    case ActionTypes.PROFILE_UPDATED:
+      return _addNotification(state, 'Profile updated successfully');
+    case ActionTypes.PROFILE_UPDATE_ERROR:
+      return _addNotification(state, 'The profile update failed, please check field errors', 'error');
+
     case ActionTypes.CURRENT_PROJECT_ISSUE_CREATED:
       return _addNotification(state, 'Issue created successfully');
 

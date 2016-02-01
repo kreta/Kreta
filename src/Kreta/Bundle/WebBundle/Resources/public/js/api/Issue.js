@@ -22,6 +22,10 @@ class IssueApi extends Api {
   postIssue(payload) {
     return this.post('/issues', payload);
   }
+
+  putIssue(issueId, payload) {
+    return this.put(`/issues/${issueId}`, payload);
+  }
 }
 
 const instance = new IssueApi();

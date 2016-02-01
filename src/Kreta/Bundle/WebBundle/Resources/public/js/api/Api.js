@@ -95,6 +95,27 @@ class Api {
       method: 'post'
     }).then(_json);
   }
+
+  put(url, payload) {
+    return fetch(`${this.baseUrl()}${url}`, {
+      body: _toFormData(payload),
+      credentials: 'include',
+      headers: {
+        'Authorization': `Bearer ${this.accessToken()}`
+      },
+      method: 'put'
+    }).then(_json);
+  }
+
+  deleteHttp(url) { // Http sufix is needed because delete is a reserved word
+    return fetch(`${this.baseUrl()}${url}`, {
+      credentials: 'include',
+      headers: {
+        'Authorization': `Bearer ${this.accessToken()}`
+      },
+      method: 'delete'
+    }).then(_json);
+  }
 }
 
 export default Api;
