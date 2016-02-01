@@ -11,25 +11,33 @@
 import './../../../../scss/views/page/issue/_show';
 import PriorityIcon from './../../../../svg/priority';
 
+import {connect} from 'react-redux';
 import React from 'react';
+import ReactDOM from 'react-dom';
 
-import Button from '../../component/Button';
-import Form from '../../component/Form';
-import Icon from '../../component/Icon';
-import IssueField from '../../component/IssueField';
-import Selector from '../../component/Selector';
-import UserImage from '../../component/UserImage';
+import Button from './../../component/Button';
+import Form from './../../component/Form';
+import FormSerializer from './../../../service/FormSerializer';
+import Icon from './../../component/Icon';
+import IssueField from './../../component/IssueField';
+import ProjectActions from './../../../actions/CurrentProject';
+import Selector from './../../component/Selector';
+import UserImage from './../../component/UserImage';
 
-export default React.createClass({
-  propTypes: {
-    issue: React.PropTypes.object.isRequired,
-    project: React.PropTypes.object.isRequired
-  },
+class Show extends React.Component {
+  updateIssue(ev) {
+    ev.preventDefault();
+
+    const issue = FormSerializer.serialize(ReactDOM.findDOMNode(this.refs.form));
+    this.props.dispatch(ProjectActions.updateIssue(issue));
+  }
+
   doTransition(id) {
     // Trigger doTransitionAction
-  },
+  }
+
   getProjectOptions() {
-    const project = this.props.project;
+    const project = this.props.currentProject.project;
 
     const assignee = project.participants.map((p) => {
         let assigneeName = `${p.user.first_name} ${p.user.last_name}`;
@@ -59,16 +67,20 @@ export default React.createClass({
       });
 
     return {assignee, priority};
-  },
+  }
+
   render() {
-    const issue = this.props.issue,
+    const
+      issue = this.props.currentProject.selectedIssue,
       options = this.getProjectOptions();
     let allowedTransitions = [];
 
     return (
-      <Form onSaveSuccess={this.onIssueSaved}>
+      <Form errors={this.props.currentProject.errors}
+            method="PUT"
+            onSubmit={this.updateIssue.bind(this)}>
         <input name="id" type="hidden" value={issue.id}/>
-        <input name="project" type="hidden" value={this.props.project.id}/>
+        <input name="project" type="hidden" value={this.props.currentProject.project.id}/>
         <input className="issue-show__title"
                name="title"
                onChange={this.updateInput}
@@ -91,9 +103,19 @@ export default React.createClass({
                   value={issue.description}/>
 
         <div className="issue-show__save">
-            <Button color="green" type="submit">Save changes</Button>
+          <Button color="green" type="submit">
+            Save changes
+          </Button>
         </div>
       </Form>
     );
   }
-});
+}
+
+const mapStateToProps = (state) => {
+  return {
+    currentProject: state.currentProject
+  };
+};
+
+export default connect(mapStateToProps)(Show);

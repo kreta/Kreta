@@ -43,6 +43,15 @@ export default function reducer(state = initialState, action = {}) {
     case ActionTypes.CURRENT_PROJECT_ISSUE_CREATE_ERROR:
       return {...state, errors: action.errors};
 
+    case ActionTypes.CURRENT_PROJECT_ISSUE_UPDATE:
+      return {...state, errors: []};
+
+    case ActionTypes.CURRENT_PROJECT_ISSUE_UPDATED:
+      return {...state, issues: [...state.issues, action.issue]};
+
+    case ActionTypes.CURRENT_PROJECT_ISSUE_UPDATE_ERROR:
+      return {...state, errors: action.errors};
+
     case ActionTypes.CURRENT_PROJECT_SELECTED_ISSUE_CHANGED:
       return {...state, selectedIssue: action.selectedIssue};
 

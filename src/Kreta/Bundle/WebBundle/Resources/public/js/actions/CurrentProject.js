@@ -82,6 +82,28 @@ const Actions = {
         });
     };
   },
+  updateIssue: (issueData) => {
+    return (dispatch) => {
+      dispatch({
+        type: ActionTypes.CURRENT_PROJECT_ISSUE_UPDATE
+      });
+      IssueApi.putIssue(issueData)
+        .then((updatedIssue) => {
+          dispatch({
+            type: ActionTypes.CURRENT_PROJECT_ISSUE_UPDATED,
+            issue: updatedIssue
+          });
+        })
+        .catch((errorData) => {
+          errorData.then((errors) => {
+            dispatch({
+              type: ActionTypes.CURRENT_PROJECT_ISSUE_UPDATE_ERROR,
+              errors
+            });
+          });
+        });
+    };
+  },
   filterIssues: (filter) => {
     return (dispatch) => {
       dispatch({
