@@ -20,7 +20,9 @@ class UserPreview extends React.Component {
 
     return (
       <div className="user-preview">
-        <UserImage user={user}/>
+        <div className="user-preview__image">
+          <UserImage user={user}/>
+        </div>
 
         <div className="user-preview__container">
               <span className="user-preview__header">
