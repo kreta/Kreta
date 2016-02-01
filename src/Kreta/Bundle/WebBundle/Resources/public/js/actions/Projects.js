@@ -8,16 +8,17 @@
  * file that was distributed with this source code.
  */
 
-import ActionTypes from './../constants/ActionTypes';
 import {routeActions} from 'react-router-redux';
 
+import ActionTypes from './../constants/ActionTypes';
 import ProjectApi from './../api/Project';
 
 const Actions = {
   fetchProjects: () => {
     return (dispatch) => {
-      dispatch({type: ActionTypes.PROJECTS_FETCHING});
-
+      dispatch({
+        type: ActionTypes.PROJECTS_FETCHING
+      });
       ProjectApi.getProjects()
         .then((projects) => {
           dispatch({
@@ -29,8 +30,9 @@ const Actions = {
   },
   createProject: (projectData) => {
     return (dispatch) => {
-      dispatch({type: ActionTypes.PROJECTS_CREATING});
-
+      dispatch({
+        type: ActionTypes.PROJECTS_CREATING
+      });
       ProjectApi.postProject(projectData)
         .then((createdProject) => {
           dispatch({

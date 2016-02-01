@@ -9,14 +9,14 @@
  */
 
 import ActionTypes from './../constants/ActionTypes';
-
 import ProfileApi from './../api/Profile';
 
 const Actions = {
   fetchProfile: () => {
     return (dispatch) => {
-      dispatch({type: ActionTypes.PROFILE_FETCHING});
-
+      dispatch({
+        type: ActionTypes.PROFILE_FETCHING
+      });
       ProfileApi.getProfile()
         .then((profile) => {
           dispatch({
@@ -28,13 +28,22 @@ const Actions = {
   },
   updateProfile: (profileData) => {
     return (dispatch) => {
-      dispatch({type: ActionTypes.PROFILE_UPDATE});
-
+      dispatch({
+        type: ActionTypes.PROFILE_UPDATE
+      });
       ProfileApi.putProfile(profileData)
         .then((updatedProfile) => {
           dispatch({
             type: ActionTypes.PROFILE_UPDATED,
             profile: updatedProfile
+          });
+        })
+        .catch((errorData) => {
+          errorData.then((errors) => {
+            dispatch({
+              type: ActionTypes.PROFILE_UPDATE_ERROR,
+              errors
+            });
           });
         });
     };

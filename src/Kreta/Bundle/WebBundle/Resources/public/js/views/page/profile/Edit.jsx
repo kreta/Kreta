@@ -33,7 +33,8 @@ class Edit extends React.Component {
 
     return (
       <ContentMiddleLayout>
-        <Form onSubmit={this._save.bind(this)} ref="form">
+        <Form errors={this.props.profile.errors}
+              onSubmit={this._save.bind(this)} ref="form">
           <FormInputFile filename={user.photo ? user.photo.name : ''}
                          name="photo"
                          value=""/>

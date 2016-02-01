@@ -8,9 +8,9 @@
  * file that was distributed with this source code.
  */
 
-import ActionTypes from './../constants/ActionTypes';
 import {routeActions} from 'react-router-redux';
 
+import ActionTypes from './../constants/ActionTypes';
 import IssueApi from './../api/Issue';
 import ProjectApi from './../api/Project';
 
@@ -27,7 +27,6 @@ const Actions = {
             project
           });
         });
-
       IssueApi.getIssues({project: projectId})
         .then((issues) => {
           dispatch({
