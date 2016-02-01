@@ -23,6 +23,9 @@ class FormSerializerService {
       form = ReactDOM.findDOMNode(formRef);
 
     _forEach(form, (input) => {
+      if (input.name === "") {
+        return;
+      }
       if (input.type === 'file') {
         if (input.files.length > 0) {
           formData[input.name] = input.files[0];

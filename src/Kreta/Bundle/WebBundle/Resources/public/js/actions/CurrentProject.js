@@ -87,7 +87,7 @@ const Actions = {
       dispatch({
         type: ActionTypes.CURRENT_PROJECT_ISSUE_UPDATE
       });
-      IssueApi.putIssue(issueData)
+      IssueApi.putIssue(issueData.id, issueData)
         .then((updatedIssue) => {
           dispatch({
             type: ActionTypes.CURRENT_PROJECT_ISSUE_UPDATED,

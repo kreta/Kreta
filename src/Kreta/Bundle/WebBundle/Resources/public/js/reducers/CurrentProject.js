@@ -47,7 +47,16 @@ export default function reducer(state = initialState, action = {}) {
       return {...state, errors: []};
 
     case ActionTypes.CURRENT_PROJECT_ISSUE_UPDATED:
-      return {...state, issues: [...state.issues, action.issue]};
+      const index = state.issues.findIndex((issue) => {
+        return issue.id === action.issue.id;
+      });
+      return {
+        ...state, issues: [
+          ...state.issues.slice(0, index),
+          action.issue,
+          ...state.issues.slice(index + 1)
+        ]
+      };
 
     case ActionTypes.CURRENT_PROJECT_ISSUE_UPDATE_ERROR:
       return {...state, errors: action.errors};

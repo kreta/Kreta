@@ -78,6 +78,7 @@ class Show extends React.Component {
     return (
       <Form errors={this.props.currentProject.errors}
             method="PUT"
+            ref="form"
             onSubmit={this.updateIssue.bind(this)}>
         <input name="id" type="hidden" value={issue.id}/>
         <input name="project" type="hidden" value={this.props.currentProject.project.id}/>
