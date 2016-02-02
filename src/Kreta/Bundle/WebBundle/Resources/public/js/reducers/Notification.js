@@ -21,7 +21,8 @@ function _addNotification(state, message, type = 'success') {
       ...state.notifications, {
         id: Math.floor((Math.random() * 1000000)),
         message,
-        type
+        type,
+        createdAt: new Date()
       }
     ]
   };
@@ -43,6 +44,17 @@ export default function reducer(state = initialState, action = {}) {
           ...state.notifications.slice(index + 1)
         ]
       };
+
+    case ActionTypes.NOTIFICATION_REMOVE_OLD:
+      if(state.notifications.length === 0) {
+        return state;
+      }
+
+      const notifications = state.notifications.filter((notification) => {
+        return new Date() - notification.createdAt < 5000
+      });
+
+      return {...state, notifications};
 
     // Action listeners
     case ActionTypes.ISSUE_UPDATED:

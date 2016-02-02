@@ -10,7 +10,21 @@
 
 import ActionTypes from './../constants/ActionTypes';
 
+let _notificationInterval = null;
+
 const Actions = {
+  startNotificationCleaner: () => {
+    return (dispatch) => {
+      _notificationInterval = setInterval(() => {
+        dispatch({
+          type: ActionTypes.NOTIFICATION_REMOVE_OLD
+        })
+      }, 1000);
+    }
+  },
+  stopNotificationCleaner: () => {
+    clearInterval(_notificationInterval);
+  },
   removeOldNotifications: () => {
     return {
       type: ActionTypes.NOTIFICATION_REMOVE_OLD
