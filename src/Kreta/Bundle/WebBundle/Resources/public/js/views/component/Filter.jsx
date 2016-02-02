@@ -26,14 +26,21 @@ class Filter extends React.Component {
   }
 
   render() {
-    var filtersEl = this.props.filters.map((filter, groupIndex) => {
-      var groupFilters = filter.map((item, filterIndex) => {
+    const filtersEl = this.props.filters.map((filter, groupIndex) => {
+      const groupFilters = filter.map((item, filterIndex) => {
         return (
-          <a className={`filter-item ${ item.selected ? 'selected' : ''} `}
-             onClick={this.triggerOnFilterSelected.bind(this, groupIndex, filterIndex)}>{item.title}</a>
+          <a className={`filter-item ${item.selected ? 'selected' : ''} `}
+             key={filterIndex}
+             onClick={this.triggerOnFilterSelected.bind(this, groupIndex, filterIndex)}>
+            {item.title}
+          </a>
         );
       });
-      return <div className="filter-group">{groupFilters}</div>;
+      return (
+        <div className="filter-group" key={groupIndex}>
+          {groupFilters}
+        </div>
+      );
     });
 
     return (

@@ -23,7 +23,7 @@ class Form extends React.Component {
     errors: {}
   };
 
-  renderFormElements () {
+  renderFormElements() {
     return this.props.children.map((child, key) => {
       if (child.type.name === 'FormInput' && child.props.name in this.props.errors) {
         return React.cloneElement(child, {
@@ -34,6 +34,7 @@ class Form extends React.Component {
         });
       } else if (child.type.name === 'FormInput') {
         return React.cloneElement(child, {
+          key,
           value: child.props.value
         });
       }

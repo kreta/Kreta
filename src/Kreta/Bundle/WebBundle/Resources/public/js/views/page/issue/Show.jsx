@@ -17,6 +17,7 @@ import ReactDOM from 'react-dom';
 
 import Button from './../../component/Button';
 import Form from './../../component/Form';
+import FormInput from './../../component/FormInput';
 import FormSerializer from './../../../service/FormSerializer';
 import Icon from './../../component/Icon';
 import IssueField from './../../component/IssueField';
@@ -37,9 +38,9 @@ class Show extends React.Component {
   }
 
   getProjectOptions() {
-    const project = this.props.currentProject.project;
-
-    const assignee = project.participants.map((p) => {
+    const
+      project = this.props.currentProject.project,
+      assignee = project.participants.map((p) => {
         let assigneeName = `${p.user.first_name} ${p.user.last_name}`;
         if (p.user.first_name === '' || p.user.first_name === undefined) {
           assigneeName = p.user.username;
@@ -78,12 +79,11 @@ class Show extends React.Component {
     return (
       <Form errors={this.props.currentProject.errors}
             method="PUT"
-            ref="form"
-            onSubmit={this.updateIssue.bind(this)}>
+            onSubmit={this.updateIssue.bind(this)}
+            ref="form">
         <input name="project" type="hidden" value={this.props.currentProject.project.id}/>
-        <input className="issue-show__title"
+        <FormInput className="issue-show__title"
                name="title"
-               onChange={this.updateInput}
                value={issue.title}/>
         <section className="issue-show__transitions">
           {allowedTransitions}
