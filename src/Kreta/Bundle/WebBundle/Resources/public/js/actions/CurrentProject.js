@@ -104,16 +104,17 @@ const Actions = {
         });
     };
   },
-  filterIssues: (filter) => {
+  filterIssues: (filters) => {
     return (dispatch) => {
       dispatch({
-        type: ActionTypes.CURRENT_PROJECT_ISSUE_FILTERING
+        type: ActionTypes.CURRENT_PROJECT_ISSUE_FILTERING,
+        filters
       });
-      IssueApi.getIssues(filter)
+      IssueApi.getIssues(filters)
         .then((filteredIssues) => {
           dispatch({
             type: ActionTypes.CURRENT_PROJECT_ISSUE_FILTERED,
-            filter: filteredIssues
+            issues: filteredIssues
           });
         });
     };

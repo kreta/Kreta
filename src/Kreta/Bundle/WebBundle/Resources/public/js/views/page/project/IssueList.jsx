@@ -12,9 +12,6 @@ import SettingsIcon from './../../../../svg/settings';
 
 import React from 'react';
 import { connect } from 'react-redux';
-import {routeActions} from 'react-router-redux';
-
-import Config from './../../../Config';
 
 import Filter from './../../component/Filter';
 import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
@@ -28,69 +25,7 @@ import CurrentProjectActions from '../../../actions/CurrentProject';
 
 class IssueList extends React.Component {
   filterIssues(filters) {
-    var data = {project: this.state.project.id};
-
-    filters.forEach((filter) => {
-      filter.forEach((item) => {
-        if (item.selected) {
-          data[item.filter] = item.value;
-        }
-      });
-    });
-
-    this.props.dispatch(CurrentProjectActions.filterIssues(data));
-  }
-
-  loadFilters() {
-//    var assigneeFilters = [{
-//        filter: 'assignee',
-//        selected: true,
-//        title: 'All',
-//        value: ''
-//      }, {
-//        filter: 'assignee',
-//        selected: false,
-//        title: 'Assigned to me',
-//        value: this.props.profile.profile.id
-//      }],
-//      priorityFilters = [{
-//        filter: 'priority',
-//        selected: true,
-//        title: 'All priorities',
-//        value: ''
-//      }
-//      ],
-//      priorities = [], //project.get('issue_priorities'),
-//      statusFilters = [{
-//        filter: 'status',
-//        selected: true,
-//        title: 'All statuses',
-//        value: ''
-//      }],
-//      statuses = [];// project.get('statuses');
-//
-//    if (priorities) {
-//      priorities.forEach((priority) => {
-//        priorityFilters.push({
-//          filter: 'priority',
-//          selected: false,
-//          title: priority.name,
-//          value: priority.id
-//        });
-//      });
-//    }
-//
-//    if (statuses) {
-//      statuses.forEach((status) => {
-//        statusFilters.push({
-//          filter: 'status',
-//          selected: false,
-//          title: status.name,
-//          value: status.id
-//        });
-//      });
-//    }
-//    this.setState({filters: [assigneeFilters, priorityFilters, statusFilters]});
+    this.props.dispatch(CurrentProjectActions.filterIssues(filters));
   }
 
   selectCurrentIssue(issue) {
@@ -141,7 +76,7 @@ class IssueList extends React.Component {
                       links={links}
                       title={project.name}/>
           <Filter filters={this.props.currentProject.filters}
-                  onFilterSelected={this.filterIssues.bind(this)}/>
+                  onFiltersChanged={this.filterIssues.bind(this)}/>
 
           <NavigableList className="issues"
                          onYChanged={this.selectCurrentIssueByIndex.bind(this)}
