@@ -19,6 +19,17 @@ class Modal extends React.Component {
     onRequestClose: React.PropTypes.func
   };
 
+  keyUpListenerRef = null;
+
+  componentDidMount() {
+    this.keyUpListenerRef = this.handleKeyUp.bind(this);
+    window.addEventListener('keyup', this.keyUpListenerRef);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keyup', this.keyUpListenerRef);
+  }
+
   closeModal() {
     this.props.onRequestClose();
   }

@@ -11,7 +11,6 @@
 import SettingsIcon from './../../../../svg/settings';
 
 import React from 'react';
-import Mousetrap from 'mousetrap';
 import { connect } from 'react-redux';
 import {routeActions} from 'react-router-redux';
 
@@ -28,31 +27,6 @@ import NavigableList from './../../component/NavigableList';
 import CurrentProjectActions from '../../../actions/CurrentProject';
 
 class IssueList extends React.Component {
-  componentDidMount() {
-    const projectId = this.props.params.projectId;
-    Mousetrap.bind(Config.shortcuts.issueNew, () => {
-      this.props.dispatch(
-        routeActions.push(`/project/${projectId}/issue/new`)
-      );
-    });
-    Mousetrap.bind(Config.shortcuts.projectSettings, () => {
-      this.props.dispatch(
-        routeActions.push(`/project/${projectId}/settings`)
-      );
-    });
-
-    this.keyUpListenerRef = this.keyboardNavigate.bind(this);
-    window.addEventListener('keyup', this.keyUpListenerRef);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('keyup', this.keyUpListenerRef);
-  }
-
-  keyboardNavigate(ev) {
-    // this.refs.navigableList.handleNavigation(ev);
-  }
-
   filterIssues(filters) {
     var data = {project: this.state.project.id};
 
@@ -67,7 +41,7 @@ class IssueList extends React.Component {
     this.props.dispatch(CurrentProjectActions.filterIssues(data));
   }
 
-  loadFilters(project) {
+  loadFilters() {
 //    var assigneeFilters = [{
 //        filter: 'assignee',
 //        selected: true,
@@ -123,6 +97,10 @@ class IssueList extends React.Component {
     this.props.dispatch(CurrentProjectActions.selectCurrentIssue(issue));
   }
 
+  selectCurrentIssueByIndex(index) {
+    this.props.dispatch(CurrentProjectActions.selectCurrentIssue(this.props.currentProject.issues[index]));
+  }
+
   hideIssue() {
     this.props.dispatch(CurrentProjectActions.selectCurrentIssue(null));
   }
@@ -166,7 +144,7 @@ class IssueList extends React.Component {
                   onFilterSelected={this.filterIssues.bind(this)}/>
 
           <NavigableList className="issues"
-                         // onYChanged={this.changeSelected.bind(this)}
+                         onYChanged={this.selectCurrentIssueByIndex.bind(this)}
                          ref="navigableList"
                          yLength={issuesEl.length}>
             {issuesEl}

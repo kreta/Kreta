@@ -40,16 +40,23 @@ class List extends React.Component {
     'tooltip': 'New task'
   }];
 
+  componentDidUpdate(prevProps) {
+    if (prevProps.projectsVisible === false && this.props.projectsVisible) {
+      setTimeout(() => {
+        this.focus()
+      }, 1);
+    }
+  }
+
   onKeyUp(ev) {
     if (ev.which === 13) { // Enter
       this.goToShortcutLink(this.state.selectedShortcut);
+      ev.stopPropagation();
     } else if (ev.which < 37 || ev.which > 40) { // Filter
       // dispatch filter action
     } else {
       this.refs.navigableList.handleNavigation(ev);
     }
-
-    ev.stopPropagation();
   }
 
   changeSelectedRow(index) {
@@ -132,7 +139,8 @@ class List extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    projects: state.projects.projects
+    projects: state.projects.projects,
+    projectsVisible: state.mainMenu.projectsVisible
   };
 };
 
