@@ -82,12 +82,12 @@ const Actions = {
         });
     };
   },
-  updateIssue: (issueData) => {
+  updateIssue: (issueData, issueId) => {
     return (dispatch) => {
       dispatch({
         type: ActionTypes.CURRENT_PROJECT_ISSUE_UPDATE
       });
-      IssueApi.putIssue(issueData.id, issueData)
+      IssueApi.putIssue(issueId, issueData)
         .then((updatedIssue) => {
           dispatch({
             type: ActionTypes.CURRENT_PROJECT_ISSUE_UPDATED,

@@ -11,17 +11,17 @@
 import SettingsIcon from './../../../../svg/settings';
 
 import React from 'react';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 
-import Filter from './../../component/Filter';
 import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
 import ContentRightLayout from './../../layout/ContentRightLayout';
+import CurrentProjectActions from './../../../actions/CurrentProject';
+import Filter from './../../component/Filter';
 import IssuePreview from './../../component/IssuePreview';
 import IssueShow from './../issue/Show';
-import LoadingSpinner from './../../component/LoadingSpinner.jsx';
-import PageHeader from './../../component/PageHeader';
+import LoadingSpinner from './../../component/LoadingSpinner';
 import NavigableList from './../../component/NavigableList';
-import CurrentProjectActions from '../../../actions/CurrentProject';
+import PageHeader from './../../component/PageHeader';
 
 class IssueList extends React.Component {
   filterIssues(filters) {

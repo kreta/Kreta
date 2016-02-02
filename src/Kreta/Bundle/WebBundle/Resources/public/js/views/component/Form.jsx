@@ -24,11 +24,11 @@ class Form extends React.Component {
   };
 
   renderFormElements () {
-    return this.props.children.map((child, index) => {
+    return this.props.children.map((child, key) => {
       if (child.type.name === 'FormInput' && child.props.name in this.props.errors) {
         return React.cloneElement(child, {
           error: true,
-          key: index,
+          key,
           label: `${child.props.label}: ${this.props.errors[child.props.name][0]}`,
           value: child.props.value
         });

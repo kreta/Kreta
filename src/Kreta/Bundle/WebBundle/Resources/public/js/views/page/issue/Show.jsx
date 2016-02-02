@@ -28,8 +28,8 @@ class Show extends React.Component {
   updateIssue(ev) {
     ev.preventDefault();
 
-    const issue = FormSerializer.serialize(ReactDOM.findDOMNode(this.refs.form));
-    this.props.dispatch(ProjectActions.updateIssue(issue));
+    const issueData = FormSerializer.serialize(ReactDOM.findDOMNode(this.refs.form));
+    this.props.dispatch(ProjectActions.updateIssue(issueData, this.props.currentProject.selectedIssue.id));
   }
 
   doTransition(id) {
@@ -71,7 +71,7 @@ class Show extends React.Component {
 
   render() {
     const
-      issue = this.props.currentProject.selectedIssue,
+      issue = this.props.issue,
       options = this.getProjectOptions();
     let allowedTransitions = [];
 
@@ -80,7 +80,6 @@ class Show extends React.Component {
             method="PUT"
             ref="form"
             onSubmit={this.updateIssue.bind(this)}>
-        <input name="id" type="hidden" value={issue.id}/>
         <input name="project" type="hidden" value={this.props.currentProject.project.id}/>
         <input className="issue-show__title"
                name="title"

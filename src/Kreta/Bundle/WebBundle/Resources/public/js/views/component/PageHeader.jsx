@@ -26,14 +26,14 @@ class PageHeader extends React.Component {
   };
 
   renderLinks() {
-    return this.props.links.map((link) => {
+    return this.props.links.map((link, key) => {
       const classes = classnames('page-header__link-icon', {
         'page-header__link-icon--green': link.color === 'green'
       });
       return (
-        <Link className="page-header__link" to={link.href}>
+        <Link className="page-header__link" key={key} to={link.href}>
           <Icon className={classes}
-          glyph={link.icon}/>
+                glyph={link.icon}/>
           {link.title}
         </Link>
       );
@@ -41,9 +41,9 @@ class PageHeader extends React.Component {
   }
 
   renderButtons() {
-    return this.props.buttons.map((button) => {
+    return this.props.buttons.map((button, key) => {
       return (
-        <Link className="page-header__link" to={button.href}>
+        <Link className="page-header__link" key={key} to={button.href}>
           <Button color="green">
             {button.title}
           </Button>
