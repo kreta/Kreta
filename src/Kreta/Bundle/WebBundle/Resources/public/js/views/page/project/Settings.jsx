@@ -49,7 +49,7 @@ class Settings extends React.Component {
       <div>
         <ContentMiddleLayout>
           <PageHeader buttons={[]}
-                      image={this.props.project.image.name}
+                      image={this.props.project.image ? this.props.project.image.name : ''}
                       links={[]}
                       title={this.props.project.name}/>
           <ProjectEdit project={this.props.project}/>

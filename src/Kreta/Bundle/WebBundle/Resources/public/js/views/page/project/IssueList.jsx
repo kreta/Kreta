@@ -147,20 +147,21 @@ class IssueList extends React.Component {
       buttons = [{
         href: `/project/${this.props.currentProject.project.id}/issue/new`,
         title: 'New issue'
-      }];
+      }],
+      project = this.props.currentProject.project;
     let issue = '';
     if (this.props.currentProject.selectedIssue) {
       issue = <IssueShow issue={this.props.currentProject.selectedIssue}
-                         project={this.props.currentProject.project}/>;
+                         project={project}/>;
     }
 
     return (
       <div>
         <ContentMiddleLayout>
           <PageHeader buttons={buttons}
-                      image={this.props.currentProject.project.image.name}
+                      image={project.image ? project.image.name : ''}
                       links={links}
-                      title={this.props.currentProject.project.name}/>
+                      title={project.name}/>
           <Filter filters={this.props.currentProject.filters}
                   onFilterSelected={this.filterIssues.bind(this)}/>
 
