@@ -10,7 +10,10 @@
 
 import React from 'react';
 import { connect } from 'react-redux';
+import {routeActions} from 'react-router-redux';
+import Mousetrap from 'mousetrap';
 
+import Config from './../../../Config';
 import CurrentProjectActions from '../../../actions/CurrentProject';
 
 export default class ProjectRoot extends React.Component {
@@ -21,6 +24,8 @@ export default class ProjectRoot extends React.Component {
     } else {
       this.props.dispatch(CurrentProjectActions.selectCurrentIssue(null));
     }
+
+    this.bindShortcuts();
   }
 
   componentDidUpdate(prevProps) {
@@ -31,6 +36,7 @@ export default class ProjectRoot extends React.Component {
 
     if (newProjectId !== oldProjectId) {
       this.props.dispatch(CurrentProjectActions.fetchProject(newProjectId));
+      this.bindShortcuts();
     }
 
     if (newIssueId !== oldIssueId && typeof newIssueId !== 'undefined') {
@@ -38,6 +44,27 @@ export default class ProjectRoot extends React.Component {
     } else if (typeof newIssueId === 'undefined') {
       this.props.dispatch(CurrentProjectActions.selectCurrentIssue(null));
     }
+  }
+
+  componentWillUnmount() {
+    Mousetrap.unbind(Config.shortcuts.issueNew);
+    Mousetrap.unbind(Config.shortcuts.projectSettings);
+  }
+
+  bindShortcuts() {
+    Mousetrap.bind(Config.shortcuts.issueNew, (ev) => {
+      ev.preventDefault();
+      this.props.dispatch(
+        routeActions.push(`/project/${this.props.params.projectId}/issue/new`)
+      );
+    });
+
+    Mousetrap.bind(Config.shortcuts.projectSettings, (ev) => {
+      ev.preventDefault();
+      this.props.dispatch(
+        routeActions.push(`/project/${this.props.params.projectId}/settings`)
+      );
+    });
   }
 
   render() {
