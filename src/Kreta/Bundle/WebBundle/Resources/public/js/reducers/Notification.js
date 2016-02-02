@@ -46,12 +46,12 @@ export default function reducer(state = initialState, action = {}) {
       };
 
     case ActionTypes.NOTIFICATION_REMOVE_OLD:
-      if(state.notifications.length === 0) {
+      if (state.notifications.length === 0) {
         return state;
       }
 
       const notifications = state.notifications.filter((notification) => {
-        return new Date() - notification.createdAt < 5000
+        return new Date() - notification.createdAt < 5000;
       });
 
       return {...state, notifications};

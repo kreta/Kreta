@@ -11,9 +11,9 @@
 import AddIcon from './../../../../svg/add';
 import ListIcon from './../../../../svg/list';
 
-import React from 'react';
-import {Link} from 'react-router';
 import {connect} from 'react-redux';
+import {Link} from 'react-router';
+import React from 'react';
 import {routeActions} from 'react-router-redux';
 
 import Button from './../../component/Button';
@@ -43,7 +43,7 @@ class List extends React.Component {
   componentDidUpdate(prevProps) {
     if (prevProps.projectsVisible === false && this.props.projectsVisible) {
       setTimeout(() => {
-        this.focus()
+        this.focus();
       }, 1);
     }
   }

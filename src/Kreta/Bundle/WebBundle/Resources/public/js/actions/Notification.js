@@ -18,9 +18,9 @@ const Actions = {
       _notificationInterval = setInterval(() => {
         dispatch({
           type: ActionTypes.NOTIFICATION_REMOVE_OLD
-        })
+        });
       }, 1000);
-    }
+    };
   },
   stopNotificationCleaner: () => {
     clearInterval(_notificationInterval);
