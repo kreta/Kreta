@@ -12,7 +12,9 @@
 
 namespace Kreta\Bundle\UserBundle\EventListener;
 
+use FOS\OAuthServerBundle\Model\AccessTokenManagerInterface;
 use FOS\OAuthServerBundle\Model\ClientManagerInterface;
+use FOS\OAuthServerBundle\Model\TokenInterface;
 use FOS\UserBundle\Event\FormEvent;
 use Kreta\Bundle\UserBundle\Event\AuthorizationEvent;
 use Kreta\Bundle\UserBundle\Event\CookieEvent;
@@ -20,6 +22,9 @@ use Kreta\Component\User\Model\Interfaces\UserInterface;
 use OAuth2\OAuth2;
 use Symfony\Component\HttpFoundation\Cookie;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
+use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\Security\Core\Exception\SessionUnavailableException;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 
@@ -52,6 +57,8 @@ class AuthenticationListener
      */
     protected $oauthServer;
 
+    protected $accessTokenManager;
+
     /**
      * Constructor.
      *
@@ -59,11 +66,16 @@ class AuthenticationListener
      * @param \OAuth2\OAuth2                                      $oauthServer   The instance of OAuth server
      * @param string|null                                         $clientSecret  The client secret
      */
-    public function __construct(ClientManagerInterface $clientManager, OAuth2 $oauthServer, $clientSecret = null)
-    {
+    public function __construct(
+        ClientManagerInterface $clientManager,
+        OAuth2 $oauthServer,
+        AccessTokenManagerInterface $accessTokenManager,
+        $clientSecret = null
+    ) {
         $this->clientManager = $clientManager;
         $this->oauthServer = $oauthServer;
         $this->clientSecret = $clientSecret;
+        $this->accessTokenManager = $accessTokenManager;
     }
 
     /**
@@ -125,20 +137,24 @@ class AuthenticationListener
         }
     }
 
-    /**
-     * Checks if the session has the tokens to create cookies that will be add into response.
-     *
-     * @param \Kreta\Bundle\UserBundle\Event\CookieEvent $event The cookie event
-     */
-    public function onCookieEvent(CookieEvent $event)
-    {
-        $session = $event->getSession();
-        if (!($session->has('access_token')) || !($session->has('refresh_token'))) {
-            throw new SessionUnavailableException();
-        }
-        $event->getResponse()->headers->setCookie($this->cookie('access_token', $session->get('access_token')));
-        $event->getResponse()->headers->setCookie($this->cookie('refresh_token', $session->get('refresh_token')));
-    }
+//    /**
+//     * Checks if the session has the tokens to create cookies that will be add into response.
+//     *
+//     * @param \Kreta\Bundle\UserBundle\Event\CookieEvent $event The cookie event
+//     */
+//    public function onCookieEvent(CookieEvent $event)
+//    {
+//        $session = $event->getSession();
+//        if (!($session->has('access_token')) || !($session->has('refresh_token'))) {
+//            throw new SessionUnavailableException();
+//        }
+//
+//        $accessToken = $session->get('access_token');
+//        $refreshToken = $session->get('refresh_token');
+//
+//        $event->getResponse()->headers->setCookie($this->cookie('access_token', $accessToken));
+//        $event->getResponse()->headers->setCookie($this->cookie('refresh_token', $refreshToken));
+//    }
 
     /**
      * Creates cookie that its content is the given token.
@@ -151,5 +167,56 @@ class AuthenticationListener
     private function cookie($key, $value)
     {
         return new Cookie($key, $value, 0, '/', null, false, false);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    public function onRefresh(FilterResponseEvent $event)
+    {
+        $session = $event->getRequest()->getSession();
+        if (!($session->has('access_token')) || !($session->has('refresh_token'))) {
+//            throw new SessionUnavailableException();
+
+            return;
+        }
+
+        $accessToken = $session->get('access_token');
+        $refreshToken = $session->get('refresh_token');
+
+        $token = $this->accessTokenManager->findTokenBy(['token' => $accessToken]);
+        if (true === $token->hasExpired()) {
+            list($accessToken, $refreshToken) = $this->refreshToken($session->get('refresh_token'));
+        }
+
+        $event->getResponse()->headers->setCookie($this->cookie('access_token', $accessToken));
+        $event->getResponse()->headers->setCookie($this->cookie('refresh_token', $refreshToken));
+    }
+
+    private function refreshToken($refreshToken)
+    {
+        $client = $this->clientManager->findClientBy(['secret' => $this->clientSecret]);
+        $request = new Request();
+        $request->query->add([
+            'grant_type'    => OAuth2::GRANT_TYPE_REFRESH_TOKEN,
+            'client_secret' => $this->clientSecret,
+            'client_id'     => sprintf('%s_%s', $client->getId(), $client->getRandomId()),
+            'refresh_token' => $refreshToken,
+        ]);
+        $response = $this->oauthServer->grantAccessToken($request);
+        $token = json_decode($response->getContent(), true);
+
+        return [$token['access_token'], $token['refresh_token']];
     }
 }

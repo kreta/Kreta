@@ -53,7 +53,9 @@ function _toFormData(body) {
 
 function _json(response) {
   const json = response.json();
-  if (response.status >= 400) {
+  if (response.status == 401) {
+    this.get('/projects');
+  } else if (response.status >= 400) {
     throw json;
   }
 
@@ -81,7 +83,7 @@ class Api {
       headers: {
         'Authorization': `Bearer ${this.accessToken()}`
       },
-      method: 'get'
+      method: 'GET'
     }).then(_json);
   }
 
@@ -92,7 +94,7 @@ class Api {
       headers: {
         'Authorization': `Bearer ${this.accessToken()}`
       },
-      method: 'post'
+      method: 'POST'
     }).then(_json);
   }
 
@@ -114,7 +116,7 @@ class Api {
       headers: {
         'Authorization': `Bearer ${this.accessToken()}`
       },
-      method: 'delete'
+      method: 'DELETE'
     }).then(_json);
   }
 }
