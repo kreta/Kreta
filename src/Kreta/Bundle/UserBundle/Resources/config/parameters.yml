@@ -11,6 +11,8 @@ parameters:
 
     kreta_user.factory_user.class: Kreta\Component\User\Factory\UserFactory
 
+    kreta_user.manager.oauth_manager.class: Kreta\Bundle\UserBundle\Manager\OauthManager
+
     kreta_user.repository_user.class: Kreta\Component\User\Repository\UserRepository
 
     kreta_user.form_user_handler.class: Kreta\Component\User\Form\Handler\UserHandler

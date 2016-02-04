@@ -36,28 +36,25 @@ class DefaultController extends Controller
     public function indexAction(Request $request)
     {
         if ($this->getUser() instanceof UserInterface) {
-//            $event = $this->get('event_dispatcher')->dispatch(
-//                CookieEvent::NAME, new CookieEvent($request->getSession())
-//            );
-//
-//            return $this->dashboardAction();
-            return $this->render('KretaWebBundle::app.html.twig');
+            $event = $this->get('event_dispatcher')->dispatch(
+                CookieEvent::NAME, new CookieEvent($request->getSession())
+            );
+
+            return $this->dashboardAction($event->getResponse());
         }
-//
+
         return $this->render('KretaWebBundle::index.html.twig');
-//
-//        return $this->render('KretaWebBundle::app.html.twig');
     }
 
-//    /**
-//     * Dashboard action.
-//     *
-//     * @param \Symfony\Component\HttpFoundation\Response $response The response
-//     *
-//     * @return \Symfony\Component\HttpFoundation\Response
-//     */
-//    public function dashboardAction(Response $response)
-//    {
-//        return $this->render('KretaWebBundle::app.html.twig', [], $response);
-//    }
+    /**
+     * Dashboard action.
+     *
+     * @param \Symfony\Component\HttpFoundation\Response $response The response
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function dashboardAction(Response $response)
+    {
+        return $this->render('KretaWebBundle::app.html.twig', [], $response);
+    }
 }
