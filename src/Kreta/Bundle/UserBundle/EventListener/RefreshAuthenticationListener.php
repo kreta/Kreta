@@ -19,7 +19,7 @@ use Kreta\Bundle\CoreBundle\Model\Interfaces\RefreshTokenInterface;
 use Kreta\Bundle\UserBundle\Event\CookieEvent;
 use Kreta\Bundle\UserBundle\Manager\OauthManager;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
+use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
 
 /**
@@ -81,9 +81,9 @@ class RefreshAuthenticationListener
      * If the user has an expires access token, it refreshes
      * setting the response and saving inside a cookie.
      *
-     * @param FilterResponseEvent $event The filter response event
+     * @param GetResponseEvent $event The get response event
      */
-    public function onRefresh(FilterResponseEvent $event)
+    public function onRefresh(GetResponseEvent $event)
     {
         if (!$event->isMasterRequest()) {
             return;
