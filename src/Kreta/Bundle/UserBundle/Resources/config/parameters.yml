@@ -22,3 +22,5 @@ parameters:
     kreta_user.form_type.invitation.class: Kreta\Component\User\Form\Type\InvitationType
     kreta_user.form_type.profile.class: Kreta\Component\User\Form\Type\ProfileType
     kreta_user.form_type.registration.class: Kreta\Component\User\Form\Type\RegistrationType
+
+    fos_oauth_server.security.authentication.listener.class: Kreta\Bundle\UserBundle\EventListener\OauthListener

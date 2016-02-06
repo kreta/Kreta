@@ -19,14 +19,14 @@ services:
     kreta_user.event_listener.cookie_listener:
         class: Kreta\Bundle\UserBundle\EventListener\CookieListener
         tags:
-            - { name: kernel.event_listener, event: kreta_user_event_cookie, method: onCookieEvent }
+            - { name: kernel.event_listener, event: kernel.response, method: onCookieEvent }
 
-    kreta_user.event_listener.refresh_authentication_listener:
-        class: Kreta\Bundle\UserBundle\EventListener\RefreshAuthenticationListener
+
+    fos_oauth_server.security.authentication.listener:
+        class: %fos_oauth_server.security.authentication.listener.class%
         arguments:
+            - '@security.token_storage'
+            - '@security.authentication.manager'
+            - '@fos_oauth_server.server'
             - '@kreta_user.manager.oauth_manager'
-            - '@fos_oauth_server.access_token_manager'
-            - '@fos_oauth_server.refresh_token_manager'
-            - '@kreta_user.event_listener.cookie_listener'
-        tags:
-            - { name: kernel.event_listener, event: kernel.request, method: onRefresh, priority: 150 } # Before SessionListener
+            - '@fos_oauth_server.storage'

@@ -12,8 +12,8 @@
 
 namespace Kreta\Bundle\UserBundle\EventListener;
 
-use Kreta\Bundle\UserBundle\Event\CookieEvent;
 use Symfony\Component\HttpFoundation\Cookie;
+use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 
 /**
  * Cookie event listener class.
@@ -26,11 +26,11 @@ class CookieListener
      * Checks if the session has the tokens to
      * create cookies that will be add into response.
      *
-     * @param CookieEvent $event The cookie event
+     * @param FilterResponseEvent $event The cookie event
      */
-    public function onCookieEvent(CookieEvent $event)
+    public function onCookieEvent(FilterResponseEvent $event)
     {
-        $session = $event->getSession();
+        $session = $event->getRequest()->getSession();
         $accessToken = $session->get('access_token');
         $refreshToken = $session->get('refresh_token');
 
