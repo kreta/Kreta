@@ -21,7 +21,7 @@ services:
         tags:
             - { name: kernel.event_listener, event: kernel.response, method: onCookieEvent }
 
-
+#### Override FOSOAuthServerBundle's service ####
     fos_oauth_server.security.authentication.listener:
         class: %fos_oauth_server.security.authentication.listener.class%
         arguments:

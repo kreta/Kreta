@@ -44,7 +44,7 @@ class OauthListener extends BaseOauthListener
     protected $oauthStorage;
 
     /**
-     * Cnstructor.
+     * Constructor.
      *
      * @param TokenStorageInterface          $tokenStorage          The token storage.
      * @param AuthenticationManagerInterface $authenticationManager The authentication manager.
@@ -73,23 +73,16 @@ class OauthListener extends BaseOauthListener
         if ($session->has('access_token') && $session->has('refresh_token')) {
             try {
                 $token = $this->serverService->getBearerToken($event->getRequest());
-                if ($session->get('access_token') !== $token) {//&& $session->get('access_token_old') !== $token) {
-                    throw new UnauthorizedException($this->serverService, 'access denied');
-                }
-
-                list($accessToken, $refreshToken) = $this->refresh(
-                    $session->get('access_token'),
-                    $session->get('refresh_token')
-                );
+                list($accessToken, $refreshToken) = $this->refresh($token, $session->get('refresh_token'));
             } catch (UnauthorizedException $exception) {
                 if (null !== $previous = $exception->getPrevious()) {
                     $event->setResponse($previous->getHttpResponse());
+                } else {
+                    $event->setResponse($exception->getHttpResponse());
                 }
 
                 return;
             }
-            $session->save();
-            $session->set('access_token_old', $session->get('access_token'));
             $session->set('access_token', $accessToken);
             $session->set('refresh_token', $refreshToken);
             $event->getRequest()->setSession($session);

@@ -53,7 +53,9 @@ function _toFormData(body) {
 
 function _json(response) {
   const json = response.json();
-  if (response.status >= 400) {
+  if (response.status == 401) {
+
+  } else if (response.status >= 400) {
     throw json;
   }
 

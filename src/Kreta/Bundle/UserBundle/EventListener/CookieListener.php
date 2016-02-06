@@ -30,12 +30,9 @@ class CookieListener
      */
     public function onCookieEvent(FilterResponseEvent $event)
     {
-        $session = $event->getRequest()->getSession();
-        $accessToken = $session->get('access_token');
-        $refreshToken = $session->get('refresh_token');
-
-        $event->getResponse()->headers->setCookie($this->cookie('access_token', $accessToken));
-        $event->getResponse()->headers->setCookie($this->cookie('refresh_token', $refreshToken));
+        $event->getResponse()->headers->setCookie(
+            $this->cookie('access_token', $event->getRequest()->getSession()->get('access_token'))
+        );
     }
 
     /**
