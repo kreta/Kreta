@@ -15,7 +15,7 @@ kreta_api_label:
     parent: kreta_api_project
     resource: Kreta\Bundle\ProjectBundle\Controller\LabelController
 
-kreta_api_participant:
+kreta_api_project_participant:
     type: rest
     parent: kreta_api_project
     resource: Kreta\Bundle\ProjectBundle\Controller\ParticipantController

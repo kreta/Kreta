@@ -71,6 +71,7 @@
         "kreta/media-bundle":         "self.version",
         "kreta/notification-bundle":  "self.version",
         "kreta/project-bundle":       "self.version",
+        "kreta/organization-bundle":  "self.version",
         "kreta/user-bundle":          "self.version",
         "kreta/web-bundle":           "self.version",
         "kreta/workflow-bundle":      "self.version",
@@ -79,6 +80,7 @@
         "kreta/issue":                "self.version",
         "kreta/media":                "self.version",
         "kreta/notification":         "self.version",
+        "kreta/organization":         "self.version",
         "kreta/project":              "self.version",
         "kreta/user":                 "self.version",
         "kreta/workflow":             "self.version"

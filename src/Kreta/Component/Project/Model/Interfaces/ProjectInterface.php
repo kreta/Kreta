@@ -14,6 +14,7 @@ namespace Kreta\Component\Project\Model\Interfaces;
 
 use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
 use Kreta\Component\Media\Model\Interfaces\MediaInterface;
+use Kreta\Component\Organization\Model\Interfaces\OrganizationInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
 
@@ -163,6 +164,22 @@ interface ProjectInterface
      * @return $this self Object
      */
     public function removeIssuePriority(IssuePriorityInterface $issuePriority);
+
+    /**
+     * Gets organization.
+     *
+     * @return OrganizationInterface
+     */
+    public function getOrganization();
+
+    /**
+     * Sets organization.
+     *
+     * @param OrganizationInterface $organization The organization
+     *
+     * @return $this self Object
+     */
+    public function setOrganization(OrganizationInterface $organization);
 
     /**
      * Gets short name.

@@ -16,6 +16,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Kreta\Component\Core\Model\Abstracts\AbstractModel;
 use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
 use Kreta\Component\Media\Model\Interfaces\MediaInterface;
+use Kreta\Component\Organization\Model\Interfaces\OrganizationInterface;
 use Kreta\Component\Project\Model\Interfaces\IssuePriorityInterface;
 use Kreta\Component\Project\Model\Interfaces\LabelInterface;
 use Kreta\Component\Project\Model\Interfaces\ParticipantInterface;
@@ -79,6 +80,13 @@ class Project extends AbstractModel implements ProjectInterface
      * @var string
      */
     protected $shortName;
+
+    /**
+     * The organization.
+     *
+     * @var OrganizationInterface
+     */
+    protected $organization;
 
     /**
      * The workflow.
@@ -251,6 +259,24 @@ class Project extends AbstractModel implements ProjectInterface
     public function removeIssuePriority(IssuePriorityInterface $issuePriority)
     {
         $this->issuePriorities->removeElement($issuePriority);
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getOrganization()
+    {
+        return $this->organization;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setOrganization(OrganizationInterface $organization)
+    {
+        $this->organization = $organization;
 
         return $this;
     }

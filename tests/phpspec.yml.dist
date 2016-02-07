@@ -19,6 +19,9 @@ suites:
     NotificationBundle:
         namespace: Kreta
         spec_path: src/Kreta/Bundle/NotificationBundle
+    OrganizationBundle:
+        namespace: Kreta
+        spec_path: src/Kreta/Bundle/OrganizationBundle
     UserBundle:
         namespace: Kreta
         spec_path: src/Kreta/Bundle/UserBundle
@@ -41,15 +44,18 @@ suites:
     MediaComponent:
         namespace: Kreta
         spec_path: src/Kreta/Component/Media
+    NotificationComponent:
+        namespace: Kreta
+        spec_path: src/Kreta/Component/Notification
+    OrganizationComponent:
+        namespace: Kreta
+        spec_path: src/Kreta/Component/Organization
     ProjectComponent:
         namespace: Kreta
         spec_path: src/Kreta/Component/Project
     UserComponent:
         namespace: Kreta
         spec_path: src/Kreta/Component/User
-    NotificationComponent:
-        namespace: Kreta
-        spec_path: src/Kreta/Component/Notification
     WorkflowComponent:
         namespace: Kreta
         spec_path: src/Kreta/Component/Workflow

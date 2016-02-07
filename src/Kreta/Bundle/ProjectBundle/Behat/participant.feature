@@ -6,11 +6,11 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 
-@participant
-Feature: Manage participant
-  In order to manage participants
-  As an API participant
-  I want to be able to GET, POST and DELETE participants
+@projectParticipant
+Feature: Manage project participant
+  In order to manage project participants
+  As an API project participant
+  I want to be able to GET, POST and DELETE project participants
 
   Background:
     Given the following users exist:

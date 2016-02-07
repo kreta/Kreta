@@ -26,13 +26,58 @@ Kreta\Component\User\Model\User:
     properties:
         createdAt:
             expose: true
-            groups: [userList, user, profile, projectList, project]
+            groups: [userList, user, profile, projectList, project, organizationList, organization]
         firstName:
             expose: true
-            groups: [userList, user, profile, projectList, project, issueList, issue, commentList, comment, participantList, participant]
+            groups:
+                - userList
+                - user
+                - profile
+                - projectList
+                - project
+                - issueList
+                - issue
+                - commentList
+                - comment
+                - participantList
+                - participant
+                - organizationList
+                - organization
+                - organizationParticipantList
+                - organizationParticipant
         lastName:
             expose: true
-            groups: [userList, user, profile, projectList, project, issueList, issue, commentList, comment, participantList, participant]
+            groups:
+                - userList
+                - user
+                - profile
+                - projectList
+                - project
+                - issueList
+                - issue
+                - commentList
+                - comment
+                - participantList
+                - participant
+                - organizationList
+                - organization
+                - organizationParticipantList
+                - organizationParticipant
         photo:
             expose: true
-            groups: [userList, user, profile, projectList, project, issueList, issue, commentList, comment, participantList, participant]
+            groups:
+                - userList
+                - user
+                - profile
+                - projectList
+                - project
+                - issueList
+                - issue
+                - commentList
+                - comment
+                - participantList
+                - participant
+                - organizationList
+                - organization
+                - organizationParticipantList
+                - organizationParticipant

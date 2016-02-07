@@ -1,0 +1,53 @@
+# This file is part of the Kreta package.
+#
+# (c) Beñat Espiña <benatespina@gmail.com>
+# (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+
+Kreta\Component\Organization\Model\Participant:
+    exclusion_policy: ALL
+    relations:
+        -
+            rel: participants
+            href:
+                route: get_organizations_participants
+                parameters:
+                    organizationId: expr(object.getOrganization().getId())
+                absolute: 0
+            exclusion:
+                groups: [organizationParticipantList, organizationParticipant]
+        -
+            rel: organization
+            href:
+                route: get_organization
+                parameters:
+                    organizationId: expr(object.getOrganization().getId())
+                absolute: 0
+            exclusion:
+                groups: [organizationParticipantList, organizationParticipant]
+        -
+            rel: organizations
+            href:
+                route: get_organizations
+                absolute: 0
+            exclusion:
+                groups: [organizationParticipantList, organizationParticipant]
+        -
+            rel: projects
+            href:
+                route: get_projects
+                absolute: 0
+            exclusion:
+                groups: [organizationParticipantList, organizationParticipant]
+    properties:
+        organization:
+            expose: false
+            groups: [organizationList, organization, organizationParticipantList, organizationParticipant]
+        user:
+            expose: true
+            groups: [organizationList, organization, organizationParticipantList, organizationParticipant]
+        role:
+            expose: true
+            groups: [organizationList, organization, organizationParticipantList, organizationParticipant]

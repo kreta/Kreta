@@ -1,0 +1,56 @@
+{
+    "name": "kreta/organization",
+    "description": "Kreta organization component",
+    "keywords": [
+        "orgnization",
+        "manager",
+        "development",
+        "tool",
+        "component"
+    ],
+    "homepage": "http://kreta.io",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Beñat Espiña Diaz",
+            "email": "benatespina@gmail.com",
+            "homepage": "http://benatespina.com"
+        },
+        {
+            "name": "Gorka Laucirica Ibarra",
+            "email": "gorka.lauzirika@gmail.com",
+            "homepage": "http://gorkalaucirica.net"
+        }
+    ],
+    "require": {
+        "php":             ">=5.5",
+        "kreta/user":      "^0.5.0",
+        "kreta/project":   "^0.5.0"
+    },
+    "require-dev": {
+        "phpspec/phpspec": "^2.4"
+    },
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/kreta/FOSUserBundle"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Kreta\\Component\\Organization\\": ""
+        },
+        "exclude-from-classmap": ["/spec/"]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Kreta\\Component\\Organization\\spec\\": "spec/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.5-dev"
+        }
+    }
+}

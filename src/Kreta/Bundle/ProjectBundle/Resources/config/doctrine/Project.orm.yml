@@ -24,6 +24,14 @@ Kreta\Component\Project\Model\Project:
             type: string
             length: 4
     manyToOne:
+        organization:
+            targetEntity: Kreta\Component\Organization\Model\Interfaces\OrganizationInterface
+            inversedBy: projects
+            joinColumn:
+                name: organization_id
+                referencedColumnName: id
+                onDelete: CASCADE
+            cascade: ['persist', 'remove']
         workflow:
             targetEntity: Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface
             inversedBy: projects

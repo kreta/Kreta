@@ -103,6 +103,9 @@ jms_serializer:
             kreta-notification:
                 namespace_prefix: Kreta\Component\Notification
                 path: '@KretaNotificationBundle/Resources/config/serializer'
+            kreta-organization:
+                namespace_prefix: Kreta\Component\Organization
+                path: '@KretaOrganizationBundle/Resources/config/serializer'
             kreta-project:
                 namespace_prefix: Kreta\Component\Project
                 path: '@KretaProjectBundle/Resources/config/serializer'
@@ -118,19 +121,25 @@ jms_serializer:
 
 knp_gaufrette:
     adapters:
-        kreta_image_users:
+        kreta_image_organizations:
             local:
                 directory: %kernel.root_dir%/../web/media/image
                 create: true
         kreta_image_projects:
+            local:
+                directory: %kernel.root_dir%/../web/media/image
+                create: true
+        kreta_image_users:
             local:
                 directory: %kernel.root_dir%/../web/media/image
                 create: true
     filesystems:
+        kreta_image_organizations:
+                adapter: %organizations.image.uploader.filesystem%
+        kreta_image_projects:
+                adapter: %projects.image.uploader.filesystem%
         kreta_image_users:
             adapter: %users.image.uploader.filesystem%
-        kreta_image_projects:
-            adapter: %projects.image.uploader.filesystem%
 
 liip_imagine:
     loaders:
