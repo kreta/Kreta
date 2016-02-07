@@ -11,7 +11,8 @@
 import Config from './../Config';
 
 function _getCookie(name) {
-  var value = `; ${document.cookie}`,
+  let
+    value = `; ${document.cookie}`,
     parts = value.split(`; ${name}=`);
 
   if (parts.length === 2) {
@@ -53,8 +54,10 @@ function _toFormData(body) {
 
 function _json(response) {
   const json = response.json();
-  if (response.status == 401) {
+  if (response.status === 401) {
+    window.location.href = '/logout';
 
+    return false;
   } else if (response.status >= 400) {
     throw json;
   }
