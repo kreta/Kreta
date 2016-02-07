@@ -8,29 +8,33 @@
  * file that was distributed with this source code.
  */
 
+import {connect} from 'react-redux';
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 import Button from './../../component/Button';
 import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
 import Form from './../../component/Form';
 import FormInput from './../../component/FormInput';
 import FormInputFile from './../../component/FormInputFile';
-import Profile from './../../../models/Profile';
+import FormSerializer from './../../../service/FormSerializer';
+import ProfileActions from './../../../actions/Profile';
 
 class Edit extends React.Component {
-  componentWillMount() {
-    this.originalImage = App.currentUser.get('photo');
-    this.setState({
-      user: App.currentUser
-    });
+  _save(ev) {
+    ev.preventDefault();
+
+    const profile = FormSerializer.serialize(ReactDOM.findDOMNode(this.refs.form));
+    this.props.dispatch(ProfileActions.updateProfile(profile));
   }
 
   render() {
-    const user = this.state.user.toJSON();
+    const user = this.props.profile.profile;
 
     return (
       <ContentMiddleLayout>
-        <Form model={Profile}>
+        <Form errors={this.props.profile.errors}
+              onSubmit={this._save.bind(this)} ref="form">
           <FormInputFile filename={user.photo ? user.photo.name : ''}
                          name="photo"
                          value=""/>
@@ -59,4 +63,10 @@ class Edit extends React.Component {
   }
 }
 
-export default Edit;
+const mapStateToProps = (state) => {
+  return {
+    profile: state.profile
+  };
+};
+
+export default connect(mapStateToProps)(Edit);

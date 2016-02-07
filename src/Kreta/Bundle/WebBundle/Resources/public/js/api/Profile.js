@@ -8,17 +8,18 @@
  * file that was distributed with this source code.
  */
 
-import Backbone from 'backbone';
+import Api from './Api';
 
-import Config from './../Config';
-import User from './../models/User';
+class ProfileApi extends Api {
+  getProfile() {
+    return this.get('/profile');
+  }
 
-class Users extends Backbone.Collection {
-  model = User;
-
-  url() {
-    return `${Config.baseUrl}/users`;
+  putProfile(profile) {
+    return this.post('/profile', profile);
   }
 }
 
-export default Users;
+const instance = new ProfileApi();
+
+export default instance;

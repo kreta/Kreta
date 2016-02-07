@@ -8,27 +8,33 @@
  * file that was distributed with this source code.
  */
 
-import $ from 'jquery';
+import ReactDOM from 'react-dom';
+
+function _forEach(array, callback, scope) {
+  for (let i = 0; i < array.length; i++) {
+    callback.call(scope, array[i], i);
+  }
+}
 
 class FormSerializerService {
-  static serialize($form, model = null) {
-    var formData = {}, Model;
+  static serialize(formRef) {
+    const
+      formData = {},
+      form = ReactDOM.findDOMNode(formRef);
 
-    $.each($form.serializeArray(), function () {
-      formData[this.name] = this.value;
+    _forEach(form, (input) => {
+      if (input.name === '') {
+        return;
+      }
+      if (input.type === 'file') {
+        if (input.files.length > 0) {
+          formData[input.name] = input.files[0];
+        }
+      } else {
+        formData[input.name] = input.value;
+      }
     });
 
-    $.each($form.find(':file'), function () {
-      formData[this.name] = this.files[0];
-    });
-
-    if (model) {
-      // Remove defaults to avoid issues with API in case we are using a model
-      Model = model.extend({defaults: {}});
-      return new Model(formData);
-    }
-
-    // Key value form date is returned in case we are not using a model
     return formData;
   }
 }

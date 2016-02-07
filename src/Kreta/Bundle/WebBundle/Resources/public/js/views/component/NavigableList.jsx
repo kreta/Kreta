@@ -28,15 +28,32 @@ class NavigableList extends React.Component {
   xSelected = 0;
   ySelected = 0;
 
+  componentDidMount() {
+    this.keyUpListenerRef = this.handleNavigation.bind(this);
+    window.addEventListener('keyup', this.keyUpListenerRef);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keyup', this.keyUpListenerRef);
+  }
+
   handleNavigation(ev) {
     if (ev.which === 40) { // Down
       this.selectNextY();
+      ev.preventDefault();
+      ev.stopPropagation();
     } else if (ev.which === 38) { // Up
       this.selectPrevY();
+      ev.preventDefault();
+      ev.stopPropagation();
     } else if (ev.which === 37) { // Left
       this.selectPrevX();
+      ev.preventDefault();
+      ev.stopPropagation();
     } else if (ev.which === 39) { // Right
       this.selectNextX();
+      ev.preventDefault();
+      ev.stopPropagation();
     }
   }
 

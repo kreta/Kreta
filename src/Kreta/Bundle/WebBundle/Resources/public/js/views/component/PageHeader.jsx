@@ -26,14 +26,14 @@ class PageHeader extends React.Component {
   };
 
   renderLinks() {
-    return this.props.links.map((link) => {
+    return this.props.links.map((link, key) => {
       const classes = classnames('page-header__link-icon', {
         'page-header__link-icon--green': link.color === 'green'
       });
       return (
-        <Link className="page-header__link" to={link.href}>
+        <Link className="page-header__link" key={key} to={link.href}>
           <Icon className={classes}
-          glyph={link.icon}/>
+                glyph={link.icon}/>
           {link.title}
         </Link>
       );
@@ -41,9 +41,9 @@ class PageHeader extends React.Component {
   }
 
   renderButtons() {
-    return this.props.buttons.map((button) => {
+    return this.props.buttons.map((button, key) => {
       return (
-        <Link className="page-header__link" to={button.href}>
+        <Link className="page-header__link" key={key} to={button.href}>
           <Button color="green">
             {button.title}
           </Button>
@@ -53,9 +53,13 @@ class PageHeader extends React.Component {
   }
 
   render() {
+    let image = <div className="page-header__image"></div>;
+    if (this.props.image) {
+      image = <img className="page-header__image" src={this.props.image}/>;
+    }
     return (
       <div className="page-header">
-        <div className="project-image" style={{background: '#ebebeb'}}></div>
+        {image}
         <h2 className="page-header__title">{this.props.title}</h2>
         <div className="page-header__actions">
           {this.renderLinks()}

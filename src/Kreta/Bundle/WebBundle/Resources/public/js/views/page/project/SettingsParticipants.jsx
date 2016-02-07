@@ -10,44 +10,27 @@
 
 import './../../../../scss/views/page/project/_settings';
 
-import $ from 'jquery';
 import React from 'react';
 
 import Button from './../../component/Button';
-import Config from './../../../Config';
-import NotificationService from './../../../service/Notification';
 import UserPreview from './../../component/UserPreview';
 
 class SettingsParticipants extends React.Component {
   static propTypes = {
-    onParticipantAdded: React.PropTypes.func,
+    onParticipantAddClicked: React.PropTypes.func,
     project: React.PropTypes.object
   };
 
-  addParticipant(index) {
-    const participant = {
-      role: 'ROLE_PARTICIPANT',
-      user: this.props.project.getNotParticipating()[index].id
-    };
-
-    $.post(
-      `${Config.baseUrl}/projects/${this.props.project.id}/participants`,
-      participant,
-      () => {
-        NotificationService.showNotification({
-          message: 'User added successfully to the project'
-        });
-        this.props.onParticipantAdded();
-      }
-    );
+  triggerOnParticipantAddClicked(participant) {
+    this.props.onParticipantAddClicked(participant);
   }
 
   render() {
-    const notParticipating = this.props.project.getNotParticipating()
+    const notParticipating = this.props.project.participants
       .map((user, index) => {
         const actions = (
           <Button color="green"
-                  onClick={this.addParticipant.bind(this, index)}
+                  onClick={this.triggerOnParticipantAddClicked.bind(this, user)}
                   type="icon">
             <i className="fa fa-plus"></i>
           </Button>
@@ -56,7 +39,7 @@ class SettingsParticipants extends React.Component {
         return (
           <UserPreview actions={actions}
                        key={index}
-                       user={user.toJSON()}/>
+                       user={user.user}/>
         );
       });
 

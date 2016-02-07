@@ -11,6 +11,8 @@ parameters:
 
     kreta_user.factory_user.class: Kreta\Component\User\Factory\UserFactory
 
+    kreta_user.manager.oauth_manager.class: Kreta\Bundle\UserBundle\Manager\OauthManager
+
     kreta_user.repository_user.class: Kreta\Component\User\Repository\UserRepository
 
     kreta_user.form_user_handler.class: Kreta\Component\User\Form\Handler\UserHandler
@@ -20,3 +22,5 @@ parameters:
     kreta_user.form_type.invitation.class: Kreta\Component\User\Form\Type\InvitationType
     kreta_user.form_type.profile.class: Kreta\Component\User\Form\Type\ProfileType
     kreta_user.form_type.registration.class: Kreta\Component\User\Form\Type\RegistrationType
+
+    fos_oauth_server.security.authentication.listener.class: Kreta\Bundle\UserBundle\EventListener\OauthListener

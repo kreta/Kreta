@@ -104,7 +104,7 @@ Feature: Manage user invitations
       | plainPassword_second | 123456 |
     And I press "register"
     Then I should be on the dashboard
-    And I should see refresh_token and access_token cookies
+    And I should see an access_token inside cookie
 
   Scenario: Creating a user invitation without ROLE_ADMIN
     Given I am authenticating with "access-token-2" token
