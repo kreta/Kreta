@@ -37,7 +37,8 @@ install:
     - sudo a2ensite kreta
     - sudo service apache2 restart
 #    - hhvm --mode daemon -d hhvm.server.type=fastcgi -d hhvm.server.port=9000
-    - sudo hhvm -m daemon -vServer.Type=fastcgi -vServer.Port=9000 -vServer.FixPathInfo=true -vLog.Level=verbose -vLog.UseLogFile=true -vLog.File=/tmp/hhvm.log -vLog.AlwaysLogUnhandledExceptions=true
+    - sudo echo "PIDFILE=\"/tmp/hhvm.pid\"" >> /etc/default/hhvm
+    - hhvm -m daemon -vServer.Type=fastcgi -vServer.Port=9000 -vServer.FixPathInfo=true -vLog.Level=verbose -vLog.UseLogFile=true -vLog.File=/tmp/hhvm.log -vLog.AlwaysLogUnhandledExceptions=true
 
     # Run HHVM
 #    - sudo echo "PIDFILE=\"/tmp/hhvm.pid\"" >> /etc/default/hhvm
@@ -114,7 +115,8 @@ script:
 #    - vendor/bin/coveralls -v
 
 after_failure:
-  - cat /home/travis/build/kreta-io/kreta/app/logs/apache_error.log
+  - cat apache_error.log
+  - cat apache_access.log
   - cat /tmp/hhvm.log
 
 cache:
