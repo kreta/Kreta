@@ -29,13 +29,15 @@ install:
 #    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || export PATH="$GOPATH/bin:$PATH"'
 #    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || go get github.com/Naktibalda/hhvm-serve'
 
-    - sudo apt-get install -y apache2 libapache2-mod-fastcgi
+    - sudo apt-get update
+    - sudo apt-get install apache2 libapache2-mod-fastcgi
     - sudo a2enmod rewrite actions fastcgi alias
-    - sudo cp -f tests/functional/fixtures/ci/travis-ci-apache-hhvm /etc/apache2/sites-available/default
-    - sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/default
+    - sudo cp -f tests/functional/fixtures/ci/travis-ci-apache-hhvm /etc/apache2/sites-available/kreta
+    - sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/kreta
+    - sudo a2ensite kreta
     - sudo service apache2 restart
 #    - hhvm --mode daemon -d hhvm.server.type=fastcgi -d hhvm.server.port=9000
-    - hhvm -m daemon -vServer.Type=fastcgi -vServer.Port=9000 -vServer.FixPathInfo=true
+    - hhvm -m daemon -vServer.Type=fastcgi -vServer.Port=9000 -vServer.FixPathInfo=true -vLog.Level=verbose -vLog.UseLogFile=true -vLog.File=/tmp/hhvm.log -vLog.AlwaysLogUnhandledExceptions=true
 
     # Run HHVM
 #    - sudo echo "PIDFILE=\"/tmp/hhvm.pid\"" >> /etc/default/hhvm
@@ -110,6 +112,11 @@ script:
 
 #after_script:
 #    - vendor/bin/coveralls -v
+
+after_failure:
+  - cat apache_error.log
+  - cat apache_access.log
+  - cat /tmp/hhvm.log
 
 cache:
     directories:
