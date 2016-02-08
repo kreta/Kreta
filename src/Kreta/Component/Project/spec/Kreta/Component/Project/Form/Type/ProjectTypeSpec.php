@@ -48,13 +48,17 @@ class ProjectTypeSpec extends ObjectBehavior
     function it_builds_a_form(FormBuilder $builder)
     {
         $builder->add('name')->shouldBeCalled()->willReturn($builder);
-        $builder->add('shortName')->shouldBeCalled()->willReturn($builder);
         $builder->add('image', 'Symfony\Component\Form\Extension\Core\Type\FileType', [
             'required' => false,
             'mapped'   => false,
         ])->shouldBeCalled()->willReturn($builder);
         $builder->add('workflow', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', [
             'class'    => 'Kreta\Component\Workflow\Model\Workflow',
+            'required' => false,
+            'mapped'   => false,
+        ])->shouldBeCalled()->willReturn($builder);
+        $builder->add('organization', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', [
+            'class'    => 'Kreta\Component\Organization\Model\Organization',
             'required' => false,
             'mapped'   => false,
         ])->shouldBeCalled()->willReturn($builder);

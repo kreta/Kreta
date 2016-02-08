@@ -31,11 +31,10 @@ class NotificationType extends AbstractType
     {
         parent::buildForm($builder, $options);
         $builder->add('read', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', [
-            'choices'           => [
+            'choices' => [
                 true  => 'read',
                 false => 'unread',
             ],
-            'choices_as_values' => true,
         ]);
     }
 

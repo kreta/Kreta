@@ -52,8 +52,9 @@ class OrganizationSpec extends ObjectBehavior
 
     function its_name_is_mutable()
     {
-        $this->setName('Dummy name that it is a test for the PHPSpec')->shouldReturn($this);
-        $this->getName()->shouldReturn('Dummy name that it is a test for the PHPSpec');
+        $this->setName('Dummy name')->shouldReturn($this);
+        $this->getName()->shouldReturn('Dummy name');
+        $this->getSlug()->shouldReturn('dummy-name');
     }
 
     function its_participants_are_be_mutable(ParticipantInterface $participant)
@@ -80,6 +81,12 @@ class OrganizationSpec extends ObjectBehavior
         $this->removeProject($project);
 
         $this->getProjects()->shouldHaveCount(0);
+    }
+
+    function its_slug_is_mutable()
+    {
+        $this->setSlug('dummy-slug')->shouldReturn($this);
+        $this->getSlug()->shouldReturn('dummy-slug');
     }
 
     function it_does_not_get_user_role(UserInterface $anotherUser)

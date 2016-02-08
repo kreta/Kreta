@@ -13,6 +13,7 @@
 namespace Kreta\Component\Project\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use EasySlugger\Slugger;
 use Kreta\Component\Core\Model\Abstracts\AbstractModel;
 use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
 use Kreta\Component\Media\Model\Interfaces\MediaInterface;
@@ -30,26 +31,33 @@ use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
  * @author Beñat Espiña <benatespina@gmail.com>
  * @author Gorka Laucirica <gorka.lauzirika@gmail.com>
  */
-class Project extends AbstractModel implements ProjectInterface
+class Project implements ProjectInterface
 {
+    /**
+     * The id.
+     *
+     * @var string
+     */
+    protected $id;
+
     /**
      * The image.
      *
-     * @var \Kreta\Component\Media\Model\Interfaces\MediaInterface
+     * @var MediaInterface
      */
     protected $image;
 
     /**
      * Array that contains all the issues of the project.
      *
-     * @var \Doctrine\Common\Collections\ArrayCollection
+     * @var ArrayCollection
      */
     protected $issues;
 
     /**
      * Array that contains labels.
      *
-     * @var \Doctrine\Common\Collections\ArrayCollection
+     * @var ArrayCollection
      */
     protected $labels;
 
@@ -63,35 +71,35 @@ class Project extends AbstractModel implements ProjectInterface
     /**
      * Array that contains all the roles of the project.
      *
-     * @var \Doctrine\Common\Collections\ArrayCollection
+     * @var ArrayCollection
      */
     protected $participants;
 
     /**
      * Array that contains all the issue priorities of the project.
      *
-     * @var \Doctrine\Common\Collections\ArrayCollection
+     * @var ArrayCollection
      */
     protected $issuePriorities;
 
     /**
-     * The short name.
-     *
-     * @var string
-     */
-    protected $shortName;
-
-    /**
      * The organization.
      *
-     * @var OrganizationInterface
+     * @var OrganizationInterface|null
      */
     protected $organization;
 
     /**
+     * The slug.
+     *
+     * @var string
+     */
+    protected $slug;
+
+    /**
      * The workflow.
      *
-     * @var \Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface
+     * @var WorkflowInterface
      */
     protected $workflow;
 
@@ -104,6 +112,16 @@ class Project extends AbstractModel implements ProjectInterface
         $this->labels = new ArrayCollection();
         $this->participants = new ArrayCollection();
         $this->issuePriorities = new ArrayCollection();
+    }
+
+    /**
+     * Gets id.
+     *
+     * @return string
+     */
+    public function getId()
+    {
+        return $this->id;
     }
 
     /**
@@ -199,10 +217,7 @@ class Project extends AbstractModel implements ProjectInterface
     public function setName($name)
     {
         $this->name = $name;
-
-        if ($this->shortName === null) {
-            $this->shortName = substr($this->name, 0, 26) . '...';
-        }
+        $this->setSlug(Slugger::slugify($name));
 
         return $this;
     }
@@ -274,7 +289,7 @@ class Project extends AbstractModel implements ProjectInterface
     /**
      * {@inheritdoc}
      */
-    public function setOrganization(OrganizationInterface $organization)
+    public function setOrganization(OrganizationInterface $organization = null)
     {
         $this->organization = $organization;
 
@@ -284,23 +299,17 @@ class Project extends AbstractModel implements ProjectInterface
     /**
      * {@inheritdoc}
      */
-    public function getShortName()
+    public function getSlug()
     {
-        return $this->shortName;
+        return $this->slug;
     }
 
     /**
      * {@inheritdoc}
      */
-    public function setShortName($shortName)
+    public function setSlug($slug)
     {
-        if (strlen($shortName) > 26) {
-            $this->shortName = substr($shortName, 0, 26) . '...';
-
-            return $this;
-        }
-
-        $this->shortName = $shortName;
+        $this->slug = $slug;
 
         return $this;
     }
@@ -335,5 +344,16 @@ class Project extends AbstractModel implements ProjectInterface
         $this->workflow = $workflow;
 
         return $this;
+    }
+
+    /**
+     * Magic method that is useful in Twig templates
+     * representing the entity class into string.
+     *
+     * @return string
+     */
+    public function __toString()
+    {
+        return $this->name;
     }
 }

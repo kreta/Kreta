@@ -13,6 +13,7 @@
 namespace Kreta\Component\Organization\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
+use EasySlugger\Slugger;
 use Kreta\Component\Media\Model\Interfaces\MediaInterface;
 use Kreta\Component\Organization\Model\Interfaces\OrganizationInterface;
 use Kreta\Component\Organization\Model\Interfaces\ParticipantInterface;
@@ -64,6 +65,13 @@ class Organization implements OrganizationInterface
     protected $projects;
 
     /**
+     * The slug.
+     *
+     * @var string
+     */
+    protected $slug;
+
+    /**
      * Constructor.
      */
     public function __construct()
@@ -112,6 +120,7 @@ class Organization implements OrganizationInterface
     public function setName($name)
     {
         $this->name = $name;
+        $this->setSlug(Slugger::slugify($name));
 
         return $this;
     }
@@ -168,6 +177,24 @@ class Organization implements OrganizationInterface
     public function removeProject(ProjectInterface $project)
     {
         $this->projects->removeElement($project);
+
+        return $this;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getSlug()
+    {
+        return $this->slug;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setSlug($slug)
+    {
+        $this->slug = $slug;
 
         return $this;
     }

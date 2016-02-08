@@ -19,6 +19,9 @@ Kreta\Component\Organization\Model\Organization:
         name:
             type: string
             length: 140
+        slug:
+            type: string
+            length: 140
     oneToOne:
         image:
             targetEntity: Kreta\Component\Media\Model\Interfaces\MediaInterface

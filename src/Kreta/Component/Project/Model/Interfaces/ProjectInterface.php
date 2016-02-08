@@ -168,34 +168,34 @@ interface ProjectInterface
     /**
      * Gets organization.
      *
-     * @return OrganizationInterface
+     * @return OrganizationInterface|null
      */
     public function getOrganization();
 
     /**
      * Sets organization.
      *
-     * @param OrganizationInterface $organization The organization
+     * @param OrganizationInterface|null $organization The organization
      *
      * @return $this self Object
      */
-    public function setOrganization(OrganizationInterface $organization);
+    public function setOrganization(OrganizationInterface $organization = null);
 
     /**
-     * Gets short name.
+     * Gets slug.
      *
      * @return string
      */
-    public function getShortName();
+    public function getSlug();
 
     /**
-     * Sets short name.
+     * Sets slug.
      *
-     * @param string $shortName The short name
+     * @param string $slug The slug
      *
      * @return $this self Object
      */
-    public function setShortName($shortName);
+    public function setSlug($slug);
 
     /**
      * Gets role of user given.

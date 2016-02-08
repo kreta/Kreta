@@ -51,6 +51,15 @@ Kreta\Component\Project\Model\Project:
             exclusion:
                 groups: [projectList, project]
         -
+            rel: organization
+            href:
+                route: get_organization
+                parameters:
+                    organizationId: expr(object.getOrganization().getId())
+                absolute: 0
+            exclusion:
+                groups: [projectList, project]
+        -
             rel: workflow
             href:
                 route: get_workflow
@@ -78,6 +87,9 @@ Kreta\Component\Project\Model\Project:
             exclusion:
                 groups: [projectList, project]
     properties:
+        id:
+            expose: true
+            groups: [projectList, project]
         image:
             expose: true
             groups: [projectList, project]
@@ -96,7 +108,10 @@ Kreta\Component\Project\Model\Project:
         issuePriorities:
             expose: true
             groups: [projectList, project]
-        shortName:
+        organization:
+            expose: true
+            groups: [project]
+        slug:
             expose: true
             groups: [projectList, project, participantList, participant]
         statuses:

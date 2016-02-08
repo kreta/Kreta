@@ -35,16 +35,19 @@ Kreta\Component\Organization\Model\Organization:
     properties:
         id:
             expose: true
-            groups: [organizationList, organization, organizationParticipantList, organizationParticipant]
+            groups: [organizationList, organization, organizationParticipantList, organizationParticipant, projectList, project]
         image:
             expose: true
-            groups: [organizationList, organization]
+            groups: [organizationList, organization, projectList, project]
         name:
             expose: true
-            groups: [organizationList, organization, organizationParticipantList, organizationParticipant]
+            groups: [organizationList, organization, organizationParticipantList, organizationParticipant, projectList, project]
         participants:
             expose: true
             groups: [organizationList, organization]
         projects:
             expose: true
             groups: []
+        slug:
+            expose: true
+            groups: [organizationList, organization, organizationParticipantList, organizationParticipant, projectList, project]

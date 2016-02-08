@@ -17,10 +17,13 @@ Feature: Manage notification
       | id | firstName | lastName | username | email           | password | createdAt  |
       | 0  | Kreta     | User     | user     | user@kreta.com  | 123456   | 2014-10-20 |
       | 1  | Kreta     | User2    | user2    | user2@kreta.com | 123456   | 2014-10-20 |
+    And the following organizations exist:
+      | id | name                | creator        |
+      | 0  | Test organization 1 | user@kreta.com |
     And the following projects exist:
-      | id | name           | shortName | creator        |
-      | 0  | Test project 1 | TPR1      | user@kreta.com |
-      | 1  | Test project 2 | TPR2      | user@kreta.com |
+      | id | name           | creator        | organization        |
+      | 0  | Test project 1 | user@kreta.com | Test organization 1 |
+      | 1  | Test project 2 | user@kreta.com | Test organization 1 |
     And the following notifications exist:
       | id | description                    | date       | read  | resourceUrl            | title          | project        | type           | user            | webUrl                 |
       | 0  | The notification-0 description | 2015-04-20 | true  | /api/issues/id-issue   | Notification 1 | Test project 1 | issue_new      | user@kreta.com  | /api/issues/id-issue   |
@@ -710,7 +713,7 @@ Feature: Manage notification
     When I send a PATCH request to "/api/notifications/3" with body:
     """
       {
-        "read": true
+        "read": "read"
       }
     """
     Then the response code should be 403
@@ -727,7 +730,7 @@ Feature: Manage notification
     When I send a PATCH request to "/api/notifications/unknown-notification" with body:
     """
       {
-        "read": true
+        "read": "read"
       }
     """
     Then the response code should be 404
@@ -776,7 +779,7 @@ Feature: Manage notification
     When I send a PATCH request to "/api/notifications/3" with body:
     """
       {
-        "read": true
+        "read": "read"
       }
     """
     Then the response code should be 200
@@ -808,7 +811,7 @@ Feature: Manage notification
     When I send a PATCH request to "/api/notifications/3" with body:
     """
       {
-        "read": false
+        "read": "unread"
       }
     """
     Then the response code should be 200
@@ -839,7 +842,7 @@ Feature: Manage notification
     When I send a PATCH request to "/api/notifications/3" with body:
     """
       {
-        "read": false
+        "read": "unread"
       }
     """
     Then the response code should be 403
@@ -856,7 +859,7 @@ Feature: Manage notification
     When I send a PATCH request to "/api/notifications/unknown-notification" with body:
     """
       {
-        "read": false
+        "read": "unread"
       }
     """
     Then the response code should be 404

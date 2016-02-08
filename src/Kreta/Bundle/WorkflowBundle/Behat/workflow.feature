@@ -26,10 +26,13 @@ Feature: Manage workflow
       | 3  | Workflow 4 | user@kreta.com  | 2014-12-30 |
       | 4  | Workflow 5 | user@kreta.com  | 2014-09-17 |
       | 5  | Workflow 6 | user@kreta.com  | 2014-10-20 |
+    And the following organizations exist:
+      | id | name                | creator        |
+      | 0  | Test organization 1 | user@kreta.com |
     And the following projects exist:
-      | id | name           | shortName | creator        | workflow   |
-      | 0  | Test project 1 | TPR1      | user@kreta.com | Workflow 1 |
-      | 1  | Test project 2 | TPR2      | user@kreta.com | Workflow 2 |
+      | id | name           | creator        | workflow   | organization        |
+      | 0  | Test project 1 | user@kreta.com | Workflow 1 | Test organization 1 |
+      | 1  | Test project 2 | user@kreta.com | Workflow 2 | Test organization 1 |
     And the following statuses exist:
       | id | color   | name        | workflow   |
       | 0  | #27ae60 | Open        | Workflow 1 |

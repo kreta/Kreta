@@ -113,6 +113,22 @@ interface OrganizationInterface
     public function removeProject(ProjectInterface $project);
 
     /**
+     * Gets slug.
+     *
+     * @return string
+     */
+    public function getSlug();
+
+    /**
+     * Sets slug.
+     *
+     * @param string $slug The slug
+     *
+     * @return $this self Object
+     */
+    public function setSlug($slug);
+
+    /**
      * Gets role of user given.
      *
      * @param UserInterface $user The user

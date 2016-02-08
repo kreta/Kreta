@@ -31,6 +31,7 @@
         "friendsofsymfony/rest-bundle":             "^1.7",
         "friendsofsymfony/user-bundle":             "^2.0",
         "incenteev/composer-parameter-handler":     "^2.0",
+        "javiereguiluz/easyslugger":                "^1.0",
         "jms/serializer-bundle":                    "^1.1",
         "knplabs/knp-gaufrette-bundle":             "^0.3",
         "kreta/simple-api-doc-bundle":              "^0.3.3",

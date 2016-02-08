@@ -24,12 +24,13 @@
         }
     ],
     "require": {
-        "php":             ">=5.5",
-        "kreta/user":      "^0.5.0",
-        "kreta/project":   "^0.5.0"
+        "php":                       ">=5.5",
+        "javiereguiluz/easyslugger": "^1.0",
+        "kreta/user":                "^0.5.0",
+        "kreta/project":             "^0.5.0"
     },
     "require-dev": {
-        "phpspec/phpspec": "^2.4"
+        "phpspec/phpspec":           "^2.4"
     },
     "repositories": [
         {

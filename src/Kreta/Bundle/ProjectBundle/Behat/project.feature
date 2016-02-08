@@ -22,10 +22,13 @@ Feature: Manage projects
       | id | name       | creator        |
       | 0  | Workflow 1 | user@kreta.com |
       | 1  | Workflow 2 | user@kreta.com |
+    And the following organizations exist:
+      | id | name                | creator        |
+      | 0  | Test organization 1 | user@kreta.com |
     And the following projects exist:
-      | id | name           | shortName | creator        | workflow   |
-      | 0  | Test project 1 | TPR1      | user@kreta.com | Workflow 1 |
-      | 1  | Test project 2 | TPR2      | user@kreta.com | Workflow 2 |
+      | id | name           | creator        | workflow   | organization        |
+      | 0  | Test project 1 | user@kreta.com | Workflow 1 | Test organization 1 |
+      | 1  | Test project 2 | user@kreta.com | Workflow 2 | Test organization 1 |
     And the following medias exist:
       | id | name          | createdAt  | updatedAt | resource        |
       | 0  | project-1.jpg | 2014-10-30 | null      | Test project 1  |
@@ -147,26 +150,26 @@ Feature: Manage projects
           "issue_priorities": [
             {
               "id": "0",
-              "name": "Low",
-              "color": "#969696"
+              "color": "#969696",
+              "name": "Low"
             },
             {
               "id": "1",
-              "name": "Medium",
-              "color": "#67b86a"
+              "color": "#67b86a",
+              "name": "Medium"
             },
             {
               "id": "2",
-              "name": "High",
-              "color": "#f07f2c"
+              "color": "#f07f2c",
+              "name": "High"
             },
             {
               "id": "3",
-              "name": "Blocker",
-              "color": "#f02c4c"
+              "color": "#f02c4c",
+              "name": "Blocker"
             }
           ],
-          "short_name": "TPR1",
+          "slug": "test-project-1",
           "_links": {
             "self": {
               "href": "http://kreta.test:8000/api/projects/0"
@@ -182,6 +185,9 @@ Feature: Manage projects
             },
             "issue_priorities": {
               "href": "http://kreta.test:8000/api/projects/0/issue-priorities"
+            },
+            "organization": {
+              "href": "http://kreta.test:8000/api/organizations/0"
             },
             "workflow": {
               "href": "http://kreta.test:8000/api/workflows/0"
@@ -257,16 +263,16 @@ Feature: Manage projects
           "issue_priorities": [
             {
               "id": "4",
-              "name": "Low",
-              "color": "#969696"
+              "color": "#969696",
+              "name": "Low"
             },
             {
               "id": "5",
-              "name": "Medium",
-              "color": "#67b86a"
+              "color": "#67b86a",
+              "name": "Medium"
             }
           ],
-          "short_name": "TPR2",
+          "slug": "test-project-2",
           "_links": {
             "self": {
               "href": "http://kreta.test:8000/api/projects/1"
@@ -282,6 +288,9 @@ Feature: Manage projects
             },
             "issue_priorities": {
               "href": "http://kreta.test:8000/api/projects/1/issue-priorities"
+            },
+            "organization": {
+              "href": "http://kreta.test:8000/api/organizations/0"
             },
             "workflow": {
               "href": "http://kreta.test:8000/api/workflows/1"
@@ -382,26 +391,32 @@ Feature: Manage projects
         "issue_priorities": [
           {
             "id": "0",
-            "name": "Low",
-            "color": "#969696"
+            "color": "#969696",
+            "name": "Low"
           },
           {
             "id": "1",
-            "name": "Medium",
-            "color": "#67b86a"
+            "color": "#67b86a",
+            "name": "Medium"
           },
           {
             "id": "2",
-            "name": "High",
-            "color": "#f07f2c"
+            "color": "#f07f2c",
+            "name": "High"
           },
           {
             "id": "3",
-            "name": "Blocker",
-            "color": "#f02c4c"
+            "color": "#f02c4c",
+            "name": "Blocker"
           }
         ],
-        "short_name": "TPR1",
+        "organization": {
+          "id": "0",
+          "image": null,
+          "name": "Test organization 1",
+          "slug": "test-organization-1"
+        },
+        "slug": "test-project-1",
         "workflow": {
           "id": "0",
           "name": "Workflow 1"
@@ -421,6 +436,9 @@ Feature: Manage projects
           },
           "issue_priorities": {
             "href": "http://kreta.test:8000/api/projects/0/issue-priorities"
+          },
+          "organization": {
+            "href": "http://kreta.test:8000/api/organizations/0"
           },
           "workflow": {
             "href": "http://kreta.test:8000/api/workflows/0"
@@ -463,10 +481,10 @@ Feature: Manage projects
     When I send a POST request to "/api/projects" with body:
     """
       {
-        "name": "New project",
-        "shortName": "NPR"
+        "name": "New project"
       }
     """
+    And print response
     Then the response code should be 201
 
   Scenario: Creating a project with workflow
@@ -476,28 +494,39 @@ Feature: Manage projects
     """
       {
         "name": "New project",
-        "shortName": "NPR2",
         "workflow": "0"
       }
     """
     Then the response code should be 201
 
-  Scenario: Creating a project with existing short name
+  Scenario: Creating a project with organization
     Given I am authenticating with "access-token-0" token
     Given I set header "content-type" with value "application/json"
     When I send a POST request to "/api/projects" with body:
     """
       {
-        "name": "New project",
-        "shortName": "TPR1"
+        "name": "New project inside organization",
+        "organization": "0"
+      }
+    """
+    Then the response code should be 201
+
+  Scenario: Creating a project with existing name inside organization
+    Given I am authenticating with "access-token-0" token
+    Given I set header "content-type" with value "application/json"
+    When I send a POST request to "/api/projects" with body:
+    """
+      {
+        "name": "Test project 2",
+        "organization": "0"
       }
     """
     Then the response code should be 400
     And the response should contain json:
     """
       {
-        "shortName": [
-          "Short name is already in use"
+        "name": [
+          "A project with identical name is already exists in this organization"
         ]
       }
     """
@@ -515,7 +544,6 @@ Feature: Manage projects
     """
       {
         "name":[],
-        "shortName":[],
         "image": []
       }
     """
@@ -535,9 +563,6 @@ Feature: Manage projects
       {
         "name":[
           "This value should not be blank."
-        ],
-        "shortName":[
-          "This value should not be blank."
         ]
       }
     """
@@ -549,7 +574,6 @@ Feature: Manage projects
     """
       {
         "name": "New project",
-        "shortName": "NPR",
         "workflow": "0"
       }
     """
@@ -635,26 +659,32 @@ Feature: Manage projects
         "issue_priorities": [
           {
             "id": "0",
-            "name": "Low",
-            "color": "#969696"
+            "color": "#969696",
+            "name": "Low"
           },
           {
             "id": "1",
-            "name": "Medium",
-            "color": "#67b86a"
+            "color": "#67b86a",
+            "name": "Medium"
           },
           {
             "id": "2",
-            "name": "High",
-            "color": "#f07f2c"
+            "color": "#f07f2c",
+            "name": "High"
           },
           {
             "id": "3",
-            "name": "Blocker",
-            "color": "#f02c4c"
+            "color": "#f02c4c",
+            "name": "Blocker"
           }
         ],
-        "short_name": "NPR",
+        "organization": {
+          "id": "0",
+          "image": null,
+          "name": "Test organization 1",
+          "slug": "test-organization-1"
+        },
+        "slug": "new-project",
         "workflow": {
           "id": "0",
           "name": "Workflow 1"
@@ -675,6 +705,9 @@ Feature: Manage projects
           "issue_priorities": {
             "href": "http://kreta.test:8000/api/projects/0/issue-priorities"
           },
+          "organization": {
+            "href": "http://kreta.test:8000/api/organizations/0"
+          },
           "workflow": {
             "href": "http://kreta.test:8000/api/workflows/0"
           },
@@ -694,14 +727,14 @@ Feature: Manage projects
     When I send a PUT request to "/api/projects/0" with body:
     """
       {
-        "name": "New project"
+        "name": ""
       }
     """
     Then the response code should be 400
     And the response should contain json:
     """
       {
-        "shortName":[
+        "name":[
           "This value should not be blank."
         ]
       }

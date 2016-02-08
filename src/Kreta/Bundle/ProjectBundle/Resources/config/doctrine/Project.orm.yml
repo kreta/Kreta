@@ -19,10 +19,9 @@ Kreta\Component\Project\Model\Project:
         name:
             type: string
             length: 140
-        shortName:
-            column: short_name
+        slug:
             type: string
-            length: 4
+            length: 140
     manyToOne:
         organization:
             targetEntity: Kreta\Component\Organization\Model\Interfaces\OrganizationInterface
