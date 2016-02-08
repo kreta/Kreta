@@ -31,6 +31,7 @@ install:
 #    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || export PATH="$GOPATH/bin:$PATH"'
 #    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || go get github.com/Naktibalda/hhvm-serve'
 
+    - sudo echo "127.0.0.1 kreta.test" > /etc/hosts
     - sudo apt-get update
     - sudo apt-get install apache2 libapache2-mod-fastcgi
     - sudo a2enmod rewrite actions fastcgi alias
