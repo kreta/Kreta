@@ -34,9 +34,8 @@ install:
     - sudo cp -f tests/functional/fixtures/ci/travis-ci-apache-hhvm /etc/apache2/sites-available/default
     - sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/default
     - sudo service apache2 restart
-    - apache2 -v
-#    - hhvm -m daemon -vServer.Type=fastcgi -vServer.Port=9000 -vServer.FixPathInfo=true
-    - hhvm --mode server -d hhvm.server.type=fastcgi -d hhvm.server.port=9000
+#    - hhvm --mode daemon -d hhvm.server.type=fastcgi -d hhvm.server.port=9000
+    - hhvm -m daemon -vServer.Type=fastcgi -vServer.Port=9000 -vServer.FixPathInfo=true
 
     # Run HHVM
 #    - sudo echo "PIDFILE=\"/tmp/hhvm.pid\"" >> /etc/default/hhvm

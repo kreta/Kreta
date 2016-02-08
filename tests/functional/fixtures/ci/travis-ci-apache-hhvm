@@ -27,10 +27,12 @@ Listen 8000
   #ProxyPass / fcgi://127.0.0.1:9090%TRAVIS_BUILD_DIR%/tests/functional/fixtures/web
   
   <IfModule mod_fastcgi.c>
-    AddHandler php5-fcgi .php
-    Action php5-fcgi /php5-fcgi
-    Alias /php5-fcgi /usr/lib/cgi-bin/php5-fcgi
-    FastCgiExternalServer /usr/lib/cgi-bin/php5-fcgi -host 127.0.0.1:9000 -pass-header Authorization
+    <FilesMatch \.php$>
+      SetHandler hhvm-php-extension
+    </FilesMatch>
+    Alias /hhvm /hhvm
+    Action hhvm-php-extension /hhvm virtual
+    FastCgiExternalServer /hhvm -host 127.0.0.1:9000 -pass-header Authorization -idle-timeout 300
   </IfModule>
 
 </VirtualHost>
