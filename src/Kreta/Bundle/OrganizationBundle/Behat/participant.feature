@@ -45,14 +45,14 @@ Feature: Manage organization participant
     Given I am authenticating with "access-token-0" token
     When I send a GET request to "/api/organizations/0/participants"
     Then the response code should be 200
-    And print response
     And the response should contain json:
     """
       [
         {
           "organization": {
             "id": "0",
-            "name": "Test organization 1"
+            "name": "Test organization 1",
+            "slug": "test-organization-1"
           },
           "role": "ROLE_ORG_ADMIN",
           "user": {
@@ -81,7 +81,8 @@ Feature: Manage organization participant
         {
           "organization": {
             "id": "0",
-            "name": "Test organization 1"
+            "name": "Test organization 1",
+            "slug": "test-organization-1"
           },
           "role": "ROLE_ORG_PARTICIPANT",
           "user": {
@@ -145,7 +146,8 @@ Feature: Manage organization participant
         {
           "organization": {
             "id": "0",
-            "name": "Test organization 1"
+            "name": "Test organization 1",
+            "slug": "test-organization-1"
           },
           "role": "ROLE_ORG_ADMIN",
           "user": {
@@ -184,7 +186,8 @@ Feature: Manage organization participant
         {
           "organization": {
             "id": "0",
-            "name": "Test organization 1"
+            "name": "Test organization 1",
+            "slug": "test-organization-1"
           },
           "role": "ROLE_ORG_ADMIN",
           "user": {
@@ -213,7 +216,8 @@ Feature: Manage organization participant
         {
           "organization": {
             "id": "0",
-            "name": "Test organization 1"
+            "name": "Test organization 1",
+            "slug": "test-organization-1"
           },
           "role": "ROLE_ORG_PARTICIPANT",
           "user": {
@@ -255,7 +259,8 @@ Feature: Manage organization participant
         {
           "organization": {
             "id": "1",
-            "name": "Test organization 2"
+            "name": "Test organization 2",
+            "slug": "test-organization-2"
           },
           "role": "ROLE_ORG_PARTICIPANT",
           "user": {
@@ -318,7 +323,8 @@ Feature: Manage organization participant
       {
         "organization": {
           "id": "0",
-          "name": "Test organization 1"
+          "name": "Test organization 1",
+          "slug": "test-organization-1"
         },
         "role": "ROLE_ORG_ADMIN",
         "user": {
@@ -334,7 +340,7 @@ Feature: Manage organization participant
         },
         "_links": {
           "participants": {
-            "href": "http://kreta.test:8000/api/projects/0/participants"
+            "href": "http://kreta.test:8000/api/organizations/0/participants"
           },
           "organization": {
             "href": "http://kreta.test:8000/api/organizations/0"

@@ -17,7 +17,9 @@ Kreta\Component\Organization\Model\Participant:
                     organizationId: expr(object.getOrganization().getId())
                 absolute: 0
             exclusion:
-                groups: [organizationParticipantList, organizationParticipant]
+                groups:
+                    - organizationParticipantList
+                    - organizationParticipant
         -
             rel: organization
             href:
@@ -26,28 +28,46 @@ Kreta\Component\Organization\Model\Participant:
                     organizationId: expr(object.getOrganization().getId())
                 absolute: 0
             exclusion:
-                groups: [organizationParticipantList, organizationParticipant]
+                groups:
+                    - organizationParticipantList
+                    - organizationParticipant
         -
             rel: organizations
             href:
                 route: get_organizations
                 absolute: 0
             exclusion:
-                groups: [organizationParticipantList, organizationParticipant]
+                groups:
+                    - organizationParticipantList
+                    - organizationParticipant
         -
             rel: projects
             href:
                 route: get_projects
                 absolute: 0
             exclusion:
-                groups: [organizationParticipantList, organizationParticipant]
+                groups:
+                    - organizationParticipantList
+                    - organizationParticipant
     properties:
         organization:
-            expose: false
-            groups: [organizationList, organization, organizationParticipantList, organizationParticipant]
+            expose: true
+            groups:
+#                - organizationList
+#                - organization
+                - organizationParticipantList
+                - organizationParticipant
         user:
             expose: true
-            groups: [organizationList, organization, organizationParticipantList, organizationParticipant]
+            groups:
+                - organizationList
+                - organization
+                - organizationParticipantList
+                - organizationParticipant
         role:
             expose: true
-            groups: [organizationList, organization, organizationParticipantList, organizationParticipant]
+            groups:
+                - organizationList
+                - organization
+                - organizationParticipantList
+                - organizationParticipant

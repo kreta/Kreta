@@ -23,9 +23,9 @@ Feature: Manage project participant
       | id | name                | creator        |
       | 0  | Test organization 1 | user@kreta.com |
     And the following projects exist:
-      | id | name           | creator        | workflow   | organization        |
-      | 0  | Test project 1 | user@kreta.com | Workflow 1 | Test organization 1 |
-      | 1  | Test project 2 | user@kreta.com | Workflow 2 | Test organization 1 |
+      | id | name           | creator        | organization        |
+      | 0  | Test project 1 | user@kreta.com | Test organization 1 |
+      | 1  | Test project 2 | user@kreta.com | Test organization 1 |
     And the following medias exist:
       | id | name          | createdAt  | updatedAt | resource        |
       | 0  | project-1.jpg | 2014-10-30 | null      | Test project 1  |
@@ -48,6 +48,7 @@ Feature: Manage project participant
     Given I am authenticating with "access-token-0" token
     When I send a GET request to "/api/projects/0/participants"
     Then the response code should be 200
+    And print response
     And the response should contain json:
     """
       [
@@ -55,7 +56,7 @@ Feature: Manage project participant
           "project": {
             "id": "0",
             "name": "Test project 1",
-            "short_name": "TPR1"
+            "slug": "test-project-1"
           },
           "role": "ROLE_ADMIN",
           "user": {
@@ -85,7 +86,7 @@ Feature: Manage project participant
           "project": {
             "id": "0",
             "name": "Test project 1",
-            "short_name": "TPR1"
+            "slug": "test-project-1"
           },
           "role": "ROLE_PARTICIPANT",
           "user": {
@@ -150,7 +151,7 @@ Feature: Manage project participant
           "project": {
             "id": "0",
             "name": "Test project 1",
-            "short_name": "TPR1"
+            "slug": "test-project-1"
           },
           "role": "ROLE_ADMIN",
           "user": {
@@ -190,7 +191,7 @@ Feature: Manage project participant
           "project": {
             "id": "0",
             "name": "Test project 1",
-            "short_name": "TPR1"
+            "slug": "test-project-1"
           },
           "role": "ROLE_ADMIN",
           "user": {
@@ -220,7 +221,7 @@ Feature: Manage project participant
           "project": {
             "id": "0",
             "name": "Test project 1",
-            "short_name": "TPR1"
+            "slug": "test-project-1"
           },
           "role": "ROLE_PARTICIPANT",
           "user": {
@@ -263,7 +264,7 @@ Feature: Manage project participant
           "project": {
             "id": "1",
             "name": "Test project 2",
-            "short_name": "TPR2"
+            "slug": "test-project-2"
           },
           "role": "ROLE_PARTICIPANT",
           "user": {
@@ -327,7 +328,7 @@ Feature: Manage project participant
         "project": {
           "id": "0",
           "name": "Test project 1",
-          "short_name": "TPR1"
+          "slug": "test-project-1"
         },
         "role": "ROLE_ADMIN",
         "user": {

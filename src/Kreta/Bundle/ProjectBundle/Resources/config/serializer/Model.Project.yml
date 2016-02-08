@@ -89,7 +89,7 @@ Kreta\Component\Project\Model\Project:
     properties:
         id:
             expose: true
-            groups: [projectList, project]
+            groups: [projectList, project, participantList, participant]
         image:
             expose: true
             groups: [projectList, project]

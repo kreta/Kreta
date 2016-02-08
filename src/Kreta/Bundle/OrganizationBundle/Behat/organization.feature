@@ -42,7 +42,6 @@ Feature: Manage organizations
     Given I am authenticating with "access-token-0" token
     When I send a GET request to "/api/organizations"
     Then the response code should be 200
-    And print response
     And the response should contain json:
     """
       [
@@ -55,12 +54,8 @@ Feature: Manage organizations
           "name": "Test organization 1",
           "participants": [
             {
-              "organization": null,
               "role": "ROLE_ORG_ADMIN",
               "user": {
-                "id": "0",
-                "username": "user",
-                "email": "user@kreta.com",
                 "created_at": "2014-10-20T00:00:00+0200",
                 "first_name": "Kreta",
                 "last_name": "User",
@@ -68,12 +63,8 @@ Feature: Manage organizations
               }
             },
             {
-              "organization": null,
               "role": "ROLE_ORG_PARTICIPANT",
               "user": {
-                "id": "2",
-                "username": "user3",
-                "email": "user3@kreta.com",
                 "created_at": "2014-10-20T00:00:00+0200",
                 "first_name": "Kreta",
                 "last_name": "User3",
@@ -84,6 +75,7 @@ Feature: Manage organizations
               }
             }
           ],
+          "slug": "test-organization-1",
           "_links": {
             "self": {
               "href": "http://kreta.test:8000/api/organizations/0"
@@ -105,12 +97,8 @@ Feature: Manage organizations
           "name": "Test organization 2",
           "participants": [
             {
-              "organization": null,
               "role": "ROLE_ORG_ADMIN",
               "user": {
-                "id": "0",
-                "username": "user",
-                "email": "user@kreta.com",
                 "created_at": "2014-10-20T00:00:00+0200",
                 "first_name": "Kreta",
                 "last_name": "User",
@@ -118,12 +106,8 @@ Feature: Manage organizations
               }
             },
             {
-              "organization": null,
               "role": "ROLE_ORG_PARTICIPANT",
               "user": {
-                "id": "1",
-                "username": "user2",
-                "email": "user2@kreta.com",
                 "created_at": "2014-10-20T00:00:00+0200",
                 "first_name": "Kreta",
                 "last_name": "User2",
@@ -134,6 +118,7 @@ Feature: Manage organizations
               }
             }
           ],
+          "slug": "test-organization-2",
           "_links": {
             "self": {
               "href": "http://kreta.test:8000/api/organizations/1"
@@ -166,12 +151,8 @@ Feature: Manage organizations
         "name": "Test organization 1",
         "participants": [
           {
-            "organization": null,
             "role": "ROLE_ORG_ADMIN",
             "user": {
-              "id": "0",
-              "username": "user",
-              "email": "user@kreta.com",
               "created_at": "2014-10-20T00:00:00+0200",
               "first_name": "Kreta",
               "last_name": "User",
@@ -179,12 +160,8 @@ Feature: Manage organizations
             }
           },
           {
-            "organization": null,
             "role": "ROLE_ORG_PARTICIPANT",
             "user": {
-              "id": "2",
-              "username": "user3",
-              "email": "user3@kreta.com",
               "created_at": "2014-10-20T00:00:00+0200",
               "first_name": "Kreta",
               "last_name": "User3",
@@ -197,6 +174,7 @@ Feature: Manage organizations
             }
           }
         ],
+        "slug": "test-organization-1",
         "_links": {
           "self": {
             "href": "http://kreta.test:8000/api/organizations/0"
@@ -242,6 +220,7 @@ Feature: Manage organizations
         "name": "New organization"
       }
     """
+    And print response
     Then the response code should be 201
 
   Scenario: Creating a organization with existing name
@@ -253,6 +232,7 @@ Feature: Manage organizations
         "name": "Test organization 1"
       }
     """
+    And print response
     Then the response code should be 400
     And the response should contain json:
     """
@@ -322,12 +302,8 @@ Feature: Manage organizations
         "name": "Updated organization name",
         "participants": [
           {
-            "organization": null,
             "role": "ROLE_ORG_ADMIN",
             "user": {
-              "id": "0",
-              "username": "user",
-              "email": "user@kreta.com",
               "created_at": "2014-10-20T00:00:00+0200",
               "first_name": "Kreta",
               "last_name": "User",
@@ -335,12 +311,8 @@ Feature: Manage organizations
             }
           },
           {
-            "organization": null,
             "role": "ROLE_ORG_PARTICIPANT",
             "user": {
-              "id": "2",
-              "username": "user3",
-              "email": "user3@kreta.com",
               "created_at": "2014-10-20T00:00:00+0200",
               "first_name": "Kreta",
               "last_name": "User3",
@@ -353,7 +325,8 @@ Feature: Manage organizations
             }
           }
         ],
-        "links": {
+        "slug": "updated-organization-name",
+        "_links": {
           "self": {
             "href": "http://kreta.test:8000/api/organizations/0"
           },
