@@ -4,6 +4,9 @@ Listen 8000
   DocumentRoot %TRAVIS_BUILD_DIR%/tests/functional/fixtures/web
   ServerName kreta.test
 
+  ErrorLog "%TRAVIS_BUILD_DIR%/apache_error.log"
+  CustomLog "%TRAVIS_BUILD_DIR%/apache_access.log" combined
+
   <Directory "%TRAVIS_BUILD_DIR%/tests/functional/fixtures/web">
     Options FollowSymLinks MultiViews ExecCGI
     AllowOverride All
@@ -14,16 +17,25 @@ Listen 8000
   # Configure Apache for HHVM FastCGI.
   # See https://github.com/facebook/hhvm/wiki/fastcgi.
   #<IfModule mod_fastcgi.c>
-  #    <FilesMatch \.php$>
-  #        SetHandler hhvm-php-extension
-  #    </FilesMatch>
+  #  <FilesMatch \.php$>
+  #    SetHandler hhvm-php-extension
+  #  </FilesMatch>
 
-  #    Alias /hhvm /hhvm
-  #    Action hhvm-php-extension /hhvm virtual
+  #  Alias /hhvm /hhvm
+  #  Action hhvm-php-extension /hhvm virtual
 
   #   FastCgiExternalServer /hhvm -host 127.0.0.1:9090 -pass-header Authorization -idle-timeout 300
   #</IfModule>
 
-  ProxyPass / fcgi://127.0.0.1:9090%TRAVIS_BUILD_DIR%/tests/functional/fixtures/web
+  #ProxyPass / fcgi://127.0.0.1:9090%TRAVIS_BUILD_DIR%/tests/functional/fixtures/web
+  
+  <IfModule mod_fastcgi.c>
+    <FilesMatch \.php$>
+      SetHandler hhvm-php-extension
+    </FilesMatch>
+    Alias /hhvm /hhvm
+    Action hhvm-php-extension /hhvm virtual
+    FastCgiExternalServer /hhvm -host 127.0.0.1:9000 -pass-header Authorization
+  </IfModule>
 
 </VirtualHost>

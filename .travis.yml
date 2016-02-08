@@ -21,7 +21,9 @@ php:
     - hhvm
 
 env:
-    - COMPOSER_OPTIONS="--prefer-source"
+    global:
+        - SYMFONY_ENV=test
+        - COMPOSER_OPTIONS="--prefer-source"
 
 install:
 #    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || mkdir -p /home/travis/go/{src,bin,pkg}'
@@ -29,18 +31,14 @@ install:
 #    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || export PATH="$GOPATH/bin:$PATH"'
 #    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || go get github.com/Naktibalda/hhvm-serve'
 
+    - echo '127.0.0.1 kreta.test' | sudo tee --append /etc/hosts
+    - sudo apt-get update
     - sudo apt-get install apache2 libapache2-mod-fastcgi
-    - sudo a2enmod rewrite actions fastcgi alias proxy
-
-    # HHVM Daemon
-    - hhvm --mode daemon -d hhvm.server.type=fastcgi -d hhvm.server.port=9090
-
-    # Configure apache virtual hosts
-    - sudo cp -f tests/functional/fixtures/ci/travis-ci-apache-hhvm /etc/apache2/sites-available/kreta
-    - sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/kreta
-#    - echo "127.0.0.1 kreta.test" | sudo tee -a /etc/hosts
-    - sudo a2ensite kreta
+    - sudo a2enmod rewrite actions fastcgi alias
+    - sudo cp -f tests/functional/fixtures/ci/travis-ci-apache-hhvm /etc/apache2/sites-available/default
+    - sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/default
     - sudo service apache2 restart
+    - hhvm -m daemon -vServer.Type=fastcgi -vServer.Port=9000 -vServer.FixPathInfo=true -vLog.Level=verbose -vLog.UseLogFile=true -vLog.File=/tmp/hhvm.log -vLog.AlwaysLogUnhandledExceptions=true -vPidFile=/tmp/hhvm.pid
 
     # Run HHVM
 #    - sudo echo "PIDFILE=\"/tmp/hhvm.pid\"" >> /etc/default/hhvm
@@ -115,6 +113,11 @@ script:
 
 #after_script:
 #    - vendor/bin/coveralls -v
+
+after_failure:
+  - cat apache_error.log
+  - cat apache_access.log
+  - cat /tmp/hhvm.log
 
 cache:
     directories:
