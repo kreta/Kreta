@@ -37,7 +37,7 @@ install:
     - sudo a2ensite kreta
     - sudo service apache2 restart
 #    - hhvm --mode daemon -d hhvm.server.type=fastcgi -d hhvm.server.port=9000
-    - sudo echo "PIDFILE=\"/tmp/hhvm.pid\"" >> /etc/default/hhvm
+#    - sudo echo "PIDFILE=\"/tmp/hhvm.pid\"" >> /etc/default/hhvm
     - hhvm -m daemon -vServer.Type=fastcgi -vServer.Port=9000 -vServer.FixPathInfo=true -vLog.Level=verbose -vLog.UseLogFile=true -vLog.File=/tmp/hhvm.log -vLog.AlwaysLogUnhandledExceptions=true
 
     # Run HHVM
