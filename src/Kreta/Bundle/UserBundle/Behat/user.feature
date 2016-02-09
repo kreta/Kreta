@@ -31,6 +31,7 @@ Feature: Manage users
   Scenario: Getting all the users
     Given I am authenticating with "access-token-0" token
     When I send a GET request to "/api/users"
+    And print response
     Then the response code should be 200
     And the response should contain json:
     """
@@ -45,6 +46,7 @@ Feature: Manage users
           "first_name": "Kreta",
           "last_name": "User",
           "photo": {
+            "id": "1",
             "created_at": "2014-10-30T00:00:00+0100",
             "name": "http://kreta.test:8000/media/image/user-1.jpg",
             "updated_at": null
@@ -60,6 +62,7 @@ Feature: Manage users
           "first_name": "Kreta",
           "last_name": "User2",
           "photo": {
+            "id": "2",
             "created_at": "2014-10-30T00:00:00+0100",
             "name": "http://kreta.test:8000/media/image/user-2.jpg",
             "updated_at": null
