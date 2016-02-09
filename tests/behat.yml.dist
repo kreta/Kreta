@@ -123,7 +123,7 @@ default:
                 tags: "@notification"
         organization:
             paths:
-                features: src/Kreta/src/Kreta/Bundle/OrganizationBundle
+                features: src/Kreta/Bundle/OrganizationBundle
             contexts:
                 - Kreta\Bundle\CoreBundle\Behat\Context\OauthContext
                 - Kreta\Bundle\MediaBundle\Behat\Context\MediaContext

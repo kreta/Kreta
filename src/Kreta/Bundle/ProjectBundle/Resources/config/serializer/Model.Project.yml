@@ -59,6 +59,7 @@ Kreta\Component\Project\Model\Project:
                 absolute: 0
             exclusion:
                 groups: [projectList, project]
+                exclude_if: expr(object.getOrganization() === null)
         -
             rel: workflow
             href:

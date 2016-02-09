@@ -484,7 +484,6 @@ Feature: Manage projects
         "name": "New project"
       }
     """
-    And print response
     Then the response code should be 201
 
   Scenario: Creating a project with workflow

@@ -48,7 +48,6 @@ Feature: Manage project participant
     Given I am authenticating with "access-token-0" token
     When I send a GET request to "/api/projects/0/participants"
     Then the response code should be 200
-    And print response
     And the response should contain json:
     """
       [
