@@ -32,7 +32,6 @@ class OrganizationController extends Controller
      *
      * @param ParamFetcher $paramFetcher The param fetcher
      *
-     * @QueryParam(name="sort", requirements="name", default="name", description="Sort")
      * @QueryParam(name="limit", requirements="\d+", default="9999", description="Amount of orgs to be returned")
      * @QueryParam(name="offset", requirements="\d+", default="0", description="Offset in pages")
      *
@@ -45,7 +44,7 @@ class OrganizationController extends Controller
     {
         return $this->get('kreta_organization.repository.organization')->findByParticipant(
             $this->getUser(),
-            [$paramFetcher->get('sort') => 'ASC'],
+            ['name' => 'ASC'],
             $paramFetcher->get('limit'),
             $paramFetcher->get('offset')
         );
@@ -99,6 +98,32 @@ class OrganizationController extends Controller
     {
         return $this->get('kreta_organization.form_handler.organization')->processForm(
             $request, $request->get('organization'), ['method' => 'PUT']
+        );
+    }
+
+    /**
+     * Returns all the projects of given organization, it admits limit and offset.
+     *
+     * @param Request      $request        The request
+     * @param ParamFetcher $paramFetcher   The param fetcher
+     * @param string       $organizationId The organization id
+     *
+     * @QueryParam(name="limit", requirements="\d+", default="9999", description="Amount of projects to be returned")
+     * @QueryParam(name="offset", requirements="\d+", default="0", description="Offset in pages")
+     *
+     * @ApiDoc(statusCodes={200, 403, 404})
+     * @View(statusCode=200, serializerGroups={"projectList"})
+     * @Organization()
+     *
+     * @return \Kreta\Component\Project\Model\Interfaces\ProjectInterface[]
+     */
+    public function getOrganizationProjectsAction(Request $request, ParamFetcher $paramFetcher, $organizationId)
+    {
+        return $this->get('kreta_project.repository.project')->findByOrganization(
+            $request->get('organization'),
+            ['name' => 'ASC'],
+            $paramFetcher->get('limit'),
+            $paramFetcher->get('offset')
         );
     }
 }

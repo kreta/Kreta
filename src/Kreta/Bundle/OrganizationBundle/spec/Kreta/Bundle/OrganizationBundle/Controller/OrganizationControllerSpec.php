@@ -16,6 +16,8 @@ use FOS\RestBundle\Request\ParamFetcher;
 use Kreta\Component\Organization\Form\Handler\OrganizationHandler;
 use Kreta\Component\Organization\Model\Interfaces\OrganizationInterface;
 use Kreta\Component\Organization\Repository\OrganizationRepository;
+use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
+use Kreta\Component\Project\Repository\ProjectRepository;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -64,7 +66,6 @@ class OrganizationControllerSpec extends ObjectBehavior
         $context->getToken()->shouldBeCalled()->willReturn($token);
         $token->getUser()->shouldBeCalled()->willReturn($user);
 
-        $paramFetcher->get('sort')->shouldBeCalled()->willReturn('name');
         $paramFetcher->get('limit')->shouldBeCalled()->willReturn(10);
         $paramFetcher->get('offset')->shouldBeCalled()->willReturn(1);
         $organizationRepository->findByParticipant($user, ['name' => 'ASC'], 10, 1)
@@ -106,5 +107,23 @@ class OrganizationControllerSpec extends ObjectBehavior
             ->shouldBeCalled()->willReturn($organization);
 
         $this->putOrganizationsAction($request, 'organization-id')->shouldReturn($organization);
+    }
+
+    function it_gets_projects_of_organization_given(
+        Request $request,
+        ParamFetcher $paramFetcher,
+        OrganizationInterface $organization,
+        ContainerInterface $container,
+        ProjectRepository $projectRepository,
+        ProjectInterface $project
+    ) {
+        $request->get('organization')->shouldBeCalled()->willReturn($organization);
+        $paramFetcher->get('limit')->shouldBeCalled()->willReturn(10);
+        $paramFetcher->get('offset')->shouldBeCalled()->willReturn(1);
+        $container->get('kreta_project.repository.project')->shouldBeCalled()->willReturn($projectRepository);
+        $projectRepository->findByOrganization($organization, ['name' => 'ASC'], 10, 1)
+            ->shouldBeCalled()->willReturn([$project]);
+
+        $this->getOrganizationProjectsAction($request, $paramFetcher, 'organization-id')->shouldReturn([$project]);
     }
 }

@@ -13,6 +13,7 @@
 namespace Kreta\Component\Project\Repository;
 
 use Kreta\Component\Core\Repository\EntityRepository;
+use Kreta\Component\Organization\Model\Interfaces\OrganizationInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 
 /**
@@ -27,16 +28,36 @@ class ProjectRepository extends EntityRepository
      * Finds all the projects where user given is participant.
      * Can do ordering, limit and offset.
      *
-     * @param \Kreta\Component\User\Model\Interfaces\UserInterface $user    The user
-     * @param string[]                                             $sorting Array which contains the sorting as key/val
-     * @param int                                                  $limit   The limit
-     * @param int                                                  $offset  The offset
+     * @param UserInterface $user    The user
+     * @param string[]      $sorting Array which contains the sorting as key/val
+     * @param int           $limit   The limit
+     * @param int           $offset  The offset
      *
      * @return \Kreta\Component\Project\Model\Interfaces\ProjectInterface[]
      */
     public function findByParticipant(UserInterface $user, array $sorting = [], $limit = null, $offset = null)
     {
         return $this->findBy(['par.user' => $user], $sorting, $limit, $offset);
+    }
+
+    /**
+     * Finds all the projects of organization given.
+     * Can do ordering, limit and offset.
+     *
+     * @param OrganizationInterface $organization The organization
+     * @param string[]              $sorting      Array which contains the sorting as key/val
+     * @param int                   $limit        The limit
+     * @param int                   $offset       The offset
+     *
+     * @return \Kreta\Component\Project\Model\Interfaces\ProjectInterface[]
+     */
+    public function findByOrganization(
+        OrganizationInterface $organization,
+        array $sorting = [],
+        $limit = null,
+        $offset = null
+    ) {
+        return $this->findBy(['organization' => $organization], $sorting, $limit, $offset);
     }
 
     /**

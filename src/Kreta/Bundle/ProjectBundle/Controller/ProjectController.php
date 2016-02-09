@@ -29,7 +29,7 @@ use Symfony\Component\HttpFoundation\Request;
 class ProjectController extends Controller
 {
     /**
-     * Returns all the projects of current user, it admits sort, limit and offset.
+     * Returns all the projects of current user, it admits limit and offset.
      *
      * @param \FOS\RestBundle\Request\ParamFetcher $paramFetcher The param fetcher
      *
