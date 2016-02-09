@@ -220,7 +220,6 @@ Feature: Manage organizations
         "name": "New organization"
       }
     """
-    And print response
     Then the response code should be 201
 
   Scenario: Creating a organization with existing name
@@ -232,7 +231,6 @@ Feature: Manage organizations
         "name": "Test organization 1"
       }
     """
-    And print response
     Then the response code should be 400
     And the response should contain json:
     """

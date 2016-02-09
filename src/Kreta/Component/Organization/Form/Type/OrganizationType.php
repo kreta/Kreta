@@ -41,6 +41,6 @@ class OrganizationType extends AbstractType
      */
     protected function createEmptyData(FormInterface $form)
     {
-        return $this->factory->create($form->get('name'), $this->user, $form->get('image')->getData());
+        return $this->factory->create($form->get('name')->getData(), $this->user, $form->get('image')->getData());
     }
 }
