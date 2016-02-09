@@ -18,6 +18,10 @@ kreta_notification:
     type: rest
     resource: '@KretaNotificationBundle/Resources/config/routing.yml'
 
+kreta_organization:
+    type: rest
+    resource: '@KretaOrganizationBundle/Resources/config/routing.yml'
+
 kreta_user:
     type: rest
     resource: '@KretaUserBundle/Resources/config/routing/routing.yml'

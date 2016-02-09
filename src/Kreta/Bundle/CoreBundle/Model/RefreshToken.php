@@ -12,7 +12,7 @@
 
 namespace Kreta\Bundle\CoreBundle\Model;
 
-use FOS\OAuthServerBundle\Entity\AccessToken as BaseRefreshToken;
+use FOS\OAuthServerBundle\Entity\RefreshToken as BaseRefreshToken;
 use Kreta\Bundle\CoreBundle\Model\Interfaces\RefreshTokenInterface;
 
 /**

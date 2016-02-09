@@ -80,18 +80,21 @@ script:
 
     - vendor/bin/phpspec run
 
-    - vendor/bin/behat --stop-on-failure --suite=oauth
     - vendor/bin/behat --stop-on-failure --suite=authentication
-    - vendor/bin/behat --stop-on-failure --suite=user
     - vendor/bin/behat --stop-on-failure --suite=invitation
-    - vendor/bin/behat --stop-on-failure --suite=profile
     - vendor/bin/behat --stop-on-failure --suite=issue
-    - vendor/bin/behat --stop-on-failure --suite=label
-    - vendor/bin/behat --stop-on-failure --suite=participant
     - vendor/bin/behat --stop-on-failure --suite=issuePriority
+    - vendor/bin/behat --stop-on-failure --suite=label
+    - vendor/bin/behat --stop-on-failure --suite=notification
+    - vendor/bin/behat --stop-on-failure --suite=oauth
+    - vendor/bin/behat --stop-on-failure --suite=organization
+    - vendor/bin/behat --stop-on-failure --suite=organizationParticipant
     - vendor/bin/behat --stop-on-failure --suite=project
+    - vendor/bin/behat --stop-on-failure --suite=projectParticipant
+    - vendor/bin/behat --stop-on-failure --suite=profile
     - vendor/bin/behat --stop-on-failure --suite=status
     - vendor/bin/behat --stop-on-failure --suite=statusTransition
+    - vendor/bin/behat --stop-on-failure --suite=user
     - vendor/bin/behat --stop-on-failure --suite=workflow
 
 after_script:

@@ -14,6 +14,8 @@ namespace Kreta\Bundle\MediaBundle\Behat\Context;
 
 use Behat\Gherkin\Node\TableNode;
 use Kreta\Bundle\CoreBundle\Behat\Context\DefaultContext;
+use Kreta\Component\Media\Model\Interfaces\MediaInterface;
+use Kreta\Component\Organization\Model\Interfaces\OrganizationInterface;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use Symfony\Component\DependencyInjection\Exception\ServiceNotFoundException;
@@ -75,6 +77,8 @@ class MediaContext extends DefaultContext
     protected function getPath($name)
     {
         switch (true) {
+            case strpos($name, 'organization') !== false:
+                return '/Resources/image/organizations';
             case strpos($name, 'project') !== false:
                 return '/Resources/image/projects';
             case strpos($name, 'user') !== false:
@@ -93,6 +97,8 @@ class MediaContext extends DefaultContext
     protected function getUploader($name)
     {
         switch (true) {
+            case strpos($name, 'organization') !== false:
+                return 'kreta_organization.uploader.image_organization';
             case strpos($name, 'project') !== false:
                 return 'kreta_project.uploader.image_project';
             case strpos($name, 'user') !== false:
@@ -104,13 +110,20 @@ class MediaContext extends DefaultContext
     /**
      * Adds media to resource.
      *
-     * @param \Kreta\Component\Media\Model\Interfaces\MediaInterface $media    The media
-     * @param string                                                 $resource Resource where the media will be added
+     * @param MediaInterface $media    The media
+     * @param string         $resource Resource where the media will be added
      *
      * @return self $this Object
      */
-    protected function addMedia($media, $resource)
+    protected function addMedia(MediaInterface $media, $resource)
     {
+        $result = $this->get('kreta_organization.repository.organization')->findOneBy(['name' => $resource]);
+        if ($result instanceof OrganizationInterface) {
+            $result->setImage($media);
+            $this->getManager()->persist($result);
+
+            return $this;
+        }
         $result = $this->get('kreta_project.repository.project')->findOneBy(['name' => $resource]);
         if ($result instanceof ProjectInterface) {
             $result->setImage($media);

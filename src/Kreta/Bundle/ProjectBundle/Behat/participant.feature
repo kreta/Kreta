@@ -6,23 +6,26 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 
-@participant
-Feature: Manage participant
-  In order to manage participants
-  As an API participant
-  I want to be able to GET, POST and DELETE participants
+@projectParticipant
+Feature: Manage project participant
+  In order to manage project participants
+  As an API project participant
+  I want to be able to GET, POST and DELETE project participants
 
   Background:
     Given the following users exist:
-      | id | firstName | lastName | username|email           | password | createdAt  |
-      | 0  | Kreta     | User     | user    |user@kreta.com  | 123456   | 2014-10-20 |
-      | 1  | Kreta     | User2    | user2   |user2@kreta.com | 123456   | 2014-10-20 |
-      | 2  | Kreta     | User3    | user3   |user3@kreta.com | 123456   | 2014-10-20 |
-      | 3  | Kreta     | User4    | user4   |user4@kreta.com | 123456   | 2014-10-20 |
+      | id | firstName | lastName | username | email           | password | createdAt  |
+      | 0  | Kreta     | User     | user     | user@kreta.com  | 123456   | 2014-10-20 |
+      | 1  | Kreta     | User2    | user2    | user2@kreta.com | 123456   | 2014-10-20 |
+      | 2  | Kreta     | User3    | user3    | user3@kreta.com | 123456   | 2014-10-20 |
+      | 3  | Kreta     | User4    | user4    | user4@kreta.com | 123456   | 2014-10-20 |
+    And the following organizations exist:
+      | id | name                | creator        |
+      | 0  | Test organization 1 | user@kreta.com |
     And the following projects exist:
-      | id | name           | shortName | creator        |
-      | 0  | Test project 1 | TPR1      | user@kreta.com |
-      | 1  | Test project 2 | TPR2      | user@kreta.com |
+      | id | name           | creator        | organization        |
+      | 0  | Test project 1 | user@kreta.com | Test organization 1 |
+      | 1  | Test project 2 | user@kreta.com | Test organization 1 |
     And the following medias exist:
       | id | name          | createdAt  | updatedAt | resource        |
       | 0  | project-1.jpg | 2014-10-30 | null      | Test project 1  |
@@ -52,7 +55,7 @@ Feature: Manage participant
           "project": {
             "id": "0",
             "name": "Test project 1",
-            "short_name": "TPR1"
+            "slug": "test-project-1"
           },
           "role": "ROLE_ADMIN",
           "user": {
@@ -82,7 +85,7 @@ Feature: Manage participant
           "project": {
             "id": "0",
             "name": "Test project 1",
-            "short_name": "TPR1"
+            "slug": "test-project-1"
           },
           "role": "ROLE_PARTICIPANT",
           "user": {
@@ -147,7 +150,7 @@ Feature: Manage participant
           "project": {
             "id": "0",
             "name": "Test project 1",
-            "short_name": "TPR1"
+            "slug": "test-project-1"
           },
           "role": "ROLE_ADMIN",
           "user": {
@@ -187,7 +190,7 @@ Feature: Manage participant
           "project": {
             "id": "0",
             "name": "Test project 1",
-            "short_name": "TPR1"
+            "slug": "test-project-1"
           },
           "role": "ROLE_ADMIN",
           "user": {
@@ -217,7 +220,7 @@ Feature: Manage participant
           "project": {
             "id": "0",
             "name": "Test project 1",
-            "short_name": "TPR1"
+            "slug": "test-project-1"
           },
           "role": "ROLE_PARTICIPANT",
           "user": {
@@ -260,7 +263,7 @@ Feature: Manage participant
           "project": {
             "id": "1",
             "name": "Test project 2",
-            "short_name": "TPR2"
+            "slug": "test-project-2"
           },
           "role": "ROLE_PARTICIPANT",
           "user": {
@@ -324,7 +327,7 @@ Feature: Manage participant
         "project": {
           "id": "0",
           "name": "Test project 1",
-          "short_name": "TPR1"
+          "slug": "test-project-1"
         },
         "role": "ROLE_ADMIN",
         "user": {

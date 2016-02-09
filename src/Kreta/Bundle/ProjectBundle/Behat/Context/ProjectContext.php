@@ -34,20 +34,24 @@ class ProjectContext extends DefaultContext
     public function theFollowingProjectsExist(TableNode $projects)
     {
         foreach ($projects as $projectData) {
+            $organization = null;
+            if (isset($projectData['organization'])) {
+                $organization = $this->get('kreta_organization.repository.organization')
+                    ->findOneBy(['name' => $projectData['organization']]);
+            }
+
             if (isset($projectData['workflow'])) {
                 $workflow = $this->get('kreta_workflow.repository.workflow')
                     ->findOneBy(['name' => $projectData['workflow']], false);
                 $project = $this->get('kreta_project.factory.project')
-                    ->create($workflow->getCreator(), $workflow, false);
+                    ->create($workflow->getCreator(), $organization, $workflow, false);
             } else {
                 $creator = $this->get('kreta_user.repository.user')
                     ->findOneBy(['email' => $projectData['creator']], false);
                 $project = $this->get('kreta_project.factory.project')
-                    ->create($creator, null, false);
+                    ->create($creator, $organization, null, false);
             }
-            $project
-                ->setName($projectData['name'])
-                ->setShortName($projectData['shortName']);
+            $project->setName($projectData['name']);
             if (isset($projectData['id'])) {
                 $this->setId($project, $projectData['id']);
             }

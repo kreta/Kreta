@@ -13,6 +13,7 @@
 namespace Kreta\Bundle\ProjectBundle\Security\Authorization\Voter;
 
 use Kreta\Bundle\CoreBundle\Security\Authorization\Voter\Abstracts\AbstractVoter;
+use Kreta\Component\Project\Model\Interfaces\ParticipantInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -46,6 +47,7 @@ class ProjectVoter extends AbstractVoter
         self::DELETE,
         self::DELETE_PARTICIPANT,
         self::EDIT,
+        self::EDIT_ROLE_PARTICIPANT,
         self::VIEW,
         self::CREATE_ISSUE,
         self::CREATE_LABEL,
@@ -75,7 +77,7 @@ class ProjectVoter extends AbstractVoter
             case self::DELETE_LABEL:
             case self::DELETE_ISSUE_TYPE:
             case self::DELETE_PRIORITY:
-                if ($project->getUserRole($user) === 'ROLE_ADMIN') {
+                if ($project->getUserRole($user) === ParticipantInterface::ADMIN) {
                     return VoterInterface::ACCESS_GRANTED;
                 }
                 break;

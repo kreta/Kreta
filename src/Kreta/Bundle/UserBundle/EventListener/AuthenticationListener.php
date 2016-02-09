@@ -12,15 +12,10 @@
 
 namespace Kreta\Bundle\UserBundle\EventListener;
 
-use FOS\OAuthServerBundle\Model\ClientManagerInterface;
 use FOS\UserBundle\Event\FormEvent;
 use Kreta\Bundle\UserBundle\Event\AuthorizationEvent;
-use Kreta\Bundle\UserBundle\Event\CookieEvent;
+use Kreta\Bundle\UserBundle\Manager\OauthManager;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
-use OAuth2\OAuth2;
-use Symfony\Component\HttpFoundation\Cookie;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Exception\SessionUnavailableException;
 use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 
 /**
@@ -32,72 +27,51 @@ use Symfony\Component\Security\Http\Event\InteractiveLoginEvent;
 class AuthenticationListener
 {
     /**
-     * The client manager.
+     * The oauth manager.
      *
-     * @var \FOS\OAuthServerBundle\Model\ClientManagerInterface
+     * @var OauthManager
      */
-    protected $clientManager;
-
-    /**
-     * The client secret.
-     *
-     * @var string|null
-     */
-    protected $clientSecret;
-
-    /**
-     * The instance of OAuth server.
-     *
-     * @var \OAuth2\OAuth2
-     */
-    protected $oauthServer;
+    protected $oauthManager;
 
     /**
      * Constructor.
      *
-     * @param \FOS\OAuthServerBundle\Model\ClientManagerInterface $clientManager The client manager
-     * @param \OAuth2\OAuth2                                      $oauthServer   The instance of OAuth server
-     * @param string|null                                         $clientSecret  The client secret
+     * @param OauthManager $oauthManager The oauth manager
      */
-    public function __construct(ClientManagerInterface $clientManager, OAuth2 $oauthServer, $clientSecret = null)
+    public function __construct(OauthManager $oauthManager)
     {
-        $this->clientManager = $clientManager;
-        $this->oauthServer = $oauthServer;
-        $this->clientSecret = $clientSecret;
+        $this->oauthManager = $oauthManager;
     }
 
     /**
-     * If the user is logged generates the access token and sets into response creating a cookie.
+     * If the user is logged generates the access
+     * token and sets into response creating a cookie.
      *
-     * @param \Kreta\Bundle\UserBundle\Event\AuthorizationEvent $event The authorization event
+     * @param AuthorizationEvent $event The authorization event
      */
     public function onAuthorizationEvent(AuthorizationEvent $event)
     {
-        $client = $this->clientManager->findClientBy(['secret' => $this->clientSecret]);
         $session = $event->getRequest()->getSession();
-        $request = new Request();
-        $request->query->add([
-            'grant_type'    => 'password',
-            'client_secret' => $this->clientSecret,
-            'client_id'     => sprintf('%s_%s', $client->getId(), $client->getRandomId()),
-            'username'      => $session->get('_email'),
-            'password'      => $session->get('_password'),
-        ]);
-        $response = $this->oauthServer->grantAccessToken($request);
-        $token = json_decode($response->getContent(), true);
+
+        list($accessToken, $refreshToken) = $this->oauthManager->password(
+            $session->get('_email'),
+            $session->get('_password')
+        );
 
         $event->getRequest()->getSession()->remove('_email');
         $event->getRequest()->getSession()->remove('_password');
+
         $event->getRequest()->getSession()->replace([
-            'access_token'  => $token['access_token'],
-            'refresh_token' => $token['refresh_token'],
+            'access_token'  => $accessToken,
+            'refresh_token' => $refreshToken,
         ]);
     }
 
     /**
-     * Listens in the login form saving in the session the username and the plain password.
+     * Listens in the login form saving in the
+     * session the username and the plain password.
      *
-     * @param \Symfony\Component\Security\Http\Event\InteractiveLoginEvent $event The interactive login event
+     * @param InteractiveLoginEvent $event The interactive login event
      */
     public function onInteractiveLogin(InteractiveLoginEvent $event)
     {
@@ -111,9 +85,10 @@ class AuthenticationListener
     }
 
     /**
-     * Listens in the registration form saving in the session the username and the plain password.
+     * Listens in the registration form saving in
+     * the session the username and the plain password.
      *
-     * @param \FOS\UserBundle\Event\FormEvent $event The form event
+     * @param FormEvent $event The form event
      */
     public function onRegistrationSuccess(FormEvent $event)
     {
@@ -123,33 +98,5 @@ class AuthenticationListener
             $request->getSession()->set('_email', $user->getEmail());
             $request->getSession()->set('_password', $user->getPlainPassword());
         }
-    }
-
-    /**
-     * Checks if the session has the tokens to create cookies that will be add into response.
-     *
-     * @param \Kreta\Bundle\UserBundle\Event\CookieEvent $event The cookie event
-     */
-    public function onCookieEvent(CookieEvent $event)
-    {
-        $session = $event->getSession();
-        if (!($session->has('access_token')) || !($session->has('refresh_token'))) {
-            throw new SessionUnavailableException();
-        }
-        $event->getResponse()->headers->setCookie($this->cookie('access_token', $session->get('access_token')));
-        $event->getResponse()->headers->setCookie($this->cookie('refresh_token', $session->get('refresh_token')));
-    }
-
-    /**
-     * Creates cookie that its content is the given token.
-     *
-     * @param string $key   The name of token
-     * @param string $value The value of token
-     *
-     * @return \Symfony\Component\HttpFoundation\Cookie
-     */
-    private function cookie($key, $value)
-    {
-        return new Cookie($key, $value, 0, '/', null, false, false);
     }
 }

@@ -45,6 +45,7 @@ default:
                 - Kreta\Bundle\CoreBundle\Behat\Context\OauthContext
                 - Kreta\Bundle\MediaBundle\Behat\Context\MediaContext
                 - Kreta\Bundle\WorkflowBundle\Behat\Context\WorkflowContext
+                - Kreta\Bundle\OrganizationBundle\Behat\Context\OrganizationContext
                 - Kreta\Bundle\ProjectBundle\Behat\Context\ProjectContext
                 - Kreta\Bundle\ProjectBundle\Behat\Context\IssuePriorityContext
                 - Kreta\Bundle\IssueBundle\Behat\Context\IssueContext
@@ -61,29 +62,20 @@ default:
             contexts:
                 - Kreta\Bundle\CoreBundle\Behat\Context\OauthContext
                 - Kreta\Bundle\WorkflowBundle\Behat\Context\WorkflowContext
+                - Kreta\Bundle\OrganizationBundle\Behat\Context\OrganizationContext
                 - Kreta\Bundle\ProjectBundle\Behat\Context\ProjectContext
                 - Kreta\Bundle\ProjectBundle\Behat\Context\LabelContext
                 - Kreta\Bundle\UserBundle\Behat\Context\UserContext
                 - Kreta\Bundle\ProjectBundle\Behat\Context\ParticipantContext
             filters:
                 tags: "@label"
-        participant:
-            paths:
-                features: src/Kreta/Bundle/ProjectBundle
-            contexts:
-                - Kreta\Bundle\CoreBundle\Behat\Context\OauthContext
-                - Kreta\Bundle\MediaBundle\Behat\Context\MediaContext
-                - Kreta\Bundle\ProjectBundle\Behat\Context\ProjectContext
-                - Kreta\Bundle\UserBundle\Behat\Context\UserContext
-                - Kreta\Bundle\ProjectBundle\Behat\Context\ParticipantContext
-            filters:
-                tags: "@participant"
         issuePriority:
             paths:
                 features: src/Kreta/Bundle/ProjectBundle
             contexts:
                 - Kreta\Bundle\CoreBundle\Behat\Context\OauthContext
                 - Kreta\Bundle\WorkflowBundle\Behat\Context\WorkflowContext
+                - Kreta\Bundle\OrganizationBundle\Behat\Context\OrganizationContext
                 - Kreta\Bundle\ProjectBundle\Behat\Context\ProjectContext
                 - Kreta\Bundle\ProjectBundle\Behat\Context\IssuePriorityContext
                 - Kreta\Bundle\UserBundle\Behat\Context\UserContext
@@ -97,6 +89,7 @@ default:
                 - Kreta\Bundle\CoreBundle\Behat\Context\OauthContext
                 - Kreta\Bundle\MediaBundle\Behat\Context\MediaContext
                 - Kreta\Bundle\WorkflowBundle\Behat\Context\WorkflowContext
+                - Kreta\Bundle\OrganizationBundle\Behat\Context\OrganizationContext
                 - Kreta\Bundle\ProjectBundle\Behat\Context\ProjectContext
                 - Kreta\Bundle\ProjectBundle\Behat\Context\IssuePriorityContext
                 - Kreta\Bundle\ProjectBundle\Behat\Context\LabelContext
@@ -104,23 +97,59 @@ default:
                 - Kreta\Bundle\ProjectBundle\Behat\Context\ParticipantContext
             filters:
                 tags: "@project"
+        projectParticipant:
+            paths:
+                features: src/Kreta/Bundle/ProjectBundle
+            contexts:
+                - Kreta\Bundle\CoreBundle\Behat\Context\OauthContext
+                - Kreta\Bundle\MediaBundle\Behat\Context\MediaContext
+                - Kreta\Bundle\OrganizationBundle\Behat\Context\OrganizationContext
+                - Kreta\Bundle\ProjectBundle\Behat\Context\ProjectContext
+                - Kreta\Bundle\UserBundle\Behat\Context\UserContext
+                - Kreta\Bundle\ProjectBundle\Behat\Context\ParticipantContext
+            filters:
+                tags: "@projectParticipant"
         notification:
             paths:
                 features: src/Kreta/Bundle/NotificationBundle
             contexts:
                 - Kreta\Bundle\CoreBundle\Behat\Context\OauthContext
                 - Kreta\Bundle\NotificationBundle\Behat\Context\NotificationContext
+                - Kreta\Bundle\OrganizationBundle\Behat\Context\OrganizationContext
                 - Kreta\Bundle\ProjectBundle\Behat\Context\ProjectContext
                 - Kreta\Bundle\UserBundle\Behat\Context\UserContext
                 - Kreta\Bundle\ProjectBundle\Behat\Context\ParticipantContext
             filters:
                 tags: "@notification"
+        organization:
+            paths:
+                features: src/Kreta/Bundle/OrganizationBundle
+            contexts:
+                - Kreta\Bundle\CoreBundle\Behat\Context\OauthContext
+                - Kreta\Bundle\MediaBundle\Behat\Context\MediaContext
+                - Kreta\Bundle\OrganizationBundle\Behat\Context\OrganizationContext
+                - Kreta\Bundle\UserBundle\Behat\Context\UserContext
+                - Kreta\Bundle\OrganizationBundle\Behat\Context\ParticipantContext
+            filters:
+                tags: "@organization"
+        organizationParticipant:
+            paths:
+                features: src/Kreta/Bundle/OrganizationBundle
+            contexts:
+                - Kreta\Bundle\CoreBundle\Behat\Context\OauthContext
+                - Kreta\Bundle\MediaBundle\Behat\Context\MediaContext
+                - Kreta\Bundle\OrganizationBundle\Behat\Context\OrganizationContext
+                - Kreta\Bundle\OrganizationBundle\Behat\Context\ParticipantContext
+                - Kreta\Bundle\UserBundle\Behat\Context\UserContext
+            filters:
+                tags: "@organizationParticipant"
         status:
             paths:
                 features: src/Kreta/Bundle/WorkflowBundle
             contexts:
                 - Kreta\Bundle\CoreBundle\Behat\Context\OauthContext
                 - Kreta\Bundle\WorkflowBundle\Behat\Context\WorkflowContext
+                - Kreta\Bundle\OrganizationBundle\Behat\Context\OrganizationContext
                 - Kreta\Bundle\ProjectBundle\Behat\Context\ProjectContext
                 - Kreta\Bundle\ProjectBundle\Behat\Context\IssuePriorityContext
                 - Kreta\Bundle\IssueBundle\Behat\Context\IssueContext
@@ -136,6 +165,7 @@ default:
             contexts:
                 - Kreta\Bundle\CoreBundle\Behat\Context\OauthContext
                 - Kreta\Bundle\WorkflowBundle\Behat\Context\WorkflowContext
+                - Kreta\Bundle\OrganizationBundle\Behat\Context\OrganizationContext
                 - Kreta\Bundle\ProjectBundle\Behat\Context\ProjectContext
                 - Kreta\Bundle\ProjectBundle\Behat\Context\IssuePriorityContext
                 - Kreta\Bundle\IssueBundle\Behat\Context\IssueContext
@@ -170,6 +200,7 @@ default:
             contexts:
                 - Kreta\Bundle\CoreBundle\Behat\Context\OauthContext
                 - Kreta\Bundle\WorkflowBundle\Behat\Context\WorkflowContext
+                - Kreta\Bundle\OrganizationBundle\Behat\Context\OrganizationContext
                 - Kreta\Bundle\ProjectBundle\Behat\Context\ProjectContext
                 - Kreta\Bundle\IssueBundle\Behat\Context\IssueContext
                 - Kreta\Bundle\UserBundle\Behat\Context\UserContext

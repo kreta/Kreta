@@ -18,6 +18,7 @@ use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
 use Kreta\Component\Core\spec\Kreta\Component\Core\Repository\BaseEntityRepository;
+use Kreta\Component\Organization\Model\Interfaces\OrganizationInterface;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use PhpSpec\ObjectBehavior;
@@ -56,8 +57,7 @@ class ProjectRepositorySpec extends ObjectBehavior
         Expr $expr,
         Expr\Comparison $comparison,
         AbstractQuery $query
-    )
-    {
+    ) {
         $queryBuilder = $this->getQueryBuilderSpec($manager, $queryBuilder);
         $this->addCriteriaSpec($queryBuilder, $expr, ['par.user' => $user], $comparison);
         $this->orderBySpec($queryBuilder, ['name' => 'ASC']);
@@ -70,15 +70,37 @@ class ProjectRepositorySpec extends ObjectBehavior
         $this->findByParticipant($user, ['name' => 'ASC'], 10, 1)->shouldReturn([$project]);
     }
 
+    function it_finds_by_organization(
+        ProjectInterface $project,
+        OrganizationInterface $organization,
+        EntityManager $manager,
+        QueryBuilder $queryBuilder,
+        Expr $expr,
+        Expr\Comparison $comparison,
+        AbstractQuery $query
+    ) {
+        $queryBuilder = $this->getQueryBuilderSpec($manager, $queryBuilder);
+        $this->addCriteriaSpec($queryBuilder, $expr, ['organization' => $organization], $comparison);
+        $this->orderBySpec($queryBuilder, ['name' => 'ASC']);
+        $queryBuilder->setMaxResults(10)->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->setFirstResult(1)->shouldBeCalled()->willReturn($queryBuilder);
+
+        $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
+        $query->getResult()->shouldBeCalled()->willReturn([$project]);
+
+        $this->findByOrganization($organization, ['name' => 'ASC'], 10, 1)->shouldReturn([$project]);
+    }
+
     protected function getQueryBuilderSpec(EntityManager $manager, QueryBuilder $queryBuilder)
     {
         $manager->createQueryBuilder()->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->select('p')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->addSelect(['img', 'i', 'w'])->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->addSelect(['img', 'i', 'o', 'w'])->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->from(Argument::any(), 'p', null)->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->leftJoin('p.image', 'img')->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->leftJoin('p.issues', 'i')->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->join('p.participants', 'par')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->join('p.organization', 'o')->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->join('p.workflow', 'w')->shouldBeCalled()->willReturn($queryBuilder);
 
         return $queryBuilder;

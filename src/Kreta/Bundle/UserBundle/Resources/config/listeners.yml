@@ -10,11 +10,23 @@ services:
     kreta_user.event_listener.authentication_listener:
         class: Kreta\Bundle\UserBundle\EventListener\AuthenticationListener
         arguments:
-            - '@fos_oauth_server.client_manager.default'
-            - '@fos_oauth_server.server'
-            - %oauth.web.client_secret%
+            - '@kreta_user.manager.oauth_manager'
         tags:
             - { name: kernel.event_listener, event: security.interactive_login, method: onInteractiveLogin }
             - { name: kernel.event_listener, event: kreta_user_event_authorization, method: onAuthorizationEvent }
-            - { name: kernel.event_listener, event: kreta_user_event_cookie, method: onCookieEvent }
             - { name: kernel.event_listener, event: fos_user.registration.success, method: onRegistrationSuccess }
+
+    kreta_user.event_listener.cookie_listener:
+        class: Kreta\Bundle\UserBundle\EventListener\CookieListener
+        tags:
+            - { name: kernel.event_listener, event: kernel.response, method: onCookieEvent }
+
+#### Override FOSOAuthServerBundle's service ####
+    fos_oauth_server.security.authentication.listener:
+        class: %fos_oauth_server.security.authentication.listener.class%
+        arguments:
+            - '@security.token_storage'
+            - '@security.authentication.manager'
+            - '@fos_oauth_server.server'
+            - '@kreta_user.manager.oauth_manager'
+            - '@fos_oauth_server.storage'

@@ -31,6 +31,7 @@
         "friendsofsymfony/rest-bundle":             "^1.7",
         "friendsofsymfony/user-bundle":             "^2.0",
         "incenteev/composer-parameter-handler":     "^2.0",
+        "javiereguiluz/easyslugger":                "^1.0",
         "jms/serializer-bundle":                    "^1.1",
         "knplabs/knp-gaufrette-bundle":             "^0.3",
         "kreta/simple-api-doc-bundle":              "^0.3.3",
@@ -71,6 +72,7 @@
         "kreta/media-bundle":         "self.version",
         "kreta/notification-bundle":  "self.version",
         "kreta/project-bundle":       "self.version",
+        "kreta/organization-bundle":  "self.version",
         "kreta/user-bundle":          "self.version",
         "kreta/web-bundle":           "self.version",
         "kreta/workflow-bundle":      "self.version",
@@ -79,6 +81,7 @@
         "kreta/issue":                "self.version",
         "kreta/media":                "self.version",
         "kreta/notification":         "self.version",
+        "kreta/organization":         "self.version",
         "kreta/project":              "self.version",
         "kreta/user":                 "self.version",
         "kreta/workflow":             "self.version"

@@ -11,7 +11,8 @@
 import Config from './../Config';
 
 function _getCookie(name) {
-  var value = `; ${document.cookie}`,
+  let
+    value = `; ${document.cookie}`,
     parts = value.split(`; ${name}=`);
 
   if (parts.length === 2) {
@@ -53,7 +54,11 @@ function _toFormData(body) {
 
 function _json(response) {
   const json = response.json();
-  if (response.status >= 400) {
+  if (response.status === 401) {
+    window.location.href = '/logout';
+
+    return false;
+  } else if (response.status >= 400) {
     throw json;
   }
 
@@ -81,7 +86,7 @@ class Api {
       headers: {
         'Authorization': `Bearer ${this.accessToken()}`
       },
-      method: 'get'
+      method: 'GET'
     }).then(_json);
   }
 
@@ -92,7 +97,7 @@ class Api {
       headers: {
         'Authorization': `Bearer ${this.accessToken()}`
       },
-      method: 'post'
+      method: 'POST'
     }).then(_json);
   }
 
@@ -114,7 +119,7 @@ class Api {
       headers: {
         'Authorization': `Bearer ${this.accessToken()}`
       },
-      method: 'delete'
+      method: 'DELETE'
     }).then(_json);
   }
 }
