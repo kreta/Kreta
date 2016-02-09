@@ -74,7 +74,8 @@ Feature: Manage status
           }
         },
         "type": "normal",
-        "name": "Open"
+        "name": "Open",
+        "transitions": []
       }, {
         "id": "1",
         "color": "#2c3e50",
@@ -90,7 +91,8 @@ Feature: Manage status
           }
         },
         "type": "normal",
-        "name": "In progress"
+        "name": "In progress",
+        "transitions": []
       }, {
         "id": "2",
         "color": "#f1c40f",
@@ -107,7 +109,8 @@ Feature: Manage status
           }
         },
         "type": "normal",
-        "name": "Resolved"
+        "name": "Resolved",
+        "transitions": []
       }, {
         "id": "3",
         "color": "#c0392b",
@@ -123,7 +126,8 @@ Feature: Manage status
           }
         },
         "type": "normal",
-        "name": "Closed"
+        "name": "Closed",
+        "transitions": []
       }, {
         "id": "4",
         "color": "#27ae60",
@@ -139,7 +143,8 @@ Feature: Manage status
           }
         },
         "type": "normal",
-        "name": "Reopened"
+        "name": "Reopened",
+        "transitions": []
       }]
     """
 

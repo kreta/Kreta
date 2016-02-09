@@ -141,6 +141,7 @@ Feature: Manage users
           "first_name": "Kreta",
           "last_name": "User",
           "photo": {
+            "id": "1",
             "created_at": "2014-10-30T00:00:00+0100",
             "name": "http://kreta.test:8000/media/image/user-1.jpg",
             "updated_at": null
@@ -156,6 +157,7 @@ Feature: Manage users
           "first_name": "Kreta",
           "last_name": "User2",
           "photo": {
+            "id": "2",
             "created_at": "2014-10-30T00:00:00+0100",
             "name": "http://kreta.test:8000/media/image/user-2.jpg",
             "updated_at": null
@@ -213,6 +215,7 @@ Feature: Manage users
           "first_name": "Kreta",
           "last_name": "User",
           "photo": {
+            "id": "1",
             "created_at": "2014-10-30T00:00:00+0100",
             "name": "http://kreta.test:8000/media/image/user-1.jpg",
             "updated_at": null
@@ -228,6 +231,7 @@ Feature: Manage users
           "first_name": "Kreta",
           "last_name": "User2",
           "photo": {
+            "id": "2",
             "created_at": "2014-10-30T00:00:00+0100",
             "name": "http://kreta.test:8000/media/image/user-2.jpg",
             "updated_at": null
@@ -253,6 +257,7 @@ Feature: Manage users
           "first_name": "Kreta",
           "last_name": "User",
           "photo": {
+            "id": "1",
             "created_at": "2014-10-30T00:00:00+0100",
             "name": "http://kreta.test:8000/media/image/user-1.jpg",
             "updated_at": null
@@ -268,6 +273,7 @@ Feature: Manage users
           "first_name": "Kreta",
           "last_name": "User2",
           "photo": {
+            "id": "2",
             "created_at": "2014-10-30T00:00:00+0100",
             "name": "http://kreta.test:8000/media/image/user-2.jpg",
             "updated_at": null
@@ -293,6 +299,7 @@ Feature: Manage users
           "first_name": "Kreta",
           "last_name": "User2",
           "photo": {
+            "id": "2",
             "created_at": "2014-10-30T00:00:00+0100",
             "name": "http://kreta.test:8000/media/image/user-2.jpg",
             "updated_at": null
