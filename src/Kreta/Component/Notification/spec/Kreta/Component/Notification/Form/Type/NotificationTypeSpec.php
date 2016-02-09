@@ -47,11 +47,10 @@ class NotificationTypeSpec extends ObjectBehavior
     function it_builds_a_form(FormBuilder $builder)
     {
         $builder->add('read', 'Symfony\Component\Form\Extension\Core\Type\ChoiceType', [
-            'choices'           => [
+            'choices' => [
                 true  => 'read',
                 false => 'unread',
             ],
-            'choices_as_values' => true,
         ])->shouldBeCalled()->willReturn($builder);
 
         $this->buildForm($builder, []);

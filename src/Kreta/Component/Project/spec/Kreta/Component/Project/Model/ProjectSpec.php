@@ -84,10 +84,9 @@ class ProjectSpec extends ObjectBehavior
 
     function its_name_is_mutable()
     {
-        $this->setName('Dummy name that it is a test for the PHPSpec')->shouldReturn($this);
-        $this->getName()->shouldReturn('Dummy name that it is a test for the PHPSpec');
-
-        $this->getShortName()->shouldReturn('Dummy name that it is a te...');
+        $this->setName('Dummy name')->shouldReturn($this);
+        $this->getName()->shouldReturn('Dummy name');
+        $this->getSlug()->shouldReturn('dummy-name');
     }
 
     function its_project_roles_are_be_mutable(ParticipantInterface $participant)
@@ -116,13 +115,10 @@ class ProjectSpec extends ObjectBehavior
         $this->getIssuePriorities()->shouldHaveCount(0);
     }
 
-    function its_short_name_is_mutable()
+    function its_slug_is_mutable()
     {
-        $this->setShortName('Dummy short name that it is a test for the PHPSpec')->shouldReturn($this);
-        $this->getShortName()->shouldReturn('Dummy short name that it i...');
-
-        $this->setShortName('Dummy short name')->shouldReturn($this);
-        $this->getShortName()->shouldReturn('Dummy short name');
+        $this->setSlug('dummy-slug')->shouldReturn($this);
+        $this->getSlug()->shouldReturn('dummy-slug');
     }
 
     function it_does_not_get_user_role(UserInterface $anotherUser)

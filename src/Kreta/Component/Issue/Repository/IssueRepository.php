@@ -45,19 +45,6 @@ class IssueRepository extends EntityRepository
     }
 
     /**
-     * Finds one issue by its short code.
-     *
-     * @param string $projectShortName The 4 character project short name of the issue to find
-     * @param string $issueNumber      Numeric number of the issue to find
-     *
-     * @return \Kreta\Component\Issue\Model\Interfaces\IssueInterface|null
-     */
-    public function findOneByShortCode($projectShortName, $issueNumber)
-    {
-        return $this->findOneBy(['numericId' => $issueNumber, 'p.shortName' => $projectShortName]);
-    }
-
-    /**
      * Finds all the issues where user given is participant.
      * Can do ordering, limit and offset.
      *

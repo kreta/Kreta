@@ -47,6 +47,7 @@ class AppKernel extends Kernel
             new Kreta\Bundle\IssueBundle\KretaIssueBundle(),
             new Kreta\Bundle\MediaBundle\KretaMediaBundle(),
             new Kreta\Bundle\NotificationBundle\KretaNotificationBundle(),
+            new Kreta\Bundle\OrganizationBundle\KretaOrganizationBundle(),
             new Kreta\Bundle\ProjectBundle\KretaProjectBundle(),
             new Kreta\Bundle\UserBundle\KretaUserBundle(),
             new Kreta\Bundle\WebBundle\KretaWebBundle(),

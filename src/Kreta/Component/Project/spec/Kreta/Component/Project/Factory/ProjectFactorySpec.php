@@ -15,6 +15,7 @@ namespace spec\Kreta\Component\Project\Factory;
 use Kreta\Component\Media\Factory\MediaFactory;
 use Kreta\Component\Media\Model\Interfaces\MediaInterface;
 use Kreta\Component\Media\Uploader\Interfaces\MediaUploaderInterface;
+use Kreta\Component\Organization\Model\Interfaces\OrganizationInterface;
 use Kreta\Component\Project\Factory\ParticipantFactory;
 use Kreta\Component\Project\Model\Interfaces\ParticipantInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
@@ -52,15 +53,17 @@ class ProjectFactorySpec extends ObjectBehavior
         UserInterface $user,
         ParticipantFactory $participantFactory,
         ParticipantInterface $participant,
+        OrganizationInterface $organization,
         WorkflowInterface $workflow
     ) {
         $participantFactory->create(Argument::type('Kreta\Component\Project\Model\Project'), $user, 'ROLE_ADMIN')
             ->shouldBeCalled()->willReturn($participant);
 
-        $this->create($user, $workflow, false)->shouldReturnAnInstanceOf('Kreta\Component\Project\Model\Project');
+        $this->create($user, $organization, $workflow, false)
+            ->shouldReturnAnInstanceOf('Kreta\Component\Project\Model\Project');
     }
 
-    function it_creates_a_project_without_workflow_but_with_projects_defaults(
+    function it_creates_a_project_without_organization_and_without_workflow_but_with_projects_defaults(
         UserInterface $user,
         ParticipantFactory $participantFactory,
         ParticipantInterface $participant,
@@ -72,13 +75,14 @@ class ProjectFactorySpec extends ObjectBehavior
         )->shouldBeCalled()->willReturn($participant);
         $workflowFactory->create('Default KRETA workflow', $user, true)->shouldBeCalled()->willReturn($workflow);
 
-        $this->create($user, null, true)->shouldReturnAnInstanceOf('Kreta\Component\Project\Model\Project');
+        $this->create($user, null, null, true)->shouldReturnAnInstanceOf('Kreta\Component\Project\Model\Project');
     }
 
     function it_creates_a_project_passing_the_image(
         UserInterface $user,
         ParticipantFactory $participantFactory,
         ParticipantInterface $participant,
+        OrganizationInterface $organization,
         WorkflowInterface $workflow,
         MediaUploaderInterface $uploader,
         MediaFactory $mediaFactory,
@@ -91,7 +95,7 @@ class ProjectFactorySpec extends ObjectBehavior
         $mediaFactory->create($image)->shouldBeCalled()->willReturn($media);
         $uploader->upload($media)->shouldBeCalled();
 
-        $this->create($user, $workflow, false, $image)->shouldReturnAnInstanceOf(
+        $this->create($user, $organization, $workflow, false, $image)->shouldReturnAnInstanceOf(
             'Kreta\Component\Project\Model\Project'
         );
     }

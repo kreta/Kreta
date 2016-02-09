@@ -23,10 +23,13 @@ Feature: Manage issue priority
       | id | name       | creator        |
       | 0  | Workflow 1 | user@kreta.com |
       | 1  | Workflow 2 | user@kreta.com |
+    And the following organizations exist:
+      | id | name                | creator        |
+      | 0  | Test organization 1 | user@kreta.com |
     And the following projects exist:
-      | id | name           | shortName | creator        | workflow   |
-      | 0  | Test project 1 | TPR1      | user@kreta.com | Workflow 1 |
-      | 1  | Test project 2 | TPR2      | user@kreta.com | Workflow 2 |
+      | id | name           | creator        | workflow   | organization        |
+      | 0  | Test project 1 | user@kreta.com | Workflow 1 | Test organization 1 |
+      | 1  | Test project 2 | user@kreta.com | Workflow 2 | Test organization 1 |
     And the following issue priorities exist:
       | id | name    | color   | project        |
       | 0  | Low     | #969696 | Test project 1 |

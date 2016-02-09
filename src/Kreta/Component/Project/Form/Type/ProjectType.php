@@ -31,15 +31,19 @@ class ProjectType extends AbstractType
     {
         $builder
             ->add('name')
-            ->add('shortName')
             ->add('image', 'Symfony\Component\Form\Extension\Core\Type\FileType', [
                 'required' => false,
-                'mapped'   => false
+                'mapped'   => false,
             ])
             ->add('workflow', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', [
                 'class'    => 'Kreta\Component\Workflow\Model\Workflow',
                 'required' => false,
-                'mapped'   => false
+                'mapped'   => false,
+            ])
+            ->add('organization', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', [
+                'class'    => 'Kreta\Component\Organization\Model\Organization',
+                'required' => false,
+                'mapped'   => false,
             ]);
     }
 
@@ -49,7 +53,11 @@ class ProjectType extends AbstractType
     protected function createEmptyData(FormInterface $form)
     {
         return $this->factory->create(
-            $this->user, $form->get('workflow')->getData(), true, $form->get('image')->getData()
+            $this->user,
+            $form->get('organization')->getData(),
+            $form->get('workflow')->getData(),
+            true,
+            $form->get('image')->getData()
         );
     }
 }
