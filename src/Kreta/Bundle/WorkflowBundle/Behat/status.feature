@@ -74,8 +74,7 @@ Feature: Manage status
           }
         },
         "type": "normal",
-        "name": "Open",
-        "transitions": []
+        "name": "Open"
       }, {
         "id": "1",
         "color": "#2c3e50",
@@ -91,12 +90,10 @@ Feature: Manage status
           }
         },
         "type": "normal",
-        "name": "In progress",
-        "transitions": []
+        "name": "In progress"
       }, {
         "id": "2",
         "color": "#f1c40f",
-
         "_links": {
           "self": {
             "href": "http://kreta.test:8000/api/workflows/0/statuses/2"
@@ -109,8 +106,7 @@ Feature: Manage status
           }
         },
         "type": "normal",
-        "name": "Resolved",
-        "transitions": []
+        "name": "Resolved"
       }, {
         "id": "3",
         "color": "#c0392b",
@@ -126,8 +122,7 @@ Feature: Manage status
           }
         },
         "type": "normal",
-        "name": "Closed",
-        "transitions": []
+        "name": "Closed"
       }, {
         "id": "4",
         "color": "#27ae60",
@@ -143,8 +138,7 @@ Feature: Manage status
           }
         },
         "type": "normal",
-        "name": "Reopened",
-        "transitions": []
+        "name": "Reopened"
       }]
     """
 

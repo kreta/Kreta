@@ -64,80 +64,6 @@ Feature: Manage workflow
         "statuses": [
           {
             "type": "normal",
-            "transitions": [
-              {
-                "id": "1",
-                "initial_states": {
-                  "1": {
-                    "type": "normal",
-                    "transitions": [],
-                    "name": "Resolved",
-                    "id": "2",
-                    "color": "#f1c40f",
-                    "_links": {
-                      "self": {
-                        "href": "http://kreta.test:8000/api/workflows/0/statuses/2"
-                      },
-                      "statuses": {
-                        "href": "http://kreta.test:8000/api/workflows/0/statuses"
-                      }
-                    }
-                  }
-                },
-                "name": "Reopen progress",
-                "_links": {
-                  "self": {
-                    "href": "http://kreta.test:8000/api/workflows/0/transitions/1"
-                  },
-                  "transitions": {
-                    "href": "http://kreta.test:8000/api/workflows/0/transitions"
-                  }
-                }
-              },
-              {
-                "id": "2",
-                "initial_states": {
-                  "1": {
-                    "type": "normal",
-                    "transitions": [
-                      {
-                        "id": "0",
-                        "initial_states": [],
-                        "name": "Start progress",
-                        "_links": {
-                          "self": {
-                            "href": "http://kreta.test:8000/api/workflows/0/transitions/0"
-                          },
-                          "transitions": {
-                            "href": "http://kreta.test:8000/api/workflows/0/transitions"
-                          }
-                        }
-                      }
-                    ],
-                    "name": "In progress",
-                    "id": "1",
-                    "color": "#2c3e50",
-                    "_links": {
-                      "self": {
-                        "href": "http://kreta.test:8000/api/workflows/0/statuses/1"
-                      },
-                      "statuses": {
-                        "href": "http://kreta.test:8000/api/workflows/0/statuses"
-                      }
-                    }
-                  }
-                },
-                "name": "Finish progress",
-                "_links": {
-                  "self": {
-                    "href": "http://kreta.test:8000/api/workflows/0/transitions/2"
-                  },
-                  "transitions": {
-                    "href": "http://kreta.test:8000/api/workflows/0/transitions"
-                  }
-                }
-              }
-            ],
             "name": "Open",
             "id": "0",
             "color": "#27ae60",
@@ -152,80 +78,6 @@ Feature: Manage workflow
           },
           {
             "type": "normal",
-            "transitions": [
-              {
-                "id": "0",
-                "initial_states": [],
-                "name": "Start progress",
-                "_links": {
-                  "self": {
-                    "href": "http://kreta.test:8000/api/workflows/0/transitions/0"
-                  },
-                  "transitions": {
-                    "href": "http://kreta.test:8000/api/workflows/0/transitions"
-                  }
-                }
-              },
-              {
-                "id": "2",
-                "initial_states": [
-                  {
-                    "type": "normal",
-                    "transitions": [
-                      {
-                        "id": "1",
-                        "initial_states": {
-                          "1": {
-                            "type": "normal",
-                            "transitions": [],
-                            "name": "Resolved",
-                            "id": "2",
-                            "color": "#f1c40f",
-                            "_links": {
-                              "self": {
-                                "href": "http://kreta.test:8000/api/workflows/0/statuses/2"
-                              },
-                              "statuses": {
-                                "href": "http://kreta.test:8000/api/workflows/0/statuses"
-                              }
-                            }
-                          }
-                        },
-                        "name": "Reopen progress",
-                        "_links": {
-                          "self": {
-                            "href": "http://kreta.test:8000/api/workflows/0/transitions/1"
-                          },
-                          "transitions": {
-                            "href": "http://kreta.test:8000/api/workflows/0/transitions"
-                          }
-                        }
-                      }
-                    ],
-                    "name": "Open",
-                    "id": "0",
-                    "color": "#27ae60",
-                    "_links": {
-                      "self": {
-                        "href": "http://kreta.test:8000/api/workflows/0/statuses/0"
-                      },
-                      "statuses": {
-                        "href": "http://kreta.test:8000/api/workflows/0/statuses"
-                      }
-                    }
-                  }
-                ],
-                "name": "Finish progress",
-                "_links": {
-                  "self": {
-                    "href": "http://kreta.test:8000/api/workflows/0/transitions/2"
-                  },
-                  "transitions": {
-                    "href": "http://kreta.test:8000/api/workflows/0/transitions"
-                  }
-                }
-              }
-            ],
             "name": "In progress",
             "id": "1",
             "color": "#2c3e50",
@@ -240,81 +92,6 @@ Feature: Manage workflow
           },
           {
             "type": "normal",
-            "transitions": [
-              {
-                "id": "1",
-                "initial_states": [
-                  {
-                    "type": "normal",
-                    "transitions": {
-                      "1": {
-                        "id": "2",
-                        "initial_states": {
-                          "1": {
-                            "type": "normal",
-                            "transitions": [
-                              {
-                                "id": "0",
-                                "initial_states": [],
-                                "name": "Start progress",
-                                "_links": {
-                                  "self": {
-                                    "href": "http://kreta.test:8000/api/workflows/0/transitions/0"
-                                  },
-                                  "transitions": {
-                                    "href": "http://kreta.test:8000/api/workflows/0/transitions"
-                                  }
-                                }
-                              }
-                            ],
-                            "name": "In progress",
-                            "id": "1",
-                            "color": "#2c3e50",
-                            "_links": {
-                              "self": {
-                                "href": "http://kreta.test:8000/api/workflows/0/statuses/1"
-                              },
-                              "statuses": {
-                                "href": "http://kreta.test:8000/api/workflows/0/statuses"
-                              }
-                            }
-                          }
-                        },
-                        "name": "Finish progress",
-                        "_links": {
-                          "self": {
-                            "href": "http://kreta.test:8000/api/workflows/0/transitions/2"
-                          },
-                          "transitions": {
-                            "href": "http://kreta.test:8000/api/workflows/0/transitions"
-                          }
-                        }
-                      }
-                    },
-                    "name": "Open",
-                    "id": "0",
-                    "color": "#27ae60",
-                    "_links": {
-                      "self": {
-                        "href": "http://kreta.test:8000/api/workflows/0/statuses/0"
-                      },
-                      "statuses": {
-                        "href": "http://kreta.test:8000/api/workflows/0/statuses"
-                      }
-                    }
-                  }
-                ],
-                "name": "Reopen progress",
-                "_links": {
-                  "self": {
-                    "href": "http://kreta.test:8000/api/workflows/0/transitions/1"
-                  },
-                  "transitions": {
-                    "href": "http://kreta.test:8000/api/workflows/0/transitions"
-                  }
-                }
-              }
-            ],
             "name": "Resolved",
             "id": "2",
             "color": "#f1c40f",
@@ -330,71 +107,9 @@ Feature: Manage workflow
         ],
         "status_transitions": [
           {
-            "id": "0",
             "initial_states": [
               {
                 "type": "normal",
-                "transitions": {
-                  "1": {
-                    "id": "2",
-                    "initial_states": [
-                      {
-                        "type": "normal",
-                        "transitions": [
-                          {
-                            "id": "1",
-                            "initial_states": {
-                              "1": {
-                                "type": "normal",
-                                "transitions": [],
-                                "name": "Resolved",
-                                "id": "2",
-                                "color": "#f1c40f",
-                                "_links": {
-                                  "self": {
-                                    "href": "http://kreta.test:8000/api/workflows/0/statuses/2"
-                                  },
-                                  "statuses": {
-                                    "href": "http://kreta.test:8000/api/workflows/0/statuses"
-                                  }
-                                }
-                              }
-                            },
-                            "name": "Reopen progress",
-                            "_links": {
-                              "self": {
-                                "href": "http://kreta.test:8000/api/workflows/0/transitions/1"
-                              },
-                              "transitions": {
-                                "href": "http://kreta.test:8000/api/workflows/0/transitions"
-                              }
-                            }
-                          }
-                        ],
-                        "name": "Open",
-                        "id": "0",
-                        "color": "#27ae60",
-                        "_links": {
-                          "self": {
-                            "href": "http://kreta.test:8000/api/workflows/0/statuses/0"
-                          },
-                          "statuses": {
-                            "href": "http://kreta.test:8000/api/workflows/0/statuses"
-                          }
-                        }
-                      }
-                    ],
-                    "name": "Finish progress",
-                    "_links": {
-                      "self": {
-                        "href": "http://kreta.test:8000/api/workflows/0/transitions/2"
-                      },
-                      "transitions": {
-                        "href": "http://kreta.test:8000/api/workflows/0/transitions"
-                      }
-                    }
-                  }
-                },
                 "name": "In progress",
                 "id": "1",
                 "color": "#2c3e50",
@@ -409,6 +124,7 @@ Feature: Manage workflow
               }
             ],
             "name": "Start progress",
+            "id": "0",
             "_links": {
               "self": {
                 "href": "http://kreta.test:8000/api/workflows/0/transitions/0"
@@ -419,55 +135,9 @@ Feature: Manage workflow
             }
           },
           {
-            "id": "1",
             "initial_states": [
               {
                 "type": "normal",
-                "transitions": {
-                  "1": {
-                    "id": "2",
-                    "initial_states": {
-                      "1": {
-                        "type": "normal",
-                        "transitions": [
-                          {
-                            "id": "0",
-                            "initial_states": [],
-                            "name": "Start progress",
-                            "_links": {
-                              "self": {
-                                "href": "http://kreta.test:8000/api/workflows/0/transitions/0"
-                              },
-                              "transitions": {
-                                "href": "http://kreta.test:8000/api/workflows/0/transitions"
-                              }
-                            }
-                          }
-                        ],
-                        "name": "In progress",
-                        "id": "1",
-                        "color": "#2c3e50",
-                        "_links": {
-                          "self": {
-                            "href": "http://kreta.test:8000/api/workflows/0/statuses/1"
-                          },
-                          "statuses": {
-                            "href": "http://kreta.test:8000/api/workflows/0/statuses"
-                          }
-                        }
-                      }
-                    },
-                    "name": "Finish progress",
-                    "_links": {
-                      "self": {
-                        "href": "http://kreta.test:8000/api/workflows/0/transitions/2"
-                      },
-                      "transitions": {
-                        "href": "http://kreta.test:8000/api/workflows/0/transitions"
-                      }
-                    }
-                  }
-                },
                 "name": "Open",
                 "id": "0",
                 "color": "#27ae60",
@@ -482,7 +152,6 @@ Feature: Manage workflow
               },
               {
                 "type": "normal",
-                "transitions": [],
                 "name": "Resolved",
                 "id": "2",
                 "color": "#f1c40f",
@@ -497,6 +166,7 @@ Feature: Manage workflow
               }
             ],
             "name": "Reopen progress",
+            "id": "1",
             "_links": {
               "self": {
                 "href": "http://kreta.test:8000/api/workflows/0/transitions/1"
@@ -507,41 +177,9 @@ Feature: Manage workflow
             }
           },
           {
-            "id": "2",
             "initial_states": [
               {
                 "type": "normal",
-                "transitions": [
-                  {
-                    "id": "1",
-                    "initial_states": {
-                      "1": {
-                        "type": "normal",
-                        "transitions": [],
-                        "name": "Resolved",
-                        "id": "2",
-                        "color": "#f1c40f",
-                        "_links": {
-                          "self": {
-                            "href": "http://kreta.test:8000/api/workflows/0/statuses/2"
-                          },
-                          "statuses": {
-                            "href": "http://kreta.test:8000/api/workflows/0/statuses"
-                          }
-                        }
-                      }
-                    },
-                    "name": "Reopen progress",
-                    "_links": {
-                      "self": {
-                        "href": "http://kreta.test:8000/api/workflows/0/transitions/1"
-                      },
-                      "transitions": {
-                        "href": "http://kreta.test:8000/api/workflows/0/transitions"
-                      }
-                    }
-                  }
-                ],
                 "name": "Open",
                 "id": "0",
                 "color": "#27ae60",
@@ -556,21 +194,6 @@ Feature: Manage workflow
               },
               {
                 "type": "normal",
-                "transitions": [
-                  {
-                    "id": "0",
-                    "initial_states": [],
-                    "name": "Start progress",
-                    "_links": {
-                      "self": {
-                        "href": "http://kreta.test:8000/api/workflows/0/transitions/0"
-                      },
-                      "transitions": {
-                        "href": "http://kreta.test:8000/api/workflows/0/transitions"
-                      }
-                    }
-                  }
-                ],
                 "name": "In progress",
                 "id": "1",
                 "color": "#2c3e50",
@@ -585,6 +208,7 @@ Feature: Manage workflow
               }
             ],
             "name": "Finish progress",
+            "id": "2",
             "_links": {
               "self": {
                 "href": "http://kreta.test:8000/api/workflows/0/transitions/2"
@@ -694,80 +318,6 @@ Feature: Manage workflow
         "statuses": [
           {
             "type": "normal",
-            "transitions": [
-              {
-                "id": "1",
-                "initial_states": {
-                  "1": {
-                    "type": "normal",
-                    "transitions": [],
-                    "name": "Resolved",
-                    "id": "2",
-                    "color": "#f1c40f",
-                    "_links": {
-                      "self": {
-                        "href": "http://kreta.test:8000/api/workflows/0/statuses/2"
-                      },
-                      "statuses": {
-                        "href": "http://kreta.test:8000/api/workflows/0/statuses"
-                      }
-                    }
-                  }
-                },
-                "name": "Reopen progress",
-                "_links": {
-                  "self": {
-                    "href": "http://kreta.test:8000/api/workflows/0/transitions/1"
-                  },
-                  "transitions": {
-                    "href": "http://kreta.test:8000/api/workflows/0/transitions"
-                  }
-                }
-              },
-              {
-                "id": "2",
-                "initial_states": {
-                  "1": {
-                    "type": "normal",
-                    "transitions": [
-                      {
-                        "id": "0",
-                        "initial_states": [],
-                        "name": "Start progress",
-                        "_links": {
-                          "self": {
-                            "href": "http://kreta.test:8000/api/workflows/0/transitions/0"
-                          },
-                          "transitions": {
-                            "href": "http://kreta.test:8000/api/workflows/0/transitions"
-                          }
-                        }
-                      }
-                    ],
-                    "name": "In progress",
-                    "id": "1",
-                    "color": "#2c3e50",
-                    "_links": {
-                      "self": {
-                        "href": "http://kreta.test:8000/api/workflows/0/statuses/1"
-                      },
-                      "statuses": {
-                        "href": "http://kreta.test:8000/api/workflows/0/statuses"
-                      }
-                    }
-                  }
-                },
-                "name": "Finish progress",
-                "_links": {
-                  "self": {
-                    "href": "http://kreta.test:8000/api/workflows/0/transitions/2"
-                  },
-                  "transitions": {
-                    "href": "http://kreta.test:8000/api/workflows/0/transitions"
-                  }
-                }
-              }
-            ],
             "name": "Open",
             "id": "0",
             "color": "#27ae60",
@@ -782,80 +332,6 @@ Feature: Manage workflow
           },
           {
             "type": "normal",
-            "transitions": [
-              {
-                "id": "0",
-                "initial_states": [],
-                "name": "Start progress",
-                "_links": {
-                  "self": {
-                    "href": "http://kreta.test:8000/api/workflows/0/transitions/0"
-                  },
-                  "transitions": {
-                    "href": "http://kreta.test:8000/api/workflows/0/transitions"
-                  }
-                }
-              },
-              {
-                "id": "2",
-                "initial_states": [
-                  {
-                    "type": "normal",
-                    "transitions": [
-                      {
-                        "id": "1",
-                        "initial_states": {
-                          "1": {
-                            "type": "normal",
-                            "transitions": [],
-                            "name": "Resolved",
-                            "id": "2",
-                            "color": "#f1c40f",
-                            "_links": {
-                              "self": {
-                                "href": "http://kreta.test:8000/api/workflows/0/statuses/2"
-                              },
-                              "statuses": {
-                                "href": "http://kreta.test:8000/api/workflows/0/statuses"
-                              }
-                            }
-                          }
-                        },
-                        "name": "Reopen progress",
-                        "_links": {
-                          "self": {
-                            "href": "http://kreta.test:8000/api/workflows/0/transitions/1"
-                          },
-                          "transitions": {
-                            "href": "http://kreta.test:8000/api/workflows/0/transitions"
-                          }
-                        }
-                      }
-                    ],
-                    "name": "Open",
-                    "id": "0",
-                    "color": "#27ae60",
-                    "_links": {
-                      "self": {
-                        "href": "http://kreta.test:8000/api/workflows/0/statuses/0"
-                      },
-                      "statuses": {
-                        "href": "http://kreta.test:8000/api/workflows/0/statuses"
-                      }
-                    }
-                  }
-                ],
-                "name": "Finish progress",
-                "_links": {
-                  "self": {
-                    "href": "http://kreta.test:8000/api/workflows/0/transitions/2"
-                  },
-                  "transitions": {
-                    "href": "http://kreta.test:8000/api/workflows/0/transitions"
-                  }
-                }
-              }
-            ],
             "name": "In progress",
             "id": "1",
             "color": "#2c3e50",
@@ -870,81 +346,6 @@ Feature: Manage workflow
           },
           {
             "type": "normal",
-            "transitions": [
-              {
-                "id": "1",
-                "initial_states": [
-                  {
-                    "type": "normal",
-                    "transitions": {
-                      "1": {
-                        "id": "2",
-                        "initial_states": {
-                          "1": {
-                            "type": "normal",
-                            "transitions": [
-                              {
-                                "id": "0",
-                                "initial_states": [],
-                                "name": "Start progress",
-                                "_links": {
-                                  "self": {
-                                    "href": "http://kreta.test:8000/api/workflows/0/transitions/0"
-                                  },
-                                  "transitions": {
-                                    "href": "http://kreta.test:8000/api/workflows/0/transitions"
-                                  }
-                                }
-                              }
-                            ],
-                            "name": "In progress",
-                            "id": "1",
-                            "color": "#2c3e50",
-                            "_links": {
-                              "self": {
-                                "href": "http://kreta.test:8000/api/workflows/0/statuses/1"
-                              },
-                              "statuses": {
-                                "href": "http://kreta.test:8000/api/workflows/0/statuses"
-                              }
-                            }
-                          }
-                        },
-                        "name": "Finish progress",
-                        "_links": {
-                          "self": {
-                            "href": "http://kreta.test:8000/api/workflows/0/transitions/2"
-                          },
-                          "transitions": {
-                            "href": "http://kreta.test:8000/api/workflows/0/transitions"
-                          }
-                        }
-                      }
-                    },
-                    "name": "Open",
-                    "id": "0",
-                    "color": "#27ae60",
-                    "_links": {
-                      "self": {
-                        "href": "http://kreta.test:8000/api/workflows/0/statuses/0"
-                      },
-                      "statuses": {
-                        "href": "http://kreta.test:8000/api/workflows/0/statuses"
-                      }
-                    }
-                  }
-                ],
-                "name": "Reopen progress",
-                "_links": {
-                  "self": {
-                    "href": "http://kreta.test:8000/api/workflows/0/transitions/1"
-                  },
-                  "transitions": {
-                    "href": "http://kreta.test:8000/api/workflows/0/transitions"
-                  }
-                }
-              }
-            ],
             "name": "Resolved",
             "id": "2",
             "color": "#f1c40f",
@@ -960,71 +361,9 @@ Feature: Manage workflow
         ],
         "status_transitions": [
           {
-            "id": "0",
             "initial_states": [
               {
                 "type": "normal",
-                "transitions": {
-                  "1": {
-                    "id": "2",
-                    "initial_states": [
-                      {
-                        "type": "normal",
-                        "transitions": [
-                          {
-                            "id": "1",
-                            "initial_states": {
-                              "1": {
-                                "type": "normal",
-                                "transitions": [],
-                                "name": "Resolved",
-                                "id": "2",
-                                "color": "#f1c40f",
-                                "_links": {
-                                  "self": {
-                                    "href": "http://kreta.test:8000/api/workflows/0/statuses/2"
-                                  },
-                                  "statuses": {
-                                    "href": "http://kreta.test:8000/api/workflows/0/statuses"
-                                  }
-                                }
-                              }
-                            },
-                            "name": "Reopen progress",
-                            "_links": {
-                              "self": {
-                                "href": "http://kreta.test:8000/api/workflows/0/transitions/1"
-                              },
-                              "transitions": {
-                                "href": "http://kreta.test:8000/api/workflows/0/transitions"
-                              }
-                            }
-                          }
-                        ],
-                        "name": "Open",
-                        "id": "0",
-                        "color": "#27ae60",
-                        "_links": {
-                          "self": {
-                            "href": "http://kreta.test:8000/api/workflows/0/statuses/0"
-                          },
-                          "statuses": {
-                            "href": "http://kreta.test:8000/api/workflows/0/statuses"
-                          }
-                        }
-                      }
-                    ],
-                    "name": "Finish progress",
-                    "_links": {
-                      "self": {
-                        "href": "http://kreta.test:8000/api/workflows/0/transitions/2"
-                      },
-                      "transitions": {
-                        "href": "http://kreta.test:8000/api/workflows/0/transitions"
-                      }
-                    }
-                  }
-                },
                 "name": "In progress",
                 "id": "1",
                 "color": "#2c3e50",
@@ -1039,6 +378,7 @@ Feature: Manage workflow
               }
             ],
             "name": "Start progress",
+            "id": "0",
             "_links": {
               "self": {
                 "href": "http://kreta.test:8000/api/workflows/0/transitions/0"
@@ -1049,55 +389,9 @@ Feature: Manage workflow
             }
           },
           {
-            "id": "1",
             "initial_states": [
               {
                 "type": "normal",
-                "transitions": {
-                  "1": {
-                    "id": "2",
-                    "initial_states": {
-                      "1": {
-                        "type": "normal",
-                        "transitions": [
-                          {
-                            "id": "0",
-                            "initial_states": [],
-                            "name": "Start progress",
-                            "_links": {
-                              "self": {
-                                "href": "http://kreta.test:8000/api/workflows/0/transitions/0"
-                              },
-                              "transitions": {
-                                "href": "http://kreta.test:8000/api/workflows/0/transitions"
-                              }
-                            }
-                          }
-                        ],
-                        "name": "In progress",
-                        "id": "1",
-                        "color": "#2c3e50",
-                        "_links": {
-                          "self": {
-                            "href": "http://kreta.test:8000/api/workflows/0/statuses/1"
-                          },
-                          "statuses": {
-                            "href": "http://kreta.test:8000/api/workflows/0/statuses"
-                          }
-                        }
-                      }
-                    },
-                    "name": "Finish progress",
-                    "_links": {
-                      "self": {
-                        "href": "http://kreta.test:8000/api/workflows/0/transitions/2"
-                      },
-                      "transitions": {
-                        "href": "http://kreta.test:8000/api/workflows/0/transitions"
-                      }
-                    }
-                  }
-                },
                 "name": "Open",
                 "id": "0",
                 "color": "#27ae60",
@@ -1112,7 +406,6 @@ Feature: Manage workflow
               },
               {
                 "type": "normal",
-                "transitions": [],
                 "name": "Resolved",
                 "id": "2",
                 "color": "#f1c40f",
@@ -1127,6 +420,7 @@ Feature: Manage workflow
               }
             ],
             "name": "Reopen progress",
+            "id": "1",
             "_links": {
               "self": {
                 "href": "http://kreta.test:8000/api/workflows/0/transitions/1"
@@ -1137,41 +431,9 @@ Feature: Manage workflow
             }
           },
           {
-            "id": "2",
             "initial_states": [
               {
                 "type": "normal",
-                "transitions": [
-                  {
-                    "id": "1",
-                    "initial_states": {
-                      "1": {
-                        "type": "normal",
-                        "transitions": [],
-                        "name": "Resolved",
-                        "id": "2",
-                        "color": "#f1c40f",
-                        "_links": {
-                          "self": {
-                            "href": "http://kreta.test:8000/api/workflows/0/statuses/2"
-                          },
-                          "statuses": {
-                            "href": "http://kreta.test:8000/api/workflows/0/statuses"
-                          }
-                        }
-                      }
-                    },
-                    "name": "Reopen progress",
-                    "_links": {
-                      "self": {
-                        "href": "http://kreta.test:8000/api/workflows/0/transitions/1"
-                      },
-                      "transitions": {
-                        "href": "http://kreta.test:8000/api/workflows/0/transitions"
-                      }
-                    }
-                  }
-                ],
                 "name": "Open",
                 "id": "0",
                 "color": "#27ae60",
@@ -1186,21 +448,6 @@ Feature: Manage workflow
               },
               {
                 "type": "normal",
-                "transitions": [
-                  {
-                    "id": "0",
-                    "initial_states": [],
-                    "name": "Start progress",
-                    "_links": {
-                      "self": {
-                        "href": "http://kreta.test:8000/api/workflows/0/transitions/0"
-                      },
-                      "transitions": {
-                        "href": "http://kreta.test:8000/api/workflows/0/transitions"
-                      }
-                    }
-                  }
-                ],
                 "name": "In progress",
                 "id": "1",
                 "color": "#2c3e50",
@@ -1215,6 +462,7 @@ Feature: Manage workflow
               }
             ],
             "name": "Finish progress",
+            "id": "2",
             "_links": {
               "self": {
                 "href": "http://kreta.test:8000/api/workflows/0/transitions/2"
@@ -1326,80 +574,6 @@ Feature: Manage workflow
         "statuses": [
           {
             "type": "normal",
-            "transitions": [
-              {
-                "id": "1",
-                "initial_states": {
-                  "1": {
-                    "type": "normal",
-                    "transitions": [],
-                    "name": "Resolved",
-                    "id": "2",
-                    "color": "#f1c40f",
-                    "_links": {
-                      "self": {
-                        "href": "http://kreta.test:8000/api/workflows/0/statuses/2"
-                      },
-                      "statuses": {
-                        "href": "http://kreta.test:8000/api/workflows/0/statuses"
-                      }
-                    }
-                  }
-                },
-                "name": "Reopen progress",
-                "_links": {
-                  "self": {
-                    "href": "http://kreta.test:8000/api/workflows/0/transitions/1"
-                  },
-                  "transitions": {
-                    "href": "http://kreta.test:8000/api/workflows/0/transitions"
-                  }
-                }
-              },
-              {
-                "id": "2",
-                "initial_states": {
-                  "1": {
-                    "type": "normal",
-                    "transitions": [
-                      {
-                        "id": "0",
-                        "initial_states": [],
-                        "name": "Start progress",
-                        "_links": {
-                          "self": {
-                            "href": "http://kreta.test:8000/api/workflows/0/transitions/0"
-                          },
-                          "transitions": {
-                            "href": "http://kreta.test:8000/api/workflows/0/transitions"
-                          }
-                        }
-                      }
-                    ],
-                    "name": "In progress",
-                    "id": "1",
-                    "color": "#2c3e50",
-                    "_links": {
-                      "self": {
-                        "href": "http://kreta.test:8000/api/workflows/0/statuses/1"
-                      },
-                      "statuses": {
-                        "href": "http://kreta.test:8000/api/workflows/0/statuses"
-                      }
-                    }
-                  }
-                },
-                "name": "Finish progress",
-                "_links": {
-                  "self": {
-                    "href": "http://kreta.test:8000/api/workflows/0/transitions/2"
-                  },
-                  "transitions": {
-                    "href": "http://kreta.test:8000/api/workflows/0/transitions"
-                  }
-                }
-              }
-            ],
             "name": "Open",
             "id": "0",
             "color": "#27ae60",
@@ -1414,80 +588,6 @@ Feature: Manage workflow
           },
           {
             "type": "normal",
-            "transitions": [
-              {
-                "id": "0",
-                "initial_states": [],
-                "name": "Start progress",
-                "_links": {
-                  "self": {
-                    "href": "http://kreta.test:8000/api/workflows/0/transitions/0"
-                  },
-                  "transitions": {
-                    "href": "http://kreta.test:8000/api/workflows/0/transitions"
-                  }
-                }
-              },
-              {
-                "id": "2",
-                "initial_states": [
-                  {
-                    "type": "normal",
-                    "transitions": [
-                      {
-                        "id": "1",
-                        "initial_states": {
-                          "1": {
-                            "type": "normal",
-                            "transitions": [],
-                            "name": "Resolved",
-                            "id": "2",
-                            "color": "#f1c40f",
-                            "_links": {
-                              "self": {
-                                "href": "http://kreta.test:8000/api/workflows/0/statuses/2"
-                              },
-                              "statuses": {
-                                "href": "http://kreta.test:8000/api/workflows/0/statuses"
-                              }
-                            }
-                          }
-                        },
-                        "name": "Reopen progress",
-                        "_links": {
-                          "self": {
-                            "href": "http://kreta.test:8000/api/workflows/0/transitions/1"
-                          },
-                          "transitions": {
-                            "href": "http://kreta.test:8000/api/workflows/0/transitions"
-                          }
-                        }
-                      }
-                    ],
-                    "name": "Open",
-                    "id": "0",
-                    "color": "#27ae60",
-                    "_links": {
-                      "self": {
-                        "href": "http://kreta.test:8000/api/workflows/0/statuses/0"
-                      },
-                      "statuses": {
-                        "href": "http://kreta.test:8000/api/workflows/0/statuses"
-                      }
-                    }
-                  }
-                ],
-                "name": "Finish progress",
-                "_links": {
-                  "self": {
-                    "href": "http://kreta.test:8000/api/workflows/0/transitions/2"
-                  },
-                  "transitions": {
-                    "href": "http://kreta.test:8000/api/workflows/0/transitions"
-                  }
-                }
-              }
-            ],
             "name": "In progress",
             "id": "1",
             "color": "#2c3e50",
@@ -1502,81 +602,6 @@ Feature: Manage workflow
           },
           {
             "type": "normal",
-            "transitions": [
-              {
-                "id": "1",
-                "initial_states": [
-                  {
-                    "type": "normal",
-                    "transitions": {
-                      "1": {
-                        "id": "2",
-                        "initial_states": {
-                          "1": {
-                            "type": "normal",
-                            "transitions": [
-                              {
-                                "id": "0",
-                                "initial_states": [],
-                                "name": "Start progress",
-                                "_links": {
-                                  "self": {
-                                    "href": "http://kreta.test:8000/api/workflows/0/transitions/0"
-                                  },
-                                  "transitions": {
-                                    "href": "http://kreta.test:8000/api/workflows/0/transitions"
-                                  }
-                                }
-                              }
-                            ],
-                            "name": "In progress",
-                            "id": "1",
-                            "color": "#2c3e50",
-                            "_links": {
-                              "self": {
-                                "href": "http://kreta.test:8000/api/workflows/0/statuses/1"
-                              },
-                              "statuses": {
-                                "href": "http://kreta.test:8000/api/workflows/0/statuses"
-                              }
-                            }
-                          }
-                        },
-                        "name": "Finish progress",
-                        "_links": {
-                          "self": {
-                            "href": "http://kreta.test:8000/api/workflows/0/transitions/2"
-                          },
-                          "transitions": {
-                            "href": "http://kreta.test:8000/api/workflows/0/transitions"
-                          }
-                        }
-                      }
-                    },
-                    "name": "Open",
-                    "id": "0",
-                    "color": "#27ae60",
-                    "_links": {
-                      "self": {
-                        "href": "http://kreta.test:8000/api/workflows/0/statuses/0"
-                      },
-                      "statuses": {
-                        "href": "http://kreta.test:8000/api/workflows/0/statuses"
-                      }
-                    }
-                  }
-                ],
-                "name": "Reopen progress",
-                "_links": {
-                  "self": {
-                    "href": "http://kreta.test:8000/api/workflows/0/transitions/1"
-                  },
-                  "transitions": {
-                    "href": "http://kreta.test:8000/api/workflows/0/transitions"
-                  }
-                }
-              }
-            ],
             "name": "Resolved",
             "id": "2",
             "color": "#f1c40f",
@@ -1592,71 +617,9 @@ Feature: Manage workflow
         ],
         "status_transitions": [
           {
-            "id": "0",
             "initial_states": [
               {
                 "type": "normal",
-                "transitions": {
-                  "1": {
-                    "id": "2",
-                    "initial_states": [
-                      {
-                        "type": "normal",
-                        "transitions": [
-                          {
-                            "id": "1",
-                            "initial_states": {
-                              "1": {
-                                "type": "normal",
-                                "transitions": [],
-                                "name": "Resolved",
-                                "id": "2",
-                                "color": "#f1c40f",
-                                "_links": {
-                                  "self": {
-                                    "href": "http://kreta.test:8000/api/workflows/0/statuses/2"
-                                  },
-                                  "statuses": {
-                                    "href": "http://kreta.test:8000/api/workflows/0/statuses"
-                                  }
-                                }
-                              }
-                            },
-                            "name": "Reopen progress",
-                            "_links": {
-                              "self": {
-                                "href": "http://kreta.test:8000/api/workflows/0/transitions/1"
-                              },
-                              "transitions": {
-                                "href": "http://kreta.test:8000/api/workflows/0/transitions"
-                              }
-                            }
-                          }
-                        ],
-                        "name": "Open",
-                        "id": "0",
-                        "color": "#27ae60",
-                        "_links": {
-                          "self": {
-                            "href": "http://kreta.test:8000/api/workflows/0/statuses/0"
-                          },
-                          "statuses": {
-                            "href": "http://kreta.test:8000/api/workflows/0/statuses"
-                          }
-                        }
-                      }
-                    ],
-                    "name": "Finish progress",
-                    "_links": {
-                      "self": {
-                        "href": "http://kreta.test:8000/api/workflows/0/transitions/2"
-                      },
-                      "transitions": {
-                        "href": "http://kreta.test:8000/api/workflows/0/transitions"
-                      }
-                    }
-                  }
-                },
                 "name": "In progress",
                 "id": "1",
                 "color": "#2c3e50",
@@ -1671,6 +634,7 @@ Feature: Manage workflow
               }
             ],
             "name": "Start progress",
+            "id": "0",
             "_links": {
               "self": {
                 "href": "http://kreta.test:8000/api/workflows/0/transitions/0"
@@ -1681,55 +645,9 @@ Feature: Manage workflow
             }
           },
           {
-            "id": "1",
             "initial_states": [
               {
                 "type": "normal",
-                "transitions": {
-                  "1": {
-                    "id": "2",
-                    "initial_states": {
-                      "1": {
-                        "type": "normal",
-                        "transitions": [
-                          {
-                            "id": "0",
-                            "initial_states": [],
-                            "name": "Start progress",
-                            "_links": {
-                              "self": {
-                                "href": "http://kreta.test:8000/api/workflows/0/transitions/0"
-                              },
-                              "transitions": {
-                                "href": "http://kreta.test:8000/api/workflows/0/transitions"
-                              }
-                            }
-                          }
-                        ],
-                        "name": "In progress",
-                        "id": "1",
-                        "color": "#2c3e50",
-                        "_links": {
-                          "self": {
-                            "href": "http://kreta.test:8000/api/workflows/0/statuses/1"
-                          },
-                          "statuses": {
-                            "href": "http://kreta.test:8000/api/workflows/0/statuses"
-                          }
-                        }
-                      }
-                    },
-                    "name": "Finish progress",
-                    "_links": {
-                      "self": {
-                        "href": "http://kreta.test:8000/api/workflows/0/transitions/2"
-                      },
-                      "transitions": {
-                        "href": "http://kreta.test:8000/api/workflows/0/transitions"
-                      }
-                    }
-                  }
-                },
                 "name": "Open",
                 "id": "0",
                 "color": "#27ae60",
@@ -1744,7 +662,6 @@ Feature: Manage workflow
               },
               {
                 "type": "normal",
-                "transitions": [],
                 "name": "Resolved",
                 "id": "2",
                 "color": "#f1c40f",
@@ -1759,6 +676,7 @@ Feature: Manage workflow
               }
             ],
             "name": "Reopen progress",
+            "id": "1",
             "_links": {
               "self": {
                 "href": "http://kreta.test:8000/api/workflows/0/transitions/1"
@@ -1769,41 +687,9 @@ Feature: Manage workflow
             }
           },
           {
-            "id": "2",
             "initial_states": [
               {
                 "type": "normal",
-                "transitions": [
-                  {
-                    "id": "1",
-                    "initial_states": {
-                      "1": {
-                        "type": "normal",
-                        "transitions": [],
-                        "name": "Resolved",
-                        "id": "2",
-                        "color": "#f1c40f",
-                        "_links": {
-                          "self": {
-                            "href": "http://kreta.test:8000/api/workflows/0/statuses/2"
-                          },
-                          "statuses": {
-                            "href": "http://kreta.test:8000/api/workflows/0/statuses"
-                          }
-                        }
-                      }
-                    },
-                    "name": "Reopen progress",
-                    "_links": {
-                      "self": {
-                        "href": "http://kreta.test:8000/api/workflows/0/transitions/1"
-                      },
-                      "transitions": {
-                        "href": "http://kreta.test:8000/api/workflows/0/transitions"
-                      }
-                    }
-                  }
-                ],
                 "name": "Open",
                 "id": "0",
                 "color": "#27ae60",
@@ -1818,21 +704,6 @@ Feature: Manage workflow
               },
               {
                 "type": "normal",
-                "transitions": [
-                  {
-                    "id": "0",
-                    "initial_states": [],
-                    "name": "Start progress",
-                    "_links": {
-                      "self": {
-                        "href": "http://kreta.test:8000/api/workflows/0/transitions/0"
-                      },
-                      "transitions": {
-                        "href": "http://kreta.test:8000/api/workflows/0/transitions"
-                      }
-                    }
-                  }
-                ],
                 "name": "In progress",
                 "id": "1",
                 "color": "#2c3e50",
@@ -1847,6 +718,7 @@ Feature: Manage workflow
               }
             ],
             "name": "Finish progress",
+            "id": "2",
             "_links": {
               "self": {
                 "href": "http://kreta.test:8000/api/workflows/0/transitions/2"
