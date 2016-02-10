@@ -68,7 +68,7 @@ class List extends React.Component {
   }
 
   goToShortcutLink(index) {
-    const link = `/project/${this.state.selectedProject.id}/${this.shortcuts[index].link}`;
+    const link = `/${this.state.selectedProject.organization.slug}/${this.state.selectedProject.slug}/${this.shortcuts[index].link}`;
     this.props.dispatch(routeActions.push(link));
     this.triggerOnProjectSelected();
   }
@@ -110,13 +110,6 @@ class List extends React.Component {
             <div className="simple-header__action">
               <span className="simple-header__action-key simple-header__action-key--escape">esc</span>to dismiss
             </div>
-            <Link to="/project/new">
-              <Button color="green"
-                      onClick={this.triggerOnProjectSelected.bind(this, null)}
-                      size="small">
-                New project
-              </Button>
-            </Link>
           </div>
         </div>
         <input className="project-preview__filter"

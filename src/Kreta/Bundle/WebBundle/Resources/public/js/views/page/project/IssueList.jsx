@@ -52,13 +52,13 @@ class IssueList extends React.Component {
                                        this.props.currentProject.selectedIssue.id === issue.id}/>;
       }),
       links = [{
-        href: `/project/${this.props.currentProject.project.id}/settings`,
+        href: `/${this.props.currentProject.project.organization.slug}/${this.props.currentProject.project.slug}/settings`,
         icon: SettingsIcon,
         title: 'Settings',
         color: 'green'
       }],
       buttons = [{
-        href: `/project/${this.props.currentProject.project.id}/issue/new`,
+        href: `/${this.props.currentProject.project.organization.slug}/${this.props.currentProject.project.slug}/issue/new`,
         title: 'New issue'
       }],
       project = this.props.currentProject.project;

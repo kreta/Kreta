@@ -32,11 +32,19 @@ class New extends React.Component {
   createIssue(ev) {
     ev.preventDefault();
     const issue = FormSerializer.serialize(ReactDOM.findDOMNode(this.refs.form));
-    this.props.dispatch(CurrentProjectActions.createIssue(issue));
+    this.props.dispatch(CurrentProjectActions.createIssue(issue, this.props.currentProject.project));
   }
 
   updateSelectors(projectId) {
-    this.props.dispatch(routeActions.push(`/project/${projectId}/issue/new`));
+    const selectedProject = this.props.projects.projects.find((project) => {
+      return project.id === projectId
+    });
+    if(typeof selectedProject !== 'undefined') {
+      this.props.dispatch(routeActions.push(
+        `/${selectedProject.organization.slug}/${selectedProject.slug}/issue/new`
+      ));
+    }
+
   }
 
   getProjectOptions() {
@@ -81,7 +89,7 @@ class New extends React.Component {
   }
 
   render() {
-    if (this.props.currentProject.fetching || !this.props.currentProject.project) {
+    if (this.props.currentProject.fetchingProjects || !this.props.currentProject.project) {
       return <LoadingSpinner/>;
     }
 
