@@ -6,8 +6,6 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 
-sudo: false
-
 addons:
     hosts:
         - kreta.test
@@ -24,11 +22,6 @@ env:
     - COMPOSER_OPTIONS="--prefer-source"
 
 install:
-    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || mkdir -p /home/travis/go/{src,bin,pkg}'
-    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || export GOPATH="/home/travis/go"'
-    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || export PATH="$GOPATH/bin:$PATH"'
-    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || go get github.com/Naktibalda/hhvm-serve'
-
     - nvm install 4.2.1
     - nvm use 4.2.1
     - composer self-update
@@ -36,6 +29,7 @@ install:
     - cd src/Kreta/Bundle/WebBundle
     - npm install
     - cd -
+    - if [ "$TRAVIS_PHP_VERSION" = 'hhvm' ]; then ./tests/functional/ci/install-apache-hhvm.sh; fi
 
 before_script:
     - cd tests/functional/fixtures
@@ -53,23 +47,10 @@ before_script:
     - cd -
     - cp tests/behat.yml.dist behat.yml && cp tests/phpspec.yml.dist phpspec.yml
 
-#### create config file for HHVM ####
-    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || echo "pid = /tmp/hhvm.pid" >>/tmp/hhvm.ini'
-    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || echo "hhvm.server.port = 9000" >>/tmp/hhvm.ini'
-    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || echo "hhvm.server.type = fastcgi" >>/tmp/hhvm.ini'
-    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || echo "hhvm.server.default_document = index.php" >>/tmp/hhvm.ini'
-    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || echo "hhvm.log.use_log_file = true" >>/tmp/hhvm.ini'
-    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || echo "hhvm.log.file = /tmp/hhvm-error.log" >>/tmp/hhvm.ini'
-    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || echo "hhvm.repo.central.path = /tmp/hhvm.hhbc" >>/tmp/hhvm.ini'
-#### start HHVM ####
-    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || hhvm --config "/tmp/hhvm.ini" --mode daemon'
-
     - sleep 5
 
-#### starting PHP built-in server ####
+#### starting PHP built-in server if not hhvm ####
     - '[[ "$TRAVIS_PHP_VERSION" == "hhvm" ]] || tests/functional/fixtures/bin/console server:start kreta.test:8000 --router=tests/functional/fixtures/web/index.php'
-#### use berbeley's FastCGI-Serve instead of PHP built-in server ####
-    - '[[ "$TRAVIS_PHP_VERSION" != "hhvm" ]] || hhvm-serve --document-root=tests/functional/fixtures/web --listen=kreta.test:8000 >/dev/null 2>&1 &'
 
     - sleep 5
 

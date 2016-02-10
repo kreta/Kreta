@@ -11,5 +11,20 @@ Kreta\Component\Core\Model\Abstracts\AbstractModel:
     properties:
         id:
             expose: true
-            groups: [notificationList, notification, profile, workflowList, workflow, projectList, project, issueList, issue, labelList, label, commentList, comment, participantList, participant]
-
+            groups:
+                - comment
+                - commentList
+                - issue
+                - issueList
+                - label
+                - labelList
+                - notification
+                - notificationList
+                - participant
+                - participantList
+                - profile
+                - project
+                - projectList
+                - userList
+                - workflow
+                - workflowList
