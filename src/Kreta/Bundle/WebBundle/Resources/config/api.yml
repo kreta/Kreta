@@ -6,6 +6,10 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 
-kreta_api_private_project:
+kreta_api_private_organization:
     type: rest
     resource: Kreta\Bundle\WebBundle\Controller\Api\OrganizationController
+
+kreta_api_private_project:
+    type: rest
+    resource: Kreta\Bundle\WebBundle\Controller\Api\ProjectController
