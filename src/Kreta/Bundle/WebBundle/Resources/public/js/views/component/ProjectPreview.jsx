@@ -55,12 +55,12 @@ class ProjectPreview extends React.Component {
               onClick={this.triggerOnShortcutClick.bind(
                 this,
                 index,
-                `/project/${this.props.project.id}/${shortcut.link}`
+                `/${this.props.project.organization.slug}/${this.props.project.slug}/${shortcut.link}`
               )}
               onMouseEnter={this.triggerOnShortcutEnter.bind(
                 this,
                 index,
-                `/project/${this.props.project.id}/${shortcut.link}`
+                `/${this.props.project.organization.slug}/${this.props.project.slug}/${shortcut.link}`
               )}/>
       );
     });
@@ -73,8 +73,8 @@ class ProjectPreview extends React.Component {
       <div className={classes} onMouseEnter={ this.props.onMouseEnter }>
         <Link className="project-preview__title"
               onClick={this.props.onTitleClick}
-              to={`/project/${this.props.project.id}`}>
-          {this.props.project.name}
+              to={`/${this.props.project.organization.slug}/${this.props.project.slug}`}>
+          {this.props.project.organization.name}/{this.props.project.name}
         </Link>
 
         <div className="project-preview__shortcuts">

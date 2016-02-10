@@ -17,7 +17,8 @@ const initialState = {
   filters: [],
   issues: [],
   project: null,
-  selectedIssue: null
+  selectedIssue: null,
+  workflow: null
 };
 
 export default function reducer(state = initialState, action = {}) {
@@ -70,6 +71,12 @@ export default function reducer(state = initialState, action = {}) {
 
     case ActionTypes.CURRENT_PROJECT_ISSUE_FILTERED:
       return {...state, issues: action.issues};
+
+    case ActionTypes.CURRENT_PROJECT_WORKFLOW_FETCHING:
+      return {...state, workflow: null};
+
+    case ActionTypes.CURRENT_PROJECT_WORKFLOW_RECEIVED:
+      return {...state, workflow: action.workflow};
 
     default:
       return state;

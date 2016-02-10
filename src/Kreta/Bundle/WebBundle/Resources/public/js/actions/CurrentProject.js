@@ -13,26 +13,29 @@ import {routeActions} from 'react-router-redux';
 import ActionTypes from './../constants/ActionTypes';
 import IssueApi from './../api/Issue';
 import ProjectApi from './../api/Project';
+import {projectApiPrivateInstance} from '../api/ApiPrivate';
 
 const Actions = {
-  fetchProject: (projectId) => {
+  fetchProject: (organization, project) => {
     return (dispatch) => {
       dispatch({
         type: ActionTypes.CURRENT_PROJECT_FETCHING
       });
-      ProjectApi.getProject(projectId)
-        .then((project) => {
+
+      projectApiPrivateInstance.getProjectByOrganization(organization, project)
+        .then((receivedProject) => {
           dispatch({
             type: ActionTypes.CURRENT_PROJECT_RECEIVED,
-            project
+            project: receivedProject
           });
-        });
-      IssueApi.getIssues({project: projectId})
-        .then((issues) => {
-          dispatch({
-            type: ActionTypes.CURRENT_PROJECT_ISSUES_RECEIVED,
-            issues
-          });
+
+          IssueApi.getIssues({project: receivedProject.id})
+            .then((issues) => {
+              dispatch({
+                type: ActionTypes.CURRENT_PROJECT_ISSUES_RECEIVED,
+                issues
+              });
+            });
         });
     };
   },
@@ -57,7 +60,7 @@ const Actions = {
         });
     };
   },
-  createIssue: (issueData) => {
+  createIssue: (issueData, currentProject) => {
     return (dispatch) => {
       dispatch({
         type: ActionTypes.CURRENT_PROJECT_ISSUE_CREATING
@@ -69,7 +72,9 @@ const Actions = {
             issue: createdIssue
           });
           dispatch(
-            routeActions.push(`/project/${issueData.project}/issue/${createdIssue.id}`)
+            routeActions.push(
+              `/${currentProject.organization.slug}/${currentProject.slug}/issue/${createdIssue.id}`
+            )
           );
         })
         .catch((errorData) => {

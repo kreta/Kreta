@@ -18,31 +18,20 @@ import CurrentProjectActions from '../../../actions/CurrentProject';
 
 export default class ProjectRoot extends React.Component {
   componentDidMount() {
-    this.props.dispatch(CurrentProjectActions.fetchProject(this.props.params.projectId));
-    if (typeof this.props.params.issueId !== 'undefined') {
-      this.props.dispatch(CurrentProjectActions.selectCurrentIssue(this.props.params.issueId));
-    } else {
-      this.props.dispatch(CurrentProjectActions.selectCurrentIssue(null));
-    }
-
-    this.bindShortcuts();
+    this.fetchContent()
   }
 
   componentDidUpdate(prevProps) {
-    const oldProjectId = prevProps.params.projectId,
-      newProjectId = this.props.params.projectId,
-      oldIssueId = prevProps.params.issueId,
-      newIssueId = this.props.params.issueId;
-
-    if (newProjectId !== oldProjectId) {
-      this.props.dispatch(CurrentProjectActions.fetchProject(newProjectId));
-      this.bindShortcuts();
+    if(prevProps.params.project !== this.props.params.project ||
+      prevProps.params.organization !== this.props.params.organization) {
+      this.fetchContent();
+      return;
     }
 
-    if (newIssueId !== oldIssueId && typeof newIssueId !== 'undefined') {
-      this.props.dispatch(CurrentProjectActions.selectCurrentIssue(newIssueId));
-    } else if (typeof newIssueId === 'undefined') {
-      this.props.dispatch(CurrentProjectActions.selectCurrentIssue(null));
+    if(prevProps.params.issueId !== this.props.params.issueId) {
+      this.props.dispatch(CurrentProjectActions.selectCurrentIssue(
+        typeof this.props.params.issueId !== 'undefined' ? this.props.params.issueId : null
+      ));
     }
   }
 
@@ -51,18 +40,30 @@ export default class ProjectRoot extends React.Component {
     Mousetrap.unbind(Config.shortcuts.projectSettings);
   }
 
+  fetchContent() {
+    this.props.dispatch(CurrentProjectActions.fetchProject(
+      this.props.params.organization,
+      this.props.params.project
+    ));
+    this.props.dispatch(CurrentProjectActions.selectCurrentIssue(
+      typeof this.props.params.issueId !== 'undefined' ? this.props.params.issueId : null
+    ));
+
+    this.bindShortcuts();
+  }
+
   bindShortcuts() {
     Mousetrap.bind(Config.shortcuts.issueNew, (ev) => {
       ev.preventDefault();
       this.props.dispatch(
-        routeActions.push(`/project/${this.props.params.projectId}/issue/new`)
+        routeActions.push(`/${this.props.project.organization.slug}/${this.props.project.slug}/issue/new`)
       );
     });
 
     Mousetrap.bind(Config.shortcuts.projectSettings, (ev) => {
       ev.preventDefault();
       this.props.dispatch(
-        routeActions.push(`/project/${this.props.params.projectId}/settings`)
+        routeActions.push(`/${this.props.project.organization.slug}/${this.props.project.slug}/settings`)
       );
     });
   }
@@ -75,7 +76,9 @@ export default class ProjectRoot extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    project: state.currentProject.project
+  };
 };
 
 export default connect(mapStateToProps)(ProjectRoot);
