@@ -18,16 +18,21 @@ import FormInput from './../../component/FormInput';
 import FormInputFile from './../../component/FormInputFile';
 
 class Edit extends React.Component {
-  static propTypes = {
-    project: React.PropTypes.object
-  };
+  updateProject(ev) {
+    ev.preventDefault();
+    const project = FormSerializer.serialize(ReactDOM.findDOMNode(this.refs.form));
+    this.props.dispatch(ProjectsActions.updateProject(project));
+  }
 
   render() {
-    const project = this.props.project,
+    const
+      project = this.props.project,
       image = project.image;
 
     return (
-      <Form>
+      <Form errors={this.props.project.errors}
+            onSubmit={this.updateProject.bind(this)}
+            ref="form">
         <div className="section-header">
           <div className="section-header-title"></div>
           <div>
@@ -52,4 +57,10 @@ class Edit extends React.Component {
   }
 }
 
-export default Edit;
+const mapStateToProps = (state) => {
+  return {
+    project: state.project
+  };
+};
+
+export default connect(mapStateToProps)(Edit);
