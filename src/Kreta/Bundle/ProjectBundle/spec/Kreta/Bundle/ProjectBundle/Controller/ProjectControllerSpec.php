@@ -66,7 +66,8 @@ class ProjectControllerSpec extends ObjectBehavior
 
         $paramFetcher->get('limit')->shouldBeCalled()->willReturn(10);
         $paramFetcher->get('offset')->shouldBeCalled()->willReturn(1);
-        $projectRepository->findByParticipant($user, ['name' => 'ASC'], 10, 1)->shouldBeCalled()->willReturn([$project]);
+        $projectRepository->findByParticipant($user, null, ['name' => 'ASC'], 10, 1)
+            ->shouldBeCalled()->willReturn([$project]);
 
         $this->getProjectsAction($paramFetcher)->shouldReturn([$project]);
     }

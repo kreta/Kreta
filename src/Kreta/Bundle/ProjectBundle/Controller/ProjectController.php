@@ -45,6 +45,7 @@ class ProjectController extends Controller
     {
         return $this->get('kreta_project.repository.project')->findByParticipant(
             $this->getUser(),
+            null,
             ['name' => 'ASC'],
             $paramFetcher->get('limit'),
             $paramFetcher->get('offset')

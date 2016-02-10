@@ -119,7 +119,8 @@ class OrganizationController extends Controller
      */
     public function getOrganizationProjectsAction(Request $request, ParamFetcher $paramFetcher, $organizationId)
     {
-        return $this->get('kreta_project.repository.project')->findByOrganization(
+        return $this->get('kreta_project.repository.project')->findByParticipant(
+            $this->getUser(),
             $request->get('organization'),
             ['name' => 'ASC'],
             $paramFetcher->get('limit'),

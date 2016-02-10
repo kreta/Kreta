@@ -45,7 +45,7 @@ Kreta\Component\Organization\Model\Organization:
             groups: [organizationList, organization, organizationParticipantList, organizationParticipant, projectList, project]
         participants:
             expose: true
-            groups: [organizationList, organization]
+            groups: []
         projects:
             expose: true
             groups: []

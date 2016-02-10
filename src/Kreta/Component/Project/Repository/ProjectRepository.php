@@ -26,24 +26,11 @@ class ProjectRepository extends EntityRepository
 {
     /**
      * Finds all the projects where user given is participant.
+     * Also supports organization criteria.
+     *
      * Can do ordering, limit and offset.
      *
-     * @param UserInterface $user    The user
-     * @param string[]      $sorting Array which contains the sorting as key/val
-     * @param int           $limit   The limit
-     * @param int           $offset  The offset
-     *
-     * @return \Kreta\Component\Project\Model\Interfaces\ProjectInterface[]
-     */
-    public function findByParticipant(UserInterface $user, array $sorting = [], $limit = null, $offset = null)
-    {
-        return $this->findBy(['par.user' => $user], $sorting, $limit, $offset);
-    }
-
-    /**
-     * Finds all the projects of organization given.
-     * Can do ordering, limit and offset.
-     *
+     * @param UserInterface         $user         The user
      * @param OrganizationInterface $organization The organization
      * @param string[]              $sorting      Array which contains the sorting as key/val
      * @param int                   $limit        The limit
@@ -51,13 +38,19 @@ class ProjectRepository extends EntityRepository
      *
      * @return \Kreta\Component\Project\Model\Interfaces\ProjectInterface[]
      */
-    public function findByOrganization(
-        OrganizationInterface $organization,
+    public function findByParticipant(
+        UserInterface $user,
+        OrganizationInterface $organization = null,
         array $sorting = [],
         $limit = null,
         $offset = null
     ) {
-        return $this->findBy(['organization' => $organization], $sorting, $limit, $offset);
+        $criteria = ['par.user' => $user];
+        if ($organization instanceof OrganizationInterface) {
+            $criteria = array_merge($criteria, ['organization' => $organization]);
+        }
+
+        return $this->findBy($criteria, $sorting, $limit, $offset);
     }
 
     /**

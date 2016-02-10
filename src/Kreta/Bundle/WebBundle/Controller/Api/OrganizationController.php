@@ -13,11 +13,9 @@
 namespace Kreta\Bundle\WebBundle\Controller\Api;
 
 use FOS\RestBundle\Controller\Annotations as Rest;
-use Kreta\Bundle\OrganizationBundle\Security\Authorization\Voter\OrganizationVoter;
 use Kreta\Component\Organization\Model\Interfaces\OrganizationInterface;
 use Kreta\SimpleApiDocBundle\Annotation\ApiDoc;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
 /**
  * Organization private api controller class.
@@ -42,9 +40,6 @@ class OrganizationController extends Controller
         $organization = $this->get('kreta_organization.repository.organization')->findOneBy(
             ['slug' => $organizationSlug], false
         );
-        if (!$this->get('security.authorization_checker')->isGranted(OrganizationVoter::VIEW, $organization)) {
-            throw new AccessDeniedException();
-        }
 
         return $organization;
     }

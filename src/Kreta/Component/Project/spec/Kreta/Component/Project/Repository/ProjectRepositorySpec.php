@@ -67,28 +67,7 @@ class ProjectRepositorySpec extends ObjectBehavior
         $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
         $query->getResult()->shouldBeCalled()->willReturn([$project]);
 
-        $this->findByParticipant($user, ['name' => 'ASC'], 10, 1)->shouldReturn([$project]);
-    }
-
-    function it_finds_by_organization(
-        ProjectInterface $project,
-        OrganizationInterface $organization,
-        EntityManager $manager,
-        QueryBuilder $queryBuilder,
-        Expr $expr,
-        Expr\Comparison $comparison,
-        AbstractQuery $query
-    ) {
-        $queryBuilder = $this->getQueryBuilderSpec($manager, $queryBuilder);
-        $this->addCriteriaSpec($queryBuilder, $expr, ['organization' => $organization], $comparison);
-        $this->orderBySpec($queryBuilder, ['name' => 'ASC']);
-        $queryBuilder->setMaxResults(10)->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->setFirstResult(1)->shouldBeCalled()->willReturn($queryBuilder);
-
-        $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
-        $query->getResult()->shouldBeCalled()->willReturn([$project]);
-
-        $this->findByOrganization($organization, ['name' => 'ASC'], 10, 1)->shouldReturn([$project]);
+        $this->findByParticipant($user, null, ['name' => 'ASC'], 10, 1)->shouldReturn([$project]);
     }
 
     protected function getQueryBuilderSpec(EntityManager $manager, QueryBuilder $queryBuilder)

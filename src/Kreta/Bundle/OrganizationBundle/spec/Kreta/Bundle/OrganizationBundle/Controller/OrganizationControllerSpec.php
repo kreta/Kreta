@@ -110,6 +110,11 @@ class OrganizationControllerSpec extends ObjectBehavior
     }
 
     function it_gets_projects_of_organization_given(
+        ContainerInterface $container,
+        ParamFetcher $paramFetcher,
+        TokenStorageInterface $context,
+        TokenInterface $token,
+        UserInterface $user,
         Request $request,
         ParamFetcher $paramFetcher,
         OrganizationInterface $organization,
@@ -117,11 +122,17 @@ class OrganizationControllerSpec extends ObjectBehavior
         ProjectRepository $projectRepository,
         ProjectInterface $project
     ) {
+        $container->has('security.token_storage')->shouldBeCalled()->willReturn(true);
+        $container->get('security.token_storage')->shouldBeCalled()->willReturn($context);
+
+        $context->getToken()->shouldBeCalled()->willReturn($token);
+        $token->getUser()->shouldBeCalled()->willReturn($user);
+
         $request->get('organization')->shouldBeCalled()->willReturn($organization);
         $paramFetcher->get('limit')->shouldBeCalled()->willReturn(10);
         $paramFetcher->get('offset')->shouldBeCalled()->willReturn(1);
         $container->get('kreta_project.repository.project')->shouldBeCalled()->willReturn($projectRepository);
-        $projectRepository->findByOrganization($organization, ['name' => 'ASC'], 10, 1)
+        $projectRepository->findByParticipant($user, $organization, ['name' => 'ASC'], 10, 1)
             ->shouldBeCalled()->willReturn([$project]);
 
         $this->getOrganizationProjectsAction($request, $paramFetcher, 'organization-id')->shouldReturn([$project]);
