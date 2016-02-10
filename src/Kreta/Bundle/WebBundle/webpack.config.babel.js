@@ -38,6 +38,7 @@ License: ${pkg.license}`,
         'mousetrap',
         'react',
         'react-dom',
+        'react-quill',
         'react-redux',
         'react-router',
         'react-router-redux',
@@ -57,7 +58,7 @@ License: ${pkg.license}`,
         {test: /\.js(x)?$/, exclude: /node_modules/, loaders: ['babel']},
         {test: /\.(jpe?g|png|gif|ico)$/, loader: 'file?name=../images/[hash].[ext]'},
         {test: /\.svg$/, loader: 'svg-sprite?name=[name]_[hash].svg'},
-        {test: /\.scss$/, loader: ExtractTextPlugin.extract(
+        {test: /\.s?css$/, loader: ExtractTextPlugin.extract(
           'style', 'css!postcss!sass?outputStyle=expanded&sourceComments=true'
         )}
       ]
