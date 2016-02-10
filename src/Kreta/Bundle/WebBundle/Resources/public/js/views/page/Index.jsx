@@ -11,39 +11,66 @@
 import './../../../scss/views/page/_index';
 
 import React from 'react';
-import {Link} from 'react-router';
+import {Link} from 'react-router'
 import { connect } from 'react-redux';
 
-import Button from './../component/Button';
 import ContentMiddleLayout from './../layout/ContentMiddleLayout';
+import Button from './../component/Button';
+import DashboardWidget from './../component/DashboardWidget';
+import Warning from './../component/Warning';
+import LoadingSpinner from './../component/LoadingSpinner';
 import ProjectPreview from './../component/ProjectPreview';
 
-class Index extends React.Component {
-  render() {
-    const projectItems = this.props.projects.map((project, index) => {
-      return <ProjectPreview key={index}
-                             project={project}/>;
-    });
+import OrganizationActions from '../../actions/Organizations';
 
+class Index extends React.Component {
+  componentDidMount() {
+    this.props.dispatch(OrganizationActions.fetchOrganizations());
+  }
+
+  getOrganizationItems() {
+    if (this.props.organizations.fetching) {
+      return <LoadingSpinner/>;
+    }
+
+    if (this.props.organizations.organizations.length > 0) {
+      return this.props.organizations.organizations.map((organization, index) => {
+        return <p key={index}>{organization.name}</p>
+      });
+    }
+
+    return <Warning text="No organizations found, create one or ask an invite for an existing one">
+      <Link to="/organization/new"><Button color='green'>Create organization</Button></Link>
+    </Warning>;
+  }
+
+  getProjectsItems() {
+    if (this.props.projects.fetching) {
+      return <LoadingSpinner/>;
+    }
+
+    if (this.props.organizations.organizations.length > 0) {
+      return this.props.projects.projects.map((project, index) => {
+        return <ProjectPreview key={index}
+                               project={project}/>;
+      });
+    }
+
+    return <Warning text="No projects found, you may want to create one">
+        <Link to="/project/new"><Button color='green'>Create project</Button></Link>
+      </Warning>;
+  }
+
+  render() {
     return (
       <ContentMiddleLayout>
-        <div className="index__message">
-          Welcome to Kreta!
-        </div>
-        <div className="index__projects">
-          <div className="section-header">
-            <h3 className="section-header-title">
-              Your <strong>projects</strong>
-            </h3>
-          </div>
-          <div>
-            { projectItems }
-          </div>
-        </div>
-        <div className="index__buttons">
-          <Link to="/project/new">
-            <Button color="green">Create project</Button>
-          </Link>
+        <div className="index__dashboard">
+          <DashboardWidget title="Your organizations">
+            { this.getOrganizationItems() }
+          </DashboardWidget>
+          <DashboardWidget title="Your projects">
+            { this.getProjectsItems() }
+          </DashboardWidget>
         </div>
       </ContentMiddleLayout>
     );
@@ -52,7 +79,8 @@ class Index extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    projects: state.projects.projects
+    projects: state.projects,
+    organizations: state.organizations
   };
 };
 

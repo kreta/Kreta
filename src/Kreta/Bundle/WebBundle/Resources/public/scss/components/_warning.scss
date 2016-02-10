@@ -6,14 +6,18 @@
 // For the full copyright and license information, please view the LICENSE
 // file that was distributed with this source code.
 
-@import '../../base/media';
+@import '../base/colors';
 
-.index__dashboard {
+.warning {
+  align-items: center;
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+}
 
-  > .dashboard-widget {
-    padding: 15px;
-    width: 50%;
-  }
+.warning__text {
+  color: $main-black;
 }

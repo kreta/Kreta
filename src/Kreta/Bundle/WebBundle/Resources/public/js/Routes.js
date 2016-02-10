@@ -14,6 +14,8 @@ export default (
   <Route component={BaseLayout} path="/">
     <IndexRoute component={Index}/>
 
+    <Route component={Profile} path="profile"/>
+
     <Route component={OrganizationRoot} path=":organization">
       <IndexRoute component={Index}/>
       <Route component={ProjectNew} path="project/new"/>
@@ -25,6 +27,6 @@ export default (
       </Route>
     </Route>
 
-    <Route component={Profile} path="profile"/>
+
   </Route>
 );

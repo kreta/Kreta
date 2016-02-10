@@ -6,14 +6,19 @@
 // For the full copyright and license information, please view the LICENSE
 // file that was distributed with this source code.
 
-@import '../../base/media';
+@import '../../../base/colors';
 
-.index__dashboard {
-  display: flex;
-  flex-wrap: wrap;
+.project-list__filter {
+  background: $main-grey;
+  padding: 15px;
 
-  > .dashboard-widget {
-    padding: 15px;
-    width: 50%;
+  &::placeholder {
+    color: rgba($grey, .4);
   }
+}
+
+.project-list__list {
+  height: 300px;
+  overflow-y: scroll;
+  text-align: left;
 }
