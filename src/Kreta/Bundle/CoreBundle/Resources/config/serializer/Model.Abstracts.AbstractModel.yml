@@ -12,23 +12,23 @@ Kreta\Component\Core\Model\Abstracts\AbstractModel:
         id:
             expose: true
             groups:
-                - notificationList
-                - notification
-                - profile
-                - workflowList
-                - workflow
-                - issueList
-                - issue
-                - labelList
-                - label
-                - commentList
                 - comment
-                - participantList
-                - participant
-                - organizationList
+                - commentList
+                - issue
+                - issueList
+                - label
+                - labelList
+                - notification
+                - notificationList
                 - organization
-                - organizationParticipantList
+                - organizationList
                 - organizationParticipant
-                - projectList
+                - organizationParticipantList
+                - participant
+                - participantList
+                - profile
                 - project
-
+                - projectList
+                - userList
+                - workflow
+                - workflowList

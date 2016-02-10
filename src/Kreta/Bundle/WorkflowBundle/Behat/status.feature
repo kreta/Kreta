@@ -97,7 +97,6 @@ Feature: Manage status
       }, {
         "id": "2",
         "color": "#f1c40f",
-
         "_links": {
           "self": {
             "href": "http://kreta.test:8000/api/workflows/0/statuses/2"

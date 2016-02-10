@@ -52,7 +52,7 @@ Kreta\Component\Workflow\Model\Status:
             groups: [workflowList, workflow, projectList, project, issueList, issue, statusList, status, transitionList, transition]
         transitions:
             expose: true
-            groups: [workflowList, workflow, projectList, project, statusList, status]
+            groups: []
         workflow:
             expose: true
             groups: []
