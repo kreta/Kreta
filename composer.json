@@ -99,7 +99,7 @@
         "psr-4": {
             "Kreta\\": "src/Kreta/"
         },
-        "exclude-from-classmap": ["/spec/"]
+        "exclude-from-classmap": ["/spec/", "/Behat/"]
     },
     "autoload-dev": {
         "classmap": [
