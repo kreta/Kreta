@@ -98,7 +98,8 @@ class Show extends React.Component {
             {options.priority}
           </Selector>
         </section>
-        <textarea className="issue-show__description"
+        <FormInput className="issue-show__description"
+                   multiline={true}
                   name="description"
                   value={issue.description}/>
 

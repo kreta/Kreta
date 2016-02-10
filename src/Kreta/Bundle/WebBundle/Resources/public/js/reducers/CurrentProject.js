@@ -55,7 +55,8 @@ export default function reducer(state = initialState, action = {}) {
           ...state.issues.slice(0, index),
           action.issue,
           ...state.issues.slice(index + 1)
-        ]
+        ],
+        selectedIssue: action.issue
       };
 
     case ActionTypes.CURRENT_PROJECT_ISSUE_UPDATE_ERROR:

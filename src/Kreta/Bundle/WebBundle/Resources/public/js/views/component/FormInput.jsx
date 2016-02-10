@@ -24,6 +24,10 @@ class FormInput extends React.Component {
     this.setState({value: this.props.value ? this.props.value : ''});
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({value: nextProps.value ? nextProps.value : ''});
+  }
+
   onChange(event) {
     this.setState({value: event.target.value});
   }
