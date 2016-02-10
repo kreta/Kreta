@@ -2,7 +2,6 @@
 #
 # (c) Beñat Espiña <benatespina@gmail.com>
 # (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
-# (c) Jon Torrado <jontorrado@gmail.com>
 #
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
@@ -30,7 +29,7 @@ install:
     - cd src/Kreta/Bundle/WebBundle
     - npm install
     - cd -
-    - if [ "$TRAVIS_PHP_VERSION" = 'hhvm' ]; then ./tests/functional/fixtures/ci/install-apache-hhvm.sh; fi
+    - if [ "$TRAVIS_PHP_VERSION" = 'hhvm' ]; then ./tests/functional/ci/install-apache-hhvm.sh; fi
 
 before_script:
     - cd tests/functional/fixtures

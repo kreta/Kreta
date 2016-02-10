@@ -1,7 +1,8 @@
 #!/bin/sh
 # This file is part of the Kreta package.
 #
-# (c) Jon Torrado <jontorrado@gmail.com>
+# (c) Beñat Espiña <benatespina@gmail.com>
+# (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
 #
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
@@ -12,7 +13,7 @@ sudo apt-get install apache2 libapache2-mod-fastcgi
 sudo a2enmod rewrite actions fastcgi alias
 
 # Configure apache virtual hosts
-sudo cp -f tests/functional/fixtures/ci/travis-ci-apache-hhvm /etc/apache2/sites-available/default
+sudo cp -f tests/functional/ci/travis-ci-apache-hhvm /etc/apache2/sites-available/default
 sudo sed -e "s?%TRAVIS_BUILD_DIR%?$(pwd)?g" --in-place /etc/apache2/sites-available/default
 
 # Rename needed .htaccess
