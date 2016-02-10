@@ -56,6 +56,7 @@ Kreta\Component\Project\Model\Project:
                 route: get_organization
                 parameters:
                     organizationId: expr(object.getOrganization().getId())
+                    organizationSlug: expr(object.getOrganization().getSlug())
                 absolute: 0
             exclusion:
                 groups: [projectList, project]
@@ -111,7 +112,7 @@ Kreta\Component\Project\Model\Project:
             groups: [projectList, project]
         organization:
             expose: true
-            groups: [project]
+            groups: [projectList, project]
         slug:
             expose: true
             groups: [projectList, project, participantList, participant]
