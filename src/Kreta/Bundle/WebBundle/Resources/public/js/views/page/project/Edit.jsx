@@ -8,7 +8,9 @@
  * file that was distributed with this source code.
  */
 
+import {connect} from 'react-redux';
 import React from 'react';
+import ReactDOM from 'react-dom';
 
 import Button from './../../component/Button';
 import Form from './../../component/Form';
@@ -45,11 +47,6 @@ class Edit extends React.Component {
                    tabIndex="1"
                    type="text"
                    value={project.name}/>
-        <FormInput label="Project short name"
-                   name="short_name"
-                   tabIndex="2"
-                   type="text"
-                   value={project.short_name}/>
       </Form>
     );
   }

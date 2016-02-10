@@ -52,6 +52,28 @@ const Actions = {
           });
         });
     };
+  },
+  updateProject: (projectId, projectData) => {
+    return (dispatch) => {
+      dispatch({
+        type: ActionTypes.PROJECTS_UPDATING
+      });
+      ProjectApi.putProject(projectId, projectData)
+        .then((updatedProject) => {
+          dispatch({
+            type: ActionTypes.PROJECTS_UPDATED,
+            project: updatedProject
+          });
+        })
+        .catch((errorData) => {
+          errorData.then((errors) => {
+            dispatch({
+              type: ActionTypes.PROJECTS_UPDATE_ERROR,
+              errors
+            });
+          });
+        });
+    };
   }
 };
 
