@@ -14,7 +14,7 @@ import React from 'react';
 
 class DashboardWidget extends React.Component {
   static propTypes = {
-    title: React.PropTypes.string.isRequired,
+    title: React.PropTypes.string.isRequired
   };
 
   render() {

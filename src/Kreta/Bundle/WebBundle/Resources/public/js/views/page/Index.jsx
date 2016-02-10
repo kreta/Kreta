@@ -49,7 +49,7 @@ class Index extends React.Component {
       return <LoadingSpinner/>;
     }
 
-    if (this.props.organizations.organizations.length > 0) {
+    if (this.props.projects.projects.length > 0) {
       return this.props.projects.projects.map((project, index) => {
         return <ProjectPreview key={index}
                                project={project}/>;
