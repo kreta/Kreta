@@ -72,4 +72,28 @@ class OrganizationController extends Controller
 
         return $organization->getProjects();
     }
+
+    /**
+     * Returns the project of given project slug and organization slug.
+     *
+     * @param string $organizationSlug The slug of organization
+     * @param string $projectSlug      The slug of project
+     *
+     * @ApiDoc(statusCodes={200, 403, 404})
+     * @Rest\View(statusCode=200, serializerGroups={"project"})
+     * @Rest\Get("/organizations/{organizationSlug}/projects/{projectSlug}")
+     *
+     * @return ProjectInterface
+     */
+    public function getOrganizationProjectAction($organizationSlug, $projectSlug)
+    {
+        $project = $this->get('kreta_project.repository.project')->findOneBy(
+            ['o.slug' => $organizationSlug, 'slug' => $projectSlug], false
+        );
+        if (!$this->get('security.authorization_checker')->isGranted(OrganizationVoter::VIEW, $project)) {
+            throw new AccessDeniedException();
+        }
+
+        return $project;
+    }
 }

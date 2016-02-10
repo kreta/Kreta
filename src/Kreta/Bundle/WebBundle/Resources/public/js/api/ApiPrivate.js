@@ -22,8 +22,12 @@ class OrganizationApiPrivate extends Api {
 }
 
 class ProjectApiPrivate extends Api {
-  getProjectsByOrganizations(organizationSlug, query = null) {
+  getProjectsByOrganization(organizationSlug, query = null) {
     return this.get(`/organizations/${organizationSlug}/projects`, query);
+  }
+
+  getProjectByOrganization(organizationSlug, projectSlug, query = null) {
+    return this.get(`/organizations/${organizationSlug}/projects/${projectSlug}`, query);
   }
 }
 
