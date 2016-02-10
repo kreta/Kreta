@@ -61,3 +61,14 @@ suites:
     WorkflowComponent:
         namespace: Kreta
         spec_path: src/Kreta/Component/Workflow
+
+code_coverage:
+    blacklist:
+        - src/Kreta/**/Behat
+        - src/Kreta/**/spec
+    format:
+        - html
+        - clover
+    output:
+        html: coverage
+        clover: phpspec-coverage.xml
