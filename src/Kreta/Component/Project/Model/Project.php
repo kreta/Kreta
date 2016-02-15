@@ -14,7 +14,6 @@ namespace Kreta\Component\Project\Model;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use EasySlugger\Slugger;
-use Kreta\Component\Core\Model\Abstracts\AbstractModel;
 use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
 use Kreta\Component\Media\Model\Interfaces\MediaInterface;
 use Kreta\Component\Organization\Model\Interfaces\OrganizationInterface;
@@ -88,6 +87,13 @@ class Project implements ProjectInterface
      * @var OrganizationInterface|null
      */
     protected $organization;
+
+    /**
+     * The user.
+     *
+     * @var UserInterface
+     */
+    protected $creator;
 
     /**
      * The slug.
@@ -326,6 +332,24 @@ class Project implements ProjectInterface
         }
 
         return null;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function getCreator()
+    {
+        return $this->creator;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function setCreator(UserInterface $creator)
+    {
+        $this->creator = $creator;
+
+        return $this;
     }
 
     /**

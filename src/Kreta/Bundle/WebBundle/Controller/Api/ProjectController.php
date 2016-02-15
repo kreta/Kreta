@@ -49,4 +49,44 @@ class ProjectController extends Controller
 
         return $project;
     }
+
+    /**
+     * Returns projects that the current user is a
+     * creator and the organization is null.
+     *
+     * @ApiDoc(statusCodes={200, 403, 404})
+     * @Rest\View(statusCode=200, serializerGroups={"projectList"})
+     * @Rest\Get("/me/projects")
+     *
+     * @return ProjectInterface[]
+     */
+    public function getMyProjectsAction()
+    {
+        $projects = $this->get('kreta_project.repository.project')->findBy([
+            'creator' => $this->getUser(), 'organization' => null,
+        ]);
+
+        return $projects;
+    }
+
+    /**
+     * Returns project of project slug given if the current
+     * user is a creator and the organization is null.
+     *
+     * @param string $projectSlug The slug of project
+     *
+     * @ApiDoc(statusCodes={200, 403, 404})
+     * @Rest\View(statusCode=200, serializerGroups={"project"})
+     * @Rest\Get("/me/projects/{projectSlug}")
+     *
+     * @return ProjectInterface
+     */
+    public function getMyProjectAction($projectSlug)
+    {
+        $project = $this->get('kreta_project.repository.project')->findOneBy([
+            'creator' => $this->getUser(), 'slug' => $projectSlug, 'organization' => null,
+        ], false);
+
+        return $project;
+    }
 }

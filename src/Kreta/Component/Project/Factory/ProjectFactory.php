@@ -126,6 +126,7 @@ class ProjectFactory
         }
 
         return $project
+            ->setCreator($user)
             ->setOrganization($organization)
             ->addParticipant($participant)
             ->setWorkflow($workflow);

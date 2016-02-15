@@ -207,6 +207,22 @@ interface ProjectInterface
     public function getUserRole(UserInterface $user);
 
     /**
+     * Gets the creator.
+     *
+     * @return UserInterface
+     */
+    public function getCreator();
+
+    /**
+     * Gets role of user given.
+     *
+     * @param UserInterface $creator The creator
+     *
+     * @return $this self Object
+     */
+    public function setCreator(UserInterface $creator);
+
+    /**
      * Gets workflow.
      *
      * @return \Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface

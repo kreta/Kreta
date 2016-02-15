@@ -59,10 +59,11 @@ class ProjectRepository extends EntityRepository
     protected function getQueryBuilder()
     {
         return parent::getQueryBuilder()
-            ->addSelect(['img', 'i', 'o', 'w'])
+            ->addSelect(['img', 'i', 'o', 'w', 'c'])
             ->leftJoin('p.image', 'img')
             ->leftJoin('p.issues', 'i')
             ->join('p.participants', 'par')
+            ->join('p.creator', 'c')
             ->join('p.organization', 'o')
             ->join('p.workflow', 'w');
     }

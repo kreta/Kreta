@@ -15,9 +15,12 @@ namespace spec\Kreta\Bundle\WebBundle\Controller\Api;
 use Kreta\Bundle\ProjectBundle\Security\Authorization\Voter\ProjectVoter;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Project\Repository\ProjectRepository;
+use Kreta\Component\User\Model\Interfaces\UserInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\ContainerInterface;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
+use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 /**
@@ -77,5 +80,51 @@ class ProjectControllerSpec extends ObjectBehavior
 
         $this->shouldThrow('Symfony\Component\Security\Core\Exception\AccessDeniedException')
             ->duringGetOrganizationProjectAction('organization-slug', 'project-slug');
+    }
+
+    function it_gets_my_projects(
+        ContainerInterface $container,
+        UserInterface $user,
+        ProjectRepository $projectRepository,
+        ProjectInterface $project,
+        TokenStorageInterface $context,
+        TokenInterface $token
+    ) {
+        $container->get('kreta_project.repository.project')->shouldBeCalled()->willReturn($projectRepository);
+
+        $container->has('security.token_storage')->shouldBeCalled()->willReturn(true);
+        $container->get('security.token_storage')->shouldBeCalled()->willReturn($context);
+
+        $context->getToken()->shouldBeCalled()->willReturn($token);
+        $token->getUser()->shouldBeCalled()->willReturn($user);
+
+        $projectRepository->findBy([
+            'creator' => $user, 'organization' => null,
+        ])->shouldBeCalled()->willReturn([$project]);
+
+        $this->getMyProjectsAction()->shouldReturn([$project]);
+    }
+
+    function it_gets_my_project_of_given_slug(
+        ContainerInterface $container,
+        UserInterface $user,
+        ProjectRepository $projectRepository,
+        ProjectInterface $project,
+        TokenStorageInterface $context,
+        TokenInterface $token
+    ) {
+        $container->get('kreta_project.repository.project')->shouldBeCalled()->willReturn($projectRepository);
+
+        $container->has('security.token_storage')->shouldBeCalled()->willReturn(true);
+        $container->get('security.token_storage')->shouldBeCalled()->willReturn($context);
+
+        $context->getToken()->shouldBeCalled()->willReturn($token);
+        $token->getUser()->shouldBeCalled()->willReturn($user);
+
+        $projectRepository->findOneBy([
+            'creator' => $user, 'slug' => 'project-slug', 'organization' => null,
+        ], false)->shouldBeCalled()->willReturn($project);
+
+        $this->getMyProjectAction('project-slug')->shouldReturn($project);
     }
 }
