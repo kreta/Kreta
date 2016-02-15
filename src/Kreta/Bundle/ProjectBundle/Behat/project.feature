@@ -169,6 +169,12 @@ Feature: Manage projects
               "name": "Blocker"
             }
           ],
+          "organization": {
+            "id": "0",
+            "image": null,
+            "name": "Test organization 1",
+            "slug": "test-organization-1"
+          },
           "slug": "test-project-1",
           "_links": {
             "self": {
@@ -187,7 +193,7 @@ Feature: Manage projects
               "href": "http://kreta.test:8000/api/projects/0/issue-priorities"
             },
             "organization": {
-              "href": "http://kreta.test:8000/api/organizations/0"
+              "href": "http://kreta.test:8000/api/organizations/0?organizationSlug=test-organization-1"
             },
             "workflow": {
               "href": "http://kreta.test:8000/api/workflows/0"
@@ -272,6 +278,12 @@ Feature: Manage projects
               "name": "Medium"
             }
           ],
+          "organization": {
+            "id": "0",
+            "image": null,
+            "name": "Test organization 1",
+            "slug": "test-organization-1"
+          },
           "slug": "test-project-2",
           "_links": {
             "self": {
@@ -290,7 +302,7 @@ Feature: Manage projects
               "href": "http://kreta.test:8000/api/projects/1/issue-priorities"
             },
             "organization": {
-              "href": "http://kreta.test:8000/api/organizations/0"
+              "href": "http://kreta.test:8000/api/organizations/0?organizationSlug=test-organization-1"
             },
             "workflow": {
               "href": "http://kreta.test:8000/api/workflows/1"
@@ -438,7 +450,7 @@ Feature: Manage projects
             "href": "http://kreta.test:8000/api/projects/0/issue-priorities"
           },
           "organization": {
-            "href": "http://kreta.test:8000/api/organizations/0"
+            "href": "http://kreta.test:8000/api/organizations/0?organizationSlug=test-organization-1"
           },
           "workflow": {
             "href": "http://kreta.test:8000/api/workflows/0"
@@ -705,7 +717,7 @@ Feature: Manage projects
             "href": "http://kreta.test:8000/api/projects/0/issue-priorities"
           },
           "organization": {
-            "href": "http://kreta.test:8000/api/organizations/0"
+            "href": "http://kreta.test:8000/api/organizations/0?organizationSlug=test-organization-1"
           },
           "workflow": {
             "href": "http://kreta.test:8000/api/workflows/0"
@@ -765,7 +777,6 @@ Feature: Manage projects
     Given I am authenticating with "access-token-0" token
     When I send a GET request to "/api/organizations/0/projects"
     Then the response code should be 200
-    And print response
     And the response should contain json:
     """
       [
@@ -863,6 +874,12 @@ Feature: Manage projects
               "name": "Blocker"
             }
           ],
+          "organization": {
+            "id": "0",
+            "image": null,
+            "name": "Test organization 1",
+            "slug": "test-organization-1"
+          },
           "slug": "test-project-1",
           "_links": {
             "self": {
@@ -881,7 +898,7 @@ Feature: Manage projects
               "href": "http://kreta.test:8000/api/projects/0/issue-priorities"
             },
             "organization": {
-              "href": "http://kreta.test:8000/api/organizations/0"
+              "href": "http://kreta.test:8000/api/organizations/0?organizationSlug=test-organization-1"
             },
             "workflow": {
               "href": "http://kreta.test:8000/api/workflows/0"
@@ -966,6 +983,12 @@ Feature: Manage projects
               "name": "Medium"
             }
           ],
+          "organization": {
+            "id": "0",
+            "image": null,
+            "name": "Test organization 1",
+            "slug": "test-organization-1"
+          },
           "slug": "test-project-2",
           "_links": {
             "self": {
@@ -984,7 +1007,7 @@ Feature: Manage projects
               "href": "http://kreta.test:8000/api/projects/1/issue-priorities"
             },
             "organization": {
-              "href": "http://kreta.test:8000/api/organizations/0"
+              "href": "http://kreta.test:8000/api/organizations/0?organizationSlug=test-organization-1"
             },
             "workflow": {
               "href": "http://kreta.test:8000/api/workflows/1"

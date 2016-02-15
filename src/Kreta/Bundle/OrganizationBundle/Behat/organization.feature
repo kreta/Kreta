@@ -22,6 +22,37 @@ Feature: Manage organizations
       | id | name                | creator        |
       | 0  | Test organization 1 | user@kreta.com |
       | 1  | Test organization 2 | user@kreta.com |
+    And the following workflows exist:
+      | id | name       | creator        |
+      | 0  | Workflow 1 | user@kreta.com |
+      | 1  | Workflow 2 | user@kreta.com |
+    And the following projects exist:
+      | id | name           | creator        | workflow   | organization        |
+      | 0  | Test project 1 | user@kreta.com | Workflow 1 | Test organization 1 |
+      | 1  | Test project 2 | user@kreta.com | Workflow 2 | Test organization 1 |
+    And the following issue priorities exist:
+      | id | name    | color   | project        |
+      | 0  | Low     | #969696 | Test project 1 |
+      | 1  | Medium  | #67b86a | Test project 1 |
+      | 2  | High    | #f07f2c | Test project 1 |
+      | 3  | Blocker | #f02c4c | Test project 1 |
+      | 4  | Low     | #969696 | Test project 2 |
+      | 5  | Medium  | #67b86a | Test project 2 |
+    And the following labels exist:
+      | id | name        | project        |
+      | 0  | backbone.js | Test project 1 |
+      | 1  | php         | Test project 2 |
+      | 2  | javascript  | Test project 1 |
+      | 3  | bdd         | Test project 1 |
+      | 4  | behat       | Test project 2 |
+      | 5  | phpspec     | Test project 2 |
+      | 6  | symfony     | Test project 1 |
+      | 7  | html5       | Test project 2 |
+      | 8  | css3        | Test project 1 |
+      | 9  | sass        | Test project 1 |
+      | 10 | compass     | Test project 2 |
+      | 11 | mysql       | Test project 1 |
+      | 12 | mongodb     | Test project 1 |
     And the following medias exist:
       | id | name               | createdAt  | updatedAt | resource            |
       | 0  | organization-1.jpg | 2014-10-30 | null      | Test organization 1 |
@@ -52,33 +83,10 @@ Feature: Manage organizations
             "name": "http://kreta.test:8000/media/image/organization-1.jpg"
           },
           "name": "Test organization 1",
-          "participants": [
-            {
-              "role": "ROLE_ORG_ADMIN",
-              "user": {
-                "created_at": "2014-10-20T00:00:00+0200",
-                "first_name": "Kreta",
-                "last_name": "User",
-                "photo": null
-              }
-            },
-            {
-              "role": "ROLE_ORG_PARTICIPANT",
-              "user": {
-                "created_at": "2014-10-20T00:00:00+0200",
-                "first_name": "Kreta",
-                "last_name": "User3",
-                "photo": {
-                  "id": "3",
-                  "name": "http://kreta.test:8000/media/image/user-3.jpg"
-                }
-              }
-            }
-          ],
           "slug": "test-organization-1",
           "_links": {
             "self": {
-              "href": "http://kreta.test:8000/api/organizations/0"
+              "href": "http://kreta.test:8000/api/organizations/0?organizationSlug=test-organization-1"
             },
             "organizations": {
               "href": "http://kreta.test:8000/api/organizations"
@@ -95,33 +103,10 @@ Feature: Manage organizations
             "name": "http://kreta.test:8000/media/image/organization-2.jpg"
           },
           "name": "Test organization 2",
-          "participants": [
-            {
-              "role": "ROLE_ORG_ADMIN",
-              "user": {
-                "created_at": "2014-10-20T00:00:00+0200",
-                "first_name": "Kreta",
-                "last_name": "User",
-                "photo": null
-              }
-            },
-            {
-              "role": "ROLE_ORG_PARTICIPANT",
-              "user": {
-                "created_at": "2014-10-20T00:00:00+0200",
-                "first_name": "Kreta",
-                "last_name": "User2",
-                "photo": {
-                  "id": "2",
-                  "name": "http://kreta.test:8000/media/image/user-2.jpg"
-                }
-              }
-            }
-          ],
           "slug": "test-organization-2",
           "_links": {
             "self": {
-              "href": "http://kreta.test:8000/api/organizations/1"
+              "href": "http://kreta.test:8000/api/organizations/1?organizationSlug=test-organization-2"
             },
             "organizations": {
               "href": "http://kreta.test:8000/api/organizations"
@@ -149,35 +134,10 @@ Feature: Manage organizations
           "updated_at": null
         },
         "name": "Test organization 1",
-        "participants": [
-          {
-            "role": "ROLE_ORG_ADMIN",
-            "user": {
-              "created_at": "2014-10-20T00:00:00+0200",
-              "first_name": "Kreta",
-              "last_name": "User",
-              "photo": null
-            }
-          },
-          {
-            "role": "ROLE_ORG_PARTICIPANT",
-            "user": {
-              "created_at": "2014-10-20T00:00:00+0200",
-              "first_name": "Kreta",
-              "last_name": "User3",
-              "photo": {
-                "id": "3",
-                "created_at": "2014-10-30T00:00:00+0100",
-                "name": "http://kreta.test:8000/media/image/user-3.jpg",
-                "updated_at": null
-              }
-            }
-          }
-        ],
         "slug": "test-organization-1",
         "_links": {
           "self": {
-            "href": "http://kreta.test:8000/api/organizations/0"
+            "href": "http://kreta.test:8000/api/organizations/0?organizationSlug=test-organization-1"
           },
           "organizations": {
             "href": "http://kreta.test:8000/api/organizations"
@@ -298,35 +258,10 @@ Feature: Manage organizations
           "updated_at": null
         },
         "name": "Updated organization name",
-        "participants": [
-          {
-            "role": "ROLE_ORG_ADMIN",
-            "user": {
-              "created_at": "2014-10-20T00:00:00+0200",
-              "first_name": "Kreta",
-              "last_name": "User",
-              "photo": null
-            }
-          },
-          {
-            "role": "ROLE_ORG_PARTICIPANT",
-            "user": {
-              "created_at": "2014-10-20T00:00:00+0200",
-              "first_name": "Kreta",
-              "last_name": "User3",
-              "photo": {
-                "id": "3",
-                "created_at": "2014-10-30T00:00:00+0100",
-                "name": "http://kreta.test:8000/media/image/user-3.jpg",
-                "updated_at": null
-              }
-            }
-          }
-        ],
         "slug": "updated-organization-name",
         "_links": {
           "self": {
-            "href": "http://kreta.test:8000/api/organizations/0"
+            "href": "http://kreta.test:8000/api/organizations/0?organizationSlug=updated-organization-name"
           },
           "organizations": {
             "href": "http://kreta.test:8000/api/organizations"
@@ -355,4 +290,222 @@ Feature: Manage organizations
           "This value should not be blank."
         ]
       }
+    """
+
+  Scenario: Getting the 0 organization projects
+    Given I am authenticating with "access-token-0" token
+    When I send a GET request to "/api/organizations/0/projects"
+    Then the response code should be 200
+    And the response should contain json:
+    """
+      [
+        {
+          "id": "0",
+          "image": null,
+          "labels": [
+            {
+              "id": "0",
+              "name": "backbone.js"
+            },
+            {
+              "id": "11",
+              "name": "mysql"
+            },
+            {
+              "id": "12",
+              "name": "mongodb"
+            },
+            {
+              "id": "2",
+              "name": "javascript"
+            },
+            {
+              "id": "3",
+              "name": "bdd"
+            },
+            {
+              "id": "6",
+              "name": "symfony"
+            },
+            {
+              "id": "8",
+              "name": "css3"
+            },
+            {
+              "id": "9",
+              "name": "sass"
+            }
+          ],
+          "name": "Test project 1",
+          "participants": [
+            {
+              "project": null,
+              "role": "ROLE_ADMIN",
+              "user": {
+                "id": "0",
+                "username": "user",
+                "email": "user@kreta.com",
+                "created_at": "2014-10-20T00:00:00+0200",
+                "first_name": "Kreta",
+                "last_name": "User",
+                "photo": null
+              }
+            }
+          ],
+          "issue_priorities": [
+            {
+              "id": "0",
+              "color": "#969696",
+              "name": "Low"
+            },
+            {
+              "id": "1",
+              "color": "#67b86a",
+              "name": "Medium"
+            },
+            {
+              "id": "2",
+              "color": "#f07f2c",
+              "name": "High"
+            },
+            {
+              "id": "3",
+              "color": "#f02c4c",
+              "name": "Blocker"
+            }
+          ],
+          "organization": {
+            "id": "0",
+            "image": {
+              "id": "0",
+              "name": "http://kreta.test:8000/media/image/organization-1.jpg"
+            },
+            "name": "Test organization 1",
+            "slug": "test-organization-1"
+          },
+          "slug": "test-project-1",
+          "_links": {
+            "self": {
+              "href": "http://kreta.test:8000/api/projects/0"
+            },
+            "projects": {
+              "href": "http://kreta.test:8000/api/projects"
+            },
+            "issues": {
+              "href": "http://kreta.test:8000/api/issues"
+            },
+            "labels": {
+              "href": "http://kreta.test:8000/api/projects/0/labels"
+            },
+            "issue_priorities": {
+              "href": "http://kreta.test:8000/api/projects/0/issue-priorities"
+            },
+            "organization": {
+              "href": "http://kreta.test:8000/api/organizations/0?organizationSlug=test-organization-1"
+            },
+            "workflow": {
+              "href": "http://kreta.test:8000/api/workflows/0"
+            },
+            "statuses": {
+              "href": "http://kreta.test:8000/api/workflows/0/statuses"
+            },
+            "transitions": {
+              "href": "http://kreta.test:8000/api/workflows/0/transitions"
+            }
+          }
+        },
+        {
+          "id": "1",
+          "image": null,
+          "labels": [
+            {
+              "id": "1",
+              "name": "php"
+            },
+            {
+              "id": "10",
+              "name": "compass"
+            },
+            {
+              "id": "4",
+              "name": "behat"
+            },
+            {
+              "id": "5",
+              "name": "phpspec"
+            },
+            {
+              "id": "7",
+              "name": "html5"
+            }
+          ],
+          "name": "Test project 2",
+          "participants": [
+            {
+              "project": null,
+              "role": "ROLE_ADMIN",
+              "user": {
+                "id": "0",
+                "username": "user",
+                "email": "user@kreta.com",
+                "created_at": "2014-10-20T00:00:00+0200",
+                "first_name": "Kreta",
+                "last_name": "User",
+                "photo": null
+              }
+            }
+          ],
+          "issue_priorities": [
+            {
+              "id": "4",
+              "color": "#969696",
+              "name": "Low"
+            },
+            {
+              "id": "5",
+              "color": "#67b86a",
+              "name": "Medium"
+            }
+          ],
+          "organization": {
+            "id": "0",
+            "image": {
+              "id": "0",
+              "name": "http://kreta.test:8000/media/image/organization-1.jpg"
+            },
+            "name": "Test organization 1",
+            "slug": "test-organization-1"
+          },
+          "slug": "test-project-2",
+          "_links": {
+            "self": {
+              "href": "http://kreta.test:8000/api/projects/1"
+            },
+            "projects": {
+              "href": "http://kreta.test:8000/api/projects"
+            },
+            "issues": {
+              "href": "http://kreta.test:8000/api/issues"
+            },
+            "labels": {
+              "href": "http://kreta.test:8000/api/projects/1/labels"
+            },
+            "issue_priorities": {
+              "href": "http://kreta.test:8000/api/projects/1/issue-priorities"
+            },
+            "organization": {
+              "href": "http://kreta.test:8000/api/organizations/0?organizationSlug=test-organization-1"
+            },
+            "workflow": {
+              "href": "http://kreta.test:8000/api/workflows/1"
+            },
+            "statuses": {
+              "href": "http://kreta.test:8000/api/workflows/1/statuses"
+            },
+            "transitions": {
+              "href": "http://kreta.test:8000/api/workflows/1/transitions"
+            }
+          }
+        }
+      ]
     """

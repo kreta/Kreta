@@ -127,7 +127,11 @@ default:
             contexts:
                 - Kreta\Bundle\CoreBundle\Behat\Context\OauthContext
                 - Kreta\Bundle\MediaBundle\Behat\Context\MediaContext
+                - Kreta\Bundle\WorkflowBundle\Behat\Context\WorkflowContext
                 - Kreta\Bundle\OrganizationBundle\Behat\Context\OrganizationContext
+                - Kreta\Bundle\ProjectBundle\Behat\Context\ProjectContext
+                - Kreta\Bundle\ProjectBundle\Behat\Context\IssuePriorityContext
+                - Kreta\Bundle\ProjectBundle\Behat\Context\LabelContext
                 - Kreta\Bundle\UserBundle\Behat\Context\UserContext
                 - Kreta\Bundle\OrganizationBundle\Behat\Context\ParticipantContext
             filters:

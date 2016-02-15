@@ -52,6 +52,9 @@ before_script:
 #### starting PHP built-in server if not hhvm ####
     - '[[ "$TRAVIS_PHP_VERSION" == "hhvm" ]] || tests/functional/fixtures/bin/console server:start kreta.test:8000 --router=tests/functional/fixtures/web/index.php'
 
+#### avoid "Automatically populating $HTTP_RAW_POST_DATA is deprecated and will be removed in a future version" message in PHP 5.6 ####
+    - 'if [ $TRAVIS_PHP_VERSION == "5.6" ]; then echo "always_populate_raw_post_data=-1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini; fi'
+
     - sleep 5
 
 script:
