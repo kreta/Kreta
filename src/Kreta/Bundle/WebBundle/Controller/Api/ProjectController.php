@@ -63,7 +63,7 @@ class ProjectController extends Controller
     public function getMyProjectsAction()
     {
         $projects = $this->get('kreta_project.repository.project')->findBy([
-            'creator' => $this->getUser(), 'organization' => null,
+            'creator' => $this->getUser(), 'isNull' => ['organization' => null],
         ]);
 
         return $projects;
@@ -84,7 +84,7 @@ class ProjectController extends Controller
     public function getMyProjectAction($projectSlug)
     {
         $project = $this->get('kreta_project.repository.project')->findOneBy([
-            'creator' => $this->getUser(), 'slug' => $projectSlug, 'organization' => null,
+            'creator' => $this->getUser(), 'slug' => $projectSlug, 'isNull' => ['organization' => null],
         ], false);
 
         return $project;

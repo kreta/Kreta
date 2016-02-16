@@ -6,11 +6,11 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 
-@organization_private
+@organization
 Feature: Manage organizations
   In order to manage organizations
   As an API private organization
-  I want to be able to GET, POST and PUT organizations
+  I want to be able to GET organizations
 
   Background:
     Given the following users exist:
@@ -71,9 +71,41 @@ Feature: Manage organizations
 
   Scenario: Getting the organization of test-organization-1
     Given I am authenticating with "access-token-0" token
-    When I send a GET request to "/api/organizations/test-organization-1"
+    When I send a GET request to "/api/private/organizations/test-organization-1"
     Then the response code should be 200
-    And print response
     And the response should contain json:
     """
+      {
+        "id": "0",
+        "image": {
+          "id": "0",
+          "created_at": "2014-10-30T00:00:00+0100",
+          "name": "http://kreta.test:8000/media/image/organization-1.jpg",
+          "updated_at": null
+        },
+        "name": "Test organization 1",
+        "slug": "test-organization-1",
+        "_links": {
+          "self": {
+            "href": "http://kreta.test:8000/api/private/organizations/test-organization-1?organizationId=0"
+          },
+          "organizations": {
+            "href": "http://kreta.test:8000/api/organizations"
+          },
+          "projects": {
+            "href": "http://kreta.test:8000/api/projects"
+          }
+        }
+      }
+    """
+
+  Scenario: Getting the unknown organization
+    Given I am authenticating with "access-token-0" token
+    When I send a GET request to "/api/private/organizations/unknown-organization"
+    Then the response code should be 404
+    And the response should contain json:
+    """
+      {
+        "error":"Does not exist any object with id passed"
+      }
     """

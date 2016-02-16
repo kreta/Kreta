@@ -98,6 +98,9 @@ Kreta\Component\Project\Model\Project:
         issues:
             expose: true
             groups: []
+        creator:
+            expose: true
+            groups: []
         labels:
             expose: true
             groups: [projectList, project]

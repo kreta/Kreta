@@ -85,6 +85,7 @@ default:
         project:
             paths:
                 features: src/Kreta/Bundle/ProjectBundle
+                private_features: src/Kreta/src/Kreta/Bundle/WebBundle
             contexts:
                 - Kreta\Bundle\CoreBundle\Behat\Context\OauthContext
                 - Kreta\Bundle\MediaBundle\Behat\Context\MediaContext
@@ -124,6 +125,7 @@ default:
         organization:
             paths:
                 features: src/Kreta/Bundle/OrganizationBundle
+                private_features: src/Kreta/src/Kreta/Bundle/WebBundle
             contexts:
                 - Kreta\Bundle\CoreBundle\Behat\Context\OauthContext
                 - Kreta\Bundle\MediaBundle\Behat\Context\MediaContext

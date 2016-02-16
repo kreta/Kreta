@@ -78,8 +78,8 @@ class ProjectRepositorySpec extends ObjectBehavior
         $queryBuilder->from(Argument::any(), 'p', null)->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->leftJoin('p.image', 'img')->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->leftJoin('p.issues', 'i')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->leftJoin('p.organization', 'o')->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->join('p.participants', 'par')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->join('p.organization', 'o')->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->join('p.creator', 'c')->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->join('p.workflow', 'w')->shouldBeCalled()->willReturn($queryBuilder);
 

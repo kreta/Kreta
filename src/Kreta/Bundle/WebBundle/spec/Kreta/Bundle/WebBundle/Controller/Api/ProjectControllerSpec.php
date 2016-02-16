@@ -99,7 +99,7 @@ class ProjectControllerSpec extends ObjectBehavior
         $token->getUser()->shouldBeCalled()->willReturn($user);
 
         $projectRepository->findBy([
-            'creator' => $user, 'organization' => null,
+            'creator' => $user, 'isNull' => ['organization' => null],
         ])->shouldBeCalled()->willReturn([$project]);
 
         $this->getMyProjectsAction()->shouldReturn([$project]);
@@ -122,7 +122,7 @@ class ProjectControllerSpec extends ObjectBehavior
         $token->getUser()->shouldBeCalled()->willReturn($user);
 
         $projectRepository->findOneBy([
-            'creator' => $user, 'slug' => 'project-slug', 'organization' => null,
+            'creator' => $user, 'slug' => 'project-slug', 'isNull' => ['organization' => null],
         ], false)->shouldBeCalled()->willReturn($project);
 
         $this->getMyProjectAction('project-slug')->shouldReturn($project);
