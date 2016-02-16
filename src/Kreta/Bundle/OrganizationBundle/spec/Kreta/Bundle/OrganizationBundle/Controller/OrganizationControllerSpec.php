@@ -116,9 +116,7 @@ class OrganizationControllerSpec extends ObjectBehavior
         TokenInterface $token,
         UserInterface $user,
         Request $request,
-        ParamFetcher $paramFetcher,
         OrganizationInterface $organization,
-        ContainerInterface $container,
         ProjectRepository $projectRepository,
         ProjectInterface $project
     ) {
