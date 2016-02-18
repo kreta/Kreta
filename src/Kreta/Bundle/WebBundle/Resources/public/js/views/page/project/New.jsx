@@ -29,6 +29,16 @@ class New extends React.Component {
     this.props.dispatch(ProjectsActions.createProject(project));
   }
 
+  getOrganizationInput() {
+    if(!this.props.organization.organization) {
+      return;
+    }
+
+    return (
+      <input type='hidden' name='organization' value={this.props.organization.organization.id}/>
+     );
+  }
+
   render() {
     return (
       <ContentMiddleLayout>
@@ -41,15 +51,10 @@ class New extends React.Component {
                      name="name"
                      tabIndex="1"
                      type="text"/>
-          <FormInput label="Short name"
-                     maxLength="4"
-                     name="shortName"
-                     tabIndex="2"
-                     type="text"/>
-
+          {this.getOrganizationInput()}
           <div className="issue-new__actions">
             <Button color="green"
-                    tabIndex="3"
+                    tabIndex="2"
                     type="submit">
               Done
             </Button>
@@ -62,7 +67,8 @@ class New extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    projects: state.projects
+    projects: state.projects,
+    organization: state.currentOrganization
   };
 };
 

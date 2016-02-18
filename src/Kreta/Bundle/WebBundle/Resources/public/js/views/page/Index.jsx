@@ -35,7 +35,7 @@ class Index extends React.Component {
 
     if (this.props.organizations.organizations.length > 0) {
       return this.props.organizations.organizations.map((organization, index) => {
-        return <p key={index}>{organization.name}</p>
+        return <Link to={`/${organization.slug}`} key={index}>{organization.name}</Link>
       });
     }
 

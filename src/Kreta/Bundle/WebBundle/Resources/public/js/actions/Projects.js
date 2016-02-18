@@ -40,7 +40,7 @@ const Actions = {
             project: createdProject
           });
           dispatch(
-            routeActions.push(`/project/${createdProject.id}`)
+            routeActions.push(`/${createdProject.organization.slug}/${createdProject.slug}`)
           );
         })
         .catch((errorData) => {

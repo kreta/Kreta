@@ -22,7 +22,7 @@ const Actions = {
         .then((receivedOrganization) => {
             dispatch({
               type: ActionTypes.CURRENT_ORGANIZATION_RECEIVED,
-              organizations: receivedOrganization
+              organization: receivedOrganization
             });
           }
         );

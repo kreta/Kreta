@@ -25,6 +25,10 @@ class Form extends React.Component {
 
   renderFormElements() {
     return this.props.children.map((child, key) => {
+      if(typeof child === 'undefined') {
+        return;
+      }
+
       if (child.type.name === 'FormInput' && child.props.name in this.props.errors) {
         return React.cloneElement(child, {
           error: true,

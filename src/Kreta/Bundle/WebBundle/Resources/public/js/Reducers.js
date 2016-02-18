@@ -17,6 +17,7 @@ import notification from './reducers/Notification';
 import profile from './reducers/Profile';
 import projects from './reducers/Projects';
 import organizations from './reducers/Organizations';
+import currentOrganization from './reducers/CurrentOrganization';
 
 export default combineReducers({
   currentProject,
@@ -25,5 +26,6 @@ export default combineReducers({
   profile,
   projects,
   routing,
-  organizations
+  organizations,
+  currentOrganization
 });
