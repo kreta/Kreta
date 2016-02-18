@@ -26,7 +26,5 @@ export default (
         <Route component={ProjectSettings} path=":project/settings"/>
       </Route>
     </Route>
-
-
   </Route>
 );

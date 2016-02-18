@@ -84,8 +84,8 @@ class List extends React.Component {
   }
 
   getProjectItems() {
-    if(this.props.projects.length > 0) {
-      const projects =  this.props.projects.map((project, index) => {
+    if (this.props.projects.length > 0) {
+      const projects = this.props.projects.map((project, index) => {
         return <ProjectPreview key={index}
                                onMouseEnter={this.changeSelectedRow.bind(this, index)}
                                onShortcutClick={this.goToShortcutLink.bind(this)}
@@ -110,7 +110,7 @@ class List extends React.Component {
     return <div className="project-list__list">
       <Warning text="No projects found, you may want to create one">
         <Link to="/project/new">
-          <Button onClick={this.triggerOnProjectSelected.bind(this, null)} color='green'>Create project</Button>
+          <Button color={"green"} onClick={this.triggerOnProjectSelected.bind(this, null)}>Create project</Button>
         </Link>
       </Warning>
     </div>;

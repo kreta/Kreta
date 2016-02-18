@@ -8,14 +8,15 @@
  * file that was distributed with this source code.
  */
 
-import {connect} from 'react-redux';
 import React from 'react';
 import ReactDOM from 'react-dom';
 
+import ProjectsActions from '../../../actions/Projects';
 import Button from './../../component/Button';
 import Form from './../../component/Form';
 import FormInput from './../../component/FormInput';
 import FormInputFile from './../../component/FormInputFile';
+import FormSerializer from './../../../service/FormSerializer';
 
 class Edit extends React.Component {
   updateProject(ev) {
@@ -57,10 +58,4 @@ class Edit extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    project: state.project
-  };
-};
-
-export default connect(mapStateToProps)(Edit);
+export default Edit;
