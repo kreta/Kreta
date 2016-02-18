@@ -12,6 +12,7 @@ import SettingsIcon from './../../../../svg/settings';
 
 import React from 'react';
 import {connect} from 'react-redux';
+import {Link} from 'react-router';
 
 import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
 import ContentRightLayout from './../../layout/ContentRightLayout';
@@ -22,6 +23,9 @@ import IssueShow from './../issue/Show';
 import LoadingSpinner from './../../component/LoadingSpinner';
 import NavigableList from './../../component/NavigableList';
 import PageHeader from './../../component/PageHeader';
+import Button from './../../component/Button';
+import DashboardWidget from './../../component/DashboardWidget';
+import Warning from './../../component/Warning';
 
 class IssueList extends React.Component {
   filterIssues(filters) {
@@ -44,7 +48,7 @@ class IssueList extends React.Component {
     if (this.props.currentProject.fetchingProjects || this.props.currentProject.fetchingIssues) {
       return <LoadingSpinner/>;
     }
-    const issuesEl = this.props.currentProject.issues.map((issue, index) => {
+    let issuesEl = this.props.currentProject.issues.map((issue, index) => {
         return <IssuePreview issue={issue}
                              key={index}
                              onClick={this.selectCurrentIssue.bind(this, issue)}
@@ -62,6 +66,13 @@ class IssueList extends React.Component {
         title: 'New issue'
       }],
       project = this.props.currentProject.project;
+    if(issuesEl.length === 0) {
+      issuesEl = <Warning text="No issues found, you may want to create one">
+        <Link to={`${this.props.currentProject.project.organization.slug}/${this.props.currentProject.project.slug}/issue/new`}>
+          <Button color='green'>Create issue</Button>
+        </Link>
+      </Warning>;
+    }
     let issue = '';
     if (this.props.currentProject.selectedIssue) {
       issue = <IssueShow issue={this.props.currentProject.selectedIssue}
