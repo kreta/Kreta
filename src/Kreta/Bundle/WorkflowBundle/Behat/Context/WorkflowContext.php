@@ -28,7 +28,6 @@ class WorkflowContext extends DefaultContext
      *
      * @param \Behat\Gherkin\Node\TableNode $workflows The workflows
      *
-     * @return void
      *
      * @Given /^the following workflows exist:$/
      */

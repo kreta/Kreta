@@ -41,8 +41,6 @@ interface NotifierRegistryInterface
      * Unregister notifier.
      *
      * @param string $name The name of the notifier to be unregistered. Must exist in the registry
-     *
-     * @return void
      */
     public function unregisterNotifier($name);
 
@@ -51,7 +49,7 @@ interface NotifierRegistryInterface
      *
      * @param string $name The name of the notifiable event
      *
-     * @return boolean True if notifier exists, false if not
+     * @return bool True if notifier exists, false if not
      */
     public function hasNotifier($name);
 

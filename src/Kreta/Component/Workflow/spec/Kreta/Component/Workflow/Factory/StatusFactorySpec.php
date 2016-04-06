@@ -14,7 +14,6 @@ namespace spec\Kreta\Component\Workflow\Factory;
 
 use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 
 /**
  * Class StatusFactorySpec.

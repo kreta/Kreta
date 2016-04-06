@@ -8,9 +8,10 @@
  * file that was distributed with this source code.
  */
 
-import autoprefixer from 'autoprefixer';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import webpack from 'webpack';
+import Autoprefixer from 'autoprefixer';
+import ExtractTextPlugin from 'extract-text-Webpack-plugin';
+import SassLintPlugin from 'sasslint-Webpack-plugin';
+import Webpack from 'webpack';
 
 import pkg from './package.json';
 
@@ -68,21 +69,30 @@ License: ${pkg.license}`,
       extensions: ['', '.js', '.jsx', '.svg', '.scss']
     },
     eslint: {configFile: '.eslint.yml'},
-    postcss: [autoprefixer()],
+    postcss: [Autoprefixer()],
     plugins: [
-//      new webpack.ProvidePlugin({
+//      new Webpack.ProvidePlugin({
 //        'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
 //      }),
-      new webpack.optimize.CommonsChunkPlugin('vendors', 'vendor.js'),
+//      new SassLintPlugin({
+//        configFile: '.sass-lint.yml',
+//        context: ['./Resources/public/scss/'],
+//        ignoreFiles: [],
+//        glob: '**/*.s?(a|c)ss',
+//        quiet: false,
+//        failOnWarning: false,
+//        failOnError: false
+//      }),
+      new Webpack.optimize.CommonsChunkPlugin('vendors', 'vendor.js'),
       new ExtractTextPlugin('../css/[name].css', {allChunks: false}),
-      new webpack.BannerPlugin(LICENSE)
+      new Webpack.BannerPlugin(LICENSE)
     ]
   };
 
 if (process.env.NODE_ENV === 'production') {
   config.debug = false;
   config.devtool = 'source-map';
-  config.plugins.push(new webpack.optimize.UglifyJsPlugin());
+  config.plugins.push(new Webpack.optimize.UglifyJsPlugin());
   config.module.loaders.push(
     {test: /\.css$/, loader: 'style-loader/useable!css-loader?minimize!postcss-loader'}
   );

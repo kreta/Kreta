@@ -14,7 +14,6 @@ namespace spec\Kreta\Component\Organization\Form\Type;
 
 use Kreta\Component\Organization\Model\Interfaces\ParticipantInterface;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 /**

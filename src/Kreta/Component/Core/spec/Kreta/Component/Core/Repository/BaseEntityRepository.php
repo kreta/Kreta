@@ -38,8 +38,7 @@ trait BaseEntityRepository
         Collaborator $expr,
         array $values,
         Collaborator $comparison
-    )
-    {
+    ) {
         return $this->addEqCriteriaSpec($queryBuilder, $expr, $values, $comparison);
     }
 
@@ -48,8 +47,7 @@ trait BaseEntityRepository
         Collaborator $expr,
         array $values,
         Collaborator $comparison
-    )
-    {
+    ) {
         $queryBuilder->expr()->shouldBeCalled()->willReturn($expr);
         $expr->eq($this->getPropertyNameSpec(key($values)), Argument::containingString(':eqValue'))
             ->shouldBeCalled()->willReturn($comparison);
@@ -65,8 +63,7 @@ trait BaseEntityRepository
         Collaborator $expr,
         array $values,
         Collaborator $comparison
-    )
-    {
+    ) {
         $queryBuilder->expr()->shouldBeCalled()->willReturn($expr);
         $expr->neq($this->getPropertyNameSpec(key($values)), Argument::containingString(':neqValue'))
             ->shouldBeCalled()->willReturn($comparison);
@@ -82,8 +79,7 @@ trait BaseEntityRepository
         Collaborator $expr,
         array $values,
         Collaborator $comparison
-    )
-    {
+    ) {
         $queryBuilder->expr()->shouldBeCalled()->willReturn($expr);
         $expr->like($this->getPropertyNameSpec(key($values)), Argument::containingString(':likeValue'))
             ->shouldBeCalled()->willReturn($comparison);
@@ -143,4 +139,3 @@ trait BaseEntityRepository
         return 'kreta';
     }
 }
-

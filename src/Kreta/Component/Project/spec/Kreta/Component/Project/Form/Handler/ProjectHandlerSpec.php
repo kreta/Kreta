@@ -18,7 +18,6 @@ use Kreta\Component\Media\Model\Interfaces\MediaInterface;
 use Kreta\Component\Media\Uploader\MediaUploader;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\Form\FormFactoryInterface;
@@ -40,8 +39,7 @@ class ProjectHandlerSpec extends ObjectBehavior
         ObjectManager $manager,
         MediaFactory $mediaFactory,
         MediaUploader $uploader
-    )
-    {
+    ) {
         $this->beConstructedWith($formFactory, $manager, 'kreta_project_project_type', $mediaFactory, $uploader);
     }
 
@@ -66,8 +64,7 @@ class ProjectHandlerSpec extends ObjectBehavior
         MediaInterface $media,
         ObjectManager $manager,
         MediaUploader $uploader
-    )
-    {
+    ) {
         $image = new UploadedFile('', '', null, null, 99, true); // Avoids file not found exception
         $formFactory->createNamedBuilder('', 'kreta_project_project_type', $project, [])
             ->shouldBeCalled()->willReturn($formBuilder);

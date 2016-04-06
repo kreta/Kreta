@@ -331,7 +331,7 @@ class Project implements ProjectInterface
             }
         }
 
-        return null;
+        return;
     }
 
     /**

@@ -16,7 +16,6 @@ use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
 use Kreta\Component\Workflow\Model\Interfaces\StatusInterface;
 use Kreta\Component\Workflow\Model\Interfaces\StatusTransitionInterface;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 
 /**
  * Class IssueStateMachineSpec.
@@ -41,8 +40,7 @@ class IssueStateMachineSpec extends ObjectBehavior
         StatusInterface $status,
         StatusInterface $status2,
         StatusTransitionInterface $transition
-    )
-    {
+    ) {
         $status->getName()->shouldBeCalled()->willReturn('Open');
         $status->getType()->shouldBeCalled()->willReturn('initial');
 

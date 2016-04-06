@@ -108,7 +108,7 @@ class ResourceIfAllowedAnnotationListener
      *
      * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
      *
-     * @return Object
+     * @return object
      */
     protected function getResourceIfAllowed($resourceId, $grant = 'view')
     {

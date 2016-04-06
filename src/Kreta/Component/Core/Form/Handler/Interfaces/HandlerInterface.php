@@ -27,13 +27,14 @@ interface HandlerInterface
      * the proper data. All the process can be changed extending it.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request     Contains values sent by the user
-     * @param Object|null                               $object      The object to be edited with form content
+     * @param object|null                               $object      The object to be edited with form content
      * @param array                                     $formOptions Array which contains the options that will be
      *                                                               passed in the form create method
      *
-     * @return mixed
      * @throws \Kreta\Component\Core\Form\Exception\InvalidFormException
      * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     *
+     * @return mixed
      */
     public function processForm(Request $request, $object = null, array $formOptions = []);
 
@@ -42,13 +43,14 @@ interface HandlerInterface
      * handleFiles and handleObject methods. See each methods doc for more info.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request     Contains values sent by the user
-     * @param Object|null                               $object      The object to be edited with form content
+     * @param object|null                               $object      The object to be edited with form content
      * @param array                                     $formOptions Array which contains the options that will be
      *                                                               passed in the form create method
      *
-     * @return \Symfony\Component\Form\FormInterface
      * @throws \Kreta\Component\Core\Form\Exception\InvalidFormException
      * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     *
+     * @return \Symfony\Component\Form\FormInterface
      */
     public function handleForm(Request $request, $object = null, array $formOptions = []);
 
@@ -58,11 +60,12 @@ interface HandlerInterface
      * To simplify the request body parameters, the form name
      * is setting to '' when the form is going to be create.
      *
-     * @param Object|null $object      Model related to the form
+     * @param object|null $object      Model related to the form
      * @param array       $formOptions Array which contains the options that will be passed
      *
-     * @return \Symfony\Component\Form\FormInterface
      * @throws \Symfony\Component\OptionsResolver\Exception\InvalidOptionsException
+     *
+     * @return \Symfony\Component\Form\FormInterface
      */
     public function createForm($object = null, array $formOptions = []);
 }

@@ -57,8 +57,7 @@ class ProjectHandler extends Handler
         $formName,
         MediaFactory $mediaFactory,
         MediaUploader $uploader
-    )
-    {
+    ) {
         parent::__construct($formFactory, $manager, $formName);
         $this->mediaFactory = $mediaFactory;
         $this->uploader = $uploader;

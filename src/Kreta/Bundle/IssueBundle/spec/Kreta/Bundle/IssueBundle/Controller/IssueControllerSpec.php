@@ -28,7 +28,6 @@ use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
 use Kreta\Component\Workflow\Repository\StatusRepository;
 use Kreta\Component\Workflow\Repository\StatusTransitionRepository;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\ParameterBag;
 use Symfony\Component\HttpFoundation\Request;
@@ -68,8 +67,7 @@ class IssueControllerSpec extends ObjectBehavior
         IssueInterface $issue,
         TokenInterface $token,
         UserInterface $user
-    )
-    {
+    ) {
         $container->get('kreta_issue.repository.issue')->shouldBeCalled()->willReturn($issueRepository);
 
         $paramFetcher->get('sort')->shouldBeCalled()->willReturn('createdAt');
@@ -100,7 +98,7 @@ class IssueControllerSpec extends ObjectBehavior
                 'w.id'   => 1,
                 'pr.id'  => 2,
                 's.id'   => 2,
-                'l.id'   => 1
+                'l.id'   => 1,
             ],
             ['createdAt' => 'ASC'],
             10,
@@ -127,8 +125,7 @@ class IssueControllerSpec extends ObjectBehavior
         TokenStorageInterface $context,
         TokenInterface $token,
         UserInterface $user
-    )
-    {
+    ) {
         $container->get('kreta_project.repository.project')->shouldBeCalled()->willReturn($projectRepository);
 
         $container->has('security.token_storage')->shouldBeCalled()->willReturn(true);
@@ -155,8 +152,7 @@ class IssueControllerSpec extends ObjectBehavior
         TokenInterface $token,
         UserInterface $user,
         Request $request
-    )
-    {
+    ) {
         $container->get('kreta_project.repository.project')->shouldBeCalled()->willReturn($projectRepository);
 
         $container->has('security.token_storage')->shouldBeCalled()->willReturn(true);
@@ -190,8 +186,7 @@ class IssueControllerSpec extends ObjectBehavior
         IssueStateMachine $stateMachine,
         ManagerRegistry $managerRegistry,
         ObjectManager $manager
-    )
-    {
+    ) {
         $request->request = $bag;
         $bag->get('transition')->shouldBeCalled()->willReturn('transition-id');
         $request->get('issue')->shouldBeCalled()->willReturn($issue);
@@ -244,8 +239,7 @@ class IssueControllerSpec extends ObjectBehavior
         StatusInterface $status,
         StatusTransitionInterface $statusTransition,
         IssueStateMachine $stateMachine
-    )
-    {
+    ) {
         $request->request = $bag;
         $bag->get('transition')->shouldBeCalled()->willReturn('transition-id');
         $request->get('issue')->shouldBeCalled()->willReturn($issue);

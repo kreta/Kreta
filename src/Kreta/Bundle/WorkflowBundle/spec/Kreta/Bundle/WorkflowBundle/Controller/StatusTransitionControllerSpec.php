@@ -20,7 +20,6 @@ use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
 use Kreta\Component\Workflow\Repository\StatusRepository;
 use Kreta\Component\Workflow\Repository\StatusTransitionRepository;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
@@ -52,8 +51,7 @@ class StatusTransitionControllerSpec extends ObjectBehavior
         Request $request,
         WorkflowInterface $workflow,
         StatusTransitionInterface $transition
-    )
-    {
+    ) {
         $request->get('workflow')->shouldBeCalled()->willReturn($workflow);
         $workflow->getStatusTransitions()->shouldBeCalled()->willReturn([$transition]);
 
@@ -64,8 +62,7 @@ class StatusTransitionControllerSpec extends ObjectBehavior
         ContainerInterface $container,
         StatusTransitionRepository $transitionRepository,
         StatusTransitionInterface $transition
-    )
-    {
+    ) {
         $container->get('kreta_workflow.repository.status_transition')
             ->shouldBeCalled()->willReturn($transitionRepository);
         $transitionRepository->find('transition-id', false)->shouldBeCalled()->willReturn($transition);
@@ -79,8 +76,7 @@ class StatusTransitionControllerSpec extends ObjectBehavior
         StatusTransitionInterface $transition,
         Handler $handler,
         WorkflowInterface $workflow
-    )
-    {
+    ) {
         $container->get('kreta_workflow.form_handler.status_transition')->shouldBeCalled()->willReturn($handler);
         $request->get('workflow')->shouldBeCalled()->willReturn($workflow);
         $handler->processForm($request, null, ['workflow' => $workflow])->shouldBeCalled()->willReturn($transition);
@@ -92,8 +88,7 @@ class StatusTransitionControllerSpec extends ObjectBehavior
         ContainerInterface $container,
         StatusTransitionRepository $transitionRepository,
         StatusTransitionInterface $transition
-    )
-    {
+    ) {
         $container->get('kreta_workflow.repository.status_transition')
             ->shouldBeCalled()->willReturn($transitionRepository);
         $transitionRepository->find('transition-id', false)->shouldBeCalled()->willReturn($transition);
@@ -107,8 +102,7 @@ class StatusTransitionControllerSpec extends ObjectBehavior
         ContainerInterface $container,
         StatusTransitionRepository $transitionRepository,
         StatusTransitionInterface $transition
-    )
-    {
+    ) {
         $container->get('kreta_workflow.repository.status_transition')
             ->shouldBeCalled()->willReturn($transitionRepository);
         $transitionRepository->find('transition-id', false)->shouldBeCalled()->willReturn($transition);
@@ -125,8 +119,7 @@ class StatusTransitionControllerSpec extends ObjectBehavior
         StatusTransitionRepository $transitionRepository,
         StatusTransitionInterface $transition,
         StatusInterface $initial
-    )
-    {
+    ) {
         $container->get('kreta_workflow.repository.status_transition')
             ->shouldBeCalled()->willReturn($transitionRepository);
         $transitionRepository->find('transition-id', false)->shouldBeCalled()->willReturn($transition);
@@ -140,8 +133,7 @@ class StatusTransitionControllerSpec extends ObjectBehavior
         StatusTransitionRepository $transitionRepository,
         StatusTransitionInterface $transition,
         StatusInterface $initial
-    )
-    {
+    ) {
         $container->get('kreta_workflow.repository.status_transition')
             ->shouldBeCalled()->willReturn($transitionRepository);
         $transitionRepository->find('transition-id', false)->shouldBeCalled()->willReturn($transition);
@@ -155,8 +147,7 @@ class StatusTransitionControllerSpec extends ObjectBehavior
         StatusTransitionRepository $transitionRepository,
         StatusTransitionInterface $transition,
         Request $request
-    )
-    {
+    ) {
         $container->get('kreta_workflow.repository.status_transition')
             ->shouldBeCalled()->willReturn($transitionRepository);
         $transitionRepository->find('transition-id', false)->shouldBeCalled()->willReturn($transition);
@@ -173,8 +164,7 @@ class StatusTransitionControllerSpec extends ObjectBehavior
         StatusInterface $initial,
         StatusTransitionRepository $transitionRepository,
         StatusTransitionInterface $transition
-    )
-    {
+    ) {
         $container->get('kreta_workflow.repository.status_transition')
             ->shouldBeCalled()->willReturn($transitionRepository);
         $transitionRepository->find('transition-id', false)->shouldBeCalled()->willReturn($transition);
@@ -193,8 +183,7 @@ class StatusTransitionControllerSpec extends ObjectBehavior
         ContainerInterface $container,
         StatusTransitionRepository $transitionRepository,
         StatusTransitionInterface $transition
-    )
-    {
+    ) {
         $container->get('kreta_workflow.repository.status_transition')
             ->shouldBeCalled()->willReturn($transitionRepository);
         $transitionRepository->find('transition-id', false)->shouldBeCalled()->willReturn($transition);
@@ -208,8 +197,7 @@ class StatusTransitionControllerSpec extends ObjectBehavior
         ContainerInterface $container,
         StatusTransitionRepository $transitionRepository,
         StatusTransitionInterface $transition
-    )
-    {
+    ) {
         $container->get('kreta_workflow.repository.status_transition')
             ->shouldBeCalled()->willReturn($transitionRepository);
         $transitionRepository->find('transition-id', false)->shouldBeCalled()->willReturn($transition);
@@ -226,8 +214,7 @@ class StatusTransitionControllerSpec extends ObjectBehavior
         StatusTransitionRepository $transitionRepository,
         StatusTransitionInterface $transition,
         StatusInterface $status
-    )
-    {
+    ) {
         $container->get('kreta_workflow.repository.status_transition')
             ->shouldBeCalled()->willReturn($transitionRepository);
         $transitionRepository->find('transition-id', false)->shouldBeCalled()->willReturn($transition);

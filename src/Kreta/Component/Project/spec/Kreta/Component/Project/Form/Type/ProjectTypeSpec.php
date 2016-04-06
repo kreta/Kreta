@@ -15,7 +15,6 @@ namespace spec\Kreta\Component\Project\Form\Type;
 use Kreta\Component\Project\Factory\ProjectFactory;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;

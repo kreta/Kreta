@@ -26,7 +26,7 @@ class YamlFileLoaderSpec extends ObjectBehavior
 {
     function let(ContainerBuilder $container, FileLocatorInterface $locator)
     {
-        $this->beConstructedWith($container,$locator);
+        $this->beConstructedWith($container, $locator);
     }
 
     function it_is_initializable()

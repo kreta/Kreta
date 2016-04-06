@@ -57,8 +57,7 @@ class IssueFactory
         IssuePriorityInterface $issuePriority,
         ProjectInterface $project = null,
         IssueInterface $parent = null
-    )
-    {
+    ) {
         $issue = new $this->className();
 
         if ($project instanceof ProjectInterface) {

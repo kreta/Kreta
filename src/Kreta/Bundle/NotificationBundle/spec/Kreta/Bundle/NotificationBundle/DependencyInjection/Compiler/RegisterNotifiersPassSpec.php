@@ -43,7 +43,7 @@ class RegisterNotifiersPassSpec extends ObjectBehavior
             ->shouldBeCalled()->willReturn($definition);
 
         $container->findTaggedServiceIds('kreta_notification.notifier')
-            ->shouldBeCalled()->willReturn([[["label" => "testEvent"]]]);
+            ->shouldBeCalled()->willReturn([[['label' => 'testEvent']]]);
 
         $container->hasParameter('kreta_notification.notifier.testEvent.enabled')->shouldBeCalled()->willReturn(true);
         $container->getParameter('kreta_notification.notifier.testEvent.enabled')->shouldBeCalled()->willReturn(true);
@@ -62,7 +62,7 @@ class RegisterNotifiersPassSpec extends ObjectBehavior
             ->shouldBeCalled()->willReturn($definition);
 
         $container->findTaggedServiceIds('kreta_notification.notifier')
-            ->shouldBeCalled()->willReturn([[["label" => "testEvent"]]]);
+            ->shouldBeCalled()->willReturn([[['label' => 'testEvent']]]);
 
         $container->hasParameter('kreta_notification.notifier.testEvent.enabled')->shouldBeCalled()->willReturn(true);
         $container->getParameter('kreta_notification.notifier.testEvent.enabled')->shouldBeCalled()->willReturn(false);
@@ -83,7 +83,7 @@ class RegisterNotifiersPassSpec extends ObjectBehavior
             ->shouldBeCalled()->willReturn($definition);
 
         $container->findTaggedServiceIds('kreta_notification.notifier')
-            ->shouldBeCalled()->willReturn([[["notLabelHere" => "asdas"]]]);
+            ->shouldBeCalled()->willReturn([[['notLabelHere' => 'asdas']]]);
 
         $definition->addMethodCall('registerNotifier', Argument::any())->shouldNotBeCalled();
 
@@ -99,4 +99,3 @@ class RegisterNotifiersPassSpec extends ObjectBehavior
         $this->process($container);
     }
 }
-

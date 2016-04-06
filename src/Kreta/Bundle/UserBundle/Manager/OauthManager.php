@@ -95,8 +95,9 @@ class OauthManager
      * @param string $name    The grant type
      * @param array  $options Array which contains the grant type custom options
      *
-     * @return array
      * @throws \OAuth2\OAuth2ServerException
+     *
+     * @return array
      */
     protected function grantType($name, array $options = [])
     {

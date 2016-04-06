@@ -18,7 +18,6 @@ use Kreta\Component\Media\Model\Interfaces\MediaInterface;
 use Kreta\Component\Media\Uploader\MediaUploader;
 use Kreta\Component\Organization\Model\Interfaces\OrganizationInterface;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormFactory;
 use Symfony\Component\Form\FormFactoryInterface;

@@ -92,7 +92,6 @@ class StatusTransitionController extends Controller
      * @View(statusCode=204)
      * @Workflow("manage_status")
      *
-     * @return void
      * @throws \Kreta\Component\Core\Exception\ResourceInUseException
      */
     public function deleteTransitionAction($workflowId, $transitionId)
@@ -153,8 +152,9 @@ class StatusTransitionController extends Controller
      * @View(statusCode=201, serializerGroups={"transitionList", "transition"})
      * @Workflow("manage_status")
      *
-     * @return \Kreta\Component\Workflow\Model\Interfaces\StatusInterface[]
      * @throws \Symfony\Component\HttpKernel\Exception\BadRequestHttpException
+     *
+     * @return \Kreta\Component\Workflow\Model\Interfaces\StatusInterface[]
      */
     public function postTransitionsInitialStatusAction(Request $request, $workflowId, $transitionId)
     {
@@ -182,7 +182,6 @@ class StatusTransitionController extends Controller
      * @View(statusCode=204)
      * @Workflow("manage_status")
      *
-     * @return void
      * @throws \Kreta\Component\Core\Exception\ResourceInUseException
      */
     public function deleteTransitionsInitialStatusAction($workflowId, $transitionId, $initialStatusId)

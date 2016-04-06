@@ -69,8 +69,7 @@ class NotificationRepository extends EntityRepository
         array $sorting = [],
         $limit = null,
         $offset = null
-    )
-    {
+    ) {
         $between = [];
         if (array_key_exists('date', $filters) && $filters['date'] instanceof \DateTime) {
             $between = [$filters['date'], new \DateTime()];
@@ -96,8 +95,9 @@ class NotificationRepository extends EntityRepository
      * @param string                                               $notificationId The notification id
      * @param \Kreta\Component\User\Model\Interfaces\UserInterface $user           The user
      *
-     * @return \Kreta\Component\Notification\Model\Interfaces\NotificationInterface
      * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
+     *
+     * @return \Kreta\Component\Notification\Model\Interfaces\NotificationInterface
      */
     public function findOneByUser($notificationId, UserInterface $user)
     {

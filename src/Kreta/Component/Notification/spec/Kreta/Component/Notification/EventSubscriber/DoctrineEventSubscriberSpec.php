@@ -35,8 +35,7 @@ class DoctrineEventSubscriberSpec extends ObjectBehavior
     function let(
         NotifiableEventRegistryInterface $notifiableEventRegistry,
         NotifierRegistryInterface $notifierRegistry
-    )
-    {
+    ) {
         $this->beConstructedWith($notifiableEventRegistry, $notifierRegistry);
     }
 
@@ -58,7 +57,7 @@ class DoctrineEventSubscriberSpec extends ObjectBehavior
             Events::prePersist,
             Events::postPersist,
             Events::preUpdate,
-            Events::postUpdate
+            Events::postUpdate,
         ];
 
         $this->getSubscribedEvents()->shouldReturn($subscribedEvents);

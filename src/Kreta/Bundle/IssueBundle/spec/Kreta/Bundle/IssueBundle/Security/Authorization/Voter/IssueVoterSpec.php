@@ -16,7 +16,6 @@ use Kreta\Component\Issue\Model\Issue;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 /**
@@ -81,8 +80,7 @@ class IssueVoterSpec extends ObjectBehavior
     function it_does_not_vote_because_the_current_user_is_not_user_interface_instance(
         TokenInterface $token,
         Issue $issue
-    )
-    {
+    ) {
         $token->getUser()->shouldBeCalled()->willReturn(null);
 
         $this->vote($token, $issue, ['assign'])->shouldReturn(-1);
@@ -93,8 +91,7 @@ class IssueVoterSpec extends ObjectBehavior
         Issue $issue,
         UserInterface $user,
         ProjectInterface $project
-    )
-    {
+    ) {
         $token->getUser()->shouldBeCalled()->willReturn($user);
         $issue->getProject()->shouldBeCalled()->willReturn($project);
         $project->getUserRole($user)->shouldBeCalled()->willReturn('ROLE_PARTICIPANT');
@@ -117,8 +114,7 @@ class IssueVoterSpec extends ObjectBehavior
         Issue $issue,
         UserInterface $user,
         ProjectInterface $project
-    )
-    {
+    ) {
         $token->getUser()->shouldBeCalled()->willReturn($user);
         $issue->getProject()->shouldBeCalled()->willReturn($project);
         $project->getUserRole($user)->shouldBeCalled()->willReturn('ROLE_ADMIN');
@@ -133,8 +129,7 @@ class IssueVoterSpec extends ObjectBehavior
         Issue $issue,
         UserInterface $user,
         ProjectInterface $project
-    )
-    {
+    ) {
         $token->getUser()->shouldBeCalled()->willReturn($user);
         $issue->getProject()->shouldBeCalled()->willReturn($project);
         $project->getUserRole($user)->shouldBeCalled()->willReturn('ROLE_PARTICIPANT');
@@ -149,8 +144,7 @@ class IssueVoterSpec extends ObjectBehavior
         Issue $issue,
         UserInterface $user,
         ProjectInterface $project
-    )
-    {
+    ) {
         $token->getUser()->shouldBeCalled()->willReturn($user);
         $issue->getProject()->shouldBeCalled()->willReturn($project);
         $project->getUserRole($user)->shouldBeCalled()->willReturn('ROLE_PARTICIPANT');

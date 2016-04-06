@@ -18,8 +18,8 @@ use Doctrine\ORM\Mapping\ClassMetadata;
 use Doctrine\ORM\Query\Expr;
 use Doctrine\ORM\QueryBuilder;
 use Kreta\Component\Core\spec\Kreta\Component\Core\Repository\BaseEntityRepository;
-use Kreta\Component\Organization\Model\Interfaces\ParticipantInterface;
 use Kreta\Component\Organization\Model\Interfaces\OrganizationInterface;
+use Kreta\Component\Organization\Model\Interfaces\ParticipantInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 

@@ -75,7 +75,7 @@ class StatusTransition implements StatusTransitionInterface
     {
         $this->name = $name;
         $this->state = $state;
-        $this->initialStates = (array)$initialStates;
+        $this->initialStates = (array) $initialStates;
 
         if ($state instanceof StatusInterface) {
             $this->workflow = $state->getWorkflow();
@@ -176,7 +176,7 @@ class StatusTransition implements StatusTransitionInterface
      * Method which validates if the state is also an initial state.
      * It is a validation method with its assertions.
      *
-     * @return boolean
+     * @return bool
      */
     public function isValidState()
     {
@@ -227,7 +227,7 @@ class StatusTransition implements StatusTransitionInterface
      */
     public function getGuard()
     {
-        return null;
+        return;
     }
 
     /**

@@ -28,10 +28,9 @@ methodology with **[Jest][14]**.
 
 [![Coverage Status](https://img.shields.io/coveralls/kreta/kreta.svg)](https://coveralls.io/r/kreta/kreta)
 ##Contributing
-This project follows PHP coding standards, so pull requests need to execute the Fabien Potencier's [PHP-CS-Fixer][4]
-and Marc Morera's [PHP-Formatter][5]. Furthermore, if the PR creates some not-PHP file remember that you have to put
-the license header manually. In order to simplify we provide a Composer script that wraps all the commands related with
-this process.
+This project follows PHP coding standards, so pull requests need to execute the Fabien Potencier's [PHP-CS-Fixer][4].
+Furthermore, if the PR creates some not-PHP file remember that you have to put the license header manually.
+In order to simplify we provide a Composer script that wraps all the commands related with this process.
 ```bash
 $ composer run-script cs
 ```
@@ -61,7 +60,6 @@ Kreta is created by:
 [2]: https://github.com/kreta-plugins
 [3]: http://www.phpspec.net/
 [4]: http://cs.sensiolabs.org/
-[5]: https://github.com/mmoreram/php-formatter
 [6]: http://symfony.com/doc/current/contributing/code/index.html
 [7]: http://symfony.com/doc/current/contributing/code/patches.html#check-list
 [8]: http://symfony.com/doc/current/contributing/code/patches.html#make-a-pull-request

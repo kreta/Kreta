@@ -13,7 +13,6 @@
 namespace spec\Kreta\Bundle\NotificationBundle\DependencyInjection;
 
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 
 /**
  * Class KretaNotificationExtensionSpec.

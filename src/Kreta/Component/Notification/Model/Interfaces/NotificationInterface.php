@@ -81,14 +81,14 @@ interface NotificationInterface
     /**
      * Gets if notification has been read.
      *
-     * @return boolean
+     * @return bool
      */
     public function isRead();
 
     /**
      * Sets read.
      *
-     * @param boolean $read Boolean that checks if the notification has been read or not
+     * @param bool $read Boolean that checks if the notification has been read or not
      *
      * @return $this self Object
      */

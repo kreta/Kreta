@@ -29,7 +29,7 @@ class IssueRepository extends EntityRepository
      *
      * @param \Kreta\Component\User\Model\Interfaces\UserInterface $assignee The assignee
      * @param array                                                $orderBy  Fields and strategy to order issues
-     * @param boolean                                              $onlyOpen Shows only open issues
+     * @param bool                                                 $onlyOpen Shows only open issues
      *
      * @return \Kreta\Component\Issue\Model\Interfaces\IssueInterface[]
      */
@@ -62,8 +62,7 @@ class IssueRepository extends EntityRepository
         array $sorting = [],
         $limit = null,
         $offset = null
-    )
-    {
+    ) {
         $queryBuilder = $this->getQueryBuilder()
             ->addSelect('par')
             ->join('p.participants', 'par');

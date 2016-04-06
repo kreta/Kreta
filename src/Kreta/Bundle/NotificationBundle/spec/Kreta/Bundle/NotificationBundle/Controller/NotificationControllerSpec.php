@@ -54,8 +54,7 @@ class NotificationControllerSpec extends ObjectBehavior
         UserInterface $user,
         ParamFetcher $paramFetcher,
         NotificationInterface $notification
-    )
-    {
+    ) {
         $container->get('kreta_notification.repository.notification')->shouldBeCalled()->willReturn($repository);
 
         $container->has('security.token_storage')->shouldBeCalled()->willReturn(true);
@@ -80,13 +79,12 @@ class NotificationControllerSpec extends ObjectBehavior
                 'p.id'  => 'project-id',
                 'type'  => 'issue_new',
                 'read'  => true,
-                'date'  => new \DateTime('2014-10-20')
+                'date'  => new \DateTime('2014-10-20'),
             ],
             ['title' => 'ASC'],
             10,
             1
         )->shouldBeCalled()->willReturn([$notification]);
-
 
         $this->getNotificationsAction($paramFetcher)->shouldReturn([$notification]);
     }
@@ -100,8 +98,7 @@ class NotificationControllerSpec extends ObjectBehavior
         NotificationInterface $notification,
         Handler $handler,
         Request $request
-    )
-    {
+    ) {
         $container->get('kreta_notification.repository.notification')->shouldBeCalled()->willReturn($repository);
 
         $container->has('security.token_storage')->shouldBeCalled()->willReturn(true);

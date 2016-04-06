@@ -112,8 +112,7 @@ class IssueSpec extends ObjectBehavior
         ProjectInterface $project,
         WorkflowInterface $workflow,
         StatusInterface $status
-    )
-    {
+    ) {
         $status->getName()->shouldBeCalled()->willReturn('Done');
         $project->getWorkflow()->shouldBeCalled()->willReturn($workflow);
         $workflow->getStatuses()->shouldBeCalled()->willReturn([$status]);

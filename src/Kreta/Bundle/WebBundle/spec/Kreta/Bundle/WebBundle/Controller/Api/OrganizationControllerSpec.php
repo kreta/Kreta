@@ -15,7 +15,6 @@ namespace spec\Kreta\Bundle\WebBundle\Controller\Api;
 use Kreta\Component\Organization\Model\Interfaces\OrganizationInterface;
 use Kreta\Component\Organization\Repository\OrganizationRepository;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
 /**

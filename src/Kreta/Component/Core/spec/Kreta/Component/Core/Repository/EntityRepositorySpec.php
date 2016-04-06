@@ -99,8 +99,7 @@ class EntityRepositorySpec extends ObjectBehavior
         Expr $expr,
         Expr\Comparison $comparison,
         AbstractQuery $query
-    )
-    {
+    ) {
         $object = Argument::type('Object');
 
         $queryBuilder = $this->getQueryBuilderSpec($manager, $queryBuilder);
@@ -117,8 +116,7 @@ class EntityRepositorySpec extends ObjectBehavior
         Expr $expr,
         Expr\Comparison $comparison,
         AbstractQuery $query
-    )
-    {
+    ) {
         $queryBuilder = $this->getQueryBuilderSpec($manager, $queryBuilder);
         $this->addCriteriaSpec($queryBuilder, $expr, ['id' => 'id'], $comparison);
         $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
@@ -142,8 +140,7 @@ class EntityRepositorySpec extends ObjectBehavior
         Expr $expr,
         Expr\Comparison $comparison,
         AbstractQuery $query
-    )
-    {
+    ) {
         $object = Argument::type('Object');
 
         $queryBuilder = $this->getQueryBuilderSpec($manager, $queryBuilder);
@@ -160,8 +157,7 @@ class EntityRepositorySpec extends ObjectBehavior
         Expr $expr,
         Expr\Comparison $comparison,
         AbstractQuery $query
-    )
-    {
+    ) {
         $queryBuilder = $this->getQueryBuilderSpec($manager, $queryBuilder);
         $this->addCriteriaSpec($queryBuilder, $expr, ['name' => 'dummy name'], $comparison);
         $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
@@ -177,8 +173,7 @@ class EntityRepositorySpec extends ObjectBehavior
         Expr $expr,
         Expr\Comparison $comparison,
         AbstractQuery $query
-    )
-    {
+    ) {
         $object = Argument::type('Object');
 
         $queryBuilder = $this->getQueryBuilderSpec($manager, $queryBuilder);
@@ -195,8 +190,7 @@ class EntityRepositorySpec extends ObjectBehavior
         Expr $expr,
         Expr\Comparison $comparison,
         AbstractQuery $query
-    )
-    {
+    ) {
         $queryBuilder = $this->getQueryBuilderSpec($manager, $queryBuilder);
         $this->addCriteriaSpec($queryBuilder, $expr, ['name' => 'dummy name'], $comparison);
         $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
@@ -212,8 +206,7 @@ class EntityRepositorySpec extends ObjectBehavior
         Expr $expr,
         Expr\Comparison $comparison,
         AbstractQuery $query
-    )
-    {
+    ) {
         $object = Argument::type('Object');
 
         $queryBuilder = $this->getQueryBuilderSpec($manager, $queryBuilder);

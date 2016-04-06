@@ -26,7 +26,7 @@ interface NotifiableEventInterface
      * @param string $event  Event that was triggered
      * @param object $object Entity that triggered the event
      *
-     * @return boolean
+     * @return bool
      */
     public function supportsEvent($event, $object);
 

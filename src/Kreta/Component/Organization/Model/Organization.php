@@ -210,7 +210,7 @@ class Organization implements OrganizationInterface
             }
         }
 
-        return null;
+        return;
     }
 
     /**

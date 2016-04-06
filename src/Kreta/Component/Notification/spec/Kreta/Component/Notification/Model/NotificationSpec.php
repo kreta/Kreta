@@ -15,7 +15,6 @@ namespace spec\Kreta\Component\Notification\Model;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 
 /**
  * Class NotificationSpec.

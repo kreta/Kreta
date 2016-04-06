@@ -64,7 +64,7 @@ interface MediaInterface
     /**
      * Has media returns true if the object has a media, otherwise returns false.
      *
-     * @return boolean
+     * @return bool
      */
     public function hasMedia();
 

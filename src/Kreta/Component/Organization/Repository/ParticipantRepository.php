@@ -40,7 +40,7 @@ class ParticipantRepository extends EntityRepository
     ) {
         return $this->findBy([
             'organization' => $organization,
-            'like'         => ['u.email' => $criteria]],
+            'like'         => ['u.email' => $criteria], ],
             ['u.email' => 'ASC'],
             $limit,
             $offset

@@ -14,7 +14,6 @@ namespace spec\Kreta\Bundle\CoreBundle\EventListener;
 
 use Doctrine\Common\Annotations\Reader;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**

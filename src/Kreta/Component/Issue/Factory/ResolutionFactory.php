@@ -40,7 +40,7 @@ class ResolutionFactory
     /**
      * Creates an instance of an entity.
      *
-     * @return Object
+     * @return object
      */
     public function create()
     {

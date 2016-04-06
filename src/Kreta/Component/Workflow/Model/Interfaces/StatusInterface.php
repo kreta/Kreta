@@ -82,7 +82,7 @@ interface StatusInterface extends StateInterface
     /**
      * Checks if the status is in use by any issue.
      *
-     * @return boolean
+     * @return bool
      */
     public function isInUse();
 }

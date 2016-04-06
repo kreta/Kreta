@@ -14,7 +14,6 @@ namespace spec\Kreta\Component\User\Form\Type;
 
 use Kreta\Component\User\Factory\UserFactory;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Symfony\Component\Form\FormBuilder;
 
 /**

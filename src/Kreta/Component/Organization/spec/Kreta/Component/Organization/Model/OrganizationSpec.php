@@ -14,8 +14,8 @@ namespace spec\Kreta\Component\Organization\Model;
 
 use Kreta\Component\Media\Model\Interfaces\MediaInterface;
 use Kreta\Component\Organization\Model\Interfaces\ParticipantInterface;
-use Kreta\Component\Organization\Model\Participant;
 use Kreta\Component\Organization\Model\Organization;
+use Kreta\Component\Organization\Model\Participant;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use Kreta\Component\User\Model\User;

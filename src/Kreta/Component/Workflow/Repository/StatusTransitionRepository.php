@@ -29,8 +29,6 @@ class StatusTransitionRepository extends EntityRepository
      *
      * @param \Kreta\Component\Workflow\Model\Interfaces\StatusTransitionInterface $transition    The transition
      * @param \Kreta\Component\Workflow\Model\Interfaces\StatusInterface           $initialStatus The initial status
-     *
-     * @return void
      */
     public function persistInitialStatus(StatusTransitionInterface $transition, StatusInterface $initialStatus)
     {
@@ -43,8 +41,6 @@ class StatusTransitionRepository extends EntityRepository
      *
      * @param \Kreta\Component\Workflow\Model\Interfaces\StatusTransitionInterface $transition      The transition
      * @param string                                                               $initialStatusId Initial status id
-     *
-     * @return void
      */
     public function removeInitialStatus(StatusTransitionInterface $transition, $initialStatusId)
     {

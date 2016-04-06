@@ -18,7 +18,6 @@ use Kreta\Component\Workflow\Model\Interfaces\StatusInterface;
 use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
 use Kreta\Component\Workflow\Repository\StatusRepository;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -67,8 +66,7 @@ class StatusControllerSpec extends ObjectBehavior
         Handler $handler,
         StatusInterface $status,
         WorkflowInterface $workflow
-    )
-    {
+    ) {
         $container->get('kreta_workflow.form_handler.status')->shouldBeCalled()->willReturn($handler);
         $request->get('workflow')->shouldBeCalled()->willReturn($workflow);
         $handler->processForm($request, null, ['workflow' => $workflow])->shouldBeCalled()->willReturn($status);
@@ -82,8 +80,7 @@ class StatusControllerSpec extends ObjectBehavior
         StatusRepository $statusRepository,
         StatusInterface $status,
         Handler $handler
-    )
-    {
+    ) {
         $container->get('kreta_workflow.form_handler.status')->shouldBeCalled()->willReturn($handler);
         $container->get('kreta_workflow.repository.status')->shouldBeCalled()->willReturn($statusRepository);
         $statusRepository->find('status-id', false)->shouldBeCalled()->willReturn($status);
@@ -96,8 +93,7 @@ class StatusControllerSpec extends ObjectBehavior
         ContainerInterface $container,
         StatusRepository $statusRepository,
         StatusInterface $status
-    )
-    {
+    ) {
         $container->get('kreta_workflow.repository.status')->shouldBeCalled()->willReturn($statusRepository);
         $statusRepository->find('status-id', false)->shouldBeCalled()->willReturn($status);
         $status->isInUse()->shouldBeCalled()->willReturn(true);
@@ -109,8 +105,7 @@ class StatusControllerSpec extends ObjectBehavior
         ContainerInterface $container,
         StatusRepository $statusRepository,
         StatusInterface $status
-    )
-    {
+    ) {
         $container->get('kreta_workflow.repository.status')->shouldBeCalled()->willReturn($statusRepository);
         $statusRepository->find('status-id', false)->shouldBeCalled()->willReturn($status);
         $status->isInUse()->shouldBeCalled()->willReturn(false);

@@ -93,7 +93,7 @@ abstract class AbstractVoter implements VoterInterface
      * Checks the attribute given returning -1, 0 or 1 depending on the access is denied, abstain or granted.
      *
      * @param \Symfony\Component\Security\Core\User\UserInterface $user      The user
-     * @param Object                                              $object    The object
+     * @param object                                              $object    The object
      * @param string                                              $attribute The attribute
      *
      * @return int

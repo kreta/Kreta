@@ -38,8 +38,7 @@ class JsonExceptionListenerSpec extends ObjectBehavior
         GetResponseForExceptionEvent $event,
         Request $request,
         \Exception $exception
-    )
-    {
+    ) {
         $event->getRequest()->shouldBeCalled()->willReturn($request);
         $request->getRequestFormat()->shouldBeCalled()->willReturn('json');
         $event->getException()->shouldBeCalled()->willReturn($exception);
@@ -52,8 +51,7 @@ class JsonExceptionListenerSpec extends ObjectBehavior
         GetResponseForExceptionEvent $event,
         Request $request,
         ResourceInUseException $exception
-    )
-    {
+    ) {
         $event->getRequest()->shouldBeCalled()->willReturn($request);
         $request->getRequestFormat()->shouldBeCalled()->willReturn('json');
         $event->getException()->shouldBeCalled()->willReturn($exception);
@@ -66,8 +64,7 @@ class JsonExceptionListenerSpec extends ObjectBehavior
         GetResponseForExceptionEvent $event,
         Request $request,
         NoResultException $exception
-    )
-    {
+    ) {
         $event->getRequest()->shouldBeCalled()->willReturn($request);
         $request->getRequestFormat()->shouldBeCalled()->willReturn('json');
         $event->getException()->shouldBeCalled()->willReturn($exception);
@@ -80,8 +77,7 @@ class JsonExceptionListenerSpec extends ObjectBehavior
         GetResponseForExceptionEvent $event,
         Request $request,
         AccessDeniedException $exception
-    )
-    {
+    ) {
         $event->getRequest()->shouldBeCalled()->willReturn($request);
         $request->getRequestFormat()->shouldBeCalled()->willReturn('json');
         $event->getException()->shouldBeCalled()->willReturn($exception);
@@ -94,8 +90,7 @@ class JsonExceptionListenerSpec extends ObjectBehavior
         GetResponseForExceptionEvent $event,
         Request $request,
         \InvalidArgumentException $exception
-    )
-    {
+    ) {
         $event->getRequest()->shouldBeCalled()->willReturn($request);
         $request->getRequestFormat()->shouldBeCalled()->willReturn('json');
         $event->getException()->shouldBeCalled()->willReturn($exception);
@@ -108,14 +103,12 @@ class JsonExceptionListenerSpec extends ObjectBehavior
         GetResponseForExceptionEvent $event,
         Request $request,
         InvalidFormException $exception
-    )
-    {
+    ) {
         $event->getRequest()->shouldBeCalled()->willReturn($request);
         $request->getRequestFormat()->shouldBeCalled()->willReturn('json');
         $event->getException()->shouldBeCalled()->willReturn($exception);
         $exception->getFormErrors()->shouldBeCalled()->willReturn(
-            ['name' =>
-                 ['This value should not be blank', 'An object with identical name is already exists']
+            ['name' => ['This value should not be blank', 'An object with identical name is already exists'],
             ]
         );
         $event->setResponse(Argument::type('Symfony\Component\HttpFoundation\JsonResponse'))->shouldBeCalled();

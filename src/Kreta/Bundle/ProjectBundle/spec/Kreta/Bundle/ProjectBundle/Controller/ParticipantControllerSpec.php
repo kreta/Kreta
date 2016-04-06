@@ -20,7 +20,6 @@ use Kreta\Component\Project\Repository\ParticipantRepository;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use Kreta\Component\User\Repository\UserRepository;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -54,8 +53,7 @@ class ParticipantControllerSpec extends ObjectBehavior
         ParamFetcher $paramFetcher,
         ProjectInterface $project,
         ParticipantInterface $participant
-    )
-    {
+    ) {
         $container->get('kreta_project.repository.participant')->shouldBeCalled()->willReturn($participantRepository);
         $request->get('project')->shouldBeCalled()->willReturn($project);
         $paramFetcher->get('limit')->shouldBeCalled()->willReturn(2);
@@ -75,8 +73,7 @@ class ParticipantControllerSpec extends ObjectBehavior
         Request $request,
         Handler $handler,
         ParticipantInterface $participant
-    )
-    {
+    ) {
         $container->get('kreta_user.repository.user')->shouldBeCalled()->willReturn($userRepository);
         $userRepository->findAll()->shouldBeCalled()->willReturn([$user]);
 
@@ -92,8 +89,7 @@ class ParticipantControllerSpec extends ObjectBehavior
         ContainerInterface $container,
         ParticipantRepository $participantRepository,
         ParticipantInterface $participant
-    )
-    {
+    ) {
         $container->get('kreta_project.repository.participant')->shouldBeCalled()->willReturn($participantRepository);
         $participantRepository->findOneBy(['project' => 'project-id', 'user' => 'user-id'], false)
             ->shouldBeCalled()->willReturn($participant);

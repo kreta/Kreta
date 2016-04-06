@@ -51,8 +51,7 @@ class CreateUserCommandSpec extends ObjectBehavior
         UserManager $userManager,
         InputInterface $input,
         OutputInterface $output
-    )
-    {
+    ) {
         $container->get('kreta_user.factory.user')->shouldBeCalled()->willReturn($userFactory);
 
         $input->bind(Argument::any())->shouldBeCalled();

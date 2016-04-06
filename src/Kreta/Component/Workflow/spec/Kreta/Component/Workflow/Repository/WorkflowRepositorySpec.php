@@ -14,10 +14,8 @@ namespace spec\Kreta\Component\Workflow\Repository;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\ClassMetadata;
-use Doctrine\ORM\Query\Expr;
 use Kreta\Component\Core\spec\Kreta\Component\Core\Repository\BaseEntityRepository;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 
 /**
  * Class WorkflowRepositorySpec.

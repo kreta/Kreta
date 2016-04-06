@@ -56,8 +56,7 @@ class ParticipantRepositorySpec extends ObjectBehavior
         Expr $expr,
         Expr\Comparison $comparison,
         AbstractQuery $query
-    )
-    {
+    ) {
         $queryBuilder = $this->getQueryBuilderSpec($manager, $queryBuilder);
         $this->addCriteriaSpec($queryBuilder, $expr, ['project' => $project], $comparison);
         $this->addLikeCriteriaSpec($queryBuilder, $expr, ['u.email' => 'kreta@kreta.com'], $comparison);

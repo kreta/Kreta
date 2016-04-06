@@ -92,8 +92,7 @@ class StatusSpec extends ObjectBehavior
         StatusInterface $status,
         ProjectInterface $project,
         IssueInterface $issue
-    )
-    {
+    ) {
         $this->setWorkflow($workflow)->shouldReturn($this);
         $this->getWorkflow()->shouldReturn($workflow);
         $workflow->getProjects()->shouldBeCalled()->willReturn([$project]);
@@ -111,8 +110,7 @@ class StatusSpec extends ObjectBehavior
         ProjectInterface $project,
         IssueInterface $issue,
         StatusInterface $status
-    )
-    {
+    ) {
         $this->setWorkflow($workflow)->shouldReturn($this);
         $this->getWorkflow()->shouldReturn($workflow);
         $workflow->getProjects()->shouldBeCalled()->willReturn([$project]);
@@ -124,5 +122,4 @@ class StatusSpec extends ObjectBehavior
 
         $this->isInUse()->shouldReturn(true);
     }
-
 }

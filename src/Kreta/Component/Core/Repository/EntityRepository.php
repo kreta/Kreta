@@ -28,10 +28,8 @@ class EntityRepository extends BaseEntityRepository
     /**
      * Persists object.
      *
-     * @param Object  $object The object that will be persisted
-     * @param boolean $flush  Boolean that checks if flushes or not, by default is true
-     *
-     * @return void
+     * @param object $object The object that will be persisted
+     * @param bool   $flush  Boolean that checks if flushes or not, by default is true
      */
     public function persist($object, $flush = true)
     {
@@ -44,10 +42,8 @@ class EntityRepository extends BaseEntityRepository
     /**
      * Removes object.
      *
-     * @param Object  $object The object that will be removed
-     * @param boolean $flush  Boolean that checks if flushes or not, by default is true
-     *
-     * @return void
+     * @param object $object The object that will be removed
+     * @param bool   $flush  Boolean that checks if flushes or not, by default is true
      */
     public function remove($object, $flush = true)
     {
@@ -60,11 +56,12 @@ class EntityRepository extends BaseEntityRepository
     /**
      * Finds a resource by its primary key / identifier.
      *
-     * @param string  $id       The id
-     * @param boolean $nullable Boolean that checks if the result can be null or not, by default is true
+     * @param string $id       The id
+     * @param bool   $nullable Boolean that checks if the result can be null or not, by default is true
      *
-     * @return Object|null
      * @throws \Doctrine\ORM\NoResultException If nullable is false and if the query returned no result.
+     *
+     * @return object|null
      */
     public function find($id, $nullable = true)
     {
@@ -85,10 +82,11 @@ class EntityRepository extends BaseEntityRepository
      * Finds the resource by criteria given.
      *
      * @param string[] $criteria Array which contains the criteria as key value
-     * @param boolean  $nullable Boolean that checks if the result can be null or not, by default is true
+     * @param bool     $nullable Boolean that checks if the result can be null or not, by default is true
      *
-     * @return Object|null
      * @throws \Doctrine\ORM\NoResultException If nullable is false and if the query returned no result.
+     *
+     * @return object|null
      */
     public function findOneBy(array $criteria, $nullable = true)
     {

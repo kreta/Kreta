@@ -49,7 +49,7 @@ class Notification extends AbstractModel implements NotificationInterface
     /**
      * Boolean that checks if the notification has been read or not.
      *
-     * @var boolean
+     * @var bool
      */
     protected $read;
 

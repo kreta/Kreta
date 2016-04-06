@@ -44,7 +44,7 @@ class NotificationFactory
      */
     public function create()
     {
-        $notification = new $this->className;
+        $notification = new $this->className();
 
         return $notification
             ->setDate(new \DateTime())

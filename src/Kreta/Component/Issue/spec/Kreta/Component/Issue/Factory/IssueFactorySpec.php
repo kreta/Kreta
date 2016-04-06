@@ -19,7 +19,6 @@ use Kreta\Component\User\Model\Interfaces\UserInterface;
 use Kreta\Component\Workflow\Model\Interfaces\StatusInterface;
 use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 
 /**
  * Class IssueFactorySpec.
@@ -46,8 +45,7 @@ class IssueFactorySpec extends ObjectBehavior
         UserInterface $user,
         IssuePriorityInterface $issuePriority,
         IssueInterface $parent
-    )
-    {
+    ) {
         $project->getWorkflow()->shouldBeCalled()->willReturn($workflow);
         $workflow->getStatuses()->shouldBeCalled()->willReturn([$status]);
         $status->getType()->shouldBeCalled()->willReturn('initial');

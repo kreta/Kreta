@@ -54,7 +54,7 @@ interface IssueInterface extends StatefulInterface
      *
      * @param \Kreta\Component\User\Model\Interfaces\UserInterface $user The user
      *
-     * @return boolean
+     * @return bool
      */
     public function isAssignee(UserInterface $user);
 
@@ -225,7 +225,7 @@ interface IssueInterface extends StatefulInterface
      *
      * @param \Kreta\Component\User\Model\Interfaces\UserInterface $user The user
      *
-     * @return boolean
+     * @return bool
      */
     public function isReporter(UserInterface $user);
 
@@ -307,14 +307,12 @@ interface IssueInterface extends StatefulInterface
      *
      * @param \Kreta\Component\User\Model\Interfaces\UserInterface $user The user
      *
-     * @return boolean
+     * @return bool
      */
     public function isParticipant(UserInterface $user);
 
     /**
      * Doctrine's pre-persist method that allows to generate a numeric id.
-     *
-     * @return void
      */
     public function generateNumericId();
 }

@@ -14,13 +14,12 @@ namespace spec\Kreta\Bundle\OrganizationBundle\Controller;
 
 use FOS\RestBundle\Request\ParamFetcher;
 use Kreta\Component\Core\Form\Handler\Handler;
-use Kreta\Component\Organization\Model\Interfaces\ParticipantInterface;
 use Kreta\Component\Organization\Model\Interfaces\OrganizationInterface;
+use Kreta\Component\Organization\Model\Interfaces\ParticipantInterface;
 use Kreta\Component\Organization\Repository\ParticipantRepository;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use Kreta\Component\User\Repository\UserRepository;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 

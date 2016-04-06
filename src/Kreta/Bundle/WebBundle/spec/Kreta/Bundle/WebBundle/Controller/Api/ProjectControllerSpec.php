@@ -17,7 +17,6 @@ use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Project\Repository\ProjectRepository;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;

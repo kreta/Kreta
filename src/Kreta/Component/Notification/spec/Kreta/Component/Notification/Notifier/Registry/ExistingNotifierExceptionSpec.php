@@ -13,7 +13,6 @@
 namespace spec\Kreta\Component\Notification\Notifier\Registry;
 
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 
 /**
  * Class ExistingNotifierExceptionSpec.

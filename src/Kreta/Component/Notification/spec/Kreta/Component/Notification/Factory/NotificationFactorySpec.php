@@ -13,7 +13,6 @@
 namespace spec\Kreta\Component\Notification\Factory;
 
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 
 /**
  * Class NotificationFactorySpec.

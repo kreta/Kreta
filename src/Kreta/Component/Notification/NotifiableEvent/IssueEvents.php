@@ -65,7 +65,7 @@ class IssueEvents implements NotifiableEventInterface
      */
     public function supportsEvent($event, $object)
     {
-        return $object instanceof IssueInterface && in_array($event, $this->supportedEvents);
+        return $object instanceof IssueInterface && in_array($event, $this->supportedEvents, true);
     }
 
     /**
@@ -76,7 +76,7 @@ class IssueEvents implements NotifiableEventInterface
         $notifications = [];
         switch ($event) {
             case 'postPersist':
-                if ($object->getAssignee() != $object->getReporter()) {
+                if ($object->getAssignee() !== $object->getReporter()) {
                     $url = $this->router->generate(
                         'get_issue', ['issueId' => $object->getId()]
                     );

@@ -57,8 +57,7 @@ class StatusFactory
         $type = StatusInterface::TYPE_NORMAL,
         array $transitions = [],
         array $properties = []
-    )
-    {
+    ) {
         $status = new $this->className($name, $type, $transitions, $properties);
 
         return $status

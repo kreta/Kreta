@@ -17,7 +17,6 @@ use Kreta\Bundle\UserBundle\Event\AuthorizationEvent;
 use Kreta\Bundle\UserBundle\Manager\OauthManager;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\ParameterBag\ParameterBagInterface;
 use Symfony\Component\Form\FormInterface;
 use Symfony\Component\HttpFoundation\Request;

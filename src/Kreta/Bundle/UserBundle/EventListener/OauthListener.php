@@ -1,9 +1,10 @@
 <?php
 
 /*
- * This file is part of the FOSOAuthServerBundle package.
+ * This file is part of the Kreta package.
  *
- * (c) FriendsOfSymfony <http://friendsofsymfony.github.com/>
+ * (c) Beñat Espiña <benatespina@gmail.com>
+ * (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -101,8 +102,9 @@ class OauthListener extends BaseOauthListener
      * @param string $accessToken  The access token
      * @param string $refreshToken The refresh token
      *
-     * @return array
      * @throws UnauthorizedException when the token does no exist
+     *
+     * @return array
      */
     protected function refresh($accessToken, $refreshToken)
     {

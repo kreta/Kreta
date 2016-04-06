@@ -96,7 +96,7 @@ class ProjectFactory
      * @param UserInterface              $user         The project creator
      * @param OrganizationInterface|null $organization The organization
      * @param WorkflowInterface|null     $workflow     The workflow
-     * @param boolean                    $load         Load boolean, by default true
+     * @param bool                       $load         Load boolean, by default true
      * @param UploadedFile               $image        The image, can be null
      *
      * @return ProjectInterface
