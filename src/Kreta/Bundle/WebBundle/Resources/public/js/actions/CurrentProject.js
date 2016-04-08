@@ -109,13 +109,43 @@ const Actions = {
         });
     };
   },
+  transitionIssue: (transitionId, issueId) => {
+    return (dispatch) => {
+      dispatch({
+        type: ActionTypes.CURRENT_PROJECT_ISSUE_TRANSITION
+      });
+      IssueApi.transitionIssue(issueId, {transition: transitionId})
+        .then((updatedIssue) => {
+          dispatch({
+            type: ActionTypes.CURRENT_PROJECT_ISSUE_TRANSITIONED,
+            issue: updatedIssue
+          });
+        })
+        .catch((errorData) => {
+          errorData.then((errors) => {
+            dispatch({
+              type: ActionTypes.CURRENT_PROJECT_ISSUE_UPDATE_ERROR,
+              errors
+            });
+          });
+        });
+    };
+  },
   filterIssues: (filters) => {
     return (dispatch) => {
       dispatch({
         type: ActionTypes.CURRENT_PROJECT_ISSUE_FILTERING,
         filters
       });
-      IssueApi.getIssues(filters)
+      let request = {};
+      filters.forEach((filter) => {
+        filter.forEach((item) => {
+          if(item.selected) {
+            request[item.filter] = item.value;
+          }
+        })
+      });
+      IssueApi.getIssues(request)
         .then((filteredIssues) => {
           dispatch({
             type: ActionTypes.CURRENT_PROJECT_ISSUE_FILTERED,

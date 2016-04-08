@@ -29,7 +29,8 @@ class List extends React.Component {
 
   state = {
     selectedProject: null,
-    selectedShortcut: 0
+    selectedShortcut: 0,
+    filteredProjects: this.props.projects
   };
 
   shortcuts = [{
@@ -55,14 +56,21 @@ class List extends React.Component {
       this.goToShortcutLink(this.state.selectedShortcut);
       ev.stopPropagation();
     } else if (ev.which < 37 || ev.which > 40) { // Filter
-      // dispatch filter action
+      const filteredProjects = this.props.projects.filter((project) => {
+        return project.name.indexOf(ev.currentTarget.value) > -1 ||
+          project.organization.name.indexOf(ev.currentTarget.value) > -1;
+      });
+      this.setState({
+        filteredProjects,
+        selectedProject: filteredProjects.length > 0 ? filteredProjects[0] : null
+      });
     } else {
       this.refs.navigableList.handleNavigation(ev);
     }
   }
 
   changeSelectedRow(index) {
-    this.setState({selectedProject: this.props.projects[index]});
+    this.setState({selectedProject: this.state.filteredProjects[index]});
   }
 
   changeSelectedShortcut(index) {
@@ -85,7 +93,7 @@ class List extends React.Component {
 
   getProjectItems() {
     if (this.props.projects.length > 0) {
-      const projects = this.props.projects.map((project, index) => {
+      const projects = this.state.filteredProjects.map((project, index) => {
         return <ProjectPreview key={index}
                                onMouseEnter={this.changeSelectedRow.bind(this, index)}
                                onShortcutClick={this.goToShortcutLink.bind(this)}
@@ -102,7 +110,7 @@ class List extends React.Component {
                      onYChanged={this.changeSelectedRow.bind(this)}
                      ref="navigableList"
                      xLength={2}
-                     yLength={projects.length}>
+                     yLength={this.state.filteredProjects.length}>
         { projects }
       </NavigableList>;
     }
