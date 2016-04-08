@@ -6,13 +6,12 @@
 // For the full copyright and license information, please view the LICENSE
 // file that was distributed with this source code.
 
-@import 'base/reset';
-@import 'base/common';
+@import
+  'base/reset';
+  'base/common';
 
-@import 'helpers/size';
-@import 'helpers/spacing';
-
-@import 'components/section-header';
-@import 'components/simple-header';
-@import 'components/tab';
-
+@import
+  'components/scrollbar';
+  'components/section-header';
+  'components/simple-header';
+  'components/tab';
