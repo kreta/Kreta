@@ -6,14 +6,14 @@
 // For the full copyright and license information, please view the LICENSE
 // file that was distributed with this source code.
 
-@import 'base/reset';
-@import 'base/colors';
-@import 'base/common';
+@import
+  'base/reset',
+  'base/colors',
+  'base/common';
 
-@import 'helpers/spacing';
-
-@import 'components/button';
-@import 'components/form';
+@import
+  'components/button',
+  'components/form';
 
 .login-container {
   color: $main-black;
