@@ -23,6 +23,7 @@ import Icon from './../../component/Icon';
 import IssueField from './../../component/IssueField';
 import ProjectActions from './../../../actions/CurrentProject';
 import Selector from './../../component/Selector';
+import TextArea from './../../component/Textarea';
 import UserImage from './../../component/UserImage';
 
 class Show extends React.Component {
@@ -83,8 +84,8 @@ class Show extends React.Component {
             ref="form">
         <input name="project" type="hidden" value={this.props.currentProject.project.id}/>
         <FormInput className="issue-show__title"
-               name="title"
-               value={issue.title}/>
+                   name="title"
+                   value={issue.title}/>
         <section className="issue-show__transitions">
           {allowedTransitions}
         </section>
@@ -98,9 +99,9 @@ class Show extends React.Component {
             {options.priority}
           </Selector>
         </section>
-        <FormInput className="issue-show__description"
-                   multiline={true}
-                  name="description"
+        <TextArea className="issue-show__description"
+                  id="description"
+                  readOnly={false}
                   value={issue.description}/>
 
         <div className="issue-show__save">

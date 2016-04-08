@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-import '../../../../../node_modules/quill/dist/quill.snow.css';
+import './../../../../../node_modules/quill/dist/quill.snow.css';
 
 import './../../../scss/components/_textarea';
 
@@ -23,58 +23,91 @@ class Textarea extends React.Component {
     value: React.PropTypes.string
   };
 
-  getValue() {
-    return this.refs.editor.getEditor().editor.innerHTML;
+  constructor(props) {
+    super(props);
+    this.state = {
+      value: this.props.value
+    };
+
+    this.formats = [
+      'bold',
+      'italic',
+      'strike',
+      'underline',
+      'size',
+      'color',
+      'link',
+      'bullet',
+      'list',
+      'align',
+      { name: 'code', tag: 'code', prepare: 'heading', type: 'line' }
+    ];
+
+    this.toolbar = [
+      {
+        label: 'Formats', type: 'group', items: [
+        {
+          label: 'Size', type: 'size', items: [
+            {label: 'small', value: '10px'},
+            {label: 'normal', value: '13px', selected: true},
+            {label: 'title', value: '18px'}
+          ]
+        }, {
+          label: 'Alignment', type: 'align', items: [
+            {label: '', value: 'left', selected: true},
+            {label: '', value: 'center'},
+            {label: '', value: 'right'},
+            {label: '', value: 'justify'}
+          ]
+        }, {
+          type: 'separator'
+        }]
+      }, {
+        label: 'Text', type: 'group', items: [
+          {type: 'bold', label: 'Bold'},
+          {type: 'italic', label: 'Italic'},
+          {type: 'strike', label: 'Strike'},
+          {type: 'underline', label: 'Underline'},
+          {type: 'separator'},
+          {type: 'link', label: 'Link'},
+          {type: 'bullet', label: 'Bullet'},
+          {type: 'list', label: 'List'},
+          {type: 'code', label: 'Code', value: 'code'},
+          {type: 'color', label: 'Color', items: ReactQuill.Toolbar.defaultColors}
+        ]
+      }
+    ];
+
+    if (true === this.props.readOnly) {
+      this.toolbar = false;
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      value: nextProps.value
+    });
+  }
+
+  onChange(value) {
+    this.setState({
+      value: value
+    });
   }
 
   render() {
-    const
-      { ...props} = this.props,
-      formats = [
-        {name: 'h1', tag: 'H1', prepare: 'heading', type: 'line'},
-//        { name: 'h2', tag: 'H2', prepare: 'heading', type: 'line' },
-//        { name: 'h3', tag: 'H3', prepare: 'heading', type: 'line' },
-//        { name: 'code', tag: 'code', prepare: 'heading', type: 'line' }
-      ];
-
-    let toolbar = [{
-      label: 'Main', type: 'group', items: [
-        {type: 'bold', label: 'Bold'},
-        {type: 'italic', label: 'Italic'},
-        {type: 'underline', label: 'Underline'},
-        {type: 'link', label: 'Link'},
-        {type: 'image', label: 'Image'},
-        {type: 'h1', label: 'Header 1', value: 'H1'},
-//        {type: 'h2', label: 'Header 2', value: 'H2'},
-//        {type: 'h3', label: 'Header 3', value: 'H3'},
-//        {type: 'code', label: 'Code', value: 'code'},
-        {type: 'strike', label: 'Strike'},
-        {
-          label: 'Alignment', type: 'align', items: [
-          {label: '', value: 'center'},
-          {label: '', value: 'left'},
-          {label: '', value: 'right'},
-          {label: '', value: 'justify'}
-        ]
-        },
-        {type: 'color', label: 'Color', items: ReactQuill.Toolbar.defaultColors},
-        {type: 'list', label: 'List'},
-        {type: 'bullet', label: 'Bullet'}
-      ]
-    }];
-
-    if (true === this.props.readOnly) {
-      toolbar = false;
-    }
-
     return (
-      <ReactQuill
-        formats={formats}
-        ref="editor"
-        theme="snow"
-        toolbar={toolbar}
-        { ...props}
-      />
+      <div>
+        <input name="description" type="hidden" value={this.state.value}/>
+        <ReactQuill
+          formats={this.formats}
+          onChange={this.onChange.bind(this)}
+          ref="editor"
+          theme="snow"
+          toolbar={this.toolbar}
+          value={this.state.value}
+        />
+      </div>
     );
   }
 }
