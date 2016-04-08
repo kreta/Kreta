@@ -18,17 +18,17 @@ import CurrentProjectActions from '../../../actions/CurrentProject';
 
 export default class ProjectRoot extends React.Component {
   componentDidMount() {
-    this.fetchContent()
+    this.fetchContent();
   }
 
   componentDidUpdate(prevProps) {
-    if(prevProps.params.project !== this.props.params.project ||
+    if (prevProps.params.project !== this.props.params.project ||
       prevProps.params.organization !== this.props.params.organization) {
       this.fetchContent();
       return;
     }
 
-    if(prevProps.params.issueId !== this.props.params.issueId) {
+    if (prevProps.params.issueId !== this.props.params.issueId) {
       this.props.dispatch(CurrentProjectActions.selectCurrentIssue(
         typeof this.props.params.issueId !== 'undefined' ? this.props.params.issueId : null
       ));

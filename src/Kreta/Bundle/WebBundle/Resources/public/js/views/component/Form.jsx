@@ -25,7 +25,7 @@ class Form extends React.Component {
 
   renderFormElements() {
     return this.props.children.map((child, key) => {
-      if(typeof child === 'undefined') {
+      if (typeof child === 'undefined') {
         return;
       }
 

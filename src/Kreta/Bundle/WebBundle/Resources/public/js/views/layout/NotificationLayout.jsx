@@ -18,7 +18,7 @@ import NotificationActions from '../../actions/Notification';
 
 class NotificationLayout extends React.Component {
   componentDidMount() {
-    //this.props.dispatch(NotificationActions.startNotificationCleaner());
+    this.props.dispatch(NotificationActions.startNotificationCleaner());
   }
 
   removeNotification(notification) {

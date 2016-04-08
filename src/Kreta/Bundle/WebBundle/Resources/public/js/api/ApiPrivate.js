@@ -35,5 +35,5 @@ class ProjectApiPrivate extends Api {
   }
 }
 
-export const organizationApiPrivateInstance = new OrganizationApiPrivate();
-export const projectApiPrivateInstance = new ProjectApiPrivate();
+export const organizationApiPrivateInstance = new OrganizationApiPrivate(),
+  projectApiPrivateInstance = new ProjectApiPrivate();

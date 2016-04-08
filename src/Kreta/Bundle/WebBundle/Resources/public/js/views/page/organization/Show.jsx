@@ -9,16 +9,14 @@
  */
 
 import React from 'react';
-import {Link} from 'react-router'
+import {Link} from 'react-router';
 import { connect } from 'react-redux';
 
-import Config from './../../../Config';
 import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
 import Button from './../../component/Button';
 import DashboardWidget from './../../component/DashboardWidget';
 import Warning from './../../component/Warning';
 import LoadingSpinner from './../../component/LoadingSpinner';
-import ProjectPreview from './../../component/ProjectPreview';
 
 export default class Show extends React.Component {
   render() {
@@ -34,7 +32,7 @@ export default class Show extends React.Component {
           <DashboardWidget title="Need more projects?">
             <Warning text="You can create a new one pressing the button bellow">
               <Link to={`${this.props.organization.organization.slug}/project/new`}>
-                <Button color='green'>Create project</Button>
+                <Button color="green">Create project</Button>
               </Link>
             </Warning>
           </DashboardWidget>

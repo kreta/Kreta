@@ -12,7 +12,6 @@ import {routeActions} from 'react-router-redux';
 
 import ActionTypes from './../constants/ActionTypes';
 import IssueApi from './../api/Issue';
-import ProjectApi from './../api/Project';
 import {projectApiPrivateInstance} from '../api/ApiPrivate';
 
 const Actions = {
@@ -137,13 +136,13 @@ const Actions = {
         type: ActionTypes.CURRENT_PROJECT_ISSUE_FILTERING,
         filters
       });
-      let request = {};
+      const request = {};
       filters.forEach((filter) => {
         filter.forEach((item) => {
-          if(item.selected) {
+          if (item.selected) {
             request[item.filter] = item.value;
           }
-        })
+        });
       });
       IssueApi.getIssues(request)
         .then((filteredIssues) => {

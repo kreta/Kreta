@@ -11,7 +11,7 @@
 import './../../../scss/views/page/_index';
 
 import React from 'react';
-import {Link} from 'react-router'
+import {Link} from 'react-router';
 import { connect } from 'react-redux';
 
 import ContentMiddleLayout from './../layout/ContentMiddleLayout';
@@ -35,12 +35,12 @@ class Index extends React.Component {
 
     if (this.props.organizations.organizations.length > 0) {
       return this.props.organizations.organizations.map((organization, index) => {
-        return <Link to={`/${organization.slug}`} key={index}>{organization.name}</Link>
+        return <Link key={index} to={`/${organization.slug}`}>{organization.name}</Link>;
       });
     }
 
     return <Warning text="No organizations found, create one or ask an invite for an existing one">
-      <Link to="/organization/new"><Button color='green'>Create organization</Button></Link>
+      <Link to="/organization/new"><Button color="green">Create organization</Button></Link>
     </Warning>;
   }
 
@@ -57,7 +57,7 @@ class Index extends React.Component {
     }
 
     return <Warning text="No projects found, you may want to create one">
-        <Link to="/project/new"><Button color='green'>Create project</Button></Link>
+        <Link to="/project/new"><Button color="green">Create project</Button></Link>
       </Warning>;
   }
 

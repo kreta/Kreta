@@ -57,7 +57,7 @@ export default function reducer(state = initialState, action = {}) {
       return {...state, notifications};
 
     // Action listeners
-    case ActionTypes.ISSUE_UPDATED:
+    case ActionTypes.CURRENT_PROJECT_ISSUE_UPDATED:
       return _addNotification(state, 'Issue updated successfully');
 
     case ActionTypes.PROFILE_UPDATED:

@@ -8,8 +8,6 @@
  * file that was distributed with this source code.
  */
 
-import {routeActions} from 'react-router-redux';
-
 import ActionTypes from './../constants/ActionTypes';
 import OrganizationApi from './../api/Organization';
 

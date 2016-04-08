@@ -11,7 +11,7 @@
 import Config from './../Config';
 
 function _getCookie(name) {
-  let
+  const
     value = `; ${document.cookie}`,
     parts = value.split(`; ${name}=`);
 
