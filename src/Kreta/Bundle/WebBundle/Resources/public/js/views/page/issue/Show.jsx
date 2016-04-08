@@ -71,10 +71,15 @@ class Show extends React.Component {
     return {assignee, priority};
   }
 
+  hasEditGrant() {
+    return this.props.currentProject.selectedIssue.assignee.id === this.props.profile.profile.id;
+  }
+
   render() {
     const
       issue = this.props.issue,
       options = this.getProjectOptions(),
+      readOnly = this.hasEditGrant() ? false : true,
       allowedTransitions = this.props.currentProject.project.workflow.status_transitions.filter((transition) => {
         return transition.initial_states.filter((state) => {
           return state.id === issue.status.id;
@@ -82,7 +87,7 @@ class Show extends React.Component {
       }).map((transition) => {
         return <Button color="green" onClick={this.doTransition.bind(this, transition.id)}>{transition.name}</Button>
       });
-
+console.log(readOnly);
     return (
       <Form errors={this.props.currentProject.errors}
             method="PUT"
@@ -107,7 +112,7 @@ class Show extends React.Component {
         </section>
         <TextArea className="issue-show__description"
                   id="description"
-                  readOnly={false}
+                  readOnly={readOnly}
                   value={issue.description}/>
 
         <div className="issue-show__save">
@@ -122,7 +127,8 @@ class Show extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    currentProject: state.currentProject
+    currentProject: state.currentProject,
+    profile: state.profile
   };
 };
 

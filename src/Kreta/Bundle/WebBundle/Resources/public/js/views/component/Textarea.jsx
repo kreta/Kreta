@@ -96,6 +96,7 @@ class Textarea extends React.Component {
   }
 
   render() {
+
     return (
       <div>
         <input name="description" type="hidden" value={this.state.value}/>
