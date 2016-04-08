@@ -55,14 +55,14 @@ function _generateFilters(project) {
     });
   });
 
-//  project.statuses.forEach((status) => {
-//    statusFilters.push({
-//      filter: 'status',
-//      selected: false,
-//      title: status.name,
-//      value: status.id
-//    });
-//  });
+  project.workflow.statuses.forEach((status) => {
+    statusFilters.push({
+      filter: 'status',
+      selected: false,
+      title: status.name,
+      value: status.id
+    });
+  });
 
   return [assigneeFilters, priorityFilters, statusFilters];
 }
