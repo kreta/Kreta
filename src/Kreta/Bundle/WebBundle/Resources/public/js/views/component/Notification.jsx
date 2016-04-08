@@ -15,7 +15,7 @@ import React from 'react';
 
 class Notification extends React.Component {
   static propTypes = {
-    notification: React.PropTypes.string.isRequired,
+    notification: React.PropTypes.object.isRequired,
     onCloseRequest: React.PropTypes.func
   };
 
