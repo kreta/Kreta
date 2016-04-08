@@ -115,7 +115,15 @@ const Actions = {
         type: ActionTypes.CURRENT_PROJECT_ISSUE_FILTERING,
         filters
       });
-      IssueApi.getIssues(filters)
+      let request = {};
+      filters.forEach((filter) => {
+        filter.forEach((item) => {
+          if(item.selected) {
+            request[item.filter] = item.value;
+          }
+        })
+      });
+      IssueApi.getIssues(request)
         .then((filteredIssues) => {
           dispatch({
             type: ActionTypes.CURRENT_PROJECT_ISSUE_FILTERED,

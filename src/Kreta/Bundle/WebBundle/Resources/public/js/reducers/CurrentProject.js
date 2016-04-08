@@ -21,6 +21,52 @@ const initialState = {
   workflow: null
 };
 
+function _generateFilters(project) {
+  const assigneeFilters = [{
+      filter: 'assignee',
+      selected: true,
+      title: 'All',
+      value: ''
+    }, {
+      filter: 'assignee',
+      selected: false,
+      title: 'Assigned to me',
+      value: ''
+    }],
+    priorityFilters = [{
+      filter: 'priority',
+      selected: true,
+      title: 'All priorities',
+      value: ''
+    }],
+    statusFilters = [{
+      filter: 'status',
+      selected: true,
+      title: 'All statuses',
+      value: ''
+    }];
+
+  project.issue_priorities.forEach((priority) => {
+    priorityFilters.push({
+      filter: 'priority',
+      selected: false,
+      title: priority.name,
+      value: priority.id
+    });
+  });
+
+//  project.statuses.forEach((status) => {
+//    statusFilters.push({
+//      filter: 'status',
+//      selected: false,
+//      title: status.name,
+//      value: status.id
+//    });
+//  });
+
+  return [assigneeFilters, priorityFilters, statusFilters];
+}
+
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     case ActionTypes.CURRENT_PROJECT_FETCHING:
@@ -67,10 +113,10 @@ export default function reducer(state = initialState, action = {}) {
       return {...state, selectedIssue: action.selectedIssue};
 
     case ActionTypes.CURRENT_PROJECT_ISSUE_FILTERING:
-      return {...state, issues: [], filters: action.filters};
+      return {...state, issues: [], filters: action.filters, fetchingIssues: true};
 
     case ActionTypes.CURRENT_PROJECT_ISSUE_FILTERED:
-      return {...state, issues: action.issues};
+      return {...state, issues: action.issues, fetchingIssues: false};
 
     case ActionTypes.CURRENT_PROJECT_WORKFLOW_FETCHING:
       return {...state, workflow: null};
@@ -81,50 +127,4 @@ export default function reducer(state = initialState, action = {}) {
     default:
       return state;
   }
-}
-
-function _generateFilters(project) {
-  const assigneeFilters = [{
-      filter: 'assignee',
-      selected: true,
-      title: 'All',
-      value: ''
-    }, {
-      filter: 'assignee',
-      selected: false,
-      title: 'Assigned to me',
-      value: ''
-    }],
-    priorityFilters = [{
-      filter: 'priority',
-      selected: true,
-      title: 'All priorities',
-      value: ''
-    }],
-    statusFilters = [{
-      filter: 'status',
-      selected: true,
-      title: 'All statuses',
-      value: ''
-    }];
-
-  project.issue_priorities.forEach((priority) => {
-    priorityFilters.push({
-      filter: 'priority',
-      selected: false,
-      title: priority.name,
-      value: priority.id
-    });
-  });
-
-//  project.statuses.forEach((status) => {
-//    statusFilters.push({
-//      filter: 'status',
-//      selected: false,
-//      title: status.name,
-//      value: status.id
-//    });
-//  });
-
-  return [assigneeFilters, priorityFilters, statusFilters];
 }
