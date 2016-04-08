@@ -113,6 +113,18 @@ class Api {
     }).then(_json);
   }
 
+  patch(url, payload) {
+    return fetch(`${this.baseUrl()}${url}`, {
+      body: JSON.stringify(payload),
+      credentials: 'include',
+      headers: {
+        'Authorization': `Bearer ${this.accessToken()}`,
+        'Content-Type': 'application/json'
+      },
+      method: 'PATCH'
+    }).then(_json);
+  }
+
   deleteHttp(url) { // Http sufix is needed because delete is a reserved word
     return fetch(`${this.baseUrl()}${url}`, {
       credentials: 'include',

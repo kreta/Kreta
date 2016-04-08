@@ -34,7 +34,7 @@ class Show extends React.Component {
   }
 
   doTransition(id) {
-    // Trigger doTransitionAction
+    this.props.dispatch(ProjectActions.transitionIssue(id, this.props.currentProject.selectedIssue.id))
   }
 
   getProjectOptions() {
@@ -73,8 +73,14 @@ class Show extends React.Component {
   render() {
     const
       issue = this.props.issue,
-      options = this.getProjectOptions();
-    let allowedTransitions = [];
+      options = this.getProjectOptions(),
+      allowedTransitions = this.props.currentProject.project.workflow.status_transitions.filter((transition) => {
+        return transition.initial_states.filter((state) => {
+          return state.id === issue.status.id;
+        }).length > 0;
+      }).map((transition) => {
+        return <Button color="green" onClick={this.doTransition.bind(this, transition.id)}>{transition.name}</Button>
+      });
 
     return (
       <Form errors={this.props.currentProject.errors}
