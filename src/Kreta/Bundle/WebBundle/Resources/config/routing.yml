@@ -12,18 +12,23 @@ kreta_web_homepage:
     methods: [GET]
 
 #### PROJECT ####
+kreta_web_organization_show:
+    path: /{organizationId}
+    defaults: { _controller: KretaWebBundle:Default:index }
+    methods: [GET, PUT]
+
 kreta_web_project_show:
-    path: /project/{projectId}
+    path: /{organizationId}/{projectId}
     defaults: { _controller: KretaWebBundle:Default:index }
     methods: [GET, PUT]
 
 kreta_web_project_new:
-    path: /project/{projectId}
+    path: /{organizationId}/project/new
     defaults: { _controller: KretaWebBundle:Default:index }
     methods: [GET, POST]
 
 kreta_web_project_settings:
-    path: /project/{projectId}/settings
+    path: /{organizationId}/{projectId}/settings
     defaults: { _controller: KretaWebBundle:Default:index }
     methods: [GET]
 
@@ -35,11 +40,11 @@ kreta_web_profile:
 
 #### ISSUE ####
 kreta_web_issue_new:
-    path: /project/{projectId}/issue/new
+    path: /{organizationId}/{projectId}/issue/new
     defaults: { _controller: KretaWebBundle:Default:index }
     methods: [GET, POST]
 
 kreta_web_issue_show:
-    path: /project/{projectId}/issue/{issueId}
+    path: /{organizationId}/{projectId}/issue/{issueId}
     defaults: { _controller: KretaWebBundle:Default:index }
     methods: [GET, PUT]
