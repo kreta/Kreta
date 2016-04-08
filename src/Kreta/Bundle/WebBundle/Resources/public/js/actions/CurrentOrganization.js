@@ -20,13 +20,12 @@ const Actions = {
 
       organizationApiPrivateInstance.getOrganization(organization)
         .then((receivedOrganization) => {
-            dispatch({
-              type: ActionTypes.CURRENT_ORGANIZATION_RECEIVED,
-              organization: receivedOrganization
-            });
-          }
-        );
-    }
+          dispatch({
+            type: ActionTypes.CURRENT_ORGANIZATION_RECEIVED,
+            organization: receivedOrganization
+          });
+        });
+    };
   }
 };
 

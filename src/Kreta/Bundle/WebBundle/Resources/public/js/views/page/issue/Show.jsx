@@ -34,7 +34,7 @@ class Show extends React.Component {
   }
 
   doTransition(id) {
-    this.props.dispatch(ProjectActions.transitionIssue(id, this.props.currentProject.selectedIssue.id))
+    this.props.dispatch(ProjectActions.transitionIssue(id, this.props.currentProject.selectedIssue.id));
   }
 
   getProjectOptions() {
@@ -79,7 +79,7 @@ class Show extends React.Component {
           return state.id === issue.status.id;
         }).length > 0;
       }).map((transition) => {
-        return <Button color="green" onClick={this.doTransition.bind(this, transition.id)}>{transition.name}</Button>
+        return <Button color="green" onClick={this.doTransition.bind(this, transition.id)}>{transition.name}</Button>;
       });
 
     return (

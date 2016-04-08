@@ -24,7 +24,6 @@ import LoadingSpinner from './../../component/LoadingSpinner';
 import NavigableList from './../../component/NavigableList';
 import PageHeader from './../../component/PageHeader';
 import Button from './../../component/Button';
-import DashboardWidget from './../../component/DashboardWidget';
 import Warning from './../../component/Warning';
 
 class IssueList extends React.Component {
@@ -49,13 +48,13 @@ class IssueList extends React.Component {
       return <LoadingSpinner/>;
     }
     let issuesEl = this.props.currentProject.issues.map((issue, index) => {
-        return <IssuePreview issue={issue}
-                             key={index}
-                             onClick={this.selectCurrentIssue.bind(this, issue)}
-                             selected={this.props.currentProject.selectedIssue &&
-                                       this.props.currentProject.selectedIssue.id === issue.id}/>;
-      }),
-      links = [{
+      return <IssuePreview issue={issue}
+                           key={index}
+                           onClick={this.selectCurrentIssue.bind(this, issue)}
+                           selected={this.props.currentProject.selectedIssue &&
+                                     this.props.currentProject.selectedIssue.id === issue.id}/>;
+    });
+    const links = [{
         href: `/${this.props.currentProject.project.organization.slug}/${this.props.currentProject.project.slug}/settings`,
         icon: SettingsIcon,
         title: 'Settings',
@@ -66,10 +65,11 @@ class IssueList extends React.Component {
         title: 'New issue'
       }],
       project = this.props.currentProject.project;
-    if(issuesEl.length === 0) {
+    if (issuesEl.length === 0) {
       issuesEl = <Warning text="No issues found, you may want to create one">
-        <Link to={`${this.props.currentProject.project.organization.slug}/${this.props.currentProject.project.slug}/issue/new`}>
-          <Button color='green'>Create issue</Button>
+        <Link
+          to={`${this.props.currentProject.project.organization.slug}/${this.props.currentProject.project.slug}/issue/new`}>
+          <Button color="green">Create issue</Button>
         </Link>
       </Warning>;
     }
