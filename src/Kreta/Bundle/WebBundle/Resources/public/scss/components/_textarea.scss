@@ -12,11 +12,10 @@
 .ql-format-button {
   font-size: 18px;
   font-weight: $font-weight-bold;
+}
 
-  .ql-active {
-    background-color: $grey;
-    color: $main-green
-  }
+.ql-active {
+  background-color: $main-grey;
 }
 
 .ql-code {
@@ -44,5 +43,6 @@
   background-color: $white;
   border: 1px solid $main-grey;
   height: 300px;
+  resize: vertical;
 }
 

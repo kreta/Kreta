@@ -75,19 +75,39 @@ class Show extends React.Component {
     return this.props.currentProject.selectedIssue.assignee.id === this.props.profile.profile.id;
   }
 
+  submitButton() {
+    if (false === this.hasEditGrant()) {
+      return;
+    }
+
+    return (
+      <div className="issue-show__save">
+        <Button color="green" type="submit">
+          Save changes
+        </Button>
+      </div>
+    );
+  }
+
   render() {
     const
       issue = this.props.issue,
       options = this.getProjectOptions(),
-      readOnly = this.hasEditGrant() ? false : true,
+      fieldState = this.hasEditGrant() ? false : true,
       allowedTransitions = this.props.currentProject.project.workflow.status_transitions.filter((transition) => {
         return transition.initial_states.filter((state) => {
-          return state.id === issue.status.id;
-        }).length > 0;
+            return state.id === issue.status.id;
+          }).length > 0;
       }).map((transition) => {
-        return <Button color="green" onClick={this.doTransition.bind(this, transition.id)}>{transition.name}</Button>;
+        return (
+          <Button color="green"
+                  disabled={fieldState}
+                  onClick={this.doTransition.bind(this, transition.id)}>
+            {transition.name}
+          </Button>
+        );
       });
-console.log(readOnly);
+
     return (
       <Form errors={this.props.currentProject.errors}
             method="PUT"
@@ -95,31 +115,29 @@ console.log(readOnly);
             ref="form">
         <input name="project" type="hidden" value={this.props.currentProject.project.id}/>
         <FormInput className="issue-show__title"
+                   disabled={fieldState}
                    name="title"
                    value={issue.title}/>
         <section className="issue-show__transitions">
           {allowedTransitions}
         </section>
         <section className="issue-show__fields">
-          <Selector name="assignee"
+          <Selector disabled={fieldState}
+                    name="assignee"
                     value={issue.assignee.id}>
             {options.assignee}
           </Selector>
-          <Selector name="priority"
+          <Selector disabled={fieldState}
+                    name="priority"
                     value={issue.priority.id}>
             {options.priority}
           </Selector>
         </section>
         <TextArea className="issue-show__description"
                   id="description"
-                  readOnly={readOnly}
+                  readOnly={fieldState}
                   value={issue.description}/>
-
-        <div className="issue-show__save">
-          <Button color="green" type="submit">
-            Save changes
-          </Button>
-        </div>
+        {this.submitButton()}
       </Form>
     );
   }

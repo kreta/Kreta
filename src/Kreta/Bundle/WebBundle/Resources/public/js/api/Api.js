@@ -125,7 +125,7 @@ class Api {
     }).then(_json);
   }
 
-  deleteHttp(url) { // Http sufix is needed because delete is a reserved word
+  deleteHttp(url) { // Http suffix is needed because delete is a reserved word
     return fetch(`${this.baseUrl()}${url}`, {
       credentials: 'include',
       headers: {

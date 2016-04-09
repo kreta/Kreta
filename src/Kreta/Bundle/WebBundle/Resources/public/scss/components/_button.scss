@@ -9,7 +9,7 @@
 @import '../base/colors';
 
 .button {
-  background: none;
+  background-color: transparent;
   border: 1px solid;
   border-radius: 3px;
   color: $main-grey;
@@ -23,6 +23,13 @@
   text-align: center;
   text-transform: uppercase;
   transition-duration: .3s;
+
+  &:disabled {
+    background-color: $main-grey;
+    border: 1px solid $main-grey;
+    cursor: default;
+    pointer-events: none;
+  }
 }
 
 .button--green {
@@ -32,7 +39,7 @@
 
   &:hover,
   &:focus {
-    background: lighten($main-green, 20%);
+    background-color: lighten($main-green, 20%);
   }
 }
 

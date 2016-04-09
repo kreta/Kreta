@@ -14,7 +14,6 @@ import './../../../scss/components/_textarea';
 
 import React from 'react';
 import ReactQuill from 'react-quill';
-import ReactDOM from 'react-dom';
 
 class Textarea extends React.Component {
   static propTypes = {
@@ -43,15 +42,25 @@ class Textarea extends React.Component {
       { name: 'code', tag: 'code', prepare: 'heading', type: 'line' }
     ];
 
+    this.buildToolbar();
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      value: nextProps.value
+    });
+  }
+
+  buildToolbar() {
     this.toolbar = [
       {
         label: 'Formats', type: 'group', items: [
         {
           label: 'Size', type: 'size', items: [
-            {label: 'small', value: '10px'},
-            {label: 'normal', value: '13px', selected: true},
-            {label: 'title', value: '18px'}
-          ]
+          {label: 'small', value: '10px'},
+          {label: 'normal', value: '13px', selected: true},
+          {label: 'title', value: '18px'}
+        ]
         }, {
           label: 'Alignment', type: 'align', items: [
             {label: '', value: 'left', selected: true},
@@ -77,16 +86,6 @@ class Textarea extends React.Component {
         ]
       }
     ];
-
-    if (true === this.props.readOnly) {
-      this.toolbar = false;
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.setState({
-      value: nextProps.value
-    });
   }
 
   onChange(value) {
@@ -96,6 +95,9 @@ class Textarea extends React.Component {
   }
 
   render() {
+    true === this.props.readOnly
+      ? this.toolbar = false
+      : this.buildToolbar();
 
     return (
       <div>
@@ -103,6 +105,7 @@ class Textarea extends React.Component {
         <ReactQuill
           formats={this.formats}
           onChange={this.onChange.bind(this)}
+          readOnly={this.props.readOnly}
           ref="editor"
           theme="snow"
           toolbar={this.toolbar}
