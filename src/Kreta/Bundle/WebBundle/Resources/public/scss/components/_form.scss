@@ -19,6 +19,11 @@ select {
   font-family: inherit;
   font-size: inherit;
   outline: 0;
+
+  // Remove background yellow color Chrome and Safari
+  &:-webkit-autofill {
+    box-shadow: 0 0 0 1000px white inset;
+  }
 }
 
 textarea {
