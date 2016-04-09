@@ -9,19 +9,26 @@
 @import '../base/colors';
 @import '../base/typography';
 
-%form-label-up {
-  font-size: 14px;
-  top: 0;
-  transform: translateY(0);
-}
-
-input[type='checkbox'] {
-  display: inline-block;
-  width: auto;
+input,
+textarea,
+select {
+  appearance: none;
+  border: 0;
+  border-radius: 0;
+  color: $main-black;
+  font-family: inherit;
+  font-size: inherit;
+  outline: 0;
 }
 
 textarea {
   min-height: 200px;
+}
+
+%form-label-up {
+  font-size: 14px;
+  top: 0;
+  transform: translateY(0);
 }
 
 .form-input {
@@ -67,6 +74,21 @@ textarea {
   }
 }
 
+.form-input__checkbox {
+  border: 1px solid $main-green;
+  cursor: pointer;
+  height: 15px;
+  margin-left: 0;
+  margin-right: 8px;
+  min-width: 15px;
+  width: 15px;
+
+  &:checked {
+    background-color: $main-green;
+    border: 1px solid $main-green;
+  }
+}
+
 .form-input__label {
   color: $grey;
   font-size: 25px;
@@ -89,6 +111,7 @@ textarea {
     background: $main-black;
     content: '';
     height: 100%;
+    left: 0;
     position: absolute;
     top: 0;
     transition: width .2s;

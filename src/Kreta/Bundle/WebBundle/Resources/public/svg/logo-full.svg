@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd" [
-]>
 <svg version="1.1"
-	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="314px" height="90px"
-	 viewBox="0 0 314 90" enable-background="new 0 0 314 90" xml:space="preserve">
-	<path fill="#67B86A" d="M90.156,76.351C90.156,83.889,84.034,90,76.483,90h-62.81C6.122,90,0,83.889,0,76.351V13.649
-		C0,6.111,6.122,0,13.673,0h62.81c7.551,0,13.673,6.111,13.673,13.649V76.351z"/>
+    xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="314px" height="90px"
+    viewBox="0 0 314 90" enable-background="new 0 0 314 90" xml:space="preserve">
+    <path fill="#67B86A" d="M90.156,76.351C90.156,83.889,84.034,90,76.483,90h-62.81C6.122,90,0,83.889,0,76.351V13.649
+        C0,6.111,6.122,0,13.673,0h62.81c7.551,0,13.673,6.111,13.673,13.649V76.351z"/>
 	<g>
 		<path fill="#000000" d="M106.963,19.381c0-1.635,0.982-2.534,2.292-2.534c1.392,0,2.374,0.899,2.374,2.534v30.727l26.687-32.28
 			c0.491-0.572,1.064-0.981,1.964-0.981c1.064,0,2.047,0.818,2.047,1.962c0,0.572-0.245,1.144-0.655,1.634l-15.472,18.55
