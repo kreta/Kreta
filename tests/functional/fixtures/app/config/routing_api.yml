@@ -30,6 +30,12 @@ kreta_workflow:
     type: rest
     resource: '@KretaWorkflowBundle/Resources/config/routing.yml'
 
+# Non public api for our private purposes
+kreta_internal_api:
+    type: rest
+    resource: '@KretaWebBundle/Resources/config/api.yml'
+    prefix: /private
+
 # Third party libraries/bundles
 api_doc:
     resource: '@KretaSimpleApiDocBundle/Resources/config/routing.yml'

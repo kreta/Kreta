@@ -431,7 +431,9 @@ Feature: Manage projects
         "slug": "test-project-1",
         "workflow": {
           "id": "0",
-          "name": "Workflow 1"
+          "name": "Workflow 1",
+          "statuses": [],
+          "status_transitions": []
         },
         "_links": {
           "self": {
@@ -698,7 +700,9 @@ Feature: Manage projects
         "slug": "new-project",
         "workflow": {
           "id": "0",
-          "name": "Workflow 1"
+          "name": "Workflow 1",
+          "statuses": [],
+          "status_transitions": []
         },
         "_links": {
           "self": {
