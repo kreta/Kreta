@@ -67,9 +67,10 @@ function _json(response) {
 
 class Api {
   constructor() {
-    if (new.target === Api) {
-      throw new TypeError('Api is an abstract class, it cannot be instantiate');
-    }
+// Commented because the UglifyJs does not implement the support for "new.target" yet
+//    if (new.target === Api) {
+//      throw new TypeError('Api is an abstract class, it cannot be instantiate');
+//    }
   }
 
   baseUrl() {

@@ -55,9 +55,11 @@
   "dependencies": {
     "classnames": "^2.1",
     "history": "^1.17.0",
+    "invariant": "^2.2.1",
     "jquery": "^2.1",
     "lodash": "^4.8.2",
     "mousetrap": "^1.5.3",
+    "quill": "^0.20.1",
     "react": "^15.0.0",
     "react-dom": "^15.0.0",
     "react-quill": "^0.4.1",

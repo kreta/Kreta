@@ -52,9 +52,6 @@ License: ${pkg.license}`,
       path: `${buildPath}/js`, filename: '[name].js'
     },
     module: {
-      preLoaders: [
-        {test: /\.js(x)?$/, exclude: /node_modules/, loaders: ['eslint']}
-      ],
       loaders: [
         {test: /\.js(x)?$/, exclude: /node_modules/, loaders: ['babel']},
         {test: /\.(jpe?g|png|gif|ico)$/, loader: 'file?name=../images/[hash].[ext]'},
@@ -66,9 +63,8 @@ License: ${pkg.license}`,
     },
     resolve: {
       alias: {underscore: 'lodash'},
-      extensions: ['', '.js', '.jsx', '.svg', '.scss']
+      extensions: ['', '.js', '.jsx', '.svg', '.scss', '.css']
     },
-    eslint: {configFile: '.eslint.yml'},
     postcss: [Autoprefixer()],
     plugins: [
 //      new Webpack.ProvidePlugin({
@@ -89,12 +85,21 @@ License: ${pkg.license}`,
     ]
   };
 
+if (process.env.NODE_ENV !== 'production') {
+  config['eslint'] = {configFile: '.eslint.yml'};
+  config['module'] = {
+    preLoaders: [
+      {test: /\.js(x)?$/, exclude: /node_modules/, loaders: ['eslint']}
+    ]
+  };
+}
+
 if (process.env.NODE_ENV === 'production') {
   config.debug = false;
   config.devtool = 'source-map';
   config.plugins.push(new Webpack.optimize.UglifyJsPlugin());
   config.module.loaders.push(
-    {test: /\.css$/, loader: 'style-loader/useable!css-loader?minimize!postcss-loader'}
+    {test: /\[name].css$/, loader: 'style-loader/useable!css-loader?minimize!postcss-loader'}
   );
 }
 
