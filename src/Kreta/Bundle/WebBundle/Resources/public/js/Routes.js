@@ -9,6 +9,7 @@ import ProjectSettings from './views/page/project/Settings';
 import ProjectShow from './views/page/project/IssueList';
 import OrganizationRoot from './views/page/organization/Root';
 import OrganizationShow from './views/page/organization/Show';
+import OrganizationNew from './views/page/organization/New';
 import Index from './views/page/Index';
 
 export default (
@@ -19,6 +20,7 @@ export default (
 
     <Route component={OrganizationRoot} path=":organization">
       <IndexRoute component={OrganizationShow}/>
+      <Route component={OrganizationNew} path="new"/>
       <Route component={ProjectNew} path="project/new"/>
       <Route component={ProjectRoot}>
         <Route component={ProjectShow} path=":project"/>
