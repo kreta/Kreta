@@ -9,8 +9,8 @@
  */
 
 import Autoprefixer from 'autoprefixer';
-import ExtractTextPlugin from 'extract-text-Webpack-plugin';
-import SassLintPlugin from 'sasslint-Webpack-plugin';
+import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import SassLintPlugin from 'sasslint-webpack-plugin';
 import Webpack from 'webpack';
 
 import pkg from './package.json';
