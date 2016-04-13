@@ -17,6 +17,7 @@ Kreta\Component\Media\Model\Media:
                 - profile
                 - projectList
                 - project
+                - projectPrivate
                 - issueList
                 - issue
                 - commentList
@@ -25,11 +26,19 @@ Kreta\Component\Media\Model\Media:
                 - participant
                 - organizationList
                 - organization
+                - organizationPrivate
                 - organizationParticipantList
                 - organizationParticipant
         createdAt:
             expose: true
-            groups: [userList, user, profile, project, organization]
+            groups:
+                - userList
+                - user
+                - profile
+                - project
+                - projectPrivate
+                - organization
+                - organizationPrivate
         name:
             expose: true
             groups:
@@ -38,6 +47,7 @@ Kreta\Component\Media\Model\Media:
                 - profile
                 - projectList
                 - project
+                - projectPrivate
                 - issueList
                 - issue
                 - commentList
@@ -46,8 +56,16 @@ Kreta\Component\Media\Model\Media:
                 - participant
                 - organizationList
                 - organization
+                - organizationPrivate
                 - organizationParticipantList
                 - organizationParticipant
         updatedAt:
             expose: true
-            groups: [userList, user, profile, project, organization]
+            groups:
+                - userList
+                - user
+                - profile
+                - project
+                - projectPrivate
+                - organization
+                - organizationPrivate

@@ -6,7 +6,7 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 
-@project
+@project_private
 Feature: Manage projects
   In order to manage projects
   As an API private project
@@ -185,35 +185,6 @@ Feature: Manage projects
           "name": "Workflow 1",
           "statuses": [],
           "status_transitions": []
-        },
-        "_links": {
-          "self": {
-            "href": "http://kreta.test:8000/api/projects/0"
-          },
-          "projects": {
-            "href": "http://kreta.test:8000/api/projects"
-          },
-          "issues": {
-            "href": "http://kreta.test:8000/api/issues"
-          },
-          "labels": {
-            "href": "http://kreta.test:8000/api/projects/0/labels"
-          },
-          "issue_priorities": {
-            "href": "http://kreta.test:8000/api/projects/0/issue-priorities"
-          },
-          "organization": {
-            "href": "http://kreta.test:8000/api/private/organizations/test-organization-1?organizationId=0"
-          },
-          "workflow": {
-            "href": "http://kreta.test:8000/api/workflows/0"
-          },
-          "statuses": {
-            "href": "http://kreta.test:8000/api/workflows/0/statuses"
-          },
-          "transitions": {
-            "href": "http://kreta.test:8000/api/workflows/0/transitions"
-          }
         }
       }
     """
@@ -259,31 +230,11 @@ Feature: Manage projects
           "issue_priorities": [],
           "organization": null,
           "slug": "test-project-3",
-          "_links": {
-            "self": {
-              "href": "http://kreta.test:8000/api/projects/2"
-            },
-            "projects": {
-              "href": "http://kreta.test:8000/api/projects"
-            },
-            "issues": {
-              "href": "http://kreta.test:8000/api/issues"
-            },
-            "labels": {
-              "href": "http://kreta.test:8000/api/projects/2/labels"
-            },
-            "issue_priorities": {
-              "href": "http://kreta.test:8000/api/projects/2/issue-priorities"
-            },
-            "workflow": {
-              "href": "http://kreta.test:8000/api/workflows/0"
-            },
-            "statuses": {
-              "href": "http://kreta.test:8000/api/workflows/0/statuses"
-            },
-            "transitions": {
-              "href": "http://kreta.test:8000/api/workflows/0/transitions"
-            }
+          "workflow": {
+            "id": "0",
+            "name": "Workflow 1",
+            "statuses": [],
+            "status_transitions": []
           }
         }
       ]
@@ -323,32 +274,6 @@ Feature: Manage projects
           "name": "Workflow 1",
           "statuses": [],
           "status_transitions": []
-        },
-        "_links": {
-          "self": {
-            "href": "http://kreta.test:8000/api/projects/2"
-          },
-          "projects": {
-            "href": "http://kreta.test:8000/api/projects"
-          },
-          "issues": {
-            "href": "http://kreta.test:8000/api/issues"
-          },
-          "labels": {
-            "href": "http://kreta.test:8000/api/projects/2/labels"
-          },
-          "issue_priorities": {
-            "href": "http://kreta.test:8000/api/projects/2/issue-priorities"
-          },
-          "workflow": {
-            "href": "http://kreta.test:8000/api/workflows/0"
-          },
-          "statuses": {
-            "href": "http://kreta.test:8000/api/workflows/0/statuses"
-          },
-          "transitions": {
-            "href": "http://kreta.test:8000/api/workflows/0/transitions"
-          }
         }
       }
     """

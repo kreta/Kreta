@@ -30,4 +30,11 @@ Kreta\Component\Project\Model\Label:
     properties:
         name:
             expose: true
-            groups: [projectList, project, issueList, issue, labelList, label]
+            groups:
+                - projectList
+                - project
+                - projectPrivate
+                - issueList
+                - issue
+                - labelList
+                - label

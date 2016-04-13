@@ -20,8 +20,9 @@ Kreta\Component\Core\Model\Abstracts\AbstractModel:
                 - labelList
                 - notification
                 - notificationList
-                - organization
                 - organizationList
+                - organization
+                - organizationPrivate
                 - organizationParticipant
                 - organizationParticipantList
                 - participant
@@ -29,6 +30,7 @@ Kreta\Component\Core\Model\Abstracts\AbstractModel:
                 - profile
                 - project
                 - projectList
+                - projectPrivate
                 - userList
                 - workflow
                 - workflowList

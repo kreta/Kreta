@@ -35,19 +35,50 @@ Kreta\Component\Organization\Model\Organization:
     properties:
         id:
             expose: true
-            groups: [organizationList, organization, organizationParticipantList, organizationParticipant, projectList, project]
+            groups:
+                - organizationList
+                - organization
+                - organizationPrivate
+                - organizationParticipantList
+                - organizationParticipant
+                - projectList
+                - project
+                - projectPrivate
         image:
             expose: true
-            groups: [organizationList, organization, projectList, project]
+            groups:
+                - organizationList
+                - organization
+                - organizationPrivate
+                - projectList
+                - project
+                - projectPrivate
         name:
             expose: true
-            groups: [organizationList, organization, organizationParticipantList, organizationParticipant, projectList, project]
+            groups:
+                - organizationList
+                - organization
+                - organizationPrivate
+                - organizationParticipantList
+                - organizationParticipant
+                - projectList
+                - project
+                - projectPrivate
         participants:
             expose: true
-            groups: []
+            groups:
+                - organizationPrivate
         projects:
             expose: true
             groups: []
         slug:
             expose: true
-            groups: [organizationList, organization, organizationParticipantList, organizationParticipant, projectList, project]
+            groups:
+                - organizationList
+                - organization
+                - organizationPrivate
+                - organizationParticipantList
+                - organizationParticipant
+                - projectList
+                - project
+                - projectPrivate

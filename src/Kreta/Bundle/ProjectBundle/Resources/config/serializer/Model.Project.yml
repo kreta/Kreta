@@ -59,7 +59,6 @@ Kreta\Component\Project\Model\Project:
                 absolute: 0
             exclusion:
                 groups: [projectList, project]
-                exclude_if: expr(groups = {"private_api"})
         -
             rel: workflow
             href:
@@ -90,10 +89,10 @@ Kreta\Component\Project\Model\Project:
     properties:
         id:
             expose: true
-            groups: [projectList, project, participantList, participant]
+            groups: [projectList, project, projectPrivate, participantList, participant]
         image:
             expose: true
-            groups: [projectList, project]
+            groups: [projectList, project, projectPrivate]
         issues:
             expose: true
             groups: []
@@ -102,25 +101,25 @@ Kreta\Component\Project\Model\Project:
             groups: []
         labels:
             expose: true
-            groups: [projectList, project]
+            groups: [projectList, project, projectPrivate]
         name:
             expose: true
-            groups: [projectList, project, participantList, participant]
+            groups: [projectList, project, projectPrivate, participantList, participant]
         participants:
             expose: true
-            groups: [projectList, project]
+            groups: [projectList, project, projectPrivate]
         issuePriorities:
             expose: true
-            groups: [projectList, project]
+            groups: [projectList, project, projectPrivate]
         organization:
             expose: true
-            groups: [projectList, project]
+            groups: [projectList, project, projectPrivate]
         slug:
             expose: true
-            groups: [projectList, project, participantList, participant]
+            groups: [projectList, project, projectPrivate, participantList, participant]
         statuses:
             expose: true
             groups: []
         workflow:
             expose: true
-            groups: [project]
+            groups: [project, projectPrivate]

@@ -26,7 +26,16 @@ Kreta\Component\User\Model\User:
     properties:
         createdAt:
             expose: true
-            groups: [userList, user, profile, projectList, project, organizationList, organization]
+            groups:
+                - userList
+                - user
+                - profile
+                - projectList
+                - project
+                - projectPrivate
+                - organizationList
+                - organization
+                - organizationPrivate
         firstName:
             expose: true
             groups:
@@ -35,6 +44,7 @@ Kreta\Component\User\Model\User:
                 - profile
                 - projectList
                 - project
+                - projectPrivate
                 - issueList
                 - issue
                 - commentList
@@ -43,6 +53,7 @@ Kreta\Component\User\Model\User:
                 - participant
                 - organizationList
                 - organization
+                - organizationPrivate
                 - organizationParticipantList
                 - organizationParticipant
         lastName:
@@ -53,6 +64,7 @@ Kreta\Component\User\Model\User:
                 - profile
                 - projectList
                 - project
+                - projectPrivate
                 - issueList
                 - issue
                 - commentList
@@ -61,6 +73,7 @@ Kreta\Component\User\Model\User:
                 - participant
                 - organizationList
                 - organization
+                - organizationPrivate
                 - organizationParticipantList
                 - organizationParticipant
         photo:
@@ -71,6 +84,7 @@ Kreta\Component\User\Model\User:
                 - profile
                 - projectList
                 - project
+                - projectPrivate
                 - issueList
                 - issue
                 - commentList
@@ -79,5 +93,6 @@ Kreta\Component\User\Model\User:
                 - participant
                 - organizationList
                 - organization
+                - organizationPrivate
                 - organizationParticipantList
                 - organizationParticipant

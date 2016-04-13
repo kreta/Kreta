@@ -44,10 +44,10 @@ Kreta\Component\Project\Model\Participant:
     properties:
         project:
             expose: true
-            groups: [projectList, project, participantList, participant]
+            groups: [projectList, project, projectPrivate, participantList, participant]
         user:
             expose: true
-            groups: [projectList, project, participantList, participant]
+            groups: [projectList, project, projectPrivate, participantList, participant]
         role:
             expose: true
-            groups: [projectList, project, participantList, participant]
+            groups: [projectList, project, projectPrivate, participantList, participant]

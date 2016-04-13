@@ -215,6 +215,41 @@ default:
                 - Kreta\Bundle\ProjectBundle\Behat\Context\ParticipantContext
             filters:
                 tags: "@workflow"
+
+#### PRIVATE API #####
+        organization_private:
+            paths:
+                features: src/Kreta/Bundle/WebBundle/Behat/features/organization
+            contexts:
+                - Kreta\Bundle\CoreBundle\Behat\Context\OauthContext
+                - Kreta\Bundle\MediaBundle\Behat\Context\MediaContext
+                - Kreta\Bundle\OrganizationBundle\Behat\Context\OrganizationContext
+                - Kreta\Bundle\OrganizationBundle\Behat\Context\ParticipantContext
+                - Kreta\Bundle\IssueBundle\Behat\Context\IssueContext
+                - Kreta\Bundle\ProjectBundle\Behat\Context\IssuePriorityContext
+                - Kreta\Bundle\ProjectBundle\Behat\Context\LabelContext
+                - Kreta\Bundle\ProjectBundle\Behat\Context\ParticipantContext
+                - Kreta\Bundle\ProjectBundle\Behat\Context\ProjectContext
+                - Kreta\Bundle\UserBundle\Behat\Context\UserContext
+                - Kreta\Bundle\WorkflowBundle\Behat\Context\WorkflowContext
+            filters:
+                tags: "@organization_private"
+        project_private:
+            paths:
+                features: src/Kreta/Bundle/WebBundle/Behat/features/project
+            contexts:
+                - Kreta\Bundle\CoreBundle\Behat\Context\OauthContext
+                - Kreta\Bundle\MediaBundle\Behat\Context\MediaContext
+                - Kreta\Bundle\OrganizationBundle\Behat\Context\OrganizationContext
+                - Kreta\Bundle\IssueBundle\Behat\Context\IssueContext
+                - Kreta\Bundle\ProjectBundle\Behat\Context\IssuePriorityContext
+                - Kreta\Bundle\ProjectBundle\Behat\Context\LabelContext
+                - Kreta\Bundle\ProjectBundle\Behat\Context\ParticipantContext
+                - Kreta\Bundle\ProjectBundle\Behat\Context\ProjectContext
+                - Kreta\Bundle\UserBundle\Behat\Context\UserContext
+                - Kreta\Bundle\WorkflowBundle\Behat\Context\WorkflowContext
+            filters:
+                tags: "@project_private"
     extensions:
         Behat\MinkExtension:
             sessions:

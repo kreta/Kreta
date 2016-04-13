@@ -31,10 +31,10 @@ Kreta\Component\Workflow\Model\Workflow:
             groups: [workflowList, workflow]
         name:
             expose: true
-            groups: [workflowList, workflow, projectList, project]
+            groups: [workflowList, workflow, projectList, project, projectPrivate]
         statuses:
             expose: true
-            groups: [workflowList, workflow, project]
+            groups: [workflowList, workflow, project, projectPrivate]
         statusTransitions:
             expose: true
-            groups: [workflowList, workflow, project]
+            groups: [workflowList, workflow, project, projectPrivate]

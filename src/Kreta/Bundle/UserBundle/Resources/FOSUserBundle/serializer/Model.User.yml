@@ -11,13 +11,13 @@ FOS\UserBundle\Model\User:
     properties:
         id:
             expose: true
-            groups: [userList, user, profile, projectList, project, issueList, issue, participantList, participant, organizationParticipantList, organizationParticipant]
+            groups: [userList, user, profile, projectList, project, projectPrivate, issueList, issue, participantList, participant, organizationPrivate, organizationParticipantList, organizationParticipant]
         username:
             expose: true
-            groups: [userList, user, profile, projectList, project, issueList, issue, commentList, comment, participantList, participant, organizationParticipantList, organizationParticipant]
+            groups: [userList, user, profile, projectList, project, projectPrivate, issueList, issue, commentList, comment, participantList, participant, organizationPrivate, organizationParticipantList, organizationParticipant]
         email:
             expose: true
-            groups: [userList, user, profile, projectList, project, issueList, issue, participantList, participant, organizationParticipantList, organizationParticipant]
+            groups: [userList, user, profile, projectList, project, projectPrivate, issueList, issue, participantList, participant, organizationPrivate, organizationParticipantList, organizationParticipant]
         emailCanonical:
             expose: true
             groups: []

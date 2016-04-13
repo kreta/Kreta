@@ -40,13 +40,13 @@ Kreta\Component\Workflow\Model\StatusTransition:
     properties:
         id:
             expose: true
-            groups: [workflowList, workflow, transitionList, transition, project]
+            groups: [workflowList, workflow, transitionList, transition, projectprojectPrivate]
         initialStates:
             expose: true
-            groups: [workflowList, workflow, transitionList, transition, project]
+            groups: [workflowList, workflow, transitionList, transition, projectprojectPrivate]
         name:
             expose: true
-            groups: [workflowList, workflow, transitionList, transition, project]
+            groups: [workflowList, workflow, transitionList, transition, project, projectPrivate]
         state:
             expose: true
             groups: []

@@ -30,10 +30,10 @@ Kreta\Component\Project\Model\IssuePriority:
     properties:
         id:
             expose: true
-            groups: [projectList, project, issueList, issue, issuePriorityList, issuePriority]
+            groups: [projectList, project, projectPrivate, issueList, issue, issuePriorityList, issuePriority]
         name:
             expose: true
-            groups: [projectList, project, issueList, issue, issuePriorityList, issuePriority]
+            groups: [projectList, project, projectPrivate, issueList, issue, issuePriorityList, issuePriority]
         color:
             expose: true
-            groups: [projectList, project, issueList, issue, issuePriorityList, issuePriority]
+            groups: [projectList, project, projectPrivate, issueList, issue, issuePriorityList, issuePriority]

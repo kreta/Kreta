@@ -53,8 +53,6 @@ Kreta\Component\Organization\Model\Participant:
         organization:
             expose: true
             groups:
-#                - organizationList
-#                - organization
                 - organizationParticipantList
                 - organizationParticipant
         user:
@@ -62,6 +60,7 @@ Kreta\Component\Organization\Model\Participant:
             groups:
                 - organizationList
                 - organization
+                - organizationPrivate
                 - organizationParticipantList
                 - organizationParticipant
         role:
@@ -69,5 +68,6 @@ Kreta\Component\Organization\Model\Participant:
             groups:
                 - organizationList
                 - organization
+                - organizationPrivate
                 - organizationParticipantList
                 - organizationParticipant

@@ -30,7 +30,7 @@ class OrganizationController extends Controller
      * @param string $organizationSlug The slug of organization
      *
      * @ApiDoc(statusCodes={200, 403, 404})
-     * @Rest\View(statusCode=200, serializerGroups={"organization, private_api"})
+     * @Rest\View(statusCode=200, serializerGroups={"organizationPrivate"})
      * @Rest\Get("/organizations/{organizationSlug}", name="get_private_organizations", options={"method_prefix" = false})
      *
      * @return OrganizationInterface

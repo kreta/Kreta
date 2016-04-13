@@ -193,7 +193,7 @@ Feature: Manage projects
               "href": "http://kreta.test:8000/api/projects/0/issue-priorities"
             },
             "organization": {
-              "href": "http://kreta.test:8000/api/organizations/0?organizationSlug=test-organization-1"
+              "href": "http://kreta.test:8000/api/organizations/0"
             },
             "workflow": {
               "href": "http://kreta.test:8000/api/workflows/0"
@@ -302,7 +302,7 @@ Feature: Manage projects
               "href": "http://kreta.test:8000/api/projects/1/issue-priorities"
             },
             "organization": {
-              "href": "http://kreta.test:8000/api/organizations/0?organizationSlug=test-organization-1"
+              "href": "http://kreta.test:8000/api/organizations/0"
             },
             "workflow": {
               "href": "http://kreta.test:8000/api/workflows/1"
@@ -452,7 +452,7 @@ Feature: Manage projects
             "href": "http://kreta.test:8000/api/projects/0/issue-priorities"
           },
           "organization": {
-            "href": "http://kreta.test:8000/api/organizations/0?organizationSlug=test-organization-1"
+            "href": "http://kreta.test:8000/api/organizations/0"
           },
           "workflow": {
             "href": "http://kreta.test:8000/api/workflows/0"
@@ -721,7 +721,7 @@ Feature: Manage projects
             "href": "http://kreta.test:8000/api/projects/0/issue-priorities"
           },
           "organization": {
-            "href": "http://kreta.test:8000/api/organizations/0?organizationSlug=test-organization-1"
+            "href": "http://kreta.test:8000/api/organizations/0"
           },
           "workflow": {
             "href": "http://kreta.test:8000/api/workflows/0"
@@ -902,7 +902,7 @@ Feature: Manage projects
               "href": "http://kreta.test:8000/api/projects/0/issue-priorities"
             },
             "organization": {
-              "href": "http://kreta.test:8000/api/organizations/0?organizationSlug=test-organization-1"
+              "href": "http://kreta.test:8000/api/organizations/0"
             },
             "workflow": {
               "href": "http://kreta.test:8000/api/workflows/0"
@@ -1011,7 +1011,7 @@ Feature: Manage projects
               "href": "http://kreta.test:8000/api/projects/1/issue-priorities"
             },
             "organization": {
-              "href": "http://kreta.test:8000/api/organizations/0?organizationSlug=test-organization-1"
+              "href": "http://kreta.test:8000/api/organizations/0"
             },
             "workflow": {
               "href": "http://kreta.test:8000/api/workflows/1"

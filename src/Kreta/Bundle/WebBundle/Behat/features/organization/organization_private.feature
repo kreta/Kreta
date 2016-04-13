@@ -6,7 +6,7 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 
-@organization2
+@organization_private
 Feature: Manage organizations
   In order to manage organizations
   As an API private organization
@@ -84,18 +84,38 @@ Feature: Manage organizations
           "updated_at": null
         },
         "name": "Test organization 1",
-        "slug": "test-organization-1",
-        "_links": {
-          "self": {
-            "href": "http://kreta.test:8000/api/private/organizations/test-organization-1?organizationId=0"
+        "participants": [
+          {
+            "role": "ROLE_ORG_ADMIN",
+            "user": {
+              "id": "0",
+              "username": "user",
+              "email": "user@kreta.com",
+              "created_at": "2014-10-20T00:00:00+0200",
+              "first_name": "Kreta",
+              "last_name": "User",
+              "photo": null
+            }
           },
-          "organizations": {
-            "href": "http://kreta.test:8000/api/organizations"
-          },
-          "projects": {
-            "href": "http://kreta.test:8000/api/projects"
+          {
+            "role": "ROLE_ORG_PARTICIPANT",
+            "user": {
+              "id": "2",
+              "username": "user3",
+              "email": "user3@kreta.com",
+              "created_at": "2014-10-20T00:00:00+0200",
+              "first_name": "Kreta",
+              "last_name": "User3",
+              "photo": {
+                "id": "3",
+                "created_at": "2014-10-30T00:00:00+0100",
+                "name": "http://kreta.test:8000/media/image/user-3.jpg",
+                "updated_at": null
+              }
+            }
           }
-        }
+        ],
+        "slug": "test-organization-1"
       }
     """
 
