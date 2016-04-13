@@ -8,6 +8,8 @@
  * file that was distributed with this source code.
  */
 
+import {routeActions} from 'react-router-redux';
+
 import ActionTypes from './../constants/ActionTypes';
 import OrganizationApi from './../api/Organization';
 
@@ -22,6 +24,31 @@ const Actions = {
           dispatch({
             type: ActionTypes.ORGANIZATIONS_RECEIVED,
             organizations
+          });
+        });
+    };
+  },
+  createOrganization: (organization) => {
+    return (dispatch) => {
+      dispatch({
+        type: ActionTypes.ORGANIZATIONS_CREATING
+      });
+      OrganizationApi.postOrganization(organization)
+        .then((createdOrganization) => {
+          dispatch({
+            type: ActionTypes.ORGANIZATIONS_CREATED,
+            organization: createdOrganization
+          });
+          dispatch(
+            routeActions.push(`/${createdOrganization.slug}`)
+          );
+        })
+        .catch((errorData) => {
+          errorData.then((errors) => {
+            dispatch({
+              type: ActionTypes.ORGANIZATIONS_CREATE_ERROR,
+              errors
+            });
           });
         });
     };
