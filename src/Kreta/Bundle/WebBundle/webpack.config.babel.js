@@ -87,11 +87,9 @@ License: ${pkg.license}`,
 
 if (process.env.NODE_ENV !== 'production') {
   config['eslint'] = {configFile: '.eslint.yml'};
-  config['module'] = {
-    preLoaders: [
-      {test: /\.js(x)?$/, exclude: /node_modules/, loaders: ['eslint']}
-    ]
-  };
+  config['module']['preLoaders'] = [
+    {test: /\.js(x)?$/, exclude: /node_modules/, loaders: ['eslint']}
+  ];
 }
 
 if (process.env.NODE_ENV === 'production') {
