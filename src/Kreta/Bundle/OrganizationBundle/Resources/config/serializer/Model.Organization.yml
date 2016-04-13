@@ -15,7 +15,6 @@ Kreta\Component\Organization\Model\Organization:
                 route: get_organization
                 parameters:
                     organizationId: expr(object.getId())
-                    organizationSlug: expr(object.getSlug())
                 absolute: 0
             exclusion:
                 groups: [organizationList, organization]

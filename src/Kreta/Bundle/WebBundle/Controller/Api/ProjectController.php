@@ -33,8 +33,8 @@ class ProjectController extends Controller
      * @param string $projectSlug      The slug of project
      *
      * @ApiDoc(statusCodes={200, 403, 404})
-     * @Rest\View(statusCode=200, serializerGroups={"project"})
-     * @Rest\Get("/organizations/{organizationSlug}/projects/{projectSlug}")
+     * @Rest\View(statusCode=200, serializerGroups={"project", "private_api"})
+     * @Rest\Get("/organizations/{organizationSlug}/projects/{projectSlug}", name="get_private_project_from_organization", options={"method_prefix" = false})
      *
      * @return ProjectInterface
      */
@@ -55,8 +55,8 @@ class ProjectController extends Controller
      * creator and the organization is null.
      *
      * @ApiDoc(statusCodes={200, 403, 404})
-     * @Rest\View(statusCode=200, serializerGroups={"projectList"})
-     * @Rest\Get("/me/projects")
+     * @Rest\View(statusCode=200, serializerGroups={"projectList", "private_api"})
+     * @Rest\Get("/me/projects", name="get_private_my_projects", options={"method_prefix" = false})
      *
      * @return ProjectInterface[]
      */
@@ -76,8 +76,8 @@ class ProjectController extends Controller
      * @param string $projectSlug The slug of project
      *
      * @ApiDoc(statusCodes={200, 403, 404})
-     * @Rest\View(statusCode=200, serializerGroups={"project"})
-     * @Rest\Get("/me/projects/{projectSlug}")
+     * @Rest\View(statusCode=200, serializerGroups={"project", "private_api"})
+     * @Rest\Get("/me/projects/{projectSlug}", name="get_private_my_project", options={"method_prefix" = false})
      *
      * @return ProjectInterface
      */

@@ -72,6 +72,7 @@ Feature: Manage organizations
   Scenario: Getting all the organizations
     Given I am authenticating with "access-token-0" token
     When I send a GET request to "/api/organizations"
+    And print response
     Then the response code should be 200
     And the response should contain json:
     """
@@ -86,7 +87,7 @@ Feature: Manage organizations
           "slug": "test-organization-1",
           "_links": {
             "self": {
-              "href": "http://kreta.test:8000/api/organizations/0?organizationSlug=test-organization-1"
+              "href": "http://kreta.test:8000/api/organizations/0"
             },
             "organizations": {
               "href": "http://kreta.test:8000/api/organizations"
@@ -106,7 +107,7 @@ Feature: Manage organizations
           "slug": "test-organization-2",
           "_links": {
             "self": {
-              "href": "http://kreta.test:8000/api/organizations/1?organizationSlug=test-organization-2"
+              "href": "http://kreta.test:8000/api/organizations/1"
             },
             "organizations": {
               "href": "http://kreta.test:8000/api/organizations"
@@ -137,7 +138,7 @@ Feature: Manage organizations
         "slug": "test-organization-1",
         "_links": {
           "self": {
-            "href": "http://kreta.test:8000/api/organizations/0?organizationSlug=test-organization-1"
+            "href": "http://kreta.test:8000/api/organizations/0"
           },
           "organizations": {
             "href": "http://kreta.test:8000/api/organizations"
@@ -261,7 +262,7 @@ Feature: Manage organizations
         "slug": "updated-organization-name",
         "_links": {
           "self": {
-            "href": "http://kreta.test:8000/api/organizations/0?organizationSlug=updated-organization-name"
+            "href": "http://kreta.test:8000/api/organizations/0"
           },
           "organizations": {
             "href": "http://kreta.test:8000/api/organizations"
@@ -401,7 +402,7 @@ Feature: Manage organizations
               "href": "http://kreta.test:8000/api/projects/0/issue-priorities"
             },
             "organization": {
-              "href": "http://kreta.test:8000/api/organizations/0?organizationSlug=test-organization-1"
+              "href": "http://kreta.test:8000/api/organizations/0"
             },
             "workflow": {
               "href": "http://kreta.test:8000/api/workflows/0"
@@ -494,7 +495,7 @@ Feature: Manage organizations
               "href": "http://kreta.test:8000/api/projects/1/issue-priorities"
             },
             "organization": {
-              "href": "http://kreta.test:8000/api/organizations/0?organizationSlug=test-organization-1"
+              "href": "http://kreta.test:8000/api/organizations/0"
             },
             "workflow": {
               "href": "http://kreta.test:8000/api/workflows/1"

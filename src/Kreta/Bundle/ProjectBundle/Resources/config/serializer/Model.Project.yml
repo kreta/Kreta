@@ -56,11 +56,10 @@ Kreta\Component\Project\Model\Project:
                 route: get_organization
                 parameters:
                     organizationId: expr(object.getOrganization().getId())
-                    organizationSlug: expr(object.getOrganization().getSlug())
                 absolute: 0
             exclusion:
                 groups: [projectList, project]
-                exclude_if: expr(object.getOrganization() === null)
+                exclude_if: expr(groups = {"private_api"})
         -
             rel: workflow
             href:
