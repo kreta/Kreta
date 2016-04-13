@@ -15,14 +15,16 @@ import CurrentOrganizationActions from '../../../actions/CurrentOrganization';
 
 export default class OrganizationRoot extends React.Component {
   componentDidMount() {
-    this.props.dispatch(CurrentOrganizationActions.fetchOrganization(this.props.params.organization));
+    if (this.props.params.organization !== 'organization') {
+      this.props.dispatch(CurrentOrganizationActions.fetchOrganization(this.props.params.organization));
+    }
   }
 
   componentDidUpdate(prevProps) {
     const oldOrganization = prevProps.params.organization,
       newOrganization = this.props.params.organization;
 
-    if (newOrganization !== oldOrganization) {
+    if (newOrganization !== 'organization' && newOrganization !== oldOrganization) {
       this.props.dispatch(CurrentOrganizationActions.fetchOrganization(newOrganization));
     }
   }

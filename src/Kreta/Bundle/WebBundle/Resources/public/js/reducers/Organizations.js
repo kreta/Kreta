@@ -20,10 +20,19 @@ const initialState = {
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     case ActionTypes.ORGANIZATIONS_FETCHING:
-      return { ...state, fetching: true };
+      return {...state, fetching: true};
 
     case ActionTypes.ORGANIZATIONS_RECEIVED:
       return {...state, organizations: action.organizations, fetching: false};
+
+    case ActionTypes.ORGANIZATIONS_CREATING:
+      return {...state, errors: []};
+
+    case ActionTypes.ORGANIZATIONS_CREATED:
+      return {...state, organizations: [...state.organizations, action.organization]};
+
+    case ActionTypes.ORGANIZATIONS_CREATE_ERROR:
+      return {...state, errors: action.errors};
 
     default:
       return state;
