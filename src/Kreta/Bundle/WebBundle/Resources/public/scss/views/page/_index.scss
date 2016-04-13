@@ -8,27 +8,12 @@
 
 @import '../../base/media';
 
-.index__message {
-  text-align: center;
-}
+.index__dashboard {
+  display: flex;
+  flex-wrap: wrap;
 
-.index__buttons {
-  margin-top: 15px;
-  text-align: center;
-
-  .button {
-    margin-left: 15px;
-    margin-right: 15px;
+  > .dashboard-widget {
+    padding: 15px;
+    width: 50%;
   }
 }
-
-.index__projects {
-  width: 100%
-}
-
-@media #{$large-up} {
-  .index__projects {
-    width: 50%
-  }
-}
-

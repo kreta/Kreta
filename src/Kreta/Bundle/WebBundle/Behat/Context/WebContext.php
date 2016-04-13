@@ -25,8 +25,6 @@ class WebContext extends MinkContext
     /**
      * Saves the html into a file of the current view.
      *
-     * @return void
-     *
      * @Then /^I save html of current view$/
      */
     public function saveHtmlFromCurrentView()
@@ -40,8 +38,6 @@ class WebContext extends MinkContext
      * @param string $user     The username
      * @param string $password The password
      *
-     * @return void
-     *
      * @Given /^I am a logged as '([^"]*)' with password '([^"]*)'$/
      */
     public function iAmALoggedUser($user, $password)
@@ -53,27 +49,24 @@ class WebContext extends MinkContext
     }
 
     /**
-     * Views refresh token and access token cookies.
+     * Views access token inside cookie.
      *
-     * @return void
-     * @throws \Exception when the tokens does not match
+     * @throws \Exception when the access token does not exist
      *
-     * @Then /^I should see refresh_token and access_token cookies$/
+     * @Then /^I should see an access_token inside cookie$/
      */
-    public function iShouldSeeRefreshAndAccessTokensCookies()
+    public function iShouldSeeAnAccessTokenInsideCookie()
     {
         $session = $this->getSession();
-        $refreshToken = $session->getCookie('refresh_token');
         $accessToken = $session->getCookie('access_token');
-        if (!$refreshToken || !$accessToken) {
-            throw new \Exception('The tokens are not appear correctly');
+        if (!$accessToken) {
+            throw new \Exception('The access token does not exist');
         }
     }
 
     /**
      * Checks refresh token and access token cookies are not stored.
      *
-     * @return void
      * @throws \Exception when the cookies are here
      *
      * @Then /^I should not see refresh_token and access_token cookies$/
@@ -91,8 +84,6 @@ class WebContext extends MinkContext
     /**
      * Presses logout with specified id|name|title|alt|value.
      *
-     * @return void
-     *
      * @When /^(?:|I )press logout$/
      */
     public function pressLogout()
@@ -102,8 +93,6 @@ class WebContext extends MinkContext
 
     /**
      * Checks, that current page is the dashboard.
-     *
-     * @return void
      *
      * @Then /^(?:|I )should be on (?:|the )dashboard$/
      */
@@ -115,8 +104,6 @@ class WebContext extends MinkContext
     /**
      * Checks, that current page is the landing page.
      *
-     * @return void
-     *
      * @Then /^(?:|I )should be on (?:|the )landing$/
      */
     public function assertLanding()
@@ -126,8 +113,6 @@ class WebContext extends MinkContext
 
     /**
      * Checks, that current page is the login page.
-     *
-     * @return void
      *
      * @Then /^(?:|I )should be on (?:|the )login/
      */

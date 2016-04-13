@@ -29,7 +29,7 @@ class IssueRepository extends EntityRepository
      *
      * @param \Kreta\Component\User\Model\Interfaces\UserInterface $assignee The assignee
      * @param array                                                $orderBy  Fields and strategy to order issues
-     * @param boolean                                              $onlyOpen Shows only open issues
+     * @param bool                                                 $onlyOpen Shows only open issues
      *
      * @return \Kreta\Component\Issue\Model\Interfaces\IssueInterface[]
      */
@@ -42,19 +42,6 @@ class IssueRepository extends EntityRepository
         }
 
         return $this->findBy(['assignee' => $assignee], $orderBy);
-    }
-
-    /**
-     * Finds one issue by its short code.
-     *
-     * @param string $projectShortName The 4 character project short name of the issue to find
-     * @param string $issueNumber      Numeric number of the issue to find
-     *
-     * @return \Kreta\Component\Issue\Model\Interfaces\IssueInterface|null
-     */
-    public function findOneByShortCode($projectShortName, $issueNumber)
-    {
-        return $this->findOneBy(['numericId' => $issueNumber, 'p.shortName' => $projectShortName]);
     }
 
     /**
@@ -75,8 +62,7 @@ class IssueRepository extends EntityRepository
         array $sorting = [],
         $limit = null,
         $offset = null
-    )
-    {
+    ) {
         $queryBuilder = $this->getQueryBuilder()
             ->addSelect('par')
             ->join('p.participants', 'par');

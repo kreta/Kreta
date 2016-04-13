@@ -16,10 +16,8 @@ use Kreta\Component\Core\Form\Handler\Handler;
 use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
 use Kreta\Component\Workflow\Repository\WorkflowRepository;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 /**
  * Class WorkflowControllerSpec.
@@ -48,8 +46,7 @@ class WorkflowControllerSpec extends ObjectBehavior
         ContainerInterface $container,
         WorkflowRepository $workflowRepository,
         WorkflowInterface $workflow
-    )
-    {
+    ) {
         $container->get('kreta_workflow.repository.workflow')->shouldBeCalled()->willReturn($workflowRepository);
         $workflowRepository->findAll()->shouldBeCalled()->willReturn([$workflow]);
 
@@ -68,8 +65,7 @@ class WorkflowControllerSpec extends ObjectBehavior
         Handler $handler,
         Request $request,
         WorkflowInterface $workflow
-    )
-    {
+    ) {
         $container->get('kreta_workflow.form_handler.workflow')->shouldBeCalled()->willReturn($handler);
         $handler->processForm($request)->shouldBeCalled()->willReturn($workflow);
 
@@ -81,8 +77,7 @@ class WorkflowControllerSpec extends ObjectBehavior
         Handler $handler,
         Request $request,
         WorkflowInterface $workflow
-    )
-    {
+    ) {
         $container->get('kreta_workflow.form_handler.workflow')->shouldBeCalled()->willReturn($handler);
         $request->get('workflow')->shouldBeCalled()->willReturn($workflow);
         $handler->processForm($request, $workflow, ['method' => 'PUT'])->shouldBeCalled()->willReturn($workflow);

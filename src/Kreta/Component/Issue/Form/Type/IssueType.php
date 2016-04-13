@@ -45,7 +45,7 @@ class IssueType extends AbstractType
      * Constructor.
      *
      * @param string                     $dataClass        The data class
-     * @param Object                     $factory          The factory
+     * @param object                     $factory          The factory
      * @param TokenStorageInterface|null $context          The security context
      * @param ObjectManager|null         $manager          The manager
      * @param array                      $validationGroups The validation groups

@@ -39,7 +39,7 @@ abstract class AbstractType extends BaseAbstractType
     /**
      * The factory.
      *
-     * @var Object
+     * @var object
      */
     protected $factory;
 
@@ -75,7 +75,7 @@ abstract class AbstractType extends BaseAbstractType
      * Constructor.
      *
      * @param string                     $dataClass        The data class
-     * @param Object                     $factory          The factory
+     * @param object                     $factory          The factory
      * @param TokenStorageInterface|null $context          The security context
      * @param ObjectManager|null         $manager          The manager
      * @param array                      $validationGroups The validation groups
@@ -86,8 +86,7 @@ abstract class AbstractType extends BaseAbstractType
         TokenStorageInterface $context = null,
         ObjectManager $manager = null,
         $validationGroups = []
-    )
-    {
+    ) {
         $this->dataClass = $dataClass;
         $this->validationGroups = $validationGroups;
         $this->factory = $factory;
@@ -119,7 +118,7 @@ abstract class AbstractType extends BaseAbstractType
             'validation_groups' => $this->validationGroups,
             'empty_data'        => function (FormInterface $form) {
                 return $this->createEmptyData($form);
-            }
+            },
         ]);
     }
 
@@ -129,7 +128,7 @@ abstract class AbstractType extends BaseAbstractType
      *
      * @param \Symfony\Component\Form\FormInterface $form The form
      *
-     * @return Object
+     * @return object
      */
     abstract protected function createEmptyData(FormInterface $form);
 }

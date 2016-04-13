@@ -23,9 +23,10 @@ ecmaFeatures:
     templateStrings: true
 
 globals:
-    App: true
+    new: true
     process: true
     require: true
+    target: true
 
 plugins:
     - react
@@ -248,9 +249,7 @@ rules:
     vars-on-top: 0
     wrap-iife: 0
     wrap-regex: 0
-    yoda:
-        - 2
-        - never
+    yoda: 0
 
 ###############################
 ########### ES2015 ############

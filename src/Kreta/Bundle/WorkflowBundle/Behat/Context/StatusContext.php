@@ -28,7 +28,6 @@ class StatusContext extends DefaultContext
      *
      * @param \Behat\Gherkin\Node\TableNode $statuses The statuses
      *
-     * @return void
      *
      * @Given /^the following statuses exist:$/
      */

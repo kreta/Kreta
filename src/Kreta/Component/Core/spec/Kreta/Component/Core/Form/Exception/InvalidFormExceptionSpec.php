@@ -13,7 +13,6 @@
 namespace spec\Kreta\Component\Core\Form\Exception;
 
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 
 /**
  * Class InvalidFormExceptionSpec.

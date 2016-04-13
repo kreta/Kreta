@@ -24,8 +24,32 @@ class FormInput extends React.Component {
     this.setState({value: this.props.value ? this.props.value : ''});
   }
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({value: nextProps.value ? nextProps.value : ''});
+  }
+
   onChange(event) {
     this.setState({value: event.target.value});
+  }
+
+  getLabel() {
+    const {label, ...props} = this.props;
+
+    return (
+      <label className="form-input__label">{label}</label>
+    );
+  }
+
+  getBar() {
+    const {label, ...props} = this.props;
+
+    if (typeof label === 'undefined') {
+      return;
+    }
+
+    return (
+      <div className="form-input__bar"></div>
+    );
   }
 
   getInputField() {
@@ -64,18 +88,17 @@ class FormInput extends React.Component {
     return (
       <div className={rootClasses} onClick={this.focus.bind(this)}>
         {this.getInputField()}
-        <label className="form-input__label">{label}</label>
-
-        <div className="form-input__bar"></div>
+        {this.getLabel()}
+        {this.getBar()}
       </div>
     );
   }
 
-  blur () {
+  blur() {
     this.refs.input.blur();
   }
 
-  focus () {
+  focus() {
     this.refs.input.focus();
   }
 }

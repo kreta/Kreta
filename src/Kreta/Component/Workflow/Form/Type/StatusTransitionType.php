@@ -38,7 +38,7 @@ class StatusTransitionType extends AbstractType
                 'choices' => $options['workflow']->getStatuses(),
             ])
             ->add('initials', 'Symfony\Component\Form\Extension\Core\Type\TextType', [
-                'mapped' => false
+                'mapped' => false,
             ]);
     }
 

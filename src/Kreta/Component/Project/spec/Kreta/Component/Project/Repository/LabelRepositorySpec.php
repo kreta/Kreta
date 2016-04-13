@@ -56,8 +56,7 @@ class LabelRepositorySpec extends ObjectBehavior
         Expr\Comparison $comparison,
         AbstractQuery $query,
         LabelInterface $label
-    )
-    {
+    ) {
         $this->getQueryBuilderSpec($manager, $queryBuilder);
         $this->addCriteriaSpec($queryBuilder, $expr, ['project' => $project], $comparison);
         $this->addLikeCriteriaSpec($queryBuilder, $expr, ['name' => 'java'], $comparison);

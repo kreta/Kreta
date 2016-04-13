@@ -8,70 +8,38 @@
  * file that was distributed with this source code.
  */
 
-import $ from 'jquery';
 import React from 'react';
-
-import NotificationService from './../../service/Notification';
-import FormSerializerService from './../../service/FormSerializer';
 
 class Form extends React.Component {
   static propTypes = {
-    model: React.PropTypes.func.isRequired,
-    onSaveError: React.PropTypes.func,
-    onSaveSuccess: React.PropTypes.func,
-    saveErrorMessage: React.PropTypes.string,
-    saveSuccessMessage: React.PropTypes.string
+    errors: React.PropTypes.oneOfType([
+      React.PropTypes.array,
+      React.PropTypes.object
+    ]),
+    onSubmit: React.PropTypes.func
   };
 
-  state = {
-    errors: [],
-    lastValues: []
+  static defaultProps = {
+    errors: {}
   };
 
-  save(ev) {
-    ev.preventDefault();
-
-    const serializedModel = FormSerializerService.serialize(
-      $(this.refs.form), this.props.model
-    );
-
-    this.setState({lastValues: serializedModel.toJSON()});
-    serializedModel.save(null, {
-      success: (model) => {
-        NotificationService.showNotification({
-          type: 'success',
-          message: this.props.saveSuccessMessage || 'Successfully saved'
-        });
-        if (this.props.onSaveSuccess) {
-          this.props.onSaveSuccess(model);
-        }
-      }, error: (model, errors) => {
-        NotificationService.showNotification({
-          type: 'error',
-          message: this.props.saveErrorMessage || 'Errors found'
-        });
-        this.setState({errors: JSON.parse(errors.responseText)});
-        if (this.props.onSaveError) {
-          this.props.onSaveError(model, JSON.parse(errors.responseText));
-        }
+  renderFormElements() {
+    return this.props.children.map((child, key) => {
+      if (typeof child === 'undefined') {
+        return;
       }
-    });
-  }
 
-  renderFormElements () {
-    return this.props.children.map((child, index) => {
-      if (child.type.name === 'FormInput' && child.props.name in this.state.errors) {
+      if (child.type.name === 'FormInput' && child.props.name in this.props.errors) {
         return React.cloneElement(child, {
           error: true,
-          key: index,
-          label: `${child.props.label}: ${this.state.errors[child.props.name][0]}`,
-          value: child.props.name in this.state.lastValues ?
-            this.state.lastValues[child.props.name] : child.props.value
+          key,
+          label: `${child.props.label}: ${this.props.errors[child.props.name][0]}`,
+          value: child.props.value
         });
       } else if (child.type.name === 'FormInput') {
         return React.cloneElement(child, {
-          value: child.props.name in this.state.lastValues ?
-            this.state.lastValues[child.props.name] : child.props.value
+          key,
+          value: child.props.value
         });
       }
       return child;
@@ -81,8 +49,9 @@ class Form extends React.Component {
   render() {
     return (
       <form method="POST"
-            onSubmit={this.save.bind(this)}
-            ref="form">
+            onSubmit={this.props.onSubmit}
+            ref="form"
+        {...this.props}>
         {this.renderFormElements()}
       </form>
     );

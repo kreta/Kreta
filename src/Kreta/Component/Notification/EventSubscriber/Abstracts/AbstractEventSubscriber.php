@@ -47,8 +47,7 @@ abstract class AbstractEventSubscriber
     public function __construct(
         NotifiableEventRegistryInterface $notifiableEventRegistry,
         NotifierRegistryInterface $notifierRegistry
-    )
-    {
+    ) {
         $this->notifiableEventRegistry = $notifiableEventRegistry;
         $this->notifierRegistry = $notifierRegistry;
     }
@@ -63,7 +62,7 @@ abstract class AbstractEventSubscriber
     /**
      * Handles the event for the object passed as parameter. It calls all subscribed notifiable events that will manage
      * the event and will call the registered notifiers to send notifications to users. Additionally, persists all
-     * notification in database
+     * notification in database.
      *
      * @param string                                     $event   Event that was triggered
      * @param object                                     $object  Object that triggered the event

@@ -9,77 +9,80 @@
  */
 
 import './../../../scss/views/page/_index';
-import AddIcon from './../../../svg/add';
-import ListIcon from './../../../svg/list';
 
 import React from 'react';
 import {Link} from 'react-router';
+import { connect } from 'react-redux';
 
-import Button from './../component/Button';
 import ContentMiddleLayout from './../layout/ContentMiddleLayout';
+import Button from './../component/Button';
+import DashboardWidget from './../component/DashboardWidget';
+import Warning from './../component/Warning';
+import LoadingSpinner from './../component/LoadingSpinner';
 import ProjectPreview from './../component/ProjectPreview';
 
+import OrganizationActions from '../../actions/Organizations';
+
 class Index extends React.Component {
-  componentWillMount() {
-    this.setState({
-      user: App.currentUser,
-      projects: App.collection.project
-    });
+  componentDidMount() {
+    this.props.dispatch(OrganizationActions.fetchOrganizations());
   }
 
-  static contextTypes = {
-    history: React.PropTypes.object
-  };
+  getOrganizationItems() {
+    if (this.props.organizations.fetching) {
+      return <LoadingSpinner/>;
+    }
 
-  static defaultProps = {
-    shortcuts: [{
-      'icon': ListIcon,
-      'path': '/project/',
-      'tooltip': 'Show full project'
-    }, {
-      'icon': AddIcon,
-      'path': '/issue/new/',
-      'tooltip': 'New task'
-    }]
-  };
+    if (this.props.organizations.organizations.length > 0) {
+      return this.props.organizations.organizations.map((organization, index) => {
+        return <Link key={index} to={`/${organization.slug}`}>{organization.name}</Link>;
+      });
+    }
 
-  goToShortcutLink(index, shortcut) {
-    const projectId = this.state.projects.at(index).id;
-    this.context.history.pushState(null, this.props.shortcuts[shortcut].path + projectId);
+    return <Warning text="No organizations found, create one or ask an invite for an existing one">
+      <Link to="/organization/new"><Button color="green">Create organization</Button></Link>
+    </Warning>;
+  }
+
+  getProjectsItems() {
+    if (this.props.projects.fetching) {
+      return <LoadingSpinner/>;
+    }
+
+    if (this.props.projects.projects.length > 0) {
+      return this.props.projects.projects.map((project, index) => {
+        return <ProjectPreview key={index}
+                               project={project}/>;
+      });
+    }
+
+    return <Warning text="No projects found, you may want to create one">
+        <Link to="/project/new"><Button color="green">Create project</Button></Link>
+      </Warning>;
   }
 
   render() {
-    const projectItems = this.state.projects.map((project, index) => {
-      return <ProjectPreview key={index}
-                             project={project}
-                             onShortcutClick={this.goToShortcutLink.bind(this, index)}
-                             onTitleClick={this.goToShortcutLink.bind(this, index, 0)}
-                             shortcuts={this.props.shortcuts}/>;
-    });
-
     return (
       <ContentMiddleLayout>
-        <div className="index__message">
-          Welcome to Kreta!
-        </div>
-        <div className="index__projects">
-          <div className="section-header">
-            <h3 className="section-header-title">
-              Your <strong>projects</strong>
-            </h3>
-          </div>
-          <div>
-            { projectItems }
-          </div>
-        </div>
-        <div className="index__buttons">
-          <Link to="/project/new">
-            <Button color="green">Create project</Button>
-          </Link>
+        <div className="index__dashboard">
+          <DashboardWidget title="Your organizations">
+            { this.getOrganizationItems() }
+          </DashboardWidget>
+          <DashboardWidget title="Your projects">
+            { this.getProjectsItems() }
+          </DashboardWidget>
         </div>
       </ContentMiddleLayout>
     );
   }
 }
 
-export default Index;
+const mapStateToProps = (state) => {
+  return {
+    projects: state.projects,
+    organizations: state.organizations
+  };
+};
+
+export default connect(mapStateToProps)(Index);
+

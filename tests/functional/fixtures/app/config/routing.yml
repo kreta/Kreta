@@ -6,13 +6,9 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 
-kreta_web:
-    resource: '@KretaWebBundle/Resources/config/routing.yml'
-    prefix: /
-
 kreta_api:
     type: rest
-    resource: 'routing_api.yml'
+    resource: routing_api.yml
     prefix: /api
 
 kreta_media_image:
@@ -21,8 +17,9 @@ kreta_media_image:
 kreta_user_security:
     resource: '@KretaUserBundle/Resources/config/routing/security.yml'
 
+##
 # Third party libraries/bundles
-
+##
 fos_oauth_server_token:
     resource: '@FOSOAuthServerBundle/Resources/config/routing/token.xml'
 
@@ -30,4 +27,9 @@ fos_user_security:
     resource: '@FOSUserBundle/Resources/config/routing/security.xml'
 
 liip_imagine:
-    resource: "@LiipImagineBundle/Resources/config/routing.xml"
+    resource: '@LiipImagineBundle/Resources/config/routing.xml'
+####
+
+kreta_web:
+    resource: '@KretaWebBundle/Resources/config/routing.yml'
+    prefix: /

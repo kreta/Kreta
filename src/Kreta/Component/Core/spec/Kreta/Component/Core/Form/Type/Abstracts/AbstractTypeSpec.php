@@ -41,8 +41,7 @@ class AbstractTypeSpec extends ObjectBehavior
         ObjectManager $manager,
         TokenStorageInterface $context,
         TokenInterface $token
-    )
-    {
+    ) {
         $token->getUser()->shouldBeCalled()->willReturn(null);
 
         $this->shouldThrow(new AccessDeniedException())
@@ -55,8 +54,7 @@ class AbstractTypeSpec extends ObjectBehavior
         TokenStorageInterface $context,
         TokenInterface $token,
         UserInterface $user
-    )
-    {
+    ) {
         $token->getUser()->shouldBeCalled()->willReturn($user);
         $this->beConstructedWith('data-class', Argument::type('Object'), $context, $manager);
 
@@ -69,8 +67,7 @@ class AbstractTypeSpec extends ObjectBehavior
         TokenStorageInterface $context,
         TokenInterface $token,
         UserInterface $user
-    )
-    {
+    ) {
         $token->getUser()->shouldBeCalled()->willReturn($user);
         $this->beConstructedWith('data-class', Argument::type('Object'), $context, $manager);
 
@@ -89,8 +86,7 @@ class AbstractTypeSpec extends ObjectBehavior
         TokenStorageInterface $context,
         TokenInterface $token,
         UserInterface $user
-    )
-    {
+    ) {
         $token->getUser()->shouldBeCalled()->willReturn($user);
         $this->beConstructedWith('data-class', Argument::type('Object'), $context, $manager);
 

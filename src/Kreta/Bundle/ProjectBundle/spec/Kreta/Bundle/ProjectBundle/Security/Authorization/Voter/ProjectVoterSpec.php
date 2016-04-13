@@ -17,7 +17,6 @@ use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Project\Model\Project;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
 /**
@@ -82,8 +81,7 @@ class ProjectVoterSpec extends ObjectBehavior
     function it_does_not_vote_because_the_current_user_is_not_user_interface_instance(
         TokenInterface $token,
         Project $project
-    )
-    {
+    ) {
         $token->getUser()->shouldBeCalled()->willReturn(null);
 
         $this->vote($token, $project, ['add_participant'])->shouldReturn(-1);
@@ -93,8 +91,7 @@ class ProjectVoterSpec extends ObjectBehavior
         TokenInterface $token,
         Project $project,
         UserInterface $user
-    )
-    {
+    ) {
         $token->getUser()->shouldBeCalled()->willReturn($user);
         $project->getUserRole($user)->shouldBeCalled()->willReturn('ROLE_PARTICIPANT');
 
@@ -113,8 +110,7 @@ class ProjectVoterSpec extends ObjectBehavior
         TokenInterface $token,
         UserInterface $user,
         Project $project
-    )
-    {
+    ) {
         $token->getUser()->shouldBeCalled()->willReturn($user);
         $project->getUserRole($user)->shouldBeCalled()->willReturn('ROLE_ADMIN');
 

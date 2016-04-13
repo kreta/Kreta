@@ -96,8 +96,7 @@ class QueryBuilderTraitSpec extends ObjectBehavior
         QueryBuilder $queryBuilder,
         Expr $expr,
         Expr\Func $func
-    )
-    {
+    ) {
         $from = new \DateTime();
         $to = new \DateTime();
         $this->addBetweenCriteriaSpec($queryBuilder, $expr, $func, ['property' => [$from, $to]]);

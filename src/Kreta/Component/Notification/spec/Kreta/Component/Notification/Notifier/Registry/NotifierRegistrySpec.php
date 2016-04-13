@@ -14,7 +14,6 @@ namespace spec\Kreta\Component\Notification\Notifier\Registry;
 
 use Kreta\Component\Notification\Notifier\Interfaces\NotifierInterface;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 
 /**
  * Class NotifierRegistrySpec.

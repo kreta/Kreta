@@ -23,10 +23,13 @@ Feature: Manage issue
       | id | name       | creator        |
       | 0  | Workflow 1 | user@kreta.com |
       | 1  | Workflow 2 | user@kreta.com |
+    And the following organizations exist:
+      | id | name                | creator        |
+      | 0  | Test organization 1 | user@kreta.com |
     And the following projects exist:
-      | id | name           | shortName | creator        | workflow   |
-      | 0  | Test project 1 | TPR1      | user@kreta.com | Workflow 1 |
-      | 1  | Test project 2 | TPR2      | user@kreta.com | Workflow 2 |
+      | id | name           | creator        | workflow   | organization        |
+      | 0  | Test project 1 | user@kreta.com | Workflow 1 | Test organization 1 |
+      | 1  | Test project 2 | user@kreta.com | Workflow 2 | Test organization 1 |
     And the following medias exist:
       | id | name       | createdAt  | updatedAt | resource        |
       | 2  | user-2.jpg | 2014-10-30 | null      | user2@kreta.com |

@@ -18,7 +18,6 @@ use Kreta\Component\Project\Model\Interfaces\IssuePriorityInterface;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Project\Repository\IssuePriorityRepository;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -52,8 +51,7 @@ class IssuePriorityControllerSpec extends ObjectBehavior
         ParamFetcher $paramFetcher,
         ProjectInterface $project,
         IssuePriorityInterface $issuePriority
-    )
-    {
+    ) {
         $container->get('kreta_project.repository.issue_priority')->shouldBeCalled()->willReturn($repository);
         $request->get('project')->shouldBeCalled()->willReturn($project);
         $paramFetcher->get('limit')->shouldBeCalled()->willReturn(10);
@@ -70,8 +68,7 @@ class IssuePriorityControllerSpec extends ObjectBehavior
         ProjectInterface $project,
         Handler $handler,
         IssuePriorityInterface $issuePriority
-    )
-    {
+    ) {
         $container->get('kreta_project.form_handler.issue_priority')->shouldBeCalled()->willReturn($handler);
         $request->get('project')->shouldBeCalled()->willReturn($project);
         $handler->processForm($request, null, ['project' => $project])->shouldBeCalled()->willReturn($issuePriority);
@@ -83,8 +80,7 @@ class IssuePriorityControllerSpec extends ObjectBehavior
         ContainerInterface $container,
         IssuePriorityRepository $repository,
         IssuePriorityInterface $issuePriority
-    )
-    {
+    ) {
         $container->get('kreta_project.repository.issue_priority')->shouldBeCalled()->willReturn($repository);
         $repository->find('issuePriority-id', false)->shouldBeCalled()->willReturn($issuePriority);
         $repository->remove($issuePriority)->shouldBeCalled();

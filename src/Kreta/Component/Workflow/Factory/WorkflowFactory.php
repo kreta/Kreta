@@ -47,7 +47,7 @@ class WorkflowFactory
      *
      * @param string                                               $name The name
      * @param \Kreta\Component\User\Model\Interfaces\UserInterface $user The creator
-     * @param boolean                                              $load Load boolean, by default false
+     * @param bool                                                 $load Load boolean, by default false
      *
      * @return \Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface
      */
@@ -122,19 +122,19 @@ class WorkflowFactory
         $defaultTransitions = [
             'Start progress'  => [
                 'from' => [$statuses['To do']],
-                'to'   => $statuses['Doing']
+                'to'   => $statuses['Doing'],
             ],
             'Finish progress' => [
                 'from' => [$statuses['To do'], $statuses['Doing']],
-                'to'   => $statuses['Done']
+                'to'   => $statuses['Done'],
             ],
             'Stop progress'   => [
                 'from' => [$statuses['Doing']],
-                'to'   => $statuses['To do']
+                'to'   => $statuses['To do'],
             ],
             'Reopen issue'    => [
                 'from' => [$statuses['Done']],
-                'to'   => $statuses['Doing']
+                'to'   => $statuses['Doing'],
             ],
         ];
 

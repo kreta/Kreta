@@ -14,6 +14,7 @@ namespace Kreta\Component\Project\Factory;
 
 use Kreta\Component\Media\Factory\MediaFactory;
 use Kreta\Component\Media\Uploader\Interfaces\MediaUploaderInterface;
+use Kreta\Component\Organization\Model\Interfaces\OrganizationInterface;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Project\Model\IssuePriority;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
@@ -41,28 +42,28 @@ class ProjectFactory
     /**
      * The participant factory.
      *
-     * @var \Kreta\Component\Project\Factory\ParticipantFactory
+     * @var ParticipantFactory
      */
     protected $participantFactory;
 
     /**
      * The workflow factory.
      *
-     * @var \Kreta\Component\Workflow\Factory\WorkflowFactory
+     * @var WorkflowFactory
      */
     protected $workflowFactory;
 
     /**
      * The media factory.
      *
-     * @var \Kreta\Component\Media\Factory\MediaFactory
+     * @var MediaFactory
      */
     protected $mediaFactory;
 
     /**
      * The uploader.
      *
-     * @var \Kreta\Component\Media\Uploader\Interfaces\MediaUploaderInterface
+     * @var MediaUploaderInterface
      */
     protected $uploader;
 
@@ -92,15 +93,17 @@ class ProjectFactory
     /**
      * Creates an instance of a project.
      *
-     * @param \Kreta\Component\User\Model\Interfaces\UserInterface              $user     The project creator
-     * @param \Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface|null $workflow The workflow
-     * @param boolean                                                           $load     Load boolean, by default true
-     * @param \Symfony\Component\HttpFoundation\File\UploadedFile               $image    The image, can be null
+     * @param UserInterface              $user         The project creator
+     * @param OrganizationInterface|null $organization The organization
+     * @param WorkflowInterface|null     $workflow     The workflow
+     * @param bool                       $load         Load boolean, by default true
+     * @param UploadedFile               $image        The image, can be null
      *
-     * @return \Kreta\Component\Project\Model\Interfaces\ProjectInterface
+     * @return ProjectInterface
      */
     public function create(
         UserInterface $user,
+        OrganizationInterface $organization = null,
         WorkflowInterface $workflow = null,
         $load = true,
         UploadedFile $image = null
@@ -123,6 +126,8 @@ class ProjectFactory
         }
 
         return $project
+            ->setCreator($user)
+            ->setOrganization($organization)
             ->addParticipant($participant)
             ->setWorkflow($workflow);
     }
@@ -130,12 +135,13 @@ class ProjectFactory
     /**
      * Loads the default issue priorities and types.
      *
-     * @param \Kreta\Component\Project\Model\Interfaces\ProjectInterface $project The project
+     * @param ProjectInterface $project The project
      *
-     * @return \Kreta\Component\Project\Model\Interfaces\ProjectInterface
+     * @return ProjectInterface
      */
-    protected function loadPrioritiesAndTypes(ProjectInterface $project)
-    {
+    protected function loadPrioritiesAndTypes(
+        ProjectInterface $project
+    ) {
         $priorities = $this->createDefaultPriorities();
         foreach ($priorities as $priority) {
             $priority->setProject($project);
@@ -153,7 +159,7 @@ class ProjectFactory
     protected function createDefaultPriorities()
     {
         $defaultPriorities = [
-            'Low' => '#969696', 'Medium' => '#67b86a', 'High' => '#f07f2c', 'Blocker' => '#f02c4c'
+            'Low' => '#969696', 'Medium' => '#67b86a', 'High' => '#f07f2c', 'Blocker' => '#f02c4c',
         ];
         $priorities = [];
         foreach ($defaultPriorities as $name => $color) {

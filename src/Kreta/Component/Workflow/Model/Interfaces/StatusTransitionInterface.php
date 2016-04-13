@@ -34,9 +34,10 @@ interface StatusTransitionInterface extends TransitionInterface
      *
      * @param string $initialStatusId The initial status id
      *
-     * @return \Kreta\Component\Workflow\Model\Interfaces\StatusInterface
      * @throws \Kreta\Component\Core\Exception\CollectionMinLengthException
      * @throws \Doctrine\ORM\NoResultException
+     *
+     * @return \Kreta\Component\Workflow\Model\Interfaces\StatusInterface
      */
     public function getInitialState($initialStatusId);
 
@@ -45,10 +46,11 @@ interface StatusTransitionInterface extends TransitionInterface
      *
      * @param \Kreta\Component\Workflow\Model\Interfaces\StatusInterface $status The status
      *
-     * @return $this self Object
      * @throws \InvalidArgumentException
      * @throws \Doctrine\ORM\NoResultException
      * @throws \Kreta\Component\Core\Exception\ResourceAlreadyPersistException
+     *
+     * @return $this self Object
      */
     public function addInitialState($status);
 
@@ -71,7 +73,7 @@ interface StatusTransitionInterface extends TransitionInterface
     /**
      * Checks if the transition is in use by any issue.
      *
-     * @return boolean
+     * @return bool
      */
     public function isInUse();
 }

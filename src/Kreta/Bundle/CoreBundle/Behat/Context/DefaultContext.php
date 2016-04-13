@@ -70,7 +70,7 @@ class DefaultContext extends RawMinkContext implements KernelAwareContext
     /**
      * Sets id.
      *
-     * @param Object $object The object that will be set
+     * @param object $object The object that will be set
      * @param string $id     The id
      */
     public function setId($object, $id)
@@ -83,7 +83,7 @@ class DefaultContext extends RawMinkContext implements KernelAwareContext
     /**
      * Sets the field given with value given.
      *
-     * @param Object $object The object that will be set
+     * @param object $object The object that will be set
      * @param string $field  The field
      * @param mixed  $value  The value
      */

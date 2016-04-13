@@ -12,10 +12,7 @@
 
 namespace spec\Kreta\Component\User\Factory;
 
-use Kreta\Component\Media\Factory\MediaFactory;
-use Kreta\Component\Media\Uploader\Interfaces\MediaUploaderInterface;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 
 /**
  * Class UserFactorySpec.

@@ -21,7 +21,6 @@ use Kreta\Component\Core\spec\Kreta\Component\Core\Repository\BaseEntityReposito
 use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use PhpSpec\ObjectBehavior;
-use PhpSpec\Wrapper\Collaborator;
 use Prophecy\Argument;
 
 /**
@@ -57,8 +56,7 @@ class IssueRepositorySpec extends ObjectBehavior
         Expr\Comparison $comparison,
         AbstractQuery $query,
         IssueInterface $issue
-    )
-    {
+    ) {
         $this->getQueryBuilderSpec($manager, $queryBuilder);
         $this->addCriteriaSpec($queryBuilder, $expr, ['assignee' => $assignee], $comparison);
         $this->orderBySpec($queryBuilder, ['status' => 'DESC']);
@@ -76,8 +74,7 @@ class IssueRepositorySpec extends ObjectBehavior
         Expr\Comparison $comparison,
         AbstractQuery $query,
         IssueInterface $issue
-    )
-    {
+    ) {
         $this->getQueryBuilderSpec($manager, $queryBuilder);
         $this->addEqCriteriaSpec($queryBuilder, $expr, ['assignee' => $assignee], $comparison);
         $this->addNeqCriteriaSpec($queryBuilder, $expr, ['s.type' => 'final'], $comparison);
@@ -88,24 +85,6 @@ class IssueRepositorySpec extends ObjectBehavior
         $this->findByAssignee($assignee, [], true)->shouldReturn([$issue]);
     }
 
-    function it_finds_one_issue_by_short_code(
-        EntityManager $manager,
-        QueryBuilder $queryBuilder,
-        Expr $expr,
-        Expr\Comparison $comparison,
-        AbstractQuery $query,
-        IssueInterface $issue
-    )
-    {
-        $this->getQueryBuilderSpec($manager, $queryBuilder);
-        $this->addEqCriteriaSpec($queryBuilder, $expr, ['numericId' => 42], $comparison);
-        $this->addEqCriteriaSpec($queryBuilder, $expr, ['p.shortName' => 'KRT'], $comparison);
-        $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
-        $query->getOneOrNullResult()->shouldBeCalled()->willReturn($issue);
-
-        $this->findOneByShortCode('KRT', 42)->shouldReturn($issue);
-    }
-
     function it_finds_by_participant(
         EntityManager $manager,
         QueryBuilder $queryBuilder,
@@ -114,8 +93,7 @@ class IssueRepositorySpec extends ObjectBehavior
         AbstractQuery $query,
         IssueInterface $issue,
         UserInterface $user
-    )
-    {
+    ) {
         $this->getQueryBuilderSpec($manager, $queryBuilder);
         $queryBuilder->addSelect('par')->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->join('p.participants', 'par')->shouldBeCalled()->willReturn($queryBuilder);

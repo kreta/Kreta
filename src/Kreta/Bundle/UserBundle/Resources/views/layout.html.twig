@@ -6,7 +6,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Kreta</title>
     {% block stylesheets %}
-        <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet"/>
         <link href='//fonts.googleapis.com/css?family=Source+Sans+Pro:200,400' rel='stylesheet' type='text/css'/>
         <link href="{{ asset('css/login.css') }}" media="screen" rel="stylesheet" type="text/css"/>
     {% endblock %}
@@ -17,17 +16,15 @@
     <link rel="apple-touch-icon-precomposed" sizes="144x144" href="bundles/kretaweb/img/favicons/apple-touch-icon-144x144.png"/>
     <link rel="apple-touch-icon-precomposed" sizes="120x120" href="bundles/kretaweb/img/favicons/apple-touch-icon-120x120.png"/>
     <link rel="apple-touch-icon-precomposed" sizes="152x152" href="bundles/kretaweb/img/favicons/apple-touch-icon-152x152.png"/>
-    <link rel="icon" type="image/png" href="bundles/kretaweb/img/favicons/favicon-32x32.png" sizes="32x32"/>
-    <link rel="icon" type="image/png" href="bundles/kretaweb/img/favicons/favicon-16x16.png" sizes="16x16"/>
+    <link rel="icon" type="image/png" href="/bundles/kretaweb/img/favicons/favicon-32x32.png" sizes="32x32"/>
+    <link rel="icon" type="image/png" href="/bundles/kretaweb/img/favicons/favicon-16x16.png" sizes="16x16"/>
 </head>
 <body>
 {% block body %}
-    <div class="login-container spacer-2">
-        <p class="login-logo spacer-vertical-half">
-            <strong>kreta</strong>.io
-        </p>
+    <main class="login">
+        <img class="login__logo" src="/bundles/kretaweb/svg/logo-full.svg"/>
         {% block content %}{% endblock %}
-    </div>
+    </main>
     {% block javascripts %}{% endblock %}
 {% endblock %}
 </body>

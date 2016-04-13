@@ -34,8 +34,7 @@ class IssuePriorityTypeSpec extends ObjectBehavior
         TokenInterface $token,
         UserInterface $user,
         IssuePriorityFactory $factory
-    )
-    {
+    ) {
         $context->getToken()->shouldBeCalled()->willReturn($token);
         $token->getUser()->shouldBeCalled()->willReturn($user);
         $this->beConstructedWith('Kreta\Component\Project\Model\IssuePriority', $factory, $context);

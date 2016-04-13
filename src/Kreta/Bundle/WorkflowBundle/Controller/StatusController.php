@@ -110,7 +110,6 @@ class StatusController extends Controller
      * @View(statusCode=204)
      * @Workflow("manage_status")
      *
-     * @return void
      * @throws \Kreta\Component\Core\Exception\ResourceInUseException
      */
     public function deleteStatusesAction($workflowId, $statusId)

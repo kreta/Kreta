@@ -153,7 +153,6 @@ class Workflow extends AbstractModel implements WorkflowInterface
         return $this;
     }
 
-
     /**
      * {@inheritdoc}
      */

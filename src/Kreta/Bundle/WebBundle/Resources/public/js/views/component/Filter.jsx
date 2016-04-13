@@ -11,41 +11,36 @@
 import '../../../scss/components/_filter.scss';
 
 import React from 'react';
-import $ from 'jquery';
 
-export default React.createClass({
-  propTypes: {
-    onFilterSelected: React.PropTypes.func.isRequired
-  },
-  selectFilterItem($item) {
-    var itemGroup = $item.parent().index();
+class Filter extends React.Component {
+  static propTypes = {
+    onFiltersChanged: React.PropTypes.func.isRequired
+  };
 
-    $item.parent().find('a').removeClass('selected');
-    $item.addClass('selected');
-
-    this.props.filters[itemGroup].forEach((item) => {
-      item.selected = false;
+  triggerOnFilterSelected(group, filter) {
+    this.props.filters[group].forEach((f) => {
+      f.selected = false;
     });
+    this.props.filters[group][filter].selected = true;
+    this.props.onFiltersChanged(this.props.filters);
+  }
 
-    this.props.filters[itemGroup][$item.index()].selected = true;
-
-    return this.props.filters;
-  },
-  filterSelected(ev) {
-    this.selectFilterItem($(ev.currentTarget));
-    this.props.onFilterSelected(this.props.filters);
-  },
   render() {
-    var filtersEl = this.props.filters.map((filter) => {
-      var groupFilters = filter.map((item) => {
+    const filtersEl = this.props.filters.map((filter, groupIndex) => {
+      const groupFilters = filter.map((item, filterIndex) => {
         return (
-          <a className={`filter-item ${ item.selected ? 'selected' : ''} `}
-             data-filter={ item.filter }
-             data-value={ item.value }
-             onClick={this.filterSelected}>{item.title}</a>
+          <a className={`filter-item ${item.selected ? 'selected' : ''} `}
+             key={filterIndex}
+             onClick={this.triggerOnFilterSelected.bind(this, groupIndex, filterIndex)}>
+            {item.title}
+          </a>
         );
       });
-      return <div className="filter-group">{groupFilters}</div>;
+      return (
+        <div className="filter-group" key={groupIndex}>
+          {groupFilters}
+        </div>
+      );
     });
 
     return (
@@ -54,4 +49,6 @@ export default React.createClass({
       </div>
     );
   }
-});
+}
+
+export default Filter;

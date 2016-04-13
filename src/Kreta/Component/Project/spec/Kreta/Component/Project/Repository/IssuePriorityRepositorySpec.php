@@ -56,8 +56,7 @@ class IssuePriorityRepositorySpec extends ObjectBehavior
         Expr\Comparison $comparison,
         AbstractQuery $query,
         IssuePriorityInterface $priority
-    )
-    {
+    ) {
         $this->getQueryBuilderSpec($manager, $queryBuilder);
         $this->addCriteriaSpec($queryBuilder, $expr, ['project' => $project], $comparison);
         $this->addLikeCriteriaSpec($queryBuilder, $expr, ['name' => 'Blocker'], $comparison);

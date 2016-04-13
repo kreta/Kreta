@@ -57,8 +57,7 @@ class StatusRepositorySpec extends ObjectBehavior
         Expr\Comparison $comparison2,
         AbstractQuery $query,
         StatusInterface $status
-    )
-    {
+    ) {
         $this->getQueryBuilderSpec($manager, $queryBuilder);
         $this->addCriteriaSpec($queryBuilder, $expr, ['workflow' => $workflow], $comparison);
         $expr->eq('s.id', ':id')->shouldBeCalled()->willReturn($comparison2);

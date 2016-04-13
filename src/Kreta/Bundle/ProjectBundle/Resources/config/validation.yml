@@ -37,15 +37,8 @@ Kreta\Component\Project\Model\IssuePriority:
 Kreta\Component\Project\Model\Project:
     constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
-            fields: [shortName]
-            message: 'Short name is already in use'
+            fields: [name, organization]
+            message: 'A project with identical name is already exists in this organization'
     properties:
         name:
             - NotBlank: ~
-        shortName:
-            - NotBlank: ~
-            - Length:
-                min: 3
-                max: 4
-                minMessage: 'Short name must be at least 3 characters long'
-                maxMessage: 'Short name cannot be longer than 4 characters long'

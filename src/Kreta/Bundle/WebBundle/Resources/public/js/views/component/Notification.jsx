@@ -15,26 +15,19 @@ import React from 'react';
 
 class Notification extends React.Component {
   static propTypes = {
-    message: React.PropTypes.string.isRequired,
-    type: React.PropTypes.string,
-    value: React.PropTypes.number.isRequired
+    notification: React.PropTypes.object.isRequired,
+    onCloseRequest: React.PropTypes.func
   };
 
-  static defaultProps = {
-    type: 'success'
-  };
-
-  onCloseClick() {
-    App.collection.notification.remove(
-      App.collection.notification.at(this.props.value)
-    );
+  triggerOnCloseRequest() {
+    this.props.onCloseRequest();
   }
 
   render() {
     const classes = classnames({
       'notification': true,
       'notification--visible': true,
-      'notification--error': this.props.type === 'error'
+      'notification--error': this.props.notification.type === 'error'
     });
 
     return (
@@ -42,9 +35,9 @@ class Notification extends React.Component {
         <div className="notification__icon">
           <i className="fa fa-exclamation-circle"></i>
         </div>
-        <p className="notification__message">{this.props.message}</p>
+        <p className="notification__message">{this.props.notification.message}</p>
         <i className="notification__hide fa fa-times"
-           onClick={this.onCloseClick}></i>
+           onClick={this.triggerOnCloseRequest.bind(this)}></i>
       </div>
     );
   }

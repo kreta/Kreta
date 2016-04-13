@@ -39,8 +39,7 @@ class IssueTypeSpec extends ObjectBehavior
         UserInterface $user,
         IssueFactory $factory,
         LabelType $labelType
-    )
-    {
+    ) {
         $context->getToken()->shouldBeCalled()->willReturn($token);
         $token->getUser()->shouldBeCalled()->willReturn($user);
         $this->beConstructedWith('Kreta\Component\Issue\Model\Issue', $factory, $context, null, null, $labelType);
@@ -60,12 +59,12 @@ class IssueTypeSpec extends ObjectBehavior
     {
         $builder->add('title', 'Symfony\Component\Form\Extension\Core\Type\TextType')
             ->shouldBeCalled()->willReturn($builder);
-        $builder->add('description', 'Symfony\Component\Form\Extension\Core\Type\TextareaType', ['required' => false,])
+        $builder->add('description', 'Symfony\Component\Form\Extension\Core\Type\TextareaType', ['required' => false])
             ->shouldBeCalled()->willReturn($builder);
         $builder->add('project', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', [
             'class'           => 'Kreta\Component\Project\Model\Project',
             'choices'         => [$project],
-            'invalid_message' => IssueType::PROJECT_INVALID_MESSAGE
+            'invalid_message' => IssueType::PROJECT_INVALID_MESSAGE,
         ])->shouldBeCalled()->willReturn($builder);
 
         $builder->get('project')->shouldBeCalled()->willReturn($builder);

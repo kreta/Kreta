@@ -15,6 +15,13 @@
   position: relative;
 }
 
+.page-header__image {
+  background: $light-grey;
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+}
+
 .page-header__title {
   flex: 1;
   font-size: 1.3em;

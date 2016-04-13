@@ -15,7 +15,6 @@ namespace spec\Kreta\Bundle\UserBundle\Controller;
 use Kreta\Component\User\Form\Handler\UserHandler;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -49,8 +48,7 @@ class ProfileControllerSpec extends ObjectBehavior
         TokenStorageInterface $context,
         TokenInterface $token,
         UserInterface $user
-    )
-    {
+    ) {
         $container->has('security.token_storage')->shouldBeCalled()->willReturn(true);
         $container->get('security.token_storage')->shouldBeCalled()->willReturn($context);
 
@@ -65,8 +63,7 @@ class ProfileControllerSpec extends ObjectBehavior
         UserHandler $handler,
         Request $request,
         UserInterface $user
-    )
-    {
+    ) {
         $container->get('kreta_user.form_handler.profile')->shouldBeCalled()->willReturn($handler);
         $handler->processForm($request)->shouldBeCalled()->willReturn($user);
 

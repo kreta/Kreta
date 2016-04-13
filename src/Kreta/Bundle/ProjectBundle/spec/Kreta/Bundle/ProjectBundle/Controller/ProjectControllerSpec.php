@@ -18,7 +18,6 @@ use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Project\Repository\ProjectRepository;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -55,8 +54,7 @@ class ProjectControllerSpec extends ObjectBehavior
         TokenInterface $token,
         UserInterface $user,
         ProjectInterface $project
-    )
-    {
+    ) {
         $container->get('kreta_project.repository.project')->shouldBeCalled()->willReturn($projectRepository);
 
         $container->has('security.token_storage')->shouldBeCalled()->willReturn(true);
@@ -65,10 +63,10 @@ class ProjectControllerSpec extends ObjectBehavior
         $context->getToken()->shouldBeCalled()->willReturn($token);
         $token->getUser()->shouldBeCalled()->willReturn($user);
 
-        $paramFetcher->get('sort')->shouldBeCalled()->willReturn('name');
         $paramFetcher->get('limit')->shouldBeCalled()->willReturn(10);
         $paramFetcher->get('offset')->shouldBeCalled()->willReturn(1);
-        $projectRepository->findByParticipant($user, ['name' => 'ASC'], 10, 1)->shouldBeCalled()->willReturn([$project]);
+        $projectRepository->findByParticipant($user, null, ['name' => 'ASC'], 10, 1)
+            ->shouldBeCalled()->willReturn([$project]);
 
         $this->getProjectsAction($paramFetcher)->shouldReturn([$project]);
     }
@@ -85,8 +83,7 @@ class ProjectControllerSpec extends ObjectBehavior
         Request $request,
         ProjectHandler $projectHandler,
         ProjectInterface $project
-    )
-    {
+    ) {
         $container->get('kreta_project.form_handler.project')->shouldBeCalled()->willReturn($projectHandler);
         $projectHandler->processForm($request)->shouldBeCalled()->willReturn($project);
 
@@ -98,8 +95,7 @@ class ProjectControllerSpec extends ObjectBehavior
         ProjectInterface $project,
         Request $request,
         ProjectHandler $projectHandler
-    )
-    {
+    ) {
         $container->get('kreta_project.form_handler.project')->shouldBeCalled()->willReturn($projectHandler);
         $request->get('project')->shouldBeCalled()->willReturn($project);
         $projectHandler->processForm($request, $project, ['method' => 'PUT'])->shouldBeCalled()->willReturn($project);

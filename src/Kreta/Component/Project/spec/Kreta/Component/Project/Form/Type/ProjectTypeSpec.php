@@ -15,7 +15,6 @@ namespace spec\Kreta\Component\Project\Form\Type;
 use Kreta\Component\Project\Factory\ProjectFactory;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Symfony\Component\Form\FormBuilder;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -48,13 +47,17 @@ class ProjectTypeSpec extends ObjectBehavior
     function it_builds_a_form(FormBuilder $builder)
     {
         $builder->add('name')->shouldBeCalled()->willReturn($builder);
-        $builder->add('shortName')->shouldBeCalled()->willReturn($builder);
         $builder->add('image', 'Symfony\Component\Form\Extension\Core\Type\FileType', [
             'required' => false,
             'mapped'   => false,
         ])->shouldBeCalled()->willReturn($builder);
         $builder->add('workflow', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', [
             'class'    => 'Kreta\Component\Workflow\Model\Workflow',
+            'required' => false,
+            'mapped'   => false,
+        ])->shouldBeCalled()->willReturn($builder);
+        $builder->add('organization', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', [
+            'class'    => 'Kreta\Component\Organization\Model\Organization',
             'required' => false,
             'mapped'   => false,
         ])->shouldBeCalled()->willReturn($builder);

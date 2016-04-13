@@ -14,12 +14,10 @@ namespace spec\Kreta\Component\Workflow\Repository;
 
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\ClassMetadata;
-use Doctrine\ORM\Query\Expr;
 use Kreta\Component\Core\spec\Kreta\Component\Core\Repository\BaseEntityRepository;
 use Kreta\Component\Workflow\Model\Interfaces\StatusInterface;
 use Kreta\Component\Workflow\Model\Interfaces\StatusTransitionInterface;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 
 /**
  * Class StatusTransitionRepositorySpec.

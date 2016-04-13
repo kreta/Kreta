@@ -107,9 +107,7 @@ class Handler implements HandlerInterface
      * Handles file upload.
      *
      * @param \Symfony\Component\HttpFoundation\FileBag $files  Files found in current request
-     * @param Object                                    $object Object been handled in the request
-     *
-     * @return void
+     * @param object                                    $object Object been handled in the request
      */
     protected function handleFiles(FileBag $files, $object)
     {
@@ -118,9 +116,7 @@ class Handler implements HandlerInterface
     /**
      * Edits (if needed), persists and flushes the object.
      *
-     * @param Object $object The object to be handled
-     *
-     * @return void
+     * @param object $object The object to be handled
      */
     protected function handleObject($object)
     {

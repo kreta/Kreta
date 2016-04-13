@@ -15,7 +15,6 @@ namespace spec\Kreta\Component\Notification\Notifier;
 use Kreta\Component\Notification\Model\Interfaces\NotificationInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 
 /**
  * Class EmailNotifierSpec.
@@ -45,8 +44,7 @@ class EmailNotifierSpec extends ObjectBehavior
         \Swift_Mime_Message $message,
         NotificationInterface $notification,
         UserInterface $user
-    )
-    {
+    ) {
         $notification->getUser()->shouldBeCalled()->willReturn($user);
         $user->getEmail()->shouldBeCalled()->willReturn('kreta@kreta.io');
         $notification->getTitle()->shouldBeCalled()->willReturn('New issue!');

@@ -46,8 +46,7 @@ class UserControllerSpec extends ObjectBehavior
         UserRepository $userRepository,
         UserInterface $user,
         ParamFetcher $paramFetcher
-    )
-    {
+    ) {
         $container->get('kreta_user.repository.user')->shouldBeCalled()->willReturn($userRepository);
 
         $paramFetcher->get('email')->shouldBeCalled()->willReturn('kreta@kreta.com');
@@ -66,8 +65,8 @@ class UserControllerSpec extends ObjectBehavior
                     'username'  => 'kreta',
                     'firstName' => 'KretaFirst',
                     'lastName'  => 'KretaLast',
-                    'enabled'   => 1
-                ]
+                    'enabled'   => 1,
+                ],
             ],
             ['username' => 'ASC'],
             10,

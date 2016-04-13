@@ -28,7 +28,6 @@ class StatusTransitionContext extends DefaultContext
      *
      * @param \Behat\Gherkin\Node\TableNode $statusTransitions The status transitions
      *
-     * @return void
      *
      * @Given /^the following status transitions exist:$/
      */

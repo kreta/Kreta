@@ -15,7 +15,6 @@ namespace spec\Kreta\Component\User\Repository;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Mapping\ClassMetadata;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 
 /**
  * Class UserRepositorySpec.

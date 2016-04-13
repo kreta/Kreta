@@ -18,7 +18,6 @@ use Kreta\Component\Project\Model\Interfaces\LabelInterface;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Project\Repository\LabelRepository;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -52,8 +51,7 @@ class LabelControllerSpec extends ObjectBehavior
         ParamFetcher $paramFetcher,
         ProjectInterface $project,
         LabelInterface $label
-    )
-    {
+    ) {
         $container->get('kreta_project.repository.label')->shouldBeCalled()->willReturn($labelRepository);
         $request->get('project')->shouldBeCalled()->willReturn($project);
         $paramFetcher->get('limit')->shouldBeCalled()->willReturn(10);
@@ -70,8 +68,7 @@ class LabelControllerSpec extends ObjectBehavior
         ProjectInterface $project,
         Handler $handler,
         LabelInterface $label
-    )
-    {
+    ) {
         $container->get('kreta_project.form_handler.label')->shouldBeCalled()->willReturn($handler);
         $request->get('project')->shouldBeCalled()->willReturn($project);
         $handler->processForm($request, null, ['project' => $project])->shouldBeCalled()->willReturn($label);

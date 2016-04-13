@@ -11,9 +11,8 @@
 .issue-show__title {
   background: $light-grey;
   color: $main-black;
-  font-size: 1.8em;
+  font-size: 30px;
   font-weight: lighter;
-  line-height: 1.3em;
   margin: 0;
   padding: 0;
 }
@@ -27,14 +26,7 @@
 }
 
 .issue-show__description {
-  background: $light-grey;
-  color: $main-black;
-  font-size: 16px;
-  font-weight: lighter;
-  line-height: 1.3em;
   margin-top: 30px;
-  max-height: 200px;
-  overflow: hidden;
 }
 
 .issue-show__fields {

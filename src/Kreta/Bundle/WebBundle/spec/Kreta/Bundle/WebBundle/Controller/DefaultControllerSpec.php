@@ -12,16 +12,12 @@
 
 namespace spec\Kreta\Bundle\WebBundle\Controller;
 
-use Kreta\Bundle\UserBundle\Event\CookieEvent;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Symfony\Bundle\TwigBundle\TwigEngine;
 use Symfony\Component\DependencyInjection\ContainerInterface;
-use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 
@@ -54,8 +50,7 @@ class DefaultControllerSpec extends ObjectBehavior
         TokenStorageInterface $context,
         TokenInterface $token,
         TwigEngine $engine
-    )
-    {
+    ) {
         $container->has('security.token_storage')->shouldBeCalled()->willReturn(true);
         $container->get('security.token_storage')->shouldBeCalled()->willReturn($context);
 
@@ -74,30 +69,18 @@ class DefaultControllerSpec extends ObjectBehavior
         TokenStorageInterface $context,
         TokenInterface $token,
         UserInterface $user,
-        EventDispatcherInterface $eventDispatcher,
-        CookieEvent $event,
         TwigEngine $engine,
-        Request $request,
-        SessionInterface $session,
-        Response $response
-    )
-    {
+        Request $request
+    ) {
         $container->has('security.token_storage')->shouldBeCalled()->willReturn(true);
         $container->get('security.token_storage')->shouldBeCalled()->willReturn($context);
 
         $context->getToken()->shouldBeCalled()->willReturn($token);
         $token->getUser()->shouldBeCalled()->willReturn($user);
 
-        $request->getSession()->shouldBeCalled()->willReturn($session);
-        $container->get('event_dispatcher')->shouldBeCalled()->willReturn($eventDispatcher);
-        $eventDispatcher->dispatch(
-            'kreta_user_event_cookie', Argument::type('Kreta\Bundle\UserBundle\Event\CookieEvent')
-        )->shouldBeCalled()->willReturn($event);
-
         $container->has('templating')->shouldBeCalled()->willReturn(true);
         $container->get('templating')->shouldBeCalled()->willReturn($engine);
-        $event->getResponse()->shouldBeCalled()->willReturn($response);
-        $engine->renderResponse('KretaWebBundle:Default:app.html.twig', [], $response);
+        $engine->renderResponse('KretaWebBundle:Default:app.html.twig', [], $request);
 
         $this->indexAction($request);
     }

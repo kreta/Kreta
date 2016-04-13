@@ -52,14 +52,15 @@ $content-transition: .3s;
 }
 
 .content__right--visible {
+  height: calc(100vh - 60px);
   width: 100%;
 }
 
 .content__right-content {
-  padding: 40px;
   margin-left: auto;
   margin-right: auto;
   max-width: $content-right-width;
+  padding: 20px;
 }
 
 .content-right-layout__cross {
@@ -91,6 +92,7 @@ $content-transition: .3s;
   }
 
   .content__right--visible {
+    height: 100%;
     width: $content-right-width;
   }
 

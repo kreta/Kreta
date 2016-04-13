@@ -7,41 +7,60 @@
         <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div>
     {% endif %}
 
-    <h1>Sign in to <strong>kreta.io</strong></h1>
-    <p>Enter your <strong>email address</strong> and <strong>password</strong>.</p>
-    <form class="spacer-vertical-2" action="{{ path("fos_user_security_check") }}" method="post">
+    <form class="login__form" action="{{ path("fos_user_security_check") }}" method="post">
         <input type="hidden" name="_csrf_token" value="{{ csrf_token }}"/>
 
-        <input type="text"
-               id="username"
-               name="_username"
-               placeholder="Email"
-               value="{{ last_username }}"
-               required="required"
-               autofocus/>
+        <div class="login__form-field form-input">
+            <input class="form-input__input form-input__input--filled"
+                   type="text"
+                   id="username"
+                   name="_username"
+                   value="{{ last_username }}"
+                   required="required"
+                   autofocus/>
+            <label for="username" class="form-input__label">Email</label>
+            <div class="form-input__bar"></div>
+        </div>
 
-        <input type="password"
-               id="password"
-               name="_password"
-               placeholder="Password"
-               required="required"/>
+        <div class="login__form-field form-input">
+            <input class="form-input__input form-input__input--filled"
+                   type="password"
+                   id="password"
+                   name="_password"
+                   required="required"/>
+            <label for="username" class="form-input__label">Password</label>
+            <div class="form-input__bar"></div>
+        </div>
 
-        <button class="button green spacer-vertical-1" type="submit" id="_submit" name="_submit">
-            {{ 'security.login.submit'|trans }}
-        </button>
-
-        <p class="spacer-vertical-1">
+        <p class="login__remember-me-container">
+            <input class="form-input__checkbox"
+                   type="checkbox"
+                   id="remember_me"
+                   name="_remember_me"
+                   value="on"/>
             <label for="remember_me">
-                <input type="checkbox" id="remember_me" name="_remember_me" value="on"/>
                 {{ 'security.login.remember_me'|trans }}
             </label>
         </p>
-    </form>
-    <p>
-        <strong>Kreta.io</strong> is still in beta. If you notice any issue, please
-        <a href="http://github.com/kreta/kreta/issues">open a ticket</a>.</p>
 
-    <p class="font-size-2">
-        <a href="http://github.com/kreta"><i class="fa fa-github"></i></a>
+        <p class="login__submit-container">
+            <button class="button button--green"
+                    type="submit"
+                    id="_submit"
+                    name="_submit">
+                {{ 'security.login.submit'|trans }}
+            </button>
+        </p>
+    </form>
+
+    <p>
+        Kreta is still in beta. If you notice any issue, please
+        <a class="login__link" href="http://github.com/kreta/kreta/issues">open a ticket</a>.
+    </p>
+
+    <p>
+        <a href="http://github.com/kreta">
+            <img src="/bundles/kretaweb/svg/github.svg"/>
+        </a>
     </p>
 {% endblock content %}

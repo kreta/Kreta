@@ -24,12 +24,13 @@
         }
     ],
     "require": {
-        "php":             ">=5.4",
-        "kreta/user":      "^0.5.0",
-        "kreta/workflow":  "^0.5.0"
+        "php":                ">=5.5",
+        "kreta/organization": "^0.5.0"
+        "kreta/user":         "^0.5.0",
+        "kreta/workflow":     "^0.5.0"
     },
     "require-dev": {
-        "phpspec/phpspec": "^2.3"
+        "phpspec/phpspec":    "^2.4"
     },
     "repositories": [
         {

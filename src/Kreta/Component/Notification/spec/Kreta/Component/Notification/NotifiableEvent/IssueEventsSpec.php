@@ -18,7 +18,6 @@ use Kreta\Component\Notification\Model\Interfaces\NotificationInterface;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Symfony\Component\Routing\RouterInterface;
 
 /**
@@ -57,8 +56,7 @@ class IssueEventsSpec extends ObjectBehavior
         RouterInterface $router,
         NotificationFactory $factory,
         NotificationInterface $notification
-    )
-    {
+    ) {
         $issue->getAssignee()->shouldBeCalled()->willReturn($assignee);
         $issue->getReporter()->shouldBeCalled()->willReturn($reporter);
         $issue->getProject()->shouldBeCalled()->willReturn($project);

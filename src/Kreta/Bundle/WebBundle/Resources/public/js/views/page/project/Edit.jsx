@@ -9,24 +9,31 @@
  */
 
 import React from 'react';
+import ReactDOM from 'react-dom';
 
+import ProjectsActions from '../../../actions/Projects';
 import Button from './../../component/Button';
 import Form from './../../component/Form';
 import FormInput from './../../component/FormInput';
 import FormInputFile from './../../component/FormInputFile';
-import Project from './../../../models/Project';
+import FormSerializer from './../../../service/FormSerializer';
 
 class Edit extends React.Component {
-  static propTypes = {
-    project: React.PropTypes.object
-  };
+  updateProject(ev) {
+    ev.preventDefault();
+    const project = FormSerializer.serialize(ReactDOM.findDOMNode(this.refs.form));
+    this.props.dispatch(ProjectsActions.updateProject(project));
+  }
 
   render() {
-    const project = this.props.project,
-      image = project.get('image');
+    const
+      project = this.props.project,
+      image = project.image;
 
     return (
-      <Form model={Project}>
+      <Form errors={this.props.project.errors}
+            onSubmit={this.updateProject.bind(this)}
+            ref="form">
         <div className="section-header">
           <div className="section-header-title"></div>
           <div>
@@ -45,12 +52,7 @@ class Edit extends React.Component {
                    name="name"
                    tabIndex="1"
                    type="text"
-                   value={project.get('name')}/>
-        <FormInput label="Project short name"
-                   name="short_name"
-                   tabIndex="2"
-                   type="text"
-                   value={project.get('short_name')}/>
+                   value={project.name}/>
       </Form>
     );
   }

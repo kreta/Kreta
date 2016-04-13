@@ -80,8 +80,7 @@ class RegistrationControllerSpec extends ObjectBehavior
         EngineInterface $engine,
         FormView $formView,
         Response $response
-    )
-    {
+    ) {
         $request->query = $bag;
         $bag->get('token')->shouldBeCalled()->willReturn(null);
         $request->getMethod()->shouldBeCalled()->willReturn('POST');
@@ -120,8 +119,7 @@ class RegistrationControllerSpec extends ObjectBehavior
         UserManager $userManager,
         TokenStorageInterface $context,
         TokenInterface $token
-    )
-    {
+    ) {
         $request->query = $bag;
         $bag->get('token')->shouldBeCalled()->willReturn(null);
         $request->getMethod()->shouldBeCalled()->willReturn('POST');
@@ -172,8 +170,7 @@ class RegistrationControllerSpec extends ObjectBehavior
         TokenStorageInterface $context,
         TokenInterface $token,
         RouterInterface $router
-    )
-    {
+    ) {
         $request->query = $bag;
         $bag->get('token')->shouldBeCalled()->willReturn(null);
         $request->getMethod()->shouldBeCalled()->willReturn('POST');

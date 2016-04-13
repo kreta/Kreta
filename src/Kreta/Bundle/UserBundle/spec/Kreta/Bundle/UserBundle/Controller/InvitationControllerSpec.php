@@ -52,8 +52,7 @@ class InvitationControllerSpec extends ObjectBehavior
         UserInterface $user,
         UserHandler $handler,
         Mailer $mailer
-    )
-    {
+    ) {
         $request->request = $bag;
         $bag->get('force')->shouldBeCalled()->willReturn(false);
         $bag->remove('force')->shouldBeCalled();

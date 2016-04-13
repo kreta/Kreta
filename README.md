@@ -7,9 +7,9 @@
 [![Latest Stable Version](https://poser.pugx.org/kreta/kreta/v/stable.svg)](https://packagist.org/packages/kreta/kreta)
 [![Latest Unstable Version](https://poser.pugx.org/kreta/kreta/v/unstable.svg)](https://packagist.org/packages/kreta/kreta)
 
-Kreta is a set of components and bundles focused on **project management** for **PHP**, based on the
-**[Symfony][9]** framework. It has a very rich front-end that it is developed with the
-**[Backbone.js][10]** + **[React.js][11]** stuff and designed with **[Sass][12]**.
+Kreta is a set of components and bundles focused on **project management** for **[PHP][17]**, based on the
+**[Symfony][9]** framework. It has a very rich front-end that it is developed with **[React.js][10]** using
+**[Redux][11]** architecture and designed with **[Sass][12]** following **[BEM][16]** naming convention.
 
 Also, Kreta provides an **[standard edition][1]** that is a fully functional web application that shows in an easy
 way all the possibilities of the platform.
@@ -28,10 +28,9 @@ methodology with **[Jest][14]**.
 
 [![Coverage Status](https://img.shields.io/coveralls/kreta/kreta.svg)](https://coveralls.io/r/kreta/kreta)
 ##Contributing
-This project follows PHP coding standards, so pull requests need to execute the Fabien Potencier's [PHP-CS-Fixer][4]
-and Marc Morera's [PHP-Formatter][5]. Furthermore, if the PR creates some not-PHP file remember that you have to put
-the license header manually. In order to simplify we provide a Composer script that wraps all the commands related with
-this process.
+This project follows PHP coding standards, so pull requests need to execute the Fabien Potencier's [PHP-CS-Fixer][4].
+Furthermore, if the PR creates some not-PHP file remember that you have to put the license header manually.
+In order to simplify we provide a Composer script that wraps all the commands related with this process.
 ```bash
 $ composer run-script cs
 ```
@@ -61,14 +60,15 @@ Kreta is created by:
 [2]: https://github.com/kreta-plugins
 [3]: http://www.phpspec.net/
 [4]: http://cs.sensiolabs.org/
-[5]: https://github.com/mmoreram/php-formatter
 [6]: http://symfony.com/doc/current/contributing/code/index.html
 [7]: http://symfony.com/doc/current/contributing/code/patches.html#check-list
 [8]: http://symfony.com/doc/current/contributing/code/patches.html#make-a-pull-request
 [9]: http://symfony.com/
-[10]: http://backbonejs.org/
-[11]: https://facebook.github.io/react/
+[10]: https://facebook.github.io/react/
+[11]: http://redux.js.org/
 [12]: http://sass-lang.com/
 [13]: http://docs.behat.org/en/latest/
 [14]: https://facebook.github.io/jest/
 [15]: http://demo.kreta.io/
+[16]: https://en.bem.info/
+[17]: http://www.php.net/

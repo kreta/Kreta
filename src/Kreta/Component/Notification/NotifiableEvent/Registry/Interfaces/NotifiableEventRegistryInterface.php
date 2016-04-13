@@ -49,7 +49,7 @@ interface NotifiableEventRegistryInterface
      *
      * @param string $name The name of the notifiable event
      *
-     * @return boolean True if notifiable event exist, false if not
+     * @return bool True if notifiable event exist, false if not
      */
     public function hasNotifiableEvent($name);
 

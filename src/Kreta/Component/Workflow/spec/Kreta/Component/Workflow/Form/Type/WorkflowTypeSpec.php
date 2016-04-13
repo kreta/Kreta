@@ -14,7 +14,6 @@ namespace spec\Kreta\Component\Workflow\Form\Type;
 
 use Kreta\Component\Workflow\Factory\WorkflowFactory;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -33,8 +32,7 @@ class WorkflowTypeSpec extends ObjectBehavior
         TokenInterface $token,
         UserInterface $user,
         WorkflowFactory $factory
-    )
-    {
+    ) {
         $context->getToken()->shouldBeCalled()->willReturn($token);
         $token->getUser()->shouldBeCalled()->willReturn($user);
         $this->beConstructedWith('Kreta\Component\Workflow\Model\Workflow', $factory, $context);

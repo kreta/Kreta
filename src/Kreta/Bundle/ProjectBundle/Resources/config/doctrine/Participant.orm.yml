@@ -9,7 +9,7 @@
 Kreta\Component\Project\Model\Participant:
     type: entity
     repositoryClass: Kreta\Component\Project\Repository\ParticipantRepository
-    table: participant
+    table: project_participant
     id:
         project:
             type: entity

@@ -36,7 +36,7 @@ class DoctrineEventSubscriber extends AbstractEventSubscriber implements EventSu
             Events::prePersist,
             Events::postPersist,
             Events::preUpdate,
-            Events::postUpdate
+            Events::postUpdate,
         ];
     }
 

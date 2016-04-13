@@ -14,32 +14,40 @@ import classNames from 'classnames';
 import React from 'react';
 
 class Modal extends React.Component {
-  state = {
-    visible: false
+  static propTypes = {
+    isOpen: React.PropTypes.bool.isRequired,
+    onRequestClose: React.PropTypes.func
   };
 
-  openModal() {
-    this.setState({visible: true});
+  keyUpListenerRef = null;
+
+  componentDidMount() {
+    this.keyUpListenerRef = this.handleKeyUp.bind(this);
+    window.addEventListener('keyup', this.keyUpListenerRef);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('keyup', this.keyUpListenerRef);
   }
 
   closeModal() {
-    this.setState({visible: false});
+    this.props.onRequestClose();
   }
 
   handleKeyUp(ev) {
     if (ev.which === 27) {
-      this.closeModal();
+      this.props.onRequestClose();
     }
   }
 
   render() {
     const modalClasses = classNames({
         'modal': true,
-        'modal--visible': this.state.visible
+        'modal--visible': this.props.isOpen
       }),
       overlayClasses = classNames({
         'modal__overlay': true,
-        'modal__overlay--visible': this.state.visible
+        'modal__overlay--visible': this.props.isOpen
       });
 
     return (

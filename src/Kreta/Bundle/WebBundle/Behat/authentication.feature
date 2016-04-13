@@ -25,7 +25,7 @@ Feature: Manage authentication
       | password | 123456         |
     And I press "_submit"
     Then I should be on the dashboard
-    And I should see refresh_token and access_token cookies
+    And I should see an access_token inside cookie
 
   Scenario: Login with invalid credentials
     Given I am on "/login"

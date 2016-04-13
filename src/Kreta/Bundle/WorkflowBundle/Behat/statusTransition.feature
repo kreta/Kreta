@@ -22,10 +22,13 @@ Feature: Manage status transition
       | id | name       | creator        |
       | 0  | Workflow 1 | user@kreta.com |
       | 1  | Workflow 2 | user@kreta.com |
+    And the following organizations exist:
+      | id | name                | creator        |
+      | 0  | Test organization 1 | user@kreta.com |
     And the following projects exist:
-      | id | name           | shortName | creator        | workflow   |
-      | 0  | Test project 1 | TPR1      | user@kreta.com | Workflow 1 |
-      | 1  | Test project 2 | TPR2      | user@kreta.com | Workflow 2 |
+      | id | name           | creator        | workflow   | organization        |
+      | 0  | Test project 1 | user@kreta.com | Workflow 1 | Test organization 1 |
+      | 1  | Test project 2 | user@kreta.com | Workflow 2 | Test organization 1 |
     And the following statuses exist:
       | id | color   | name        | workflow   |
       | 0  | #27ae60 | Open        | Workflow 1 |
@@ -46,9 +49,9 @@ Feature: Manage status transition
       | Test project 1 | user2@kreta.com | ROLE_PARTICIPANT |
       | Test project 2 | user2@kreta.com | ROLE_PARTICIPANT |
     And the following issue priorities exist:
-      | id | name    | color   | project        |
-      | 0  | Low     | #969696 | Test project 1 |
-      | 1  | Medium  | #67b86a | Test project 1 |
+      | id | name   | color   | project        |
+      | 0  | Low    | #969696 | Test project 1 |
+      | 1  | Medium | #67b86a | Test project 1 |
     And the following issues exist:
       | id | numericId | project        | title        | description | reporter       | assignee       | status   | priority | createdAt  |
       | 0  | 1         | Test project 1 | Test issue 1 | Description | user@kreta.com | user@kreta.com | Open     | 1        | 2014-10-21 |

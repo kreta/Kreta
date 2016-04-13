@@ -34,7 +34,7 @@ class WorkflowVoter extends AbstractVoter
     protected $attributes = [
         self::EDIT,
         self::VIEW,
-        self::MANAGE_STATUS
+        self::MANAGE_STATUS,
     ];
 
     /**

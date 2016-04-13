@@ -40,11 +40,11 @@ class UserFactory
     /**
      * Creates an instance of user.
      *
-     * @param string  $email     The email
-     * @param string  $username  The username
-     * @param string  $firstName The firstName
-     * @param string  $lastName  The lastName
-     * @param boolean $enabled   Boolean that checks if the user is enabled or not, by default is false
+     * @param string $email     The email
+     * @param string $username  The username
+     * @param string $firstName The firstName
+     * @param string $lastName  The lastName
+     * @param bool   $enabled   Boolean that checks if the user is enabled or not, by default is false
      *
      * @return \Kreta\Component\User\Model\Interfaces\UserInterface
      */

@@ -56,8 +56,7 @@ class NotificationRepositorySpec extends ObjectBehavior
         Expr $expr,
         Expr\Comparison $comparison,
         AbstractQuery $query
-    )
-    {
+    ) {
         $queryBuilder = $this->getQueryBuilderSpec($manager, $queryBuilder);
         $queryBuilder->select('count(n.id)')->shouldBeCalled()->willReturn($queryBuilder);
         $this->addCriteriaSpec($queryBuilder, $expr, ['user' => $user], $comparison);
@@ -76,8 +75,7 @@ class NotificationRepositorySpec extends ObjectBehavior
         Expr\Comparison $comparison,
         AbstractQuery $query,
         NotificationInterface $notification
-    )
-    {
+    ) {
         $this->getQueryBuilderSpec($manager, $queryBuilder);
         $this->addCriteriaSpec($queryBuilder, $expr, ['user' => $user], $comparison);
         $this->addCriteriaSpec($queryBuilder, $expr, ['read' => false], $comparison);
@@ -96,8 +94,7 @@ class NotificationRepositorySpec extends ObjectBehavior
         AbstractQuery $query,
         NotificationInterface $notification,
         UserInterface $user
-    )
-    {
+    ) {
         $this->getQueryBuilderSpec($manager, $queryBuilder);
         $this->addEqCriteriaSpec($queryBuilder, $expr, ['user' => $user], $comparison);
         $this->addLikeCriteriaSpec($queryBuilder, $expr, ['title' => 'notification-title'], $comparison);
@@ -122,8 +119,7 @@ class NotificationRepositorySpec extends ObjectBehavior
         AbstractQuery $query,
         NotificationInterface $notification,
         UserInterface $user
-    )
-    {
+    ) {
         $this->getQueryBuilderSpec($manager, $queryBuilder);
         $this->addEqCriteriaSpec($queryBuilder, $expr, ['id' => 'notification-id'], $comparison);
         $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
@@ -144,8 +140,7 @@ class NotificationRepositorySpec extends ObjectBehavior
         NotificationInterface $notification,
         UserInterface $user,
         UserInterface $user2
-    )
-    {
+    ) {
         $this->getQueryBuilderSpec($manager, $queryBuilder);
         $this->addEqCriteriaSpec($queryBuilder, $expr, ['id' => 'notification-id'], $comparison);
         $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);

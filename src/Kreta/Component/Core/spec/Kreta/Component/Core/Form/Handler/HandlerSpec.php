@@ -15,7 +15,6 @@ namespace spec\Kreta\Component\Core\Form\Handler;
 use Doctrine\Common\Persistence\ObjectManager;
 use Kreta\Component\Core\Form\Exception\InvalidFormException;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\Form\FormInterface;
@@ -34,7 +33,7 @@ class HandlerSpec extends ObjectBehavior
     /**
      * The object stub.
      *
-     * @var Object
+     * @var object
      */
     protected $object;
 
@@ -58,8 +57,7 @@ class HandlerSpec extends ObjectBehavior
         FormFactoryInterface $formFactory,
         FormBuilderInterface $formBuilder,
         FormInterface $form
-    )
-    {
+    ) {
         $formFactory->createNamedBuilder('', 'kreta_dummy_type', null, [])
             ->shouldBeCalled()->willReturn($formBuilder);
         $formBuilder->getForm()->shouldBeCalled()->willReturn($form);
@@ -73,8 +71,7 @@ class HandlerSpec extends ObjectBehavior
         FormFactoryInterface $formFactory,
         FormBuilderInterface $formBuilder,
         FormInterface $form
-    )
-    {
+    ) {
         $formFactory->createNamedBuilder('', 'kreta_dummy_type', $this->object, [])
             ->shouldBeCalled()->willReturn($formBuilder);
         $formBuilder->getForm()->shouldBeCalled()->willReturn($form);
@@ -89,8 +86,7 @@ class HandlerSpec extends ObjectBehavior
         FormInterface $form,
         FormError $formError,
         FormInterface $child
-    )
-    {
+    ) {
         $formFactory->createNamedBuilder('', 'kreta_dummy_type', null, [])
             ->shouldBeCalled()->willReturn($formBuilder);
         $formBuilder->getForm()->shouldBeCalled()->willReturn($form);
@@ -117,8 +113,7 @@ class HandlerSpec extends ObjectBehavior
         FormInterface $form,
         FileBag $fileBag,
         ObjectManager $manager
-    )
-    {
+    ) {
         $formFactory->createNamedBuilder('', 'kreta_dummy_type', null, [])
             ->shouldBeCalled()->willReturn($formBuilder);
         $formBuilder->getForm()->shouldBeCalled()->willReturn($form);

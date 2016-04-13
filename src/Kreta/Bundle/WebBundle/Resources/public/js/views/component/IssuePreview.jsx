@@ -17,8 +17,8 @@ import UserImage from './UserImage';
 
 class IssuePreview extends React.Component {
   render() {
-    const priority = this.props.issue.get('priority'),
-      statusType = this.props.issue.get('status').type,
+    const priority = this.props.issue.priority,
+      statusType = this.props.issue.status.type,
       classes = classnames({
         'issue-preview': true,
         'issue-preview--highlight': this.props.selected,
@@ -28,21 +28,22 @@ class IssuePreview extends React.Component {
     return (
       <div className={classes} onClick={this.props.onClick}>
         <a className="issue-preview__title">
-          {this.props.issue.get('title')}
+          {this.props.issue.title}
         </a>
         <div className="issue-preview__icons">
           <span data-tooltip-text={`
-              ${this.props.issue.get('assignee').first_name}
-              ${this.props.issue.get('assignee').last_name}`}>
+              ${this.props.issue.assignee.first_name}
+              ${this.props.issue.assignee.last_name}`}>
             <svg className={`issue-preview__priority issue-preview__priority--${statusType}`}>
-              <circle r="20" cx="21" cy="21"
-                      className="issue-preview__priority-back"
+              <circle className="issue-preview__priority-back"
+                      cx="21" cy="21" r="20"
                       style={{stroke: priority.color}}/>
-              <circle r="20" cx="21" cy="21" transform="rotate(-90, 21, 21)"
-                      className="issue-preview__priority-front"
-                      style={{stroke: priority.color}}/>
+              <circle className="issue-preview__priority-front"
+                      cx="21" cy="21" r="20"
+                      style={{stroke: priority.color}}
+                      transform="rotate(-90, 21, 21)"/>
             </svg>
-            <UserImage user={this.props.issue.get('assignee')}/>
+            <UserImage user={this.props.issue.assignee}/>
           </span>
         </div>
       </div>

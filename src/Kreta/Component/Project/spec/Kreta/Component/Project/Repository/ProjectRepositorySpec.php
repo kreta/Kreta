@@ -56,8 +56,7 @@ class ProjectRepositorySpec extends ObjectBehavior
         Expr $expr,
         Expr\Comparison $comparison,
         AbstractQuery $query
-    )
-    {
+    ) {
         $queryBuilder = $this->getQueryBuilderSpec($manager, $queryBuilder);
         $this->addCriteriaSpec($queryBuilder, $expr, ['par.user' => $user], $comparison);
         $this->orderBySpec($queryBuilder, ['name' => 'ASC']);
@@ -67,18 +66,20 @@ class ProjectRepositorySpec extends ObjectBehavior
         $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);
         $query->getResult()->shouldBeCalled()->willReturn([$project]);
 
-        $this->findByParticipant($user, ['name' => 'ASC'], 10, 1)->shouldReturn([$project]);
+        $this->findByParticipant($user, null, ['name' => 'ASC'], 10, 1)->shouldReturn([$project]);
     }
 
     protected function getQueryBuilderSpec(EntityManager $manager, QueryBuilder $queryBuilder)
     {
         $manager->createQueryBuilder()->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->select('p')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->addSelect(['img', 'i', 'w'])->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->addSelect(['img', 'i', 'o', 'w', 'c'])->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->from(Argument::any(), 'p', null)->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->leftJoin('p.image', 'img')->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->leftJoin('p.issues', 'i')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->leftJoin('p.organization', 'o')->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->join('p.participants', 'par')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->join('p.creator', 'c')->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->join('p.workflow', 'w')->shouldBeCalled()->willReturn($queryBuilder);
 
         return $queryBuilder;

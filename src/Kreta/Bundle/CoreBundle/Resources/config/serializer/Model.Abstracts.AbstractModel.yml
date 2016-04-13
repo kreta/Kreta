@@ -20,6 +20,10 @@ Kreta\Component\Core\Model\Abstracts\AbstractModel:
                 - labelList
                 - notification
                 - notificationList
+                - organization
+                - organizationList
+                - organizationParticipant
+                - organizationParticipantList
                 - participant
                 - participantList
                 - profile

@@ -34,8 +34,7 @@ class ParticipantTypeSpec extends ObjectBehavior
         TokenInterface $token,
         UserInterface $user,
         ParticipantFactory $factory
-    )
-    {
+    ) {
         $context->getToken()->shouldBeCalled()->willReturn($token);
         $token->getUser()->shouldBeCalled()->willReturn($user);
         $this->beConstructedWith('Kreta\Component\Project\Model\Participant', $factory, $context);
@@ -56,7 +55,7 @@ class ParticipantTypeSpec extends ObjectBehavior
         $builder->add('role', 'Kreta\Component\Project\Form\Type\RoleType')->shouldBeCalled()->willReturn($builder);
         $builder->add('user', 'Symfony\Bridge\Doctrine\Form\Type\EntityType', [
             'class'   => 'Kreta\Component\User\Model\User',
-            'choices' => [$user]
+            'choices' => [$user],
         ])->shouldBeCalled()->willReturn($builder);
 
         $this->buildForm($builder, ['users' => [$user]]);

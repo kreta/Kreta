@@ -112,7 +112,7 @@ class IssueStateMachine extends StateMachine
 
             $transitions[$transition->getName()] = [
                 'from' => $from,
-                'to'   => $transition->getState()->getName()
+                'to'   => $transition->getState()->getName(),
             ];
         }
 

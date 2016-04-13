@@ -6,22 +6,59 @@
 // For the full copyright and license information, please view the LICENSE
 // file that was distributed with this source code.
 
-@import 'base/reset';
-@import 'base/colors';
-@import 'base/common';
+@import
+  'base/reset',
+  'base/colors',
+  'base/common';
 
-@import 'helpers/spacing';
+@import
+  'components/button',
+  'components/form';
 
-@import 'components/button';
-@import 'components/form';
+$column-gutter: 15px;
 
-.login-container {
+.login {
   color: $main-black;
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: column;
+  height: 100%;
+  justify-content: center;
   margin: auto;
   max-width: 500px;
+  padding-left: $column-gutter;
+  padding-right: $column-gutter;
   text-align: center;
 }
 
-.login-logo {
-  font-size: 3em;
+.login__form-field,
+.login__logo {
+  margin-bottom: $column-gutter;
+}
+
+.login__submit-container,
+.login__form {
+  margin-bottom: $column-gutter;
+  margin-top: $column-gutter;
+}
+
+.login__remember-me-container {
+  align-items: center;
+  display: flex;
+  margin-top: $column-gutter;
+}
+
+.login__link {
+  color: $main-green;
+  transition: color .4s;
+
+  &:hover {
+    color: $grey;
+  }
+}
+
+@media screen and (min-height: 300px) {
+  .login {
+    height: 100vh;
+  }
 }

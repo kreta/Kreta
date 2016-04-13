@@ -29,11 +29,10 @@ use Symfony\Component\HttpFoundation\Request;
 class ProjectController extends Controller
 {
     /**
-     * Returns all the projects of current user, it admits sort, limit and offset.
+     * Returns all the projects of current user, it admits limit and offset.
      *
      * @param \FOS\RestBundle\Request\ParamFetcher $paramFetcher The param fetcher
      *
-     * @QueryParam(name="sort", requirements="(name|shortName)", default="name", description="Sort")
      * @QueryParam(name="limit", requirements="\d+", default="9999", description="Amount of projects to be returned")
      * @QueryParam(name="offset", requirements="\d+", default="0", description="Offset in pages")
      *
@@ -46,7 +45,8 @@ class ProjectController extends Controller
     {
         return $this->get('kreta_project.repository.project')->findByParticipant(
             $this->getUser(),
-            [$paramFetcher->get('sort') => 'ASC'],
+            null,
+            ['name' => 'ASC'],
             $paramFetcher->get('limit'),
             $paramFetcher->get('offset')
         );
@@ -70,7 +70,7 @@ class ProjectController extends Controller
     }
 
     /**
-     * Creates new project for name and shortName given.
+     * Creates new project with a name given.
      *
      * @param \Symfony\Component\HttpFoundation\Request $request The request
      *

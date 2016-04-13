@@ -14,6 +14,7 @@ namespace Kreta\Component\Project\Model\Interfaces;
 
 use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
 use Kreta\Component\Media\Model\Interfaces\MediaInterface;
+use Kreta\Component\Organization\Model\Interfaces\OrganizationInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
 
@@ -165,20 +166,36 @@ interface ProjectInterface
     public function removeIssuePriority(IssuePriorityInterface $issuePriority);
 
     /**
-     * Gets short name.
+     * Gets organization.
      *
-     * @return string
+     * @return OrganizationInterface|null
      */
-    public function getShortName();
+    public function getOrganization();
 
     /**
-     * Sets short name.
+     * Sets organization.
      *
-     * @param string $shortName The short name
+     * @param OrganizationInterface|null $organization The organization
      *
      * @return $this self Object
      */
-    public function setShortName($shortName);
+    public function setOrganization(OrganizationInterface $organization = null);
+
+    /**
+     * Gets slug.
+     *
+     * @return string
+     */
+    public function getSlug();
+
+    /**
+     * Sets slug.
+     *
+     * @param string $slug The slug
+     *
+     * @return $this self Object
+     */
+    public function setSlug($slug);
 
     /**
      * Gets role of user given.
@@ -188,6 +205,22 @@ interface ProjectInterface
      * @return string
      */
     public function getUserRole(UserInterface $user);
+
+    /**
+     * Gets the creator.
+     *
+     * @return UserInterface
+     */
+    public function getCreator();
+
+    /**
+     * Gets role of user given.
+     *
+     * @param UserInterface $creator The creator
+     *
+     * @return $this self Object
+     */
+    public function setCreator(UserInterface $creator);
 
     /**
      * Gets workflow.
