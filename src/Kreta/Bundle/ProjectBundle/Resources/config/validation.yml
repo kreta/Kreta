@@ -38,6 +38,7 @@ Kreta\Component\Project\Model\Project:
     constraints:
         - Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity:
             fields: [name, organization]
+            ignoreNull: false
             message: 'A project with identical name is already exists in this organization'
     properties:
         name:

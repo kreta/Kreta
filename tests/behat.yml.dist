@@ -233,7 +233,7 @@ default:
                 - Kreta\Bundle\UserBundle\Behat\Context\UserContext
                 - Kreta\Bundle\WorkflowBundle\Behat\Context\WorkflowContext
             filters:
-                tags: "@organization_private"
+                tags: "@organizationPrivate"
         project_private:
             paths:
                 features: src/Kreta/Bundle/WebBundle/Behat/features/project
@@ -249,7 +249,7 @@ default:
                 - Kreta\Bundle\UserBundle\Behat\Context\UserContext
                 - Kreta\Bundle\WorkflowBundle\Behat\Context\WorkflowContext
             filters:
-                tags: "@project_private"
+                tags: "@projectPrivate"
     extensions:
         Behat\MinkExtension:
             sessions:

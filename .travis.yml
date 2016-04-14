@@ -72,8 +72,10 @@ script:
     - vendor/bin/behat --stop-on-failure --suite=notification
     - vendor/bin/behat --stop-on-failure --suite=oauth
     - vendor/bin/behat --stop-on-failure --suite=organization
+    - vendor/bin/behat --stop-on-failure --suite=organizationPrivate
     - vendor/bin/behat --stop-on-failure --suite=organizationParticipant
     - vendor/bin/behat --stop-on-failure --suite=project
+    - vendor/bin/behat --stop-on-failure --suite=projectPrivate
     - vendor/bin/behat --stop-on-failure --suite=projectParticipant
     - vendor/bin/behat --stop-on-failure --suite=profile
     - vendor/bin/behat --stop-on-failure --suite=status
