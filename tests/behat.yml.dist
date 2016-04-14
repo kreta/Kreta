@@ -217,7 +217,7 @@ default:
                 tags: "@workflow"
 
 #### PRIVATE API #####
-        organization_private:
+        organizationPrivate:
             paths:
                 features: src/Kreta/Bundle/WebBundle/Behat/features/organization
             contexts:
@@ -234,7 +234,7 @@ default:
                 - Kreta\Bundle\WorkflowBundle\Behat\Context\WorkflowContext
             filters:
                 tags: "@organizationPrivate"
-        project_private:
+        projectPrivate:
             paths:
                 features: src/Kreta/Bundle/WebBundle/Behat/features/project
             contexts:
