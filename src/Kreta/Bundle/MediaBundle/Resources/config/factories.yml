@@ -8,5 +8,6 @@
 
 services:
     kreta_media.factory.media:
-        class: %kreta_media.factory_media.class%
-        arguments: [%kreta_media.media.class%]
+        class: '%kreta_media.factory_media.class%'
+        arguments:
+            - '%kreta_media.media.class%'

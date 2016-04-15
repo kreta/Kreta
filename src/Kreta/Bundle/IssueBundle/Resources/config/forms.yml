@@ -15,9 +15,9 @@ services:
 
 #### TYPES ####
     kreta_issue.form_type.issue:
-        class: %kreta_issue.form_type.issue.class%
+        class: '%kreta_issue.form_type.issue.class%'
         arguments:
-            - %kreta_issue.issue.class%
+            - '%kreta_issue.issue.class%'
             - '@kreta_issue.factory.issue'
             - '@security.token_storage'
             - null

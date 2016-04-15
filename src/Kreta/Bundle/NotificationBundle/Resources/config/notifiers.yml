@@ -8,10 +8,11 @@
 
 services:
     kreta_notification.notifier_registry:
-        class: %kreta_notification.notifier_registry.class%
+        class: '%kreta_notification.notifier_registry.class%'
 
     kreta_notification.notifier.email:
         class: Kreta\Component\Notification\Notifier\EmailNotifier
-        arguments: ['@mailer']
+        arguments:
+            - '@mailer'
         tags:
             - { name: kreta_notification.notifier, label: email }

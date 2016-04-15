@@ -14,7 +14,7 @@ services:
             - Kreta\Component\User\Form\Type\InvitationType
 
     kreta_user.form_handler.profile:
-        class: %kreta_user.form_user_handler.class%
+        class: '%kreta_user.form_user_handler.class%'
         parent: kreta_core.form_handler.handler
         arguments:
             - Kreta\Component\User\Form\Type\ProfileType
@@ -28,9 +28,9 @@ services:
 
 #### TYPES ####
     kreta_user.form_type.invitation:
-        class: %kreta_user.form_type.invitation.class%
+        class: '%kreta_user.form_type.invitation.class%'
         arguments:
-            - %kreta_user.user.class%
+            - '%kreta_user.user.class%'
             - '@kreta_user.factory.user'
             - '@security.token_storage'
             - null
@@ -39,9 +39,9 @@ services:
             - { name: form.type }
 
     kreta_user.form_type.profile:
-        class: %kreta_user.form_type.profile.class%
+        class: '%kreta_user.form_type.profile.class%'
         arguments:
-            - %kreta_user.user.class%
+            - '%kreta_user.user.class%'
             - '@kreta_user.factory.user'
             - '@security.token_storage'
             - null
@@ -50,9 +50,9 @@ services:
             - { name: form.type }
 
     kreta_user.form_type.registration:
-        class: %kreta_user.form_type.registration.class%
+        class: '%kreta_user.form_type.registration.class%'
         arguments:
-            - %kreta_user.user.class%
+            - '%kreta_user.user.class%'
             - '@kreta_user.factory.user'
             - null
             - null

@@ -12,10 +12,10 @@ imports:
     - { resource: doctrine.yml }
 
 framework:
-    translator: { fallbacks: [%locale%] }
-    secret: %secret%
+    translator: { fallbacks: ['%locale%'] }
+    secret: '%secret%'
     router:
-        resource: %kernel.root_dir%/config/routing.yml
+        resource: '%kernel.root_dir%/config/routing.yml'
         strict_requirements: true
     profiler:
         collect: false
@@ -24,7 +24,7 @@ framework:
     validation: { enable_annotations: true }
     templating:
         engines: [twig]
-    default_locale:  %locale%
+    default_locale: '%locale%'
     trusted_proxies: ~
     test: ~
     session:
@@ -35,24 +35,24 @@ framework:
     assets: ~
 
 twig:
-    debug: %kernel.debug%
-    strict_variables: %kernel.debug%
+    debug: '%kernel.debug%'
+    strict_variables: '%kernel.debug%'
 
 swiftmailer:
     disable_delivery: true
-    transport: %mailer_transport%
-    encryption: %mailer_encryption%
-    port: %mailer_port%
-    host: %mailer_host%
-    username: %mailer_user%
-    password: %mailer_password%
+    transport: '%mailer_transport%'
+    encryption: '%mailer_encryption%'
+    port: '%mailer_port%'
+    host: '%mailer_host%'
+    username: '%mailer_user%'
+    password: '%mailer_password%'
     spool: { type: memory }
 
 bazinga_hateoas:
     metadata:
         cache: file
         file_cache:
-            dir: %kernel.cache_dir%/hateoas
+            dir: '%kernel.cache_dir%/hateoas'
 
 fos_oauth_server:
     db_driver: orm
@@ -123,29 +123,29 @@ knp_gaufrette:
     adapters:
         kreta_image_organizations:
             local:
-                directory: %kernel.root_dir%/../web/media/image
+                directory: '%kernel.root_dir%/../web/media/image'
                 create: true
         kreta_image_projects:
             local:
-                directory: %kernel.root_dir%/../web/media/image
+                directory: '%kernel.root_dir%/../web/media/image'
                 create: true
         kreta_image_users:
             local:
-                directory: %kernel.root_dir%/../web/media/image
+                directory: '%kernel.root_dir%/../web/media/image'
                 create: true
     filesystems:
         kreta_image_organizations:
-                adapter: %organizations.image.uploader.filesystem%
+                adapter: '%organizations.image.uploader.filesystem%'
         kreta_image_projects:
-                adapter: %projects.image.uploader.filesystem%
+                adapter: '%projects.image.uploader.filesystem%'
         kreta_image_users:
-            adapter: %users.image.uploader.filesystem%
+            adapter: '%users.image.uploader.filesystem%'
 
 liip_imagine:
     loaders:
         default:
             filesystem:
-                data_root: %kernel.root_dir%/../web/media/image
+                data_root: '%kernel.root_dir%/../web/media/image'
     filter_sets:
         kreta_small:
             filters:

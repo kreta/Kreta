@@ -9,7 +9,7 @@
 services:
 #### HANDLERS ####
     kreta_organization.form_handler.organization:
-        class: %kreta_organization.form_handler.organization.class%
+        class: '%kreta_organization.form_handler.organization.class%'
         parent: kreta_core.form_handler.handler
         arguments:
             - Kreta\Component\Organization\Form\Type\OrganizationType
@@ -22,22 +22,22 @@ services:
 
 #### TYPES ####
     kreta_organization.form_type.organization:
-        class: %kreta_organization.form_type.organization.class%
+        class: '%kreta_organization.form_type.organization.class%'
         arguments:
-            - %kreta_organization.organization.class%
+            - '%kreta_organization.organization.class%'
             - '@kreta_organization.factory.organization'
             - '@security.token_storage'
         tags:
             - { name: form.type }
     kreta_organization.form_type.participant:
-        class: %kreta_organization.form_type.participant.class%
+        class: '%kreta_organization.form_type.participant.class%'
         arguments:
-            - %kreta_organization.participant.class%
+            - '%kreta_organization.participant.class%'
             - '@kreta_organization.factory.participant'
             - '@security.token_storage'
         tags:
             - { name: form.type }
     kreta_organization.form_type.role:
-        class: %kreta_organization.form_type.role.class%
+        class: '%kreta_organization.form_type.role.class%'
         tags:
             - { name: form.type }

@@ -8,5 +8,6 @@
 
 services:
     kreta_notification.factory.notification:
-        class: %kreta_notification.factory_notification.class%
-        arguments: [%kreta_notification.notification.class%]
+        class: '%kreta_notification.factory_notification.class%'
+        arguments:
+            - '%kreta_notification.notification.class%'

@@ -23,26 +23,26 @@ services:
 
 #### TYPES ####
     kreta_workflow.form_type.status:
-        class: %kreta_workflow.form_type.status.class%
+        class: '%kreta_workflow.form_type.status.class%'
         arguments:
-            - %kreta_workflow.status.class%
+            - '%kreta_workflow.status.class%'
             - '@kreta_workflow.factory.status'
             - '@security.token_storage'
         tags:
             - { name: form.type }
     kreta_workflow.form_type.status_transition:
-        class: %kreta_workflow.form_type.status_transition.class%
+        class: '%kreta_workflow.form_type.status_transition.class%'
         arguments:
-            - %kreta_workflow.status_transition.class%
+            - '%kreta_workflow.status_transition.class%'
             - '@kreta_workflow.factory.status_transition'
             - '@security.token_storage'
             - '@doctrine.orm.entity_manager'
         tags:
             - { name: form.type }
     kreta_workflow.form_type.workflow:
-        class: %kreta_workflow.form_type.workflow.class%
+        class: '%kreta_workflow.form_type.workflow.class%'
         arguments:
-            - %kreta_workflow.workflow.class%
+            - '%kreta_workflow.workflow.class%'
             - '@kreta_workflow.factory.workflow'
             - '@security.token_storage'
         tags:

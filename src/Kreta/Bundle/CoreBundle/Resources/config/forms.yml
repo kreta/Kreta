@@ -8,7 +8,7 @@
 
 services:
     kreta_core.form_handler.handler:
-        class: %kreta_core.form_handler.handler.class%
+        class: '%kreta_core.form_handler.handler.class%'
         abstract: true
         arguments:
             - '@form.factory'

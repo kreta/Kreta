@@ -9,5 +9,6 @@
 services:
     kreta_media.subscriber.media_url.abstract:
         abstract: true
-        class: %kreta_media.subscriber.media_url.abstract.class%
-        arguments: ['@router']
+        class: '%kreta_media.subscriber.media_url.abstract.class%'
+        arguments:
+            - '@router'

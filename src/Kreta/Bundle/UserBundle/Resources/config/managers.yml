@@ -8,8 +8,8 @@
 
 services:
     kreta_user.manager.oauth_manager:
-        class: %kreta_user.manager.oauth_manager.class%
+        class: '%kreta_user.manager.oauth_manager.class%'
         arguments:
             - '@fos_oauth_server.client_manager'
             - '@fos_oauth_server.server'
-            - %oauth.web.client_secret%
+            - '%oauth.web.client_secret%'

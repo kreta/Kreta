@@ -8,32 +8,32 @@
 
 services:
     kreta_project.repository.label:
-        class: %kreta_project.repository_label.class%
+        class: '%kreta_project.repository_label.class%'
         factory:
             - '@doctrine.orm.entity_manager'
             - getRepository
         arguments:
-            - %kreta_project.label.class%
+            - '%kreta_project.label.class%'
     kreta_project.repository.participant:
-        class: %kreta_project.repository_participant.class%
+        class: '%kreta_project.repository_participant.class%'
         factory:
             - '@doctrine.orm.entity_manager'
             - getRepository
         arguments:
-            - %kreta_project.participant.class%
+            - '%kreta_project.participant.class%'
 
     kreta_project.repository.issue_priority:
-        class: %kreta_project.repository_issue_priority.class%
+        class: '%kreta_project.repository_issue_priority.class%'
         factory:
             - '@doctrine.orm.entity_manager'
             - getRepository
         arguments:
-            - %kreta_project.issue_priority.class%
+            - '%kreta_project.issue_priority.class%'
 
     kreta_project.repository.project:
-        class: %kreta_project.repository_project.class%
+        class: '%kreta_project.repository_project.class%'
         factory:
             - '@doctrine.orm.entity_manager'
             - getRepository
         arguments:
-            - %kreta_project.project.class%
+            - '%kreta_project.project.class%'

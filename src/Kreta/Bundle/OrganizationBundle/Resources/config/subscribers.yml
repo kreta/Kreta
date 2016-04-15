@@ -9,6 +9,8 @@
 services:
     kreta_organization.subscriber.image_url:
         parent: kreta_media.subscriber.media_url.abstract
-        arguments: [%kreta_organization.organization.class%, 'image']
+        arguments:
+            - '%kreta_organization.organization.class%'
+            - 'image'
         tags:
             - { name: jms_serializer.event_subscriber }

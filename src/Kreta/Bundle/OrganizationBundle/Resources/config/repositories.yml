@@ -8,17 +8,17 @@
 
 services:
     kreta_organization.repository.participant:
-        class: %kreta_organization.repository_participant.class%
+        class: '%kreta_organization.repository_participant.class%'
         factory:
             - '@doctrine.orm.entity_manager'
             - getRepository
         arguments:
-            - %kreta_organization.participant.class%
+            - '%kreta_organization.participant.class%'
 
     kreta_organization.repository.organization:
-        class: %kreta_organization.repository_organization.class%
+        class: '%kreta_organization.repository_organization.class%'
         factory:
             - '@doctrine.orm.entity_manager'
             - getRepository
         arguments:
-            - %kreta_organization.organization.class%
+            - '%kreta_organization.organization.class%'

@@ -8,6 +8,6 @@
 
 services:
     kreta_user.factory.user:
-        class: %kreta_user.factory_user.class%
+        class: '%kreta_user.factory_user.class%'
         arguments:
-            - %kreta_user.user.class%
+            - '%kreta_user.user.class%'

@@ -15,9 +15,9 @@ services:
 
 #### TYPES ####
     kreta_notification.form_type.notifcation:
-        class: %kreta_notification.form_type.notification.class%
+        class: '%kreta_notification.form_type.notification.class%'
         arguments:
-            - %kreta_notification.notification.class%
+            - '%kreta_notification.notification.class%'
             - '@kreta_notification.factory.notification'
             - '@security.token_storage'
         tags:

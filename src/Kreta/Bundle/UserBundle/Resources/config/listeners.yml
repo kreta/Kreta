@@ -23,7 +23,7 @@ services:
 
 #### Override FOSOAuthServerBundle's service ####
     fos_oauth_server.security.authentication.listener:
-        class: %fos_oauth_server.security.authentication.listener.class%
+        class: '%fos_oauth_server.security.authentication.listener.class%'
         arguments:
             - '@security.token_storage'
             - '@security.authentication.manager'

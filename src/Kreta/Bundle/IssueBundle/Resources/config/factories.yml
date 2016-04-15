@@ -8,8 +8,10 @@
 
 services:
     kreta_issue.factory.issue:
-        class: %kreta_issue.factory_issue.class%
-        arguments: [%kreta_issue.issue.class%]
+        class: '%kreta_issue.factory_issue.class%'
+        arguments:
+            - '%kreta_issue.issue.class%'
     kreta_issue.factory.resolution:
-        class: %kreta_issue.factory_resolution.class%
-        arguments: [%kreta_issue.resolution.class%]
+        class: '%kreta_issue.factory_resolution.class%'
+        arguments:
+            - '%kreta_issue.resolution.class%'

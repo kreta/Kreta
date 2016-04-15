@@ -8,12 +8,13 @@
 
 services:
     kreta_organization.factory.participant:
-        class: %kreta_organization.factory_participant.class%
-        arguments: [%kreta_organization.participant.class%]
-    kreta_organization.factory.organization:
-        class: %kreta_organization.factory_organization.class%
+        class: '%kreta_organization.factory_participant.class%'
         arguments:
-            - %kreta_organization.organization.class%
+            - '%kreta_organization.participant.class%'
+    kreta_organization.factory.organization:
+        class: '%kreta_organization.factory_organization.class%'
+        arguments:
+            - '%kreta_organization.organization.class%'
             - '@kreta_organization.factory.participant'
             - '@kreta_media.factory.media'
             - '@kreta_organization.uploader.image_organization'
