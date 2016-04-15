@@ -49,6 +49,13 @@ class List extends React.Component {
         this.focus();
       }, 1);
     }
+
+    if(prevProps.projects.length != this.props.projects.length) {
+      this.setState({
+        selectedProject: this.props.projects.length > 0 ? this.props.projects[0] : null,
+        filteredProjects: this.props.projects
+      })
+    }
   }
 
   onKeyUp(ev) {
