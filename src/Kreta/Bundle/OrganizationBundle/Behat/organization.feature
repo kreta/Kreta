@@ -72,7 +72,6 @@ Feature: Manage organizations
   Scenario: Getting all the organizations
     Given I am authenticating with "access-token-0" token
     When I send a GET request to "/api/organizations"
-    And print response
     Then the response code should be 200
     And the response should contain json:
     """

@@ -90,7 +90,7 @@ Kreta\Component\Project\Model\Project:
     properties:
         id:
             expose: true
-            groups: [projectList, project, projectPrivate, participantList, participant]
+            groups: [projectList, project, projectPrivate, participantList, participant, organizationPrivate]
         image:
             expose: true
             groups: [projectList, project, projectPrivate]
@@ -105,7 +105,7 @@ Kreta\Component\Project\Model\Project:
             groups: [projectList, project, projectPrivate]
         name:
             expose: true
-            groups: [projectList, project, projectPrivate, participantList, participant]
+            groups: [projectList, project, projectPrivate, participantList, participant, organizationPrivate]
         participants:
             expose: true
             groups: [projectList, project, projectPrivate]
@@ -117,7 +117,7 @@ Kreta\Component\Project\Model\Project:
             groups: [projectList, project, projectPrivate]
         slug:
             expose: true
-            groups: [projectList, project, projectPrivate, participantList, participant]
+            groups: [projectList, project, projectPrivate, participantList, participant, organizationPrivate]
         statuses:
             expose: true
             groups: []

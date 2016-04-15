@@ -115,6 +115,18 @@ Feature: Manage organizations
             }
           }
         ],
+        "projects": [
+          {
+            "id": "0",
+            "name": "Test project 1",
+            "slug": "test-project-1"
+          },
+          {
+            "id": "1",
+            "name": "Test project 2",
+            "slug": "test-project-2"
+          }
+        ],
         "slug": "test-organization-1"
       }
     """

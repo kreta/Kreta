@@ -70,7 +70,8 @@ Kreta\Component\Organization\Model\Organization:
                 - organizationPrivate
         projects:
             expose: true
-            groups: []
+            groups:
+                - organizationPrivate
         slug:
             expose: true
             groups:
