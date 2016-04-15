@@ -101,6 +101,7 @@ class Show extends React.Component {
       }).map((transition) => {
         return (
           <Button color="green"
+                  key={transition.id}
                   disabled={fieldState}
                   onClick={this.doTransition.bind(this, transition.id)}>
             {transition.name}

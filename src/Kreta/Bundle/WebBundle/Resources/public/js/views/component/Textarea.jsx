@@ -28,6 +28,10 @@ class Textarea extends React.Component {
       value: this.props.value
     };
 
+    true === this.props.readOnly
+      ? this.toolbar = false
+      : this.buildToolbar();
+
     this.formats = [
       'bold',
       'italic',
@@ -39,7 +43,7 @@ class Textarea extends React.Component {
       'bullet',
       'list',
       'align',
-      { name: 'code', tag: 'code', prepare: 'heading', type: 'line' }
+      {name: 'code', tag: 'code', prepare: 'heading', type: 'line'}
     ];
 
     this.buildToolbar();
@@ -95,17 +99,11 @@ class Textarea extends React.Component {
   }
 
   render() {
-    true === this.props.readOnly
-      ? this.toolbar = false
-      : this.buildToolbar();
-
     return (
       <div>
         <input name="description" type="hidden" value={this.state.value}/>
         <ReactQuill
-          formats={this.formats}
           onChange={this.onChange.bind(this)}
-          readOnly={this.props.readOnly}
           ref="editor"
           theme="snow"
           toolbar={this.toolbar}
