@@ -10,7 +10,7 @@ organization concept has been added to group projects and manage roles and permi
 * UI & UX improvements to frontend.
 * Added organization concept.
 * New login form.
-* Migrated frontend to React and Redux.
+* Migrated frontend to React, Redux and Fetch Api, removing jQuery completely.
 * Improvements to OAuth process and refresh token flow.
 * Minor changes to entity serialization to adapt it a little to the frontend common needs.
 

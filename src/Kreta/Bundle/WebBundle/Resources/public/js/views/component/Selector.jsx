@@ -10,7 +10,6 @@
 
 import './../../../scss/components/_selector';
 
-import $ from 'jquery';
 import classnames from 'classnames';
 import React from 'react';
 
@@ -71,7 +70,7 @@ class Selector extends React.Component {
         // Prevent submiting form
         ev.stopPropagation();
         ev.preventDefault();
-        $(`[tabindex="${parseInt(this.props.tabIndex, 10) + 1}"]`).focus();
+        document.querySelector(`[tabindex="${parseInt(this.props.tabIndex, 10) + 1}"]`).focus();
       }
       this.selectOption(this.state.selectedRow);
     } else {
