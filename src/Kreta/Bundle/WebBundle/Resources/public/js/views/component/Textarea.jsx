@@ -85,7 +85,7 @@ class Textarea extends React.Component {
           {type: 'link', label: 'Link'},
           {type: 'bullet', label: 'Bullet'},
           {type: 'list', label: 'List'},
-          {type: 'code', label: 'Code', value: 'code'},
+          // {type: 'code', label: 'Code', value: 'code'},    // Custom controls do not work properly yet
           {type: 'color', label: 'Color', items: ReactQuill.Toolbar.defaultColors}
         ]
       }
