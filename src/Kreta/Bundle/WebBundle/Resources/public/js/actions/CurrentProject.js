@@ -16,7 +16,7 @@ import {projectApiPrivateInstance} from '../api/ApiPrivate';
 
 const Actions = {
   fetchProject: (organization, project) => {
-    return (dispatch) => {
+    return (dispatch, getState) => {
       dispatch({
         type: ActionTypes.CURRENT_PROJECT_FETCHING
       });
@@ -25,7 +25,8 @@ const Actions = {
         .then((receivedProject) => {
           dispatch({
             type: ActionTypes.CURRENT_PROJECT_RECEIVED,
-            project: receivedProject
+            project: receivedProject,
+            filters: _generateFilters(receivedProject, getState().profile.profile)
           });
 
           IssueApi.getIssues({project: receivedProject.id})
@@ -171,5 +172,51 @@ const Actions = {
     };
   }
 };
+
+function _generateFilters(project, profile) {
+  const assigneeFilters = [{
+      filter: 'assignee',
+      selected: true,
+      title: 'All',
+      value: ''
+    }, {
+      filter: 'assignee',
+      selected: false,
+      title: 'Assigned to me',
+      value: profile.id
+    }],
+    priorityFilters = [{
+      filter: 'priority',
+      selected: true,
+      title: 'All priorities',
+      value: ''
+    }],
+    statusFilters = [{
+      filter: 'status',
+      selected: true,
+      title: 'All statuses',
+      value: ''
+    }];
+
+  project.issue_priorities.forEach((priority) => {
+    priorityFilters.push({
+      filter: 'priority',
+      selected: false,
+      title: priority.name,
+      value: priority.id
+    });
+  });
+
+  project.workflow.statuses.forEach((status) => {
+    statusFilters.push({
+      filter: 'status',
+      selected: false,
+      title: status.name,
+      value: status.id
+    });
+  });
+
+  return [assigneeFilters, priorityFilters, statusFilters];
+}
 
 export default Actions;
