@@ -22,18 +22,7 @@ const initialState = {
 };
 
 function _generateFilters(project) {
-  const assigneeFilters = [{
-      filter: 'assignee',
-      selected: true,
-      title: 'All',
-      value: ''
-    }, {
-      filter: 'assignee',
-      selected: false,
-      title: 'Assigned to me',
-      value: ''
-    }],
-    priorityFilters = [{
+  const priorityFilters = [{
       filter: 'priority',
       selected: true,
       title: 'All priorities',
@@ -64,7 +53,7 @@ function _generateFilters(project) {
     });
   });
 
-  return [assigneeFilters, priorityFilters, statusFilters];
+  return [priorityFilters, statusFilters];
 }
 
 export default function reducer(state = initialState, action = {}) {
