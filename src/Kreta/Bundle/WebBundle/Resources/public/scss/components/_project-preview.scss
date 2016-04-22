@@ -29,11 +29,20 @@
 }
 
 .project-preview__title {
+  align-items: flex-end;
   color: $main-black;
+  display: flex;
   flex: 1;
   font-size: 16px;
   padding: 15px;
   transition: color .3s;
+}
+
+.project-preview__organization {
+  font-size: 10px;
+  flex: 0 0 100px;
+  margin-right: 15px;
+  text-align: right;
 }
 
 .project-preview__shortcuts {

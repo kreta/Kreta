@@ -74,7 +74,8 @@ class ProjectPreview extends React.Component {
         <Link className="project-preview__title"
               onClick={this.props.onTitleClick}
               to={`/${this.props.project.organization.slug}/${this.props.project.slug}`}>
-          {this.props.project.organization.name}/{this.props.project.name}
+          <span className="project-preview__organization">{this.props.project.organization.name}</span>
+          <span>{this.props.project.name}</span>
         </Link>
 
         <div className="project-preview__shortcuts">
