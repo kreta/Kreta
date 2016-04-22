@@ -131,12 +131,14 @@ const Actions = {
     };
   },
   filterIssues: (filters) => {
-    return (dispatch) => {
+    return (dispatch, getState) => {
       dispatch({
         type: ActionTypes.CURRENT_PROJECT_ISSUE_FILTERING,
         filters
       });
-      const request = {};
+      const request = {
+        project: getState().currentProject.project.id
+      };
       filters.forEach((filter) => {
         filter.forEach((item) => {
           if (item.selected) {

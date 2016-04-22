@@ -44,16 +44,10 @@ class IssueList extends React.Component {
   }
 
   render() {
-    if (this.props.currentProject.fetchingProjects || this.props.currentProject.fetchingIssues) {
+    if (this.props.currentProject.fetchingProjects) {
       return <LoadingSpinner/>;
     }
-    let issuesEl = this.props.currentProject.issues.map((issue, index) => {
-      return <IssuePreview issue={issue}
-                           key={index}
-                           onClick={this.selectCurrentIssue.bind(this, issue)}
-                           selected={this.props.currentProject.selectedIssue &&
-                                     this.props.currentProject.selectedIssue.id === issue.id}/>;
-    });
+
     const links = [{
         href: `/${this.props.currentProject.project.organization.slug}/${this.props.currentProject.project.slug}/settings`,
         icon: SettingsIcon,
@@ -65,18 +59,31 @@ class IssueList extends React.Component {
         title: 'New issue'
       }],
       project = this.props.currentProject.project;
-    if (issuesEl.length === 0) {
-      issuesEl = <Warning text="No issues found, you may want to create one">
-        <Link
-          to={`${this.props.currentProject.project.organization.slug}/${this.props.currentProject.project.slug}/issue/new`}>
-          <Button color="green">Create issue</Button>
-        </Link>
-      </Warning>;
-    }
-    let issue = '';
-    if (this.props.currentProject.selectedIssue) {
-      issue = <IssueShow issue={this.props.currentProject.selectedIssue}
-                         project={project}/>;
+
+    let issuesEl = <LoadingSpinner/>,
+        issue = '';
+
+    if(!this.props.currentProject.fetchingIssues) {
+      issuesEl = this.props.currentProject.issues.map((issue, index) => {
+        return <IssuePreview issue={issue}
+                             key={index}
+                             onClick={this.selectCurrentIssue.bind(this, issue)}
+                             selected={this.props.currentProject.selectedIssue &&
+                                       this.props.currentProject.selectedIssue.id === issue.id}/>;
+      });
+      if (issuesEl.length === 0) {
+        issuesEl = <Warning text="No issues found, you may want to create one">
+          <Link
+            to={`${this.props.currentProject.project.organization.slug}/${this.props.currentProject.project.slug}/issue/new`}>
+            <Button color="green">Create issue</Button>
+          </Link>
+        </Warning>;
+      }
+
+      if (this.props.currentProject.selectedIssue) {
+        issue = <IssueShow issue={this.props.currentProject.selectedIssue}
+                           project={project}/>;
+      }
     }
 
     return (
