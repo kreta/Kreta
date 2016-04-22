@@ -18,6 +18,7 @@ import Form from './../../component/Form';
 import FormInput from './../../component/FormInput';
 import FormInputFile from './../../component/FormInputFile';
 import FormSerializer from './../../../service/FormSerializer';
+import SectionHeader from './../../component/SectionHeader';
 
 class Edit extends React.Component {
   updateProject(ev) {
@@ -35,16 +36,7 @@ class Edit extends React.Component {
       <Form errors={this.props.project.errors}
             onSubmit={this.updateProject.bind(this)}
             ref="form">
-        <div className="section-header">
-          <div className="section-header-title"></div>
-          <div>
-            <Button color="green"
-                    tabIndex="3"
-                    type="submit">
-              Done
-            </Button>
-          </div>
-        </div>
+        <SectionHeader actions={<Button color="green" tabIndex="3" type="submit">Edit</Button>}/>
         <FormInputFile filename={image ? image.name : ''}
                        name="image"
                        value=""/>
