@@ -10,6 +10,7 @@
 
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { connect } from 'react-redux';
 
 import ProjectsActions from '../../../actions/Projects';
 import Button from './../../component/Button';
@@ -22,7 +23,7 @@ class Edit extends React.Component {
   updateProject(ev) {
     ev.preventDefault();
     const project = FormSerializer.serialize(ReactDOM.findDOMNode(this.refs.form));
-    this.props.dispatch(ProjectsActions.updateProject(project));
+    this.props.dispatch(ProjectsActions.updateProject(this.props.project.id, project));
   }
 
   render() {
@@ -44,7 +45,6 @@ class Edit extends React.Component {
             </Button>
           </div>
         </div>
-        <input name="id" type="hidden" value={project.id}/>
         <FormInputFile filename={image ? image.name : ''}
                        name="image"
                        value=""/>
@@ -58,4 +58,4 @@ class Edit extends React.Component {
   }
 }
 
-export default Edit;
+export default connect(() => {return{}})(Edit);

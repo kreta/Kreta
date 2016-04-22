@@ -70,6 +70,8 @@ export default function reducer(state = initialState, action = {}) {
 
     case ActionTypes.PROJECTS_CREATED:
       return _addNotification(state, 'Project created successfully');
+    case ActionTypes.PROJECTS_UPDATED:
+      return _addNotification(state, 'Project updated successfully');
 
     default:
       return state;

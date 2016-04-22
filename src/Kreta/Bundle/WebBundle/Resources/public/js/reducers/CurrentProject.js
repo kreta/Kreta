@@ -126,6 +126,13 @@ export default function reducer(state = initialState, action = {}) {
     case ActionTypes.CURRENT_PROJECT_WORKFLOW_RECEIVED:
       return {...state, workflow: action.workflow};
 
+    case ActionTypes.PROJECTS_UPDATED:
+      if (action.project.id === state.project.id) {
+        return {...state, project: action.project}
+      }
+
+      return state;
+
     default:
       return state;
   }
