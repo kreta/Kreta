@@ -54,8 +54,6 @@ class ParticipantFactory
         $participant = new $this->className($project, $user);
         $participant->setRole($role);
 
-        $project->addParticipant($participant);
-
         return $participant;
     }
 }

@@ -12,6 +12,7 @@
 
 namespace Kreta\Component\Project\Model;
 
+use Kreta\Component\Organization\Model\Interfaces\OrganizationInterface;
 use Kreta\Component\Project\Model\Interfaces\ParticipantInterface;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
@@ -70,6 +71,15 @@ class Participant implements ParticipantInterface
      */
     public function setProject(ProjectInterface $project)
     {
+        if ($project->getOrganization() instanceof OrganizationInterface) {
+            $organizationParticipants = $project->getOrganization()->getParticipants();
+            foreach ($organizationParticipants as $organizationParticipant) {
+                if ($organizationParticipant->getUser()->getId() === $this->user->getId()) {
+                    throw new \LogicException('The user is already a project\'s organization participant');
+                }
+            }
+        }
+        $project->addParticipant($this);
         $this->project = $project;
 
         return $this;
