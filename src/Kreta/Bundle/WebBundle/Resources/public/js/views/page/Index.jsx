@@ -20,6 +20,7 @@ import DashboardWidget from './../component/DashboardWidget';
 import Warning from './../component/Warning';
 import LoadingSpinner from './../component/LoadingSpinner';
 import ProjectPreview from './../component/ProjectPreview';
+import OrganizationPreview from './../component/OrganizationPreview';
 
 import OrganizationActions from '../../actions/Organizations';
 
@@ -35,7 +36,7 @@ class Index extends React.Component {
 
     if (this.props.organizations.organizations.length > 0) {
       return this.props.organizations.organizations.map((organization, index) => {
-        return <Link key={index} to={`/${organization.slug}`}>{organization.name}</Link>;
+        return <OrganizationPreview key={index} organization={organization} />
       });
     }
 
