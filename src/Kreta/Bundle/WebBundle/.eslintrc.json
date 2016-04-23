@@ -189,7 +189,6 @@
     "react/jsx-no-literals": "off",
     "react/jsx-no-undef": "warn",
     "jsx-quotes": "warn",
-    "react/jsx-sort-prop-types": "warn",
     "react/jsx-sort-props": "warn",
     "react/jsx-uses-react": "warn",
     "react/jsx-uses-vars": "warn",
@@ -205,6 +204,7 @@
     "react/require-extension": "off",
     "react/self-closing-comp": "off",
     "react/sort-comp": "off",
+    "react/sort-prop-types": "warn",
     "react/wrap-multilines": "off"
   }
 }
