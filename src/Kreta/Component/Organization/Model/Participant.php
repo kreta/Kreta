@@ -69,6 +69,7 @@ class Participant implements ParticipantInterface
      */
     public function setOrganization(OrganizationInterface $organization)
     {
+        $organization->addParticipant($this);
         $this->organization = $organization;
 
         return $this;

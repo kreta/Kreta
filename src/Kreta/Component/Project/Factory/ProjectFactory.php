@@ -110,7 +110,11 @@ class ProjectFactory
     ) {
         $project = new $this->className();
 
-        $participant = $this->participantFactory->create($project, $user, 'ROLE_ADMIN');
+        if (!$organization instanceof OrganizationInterface) {
+            $participant = $this->participantFactory->create($project, $user, 'ROLE_ADMIN');
+            $project->addParticipant($participant);
+        }
+
         if (!($workflow instanceof WorkflowInterface)) {
             $workflow = $this->workflowFactory->create(self::DEFAULT_WORKFLOW_NAME, $user, true);
         }
@@ -128,7 +132,6 @@ class ProjectFactory
         return $project
             ->setCreator($user)
             ->setOrganization($organization)
-            ->addParticipant($participant)
             ->setWorkflow($workflow);
     }
 

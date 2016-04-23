@@ -49,16 +49,24 @@ class ProjectFactorySpec extends ObjectBehavior
         $this->shouldHaveType('Kreta\Component\Project\Factory\ProjectFactory');
     }
 
-    function it_creates_a_project_with_workflow_but_without_projects_defaults(
+    function it_creates_a_project_without_organization_with_workflow_but_without_projects_defaults(
         UserInterface $user,
         ParticipantFactory $participantFactory,
         ParticipantInterface $participant,
-        OrganizationInterface $organization,
         WorkflowInterface $workflow
     ) {
         $participantFactory->create(Argument::type('Kreta\Component\Project\Model\Project'), $user, 'ROLE_ADMIN')
             ->shouldBeCalled()->willReturn($participant);
 
+        $this->create($user, null, $workflow, false)
+            ->shouldReturnAnInstanceOf('Kreta\Component\Project\Model\Project');
+    }
+
+    function it_creates_a_project_with_workflow_but_without_projects_defaults(
+        UserInterface $user,
+        OrganizationInterface $organization,
+        WorkflowInterface $workflow
+    ) {
         $this->create($user, $organization, $workflow, false)
             ->shouldReturnAnInstanceOf('Kreta\Component\Project\Model\Project');
     }
@@ -80,8 +88,6 @@ class ProjectFactorySpec extends ObjectBehavior
 
     function it_creates_a_project_passing_the_image(
         UserInterface $user,
-        ParticipantFactory $participantFactory,
-        ParticipantInterface $participant,
         OrganizationInterface $organization,
         WorkflowInterface $workflow,
         MediaUploaderInterface $uploader,
@@ -89,8 +95,6 @@ class ProjectFactorySpec extends ObjectBehavior
         MediaInterface $media
     ) {
         $image = new UploadedFile('', '', null, null, 99, true); // Avoids file not found exception
-        $participantFactory->create(Argument::type('Kreta\Component\Project\Model\Project'), $user, 'ROLE_ADMIN')
-            ->shouldBeCalled()->willReturn($participant);
 
         $mediaFactory->create($image)->shouldBeCalled()->willReturn($media);
         $uploader->upload($media)->shouldBeCalled();
