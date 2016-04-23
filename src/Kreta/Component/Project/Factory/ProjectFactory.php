@@ -110,8 +110,8 @@ class ProjectFactory
     ) {
         $project = new $this->className();
 
-        $participant = $this->participantFactory->create($project, $user, 'ROLE_ADMIN');
         if (!$organization instanceof OrganizationInterface) {
+            $participant = $this->participantFactory->create($project, $user, 'ROLE_ADMIN');
             $project->addParticipant($participant);
         }
 
