@@ -10,7 +10,6 @@
 
 import Autoprefixer from 'autoprefixer';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
-import SassLintPlugin from 'sasslint-webpack-plugin';
 import Webpack from 'webpack';
 
 import pkg from './package.json';
@@ -71,27 +70,18 @@ License: ${pkg.license}`,
 //      new Webpack.ProvidePlugin({
 //        'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
 //      }),
-//      new SassLintPlugin({
-//        configFile: '.sass-lint.yml',
-//        context: ['./Resources/public/scss/'],
-//        ignoreFiles: [],
-//        glob: '**/*.s?(a|c)ss',
-//        quiet: false,
-//        failOnWarning: false,
-//        failOnError: false
-//      }),
       new Webpack.optimize.CommonsChunkPlugin('vendors', 'vendor.js'),
       new ExtractTextPlugin('../css/[name].css', {allChunks: false}),
       new Webpack.BannerPlugin(LICENSE)
     ]
   };
 
-//if (process.env.NODE_ENV !== 'production') {
-//  config['eslint'] = {configFile: '.eslint.yml'};
-//  config['module']['preLoaders'] = [
-//    {test: /\.js(x)?$/, exclude: /node_modules/, loaders: ['eslint']}
-//  ];
-//}
+if (process.env.NODE_ENV !== 'production') {
+  config['eslint'] = {configFile: '.eslintrc.json'};
+  config['module']['preLoaders'] = [
+    {test: /\.js(x)?$/, exclude: /node_modules/, loaders: ['eslint']}
+  ];
+}
 
 if (process.env.NODE_ENV === 'production') {
   config.debug = false;

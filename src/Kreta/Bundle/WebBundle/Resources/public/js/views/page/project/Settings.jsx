@@ -22,6 +22,7 @@ import UserPreview from './../../component/UserPreview';
 import LoadingSpinner from '../../component/LoadingSpinner.jsx';
 import CurrentProjectActions from '../../../actions/CurrentProject';
 import PageHeader from '../../component/PageHeader';
+import SectionHeader from './../../component/SectionHeader';
 
 class Settings extends React.Component {
   state = {
@@ -53,17 +54,10 @@ class Settings extends React.Component {
                       links={[]}
                       title={this.props.project.name}/>
           <ProjectEdit project={this.props.project}/>
-          <section className="spacer-vertical-1">
-            <div className="section-header">
-              <h3 className="section-header-title">
-                <strong>People</strong> in this project
-              </h3>
-              <div className="section-header-actions">
-                <Button color="green" onClick={this.showAddParticipants.bind(this)}>
-                  Add people
-                </Button>
-              </div>
-            </div>
+
+          <section>
+            <SectionHeader actions={<Button color="green" onClick={this.showAddParticipants.bind(this)}>Add people</Button>}
+                           title={<span><strong>People</strong> in this project</span>}/>
             <div className="project-settings__participants">
               {participants}
             </div>

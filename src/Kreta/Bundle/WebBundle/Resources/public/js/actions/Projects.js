@@ -64,6 +64,9 @@ const Actions = {
             type: ActionTypes.PROJECTS_UPDATED,
             project: updatedProject
           });
+          dispatch(
+            routeActions.push(`/${updatedProject.organization.slug}/${updatedProject.slug}/settings`)
+          );
         })
         .catch((errorData) => {
           errorData.then((errors) => {

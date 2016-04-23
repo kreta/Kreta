@@ -21,59 +21,13 @@ const initialState = {
   workflow: null
 };
 
-function _generateFilters(project) {
-  const assigneeFilters = [{
-      filter: 'assignee',
-      selected: true,
-      title: 'All',
-      value: ''
-    }, {
-      filter: 'assignee',
-      selected: false,
-      title: 'Assigned to me',
-      value: ''
-    }],
-    priorityFilters = [{
-      filter: 'priority',
-      selected: true,
-      title: 'All priorities',
-      value: ''
-    }],
-    statusFilters = [{
-      filter: 'status',
-      selected: true,
-      title: 'All statuses',
-      value: ''
-    }];
-
-  project.issue_priorities.forEach((priority) => {
-    priorityFilters.push({
-      filter: 'priority',
-      selected: false,
-      title: priority.name,
-      value: priority.id
-    });
-  });
-
-  project.workflow.statuses.forEach((status) => {
-    statusFilters.push({
-      filter: 'status',
-      selected: false,
-      title: status.name,
-      value: status.id
-    });
-  });
-
-  return [assigneeFilters, priorityFilters, statusFilters];
-}
-
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     case ActionTypes.CURRENT_PROJECT_FETCHING:
       return {...state, fetchingProjects: true, fetchingIssues: true};
 
     case ActionTypes.CURRENT_PROJECT_RECEIVED:
-      return {...state, project: action.project, filters: _generateFilters(action.project), fetchingProjects: false};
+      return {...state, project: action.project, filters: action.filters, fetchingProjects: false};
 
     case ActionTypes.CURRENT_PROJECT_ISSUES_RECEIVED:
       return {...state, issues: action.issues, fetchingIssues: false};
@@ -125,6 +79,13 @@ export default function reducer(state = initialState, action = {}) {
 
     case ActionTypes.CURRENT_PROJECT_WORKFLOW_RECEIVED:
       return {...state, workflow: action.workflow};
+
+    case ActionTypes.PROJECTS_UPDATED:
+      if (action.project.id === state.project.id) {
+        return {...state, project: action.project}
+      }
+
+      return state;
 
     default:
       return state;
