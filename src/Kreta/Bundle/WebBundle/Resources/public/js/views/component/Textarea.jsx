@@ -59,22 +59,23 @@ class Textarea extends React.Component {
     this.toolbar = [
       {
         label: 'Formats', type: 'group', items: [
-        {
-          label: 'Size', type: 'size', items: [
-          {label: 'small', value: '10px'},
-          {label: 'normal', value: '13px', selected: true},
-          {label: 'title', value: '18px'}
+          {
+            label: 'Size', type: 'size', items: [
+              {label: 'small', value: '10px'},
+              {label: 'normal', value: '13px', selected: true},
+              {label: 'title', value: '18px'}
+            ]
+          }, {
+            label: 'Alignment', type: 'align', items: [
+              {label: '', value: 'left', selected: true},
+              {label: '', value: 'center'},
+              {label: '', value: 'right'},
+              {label: '', value: 'justify'}
+            ]
+          }, {
+            type: 'separator'
+          }
         ]
-        }, {
-          label: 'Alignment', type: 'align', items: [
-            {label: '', value: 'left', selected: true},
-            {label: '', value: 'center'},
-            {label: '', value: 'right'},
-            {label: '', value: 'justify'}
-          ]
-        }, {
-          type: 'separator'
-        }]
       }, {
         label: 'Text', type: 'group', items: [
           {type: 'bold', label: 'Bold'},

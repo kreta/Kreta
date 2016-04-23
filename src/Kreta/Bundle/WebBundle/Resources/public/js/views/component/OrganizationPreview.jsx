@@ -13,7 +13,7 @@ import './../../../scss/components/_organization-preview';
 import React from 'react';
 import {Link} from 'react-router';
 
-class ProjectPreview extends React.Component {
+class OrganizationPreview extends React.Component {
   static propTypes = {
     organization: React.PropTypes.object.isRequired
   };
@@ -28,4 +28,4 @@ class ProjectPreview extends React.Component {
   }
 }
 
-export default ProjectPreview;
+export default OrganizationPreview;

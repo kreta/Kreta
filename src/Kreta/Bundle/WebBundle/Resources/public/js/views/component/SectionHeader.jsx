@@ -8,8 +8,6 @@
  * file that was distributed with this source code.
  */
 
-import './../../../../../node_modules/quill/dist/quill.snow.css';
-
 import './../../../scss/components/_section-header.scss';
 
 import React from 'react';
@@ -23,10 +21,10 @@ class SectionHeader extends React.Component {
   render() {
     return (
       <div className="section-header">
-        <h3 className="section-header-title">
+        <h3 className="section-header__title">
           { this.props.title }
         </h3>
-        <div className="section-header-actions">
+        <div className="section-header__actions">
           { this.props.actions }
         </div>
       </div>
