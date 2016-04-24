@@ -13,6 +13,8 @@
 namespace spec\Kreta\Bundle\ProjectBundle\Security\Authorization\Voter;
 
 use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
+use Kreta\Component\Organization\Model\Interfaces\OrganizationInterface;
+use Kreta\Component\Organization\Model\Interfaces\ParticipantInterface;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Project\Model\Project;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
@@ -67,6 +69,19 @@ class ProjectVoterSpec extends ObjectBehavior
         $this->vote($token, $issue, [])->shouldReturn(0);
     }
 
+    function it_can_do_anything_with_ORG_ADMIN_role(
+        ProjectInterface $project,
+        UserInterface $user,
+        OrganizationInterface $organization,
+        TokenInterface $token
+    ) {
+        $token->getUser()->shouldBeCalled()->willReturn($user);
+        $project->getOrganization()->shouldBeCalled()->willReturn($organization);
+        $organization->getUserRole($user)->shouldBeCalled()->willReturn(ParticipantInterface::ORG_ADMIN);
+
+        $this->vote($token, $project, ['view'])->shouldReturn(1);
+    }
+
     function it_does_not_vote_because_it_only_one_attribute_allowed(TokenInterface $token, Project $project)
     {
         $this->shouldThrow(new \InvalidArgumentException('Only one attribute allowed.'))
@@ -88,18 +103,29 @@ class ProjectVoterSpec extends ObjectBehavior
     }
 
     function it_does_not_vote_add_participant_delete_delete_participant_or_edit_grant(
+        OrganizationInterface $organization,
         TokenInterface $token,
         Project $project,
         UserInterface $user
     ) {
+        $project->getOrganization()->shouldBeCalled()->willReturn($organization);
+        $organization->getUserRole($user)->shouldBeCalled();
+
         $token->getUser()->shouldBeCalled()->willReturn($user);
         $project->getUserRole($user)->shouldBeCalled()->willReturn('ROLE_PARTICIPANT');
 
         $this->vote($token, $project, ['add_participant'])->shouldReturn(-1);
     }
 
-    function it_does_not_vote_view_grant(TokenInterface $token, Project $project, UserInterface $user)
-    {
+    function it_does_not_vote_view_grant(
+        OrganizationInterface $organization,
+        TokenInterface $token,
+        Project $project,
+        UserInterface $user
+    ) {
+        $project->getOrganization()->shouldBeCalled()->willReturn($organization);
+        $organization->getUserRole($user)->shouldBeCalled();
+
         $token->getUser()->shouldBeCalled()->willReturn($user);
         $project->getUserRole($user)->shouldBeCalled()->willReturn(null);
 
@@ -107,18 +133,30 @@ class ProjectVoterSpec extends ObjectBehavior
     }
 
     function it_votes_add_participant_delete_delete_participant_or_edit_because_its_role_project_is_admin(
+        OrganizationInterface $organization,
         TokenInterface $token,
         UserInterface $user,
         Project $project
     ) {
+        $project->getOrganization()->shouldBeCalled()->willReturn($organization);
+        $organization->getUserRole($user)->shouldBeCalled();
+
         $token->getUser()->shouldBeCalled()->willReturn($user);
         $project->getUserRole($user)->shouldBeCalled()->willReturn('ROLE_ADMIN');
 
         $this->vote($token, $project, ['add_participant'])->shouldReturn(1);
     }
 
-    function it_votes(TokenInterface $token, UserInterface $user, ProjectInterface $project)
-    {
+    function it_votes(
+        OrganizationInterface $organization,
+        TokenInterface $token,
+        UserInterface $user,
+        ProjectInterface $project
+    ) {
+
+        $project->getOrganization()->shouldBeCalled()->willReturn($organization);
+        $organization->getUserRole($user)->shouldBeCalled();
+
         $token->getUser()->shouldBeCalled()->willReturn($user);
         $project->getUserRole($user)->shouldBeCalled()->willReturn('ROLE_PARTICIPANT');
 

@@ -14,6 +14,7 @@ namespace Kreta\Bundle\ProjectBundle\Security\Authorization\Voter;
 
 use Kreta\Bundle\CoreBundle\Security\Authorization\Voter\Abstracts\AbstractVoter;
 use Kreta\Component\Project\Model\Interfaces\ParticipantInterface;
+use Kreta\Component\Organization\Model\Interfaces\ParticipantInterface as OrgParticipant;
 use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -68,6 +69,10 @@ class ProjectVoter extends AbstractVoter
      */
     protected function checkAttribute(UserInterface $user, $project, $attribute)
     {
+        if ($project->getOrganization()->getUserRole($user) === OrgParticipant::ORG_ADMIN) {
+            return VoterInterface::ACCESS_GRANTED;
+        }
+
         switch ($attribute) {
             case self::ADD_PARTICIPANT:
             case self::DELETE:
@@ -86,7 +91,9 @@ class ProjectVoter extends AbstractVoter
             case self::CREATE_LABEL:
             case self::CREATE_ISSUE_TYPE:
             case self::CREATE_PRIORITY:
-                if ($project->getUserRole($user) !== null) {
+                if ($project->getOrganization()->getUserRole($user) !== null
+                    || $project->getUserRole($user) !== null
+                ) {
                     return VoterInterface::ACCESS_GRANTED;
                 }
                 break;

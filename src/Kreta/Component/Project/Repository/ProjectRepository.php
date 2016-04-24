@@ -63,7 +63,7 @@ class ProjectRepository extends EntityRepository
             ->leftJoin('p.image', 'img')
             ->leftJoin('p.issues', 'i')
             ->leftJoin('p.organization', 'o')
-            ->join('p.participants', 'par')
+            ->leftJoin('p.participants', 'par')
             ->join('p.creator', 'c')
             ->join('p.workflow', 'w');
     }
