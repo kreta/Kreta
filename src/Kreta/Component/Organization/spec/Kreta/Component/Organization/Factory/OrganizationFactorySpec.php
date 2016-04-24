@@ -16,6 +16,7 @@ use Kreta\Component\Media\Factory\MediaFactory;
 use Kreta\Component\Media\Model\Interfaces\MediaInterface;
 use Kreta\Component\Media\Uploader\Interfaces\MediaUploaderInterface;
 use Kreta\Component\Organization\Factory\ParticipantFactory;
+use Kreta\Component\Organization\Model\Interfaces\OrganizationInterface;
 use Kreta\Component\Organization\Model\Interfaces\ParticipantInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use PhpSpec\ObjectBehavior;
@@ -44,13 +45,18 @@ class OrganizationFactorySpec extends ObjectBehavior
     function it_creates_an_organization_without_image(
         UserInterface $user,
         ParticipantFactory $participantFactory,
-        ParticipantInterface $participant
+        ParticipantInterface $participant,
+        UserInterface $user,
+        OrganizationInterface $organization
     ) {
         $participantFactory->create(
             Argument::type('Kreta\Component\Organization\Model\Organization'),
             $user,
             ParticipantInterface::ORG_ADMIN
         )->shouldBeCalled()->willReturn($participant);
+        $participant->getUser()->shouldBeCalled()->willReturn($user);
+        $participant->getOrganization()->shouldBeCalled()->willReturn($organization);
+        $organization->getProjects()->shouldBeCalled()->willReturn([]);
 
         $this->create('Dummy name', $user)->shouldReturnAnInstanceOf('Kreta\Component\Organization\Model\Organization');
     }
@@ -61,7 +67,9 @@ class OrganizationFactorySpec extends ObjectBehavior
         ParticipantInterface $participant,
         MediaUploaderInterface $uploader,
         MediaFactory $mediaFactory,
-        MediaInterface $media
+        MediaInterface $media,
+        UserInterface $user,
+        OrganizationInterface $organization
     ) {
         $image = new UploadedFile('', '', null, null, 99, true); // Avoids file not found exception
         $participantFactory->create(
@@ -69,6 +77,9 @@ class OrganizationFactorySpec extends ObjectBehavior
             $user,
             ParticipantInterface::ORG_ADMIN
         )->shouldBeCalled()->willReturn($participant);
+        $participant->getUser()->shouldBeCalled()->willReturn($user);
+        $participant->getOrganization()->shouldBeCalled()->willReturn($organization);
+        $organization->getProjects()->shouldBeCalled()->willReturn([]);
 
         $mediaFactory->create($image)->shouldBeCalled()->willReturn($media);
         $uploader->upload($media)->shouldBeCalled();

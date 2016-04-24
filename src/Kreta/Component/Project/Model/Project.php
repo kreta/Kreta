@@ -241,6 +241,13 @@ class Project implements ProjectInterface
      */
     public function addParticipant(ParticipantInterface $participant)
     {
+        if ($this->organization instanceof OrganizationInterface) {
+            foreach ($this->getOrganization()->getParticipants() as $organizationParticipant) {
+                if ($organizationParticipant->getUser()->getId() === $participant->getUser()->getId()) {
+                    return $this;
+                }
+            }
+        }
         $this->participants[] = $participant;
 
         return $this;

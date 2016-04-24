@@ -13,6 +13,7 @@
 namespace spec\Kreta\Component\Organization\Model;
 
 use Kreta\Component\Media\Model\Interfaces\MediaInterface;
+use Kreta\Component\Organization\Model\Interfaces\OrganizationInterface;
 use Kreta\Component\Organization\Model\Interfaces\ParticipantInterface;
 use Kreta\Component\Organization\Model\Organization;
 use Kreta\Component\Organization\Model\Participant;
@@ -57,9 +58,16 @@ class OrganizationSpec extends ObjectBehavior
         $this->getSlug()->shouldReturn('dummy-name');
     }
 
-    function its_participants_are_be_mutable(ParticipantInterface $participant)
-    {
+    function its_participants_are_be_mutable(
+        ParticipantInterface $participant,
+        OrganizationInterface $organization,
+        UserInterface $user
+    ) {
         $this->getParticipants()->shouldHaveCount(0);
+
+        $participant->getOrganization()->shouldBeCalled()->willReturn($organization);
+        $participant->getUser()->shouldBeCalled()->willReturn($user);
+        $organization->getProjects()->shouldBeCalled()->willReturn([]);
 
         $this->addParticipant($participant);
 

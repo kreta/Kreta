@@ -138,6 +138,16 @@ class Organization implements OrganizationInterface
      */
     public function addParticipant(ParticipantInterface $participant)
     {
+        $projects = $participant->getOrganization()->getProjects();
+        $user = $participant->getUser();
+        foreach ($projects as $key => $project) {
+            foreach ($project->getParticipants() as $projectParticipant) {
+                if ($projectParticipant->getUser()->getId() === $user->getId()) {
+                    $participant->getOrganization()->getProjects()[$key]->removeParticipant($projectParticipant);
+                }
+            }
+        }
+
         $this->participants[] = $participant;
 
         return $this;
