@@ -20,7 +20,7 @@ select {
   font-size: inherit;
   outline: 0;
 
-  // Remove background yellow color Chrome and Safari
+  // Remove background yellow color from Chrome and Safari
   &:-webkit-autofill {
     box-shadow: 0 0 0 1000px white inset;
   }
@@ -42,8 +42,8 @@ textarea {
 
 .form-input--error {
   .form-input__label {
-    color: $main-red;
     @extend %form-label-up;
+    color: $main-red;
   }
 
   .form-input__bar,

@@ -1,4 +1,7 @@
-{
+'use strict';
+
+module.exports = exports = {
+  "root": true,
   "extends": "eslint:recommended",
   "parser": "babel-eslint",
   "env": {
@@ -162,6 +165,7 @@
     "wrap-regex": "off",
     "yoda": "off",
 
+    // ES2015 RULES
     "arrow-parens": "error",
     "arrow-spacing": ["error", {"before": true, "after": true}],
     "constructor-super": "error",
@@ -178,6 +182,7 @@
     "prefer-template": "error",
     "require-yield": "error",
 
+    // REACT RULES
     "react/display-name": "off",
     "react/forbid-prop-types": "off",
     "react/jsx-boolean-value": "off",
@@ -207,4 +212,4 @@
     "react/sort-prop-types": "warn",
     "react/wrap-multilines": "off"
   }
-}
+};

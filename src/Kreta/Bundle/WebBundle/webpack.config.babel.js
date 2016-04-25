@@ -56,10 +56,11 @@ License: ${pkg.license}`,
         {test: /\.svg$/, loader: 'svg-sprite?name=[name]_[hash].svg'},
         {
           test: /\.s?css$/, loader: ExtractTextPlugin.extract(
-          'style', 'css!postcss!sass?outputStyle=expanded&sourceComments=true'
-        )
+            'style', 'css!postcss!sass?outputStyle=expanded&sourceComments=true'
+          )
         }
-      ]
+      ],
+      noParse: /node_modules\/quill\/dist\/quill.js/
     },
     resolve: {
       alias: {underscore: 'lodash'},
@@ -67,9 +68,10 @@ License: ${pkg.license}`,
     },
     postcss: [Autoprefixer()],
     plugins: [
-//      new Webpack.ProvidePlugin({
-//        'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
-//      }),
+      new Webpack.ProvidePlugin({
+        'Promise': 'es6-promise',
+        'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch'
+      }),
       new Webpack.optimize.CommonsChunkPlugin('vendors', 'vendor.js'),
       new ExtractTextPlugin('../css/[name].css', {allChunks: false}),
       new Webpack.BannerPlugin(LICENSE)
@@ -77,9 +79,12 @@ License: ${pkg.license}`,
   };
 
 if (process.env.NODE_ENV !== 'production') {
-  config['eslint'] = {configFile: '.eslintrc.json'};
+  config['eslint'] = {configFile: '.eslintrc.js'};
+  config['stylelint'] = {configFile: '.stylelintrc.js'};
+
   config['module']['preLoaders'] = [
-    {test: /\.js(x)?$/, exclude: /node_modules/, loaders: ['eslint']}
+    {test: /\.js(x)?$/, exclude: /node_modules/, loaders: ['eslint']},
+    {test: /\.s?css$/, loaders: ['stylelint']}
   ];
 }
 

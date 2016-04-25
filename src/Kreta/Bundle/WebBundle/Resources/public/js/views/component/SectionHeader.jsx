@@ -14,18 +14,18 @@ import React from 'react';
 
 class SectionHeader extends React.Component {
   static propTypes = {
-    title: React.PropTypes.node,
-    actions: React.PropTypes.node
+    actions: React.PropTypes.node,
+    title: React.PropTypes.node
   };
 
   render() {
     return (
       <div className="section-header">
         <h3 className="section-header__title">
-          { this.props.title }
+          {this.props.title}
         </h3>
         <div className="section-header__actions">
-          { this.props.actions }
+          {this.props.actions}
         </div>
       </div>
     );
