@@ -65,9 +65,18 @@ class IssueRepository extends EntityRepository
     ) {
         $queryBuilder = $this->getQueryBuilder()
             ->addSelect('par')
-            ->join('p.participants', 'par');
+            ->addSelect('o')
+            ->addSelect('opar')
+            ->leftJoin('p.participants', 'par')
+            ->leftJoin('p.organization', 'o')
+            ->leftJoin('o.participants', 'opar');
 
-        $this->addCriteria($queryBuilder, ['par.user' => $user, 'like' => $filters]);
+        $this->addCriteria($queryBuilder, ['like' => $filters]);
+        $queryBuilder->andWhere($queryBuilder->expr()->orX(
+            $queryBuilder->expr()->eq('par.user', ':user'),
+            $queryBuilder->expr()->eq('opar.user', ':user')
+        ));
+        $queryBuilder->setParameter('user', $user);
         $this->orderBy($queryBuilder, $sorting);
         if ($limit) {
             $queryBuilder->setMaxResults($limit);

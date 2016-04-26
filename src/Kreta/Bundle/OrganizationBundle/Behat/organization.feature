@@ -337,21 +337,7 @@ Feature: Manage organizations
             }
           ],
           "name": "Test project 1",
-          "participants": [
-            {
-              "project": null,
-              "role": "ROLE_ADMIN",
-              "user": {
-                "id": "0",
-                "username": "user",
-                "email": "user@kreta.com",
-                "created_at": "2014-10-20T00:00:00+0200",
-                "first_name": "Kreta",
-                "last_name": "User",
-                "photo": null
-              }
-            }
-          ],
+          "participants": [],
           "issue_priorities": [
             {
               "id": "0",
@@ -440,21 +426,7 @@ Feature: Manage organizations
             }
           ],
           "name": "Test project 2",
-          "participants": [
-            {
-              "project": null,
-              "role": "ROLE_ADMIN",
-              "user": {
-                "id": "0",
-                "username": "user",
-                "email": "user@kreta.com",
-                "created_at": "2014-10-20T00:00:00+0200",
-                "first_name": "Kreta",
-                "last_name": "User",
-                "photo": null
-              }
-            }
-          ],
+          "participants": [],
           "issue_priorities": [
             {
               "id": "4",

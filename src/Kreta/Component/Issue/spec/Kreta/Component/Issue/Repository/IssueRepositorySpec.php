@@ -89,15 +89,21 @@ class IssueRepositorySpec extends ObjectBehavior
         EntityManager $manager,
         QueryBuilder $queryBuilder,
         Expr $expr,
-        Expr\Comparison $comparison,
         AbstractQuery $query,
         IssueInterface $issue,
         UserInterface $user
     ) {
         $this->getQueryBuilderSpec($manager, $queryBuilder);
         $queryBuilder->addSelect('par')->shouldBeCalled()->willReturn($queryBuilder);
-        $queryBuilder->join('p.participants', 'par')->shouldBeCalled()->willReturn($queryBuilder);
-        $this->addEqCriteriaSpec($queryBuilder, $expr, ['par.user' => $user], $comparison);
+        $queryBuilder->addSelect('o')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->addSelect('opar')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->leftJoin('p.participants', 'par')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->leftJoin('p.organization', 'o')->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->leftJoin('o.participants', 'opar')->shouldBeCalled()->willReturn($queryBuilder);
+
+        $queryBuilder->expr()->shouldBeCalled()->willReturn($expr);
+        $queryBuilder->andWhere(null)->shouldBeCalled()->willReturn($queryBuilder);
+        $queryBuilder->setParameter('user', $user)->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->setMaxResults(4)->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->setFirstResult(2)->shouldBeCalled()->willReturn($queryBuilder);
         $queryBuilder->getQuery()->shouldBeCalled()->willReturn($query);

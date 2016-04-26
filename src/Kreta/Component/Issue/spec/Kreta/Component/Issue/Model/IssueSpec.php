@@ -14,13 +14,14 @@ namespace spec\Kreta\Component\Issue\Model;
 
 use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
 use Kreta\Component\Issue\Model\Interfaces\ResolutionInterface;
+use Kreta\Component\Organization\Model\Interfaces\OrganizationInterface;
 use Kreta\Component\Project\Model\Interfaces\IssuePriorityInterface;
 use Kreta\Component\Project\Model\Interfaces\LabelInterface;
+use Kreta\Component\Project\Model\Interfaces\ParticipantInterface;
+use Kreta\Component\Project\Model\Interfaces\ParticipantInterface as OrgParticipantInterface;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
-use Kreta\Component\Project\Model\Participant;
 use Kreta\Component\Project\Model\Project;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
-use Kreta\Component\User\Model\User;
 use Kreta\Component\Workflow\Model\Interfaces\StatusInterface;
 use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
 use PhpSpec\ObjectBehavior;
@@ -211,27 +212,42 @@ class IssueSpec extends ObjectBehavior
         $this->getLabels()->shouldHaveCount(0);
     }
 
-    function it_is_not_participant(UserInterface $anotherUser)
-    {
-        $project = new Project();
-        $user = new User();
-        $participant = new Participant($project, $user);
-        $project->addParticipant($participant);
-
+    function it_is_not_participant(
+        UserInterface $user,
+        OrgParticipantInterface $participant,
+        UserInterface $anotherUser,
+        ProjectInterface $project,
+        OrganizationInterface $organization
+    ) {
         $this->setProject($project)->shouldReturn($this);
+        $this->getProject()->shouldReturn($project);
+        $project->getParticipants()->shouldBeCalled()->willReturn([]);
+
+        $project->getOrganization()->shouldBeCalled()->willReturn($organization);
+        $organization->getParticipants()->shouldBeCalled()->willReturn([$participant]);
+        $participant->getUser()->shouldBeCalled()->willReturn($user);
+        $user->getId()->shouldBeCalled()->willReturn('user-another-id');
         $anotherUser->getId()->shouldBeCalled()->willReturn('user-id');
 
         $this->isParticipant($anotherUser)->shouldReturn(false);
     }
 
-    function it_is_participant(UserInterface $anotherUser)
-    {
-        $project = new Project();
-        $user = new User();
-        $participant = new Participant($project, $user);
-        $project->addParticipant($participant);
-
+    function it_is_participant(
+        UserInterface $user,
+        OrgParticipantInterface $participant,
+        UserInterface $anotherUser,
+        ProjectInterface $project,
+        OrganizationInterface $organization
+    ) {
         $this->setProject($project)->shouldReturn($this);
+        $this->getProject()->shouldReturn($project);
+        $project->getParticipants()->shouldBeCalled()->willReturn([]);
+
+        $project->getOrganization()->shouldBeCalled()->willReturn($organization);
+        $organization->getParticipants()->shouldBeCalled()->willReturn([$participant]);
+        $participant->getUser()->shouldBeCalled()->willReturn($user);
+        $user->getId()->shouldBeCalled()->willReturn('user-id');
+        $anotherUser->getId()->shouldBeCalled()->willReturn('user-id');
 
         $this->isParticipant($anotherUser)->shouldReturn(true);
     }

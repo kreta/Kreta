@@ -474,6 +474,11 @@ class Issue extends AbstractModel implements IssueInterface
                 return true;
             }
         }
+        foreach ($this->project->getOrganization()->getParticipants() as $participant) {
+            if ($user->getId() === $participant->getUser()->getId()) {
+                return true;
+            }
+        }
 
         return false;
     }

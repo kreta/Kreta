@@ -13,9 +13,12 @@
 namespace spec\Kreta\Bundle\WorkflowBundle\Security\Authorization\Voter;
 
 use Kreta\Component\Issue\Model\Interfaces\IssueInterface;
+use Kreta\Component\Organization\Model\Interfaces\OrganizationInterface;
+use Kreta\Component\Organization\Model\Interfaces\ParticipantInterface;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\Project\Model\Project;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
+use Kreta\Component\Workflow\Model\Interfaces\WorkflowInterface;
 use Kreta\Component\Workflow\Model\Workflow;
 use PhpSpec\ObjectBehavior;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
@@ -94,6 +97,8 @@ class WorkflowVoterSpec extends ObjectBehavior
         UserInterface $user,
         UserInterface $user2
     ) {
+        $workflow->getProjects()->shouldBeCalled()->willReturn([]);
+
         $token->getUser()->shouldBeCalled()->willReturn($user);
         $user->getId()->shouldBeCalled()->willReturn('user-id');
         $workflow->getCreator()->shouldBeCalled()->willReturn($user2);
@@ -105,12 +110,13 @@ class WorkflowVoterSpec extends ObjectBehavior
 
     function it_does_not_vote_view_grant(
         TokenInterface $token,
-        Project $project,
+        ProjectInterface $project,
         UserInterface $user,
         Workflow $workflow
     ) {
-        $token->getUser()->shouldBeCalled()->willReturn($user);
         $workflow->getProjects()->shouldBeCalled()->willReturn([$project]);
+        $project->getOrganization()->shouldBeCalled()->willReturn(null);
+        $token->getUser()->shouldBeCalled()->willReturn($user);
         $project->getUserRole($user)->shouldBeCalled()->willReturn(null);
 
         $this->vote($token, $workflow, ['view'])->shouldReturn(-1);
@@ -122,6 +128,8 @@ class WorkflowVoterSpec extends ObjectBehavior
         UserInterface $user,
         UserInterface $user2
     ) {
+        $workflow->getProjects()->shouldBeCalled()->willReturn([]);
+
         $token->getUser()->shouldBeCalled()->willReturn($user);
         $user->getId()->shouldBeCalled()->willReturn('user-id');
         $workflow->getCreator()->shouldBeCalled()->willReturn($user2);
@@ -136,6 +144,8 @@ class WorkflowVoterSpec extends ObjectBehavior
         Workflow $workflow,
         UserInterface $user
     ) {
+        $workflow->getProjects()->shouldBeCalled()->willReturn([]);
+
         $token->getUser()->shouldBeCalled()->willReturn($user);
         $user->getId()->shouldBeCalled()->willReturn('user-id');
         $workflow->getCreator()->shouldBeCalled()->willReturn($user);
@@ -151,9 +161,26 @@ class WorkflowVoterSpec extends ObjectBehavior
         ProjectInterface $project,
         Workflow $workflow
     ) {
+        $workflow->getProjects()->shouldBeCalled()->willReturn([$project]);
+        $project->getOrganization()->shouldBeCalled()->willReturn(null);
         $token->getUser()->shouldBeCalled()->willReturn($user);
         $workflow->getProjects()->shouldBeCalled()->willReturn([$project]);
         $project->getUserRole($user)->shouldBeCalled()->willReturn('ROLE_PARTICIPANT');
+
+        $this->vote($token, $workflow, ['view'])->shouldReturn(1);
+    }
+
+    function it_can_do_anything_with_ORG_ADMIN_role(
+        TokenInterface $token,
+        UserInterface $user,
+        ProjectInterface $project,
+        WorkflowInterface $workflow,
+        OrganizationInterface $organization
+    ) {
+        $workflow->getProjects()->shouldBeCalled()->willReturn([$project]);
+        $project->getOrganization()->shouldBeCalled()->willReturn($organization);
+        $token->getUser()->shouldBeCalled()->willReturn($user);
+        $organization->getUserRole($user)->shouldBeCalled()->willReturn(ParticipantInterface::ORG_ADMIN);
 
         $this->vote($token, $workflow, ['view'])->shouldReturn(1);
     }

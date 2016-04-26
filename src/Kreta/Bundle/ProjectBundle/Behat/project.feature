@@ -119,19 +119,6 @@ Feature: Manage projects
           "participants": [
             {
               "project": null,
-              "role": "ROLE_ADMIN",
-              "user": {
-                "id": "0",
-                "username": "user",
-                "email": "user@kreta.com",
-                "created_at": "2014-10-20T00:00:00+0200",
-                "first_name": "Kreta",
-                "last_name": "User",
-                "photo": null
-              }
-            },
-            {
-              "project": null,
               "role": "ROLE_PARTICIPANT",
               "user": {
                 "id": "2",
@@ -236,19 +223,6 @@ Feature: Manage projects
           ],
           "name": "Test project 2",
           "participants": [
-            {
-              "project": null,
-              "role": "ROLE_ADMIN",
-              "user": {
-                "id": "0",
-                "username": "user",
-                "email": "user@kreta.com",
-                "created_at": "2014-10-20T00:00:00+0200",
-                "first_name": "Kreta",
-                "last_name": "User",
-                "photo": null
-              }
-            },
             {
               "project": null,
               "role": "ROLE_PARTICIPANT",
@@ -368,19 +342,6 @@ Feature: Manage projects
         ],
         "name": "Test project 1",
         "participants": [
-          {
-            "project": null,
-            "role": "ROLE_ADMIN",
-            "user": {
-              "id": "0",
-              "username": "user",
-              "email": "user@kreta.com",
-              "created_at": "2014-10-20T00:00:00+0200",
-              "first_name": "Kreta",
-              "last_name": "User",
-              "photo": null
-            }
-          },
           {
             "project": null,
             "role": "ROLE_PARTICIPANT",
@@ -639,19 +600,6 @@ Feature: Manage projects
         "participants": [
           {
             "project": null,
-            "role": "ROLE_ADMIN",
-            "user": {
-              "id": "0",
-              "username": "user",
-              "email": "user@kreta.com",
-              "created_at": "2014-10-20T00:00:00+0200",
-              "first_name": "Kreta",
-              "last_name": "User",
-              "photo": null
-            }
-          },
-          {
-            "project": null,
             "role": "ROLE_PARTICIPANT",
             "user": {
               "id": "2",
@@ -828,19 +776,6 @@ Feature: Manage projects
           "participants": [
             {
               "project": null,
-              "role": "ROLE_ADMIN",
-              "user": {
-                "id": "0",
-                "username": "user",
-                "email": "user@kreta.com",
-                "created_at": "2014-10-20T00:00:00+0200",
-                "first_name": "Kreta",
-                "last_name": "User",
-                "photo": null
-              }
-            },
-            {
-              "project": null,
               "role": "ROLE_PARTICIPANT",
               "user": {
                 "id": "2",
@@ -945,19 +880,6 @@ Feature: Manage projects
           ],
           "name": "Test project 2",
           "participants": [
-            {
-              "project": null,
-              "role": "ROLE_ADMIN",
-              "user": {
-                "id": "0",
-                "username": "user",
-                "email": "user@kreta.com",
-                "created_at": "2014-10-20T00:00:00+0200",
-                "first_name": "Kreta",
-                "last_name": "User",
-                "photo": null
-              }
-            },
             {
               "project": null,
               "role": "ROLE_PARTICIPANT",

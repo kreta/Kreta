@@ -13,8 +13,8 @@
 namespace Kreta\Bundle\ProjectBundle\Security\Authorization\Voter;
 
 use Kreta\Bundle\CoreBundle\Security\Authorization\Voter\Abstracts\AbstractVoter;
-use Kreta\Component\Project\Model\Interfaces\ParticipantInterface;
 use Kreta\Component\Organization\Model\Interfaces\ParticipantInterface as OrgParticipant;
+use Kreta\Component\Project\Model\Interfaces\ParticipantInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 

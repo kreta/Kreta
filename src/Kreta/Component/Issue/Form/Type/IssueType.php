@@ -81,6 +81,13 @@ class IssueType extends AbstractType
 
         $formModifier = function (FormInterface $form, ProjectInterface $project = null) {
             $participants = null === $project ? [] : $project->getParticipants();
+            if ($project instanceof ProjectInterface) {
+                $orgParticipants = null === $project->getOrganization()
+                    ? []
+                    : $project->getOrganization()->getParticipants();
+
+                $participants = array_merge($participants->toArray(), $orgParticipants->toArray());
+            }
             $priorities = null === $project ? [] : $project->getIssuePriorities();
             $issues = null === $project ? [] : $project->getIssues();
             $users = [];

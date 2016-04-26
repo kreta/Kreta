@@ -13,6 +13,7 @@
 namespace spec\Kreta\Bundle\IssueBundle\Security\Authorization\Voter;
 
 use Kreta\Component\Issue\Model\Issue;
+use Kreta\Component\Organization\Model\Interfaces\OrganizationInterface;
 use Kreta\Component\Project\Model\Interfaces\ProjectInterface;
 use Kreta\Component\User\Model\Interfaces\UserInterface;
 use PhpSpec\ObjectBehavior;
@@ -92,8 +93,9 @@ class IssueVoterSpec extends ObjectBehavior
         UserInterface $user,
         ProjectInterface $project
     ) {
-        $token->getUser()->shouldBeCalled()->willReturn($user);
         $issue->getProject()->shouldBeCalled()->willReturn($project);
+        $project->getOrganization()->shouldBeCalled()->willReturn(null);
+        $token->getUser()->shouldBeCalled()->willReturn($user);
         $project->getUserRole($user)->shouldBeCalled()->willReturn('ROLE_PARTICIPANT');
         $issue->isAssignee($user)->shouldBeCalled()->willReturn(false);
         $issue->isReporter($user)->shouldBeCalled()->willReturn(false);
@@ -101,8 +103,13 @@ class IssueVoterSpec extends ObjectBehavior
         $this->vote($token, $issue, ['assign'])->shouldReturn(-1);
     }
 
-    function it_does_not_vote_view_grant(TokenInterface $token, Issue $issue, UserInterface $user)
-    {
+    function it_does_not_vote_view_grant(
+        TokenInterface $token,
+        Issue $issue,
+        UserInterface $user,
+        ProjectInterface $project
+    ) {
+        $issue->getProject()->shouldBeCalled()->willReturn($project);
         $token->getUser()->shouldBeCalled()->willReturn($user);
         $issue->isParticipant($user)->shouldBeCalled()->willReturn(false);
 
@@ -115,8 +122,9 @@ class IssueVoterSpec extends ObjectBehavior
         UserInterface $user,
         ProjectInterface $project
     ) {
-        $token->getUser()->shouldBeCalled()->willReturn($user);
         $issue->getProject()->shouldBeCalled()->willReturn($project);
+        $project->getOrganization()->shouldBeCalled()->willReturn(null);
+        $token->getUser()->shouldBeCalled()->willReturn($user);
         $project->getUserRole($user)->shouldBeCalled()->willReturn('ROLE_ADMIN');
         $issue->isAssignee($user)->shouldBeCalled()->willReturn(false);
         $issue->isReporter($user)->shouldBeCalled()->willReturn(false);
@@ -130,8 +138,9 @@ class IssueVoterSpec extends ObjectBehavior
         UserInterface $user,
         ProjectInterface $project
     ) {
-        $token->getUser()->shouldBeCalled()->willReturn($user);
         $issue->getProject()->shouldBeCalled()->willReturn($project);
+        $project->getOrganization()->shouldBeCalled()->willReturn(null);
+        $token->getUser()->shouldBeCalled()->willReturn($user);
         $project->getUserRole($user)->shouldBeCalled()->willReturn('ROLE_PARTICIPANT');
         $issue->isAssignee($user)->shouldBeCalled()->willReturn(false);
         $issue->isReporter($user)->shouldBeCalled()->willReturn(true);
@@ -145,16 +154,38 @@ class IssueVoterSpec extends ObjectBehavior
         UserInterface $user,
         ProjectInterface $project
     ) {
-        $token->getUser()->shouldBeCalled()->willReturn($user);
         $issue->getProject()->shouldBeCalled()->willReturn($project);
+        $project->getOrganization()->shouldBeCalled()->willReturn(null);
+        $token->getUser()->shouldBeCalled()->willReturn($user);
         $project->getUserRole($user)->shouldBeCalled()->willReturn('ROLE_PARTICIPANT');
         $issue->isAssignee($user)->shouldBeCalled()->willReturn(true);
 
         $this->vote($token, $issue, ['assign'])->shouldReturn(1);
     }
 
-    function it_votes_view_grant(TokenInterface $token, Issue $issue, UserInterface $user)
-    {
+    function it_votes_view_grant(
+        TokenInterface $token,
+        Issue $issue,
+        UserInterface $user,
+        ProjectInterface $project
+    ) {
+        $issue->getProject()->shouldBeCalled()->willReturn($project);
+        $project->getOrganization()->shouldBeCalled()->willReturn(null);
+        $token->getUser()->shouldBeCalled()->willReturn($user);
+        $issue->isParticipant($user)->shouldBeCalled()->willReturn(true);
+
+        $this->vote($token, $issue, ['view'])->shouldReturn(1);
+    }
+
+    function it_can_do_anything_with_ORG_ADMIN_role(
+        TokenInterface $token,
+        Issue $issue,
+        UserInterface $user,
+        ProjectInterface $project,
+        OrganizationInterface $organization
+    ) {
+        $issue->getProject()->shouldBeCalled()->willReturn($project);
+        $project->getOrganization()->shouldBeCalled()->willReturn($organization);
         $token->getUser()->shouldBeCalled()->willReturn($user);
         $issue->isParticipant($user)->shouldBeCalled()->willReturn(true);
 

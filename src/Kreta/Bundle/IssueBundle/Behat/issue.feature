@@ -138,8 +138,8 @@ Feature: Manage issue
           "parent": null,
           "priority": {
             "id": "1",
-            "name": "Medium",
-            "color": "#67b86a"
+            "color": "#67b86a",
+            "name": "Medium"
           },
           "resolution": null,
           "reporter": {
@@ -163,76 +163,6 @@ Feature: Manage issue
             },
             "project": {
               "href": "http://kreta.test:8000/api/projects/0"
-            },
-            "issues": {
-              "href": "http://kreta.test:8000/api/issues"
-            }
-          }
-        },
-        {
-          "id": "3",
-          "assignee": {
-            "id": "3",
-            "username": "user4",
-            "email": "user4@kreta.com",
-            "first_name": "Kreta",
-            "last_name": "User4",
-            "photo": null
-          },
-          "children": [],
-          "created_at": "2014-10-21T00:00:00+0200",
-          "description": "Description",
-          "labels": [
-            {
-              "id": "1",
-              "name": "php"
-            },
-            {
-              "id": "10",
-              "name": "compass"
-            },
-            {
-              "id": "4",
-              "name": "behat"
-            },
-            {
-              "id": "5",
-              "name": "phpspec"
-            },
-            {
-              "id": "7",
-              "name": "html5"
-            }
-          ],
-          "numeric_id": 1,
-          "parent": null,
-          "priority": {
-            "id": "5",
-            "name": "Medium",
-            "color": "#67b86a"
-          },
-          "resolution": null,
-          "reporter": {
-            "id": "0",
-            "username": "user",
-            "email": "user@kreta.com",
-            "first_name": "Kreta",
-            "last_name": "User",
-            "photo": null
-          },
-          "status": {
-            "type": "normal",
-            "name": "Resolved",
-            "id": "2",
-            "color": "#f1c40f"
-          },
-          "title": "Test issue 1",
-          "_links": {
-            "self": {
-              "href": "http://kreta.test:8000/api/issues/3"
-            },
-            "project": {
-              "href": "http://kreta.test:8000/api/projects/1"
             },
             "issues": {
               "href": "http://kreta.test:8000/api/issues"
@@ -289,8 +219,8 @@ Feature: Manage issue
               "parent": null,
               "priority": {
                 "id": "4",
-                "name": "Low",
-                "color": "#969696"
+                "color": "#969696",
+                "name": "Low"
               },
               "resolution": null,
               "reporter": {
@@ -349,8 +279,8 @@ Feature: Manage issue
           "parent": null,
           "priority": {
             "id": "4",
-            "name": "Low",
-            "color": "#969696"
+            "color": "#969696",
+            "name": "Low"
           },
           "resolution": null,
           "reporter": {
@@ -371,6 +301,76 @@ Feature: Manage issue
           "_links": {
             "self": {
               "href": "http://kreta.test:8000/api/issues/4"
+            },
+            "project": {
+              "href": "http://kreta.test:8000/api/projects/1"
+            },
+            "issues": {
+              "href": "http://kreta.test:8000/api/issues"
+            }
+          }
+        },
+        {
+          "id": "3",
+          "assignee": {
+            "id": "3",
+            "username": "user4",
+            "email": "user4@kreta.com",
+            "first_name": "Kreta",
+            "last_name": "User4",
+            "photo": null
+          },
+          "children": [],
+          "created_at": "2014-10-21T00:00:00+0200",
+          "description": "Description",
+          "labels": [
+            {
+              "id": "1",
+              "name": "php"
+            },
+            {
+              "id": "10",
+              "name": "compass"
+            },
+            {
+              "id": "4",
+              "name": "behat"
+            },
+            {
+              "id": "5",
+              "name": "phpspec"
+            },
+            {
+              "id": "7",
+              "name": "html5"
+            }
+          ],
+          "numeric_id": 1,
+          "parent": null,
+          "priority": {
+            "id": "5",
+            "color": "#67b86a",
+            "name": "Medium"
+          },
+          "resolution": null,
+          "reporter": {
+            "id": "0",
+            "username": "user",
+            "email": "user@kreta.com",
+            "first_name": "Kreta",
+            "last_name": "User",
+            "photo": null
+          },
+          "status": {
+            "type": "normal",
+            "name": "Resolved",
+            "id": "2",
+            "color": "#f1c40f"
+          },
+          "title": "Test issue 1",
+          "_links": {
+            "self": {
+              "href": "http://kreta.test:8000/api/issues/3"
             },
             "project": {
               "href": "http://kreta.test:8000/api/projects/1"
@@ -419,8 +419,8 @@ Feature: Manage issue
           "parent": null,
           "priority": {
             "id": "0",
-            "name": "Low",
-            "color": "#969696"
+            "color": "#969696",
+            "name": "Low"
           },
           "resolution": null,
           "reporter": {
@@ -489,8 +489,8 @@ Feature: Manage issue
           "parent": null,
           "priority": {
             "id": "2",
-            "name": "High",
-            "color": "#f07f2c"
+            "color": "#f07f2c",
+            "name": "High"
           },
           "resolution": null,
           "reporter": {
@@ -595,8 +595,8 @@ Feature: Manage issue
             "parent": null,
             "priority": {
               "id": "4",
-              "name": "Low",
-              "color": "#969696"
+              "color": "#969696",
+              "name": "Low"
             },
             "resolution": null,
             "reporter": {
@@ -628,8 +628,8 @@ Feature: Manage issue
           },
           "priority": {
             "id": "4",
-            "name": "Low",
-            "color": "#969696"
+            "color": "#969696",
+            "name": "Low"
           },
           "resolution": null,
           "reporter": {
@@ -698,8 +698,8 @@ Feature: Manage issue
           "parent": null,
           "priority": {
             "id": "3",
-            "name": "Blocker",
-            "color": "#f02c4c"
+            "color": "#f02c4c",
+            "name": "Blocker"
           },
           "resolution": null,
           "reporter": {
@@ -1074,8 +1074,8 @@ Feature: Manage issue
           "parent": null,
           "priority": {
             "id": "2",
-            "name": "High",
-            "color": "#f07f2c"
+            "color": "#f07f2c",
+            "name": "High"
           },
           "resolution": null,
           "reporter": {
@@ -1144,8 +1144,8 @@ Feature: Manage issue
           "parent": null,
           "priority": {
             "id": "3",
-            "name": "Blocker",
-            "color": "#f02c4c"
+            "color": "#f02c4c",
+            "name": "Blocker"
           },
           "resolution": null,
           "reporter": {
@@ -1172,76 +1172,6 @@ Feature: Manage issue
             },
             "project": {
               "href": "http://kreta.test:8000/api/projects/0"
-            },
-            "issues": {
-              "href": "http://kreta.test:8000/api/issues"
-            }
-          }
-        },
-        {
-          "id": "3",
-          "assignee": {
-            "id": "3",
-            "username": "user4",
-            "email": "user4@kreta.com",
-            "first_name": "Kreta",
-            "last_name": "User4",
-            "photo": null
-          },
-          "children": [],
-          "created_at": "2014-10-21T00:00:00+0200",
-          "description": "Description",
-          "labels": [
-            {
-              "id": "1",
-              "name": "php"
-            },
-            {
-              "id": "10",
-              "name": "compass"
-            },
-            {
-              "id": "4",
-              "name": "behat"
-            },
-            {
-              "id": "5",
-              "name": "phpspec"
-            },
-            {
-              "id": "7",
-              "name": "html5"
-            }
-          ],
-          "numeric_id": 1,
-          "parent": null,
-          "priority": {
-            "id": "5",
-            "name": "Medium",
-            "color": "#67b86a"
-          },
-          "resolution": null,
-          "reporter": {
-            "id": "0",
-            "username": "user",
-            "email": "user@kreta.com",
-            "first_name": "Kreta",
-            "last_name": "User",
-            "photo": null
-          },
-          "status": {
-            "type": "normal",
-            "name": "Resolved",
-            "id": "2",
-            "color": "#f1c40f"
-          },
-          "title": "Test issue 1",
-          "_links": {
-            "self": {
-              "href": "http://kreta.test:8000/api/issues/3"
-            },
-            "project": {
-              "href": "http://kreta.test:8000/api/projects/1"
             },
             "issues": {
               "href": "http://kreta.test:8000/api/issues"
@@ -1298,8 +1228,8 @@ Feature: Manage issue
               "parent": null,
               "priority": {
                 "id": "4",
-                "name": "Low",
-                "color": "#969696"
+                "color": "#969696",
+                "name": "Low"
               },
               "resolution": null,
               "reporter": {
@@ -1358,8 +1288,8 @@ Feature: Manage issue
           "parent": null,
           "priority": {
             "id": "4",
-            "name": "Low",
-            "color": "#969696"
+            "color": "#969696",
+            "name": "Low"
           },
           "resolution": null,
           "reporter": {
@@ -1380,6 +1310,76 @@ Feature: Manage issue
           "_links": {
             "self": {
               "href": "http://kreta.test:8000/api/issues/4"
+            },
+            "project": {
+              "href": "http://kreta.test:8000/api/projects/1"
+            },
+            "issues": {
+              "href": "http://kreta.test:8000/api/issues"
+            }
+          }
+        },
+        {
+          "id": "3",
+          "assignee": {
+            "id": "3",
+            "username": "user4",
+            "email": "user4@kreta.com",
+            "first_name": "Kreta",
+            "last_name": "User4",
+            "photo": null
+          },
+          "children": [],
+          "created_at": "2014-10-21T00:00:00+0200",
+          "description": "Description",
+          "labels": [
+            {
+              "id": "1",
+              "name": "php"
+            },
+            {
+              "id": "10",
+              "name": "compass"
+            },
+            {
+              "id": "4",
+              "name": "behat"
+            },
+            {
+              "id": "5",
+              "name": "phpspec"
+            },
+            {
+              "id": "7",
+              "name": "html5"
+            }
+          ],
+          "numeric_id": 1,
+          "parent": null,
+          "priority": {
+            "id": "5",
+            "color": "#67b86a",
+            "name": "Medium"
+          },
+          "resolution": null,
+          "reporter": {
+            "id": "0",
+            "username": "user",
+            "email": "user@kreta.com",
+            "first_name": "Kreta",
+            "last_name": "User",
+            "photo": null
+          },
+          "status": {
+            "type": "normal",
+            "name": "Resolved",
+            "id": "2",
+            "color": "#f1c40f"
+          },
+          "title": "Test issue 1",
+          "_links": {
+            "self": {
+              "href": "http://kreta.test:8000/api/issues/3"
             },
             "project": {
               "href": "http://kreta.test:8000/api/projects/1"
@@ -1464,8 +1464,8 @@ Feature: Manage issue
             "parent": null,
             "priority": {
               "id": "4",
-              "name": "Low",
-              "color": "#969696"
+              "color": "#969696",
+              "name": "Low"
             },
             "resolution": null,
             "reporter": {
@@ -1497,8 +1497,8 @@ Feature: Manage issue
           },
           "priority": {
             "id": "4",
-            "name": "Low",
-            "color": "#969696"
+            "color": "#969696",
+            "name": "Low"
           },
           "resolution": null,
           "reporter": {
@@ -1567,8 +1567,8 @@ Feature: Manage issue
           "parent": null,
           "priority": {
             "id": "0",
-            "name": "Low",
-            "color": "#969696"
+            "color": "#969696",
+            "name": "Low"
           },
           "resolution": null,
           "reporter": {
@@ -1637,8 +1637,8 @@ Feature: Manage issue
           "parent": null,
           "priority": {
             "id": "1",
-            "name": "Medium",
-            "color": "#67b86a"
+            "color": "#67b86a",
+            "name": "Medium"
           },
           "resolution": null,
           "reporter": {
@@ -2508,14 +2508,22 @@ Feature: Manage issue
             {
               "id": "8",
               "name": "css3"
+            },
+            {
+              "id": "0",
+              "name": "backbone.js"
+            },
+            {
+              "id": "2",
+              "name": "javascript"
             }
           ],
           "numeric_id": 1,
           "parent": null,
           "priority": {
             "id": "1",
-            "name": "Medium",
-            "color": "#67b86a"
+            "color": "#67b86a",
+            "name": "Medium"
           },
           "resolution": null,
           "reporter": {
@@ -2539,76 +2547,6 @@ Feature: Manage issue
             },
             "project": {
               "href": "http://kreta.test:8000/api/projects/0"
-            },
-            "issues": {
-              "href": "http://kreta.test:8000/api/issues"
-            }
-          }
-        },
-        {
-          "id": "3",
-          "assignee": {
-            "id": "3",
-            "username": "user4",
-            "email": "user4@kreta.com",
-            "first_name": "Kreta",
-            "last_name": "User4",
-            "photo": null
-          },
-          "children": [],
-          "created_at": "2014-10-21T00:00:00+0200",
-          "description": "Description",
-          "labels": [
-            {
-              "id": "1",
-              "name": "php"
-            },
-            {
-              "id": "10",
-              "name": "compass"
-            },
-            {
-              "id": "4",
-              "name": "behat"
-            },
-            {
-              "id": "5",
-              "name": "phpspec"
-            },
-            {
-              "id": "7",
-              "name": "html5"
-            }
-          ],
-          "numeric_id": 1,
-          "parent": null,
-          "priority": {
-            "id": "5",
-            "name": "Medium",
-            "color": "#67b86a"
-          },
-          "resolution": null,
-          "reporter": {
-            "id": "0",
-            "username": "user",
-            "email": "user@kreta.com",
-            "first_name": "Kreta",
-            "last_name": "User",
-            "photo": null
-          },
-          "status": {
-            "type": "normal",
-            "name": "Resolved",
-            "id": "2",
-            "color": "#f1c40f"
-          },
-          "title": "Test issue 1",
-          "_links": {
-            "self": {
-              "href": "http://kreta.test:8000/api/issues/3"
-            },
-            "project": {
-              "href": "http://kreta.test:8000/api/projects/1"
             },
             "issues": {
               "href": "http://kreta.test:8000/api/issues"
@@ -2665,8 +2603,8 @@ Feature: Manage issue
               "parent": null,
               "priority": {
                 "id": "4",
-                "name": "Low",
-                "color": "#969696"
+                "color": "#969696",
+                "name": "Low"
               },
               "resolution": null,
               "reporter": {
@@ -2725,8 +2663,8 @@ Feature: Manage issue
           "parent": null,
           "priority": {
             "id": "4",
-            "name": "Low",
-            "color": "#969696"
+            "color": "#969696",
+            "name": "Low"
           },
           "resolution": null,
           "reporter": {
@@ -2747,6 +2685,76 @@ Feature: Manage issue
           "_links": {
             "self": {
               "href": "http://kreta.test:8000/api/issues/4"
+            },
+            "project": {
+              "href": "http://kreta.test:8000/api/projects/1"
+            },
+            "issues": {
+              "href": "http://kreta.test:8000/api/issues"
+            }
+          }
+        },
+        {
+          "id": "3",
+          "assignee": {
+            "id": "3",
+            "username": "user4",
+            "email": "user4@kreta.com",
+            "first_name": "Kreta",
+            "last_name": "User4",
+            "photo": null
+          },
+          "children": [],
+          "created_at": "2014-10-21T00:00:00+0200",
+          "description": "Description",
+          "labels": [
+            {
+              "id": "1",
+              "name": "php"
+            },
+            {
+              "id": "10",
+              "name": "compass"
+            },
+            {
+              "id": "4",
+              "name": "behat"
+            },
+            {
+              "id": "5",
+              "name": "phpspec"
+            },
+            {
+              "id": "7",
+              "name": "html5"
+            }
+          ],
+          "numeric_id": 1,
+          "parent": null,
+          "priority": {
+            "id": "5",
+            "color": "#67b86a",
+            "name": "Medium"
+          },
+          "resolution": null,
+          "reporter": {
+            "id": "0",
+            "username": "user",
+            "email": "user@kreta.com",
+            "first_name": "Kreta",
+            "last_name": "User",
+            "photo": null
+          },
+          "status": {
+            "type": "normal",
+            "name": "Resolved",
+            "id": "2",
+            "color": "#f1c40f"
+          },
+          "title": "Test issue 1",
+          "_links": {
+            "self": {
+              "href": "http://kreta.test:8000/api/issues/3"
             },
             "project": {
               "href": "http://kreta.test:8000/api/projects/1"
@@ -2795,8 +2803,8 @@ Feature: Manage issue
           "parent": null,
           "priority": {
             "id": "0",
-            "name": "Low",
-            "color": "#969696"
+            "color": "#969696",
+            "name": "Low"
           },
           "resolution": null,
           "reporter": {
@@ -2865,8 +2873,8 @@ Feature: Manage issue
           "parent": null,
           "priority": {
             "id": "2",
-            "name": "High",
-            "color": "#f07f2c"
+            "color": "#f07f2c",
+            "name": "High"
           },
           "resolution": null,
           "reporter": {
@@ -2971,8 +2979,8 @@ Feature: Manage issue
             "parent": null,
             "priority": {
               "id": "4",
-              "name": "Low",
-              "color": "#969696"
+              "color": "#969696",
+              "name": "Low"
             },
             "resolution": null,
             "reporter": {
@@ -3004,8 +3012,8 @@ Feature: Manage issue
           },
           "priority": {
             "id": "4",
-            "name": "Low",
-            "color": "#969696"
+            "color": "#969696",
+            "name": "Low"
           },
           "resolution": null,
           "reporter": {
@@ -3074,8 +3082,8 @@ Feature: Manage issue
           "parent": null,
           "priority": {
             "id": "3",
-            "name": "Blocker",
-            "color": "#f02c4c"
+            "color": "#f02c4c",
+            "name": "Blocker"
           },
           "resolution": null,
           "reporter": {

@@ -57,36 +57,6 @@ Feature: Manage project participant
             "name": "Test project 1",
             "slug": "test-project-1"
           },
-          "role": "ROLE_ADMIN",
-          "user": {
-            "id": "0",
-            "username": "user",
-            "email": "user@kreta.com",
-            "first_name": "Kreta",
-            "last_name": "User",
-            "photo": null
-          },
-          "_links": {
-            "participants": {
-              "href": "http://kreta.test:8000/api/projects/0/participants"
-            },
-            "project": {
-              "href": "http://kreta.test:8000/api/projects/0"
-            },
-            "projects": {
-              "href": "http://kreta.test:8000/api/projects"
-            },
-            "issues": {
-              "href": "http://kreta.test:8000/api/issues"
-            }
-          }
-        },
-        {
-          "project": {
-            "id": "0",
-            "name": "Test project 1",
-            "slug": "test-project-1"
-          },
           "role": "ROLE_PARTICIPANT",
           "user": {
             "id": "1",
@@ -145,38 +115,7 @@ Feature: Manage project participant
     Then the response code should be 200
     And the response should contain json:
     """
-      [
-        {
-          "project": {
-            "id": "0",
-            "name": "Test project 1",
-            "slug": "test-project-1"
-          },
-          "role": "ROLE_ADMIN",
-          "user": {
-            "id": "0",
-            "username": "user",
-            "email": "user@kreta.com",
-            "first_name": "Kreta",
-            "last_name": "User",
-            "photo": null
-          },
-          "_links": {
-            "participants": {
-              "href": "http://kreta.test:8000/api/projects/0/participants"
-            },
-            "project": {
-              "href": "http://kreta.test:8000/api/projects/0"
-            },
-            "projects": {
-              "href": "http://kreta.test:8000/api/projects"
-            },
-            "issues": {
-              "href": "http://kreta.test:8000/api/issues"
-            }
-          }
-        }
-      ]
+      []
     """
 
   Scenario: Getting all the participants of project 0 with limit 2
@@ -186,36 +125,6 @@ Feature: Manage project participant
     And the response should contain json:
     """
       [
-        {
-          "project": {
-            "id": "0",
-            "name": "Test project 1",
-            "slug": "test-project-1"
-          },
-          "role": "ROLE_ADMIN",
-          "user": {
-            "id": "0",
-            "username": "user",
-            "email": "user@kreta.com",
-            "first_name": "Kreta",
-            "last_name": "User",
-            "photo": null
-          },
-          "_links": {
-            "participants": {
-              "href": "http://kreta.test:8000/api/projects/0/participants"
-            },
-            "project": {
-              "href": "http://kreta.test:8000/api/projects/0"
-            },
-            "projects": {
-              "href": "http://kreta.test:8000/api/projects"
-            },
-            "issues": {
-              "href": "http://kreta.test:8000/api/issues"
-            }
-          }
-        },
         {
           "project": {
             "id": "0",
@@ -258,38 +167,7 @@ Feature: Manage project participant
     Then the response code should be 200
     And the response should contain json:
     """
-      [
-        {
-          "project": {
-            "id": "1",
-            "name": "Test project 2",
-            "slug": "test-project-2"
-          },
-          "role": "ROLE_PARTICIPANT",
-          "user": {
-            "id": "3",
-            "username": "user4",
-            "email": "user4@kreta.com",
-            "first_name": "Kreta",
-            "last_name": "User4",
-            "photo": null
-          },
-          "_links": {
-            "participants": {
-              "href": "http://kreta.test:8000/api/projects/1/participants"
-            },
-            "project": {
-              "href": "http://kreta.test:8000/api/projects/1"
-            },
-            "projects": {
-              "href": "http://kreta.test:8000/api/projects"
-            },
-            "issues": {
-              "href": "http://kreta.test:8000/api/issues"
-            }
-          }
-        }
-      ]
+      []
     """
 
   Scenario: Creating a participant with user that does not have required grant
@@ -436,12 +314,12 @@ Feature: Manage project participant
 
   Scenario: Deleting participant 0 of project 0
     Given I am authenticating with "access-token-0" token
-    When I send a DELETE request to "/api/projects/0/participants/0"
+    When I send a DELETE request to "/api/projects/0/participants/1"
     Then the response code should be 204
 
   Scenario: Deleting participant 0 with user which is not a project admin
     Given I am authenticating with "access-token-3" token
-    When I send a DELETE request to "/api/projects/0/participants/0"
+    When I send a DELETE request to "/api/projects/0/participants/1"
     Then the response code should be 403
     And the response should contain json:
     """

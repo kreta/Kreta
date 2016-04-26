@@ -13,6 +13,8 @@
 namespace Kreta\Bundle\WorkflowBundle\Security\Authorization\Voter;
 
 use Kreta\Bundle\CoreBundle\Security\Authorization\Voter\Abstracts\AbstractVoter;
+use Kreta\Component\Organization\Model\Interfaces\OrganizationInterface;
+use Kreta\Component\Organization\Model\Interfaces\ParticipantInterface as OrgParticipant;
 use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -47,6 +49,14 @@ class WorkflowVoter extends AbstractVoter
      */
     protected function checkAttribute(UserInterface $user, $workflow, $attribute)
     {
+        $projects = null === $workflow->getProjects() ? [] : $workflow->getProjects();
+        foreach ($projects as $project) {
+            if (($organization = $project->getOrganization()) instanceof OrganizationInterface) {
+                if ($organization->getUserRole($user) === OrgParticipant::ORG_ADMIN) {
+                    return VoterInterface::ACCESS_GRANTED;
+                }
+            }
+        }
         switch ($attribute) {
             case self::EDIT:
             case self::MANAGE_STATUS:
@@ -55,11 +65,9 @@ class WorkflowVoter extends AbstractVoter
                 }
                 break;
             case self::VIEW:
-                if ($projects = $workflow->getProjects()) {
-                    foreach ($projects as $project) {
-                        if ($project->getUserRole($user) !== null) {
-                            return VoterInterface::ACCESS_GRANTED;
-                        }
+                foreach ($projects as $project) {
+                    if ($project->getUserRole($user) !== null) {
+                        return VoterInterface::ACCESS_GRANTED;
                     }
                 }
         }

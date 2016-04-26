@@ -45,12 +45,25 @@ class ProjectRepository extends EntityRepository
         $limit = null,
         $offset = null
     ) {
-        $criteria = ['par.user' => $user];
+        $queryBuilder = $this->getQueryBuilder();
         if ($organization instanceof OrganizationInterface) {
-            $criteria = array_merge($criteria, ['organization' => $organization]);
+            $queryBuilder = $this->addCriteria($queryBuilder, ['organization' => $organization]);
         }
 
-        return $this->findBy($criteria, $sorting, $limit, $offset);
+        $queryBuilder->andWhere($queryBuilder->expr()->orX(
+            $queryBuilder->expr()->eq('par.user', ':user'),
+            $queryBuilder->expr()->eq('opar.user', ':user')
+        ));
+        $queryBuilder->setParameter('user', $user);
+        $this->orderBy($queryBuilder, $sorting);
+        if ($limit) {
+            $queryBuilder->setMaxResults($limit);
+        }
+        if ($offset) {
+            $queryBuilder->setFirstResult($offset);
+        }
+
+        return $queryBuilder->getQuery()->getResult();
     }
 
     /**
@@ -63,6 +76,7 @@ class ProjectRepository extends EntityRepository
             ->leftJoin('p.image', 'img')
             ->leftJoin('p.issues', 'i')
             ->leftJoin('p.organization', 'o')
+            ->leftJoin('o.participants', 'opar')
             ->leftJoin('p.participants', 'par')
             ->join('p.creator', 'c')
             ->join('p.workflow', 'w');
