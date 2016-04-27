@@ -17,12 +17,13 @@ import Button from './../../component/Button';
 import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
 import ContentRightLayout from './../../layout/ContentRightLayout';
 import ProjectEdit from './Edit';
-import SettingsParticipants from './SettingsParticipants';
 import UserPreview from './../../component/UserPreview';
 import LoadingSpinner from '../../component/LoadingSpinner.jsx';
 import CurrentProjectActions from '../../../actions/CurrentProject';
 import PageHeader from '../../component/PageHeader';
 import SectionHeader from './../../component/SectionHeader';
+import DashboardWidget from './../../component/DashboardWidget';
+import Modal from './../../component/Modal';
 
 class Settings extends React.Component {
   state = {
@@ -42,8 +43,10 @@ class Settings extends React.Component {
       return <LoadingSpinner/>;
     }
 
-    const participants = this.props.project.participants.map((participant, index) => {
+    const projectParticipants = this.props.project.participants.map((participant, index) => {
       return <UserPreview key={index} user={participant.user}/>;
+    }), organizationParticipants = this.props.project.organization.participants.map((participant, index) => {
+      return <UserPreview key={index} user={participant.user}/>
     });
 
     return (
@@ -55,20 +58,16 @@ class Settings extends React.Component {
                       title={this.props.project.name}/>
           <ProjectEdit project={this.props.project}/>
 
-          <section>
-            <SectionHeader actions={<Button color="green" onClick={this.showAddParticipants.bind(this)}>Add people</Button>}
-                           title={<span><strong>People</strong> in this project</span>}/>
-            <div className="project-settings__participants">
-              {participants}
-            </div>
+          <section className="index__dashboard">
+            <DashboardWidget title="Organization participants">
+              {organizationParticipants}
+            </DashboardWidget>
+            <DashboardWidget title="Project participants">
+              {projectParticipants}
+              <Button color="green" onClick={this.showAddParticipants.bind(this)}>Add</Button>
+            </DashboardWidget>
           </section>
         </ContentMiddleLayout>
-        <ContentRightLayout isOpen={this.state.addParticipantsVisible}>
-          <SettingsParticipants
-            onParticipantAddClicked={this.addParticipant.bind(this)}
-            project={this.props.project}
-          />
-        </ContentRightLayout>
       </div>
     );
   }
