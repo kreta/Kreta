@@ -83,8 +83,8 @@ script:
     - vendor/bin/behat --stop-on-failure --suite=user
     - vendor/bin/behat --stop-on-failure --suite=workflow
 
-after_script:
-    - vendor/bin/coveralls -v
+after_success:
+    - travis_retry php vendor/bin/coveralls -v
 
 cache:
     directories:

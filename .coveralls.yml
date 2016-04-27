@@ -8,6 +8,5 @@
 
 service_name: travis-ci
 
-coverage_clover:
-    - phpspec-coverage.xml
-json_path: coveralls-upload.json
+coverage_clover: build/logs/phpspec-coverage.xml
+json_path: build/logs/coveralls-upload.json
