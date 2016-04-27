@@ -16,38 +16,57 @@ import Button from './../../component/Button';
 import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
 import DashboardWidget from './../../component/DashboardWidget';
 import LoadingSpinner from './../../component/LoadingSpinner';
+import PageHeader from './../../component/PageHeader';
 import ProjectPreview from './../../component/ProjectPreview';
+import UserPreview from './../../component/UserPreview';
 import Warning from './../../component/Warning';
 
 export default class Show extends React.Component {
-  getOrganizationProjects() {
-    if (this.props.organization.organization.projects.length > 0) {
-      return this.props.organization.organization.projects.map((project, index) => {
-        project.organization = this.props.organization.organization;
+  getProjects() {
+    if (this.props.organization.projects.length > 0) {
+      return this.props.organization.projects.map((project, index) => {
+        project.organization = this.props.organization;
 
         return <ProjectPreview key={index} project={project} />
       });
     }
 
-    return <Warning text="This organization does not have any project created yet"/>
+    return <Warning text="This organization does not have any project created yet">
+      <Link to={`/${this.props.organization.slug}/project/new`}>
+        <Button color="green">Create project</Button>
+      </Link>
+    </Warning>;
+  }
+
+  getParticipants() {
+    if (this.props.organization.participants.length > 0) {
+      return this.props.organization.participants.map((participant, index) => {
+        return <UserPreview key={index} user={participant.user} />
+      });
+    }
   }
 
   render() {
-    if (this.props.organization.fetchingOrganization) {
+    if (this.props.isFetching) {
       return <LoadingSpinner/>;
     }
+
+    let buttons = [{
+      href: `/${this.props.organization.slug}/project/new`,
+      title: 'Create project'
+    }];
+
     return (
       <ContentMiddleLayout>
+        <PageHeader buttons={buttons}
+                    image={this.props.organization.image ? this.props.organization.image.name : ''}
+                    title={this.props.organization.name}/>
         <div className="index__dashboard">
-          <DashboardWidget title={`${this.props.organization.organization.name} projects`}>
-            {this.getOrganizationProjects()}
+          <DashboardWidget title="Projects">
+            {this.getProjects()}
           </DashboardWidget>
-          <DashboardWidget title="Need more projects?">
-            <Warning text="You can create a new one pressing the button bellow">
-              <Link to={`/${this.props.organization.organization.slug}/project/new`}>
-                <Button color="green">Create project</Button>
-              </Link>
-            </Warning>
+          <DashboardWidget title="Participants">
+            {this.getParticipants()}
           </DashboardWidget>
         </div>
       </ContentMiddleLayout>
@@ -57,7 +76,8 @@ export default class Show extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    organization: state.currentOrganization
+    organization: state.currentOrganization.organization,
+    isFetching: state.currentOrganization.fetchingOrganization
   };
 };
 
