@@ -92,7 +92,8 @@ class IssueList extends React.Component {
           <PageHeader buttons={buttons}
                       image={project.image ? project.image.name : ''}
                       links={links}
-                      title={project.name}/>
+                      title={project.name}
+                      subtitle={project.organization.name}/>
           <Filter filters={this.props.currentProject.filters}
                   onFiltersChanged={this.filterIssues.bind(this)}/>
 
