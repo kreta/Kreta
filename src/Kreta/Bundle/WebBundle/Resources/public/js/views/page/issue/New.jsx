@@ -57,7 +57,8 @@ class New extends React.Component {
             value={p.id}/>
         );
       }),
-      assignee = project.participants.map((p) => {
+      participants = project.participants.concat(project.organization.participants),
+      assignee = participants.map((p, index) => {
         let assigneeName = `${p.user.first_name} ${p.user.last_name}`;
         if (p.user.first_name === '' || p.user.first_name === undefined) {
           assigneeName = p.user.username;
@@ -66,12 +67,13 @@ class New extends React.Component {
         return (
           <IssueField alignLeft={true}
                       image={<UserImage user={p.user}/>}
+                      key={index}
                       label="Assigned to"
                       text={assigneeName}
                       value={p.user.id}/>
         );
       }),
-      priority = project.issue_priorities.map((p) => {
+      priority = project.issue_priorities.map((p, index) => {
         return (
           <IssueField alignLeft={true}
                       image={
@@ -79,6 +81,7 @@ class New extends React.Component {
                               glyph={PriorityIcon}
                               style={{fill: p.color}}/>
                       }
+                      key={index}
                       label="Priority"
                       text={p.name}
                       value={p.id}/>

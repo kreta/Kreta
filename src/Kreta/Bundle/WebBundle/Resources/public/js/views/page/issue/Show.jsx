@@ -41,7 +41,8 @@ class Show extends React.Component {
   getProjectOptions() {
     const
       project = this.props.currentProject.project,
-      assignee = project.participants.map((p) => {
+      participants = project.participants.concat(project.organization.participants),
+      assignee = participants.map((p) => {
         let assigneeName = `${p.user.first_name} ${p.user.last_name}`;
         if (p.user.first_name === '' || p.user.first_name === undefined) {
           assigneeName = p.user.username;
