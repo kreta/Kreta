@@ -41,7 +41,7 @@ class New extends React.Component {
 
   render() {
     return (
-      <ContentMiddleLayout>
+      <ContentMiddleLayout centered>
         <Form errors={this.props.projects.errors}
               onSubmit={this.createProject.bind(this)}
               ref="form">

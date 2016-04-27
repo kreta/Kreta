@@ -32,8 +32,14 @@ $content-transition: .3s;
 
 .content__middle-content {
   max-width: $content-width;
-  margin: auto;
+  margin-left: auto;
+  margin-right: auto;
   width: 100%;
+}
+
+.content__middle-content--centered {
+  margin-bottom: auto;
+  margin-top: auto;
 }
 
 .content__right {

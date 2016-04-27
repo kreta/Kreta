@@ -9,12 +9,26 @@
  */
 
 import React from 'react';
+import classNames from 'classnames';
 
 class ContentMiddleLayout extends React.Component {
+  static propTypes = {
+    centered: React.PropTypes.bool
+  };
+
+  static defaultProps = {
+    centered: false
+  };
+
   render() {
+    const contentClasses =  classNames(
+      'content__middle-content', {
+      'content__middle-content--centered': this.props.centered
+    });
+
     return (
       <div className="content__middle">
-        <div className="content__middle-content">
+        <div className={contentClasses}>
           {this.props.children}
         </div>
       </div>

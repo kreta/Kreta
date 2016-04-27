@@ -97,7 +97,7 @@ class New extends React.Component {
       project = this.props.currentProject.project;
 
     return (
-      <ContentMiddleLayout>
+      <ContentMiddleLayout centered>
         <Form errors={this.props.currentProject.errors}
               onSubmit={this.createIssue.bind(this)}
               ref="form">

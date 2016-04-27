@@ -64,7 +64,7 @@ class Index extends React.Component {
 
   render() {
     return (
-      <ContentMiddleLayout>
+      <ContentMiddleLayout centered>
         <div className="index__dashboard">
           <DashboardWidget title="Your organizations">
             { this.getOrganizationItems() }
