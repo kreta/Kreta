@@ -74,7 +74,7 @@ class IssueList extends React.Component {
       if (issuesEl.length === 0) {
         issuesEl = <Warning text="No issues found, you may want to create one">
           <Link
-            to={`${this.props.currentProject.project.organization.slug}/${this.props.currentProject.project.slug}/issue/new`}>
+            to={`/${this.props.currentProject.project.organization.slug}/${this.props.currentProject.project.slug}/issue/new`}>
             <Button color="green">Create issue</Button>
           </Link>
         </Warning>;

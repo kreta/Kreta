@@ -63,6 +63,7 @@ Kreta\Component\Organization\Model\Participant:
                 - organizationPrivate
                 - organizationParticipantList
                 - organizationParticipant
+                - projectPrivate
         role:
             expose: true
             groups:

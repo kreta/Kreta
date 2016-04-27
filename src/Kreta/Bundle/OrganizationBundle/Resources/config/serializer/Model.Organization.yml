@@ -68,6 +68,7 @@ Kreta\Component\Organization\Model\Organization:
             expose: true
             groups:
                 - organizationPrivate
+                - projectPrivate
         projects:
             expose: true
             groups:
