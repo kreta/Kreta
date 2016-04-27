@@ -57,6 +57,8 @@ $issue-preview-priority-user-image-size: 32px;
 .issue-preview__priority-back {
   fill: transparent;
   opacity: .2;
+  stroke-dasharray: 0;
+  stroke-dashoffset: 0;
 }
 
 .issue-preview__priority-front {
