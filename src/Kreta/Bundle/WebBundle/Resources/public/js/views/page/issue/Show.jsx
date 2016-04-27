@@ -137,6 +137,7 @@ class Show extends React.Component {
         </section>
         <TextArea className="issue-show__description"
                   id="description"
+                  key={issue.id}
                   readOnly={fieldState}
                   value={issue.description}/>
         {this.submitButton()}

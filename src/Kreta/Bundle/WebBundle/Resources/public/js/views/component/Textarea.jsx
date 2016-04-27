@@ -24,39 +24,26 @@ class Textarea extends React.Component {
 
   constructor(props) {
     super(props);
+
+    this.buildFormats();
+  }
+
+  componentWillMount(props) {
     this.state = {
       value: this.props.value
     };
-
-    true === this.props.readOnly
-      ? this.toolbar = false
-      : this.buildToolbar();
-
-    this.formats = [
-      'bold',
-      'italic',
-      'strike',
-      'underline',
-      'size',
-      'color',
-      'link',
-      'bullet',
-      'list',
-      'align',
-      {name: 'code', tag: 'code', prepare: 'heading', type: 'line'}
-    ];
-
-    this.buildToolbar();
+    this.toolbar = this.props.readOnly ? false : this.buildToolbar();
   }
 
   componentWillReceiveProps(nextProps) {
     this.setState({
       value: nextProps.value
     });
+    this.toolbar = this.props.readOnly ? false : this.buildToolbar();
   }
 
   buildToolbar() {
-    this.toolbar = [
+    return [
       {
         label: 'Formats', type: 'group', items: [
           {
@@ -93,6 +80,22 @@ class Textarea extends React.Component {
     ];
   }
 
+  buildFormats() {
+    this.formats = [
+      'bold',
+      'italic',
+      'strike',
+      'underline',
+      'size',
+      'color',
+      'link',
+      'bullet',
+      'list',
+      'align',
+      {name: 'code', tag: 'code', prepare: 'heading', type: 'line'}
+    ];
+  }
+
   onChange(value) {
     this.setState({
       value: value
@@ -108,6 +111,7 @@ class Textarea extends React.Component {
           ref="editor"
           theme="snow"
           toolbar={this.toolbar}
+          readOnly={this.props.readOnly}
           value={this.state.value}
         />
       </div>
