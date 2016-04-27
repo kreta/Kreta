@@ -8,8 +8,6 @@
  * file that was distributed with this source code.
  */
 
-import './../../../../scss/views/page/project/_settings';
-
 import React from 'react';
 import { connect } from 'react-redux';
 
