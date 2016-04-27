@@ -26,6 +26,11 @@ class PageHeader extends React.Component {
     subtitle: React.PropTypes.string
   };
 
+  static defaultProps = {
+    links: [],
+    buttons: []
+  };
+
   renderLinks() {
     return this.props.links.map((link, key) => {
       const classes = classnames('page-header__link-icon', {
