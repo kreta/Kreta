@@ -22,7 +22,8 @@ class PageHeader extends React.Component {
     buttons: React.PropTypes.array,
     image: React.PropTypes.string,
     links: React.PropTypes.array,
-    title: React.PropTypes.string
+    title: React.PropTypes.string,
+    subtitle: React.PropTypes.string
   };
 
   renderLinks() {
@@ -57,10 +58,17 @@ class PageHeader extends React.Component {
     if (this.props.image) {
       image = <img className="page-header__image" src={this.props.image}/>;
     }
+
+    let subtitle = '';
+    if (this.props.subtitle) {
+      subtitle = <h2 className="page-header__subtitle">{this.props.subtitle}</h2>;
+    }
+
     return (
       <div className="page-header">
         {image}
-        <h2 className="page-header__title">{this.props.title}</h2>
+        {subtitle}
+        <h1 className="page-header__title">{this.props.title}</h1>
         <div className="page-header__actions">
           {this.renderLinks()}
           {this.renderButtons()}

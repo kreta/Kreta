@@ -9,25 +9,39 @@
 @import '../base/colors';
 
 .page-header {
-  align-items: center;
+  align-items: baseline;
   display: flex;
   padding: 30px 0;
   position: relative;
 }
 
 .page-header__image {
+  align-self: center;
   background: $light-grey;
   border-radius: 50%;
   height: 40px;
   width: 40px;
 }
 
-.page-header__title {
-  flex: 1;
-  font-size: 1.3em;
+.page-header__title,
+.page-header__subtitle {
   margin-bottom: 0;
   margin-left: 15px;
   text-transform: uppercase;
+}
+
+.page-header__title {
+  flex: 1 1 auto;
+  font-size: 1.3em;
+}
+
+.page-header__subtitle {
+  flex: 0 0 auto;
+  font-size: 1em;
+
+  + .page-header__title {
+    margin-left: 10px;
+  }
 }
 
 .page-header__actions {
