@@ -11,6 +11,8 @@
 .index__dashboard {
   display: flex;
   flex-wrap: wrap;
+  margin-left: -15px;
+  margin-right: -15px;
 
   > .dashboard-widget {
     padding: 15px;
