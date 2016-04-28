@@ -170,6 +170,76 @@ Feature: Manage issue
           }
         },
         {
+          "id": "3",
+          "assignee": {
+            "id": "3",
+            "username": "user4",
+            "email": "user4@kreta.com",
+            "first_name": "Kreta",
+            "last_name": "User4",
+            "photo": null
+          },
+          "children": [],
+          "created_at": "2014-10-21T00:00:00+0200",
+          "description": "Description",
+          "labels": [
+            {
+              "id": "1",
+              "name": "php"
+            },
+            {
+              "id": "10",
+              "name": "compass"
+            },
+            {
+              "id": "4",
+              "name": "behat"
+            },
+            {
+              "id": "5",
+              "name": "phpspec"
+            },
+            {
+              "id": "7",
+              "name": "html5"
+            }
+          ],
+          "numeric_id": 1,
+          "parent": null,
+          "priority": {
+            "id": "5",
+            "color": "#67b86a",
+            "name": "Medium"
+          },
+          "resolution": null,
+          "reporter": {
+            "id": "0",
+            "username": "user",
+            "email": "user@kreta.com",
+            "first_name": "Kreta",
+            "last_name": "User",
+            "photo": null
+          },
+          "status": {
+            "type": "normal",
+            "name": "Resolved",
+            "id": "2",
+            "color": "#f1c40f"
+          },
+          "title": "Test issue 1",
+          "_links": {
+            "self": {
+              "href": "http://kreta.test:8000/api/issues/3"
+            },
+            "project": {
+              "href": "http://kreta.test:8000/api/projects/1"
+            },
+            "issues": {
+              "href": "http://kreta.test:8000/api/issues"
+            }
+          }
+        },
+        {
           "id": "4",
           "assignee": {
             "id": "0",
@@ -301,76 +371,6 @@ Feature: Manage issue
           "_links": {
             "self": {
               "href": "http://kreta.test:8000/api/issues/4"
-            },
-            "project": {
-              "href": "http://kreta.test:8000/api/projects/1"
-            },
-            "issues": {
-              "href": "http://kreta.test:8000/api/issues"
-            }
-          }
-        },
-        {
-          "id": "3",
-          "assignee": {
-            "id": "3",
-            "username": "user4",
-            "email": "user4@kreta.com",
-            "first_name": "Kreta",
-            "last_name": "User4",
-            "photo": null
-          },
-          "children": [],
-          "created_at": "2014-10-21T00:00:00+0200",
-          "description": "Description",
-          "labels": [
-            {
-              "id": "1",
-              "name": "php"
-            },
-            {
-              "id": "10",
-              "name": "compass"
-            },
-            {
-              "id": "4",
-              "name": "behat"
-            },
-            {
-              "id": "5",
-              "name": "phpspec"
-            },
-            {
-              "id": "7",
-              "name": "html5"
-            }
-          ],
-          "numeric_id": 1,
-          "parent": null,
-          "priority": {
-            "id": "5",
-            "color": "#67b86a",
-            "name": "Medium"
-          },
-          "resolution": null,
-          "reporter": {
-            "id": "0",
-            "username": "user",
-            "email": "user@kreta.com",
-            "first_name": "Kreta",
-            "last_name": "User",
-            "photo": null
-          },
-          "status": {
-            "type": "normal",
-            "name": "Resolved",
-            "id": "2",
-            "color": "#f1c40f"
-          },
-          "title": "Test issue 1",
-          "_links": {
-            "self": {
-              "href": "http://kreta.test:8000/api/issues/3"
             },
             "project": {
               "href": "http://kreta.test:8000/api/projects/1"

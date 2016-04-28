@@ -164,6 +164,19 @@ Feature: Manage projects
           "id": "0",
           "image": null,
           "name": "Test organization 1",
+          "participants": [
+            {
+              "user": {
+                "id": "0",
+                "username": "user",
+                "email": "user@kreta.com",
+                "created_at": "2014-10-20T00:00:00+0200",
+                "first_name": "Kreta",
+                "last_name": "User",
+                "photo": null
+              }
+            }
+          ],
           "slug": "test-organization-1"
         },
         "slug": "test-project-1",
