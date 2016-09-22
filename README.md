@@ -7,16 +7,6 @@
 [![Latest Stable Version](https://poser.pugx.org/kreta/kreta/v/stable.svg)](https://packagist.org/packages/kreta/kreta)
 [![Latest Unstable Version](https://poser.pugx.org/kreta/kreta/v/unstable.svg)](https://packagist.org/packages/kreta/kreta)
 
-Kreta is a set of components and bundles focused on **project management** for **[PHP][17]**, based on the
-**[Symfony][9]** framework. It has a very rich front-end that it is developed with **[React.js][10]** using
-**[Redux][11]** architecture and designed with **[Sass][12]** following **[BEM][16]** naming convention.
-
-Also, Kreta provides an **[standard edition][1]** that is a fully functional web application that shows in an easy
-way all the possibilities of the platform.
-
-Kreta is developed following the decoupling and reuse principles so, it provides a set of plugins that are available
-in **[kreta-plugins][2]**.
-
 If you want to test the project without any installation, you can play with a **public demo site in
 [demo.kreta.io][15]**.
 > Feel free to change anything you can, it has a cron that reloads all the dummy content everyday :)
@@ -26,7 +16,6 @@ This repository is completely tested following *BDD* methodology with **[PHPSpec
 SpecBDD and StoryBDD frameworks for PHP. Also, the JavaScript code is tested following the *Swallow Rendering*
 methodology with **[Jest][14]**.
 
-[![Coverage Status](https://img.shields.io/coveralls/kreta/kreta.svg)](https://coveralls.io/r/kreta/kreta)
 ##Contributing
 This project follows PHP coding standards, so pull requests need to execute the Fabien Potencier's [PHP-CS-Fixer][4].
 Furthermore, if the PR creates some not-PHP file remember that you have to put the license header manually.

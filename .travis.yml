@@ -13,78 +13,21 @@ addons:
 language: php
 
 php:
-    - 5.5
-    - 5.6
     - 7.0
-    - hhvm
 
 env:
     - COMPOSER_OPTIONS="--prefer-source"
 
 install:
-    - nvm install 4.2.1
-    - nvm use 4.2.1
     - composer self-update
     - composer update --no-interaction ${COMPOSER_OPTIONS}
-    - cd src/Kreta/Bundle/WebBundle
-    - npm install
-    - cd -
-    - if [ "$TRAVIS_PHP_VERSION" = 'hhvm' ]; then ./tests/functional/ci/install-apache-hhvm.sh; fi
 
 before_script:
-    - cd tests/functional/fixtures
-
-    - bin/console doctrine:database:create --env=test
-    - bin/console doctrine:schema:create --env=test
-    - bin/console cache:warmup --env=test
-
-    - bin/console assets:install --relative
-
-    - cd -
-    - cd src/Kreta/Bundle/WebBundle
-    - npm run dev
-
-    - cd -
-    - cp tests/behat.yml.dist behat.yml && cp tests/phpspec.yml.dist phpspec.yml
-
-    - sleep 5
-
-#### avoid "Automatically populating $HTTP_RAW_POST_DATA is deprecated and will be removed in a future version" message in PHP 5.6 ####
-    - 'if [ $TRAVIS_PHP_VERSION == "5.6" ]; then echo "always_populate_raw_post_data=-1" >> ~/.phpenv/versions/$(phpenv version-name)/etc/conf.d/travis.ini; fi'
-
-#### starting PHP built-in server if not hhvm ####
-    - '[[ "$TRAVIS_PHP_VERSION" == "hhvm" ]] || tests/functional/fixtures/bin/console server:start kreta.test:8000 --router=tests/functional/fixtures/web/index.php'
-
+    - bin/console server:start kreta.test:8000 --router=web/app_test.php
     - sleep 5
 
 script:
-    - cd src/Kreta/Bundle/WebBundle
-    - node_modules/.bin/jest --verbose --coverage
-    - cd -
-
     - vendor/bin/phpspec run
-
-    - vendor/bin/behat --stop-on-failure --suite=authentication
-    - vendor/bin/behat --stop-on-failure --suite=invitation
-    - vendor/bin/behat --stop-on-failure --suite=issue
-    - vendor/bin/behat --stop-on-failure --suite=issuePriority
-    - vendor/bin/behat --stop-on-failure --suite=label
-    - vendor/bin/behat --stop-on-failure --suite=notification
-    - vendor/bin/behat --stop-on-failure --suite=oauth
-    - vendor/bin/behat --stop-on-failure --suite=organization
-    - vendor/bin/behat --stop-on-failure --suite=organizationPrivate
-    - vendor/bin/behat --stop-on-failure --suite=organizationParticipant
-    - vendor/bin/behat --stop-on-failure --suite=project
-    - vendor/bin/behat --stop-on-failure --suite=projectPrivate
-    - vendor/bin/behat --stop-on-failure --suite=projectParticipant
-    - vendor/bin/behat --stop-on-failure --suite=profile
-    - vendor/bin/behat --stop-on-failure --suite=status
-    - vendor/bin/behat --stop-on-failure --suite=statusTransition
-    - vendor/bin/behat --stop-on-failure --suite=user
-    - vendor/bin/behat --stop-on-failure --suite=workflow
-
-after_success:
-    - travis_retry php vendor/bin/coveralls -v
 
 cache:
     directories:

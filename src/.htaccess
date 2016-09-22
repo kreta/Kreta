@@ -6,8 +6,10 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 
-/bin
-!/bin/console
-/composer.lock
-/node_modules
-/vendor
+<IfModule mod_authz_core.c>
+    Require all denied
+</IfModule>
+<IfModule !mod_authz_core.c>
+    Order deny,allow
+    Deny from all
+</IfModule>

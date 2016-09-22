@@ -6,8 +6,9 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 
-/bin
-!/bin/console
-/composer.lock
-/node_modules
-/vendor
+suites:
+    kreta_shared_kernel:
+        spec_path: src/Kreta/SharedKernel/Tests/
+        spec_prefix: Spec
+        namespace: Kreta\SharedKernel
+        src_path: src/

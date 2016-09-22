@@ -22,14 +22,13 @@ EOF;
 
 Symfony\CS\Fixer\Contrib\HeaderCommentFixer::setHeader($header);
 
-$finder = Symfony\CS\Finder\DefaultFinder::create()
+$finder = Symfony\CS\Finder::create()
     ->in(__DIR__)
-    ->notPath(__DIR__. '/tests/functional/fixtures/var')
     ->notName('*.yml')
     ->notName('*.xml')
     ->notName('*Spec.php');
 
-return Symfony\CS\Config\Config::create()
+return Symfony\CS\Config::create()
     ->finder($finder)
     ->level(Symfony\CS\FixerInterface::SYMFONY_LEVEL)
     ->fixers([

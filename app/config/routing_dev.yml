@@ -1,0 +1,22 @@
+# This file is part of the Kreta package.
+#
+# (c) Beñat Espiña <benatespina@gmail.com>
+# (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+
+_wdt:
+    resource: "@WebProfilerBundle/Resources/config/routing/wdt.xml"
+    prefix: /_wdt
+
+_profiler:
+    resource: "@WebProfilerBundle/Resources/config/routing/profiler.xml"
+    prefix: /_profiler
+
+_errors:
+    resource: "@TwigBundle/Resources/config/routing/errors.xml"
+    prefix: /_error
+
+_main:
+    resource: routing.yml
