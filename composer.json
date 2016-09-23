@@ -61,9 +61,16 @@
     },
     "autoload": {
         "psr-4": {
+            "Kreta\\AppBundle\\": "src/AppBundle/",
             "Kreta\\": "src/Kreta/"
         },
-        "exclude-from-classmap": ["/spec/"]
+        "classmap": [
+          "app/AppKernel.php",
+          "app/AppCache.php"
+        ],
+        "exclude-from-classmap": [
+          "/spec/"
+        ]
     },
     "extra": {
         "symfony-app-dir": "app",

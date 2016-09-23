@@ -13,17 +13,18 @@
 namespace Spec\Kreta\SharedKernel\Domain\Model;
 
 use Kreta\SharedKernel\Domain\Model\Exception;
+use Kreta\SharedKernel\Domain\Model\InvalidArgumentException;
 use PhpSpec\ObjectBehavior;
 
-class ExceptionSpec extends ObjectBehavior
+class InvalidArgumentExceptionSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType(Exception::class);
+        $this->shouldHaveType(InvalidArgumentException::class);
     }
 
-    function it_extends_php_exception()
+    function it_extends_exception()
     {
-        $this->shouldHaveType(\Exception::class);
+        $this->shouldHaveType(Exception::class);
     }
 }

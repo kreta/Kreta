@@ -12,8 +12,14 @@
 
 declare(strict_types=1);
 
-namespace Kreta\SharedKernel\Domain\Model;
+namespace Kreta\SharedKernel\Tests\Double\Domain\Model;
 
-class Exception extends \Exception
+use Kreta\SharedKernel\Domain\Model\Id;
+
+class IdStub extends Id
 {
+    public static function generate($id = null) : IdStub
+    {
+        return new self($id);
+    }
 }

@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace Kreta\SharedKernel\Domain\Model;
 
-class Exception extends \Exception
+interface BaseId
 {
+    public static function generate($id = null);
 }
