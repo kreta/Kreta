@@ -6,20 +6,6 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 
-/app/config/parameters.yml
-/bin
-!/bin/console
-/composer.lock
-/node_modules
-/var/*
-!/var/cache
-/var/cache/*
-!var/cache/.gitkeep
-!/var/logs
-/var/logs/*
-!var/logs/.gitkeep
-!/var/sessions
-/var/sessions/*
-!var/sessions/.gitkeep
-/vendor/
-/web/bundles/
+parameters:
+
+services:
