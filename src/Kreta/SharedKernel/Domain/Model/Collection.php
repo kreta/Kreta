@@ -18,7 +18,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 
 abstract class Collection extends ArrayCollection
 {
-    abstract protected function elementsClass() : string;
+    abstract protected function type() : string;
 
     public function __construct(array $elements = [])
     {
@@ -46,7 +46,7 @@ abstract class Collection extends ArrayCollection
 
     private function validate($element)
     {
-        if (is_scalar($element) || $this->elementsClass() === get_class($element)) {
+        if (is_scalar($element) || !is_subclass_of($element, $this->type())) {
             throw new InvalidCollectionElementException();
         }
 

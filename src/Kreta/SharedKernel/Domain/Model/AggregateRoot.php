@@ -34,7 +34,7 @@ abstract class AggregateRoot
         $this->record($event);
     }
 
-    private function apply(DomainEvent $event)
+    protected function apply(DomainEvent $event)
     {
         $modifier = 'apply' . array_reverse(explode('\\', get_class($event)))[0];
         if (!method_exists($this, $modifier)) {

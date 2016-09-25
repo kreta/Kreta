@@ -12,14 +12,9 @@
 
 declare(strict_types=1);
 
-namespace Kreta\SharedKernel\Tests\Double\Domain\Model;
+namespace Kreta\SharedKernel\Domain\Model;
 
-use Kreta\SharedKernel\Domain\Model\Collection;
-
-class CollectionStub extends Collection
+interface EventSourcedAggregateRoot
 {
-    protected function type() : string
-    {
-        return CollectionElementStub::class;
-    }
+    public static function reconstitute(EventStream $events) : AggregateRoot;
 }
