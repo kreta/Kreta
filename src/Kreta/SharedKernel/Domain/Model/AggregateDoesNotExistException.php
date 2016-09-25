@@ -12,8 +12,12 @@
 
 declare(strict_types=1);
 
-namespace Kreta\SharedKernel\Tests\Double\Domain\Model;
+namespace Kreta\SharedKernel\Domain\Model;
 
-class CollectionElementStub
+class AggregateDoesNotExistException extends Exception
 {
+    public function __construct($aggregateId)
+    {
+        parent::__construct(sprintf('Does not exist any aggregate with "%s" id', $aggregateId));
+    }
 }

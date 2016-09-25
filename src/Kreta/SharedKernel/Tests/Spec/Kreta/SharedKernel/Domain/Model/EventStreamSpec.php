@@ -12,14 +12,14 @@
 
 namespace Spec\Kreta\SharedKernel\Domain\Model;
 
-use Kreta\SharedKernel\Domain\Model\Collection;
+use Kreta\SharedKernel\Domain\Model\DomainEventCollection;
 use Kreta\SharedKernel\Domain\Model\EventStream;
 use Kreta\SharedKernel\Domain\Model\Id;
 use PhpSpec\ObjectBehavior;
 
 class EventStreamSpec extends ObjectBehavior
 {
-    function let(Id $aggregateId, Collection $events)
+    function let(Id $aggregateId, DomainEventCollection $events)
     {
         $this->beConstructedWith($aggregateId, $events);
     }
@@ -34,7 +34,7 @@ class EventStreamSpec extends ObjectBehavior
         $this->aggregateId()->shouldReturn($aggregateId);
     }
 
-    function it_gets_events(Collection $events)
+    function it_gets_events(DomainEventCollection $events)
     {
         $this->events()->shouldReturn($events);
     }

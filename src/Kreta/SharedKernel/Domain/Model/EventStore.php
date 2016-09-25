@@ -12,14 +12,11 @@
 
 declare(strict_types=1);
 
-namespace Kreta\SharedKernel\Tests\Double\Domain\Model;
+namespace Kreta\SharedKernel\Domain\Model;
 
-use Kreta\SharedKernel\Domain\Model\Collection;
-
-class CollectionStub extends Collection
+interface EventStore
 {
-    protected function type() : string
-    {
-        return CollectionElementStub::class;
-    }
+    public function appendTo(EventStream $events);
+
+    public function streamOfId(Id $aggregateId) : EventStream;
 }

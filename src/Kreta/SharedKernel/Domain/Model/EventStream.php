@@ -19,7 +19,7 @@ class EventStream
     private $aggregateId;
     private $events;
 
-    public function __construct(Id $aggregateId, Collection $events)
+    public function __construct(Id $aggregateId, DomainEventCollection $events)
     {
         $this->aggregateId = $aggregateId;
         $this->events = $events;
@@ -30,7 +30,7 @@ class EventStream
         return $this->aggregateId;
     }
 
-    public function events() : Collection
+    public function events() : DomainEventCollection
     {
         return $this->events;
     }
