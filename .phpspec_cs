@@ -23,7 +23,7 @@ EOF;
 Symfony\CS\Fixer\Contrib\HeaderCommentFixer::setHeader($header);
 
 $finder = Symfony\CS\Finder::create()
-    ->in(__DIR__)
+    ->in(__DIR__ . '/src')
     ->name('*Spec.php');
 
 return Symfony\CS\Config::create()

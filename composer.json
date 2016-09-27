@@ -75,6 +75,11 @@
           "/spec/"
         ]
     },
+    "autoload-dev": {
+        "psr-4": {
+            "GraphQL\\Tests\\": "vendor/webonyx/graphql-php/tests/"
+        }
+    },
     "extra": {
         "symfony-app-dir": "app",
         "symfony-bin-dir": "bin",

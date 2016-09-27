@@ -9,3 +9,13 @@
 parameters:
 
 services:
+    my.graph.resolver.character:
+        class: Kreta\AppBundle\Resolver\CharacterResolver
+        arguments:
+            - "@overblog_graphql.type_resolver"
+        tags:
+            - { name: overblog_graphql.resolver, alias: "character_type", method: "resolveType" }
+            - { name: overblog_graphql.resolver, alias: "character_friends", method: "resolveFriends" }
+            - { name: overblog_graphql.resolver, alias: "character_hero", method: "resolveHero" }
+            - { name: overblog_graphql.resolver, alias: "character_human", method: "resolveHuman" }
+            - { name: overblog_graphql.resolver, alias: "character_droid", method: "resolveDroid" }
