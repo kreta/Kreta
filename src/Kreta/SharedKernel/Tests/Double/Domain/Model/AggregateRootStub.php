@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Kreta\SharedKernel\Tests\Double\Domain\Model;
 
@@ -27,6 +27,11 @@ class AggregateRootStub extends AggregateRoot implements EventSourcedAggregateRo
     public function __construct(Id $id)
     {
         $this->id = $id;
+    }
+
+    public function id() : Id
+    {
+        return $this->id;
     }
 
     public function property() : string

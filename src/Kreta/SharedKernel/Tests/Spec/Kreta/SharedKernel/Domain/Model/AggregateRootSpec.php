@@ -37,6 +37,11 @@ class AggregateRootSpec extends ObjectBehavior
         $this->recordedEvents()->shouldBeArray();
     }
 
+    function it_gets_id(Id $id)
+    {
+        $this->id()->shouldReturn($id);
+    }
+
     function it_publishes_an_event_like_event_sourcing()
     {
         $this->recordedEvents()->shouldHaveCount(0);
