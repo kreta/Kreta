@@ -14,8 +14,6 @@ declare(strict_types=1);
 
 namespace Kreta\SharedKernel\Domain\Model;
 
-use Ramsey\Uuid\Uuid;
-
 abstract class Id implements BaseId
 {
     protected $id;
@@ -25,7 +23,7 @@ abstract class Id implements BaseId
         if ($id !== null && !is_scalar($id)) {
             throw new InvalidIdException();
         }
-        $this->id = null === $id ? Uuid::uuid4()->toString() : $id;
+        $this->id = null === $id ? Uuid::generate() : $id;
     }
 
     public function id()
