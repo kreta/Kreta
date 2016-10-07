@@ -18,12 +18,18 @@ class Organization
 {
     private $id;
     private $name;
+    private $slug;
+    private $owners;
+    private $participants;
 
-    public function __construct(OrganizationId $id, OrganizationName $name, OrganizationSlug $slug)
+    public function __construct(OrganizationId $id, OrganizationName $name, OrganizationSlug $slug, Owner $creator)
     {
         $this->id = $id;
         $this->name = $name;
         $this->slug = $slug;
+        $this->owners = new OwnerCollection();
+        $this->participants = new ParticipantCollection();
+        $this->addOwner($creator);
     }
 
     public function id() : OrganizationId
@@ -41,8 +47,38 @@ class Organization
         return $this->slug;
     }
 
+    public function owners() : array
+    {
+        return $this->owners->toArray();
+    }
+
+    public function addOwner(Owner $owner)
+    {
+        $this->owners->add($owner);
+    }
+
+    public function removeOwner(Owner $owner)
+    {
+        $this->owners->remove($owner);
+    }
+
+    public function participants() : array
+    {
+        return $this->participants->toArray();
+    }
+
+    public function addParticipant(OrganizationParticipant $participant)
+    {
+        $this->participants->add($participant);
+    }
+
+    public function removeParticipant(OrganizationParticipant $participant)
+    {
+        $this->participants->remove($participant);
+    }
+
     public function __toString() : string
     {
-        return (string) $this->id->id();
+        return (string)$this->id->id();
     }
 }
