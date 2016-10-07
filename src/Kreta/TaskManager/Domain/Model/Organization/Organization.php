@@ -18,9 +18,17 @@ class Organization
 {
     private $id;
 
-    public function __construct(OrganizationId $id)
+    private $name;
+
+    public function __construct(OrganizationId $id, string $name, OrganizationSlug $slug)
     {
+        if($name === '') {
+            throw new OrganizationNameEmptyException();
+        }
+
         $this->id = $id;
+        $this->name = $name;
+        $this->slug = $slug;
     }
 
     public function id() : OrganizationId
@@ -31,5 +39,15 @@ class Organization
     public function __toString()
     {
         return (string) $this->id->id();
+    }
+
+    public function name() : string
+    {
+        return $this->name;
+    }
+
+    public function slug() : OrganizationSlug
+    {
+        return $this->slug;
     }
 }
