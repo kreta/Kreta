@@ -14,27 +14,21 @@ namespace Spec\Kreta\TaskManager\Domain\Model\Organization;
 
 use Kreta\TaskManager\Domain\Model\Organization\Organization;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationId;
-use Kreta\TaskManager\Domain\Model\Organization\OrganizationNameEmptyException;
+use Kreta\TaskManager\Domain\Model\Organization\OrganizationName;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationSlug;
 use PhpSpec\ObjectBehavior;
 
 class OrganizationSpec extends ObjectBehavior
 {
-    function let(OrganizationId $organizationId, OrganizationSlug $organizationSlug)
+    function let(OrganizationId $organizationId, OrganizationName $organizationName, OrganizationSlug $organizationSlug)
     {
         $organizationId->id()->willReturn('organization-id');
-        $this->beConstructedWith($organizationId, 'Organization name', $organizationSlug);
+        $this->beConstructedWith($organizationId, $organizationName, $organizationSlug);
     }
 
     function it_is_initializable()
     {
         $this->shouldHaveType(Organization::class);
-    }
-
-    function it_does_not_allow_empty_name(OrganizationId $organizationId, OrganizationSlug $organizationSlug)
-    {
-        $this->beConstructedWith($organizationId, '', $organizationSlug);
-        $this->shouldThrow(OrganizationNameEmptyException::class)->duringInstantiation();
     }
 
     function it_gets_id()
@@ -43,9 +37,9 @@ class OrganizationSpec extends ObjectBehavior
         $this->__toString()->shouldReturn('organization-id');
     }
 
-    function it_gets_name()
+    function it_gets_name(OrganizationName $organizationName)
     {
-        $this->name()->shouldReturn('Organization name');
+        $this->name()->shouldReturn($organizationName);
     }
 
     function it_gets_slug(OrganizationSlug $organizationSlug)

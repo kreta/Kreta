@@ -14,11 +14,21 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Domain\Model\Organization;
 
-class OrganizationNameEmptyException extends \Exception
+class OrganizationName
 {
-    public function __construct()
+    private $name;
+
+    public function __construct($name)
     {
-        parent::__construct();
-        $this->message = 'Organization name must not be empty';
+        if ($name === '') {
+            throw new OrganizationNameEmptyException();
+        }
+
+        $this->name = $name;
+    }
+
+    public function name()
+    {
+        return $this->name;
     }
 }

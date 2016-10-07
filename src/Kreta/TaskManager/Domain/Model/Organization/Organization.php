@@ -20,12 +20,8 @@ class Organization
 
     private $name;
 
-    public function __construct(OrganizationId $id, string $name, OrganizationSlug $slug)
+    public function __construct(OrganizationId $id, OrganizationName $name, OrganizationSlug $slug)
     {
-        if($name === '') {
-            throw new OrganizationNameEmptyException();
-        }
-
         $this->id = $id;
         $this->name = $name;
         $this->slug = $slug;
@@ -41,7 +37,7 @@ class Organization
         return (string) $this->id->id();
     }
 
-    public function name() : string
+    public function name() : OrganizationName
     {
         return $this->name;
     }
