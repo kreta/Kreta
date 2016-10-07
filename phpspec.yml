@@ -12,3 +12,9 @@ suites:
         spec_prefix: Spec
         namespace: Kreta\SharedKernel
         src_path: src/
+
+    kreta_task_manager:
+        spec_path: src/Kreta/TaskManager/Tests/
+        spec_prefix: Spec
+        namespace: Kreta\TaskManager
+        src_path: src/
