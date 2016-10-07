@@ -28,7 +28,7 @@ class Task
         return $this->id;
     }
 
-    public function __toString()
+    public function __toString() : string
     {
         return (string) $this->id->id();
     }

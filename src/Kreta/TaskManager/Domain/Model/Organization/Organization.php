@@ -17,7 +17,6 @@ namespace Kreta\TaskManager\Domain\Model\Organization;
 class Organization
 {
     private $id;
-
     private $name;
 
     public function __construct(OrganizationId $id, OrganizationName $name, OrganizationSlug $slug)
@@ -32,11 +31,6 @@ class Organization
         return $this->id;
     }
 
-    public function __toString()
-    {
-        return (string) $this->id->id();
-    }
-
     public function name() : OrganizationName
     {
         return $this->name;
@@ -45,5 +39,10 @@ class Organization
     public function slug() : OrganizationSlug
     {
         return $this->slug;
+    }
+
+    public function __toString() : string
+    {
+        return (string) $this->id->id();
     }
 }

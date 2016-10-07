@@ -18,16 +18,15 @@ class OrganizationName
 {
     private $name;
 
-    public function __construct($name)
+    public function __construct(string $name)
     {
-        if ($name === '') {
+        if ('' === $name) {
             throw new OrganizationNameEmptyException();
         }
-
         $this->name = $name;
     }
 
-    public function name()
+    public function name() : string
     {
         return $this->name;
     }
