@@ -47,9 +47,9 @@ class Organization
         return $this->slug;
     }
 
-    public function owners() : array
+    public function owners() : OwnerCollection
     {
-        return $this->owners->toArray();
+        return $this->owners;
     }
 
     public function addOwner(Owner $owner)
@@ -62,9 +62,9 @@ class Organization
         $this->owners->remove($owner);
     }
 
-    public function participants() : array
+    public function participants() : ParticipantCollection
     {
-        return $this->participants->toArray();
+        return $this->participants;
     }
 
     public function addParticipant(OrganizationParticipant $participant)

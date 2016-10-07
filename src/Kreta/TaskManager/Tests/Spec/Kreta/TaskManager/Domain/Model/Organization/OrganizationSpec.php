@@ -37,13 +37,13 @@ class OrganizationSpec extends ObjectBehavior
 
     function it_shows_organization_creator_as_an_owner(Owner $owner)
     {
-        $this->owners()->shouldReturn([$owner]);
+        $this->owners()->shouldReturnCollection([$owner]);
     }
 
     function it_allows_adding_a_new_owner(Owner $owner, Owner $owner2)
     {
         $this->addOwner($owner2);
-        $this->owners()->shouldReturn([$owner, $owner2]);
+        $this->owners()->shouldReturnCollection([$owner, $owner2]);
     }
 
     function it_does_not_allow_to_add_existing_owner(Owner $owner)
@@ -56,7 +56,7 @@ class OrganizationSpec extends ObjectBehavior
         $this->addOwner($owner2);
         $this->removeOwner($owner2);
 
-        $this->owners()->shouldReturn([$owner]);
+        $this->owners()->shouldReturnCollection([$owner]);
     }
 
     function it_does_not_allow_removing_unexistent_owner(Owner $owner2)
@@ -67,7 +67,7 @@ class OrganizationSpec extends ObjectBehavior
     function it_allows_adding_a_new_participant(OrganizationParticipant $participant)
     {
         $this->addParticipant($participant);
-        $this->participants()->shouldReturn([$participant]);
+        $this->participants()->shouldReturnCollection([$participant]);
     }
 
     function it_does_not_allow_to_add_existing_participant(OrganizationParticipant $participant)
