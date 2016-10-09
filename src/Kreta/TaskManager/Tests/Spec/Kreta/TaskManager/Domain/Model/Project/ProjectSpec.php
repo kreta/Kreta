@@ -15,6 +15,8 @@ namespace Spec\Kreta\TaskManager\Domain\Model\Project;
 use Kreta\SharedKernel\Domain\Model\Identity\Slug;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationId;
 use Kreta\TaskManager\Domain\Model\Project\Project;
+use Kreta\TaskManager\Domain\Model\Project\ProjectCreated;
+use Kreta\TaskManager\Domain\Model\Project\ProjectEdited;
 use Kreta\TaskManager\Domain\Model\Project\ProjectId;
 use Kreta\TaskManager\Domain\Model\Project\ProjectName;
 use PhpSpec\ObjectBehavior;
@@ -27,34 +29,31 @@ class ProjectSpec extends ObjectBehavior
         $this->beConstructedWith($projectId, $projectName, $projectSlug, $organizationId);
     }
 
-    function it_is_initializable()
+    function it_can_be_created(
+        ProjectId $projectId,
+        ProjectName $projectName,
+        Slug $projectSlug,
+        OrganizationId $organizationId)
     {
         $this->shouldHaveType(Project::class);
-    }
 
-    function it_has_an_id(ProjectId $projectId)
-    {
         $this->id()->shouldReturn($projectId);
-        $this->__toString()->shouldReturn('project-id');
-    }
-
-    function it_has_a_creation_date()
-    {
         $this->createdOn()->shouldReturnAnInstanceOf(\DateTimeImmutable::class);
-    }
-
-    function it_has_a_name(ProjectName $projectName)
-    {
         $this->name()->shouldReturn($projectName);
-    }
-
-    function it_has_a_slug(Slug $projectSlug)
-    {
         $this->slug()->shouldReturn($projectSlug);
+        $this->organizationId()->shouldReturn($organizationId);
+        $this->__toString()->shouldReturn('project-id');
+
+        $this->shouldHavePublished(ProjectCreated::class);
     }
 
-    function it_belongs_to_an_organization(OrganizationId $organizationId)
+    function it_can_be_edited(ProjectName $projectName, Slug $projectSlug)
     {
-        $this->organizationId()->shouldReturn($organizationId);
+        $this->edit($projectName, $projectSlug);
+
+        $this->name()->shouldReturn($projectName);
+        $this->slug()->shouldReturn($projectSlug);
+
+        $this->shouldHavePublished(ProjectEdited::class);
     }
 }
