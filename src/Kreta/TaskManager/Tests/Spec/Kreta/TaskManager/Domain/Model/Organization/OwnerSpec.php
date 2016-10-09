@@ -12,15 +12,27 @@
 
 namespace Spec\Kreta\TaskManager\Domain\Model\Organization;
 
-use Kreta\TaskManager\Domain\Model\Organization\OwnerEmail;
+use Kreta\SharedKernel\Domain\Model\Identity\EmailAddress;
+use Kreta\SharedKernel\Domain\Model\Identity\Username;
+use Kreta\TaskManager\Domain\Model\Organization\Owner;
 use Kreta\TaskManager\Domain\Model\Organization\OwnerId;
-use Kreta\TaskManager\Domain\Model\Organization\OwnerUsername;
+use Kreta\TaskManager\Domain\Model\Organization\Participant;
 use PhpSpec\ObjectBehavior;
 
 class OwnerSpec extends ObjectBehavior
 {
-    function let(OwnerId $id, OwnerEmail $email, OwnerUsername $username)
+    function let(OwnerId $id, EmailAddress $email, Username $username)
     {
         $this->beConstructedWith($id, $email, $username);
+    }
+
+    function it_is_initializable()
+    {
+        $this->shouldHaveType(Owner::class);
+    }
+
+    function it_extends_participant()
+    {
+        $this->shouldHaveType(Participant::class);
     }
 }

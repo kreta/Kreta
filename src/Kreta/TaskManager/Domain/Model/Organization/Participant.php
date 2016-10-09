@@ -14,6 +14,9 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Domain\Model\Organization;
 
+use Kreta\SharedKernel\Domain\Model\Identity\EmailAddress;
+use Kreta\SharedKernel\Domain\Model\Identity\Username;
+
 abstract class Participant
 {
     protected $id;
@@ -22,7 +25,7 @@ abstract class Participant
     protected $username;
     protected $updatedOn;
 
-    public function __construct(ParticipantId $id, ParticipantEmail $email, ParticipantUsername $username)
+    public function __construct(ParticipantId $id, EmailAddress $email, Username $username)
     {
         $this->id = $id;
         $this->email = $email;
@@ -36,13 +39,13 @@ abstract class Participant
         return $this->id;
     }
 
-    public function changeEmail(ParticipantEmail $email)
+    public function changeEmail(EmailAddress $email)
     {
         $this->email = $email;
         $this->updatedOn = new \DateTimeImmutable();
     }
 
-    public function changeUsername(ParticipantUsername $username)
+    public function changeUsername(Username $username)
     {
         $this->username = $username;
         $this->updatedOn = new \DateTimeImmutable();
@@ -53,7 +56,7 @@ abstract class Participant
         return $this->createdOn;
     }
 
-    public function email() : ParticipantEmail
+    public function email() : EmailAddress
     {
         return $this->email;
     }
@@ -63,7 +66,7 @@ abstract class Participant
         return $this->updatedOn;
     }
 
-    public function username() : ParticipantUsername
+    public function username() : Username
     {
         return $this->username;
     }

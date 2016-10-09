@@ -14,9 +14,12 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Domain\Model\Organization;
 
+use Kreta\SharedKernel\Domain\Model\Identity\EmailAddress;
+use Kreta\SharedKernel\Domain\Model\Identity\Username;
+
 class Owner extends Participant
 {
-    public function __construct(OwnerId $id, OwnerEmail $email, OwnerUsername $username)
+    public function __construct(OwnerId $id, EmailAddress $email, Username $username)
     {
         parent::__construct($id, $email, $username);
     }

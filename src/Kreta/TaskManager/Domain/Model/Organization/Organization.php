@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Domain\Model\Organization;
 
+use Kreta\SharedKernel\Domain\Model\Identity\Slug;
+
 class Organization
 {
     private $id;
@@ -22,7 +24,7 @@ class Organization
     private $owners;
     private $participants;
 
-    public function __construct(OrganizationId $id, OrganizationName $name, OrganizationSlug $slug, Owner $creator)
+    public function __construct(OrganizationId $id, OrganizationName $name, Slug $slug, Owner $creator)
     {
         $this->id = $id;
         $this->name = $name;
@@ -42,7 +44,7 @@ class Organization
         return $this->name;
     }
 
-    public function slug() : OrganizationSlug
+    public function slug() : Slug
     {
         return $this->slug;
     }

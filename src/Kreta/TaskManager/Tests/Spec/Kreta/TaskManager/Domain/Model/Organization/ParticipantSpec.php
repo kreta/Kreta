@@ -12,20 +12,17 @@
 
 namespace Spec\Kreta\TaskManager\Domain\Model\Organization;
 
-use Kreta\TaskManager\Domain\Model\Organization\OrganizationParticipantEmail;
+use Kreta\SharedKernel\Domain\Model\Identity\EmailAddress;
+use Kreta\SharedKernel\Domain\Model\Identity\Username;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationParticipantId;
-use Kreta\TaskManager\Domain\Model\Organization\OrganizationParticipantUsername;
 use Kreta\TaskManager\Domain\Model\Organization\Participant;
 use Kreta\TaskManager\Tests\Double\Domain\Model\ParticipantStub;
 use PhpSpec\ObjectBehavior;
 
 class ParticipantSpec extends ObjectBehavior
 {
-    function let(
-        OrganizationParticipantId $id,
-        OrganizationParticipantEmail $email,
-        OrganizationParticipantUsername $username
-    ) {
+    function let(OrganizationParticipantId $id, EmailAddress $email, Username $username)
+    {
         $id->id()->willReturn('organization-participant-id');
         $this->beAnInstanceOf(ParticipantStub::class);
         $this->beConstructedWith($id, $email, $username);
@@ -44,22 +41,22 @@ class ParticipantSpec extends ObjectBehavior
 
     function it_gets_email()
     {
-        $this->email()->shouldReturnAnInstanceOf(OrganizationParticipantEmail::class);
+        $this->email()->shouldReturnAnInstanceOf(EmailAddress::class);
     }
 
     function it_gets_username()
     {
-        $this->username()->shouldReturnAnInstanceOf(OrganizationParticipantUsername::class);
+        $this->username()->shouldReturnAnInstanceOf(Username::class);
     }
 
-    function it_changes_email(OrganizationParticipantEmail $email, OrganizationParticipantEmail $email2)
+    function it_changes_email(EmailAddress $email, EmailAddress $email2)
     {
         $this->email()->shouldReturn($email);
         $this->changeEmail($email2);
         $this->email()->shouldReturn($email2);
     }
 
-    function it_changes_username(OrganizationParticipantUsername $username, OrganizationParticipantUsername $username2)
+    function it_changes_username(Username $username, Username $username2)
     {
         $this->username()->shouldReturn($username);
         $this->changeUsername($username2);
