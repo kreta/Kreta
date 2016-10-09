@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Kreta\TaskManager\Application\Organization;
 
@@ -47,12 +47,12 @@ class CreateOrganizationCommand
         return $this->id;
     }
 
-    public function name()
+    public function name() : string
     {
         return $this->name;
     }
 
-    public function ownerId()
+    public function ownerId() : string
     {
         return $this->ownerId;
     }
@@ -62,7 +62,7 @@ class CreateOrganizationCommand
         return $this->slug;
     }
 
-    public function userId()
+    public function userId() : string
     {
         return $this->userId;
     }
