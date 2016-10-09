@@ -27,4 +27,9 @@ class Slug
     {
         return $this->slug;
     }
+
+    public function __toString() : string
+    {
+        return (string) $this->slug;
+    }
 }

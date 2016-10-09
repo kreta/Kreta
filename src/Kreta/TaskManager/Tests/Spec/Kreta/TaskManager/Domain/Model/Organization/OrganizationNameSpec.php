@@ -37,5 +37,6 @@ class OrganizationNameSpec extends ObjectBehavior
     function it_returns_name()
     {
         $this->name()->shouldReturn('Organization name');
+        $this->__toString()->shouldReturn('Organization name');
     }
 }

@@ -30,5 +30,6 @@ class SlugSpec extends ObjectBehavior
     function it_gets_slug()
     {
         $this->slug()->shouldReturn('some-plain-text');
+        $this->__toString()->shouldReturn('some-plain-text');
     }
 }
