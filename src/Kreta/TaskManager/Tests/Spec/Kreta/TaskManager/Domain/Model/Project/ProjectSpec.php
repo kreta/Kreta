@@ -13,6 +13,7 @@
 namespace Spec\Kreta\TaskManager\Domain\Model\Project;
 
 use Kreta\SharedKernel\Domain\Model\Identity\Slug;
+use Kreta\TaskManager\Domain\Model\Organization\OrganizationId;
 use Kreta\TaskManager\Domain\Model\Project\Project;
 use Kreta\TaskManager\Domain\Model\Project\ProjectId;
 use Kreta\TaskManager\Domain\Model\Project\ProjectName;
@@ -20,10 +21,10 @@ use PhpSpec\ObjectBehavior;
 
 class ProjectSpec extends ObjectBehavior
 {
-    function let(ProjectId $projectId, ProjectName $projectName, Slug $projectSlug)
+    function let(ProjectId $projectId, ProjectName $projectName, Slug $projectSlug, OrganizationId $organizationId)
     {
         $projectId->id()->willReturn('project-id');
-        $this->beConstructedWith($projectId, $projectName, $projectSlug);
+        $this->beConstructedWith($projectId, $projectName, $projectSlug, $organizationId);
     }
 
     function it_is_initializable()
@@ -50,5 +51,10 @@ class ProjectSpec extends ObjectBehavior
     function it_has_a_slug(Slug $projectSlug)
     {
         $this->slug()->shouldReturn($projectSlug);
+    }
+
+    function it_belongs_to_an_organization(OrganizationId $organizationId)
+    {
+        $this->organizationId()->shouldReturn($organizationId);
     }
 }
