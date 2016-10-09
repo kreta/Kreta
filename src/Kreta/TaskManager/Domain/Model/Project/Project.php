@@ -24,7 +24,7 @@ class Project extends AggregateRoot
     private $slug;
     private $createdOn;
 
-    public function __construct(ProjectId $id, string $name, Slug $slug)
+    public function __construct(ProjectId $id, ProjectName $name, Slug $slug)
     {
         $this->id = $id;
         $this->name = $name;
