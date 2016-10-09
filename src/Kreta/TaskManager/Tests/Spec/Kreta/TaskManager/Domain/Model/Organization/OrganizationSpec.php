@@ -12,10 +12,12 @@
 
 namespace Spec\Kreta\TaskManager\Domain\Model\Organization;
 
+use Kreta\SharedKernel\Domain\Model\AggregateRoot;
 use Kreta\SharedKernel\Domain\Model\CollectionElementAlreadyAddedException;
 use Kreta\SharedKernel\Domain\Model\CollectionElementAlreadyRemovedException;
 use Kreta\SharedKernel\Domain\Model\Identity\Slug;
 use Kreta\TaskManager\Domain\Model\Organization\Organization;
+use Kreta\TaskManager\Domain\Model\Organization\OrganizationCreated;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationId;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationName;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationParticipant;
@@ -24,23 +26,21 @@ use PhpSpec\ObjectBehavior;
 
 class OrganizationSpec extends ObjectBehavior
 {
-    function let(
-        OrganizationId $organizationId,
-        OrganizationName $organizationName,
-        Slug $organizationSlug,
-        Owner $owner
-    ) {
-        $organizationId->id()->willReturn('organization-id');
-        $this->beConstructedWith($organizationId, $organizationName, $organizationSlug, $owner);
+    function let(OrganizationId $id, OrganizationName $name, Slug $slug, Owner $owner)
+    {
+        $id->id()->willReturn('organization-id');
+        $this->beConstructedWith($id, $name, $slug, $owner);
     }
 
-    function it_is_initializable()
+    function it_can_be_created(Owner $owner, OrganizationName $name, Slug $slug)
     {
         $this->shouldHaveType(Organization::class);
-    }
-
-    function it_shows_organization_creator_as_an_owner(Owner $owner)
-    {
+        $this->shouldHaveType(AggregateRoot::class);
+        $this->id()->shouldReturnAnInstanceOf(OrganizationId::class);
+        $this->__toString()->shouldReturn('organization-id');
+        $this->name()->shouldReturn($name);
+        $this->slug()->shouldReturn($slug);
+        $this->shouldHavePublished(OrganizationCreated::class);
         $this->owners()->shouldReturnCollection([$owner]);
     }
 
@@ -90,21 +90,5 @@ class OrganizationSpec extends ObjectBehavior
     function it_does_not_allow_removing_unexistent_participant(OrganizationParticipant $participant)
     {
         $this->shouldThrow(CollectionElementAlreadyRemovedException::class)->during('removeParticipant', [$participant]);
-    }
-
-    function it_gets_id()
-    {
-        $this->id()->shouldReturnAnInstanceOf(OrganizationId::class);
-        $this->__toString()->shouldReturn('organization-id');
-    }
-
-    function it_gets_name(OrganizationName $organizationName)
-    {
-        $this->name()->shouldReturn($organizationName);
-    }
-
-    function it_gets_slug(Slug $organizationSlug)
-    {
-        $this->slug()->shouldReturn($organizationSlug);
     }
 }

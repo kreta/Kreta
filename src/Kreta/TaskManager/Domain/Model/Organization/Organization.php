@@ -14,9 +14,10 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Domain\Model\Organization;
 
+use Kreta\SharedKernel\Domain\Model\AggregateRoot;
 use Kreta\SharedKernel\Domain\Model\Identity\Slug;
 
-class Organization
+class Organization extends AggregateRoot
 {
     private $id;
     private $name;
@@ -32,6 +33,10 @@ class Organization
         $this->owners = new OwnerCollection();
         $this->participants = new ParticipantCollection();
         $this->addOwner($creator);
+
+        $this->publish(
+            new OrganizationCreated($id)
+        );
     }
 
     public function id() : OrganizationId
