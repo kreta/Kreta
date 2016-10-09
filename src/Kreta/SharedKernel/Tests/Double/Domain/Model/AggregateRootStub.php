@@ -17,7 +17,7 @@ namespace Kreta\SharedKernel\Tests\Double\Domain\Model;
 use Kreta\SharedKernel\Domain\Model\AggregateRoot;
 use Kreta\SharedKernel\Domain\Model\EventSourcedAggregateRoot;
 use Kreta\SharedKernel\Domain\Model\EventStream;
-use Kreta\SharedKernel\Domain\Model\Id;
+use Kreta\SharedKernel\Domain\Model\Identity\Id;
 
 class AggregateRootStub extends AggregateRoot implements EventSourcedAggregateRoot
 {

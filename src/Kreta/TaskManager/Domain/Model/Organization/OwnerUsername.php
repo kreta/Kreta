@@ -12,8 +12,8 @@
 
 declare(strict_types=1);
 
-namespace Kreta\SharedKernel\Domain\Model;
+namespace Kreta\TaskManager\Domain\Model\Organization;
 
-class InvalidIdException extends InvalidArgumentException
+class OwnerUsername extends ParticipantUsername
 {
 }

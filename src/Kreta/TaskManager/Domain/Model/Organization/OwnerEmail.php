@@ -14,13 +14,6 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Domain\Model\Organization;
 
-class OrganizationParticipant extends Participant
+class OwnerEmail extends ParticipantEmail
 {
-    public function __construct(
-        OrganizationParticipantId $id,
-        OrganizationParticipantEmail $email,
-        OrganizationParticipantUsername $username
-    ) {
-        parent::__construct($id, $email, $username);
-    }
 }

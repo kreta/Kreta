@@ -12,14 +12,22 @@
 
 declare(strict_types=1);
 
-namespace Kreta\TaskManager\Domain\Model\User;
+namespace Kreta\SharedKernel\Domain\Model\Identity;
 
-use Kreta\SharedKernel\Domain\Model\Identity\Id;
+use Ramsey\Uuid\Uuid as BaseUuid;
 
-class UserId extends Id
+final class Uuid
 {
-    public static function generate($id = null) : UserId
+    public static function generate() : string
     {
-        return new static($id);
+        return BaseUuid::uuid4()->toString();
+    }
+
+    private function __construct()
+    {
+    }
+
+    private function __clone()
+    {
     }
 }

@@ -29,14 +29,14 @@
         "doctrine/doctrine-cache-bundle": "^1.2",
         "doctrine/orm": "^2.5",
         "incenteev/composer-parameter-handler": "^2.0",
+        "keyvanakbary/slugifier": "^4.0",
         "overblog/graphql-bundle": "^0.6.0",
         "ramsey/uuid": "^3.5",
         "sensio/distribution-bundle": "^5.0",
         "sensio/framework-extra-bundle": "^3.0.2",
         "symfony/monolog-bundle": "^2.8",
         "symfony/swiftmailer-bundle": "^2.3",
-        "symfony/symfony": "3.1.*",
-        "keyvanakbary/slugifier": "^4.0"
+        "symfony/symfony": "3.1.*"
     },
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^2.3",

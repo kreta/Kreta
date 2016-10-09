@@ -10,11 +10,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Spec\Kreta\SharedKernel\Domain\Model;
+namespace Spec\Kreta\SharedKernel\Domain\Model\Identity;
 
-use Kreta\SharedKernel\Domain\Model\BaseId;
-use Kreta\SharedKernel\Domain\Model\Id;
-use Kreta\SharedKernel\Tests\Double\Domain\Model\IdStub;
+use Kreta\SharedKernel\Domain\Model\Identity\BaseId;
+use Kreta\SharedKernel\Domain\Model\Identity\Id;
+use Kreta\SharedKernel\Tests\Double\Domain\Model\Identity\IdStub;
 use PhpSpec\ObjectBehavior;
 
 class IdSpec extends ObjectBehavior

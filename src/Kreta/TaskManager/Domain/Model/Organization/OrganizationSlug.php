@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Domain\Model\Organization;
 
-use Kreta\SharedKernel\Domain\Model\Slug;
+use Kreta\SharedKernel\Domain\Model\Identity\Slug;
 
 class OrganizationSlug extends Slug
 {

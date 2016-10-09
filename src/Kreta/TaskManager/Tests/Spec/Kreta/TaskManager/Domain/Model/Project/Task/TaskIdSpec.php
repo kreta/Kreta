@@ -12,7 +12,7 @@
 
 namespace Spec\Kreta\TaskManager\Domain\Model\Project\Task;
 
-use Kreta\SharedKernel\Domain\Model\Id;
+use Kreta\SharedKernel\Domain\Model\Identity\Id;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskId;
 use PhpSpec\ObjectBehavior;
 

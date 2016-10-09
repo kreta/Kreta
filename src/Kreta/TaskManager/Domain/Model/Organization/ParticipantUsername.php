@@ -12,9 +12,10 @@
 
 declare(strict_types=1);
 
-namespace Kreta\SharedKernel\Domain\Model;
+namespace Kreta\TaskManager\Domain\Model\Organization;
 
-interface BaseId
+use Kreta\SharedKernel\Domain\Model\Identity\Username;
+
+abstract class ParticipantUsername extends Username
 {
-    public static function generate($id = null);
 }

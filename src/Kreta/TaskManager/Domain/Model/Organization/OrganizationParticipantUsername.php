@@ -12,14 +12,8 @@
 
 declare(strict_types=1);
 
-namespace Kreta\SharedKernel\Tests\Double\Domain\Model;
+namespace Kreta\TaskManager\Domain\Model\Organization;
 
-use Kreta\SharedKernel\Domain\Model\Id;
-
-class IdStub extends Id
+class OrganizationParticipantUsername extends ParticipantUsername
 {
-    public static function generate($id = null) : IdStub
-    {
-        return new self($id);
-    }
 }

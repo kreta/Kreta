@@ -18,7 +18,7 @@ use Kreta\SharedKernel\Domain\Model\AggregateDoesNotExistException;
 use Kreta\SharedKernel\Domain\Model\DomainEventCollection;
 use Kreta\SharedKernel\Domain\Model\EventStore;
 use Kreta\SharedKernel\Domain\Model\EventStream;
-use Kreta\SharedKernel\Domain\Model\Id;
+use Kreta\SharedKernel\Domain\Model\Identity\Id;
 
 class InMemoryEventStore implements EventStore
 {

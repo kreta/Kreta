@@ -12,14 +12,10 @@
 
 declare(strict_types=1);
 
-namespace Kreta\TaskManager\Domain\Model\User;
+namespace Kreta\SharedKernel\Domain\Model\Identity;
 
-use Kreta\SharedKernel\Domain\Model\Identity\Id;
+use Kreta\SharedKernel\Domain\Model\InvalidArgumentException;
 
-class UserId extends Id
+class UsernameInvalidException extends InvalidArgumentException
 {
-    public static function generate($id = null) : UserId
-    {
-        return new static($id);
-    }
 }

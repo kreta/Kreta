@@ -12,9 +12,14 @@
 
 declare(strict_types=1);
 
-namespace Kreta\TaskManager\Domain\Model\Organization;
+namespace Kreta\TaskManager\Tests\Double\Domain\Model;
 
-class OrganizationParticipant extends Participant
+use Kreta\TaskManager\Domain\Model\Organization\OrganizationParticipantEmail;
+use Kreta\TaskManager\Domain\Model\Organization\OrganizationParticipantId;
+use Kreta\TaskManager\Domain\Model\Organization\OrganizationParticipantUsername;
+use Kreta\TaskManager\Domain\Model\Organization\Participant;
+
+class ParticipantStub extends Participant
 {
     public function __construct(
         OrganizationParticipantId $id,

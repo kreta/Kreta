@@ -16,20 +16,8 @@ namespace Kreta\TaskManager\Domain\Model\Organization;
 
 class Owner extends Participant
 {
-    private $id;
-
-    public function __construct(OwnerId $id)
+    public function __construct(OwnerId $id, OwnerEmail $email, OwnerUsername $username)
     {
-        $this->id = $id;
-    }
-
-    public function id() : OwnerId
-    {
-        return $this->id;
-    }
-
-    public function __toString() : string
-    {
-        return (string) $this->id->id();
+        parent::__construct($id, $email, $username);
     }
 }

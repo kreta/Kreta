@@ -14,7 +14,7 @@ namespace Spec\Kreta\SharedKernel\Domain\Model;
 
 use Kreta\SharedKernel\Domain\Model\AggregateRoot;
 use Kreta\SharedKernel\Domain\Model\EventStream;
-use Kreta\SharedKernel\Domain\Model\Id;
+use Kreta\SharedKernel\Domain\Model\Identity\Id;
 use Kreta\SharedKernel\Tests\Double\Domain\Model\AggregateRootStub;
 use PhpSpec\ObjectBehavior;
 

@@ -10,9 +10,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Spec\Kreta\SharedKernel\Domain\Model;
+namespace Spec\Kreta\SharedKernel\Domain\Model\Identity;
 
-use Kreta\SharedKernel\Domain\Model\Slug;
+use Kreta\SharedKernel\Domain\Model\Identity\Slug;
 use PhpSpec\ObjectBehavior;
 
 class SlugSpec extends ObjectBehavior
