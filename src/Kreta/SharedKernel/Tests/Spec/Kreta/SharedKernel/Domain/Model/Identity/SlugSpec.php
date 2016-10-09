@@ -10,27 +10,26 @@
  * file that was distributed with this source code.
  */
 
-namespace Spec\Kreta\TaskManager\Domain\Model\Organization;
+namespace Spec\Kreta\SharedKernel\Domain\Model\Identity;
 
-use Kreta\SharedKernel\Domain\Model\Slug;
-use Kreta\TaskManager\Domain\Model\Organization\OrganizationSlug;
+use Kreta\SharedKernel\Domain\Model\Identity\Slug;
 use PhpSpec\ObjectBehavior;
 
-class OrganizationSlugSpec extends ObjectBehavior
+class SlugSpec extends ObjectBehavior
 {
     function let()
     {
-        $this->beConstructedWith('Organization name');
+        $this->beConstructedWith('Some plain text');
     }
 
     function it_is_initializable()
     {
-        $this->shouldHaveType(OrganizationSlug::class);
         $this->shouldHaveType(Slug::class);
     }
 
     function it_gets_slug()
     {
-        $this->slug()->shouldReturn('organization-name');
+        $this->slug()->shouldReturn('some-plain-text');
+        $this->__toString()->shouldReturn('some-plain-text');
     }
 }

@@ -14,7 +14,7 @@ namespace Spec\Kreta\SharedKernel\Domain\Model;
 
 use Kreta\SharedKernel\Domain\Model\DomainEventCollection;
 use Kreta\SharedKernel\Domain\Model\EventStream;
-use Kreta\SharedKernel\Domain\Model\Id;
+use Kreta\SharedKernel\Domain\Model\Identity\Id;
 use PhpSpec\ObjectBehavior;
 
 class EventStreamSpec extends ObjectBehavior

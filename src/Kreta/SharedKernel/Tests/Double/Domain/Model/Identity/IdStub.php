@@ -12,22 +12,14 @@
 
 declare(strict_types=1);
 
-namespace Kreta\SharedKernel\Domain\Model;
+namespace Kreta\SharedKernel\Tests\Double\Domain\Model\Identity;
 
-use Ramsey\Uuid\Uuid as BaseUuid;
+use Kreta\SharedKernel\Domain\Model\Identity\Id;
 
-final class Uuid
+class IdStub extends Id
 {
-    public static function generate() : string
+    public static function generate($id = null) : IdStub
     {
-        return BaseUuid::uuid4()->toString();
-    }
-
-    private function __construct()
-    {
-    }
-
-    private function __clone()
-    {
+        return new self($id);
     }
 }

@@ -12,7 +12,7 @@
 
 declare(strict_types=1);
 
-namespace Kreta\SharedKernel\Domain\Model;
+namespace Kreta\SharedKernel\Domain\Model\Identity;
 
 abstract class Id implements BaseId
 {

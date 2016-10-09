@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Domain\Model\Project\Task;
 
-use Kreta\SharedKernel\Domain\Model\Id;
+use Kreta\SharedKernel\Domain\Model\Identity\Id;
 
 class TaskId extends Id
 {

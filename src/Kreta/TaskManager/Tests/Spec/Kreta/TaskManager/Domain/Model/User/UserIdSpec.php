@@ -12,7 +12,7 @@
 
 namespace Spec\Kreta\TaskManager\Domain\Model\User;
 
-use Kreta\SharedKernel\Domain\Model\Id;
+use Kreta\SharedKernel\Domain\Model\Identity\Id;
 use Kreta\TaskManager\Domain\Model\User\UserId;
 use PhpSpec\ObjectBehavior;
 

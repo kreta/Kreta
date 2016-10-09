@@ -14,8 +14,8 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Domain\Model\Organization;
 
-use Kreta\SharedKernel\Domain\Model\InvalidIdException;
-use Kreta\SharedKernel\Domain\Model\Uuid;
+use Kreta\SharedKernel\Domain\Model\Identity\InvalidIdException;
+use Kreta\SharedKernel\Domain\Model\Identity\Uuid;
 use Kreta\TaskManager\Domain\Model\User\UserId;
 
 abstract class ParticipantId

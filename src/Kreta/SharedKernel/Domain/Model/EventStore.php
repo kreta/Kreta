@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace Kreta\SharedKernel\Domain\Model;
 
+use Kreta\SharedKernel\Domain\Model\Identity\Id;
+
 interface EventStore
 {
     public function appendTo(EventStream $events);

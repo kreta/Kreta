@@ -12,14 +12,9 @@
 
 declare(strict_types=1);
 
-namespace Kreta\TaskManager\Domain\Model\User;
+namespace Kreta\SharedKernel\Domain\Model\Identity;
 
-use Kreta\SharedKernel\Domain\Model\Identity\Id;
-
-class UserId extends Id
+interface BaseId
 {
-    public static function generate($id = null) : UserId
-    {
-        return new static($id);
-    }
+    public static function generate($id = null);
 }

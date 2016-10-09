@@ -14,18 +14,22 @@ namespace Spec\Kreta\TaskManager\Domain\Model\Organization;
 
 use Kreta\SharedKernel\Domain\Model\CollectionElementAlreadyAddedException;
 use Kreta\SharedKernel\Domain\Model\CollectionElementAlreadyRemovedException;
+use Kreta\SharedKernel\Domain\Model\Identity\Slug;
 use Kreta\TaskManager\Domain\Model\Organization\Organization;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationId;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationName;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationParticipant;
-use Kreta\TaskManager\Domain\Model\Organization\OrganizationSlug;
 use Kreta\TaskManager\Domain\Model\Organization\Owner;
 use PhpSpec\ObjectBehavior;
 
 class OrganizationSpec extends ObjectBehavior
 {
-    function let(OrganizationId $organizationId, OrganizationName $organizationName, OrganizationSlug $organizationSlug, Owner $owner)
-    {
+    function let(
+        OrganizationId $organizationId,
+        OrganizationName $organizationName,
+        Slug $organizationSlug,
+        Owner $owner
+    ) {
         $organizationId->id()->willReturn('organization-id');
         $this->beConstructedWith($organizationId, $organizationName, $organizationSlug, $owner);
     }
@@ -99,7 +103,7 @@ class OrganizationSpec extends ObjectBehavior
         $this->name()->shouldReturn($organizationName);
     }
 
-    function it_gets_slug(OrganizationSlug $organizationSlug)
+    function it_gets_slug(Slug $organizationSlug)
     {
         $this->slug()->shouldReturn($organizationSlug);
     }

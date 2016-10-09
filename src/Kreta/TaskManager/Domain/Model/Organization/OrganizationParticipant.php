@@ -14,22 +14,13 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Domain\Model\Organization;
 
+use Kreta\SharedKernel\Domain\Model\Identity\EmailAddress;
+use Kreta\SharedKernel\Domain\Model\Identity\Username;
+
 class OrganizationParticipant extends Participant
 {
-    private $id;
-
-    public function __construct(OrganizationParticipantId $id)
+    public function __construct(OrganizationParticipantId $id, EmailAddress $email, Username $username)
     {
-        $this->id = $id;
-    }
-
-    public function id() : OrganizationParticipantId
-    {
-        return $this->id;
-    }
-
-    public function __toString()
-    {
-        return (string) $this->id->id();
+        parent::__construct($id, $email, $username);
     }
 }

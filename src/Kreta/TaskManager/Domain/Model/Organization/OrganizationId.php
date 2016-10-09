@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Domain\Model\Organization;
 
-use Kreta\SharedKernel\Domain\Model\Id;
+use Kreta\SharedKernel\Domain\Model\Identity\Id;
 
 class OrganizationId extends Id
 {

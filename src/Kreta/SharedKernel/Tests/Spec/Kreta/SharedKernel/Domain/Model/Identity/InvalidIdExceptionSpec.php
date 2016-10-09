@@ -10,9 +10,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Spec\Kreta\SharedKernel\Domain\Model;
+namespace Spec\Kreta\SharedKernel\Domain\Model\Identity;
 
-use Kreta\SharedKernel\Domain\Model\InvalidIdException;
+use Kreta\SharedKernel\Domain\Model\Identity\InvalidIdException;
 use PhpSpec\ObjectBehavior;
 
 class InvalidIdExceptionSpec extends ObjectBehavior

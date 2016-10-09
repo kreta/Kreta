@@ -12,14 +12,10 @@
 
 declare(strict_types=1);
 
-namespace Kreta\SharedKernel\Tests\Double\Domain\Model;
+namespace Kreta\SharedKernel\Domain\Model\Identity;
 
-use Kreta\SharedKernel\Domain\Model\Id;
+use Kreta\SharedKernel\Domain\Model\InvalidArgumentException;
 
-class IdStub extends Id
+class EmailAddressInvalidException extends InvalidArgumentException
 {
-    public static function generate($id = null) : IdStub
-    {
-        return new self($id);
-    }
 }

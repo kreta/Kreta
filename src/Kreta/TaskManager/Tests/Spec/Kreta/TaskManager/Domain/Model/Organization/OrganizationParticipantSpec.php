@@ -12,6 +12,8 @@
 
 namespace Spec\Kreta\TaskManager\Domain\Model\Organization;
 
+use Kreta\SharedKernel\Domain\Model\Identity\EmailAddress;
+use Kreta\SharedKernel\Domain\Model\Identity\Username;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationParticipant;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationParticipantId;
 use Kreta\TaskManager\Domain\Model\Organization\Participant;
@@ -19,10 +21,9 @@ use PhpSpec\ObjectBehavior;
 
 class OrganizationParticipantSpec extends ObjectBehavior
 {
-    function let(OrganizationParticipantId $organizationParticipantId)
+    function let(OrganizationParticipantId $id, EmailAddress $email, Username $username)
     {
-        $organizationParticipantId->id()->willReturn('organization-participant-id');
-        $this->beConstructedWith($organizationParticipantId);
+        $this->beConstructedWith($id, $email, $username);
     }
 
     function it_is_initializable()
@@ -33,11 +34,5 @@ class OrganizationParticipantSpec extends ObjectBehavior
     function it_extends_participant()
     {
         $this->shouldHaveType(Participant::class);
-    }
-
-    function it_gets_id()
-    {
-        $this->id()->shouldReturnAnInstanceOf(OrganizationParticipantId::class);
-        $this->__toString()->shouldReturn('organization-participant-id');
     }
 }

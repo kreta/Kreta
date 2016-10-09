@@ -14,7 +14,7 @@ namespace Spec\Kreta\SharedKernel\Domain\Model;
 
 use Kreta\SharedKernel\Domain\Model\AggregateDoesNotExistException;
 use Kreta\SharedKernel\Domain\Model\Exception;
-use Kreta\SharedKernel\Domain\Model\Id;
+use Kreta\SharedKernel\Domain\Model\Identity\Id;
 use PhpSpec\ObjectBehavior;
 
 class AggregateDoesNotExistExceptionSpec extends ObjectBehavior

@@ -12,9 +12,10 @@
 
 declare(strict_types=1);
 
-namespace Kreta\SharedKernel\Domain\Model;
+namespace Kreta\SharedKernel\Domain\Model\Identity;
 
-interface BaseId
+use Kreta\SharedKernel\Domain\Model\InvalidArgumentException;
+
+class UsernameInvalidException extends InvalidArgumentException
 {
-    public static function generate($id = null);
 }

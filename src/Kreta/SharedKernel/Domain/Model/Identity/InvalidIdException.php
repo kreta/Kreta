@@ -12,10 +12,10 @@
 
 declare(strict_types=1);
 
-namespace Kreta\TaskManager\Domain\Model\Organization;
+namespace Kreta\SharedKernel\Domain\Model\Identity;
 
-use Kreta\SharedKernel\Domain\Model\Slug;
+use Kreta\SharedKernel\Domain\Model\InvalidArgumentException;
 
-class OrganizationSlug extends Slug
+class InvalidIdException extends InvalidArgumentException
 {
 }
