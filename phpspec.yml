@@ -8,6 +8,7 @@
 
 matchers:
     - Kreta\SharedKernel\Tests\Matchers\CollectionMatcher
+    - Kreta\SharedKernel\Tests\Matchers\DomainPublishedMatcher
 
 suites:
     kreta_shared_kernel:

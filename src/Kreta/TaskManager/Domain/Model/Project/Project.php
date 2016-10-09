@@ -59,7 +59,7 @@ class Project extends AggregateRoot
         return $this->createdOn;
     }
 
-    public function edit(string $name, Slug $slug)
+    public function edit(ProjectName $name, Slug $slug)
     {
         $this->name = $name;
         $this->slug = $slug;
