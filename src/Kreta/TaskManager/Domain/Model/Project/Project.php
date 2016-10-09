@@ -16,6 +16,7 @@ namespace Kreta\TaskManager\Domain\Model\Project;
 
 use Kreta\SharedKernel\Domain\Model\AggregateRoot;
 use Kreta\SharedKernel\Domain\Model\Identity\Slug;
+use Kreta\TaskManager\Domain\Model\Organization\OrganizationId;
 
 class Project extends AggregateRoot
 {
@@ -23,13 +24,15 @@ class Project extends AggregateRoot
     private $name;
     private $slug;
     private $createdOn;
+    private $organizationId;
 
-    public function __construct(ProjectId $id, ProjectName $name, Slug $slug)
+    public function __construct(ProjectId $id, ProjectName $name, Slug $slug, OrganizationId $organizationId)
     {
         $this->id = $id;
         $this->name = $name;
         $this->slug = $slug;
         $this->createdOn = new \DateTimeImmutable();
+        $this->organizationId = $organizationId;
 
         $this->publish(
             new ProjectCreated($id)
@@ -69,5 +72,10 @@ class Project extends AggregateRoot
     public function __toString() : string
     {
         return (string) $this->id->id();
+    }
+
+    public function organizationId() : OrganizationId
+    {
+        return $this->organizationId;
     }
 }
