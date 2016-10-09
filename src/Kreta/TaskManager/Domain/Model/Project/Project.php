@@ -41,12 +41,12 @@ class Project extends AggregateRoot
         return $this->id;
     }
 
-    public function name()
+    public function name() : ProjectName
     {
         return $this->name;
     }
 
-    public function slug()
+    public function slug() : Slug
     {
         return $this->slug;
     }
