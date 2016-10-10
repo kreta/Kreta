@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Kreta\TaskManager\Application\Organization;
 
@@ -20,23 +20,28 @@ class CreateOrganizationCommand
 {
     private $id;
     private $ownerId;
+    private $ownerEmail;
+    private $ownerUsername;
     private $userId;
     private $name;
     private $slug;
 
-    public function __construct(string $ownerId, string $userId, string $name, string $id = null, string $slug = null)
-    {
-        if ('' === $ownerId) {
-            throw new InvalidArgumentException('Owner id cannot be null');
-        }
+    public function __construct(
+        string $userId,
+        string $name,
+        string $ownerEmail,
+        string $ownerUsername,
+        string $id = null,
+        string $ownerId = null,
+        string $slug = null
+    ) {
         if ('' === $userId) {
             throw new InvalidArgumentException('User id cannot be null');
         }
-        if ('' === $name) {
-            throw new InvalidArgumentException('Organization name cannot be null');
-        }
         $this->id = $id;
         $this->ownerId = $ownerId;
+        $this->ownerEmail = $ownerEmail;
+        $this->ownerUsername = $ownerUsername;
         $this->userId = $userId;
         $this->name = $name;
         $this->slug = $slug;
@@ -52,9 +57,19 @@ class CreateOrganizationCommand
         return $this->name;
     }
 
-    public function ownerId() : string
+    public function ownerId()
     {
         return $this->ownerId;
+    }
+
+    public function ownerEmail() : string
+    {
+        return $this->ownerEmail;
+    }
+
+    public function ownerUsername() : string
+    {
+        return $this->ownerUsername;
     }
 
     public function slug()

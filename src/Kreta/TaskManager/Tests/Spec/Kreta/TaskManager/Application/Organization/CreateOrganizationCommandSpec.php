@@ -1,5 +1,15 @@
 <?php
 
+/*
+ * This file is part of the Kreta package.
+ *
+ * (c) Beñat Espiña <benatespina@gmail.com>
+ * (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Spec\Kreta\TaskManager\Application\Organization;
 
 use Kreta\SharedKernel\Domain\Model\InvalidArgumentException;
@@ -8,53 +18,72 @@ use PhpSpec\ObjectBehavior;
 
 class CreateOrganizationCommandSpec extends ObjectBehavior
 {
-    function it_builds()
+    function it_can_be_created_with_basic_info()
     {
-        $this->beConstructedWith('owner-id', 'user-id', 'Organization name');
+        $this->beConstructedWith('user-id', 'Organization name', 'owner@owner.com', 'ownerusername');
         $this->shouldHaveType(CreateOrganizationCommand::class);
         $this->id()->shouldReturn(null);
         $this->name()->shouldReturn('Organization name');
         $this->slug()->shouldReturn(null);
-        $this->ownerId()->shouldReturn('owner-id');
         $this->userId()->shouldReturn('user-id');
+        $this->ownerEmail()->shouldReturn('owner@owner.com');
+        $this->ownerUsername()->shouldReturn('ownerusername');
     }
 
-    function it_builds_with_id()
+    function it_can_be_created_with_basic_info_and_organization_id()
     {
-        $this->beConstructedWith('owner-id', 'user-id', 'Organization name', 'organization-id');
+        $this->beConstructedWith('user-id', 'Organization name', 'owner@owner.com', 'ownerusername', 'organization-id');
         $this->shouldHaveType(CreateOrganizationCommand::class);
+        $this->id()->shouldReturn('organization-id');
+        $this->name()->shouldReturn('Organization name');
+        $this->slug()->shouldReturn(null);
+        $this->userId()->shouldReturn('user-id');
+        $this->ownerEmail()->shouldReturn('owner@owner.com');
+        $this->ownerUsername()->shouldReturn('ownerusername');
+    }
+
+    function it_can_be_created_with_basic_info_organization_id_owner_id()
+    {
+        $this->beConstructedWith(
+            'user-id',
+            'Organization name',
+            'owner@owner.com',
+            'ownerusername',
+            'organization-id',
+            'owner-id'
+        );
         $this->id()->shouldReturn('organization-id');
         $this->name()->shouldReturn('Organization name');
         $this->slug()->shouldReturn(null);
         $this->ownerId()->shouldReturn('owner-id');
         $this->userId()->shouldReturn('user-id');
+        $this->ownerEmail()->shouldReturn('owner@owner.com');
+        $this->ownerUsername()->shouldReturn('ownerusername');
     }
 
-    function it_builds_with_slug()
+    function it_can_be_created_with_basic_info_organization_id_owner_id_and_slug()
     {
-        $this->beConstructedWith('owner-id', 'user-id', 'Organization name', 'organization-id', 'organization-slug');
+        $this->beConstructedWith(
+            'user-id',
+            'Organization name',
+            'owner@owner.com',
+            'ownerusername',
+            'organization-id',
+            'owner-id',
+            'organization-slug'
+        );
         $this->id()->shouldReturn('organization-id');
         $this->name()->shouldReturn('Organization name');
         $this->slug()->shouldReturn('organization-slug');
         $this->ownerId()->shouldReturn('owner-id');
         $this->userId()->shouldReturn('user-id');
+        $this->ownerEmail()->shouldReturn('owner@owner.com');
+        $this->ownerUsername()->shouldReturn('ownerusername');
     }
 
-    function it_builds_without_owner_id()
+    function it_cannot_be_created_with_empty_user_id()
     {
-        $this->beConstructedWith('', 'user-id', 'Organization name');
-        $this->shouldThrow(new InvalidArgumentException('Owner id cannot be null'))->duringInstantiation();
-    }
-
-    function it_builds_without_user_id()
-    {
-        $this->beConstructedWith('owner-id', '', 'Organization name');
+        $this->beConstructedWith('', 'Organization name', 'owner@owner.com', 'ownerusername');
         $this->shouldThrow(new InvalidArgumentException('User id cannot be null'))->duringInstantiation();
-    }
-
-    function it_builds_without_organization_name()
-    {
-        $this->beConstructedWith('owner-id', 'user-id', '');
-        $this->shouldThrow(new InvalidArgumentException('Organization name cannot be null'))->duringInstantiation();
     }
 }

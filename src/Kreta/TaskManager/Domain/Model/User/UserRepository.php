@@ -12,14 +12,13 @@
 
 declare(strict_types=1);
 
-namespace Kreta\TaskManager\Domain\Model\Organization;
+namespace Kreta\TaskManager\Domain\Model\User;
 
-use Kreta\SharedKernel\Domain\Model\Exception;
-
-class OwnerDoesNotExistException extends Exception
+interface UserRepository
 {
-    public function __construct()
-    {
-        parent::__construct('Owner does not exist');
-    }
+    public function userOfId(UserId $id);
+
+    public function persist(User $user);
+
+    public function remove(User $user);
 }
