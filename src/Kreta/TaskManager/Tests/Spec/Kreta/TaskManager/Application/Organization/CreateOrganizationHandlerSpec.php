@@ -50,8 +50,6 @@ class CreateOrganizationHandlerSpec extends ObjectBehavior
         $userRepository->userOfId($userId)->shouldBeCalled()->willReturn($user);
         $user->id()->shouldBeCalled()->willReturn($userId);
         $command->ownerId()->shouldBeCalled()->willReturn('owner-id');
-        $command->ownerEmail()->shouldBeCalled()->willReturn('owner@owner.com');
-        $command->ownerUsername()->shouldBeCalled()->willReturn('ownerusername');
         $command->name()->shouldBeCalled()->willReturn('Organization name');
         $command->slug()->shouldBeCalled()->willReturn('organization-slug');
         $repository->persist(Argument::type(Organization::class))->shouldBeCalled();
@@ -70,8 +68,6 @@ class CreateOrganizationHandlerSpec extends ObjectBehavior
         $userRepository->userOfId($userId)->shouldBeCalled()->willReturn($user);
         $user->id()->shouldBeCalled()->willReturn($userId);
         $command->ownerId()->shouldBeCalled()->willReturn('owner-id');
-        $command->ownerEmail()->shouldBeCalled()->willReturn('owner@owner.com');
-        $command->ownerUsername()->shouldBeCalled()->willReturn('ownerusername');
         $command->userId()->shouldBeCalled()->willReturn('user-id');
         $command->name()->shouldBeCalled()->willReturn('Organization name');
         $command->slug()->shouldBeCalled()->willReturn('organization-slug');
@@ -93,8 +89,6 @@ class CreateOrganizationHandlerSpec extends ObjectBehavior
         $user->id()->shouldBeCalled()->willReturn($userId);
         $repository->organizationOfId(Argument::type(OrganizationId::class))->shouldBeCalled()->willReturn(null);
         $command->ownerId()->shouldBeCalled()->willReturn('owner-id');
-        $command->ownerEmail()->shouldBeCalled()->willReturn('owner@owner.com');
-        $command->ownerUsername()->shouldBeCalled()->willReturn('ownerusername');
         $command->userId()->shouldBeCalled()->willReturn('user-id');
         $command->name()->shouldBeCalled()->willReturn('Organization name');
         $command->slug()->shouldBeCalled()->willReturn(null);

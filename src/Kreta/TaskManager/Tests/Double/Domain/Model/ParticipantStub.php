@@ -14,15 +14,13 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Tests\Double\Domain\Model;
 
-use Kreta\SharedKernel\Domain\Model\Identity\EmailAddress;
-use Kreta\SharedKernel\Domain\Model\Identity\Username;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationParticipantId;
 use Kreta\TaskManager\Domain\Model\Organization\Participant;
 
 class ParticipantStub extends Participant
 {
-    public function __construct(OrganizationParticipantId $id, EmailAddress $email, Username $username)
+    public function __construct(OrganizationParticipantId $id)
     {
-        parent::__construct($id, $email, $username);
+        parent::__construct($id);
     }
 }

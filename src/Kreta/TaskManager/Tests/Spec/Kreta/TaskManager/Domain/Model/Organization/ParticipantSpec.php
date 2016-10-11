@@ -12,8 +12,6 @@
 
 namespace Spec\Kreta\TaskManager\Domain\Model\Organization;
 
-use Kreta\SharedKernel\Domain\Model\Identity\EmailAddress;
-use Kreta\SharedKernel\Domain\Model\Identity\Username;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationParticipantId;
 use Kreta\TaskManager\Domain\Model\Organization\Participant;
 use Kreta\TaskManager\Tests\Double\Domain\Model\ParticipantStub;
@@ -21,45 +19,17 @@ use PhpSpec\ObjectBehavior;
 
 class ParticipantSpec extends ObjectBehavior
 {
-    function let(OrganizationParticipantId $id, EmailAddress $email, Username $username)
+    function let(OrganizationParticipantId $id)
     {
         $id->id()->willReturn('organization-participant-id');
         $this->beAnInstanceOf(ParticipantStub::class);
-        $this->beConstructedWith($id, $email, $username);
+        $this->beConstructedWith($id);
     }
 
-    function it_is_initializable()
+    function it_can_be_created()
     {
         $this->shouldHaveType(Participant::class);
-    }
-
-    function it_gets_id()
-    {
         $this->id()->shouldReturnAnInstanceOf(OrganizationParticipantId::class);
         $this->__toString()->shouldReturn('organization-participant-id');
-    }
-
-    function it_gets_email()
-    {
-        $this->email()->shouldReturnAnInstanceOf(EmailAddress::class);
-    }
-
-    function it_gets_username()
-    {
-        $this->username()->shouldReturnAnInstanceOf(Username::class);
-    }
-
-    function it_changes_email(EmailAddress $email, EmailAddress $email2)
-    {
-        $this->email()->shouldReturn($email);
-        $this->changeEmail($email2);
-        $this->email()->shouldReturn($email2);
-    }
-
-    function it_changes_username(Username $username, Username $username2)
-    {
-        $this->username()->shouldReturn($username);
-        $this->changeUsername($username2);
-        $this->username()->shouldReturn($username2);
     }
 }

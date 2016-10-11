@@ -14,9 +14,7 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Application\Organization;
 
-use Kreta\SharedKernel\Domain\Model\Identity\EmailAddress;
 use Kreta\SharedKernel\Domain\Model\Identity\Slug;
-use Kreta\SharedKernel\Domain\Model\Identity\Username;
 use Kreta\TaskManager\Domain\Model\Organization\Organization;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationAlreadyExistsException;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationId;
@@ -74,12 +72,6 @@ class CreateOrganizationHandler
                 OwnerId::generate(
                     $user->id(),
                     $command->ownerId()
-                ),
-                new EmailAddress(
-                    $command->ownerEmail()
-                ),
-                new Username(
-                    $command->ownerUsername()
                 )
             )
         );

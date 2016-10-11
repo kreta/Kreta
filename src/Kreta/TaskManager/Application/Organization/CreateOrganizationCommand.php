@@ -20,8 +20,6 @@ class CreateOrganizationCommand
 {
     private $id;
     private $ownerId;
-    private $ownerEmail;
-    private $ownerUsername;
     private $userId;
     private $name;
     private $slug;
@@ -29,8 +27,6 @@ class CreateOrganizationCommand
     public function __construct(
         string $userId,
         string $name,
-        string $ownerEmail,
-        string $ownerUsername,
         string $id = null,
         string $ownerId = null,
         string $slug = null
@@ -40,8 +36,6 @@ class CreateOrganizationCommand
         }
         $this->id = $id;
         $this->ownerId = $ownerId;
-        $this->ownerEmail = $ownerEmail;
-        $this->ownerUsername = $ownerUsername;
         $this->userId = $userId;
         $this->name = $name;
         $this->slug = $slug;
@@ -60,16 +54,6 @@ class CreateOrganizationCommand
     public function ownerId()
     {
         return $this->ownerId;
-    }
-
-    public function ownerEmail() : string
-    {
-        return $this->ownerEmail;
-    }
-
-    public function ownerUsername() : string
-    {
-        return $this->ownerUsername;
     }
 
     public function slug()
