@@ -14,20 +14,20 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Domain\Model\Organization;
 
-abstract class Participant
+abstract class Member
 {
     protected $id;
     protected $createdOn;
     protected $updatedOn;
 
-    public function __construct(ParticipantId $id)
+    public function __construct(MemberId $id)
     {
         $this->id = $id;
         $this->createdOn = new \DateTimeImmutable();
         $this->updatedOn = new \DateTimeImmutable();
     }
 
-    public function id() : ParticipantId
+    public function id() : MemberId
     {
         return $this->id;
     }

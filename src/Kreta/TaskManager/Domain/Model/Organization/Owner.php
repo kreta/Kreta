@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Domain\Model\Organization;
 
-class Owner extends Participant
+class Owner extends Member
 {
     public function __construct(OwnerId $id)
     {

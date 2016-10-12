@@ -20,7 +20,7 @@ use Kreta\TaskManager\Domain\Model\Organization\Organization;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationCreated;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationId;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationName;
-use Kreta\TaskManager\Domain\Model\Organization\OrganizationParticipant;
+use Kreta\TaskManager\Domain\Model\Organization\OrganizationMember;
 use Kreta\TaskManager\Domain\Model\Organization\Owner;
 use PhpSpec\ObjectBehavior;
 
@@ -68,27 +68,27 @@ class OrganizationSpec extends ObjectBehavior
         $this->shouldThrow(CollectionElementAlreadyRemovedException::class)->during('removeOwner', [$owner2]);
     }
 
-    function it_allows_adding_a_new_participant(OrganizationParticipant $participant)
+    function it_allows_adding_a_new_participant(OrganizationMember $participant)
     {
-        $this->addParticipant($participant);
+        $this->addMember($participant);
         $this->participants()->shouldReturnCollection([$participant]);
     }
 
-    function it_does_not_allow_to_add_existing_participant(OrganizationParticipant $participant)
+    function it_does_not_allow_to_add_existing_participant(OrganizationMember $participant)
     {
-        $this->addParticipant($participant);
+        $this->addMember($participant);
 
-        $this->shouldThrow(CollectionElementAlreadyAddedException::class)->during('addParticipant', [$participant]);
+        $this->shouldThrow(CollectionElementAlreadyAddedException::class)->during('addMember', [$participant]);
     }
 
-    function it_allows_removing_a_participant(OrganizationParticipant $participant)
+    function it_allows_removing_a_participant(OrganizationMember $participant)
     {
-        $this->addParticipant($participant);
-        $this->removeParticipant($participant);
+        $this->addMember($participant);
+        $this->removeMember($participant);
     }
 
-    function it_does_not_allow_removing_unexistent_participant(OrganizationParticipant $participant)
+    function it_does_not_allow_removing_unexistent_participant(OrganizationMember $participant)
     {
-        $this->shouldThrow(CollectionElementAlreadyRemovedException::class)->during('removeParticipant', [$participant]);
+        $this->shouldThrow(CollectionElementAlreadyRemovedException::class)->during('removeMember', [$participant]);
     }
 }

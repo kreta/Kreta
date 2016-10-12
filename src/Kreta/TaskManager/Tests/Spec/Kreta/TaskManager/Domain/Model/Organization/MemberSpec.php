@@ -12,24 +12,24 @@
 
 namespace Spec\Kreta\TaskManager\Domain\Model\Organization;
 
-use Kreta\TaskManager\Domain\Model\Organization\OrganizationParticipantId;
-use Kreta\TaskManager\Domain\Model\Organization\Participant;
-use Kreta\TaskManager\Tests\Double\Domain\Model\ParticipantStub;
+use Kreta\TaskManager\Domain\Model\Organization\OrganizationMemberId;
+use Kreta\TaskManager\Domain\Model\Organization\Member;
+use Kreta\TaskManager\Tests\Double\Domain\Model\MemberStub;
 use PhpSpec\ObjectBehavior;
 
-class ParticipantSpec extends ObjectBehavior
+class MemberSpec extends ObjectBehavior
 {
-    function let(OrganizationParticipantId $id)
+    function let(OrganizationMemberId $id)
     {
         $id->id()->willReturn('organization-participant-id');
-        $this->beAnInstanceOf(ParticipantStub::class);
+        $this->beAnInstanceOf(MemberStub::class);
         $this->beConstructedWith($id);
     }
 
     function it_can_be_created()
     {
-        $this->shouldHaveType(Participant::class);
-        $this->id()->shouldReturnAnInstanceOf(OrganizationParticipantId::class);
+        $this->shouldHaveType(Member::class);
+        $this->id()->shouldReturnAnInstanceOf(OrganizationMemberId::class);
         $this->__toString()->shouldReturn('organization-participant-id');
     }
 }

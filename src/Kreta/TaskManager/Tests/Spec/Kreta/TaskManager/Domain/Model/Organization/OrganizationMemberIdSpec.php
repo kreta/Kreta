@@ -12,26 +12,26 @@
 
 namespace Spec\Kreta\TaskManager\Domain\Model\Organization;
 
-use Kreta\TaskManager\Domain\Model\Organization\OrganizationParticipantId;
-use Kreta\TaskManager\Domain\Model\Organization\ParticipantId;
+use Kreta\TaskManager\Domain\Model\Organization\OrganizationMemberId;
+use Kreta\TaskManager\Domain\Model\Organization\MemberId;
 use Kreta\TaskManager\Domain\Model\User\UserId;
 use PhpSpec\ObjectBehavior;
 
-class OrganizationParticipantIdSpec extends ObjectBehavior
+class OrganizationMemberIdSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType(OrganizationParticipantId::class);
+        $this->shouldHaveType(OrganizationMemberId::class);
     }
 
     function it_extends_participant_id()
     {
-        $this->shouldHaveType(ParticipantId::class);
+        $this->shouldHaveType(MemberId::class);
     }
 
     function it_generates(UserId $userId)
     {
         $this->beConstructedGenerate($userId);
-        $this::generate($userId)->shouldReturnAnInstanceOf(OrganizationParticipantId::class);
+        $this::generate($userId)->shouldReturnAnInstanceOf(OrganizationMemberId::class);
     }
 }

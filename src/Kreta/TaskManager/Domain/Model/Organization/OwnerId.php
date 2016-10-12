@@ -16,7 +16,7 @@ namespace Kreta\TaskManager\Domain\Model\Organization;
 
 use Kreta\TaskManager\Domain\Model\User\UserId;
 
-class OwnerId extends ParticipantId
+class OwnerId extends MemberId
 {
     public static function generate(UserId $userId, $id = null) : OwnerId
     {

@@ -14,7 +14,7 @@ namespace Spec\Kreta\TaskManager\Domain\Model\Organization;
 
 use Kreta\TaskManager\Domain\Model\Organization\Owner;
 use Kreta\TaskManager\Domain\Model\Organization\OwnerId;
-use Kreta\TaskManager\Domain\Model\Organization\Participant;
+use Kreta\TaskManager\Domain\Model\Organization\Member;
 use PhpSpec\ObjectBehavior;
 
 class OwnerSpec extends ObjectBehavior
@@ -27,6 +27,6 @@ class OwnerSpec extends ObjectBehavior
     function it_is_initializable()
     {
         $this->shouldHaveType(Owner::class);
-        $this->shouldHaveType(Participant::class);
+        $this->shouldHaveType(Member::class);
     }
 }

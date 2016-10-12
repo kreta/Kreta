@@ -14,13 +14,13 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Tests\Double\Domain\Model;
 
-use Kreta\TaskManager\Domain\Model\Organization\OrganizationParticipantId;
-use Kreta\TaskManager\Domain\Model\Organization\Participant;
+use Kreta\TaskManager\Domain\Model\Organization\MemberId;
+use Kreta\TaskManager\Domain\Model\User\UserId;
 
-class ParticipantStub extends Participant
+class MemberIdStub extends MemberId
 {
-    public function __construct(OrganizationParticipantId $id)
+    public static function generate(UserId $userId, $id = null) : MemberIdStub
     {
-        parent::__construct($id);
+        return new static($userId, $id);
     }
 }

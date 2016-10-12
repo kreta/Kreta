@@ -18,7 +18,7 @@ use Kreta\SharedKernel\Domain\Model\Identity\InvalidIdException;
 use Kreta\SharedKernel\Domain\Model\Identity\Uuid;
 use Kreta\TaskManager\Domain\Model\User\UserId;
 
-abstract class ParticipantId
+abstract class MemberId
 {
     protected $id;
     protected $userId;
@@ -44,7 +44,7 @@ abstract class ParticipantId
         return $this->userId;
     }
 
-    public function equals(ParticipantId $id) : bool
+    public function equals(MemberId $id) : bool
     {
         return $this->id === $id->id() && $this->userId->id() === $id->userId()->id();
     }

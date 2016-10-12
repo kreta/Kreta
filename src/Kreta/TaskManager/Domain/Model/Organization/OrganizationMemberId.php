@@ -12,14 +12,13 @@
 
 declare(strict_types=1);
 
-namespace Kreta\TaskManager\Tests\Double\Domain\Model;
+namespace Kreta\TaskManager\Domain\Model\Organization;
 
-use Kreta\TaskManager\Domain\Model\Organization\ParticipantId;
 use Kreta\TaskManager\Domain\Model\User\UserId;
 
-class ParticipantIdStub extends ParticipantId
+class OrganizationMemberId extends MemberId
 {
-    public static function generate(UserId $userId, $id = null) : ParticipantIdStub
+    public static function generate(UserId $userId, $id = null) : OrganizationMemberId
     {
         return new static($userId, $id);
     }

@@ -14,10 +14,12 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Domain\Model\Organization;
 
-class OrganizationParticipant extends Participant
+use Kreta\SharedKernel\Domain\Model\Collection;
+
+class MemberCollection extends Collection
 {
-    public function __construct(OrganizationParticipantId $id)
+    protected function type() : string
     {
-        parent::__construct($id);
+        return OrganizationMember::class;
     }
 }

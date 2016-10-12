@@ -31,7 +31,7 @@ class Organization extends AggregateRoot
         $this->name = $name;
         $this->slug = $slug;
         $this->owners = new OwnerCollection();
-        $this->participants = new ParticipantCollection();
+        $this->participants = new MemberCollection();
         $this->addOwner($creator);
 
         $this->publish(
@@ -69,17 +69,17 @@ class Organization extends AggregateRoot
         $this->owners->remove($owner);
     }
 
-    public function participants() : ParticipantCollection
+    public function participants() : MemberCollection
     {
         return $this->participants;
     }
 
-    public function addParticipant(OrganizationParticipant $participant)
+    public function addMember(OrganizationMember $participant)
     {
         $this->participants->add($participant);
     }
 
-    public function removeParticipant(OrganizationParticipant $participant)
+    public function removeMember(OrganizationMember $participant)
     {
         $this->participants->remove($participant);
     }
