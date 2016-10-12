@@ -21,6 +21,7 @@ class TaskPrioritySpec extends ObjectBehavior
     {
         $this->beConstructedLow();
         $this->priority()->shouldReturn(TaskPriority::LOW);
+        $this->__toString()->shouldReturn(TaskPriority::LOW);
     }
 
     function it_creates_a_medium_priority_task_value()

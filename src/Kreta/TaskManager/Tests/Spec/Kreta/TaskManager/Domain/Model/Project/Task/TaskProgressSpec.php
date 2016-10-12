@@ -26,17 +26,20 @@ class TaskProgressSpec extends ObjectBehavior
     {
         $this->beConstructedTodo();
         $this->progress()->shouldReturn(TaskProgress::TODO);
+        $this->__toString()->shouldReturn(TaskProgress::TODO);
     }
 
     function it_creates_a_doing_task_progress_value()
     {
         $this->beConstructedDoing();
         $this->progress()->shouldReturn(TaskProgress::DOING);
+        $this->__toString()->shouldReturn(TaskProgress::DOING);
     }
 
     function it_creates_a_done_task_progress_value()
     {
         $this->beConstructedDone();
         $this->progress()->shouldReturn(TaskProgress::DONE);
+        $this->__toString()->shouldReturn(TaskProgress::DONE);
     }
 }

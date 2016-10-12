@@ -25,6 +25,7 @@ class TaskTitleSpec extends ObjectBehavior
         $this->shouldHaveType(TaskTitle::class);
 
         $this->title()->shouldReturn('Sample title');
+        $this->__toString()->shouldReturn('Sample title');
     }
 
     function it_cannot_be_created_if_title_is_empty()

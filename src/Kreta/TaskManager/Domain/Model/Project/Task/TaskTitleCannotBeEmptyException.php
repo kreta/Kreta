@@ -20,6 +20,8 @@ class TaskTitleCannotBeEmptyException extends Exception
 {
     public function __construct()
     {
+        parent::__construct();
+
         $this->message = 'Task title cannot be empty';
     }
 }

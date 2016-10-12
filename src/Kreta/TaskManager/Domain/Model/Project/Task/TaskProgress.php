@@ -42,7 +42,12 @@ class TaskProgress
         return new self(self::DONE);
     }
 
-    public function progress()
+    public function progress() : string
+    {
+        return $this->progress;
+    }
+
+    public function __toString() : string
     {
         return $this->progress;
     }

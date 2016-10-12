@@ -46,4 +46,9 @@ class TaskPriority
     {
         return $this->priority;
     }
+
+    public function __toString() : string
+    {
+        return $this->priority;
+    }
 }

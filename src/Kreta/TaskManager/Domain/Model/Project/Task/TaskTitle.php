@@ -27,7 +27,12 @@ class TaskTitle
         $this->title = $title;
     }
 
-    public function title()
+    public function title() : string
+    {
+        return $this->title;
+    }
+
+    public function __toString() : string
     {
         return $this->title;
     }

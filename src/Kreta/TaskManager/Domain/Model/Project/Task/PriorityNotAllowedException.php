@@ -20,6 +20,8 @@ class PriorityNotAllowedException extends Exception
 {
     public function __construct(string $priority)
     {
+        parent::__construct();
+
         $this->message = sprintf(
             'Priority "%s" not allowed',
             $priority

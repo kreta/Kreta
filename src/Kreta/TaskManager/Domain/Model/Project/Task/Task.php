@@ -30,13 +30,14 @@ class Task extends AggregateRoot
     private $createdOn;
     private $updatedOn;
 
-    public function __construct(TaskId $id,
-                                TaskTitle $title,
-                                string $description,
-                                Participant $creator,
-                                Participant $assignee,
-                                TaskPriority $priority,
-                                TaskId $parentId = null)
+    public function __construct(
+        TaskId $id,
+        TaskTitle $title,
+        string $description,
+        Participant $creator,
+        Participant $assignee,
+        TaskPriority $priority,
+        TaskId $parentId = null)
     {
         $this->id = $id;
         $this->title = $title;

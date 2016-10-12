@@ -34,7 +34,7 @@ class TaskProgressChanged implements DomainEvent
         return $this->taskId;
     }
 
-    public function progress()
+    public function progress() : TaskProgress
     {
         return $this->progress;
     }
