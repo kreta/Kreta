@@ -32,8 +32,6 @@ class UserSpec extends ObjectBehavior
         $this->shouldHaveType(User::class);
         $this->shouldHaveType(AggregateRoot::class);
         $this->id()->shouldReturnAnInstanceOf(UserId::class);
-        $this->email()->shouldReturnAnInstanceOf(Email::class);
-        $this->username()->shouldReturnAnInstanceOf(Username::class);
         $this->__toString()->shouldReturn('user-id');
     }
 }

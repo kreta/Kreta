@@ -21,10 +21,6 @@ class UserIdSpec extends ObjectBehavior
     function it_is_initializable()
     {
         $this->shouldHaveType(UserId::class);
-    }
-
-    function it_extends_id()
-    {
         $this->shouldHaveType(Id::class);
     }
 

@@ -17,8 +17,4 @@ namespace Kreta\TaskManager\Domain\Model\User;
 interface UserRepository
 {
     public function userOfId(UserId $id);
-
-    public function persist(User $user);
-
-    public function remove(User $user);
 }
