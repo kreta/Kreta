@@ -27,7 +27,7 @@ class Member
         $this->updatedOn = new \DateTimeImmutable();
     }
 
-    public function id() : MemberId
+    public function id()
     {
         return $this->id;
     }

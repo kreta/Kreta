@@ -12,18 +12,24 @@
 
 declare(strict_types=1);
 
-namespace Kreta\TaskManager\Domain\Model\Project;
+namespace Kreta\TaskManager\Application\Organization;
 
-class ProjectName
+class EditOrganizationCommand
 {
+    private $id;
     private $name;
+    private $slug;
 
-    public function __construct(string $name)
+    public function __construct(string $id, string $name, string $slug = null)
     {
-        if ('' === $name) {
-            throw new ProjectNameEmptyException();
-        }
+        $this->id = $id;
         $this->name = $name;
+        $this->slug = $slug;
+    }
+
+    public function id()
+    {
+        return $this->id;
     }
 
     public function name() : string
@@ -31,8 +37,8 @@ class ProjectName
         return $this->name;
     }
 
-    public function __toString() : string
+    public function slug()
     {
-        return (string) $this->name;
+        return $this->slug;
     }
 }
