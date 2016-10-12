@@ -20,6 +20,6 @@ class MemberCollection extends Collection
 {
     protected function type() : string
     {
-        return OrganizationMember::class;
+        return Member::class;
     }
 }

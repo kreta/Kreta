@@ -23,7 +23,7 @@ class Organization extends AggregateRoot
     private $name;
     private $slug;
     private $owners;
-    private $participants;
+    private $members;
 
     public function __construct(OrganizationId $id, OrganizationName $name, Slug $slug, Owner $creator)
     {
@@ -31,7 +31,7 @@ class Organization extends AggregateRoot
         $this->name = $name;
         $this->slug = $slug;
         $this->owners = new OwnerCollection();
-        $this->participants = new MemberCollection();
+        $this->members = new MemberCollection();
         $this->addOwner($creator);
 
         $this->publish(
@@ -69,19 +69,19 @@ class Organization extends AggregateRoot
         $this->owners->remove($owner);
     }
 
-    public function participants() : MemberCollection
+    public function members() : MemberCollection
     {
-        return $this->participants;
+        return $this->members;
     }
 
-    public function addMember(OrganizationMember $participant)
+    public function addMember(Member $member)
     {
-        $this->participants->add($participant);
+        $this->members->add($member);
     }
 
-    public function removeMember(OrganizationMember $participant)
+    public function removeMember(Member $member)
     {
-        $this->participants->remove($participant);
+        $this->members->remove($member);
     }
 
     public function __toString() : string

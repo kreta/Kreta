@@ -12,8 +12,8 @@
 
 namespace Spec\Kreta\TaskManager\Domain\Model\Organization;
 
-use Kreta\TaskManager\Domain\Model\Organization\OwnerId;
 use Kreta\TaskManager\Domain\Model\Organization\MemberId;
+use Kreta\TaskManager\Domain\Model\Organization\OwnerId;
 use Kreta\TaskManager\Domain\Model\User\UserId;
 use PhpSpec\ObjectBehavior;
 
@@ -24,7 +24,7 @@ class OwnerIdSpec extends ObjectBehavior
         $this->shouldHaveType(OwnerId::class);
     }
 
-    function it_extends_participant_id()
+    function it_extends_member_id()
     {
         $this->shouldHaveType(MemberId::class);
     }

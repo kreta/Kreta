@@ -12,15 +12,13 @@
 
 declare(strict_types=1);
 
-namespace Kreta\TaskManager\Tests\Double\Domain\Model;
+namespace Kreta\TaskManager\Domain\Model\Organization;
 
-use Kreta\TaskManager\Domain\Model\Organization\OrganizationMemberId;
-use Kreta\TaskManager\Domain\Model\Organization\Member;
-
-class MemberStub extends Member
+interface MemberRepository
 {
-    public function __construct(OrganizationMemberId $id)
-    {
-        parent::__construct($id);
-    }
+    public function memberOfId(MemberId $id);
+
+    public function persist(Member $member);
+
+    public function remove(Member $member);
 }

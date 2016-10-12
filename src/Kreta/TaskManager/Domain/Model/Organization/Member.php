@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Domain\Model\Organization;
 
-abstract class Member
+class Member
 {
     protected $id;
     protected $createdOn;

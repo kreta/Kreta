@@ -18,12 +18,15 @@ use Kreta\SharedKernel\Domain\Model\Identity\InvalidIdException;
 use Kreta\SharedKernel\Domain\Model\Identity\Uuid;
 use Kreta\TaskManager\Domain\Model\User\UserId;
 
-abstract class MemberId
+class MemberId
 {
     protected $id;
     protected $userId;
 
-    abstract public static function generate(UserId $userId, $id = null);
+    public static function generate(UserId $userId, $id = null)
+    {
+        return new static($userId, $id);
+    }
 
     protected function __construct(UserId $userId, $id = null)
     {

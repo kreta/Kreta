@@ -12,9 +12,9 @@
 
 namespace Spec\Kreta\TaskManager\Domain\Model\Organization;
 
+use Kreta\TaskManager\Domain\Model\Organization\Member;
 use Kreta\TaskManager\Domain\Model\Organization\Owner;
 use Kreta\TaskManager\Domain\Model\Organization\OwnerId;
-use Kreta\TaskManager\Domain\Model\Organization\Member;
 use PhpSpec\ObjectBehavior;
 
 class OwnerSpec extends ObjectBehavior
