@@ -32,6 +32,16 @@ class Member
         return $this->id;
     }
 
+    public function createdOn() : \DateTimeInterface
+    {
+        return $this->createdOn;
+    }
+
+    public function updatedOn() : \DateTimeInterface
+    {
+        return $this->updatedOn;
+    }
+
     public function __toString() : string
     {
         return (string) $this->id->id();

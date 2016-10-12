@@ -15,25 +15,40 @@ declare(strict_types=1);
 namespace Kreta\TaskManager\Domain\Model\Organization;
 
 use Kreta\SharedKernel\Domain\Model\DomainEvent;
+use Kreta\SharedKernel\Domain\Model\Identity\Slug;
 
 class OrganizationCreated implements DomainEvent
 {
-    private $occurredOn;
     private $organizationId;
+    private $organizationName;
+    private $organizationSlug;
+    private $occurredOn;
 
-    public function __construct(OrganizationId $organizationId)
+    public function __construct(OrganizationId $id, OrganizationName $name, Slug $slug)
     {
-        $this->organizationId = $organizationId;
+        $this->organizationId = $id;
+        $this->organizationName = $name;
+        $this->organizationSlug = $slug;
         $this->occurredOn = new \DateTimeImmutable();
-    }
-
-    public function occurredOn() : \DateTimeInterface
-    {
-        return $this->occurredOn;
     }
 
     public function organizationId() : OrganizationId
     {
         return $this->organizationId;
+    }
+
+    public function organizationName() : OrganizationName
+    {
+        return $this->organizationName;
+    }
+
+    public function organizationSlug() : Slug
+    {
+        return $this->organizationSlug;
+    }
+
+    public function occurredOn() : \DateTimeInterface
+    {
+        return $this->occurredOn;
     }
 }

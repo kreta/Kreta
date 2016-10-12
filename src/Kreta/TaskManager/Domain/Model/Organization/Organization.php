@@ -35,7 +35,7 @@ class Organization extends AggregateRoot
         $this->addOwner($creator);
 
         $this->publish(
-            new OrganizationCreated($id)
+            new OrganizationCreated($id, $name, $slug)
         );
     }
 

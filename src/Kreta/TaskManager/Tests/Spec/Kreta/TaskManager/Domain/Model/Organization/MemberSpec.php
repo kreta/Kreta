@@ -28,6 +28,8 @@ class MemberSpec extends ObjectBehavior
     {
         $this->shouldHaveType(Member::class);
         $this->id()->shouldReturnAnInstanceOf(MemberId::class);
+        $this->createdOn()->shouldReturnAnInstanceOf(\DateTimeImmutable::class);
+        $this->updatedOn()->shouldReturnAnInstanceOf(\DateTimeImmutable::class);
         $this->__toString()->shouldReturn('member-id');
     }
 }
