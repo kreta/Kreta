@@ -135,7 +135,7 @@ class TaskSpec extends ObjectBehavior
     public function getMatchers()
     {
         return [
-            'returnStatus' => function ($subject, $key) {
+            'returnStatus' => function (TaskProgress $subject, $key) {
                 return $subject->progress() === $key;
             },
         ];
