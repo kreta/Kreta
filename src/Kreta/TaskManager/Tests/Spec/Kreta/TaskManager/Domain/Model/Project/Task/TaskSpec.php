@@ -14,141 +14,130 @@ namespace Spec\Kreta\TaskManager\Domain\Model\Project\Task;
 
 use Kreta\SharedKernel\Domain\Model\AggregateRoot;
 use Kreta\TaskManager\Domain\Model\Organization\Participant;
-use Kreta\TaskManager\Domain\Model\Project\Task\PriorityNotAllowedException;
 use Kreta\TaskManager\Domain\Model\Project\Task\Task;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskCreated;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskEdited;
-use Kreta\TaskManager\Domain\Model\Project\Task\TaskFinished;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskId;
+use Kreta\TaskManager\Domain\Model\Project\Task\TaskPriority;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskPriorityChanged;
+use Kreta\TaskManager\Domain\Model\Project\Task\TaskProgress;
+use Kreta\TaskManager\Domain\Model\Project\Task\TaskProgressChanged;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskReassigned;
-use Kreta\TaskManager\Domain\Model\Project\Task\TaskStarted;
-use Kreta\TaskManager\Domain\Model\Project\Task\TaskStopped;
+use Kreta\TaskManager\Domain\Model\Project\Task\TaskTitle;
 use PhpSpec\ObjectBehavior;
 
 class TaskSpec extends ObjectBehavior
 {
-    function let(TaskId $taskId, Participant $creator, Participant $assignee)
+    function let(TaskId $taskId, TaskTitle $title, Participant $creator, Participant $assignee, TaskPriority $priority)
     {
         $taskId->id()->willReturn('task-id');
-        $this->beConstructedWith($taskId, 'Title', 'Description', $creator, $assignee, Task::PRIORITY_LOW);
+        $this->beConstructedWith($taskId, $title, 'Description', $creator, $assignee, $priority);
     }
 
-    function it_can_be_created(TaskId $taskId, Participant $creator, Participant $assignee)
+    function it_can_be_created(TaskId $taskId, TaskTitle $title, Participant $creator, Participant $assignee, TaskPriority $priority)
     {
         $this->shouldHaveType(Task::class);
         $this->shouldHaveType(AggregateRoot::class);
-        
+
         $this->id()->shouldReturn($taskId);
-        $this->title()->shouldReturn('Title');
+        $this->title()->shouldReturn($title);
         $this->description()->shouldReturn('Description');
         $this->creator()->shouldReturn($creator);
         $this->assignee()->shouldReturn($assignee);
-        $this->priority()->shouldReturn(Task::PRIORITY_LOW);
+        $this->priority()->shouldReturn($priority);
         $this->parentId()->shouldReturn(null);
-
-        $this->shouldBeTodo();
-        $this->shouldNotBeDoing();
-        $this->shouldNotBeDone();
+        $this->progress()->shouldReturnStatus(TaskProgress::TODO);
+        $this->createdOn()->shouldReturnAnInstanceOf(\DateTimeImmutable::class);
+        $this->updatedOn()->shouldReturnAnInstanceOf(\DateTimeImmutable::class);
 
         $this->shouldHavePublished(TaskCreated::class);
-        
+
         $this->__toString()->shouldReturn('task-id');
     }
 
     function it_can_be_created_as_a_subtask(TaskId $taskId,
+                                            TaskTitle $title,
                                             Participant $creator,
                                             Participant $assignee,
+                                            TaskPriority $priority,
                                             TaskId $parentId)
     {
-        $this->beConstructedWith($taskId, 'Title', 'Description', $creator, $assignee, Task::PRIORITY_LOW, $parentId);
-        
+        $this->beConstructedWith($taskId, $title, 'Description', $creator, $assignee, $priority, $parentId);
+
         $this->shouldHaveType(Task::class);
         $this->shouldHaveType(AggregateRoot::class);
-        
+
         $this->id()->shouldReturn($taskId);
-        $this->title()->shouldReturn('Title');
+        $this->title()->shouldReturn($title);
         $this->description()->shouldReturn('Description');
         $this->creator()->shouldReturn($creator);
         $this->assignee()->shouldReturn($assignee);
-        $this->priority()->shouldReturn(Task::PRIORITY_LOW);
+        $this->priority()->shouldReturn($priority);
         $this->parentId()->shouldReturn($parentId);
-
-        $this->shouldBeTodo();
-        $this->shouldNotBeDoing();
-        $this->shouldNotBeDone();
+        $this->progress()->shouldReturnStatus(TaskProgress::TODO);
+        $this->createdOn()->shouldReturnAnInstanceOf(\DateTimeImmutable::class);
+        $this->updatedOn()->shouldReturnAnInstanceOf(\DateTimeImmutable::class);
 
         $this->shouldHavePublished(TaskCreated::class);
 
         $this->__toString()->shouldReturn('task-id');
     }
 
-    function it_cannot_be_created_with_invalid_priority(TaskId $taskId,
-                                                        Participant $creator,
-                                                        Participant $assignee)
+    function it_can_be_edited(TaskTitle $title)
     {
-        $this->beConstructedWith($taskId, 'Title', 'Description', $creator, $assignee, 'invalid');
-        $this->shouldThrow(PriorityNotAllowedException::class)->duringInstantiation();
-    }
-    
-    function it_can_be_edited()
-    {
-        $this->edit('New title', 'New description');
+        $oldUpdatedOn = $this->updatedOn();
 
-        $this->title()->shouldReturn('New title');
+        $this->edit($title, 'New description');
+
+        $this->title()->shouldReturn($title);
         $this->description()->shouldReturn('New description');
+        $this->updatedOn()->shouldNotEqual($oldUpdatedOn);
 
         $this->shouldHavePublished(TaskEdited::class);
     }
 
-    function it_can_be_started()
+    function its_progress_can_be_changed(TaskProgress $progress)
     {
-        $this->startDoing();
+        $oldUpdatedOn = $this->updatedOn();
 
-        $this->shouldNotBeTodo();
-        $this->shouldBeDoing();
-        $this->shouldNotBeDone();
+        $this->changeProgress($progress);
 
-        $this->shouldHavePublished(TaskStarted::class);
-    }
+        $this->progress()->shouldReturn($progress);
+        $this->updatedOn()->shouldNotEqual($oldUpdatedOn);
 
-    function it_can_be_stopped()
-    {
-        $this->stopDoing();
-
-        $this->shouldBeTodo();
-        $this->shouldNotBeDoing();
-        $this->shouldNotBeDone();
-
-        $this->shouldHavePublished(TaskStopped::class);
-    }
-
-    function it_can_be_finished()
-    {
-        $this->finishDoing();
-
-        $this->shouldNotBeTodo();
-        $this->shouldNotBeDoing();
-        $this->shouldBeDone();
-
-        $this->shouldHavePublished(TaskFinished::class);
+        $this->shouldHavePublished(TaskProgressChanged::class);
     }
 
     function it_can_be_reassigned(Participant $assignee)
     {
+        $oldUpdatedOn = $this->updatedOn();
+
         $this->reassign($assignee);
 
         $this->assignee()->shouldReturn($assignee);
+        $this->updatedOn()->shouldNotEqual($oldUpdatedOn);
 
         $this->shouldHavePublished(TaskReassigned::class);
     }
 
-    function its_priority_can_be_changed()
+    function its_priority_can_be_changed(TaskPriority $priority)
     {
-        $this->changePriority(Task::PRIORITY_HIGH);
+        $oldUpdatedOn = $this->updatedOn();
 
-        $this->priority()->shouldReturn(Task::PRIORITY_HIGH);
+        $this->changePriority($priority);
+
+        $this->priority()->shouldReturn($priority);
+        $this->updatedOn()->shouldNotEqual($oldUpdatedOn);
 
         $this->shouldHavePublished(TaskPriorityChanged::class);
+    }
+
+    public function getMatchers()
+    {
+        return [
+            'returnStatus' => function ($subject, $key) {
+                return $subject->progress() === $key;
+            },
+        ];
     }
 }

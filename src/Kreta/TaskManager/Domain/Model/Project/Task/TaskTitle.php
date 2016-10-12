@@ -14,15 +14,21 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Domain\Model\Project\Task;
 
-use Kreta\SharedKernel\Domain\Model\Exception;
-
-class PriorityNotAllowedException extends Exception
+class TaskTitle
 {
-    public function __construct(string $priority)
+    private $title;
+
+    public function __construct(string $title)
     {
-        $this->message = sprintf(
-            'Priority "%s" not allowed',
-            $priority
-        );
+        if ($title === '') {
+            throw new TaskTitleCannotBeEmptyException();
+        }
+
+        $this->title = $title;
+    }
+
+    public function title()
+    {
+        return $this->title;
     }
 }

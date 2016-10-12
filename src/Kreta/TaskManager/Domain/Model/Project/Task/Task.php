@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Kreta\TaskManager\Domain\Model\Project\Task;
 
@@ -19,14 +19,6 @@ use Kreta\TaskManager\Domain\Model\Organization\Participant;
 
 class Task extends AggregateRoot
 {
-    const PRIORITY_LOW = 'low';
-    const PRIORITY_MEDIUM = 'medium';
-    const PRIORITY_HIGH = 'high';
-
-    const PROGRESS_TODO = 'todo';
-    const PROGRESS_DOING = 'doing';
-    const PROGRESS_DONE = 'done';
-
     private $id;
     private $title;
     private $description;
@@ -35,83 +27,72 @@ class Task extends AggregateRoot
     private $priority;
     private $progress;
     private $parentId;
+    private $createdOn;
+    private $updatedOn;
 
     public function __construct(TaskId $id,
-                                $title,
-                                $description,
+                                TaskTitle $title,
+                                string $description,
                                 Participant $creator,
                                 Participant $assignee,
-                                $priority,
+                                TaskPriority $priority,
                                 TaskId $parentId = null)
     {
-        if(!$this->isPriorityAllowed($priority)) {
-            throw new PriorityNotAllowedException($priority);
-        }
-
         $this->id = $id;
         $this->title = $title;
         $this->description = $description;
         $this->creator = $creator;
         $this->assignee = $assignee;
         $this->priority = $priority;
-        $this->progress = self::PROGRESS_TODO;
+        $this->progress = TaskProgress::todo();
         $this->parentId = $parentId;
-        
+
+        $this->createdOn = new \DateTimeImmutable();
+        $this->updatedOn = new \DateTimeImmutable();
+
         $this->publish(
             new TaskCreated($id, $title, $description, $creator, $assignee, $priority, $parentId)
         );
     }
 
-    public function edit($title, $description)
+    public function edit(TaskTitle $title, string $description)
     {
         $this->title = $title;
         $this->description = $description;
+        $this->updatedOn = new \DateTimeImmutable();
 
         $this->publish(
             new TaskEdited($this->id, $title, $description)
         );
     }
 
-    public function startDoing()
-    {
-        $this->progress = self::PROGRESS_DOING;
-        
-        $this->publish(new TaskStarted($this->id));
-    }
-
-    public function stopDoing()
-    {
-        $this->progress = self::PROGRESS_TODO;
-        
-        $this->publish(new TaskStopped($this->id));
-    }
-
-    public function finishDoing()
-    {
-        $this->progress = self::PROGRESS_DONE;
-        
-        $this->publish(new TaskFinished($this->id));
-    }
-
     public function reassign(Participant $newAssignee)
     {
         $this->assignee = $newAssignee;
+        $this->updatedOn = new \DateTimeImmutable();
 
         $this->publish(
             new TaskReassigned($this->id, $newAssignee)
         );
     }
 
-    public function changePriority($priority)
+    public function changePriority(TaskPriority $priority)
     {
-        if(!$this->isPriorityAllowed($priority)) {
-            throw new PriorityNotAllowedException($priority);
-        }
-
         $this->priority = $priority;
+        $this->updatedOn = new \DateTimeImmutable();
 
         $this->publish(
             new TaskPriorityChanged($this->id, $priority)
+        );
+    }
+
+    public function changeProgress(TaskProgress $progress)
+    {
+        $this->progress = $progress;
+        $this->updatedOn = new \DateTimeImmutable();
+
+        $this->publish(
+            new TaskProgressChanged($this->id, $progress)
         );
     }
 
@@ -120,7 +101,7 @@ class Task extends AggregateRoot
         return $this->id;
     }
 
-    public function title() : string
+    public function title() : TaskTitle
     {
         return $this->title;
     }
@@ -140,9 +121,24 @@ class Task extends AggregateRoot
         return $this->assignee;
     }
 
-    public function priority() : string
+    public function priority() : TaskPriority
     {
         return $this->priority;
+    }
+
+    public function progress() : TaskProgress
+    {
+        return $this->progress;
+    }
+
+    public function createdOn() : \DateTimeImmutable
+    {
+        return $this->createdOn;
+    }
+
+    public function updatedOn() : \DateTimeImmutable
+    {
+        return $this->updatedOn;
     }
 
     public function parentId()
@@ -150,33 +146,8 @@ class Task extends AggregateRoot
         return $this->parentId;
     }
 
-    public function isTodo() : bool
-    {
-        return $this->progress === self::PROGRESS_TODO;
-    }
-
-    public function isDoing() : bool
-    {
-        return $this->progress === self::PROGRESS_DOING;
-    }
-
-    public function isDone() : bool
-    {
-        return $this->progress === self::PROGRESS_DONE;
-    }
-
     public function __toString() : string
     {
-        return (string)$this->id->id();
+        return (string) $this->id->id();
     }
-    
-    private function isPriorityAllowed($priority) : bool
-    {
-        return in_array($priority, [
-            self::PRIORITY_LOW,
-            self::PRIORITY_MEDIUM,
-            self::PRIORITY_HIGH
-        ]);
-    }
-    
 }

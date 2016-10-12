@@ -13,25 +13,25 @@
 namespace Spec\Kreta\TaskManager\Domain\Model\Project\Task;
 
 use Kreta\SharedKernel\Domain\Model\DomainEvent;
-use Kreta\TaskManager\Domain\Model\Organization\Participant;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskId;
-use Kreta\TaskManager\Domain\Model\Project\Task\TaskReassigned;
+use Kreta\TaskManager\Domain\Model\Project\Task\TaskProgress;
+use Kreta\TaskManager\Domain\Model\Project\Task\TaskProgressChanged;
 use PhpSpec\ObjectBehavior;
 
-class TaskReassignedSpec extends ObjectBehavior
+class TaskProgressChangedSpec extends ObjectBehavior
 {
-    function let(TaskId $taskId, Participant $assignee)
+    function let(TaskId $taskId, TaskProgress $progress)
     {
-        $this->beConstructedWith($taskId, $assignee);
+        $this->beConstructedWith($taskId, $progress);
     }
 
-    function it_creates_task_started_event(TaskId $taskId, Participant $assignee)
+    function it_creates_task_started_event(TaskId $taskId, TaskProgress $progress)
     {
-        $this->shouldHaveType(TaskReassigned::class);
+        $this->shouldHaveType(TaskProgressChanged::class);
         $this->shouldImplement(DomainEvent::class);
 
         $this->id()->shouldReturn($taskId);
-        $this->assignee()->shouldReturn($assignee);
+        $this->progress()->shouldReturn($progress);
         $this->occurredOn()->shouldReturnAnInstanceOf(\DateTimeInterface::class);
     }
 }

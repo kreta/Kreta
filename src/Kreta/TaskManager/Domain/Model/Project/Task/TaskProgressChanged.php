@@ -16,18 +16,16 @@ namespace Kreta\TaskManager\Domain\Model\Project\Task;
 
 use Kreta\SharedKernel\Domain\Model\DomainEvent;
 
-class TaskEdited implements DomainEvent
+class TaskProgressChanged implements DomainEvent
 {
     private $taskId;
-    private $title;
-    private $description;
+    private $progress;
     private $occurredOn;
 
-    public function __construct(TaskId $taskId, TaskTitle $title, string $description)
+    public function __construct(TaskId $taskId, TaskProgress $progress)
     {
         $this->taskId = $taskId;
-        $this->title = $title;
-        $this->description = $description;
+        $this->progress = $progress;
         $this->occurredOn = new \DateTimeImmutable();
     }
 
@@ -36,14 +34,9 @@ class TaskEdited implements DomainEvent
         return $this->taskId;
     }
 
-    public function title() : TaskTitle
+    public function progress()
     {
-        return $this->title;
-    }
-
-    public function description() : string
-    {
-        return $this->description;
+        return $this->progress;
     }
 
     public function occurredOn() : \DateTimeInterface

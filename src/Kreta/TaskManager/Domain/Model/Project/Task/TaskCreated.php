@@ -1,6 +1,16 @@
 <?php
 
-declare(strict_types = 1);
+/*
+ * This file is part of the Kreta package.
+ *
+ * (c) Beñat Espiña <benatespina@gmail.com>
+ * (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+declare(strict_types=1);
 
 namespace Kreta\TaskManager\Domain\Model\Project\Task;
 
@@ -17,17 +27,16 @@ class TaskCreated implements DomainEvent
     private $priority;
     private $parentId;
     private $occurredOn;
-    
+
     public function __construct(
         TaskId $id,
-        $title,
-        $description,
+        TaskTitle $title,
+        string $description,
         Participant $creator,
         Participant $assignee,
-        $priority,
+        TaskPriority $priority,
         TaskId $parentId = null
-    )
-    {
+    ) {
         $this->id = $id;
         $this->title = $title;
         $this->description = $description;
@@ -43,7 +52,7 @@ class TaskCreated implements DomainEvent
         return $this->id;
     }
 
-    public function title() : string
+    public function title() : TaskTitle
     {
         return $this->title;
     }
@@ -63,7 +72,7 @@ class TaskCreated implements DomainEvent
         return $this->assignee;
     }
 
-    public function priority() : string
+    public function priority() : TaskPriority
     {
         return $this->priority;
     }

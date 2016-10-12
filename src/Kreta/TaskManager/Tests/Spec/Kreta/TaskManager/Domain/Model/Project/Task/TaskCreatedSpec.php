@@ -1,41 +1,55 @@
 <?php
 
+/*
+ * This file is part of the Kreta package.
+ *
+ * (c) Beñat Espiña <benatespina@gmail.com>
+ * (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Spec\Kreta\TaskManager\Domain\Model\Project\Task;
 
 use Kreta\SharedKernel\Domain\Model\DomainEvent;
 use Kreta\TaskManager\Domain\Model\Organization\Participant;
-use Kreta\TaskManager\Domain\Model\Project\Task\Task;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskCreated;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskId;
+use Kreta\TaskManager\Domain\Model\Project\Task\TaskPriority;
+use Kreta\TaskManager\Domain\Model\Project\Task\TaskTitle;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 
 class TaskCreatedSpec extends ObjectBehavior
 {
     function let(
         TaskId $taskId,
+        TaskTitle $title,
         Participant $creator,
         Participant $assignee,
+        TaskPriority $priority,
         TaskId $parentId)
     {
-        $this->beConstructedWith($taskId, 'Title', 'Description', $creator, $assignee, Task::PRIORITY_LOW, $parentId);
+        $this->beConstructedWith($taskId, $title, 'Description', $creator, $assignee, $priority, $parentId);
     }
 
     function it_creates_a_task_created_event(
         TaskId $taskId,
+        TaskTitle $title,
         Participant $creator,
         Participant $assignee,
+        TaskPriority $priority,
         TaskId $parentId)
     {
         $this->shouldHaveType(TaskCreated::class);
         $this->shouldImplement(DomainEvent::class);
 
         $this->id()->shouldReturn($taskId);
-        $this->title()->shouldReturn('Title');
+        $this->title()->shouldReturn($title);
         $this->description()->shouldReturn('Description');
         $this->creator()->shouldReturn($creator);
         $this->assignee()->shouldReturn($assignee);
-        $this->priority()->shouldReturn(Task::PRIORITY_LOW);
+        $this->priority()->shouldReturn($priority);
         $this->parentId()->shouldReturn($parentId);
         $this->occurredOn()->shouldReturnAnInstanceOf(\DateTimeInterface::class);
     }
