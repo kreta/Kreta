@@ -13,7 +13,7 @@
 namespace Spec\Kreta\TaskManager\Domain\Model\Project\Task;
 
 use Kreta\SharedKernel\Domain\Model\DomainEvent;
-use Kreta\TaskManager\Domain\Model\Organization\Participant;
+use Kreta\TaskManager\Domain\Model\Organization\Member;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskCreated;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskId;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskPriority;
@@ -25,8 +25,8 @@ class TaskCreatedSpec extends ObjectBehavior
     function let(
         TaskId $taskId,
         TaskTitle $title,
-        Participant $creator,
-        Participant $assignee,
+        Member $creator,
+        Member $assignee,
         TaskPriority $priority,
         TaskId $parentId)
     {
@@ -36,8 +36,8 @@ class TaskCreatedSpec extends ObjectBehavior
     function it_creates_a_task_created_event(
         TaskId $taskId,
         TaskTitle $title,
-        Participant $creator,
-        Participant $assignee,
+        Member $creator,
+        Member $assignee,
         TaskPriority $priority,
         TaskId $parentId)
     {

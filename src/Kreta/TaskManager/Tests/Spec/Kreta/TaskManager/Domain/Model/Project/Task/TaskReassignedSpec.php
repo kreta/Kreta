@@ -13,19 +13,19 @@
 namespace Spec\Kreta\TaskManager\Domain\Model\Project\Task;
 
 use Kreta\SharedKernel\Domain\Model\DomainEvent;
-use Kreta\TaskManager\Domain\Model\Organization\Participant;
+use Kreta\TaskManager\Domain\Model\Organization\Member;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskId;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskReassigned;
 use PhpSpec\ObjectBehavior;
 
 class TaskReassignedSpec extends ObjectBehavior
 {
-    function let(TaskId $taskId, Participant $assignee)
+    function let(TaskId $taskId, Member $assignee)
     {
         $this->beConstructedWith($taskId, $assignee);
     }
 
-    function it_creates_task_started_event(TaskId $taskId, Participant $assignee)
+    function it_creates_task_started_event(TaskId $taskId, Member $assignee)
     {
         $this->shouldHaveType(TaskReassigned::class);
         $this->shouldImplement(DomainEvent::class);

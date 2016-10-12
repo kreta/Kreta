@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace Kreta\TaskManager\Domain\Model\Project\Task;
 
 use Kreta\SharedKernel\Domain\Model\DomainEvent;
-use Kreta\TaskManager\Domain\Model\Organization\Participant;
+use Kreta\TaskManager\Domain\Model\Organization\Member;
 
 class TaskCreated implements DomainEvent
 {
@@ -32,8 +32,8 @@ class TaskCreated implements DomainEvent
         TaskId $id,
         TaskTitle $title,
         string $description,
-        Participant $creator,
-        Participant $assignee,
+        Member $creator,
+        Member $assignee,
         TaskPriority $priority,
         TaskId $parentId = null
     ) {
@@ -62,12 +62,12 @@ class TaskCreated implements DomainEvent
         return $this->description;
     }
 
-    public function creator() : Participant
+    public function creator() : Member
     {
         return $this->creator;
     }
 
-    public function assignee() : Participant
+    public function assignee() : Member
     {
         return $this->assignee;
     }
