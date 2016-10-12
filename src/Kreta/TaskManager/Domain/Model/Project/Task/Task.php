@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace Kreta\TaskManager\Domain\Model\Project\Task;
 
 use Kreta\SharedKernel\Domain\Model\AggregateRoot;
-use Kreta\TaskManager\Domain\Model\Organization\Participant;
+use Kreta\TaskManager\Domain\Model\Organization\Member;
 
 class Task extends AggregateRoot
 {
@@ -34,8 +34,8 @@ class Task extends AggregateRoot
         TaskId $id,
         TaskTitle $title,
         string $description,
-        Participant $creator,
-        Participant $assignee,
+        Member $creator,
+        Member $assignee,
         TaskPriority $priority,
         TaskId $parentId = null)
     {
@@ -67,7 +67,7 @@ class Task extends AggregateRoot
         );
     }
 
-    public function reassign(Participant $newAssignee)
+    public function reassign(Member $newAssignee)
     {
         $this->assignee = $newAssignee;
         $this->updatedOn = new \DateTimeImmutable();
@@ -112,12 +112,12 @@ class Task extends AggregateRoot
         return $this->description;
     }
 
-    public function creator() : Participant
+    public function creator() : Member
     {
         return $this->creator;
     }
 
-    public function assignee() : Participant
+    public function assignee() : Member
     {
         return $this->assignee;
     }

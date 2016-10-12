@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace Kreta\TaskManager\Domain\Model\Project\Task;
 
 use Kreta\SharedKernel\Domain\Model\DomainEvent;
-use Kreta\TaskManager\Domain\Model\Organization\Participant;
+use Kreta\TaskManager\Domain\Model\Organization\Member;
 
 class TaskReassigned implements DomainEvent
 {
@@ -23,7 +23,7 @@ class TaskReassigned implements DomainEvent
     private $assignee;
     private $occurredOn;
 
-    public function __construct(TaskId $taskId, Participant $assignee)
+    public function __construct(TaskId $taskId, Member $assignee)
     {
         $this->taskId = $taskId;
         $this->assignee = $assignee;
@@ -35,7 +35,7 @@ class TaskReassigned implements DomainEvent
         return $this->taskId;
     }
 
-    public function assignee() : Participant
+    public function assignee() : Member
     {
         return $this->assignee;
     }
