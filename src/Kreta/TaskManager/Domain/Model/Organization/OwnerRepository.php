@@ -14,12 +14,11 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Domain\Model\Organization;
 
-use Kreta\SharedKernel\Domain\Model\Collection;
-
-class ParticipantCollection extends Collection
+interface OwnerRepository
 {
-    protected function type() : string
-    {
-        return OrganizationParticipant::class;
-    }
+    public function ownerOfId(OwnerId $id);
+
+    public function persist(Owner $owner);
+
+    public function remove(Owner $owner);
 }

@@ -14,6 +14,12 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Domain\Model\Organization;
 
-class OwnerId extends MemberId
+use Kreta\SharedKernel\Domain\Model\Exception;
+
+class OrganizationAlreadyExistsException extends Exception
 {
+    public function __construct()
+    {
+        parent::__construct('The organization already exists');
+    }
 }

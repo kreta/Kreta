@@ -46,7 +46,11 @@ abstract class Collection extends ArrayCollection
 
     private function validate($element)
     {
-        if (is_scalar($element) || !is_subclass_of($element, $this->type())) {
+        if (is_scalar($element)
+            || false === (is_subclass_of($element, $this->type())
+                || (get_class($element) === $this->type())
+            )
+        ) {
             throw new InvalidCollectionElementException();
         }
 

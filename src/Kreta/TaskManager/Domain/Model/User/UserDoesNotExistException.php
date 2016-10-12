@@ -12,8 +12,14 @@
 
 declare(strict_types=1);
 
-namespace Kreta\TaskManager\Domain\Model\Organization;
+namespace Kreta\TaskManager\Domain\Model\User;
 
-class OwnerId extends MemberId
+use Kreta\SharedKernel\Domain\Model\Exception;
+
+class UserDoesNotExistException extends Exception
 {
+    public function __construct()
+    {
+        parent::__construct('User does not exist');
+    }
 }

@@ -14,6 +14,12 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Domain\Model\Organization;
 
-class OwnerId extends MemberId
+use Kreta\SharedKernel\Domain\Model\Collection;
+
+class MemberCollection extends Collection
 {
+    protected function type() : string
+    {
+        return Member::class;
+    }
 }

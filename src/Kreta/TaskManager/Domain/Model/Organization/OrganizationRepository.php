@@ -14,12 +14,11 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Domain\Model\Organization;
 
-use Kreta\TaskManager\Domain\Model\User\UserId;
-
-class OrganizationParticipantId extends ParticipantId
+interface OrganizationRepository
 {
-    public static function generate(UserId $userId, $id = null) : OrganizationParticipantId
-    {
-        return new static($userId, $id);
-    }
+    public function organizationOfId(OrganizationId $id);
+
+    public function persist(Organization $organization);
+
+    public function remove(Organization $organization);
 }

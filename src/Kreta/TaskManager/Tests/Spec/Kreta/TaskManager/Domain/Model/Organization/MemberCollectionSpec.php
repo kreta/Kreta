@@ -13,14 +13,14 @@
 namespace Spec\Kreta\TaskManager\Domain\Model\Organization;
 
 use Kreta\SharedKernel\Domain\Model\Collection;
-use Kreta\TaskManager\Domain\Model\Organization\ParticipantCollection;
+use Kreta\TaskManager\Domain\Model\Organization\MemberCollection;
 use PhpSpec\ObjectBehavior;
 
-class ParticipantCollectionSpec extends ObjectBehavior
+class MemberCollectionSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType(ParticipantCollection::class);
+        $this->shouldHaveType(MemberCollection::class);
         $this->shouldHaveType(Collection::class);
     }
 }

@@ -14,15 +14,16 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Domain\Model\Organization;
 
+use Kreta\SharedKernel\Domain\Model\AggregateRoot;
 use Kreta\SharedKernel\Domain\Model\Identity\Slug;
 
-class Organization
+class Organization extends AggregateRoot
 {
     private $id;
     private $name;
     private $slug;
     private $owners;
-    private $participants;
+    private $members;
 
     public function __construct(OrganizationId $id, OrganizationName $name, Slug $slug, Owner $creator)
     {
@@ -30,8 +31,12 @@ class Organization
         $this->name = $name;
         $this->slug = $slug;
         $this->owners = new OwnerCollection();
-        $this->participants = new ParticipantCollection();
+        $this->members = new MemberCollection();
         $this->addOwner($creator);
+
+        $this->publish(
+            new OrganizationCreated($id, $name, $slug)
+        );
     }
 
     public function id() : OrganizationId
@@ -64,19 +69,19 @@ class Organization
         $this->owners->remove($owner);
     }
 
-    public function participants() : ParticipantCollection
+    public function members() : MemberCollection
     {
-        return $this->participants;
+        return $this->members;
     }
 
-    public function addParticipant(OrganizationParticipant $participant)
+    public function addMember(Member $member)
     {
-        $this->participants->add($participant);
+        $this->members->add($member);
     }
 
-    public function removeParticipant(OrganizationParticipant $participant)
+    public function removeMember(Member $member)
     {
-        $this->participants->remove($participant);
+        $this->members->remove($member);
     }
 
     public function __toString() : string

@@ -12,22 +12,19 @@
 
 namespace Spec\Kreta\TaskManager\Domain\Model\User;
 
-use Kreta\SharedKernel\Domain\Model\Identity\Id;
-use Kreta\TaskManager\Domain\Model\User\UserId;
+use Kreta\TaskManager\Domain\Model\User\UserDoesNotExistException;
 use PhpSpec\ObjectBehavior;
 
-class UserIdSpec extends ObjectBehavior
+class UserDoesNotExistExceptionSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType(UserId::class);
-        $this->shouldHaveType(Id::class);
+        $this->shouldHaveType(UserDoesNotExistException::class);
+        $this->shouldHaveType(\Exception::class);
     }
 
-    function it_generates()
+    function it_should_return_message()
     {
-        $this->beConstructedGenerate();
-
-        $this::generate()->shouldReturnAnInstanceOf(UserId::class);
+        $this->getMessage()->shouldReturn('User does not exist');
     }
 }
