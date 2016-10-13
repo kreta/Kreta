@@ -14,6 +14,7 @@ namespace Spec\Kreta\TaskManager\Domain\Model\Project\Task;
 
 use Kreta\SharedKernel\Domain\Model\AggregateRoot;
 use Kreta\TaskManager\Domain\Model\Organization\Member;
+use Kreta\TaskManager\Domain\Model\Project\ProjectId;
 use Kreta\TaskManager\Domain\Model\Project\Task\Task;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskCreated;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskEdited;
@@ -28,14 +29,26 @@ use PhpSpec\ObjectBehavior;
 
 class TaskSpec extends ObjectBehavior
 {
-    function let(TaskId $taskId, TaskTitle $title, Member $creator, Member $assignee, TaskPriority $priority)
-    {
+    function let(
+        TaskId $taskId,
+        TaskTitle $title,
+        Member $creator,
+        Member $assignee,
+        TaskPriority $priority,
+        ProjectId $projectId
+    ) {
         $taskId->id()->willReturn('task-id');
-        $this->beConstructedWith($taskId, $title, 'Description', $creator, $assignee, $priority);
+        $this->beConstructedWith($taskId, $title, 'Description', $creator, $assignee, $priority, $projectId);
     }
 
-    function it_can_be_created(TaskId $taskId, TaskTitle $title, Member $creator, Member $assignee, TaskPriority $priority)
-    {
+    function it_can_be_created(
+        TaskId $taskId,
+        TaskTitle $title,
+        Member $creator,
+        Member $assignee,
+        TaskPriority $priority,
+        ProjectId $projectId
+    ) {
         $this->shouldHaveType(Task::class);
         $this->shouldHaveType(AggregateRoot::class);
 
@@ -45,6 +58,7 @@ class TaskSpec extends ObjectBehavior
         $this->creator()->shouldReturn($creator);
         $this->assignee()->shouldReturn($assignee);
         $this->priority()->shouldReturn($priority);
+        $this->projectId()->shouldReturn($projectId);
         $this->parentId()->shouldReturn(null);
         $this->progress()->shouldReturnStatus(TaskProgress::TODO);
         $this->createdOn()->shouldReturnAnInstanceOf(\DateTimeImmutable::class);
@@ -55,14 +69,16 @@ class TaskSpec extends ObjectBehavior
         $this->__toString()->shouldReturn('task-id');
     }
 
-    function it_can_be_created_as_a_subtask(TaskId $taskId,
-                                            TaskTitle $title,
-                                            Member $creator,
-                                            Member $assignee,
-                                            TaskPriority $priority,
-                                            TaskId $parentId)
-    {
-        $this->beConstructedWith($taskId, $title, 'Description', $creator, $assignee, $priority, $parentId);
+    function it_can_be_created_as_a_subtask(
+        TaskId $taskId,
+        TaskTitle $title,
+        Member $creator,
+        Member $assignee,
+        TaskPriority $priority,
+        ProjectId $projectId,
+        TaskId $parentId
+    ) {
+        $this->beConstructedWith($taskId, $title, 'Description', $creator, $assignee, $priority, $projectId, $parentId);
 
         $this->shouldHaveType(Task::class);
         $this->shouldHaveType(AggregateRoot::class);
@@ -73,6 +89,7 @@ class TaskSpec extends ObjectBehavior
         $this->creator()->shouldReturn($creator);
         $this->assignee()->shouldReturn($assignee);
         $this->priority()->shouldReturn($priority);
+        $this->projectId()->shouldReturn($projectId);
         $this->parentId()->shouldReturn($parentId);
         $this->progress()->shouldReturnStatus(TaskProgress::TODO);
         $this->createdOn()->shouldReturnAnInstanceOf(\DateTimeImmutable::class);

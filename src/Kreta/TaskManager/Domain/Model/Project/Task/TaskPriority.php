@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Kreta\TaskManager\Domain\Model\Project\Task;
 
@@ -22,8 +22,11 @@ class TaskPriority
 
     private $priority;
 
-    private function __construct(string $priority)
+    public function __construct(string $priority)
     {
+        if ($priority !== self::low() && $priority !== self::medium() && $priority !== self::high()) {
+            throw new InvalidTaskPriorityException();
+        }
         $this->priority = $priority;
     }
 

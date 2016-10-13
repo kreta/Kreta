@@ -15,18 +15,18 @@ declare(strict_types=1);
 namespace Kreta\TaskManager\Domain\Model\Project\Task;
 
 use Kreta\SharedKernel\Domain\Model\DomainEvent;
-use Kreta\TaskManager\Domain\Model\Organization\Member;
+use Kreta\TaskManager\Domain\Model\Organization\MemberId;
 
 class TaskReassigned implements DomainEvent
 {
     private $taskId;
-    private $assignee;
+    private $assigneeId;
     private $occurredOn;
 
-    public function __construct(TaskId $taskId, Member $assignee)
+    public function __construct(TaskId $taskId, MemberId $assigneeId)
     {
         $this->taskId = $taskId;
-        $this->assignee = $assignee;
+        $this->assigneeId = $assigneeId;
         $this->occurredOn = new \DateTimeImmutable();
     }
 
@@ -35,9 +35,9 @@ class TaskReassigned implements DomainEvent
         return $this->taskId;
     }
 
-    public function assignee() : Member
+    public function assigneeId() : MemberId
     {
-        return $this->assignee;
+        return $this->assigneeId;
     }
 
     public function occurredOn() : \DateTimeInterface

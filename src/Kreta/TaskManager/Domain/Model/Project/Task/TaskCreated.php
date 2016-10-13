@@ -15,16 +15,18 @@ declare(strict_types=1);
 namespace Kreta\TaskManager\Domain\Model\Project\Task;
 
 use Kreta\SharedKernel\Domain\Model\DomainEvent;
-use Kreta\TaskManager\Domain\Model\Organization\Member;
+use Kreta\TaskManager\Domain\Model\Organization\MemberId;
+use Kreta\TaskManager\Domain\Model\Project\ProjectId;
 
 class TaskCreated implements DomainEvent
 {
     private $id;
     private $title;
     private $description;
-    private $creator;
-    private $assignee;
+    private $creatorId;
+    private $assigneeId;
     private $priority;
+    private $projectId;
     private $parentId;
     private $occurredOn;
 
@@ -32,16 +34,18 @@ class TaskCreated implements DomainEvent
         TaskId $id,
         TaskTitle $title,
         string $description,
-        Member $creator,
-        Member $assignee,
+        MemberId $creatorId,
+        MemberId $assigneeId,
         TaskPriority $priority,
+        ProjectId $projectId,
         TaskId $parentId = null
     ) {
         $this->id = $id;
         $this->title = $title;
         $this->description = $description;
-        $this->creator = $creator;
-        $this->assignee = $assignee;
+        $this->creatorId = $creatorId;
+        $this->assigneeId = $assigneeId;
+        $this->projectId = $projectId;
         $this->priority = $priority;
         $this->parentId = $parentId;
         $this->occurredOn = new \DateTimeImmutable();
@@ -62,19 +66,24 @@ class TaskCreated implements DomainEvent
         return $this->description;
     }
 
-    public function creator() : Member
+    public function creatorId() : MemberId
     {
-        return $this->creator;
+        return $this->creatorId;
     }
 
-    public function assignee() : Member
+    public function assigneeId() : MemberId
     {
-        return $this->assignee;
+        return $this->assigneeId;
     }
 
     public function priority() : TaskPriority
     {
         return $this->priority;
+    }
+
+    public function projectId() : ProjectId
+    {
+        return $this->projectId;
     }
 
     public function parentId()
