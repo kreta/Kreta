@@ -92,6 +92,15 @@ class Organization extends AggregateRoot
         );
     }
 
+    public function isOwner(OwnerId $ownerId) : bool
+    {
+        return $this->owners->exists(
+            function ($key, $element) use ($ownerId) {
+                return $ownerId->equals($element->id());
+            }
+        );
+    }
+
     public function id() : OrganizationId
     {
         return $this->id;

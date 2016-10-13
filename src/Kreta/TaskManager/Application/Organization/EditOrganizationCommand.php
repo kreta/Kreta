@@ -18,16 +18,20 @@ class EditOrganizationCommand
 {
     private $id;
     private $name;
+    private $ownerId;
+    private $userId;
     private $slug;
 
-    public function __construct(string $id, string $name, string $slug = null)
+    public function __construct(string $id, string $name, string $ownerId, string $userId, string $slug = null)
     {
         $this->id = $id;
         $this->name = $name;
+        $this->ownerId = $ownerId;
+        $this->userId = $userId;
         $this->slug = $slug;
     }
 
-    public function id()
+    public function id() : string
     {
         return $this->id;
     }
@@ -35,6 +39,16 @@ class EditOrganizationCommand
     public function name() : string
     {
         return $this->name;
+    }
+
+    public function ownerId() : string
+    {
+        return $this->ownerId;
+    }
+
+    public function userId() : string
+    {
+        return $this->userId;
     }
 
     public function slug()

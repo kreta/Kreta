@@ -15,10 +15,14 @@ declare(strict_types=1);
 namespace Kreta\TaskManager\Application\Organization;
 
 use Kreta\SharedKernel\Domain\Model\Identity\Slug;
+use Kreta\TaskManager\Domain\Model\Organization\Organization;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationDoesNotExistException;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationId;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationName;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationRepository;
+use Kreta\TaskManager\Domain\Model\Organization\OwnerId;
+use Kreta\TaskManager\Domain\Model\Organization\UnauthorizedEditOrganizationException;
+use Kreta\TaskManager\Domain\Model\User\UserId;
 
 class EditOrganizationHandler
 {
@@ -36,8 +40,11 @@ class EditOrganizationHandler
                 $command->id()
             )
         );
-        if (null === $organization) {
+        if (!$organization instanceof Organization) {
             throw new OrganizationDoesNotExistException();
+        }
+        if (!$organization->isOwner(OwnerId::generate(UserId::generate($command->userId()), $command->ownerId()))) {
+            throw new UnauthorizedEditOrganizationException();
         }
         $organization->edit(
             new OrganizationName(
