@@ -10,6 +10,9 @@ matchers:
     - Kreta\SharedKernel\Tests\Matchers\CollectionMatcher
     - Kreta\SharedKernel\Tests\Matchers\DomainPublishedMatcher
 
+extensions:
+    Memio\SpecGen\MemioSpecGenExtension: ~
+
 suites:
     kreta_shared_kernel:
         spec_path: src/Kreta/SharedKernel/Tests/

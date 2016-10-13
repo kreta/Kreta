@@ -41,7 +41,8 @@
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^2.3",
         "fabpot/php-cs-fixer": "^1.12",
-        "phpspec/phpspec": "^3.1"
+        "phpspec/phpspec": "^3.1",
+        "memio/spec-gen": "^0.7.0"
     },
     "scripts": {
         "symfony-scripts": [
@@ -94,5 +95,6 @@
         "branch-alias": {
             "dev-master": "0.7.x-dev"
         }
-    }
+    },
+    "minimum-stability": "alpha"
 }
