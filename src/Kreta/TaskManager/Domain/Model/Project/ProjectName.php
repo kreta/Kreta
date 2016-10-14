@@ -17,7 +17,7 @@ namespace Kreta\TaskManager\Domain\Model\Project;
 class ProjectName
 {
     private $name;
-    
+
     public function __construct(string $name)
     {
         if ('' === $name) {

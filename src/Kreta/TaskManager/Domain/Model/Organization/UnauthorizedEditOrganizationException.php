@@ -16,11 +16,10 @@ namespace Kreta\TaskManager\Domain\Model\Organization;
 
 use Kreta\SharedKernel\Domain\Model\Exception;
 
-class OrganizationNameEmptyException extends Exception
+class UnauthorizedEditOrganizationException extends Exception
 {
     public function __construct()
     {
-        parent::__construct();
-        $this->message = 'Organization name must not be empty';
+        parent::__construct('Only owners of the organization can edit it');
     }
 }
