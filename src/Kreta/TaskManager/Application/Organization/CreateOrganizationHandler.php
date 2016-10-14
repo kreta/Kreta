@@ -52,16 +52,15 @@ class CreateOrganizationHandler
         }
         $user = $this->userRepository->userOfId(
             UserId::generate(
-                $command->userId()
+                $command->creatorId()
             )
         );
         if (!$user instanceof User) {
             throw new UserDoesNotExistException();
         }
+        $organizationId = OrganizationId::generate($command->id());
         $organization = new Organization(
-            OrganizationId::generate(
-                $command->id()
-            ),
+            $organizationId,
             new OrganizationName(
                 $command->name()
             ),
@@ -71,7 +70,7 @@ class CreateOrganizationHandler
             new Owner(
                 OwnerId::generate(
                     $user->id(),
-                    $command->ownerId()
+                    $organizationId
                 )
             )
         );

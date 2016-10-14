@@ -20,7 +20,7 @@ class MemberSpec extends ObjectBehavior
 {
     function let(MemberId $id)
     {
-        $id->id()->willReturn('member-id');
+        $id->__toString()->willReturn('UserId: user-id, OrganizationId: organization-id');
         $this->beConstructedWith($id);
     }
 
@@ -30,6 +30,6 @@ class MemberSpec extends ObjectBehavior
         $this->id()->shouldReturnAnInstanceOf(MemberId::class);
         $this->createdOn()->shouldReturnAnInstanceOf(\DateTimeImmutable::class);
         $this->updatedOn()->shouldReturnAnInstanceOf(\DateTimeImmutable::class);
-        $this->__toString()->shouldReturn('member-id');
+        $this->__toString()->shouldReturn('UserId: user-id, OrganizationId: organization-id');
     }
 }

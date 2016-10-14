@@ -13,15 +13,17 @@
 namespace Spec\Kreta\TaskManager\Domain\Model\Organization;
 
 use Kreta\TaskManager\Domain\Model\Organization\MemberId;
+use Kreta\TaskManager\Domain\Model\Organization\OrganizationId;
 use Kreta\TaskManager\Domain\Model\User\UserId;
 use PhpSpec\ObjectBehavior;
 
 class MemberIdSpec extends ObjectBehavior
 {
-    function let(UserId $userId)
+    function let(UserId $userId, OrganizationId $organizationId)
     {
         $userId->id()->willReturn('user-id');
-        $this->beConstructedGenerate($userId, 1);
+        $organizationId->id()->willReturn('organization-id');
+        $this->beConstructedGenerate($userId, $organizationId);
     }
 
     function it_is_initializable()
@@ -29,33 +31,28 @@ class MemberIdSpec extends ObjectBehavior
         $this->shouldHaveType(MemberId::class);
     }
 
-    function it_generates(UserId $userId)
+    function it_renders_to_string()
     {
-        $this::generate($userId, 1)->shouldReturnAnInstanceOf(MemberId::class);
-        $this->id()->shouldReturn(1);
-        $userId->id()->shouldBeCalled()->willReturn('user-id');
-        $this->__toString()->shouldReturn('Id: 1, UserId: user-id');
+        $this->__toString()->shouldReturn('UserId: user-id, OrganizationId: organization-id');
     }
 
-    function it_compares_two_ids_that_do_not_equals(MemberId $memberId, UserId $userId2)
+    function it_compares_two_ids_that_are_not_equal(MemberId $memberId, UserId $userId2, OrganizationId $organizationId)
     {
-        $memberId->id()->shouldBeCalled()->willReturn(1);
+        $memberId->organizationId()->shouldBeCalled()->willReturn($organizationId);
         $memberId->userId()->shouldBeCalled()->willReturn($userId2);
-        $userId2->id()->shouldBeCalled()->willReturn('not-user-id');
         $this->equals($memberId)->shouldReturn(false);
     }
 
-    function it_compares_two_ids_that_do_not_equals_for_id(MemberId $memberId)
+    function it_compares_two_ids_that_do_not_have_same_organization_id(MemberId $memberId, OrganizationId $organizationId2)
     {
-        $memberId->id()->shouldBeCalled()->willReturn(2);
+        $memberId->organizationId()->shouldBeCalled()->willReturn($organizationId2);
         $this->equals($memberId)->shouldReturn(false);
     }
 
-    function it_compares_two_ids_that_are_equals(MemberId $memberId, UserId $userId)
+    function it_compares_two_ids_that_are_equals(MemberId $memberId, UserId $userId, OrganizationId $organizationId)
     {
-        $memberId->id()->shouldBeCalled()->willReturn(1);
+        $memberId->organizationId()->shouldBeCalled()->willReturn($organizationId);
         $memberId->userId()->shouldBeCalled()->willReturn($userId);
-        $userId->id()->shouldBeCalled()->willReturn('user-id');
         $this->equals($memberId)->shouldReturn(true);
     }
 }
