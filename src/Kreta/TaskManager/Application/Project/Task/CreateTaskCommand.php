@@ -12,15 +12,10 @@
 
 declare(strict_types=1);
 
-namespace Kreta\TaskManager\Domain\Model\Project\Task;
+namespace Kreta\TaskManager\Application\Project\Task;
 
-use Kreta\SharedKernel\Domain\Model\DomainEvent;
-use Kreta\TaskManager\Domain\Model\Organization\MemberId;
-use Kreta\TaskManager\Domain\Model\Project\ProjectId;
-
-class TaskCreated implements DomainEvent
+class CreateTaskCommand
 {
-    private $id;
     private $title;
     private $description;
     private $creatorId;
@@ -28,35 +23,29 @@ class TaskCreated implements DomainEvent
     private $priority;
     private $projectId;
     private $parentId;
-    private $occurredOn;
+    private $taskId;
 
     public function __construct(
-        TaskId $id,
-        TaskTitle $title,
+        string $title,
         string $description,
-        MemberId $creatorId,
-        MemberId $assigneeId,
-        TaskPriority $priority,
-        ProjectId $projectId,
-        TaskId $parentId = null
+        string $creatorId,
+        string $assigneeId,
+        string $priority,
+        string $projectId,
+        string $parentId = null,
+        string $taskId = null
     ) {
-        $this->id = $id;
         $this->title = $title;
         $this->description = $description;
         $this->creatorId = $creatorId;
         $this->assigneeId = $assigneeId;
-        $this->projectId = $projectId;
         $this->priority = $priority;
+        $this->projectId = $projectId;
         $this->parentId = $parentId;
-        $this->occurredOn = new \DateTimeImmutable();
+        $this->taskId = $taskId;
     }
 
-    public function id() : TaskId
-    {
-        return $this->id;
-    }
-
-    public function title() : TaskTitle
+    public function title() : string
     {
         return $this->title;
     }
@@ -66,22 +55,22 @@ class TaskCreated implements DomainEvent
         return $this->description;
     }
 
-    public function creatorId() : MemberId
+    public function creatorId() : string
     {
         return $this->creatorId;
     }
 
-    public function assigneeId() : MemberId
+    public function assigneeId() : string
     {
         return $this->assigneeId;
     }
 
-    public function priority() : TaskPriority
+    public function priority() : string
     {
         return $this->priority;
     }
 
-    public function projectId() : ProjectId
+    public function projectId() : string
     {
         return $this->projectId;
     }
@@ -91,8 +80,8 @@ class TaskCreated implements DomainEvent
         return $this->parentId;
     }
 
-    public function occurredOn() : \DateTimeInterface
+    public function taskId()
     {
-        return $this->occurredOn;
+        return $this->taskId;
     }
 }

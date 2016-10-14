@@ -22,8 +22,11 @@ class TaskPriority
 
     private $priority;
 
-    private function __construct(string $priority)
+    public function __construct(string $priority)
     {
+        if ($priority !== self::LOW && $priority !== self::MEDIUM && $priority !== self::HIGH) {
+            throw new TaskPriorityNotAllowedException($priority);
+        }
         $this->priority = $priority;
     }
 
@@ -49,6 +52,6 @@ class TaskPriority
 
     public function __toString() : string
     {
-        return $this->priority;
+        return (string) $this->priority;
     }
 }

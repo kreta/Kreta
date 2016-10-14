@@ -16,15 +16,10 @@ namespace Kreta\TaskManager\Domain\Model\Project\Task;
 
 use Kreta\SharedKernel\Domain\Model\Exception;
 
-class PriorityNotAllowedException extends Exception
+class TaskAndTaskParentCannotBeTheSameException extends Exception
 {
-    public function __construct(string $priority)
+    public function __construct()
     {
-        parent::__construct();
-
-        $this->message = sprintf(
-            'Priority "%s" not allowed',
-            $priority
-        );
+        parent::__construct('Task and its parent cannot be the same');
     }
 }

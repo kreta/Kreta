@@ -144,4 +144,37 @@ class OrganizationSpec extends ObjectBehavior
         $ownerId->equals($ownerId2)->shouldBeCalled()->willReturn(false);
         $this->isOwner($ownerId)->shouldReturn(false);
     }
+
+    function it_checks_if_it_is_member(
+        OwnerId $ownerId,
+        Owner $owner,
+        OwnerId $ownerId2,
+        Member $member,
+        MemberId $memberId,
+        MemberId $memberId2
+    ) {
+        $this->owners()->shouldReturnCollection([$owner]);
+        $owner->id()->shouldBeCalled()->willReturn($ownerId);
+        $ownerId->equals($ownerId)->shouldBeCalled()->willReturn(true);
+        $this->isMember($ownerId)->shouldReturn(true);
+
+        $this->owners()->shouldReturnCollection([$owner]);
+        $owner->id()->shouldBeCalled()->willReturn($ownerId2);
+        $ownerId->equals($ownerId2)->shouldBeCalled()->willReturn(false);
+        $this->isMember($ownerId)->shouldReturn(false);
+
+        $member->id()->shouldBeCalled()->willReturn($memberId);
+        $this->addMember($member);
+        $this->members()->shouldReturnCollection([$member]);
+
+        $member->id()->shouldBeCalled()->willReturn($memberId);
+        $memberId->equals($memberId)->shouldBeCalled()->willReturn(true);
+        $this->isMember($memberId)->shouldReturn(true);
+
+        $member->id()->shouldBeCalled()->willReturn($memberId);
+        $memberId2->equals($memberId)->shouldBeCalled()->willReturn(false);
+        $owner->id()->shouldBeCalled()->willReturn($ownerId);
+        $memberId2->equals($ownerId)->shouldBeCalled()->willReturn(false);
+        $this->isMember($memberId2)->shouldReturn(false);
+    }
 }
