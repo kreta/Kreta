@@ -13,7 +13,7 @@
 namespace Spec\Kreta\TaskManager\Domain\Model\Project\Task;
 
 use Kreta\SharedKernel\Domain\Model\DomainEvent;
-use Kreta\TaskManager\Domain\Model\Organization\Member;
+use Kreta\TaskManager\Domain\Model\Organization\MemberId;
 use Kreta\TaskManager\Domain\Model\Project\ProjectId;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskCreated;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskId;
@@ -26,20 +26,29 @@ class TaskCreatedSpec extends ObjectBehavior
     function let(
         TaskId $taskId,
         TaskTitle $title,
-        Member $creator,
-        Member $assignee,
+        MemberId $creatorId,
+        MemberId $assigneeId,
         TaskPriority $priority,
         ProjectId $projectId,
         TaskId $parentId
     ) {
-        $this->beConstructedWith($taskId, $title, 'Description', $creator, $assignee, $priority, $projectId, $parentId);
+        $this->beConstructedWith(
+            $taskId,
+            $title,
+            'Description',
+            $creatorId,
+            $assigneeId,
+            $priority,
+            $projectId,
+            $parentId
+        );
     }
 
     function it_creates_a_task_created_event(
         TaskId $taskId,
         TaskTitle $title,
-        Member $creator,
-        Member $assignee,
+        MemberId $creatorId,
+        MemberId $assigneeId,
         TaskPriority $priority,
         ProjectId $projectId,
         TaskId $parentId
@@ -50,8 +59,8 @@ class TaskCreatedSpec extends ObjectBehavior
         $this->id()->shouldReturn($taskId);
         $this->title()->shouldReturn($title);
         $this->description()->shouldReturn('Description');
-        $this->creator()->shouldReturn($creator);
-        $this->assignee()->shouldReturn($assignee);
+        $this->creatorId()->shouldReturn($creatorId);
+        $this->assigneeId()->shouldReturn($assigneeId);
         $this->priority()->shouldReturn($priority);
         $this->projectId()->shouldReturn($projectId);
         $this->parentId()->shouldReturn($parentId);

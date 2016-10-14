@@ -17,11 +17,17 @@ namespace Kreta\TaskManager\Application\Project\Task;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationRepository;
 use Kreta\TaskManager\Domain\Model\Organization\OwnerId;
 use Kreta\TaskManager\Domain\Model\Project\Project;
+use Kreta\TaskManager\Domain\Model\Project\ProjectDoesNotExistException;
 use Kreta\TaskManager\Domain\Model\Project\ProjectId;
+use Kreta\TaskManager\Domain\Model\Project\ProjectRepository;
 use Kreta\TaskManager\Domain\Model\Project\Task\Task;
+use Kreta\TaskManager\Domain\Model\Project\Task\TaskAlreadyExistsException;
+use Kreta\TaskManager\Domain\Model\Project\Task\TaskCreationNotAllowedException;
+use Kreta\TaskManager\Domain\Model\Project\Task\TaskDoesNotExistException;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskId;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskPriority;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskTitle;
+use Kreta\TaskManager\Domain\Model\Project\Task\TaskRepository;
 use Kreta\TaskManager\Domain\Model\User\UserId;
 
 class CreateTaskHandler
@@ -34,8 +40,7 @@ class CreateTaskHandler
         TaskRepository $repository,
         ProjectRepository $projectRepository,
         OrganizationRepository $organizationRepository
-    )
-    {
+    ) {
         $this->repository = $repository;
         $this->projectRepository = $projectRepository;
         $this->organizationRepository = $organizationRepository;
@@ -67,7 +72,7 @@ class CreateTaskHandler
         $creatorId = OwnerId::generate(UserId::generate($command->creatorUserId()), $command->creatorMemberId();
         $assigneeId = OwnerId::generate(UserId::generate($command->assigneeUserId()), $command->creatorMemberId();
         if (!$organization->isMember($creatorId) || !$organization->isMember($assigneeId)) {
-            throw new UnauthorizedCreateTaskException();
+            throw new TaskCreationNotAllowedException();
         }
         if (null !== $parentId = $command->parentId()) {
             $parent = $this->repository->taskOfId(

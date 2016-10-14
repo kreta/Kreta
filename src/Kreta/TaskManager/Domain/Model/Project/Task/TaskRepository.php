@@ -14,17 +14,11 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Domain\Model\Project\Task;
 
-use Kreta\SharedKernel\Domain\Model\Exception;
-
-class PriorityNotAllowedException extends Exception
+interface TaskRepository
 {
-    public function __construct(string $priority)
-    {
-        parent::__construct();
+    public function taskOfId(TaskId $id);
 
-        $this->message = sprintf(
-            'Priority "%s" not allowed',
-            $priority
-        );
-    }
+    public function persist(Task $task);
+
+    public function remove(Task $task);
 }

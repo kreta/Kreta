@@ -13,10 +13,10 @@
 namespace Spec\Kreta\TaskManager\Domain\Model\Project\Task;
 
 use Kreta\SharedKernel\Domain\Model\Exception;
-use Kreta\TaskManager\Domain\Model\Project\Task\PriorityNotAllowedException;
+use Kreta\TaskManager\Domain\Model\Project\Task\TaskPriorityNotAllowedException;
 use PhpSpec\ObjectBehavior;
 
-class PriorityNotAllowedExceptionSpec extends ObjectBehavior
+class TaskPriorityNotAllowedExceptionSpec extends ObjectBehavior
 {
     function let()
     {
@@ -25,7 +25,7 @@ class PriorityNotAllowedExceptionSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType(PriorityNotAllowedException::class);
+        $this->shouldHaveType(TaskPriorityNotAllowedException::class);
         $this->shouldHaveType(Exception::class);
     }
 

@@ -13,7 +13,7 @@
 namespace Spec\Kreta\TaskManager\Domain\Model\Project\Task;
 
 use Kreta\SharedKernel\Domain\Model\AggregateRoot;
-use Kreta\TaskManager\Domain\Model\Organization\Member;
+use Kreta\TaskManager\Domain\Model\Organization\MemberId;
 use Kreta\TaskManager\Domain\Model\Project\ProjectId;
 use Kreta\TaskManager\Domain\Model\Project\Task\Task;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskCreated;
@@ -32,8 +32,8 @@ class TaskSpec extends ObjectBehavior
     function let(
         TaskId $taskId,
         TaskTitle $title,
-        Member $creator,
-        Member $assignee,
+        MemberId $creator,
+        MemberId $assignee,
         TaskPriority $priority,
         ProjectId $projectId
     ) {
@@ -44,8 +44,8 @@ class TaskSpec extends ObjectBehavior
     function it_can_be_created(
         TaskId $taskId,
         TaskTitle $title,
-        Member $creator,
-        Member $assignee,
+        MemberId $creator,
+        MemberId $assignee,
         TaskPriority $priority,
         ProjectId $projectId
     ) {
@@ -55,8 +55,8 @@ class TaskSpec extends ObjectBehavior
         $this->id()->shouldReturn($taskId);
         $this->title()->shouldReturn($title);
         $this->description()->shouldReturn('Description');
-        $this->creator()->shouldReturn($creator);
-        $this->assignee()->shouldReturn($assignee);
+        $this->creatorId()->shouldReturn($creator);
+        $this->assigneeId()->shouldReturn($assignee);
         $this->priority()->shouldReturn($priority);
         $this->projectId()->shouldReturn($projectId);
         $this->parentId()->shouldReturn(null);
@@ -72,8 +72,8 @@ class TaskSpec extends ObjectBehavior
     function it_can_be_created_as_a_subtask(
         TaskId $taskId,
         TaskTitle $title,
-        Member $creator,
-        Member $assignee,
+        MemberId $creator,
+        MemberId $assignee,
         TaskPriority $priority,
         ProjectId $projectId,
         TaskId $parentId
@@ -86,8 +86,8 @@ class TaskSpec extends ObjectBehavior
         $this->id()->shouldReturn($taskId);
         $this->title()->shouldReturn($title);
         $this->description()->shouldReturn('Description');
-        $this->creator()->shouldReturn($creator);
-        $this->assignee()->shouldReturn($assignee);
+        $this->creatorId()->shouldReturn($creator);
+        $this->assigneeId()->shouldReturn($assignee);
         $this->priority()->shouldReturn($priority);
         $this->projectId()->shouldReturn($projectId);
         $this->parentId()->shouldReturn($parentId);
@@ -125,13 +125,13 @@ class TaskSpec extends ObjectBehavior
         $this->shouldHavePublished(TaskProgressChanged::class);
     }
 
-    function it_can_be_reassigned(Member $assignee)
+    function it_can_be_reassigned(MemberId $assignee)
     {
         $oldUpdatedOn = $this->updatedOn();
 
         $this->reassign($assignee);
 
-        $this->assignee()->shouldReturn($assignee);
+        $this->assigneeId()->shouldReturn($assignee);
         $this->updatedOn()->shouldNotEqual($oldUpdatedOn);
 
         $this->shouldHavePublished(TaskReassigned::class);

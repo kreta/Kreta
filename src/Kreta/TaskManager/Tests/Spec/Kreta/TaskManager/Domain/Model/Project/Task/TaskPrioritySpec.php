@@ -13,10 +13,17 @@
 namespace Spec\Kreta\TaskManager\Domain\Model\Project\Task;
 
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskPriority;
+use Kreta\TaskManager\Domain\Model\Project\Task\TaskPriorityNotAllowedException;
 use PhpSpec\ObjectBehavior;
 
 class TaskPrioritySpec extends ObjectBehavior
 {
+    function it_does_not_create_priority_with_invalid_priority()
+    {
+        $this->beConstructedWith('invalid-priority');
+        $this->shouldThrow(TaskPriorityNotAllowedException::class)->duringInstantiation();
+    }
+
     function it_creates_a_low_priority_task_value()
     {
         $this->beConstructedLow();
