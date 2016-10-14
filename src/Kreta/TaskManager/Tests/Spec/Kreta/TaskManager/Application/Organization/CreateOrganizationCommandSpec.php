@@ -20,53 +20,48 @@ class CreateOrganizationCommandSpec extends ObjectBehavior
 {
     function it_can_be_created_with_basic_info()
     {
-        $this->beConstructedWith('user-id', 'Organization name');
+        $this->beConstructedWith('creator-id', 'Organization name');
         $this->shouldHaveType(CreateOrganizationCommand::class);
         $this->id()->shouldReturn(null);
         $this->name()->shouldReturn('Organization name');
         $this->slug()->shouldReturn(null);
-        $this->userId()->shouldReturn('user-id');
+        $this->creatorId()->shouldReturn('creator-id');
     }
 
     function it_can_be_created_with_basic_info_and_organization_id()
     {
-        $this->beConstructedWith('user-id', 'Organization name', 'organization-id');
+        $this->beConstructedWith('creator-id', 'Organization name', 'organization-id');
         $this->shouldHaveType(CreateOrganizationCommand::class);
         $this->id()->shouldReturn('organization-id');
         $this->name()->shouldReturn('Organization name');
         $this->slug()->shouldReturn(null);
-        $this->userId()->shouldReturn('user-id');
+        $this->creatorId()->shouldReturn('creator-id');
     }
 
-    function it_can_be_created_with_basic_info_organization_id_owner_id()
+    function it_can_be_created_with_basic_info_organization_id_creator_id()
     {
         $this->beConstructedWith(
-            'user-id',
+            'creator-id',
             'Organization name',
-            'organization-id',
-            'owner-id'
+            'organization-id'
         );
         $this->id()->shouldReturn('organization-id');
         $this->name()->shouldReturn('Organization name');
         $this->slug()->shouldReturn(null);
-        $this->ownerId()->shouldReturn('owner-id');
-        $this->userId()->shouldReturn('user-id');
+        $this->creatorId()->shouldReturn('creator-id');
     }
 
-    function it_can_be_created_with_basic_info_organization_id_owner_id_and_slug()
+    function it_can_be_created_with_basic_info_organization_id_creator_id_and_slug()
     {
         $this->beConstructedWith(
-            'user-id',
+            'creator-id',
             'Organization name',
             'organization-id',
-            'owner-id',
             'organization-slug'
         );
         $this->id()->shouldReturn('organization-id');
         $this->name()->shouldReturn('Organization name');
         $this->slug()->shouldReturn('organization-slug');
-        $this->ownerId()->shouldReturn('owner-id');
-        $this->userId()->shouldReturn('user-id');
     }
 
     function it_cannot_be_created_with_empty_user_id()

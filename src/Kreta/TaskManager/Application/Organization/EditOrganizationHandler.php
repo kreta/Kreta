@@ -43,7 +43,7 @@ class EditOrganizationHandler
         if (!$organization instanceof Organization) {
             throw new OrganizationDoesNotExistException();
         }
-        if (!$organization->isOwner(OwnerId::generate(UserId::generate($command->userId()), $command->ownerId()))) {
+        if (!$organization->isOwner(OwnerId::generate(UserId::generate($command->userId()), $organization->id()))) {
             throw new UnauthorizedEditOrganizationException();
         }
         $organization->edit(

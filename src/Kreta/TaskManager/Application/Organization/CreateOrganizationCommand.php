@@ -18,25 +18,22 @@ use Kreta\SharedKernel\Domain\Model\InvalidArgumentException;
 
 class CreateOrganizationCommand
 {
-    private $id;
-    private $ownerId;
-    private $userId;
+    private $creatorId;
     private $name;
+    private $id;
     private $slug;
 
     public function __construct(
-        string $userId,
+        string $creatorId,
         string $name,
         string $id = null,
-        string $ownerId = null,
         string $slug = null
     ) {
-        if ('' === $userId) {
+        if ('' === $creatorId) {
             throw new InvalidArgumentException('User id cannot be null');
         }
         $this->id = $id;
-        $this->ownerId = $ownerId;
-        $this->userId = $userId;
+        $this->creatorId = $creatorId;
         $this->name = $name;
         $this->slug = $slug;
     }
@@ -51,18 +48,13 @@ class CreateOrganizationCommand
         return $this->name;
     }
 
-    public function ownerId()
+    public function creatorId(): string
     {
-        return $this->ownerId;
+        return $this->creatorId;
     }
 
     public function slug()
     {
         return $this->slug;
-    }
-
-    public function userId() : string
-    {
-        return $this->userId;
     }
 }

@@ -46,10 +46,9 @@ class CreateOrganizationHandlerSpec extends ObjectBehavior
         $userId = UserId::generate('user-id');
         $command->id()->shouldBeCalled()->willReturn('organization-id');
         $repository->organizationOfId(Argument::type(OrganizationId::class))->shouldBeCalled()->willReturn(null);
-        $command->userId()->shouldBeCalled()->willReturn('user-id');
+        $command->creatorId()->shouldBeCalled()->willReturn('user-id');
         $userRepository->userOfId($userId)->shouldBeCalled()->willReturn($user);
         $user->id()->shouldBeCalled()->willReturn($userId);
-        $command->ownerId()->shouldBeCalled()->willReturn('owner-id');
         $command->name()->shouldBeCalled()->willReturn('Organization name');
         $command->slug()->shouldBeCalled()->willReturn('organization-slug');
         $repository->persist(Argument::type(Organization::class))->shouldBeCalled();
@@ -64,11 +63,10 @@ class CreateOrganizationHandlerSpec extends ObjectBehavior
     ) {
         $userId = UserId::generate('user-id');
         $command->id()->shouldBeCalled()->willReturn(null);
-        $command->userId()->shouldBeCalled()->willReturn('user-id');
+        $command->creatorId()->shouldBeCalled()->willReturn('user-id');
         $userRepository->userOfId($userId)->shouldBeCalled()->willReturn($user);
         $user->id()->shouldBeCalled()->willReturn($userId);
-        $command->ownerId()->shouldBeCalled()->willReturn('owner-id');
-        $command->userId()->shouldBeCalled()->willReturn('user-id');
+        $command->creatorId()->shouldBeCalled()->willReturn('user-id');
         $command->name()->shouldBeCalled()->willReturn('Organization name');
         $command->slug()->shouldBeCalled()->willReturn('organization-slug');
         $repository->persist(Argument::type(Organization::class))->shouldBeCalled();
@@ -84,12 +82,11 @@ class CreateOrganizationHandlerSpec extends ObjectBehavior
         $userId = UserId::generate('user-id');
         $command->id()->shouldBeCalled()->willReturn('organization-id');
         $repository->organizationOfId(Argument::type(OrganizationId::class))->shouldBeCalled()->willReturn(null);
-        $command->userId()->shouldBeCalled()->willReturn('user-id');
+        $command->creatorId()->shouldBeCalled()->willReturn('user-id');
         $userRepository->userOfId($userId)->shouldBeCalled()->willReturn($user);
         $user->id()->shouldBeCalled()->willReturn($userId);
         $repository->organizationOfId(Argument::type(OrganizationId::class))->shouldBeCalled()->willReturn(null);
-        $command->ownerId()->shouldBeCalled()->willReturn('owner-id');
-        $command->userId()->shouldBeCalled()->willReturn('user-id');
+        $command->creatorId()->shouldBeCalled()->willReturn('user-id');
         $command->name()->shouldBeCalled()->willReturn('Organization name');
         $command->slug()->shouldBeCalled()->willReturn(null);
         $repository->persist(Argument::type(Organization::class))->shouldBeCalled();
@@ -112,7 +109,7 @@ class CreateOrganizationHandlerSpec extends ObjectBehavior
         UserRepository $userRepository
     ) {
         $command->id()->shouldBeCalled()->willReturn(null);
-        $command->userId()->shouldBeCalled()->willReturn('user-id');
+        $command->creatorId()->shouldBeCalled()->willReturn('user-id');
         $userRepository->userOfId(Argument::type(UserId::class))->shouldBeCalled()->willReturn(null);
         $this->shouldThrow(UserDoesNotExistException::class)->during__invoke($command);
     }

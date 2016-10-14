@@ -44,6 +44,6 @@ class Member
 
     public function __toString() : string
     {
-        return (string) $this->id->id();
+        return (string) $this->id->__toString();
     }
 }

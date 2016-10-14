@@ -14,32 +14,22 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Domain\Model\Organization;
 
-use Kreta\SharedKernel\Domain\Model\Identity\InvalidIdException;
-use Kreta\SharedKernel\Domain\Model\Identity\Uuid;
 use Kreta\TaskManager\Domain\Model\User\UserId;
 
 class MemberId
 {
-    protected $id;
     protected $userId;
+    protected $organizationId;
 
-    public static function generate(UserId $userId, $id = null)
+    public static function generate(UserId $userId, OrganizationId $organizationId)
     {
-        return new static($userId, $id);
+        return new static($userId, $organizationId);
     }
 
-    protected function __construct(UserId $userId, $id = null)
+    protected function __construct(UserId $userId, OrganizationId $organizationId)
     {
-        if ($id !== null && !is_scalar($id)) {
-            throw new InvalidIdException();
-        }
         $this->userId = $userId;
-        $this->id = null === $id ? Uuid::generate() : $id;
-    }
-
-    public function id()
-    {
-        return $this->id;
+        $this->organizationId = $organizationId;
     }
 
     public function userId() : UserId
@@ -47,13 +37,18 @@ class MemberId
         return $this->userId;
     }
 
+    public function organizationId()
+    {
+        return $this->organizationId;
+    }
+
     public function equals(MemberId $id) : bool
     {
-        return $this->id === $id->id() && $this->userId->id() === $id->userId()->id();
+        return $this->organizationId === $id->organizationId() && $this->userId->id() === $id->userId()->id();
     }
 
     public function __toString() : string
     {
-        return 'Id: ' . (string) $this->id . ', UserId: ' . (string) $this->userId->id();
+        return 'UserId: ' . (string) $this->userId->id() . ', OrganizationId: ' . (string) $this->organizationId()->id();
     }
 }
