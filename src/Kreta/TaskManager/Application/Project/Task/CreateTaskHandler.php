@@ -10,24 +10,25 @@
  * file that was distributed with this source code.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Kreta\TaskManager\Application\Project\Task;
 
+use Kreta\TaskManager\Domain\Model\Organization\MemberId;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationRepository;
-use Kreta\TaskManager\Domain\Model\Organization\OwnerId;
 use Kreta\TaskManager\Domain\Model\Project\Project;
 use Kreta\TaskManager\Domain\Model\Project\ProjectDoesNotExistException;
 use Kreta\TaskManager\Domain\Model\Project\ProjectId;
 use Kreta\TaskManager\Domain\Model\Project\ProjectRepository;
 use Kreta\TaskManager\Domain\Model\Project\Task\Task;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskAlreadyExistsException;
+use Kreta\TaskManager\Domain\Model\Project\Task\TaskAndTaskParentCannotBeTheSameException;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskCreationNotAllowedException;
-use Kreta\TaskManager\Domain\Model\Project\Task\TaskDoesNotExistException;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskId;
+use Kreta\TaskManager\Domain\Model\Project\Task\TaskParentDoesNotExistException;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskPriority;
-use Kreta\TaskManager\Domain\Model\Project\Task\TaskTitle;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskRepository;
+use Kreta\TaskManager\Domain\Model\Project\Task\TaskTitle;
 use Kreta\TaskManager\Domain\Model\User\UserId;
 
 class CreateTaskHandler
@@ -54,6 +55,9 @@ class CreateTaskHandler
                     $id
                 )
             );
+            if ($command->parentId() === $command->taskId()) {
+                throw new TaskAndTaskParentCannotBeTheSameException();
+            }
             if ($task instanceof Task) {
                 throw new TaskAlreadyExistsException();
             }
@@ -69,8 +73,8 @@ class CreateTaskHandler
         $organization = $this->organizationRepository->organizationOfId(
             $project->organizationId()
         );
-        $creatorId = OwnerId::generate(UserId::generate($command->creatorUserId()), $command->creatorMemberId();
-        $assigneeId = OwnerId::generate(UserId::generate($command->assigneeUserId()), $command->creatorMemberId();
+        $creatorId = MemberId::generate(UserId::generate($command->creatorId()), $organization->id());
+        $assigneeId = MemberId::generate(UserId::generate($command->assigneeId()), $organization->id());
         if (!$organization->isMember($creatorId) || !$organization->isMember($assigneeId)) {
             throw new TaskCreationNotAllowedException();
         }
@@ -81,7 +85,7 @@ class CreateTaskHandler
                 )
             );
             if (!$parent instanceof Task) {
-                throw new TaskDoesNotExistException();
+                throw new TaskParentDoesNotExistException();
             }
         }
         $task = new Task(
@@ -94,7 +98,9 @@ class CreateTaskHandler
             $assigneeId,
             new TaskPriority($command->priority()),
             $project->id(),
-            $parentId
+            TaskId::generate(
+                $parentId
+            )
         );
         $this->repository->persist($task);
     }

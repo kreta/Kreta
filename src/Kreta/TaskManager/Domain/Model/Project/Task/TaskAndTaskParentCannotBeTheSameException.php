@@ -16,10 +16,10 @@ namespace Kreta\TaskManager\Domain\Model\Project\Task;
 
 use Kreta\SharedKernel\Domain\Model\Exception;
 
-class TaskDoesNotExistException extends Exception
+class TaskAndTaskParentCannotBeTheSameException extends Exception
 {
     public function __construct()
     {
-        parent::__construct('The task does not exist');
+        parent::__construct('Task and its parent cannot be the same');
     }
 }

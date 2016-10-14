@@ -1,10 +1,19 @@
 <?php
 
+/*
+ * This file is part of the Kreta package.
+ *
+ * (c) Beñat Espiña <benatespina@gmail.com>
+ * (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Spec\Kreta\TaskManager\Application\Project\Task;
 
 use Kreta\TaskManager\Application\Project\Task\CreateTaskCommand;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 
 class CreateTaskCommandSpec extends ObjectBehavior
 {
@@ -13,20 +22,16 @@ class CreateTaskCommandSpec extends ObjectBehavior
         $this->beConstructedWith(
             'title',
             'description',
-            'creator-member-id',
-            'creator-user-id',
-            'assignee-member-id',
-            'assignee-user-id',
+            'creator-id',
+            'assignee-id',
             'priority',
             'project-id'
         );
         $this->shouldHaveType(CreateTaskCommand::class);
         $this->title()->shouldReturn('title');
         $this->description()->shouldReturn('description');
-        $this->creatorMemberId()->shouldReturn('creator-member-id');
-        $this->creatorUserId()->shouldReturn('creator-user-id');
-        $this->assigneeMemberId()->shouldReturn('assignee-member-id');
-        $this->assigneeUserId()->shouldReturn('assignee-user-id');
+        $this->creatorId()->shouldReturn('creator-id');
+        $this->assigneeId()->shouldReturn('assignee-id');
         $this->projectId()->shouldReturn('project-id');
         $this->parentId()->shouldReturn(null);
         $this->taskId()->shouldReturn(null);
@@ -37,20 +42,16 @@ class CreateTaskCommandSpec extends ObjectBehavior
         $this->beConstructedWith(
             'title',
             'description',
-            'creator-member-id',
-            'creator-user-id',
-            'assignee-member-id',
-            'assignee-user-id',
+            'creator-id',
+            'assignee-id',
             'priority',
             'project-id',
             'parent-id'
         );
         $this->title()->shouldReturn('title');
         $this->description()->shouldReturn('description');
-        $this->creatorMemberId()->shouldReturn('creator-member-id');
-        $this->creatorUserId()->shouldReturn('creator-user-id');
-        $this->assigneeMemberId()->shouldReturn('assignee-member-id');
-        $this->assigneeUserId()->shouldReturn('assignee-user-id');
+        $this->creatorId()->shouldReturn('creator-id');
+        $this->assigneeId()->shouldReturn('assignee-id');
         $this->projectId()->shouldReturn('project-id');
         $this->parentId()->shouldReturn('parent-id');
         $this->taskId()->shouldReturn(null);
@@ -61,10 +62,8 @@ class CreateTaskCommandSpec extends ObjectBehavior
         $this->beConstructedWith(
             'title',
             'description',
-            'creator-member-id',
-            'creator-user-id',
-            'assignee-member-id',
-            'assignee-user-id',
+            'creator-id',
+            'assignee-id',
             'priority',
             'project-id',
             'parent-id',
@@ -72,10 +71,8 @@ class CreateTaskCommandSpec extends ObjectBehavior
         );
         $this->title()->shouldReturn('title');
         $this->description()->shouldReturn('description');
-        $this->creatorMemberId()->shouldReturn('creator-member-id');
-        $this->creatorUserId()->shouldReturn('creator-user-id');
-        $this->assigneeMemberId()->shouldReturn('assignee-member-id');
-        $this->assigneeUserId()->shouldReturn('assignee-user-id');
+        $this->creatorId()->shouldReturn('creator-id');
+        $this->assigneeId()->shouldReturn('assignee-id');
         $this->projectId()->shouldReturn('project-id');
         $this->parentId()->shouldReturn('parent-id');
         $this->taskId()->shouldReturn('task-id');

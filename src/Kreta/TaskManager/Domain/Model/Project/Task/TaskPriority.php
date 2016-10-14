@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Kreta\TaskManager\Domain\Model\Project\Task;
 
@@ -52,6 +52,6 @@ class TaskPriority
 
     public function __toString() : string
     {
-        return (string)$this->priority;
+        return (string) $this->priority;
     }
 }

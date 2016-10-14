@@ -1,6 +1,16 @@
 <?php
 
-declare(strict_types = 1);
+/*
+ * This file is part of the Kreta package.
+ *
+ * (c) Beñat Espiña <benatespina@gmail.com>
+ * (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+declare(strict_types=1);
 
 namespace Kreta\TaskManager\Application\Project\Task;
 
@@ -8,10 +18,8 @@ class CreateTaskCommand
 {
     private $title;
     private $description;
-    private $creatorMemberId;
-    private $creatorUserId;
-    private $assigneeMemberId;
-    private $assigneeUserId;
+    private $creatorId;
+    private $assigneeId;
     private $priority;
     private $projectId;
     private $parentId;
@@ -20,10 +28,8 @@ class CreateTaskCommand
     public function __construct(
         string $title,
         string $description,
-        string $creatorMemberId,
-        string $creatorUserId,
-        string $assigneeMemberId,
-        string $assigneeUserId,
+        string $creatorId,
+        string $assigneeId,
         string $priority,
         string $projectId,
         string $parentId = null,
@@ -31,10 +37,8 @@ class CreateTaskCommand
     ) {
         $this->title = $title;
         $this->description = $description;
-        $this->creatorMemberId = $creatorMemberId;
-        $this->creatorUserId = $creatorUserId;
-        $this->assigneeMemberId = $assigneeMemberId;
-        $this->assigneeUserId = $assigneeUserId;
+        $this->creatorId = $creatorId;
+        $this->assigneeId = $assigneeId;
         $this->priority = $priority;
         $this->projectId = $projectId;
         $this->parentId = $parentId;
@@ -51,24 +55,14 @@ class CreateTaskCommand
         return $this->description;
     }
 
-    public function creatorMemberId() : string
+    public function creatorId() : string
     {
-        return $this->creatorMemberId;
+        return $this->creatorId;
     }
 
-    public function creatorUserId() : string
+    public function assigneeId() : string
     {
-        return $this->creatorUserId;
-    }
-
-    public function assigneeMemberId() : string
-    {
-        return $this->assigneeMemberId;
-    }
-
-    public function assigneeUserId() : string
-    {
-        return $this->assigneeUserId;
+        return $this->assigneeId;
     }
 
     public function priority() : string

@@ -13,19 +13,19 @@
 namespace Spec\Kreta\TaskManager\Domain\Model\Project\Task;
 
 use Kreta\SharedKernel\Domain\Model\Exception;
-use Kreta\TaskManager\Domain\Model\Project\Task\TaskCreationNotAllowedException;
+use Kreta\TaskManager\Domain\Model\Project\Task\TaskAndTaskParentCannotBeTheSameException;
 use PhpSpec\ObjectBehavior;
 
-class TaskCreationNotAllowedExceptionSpec extends ObjectBehavior
+class TaskAndTaskParentCannotBeTheSameExceptionSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType(TaskCreationNotAllowedException::class);
+        $this->shouldHaveType(TaskAndTaskParentCannotBeTheSameException::class);
         $this->shouldHaveType(Exception::class);
     }
 
     function it_returns_a_message()
     {
-        $this->getMessage()->shouldReturn('Task creation is not allowed');
+        $this->getMessage()->shouldReturn('Task and its parent cannot be the same');
     }
 }
