@@ -116,7 +116,6 @@ class CreateTaskHandlerSpec extends ObjectBehavior
         Project $project,
         OrganizationId $organizationId,
         Organization $organization,
-        Task $parent,
         ProjectId $projectId
     ) {
         $command->projectId()->shouldBeCalled()->willReturn('project-id');
@@ -137,6 +136,7 @@ class CreateTaskHandlerSpec extends ObjectBehavior
         $repository->persist(Argument::type(Task::class))->shouldBeCalled();
         $this->__invoke($command);
     }
+
     function it_does_not_create_a_task_because_task_and_parent_are_the_same(
         CreateTaskCommand $command
     ) {
