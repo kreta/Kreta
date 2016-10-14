@@ -95,8 +95,8 @@ class Organization extends AggregateRoot
     public function isOwner(MemberId $ownerId) : bool
     {
         return $this->owners->exists(
-            function ($key, $element) use ($ownerId) {
-                return $ownerId->equals($element->id());
+            function ($key, Owner $owner) use ($ownerId) {
+                return $ownerId->equals($owner->id());
             }
         );
     }
@@ -104,8 +104,8 @@ class Organization extends AggregateRoot
     public function isMember(MemberId $memberId) : bool
     {
         $isMember = $this->members->exists(
-            function ($key, $element) use ($memberId) {
-                return $memberId->equals($element->id());
+            function ($key, Member $member) use ($memberId) {
+                return $memberId->equals($member->id());
             }
         );
 

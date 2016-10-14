@@ -1,4 +1,8 @@
-![Kreta](https://rawgithub.com/kreta/kreta/master/app/Resources/public/svg/logo-full.svg)
+<p align="center">
+    <a href="https://kreta.io" target="_blank">
+        <img src="https://rawgithub.com/kreta/kreta/master/app/Resources/public/svg/logo-full.svg">
+    </a>
+</p>
 >Modern project management solution
 
 [![SensioLabsInsight](https://insight.sensiolabs.com/projects/c744caca-06bb-4b7f-9e0d-96282f4e8469/mini.png)](https://insight.sensiolabs.com/projects/c744caca-06bb-4b7f-9e0d-96282f4e8469)

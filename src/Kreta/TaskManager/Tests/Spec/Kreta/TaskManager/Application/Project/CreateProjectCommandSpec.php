@@ -12,9 +12,7 @@
 
 namespace Spec\Kreta\TaskManager\Application\Project;
 
-use Kreta\SharedKernel\Domain\Model\Identity\Slug;
 use Kreta\TaskManager\Application\Project\CreateProjectCommand;
-use Kreta\TaskManager\Domain\Model\Organization\OrganizationId;
 use PhpSpec\ObjectBehavior;
 
 class CreateProjectCommandSpec extends ObjectBehavior

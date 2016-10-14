@@ -55,11 +55,12 @@ class CreateProjectHandlerSpec extends ObjectBehavior
         $command->creatorId()->willReturn('creator-id');
 
         $projectRepository->projectOfId(Argument::type(ProjectId::class))->shouldBeCalled()->willReturn(null);
-        $organizationRepository->organizationOfId(Argument::type(OrganizationId::class))->shouldBeCalled()->willReturn($organization);
+        $organizationRepository->organizationOfId(
+            Argument::type(OrganizationId::class)
+        )->shouldBeCalled()->willReturn($organization);
         $organization->id()->shouldBeCalled()->willReturn($organizationId);
         $organization->isOwner(Argument::type(OwnerId::class))->shouldBeCalled()->willReturn(true);
         $projectRepository->persist(Argument::type(Project::class))->shouldBeCalled();
-
         $this->__invoke($command);
     }
 
@@ -77,11 +78,12 @@ class CreateProjectHandlerSpec extends ObjectBehavior
         $command->creatorId()->willReturn('creator-id');
 
         $projectRepository->projectOfId(Argument::type(ProjectId::class))->shouldBeCalled()->willReturn(null);
-        $organizationRepository->organizationOfId(Argument::type(OrganizationId::class))->shouldBeCalled()->willReturn($organization);
+        $organizationRepository->organizationOfId(
+            Argument::type(OrganizationId::class)
+        )->shouldBeCalled()->willReturn($organization);
         $organization->id()->shouldBeCalled()->willReturn($organizationId);
         $organization->isOwner(Argument::type(OwnerId::class))->shouldBeCalled()->willReturn(true);
         $projectRepository->persist(Argument::type(Project::class))->shouldBeCalled();
-
         $this->__invoke($command);
     }
 
@@ -101,15 +103,17 @@ class CreateProjectHandlerSpec extends ObjectBehavior
     function it_does_not_allow_to_create_project_if_organization_does_not_exist(
         OrganizationRepository $organizationRepository,
         ProjectRepository $projectRepository,
-        CreateProjectCommand $command,
-        OrganizationId $organizationId
+        CreateProjectCommand $command
     ) {
         $command->id()->willReturn('project-id');
         $command->organizationId()->willReturn('organization-id');
 
-        $projectRepository->projectOfId(Argument::type(ProjectId::class))->shouldBeCalled()->willReturn(null);
-        $organizationRepository->organizationOfId(Argument::type(OrganizationId::class))->shouldBeCalled()->willReturn(null);
-
+        $projectRepository->projectOfId(
+            Argument::type(ProjectId::class)
+        )->shouldBeCalled()->willReturn(null);
+        $organizationRepository->organizationOfId(
+            Argument::type(OrganizationId::class)
+        )->shouldBeCalled()->willReturn(null);
         $this->shouldThrow(OrganizationDoesNotExistException::class)->during('__invoke', [$command]);
     }
 
@@ -124,9 +128,10 @@ class CreateProjectHandlerSpec extends ObjectBehavior
         $command->creatorId()->willReturn('creator-id');
 
         $projectRepository->projectOfId(Argument::type(ProjectId::class))->shouldBeCalled()->willReturn(null);
-        $organizationRepository->organizationOfId(Argument::type(OrganizationId::class))->shouldBeCalled()->willReturn($organization);
+        $organizationRepository->organizationOfId(
+            Argument::type(OrganizationId::class)
+        )->shouldBeCalled()->willReturn($organization);
         $organization->isOwner(Argument::type(OwnerId::class))->shouldBeCalled()->willReturn(false);
-
         $this->shouldThrow(UnauthorizedCreateProjectException::class)->during('__invoke', [$command]);
     }
 }
