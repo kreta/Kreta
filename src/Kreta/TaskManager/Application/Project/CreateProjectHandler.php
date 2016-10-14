@@ -31,7 +31,6 @@ use Kreta\TaskManager\Domain\Model\User\UserId;
 class CreateProjectHandler
 {
     private $organizationRepository;
-
     private $projectRepository;
 
     public function __construct(

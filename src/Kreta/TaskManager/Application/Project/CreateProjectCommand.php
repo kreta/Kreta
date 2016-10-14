@@ -14,19 +14,12 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Application\Project;
 
-use Kreta\SharedKernel\Domain\Model\Identity\Slug;
-use Kreta\TaskManager\Domain\Model\Organization\OrganizationId;
-
 class CreateProjectCommand
 {
     private $id;
-
     private $name;
-
     private $slug;
-
     private $organizationId;
-
     private $creatorId;
 
     public function __construct(
