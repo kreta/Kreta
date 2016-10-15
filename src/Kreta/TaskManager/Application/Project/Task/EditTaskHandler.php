@@ -19,11 +19,11 @@ use Kreta\TaskManager\Domain\Model\Organization\OrganizationRepository;
 use Kreta\TaskManager\Domain\Model\Project\ProjectId;
 use Kreta\TaskManager\Domain\Model\Project\ProjectRepository;
 use Kreta\TaskManager\Domain\Model\Project\Task\Task;
-use Kreta\TaskManager\Domain\Model\Project\Task\TaskCreationNotAllowedException;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskDoesNotExistException;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskId;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskRepository;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskTitle;
+use Kreta\TaskManager\Domain\Model\Project\Task\UnauthorizedTaskActionException;
 use Kreta\TaskManager\Domain\Model\User\UserId;
 
 class EditTaskHandler
@@ -67,7 +67,7 @@ class EditTaskHandler
             $organization->id()
         );
         if (!$organization->isMember($editorId)) {
-            throw new TaskCreationNotAllowedException();
+            throw new UnauthorizedTaskActionException();
         }
 
         $task->edit(

@@ -23,12 +23,12 @@ use Kreta\TaskManager\Domain\Model\Project\ProjectRepository;
 use Kreta\TaskManager\Domain\Model\Project\Task\Task;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskAlreadyExistsException;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskAndTaskParentCannotBeTheSameException;
-use Kreta\TaskManager\Domain\Model\Project\Task\TaskCreationNotAllowedException;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskId;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskParentDoesNotExistException;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskPriority;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskRepository;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskTitle;
+use Kreta\TaskManager\Domain\Model\Project\Task\UnauthorizedTaskActionException;
 use Kreta\TaskManager\Domain\Model\User\UserId;
 
 class CreateTaskHandler
@@ -76,7 +76,7 @@ class CreateTaskHandler
         $creatorId = MemberId::generate(UserId::generate($command->creatorId()), $organization->id());
         $assigneeId = MemberId::generate(UserId::generate($command->assigneeId()), $organization->id());
         if (!$organization->isMember($creatorId) || !$organization->isMember($assigneeId)) {
-            throw new TaskCreationNotAllowedException();
+            throw new UnauthorizedTaskActionException();
         }
         if (null !== $parentId = $command->parentId()) {
             $parent = $this->repository->taskOfId(
