@@ -114,7 +114,7 @@ class TaskSpec extends ObjectBehavior
         $this->shouldHavePublished(TaskEdited::class);
     }
 
-    function it_parent_can_be_changed(TaskId $parentId)
+    function its_parent_can_be_changed(TaskId $parentId)
     {
         $oldUpdatedOn = $this->updatedOn();
 
@@ -126,7 +126,7 @@ class TaskSpec extends ObjectBehavior
         $this->shouldHavePublished(TaskParentChanged::class);
     }
 
-    function it_parent_can_be_changed_without_parent()
+    function its_parent_can_be_removed()
     {
         $oldUpdatedOn = $this->updatedOn();
 

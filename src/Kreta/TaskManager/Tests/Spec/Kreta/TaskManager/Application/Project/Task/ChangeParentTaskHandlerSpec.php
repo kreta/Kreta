@@ -65,7 +65,7 @@ class ChangeParentTaskHandlerSpec extends ObjectBehavior
         $repository->taskOfId(TaskId::generate('task-id'))->shouldBeCalled()->willReturn($task);
         $command->parentId()->shouldBeCalled()->willReturn('parent-id');
         $task->id()->shouldBeCalled()->willReturn($taskId);
-        $taskId->id()->shouldBeCalled()->willReturn('task-id');
+        $taskId->equals(TaskId::generate('parent-id'))->shouldBeCalled()->willReturn(false);
         $repository->taskOfId(TaskId::generate('parent-id'))->shouldBeCalled()->willReturn($parent);
         $task->projectId()->shouldBeCalled()->willReturn($projectId);
         $parent->projectId()->shouldBeCalled()->willReturn($projectId);
@@ -127,7 +127,7 @@ class ChangeParentTaskHandlerSpec extends ObjectBehavior
         $repository->taskOfId(TaskId::generate('task-id'))->shouldBeCalled()->willReturn($task);
         $command->parentId()->shouldBeCalled()->willReturn('task-id');
         $task->id()->shouldBeCalled()->willReturn($taskId);
-        $taskId->id()->shouldBeCalled()->willReturn('task-id');
+        $taskId->equals(TaskId::generate('task-id'))->shouldBeCalled()->willReturn(true);
 
         $this->shouldThrow(TaskAndTaskParentCannotBeTheSameException::class)->during__invoke($command);
     }
@@ -142,7 +142,7 @@ class ChangeParentTaskHandlerSpec extends ObjectBehavior
         $repository->taskOfId(TaskId::generate('task-id'))->shouldBeCalled()->willReturn($task);
         $command->parentId()->shouldBeCalled()->willReturn('parent-id');
         $task->id()->shouldBeCalled()->willReturn($taskId);
-        $taskId->id()->shouldBeCalled()->willReturn('task-id');
+        $taskId->equals(TaskId::generate('parent-id'))->shouldBeCalled()->willReturn(false);
         $repository->taskOfId(TaskId::generate('parent-id'))->shouldBeCalled()->willReturn(null);
         $this->shouldThrow(TaskParentDoesNotExistException::class)->during__invoke($command);
     }
@@ -160,7 +160,7 @@ class ChangeParentTaskHandlerSpec extends ObjectBehavior
         $repository->taskOfId(TaskId::generate('task-id'))->shouldBeCalled()->willReturn($task);
         $command->parentId()->shouldBeCalled()->willReturn('parent-id');
         $task->id()->shouldBeCalled()->willReturn($taskId);
-        $taskId->id()->shouldBeCalled()->willReturn('task-id');
+        $taskId->equals(TaskId::generate('parent-id'))->shouldBeCalled()->willReturn(false);
         $repository->taskOfId(TaskId::generate('parent-id'))->shouldBeCalled()->willReturn($parent);
         $task->projectId()->shouldBeCalled()->willReturn($projectId);
         $parent->projectId()->shouldBeCalled()->willReturn($parentProjectId);
@@ -185,7 +185,7 @@ class ChangeParentTaskHandlerSpec extends ObjectBehavior
         $repository->taskOfId(TaskId::generate('task-id'))->shouldBeCalled()->willReturn($task);
         $command->parentId()->shouldBeCalled()->willReturn('parent-id');
         $task->id()->shouldBeCalled()->willReturn($taskId);
-        $taskId->id()->shouldBeCalled()->willReturn('task-id');
+        $taskId->equals(TaskId::generate('parent-id'))->shouldBeCalled()->willReturn(false);
         $repository->taskOfId(TaskId::generate('parent-id'))->shouldBeCalled()->willReturn($parent);
         $task->projectId()->shouldBeCalled()->willReturn($projectId);
         $parent->projectId()->shouldBeCalled()->willReturn($projectId);

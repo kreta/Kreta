@@ -55,14 +55,12 @@ class ChangeParentTaskHandler
         }
 
         if (null !== $parentId = $command->parentId()) {
-            if ($parentId === $task->id()->id()) {
+            $parentId = TaskId::generate($parentId);
+            if ($task->id()->equals($parentId)) {
                 throw new TaskAndTaskParentCannotBeTheSameException();
             }
-            $parent = $this->repository->taskOfId(
-                TaskId::generate(
-                    $parentId
-                )
-            );
+
+            $parent = $this->repository->taskOfId($parentId);
             if (!$parent instanceof Task) {
                 throw new TaskParentDoesNotExistException();
             }
