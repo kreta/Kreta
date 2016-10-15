@@ -19,12 +19,12 @@ use Kreta\TaskManager\Domain\Model\Organization\OrganizationRepository;
 use Kreta\TaskManager\Domain\Model\Project\ProjectRepository;
 use Kreta\TaskManager\Domain\Model\Project\Task\Task;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskAndTaskParentCannotBeTheSameException;
-use Kreta\TaskManager\Domain\Model\Project\Task\TaskCreationNotAllowedException;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskDoesNotExistException;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskId;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskParentCannotBelongToOtherProjectException;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskParentDoesNotExistException;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskRepository;
+use Kreta\TaskManager\Domain\Model\Project\Task\UnauthorizedTaskActionException;
 use Kreta\TaskManager\Domain\Model\User\UserId;
 
 class ChangeParentTaskHandler
@@ -85,7 +85,7 @@ class ChangeParentTaskHandler
         );
 
         if (!$organization->isMember($changerId)) {
-            throw new TaskCreationNotAllowedException();
+            throw new UnauthorizedTaskActionException();
         }
 
         $task->changeParent(
