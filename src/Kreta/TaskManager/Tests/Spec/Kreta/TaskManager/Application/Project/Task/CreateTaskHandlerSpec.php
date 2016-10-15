@@ -25,10 +25,10 @@ use Kreta\TaskManager\Domain\Model\Project\ProjectRepository;
 use Kreta\TaskManager\Domain\Model\Project\Task\Task;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskAlreadyExistsException;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskAndTaskParentCannotBeTheSameException;
-use Kreta\TaskManager\Domain\Model\Project\Task\TaskCreationNotAllowedException;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskId;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskParentDoesNotExistException;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskRepository;
+use Kreta\TaskManager\Domain\Model\Project\Task\UnauthorizedTaskActionException;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -189,7 +189,7 @@ class CreateTaskHandlerSpec extends ObjectBehavior
         $command->assigneeId()->shouldBeCalled()->willReturn('assignee-id');
         $organization->id()->shouldBeCalled()->willReturn($organizationId);
         $organization->isMember(Argument::type(MemberId::class))->shouldBeCalled()->willReturn(false);
-        $this->shouldThrow(TaskCreationNotAllowedException::class)->during__invoke($command);
+        $this->shouldThrow(UnauthorizedTaskActionException::class)->during__invoke($command);
     }
 
     function it_does_not_create_a_task_because_parent_task_does_not_exist(

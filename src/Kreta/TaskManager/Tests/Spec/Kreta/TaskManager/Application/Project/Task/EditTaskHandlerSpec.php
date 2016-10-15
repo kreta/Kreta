@@ -22,11 +22,11 @@ use Kreta\TaskManager\Domain\Model\Project\Project;
 use Kreta\TaskManager\Domain\Model\Project\ProjectId;
 use Kreta\TaskManager\Domain\Model\Project\ProjectRepository;
 use Kreta\TaskManager\Domain\Model\Project\Task\Task;
-use Kreta\TaskManager\Domain\Model\Project\Task\TaskCreationNotAllowedException;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskDoesNotExistException;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskId;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskRepository;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskTitle;
+use Kreta\TaskManager\Domain\Model\Project\Task\UnauthorizedTaskActionException;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -99,6 +99,6 @@ class EditTaskHandlerSpec extends ObjectBehavior
         $command->editorId()->shouldBeCalled()->willReturn('editor-id');
         $organization->id()->shouldBeCalled()->willReturn($organizationId);
         $organization->isMember(Argument::type(MemberId::class))->shouldBeCalled()->willReturn(false);
-        $this->shouldThrow(TaskCreationNotAllowedException::class)->during__invoke($command);
+        $this->shouldThrow(UnauthorizedTaskActionException::class)->during__invoke($command);
     }
 }
