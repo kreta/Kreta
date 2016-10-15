@@ -45,6 +45,9 @@ class Organization extends AggregateRoot
 
     public function addMember(Member $member)
     {
+        if ($this->isOwner($member->id())) {
+            throw new MemberIsAlreadyAnOwnerException($member->id());
+        }
         $this->members->add($member);
         $this->updatedOn = new \DateTimeImmutable();
         $this->publish(
@@ -54,6 +57,9 @@ class Organization extends AggregateRoot
 
     public function addOwner(Owner $owner)
     {
+        if (!$this->isOwner($owner->id()) && $this->isMember($owner->id())) {
+            $this->removeMember($owner);
+        }
         $this->owners->add($owner);
         $this->updatedOn = new \DateTimeImmutable();
         $this->publish(
