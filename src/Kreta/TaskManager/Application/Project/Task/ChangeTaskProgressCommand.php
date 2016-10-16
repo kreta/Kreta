@@ -20,11 +20,8 @@ class ChangeTaskProgressCommand
     private $progress;
     private $editorId;
 
-    public function __construct(
-        string $id,
-        string $progress,
-        string $editorId
-    ) {
+    public function __construct(string $id, string $progress, string $editorId)
+    {
         $this->id = $id;
         $this->progress = $progress;
         $this->editorId = $editorId;
@@ -35,12 +32,12 @@ class ChangeTaskProgressCommand
         return $this->id;
     }
 
-    public function progress()
+    public function progress() : string
     {
         return $this->progress;
     }
 
-    public function editorId()
+    public function editorId() : string
     {
         return $this->editorId;
     }
