@@ -16,20 +16,15 @@ namespace Kreta\TaskManager\Application\Organization;
 
 class RemoveMemberToOrganizationCommand
 {
-    private $removerId;
     private $userId;
     private $organizationId;
+    private $removerId;
 
-    public function __construct(string $removerId, string $userId, string $organizationId)
+    public function __construct(string $userId, string $organizationId, string $removerId)
     {
-        $this->removerId = $removerId;
         $this->userId = $userId;
         $this->organizationId = $organizationId;
-    }
-
-    public function removerId() : string
-    {
-        return $this->removerId;
+        $this->removerId = $removerId;
     }
 
     public function userId() : string
@@ -40,5 +35,10 @@ class RemoveMemberToOrganizationCommand
     public function organizationId(): string
     {
         return $this->organizationId;
+    }
+
+    public function removerId() : string
+    {
+        return $this->removerId;
     }
 }
