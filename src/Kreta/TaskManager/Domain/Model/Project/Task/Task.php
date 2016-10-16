@@ -71,9 +71,19 @@ class Task extends AggregateRoot
         );
     }
 
+    public function changeParent(TaskId $parentId = null)
+    {
+        $this->parentId = $parentId;
+        $this->updatedOn = new \DateTimeImmutable();
+
+        $this->publish(
+            new TaskParentChanged($this->id, $this->parentId)
+        );
+    }
+
     public function reassign(MemberId $newAssigneeId)
     {
-        $this->assignee = $newAssigneeId;
+        $this->assigneeId = $newAssigneeId;
         $this->updatedOn = new \DateTimeImmutable();
 
         $this->publish(

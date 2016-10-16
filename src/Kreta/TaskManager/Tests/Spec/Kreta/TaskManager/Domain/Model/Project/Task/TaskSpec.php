@@ -19,6 +19,7 @@ use Kreta\TaskManager\Domain\Model\Project\Task\Task;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskCreated;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskEdited;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskId;
+use Kreta\TaskManager\Domain\Model\Project\Task\TaskParentChanged;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskPriority;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskPriorityChanged;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskProgress;
@@ -111,6 +112,30 @@ class TaskSpec extends ObjectBehavior
         $this->updatedOn()->shouldNotEqual($oldUpdatedOn);
 
         $this->shouldHavePublished(TaskEdited::class);
+    }
+
+    function its_parent_can_be_changed(TaskId $parentId)
+    {
+        $oldUpdatedOn = $this->updatedOn();
+
+        $this->changeParent($parentId);
+
+        $this->parentId()->shouldReturn($parentId);
+        $this->updatedOn()->shouldNotEqual($oldUpdatedOn);
+
+        $this->shouldHavePublished(TaskParentChanged::class);
+    }
+
+    function its_parent_can_be_removed()
+    {
+        $oldUpdatedOn = $this->updatedOn();
+
+        $this->changeParent();
+
+        $this->parentId()->shouldReturn(null);
+        $this->updatedOn()->shouldNotEqual($oldUpdatedOn);
+
+        $this->shouldHavePublished(TaskParentChanged::class);
     }
 
     function its_progress_can_be_changed(TaskProgress $progress)
