@@ -48,10 +48,29 @@ doctrine:
         user: "%database_user%"
         password: "%database_password%"
         charset: UTF8
+        types:
+            organization_id:
+                class: Kreta\TaskManager\Infrastructure\Persistence\Doctrine\DBAL\Organization\Types\OrganizationIdType
+            user_id:
+                class: Kreta\TaskManager\Infrastructure\Persistence\Doctrine\DBAL\User\Types\UserIdType
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
         naming_strategy: doctrine.orm.naming_strategy.underscore
         auto_mapping: true
+        mappings:
+            SharedKernelIdentity:
+                mapping: true
+                type: xml
+                is_bundle: false
+                dir: "%kernel.root_dir%/../src/Kreta/SharedKernel/Infrastructure/Persistence/Doctrine/ORM/Identity/Mapping/"
+                prefix: 'Kreta\SharedKernel\Domain\Model\Identity'
+            TaskManagerUser:
+                mapping: true
+                type: xml
+                is_bundle: false
+                dir: "%kernel.root_dir%/../src/Kreta/TaskManager/Infrastructure/Persistence/Doctrine/ORM/User/Mapping/"
+                prefix: 'Kreta\TaskManager\Domain\Model\User'
+
 
 swiftmailer:
     transport: "%mailer_transport%"
