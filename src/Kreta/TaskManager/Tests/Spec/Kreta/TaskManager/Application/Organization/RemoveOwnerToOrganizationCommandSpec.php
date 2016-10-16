@@ -19,7 +19,7 @@ class RemoveOwnerToOrganizationCommandSpec extends ObjectBehavior
 {
     function it_can_be_created_with_basic_info()
     {
-        $this->beConstructedWith('remover-id', 'user-id', 'organization-id');
+        $this->beConstructedWith('user-id', 'organization-id', 'remover-id');
         $this->shouldHaveType(RemoveOwnerToOrganizationCommand::class);
         $this->removerId()->shouldReturn('remover-id');
         $this->userId()->shouldReturn('user-id');
