@@ -13,18 +13,16 @@
 namespace Spec\Kreta\TaskManager\Domain\Model\User;
 
 use Kreta\SharedKernel\Domain\Model\AggregateRoot;
-use Kreta\SharedKernel\Domain\Model\Identity\Username;
 use Kreta\TaskManager\Domain\Model\User\User;
 use Kreta\TaskManager\Domain\Model\User\UserId;
 use PhpSpec\ObjectBehavior;
-use Symfony\Component\Validator\Constraints\Email;
 
 class UserSpec extends ObjectBehavior
 {
-    function let(UserId $id, Email $email, Username $username)
+    function let(UserId $id)
     {
         $id->id()->willReturn('user-id');
-        $this->beConstructedWith($id, $email, $username);
+        $this->beConstructedWith($id);
     }
 
     function it_can_be_created()

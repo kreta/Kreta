@@ -10,11 +10,11 @@
  * file that was distributed with this source code.
  */
 
-namespace Spec\Kreta\SharedKernel\Domain\Model;
+namespace Spec\Kreta\SharedKernel\Event;
 
 use Kreta\SharedKernel\Domain\Model\DomainEventCollection;
-use Kreta\SharedKernel\Domain\Model\EventStream;
 use Kreta\SharedKernel\Domain\Model\Identity\Id;
+use Kreta\SharedKernel\Event\EventStream;
 use PhpSpec\ObjectBehavior;
 
 class EventStreamSpec extends ObjectBehavior

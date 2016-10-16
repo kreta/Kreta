@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace Kreta\SharedKernel\Domain\Model;
 
+use Kreta\SharedKernel\Event\EventStream;
+
 interface EventSourcedAggregateRoot
 {
     public static function reconstitute(EventStream $events) : AggregateRoot;
