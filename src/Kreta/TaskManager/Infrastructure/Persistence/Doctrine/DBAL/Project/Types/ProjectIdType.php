@@ -20,7 +20,7 @@ use Kreta\TaskManager\Domain\Model\Project\ProjectId;
 
 class ProjectIdType extends GuidType
 {
-    public function convertToDatabaseValue($value, AbstractPlatform $platform)
+    public function convertToDatabaseValue($value, AbstractPlatform $platform) : string
     {
         if ($value instanceof ProjectId) {
             return $value->id();
@@ -29,12 +29,12 @@ class ProjectIdType extends GuidType
         return $value;
     }
 
-    public function convertToPHPValue($value, AbstractPlatform $platform)
+    public function convertToPHPValue($value, AbstractPlatform $platform) : ProjectId
     {
         return ProjectId::generate($value);
     }
 
-    public function getName()
+    public function getName() : string
     {
         return 'project_id';
     }
