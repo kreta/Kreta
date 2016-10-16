@@ -12,7 +12,7 @@
 
 declare(strict_types=1);
 
-namespace Kreta\SharedKernel\Infrastructure\Persistence\EventStore;
+namespace Kreta\SharedKernel\Infrastructure\Persistence\InMemory\EventStore;
 
 use Kreta\SharedKernel\Domain\Model\AggregateDoesNotExistException;
 use Kreta\SharedKernel\Domain\Model\DomainEventCollection;

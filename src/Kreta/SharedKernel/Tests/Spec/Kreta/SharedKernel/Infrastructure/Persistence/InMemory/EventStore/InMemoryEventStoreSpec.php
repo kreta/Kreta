@@ -10,14 +10,14 @@
  * file that was distributed with this source code.
  */
 
-namespace Spec\Kreta\SharedKernel\Infrastructure\Persistence\EventStore;
+namespace Spec\Kreta\SharedKernel\Infrastructure\Persistence\InMemory\EventStore;
 
 use Kreta\SharedKernel\Domain\Model\AggregateDoesNotExistException;
 use Kreta\SharedKernel\Domain\Model\DomainEventCollection;
 use Kreta\SharedKernel\Domain\Model\EventStore;
 use Kreta\SharedKernel\Domain\Model\EventStream;
 use Kreta\SharedKernel\Domain\Model\Identity\Id;
-use Kreta\SharedKernel\Infrastructure\Persistence\EventStore\InMemoryEventStore;
+use Kreta\SharedKernel\Infrastructure\Persistence\InMemory\EventStore\InMemoryEventStore;
 use Kreta\SharedKernel\Tests\Double\Domain\Model\DomainEventStub;
 use PhpSpec\ObjectBehavior;
 
