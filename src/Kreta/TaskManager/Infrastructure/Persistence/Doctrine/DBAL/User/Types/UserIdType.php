@@ -20,7 +20,7 @@ use Kreta\TaskManager\Domain\Model\User\UserId;
 
 class UserIdType extends GuidType
 {
-    public function convertToDatabaseValue($value, AbstractPlatform $platform)
+    public function convertToDatabaseValue($value, AbstractPlatform $platform) : string
     {
         if ($value instanceof UserId) {
             return $value->id();
@@ -29,12 +29,12 @@ class UserIdType extends GuidType
         return $value;
     }
 
-    public function convertToPHPValue($value, AbstractPlatform $platform)
+    public function convertToPHPValue($value, AbstractPlatform $platform) : UserId
     {
         return UserId::generate($value);
     }
 
-    public function getName()
+    public function getName() : string
     {
         return 'user_id';
     }
