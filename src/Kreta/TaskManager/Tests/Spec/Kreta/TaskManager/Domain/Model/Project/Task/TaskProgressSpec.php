@@ -13,13 +13,15 @@
 namespace Spec\Kreta\TaskManager\Domain\Model\Project\Task;
 
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskProgress;
+use Kreta\TaskManager\Domain\Model\Project\Task\TaskProgressNotAllowedException;
 use PhpSpec\ObjectBehavior;
 
 class TaskProgressSpec extends ObjectBehavior
 {
-    function it_is_initializable()
+    function it_does_not_create_progress_with_invalid_progress()
     {
-        $this->shouldHaveType(TaskProgress::class);
+        $this->beConstructedWith('invalid-progress');
+        $this->shouldThrow(TaskProgressNotAllowedException::class)->duringInstantiation();
     }
 
     function it_creates_a_todo_task_progress_value()

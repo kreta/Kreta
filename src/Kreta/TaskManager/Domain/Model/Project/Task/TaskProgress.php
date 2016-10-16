@@ -22,8 +22,11 @@ class TaskProgress
 
     private $progress;
 
-    private function __construct(string $progress)
+    public function __construct(string $progress)
     {
+        if ($progress !== self::TODO && $progress !== self::DOING && $progress !== self::DONE) {
+            throw new TaskProgressNotAllowedException($progress);
+        }
         $this->progress = $progress;
     }
 
