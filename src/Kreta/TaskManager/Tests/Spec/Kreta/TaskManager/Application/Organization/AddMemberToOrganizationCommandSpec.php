@@ -19,7 +19,7 @@ class AddMemberToOrganizationCommandSpec extends ObjectBehavior
 {
     function it_can_be_created_with_basic_info()
     {
-        $this->beConstructedWith('adder-id', 'user-id', 'organization-id');
+        $this->beConstructedWith('user-id', 'organization-id', 'adder-id');
         $this->shouldHaveType(AddMemberToOrganizationCommand::class);
         $this->adderId()->shouldReturn('adder-id');
         $this->userId()->shouldReturn('user-id');
