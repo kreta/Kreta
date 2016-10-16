@@ -20,7 +20,7 @@ use Kreta\TaskManager\Domain\Model\Organization\OrganizationId;
 
 class OrganizationIdType extends GuidType
 {
-    public function convertToDatabaseValue($value, AbstractPlatform $platform)
+    public function convertToDatabaseValue($value, AbstractPlatform $platform) : string
     {
         if ($value instanceof OrganizationId) {
             return $value->id();
@@ -29,12 +29,12 @@ class OrganizationIdType extends GuidType
         return $value;
     }
 
-    public function convertToPHPValue($value, AbstractPlatform $platform)
+    public function convertToPHPValue($value, AbstractPlatform $platform) : OrganizationId
     {
         return OrganizationId::generate($value);
     }
 
-    public function getName()
+    public function getName() : string
     {
         return 'organization_id';
     }
