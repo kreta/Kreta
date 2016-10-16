@@ -20,11 +20,8 @@ class ReassignTaskCommand
     private $assigneeId;
     private $editorId;
 
-    public function __construct(
-        string $id,
-        string $assigneeId,
-        string $editorId
-    ) {
+    public function __construct(string $id, string $assigneeId, string $editorId)
+    {
         $this->id = $id;
         $this->assigneeId = $assigneeId;
         $this->editorId = $editorId;
