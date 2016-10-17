@@ -6,9 +6,14 @@
 
     <entity name="Kreta\TaskManager\Domain\Model\Organization\Organization" table="organization">
         <id name="id" type="organization_id"/>
+
         <embedded name="slug" class="Kreta\SharedKernel\Domain\Model\Identity\Slug" use-column-prefix="false"/>
+
         <field name="name" type="string" column="name" length="255" nullable="false"/>
         <field name="createdOn" type="datetime" column="created_on" nullable="false"/>
         <field name="updatedOn" type="datetime" column="updated_on" nullable="false"/>
+
+        <one-to-many field="owners" target-entity="Kreta\TaskManager\Infrastructure\Domain\Model\Organization\DoctrineOwner"
+                     mapped-by="surrogateOrganizationId" />
     </entity>
 </doctrine-mapping>
