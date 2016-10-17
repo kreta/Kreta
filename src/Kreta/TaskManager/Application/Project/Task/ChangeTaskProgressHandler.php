@@ -15,17 +15,21 @@ declare(strict_types=1);
 namespace Kreta\TaskManager\Application\Project\Task;
 
 use Kreta\TaskManager\Domain\Model\Organization\MemberId;
+use Kreta\TaskManager\Domain\Model\Organization\Organization;
+use Kreta\TaskManager\Domain\Model\Organization\OrganizationDoesNotExistException;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationRepository;
+use Kreta\TaskManager\Domain\Model\Project\Project;
+use Kreta\TaskManager\Domain\Model\Project\ProjectDoesNotExistException;
 use Kreta\TaskManager\Domain\Model\Project\ProjectRepository;
 use Kreta\TaskManager\Domain\Model\Project\Task\Task;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskDoesNotExistException;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskId;
-use Kreta\TaskManager\Domain\Model\Project\Task\TaskPriority;
+use Kreta\TaskManager\Domain\Model\Project\Task\TaskProgress;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskRepository;
 use Kreta\TaskManager\Domain\Model\Project\Task\UnauthorizedTaskActionException;
 use Kreta\TaskManager\Domain\Model\User\UserId;
 
-class ChangeTaskPriorityHandler
+class ChangeTaskProgressHandler
 {
     private $organizationRepository;
     private $projectRepository;
@@ -41,25 +45,28 @@ class ChangeTaskPriorityHandler
         $this->taskRepository = $taskRepository;
     }
 
-    public function __invoke(ChangeTaskPriorityCommand $command)
+    public function __invoke(ChangeTaskProgressCommand $command)
     {
         $task = $this->taskRepository->taskOfId(TaskId::generate($command->id()));
         if (!$task instanceof Task) {
             throw new TaskDoesNotExistException();
         }
 
-        $project = $this->projectRepository->projectOfId(
-            $task->projectId()
-        );
-        $organization = $this->organizationRepository->organizationOfId(
-            $project->organizationId()
-        );
+        $project = $this->projectRepository->projectOfId($task->projectId());
+        if (!$project instanceof Project) {
+            throw new ProjectDoesNotExistException();
+        }
+
+        $organization = $this->organizationRepository->organizationOfId($project->organizationId());
+        if (!$organization instanceof Organization) {
+            throw new OrganizationDoesNotExistException();
+        }
 
         if (!$organization->isMember(MemberId::generate(UserId::generate($command->editorId()), $organization->id()))) {
             throw new UnauthorizedTaskActionException();
         }
 
-        $task->changePriority(new TaskPriority($command->priority()));
+        $task->changeProgress(new TaskProgress($command->progress()));
 
         $this->taskRepository->persist($task);
     }

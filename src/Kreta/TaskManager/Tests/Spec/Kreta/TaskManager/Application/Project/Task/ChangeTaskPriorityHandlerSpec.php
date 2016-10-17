@@ -16,11 +16,9 @@ use Kreta\TaskManager\Application\Project\Task\ChangeTaskPriorityCommand;
 use Kreta\TaskManager\Application\Project\Task\ChangeTaskPriorityHandler;
 use Kreta\TaskManager\Domain\Model\Organization\MemberId;
 use Kreta\TaskManager\Domain\Model\Organization\Organization;
-use Kreta\TaskManager\Domain\Model\Organization\OrganizationDoesNotExistException;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationId;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationRepository;
 use Kreta\TaskManager\Domain\Model\Project\Project;
-use Kreta\TaskManager\Domain\Model\Project\ProjectDoesNotExistException;
 use Kreta\TaskManager\Domain\Model\Project\ProjectId;
 use Kreta\TaskManager\Domain\Model\Project\ProjectRepository;
 use Kreta\TaskManager\Domain\Model\Project\Task\Task;
@@ -37,8 +35,8 @@ class ChangeTaskPriorityHandlerSpec extends ObjectBehavior
     function let(
         OrganizationRepository $organizationRepository,
         ProjectRepository $projectRepository,
-        TaskRepository $taskRepository)
-    {
+        TaskRepository $taskRepository
+    ) {
         $this->beConstructedWith($organizationRepository, $projectRepository, $taskRepository);
     }
 
@@ -88,46 +86,6 @@ class ChangeTaskPriorityHandlerSpec extends ObjectBehavior
         $taskRepository->taskOfId(Argument::type(TaskId::class))->shouldBeCalled()->willReturn(null);
 
         $this->shouldThrow(TaskDoesNotExistException::class)->during('__invoke', [$command]);
-    }
-
-    function it_does_not_allow_changing_priority_if_project_does_not_exist(
-        ProjectRepository $projectRepository,
-        TaskRepository $taskRepository,
-        ChangeTaskPriorityCommand $command,
-        Task $task,
-        ProjectId $projectId
-    ) {
-        $command->id()->shouldBeCalled()->willReturn('task-id');
-
-        $taskRepository->taskOfId(Argument::type(TaskId::class))->shouldBeCalled()->willReturn($task);
-        $task->projectId()->shouldBeCalled()->willReturn($projectId);
-
-        $projectRepository->projectOfId($projectId)->shouldBeCalled()->willReturn(null);
-
-        $this->shouldThrow(ProjectDoesNotExistException::class)->during('__invoke', [$command]);
-    }
-
-    function it_does_not_allow_changing_priority_if_organization_does_not_exist(
-        OrganizationRepository $organizationRepository,
-        ProjectRepository $projectRepository,
-        TaskRepository $taskRepository,
-        ChangeTaskPriorityCommand $command,
-        Task $task,
-        Project $project,
-        ProjectId $projectId,
-        OrganizationId $organizationId
-    ) {
-        $command->id()->shouldBeCalled()->willReturn('task-id');
-
-        $taskRepository->taskOfId(Argument::type(TaskId::class))->shouldBeCalled()->willReturn($task);
-        $task->projectId()->shouldBeCalled()->willReturn($projectId);
-
-        $projectRepository->projectOfId($projectId)->shouldBeCalled()->willReturn($project);
-        $project->organizationId()->shouldBeCalled()->willReturn($organizationId);
-
-        $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn(null);
-
-        $this->shouldThrow(OrganizationDoesNotExistException::class)->during('__invoke', [$command]);
     }
 
     function it_does_not_allow_changing_priority_if_editor_is_not_organization_member(
