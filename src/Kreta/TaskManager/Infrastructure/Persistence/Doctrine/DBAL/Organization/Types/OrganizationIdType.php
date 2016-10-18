@@ -12,32 +12,30 @@
 
 declare(strict_types=1);
 
-namespace Kreta\TaskManager\Infrastructure\Persistence\Doctrine\DBAL\User\Types;
+namespace Kreta\TaskManager\Infrastructure\Persistence\Doctrine\DBAL\Organization\Types;
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\GuidType;
-use Kreta\TaskManager\Domain\Model\User\UserId;
+use Kreta\TaskManager\Domain\Model\Organization\OrganizationId;
 
-class UserIdType extends GuidType
+class OrganizationIdType extends GuidType
 {
     public function convertToDatabaseValue($value, AbstractPlatform $platform) : string
     {
-        if ($value instanceof UserId) {
+        if ($value instanceof OrganizationId) {
             return $value->id();
         }
-
-        dump($value);
 
         return $value;
     }
 
-    public function convertToPHPValue($value, AbstractPlatform $platform) : UserId
+    public function convertToPHPValue($value, AbstractPlatform $platform) : OrganizationId
     {
-        return UserId::generate($value);
+        return OrganizationId::generate($value);
     }
 
     public function getName() : string
     {
-        return 'user_id';
+        return 'organization_id';
     }
 }

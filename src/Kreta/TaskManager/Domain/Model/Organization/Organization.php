@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Kreta\TaskManager\Domain\Model\Organization;
 
@@ -130,7 +130,7 @@ class Organization extends AggregateRoot
 
     public function members() : MemberCollection
     {
-        return $this->members;
+        return new MemberCollection($this->members()->getValues());
     }
 
     public function name() : OrganizationName
@@ -140,7 +140,7 @@ class Organization extends AggregateRoot
 
     public function owners() : OwnerCollection
     {
-        return $this->owners;
+        return new OwnerCollection($this->owners->getValues());
     }
 
     public function slug() : Slug
@@ -155,6 +155,6 @@ class Organization extends AggregateRoot
 
     public function __toString() : string
     {
-        return (string) $this->id->id();
+        return (string)$this->id->id();
     }
 }

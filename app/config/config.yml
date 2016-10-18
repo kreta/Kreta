@@ -49,6 +49,8 @@ doctrine:
         password: "%database_password%"
         charset: UTF8
         types:
+            organization_id:
+                class: Kreta\TaskManager\Infrastructure\Persistence\Doctrine\DBAL\Organization\Types\OrganizationIdType
             user_id:
                 class: Kreta\TaskManager\Infrastructure\Persistence\Doctrine\DBAL\User\Types\UserIdType
     orm:
@@ -62,6 +64,12 @@ doctrine:
                 is_bundle: false
                 dir: "%kernel.root_dir%/../src/Kreta/SharedKernel/Infrastructure/Persistence/Doctrine/ORM/Identity/Mapping/"
                 prefix: 'Kreta\SharedKernel\Domain\Model\Identity'
+            TaskManagerOrganization:
+                mapping: true
+                type: xml
+                is_bundle: false
+                dir: "%kernel.root_dir%/../src/Kreta/TaskManager/Infrastructure/Persistence/Doctrine/ORM/Organization/Mapping/"
+                prefix: 'Kreta\TaskManager\Domain\Model\Organization'
             TaskManagerUser:
                 mapping: true
                 type: xml
