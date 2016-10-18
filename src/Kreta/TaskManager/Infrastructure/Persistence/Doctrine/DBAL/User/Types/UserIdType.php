@@ -26,6 +26,8 @@ class UserIdType extends GuidType
             return $value->id();
         }
 
+        dump($value);
+
         return $value;
     }
 

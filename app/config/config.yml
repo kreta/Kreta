@@ -70,12 +70,6 @@ doctrine:
                 is_bundle: false
                 dir: "%kernel.root_dir%/../src/Kreta/TaskManager/Infrastructure/Persistence/Doctrine/ORM/Organization/Mapping/"
                 prefix: 'Kreta\TaskManager\Domain\Model\Organization'
-            TTaskManagerOrganization:
-                mapping: true
-                type: xml
-                is_bundle: false
-                dir: "%kernel.root_dir%/../src/Kreta/TaskManager/Infrastructure/Persistence/Doctrine/ORM/Organization/SurrogateMapping/"
-                prefix: 'Kreta\TaskManager\Infrastructure\Domain\Model\Organization'
             TaskManagerUser:
                 mapping: true
                 type: xml

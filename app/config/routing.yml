@@ -6,6 +6,10 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 
+app:
+    resource: "@AppBundle/Controller/"
+    type:     annotation
+
 overblog_graphql_endpoint:
     resource: "@OverblogGraphQLBundle/Resources/config/routing/graphql.yml"
 
