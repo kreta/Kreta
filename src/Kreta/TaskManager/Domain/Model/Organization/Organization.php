@@ -130,7 +130,7 @@ class Organization extends AggregateRoot
 
     public function members() : MemberCollection
     {
-        return new MemberCollection($this->members()->getValues());
+        return new MemberCollection($this->members->getValues());
     }
 
     public function name() : OrganizationName

@@ -22,7 +22,7 @@
                     <join-column name="organization_id" referenced-column-name="id"/>
                 </join-columns>
                 <inverse-join-columns>
-                    <join-column name="user_id" referenced-column-name="user_id" unique="true"/>
+                    <join-column name="member_id" referenced-column-name="id" unique="true"/>
                 </inverse-join-columns>
             </join-table>
         </many-to-many>
@@ -36,7 +36,7 @@
                     <join-column name="organization_id" referenced-column-name="id"/>
                 </join-columns>
                 <inverse-join-columns>
-                    <join-column name="user_id" referenced-column-name="user_id" unique="true"/>
+                    <join-column name="owner_id" referenced-column-name="id" unique="true"/>
                 </inverse-join-columns>
             </join-table>
         </many-to-many>

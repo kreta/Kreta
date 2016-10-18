@@ -14,10 +14,12 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Domain\Model\Organization;
 
+use Kreta\SharedKernel\Domain\Model\Identity\Uuid;
 use Kreta\TaskManager\Domain\Model\User\UserId;
 
 class MemberId
 {
+    protected $id;
     protected $userId;
     protected $organizationId;
 
@@ -28,6 +30,7 @@ class MemberId
 
     protected function __construct(UserId $userId, OrganizationId $organizationId)
     {
+        $this->id = Uuid::generate();
         $this->userId = $userId;
         $this->organizationId = $organizationId;
     }

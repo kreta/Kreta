@@ -5,7 +5,10 @@
                           http://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
 
     <embeddable name="Kreta\TaskManager\Domain\Model\Organization\MemberId">
-        <id name="userId" type="user_id" column="user_id"/>
-        <id name="organizationId" type="organization_id" column="organization_id"/>
+        <id name="id" type="string" column="id">
+            <generator strategy="NONE"/>
+        </id>
+        <field name="userId" type="user_id" column="user_id"/>
+        <field name="organizationId" type="organization_id" column="organization_id"/>
     </embeddable>
 </doctrine-mapping>

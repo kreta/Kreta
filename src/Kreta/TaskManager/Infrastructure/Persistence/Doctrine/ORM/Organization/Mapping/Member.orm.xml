@@ -5,6 +5,10 @@
                           http://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
 
     <entity name="Kreta\TaskManager\Domain\Model\Organization\Member" table="member">
+        <unique-constraints>
+            <unique-constraint columns="organization_id,user_id" name="organization_user_index"/>
+        </unique-constraints>
+
         <embedded name="id" class="Kreta\TaskManager\Domain\Model\Organization\MemberId" use-column-prefix="false"/>
 
         <field name="createdOn" type="datetime" column="created_on" nullable="false"/>
