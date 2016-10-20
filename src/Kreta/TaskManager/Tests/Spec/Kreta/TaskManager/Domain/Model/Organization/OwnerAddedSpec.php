@@ -16,13 +16,14 @@ use Kreta\SharedKernel\Domain\Model\DomainEvent;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationId;
 use Kreta\TaskManager\Domain\Model\Organization\OwnerAdded;
 use Kreta\TaskManager\Domain\Model\Organization\OwnerId;
+use Kreta\TaskManager\Domain\Model\User\UserId;
 use PhpSpec\ObjectBehavior;
 
 class OwnerAddedSpec extends ObjectBehavior
 {
-    function let(OrganizationId $organizationId, OwnerId $ownerId)
+    function let(OwnerId $ownerId, UserId $userId, OrganizationId $organizationId)
     {
-        $this->beConstructedWith($organizationId, $ownerId);
+        $this->beConstructedWith($ownerId, $userId, $organizationId);
     }
 
     function it_is_initializable()
@@ -31,18 +32,11 @@ class OwnerAddedSpec extends ObjectBehavior
         $this->shouldImplement(DomainEvent::class);
     }
 
-    function it_get_occurred_on()
+    function it_can_be_created(OwnerId $ownerId, UserId $userId, OrganizationId $organizationId)
     {
         $this->occurredOn()->shouldReturnAnInstanceOf(\DateTimeInterface::class);
-    }
-
-    function it_gets_organization_id(OrganizationId $organizationId)
-    {
         $this->organizationId()->shouldReturn($organizationId);
-    }
-
-    function it_gets_owner_id(OwnerId $ownerId)
-    {
         $this->ownerId()->shouldReturn($ownerId);
+        $this->userId()->shouldReturn($userId);
     }
 }

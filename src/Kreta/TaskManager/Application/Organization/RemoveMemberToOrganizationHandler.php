@@ -14,13 +14,10 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Application\Organization;
 
-use Kreta\TaskManager\Domain\Model\Organization\Member;
-use Kreta\TaskManager\Domain\Model\Organization\MemberId;
 use Kreta\TaskManager\Domain\Model\Organization\Organization;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationDoesNotExistException;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationId;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationRepository;
-use Kreta\TaskManager\Domain\Model\Organization\OwnerId;
 use Kreta\TaskManager\Domain\Model\Organization\UnauthorizedOrganizationActionException;
 use Kreta\TaskManager\Domain\Model\User\UserId;
 
@@ -44,18 +41,13 @@ class RemoveMemberToOrganizationHandler
             throw new OrganizationDoesNotExistException();
         }
 
-        if (!$organization->isOwner(OwnerId::generate(UserId::generate($command->removerId()), $organization->id()))) {
+        if (!$organization->isOwner(UserId::generate($command->removerId()))) {
             throw new UnauthorizedOrganizationActionException();
         }
 
         $organization->removeMember(
-            new Member(
-                MemberId::generate(
-                    UserId::generate(
-                        $command->userId()
-                    ),
-                    $organization->id()
-                )
+            UserId::generate(
+                $command->userId()
             )
         );
 

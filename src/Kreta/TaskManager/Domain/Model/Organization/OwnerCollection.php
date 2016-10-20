@@ -14,9 +14,7 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Domain\Model\Organization;
 
-use Kreta\SharedKernel\Domain\Model\Collection;
-
-class OwnerCollection extends Collection
+class OwnerCollection extends MemberCollection
 {
     protected function type() : string
     {

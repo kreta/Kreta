@@ -12,20 +12,14 @@
 
 declare(strict_types=1);
 
-namespace Kreta\TaskManager\Domain\Model\Organization;
+namespace Kreta\TaskManager\Domain\Model\Project;
 
 use Kreta\SharedKernel\Domain\Model\Exception;
-use Kreta\TaskManager\Domain\Model\User\UserId;
 
-class MemberIsAlreadyAnOwnerException extends Exception
+class UnauthorizedProjectActionException extends Exception
 {
-    public function __construct(UserId $userId)
+    public function __construct()
     {
-        parent::__construct(
-            sprintf(
-                'The given %s user is already an owner',
-                $userId->id()
-            )
-        );
+        parent::__construct('Not allowed to perform this project action');
     }
 }

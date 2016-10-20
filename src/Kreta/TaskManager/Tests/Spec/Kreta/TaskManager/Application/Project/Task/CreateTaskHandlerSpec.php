@@ -14,6 +14,7 @@ namespace Spec\Kreta\TaskManager\Application\Project\Task;
 
 use Kreta\TaskManager\Application\Project\Task\CreateTaskCommand;
 use Kreta\TaskManager\Application\Project\Task\CreateTaskHandler;
+use Kreta\TaskManager\Domain\Model\Organization\Member;
 use Kreta\TaskManager\Domain\Model\Organization\MemberId;
 use Kreta\TaskManager\Domain\Model\Organization\Organization;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationId;
@@ -29,6 +30,7 @@ use Kreta\TaskManager\Domain\Model\Project\Task\TaskId;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskParentDoesNotExistException;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskRepository;
 use Kreta\TaskManager\Domain\Model\Project\Task\UnauthorizedTaskActionException;
+use Kreta\TaskManager\Domain\Model\User\UserId;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -56,7 +58,11 @@ class CreateTaskHandlerSpec extends ObjectBehavior
         OrganizationId $organizationId,
         Organization $organization,
         Task $parent,
-        ProjectId $projectId
+        ProjectId $projectId,
+        Member $member,
+        Member $member2,
+        MemberId $memberId,
+        MemberId $memberId2
     ) {
         $command->projectId()->shouldBeCalled()->willReturn('project-id');
         $command->taskId()->shouldBeCalled()->willReturn('task-id');
@@ -67,8 +73,12 @@ class CreateTaskHandlerSpec extends ObjectBehavior
         $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
         $command->creatorId()->shouldBeCalled()->willReturn('creator-id');
         $command->assigneeId()->shouldBeCalled()->willReturn('assignee-id');
-        $organization->id()->shouldBeCalled()->willReturn($organizationId);
-        $organization->isMember(Argument::type(MemberId::class))->shouldBeCalled()->willReturn(true);
+        $organization->isMember(UserId::generate('creator-id'))->shouldBeCalled()->willReturn(true);
+        $organization->isMember(UserId::generate('assignee-id'))->shouldBeCalled()->willReturn(true);
+        $organization->member(UserId::generate('creator-id'))->shouldBeCalled()->willReturn($member);
+        $member->id()->shouldBeCalled()->willReturn($memberId);
+        $organization->member(UserId::generate('assignee-id'))->shouldBeCalled()->willReturn($member2);
+        $member2->id()->shouldBeCalled()->willReturn($memberId2);
         $repository->taskOfId(TaskId::generate('parent-id'))->shouldBeCalled()->willReturn($parent);
         $command->title()->shouldBeCalled()->willReturn('Task title');
         $command->description()->shouldBeCalled()->willReturn('Task description');
@@ -87,7 +97,11 @@ class CreateTaskHandlerSpec extends ObjectBehavior
         OrganizationId $organizationId,
         Organization $organization,
         Task $parent,
-        ProjectId $projectId
+        ProjectId $projectId,
+        Member $member,
+        Member $member2,
+        MemberId $memberId,
+        MemberId $memberId2
     ) {
         $command->projectId()->shouldBeCalled()->willReturn('project-id');
         $command->taskId()->shouldBeCalled()->willReturn(null);
@@ -97,8 +111,12 @@ class CreateTaskHandlerSpec extends ObjectBehavior
         $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
         $command->creatorId()->shouldBeCalled()->willReturn('creator-id');
         $command->assigneeId()->shouldBeCalled()->willReturn('assignee-id');
-        $organization->id()->shouldBeCalled()->willReturn($organizationId);
-        $organization->isMember(Argument::type(MemberId::class))->shouldBeCalled()->willReturn(true);
+        $organization->isMember(UserId::generate('creator-id'))->shouldBeCalled()->willReturn(true);
+        $organization->isMember(UserId::generate('assignee-id'))->shouldBeCalled()->willReturn(true);
+        $organization->member(UserId::generate('creator-id'))->shouldBeCalled()->willReturn($member);
+        $member->id()->shouldBeCalled()->willReturn($memberId);
+        $organization->member(UserId::generate('assignee-id'))->shouldBeCalled()->willReturn($member2);
+        $member2->id()->shouldBeCalled()->willReturn($memberId2);
         $repository->taskOfId(TaskId::generate('parent-id'))->shouldBeCalled()->willReturn($parent);
         $command->title()->shouldBeCalled()->willReturn('Task title');
         $command->description()->shouldBeCalled()->willReturn('Task description');
@@ -116,7 +134,11 @@ class CreateTaskHandlerSpec extends ObjectBehavior
         Project $project,
         OrganizationId $organizationId,
         Organization $organization,
-        ProjectId $projectId
+        ProjectId $projectId,
+        Member $member,
+        Member $member2,
+        MemberId $memberId,
+        MemberId $memberId2
     ) {
         $command->projectId()->shouldBeCalled()->willReturn('project-id');
         $command->taskId()->shouldBeCalled()->willReturn('task-id');
@@ -127,8 +149,12 @@ class CreateTaskHandlerSpec extends ObjectBehavior
         $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
         $command->creatorId()->shouldBeCalled()->willReturn('creator-id');
         $command->assigneeId()->shouldBeCalled()->willReturn('assignee-id');
-        $organization->id()->shouldBeCalled()->willReturn($organizationId);
-        $organization->isMember(Argument::type(MemberId::class))->shouldBeCalled()->willReturn(true);
+        $organization->isMember(UserId::generate('creator-id'))->shouldBeCalled()->willReturn(true);
+        $organization->isMember(UserId::generate('assignee-id'))->shouldBeCalled()->willReturn(true);
+        $organization->member(UserId::generate('creator-id'))->shouldBeCalled()->willReturn($member);
+        $member->id()->shouldBeCalled()->willReturn($memberId);
+        $organization->member(UserId::generate('assignee-id'))->shouldBeCalled()->willReturn($member2);
+        $member2->id()->shouldBeCalled()->willReturn($memberId2);
         $command->title()->shouldBeCalled()->willReturn('Task title');
         $command->description()->shouldBeCalled()->willReturn('Task description');
         $command->priority()->shouldBeCalled()->willReturn('low');
@@ -187,8 +213,7 @@ class CreateTaskHandlerSpec extends ObjectBehavior
         $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
         $command->creatorId()->shouldBeCalled()->willReturn('creator-id');
         $command->assigneeId()->shouldBeCalled()->willReturn('assignee-id');
-        $organization->id()->shouldBeCalled()->willReturn($organizationId);
-        $organization->isMember(Argument::type(MemberId::class))->shouldBeCalled()->willReturn(false);
+        $organization->isMember(UserId::generate('creator-id'))->shouldBeCalled()->willReturn(false);
         $this->shouldThrow(UnauthorizedTaskActionException::class)->during__invoke($command);
     }
 
@@ -210,8 +235,8 @@ class CreateTaskHandlerSpec extends ObjectBehavior
         $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
         $command->creatorId()->shouldBeCalled()->willReturn('creator-id');
         $command->assigneeId()->shouldBeCalled()->willReturn('assignee-id');
-        $organization->id()->shouldBeCalled()->willReturn($organizationId);
-        $organization->isMember(Argument::type(MemberId::class))->shouldBeCalled()->willReturn(true);
+        $organization->isMember(UserId::generate('creator-id'))->shouldBeCalled()->willReturn(true);
+        $organization->isMember(UserId::generate('assignee-id'))->shouldBeCalled()->willReturn(true);
         $repository->taskOfId(TaskId::generate('parent-id'))->shouldBeCalled()->willReturn(null);
 
         $this->shouldThrow(TaskParentDoesNotExistException::class)->during__invoke($command);

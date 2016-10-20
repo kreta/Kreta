@@ -13,9 +13,7 @@
 namespace Spec\Kreta\TaskManager\Domain\Model\Organization;
 
 use Kreta\TaskManager\Domain\Model\Organization\MemberId;
-use Kreta\TaskManager\Domain\Model\Organization\OrganizationId;
 use Kreta\TaskManager\Domain\Model\Organization\OwnerId;
-use Kreta\TaskManager\Domain\Model\User\UserId;
 use PhpSpec\ObjectBehavior;
 
 class OwnerIdSpec extends ObjectBehavior
@@ -30,10 +28,10 @@ class OwnerIdSpec extends ObjectBehavior
         $this->shouldHaveType(MemberId::class);
     }
 
-    function it_generates(UserId $userId, OrganizationId $organizationId)
+    function it_generates()
     {
-        $this->beConstructedGenerate($userId, $organizationId);
-        $this->userId()->shouldReturn($userId);
-        $this->organizationId()->shouldReturn($organizationId);
+        $this->beConstructedGenerate();
+
+        $this::generate()->shouldReturnAnInstanceOf(MemberId::class);
     }
 }

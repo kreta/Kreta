@@ -13,15 +13,17 @@
 namespace Spec\Kreta\TaskManager\Domain\Model\Organization;
 
 use Kreta\TaskManager\Domain\Model\Organization\Member;
+use Kreta\TaskManager\Domain\Model\Organization\Organization;
 use Kreta\TaskManager\Domain\Model\Organization\Owner;
 use Kreta\TaskManager\Domain\Model\Organization\OwnerId;
+use Kreta\TaskManager\Domain\Model\User\UserId;
 use PhpSpec\ObjectBehavior;
 
 class OwnerSpec extends ObjectBehavior
 {
-    function let(OwnerId $id)
+    function let(OwnerId $id, UserId $userId, Organization $organization)
     {
-        $this->beConstructedWith($id);
+        $this->beConstructedWith($id, $userId, $organization);
     }
 
     function it_is_initializable()

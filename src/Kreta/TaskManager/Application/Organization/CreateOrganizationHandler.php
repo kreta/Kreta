@@ -20,8 +20,6 @@ use Kreta\TaskManager\Domain\Model\Organization\OrganizationAlreadyExistsExcepti
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationId;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationName;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationRepository;
-use Kreta\TaskManager\Domain\Model\Organization\Owner;
-use Kreta\TaskManager\Domain\Model\Organization\OwnerId;
 use Kreta\TaskManager\Domain\Model\User\User;
 use Kreta\TaskManager\Domain\Model\User\UserDoesNotExistException;
 use Kreta\TaskManager\Domain\Model\User\UserId;
@@ -67,12 +65,7 @@ class CreateOrganizationHandler
             new Slug(
                 null === $command->slug() ? $command->name() : $command->slug()
             ),
-            new Owner(
-                OwnerId::generate(
-                    $user->id(),
-                    $organizationId
-                )
-            )
+            $user->id()
         );
         $this->repository->persist($organization);
     }

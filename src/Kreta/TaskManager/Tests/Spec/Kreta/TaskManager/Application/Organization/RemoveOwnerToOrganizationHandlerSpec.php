@@ -18,8 +18,6 @@ use Kreta\TaskManager\Domain\Model\Organization\Organization;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationDoesNotExistException;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationId;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationRepository;
-use Kreta\TaskManager\Domain\Model\Organization\Owner;
-use Kreta\TaskManager\Domain\Model\Organization\OwnerId;
 use Kreta\TaskManager\Domain\Model\Organization\UnauthorizedOrganizationActionException;
 use Kreta\TaskManager\Domain\Model\User\UserId;
 use PhpSpec\ObjectBehavior;
@@ -47,12 +45,9 @@ class RemoveOwnerToOrganizationHandlerSpec extends ObjectBehavior
         $command->organizationId()->shouldBeCalled()->willReturn('organization-id');
         $repository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
         $command->removerId()->shouldBeCalled()->willReturn('remover-id');
-        $organization->id()->shouldBeCalled()->willReturn($organizationId);
-        $organization->isOwner(
-            OwnerId::generate(UserId::generate('remover-id'), $organizationId)
-        )->shouldBeCalled()->willReturn(true);
+        $organization->isOwner(UserId::generate('remover-id'))->shouldBeCalled()->willReturn(true);
         $command->userId()->shouldBeCalled()->willReturn('user-id');
-        $organization->removeOwner(Argument::type(Owner::class))->shouldBeCalled();
+        $organization->removeOwner(UserId::generate('user-id'))->shouldBeCalled();
         $repository->persist(Argument::type(Organization::class))->shouldBeCalled();
         $this->__invoke($command);
     }
@@ -78,10 +73,7 @@ class RemoveOwnerToOrganizationHandlerSpec extends ObjectBehavior
         $command->organizationId()->shouldBeCalled()->willReturn('organization-id');
         $repository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
         $command->removerId()->shouldBeCalled()->willReturn('remover-id');
-        $organization->id()->shouldBeCalled()->willReturn($organizationId);
-        $organization->isOwner(
-            OwnerId::generate(UserId::generate('remover-id'), $organizationId)
-        )->shouldBeCalled()->willReturn(false);
+        $organization->isOwner(UserId::generate('remover-id'))->shouldBeCalled()->willReturn(false);
         $this->shouldThrow(UnauthorizedOrganizationActionException::class)->during__invoke($command);
     }
 }
