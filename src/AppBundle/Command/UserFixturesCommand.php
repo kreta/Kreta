@@ -18,17 +18,20 @@ class UserFixturesCommand extends ContainerAwareCommand
 {
     protected function configure()
     {
-        $this->setName('fixtures.user');
+        $this->setName('fixtures:user');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $manager = $this->getContainer()->get('doctrine.orm.entity_manager');
 
-        $user = new User(
-            UserId::generate()
-        );
-        $manager->persist($user);
+        for ($i = 0; $i < 20; $i++) {
+            $user = new User(
+                UserId::generate()
+            );
+            $manager->persist($user);
+        }
+
         $manager->flush();
 
         $output->writeln('Population is successfully done');

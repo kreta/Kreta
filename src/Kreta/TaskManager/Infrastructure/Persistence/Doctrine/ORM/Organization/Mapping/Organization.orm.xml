@@ -13,32 +13,17 @@
         <field name="createdOn" type="datetime" column="created_on" nullable="false"/>
         <field name="updatedOn" type="datetime" column="updated_on" nullable="false"/>
 
-        <many-to-many field="members" target-entity="Kreta\TaskManager\Domain\Model\Organization\Member">
+        <one-to-many field="members" target-entity="Kreta\TaskManager\Domain\Model\Organization\Member"
+                     mapped-by="organization">
             <cascade>
                 <cascade-persist/>
             </cascade>
-            <join-table name="organizations_members">
-                <join-columns>
-                    <join-column name="organization_id" referenced-column-name="id"/>
-                </join-columns>
-                <inverse-join-columns>
-                    <join-column name="member_id" referenced-column-name="id" unique="true"/>
-                </inverse-join-columns>
-            </join-table>
-        </many-to-many>
-
-        <many-to-many field="owners" target-entity="Kreta\TaskManager\Domain\Model\Organization\Owner">
+        </one-to-many>
+        <one-to-many field="owners" target-entity="Kreta\TaskManager\Domain\Model\Organization\Owner"
+                     mapped-by="organization">
             <cascade>
                 <cascade-persist/>
             </cascade>
-            <join-table name="organizations_owners">
-                <join-columns>
-                    <join-column name="organization_id" referenced-column-name="id"/>
-                </join-columns>
-                <inverse-join-columns>
-                    <join-column name="owner_id" referenced-column-name="id" unique="true"/>
-                </inverse-join-columns>
-            </join-table>
-        </many-to-many>
+        </one-to-many>
     </entity>
 </doctrine-mapping>

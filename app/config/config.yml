@@ -51,6 +51,8 @@ doctrine:
         types:
             organization_id:
                 class: Kreta\TaskManager\Infrastructure\Persistence\Doctrine\DBAL\Organization\Types\OrganizationIdType
+            member_id:
+                class: Kreta\TaskManager\Infrastructure\Persistence\Doctrine\DBAL\Organization\Types\MemberIdType
             user_id:
                 class: Kreta\TaskManager\Infrastructure\Persistence\Doctrine\DBAL\User\Types\UserIdType
     orm:

@@ -18,30 +18,11 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $organization = $this->getDoctrine()->getRepository(Organization::class)->find(
-            '18f88f5e-7e87-4035-b134-299165a0ddafd'
-        );
+        $organization = $this->getDoctrine()->getRepository(Organization::class)->findOneBy([
+            'name' => 'Organization name',
+        ]);
 
-        if (null === $organization) {
-            throw new NotFoundHttpException(
-                'METE EL ID DE LA ORGANIZATION QUE SE TE HA CREADO EN LA DB EN EL ACTION DEL CONTROLLER:' .
-                'src/AppBundle/Controller/DefaultController'
-            );
-        }
-
-        $organization->addMember(
-            new Member(
-                MemberId::generate(
-                    UserId::generate(),
-                    $organization->id()
-                )
-            )
-        );
-        $this->getDoctrine()->getManager()->persist($organization);
-        $this->getDoctrine()->getManager()->flush();
-
-
-        dump($organization->members());
+        dump($organization->owners(), $organization->members());
         die;
 
         return $this->render('default/index.html.twig', [

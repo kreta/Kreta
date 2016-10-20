@@ -17,7 +17,7 @@ class OrganizationFixturesCommand extends ContainerAwareCommand
 {
     protected function configure()
     {
-        $this->setName('fixtures.organization');
+        $this->setName('fixtures:organization');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -31,13 +31,17 @@ class OrganizationFixturesCommand extends ContainerAwareCommand
             $organizationId,
             new OrganizationName('Organization name'),
             new Slug('Organization name'),
-            new Owner(
-                OwnerId::generate(
-                    $users[0]->id(),
-                    $organizationId
-                )
-            )
+            $users[0]->id()
         );
+
+        $i = 0;
+        foreach ($users as $user) {
+            if ($i > 0) {
+                $organization->addMember($user->id());
+            }
+            $i++;
+        }
+
         $manager->persist($organization);
         $manager->flush();
         $output->writeln('Population is successfully done');
