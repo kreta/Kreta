@@ -66,13 +66,13 @@ doctrine:
                 mapping: true
                 type: xml
                 is_bundle: false
-                dir: "%kernel.root_dir%/../src/Kreta/SharedKernel/Infrastructure/Persistence/Doctrine/ORM/Identity/Mapping/"
+                dir: "%kernel.root_dir%/../src/Kreta/SharedKernel/Infrastructure/Persistence/Doctrine/ORM/Identity/SymfonyMapping/"
                 prefix: 'Kreta\SharedKernel\Domain\Model\Identity'
             TaskManagerOrganization:
                 mapping: true
                 type: xml
                 is_bundle: false
-                dir: "%kernel.root_dir%/../src/Kreta/TaskManager/Infrastructure/Persistence/Doctrine/ORM/Organization/Mapping/"
+                dir: "%kernel.root_dir%/../src/Kreta/TaskManager/Infrastructure/Persistence/Doctrine/ORM/Organization/SymfonyMapping/"
                 prefix: 'Kreta\TaskManager\Domain\Model\Organization'
             TaskManagerUser:
                 mapping: true
