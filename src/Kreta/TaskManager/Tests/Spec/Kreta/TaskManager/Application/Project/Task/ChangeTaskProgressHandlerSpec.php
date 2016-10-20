@@ -14,7 +14,6 @@ namespace Spec\Kreta\TaskManager\Application\Project\Task;
 
 use Kreta\TaskManager\Application\Project\Task\ChangeTaskProgressCommand;
 use Kreta\TaskManager\Application\Project\Task\ChangeTaskProgressHandler;
-use Kreta\TaskManager\Domain\Model\Organization\MemberId;
 use Kreta\TaskManager\Domain\Model\Organization\Organization;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationId;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationRepository;
@@ -25,6 +24,7 @@ use Kreta\TaskManager\Domain\Model\Project\Task\Task;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskId;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskProgress;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskRepository;
+use Kreta\TaskManager\Domain\Model\User\UserId;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -33,8 +33,8 @@ class ChangeTaskProgressHandlerSpec extends ObjectBehavior
     function let(
         OrganizationRepository $organizationRepository,
         ProjectRepository $projectRepository,
-        TaskRepository $taskRepository)
-    {
+        TaskRepository $taskRepository
+    ) {
         $this->beConstructedWith($organizationRepository, $projectRepository, $taskRepository);
     }
 
@@ -65,8 +65,7 @@ class ChangeTaskProgressHandlerSpec extends ObjectBehavior
         $project->organizationId()->shouldBeCalled()->willReturn($organizationId);
 
         $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
-        $organization->id()->shouldBeCalled()->willReturn($organizationId);
-        $organization->isMember(Argument::type(MemberId::class))->shouldBeCalled()->willReturn(true);
+        $organization->isMember(UserId::generate('editor-id'))->shouldBeCalled()->willReturn(true);
 
         $task->changeProgress(Argument::type(TaskProgress::class))->shouldBeCalled();
 

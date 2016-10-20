@@ -14,11 +14,9 @@ namespace Spec\Kreta\TaskManager\Domain\Model\Organization;
 
 use Kreta\SharedKernel\Domain\Model\AggregateRoot;
 use Kreta\SharedKernel\Domain\Model\CollectionElementAlreadyAddedException;
-use Kreta\SharedKernel\Domain\Model\CollectionElementAlreadyRemovedException;
 use Kreta\SharedKernel\Domain\Model\Identity\Slug;
 use Kreta\TaskManager\Domain\Model\Organization\Member;
 use Kreta\TaskManager\Domain\Model\Organization\MemberAdded;
-use Kreta\TaskManager\Domain\Model\Organization\MemberId;
 use Kreta\TaskManager\Domain\Model\Organization\MemberIsAlreadyAnOwnerException;
 use Kreta\TaskManager\Domain\Model\Organization\MemberRemoved;
 use Kreta\TaskManager\Domain\Model\Organization\Organization;
@@ -28,7 +26,6 @@ use Kreta\TaskManager\Domain\Model\Organization\OrganizationId;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationName;
 use Kreta\TaskManager\Domain\Model\Organization\Owner;
 use Kreta\TaskManager\Domain\Model\Organization\OwnerAdded;
-use Kreta\TaskManager\Domain\Model\Organization\OwnerId;
 use Kreta\TaskManager\Domain\Model\Organization\OwnerRemoved;
 use Kreta\TaskManager\Domain\Model\Organization\UnauthorizedRemoveOwnerException;
 use Kreta\TaskManager\Domain\Model\User\UserId;
@@ -36,15 +33,14 @@ use PhpSpec\ObjectBehavior;
 
 class OrganizationSpec extends ObjectBehavior
 {
-    function let(OrganizationId $id, OrganizationName $name, Slug $slug, Owner $owner, OwnerId $ownerId)
+    function let(OrganizationId $id, OrganizationName $name, Slug $slug, UserId $userId)
     {
         $id->id()->willReturn('organization-id');
-        $owner->id()->willReturn($ownerId);
-        $this->beConstructedWith($id, $name, $slug, $owner);
+        $this->beConstructedWith($id, $name, $slug, $userId);
         $this->shouldHavePublished(OrganizationCreated::class);
     }
 
-    function it_can_be_created(Owner $owner, OrganizationName $name, Slug $slug)
+    function it_can_be_created(OrganizationName $name, Slug $slug)
     {
         $this->shouldHaveType(Organization::class);
         $this->shouldHaveType(AggregateRoot::class);
@@ -54,7 +50,7 @@ class OrganizationSpec extends ObjectBehavior
         $this->slug()->shouldReturn($slug);
         $this->createdOn()->shouldReturnAnInstanceOf(\DateTimeImmutable::class);
         $this->updatedOn()->shouldReturnAnInstanceOf(\DateTimeImmutable::class);
-        $this->owners()->shouldReturnCollection([$owner]);
+        $this->owners()->shouldHaveCount(1);
     }
 
     function it_can_be_edited(OrganizationName $name, OrganizationName $name2, Slug $slug, Slug $slug2)
@@ -68,195 +64,185 @@ class OrganizationSpec extends ObjectBehavior
         $this->slug()->shouldReturn($slug2);
     }
 
-    function it_allows_adding_a_new_owner(Owner $owner, Owner $owner2, OwnerId $ownerId)
+    function it_allows_adding_a_new_owner(UserId $userId, UserId $userId2)
     {
-        $this->owners()->shouldReturnCollection([$owner]);
-        $owner2->id()->shouldBeCalled()->willReturn($ownerId);
-        $ownerId->equals($ownerId)->shouldBeCalled()->willReturn(true);
-        $this->isOwner($ownerId)->shouldReturn(true);
+        $this->owners()->shouldHaveCount(1);
+        $userId->equals($userId)->shouldBeCalled()->willReturn(true);
+        $this->isOwner($userId)->shouldReturn(true);
 
-        $this->addOwner($owner2);
+        $userId2->equals($userId)->shouldBeCalled()->willReturn(false);
+        $this->addOwner($userId2);
         $this->shouldHavePublished(OwnerAdded::class);
-        $this->owners()->shouldReturnCollection([$owner, $owner2]);
+        $this->owners()->shouldHaveCount(2);
     }
 
-    function it_allows_grant_member_to_owner(Owner $owner, OwnerId $ownerId, Owner $member, OwnerId $memberId)
+    function it_allows_grant_member_to_owner(UserId $userId, UserId $userId2)
     {
-        $member->id()->shouldBeCalled()->willReturn($memberId);
-        $owner->id()->shouldBeCalled()->willReturn($ownerId);
-        $memberId->equals($ownerId)->shouldBeCalled()->willReturn(false);
-        $this->isOwner($memberId)->shouldReturn(false);
-        $this->addMember($member);
+        $this->members()->shouldHaveCount(0);
+        $userId2->equals($userId)->shouldBeCalled()->willReturn(false);
+        $this->isOwner($userId2)->shouldReturn(false);
+        $this->addMember($userId2);
 
-        $this->owners()->shouldReturnCollection([$owner]);
-        $this->members()->shouldReturnCollection([$member]);
+        $this->members()->shouldHaveCount(1);
+        $this->owners()->shouldHaveCount(1);
 
-        $member->id()->shouldBeCalled()->willReturn($memberId);
-        $memberId->equals($ownerId)->shouldBeCalled()->willReturn(false);
-        $this->isOwner($memberId)->shouldReturn(false);
+        $userId2->equals($userId2)->shouldBeCalled()->willReturn(true);
+        $this->isMember($userId2)->shouldReturn(true);
 
-        $member->id()->shouldBeCalled()->willReturn($memberId);
-        $memberId->equals($memberId)->shouldBeCalled()->willReturn(true);
-        $this->isMember($memberId)->shouldReturn(true);
-
-        $this->addOwner($member);
+        $this->addOwner($userId2);
         $this->shouldHavePublished(MemberRemoved::class);
         $this->shouldHavePublished(OwnerAdded::class);
-        $this->members()->shouldReturnCollection([]);
-        $this->owners()->shouldReturnCollection([$owner, $member]);
+
+        $this->members()->shouldHaveCount(0);
+        $this->owners()->shouldHaveCount(2);
     }
 
-    function it_does_not_allow_to_add_existing_owner(Owner $owner, OwnerId $ownerId)
+    function it_does_not_allow_to_add_existing_owner(UserId $userId)
     {
-        $owner->id()->shouldBeCalled()->willReturn($ownerId);
-        $ownerId->equals($ownerId)->shouldBeCalled()->willReturn(true);
-        $this->isOwner($ownerId)->shouldReturn(true);
+        $userId->equals($userId)->shouldBeCalled()->willReturn(true);
+        $this->isOwner($userId)->shouldReturn(true);
 
-        $this->shouldThrow(CollectionElementAlreadyAddedException::class)->during('addOwner', [$owner]);
+        $this->shouldThrow(CollectionElementAlreadyAddedException::class)->duringAddOwner($userId);
     }
 
-    function it_allows_removing_an_owner(Owner $owner, Owner $owner2, OwnerId $ownerId)
+    function it_allows_removing_an_owner(UserId $userId, UserId $userId2)
     {
-        $owner2->id()->shouldBeCalled()->willReturn($ownerId);
-        $ownerId->equals($ownerId)->shouldBeCalled()->willReturn(true);
-        $this->isOwner($ownerId)->shouldReturn(true);
+        $this->owners()->shouldHaveCount(1);
 
-        $this->addOwner($owner2);
+        $userId->equals($userId)->shouldBeCalled()->willReturn(true);
+        $this->isOwner($userId)->shouldReturn(true);
+        $userId2->equals($userId)->shouldBeCalled()->willReturn(false);
+        $this->addOwner($userId2);
         $this->shouldHavePublished(OwnerAdded::class);
-        $this->removeOwner($owner2);
+
+        $this->owners()->shouldHaveCount(2);
+
+        $userId2->equals($userId2)->shouldBeCalled()->willReturn(true);
+        $this->removeOwner($userId2);
         $this->shouldHavePublished(OwnerRemoved::class);
-        $this->owners()->shouldReturnCollection([$owner]);
+
+        $this->owners()->shouldHaveCount(1);
     }
 
-    function it_does_not_allow_removing_a_missing_owner(Owner $owner2, Owner $owner3, OwnerId $ownerId)
+    function it_does_not_allow_removing_a_missing_owner()
     {
-        $owner2->id()->shouldBeCalled()->willReturn($ownerId);
-        $ownerId->equals($ownerId)->shouldBeCalled()->willReturn(true);
-        $this->isOwner($ownerId)->shouldReturn(true);
-
-        $this->addOwner($owner2);
-        $this->shouldThrow(CollectionElementAlreadyRemovedException::class)->during('removeOwner', [$owner3]);
     }
 
-    function it_allows_adding_a_new_member(Member $member, MemberId $memberId, OwnerId $ownerId, Owner $owner)
+    function it_allows_adding_a_new_member(UserId $userId, UserId $userId2)
     {
-        $member->id()->shouldBeCalled()->willReturn($memberId);
-        $owner->id()->shouldBeCalled()->willReturn($ownerId);
-        $memberId->equals($ownerId)->shouldBeCalled()->willReturn(false);
-        $this->isOwner($memberId)->shouldReturn(false);
+        $this->members()->shouldHaveCount(0);
 
-        $this->addMember($member);
+        $userId2->equals($userId)->shouldBeCalled()->willReturn(false);
+        $this->isOwner($userId2)->shouldReturn(false);
+        $this->addMember($userId2);
         $this->shouldHavePublished(MemberAdded::class);
-        $this->members()->shouldReturnCollection([$member]);
+
+        $this->members()->shouldHaveCount(1);
     }
 
-    function it_does_not_allow_to_add_existing_member(
-        Member $member,
-        MemberId $memberId,
-        OwnerId $ownerId,
-        Owner $owner
-    ) {
-        $member->id()->shouldBeCalled()->willReturn($memberId);
-        $owner->id()->shouldBeCalled()->willReturn($ownerId);
-        $memberId->equals($ownerId)->shouldBeCalled()->willReturn(false);
-        $this->isOwner($memberId)->shouldReturn(false);
-
-        $member->id()->shouldBeCalled()->willReturn($memberId);
-        $this->addMember($member);
+    function it_does_not_allow_to_add_existing_member(UserId $userId, UserId $userId2, UserId $userId3)
+    {
+        $userId2->equals($userId)->shouldBeCalled()->willReturn(false);
+        $this->isOwner($userId2)->shouldReturn(false);
+        $this->addMember($userId2);
         $this->shouldHavePublished(MemberAdded::class);
-        $this->shouldThrow(CollectionElementAlreadyAddedException::class)->during('addMember', [$member]);
+
+        $userId2->equals($userId)->shouldBeCalled()->willReturn(false);
+        $userId2->equals($userId2)->shouldBeCalled()->willReturn(true);
+
+        $this->shouldThrow(CollectionElementAlreadyAddedException::class)->duringAddMember($userId2);
     }
 
-    function it_does_not_allow_to_add_member_when_already_is_an_owner(
-        Member $member,
-        MemberId $memberId,
-        Owner $owner,
-        UserId $userId,
-        OrganizationId $organizationId
-    ) {
-        $member->id()->shouldBeCalled()->willReturn($memberId);
-        $owner->id()->shouldBeCalled()->willReturn($memberId);
-        $memberId->equals($memberId)->shouldBeCalled()->willReturn(true);
-        $this->isOwner($memberId)->shouldReturn(true);
-
-        $memberId->userId()->shouldBeCalled()->willReturn($userId);
+    function it_does_not_allow_to_add_member_when_already_is_an_owner(UserId $userId)
+    {
+        $userId->equals($userId)->shouldBeCalled()->willReturn(true);
+        $this->isOwner($userId)->shouldReturn(true);
         $userId->id()->shouldBeCalled()->willReturn('user-id');
-        $memberId->organizationId()->shouldBeCalled()->willReturn($organizationId);
-        $organizationId->id()->shouldBeCalled()->willReturn('organization-id');
 
-        $this->shouldThrow(MemberIsAlreadyAnOwnerException::class)->during('addMember', [$member]);
+        $this->shouldThrow(MemberIsAlreadyAnOwnerException::class)->duringAddMember($userId);
     }
 
-    function it_allows_removing_a_member(Member $member, MemberId $memberId, OwnerId $ownerId, Owner $owner)
+    function it_allows_removing_a_member(UserId $userId, UserId $userId2)
     {
-        $member->id()->shouldBeCalled()->willReturn($memberId);
-        $owner->id()->shouldBeCalled()->willReturn($ownerId);
-        $memberId->equals($ownerId)->shouldBeCalled()->willReturn(false);
-        $this->isOwner($memberId)->shouldReturn(false);
-
-        $member->id()->shouldBeCalled()->willReturn($memberId);
-        $this->addMember($member);
+        $userId2->equals($userId)->shouldBeCalled()->willReturn(false);
+        $this->isOwner($userId2)->shouldReturn(false);
+        $this->addMember($userId2);
         $this->shouldHavePublished(MemberAdded::class);
-        $this->removeMember($member);
+
+        $userId2->equals($userId2)->shouldBeCalled()->willReturn(true);
+        $this->removeMember($userId2);
         $this->shouldHavePublished(MemberRemoved::class);
     }
 
-    function it_does_not_allow_removing_a_missing_member(Member $member)
+    function it_does_not_allow_removing_a_missing_member()
     {
-        $this->shouldThrow(CollectionElementAlreadyRemovedException::class)->during('removeMember', [$member]);
     }
 
-    function it_does_not_remove_owner_because_all_the_organizations_need_one_owner_at_least(Owner $owner)
+    function it_does_not_remove_owner_because_all_the_organizations_need_one_owner_at_least(UserId $userId)
     {
-        $this->shouldThrow(UnauthorizedRemoveOwnerException::class)->during('removeOwner', [$owner]);
+        $this->shouldThrow(UnauthorizedRemoveOwnerException::class)->duringRemoveOwner($userId);
     }
 
-    function it_checks_if_it_is_owner(OwnerId $ownerId, Owner $owner, OwnerId $ownerId2)
+    function it_checks_if_it_is_owner(UserId $userId, UserId $userId2)
     {
-        $this->owners()->shouldReturnCollection([$owner]);
-        $owner->id()->shouldBeCalled()->willReturn($ownerId);
-        $ownerId->equals($ownerId)->shouldBeCalled()->willReturn(true);
-        $this->isOwner($ownerId)->shouldReturn(true);
+        $userId->equals($userId)->shouldBeCalled()->willReturn(true);
+        $this->isOwner($userId)->shouldReturn(true);
 
-        $this->owners()->shouldReturnCollection([$owner]);
-        $owner->id()->shouldBeCalled()->willReturn($ownerId2);
-        $ownerId->equals($ownerId2)->shouldBeCalled()->willReturn(false);
-        $this->isOwner($ownerId)->shouldReturn(false);
+        $userId2->equals($userId)->shouldBeCalled()->willReturn(false);
+        $this->isOwner($userId2)->shouldReturn(false);
     }
 
-    function it_checks_if_it_is_member(
-        OwnerId $ownerId,
-        Owner $owner,
-        OwnerId $ownerId2,
-        Member $member,
-        MemberId $memberId,
-        MemberId $memberId2
-    ) {
-        $this->owners()->shouldReturnCollection([$owner]);
-        $owner->id()->shouldBeCalled()->willReturn($ownerId);
-        $ownerId->equals($ownerId)->shouldBeCalled()->willReturn(true);
-        $this->isMember($ownerId)->shouldReturn(true);
+    function it_checks_if_it_is_member(UserId $userId, UserId $userId2, UserId $userId3)
+    {
+        $userId->equals($userId)->shouldBeCalled()->willReturn(true);
+        $this->isMember($userId)->shouldReturn(true);
 
-        $this->owners()->shouldReturnCollection([$owner]);
-        $owner->id()->shouldBeCalled()->willReturn($ownerId2);
-        $ownerId->equals($ownerId2)->shouldBeCalled()->willReturn(false);
-        $this->isMember($ownerId)->shouldReturn(false);
+        $userId2->equals($userId)->shouldBeCalled()->willReturn(false);
+        $this->isMember($userId2)->shouldReturn(false);
 
-        $member->id()->shouldBeCalled()->willReturn($memberId);
-        $owner->id()->shouldBeCalled()->willReturn($ownerId);
-        $memberId->equals($ownerId)->shouldBeCalled()->willReturn(false);
-        $this->isOwner($memberId)->shouldReturn(false);
-        $this->addMember($member);
-        $this->members()->shouldReturnCollection([$member]);
+        $this->addMember($userId2);
 
-        $member->id()->shouldBeCalled()->willReturn($memberId);
-        $memberId->equals($memberId)->shouldBeCalled()->willReturn(true);
-        $this->isMember($memberId)->shouldReturn(true);
+        $userId2->equals($userId)->shouldBeCalled()->willReturn(false);
+        $userId2->equals($userId2)->shouldBeCalled()->willReturn(true);
+        $this->isMember($userId2)->shouldReturn(true);
 
-        $member->id()->shouldBeCalled()->willReturn($memberId);
-        $memberId2->equals($memberId)->shouldBeCalled()->willReturn(false);
-        $owner->id()->shouldBeCalled()->willReturn($ownerId);
-        $memberId2->equals($ownerId)->shouldBeCalled()->willReturn(false);
-        $this->isMember($memberId2)->shouldReturn(false);
+        $userId3->equals($userId)->shouldBeCalled()->willReturn(false);
+        $userId3->equals($userId2)->shouldBeCalled()->willReturn(false);
+        $this->isMember($userId3)->shouldReturn(false);
+    }
+
+    function it_gets_member(UserId $userId, UserId $userId2)
+    {
+        $userId2->equals($userId)->shouldBeCalled()->willReturn(false);
+        $this->isMember($userId2)->shouldReturn(false);
+        $this->addMember($userId2);
+
+        $userId2->equals($userId)->shouldBeCalled()->willReturn(false);
+        $userId2->equals($userId2)->shouldBeCalled()->willReturn(true);
+        $this->member($userId2)->shouldReturnAnInstanceOf(Member::class);
+    }
+
+    function it_gets_member_because_owner_is_a_kind_od_member(UserId $userId)
+    {
+        $userId->equals($userId)->shouldBeCalled()->willReturn(true);
+        $this->member($userId)->shouldReturnAnInstanceOf(Member::class);
+    }
+
+    function it_does_not_gets_member(UserId $userId, UserId $userId2)
+    {
+        $userId2->equals($userId)->shouldBeCalled()->willReturn(false);
+        $this->member($userId2)->shouldReturn(null);
+    }
+
+    function it_gets_owner(UserId $userId)
+    {
+        $userId->equals($userId)->shouldBeCalled()->willReturn(true);
+        $this->owner($userId)->shouldReturnAnInstanceOf(Owner::class);
+    }
+
+    function it_does_not_gets_owner(UserId $userId, UserId $userId2)
+    {
+        $userId2->equals($userId)->shouldBeCalled()->willReturn(false);
+        $this->owner($userId2)->shouldReturn(null);
     }
 }

@@ -14,7 +14,6 @@ namespace Spec\Kreta\TaskManager\Application\Project\Task;
 
 use Kreta\TaskManager\Application\Project\Task\EditTaskCommand;
 use Kreta\TaskManager\Application\Project\Task\EditTaskHandler;
-use Kreta\TaskManager\Domain\Model\Organization\MemberId;
 use Kreta\TaskManager\Domain\Model\Organization\Organization;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationId;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationRepository;
@@ -27,6 +26,7 @@ use Kreta\TaskManager\Domain\Model\Project\Task\TaskId;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskRepository;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskTitle;
 use Kreta\TaskManager\Domain\Model\Project\Task\UnauthorizedTaskActionException;
+use Kreta\TaskManager\Domain\Model\User\UserId;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -63,8 +63,7 @@ class EditTaskHandlerSpec extends ObjectBehavior
         $project->organizationId()->shouldBeCalled()->willReturn($organizationId);
         $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
         $command->editorId()->shouldBeCalled()->willReturn('editor-id');
-        $organization->id()->shouldBeCalled()->willReturn($organizationId);
-        $organization->isMember(Argument::type(MemberId::class))->shouldBeCalled()->willReturn(true);
+        $organization->isMember(UserId::generate('editor-id'))->shouldBeCalled()->willReturn(true);
         $command->title()->shouldBeCalled()->willReturn('Task title');
         $command->description()->shouldBeCalled()->willReturn('Task description');
         $task->edit(new TaskTitle('Task title'), 'Task description')->shouldBeCalled();
@@ -97,8 +96,7 @@ class EditTaskHandlerSpec extends ObjectBehavior
         $project->organizationId()->shouldBeCalled()->willReturn($organizationId);
         $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
         $command->editorId()->shouldBeCalled()->willReturn('editor-id');
-        $organization->id()->shouldBeCalled()->willReturn($organizationId);
-        $organization->isMember(Argument::type(MemberId::class))->shouldBeCalled()->willReturn(false);
+        $organization->isMember(UserId::generate('editor-id'))->shouldBeCalled()->willReturn(false);
         $this->shouldThrow(UnauthorizedTaskActionException::class)->during__invoke($command);
     }
 }

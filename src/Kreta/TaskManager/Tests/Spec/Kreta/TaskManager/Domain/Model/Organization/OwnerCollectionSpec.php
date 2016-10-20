@@ -12,7 +12,7 @@
 
 namespace Spec\Kreta\TaskManager\Domain\Model\Organization;
 
-use Kreta\SharedKernel\Domain\Model\Collection;
+use Kreta\TaskManager\Domain\Model\Organization\MemberCollection;
 use Kreta\TaskManager\Domain\Model\Organization\OwnerCollection;
 use PhpSpec\ObjectBehavior;
 
@@ -21,6 +21,6 @@ class OwnerCollectionSpec extends ObjectBehavior
     function it_is_initializable()
     {
         $this->shouldHaveType(OwnerCollection::class);
-        $this->shouldHaveType(Collection::class);
+        $this->shouldHaveType(MemberCollection::class);
     }
 }

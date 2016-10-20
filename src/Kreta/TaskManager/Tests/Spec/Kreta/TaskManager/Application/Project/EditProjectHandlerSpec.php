@@ -18,13 +18,13 @@ use Kreta\TaskManager\Application\Project\EditProjectHandler;
 use Kreta\TaskManager\Domain\Model\Organization\Organization;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationId;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationRepository;
-use Kreta\TaskManager\Domain\Model\Organization\OwnerId;
 use Kreta\TaskManager\Domain\Model\Project\Project;
 use Kreta\TaskManager\Domain\Model\Project\ProjectDoesNotExistException;
 use Kreta\TaskManager\Domain\Model\Project\ProjectId;
 use Kreta\TaskManager\Domain\Model\Project\ProjectName;
 use Kreta\TaskManager\Domain\Model\Project\ProjectRepository;
 use Kreta\TaskManager\Domain\Model\Project\UnauthorizedProjectActionException;
+use Kreta\TaskManager\Domain\Model\User\UserId;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -55,8 +55,7 @@ class EditProjectHandlerSpec extends ObjectBehavior
         $projectRepository->projectOfId(ProjectId::generate('project-id'))->shouldBeCalled()->willReturn($project);
         $project->organizationId()->shouldBeCalled()->willReturn($organizationId);
         $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
-        $organization->id()->shouldBeCalled()->willReturn($organizationId);
-        $organization->isOwner(Argument::type(OwnerId::class))->shouldBeCalled()->willReturn(true);
+        $organization->isOwner(UserId::generate('editor-id'))->shouldBeCalled()->willReturn(true);
         $project->edit(new ProjectName('Project name'), new Slug('project-name'))->shouldBeCalled();
         $projectRepository->persist(Argument::type(Project::class))->shouldBeCalled();
         $this->__invoke($command);
@@ -77,8 +76,7 @@ class EditProjectHandlerSpec extends ObjectBehavior
         $projectRepository->projectOfId(ProjectId::generate('project-id'))->shouldBeCalled()->willReturn($project);
         $project->organizationId()->shouldBeCalled()->willReturn($organizationId);
         $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
-        $organization->id()->shouldBeCalled()->willReturn($organizationId);
-        $organization->isOwner(Argument::type(OwnerId::class))->shouldBeCalled()->willReturn(true);
+        $organization->isOwner(UserId::generate('editor-id'))->shouldBeCalled()->willReturn(true);
         $project->edit(new ProjectName('Project name'), new Slug('Project name'))->shouldBeCalled();
         $projectRepository->persist(Argument::type(Project::class))->shouldBeCalled();
         $this->__invoke($command);
@@ -108,8 +106,7 @@ class EditProjectHandlerSpec extends ObjectBehavior
         $projectRepository->projectOfId(ProjectId::generate('project-id'))->shouldBeCalled()->willReturn($project);
         $project->organizationId()->shouldBeCalled()->willReturn($organizationId);
         $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
-        $organization->id()->shouldBeCalled()->willReturn($organizationId);
-        $organization->isOwner(Argument::type(OwnerId::class))->shouldBeCalled()->willReturn(false);
+        $organization->isOwner(UserId::generate('editor-id'))->shouldBeCalled()->willReturn(false);
         $this->shouldThrow(UnauthorizedProjectActionException::class)->during__invoke($command);
     }
 }

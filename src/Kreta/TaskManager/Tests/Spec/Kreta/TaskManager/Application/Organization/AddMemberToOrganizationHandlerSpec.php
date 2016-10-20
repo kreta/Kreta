@@ -14,12 +14,10 @@ namespace Spec\Kreta\TaskManager\Application\Organization;
 
 use Kreta\TaskManager\Application\Organization\AddMemberToOrganizationCommand;
 use Kreta\TaskManager\Application\Organization\AddMemberToOrganizationHandler;
-use Kreta\TaskManager\Domain\Model\Organization\Member;
 use Kreta\TaskManager\Domain\Model\Organization\Organization;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationDoesNotExistException;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationId;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationRepository;
-use Kreta\TaskManager\Domain\Model\Organization\OwnerId;
 use Kreta\TaskManager\Domain\Model\Organization\UnauthorizedOrganizationActionException;
 use Kreta\TaskManager\Domain\Model\User\UserId;
 use PhpSpec\ObjectBehavior;
@@ -47,12 +45,9 @@ class AddMemberToOrganizationHandlerSpec extends ObjectBehavior
         $command->organizationId()->shouldBeCalled()->willReturn('organization-id');
         $repository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
         $command->adderId()->shouldBeCalled()->willReturn('adder-id');
-        $organization->id()->shouldBeCalled()->willReturn($organizationId);
-        $organization->isOwner(
-            OwnerId::generate(UserId::generate('adder-id'), $organizationId)
-        )->shouldBeCalled()->willReturn(true);
+        $organization->isOwner(UserId::generate('adder-id'))->shouldBeCalled()->willReturn(true);
         $command->userId()->shouldBeCalled()->willReturn('user-id');
-        $organization->addMember(Argument::type(Member::class))->shouldBeCalled();
+        $organization->addMember(UserId::generate('user-id'))->shouldBeCalled();
         $repository->persist(Argument::type(Organization::class))->shouldBeCalled();
         $this->__invoke($command);
     }
@@ -78,10 +73,7 @@ class AddMemberToOrganizationHandlerSpec extends ObjectBehavior
         $command->organizationId()->shouldBeCalled()->willReturn('organization-id');
         $repository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
         $command->adderId()->shouldBeCalled()->willReturn('adder-id');
-        $organization->id()->shouldBeCalled()->willReturn($organizationId);
-        $organization->isOwner(
-            OwnerId::generate(UserId::generate('adder-id'), $organizationId)
-        )->shouldBeCalled()->willReturn(false);
+        $organization->isOwner(UserId::generate('adder-id'))->shouldBeCalled()->willReturn(false);
         $this->shouldThrow(UnauthorizedOrganizationActionException::class)->during__invoke($command);
     }
 }

@@ -20,7 +20,6 @@ use Kreta\TaskManager\Domain\Model\Organization\OrganizationDoesNotExistExceptio
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationId;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationName;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationRepository;
-use Kreta\TaskManager\Domain\Model\Organization\OwnerId;
 use Kreta\TaskManager\Domain\Model\Organization\UnauthorizedEditOrganizationException;
 use Kreta\TaskManager\Domain\Model\User\UserId;
 
@@ -43,7 +42,7 @@ class EditOrganizationHandler
         if (!$organization instanceof Organization) {
             throw new OrganizationDoesNotExistException();
         }
-        if (!$organization->isOwner(OwnerId::generate(UserId::generate($command->userId()), $organization->id()))) {
+        if (!$organization->isOwner(UserId::generate($command->userId()))) {
             throw new UnauthorizedEditOrganizationException();
         }
         $organization->edit(
