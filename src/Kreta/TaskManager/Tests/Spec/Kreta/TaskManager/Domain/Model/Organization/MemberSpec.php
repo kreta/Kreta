@@ -14,22 +14,26 @@ namespace Spec\Kreta\TaskManager\Domain\Model\Organization;
 
 use Kreta\TaskManager\Domain\Model\Organization\Member;
 use Kreta\TaskManager\Domain\Model\Organization\MemberId;
+use Kreta\TaskManager\Domain\Model\Organization\Organization;
+use Kreta\TaskManager\Domain\Model\User\UserId;
 use PhpSpec\ObjectBehavior;
 
 class MemberSpec extends ObjectBehavior
 {
-    function let(MemberId $id)
+    function let(MemberId $id, UserId $userId, Organization $organization)
     {
-        $id->__toString()->willReturn('UserId: user-id, OrganizationId: organization-id');
-        $this->beConstructedWith($id);
+        $id->id()->willReturn('member-id');
+        $this->beConstructedWith($id, $userId, $organization);
     }
 
     function it_can_be_created()
     {
         $this->shouldHaveType(Member::class);
         $this->id()->shouldReturnAnInstanceOf(MemberId::class);
+        $this->userId()->shouldReturnAnInstanceOf(UserId::class);
+        $this->organization()->shouldReturnAnInstanceOf(Organization::class);
         $this->createdOn()->shouldReturnAnInstanceOf(\DateTimeImmutable::class);
         $this->updatedOn()->shouldReturnAnInstanceOf(\DateTimeImmutable::class);
-        $this->__toString()->shouldReturn('UserId: user-id, OrganizationId: organization-id');
+        $this->__toString()->shouldReturn('member-id');
     }
 }

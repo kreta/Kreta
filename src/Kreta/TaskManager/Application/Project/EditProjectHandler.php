@@ -16,7 +16,6 @@ namespace Kreta\TaskManager\Application\Project;
 
 use Kreta\SharedKernel\Domain\Model\Identity\Slug;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationRepository;
-use Kreta\TaskManager\Domain\Model\Organization\OwnerId;
 use Kreta\TaskManager\Domain\Model\Project\Project;
 use Kreta\TaskManager\Domain\Model\Project\ProjectDoesNotExistException;
 use Kreta\TaskManager\Domain\Model\Project\ProjectId;
@@ -49,13 +48,7 @@ class EditProjectHandler
             $project->organizationId()
         );
 
-        $ownerId = OwnerId::generate(
-            UserId::generate(
-                $command->editorId()
-            ),
-            $organization->id()
-        );
-        if (!$organization->isOwner($ownerId)) {
+        if (!$organization->isOwner(UserId::generate($command->editorId()))) {
             throw new UnauthorizedProjectActionException();
         }
 

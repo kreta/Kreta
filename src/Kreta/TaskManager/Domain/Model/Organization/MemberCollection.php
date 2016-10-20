@@ -22,4 +22,16 @@ class MemberCollection extends Collection
     {
         return Member::class;
     }
+
+    public function contains($element)
+    {
+        $members = $this->toArray();
+        foreach ($members as $member) {
+            if ($element->userId()->equals($member->userId())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

@@ -14,7 +14,6 @@ namespace Spec\Kreta\TaskManager\Application\Project\Task;
 
 use Kreta\TaskManager\Application\Project\Task\ChangeTaskPriorityCommand;
 use Kreta\TaskManager\Application\Project\Task\ChangeTaskPriorityHandler;
-use Kreta\TaskManager\Domain\Model\Organization\MemberId;
 use Kreta\TaskManager\Domain\Model\Organization\Organization;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationId;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationRepository;
@@ -27,6 +26,7 @@ use Kreta\TaskManager\Domain\Model\Project\Task\TaskId;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskPriority;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskRepository;
 use Kreta\TaskManager\Domain\Model\Project\Task\UnauthorizedTaskActionException;
+use Kreta\TaskManager\Domain\Model\User\UserId;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -67,8 +67,7 @@ class ChangeTaskPriorityHandlerSpec extends ObjectBehavior
         $project->organizationId()->shouldBeCalled()->willReturn($organizationId);
 
         $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
-        $organization->isMember(Argument::type(MemberId::class))->shouldBeCalled()->willReturn(true);
-        $organization->id()->shouldBeCalled()->willReturn($organizationId);
+        $organization->isMember(UserId::generate('editor-id'))->shouldBeCalled()->willReturn(true);
 
         $task->changePriority(Argument::type(TaskPriority::class))->shouldBeCalled();
 
@@ -109,8 +108,7 @@ class ChangeTaskPriorityHandlerSpec extends ObjectBehavior
         $project->organizationId()->shouldBeCalled()->willReturn($organizationId);
 
         $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
-        $organization->id()->shouldBeCalled()->willReturn($organizationId);
-        $organization->isMember(Argument::type(MemberId::class))->shouldBeCalled()->willReturn(false);
+        $organization->isMember(UserId::generate('editor-id'))->shouldBeCalled()->willReturn(false);
 
         $this->shouldThrow(UnauthorizedTaskActionException::class)->during('__invoke', [$command]);
     }
