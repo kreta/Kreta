@@ -10,14 +10,13 @@
  * file that was distributed with this source code.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Kreta\TaskManager\Domain\Model\Organization;
 
 use Kreta\SharedKernel\Domain\Model\AggregateRoot;
 use Kreta\SharedKernel\Domain\Model\Identity\Slug;
 use Kreta\TaskManager\Domain\Model\User\UserId;
-use Kreta\SharedKernel\Domain\Model\Identity\BaseId;
 
 class Organization extends AggregateRoot
 {
@@ -50,11 +49,11 @@ class Organization extends AggregateRoot
         if ($this->isOwner($userId)) {
             throw new OrganizationMemberIsAlreadyAnOwnerException($userId);
         }
-        $organizationMembers = new OrganizationMember(OrganizationMemberId::generate(), $userId, $this);
-        $this->organizationMembers->add($organizationMembers);
+        $organizationMember = new OrganizationMember(OrganizationMemberId::generate(), $userId, $this);
+        $this->organizationMembers->add($organizationMember);
         $this->updatedOn = new \DateTimeImmutable();
         $this->publish(
-            new OrganizationMemberAdded($organizationMembers->id(), $organizationMembers->userId(), $this->id)
+            new OrganizationMemberAdded($organizationMember->id(), $userId, $this->id)
         );
     }
 
@@ -67,7 +66,7 @@ class Organization extends AggregateRoot
         $this->owners->add($owner);
         $this->updatedOn = new \DateTimeImmutable();
         $this->publish(
-            new OwnerAdded($owner->id(), $owner->userId(), $this->id)
+            new OwnerAdded($owner->id(), $userId, $this->id)
         );
     }
 
@@ -83,7 +82,7 @@ class Organization extends AggregateRoot
 
     public function removeOrganizationMember(UserId $userId)
     {
-        $this->organizationMembers->remove($userId);
+        $this->organizationMembers->removeByUserId($userId);
         $this->updatedOn = new \DateTimeImmutable();
 
         $this->publish(new OrganizationMemberRemoved($this->id, $userId));
@@ -94,7 +93,6 @@ class Organization extends AggregateRoot
         if ($this->owners()->count() === 1) {
             throw new UnauthorizedRemoveOwnerException();
         }
-
         $this->owners->removeByUserId($userId);
         $this->updatedOn = new \DateTimeImmutable();
 
@@ -168,10 +166,6 @@ class Organization extends AggregateRoot
 
     public function __toString() : string
     {
-        return (string)$this->id->id();
-    }
-
-    public function addMember(BaseId $baseId)
-    {
+        return (string) $this->id->id();
     }
 }

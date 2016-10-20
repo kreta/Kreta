@@ -14,15 +14,15 @@ namespace Spec\Kreta\TaskManager\Domain\Model\Organization;
 
 use Kreta\SharedKernel\Domain\Model\DomainEvent;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationId;
-use Kreta\TaskManager\Domain\Model\Organization\OwnerId;
 use Kreta\TaskManager\Domain\Model\Organization\OwnerRemoved;
+use Kreta\TaskManager\Domain\Model\User\UserId;
 use PhpSpec\ObjectBehavior;
 
 class OwnerRemovedSpec extends ObjectBehavior
 {
-    function let(OrganizationId $organizationId, OwnerId $ownerId)
+    function let(OrganizationId $organizationId, UserId $userId)
     {
-        $this->beConstructedWith($organizationId, $ownerId);
+        $this->beConstructedWith($organizationId, $userId);
     }
 
     function it_is_initializable()
@@ -41,8 +41,8 @@ class OwnerRemovedSpec extends ObjectBehavior
         $this->organizationId()->shouldReturn($organizationId);
     }
 
-    function it_gets_owner_id(OwnerId $ownerId)
+    function it_gets_user_id(UserId $userId)
     {
-        $this->ownerId()->shouldReturn($ownerId);
+        $this->userId()->shouldReturn($userId);
     }
 }

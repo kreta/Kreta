@@ -14,6 +14,7 @@ namespace Spec\Kreta\TaskManager\Domain\Model\Organization;
 
 use Kreta\SharedKernel\Domain\Model\AggregateRoot;
 use Kreta\SharedKernel\Domain\Model\CollectionElementAlreadyAddedException;
+use Kreta\SharedKernel\Domain\Model\CollectionElementAlreadyRemovedException;
 use Kreta\SharedKernel\Domain\Model\Identity\Slug;
 use Kreta\TaskManager\Domain\Model\Organization\Member;
 use Kreta\TaskManager\Domain\Model\Organization\Organization;
@@ -125,13 +126,18 @@ class OrganizationSpec extends ObjectBehavior
         $this->owners()->shouldHaveCount(1);
     }
 
-    function it_does_not_allow_removing_a_missing_owner(UserId $userId2)
+    function it_does_not_allow_removing_a_missing_owner(UserId $userId, UserId $userId2, UserId $userId3)
     {
+        $userId2->equals($userId)->shouldBeCalled()->willReturn(false);
+        $this->addOwner($userId2);
 
-        $this->removeOwner($userId2);
+        $userId3->equals($userId)->shouldBeCalled()->willReturn(false);
+        $userId3->equals($userId2)->shouldBeCalled()->willReturn(false);
+
+        $this->shouldThrow(CollectionElementAlreadyRemovedException::class)->duringRemoveOwner($userId3);
     }
 
-    function it_allows_adding_a_new_organization_organizationMember(UserId $userId, UserId $userId2)
+    function it_allows_adding_a_new_organization_organization_member(UserId $userId, UserId $userId2)
     {
         $this->organizationMembers()->shouldHaveCount(0);
 
@@ -143,7 +149,7 @@ class OrganizationSpec extends ObjectBehavior
         $this->organizationMembers()->shouldHaveCount(1);
     }
 
-    function it_does_not_allow_to_add_existing_organization_organizationMember(UserId $userId, UserId $userId2)
+    function it_does_not_allow_to_add_existing_organization_member(UserId $userId, UserId $userId2)
     {
         $userId2->equals($userId)->shouldBeCalled()->willReturn(false);
         $this->isOwner($userId2)->shouldReturn(false);
@@ -153,7 +159,7 @@ class OrganizationSpec extends ObjectBehavior
         $userId2->equals($userId)->shouldBeCalled()->willReturn(false);
         $userId2->equals($userId2)->shouldBeCalled()->willReturn(true);
 
-        $this->shouldThrow(CollectionElementAlreadyAddedException::class)->duringAddMember($userId2);
+        $this->shouldThrow(CollectionElementAlreadyAddedException::class)->duringAddOrganizationMember($userId2);
     }
 
     function it_does_not_allow_to_add_organization_member_when_already_is_an_owner(UserId $userId)
@@ -162,10 +168,10 @@ class OrganizationSpec extends ObjectBehavior
         $this->isOwner($userId)->shouldReturn(true);
         $userId->id()->shouldBeCalled()->willReturn('user-id');
 
-        $this->shouldThrow(OrganizationMemberIsAlreadyAnOwnerException::class)->duringAddMember($userId);
+        $this->shouldThrow(OrganizationMemberIsAlreadyAnOwnerException::class)->duringAddOrganizationMember($userId);
     }
 
-    function it_allows_removing_a_organization_organizationMember(UserId $userId, UserId $userId2)
+    function it_allows_removing_a_organization_organization_member(UserId $userId, UserId $userId2)
     {
         $userId2->equals($userId)->shouldBeCalled()->willReturn(false);
         $this->isOwner($userId2)->shouldReturn(false);
@@ -177,8 +183,9 @@ class OrganizationSpec extends ObjectBehavior
         $this->shouldHavePublished(OrganizationMemberRemoved::class);
     }
 
-    function it_does_not_allow_removing_a_missing_organization_organizationMember()
+    function it_does_not_allow_removing_a_missing_organization_organization_member(UserId $userId)
     {
+        $this->shouldThrow(CollectionElementAlreadyRemovedException::class)->duringRemoveOrganizationMember($userId);
     }
 
     function it_does_not_remove_owner_because_all_the_organizations_need_one_owner_at_least(UserId $userId)
@@ -195,7 +202,7 @@ class OrganizationSpec extends ObjectBehavior
         $this->isOwner($userId2)->shouldReturn(false);
     }
 
-    function it_checks_if_it_is_organization_organizationMember(UserId $userId, UserId $userId2, UserId $userId3)
+    function it_checks_if_it_is_organization_organization_member(UserId $userId, UserId $userId2, UserId $userId3)
     {
         $userId->equals($userId)->shouldBeCalled()->willReturn(true);
         $this->isOrganizationMember($userId)->shouldReturn(true);
@@ -214,7 +221,7 @@ class OrganizationSpec extends ObjectBehavior
         $this->isOrganizationMember($userId3)->shouldReturn(false);
     }
 
-    function it_gets_organization_organizationMember(UserId $userId, UserId $userId2)
+    function it_gets_organization_organization_member(UserId $userId, UserId $userId2)
     {
         $userId2->equals($userId)->shouldBeCalled()->willReturn(false);
         $this->isOrganizationMember($userId2)->shouldReturn(false);
@@ -225,13 +232,13 @@ class OrganizationSpec extends ObjectBehavior
         $this->organizationMember($userId2)->shouldReturnAnInstanceOf(Member::class);
     }
 
-    function it_gets_organization_member_because_owner_is_a_kind_od_organization_organizationMember(UserId $userId)
+    function it_gets_organization_member_because_owner_is_a_kind_od_organization_organization_member(UserId $userId)
     {
         $userId->equals($userId)->shouldBeCalled()->willReturn(true);
         $this->organizationMember($userId)->shouldReturnAnInstanceOf(Member::class);
     }
 
-    function it_does_not_gets_organization_organizationMember(UserId $userId, UserId $userId2)
+    function it_does_not_gets_organization_organization_member(UserId $userId, UserId $userId2)
     {
         $userId2->equals($userId)->shouldBeCalled()->willReturn(false);
         $this->organizationMember($userId2)->shouldReturn(null);
