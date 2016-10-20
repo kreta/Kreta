@@ -15,17 +15,18 @@ declare(strict_types=1);
 namespace Kreta\TaskManager\Domain\Model\Organization;
 
 use Kreta\SharedKernel\Domain\Model\DomainEvent;
+use Kreta\TaskManager\Domain\Model\User\UserId;
 
 class OrganizationMemberRemoved implements DomainEvent
 {
     private $organizationId;
-    private $organizationMemberId;
+    private $userId;
     private $occurredOn;
 
-    public function __construct(OrganizationId $organizationId, OrganizationMemberId $organizationMemberId)
+    public function __construct(OrganizationId $organizationId, UserId $userId)
     {
         $this->organizationId = $organizationId;
-        $this->organizationMemberId = $organizationMemberId;
+        $this->userId = $userId;
         $this->occurredOn = new \DateTimeImmutable();
     }
 
@@ -34,9 +35,9 @@ class OrganizationMemberRemoved implements DomainEvent
         return $this->organizationId;
     }
 
-    public function organizationMemberId() : OrganizationMemberId
+    public function userId() : UserId
     {
-        return $this->organizationMemberId;
+        return $this->userId;
     }
 
     public function occurredOn() : \DateTimeInterface

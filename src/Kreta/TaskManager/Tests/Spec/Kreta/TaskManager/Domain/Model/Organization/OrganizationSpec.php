@@ -79,6 +79,7 @@ class OrganizationSpec extends ObjectBehavior
     function it_allows_grant_organization_member_to_owner(UserId $userId, UserId $userId2)
     {
         $this->organizationMembers()->shouldHaveCount(0);
+
         $userId2->equals($userId)->shouldBeCalled()->willReturn(false);
         $this->isOwner($userId2)->shouldReturn(false);
         $this->addOrganizationMember($userId2);
@@ -124,8 +125,10 @@ class OrganizationSpec extends ObjectBehavior
         $this->owners()->shouldHaveCount(1);
     }
 
-    function it_does_not_allow_removing_a_missing_owner()
+    function it_does_not_allow_removing_a_missing_owner(UserId $userId2)
     {
+
+        $this->removeOwner($userId2);
     }
 
     function it_allows_adding_a_new_organization_organizationMember(UserId $userId, UserId $userId2)
