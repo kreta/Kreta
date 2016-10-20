@@ -67,7 +67,7 @@ class ChangeTaskPriorityHandlerSpec extends ObjectBehavior
         $project->organizationId()->shouldBeCalled()->willReturn($organizationId);
 
         $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
-        $organization->isMember(UserId::generate('editor-id'))->shouldBeCalled()->willReturn(true);
+        $organization->isOrganizationMember(UserId::generate('editor-id'))->shouldBeCalled()->willReturn(true);
 
         $task->changePriority(Argument::type(TaskPriority::class))->shouldBeCalled();
 
@@ -87,7 +87,7 @@ class ChangeTaskPriorityHandlerSpec extends ObjectBehavior
         $this->shouldThrow(TaskDoesNotExistException::class)->during('__invoke', [$command]);
     }
 
-    function it_does_not_allow_changing_priority_if_editor_is_not_organization_member(
+    function it_does_not_allow_changing_priority_if_editor_is_not_organization_organizationMember(
         OrganizationRepository $organizationRepository,
         ProjectRepository $projectRepository,
         TaskRepository $taskRepository,
@@ -108,7 +108,7 @@ class ChangeTaskPriorityHandlerSpec extends ObjectBehavior
         $project->organizationId()->shouldBeCalled()->willReturn($organizationId);
 
         $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
-        $organization->isMember(UserId::generate('editor-id'))->shouldBeCalled()->willReturn(false);
+        $organization->isOrganizationMember(UserId::generate('editor-id'))->shouldBeCalled()->willReturn(false);
 
         $this->shouldThrow(UnauthorizedTaskActionException::class)->during('__invoke', [$command]);
     }

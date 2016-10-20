@@ -58,7 +58,7 @@ class EditTaskHandler
             $project->organizationId()
         );
 
-        if (!$organization->isMember(UserId::generate($command->editorId()))) {
+        if (!$organization->isOrganizationMember(UserId::generate($command->editorId()))) {
             throw new UnauthorizedTaskActionException();
         }
 

@@ -4,26 +4,9 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                           http://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
 
-    <entity name="Kreta\TaskManager\Domain\Model\Organization\Member" table="member" inheritance-type="JOINED">
-        <discriminator-column name="disc" type="string"/>
-        <discriminator-map>
-            <discriminator-mapping value="member" class="Kreta\TaskManager\Domain\Model\Organization\Member"/>
-            <discriminator-mapping value="owner" class="Kreta\TaskManager\Domain\Model\Organization\Owner"/>
-        </discriminator-map>
-
-        <unique-constraints>
-            <unique-constraint columns="organization_id,user_id" name="organization_user_index"/>
-        </unique-constraints>
-
-        <id name="id" type="member_id"/>
-
+    <mapped-superclass name="Kreta\TaskManager\Domain\Model\Organization\Member">
         <field name="createdOn" type="datetime" column="created_on" nullable="false"/>
         <field name="updatedOn" type="datetime" column="updated_on" nullable="false"/>
         <field name="userId" type="user_id" column="user_id" nullable="false"/>
-
-        <many-to-one target-entity="Kreta\TaskManager\Domain\Model\Organization\Organization" field="organization"
-                     inversed-by="members">
-            <join-column name="organization_id" referenced-column-name="id"/>
-        </many-to-one>
-    </entity>
+    </mapped-superclass>
 </doctrine-mapping>

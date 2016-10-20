@@ -17,17 +17,20 @@ namespace Kreta\TaskManager\Domain\Model\Organization;
 use Kreta\SharedKernel\Domain\Model\DomainEvent;
 use Kreta\TaskManager\Domain\Model\User\UserId;
 
-class MemberAdded implements DomainEvent
+class OrganizationMemberAdded implements DomainEvent
 {
     private $organizationId;
-    private $memberId;
+    private $organizationMemberId;
     private $userId;
     private $occurredOn;
 
-    public function __construct(MemberId $memberId, UserId $userId, OrganizationId $organizationId)
-    {
+    public function __construct(
+        OrganizationMemberId $organizationMemberId,
+        UserId $userId,
+        OrganizationId $organizationId
+    ) {
         $this->organizationId = $organizationId;
-        $this->memberId = $memberId;
+        $this->organizationMemberId = $organizationMemberId;
         $this->userId = $userId;
         $this->occurredOn = new \DateTimeImmutable();
     }
@@ -37,9 +40,9 @@ class MemberAdded implements DomainEvent
         return $this->organizationId;
     }
 
-    public function memberId() : MemberId
+    public function organizationMemberId() : OrganizationMemberId
     {
-        return $this->memberId;
+        return $this->organizationMemberId;
     }
 
     public function userId() : UserId

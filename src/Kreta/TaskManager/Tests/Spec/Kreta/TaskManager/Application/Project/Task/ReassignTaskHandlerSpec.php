@@ -70,9 +70,9 @@ class ReassignTaskHandlerSpec extends ObjectBehavior
         $project->organizationId()->shouldBeCalled()->willReturn($organizationId);
 
         $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
-        $organization->isMember(UserId::generate('editor-id'))->shouldBeCalled()->willReturn(true);
-        $organization->isMember(UserId::generate('new-assignee-id'))->shouldBeCalled()->willReturn(true);
-        $organization->member(UserId::generate('new-assignee-id'))->shouldBeCalled()->willReturn($member);
+        $organization->isOrganizationMember(UserId::generate('editor-id'))->shouldBeCalled()->willReturn(true);
+        $organization->isOrganizationMember(UserId::generate('new-assignee-id'))->shouldBeCalled()->willReturn(true);
+        $organization->organizationMember(UserId::generate('new-assignee-id'))->shouldBeCalled()->willReturn($member);
         $member->id()->shouldBeCalled()->willReturn($memberId);
 
         $task->reassign(Argument::type(MemberId::class))->shouldBeCalled();
@@ -92,7 +92,7 @@ class ReassignTaskHandlerSpec extends ObjectBehavior
         $this->shouldThrow(TaskDoesNotExistException::class)->during('__invoke', [$command]);
     }
 
-    function it_does_not_allow_to_reassign_when_editor_is_not_a_organization_member(
+    function it_does_not_allow_to_reassign_when_editor_is_not_a_organization_organizationMember(
         OrganizationRepository $organizationRepository,
         ProjectRepository $projectRepository,
         TaskRepository $taskRepository,
@@ -114,7 +114,7 @@ class ReassignTaskHandlerSpec extends ObjectBehavior
         $project->organizationId()->shouldBeCalled()->willReturn($organizationId);
 
         $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
-        $organization->isMember(UserId::generate('editor-id'))->shouldBeCalled()->willReturn(false);
+        $organization->isOrganizationMember(UserId::generate('editor-id'))->shouldBeCalled()->willReturn(false);
 
         $this->shouldThrow(UnauthorizedTaskActionException::class)->during__invoke($command);
     }

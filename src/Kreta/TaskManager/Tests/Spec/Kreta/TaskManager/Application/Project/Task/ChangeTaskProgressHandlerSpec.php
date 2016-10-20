@@ -65,7 +65,7 @@ class ChangeTaskProgressHandlerSpec extends ObjectBehavior
         $project->organizationId()->shouldBeCalled()->willReturn($organizationId);
 
         $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
-        $organization->isMember(UserId::generate('editor-id'))->shouldBeCalled()->willReturn(true);
+        $organization->isOrganizationMember(UserId::generate('editor-id'))->shouldBeCalled()->willReturn(true);
 
         $task->changeProgress(Argument::type(TaskProgress::class))->shouldBeCalled();
 

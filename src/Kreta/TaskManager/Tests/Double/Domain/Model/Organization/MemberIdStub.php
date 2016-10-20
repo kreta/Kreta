@@ -12,10 +12,14 @@
 
 declare(strict_types=1);
 
-namespace Kreta\TaskManager\Domain\Model\Organization;
+namespace Kreta\TaskManager\Tests\Double\Domain\Model\Organization;
 
-use Kreta\SharedKernel\Domain\Model\Identity\Id;
+use Kreta\TaskManager\Domain\Model\Organization\MemberId;
 
-abstract class MemberId extends Id
+class MemberIdStub extends MemberId
 {
+    public static function generate($id = null) : MemberIdStub
+    {
+        return new static($id);
+    }
 }

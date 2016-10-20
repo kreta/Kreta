@@ -74,7 +74,7 @@ class CreateTaskHandler
         );
         $creatorId = UserId::generate($command->creatorId());
         $assigneeId = UserId::generate($command->assigneeId());
-        if (!$organization->isMember($creatorId) || !$organization->isMember($assigneeId)) {
+        if (!$organization->isOrganizationMember($creatorId) || !$organization->isOrganizationMember($assigneeId)) {
             throw new UnauthorizedTaskActionException();
         }
         if (null !== $parentId = $command->parentId()) {
@@ -93,8 +93,8 @@ class CreateTaskHandler
                 $command->title()
             ),
             $command->description(),
-            $organization->member($creatorId)->id(),
-            $organization->member($assigneeId)->id(),
+            $organization->organizationMember($creatorId)->id(),
+            $organization->organizationMember($assigneeId)->id(),
             new TaskPriority($command->priority()),
             $project->id(),
             TaskId::generate(

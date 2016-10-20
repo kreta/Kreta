@@ -61,7 +61,7 @@ class ChangeTaskProgressHandler
             throw new OrganizationDoesNotExistException();
         }
 
-        if (!$organization->isMember(UserId::generate($command->editorId()))) {
+        if (!$organization->isOrganizationMember(UserId::generate($command->editorId()))) {
             throw new UnauthorizedTaskActionException();
         }
 

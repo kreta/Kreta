@@ -13,30 +13,36 @@
 namespace Spec\Kreta\TaskManager\Domain\Model\Organization;
 
 use Kreta\SharedKernel\Domain\Model\DomainEvent;
-use Kreta\TaskManager\Domain\Model\Organization\MemberAdded;
-use Kreta\TaskManager\Domain\Model\Organization\MemberId;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationId;
-use Kreta\TaskManager\Domain\Model\User\UserId;
+use Kreta\TaskManager\Domain\Model\Organization\OrganizationMemberId;
+use Kreta\TaskManager\Domain\Model\Organization\OrganizationMemberRemoved;
 use PhpSpec\ObjectBehavior;
 
-class MemberAddedSpec extends ObjectBehavior
+class OrganizationMemberRemovedSpec extends ObjectBehavior
 {
-    function let(MemberId $memberId, UserId $userId, OrganizationId $organizationId)
+    function let(OrganizationId $organizationId, OrganizationMemberId $organizationMemberId)
     {
-        $this->beConstructedWith($memberId, $userId, $organizationId);
+        $this->beConstructedWith($organizationId, $organizationMemberId);
     }
 
     function it_is_initializable()
     {
-        $this->shouldHaveType(MemberAdded::class);
+        $this->shouldHaveType(OrganizationMemberRemoved::class);
         $this->shouldImplement(DomainEvent::class);
     }
 
-    function it_can_be_created(MemberId $memberId, UserId $userId, OrganizationId $organizationId)
+    function it_get_occurred_on()
     {
         $this->occurredOn()->shouldReturnAnInstanceOf(\DateTimeInterface::class);
+    }
+
+    function it_gets_organization_id(OrganizationId $organizationId)
+    {
         $this->organizationId()->shouldReturn($organizationId);
-        $this->memberId()->shouldReturn($memberId);
-        $this->userId()->shouldReturn($userId);
+    }
+
+    function it_gets_organization_member_id(OrganizationMemberId $organizationMemberId)
+    {
+        $this->organizationMemberId()->shouldReturn($organizationMemberId);
     }
 }

@@ -12,16 +12,16 @@
 
 namespace Spec\Kreta\TaskManager\Application\Organization;
 
-use Kreta\TaskManager\Application\Organization\RemoveMemberToOrganizationCommand;
+use Kreta\TaskManager\Application\Organization\AddOrganizationMemberToOrganizationCommand;
 use PhpSpec\ObjectBehavior;
 
-class RemoveMemberToOrganizationCommandSpec extends ObjectBehavior
+class AddOrganizationMemberToOrganizationCommandSpec extends ObjectBehavior
 {
     function it_can_be_created_with_basic_info()
     {
-        $this->beConstructedWith('user-id', 'organization-id', 'remover-id');
-        $this->shouldHaveType(RemoveMemberToOrganizationCommand::class);
-        $this->removerId()->shouldReturn('remover-id');
+        $this->beConstructedWith('user-id', 'organization-id', 'adder-id');
+        $this->shouldHaveType(AddOrganizationMemberToOrganizationCommand::class);
+        $this->adderId()->shouldReturn('adder-id');
         $this->userId()->shouldReturn('user-id');
         $this->organizationId()->shouldReturn('organization-id');
     }

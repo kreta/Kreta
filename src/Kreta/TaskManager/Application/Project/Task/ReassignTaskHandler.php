@@ -54,14 +54,14 @@ class ReassignTaskHandler
         );
 
         $newAssigneeId = UserId::generate($command->assigneeId());
-        if (!$organization->isMember(UserId::generate($command->editorId()))
-            || !$organization->isMember($newAssigneeId)
+        if (!$organization->isOrganizationMember(UserId::generate($command->editorId()))
+            || !$organization->isOrganizationMember($newAssigneeId)
         ) {
             throw new UnauthorizedTaskActionException();
         }
 
         $task->reassign(
-            $organization->member($newAssigneeId)->id()
+            $organization->organizationMember($newAssigneeId)->id()
         );
         $this->taskRepository->persist($task);
     }

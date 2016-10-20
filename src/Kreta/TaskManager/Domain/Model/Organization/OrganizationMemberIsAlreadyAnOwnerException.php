@@ -14,19 +14,18 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Domain\Model\Organization;
 
-use Kreta\SharedKernel\Domain\Model\Collection;
+use Kreta\SharedKernel\Domain\Model\Exception;
+use Kreta\TaskManager\Domain\Model\User\UserId;
 
-abstract class MemberCollection extends Collection
+class OrganizationMemberIsAlreadyAnOwnerException extends Exception
 {
-    public function contains($element)
+    public function __construct(UserId $userId)
     {
-        $members = $this->toArray();
-        foreach ($members as $member) {
-            if ($element->userId()->equals($member->userId())) {
-                return true;
-            }
-        }
-
-        return false;
+        parent::__construct(
+            sprintf(
+                'The given %s user is already an owner',
+                $userId->id()
+            )
+        );
     }
 }

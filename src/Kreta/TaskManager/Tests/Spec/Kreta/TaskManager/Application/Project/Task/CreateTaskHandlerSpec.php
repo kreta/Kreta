@@ -73,11 +73,11 @@ class CreateTaskHandlerSpec extends ObjectBehavior
         $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
         $command->creatorId()->shouldBeCalled()->willReturn('creator-id');
         $command->assigneeId()->shouldBeCalled()->willReturn('assignee-id');
-        $organization->isMember(UserId::generate('creator-id'))->shouldBeCalled()->willReturn(true);
-        $organization->isMember(UserId::generate('assignee-id'))->shouldBeCalled()->willReturn(true);
-        $organization->member(UserId::generate('creator-id'))->shouldBeCalled()->willReturn($member);
+        $organization->isOrganizationMember(UserId::generate('creator-id'))->shouldBeCalled()->willReturn(true);
+        $organization->isOrganizationMember(UserId::generate('assignee-id'))->shouldBeCalled()->willReturn(true);
+        $organization->organizationMember(UserId::generate('creator-id'))->shouldBeCalled()->willReturn($member);
         $member->id()->shouldBeCalled()->willReturn($memberId);
-        $organization->member(UserId::generate('assignee-id'))->shouldBeCalled()->willReturn($member2);
+        $organization->organizationMember(UserId::generate('assignee-id'))->shouldBeCalled()->willReturn($member2);
         $member2->id()->shouldBeCalled()->willReturn($memberId2);
         $repository->taskOfId(TaskId::generate('parent-id'))->shouldBeCalled()->willReturn($parent);
         $command->title()->shouldBeCalled()->willReturn('Task title');
@@ -111,11 +111,11 @@ class CreateTaskHandlerSpec extends ObjectBehavior
         $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
         $command->creatorId()->shouldBeCalled()->willReturn('creator-id');
         $command->assigneeId()->shouldBeCalled()->willReturn('assignee-id');
-        $organization->isMember(UserId::generate('creator-id'))->shouldBeCalled()->willReturn(true);
-        $organization->isMember(UserId::generate('assignee-id'))->shouldBeCalled()->willReturn(true);
-        $organization->member(UserId::generate('creator-id'))->shouldBeCalled()->willReturn($member);
+        $organization->isOrganizationMember(UserId::generate('creator-id'))->shouldBeCalled()->willReturn(true);
+        $organization->isOrganizationMember(UserId::generate('assignee-id'))->shouldBeCalled()->willReturn(true);
+        $organization->organizationMember(UserId::generate('creator-id'))->shouldBeCalled()->willReturn($member);
         $member->id()->shouldBeCalled()->willReturn($memberId);
-        $organization->member(UserId::generate('assignee-id'))->shouldBeCalled()->willReturn($member2);
+        $organization->organizationMember(UserId::generate('assignee-id'))->shouldBeCalled()->willReturn($member2);
         $member2->id()->shouldBeCalled()->willReturn($memberId2);
         $repository->taskOfId(TaskId::generate('parent-id'))->shouldBeCalled()->willReturn($parent);
         $command->title()->shouldBeCalled()->willReturn('Task title');
@@ -149,11 +149,11 @@ class CreateTaskHandlerSpec extends ObjectBehavior
         $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
         $command->creatorId()->shouldBeCalled()->willReturn('creator-id');
         $command->assigneeId()->shouldBeCalled()->willReturn('assignee-id');
-        $organization->isMember(UserId::generate('creator-id'))->shouldBeCalled()->willReturn(true);
-        $organization->isMember(UserId::generate('assignee-id'))->shouldBeCalled()->willReturn(true);
-        $organization->member(UserId::generate('creator-id'))->shouldBeCalled()->willReturn($member);
+        $organization->isOrganizationMember(UserId::generate('creator-id'))->shouldBeCalled()->willReturn(true);
+        $organization->isOrganizationMember(UserId::generate('assignee-id'))->shouldBeCalled()->willReturn(true);
+        $organization->organizationMember(UserId::generate('creator-id'))->shouldBeCalled()->willReturn($member);
         $member->id()->shouldBeCalled()->willReturn($memberId);
-        $organization->member(UserId::generate('assignee-id'))->shouldBeCalled()->willReturn($member2);
+        $organization->organizationMember(UserId::generate('assignee-id'))->shouldBeCalled()->willReturn($member2);
         $member2->id()->shouldBeCalled()->willReturn($memberId2);
         $command->title()->shouldBeCalled()->willReturn('Task title');
         $command->description()->shouldBeCalled()->willReturn('Task description');
@@ -213,7 +213,7 @@ class CreateTaskHandlerSpec extends ObjectBehavior
         $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
         $command->creatorId()->shouldBeCalled()->willReturn('creator-id');
         $command->assigneeId()->shouldBeCalled()->willReturn('assignee-id');
-        $organization->isMember(UserId::generate('creator-id'))->shouldBeCalled()->willReturn(false);
+        $organization->isOrganizationMember(UserId::generate('creator-id'))->shouldBeCalled()->willReturn(false);
         $this->shouldThrow(UnauthorizedTaskActionException::class)->during__invoke($command);
     }
 
@@ -235,8 +235,8 @@ class CreateTaskHandlerSpec extends ObjectBehavior
         $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
         $command->creatorId()->shouldBeCalled()->willReturn('creator-id');
         $command->assigneeId()->shouldBeCalled()->willReturn('assignee-id');
-        $organization->isMember(UserId::generate('creator-id'))->shouldBeCalled()->willReturn(true);
-        $organization->isMember(UserId::generate('assignee-id'))->shouldBeCalled()->willReturn(true);
+        $organization->isOrganizationMember(UserId::generate('creator-id'))->shouldBeCalled()->willReturn(true);
+        $organization->isOrganizationMember(UserId::generate('assignee-id'))->shouldBeCalled()->willReturn(true);
         $repository->taskOfId(TaskId::generate('parent-id'))->shouldBeCalled()->willReturn(null);
 
         $this->shouldThrow(TaskParentDoesNotExistException::class)->during__invoke($command);

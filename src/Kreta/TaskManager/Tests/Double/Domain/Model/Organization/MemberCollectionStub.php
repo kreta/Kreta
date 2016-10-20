@@ -12,10 +12,14 @@
 
 declare(strict_types=1);
 
-namespace Kreta\TaskManager\Domain\Model\Organization;
+namespace Kreta\TaskManager\Tests\Double\Domain\Model\Organization;
 
-use Kreta\SharedKernel\Domain\Model\Identity\Id;
+use Kreta\TaskManager\Domain\Model\Organization\MemberCollection;
 
-abstract class MemberId extends Id
+class MemberCollectionStub extends MemberCollection
 {
+    protected function type() : string
+    {
+        return MemberStub::class;
+    }
 }

@@ -1,13 +1,21 @@
 <?php
 
+/*
+ * This file is part of the Kreta package.
+ *
+ * (c) Beñat Espiña <benatespina@gmail.com>
+ * (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Kreta\AppBundle\Command;
 
 use Kreta\SharedKernel\Domain\Model\Identity\Slug;
 use Kreta\TaskManager\Domain\Model\Organization\Organization;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationId;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationName;
-use Kreta\TaskManager\Domain\Model\Organization\Owner;
-use Kreta\TaskManager\Domain\Model\Organization\OwnerId;
 use Kreta\TaskManager\Domain\Model\User\User;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
@@ -37,9 +45,9 @@ class OrganizationFixturesCommand extends ContainerAwareCommand
         $i = 0;
         foreach ($users as $user) {
             if ($i > 0) {
-                $organization->addMember($user->id());
+                $organization->addOrganizationMember($user->id());
             }
-            $i++;
+            ++$i;
         }
 
         $manager->persist($organization);

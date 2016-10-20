@@ -73,7 +73,7 @@ class ChangeParentTaskHandlerSpec extends ObjectBehavior
         $project->organizationId()->shouldBeCalled()->willReturn($organizationId);
         $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
         $command->changerId()->shouldBeCalled()->willReturn('changer-id');
-        $organization->isMember(UserId::generate('changer-id'))->shouldBeCalled()->willReturn(true);
+        $organization->isOrganizationMember(UserId::generate('changer-id'))->shouldBeCalled()->willReturn(true);
         $parent->id()->shouldBeCalled()->willReturn($parentId);
         $task->changeParent($parentId)->shouldBeCalled();
         $repository->persist($task)->shouldBeCalled();
@@ -99,7 +99,7 @@ class ChangeParentTaskHandlerSpec extends ObjectBehavior
         $project->organizationId()->shouldBeCalled()->willReturn($organizationId);
         $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
         $command->changerId()->shouldBeCalled()->willReturn('changer-id');
-        $organization->isMember(UserId::generate('changer-id'))->shouldBeCalled()->willReturn(true);
+        $organization->isOrganizationMember(UserId::generate('changer-id'))->shouldBeCalled()->willReturn(true);
         $task->changeParent(null)->shouldBeCalled();
         $repository->persist($task)->shouldBeCalled();
         $this->__invoke($command);
@@ -191,7 +191,7 @@ class ChangeParentTaskHandlerSpec extends ObjectBehavior
         $project->organizationId()->shouldBeCalled()->willReturn($organizationId);
         $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
         $command->changerId()->shouldBeCalled()->willReturn('changer-id');
-        $organization->isMember(UserId::generate('changer-id'))->shouldBeCalled()->willReturn(false);
+        $organization->isOrganizationMember(UserId::generate('changer-id'))->shouldBeCalled()->willReturn(false);
         $this->shouldThrow(UnauthorizedTaskActionException::class)->during__invoke($command);
     }
 }

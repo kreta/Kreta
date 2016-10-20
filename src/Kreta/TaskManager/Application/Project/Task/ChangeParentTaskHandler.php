@@ -75,7 +75,7 @@ class ChangeParentTaskHandler
             $project->organizationId()
         );
 
-        if (!$organization->isMember(UserId::generate($command->changerId()))) {
+        if (!$organization->isOrganizationMember(UserId::generate($command->changerId()))) {
             throw new UnauthorizedTaskActionException();
         }
 

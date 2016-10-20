@@ -16,12 +16,14 @@ use Kreta\TaskManager\Domain\Model\Organization\Member;
 use Kreta\TaskManager\Domain\Model\Organization\MemberId;
 use Kreta\TaskManager\Domain\Model\Organization\Organization;
 use Kreta\TaskManager\Domain\Model\User\UserId;
+use Kreta\TaskManager\Tests\Double\Domain\Model\Organization\MemberStub;
 use PhpSpec\ObjectBehavior;
 
 class MemberSpec extends ObjectBehavior
 {
     function let(MemberId $id, UserId $userId, Organization $organization)
     {
+        $this->beAnInstanceOf(MemberStub::class);
         $id->id()->willReturn('member-id');
         $this->beConstructedWith($id, $userId, $organization);
     }

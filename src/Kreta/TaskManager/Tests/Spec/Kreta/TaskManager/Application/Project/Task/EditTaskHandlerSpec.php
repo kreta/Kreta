@@ -63,7 +63,7 @@ class EditTaskHandlerSpec extends ObjectBehavior
         $project->organizationId()->shouldBeCalled()->willReturn($organizationId);
         $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
         $command->editorId()->shouldBeCalled()->willReturn('editor-id');
-        $organization->isMember(UserId::generate('editor-id'))->shouldBeCalled()->willReturn(true);
+        $organization->isOrganizationMember(UserId::generate('editor-id'))->shouldBeCalled()->willReturn(true);
         $command->title()->shouldBeCalled()->willReturn('Task title');
         $command->description()->shouldBeCalled()->willReturn('Task description');
         $task->edit(new TaskTitle('Task title'), 'Task description')->shouldBeCalled();
@@ -96,7 +96,7 @@ class EditTaskHandlerSpec extends ObjectBehavior
         $project->organizationId()->shouldBeCalled()->willReturn($organizationId);
         $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
         $command->editorId()->shouldBeCalled()->willReturn('editor-id');
-        $organization->isMember(UserId::generate('editor-id'))->shouldBeCalled()->willReturn(false);
+        $organization->isOrganizationMember(UserId::generate('editor-id'))->shouldBeCalled()->willReturn(false);
         $this->shouldThrow(UnauthorizedTaskActionException::class)->during__invoke($command);
     }
 }

@@ -13,11 +13,11 @@
 namespace Spec\Kreta\TaskManager\Domain\Model\Organization;
 
 use Kreta\SharedKernel\Domain\Model\Exception;
-use Kreta\TaskManager\Domain\Model\Organization\MemberIsAlreadyAnOwnerException;
+use Kreta\TaskManager\Domain\Model\Organization\OrganizationMemberIsAlreadyAnOwnerException;
 use Kreta\TaskManager\Domain\Model\User\UserId;
 use PhpSpec\ObjectBehavior;
 
-class MemberIsAlreadyAnOwnerExceptionSpec extends ObjectBehavior
+class OrganizationMemberIsAlreadyAnOwnerExceptionSpec extends ObjectBehavior
 {
     function let(UserId $userId)
     {
@@ -27,7 +27,7 @@ class MemberIsAlreadyAnOwnerExceptionSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType(MemberIsAlreadyAnOwnerException::class);
+        $this->shouldHaveType(OrganizationMemberIsAlreadyAnOwnerException::class);
         $this->shouldHaveType(Exception::class);
     }
 

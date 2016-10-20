@@ -21,7 +21,7 @@ use Kreta\TaskManager\Domain\Model\Organization\OrganizationRepository;
 use Kreta\TaskManager\Domain\Model\Organization\UnauthorizedOrganizationActionException;
 use Kreta\TaskManager\Domain\Model\User\UserId;
 
-class RemoveMemberToOrganizationHandler
+class RemoveOrganizationMemberToOrganizationHandler
 {
     private $repository;
 
@@ -30,7 +30,7 @@ class RemoveMemberToOrganizationHandler
         $this->repository = $repository;
     }
 
-    public function __invoke(RemoveMemberToOrganizationCommand $command)
+    public function __invoke(RemoveOrganizationMemberToOrganizationCommand $command)
     {
         $organization = $this->repository->organizationOfId(
             OrganizationId::generate(
@@ -45,7 +45,7 @@ class RemoveMemberToOrganizationHandler
             throw new UnauthorizedOrganizationActionException();
         }
 
-        $organization->removeMember(
+        $organization->removeOrganizationMember(
             UserId::generate(
                 $command->userId()
             )

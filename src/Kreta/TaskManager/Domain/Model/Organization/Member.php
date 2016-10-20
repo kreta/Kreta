@@ -16,7 +16,7 @@ namespace Kreta\TaskManager\Domain\Model\Organization;
 
 use Kreta\TaskManager\Domain\Model\User\UserId;
 
-class Member
+abstract class Member
 {
     protected $id;
     protected $createdOn;

@@ -14,19 +14,12 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Domain\Model\Organization;
 
-use Kreta\SharedKernel\Domain\Model\Collection;
+use Kreta\TaskManager\Domain\Model\User\UserId;
 
-abstract class MemberCollection extends Collection
+class OrganizationMember extends Member
 {
-    public function contains($element)
+    public function __construct(MemberId $id, UserId $userId, Organization $organization)
     {
-        $members = $this->toArray();
-        foreach ($members as $member) {
-            if ($element->userId()->equals($member->userId())) {
-                return true;
-            }
-        }
-
-        return false;
+        parent::__construct($id, $userId, $organization);
     }
 }

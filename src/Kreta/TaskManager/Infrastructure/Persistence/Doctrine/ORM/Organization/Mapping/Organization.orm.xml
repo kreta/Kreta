@@ -13,7 +13,7 @@
         <field name="createdOn" type="datetime" column="created_on" nullable="false"/>
         <field name="updatedOn" type="datetime" column="updated_on" nullable="false"/>
 
-        <one-to-many field="members" target-entity="Kreta\TaskManager\Domain\Model\Organization\Member"
+        <one-to-many field="members" target-entity="Kreta\TaskManager\Domain\Model\Organization\OrganizationMember"
                      mapped-by="organization">
             <cascade>
                 <cascade-persist/>

@@ -32,6 +32,6 @@ class OwnerIdSpec extends ObjectBehavior
     {
         $this->beConstructedGenerate();
 
-        $this::generate()->shouldReturnAnInstanceOf(MemberId::class);
+        $this::generate()->shouldReturnAnInstanceOf(OwnerId::class);
     }
 }
