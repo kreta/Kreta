@@ -6,7 +6,7 @@
 
     <entity name="Kreta\TaskManager\Domain\Model\User\User"
             table="user"
-            repository-class="Kreta\TaskManager\Infrastructure\Persistence\ORM\User\DoctrineORMUserRepository">
+            repository-class="Kreta\TaskManager\Infrastructure\Persistence\Doctrine\ORM\User\DoctrineORMUserRepository">
         <id name="id" type="user_id"/>
     </entity>
 </doctrine-mapping>

@@ -12,7 +12,7 @@
 
 declare(strict_types=1);
 
-namespace Kreta\TaskManager\Infrastructure\Persistence\ORM\Task;
+namespace Kreta\TaskManager\Infrastructure\Persistence\Doctrine\ORM\Task;
 
 use Doctrine\ORM\EntityRepository;
 use Kreta\TaskManager\Domain\Model\Project\Task\Task;

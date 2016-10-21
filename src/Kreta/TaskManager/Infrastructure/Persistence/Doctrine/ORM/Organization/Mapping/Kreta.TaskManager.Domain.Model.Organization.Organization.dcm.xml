@@ -6,7 +6,7 @@
 
     <entity name="Kreta\TaskManager\Domain\Model\Organization\Organization"
             table="organization"
-            repository-class="Kreta\TaskManager\Infrastructure\Persistence\ORM\Organization\DoctrineORMOrganizationRepository">
+            repository-class="Kreta\TaskManager\Infrastructure\Persistence\Doctrine\ORM\Organization\DoctrineORMOrganizationRepository">
         <id name="id" type="organization_id"/>
 
         <embedded name="slug" class="Kreta\SharedKernel\Domain\Model\Identity\Slug" use-column-prefix="false"/>

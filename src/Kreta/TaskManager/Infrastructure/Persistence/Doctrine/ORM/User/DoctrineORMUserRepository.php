@@ -12,7 +12,7 @@
 
 declare(strict_types=1);
 
-namespace Kreta\TaskManager\Infrastructure\Persistence\ORM\User;
+namespace Kreta\TaskManager\Infrastructure\Persistence\Doctrine\ORM\User;
 
 use Doctrine\ORM\EntityRepository;
 use Kreta\TaskManager\Domain\Model\User\UserId;
