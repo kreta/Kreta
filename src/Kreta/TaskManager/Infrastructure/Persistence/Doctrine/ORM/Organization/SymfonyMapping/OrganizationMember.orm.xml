@@ -9,7 +9,7 @@
             <unique-constraint columns="organization_id,user_id" name="organization_user_index"/>
         </unique-constraints>
 
-        <id name="id" type="member_id"/>
+        <id name="id" type="organization_member_id"/>
 
         <many-to-one target-entity="Kreta\TaskManager\Domain\Model\Organization\Organization" field="organization"
                      inversed-by="members">

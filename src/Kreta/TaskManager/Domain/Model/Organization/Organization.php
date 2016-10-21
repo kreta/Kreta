@@ -101,7 +101,7 @@ class Organization extends AggregateRoot
 
     public function isOwner(UserId $userId) : bool
     {
-        return $this->owners->containsUserId($userId);
+        return $this->owners()->containsUserId($userId);
     }
 
     public function isOrganizationMember(UserId $userId) : bool
@@ -147,7 +147,7 @@ class Organization extends AggregateRoot
 
     public function owner(UserId $userId)
     {
-        foreach ($this->owners as $owner) {
+        foreach ($this->owners() as $owner) {
             if ($userId->equals($owner->userId())) {
                 return $owner;
             }

@@ -16,26 +16,26 @@ namespace Kreta\TaskManager\Infrastructure\Persistence\Doctrine\DBAL\Organizatio
 
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\GuidType;
-use Kreta\TaskManager\Domain\Model\Organization\MemberId;
+use Kreta\TaskManager\Domain\Model\Organization\OrganizationMemberId;
 
-class MemberIdType extends GuidType
+class OrganizationMemberIdType extends GuidType
 {
     public function convertToDatabaseValue($value, AbstractPlatform $platform) : string
     {
-        if ($value instanceof MemberId) {
+        if ($value instanceof OrganizationMemberId) {
             return $value->id();
         }
 
         return $value;
     }
 
-    public function convertToPHPValue($value, AbstractPlatform $platform) : MemberId
+    public function convertToPHPValue($value, AbstractPlatform $platform) : OrganizationMemberId
     {
-        return MemberId::generate($value);
+        return OrganizationMemberId::generate($value);
     }
 
     public function getName() : string
     {
-        return 'member_id';
+        return 'organization_member_id';
     }
 }

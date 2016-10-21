@@ -15,6 +15,7 @@ namespace Kreta\AppBundle\Controller;
 use Kreta\TaskManager\Domain\Model\Organization\MemberId;
 use Kreta\TaskManager\Domain\Model\Organization\Organization;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationMember;
+use Kreta\TaskManager\Domain\Model\Organization\OrganizationMemberId;
 use Kreta\TaskManager\Domain\Model\User\UserId;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -33,13 +34,15 @@ class DefaultController extends Controller
 
         dump(
             $organization->owners(),
-            $organization->members(),
-            $organization->isOwner(UserId::generate('04593fee-7e7a-40fa-8d1a-da42a97e40e5')),
-            $organization->isOrganizationMember(UserId::generate('04593fee-7e7a-40fa-8d1a-da42a97e40e5')),
+            $organization->organizationMembers(),
+            $organization->isOwner(UserId::generate('ffede864-efef-47ab-b6bb-8c24badae2be')),
+            $organization->isOrganzationMember(UserId::generate('ffede864-efef-47ab-b6bb-8c24badae2be')),
+            $organization->addOwner(UserId::generate('ffede864-efef-47ab-b6bb-8c24badae2be')),
+            $organization->isOwner(UserId::generate('ffede864-efef-47ab-b6bb-8c24badae2be')),
             $organization->owners()->contains(
                 new OrganizationMember(
-                    MemberId::generate(),
-                    UserId::generate('04593fee-7e7a-40fa-8d1a-da42a97e40e5'),
+                    OrganizationMemberId::generate(),
+                    UserId::generate('ffede864-efef-47ab-b6bb-8c24badae2be'),
                     $organization
                 )
 
