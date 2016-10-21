@@ -4,7 +4,9 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                           http://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
 
-    <entity name="Kreta\TaskManager\Domain\Model\Project\Project" table="project">
+    <entity name="Kreta\TaskManager\Domain\Model\Project\Project"
+            table="project"
+            repository-class="Kreta\TaskManager\Infrastructure\Persistence\ORM\Organization\DoctrineORMProjectRepository">
         <id name="id" type="project_id"/>
         <embedded name="name" class="Kreta\TaskManager\Domain\Model\Project\ProjectName" use-column-prefix="false"/>
         <embedded name="slug" class="Kreta\SharedKernel\Domain\Model\Identity\Slug" use-column-prefix="false"/>
