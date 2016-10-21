@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                          http://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
+
+    <entity name="Kreta\TaskManager\Domain\Model\Project\Task\Task" table="task">
+        <id name="id" type="task_id"/>
+        <embedded name="title" class="Kreta\TaskManager\Domain\Model\Project\Task\TaskTitle" use-column-prefix="false"/>
+        <embedded name="priority" class="Kreta\TaskManager\Domain\Model\Project\Task\TaskPriority" use-column-prefix="false"/>
+        <embedded name="progress" class="Kreta\TaskManager\Domain\Model\Project\Task\TaskProgress" use-column-prefix="false"/>
+        <field name="description" type="string" column="description" nullable="false"/>
+        <field name="createdOn" type="datetime" column="created_on" nullable="false"/>
+        <field name="updatedOn" type="datetime" column="updated_on" nullable="false"/>
+        <field name="projectId" type="project_id" column="project_id" nullable="false"/>
+        <field name="parentId" type="task_id" column="parent_id" nullable="true"/>
+    </entity>
+</doctrine-mapping>
