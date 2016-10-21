@@ -55,6 +55,8 @@ doctrine:
                 class: Kreta\TaskManager\Infrastructure\Persistence\Doctrine\DBAL\Organization\Types\OrganizationMemberIdType
             owner_id:
                 class: Kreta\TaskManager\Infrastructure\Persistence\Doctrine\DBAL\Organization\Types\OwnerIdType
+            project_id:
+                class: Kreta\TaskManager\Infrastructure\Persistence\Doctrine\DBAL\Project\Types\ProjectIdType
             user_id:
                 class: Kreta\TaskManager\Infrastructure\Persistence\Doctrine\DBAL\User\Types\UserIdType
     orm:
@@ -74,6 +76,12 @@ doctrine:
                 is_bundle: false
                 dir: "%kernel.root_dir%/../src/Kreta/TaskManager/Infrastructure/Persistence/Doctrine/ORM/Organization/SymfonyMapping/"
                 prefix: 'Kreta\TaskManager\Domain\Model\Organization'
+            TaskManagerProject:
+                mapping: true
+                type: xml
+                is_bundle: false
+                dir: "%kernel.root_dir%/../src/Kreta/TaskManager/Infrastructure/Persistence/Doctrine/ORM/Project/SymfonyMapping/"
+                prefix: 'Kreta\TaskManager\Domain\Model\Project'
             TaskManagerUser:
                 mapping: true
                 type: xml

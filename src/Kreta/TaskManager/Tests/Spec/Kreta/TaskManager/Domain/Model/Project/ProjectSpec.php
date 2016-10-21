@@ -39,6 +39,7 @@ class ProjectSpec extends ObjectBehavior
 
         $this->id()->shouldReturn($projectId);
         $this->createdOn()->shouldReturnAnInstanceOf(\DateTimeImmutable::class);
+        $this->updatedOn()->shouldReturnAnInstanceOf(\DateTimeImmutable::class);
         $this->name()->shouldReturn($projectName);
         $this->slug()->shouldReturn($projectSlug);
         $this->organizationId()->shouldReturn($organizationId);
@@ -49,10 +50,13 @@ class ProjectSpec extends ObjectBehavior
 
     function it_can_be_edited(ProjectName $projectName, Slug $projectSlug)
     {
+        $oldUpdatedOn = $this->updatedOn();
+
         $this->edit($projectName, $projectSlug);
 
         $this->name()->shouldReturn($projectName);
         $this->slug()->shouldReturn($projectSlug);
+        $this->updatedOn()->shouldNotEqual($oldUpdatedOn);
 
         $this->shouldHavePublished(ProjectEdited::class);
     }

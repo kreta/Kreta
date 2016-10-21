@@ -24,6 +24,7 @@ class Project extends AggregateRoot
     private $name;
     private $slug;
     private $createdOn;
+    private $updatedOn;
     private $organizationId;
 
     public function __construct(ProjectId $id, ProjectName $name, Slug $slug, OrganizationId $organizationId)
@@ -32,6 +33,7 @@ class Project extends AggregateRoot
         $this->name = $name;
         $this->slug = $slug;
         $this->createdOn = new \DateTimeImmutable();
+        $this->updatedOn = new \DateTimeImmutable();
         $this->organizationId = $organizationId;
 
         $this->publish(
@@ -59,10 +61,16 @@ class Project extends AggregateRoot
         return $this->createdOn;
     }
 
+    public function updatedOn() : \DateTimeImmutable
+    {
+        return $this->updatedOn;
+    }
+
     public function edit(ProjectName $name, Slug $slug)
     {
         $this->name = $name;
         $this->slug = $slug;
+        $this->updatedOn = new \DateTimeImmutable();
 
         $this->publish(
             new ProjectEdited($this->id)
