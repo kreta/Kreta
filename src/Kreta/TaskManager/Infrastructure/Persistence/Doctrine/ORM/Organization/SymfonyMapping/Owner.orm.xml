@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                          http://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
+
+    <entity name="Kreta\TaskManager\Domain\Model\Organization\Owner" table="owner">
+        <unique-constraints>
+            <unique-constraint columns="organization_id,user_id" name="organization_user_index"/>
+        </unique-constraints>
+
+        <id name="id" type="owner_id"/>
+
+        <many-to-one target-entity="Kreta\TaskManager\Domain\Model\Organization\Organization" field="organization"
+                     inversed-by="owners">
+            <join-column name="organization_id" referenced-column-name="id"/>
+        </many-to-one>
+    </entity>
+</doctrine-mapping>

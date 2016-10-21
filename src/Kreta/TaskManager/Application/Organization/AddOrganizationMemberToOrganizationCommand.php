@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Application\Organization;
 
-class AddMemberToOrganizationCommand
+class AddOrganizationMemberToOrganizationCommand
 {
     private $userId;
     private $organizationId;

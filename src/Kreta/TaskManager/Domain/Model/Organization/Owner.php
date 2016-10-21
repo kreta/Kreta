@@ -14,10 +14,12 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Domain\Model\Organization;
 
+use Kreta\TaskManager\Domain\Model\User\UserId;
+
 class Owner extends Member
 {
-    public function __construct(OwnerId $id)
+    public function __construct(OwnerId $id, UserId $userId, Organization $organization)
     {
-        parent::__construct($id);
+        parent::__construct($id, $userId, $organization);
     }
 }

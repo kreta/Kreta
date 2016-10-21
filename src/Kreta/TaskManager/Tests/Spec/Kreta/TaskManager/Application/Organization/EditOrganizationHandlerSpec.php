@@ -20,8 +20,8 @@ use Kreta\TaskManager\Domain\Model\Organization\OrganizationDoesNotExistExceptio
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationId;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationName;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationRepository;
-use Kreta\TaskManager\Domain\Model\Organization\OwnerId;
 use Kreta\TaskManager\Domain\Model\Organization\UnauthorizedEditOrganizationException;
+use Kreta\TaskManager\Domain\Model\User\UserId;
 use Kreta\TaskManager\Domain\Model\User\UserRepository;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -41,8 +41,7 @@ class EditOrganizationHandlerSpec extends ObjectBehavior
     function it_edits_an_organization(
         EditOrganizationCommand $command,
         OrganizationRepository $repository,
-        Organization $organization,
-        OrganizationId $organizationId
+        Organization $organization
     ) {
         $command->id()->shouldBeCalled()->willReturn('organization-id');
         $repository->organizationOfId(
@@ -50,9 +49,8 @@ class EditOrganizationHandlerSpec extends ObjectBehavior
         )->shouldBeCalled()->willReturn($organization);
         $command->name()->shouldBeCalled()->willReturn('Organization name');
         $command->slug()->shouldBeCalled()->willReturn('organization-slug');
-        $command->userId()->shouldBeCalled()->willReturn('user-id');
-        $organization->id()->shouldBeCalled()->willReturn($organizationId);
-        $organization->isOwner(Argument::type(OwnerId::class))->shouldBeCalled()->willReturn(true);
+        $command->userId()->shouldBeCalled()->willReturn('editor-id');
+        $organization->isOwner(UserId::generate('editor-id'))->shouldBeCalled()->willReturn(true);
         $organization->edit(new OrganizationName('Organization name'), new Slug('organization-slug'))->shouldBeCalled();
         $repository->persist(Argument::type(Organization::class))->shouldBeCalled();
         $this->__invoke($command);
@@ -61,8 +59,7 @@ class EditOrganizationHandlerSpec extends ObjectBehavior
     function it_edits_an_organization_without_slug(
         EditOrganizationCommand $command,
         OrganizationRepository $repository,
-        Organization $organization,
-        OrganizationId $organizationId
+        Organization $organization
     ) {
         $command->id()->shouldBeCalled()->willReturn('organization-id');
         $repository->organizationOfId(
@@ -70,9 +67,8 @@ class EditOrganizationHandlerSpec extends ObjectBehavior
         )->shouldBeCalled()->willReturn($organization);
         $command->name()->shouldBeCalled()->willReturn('Organization name');
         $command->slug()->shouldBeCalled()->willReturn(null);
-        $command->userId()->shouldBeCalled()->willReturn('user-id');
-        $organization->id()->shouldBeCalled()->willReturn($organizationId);
-        $organization->isOwner(Argument::type(OwnerId::class))->shouldBeCalled()->willReturn(true);
+        $command->userId()->shouldBeCalled()->willReturn('editor-id');
+        $organization->isOwner(UserId::generate('editor-id'))->shouldBeCalled()->willReturn(true);
         $organization->edit(new OrganizationName('Organization name'), new Slug('Organization name'))->shouldBeCalled();
         $repository->persist(Argument::type(Organization::class))->shouldBeCalled();
         $this->__invoke($command);
@@ -92,16 +88,14 @@ class EditOrganizationHandlerSpec extends ObjectBehavior
     function it_does_not_edits_an_organization_because_the_owner_does_not_authorized(
         EditOrganizationCommand $command,
         OrganizationRepository $repository,
-        Organization $organization,
-        OrganizationId $organizationId
+        Organization $organization
     ) {
         $command->id()->shouldBeCalled()->willReturn('organization-id');
         $repository->organizationOfId(
             OrganizationId::generate('organization-id')
         )->shouldBeCalled()->willReturn($organization);
-        $command->userId()->shouldBeCalled()->willReturn('user-id');
-        $organization->id()->shouldBeCalled()->willReturn($organizationId);
-        $organization->isOwner(Argument::type(OwnerId::class))->shouldBeCalled()->willReturn(false);
+        $command->userId()->shouldBeCalled()->willReturn('editor-id');
+        $organization->isOwner(UserId::generate('editor-id'))->shouldBeCalled()->willReturn(false);
         $this->shouldThrow(UnauthorizedEditOrganizationException::class)->during__invoke($command);
     }
 }

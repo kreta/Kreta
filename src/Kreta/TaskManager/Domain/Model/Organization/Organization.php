@@ -16,54 +16,57 @@ namespace Kreta\TaskManager\Domain\Model\Organization;
 
 use Kreta\SharedKernel\Domain\Model\AggregateRoot;
 use Kreta\SharedKernel\Domain\Model\Identity\Slug;
+use Kreta\TaskManager\Domain\Model\User\UserId;
 
 class Organization extends AggregateRoot
 {
     private $id;
     private $createdOn;
-    private $members;
+    private $organizationMembers;
     private $name;
     private $owners;
     private $slug;
     private $updatedOn;
 
-    public function __construct(OrganizationId $id, OrganizationName $name, Slug $slug, Owner $creator)
+    public function __construct(OrganizationId $id, OrganizationName $name, Slug $slug, UserId $userId)
     {
         $this->id = $id;
         $this->name = $name;
         $this->slug = $slug;
-        $this->members = new MemberCollection();
+        $this->organizationMembers = new OrganizationMemberCollection();
         $this->owners = new OwnerCollection();
         $this->createdOn = new \DateTimeImmutable();
         $this->updatedOn = new \DateTimeImmutable();
-        $this->addOwner($creator);
+        $this->addOwner($userId);
 
         $this->publish(
             new OrganizationCreated($id, $name, $slug)
         );
     }
 
-    public function addMember(Member $member)
+    public function addOrganizationMember(UserId $userId)
     {
-        if ($this->isOwner($member->id())) {
-            throw new MemberIsAlreadyAnOwnerException($member->id());
+        if ($this->isOwner($userId)) {
+            throw new OrganizationMemberIsAlreadyAnOwnerException($userId);
         }
-        $this->members->add($member);
+        $organizationMember = new OrganizationMember(OrganizationMemberId::generate(), $userId, $this);
+        $this->organizationMembers->add($organizationMember);
         $this->updatedOn = new \DateTimeImmutable();
         $this->publish(
-            new MemberAdded($this->id, $member->id())
+            new OrganizationMemberAdded($organizationMember->id(), $userId, $this->id)
         );
     }
 
-    public function addOwner(Owner $owner)
+    public function addOwner(UserId $userId)
     {
-        if (!$this->isOwner($owner->id()) && $this->isMember($owner->id())) {
-            $this->removeMember($owner);
+        if (!$this->isOwner($userId) && $this->isOrganizationMember($userId)) {
+            $this->removeOrganizationMember($userId);
         }
+        $owner = new Owner(OwnerId::generate(), $userId, $this);
         $this->owners->add($owner);
         $this->updatedOn = new \DateTimeImmutable();
         $this->publish(
-            new OwnerAdded($this->id, $owner->id())
+            new OwnerAdded($owner->id(), $userId, $this->id)
         );
     }
 
@@ -77,45 +80,33 @@ class Organization extends AggregateRoot
         );
     }
 
-    public function removeMember(Member $member)
+    public function removeOrganizationMember(UserId $userId)
     {
-        $this->members->remove($member);
+        $this->organizationMembers->removeByUserId($userId);
         $this->updatedOn = new \DateTimeImmutable();
-        $this->publish(
-            new MemberRemoved($this->id, $member->id())
-        );
+
+        $this->publish(new OrganizationMemberRemoved($this->id, $userId));
     }
 
-    public function removeOwner(Owner $owner)
+    public function removeOwner(UserId $userId)
     {
         if ($this->owners()->count() === 1) {
             throw new UnauthorizedRemoveOwnerException();
         }
-        $this->owners->remove($owner);
+        $this->owners->removeByUserId($userId);
         $this->updatedOn = new \DateTimeImmutable();
-        $this->publish(
-            new OwnerRemoved($this->id, $owner->id())
-        );
+
+        $this->publish(new OwnerRemoved($this->id, $userId));
     }
 
-    public function isOwner(MemberId $ownerId) : bool
+    public function isOwner(UserId $userId) : bool
     {
-        return $this->owners->exists(
-            function ($key, Owner $owner) use ($ownerId) {
-                return $ownerId->equals($owner->id());
-            }
-        );
+        return $this->owners()->containsUserId($userId);
     }
 
-    public function isMember(MemberId $memberId) : bool
+    public function isOrganizationMember(UserId $userId) : bool
     {
-        $isMember = $this->members->exists(
-            function ($key, Member $member) use ($memberId) {
-                return $memberId->equals($member->id());
-            }
-        );
-
-        return $isMember || $this->isOwner($memberId);
+        return $this->organizationMembers()->containsUserId($userId) || $this->isOwner($userId);
     }
 
     public function id() : OrganizationId
@@ -128,9 +119,20 @@ class Organization extends AggregateRoot
         return $this->createdOn;
     }
 
-    public function members() : MemberCollection
+    public function organizationMembers()
     {
-        return $this->members;
+        return new OrganizationMemberCollection($this->organizationMembers->getValues());
+    }
+
+    public function organizationMember(UserId $userId)
+    {
+        foreach ($this->organizationMembers() as $member) {
+            if ($userId->equals($member->userId())) {
+                return $member;
+            }
+        }
+
+        return $this->owner($userId);
     }
 
     public function name() : OrganizationName
@@ -140,7 +142,16 @@ class Organization extends AggregateRoot
 
     public function owners() : OwnerCollection
     {
-        return $this->owners;
+        return new OwnerCollection($this->owners->getValues());
+    }
+
+    public function owner(UserId $userId)
+    {
+        foreach ($this->owners() as $owner) {
+            if ($userId->equals($owner->userId())) {
+                return $owner;
+            }
+        }
     }
 
     public function slug() : Slug

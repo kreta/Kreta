@@ -14,7 +14,6 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Application\Project\Task;
 
-use Kreta\TaskManager\Domain\Model\Organization\MemberId;
 use Kreta\TaskManager\Domain\Model\Organization\Organization;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationDoesNotExistException;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationRepository;
@@ -62,7 +61,7 @@ class ChangeTaskProgressHandler
             throw new OrganizationDoesNotExistException();
         }
 
-        if (!$organization->isMember(MemberId::generate(UserId::generate($command->editorId()), $organization->id()))) {
+        if (!$organization->isOrganizationMember(UserId::generate($command->editorId()))) {
             throw new UnauthorizedTaskActionException();
         }
 

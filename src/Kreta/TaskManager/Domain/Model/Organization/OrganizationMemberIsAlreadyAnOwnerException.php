@@ -15,16 +15,16 @@ declare(strict_types=1);
 namespace Kreta\TaskManager\Domain\Model\Organization;
 
 use Kreta\SharedKernel\Domain\Model\Exception;
+use Kreta\TaskManager\Domain\Model\User\UserId;
 
-class MemberIsAlreadyAnOwnerException extends Exception
+class OrganizationMemberIsAlreadyAnOwnerException extends Exception
 {
-    public function __construct(MemberId $memberId)
+    public function __construct(UserId $userId)
     {
         parent::__construct(
             sprintf(
-                'The given %s user is already an owner in %s organization',
-                $memberId->userId()->id(),
-                $memberId->organizationId()->id()
+                'The given %s user is already an owner',
+                $userId->id()
             )
         );
     }

@@ -18,12 +18,12 @@ use Kreta\TaskManager\Domain\Model\Organization\Organization;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationDoesNotExistException;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationId;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationRepository;
-use Kreta\TaskManager\Domain\Model\Organization\OwnerId;
 use Kreta\TaskManager\Domain\Model\Project\Project;
 use Kreta\TaskManager\Domain\Model\Project\ProjectAlreadyExists;
 use Kreta\TaskManager\Domain\Model\Project\ProjectId;
 use Kreta\TaskManager\Domain\Model\Project\ProjectRepository;
 use Kreta\TaskManager\Domain\Model\Project\UnauthorizedCreateProjectException;
+use Kreta\TaskManager\Domain\Model\User\UserId;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -58,8 +58,8 @@ class CreateProjectHandlerSpec extends ObjectBehavior
         $organizationRepository->organizationOfId(
             Argument::type(OrganizationId::class)
         )->shouldBeCalled()->willReturn($organization);
+        $organization->isOwner(UserId::generate('creator-id'))->shouldBeCalled()->willReturn(true);
         $organization->id()->shouldBeCalled()->willReturn($organizationId);
-        $organization->isOwner(Argument::type(OwnerId::class))->shouldBeCalled()->willReturn(true);
         $projectRepository->persist(Argument::type(Project::class))->shouldBeCalled();
         $this->__invoke($command);
     }
@@ -81,8 +81,8 @@ class CreateProjectHandlerSpec extends ObjectBehavior
         $organizationRepository->organizationOfId(
             Argument::type(OrganizationId::class)
         )->shouldBeCalled()->willReturn($organization);
+        $organization->isOwner(UserId::generate('creator-id'))->shouldBeCalled()->willReturn(true);
         $organization->id()->shouldBeCalled()->willReturn($organizationId);
-        $organization->isOwner(Argument::type(OwnerId::class))->shouldBeCalled()->willReturn(true);
         $projectRepository->persist(Argument::type(Project::class))->shouldBeCalled();
         $this->__invoke($command);
     }
@@ -131,7 +131,7 @@ class CreateProjectHandlerSpec extends ObjectBehavior
         $organizationRepository->organizationOfId(
             Argument::type(OrganizationId::class)
         )->shouldBeCalled()->willReturn($organization);
-        $organization->isOwner(Argument::type(OwnerId::class))->shouldBeCalled()->willReturn(false);
+        $organization->isOwner(UserId::generate('creator-id'))->shouldBeCalled()->willReturn(false);
         $this->shouldThrow(UnauthorizedCreateProjectException::class)->during('__invoke', [$command]);
     }
 }

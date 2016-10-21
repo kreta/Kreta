@@ -19,7 +19,6 @@ use Kreta\TaskManager\Domain\Model\Organization\Organization;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationDoesNotExistException;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationId;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationRepository;
-use Kreta\TaskManager\Domain\Model\Organization\OwnerId;
 use Kreta\TaskManager\Domain\Model\Project\Project;
 use Kreta\TaskManager\Domain\Model\Project\ProjectAlreadyExists;
 use Kreta\TaskManager\Domain\Model\Project\ProjectId;
@@ -58,14 +57,7 @@ class CreateProjectHandler
             throw new OrganizationDoesNotExistException();
         }
 
-        $ownerId = OwnerId::generate(
-            UserId::generate(
-                $command->creatorId()
-            ),
-            $organizationId
-        );
-
-        if (!$organization->isOwner($ownerId)) {
+        if (!$organization->isOwner(UserId::generate($command->creatorId()))) {
             throw new UnauthorizedCreateProjectException();
         }
 

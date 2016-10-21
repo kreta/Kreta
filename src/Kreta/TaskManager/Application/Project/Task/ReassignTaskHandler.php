@@ -14,7 +14,6 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Application\Project\Task;
 
-use Kreta\TaskManager\Domain\Model\Organization\MemberId;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationRepository;
 use Kreta\TaskManager\Domain\Model\Project\ProjectRepository;
 use Kreta\TaskManager\Domain\Model\Project\Task\Task;
@@ -54,21 +53,16 @@ class ReassignTaskHandler
             $project->organizationId()
         );
 
-        $editorId = MemberId::generate(
-            UserId::generate($command->editorId()),
-            $organization->id()
-        );
-
-        $newAssigneeId = MemberId::generate(
-            UserId::generate($command->assigneeId()),
-            $organization->id()
-        );
-
-        if (!$organization->isMember($editorId) || !$organization->isMember($newAssigneeId)) {
+        $newAssigneeId = UserId::generate($command->assigneeId());
+        if (!$organization->isOrganizationMember(UserId::generate($command->editorId()))
+            || !$organization->isOrganizationMember($newAssigneeId)
+        ) {
             throw new UnauthorizedTaskActionException();
         }
 
-        $task->reassign($newAssigneeId);
+        $task->reassign(
+            $organization->organizationMember($newAssigneeId)->id()
+        );
         $this->taskRepository->persist($task);
     }
 }

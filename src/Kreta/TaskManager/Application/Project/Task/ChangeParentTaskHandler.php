@@ -14,7 +14,6 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Application\Project\Task;
 
-use Kreta\TaskManager\Domain\Model\Organization\MemberId;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationRepository;
 use Kreta\TaskManager\Domain\Model\Project\ProjectRepository;
 use Kreta\TaskManager\Domain\Model\Project\Task\Task;
@@ -75,14 +74,8 @@ class ChangeParentTaskHandler
         $organization = $this->organizationRepository->organizationOfId(
             $project->organizationId()
         );
-        $changerId = MemberId::generate(
-            UserId::generate(
-                $command->changerId()
-            ),
-            $organization->id()
-        );
 
-        if (!$organization->isMember($changerId)) {
+        if (!$organization->isOrganizationMember(UserId::generate($command->changerId()))) {
             throw new UnauthorizedTaskActionException();
         }
 

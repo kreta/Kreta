@@ -14,6 +14,7 @@ namespace Spec\Kreta\TaskManager\Application\Project\Task;
 
 use Kreta\TaskManager\Application\Project\Task\ReassignTaskCommand;
 use Kreta\TaskManager\Application\Project\Task\ReassignTaskHandler;
+use Kreta\TaskManager\Domain\Model\Organization\Member;
 use Kreta\TaskManager\Domain\Model\Organization\MemberId;
 use Kreta\TaskManager\Domain\Model\Organization\Organization;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationId;
@@ -26,6 +27,7 @@ use Kreta\TaskManager\Domain\Model\Project\Task\TaskDoesNotExistException;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskId;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskRepository;
 use Kreta\TaskManager\Domain\Model\Project\Task\UnauthorizedTaskActionException;
+use Kreta\TaskManager\Domain\Model\User\UserId;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -53,7 +55,9 @@ class ReassignTaskHandlerSpec extends ObjectBehavior
         ProjectId $projectId,
         Project $project,
         OrganizationId $organizationId,
-        Organization $organization
+        Organization $organization,
+        Member $member,
+        MemberId $memberId
     ) {
         $command->id()->shouldBeCalled()->willReturn('task-id');
         $command->assigneeId()->shouldBeCalled()->willReturn('new-assignee-id');
@@ -66,8 +70,10 @@ class ReassignTaskHandlerSpec extends ObjectBehavior
         $project->organizationId()->shouldBeCalled()->willReturn($organizationId);
 
         $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
-        $organization->isMember(Argument::type(MemberId::class))->shouldBeCalled()->willReturn(true);
-        $organization->id()->shouldBeCalled()->willReturn($organizationId);
+        $organization->isOrganizationMember(UserId::generate('editor-id'))->shouldBeCalled()->willReturn(true);
+        $organization->isOrganizationMember(UserId::generate('new-assignee-id'))->shouldBeCalled()->willReturn(true);
+        $organization->organizationMember(UserId::generate('new-assignee-id'))->shouldBeCalled()->willReturn($member);
+        $member->id()->shouldBeCalled()->willReturn($memberId);
 
         $task->reassign(Argument::type(MemberId::class))->shouldBeCalled();
         $taskRepository->persist($task)->shouldBeCalled();
@@ -86,7 +92,7 @@ class ReassignTaskHandlerSpec extends ObjectBehavior
         $this->shouldThrow(TaskDoesNotExistException::class)->during('__invoke', [$command]);
     }
 
-    function it_does_not_allow_to_reassign_when_editor_is_not_a_organization_member(
+    function it_does_not_allow_to_reassign_when_editor_is_not_a_organization_organizationMember(
         OrganizationRepository $organizationRepository,
         ProjectRepository $projectRepository,
         TaskRepository $taskRepository,
@@ -108,9 +114,8 @@ class ReassignTaskHandlerSpec extends ObjectBehavior
         $project->organizationId()->shouldBeCalled()->willReturn($organizationId);
 
         $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
-        $organization->id()->shouldBeCalled()->willReturn($organizationId);
-        $organization->isMember(Argument::type(MemberId::class))->shouldBeCalled()->willReturn(false);
+        $organization->isOrganizationMember(UserId::generate('editor-id'))->shouldBeCalled()->willReturn(false);
 
-        $this->shouldThrow(UnauthorizedTaskActionException::class)->during('__invoke', [$command]);
+        $this->shouldThrow(UnauthorizedTaskActionException::class)->during__invoke($command);
     }
 }

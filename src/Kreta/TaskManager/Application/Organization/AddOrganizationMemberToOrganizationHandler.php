@@ -14,17 +14,14 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Application\Organization;
 
-use Kreta\TaskManager\Domain\Model\Organization\Member;
-use Kreta\TaskManager\Domain\Model\Organization\MemberId;
 use Kreta\TaskManager\Domain\Model\Organization\Organization;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationDoesNotExistException;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationId;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationRepository;
-use Kreta\TaskManager\Domain\Model\Organization\OwnerId;
 use Kreta\TaskManager\Domain\Model\Organization\UnauthorizedOrganizationActionException;
 use Kreta\TaskManager\Domain\Model\User\UserId;
 
-class AddMemberToOrganizationHandler
+class AddOrganizationMemberToOrganizationHandler
 {
     private $repository;
 
@@ -33,7 +30,7 @@ class AddMemberToOrganizationHandler
         $this->repository = $repository;
     }
 
-    public function __invoke(AddMemberToOrganizationCommand $command)
+    public function __invoke(AddOrganizationMemberToOrganizationCommand $command)
     {
         $organization = $this->repository->organizationOfId(
             OrganizationId::generate(
@@ -44,18 +41,13 @@ class AddMemberToOrganizationHandler
             throw new OrganizationDoesNotExistException();
         }
 
-        if (!$organization->isOwner(OwnerId::generate(UserId::generate($command->adderId()), $organization->id()))) {
+        if (!$organization->isOwner(UserId::generate($command->adderId()))) {
             throw new UnauthorizedOrganizationActionException();
         }
 
-        $organization->addMember(
-            new Member(
-                MemberId::generate(
-                    UserId::generate(
-                        $command->userId()
-                    ),
-                    $organization->id()
-                )
+        $organization->addOrganizationMember(
+            UserId::generate(
+                $command->userId()
             )
         );
 

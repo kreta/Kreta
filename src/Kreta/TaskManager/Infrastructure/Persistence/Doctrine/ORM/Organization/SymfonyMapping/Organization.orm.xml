@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                  xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
+                          http://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
+
+    <entity name="Kreta\TaskManager\Domain\Model\Organization\Organization" table="organization">
+        <id name="id" type="organization_id"/>
+
+        <embedded name="slug" class="Kreta\SharedKernel\Domain\Model\Identity\Slug" use-column-prefix="false"/>
+
+        <field name="name" type="string" column="name" length="255" nullable="false"/>
+        <field name="createdOn" type="datetime" column="created_on" nullable="false"/>
+        <field name="updatedOn" type="datetime" column="updated_on" nullable="false"/>
+
+        <one-to-many field="organizationMembers" target-entity="Kreta\TaskManager\Domain\Model\Organization\OrganizationMember"
+                     mapped-by="organization">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </one-to-many>
+        <one-to-many field="owners" target-entity="Kreta\TaskManager\Domain\Model\Organization\Owner"
+                     mapped-by="organization">
+            <cascade>
+                <cascade-persist/>
+            </cascade>
+        </one-to-many>
+    </entity>
+</doctrine-mapping>

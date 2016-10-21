@@ -15,11 +15,39 @@ declare(strict_types=1);
 namespace Kreta\TaskManager\Domain\Model\Organization;
 
 use Kreta\SharedKernel\Domain\Model\Collection;
+use Kreta\SharedKernel\Domain\Model\CollectionElementAlreadyRemovedException;
+use Kreta\TaskManager\Domain\Model\User\UserId;
 
-class MemberCollection extends Collection
+abstract class MemberCollection extends Collection
 {
-    protected function type() : string
+    public function contains($element)
     {
-        return Member::class;
+        return $this->containsUserId($element->userId());
+    }
+
+    public function containsUserId(UserId $userId)
+    {
+        $members = $this->toArray();
+        foreach ($members as $member) {
+            if ($userId->equals($member->userId())) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public function removeByUserId(UserId $userId)
+    {
+        $members = $this->toArray();
+        foreach ($members as $member) {
+            if ($userId->equals($member->userId())) {
+                $this->remove($member);
+
+                return;
+            }
+        }
+
+        throw new CollectionElementAlreadyRemovedException();
     }
 }

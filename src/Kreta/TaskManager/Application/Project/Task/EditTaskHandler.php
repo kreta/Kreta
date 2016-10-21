@@ -14,9 +14,7 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Application\Project\Task;
 
-use Kreta\TaskManager\Domain\Model\Organization\MemberId;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationRepository;
-use Kreta\TaskManager\Domain\Model\Project\ProjectId;
 use Kreta\TaskManager\Domain\Model\Project\ProjectRepository;
 use Kreta\TaskManager\Domain\Model\Project\Task\Task;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskDoesNotExistException;
@@ -60,13 +58,7 @@ class EditTaskHandler
             $project->organizationId()
         );
 
-        $editorId = MemberId::generate(
-            UserId::generate(
-                $command->editorId()
-            ),
-            $organization->id()
-        );
-        if (!$organization->isMember($editorId)) {
+        if (!$organization->isOrganizationMember(UserId::generate($command->editorId()))) {
             throw new UnauthorizedTaskActionException();
         }
 

@@ -14,7 +14,6 @@ namespace Spec\Kreta\TaskManager\Application\Project\Task;
 
 use Kreta\TaskManager\Application\Project\Task\ChangeParentTaskCommand;
 use Kreta\TaskManager\Application\Project\Task\ChangeParentTaskHandler;
-use Kreta\TaskManager\Domain\Model\Organization\MemberId;
 use Kreta\TaskManager\Domain\Model\Organization\Organization;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationId;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationRepository;
@@ -29,8 +28,8 @@ use Kreta\TaskManager\Domain\Model\Project\Task\TaskParentCannotBelongToOtherPro
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskParentDoesNotExistException;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskRepository;
 use Kreta\TaskManager\Domain\Model\Project\Task\UnauthorizedTaskActionException;
+use Kreta\TaskManager\Domain\Model\User\UserId;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
 
 class ChangeParentTaskHandlerSpec extends ObjectBehavior
 {
@@ -74,8 +73,7 @@ class ChangeParentTaskHandlerSpec extends ObjectBehavior
         $project->organizationId()->shouldBeCalled()->willReturn($organizationId);
         $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
         $command->changerId()->shouldBeCalled()->willReturn('changer-id');
-        $organization->id()->shouldBeCalled()->willReturn($organizationId);
-        $organization->isMember(Argument::type(MemberId::class))->shouldBeCalled()->willReturn(true);
+        $organization->isOrganizationMember(UserId::generate('changer-id'))->shouldBeCalled()->willReturn(true);
         $parent->id()->shouldBeCalled()->willReturn($parentId);
         $task->changeParent($parentId)->shouldBeCalled();
         $repository->persist($task)->shouldBeCalled();
@@ -101,8 +99,7 @@ class ChangeParentTaskHandlerSpec extends ObjectBehavior
         $project->organizationId()->shouldBeCalled()->willReturn($organizationId);
         $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
         $command->changerId()->shouldBeCalled()->willReturn('changer-id');
-        $organization->id()->shouldBeCalled()->willReturn($organizationId);
-        $organization->isMember(Argument::type(MemberId::class))->shouldBeCalled()->willReturn(true);
+        $organization->isOrganizationMember(UserId::generate('changer-id'))->shouldBeCalled()->willReturn(true);
         $task->changeParent(null)->shouldBeCalled();
         $repository->persist($task)->shouldBeCalled();
         $this->__invoke($command);
@@ -194,8 +191,7 @@ class ChangeParentTaskHandlerSpec extends ObjectBehavior
         $project->organizationId()->shouldBeCalled()->willReturn($organizationId);
         $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
         $command->changerId()->shouldBeCalled()->willReturn('changer-id');
-        $organization->id()->shouldBeCalled()->willReturn($organizationId);
-        $organization->isMember(Argument::type(MemberId::class))->shouldBeCalled()->willReturn(false);
+        $organization->isOrganizationMember(UserId::generate('changer-id'))->shouldBeCalled()->willReturn(false);
         $this->shouldThrow(UnauthorizedTaskActionException::class)->during__invoke($command);
     }
 }

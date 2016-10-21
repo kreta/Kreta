@@ -14,7 +14,6 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Application\Project\Task;
 
-use Kreta\TaskManager\Domain\Model\Organization\MemberId;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationRepository;
 use Kreta\TaskManager\Domain\Model\Project\Project;
 use Kreta\TaskManager\Domain\Model\Project\ProjectDoesNotExistException;
@@ -73,9 +72,9 @@ class CreateTaskHandler
         $organization = $this->organizationRepository->organizationOfId(
             $project->organizationId()
         );
-        $creatorId = MemberId::generate(UserId::generate($command->creatorId()), $organization->id());
-        $assigneeId = MemberId::generate(UserId::generate($command->assigneeId()), $organization->id());
-        if (!$organization->isMember($creatorId) || !$organization->isMember($assigneeId)) {
+        $creatorId = UserId::generate($command->creatorId());
+        $assigneeId = UserId::generate($command->assigneeId());
+        if (!$organization->isOrganizationMember($creatorId) || !$organization->isOrganizationMember($assigneeId)) {
             throw new UnauthorizedTaskActionException();
         }
         if (null !== $parentId = $command->parentId()) {
@@ -94,8 +93,8 @@ class CreateTaskHandler
                 $command->title()
             ),
             $command->description(),
-            $creatorId,
-            $assigneeId,
+            $organization->organizationMember($creatorId)->id(),
+            $organization->organizationMember($assigneeId)->id(),
             new TaskPriority($command->priority()),
             $project->id(),
             TaskId::generate(
