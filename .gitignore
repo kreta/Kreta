@@ -7,9 +7,10 @@
 # file that was distributed with this source code.
 
 .htaccess
-parameters.yml
+cs_fixer_tmp_*
 composer.lock
 node_modules
+parameters.yml
 var/*
 !var/cache
 var/cache/*

@@ -25,6 +25,7 @@ EOF;
 HeaderCommentFixer::setHeader($header);
 
 return [
+    '-psr0',
     '-empty_return',
     '-unalign_double_arrow',
     '-concat_without_spaces',

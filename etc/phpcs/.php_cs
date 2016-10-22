@@ -13,10 +13,14 @@
 $fixers = include __DIR__ . '/common.php';
 
 $finder = Symfony\CS\Finder::create()
-    ->files()
     ->notName('*Spec.php')
     ->name('*.php')
-    ->in(__DIR__);
+    ->exclude('var')
+    ->exclude('vendor')
+    ->in([
+        __DIR__ . '/../../SharedKernel',
+        __DIR__ . '/../../TaskManager',
+    ]);
 
 return Symfony\CS\Config::create()
     ->level(Symfony\CS\FixerInterface::SYMFONY_LEVEL)

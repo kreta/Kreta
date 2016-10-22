@@ -1,7 +1,5 @@
 <?php
 
-namespace Kreta\TaskManager\Infrastructure\Symfony;
-
 /*
  * This file is part of the Kreta package.
  *
@@ -11,6 +9,8 @@ namespace Kreta\TaskManager\Infrastructure\Symfony;
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
+namespace Kreta\TaskManager\Infrastructure\Symfony;
 
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use Kreta\TaskManager\Infrastructure\Symfony\Bundle\AppBundle;

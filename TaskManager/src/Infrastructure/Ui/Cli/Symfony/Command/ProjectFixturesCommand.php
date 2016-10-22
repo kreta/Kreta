@@ -17,7 +17,6 @@ use Kreta\TaskManager\Domain\Model\Organization\Organization;
 use Kreta\TaskManager\Domain\Model\Project\Project;
 use Kreta\TaskManager\Domain\Model\Project\ProjectId;
 use Kreta\TaskManager\Domain\Model\Project\ProjectName;
-use Kreta\TaskManager\Domain\Model\User\User;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -35,7 +34,7 @@ class ProjectFixturesCommand extends ContainerAwareCommand
 
         $organizations = $this->getContainer()->get('doctrine')->getRepository(Organization::class)->findAll();
 
-        foreach($organizations as $organization) {
+        foreach ($organizations as $organization) {
             $project = new Project(
                 ProjectId::generate(),
                 new ProjectName('Project name'),
