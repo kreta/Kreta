@@ -1,16 +1,19 @@
 <p align="center">
     <a href="https://kreta.io" target="_blank">
-        <img src="https://rawgithub.com/kreta/kreta/master/app/Resources/public/svg/logo-full.svg">
+        <img src="https://rawgithub.com/kreta/kreta/master/logo.svg">
     </a>
 </p>
->Modern project management solution
 
-[![SensioLabsInsight](https://insight.sensiolabs.com/projects/c744caca-06bb-4b7f-9e0d-96282f4e8469/mini.png)](https://insight.sensiolabs.com/projects/c744caca-06bb-4b7f-9e0d-96282f4e8469)
-[![Build Status](https://travis-ci.org/kreta/kreta.svg?branch=master)](https://travis-ci.org/kreta/kreta)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/kreta/kreta/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/kreta/kreta/?branch=master)
-[![Total Downloads](https://poser.pugx.org/kreta/kreta/downloads)](https://packagist.org/packages/kreta/kreta)
-[![Latest Stable Version](https://poser.pugx.org/kreta/kreta/v/stable.svg)](https://packagist.org/packages/kreta/kreta)
-[![Latest Unstable Version](https://poser.pugx.org/kreta/kreta/v/unstable.svg)](https://packagist.org/packages/kreta/kreta)
+<p align="center">
+  <a href="https://insight.sensiolabs.com/projects/c744caca-06bb-4b7f-9e0d-96282f4e8469"><img src="https://insight.sensiolabs.com/projects/c744caca-06bb-4b7f-9e0d-96282f4e8469/mini.png" alt="SensioLabsInsight"></a>
+  <a href="https://travis-ci.org/kreta/kreta"><img src="https://travis-ci.org/kreta/kreta.svg?branch=master" alt="Build Status"></a>
+  <a href="https://scrutinizer-ci.com/g/kreta/kreta/?branch=master"><img src="https://scrutinizer-ci.com/g/kreta/kreta/badges/quality-score.png?b=master" alt="Scrutinizer Code Quality"></a>
+  <a href="https://packagist.org/packages/kreta/kreta"><img src="https://poser.pugx.org/kreta/kreta/downloads" alt="Total Downloads"></a>
+  <a href="https://packagist.org/packages/kreta/kreta"><img src="https://poser.pugx.org/kreta/kreta/v/stable.svg" alt="Latest Stable Version"></a>
+  <a href="https://packagist.org/packages/kreta/kreta"><img src="https://poser.pugx.org/kreta/kreta/v/unstable.svg" alt="Latest Unstable Version"></a>
+</p>
+
+> Modern project management solution
 
 If you want to test the project without any installation, you can play with a **public demo site in
 [demo.kreta.io][15]**.

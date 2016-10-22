@@ -7,17 +7,17 @@
 # file that was distributed with this source code.
 
 .htaccess
-parameters.yml
-composer.lock
-node_modules
-var/*
-!var/cache
-var/cache/*
+/parameters.yml
+/composer.lock
+/node_modules
+/var/*
+!/var/cache
+/var/cache/*
 !var/cache/.gitkeep
-!var/logs
-var/logs/*
+!/var/logs
+/var/logs/*
 !var/logs/.gitkeep
-!var/sessions
-var/sessions/*
+!/var/sessions
+/var/sessions/*
 !var/sessions/.gitkeep
-vendor
+/vendor

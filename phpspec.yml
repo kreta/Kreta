@@ -10,18 +10,15 @@ matchers:
     - Kreta\SharedKernel\Tests\Matchers\CollectionMatcher
     - Kreta\SharedKernel\Tests\Matchers\DomainPublishedMatcher
 
-extensions:
-    Memio\SpecGen\MemioSpecGenExtension: ~
-
 suites:
     kreta_shared_kernel:
-        spec_path: src/Kreta/SharedKernel/Tests/
+        spec_path: SharedKernel/tests/
         spec_prefix: Spec
         namespace: Kreta\SharedKernel
         src_path: src/
 
     kreta_task_manager:
-        spec_path: src/Kreta/TaskManager/Tests/
+        spec_path: TaskManager/tests/
         spec_prefix: Spec
         namespace: Kreta\TaskManager
         src_path: src/
