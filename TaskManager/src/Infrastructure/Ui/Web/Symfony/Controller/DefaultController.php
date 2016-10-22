@@ -17,7 +17,6 @@ use Kreta\TaskManager\Domain\Model\Organization\Organization;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationMember;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationMemberId;
 use Kreta\TaskManager\Domain\Model\User\UserId;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Templating\EngineInterface;
 
@@ -32,7 +31,7 @@ class DefaultController
         $this->manager = $manager;
     }
 
-    public function indexAction(Request $request)
+    public function indexAction()
     {
         $organization = $this->manager->getRepository(Organization::class)->findOneBy([
             'name' => 'Organization name',
@@ -55,12 +54,8 @@ class DefaultController
             )
         );
 
-//        die;
-
         return new Response(
-            $this->templating->render('default/index.html.twig', [
-//            'pages' => $pages,
-            ])
+            $this->templating->render('default/index.html.twig')
         );
     }
 }
