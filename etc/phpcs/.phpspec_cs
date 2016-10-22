@@ -1,0 +1,30 @@
+<?php
+
+/*
+ * This file is part of the Kreta package.
+ *
+ * (c) Beñat Espiña <benatespina@gmail.com>
+ * (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+$fixers = include __DIR__ . '/common.php';
+
+$fixers[] = '-visibility';
+
+$finder = Symfony\CS\Finder::create()
+    ->files()
+    ->name('*Spec.php')
+    ->notPath('var')
+    ->notPath('vendor')
+    ->in([
+        __DIR__ . '/../../SharedKernel',
+        __DIR__ . '/../../TaskManager',
+    ]);
+
+return Symfony\CS\Config::create()
+    ->level(Symfony\CS\FixerInterface::SYMFONY_LEVEL)
+    ->finder($finder)
+    ->fixers($fixers);
