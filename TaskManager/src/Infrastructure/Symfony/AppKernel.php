@@ -13,6 +13,7 @@
 namespace Kreta\TaskManager\Infrastructure\Symfony;
 
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
+use Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle;
 use Kreta\TaskManager\Infrastructure\Symfony\Bundle\AppBundle;
 use Overblog\GraphQLBundle\OverblogGraphQLBundle;
 use Sensio\Bundle\DistributionBundle\SensioDistributionBundle;
@@ -33,6 +34,7 @@ class AppKernel extends Kernel
         $bundles = [
             new AppBundle(),
             new DoctrineBundle(),
+            new DoctrineMigrationsBundle(),
             new FrameworkBundle(),
             new OverblogGraphQLBundle(),
             new MonologBundle(),

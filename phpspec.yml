@@ -15,10 +15,10 @@ suites:
         spec_path: SharedKernel/tests/
         spec_prefix: Spec
         namespace: Kreta\SharedKernel
-        src_path: src/
+        src_path: SharedKernel/src/
 
     kreta_task_manager:
         spec_path: TaskManager/tests/
         spec_prefix: Spec
         namespace: Kreta\TaskManager
-        src_path: src/
+        src_path: TaskManager/src/

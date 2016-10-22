@@ -70,7 +70,7 @@ doctrine:
                 mapping: true
                 type: xml
                 is_bundle: false
-                dir: "%kernel.root_dir%/../../../../SharedKernel/src//Infrastructure/Persistence/Doctrine/ORM/Identity/SymfonyMapping/"
+                dir: "%kernel.root_dir%/../../../../SharedKernel/src/Infrastructure/Persistence/Doctrine/ORM/Identity/SymfonyMapping/"
                 prefix: 'Kreta\SharedKernel\Domain\Model\Identity'
             TaskManagerOrganization:
                 mapping: true
@@ -96,6 +96,12 @@ doctrine:
                 is_bundle: false
                 dir: "%kernel.root_dir%/../Persistence/Doctrine/ORM/User/SymfonyMapping/"
                 prefix: 'Kreta\TaskManager\Domain\Model\User'
+
+doctrine_migrations:
+    dir_name: "%kernel.root_dir%/../Persistence/Doctrine/Migrations"
+    namespace: Kreta\TaskManager\Infrastructure\Persistence\Doctrine\Migrations
+    table_name: migration_versions
+    name: Kreta Task Manager Migrations
 
 swiftmailer:
     transport: "%task_manager_mailer_transport%"
