@@ -19,6 +19,11 @@ If you want to test the project without any installation, you can play with a **
 [demo.kreta.io][15]**.
 > Feel free to change anything you can, it has a cron that reloads all the dummy content everyday :)
 
+##Documentation
+All the documentation is stored in the `docs` folder.
+
+[Show me the docs!](docs/index.md)
+
 ##Contributing
 This project follows PHP coding standards, so pull requests need to execute the Fabien Potencier's [PHP-CS-Fixer][4].
 Furthermore, if the PR creates some not-PHP file remember that you have to put the license header manually.
