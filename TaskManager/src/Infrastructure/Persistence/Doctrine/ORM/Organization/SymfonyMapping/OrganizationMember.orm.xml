@@ -12,7 +12,7 @@
         <id name="id" type="organization_member_id"/>
 
         <many-to-one target-entity="Kreta\TaskManager\Domain\Model\Organization\Organization" field="organization"
-                     inversed-by="members">
+                     inversed-by="organizationMembers">
             <join-column name="organization_id" referenced-column-name="id"/>
         </many-to-one>
     </entity>
