@@ -1,6 +1,6 @@
 <p align="center">
     <a href="https://kreta.io" target="_blank">
-        <img src="https://rawgithub.com/kreta/kreta/master/logo.svg">
+        <img src="https://rawgithub.com/kreta/kreta/master/docs/_svg/logo.svg">
     </a>
 </p>
 
