@@ -1,6 +1,6 @@
 <p align="center">
     <a href="https://kreta.io" target="_blank">
-        <img src="https://rawgithub.com/kreta/kreta/master/logo.svg">
+        <img src="https://rawgithub.com/kreta/kreta/master/docs/_svg/logo.svg">
     </a>
 </p>
 
@@ -18,6 +18,11 @@
 If you want to test the project without any installation, you can play with a **public demo site in
 [demo.kreta.io][15]**.
 > Feel free to change anything you can, it has a cron that reloads all the dummy content everyday :)
+
+##Documentation
+All the documentation is stored in the `docs` folder.
+
+[Show me the docs!](docs/index.md)
 
 ##Contributing
 This project follows PHP coding standards, so pull requests need to execute the Fabien Potencier's [PHP-CS-Fixer][4].
