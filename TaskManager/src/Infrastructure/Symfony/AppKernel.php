@@ -17,6 +17,9 @@ use Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle;
 use Kreta\TaskManager\Infrastructure\Symfony\Bundle\AppBundle;
 use Overblog\GraphQLBundle\OverblogGraphQLBundle;
 use Sensio\Bundle\DistributionBundle\SensioDistributionBundle;
+use SimpleBus\SymfonyBridge\DoctrineOrmBridgeBundle;
+use SimpleBus\SymfonyBridge\SimpleBusCommandBusBundle;
+use SimpleBus\SymfonyBridge\SimpleBusEventBusBundle;
 use Symfony\Bundle\DebugBundle\DebugBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Bundle\MonologBundle\MonologBundle;
@@ -35,10 +38,13 @@ class AppKernel extends Kernel
             new AppBundle(),
             new DoctrineBundle(),
             new DoctrineMigrationsBundle(),
+            new DoctrineOrmBridgeBundle(),
             new FrameworkBundle(),
             new OverblogGraphQLBundle(),
             new MonologBundle(),
             new SecurityBundle(),
+            new SimpleBusCommandBusBundle(),
+            new SimpleBusEventBusBundle(),
             new SwiftmailerBundle(),
             new TwigBundle(),
         ];

@@ -12,3 +12,4 @@ services:
         arguments:
             - '@templating.engine.twig'
             - '@doctrine.orm.default_entity_manager'
+            - '@kreta.task_manager.command_bus'

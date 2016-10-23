@@ -1,0 +1,63 @@
+# This file is part of the Kreta package.
+#
+# (c) Beñat Espiña <benatespina@gmail.com>
+# (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+
+services:
+    kreta.task_manager.command_handler.add_organization_member_to_organization:
+        class: Kreta\TaskManager\Application\Organization\AddOrganizationMemberToOrganizationHandler
+        arguments:
+            - "@kreta.task_manager.repository.organization"
+        tags:
+            -
+                name: command_handler
+                handles: Kreta\TaskManager\Application\Organization\AddOrganizationMemberToOrganizationCommand
+
+    kreta.task_manager.command_handler.add_owner_to_organization:
+        class: Kreta\TaskManager\Application\Organization\AddOwnerToOrganizationHandler
+        arguments:
+            - "@kreta.task_manager.repository.organization"
+        tags:
+            -
+                name: command_handler
+                handles: Kreta\TaskManager\Application\Organization\AddOwnerToOrganizationCommand
+
+    kreta.task_manager.command_handler.create_organization:
+        class: Kreta\TaskManager\Application\Organization\CreateOrganizationHandler
+        arguments:
+            - "@kreta.task_manager.repository.organization"
+            - "@kreta.task_manager.repository.user"
+        tags:
+            -
+                name: command_handler
+                handles: Kreta\TaskManager\Application\Organization\CreateOrganizationCommand
+
+    kreta.task_manager.command_handler.edit_organization:
+        class: Kreta\TaskManager\Application\Organization\EditOrganizationHandler
+        arguments:
+            - "@kreta.task_manager.repository.organization"
+        tags:
+            -
+                name: command_handler
+                handles: Kreta\TaskManager\Application\Organization\EditOrganizationCommand
+
+    kreta.task_manager.command_handler.remove_organization_member_to_organization:
+        class: Kreta\TaskManager\Application\Organization\RemoveOrganizationMemberToOrganizationHandler
+        arguments:
+            - "@kreta.task_manager.repository.organization"
+        tags:
+            -
+                name: command_handler
+                handles: Kreta\TaskManager\Application\Organization\RemoveOrganizationMemberToOrganizationCommand
+
+    kreta.task_manager.command_handler.remove_owner_to_organization:
+        class: Kreta\TaskManager\Application\Organization\RemoveOwnerToOrganizationHandler
+        arguments:
+            - "@kreta.task_manager.repository.organization"
+        tags:
+            -
+                name: command_handler
+                handles: Kreta\TaskManager\Application\Organization\RemoveOwnerToOrganizationCommand

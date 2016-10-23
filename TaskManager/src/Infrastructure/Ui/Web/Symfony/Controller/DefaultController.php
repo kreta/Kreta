@@ -13,6 +13,9 @@
 namespace Kreta\TaskManager\Infrastructure\Ui\Web\Symfony\Controller;
 
 use Doctrine\ORM\EntityManager;
+use Kreta\SharedKernel\Application\CommandBus;
+use Kreta\TaskManager\Application\Organization\AddOrganizationMemberToOrganizationCommand;
+use Kreta\TaskManager\Application\Organization\CreateOrganizationCommand;
 use Kreta\TaskManager\Domain\Model\Organization\Organization;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationMember;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationMemberId;
@@ -24,11 +27,13 @@ class DefaultController
 {
     private $templating;
     private $manager;
+    private $commandBus;
 
-    public function __construct(EngineInterface $templating, EntityManager $manager)
+    public function __construct(EngineInterface $templating, EntityManager $manager, CommandBus $commandBus)
     {
         $this->templating = $templating;
         $this->manager = $manager;
+        $this->commandBus = $commandBus;
     }
 
     public function indexAction()
@@ -51,6 +56,21 @@ class DefaultController
                     $organization
                 )
 
+            )
+        );
+
+        $this->commandBus->handle(
+            new CreateOrganizationCommand(
+                '001976ca-b9fe-4e92-bc8e-953ad3db1d02',
+                'New organization name'
+            )
+        );
+
+        $this->commandBus->handle(
+            new AddOrganizationMemberToOrganizationCommand(
+                'lalalalauser-id',
+                '0898d47f-bdec-4ae7-bb70-bdd0fc7c432a',
+                '001976ca-b9fe-4e92-bc8e-953ad3db1d02'
             )
         );
 

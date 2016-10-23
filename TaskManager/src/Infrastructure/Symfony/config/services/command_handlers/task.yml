@@ -1,0 +1,74 @@
+# This file is part of the Kreta package.
+#
+# (c) Beñat Espiña <benatespina@gmail.com>
+# (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+
+services:
+    kreta.task_manager.command_handler.change_parent_task:
+        class: Kreta\TaskManager\Application\Project\Task\ChangeParentTaskHandler
+        arguments:
+            - "@kreta.task_manager.repository.task"
+            - "@kreta.task_manager.repository.project"
+            - "@kreta.task_manager.repository.organization"
+        tags:
+            -
+                name: command_handler
+                handles: Kreta\TaskManager\Application\Project\Task\ChangeParentTaskCommand
+
+    kreta.task_manager.command_handler.change_task_priority:
+        class: Kreta\TaskManager\Application\Project\Task\ChangeTaskPriorityHandler
+        arguments:
+            - "@kreta.task_manager.repository.organization"
+            - "@kreta.task_manager.repository.project"
+            - "@kreta.task_manager.repository.task"
+        tags:
+            -
+                name: command_handler
+                handles: Kreta\TaskManager\Application\Project\Task\ChangeTaskPriorityCommand
+
+    kreta.task_manager.command_handler.change_task_progress:
+        class: Kreta\TaskManager\Application\Project\Task\ChangeTaskProgressHandler
+        arguments:
+            - "@kreta.task_manager.repository.organization"
+            - "@kreta.task_manager.repository.project"
+            - "@kreta.task_manager.repository.task"
+        tags:
+            -
+                name: command_handler
+                handles: Kreta\TaskManager\Application\Project\Task\ChangeTaskProgressCommand
+
+    kreta.task_manager.command_handler.create_task:
+        class: Kreta\TaskManager\Application\Project\Task\CreateTaskHandler
+        arguments:
+            - "@kreta.task_manager.repository.task"
+            - "@kreta.task_manager.repository.project"
+            - "@kreta.task_manager.repository.organization"
+        tags:
+            -
+                name: command_handler
+                handles: Kreta\TaskManager\Application\Project\Task\CreateTaskCommand
+
+    kreta.task_manager.command_handler.edit_task:
+        class: Kreta\TaskManager\Application\Project\Task\EditTaskHandler
+        arguments:
+            - "@kreta.task_manager.repository.task"
+            - "@kreta.task_manager.repository.project"
+            - "@kreta.task_manager.repository.organization"
+        tags:
+            -
+                name: command_handler
+                handles: Kreta\TaskManager\Application\Project\Task\EditTaskCommand
+
+    kreta.task_manager.command_handler.reassign_task:
+        class: Kreta\TaskManager\Application\Project\Task\ReassignTaskHandler
+        arguments:
+            - "@kreta.task_manager.repository.organization"
+            - "@kreta.task_manager.repository.project"
+            - "@kreta.task_manager.repository.task"
+        tags:
+            -
+                name: command_handler
+                handles: Kreta\TaskManager\Application\Project\Task\ReassignTaskCommand
