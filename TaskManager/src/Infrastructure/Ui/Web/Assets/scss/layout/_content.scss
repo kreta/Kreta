@@ -1,0 +1,100 @@
+// This file is part of the Kreta package.
+//
+// (c) Beñat Espiña <benatespina@gmail.com>
+// (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+//
+// For the full copyright and license information, please view the LICENSE
+// file that was distributed with this source code.
+
+@import '../base/colors';
+@import '../base/media';
+
+$content-width: 900px;
+$content-right-width: 450px;
+$content-transition: .3s;
+
+.content {
+  flex: 1 1 100%;
+  height: calc(100vh - 60px);
+
+  > div {
+    display: flex;
+    height: 100%;
+  }
+}
+
+.content__middle {
+  flex: 1;
+  padding: 0 40px;
+  overflow-y: auto;
+  transition-duration: $content-transition;
+}
+
+.content__middle-content {
+  max-width: $content-width;
+  margin: auto;
+  width: 100%;
+}
+
+.content__right {
+  align-items: flex-end;
+  background-color: $light-grey;
+  border-left: 1px solid $main-grey;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 80px);
+  overflow: auto;
+  position: absolute;
+  right: 0;
+  transition: width $content-transition;
+  width: 0;
+}
+
+.content__right--visible {
+  width: 100%;
+}
+
+.content__right-content {
+  padding: 40px;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: $content-right-width;
+}
+
+.content-right-layout__cross {
+  cursor: pointer;
+  fill: $main-black;
+  height: 30px;
+  margin: 10px 10px 0;
+  width: 30px;
+}
+
+@media #{$large-up} {
+  .content {
+    flex: 1;
+
+    > div {
+      height: 100vh;
+    }
+  }
+
+  .content__right {
+    height: 100vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: initial;
+  }
+
+  .content__right-content {
+    width: $content-right-width;
+  }
+
+  .content__right--visible {
+    width: $content-right-width;
+  }
+
+  .content-right-layout__cross {
+    display: none;
+  }
+}

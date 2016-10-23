@@ -1,0 +1,8 @@
+$small: 640px;
+$medium: 768px;
+$large: 1024px;
+
+$screen: "only screen";
+
+$medium-up: "#{$screen} and (min-width: #{$medium})";
+$large-up: "#{$screen} and (min-width: #{$large})";

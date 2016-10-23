@@ -1,0 +1,27 @@
+// This file is part of the Kreta package.
+//
+// (c) Beñat Espiña <benatespina@gmail.com>
+// (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+//
+// For the full copyright and license information, please view the LICENSE
+// file that was distributed with this source code.
+
+@import 'base/reset';
+@import 'base/colors';
+@import 'base/common';
+
+@import 'helpers/spacing';
+
+@import 'components/button';
+@import 'components/form';
+
+.login-container {
+  color: $main-black;
+  margin: auto;
+  max-width: 500px;
+  text-align: center;
+}
+
+.login-logo {
+  font-size: 3em;
+}

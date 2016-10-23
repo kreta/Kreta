@@ -1,0 +1,33 @@
+// This file is part of the Kreta package.
+//
+// (c) Beñat Espiña <benatespina@gmail.com>
+// (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+//
+// For the full copyright and license information, please view the LICENSE
+// file that was distributed with this source code.
+
+@import '../../base/media';
+
+.index__message {
+  text-align: center;
+}
+
+.index__buttons {
+  margin-top: 15px;
+  text-align: center;
+
+  .button {
+    margin-left: 15px;
+    margin-right: 15px;
+  }
+}
+
+.index__projects {
+  width: 100%
+}
+
+@media #{$large-up} {
+  .index__projects {
+    width: 50%
+  }
+}

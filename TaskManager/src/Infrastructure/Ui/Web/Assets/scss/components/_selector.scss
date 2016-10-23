@@ -1,0 +1,79 @@
+// This file is part of the Kreta package.
+//
+// (c) Beñat Espiña <benatespina@gmail.com>
+// (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+//
+// For the full copyright and license information, please view the LICENSE
+// file that was distributed with this source code.
+
+@import '../base/colors';
+
+$selector-input-height: 40px;
+
+.selector {
+  background: $white;
+  position: relative;
+  width: 100%;
+}
+
+.selector__selected {
+  display: block;
+  width: 100%;
+}
+
+.selector__filter {
+  border: 1px solid $main-grey;
+  cursor: pointer;
+  height: $selector-input-height;
+  line-height: $selector-input-height;
+  opacity: 0;
+  padding: 0 10px;
+  position: absolute;
+  top: 0;
+
+  &:focus {
+    opacity: 1;
+
+    ~ .selector__options {
+      visibility: visible;
+    }
+  }
+}
+
+.selector__options {
+  background: $white;
+  border: solid $main-grey;
+  border-width: 0 1px 1px;
+  cursor: pointer;
+  max-height: 250px;
+  overflow-y: scroll;
+  position: absolute;
+  top: $selector-input-height;
+  visibility: hidden;
+  width: 100%;
+  z-index: 20;
+}
+
+.selector__option {
+  padding: 10px;
+
+  &:hover,
+  &--selected {
+    background: $main-green;
+    color: $white;
+  }
+}
+
+.selector--disabled {
+  .selector__filter {
+    cursor: default;
+  }
+
+  .selector__filter:focus {
+    opacity: 0;
+
+    ~ .selector__options {
+      visibility: hidden;
+    }
+  }
+}

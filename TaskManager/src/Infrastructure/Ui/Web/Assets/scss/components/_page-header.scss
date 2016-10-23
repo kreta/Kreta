@@ -1,0 +1,55 @@
+// This file is part of the Kreta package.
+//
+// (c) Beñat Espiña <benatespina@gmail.com>
+// (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+//
+// For the full copyright and license information, please view the LICENSE
+// file that was distributed with this source code.
+
+@import '../base/colors';
+
+.page-header {
+  align-items: center;
+  display: flex;
+  padding: 30px 0;
+  position: relative;
+}
+
+.page-header__image {
+  background: $light-grey;
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
+}
+
+.page-header__title {
+  flex: 1;
+  font-size: 1.3em;
+  margin-left: 15px;
+  text-transform: uppercase;
+}
+
+.page-header__actions {
+  align-items: center;
+  display: flex;
+}
+
+.page-header__link {
+  align-items: center;
+  color: $main-black;
+  display: flex;
+  font-size: .8em;
+  padding-left: 1em;
+  text-decoration: none;
+}
+
+.page-header__link-icon {
+  fill: $main-black;
+  height: 16px;
+  margin-right: 5px;
+  width: 16px;
+}
+
+.page-header__link-icon--green {
+  fill: $main-green;
+}
