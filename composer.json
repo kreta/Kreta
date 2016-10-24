@@ -33,6 +33,8 @@
         "overblog/graphql-bundle": "^0.6.0",
         "ramsey/uuid": "^3.5",
         "sensio/distribution-bundle": "^5.0",
+        "simple-bus/doctrine-orm-bridge": "^4.0",
+        "simple-bus/symfony-bridge": "^4.1",
         "symfony/monolog-bundle": "^2.8",
         "symfony/swiftmailer-bundle": "^2.3",
         "symfony/symfony": "3.1.*"

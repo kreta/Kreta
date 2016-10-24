@@ -21,7 +21,7 @@ class Version20161022171904 extends AbstractMigration
 {
     public function up(Schema $schema)
     {
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('CREATE TABLE organization (id CHAR(36) NOT NULL COMMENT \'(DC2Type:organization_id)\', name VARCHAR(255) NOT NULL, created_on DATETIME NOT NULL, updated_on DATETIME NOT NULL, slug VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE member (id CHAR(36) NOT NULL COMMENT \'(DC2Type:organization_member_id)\', organization_id CHAR(36) DEFAULT NULL COMMENT \'(DC2Type:organization_id)\', created_on DATETIME NOT NULL, updated_on DATETIME NOT NULL, user_id CHAR(36) NOT NULL COMMENT \'(DC2Type:user_id)\', INDEX IDX_70E4FA7832C8A3DE (organization_id), UNIQUE INDEX organization_user_index (organization_id, user_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
@@ -35,7 +35,7 @@ class Version20161022171904 extends AbstractMigration
 
     public function down(Schema $schema)
     {
-        $this->abortIf($this->connection->getDatabasePlatform()->getName() != 'mysql', 'Migration can only be executed safely on \'mysql\'.');
+        $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
         $this->addSql('ALTER TABLE member DROP FOREIGN KEY FK_70E4FA7832C8A3DE');
         $this->addSql('ALTER TABLE owner DROP FOREIGN KEY FK_CF60E67C32C8A3DE');

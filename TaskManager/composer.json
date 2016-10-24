@@ -34,20 +34,14 @@
         "kreta/shared-kernel": "0.7.x-dev",
         "overblog/graphql-bundle": "^0.6.0",
         "sensio/distribution-bundle": "^5.0",
+        "simple-bus/doctrine-orm-bridge": "^4.0",
+        "simple-bus/symfony-bridge": "^4.1",
         "symfony/monolog-bundle": "^2.8",
         "symfony/swiftmailer-bundle": "^2.3",
         "symfony/symfony": "3.1.*"
     },
     "require-dev": {
-        "fabpot/php-cs-fixer": "^1.12",
         "phpspec/phpspec": "^3.1"
-    },
-    "scripts": {
-        "cs": [
-            "php-cs-fixer fix --config-file=.php_cs",
-            "php-cs-fixer fix --config-file=.phpspec_cs"
-        ],
-        "test": "phpspec run"
     },
     "autoload": {
         "psr-4": {
@@ -57,11 +51,6 @@
         "exclude-from-classmap": [
           "tests/"
         ]
-    },
-    "autoload-dev": {
-        "psr-4": {
-            "GraphQL\\Tests\\": "vendor/webonyx/graphql-php/tests/"
-        }
     },
     "extra": {
         "incenteev-parameters": {

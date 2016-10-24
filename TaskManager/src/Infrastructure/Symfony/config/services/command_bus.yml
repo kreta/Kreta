@@ -1,0 +1,22 @@
+# This file is part of the Kreta package.
+#
+# (c) Beñat Espiña <benatespina@gmail.com>
+# (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+
+services:
+    kreta.task_manager.command_bus:
+        class: Kreta\SharedKernel\Infrastructure\Application\SimpleBus\SimpleBusCommandBus
+        arguments:
+            - "@command_bus"
+
+# Event recorder that communicates command bus with the SimpleBus's event bus and
+# Doctrine events publishing the recorded events of the aggregate root.
+    kreta.task_manager.simple_bus.event_recorder.aggregate_root:
+        class: Kreta\SharedKernel\Infrastructure\Event\SimpleBus\EventRecorder\Doctrine\ORM\AggregateRootEventRecorder
+        public: false
+        tags:
+            - { name: event_recorder }
+            - { name: doctrine.event_subscriber }
