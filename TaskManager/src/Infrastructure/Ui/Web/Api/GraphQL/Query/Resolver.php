@@ -12,10 +12,9 @@
 
 declare(strict_types=1);
 
-namespace Kreta\TaskManager\Infrastructure\Symfony\Bundle;
+namespace Kreta\TaskManager\Infrastructure\Ui\Web\Api\GraphQL\Query;
 
-use Symfony\Component\HttpKernel\Bundle\Bundle;
-
-class AppBundle extends Bundle
+interface Resolver
 {
+    public function resolve($args) : array;
 }

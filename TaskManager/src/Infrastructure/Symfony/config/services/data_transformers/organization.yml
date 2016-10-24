@@ -6,11 +6,6 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 
-#  This implements the following type system shorthand:
-#  union HumanAndDroid = Human | Droid
-
-HumanAndDroid:
-    type: union
-    config:
-        types: [Human, Droid]
-        description: Human and Droid
+services:
+    kreta.task_manager.data_transformer.organization_dto:
+        class: Kreta\TaskManager\Application\DataTransformer\Organization\OrganizationDTODataTransformer

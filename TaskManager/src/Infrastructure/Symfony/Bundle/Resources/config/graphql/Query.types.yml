@@ -6,41 +6,21 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 
-# This is the type that will be the root of our query, and the
-# entry point into our schema. It gives us the ability to fetch
-# objects by their IDs, as well as to fetch the undisputed hero
-# of the Star Wars trilogy, R2-D2, directly.
-#
 # This implements the following type system shorthand:
+#
 #   type Query {
-#     hero(episode: Episode): Character
-#     human(id: String!): Human
-#     droid(id: String!): Droid
+#     organization(id: ID!): Organization
 #   }
 
 Query:
     type: object
     config:
-        description: "A humanoid creature in the Star Wars universe."
+        description: "Kreta, modern project management solution"
         fields:
-            hero:
-                type: "Character"
-                args:
-                    episode:
-                        description: "If omitted, returns the hero of the whole saga. If provided, returns the hero of that particular episode."
-                        type: "Episode"
-                resolve: "@=resolver('character_hero', [args])"
-            human:
-                type: "Human"
+            organization:
+                type: "Organization"
                 args:
                     id:
-                        description: "id of the human"
+                        description: "id of the organization"
                         type: "String!"
-                resolve: "@=resolver('character_human', [args])"
-            droid:
-                type: "Droid"
-                args:
-                    id:
-                        description: "id of the droid"
-                        type: "String!"
-                resolve: "@=resolver('character_droid', [args])"
+                resolve: "@=resolver('organization_id', [args])"

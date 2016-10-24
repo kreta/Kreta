@@ -12,10 +12,9 @@
 
 declare(strict_types=1);
 
-namespace Kreta\TaskManager\Infrastructure\Symfony\Bundle;
+namespace Kreta\SharedKernel\Application;
 
-use Symfony\Component\HttpKernel\Bundle\Bundle;
-
-class AppBundle extends Bundle
+interface QueryBus
 {
+    public function handle($query, &$result);
 }

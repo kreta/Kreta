@@ -12,10 +12,13 @@
 
 declare(strict_types=1);
 
-namespace Kreta\TaskManager\Infrastructure\Symfony\Bundle;
+namespace Kreta\TaskManager\Application\DataTransformer\Organization;
 
-use Symfony\Component\HttpKernel\Bundle\Bundle;
+use Kreta\TaskManager\Domain\Model\Organization\Organization;
 
-class AppBundle extends Bundle
+interface OrganizationDataTransformer
 {
+    public function write(Organization $organization);
+
+    public function read();
 }

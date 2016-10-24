@@ -29,6 +29,7 @@ use Symfony\Bundle\TwigBundle\TwigBundle;
 use Symfony\Bundle\WebProfilerBundle\WebProfilerBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\HttpKernel\Kernel;
+use Warezgibzzz\QueryBusBundle\WarezgibzzzQueryBusBundle;
 
 class AppKernel extends Kernel
 {
@@ -47,6 +48,7 @@ class AppKernel extends Kernel
             new SimpleBusEventBusBundle(),
             new SwiftmailerBundle(),
             new TwigBundle(),
+            new WarezgibzzzQueryBusBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

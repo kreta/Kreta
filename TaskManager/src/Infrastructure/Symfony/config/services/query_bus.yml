@@ -6,14 +6,8 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 
-#  This implements the following type system shorthand:
-#    type HeroInput {
-#      name: Episode!
-#   }
-
-HeroInput:
-    type: input-object
-    config:
-        fields:
-            name:
-                type: "Episode!"
+services:
+    kreta.task_manager.query_bus:
+        class: Kreta\SharedKernel\Infrastructure\Application\SimpleBus\SimpleBusQueryBus
+        arguments:
+            - "@simple_bus.query_bus"
