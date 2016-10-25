@@ -8,8 +8,30 @@
 
 services:
     kreta.task_manager.graph_ql.query_resolver.organization_of_id:
-        class: Kreta\TaskManager\Infrastructure\Ui\Web\Api\GraphQL\Query\Organization\OrganizationOfIdResolver
+        class: Kreta\TaskManager\Infrastructure\Ui\Web\Api\GraphQL\Query\Organization\OrganizationResolver
         arguments:
             - "@kreta.task_manager.query_bus"
         tags:
-            - { name: overblog_graphql.resolver, alias: "organization_id", method: "resolve" }
+            - { name: overblog_graphql.resolver, alias: "organization", method: "resolve" }
+
+    kreta.task_manager.graph_ql.query_resolver.member_type:
+        class: Kreta\TaskManager\Infrastructure\Ui\Web\Api\GraphQL\Query\Organization\MemberTypeResolver
+        arguments:
+            - "@overblog_graphql.type_resolver"
+            - "@kreta.task_manager.query_bus"
+        tags:
+            - { name: overblog_graphql.resolver, alias: "member_type", method: "resolve" }
+
+    kreta.task_manager.graph_ql.query_resolver.organization_member_of_id:
+        class: Kreta\TaskManager\Infrastructure\Ui\Web\Api\GraphQL\Query\Organization\OrganizationMemberResolver
+        arguments:
+            - "@kreta.task_manager.query_bus"
+        tags:
+            - { name: overblog_graphql.resolver, alias: "member_organization_member", method: "resolve" }
+
+    kreta.task_manager.graph_ql.query_resolver.owner_of_id:
+        class: Kreta\TaskManager\Infrastructure\Ui\Web\Api\GraphQL\Query\Organization\OwnerResolver
+        arguments:
+            - "@kreta.task_manager.query_bus"
+        tags:
+            - { name: overblog_graphql.resolver, alias: "member_owner", method: "resolve" }

@@ -9,7 +9,9 @@
 # This implements the following type system shorthand:
 #
 #   type Query {
-#     organization(id: ID!): Organization
+#     organization(id: ID, name: String, first: Number, after: Number): Organization | [Organization]
+#     organizationMember(id: ID): OrganizationMember
+#     owner(id: ID): Owner
 #   }
 
 Query:
@@ -21,6 +23,35 @@ Query:
                 type: "Organization"
                 args:
                     id:
+                        description: "id of the organization, if this arg is provided the following args are unused"
+                        type: "ID"
+                    name:
+                        description: "name of the organization, it uses to filter the organizations. Typical 'q'"
+                        type: "String"
+                    first:
+                        description: "the limit of the list"
+                        type: "Number"
+                    after:
+                        description: "the offset of the list, but instead of number it's a opaque cursor"
+                        type: "Number"
+                resolve: "@=resolver('organization', [args])"
+            organizationMember:
+                type: "OrganizationMember"
+                args:
+                    organizationId:
                         description: "id of the organization"
-                        type: "String!"
-                resolve: "@=resolver('organization_id', [args])"
+                        type: "ID!"
+                    userId:
+                        description: "id of the user"
+                        type: "ID!"
+                resolve: "@=resolver('member_organization_member', [args])"
+            owner:
+                type: "Owner"
+                args:
+                    organizationId:
+                        description: "id of the organization"
+                        type: "ID!"
+                    userId:
+                        description: "id of the user"
+                        type: "ID!"
+                resolve: "@=resolver('member_owner', [args])"

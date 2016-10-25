@@ -7,5 +7,10 @@
 # file that was distributed with this source code.
 
 services:
+    kreta.task_manager.data_transformer.member_dto:
+        class: Kreta\TaskManager\Application\DataTransformer\Organization\MemberDTODataTransformer
+
     kreta.task_manager.data_transformer.organization_dto:
         class: Kreta\TaskManager\Application\DataTransformer\Organization\OrganizationDTODataTransformer
+        arguments:
+            - "@kreta.task_manager.data_transformer.member_dto"

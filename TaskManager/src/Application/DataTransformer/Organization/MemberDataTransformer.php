@@ -12,9 +12,13 @@
 
 declare(strict_types=1);
 
-namespace Kreta\TaskManager\Infrastructure\Ui\Web\Api\GraphQL\Query;
+namespace Kreta\TaskManager\Application\DataTransformer\Organization;
 
-interface Resolver
+use Kreta\TaskManager\Domain\Model\Organization\Member;
+
+interface MemberDataTransformer
 {
-    public function resolve($args);
+    public function write(Member $member);
+
+    public function read();
 }

@@ -8,7 +8,7 @@
 
 # This implements the following type system shorthand:
 #
-#   interface Organization {
+#   type Organization {
 #     id: ID!
 #     created_on: String!
 #     organization_members: [OrganizationMember]!
@@ -29,15 +29,16 @@ Organization:
             created_on:
                 type: "String!"
                 description: "The created on of the organization."
-#            organizationMembers:
-#                type: "[OrganizationMember]!"
-#                description: "The organization members of the organization."
+                access: "@=isAuthenticated()"
+            organizationMembers:
+                type: "[OrganizationMember]!"
+                description: "The organization members of the organization."
             name:
                 type: "String!"
                 description: "The name of the organization."
-#            owners:
-#                type: "[Owner!]!"
-#                description: "The owners of the organization."
+            owners:
+                type: "[Owner!]!"
+                description: "The owners of the organization."
             slug:
                 type: "String!"
                 description: "The slug of the organization."

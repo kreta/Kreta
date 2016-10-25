@@ -16,3 +16,23 @@ services:
             -
                 name: query_handler
                 handles: Kreta\TaskManager\Application\Query\Organization\OrganizationOfIdQuery
+
+    kreta.task_manager.query_handler.organization_member_of_id:
+        class: Kreta\TaskManager\Application\Query\Organization\OrganizationMemberOfIdHandler
+        arguments:
+            - "@kreta.task_manager.repository.organization"
+            - "@kreta.task_manager.data_transformer.member_dto"
+        tags:
+            -
+                name: query_handler
+                handles: Kreta\TaskManager\Application\Query\Organization\OrganizationMemberOfIdQuery
+
+    kreta.task_manager.query_handler.owner_of_id:
+        class: Kreta\TaskManager\Application\Query\Organization\OwnerOfIdHandler
+        arguments:
+            - "@kreta.task_manager.repository.organization"
+            - "@kreta.task_manager.data_transformer.member_dto"
+        tags:
+            -
+                name: query_handler
+                handles: Kreta\TaskManager\Application\Query\Organization\OwnerOfIdQuery

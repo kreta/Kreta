@@ -1,0 +1,39 @@
+# This file is part of the Kreta package.
+#
+# (c) Beñat Espiña <benatespina@gmail.com>
+# (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+
+# This implements the following type system shorthand:
+#
+#   type OrganizationMember : Member {
+#     id: ID!
+#     created_on: String!
+#     updated_on: String!
+#     user_id: String!
+#     organization: Organization!
+#   }
+
+OrganizationMember:
+    type: object
+    config:
+        description: "An organization member type of member of the organization."
+        fields:
+            id:
+                type: "ID!"
+                description: "The id of the member."
+            created_on:
+                type: "String!"
+                description: "The created on of the member."
+            updated_on:
+                type: "String!"
+                description: "The updated on of the member."
+            user_id:
+                type: "String!"
+                description: "The user id associate with the member."
+            organization:
+                type: "Organization!"
+                description: "The organization associate with the member."
+        interfaces: [Member]
