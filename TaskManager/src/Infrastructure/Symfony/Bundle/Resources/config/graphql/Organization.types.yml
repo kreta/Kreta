@@ -29,7 +29,6 @@ Organization:
             created_on:
                 type: "String!"
                 description: "The created on of the organization."
-                access: "@=isAuthenticated()"
             organizationMembers:
                 type: "[OrganizationMember]!"
                 description: "The organization members of the organization."
@@ -45,3 +44,4 @@ Organization:
             updated_on:
                 type: "String!"
                 description: "The updated on of the organization."
+        interfaces: [Node]

@@ -7,6 +7,13 @@
 # file that was distributed with this source code.
 
 services:
+    kreta.task_manager.graph_ql.query_resolver.filter_organizations:
+        class: Kreta\TaskManager\Infrastructure\Ui\Web\Api\GraphQL\Query\Organization\OrganizationsResolver
+        arguments:
+            - "@kreta.task_manager.query_bus"
+        tags:
+            - { name: overblog_graphql.resolver, alias: "organizations", method: "resolve" }
+
     kreta.task_manager.graph_ql.query_resolver.organization_of_id:
         class: Kreta\TaskManager\Infrastructure\Ui\Web\Api\GraphQL\Query\Organization\OrganizationResolver
         arguments:

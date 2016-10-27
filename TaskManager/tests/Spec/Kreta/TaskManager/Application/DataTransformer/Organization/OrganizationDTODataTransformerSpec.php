@@ -20,7 +20,6 @@ use Kreta\TaskManager\Domain\Model\Organization\Organization;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationId;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationName;
 use Kreta\TaskManager\Domain\Model\Organization\Owner;
-use Kreta\TaskManager\Domain\Model\Organization\OwnerCollection;
 use Kreta\TaskManager\Domain\Model\Organization\OwnerId;
 use Kreta\TaskManager\Domain\Model\User\UserId;
 use PhpSpec\ObjectBehavior;

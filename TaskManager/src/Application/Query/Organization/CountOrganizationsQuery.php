@@ -12,15 +12,19 @@
 
 declare(strict_types=1);
 
-namespace Kreta\TaskManager\Domain\Event\Organization;
+namespace Kreta\TaskManager\Application\Query\Organization;
 
-use Kreta\SharedKernel\Domain\Event\EventSubscriber;
-use Kreta\SharedKernel\Domain\Model\DomainEvent;
-
-class OrganizationCreatedSubscriber implements EventSubscriber
+class CountOrganizationsQuery
 {
-    public function handle(DomainEvent $event)
+    private $name;
+
+    public function __construct(string $name = null)
     {
-        // 'Silence is golden';
+        $this->name = $name;
+    }
+
+    public function name()
+    {
+        return $this->name;
     }
 }

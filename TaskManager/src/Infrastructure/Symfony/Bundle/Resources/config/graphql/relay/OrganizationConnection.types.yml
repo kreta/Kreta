@@ -1,0 +1,28 @@
+# This file is part of the Kreta package.
+#
+# (c) Beñat Espiña <benatespina@gmail.com>
+# (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+
+# connectionType implements the following type system shorthand:
+#
+#   type OrganizationConnection {
+#     edges: [OrganizationEdge]
+#     pageInfo: PageInfo!
+#   }
+#
+# connectionType has an edges field - a list of edgeTypes that implement the following type system shorthand:
+#
+#   type OrganizationEdge {
+#     cursor: String!
+#     node: Organization
+#   }
+OrganizationConnection:
+    type: relay-connection
+    config:
+        nodeType: Organization
+        connectionFields:
+            totalCount:
+                type: "Int!"

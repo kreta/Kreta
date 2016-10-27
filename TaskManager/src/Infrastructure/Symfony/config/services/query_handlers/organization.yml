@@ -7,6 +7,27 @@
 # file that was distributed with this source code.
 
 services:
+    kreta.task_manager.query_handler.count_organizations:
+        class: Kreta\TaskManager\Application\Query\Organization\CountOrganizationsHandler
+        arguments:
+            - "@kreta.task_manager.repository.organization"
+            - "@kreta.task_manager.specification_factory.organization"
+        tags:
+            -
+                name: query_handler
+                handles: Kreta\TaskManager\Application\Query\Organization\CountOrganizationsQuery
+
+    kreta.task_manager.query_handler.filter_organizations:
+        class: Kreta\TaskManager\Application\Query\Organization\FilterOrganizationsHandler
+        arguments:
+            - "@kreta.task_manager.repository.organization"
+            - "@kreta.task_manager.specification_factory.organization"
+            - "@kreta.task_manager.data_transformer.organization_dto"
+        tags:
+            -
+                name: query_handler
+                handles: Kreta\TaskManager\Application\Query\Organization\FilterOrganizationsQuery
+
     kreta.task_manager.query_handler.organization_of_id:
         class: Kreta\TaskManager\Application\Query\Organization\OrganizationOfIdHandler
         arguments:

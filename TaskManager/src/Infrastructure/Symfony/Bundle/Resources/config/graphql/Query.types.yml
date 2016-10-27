@@ -19,21 +19,26 @@ Query:
     config:
         description: "Kreta, modern project management solution"
         fields:
+            node:
+                builder: Node
+                builderConfig:
+                    nodeInterfaceType: Node
+                    idFetcher: '@=resolver("node", [value])'
+            organizations:
+                type: "OrganizationConnection"
+                description: "The paginate list of organization that can be filter by name"
+                argsBuilder: ConnectionArgs
+                args:
+                    name:
+                        description: "name of the organization, it uses to filter the organizations. Typical 'q'"
+                        type: "String"
+                resolve: '@=resolver("organizations", [args])'
             organization:
                 type: "Organization"
                 args:
                     id:
-                        description: "id of the organization, if this arg is provided the following args are unused"
-                        type: "ID"
-                    name:
-                        description: "name of the organization, it uses to filter the organizations. Typical 'q'"
-                        type: "String"
-                    first:
-                        description: "the limit of the list"
-                        type: "Number"
-                    after:
-                        description: "the offset of the list, but instead of number it's a opaque cursor"
-                        type: "Number"
+                        description: "id of the organization"
+                        type: "ID!"
                 resolve: "@=resolver('organization', [args])"
             organizationMember:
                 type: "OrganizationMember"

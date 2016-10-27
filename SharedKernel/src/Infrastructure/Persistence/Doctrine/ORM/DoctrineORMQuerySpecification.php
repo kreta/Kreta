@@ -12,15 +12,12 @@
 
 declare(strict_types=1);
 
-namespace Kreta\TaskManager\Domain\Event\Organization;
+namespace Kreta\SharedKernel\Infrastructure\Persistence\Doctrine\ORM;
 
-use Kreta\SharedKernel\Domain\Event\EventSubscriber;
-use Kreta\SharedKernel\Domain\Model\DomainEvent;
+use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\Query;
 
-class OrganizationCreatedSubscriber implements EventSubscriber
+interface DoctrineORMQuerySpecification
 {
-    public function handle(DomainEvent $event)
-    {
-        // 'Silence is golden';
-    }
+    public function buildQuery(EntityManager $manager) : Query;
 }

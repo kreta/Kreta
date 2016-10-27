@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Kreta\TaskManager\Infrastructure\Ui\Web\Api\GraphQL\Query\Organization;
 
@@ -29,29 +29,13 @@ class OrganizationResolver implements Resolver
 
     public function resolve($args)
     {
-        if (isset($args['id'])) {
-            $this->queryBus->handle(
-                new OrganizationOfIdQuery(
-                    $args['id']
-                ),
-                $result
-            );
+        $this->queryBus->handle(
+            new OrganizationOfIdQuery(
+                $args['id']
+            ),
+            $result
+        );
 
-            return $result;
-        }
-        $name = isset($args['name']) ? $args['name'] : null;
-        $first = isset($args['first']) ? $args['first'] : null; // LIMIT
-        $after = isset($args['after']) ? $args['after'] : null; // It's like offset but opaque cursor
-
-//        $this->queryBus->handle(
-//            new OrganizationsOfNameQuery(
-//                $name,
-//                $first,
-//                $after
-//            ),
-//            $result
-//        );
-//
-//        return $result;
+        return $result;
     }
 }

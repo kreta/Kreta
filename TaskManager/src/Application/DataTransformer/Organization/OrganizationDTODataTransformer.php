@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Kreta\TaskManager\Application\DataTransformer\Organization;
 
@@ -48,7 +48,6 @@ class OrganizationDTODataTransformer implements OrganizationDataTransformer
             $this->memberDataTransformer->write($organizationMember);
             $organizationMembers[] = $this->memberDataTransformer->read();
         }
-
 
         return [
             'id'                  => $this->organization->id()->id(),

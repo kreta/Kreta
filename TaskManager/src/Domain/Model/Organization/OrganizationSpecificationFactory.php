@@ -12,15 +12,9 @@
 
 declare(strict_types=1);
 
-namespace Kreta\TaskManager\Domain\Event\Organization;
+namespace Kreta\TaskManager\Domain\Model\Organization;
 
-use Kreta\SharedKernel\Domain\Event\EventSubscriber;
-use Kreta\SharedKernel\Domain\Model\DomainEvent;
-
-class OrganizationCreatedSubscriber implements EventSubscriber
+interface OrganizationSpecificationFactory
 {
-    public function handle(DomainEvent $event)
-    {
-        // 'Silence is golden';
-    }
+    public function buildNameFilterableSpecification($name, int $offset = 0, int $limit = -1);
 }
