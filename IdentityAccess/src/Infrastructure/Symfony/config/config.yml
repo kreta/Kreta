@@ -79,9 +79,34 @@ ben_gor_user:
         user:
             class: Kreta\IdentityAccess\Infrastructure\Domain\Model\User\User
             firewall: main
+            use_cases:
+                security:
+                    enabled: false
+                sign_up:
+                    enabled: true
+                    type: by_invitation
+                change_password:
+                    enabled: true
+                    type: by_request_remember_password
+                remove:
+                    enabled: false
+                jwt:
+                    enabled: true
+            routes:
+                sign_up:
+                    path: /register
+                invite:
+                    path: /invite
+                change_password:
+                    path: /change-password
+                request_remember_password:
+                    path: /remember-password
+                jwt:
+                    new_token:
+                        path: /auth/token
 
 lexik_jwt_authentication:
     private_key_path: "%kernel.root_dir%/../../../var/jwt/private.pem"
     public_key_path: "%kernel.root_dir%/../../../var/jwt/public.pem"
     pass_phrase: "%identity_access_jwt_key_pass_phrase%"
-    token_ttl: 3600
+    token_ttl: 31556926         # 1 year of lifetime

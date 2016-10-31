@@ -33,7 +33,7 @@ class Controller
         $this->tokenStorage = $tokenStorage;
     }
 
-    public function whoAmIAction() : JsonResponse
+    public function userAction() : JsonResponse
     {
         if (!$this->authorizationChecker->isGranted(AuthenticatedVoter::IS_AUTHENTICATED_FULLY)) {
             throw new AccessDeniedException('This request requires authentication');

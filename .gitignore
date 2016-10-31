@@ -9,6 +9,7 @@
 .htaccess
 cs_fixer_tmp_*
 composer.lock
+!/composer.lock
 node_modules
 parameters.yml
 var/*
