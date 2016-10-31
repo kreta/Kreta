@@ -15,6 +15,7 @@ namespace Kreta\IdentityAccess\Infrastructure\Symfony;
 use BenGorUser\UserBundle\BenGorUserBundle;
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle;
+use Lexik\Bundle\JWTAuthenticationBundle\LexikJWTAuthenticationBundle;
 use Sensio\Bundle\DistributionBundle\SensioDistributionBundle;
 use SimpleBus\SymfonyBridge\SimpleBusCommandBusBundle;
 use SimpleBus\SymfonyBridge\SimpleBusEventBusBundle;
@@ -36,6 +37,7 @@ class AppKernel extends Kernel
             new DoctrineBundle(),
             new DoctrineMigrationsBundle(),
             new FrameworkBundle(),
+            new LexikJWTAuthenticationBundle(),
             new MonologBundle(),
             new SecurityBundle(),
             new SimpleBusCommandBusBundle(),
