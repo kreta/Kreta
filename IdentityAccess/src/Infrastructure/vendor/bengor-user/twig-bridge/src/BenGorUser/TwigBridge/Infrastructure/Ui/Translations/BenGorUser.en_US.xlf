@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="en" datatype="plaintext" original="file.ext">
+    <body>
+      <trans-unit id="ui.twig.views.email.invite.subject" approved="yes">
+        <source>ui.twig.views.email.invite.subject</source>
+        <target xml:lang="en">This an invitation for the registration</target>
+      </trans-unit>
+      <trans-unit id="ui.twig.views.email.invite.body_html" approved="yes">
+        <source>ui.twig.views.email.invite.body_html</source>
+        <target xml:lang="en">&lt;h1&gt;Hi, &lt;strong&gt;%email%&lt;/strong&gt;.&lt;/h1&gt;&lt;p&gt;In order to accept this invitation please, you need to follow this &lt;a href="%url%" target="_blank"&gt;link&lt;/a&gt;.&lt;/p&gt;</target>
+      </trans-unit>
+      <trans-unit id="ui.twig.views.email.invite.body_text" approved="yes">
+        <source>ui.twig.views.email.invite.body_text</source>
+        <target xml:lang="en">Hi, %user.email%. In order to accept this invitation please, you need to follow this link: %url%.</target>
+      </trans-unit>
+      <trans-unit id="ui.twig.views.email.request_remember_password.subject" approved="yes">
+        <source>ui.twig.views.email.request_remember_password.subject</source>
+        <target xml:lang="en">This is a remember password request</target>
+      </trans-unit>
+      <trans-unit id="ui.twig.views.email.request_remember_password.body_html" approved="yes">
+        <source>ui.twig.views.email.request_remember_password.body_html</source>
+        <target xml:lang="en">&lt;h1&gt;Hi, &lt;strong&gt;%email%&lt;/strong&gt;.&lt;/h1&gt;&lt;p&gt;You just have requested password remember so, in order to finish the process successfully you need to follow this &lt;a href="%url%" target="_blank"&gt;link&lt;/a&gt;.&lt;/p&gt;</target>
+      </trans-unit>
+      <trans-unit id="ui.twig.views.email.request_remember_password.body_text" approved="yes">
+        <source>ui.twig.views.email.request_remember_password.body_text</source>
+        <target xml:lang="en">Hi, %email%. You just have requested password remember so, in order to finish the process successfully you need to follow this link: %url%.</target>
+      </trans-unit>
+      <trans-unit id="ui.twig.views.email.sign_up.subject" approved="yes">
+        <source>ui.twig.views.email.sign_up.subject</source>
+        <target xml:lang="en">You're successfully register!</target>
+      </trans-unit>
+      <trans-unit id="ui.twig.views.email.sign_up.body_html" approved="yes">
+        <source>ui.twig.views.email.sign_up.body_html</source>
+        <target xml:lang="en">&lt;h1&gt;Hi, &lt;strong&gt;%email%&lt;/strong&gt;.&lt;/h1&gt;&lt;p&gt;You are registered successfully.&lt;br/&gt;In order to confirm your email account please, you need to follow this &lt;a href="%url%" target="_blank"&gt;link&lt;/a&gt;.&lt;/p&gt;</target>
+      </trans-unit>
+      <trans-unit id="ui.twig.views.email.sign_up.body_text" approved="yes">
+        <source>ui.twig.views.email.sign_up.body_text</source>
+        <target xml:lang="en">Hi, %email%. You are registered successfully. In order to confirm your email account please, you need to follow this link: %url%.</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

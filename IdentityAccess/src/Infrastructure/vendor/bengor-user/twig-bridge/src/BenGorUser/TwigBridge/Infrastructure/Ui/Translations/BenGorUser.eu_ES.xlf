@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="eu" datatype="plaintext" original="file.ext">
+    <body>
+      <trans-unit id="ui.twig.views.email.invite.subject" approved="yes">
+        <source>ui.twig.views.email.invite.subject</source>
+        <target xml:lang="eu">Erregistratze gonbidapena</target>
+      </trans-unit>
+      <trans-unit id="ui.twig.views.email.invite.body_html" approved="yes">
+        <source>ui.twig.views.email.invite.body_html</source>
+        <target xml:lang="eu">&lt;h1&gt;Kaixo, &lt;strong&gt;%email%&lt;/strong&gt;.&lt;/h1&gt;&lt;p&gt;Gonbidapena onartzekotan, mesedez, jarraitu hurrengo &lt;a href="%url%" target="_blank"&gt;link&lt;/a&gt;-a.&lt;/p&gt;</target>
+      </trans-unit>
+      <trans-unit id="ui.twig.views.email.invite.body_text" approved="yes">
+        <source>ui.twig.views.email.invite.body_text</source>
+        <target xml:lang="eu">Kaixo, %user.email%. Gonbidapena onartzekotan, mesedez, jarraitu hurrengo: %url% -a.</target>
+      </trans-unit>
+      <trans-unit id="ui.twig.views.email.request_remember_password.subject" approved="yes">
+        <source>ui.twig.views.email.request_remember_password.subject</source>
+        <target xml:lang="eu">Pasahitz gogorapena</target>
+      </trans-unit>
+      <trans-unit id="ui.twig.views.email.request_remember_password.body_html" approved="yes">
+        <source>ui.twig.views.email.request_remember_password.body_html</source>
+        <target xml:lang="eu">&lt;h1&gt;Kaixo, &lt;strong&gt;%email%&lt;/strong&gt;.&lt;/h1&gt;&lt;p&gt;Pasahitz gogorapena jaso duzu; prozesua bukatu nahi izatekotan, mesedez jarraitu hurrengo &lt;a href="%url%" target="_blank"&gt;link&lt;/a&gt;-a.&lt;/p&gt;</target>
+      </trans-unit>
+      <trans-unit id="ui.twig.views.email.request_remember_password.body_text" approved="yes">
+        <source>ui.twig.views.email.request_remember_password.body_text</source>
+        <target xml:lang="eu">Kaixo, %email%. Pasahitz gogorapena jaso duzu; prozesua bukatu nahi izatekotan, mesedez jarraitu hurrengo linka: %url%.</target>
+      </trans-unit>
+      <trans-unit id="ui.twig.views.email.sign_up.subject" approved="yes">
+        <source>ui.twig.views.email.sign_up.subject</source>
+        <target xml:lang="eu">Era egokian erregistratu zara</target>
+      </trans-unit>
+      <trans-unit id="ui.twig.views.email.sign_up.body_html" approved="yes">
+        <source>ui.twig.views.email.sign_up.body_html</source>
+        <target xml:lang="eu">&lt;h1&gt;Kaixo, &lt;strong&gt;%email%&lt;/strong&gt;.&lt;/h1&gt;&lt;p&gt;Era egokian erregistratu zara.&lt;br/&gt;Kontua aktibatzeko, mesedez, jarraitu hurrengo &lt;a href="%url%" target="_blank"&gt;link&lt;/a&gt;.-a&lt;/p&gt;</target>
+      </trans-unit>
+      <trans-unit id="ui.twig.views.email.sign_up.body_text" approved="yes">
+        <source>ui.twig.views.email.sign_up.body_text</source>
+        <target xml:lang="eu">Kaixo, %email%. Era egokian erregistratu zara. Kontua aktibatzeko, mesedez, jarraitu hurrengo linka: %url%.</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

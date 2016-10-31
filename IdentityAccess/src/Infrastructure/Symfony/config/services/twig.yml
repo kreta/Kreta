@@ -6,20 +6,10 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 
-.htaccess
-cs_fixer_tmp_*
-composer.lock
-node_modules
-parameters.yml
-var/*
-!var/cache
-var/cache/*
-!var/cache/.gitkeep
-!var/logs
-var/logs/*
-!var/logs/.gitkeep
-!var/sessions
-var/sessions/*
-!var/sessions/.gitkeep
-vendor
-!IdentityAccess/src/Infrastructure/vendor
+services:
+    kreta.identity_access.views.twig.loader:
+        class: Twig_Loader_Filesystem
+        arguments:
+            - ["%kernel.root_dir%/../Ui/Views/Twig"]
+        tags:
+            - { name: twig.loader }

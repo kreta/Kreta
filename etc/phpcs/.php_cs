@@ -18,6 +18,7 @@ $finder = Symfony\CS\Finder::create()
     ->exclude('var')
     ->exclude('vendor')
     ->in([
+        __DIR__ . '/../../IdentityAccess',
         __DIR__ . '/../../SharedKernel',
         __DIR__ . '/../../TaskManager',
     ]);

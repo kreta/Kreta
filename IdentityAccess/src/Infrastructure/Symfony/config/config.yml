@@ -1,0 +1,81 @@
+# This file is part of the Kreta package.
+#
+# (c) Beñat Espiña <benatespina@gmail.com>
+# (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+
+imports:
+    - { resource: ../../../../parameters.yml }
+    - { resource: security.yml }
+    - { resource: services/, type: directory }
+
+parameters:
+    locale: en
+
+framework:
+    secret: "%secret%"
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: ~
+    form: ~
+    csrf_protection: ~
+    validation: { enable_annotations: false }
+    templating:
+        engines: ['twig']
+    default_locale: "%locale%"
+    translator: { fallbacks: ["%locale%"] }
+    trusted_hosts: ~
+    trusted_proxies: ~
+    session:
+        handler_id: session.handler.native_file
+        name: kretasession
+        save_path: "%kernel.root_dir%/../../../var/sessions/%kernel.environment%"
+    fragments: ~
+    http_method_override: true
+    assets: ~
+
+twig:
+    debug: "%kernel.debug%"
+    strict_variables: "%kernel.debug%"
+
+doctrine:
+    dbal:
+        driver: pdo_mysql
+        host: "%identity_access_database_host%"
+        port: "%identity_access_database_port%"
+        dbname: "%identity_access_database_name%"
+        user: "%identity_access_database_user%"
+        password: "%identity_access_database_password%"
+        charset: UTF8
+    orm:
+        auto_generate_proxy_classes: "%kernel.debug%"
+        naming_strategy: doctrine.orm.naming_strategy.underscore
+        auto_mapping: true
+        mappings:
+            IdentityAccess:
+                mapping: true
+                type: xml
+                is_bundle: false
+                dir: "%kernel.root_dir%/../Persistence/Doctrine/ORM/User/SymfonyMapping/"
+                prefix: 'Kreta\IdentityAccess\Infrastructure\Domain\Model\User'
+
+doctrine_migrations:
+    dir_name: "%kernel.root_dir%/../Persistence/Doctrine/Migrations"
+    namespace: Kreta\IdentityAccess\Infrastructure\Persistence\Doctrine\Migrations
+    table_name: migration_versions
+    name: Kreta Identity Access Migrations
+
+swiftmailer:
+    transport: "%identity_access_mailer_transport%"
+    host: "%identity_access_mailer_host%"
+    username: "%identity_access_mailer_user%"
+    password: "%identity_access_mailer_password%"
+    spool: { type: memory }
+
+ben_gor_user:
+    user_class:
+        user:
+            class: Kreta\IdentityAccess\Infrastructure\Domain\Model\User\User
+            firewall: main

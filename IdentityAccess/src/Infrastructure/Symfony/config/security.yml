@@ -1,0 +1,37 @@
+# This file is part of the Kreta package.
+#
+# (c) Beñat Espiña <benatespina@gmail.com>
+# (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+
+security:
+    encoders:
+        Kreta\IdentityAccess\Infrastructure\Domain\Model\User\User: bcrypt
+    providers:
+        bengor_user:
+            id: bengor_user.user.provider
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            anonymous: ~
+            pattern: ^/user
+            guard:
+                authenticators:
+                    - bengor_user.user.form_login_authenticator
+            provider: bengor_user
+            form_login:
+                check_path: bengor_user_user_login_check
+                login_path: bengor_user_user_login
+                failure_path: bengor_user_user_login
+            logout:
+                path: bengor_user_user_logout
+                target: /
+    access_control:
+        - { path: ^/user/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/user/sign-up, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/user/enable, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/user/, role: ROLE_USER }

@@ -1,0 +1,67 @@
+{
+    "name": "kreta/identity-access",
+    "description": "Identity access Bounded Context of Kreta",
+    "keywords": [
+        "project",
+        "manager",
+        "development",
+        "tool",
+        "bc",
+        "access",
+        "identity",
+        "users"
+    ],
+    "homepage": "http://kreta.io",
+    "license": "MIT",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Beñat Espiña Diaz",
+            "email": "benatespina@gmail.com",
+            "homepage": "http://benatespina.com"
+        },
+        {
+            "name": "Gorka Laucirica Ibarra",
+            "email": "gorka.lauzirika@gmail.com",
+            "homepage": "http://gorkalaucirica.net"
+        }
+    ],
+    "require": {
+        "php": "^7.0",
+        "bengor-user/user-bundle": "^0.6",
+        "bengor-user/doctrine-orm-bridge-bundle": "^1.0",
+        "bengor-user/simple-bus-bridge-bundle": "^1.0",
+        "bengor-user/swift-mailer-bridge-bundle": "^1.0",
+        "bengor-user/symfony-routing-bridge-bundle": "^1.0",
+        "bengor-user/symfony-security-bridge-bundle": "^1.0",
+        "bengor-user/twig-bridge-bundle": "^1.0",
+        "doctrine/doctrine-bundle": "^1.6",
+        "doctrine/doctrine-migrations-bundle": "^1.2",
+        "doctrine/orm": "^2.5",
+        "incenteev/composer-parameter-handler": "^2.0",
+        "sensio/distribution-bundle": "^5.0",
+        "symfony/monolog-bundle": "^2.8",
+        "symfony/swiftmailer-bundle": "^2.3",
+        "symfony/symfony": "3.1.*"
+    },
+    "require-dev": {
+        "phpspec/phpspec": "^3.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Kreta\\IdentityAccess\\": "src/",
+            "Kreta\\IdentityAccess\\Tests\\": "tests/"
+        },
+        "exclude-from-classmap": [
+          "tests/"
+        ]
+    },
+    "extra": {
+        "incenteev-parameters": {
+            "file": "parameters.yml"
+        },
+        "branch-alias": {
+            "dev-master": "0.7.x-dev"
+        }
+    }
+}

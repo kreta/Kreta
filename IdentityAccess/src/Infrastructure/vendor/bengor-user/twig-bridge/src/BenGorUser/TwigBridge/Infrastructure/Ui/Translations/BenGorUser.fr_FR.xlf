@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" target-language="fr" datatype="plaintext" original="file.ext">
+    <body>
+      <trans-unit id="ui.twig.views.email.invite.subject">
+        <source>ui.twig.views.email.invite.subject</source>
+        <target xml:lang="fr" state="needs-translation">ui.twig.views.email.invite.subject</target>
+      </trans-unit>
+      <trans-unit id="ui.twig.views.email.invite.body_html">
+        <source>ui.twig.views.email.invite.body_html</source>
+        <target xml:lang="fr" state="needs-translation">ui.twig.views.email.invite.body_html</target>
+      </trans-unit>
+      <trans-unit id="ui.twig.views.email.invite.body_text">
+        <source>ui.twig.views.email.invite.body_text</source>
+        <target xml:lang="fr" state="needs-translation">ui.twig.views.email.invite.body_text</target>
+      </trans-unit>
+      <trans-unit id="ui.twig.views.email.request_remember_password.subject">
+        <source>ui.twig.views.email.request_remember_password.subject</source>
+        <target xml:lang="fr" state="needs-translation">ui.twig.views.email.request_remember_password.subject</target>
+      </trans-unit>
+      <trans-unit id="ui.twig.views.email.request_remember_password.body_html">
+        <source>ui.twig.views.email.request_remember_password.body_html</source>
+        <target xml:lang="fr" state="needs-translation">ui.twig.views.email.request_remember_password.body_html</target>
+      </trans-unit>
+      <trans-unit id="ui.twig.views.email.request_remember_password.body_text">
+        <source>ui.twig.views.email.request_remember_password.body_text</source>
+        <target xml:lang="fr" state="needs-translation">ui.twig.views.email.request_remember_password.body_text</target>
+      </trans-unit>
+      <trans-unit id="ui.twig.views.email.sign_up.subject">
+        <source>ui.twig.views.email.sign_up.subject</source>
+        <target xml:lang="fr" state="needs-translation">ui.twig.views.email.sign_up.subject</target>
+      </trans-unit>
+      <trans-unit id="ui.twig.views.email.sign_up.body_html">
+        <source>ui.twig.views.email.sign_up.body_html</source>
+        <target xml:lang="fr" state="needs-translation">ui.twig.views.email.sign_up.body_html</target>
+      </trans-unit>
+      <trans-unit id="ui.twig.views.email.sign_up.body_text">
+        <source>ui.twig.views.email.sign_up.body_text</source>
+        <target xml:lang="fr" state="needs-translation">ui.twig.views.email.sign_up.body_text</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>
