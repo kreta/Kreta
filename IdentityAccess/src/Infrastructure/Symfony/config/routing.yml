@@ -8,3 +8,10 @@
 
 ben_gor_user:
     resource: '@BenGorUserBundle/Resources/config/routing/all.yml'
+
+kreta_identity_access_who_am_i:
+    path: /user/api
+    defaults:
+        _controller: "kreta.identity_access.api_rest.controller:whoAmIAction"
+    methods:
+        - GET

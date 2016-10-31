@@ -10,6 +10,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Kreta\IdentityAccess\Infrastructure\Domain\Model\User;
 
 use BenGorUser\User\Domain\Model\User as BaseUser;

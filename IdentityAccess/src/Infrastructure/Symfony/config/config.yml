@@ -79,3 +79,9 @@ ben_gor_user:
         user:
             class: Kreta\IdentityAccess\Infrastructure\Domain\Model\User\User
             firewall: main
+
+lexik_jwt_authentication:
+    private_key_path: "%kernel.root_dir%/../../../var/jwt/private.pem"
+    public_key_path: "%kernel.root_dir%/../../../var/jwt/public.pem"
+    pass_phrase: "%identity_access_jwt_key_pass_phrase%"
+    token_ttl: 3600

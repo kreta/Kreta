@@ -10,4 +10,5 @@ services:
     kreta.identity_access.api_rest.controller:
         class: Kreta\IdentityAccess\Infrastructure\Ui\Web\Api\Rest\Controller
         arguments:
-            - '@doctrine.orm.default_entity_manager'
+            - "@security.authorization_checker"
+            - "@security.token_storage"
