@@ -34,7 +34,7 @@
         "bengor-user/swift-mailer-bridge-bundle": "^1.0",
         "bengor-user/symfony-routing-bridge-bundle": "^1.0",
         "bengor-user/symfony-security-bridge-bundle": "^1.0",
-        "bengor-user/twig-bridge-bundle": "^1.0",
+        "bengor-user/twig-bridge-bundle": "^1.0.2",
         "doctrine/doctrine-bundle": "^1.6",
         "doctrine/doctrine-migrations-bundle": "^1.2",
         "doctrine/orm": "^2.5",

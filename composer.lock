@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5736c93371e64c0409c3aa9c60c513be",
-    "content-hash": "8560ad00d5060c8ec97e1a6a5a574352",
+    "hash": "87b3b5de0631d188c475e75b0a788da4",
+    "content-hash": "4c275221fc865eefa05c5679cc44e094",
     "packages": [
         {
             "name": "beberlei/assert",
@@ -765,16 +765,16 @@
         },
         {
             "name": "bengor-user/twig-bridge-bundle",
-            "version": "v1.0.1",
+            "version": "v1.0.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/BenGorUser/TwigBridgeBundle.git",
-                "reference": "1ead1aabe1bf555ae1beb084c835c9837ffb9c8f"
+                "reference": "42494f7b6e1e1f15a9f3d875b92de6d882104618"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/BenGorUser/TwigBridgeBundle/zipball/1ead1aabe1bf555ae1beb084c835c9837ffb9c8f",
-                "reference": "1ead1aabe1bf555ae1beb084c835c9837ffb9c8f",
+                "url": "https://api.github.com/repos/BenGorUser/TwigBridgeBundle/zipball/42494f7b6e1e1f15a9f3d875b92de6d882104618",
+                "reference": "42494f7b6e1e1f15a9f3d875b92de6d882104618",
                 "shasum": ""
             },
             "require": {
@@ -825,7 +825,7 @@
                 "twig",
                 "user"
             ],
-            "time": "2016-11-01 16:34:46"
+            "time": "2016-11-02 21:50:35"
         },
         {
             "name": "bengor-user/user",
