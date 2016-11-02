@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "6e55a9419943a849755026a9408da254",
-    "content-hash": "eba54fd0254c157fb74701ee99e0970a",
+    "hash": "5736c93371e64c0409c3aa9c60c513be",
+    "content-hash": "8560ad00d5060c8ec97e1a6a5a574352",
     "packages": [
         {
             "name": "beberlei/assert",
-            "version": "2.6.5",
+            "version": "v2.6.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/beberlei/assert.git",
-                "reference": "fbadde44717ea3eb98fba35425d49731185bf418"
+                "reference": "f567e3e4bce5419bccb9e9b1faf8d4ca9b2f5055"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/beberlei/assert/zipball/fbadde44717ea3eb98fba35425d49731185bf418",
-                "reference": "fbadde44717ea3eb98fba35425d49731185bf418",
+                "url": "https://api.github.com/repos/beberlei/assert/zipball/f567e3e4bce5419bccb9e9b1faf8d4ca9b2f5055",
+                "reference": "f567e3e4bce5419bccb9e9b1faf8d4ca9b2f5055",
                 "shasum": ""
             },
             "require": {
@@ -60,24 +60,24 @@
                 "assertion",
                 "validation"
             ],
-            "time": "2016-10-11 17:13:28"
+            "time": "2016-10-31 12:09:54"
         },
         {
             "name": "bengor-user/doctrine-orm-bridge",
-            "version": "v1.0.4",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/BenGorUser/DoctrineORMBridge.git",
-                "reference": "e507bfa88bcadd273dbf67acbe501347021a440f"
+                "reference": "851c35a833ee492d1b3a204c20fb2ea6ff3335ca"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/BenGorUser/DoctrineORMBridge/zipball/e507bfa88bcadd273dbf67acbe501347021a440f",
-                "reference": "e507bfa88bcadd273dbf67acbe501347021a440f",
+                "url": "https://api.github.com/repos/BenGorUser/DoctrineORMBridge/zipball/851c35a833ee492d1b3a204c20fb2ea6ff3335ca",
+                "reference": "851c35a833ee492d1b3a204c20fb2ea6ff3335ca",
                 "shasum": ""
             },
             "require": {
-                "bengor-user/user": "^0.6",
+                "bengor-user/user": "^0.6 || ^0.7",
                 "doctrine/orm": "^2.5",
                 "php": "^5.5 || ^7.0",
                 "symfony/yaml": "^2.8 || ^3.0"
@@ -124,25 +124,25 @@
                 "orm",
                 "user"
             ],
-            "time": "2016-09-28 20:34:29"
+            "time": "2016-11-01 16:40:48"
         },
         {
             "name": "bengor-user/doctrine-orm-bridge-bundle",
-            "version": "v1.0.0",
+            "version": "v1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/BenGorUser/DoctrineORMBridgeBundle.git",
-                "reference": "fb94f5af81a6483fe7200add1aa8ba07cdcf8f51"
+                "reference": "3c0f3239c96c4a3cdb21445cdd041a745ac79864"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/BenGorUser/DoctrineORMBridgeBundle/zipball/fb94f5af81a6483fe7200add1aa8ba07cdcf8f51",
-                "reference": "fb94f5af81a6483fe7200add1aa8ba07cdcf8f51",
+                "url": "https://api.github.com/repos/BenGorUser/DoctrineORMBridgeBundle/zipball/3c0f3239c96c4a3cdb21445cdd041a745ac79864",
+                "reference": "3c0f3239c96c4a3cdb21445cdd041a745ac79864",
                 "shasum": ""
             },
             "require": {
                 "bengor-user/doctrine-orm-bridge": "^1.0.0",
-                "bengor-user/user-bundle": "^0.6",
+                "bengor-user/user-bundle": "^0.6 || ^0.7",
                 "doctrine/doctrine-bundle": "^1.6",
                 "php": "^5.5 || ^7.0"
             },
@@ -189,24 +189,24 @@
                 "symfony",
                 "user"
             ],
-            "time": "2016-06-13 20:45:54"
+            "time": "2016-11-01 16:58:46"
         },
         {
             "name": "bengor-user/simple-bus-bridge",
-            "version": "v1.0.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/BenGorUser/SimpleBusBridge.git",
-                "reference": "780fcd91cbde90f2b8faf553e6231bbb699f870b"
+                "reference": "056919d8631dbc3b5dd53b72603306bbecc00077"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/BenGorUser/SimpleBusBridge/zipball/780fcd91cbde90f2b8faf553e6231bbb699f870b",
-                "reference": "780fcd91cbde90f2b8faf553e6231bbb699f870b",
+                "url": "https://api.github.com/repos/BenGorUser/SimpleBusBridge/zipball/056919d8631dbc3b5dd53b72603306bbecc00077",
+                "reference": "056919d8631dbc3b5dd53b72603306bbecc00077",
                 "shasum": ""
             },
             "require": {
-                "bengor-user/user": "^0.6",
+                "bengor-user/user": "^0.6 || ^0.7",
                 "php": "^5.5 || ^7.0",
                 "simple-bus/message-bus": "^2.2"
             },
@@ -251,25 +251,25 @@
                 "simple-bus",
                 "user"
             ],
-            "time": "2016-06-13 18:12:51"
+            "time": "2016-11-01 16:38:38"
         },
         {
             "name": "bengor-user/simple-bus-bridge-bundle",
-            "version": "v1.0.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/BenGorUser/SimpleBusBridgeBundle.git",
-                "reference": "50743f0aecc7c32fc6cff90e51fa9877862a00e2"
+                "reference": "1df617304ab657fd26858eb3dbf17b409c0a2736"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/BenGorUser/SimpleBusBridgeBundle/zipball/50743f0aecc7c32fc6cff90e51fa9877862a00e2",
-                "reference": "50743f0aecc7c32fc6cff90e51fa9877862a00e2",
+                "url": "https://api.github.com/repos/BenGorUser/SimpleBusBridgeBundle/zipball/1df617304ab657fd26858eb3dbf17b409c0a2736",
+                "reference": "1df617304ab657fd26858eb3dbf17b409c0a2736",
                 "shasum": ""
             },
             "require": {
                 "bengor-user/simple-bus-bridge": "^1.0",
-                "bengor-user/user-bundle": "^0.6",
+                "bengor-user/user-bundle": "^0.6 || ^0.7",
                 "php": "^5.5 || ^7.0",
                 "simple-bus/doctrine-orm-bridge": "^4.0",
                 "simple-bus/symfony-bridge": "^4.0"
@@ -317,24 +317,24 @@
                 "symfony",
                 "user"
             ],
-            "time": "2016-06-13 18:18:05"
+            "time": "2016-11-01 16:37:59"
         },
         {
             "name": "bengor-user/swift-mailer-bridge",
-            "version": "v1.0.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/BenGorUser/SwiftMailerBridge.git",
-                "reference": "164003552a1da519bafeecc5f9ee7a0074db5d6d"
+                "reference": "038735c495d85cc9d4c0621e1696375343b50e24"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/BenGorUser/SwiftMailerBridge/zipball/164003552a1da519bafeecc5f9ee7a0074db5d6d",
-                "reference": "164003552a1da519bafeecc5f9ee7a0074db5d6d",
+                "url": "https://api.github.com/repos/BenGorUser/SwiftMailerBridge/zipball/038735c495d85cc9d4c0621e1696375343b50e24",
+                "reference": "038735c495d85cc9d4c0621e1696375343b50e24",
                 "shasum": ""
             },
             "require": {
-                "bengor-user/user": "^0.6",
+                "bengor-user/user": "^0.6 || ^0.7",
                 "php": "^5.5 || ^7.0",
                 "swiftmailer/swiftmailer": "^5.4"
             },
@@ -380,25 +380,25 @@
                 "swift-mailer",
                 "user"
             ],
-            "time": "2016-06-13 18:13:48"
+            "time": "2016-11-01 16:30:30"
         },
         {
             "name": "bengor-user/swift-mailer-bridge-bundle",
-            "version": "v1.0.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/BenGorUser/SwiftMailerBridgeBundle.git",
-                "reference": "6313a3b2f8a76ecfe85721d48e214cd2b0c6d80c"
+                "reference": "520d80c55496f11cb0a13da149e11d5ca976d9df"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/BenGorUser/SwiftMailerBridgeBundle/zipball/6313a3b2f8a76ecfe85721d48e214cd2b0c6d80c",
-                "reference": "6313a3b2f8a76ecfe85721d48e214cd2b0c6d80c",
+                "url": "https://api.github.com/repos/BenGorUser/SwiftMailerBridgeBundle/zipball/520d80c55496f11cb0a13da149e11d5ca976d9df",
+                "reference": "520d80c55496f11cb0a13da149e11d5ca976d9df",
                 "shasum": ""
             },
             "require": {
                 "bengor-user/swift-mailer-bridge": "^1.0",
-                "bengor-user/user-bundle": "^0.6",
+                "bengor-user/user-bundle": "^0.6 || ^0.7",
                 "php": "^5.5 || ^7.0",
                 "symfony/swiftmailer-bundle": "^2.3"
             },
@@ -444,24 +444,24 @@
                 "symfony",
                 "user"
             ],
-            "time": "2016-06-13 18:16:14"
+            "time": "2016-11-01 16:31:07"
         },
         {
             "name": "bengor-user/symfony-routing-bridge",
-            "version": "v1.0.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/BenGorUser/SymfonyRoutingBridge.git",
-                "reference": "ad3a9bb8f550742a1b4f24bd4cc72c4f3ab0c1ba"
+                "reference": "a9bea36d3749bfeeee5fc04420749642d686a516"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/BenGorUser/SymfonyRoutingBridge/zipball/ad3a9bb8f550742a1b4f24bd4cc72c4f3ab0c1ba",
-                "reference": "ad3a9bb8f550742a1b4f24bd4cc72c4f3ab0c1ba",
+                "url": "https://api.github.com/repos/BenGorUser/SymfonyRoutingBridge/zipball/a9bea36d3749bfeeee5fc04420749642d686a516",
+                "reference": "a9bea36d3749bfeeee5fc04420749642d686a516",
                 "shasum": ""
             },
             "require": {
-                "bengor-user/user": "^0.6",
+                "bengor-user/user": "^0.6 || ^0.7",
                 "php": "^5.5 || ^7.0",
                 "symfony/routing": "^2.8 || ^3.0"
             },
@@ -507,25 +507,25 @@
                 "symfony",
                 "user"
             ],
-            "time": "2016-06-13 18:04:00"
+            "time": "2016-11-01 16:32:03"
         },
         {
             "name": "bengor-user/symfony-routing-bridge-bundle",
-            "version": "v1.0.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/BenGorUser/SymfonyRoutingBridgeBundle.git",
-                "reference": "1d2b4a80112c63750e814fea1ccb2281d399dacf"
+                "reference": "f510456cd521d1fd23953733f4a82edc4479b965"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/BenGorUser/SymfonyRoutingBridgeBundle/zipball/1d2b4a80112c63750e814fea1ccb2281d399dacf",
-                "reference": "1d2b4a80112c63750e814fea1ccb2281d399dacf",
+                "url": "https://api.github.com/repos/BenGorUser/SymfonyRoutingBridgeBundle/zipball/f510456cd521d1fd23953733f4a82edc4479b965",
+                "reference": "f510456cd521d1fd23953733f4a82edc4479b965",
                 "shasum": ""
             },
             "require": {
                 "bengor-user/symfony-routing-bridge": "^1.0",
-                "bengor-user/user-bundle": "^0.6",
+                "bengor-user/user-bundle": "^0.6 || ^0.7",
                 "php": "^5.5 || ^7.0"
             },
             "require-dev": {
@@ -570,24 +570,24 @@
                 "symfony",
                 "user"
             ],
-            "time": "2016-06-14 07:47:24"
+            "time": "2016-11-01 16:32:42"
         },
         {
             "name": "bengor-user/symfony-security-bridge",
-            "version": "v1.0.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/BenGorUser/SymfonySecurityBridge.git",
-                "reference": "1129e75a468dfd116a2e284f7164c4d152fccdd5"
+                "reference": "600c95ecf72e7ba3575cda4c025cfe87765ea3ea"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/BenGorUser/SymfonySecurityBridge/zipball/1129e75a468dfd116a2e284f7164c4d152fccdd5",
-                "reference": "1129e75a468dfd116a2e284f7164c4d152fccdd5",
+                "url": "https://api.github.com/repos/BenGorUser/SymfonySecurityBridge/zipball/600c95ecf72e7ba3575cda4c025cfe87765ea3ea",
+                "reference": "600c95ecf72e7ba3575cda4c025cfe87765ea3ea",
                 "shasum": ""
             },
             "require": {
-                "bengor-user/user": "^0.6",
+                "bengor-user/user": "^0.6 || ^0.7",
                 "php": "^5.5 || ^7.0",
                 "symfony/security-core": "^2.8 || ^3.0"
             },
@@ -633,25 +633,25 @@
                 "symfony",
                 "user"
             ],
-            "time": "2016-06-13 18:00:07"
+            "time": "2016-11-01 16:33:22"
         },
         {
             "name": "bengor-user/symfony-security-bridge-bundle",
-            "version": "v1.0.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/BenGorUser/SymfonySecurityBridgeBundle.git",
-                "reference": "88fef64fa289eece2c903edf0a9643b1a840a806"
+                "reference": "8fbccd24c6f6e697a73dec8784b594522a3761c8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/BenGorUser/SymfonySecurityBridgeBundle/zipball/88fef64fa289eece2c903edf0a9643b1a840a806",
-                "reference": "88fef64fa289eece2c903edf0a9643b1a840a806",
+                "url": "https://api.github.com/repos/BenGorUser/SymfonySecurityBridgeBundle/zipball/8fbccd24c6f6e697a73dec8784b594522a3761c8",
+                "reference": "8fbccd24c6f6e697a73dec8784b594522a3761c8",
                 "shasum": ""
             },
             "require": {
                 "bengor-user/symfony-security-bridge": "^1.0",
-                "bengor-user/user-bundle": "^0.6",
+                "bengor-user/user-bundle": "^0.6 || ^0.7",
                 "php": "^5.5 || ^7.0",
                 "symfony/security-bundle": "^2.8 || ^3.0"
             },
@@ -697,24 +697,24 @@
                 "symfony",
                 "user"
             ],
-            "time": "2016-06-13 18:02:37"
+            "time": "2016-11-01 16:34:12"
         },
         {
             "name": "bengor-user/twig-bridge",
-            "version": "v1.0.2",
+            "version": "v1.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/BenGorUser/TwigBridge.git",
-                "reference": "1bb36d118294fbe9bb868dcb83a9b0f497e44bcf"
+                "reference": "aa8215a18cda70a8f8c58dc787b42e14e5f2470d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/BenGorUser/TwigBridge/zipball/1bb36d118294fbe9bb868dcb83a9b0f497e44bcf",
-                "reference": "1bb36d118294fbe9bb868dcb83a9b0f497e44bcf",
+                "url": "https://api.github.com/repos/BenGorUser/TwigBridge/zipball/aa8215a18cda70a8f8c58dc787b42e14e5f2470d",
+                "reference": "aa8215a18cda70a8f8c58dc787b42e14e5f2470d",
                 "shasum": ""
             },
             "require": {
-                "bengor-user/user": "^0.6",
+                "bengor-user/user": "^0.6 || ^0.7",
                 "php": "^5.5 || ^7.0",
                 "symfony/config": "^2.8 || ^3.0",
                 "symfony/translation": "^2.8 || ^3.0",
@@ -761,25 +761,25 @@
                 "twig",
                 "user"
             ],
-            "time": "2016-08-01 14:35:01"
+            "time": "2016-11-01 16:39:13"
         },
         {
             "name": "bengor-user/twig-bridge-bundle",
-            "version": "v1.0.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/BenGorUser/TwigBridgeBundle.git",
-                "reference": "f19e083bdccb84bfb0092d10b1f6b39c7049897c"
+                "reference": "1ead1aabe1bf555ae1beb084c835c9837ffb9c8f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/BenGorUser/TwigBridgeBundle/zipball/f19e083bdccb84bfb0092d10b1f6b39c7049897c",
-                "reference": "f19e083bdccb84bfb0092d10b1f6b39c7049897c",
+                "url": "https://api.github.com/repos/BenGorUser/TwigBridgeBundle/zipball/1ead1aabe1bf555ae1beb084c835c9837ffb9c8f",
+                "reference": "1ead1aabe1bf555ae1beb084c835c9837ffb9c8f",
                 "shasum": ""
             },
             "require": {
                 "bengor-user/twig-bridge": "^1.0",
-                "bengor-user/user-bundle": "^0.6",
+                "bengor-user/user-bundle": "^0.6 || ^0.7",
                 "php": "^5.5 || ^7.0",
                 "symfony/twig-bundle": "^2.8 || ^3.0"
             },
@@ -825,20 +825,20 @@
                 "twig",
                 "user"
             ],
-            "time": "2016-06-13 17:56:53"
+            "time": "2016-11-01 16:34:46"
         },
         {
             "name": "bengor-user/user",
-            "version": "v0.6.2",
+            "version": "v0.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/BenGorUser/User.git",
-                "reference": "617c713f61b7525bb4cdbb28f350054dfe2e8e3b"
+                "reference": "c72c1bdd02d7862246e42c41c39ae4bf4c2f7e44"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/BenGorUser/User/zipball/617c713f61b7525bb4cdbb28f350054dfe2e8e3b",
-                "reference": "617c713f61b7525bb4cdbb28f350054dfe2e8e3b",
+                "url": "https://api.github.com/repos/BenGorUser/User/zipball/c72c1bdd02d7862246e42c41c39ae4bf4c2f7e44",
+                "reference": "c72c1bdd02d7862246e42c41c39ae4bf4c2f7e44",
                 "shasum": ""
             },
             "require": {
@@ -885,24 +885,24 @@
                 "ddd",
                 "user"
             ],
-            "time": "2016-10-05 11:42:15"
+            "time": "2016-11-01 16:14:15"
         },
         {
             "name": "bengor-user/user-bundle",
-            "version": "v0.6.2",
+            "version": "v0.7.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/BenGorUser/UserBundle.git",
-                "reference": "c1fe52abc5dcb932cebf42ba95f637f480586671"
+                "reference": "5b45b80461a4cde5ac35b334f5b4e8a96831c8f7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/BenGorUser/UserBundle/zipball/c1fe52abc5dcb932cebf42ba95f637f480586671",
-                "reference": "c1fe52abc5dcb932cebf42ba95f637f480586671",
+                "url": "https://api.github.com/repos/BenGorUser/UserBundle/zipball/5b45b80461a4cde5ac35b334f5b4e8a96831c8f7",
+                "reference": "5b45b80461a4cde5ac35b334f5b4e8a96831c8f7",
                 "shasum": ""
             },
             "require": {
-                "bengor-user/user": "^0.6",
+                "bengor-user/user": "^0.7",
                 "php": "^5.5 || ^7.0",
                 "symfony/form": "^2.8 || ^3.0",
                 "symfony/framework-bundle": "^2.8 || ^3.0",
@@ -911,6 +911,7 @@
             },
             "require-dev": {
                 "friendsofphp/php-cs-fixer": "^1.11",
+                "lexik/jwt-authentication-bundle": "^2.0",
                 "phpspec/phpspec": "^2.5"
             },
             "type": "symfony-bundle",
@@ -949,7 +950,7 @@
                 "ddd",
                 "user"
             ],
-            "time": "2016-06-23 09:43:50"
+            "time": "2016-11-01 21:31:46"
         },
         {
             "name": "doctrine/annotations",

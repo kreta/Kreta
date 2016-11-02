@@ -28,8 +28,8 @@
     ],
     "require": {
         "php": "^7.0",
-        "bengor-user/user-bundle": "^0.6",
-        "bengor-user/doctrine-orm-bridge-bundle": "^1.0",
+        "bengor-user/user-bundle": "^0.7",
+        "bengor-user/doctrine-orm-bridge-bundle": "^1.1",
         "bengor-user/simple-bus-bridge-bundle": "^1.0",
         "bengor-user/swift-mailer-bridge-bundle": "^1.0",
         "bengor-user/symfony-routing-bridge-bundle": "^1.0",
