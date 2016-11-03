@@ -15,8 +15,14 @@ namespace Kreta\IdentityAccess\Infrastructure\Symfony;
 use BenGorUser\UserBundle\BenGorUserBundle;
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle;
+use JMS\SerializerBundle\JMSSerializerBundle;
 use Lexik\Bundle\JWTAuthenticationBundle\LexikJWTAuthenticationBundle;
+use OldSound\RabbitMqBundle\OldSoundRabbitMqBundle;
 use Sensio\Bundle\DistributionBundle\SensioDistributionBundle;
+use SimpleBus\AsynchronousBundle\SimpleBusAsynchronousBundle;
+use SimpleBus\JMSSerializerBundleBridge\SimpleBusJMSSerializerBundleBridgeBundle;
+use SimpleBus\RabbitMQBundleBridge\SimpleBusRabbitMQBundleBridgeBundle;
+use SimpleBus\SymfonyBridge\DoctrineOrmBridgeBundle;
 use SimpleBus\SymfonyBridge\SimpleBusCommandBusBundle;
 use SimpleBus\SymfonyBridge\SimpleBusEventBusBundle;
 use Symfony\Bundle\DebugBundle\DebugBundle;
@@ -37,13 +43,17 @@ class AppKernel extends Kernel
             new DoctrineBundle(),
             new DoctrineMigrationsBundle(),
             new FrameworkBundle(),
+            new JMSSerializerBundle(),
             new LexikJWTAuthenticationBundle(),
             new MonologBundle(),
             new SecurityBundle(),
-            new SimpleBusCommandBusBundle(),
-            new SimpleBusEventBusBundle(),
             new SwiftmailerBundle(),
             new TwigBundle(),
+
+            new SimpleBusAsynchronousBundle(),
+            new SimpleBusRabbitMQBundleBridgeBundle(),
+            new SimpleBusJMSSerializerBundleBridgeBundle(),
+            new OldSoundRabbitMqBundle(),
 
             new \BenGorUser\TwigBridgeBundle\TwigBridgeBundle(),
             new \BenGorUser\SymfonyRoutingBridgeBundle\SymfonyRoutingBridgeBundle(),
@@ -52,9 +62,11 @@ class AppKernel extends Kernel
             new \BenGorUser\DoctrineORMBridgeBundle\DoctrineORMBridgeBundle(),
             new \BenGorUser\SimpleBusBridgeBundle\SimpleBusBridgeBundle(),
             new \BenGorUser\SimpleBusBridgeBundle\SimpleBusDoctrineORMBridgeBundle(),
-
-
             new BenGorUserBundle(),
+
+            new DoctrineOrmBridgeBundle(),
+            new SimpleBusCommandBusBundle(),
+            new SimpleBusEventBusBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

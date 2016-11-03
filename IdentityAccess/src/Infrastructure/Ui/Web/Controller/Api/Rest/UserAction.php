@@ -12,7 +12,7 @@
 
 declare(strict_types=1);
 
-namespace Kreta\IdentityAccess\Infrastructure\Ui\Web\Api\Rest;
+namespace Kreta\IdentityAccess\Infrastructure\Ui\Web\Controller\Api\Rest;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -20,7 +20,7 @@ use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\AuthenticatedVoter;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
-class Controller
+class UserAction
 {
     private $authorizationChecker;
     private $tokenStorage;
@@ -33,7 +33,7 @@ class Controller
         $this->tokenStorage = $tokenStorage;
     }
 
-    public function userAction() : JsonResponse
+    public function __invoke() : JsonResponse
     {
         if (!$this->authorizationChecker->isGranted(AuthenticatedVoter::IS_AUTHENTICATED_FULLY)) {
             throw new AccessDeniedException('This request requires authentication');

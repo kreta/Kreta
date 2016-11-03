@@ -12,7 +12,7 @@ imports:
     - { resource: services/, type: directory }
 
 parameters:
-    locale: en
+    locale: en_US
 
 framework:
     secret: "%secret%"
@@ -72,7 +72,7 @@ swiftmailer:
     host: "%identity_access_mailer_host%"
     username: "%identity_access_mailer_user%"
     password: "%identity_access_mailer_password%"
-    spool: { type: memory }
+    #spool: { type: memory }
 
 ben_gor_user:
     user_class:
@@ -110,3 +110,39 @@ lexik_jwt_authentication:
     public_key_path: "%kernel.root_dir%/../../../var/jwt/public.pem"
     pass_phrase: "%identity_access_jwt_key_pass_phrase%"
     token_ttl: 31556926         # 1 year of lifetime
+
+old_sound_rabbit_mq:
+    connections:
+        default:
+            host: 'localhost'
+            port: 5672
+            user: 'guest'
+            password: 'guest'
+            vhost: '/'
+            lazy: true
+            connection_timeout: 3
+            read_write_timeout: 3
+            keepalive: false
+            heartbeat: 0
+    producers:
+        asynchronous_events:
+            connection: default
+            exchange_options:
+                name: asynchronous_events
+                type: direct
+    consumers:
+        asynchronous_events:
+            connection: default
+            exchange_options:
+                name: asynchronous_events
+                type: direct
+            queue_options:
+                name: asynchronous_events
+            callback: simple_bus.rabbit_mq_bundle_bridge.events_consumer
+
+#simple_bus_asynchronous:
+#    object_serializer_service_id: kreta.identity_access.simple_bus.serializer.native
+
+simple_bus_rabbit_mq_bundle_bridge:
+    events:
+        producer_service_id: old_sound_rabbit_mq.asynchronous_events_producer

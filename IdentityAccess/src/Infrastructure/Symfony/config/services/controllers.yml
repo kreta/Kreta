@@ -7,8 +7,13 @@
 # file that was distributed with this source code.
 
 services:
-    kreta.identity_access.api_rest.controller:
-        class: Kreta\IdentityAccess\Infrastructure\Ui\Web\Api\Rest\Controller
+    kreta.identity_access.controller.api_rest.user_action:
+        class: Kreta\IdentityAccess\Infrastructure\Ui\Web\Controller\Api\Rest\UserAction
         arguments:
             - "@security.authorization_checker"
             - "@security.token_storage"
+
+    kreta.identity_access.controller.sign_up_action:
+        class: Kreta\IdentityAccess\Infrastructure\Ui\Web\Controller\SignUpAction
+        calls:
+             - [setContainer, ['@service_container']]
