@@ -52,7 +52,7 @@ class AppKernel extends Kernel
 
             new SimpleBusAsynchronousBundle(),
             new SimpleBusRabbitMQBundleBridgeBundle(),
-            new SimpleBusJMSSerializerBundleBridgeBundle(),
+//            new SimpleBusJMSSerializerBundleBridgeBundle(),
             new OldSoundRabbitMqBundle(),
 
             new \BenGorUser\TwigBridgeBundle\TwigBridgeBundle(),

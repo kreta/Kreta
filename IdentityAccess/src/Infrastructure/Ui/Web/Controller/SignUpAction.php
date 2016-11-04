@@ -14,16 +14,27 @@ declare(strict_types=1);
 
 namespace Kreta\IdentityAccess\Infrastructure\Ui\Web\Controller;
 
+use BenGorUser\User\Application\Command\SignUp\ByInvitationSignUpUserCommand;
 use BenGorUser\User\Application\Query\UserOfInvitationTokenQuery;
 use BenGorUser\User\Domain\Model\Exception\UserDoesNotExistException;
 use BenGorUser\User\Domain\Model\Exception\UserTokenExpiredException;
 use BenGorUser\UserBundle\Form\Type\SignUpByInvitationType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 class SignUpAction extends Controller
 {
-    public function byInvitationAction(Request $request, $userClass = 'user', $firewall = 'main')
+    public function byInvitationAction(Request $request)
+    {
+        $this->get('command_bus')->handle(
+            new ByInvitationSignUpUserCommand('11', '11')
+        );
+
+        return new Response();
+    }
+
+    public function byInvitationAction2(Request $request, $userClass = 'user', $firewall = 'main')
     {
         $invitationToken = $request->query->get('invitation-token');
         try {

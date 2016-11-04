@@ -22,8 +22,19 @@ services:
 
 
 
+    your.monolog.service.id:
+        class: Monolog\Formatter\LineFormatter
+        calls:
+            - [includeStacktraces]
+
+    app.name.resolver:
+        class: Kreta\SharedKernel\Infrastructure\Event\SimpleBus\Name\CustomNameResolver
+
+    simple_bus.event_bus.event_name_resolver:
+        alias: app.name.resolver
+
     kreta.identity_access.simple_bus.serializer.native:
-        class: SimpleBus\Serialization\NativeObjectSerializer
+        class: Kreta\SharedKernel\Infrastructure\Serializer\SimpleBus\Serializer
 
 
     kreta.identity_access.command_handler.sign_up_by_invitation:
@@ -41,5 +52,5 @@ services:
         tags:
             -
                 name: asynchronous_event_subscriber
-                subscribes_to: BenGorUser\User\Domain\Model\Event\UserRegistered
+                subscribes_to: identity_access.user_register
                 method: handle
