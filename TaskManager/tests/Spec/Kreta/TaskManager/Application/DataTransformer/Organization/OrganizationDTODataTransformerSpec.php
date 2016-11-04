@@ -19,8 +19,6 @@ use Kreta\TaskManager\Application\DataTransformer\Organization\OrganizationDTODa
 use Kreta\TaskManager\Domain\Model\Organization\Organization;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationId;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationName;
-use Kreta\TaskManager\Domain\Model\Organization\Owner;
-use Kreta\TaskManager\Domain\Model\Organization\OwnerId;
 use Kreta\TaskManager\Domain\Model\User\UserId;
 use PhpSpec\ObjectBehavior;
 
@@ -37,38 +35,20 @@ class OrganizationDTODataTransformerSpec extends ObjectBehavior
         $this->shouldImplement(OrganizationDataTransformer::class);
     }
 
-    function it_transform_organization_to_plain_dto(
-        Organization $organization,
-        OrganizationId $organizationId,
-        OrganizationName $organizationName,
-        Slug $slug,
-        \DateTimeImmutable $createdOn,
-        \DateTimeImmutable $updatedOn,
-        Owner $owner,
-        MemberDataTransformer $memberDataTransformer,
-        OwnerId $ownerId,
-        UserId $userId
-    ) {
+    function it_transform_organization_to_plain_dto(MemberDataTransformer $memberDataTransformer)
+    {
+        $userId = UserId::generate('user-id');
+
+        $organization = new Organization(
+            OrganizationId::generate('organization-id'),
+            new OrganizationName('Organization name'),
+            new Slug('Organization name'),
+            $userId
+        );
+
         $this->write($organization);
 
-        $organization->owners()->shouldReturnCollection([$owner]);
-        $owner->id()->shouldBeCalled()->willReturn($ownerId);
-        $owner->id()->shouldBeCalled()->willReturn('owner-id');
-        $createdOn->format('Y-m-d')->shouldBeCalled()->willReturn('2016-10-24');
-        $updatedOn->format('Y-m-d')->shouldBeCalled()->willReturn('2016-10-24');
-        $owner->userId()->shouldBeCalled()->willReturn($userId);
-        $userId->id()->shouldBeCalled()->willReturn('user-id');
-        $owner->organization()->shouldBeCalled()->willReturn($organization);
-        $organization->id()->shouldBeCalled()->willReturn($organizationId);
-        $organizationId->id()->shouldBeCalled()->willReturn('organization-id');
-        $organization->name()->shouldBeCalled()->willReturn($organizationName);
-        $organizationName->name()->shouldBeCalled()->willReturn('Organization name');
-        $organization->slug()->shouldBeCalled()->willReturn($slug);
-        $slug->slug()->shouldBeCalled()->willReturn('organization-name');
-        $organization->createdOn()->shouldBeCalled()->willReturn($createdOn);
-        $organization->updatedOn()->shouldBeCalled()->willReturn($updatedOn);
-        $createdOn->format('Y-m-d')->shouldBeCalled()->willReturn('2016-10-24');
-        $updatedOn->format('Y-m-d')->shouldBeCalled()->willReturn('2016-10-24');
+        $memberDataTransformer->write($organization->owner($userId))->shouldBeCalled();
         $memberDataTransformer->read()->shouldBeCalled()->willReturn([
             'id'           => 'owner-id',
             'created_on'   => '2016-10-24',
@@ -84,26 +64,28 @@ class OrganizationDTODataTransformerSpec extends ObjectBehavior
                 ],
             ],
         ]);
-        $organization->organizationMembers()->shouldBeCalled()->willReturn([]);
-
-        $organization->id()->shouldBeCalled()->willReturn($organizationId);
-        $organizationId->id()->shouldBeCalled()->willReturn('organization-id');
-        $organization->name()->shouldBeCalled()->willReturn($organizationName);
-        $organizationName->name()->shouldBeCalled()->willReturn('Organization name');
-        $organization->slug()->shouldBeCalled()->willReturn($slug);
-        $slug->slug()->shouldBeCalled()->willReturn('organization-name');
-        $organization->createdOn()->shouldBeCalled()->willReturn($createdOn);
-        $organization->updatedOn()->shouldBeCalled()->willReturn($updatedOn);
-        $createdOn->format('Y-m-d')->shouldBeCalled()->willReturn('2016-10-24');
-        $updatedOn->format('Y-m-d')->shouldBeCalled()->willReturn('2016-10-24');
 
         $this->read()->shouldReturn([
             'id'                  => 'organization-id',
             'name'                => 'Organization name',
             'slug'                => 'organization-name',
-            'created_on'          => '2016-10-24',
-            'updated_on'          => '2016-10-24',
-            'owners'              => [],
+            'created_on'          => (new \DateTimeImmutable())->format('Y-m-d'),
+            'updated_on'          => (new \DateTimeImmutable())->format('Y-m-d'),
+            'owners'              => [[
+                'id'           => 'owner-id',
+                'created_on'   => '2016-10-24',
+                'updated_on'   => '2016-10-24',
+                'user_id'      => 'user-id',
+                'organization' => [
+                    [
+                        'id'         => 'organization-id',
+                        'name'       => 'Organization name',
+                        'slug'       => 'organization-name',
+                        'created_on' => '2016-10-24',
+                        'updated_on' => '2016-10-24',
+                    ],
+                ],
+            ]],
             'organizationMembers' => [],
         ]);
     }
