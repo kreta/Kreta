@@ -21,6 +21,6 @@ class OrganizationCreatedSubscriber implements EventSubscriber
 {
     public function handle(DomainEvent $event)
     {
-        echo 'Silence is golden';
+        // 'Silence is golden';
     }
 }

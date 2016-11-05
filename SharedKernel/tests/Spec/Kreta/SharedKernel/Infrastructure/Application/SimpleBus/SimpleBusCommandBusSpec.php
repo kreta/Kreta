@@ -14,7 +14,7 @@ namespace Spec\Kreta\SharedKernel\Infrastructure\Application\SimpleBus;
 
 use Kreta\SharedKernel\Application\CommandBus;
 use Kreta\SharedKernel\Infrastructure\Application\SimpleBus\SimpleBusCommandBus;
-use Kreta\TaskManager\Application\Organization\CreateOrganizationCommand;
+use Kreta\TaskManager\Application\Command\Organization\CreateOrganizationCommand;
 use PhpSpec\ObjectBehavior;
 use SimpleBus\Message\Bus\MessageBus;
 

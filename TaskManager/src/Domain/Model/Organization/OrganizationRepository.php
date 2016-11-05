@@ -18,7 +18,11 @@ interface OrganizationRepository
 {
     public function organizationOfId(OrganizationId $id);
 
+    public function query($specification);
+
     public function persist(Organization $organization);
 
     public function remove(Organization $organization);
+
+    public function count($specification) : int;
 }

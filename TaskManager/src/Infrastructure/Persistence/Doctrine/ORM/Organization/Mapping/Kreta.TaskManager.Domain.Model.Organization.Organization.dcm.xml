@@ -9,9 +9,9 @@
             repository-class="Kreta\TaskManager\Infrastructure\Persistence\Doctrine\ORM\Organization\DoctrineORMOrganizationRepository">
         <id name="id" type="organization_id"/>
 
+        <embedded name="name" class="Kreta\TaskManager\Domain\Model\Organization\OrganizationName" use-column-prefix="false"/>
         <embedded name="slug" class="Kreta\SharedKernel\Domain\Model\Identity\Slug" use-column-prefix="false"/>
 
-        <field name="name" type="string" column="name" length="255" nullable="false"/>
         <field name="createdOn" type="datetime" column="created_on" nullable="false"/>
         <field name="updatedOn" type="datetime" column="updated_on" nullable="false"/>
 

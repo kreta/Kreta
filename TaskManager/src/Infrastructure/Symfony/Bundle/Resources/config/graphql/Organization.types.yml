@@ -1,0 +1,47 @@
+# This file is part of the Kreta package.
+#
+# (c) Beñat Espiña <benatespina@gmail.com>
+# (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+
+# This implements the following type system shorthand:
+#
+#   type Organization {
+#     id: ID!
+#     created_on: String!
+#     organization_members: [OrganizationMember]!
+#     name: String!
+#     owners: [Owner!]!
+#     slug: String!
+#     updatedOn: String!
+#   }
+
+Organization:
+    type: object
+    config:
+        description: "An organization inside Kreta ecosystem"
+        fields:
+            id:
+                type: "ID!"
+                description: "The id of the organization."
+            created_on:
+                type: "String!"
+                description: "The created on of the organization."
+            organizationMembers:
+                type: "[OrganizationMember]!"
+                description: "The organization members of the organization."
+            name:
+                type: "String!"
+                description: "The name of the organization."
+            owners:
+                type: "[Owner!]!"
+                description: "The owners of the organization."
+            slug:
+                type: "String!"
+                description: "The slug of the organization."
+            updated_on:
+                type: "String!"
+                description: "The updated on of the organization."
+        interfaces: [Node]
