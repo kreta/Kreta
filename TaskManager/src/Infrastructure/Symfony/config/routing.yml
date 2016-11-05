@@ -8,3 +8,8 @@
 
 overblog_graphql_endpoint:
     resource: "@OverblogGraphQLBundle/Resources/config/routing/graphql.yml"
+
+kreta_front:
+    path: /
+    defaults:
+        _controller: "kreta.task_manager.controller.default:indexAction"
