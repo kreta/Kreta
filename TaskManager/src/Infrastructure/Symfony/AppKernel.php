@@ -15,6 +15,7 @@ namespace Kreta\TaskManager\Infrastructure\Symfony;
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle;
 use Kreta\TaskManager\Infrastructure\Symfony\Bundle\AppBundle;
+use OldSound\RabbitMqBundle\OldSoundRabbitMqBundle;
 use Overblog\GraphQLBundle\OverblogGraphQLBundle;
 use Sensio\Bundle\DistributionBundle\SensioDistributionBundle;
 use SimpleBus\SymfonyBridge\DoctrineOrmBridgeBundle;
@@ -42,6 +43,7 @@ class AppKernel extends Kernel
             new DoctrineOrmBridgeBundle(),
             new FrameworkBundle(),
             new OverblogGraphQLBundle(),
+            new OldSoundRabbitMqBundle(),
             new MonologBundle(),
             new SecurityBundle(),
             new SimpleBusCommandBusBundle(),

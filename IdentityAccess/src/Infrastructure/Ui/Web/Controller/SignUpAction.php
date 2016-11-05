@@ -25,16 +25,16 @@ use Symfony\Component\HttpFoundation\Response;
 
 class SignUpAction extends Controller
 {
-    public function byInvitationAction(Request $request)
-    {
-        $this->get('command_bus')->handle(
-            new ByInvitationSignUpUserCommand('11', '11')
-        );
+//    public function byInvitationAction(Request $request)
+//    {
+//        $this->get('command_bus')->handle(
+//            new ByInvitationSignUpUserCommand('11', '11')
+//        );
+//
+//        return new Response();
+//    }
 
-        return new Response();
-    }
-
-    public function byInvitationAction2(Request $request, $userClass = 'user', $firewall = 'main')
+    public function byInvitationAction(Request $request, $userClass = 'user', $firewall = 'main')
     {
         $invitationToken = $request->query->get('invitation-token');
         try {

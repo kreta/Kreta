@@ -130,15 +130,6 @@ old_sound_rabbit_mq:
             exchange_options:
                 name: asynchronous_events
                 type: direct
-    consumers:
-        asynchronous_events:
-            connection: default
-            exchange_options:
-                name: asynchronous_events
-                type: direct
-            queue_options:
-                name: asynchronous_events
-            callback: simple_bus.rabbit_mq_bundle_bridge.events_consumer
 
 simple_bus_asynchronous:
     object_serializer_service_id: kreta.identity_access.simple_bus.serializer.native
@@ -146,7 +137,3 @@ simple_bus_asynchronous:
 simple_bus_rabbit_mq_bundle_bridge:
     events:
         producer_service_id: old_sound_rabbit_mq.asynchronous_events_producer
-
-simple_bus_asynchronous:
-    events:
-        logging: ~

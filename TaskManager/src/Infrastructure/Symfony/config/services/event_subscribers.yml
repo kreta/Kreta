@@ -14,3 +14,45 @@ services:
                 name: event_subscriber
                 subscribes_to: Kreta\TaskManager\Domain\Model\Organization\OrganizationCreated
                 method: handle
+
+
+
+
+
+    app.name.resolver:
+        class: Kreta\SharedKernel\Infrastructure\Event\SimpleBus\Name\CustomNameResolver
+
+    simple_bus.event_bus.event_name_resolver:
+        alias: app.name.resolver
+
+    kreta.identity_access.simple_bus.serializer.native:
+        class: Kreta\SharedKernel\Infrastructure\Serializer\SimpleBus\Serializer
+
+
+    kreta.identity_access.foo_subscriber:
+        class: Kreta\TaskManager\Domain\Event\User\UserRegisteredSubscriber
+        tags:
+            -
+                name: asynchronous_event_subscriber
+                subscribes_to: identity_access.user_register
+                method: handle
+
+    simple_bus.rabbit_mq_bundle_bridge.events_consumer:
+        class: SimpleBus\RabbitMQBundleBridge\RabbitMQMessageConsumer
+        arguments:
+             #defined by SimpleBusAsynchronousBundle
+            - '@simple_bus.asynchronous.standard_serialized_event_envelope_consumer'
+            - '@event_dispatcher'
+
+    simple_bus.asynchronous.standard_serialized_event_envelope_consumer:
+        class: SimpleBus\Asynchronous\Consumer\StandardSerializedEnvelopeConsumer
+        public: false
+        arguments:
+            - '@simple_bus.asynchronous.message_serializer'
+            - '@simple_bus.asynchronous.event_bus'
+
+    simple_bus.asynchronous.event_bus:
+        class: SimpleBus\Message\Bus\Middleware\MessageBusSupportingMiddleware
+        public: false
+        tags:
+            - { name: message_bus, type: event, middleware_tag: asynchronous_event_bus_middleware }

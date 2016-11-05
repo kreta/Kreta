@@ -117,3 +117,29 @@ overblog_graphql:
         schema:
             query: Query
             mutation: ~
+
+old_sound_rabbit_mq:
+    connections:
+        default:
+            host: 'localhost'
+            port: 5672
+            user: 'guest'
+            password: 'guest'
+            vhost: '/'
+            lazy: true
+            connection_timeout: 3
+            read_write_timeout: 3
+            keepalive: false
+            heartbeat: 0
+    consumers:
+        asynchronous_events:
+            connection: default
+            exchange_options:
+                name: asynchronous_events
+                type: direct
+            queue_options:
+                name: asynchronous_events
+            callback: simple_bus.rabbit_mq_bundle_bridge.events_consumer
+
+simple_bus_asynchronous:
+    object_serializer_service_id: kreta.identity_access.simple_bus.serializer.native

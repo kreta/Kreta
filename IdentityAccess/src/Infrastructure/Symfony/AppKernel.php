@@ -15,12 +15,10 @@ namespace Kreta\IdentityAccess\Infrastructure\Symfony;
 use BenGorUser\UserBundle\BenGorUserBundle;
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle;
-use JMS\SerializerBundle\JMSSerializerBundle;
 use Lexik\Bundle\JWTAuthenticationBundle\LexikJWTAuthenticationBundle;
 use OldSound\RabbitMqBundle\OldSoundRabbitMqBundle;
 use Sensio\Bundle\DistributionBundle\SensioDistributionBundle;
 use SimpleBus\AsynchronousBundle\SimpleBusAsynchronousBundle;
-use SimpleBus\JMSSerializerBundleBridge\SimpleBusJMSSerializerBundleBridgeBundle;
 use SimpleBus\RabbitMQBundleBridge\SimpleBusRabbitMQBundleBridgeBundle;
 use SimpleBus\SymfonyBridge\DoctrineOrmBridgeBundle;
 use SimpleBus\SymfonyBridge\SimpleBusCommandBusBundle;
@@ -43,7 +41,6 @@ class AppKernel extends Kernel
             new DoctrineBundle(),
             new DoctrineMigrationsBundle(),
             new FrameworkBundle(),
-            new JMSSerializerBundle(),
             new LexikJWTAuthenticationBundle(),
             new MonologBundle(),
             new SecurityBundle(),
@@ -52,7 +49,6 @@ class AppKernel extends Kernel
 
             new SimpleBusAsynchronousBundle(),
             new SimpleBusRabbitMQBundleBridgeBundle(),
-//            new SimpleBusJMSSerializerBundleBridgeBundle(),
             new OldSoundRabbitMqBundle(),
 
             new \BenGorUser\TwigBridgeBundle\TwigBridgeBundle(),
