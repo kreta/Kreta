@@ -8,13 +8,13 @@
 
 services:
     kreta.task_manager.php_amqp_lib.user_registered:
-        class: Kreta\SharedKernel\Infrastructure\Messaging\AMQP\PhpAmqpLib\Consumer
+        class: Kreta\SharedKernel\Infrastructure\Messaging\AMQP\PhpAmqpLib\PhpAmqpLibAMQPConsumer
         public: false
         arguments:
             - "@kreta.task_manager.event_subscriber.user_registered"
-            - "identity_access.user_register"
+            - "kreta_identity_access.user_registered"
 
     kreta.task_manager.rabbit_mq_bundle.user_registered:
-        class: Kreta\SharedKernel\Infrastructure\Messaging\AMQP\RabbitMqBundle\Consumer
+        class: Kreta\SharedKernel\Infrastructure\Messaging\AMQP\RabbitMqBundle\RabbitMqBundleAMQPConsumer
         arguments:
             - "@kreta.task_manager.php_amqp_lib.user_registered"

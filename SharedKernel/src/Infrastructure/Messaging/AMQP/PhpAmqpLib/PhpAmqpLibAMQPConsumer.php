@@ -17,9 +17,10 @@ namespace Kreta\SharedKernel\Infrastructure\Messaging\AMQP\PhpAmqpLib;
 use Kreta\SharedKernel\Domain\Event\AsyncEventSubscriber;
 use Kreta\SharedKernel\Domain\Model\Exception;
 use Kreta\SharedKernel\Event\AsyncEvent;
+use Kreta\SharedKernel\Messaging\AMQP\AMQPConsumer;
 use PhpAmqpLib\Message\AMQPMessage;
 
-class Consumer
+class PhpAmqpLibAMQPConsumer implements AMQPConsumer
 {
     const MSG_ACK = 1;
     const MSG_REJECT = -1;
@@ -33,11 +34,14 @@ class Consumer
         $this->messageName = $messageName;
     }
 
-    public function execute(AMQPMessage $message)
+    public function execute($message) : int
     {
+        if (!$message instanceof AMQPMessage) {
+            return self::MSG_REJECT;
+        }
         $body = json_decode($message->body);
         if ($this->messageName !== $body->name) {
-            return false;
+            return self::MSG_REJECT;
         }
 
         try {

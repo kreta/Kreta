@@ -14,15 +14,15 @@ declare(strict_types=1);
 
 namespace Kreta\SharedKernel\Infrastructure\Messaging\AMQP\RabbitMqBundle;
 
-use Kreta\SharedKernel\Infrastructure\Messaging\AMQP\PhpAmqpLib\Consumer as BaseConsumer;
+use Kreta\SharedKernel\Infrastructure\Messaging\AMQP\PhpAmqpLib\PhpAmqpLibAMQPConsumer;
 use OldSound\RabbitMqBundle\RabbitMq\ConsumerInterface;
 use PhpAmqpLib\Message\AMQPMessage;
 
-class Consumer implements ConsumerInterface
+class RabbitMqBundleAMQPConsumer implements ConsumerInterface
 {
     private $consumer;
 
-    public function __construct(BaseConsumer $consumer)
+    public function __construct(PhpAmqpLibAMQPConsumer $consumer)
     {
         $this->consumer = $consumer;
     }

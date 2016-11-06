@@ -133,7 +133,7 @@ old_sound_rabbit_mq:
                 type: direct
 
 simple_bus_asynchronous:
-    object_serializer_service_id: kreta.identity_access.simple_bus.serializer
+    object_serializer_service_id: kreta.identity_access.serialization.simple_bus.async_event_serializer
 
 simple_bus_rabbit_mq_bundle_bridge:
     events:

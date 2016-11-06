@@ -18,9 +18,3 @@ services:
             -
                 name: bengor_user_user_event_subscriber
                 subscribes_to: BenGorUser\User\Domain\Model\Event\UserInvited
-
-
-
-
-    kreta.identity_access.simple_bus.serializer:
-        class: Kreta\SharedKernel\Infrastructure\Serializer\SimpleBus\Serializer

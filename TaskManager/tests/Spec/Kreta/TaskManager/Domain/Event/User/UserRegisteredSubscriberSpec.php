@@ -37,13 +37,13 @@ class UserRegisteredSubscriberSpec extends ObjectBehavior
     function it_can_be_handle(AsyncDomainEvent $event, CommandBus $commandBus)
     {
         $event->values()->shouldBeCalled()->willReturn([
-            'user_id' => 'user-id',
+            'userId' => 'user-id',
         ]);
         $commandBus->handle(Argument::type(AddUserCommand::class))->shouldBeCalled();
         $this->handle($event);
     }
 
-    function it_cannot_be_handle_when_values_does_not_contain_user_id(AsyncDomainEvent $event, CommandBus $commandBus)
+    function it_cannot_be_handle_when_values_does_not_contain_user_id(AsyncDomainEvent $event)
     {
         $event->values()->shouldBeCalled()->willReturn([]);
         $this->shouldThrow(AsyncDomainEventValueDoesNotExistException::class)->duringHandle($event);

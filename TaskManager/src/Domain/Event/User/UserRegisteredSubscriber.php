@@ -31,13 +31,13 @@ class UserRegisteredSubscriber implements AsyncEventSubscriber
 
     public function handle(AsyncDomainEvent $event)
     {
-        if (!isset($event->values()['user_id'])) {
-            throw new AsyncDomainEventValueDoesNotExistException('user_id');
+        if (!isset($event->values()['userId'])) {
+            throw new AsyncDomainEventValueDoesNotExistException('userId');
         }
 
         $this->commandBus->handle(
             new AddUserCommand(
-                $event->values()['user_id']
+                $event->values()['userId']
             )
         );
     }
