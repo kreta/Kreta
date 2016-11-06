@@ -16,6 +16,7 @@ $fixers[] = '-visibility';
 
 $finder = Symfony\CS\Finder::create()
     ->in([
+        __DIR__ . '/../../IdentityAccess',
         __DIR__ . '/../../SharedKernel',
         __DIR__ . '/../../TaskManager',
     ])

@@ -7,23 +7,20 @@
 # file that was distributed with this source code.
 
 .htaccess
-cs_fixer_tmp_*
-composer.lock
-!/composer.lock
-node_modules
-parameters.yml
-var/*
-!var/cache
-var/cache/*
+/parameters.yml
+/composer.lock
+/node_modules
+/var/*
+!/var/cache
+/var/cache/*
 !var/cache/.gitkeep
 !/var/jwt
-var/jwt/*
+/var/jwt/*
 !var/jwt/.gitkeep
-!var/logs
-var/logs/*
+!/var/logs
+/var/logs/*
 !var/logs/.gitkeep
-!var/sessions
-var/sessions/*
+!/var/sessions
+/var/sessions/*
 !var/sessions/.gitkeep
-vendor
-!IdentityAccess/src/Infrastructure/vendor
+/vendor
