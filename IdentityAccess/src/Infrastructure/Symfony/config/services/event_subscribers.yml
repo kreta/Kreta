@@ -10,9 +10,9 @@ services:
     kreta.identity_access.invited_mailer_subscriber:
         class: BenGorUser\User\Domain\Event\UserInvitedMailerSubscriber
         arguments:
-            - '@bengor_user.mailer.swift_mailer'
-            - '@bengor_user.mailable_factory.invite'
-            - '@bengor_user.symfony_url_generator'
+            - "@bengor_user.mailer.swift_mailer"
+            - "@bengor_user.mailable_factory.invite"
+            - "@bengor_user.symfony_url_generator"
             - bengor_user_user_sign_up
         tags:
             -
@@ -22,16 +22,5 @@ services:
 
 
 
-    kreta.identity_access.simple_bus.serializer.native:
+    kreta.identity_access.simple_bus.serializer:
         class: Kreta\SharedKernel\Infrastructure\Serializer\SimpleBus\Serializer
-
-
-    kreta.identity_access.command_handler.sign_up_by_invitation:
-        class: BenGorUser\User\Application\Command\SignUp\ByInvitationSignUpUserHandler
-        arguments:
-            - "@bengor_user.user.repository"
-            - "@bengor_user.user.symfony_password_encoder"
-        tags:
-            -
-                name: asynchronous_command_handler
-                handles: BenGorUser\User\Application\Command\SignUp\ByInvitationSignUpUserCommand

@@ -7,14 +7,14 @@
 # file that was distributed with this source code.
 
 services:
-    kreta.task_manager.command_bus:
+    kreta.identity_access.command_bus:
         class: Kreta\SharedKernel\Infrastructure\Application\SimpleBus\SimpleBusCommandBus
         arguments:
             - "@command_bus"
 
 # Event recorder that communicates command bus with the SimpleBus's event bus and
 # Doctrine events publishing the recorded events of the aggregate root.
-    kreta.task_manager.simple_bus.event_recorder.aggregate_root:
+    kreta.identity_access.simple_bus.event_recorder.aggregate_root:
         class: Kreta\SharedKernel\Infrastructure\Event\SimpleBus\EventRecorder\Doctrine\ORM\AggregateRootEventRecorder
         public: false
         tags:

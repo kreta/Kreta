@@ -10,78 +10,104 @@
  * file that was distributed with this source code.
  */
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Kreta\IdentityAccess\Infrastructure\Ui\Web\Controller;
 
-use BenGorUser\User\Application\Command\SignUp\ByInvitationSignUpUserCommand;
+use BenGorUser\User\Application\DataTransformer\UserDataTransformer;
+use BenGorUser\User\Application\Query\UserOfInvitationTokenHandler;
 use BenGorUser\User\Application\Query\UserOfInvitationTokenQuery;
 use BenGorUser\User\Domain\Model\Exception\UserDoesNotExistException;
 use BenGorUser\User\Domain\Model\Exception\UserTokenExpiredException;
 use BenGorUser\UserBundle\Form\Type\SignUpByInvitationType;
-use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use BenGorUser\UserBundle\Security\FormLoginAuthenticator;
+use Kreta\SharedKernel\Application\CommandBus;
+use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\Flash\FlashBagInterface;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
+use Symfony\Component\Templating\EngineInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 
-class SignUpAction extends Controller
+class SignUpAction
 {
-//    public function byInvitationAction(Request $request)
-//    {
-//        $this->get('command_bus')->handle(
-//            new ByInvitationSignUpUserCommand('11', '11')
-//        );
-//
-//        return new Response();
-//    }
+    private $queryHandler;
+    private $dataTransformer;
+    private $formFactory;
+    private $commandBus;
+    private $flashBag;
+    private $translator;
+    private $guardAuthenticatorHandler;
+    private $authenticator;
+    private $twig;
 
-    public function byInvitationAction(Request $request, $userClass = 'user', $firewall = 'main')
+    public function __construct(
+        UserOfInvitationTokenHandler $queryHandler,
+        UserDataTransformer $dataTransformer,
+        FormFactoryInterface $formFactory,
+        CommandBus $commandBus,
+        FlashBagInterface $flashBag,
+        TranslatorInterface $translator,
+        GuardAuthenticatorHandler $guardAuthenticatorHandler,
+        FormLoginAuthenticator $authenticator,
+        EngineInterface $twig
+    ) {
+        $this->queryHandler = $queryHandler;
+        $this->dataTransformer = $dataTransformer;
+        $this->formFactory = $formFactory;
+        $this->commandBus = $commandBus;
+        $this->flashBag = $flashBag;
+        $this->translator = $translator;
+        $this->guardAuthenticatorHandler = $guardAuthenticatorHandler;
+        $this->authenticator = $authenticator;
+        $this->twig = $twig;
+    }
+
+    public function __invoke(Request $request)
     {
         $invitationToken = $request->query->get('invitation-token');
         try {
             // we need to know if the invitation token given exists in
             // database, in case that it isn't, it throws 404.
-            $user = $this->get('bengor_user.' . $userClass . '.by_invitation_token_query')->__invoke(
-                new UserOfInvitationTokenQuery($invitationToken)
-            );
+            $user = $this->queryHandler->__invoke(new UserOfInvitationTokenQuery($invitationToken));
 
             // Convert to an object implementing Symfony's UserInterface
-            $dataTransformer = $this->get('bengor_user.' . $userClass . '.symfony_data_transformer');
-            $dataTransformer->write($user);
-            $user = $dataTransformer->read();
+            $this->dataTransformer->write($user);
+            $user = $this->dataTransformer->read();
         } catch (UserDoesNotExistException $exception) {
-            throw $this->createNotFoundException();
+            throw new NotFoundHttpException();
         } catch (UserTokenExpiredException $exception) {
-            throw $this->createNotFoundException();
+            throw new NotFoundHttpException();
         } catch (\InvalidArgumentException $exception) {
-            throw $this->createNotFoundException();
+            throw new NotFoundHttpException();
         }
 
-        $form = $this->createForm(SignUpByInvitationType::class, null, [
-            'roles'            => $this->getParameter('bengor_user.' . $userClass . '_default_roles'),
+        $form = $this->formFactory->create(SignUpByInvitationType::class, null, [
+            'roles'            => ['ROLE_USER'],
             'invitation_token' => $invitationToken,
         ]);
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
             if ($form->isValid()) {
-                $this->get('asynchronous_command_bus')->handle($form->getData());
-                $this->addFlash('notice', $this->get('translator')->trans(
-                    'sign_up.success_flash', [], 'BenGorUser'
-                ));
+                $this->commandBus->handle($form->getData());
+                $this->flashBag->add('notice', $this->translator->trans('sign_up.success_flash', [], 'BenGorUser'));
 
-                return $this
-                    ->get('security.authentication.guard_handler')
-                    ->authenticateUserAndHandleSuccess(
-                        $user,
-                        $request,
-                        $this->get('bengor_user.' . $userClass . '.form_login_authenticator'),
-                        $firewall
-                    );
+                return $this->guardAuthenticatorHandler->authenticateUserAndHandleSuccess(
+                    $user,
+                    $request,
+                    $this->authenticator,
+                    'main'
+                );
             }
         }
 
-        return $this->render('@BenGorUser/sign_up/by_invitation.html.twig', [
-            'email' => $user->getUsername(),
-            'form'  => $form->createView(),
-        ]);
+        return new Response(
+            $this->twig->render('@BenGorUser/sign_up/by_invitation.html.twig', [
+                'email' => $user->getUsername(),
+                'form'  => $form->createView(),
+            ])
+        );
     }
 }

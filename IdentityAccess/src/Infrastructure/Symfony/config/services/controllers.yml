@@ -15,5 +15,13 @@ services:
 
     kreta.identity_access.controller.sign_up_action:
         class: Kreta\IdentityAccess\Infrastructure\Ui\Web\Controller\SignUpAction
-        calls:
-             - [setContainer, ['@service_container']]
+        arguments:
+            - "@bengor_user.user.by_invitation_token_query"
+            - "@bengor_user.user.symfony_data_transformer"
+            - "@form.factory"
+            - "@kreta.identity_access.command_bus"
+            - "@session.flash_bag"
+            - "@translator"
+            - "@security.authentication.guard_handler"
+            - "@bengor_user.user.form_login_authenticator"
+            - "@templating.engine.twig"

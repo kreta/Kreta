@@ -33,7 +33,6 @@ class Serializer implements ObjectSerializer
 
     public function deserialize($serializedObject, $type)
     {
-        file_put_contents(__DIR__ . '/../../../../../../foo.yml', $serializedObject);
         if($type === DefaultEnvelope::class) {
             return DefaultEnvelope::forSerializedMessage(
                 Event::class, $serializedObject

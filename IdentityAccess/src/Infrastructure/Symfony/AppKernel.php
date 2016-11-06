@@ -40,10 +40,13 @@ class AppKernel extends Kernel
         $bundles = [
             new DoctrineBundle(),
             new DoctrineMigrationsBundle(),
+            new DoctrineOrmBridgeBundle(),
             new FrameworkBundle(),
             new LexikJWTAuthenticationBundle(),
             new MonologBundle(),
             new SecurityBundle(),
+            new SimpleBusCommandBusBundle(),
+            new SimpleBusEventBusBundle(),
             new SwiftmailerBundle(),
             new TwigBundle(),
 
@@ -59,10 +62,6 @@ class AppKernel extends Kernel
             new \BenGorUser\SimpleBusBridgeBundle\SimpleBusBridgeBundle(),
             new \BenGorUser\SimpleBusBridgeBundle\SimpleBusDoctrineORMBridgeBundle(),
             new BenGorUserBundle(),
-
-            new DoctrineOrmBridgeBundle(),
-            new SimpleBusCommandBusBundle(),
-            new SimpleBusEventBusBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

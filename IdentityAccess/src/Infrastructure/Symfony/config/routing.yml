@@ -9,7 +9,7 @@
 kreta_identity_access_sign_up_by_invitation:
     path: /register
     defaults:
-        _controller: "kreta.identity_access.controller.sign_up_action:byInvitationAction"
+        _controller: "kreta.identity_access.controller.sign_up_action:__invoke"
     methods:
         - GET
         - POST
