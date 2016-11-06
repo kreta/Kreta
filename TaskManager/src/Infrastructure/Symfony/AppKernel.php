@@ -44,7 +44,6 @@ class AppKernel extends Kernel
             new FrameworkBundle(),
             new OldSoundRabbitMqBundle(),
             new OverblogGraphQLBundle(),
-            new OldSoundRabbitMqBundle(),
             new MonologBundle(),
             new SecurityBundle(),
             new SimpleBusCommandBusBundle(),

@@ -4,9 +4,62 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "b4fef0d3981d8cf72880383d86ba4827",
-    "content-hash": "a9e7c50d608ccab91caed6c6b1de1c21",
+    "hash": "237d633a969fb379caefd3d18c5b1e51",
+    "content-hash": "8b85b41597a9c2926c8e97d2272a6d5e",
     "packages": [
+        {
+            "name": "ajgl/simple-bus-query-bus",
+            "version": "0.1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/ajgarlag/AjglSimpleBusQueryBus.git",
+                "reference": "331186b0891fbab8f70cae25cebf484cdd39c118"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/ajgarlag/AjglSimpleBusQueryBus/zipball/331186b0891fbab8f70cae25cebf484cdd39c118",
+                "reference": "331186b0891fbab8f70cae25cebf484cdd39c118",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.4",
+                "simple-bus/message-bus": "^2.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.8"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Ajgl\\SimpleBus\\Message\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Antonio J. García Lagar",
+                    "email": "aj@garcialagar.es",
+                    "homepage": "http://aj.garcialagar.es",
+                    "role": "developer"
+                }
+            ],
+            "description": "Extension to simple-bus/message-bus to create query buses.",
+            "homepage": "https://github.com/ajgarlag/AjglSimpleBusQueryBus",
+            "keywords": [
+                "Query Bus",
+                "message",
+                "simple bus"
+            ],
+            "time": "2016-06-16 10:36:26"
+        },
         {
             "name": "beberlei/assert",
             "version": "v2.6.6",
@@ -3364,25 +3417,25 @@
         },
         {
             "name": "symfony/monolog-bundle",
-            "version": "v2.11.2",
+            "version": "2.11.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/monolog-bundle.git",
-                "reference": "44f3daf003b51e13a8820b090b3cc2b480ec517f"
+                "reference": "0b427134a6868050fd9a95cc5eae3df85e5c759b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/monolog-bundle/zipball/44f3daf003b51e13a8820b090b3cc2b480ec517f",
-                "reference": "44f3daf003b51e13a8820b090b3cc2b480ec517f",
+                "url": "https://api.github.com/repos/symfony/monolog-bundle/zipball/0b427134a6868050fd9a95cc5eae3df85e5c759b",
+                "reference": "0b427134a6868050fd9a95cc5eae3df85e5c759b",
                 "shasum": ""
             },
             "require": {
                 "monolog/monolog": "~1.18",
                 "php": ">=5.3.2",
-                "symfony/config": "~2.7|~3.0",
-                "symfony/dependency-injection": "~2.7|~3.0",
-                "symfony/http-kernel": "~2.7|~3.0",
-                "symfony/monolog-bridge": "~2.7|~3.0"
+                "symfony/config": "~2.3|~3.0",
+                "symfony/dependency-injection": "~2.3|~3.0",
+                "symfony/http-kernel": "~2.3|~3.0",
+                "symfony/monolog-bridge": "~2.3|~3.0"
             },
             "require-dev": {
                 "phpunit/phpunit": "^4.8",
@@ -3392,7 +3445,7 @@
             "type": "symfony-bundle",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.x-dev"
+                    "dev-master": "2.x-dev"
                 }
             },
             "autoload": {
@@ -3420,7 +3473,7 @@
                 "log",
                 "logging"
             ],
-            "time": "2016-10-19 07:58:52"
+            "time": "2016-10-19 07:54:05"
         },
         {
             "name": "symfony/polyfill-intl-icu",
@@ -3966,6 +4019,62 @@
                 "templating"
             ],
             "time": "2016-10-25 19:17:17"
+        },
+        {
+            "name": "warezgibzzz/query-bus-bundle",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/warezgibzzz/QueryBusBundle.git",
+                "reference": "bf0a361a79486e5925beaa5a8cf088582dcc51d7"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/warezgibzzz/QueryBusBundle/zipball/bf0a361a79486e5925beaa5a8cf088582dcc51d7",
+                "reference": "bf0a361a79486e5925beaa5a8cf088582dcc51d7",
+                "shasum": ""
+            },
+            "require": {
+                "ajgl/simple-bus-query-bus": "^0.1.0",
+                "php": ">=5.4",
+                "simple-bus/message-bus": "~2.0",
+                "symfony/config": "~2.3|~3.0",
+                "symfony/dependency-injection": "~2.3|~3.0",
+                "symfony/http-kernel": "~2.3|~3.0",
+                "symfony/yaml": "~2.3|~3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0",
+                "satooshi/php-coveralls": "~0.6",
+                "symfony/monolog-bridge": "~2.3|~3.0",
+                "symfony/monolog-bundle": "~2.3|~3.0"
+            },
+            "suggest": {
+                "symfony/monolog-bundle": "For logging messages"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Warezgibzzz\\QueryBusBundle\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Pavel Poronko",
+                    "email": "me@gibzzz.tk"
+                }
+            ],
+            "description": "Bridge for using query bus extension of simple-bus in symfony",
+            "keywords": [
+                "Query Bus",
+                "command bus",
+                "symfony"
+            ],
+            "time": "2016-07-13 03:23:48"
         },
         {
             "name": "webonyx/graphql-php",
@@ -4790,7 +4899,9 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": [],
+    "stability-flags": {
+        "warezgibzzz/query-bus-bundle": 20
+    },
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
