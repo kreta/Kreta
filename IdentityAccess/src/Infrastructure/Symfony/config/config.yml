@@ -73,7 +73,7 @@ swiftmailer:
     host: "%identity_access_mailer_host%"
     username: "%identity_access_mailer_user%"
     password: "%identity_access_mailer_password%"
-    #spool: { type: memory }
+    spool: { type: memory }
 
 ben_gor_user:
     user_class:
