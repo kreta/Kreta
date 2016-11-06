@@ -16,11 +16,12 @@ import React from 'react';
 
 import Button from './Button';
 import Icon from './Icon';
+import Thumbnail from './Thumbnail';
 
 class PageHeader extends React.Component {
   static propTypes = {
     buttons: React.PropTypes.array,
-    image: React.PropTypes.string,
+    thumbnail: React.PropTypes.element,
     links: React.PropTypes.array,
     title: React.PropTypes.string
   };
@@ -53,17 +54,12 @@ class PageHeader extends React.Component {
   }
 
   render() {
-    let image = <div className="page-header__image"></div>;
-    if(this.props.image) {
-      image = <img className="page-header__image" src={this.props.image}/>
-    }
     return (
       <div className="page-header">
-        {image}
+        {this.props.thumbnail}
         <h2 className="page-header__title">{this.props.title}</h2>
         <div className="page-header__actions">
-          {this.renderLinks()}
-          {this.renderButtons()}
+          {this.props.actions}
         </div>
       </div>
     );

@@ -21,31 +21,28 @@ class Selector extends React.Component {
     disabled: React.PropTypes.bool,
     label: React.PropTypes.string,
     name: React.PropTypes.string.isRequired,
-    onChange: React.PropTypes.func,
-    placeholder: React.PropTypes.node,
     tabIndex: React.PropTypes.number,
-    value: React.PropTypes.string.isRequired
+    children: React.PropTypes.arrayOf(React.PropTypes.element)
+
   };
 
   componentWillMount() {
     this.setState({
       selectedRow: 0,
-      selectedValue: this.props.value,
       filter: ''
     });
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps() {
     this.setState({
-      selectedValue: nextProps.value,
       filter: ''
     });
   }
 
   getElementByValue(value) {
-    let found = this.props.placeholder || this.props.placeholder || 'Select...';
+    let found = this.props.children[0];
     this.props.children.forEach((child) => {
-      if (child.props.value === value) {
+      if (child.props.value == value) {
         found = child;
       }
     });
@@ -53,12 +50,7 @@ class Selector extends React.Component {
   }
 
   selectOption(index) {
-    this.setState({
-      selectedValue: this.filteredValues[index]
-    });
-    if (this.props.onChange) {
-      this.props.onChange(this.filteredValues[index], this.props.name);
-    }
+    this.props.input.onChange(this.filteredValues[index]);
   }
 
   highlightItem(index) {
@@ -91,10 +83,15 @@ class Selector extends React.Component {
     this.filteredValues = [];
 
     return this.props.children.filter((child) => {
-      return !(this.state.filter !== '' && child.props.text &&
-      child.props.text.toLowerCase().indexOf(this.state.filter.toLowerCase()) === -1);
+      return (
+        child.props.value !== '' && (
+        this.state.filter === '' ||
+        child.props.text.toLowerCase().indexOf(
+          this.state.filter.toLowerCase()) !== -1
+        ));
     }).map((child, index) => {
       this.filteredValues.push(child.props.value);
+
       return React.cloneElement(child, {
         selected: this.state.selectedRow === index,
         fieldSelected: this.selectOption.bind(this, index),
@@ -105,26 +102,29 @@ class Selector extends React.Component {
   }
 
   render() {
-    const selectedElement = this.getElementByValue(this.state.selectedValue),
+    const { input, tabIndex } = this.props;
+
+    const selectedElement = this.getElementByValue(input.value),
       classes = classnames('selector', {
-        'selector--disabled': this.props.disabled
+        'selector--disabled': input.disabled
       }),
       filteredOptions = this.getFilteredOptions();
+
     return (
       <div className={classes}>
-        <input name={this.props.name}
-               ref="value"
-               type="hidden"
-               value={this.state.selectedValue}/>
+        <input {...input} type="hidden"/>
+
         <input className="selector__filter"
                onChange={this.filter.bind(this)}
                onKeyDown={this.keyboardSelected.bind(this)}
                ref="filter"
-               tabIndex={this.props.tabIndex}
+               tabIndex={tabIndex}
                type="text"/>
+
         <div className="selector__selected">
           {selectedElement}
         </div>
+
         <NavigableList className="selector__options"
                        onYChanged={this.highlightItem.bind(this)}
                        ref="navigableList"

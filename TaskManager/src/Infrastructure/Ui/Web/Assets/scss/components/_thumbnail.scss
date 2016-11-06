@@ -11,7 +11,7 @@
 $user-image-size: 32px;
 $user-image-bg: #ddd;
 
-.user-image {
+.thumbnail {
   background: $user-image-bg;
   border-radius: 50%;
   display: inline-block;
@@ -21,13 +21,13 @@ $user-image-bg: #ddd;
   width: $user-image-size;
 }
 
-.user-image--big {
+.thumbnail--big {
   height: 70px;
   line-height: 70px;
   width: 70px;
 }
 
-.user-image__char {
+.thumbnail__char {
   color: $white;
   font-size: 13px;
 }

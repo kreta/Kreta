@@ -12,7 +12,7 @@ import './../../../scss/components/_user-preview';
 
 import React from 'react';
 
-import UserImage from './UserImage';
+import Thumbnail from './Thumbnail';
 
 class UserPreview extends React.Component {
   render() {
@@ -21,7 +21,7 @@ class UserPreview extends React.Component {
     return (
       <div className="user-preview">
         <div className="user-preview__image">
-          <UserImage user={user}/>
+          <Thumbnail image={user.photo.name} text={`${user.first_name} ${user.last_name}`}/>
         </div>
 
         <div className="user-preview__container">

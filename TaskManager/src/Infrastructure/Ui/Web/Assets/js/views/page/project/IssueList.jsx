@@ -24,6 +24,7 @@ import IssuePreview from './../../component/IssuePreview';
 import IssueShow from './../issue/Show';
 import LoadingSpinner from './../../component/LoadingSpinner.jsx';
 import PageHeader from './../../component/PageHeader';
+import Thumbnail from './../../component/Thumbnail';
 import NavigableList from './../../component/NavigableList';
 import CurrentProjectActions from '../../../actions/CurrentProject';
 
@@ -158,7 +159,8 @@ class IssueList extends React.Component {
       <div>
         <ContentMiddleLayout>
           <PageHeader buttons={buttons}
-                      image={this.props.currentProject.project.image.name}
+                      thumbnail={<Thumbnail image={this.props.currentProject.project.image.name}
+                                            text={this.props.currentProject.project.name}/>}
                       links={links}
                       title={this.props.currentProject.project.name}/>
           <Filter filters={this.props.currentProject.filters}

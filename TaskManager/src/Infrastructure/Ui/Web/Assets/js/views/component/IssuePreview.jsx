@@ -13,7 +13,7 @@ import './../../../scss/components/_issue-preview';
 import classnames from 'classnames';
 import React from 'react';
 
-import UserImage from './UserImage';
+import Thumbnail from './Thumbnail';
 
 class IssuePreview extends React.Component {
   render() {
@@ -43,7 +43,8 @@ class IssuePreview extends React.Component {
                       style={{stroke: priority.color}}
                       transform="rotate(-90, 21, 21)"/>
             </svg>
-            <UserImage user={this.props.issue.assignee}/>
+            <Thumbnail image={this.props.issue.assignee.photo.name}
+                       text={`${this.props.issue.assignee.first_name} ${this.props.issue.assignee.first_name}`}/>
           </span>
         </div>
       </div>

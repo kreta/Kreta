@@ -1,0 +1,28 @@
+@import '../base/grid';
+@import '../variables/grid';
+
+@include grid__row('.row')
+
+.row__column {
+  @include grid__column(12);
+}
+
+.row--collapse {
+  padding-left: $column-gutter / 2;
+  padding-right: $column-gutter / 2;
+
+  > .row__column {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+$small-cols: 6, 12;
+$medium-cols: 4, 6, 12;
+$large-cols: 2, 4, 6, 8, 12;
+$xlarge-cols: 2, 4, 6, 8, 12;
+
+@include grid-column-for-media-query('small', $small-cols, $small-up);
+@include grid-column-for-media-query('medium', $medium-cols, $medium-up);
+@include grid-column-for-media-query('large', $large-cols, $large-up);
+@include grid-column-for-media-query('xlarge', $xlarge-cols, $xlarge-up);

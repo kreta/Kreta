@@ -30,7 +30,6 @@ License: ${pkg.license}`,
     context: __dirname,
     entry: {
       app: `${SOURCE_PATH}/js/Kreta.js`,
-      login: `${SOURCE_PATH}/js/Login.js`,
       vendors: [
         'classnames',
         'jquery',

@@ -13,27 +13,16 @@ import PriorityIcon from './../../../../svg/priority';
 
 import {connect} from 'react-redux';
 import React from 'react';
-import ReactDOM from 'react-dom';
 
 import Button from './../../component/Button';
-import Form from './../../component/Form';
-import FormSerializer from './../../../service/FormSerializer';
-import Icon from './../../component/Icon';
-import IssueField from './../../component/IssueField';
 import ProjectActions from './../../../actions/CurrentProject';
 import Selector from './../../component/Selector';
-import UserImage from './../../component/UserImage';
+import Thumbnail from './../../component/Thumbnail';
 
 class Show extends React.Component {
   updateIssue(ev) {
     ev.preventDefault();
-
-    const issue = FormSerializer.serialize(ReactDOM.findDOMNode(this.refs.form));
     this.props.dispatch(ProjectActions.updateIssue(issue));
-  }
-
-  doTransition(id) {
-    // Trigger doTransitionAction
   }
 
   getProjectOptions() {
@@ -46,7 +35,7 @@ class Show extends React.Component {
         }
 
         return (
-          <IssueField image={<UserImage user={p.user}/>}
+          <IssueField image={<Thumbnail image={p.user.photo.name} text={`${p.user.first_name} ${p.user.last_name}`}/>}
                       key={p.user.id}
                       label="Assigned to"
                       text={assigneeName}

@@ -54,16 +54,6 @@ $selector-input-height: 40px;
   z-index: 20;
 }
 
-.selector__option {
-  padding: 10px;
-
-  &:hover,
-  &--selected {
-    background: $main-green;
-    color: $white;
-  }
-}
-
 .selector--disabled {
   .selector__filter {
     cursor: default;

@@ -16,7 +16,9 @@ import { connect } from 'react-redux';
 import Button from './../../component/Button';
 import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
 import ContentRightLayout from './../../layout/ContentRightLayout';
-import ProjectEdit from './Edit';
+import ProjectEdit from './../../form/ProjectEdit';
+import Section from './../../component/Section';
+import Thumbnail from './../../component/Thumbnail';
 import SettingsParticipants from './SettingsParticipants';
 import UserPreview from './../../component/UserPreview';
 import LoadingSpinner from '../../component/LoadingSpinner.jsx';
@@ -36,6 +38,11 @@ class Settings extends React.Component {
     this.setState({addParticipantsVisible: true});
   }
 
+  updateProject(project) {
+    console.log('TODO');
+    // this.props.dispatch(CurrentProjectActions.updateProject(project);
+  }
+
   render() {
     if (!this.props.project) {
       return <LoadingSpinner/>;
@@ -48,26 +55,24 @@ class Settings extends React.Component {
     return (
       <div>
         <ContentMiddleLayout>
-          <PageHeader buttons={[]}
-                      image={this.props.project.image.name}
-                      links={[]}
+          <PageHeader thumbnail={<Thumbnail image={this.props.project.image.name} text={this.props.project.name}/>}
                       title={this.props.project.name}/>
-          <ProjectEdit project={this.props.project}/>
-          <section className="spacer-vertical-1">
-            <div className="section-header">
-              <h3 className="section-header-title">
-                <strong>People</strong> in this project
-              </h3>
-              <div className="section-header-actions">
-                <Button color="green" onClick={this.showAddParticipants.bind(this)}>
-                  Add people
-                </Button>
-              </div>
-            </div>
+          <Section>
+            <ProjectEdit onSubmit={this.updateProject.bind(this)}/>
+          </Section>
+          <Section
+            title={<span><strong>People</strong> in this project</span>}
+            actions={
+              <Button color="green" onClick={this.showAddParticipants.bind(this)}>
+                Add people
+              </Button>
+            }
+          >
             <div className="project-settings__participants">
               {participants}
             </div>
-          </section>
+          </Section>
+
         </ContentMiddleLayout>
         <ContentRightLayout isOpen={this.state.addParticipantsVisible}>
           <SettingsParticipants

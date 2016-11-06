@@ -1,0 +1,34 @@
+@import '../base/colors';
+
+.selector-option {
+  align-items: center;
+  color: $main-black;
+  display: flex;
+  font-size: 14px;
+  height: 46px;
+  justify-content: center;
+  padding-left: 10px;
+  padding-right: 10px;
+  width: 100%;
+}
+
+.selector-option--left {
+  justify-content: flex-start;
+}
+
+.selector-option--selected {
+  background: $light-grey;
+}
+
+.selector-option__thumbnail {
+  margin-right: 10px;
+}
+
+.selector-option__label {
+  font-size: 9px;
+  margin-right: 5px;
+}
+
+.selector-option__value {
+  font-weight: bold;
+}

@@ -14,51 +14,28 @@ import React from 'react';
 import classnames from 'classnames';
 
 class FormInput extends React.Component {
-  static propTypes = {
-    error: React.PropTypes.bool,
-    multiline: React.PropTypes.bool,
-    success: React.PropTypes.bool
-  };
-
-  componentWillMount() {
-    this.setState({value: this.props.value ? this.props.value : ''});
-  }
-
-  onChange(event) {
-    this.setState({value: event.target.value});
-  }
-
   getInputField() {
-    const {label, value, ...props} = this.props,
+    const { input, label, meta: { touched, error }, ...custom } = this.props,
       inputClasses = classnames('form-input__input', {
-        'form-input__input--filled': this.state.value.length > 0
+        'form-input__input--filled': input.value.length > 0
       });
 
     if (this.props.multiline) {
       return (
-        <textarea className={inputClasses}
-                  onChange={this.onChange.bind(this)}
-                  ref="input"
-                  value={this.state.value}
-          {...props}>
-        </textarea>
+        <textarea className={inputClasses} {...input} {...custom} ref="input"/>
       );
     }
 
     return (
-      <input className={inputClasses}
-             onChange={this.onChange.bind(this)}
-             ref="input"
-             value={this.state.value}
-        {...props}/>
+      <input className={inputClasses} {...input} {...custom} ref="input"/>
     );
   }
 
   render() {
-    const {label, ...props} = this.props,
+    const { input, label, meta: { touched, error }, ...custom } = this.props,
       rootClasses = classnames('form-input', {
-        'form-input--error': this.props.error,
-        'form-input--success': this.props.success
+        'form-input--error': touched && error,
+        'form-input--success': input.value.length > 0 && !error
       });
 
     return (

@@ -24,7 +24,7 @@ import Config from './../../Config';
 import Icon from './../component/Icon';
 import Modal from './../component/Modal';
 import ProjectList from './../page/project/List';
-import UserImage from './../component/UserImage';
+import Thumbnail from './../component/Thumbnail';
 import MainMenuActions from '../../actions/MainMenu';
 
 class MainMenu extends React.Component {
@@ -45,7 +45,8 @@ class MainMenu extends React.Component {
     if (this.props.profile) {
       profileWidget = (
         <Link className="main-menu__profile" to="/profile">
-          <UserImage user={this.props.profile}/>
+          <Thumbnail image={this.props.profile.photo.name}
+                     text={`${this.props.profile.first_name} ${this.props.profile.last_name}`}/>
           <span className="main-menu__username">@{this.props.profile.username}</span>
         </Link>
       );

@@ -12,7 +12,11 @@ import Api from './Api';
 
 class IssueApi extends Api {
   getIssues(query = null) {
-    return this.get('/issues', query);
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve([]);
+      }, 400)
+    });
   }
 
   getIssue(issueId, query = null) {

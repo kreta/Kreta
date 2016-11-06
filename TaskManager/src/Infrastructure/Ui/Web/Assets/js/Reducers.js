@@ -10,6 +10,7 @@
 
 import {combineReducers} from 'redux';
 import {routeReducer as routing} from 'react-router-redux';
+import {reducer as form} from 'redux-form'
 
 import currentProject from './reducers/CurrentProject';
 import mainMenu from './reducers/MainMenu';
@@ -19,6 +20,7 @@ import projects from './reducers/Projects';
 
 export default combineReducers({
   currentProject,
+  form,
   mainMenu,
   notification,
   profile,
