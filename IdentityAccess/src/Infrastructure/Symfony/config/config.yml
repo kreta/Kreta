@@ -135,5 +135,7 @@ simple_bus_asynchronous:
     object_serializer_service_id: kreta.identity_access.simple_bus.serializer.native
 
 simple_bus_rabbit_mq_bundle_bridge:
+    commands:
+        producer_service_id: old_sound_rabbit_mq.asynchronous_events_producer
     events:
         producer_service_id: old_sound_rabbit_mq.asynchronous_events_producer

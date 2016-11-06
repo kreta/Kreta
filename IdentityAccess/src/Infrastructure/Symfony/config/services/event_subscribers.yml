@@ -33,5 +33,5 @@ services:
             - "@bengor_user.user.symfony_password_encoder"
         tags:
             -
-                name: command_handler
+                name: asynchronous_command_handler
                 handles: BenGorUser\User\Application\Command\SignUp\ByInvitationSignUpUserCommand

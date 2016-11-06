@@ -19,11 +19,11 @@ services:
 
 
 
-    app.name.resolver:
-        class: Kreta\SharedKernel\Infrastructure\Event\SimpleBus\Name\CustomNameResolver
-
-    simple_bus.event_bus.event_name_resolver:
-        alias: app.name.resolver
+#    app.name.resolver:
+#        class: Kreta\SharedKernel\Infrastructure\Event\SimpleBus\Name\CustomNameResolver
+#
+#    simple_bus.event_bus.event_name_resolver:
+#        alias: app.name.resolver
 
     kreta.identity_access.simple_bus.serializer.native:
         class: Kreta\SharedKernel\Infrastructure\Serializer\SimpleBus\Serializer
@@ -34,7 +34,7 @@ services:
         tags:
             -
                 name: asynchronous_event_subscriber
-                subscribes_to: identity_access.user_register
+                subscribes_to: Kreta\SharedKernel\Event\Event
                 method: handle
 
     simple_bus.rabbit_mq_bundle_bridge.events_consumer:
@@ -56,3 +56,13 @@ services:
         public: false
         tags:
             - { name: message_bus, type: event, middleware_tag: asynchronous_event_bus_middleware }
+
+    my_success_handler:
+        class: Kreta\TaskManager\Domain\Event\User\Foo
+        tags:
+            - { name: kernel.event_subscriber }
+
+    my_failed_handler:
+        class: Kreta\TaskManager\Domain\Event\User\Foo2
+        tags:
+            - { name: kernel.event_subscriber }

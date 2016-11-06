@@ -63,7 +63,7 @@ class SignUpAction extends Controller
         if ($request->isMethod('POST')) {
             $form->handleRequest($request);
             if ($form->isValid()) {
-                $this->get('command_bus')->handle($form->getData());
+                $this->get('asynchronous_command_bus')->handle($form->getData());
                 $this->addFlash('notice', $this->get('translator')->trans(
                     'sign_up.success_flash', [], 'BenGorUser'
                 ));
