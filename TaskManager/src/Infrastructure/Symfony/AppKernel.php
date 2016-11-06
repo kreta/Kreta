@@ -42,6 +42,7 @@ class AppKernel extends Kernel
             new DoctrineMigrationsBundle(),
             new DoctrineOrmBridgeBundle(),
             new FrameworkBundle(),
+            new OldSoundRabbitMqBundle(),
             new OverblogGraphQLBundle(),
             new OldSoundRabbitMqBundle(),
             new MonologBundle(),

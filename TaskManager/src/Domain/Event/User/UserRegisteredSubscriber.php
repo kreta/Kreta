@@ -1,21 +1,44 @@
 <?php
 
+/*
+ * This file is part of the Kreta package.
+ *
+ * (c) Beñat Espiña <benatespina@gmail.com>
+ * (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+declare(strict_types=1);
+
 namespace Kreta\TaskManager\Domain\Event\User;
 
-use OldSound\RabbitMqBundle\RabbitMq\ConsumerInterface;
-use PhpAmqpLib\Message\AMQPMessage;
+use Kreta\SharedKernel\Application\CommandBus;
+use Kreta\SharedKernel\Domain\Event\AsyncEventSubscriber;
+use Kreta\SharedKernel\Domain\Model\AsyncDomainEvent;
+use Kreta\SharedKernel\Domain\Model\AsyncDomainEventValueDoesNotExistException;
+use Kreta\TaskManager\Application\User\AddUserCommand;
 
-class UserRegisteredSubscriber implements ConsumerInterface
+class UserRegisteredSubscriber implements AsyncEventSubscriber
 {
-    public function execute(AMQPMessage $message)
+    private $commandBus;
+
+    public function __construct(CommandBus $commandBus)
     {
-        file_put_contents(__DIR__ . '/../../../../../foo.yml', get_class($message));
-//        return $event;
+        $this->commandBus = $commandBus;
     }
 
-    public function handle($message)
+    public function handle(AsyncDomainEvent $event)
     {
-        file_put_contents(__DIR__ . '/../../../../../foo.yml', get_class($message));
-//        return $event;
+        if (!isset($event->values()['user_id'])) {
+            throw new AsyncDomainEventValueDoesNotExistException('user_id');
+        }
+
+        $this->commandBus->handle(
+            new AddUserCommand(
+                $event->values()['user_id']
+            )
+        );
     }
 }

@@ -12,11 +12,11 @@
 
 declare(strict_types=1);
 
-namespace Kreta\TaskManager\Domain\Model\User;
+namespace Kreta\SharedKernel\Domain\Event;
 
-interface UserRepository
+use Kreta\SharedKernel\Domain\Model\AsyncDomainEvent;
+
+interface AsyncEventSubscriber
 {
-    public function userOfId(UserId $id);
-
-    public function persist(User $user);
+    public function handle(AsyncDomainEvent $event);
 }

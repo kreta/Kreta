@@ -12,26 +12,19 @@
 
 declare(strict_types=1);
 
-namespace Kreta\SharedKernel\Event;
+namespace Kreta\TaskManager\Application\User;
 
-class Event
+class AddUserCommand
 {
-    private $name;
-    private $values;
+    private $userId;
 
-    public function __construct($name, $values)
+    public function __construct(string $userId)
     {
-        $this->name = $name;
-        $this->values = $values;
+        $this->userId = $userId;
     }
 
-    public function name()
+    public function userId() : string
     {
-        return $this->name;
-    }
-
-    public function values()
-    {
-        return $this->values;
+        return $this->userId;
     }
 }

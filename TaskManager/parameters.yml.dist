@@ -20,3 +20,8 @@ parameters:
     task_manager_mailer_host:           127.0.0.1
     task_manager_mailer_user:           ~
     task_manager_mailer_password:       ~
+
+    task_manager_connection_host:       localhost
+    task_manager_connection_port:       5672
+    task_manager_connection_user:       kreta
+    task_manager_connection_password:   kreta

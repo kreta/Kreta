@@ -14,9 +14,12 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Domain\Model\User;
 
-interface UserRepository
-{
-    public function userOfId(UserId $id);
+use Kreta\SharedKernel\Domain\Model\Exception;
 
-    public function persist(User $user);
+class UserAlreadyExistsException extends Exception
+{
+    public function __construct(UserId $userId)
+    {
+        parent::__construct(sprintf('Already exists a user with the "%s" id', $userId->id()));
+    }
 }

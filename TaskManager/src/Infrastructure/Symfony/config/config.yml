@@ -121,10 +121,10 @@ overblog_graphql:
 old_sound_rabbit_mq:
     connections:
         default:
-            host: 'localhost'
-            port: 5672
-            user: 'guest'
-            password: 'guest'
+            host: "%task_manager_connection_host%"
+            port: "%task_manager_connection_port%"
+            user: "%task_manager_connection_user%"
+            password: "%task_manager_connection_password%"
             vhost: '/'
             lazy: true
             connection_timeout: 3
@@ -139,7 +139,4 @@ old_sound_rabbit_mq:
                 type: direct
             queue_options:
                 name: asynchronous_events
-            callback: simple_bus.rabbit_mq_bundle_bridge.events_consumer
-
-simple_bus_asynchronous:
-    object_serializer_service_id: kreta.identity_access.simple_bus.serializer.native
+            callback: kreta.task_manager.rabbit_mq_bundle.user_registered

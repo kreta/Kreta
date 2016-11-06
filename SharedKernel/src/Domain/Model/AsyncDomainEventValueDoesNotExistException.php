@@ -12,11 +12,12 @@
 
 declare(strict_types=1);
 
-namespace Kreta\TaskManager\Domain\Model\User;
+namespace Kreta\SharedKernel\Domain\Model;
 
-interface UserRepository
+class AsyncDomainEventValueDoesNotExistException extends Exception
 {
-    public function userOfId(UserId $id);
-
-    public function persist(User $user);
+    public function __construct($value)
+    {
+        parent::__construct(sprintf('Does not exist any "%s" key inside values array', $value));
+    }
 }

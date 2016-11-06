@@ -10,22 +10,27 @@
  * file that was distributed with this source code.
  */
 
-namespace Spec\Kreta\TaskManager\Domain\Model\User;
+namespace Spec\Kreta\SharedKernel\Domain\Model;
 
+use Kreta\SharedKernel\Domain\Model\AsyncDomainEventValueDoesNotExistException;
 use Kreta\SharedKernel\Domain\Model\Exception;
-use Kreta\TaskManager\Domain\Model\User\UserDoesNotExistException;
 use PhpSpec\ObjectBehavior;
 
-class UserDoesNotExistExceptionSpec extends ObjectBehavior
+class AsyncDomainEventValueDoesNotExistExceptionSpec extends ObjectBehavior
 {
+    function let()
+    {
+        $this->beConstructedWith('value-key');
+    }
+
     function it_is_initializable()
     {
-        $this->shouldHaveType(UserDoesNotExistException::class);
+        $this->shouldHaveType(AsyncDomainEventValueDoesNotExistException::class);
         $this->shouldHaveType(Exception::class);
     }
 
     function it_should_return_message()
     {
-        $this->getMessage()->shouldReturn('User does not exist');
+        $this->getMessage()->shouldReturn('Does not exist any "value-key" key inside values array');
     }
 }
