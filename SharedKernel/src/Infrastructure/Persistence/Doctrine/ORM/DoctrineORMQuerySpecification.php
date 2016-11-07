@@ -14,10 +14,10 @@ declare(strict_types=1);
 
 namespace Kreta\SharedKernel\Infrastructure\Persistence\Doctrine\ORM;
 
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query;
 
 interface DoctrineORMQuerySpecification
 {
-    public function buildQuery(EntityManager $manager) : Query;
+    public function buildQuery(EntityManagerInterface $manager) : Query;
 }

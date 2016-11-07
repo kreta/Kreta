@@ -7,14 +7,6 @@
 # file that was distributed with this source code.
 
 services:
-    kreta.task_manager.event_subscriber.organization_created:
-        class: Kreta\TaskManager\Domain\Event\Organization\OrganizationCreatedSubscriber
-        tags:
-            -
-                name: event_subscriber
-                subscribes_to: Kreta\TaskManager\Domain\Model\Organization\OrganizationCreated
-                method: handle
-
     kreta.task_manager.event_subscriber.user_registered:
         class: Kreta\TaskManager\Domain\Event\User\UserRegisteredSubscriber
         arguments:

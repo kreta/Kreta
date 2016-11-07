@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5655fb3f5313fdb8878ce25c83f5d764",
-    "content-hash": "0fc8edf8ecd12ffd78432cc6ed0a408b",
+    "hash": "10e21fc0787c1fa3e8bb9ef42a7b5b1a",
+    "content-hash": "7825a550a78071d837ebeceb32eafc3a",
     "packages": [
         {
             "name": "ajgl/simple-bus-query-bus",
