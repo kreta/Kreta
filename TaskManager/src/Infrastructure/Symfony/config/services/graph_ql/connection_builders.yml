@@ -7,7 +7,5 @@
 # file that was distributed with this source code.
 
 services:
-    kreta.task_manager.controller.graph_controller:
-        class: Kreta\TaskManager\Infrastructure\Ui\Http\OverblogGraphQlBundle\Controller\GraphController
-        calls:
-            - [setContainer, ["@service_container"]]
+    kreta.task_manager.graphql.connection_builder:
+        class: Kreta\SharedKernel\Infrastructure\Http\GraphQl\OverblogGraphQlBundle\Relay\OverblogGraphQlBundleConnectionBuilder

@@ -39,6 +39,8 @@
         "keyvanakbary/slugifier": "^4.0",
         "lexik/jwt-authentication-bundle": "^2.0",
         "overblog/graphql-bundle": "^0.6.0",
+        "php-http/guzzle6-adapter": "^1.1",
+        "php-http/httplug-bundle": "^1.3",
         "ramsey/uuid": "^3.5",
         "sensio/distribution-bundle": "^5.0",
         "simple-bus/asynchronous-bundle": "^2.2",
