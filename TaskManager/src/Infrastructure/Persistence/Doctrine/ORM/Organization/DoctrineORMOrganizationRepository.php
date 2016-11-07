@@ -30,7 +30,7 @@ class DoctrineORMOrganizationRepository extends EntityRepository implements Orga
     {
         return null === $specification
             ? $this->findAll()
-            : $specification->buildQuery($this->getEntityManager())->getResult();
+            : $specification->buildQuery($this->getEntityManager()->createQueryBuilder())->getResult();
     }
 
     public function persist(Organization $organization)
@@ -54,6 +54,8 @@ class DoctrineORMOrganizationRepository extends EntityRepository implements Orga
                 ->getSingleScalarResult();
         }
 
-        return (int) $specification->buildCount($this->getEntityManager())->getSingleScalarResult();
+        return (int) $specification->buildCount(
+            $this->getEntityManager()->createQueryBuilder()
+        )->getSingleScalarResult();
     }
 }

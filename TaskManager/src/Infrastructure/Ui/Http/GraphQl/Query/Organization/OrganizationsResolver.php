@@ -15,10 +15,10 @@ declare(strict_types=1);
 namespace Kreta\TaskManager\Infrastructure\Ui\Http\GraphQl\Query\Organization;
 
 use Kreta\SharedKernel\Application\QueryBus;
+use Kreta\SharedKernel\Http\GraphQl\Relay\ConnectionBuilder;
 use Kreta\SharedKernel\Http\GraphQl\Resolver;
 use Kreta\TaskManager\Application\Query\Organization\CountOrganizationsQuery;
 use Kreta\TaskManager\Application\Query\Organization\FilterOrganizationsQuery;
-use Kreta\SharedKernel\Http\GraphQl\Relay\ConnectionBuilder;
 
 class OrganizationsResolver implements Resolver
 {

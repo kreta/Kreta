@@ -14,10 +14,10 @@ declare(strict_types=1);
 
 namespace Kreta\SharedKernel\Infrastructure\Persistence\Doctrine\ORM;
 
-use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
 
 interface DoctrineORMCountSpecification
 {
-    public function buildCount(EntityManagerInterface $manager) : Query;
+    public function buildCount(QueryBuilder $queryBuilder) : Query;
 }
