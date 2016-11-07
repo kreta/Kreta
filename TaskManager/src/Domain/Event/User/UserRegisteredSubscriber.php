@@ -18,7 +18,7 @@ use Kreta\SharedKernel\Application\CommandBus;
 use Kreta\SharedKernel\Domain\Event\AsyncEventSubscriber;
 use Kreta\SharedKernel\Domain\Model\AsyncDomainEvent;
 use Kreta\SharedKernel\Domain\Model\AsyncDomainEventValueDoesNotExistException;
-use Kreta\TaskManager\Application\User\AddUserCommand;
+use Kreta\TaskManager\Application\Command\User\AddUserCommand;
 
 class UserRegisteredSubscriber implements AsyncEventSubscriber
 {

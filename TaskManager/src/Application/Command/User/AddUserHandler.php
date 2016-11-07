@@ -12,7 +12,7 @@
 
 declare(strict_types=1);
 
-namespace Kreta\TaskManager\Application\User;
+namespace Kreta\TaskManager\Application\Command\User;
 
 use Kreta\TaskManager\Domain\Model\User\User;
 use Kreta\TaskManager\Domain\Model\User\UserAlreadyExistsException;

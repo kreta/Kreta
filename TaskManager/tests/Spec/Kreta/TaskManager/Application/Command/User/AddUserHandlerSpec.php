@@ -10,10 +10,10 @@
  * file that was distributed with this source code.
  */
 
-namespace Spec\Kreta\TaskManager\Application\User;
+namespace Spec\Kreta\TaskManager\Application\Command\User;
 
-use Kreta\TaskManager\Application\User\AddUserCommand;
-use Kreta\TaskManager\Application\User\AddUserHandler;
+use Kreta\TaskManager\Application\Command\User\AddUserCommand;
+use Kreta\TaskManager\Application\Command\User\AddUserHandler;
 use Kreta\TaskManager\Domain\Model\User\User;
 use Kreta\TaskManager\Domain\Model\User\UserAlreadyExistsException;
 use Kreta\TaskManager\Domain\Model\User\UserId;

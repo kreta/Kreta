@@ -10,9 +10,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Spec\Kreta\TaskManager\Application\User;
+namespace Spec\Kreta\TaskManager\Application\Command\User;
 
-use Kreta\TaskManager\Application\User\AddUserCommand;
+use Kreta\TaskManager\Application\Command\User\AddUserCommand;
 use PhpSpec\ObjectBehavior;
 
 class AddUserCommandSpec extends ObjectBehavior

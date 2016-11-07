@@ -16,7 +16,7 @@ use Kreta\SharedKernel\Application\CommandBus;
 use Kreta\SharedKernel\Domain\Event\AsyncEventSubscriber;
 use Kreta\SharedKernel\Domain\Model\AsyncDomainEvent;
 use Kreta\SharedKernel\Domain\Model\AsyncDomainEventValueDoesNotExistException;
-use Kreta\TaskManager\Application\User\AddUserCommand;
+use Kreta\TaskManager\Application\Command\User\AddUserCommand;
 use Kreta\TaskManager\Domain\Event\User\UserRegisteredSubscriber;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
