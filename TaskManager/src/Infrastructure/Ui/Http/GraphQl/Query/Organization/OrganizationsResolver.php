@@ -12,20 +12,22 @@
 
 declare(strict_types=1);
 
-namespace Kreta\TaskManager\Infrastructure\Ui\Web\Api\GraphQL\Query\Organization;
+namespace Kreta\TaskManager\Infrastructure\Ui\Http\GraphQl\Query\Organization;
 
 use Kreta\SharedKernel\Application\QueryBus;
+use Kreta\SharedKernel\Http\GraphQl\Resolver;
 use Kreta\TaskManager\Application\Query\Organization\CountOrganizationsQuery;
 use Kreta\TaskManager\Application\Query\Organization\FilterOrganizationsQuery;
-use Kreta\TaskManager\Infrastructure\Ui\Web\Api\GraphQL\Query\Resolver;
-use Overblog\GraphQLBundle\Relay\Connection\Output\ConnectionBuilder;
+use Kreta\SharedKernel\Http\GraphQl\Relay\ConnectionBuilder;
 
 class OrganizationsResolver implements Resolver
 {
+    private $connectionBuilder;
     private $queryBus;
 
-    public function __construct(QueryBus $queryBus)
+    public function __construct(ConnectionBuilder $connectionBuilder, QueryBus $queryBus)
     {
+        $this->connectionBuilder = $connectionBuilder;
         $this->queryBus = $queryBus;
     }
 
@@ -46,7 +48,7 @@ class OrganizationsResolver implements Resolver
             $result
         );
 
-        $connection = ConnectionBuilder::connectionFromArraySlice(
+        $connection = $this->connectionBuilder->fromArraySlice(
             $result,
             $args,
             [
@@ -68,16 +70,13 @@ class OrganizationsResolver implements Resolver
             $total
         );
 
-        // AL COUNT QUERY ESTE DE ARRIBA HAY QUE PASARLE EL $name y en vez de usar el size del repo hay que hacer
-        // como hacemos en el CMS con el buildQuery y el buildCount
-
-        $beforeOffset = ConnectionBuilder::getOffsetWithDefault(
+        $beforeOffset = $this->connectionBuilder->getOffsetWithDefault(
             isset($args['before'])
                 ? $args['before']
                 : null,
             $total
         );
-        $afterOffset = ConnectionBuilder::getOffsetWithDefault(
+        $afterOffset = $this->connectionBuilder->getOffsetWithDefault(
             isset($args['after'])
                 ? $args['after']
                 : null,
