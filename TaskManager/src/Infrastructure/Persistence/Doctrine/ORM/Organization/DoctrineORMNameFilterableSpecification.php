@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Infrastructure\Persistence\Doctrine\ORM\Organization;
 
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query;
 use Kreta\SharedKernel\Infrastructure\Persistence\Doctrine\ORM\DoctrineORMCountSpecification;
 use Kreta\SharedKernel\Infrastructure\Persistence\Doctrine\ORM\DoctrineORMQuerySpecification;
@@ -33,7 +33,7 @@ class DoctrineORMNameFilterableSpecification implements DoctrineORMQuerySpecific
         $this->limit = $limit;
     }
 
-    public function buildQuery(EntityManager $manager) : Query
+    public function buildQuery(EntityManagerInterface $manager) : Query
     {
         $queryBuilder = $manager->createQueryBuilder();
 
@@ -54,7 +54,7 @@ class DoctrineORMNameFilterableSpecification implements DoctrineORMQuerySpecific
             ->getQuery();
     }
 
-    public function buildCount(EntityManager $manager) : Query
+    public function buildCount(EntityManagerInterface $manager) : Query
     {
         $queryBuilder = $manager->createQueryBuilder();
 
