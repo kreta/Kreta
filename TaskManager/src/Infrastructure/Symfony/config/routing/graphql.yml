@@ -7,7 +7,29 @@
 # file that was distributed with this source code.
 
 overblog_graphql_endpoint:
-    resource: "@OverblogGraphQLBundle/Resources/config/routing/graphql.yml"
+    path: /
+    defaults:
+        _controller: "kreta.task_manager.controller.graph_controller:endpointAction"
+        _format: "json"
+
+overblog_graphql_batch_endpoint:
+    path: /batch
+    defaults:
+        _controller: "kreta.task_manager.controller.graph_controller:batchEndpointAction"
+        _format: "json"
+
+overblog_graphql_multiple_endpoint:
+    path: /graphql/{schemaName}
+    defaults:
+        _controller: "kreta.task_manager.controller.graph_controller:endpointAction"
+        _format: "json"
+
+overblog_graphql_batch_multiple_endpoint:
+    path: /graphql/{schemaName}/batch
+    defaults:
+        _controller: "kreta.task_manager.controller.graph_controller:batchEndpointAction"
+        _format: "json"
+
 
 overblog_graphql_graphiql:
     resource: "@OverblogGraphQLBundle/Resources/config/routing/graphiql.yml"

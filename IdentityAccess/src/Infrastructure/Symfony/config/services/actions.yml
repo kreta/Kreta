@@ -7,14 +7,14 @@
 # file that was distributed with this source code.
 
 services:
-    kreta.identity_access.controller.api_rest.user_action:
-        class: Kreta\IdentityAccess\Infrastructure\Ui\Web\Controller\Api\Rest\UserAction
+    kreta.identity_access.action.user:
+        class: Kreta\IdentityAccess\Infrastructure\Ui\Http\Action\UserAction
         arguments:
             - "@security.authorization_checker"
             - "@security.token_storage"
 
-    kreta.identity_access.controller.sign_up_action:
-        class: Kreta\IdentityAccess\Infrastructure\Ui\Web\Controller\SignUpAction
+    kreta.identity_access.action.sign_up:
+        class: Kreta\IdentityAccess\Infrastructure\Ui\Http\Action\SignUpAction
         arguments:
             - "@bengor_user.user.by_invitation_token_query"
             - "@bengor_user.user.symfony_data_transformer"

@@ -9,7 +9,7 @@
 kreta_identity_access_sign_up_by_invitation:
     path: /register
     defaults:
-        _controller: "kreta.identity_access.controller.sign_up_action:__invoke"
+        _controller: "kreta.identity_access.action.sign_up:__invoke"
     methods:
         - GET
         - POST
@@ -20,7 +20,7 @@ ben_gor_user:
 kreta_identity_access_user:
     path: /api/user
     defaults:
-        _controller: "kreta.identity_access.controller.api_rest.user_action:__invoke"
+        _controller: "kreta.identity_access.action.api_rest.user:__invoke"
     methods:
         - GET
 
