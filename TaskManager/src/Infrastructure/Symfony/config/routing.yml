@@ -6,9 +6,5 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 
-kreta_graphql:
+kreta_task_manager_graphql:
     resource: "routing/graphql.yml"
-
-kreta_rest:
-    resource: "routing/rest.yml"
-    prefix: "api/"

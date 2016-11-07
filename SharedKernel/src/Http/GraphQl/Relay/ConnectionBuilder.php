@@ -12,9 +12,11 @@
 
 declare(strict_types=1);
 
-namespace Kreta\TaskManager\Infrastructure\Ui\Web\Api\GraphQL\Query;
+namespace Kreta\SharedKernel\Http\GraphQl\Relay;
 
-interface Resolver
+interface ConnectionBuilder
 {
-    public function resolve($args);
+    public function fromArraySlice($arraySlice, $args, array $meta);
+
+    public function getOffsetWithDefault($cursor, $defaultOffset) : int;
 }

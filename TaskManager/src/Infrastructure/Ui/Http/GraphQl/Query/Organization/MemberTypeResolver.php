@@ -12,23 +12,22 @@
 
 declare(strict_types=1);
 
-namespace Kreta\TaskManager\Infrastructure\Ui\Web\Api\GraphQL\Query\Organization;
+namespace Kreta\TaskManager\Infrastructure\Ui\Http\GraphQl\Query\Organization;
 
 use Kreta\SharedKernel\Application\QueryBus;
+use Kreta\SharedKernel\Http\GraphQl\Resolver;
 use Kreta\TaskManager\Application\Query\Organization\OrganizationMemberOfIdQuery;
 use Kreta\TaskManager\Application\Query\Organization\OwnerOfIdQuery;
-use Kreta\TaskManager\Infrastructure\Ui\Web\Api\GraphQL\Query\Resolver;
-use Overblog\GraphQLBundle\Resolver\TypeResolver;
 
 class MemberTypeResolver implements Resolver
 {
-    private $typeResolver;
+    private $resolver;
     private $queryBus;
 
-    public function __construct(TypeResolver $typeResolver, QueryBus $queryBus)
+    public function __construct(Resolver $resolver, QueryBus $queryBus)
     {
         $this->queryBus = $queryBus;
-        $this->typeResolver = $typeResolver;
+        $this->resolver = $resolver;
     }
 
     public function resolve($args)
@@ -41,7 +40,7 @@ class MemberTypeResolver implements Resolver
             $result
         );
         if (isset($result['id'])) {
-            return $this->typeResolver->resolve('Owner');
+            return $this->resolver->resolve('Owner');
         }
         $this->queryBus->handle(
             new OrganizationMemberOfIdQuery(
@@ -51,7 +50,7 @@ class MemberTypeResolver implements Resolver
             $result
         );
         if (isset($result['id'])) {
-            return $this->typeResolver->resolve('OrganizationMember');
+            return $this->resolver->resolve('OrganizationMember');
         }
     }
 }

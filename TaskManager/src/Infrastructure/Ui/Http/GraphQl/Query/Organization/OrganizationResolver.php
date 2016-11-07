@@ -12,13 +12,13 @@
 
 declare(strict_types=1);
 
-namespace Kreta\TaskManager\Infrastructure\Ui\Web\Api\GraphQL\Query\Organization;
+namespace Kreta\TaskManager\Infrastructure\Ui\Http\GraphQl\Query\Organization;
 
 use Kreta\SharedKernel\Application\QueryBus;
-use Kreta\TaskManager\Application\Query\Organization\OwnerOfIdQuery;
-use Kreta\TaskManager\Infrastructure\Ui\Web\Api\GraphQL\Query\Resolver;
+use Kreta\SharedKernel\Http\GraphQl\Resolver;
+use Kreta\TaskManager\Application\Query\Organization\OrganizationOfIdQuery;
 
-class OwnerResolver implements Resolver
+class OrganizationResolver implements Resolver
 {
     private $queryBus;
 
@@ -30,9 +30,8 @@ class OwnerResolver implements Resolver
     public function resolve($args)
     {
         $this->queryBus->handle(
-            new OwnerOfIdQuery(
-                $args['organizationId'],
-                $args['userId']
+            new OrganizationOfIdQuery(
+                $args['id']
             ),
             $result
         );

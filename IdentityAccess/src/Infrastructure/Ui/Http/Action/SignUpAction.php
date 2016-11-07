@@ -12,7 +12,7 @@
 
 declare(strict_types=1);
 
-namespace Kreta\IdentityAccess\Infrastructure\Ui\Web\Controller;
+namespace Kreta\IdentityAccess\Infrastructure\Ui\Http\Action;
 
 use BenGorUser\User\Application\DataTransformer\UserDataTransformer;
 use BenGorUser\User\Application\Query\UserOfInvitationTokenHandler;

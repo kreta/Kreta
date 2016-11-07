@@ -6,7 +6,8 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 
-kreta_index:
-    path: /
-    defaults:
-        _controller: "kreta.task_manager.controller.default:indexAction"
+services:
+    kreta.task_manager.graphql.resolver.type:
+        class: Kreta\SharedKernel\Infrastructure\Http\GraphQl\OverblogGraphQlBundle\OverblogGraphQlBundleResolver
+        arguments:
+            - "@overblog_graphql.type_resolver"
