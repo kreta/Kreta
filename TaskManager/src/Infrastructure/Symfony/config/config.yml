@@ -117,3 +117,26 @@ overblog_graphql:
         schema:
             query: Query
             mutation: ~
+
+old_sound_rabbit_mq:
+    connections:
+        default:
+            host: "%task_manager_connection_host%"
+            port: "%task_manager_connection_port%"
+            user: "%task_manager_connection_user%"
+            password: "%task_manager_connection_password%"
+            vhost: '/'
+            lazy: true
+            connection_timeout: 3
+            read_write_timeout: 3
+            keepalive: false
+            heartbeat: 0
+    consumers:
+        asynchronous_events:
+            connection: default
+            exchange_options:
+                name: asynchronous_events
+                type: direct
+            queue_options:
+                name: asynchronous_events
+            callback: kreta.task_manager.rabbit_mq_bundle.user_registered

@@ -12,6 +12,7 @@
 
 namespace Spec\Kreta\TaskManager\Domain\Model\User;
 
+use Kreta\SharedKernel\Domain\Model\Exception;
 use Kreta\TaskManager\Domain\Model\User\UserDoesNotExistException;
 use PhpSpec\ObjectBehavior;
 
@@ -20,7 +21,7 @@ class UserDoesNotExistExceptionSpec extends ObjectBehavior
     function it_is_initializable()
     {
         $this->shouldHaveType(UserDoesNotExistException::class);
-        $this->shouldHaveType(\Exception::class);
+        $this->shouldHaveType(Exception::class);
     }
 
     function it_should_return_message()

@@ -16,7 +16,11 @@ use BenGorUser\UserBundle\BenGorUserBundle;
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle;
 use Lexik\Bundle\JWTAuthenticationBundle\LexikJWTAuthenticationBundle;
+use OldSound\RabbitMqBundle\OldSoundRabbitMqBundle;
 use Sensio\Bundle\DistributionBundle\SensioDistributionBundle;
+use SimpleBus\AsynchronousBundle\SimpleBusAsynchronousBundle;
+use SimpleBus\RabbitMQBundleBridge\SimpleBusRabbitMQBundleBridgeBundle;
+use SimpleBus\SymfonyBridge\DoctrineOrmBridgeBundle;
 use SimpleBus\SymfonyBridge\SimpleBusCommandBusBundle;
 use SimpleBus\SymfonyBridge\SimpleBusEventBusBundle;
 use Symfony\Bundle\DebugBundle\DebugBundle;
@@ -36,6 +40,7 @@ class AppKernel extends Kernel
         $bundles = [
             new DoctrineBundle(),
             new DoctrineMigrationsBundle(),
+            new DoctrineOrmBridgeBundle(),
             new FrameworkBundle(),
             new LexikJWTAuthenticationBundle(),
             new MonologBundle(),
@@ -45,6 +50,10 @@ class AppKernel extends Kernel
             new SwiftmailerBundle(),
             new TwigBundle(),
 
+            new SimpleBusAsynchronousBundle(),
+            new SimpleBusRabbitMQBundleBridgeBundle(),
+            new OldSoundRabbitMqBundle(),
+
             new \BenGorUser\TwigBridgeBundle\TwigBridgeBundle(),
             new \BenGorUser\SymfonyRoutingBridgeBundle\SymfonyRoutingBridgeBundle(),
             new \BenGorUser\SymfonySecurityBridgeBundle\SymfonySecurityBridgeBundle(),
@@ -52,8 +61,6 @@ class AppKernel extends Kernel
             new \BenGorUser\DoctrineORMBridgeBundle\DoctrineORMBridgeBundle(),
             new \BenGorUser\SimpleBusBridgeBundle\SimpleBusBridgeBundle(),
             new \BenGorUser\SimpleBusBridgeBundle\SimpleBusDoctrineORMBridgeBundle(),
-
-
             new BenGorUserBundle(),
         ];
 

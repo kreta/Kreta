@@ -20,16 +20,18 @@ class DomainEventStub implements DomainEvent
 {
     private $bar;
     private $foo;
+    private $occurredOn;
 
-    public function __construct($foo, $bar)
+    public function __construct($foo, $bar, $occurredOn = null)
     {
         $this->bar = $bar;
         $this->foo = $foo;
+        $this->occurredOn = !$occurredOn instanceof \DateTimeInterface ? new \DateTimeImmutable() : $occurredOn;
     }
 
     public function occurredOn() : \DateTimeInterface
     {
-        return new \DateTimeImmutable();
+        return $this->occurredOn;
     }
 
     public function bar() : string

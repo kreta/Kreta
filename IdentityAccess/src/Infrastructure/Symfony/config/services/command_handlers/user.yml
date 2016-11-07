@@ -1,0 +1,18 @@
+# This file is part of the Kreta package.
+#
+# (c) Beñat Espiña <benatespina@gmail.com>
+# (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+
+services:
+    kreta.identity_access.command_handler.by_invitation_sign_up_user:
+        class: BenGorUser\User\Application\Command\SignUp\ByInvitationSignUpUserHandler
+        arguments:
+            - "@bengor_user.user.repository"
+            - "@bengor_user.user.symfony_password_encoder"
+        tags:
+            -
+                name: command_handler
+                handles: BenGorUser\User\Application\Command\SignUp\ByInvitationSignUpUserCommand

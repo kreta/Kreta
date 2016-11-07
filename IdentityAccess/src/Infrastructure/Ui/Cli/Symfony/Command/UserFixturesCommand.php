@@ -26,10 +26,10 @@ class UserFixturesCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        for ($i = 0; $i < 20; $i++) {
+        for ($i = 0; $i < 20; ++$i) {
             $this->getContainer()->get('bengor_user.user.command_bus')->handle(
                 new SignUpUserCommand(
-                    'user'.$i.'@gmail.com',
+                    'user' . $i . '@gmail.com',
                     '123456',
                     ['ROLE_USER']
                 )

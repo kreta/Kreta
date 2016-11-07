@@ -14,3 +14,8 @@ services:
                 name: event_subscriber
                 subscribes_to: Kreta\TaskManager\Domain\Model\Organization\OrganizationCreated
                 method: handle
+
+    kreta.task_manager.event_subscriber.user_registered:
+        class: Kreta\TaskManager\Domain\Event\User\UserRegisteredSubscriber
+        arguments:
+            - "@kreta.task_manager.command_bus"
