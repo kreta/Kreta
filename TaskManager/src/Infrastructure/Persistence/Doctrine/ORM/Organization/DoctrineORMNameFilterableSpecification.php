@@ -14,8 +14,8 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Infrastructure\Persistence\Doctrine\ORM\Organization;
 
-use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Query;
+use Doctrine\ORM\QueryBuilder;
 use Kreta\SharedKernel\Infrastructure\Persistence\Doctrine\ORM\DoctrineORMCountSpecification;
 use Kreta\SharedKernel\Infrastructure\Persistence\Doctrine\ORM\DoctrineORMQuerySpecification;
 use Kreta\TaskManager\Domain\Model\Organization\Organization;
@@ -33,10 +33,8 @@ class DoctrineORMNameFilterableSpecification implements DoctrineORMQuerySpecific
         $this->limit = $limit;
     }
 
-    public function buildQuery(EntityManagerInterface $manager) : Query
+    public function buildQuery(QueryBuilder $queryBuilder) : Query
     {
-        $queryBuilder = $manager->createQueryBuilder();
-
         if ($this->limit > 0) {
             $queryBuilder->setMaxResults($this->limit);
         }
@@ -54,10 +52,8 @@ class DoctrineORMNameFilterableSpecification implements DoctrineORMQuerySpecific
             ->getQuery();
     }
 
-    public function buildCount(EntityManagerInterface $manager) : Query
+    public function buildCount(QueryBuilder $queryBuilder) : Query
     {
-        $queryBuilder = $manager->createQueryBuilder();
-
         if (!empty($this->name)) {
             $queryBuilder
                 ->where($queryBuilder->expr()->like('o.name.name', ':name'))
