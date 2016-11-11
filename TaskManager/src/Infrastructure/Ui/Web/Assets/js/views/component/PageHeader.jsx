@@ -16,13 +16,10 @@ import React from 'react';
 
 import Button from './Button';
 import Icon from './Icon';
-import Thumbnail from './Thumbnail';
 
 class PageHeader extends React.Component {
   static propTypes = {
-    buttons: React.PropTypes.array,
     thumbnail: React.PropTypes.element,
-    links: React.PropTypes.array,
     title: React.PropTypes.string
   };
 
@@ -59,7 +56,7 @@ class PageHeader extends React.Component {
         {this.props.thumbnail}
         <h2 className="page-header__title">{this.props.title}</h2>
         <div className="page-header__actions">
-          {this.props.actions}
+          {this.props.children}
         </div>
       </div>
     );

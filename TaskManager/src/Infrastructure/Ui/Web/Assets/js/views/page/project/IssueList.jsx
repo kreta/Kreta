@@ -14,9 +14,12 @@ import React from 'react';
 import Mousetrap from 'mousetrap';
 import { connect } from 'react-redux';
 import {routeActions} from 'react-router-redux';
+import {Link} from 'react-router';
 
 import Config from './../../../Config';
 
+import Button from './../../component/Button';
+import Icon from './../../component/Icon';
 import Filter from './../../component/Filter';
 import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
 import ContentRightLayout from './../../layout/ContentRightLayout';
@@ -128,54 +131,55 @@ class IssueList extends React.Component {
     this.props.dispatch(CurrentProjectActions.selectCurrentIssue(null));
   }
 
+  getIssuesEl() {
+    return this.props.currentProject.issues.map((issue, index) => {
+      return <IssuePreview issue={issue}
+                           key={index}
+                           onClick={this.selectCurrentIssue.bind(this, issue)}
+                           selected={this.props.currentProject.selectedIssue &&
+                           this.props.currentProject.selectedIssue.id === issue.id}/>;
+    });
+  }
+
+  getSelectedIssueEl() {
+    if (!this.props.currentProject.selectedIssue) {
+      return '';
+    }
+
+    return <IssueShow issue={this.props.currentProject.selectedIssue}
+                      project={this.props.currentProject.project}/>;
+  }
+
   render() {
     if (this.props.currentProject.fetchingProjects || this.props.currentProject.fetchingIssues) {
       return <LoadingSpinner/>;
-    }
-    const issuesEl = this.props.currentProject.issues.map((issue, index) => {
-        return <IssuePreview issue={issue}
-                             key={index}
-                             onClick={this.selectCurrentIssue.bind(this, issue)}
-                             selected={this.props.currentProject.selectedIssue &&
-                                       this.props.currentProject.selectedIssue.id === issue.id}/>;
-      }),
-      links = [{
-        href: `/project/${this.props.currentProject.project.id}/settings`,
-        icon: SettingsIcon,
-        title: 'Settings',
-        color: 'green'
-      }],
-      buttons = [{
-        href: `/project/${this.props.currentProject.project.id}/issue/new`,
-        title: 'New issue'
-      }];
-    let issue = '';
-    if (this.props.currentProject.selectedIssue) {
-      issue = <IssueShow issue={this.props.currentProject.selectedIssue}
-                         project={this.props.currentProject.project}/>;
     }
 
     return (
       <div>
         <ContentMiddleLayout>
-          <PageHeader buttons={buttons}
-                      thumbnail={<Thumbnail image={this.props.currentProject.project.image.name}
+          <PageHeader thumbnail={<Thumbnail image={this.props.currentProject.project.image.name}
                                             text={this.props.currentProject.project.name}/>}
-                      links={links}
-                      title={this.props.currentProject.project.name}/>
+                      title={this.props.currentProject.project.name}>
+            <Link to={`/project/${this.props.currentProject.project.id}/settings`}>
+              <Icon glyph={SettingsIcon}/>Settings
+            </Link>
+            <Link to={`/project/${projectId}/issue/new`}>
+              <Button color="green">New issue</Button>
+            </Link>
+          </PageHeader>
           <Filter filters={this.props.currentProject.filters}
                   onFilterSelected={this.filterIssues.bind(this)}/>
 
           <NavigableList className="issues"
                          // onYChanged={this.changeSelected.bind(this)}
-                         ref="navigableList"
-                         yLength={issuesEl.length}>
-            {issuesEl}
+                         ref="navigableList">
+            {this.getIssuesEl()}
           </NavigableList>
         </ContentMiddleLayout>
         <ContentRightLayout isOpen={this.props.currentProject.selectedIssue ? true : false}
                             onRequestClose={this.hideIssue.bind(this)}>
-          {issue}
+          {this.getSelectedIssueEl()}
         </ContentRightLayout>
       </div>
     );
