@@ -16,31 +16,17 @@ security:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
-        api:
-            pattern: ^/user/api
+        main:
+            pattern: ^/
             anonymous: true
             stateless: true
             guard:
                 authenticators:
                     - bengor_user.user.jwt_authenticator
             provider: bengor_user
-        main:
-            anonymous: ~
-            pattern: ^/user
-            guard:
-                authenticators:
-                    - bengor_user.user.form_login_authenticator
-            provider: bengor_user
-            form_login:
-                check_path: bengor_user_user_login_check
-                login_path: bengor_user_user_login
-                failure_path: bengor_user_user_login
-            logout:
-                path: bengor_user_user_logout
-                target: /
     access_control:
-        - { path: ^/user/login$, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/user/sign-up, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/user/enable, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/user/api/token, roles: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/user/, role: ROLE_USER }
+        - { path: ^/invite, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/resend-invitation, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/auth/token, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/user, role: ROLE_USER }

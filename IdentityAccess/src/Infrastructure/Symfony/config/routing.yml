@@ -6,21 +6,34 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 
+kreta_identity_access_invite:
+    path: /invite
+    defaults:
+        _controller: "kreta.identity_access.action.invite:__invoke"
+    methods:
+        - POST
+
+kreta_identity_access_resend_invitation:
+    path: /resend-invitation
+    defaults:
+        _controller: "kreta.identity_access.action.resend_invitation:__invoke"
+    methods:
+        - POST
+
 kreta_identity_access_sign_up_by_invitation:
     path: /register
     defaults:
         _controller: "kreta.identity_access.action.sign_up:__invoke"
     methods:
-        - GET
         - POST
 
 ben_gor_user:
     resource: '@BenGorUserBundle/Resources/config/routing/all.yml'
 
 kreta_identity_access_user:
-    path: /api/user
+    path: /user
     defaults:
-        _controller: "kreta.identity_access.action.api_rest.user:__invoke"
+        _controller: "kreta.identity_access.action.user:__invoke"
     methods:
         - GET
 

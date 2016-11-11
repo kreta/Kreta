@@ -13,15 +13,28 @@ services:
             - "@security.authorization_checker"
             - "@security.token_storage"
 
+    kreta.identity_access.action.invite:
+        class: Kreta\IdentityAccess\Infrastructure\Ui\Http\Action\InviteAction
+        arguments:
+            - "@form.factory"
+            - "@bengor_user.user.command_bus"
+            - "@kreta.identity_access.form.error_seriaizer"
+
+    kreta.identity_access.action.resend_invitation:
+        class: Kreta\IdentityAccess\Infrastructure\Ui\Http\Action\ResendInvitationAction
+        arguments:
+            - "@form.factory"
+            - "@bengor_user.user.command_bus"
+            - "@kreta.identity_access.form.error_seriaizer"
+
     kreta.identity_access.action.sign_up:
         class: Kreta\IdentityAccess\Infrastructure\Ui\Http\Action\SignUpAction
         arguments:
             - "@bengor_user.user.by_invitation_token_query"
-            - "@bengor_user.user.symfony_data_transformer"
             - "@form.factory"
             - "@kreta.identity_access.command_bus"
-            - "@session.flash_bag"
-            - "@translator"
+            - "@kreta.identity_access.form.error_seriaizer"
             - "@security.authentication.guard_handler"
-            - "@bengor_user.user.form_login_authenticator"
-            - "@templating.engine.twig"
+            - "@bengor_user.user.jwt_authenticator"
+            - "@lexik_jwt_authentication.encoder.default"
+            - "@bengor_user.user.command_bus"

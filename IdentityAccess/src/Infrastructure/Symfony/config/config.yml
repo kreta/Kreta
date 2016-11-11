@@ -82,7 +82,7 @@ ben_gor_user:
             firewall: main
             use_cases:
                 security:
-                    enabled: false
+                    enabled: true
                 sign_up:
                     enabled: true
                     type: by_invitation
