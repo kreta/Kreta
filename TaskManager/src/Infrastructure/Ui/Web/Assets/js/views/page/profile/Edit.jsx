@@ -15,7 +15,8 @@ import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
 import ProfileActions from './../../../actions/Profile';
 import ProfileEdit from './../../form/ProfileEdit';
 
-class Edit extends React.Component {
+@connect()
+export default class extends React.Component {
   updateProfile(profile) {
     this.props.dispatch(ProfileActions.updateProfile(profile));
   }
@@ -28,5 +29,3 @@ class Edit extends React.Component {
     );
   }
 }
-
-export default Edit;

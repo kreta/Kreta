@@ -43,8 +43,8 @@ class IssuePreview extends React.Component {
                       style={{stroke: priority.color}}
                       transform="rotate(-90, 21, 21)"/>
             </svg>
-            <Thumbnail image={this.props.issue.assignee.photo.name}
-                       text={`${this.props.issue.assignee.first_name} ${this.props.issue.assignee.first_name}`}/>
+            <Thumbnail image={this.props.issue.assignee.photo ? this.props.issue.assignee.photo.name : null}
+                       text={`${this.props.issue.assignee.first_name} ${this.props.issue.assignee.last_name}`}/>
           </span>
         </div>
       </div>
