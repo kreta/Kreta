@@ -83,7 +83,8 @@ class NavigableList extends React.Component {
   }
 
   render() {
-    return <div {...this.props}>{this.props.children}</div>;
+    const { onXChanged, onYChanged, xLength, yLength, children, ...otherProps} = this.props;
+    return <div {...otherProps}>{children}</div>;
   }
 }
 
