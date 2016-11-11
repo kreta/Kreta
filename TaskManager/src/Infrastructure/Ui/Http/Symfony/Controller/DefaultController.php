@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Kreta\TaskManager\Infrastructure\Ui\Web\Symfony\Controller;
+namespace Kreta\TaskManager\Infrastructure\Ui\Http\Symfony\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Templating\EngineInterface;

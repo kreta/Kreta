@@ -14,7 +14,7 @@ import webpack from 'webpack';
 
 import pkg from './package.json';
 
-let buildPath = './Symfony/public';
+let buildPath = './../Http/Symfony/public';
 if (process.argv[4] === '--from-vendor') {
   buildPath = './../../../../../../../web';
 }
