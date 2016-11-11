@@ -27,11 +27,9 @@ const validate = (values) => {
   return errors;
 };
 
-@reduxForm({ form: 'ProfileEdit', validate })
-@connect(state => ({
-  initialValues: state.profile.profile
-}))
-export default class ProfileEdit extends React.Component {
+@connect(state => (state => ({initialValues: state.profile.profile})))
+@reduxForm({ form: 'profileEdit', validate })
+export default class extends React.Component {
   render() {
     const {handleSubmit} = this.props;
 

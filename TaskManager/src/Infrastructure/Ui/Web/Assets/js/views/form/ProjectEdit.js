@@ -18,12 +18,14 @@ const validate = (values) => {
   return errors;
 };
 
-@reduxForm({form: 'ProjectEdit', validate})
 @connect(state => ({initialValues: state.currentProject.project}))
+@reduxForm({form: 'ProjectEdit', validate})
 export default class ProjectEdit extends React.Component {
   render(){
+    const {handleSubmit} = this.props;
+
     return (
-      <form>
+      <form onSubmit={handleSubmit}>
         <div className="section-header">
           <div className="section-header-title"></div>
           <div>
@@ -39,7 +41,6 @@ export default class ProjectEdit extends React.Component {
                        name="image"
                        value=""/>
         <Field label="Project Name" name="name" component={FormInput} tabIndex={2}/>
-        <Field label="Short name" name="short_name" component={FormInput} tabIndex={3}/>
       </form>
     )
   };
