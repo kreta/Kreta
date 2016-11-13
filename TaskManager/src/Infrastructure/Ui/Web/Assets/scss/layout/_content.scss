@@ -62,14 +62,6 @@ $content-transition: .3s;
   max-width: $content-right-width;
 }
 
-.content-right-layout__cross {
-  cursor: pointer;
-  fill: $main-black;
-  height: 30px;
-  margin: 10px 10px 0;
-  width: 30px;
-}
-
 @media #{$large-up} {
   .content {
     flex: 1;

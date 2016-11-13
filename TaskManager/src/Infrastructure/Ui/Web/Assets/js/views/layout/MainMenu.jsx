@@ -56,23 +56,21 @@ export default class extends React.Component {
     return (
       <nav className="main-menu">
         <Link className="main-menu__logo-container" to="/">
-          <Icon className="main-menu__logo"
-                glyph={LogoIcon}/>
+          <Icon color="white" size="expand" glyph={LogoIcon}/>
         </Link>
-
         <div className="main-menu__actions">
-          <Icon className="main-menu__action main-menu__action--green"
-                glyph={ProjectsIcon}
-                onClick={this.showProjectList.bind(this)}/>
-          <a href="/logout">
-            <Icon className="main-menu__action main-menu__action--red"
-                  glyph={ExitIcon}/>
-          </a>
+          <div className="main-menu__action">
+            <Icon color="green" size="medium" glyph={ProjectsIcon} onClick={this.showProjectList.bind(this)}/>
+          </div>
+          <div className="main-menu__action">
+            <a href="/logout">
+              <Icon color="red" size="medium" glyph={ExitIcon}/>
+            </a>
+          </div>
         </div>
         <div className="main-menu__user">
           <div className="main-menu__notification">
-            <Icon className="main-menu__action"
-                  glyph={InboxIcon}/>
+            <Icon color="white" size="medium" glyph={InboxIcon}/>
             <span className="main-menu__notification-bubble">0</span>
           </div>
           { profileWidget }

@@ -33,9 +33,9 @@ export default class extends React.Component {
 
     return (
       <div className={classes}>
-        <Icon className="content-right-layout__cross"
-              glyph={CrossIcon}
-              onClick={this.triggerOnRequestClose.bind(this)}/>
+        <div className="content-right-layout__cross">
+          <Icon glyph={CrossIcon} onClick={this.triggerOnRequestClose.bind(this)}/>
+        </div>
         <div className="content__right-content">
           {this.props.children}
         </div>

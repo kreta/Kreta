@@ -39,21 +39,11 @@ class FormInputFile extends React.Component {
 
   renderImageElement() {
     if (this.state.filename === '') {
-      return (
-        <div className="form-input-file__background">
-          <Icon className="form-input-file__background-icon"
-                glyph={ImageIcon}/>
-        </div>
-      );
+      return '';
     }
 
     return (
-      <div className="form-input-file__image-container">
         <img className="form-input-file__image" src={this.state.filename}/>
-        <div className="form-input-file__background form-input-file__background--hidden">
-          <Icon className="form-input-file__background-icon" glyph={ImageIcon}/>
-        </div>
-      </div>
     );
   }
 
@@ -61,7 +51,12 @@ class FormInputFile extends React.Component {
     return (
       <div className="form-input-file">
         <label htmlFor="form-input-file">
-          {this.renderImageElement()}
+          <div className="form-input-file__image-container">
+            <div className={`form-input-file__background ${this.state.filename !== '' ? 'form-input-file__background--hidden' : ''}`}>
+              <Icon color="white" glyph={ImageIcon}/>
+            </div>
+            {this.renderImageElement()}
+          </div>
         </label>
         <input className="form-input-file__input"
                defaultValue=""

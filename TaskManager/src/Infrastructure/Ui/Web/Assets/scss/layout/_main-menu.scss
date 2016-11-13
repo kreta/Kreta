@@ -29,12 +29,6 @@ $main-menu-size-desktop: 80px;
   width: $main-menu-size-mobile;
 }
 
-.main-menu__logo {
-  height: $main-menu-size-mobile;
-  fill: $white;
-  width: $main-menu-size-mobile;
-}
-
 .main-menu__actions {
   align-items: center;
   display: flex;
@@ -43,18 +37,7 @@ $main-menu-size-desktop: 80px;
 
 .main-menu__action {
   cursor: pointer;
-  fill: $white;
-  height: 30px;
-  margin: 25px 20%;
-  width: 30px;
-}
-
-.main-menu__action--green {
-  fill: $main-green;
-}
-
-.main-menu__action--red {
-  fill: $light-red;
+  margin: 25px 15px;
 }
 
 .main-menu__user {
@@ -99,11 +82,6 @@ $main-menu-size-desktop: 80px;
   }
 
   .main-menu__logo-container {
-    height: $main-menu-size-desktop;
-    width: $main-menu-size-desktop;
-  }
-
-  .main-menu__logo {
     height: $main-menu-size-desktop;
     width: $main-menu-size-desktop;
   }

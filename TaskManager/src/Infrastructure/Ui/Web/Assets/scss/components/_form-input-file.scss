@@ -10,22 +10,16 @@
 
 $form-input-file-image-size: 150px;
 
-%border-circle {
-  border-radius: 50%;
+.form-input-file {
   height: $form-input-file-image-size;
   margin: 0 auto;
-  text-align: center;
+  position: relative;
   width: $form-input-file-image-size;
-}
-
-.form-input-file {
-  @extend %border-circle;
 
   &:hover {
     .form-input-file__background {
       background-color: rgba($main-black, .7);
       opacity: 1;
-      z-index: 2;
     }
   }
 }
@@ -40,25 +34,25 @@ $form-input-file-image-size: 150px;
   position: relative;
 }
 
+.form-input-file__background,
 .form-input-file__image {
-  @extend %border-circle;
+  border-radius: 50%;
+  height: $form-input-file-image-size;
   position: absolute;
-  z-index: 1;
+  width: $form-input-file-image-size;
 }
 
 .form-input-file__background {
-  @extend %border-circle;
+  align-items: center;
   background: $main-black;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
   position: absolute;
   transition: all .3s ease-in-out;
+  z-index: 1;
 }
 
 .form-input-file__background--hidden {
   opacity: 0;
-}
-
-.form-input-file__background-icon {
-  fill: $white;
-  height: 100%;
-  width: 35%;
 }

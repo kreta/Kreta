@@ -9,6 +9,9 @@
  */
 
 import React from 'react';
+import classNames from 'classnames';
+
+import '../../../scss/components/_icon';
 
 class Icon extends React.Component {
   static propTypes = {
@@ -16,10 +19,18 @@ class Icon extends React.Component {
   };
 
   render() {
-    const {glyph, ...props} = this.props;
+    const {glyph, color, size, className, ...props} = this.props,
+      classes = classNames({
+        'icon': true,
+        'icon--expand': size === 'expand',
+        'icon--small': size === 'small',
+        'icon--blue': color === 'blue',
+        'icon--red': color === 'red',
+        'icon--white': color === 'white',
+      });
 
     return (
-      <svg {...props}>
+      <svg {...props} className={`${classes} ${className}`}>
         <use xlinkHref={glyph}/>
       </svg>
     );

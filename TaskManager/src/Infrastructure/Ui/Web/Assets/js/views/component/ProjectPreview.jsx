@@ -42,7 +42,7 @@ class ProjectPreview extends React.Component {
   }
 
   render() {
-    var shortcutItems = this.props.shortcuts.map((shortcut, index) => {
+    const shortcutItems = this.props.shortcuts.map((shortcut, index) => {
       const classes = classNames({
         'project-preview__shortcut': true,
         'project-preview__shortcut--selected': index === this.props.selectedShortcut

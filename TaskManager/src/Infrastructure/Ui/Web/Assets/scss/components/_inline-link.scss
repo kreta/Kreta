@@ -1,0 +1,14 @@
+@import '../base/colors';
+
+.inline-link {
+  align-items: center;
+  color: $main-black;
+  display: flex;
+  font-size: .8em;
+  padding-left: 1em;
+  text-decoration: none;
+
+  .icon {
+    margin-right: 5px;
+  }
+}

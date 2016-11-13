@@ -29,6 +29,7 @@ import LoadingSpinner from './../../component/LoadingSpinner.jsx';
 import PageHeader from './../../component/PageHeader';
 import Thumbnail from './../../component/Thumbnail';
 import NavigableList from './../../component/NavigableList';
+import InlineLink from './../../component/InlineLink';
 import CurrentProjectActions from '../../../actions/CurrentProject';
 
 @connect(state => ({currentProject: state.currentProject}))
@@ -162,9 +163,9 @@ export default class extends React.Component {
           <PageHeader thumbnail={<Thumbnail image={this.props.currentProject.project.image.name}
                                             text={this.props.currentProject.project.name}/>}
                       title={this.props.currentProject.project.name}>
-            <Link to={`/project/${this.props.currentProject.project.id}/settings`}>
-              <Icon glyph={SettingsIcon}/>Settings
-            </Link>
+            <InlineLink to={`/project/${this.props.currentProject.project.id}/settings`}>
+              <Icon glyph={SettingsIcon} color="green" size="small"/>Settings
+            </InlineLink>
             <Link to={`/project/${projectId}/issue/new`}>
               <Button color="green">New issue</Button>
             </Link>

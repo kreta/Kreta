@@ -25,24 +25,8 @@
 .page-header__actions {
   align-items: center;
   display: flex;
-}
 
-.page-header__link {
-  align-items: center;
-  color: $main-black;
-  display: flex;
-  font-size: .8em;
-  padding-left: 1em;
-  text-decoration: none;
-}
-
-.page-header__link-icon {
-  fill: $main-black;
-  height: 16px;
-  margin-right: 5px;
-  width: 16px;
-}
-
-.page-header__link-icon--green {
-  fill: $main-green;
+  > * {
+    margin-right: 15px;
+  }
 }
