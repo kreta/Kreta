@@ -39,7 +39,7 @@ export default class extends React.Component {
     'tooltip': 'Show full project'
   }, {
     'icon': AddIcon,
-    'link': '/issue/new/',
+    'link': 'issue/new/',
     'tooltip': 'New task'
   }];
 
