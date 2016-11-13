@@ -31,9 +31,27 @@ const validate = (values) => {
   return errors;
 };
 
-@connect()
+@connect(state => (state => {
+  console.log(state.currentProject.project);
+  return {
+    initialValues: {
+      project: state.currentProject.project !== null ? state.currentProject.project.id : ''
+    },
+    projects: state.projects.projects
+}}))
 @reduxForm({form: 'IssueNew', validate})
 export default class extends React.Component {
+  getProjectOptions() {
+    const defaultEl = [<SelectorOption value="" text="No project selected"/>],
+          optionsEl = this.props.projects.map(project => {
+      return(<SelectorOption value={project.id}
+                      text={project.name}
+                      thumbnail={<Thumbnail image={null} text={project.name}/>}/>)
+    });
+
+    return [...defaultEl,...optionsEl];
+  }
+
   render() {
     const {handleSubmit} = this.props;
 
@@ -42,14 +60,10 @@ export default class extends React.Component {
         <Row>
           <RowColumn>
             <Field name="project" component={Selector} tabIndex={1}>
-              <SelectorOption value=""
-                              text="No project selected"/>
-              <SelectorOption value="1"
-                              text="Project 1"
-                              thumbnail={<Thumbnail image={null} text="Project 1"/>}/>
+              {this.getProjectOptions()}
             </Field>
             <Field label="Title" name="title" component={FormInput} tabIndex={2} autoFocus/>
-            <Field label="Description" name="description" component={FormInput} tabIndex={3} autoFocus/>
+            <Field label="Description" name="description" component={FormInput} tabIndex={3}/>
           </RowColumn>
         </Row>
         <Row collapse>
