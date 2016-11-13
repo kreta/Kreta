@@ -22,11 +22,11 @@ class NavigableList extends React.Component {
   static defaultProps = {
     disabled: false,
     xLength: 0,
-    yLength: 0
+    yLength: 0,
+    xSelected: 0,
+    ySelected: 0
   };
 
-  xSelected = 0;
-  ySelected = 0;
 
   handleNavigation(ev) {
     if (ev.which === 40) { // Down
@@ -41,50 +41,57 @@ class NavigableList extends React.Component {
   }
 
   selectNextX() {
-    if (this.xSelected + 1 < this.props.xLength) {
-      this.xSelected = this.xSelected + 1;
+    const {xSelected, xLength} = this.props;
+    if (xSelected + 1 < xLength) {
       if (this.props.onXChanged) {
-        this.props.onXChanged(this.xSelected);
+        this.props.onXChanged(xSelected + 1);
       }
     }
   }
 
   selectPrevX() {
-    if (this.xSelected > 0) {
-      this.xSelected = this.xSelected - 1;
+    const {xSelected} = this.props;
+    if (xSelected > 0) {
       if (this.props.onXChanged) {
-        this.props.onXChanged(this.xSelected);
+        this.props.onYChanged(xSelected - 1);
       }
     }
   }
 
   selectNextY() {
-    if (this.ySelected + 1 < this.props.yLength) {
-      this.ySelected = this.ySelected + 1;
+    const {ySelected, yLength} = this.props;
+    if (ySelected + 1 < yLength) {
       if (this.props.onYChanged) {
-        this.props.onYChanged(this.ySelected);
+        this.props.onYChanged(ySelected + 1);
       }
       this.centerListScroll();
     }
   }
 
   selectPrevY() {
-    if (this.ySelected > 0) {
-      this.ySelected = this.ySelected - 1;
+    const {ySelected} = this.props;
+    if (ySelected > 0) {
       if (this.props.onYChanged) {
-        this.props.onYChanged(this.ySelected);
+        this.props.onYChanged(ySelected - 1);
       }
       this.centerListScroll();
     }
   }
 
   centerListScroll() {
-    ReactDOM.findDOMNode(this).scrollTop = this.ySelected * 60 - 60 * 2;
+    ReactDOM.findDOMNode(this).scrollTop = this.state.ySelected * 60 - 60 * 2;
   }
 
   render() {
-    const { onXChanged, onYChanged, xLength, yLength, children, ...otherProps} = this.props;
-    return <div {...otherProps}>{children}</div>;
+    const { onXChanged, onYChanged, onElementMouseEnter, xLength, yLength, children, ...otherProps} = this.props;
+    
+    const wrappedItems = children.map((el, i) => (
+      <div key={i}
+           onMouseEnter={onElementMouseEnter.bind(i)}
+           style={{background: i === this.state.ySelected ? 'green' : 'white'}}>{el}</div>
+    ));
+    
+    return <div {...otherProps}>{wrappedItems}</div>;
   }
 }
 

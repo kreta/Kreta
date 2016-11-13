@@ -29,8 +29,9 @@ export default class extends React.Component {
   };
 
   state = {
-    selectedProject: null,
-    selectedShortcut: 0
+    selectedProject: 0,
+    selectedShortcut: 0,
+    filter: ''
   };
 
   shortcuts = [{
@@ -47,7 +48,7 @@ export default class extends React.Component {
     if (ev.which === 13) { // Enter
       this.goToShortcutLink(this.state.selectedShortcut);
     } else if (ev.which < 37 || ev.which > 40) { // Filter
-      // dispatch filter action
+      this.setState({filter: ev.currentTarget.value});
     } else {
       this.refs.navigableList.handleNavigation(ev);
     }
@@ -56,7 +57,7 @@ export default class extends React.Component {
   }
 
   changeSelectedRow(index) {
-    this.setState({selectedProject: this.props.projects[index]});
+    this.setState({selectedProject: index});
   }
 
   changeSelectedShortcut(index) {
@@ -78,16 +79,16 @@ export default class extends React.Component {
   }
 
   render() {
-    const projectItems = this.props.projects.map((project, index) => {
+    const projectItems = this.props.projects.filter(project => {
+      return this.state.filter.length === 0 ||
+        (project.name.indexOf(this.state.filter) > -1 ||
+        project.organization.name.indexOf(this.state.filter) > -1);
+    }).map((project, index) => {
       return <ProjectPreview key={index}
-                             onMouseEnter={this.changeSelectedRow.bind(this, index)}
-                             onShortcutClick={this.goToShortcutLink.bind(this)}
-                             onShortcutEnter={this.changeSelectedShortcut.bind(this)}
-                             onTitleClick={this.triggerOnProjectSelected.bind(this, project)}
                              project={project}
-                             selected={this.state.selectedProject && this.state.selectedProject.id === project.id}
                              selectedShortcut={this.state.selectedShortcut}
                              shortcuts={this.shortcuts}/>;
+
     });
 
     return (
@@ -117,9 +118,12 @@ export default class extends React.Component {
                ref="filter"
                type="text"/>
         <NavigableList className="project-preview__list"
+                       onElementMouseEnter={this.changeSelectedRow.bind(this)}
                        onXChanged={this.changeSelectedShortcut.bind(this)}
                        onYChanged={this.changeSelectedRow.bind(this)}
                        ref="navigableList"
+                       xSelected={this.state.selectedShortcut}
+                       ySelected={this.state.selectedProject}
                        xLength={2}
                        yLength={projectItems.length}>
           { projectItems }
