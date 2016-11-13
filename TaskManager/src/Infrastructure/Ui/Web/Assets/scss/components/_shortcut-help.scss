@@ -7,26 +7,17 @@
 // file that was distributed with this source code.
 
 @import '../base/colors';
+@import '../base/typography';
 
-.simple-header {
-  color: $main-black;
-  display: flex;
-  padding: 5px;
-}
-
-.simple-header__actions {
+.shortcut-help {
   align-items: center;
-  display: flex;
-  flex: 1;
-  justify-content: space-between;
-}
-
-.simple-header__action,
-.simple-header__action-key--escape {
+  color: $main-black;
+  display: inline-flex;
   font-size: 10px;
+  margin-right: 10px;
 }
 
-.simple-header__action-key {
+.shortcut-help__keyboard {
   font-size: 15px;
   font-weight: $font-weight-bold;
   margin-right: 5px;

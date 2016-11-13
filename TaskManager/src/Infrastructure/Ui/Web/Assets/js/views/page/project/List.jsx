@@ -19,6 +19,8 @@ import {routeActions} from 'react-router-redux';
 import Button from './../../component/Button';
 import NavigableList from './../../component/NavigableList';
 import ProjectPreview from './../../component/ProjectPreview';
+import ShortcutHelp from './../../component/ShortcutHelp';
+import {Row, RowColumn} from './../../component/Grid';
 
 @connect(state => ({projects: state.projects.projects}))
 export default class extends React.Component {
@@ -90,28 +92,24 @@ export default class extends React.Component {
 
     return (
       <div>
-        <div className="simple-header">
-          <div className="simple-header__actions">
-            <div className="simple-header__action">
-              <span className="simple-header__action-key">← →</span>navigate between actions
-            </div>
-            <div className="simple-header__action">
-              <span className="simple-header__action-key">↑ ↓</span>navigate between projects
-            </div>
-            <div className="simple-header__action">
-              <span className="simple-header__action-key">↵</span>to select
-            </div>
-            <div className="simple-header__action">
-              <span className="simple-header__action-key simple-header__action-key--escape">esc</span>to dismiss
-            </div>
-            <Link to="/project/new">
-              <Button color="green"
-                      onClick={this.triggerOnProjectSelected.bind(this, null)}
-                      size="small">
-                New project
-              </Button>
-            </Link>
-          </div>
+        <div className="project-preview__header">
+          <Row>
+            <RowColumn small={9}>
+              <ShortcutHelp keyboard="← →" does="to select action"/>
+              <ShortcutHelp keyboard="↑ ↓" does="to select project"/>
+              <ShortcutHelp keyboard="↵" does="go to project"/>
+              <ShortcutHelp keyboard="esc" does="to dismiss"/>
+            </RowColumn>
+            <RowColumn small={3}>
+              <Link to="/project/new">
+                <Button color="green"
+                        onClick={this.triggerOnProjectSelected.bind(this, null)}
+                        size="small">
+                  New project
+                </Button>
+              </Link>
+            </RowColumn>
+          </Row>
         </div>
         <input className="project-preview__filter"
                onKeyUp={this.onKeyUp.bind(this)}

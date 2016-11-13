@@ -8,6 +8,11 @@
 
 @import '../base/colors';
 
+.project-preview__header {
+  padding-top: 15px;
+  padding-bottom: 15px;
+}
+
 .project-preview__filter {
   background: $main-grey;
   padding: 15px;
