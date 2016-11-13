@@ -19,7 +19,8 @@ import ProjectActions from './../../../actions/CurrentProject';
 import Selector from './../../component/Selector';
 import Thumbnail from './../../component/Thumbnail';
 
-class Show extends React.Component {
+@connect(state => ({currentProject: state.currentProject}))
+export default class extends React.Component {
   updateIssue(ev) {
     ev.preventDefault();
     this.props.dispatch(ProjectActions.updateIssue(issue));
@@ -102,10 +103,3 @@ class Show extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {
-    currentProject: state.currentProject
-  };
-};
-
-export default connect(mapStateToProps)(Show);

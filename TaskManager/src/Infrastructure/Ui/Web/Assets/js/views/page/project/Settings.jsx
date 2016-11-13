@@ -25,7 +25,9 @@ import LoadingSpinner from '../../component/LoadingSpinner.jsx';
 import CurrentProjectActions from '../../../actions/CurrentProject';
 import PageHeader from '../../component/PageHeader';
 
-class Settings extends React.Component {
+
+@connect(state => ({project: state.currentProject.project}))
+export default class extends React.Component {
   state = {
     addParticipantsVisible: false
   };
@@ -39,8 +41,7 @@ class Settings extends React.Component {
   }
 
   updateProject(project) {
-    console.log('TODO');
-    // this.props.dispatch(CurrentProjectActions.updateProject(project);
+    this.props.dispatch(CurrentProjectActions.updateProject(project));
   }
 
   render() {
@@ -84,11 +85,3 @@ class Settings extends React.Component {
     );
   }
 }
-
-const mapStateToProps = (state) => {
-  return {
-    project: state.currentProject.project
-  };
-};
-
-export default connect(mapStateToProps)(Settings);

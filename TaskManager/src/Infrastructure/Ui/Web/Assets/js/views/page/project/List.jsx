@@ -20,7 +20,8 @@ import Button from './../../component/Button';
 import NavigableList from './../../component/NavigableList';
 import ProjectPreview from './../../component/ProjectPreview';
 
-class List extends React.Component {
+@connect(state => ({projects: state.projects.projects}))
+export default class extends React.Component {
   static propTypes = {
     onProjectSelected: React.PropTypes.func
   };
@@ -129,11 +130,3 @@ class List extends React.Component {
     );
   }
 }
-
-const mapStateToProps = (state) => {
-  return {
-    projects: state.projects.projects
-  };
-};
-
-export default connect(mapStateToProps)(List);

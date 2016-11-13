@@ -12,14 +12,8 @@ import './../../../scss/views/page/_index';
 
 import React from 'react';
 
-class ProtectedArea extends React.Component {
-  render() {
-    return (
-      <div>
-        {this.props.children}
-      </div>
-    )
-  }
-}
-
-export default ProtectedArea;
+export default props => (
+  <div>
+    {this.props.children}
+  </div>
+)

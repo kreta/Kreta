@@ -18,7 +18,8 @@ import Button from './../component/Button';
 import ContentMiddleLayout from './../layout/ContentMiddleLayout';
 import ProjectPreview from './../component/ProjectPreview';
 
-class Index extends React.Component {
+@connect(state => ({projects: state.projects.projects}))
+export default class extends React.Component {
   render() {
     const projectItems = this.props.projects.map((project, index) => {
       return <ProjectPreview key={index}
@@ -49,11 +50,3 @@ class Index extends React.Component {
     );
   }
 }
-
-const mapStateToProps = (state) => {
-  return {
-    projects: state.projects.projects
-  };
-};
-
-export default connect(mapStateToProps)(Index);

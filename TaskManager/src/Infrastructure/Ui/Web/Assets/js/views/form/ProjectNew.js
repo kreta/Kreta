@@ -27,22 +27,21 @@ const validate = (values) => {
   return errors;
 };
 
-const ProjectNew = (props) => {
-  const {handleSubmit} = props;
+@connect()
+@reduxForm({form: 'ProjectNew', validate})
+export default class extends React.Component {
+  render() {
+    const {handleSubmit} = this.props;
 
-  return (
-    <form onSubmit={handleSubmit}>
+    return (
+      <form onSubmit={handleSubmit}>
         {/*<FormInputFile name="image" value=""/>*/}
         <Field label="Project Name" name="name" component={FormInput} tabIndex={2}/>
         <Field label="Short name" name="short_name" component={FormInput} tabIndex={3}/>
         <div className="issue-new__actions">
           <Button color="green" type="submit">Update</Button>
         </div>
-    </form>
-  )
+      </form>
+    )
+  }
 };
-
-export default reduxForm({
-  form: 'ProjectNew',
-  validate
-})(ProjectNew);

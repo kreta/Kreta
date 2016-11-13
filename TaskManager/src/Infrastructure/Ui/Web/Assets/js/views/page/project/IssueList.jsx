@@ -31,7 +31,8 @@ import Thumbnail from './../../component/Thumbnail';
 import NavigableList from './../../component/NavigableList';
 import CurrentProjectActions from '../../../actions/CurrentProject';
 
-class IssueList extends React.Component {
+@connect(state => ({currentProject: state.currentProject}))
+export default class extends React.Component {
   componentDidMount() {
     const projectId = this.props.params.projectId;
     Mousetrap.bind(Config.shortcuts.issueNew, () => {
@@ -58,7 +59,7 @@ class IssueList extends React.Component {
   }
 
   filterIssues(filters) {
-    var data = {project: this.state.project.id};
+    const data = {project: this.state.project.id};
 
     filters.forEach((filter) => {
       filter.forEach((item) => {
@@ -71,7 +72,7 @@ class IssueList extends React.Component {
     this.props.dispatch(CurrentProjectActions.filterIssues(data));
   }
 
-  loadFilters(project) {
+//  loadFilters(project) {
 //    var assigneeFilters = [{
 //        filter: 'assignee',
 //        selected: true,
@@ -121,7 +122,7 @@ class IssueList extends React.Component {
 //      });
 //    }
 //    this.setState({filters: [assigneeFilters, priorityFilters, statusFilters]});
-  }
+//  }
 
   selectCurrentIssue(issue) {
     this.props.dispatch(CurrentProjectActions.selectCurrentIssue(issue));
@@ -154,7 +155,7 @@ class IssueList extends React.Component {
     if (this.props.currentProject.fetchingProjects || this.props.currentProject.fetchingIssues) {
       return <LoadingSpinner/>;
     }
-
+    const projectId = this.props.params.projectId;
     return (
       <div>
         <ContentMiddleLayout>
@@ -177,7 +178,7 @@ class IssueList extends React.Component {
             {this.getIssuesEl()}
           </NavigableList>
         </ContentMiddleLayout>
-        <ContentRightLayout isOpen={this.props.currentProject.selectedIssue ? true : false}
+        <ContentRightLayout isOpen={this.props.currentProject.selectedIssue}
                             onRequestClose={this.hideIssue.bind(this)}>
           {this.getSelectedIssueEl()}
         </ContentRightLayout>
@@ -185,11 +186,3 @@ class IssueList extends React.Component {
     );
   }
 }
-
-const mapStateToProps = (state) => {
-  return {
-    currentProject: state.currentProject
-  };
-};
-
-export default connect(mapStateToProps)(IssueList);

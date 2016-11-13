@@ -19,7 +19,7 @@ import Icon from './../component/Icon';
 import ContentLayout from './../layout/ContentLayout';
 import ContentMiddleLayout from './../layout/ContentMiddleLayout';
 
-class Login extends React.Component {
+export default class extends React.Component {
   login() {
     console.log('Login tried');
   }
@@ -51,5 +51,3 @@ class Login extends React.Component {
     );
   }
 }
-
-export default Login;

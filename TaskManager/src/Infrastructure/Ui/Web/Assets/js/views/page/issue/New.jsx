@@ -9,15 +9,15 @@
  */
 
 import React from 'react';
-
+import {connect} from 'react-redux';
 import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
 import IssueNew from './../../form/IssueNew';
 import CurrentProjectActions from '../../../actions/CurrentProject';
 
-class New extends React.Component {
+@connect()
+export default class extends React.Component {
   createIssue(issue) {
-    console.log(issue);
-    // this.props.dispatch(CurrentProjectActions.createIssue(issue));
+    this.props.dispatch(CurrentProjectActions.createIssue(issue));
   }
 
   render() {
@@ -28,5 +28,3 @@ class New extends React.Component {
     );
   }
 }
-
-export default New;

@@ -21,7 +21,8 @@ import ProjectActions from '../../actions/Projects';
 import ProfileActions from '../../actions/Profile';
 import LoadingSpinner from '../component/LoadingSpinner';
 
-class Base extends React.Component {
+@connect(state => ({fetching: state.projects.fetching || state.profile.fetching}))
+export default class extends React.Component {
   componentDidMount() {
     const { dispatch } = this.props;
     dispatch(ProjectActions.fetchProjects());
@@ -44,12 +45,3 @@ class Base extends React.Component {
     );
   }
 }
-
-const mapStateToProps = (state) => {
-  return {
-    fetching: state.projects.fetching || state.profile.fetching
-  };
-};
-
-
-export default connect(mapStateToProps)(Base);

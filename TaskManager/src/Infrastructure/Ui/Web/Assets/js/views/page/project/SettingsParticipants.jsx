@@ -15,7 +15,7 @@ import React from 'react';
 import Button from './../../component/Button';
 import UserPreview from './../../component/UserPreview';
 
-class SettingsParticipants extends React.Component {
+export default class extends React.Component {
   static propTypes = {
     onParticipantAddClicked: React.PropTypes.func,
     project: React.PropTypes.object
@@ -50,5 +50,3 @@ class SettingsParticipants extends React.Component {
     );
   }
 }
-
-export default SettingsParticipants;

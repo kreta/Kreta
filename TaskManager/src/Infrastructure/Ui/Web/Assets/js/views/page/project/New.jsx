@@ -11,12 +11,14 @@
 import './../../../../scss/views/page/project/_new';
 
 import React from 'react';
+import {connect} from 'react-redux';
 
 import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
 import ProjectNew from './../../form/ProjectNew';
 
 import ProjectsActions from './../../../actions/Projects';
 
+@connect()
 class New extends React.Component {
   createProject(project) {
     this.props.dispatch(ProjectsActions.createProject(project));

@@ -10,16 +10,10 @@
 
 import React from 'react';
 
-class ContentMiddleLayout extends React.Component {
-  render() {
-    return (
-      <div className="content__middle">
-        <div className="content__middle-content">
-          {this.props.children}
-        </div>
-      </div>
-    );
-  }
-}
-
-export default ContentMiddleLayout;
+export default props => (
+  <div className="content__middle">
+    <div className="content__middle-content">
+      {props.children}
+    </div>
+  </div>
+);

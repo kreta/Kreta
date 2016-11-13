@@ -13,6 +13,7 @@ import { connect } from 'react-redux';
 
 import CurrentProjectActions from '../../../actions/CurrentProject';
 
+@connect()
 export default class ProjectRoot extends React.Component {
   componentDidMount() {
     this.props.dispatch(CurrentProjectActions.fetchProject(this.props.params.projectId));
@@ -46,9 +47,3 @@ export default class ProjectRoot extends React.Component {
     );
   }
 }
-
-const mapStateToProps = (state) => {
-  return {};
-};
-
-export default connect(mapStateToProps)(ProjectRoot);

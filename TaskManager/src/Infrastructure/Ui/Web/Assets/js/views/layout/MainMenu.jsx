@@ -17,7 +17,7 @@ import ProjectsIcon from './../../../svg/projects';
 
 import React from 'react';
 import {Link} from 'react-router';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import Mousetrap from 'mousetrap';
 
 import Config from './../../Config';
@@ -27,7 +27,8 @@ import ProjectList from './../page/project/List';
 import Thumbnail from './../component/Thumbnail';
 import MainMenuActions from '../../actions/MainMenu';
 
-class MainMenu extends React.Component {
+@connect(state => ({profile: state.profile.profile, mainMenu: state.mainMenu}))
+export default class extends React.Component {
   componentDidMount() {
     Mousetrap.bind(Config.shortcuts.projectList, this.showProjectList.bind(this));
   }
@@ -84,12 +85,3 @@ class MainMenu extends React.Component {
     );
   }
 }
-
-const mapStateToProps = (state) => {
-  return {
-    profile: state.profile.profile,
-    mainMenu: state.mainMenu
-  };
-};
-
-export default connect(mapStateToProps)(MainMenu);
