@@ -83,7 +83,6 @@ $grid: (
 }
 
 @mixin grid__column($columns) {
-  display: flex;
   flex: 1 1 #{100% / $column-count * $columns};
   max-width: #{100% / $column-count * $columns};
   padding: 0 #{$column-gutter / 2};
