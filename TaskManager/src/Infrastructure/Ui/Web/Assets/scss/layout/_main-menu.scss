@@ -58,6 +58,10 @@ $main-menu-size-desktop: 80px;
   margin: 0 10px;
 }
 
+.main-menu__notification {
+  margin-top: 10px;
+}
+
 .main-menu__notification-bubble {
   background: $light-red;
   border-radius: 50%;
@@ -68,7 +72,7 @@ $main-menu-size-desktop: 80px;
   line-height: 20px;
   margin-left: -4px;
   position: absolute;
-  top: 15px;
+  top: -10px;
   width: 20px;
 }
 
@@ -101,7 +105,7 @@ $main-menu-size-desktop: 80px;
 
   .main-menu__notification,
   .main-menu__profile {
-    margin: inherit;
+    margin: 10px;
   }
 
   .main-menu__notification-bubble {
