@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Kreta\IdentityAccess\Infrastructure\Ui\Form\Type;
 
@@ -48,8 +48,8 @@ class SignUpType extends AbstractType
         $resolver->setRequired(['roles', 'invitation_token']);
         $resolver->setDefaults([
             'csrf_protection' => false,
-            'data_class' => ByInvitationSignUpUserCommand::class,
-            'empty_data' => function (FormInterface $form) {
+            'data_class'      => ByInvitationSignUpUserCommand::class,
+            'empty_data'      => function (FormInterface $form) {
                 return new ByInvitationSignUpUserCommand(
                     $this->token,
                     $form->get('password')->getData(),

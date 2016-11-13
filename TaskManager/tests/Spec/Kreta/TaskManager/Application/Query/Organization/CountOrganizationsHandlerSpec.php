@@ -34,6 +34,7 @@ class CountOrganizationsHandlerSpec extends ObjectBehavior
     function it_counts_organizations(CountOrganizationsQuery $query, OrganizationRepository $repository)
     {
         $query->name()->shouldBeCalled()->willReturn('organization name');
+        $query->userId()->shouldBeCalled()->willReturn('user-id');
         $repository->count(Argument::any())->shouldBeCalled()->willReturn(2);
         $this->__invoke($query)->shouldReturn(2);
     }

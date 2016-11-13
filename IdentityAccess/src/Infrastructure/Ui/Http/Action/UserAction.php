@@ -39,6 +39,6 @@ class UserAction
             throw new AccessDeniedException('This request requires authentication');
         }
 
-        return new JsonResponse(['userId' => $this->tokenStorage->getToken()->getUser()->id]);
+        return new JsonResponse(['user_id' => $this->tokenStorage->getToken()->getUser()->id]);
     }
 }

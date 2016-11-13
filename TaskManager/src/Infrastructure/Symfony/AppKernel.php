@@ -10,10 +10,23 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
+/*
+ * This file is part of the Kreta package.
+ *
+ * (c) Beñat Espiña <benatespina@gmail.com>
+ * (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 namespace Kreta\TaskManager\Infrastructure\Symfony;
 
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle;
+use Http\HttplugBundle\HttplugBundle;
 use Kreta\TaskManager\Infrastructure\Symfony\Bundle\AppBundle;
 use OldSound\RabbitMqBundle\OldSoundRabbitMqBundle;
 use Overblog\GraphQLBundle\OverblogGraphQLBundle;
@@ -42,9 +55,10 @@ class AppKernel extends Kernel
             new DoctrineMigrationsBundle(),
             new DoctrineOrmBridgeBundle(),
             new FrameworkBundle(),
+            new HttplugBundle(),
+            new MonologBundle(),
             new OldSoundRabbitMqBundle(),
             new OverblogGraphQLBundle(),
-            new MonologBundle(),
             new SecurityBundle(),
             new SimpleBusCommandBusBundle(),
             new SimpleBusEventBusBundle(),

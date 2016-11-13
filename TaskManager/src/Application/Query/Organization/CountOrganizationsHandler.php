@@ -16,6 +16,7 @@ namespace Kreta\TaskManager\Application\Query\Organization;
 
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationRepository;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationSpecificationFactory;
+use Kreta\TaskManager\Domain\Model\User\UserId;
 
 class CountOrganizationsHandler
 {
@@ -34,7 +35,10 @@ class CountOrganizationsHandler
     {
         return $this->repository->count(
             $this->specificationFactory->buildNameFilterableSpecification(
-                $query->name()
+                $query->name(),
+                UserId::generate(
+                    $query->userId()
+                )
             )
         );
     }

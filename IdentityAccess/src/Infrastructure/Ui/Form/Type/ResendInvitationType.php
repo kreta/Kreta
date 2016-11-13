@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Kreta\IdentityAccess\Infrastructure\Ui\Form\Type;
 
@@ -32,8 +32,8 @@ class ResendInvitationType extends AbstractType
     {
         $resolver->setDefaults([
             'csrf_protection' => false,
-            'data_class' => ResendInvitationUserCommand::class,
-            'empty_data' => function (FormInterface $form) {
+            'data_class'      => ResendInvitationUserCommand::class,
+            'empty_data'      => function (FormInterface $form) {
                 return new ResendInvitationUserCommand(
                     $form->get('email')->getData()
                 );

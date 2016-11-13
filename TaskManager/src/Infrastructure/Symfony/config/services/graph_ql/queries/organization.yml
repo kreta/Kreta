@@ -10,6 +10,7 @@ services:
     kreta.task_manager.graph_ql.query_resolver.filter_organizations:
         class: Kreta\TaskManager\Infrastructure\Ui\Http\GraphQl\Query\Organization\OrganizationsResolver
         arguments:
+            - "@security.token_storage"
             - "@kreta.task_manager.graphql.connection_builder"
             - "@kreta.task_manager.query_bus"
         tags:

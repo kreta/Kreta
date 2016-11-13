@@ -16,15 +16,22 @@ namespace Kreta\TaskManager\Application\Query\Organization;
 
 class FilterOrganizationsQuery
 {
+    private $userId;
     private $offset;
     private $limit;
     private $name;
 
-    public function __construct(int $offset, int $limit, string $name = null)
+    public function __construct(string $userId, int $offset, int $limit, string $name = null)
     {
         $this->name = $name;
         $this->offset = $offset;
         $this->limit = $limit;
+        $this->userId = $userId;
+    }
+
+    public function userId() : string
+    {
+        return $this->userId;
     }
 
     public function offset() : int

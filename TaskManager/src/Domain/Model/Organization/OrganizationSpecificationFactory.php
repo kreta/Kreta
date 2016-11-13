@@ -14,7 +14,9 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Domain\Model\Organization;
 
+use Kreta\TaskManager\Domain\Model\User\UserId;
+
 interface OrganizationSpecificationFactory
 {
-    public function buildNameFilterableSpecification($name, int $offset = 0, int $limit = -1);
+    public function buildNameFilterableSpecification($name, UserId $userId, int $offset = 0, int $limit = -1);
 }

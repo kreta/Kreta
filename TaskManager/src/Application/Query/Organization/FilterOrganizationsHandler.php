@@ -18,6 +18,7 @@ use Kreta\TaskManager\Application\DataTransformer\Organization\OrganizationDataT
 use Kreta\TaskManager\Domain\Model\Organization\Organization;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationRepository;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationSpecificationFactory;
+use Kreta\TaskManager\Domain\Model\User\UserId;
 
 class FilterOrganizationsHandler
 {
@@ -40,6 +41,7 @@ class FilterOrganizationsHandler
         $organizations = $this->repository->query(
             $this->specificationFactory->buildNameFilterableSpecification(
                 $query->name(),
+                UserId::generate($query->userId()),
                 $query->offset(),
                 $query->limit()
             )

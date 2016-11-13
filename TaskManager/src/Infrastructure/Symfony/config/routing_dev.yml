@@ -18,5 +18,8 @@ _errors:
     resource: "@TwigBundle/Resources/config/routing/errors.xml"
     prefix: /_error
 
+overblog_graphql_graphiql:
+    resource: "@OverblogGraphQLBundle/Resources/config/routing/graphiql.yml"
+
 _main:
     resource: routing.yml

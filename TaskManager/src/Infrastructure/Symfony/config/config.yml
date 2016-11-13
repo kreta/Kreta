@@ -140,3 +140,22 @@ old_sound_rabbit_mq:
             queue_options:
                 name: asynchronous_events
             callback: kreta.task_manager.rabbit_mq_bundle.user_registered
+
+httplug:
+    plugins:
+        logger: ~
+    classes:
+        client: Http\Adapter\Guzzle6\Client
+        message_factory: Http\Message\MessageFactory\GuzzleMessageFactory
+        uri_factory: Http\Message\UriFactory\GuzzleUriFactory
+        stream_factory: Http\Message\StreamFactory\GuzzleStreamFactory
+    clients:
+        guzzle6:
+            factory: "httplug.factory.guzzle6"
+            plugins:
+                - "httplug.plugin.logger"
+                - add_host:
+                    host: "http://127.0.0.1:8002"
+            config:
+                verify: false
+                timeout: 2
