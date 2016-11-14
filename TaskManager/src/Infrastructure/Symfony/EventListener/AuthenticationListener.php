@@ -52,6 +52,11 @@ final class AuthenticationListener
             return;
         }
 
+        // Prevents to crash the Symfony profiler routes
+        if (0 === strpos($event->getRequest()->getPathInfo(), '/_')) {
+            return;
+        }
+
         $request = $this->messageFactory->createRequest('GET', '/user');
         $request = $this->authentication($event->getRequest())->authenticate($request);
         $response = $this->client->sendRequest($request);
