@@ -12,7 +12,7 @@
 
 declare(strict_types=1);
 
-namespace Kreta\IdentityAccess\Infrastructure\Domain\Model\User;
+namespace Kreta\IdentityAccess\Domain\Model\User;
 
 use BenGorUser\User\Domain\Model\User as BaseUser;
 

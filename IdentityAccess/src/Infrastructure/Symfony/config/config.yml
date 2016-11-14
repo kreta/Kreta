@@ -60,7 +60,7 @@ doctrine:
                 type: xml
                 is_bundle: false
                 dir: "%kernel.root_dir%/../Persistence/Doctrine/ORM/User/SymfonyMapping/"
-                prefix: 'Kreta\IdentityAccess\Infrastructure\Domain\Model\User'
+                prefix: 'Kreta\IdentityAccess\Domain\Model\User'
 
 doctrine_migrations:
     dir_name: "%kernel.root_dir%/../Persistence/Doctrine/Migrations"
@@ -78,7 +78,7 @@ swiftmailer:
 ben_gor_user:
     user_class:
         user:
-            class: Kreta\IdentityAccess\Infrastructure\Domain\Model\User\User
+            class: Kreta\IdentityAccess\Domain\Model\User\User
             firewall: main
             use_cases:
                 security:

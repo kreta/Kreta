@@ -8,7 +8,7 @@
 
 security:
     encoders:
-        Kreta\IdentityAccess\Infrastructure\Domain\Model\User\User: bcrypt
+        Kreta\IdentityAccess\Domain\Model\User\User: bcrypt
     providers:
         bengor_user:
             id: bengor_user.user.provider
