@@ -18,14 +18,12 @@ services:
         arguments:
             - "@form.factory"
             - "@bengor_user.user.command_bus"
-            - "@kreta.identity_access.form.error_seriaizer"
 
     kreta.identity_access.action.resend_invitation:
         class: Kreta\IdentityAccess\Infrastructure\Ui\Http\Action\ResendInvitationAction
         arguments:
             - "@form.factory"
             - "@bengor_user.user.command_bus"
-            - "@kreta.identity_access.form.error_seriaizer"
 
     kreta.identity_access.action.sign_up:
         class: Kreta\IdentityAccess\Infrastructure\Ui\Http\Action\SignUpAction
@@ -33,8 +31,5 @@ services:
             - "@bengor_user.user.by_invitation_token_query"
             - "@form.factory"
             - "@kreta.identity_access.command_bus"
-            - "@kreta.identity_access.form.error_seriaizer"
-            - "@security.authentication.guard_handler"
-            - "@bengor_user.user.jwt_authenticator"
             - "@lexik_jwt_authentication.encoder.default"
             - "@bengor_user.user.command_bus"

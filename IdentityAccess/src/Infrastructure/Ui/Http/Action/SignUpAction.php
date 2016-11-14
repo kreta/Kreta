@@ -31,17 +31,12 @@ use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\Exception\BadCredentialsException;
-use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
-use Symfony\Component\Security\Guard\GuardAuthenticatorInterface;
 
 class SignUpAction
 {
     private $queryHandler;
     private $formFactory;
-    private $formErrorSerializer;
     private $commandBus;
-    private $guardAuthenticatorHandler;
-    private $authenticator;
     private $jwtEncoder;
     private $userCommandBus;
 
@@ -49,18 +44,12 @@ class SignUpAction
         UserOfInvitationTokenHandler $queryHandler,
         FormFactoryInterface $formFactory,
         CommandBus $commandBus,
-        FormErrorSerializer $formErrorSerializer,
-        GuardAuthenticatorHandler $guardAuthenticatorHandler,
-        GuardAuthenticatorInterface $authenticator,
         JWTEncoderInterface $jwtEncoder,
         UserCommandBus $userCommandBus
     ) {
         $this->queryHandler = $queryHandler;
         $this->formFactory = $formFactory;
         $this->commandBus = $commandBus;
-        $this->guardAuthenticatorHandler = $guardAuthenticatorHandler;
-        $this->authenticator = $authenticator;
-        $this->formErrorSerializer = $formErrorSerializer;
         $this->jwtEncoder = $jwtEncoder;
         $this->userCommandBus = $userCommandBus;
     }
@@ -107,6 +96,6 @@ class SignUpAction
             return new JsonResponse(['token' => $token]);
         }
 
-        return new JsonResponse($this->formErrorSerializer->errors($form), 400);
+        return new JsonResponse(FormErrorSerializer::errors($form), 400);
     }
 }

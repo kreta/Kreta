@@ -18,7 +18,7 @@ use Symfony\Component\Form\FormInterface;
 
 final class FormErrorSerializer
 {
-    public function errors(FormInterface $form)
+    public static function errors(FormInterface $form) : array
     {
         $errors = [];
         foreach ($form->getErrors() as $error) {

@@ -25,11 +25,9 @@ class UserAction
     private $authorizationChecker;
     private $tokenStorage;
 
-    public function __construct(
-        AuthorizationCheckerInterface $authorizationChecker,
-        TokenStorageInterface $tokenStorage
-    ) {
-        $this->authorizationChecker = $authorizationChecker;
+    public function __construct(AuthorizationCheckerInterface $checker, TokenStorageInterface $tokenStorage)
+    {
+        $this->authorizationChecker = $checker;
         $this->tokenStorage = $tokenStorage;
     }
 

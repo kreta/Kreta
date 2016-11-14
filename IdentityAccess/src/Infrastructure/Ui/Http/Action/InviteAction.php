@@ -26,16 +26,11 @@ class InviteAction
 {
     private $formFactory;
     private $commandBus;
-    private $errorSerializer;
 
-    public function __construct(
-        FormFactoryInterface $formFactory,
-        UserCommandBus $commandBus,
-        FormErrorSerializer $error
-    ) {
+    public function __construct(FormFactoryInterface $formFactory, UserCommandBus $commandBus)
+    {
         $this->formFactory = $formFactory;
         $this->commandBus = $commandBus;
-        $this->errorSerializer = $error;
     }
 
     public function __invoke(Request $request)
@@ -65,6 +60,6 @@ class InviteAction
             }
         }
 
-        return new JsonResponse($this->errorSerializer->errors($form), 400);
+        return new JsonResponse(FormErrorSerializer::errors($form), 400);
     }
 }
