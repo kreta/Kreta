@@ -42,6 +42,7 @@ class FilterOrganizationsHandlerSpec extends ObjectBehavior
         Organization $organization,
         OrganizationDataTransformer $dataTransformer
     ) {
+        $query->userId()->shouldBeCalled()->willReturn('user-id');
         $query->name()->shouldBeCalled()->willReturn('organization name');
         $query->offset()->shouldBeCalled()->willReturn(0);
         $query->limit()->shouldBeCalled()->willReturn(-1);

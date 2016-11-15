@@ -8,10 +8,10 @@
 
 services:
     kreta.task_manager.command_handler.add_user:
-        class: Kreta\TaskManager\Application\User\AddUserHandler
+        class: Kreta\TaskManager\Application\Command\User\AddUserHandler
         arguments:
             - "@kreta.task_manager.repository.user"
         tags:
             -
                 name: command_handler
-                handles: Kreta\TaskManager\Application\User\AddUserCommand
+                handles: Kreta\TaskManager\Application\Command\User\AddUserCommand

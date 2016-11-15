@@ -20,7 +20,7 @@ env:
 
 install:
     - composer self-update
-    - composer update --no-interaction ${COMPOSER_OPTIONS}
+    - composer install --no-interaction ${COMPOSER_OPTIONS}
 
 before_script:
     - export SYMFONY_ENV=test

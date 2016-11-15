@@ -4,7 +4,7 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                           http://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
 
-    <entity name="Kreta\IdentityAccess\Infrastructure\Domain\Model\User\User"
+    <entity name="Kreta\IdentityAccess\Domain\Model\User\User"
             table="user"
             repository-class="BenGorUser\DoctrineORMBridge\Infrastructure\Persistence\DoctrineORMUserRepository">
     </entity>

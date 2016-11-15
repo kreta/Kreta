@@ -19,8 +19,9 @@ class FilterOrganizationsQuerySpec extends ObjectBehavior
 {
     function it_can_be_created()
     {
-        $this->beConstructedWith(0, -1);
+        $this->beConstructedWith('user-id', 0, -1);
         $this->shouldHaveType(FilterOrganizationsQuery::class);
+        $this->userId()->shouldReturn('user-id');
         $this->offset()->shouldReturn(0);
         $this->limit()->shouldReturn(-1);
         $this->name()->shouldReturn(null);
@@ -28,8 +29,9 @@ class FilterOrganizationsQuerySpec extends ObjectBehavior
 
     function it_can_be_created_with_name()
     {
-        $this->beConstructedWith(0, -1, 'organization name');
+        $this->beConstructedWith('user-id', 0, -1, 'organization name');
         $this->shouldHaveType(FilterOrganizationsQuery::class);
+        $this->userId()->shouldReturn('user-id');
         $this->offset()->shouldReturn(0);
         $this->limit()->shouldReturn(-1);
         $this->name()->shouldReturn('organization name');

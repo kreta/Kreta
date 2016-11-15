@@ -19,14 +19,16 @@ class CountOrganizationsQuerySpec extends ObjectBehavior
 {
     function it_can_be_created()
     {
-        $this->beConstructedWith('organization name');
+        $this->beConstructedWith('user-id', 'organization name');
         $this->shouldHaveType(CountOrganizationsQuery::class);
+        $this->userId()->shouldReturn('user-id');
         $this->name()->shouldReturn('organization name');
     }
 
     function it_can_be_created_without_name()
     {
-        $this->beConstructedWith();
+        $this->beConstructedWith('user-id');
+        $this->userId()->shouldReturn('user-id');
         $this->name()->shouldReturn(null);
     }
 }

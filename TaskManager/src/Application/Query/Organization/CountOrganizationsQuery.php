@@ -16,11 +16,18 @@ namespace Kreta\TaskManager\Application\Query\Organization;
 
 class CountOrganizationsQuery
 {
+    private $userId;
     private $name;
 
-    public function __construct(string $name = null)
+    public function __construct(string $userId, string $name = null)
     {
+        $this->userId = $userId;
         $this->name = $name;
+    }
+
+    public function userId() : string
+    {
+        return $this->userId;
     }
 
     public function name()

@@ -19,16 +19,19 @@ use Doctrine\ORM\QueryBuilder;
 use Kreta\SharedKernel\Infrastructure\Persistence\Doctrine\ORM\DoctrineORMCountSpecification;
 use Kreta\SharedKernel\Infrastructure\Persistence\Doctrine\ORM\DoctrineORMQuerySpecification;
 use Kreta\TaskManager\Domain\Model\Organization\Organization;
+use Kreta\TaskManager\Domain\Model\User\UserId;
 
 class DoctrineORMNameFilterableSpecification implements DoctrineORMQuerySpecification, DoctrineORMCountSpecification
 {
-    protected $name;
-    protected $offset;
-    protected $limit;
+    private $name;
+    private $userId;
+    private $offset;
+    private $limit;
 
-    public function __construct($name, int $offset, int $limit)
+    public function __construct($name, UserId $userId, int $offset, int $limit)
     {
         $this->name = $name;
+        $this->userId = $userId;
         $this->offset = $offset;
         $this->limit = $limit;
     }
@@ -46,8 +49,17 @@ class DoctrineORMNameFilterableSpecification implements DoctrineORMQuerySpecific
         }
 
         return $queryBuilder
-            ->select('o')
+            ->select(['o', 'om', 'ow'])
             ->from(Organization::class, 'o')
+            ->leftJoin('o.organizationMembers', 'om')
+            ->leftJoin('o.owners', 'ow')
+            ->andWhere(
+                $queryBuilder->expr()->orX(
+                    $queryBuilder->expr()->eq('om.userId', ':userId'),
+                    $queryBuilder->expr()->eq('ow.userId', ':userId')
+                )
+            )
+            ->setParameter('userId', $this->userId->id())
             ->setFirstResult($this->offset)
             ->getQuery();
     }
@@ -63,6 +75,15 @@ class DoctrineORMNameFilterableSpecification implements DoctrineORMQuerySpecific
         return $queryBuilder
             ->select($queryBuilder->expr()->count('o.id'))
             ->from(Organization::class, 'o')
+            ->leftJoin('o.organizationMembers', 'om')
+            ->leftJoin('o.owners', 'ow')
+            ->andWhere(
+                $queryBuilder->expr()->orX(
+                    $queryBuilder->expr()->eq('om.userId', ':userId'),
+                    $queryBuilder->expr()->eq('ow.userId', ':userId')
+                )
+            )
+            ->setParameter('userId', $this->userId->id())
             ->getQuery();
     }
 }

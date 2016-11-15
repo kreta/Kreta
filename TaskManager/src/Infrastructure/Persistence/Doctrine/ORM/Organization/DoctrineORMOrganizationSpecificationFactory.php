@@ -15,11 +15,12 @@ declare(strict_types=1);
 namespace Kreta\TaskManager\Infrastructure\Persistence\Doctrine\ORM\Organization;
 
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationSpecificationFactory;
+use Kreta\TaskManager\Domain\Model\User\UserId;
 
 class DoctrineORMOrganizationSpecificationFactory implements OrganizationSpecificationFactory
 {
-    public function buildNameFilterableSpecification($name, int $offset = 0, int $limit = -1)
+    public function buildNameFilterableSpecification($name, UserId $userId, int $offset = 0, int $limit = -1)
     {
-        return new DoctrineORMNameFilterableSpecification($name, $offset, $limit);
+        return new DoctrineORMNameFilterableSpecification($name, $userId, $offset, $limit);
     }
 }

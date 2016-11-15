@@ -6,5 +6,5 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 
-kreta_task_manager_graphql:
-    resource: "routing/graphql.yml"
+overblog_graphql_endpoint:
+    resource: "@OverblogGraphQLBundle/Resources/config/routing/graphql.yml"
