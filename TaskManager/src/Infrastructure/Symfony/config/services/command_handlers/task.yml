@@ -8,7 +8,7 @@
 
 services:
     kreta.task_manager.command_handler.change_parent_task:
-        class: Kreta\TaskManager\Application\Project\Task\ChangeParentTaskHandler
+        class: Kreta\TaskManager\Application\Command\Project\Task\ChangeParentTaskHandler
         arguments:
             - "@kreta.task_manager.repository.task"
             - "@kreta.task_manager.repository.project"
@@ -16,10 +16,10 @@ services:
         tags:
             -
                 name: command_handler
-                handles: Kreta\TaskManager\Application\Project\Task\ChangeParentTaskCommand
+                handles: Kreta\TaskManager\Application\Command\Project\Task\ChangeParentTaskCommand
 
     kreta.task_manager.command_handler.change_task_priority:
-        class: Kreta\TaskManager\Application\Project\Task\ChangeTaskPriorityHandler
+        class: Kreta\TaskManager\Application\Command\Project\Task\ChangeTaskPriorityHandler
         arguments:
             - "@kreta.task_manager.repository.organization"
             - "@kreta.task_manager.repository.project"
@@ -27,10 +27,10 @@ services:
         tags:
             -
                 name: command_handler
-                handles: Kreta\TaskManager\Application\Project\Task\ChangeTaskPriorityCommand
+                handles: Kreta\TaskManager\Application\Command\Project\Task\ChangeTaskPriorityCommand
 
     kreta.task_manager.command_handler.change_task_progress:
-        class: Kreta\TaskManager\Application\Project\Task\ChangeTaskProgressHandler
+        class: Kreta\TaskManager\Application\Command\Project\Task\ChangeTaskProgressHandler
         arguments:
             - "@kreta.task_manager.repository.organization"
             - "@kreta.task_manager.repository.project"
@@ -38,10 +38,10 @@ services:
         tags:
             -
                 name: command_handler
-                handles: Kreta\TaskManager\Application\Project\Task\ChangeTaskProgressCommand
+                handles: Kreta\TaskManager\Application\Command\Project\Task\ChangeTaskProgressCommand
 
     kreta.task_manager.command_handler.create_task:
-        class: Kreta\TaskManager\Application\Project\Task\CreateTaskHandler
+        class: Kreta\TaskManager\Application\Command\Project\Task\CreateTaskHandler
         arguments:
             - "@kreta.task_manager.repository.task"
             - "@kreta.task_manager.repository.project"
@@ -49,10 +49,10 @@ services:
         tags:
             -
                 name: command_handler
-                handles: Kreta\TaskManager\Application\Project\Task\CreateTaskCommand
+                handles: Kreta\TaskManager\Application\Command\Project\Task\CreateTaskCommand
 
     kreta.task_manager.command_handler.edit_task:
-        class: Kreta\TaskManager\Application\Project\Task\EditTaskHandler
+        class: Kreta\TaskManager\Application\Command\Project\Task\EditTaskHandler
         arguments:
             - "@kreta.task_manager.repository.task"
             - "@kreta.task_manager.repository.project"
@@ -60,10 +60,10 @@ services:
         tags:
             -
                 name: command_handler
-                handles: Kreta\TaskManager\Application\Project\Task\EditTaskCommand
+                handles: Kreta\TaskManager\Application\Command\Project\Task\EditTaskCommand
 
     kreta.task_manager.command_handler.reassign_task:
-        class: Kreta\TaskManager\Application\Project\Task\ReassignTaskHandler
+        class: Kreta\TaskManager\Application\Command\Project\Task\ReassignTaskHandler
         arguments:
             - "@kreta.task_manager.repository.organization"
             - "@kreta.task_manager.repository.project"
@@ -71,4 +71,4 @@ services:
         tags:
             -
                 name: command_handler
-                handles: Kreta\TaskManager\Application\Project\Task\ReassignTaskCommand
+                handles: Kreta\TaskManager\Application\Command\Project\Task\ReassignTaskCommand

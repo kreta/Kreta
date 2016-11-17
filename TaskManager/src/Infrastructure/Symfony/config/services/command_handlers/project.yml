@@ -8,21 +8,21 @@
 
 services:
     kreta.task_manager.command_handler.create_project:
-        class: Kreta\TaskManager\Application\Project\CreateProjectHandler
+        class: Kreta\TaskManager\Application\Command\Project\CreateProjectHandler
         arguments:
             - "@kreta.task_manager.repository.organization"
             - "@kreta.task_manager.repository.project"
         tags:
             -
                 name: command_handler
-                handles: Kreta\TaskManager\Application\Project\CreateProjectCommand
+                handles: Kreta\TaskManager\Application\Command\Project\CreateProjectCommand
 
     kreta.task_manager.command_handler.edit_project:
-        class: Kreta\TaskManager\Application\Project\EditProjectHandler
+        class: Kreta\TaskManager\Application\Command\Project\EditProjectHandler
         arguments:
             - "@kreta.task_manager.repository.project"
             - "@kreta.task_manager.repository.organization"
         tags:
             -
                 name: command_handler
-                handles: Kreta\TaskManager\Application\Project\EditProjectCommand
+                handles: Kreta\TaskManager\Application\Command\Project\EditProjectCommand

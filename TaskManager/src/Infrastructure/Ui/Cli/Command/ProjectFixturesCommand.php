@@ -10,7 +10,9 @@
  * file that was distributed with this source code.
  */
 
-namespace Kreta\TaskManager\Infrastructure\Ui\Cli\Symfony\Command;
+declare(strict_types=1);
+
+namespace Kreta\TaskManager\Infrastructure\Ui\Cli\Command;
 
 use Kreta\SharedKernel\Domain\Model\Identity\Slug;
 use Kreta\TaskManager\Domain\Model\Organization\Organization;

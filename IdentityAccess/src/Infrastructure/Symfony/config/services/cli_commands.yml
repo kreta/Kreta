@@ -7,7 +7,9 @@
 # file that was distributed with this source code.
 
 services:
-    kreta.identity_access.command.fixtures_user:
-        class: Kreta\IdentityAccess\Infrastructure\Ui\Cli\Symfony\Command\UserFixturesCommand
+    kreta.identity_access.cli_command.fixtures_user:
+        class: Kreta\IdentityAccess\Infrastructure\Ui\Cli\Command\UserFixturesCommand
+        arguments:
+            - "@bengor_user.user.command_bus"
         tags:
             - { name: console.command }
