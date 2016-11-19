@@ -173,11 +173,7 @@ export default class extends React.Component {
           <Filter filters={this.props.currentProject.filters}
                   onFilterSelected={this.filterIssues.bind(this)}/>
 
-          <NavigableList className="issues"
-                         // onYChanged={this.changeSelected.bind(this)}
-                         ref="navigableList">
-            {this.getIssuesEl()}
-          </NavigableList>
+          {this.getIssuesEl()}
         </ContentMiddleLayout>
         <ContentRightLayout isOpen={this.props.currentProject.selectedIssue}
                             onRequestClose={this.hideIssue.bind(this)}>
