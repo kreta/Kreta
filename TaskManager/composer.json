@@ -25,6 +25,15 @@
             "homepage": "http://gorkalaucirica.net"
         }
     ],
+    "repositories": [
+        {
+            "type": "path",
+            "url": "../SharedKernel",
+            "options": {
+                "symlink": true
+            }
+        }
+    ],
     "require": {
         "php": "^7.0",
         "doctrine/doctrine-bundle": "^1.6",
