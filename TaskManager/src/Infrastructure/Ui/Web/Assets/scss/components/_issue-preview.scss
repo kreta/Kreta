@@ -1,0 +1,111 @@
+// This file is part of the Kreta package.
+//
+// (c) Beñat Espiña <benatespina@gmail.com>
+// (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+//
+// For the full copyright and license information, please view the LICENSE
+// file that was distributed with this source code.
+
+@import '../base/colors';
+
+$issue-preview-priority-radius: 20px;
+$issue-preview-priority-stroke-width: 1px;
+$issue-preview-priority-user-image-size: 32px;
+
+.issue-preview {
+  align-items: center;
+  border-top: 1px solid $main-grey;
+  cursor: pointer;
+  display: flex;
+  height: 64px;
+  padding: 0 15px;
+  position: relative;
+  transition-duration: .4s;
+}
+
+.issue-preview--highlight {
+  background: $light-grey;
+}
+
+.issue-preview--closed {
+  opacity: .3;
+}
+
+.issue-preview__title {
+  color: $main-black;
+  flex: 1;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.issue-preview__icons {
+  align-items: center;
+  display: flex;
+  position: relative;
+}
+
+.issue-preview__priority {
+  height: $issue-preview-priority-radius * 2 + $issue-preview-priority-stroke-width * 2;
+  position: absolute;
+  transform: translate(
+    -#{($issue-preview-priority-radius * 2 - $issue-preview-priority-user-image-size) / 2 + $issue-preview-priority-stroke-width},
+    -#{($issue-preview-priority-radius * 2 - $issue-preview-priority-user-image-size) / 2 + $issue-preview-priority-stroke-width}
+  );
+  width: $issue-preview-priority-radius * 2 + $issue-preview-priority-stroke-width * 2;
+}
+
+.issue-preview__priority-back {
+  fill: transparent;
+  opacity: .2;
+}
+
+.issue-preview__priority-front {
+  fill: transparent;
+  stroke-dasharray: #{2 * 3.14 * $issue-preview-priority-radius};
+  stroke-width: 2px;
+}
+
+.issue-preview__priority--initial {
+  animation: dash--initial 2s ease-in-out forwards;
+  stroke-dasharray: #{2 * 3.14 * $issue-preview-priority-radius * .33};
+  stroke-dashoffset: #{2 * 3.14 * $issue-preview-priority-radius * .33};
+}
+
+.issue-preview__priority--normal {
+  animation: dash--normal 2s ease-in-out forwards;
+  stroke-dasharray: #{2 * 3.14 * $issue-preview-priority-radius * .75};
+  stroke-dashoffset: #{2 * 3.14 * $issue-preview-priority-radius * .75};
+}
+
+.issue-preview__priority--final {
+  animation: dash--final 2s ease-in-out forwards;
+  stroke-dasharray: #{2 * 3.14 * $issue-preview-priority-radius};
+  stroke-dashoffset: #{2 * 3.14 * $issue-preview-priority-radius};
+}
+
+@keyframes dash--initial {
+  from {
+    stroke-dashoffset: #{2 * 3.14 * $issue-preview-priority-radius};
+  }
+  to {
+    stroke-dashoffset: #{2 * 3.14 * $issue-preview-priority-radius * .66};
+  }
+}
+
+@keyframes dash--normal {
+  from {
+    stroke-dashoffset: #{2 * 3.14 * $issue-preview-priority-radius};
+  }
+  to {
+    stroke-dashoffset: #{2 * 3.14 * $issue-preview-priority-radius * .25};
+  }
+}
+
+@keyframes dash--final {
+  from {
+    stroke-dashoffset: #{2 * 3.14 * $issue-preview-priority-radius};
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}

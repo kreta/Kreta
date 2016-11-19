@@ -1,0 +1,42 @@
+$small-breakpoint: 640 !default;
+$medium-breakpoint: 1024 !default;
+$large-breakpoint: 1279 !default;
+$xlarge-breakpoint: 1440 !default;
+
+$small-range: (0, $small-breakpoint) !default;
+$medium-range: ($small-breakpoint  + 1, $medium-breakpoint) !default;
+$large-range: ($medium-breakpoint + 1, $large-breakpoint) !default;
+$xlarge-range: ($large-breakpoint  + 1, $xlarge-breakpoint) !default;
+$xxlarge-range: ($xlarge-breakpoint + 1, 99999999) !default;
+
+$screen: 'only screen';
+
+$landscape: '#{$screen} and (orientation: landscape)' !default;
+$portrait: '#{$screen} and (orientation: portrait)' !default;
+
+$small-up: $screen;
+$small-only: media-query-by-range($small-range, 'only');
+
+$medium-up: media-query-by-range($medium-range);
+$medium-only: media-query-by-range($medium-range, 'only');
+
+$large-up: media-query-by-range($large-range);
+$large-only: media-query-by-range($large-range, 'only');
+
+$xlarge-up: media-query-by-range($xlarge-range);
+$xlarge-only: media-query-by-range($xlarge-range, 'only');
+
+$xxlarge-up: media-query-by-range($xxlarge-range);
+$xxlarge-only: media-query-by-range($xxlarge-range, 'only');
+
+$column-count: 12 !default;
+$column-gutter: 30px !default;
+$row-padding: 15px !default;
+
+$fluid-row-width: 1920 !default;
+
+$adaptive-row-small-width: 666 !default;
+$adaptive-row-medium-width: 666 !default;
+$adaptive-row-large-width: 930 !default;
+$adaptive-row-xlarge-width: 1170 !default;
+$adaptive-row-xxlarge-width: $fluid-row-width;

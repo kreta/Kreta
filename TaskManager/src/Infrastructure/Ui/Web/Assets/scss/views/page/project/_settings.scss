@@ -1,0 +1,50 @@
+// This file is part of the Kreta package.
+//
+// (c) Beñat Espiña <benatespina@gmail.com>
+// (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+//
+// For the full copyright and license information, please view the LICENSE
+// file that was distributed with this source code.
+
+@import '../../../base/colors';
+
+.project-settings__participants {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+
+  .user-preview {
+    border: 1px solid $main-grey;
+    flex: 1 0 300px;
+  }
+}
+
+.project-settings__not-participating {
+  height: 100%;
+  overflow-y: scroll;
+}
+
+.user-selector-invite-form {
+  background: $white;
+  bottom: -40px;
+  display: flex;
+  height: 40px;
+  position: fixed;
+  width: 450px;
+
+  &.visible {
+    bottom: 0;
+  }
+}
+
+.user-selector-invite-form-email {
+  flex: 1;
+  text-align: center;
+  width: auto;
+}
+
+.user-selector-invite-form-submit {
+  border-radius: 0;
+  min-width: 0;
+  width: 100px;
+}

@@ -11,3 +11,10 @@ services:
         class: Kreta\TaskManager\Infrastructure\Ui\Http\Symfony\Controller\GraphiQLController
         calls:
             - [setContainer, ["@service_container"]]
+
+    kreta.task_manager.controller.default:
+        class: Kreta\TaskManager\Infrastructure\Ui\Http\Symfony\Controller\DefaultController
+        arguments:
+            - '@templating.engine.twig'
+            - '@doctrine.orm.default_entity_manager'
+            - '@kreta.task_manager.command_bus'

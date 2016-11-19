@@ -1,0 +1,118 @@
+// This file is part of the Kreta package.
+//
+// (c) Beñat Espiña <benatespina@gmail.com>
+// (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+//
+// For the full copyright and license information, please view the LICENSE
+// file that was distributed with this source code.
+
+@import '../base/colors';
+@import '../base/media';
+
+$main-menu-size-mobile: 60px;
+$main-menu-size-desktop: 80px;
+
+.main-menu {
+  align-items: center;
+  background: $main-black;
+  color: $white;
+  display: flex;
+  flex: 1 1 100%;
+  height: $main-menu-size-mobile;
+  text-align: center;
+  width: 100%;
+}
+
+.main-menu__logo-container {
+  background: $main-green;
+  height: $main-menu-size-mobile;
+  width: $main-menu-size-mobile;
+}
+
+.main-menu__actions {
+  align-items: center;
+  display: flex;
+  flex: 1;
+}
+
+.main-menu__action {
+  cursor: pointer;
+  margin: 25px 15px;
+}
+
+.main-menu__user {
+  display: flex;
+  align-items: center;
+}
+
+.main-menu__username {
+  color: $white;
+  display: none;
+  font-size: 10px;
+  margin: 10px 0;
+}
+
+.main-menu__notification,
+.main-menu__profile {
+  position: relative;
+  margin: 0 10px;
+}
+
+.main-menu__notification {
+  margin-top: 10px;
+}
+
+.main-menu__notification-bubble {
+  background: $light-red;
+  border-radius: 50%;
+  color: $white;
+  font-size: .8em;
+  height: 20px;
+  left: 50%;
+  line-height: 20px;
+  margin-left: -4px;
+  position: absolute;
+  top: -10px;
+  width: 20px;
+}
+
+@media #{$large-up} {
+  .main-menu {
+    flex: 1 1 $main-menu-size-desktop;
+    flex-direction: column;
+    height: 100%;
+    max-width: 80px;
+    padding: 0 0 5px 0;
+  }
+
+  .main-menu__logo-container {
+    height: $main-menu-size-desktop;
+    width: $main-menu-size-desktop;
+  }
+
+  .main-menu__action {
+    margin: 25px 0;
+  }
+
+  .main-menu__actions {
+    justify-content: center;
+  }
+
+  .main-menu__actions,
+  .main-menu__user {
+    flex-direction: column;
+  }
+
+  .main-menu__notification,
+  .main-menu__profile {
+    margin: 10px;
+  }
+
+  .main-menu__notification-bubble {
+    margin-left: -10px;
+  }
+
+  .main-menu__username {
+    display: block;
+  }
+}

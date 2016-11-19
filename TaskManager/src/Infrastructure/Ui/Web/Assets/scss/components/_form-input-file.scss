@@ -1,0 +1,58 @@
+// This file is part of the Kreta package.
+//
+// (c) Beñat Espiña <benatespina@gmail.com>
+// (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+//
+// For the full copyright and license information, please view the LICENSE
+// file that was distributed with this source code.
+
+@import '../base/colors';
+
+$form-input-file-image-size: 150px;
+
+.form-input-file {
+  height: $form-input-file-image-size;
+  margin: 0 auto;
+  position: relative;
+  width: $form-input-file-image-size;
+
+  &:hover {
+    .form-input-file__background {
+      background-color: rgba($main-black, .7);
+      opacity: 1;
+    }
+  }
+}
+
+.form-input-file__input {
+  display: none;
+}
+
+.form-input-file__image-container {
+  cursor: pointer;
+  display: flex;
+  position: relative;
+}
+
+.form-input-file__background,
+.form-input-file__image {
+  border-radius: 50%;
+  height: $form-input-file-image-size;
+  position: absolute;
+  width: $form-input-file-image-size;
+}
+
+.form-input-file__background {
+  align-items: center;
+  background: $main-black;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  position: absolute;
+  transition: all .3s ease-in-out;
+  z-index: 1;
+}
+
+.form-input-file__background--hidden {
+  opacity: 0;
+}
