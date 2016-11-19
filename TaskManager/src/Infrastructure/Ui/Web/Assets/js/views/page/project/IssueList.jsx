@@ -55,10 +55,6 @@ export default class extends React.Component {
     window.removeEventListener('keyup', this.keyUpListenerRef);
   }
 
-  keyboardNavigate(ev) {
-    //this.refs.navigableList.handleNavigation(ev);
-  }
-
   filterIssues(filters) {
     const data = {project: this.state.project.id};
 
@@ -172,7 +168,6 @@ export default class extends React.Component {
           </PageHeader>
           <Filter filters={this.props.currentProject.filters}
                   onFilterSelected={this.filterIssues.bind(this)}/>
-
           {this.getIssuesEl()}
         </ContentMiddleLayout>
         <ContentRightLayout isOpen={this.props.currentProject.selectedIssue}
