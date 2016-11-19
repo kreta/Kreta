@@ -36,7 +36,7 @@ class OrganizationFixturesCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        for ($i = 0; $i < 10; $i++) {
+        for ($i = 0; $i < 10; ++$i) {
             $userId = UserFixturesCommand::USER_IDS[array_rand(UserFixturesCommand::USER_IDS)];
             $command = new CreateOrganizationCommand($userId, 'Organization ' . $i, Uuid::generate());
 
@@ -44,7 +44,7 @@ class OrganizationFixturesCommand extends Command
 
             try {
                 $iterations = mt_rand(0, 2);
-                for ($j = 0; $j < $iterations; $j++) {
+                for ($j = 0; $j < $iterations; ++$j) {
                     $this->commandBus->handle(
                         new AddOrganizationMemberToOrganizationCommand(
                             UserFixturesCommand::USER_IDS[array_rand(UserFixturesCommand::USER_IDS)],

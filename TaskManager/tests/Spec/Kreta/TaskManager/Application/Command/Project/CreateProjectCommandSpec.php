@@ -19,7 +19,7 @@ class CreateProjectCommandSpec extends ObjectBehavior
 {
     function let()
     {
-        $this->beConstructedWith('project-id', 'Project name', 'organization-id', 'creator-id', 'project-name');
+        $this->beConstructedWith('Project name', 'organization-id', 'creator-id', 'project-id', 'project-name');
     }
 
     function it_can_be_created()
@@ -33,9 +33,20 @@ class CreateProjectCommandSpec extends ObjectBehavior
         $this->creatorId()->shouldReturn('creator-id');
     }
 
+    function it_can_be_created_without_a_id()
+    {
+        $this->beConstructedWith('Project name', 'organization-id', 'creator-id', null, 'project-name');
+
+        $this->id()->shouldReturn(null);
+        $this->name()->shouldReturn('Project name');
+        $this->slug()->shouldReturn('project-name');
+        $this->organizationId()->shouldReturn('organization-id');
+        $this->creatorId()->shouldReturn('creator-id');
+    }
+
     function it_can_be_created_without_a_slug()
     {
-        $this->beConstructedWith('project-id', 'Project name', 'organization-id', 'creator-id');
+        $this->beConstructedWith('Project name', 'organization-id', 'creator-id', 'project-id');
 
         $this->id()->shouldReturn('project-id');
         $this->name()->shouldReturn('Project name');

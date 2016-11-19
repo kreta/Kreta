@@ -14,40 +14,54 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Infrastructure\Ui\Cli\Command;
 
-use Kreta\SharedKernel\Domain\Model\Identity\Slug;
-use Kreta\TaskManager\Domain\Model\Organization\Organization;
-use Kreta\TaskManager\Domain\Model\Project\Project;
-use Kreta\TaskManager\Domain\Model\Project\ProjectId;
-use Kreta\TaskManager\Domain\Model\Project\ProjectName;
+use Kreta\SharedKernel\Application\CommandBus;
+use Kreta\SharedKernel\Application\QueryBus;
+use Kreta\SharedKernel\Domain\Model\Identity\Uuid;
+use Kreta\TaskManager\Application\Command\Project\CreateProjectCommand;
+use Kreta\TaskManager\Application\Query\Organization\FilterOrganizationsQuery;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 class ProjectFixturesCommand extends ContainerAwareCommand
 {
-    protected function configure()
+    private $commandBus;
+    private $queryBus;
+
+    public function __construct(CommandBus $commandBus, QueryBus $queryBus)
     {
-        $this->setName('fixtures:project');
+        $this->commandBus = $commandBus;
+        $this->queryBus = $queryBus;
+        parent::__construct('kreta:task-manager:fixtures:projects');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $manager = $this->getContainer()->get('doctrine.orm.entity_manager');
+        for ($i = 0; $i < 50; ++$i) {
+            $userId = UserFixturesCommand::USER_IDS[array_rand(UserFixturesCommand::USER_IDS)];
 
-        $organizations = $this->getContainer()->get('doctrine')->getRepository(Organization::class)->findAll();
-
-        foreach ($organizations as $organization) {
-            $project = new Project(
-                ProjectId::generate(),
-                new ProjectName('Project name'),
-                new Slug('project-name'),
-                $organization->id()
+            $this->queryBus->handle(
+                new FilterOrganizationsQuery(
+                    $userId,
+                    0,
+                    1
+                ),
+                $organizations
             );
 
-            $manager->persist($project);
-        }
+            if (empty($organizations)) {
+                continue;
+            }
 
-        $manager->flush();
-        $output->writeln('Population is successfully done');
+            $this->commandBus->handle(
+                new CreateProjectCommand(
+                    'Project ' . $i,
+                    $organizations[0]['id'],
+                    $organizations[0]['owners'][0]['user_id'],
+                    Uuid::generate()
+                )
+            );
+        }
+        $output->writeln('Project population is successfully done');
     }
 }
