@@ -7,17 +7,24 @@
 # file that was distributed with this source code.
 
 services:
-    kreta.task_manager.command.fixtures_organization:
-        class: Kreta\TaskManager\Infrastructure\Ui\Cli\Symfony\Command\OrganizationFixturesCommand
+    kreta.task_manager.cli_command.fixtures_organization:
+        class: Kreta\TaskManager\Infrastructure\Ui\Cli\Command\OrganizationFixturesCommand
+        arguments:
+            - "@kreta.task_manager.command_bus"
         tags:
             - { name: console.command }
 
-    kreta.task_manager.command.fixtures_project:
-        class: Kreta\TaskManager\Infrastructure\Ui\Cli\Symfony\Command\ProjectFixturesCommand
+    kreta.task_manager.cli_command.fixtures_project:
+        class: Kreta\TaskManager\Infrastructure\Ui\Cli\Command\ProjectFixturesCommand
+        arguments:
+            - "@kreta.task_manager.command_bus"
+            - "@kreta.task_manager.query_bus"
         tags:
             - { name: console.command }
 
-    kreta.task_manager.command.fixtures_user:
-        class: Kreta\TaskManager\Infrastructure\Ui\Cli\Symfony\Command\UserFixturesCommand
+    kreta.task_manager.cli_command.fixtures_user:
+        class: Kreta\TaskManager\Infrastructure\Ui\Cli\Command\UserFixturesCommand
+        arguments:
+            - "@kreta.task_manager.command_bus"
         tags:
             - { name: console.command }

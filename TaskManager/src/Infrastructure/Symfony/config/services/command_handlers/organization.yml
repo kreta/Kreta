@@ -8,56 +8,56 @@
 
 services:
     kreta.task_manager.command_handler.add_organization_member_to_organization:
-        class: Kreta\TaskManager\Application\Organization\AddOrganizationMemberToOrganizationHandler
+        class: Kreta\TaskManager\Application\Command\Organization\AddOrganizationMemberToOrganizationHandler
         arguments:
             - "@kreta.task_manager.repository.organization"
         tags:
             -
                 name: command_handler
-                handles: Kreta\TaskManager\Application\Organization\AddOrganizationMemberToOrganizationCommand
+                handles: Kreta\TaskManager\Application\Command\Organization\AddOrganizationMemberToOrganizationCommand
 
     kreta.task_manager.command_handler.add_owner_to_organization:
-        class: Kreta\TaskManager\Application\Organization\AddOwnerToOrganizationHandler
+        class: Kreta\TaskManager\Application\Command\Organization\AddOwnerToOrganizationHandler
         arguments:
             - "@kreta.task_manager.repository.organization"
         tags:
             -
                 name: command_handler
-                handles: Kreta\TaskManager\Application\Organization\AddOwnerToOrganizationCommand
+                handles: Kreta\TaskManager\Application\Command\Organization\AddOwnerToOrganizationCommand
 
     kreta.task_manager.command_handler.create_organization:
-        class: Kreta\TaskManager\Application\Organization\CreateOrganizationHandler
+        class: Kreta\TaskManager\Application\Command\Organization\CreateOrganizationHandler
         arguments:
             - "@kreta.task_manager.repository.organization"
             - "@kreta.task_manager.repository.user"
         tags:
             -
                 name: command_handler
-                handles: Kreta\TaskManager\Application\Organization\CreateOrganizationCommand
+                handles: Kreta\TaskManager\Application\Command\Organization\CreateOrganizationCommand
 
     kreta.task_manager.command_handler.edit_organization:
-        class: Kreta\TaskManager\Application\Organization\EditOrganizationHandler
+        class: Kreta\TaskManager\Application\Command\Organization\EditOrganizationHandler
         arguments:
             - "@kreta.task_manager.repository.organization"
         tags:
             -
                 name: command_handler
-                handles: Kreta\TaskManager\Application\Organization\EditOrganizationCommand
+                handles: Kreta\TaskManager\Application\Command\Organization\EditOrganizationCommand
 
     kreta.task_manager.command_handler.remove_organization_member_to_organization:
-        class: Kreta\TaskManager\Application\Organization\RemoveOrganizationMemberToOrganizationHandler
+        class: Kreta\TaskManager\Application\Command\Organization\RemoveOrganizationMemberToOrganizationHandler
         arguments:
             - "@kreta.task_manager.repository.organization"
         tags:
             -
                 name: command_handler
-                handles: Kreta\TaskManager\Application\Organization\RemoveOrganizationMemberToOrganizationCommand
+                handles: Kreta\TaskManager\Application\Command\Organization\RemoveOrganizationMemberToOrganizationCommand
 
     kreta.task_manager.command_handler.remove_owner_to_organization:
-        class: Kreta\TaskManager\Application\Organization\RemoveOwnerToOrganizationHandler
+        class: Kreta\TaskManager\Application\Command\Organization\RemoveOwnerToOrganizationHandler
         arguments:
             - "@kreta.task_manager.repository.organization"
         tags:
             -
                 name: command_handler
-                handles: Kreta\TaskManager\Application\Organization\RemoveOwnerToOrganizationCommand
+                handles: Kreta\TaskManager\Application\Command\Organization\RemoveOwnerToOrganizationCommand
