@@ -10,7 +10,7 @@
 
 import './../scss/app';
 
-import createBrowserHistory from 'history/lib/createBrowserHistory';
+import { browserHistory } from 'react-router'
 import React from 'react';
 import ReactDOM from 'react-dom';
 
@@ -18,8 +18,7 @@ import configureStore from './stores/Store';
 import Root from './views/layout/Root';
 
 const
-  history = createBrowserHistory(),
-  store = configureStore(history),
-  node = <Root routerHistory={history} store={store}/>;
+  store = configureStore(browserHistory),
+  node = <Root routerHistory={browserHistory} store={store}/>;
 
 ReactDOM.render(node, document.getElementById('application'));

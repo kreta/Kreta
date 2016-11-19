@@ -62,7 +62,7 @@
     "react": "^15.0",
     "react-dom": "^15.0",
     "react-redux": "^4.1.1",
-    "react-router": "^1.0.0",
+    "react-router": "^2.0.0",
     "react-router-redux": "^2.1.0",
     "redux": "^3.0.6",
     "redux-form": "^6.2.0",
