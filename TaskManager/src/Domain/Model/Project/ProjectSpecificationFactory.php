@@ -14,13 +14,9 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Domain\Model\Project;
 
-interface ProjectRepository
+use Kreta\TaskManager\Domain\Model\User\UserId;
+
+interface ProjectSpecificationFactory
 {
-    public function projectOfId(ProjectId $id);
-
-    public function persist(Project $project);
-
-    public function remove(Project $project);
-
-    public function count($specification) : int;
+    public function buildNameFilterableSpecification(UserId $userId, ProjectName $name = null, int $offset = 0, int $limit = -1);
 }
