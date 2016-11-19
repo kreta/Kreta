@@ -6,13 +6,12 @@
 // For the full copyright and license information, please view the LICENSE
 // file that was distributed with this source code.
 
-@import '../../base/media';
+.section__header {
+  align-items: center;
+  display: flex;
+}
 
-.index__logo {
-  text-align: center;
-
-  .icon {
-    height: 80px;
-    width: 270px;
-  }
+.section__header-title {
+  flex: 1;
+  font-weight: normal;
 }
