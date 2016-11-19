@@ -58,8 +58,19 @@ class NavigableList extends React.Component {
     const {xSelected} = this.props;
     if (xSelected > 0) {
       if (this.props.onXChanged) {
-        this.props.onYChanged(xSelected - 1);
+        this.props.onXChanged(xSelected - 1);
       }
+    }
+  }
+
+  selectY(index) {
+    const {yLength, onYChanged} = this.props;
+
+    if (index >= 0 && index < yLength) {
+      if (onYChanged) {
+        onYChanged(index);
+      }
+      this.centerListScroll();
     }
   }
 
@@ -84,26 +95,26 @@ class NavigableList extends React.Component {
   }
 
   centerListScroll() {
-    ReactDOM.findDOMNode(this).scrollTop = this.state.ySelected * 60 - 60 * 2;
+    ReactDOM.findDOMNode(this).scrollTop = this.props.ySelected * 60 - 60 * 2;
   }
 
   render() {
     const {
       onXChanged,
       onYChanged,
-      onElementMouseEnter,
       onElementSelected,
       xLength,
       yLength,
       children,
       classNameSelected,
+      xSelected,
       ySelected,
       ...otherProps
     } = this.props;
     
     const wrappedItems = children.map((el, i) => (
       <div key={i}
-           onMouseEnter={onElementMouseEnter}
+           onMouseEnter={this.selectY.bind(this, i)}
            onClick={onElementSelected}
            className={ i === ySelected ? classNameSelected : ''}>
         {el}

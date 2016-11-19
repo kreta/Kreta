@@ -15,8 +15,10 @@ import React from 'react';
 import {Link} from 'react-router';
 import {connect} from 'react-redux';
 import {routeActions} from 'react-router-redux';
+import classNames from 'classnames';
 
 import Button from './../../component/Button';
+import Icon from './../../component/Icon';
 import NavigableList from './../../component/NavigableList';
 import ProjectPreview from './../../component/ProjectPreview';
 import ShortcutHelp from './../../component/ShortcutHelp';
@@ -31,29 +33,36 @@ export default class extends React.Component {
   state = {
     selectedProject: 0,
     selectedShortcut: 0,
-    filter: ''
+    filter: '',
+    filteredProjects: []
   };
 
-  shortcuts = [{
-    'icon': ListIcon,
-    'link': '',
-    'tooltip': 'Show full project'
-  }, {
-    'icon': AddIcon,
-    'link': 'issue/new/',
-    'tooltip': 'New task'
-  }];
+  componentWillMount() {
+    this.filterProjects('');
+  }
 
   onKeyUp(ev) {
     if (ev.which === 13) { // Enter
       this.goToShortcutLink(this.state.selectedShortcut);
     } else if (ev.which < 37 || ev.which > 40) { // Filter
-      this.setState({filter: ev.currentTarget.value});
+      this.filterProjects(ev.currentTarget.value);
     } else {
       this.refs.navigableList.handleNavigation(ev);
     }
 
     ev.stopPropagation();
+  }
+
+  filterProjects(value) {
+    const filteredProjects = this.props.projects.filter(project => {
+      return value.length === 0 ||
+        (project.name.indexOf(value) > -1 ||
+        project.organization.name.indexOf(value) > -1);
+    });
+    this.setState({
+      filteredProjects,
+      selectedProject: 0
+    });
   }
 
   changeSelectedRow(index) {
@@ -65,8 +74,10 @@ export default class extends React.Component {
   }
 
   goToShortcutLink(index) {
-    const link = `/project/${this.state.selectedProject.id}/${this.shortcuts[index].link}`;
-    this.props.dispatch(routeActions.push(link));
+    const shortcutLinks = ['/', '/issue/new'];
+    this.props.dispatch(
+      routeActions.push(`/project/${this.state.filteredProjects[this.state.selectedProject].id}${shortcutLinks[index]}`)
+    );
     this.triggerOnProjectSelected();
   }
 
@@ -78,56 +89,77 @@ export default class extends React.Component {
     this.refs.filter.focus();
   }
 
-  render() {
-    const projectItems = this.props.projects.filter(project => {
-      return this.state.filter.length === 0 ||
-        (project.name.indexOf(this.state.filter) > -1 ||
-        project.organization.name.indexOf(this.state.filter) > -1);
-    }).map((project, index) => {
+  getHeader() {
+    return (
+      <div className="project-preview__header">
+        <Row>
+          <RowColumn small={9}>
+            <ShortcutHelp keyboard="← →" does="to select action"/>
+            <ShortcutHelp keyboard="↑ ↓" does="to select project"/>
+            <ShortcutHelp keyboard="↵" does="go to project"/>
+            <ShortcutHelp keyboard="esc" does="to dismiss"/>
+          </RowColumn>
+          <RowColumn small={3}>
+            <Link to="/project/new">
+              <Button color="green"
+                      onClick={this.triggerOnProjectSelected.bind(this, null)}
+                      size="small">
+                New project
+              </Button>
+            </Link>
+          </RowColumn>
+        </Row>
+      </div>
+    );
+  }
+
+  getProjectItems()
+  {
+    return this.state.filteredProjects.map((project, index) => {
       return <ProjectPreview key={index}
                              project={project}
-                             selectedShortcut={this.state.selectedShortcut}
-                             shortcuts={this.shortcuts}/>;
+                             shortcuts={
+                               <div>
+                                 <Icon className={classNames({
+                                   'project-preview__shortcut': true,
+                                   'project-preview__shortcut--selected': 0 === this.state.selectedShortcut
+                                 })}
+                                       glyph={ListIcon}
+                                       onClick={this.goToShortcutLink.bind(this, 0)}
+                                       onMouseEnter={this.changeSelectedShortcut.bind(this, 0)}/>
+                                 <Icon className={classNames({
+                                   'project-preview__shortcut': true,
+                                   'project-preview__shortcut--selected': 1 === this.state.selectedShortcut
+                                 })}
+                                       glyph={AddIcon}
+                                       onClick={this.goToShortcutLink.bind(this, 1)}
+                                       onMouseEnter={this.changeSelectedShortcut.bind(this, 1)}/>
+                               </div>
+                             }/>;
 
     });
+  }
 
+  render() {
     return (
       <div>
-        <div className="project-preview__header">
-          <Row>
-            <RowColumn small={9}>
-              <ShortcutHelp keyboard="← →" does="to select action"/>
-              <ShortcutHelp keyboard="↑ ↓" does="to select project"/>
-              <ShortcutHelp keyboard="↵" does="go to project"/>
-              <ShortcutHelp keyboard="esc" does="to dismiss"/>
-            </RowColumn>
-            <RowColumn small={3}>
-              <Link to="/project/new">
-                <Button color="green"
-                        onClick={this.triggerOnProjectSelected.bind(this, null)}
-                        size="small">
-                  New project
-                </Button>
-              </Link>
-            </RowColumn>
-          </Row>
-        </div>
+        {this.getHeader()}
         <input className="project-preview__filter"
                onKeyUp={this.onKeyUp.bind(this)}
                placeholder="Type the project"
                ref="filter"
                type="text"/>
         <NavigableList className="project-preview__list"
+                       classNameSelected="project-preview--selected"
                        onElementSelected={this.triggerOnProjectSelected.bind(this)}
-                       onElementMouseEnter={this.changeSelectedRow.bind(this)}
                        onXChanged={this.changeSelectedShortcut.bind(this)}
                        onYChanged={this.changeSelectedRow.bind(this)}
                        ref="navigableList"
                        xSelected={this.state.selectedShortcut}
                        ySelected={this.state.selectedProject}
                        xLength={2}
-                       yLength={projectItems.length}>
-          { projectItems }
+                       yLength={this.state.filteredProjects.length}>
+          { this.getProjectItems() }
         </NavigableList>
       </div>
     );
