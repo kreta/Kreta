@@ -19,8 +19,9 @@ class ProjectOfIdQuerySpec extends ObjectBehavior
 {
     function it_can_be_created()
     {
-        $this->beConstructedWith('project-id');
+        $this->beConstructedWith('user-id', 'project-id');
         $this->shouldHaveType(ProjectOfIdQuery::class);
+        $this->userId()->shouldReturn('user-id');
         $this->projectId()->shouldReturn('project-id');
     }
 }
