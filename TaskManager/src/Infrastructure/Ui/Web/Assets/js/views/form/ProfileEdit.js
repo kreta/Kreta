@@ -12,8 +12,10 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Field, reduxForm} from 'redux-form'
 
+import FormActions from './../component/FormActions';
 import FormInput from './../component/FormInput';
 import Button from './../component/Button';
+import {Row, RowColumn} from './../component/Grid';
 
 const validate = (values) => {
   const errors = {},
@@ -35,13 +37,17 @@ export default class extends React.Component {
 
     return (
       <form onSubmit={handleSubmit}>
-        {/*<FormInputFile filename={user.photo ? user.photo.name : ''} name="photo" value=""/>*/}
-        <Field label="First Name" name="first_name" component={FormInput} tabIndex={2}/>
-        <Field label="Last Name" name="last_name" component={FormInput} tabIndex={3}/>
-        <Field label="Username" name="username" component={FormInput} tabIndex={4}/>
-        <div className="issue-new__actions">
-          <Button color="green" type="submit">Update</Button>
-        </div>
+        <Row>
+          <RowColumn>
+            {/*<FormInputFile filename={user.photo ? user.photo.name : ''} name="photo" value=""/>*/}
+            <Field label="First Name" name="first_name" component={FormInput} tabIndex={2}/>
+            <Field label="Last Name" name="last_name" component={FormInput} tabIndex={3}/>
+            <Field label="Username" name="username" component={FormInput} tabIndex={4}/>
+            <FormActions>
+              <Button color="green" type="submit">Update</Button>
+            </FormActions>
+          </RowColumn>
+        </Row>
       </form>
     )
   }

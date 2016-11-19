@@ -9,7 +9,6 @@
  */
 
 import React from 'react'
-import {connect} from 'react-redux'
 import {Field, reduxForm} from 'redux-form'
 
 import FormActions from './../component/FormActions';
@@ -19,9 +18,9 @@ import {Row, RowColumn} from './../component/Grid';
 
 const validate = (values) => {
   const errors = {},
-    requiredFields = ['name', 'short_name'];
+    requiredFields = ['username', 'password'];
   requiredFields.forEach(field => {
-    if (!values[field]) {
+    if (!values[field] || values[field] === '') {
       errors[field] = 'Required'
     }
   });
@@ -29,21 +28,19 @@ const validate = (values) => {
   return errors;
 };
 
-@connect()
-@reduxForm({form: 'ProjectNew', validate})
+@reduxForm({form: 'Login', validate})
 export default class extends React.Component {
   render() {
     const {handleSubmit} = this.props;
 
     return (
       <form onSubmit={handleSubmit}>
-        <Row>
-          <RowColumn>
-            {/*<FormInputFile name="image" value=""/>*/}
-            <Field label="Project Name" name="name" component={FormInput} tabIndex={2} autoFocus/>
-            <Field label="Short name" name="short_name" component={FormInput} tabIndex={3}/>
+        <Row center>
+          <RowColumn large={6}>
+            <Field label="Username" name="username" component={FormInput} tabIndex={1} autoFocus/>
+            <Field label="Password" name="password" component={FormInput} type="password" tabIndex={2}/>
             <FormActions>
-              <Button color="green" type="submit">Update</Button>
+              <Button color="green" tabIndex={3} type="submit">Done</Button>
             </FormActions>
           </RowColumn>
         </Row>

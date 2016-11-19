@@ -9,6 +9,10 @@ const Row = props => {
     classList = classList + ` row--collapse`;
   }
 
+  if(props.center) {
+    classList = classList + ' row--center';
+  }
+
   return (
     <div className={classList}>
       {props.children}
