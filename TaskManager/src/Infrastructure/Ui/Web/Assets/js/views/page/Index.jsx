@@ -12,11 +12,17 @@ import './../../../scss/views/page/_index';
 
 import React from 'react';
 import {Link} from 'react-router';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
+
+import LogoFullIcon from './../../../svg/logo-full.svg';
 
 import Button from './../component/Button';
+import Icon from './../component/Icon';
+import DashboardWidget from './../component/DashboardWidget';
+import FormInput from './../component/FormInput';
 import ContentMiddleLayout from './../layout/ContentMiddleLayout';
 import ProjectPreview from './../component/ProjectPreview';
+import {Row, RowColumn} from './../component/Grid';
 
 @connect(state => ({projects: state.projects.projects}))
 export default class extends React.Component {
@@ -28,24 +34,29 @@ export default class extends React.Component {
 
     return (
       <ContentMiddleLayout>
-        <div className="index__message">
-          Welcome to Kreta!
+        <div className="index__logo">
+          <Icon glyph={LogoFullIcon}/>
         </div>
-        <div className="index__projects">
-          <div className="section-header">
-            <h3 className="section-header-title">
-              Your <strong>projects</strong>
-            </h3>
-          </div>
-          <div>
-            { projectItems }
-          </div>
-        </div>
-        <div className="index__buttons">
-          <Link to="/project/new">
-            <Button color="green">Create project</Button>
-          </Link>
-        </div>
+        <Row>
+          <RowColumn>
+            <Link to="/search">
+              <FormInput label="Search..." input={{value: ''}} meta={{touched: false, errors: false}}/>
+            </Link>
+          </RowColumn>
+        </Row>
+        <Row>
+          <RowColumn medium={6}>
+            <DashboardWidget title={<span>Your <strong>projects</strong></span>}
+                             actions={<Link to="/project/new"><Button color="green" size="small">Create project</Button></Link>}>
+              { projectItems }
+            </DashboardWidget>
+          </RowColumn>
+          <RowColumn medium={6}>
+            <DashboardWidget title={<span>Your <strong>organizations</strong></span>}
+                             actions={<Link to="/organization/new"><Button color="green" size="small">Create org.</Button></Link>}>
+            </DashboardWidget>
+          </RowColumn>
+        </Row>
       </ContentMiddleLayout>
     );
   }

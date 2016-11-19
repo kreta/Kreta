@@ -18,6 +18,10 @@ class Icon extends React.Component {
     glyph: React.PropTypes.string.isRequired
   };
 
+  static defaultProps = {
+    className: ''
+  };
+
   render() {
     const {glyph, color, size, className, ...props} = this.props,
       classes = classNames({
