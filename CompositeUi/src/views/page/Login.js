@@ -13,12 +13,14 @@ import React from 'react';
 import {Login as LoginForm} from './../form/Login';
 import LogoHeader from './../component/LogoHeader';
 
+import Auth from './../../api/Auth';
+
 import ContentLayout from './../layout/ContentLayout';
 import ContentMiddleLayout from './../layout/ContentMiddleLayout';
 
 class Login extends React.Component {
   login(credentials) {
-    console.log(`Login tried by ${credentials.username}`);
+    Auth.auth(credentials.username, credentials.password);
   }
 
   render() {
