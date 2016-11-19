@@ -36,7 +36,7 @@ export default class extends React.Component {
     return (
       <form onSubmit={handleSubmit}>
         {/*<FormInputFile name="image" value=""/>*/}
-        <Field label="Project Name" name="name" component={FormInput} tabIndex={2}/>
+        <Field label="Project Name" name="name" component={FormInput} tabIndex={2} autoFocus/>
         <Field label="Short name" name="short_name" component={FormInput} tabIndex={3}/>
         <div className="issue-new__actions">
           <Button color="green" type="submit">Update</Button>
