@@ -118,6 +118,7 @@ export default class extends React.Component {
                ref="filter"
                type="text"/>
         <NavigableList className="project-preview__list"
+                       onElementSelected={this.triggerOnProjectSelected.bind(this)}
                        onElementMouseEnter={this.changeSelectedRow.bind(this)}
                        onXChanged={this.changeSelectedShortcut.bind(this)}
                        onYChanged={this.changeSelectedRow.bind(this)}

@@ -16,6 +16,8 @@ class NavigableList extends React.Component {
     disabled: React.PropTypes.bool,
     xSelected: React.PropTypes.number,
     ySelected: React.PropTypes.number,
+    onElementMouseEnter: React.PropTypes.func,
+    onElementSelected: React.PropTypes.func,
     onXChanged: React.PropTypes.func,
     onYChanged: React.PropTypes.func,
     xLength: React.PropTypes.number,
@@ -90,6 +92,7 @@ class NavigableList extends React.Component {
       onXChanged,
       onYChanged,
       onElementMouseEnter,
+      onElementSelected,
       xLength,
       yLength,
       children,
@@ -101,6 +104,7 @@ class NavigableList extends React.Component {
     const wrappedItems = children.map((el, i) => (
       <div key={i}
            onMouseEnter={onElementMouseEnter}
+           onClick={onElementSelected}
            className={ i === ySelected ? classNameSelected : ''}>
         {el}
       </div>

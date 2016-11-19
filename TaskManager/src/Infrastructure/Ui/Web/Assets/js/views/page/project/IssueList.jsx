@@ -28,7 +28,6 @@ import IssueShow from './../issue/Show';
 import LoadingSpinner from './../../component/LoadingSpinner.jsx';
 import PageHeader from './../../component/PageHeader';
 import Thumbnail from './../../component/Thumbnail';
-import NavigableList from './../../component/NavigableList';
 import InlineLink from './../../component/InlineLink';
 import CurrentProjectActions from '../../../actions/CurrentProject';
 
@@ -46,13 +45,6 @@ export default class extends React.Component {
         routeActions.push(`/project/${projectId}/settings`)
       );
     });
-
-    this.keyUpListenerRef = this.keyboardNavigate.bind(this);
-    window.addEventListener('keyup', this.keyUpListenerRef);
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('keyup', this.keyUpListenerRef);
   }
 
   filterIssues(filters) {
@@ -122,11 +114,15 @@ export default class extends React.Component {
 //  }
 
   selectCurrentIssue(issue) {
-    this.props.dispatch(CurrentProjectActions.selectCurrentIssue(issue));
+    this.props.dispatch(
+      routeActions.push(`/project/${this.props.params.projectId}/issue/${issue.id}`)
+    );
   }
 
   hideIssue() {
-    this.props.dispatch(CurrentProjectActions.selectCurrentIssue(null));
+    this.props.dispatch(
+      routeActions.push(`/project/${this.props.params.projectId}`)
+    );
   }
 
   getIssuesEl() {
@@ -134,8 +130,7 @@ export default class extends React.Component {
       return <IssuePreview issue={issue}
                            key={index}
                            onClick={this.selectCurrentIssue.bind(this, issue)}
-                           selected={this.props.currentProject.selectedIssue &&
-                           this.props.currentProject.selectedIssue.id === issue.id}/>;
+                           selected={this.props.params.issueId === issue.id}/>;
     });
   }
 

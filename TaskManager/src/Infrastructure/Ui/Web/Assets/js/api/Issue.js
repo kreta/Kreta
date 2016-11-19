@@ -304,7 +304,80 @@ class IssueApi extends Api {
   }
 
   getIssue(issueId, query = null) {
-    return this.get(`/issues/${issueId}`, query);
+    return new Promise((resolve) => {
+      setTimeout(() => {
+        resolve({
+          "id": "0",
+          "assignee": {
+            "id": "0",
+            "username": "user",
+            "email": "user@kreta.com",
+            "first_name": "Kreta",
+            "last_name": "User",
+            "photo": null
+          },
+          "children": [],
+          "created_at": "2014-12-15T00:00:00+0100",
+          "description": "Description",
+          "labels": [
+            {
+              "id": "0",
+              "name": "backbone.js"
+            },
+            {
+              "id": "2",
+              "name": "javascript"
+            },
+            {
+              "id": "3",
+              "name": "bdd"
+            },
+            {
+              "id": "6",
+              "name": "symfony"
+            },
+            {
+              "id": "8",
+              "name": "css3"
+            }
+          ],
+          "numeric_id": 1,
+          "parent": null,
+          "priority": {
+            "id": "1",
+            "name": "Medium",
+            "color": "#67b86a"
+          },
+          "resolution": null,
+          "reporter": {
+            "id": "0",
+            "username": "user",
+            "email": "user@kreta.com",
+            "first_name": "Kreta",
+            "last_name": "User",
+            "photo": null
+          },
+          "status": {
+            "type": "normal",
+            "name": "Open",
+            "id": "0",
+            "color": "#27ae60"
+          },
+          "title": "Test issue 1",
+          "_links": {
+            "self": {
+              "href": "http://kreta.test:8000/api/issues/0"
+            },
+            "project": {
+              "href": "http://kreta.test:8000/api/projects/0"
+            },
+            "issues": {
+              "href": "http://kreta.test:8000/api/issues"
+            }
+          }
+        })
+      }, 400);
+    });
   }
 
   postIssue(payload) {

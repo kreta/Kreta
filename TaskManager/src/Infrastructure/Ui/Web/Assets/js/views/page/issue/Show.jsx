@@ -60,13 +60,11 @@ export default class extends React.Component {
   }
 
   render() {
-    const
-      issue = this.props.currentProject.selectedIssue,
-      options = this.getProjectOptions();
+    const issue = this.props.currentProject.selectedIssue;
     let allowedTransitions = [];
 
     return (
-      <Form errors={this.props.currentProject.errors}
+      <form errors={this.props.currentProject.errors}
             method="PUT"
             ref="form"
             onSubmit={this.updateIssue.bind(this)}>
@@ -79,16 +77,16 @@ export default class extends React.Component {
         <section className="issue-show__transitions">
           {allowedTransitions}
         </section>
-        <section className="issue-show__fields">
-          <Selector name="assignee"
-                    value={issue.assignee.id}>
-            {options.assignee}
-          </Selector>
-          <Selector name="priority"
-                    value={issue.priority.id}>
-            {options.priority}
-          </Selector>
-        </section>
+        {/*<section className="issue-show__fields">*/}
+          {/*<Selector name="assignee"*/}
+                    {/*value={issue.assignee.id}>*/}
+            {/*{options.assignee}*/}
+          {/*</Selector>*/}
+          {/*<Selector name="priority"*/}
+                    {/*value={issue.priority.id}>*/}
+            {/*{options.priority}*/}
+          {/*</Selector>*/}
+        {/*</section>*/}
         <textarea className="issue-show__description"
                   name="description"
                   value={issue.description}/>
@@ -98,7 +96,7 @@ export default class extends React.Component {
             Save changes
           </Button>
         </div>
-      </Form>
+      </form>
     );
   }
 }
