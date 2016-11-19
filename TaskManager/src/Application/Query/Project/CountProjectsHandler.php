@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Application\Query\Project;
 
+use Kreta\TaskManager\Domain\Model\Organization\OrganizationId;
 use Kreta\TaskManager\Domain\Model\Project\ProjectName;
 use Kreta\TaskManager\Domain\Model\Project\ProjectRepository;
 use Kreta\TaskManager\Domain\Model\Project\ProjectSpecificationFactory;
@@ -35,10 +36,11 @@ class CountProjectsHandler
     public function __invoke(CountProjectsQuery $query)
     {
         return $this->repository->count(
-            $this->specificationFactory->buildNameFilterableSpecification(
+            $this->specificationFactory->buildFilterableSpecification(
                 UserId::generate(
                     $query->userId()
                 ),
+                null === $query->organizationId() ? null : OrganizationId::generate($query->organizationId()),
                 null === $query->name() ? null : new ProjectName($query->name())
             )
         );

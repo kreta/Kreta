@@ -34,6 +34,7 @@ class CountProjectsHandlerSpec extends ObjectBehavior
     function it_counts_projects(CountProjectsQuery $query, ProjectRepository $repository)
     {
         $query->name()->shouldBeCalled()->willReturn('organization name');
+        $query->organizationId()->shouldBeCalled()->willReturn('organization-id');
         $query->userId()->shouldBeCalled()->willReturn('user-id');
         $repository->count(Argument::any())->shouldBeCalled()->willReturn(2);
         $this->__invoke($query)->shouldReturn(2);
@@ -42,6 +43,16 @@ class CountProjectsHandlerSpec extends ObjectBehavior
     function it_counts_without_project_name(CountProjectsQuery $query, ProjectRepository $repository)
     {
         $query->name()->shouldBeCalled()->willReturn(null);
+        $query->organizationId()->shouldBeCalled()->willReturn('organization-id');
+        $query->userId()->shouldBeCalled()->willReturn('user-id');
+        $repository->count(Argument::any())->shouldBeCalled()->willReturn(3);
+        $this->__invoke($query)->shouldReturn(3);
+    }
+
+    function it_counts_without_organization_id(CountProjectsQuery $query, ProjectRepository $repository)
+    {
+        $query->name()->shouldBeCalled()->willReturn('organization name');
+        $query->organizationId()->shouldBeCalled()->willReturn(null);
         $query->userId()->shouldBeCalled()->willReturn('user-id');
         $repository->count(Argument::any())->shouldBeCalled()->willReturn(3);
         $this->__invoke($query)->shouldReturn(3);

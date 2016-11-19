@@ -14,9 +14,16 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Domain\Model\Project;
 
+use Kreta\TaskManager\Domain\Model\Organization\OrganizationId;
 use Kreta\TaskManager\Domain\Model\User\UserId;
 
 interface ProjectSpecificationFactory
 {
-    public function buildNameFilterableSpecification(UserId $userId, ProjectName $name = null, int $offset = 0, int $limit = -1);
+    public function buildFilterableSpecification(
+        UserId $userId,
+        OrganizationId $organizationId = null,
+        ProjectName $name = null,
+        int $offset = 0,
+        int $limit = -1
+    );
 }

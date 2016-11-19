@@ -18,6 +18,8 @@ interface ProjectRepository
 {
     public function projectOfId(ProjectId $id);
 
+    public function query($specification);
+
     public function persist(Project $project);
 
     public function remove(Project $project);

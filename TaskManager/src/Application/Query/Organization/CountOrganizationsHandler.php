@@ -34,7 +34,7 @@ class CountOrganizationsHandler
     public function __invoke(CountOrganizationsQuery $query)
     {
         return $this->repository->count(
-            $this->specificationFactory->buildNameFilterableSpecification(
+            $this->specificationFactory->buildFilterableSpecification(
                 $query->name(),
                 UserId::generate(
                     $query->userId()
