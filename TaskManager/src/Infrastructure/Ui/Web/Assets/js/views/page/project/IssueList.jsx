@@ -34,15 +34,15 @@ import CurrentProjectActions from '../../../actions/CurrentProject';
 @connect(state => ({currentProject: state.currentProject}))
 export default class extends React.Component {
   componentDidMount() {
-    const projectId = this.props.params.projectId;
+    const {params, dispatch} = this.props;
     Mousetrap.bind(Config.shortcuts.issueNew, () => {
-      this.props.dispatch(
-        routeActions.push(`/project/${projectId}/issue/new`)
+      dispatch(
+        routeActions.push(`/project/${params.projectId}/issue/new`)
       );
     });
     Mousetrap.bind(Config.shortcuts.projectSettings, () => {
-      this.props.dispatch(
-        routeActions.push(`/project/${projectId}/settings`)
+      dispatch(
+        routeActions.push(`/project/${params.projectId}/settings`)
       );
     });
   }
@@ -114,58 +114,62 @@ export default class extends React.Component {
 //  }
 
   selectCurrentIssue(issue) {
-    this.props.dispatch(
-      routeActions.push(`/project/${this.props.params.projectId}/issue/${issue.id}`)
+    const {dispatch, params} = this.props;
+    dispatch(
+      routeActions.push(`/project/${params.projectId}/issue/${issue.id}`)
     );
   }
 
   hideIssue() {
-    this.props.dispatch(
-      routeActions.push(`/project/${this.props.params.projectId}`)
+    const {dispatch, params} = this.props;
+    dispatch(
+      routeActions.push(`/project/${params.projectId}`)
     );
   }
 
   getIssuesEl() {
-    return this.props.currentProject.issues.map((issue, index) => {
+    const {currentProject, params} = this.props;
+    return currentProject.issues.map((issue, index) => {
       return <IssuePreview issue={issue}
                            key={index}
                            onClick={this.selectCurrentIssue.bind(this, issue)}
-                           selected={this.props.params.issueId === issue.id}/>;
+                           selected={params.issueId === issue.id}/>;
     });
   }
 
   getSelectedIssueEl() {
-    if (!this.props.currentProject.selectedIssue) {
+    const {currentProject} = this.props;
+    if (null === currentProject.selectedIssue) {
       return '';
     }
 
-    return <IssueShow issue={this.props.currentProject.selectedIssue}
-                      project={this.props.currentProject.project}/>;
+    return <IssueShow issue={currentProject.selectedIssue}
+                      project={currentProject.project}/>;
   }
 
   render() {
-    if (this.props.currentProject.fetchingProjects || this.props.currentProject.fetchingIssues) {
+    const {currentProject, params} = this.props;
+    if (currentProject.fetchingProjects || currentProject.fetchingIssues) {
       return <LoadingSpinner/>;
     }
-    const projectId = this.props.params.projectId;
     return (
       <div>
         <ContentMiddleLayout>
-          <PageHeader thumbnail={<Thumbnail image={this.props.currentProject.project.image.name}
-                                            text={this.props.currentProject.project.name}/>}
-                      title={this.props.currentProject.project.name}>
-            <InlineLink to={`/project/${this.props.currentProject.project.id}/settings`}>
+          <PageHeader thumbnail={<Thumbnail image={currentProject.project.image.name}
+                                            text={currentProject.project.name}/>}
+                      title={currentProject.project.name}>
+            <InlineLink to={`/project/${currentProject.project.id}/settings`}>
               <Icon glyph={SettingsIcon} color="green" size="small"/>Settings
             </InlineLink>
-            <Link to={`/project/${projectId}/issue/new`}>
+            <Link to={`/project/${params.projectId}/issue/new`}>
               <Button color="green">New issue</Button>
             </Link>
           </PageHeader>
-          <Filter filters={this.props.currentProject.filters}
+          <Filter filters={currentProject.filters}
                   onFilterSelected={this.filterIssues.bind(this)}/>
           {this.getIssuesEl()}
         </ContentMiddleLayout>
-        <ContentRightLayout isOpen={this.props.currentProject.selectedIssue}
+        <ContentRightLayout isOpen={currentProject.selectedIssue !== null}
                             onRequestClose={this.hideIssue.bind(this)}>
           {this.getSelectedIssueEl()}
         </ContentRightLayout>
