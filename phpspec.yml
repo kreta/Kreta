@@ -23,7 +23,6 @@ suites:
         namespace: Kreta\IdentityAccess
         src_path: IdentityAccess/src/
 
-
     kreta_task_manager:
         spec_path: TaskManager/tests/
         spec_prefix: Spec

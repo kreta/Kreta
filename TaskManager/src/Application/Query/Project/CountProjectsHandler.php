@@ -12,33 +12,36 @@
 
 declare(strict_types=1);
 
-namespace Kreta\TaskManager\Application\Query\Organization;
+namespace Kreta\TaskManager\Application\Query\Project;
 
-use Kreta\TaskManager\Domain\Model\Organization\OrganizationRepository;
-use Kreta\TaskManager\Domain\Model\Organization\OrganizationSpecificationFactory;
+use Kreta\TaskManager\Domain\Model\Organization\OrganizationId;
+use Kreta\TaskManager\Domain\Model\Project\ProjectName;
+use Kreta\TaskManager\Domain\Model\Project\ProjectRepository;
+use Kreta\TaskManager\Domain\Model\Project\ProjectSpecificationFactory;
 use Kreta\TaskManager\Domain\Model\User\UserId;
 
-class CountOrganizationsHandler
+class CountProjectsHandler
 {
     private $repository;
     private $specificationFactory;
 
     public function __construct(
-        OrganizationRepository $repository,
-        OrganizationSpecificationFactory $specificationFactory
+        ProjectRepository $repository,
+        ProjectSpecificationFactory $specificationFactory
     ) {
         $this->repository = $repository;
         $this->specificationFactory = $specificationFactory;
     }
 
-    public function __invoke(CountOrganizationsQuery $query)
+    public function __invoke(CountProjectsQuery $query)
     {
         return $this->repository->count(
             $this->specificationFactory->buildFilterableSpecification(
-                $query->name(),
                 UserId::generate(
                     $query->userId()
-                )
+                ),
+                null === $query->organizationId() ? null : OrganizationId::generate($query->organizationId()),
+                null === $query->name() ? null : new ProjectName($query->name())
             )
         );
     }

@@ -12,11 +12,13 @@
 
 declare(strict_types=1);
 
-namespace Kreta\TaskManager\Domain\Model\Organization;
+namespace Kreta\TaskManager\Application\DataTransformer\Project;
 
-use Kreta\TaskManager\Domain\Model\User\UserId;
+use Kreta\TaskManager\Domain\Model\Project\Project;
 
-interface OrganizationSpecificationFactory
+interface ProjectDataTransformer
 {
-    public function buildFilterableSpecification($name, UserId $userId, int $offset = 0, int $limit = -1);
+    public function write(Project $project);
+
+    public function read();
 }

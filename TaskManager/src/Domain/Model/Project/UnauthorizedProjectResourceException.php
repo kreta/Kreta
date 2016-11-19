@@ -12,11 +12,14 @@
 
 declare(strict_types=1);
 
-namespace Kreta\TaskManager\Domain\Model\Organization;
+namespace Kreta\TaskManager\Domain\Model\Project;
 
-use Kreta\TaskManager\Domain\Model\User\UserId;
+use Kreta\SharedKernel\Domain\Model\Exception;
 
-interface OrganizationSpecificationFactory
+class UnauthorizedProjectResourceException extends Exception
 {
-    public function buildFilterableSpecification($name, UserId $userId, int $offset = 0, int $limit = -1);
+    public function __construct()
+    {
+        parent::__construct('Not allowed to perform this project resource');
+    }
 }
