@@ -8,19 +8,16 @@
  * file that was distributed with this source code.
  */
 
-import './../../../scss/views/page/_index';
-
 import React from 'react';
 import {Link} from 'react-router';
 import {connect} from 'react-redux';
 
-import LogoFullIcon from './../../../svg/logo-full.svg';
+import ContentMiddleLayout from './../layout/ContentMiddleLayout';
 
 import Button from './../component/Button';
-import Icon from './../component/Icon';
 import DashboardWidget from './../component/DashboardWidget';
 import FormInput from './../component/FormInput';
-import ContentMiddleLayout from './../layout/ContentMiddleLayout';
+import LogoHeader from './../component/LogoHeader';
 import ProjectPreview from './../component/ProjectPreview';
 import {Row, RowColumn} from './../component/Grid';
 
@@ -34,9 +31,7 @@ export default class extends React.Component {
 
     return (
       <ContentMiddleLayout>
-        <div className="index__logo">
-          <Icon glyph={LogoFullIcon}/>
-        </div>
+        <LogoHeader/>
         <Row>
           <RowColumn>
             <Link to="/search">

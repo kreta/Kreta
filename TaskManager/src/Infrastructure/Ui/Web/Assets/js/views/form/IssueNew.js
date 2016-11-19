@@ -12,6 +12,7 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Field, reduxForm} from 'redux-form'
 
+import FormActions from './../component/FormActions';
 import FormInput from './../component/FormInput';
 import Button from './../component/Button';
 import Selector from './../component/Selector';
@@ -84,7 +85,11 @@ export default class extends React.Component {
           </RowColumn>
         </Row>
         <Row>
-          <Button color="green" tabIndex="6" type="submit">Done</Button>
+          <RowColumn>
+            <FormActions>
+              <Button color="green" tabIndex={6} type="submit">Done</Button>
+            </FormActions>
+          </RowColumn>
         </Row>
       </form>
     )
