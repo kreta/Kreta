@@ -32,7 +32,6 @@ const validate = (values) => {
 };
 
 @connect(state => (state => {
-  console.log(state.currentProject.project);
   return {
     initialValues: {
       project: state.currentProject.project !== null ? state.currentProject.project.id : ''
