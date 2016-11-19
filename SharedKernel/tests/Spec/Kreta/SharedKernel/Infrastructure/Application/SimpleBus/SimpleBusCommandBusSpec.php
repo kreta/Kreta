@@ -14,7 +14,6 @@ namespace Spec\Kreta\SharedKernel\Infrastructure\Application\SimpleBus;
 
 use Kreta\SharedKernel\Application\CommandBus;
 use Kreta\SharedKernel\Infrastructure\Application\SimpleBus\SimpleBusCommandBus;
-use Kreta\TaskManager\Application\Command\Organization\CreateOrganizationCommand;
 use PhpSpec\ObjectBehavior;
 use SimpleBus\Message\Bus\MessageBus;
 
@@ -31,7 +30,7 @@ class SimpleBusCommandBusSpec extends ObjectBehavior
         $this->shouldImplement(CommandBus::class);
     }
 
-    function it_handles_a_command(MessageBus $messageBus, CreateOrganizationCommand $command)
+    function it_handles_a_command(MessageBus $messageBus, $command)
     {
         $messageBus->handle($command)->shouldBeCalled();
 
