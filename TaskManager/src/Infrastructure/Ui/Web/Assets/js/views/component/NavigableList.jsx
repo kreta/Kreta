@@ -13,6 +13,9 @@ import ReactDOM from 'react-dom';
 
 class NavigableList extends React.Component {
   static propTypes = {
+    disabled: React.PropTypes.bool,
+    xSelected: React.PropTypes.number,
+    ySelected: React.PropTypes.number,
     onXChanged: React.PropTypes.func,
     onYChanged: React.PropTypes.func,
     xLength: React.PropTypes.number,
@@ -83,12 +86,24 @@ class NavigableList extends React.Component {
   }
 
   render() {
-    const { onXChanged, onYChanged, onElementMouseEnter, xLength, yLength, children, ...otherProps} = this.props;
+    const {
+      onXChanged,
+      onYChanged,
+      onElementMouseEnter,
+      xLength,
+      yLength,
+      children,
+      classNameSelected,
+      ySelected,
+      ...otherProps
+    } = this.props;
     
     const wrappedItems = children.map((el, i) => (
       <div key={i}
-           onMouseEnter={onElementMouseEnter.bind(i)}
-           style={{background: i === this.state.ySelected ? 'green' : 'white'}}>{el}</div>
+           onMouseEnter={onElementMouseEnter}
+           className={ i === ySelected ? classNameSelected : ''}>
+        {el}
+      </div>
     ));
     
     return <div {...otherProps}>{wrappedItems}</div>;
