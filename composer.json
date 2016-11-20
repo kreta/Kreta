@@ -78,11 +78,11 @@
     },
     "autoload": {
         "psr-4": {
-            "Kreta\\IdentityAccess\\": "IdentityAccess/src/",
+            "Kreta\\IdentityAccess\\": "IdentityAccess/src/Kreta/IdentityAccess/",
             "Kreta\\IdentityAccess\\Tests\\": "IdentityAccess/tests/",
-            "Kreta\\SharedKernel\\": "SharedKernel/src/",
+            "Kreta\\SharedKernel\\": "SharedKernel/src/Kreta/SharedKernel/",
             "Kreta\\SharedKernel\\Tests\\": "SharedKernel/tests/",
-            "Kreta\\TaskManager\\": "TaskManager/src/",
+            "Kreta\\TaskManager\\": "TaskManager/src/Kreta/TaskManager/",
             "Kreta\\TaskManager\\Tests\\": "TaskManager/tests/"
         },
         "exclude-from-classmap": [

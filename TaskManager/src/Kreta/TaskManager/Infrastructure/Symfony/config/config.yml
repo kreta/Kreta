@@ -7,7 +7,7 @@
 # file that was distributed with this source code.
 
 imports:
-    - { resource: ../../../../parameters.yml }
+    - { resource: ../../../../../../parameters.yml }
     - { resource: security.yml }
     - { resource: services/, type: directory }
 
@@ -30,7 +30,7 @@ framework:
     session:
         handler_id: session.handler.native_file
         name: kretasession
-        save_path: "%kernel.root_dir%/../../../var/sessions/%kernel.environment%"
+        save_path: "%kernel.root_dir%/../../../../../var/sessions/%kernel.environment%"
     fragments: ~
     http_method_override: true
     assets: ~
@@ -39,7 +39,7 @@ twig:
     debug: "%kernel.debug%"
     strict_variables: "%kernel.debug%"
     paths:
-        '%kernel.root_dir%/../Ui/Views/Twig': TaskManager
+        "%kernel.root_dir%/../Ui/Views/Twig": TaskManager
 
 doctrine:
     dbal:
@@ -72,7 +72,7 @@ doctrine:
                 mapping: true
                 type: xml
                 is_bundle: false
-                dir: "%kernel.root_dir%/../../../../SharedKernel/src/Infrastructure/Persistence/Doctrine/ORM/Identity/SymfonyMapping/"
+                dir: "%kernel.root_dir%/../../../../../../SharedKernel/src/Kreta/SharedKernel/Infrastructure/Persistence/Doctrine/ORM/Identity/SymfonyMapping/"
                 prefix: 'Kreta\SharedKernel\Domain\Model\Identity'
             TaskManagerOrganization:
                 mapping: true

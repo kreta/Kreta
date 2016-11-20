@@ -2060,7 +2060,7 @@
             "dist": {
                 "type": "path",
                 "url": "../SharedKernel",
-                "reference": "49d29c2e1c80158e430ae4a6260d21ec48a14246",
+                "reference": "1e921ddca43d3800f4b5ac3c377f6c8e7fc74172",
                 "shasum": null
             },
             "require": {
@@ -2088,7 +2088,7 @@
             },
             "autoload": {
                 "psr-4": {
-                    "Kreta\\SharedKernel\\": "src/",
+                    "Kreta\\SharedKernel\\": "src/Kreta/SharedKernel/",
                     "Kreta\\SharedKernel\\Tests\\": "tests/"
                 },
                 "files": [
