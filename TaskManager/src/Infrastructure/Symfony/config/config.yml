@@ -123,10 +123,10 @@ overblog_graphql:
 old_sound_rabbit_mq:
     connections:
         default:
-            host: "%task_manager_connection_host%"
-            port: "%task_manager_connection_port%"
-            user: "%task_manager_connection_user%"
-            password: "%task_manager_connection_password%"
+            host: "%task_manager_rabbitmq_host%"
+            port: "%task_manager_rabbitmq_port%"
+            user: "%task_manager_rabbitmq_user%"
+            password: "%task_manager_rabbitmq_password%"
             vhost: '/'
             lazy: true
             connection_timeout: 3
@@ -157,7 +157,7 @@ httplug:
             plugins:
                 - "httplug.plugin.logger"
                 - add_host:
-                    host: "http://127.0.0.1:8002"
+                    host: "%task_manager_domain_host%"
             config:
                 verify: false
                 timeout: 2

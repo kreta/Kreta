@@ -67,8 +67,12 @@
             "@lifecycle-scripts"
         ],
         "cs": [
-            "php-cs-fixer fix --config-file=etc/phpcs/.php_cs",
-            "php-cs-fixer fix --config-file=etc/phpcs/.phpspec_cs"
+            "php-cs-fixer fix --config-file=IdentityAccess/etc/phpcs/.php_cs",
+            "php-cs-fixer fix --config-file=IdentityAccess/etc/phpcs/.phpspec_cs",
+            "php-cs-fixer fix --config-file=SharedKernel/etc/phpcs/.php_cs",
+            "php-cs-fixer fix --config-file=SharedKernel/etc/phpcs/.phpspec_cs",
+            "php-cs-fixer fix --config-file=TaskManager/etc/phpcs/.php_cs",
+            "php-cs-fixer fix --config-file=TaskManager/etc/phpcs/.phpspec_cs"
         ],
         "test": "phpspec run"
     },

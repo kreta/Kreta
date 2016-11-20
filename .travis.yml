@@ -24,7 +24,8 @@ install:
 
 before_script:
     - export SYMFONY_ENV=test
-    - TaskManager/src/Infrastructure/Ui/Cli/Symfony/console server:start kreta.test:8001 --router=TaskManager/src/Infrastructure/Ui/Http/Symfony/public/app.php --docroot=TaskManager/src/Infrastructure/Ui/Http/Symfony/public
+    - IdentityAccess/etc/bin/symfony-console server:start kreta.test:8002 --router=IdentityAccess/src/Infrastructure/Ui/Http/Symfony/public/app.php --docroot=IdentityAccess/src/Infrastructure/Ui/Http/Symfony/public
+    - TaskManager/etc/bin/symfony-console server:start kreta.test:8001 --router=TaskManager/src/Infrastructure/Ui/Http/Symfony/public/app.php --docroot=TaskManager/src/Infrastructure/Ui/Http/Symfony/public
     - sleep 5
 
 script:
