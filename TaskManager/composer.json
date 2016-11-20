@@ -59,6 +59,15 @@
         "phpspec/phpspec": "^3.1"
     },
     "scripts": {
+        "lifecycle-scripts": [
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters"
+        ],
+        "post-install-cmd": [
+            "@lifecycle-scripts"
+        ],
+        "post-update-cmd": [
+            "@lifecycle-scripts"
+        ],
         "cs": [
             "php-cs-fixer fix --config-file=etc/phpcs/.php_cs",
             "php-cs-fixer fix --config-file=etc/phpcs/.phpspec_cs"
