@@ -12,16 +12,6 @@
 
 declare(strict_types=1);
 
-/*
- * This file is part of the Kreta package.
- *
- * (c) Beñat Espiña <benatespina@gmail.com>
- * (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace Kreta\TaskManager\Infrastructure\Symfony\EventListener;
 
 use Http\Client\HttpClient;
@@ -57,7 +47,7 @@ final class AuthenticationListener
             return;
         }
 
-        // This is a temporal hack to until make taskManager
+        // This is a temporal hack until make taskManager
         // and Identity Access real standalone applications
         if (false === strpos($event->getRequest()->getPathInfo(), '/api')) {
             return;
