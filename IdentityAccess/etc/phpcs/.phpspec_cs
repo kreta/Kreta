@@ -10,9 +10,9 @@
  * file that was distributed with this source code.
  */
 
-$fixers = include __DIR__ . '/common.php';
+use Kreta\SharedKernel\CS;
 
-$fixers[] = '-visibility';
+CS\setHeader();
 
 $finder = Symfony\CS\Finder::create()
     ->in([
@@ -23,4 +23,4 @@ $finder = Symfony\CS\Finder::create()
 return Symfony\CS\Config::create()
     ->level(Symfony\CS\FixerInterface::SYMFONY_LEVEL)
     ->finder($finder)
-    ->fixers($fixers);
+    ->fixers(array_merge(CS\fixers(), ['-visibility']));

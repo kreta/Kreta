@@ -10,18 +10,17 @@
  * file that was distributed with this source code.
  */
 
-use Kreta\SharedKernel\CS;
+$fixers = include __DIR__ . '/common.php';
 
-CS\setHeader();
+$fixers[] = '-visibility';
 
 $finder = Symfony\CS\Finder::create()
-    ->notName('*Spec.php')
-    ->name('*.php')
     ->in([
-        __DIR__ . '/../../src'
-    ]);
+        __DIR__ . '/../../tests/Spec',
+    ])
+    ->name('*Spec.php');
 
 return Symfony\CS\Config::create()
     ->level(Symfony\CS\FixerInterface::SYMFONY_LEVEL)
     ->finder($finder)
-    ->fixers(CS\fixers());
+    ->fixers($fixers);

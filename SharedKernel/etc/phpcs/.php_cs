@@ -10,9 +10,7 @@
  * file that was distributed with this source code.
  */
 
-use Kreta\SharedKernel\CS;
-
-CS\setHeader();
+$fixers = include __DIR__ . '/common.php';
 
 $finder = Symfony\CS\Finder::create()
     ->notName('*Spec.php')
@@ -24,4 +22,4 @@ $finder = Symfony\CS\Finder::create()
 return Symfony\CS\Config::create()
     ->level(Symfony\CS\FixerInterface::SYMFONY_LEVEL)
     ->finder($finder)
-    ->fixers(CS\fixers());
+    ->fixers($fixers);

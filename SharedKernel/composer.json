@@ -36,11 +36,20 @@
         "phpspec/phpspec": "^3.1",
         "doctrine/orm": "^2.5"
     },
+    "scripts": {
+        "cs": [
+            "php-cs-fixer fix --config-file=etc/phpcs/.php_cs",
+            "php-cs-fixer fix --config-file=etc/phpcs/.phpspec_cs"
+        ]
+    },
     "autoload": {
         "psr-4": {
             "Kreta\\SharedKernel\\": "src/",
             "Kreta\\SharedKernel\\Tests\\": "tests/"
         },
+        "files": [
+            "etc/phpcs/common.php"
+        ],
         "exclude-from-classmap": [
           "tests/"
         ]

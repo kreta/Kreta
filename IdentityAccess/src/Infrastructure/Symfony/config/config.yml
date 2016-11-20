@@ -115,10 +115,10 @@ lexik_jwt_authentication:
 old_sound_rabbit_mq:
     connections:
         default:
-            host: "%identity_access_connection_host%"
-            port: "%identity_access_connection_port%"
-            user: "%identity_access_connection_user%"
-            password: "%identity_access_connection_password%"
+            host: "%identity_access_rabbitmq_host%"
+            port: "%identity_access_rabbitmq_port%"
+            user: "%identity_access_rabbitmq_user%"
+            password: "%identity_access_rabbitmq_password%"
             vhost: '/'
             lazy: true
             connection_timeout: 3
