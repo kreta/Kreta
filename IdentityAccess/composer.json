@@ -60,7 +60,7 @@
         "symfony/symfony": "3.1.*"
     },
     "require-dev": {
-        "fabpot/php-cs-fixer": "^1.12",
+        "friendsofphp/php-cs-fixer": "^1.12",
         "phpspec/phpspec": "^3.1"
     },
     "scripts": {

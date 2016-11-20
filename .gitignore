@@ -8,8 +8,6 @@
 
 .htaccess
 cs_fixer_tmp_*
-composer.lock
-!/composer.lock
 node_modules
 parameters.yml
 var/*
@@ -26,4 +24,3 @@ var/logs/*
 var/sessions/*
 !var/sessions/.gitkeep
 vendor
-!IdentityAccess/src/Infrastructure/vendor

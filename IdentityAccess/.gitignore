@@ -8,7 +8,6 @@
 
 .htaccess
 /parameters.yml
-/composer.lock
 /node_modules
 /var/*
 !/var/cache
