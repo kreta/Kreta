@@ -23,10 +23,12 @@ install:
     - composer install --no-interaction ${COMPOSER_OPTIONS}
 
 before_script:
-    - export SYMFONY_ENV=test
-    - IdentityAccess/etc/bin/symfony-console server:start kreta.test:8002 --router=IdentityAccess/src/Infrastructure/Ui/Http/Symfony/public/app.php --docroot=IdentityAccess/src/Infrastructure/Ui/Http/Symfony/public
-    - TaskManager/etc/bin/symfony-console server:start kreta.test:8001 --router=TaskManager/src/Infrastructure/Ui/Http/Symfony/public/app.php --docroot=TaskManager/src/Infrastructure/Ui/Http/Symfony/public
-    - sleep 5
+    - IdentityAccess/etc/bash/generate_ssh_keys.sh
+    - IdentityAccess/etc/bash/load_database.sh
+    - IdentityAccess/etc/bash/server_start.sh
+
+    - TaskManager/etc/bash/load_database.sh
+    - TaskManager/etc/bash/server_start.sh
 
 script:
     - vendor/bin/phpspec run
