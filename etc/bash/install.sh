@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
 
+cd SharedKernel
+composer install
+cd ..
+
 cd IdentityAccess
 composer install
 cd ..
