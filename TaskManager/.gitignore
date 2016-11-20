@@ -7,16 +7,16 @@
 # file that was distributed with this source code.
 
 .htaccess
+node_modules
 /parameters.yml
-/node_modules
 /var/*
 !/var/cache
 /var/cache/*
-!var/cache/.gitkeep
+!/var/cache/.gitkeep
 !/var/logs
 /var/logs/*
-!var/logs/.gitkeep
+!/var/logs/.gitkeep
 !/var/sessions
 /var/sessions/*
-!var/sessions/.gitkeep
+!/var/sessions/.gitkeep
 /vendor
