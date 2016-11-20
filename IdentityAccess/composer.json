@@ -71,7 +71,7 @@
     },
     "autoload": {
         "psr-4": {
-            "Kreta\\IdentityAccess\\": "src/",
+            "Kreta\\IdentityAccess\\": "src/Kreta/IdentityAccess/",
             "Kreta\\IdentityAccess\\Tests\\": "tests/"
         },
         "exclude-from-classmap": [

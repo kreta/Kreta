@@ -23,12 +23,12 @@ install:
     - composer install --no-interaction ${COMPOSER_OPTIONS}
 
 before_script:
-    - IdentityAccess/etc/bash/generate_ssh_keys.sh
-    - IdentityAccess/etc/bash/load_database.sh
-    - IdentityAccess/etc/bash/server_start.sh
+#    - sh IdentityAccess/etc/bash/generate_ssh_keys.sh
+#    - sh IdentityAccess/etc/bash/load_database.sh
+#    - sh IdentityAccess/etc/bash/server_start.sh
 
-    - TaskManager/etc/bash/load_database.sh
-    - TaskManager/etc/bash/server_start.sh
+    - sh TaskManager/etc/bash/load_database.sh
+    - sh TaskManager/etc/bash/server_start.sh
 
 script:
     - vendor/bin/phpspec run
