@@ -24,8 +24,7 @@ $ <bounded-contetx>/etc/bash/<any-existant-bash-script>
 To make batch processes like the installation of the all Bounded
 Contexts, pass tests across the project or check the CS you can execute
 the bash scripts that are located inside `etc/bash` directory:
-
-```
+```bash
 $ etc/bash/install.sh
 $ etc/bash/tests.sh
 $ etc/bash/cs.sh
