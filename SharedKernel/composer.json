@@ -33,13 +33,24 @@
         "ramsey/uuid": "^3.5"
     },
     "require-dev": {
+        "doctrine/orm": "^2.5",
+        "friendsofphp/php-cs-fixer": "^1.12",
         "phpspec/phpspec": "^3.1"
+    },
+    "scripts": {
+        "cs": [
+            "php-cs-fixer fix --config-file=etc/phpcs/.php_cs",
+            "php-cs-fixer fix --config-file=etc/phpcs/.phpspec_cs"
+        ]
     },
     "autoload": {
         "psr-4": {
-            "Kreta\\SharedKernel\\": "src/",
+            "Kreta\\SharedKernel\\": "src/Kreta/SharedKernel/",
             "Kreta\\SharedKernel\\Tests\\": "tests/"
         },
+        "files": [
+            "etc/phpcs/common.php"
+        ],
         "exclude-from-classmap": [
           "tests/"
         ]

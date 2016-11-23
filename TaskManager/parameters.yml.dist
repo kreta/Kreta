@@ -7,21 +7,23 @@
 # file that was distributed with this source code.
 
 parameters:
-    secret:                             12e54860e3fbbbebd0aa659fa8bc554c202298ac # Your own secret with http://nux.net/secret
-    delivery_address:                   benatespina@gmail.com
+    secret:                           12e54860e3fbbbebd0aa659fa8bc554c202298ac # Your own secret with http://nux.net/secret
+    delivery_address:                 benatespina@gmail.com
 
-    task_manager_database_host:         127.0.0.1
-    task_manager_database_port:         ~
-    task_manager_database_name:         kreta_task_manager
-    task_manager_database_user:         root
-    task_manager_database_password:     ~
+    task_manager_domain_host:         127.0.0.1:8002
 
-    task_manager_mailer_transport:      smtp
-    task_manager_mailer_host:           127.0.0.1
-    task_manager_mailer_user:           ~
-    task_manager_mailer_password:       ~
+    task_manager_database_host:       127.0.0.1
+    task_manager_database_port:       ~
+    task_manager_database_name:       kreta_task_manager
+    task_manager_database_user:       root
+    task_manager_database_password:   ~
 
-    task_manager_connection_host:       localhost
-    task_manager_connection_port:       5672
-    task_manager_connection_user:       kreta
-    task_manager_connection_password:   kreta
+    task_manager_mailer_transport:    smtp
+    task_manager_mailer_host:         127.0.0.1
+    task_manager_mailer_user:         ~
+    task_manager_mailer_password:     ~
+
+    task_manager_rabbitmq_host:       localhost
+    task_manager_rabbitmq_port:       5672
+    task_manager_rabbitmq_user:       kreta
+    task_manager_rabbitmq_password:   kreta

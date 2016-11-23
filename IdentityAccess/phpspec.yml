@@ -12,7 +12,7 @@ matchers:
 
 suites:
     kreta_identity_access:
-        spec_path: IdentityAccess/tests/
+        spec_path: tests/
         spec_prefix: Spec
         namespace: Kreta\IdentityAccess
-        src_path: IdentityAccess/src/
+        src_path: src/
