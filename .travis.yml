@@ -23,7 +23,7 @@ install:
     - sh etc/bash/install.sh
 
 script:
-    - sh etc/bash/phpspec.sh
+    - sh etc/bash/tests.sh
 
 cache:
     directories:

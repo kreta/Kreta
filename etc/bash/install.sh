@@ -6,11 +6,11 @@ cd ..
 
 cd IdentityAccess
 composer install
+sh etc/bash/generate_ssh_keys.sh
+sh etc/bash/load_database.sh
 cd ..
-sh IdentityAccess/etc/bash/generate_ssh_keys.sh
-sh IdentityAccess/etc/bash/load_database.sh
 
 cd TaskManager
 composer install
+sh etc/bash/load_database.sh
 cd ..
-sh TaskManager/etc/bash/load_database.sh
