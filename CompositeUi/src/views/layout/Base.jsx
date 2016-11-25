@@ -8,10 +8,10 @@
  * file that was distributed with this source code.
  */
 
-import './../../../scss/layout/_base';
+import './../../scss/layout/_base';
 
 import React from 'react';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 
 import ContentLayout from './ContentLayout';
 import MainMenu from './MainMenu';
@@ -24,13 +24,13 @@ import LoadingSpinner from '../component/LoadingSpinner';
 @connect(state => ({fetching: state.projects.fetching || state.profile.fetching}))
 export default class extends React.Component {
   componentDidMount() {
-    const { dispatch } = this.props;
+    const {dispatch} = this.props;
     dispatch(ProjectActions.fetchProjects());
     dispatch(ProfileActions.fetchProfile());
   }
 
   render() {
-    if(this.props.fetching) {
+    if (this.props.fetching) {
       return <LoadingSpinner/>
     }
 

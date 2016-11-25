@@ -41,8 +41,8 @@ $main-menu-size-desktop: 80px;
 }
 
 .main-menu__user {
-  display: flex;
   align-items: center;
+  display: flex;
 }
 
 .main-menu__username {
@@ -54,8 +54,8 @@ $main-menu-size-desktop: 80px;
 
 .main-menu__notification,
 .main-menu__profile {
-  position: relative;
   margin: 0 10px;
+  position: relative;
 }
 
 .main-menu__notification {

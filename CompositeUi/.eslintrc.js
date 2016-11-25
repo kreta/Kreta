@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = exports = {
+module.exports = {
   "root": true,
   "extends": "eslint:recommended",
   "parser": "babel-eslint",
@@ -148,7 +148,6 @@ module.exports = exports = {
     "operator-assignment": ["off", "always"],
     "padded-blocks": "off",
     "quote-props": "off",
-    "quotes": ["error", "single"],
     "radix": "error",
     "sort-vars": "off",
     "space-after-function-name": ["off", "never"],

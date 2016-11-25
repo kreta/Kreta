@@ -18,9 +18,11 @@ import fs from 'fs';
 import webpack from 'webpack';
 
 const appDirectory = fs.realpathSync(process.cwd());
+
 const resolveApp = (relativePath) => {
   return path.resolve(appDirectory, relativePath);
 };
+
 const nodePaths = (process.env.NODE_PATH || '')
   .split(process.platform === 'win32' ? ';' : ':')
   .filter(Boolean)
@@ -38,27 +40,23 @@ const paths = {
   nodePaths: nodePaths
 };
 
-const REACT_APP = /^REACT_APP_/i;
-
-const getClientEnvironment = (publicUrl) => {
+const env = () => {
+  const REACT_APP = /^REACT_APP_/i;
   const processEnv = Object
     .keys(process.env)
     .filter(key => REACT_APP.test(key))
     .reduce((env, key) => {
       env[key] = JSON.stringify(process.env[key]);
+
       return env;
     }, {
       'NODE_ENV': JSON.stringify(
         process.env.NODE_ENV || 'development'
       ),
-      'PUBLIC_URL': JSON.stringify(publicUrl)
     });
+
   return {'process.env': processEnv};
 };
-
-const publicPath = '/';
-const publicUrl = '';
-const env = getClientEnvironment(publicUrl);
 
 export default {
   devtool: 'cheap-module-source-map',
@@ -70,28 +68,31 @@ export default {
     path: paths.appPublic,
     pathinfo: true,
     filename: 'app.js',
-    publicPath: publicPath
+    publicPath: '/'
   },
   resolve: {
     fallback: paths.nodePaths,
-    extensions: ['.js', '.json', '.jsx', '']
+    extensions: ['.js', '.json', '.jsx', '.css', '.scss', '.svg', '']
   },
   module: {
-//     preLoaders: [
-//       {
-//         test: /\.(js|jsx)$/,
-//         loader: 'eslint',
-//         include: paths.appSrc,
-//       }
-//     ],
+    preLoaders: [
+      {
+        test: /\.(js|jsx)$/,
+        loader: 'eslint',
+        include: paths.appSrc,
+      },
+      {
+        test: /\.(css|scss)$/,
+        loader: 'stylelint',
+        include: paths.appScss,
+      }
+    ],
     loaders: [
       {
         exclude: [
           /\.html$/,
           /\.(js|jsx)$/,
-          /\.s?css$/,
-//           /\.svg$/,
-//           /\.(jpe?g|png|gif|ico)$/,
+          /\.(css|scss)$/,
           /\.json$/
         ],
         loader: 'url',
@@ -109,24 +110,15 @@ export default {
         }
       },
       {
-        test: /\.(s?css)$/,
-        loader: ExtractTextPlugin.extract({
-          fallbackLoader: 'style-loader',
-          loader: 'style!css!sass!resolve-url!sass?sourceMap'
-        })
+        test: /\.(css|scss)$/,
+        loader: ExtractTextPlugin.extract(
+          'style', 'css!postcss!sass?outputStyle=expanded&sourceComments=true'
+        )
       },
       {
         test: /\.json$/,
         loader: 'json'
-      },
-//       {
-//         test: /\.svg$/,
-//         loader: 'svg-sprite?name=[name]_[hash].svg'
-//       },
-//       {
-//         test: /\.(jpe?g|png|gif|ico)$/,
-//         loader: 'file?name=../images/[hash].[ext]'
-//       },
+      }
     ]
   },
   postcss: () => {

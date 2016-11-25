@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-import CrossIcon from './../../../svg/cross';
+import CrossIcon from './../../svg/cross';
 
 import classnames from 'classnames';
 import React from 'react';

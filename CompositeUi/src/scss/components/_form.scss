@@ -30,8 +30,8 @@ textarea {
 
 .form-input--error {
   .form-input__label {
-    color: $main-red;
     @extend %form-label-up;
+    color: $main-red;
   }
 
   .form-input__bar,
