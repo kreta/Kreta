@@ -12,41 +12,37 @@ import ActionTypes from './../constants/ActionTypes';
 import ProfileApi from './../api/Profile';
 
 const Actions = {
-  fetchProfile: () => {
-    return (dispatch) => {
-      dispatch({
-        type: ActionTypes.PROFILE_FETCHING
-      });
-      ProfileApi.getProfile()
-        .then((profile) => {
-          dispatch({
-            type: ActionTypes.PROFILE_RECEIVED,
-            profile
-          });
+  fetchProfile: () => (dispatch) => {
+    dispatch({
+      type: ActionTypes.PROFILE_FETCHING
+    });
+    ProfileApi.getProfile()
+      .then((profile) => {
+        dispatch({
+          type: ActionTypes.PROFILE_RECEIVED,
+          profile
         });
-    };
+      });
   },
-  updateProfile: (profileData) => {
-    return (dispatch) => {
-      dispatch({
-        type: ActionTypes.PROFILE_UPDATE
-      });
-      ProfileApi.putProfile(profileData)
-        .then((updatedProfile) => {
+  updateProfile: (profileData) => (dispatch) => {
+    dispatch({
+      type: ActionTypes.PROFILE_UPDATE
+    });
+    ProfileApi.putProfile(profileData)
+      .then((updatedProfile) => {
+        dispatch({
+          type: ActionTypes.PROFILE_UPDATED,
+          profile: updatedProfile
+        });
+      })
+      .catch((errorData) => {
+        errorData.then((errors) => {
           dispatch({
-            type: ActionTypes.PROFILE_UPDATED,
-            profile: updatedProfile
-          });
-        })
-        .catch((errorData) => {
-          errorData.then((errors) => {
-            dispatch({
-              type: ActionTypes.PROFILE_UPDATE_ERROR,
-              errors
-            });
+            type: ActionTypes.PROFILE_UPDATE_ERROR,
+            errors
           });
         });
-    };
+      });
   }
 };
 

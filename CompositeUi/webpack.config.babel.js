@@ -14,49 +14,10 @@ import WatchMissingNodeModulesPlugin from 'react-dev-utils/WatchMissingNodeModul
 
 import autoprefixer from 'autoprefixer';
 import path from 'path';
-import fs from 'fs';
 import webpack from 'webpack';
 
-const appDirectory = fs.realpathSync(process.cwd());
-
-const resolveApp = (relativePath) => {
-  return path.resolve(appDirectory, relativePath);
-};
-
-const nodePaths = (process.env.NODE_PATH || '')
-  .split(process.platform === 'win32' ? ';' : ':')
-  .filter(Boolean)
-  .map(resolveApp);
-
-const paths = {
-  appPublic: resolveApp('public'),
-  appHtml: resolveApp('public/index.html'),
-  appIndexJs: resolveApp('src/Kreta.js'),
-  appPackageJson: resolveApp('package.json'),
-  appSrc: resolveApp('src'),
-  appScss: resolveApp('src/scss'),
-  yarnLockFile: resolveApp('yarn.lock'),
-  appNodeModules: resolveApp('node_modules'),
-  nodePaths: nodePaths
-};
-
-const env = () => {
-  const REACT_APP = /^REACT_APP_/i;
-  const processEnv = Object
-    .keys(process.env)
-    .filter(key => REACT_APP.test(key))
-    .reduce((env, key) => {
-      env[key] = JSON.stringify(process.env[key]);
-
-      return env;
-    }, {
-      'NODE_ENV': JSON.stringify(
-        process.env.NODE_ENV || 'development'
-      ),
-    });
-
-  return {'process.env': processEnv};
-};
+import paths from './config/paths';
+import env from './config/env';
 
 export default {
   devtool: 'cheap-module-source-map',

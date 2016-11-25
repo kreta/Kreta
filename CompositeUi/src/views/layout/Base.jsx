@@ -31,7 +31,7 @@ export default class extends React.Component {
 
   render() {
     if (this.props.fetching) {
-      return <LoadingSpinner/>
+      return <LoadingSpinner/>;
     }
 
     return (

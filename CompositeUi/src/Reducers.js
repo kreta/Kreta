@@ -10,7 +10,7 @@
 
 import {combineReducers} from 'redux';
 import {routeReducer as routing} from 'react-router-redux';
-import {reducer as form} from 'redux-form'
+import {reducer as form} from 'redux-form';
 
 import currentProject from './reducers/CurrentProject';
 import mainMenu from './reducers/MainMenu';

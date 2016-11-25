@@ -28,10 +28,8 @@ function _addNotification(state, message, type = 'success') {
 }
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
-    case ActionTypes.NOTIFICATION_REMOVE:
-      const index = state.notifications.findIndex((notification) => {
-        return notification.id === action.notification.id;
-      });
+    case ActionTypes.NOTIFICATION_REMOVE: {
+      const index = state.notifications.findIndex(notification => notification.id === action.notification.id);
 
       if (typeof index < 0) {
         return state;
@@ -43,23 +41,31 @@ export default function reducer(state = initialState, action = {}) {
           ...state.notifications.slice(index + 1)
         ]
       };
+    }
 
     // Action listeners
-    case ActionTypes.ISSUE_UPDATED:
+    case ActionTypes.ISSUE_UPDATED: {
       return _addNotification(state, 'Issue updated successfully');
+    }
 
-    case ActionTypes.PROFILE_UPDATED:
+    case ActionTypes.PROFILE_UPDATED: {
       return _addNotification(state, 'Profile updated successfully');
-    case ActionTypes.PROFILE_UPDATE_ERROR:
+    }
+
+    case ActionTypes.PROFILE_UPDATE_ERROR: {
       return _addNotification(state, 'The profile update failed, please check field errors', 'error');
+    }
 
-    case ActionTypes.CURRENT_PROJECT_ISSUE_CREATED:
+    case ActionTypes.CURRENT_PROJECT_ISSUE_CREATED: {
       return _addNotification(state, 'Issue created successfully');
+    }
 
-    case ActionTypes.PROJECTS_CREATED:
+    case ActionTypes.PROJECTS_CREATED: {
       return _addNotification(state, 'Project created successfully');
+    }
 
-    default:
+    default: {
       return state;
+    }
   }
 }

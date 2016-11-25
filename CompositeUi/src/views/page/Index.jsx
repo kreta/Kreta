@@ -24,10 +24,7 @@ import {Row, RowColumn} from './../component/Grid';
 @connect(state => ({projects: state.projects.projects}))
 export default class extends React.Component {
   render() {
-    const projectItems = this.props.projects.map((project, index) => {
-      return <ProjectPreview key={index}
-                             project={project}/>;
-    });
+    const projectItems = this.props.projects.map((project, index) => (<ProjectPreview key={index} project={project}/>));
 
     return (
       <ContentMiddleLayout>
@@ -35,20 +32,24 @@ export default class extends React.Component {
         <Row>
           <RowColumn>
             <Link to="/search">
-              <FormInput label="Search..." input={{value: ''}} meta={{touched: false, errors: false}}/>
+              <FormInput input={{value: ''}} label="Search..." meta={{touched: false, errors: false}}/>
             </Link>
           </RowColumn>
         </Row>
         <Row>
           <RowColumn medium={6}>
             <DashboardWidget title={<span>Your <strong>projects</strong></span>}
-                             actions={<Link to="/project/new"><Button color="green" size="small">Create project</Button></Link>}>
+                             actions={<Link to="/project/new">
+                               <Button color="green" size="small">Create project</Button>
+                             </Link>}>
               { projectItems }
             </DashboardWidget>
           </RowColumn>
           <RowColumn medium={6}>
             <DashboardWidget title={<span>Your <strong>organizations</strong></span>}
-                             actions={<Link to="/organization/new"><Button color="green" size="small">Create org.</Button></Link>}>
+                             actions={<Link to="/organization/new">
+                               <Button color="green" size="small">Create org.</Button>
+                             </Link>}>
             </DashboardWidget>
           </RowColumn>
         </Row>

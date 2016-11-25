@@ -10,7 +10,7 @@
 
 import './scss/app';
 
-import {browserHistory} from 'react-router'
+import {browserHistory} from 'react-router';
 import React from 'react';
 import ReactDOM from 'react-dom';
 

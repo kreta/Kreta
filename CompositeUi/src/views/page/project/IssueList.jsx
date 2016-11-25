@@ -12,7 +12,7 @@ import SettingsIcon from './../../../svg/settings';
 
 import React from 'react';
 import Mousetrap from 'mousetrap';
-import { connect } from 'react-redux';
+import {connect} from 'react-redux';
 import {routeActions} from 'react-router-redux';
 import {Link} from 'react-router';
 
@@ -129,12 +129,12 @@ export default class extends React.Component {
 
   getIssuesEl() {
     const {currentProject, params} = this.props;
-    return currentProject.issues.map((issue, index) => {
-      return <IssuePreview issue={issue}
-                           key={index}
-                           onClick={this.selectCurrentIssue.bind(this, issue)}
-                           selected={params.issueId === issue.id}/>;
-    });
+    return currentProject.issues.map((issue, index) => (
+      <IssuePreview issue={issue}
+                    key={index}
+                    onClick={this.selectCurrentIssue.bind(this, issue)}
+                    selected={params.issueId === issue.id}/>
+    ));
   }
 
   getSelectedIssueEl() {
@@ -159,7 +159,7 @@ export default class extends React.Component {
                                             text={currentProject.project.name}/>}
                       title={currentProject.project.name}>
             <InlineLink to={`/project/${currentProject.project.id}/settings`}>
-              <Icon glyph={SettingsIcon} color="green" size="small"/>Settings
+              <Icon color="green" glyph={SettingsIcon} size="small"/>Settings
             </InlineLink>
             <Link to={`/project/${params.projectId}/issue/new`}>
               <Button color="green">New issue</Button>

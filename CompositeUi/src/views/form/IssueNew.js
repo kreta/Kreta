@@ -8,9 +8,9 @@
  * file that was distributed with this source code.
  */
 
-import React from 'react'
-import {connect} from 'react-redux'
-import {Field, reduxForm} from 'redux-form'
+import React from 'react';
+import {connect} from 'react-redux';
+import {Field, reduxForm} from 'redux-form';
 
 import FormActions from './../component/FormActions';
 import FormInput from './../component/FormInput';
@@ -21,11 +21,13 @@ import SelectorOption from './../component/SelectorOption';
 import {Row, RowColumn} from './../component/Grid';
 
 const validate = (values) => {
-  const errors = {},
+  const
+    errors = {},
     requiredFields = ['title', 'description', 'project', 'assignee', 'priority'];
+
   requiredFields.forEach(field => {
     if (!values[field] || values[field] === '') {
-      errors[field] = 'Required'
+      errors[field] = 'Required';
     }
   });
 
@@ -38,18 +40,22 @@ const validate = (values) => {
       project: state.currentProject.project !== null ? state.currentProject.project.id : ''
     },
     projects: state.projects.projects
-}}))
+  }
+}))
+
 @reduxForm({form: 'IssueNew', validate})
 export default class extends React.Component {
   getProjectOptions() {
     const defaultEl = [<SelectorOption value="" text="No project selected"/>],
-          optionsEl = this.props.projects.map(project => {
-      return(<SelectorOption value={project.id}
-                      text={project.name}
-                      thumbnail={<Thumbnail image={null} text={project.name}/>}/>)
-    });
+      optionsEl = this.props.projects.map(project => {
+        return (<SelectorOption
+            text={project.name}
+            thumbnail={<Thumbnail image={null} text={project.name}/>}
+            value={project.id}/>
+        )
+      });
 
-    return [...defaultEl,...optionsEl];
+    return [...defaultEl, ...optionsEl];
   }
 
   render() {
@@ -69,18 +75,18 @@ export default class extends React.Component {
         <Row collapse>
           <RowColumn large={4} medium={6}>
             <Field name="assignee" component={Selector} tabIndex={4}>
-              <SelectorOption value=""
-                              text="Unassigned"
-                              thumbnail={<Thumbnail image={null} text=""/>}/>
-              <SelectorOption value="1"
-                              text="User 1"
-                              thumbnail={<Thumbnail image={null} text="User 1"/>}/>
+              <SelectorOption text="Unassigned"
+                              thumbnail={<Thumbnail image={null} text=""/>}
+                              value=""/>
+              <SelectorOption text="User 1"
+                              thumbnail={<Thumbnail image={null} text="User 1"/>}
+                              value="1"/>
             </Field>
           </RowColumn>
           <RowColumn large={4} medium={6}>
             <Field name="priority" component={Selector} tabIndex={5}>
-              <SelectorOption value="" text="Select one..."/>
-              <SelectorOption value="1" text="High"/>
+              <SelectorOption text="Select one..." value=""/>
+              <SelectorOption text="High" value="1"/>
             </Field>
           </RowColumn>
         </Row>

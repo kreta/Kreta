@@ -48,9 +48,9 @@ export default class extends React.Component {
       return <LoadingSpinner/>;
     }
 
-    const participants = this.props.project.participants.map((participant, index) => {
-      return <UserPreview key={index} user={participant.user}/>;
-    });
+    const participants = this.props.project.participants.map(
+      (participant, index) => <UserPreview key={index} user={participant.user}/>
+    );
 
     return (
       <div>

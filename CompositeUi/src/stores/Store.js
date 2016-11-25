@@ -8,10 +8,10 @@
  * file that was distributed with this source code.
  */
 
-import { createStore, applyMiddleware, compose } from 'redux';
+import {createStore, applyMiddleware, compose} from 'redux';
 import createLogger from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
-import { syncHistory } from 'react-router-redux';
+import {syncHistory} from 'react-router-redux';
 import reducers from '../Reducers';
 
 const loggerMiddleware = createLogger({
@@ -25,7 +25,7 @@ export default function configureStore(browserHistory) {
       reduxRouterMiddleware,
       thunkMiddleware,
       loggerMiddleware
-  ), window.devToolsExtension ? window.devToolsExtension() : f => f)(createStore);
+    ), window.devToolsExtension ? window.devToolsExtension() : f => f)(createStore);
 
   return createStoreWithMiddleware(reducers);
 }

@@ -27,7 +27,7 @@ module.exports = {
     "react"
   ],
   "rules": {
-    "arrow-body-style": ["error", "always"],
+    "arrow-body-style": ["error", "as-needed"],
     "indent": ["error", 2, {"SwitchCase": 1}],
     "linebreak-style": ["error", "unix"],
     "semi": ["error", "always"],
@@ -45,7 +45,7 @@ module.exports = {
     "eol-last": "error",
     "eqeqeq": "error",
     "func-names": "off",
-    "func-style": ["error", "declaration"],
+    "func-style": ["error", "declaration", {"allowArrowFunctions": true}],
     "generator-star": "off",
     "guard-for-in": "off",
     "handle-callback-err": "error",
@@ -166,7 +166,6 @@ module.exports = {
     "yoda": "off",
 
     // ES2015 RULES
-    "arrow-parens": "error",
     "arrow-spacing": ["error", {"before": true, "after": true}],
     "constructor-super": "error",
     "generator-star-spacing": "error",
