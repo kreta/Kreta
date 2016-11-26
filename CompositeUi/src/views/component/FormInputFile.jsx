@@ -43,7 +43,7 @@ class FormInputFile extends React.Component {
     }
 
     return (
-        <img className="form-input-file__image" src={this.state.filename}/>
+      <img className="form-input-file__image" src={this.state.filename}/>
     );
   }
 
@@ -52,7 +52,10 @@ class FormInputFile extends React.Component {
       <div className="form-input-file">
         <label htmlFor="form-input-file">
           <div className="form-input-file__image-container">
-            <div className={`form-input-file__background ${this.state.filename !== '' ? 'form-input-file__background--hidden' : ''}`}>
+            <div
+              className={`form-input-file__background ${this.state.filename !== ''
+                ? 'form-input-file__background--hidden'
+                : ''}`}>
               <Icon color="white" glyph={ImageIcon}/>
             </div>
             {this.renderImageElement()}

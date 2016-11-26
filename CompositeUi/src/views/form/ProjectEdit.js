@@ -48,11 +48,11 @@ export default class ProjectEdit extends React.Component {
             </Button>
           </div>
         </div>
-        <Field name="id" component='hidden'/>
+        <Field component="hidden" name="id"/>
         <FormInputFile filename={''}
                        name="image"
                        value=""/>
-        <Field label="Project Name" name="name" component={FormInput} tabIndex={2}/>
+        <Field component={FormInput} label="Project Name" name="name" tabIndex={2}/>
       </form>
     );
   }

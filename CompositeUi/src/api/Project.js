@@ -11,7 +11,7 @@
 import Api from './Api';
 
 class ProjectApi extends Api {
-  getProjects(query = null) {
+  getProjects() {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve([
@@ -220,12 +220,12 @@ class ProjectApi extends Api {
               }
             }
           }
-        ])
-      }, 400)
+        ]);
+      }, 400);
     });
   }
 
-  getProject(projectId, query = null) {
+  getProject() {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve(
@@ -341,8 +341,8 @@ class ProjectApi extends Api {
               }
             }
           },
-        )
-      }, 400)
+        );
+      }, 400);
     });
   }
 

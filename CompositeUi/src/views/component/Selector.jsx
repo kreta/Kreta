@@ -18,12 +18,11 @@ import NavigableList from './../component/NavigableList';
 
 class Selector extends React.Component {
   static propTypes = {
+    children: React.PropTypes.arrayOf(React.PropTypes.element),
     disabled: React.PropTypes.bool,
     label: React.PropTypes.string,
     name: React.PropTypes.string.isRequired,
-    tabIndex: React.PropTypes.number,
-    children: React.PropTypes.arrayOf(React.PropTypes.element)
-
+    tabIndex: React.PropTypes.number
   };
 
   componentWillMount() {
@@ -42,7 +41,7 @@ class Selector extends React.Component {
   getElementByValue(value) {
     let found = this.props.children[0];
     this.props.children.forEach((child) => {
-      if (child.props.value == value) {
+      if (child.props.value === value) {
         found = child;
       }
     });
@@ -82,14 +81,13 @@ class Selector extends React.Component {
     // Keeps filtered values in memory to select correct item
     this.filteredValues = [];
 
-    return this.props.children.filter((child) => {
-      return (
-        child.props.value !== '' && (
+    return this.props.children.filter((child) => (
+      child.props.value !== '' && (
         this.state.filter === '' ||
         child.props.text.toLowerCase().indexOf(
           this.state.filter.toLowerCase()) !== -1
-        ));
-    }).map((child, index) => {
+      )
+    )).map((child, index) => {
       this.filteredValues.push(child.props.value);
 
       return React.cloneElement(child, {
@@ -102,9 +100,9 @@ class Selector extends React.Component {
   }
 
   render() {
-    const { input, tabIndex } = this.props;
-
-    const selectedElement = this.getElementByValue(input.value),
+    const
+      {input, tabIndex} = this.props,
+      selectedElement = this.getElementByValue(input.value),
       classes = classnames('selector', {
         'selector--disabled': input.disabled
       }),
@@ -129,7 +127,7 @@ class Selector extends React.Component {
                        onYChanged={this.highlightItem.bind(this)}
                        ref="navigableList"
                        yLength={filteredOptions.length}>
-            {filteredOptions}
+          {filteredOptions}
         </NavigableList>
       </div>
     );

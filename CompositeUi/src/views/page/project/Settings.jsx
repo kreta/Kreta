@@ -61,12 +61,12 @@ export default class extends React.Component {
             <ProjectEdit onSubmit={this.updateProject.bind(this)}/>
           </Section>
           <Section
-            title={<span><strong>People</strong> in this project</span>}
             actions={
               <Button color="green" onClick={this.showAddParticipants.bind(this)}>
                 Add people
               </Button>
             }
+            title={<span><strong>People</strong> in this project</span>}
           >
             <div className="project-settings__participants">
               {participants}

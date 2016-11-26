@@ -32,8 +32,8 @@ class ProfileApi extends Api {
               "href": "http://kreta.test:8000/api/projects"
             }
           }
-        })
-      }, 400)
+        });
+      }, 400);
     });
   }
 

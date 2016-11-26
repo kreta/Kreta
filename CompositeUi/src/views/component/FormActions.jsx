@@ -16,5 +16,5 @@ export default props => (
   <div className="form-actions">
     {props.children}
   </div>
-)
+);
 

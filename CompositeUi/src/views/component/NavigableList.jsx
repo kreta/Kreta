@@ -14,14 +14,14 @@ import ReactDOM from 'react-dom';
 class NavigableList extends React.Component {
   static propTypes = {
     disabled: React.PropTypes.bool,
-    xSelected: React.PropTypes.number,
-    ySelected: React.PropTypes.number,
     onElementMouseEnter: React.PropTypes.func,
     onElementSelected: React.PropTypes.func,
     onXChanged: React.PropTypes.func,
     onYChanged: React.PropTypes.func,
     xLength: React.PropTypes.number,
-    yLength: React.PropTypes.number
+    xSelected: React.PropTypes.number,
+    yLength: React.PropTypes.number,
+    ySelected: React.PropTypes.number
   };
 
   static defaultProps = {
@@ -31,7 +31,6 @@ class NavigableList extends React.Component {
     xSelected: 0,
     ySelected: 0
   };
-
 
   handleNavigation(ev) {
     if (ev.which === 40) { // Down
@@ -99,28 +98,28 @@ class NavigableList extends React.Component {
   }
 
   render() {
-    const {
-      onXChanged,
-      onYChanged,
-      onElementSelected,
-      xLength,
-      yLength,
-      children,
-      classNameSelected,
-      xSelected,
-      ySelected,
-      ...otherProps
-    } = this.props;
-    
-    const wrappedItems = children.map((el, i) => (
-      <div key={i}
-           onMouseEnter={this.selectY.bind(this, i)}
-           onClick={onElementSelected}
-           className={ i === ySelected ? classNameSelected : ''}>
-        {el}
-      </div>
-    ));
-    
+    const
+      {
+//       onXChanged,
+//       onYChanged,
+        onElementSelected,
+//       xLength,
+//       yLength,
+        children,
+        classNameSelected,
+//       xSelected,
+        ySelected,
+        ...otherProps
+      } = this.props,
+      wrappedItems = children.map((el, i) => (
+        <div className={ i === ySelected ? classNameSelected : ''}
+             key={i}
+             onClick={onElementSelected}
+             onMouseEnter={this.selectY.bind(this, i)}>
+          {el}
+        </div>
+      ));
+
     return <div {...otherProps}>{wrappedItems}</div>;
   }
 }

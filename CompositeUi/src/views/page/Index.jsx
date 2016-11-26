@@ -38,18 +38,20 @@ export default class extends React.Component {
         </Row>
         <Row>
           <RowColumn medium={6}>
-            <DashboardWidget title={<span>Your <strong>projects</strong></span>}
-                             actions={<Link to="/project/new">
-                               <Button color="green" size="small">Create project</Button>
-                             </Link>}>
+            <DashboardWidget
+              actions={<Link to="/project/new">
+                <Button color="green" size="small">Create project</Button>
+              </Link>}
+              title={<span>Your <strong>projects</strong></span>}>
               { projectItems }
             </DashboardWidget>
           </RowColumn>
           <RowColumn medium={6}>
-            <DashboardWidget title={<span>Your <strong>organizations</strong></span>}
-                             actions={<Link to="/organization/new">
-                               <Button color="green" size="small">Create org.</Button>
-                             </Link>}>
+            <DashboardWidget
+              actions={<Link to="/organization/new">
+                <Button color="green" size="small">Create org.</Button>
+              </Link>}
+              title={<span>Your <strong>organizations</strong></span>}>
             </DashboardWidget>
           </RowColumn>
         </Row>

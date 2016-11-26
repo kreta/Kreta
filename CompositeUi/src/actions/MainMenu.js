@@ -11,22 +11,16 @@
 import ActionTypes from './../constants/ActionTypes';
 
 const Actions = {
-  showProjects: () => {
-    return {
-      type: ActionTypes.MAIN_MENU_SHOW_PROJECTS
-    };
-  },
-  hideProjects: () => {
-    return {
-      type: ActionTypes.MAIN_MENU_HIDE_PROJECTS
-    };
-  },
-  highlightProject: (project) => {
-    return {
-      type: ActionTypes.MAIN_MENU_HIGHLIGHT_PROJECT,
-      highlightedProject: project
-    };
-  }
+  showProjects: () => ({
+    type: ActionTypes.MAIN_MENU_SHOW_PROJECTS
+  }),
+  hideProjects: () => ({
+    type: ActionTypes.MAIN_MENU_HIDE_PROJECTS
+  }),
+  highlightProject: (project) => ({
+    type: ActionTypes.MAIN_MENU_HIGHLIGHT_PROJECT,
+    highlightedProject: project
+  })
 };
 
 export default Actions;

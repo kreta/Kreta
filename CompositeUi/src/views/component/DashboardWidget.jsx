@@ -16,15 +16,15 @@ import SectionHeader from './SectionHeader';
 
 export default class extends React.Component {
   static propTypes = {
-    title: React.PropTypes.oneOf([React.PropTypes.string, React.PropTypes.element]),
-    actions: React.PropTypes.element
+    actions: React.PropTypes.element,
+    title: React.PropTypes.oneOf([React.PropTypes.string, React.PropTypes.element])
   };
 
   render() {
     const {title, children, actions, ...otherProps} = this.props;
     return (
-      <div className='dashboard-widget' {...otherProps}>
-        <SectionHeader title={title} actions={actions}/>
+      <div className="dashboard-widget" {...otherProps}>
+        <SectionHeader actions={actions} title={title}/>
         {children}
       </div>
     );

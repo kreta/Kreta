@@ -11,17 +11,17 @@
 import React from 'react';
 import classnames from 'classnames';
 
-import '../../scss/components/_selector-option';
+import './../../scss/components/_selector-option';
 
 class SelectorOption extends React.Component {
   static propTypes = {
     alignLeft: React.PropTypes.bool,
     fieldHovered: React.PropTypes.func,
     fieldSelected: React.PropTypes.func,
-    thumbnail: React.PropTypes.element,
     label: React.PropTypes.string,
     selected: React.PropTypes.bool,
     text: React.PropTypes.string.isRequired,
+    thumbnail: React.PropTypes.element,
     value: React.PropTypes.string.isRequired
   };
 
@@ -34,7 +34,7 @@ class SelectorOption extends React.Component {
     );
 
     let thumbnail = '';
-    if(this.props.thumbnail) {
+    if (this.props.thumbnail) {
       thumbnail = (
         <div className="selector-option__thumbnail">
           {this.props.thumbnail}
@@ -52,6 +52,6 @@ class SelectorOption extends React.Component {
       </div>
     );
   }
-};
+}
 
 export default SelectorOption;

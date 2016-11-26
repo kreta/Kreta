@@ -21,8 +21,7 @@ import ProjectActions from './../../../actions/CurrentProject';
 
 @connect(state => ({currentProject: state.currentProject}))
 class Show extends React.Component {
-  updateIssue(ev) {
-    ev.preventDefault();
+  updateIssue(issue) {
     this.props.dispatch(ProjectActions.updateIssue(issue));
   }
 

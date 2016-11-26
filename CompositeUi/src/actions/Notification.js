@@ -11,17 +11,13 @@
 import ActionTypes from './../constants/ActionTypes';
 
 const Actions = {
-  removeOldNotifications: () => {
-    return {
-      type: ActionTypes.NOTIFICATION_REMOVE_OLD
-    };
-  },
-  removeNotification: (notification) => {
-    return {
-      type: ActionTypes.NOTIFICATION_REMOVE,
-      notification
-    };
-  }
+  removeOldNotifications: () => ({
+    type: ActionTypes.NOTIFICATION_REMOVE_OLD
+  }),
+  removeNotification: (notification) => ({
+    type: ActionTypes.NOTIFICATION_REMOVE,
+    notification
+  })
 };
 
 export default Actions;

@@ -11,7 +11,7 @@
 import Api from './Api';
 
 class IssueApi extends Api {
-  getIssues(query = null) {
+  getIssues() {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve([
@@ -299,11 +299,11 @@ class IssueApi extends Api {
             }
           }
         ]);
-      }, 400)
+      }, 400);
     });
   }
 
-  getIssue(issueId, query = null) {
+  getIssue() {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve({
@@ -375,7 +375,7 @@ class IssueApi extends Api {
               "href": "http://kreta.test:8000/api/issues"
             }
           }
-        })
+        });
       }, 400);
     });
   }

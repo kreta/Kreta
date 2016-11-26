@@ -10,7 +10,7 @@
 
 import React from 'react';
 
-import '../../scss/components/_section-header.scss';
+import './../../scss/components/_section-header';
 
 export default props => (
   <div className="section__header">
@@ -21,4 +21,4 @@ export default props => (
       {props.actions}
     </div>
   </div>
-)
+);

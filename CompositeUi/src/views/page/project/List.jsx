@@ -54,11 +54,9 @@ export default class extends React.Component {
   }
 
   filterProjects(value) {
-    const filteredProjects = this.props.projects.filter(project => {
-      return value.length === 0 ||
-        (project.name.indexOf(value) > -1 ||
-        project.organization.name.indexOf(value) > -1);
-    });
+    const filteredProjects = this.props.projects.filter(project => (
+      value.length === 0 || (project.name.indexOf(value) > -1 || project.organization.name.indexOf(value) > -1)
+    ));
     this.setState({
       filteredProjects,
       selectedProject: 0
@@ -76,7 +74,9 @@ export default class extends React.Component {
   goToShortcutLink(index) {
     const shortcutLinks = ['/', '/issue/new'];
     this.props.dispatch(
-      routeActions.push(`/project/${this.state.filteredProjects[this.state.selectedProject].id}${shortcutLinks[index]}`)
+      routeActions.push(
+        `/project/${this.state.filteredProjects[this.state.selectedProject].id}${shortcutLinks[index]}`
+      )
     );
     this.triggerOnProjectSelected();
   }
@@ -94,10 +94,10 @@ export default class extends React.Component {
       <div className="project-preview__header">
         <Row>
           <RowColumn small={9}>
-            <ShortcutHelp keyboard="← →" does="to select action"/>
-            <ShortcutHelp keyboard="↑ ↓" does="to select project"/>
-            <ShortcutHelp keyboard="↵" does="go to project"/>
-            <ShortcutHelp keyboard="esc" does="to dismiss"/>
+            <ShortcutHelp does="to select action" keyboard="← →"/>
+            <ShortcutHelp does="to select project" keyboard="↑ ↓"/>
+            <ShortcutHelp does="go to project" keyboard="↵"/>
+            <ShortcutHelp does="to dismiss" keyboard="esc"/>
           </RowColumn>
           <RowColumn small={3}>
             <Link to="/project/new">
@@ -113,31 +113,30 @@ export default class extends React.Component {
     );
   }
 
-  getProjectItems()
-  {
-    return this.state.filteredProjects.map((project, index) => {
-      return <ProjectPreview key={index}
-                             project={project}
-                             shortcuts={
-                               <div>
-                                 <Icon className={classNames({
-                                   'project-preview__shortcut': true,
-                                   'project-preview__shortcut--selected': 0 === this.state.selectedShortcut
-                                 })}
-                                       glyph={ListIcon}
-                                       onClick={this.goToShortcutLink.bind(this, 0)}
-                                       onMouseEnter={this.changeSelectedShortcut.bind(this, 0)}/>
-                                 <Icon className={classNames({
-                                   'project-preview__shortcut': true,
-                                   'project-preview__shortcut--selected': 1 === this.state.selectedShortcut
-                                 })}
-                                       glyph={AddIcon}
-                                       onClick={this.goToShortcutLink.bind(this, 1)}
-                                       onMouseEnter={this.changeSelectedShortcut.bind(this, 1)}/>
-                               </div>
-                             }/>;
+  getProjectItems() {
+    return this.state.filteredProjects.map((project, index) => (
+      <ProjectPreview key={index}
+                      project={project}
+                      shortcuts={
+                        <div>
+                          <Icon className={classNames({
+                            'project-preview__shortcut': true,
+                            'project-preview__shortcut--selected': 0 === this.state.selectedShortcut
+                          })}
+                                glyph={ListIcon}
+                                onClick={this.goToShortcutLink.bind(this, 0)}
+                                onMouseEnter={this.changeSelectedShortcut.bind(this, 0)}/>
+                          <Icon className={classNames({
+                            'project-preview__shortcut': true,
+                            'project-preview__shortcut--selected': 1 === this.state.selectedShortcut
+                          })}
+                                glyph={AddIcon}
+                                onClick={this.goToShortcutLink.bind(this, 1)}
+                                onMouseEnter={this.changeSelectedShortcut.bind(this, 1)}/>
+                        </div>
+                      }/>
 
-    });
+    ));
   }
 
   render() {
@@ -155,10 +154,10 @@ export default class extends React.Component {
                        onXChanged={this.changeSelectedShortcut.bind(this)}
                        onYChanged={this.changeSelectedRow.bind(this)}
                        ref="navigableList"
-                       xSelected={this.state.selectedShortcut}
-                       ySelected={this.state.selectedProject}
                        xLength={2}
-                       yLength={this.state.filteredProjects.length}>
+                       xSelected={this.state.selectedShortcut}
+                       yLength={this.state.filteredProjects.length}
+                       ySelected={this.state.selectedProject}>
           { this.getProjectItems() }
         </NavigableList>
       </div>
