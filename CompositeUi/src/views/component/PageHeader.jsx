@@ -31,7 +31,7 @@ class PageHeader extends React.Component {
       return (
         <Link className="page-header__link" to={link.href}>
           <Icon className={classes}
-          glyph={link.icon}/>
+                glyph={link.icon}/>
           {link.title}
         </Link>
       );
@@ -39,15 +39,13 @@ class PageHeader extends React.Component {
   }
 
   renderButtons() {
-    return this.props.buttons.map((button) => {
-      return (
-        <Link className="page-header__link" to={button.href}>
-          <Button color="green">
-            {button.title}
-          </Button>
-        </Link>
-      );
-    });
+    return this.props.buttons.map((button) => (
+      <Link className="page-header__link" to={button.href}>
+        <Button color="green">
+          {button.title}
+        </Button>
+      </Link>
+    ));
   }
 
   render() {

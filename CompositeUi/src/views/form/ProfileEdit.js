@@ -8,9 +8,9 @@
  * file that was distributed with this source code.
  */
 
-import React from 'react'
-import {connect} from 'react-redux'
-import {Field, reduxForm} from 'redux-form'
+import React from 'react';
+import {connect} from 'react-redux';
+import {Field, reduxForm} from 'redux-form';
 
 import FormActions from './../component/FormActions';
 import FormInput from './../component/FormInput';
@@ -22,15 +22,15 @@ const validate = (values) => {
     requiredFields = ['first_name', 'last_name', 'username'];
   requiredFields.forEach(field => {
     if (!values[field]) {
-      errors[field] = 'Required'
+      errors[field] = 'Required';
     }
   });
 
   return errors;
 };
 
-@connect(state => (state => ({initialValues: state.profile.profile})))
-@reduxForm({ form: 'profileEdit', validate })
+@connect(state => ({initialValues: state.profile.profile}))
+@reduxForm({form: 'profileEdit', validate})
 export default class extends React.Component {
   render() {
     const {handleSubmit} = this.props;
@@ -39,16 +39,16 @@ export default class extends React.Component {
       <form onSubmit={handleSubmit}>
         <Row>
           <RowColumn>
-            {/*<FormInputFile filename={user.photo ? user.photo.name : ''} name="photo" value=""/>*/}
-            <Field label="First Name" name="first_name" component={FormInput} tabIndex={2}/>
-            <Field label="Last Name" name="last_name" component={FormInput} tabIndex={3}/>
-            <Field label="Username" name="username" component={FormInput} tabIndex={4}/>
+            {/* <FormInputFile filename={user.photo ? user.photo.name : ''} name="photo" value=""/> */}
+            <Field component={FormInput} label="First Name" name="first_name" tabIndex={2}/>
+            <Field component={FormInput} label="Last Name" name="last_name" tabIndex={3}/>
+            <Field component={FormInput} label="Username" name="username" tabIndex={4}/>
             <FormActions>
               <Button color="green" type="submit">Update</Button>
             </FormActions>
           </RowColumn>
         </Row>
       </form>
-    )
+    );
   }
 }

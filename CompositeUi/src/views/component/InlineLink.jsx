@@ -9,16 +9,16 @@
  */
 
 import React from 'react';
-
 import {Link} from 'react-router';
 
-import '../../scss/components/_inline-link';
+import './../../scss/components/_inline-link';
 
 export default props => {
   const {children, ...otherProps} = props;
+
   return (
     <Link {...otherProps} className="inline-link">
       {children}
     </Link>
   );
-}
+};

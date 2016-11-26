@@ -34,26 +34,24 @@ const validate = (values) => {
   return errors;
 };
 
-@connect(state => (state => {
-  return {
-    initialValues: {
-      project: state.currentProject.project !== null ? state.currentProject.project.id : ''
-    },
-    projects: state.projects.projects
-  }
+@connect(state => ({
+  initialValues: {
+    project: state.currentProject.project !== null ? state.currentProject.project.id : ''
+  },
+  projects: state.projects.projects
 }))
 
 @reduxForm({form: 'IssueNew', validate})
 export default class extends React.Component {
   getProjectOptions() {
-    const defaultEl = [<SelectorOption value="" text="No project selected"/>],
-      optionsEl = this.props.projects.map(project => {
-        return (<SelectorOption
+    const defaultEl = [<SelectorOption text="No project selected" value=""/>],
+      optionsEl = this.props.projects.map(project => (
+          <SelectorOption
             text={project.name}
             thumbnail={<Thumbnail image={null} text={project.name}/>}
             value={project.id}/>
         )
-      });
+      );
 
     return [...defaultEl, ...optionsEl];
   }
@@ -65,16 +63,16 @@ export default class extends React.Component {
       <form onSubmit={handleSubmit}>
         <Row>
           <RowColumn>
-            <Field name="project" component={Selector} tabIndex={1}>
+            <Field component={Selector} name="project" tabIndex={1}>
               {this.getProjectOptions()}
             </Field>
-            <Field label="Title" name="title" component={FormInput} tabIndex={2} autoFocus/>
-            <Field label="Description" name="description" component={FormInput} tabIndex={3}/>
+            <Field autoFocus component={FormInput} label="Title" name="title" tabIndex={2}/>
+            <Field component={FormInput} label="Description" name="description" tabIndex={3}/>
           </RowColumn>
         </Row>
         <Row collapse>
           <RowColumn large={4} medium={6}>
-            <Field name="assignee" component={Selector} tabIndex={4}>
+            <Field component={Selector} name="assignee" tabIndex={4}>
               <SelectorOption text="Unassigned"
                               thumbnail={<Thumbnail image={null} text=""/>}
                               value=""/>
@@ -84,7 +82,7 @@ export default class extends React.Component {
             </Field>
           </RowColumn>
           <RowColumn large={4} medium={6}>
-            <Field name="priority" component={Selector} tabIndex={5}>
+            <Field component={Selector} name="priority" tabIndex={5}>
               <SelectorOption text="Select one..." value=""/>
               <SelectorOption text="High" value="1"/>
             </Field>
@@ -98,6 +96,6 @@ export default class extends React.Component {
           </RowColumn>
         </Row>
       </form>
-    )
+    );
   }
-};
+}

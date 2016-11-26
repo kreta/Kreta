@@ -18,7 +18,7 @@ export default React.createClass({
     onFilterSelected: React.PropTypes.func.isRequired
   },
   selectFilterItem($item) {
-    var itemGroup = $item.parent().index();
+    const itemGroup = $item.parent().index();
 
     $item.parent().find('a').removeClass('selected');
     $item.addClass('selected');
@@ -36,15 +36,13 @@ export default React.createClass({
     this.props.onFilterSelected(this.props.filters);
   },
   render() {
-    var filtersEl = this.props.filters.map((filter) => {
-      var groupFilters = filter.map((item) => {
-        return (
-          <a className={`filter-item ${ item.selected ? 'selected' : ''} `}
-             data-filter={ item.filter }
-             data-value={ item.value }
-             onClick={this.filterSelected}>{item.title}</a>
-        );
-      });
+    const filtersEl = this.props.filters.map((filter) => {
+      const groupFilters = filter.map((item) => (
+        <a className={`filter-item ${ item.selected ? 'selected' : ''} `}
+           data-filter={ item.filter }
+           data-value={ item.value }
+           onClick={this.filterSelected}>{item.title}</a>
+      ));
       return <div className="filter-group">{groupFilters}</div>;
     });
 

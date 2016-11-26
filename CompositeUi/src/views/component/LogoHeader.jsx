@@ -15,8 +15,8 @@ import LogoFullIcon from './../../svg/logo-full.svg';
 
 import Icon from './Icon';
 
-export default props => (
+export default (
   <div className="logo-header">
     <Icon glyph={LogoFullIcon}/>
   </div>
-)
+);

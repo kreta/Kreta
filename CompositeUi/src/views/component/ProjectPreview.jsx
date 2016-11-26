@@ -30,9 +30,9 @@ class ProjectPreview extends React.Component {
   render() {
     const {onMouseEnter, onTitleClick, project, shortcuts, selected} = this.props,
       classes = classNames({
-      'project-preview': true,
-      'project-preview--selected': selected
-    });
+        'project-preview': true,
+        'project-preview--selected': selected
+      });
 
     return (
       <div className={classes} onMouseEnter={onMouseEnter}>

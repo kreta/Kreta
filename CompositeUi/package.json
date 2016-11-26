@@ -107,7 +107,6 @@
     "precss": "^1.4.0",
     "react-addons-test-utils": "^15.0",
     "react-dev-utils": "^0.3.0",
-    "react-scripts": "^0.7.0",
     "resolve-url-loader": "^1.6.0",
     "sass-loader": "^4.0.2",
     "source-map": "^0.5",

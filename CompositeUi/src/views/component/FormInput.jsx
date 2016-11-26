@@ -8,14 +8,15 @@
  * file that was distributed with this source code.
  */
 
-import '../../scss/components/_form.scss';
+import './../../scss/components/_form.scss';
 
 import React from 'react';
 import classnames from 'classnames';
 
 class FormInput extends React.Component {
   getInputField() {
-    const { input, label, meta: { touched, error }, ...custom } = this.props,
+    const
+      {input, ...custom} = this.props,
       inputClasses = classnames('form-input__input', {
         'form-input__input--filled': input.value.length > 0
       });
@@ -32,7 +33,8 @@ class FormInput extends React.Component {
   }
 
   render() {
-    const { input, label, meta: { touched, error }, ...custom } = this.props,
+    const
+      {input, label, meta: {touched, error}} = this.props,
       rootClasses = classnames('form-input', {
         'form-input--error': touched && error,
         'form-input--success': input.value.length > 0 && !error
@@ -48,11 +50,11 @@ class FormInput extends React.Component {
     );
   }
 
-  blur () {
+  blur() {
     this.refs.input.blur();
   }
 
-  focus () {
+  focus() {
     this.refs.input.focus();
   }
 }

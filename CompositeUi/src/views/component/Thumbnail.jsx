@@ -25,8 +25,8 @@ class Thumbnail extends React.Component {
       );
     }
 
-    let spacePosition = this.props.text.indexOf(' '),
-      resultChar = '';
+    const spacePosition = this.props.text.indexOf(' ');
+    let resultChar = '';
 
     if (spacePosition === -1) {
       resultChar = this.props.text.substring(0, 2);
