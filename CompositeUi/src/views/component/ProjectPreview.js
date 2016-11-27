@@ -20,7 +20,10 @@ class ProjectPreview extends React.Component {
     onTitleClick: React.PropTypes.func,
     project: React.PropTypes.object.isRequired,
     selected: React.PropTypes.bool,
-    shortcuts: React.PropTypes.element
+    shortcuts: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.element
+    ])
   };
 
   static defaultProps = {

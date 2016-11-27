@@ -12,7 +12,7 @@ import React from 'react';
 
 import './../../scss/components/_section-header';
 
-export default props => (
+const SectionHeader = props => (
   <div className="section__header">
     <h3 className="section__header-title">
       {props.title}
@@ -22,3 +22,5 @@ export default props => (
     </div>
   </div>
 );
+
+export default SectionHeader;

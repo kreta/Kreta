@@ -17,11 +17,15 @@ import SectionHeader from './SectionHeader';
 class DashboardWidget extends React.Component {
   static propTypes = {
     actions: React.PropTypes.element,
-    title: React.PropTypes.oneOf([React.PropTypes.string, React.PropTypes.element])
+    title: React.PropTypes.oneOf([
+      React.PropTypes.string,
+      React.PropTypes.element,
+    ])
   };
 
   render() {
     const {title, children, actions, ...otherProps} = this.props;
+
     return (
       <div className="dashboard-widget" {...otherProps}>
         <SectionHeader actions={actions} title={title}/>
