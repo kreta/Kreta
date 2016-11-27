@@ -15,7 +15,7 @@ import React from 'react';
 
 import Icon from './../component/Icon';
 
-export default class extends React.Component {
+class ContentRightLayout extends React.Component {
   static propTypes = {
     isOpen: React.PropTypes.bool.isRequired,
     onRequestClose: React.PropTypes.func
@@ -43,3 +43,5 @@ export default class extends React.Component {
     );
   }
 }
+
+export default ContentRightLayout;

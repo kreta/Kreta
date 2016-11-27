@@ -100,14 +100,14 @@ class NavigableList extends React.Component {
   render() {
     const
       {
-//       onXChanged,
-//       onYChanged,
+        onXChanged, // eslint-disable-line no-unused-vars
+        onYChanged, // eslint-disable-line no-unused-vars
         onElementSelected,
-//       xLength,
-//       yLength,
+        xLength, // eslint-disable-line no-unused-vars
+        yLength, // eslint-disable-line no-unused-vars
         children,
         classNameSelected,
-//       xSelected,
+        xSelected, // eslint-disable-line no-unused-vars
         ySelected,
         ...otherProps
       } = this.props,

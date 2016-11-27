@@ -10,13 +10,13 @@
 
 import React from 'react';
 
-import Login from './../form/Login';
+import {Login as LoginForm} from './../form/Login';
 import LogoHeader from './../component/LogoHeader';
 
 import ContentLayout from './../layout/ContentLayout';
 import ContentMiddleLayout from './../layout/ContentMiddleLayout';
 
-export default class extends React.Component {
+class Login extends React.Component {
   login(credentials) {
     console.log(`Login tried by ${credentials.username}`);
   }
@@ -26,9 +26,11 @@ export default class extends React.Component {
       <ContentLayout>
         <ContentMiddleLayout>
           <LogoHeader/>
-          <Login onSubmit={this.login.bind(this)}/>
+          <LoginForm onSubmit={this.login.bind(this)}/>
         </ContentMiddleLayout>
       </ContentLayout>
     );
   }
 }
+
+export default Login;

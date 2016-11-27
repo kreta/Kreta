@@ -25,14 +25,14 @@ import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
 import ContentRightLayout from './../../layout/ContentRightLayout';
 import IssuePreview from './../../component/IssuePreview';
 import IssueShow from './../issue/Show';
-import LoadingSpinner from './../../component/LoadingSpinner.jsx';
+import LoadingSpinner from './../../component/LoadingSpinner';
 import PageHeader from './../../component/PageHeader';
 import Thumbnail from './../../component/Thumbnail';
 import InlineLink from './../../component/InlineLink';
-import CurrentProjectActions from '../../../actions/CurrentProject';
+import CurrentProjectActions from './../../../actions/CurrentProject';
 
 @connect(state => ({currentProject: state.currentProject}))
-export default class extends React.Component {
+class IssueList extends React.Component {
   componentDidMount() {
     const {params, dispatch} = this.props;
     Mousetrap.bind(Config.shortcuts.issueNew, () => {
@@ -177,3 +177,5 @@ export default class extends React.Component {
     );
   }
 }
+
+export default IssueList;

@@ -14,7 +14,7 @@ import React from 'react';
 
 import SectionHeader from './SectionHeader';
 
-export default class extends React.Component {
+class DashboardWidget extends React.Component {
   static propTypes = {
     actions: React.PropTypes.element,
     title: React.PropTypes.oneOf([React.PropTypes.string, React.PropTypes.element])
@@ -30,3 +30,5 @@ export default class extends React.Component {
     );
   }
 }
+
+export default DashboardWidget;

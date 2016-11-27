@@ -16,13 +16,12 @@ import {connect} from 'react-redux';
 import ContentLayout from './ContentLayout';
 import MainMenu from './MainMenu';
 import NotificationLayout from './NotificationLayout';
-
-import ProjectActions from '../../actions/Projects';
-import ProfileActions from '../../actions/Profile';
-import LoadingSpinner from '../component/LoadingSpinner';
+import LoadingSpinner from './../component/LoadingSpinner';
+import ProfileActions from './../../actions/Profile';
+import ProjectActions from './../../actions/Projects';
 
 @connect(state => ({fetching: state.projects.fetching || state.profile.fetching}))
-export default class extends React.Component {
+class Base extends React.Component {
   componentDidMount() {
     const {dispatch} = this.props;
     dispatch(ProjectActions.fetchProjects());
@@ -45,3 +44,5 @@ export default class extends React.Component {
     );
   }
 }
+
+export default Base;

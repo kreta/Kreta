@@ -33,11 +33,11 @@ class Notification extends React.Component {
     return (
       <div className={classes}>
         <div className="notification__icon">
-          <i className="fa fa-exclamation-circle"></i>
+          <i className="fa fa-exclamation-circle"/>
         </div>
         <p className="notification__message">{this.props.notification.message}</p>
         <i className="notification__hide fa fa-times"
-           onClick={this.triggerOnCloseRequest.bind(this)}></i>
+           onClick={this.triggerOnCloseRequest.bind(this)}/>
       </div>
     );
   }

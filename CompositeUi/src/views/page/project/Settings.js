@@ -21,12 +21,12 @@ import Section from './../../component/Section';
 import Thumbnail from './../../component/Thumbnail';
 import SettingsParticipants from './SettingsParticipants';
 import UserPreview from './../../component/UserPreview';
-import LoadingSpinner from '../../component/LoadingSpinner.jsx';
-import CurrentProjectActions from '../../../actions/CurrentProject';
-import PageHeader from '../../component/PageHeader';
+import LoadingSpinner from './../../component/LoadingSpinner';
+import CurrentProjectActions from './../../../actions/CurrentProject';
+import PageHeader from './../../component/PageHeader';
 
 @connect(state => ({project: state.currentProject.project}))
-export default class extends React.Component {
+class Settings extends React.Component {
   state = {
     addParticipantsVisible: false
   };
@@ -84,3 +84,5 @@ export default class extends React.Component {
     );
   }
 }
+
+export default Settings;

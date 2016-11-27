@@ -12,10 +12,10 @@ import React from 'react';
 import {connect} from 'react-redux';
 import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
 import IssueNew from './../../form/IssueNew';
-import CurrentProjectActions from '../../../actions/CurrentProject';
+import CurrentProjectActions from './../../../actions/CurrentProject';
 
 @connect()
-export default class extends React.Component {
+class New extends React.Component {
   createIssue(issue) {
     this.props.dispatch(CurrentProjectActions.createIssue(issue));
   }
@@ -28,3 +28,5 @@ export default class extends React.Component {
     );
   }
 }
+
+export default New;

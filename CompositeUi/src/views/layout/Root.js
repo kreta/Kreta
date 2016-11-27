@@ -15,7 +15,7 @@ import invariant from 'invariant';
 import {RoutingContext} from 'react-router';
 import routes from './../../Routes';
 
-export default class Root extends React.Component {
+class Root extends React.Component {
   _renderRouter() {
     invariant(
       this.props.routingContext || this.props.routerHistory,
@@ -41,3 +41,5 @@ export default class Root extends React.Component {
     );
   }
 }
+
+export default Root;

@@ -11,9 +11,9 @@
 import React from 'react';
 import {Field, reduxForm} from 'redux-form';
 
+import Button from './../component/Button';
 import FormActions from './../component/FormActions';
 import FormInput from './../component/FormInput';
-import Button from './../component/Button';
 import {Row, RowColumn} from './../component/Grid';
 
 const validate = (values) => {
@@ -31,7 +31,7 @@ const validate = (values) => {
 };
 
 @reduxForm({form: 'Login', validate})
-export default class extends React.Component {
+class Login extends React.Component {
   render() {
     const {handleSubmit} = this.props;
 
@@ -50,3 +50,5 @@ export default class extends React.Component {
     );
   }
 }
+
+export default Login;
