@@ -9,38 +9,17 @@
 version: '2'
 
 services:
-    dbdata:
-        image: busybox
-        volumes:
-            - /var/lib/mysql
-
-    appdata:
-        image: busybox
-        volumes:
-            - ${SYMFONY_APP_PATH}:/var/www/symfony
-            - /var/www/symfony/IdentityAccess/var/logs
-            - /var/www/symfony/TaskManager/var/logs
-            - /vendor
-            - ~/.ssh/id_rsa:/root/.ssh/id_rsa:ro
-            - ~/.composer:/root/.composer
-            - /tmpfs
-
     db:
         image: mysql
         ports:
             - 3306:3306
-        volumes_from:
-            - dbdata
+        volumes:
+            - ./data/mysql:/var/lib/mysql
         environment:
             MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
             MYSQL_DATABASE: ${MYSQL_DATABASE}
             MYSQL_USER: ${MYSQL_USER}
             MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-
-    redis:
-        image: redis:alpine
-        ports:
-            - 6379:6379
 
     rabbitmq:
         image: rabbitmq:3.6.5-management
@@ -51,36 +30,39 @@ services:
             RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
             RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
 
-    php:
+    task_manager:
         build: php7-fpm
         ports:
             - 9000:9000
         environment:
-            SYMFONY_ENV: ${SYMFONY_ENV}
+            TASK_MANAGER_DOMAIN: ${TASK_MANAGER_DOMAIN}
         links:
             - db
-            - redis
-        volumes_from:
-            - appdata
+        volumes:
+            - ../../TaskManager:/var/www/${TASK_MANAGER_DOMAIN}
+            - ./data/logs/task_manager:/var/www/${TASK_MANAGER_ENV}/var/logs
+
+    identity_access:
+        build: php7-fpm
+        ports:
+            - 9001:9001
+        environment:
+            IDENTITY_ACCESS_DOMAIN: ${IDENTITY_ACCESS_DOMAIN}
+        links:
+            - db
+        volumes:
+            - ../../IdentityAccess:/var/www/${IDENTITY_ACCESS_DOMAIN}
+            - ./data/logs/identity_access:/var/www/${IDENTITY_ACCESS_DOMAIN}/var/logs
 
     nginx:
         build: nginx
         ports:
             - 80:80
         links:
-            - php
+            - task_manager
+            - identity_access
         volumes_from:
-            - php
+            - task_manager
+            - identity_access
         volumes:
-            - ./logs/nginx/:/var/log/nginx
-
-    elk:
-        image: willdurand/elk
-        ports:
-            - 81:80
-        volumes:
-            - ./elk/logstash:/etc/logstash
-            - ./elk/logstash/patterns:/opt/logstash/patterns
-        volumes_from:
-            - appdata
-            - nginx
+            - ./data/logs/nginx/:/var/log/nginx

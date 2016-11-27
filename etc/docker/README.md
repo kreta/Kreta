@@ -56,7 +56,7 @@ It provides the following containers:
             task_manager_database_user: root
             task_manager_database_password: root
         ```
-        
+
     3. Composer install & create database
 
         ```bash
@@ -71,7 +71,7 @@ It provides the following containers:
 
 Just run `docker-compose -d`, then:
 
-* Symfony app: visit [kreta.localhost](http://kreta.localhost)  
+* Symfony app: visit [kreta.localhost](http://kreta.localhost)
 * Logs (Kibana): [kreta.localhost:81](http://kreta.localhost:81)
 
 ## How it works?
@@ -91,16 +91,16 @@ This results in the following running containers:
 
 ```bash
 $ docker-compose ps
-      Name                     Command               State                                              Ports                                            
+      Name                     Command               State                                              Ports
 --------------------------------------------------------------------------------------------------------------------------------------------------------
-docker_appdata_1    sh                               Exit 0                                                                                              
-docker_db_1         docker-entrypoint.sh mysqld      Up       0.0.0.0:3306->3306/tcp                                                                     
-docker_dbdata_1     sh                               Exit 0                                                                                              
-docker_elk_1        /usr/bin/supervisord -n -c ...   Up       0.0.0.0:81->80/tcp                                                                         
-docker_nginx_1      nginx                            Up       443/tcp, 0.0.0.0:80->80/tcp                                                                
-docker_php_1        php-fpm                          Up       0.0.0.0:9000->9000/tcp                                                                     
-docker_rabbitmq_1   docker-entrypoint.sh rabbi ...   Up       15671/tcp, 0.0.0.0:15672->15672/tcp, 25672/tcp, 4369/tcp, 5671/tcp, 0.0.0.0:5672->5672/tcp 
-docker_redis_1      docker-entrypoint.sh redis ...   Up       0.0.0.0:6379->6379/tcp       
+docker_appdata_1    sh                               Exit 0
+docker_db_1         docker-entrypoint.sh mysqld      Up       0.0.0.0:3306->3306/tcp
+docker_dbdata_1     sh                               Exit 0
+docker_elk_1        /usr/bin/supervisord -n -c ...   Up       0.0.0.0:81->80/tcp
+docker_nginx_1      nginx                            Up       443/tcp, 0.0.0.0:80->80/tcp
+docker_php_1        php-fpm                          Up       0.0.0.0:9000->9000/tcp
+docker_rabbitmq_1   docker-entrypoint.sh rabbi ...   Up       15671/tcp, 0.0.0.0:15672->15672/tcp, 25672/tcp, 4369/tcp, 5671/tcp, 0.0.0.0:5672->5672/tcp
+docker_redis_1      docker-entrypoint.sh redis ...   Up       0.0.0.0:6379->6379/tcp
 ```
 
 ## Useful commands
@@ -139,7 +139,7 @@ $ docker rmi $(docker images -q)
 * Database requires root connection to create multiple databases
 * Logs, cache and sessions cannot be written due to permission issues, change `var` folder permissions to 777
 * Symfony app vendor folder needs to be symlinked manually inside the php container. Run `ln -sf /vendor ./vendor` and
-run `composer install` from inside the container 
+run `composer install` from inside the container
 
 ## FAQ
 
