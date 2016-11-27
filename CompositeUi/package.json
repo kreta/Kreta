@@ -1,0 +1,121 @@
+{
+  "name": "kreta-composite-ui",
+  "description": "Composite UI Bounded Context of Kreta",
+  "keywords": [
+    "project",
+    "manager",
+    "development",
+    "tool",
+    "bc",
+    "composite-ui",
+    "ui",
+    "user-interface"
+  ],
+  "homepage": "http://kreta.io",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kreta/kreta.git"
+  },
+  "authors": [
+    {
+      "name": "Beñat Espiña Diaz",
+      "email": "benatespina@gmail.com",
+      "homepage": "http://benatespina.com"
+    },
+    {
+      "name": "Gorka Laucirica Ibarra",
+      "email": "gorka.lauzirika@gmail.com",
+      "homepage": "http://gorkalaucirica.net"
+    }
+  ],
+  "scripts": {
+    "start": "babel-node scripts/start.js",
+    "dev": "./node_modules/.bin/webpack --progress --colors",
+    "prod": "NODE_ENV=production npm run dev",
+    "prod:deploy": "NODE_ENV=production ./node_modules/.bin/webpack --progress --colors --from-vendor",
+    "watch": "npm run dev -- --watch",
+    "test": "./node_modules/.bin/jest",
+    "test:coverage": "npm test -- --verbose --coverage"
+  },
+  "jest": {
+    "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
+    "unmockedModulePathPatterns": [
+      "<rootDir>/Resources/public/js/__tests__/TestUtils.js",
+      "<rootDir>/node_modules/chai",
+      "<rootDir>/node_modules/react",
+      "<rootDir>/node_modules/react-addons-test-utils",
+      "<rootDir>/node_modules/react-dom"
+    ]
+  },
+  "babel": {
+    "presets": [
+      "stage-2",
+      "es2015",
+      "react"
+    ],
+    "plugins": [
+      "transform-class-properties",
+      "transform-decorators-legacy"
+    ]
+  },
+  "dependencies": {
+    "classnames": "^2.1",
+    "history": "^1.17.0",
+    "jquery": "^3.1.1",
+    "lodash": "^3.10",
+    "mousetrap": "^1.5.3",
+    "react": "^15.4.1",
+    "react-dom": "^15.4.1",
+    "react-redux": "^4.1.1",
+    "react-router": "^2.0.0",
+    "react-router-redux": "^2.1.0",
+    "redux": "^3.0.6",
+    "redux-form": "^6.2.0",
+    "redux-logger": "^2.4.0",
+    "redux-thunk": "^1.0.3",
+    "whatwg-fetch": "^1.0.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^6.0",
+    "babel-cli": "^6.18.0",
+    "babel-core": "^6.10.4",
+    "babel-eslint": "^7.1.1",
+    "babel-loader": "^6.2.5",
+    "babel-plugin-transform-class-properties": "^6.19.0",
+    "babel-plugin-transform-decorators-legacy": "^1.3.4",
+    "babel-preset-es2015": "^6.18.0",
+    "babel-preset-react": "^6.16.0",
+    "babel-preset-stage-2": "^6.18.0",
+    "case-sensitive-paths-webpack-plugin": "^1.1.4",
+    "connect-history-api-fallback": "^1.3.0",
+    "css-loader": "^0.26",
+    "detect-port": "^1.0.5",
+    "dotenv": "^2.0.0",
+    "eslint": "^3.8.1",
+    "eslint-loader": "^1.6",
+    "eslint-plugin-react": "^6.7.1",
+    "exports-loader": "^0.6.2",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.9.0",
+    "http-proxy-middleware": "^0.17.2",
+    "imports-loader": "^0.6.5",
+    "jest-cli": "^0.5",
+    "node-sass": "^3.9.3",
+    "postcss-cssnext": "^2.5.2",
+    "postcss-loader": "^1.0.0",
+    "precss": "^1.4.0",
+    "react-addons-test-utils": "^15.0",
+    "react-dev-utils": "^0.3.0",
+    "resolve-url-loader": "^1.6.0",
+    "sass-loader": "^4.0.2",
+    "source-map": "^0.5",
+    "style-loader": "^0.13.1",
+    "stylelint": "^7.6.0",
+    "stylelint-loader": "^6.2.0",
+    "stylelint-selector-bem-pattern": "^1.0.0",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.12",
+    "webpack-dev-server": "^1.16.2"
+  }
+}

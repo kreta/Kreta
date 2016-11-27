@@ -1,0 +1,37 @@
+// This file is part of the Kreta package.
+//
+// (c) Beñat Espiña <benatespina@gmail.com>
+// (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+//
+// For the full copyright and license information, please view the LICENSE
+// file that was distributed with this source code.
+
+@import '../base/colors';
+
+.icon {
+  fill: $main-green;
+  height: 30px;
+  width: 30px;
+}
+
+.icon--expand {
+  height: 100%;
+  width: 100%;
+}
+
+.icon--small {
+  height: 16px;
+  width: 16px;
+}
+
+.icon--blue {
+  fill: $main-blue;
+}
+
+.icon--red {
+  fill: $main-red;
+}
+
+.icon--white {
+  fill: $white;
+}
