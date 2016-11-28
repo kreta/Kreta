@@ -17,7 +17,7 @@ import SectionHeader from './SectionHeader';
 class DashboardWidget extends React.Component {
   static propTypes = {
     actions: React.PropTypes.element,
-    title: React.PropTypes.oneOf([
+    title: React.PropTypes.oneOfType([
       React.PropTypes.string,
       React.PropTypes.element,
     ])
