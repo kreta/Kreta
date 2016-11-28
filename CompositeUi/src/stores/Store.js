@@ -12,7 +12,7 @@ import {createStore, applyMiddleware, compose} from 'redux';
 import createLogger from 'redux-logger';
 import thunkMiddleware from 'redux-thunk';
 import {syncHistory} from 'react-router-redux';
-import reducers from '../Reducers';
+import reducers from './../Reducers';
 
 const loggerMiddleware = createLogger({
   level: 'info',

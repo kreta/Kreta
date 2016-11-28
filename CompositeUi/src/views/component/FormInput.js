@@ -16,7 +16,7 @@ import classnames from 'classnames';
 class FormInput extends React.Component {
   getInputField() {
     const
-      {input, ...custom} = this.props,
+      {input, label, meta: {touched, error}, ...custom} = this.props, // eslint-disable-line no-unused-vars
       inputClasses = classnames('form-input__input', {
         'form-input__input--filled': input.value.length > 0
       });

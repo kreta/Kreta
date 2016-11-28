@@ -15,8 +15,10 @@ import LogoFullIcon from './../../svg/logo-full.svg';
 
 import Icon from './Icon';
 
-export default (
+const LogoHeader = () => (
   <div className="logo-header">
     <Icon glyph={LogoFullIcon}/>
   </div>
 );
+
+export default LogoHeader;

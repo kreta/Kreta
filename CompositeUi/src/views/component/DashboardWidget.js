@@ -14,14 +14,18 @@ import React from 'react';
 
 import SectionHeader from './SectionHeader';
 
-export default class extends React.Component {
+class DashboardWidget extends React.Component {
   static propTypes = {
     actions: React.PropTypes.element,
-    title: React.PropTypes.oneOf([React.PropTypes.string, React.PropTypes.element])
+    title: React.PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.element,
+    ])
   };
 
   render() {
     const {title, children, actions, ...otherProps} = this.props;
+
     return (
       <div className="dashboard-widget" {...otherProps}>
         <SectionHeader actions={actions} title={title}/>
@@ -30,3 +34,5 @@ export default class extends React.Component {
     );
   }
 }
+
+export default DashboardWidget;

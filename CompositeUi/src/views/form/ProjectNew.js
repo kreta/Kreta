@@ -33,7 +33,7 @@ const validate = (values) => {
 
 @connect()
 @reduxForm({form: 'ProjectNew', validate})
-export default class extends React.Component {
+class ProjectNew extends React.Component {
   render() {
     const {handleSubmit} = this.props;
 
@@ -53,3 +53,5 @@ export default class extends React.Component {
     );
   }
 }
+
+export default ProjectNew;

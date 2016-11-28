@@ -16,7 +16,7 @@ import ProfileActions from './../../../actions/Profile';
 import ProfileEdit from './../../form/ProfileEdit';
 
 @connect()
-export default class extends React.Component {
+class Edit extends React.Component {
   updateProfile(profile) {
     this.props.dispatch(ProfileActions.updateProfile(profile));
   }
@@ -29,3 +29,5 @@ export default class extends React.Component {
     );
   }
 }
+
+export default Edit;

@@ -14,10 +14,10 @@ import React from 'react';
 import {connect} from 'react-redux';
 
 import Notification from './../component/Notification';
-import NotificationActions from '../../actions/Notification';
+import NotificationActions from './../../actions/Notification';
 
 @connect(state => ({notifications: state.notification.notifications}))
-export default class extends React.Component {
+class NotificationLayout extends React.Component {
   removeNotification(notification) {
     this.props.dispatch(NotificationActions.removeNotification(notification));
   }
@@ -36,3 +36,5 @@ export default class extends React.Component {
     );
   }
 }
+
+export default NotificationLayout;

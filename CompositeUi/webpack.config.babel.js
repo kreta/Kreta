@@ -54,7 +54,8 @@ export default {
           /\.html$/,
           /\.(js|jsx)$/,
           /\.(css|scss)$/,
-          /\.json$/
+          /\.json$/,
+          /\.svg$/
         ],
         loader: 'url',
         query: {
@@ -79,7 +80,11 @@ export default {
       {
         test: /\.json$/,
         loader: 'json'
-      }
+      },
+      {
+        test: /\.svg$/,
+        loader: 'svg-sprite?name=[name]_[hash].svg'
+      },
     ]
   },
   postcss: () => {

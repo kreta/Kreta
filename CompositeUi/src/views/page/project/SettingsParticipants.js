@@ -15,7 +15,7 @@ import React from 'react';
 import Button from './../../component/Button';
 import UserPreview from './../../component/UserPreview';
 
-export default class extends React.Component {
+class SettingsParticipants extends React.Component {
   static propTypes = {
     onParticipantAddClicked: React.PropTypes.func,
     project: React.PropTypes.object
@@ -32,7 +32,7 @@ export default class extends React.Component {
           <Button color="green"
                   onClick={this.triggerOnParticipantAddClicked.bind(this, user)}
                   type="icon">
-            <i className="fa fa-plus"></i>
+            <i className="fa fa-plus"/>
           </Button>
         );
 
@@ -50,3 +50,5 @@ export default class extends React.Component {
     );
   }
 }
+
+export default SettingsParticipants;

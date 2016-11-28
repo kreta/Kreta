@@ -114,6 +114,7 @@
     "stylelint": "^7.6.0",
     "stylelint-loader": "^6.2.0",
     "stylelint-selector-bem-pattern": "^1.0.0",
+    "svg-sprite-loader": "0.0.31",
     "url-loader": "^0.5.7",
     "webpack": "^1.12",
     "webpack-dev-server": "^1.16.2"

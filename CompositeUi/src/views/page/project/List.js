@@ -25,7 +25,7 @@ import ShortcutHelp from './../../component/ShortcutHelp';
 import {Row, RowColumn} from './../../component/Grid';
 
 @connect(state => ({projects: state.projects.projects}))
-export default class extends React.Component {
+class List extends React.Component {
   static propTypes = {
     onProjectSelected: React.PropTypes.func
   };
@@ -164,3 +164,5 @@ export default class extends React.Component {
     );
   }
 }
+
+export default List;

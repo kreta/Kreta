@@ -12,9 +12,9 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Field, reduxForm} from 'redux-form';
 
+import Button from './../component/Button';
 import FormActions from './../component/FormActions';
 import FormInput from './../component/FormInput';
-import Button from './../component/Button';
 import {Row, RowColumn} from './../component/Grid';
 
 const validate = (values) => {
@@ -31,7 +31,7 @@ const validate = (values) => {
 
 @connect(state => ({initialValues: state.profile.profile}))
 @reduxForm({form: 'profileEdit', validate})
-export default class extends React.Component {
+class ProfileEdit extends React.Component {
   render() {
     const {handleSubmit} = this.props;
 
@@ -52,3 +52,5 @@ export default class extends React.Component {
     );
   }
 }
+
+export default ProfileEdit;

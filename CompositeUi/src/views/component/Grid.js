@@ -52,7 +52,7 @@ const
     );
   };
 
-export default {
+export {
   Row,
   RowColumn
 };

@@ -8,13 +8,13 @@
  * file that was distributed with this source code.
  */
 
-import React from 'react';
-import { connect } from 'react-redux';
-
 import CurrentProjectActions from './../../../actions/CurrentProject';
 
+import React from 'react';
+import {connect} from 'react-redux';
+
 @connect()
-export default class ProjectRoot extends React.Component {
+class Root extends React.Component {
   componentDidMount() {
     this.props.dispatch(CurrentProjectActions.fetchProject(this.props.params.projectId));
     if (typeof this.props.params.issueId !== 'undefined') {
@@ -47,3 +47,5 @@ export default class ProjectRoot extends React.Component {
     );
   }
 }
+
+export default Root;

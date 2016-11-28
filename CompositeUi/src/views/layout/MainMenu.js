@@ -28,7 +28,7 @@ import Thumbnail from './../component/Thumbnail';
 import MainMenuActions from '../../actions/MainMenu';
 
 @connect(state => ({profile: state.profile.profile, mainMenu: state.mainMenu}))
-export default class extends React.Component {
+class MainMenu extends React.Component {
   componentDidMount() {
     Mousetrap.bind(Config.shortcuts.projectList, this.showProjectList.bind(this));
   }
@@ -83,3 +83,5 @@ export default class extends React.Component {
     );
   }
 }
+
+export default MainMenu;
