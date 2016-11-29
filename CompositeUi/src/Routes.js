@@ -19,17 +19,16 @@ import ProjectNew from './views/page/project/New';
 import ProjectSettings from './views/page/project/Settings';
 import ProjectShow from './views/page/project/IssueList';
 import Index from './views/page/Index';
-import Login from './views/page/Login';
+import LoginPage from './views/page/Login';
 
-// This will work as firewall, add onEnter={requireAuth} in BaseLayout
-// function requireAuth(nextState, replaceState) {
-//   replaceState({nextPathname: nextState.location.pathname}, '/login')
-// }
+const requireAuth = (nextState, replace) => {
+  replace('/login');
+};
 
 export default (
   <div>
-    <Route component={Login} path="/login"/>
-    <Route component={BaseLayout} path="/">
+    <Route component={LoginPage} path="/login"/>
+    <Route component={BaseLayout} onEnter={requireAuth} path="/">
       <IndexRoute component={Index}/>
 
       <Route component={ProjectNew} path="project/new"/>

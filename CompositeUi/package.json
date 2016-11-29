@@ -31,10 +31,6 @@
   ],
   "scripts": {
     "start": "babel-node scripts/start.js",
-    "dev": "./node_modules/.bin/webpack --progress --colors",
-    "prod": "NODE_ENV=production npm run dev",
-    "prod:deploy": "NODE_ENV=production ./node_modules/.bin/webpack --progress --colors --from-vendor",
-    "watch": "npm run dev -- --watch",
     "test": "./node_modules/.bin/jest",
     "test:coverage": "npm test -- --verbose --coverage"
   },
@@ -107,6 +103,7 @@
     "precss": "^1.4.0",
     "react-addons-test-utils": "^15.0",
     "react-dev-utils": "^0.3.0",
+    "react-scripts": "^0.7.0",
     "resolve-url-loader": "^1.6.0",
     "sass-loader": "^4.0.2",
     "source-map": "^0.5",

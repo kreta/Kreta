@@ -112,6 +112,14 @@ lexik_jwt_authentication:
     pass_phrase: "%identity_access_jwt_key_pass_phrase%"
     token_ttl: "%jwt_token_lifetime%"
 
+nelmio_cors:
+    paths:
+        '^/':
+            allow_origin: ['*']
+            allow_headers: [X-Custom-Auth, Authorization]
+            allow_methods: [GET, POST, PUT, DELETE, OPTIONS]
+            max_age: 3600
+
 old_sound_rabbit_mq:
     connections:
         default:

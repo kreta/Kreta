@@ -32,6 +32,10 @@ const validate = (values) => {
 
 @reduxForm({form: 'Login', validate})
 class Login extends React.Component {
+  static propTypes = {
+    handleSubmit: React.PropTypes.func
+  };
+
   render() {
     const {handleSubmit} = this.props;
 

@@ -16,6 +16,7 @@ use BenGorUser\UserBundle\BenGorUserBundle;
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle;
 use Lexik\Bundle\JWTAuthenticationBundle\LexikJWTAuthenticationBundle;
+use Nelmio\CorsBundle\NelmioCorsBundle;
 use OldSound\RabbitMqBundle\OldSoundRabbitMqBundle;
 use Sensio\Bundle\DistributionBundle\SensioDistributionBundle;
 use SimpleBus\AsynchronousBundle\SimpleBusAsynchronousBundle;
@@ -44,6 +45,7 @@ class AppKernel extends Kernel
             new FrameworkBundle(),
             new LexikJWTAuthenticationBundle(),
             new MonologBundle(),
+            new NelmioCorsBundle(),
             new SecurityBundle(),
             new SimpleBusCommandBusBundle(),
             new SimpleBusEventBusBundle(),

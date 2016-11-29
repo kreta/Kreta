@@ -8,8 +8,8 @@
  * file that was distributed with this source code.
  */
 
-const Config = {
-  baseUrl: `//${location.hostname}${location.port !== '' ? `:${location.port}` : ''}/api`,
+let Config = {
+  baseUrl: `${location.hostname}`, // ${location.port !== '' ? `:${location.port}` : ''}`,
   shortcuts: {
     issueNew: 'n',
     notificationList: 'w',
@@ -19,5 +19,10 @@ const Config = {
     userProfile: 'm'
   }
 };
+
+Config = Object.assign({
+  taskManagerUrl: `//task-manager.kreta.${Config.baseUrl}:8001`,
+  identityAccessUrl: `//identity-access.kreta.${Config.baseUrl}:8002`,
+}, Config);
 
 export default Config;
