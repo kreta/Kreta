@@ -27,9 +27,6 @@ RUN "date"
 RUN docker-php-ext-install pdo pdo_mysql
 RUN docker-php-ext-install bcmath
 
-# Symlink vendor for improved performance
-RUN ln -s /vendor /var/www/symfony/vendor
-
 RUN echo 'alias sf="php etc/bin/symfony-console"' >> ~/.bashrc
 
-WORKDIR /var/www/symfony
+WORKDIR /var/www/taskmanager.localhost

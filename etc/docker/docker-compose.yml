@@ -30,39 +30,29 @@ services:
             RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
             RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
 
-    task_manager:
+    php:
         build: php7-fpm
         ports:
             - 9000:9000
         environment:
-            TASK_MANAGER_DOMAIN: ${TASK_MANAGER_DOMAIN}
+            TASK_MANAGER_HOST: ${TASK_MANAGER_HOST}
+            IDENTITY_ACCESS_HOST: ${IDENTITY_ACCESS_HOST}
         links:
             - db
         volumes:
-            - ../../TaskManager:/var/www/${TASK_MANAGER_DOMAIN}
-            - ./data/logs/task_manager:/var/www/${TASK_MANAGER_ENV}/var/logs
-
-    identity_access:
-        build: php7-fpm
-        ports:
-            - 9001:9001
-        environment:
-            IDENTITY_ACCESS_DOMAIN: ${IDENTITY_ACCESS_DOMAIN}
-        links:
-            - db
-        volumes:
-            - ../../IdentityAccess:/var/www/${IDENTITY_ACCESS_DOMAIN}
-            - ./data/logs/identity_access:/var/www/${IDENTITY_ACCESS_DOMAIN}/var/logs
+            - ../../TaskManager:/var/www/${TASK_MANAGER_HOST}
+            - ./data/logs/taskmanager:/var/www/${TASK_MANAGER_HOST}/var/logs
+            - ../../IdentityAccess:/var/www/${IDENTITY_ACCESS_HOST}
+            - ./data/logs/identityaccess:/var/www/${IDENTITY_ACCESS_HOST}/var/logs
+            - ../../SharedKernel:/var/www/SharedKernel
 
     nginx:
         build: nginx
         ports:
             - 80:80
         links:
-            - task_manager
-            - identity_access
+            - php
         volumes_from:
-            - task_manager
-            - identity_access
+            - php
         volumes:
             - ./data/logs/nginx/:/var/log/nginx
