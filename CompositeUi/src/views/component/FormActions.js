@@ -12,9 +12,11 @@ import './../../scss/components/_form-actions';
 
 import React from 'react';
 
-export default props => (
+const FormActions = props => (
   <div className="form-actions">
     {props.children}
   </div>
 );
+
+export default FormActions;
 

@@ -10,15 +10,13 @@
 
 import React from 'react';
 
-import {Login as LoginForm} from './../form/Login';
-import LogoHeader from './../component/LogoHeader';
-
 import Auth from './../../api/Auth';
-
 import ContentLayout from './../layout/ContentLayout';
 import ContentMiddleLayout from './../layout/ContentMiddleLayout';
+import Login from './../form/Login';
+import LogoHeader from './../component/LogoHeader';
 
-class Login extends React.Component {
+class LoginPage extends React.Component {
   login(credentials) {
     Auth.auth(credentials.username, credentials.password);
   }
@@ -28,11 +26,11 @@ class Login extends React.Component {
       <ContentLayout>
         <ContentMiddleLayout>
           <LogoHeader/>
-          <LoginForm onSubmit={this.login.bind(this)}/>
+          <Login onSubmit={this.login.bind(this)}/>
         </ContentMiddleLayout>
       </ContentLayout>
     );
   }
 }
 
-export default Login;
+export default LoginPage;

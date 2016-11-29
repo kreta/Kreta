@@ -12,8 +12,10 @@ import './../../scss/layout/_content';
 
 import React from 'react';
 
-export default props => (
+const ContentLayout = props => (
   <div className="content">
     {props.children}
   </div>
 );
+
+export default ContentLayout;

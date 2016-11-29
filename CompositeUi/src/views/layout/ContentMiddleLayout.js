@@ -10,10 +10,12 @@
 
 import React from 'react';
 
-export default props => (
+const ContentMiddleLayout = props => (
   <div className="content__middle">
     <div className="content__middle-content">
       {props.children}
     </div>
   </div>
 );
+
+export default ContentMiddleLayout;
