@@ -23,7 +23,8 @@ export default {
   devtool: 'cheap-module-source-map',
   entry: [
     require.resolve('react-dev-utils/webpackHotDevClient'),
-    paths.appIndexJs
+    require.resolve('react-scripts/config/polyfills'),
+    paths.appIndexJs,
   ],
   output: {
     path: paths.appPublic,
