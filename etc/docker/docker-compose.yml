@@ -37,6 +37,7 @@ services:
         environment:
             TASK_MANAGER_HOST: ${TASK_MANAGER_HOST}
             IDENTITY_ACCESS_HOST: ${IDENTITY_ACCESS_HOST}
+            SYMFONY_ENV: ${SYMFONY_ENV}
         links:
             - db
         volumes:
