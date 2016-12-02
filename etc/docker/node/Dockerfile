@@ -12,8 +12,6 @@ MAINTAINER Gorka Laucirica <gorka.lauzirika@gmail.com>
 
 WORKDIR /var/www/compositeui
 
-CMD npm install
+EXPOSE 3000
 
 CMD npm start
-
-EXPOSE 3000
