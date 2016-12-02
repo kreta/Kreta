@@ -41,10 +41,10 @@ services:
         links:
             - db
         volumes:
-            - ../../TaskManager:/var/www/${TASK_MANAGER_HOST}
-            - ./data/logs/taskmanager:/var/www/${TASK_MANAGER_HOST}/var/logs
-            - ../../IdentityAccess:/var/www/${IDENTITY_ACCESS_HOST}
-            - ./data/logs/identityaccess:/var/www/${IDENTITY_ACCESS_HOST}/var/logs
+            - ../../TaskManager:/var/www/taskmanager
+            - ./data/logs/taskmanager:/var/www/taskmanager/var/logs
+            - ../../IdentityAccess:/var/www/identityaccess
+            - ./data/logs/identityaccess:/var/www/identityaccess/var/logs
             - ../../SharedKernel:/var/www/SharedKernel
 
     node:

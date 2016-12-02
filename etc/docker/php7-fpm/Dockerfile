@@ -29,11 +29,12 @@ RUN docker-php-ext-install bcmath
 
 RUN mkdir /var/www/vendor-taskmanager
 RUN mkdir /var/www/vendor-identityaccess
+RUN mkdir /var/www/identityaccess
+RUN mkdir /var/www/taskmanager
 
-WORKDIR /var/www/identityaccess.localhost
-RUN ln -s ../vendor-identityaccess/ vendor
+RUN cd /var/www/taskmanager && ln -s ../vendor-taskmanager/ vendor
+RUN cd /var/www/identityaccess && ln -s ../vendor-identityaccess/ vendor
 
-WORKDIR /var/www/taskmanager.localhost
-RUN ln -s ../vendor-taskmanager/ vendor
+WORKDIR /var/www/taskmanager
 
 RUN echo 'alias sf="php etc/bin/symfony-console"' >> ~/.bashrc
