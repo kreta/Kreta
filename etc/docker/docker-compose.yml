@@ -47,12 +47,20 @@ services:
             - ./data/logs/identityaccess:/var/www/${IDENTITY_ACCESS_HOST}/var/logs
             - ../../SharedKernel:/var/www/SharedKernel
 
+    node:
+        build: node
+        ports:
+            - 3000:3000
+        volumes:
+            - ../../CompositeUi:/var/www/compositeui
+
     nginx:
         build: nginx
         ports:
             - 80:80
         links:
             - php
+            - node
         volumes_from:
             - php
         volumes:
