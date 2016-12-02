@@ -38,8 +38,6 @@ framework:
 twig:
     debug: "%kernel.debug%"
     strict_variables: "%kernel.debug%"
-    paths:
-        "%kernel.root_dir%/../Ui/Views/Twig": TaskManager
 
 doctrine:
     dbal:
