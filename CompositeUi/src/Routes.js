@@ -11,6 +11,7 @@
 import React from 'react';
 import {IndexRoute, Route} from 'react-router';
 
+import AuthInstance from './api/Auth';
 import BaseLayout from './views/layout/Base';
 import IssueNew from './views/page/issue/New';
 import Profile from './views/page/profile/Edit';
@@ -22,7 +23,13 @@ import Index from './views/page/Index';
 import LoginPage from './views/page/Login';
 
 const requireAuth = (nextState, replace) => {
-  replace('/login');
+  console.log(AuthInstance.loggedIn());
+  if (!AuthInstance.loggedIn()) {
+    replace({
+      pathname: '/login',
+      state: {nextPathname: nextState.location.pathname}
+    });
+  }
 };
 
 export default (

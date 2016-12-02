@@ -22,10 +22,11 @@ import Mousetrap from 'mousetrap';
 
 import Config from './../../Config';
 import Icon from './../component/Icon';
+import MainMenuActions from '../../actions/MainMenu';
 import Modal from './../component/Modal';
 import ProjectList from './../page/project/List';
 import Thumbnail from './../component/Thumbnail';
-import MainMenuActions from '../../actions/MainMenu';
+import UserActions from '../../actions/User';
 
 @connect(state => ({profile: state.profile.profile, mainMenu: state.mainMenu}))
 class MainMenu extends React.Component {
@@ -39,6 +40,10 @@ class MainMenu extends React.Component {
 
   hideProjectsList() {
     this.props.dispatch(MainMenuActions.hideProjects());
+  }
+
+  logout() {
+    this.props.dispatch(UserActions.logout());
   }
 
   render() {
@@ -63,9 +68,7 @@ class MainMenu extends React.Component {
             <Icon color="green" glyph={ProjectsIcon} onClick={this.showProjectList.bind(this)} size="medium"/>
           </div>
           <div className="main-menu__action">
-            <a href="/logout">
-              <Icon color="red" glyph={ExitIcon} size="medium"/>
-            </a>
+            <Icon color="red" glyph={ExitIcon} onClick={this.logout.bind(this)} size="medium"/>
           </div>
         </div>
         <div className="main-menu__user">

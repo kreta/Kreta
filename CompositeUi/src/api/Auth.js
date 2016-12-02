@@ -11,7 +11,7 @@
 import Config from './../Config';
 
 class Auth {
-  static auth(username, password) {
+  login(username, password) {
     return fetch(`${Config.identityAccessUrl}/auth/token`, {
       headers: {
         'Authorization': `Basic ${btoa(`${username}:${password}`)}`,
@@ -28,10 +28,22 @@ class Auth {
     }).then(response => (
       response.json()
     )).then(data => {
-      console.log(data);
+      localStorage.token = data.token;
     }).catch(error => {
       console.error(error);
     });
+  }
+
+  logout() {
+    localStorage.removeItem('token');
+  }
+
+  loggedIn() {
+    return !!localStorage.token;
+  }
+
+  token() {
+    return localStorage.token;
   }
 
   invite() {
@@ -39,4 +51,6 @@ class Auth {
   }
 }
 
-export default Auth;
+const AuthInstance = new Auth();
+
+export default AuthInstance;
