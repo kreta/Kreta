@@ -13,14 +13,24 @@ import ActionTypes from './../constants/ActionTypes';
 const initialState = {
   errors: [],
   token: null,
-  isLoggedIn: false
+  updatingAuthorization: false
 };
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
-    case ActionTypes.USER_LOGIN:
-      return {...state, token: action.token, isLoggedIn: true};
-    case ActionTypes.USER_LOGOUT:
-      return {...state, token: null, isLoggedIn: false};
+    case ActionTypes.USER_AUTHORIZING:
+      return {...state, updatingAuthorization: true};
+
+    case ActionTypes.USER_AUTHORIZED:
+      return {...state, token: action.token, updatingAuthorization: false};
+
+    case ActionTypes.USER_UNAUTHORIZING:
+      return {...state, token: action.token, updatingAuthorization: true};
+
+    case ActionTypes.USER_UNAUTHORIZED:
+      return {...state, token: null, updatingAuthorization: false};
+
+    default:
+      return state;
   }
 }

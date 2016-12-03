@@ -15,10 +15,13 @@ import AuthInstance from './../api/Auth';
 
 const Actions = {
   login: (credentialData) => (dispatch) => {
+    dispatch({
+      type: ActionTypes.USER_AUTHORIZING
+    });
     AuthInstance.login(credentialData.username, credentialData.password)
       .then((token) => {
         dispatch({
-          type: ActionTypes.USER_LOGIN,
+          type: ActionTypes.USER_AUTHORIZED,
           token
         });
         dispatch(
@@ -27,10 +30,13 @@ const Actions = {
       });
   },
   logout: () => (dispatch) => {
+    dispatch({
+      type: ActionTypes.USER_UNAUTHORIZING
+    });
     AuthInstance.logout()
       .then(() => {
         dispatch({
-          type: ActionTypes.USER_LOGOUT
+          type: ActionTypes.USER_UNAUTHORIZED
         });
         dispatch(
           routeActions.push('/login')

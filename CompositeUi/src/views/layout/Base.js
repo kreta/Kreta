@@ -20,7 +20,7 @@ import LoadingSpinner from './../component/LoadingSpinner';
 import ProfileActions from './../../actions/Profile';
 import ProjectActions from './../../actions/Projects';
 
-@connect(state => ({fetching: state.projects.fetching || state.profile.fetching}))
+@connect(state => ({waiting: state.projects.fetching || state.profile.fetching || state.user.updatingAuthorization}))
 class Base extends React.Component {
   componentDidMount() {
     const {dispatch} = this.props;
@@ -29,7 +29,7 @@ class Base extends React.Component {
   }
 
   render() {
-    if (this.props.fetching) {
+    if (this.props.waiting) {
       return <LoadingSpinner/>;
     }
 
