@@ -15,25 +15,27 @@ import AuthInstance from './../api/Auth';
 
 const Actions = {
   login: (credentialData) => (dispatch) => {
-    AuthInstance.login(credentialData.username, credentialData.password);
-    dispatch({
-      type: ActionTypes.USER_LOGIN,
-      token: AuthInstance.token()
-    });
-    dispatch(
-      routeActions.push('/')
-    );
+    AuthInstance.login(credentialData.username, credentialData.password)
+      .then((token) => {
+        dispatch({
+          type: ActionTypes.USER_LOGIN,
+          token
+        });
+        dispatch(
+          routeActions.push('/')
+        );
+      });
   },
   logout: () => (dispatch) => {
-    AuthInstance.logout();
-    dispatch({
-      type: ActionTypes.USER_LOGOUT
-    });
-    setTimeout(() => {
-      dispatch(
-        routeActions.push('/login')
-      );
-    }, 200);
+    AuthInstance.logout()
+      .then(() => {
+        dispatch({
+          type: ActionTypes.USER_LOGOUT
+        });
+        dispatch(
+          routeActions.push('/login')
+        );
+      });
   }
 };
 

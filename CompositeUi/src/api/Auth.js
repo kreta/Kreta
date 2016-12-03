@@ -17,25 +17,25 @@ class Auth {
         'Authorization': `Basic ${btoa(`${username}:${password}`)}`,
       },
       method: 'POST'
-    }).then(response => {
+    }).then((response) => {
+      const json = response.json();
       if (response.status >= 400) {
-        const error = new Error(response.statusText);
-        error.response = response;
-        throw error;
+        throw json;
       }
+      localStorage.token = json.token;
 
-      return response;
-    }).then(response => (
-      response.json()
-    )).then(data => {
-      localStorage.token = data.token;
-    }).catch(error => {
-      console.error(error);
+      return json.token;
     });
   }
 
   logout() {
-    localStorage.removeItem('token');
+    return new Promise((resolve) => {
+      localStorage.removeItem('token');
+
+      setTimeout(() => {
+        resolve();
+      }, 600);
+    });
   }
 
   loggedIn() {

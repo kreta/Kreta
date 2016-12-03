@@ -23,7 +23,6 @@ import Index from './views/page/Index';
 import LoginPage from './views/page/Login';
 
 const requireAuth = (nextState, replace) => {
-  console.log(AuthInstance.loggedIn());
   if (!AuthInstance.loggedIn()) {
     replace({
       pathname: '/login',
