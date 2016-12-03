@@ -21,8 +21,8 @@ let Config = {
 };
 
 Config = Object.assign({
-  taskManagerUrl: `//task-manager.kreta.${Config.baseUrl}:8001`,
-  identityAccessUrl: `//identity-access.kreta.${Config.baseUrl}:8002`,
+  taskManagerUrl: `//${Config.baseUrl}:8001`,
+  identityAccessUrl: `//${Config.baseUrl}:8002`,
 }, Config);
 
 export default Config;

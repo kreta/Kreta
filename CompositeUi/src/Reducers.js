@@ -17,6 +17,7 @@ import mainMenu from './reducers/MainMenu';
 import notification from './reducers/Notification';
 import profile from './reducers/Profile';
 import projects from './reducers/Projects';
+import user from './reducers/User';
 
 export default combineReducers({
   currentProject,
@@ -25,5 +26,6 @@ export default combineReducers({
   notification,
   profile,
   projects,
+  user,
   routing
 });

@@ -9,19 +9,26 @@
  */
 
 import React from 'react';
+import {connect} from 'react-redux';
 
-import Auth from './../../api/Auth';
 import ContentLayout from './../layout/ContentLayout';
 import ContentMiddleLayout from './../layout/ContentMiddleLayout';
+import LoadingSpinner from './../component/LoadingSpinner';
 import Login from './../form/Login';
 import LogoHeader from './../component/LogoHeader';
+import UserActions from './../../actions/User';
 
+@connect(state => ({authorizing: state.user.updatingAuthorization}))
 class LoginPage extends React.Component {
   login(credentials) {
-    Auth.auth(credentials.username, credentials.password);
+    this.props.dispatch(UserActions.login(credentials));
   }
 
   render() {
+    if (this.props.authorizing) {
+      return <LoadingSpinner/>;
+    }
+
     return (
       <ContentLayout>
         <ContentMiddleLayout>

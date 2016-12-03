@@ -30,5 +30,6 @@ export default {
   appSrc: resolveApp('src'),
   appScss: resolveApp('src/scss'),
   appNodeModules: resolveApp('node_modules'),
+  appPublicPath: '/',
   nodePaths: nodePaths
 };
