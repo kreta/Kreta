@@ -10,7 +10,7 @@
 
 import Config from './../Config';
 
-class Auth {
+class Security {
   login(username, password) {
     return fetch(`${Config.identityAccessUrl}/auth/token`, {
       headers: {
@@ -38,19 +38,11 @@ class Auth {
     });
   }
 
-  loggedIn() {
+  isLoggedIn() {
     return !!localStorage.token;
-  }
-
-  token() {
-    return localStorage.token;
-  }
-
-  invite() {
-
   }
 }
 
-const AuthInstance = new Auth();
+const SecurityInstance = new Security();
 
-export default AuthInstance;
+export default SecurityInstance;

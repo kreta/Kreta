@@ -11,19 +11,19 @@
 import React from 'react';
 import {IndexRoute, Route} from 'react-router';
 
-import AuthInstance from './api/Auth';
 import BaseLayout from './views/layout/Base';
+import Index from './views/page/Index';
 import IssueNew from './views/page/issue/New';
+import LoginPage from './views/page/Login';
 import Profile from './views/page/profile/Edit';
-import ProjectRoot from './views/page/project/Root';
 import ProjectNew from './views/page/project/New';
+import ProjectRoot from './views/page/project/Root';
 import ProjectSettings from './views/page/project/Settings';
 import ProjectShow from './views/page/project/IssueList';
-import Index from './views/page/Index';
-import LoginPage from './views/page/Login';
+import SecurityInstance from './api/Security';
 
 const requireAuth = (nextState, replace) => {
-  if (!AuthInstance.loggedIn()) {
+  if (!SecurityInstance.isLoggedIn()) {
     replace({
       pathname: '/login',
       state: {nextPathname: nextState.location.pathname}

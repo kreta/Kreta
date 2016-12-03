@@ -10,56 +10,45 @@
 
 import Config from './../Config';
 
-function _getCookie(name) {
-  const
-    value = `; ${document.cookie}`,
-    parts = value.split(`; ${name}=`);
+const
+  toQueryParams = (query = null) => {
+    if (null === query) {
+      return '';
+    }
 
-  if (parts.length === 2) {
-    return parts.pop().split(';').shift();
-  }
-}
-
-function _toQueryParams(query = null) {
-  if (null === query) {
-    return '';
-  }
-
-  let result = '?';
-  if (query instanceof Array) {
-    query.map((value, key) => {
-      result = `${result}${key}=${value}&`;
-    });
-  } else if (typeof query === 'object') {
-    for (const key in query) {
-      if (query.hasOwnProperty(key)) {
-        result = `${result}${key}=${query[key]}&`;
+    let result = '?';
+    if (query instanceof Array) {
+      query.map((value, key) => {
+        result = `${result}${key}=${value}&`;
+      });
+    } else if (typeof query === 'object') {
+      for (const key in query) {
+        if (query.hasOwnProperty(key)) {
+          result = `${result}${key}=${query[key]}&`;
+        }
       }
     }
-  }
 
-  return result;
-}
-
-function _toFormData(body) {
-  const data = new FormData();
-  for (const key in body) {
-    if (body.hasOwnProperty(key)) {
-      data.append(key, body[key]);
+    return result;
+  },
+  toFormData = (body) => {
+    const data = new FormData();
+    for (const key in body) {
+      if (body.hasOwnProperty(key)) {
+        data.append(key, body[key]);
+      }
     }
-  }
 
-  return data;
-}
+    return data;
+  },
+  json = (response) => {
+    const jsonData = response.json();
+    if (response.status >= 400) {
+      throw jsonData;
+    }
 
-function _json(response) {
-  const json = response.json();
-  if (response.status >= 400) {
-    throw json;
-  }
-
-  return json;
-}
+    return jsonData;
+  };
 
 class Api {
   constructor() {
@@ -69,43 +58,43 @@ class Api {
   }
 
   baseUrl() {
-    return Config.baseUrl;
+    return Config.taskManagerUrl;
   }
 
   accessToken() {
-    return _getCookie('access_token');
+    return localStorage.token;
   }
 
   get(url, query = null) {
-    return fetch(`${this.baseUrl()}${url}${_toQueryParams(query)}`, {
+    return fetch(`${this.baseUrl()}${url}${toQueryParams(query)}`, {
       credentials: 'include',
       headers: {
         'Authorization': `Bearer ${this.accessToken()}`
       },
       method: 'get'
-    }).then(_json);
+    }).then(json);
   }
 
   post(url, payload) {
     return fetch(`${this.baseUrl()}${url}`, {
-      body: _toFormData(payload),
+      body: toFormData(payload),
       credentials: 'include',
       headers: {
         'Authorization': `Bearer ${this.accessToken()}`
       },
       method: 'post'
-    }).then(_json);
+    }).then(json);
   }
 
   put(url, payload) {
     return fetch(`${this.baseUrl()}${url}`, {
-      body: _toFormData(payload),
+      body: toFormData(payload),
       credentials: 'include',
       headers: {
         'Authorization': `Bearer ${this.accessToken()}`
       },
       method: 'put'
-    }).then(_json);
+    }).then(json);
   }
 
   deleteHttp(url) { // Http sufix is needed because delete is a reserved word
@@ -115,7 +104,7 @@ class Api {
         'Authorization': `Bearer ${this.accessToken()}`
       },
       method: 'delete'
-    }).then(_json);
+    }).then(json);
   }
 }
 

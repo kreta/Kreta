@@ -11,14 +11,14 @@
 import {routeActions} from 'react-router-redux';
 
 import ActionTypes from './../constants/ActionTypes';
-import AuthInstance from './../api/Auth';
+import SecurityInstance from './../api/Security';
 
 const Actions = {
   login: (credentialData) => (dispatch) => {
     dispatch({
       type: ActionTypes.USER_AUTHORIZING
     });
-    AuthInstance.login(credentialData.username, credentialData.password)
+    SecurityInstance.login(credentialData.username, credentialData.password)
       .then((token) => {
         dispatch({
           type: ActionTypes.USER_AUTHORIZED,
@@ -33,7 +33,7 @@ const Actions = {
     dispatch({
       type: ActionTypes.USER_UNAUTHORIZING
     });
-    AuthInstance.logout()
+    SecurityInstance.logout()
       .then(() => {
         dispatch({
           type: ActionTypes.USER_UNAUTHORIZED
