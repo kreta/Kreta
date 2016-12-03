@@ -30,7 +30,7 @@ export default {
     path: paths.appPublic,
     pathinfo: true,
     filename: 'app.js',
-    publicPath: '/'
+    publicPath: paths.appPublicPath
   },
   resolve: {
     fallback: paths.nodePaths,

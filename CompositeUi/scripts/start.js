@@ -166,7 +166,10 @@ const runDevServer = (host, port, protocol) => {
       ignored: /node_modules/
     },
     https: protocol === "https",
-    host: host
+    host: host,
+    historyApiFallback: {
+      index: paths.appPublicPath
+    }
   });
 
   addMiddleware(devServer);
