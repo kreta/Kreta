@@ -38,7 +38,6 @@
   "jest": {
     "unmockedModulePathPatterns": [
       "<rootDir>/node_modules/react",
-      "<rootDir>/node_modules/react-addons-test-utils",
       "<rootDir>/node_modules/react-dom"
     ]
   },
@@ -60,6 +59,7 @@
     "lodash": "^3.10",
     "mousetrap": "^1.5.3",
     "react": "^15.4.1",
+    "react-addons-test-utils": "^15.4.1",
     "react-dom": "^15.4.1",
     "react-redux": "^4.1.1",
     "react-router": "^2.0.0",
@@ -87,6 +87,7 @@
     "css-loader": "^0.26",
     "detect-port": "^1.0.5",
     "dotenv": "^2.0.0",
+    "enzyme": "^2.6.0",
     "eslint": "^3.8.1",
     "eslint-loader": "^1.6",
     "eslint-plugin-react": "^6.7.1",
@@ -101,7 +102,6 @@
     "postcss-cssnext": "^2.5.2",
     "postcss-loader": "^1.0.0",
     "precss": "^1.4.0",
-    "react-addons-test-utils": "^15.0",
     "react-dev-utils": "^0.3.0",
     "react-scripts": "^0.7.0",
     "redux-mock-store": "^1.2.1",
