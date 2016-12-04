@@ -9,38 +9,17 @@
 version: '2'
 
 services:
-    dbdata:
-        image: busybox
-        volumes:
-            - /var/lib/mysql
-
-    appdata:
-        image: busybox
-        volumes:
-            - ${SYMFONY_APP_PATH}:/var/www/symfony
-            - /var/www/symfony/IdentityAccess/var/logs
-            - /var/www/symfony/TaskManager/var/logs
-            - /vendor
-            - ~/.ssh/id_rsa:/root/.ssh/id_rsa:ro
-            - ~/.composer:/root/.composer
-            - /tmpfs
-
     db:
         image: mysql
         ports:
             - 3306:3306
-        volumes_from:
-            - dbdata
+        volumes:
+            - ./data/mysql:/var/lib/mysql
         environment:
             MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
             MYSQL_DATABASE: ${MYSQL_DATABASE}
             MYSQL_USER: ${MYSQL_USER}
             MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-
-    redis:
-        image: redis:alpine
-        ports:
-            - 6379:6379
 
     rabbitmq:
         image: rabbitmq:3.6.5-management
@@ -56,12 +35,24 @@ services:
         ports:
             - 9000:9000
         environment:
+            TASK_MANAGER_HOST: ${TASK_MANAGER_HOST}
+            IDENTITY_ACCESS_HOST: ${IDENTITY_ACCESS_HOST}
             SYMFONY_ENV: ${SYMFONY_ENV}
         links:
             - db
-            - redis
-        volumes_from:
-            - appdata
+        volumes:
+            - ../../TaskManager:/var/www/taskmanager
+            - ./data/logs/taskmanager:/var/www/taskmanager/var/logs
+            - ../../IdentityAccess:/var/www/identityaccess
+            - ./data/logs/identityaccess:/var/www/identityaccess/var/logs
+            - ../../SharedKernel:/var/www/SharedKernel
+
+    node:
+        build: node
+        ports:
+            - 3000:3000
+        volumes:
+            - ../../CompositeUi:/var/www/compositeui
 
     nginx:
         build: nginx
@@ -69,18 +60,8 @@ services:
             - 80:80
         links:
             - php
+            - node
         volumes_from:
             - php
         volumes:
-            - ./logs/nginx/:/var/log/nginx
-
-    elk:
-        image: willdurand/elk
-        ports:
-            - 81:80
-        volumes:
-            - ./elk/logstash:/etc/logstash
-            - ./elk/logstash/patterns:/opt/logstash/patterns
-        volumes_from:
-            - appdata
-            - nginx
+            - ./data/logs/nginx/:/var/log/nginx

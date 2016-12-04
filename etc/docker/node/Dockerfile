@@ -6,15 +6,12 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 
-# Symfony application's path (absolute or relative)
-SYMFONY_APP_PATH=./../../../kreta
-SYMFONY_ENV=dev
+FROM node:7
 
-# MySQL
-MYSQL_ROOT_PASSWORD=root
-MYSQL_DATABASE=kreta
-MYSQL_USER=kreta
-MYSQL_PASSWORD=kreta
+MAINTAINER Gorka Laucirica <gorka.lauzirika@gmail.com>
 
-RABBITMQ_DEFAULT_USER=kreta
-RABBITMQ_DEFAULT_PASS=kreta
+WORKDIR /var/www/compositeui
+
+EXPOSE 3000
+
+CMD npm start
