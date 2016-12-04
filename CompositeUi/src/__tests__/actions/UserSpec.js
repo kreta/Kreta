@@ -35,7 +35,8 @@ describe('User actions', () => {
 
   it('cannot login with invalid credentials', async () => {
     const expectedActions = [
-      {type: ActionTypes.USER_AUTHORIZING}
+      {type: ActionTypes.USER_AUTHORIZING},
+      {type: ActionTypes.USER_UNAUTHORIZED}
     ];
 
     const store = mockStore({errors: [], token: null, updatingAuthorization: false});
@@ -44,7 +45,16 @@ describe('User actions', () => {
     expect(store.getActions()).toEqual(expectedActions);
   });
 
-  it('can logout', () => {
+  it('can logout', async () => {
+    const expectedActions = [
+      {type: ActionTypes.USER_UNAUTHORIZING},
+      {type: ActionTypes.USER_UNAUTHORIZED},
+      {payload: {arg: "/login", method: "push"}, type: "@@router/TRANSITION"}
+    ];
 
+    const store = mockStore({errors: [], token: 'token', updatingAuthorization: false});
+
+    await store.dispatch(UserActions.logout());
+    expect(store.getActions()).toEqual(expectedActions);
   });
 });
