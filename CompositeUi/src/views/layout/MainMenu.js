@@ -22,11 +22,11 @@ import Mousetrap from 'mousetrap';
 
 import Config from './../../Config';
 import Icon from './../component/Icon';
-import MainMenuActions from '../../actions/MainMenu';
+import MainMenuActions from './../../actions/MainMenu';
 import Modal from './../component/Modal';
 import ProjectList from './../page/project/List';
 import Thumbnail from './../component/Thumbnail';
-import UserActions from '../../actions/User';
+import UserActions from './../../actions/User';
 
 @connect(state => ({profile: state.profile.profile, mainMenu: state.mainMenu}))
 class MainMenu extends React.Component {

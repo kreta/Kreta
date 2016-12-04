@@ -22,9 +22,8 @@ class Security {
       if (response.status >= 400) {
         throw json;
       }
-      localStorage.token = json.token;
 
-      return json.token;
+      return json;
     });
   }
 

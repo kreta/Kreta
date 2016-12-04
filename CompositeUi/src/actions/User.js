@@ -19,10 +19,11 @@ const Actions = {
       type: ActionTypes.USER_AUTHORIZING
     });
     SecurityInstance.login(credentialData.username, credentialData.password)
-      .then((token) => {
+      .then((json) => {
+        localStorage.token = json.token;
         dispatch({
           type: ActionTypes.USER_AUTHORIZED,
-          token
+          token: json.token
         });
         dispatch(
           routeActions.push('/')

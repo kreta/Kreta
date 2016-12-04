@@ -19,10 +19,11 @@ const Actions = {
       type: ActionTypes.PROJECTS_FETCHING
     });
     ProjectApi.getProjects()
-      .then((projects) => {
+      .then((response) => {
         dispatch({
           type: ActionTypes.PROJECTS_RECEIVED,
-          projects
+          status: response.status,
+          projects: response.data
         });
       });
   },
@@ -31,19 +32,21 @@ const Actions = {
       type: ActionTypes.PROJECTS_CREATING
     });
     ProjectApi.postProject(projectData)
-      .then((createdProject) => {
+      .then((response) => {
         dispatch({
           type: ActionTypes.PROJECTS_CREATED,
-          project: createdProject
+          status: response.status,
+          project: response.data
         });
         dispatch(
-          routeActions.push(`/project/${createdProject.id}`)
+          routeActions.push(`/project/${response.data.id}`)
         );
       })
-      .catch((errorData) => {
-        errorData.then((errors) => {
+      .catch((response) => {
+        response.then((errors) => {
           dispatch({
             type: ActionTypes.PROJECTS_CREATE_ERROR,
+            status: response.status,
             errors
           });
         });

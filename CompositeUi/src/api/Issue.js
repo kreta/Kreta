@@ -14,7 +14,7 @@ class IssueApi extends Api {
   getIssues() {
     return new Promise((resolve) => {
       setTimeout(() => {
-        resolve([
+        resolve({status: 200, data: [
           {
             "id": "0",
             "assignee": {
@@ -298,7 +298,7 @@ class IssueApi extends Api {
               }
             }
           }
-        ]);
+        ]});
       }, 400);
     });
   }
@@ -306,7 +306,7 @@ class IssueApi extends Api {
   getIssue() {
     return new Promise((resolve) => {
       setTimeout(() => {
-        resolve({
+        resolve({status: 200, data: {
           "id": "0",
           "assignee": {
             "id": "0",
@@ -375,7 +375,7 @@ class IssueApi extends Api {
               "href": "http://kreta.test:8000/api/issues"
             }
           }
-        });
+        }});
       }, 400);
     });
   }

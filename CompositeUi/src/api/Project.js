@@ -14,7 +14,7 @@ class ProjectApi extends Api {
   getProjects() {
     return new Promise((resolve) => {
       setTimeout(() => {
-        resolve([
+        resolve({status: 200, data: [
           {
             "id": "0",
             "image": {},
@@ -220,7 +220,7 @@ class ProjectApi extends Api {
               }
             }
           }
-        ]);
+        ]});
       }, 400);
     });
   }
@@ -228,8 +228,8 @@ class ProjectApi extends Api {
   getProject() {
     return new Promise((resolve) => {
       setTimeout(() => {
-        resolve(
-          {
+        resolve({
+          status: 200, data: {
             "id": "0",
             "image": {},
             "labels": [
@@ -341,7 +341,7 @@ class ProjectApi extends Api {
               }
             }
           },
-        );
+        });
       }, 400);
     });
   }

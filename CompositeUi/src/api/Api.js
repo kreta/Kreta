@@ -42,12 +42,17 @@ const
     return data;
   },
   json = (response) => {
-    const jsonData = response.json();
-    if (response.status >= 400) {
-      throw jsonData;
+    if (response.status === 400) {
+      throw {
+        status: response.status,
+        data: response.json
+      };
     }
 
-    return jsonData;
+    return {
+      status: response.status,
+      data: response.json
+    };
   };
 
 class Api {
@@ -97,7 +102,7 @@ class Api {
     }).then(json);
   }
 
-  deleteHttp(url) { // Http sufix is needed because delete is a reserved word
+  deleteHttp(url) { // Http suffix is needed because delete is a reserved word
     return fetch(`${this.baseUrl()}${url}`, {
       credentials: 'include',
       headers: {

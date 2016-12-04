@@ -14,7 +14,7 @@ class ProfileApi extends Api {
   getProfile() {
     return new Promise((resolve) => {
       setTimeout(() => {
-        resolve({
+        resolve({status: 200, data: {
           "id": "0",
           "username": "user",
           "email": "user@kreta.com",
@@ -32,7 +32,7 @@ class ProfileApi extends Api {
               "href": "http://kreta.test:8000/api/projects"
             }
           }
-        });
+        }});
       }, 400);
     });
   }

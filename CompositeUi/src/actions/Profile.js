@@ -17,10 +17,11 @@ const Actions = {
       type: ActionTypes.PROFILE_FETCHING
     });
     ProfileApi.getProfile()
-      .then((profile) => {
+      .then((response) => {
         dispatch({
           type: ActionTypes.PROFILE_RECEIVED,
-          profile
+          profile: response.data,
+          status: response.status
         });
       });
   },
@@ -29,16 +30,18 @@ const Actions = {
       type: ActionTypes.PROFILE_UPDATE
     });
     ProfileApi.putProfile(profileData)
-      .then((updatedProfile) => {
+      .then((response) => {
         dispatch({
           type: ActionTypes.PROFILE_UPDATED,
-          profile: updatedProfile
+          status: response.status,
+          profile: response.data
         });
       })
-      .catch((errorData) => {
-        errorData.then((errors) => {
+      .catch((response) => {
+        response.then((errors) => {
           dispatch({
             type: ActionTypes.PROFILE_UPDATE_ERROR,
+            status: response.status,
             errors
           });
         });

@@ -20,17 +20,19 @@ const Actions = {
       type: ActionTypes.CURRENT_PROJECT_FETCHING
     });
     ProjectApi.getProject(projectId)
-      .then((project) => {
+      .then((response) => {
         dispatch({
           type: ActionTypes.CURRENT_PROJECT_RECEIVED,
-          project
+          project: response.data,
+          status: response.status
         });
       });
     IssueApi.getIssues({project: projectId})
-      .then((issues) => {
+      .then((response) => {
         dispatch({
           type: ActionTypes.CURRENT_PROJECT_ISSUES_RECEIVED,
-          issues
+          issues: response.data,
+          status: response.status
         });
       });
   },
@@ -47,10 +49,11 @@ const Actions = {
         type: ActionTypes.CURRENT_PROJECT_SELECTED_ISSUE_FETCHING
       });
       IssueApi.getIssue(issue)
-        .then((receivedIssue) => {
+        .then((response) => {
           dispatch({
             type: ActionTypes.CURRENT_PROJECT_SELECTED_ISSUE_CHANGED,
-            selectedIssue: receivedIssue
+            selectedIssue: response.data,
+            status: response.status
           });
         });
     };
@@ -60,19 +63,21 @@ const Actions = {
       type: ActionTypes.CURRENT_PROJECT_ISSUE_CREATING
     });
     IssueApi.postIssue(issueData)
-      .then((createdIssue) => {
+      .then((response) => {
         dispatch({
           type: ActionTypes.CURRENT_PROJECT_ISSUE_CREATED,
-          issue: createdIssue
+          status: response.status,
+          issue: response.data
         });
         dispatch(
-          routeActions.push(`/project/${issueData.project}/issue/${createdIssue.id}`)
+          routeActions.push(`/project/${response.data.project}/issue/${response.data.id}`)
         );
       })
-      .catch((errorData) => {
-        errorData.then((errors) => {
+      .catch((response) => {
+        response.then((errors) => {
           dispatch({
             type: ActionTypes.CURRENT_PROJECT_ISSUE_CREATE_ERROR,
+            status: response.status,
             errors
           });
         });
@@ -83,16 +88,18 @@ const Actions = {
       type: ActionTypes.CURRENT_PROJECT_ISSUE_UPDATE
     });
     IssueApi.putIssue(issueData.id, issueData)
-      .then((updatedIssue) => {
+      .then((response) => {
         dispatch({
           type: ActionTypes.CURRENT_PROJECT_ISSUE_UPDATED,
-          issue: updatedIssue
+          status: response.status,
+          issue: response.data
         });
       })
-      .catch((errorData) => {
-        errorData.then((errors) => {
+      .catch((response) => {
+        response.then((errors) => {
           dispatch({
             type: ActionTypes.CURRENT_PROJECT_ISSUE_UPDATE_ERROR,
+            status: response.status,
             errors
           });
         });
@@ -103,10 +110,11 @@ const Actions = {
       type: ActionTypes.CURRENT_PROJECT_ISSUE_FILTERING
     });
     IssueApi.getIssues(filter)
-      .then((filteredIssues) => {
+      .then((response) => {
         dispatch({
           type: ActionTypes.CURRENT_PROJECT_ISSUE_FILTERED,
-          filter: filteredIssues
+          filter: response.data,
+          status: response.status
         });
       });
   },
