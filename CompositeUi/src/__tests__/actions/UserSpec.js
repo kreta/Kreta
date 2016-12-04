@@ -20,22 +20,28 @@ const middlewares = [thunk],
 jest.mock('../../api/Security');
 
 describe('User actions', () => {
-  it('can login with valid credentials', () => {
+  it('can login with valid credentials', async () => {
     const expectedActions = [
       {type: ActionTypes.USER_AUTHORIZING},
-      {type: ActionTypes.USER_AUTHORIZED, token: 'token'}
+      {type: ActionTypes.USER_AUTHORIZED, token: 'token'},
+      {payload: {arg: "/", method: "push"}, type: "@@router/TRANSITION"}
     ];
 
     const store = mockStore({errors: [], token: null, updatingAuthorization: false});
 
-    return store.dispatch(UserActions.login({username: 'username', password: 'password'}))
-      .then(() => {
-        expect(store.getActions()).toEqual(expectedActions);
-      });
+    await store.dispatch(UserActions.login({username: 'username', password: 'password'}));
+    expect(store.getActions()).toEqual(expectedActions);
   });
 
-  it('cannot login with invalid credentials', () => {
+  it('cannot login with invalid credentials', async () => {
+    const expectedActions = [
+      {type: ActionTypes.USER_AUTHORIZING}
+    ];
 
+    const store = mockStore({errors: [], token: null, updatingAuthorization: false});
+
+    await store.dispatch(UserActions.login({username: 'username', password: 'invalid-password'}));
+    expect(store.getActions()).toEqual(expectedActions);
   });
 
   it('can logout', () => {
