@@ -28,6 +28,15 @@ const Actions = {
         dispatch(
           routeActions.push('/')
         );
+      })
+      .catch((errorData) => {
+        errorData.then((errors) => {
+          console.log(errors);
+          dispatch({
+            type: ActionTypes.USER_AUTHORIZATION_ERROR,
+            errors
+          });
+        });
       });
   },
   logout: () => (dispatch) => {
