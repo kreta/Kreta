@@ -8,14 +8,9 @@
  * file that was distributed with this source code.
  */
 
-import configureMockStore from 'redux-mock-store'
-import thunk from 'redux-thunk'
-
+import mockStore from '../../__mocks__/mockStore';
 import ActionTypes from '../../constants/ActionTypes';
 import MainMenu from '../../actions/MainMenu';
-
-const middlewares = [thunk],
-  mockStore = configureMockStore(middlewares);
 
 describe('Main menu actions', () => {
   it('shows projects', () => {
