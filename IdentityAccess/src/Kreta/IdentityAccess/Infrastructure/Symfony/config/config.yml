@@ -111,6 +111,7 @@ lexik_jwt_authentication:
     public_key_path: "%kernel.root_dir%/../../../../../var/jwt/public.pem"
     pass_phrase: "%identity_access_jwt_key_pass_phrase%"
     token_ttl: "%jwt_token_lifetime%"
+    user_identity_field: email
 
 nelmio_cors:
     paths:
