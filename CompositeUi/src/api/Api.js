@@ -42,11 +42,11 @@ const
     return data;
   },
   json = (response) => {
-    if (response.status === 400) {
-      throw {
+    if (response.status >= 400) {
+      throw Error({
         status: response.status,
         data: response.json
-      };
+      });
     }
 
     return {
