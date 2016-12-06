@@ -16,9 +16,10 @@ services:
         tags:
             - { name: overblog_graphql.resolver, alias: "projects", method: "resolve" }
 
-#    kreta.task_manager.graph_ql.query_resolver.project_of_id:
-#        class: Kreta\TaskManager\Infrastructure\Ui\Http\GraphQl\Query\Project\ProjectResolver
-#        arguments:
-#            - "@kreta.task_manager.query_bus"
-#        tags:
-#            - { name: overblog_graphql.resolver, alias: "project", method: "resolve" }
+    kreta.task_manager.graph_ql.query_resolver.project_of_id:
+        class: Kreta\TaskManager\Infrastructure\Ui\Http\GraphQl\Query\Project\ProjectResolver
+        arguments:
+            - "@security.token_storage"
+            - "@kreta.task_manager.query_bus"
+        tags:
+            - { name: overblog_graphql.resolver, alias: "project", method: "resolve" }
