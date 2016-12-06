@@ -27,7 +27,7 @@
         }
     ],
     "require": {
-        "php": "^7.0",
+        "php": "^7.1",
         "bengor-user/user-bundle": "^0.7",
         "bengor-user/doctrine-orm-bridge-bundle": "^1.1",
         "bengor-user/simple-bus-bridge-bundle": "^1.0",
@@ -41,6 +41,7 @@
         "incenteev/composer-parameter-handler": "^2.0",
         "kreta/shared-kernel": "1.0.x-dev",
         "lexik/jwt-authentication-bundle": "^2.0",
+        "nelmio/cors-bundle": "^1.4",
         "sensio/distribution-bundle": "^5.0",
         "simple-bus/asynchronous-bundle": "^2.2",
         "simple-bus/doctrine-orm-bridge": "^4.0",
@@ -48,8 +49,7 @@
         "simple-bus/symfony-bridge": "^4.1",
         "symfony/monolog-bundle": "^2.8",
         "symfony/swiftmailer-bundle": "^2.3",
-        "symfony/symfony": "3.1.*",
-        "nelmio/cors-bundle": "^1.4"
+        "symfony/symfony": "3.1.*"
     },
     "require-dev": {
         "friendsofphp/php-cs-fixer": "^1.12",

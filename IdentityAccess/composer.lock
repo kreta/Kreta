@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "13bc6972c4b27f1b8ad1700422a21fe2",
-    "content-hash": "be4a983d1e9f7ae0421b6d257444be15",
+    "hash": "b31537699c2aebc194f2b81411915113",
+    "content-hash": "46da31411009113da80f8bc6a0b867e2",
     "packages": [
         {
             "name": "ajgl/simple-bus-query-bus",
@@ -942,16 +942,16 @@
         },
         {
             "name": "bengor-user/user-bundle",
-            "version": "v0.7.3",
+            "version": "v0.7.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/BenGorUser/UserBundle.git",
-                "reference": "3426ebc1c39849870180be6f88f24c949a410ee2"
+                "reference": "9d633e369837251b07ae71cb38fcbd9fc7baff4d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/BenGorUser/UserBundle/zipball/3426ebc1c39849870180be6f88f24c949a410ee2",
-                "reference": "3426ebc1c39849870180be6f88f24c949a410ee2",
+                "url": "https://api.github.com/repos/BenGorUser/UserBundle/zipball/9d633e369837251b07ae71cb38fcbd9fc7baff4d",
+                "reference": "9d633e369837251b07ae71cb38fcbd9fc7baff4d",
                 "shasum": ""
             },
             "require": {
@@ -1005,7 +1005,7 @@
                 "ddd",
                 "user"
             ],
-            "time": "2016-12-05 22:19:24"
+            "time": "2016-12-06 13:05:58"
         },
         {
             "name": "doctrine/annotations",
@@ -4831,7 +4831,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.0"
+        "php": "^7.1"
     },
     "platform-dev": []
 }

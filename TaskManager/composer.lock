@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "889f315eb2150e7cea1e30fef5435cdf",
-    "content-hash": "5984bd75e427c29812c89a12a2c3fc7e",
+    "hash": "1f6f8dce8cdcd622bd19cf77518d2bf4",
+    "content-hash": "a1971837a4a34ad7987cfe6c3bb9247e",
     "packages": [
         {
             "name": "ajgl/simple-bus-query-bus",
@@ -4858,7 +4858,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.0"
+        "php": "^7.1"
     },
     "platform-dev": []
 }
