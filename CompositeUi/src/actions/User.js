@@ -18,7 +18,7 @@ const Actions = {
     dispatch({
       type: ActionTypes.USER_AUTHORIZING
     });
-    SecurityInstance.login(credentialData.username, credentialData.password)
+    SecurityInstance.login(credentialData.email, credentialData.password)
       .then((json) => {
         localStorage.token = json.token;
         dispatch({
