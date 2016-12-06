@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "1c72e9fc684ce765b76639cbeaa42201",
-    "content-hash": "ab38b0c8d4fc556476d076ada2cea0c0",
+    "hash": "13bc6972c4b27f1b8ad1700422a21fe2",
+    "content-hash": "be4a983d1e9f7ae0421b6d257444be15",
     "packages": [
         {
             "name": "ajgl/simple-bus-query-bus",
@@ -2059,11 +2059,16 @@
         {
             "name": "kreta/shared-kernel",
             "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kreta/SharedKernel.git",
+                "reference": "ff40077dfae83b1595cbe4774cd319d6fd166a30"
+            },
             "dist": {
-                "type": "path",
-                "url": "../SharedKernel",
-                "reference": "50512abd9159585928cbf3acf48c9ce3938a977e",
-                "shasum": null
+                "type": "zip",
+                "url": "https://api.github.com/repos/kreta/SharedKernel/zipball/ff40077dfae83b1595cbe4774cd319d6fd166a30",
+                "reference": "ff40077dfae83b1595cbe4774cd319d6fd166a30",
+                "shasum": ""
             },
             "require": {
                 "ajgl/simple-bus-query-bus": "^0.1",
@@ -2081,7 +2086,7 @@
             "type": "project",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "0.7.x-dev"
+                    "dev-master": "1.0.x-dev"
                 }
             },
             "autoload": {
@@ -2096,12 +2101,7 @@
                     "tests/"
                 ]
             },
-            "scripts": {
-                "cs": [
-                    "php-cs-fixer fix --config-file=etc/phpcs/.php_cs",
-                    "php-cs-fixer fix --config-file=etc/phpcs/.phpspec_cs"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -2126,9 +2126,7 @@
                 "shared-kernel",
                 "tool"
             ],
-            "transport-options": {
-                "symlink": true
-            }
+            "time": "2016-12-06 11:35:59"
         },
         {
             "name": "lexik/jwt-authentication-bundle",
@@ -2474,29 +2472,31 @@
         },
         {
             "name": "ocramius/proxy-manager",
-            "version": "2.0.4",
+            "version": "2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Ocramius/ProxyManager.git",
-                "reference": "a55d08229f4f614bf335759ed0cf63378feeb2e6"
+                "reference": "d9e5a00ca2d87b7e0f1bff36b897e02afd7d5435"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Ocramius/ProxyManager/zipball/a55d08229f4f614bf335759ed0cf63378feeb2e6",
-                "reference": "a55d08229f4f614bf335759ed0cf63378feeb2e6",
+                "url": "https://api.github.com/repos/Ocramius/ProxyManager/zipball/d9e5a00ca2d87b7e0f1bff36b897e02afd7d5435",
+                "reference": "d9e5a00ca2d87b7e0f1bff36b897e02afd7d5435",
                 "shasum": ""
             },
             "require": {
-                "ocramius/package-versions": "^1.0",
-                "php": "7.0.0 - 7.0.5 || ^7.0.7",
-                "zendframework/zend-code": "3.0.0 - 3.0.2 || ^3.0.4"
+                "ocramius/package-versions": "^1.1.1",
+                "php": "^7.1.0",
+                "zendframework/zend-code": "^3.1.0"
             },
             "require-dev": {
-                "couscous/couscous": "^1.4.0",
+                "couscous/couscous": "^1.5.2",
                 "ext-phar": "*",
-                "phpbench/phpbench": "^0.11.2",
-                "phpunit/phpunit": "^5.4.6",
-                "squizlabs/php_codesniffer": "^2.6.0"
+                "humbug/humbug": "dev-master@DEV",
+                "phpbench/phpbench": "^0.12.2",
+                "phpunit/phpunit": "^5.6.4",
+                "phpunit/phpunit-mock-objects": "^3.4.1",
+                "squizlabs/php_codesniffer": "^2.7.0"
             },
             "suggest": {
                 "ocramius/generated-hydrator": "To have very fast object to array to object conversion for ghost objects",
@@ -2535,7 +2535,7 @@
                 "proxy pattern",
                 "service proxies"
             ],
-            "time": "2016-11-04 15:53:15"
+            "time": "2016-11-30 15:45:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -2897,16 +2897,16 @@
         },
         {
             "name": "sensio/distribution-bundle",
-            "version": "v5.0.14",
+            "version": "v5.0.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/SensioDistributionBundle.git",
-                "reference": "e64947de9ebc37732a62f5115164484a9bee7fa6"
+                "reference": "d294b0665cf09c799e9c1993d5c776a5bf55cb85"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/e64947de9ebc37732a62f5115164484a9bee7fa6",
-                "reference": "e64947de9ebc37732a62f5115164484a9bee7fa6",
+                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/d294b0665cf09c799e9c1993d5c776a5bf55cb85",
+                "reference": "d294b0665cf09c799e9c1993d5c776a5bf55cb85",
                 "shasum": ""
             },
             "require": {
@@ -2945,7 +2945,7 @@
                 "configuration",
                 "distribution"
             ],
-            "time": "2016-10-30 23:18:01"
+            "time": "2016-12-06 07:29:27"
         },
         {
             "name": "sensiolabs/security-checker",
