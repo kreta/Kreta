@@ -16,15 +16,15 @@ php:
 env:
     - COMPOSER_OPTIONS="--no-interaction --prefer-source"
 
+before_install:
+    - phpenv config-rm xdebug.ini
+
 install:
     - nvm install 7
     - nvm use 7
     - composer self-update
     - sh etc/bash/install.sh
     - npm install -g yarn
-
-before_script:
-    - phpenv config-rm xdebug.ini
 
 script:
     - sh etc/bash/tests.sh
