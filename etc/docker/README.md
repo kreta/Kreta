@@ -47,11 +47,11 @@ It provides the following containers:
 
         ```yml
         parameters:
-            task_manager_database_host: db
-            task_manager_database_port: 3306
-            task_manager_database_name: kreta_identity_access
-            task_manager_database_user: root
-            task_manager_database_password: root
+            identity_access_database_host: db
+            identity_access_database_port: 3306
+            identity_access_database_name: kreta_identity_access
+            identity_access_database_user: root
+            identity_access_database_password: root
         ```
 
     3. Composer install & create database

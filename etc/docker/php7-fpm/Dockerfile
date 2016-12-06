@@ -6,7 +6,7 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 
-FROM php:7.0-fpm
+FROM php:7.1-fpm
 
 MAINTAINER Gorka Laucirica <gorka.lauzirika@gmail.com>
 
@@ -20,7 +20,7 @@ RUN composer --version
 
 # Set timezone
 RUN rm /etc/localtime
-RUN ln -s /usr/share/zoneinfo/Europe/Paris /etc/localtime
+RUN ln -s /usr/share/zoneinfo/Europe/Madrid /etc/localtime
 RUN "date"
 
 # Type docker-php-ext-install to see available extensions
