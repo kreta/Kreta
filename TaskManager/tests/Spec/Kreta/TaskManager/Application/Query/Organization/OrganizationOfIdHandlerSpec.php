@@ -19,6 +19,8 @@ use Kreta\TaskManager\Domain\Model\Organization\Organization;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationDoesNotExistException;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationId;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationRepository;
+use Kreta\TaskManager\Domain\Model\Organization\UnauthorizedOrganizationActionException;
+use Kreta\TaskManager\Domain\Model\User\UserId;
 use PhpSpec\ObjectBehavior;
 
 class OrganizationOfIdHandlerSpec extends ObjectBehavior
@@ -43,7 +45,8 @@ class OrganizationOfIdHandlerSpec extends ObjectBehavior
         $repository->organizationOfId(
             OrganizationId::generate('organization-id')
         )->shouldBeCalled()->willReturn($organization);
-
+        $query->userId()->shouldBeCalled()->willReturn('user-id');
+        $organization->isOrganizationMember(UserId::generate('user-id'))->shouldBeCalled()->willReturn(true);
         $dataTransformer->write($organization)->shouldBeCalled();
         $dataTransformer->read()->shouldBeCalled();
         $this->__invoke($query);
@@ -58,5 +61,19 @@ class OrganizationOfIdHandlerSpec extends ObjectBehavior
             OrganizationId::generate('organization-id')
         )->shouldBeCalled()->willReturn(null);
         $this->shouldThrow(OrganizationDoesNotExistException::class)->during__invoke($query);
+    }
+
+    function it_does_not_serialize_organization_when_the_user_does_not_allow_to_perform_this_action(
+        OrganizationOfIdQuery $query,
+        OrganizationRepository $repository,
+        Organization $organization
+    ) {
+        $query->organizationId()->shouldBeCalled()->willReturn('organization-id');
+        $repository->organizationOfId(
+            OrganizationId::generate('organization-id')
+        )->shouldBeCalled()->willReturn($organization);
+        $query->userId()->shouldBeCalled()->willReturn('user-id');
+        $organization->isOrganizationMember(UserId::generate('user-id'))->shouldBeCalled()->willReturn(false);
+        $this->shouldThrow(UnauthorizedOrganizationActionException::class)->during__invoke($query);
     }
 }

@@ -26,6 +26,13 @@ class DoctrineORMProjectRepository extends EntityRepository implements ProjectRe
         return $this->find($id->id());
     }
 
+    public function query($specification)
+    {
+        return null === $specification
+            ? $this->findAll()
+            : $specification->buildQuery($this->getEntityManager()->createQueryBuilder())->getResult();
+    }
+
     public function persist(Project $project)
     {
         $this->getEntityManager()->persist($project);
@@ -34,5 +41,21 @@ class DoctrineORMProjectRepository extends EntityRepository implements ProjectRe
     public function remove(Project $project)
     {
         $this->getEntityManager()->remove($project);
+    }
+
+    public function count($specification) : int
+    {
+        if (null === $specification) {
+            $queryBuilder = $this->createQueryBuilder('p');
+
+            return (int) $queryBuilder
+                ->select($queryBuilder->expr()->count('p.id'))
+                ->getQuery()
+                ->getSingleScalarResult();
+        }
+
+        return (int) $specification->buildCount(
+            $this->getEntityManager()->createQueryBuilder()
+        )->getSingleScalarResult();
     }
 }

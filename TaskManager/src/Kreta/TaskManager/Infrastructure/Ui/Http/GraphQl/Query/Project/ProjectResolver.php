@@ -12,14 +12,14 @@
 
 declare(strict_types=1);
 
-namespace Kreta\TaskManager\Infrastructure\Ui\Http\GraphQl\Query\Organization;
+namespace Kreta\TaskManager\Infrastructure\Ui\Http\GraphQl\Query\Project;
 
 use Kreta\SharedKernel\Application\QueryBus;
 use Kreta\SharedKernel\Http\GraphQl\Resolver;
-use Kreta\TaskManager\Application\Query\Organization\OrganizationOfIdQuery;
+use Kreta\TaskManager\Application\Query\Project\ProjectOfIdQuery;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-class OrganizationResolver implements Resolver
+class ProjectResolver implements Resolver
 {
     private $queryBus;
     private $currentUser;
@@ -33,7 +33,7 @@ class OrganizationResolver implements Resolver
     public function resolve($args)
     {
         $this->queryBus->handle(
-            new OrganizationOfIdQuery(
+            new ProjectOfIdQuery(
                 $args['id'],
                 $this->currentUser
             ),

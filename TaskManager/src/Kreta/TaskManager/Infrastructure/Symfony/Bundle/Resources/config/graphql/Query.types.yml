@@ -9,9 +9,12 @@
 # This implements the following type system shorthand:
 #
 #   type Query {
-#     organization(id: ID, name: String, first: Number, after: Number): Organization | [Organization]
-#     organizationMember(id: ID): OrganizationMember
-#     owner(id: ID): Owner
+#     organizations($name: String, $first: Int, $last: Int, $before: String, $after: String) : OrganizationConnection
+#     organization($id: ID!) : Organization
+#     organizationMember($organizationId: ID!, $organizationMemberId: ID!) : OrganizationMember
+#     owner($organizationId: ID!, $ownerId: ID!) : Owner
+#     projects($organizationId: ID, $name: String, $first: Int, $last: Int, $before: String, $after: String) : ProjectConnection
+#     project($id: ID!) : Project
 #   }
 
 Query:
@@ -46,6 +49,9 @@ Query:
                     organizationId:
                         description: "id of the organization"
                         type: "ID!"
+                    organizationMemberId:
+                        description: "id of the user that want to find as organization member"
+                        type: "ID!"
                     userId:
                         description: "id of the user"
                         type: "ID!"
@@ -56,7 +62,29 @@ Query:
                     organizationId:
                         description: "id of the organization"
                         type: "ID!"
+                    ownerId:
+                        description: "id of the user that want to find as owner"
+                        type: "ID!"
                     userId:
                         description: "id of the user"
                         type: "ID!"
                 resolve: "@=resolver('member_owner', [args])"
+            projects:
+                type: "ProjectConnection"
+                description: "The paginate list of project that can be filter by name"
+                argsBuilder: ConnectionArgs
+                args:
+                    organizationId:
+                        description: "organization id to which the project belongs"
+                        type: "String"
+                    name:
+                        description: "name of the project, it uses to filter the projects. Typical 'q'"
+                        type: "String"
+                resolve: '@=resolver("projects", [args])'
+            project:
+                type: "Project"
+                args:
+                    id:
+                        description: "id of the project"
+                        type: "ID!"
+                resolve: "@=resolver('project', [args])"

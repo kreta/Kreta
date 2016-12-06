@@ -18,16 +18,19 @@ use Kreta\SharedKernel\Application\QueryBus;
 use Kreta\SharedKernel\Http\GraphQl\Resolver;
 use Kreta\TaskManager\Application\Query\Organization\OrganizationMemberOfIdQuery;
 use Kreta\TaskManager\Application\Query\Organization\OwnerOfIdQuery;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class MemberTypeResolver implements Resolver
 {
     private $resolver;
     private $queryBus;
+    private $currentUser;
 
-    public function __construct(Resolver $resolver, QueryBus $queryBus)
+    public function __construct(TokenStorageInterface $tokenStorage, Resolver $resolver, QueryBus $queryBus)
     {
         $this->queryBus = $queryBus;
         $this->resolver = $resolver;
+        $this->currentUser = $tokenStorage->getToken()->getUser()->getUsername();
     }
 
     public function resolve($args)
@@ -35,7 +38,8 @@ class MemberTypeResolver implements Resolver
         $this->queryBus->handle(
             new OwnerOfIdQuery(
                 $args['organizationId'],
-                $args['userId']
+                $args['ownerId'],
+                $this->currentUser
             ),
             $result
         );
@@ -45,7 +49,8 @@ class MemberTypeResolver implements Resolver
         $this->queryBus->handle(
             new OrganizationMemberOfIdQuery(
                 $args['organizationId'],
-                $args['userId']
+                $args['organizationMemberId'],
+                $this->currentUser
             ),
             $result
         );

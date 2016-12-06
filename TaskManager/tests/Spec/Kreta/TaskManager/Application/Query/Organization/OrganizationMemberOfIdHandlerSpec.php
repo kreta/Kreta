@@ -21,6 +21,7 @@ use Kreta\TaskManager\Domain\Model\Organization\OrganizationId;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationMember;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationMemberDoesNotExistException;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationRepository;
+use Kreta\TaskManager\Domain\Model\Organization\UnauthorizedOrganizationActionException;
 use Kreta\TaskManager\Domain\Model\User\UserId;
 use PhpSpec\ObjectBehavior;
 
@@ -51,9 +52,12 @@ class OrganizationMemberOfIdHandlerSpec extends ObjectBehavior
         $organization->isOrganizationMember(
             UserId::generate('user-id')
         )->shouldBeCalled()->willReturn(true);
-        $organization->organizationMember(UserId::generate('user-id'))
+        $query->memberId()->shouldBeCalled()->willReturn('member-id');
+        $organization->isOrganizationMember(
+            UserId::generate('member-id')
+        )->shouldBeCalled()->willReturn(true);
+        $organization->organizationMember(UserId::generate('member-id'))
             ->shouldBeCalled()->willReturn($organizationMember);
-
         $dataTransformer->write($organizationMember)->shouldBeCalled();
         $dataTransformer->read()->shouldBeCalled();
         $this->__invoke($query);
@@ -82,7 +86,27 @@ class OrganizationMemberOfIdHandlerSpec extends ObjectBehavior
         $query->userId()->shouldBeCalled()->willReturn('user-id');
         $organization->isOrganizationMember(
             UserId::generate('user-id')
+        )->shouldBeCalled()->willReturn(true);
+        $query->memberId()->shouldBeCalled()->willReturn('member-id');
+        $organization->isOrganizationMember(
+            UserId::generate('member-id')
         )->shouldBeCalled()->willReturn(false);
         $this->shouldThrow(OrganizationMemberDoesNotExistException::class)->during__invoke($query);
+    }
+
+    function it_does_not_serialize_organization_member_when_the_user_does_not_allow_to_perform_this_action(
+        OrganizationMemberOfIdQuery $query,
+        OrganizationRepository $repository,
+        Organization $organization
+    ) {
+        $query->organizationId()->shouldBeCalled()->willReturn('organization-id');
+        $repository->organizationOfId(
+            OrganizationId::generate('organization-id')
+        )->shouldBeCalled()->willReturn($organization);
+        $query->userId()->shouldBeCalled()->willReturn('user-id');
+        $organization->isOrganizationMember(
+            UserId::generate('user-id')
+        )->shouldBeCalled()->willReturn(false);
+        $this->shouldThrow(UnauthorizedOrganizationActionException::class)->during__invoke($query);
     }
 }

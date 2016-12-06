@@ -19,19 +19,19 @@ class ProjectOfIdQuery
     private $projectId;
     private $userId;
 
-    public function __construct(string $userId, string $projectId)
+    public function __construct(string $projectId, string $userId)
     {
         $this->projectId = $projectId;
         $this->userId = $userId;
     }
 
-    public function userId() : string
-    {
-        return $this->userId;
-    }
-
     public function projectId() : string
     {
         return $this->projectId;
+    }
+
+    public function userId() : string
+    {
+        return $this->userId;
     }
 }

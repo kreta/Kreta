@@ -19,8 +19,9 @@ class OrganizationOfIdQuerySpec extends ObjectBehavior
 {
     function it_can_be_created()
     {
-        $this->beConstructedWith('organization-id');
+        $this->beConstructedWith('organization-id', 'user-id');
         $this->shouldHaveType(OrganizationOfIdQuery::class);
         $this->organizationId()->shouldReturn('organization-id');
+        $this->userId()->shouldReturn('user-id');
     }
 }

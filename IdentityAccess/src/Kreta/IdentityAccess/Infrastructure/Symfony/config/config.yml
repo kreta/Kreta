@@ -12,11 +12,11 @@ imports:
     - { resource: services/, type: directory }
 
 parameters:
-    locale: en_US
+    identity_access_locale: en_US
     jwt_token_lifetime: 31556926    # 1 year
 
 framework:
-    secret: "%secret%"
+    secret: "%identity_access_secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
         strict_requirements: ~
@@ -25,8 +25,8 @@ framework:
     validation: { enable_annotations: false }
     templating:
         engines: ['twig']
-    default_locale: "%locale%"
-    translator: { fallbacks: ["%locale%"] }
+    default_locale: "%identity_access_locale%"
+    translator: { fallbacks: ["%identity_access_locale%"] }
     trusted_hosts: ~
     trusted_proxies: ~
     session:

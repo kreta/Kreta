@@ -47,12 +47,6 @@ final class AuthenticationListener
             return;
         }
 
-        // This is a temporal hack until make taskManager
-        // and Identity Access real standalone applications
-        if (false === strpos($event->getRequest()->getPathInfo(), '/api')) {
-            return;
-        }
-
         $request = $this->messageFactory->createRequest('GET', '/user');
         $request = $this->authentication($event->getRequest())->authenticate($request);
         $response = $this->client->sendRequest($request);

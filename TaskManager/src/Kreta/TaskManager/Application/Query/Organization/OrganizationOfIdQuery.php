@@ -17,14 +17,21 @@ namespace Kreta\TaskManager\Application\Query\Organization;
 class OrganizationOfIdQuery
 {
     private $organizationId;
+    private $userId;
 
-    public function __construct(string $organizationId)
+    public function __construct(string $organizationId, string $userId)
     {
         $this->organizationId = $organizationId;
+        $this->userId = $userId;
     }
 
     public function organizationId() : string
     {
         return $this->organizationId;
+    }
+
+    public function userId() : string
+    {
+        return $this->userId;
     }
 }

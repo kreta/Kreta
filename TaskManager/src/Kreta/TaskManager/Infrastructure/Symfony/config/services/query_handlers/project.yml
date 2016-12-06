@@ -1,0 +1,44 @@
+# This file is part of the Kreta package.
+#
+# (c) Beñat Espiña <benatespina@gmail.com>
+# (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+
+services:
+    kreta.task_manager.query_handler.count_projects:
+        class: Kreta\TaskManager\Application\Query\Project\CountProjectsHandler
+        arguments:
+            - "@kreta.task_manager.repository.organization"
+            - "@kreta.task_manager.specification_factory.organization"
+            - "@kreta.task_manager.repository.project"
+            - "@kreta.task_manager.specification_factory.project"
+        tags:
+            -
+                name: query_handler
+                handles: Kreta\TaskManager\Application\Query\Project\CountProjectsQuery
+
+    kreta.task_manager.query_handler.filter_projects:
+        class: Kreta\TaskManager\Application\Query\Project\FilterProjectsHandler
+        arguments:
+            - "@kreta.task_manager.repository.organization"
+            - "@kreta.task_manager.specification_factory.organization"
+            - "@kreta.task_manager.repository.project"
+            - "@kreta.task_manager.specification_factory.project"
+            - "@kreta.task_manager.data_transformer.project_dto"
+        tags:
+            -
+                name: query_handler
+                handles: Kreta\TaskManager\Application\Query\Project\FilterProjectsQuery
+
+    kreta.task_manager.query_handler.organization_of_id:
+        class: Kreta\TaskManager\Application\Query\Project\ProjectOfIdHandler
+        arguments:
+            - "@kreta.task_manager.repository.organization"
+            - "@kreta.task_manager.repository.project"
+            - "@kreta.task_manager.data_transformer.project_dto"
+        tags:
+            -
+                name: query_handler
+                handles: Kreta\TaskManager\Application\Query\Project\ProjectOfIdQuery

@@ -12,10 +12,10 @@ imports:
     - { resource: services/, type: directory }
 
 parameters:
-    locale: en
+    task_manager_locale: en
 
 framework:
-    secret: "%secret%"
+    secret: "%task_manager_secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
         strict_requirements: ~
@@ -24,7 +24,7 @@ framework:
     validation: { enable_annotations: false }
     templating:
         engines: ['twig']
-    default_locale: "%locale%"
+    default_locale: "%task_manager_locale%"
     trusted_hosts: ~
     trusted_proxies: ~
     session:
@@ -155,7 +155,7 @@ httplug:
             plugins:
                 - "httplug.plugin.logger"
                 - add_host:
-                    host: "%task_manager_domain_host%"
+                    host: "%task_manager_identity_access_domain_host%"
             config:
                 verify: false
                 timeout: 2

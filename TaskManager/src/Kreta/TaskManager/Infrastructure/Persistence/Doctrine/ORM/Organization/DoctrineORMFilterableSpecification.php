@@ -21,7 +21,7 @@ use Kreta\SharedKernel\Infrastructure\Persistence\Doctrine\ORM\DoctrineORMQueryS
 use Kreta\TaskManager\Domain\Model\Organization\Organization;
 use Kreta\TaskManager\Domain\Model\User\UserId;
 
-class DoctrineORMNameFilterableSpecification implements DoctrineORMQuerySpecification, DoctrineORMCountSpecification
+class DoctrineORMFilterableSpecification implements DoctrineORMQuerySpecification, DoctrineORMCountSpecification
 {
     private $name;
     private $userId;

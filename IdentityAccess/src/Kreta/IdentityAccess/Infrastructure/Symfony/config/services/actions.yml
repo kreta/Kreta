@@ -10,7 +10,6 @@ services:
     kreta.identity_access.action.user:
         class: Kreta\IdentityAccess\Infrastructure\Ui\Http\Action\UserAction
         arguments:
-            - "@security.authorization_checker"
             - "@security.token_storage"
 
     kreta.identity_access.action.invite:

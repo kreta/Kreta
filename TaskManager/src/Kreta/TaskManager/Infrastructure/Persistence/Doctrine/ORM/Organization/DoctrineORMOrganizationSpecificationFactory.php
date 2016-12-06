@@ -21,6 +21,6 @@ class DoctrineORMOrganizationSpecificationFactory implements OrganizationSpecifi
 {
     public function buildFilterableSpecification($name, UserId $userId, int $offset = 0, int $limit = -1)
     {
-        return new DoctrineORMNameFilterableSpecification($name, $userId, $offset, $limit);
+        return new DoctrineORMFilterableSpecification($name, $userId, $offset, $limit);
     }
 }

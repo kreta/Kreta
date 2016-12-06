@@ -56,12 +56,12 @@ class Project extends AggregateRoot
         return $this->slug;
     }
 
-    public function createdOn() : \DateTimeImmutable
+    public function createdOn() : \DateTimeInterface
     {
         return $this->createdOn;
     }
 
-    public function updatedOn() : \DateTimeImmutable
+    public function updatedOn() : \DateTimeInterface
     {
         return $this->updatedOn;
     }

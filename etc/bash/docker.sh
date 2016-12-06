@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 cd $(dirname $0)/../docker
 docker-compose up -d
 docker-compose exec php bash -c "cd /var/www/taskmanager && composer install"
