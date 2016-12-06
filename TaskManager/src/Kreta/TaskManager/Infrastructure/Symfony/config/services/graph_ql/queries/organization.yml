@@ -19,6 +19,7 @@ services:
     kreta.task_manager.graph_ql.query_resolver.organization_of_id:
         class: Kreta\TaskManager\Infrastructure\Ui\Http\GraphQl\Query\Organization\OrganizationResolver
         arguments:
+            - "@security.token_storage"
             - "@kreta.task_manager.query_bus"
         tags:
             - { name: overblog_graphql.resolver, alias: "organization", method: "resolve" }
@@ -26,6 +27,7 @@ services:
     kreta.task_manager.graph_ql.query_resolver.member_type:
         class: Kreta\TaskManager\Infrastructure\Ui\Http\GraphQl\Query\Organization\MemberTypeResolver
         arguments:
+            - "@security.token_storage"
             - "@kreta.task_manager.graphql.resolver.type"
             - "@kreta.task_manager.query_bus"
         tags:
@@ -34,6 +36,7 @@ services:
     kreta.task_manager.graph_ql.query_resolver.organization_member_of_id:
         class: Kreta\TaskManager\Infrastructure\Ui\Http\GraphQl\Query\Organization\OrganizationMemberResolver
         arguments:
+            - "@security.token_storage"
             - "@kreta.task_manager.query_bus"
         tags:
             - { name: overblog_graphql.resolver, alias: "member_organization_member", method: "resolve" }
@@ -41,6 +44,7 @@ services:
     kreta.task_manager.graph_ql.query_resolver.owner_of_id:
         class: Kreta\TaskManager\Infrastructure\Ui\Http\GraphQl\Query\Organization\OwnerResolver
         arguments:
+            - "@security.token_storage"
             - "@kreta.task_manager.query_bus"
         tags:
             - { name: overblog_graphql.resolver, alias: "member_owner", method: "resolve" }

@@ -18,16 +18,23 @@ class OrganizationMemberOfIdQuery
 {
     private $organizationId;
     private $userId;
+    private $memberId;
 
-    public function __construct(string $organizationId, string $userId)
+    public function __construct(string $organizationId, string $memberId, string $userId)
     {
         $this->organizationId = $organizationId;
         $this->userId = $userId;
+        $this->memberId = $memberId;
     }
 
     public function organizationId() : string
     {
         return $this->organizationId;
+    }
+
+    public function memberId() : string
+    {
+        return $this->memberId;
     }
 
     public function userId() : string

@@ -9,3 +9,6 @@
 services:
     kreta.task_manager.specification_factory.organization:
         class: Kreta\TaskManager\Infrastructure\Persistence\Doctrine\ORM\Organization\DoctrineORMOrganizationSpecificationFactory
+
+    kreta.task_manager.specification_factory.project:
+        class: Kreta\TaskManager\Infrastructure\Persistence\Doctrine\ORM\Project\DoctrineORMProjectSpecificationFactory

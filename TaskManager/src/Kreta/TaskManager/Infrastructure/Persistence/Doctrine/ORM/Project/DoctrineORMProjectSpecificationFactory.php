@@ -15,22 +15,16 @@ declare(strict_types=1);
 namespace Kreta\TaskManager\Infrastructure\Persistence\Doctrine\ORM\Project;
 
 use Kreta\SharedKernel\Domain\Model\Exception;
-use Kreta\TaskManager\Domain\Model\Project\ProjectName;
 use Kreta\TaskManager\Domain\Model\Project\ProjectSpecificationFactory;
-use Kreta\TaskManager\Domain\Model\User\UserId;
 
 class DoctrineORMProjectSpecificationFactory implements ProjectSpecificationFactory
 {
-    public function buildFilterableSpecification(
-        UserId $userId,
-        array $organizationIds,
-        ProjectName $name = null,
-        int $offset = 0,
-        int $limit = -1
-    ) {
+    public function buildFilterableSpecification(array $organizationIds, $name, int $offset = 0, int $limit = -1)
+    {
         if (empty($organizationIds)) {
             throw new Exception('Needs at least one organization id');
         }
-        return new DoctrineORMFilterableSpecification($userId, $organizationIds, $name, $offset, $limit);
+
+        return new DoctrineORMFilterableSpecification($organizationIds, $name, $offset, $limit);
     }
 }

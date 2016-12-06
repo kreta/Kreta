@@ -18,8 +18,9 @@ use Kreta\TaskManager\Application\DataTransformer\Project\ProjectDataTransformer
 use Kreta\TaskManager\Domain\Model\Organization\Organization;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationId;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationRepository;
+use Kreta\TaskManager\Domain\Model\Organization\OrganizationSpecificationFactory;
+use Kreta\TaskManager\Domain\Model\Organization\UnauthorizedOrganizationActionException;
 use Kreta\TaskManager\Domain\Model\Project\Project;
-use Kreta\TaskManager\Domain\Model\Project\ProjectName;
 use Kreta\TaskManager\Domain\Model\Project\ProjectRepository;
 use Kreta\TaskManager\Domain\Model\Project\ProjectSpecificationFactory;
 use Kreta\TaskManager\Domain\Model\User\UserId;
@@ -27,12 +28,14 @@ use Kreta\TaskManager\Domain\Model\User\UserId;
 class FilterProjectsHandler
 {
     private $repository;
-    private $organizationRepository;
-    private $dataTransformer;
     private $specificationFactory;
+    private $dataTransformer;
+    private $organizationRepository;
+    private $organizationSpecificationFactory;
 
     public function __construct(
         OrganizationRepository $organizationRepository,
+        OrganizationSpecificationFactory $organizationSpecificationFactory,
         ProjectRepository $repository,
         ProjectSpecificationFactory $specificationFactory,
         ProjectDataTransformer $dataTransformer
@@ -41,39 +44,42 @@ class FilterProjectsHandler
         $this->specificationFactory = $specificationFactory;
         $this->dataTransformer = $dataTransformer;
         $this->organizationRepository = $organizationRepository;
+        $this->organizationSpecificationFactory = $organizationSpecificationFactory;
     }
 
     public function __invoke(FilterProjectsQuery $query)
     {
-        $organization = $this->organizationRepository->organizationOfId(
-            OrganizationId::generate(
-                $query->organizationId()
-            )
-        );
-        if (!$organization instanceof Organization) {
-            // Sacar todas las organizations que el user id sea miembro
-            // obtengo asi los organizationIds que me interesan
-            // Hacer una query te devuelva los projects que su organization id sea uno de los anteriores
+        $organizationIds = [OrganizationId::generate($query->organizationId())];
+        $organization = $this->organizationRepository->organizationOfId($organizationIds[0]);
+        if ($organization instanceof Organization) {
+            if (!$organization->isOrganizationMember(UserId::generate($query->userId()))) {
+                throw new UnauthorizedOrganizationActionException();
+            }
+        } else {
+            $organizations = $this->organizationRepository->query(
+                $this->organizationSpecificationFactory->buildFilterableSpecification(
+                    null,
+                    UserId::generate($query->userId())
+                )
+            );
+            $organizationIds = array_map(function (Organization $organization) {
+                return $organization->id();
+            }, $organizations);
         }
 
-        $organizations = $this->repository->query(
+        $projects = $this->repository->query(
             $this->specificationFactory->buildFilterableSpecification(
-                UserId::generate($query->userId()),
-                [
-                    OrganizationId::generate(
-                        $query->organizationId()
-                    )
-                ],
-                null === $query->name() ? null : new ProjectName($query->name()),
+                $organizationIds,
+                $query->name(),
                 $query->offset(),
                 $query->limit()
             )
         );
 
-        return array_map(function (Project $organization) {
-            $this->dataTransformer->write($organization);
+        return array_map(function (Project $project) {
+            $this->dataTransformer->write($project);
 
             return $this->dataTransformer->read();
-        }, $organizations);
+        }, $projects);
     }
 }

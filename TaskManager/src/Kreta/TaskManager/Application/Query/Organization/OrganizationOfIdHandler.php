@@ -19,6 +19,8 @@ use Kreta\TaskManager\Domain\Model\Organization\Organization;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationDoesNotExistException;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationId;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationRepository;
+use Kreta\TaskManager\Domain\Model\Organization\UnauthorizedOrganizationActionException;
+use Kreta\TaskManager\Domain\Model\User\UserId;
 
 class OrganizationOfIdHandler
 {
@@ -40,6 +42,9 @@ class OrganizationOfIdHandler
         );
         if (!$organization instanceof Organization) {
             throw new OrganizationDoesNotExistException();
+        }
+        if (!$organization->isOrganizationMember(UserId::generate($query->userId()))) {
+            throw new UnauthorizedOrganizationActionException();
         }
 
         $this->dataTransformer->write($organization);

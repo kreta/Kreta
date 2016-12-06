@@ -15,13 +15,14 @@ namespace Spec\Kreta\TaskManager\Application\Query\Organization;
 use Kreta\TaskManager\Application\Query\Organization\OrganizationMemberOfIdQuery;
 use PhpSpec\ObjectBehavior;
 
-class OrganizationMemberOfOfIdQuerySpec extends ObjectBehavior
+class OrganizationMemberOfIdQuerySpec extends ObjectBehavior
 {
     function it_can_be_created()
     {
-        $this->beConstructedWith('organization-id', 'user-id');
+        $this->beConstructedWith('organization-id', 'member-id', 'user-id');
         $this->shouldHaveType(OrganizationMemberOfIdQuery::class);
         $this->organizationId()->shouldReturn('organization-id');
+        $this->memberId()->shouldReturn('member-id');
         $this->userId()->shouldReturn('user-id');
     }
 }

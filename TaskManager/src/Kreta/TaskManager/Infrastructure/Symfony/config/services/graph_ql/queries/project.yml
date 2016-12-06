@@ -1,0 +1,24 @@
+# This file is part of the Kreta package.
+#
+# (c) Beñat Espiña <benatespina@gmail.com>
+# (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+
+services:
+    kreta.task_manager.graph_ql.query_resolver.filter_projects:
+        class: Kreta\TaskManager\Infrastructure\Ui\Http\GraphQl\Query\Project\ProjectsResolver
+        arguments:
+            - "@security.token_storage"
+            - "@kreta.task_manager.graphql.connection_builder"
+            - "@kreta.task_manager.query_bus"
+        tags:
+            - { name: overblog_graphql.resolver, alias: "projects", method: "resolve" }
+
+#    kreta.task_manager.graph_ql.query_resolver.project_of_id:
+#        class: Kreta\TaskManager\Infrastructure\Ui\Http\GraphQl\Query\Project\ProjectResolver
+#        arguments:
+#            - "@kreta.task_manager.query_bus"
+#        tags:
+#            - { name: overblog_graphql.resolver, alias: "project", method: "resolve" }
