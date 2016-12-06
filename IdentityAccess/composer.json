@@ -26,15 +26,6 @@
             "homepage": "http://gorkalaucirica.net"
         }
     ],
-    "repositories": [
-        {
-            "type": "path",
-            "url": "../SharedKernel",
-            "options": {
-                "symlink": true
-            }
-        }
-    ],
     "require": {
         "php": "^7.0",
         "bengor-user/user-bundle": "^0.7",
@@ -48,7 +39,7 @@
         "doctrine/doctrine-migrations-bundle": "^1.2",
         "doctrine/orm": "^2.5",
         "incenteev/composer-parameter-handler": "^2.0",
-        "kreta/shared-kernel": "0.7.x-dev",
+        "kreta/shared-kernel": "1.0.x-dev",
         "lexik/jwt-authentication-bundle": "^2.0",
         "sensio/distribution-bundle": "^5.0",
         "simple-bus/asynchronous-bundle": "^2.2",

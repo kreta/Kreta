@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "04a883cb1355aa8cbbaab3ccd930566e",
-    "content-hash": "4d8e1caf2d0af677b74a19b2a2e83531",
+    "hash": "e003a31b5732488a7eac0d97f512a1e3",
+    "content-hash": "20953fdcea39e53e6151e84697b68c86",
     "packages": [
         {
             "name": "ajgl/simple-bus-query-bus",
@@ -62,16 +62,16 @@
         },
         {
             "name": "beberlei/assert",
-            "version": "v2.6.7",
+            "version": "v2.6.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/beberlei/assert.git",
-                "reference": "2b4c9249a7ceef51402d39bd797aae16cfd8f36f"
+                "reference": "848c8f0bde97b48d1e159075e20a6667583f3978"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/beberlei/assert/zipball/2b4c9249a7ceef51402d39bd797aae16cfd8f36f",
-                "reference": "2b4c9249a7ceef51402d39bd797aae16cfd8f36f",
+                "url": "https://api.github.com/repos/beberlei/assert/zipball/848c8f0bde97b48d1e159075e20a6667583f3978",
+                "reference": "848c8f0bde97b48d1e159075e20a6667583f3978",
                 "shasum": ""
             },
             "require": {
@@ -79,13 +79,13 @@
                 "php": ">=5.3"
             },
             "require-dev": {
-                "friendsofphp/php-cs-fixer": "2.0.0-alpha",
+                "friendsofphp/php-cs-fixer": "^2.0",
                 "phpunit/phpunit": "@stable"
             },
             "type": "library",
             "autoload": {
-                "psr-0": {
-                    "Assert": "lib/"
+                "psr-4": {
+                    "Assert\\": "lib/Assert"
                 },
                 "files": [
                     "lib/Assert/functions.php"
@@ -113,7 +113,7 @@
                 "assertion",
                 "validation"
             ],
-            "time": "2016-11-14 16:46:13"
+            "time": "2016-12-05 11:33:17"
         },
         {
             "name": "clue/stream-filter",
@@ -370,16 +370,16 @@
         },
         {
             "name": "doctrine/common",
-            "version": "v2.6.1",
+            "version": "v2.6.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/doctrine/common.git",
-                "reference": "a579557bc689580c19fee4e27487a67fe60defc0"
+                "reference": "7bce00698899aa2c06fe7365c76e4d78ddb15fa3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/doctrine/common/zipball/a579557bc689580c19fee4e27487a67fe60defc0",
-                "reference": "a579557bc689580c19fee4e27487a67fe60defc0",
+                "url": "https://api.github.com/repos/doctrine/common/zipball/7bce00698899aa2c06fe7365c76e4d78ddb15fa3",
+                "reference": "7bce00698899aa2c06fe7365c76e4d78ddb15fa3",
                 "shasum": ""
             },
             "require": {
@@ -439,7 +439,7 @@
                 "persistence",
                 "spl"
             ],
-            "time": "2015-12-25 13:18:31"
+            "time": "2016-11-30 16:50:46"
         },
         {
             "name": "doctrine/dbal",
@@ -1387,16 +1387,20 @@
         {
             "name": "kreta/shared-kernel",
             "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/kreta/SharedKernel.git",
+                "reference": "259ff9313222ff34389b3dfbcac295cf5a3c6d53"
+            },
             "dist": {
-                "type": "path",
-                "url": "../SharedKernel",
-                "reference": "1e921ddca43d3800f4b5ac3c377f6c8e7fc74172",
-                "shasum": null
+                "type": "zip",
+                "url": "https://api.github.com/repos/kreta/SharedKernel/zipball/259ff9313222ff34389b3dfbcac295cf5a3c6d53",
+                "reference": "259ff9313222ff34389b3dfbcac295cf5a3c6d53",
+                "shasum": ""
             },
             "require": {
                 "ajgl/simple-bus-query-bus": "^0.1",
                 "doctrine/collections": "^1.3",
-                "incenteev/composer-parameter-handler": "^2.0",
                 "keyvanakbary/slugifier": "^4.0",
                 "php": "^7.0",
                 "ramsey/uuid": "^3.5",
@@ -1405,13 +1409,10 @@
             "require-dev": {
                 "doctrine/orm": "^2.5",
                 "friendsofphp/php-cs-fixer": "^1.12",
-                "phpspec/phpspec": "^3.1"
+                "phpspec/phpspec": "^3.2"
             },
             "type": "project",
             "extra": {
-                "incenteev-parameters": {
-                    "file": "parameters.yml"
-                },
                 "branch-alias": {
                     "dev-master": "0.7.x-dev"
                 }
@@ -1428,12 +1429,7 @@
                     "tests/"
                 ]
             },
-            "scripts": {
-                "cs": [
-                    "php-cs-fixer fix --config-file=etc/phpcs/.php_cs",
-                    "php-cs-fixer fix --config-file=etc/phpcs/.phpspec_cs"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -1458,9 +1454,7 @@
                 "shared-kernel",
                 "tool"
             ],
-            "transport-options": {
-                "symlink": true
-            }
+            "time": "2016-12-02 15:36:39"
         },
         {
             "name": "monolog/monolog",
@@ -1589,29 +1583,31 @@
         },
         {
             "name": "ocramius/proxy-manager",
-            "version": "2.0.4",
+            "version": "2.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Ocramius/ProxyManager.git",
-                "reference": "a55d08229f4f614bf335759ed0cf63378feeb2e6"
+                "reference": "d9e5a00ca2d87b7e0f1bff36b897e02afd7d5435"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Ocramius/ProxyManager/zipball/a55d08229f4f614bf335759ed0cf63378feeb2e6",
-                "reference": "a55d08229f4f614bf335759ed0cf63378feeb2e6",
+                "url": "https://api.github.com/repos/Ocramius/ProxyManager/zipball/d9e5a00ca2d87b7e0f1bff36b897e02afd7d5435",
+                "reference": "d9e5a00ca2d87b7e0f1bff36b897e02afd7d5435",
                 "shasum": ""
             },
             "require": {
-                "ocramius/package-versions": "^1.0",
-                "php": "7.0.0 - 7.0.5 || ^7.0.7",
-                "zendframework/zend-code": "3.0.0 - 3.0.2 || ^3.0.4"
+                "ocramius/package-versions": "^1.1.1",
+                "php": "^7.1.0",
+                "zendframework/zend-code": "^3.1.0"
             },
             "require-dev": {
-                "couscous/couscous": "^1.4.0",
+                "couscous/couscous": "^1.5.2",
                 "ext-phar": "*",
-                "phpbench/phpbench": "^0.11.2",
-                "phpunit/phpunit": "^5.4.6",
-                "squizlabs/php_codesniffer": "^2.6.0"
+                "humbug/humbug": "dev-master@DEV",
+                "phpbench/phpbench": "^0.12.2",
+                "phpunit/phpunit": "^5.6.4",
+                "phpunit/phpunit-mock-objects": "^3.4.1",
+                "squizlabs/php_codesniffer": "^2.7.0"
             },
             "suggest": {
                 "ocramius/generated-hydrator": "To have very fast object to array to object conversion for ghost objects",
@@ -1650,7 +1646,7 @@
                 "proxy pattern",
                 "service proxies"
             ],
-            "time": "2016-11-04 15:53:15"
+            "time": "2016-11-30 15:45:00"
         },
         {
             "name": "overblog/graphql-bundle",
@@ -2834,16 +2830,16 @@
         },
         {
             "name": "sensio/distribution-bundle",
-            "version": "v5.0.14",
+            "version": "v5.0.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/SensioDistributionBundle.git",
-                "reference": "e64947de9ebc37732a62f5115164484a9bee7fa6"
+                "reference": "d294b0665cf09c799e9c1993d5c776a5bf55cb85"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/e64947de9ebc37732a62f5115164484a9bee7fa6",
-                "reference": "e64947de9ebc37732a62f5115164484a9bee7fa6",
+                "url": "https://api.github.com/repos/sensiolabs/SensioDistributionBundle/zipball/d294b0665cf09c799e9c1993d5c776a5bf55cb85",
+                "reference": "d294b0665cf09c799e9c1993d5c776a5bf55cb85",
                 "shasum": ""
             },
             "require": {
@@ -2882,7 +2878,7 @@
                 "configuration",
                 "distribution"
             ],
-            "time": "2016-10-30 23:18:01"
+            "time": "2016-12-06 07:29:27"
         },
         {
             "name": "sensiolabs/security-checker",
@@ -4182,16 +4178,16 @@
     "packages-dev": [
         {
             "name": "friendsofphp/php-cs-fixer",
-            "version": "v1.13.0",
+            "version": "v1.13.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/FriendsOfPHP/PHP-CS-Fixer.git",
-                "reference": "ac04a510bed5407e91664f8a37b9d58072d96768"
+                "reference": "0ea4f7ed06ca55da1d8fc45da26ff87f261c4088"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/FriendsOfPHP/PHP-CS-Fixer/zipball/ac04a510bed5407e91664f8a37b9d58072d96768",
-                "reference": "ac04a510bed5407e91664f8a37b9d58072d96768",
+                "url": "https://api.github.com/repos/FriendsOfPHP/PHP-CS-Fixer/zipball/0ea4f7ed06ca55da1d8fc45da26ff87f261c4088",
+                "reference": "0ea4f7ed06ca55da1d8fc45da26ff87f261c4088",
                 "shasum": ""
             },
             "require": {
@@ -4236,7 +4232,7 @@
                 }
             ],
             "description": "A tool to automatically fix PHP code style",
-            "time": "2016-11-29 09:21:33"
+            "time": "2016-12-01 00:05:05"
         },
         {
             "name": "phpdocumentor/reflection-common",
@@ -4424,16 +4420,16 @@
         },
         {
             "name": "phpspec/phpspec",
-            "version": "3.2.0",
+            "version": "3.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/phpspec.git",
-                "reference": "3ee05c39b6b25342b84d66a24ec8525575e3875f"
+                "reference": "019a113b657aed90a4aa8f5e39696800779b8b2c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/phpspec/zipball/3ee05c39b6b25342b84d66a24ec8525575e3875f",
-                "reference": "3ee05c39b6b25342b84d66a24ec8525575e3875f",
+                "url": "https://api.github.com/repos/phpspec/phpspec/zipball/019a113b657aed90a4aa8f5e39696800779b8b2c",
+                "reference": "019a113b657aed90a4aa8f5e39696800779b8b2c",
                 "shasum": ""
             },
             "require": {
@@ -4442,7 +4438,7 @@
                 "php": "^5.6 || ^7.0",
                 "phpspec/php-diff": "^1.0.0",
                 "phpspec/prophecy": "^1.5",
-                "sebastian/exporter": "^1.0",
+                "sebastian/exporter": "^1.0 || ^2.0",
                 "symfony/console": "^2.7 || ^3.0",
                 "symfony/event-dispatcher": "^2.7 || ^3.0",
                 "symfony/finder": "^2.7 || ^3.0",
@@ -4502,7 +4498,7 @@
                 "testing",
                 "tests"
             ],
-            "time": "2016-11-27 19:25:44"
+            "time": "2016-12-05 13:46:47"
         },
         {
             "name": "phpspec/prophecy",
@@ -4685,21 +4681,21 @@
         },
         {
             "name": "sebastian/exporter",
-            "version": "1.2.2",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/exporter.git",
-                "reference": "42c4c2eec485ee3e159ec9884f95b431287edde4"
+                "reference": "ce474bdd1a34744d7ac5d6aad3a46d48d9bac4c4"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/exporter/zipball/42c4c2eec485ee3e159ec9884f95b431287edde4",
-                "reference": "42c4c2eec485ee3e159ec9884f95b431287edde4",
+                "url": "https://api.github.com/repos/sebastianbergmann/exporter/zipball/ce474bdd1a34744d7ac5d6aad3a46d48d9bac4c4",
+                "reference": "ce474bdd1a34744d7ac5d6aad3a46d48d9bac4c4",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3",
-                "sebastian/recursion-context": "~1.0"
+                "sebastian/recursion-context": "~2.0"
             },
             "require-dev": {
                 "ext-mbstring": "*",
@@ -4708,7 +4704,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.3.x-dev"
+                    "dev-master": "2.0.x-dev"
                 }
             },
             "autoload": {
@@ -4748,20 +4744,20 @@
                 "export",
                 "exporter"
             ],
-            "time": "2016-06-17 09:04:28"
+            "time": "2016-11-19 08:54:04"
         },
         {
             "name": "sebastian/recursion-context",
-            "version": "1.0.2",
+            "version": "2.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/recursion-context.git",
-                "reference": "913401df809e99e4f47b27cdd781f4a258d58791"
+                "reference": "2c3ba150cbec723aa057506e73a8d33bdb286c9a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/recursion-context/zipball/913401df809e99e4f47b27cdd781f4a258d58791",
-                "reference": "913401df809e99e4f47b27cdd781f4a258d58791",
+                "url": "https://api.github.com/repos/sebastianbergmann/recursion-context/zipball/2c3ba150cbec723aa057506e73a8d33bdb286c9a",
+                "reference": "2c3ba150cbec723aa057506e73a8d33bdb286c9a",
                 "shasum": ""
             },
             "require": {
@@ -4773,7 +4769,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "1.0.x-dev"
+                    "dev-master": "2.0.x-dev"
                 }
             },
             "autoload": {
@@ -4801,7 +4797,7 @@
             ],
             "description": "Provides functionality to recursively process PHP variables",
             "homepage": "http://www.github.com/sebastianbergmann/recursion-context",
-            "time": "2015-11-11 19:50:13"
+            "time": "2016-11-19 07:33:16"
         },
         {
             "name": "webmozart/assert",
