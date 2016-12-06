@@ -6,6 +6,8 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 
+sudo: false
+
 language: php
 
 php:
@@ -15,10 +17,14 @@ env:
     - COMPOSER_OPTIONS="--no-interaction --prefer-source"
 
 install:
-    - nvm install 6
-    - nvm use 6
+    - nvm install 7
+    - nvm use 7
     - composer self-update
     - sh etc/bash/install.sh
+    - npm install -g yarn
+
+before_script:
+    - phpenv config-rm xdebug.ini
 
 script:
     - sh etc/bash/tests.sh
@@ -26,6 +32,7 @@ script:
 cache:
     yarn: true
     directories:
+        - node_modules
         - $COMPOSER_CACHE_DIR
 
 matrix:
