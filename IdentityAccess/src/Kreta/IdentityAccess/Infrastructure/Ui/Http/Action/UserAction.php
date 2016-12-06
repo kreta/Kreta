@@ -16,16 +16,13 @@ namespace Kreta\IdentityAccess\Infrastructure\Ui\Http\Action;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
-use Symfony\Component\Security\Core\Authorization\AuthorizationCheckerInterface;
 
 class UserAction
 {
-    private $authorizationChecker;
     private $tokenStorage;
 
-    public function __construct(AuthorizationCheckerInterface $checker, TokenStorageInterface $tokenStorage)
+    public function __construct(TokenStorageInterface $tokenStorage)
     {
-        $this->authorizationChecker = $checker;
         $this->tokenStorage = $tokenStorage;
     }
 
