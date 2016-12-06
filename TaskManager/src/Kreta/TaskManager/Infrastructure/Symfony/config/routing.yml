@@ -9,15 +9,3 @@
 overblog_graphql_endpoint:
     resource: "@OverblogGraphQLBundle/Resources/config/routing/graphql.yml"
     prefix: "/api"      # This is a temporal hack to until make taskManager and Identity Access real standalone applications
-
-kreta_front:
-    path: /{page}
-    defaults:
-        _controller: "kreta.task_manager.controller.default:indexAction"
-    requirements:
-        page: ".+"
-
-kreta_front_index:
-    path: /
-    defaults:
-        _controller: "kreta.task_manager.controller.default:indexAction"
