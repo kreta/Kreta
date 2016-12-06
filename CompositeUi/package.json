@@ -32,8 +32,8 @@
   "scripts": {
     "start": "babel-node scripts/start.js",
     "test": "jest",
-    "test:watch": "npm test -- --watch",
-    "test:coverage": "npm test -- --verbose --coverage"
+    "test:watch": "yarn test -- --watch",
+    "test:coverage": "yarn test -- --verbose --coverage"
   },
   "jest": {
     "unmockedModulePathPatterns": [

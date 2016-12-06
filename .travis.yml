@@ -23,8 +23,8 @@ install:
     - nvm install 7
     - nvm use 7
     - composer self-update
-    - sh etc/bash/install.sh
     - npm install -g yarn
+    - sh etc/bash/install.sh
 
 script:
     - sh etc/bash/tests.sh
