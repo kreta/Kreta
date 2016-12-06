@@ -11,7 +11,6 @@
 import ActionTypes from './../constants/ActionTypes';
 
 const initialState = {
-  errors: [],
   token: null,
   updatingAuthorization: false
 };

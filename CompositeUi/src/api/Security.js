@@ -12,18 +12,19 @@ import Config from './../Config';
 
 class Security {
   login(username, password) {
-    return fetch(`${Config.identityAccessUrl}/auth/token`, {
-      headers: {
-        'Authorization': `Basic ${btoa(`${username}:${password}`)}`,
-      },
-      method: 'POST'
-    }).then((response) => {
-      const json = response.json();
-      if (response.status >= 400) {
-        throw json;
-      }
-
-      return json;
+    return new Promise((resolve, reject) => {
+      fetch(`${Config.identityAccessUrl}/auth/token`, {
+        headers: {
+          'Authorization': `Basic ${btoa(`${username}:${password}`)}`,
+        },
+        method: 'POST'
+      }).then((response) => {
+        if (response.ok) {
+          resolve(response.json());
+        } else {
+          reject(response.json());
+        }
+      });
     });
   }
 
