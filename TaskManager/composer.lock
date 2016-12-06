@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e003a31b5732488a7eac0d97f512a1e3",
-    "content-hash": "20953fdcea39e53e6151e84697b68c86",
+    "hash": "889f315eb2150e7cea1e30fef5435cdf",
+    "content-hash": "5984bd75e427c29812c89a12a2c3fc7e",
     "packages": [
         {
             "name": "ajgl/simple-bus-query-bus",
@@ -1390,12 +1390,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kreta/SharedKernel.git",
-                "reference": "259ff9313222ff34389b3dfbcac295cf5a3c6d53"
+                "reference": "ff40077dfae83b1595cbe4774cd319d6fd166a30"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kreta/SharedKernel/zipball/259ff9313222ff34389b3dfbcac295cf5a3c6d53",
-                "reference": "259ff9313222ff34389b3dfbcac295cf5a3c6d53",
+                "url": "https://api.github.com/repos/kreta/SharedKernel/zipball/ff40077dfae83b1595cbe4774cd319d6fd166a30",
+                "reference": "ff40077dfae83b1595cbe4774cd319d6fd166a30",
                 "shasum": ""
             },
             "require": {
@@ -1414,7 +1414,7 @@
             "type": "project",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "0.7.x-dev"
+                    "dev-master": "1.0.x-dev"
                 }
             },
             "autoload": {
@@ -1454,7 +1454,7 @@
                 "shared-kernel",
                 "tool"
             ],
-            "time": "2016-12-02 15:36:39"
+            "time": "2016-12-06 11:35:59"
         },
         {
             "name": "monolog/monolog",
