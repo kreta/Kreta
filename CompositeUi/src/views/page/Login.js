@@ -13,6 +13,7 @@ import {connect} from 'react-redux';
 
 import ContentLayout from './../layout/ContentLayout';
 import ContentMiddleLayout from './../layout/ContentMiddleLayout';
+import NotificationLayout from './../layout/NotificationLayout';
 import LoadingSpinner from './../component/LoadingSpinner';
 import Login from './../form/Login';
 import LogoHeader from './../component/LogoHeader';
@@ -30,12 +31,15 @@ class LoginPage extends React.Component {
     }
 
     return (
-      <ContentLayout>
-        <ContentMiddleLayout>
-          <LogoHeader/>
-          <Login onSubmit={this.login.bind(this)}/>
-        </ContentMiddleLayout>
-      </ContentLayout>
+      <div>
+        <NotificationLayout/>
+        <ContentLayout>
+          <ContentMiddleLayout>
+            <LogoHeader/>
+            <Login onSubmit={this.login.bind(this)}/>
+          </ContentMiddleLayout>
+        </ContentLayout>
+      </div>
     );
   }
 }
