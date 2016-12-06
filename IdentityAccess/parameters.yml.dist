@@ -7,8 +7,8 @@
 # file that was distributed with this source code.
 
 parameters:
-    secret:                              12e54860e3fbbbebd0aa659fa8bc554c202298ac # Your own secret with http://nux.net/secret
-    delivery_address:                    benatespina@gmail.com
+    identity_access_secret:              12e54860e3fbbbebd0aa659fa8bc554c202298ac # Your own secret with http://nux.net/secret
+    identity_access_delivery_address:    benatespina@gmail.com
 
     identity_access_database_host:       127.0.0.1
     identity_access_database_port:       ~
