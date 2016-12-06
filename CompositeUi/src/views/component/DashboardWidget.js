@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-import './../../scss/components/_dashboard-widget';
+import './../../scss/components/_dashboard-widget.scss';
 
 import React from 'react';
 

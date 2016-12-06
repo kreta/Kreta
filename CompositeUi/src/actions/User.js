@@ -18,7 +18,7 @@ const Actions = {
     dispatch({
       type: ActionTypes.USER_AUTHORIZING
     });
-    SecurityInstance.login(credentialData.email, credentialData.password)
+    return SecurityInstance.login(credentialData.email, credentialData.password)
       .then((json) => {
         localStorage.token = json.token;
         dispatch({
@@ -28,8 +28,7 @@ const Actions = {
         dispatch(
           routeActions.push('/')
         );
-      })
-      .catch((errorData) => {
+      }, (errorData) => {
         errorData.then((errors) => {
           dispatch({
             type: ActionTypes.USER_AUTHORIZATION_ERROR,
@@ -42,7 +41,7 @@ const Actions = {
     dispatch({
       type: ActionTypes.USER_UNAUTHORIZING
     });
-    SecurityInstance.logout()
+    return SecurityInstance.logout()
       .then(() => {
         dispatch({
           type: ActionTypes.USER_UNAUTHORIZED

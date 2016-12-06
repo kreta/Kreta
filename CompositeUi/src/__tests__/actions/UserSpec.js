@@ -25,20 +25,20 @@ describe('User actions', () => {
 
     const store = mockStore({errors: [], token: null, updatingAuthorization: false});
 
-    await store.dispatch(UserActions.login({username: 'username', password: 'password'}));
+    await store.dispatch(UserActions.login({email: 'valid@email.com', password: 'password'}));
     expect(store.getActions()).toEqual(expectedActions);
   });
 
   it('cannot login with invalid credentials', async () => {
     const expectedActions = [
       {type: ActionTypes.USER_AUTHORIZING},
-      {type: ActionTypes.USER_UNAUTHORIZED}
+      {type: ActionTypes.USER_AUTHORIZATION_ERROR}
     ];
 
     const store = mockStore({errors: [], token: null, updatingAuthorization: false});
 
-    await store.dispatch(UserActions.login({username: 'username', password: 'invalid-password'}));
-    // expect(store.getActions()).toEqual(expectedActions);
+    await store.dispatch(UserActions.login({email: 'invalid@email.com', password: 'invalid-password'}));
+    expect(store.getActions()).toEqual(expectedActions);
   });
 
   it('can logout', async () => {

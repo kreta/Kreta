@@ -1,13 +1,14 @@
 export default {
-  login: (username, password) => {
+  login: (email, password) => {
     return new Promise((resolve, reject) => {
-      username === 'username' && password === 'password' ?
-        resolve('token') : null
+      email === 'valid@email.com' && password === 'password' ?
+        resolve(new Promise(resolve => resolve({token: 'token'}))) :
+        reject(new Promise(resolve => resolve()))
     })
   },
   logout: () => {
-    return new Promise((resolve, reject) => {
-        resolve();
+    return new Promise((resolve) => {
+      resolve();
     })
   }
 };

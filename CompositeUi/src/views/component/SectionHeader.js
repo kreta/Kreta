@@ -10,7 +10,7 @@
 
 import React from 'react';
 
-import './../../scss/components/_section-header';
+import './../../scss/components/_section-header.scss';
 
 const SectionHeader = props => (
   <div className="section__header">
