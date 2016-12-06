@@ -8,4 +8,3 @@
 
 overblog_graphql_endpoint:
     resource: "@OverblogGraphQLBundle/Resources/config/routing/graphql.yml"
-    prefix: "/api"      # This is a temporal hack to until make taskManager and Identity Access real standalone applications
