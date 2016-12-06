@@ -14,3 +14,7 @@ cd TaskManager
 composer install
 sh etc/bash/load_database.sh
 cd ..
+
+cd CompositeUi
+yarn install
+cd ..
