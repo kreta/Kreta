@@ -11,3 +11,7 @@ cd ..
 cd TaskManager
 vendor/bin/phpspec run
 cd ..
+
+cd CompositeUi
+yarn test:coverage
+cd ..

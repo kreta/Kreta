@@ -6,9 +6,7 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 
-addons:
-    hosts:
-        - kreta.test
+sudo: false
 
 language: php
 
@@ -16,17 +14,25 @@ php:
     - 7.1
 
 env:
-    - COMPOSER_OPTIONS="--prefer-source"
+    - COMPOSER_OPTIONS="--no-interaction --prefer-source"
+
+before_install:
+    - phpenv config-rm xdebug.ini
 
 install:
+    - nvm install 7
+    - nvm use 7
     - composer self-update
+    - npm install -g yarn
     - sh etc/bash/install.sh
 
 script:
     - sh etc/bash/tests.sh
 
 cache:
+    yarn: true
     directories:
+        - node_modules
         - $COMPOSER_CACHE_DIR
 
 matrix:
