@@ -19,7 +19,11 @@ import {Row, RowColumn} from './../component/Grid';
 const validate = (values) => {
   const
     errors = {},
-    requiredFields = ['username', 'password'];
+    requiredFields = ['email', 'password'];
+
+  if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+    errors.email = 'Invalid email address';
+  }
 
   requiredFields.forEach(field => {
     if (!values[field] || values[field] === '') {
@@ -43,7 +47,7 @@ class Login extends React.Component {
       <form onSubmit={handleSubmit}>
         <Row center>
           <RowColumn large={6}>
-            <Field autoFocus component={FormInput} label="Username" name="username" tabIndex={1}/>
+            <Field autoFocus component={FormInput} label="Email" name="email" tabIndex={1}/>
             <Field component={FormInput} label="Password" name="password" tabIndex={2} type="password"/>
             <FormActions>
               <Button color="green" tabIndex={3} type="submit">Done</Button>

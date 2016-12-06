@@ -30,6 +30,9 @@ export default function reducer(state = initialState, action = {}) {
     case ActionTypes.USER_UNAUTHORIZED:
       return {...state, token: null, updatingAuthorization: false};
 
+    case ActionTypes.USER_AUTHORIZATION_ERROR:
+      return {...state, token: null, updatingAuthorization: false};
+
     default:
       return state;
   }

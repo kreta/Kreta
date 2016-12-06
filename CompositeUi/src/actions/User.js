@@ -18,15 +18,25 @@ const Actions = {
     dispatch({
       type: ActionTypes.USER_AUTHORIZING
     });
-    SecurityInstance.login(credentialData.username, credentialData.password)
-      .then((token) => {
+    SecurityInstance.login(credentialData.email, credentialData.password)
+      .then((json) => {
+        localStorage.token = json.token;
         dispatch({
           type: ActionTypes.USER_AUTHORIZED,
-          token
+          token: json.token
         });
         dispatch(
           routeActions.push('/')
         );
+      })
+      .catch((errorData) => {
+        errorData.then((errors) => {
+          console.log(errors);
+          dispatch({
+            type: ActionTypes.USER_AUTHORIZATION_ERROR,
+            errors
+          });
+        });
       });
   },
   logout: () => (dispatch) => {

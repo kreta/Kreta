@@ -22,7 +22,7 @@ security:
             stateless: true
             guard:
                 authenticators:
-                    - bengor_user.user.jwt_authenticator
+                    - lexik_jwt_authentication.jwt_token_authenticator
             provider: bengor_user
     access_control:
         - { path: ^/invite, role: IS_AUTHENTICATED_ANONYMOUSLY }
