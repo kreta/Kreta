@@ -11,11 +11,11 @@
 import Config from './../Config';
 
 class Security {
-  login(username, password) {
+  login(email, password) {
     return new Promise((resolve, reject) => {
       fetch(`${Config.identityAccessUrl}/auth/token`, {
         headers: {
-          'Authorization': `Basic ${btoa(`${username}:${password}`)}`,
+          'Authorization': `Basic ${btoa(`${email}:${password}`)}`,
         },
         method: 'POST'
       }).then((response) => {

@@ -31,17 +31,20 @@
   ],
   "scripts": {
     "start": "babel-node scripts/start.js",
-    "test": "./node_modules/.bin/jest",
+    "test": "jest",
+    "test:watch": "npm test -- --watch",
     "test:coverage": "npm test -- --verbose --coverage"
   },
   "jest": {
-    "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
     "unmockedModulePathPatterns": [
-      "<rootDir>/Resources/public/js/__tests__/TestUtils.js",
-      "<rootDir>/node_modules/chai",
       "<rootDir>/node_modules/react",
-      "<rootDir>/node_modules/react-addons-test-utils",
       "<rootDir>/node_modules/react-dom"
+    ],
+    "moduleNameMapper": {
+      "\\.scss$": "<rootDir>/src/__mocks__/styleMock.js"
+    },
+    "setupFiles": [
+      "<rootDir>/src/__mocks__/localStorage.js"
     ]
   },
   "babel": {
@@ -62,6 +65,7 @@
     "lodash": "^3.10",
     "mousetrap": "^1.5.3",
     "react": "^15.4.1",
+    "react-addons-test-utils": "^15.4.1",
     "react-dom": "^15.4.1",
     "react-redux": "^4.1.1",
     "react-router": "^2.0.0",
@@ -77,6 +81,7 @@
     "babel-cli": "^6.18.0",
     "babel-core": "^6.10.4",
     "babel-eslint": "^7.1.1",
+    "babel-jest": "^17.0.2",
     "babel-loader": "^6.2.5",
     "babel-plugin-transform-class-properties": "^6.19.0",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
@@ -88,6 +93,7 @@
     "css-loader": "^0.26",
     "detect-port": "^1.0.5",
     "dotenv": "^2.0.0",
+    "enzyme": "^2.6.0",
     "eslint": "^3.8.1",
     "eslint-loader": "^1.6",
     "eslint-plugin-react": "^6.7.1",
@@ -96,14 +102,14 @@
     "file-loader": "^0.9.0",
     "http-proxy-middleware": "^0.17.2",
     "imports-loader": "^0.6.5",
-    "jest-cli": "^0.5",
+    "jest": "^17.0.3",
     "node-sass": "^3.9.3",
     "postcss-cssnext": "^2.5.2",
     "postcss-loader": "^1.0.0",
     "precss": "^1.4.0",
-    "react-addons-test-utils": "^15.0",
     "react-dev-utils": "^0.3.0",
     "react-scripts": "^0.7.0",
+    "redux-mock-store": "^1.2.1",
     "resolve-url-loader": "^1.6.0",
     "sass-loader": "^4.0.2",
     "source-map": "^0.5",
