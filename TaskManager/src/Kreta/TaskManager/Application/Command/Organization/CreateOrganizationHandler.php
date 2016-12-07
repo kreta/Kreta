@@ -38,15 +38,13 @@ class CreateOrganizationHandler
 
     public function __invoke(CreateOrganizationCommand $command)
     {
-        if (null !== $id = $command->id()) {
-            $organization = $this->repository->organizationOfId(
-                OrganizationId::generate(
-                    $id
-                )
-            );
-            if ($organization instanceof Organization) {
-                throw new OrganizationAlreadyExistsException();
-            }
+        $organization = $this->repository->organizationOfId(
+            OrganizationId::generate(
+                $command->id()
+            )
+        );
+        if ($organization instanceof Organization) {
+            throw new OrganizationAlreadyExistsException();
         }
         $user = $this->userRepository->userOfId(
             UserId::generate(

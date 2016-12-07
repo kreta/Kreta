@@ -55,24 +55,6 @@ class CreateOrganizationHandlerSpec extends ObjectBehavior
         $this->__invoke($command);
     }
 
-    function it_creates_an_organization_without_organization_id(
-        CreateOrganizationCommand $command,
-        OrganizationRepository $repository,
-        UserRepository $userRepository,
-        User $user
-    ) {
-        $userId = UserId::generate('user-id');
-        $command->id()->shouldBeCalled()->willReturn(null);
-        $command->creatorId()->shouldBeCalled()->willReturn('user-id');
-        $userRepository->userOfId($userId)->shouldBeCalled()->willReturn($user);
-        $user->id()->shouldBeCalled()->willReturn($userId);
-        $command->creatorId()->shouldBeCalled()->willReturn('user-id');
-        $command->name()->shouldBeCalled()->willReturn('Organization name');
-        $command->slug()->shouldBeCalled()->willReturn('organization-slug');
-        $repository->persist(Argument::type(Organization::class))->shouldBeCalled();
-        $this->__invoke($command);
-    }
-
     function it_creates_an_organization_without_slug(
         CreateOrganizationCommand $command,
         OrganizationRepository $repository,
@@ -106,9 +88,11 @@ class CreateOrganizationHandlerSpec extends ObjectBehavior
 
     function it_does_not_create_an_organization_because_user_does_not_exist(
         CreateOrganizationCommand $command,
+        OrganizationRepository $repository,
         UserRepository $userRepository
     ) {
-        $command->id()->shouldBeCalled()->willReturn(null);
+        $command->id()->shouldBeCalled()->willReturn('organization-id');
+        $repository->organizationOfId(OrganizationId::generate('organization-id'))->shouldBeCalled()->willReturn(null);
         $command->creatorId()->shouldBeCalled()->willReturn('user-id');
         $userRepository->userOfId(Argument::type(UserId::class))->shouldBeCalled()->willReturn(null);
         $this->shouldThrow(UserDoesNotExistException::class)->during__invoke($command);
