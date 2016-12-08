@@ -10,9 +10,9 @@ Mutation:
     type: object
     config:
         fields:
-            introduceShip:
+            createOrganization:
                 builder: Mutation
                 builderConfig:
                     inputType: CreateOrganizationInput
                     payloadType: CreateOrganizationPayload
-                    mutateAndGetPayload: "@=mutation('create_organization', [value])"
+                    mutateAndGetPayload: "@=mutation('create_organization', [args.offsetGet('input')])"

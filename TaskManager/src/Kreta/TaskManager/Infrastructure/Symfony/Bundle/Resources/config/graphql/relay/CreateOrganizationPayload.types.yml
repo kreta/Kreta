@@ -6,12 +6,12 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 
-# input CreateOrganizationInput {
-#   name: String!
+# input IntroduceShipPayload {
+#   organization: Organization
 # }
-CreateOrganizationInput:
-    type: relay-mutation-input
+CreateOrganizationPayload:
+    type: relay-mutation-payload
     config:
         fields:
-            name:
-                type: "String!"
+            organization:
+                type: "Organization"
