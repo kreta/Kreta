@@ -117,6 +117,9 @@ overblog_graphql:
         schema:
             query: Query
             mutation: Mutation
+        exceptions:
+            errors:
+                - "Kreta\\TaskManager\\Domain\\Model\\Organization\\OrganizationNameEmptyException"
 
 old_sound_rabbit_mq:
     connections:

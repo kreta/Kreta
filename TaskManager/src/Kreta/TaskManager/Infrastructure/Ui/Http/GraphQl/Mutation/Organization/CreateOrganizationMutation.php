@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Kreta\TaskManager\Infrastructure\Ui\Http\GraphQl\Mutation\Organization;
 
@@ -19,8 +19,6 @@ use Kreta\SharedKernel\Application\QueryBus;
 use Kreta\SharedKernel\Http\GraphQl\Relay\Mutation;
 use Kreta\TaskManager\Application\Command\Organization\CreateOrganizationCommand;
 use Kreta\TaskManager\Application\Query\Organization\OrganizationOfIdQuery;
-use Kreta\TaskManager\Domain\Model\Organization\OrganizationNameEmptyException;
-use Overblog\GraphQLBundle\Error\UserError;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class CreateOrganizationMutation implements Mutation
@@ -43,11 +41,7 @@ class CreateOrganizationMutation implements Mutation
             $values['name']
         );
 
-        try {
-            $this->commandBus->handle($command);
-        } catch (OrganizationNameEmptyException $exception) {
-            throw new UserError('Could not create organization with empty name');
-        }
+        $this->commandBus->handle($command);
 
         $this->queryBus->handle(
             new OrganizationOfIdQuery(
