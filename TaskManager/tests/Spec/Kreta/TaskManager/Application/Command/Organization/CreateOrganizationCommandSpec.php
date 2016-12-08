@@ -22,7 +22,7 @@ class CreateOrganizationCommandSpec extends ObjectBehavior
     {
         $this->beConstructedWith('creator-id', 'Organization name');
         $this->shouldHaveType(CreateOrganizationCommand::class);
-        $this->id()->shouldReturn(null);
+        $this->id()->shouldNotBe(null);
         $this->name()->shouldReturn('Organization name');
         $this->slug()->shouldReturn(null);
         $this->creatorId()->shouldReturn('creator-id');

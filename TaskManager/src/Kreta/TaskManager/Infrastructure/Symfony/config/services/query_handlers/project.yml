@@ -32,7 +32,7 @@ services:
                 name: query_handler
                 handles: Kreta\TaskManager\Application\Query\Project\FilterProjectsQuery
 
-    kreta.task_manager.query_handler.organization_of_id:
+    kreta.task_manager.query_handler.project_of_id:
         class: Kreta\TaskManager\Application\Query\Project\ProjectOfIdHandler
         arguments:
             - "@kreta.task_manager.repository.organization"
