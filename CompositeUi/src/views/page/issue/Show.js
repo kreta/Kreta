@@ -15,6 +15,7 @@ import React from 'react';
 import {Link} from 'react-router';
 
 import Button from './../../component/Button';
+import FormActions from './../../component/FormActions';
 import LoadingSpinner from './../../component/LoadingSpinner';
 import {Row, RowColumn} from './../../component/Grid';
 import SelectorOption from './../../component/SelectorOption';
@@ -49,11 +50,13 @@ class Show extends React.Component {
             <SelectorOption alignLeft label="Priority" left text="High" value="1"/>
           </RowColumn>
         </Row>
-        <Row className="issue-show__edit">
+        <Row>
           <RowColumn>
-            <Link to={`/project/${params.projectId}/issue/${params.issueId}/edit`}>
-              <Button color="green">Edit</Button>
-            </Link>
+            <FormActions>
+              <Link to={`/project/${params.projectId}/issue/${params.issueId}/edit`}>
+                <Button color="green">Edit</Button>
+              </Link>
+            </FormActions>
           </RowColumn>
         </Row>
       </div>
