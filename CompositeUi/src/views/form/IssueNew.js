@@ -67,7 +67,7 @@ class IssueNew extends React.Component {
               {this.getProjectOptions()}
             </Field>
             <Field autoFocus component={FormInput} label="Title" name="title" tabIndex={2}/>
-            <Field component={FormInput} label="Description" name="description" tabIndex={3}/>
+            <Field component={FormInput} label="Description" multiline name="description" tabIndex={3}/>
           </RowColumn>
         </Row>
         <Row collapse>
