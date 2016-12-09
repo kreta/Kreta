@@ -8,8 +8,8 @@
  * file that was distributed with this source code.
  */
 
-import getbabelRelayPlugin from 'babel-relay-plugin';
+const
+  getBabelRelayPlugin = require('babel-relay-plugin'),
+  schema = require('./../schema.json');
 
-import schema from './../schema.json';
-
-export default getbabelRelayPlugin(schema);
+module.exports = getBabelRelayPlugin(schema);
