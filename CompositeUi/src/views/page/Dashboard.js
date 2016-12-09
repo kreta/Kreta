@@ -17,7 +17,7 @@ import ContentMiddleLayout from './../layout/ContentMiddleLayout';
 import DashboardWidget from './../component/DashboardWidget';
 import FormInput from './../component/FormInput';
 import LogoHeader from './../component/LogoHeader';
-import ProjectPreview from './../component/ProjectPreview';
+import ResourcePreview from './../component/ResourcePreview';
 import {Row, RowColumn} from './../component/Grid';
 
 @connect(state => ({organizations: state.dashboard.organizations, projects: state.dashboard.projects}))
@@ -25,10 +25,10 @@ class Dashboard extends React.Component {
   render() {
     const
       organizationItems = this.props.organizations.map((organization, index) => (
-        <ProjectPreview key={index} project={organization.node}/>
+        <ResourcePreview key={index} resource={organization.node} type="organization"/>
       )),
       projectItems = this.props.projects.map((project, index) => (
-        <ProjectPreview key={index} project={project.node}/>
+        <ResourcePreview key={index} resource={project.node} type="project"/>
       ));
 
     return (

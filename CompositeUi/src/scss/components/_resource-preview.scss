@@ -8,14 +8,14 @@
 
 @import '../base/colors';
 
-$project-preview-padding: 15px;
+$resource-preview-padding: 15px;
 
-.project-preview__header {
+.resource-preview__header {
   padding-bottom: 15px;
   padding-top: 15px;
 }
 
-.project-preview__filter {
+.resource-preview__filter {
   background: $main-grey;
   padding: 15px;
 
@@ -24,46 +24,46 @@ $project-preview-padding: 15px;
   }
 }
 
-.project-preview__list {
+.resource-preview__list {
   height: 300px;
   overflow-y: scroll;
   text-align: left;
 }
 
-.project-preview {
+.resource-preview {
   align-items: center;
   display: flex;
   position: relative;
   transition: background-color .3s;
 }
 
-.project-preview--selected {
+.resource-preview--selected {
   background-color: $main-green;
   outline: 0;
 
-  .project-preview__title {
+  .resource-preview__title {
     color: $white;
   }
 
-  .project-preview__shortcuts {
+  .resource-preview__shortcuts {
     opacity: 1;
   }
 }
 
-.project-preview__title {
+.resource-preview__title {
   color: $main-black;
   flex: 1;
   font-size: 16px;
-  padding: $project-preview-padding;
+  padding: $resource-preview-padding;
   transition: color .3s;
 }
 
-.project-preview__shortcuts {
+.resource-preview__shortcuts {
   opacity: 0;
-  padding: $project-preview-padding;
+  padding: $resource-preview-padding;
 }
 
-.project-preview__shortcut {
+.resource-preview__shortcut {
   fill: $white;
   height: 25px;
   margin-right: 10px;
@@ -72,6 +72,6 @@ $project-preview-padding: 15px;
   width: 25px;
 }
 
-.project-preview__shortcut--selected {
+.resource-preview__shortcut--selected {
   opacity: 1;
 }
