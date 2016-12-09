@@ -17,4 +17,5 @@ cd ..
 
 cd CompositeUi
 yarn install
+sh etc/bash/update_graph_schema.sh
 cd ..
