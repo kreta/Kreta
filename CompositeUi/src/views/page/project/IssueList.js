@@ -24,7 +24,6 @@ import Filter from './../../component/Filter';
 import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
 import ContentRightLayout from './../../layout/ContentRightLayout';
 import IssuePreview from './../../component/IssuePreview';
-import IssueShow from './../issue/Show';
 import LoadingSpinner from './../../component/LoadingSpinner';
 import PageHeader from './../../component/PageHeader';
 import Thumbnail from './../../component/Thumbnail';
@@ -137,14 +136,17 @@ class IssueList extends React.Component {
     ));
   }
 
-  getSelectedIssueEl() {
-    const {currentProject} = this.props;
-    if (null === currentProject.selectedIssue) {
+  getAsideElement() {
+    if (this.props.children === null) {
       return '';
     }
 
-    return <IssueShow issue={currentProject.selectedIssue}
-                      project={currentProject.project}/>;
+    return (
+      <ContentRightLayout isOpen={this.props.children !== null}
+                          onRequestClose={this.hideIssue.bind(this)}>
+        {this.props.children}
+      </ContentRightLayout>
+    );
   }
 
   render() {
@@ -169,10 +171,7 @@ class IssueList extends React.Component {
                   onFilterSelected={this.filterIssues.bind(this)}/>
           {this.getIssuesEl()}
         </ContentMiddleLayout>
-        <ContentRightLayout isOpen={currentProject.selectedIssue !== null}
-                            onRequestClose={this.hideIssue.bind(this)}>
-          {this.getSelectedIssueEl()}
-        </ContentRightLayout>
+        {this.getAsideElement()}
       </div>
     );
   }

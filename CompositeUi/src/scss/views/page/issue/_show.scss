@@ -8,6 +8,10 @@
 
 @import '../../../base/colors';
 
+.issue-show {
+  position: relative;
+}
+
 .issue-show__title {
   background: $light-grey;
   color: $main-black;
@@ -32,6 +36,7 @@
   font-size: 16px;
   font-weight: lighter;
   line-height: 1.3em;
+  margin-bottom: 0;
   margin-top: 30px;
   max-height: 200px;
   overflow: hidden;
@@ -39,17 +44,9 @@
 
 .issue-show__fields {
   margin-top: 30px;
-
-  .issue-field {
-    border: 1px solid $main-grey;
-  }
-
-  .selector__selected {
-    background: $light-grey;
-  }
 }
 
-.issue-show__save {
+.issue-show__edit {
   margin: 30px 0;
   text-align: center;
 }

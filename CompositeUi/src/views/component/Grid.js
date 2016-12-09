@@ -14,7 +14,7 @@ import './../../scss/components/_grid';
 
 const
   Row = props => {
-    let classList = 'row';
+    let classList = `${props.className ? props.className : ''} row`;
 
     if (props.collapse) {
       classList = `${classList} row--collapse`;
@@ -31,7 +31,7 @@ const
     );
   },
   RowColumn = props => {
-    let classList = 'row__column';
+    let classList = `${props.className ? props.className : ''} row__column`;
 
     if (props.small) {
       classList = `${classList} row__column--small-${props.small}`;
