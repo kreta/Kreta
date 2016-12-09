@@ -136,19 +136,6 @@ class IssueList extends React.Component {
     ));
   }
 
-  getAsideElement() {
-    if (this.props.children === null) {
-      return '';
-    }
-
-    return (
-      <ContentRightLayout isOpen={this.props.children !== null}
-                          onRequestClose={this.hideIssue.bind(this)}>
-        {this.props.children}
-      </ContentRightLayout>
-    );
-  }
-
   render() {
     const {currentProject, params} = this.props;
     if (currentProject.fetchingProjects || currentProject.fetchingIssues) {
@@ -171,7 +158,10 @@ class IssueList extends React.Component {
                   onFilterSelected={this.filterIssues.bind(this)}/>
           {this.getIssuesEl()}
         </ContentMiddleLayout>
-        {this.getAsideElement()}
+        <ContentRightLayout isOpen={this.props.children !== null}
+                            onRequestClose={this.hideIssue.bind(this)}>
+          {this.props.children}
+        </ContentRightLayout>
       </div>
     );
   }
