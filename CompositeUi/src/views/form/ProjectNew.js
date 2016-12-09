@@ -12,9 +12,10 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Field, reduxForm} from 'redux-form';
 
+import Button from './../component/Button';
 import FormActions from './../component/FormActions';
 import FormInput from './../component/FormInput';
-import Button from './../component/Button';
+import FormInputFile from './../component/FormInputFile';
 import {Row, RowColumn} from './../component/Grid';
 
 const validate = (values) => {
@@ -41,7 +42,7 @@ class ProjectNew extends React.Component {
       <form onSubmit={handleSubmit}>
         <Row>
           <RowColumn>
-            {/* <FormInputFile name="image" value=""/> */}
+            <Field component={FormInputFile} name="image"/>
             <Field autoFocus component={FormInput} label="Project Name" name="name" tabIndex={2}/>
             <Field component={FormInput} label="Short name" name="short_name" tabIndex={3}/>
             <FormActions>
