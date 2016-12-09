@@ -15,6 +15,7 @@ import {reducer as form} from 'redux-form';
 import currentProject from './reducers/CurrentProject';
 import mainMenu from './reducers/MainMenu';
 import notification from './reducers/Notification';
+import organization from './reducers/Organization';
 import profile from './reducers/Profile';
 import projects from './reducers/Projects';
 import user from './reducers/User';
@@ -24,6 +25,7 @@ export default combineReducers({
   form,
   mainMenu,
   notification,
+  organization,
   profile,
   projects,
   user,
