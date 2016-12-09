@@ -28,6 +28,7 @@ use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle;
 use Http\HttplugBundle\HttplugBundle;
 use Kreta\TaskManager\Infrastructure\Symfony\Bundle\AppBundle;
+use Nelmio\CorsBundle\NelmioCorsBundle;
 use OldSound\RabbitMqBundle\OldSoundRabbitMqBundle;
 use Overblog\GraphQLBundle\OverblogGraphQLBundle;
 use Sensio\Bundle\DistributionBundle\SensioDistributionBundle;
@@ -57,6 +58,7 @@ class AppKernel extends Kernel
             new FrameworkBundle(),
             new HttplugBundle(),
             new MonologBundle(),
+            new NelmioCorsBundle(),
             new OldSoundRabbitMqBundle(),
             new OverblogGraphQLBundle(),
             new SecurityBundle(),

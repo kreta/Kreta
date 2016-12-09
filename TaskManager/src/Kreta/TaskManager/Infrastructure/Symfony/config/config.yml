@@ -110,6 +110,14 @@ swiftmailer:
     password: "%task_manager_mailer_password%"
     spool: { type: memory }
 
+nelmio_cors:
+    paths:
+        '^/':
+            allow_origin: ['*']
+            allow_headers: [Content-Type, Origin, X-Custom-Auth, x-requested-with, x-requested-by, Authorization]
+            allow_methods: [GET, POST, PUT, DELETE, OPTIONS]
+            max_age: 3600
+
 overblog_graphql:
     definitions:
         internal_error_message: "An error occurred, please retry later or contact us!"

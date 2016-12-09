@@ -20,14 +20,19 @@ const Actions = {
     dispatch({
       type: ActionTypes.PROJECTS_FETCHING
     });
-    GraphQlInstance.networkLayer().senQueries([DashboardQueryRequest])
-      .then((response) => {
-        console.log(response);
+    GraphQlInstance.networkLayer().sendQueries([DashboardQueryRequest]);
+//     console.log(promises);
+//     promises.all((promise) => {
+//       promise.done((data) => {
+//         console.log(data);
+//       });
+//     });
+
 //         dispatch({
 //           type: ActionTypes.PROJECTS_RECEIVED,
 //           projects: response.data
 //         });
-      });
+//       });
 //     ProjectApi.getProjects()
 //       .then((response) => {
 //         dispatch({

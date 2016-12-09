@@ -14,7 +14,7 @@ import Config from '../../Config';
 
 class GraphQl {
   constructor(uri = '/') {
-    this.relayNetworkLayer = new DefaultNetworkLayer(`${Config.baseUrl}${uri}?access_token=${this.accessToken()}`);
+    this.relayNetworkLayer = new DefaultNetworkLayer(`${this.baseUrl()}${uri}?access_token=${this.accessToken()}`);
   }
 
   baseUrl() {

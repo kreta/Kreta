@@ -15,23 +15,8 @@ import RelayQueryRequest from 'react-relay/lib/RelayQueryRequest';
 const
   query = RelayQuery.Root.create(
     Relay.QL`
-      query dashboard {
+      query {
         organizations {
-          totalCount
-          edges {
-            node {
-              id
-              name
-              slug
-            }
-            cursor
-          }
-          pageInfo {
-            endCursor
-            hasNextPage
-          }
-        }
-        projects {
           totalCount
           edges {
             node {
