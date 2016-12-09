@@ -21,6 +21,9 @@ const Actions = {
       type: ActionTypes.PROJECTS_FETCHING
     });
     GraphQlInstance.networkLayer().sendQueries([DashboardQueryRequest]);
+    DashboardQueryRequest.then(data => {
+      console.log(data.response.organizations);
+    });
 //     console.log(promises);
 //     promises.all((promise) => {
 //       promise.done((data) => {
