@@ -15,6 +15,7 @@ import BaseLayout from './views/layout/Base';
 import Index from './views/page/Index';
 import IssueNew from './views/page/issue/New';
 import LoginPage from './views/page/Login';
+import OrganizationNew from './views/page/organization/New';
 import Profile from './views/page/profile/Edit';
 import ProjectNew from './views/page/project/New';
 import ProjectRoot from './views/page/project/Root';
@@ -44,6 +45,8 @@ export default (
         <Route component={ProjectShow} path="project/:projectId/issue/:issueId"/>
         <Route component={ProjectSettings} path="project/:projectId/settings"/>
       </Route>
+
+      <Route component={OrganizationNew} path="organization/new"/>
 
       <Route component={Profile} path="profile"/>
     </Route>
