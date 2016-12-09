@@ -14,6 +14,8 @@ import {IndexRoute, Route} from 'react-router';
 import BaseLayout from './views/layout/Base';
 import Index from './views/page/Index';
 import IssueNew from './views/page/issue/New';
+import IssueEdit from './views/page/issue/Edit';
+import IssueShow from './views/page/issue/Show';
 import LoginPage from './views/page/Login';
 import OrganizationNew from './views/page/organization/New';
 import Profile from './views/page/profile/Edit';
@@ -40,9 +42,11 @@ export default (
 
       <Route component={ProjectNew} path="project/new"/>
       <Route component={ProjectRoot}>
-        <Route component={ProjectShow} path="project/:projectId"/>
         <Route component={IssueNew} path="project/:projectId/issue/new"/>
-        <Route component={ProjectShow} path="project/:projectId/issue/:issueId"/>
+        <Route component={ProjectShow} path="project/:projectId">
+          <Route component={IssueShow} path="issue/:issueId"/>
+          <Route component={IssueEdit} path="issue/:issueId/edit"/>
+        </Route>
         <Route component={ProjectSettings} path="project/:projectId/settings"/>
       </Route>
 

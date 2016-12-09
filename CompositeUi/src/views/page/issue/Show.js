@@ -9,96 +9,57 @@
  */
 
 import './../../../scss/views/page/issue/_show';
-// import PriorityIcon from './../../../svg/priority';
 
 import {connect} from 'react-redux';
 import React from 'react';
+import {Link} from 'react-router';
 
 import Button from './../../component/Button';
-// import Icon from './../../component/Icon';
-import ProjectActions from './../../../actions/CurrentProject';
-// import Thumbnail from './../../component/Thumbnail';
+import FormActions from './../../component/FormActions';
+import LoadingSpinner from './../../component/LoadingSpinner';
+import {Row, RowColumn} from './../../component/Grid';
+import SelectorOption from './../../component/SelectorOption';
+import Thumbnail from './../../component/Thumbnail';
 
-@connect(state => ({currentProject: state.currentProject}))
+@connect(state => ({issue: state.currentProject.selectedIssue}))
 class Show extends React.Component {
-  updateIssue(issue) {
-    this.props.dispatch(ProjectActions.updateIssue(issue));
-  }
-
-//   getProjectOptions() {
-//     const
-//       project = this.props.currentProject.project,
-//       assignee = project.participants.map((p) => {
-//         let assigneeName = `${p.user.first_name} ${p.user.last_name}`;
-//         if (p.user.first_name === '' || p.user.first_name === undefined) {
-//           assigneeName = p.user.username;
-//         }
-//
-//         return (
-//           {/*<IssueField image={*/}
-//             {/*<Thumbnail image={p.user.photo.name} text={`${p.user.first_name} ${p.user.last_name}`}/>*/}
-//           }
-//                       key={p.user.id}
-//                       label="Assigned to"
-//                       text={assigneeName}
-//                       value={p.user.id}/>
-//         );
-//       }),
-//       priority = project.issue_priorities.map((p) => {
-//         return (
-//           <IssueField image={
-//             <Icon glyph={PriorityIcon}
-//                   style={{width: '20px', fill: p.color}}/>
-//           }
-//                       key={p.id}
-//                       label="Priority"
-//                       text={p.name}
-//                       value={p.id}/>
-//         );
-//       });
-//
-//     return {assignee, priority};
-//   }
 
   render() {
-    const
-      issue = this.props.currentProject.selectedIssue,
-      allowedTransitions = [];
-
+    const {issue, params} = this.props;
+    if (!issue) {
+      return <div className="issue-show"><LoadingSpinner/></div>;
+    }
     return (
-      <form errors={this.props.currentProject.errors}
-            method="PUT"
-            onSubmit={this.updateIssue.bind(this)}
-            ref="form">
-        <input name="id" type="hidden" value={issue.id}/>
-        <input name="project" type="hidden" value={this.props.currentProject.project.id}/>
-        <input className="issue-show__title"
-               name="title"
-               onChange={this.updateInput}
-               value={issue.title}/>
-        <section className="issue-show__transitions">
-          {allowedTransitions}
-        </section>
-        {/* <section className="issue-show__fields"> */}
-        {/* <Selector name="assignee" */}
-        {/* value={issue.assignee.id}> */}
-        {/* {options.assignee} */}
-        {/* </Selector> */}
-        {/* <Selector name="priority" */}
-        {/* value={issue.priority.id}> */}
-        {/* {options.priority} */}
-        {/* </Selector> */}
-        {/* </section> */}
-        <textarea className="issue-show__description"
-                  name="description"
-                  value={issue.description}/>
-
-        <div className="issue-show__save">
-          <Button color="green" type="submit">
-            Save changes
-          </Button>
-        </div>
-      </form>
+      <div>
+        <Row>
+          <RowColumn>
+            <h1 className="issue-show__title">{issue.title}</h1>
+            <p className="issue-show__description">{issue.description}</p>
+          </RowColumn>
+        </Row>
+        <Row className="issue-show__fields">
+          <RowColumn small={6}>
+            <SelectorOption alignLeft
+                            label="Assignee"
+                            text={`${issue.assignee.first_name} ${issue.assignee.last_name}`}
+                            thumbnail={<Thumbnail image={null}
+                                                  text={`${issue.assignee.first_name} ${issue.assignee.last_name}`}/>}
+                            value="1"/>
+          </RowColumn>
+          <RowColumn small={6}>
+            <SelectorOption alignLeft label="Priority" left text="High" value="1"/>
+          </RowColumn>
+        </Row>
+        <Row>
+          <RowColumn>
+            <FormActions>
+              <Link to={`/project/${params.projectId}/issue/${params.issueId}/edit`}>
+                <Button color="green">Edit</Button>
+              </Link>
+            </FormActions>
+          </RowColumn>
+        </Row>
+      </div>
     );
   }
 }

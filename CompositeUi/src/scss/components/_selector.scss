@@ -11,9 +11,14 @@
 $selector-input-height: 40px;
 
 .selector {
-  background: $white;
+  background: transparent;
   position: relative;
   width: 100%;
+
+  .selector-option {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
 }
 
 .selector__selected {

@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-import './../../scss/components/_form.scss';
+import './../../scss/components/_form-input.scss';
 
 import React from 'react';
 import classnames from 'classnames';
