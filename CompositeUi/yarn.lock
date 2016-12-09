@@ -1104,7 +1104,7 @@ babel-runtime@6.11.6:
     core-js "^2.4.0"
     regenerator-runtime "^0.9.5"
 
-babel-runtime@^6.0.0, babel-runtime@^6.11.6, babel-runtime@^6.2.0, babel-runtime@^6.9.0, babel-runtime@^6.9.1:
+babel-runtime@^6.0.0, babel-runtime@^6.11.6, babel-runtime@^6.2.0, babel-runtime@^6.6.1, babel-runtime@^6.9.0, babel-runtime@^6.9.1:
   version "6.18.0"
   resolved "https://registry.yarnpkg.com/babel-runtime/-/babel-runtime-6.18.0.tgz#0f4177ffd98492ef13b9f823e9994a02584c9078"
   dependencies:
@@ -5877,6 +5877,14 @@ react-redux@^4.1.1:
     lodash "^4.2.0"
     loose-envify "^1.1.0"
 
+react-relay@^0.9.3:
+  version "0.9.3"
+  resolved "https://registry.yarnpkg.com/react-relay/-/react-relay-0.9.3.tgz#74ddd8ed2d60fde7303471ada5306342f5db99a6"
+  dependencies:
+    babel-runtime "^6.6.1"
+    fbjs "^0.8.1"
+    react-static-container "^1.0.1"
+
 react-router-redux@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/react-router-redux/-/react-router-redux-2.1.0.tgz#ac1e822ae0e7ecddd9499c5adde32dcbe5e67196"
@@ -5941,6 +5949,10 @@ react-scripts@^0.7.0:
     whatwg-fetch "1.0.0"
   optionalDependencies:
     fsevents "1.0.14"
+
+react-static-container@^1.0.1:
+  version "1.0.1"
+  resolved "https://registry.yarnpkg.com/react-static-container/-/react-static-container-1.0.1.tgz#694c0dd68a896b879519afb548399cc1989c9ab0"
 
 react@^15.4.1:
   version "15.4.1"

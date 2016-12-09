@@ -68,6 +68,7 @@
     "react-addons-test-utils": "^15.4.1",
     "react-dom": "^15.4.1",
     "react-redux": "^4.1.1",
+    "react-relay": "^0.9.3",
     "react-router": "^2.0.0",
     "react-router-redux": "^2.1.0",
     "redux": "^3.0.6",

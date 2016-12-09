@@ -8,9 +8,7 @@
  * file that was distributed with this source code.
  */
 
-import Api from './Api';
-
-class ProfileApi extends Api {
+class ProfileApi {
   getProfile() {
     return new Promise((resolve) => {
       setTimeout(() => {
@@ -37,9 +35,9 @@ class ProfileApi extends Api {
     });
   }
 
-  putProfile(profile) {
-    return this.post('/profile', profile);
-  }
+//   putProfile(profile) {
+//     return this.post('/profile', profile);
+//   }
 }
 
 const instance = new ProfileApi();
