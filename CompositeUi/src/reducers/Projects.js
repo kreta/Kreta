@@ -13,8 +13,7 @@ import ActionTypes from './../constants/ActionTypes';
 const initialState = {
   errors: [],
   fetching: true,
-  projects: [],
-  selectedRow: 0
+  projects: []
 };
 
 export default function reducer(state = initialState, action = {}) {
