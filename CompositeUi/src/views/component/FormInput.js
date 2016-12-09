@@ -16,12 +16,12 @@ import classnames from 'classnames';
 class FormInput extends React.Component {
   getInputField() {
     const
-      {input, label, meta: {touched, error}, ...custom} = this.props, // eslint-disable-line no-unused-vars
+      {input, label, meta: {touched, error}, multiline, ...custom} = this.props, // eslint-disable-line no-unused-vars
       inputClasses = classnames('form-input__input', {
         'form-input__input--filled': input.value.length > 0
       });
 
-    if (this.props.multiline) {
+    if (multiline) {
       return (
         <textarea className={inputClasses} {...input} {...custom} ref="input"/>
       );
