@@ -16,21 +16,6 @@ const
   query = RelayQuery.Root.create(
     Relay.QL`
       query {
-//         organizations {
-//           totalCount
-//           edges {
-//             node {
-//               id
-//               name
-//               slug
-//             }
-//             cursor
-//           }
-//           pageInfo {
-//             endCursor
-//             hasNextPage
-//           }
-//         },
         projects {
           totalCount
           edges {

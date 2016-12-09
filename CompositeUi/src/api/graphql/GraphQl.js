@@ -9,24 +9,40 @@
  */
 
 import DefaultNetworkLayer from 'react-relay/lib/RelayDefaultNetworkLayer';
+import RelayQueryRequest from 'react-relay/lib/RelayQueryRequest';
 
 import Config from '../../Config';
 
 class GraphQl {
-  constructor(uri = '/') {
-    this.relayNetworkLayer = new DefaultNetworkLayer(`${this.baseUrl()}${uri}?access_token=${this.accessToken()}`);
+  constructor() {
+    this.baseUrl = () => (
+      Config.taskManagerUrl
+    );
+
+    this.accessToken = () => (
+      localStorage.token
+    );
+
+    this.isRelayQueryRequest = (query) => {
+      if (!(query instanceof RelayQueryRequest)) {
+        throw new TypeError('Given query must be a collection of RelayQueryRequest or a single RelayQueryRequest');
+      }
+    };
+
+    this.relayNetworkLayer = new DefaultNetworkLayer(`${this.baseUrl()}?access_token=${this.accessToken()}`);
   }
 
-  baseUrl() {
-    return Config.taskManagerUrl;
-  }
+  query(query) {
+    if (query instanceof Array) {
+      for (const variable of query) {
+        this.isRelayQueryRequest(variable);
+      }
+    } else {
+      this.isRelayQueryRequest(query);
+      query = [query];
+    }
 
-  accessToken() {
-    return localStorage.token;
-  }
-
-  networkLayer() {
-    return this.relayNetworkLayer;
+    return this.relayNetworkLayer.sendQueries(query);
   }
 }
 
