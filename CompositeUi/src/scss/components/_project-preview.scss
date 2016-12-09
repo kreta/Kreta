@@ -8,6 +8,8 @@
 
 @import '../base/colors';
 
+$project-preview-padding: 15px;
+
 .project-preview__header {
   padding-bottom: 15px;
   padding-top: 15px;
@@ -31,7 +33,6 @@
 .project-preview {
   align-items: center;
   display: flex;
-  padding: 15px;
   position: relative;
   transition: background-color .3s;
 }
@@ -53,11 +54,13 @@
   color: $main-black;
   flex: 1;
   font-size: 16px;
+  padding: $project-preview-padding;
   transition: color .3s;
 }
 
 .project-preview__shortcuts {
   opacity: 0;
+  padding: $project-preview-padding;
 }
 
 .project-preview__shortcut {
