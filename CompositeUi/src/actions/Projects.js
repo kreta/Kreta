@@ -13,37 +13,21 @@
 import ActionTypes from './../constants/ActionTypes';
 
 import GraphQlInstance from './../api/graphql/GraphQl';
-import DashboardQueryRequest from './../api/graphql/query/DashboardQueryRequest';
+import ProjectsQueryRequest from './../api/graphql/query/ProjectsQueryRequest';
 
 const Actions = {
   fetchProjects: () => (dispatch) => {
     dispatch({
       type: ActionTypes.PROJECTS_FETCHING
     });
-    GraphQlInstance.query(DashboardQueryRequest);
-    DashboardQueryRequest.then(data => {
-      console.log(data.response.projects);
-    });
-//     console.log(promises);
-//     promises.all((promise) => {
-//       promise.done((data) => {
-//         console.log(data);
-//       });
-//     });
 
-//         dispatch({
-//           type: ActionTypes.PROJECTS_RECEIVED,
-//           projects: response.data
-//         });
-//       });
-//     ProjectApi.getProjects()
-//       .then((response) => {
-//         dispatch({
-//           type: ActionTypes.PROJECTS_RECEIVED,
-//           status: response.status,
-//           projects: response.data
-//         });
-//       });
+    GraphQlInstance.query(ProjectsQueryRequest);
+    ProjectsQueryRequest.then(data => {
+      dispatch({
+        type: ActionTypes.PROJECTS_RECEIVED,
+        projects: data.response.projects.edges
+      });
+    });
   },
   createProject: () => (dispatch) => {
     dispatch({

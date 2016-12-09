@@ -33,6 +33,6 @@ const
         }
       }`
   ),
-  DashboardQueryRequest = new RelayQueryRequest(query);
+  ProjectsQueryRequest = new RelayQueryRequest(query);
 
-export default DashboardQueryRequest;
+export default ProjectsQueryRequest;

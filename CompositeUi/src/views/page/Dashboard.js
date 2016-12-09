@@ -20,12 +20,16 @@ import LogoHeader from './../component/LogoHeader';
 import ProjectPreview from './../component/ProjectPreview';
 import {Row, RowColumn} from './../component/Grid';
 
-@connect(state => ({projects: state.projects.projects}))
-class Index extends React.Component {
+@connect(state => ({organizations: state.dashboard.organizations, projects: state.dashboard.projects}))
+class Dashboard extends React.Component {
   render() {
-    const projectItems = this.props.projects.map((project, index) => (
-      <ProjectPreview key={index} project={project}/>
-    ));
+    const
+      organizationItems = this.props.organizations.map((organization, index) => (
+        <ProjectPreview key={index} project={organization.node}/>
+      )),
+      projectItems = this.props.projects.map((project, index) => (
+        <ProjectPreview key={index} project={project.node}/>
+      ));
 
     return (
       <ContentMiddleLayout>
@@ -40,19 +44,20 @@ class Index extends React.Component {
         <Row>
           <RowColumn medium={6}>
             <DashboardWidget
+              actions={<Link to="/organization/new">
+                <Button color="green" size="small">Create org.</Button>
+              </Link>}
+              title={<span>Your <strong>organizations</strong></span>}>
+              {organizationItems}
+            </DashboardWidget>
+          </RowColumn>
+          <RowColumn medium={6}>
+            <DashboardWidget
               actions={<Link to="/project/new">
                 <Button color="green" size="small">Create project</Button>
               </Link>}
               title={<span>Your <strong>projects</strong></span>}>
               {projectItems}
-            </DashboardWidget>
-          </RowColumn>
-          <RowColumn medium={6}>
-            <DashboardWidget
-              actions={<Link to="/organization/new">
-                <Button color="green" size="small">Create org.</Button>
-              </Link>}
-              title={<span>Your <strong>organizations</strong></span>}>
             </DashboardWidget>
           </RowColumn>
         </Row>
@@ -61,4 +66,4 @@ class Index extends React.Component {
   }
 }
 
-export default Index;
+export default Dashboard;
