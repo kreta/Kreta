@@ -22,32 +22,26 @@ import LogoHeader from './../component/LogoHeader';
 import ResourcePreview from './../component/ResourcePreview';
 import {Row, RowColumn} from './../component/Grid';
 
-@connect(state => ({waiting: state.dashboard.fetching, dashboard: state.dashboard}))
+@connect(state => ({dashboard: state.dashboard}))
 class Dashboard extends React.Component {
   componentDidMount() {
-    const {dispatch} = this.props;
-
-    dispatch(DashboardActions.fetchData());
+    this.props.dispatch(DashboardActions.fetchData());
   }
 
   renderOrganizations() {
-    const {organizations} = this.props.dashboard;
-
-    return organizations.map((organization, index) => (
+    return this.props.dashboard.organizations.map((organization, index) => (
       <ResourcePreview key={index} resource={organization.node} type="organization"/>
     ));
   }
 
   renderProjects() {
-    const {projects} = this.props.dashboard;
-
-    return projects.map((project, index) => (
+    return this.props.dashboard.projects.map((project, index) => (
       <ResourcePreview key={index} resource={project.node} type="project"/>
     ));
   }
 
   render() {
-    if (this.props.waiting) {
+    if (this.props.dashboard.fetching) {
       return <LoadingSpinner/>;
     }
 
