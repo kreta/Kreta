@@ -9,6 +9,7 @@
  */
 
 import './../../scss/components/_form-input-file';
+
 import ImageIcon from './../../svg/image';
 
 import React from 'react';
@@ -22,8 +23,7 @@ class FormInputFile extends React.Component {
 
   componentWillMount() {
     this.setState({
-      filename: this.props.filename ? this.props.filename : '',
-      value: this.props.value ? this.props.value : ''
+      filename: this.props.filename ? this.props.filename : ''
     });
   }
 
@@ -39,7 +39,11 @@ class FormInputFile extends React.Component {
 
   renderImageElement() {
     if (this.state.filename === '') {
-      return '';
+      return (
+        <div className="form-input-file__background">
+          <Icon color="white" glyph={ImageIcon}/>
+        </div>
+      );
     }
 
     return (
@@ -48,26 +52,16 @@ class FormInputFile extends React.Component {
   }
 
   render() {
+    const {input, label} = this.props;
+
     return (
-      <div className="form-input-file">
-        <label htmlFor="form-input-file">
-          <div className="form-input-file__image-container">
-            <div
-              className={`form-input-file__background ${this.state.filename !== ''
-                ? 'form-input-file__background--hidden'
-                : ''}`}>
-              <Icon color="white" glyph={ImageIcon}/>
-            </div>
-            {this.renderImageElement()}
-          </div>
-        </label>
+      <label className="form-input-file">
+        {this.renderImageElement()}
         <input className="form-input-file__input"
-               defaultValue=""
-               id="form-input-file"
-               name={this.props.name}
+               {...input}
                onChange={this.onChange.bind(this)}
                type="file"/>
-      </div>
+      </label>
     );
   }
 }

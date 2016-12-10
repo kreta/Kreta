@@ -11,27 +11,22 @@
 $form-input-file-image-size: 150px;
 
 .form-input-file {
+  cursor: pointer;
+  display: flex;
   height: $form-input-file-image-size;
-  margin: 0 auto;
+  margin-left: auto;
+  margin-right: auto;
   position: relative;
+  transition: opacity .3s ease-in-out;
   width: $form-input-file-image-size;
 
   &:hover {
-    .form-input-file__background {
-      background-color: rgba($main-black, .7);
-      opacity: 1;
-    }
+    opacity: .7;
   }
 }
 
 .form-input-file__input {
   display: none;
-}
-
-.form-input-file__image-container {
-  cursor: pointer;
-  display: flex;
-  position: relative;
 }
 
 .form-input-file__background,
@@ -45,14 +40,6 @@ $form-input-file-image-size: 150px;
 .form-input-file__background {
   align-items: center;
   background: $main-black;
-  border-radius: 50%;
   display: flex;
   justify-content: center;
-  position: absolute;
-  transition: all .3s ease-in-out;
-  z-index: 1;
-}
-
-.form-input-file__background--hidden {
-  opacity: 0;
 }

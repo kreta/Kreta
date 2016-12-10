@@ -15,6 +15,7 @@ import {Field, reduxForm} from 'redux-form';
 import Button from './../component/Button';
 import FormActions from './../component/FormActions';
 import FormInput from './../component/FormInput';
+import FormInputFile from './../component/FormInputFile';
 import {Row, RowColumn} from './../component/Grid';
 
 const validate = (values) => {
@@ -39,7 +40,7 @@ class ProfileEdit extends React.Component {
       <form onSubmit={handleSubmit}>
         <Row>
           <RowColumn>
-            {/* <FormInputFile filename={user.photo ? user.photo.name : ''} name="photo" value=""/> */}
+            <Field component={FormInputFile} name="photo"/>
             <Field component={FormInput} label="First Name" name="first_name" tabIndex={2}/>
             <Field component={FormInput} label="Last Name" name="last_name" tabIndex={3}/>
             <Field component={FormInput} label="Username" name="username" tabIndex={4}/>
