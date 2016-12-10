@@ -75,7 +75,7 @@ class List extends React.Component {
     const shortcutLinks = ['/', '/issue/new'];
     this.props.dispatch(
       routeActions.push(
-        `/project/${this.state.filteredProjects[this.state.selectedProject].id}${shortcutLinks[index]}`
+        `/project/${this.state.filteredProjects[this.state.selectedProject].node.id}${shortcutLinks[index]}`
       )
     );
     this.triggerOnProjectSelected();
