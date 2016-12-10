@@ -22,11 +22,7 @@ import LogoHeader from './../component/LogoHeader';
 import ResourcePreview from './../component/ResourcePreview';
 import {Row, RowColumn} from './../component/Grid';
 
-@connect(state => ({
-  waiting: state.dashboard.fetching,
-  organizations: state.dashboard.organizations,
-  projects: state.dashboard.projects
-}))
+@connect(state => ({waiting: state.dashboard.fetching, dashboard: state.dashboard}))
 class Dashboard extends React.Component {
   componentDidMount() {
     const {dispatch} = this.props;
@@ -34,18 +30,26 @@ class Dashboard extends React.Component {
     dispatch(DashboardActions.fetchData());
   }
 
+  renderOrganizations() {
+    const {organizations} = this.props.dashboard;
+
+    return organizations.map((organization, index) => (
+      <ResourcePreview key={index} resource={organization.node} type="organization"/>
+    ));
+  }
+
+  renderProjects() {
+    const {projects} = this.props.dashboard;
+
+    return projects.map((project, index) => (
+      <ResourcePreview key={index} resource={project.node} type="project"/>
+    ));
+  }
+
   render() {
     if (this.props.waiting) {
       return <LoadingSpinner/>;
     }
-
-    const
-      organizationItems = this.props.organizations.map((organization, index) => (
-        <ResourcePreview key={index} resource={organization.node} type="organization"/>
-      )),
-      projectItems = this.props.projects.map((project, index) => (
-        <ResourcePreview key={index} resource={project.node} type="project"/>
-      ));
 
     return (
       <ContentMiddleLayout>
@@ -64,7 +68,7 @@ class Dashboard extends React.Component {
                 <Button color="green" size="small">Create org.</Button>
               </Link>}
               title={<span>Your <strong>organizations</strong></span>}>
-              {organizationItems}
+              {this.renderOrganizations()}
             </DashboardWidget>
           </RowColumn>
           <RowColumn medium={6}>
@@ -73,7 +77,7 @@ class Dashboard extends React.Component {
                 <Button color="green" size="small">Create project</Button>
               </Link>}
               title={<span>Your <strong>projects</strong></span>}>
-              {projectItems}
+              {this.renderProjects()}
             </DashboardWidget>
           </RowColumn>
         </Row>
