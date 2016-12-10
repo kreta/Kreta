@@ -8,9 +8,7 @@
  * file that was distributed with this source code.
  */
 
-import Api from './Api';
-
-class ProjectApi extends Api {
+class ProjectApi {
   getProjects() {
     return new Promise((resolve) => {
       setTimeout(() => {
@@ -346,9 +344,9 @@ class ProjectApi extends Api {
     });
   }
 
-  postProject(payload) {
-    return this.post('/projects', payload);
-  }
+//   postProject(payload) {
+//     return this.post('/projects', payload);
+//   }
 }
 
 const instance = new ProjectApi();

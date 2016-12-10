@@ -12,7 +12,7 @@ import React from 'react';
 import {IndexRoute, Route} from 'react-router';
 
 import BaseLayout from './views/layout/Base';
-import Index from './views/page/Index';
+import Dashboard from './views/page/Dashboard';
 import IssueNew from './views/page/issue/New';
 import IssueEdit from './views/page/issue/Edit';
 import IssueShow from './views/page/issue/Show';
@@ -38,7 +38,7 @@ export default (
   <div>
     <Route component={LoginPage} path="/login"/>
     <Route component={BaseLayout} onEnter={requireAuth} path="/">
-      <IndexRoute component={Index}/>
+      <IndexRoute component={Dashboard}/>
 
       <Route component={ProjectNew} path="project/new"/>
       <Route component={ProjectRoot}>

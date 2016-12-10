@@ -13,6 +13,7 @@ import {routeReducer as routing} from 'react-router-redux';
 import {reducer as form} from 'redux-form';
 
 import currentProject from './reducers/CurrentProject';
+import dashboard from './reducers/Dashboard';
 import mainMenu from './reducers/MainMenu';
 import notification from './reducers/Notification';
 import organization from './reducers/Organization';
@@ -22,8 +23,9 @@ import user from './reducers/User';
 
 export default combineReducers({
   currentProject,
-  form,
+  dashboard,
   mainMenu,
+  form,
   notification,
   organization,
   profile,

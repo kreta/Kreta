@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-import Config from './../Config';
+import Config from '../../Config';
 
 const
   toQueryParams = (query = null) => {
@@ -55,9 +55,9 @@ const
     };
   };
 
-class Api {
+class Rest {
   constructor() {
-    if (new.target === Api) {
+    if (new.target === Rest) {
       throw new TypeError('Api is an abstract class, it cannot be instantiate');
     }
   }
@@ -113,4 +113,4 @@ class Api {
   }
 }
 
-export default Api;
+export default Rest;

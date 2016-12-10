@@ -20,7 +20,7 @@ import classNames from 'classnames';
 import Button from './../../component/Button';
 import Icon from './../../component/Icon';
 import NavigableList from './../../component/NavigableList';
-import ProjectPreview from './../../component/ProjectPreview';
+import ResourcePreview from './../../component/ResourcePreview';
 import ShortcutHelp from './../../component/ShortcutHelp';
 import {Row, RowColumn} from './../../component/Grid';
 
@@ -55,7 +55,7 @@ class List extends React.Component {
 
   filterProjects(value) {
     const filteredProjects = this.props.projects.filter(project => (
-      value.length === 0 || (project.name.indexOf(value) > -1 || project.organization.name.indexOf(value) > -1)
+      value.length === 0 || project.node.name.indexOf(value) > -1
     ));
     this.setState({
       filteredProjects,
@@ -75,7 +75,7 @@ class List extends React.Component {
     const shortcutLinks = ['/', '/issue/new'];
     this.props.dispatch(
       routeActions.push(
-        `/project/${this.state.filteredProjects[this.state.selectedProject].id}${shortcutLinks[index]}`
+        `/project/${this.state.filteredProjects[this.state.selectedProject].node.id}${shortcutLinks[index]}`
       )
     );
     this.triggerOnProjectSelected();
@@ -91,7 +91,7 @@ class List extends React.Component {
 
   getHeader() {
     return (
-      <div className="project-preview__header">
+      <div className="resource-preview__header">
         <Row>
           <RowColumn small={9}>
             <ShortcutHelp does="to select action" keyboard="← →"/>
@@ -115,26 +115,27 @@ class List extends React.Component {
 
   getProjectItems() {
     return this.state.filteredProjects.map((project, index) => (
-      <ProjectPreview key={index}
-                      project={project}
-                      shortcuts={
-                        <div>
-                          <Icon className={classNames({
-                            'project-preview__shortcut': true,
-                            'project-preview__shortcut--selected': 0 === this.state.selectedShortcut
-                          })}
-                                glyph={ListIcon}
-                                onClick={this.goToShortcutLink.bind(this, 0)}
-                                onMouseEnter={this.changeSelectedShortcut.bind(this, 0)}/>
-                          <Icon className={classNames({
-                            'project-preview__shortcut': true,
-                            'project-preview__shortcut--selected': 1 === this.state.selectedShortcut
-                          })}
-                                glyph={AddIcon}
-                                onClick={this.goToShortcutLink.bind(this, 1)}
-                                onMouseEnter={this.changeSelectedShortcut.bind(this, 1)}/>
-                        </div>
-                      }/>
+      <ResourcePreview key={index}
+                       resource={project.node}
+                       shortcuts={
+                         <div>
+                           <Icon className={classNames({
+                             'resource-preview__shortcut': true,
+                             'resource-preview__shortcut--selected': 0 === this.state.selectedShortcut
+                           })}
+                                 glyph={ListIcon}
+                                 onClick={this.goToShortcutLink.bind(this, 0)}
+                                 onMouseEnter={this.changeSelectedShortcut.bind(this, 0)}/>
+                           <Icon className={classNames({
+                             'resource-preview__shortcut': true,
+                             'resource-preview__shortcut--selected': 1 === this.state.selectedShortcut
+                           })}
+                                 glyph={AddIcon}
+                                 onClick={this.goToShortcutLink.bind(this, 1)}
+                                 onMouseEnter={this.changeSelectedShortcut.bind(this, 1)}/>
+                         </div>
+                       }
+                       type="project"/>
 
     ));
   }
@@ -143,13 +144,13 @@ class List extends React.Component {
     return (
       <div>
         {this.getHeader()}
-        <input className="project-preview__filter"
+        <input className="resource-preview__filter"
                onKeyUp={this.onKeyUp.bind(this)}
                placeholder="Type the project"
                ref="filter"
                type="text"/>
-        <NavigableList className="project-preview__list"
-                       classNameSelected="project-preview--selected"
+        <NavigableList className="resource-preview__list"
+                       classNameSelected="resource-preview--selected"
                        onElementSelected={this.triggerOnProjectSelected.bind(this)}
                        onXChanged={this.changeSelectedShortcut.bind(this)}
                        onYChanged={this.changeSelectedRow.bind(this)}

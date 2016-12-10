@@ -55,7 +55,8 @@
     ],
     "plugins": [
       "transform-class-properties",
-      "transform-decorators-legacy"
+      "transform-decorators-legacy",
+      "./devUtils/babelRelayPlugin"
     ]
   },
   "dependencies": {
@@ -68,6 +69,7 @@
     "react-addons-test-utils": "^15.4.1",
     "react-dom": "^15.4.1",
     "react-redux": "^4.1.1",
+    "react-relay": "^0.9.3",
     "react-router": "^2.0.0",
     "react-router-redux": "^2.1.0",
     "redux": "^3.0.6",
@@ -81,13 +83,13 @@
     "babel-cli": "^6.18.0",
     "babel-core": "^6.10.4",
     "babel-eslint": "^7.1.1",
-    "babel-jest": "^17.0.2",
     "babel-loader": "^6.2.5",
     "babel-plugin-transform-class-properties": "^6.19.0",
     "babel-plugin-transform-decorators-legacy": "^1.3.4",
     "babel-preset-es2015": "^6.18.0",
     "babel-preset-react": "^6.16.0",
     "babel-preset-stage-2": "^6.18.0",
+    "babel-relay-plugin": "^0.9.3",
     "case-sensitive-paths-webpack-plugin": "^1.1.4",
     "connect-history-api-fallback": "^1.3.0",
     "css-loader": "^0.26",

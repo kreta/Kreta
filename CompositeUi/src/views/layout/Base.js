@@ -24,6 +24,7 @@ import ProjectActions from './../../actions/Projects';
 class Base extends React.Component {
   componentDidMount() {
     const {dispatch} = this.props;
+
     dispatch(ProjectActions.fetchProjects());
     dispatch(ProfileActions.fetchProfile());
   }

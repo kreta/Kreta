@@ -14,18 +14,36 @@ import {connect} from 'react-redux';
 
 import Button from './../component/Button';
 import ContentMiddleLayout from './../layout/ContentMiddleLayout';
+import DashboardActions from './../../actions/Dashboard';
 import DashboardWidget from './../component/DashboardWidget';
 import FormInput from './../component/FormInput';
+import LoadingSpinner from './../component/LoadingSpinner';
 import LogoHeader from './../component/LogoHeader';
-import ProjectPreview from './../component/ProjectPreview';
+import ResourcePreview from './../component/ResourcePreview';
 import {Row, RowColumn} from './../component/Grid';
 
-@connect(state => ({projects: state.projects.projects}))
-class Index extends React.Component {
-  render() {
-    const projectItems = this.props.projects.map((project, index) => (
-      <ProjectPreview key={index} project={project}/>
+@connect(state => ({dashboard: state.dashboard}))
+class Dashboard extends React.Component {
+  componentDidMount() {
+    this.props.dispatch(DashboardActions.fetchData());
+  }
+
+  renderOrganizations() {
+    return this.props.dashboard.organizations.map((organization, index) => (
+      <ResourcePreview key={index} resource={organization.node} type="organization"/>
     ));
+  }
+
+  renderProjects() {
+    return this.props.dashboard.projects.map((project, index) => (
+      <ResourcePreview key={index} resource={project.node} type="project"/>
+    ));
+  }
+
+  render() {
+    if (this.props.dashboard.fetching) {
+      return <LoadingSpinner/>;
+    }
 
     return (
       <ContentMiddleLayout>
@@ -40,19 +58,20 @@ class Index extends React.Component {
         <Row>
           <RowColumn medium={6}>
             <DashboardWidget
-              actions={<Link to="/project/new">
-                <Button color="green" size="small">Create project</Button>
-              </Link>}
-              title={<span>Your <strong>projects</strong></span>}>
-              {projectItems}
-            </DashboardWidget>
-          </RowColumn>
-          <RowColumn medium={6}>
-            <DashboardWidget
               actions={<Link to="/organization/new">
                 <Button color="green" size="small">Create org.</Button>
               </Link>}
               title={<span>Your <strong>organizations</strong></span>}>
+              {this.renderOrganizations()}
+            </DashboardWidget>
+          </RowColumn>
+          <RowColumn medium={6}>
+            <DashboardWidget
+              actions={<Link to="/project/new">
+                <Button color="green" size="small">Create project</Button>
+              </Link>}
+              title={<span>Your <strong>projects</strong></span>}>
+              {this.renderProjects()}
             </DashboardWidget>
           </RowColumn>
         </Row>
@@ -61,4 +80,4 @@ class Index extends React.Component {
   }
 }
 
-export default Index;
+export default Dashboard;

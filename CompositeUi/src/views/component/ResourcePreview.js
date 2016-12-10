@@ -8,22 +8,23 @@
  * file that was distributed with this source code.
  */
 
-import './../../scss/components/_project-preview';
+import './../../scss/components/_resource-preview';
 
 import classNames from 'classnames';
-import React from 'react';
 import {Link} from 'react-router';
+import React from 'react';
 
-class ProjectPreview extends React.Component {
+class ResourcePreview extends React.Component {
   static propTypes = {
     onMouseEnter: React.PropTypes.func,
     onTitleClick: React.PropTypes.func,
-    project: React.PropTypes.object.isRequired,
+    resource: React.PropTypes.object.isRequired,
     selected: React.PropTypes.bool,
     shortcuts: React.PropTypes.oneOfType([
       React.PropTypes.string,
       React.PropTypes.element
-    ])
+    ]),
+    type: React.PropTypes.string.isRequired
   };
 
   static defaultProps = {
@@ -32,21 +33,21 @@ class ProjectPreview extends React.Component {
 
   render() {
     const
-      {onMouseEnter, onTitleClick, project, shortcuts, selected} = this.props,
+      {onMouseEnter, onTitleClick, resource, type, shortcuts, selected} = this.props,
       classes = classNames({
-        'project-preview': true,
-        'project-preview--selected': selected
+        'resource-preview': true,
+        'resource-preview--selected': selected
       });
 
     return (
       <div className={classes} onMouseEnter={onMouseEnter}>
-        <Link className="project-preview__title"
+        <Link className="resource-preview__title"
               onClick={onTitleClick}
-              to={`/project/${project.id}`}>
-          {project.name}
+              to={`/${type}/${resource.id}`}>
+          {resource.name}
         </Link>
 
-        <div className="project-preview__shortcuts">
+        <div className="resource-preview__shortcuts">
           {shortcuts}
         </div>
       </div>
@@ -54,4 +55,4 @@ class ProjectPreview extends React.Component {
   }
 }
 
-export default ProjectPreview;
+export default ResourcePreview;
