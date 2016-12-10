@@ -11,17 +11,23 @@
 import {routeActions} from 'react-router-redux';
 
 import ActionTypes from './../constants/ActionTypes';
+import GraphQlInstance from './../api/graphql/GraphQl';
+import CreateOrganizationMutationRequest from './../api/graphql/mutation/CreateOrganizationMutationRequest';
 
 const Actions = {
-  createOrganization: (organization) => (dispatch) => {
+  createOrganization: (organizationInputData) => (dispatch) => {
     dispatch({
       type: ActionTypes.ORGANIZATION_CREATING
     });
-    dispatch({
-      type: ActionTypes.ORGANIZATION_CREATED,
-      organization
-    });
-    dispatch(routeActions.push('/'));
+    GraphQlInstance.mutation(new CreateOrganizationMutationRequest(organizationInputData))
+      .then(organizationsData => {
+        console.log(organizationsData);
+        dispatch({
+          type: ActionTypes.ORGANIZATION_CREATED,
+          organization: organizationsData.response.organization,
+        });
+        dispatch(routeActions.push('/'));
+      });
   }
 };
 
