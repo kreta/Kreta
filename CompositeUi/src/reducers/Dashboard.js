@@ -11,7 +11,7 @@
 import ActionTypes from './../constants/ActionTypes';
 
 const initialState = {
-  errors: [],
+  errors: false,
   fetching: true,
   organizations: [],
   projects: []
