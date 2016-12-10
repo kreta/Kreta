@@ -19,15 +19,15 @@ const Actions = {
     dispatch({
       type: ActionTypes.ORGANIZATION_CREATING
     });
-    GraphQlInstance.mutation(new CreateOrganizationMutationRequest(organizationInputData))
-      .then(organizationsData => {
-        console.log(organizationsData);
-        dispatch({
-          type: ActionTypes.ORGANIZATION_CREATED,
-          organization: organizationsData.response.organization,
-        });
-        dispatch(routeActions.push('/'));
+    const mutation = CreateOrganizationMutationRequest.build(organizationInputData);
+    GraphQlInstance.mutation(mutation);
+    mutation.then(organizationsData => {
+      dispatch({
+        type: ActionTypes.ORGANIZATION_CREATED,
+        organization: organizationsData.response.createOrganization.organization,
       });
+      dispatch(routeActions.push('/'));
+    });
   }
 };
 

@@ -8,46 +8,41 @@
  * file that was distributed with this source code.
  */
 
-class CreateOrganizationMutationRequest {
-  organizationName;
+import Relay from 'react-relay';
+import RelayQuery from 'react-relay/lib/RelayQuery';
+import RelayMutationRequest from 'react-relay/lib/RelayMutationRequest';
 
-  constructor(input) {
-    this.organizationName = input.name;
-  }
-
-  getQueryString() {
-    return (`
-      mutation CreateOrganization($input: CreateOrganizationInput!) {
-        createOrganization(input: $input) {
-          organization {
-            id,
-            name,
-            slug
-          }
-        }
+const mutation = Relay.QL`
+  mutation {
+    createOrganization(input: $input) {
+      organization {
+        id,
+        name,
+        slug
       }
-    `);
+    }
   }
+`;
 
-  getVariables() {
-    return {
+class CreateOrganizationMutation extends RelayQuery.Mutation {
+  constructor(organizationName) {
+    super(mutation, {}, {
       input: {
-        clientMutationId: this.getId(),
-        name: this.organizationName
+        clientMutationId: Math.random().toString(36),
+        name: organizationName
       }
-    };
-  }
+    });
 
-  getFiles() {
-    return null;
   }
+}
 
-  getId() {
-    return Math.random().toString(36);
-  }
-
-  getDebugName() {
-    return 'createOrganization';
+class CreateOrganizationMutationRequest extends RelayMutationRequest {
+  static build(organizationInputData) {
+    return new RelayMutationRequest(
+      new CreateOrganizationMutation(
+        organizationInputData.name
+      )
+    );
   }
 }
 

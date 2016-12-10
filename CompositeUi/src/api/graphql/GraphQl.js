@@ -57,7 +57,7 @@ class GraphQl {
   }
 
   mutation(mutation) {
-//     this.isRelayMutationRequest(mutation);
+    this.isRelayMutationRequest(mutation);
 
     return this.relayNetworkLayer.sendMutation(mutation);
   }
