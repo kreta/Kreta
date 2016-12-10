@@ -18,13 +18,14 @@ import MainMenu from './MainMenu';
 import NotificationLayout from './NotificationLayout';
 import LoadingSpinner from './../component/LoadingSpinner';
 import ProfileActions from './../../actions/Profile';
-import DashboardActions from './../../actions/Dashboard';
+import ProjectActions from './../../actions/Projects';
 
-@connect(state => ({waiting: state.dashboard.fetching || state.profile.fetching || state.user.updatingAuthorization}))
+@connect(state => ({waiting: state.projects.fetching || state.profile.fetching || state.user.updatingAuthorization}))
 class Base extends React.Component {
   componentDidMount() {
     const {dispatch} = this.props;
-    dispatch(DashboardActions.fetchData());
+
+    dispatch(ProjectActions.fetchProjects());
     dispatch(ProfileActions.fetchProfile());
   }
 

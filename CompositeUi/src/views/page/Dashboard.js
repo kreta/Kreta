@@ -14,15 +14,31 @@ import {connect} from 'react-redux';
 
 import Button from './../component/Button';
 import ContentMiddleLayout from './../layout/ContentMiddleLayout';
+import DashboardActions from './../../actions/Dashboard';
 import DashboardWidget from './../component/DashboardWidget';
 import FormInput from './../component/FormInput';
+import LoadingSpinner from './../component/LoadingSpinner';
 import LogoHeader from './../component/LogoHeader';
 import ResourcePreview from './../component/ResourcePreview';
 import {Row, RowColumn} from './../component/Grid';
 
-@connect(state => ({organizations: state.dashboard.organizations, projects: state.dashboard.projects}))
+@connect(state => ({
+  waiting: state.dashboard.fetching,
+  organizations: state.dashboard.organizations,
+  projects: state.dashboard.projects
+}))
 class Dashboard extends React.Component {
+  componentDidMount() {
+    const {dispatch} = this.props;
+
+    dispatch(DashboardActions.fetchData());
+  }
+
   render() {
+    if (this.props.waiting) {
+      return <LoadingSpinner/>;
+    }
+
     const
       organizationItems = this.props.organizations.map((organization, index) => (
         <ResourcePreview key={index} resource={organization.node} type="organization"/>

@@ -55,7 +55,7 @@ class List extends React.Component {
 
   filterProjects(value) {
     const filteredProjects = this.props.projects.filter(project => (
-      value.length === 0 || (project.name.indexOf(value) > -1 || project.organization.name.indexOf(value) > -1)
+      value.length === 0 || project.node.name.indexOf(value) > -1
     ));
     this.setState({
       filteredProjects,
@@ -116,7 +116,7 @@ class List extends React.Component {
   getProjectItems() {
     return this.state.filteredProjects.map((project, index) => (
       <ResourcePreview key={index}
-                       resource={project}
+                       resource={project.node}
                        shortcuts={
                          <div>
                            <Icon className={classNames({
