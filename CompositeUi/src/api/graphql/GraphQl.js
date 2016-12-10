@@ -8,19 +8,24 @@
  * file that was distributed with this source code.
  */
 
-import DefaultNetworkLayer from 'react-relay/lib/RelayDefaultNetworkLayer';
+import {DefaultNetworkLayer} from 'react-relay';
+import RelayMutationRequest from 'react-relay/lib/RelayMutationRequest';
 import RelayQueryRequest from 'react-relay/lib/RelayQueryRequest';
 
-import Config from '../../Config';
+import Config from './../../Config';
 
 class GraphQl {
   constructor() {
+    this.accessToken = () => (
+      localStorage.token
+    );
+
     this.baseUrl = () => (
       Config.taskManagerUrl
     );
 
-    this.accessToken = () => (
-      localStorage.token
+    this.uri = () => (
+      `${this.baseUrl()}?access_token=${this.accessToken()}`
     );
 
     this.isRelayQueryRequest = (query) => {
@@ -29,7 +34,13 @@ class GraphQl {
       }
     };
 
-    this.relayNetworkLayer = new DefaultNetworkLayer(`${this.baseUrl()}?access_token=${this.accessToken()}`);
+    this.isRelayMutationRequest = (mutation) => {
+      if (!(mutation instanceof RelayMutationRequest)) {
+        throw new TypeError('Given mutation must be a RelayMutationRequest');
+      }
+    };
+
+    this.relayNetworkLayer = new DefaultNetworkLayer(this.uri());
   }
 
   query(query) {
@@ -43,6 +54,12 @@ class GraphQl {
     }
 
     return this.relayNetworkLayer.sendQueries(query);
+  }
+
+  mutation(mutation) {
+    this.isRelayMutationRequest(mutation);
+
+    return this.relayNetworkLayer.mutation(mutation);
   }
 }
 
