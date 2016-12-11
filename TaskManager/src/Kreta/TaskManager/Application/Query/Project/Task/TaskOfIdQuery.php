@@ -14,31 +14,24 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Application\Query\Project\Task;
 
-class CountTasksQuery
+class TaskOfIdQuery
 {
+    private $taskId;
     private $userId;
-    private $title;
-    private $projectId;
 
-    public function __construct(string $userId, string $projectId = null, string $title = null)
+    public function __construct(string $taskId, string $userId)
     {
+        $this->taskId = $taskId;
         $this->userId = $userId;
-        $this->title = $title;
-        $this->projectId = $projectId;
+    }
+
+    public function taskId() : string
+    {
+        return $this->taskId;
     }
 
     public function userId() : string
     {
         return $this->userId;
-    }
-
-    public function projectId() : ? string
-    {
-        return $this->projectId;
-    }
-
-    public function title() : ? string
-    {
-        return $this->title;
     }
 }

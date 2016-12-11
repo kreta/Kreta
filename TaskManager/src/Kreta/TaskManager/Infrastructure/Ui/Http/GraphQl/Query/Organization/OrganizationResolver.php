@@ -30,8 +30,7 @@ class OrganizationResolver implements Resolver
         TokenStorageInterface $tokenStorage,
         QueryBus $queryBus,
         ProjectsResolver $projectsResolver
-    )
-    {
+    ) {
         $this->queryBus = $queryBus;
         $this->currentUser = $tokenStorage->getToken()->getUser()->getUsername();
         $this->projectsResolver = $projectsResolver;
@@ -47,7 +46,7 @@ class OrganizationResolver implements Resolver
             $result
         );
         $result['projects'] = $this->projectsResolver->resolve([
-            'organizationId' => $args['id']
+            'organizationId' => $args['id'],
         ]);
 
         return $result;
