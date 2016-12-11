@@ -11,8 +11,8 @@
 import {routeActions} from 'react-router-redux';
 
 import ActionTypes from './../constants/ActionTypes';
-import GraphQlInstance from './../api/graphql/GraphQl';
 import CreateOrganizationMutationRequest from './../api/graphql/mutation/CreateOrganizationMutationRequest';
+import TaskManagerGraphQl from './../api/graphql/TaskManagerGraphQl';
 
 const Actions = {
   createOrganization: (organizationInputData) => (dispatch) => {
@@ -21,7 +21,7 @@ const Actions = {
     });
     const mutation = CreateOrganizationMutationRequest.build(organizationInputData);
 
-    GraphQlInstance.mutation(mutation);
+    TaskManagerGraphQl.mutation(mutation);
     mutation
       .then(data => {
         const organization = data.response.createOrganization.organization;

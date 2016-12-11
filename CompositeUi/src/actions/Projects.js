@@ -12,16 +12,16 @@ import {routeActions} from 'react-router-redux';
 
 import ActionTypes from './../constants/ActionTypes';
 
-import GraphQlInstance from './../api/graphql/GraphQl';
 import ProjectsQueryRequest from './../api/graphql/query/ProjectsQueryRequest';
 import CreateProjectMutationRequest from './../api/graphql/mutation/CreateProjectMutationRequest';
+import TaskManagerGraphQl from './../api/graphql/TaskManagerGraphQl';
 
 const Actions = {
   fetchProjects: () => (dispatch) => {
     dispatch({
       type: ActionTypes.PROJECTS_FETCHING
     });
-    GraphQlInstance.query(ProjectsQueryRequest);
+    TaskManagerGraphQl.query(ProjectsQueryRequest);
     ProjectsQueryRequest.then(data => {
       dispatch({
         type: ActionTypes.PROJECTS_RECEIVED,
@@ -35,7 +35,7 @@ const Actions = {
     });
     const mutation = CreateProjectMutationRequest.build(projectInputData);
 
-    GraphQlInstance.mutation(mutation);
+    TaskManagerGraphQl.mutation(mutation);
     mutation
       .then(data => {
         const project = data.response.createProject.project;

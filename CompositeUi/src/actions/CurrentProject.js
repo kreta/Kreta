@@ -11,9 +11,9 @@
 import {routeActions} from 'react-router-redux';
 
 import ActionTypes from './../constants/ActionTypes';
-import GraphQlInstance from './../api/graphql/GraphQl';
 import IssueApi from './../api/Issue';
 import ProjectQueryRequest from './../api/graphql/query/ProjectQueryRequest';
+import TaskManagerGraphQl from './../api/graphql/TaskManagerGraphQl';
 
 const Actions = {
   fetchProject: (projectId) => (dispatch) => {
@@ -22,7 +22,7 @@ const Actions = {
     });
     const query = ProjectQueryRequest.build(projectId);
 
-    GraphQlInstance.query(query);
+    TaskManagerGraphQl.query(query);
     query.then(data => {
       dispatch({
         type: ActionTypes.CURRENT_PROJECT_RECEIVED,
