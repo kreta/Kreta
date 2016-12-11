@@ -14,15 +14,12 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Domain\Model\Project\Task;
 
-interface TaskRepository
+use Kreta\SharedKernel\Domain\Model\Exception;
+
+class UnauthorizedTaskResourceException extends Exception
 {
-    public function taskOfId(TaskId $id);
-
-    public function query($specification);
-
-    public function persist(Task $task);
-
-    public function remove(Task $task);
-
-    public function count($specification) : int;
+    public function __construct()
+    {
+        parent::__construct('Not allowed to perform this task resource');
+    }
 }

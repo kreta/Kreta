@@ -26,6 +26,13 @@ class DoctrineORMTaskRepository extends EntityRepository implements TaskReposito
         return $this->find($id->id());
     }
 
+    public function query($specification)
+    {
+        return null === $specification
+            ? $this->findAll()
+            : $specification->buildQuery($this->getEntityManager()->createQueryBuilder())->getResult();
+    }
+
     public function persist(Task $task)
     {
         $this->getEntityManager()->persist($task);
@@ -34,5 +41,21 @@ class DoctrineORMTaskRepository extends EntityRepository implements TaskReposito
     public function remove(Task $task)
     {
         $this->getEntityManager()->remove($task);
+    }
+
+    public function count($specification) : int
+    {
+        if (null === $specification) {
+            $queryBuilder = $this->createQueryBuilder('t');
+
+            return (int) $queryBuilder
+                ->select($queryBuilder->expr()->count('t.id'))
+                ->getQuery()
+                ->getSingleScalarResult();
+        }
+
+        return (int) $specification->buildCount(
+            $this->getEntityManager()->createQueryBuilder()
+        )->getSingleScalarResult();
     }
 }

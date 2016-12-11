@@ -12,17 +12,13 @@
 
 declare(strict_types=1);
 
-namespace Kreta\TaskManager\Domain\Model\Project\Task;
+namespace Kreta\TaskManager\Application\DataTransformer\Project\Task;
 
-interface TaskRepository
+use Kreta\TaskManager\Domain\Model\Project\Task\Task;
+
+interface TaskDataTransformer
 {
-    public function taskOfId(TaskId $id);
+    public function write(Task $task);
 
-    public function query($specification);
-
-    public function persist(Task $task);
-
-    public function remove(Task $task);
-
-    public function count($specification) : int;
+    public function read();
 }
