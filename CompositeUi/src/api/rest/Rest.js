@@ -8,108 +8,80 @@
  * file that was distributed with this source code.
  */
 
-import Config from '../../Config';
-
-const
-  toQueryParams = (query = null) => {
-    if (null === query) {
-      return '';
-    }
-
-    let result = '?';
-    if (query instanceof Array) {
-      query.map((value, key) => {
-        result = `${result}${key}=${value}&`;
-      });
-    } else if (typeof query === 'object') {
-      for (const key in query) {
-        if (query.hasOwnProperty(key)) {
-          result = `${result}${key}=${query[key]}&`;
-        }
-      }
-    }
-
-    return result;
-  },
-  toFormData = (body) => {
-    const data = new FormData();
-    for (const key in body) {
-      if (body.hasOwnProperty(key)) {
-        data.append(key, body[key]);
-      }
-    }
-
-    return data;
-  },
-  json = (response) => {
-    if (response.status >= 400) {
-      throw Error({
-        status: response.status,
-        data: response.json
-      });
-    }
-
-    return {
-      status: response.status,
-      data: response.json
-    };
-  };
-
 class Rest {
   constructor() {
-    if (new.target === Rest) {
-      throw new TypeError('Api is an abstract class, it cannot be instantiate');
+    if (this.constructor.name === 'Rest') {
+      throw new TypeError('Rest is an abstract class, it cannot be instantiate directly');
     }
+
+    this.accessToken = () => (
+      localStorage.token
+    );
+
+    this.request = (method, url, body = {}, headers = {}) => (
+      new Promise((resolve, reject) => {
+        fetch(`${this.baseUrl()}${url}`, {body, headers, method})
+          .then((response) => {
+            if (response.ok) {
+              resolve(response.json());
+            } else {
+              reject(response.json());
+            }
+          });
+      })
+    );
+
+    this.toQueryParams = (query = null) => {
+      if (null === query) {
+        return '';
+      }
+
+      let result = '?';
+      if (query instanceof Array) {
+        query.map((value, key) => {
+          result = `${result}${key}=${value}&`;
+        });
+      } else if (typeof query === 'object') {
+        for (const key in query) {
+          if (query.hasOwnProperty(key)) {
+            result = `${result}${key}=${query[key]}&`;
+          }
+        }
+      }
+
+      return result;
+    };
+
+    this.toFormData = (body) => {
+      const data = new FormData();
+      for (const key in body) {
+        if (body.hasOwnProperty(key)) {
+          data.append(key, body[key]);
+        }
+      }
+
+      return data;
+    };
   }
 
   baseUrl() {
-    return Config.taskManagerUrl;
+    throw new Error('"baseUrl" is an abstract method that expects to be implemented by children classes');
   }
 
-  accessToken() {
-    return localStorage.token;
+  get(url, query = null, headers) {
+    return this.request('GET', `${url}${this.toQueryParams(query)}`, {}, headers);
   }
 
-  get(url, query = null) {
-    return fetch(`${this.baseUrl()}${url}${toQueryParams(query)}`, {
-      credentials: 'include',
-      headers: {
-        'Authorization': `Bearer ${this.accessToken()}`
-      },
-      method: 'get'
-    }).then(json);
+  post(url, payload = {}, headers = {}) {
+    return this.request('POST', url, this.toFormData(payload), headers);
   }
 
-  post(url, payload) {
-    return fetch(`${this.baseUrl()}${url}`, {
-      body: toFormData(payload),
-      credentials: 'include',
-      headers: {
-        'Authorization': `Bearer ${this.accessToken()}`
-      },
-      method: 'post'
-    }).then(json);
+  put(url, payload = {}, headers = {}) {
+    return this.request('PUT', url, this.toFormData(payload), headers);
   }
 
-  put(url, payload) {
-    return fetch(`${this.baseUrl()}${url}`, {
-      body: toFormData(payload),
-      credentials: 'include',
-      headers: {
-        'Authorization': `Bearer ${this.accessToken()}`
-      },
-      method: 'put'
-    }).then(json);
-  }
-
-  deleteHttp(url) { // Http suffix is needed because delete is a reserved word
-    return fetch(`${this.baseUrl()}${url}`, {
-      credentials: 'include',
-      headers: {
-        'Authorization': `Bearer ${this.accessToken()}`
-      },
-      method: 'delete'
-    }).then(json);
+  deleteHttp(url, headers) { // Http suffix is needed because delete is a reserved word
+    return this.request('DELETE', url, {}, headers);
   }
 }
 

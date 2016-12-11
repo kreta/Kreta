@@ -8,20 +8,20 @@
  * file that was distributed with this source code.
  */
 
-// import {routeActions} from 'react-router-redux';
+import {routeActions} from 'react-router-redux';
 
 import ActionTypes from './../constants/ActionTypes';
 
-import GraphQlInstance from './../api/graphql/GraphQl';
 import ProjectsQueryRequest from './../api/graphql/query/ProjectsQueryRequest';
+import CreateProjectMutationRequest from './../api/graphql/mutation/CreateProjectMutationRequest';
+import TaskManagerGraphQl from './../api/graphql/TaskManagerGraphQl';
 
 const Actions = {
   fetchProjects: () => (dispatch) => {
     dispatch({
       type: ActionTypes.PROJECTS_FETCHING
     });
-
-    GraphQlInstance.query(ProjectsQueryRequest);
+    TaskManagerGraphQl.query(ProjectsQueryRequest);
     ProjectsQueryRequest.then(data => {
       dispatch({
         type: ActionTypes.PROJECTS_RECEIVED,
@@ -29,30 +29,33 @@ const Actions = {
       });
     });
   },
-  createProject: () => (dispatch) => {
+  createProject: (projectInputData) => (dispatch) => {
     dispatch({
       type: ActionTypes.PROJECTS_CREATING
     });
-//     ProjectApi.postProject(projectData)
-//       .then((response) => {
-//         dispatch({
-//           type: ActionTypes.PROJECTS_CREATED,
-//           status: response.status,
-//           project: response.data
-//         });
-//         dispatch(
-//           routeActions.push(`/project/${response.data.id}`)
-//         );
-//       })
-//       .catch((response) => {
-//         response.then((errors) => {
-//           dispatch({
-//             type: ActionTypes.PROJECTS_CREATE_ERROR,
-//             status: response.status,
-//             errors
-//           });
-//         });
-//       });
+    const mutation = CreateProjectMutationRequest.build(projectInputData);
+
+    TaskManagerGraphQl.mutation(mutation);
+    mutation
+      .then(data => {
+        const project = data.response.createProject.project;
+
+        dispatch({
+          type: ActionTypes.PROJECTS_CREATED,
+          project,
+        });
+        dispatch(
+          routeActions.push(`/project/${project.id}`)
+        );
+      })
+      .catch((response) => {
+        response.then((errors) => {
+          dispatch({
+            type: ActionTypes.PROJECTS_CREATE_ERROR,
+            errors
+          });
+        });
+      });
   }
 };
 

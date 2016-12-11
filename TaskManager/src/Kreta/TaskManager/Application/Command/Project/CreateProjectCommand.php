@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Application\Command\Project;
 
+use Kreta\SharedKernel\Domain\Model\Identity\Uuid;
+
 class CreateProjectCommand
 {
     private $id;
@@ -29,14 +31,14 @@ class CreateProjectCommand
         string $id = null,
         string $slug = null
     ) {
-        $this->id = $id;
+        $this->id = null === $id ? Uuid::generate() : $id;
         $this->name = $name;
         $this->slug = $slug;
         $this->organizationId = $organizationId;
         $this->creatorId = $creatorId;
     }
 
-    public function id()
+    public function id() : string
     {
         return $this->id;
     }

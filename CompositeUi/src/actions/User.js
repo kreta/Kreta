@@ -11,14 +11,14 @@
 import {routeActions} from 'react-router-redux';
 
 import ActionTypes from './../constants/ActionTypes';
-import SecurityInstance from './../api/Security';
+import Security from '../api/rest/User/Security';
 
 const Actions = {
   login: (credentialData) => (dispatch) => {
     dispatch({
       type: ActionTypes.USER_AUTHORIZING
     });
-    return SecurityInstance.login(credentialData.email, credentialData.password)
+    return Security.login(credentialData.email, credentialData.password)
       .then((json) => {
         localStorage.token = json.token;
         dispatch({
@@ -41,7 +41,7 @@ const Actions = {
     dispatch({
       type: ActionTypes.USER_UNAUTHORIZING
     });
-    return SecurityInstance.logout()
+    return Security.logout()
       .then(() => {
         dispatch({
           type: ActionTypes.USER_UNAUTHORIZED

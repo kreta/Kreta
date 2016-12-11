@@ -12,7 +12,6 @@
 
 namespace Spec\Kreta\TaskManager\Application\Command\Organization;
 
-use Kreta\SharedKernel\Domain\Model\InvalidArgumentException;
 use Kreta\TaskManager\Application\Command\Organization\CreateOrganizationCommand;
 use PhpSpec\ObjectBehavior;
 
@@ -62,11 +61,5 @@ class CreateOrganizationCommandSpec extends ObjectBehavior
         $this->id()->shouldReturn('organization-id');
         $this->name()->shouldReturn('Organization name');
         $this->slug()->shouldReturn('organization-slug');
-    }
-
-    function it_cannot_be_created_with_empty_user_id()
-    {
-        $this->beConstructedWith('', 'Organization name');
-        $this->shouldThrow(new InvalidArgumentException('User id cannot be null'))->duringInstantiation();
     }
 }

@@ -8,19 +8,22 @@
  * file that was distributed with this source code.
  */
 
-import DefaultNetworkLayer from 'react-relay/lib/RelayDefaultNetworkLayer';
+import {DefaultNetworkLayer} from 'react-relay';
+import RelayMutationRequest from 'react-relay/lib/RelayMutationRequest';
 import RelayQueryRequest from 'react-relay/lib/RelayQueryRequest';
-
-import Config from '../../Config';
 
 class GraphQl {
   constructor() {
-    this.baseUrl = () => (
-      Config.taskManagerUrl
-    );
+    if (this.constructor.name === 'GraphQl') {
+      throw new TypeError('GraphQl is an abstract class, it cannot be instantiate directly');
+    }
 
     this.accessToken = () => (
       localStorage.token
+    );
+
+    this.uri = () => (
+      `${this.baseUrl()}?access_token=${this.accessToken()}`
     );
 
     this.isRelayQueryRequest = (query) => {
@@ -29,7 +32,17 @@ class GraphQl {
       }
     };
 
-    this.relayNetworkLayer = new DefaultNetworkLayer(`${this.baseUrl()}?access_token=${this.accessToken()}`);
+    this.isRelayMutationRequest = (mutation) => {
+      if (!(mutation instanceof RelayMutationRequest)) {
+        throw new TypeError('Given mutation must be a RelayMutationRequest');
+      }
+    };
+
+    this.relayNetworkLayer = new DefaultNetworkLayer(this.uri());
+  }
+
+  baseUrl() {
+    throw new Error('"baseUrl" is an abstract method that expects to be implemented by children classes');
   }
 
   query(query) {
@@ -44,8 +57,12 @@ class GraphQl {
 
     return this.relayNetworkLayer.sendQueries(query);
   }
+
+  mutation(mutation) {
+    this.isRelayMutationRequest(mutation);
+
+    return this.relayNetworkLayer.sendMutation(mutation);
+  }
 }
 
-const GraphQlInstance = new GraphQl();
-
-export default GraphQlInstance;
+export default GraphQl;

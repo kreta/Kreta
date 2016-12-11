@@ -144,7 +144,7 @@ class IssueList extends React.Component {
     return (
       <div>
         <ContentMiddleLayout>
-          <PageHeader thumbnail={<Thumbnail image={currentProject.project.image.name}
+          <PageHeader thumbnail={<Thumbnail image={null}
                                             text={currentProject.project.name}/>}
                       title={currentProject.project.name}>
             <InlineLink to={`/project/${currentProject.project.id}/settings`}>

@@ -6,12 +6,18 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 
-# input CreateOrganizationPayload {
-#   organization: Organization
+# input CreateProjectInput {
+#   name: String!
+#   slug: String
+#   organizationId: ID!
 # }
-CreateOrganizationPayload:
-    type: relay-mutation-payload
+CreateProjectInput:
+    type: relay-mutation-input
     config:
         fields:
-            organization:
-                type: "Organization"
+            name:
+                type: "String!"
+            slug:
+                type: "String"
+            organizationId:
+                type: "ID!"

@@ -10,9 +10,9 @@
 
 import ActionTypes from './../constants/ActionTypes';
 
-import GraphQlInstance from './../api/graphql/GraphQl';
 import ProjectsQueryRequest from './../api/graphql/query/ProjectsQueryRequest';
 import OrganizationsQueryRequest from './../api/graphql/query/OrganizationsQueryRequest';
+import TaskManagerGraphQl from './../api/graphql/TaskManagerGraphQl';
 
 const Actions = {
   fetchData: () => (dispatch) => {
@@ -20,7 +20,7 @@ const Actions = {
       type: ActionTypes.DASHBOARD_DATA_FETCHING
     });
 
-    GraphQlInstance.query([OrganizationsQueryRequest, ProjectsQueryRequest]);
+    TaskManagerGraphQl.query([OrganizationsQueryRequest, ProjectsQueryRequest]);
 
     OrganizationsQueryRequest.then(organizationsData => {
       ProjectsQueryRequest.then(projectsData => {
