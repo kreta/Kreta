@@ -17,6 +17,6 @@ class TaskManagerGraphQl extends GraphQl {
   }
 }
 
-const TaskManagerGraphQlInstance = new TaskManagerGraphQl();
+const instance = new TaskManagerGraphQl();
 
-export default TaskManagerGraphQlInstance;
+export default instance;

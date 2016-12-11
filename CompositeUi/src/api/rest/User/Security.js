@@ -8,23 +8,12 @@
  * file that was distributed with this source code.
  */
 
-import Config from './../Config';
+import IdentityAccessRest from './../IdentityAccessRest';
 
 class Security {
   login(email, password) {
-    return new Promise((resolve, reject) => {
-      fetch(`${Config.identityAccessUrl}/auth/token`, {
-        headers: {
-          'Authorization': `Basic ${btoa(`${email}:${password}`)}`,
-        },
-        method: 'POST'
-      }).then((response) => {
-        if (response.ok) {
-          resolve(response.json());
-        } else {
-          reject(response.json());
-        }
-      });
+    return IdentityAccessRest.post('/auth/token', {}, {
+      'Authorization': `Basic ${btoa(`${email}:${password}`)}`
     });
   }
 
@@ -43,6 +32,6 @@ class Security {
   }
 }
 
-const SecurityInstance = new Security();
+const instance = new Security();
 
-export default SecurityInstance;
+export default instance;

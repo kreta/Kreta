@@ -9,14 +9,14 @@
  */
 
 import Config from './../../Config';
-import GraphQl from './GraphQl';
+import Rest from './Rest';
 
-class IdentityAccessGraphQl extends GraphQl {
+class IdentityAccessRest extends Rest {
   baseUrl() {
     return Config.identityAccessUrl;
   }
 }
 
-const instance = new IdentityAccessGraphQl();
+const instance = new IdentityAccessRest();
 
 export default instance;

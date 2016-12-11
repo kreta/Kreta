@@ -23,10 +23,10 @@ import ProjectNew from './views/page/project/New';
 import ProjectRoot from './views/page/project/Root';
 import ProjectSettings from './views/page/project/Settings';
 import ProjectShow from './views/page/project/IssueList';
-import SecurityInstance from './api/Security';
+import Security from './api/rest/User/Security';
 
 const requireAuth = (nextState, replace) => {
-  if (!SecurityInstance.isLoggedIn()) {
+  if (!Security.isLoggedIn()) {
     replace({
       pathname: '/login',
       state: {nextPathname: nextState.location.pathname}

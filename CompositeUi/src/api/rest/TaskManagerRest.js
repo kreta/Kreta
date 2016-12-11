@@ -9,14 +9,14 @@
  */
 
 import Config from './../../Config';
-import GraphQl from './GraphQl';
+import Rest from './Rest';
 
-class IdentityAccessGraphQl extends GraphQl {
+class TaskManagerRest extends Rest {
   baseUrl() {
-    return Config.identityAccessUrl;
+    return Config.taskManagerUrl;
   }
 }
 
-const instance = new IdentityAccessGraphQl();
+const instance = new TaskManagerRest();
 
 export default instance;
