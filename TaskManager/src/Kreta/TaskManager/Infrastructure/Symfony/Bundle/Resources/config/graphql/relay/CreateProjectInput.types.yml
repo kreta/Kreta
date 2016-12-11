@@ -1,0 +1,23 @@
+# This file is part of the Kreta package.
+#
+# (c) Beñat Espiña <benatespina@gmail.com>
+# (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+
+# input CreateProjectInput {
+#   name: String!
+#   slug: String
+#   organizationId: ID!
+# }
+CreateProjectInput:
+    type: relay-mutation-input
+    config:
+        fields:
+            name:
+                type: "String!"
+            slug:
+                type: "String"
+            organizationId:
+                type: "ID!"

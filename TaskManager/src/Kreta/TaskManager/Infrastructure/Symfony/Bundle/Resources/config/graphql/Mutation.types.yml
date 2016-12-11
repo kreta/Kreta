@@ -16,3 +16,9 @@ Mutation:
                     inputType: CreateOrganizationInput
                     payloadType: CreateOrganizationPayload
                     mutateAndGetPayload: "@=mutation('create_organization', [args.offsetGet('input')])"
+            createProject:
+                builder: Mutation
+                builderConfig:
+                    inputType: CreateProjectInput
+                    payloadType: CreateProjectPayload
+                    mutateAndGetPayload: "@=mutation('create_project', [args.offsetGet('input')])"

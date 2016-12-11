@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace Kreta\TaskManager\Application\Command\Organization;
 
 use Kreta\SharedKernel\Domain\Model\Identity\Uuid;
-use Kreta\SharedKernel\Domain\Model\InvalidArgumentException;
 
 class CreateOrganizationCommand
 {
@@ -30,9 +29,6 @@ class CreateOrganizationCommand
         string $id = null,
         string $slug = null
     ) {
-        if ('' === $creatorId) {
-            throw new InvalidArgumentException('User id cannot be null');
-        }
         $this->id = null === $id ? Uuid::generate() : $id;
         $this->creatorId = $creatorId;
         $this->name = $name;

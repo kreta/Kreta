@@ -37,7 +37,7 @@ class CreateProjectCommandSpec extends ObjectBehavior
     {
         $this->beConstructedWith('Project name', 'organization-id', 'creator-id', null, 'project-name');
 
-        $this->id()->shouldReturn(null);
+        $this->id()->shouldNotBe(null);
         $this->name()->shouldReturn('Project name');
         $this->slug()->shouldReturn('project-name');
         $this->organizationId()->shouldReturn('organization-id');

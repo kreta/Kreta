@@ -20,14 +20,28 @@ const Actions = {
       type: ActionTypes.ORGANIZATION_CREATING
     });
     const mutation = CreateOrganizationMutationRequest.build(organizationInputData);
+
     GraphQlInstance.mutation(mutation);
-    mutation.then(organizationsData => {
-      dispatch({
-        type: ActionTypes.ORGANIZATION_CREATED,
-        organization: organizationsData.response.createOrganization.organization,
+    mutation
+      .then(data => {
+        const organization = data.response.createOrganization.organization;
+
+        dispatch({
+          type: ActionTypes.ORGANIZATION_CREATED,
+          organization,
+        });
+        dispatch(
+          routeActions.push(`/organization/${organization.id}`)
+        );
+      })
+      .catch((response) => {
+        response.then((errors) => {
+          dispatch({
+            type: ActionTypes.ORGANIZATION_CREATE_ERROR,
+            errors
+          });
+        });
       });
-      dispatch(routeActions.push('/'));
-    });
   }
 };
 
