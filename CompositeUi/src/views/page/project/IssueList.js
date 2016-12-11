@@ -26,7 +26,7 @@ import ContentRightLayout from './../../layout/ContentRightLayout';
 import IssuePreview from './../../component/IssuePreview';
 import LoadingSpinner from './../../component/LoadingSpinner';
 import PageHeader from './../../component/PageHeader';
-// import Thumbnail from './../../component/Thumbnail';
+import Thumbnail from './../../component/Thumbnail';
 import InlineLink from './../../component/InlineLink';
 import CurrentProjectActions from './../../../actions/CurrentProject';
 
@@ -144,8 +144,8 @@ class IssueList extends React.Component {
     return (
       <div>
         <ContentMiddleLayout>
-          <PageHeader /* thumbnail={<Thumbnail image={currentProject.project.image.name}
-                                            text={currentProject.project.name}/>} */
+          <PageHeader thumbnail={<Thumbnail image={null}
+                                            text={currentProject.project.name}/>}
                       title={currentProject.project.name}>
             <InlineLink to={`/project/${currentProject.project.id}/settings`}>
               <Icon color="green" glyph={SettingsIcon} size="small"/>Settings
