@@ -11,22 +11,25 @@
 import {routeActions} from 'react-router-redux';
 
 import ActionTypes from './../constants/ActionTypes';
+import GraphQlInstance from './../api/graphql/GraphQl';
 import IssueApi from './../api/Issue';
-import ProjectApi from './../api/Project';
+import ProjectQueryRequest from './../api/graphql/query/ProjectQueryRequest';
 
 const Actions = {
   fetchProject: (projectId) => (dispatch) => {
     dispatch({
       type: ActionTypes.CURRENT_PROJECT_FETCHING
     });
-    ProjectApi.getProject(projectId)
-      .then((response) => {
-        dispatch({
-          type: ActionTypes.CURRENT_PROJECT_RECEIVED,
-          project: response.data,
-          status: response.status
-        });
+    const query = ProjectQueryRequest.build(projectId);
+
+    GraphQlInstance.query(query);
+    query.then(data => {
+      dispatch({
+        type: ActionTypes.CURRENT_PROJECT_RECEIVED,
+        project: data.response.project,
       });
+    });
+
     IssueApi.getIssues({project: projectId})
       .then((response) => {
         dispatch({
