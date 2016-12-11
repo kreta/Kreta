@@ -14,15 +14,7 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Domain\Model\Project\Task;
 
-interface TaskRepository
+interface TaskSpecificationFactory
 {
-    public function taskOfId(TaskId $id);
-
-    public function query($specification);
-
-    public function persist(Task $task);
-
-    public function remove(Task $task);
-
-    public function count($specification) : int;
+    public function buildFilterableSpecification(array $projectIds, $title, int $offset = 0, int $limit = -1);
 }
