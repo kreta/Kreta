@@ -16,6 +16,7 @@
 #     owners: [Owner!]!
 #     slug: String!
 #     updatedOn: String!
+#     projects: ProjectConnection!
 #   }
 
 Organization:
@@ -29,7 +30,7 @@ Organization:
             created_on:
                 type: "String!"
                 description: "The created on of the organization."
-            organizationMembers:
+            organization_members:
                 type: "[OrganizationMember]!"
                 description: "The organization members of the organization."
             name:
@@ -44,4 +45,7 @@ Organization:
             updated_on:
                 type: "String!"
                 description: "The updated on of the organization."
+            projects:
+                type: "ProjectConnection!"
+                description: "The collection of the projects of the organization"
         interfaces: [Node]
