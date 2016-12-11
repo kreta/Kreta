@@ -50,13 +50,13 @@ class OrganizationDTODataTransformer implements OrganizationDataTransformer
         }
 
         return [
-            'id'                  => $this->organization->id()->id(),
-            'name'                => $this->organization->name()->name(),
-            'slug'                => $this->organization->slug()->slug(),
-            'created_on'          => $this->organization->createdOn()->format('Y-m-d'),
-            'updated_on'          => $this->organization->updatedOn()->format('Y-m-d'),
-            'owners'              => $owners,
-            'organizationMembers' => $organizationMembers,
+            'id'                   => $this->organization->id()->id(),
+            'name'                 => $this->organization->name()->name(),
+            'slug'                 => $this->organization->slug()->slug(),
+            'created_on'           => $this->organization->createdOn()->format('Y-m-d'),
+            'updated_on'           => $this->organization->updatedOn()->format('Y-m-d'),
+            'owners'               => $owners,
+            'organization_members' => $organizationMembers,
         ];
     }
 }

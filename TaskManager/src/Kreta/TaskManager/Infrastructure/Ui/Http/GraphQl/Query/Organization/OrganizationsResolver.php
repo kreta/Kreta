@@ -19,6 +19,7 @@ use Kreta\SharedKernel\Http\GraphQl\Relay\ConnectionBuilder;
 use Kreta\SharedKernel\Http\GraphQl\Resolver;
 use Kreta\TaskManager\Application\Query\Organization\CountOrganizationsQuery;
 use Kreta\TaskManager\Application\Query\Organization\FilterOrganizationsQuery;
+use Kreta\TaskManager\Infrastructure\Ui\Http\GraphQl\Query\Project\ProjectsResolver;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class OrganizationsResolver implements Resolver
@@ -26,15 +27,18 @@ class OrganizationsResolver implements Resolver
     private $connectionBuilder;
     private $queryBus;
     private $currentUser;
+    private $projectsResolver;
 
     public function __construct(
         TokenStorageInterface $tokenStorage,
         ConnectionBuilder $connectionBuilder,
-        QueryBus $queryBus
+        QueryBus $queryBus,
+        ProjectsResolver $projectsResolver
     ) {
         $this->connectionBuilder = $connectionBuilder;
         $this->queryBus = $queryBus;
         $this->currentUser = $tokenStorage->getToken()->getUser()->getUsername();
+        $this->projectsResolver = $projectsResolver;
     }
 
     public function resolve($args)
@@ -54,6 +58,12 @@ class OrganizationsResolver implements Resolver
             ),
             $result
         );
+
+        foreach ($result as $key => $organization) {
+            $result[$key]['projects'] = $this->projectsResolver->resolve([
+                'organizationId' => $args['id']
+            ]);
+        }
 
         $connection = $this->connectionBuilder->fromArraySlice(
             $result,

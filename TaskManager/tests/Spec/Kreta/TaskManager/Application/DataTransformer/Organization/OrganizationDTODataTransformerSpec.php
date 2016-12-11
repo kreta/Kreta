@@ -86,7 +86,7 @@ class OrganizationDTODataTransformerSpec extends ObjectBehavior
                     ],
                 ],
             ]],
-            'organizationMembers' => [],
+            'organization_members' => [],
         ]);
     }
 
