@@ -12,7 +12,7 @@
 #     id: ID!
 #     created_on: String!
 #     name: String!
-#     organizationId: ID!
+#     organization: Organization!
 #     owners: [Owner!]!
 #     slug: String!
 #     updatedOn: String!
@@ -32,9 +32,9 @@ Project:
             name:
                 type: "String!"
                 description: "The name of the project."
-            organization_id:
-                type: "ID!"
-                description: "The organization id to which the project belongs."
+            organization:
+                type: "Organization!"
+                description: "The organization to which the project belongs."
             slug:
                 type: "String!"
                 description: "The slug of the project."
