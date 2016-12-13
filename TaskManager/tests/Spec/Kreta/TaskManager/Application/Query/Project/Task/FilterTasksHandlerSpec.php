@@ -15,7 +15,6 @@ namespace Spec\Kreta\TaskManager\Application\Query\Project\Task;
 use Kreta\TaskManager\Application\DataTransformer\Project\Task\TaskDataTransformer;
 use Kreta\TaskManager\Application\Query\Project\Task\FilterTasksHandler;
 use Kreta\TaskManager\Application\Query\Project\Task\FilterTasksQuery;
-use Kreta\TaskManager\Application\Query\Project\Task\TaskOfIdQuery;
 use Kreta\TaskManager\Domain\Model\Organization\Organization;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationId;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationRepository;
@@ -180,6 +179,40 @@ class FilterTasksHandlerSpec extends ObjectBehavior
         $organization->isOrganizationMember(UserId::generate('user-id'))->shouldBeCalled()->willReturn(true);
         $query->title()->shouldBeCalled()->willReturn('task-title');
         $query->parentId()->shouldBeCalled()->willReturn(null);
+
+        $query->priority()->shouldBeCalled()->willReturn('low');
+        $query->progress()->shouldBeCalled()->willReturn('doing');
+        $query->offset()->shouldBeCalled()->willReturn(0);
+        $query->limit()->shouldBeCalled()->willReturn(-1);
+        $repository->query(Argument::any())->shouldBeCalled()->willReturn([$task]);
+
+        $dataTransformer->write($task)->shouldBeCalled();
+        $dataTransformer->read()->shouldBeCalled();
+
+        $this->__invoke($query)->shouldBeArray();
+    }
+
+    function it_serializes_filtered_tasks_with_does_not_exist_task_parent(
+        FilterTasksQuery $query,
+        ProjectRepository $projectRepository,
+        Project $project,
+        OrganizationId $organizationId,
+        OrganizationRepository $organizationRepository,
+        Organization $organization,
+        TaskRepository $repository,
+        Task $task,
+        TaskDataTransformer $dataTransformer
+    ) {
+        $query->userId()->shouldBeCalled()->willReturn('user-id');
+        $query->projectId()->shouldBeCalled()->willReturn('project-id');
+        $projectRepository->projectOfId(ProjectId::generate('project-id'))->shouldBeCalled()->willReturn($project);
+        $project->organizationId()->shouldBeCalled()->willReturn($organizationId);
+        $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
+        $organization->isOrganizationMember(UserId::generate('user-id'))->shouldBeCalled()->willReturn(true);
+        $query->title()->shouldBeCalled()->willReturn('task-title');
+        $query->parentId()->shouldBeCalled()->willReturn('parent-id');
+
+        $repository->taskOfId(TaskId::generate('parent-id'))->shouldBeCalled()->willReturn(null);
 
         $query->priority()->shouldBeCalled()->willReturn('low');
         $query->progress()->shouldBeCalled()->willReturn('doing');

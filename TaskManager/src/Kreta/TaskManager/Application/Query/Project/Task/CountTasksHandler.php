@@ -19,9 +19,12 @@ use Kreta\TaskManager\Domain\Model\Project\Project;
 use Kreta\TaskManager\Domain\Model\Project\ProjectId;
 use Kreta\TaskManager\Domain\Model\Project\ProjectRepository;
 use Kreta\TaskManager\Domain\Model\Project\ProjectSpecificationFactory;
+use Kreta\TaskManager\Domain\Model\Project\Task\TaskId;
+use Kreta\TaskManager\Domain\Model\Project\Task\TaskPriority;
+use Kreta\TaskManager\Domain\Model\Project\Task\TaskProgress;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskRepository;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskSpecificationFactory;
-use Kreta\TaskManager\Domain\Model\Project\UnauthorizedProjectResourceException;
+use Kreta\TaskManager\Domain\Model\Project\Task\UnauthorizedTaskResourceException;
 use Kreta\TaskManager\Domain\Model\User\UserId;
 
 class CountTasksHandler
@@ -47,20 +50,21 @@ class CountTasksHandler
 
     public function __invoke(CountTasksQuery $query): int
     {
+        $userId = UserId::generate($query->userId());
         $projectIds = [ProjectId::generate($query->projectId())];
         $project = $this->projectRepository->projectOfId($projectIds[0]);
         if ($project instanceof Project) {
             $organization = $this->organizationRepository->organizationOfId(
                 $project->organizationId()
             );
-            if (!$organization->isOrganizationMember(UserId::generate($query->userId()))) {
-                throw new UnauthorizedProjectResourceException();
+            if (!$organization->isOrganizationMember($userId)) {
+                throw new UnauthorizedTaskResourceException();
             }
         } else {
             $projects = $this->projectRepository->query(
                 $this->projectSpecificationFactory->buildFilterableSpecification(
                     null,
-                    UserId::generate($query->userId())
+                    $userId
                 )
             );
             $projectIds = array_map(function (Project $project) {
@@ -71,8 +75,37 @@ class CountTasksHandler
         return $this->repository->count(
             $this->specificationFactory->buildFilterableSpecification(
                 $projectIds,
-                $query->title()
+                $query->title(),
+                $this->parentTask($query->parentId(), $userId),
+                null === $query->priority() ? null : new TaskPriority($query->priority()),
+                null === $query->progress() ? null : new TaskProgress($query->progress())
             )
         );
+    }
+
+    private function parentTask(? string $parentId, UserId $userId) : ? TaskId
+    {
+        if (null === $parentId) {
+            return null;
+        }
+
+        $parent = $this->repository->taskOfId(
+            TaskId::generate($parentId)
+        );
+        if (null === $parent) {
+            return TaskId::generate();
+        }
+
+        $project = $this->projectRepository->projectOfId(
+            $parent->projectId()
+        );
+        $organization = $this->organizationRepository->organizationOfId(
+            $project->organizationId()
+        );
+        if (!$organization->isOrganizationMember($userId)) {
+            throw new UnauthorizedTaskResourceException();
+        }
+
+        return $parent->id();
     }
 }

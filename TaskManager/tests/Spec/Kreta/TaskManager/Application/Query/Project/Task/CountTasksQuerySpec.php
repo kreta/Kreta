@@ -19,26 +19,68 @@ class CountTasksQuerySpec extends ObjectBehavior
 {
     function it_can_be_created()
     {
-        $this->beConstructedWith('user-id', 'project-id', 'task title');
+        $this->beConstructedWith('user-id');
         $this->shouldHaveType(CountTasksQuery::class);
         $this->userId()->shouldReturn('user-id');
-        $this->projectId()->shouldReturn('project-id');
-        $this->title()->shouldReturn('task title');
+        $this->title()->shouldReturn(null);
+        $this->parentId()->shouldReturn(null);
+        $this->priority()->shouldReturn(null);
+        $this->progress()->shouldReturn(null);
     }
 
-    function it_can_be_created_without_title()
+    function it_can_be_created_with_title()
     {
-        $this->beConstructedWith('user-id', 'project-id');
+        $this->beConstructedWith('user-id', null, null, 'Task title');
+        $this->shouldHaveType(CountTasksQuery::class);
         $this->userId()->shouldReturn('user-id');
-        $this->projectId()->shouldReturn('project-id');
-        $this->title()->shouldReturn(null);
+        $this->title()->shouldReturn('Task title');
+        $this->parentId()->shouldReturn(null);
+        $this->priority()->shouldReturn(null);
+        $this->progress()->shouldReturn(null);
     }
 
-    function it_can_be_created_without_project_id()
+    function it_can_be_created_with_priority()
     {
-        $this->beConstructedWith('user-id');
+        $this->beConstructedWith('user-id', null, null, null, 'low');
+        $this->shouldHaveType(CountTasksQuery::class);
         $this->userId()->shouldReturn('user-id');
-        $this->projectId()->shouldReturn(null);
         $this->title()->shouldReturn(null);
+        $this->parentId()->shouldReturn(null);
+        $this->priority()->shouldReturn('low');
+        $this->progress()->shouldReturn(null);
+    }
+
+    function it_can_be_created_with_progress()
+    {
+        $this->beConstructedWith('user-id', null, null, null, null, 'todo');
+        $this->shouldHaveType(CountTasksQuery::class);
+        $this->userId()->shouldReturn('user-id');
+        $this->title()->shouldReturn(null);
+        $this->parentId()->shouldReturn(null);
+        $this->priority()->shouldReturn(null);
+        $this->progress()->shouldReturn('todo');
+    }
+
+    function it_can_be_created_with_parent_id()
+    {
+        $this->beConstructedWith('user-id', 'parent-id');
+        $this->shouldHaveType(CountTasksQuery::class);
+        $this->userId()->shouldReturn('user-id');
+        $this->title()->shouldReturn(null);
+        $this->parentId()->shouldReturn('parent-id');
+        $this->priority()->shouldReturn(null);
+        $this->progress()->shouldReturn(null);
+    }
+
+    function it_can_be_created_with_project_id()
+    {
+        $this->beConstructedWith('user-id', null, 'project-id');
+        $this->shouldHaveType(CountTasksQuery::class);
+        $this->userId()->shouldReturn('user-id');
+        $this->title()->shouldReturn(null);
+        $this->parentId()->shouldReturn(null);
+        $this->projectId()->shouldReturn('project-id');
+        $this->priority()->shouldReturn(null);
+        $this->progress()->shouldReturn(null);
     }
 }
