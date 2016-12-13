@@ -8,9 +8,14 @@
             table="task"
             repository-class="Kreta\TaskManager\Infrastructure\Persistence\Doctrine\ORM\Project\Task\DoctrineORMTaskRepository">
         <id name="id" type="task_id"/>
-        <embedded name="title" class="Kreta\TaskManager\Domain\Model\Project\Task\TaskTitle" use-column-prefix="false"/>
-        <embedded name="priority" class="Kreta\TaskManager\Domain\Model\Project\Task\TaskPriority" use-column-prefix="false"/>
-        <embedded name="progress" class="Kreta\TaskManager\Domain\Model\Project\Task\TaskProgress" use-column-prefix="false"/>
+
+        <embedded name="title" class="Kreta\TaskManager\Domain\Model\Project\Task\TaskTitle"
+                  use-column-prefix="false"/>
+        <embedded name="priority" class="Kreta\TaskManager\Domain\Model\Project\Task\TaskPriority"
+                  use-column-prefix="false"/>
+        <embedded name="progress" class="Kreta\TaskManager\Domain\Model\Project\Task\TaskProgress"
+                  use-column-prefix="false"/>
+
         <field name="description" type="string" column="description" nullable="false"/>
         <field name="createdOn" type="datetime" column="created_on" nullable="false"/>
         <field name="updatedOn" type="datetime" column="updated_on" nullable="false"/>
