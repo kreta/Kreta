@@ -19,6 +19,7 @@ interface TaskSpecificationFactory
     public function buildFilterableSpecification(
         array $projectIds,
         $title,
+        ? TaskId $parentId,
         ? TaskPriority $priority,
         ? TaskProgress $progress,
         int $offset = 0,

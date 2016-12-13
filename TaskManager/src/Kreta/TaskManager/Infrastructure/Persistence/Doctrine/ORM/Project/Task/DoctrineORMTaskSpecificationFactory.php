@@ -15,9 +15,9 @@ declare(strict_types=1);
 namespace Kreta\TaskManager\Infrastructure\Persistence\Doctrine\ORM\Project\Task;
 
 use Kreta\SharedKernel\Domain\Model\Exception;
+use Kreta\TaskManager\Domain\Model\Project\Task\TaskId;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskPriority;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskProgress;
-use Kreta\TaskManager\Domain\Model\Project\Task\TaskSpecificationFactory;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskSpecificationFactory;
 
 class DoctrineORMTaskSpecificationFactory implements TaskSpecificationFactory
@@ -25,8 +25,9 @@ class DoctrineORMTaskSpecificationFactory implements TaskSpecificationFactory
     public function buildFilterableSpecification(
         array $projectIds,
         $title,
-        ?TaskPriority $priority,
-        ?TaskProgress $progress,
+        ? TaskId $parentId,
+        ? TaskPriority $priority,
+        ? TaskProgress $progress,
         int $offset = 0,
         int $limit = -1
     ) {
@@ -34,6 +35,14 @@ class DoctrineORMTaskSpecificationFactory implements TaskSpecificationFactory
             throw new Exception('Needs at least one project id');
         }
 
-        return new DoctrineORMFilterableSpecification($projectIds, $title, $priority, $progress, $offset, $limit);
+        return new DoctrineORMFilterableSpecification(
+            $projectIds,
+            $title,
+            $parentId,
+            $priority,
+            $progress,
+            $offset,
+            $limit
+        );
     }
 }
