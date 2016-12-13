@@ -16,5 +16,13 @@ namespace Kreta\TaskManager\Domain\Model\Project\Task;
 
 interface TaskSpecificationFactory
 {
-    public function buildFilterableSpecification(array $projectIds, $title, int $offset = 0, int $limit = -1);
+    public function buildFilterableSpecification(
+        array $projectIds,
+        $title,
+        ? TaskId $parentId,
+        ? TaskPriority $priority,
+        ? TaskProgress $progress,
+        int $offset = 0,
+        int $limit = -1
+    );
 }

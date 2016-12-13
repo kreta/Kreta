@@ -14,10 +14,12 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Application\Query\Project\Task;
 
-class CountTasksQuery
+class FilterTasksQuery
 {
     private $userId;
     private $projectId;
+    private $offset;
+    private $limit;
     private $title;
     private $parentId;
     private $priority;
@@ -25,15 +27,19 @@ class CountTasksQuery
 
     public function __construct(
         string $userId,
+        int $offset,
+        int $limit,
         string $parentId = null,
         string $projectId = null,
         string $title = null,
         string $priority = null,
         string $progress = null
     ) {
-        $this->userId = $userId;
         $this->title = $title;
         $this->projectId = $projectId;
+        $this->offset = $offset;
+        $this->limit = $limit;
+        $this->userId = $userId;
         $this->parentId = $parentId;
         $this->priority = $priority;
         $this->progress = $progress;
@@ -44,7 +50,22 @@ class CountTasksQuery
         return $this->userId;
     }
 
-    public function projectId() : ? string
+    public function offset() : int
+    {
+        return $this->offset;
+    }
+
+    public function limit() : int
+    {
+        return $this->limit;
+    }
+
+    public function parentId()
+    {
+        return $this->parentId;
+    }
+
+    public function projectId()
     {
         return $this->projectId;
     }
@@ -52,11 +73,6 @@ class CountTasksQuery
     public function title() : ? string
     {
         return $this->title;
-    }
-
-    public function parentId()
-    {
-        return $this->parentId;
     }
 
     public function priority()

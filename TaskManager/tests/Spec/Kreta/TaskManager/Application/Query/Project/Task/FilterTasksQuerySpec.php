@@ -12,16 +12,18 @@
 
 namespace Spec\Kreta\TaskManager\Application\Query\Project\Task;
 
-use Kreta\TaskManager\Application\Query\Project\Task\CountTasksQuery;
+use Kreta\TaskManager\Application\Query\Project\Task\FilterTasksQuery;
 use PhpSpec\ObjectBehavior;
 
-class CountTasksQuerySpec extends ObjectBehavior
+class FilterTasksQuerySpec extends ObjectBehavior
 {
     function it_can_be_created()
     {
-        $this->beConstructedWith('user-id');
-        $this->shouldHaveType(CountTasksQuery::class);
+        $this->beConstructedWith('user-id', 0, -1);
+        $this->shouldHaveType(FilterTasksQuery::class);
         $this->userId()->shouldReturn('user-id');
+        $this->offset()->shouldReturn(0);
+        $this->limit()->shouldReturn(-1);
         $this->title()->shouldReturn(null);
         $this->parentId()->shouldReturn(null);
         $this->priority()->shouldReturn(null);
@@ -30,9 +32,11 @@ class CountTasksQuerySpec extends ObjectBehavior
 
     function it_can_be_created_with_title()
     {
-        $this->beConstructedWith('user-id', null, null, 'Task title');
-        $this->shouldHaveType(CountTasksQuery::class);
+        $this->beConstructedWith('user-id', 0, -1, null, null, 'Task title');
+        $this->shouldHaveType(FilterTasksQuery::class);
         $this->userId()->shouldReturn('user-id');
+        $this->offset()->shouldReturn(0);
+        $this->limit()->shouldReturn(-1);
         $this->title()->shouldReturn('Task title');
         $this->parentId()->shouldReturn(null);
         $this->priority()->shouldReturn(null);
@@ -41,9 +45,11 @@ class CountTasksQuerySpec extends ObjectBehavior
 
     function it_can_be_created_with_priority()
     {
-        $this->beConstructedWith('user-id', null, null, null, 'low');
-        $this->shouldHaveType(CountTasksQuery::class);
+        $this->beConstructedWith('user-id', 0, -1, null, null, null, 'low');
+        $this->shouldHaveType(FilterTasksQuery::class);
         $this->userId()->shouldReturn('user-id');
+        $this->offset()->shouldReturn(0);
+        $this->limit()->shouldReturn(-1);
         $this->title()->shouldReturn(null);
         $this->parentId()->shouldReturn(null);
         $this->priority()->shouldReturn('low');
@@ -52,9 +58,11 @@ class CountTasksQuerySpec extends ObjectBehavior
 
     function it_can_be_created_with_progress()
     {
-        $this->beConstructedWith('user-id', null, null, null, null, 'todo');
-        $this->shouldHaveType(CountTasksQuery::class);
+        $this->beConstructedWith('user-id', 0, -1, null, null, null, null, 'todo');
+        $this->shouldHaveType(FilterTasksQuery::class);
         $this->userId()->shouldReturn('user-id');
+        $this->offset()->shouldReturn(0);
+        $this->limit()->shouldReturn(-1);
         $this->title()->shouldReturn(null);
         $this->parentId()->shouldReturn(null);
         $this->priority()->shouldReturn(null);
@@ -63,9 +71,11 @@ class CountTasksQuerySpec extends ObjectBehavior
 
     function it_can_be_created_with_parent_id()
     {
-        $this->beConstructedWith('user-id', 'parent-id');
-        $this->shouldHaveType(CountTasksQuery::class);
+        $this->beConstructedWith('user-id', 0, -1, 'parent-id');
+        $this->shouldHaveType(FilterTasksQuery::class);
         $this->userId()->shouldReturn('user-id');
+        $this->offset()->shouldReturn(0);
+        $this->limit()->shouldReturn(-1);
         $this->title()->shouldReturn(null);
         $this->parentId()->shouldReturn('parent-id');
         $this->priority()->shouldReturn(null);
@@ -74,9 +84,11 @@ class CountTasksQuerySpec extends ObjectBehavior
 
     function it_can_be_created_with_project_id()
     {
-        $this->beConstructedWith('user-id', null, 'project-id');
-        $this->shouldHaveType(CountTasksQuery::class);
+        $this->beConstructedWith('user-id', 0, -1, null, 'project-id');
+        $this->shouldHaveType(FilterTasksQuery::class);
         $this->userId()->shouldReturn('user-id');
+        $this->offset()->shouldReturn(0);
+        $this->limit()->shouldReturn(-1);
         $this->title()->shouldReturn(null);
         $this->parentId()->shouldReturn(null);
         $this->projectId()->shouldReturn('project-id');

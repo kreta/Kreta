@@ -11,10 +11,15 @@
 #   type Query {
 #     organizations($name: String, $first: Int, $last: Int, $before: String, $after: String) : OrganizationConnection
 #     organization($id: ID!) : Organization
+#
 #     organizationMember($organizationId: ID!, $organizationMemberId: ID!) : OrganizationMember
 #     owner($organizationId: ID!, $ownerId: ID!) : Owner
+#
 #     projects($organizationId: ID, $name: String, $first: Int, $last: Int, $before: String, $after: String) : ProjectConnection
 #     project($id: ID!) : Project
+#
+#     tasks($projectId: ID, $parentId: ID, $assigneeId: ID, $creatorId: ID, $title: String, $priority: TaskPriority, $progress: TaskProgress, $first: Int, $last: Int, $before: String, $after: String) : TaskConnection
+#     task($id: ID!) : Task
 #   }
 
 Query:
@@ -71,12 +76,12 @@ Query:
                 resolve: "@=resolver('member_owner', [args])"
             projects:
                 type: "ProjectConnection"
-                description: "The paginate list of project that can be filter by name"
+                description: "The paginate list of project that can be filter by name and organization id"
                 argsBuilder: ConnectionArgs
                 args:
                     organizationId:
                         description: "organization id to which the project belongs"
-                        type: "String"
+                        type: "ID"
                     name:
                         description: "name of the project, it uses to filter the projects. Typical 'q'"
                         type: "String"
@@ -88,3 +93,37 @@ Query:
                         description: "id of the project"
                         type: "ID!"
                 resolve: "@=resolver('project', [args])"
+            tasks:
+                type: "TaskConnection"
+                description: "The paginate list of task that can be filter by title, project id, parent task id, assignee id, creator id, priority and progress"
+                argsBuilder: ConnectionArgs
+                args:
+                    projectId:
+                        description: "project id to which the task belongs"
+                        type: "ID"
+                    parentId:
+                        description: "parent task id to which the task belongs"
+                        type: "ID"
+#                    assigneeId:
+#                        description: "assignee id to which the task belongs"
+#                        type: "ID"
+#                    creatorId:
+#                        description: "creator id to which the task belongs"
+#                        type: "ID"
+                    priority:
+                        description: "priority to which the task has"
+                        type: "TaskPriority"
+                    progress:
+                        description: "progress to which the task has"
+                        type: "TaskProgress"
+                    title:
+                        description: "title of the task, it uses to filter the tasks. Typical 'q'"
+                        type: "String"
+                resolve: '@=resolver("tasks", [args])'
+            task:
+                type: "Task"
+                args:
+                    id:
+                        description: "id of the task"
+                        type: "ID!"
+                resolve: "@=resolver('task', [args])"
