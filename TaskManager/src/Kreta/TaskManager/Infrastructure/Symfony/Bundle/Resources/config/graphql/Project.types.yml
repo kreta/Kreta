@@ -15,7 +15,7 @@
 #     organization: Organization!
 #     owners: [Owner!]!
 #     slug: String!
-#     updatedOn: String!
+#     updated_on: String!
 #   }
 
 Project:

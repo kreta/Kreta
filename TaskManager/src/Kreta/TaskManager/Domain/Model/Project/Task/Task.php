@@ -146,12 +146,12 @@ class Task extends AggregateRoot
         return $this->progress;
     }
 
-    public function createdOn() : \DateTimeImmutable
+    public function createdOn() : \DateTimeInterface
     {
         return $this->createdOn;
     }
 
-    public function updatedOn() : \DateTimeImmutable
+    public function updatedOn() : \DateTimeInterface
     {
         return $this->updatedOn;
     }
