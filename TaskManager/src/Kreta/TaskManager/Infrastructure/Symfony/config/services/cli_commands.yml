@@ -22,6 +22,14 @@ services:
         tags:
             - { name: console.command }
 
+    kreta.task_manager.cli_command.fixtures_task:
+        class: Kreta\TaskManager\Infrastructure\Ui\Cli\Command\TaskFixturesCommand
+        arguments:
+            - "@kreta.task_manager.command_bus"
+            - "@kreta.task_manager.query_bus"
+        tags:
+            - { name: console.command }
+
     kreta.task_manager.cli_command.fixtures_user:
         class: Kreta\TaskManager\Infrastructure\Ui\Cli\Command\UserFixturesCommand
         arguments:
