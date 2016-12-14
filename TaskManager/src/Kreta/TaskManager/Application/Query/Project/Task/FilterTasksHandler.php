@@ -16,6 +16,7 @@ namespace Kreta\TaskManager\Application\Query\Project\Task;
 
 use Kreta\TaskManager\Application\DataTransformer\Project\Task\TaskDataTransformer;
 use Kreta\TaskManager\Domain\Model\Organization\Organization;
+use Kreta\TaskManager\Domain\Model\Organization\OrganizationMemberId;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationRepository;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationSpecificationFactory;
 use Kreta\TaskManager\Domain\Model\Project\Project;
@@ -103,6 +104,8 @@ class FilterTasksHandler
                 $this->parentTask($query->parentId(), $userId),
                 null === $query->priority() ? null : new TaskPriority($query->priority()),
                 null === $query->progress() ? null : new TaskProgress($query->progress()),
+                null === $query->assigneeId() ? null : OrganizationMemberId::generate($query->assigneeId()),
+                null === $query->creatorId() ? null : OrganizationMemberId::generate($query->creatorId()),
                 $query->offset(),
                 $query->limit()
             )

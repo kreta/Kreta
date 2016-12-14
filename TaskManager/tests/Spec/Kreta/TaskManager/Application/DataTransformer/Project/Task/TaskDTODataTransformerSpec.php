@@ -14,6 +14,7 @@ namespace Spec\Kreta\TaskManager\Application\DataTransformer\Project\Task;
 
 use Kreta\TaskManager\Application\DataTransformer\Project\Task\TaskDataTransformer;
 use Kreta\TaskManager\Application\DataTransformer\Project\Task\TaskDTODataTransformer;
+use Kreta\TaskManager\Domain\Model\Organization\MemberId;
 use Kreta\TaskManager\Domain\Model\Project\ProjectId;
 use Kreta\TaskManager\Domain\Model\Project\Task\Task;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskId;
@@ -37,6 +38,8 @@ class TaskDTODataTransformerSpec extends ObjectBehavior
         ProjectId $projectId,
         TaskPriority $priority,
         TaskProgress $progress,
+        MemberId $assigneeId,
+        MemberId $creatorId,
         \DateTimeImmutable $createdOn,
         \DateTimeImmutable $updatedOn,
         TaskId $parentId
@@ -50,6 +53,10 @@ class TaskDTODataTransformerSpec extends ObjectBehavior
         $task->progress()->shouldBeCalled()->willReturn($progress);
         $progress->progress()->shouldBeCalled()->willReturn('todo');
         $task->description()->shouldBeCalled()->willReturn('The task description');
+        $task->assigneeId()->shouldBeCalled()->willReturn($assigneeId);
+        $assigneeId->id()->shouldBeCalled()->willReturn('assignee-id');
+        $task->creatorId()->shouldBeCalled()->willReturn($creatorId);
+        $creatorId->id()->shouldBeCalled()->willReturn('creator-id');
         $task->createdOn()->shouldBeCalled()->willReturn($createdOn);
         $task->updatedOn()->shouldBeCalled()->willReturn($updatedOn);
         $task->projectId()->shouldBeCalled()->willReturn($projectId);
@@ -68,6 +75,8 @@ class TaskDTODataTransformerSpec extends ObjectBehavior
             'priority'    => 'low',
             'progress'    => 'todo',
             'description' => 'The task description',
+            'assignee_id' => 'assignee-id',
+            'creator_id'  => 'creator-id',
             'created_on'  => '2016-10-20',
             'updated_on'  => '2016-10-22',
             'project_id'  => 'project-id',

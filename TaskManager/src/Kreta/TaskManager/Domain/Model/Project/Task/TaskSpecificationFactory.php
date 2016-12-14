@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Domain\Model\Project\Task;
 
+use Kreta\TaskManager\Domain\Model\Organization\OrganizationMemberId;
+
 interface TaskSpecificationFactory
 {
     public function buildFilterableSpecification(
@@ -22,6 +24,8 @@ interface TaskSpecificationFactory
         ? TaskId $parentId,
         ? TaskPriority $priority,
         ? TaskProgress $progress,
+        ? OrganizationMemberId $assigneeId,
+        ? OrganizationMemberId $creatorId,
         int $offset = 0,
         int $limit = -1
     );

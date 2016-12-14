@@ -37,6 +37,8 @@ class TaskDTODataTransformer implements TaskDataTransformer
             'priority'    => $this->task->priority()->priority(),
             'progress'    => $this->task->progress()->progress(),
             'description' => $this->task->description(),
+            'assignee_id' => $this->task->assigneeId()->id(),
+            'creator_id'  => $this->task->creatorId()->id(),
             'created_on'  => $this->task->createdOn()->format('Y-m-d'),
             'updated_on'  => $this->task->updatedOn()->format('Y-m-d'),
             'project_id'  => $this->task->projectId()->id(),
