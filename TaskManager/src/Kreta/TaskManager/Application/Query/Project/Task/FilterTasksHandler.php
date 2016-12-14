@@ -92,6 +92,9 @@ class FilterTasksHandler
                 return $project->id();
             }, $projects);
         }
+        if (empty($projectIds)) {
+            return [];
+        }
 
         $tasks = $this->repository->query(
             $this->specificationFactory->buildFilterableSpecification(

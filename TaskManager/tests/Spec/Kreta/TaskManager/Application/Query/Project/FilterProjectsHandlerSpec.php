@@ -19,10 +19,10 @@ use Kreta\TaskManager\Domain\Model\Organization\Organization;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationId;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationRepository;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationSpecificationFactory;
-use Kreta\TaskManager\Domain\Model\Organization\UnauthorizedOrganizationActionException;
 use Kreta\TaskManager\Domain\Model\Project\Project;
 use Kreta\TaskManager\Domain\Model\Project\ProjectRepository;
 use Kreta\TaskManager\Domain\Model\Project\ProjectSpecificationFactory;
+use Kreta\TaskManager\Domain\Model\Project\UnauthorizedProjectResourceException;
 use Kreta\TaskManager\Domain\Model\User\UserId;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -70,6 +70,24 @@ class FilterProjectsHandlerSpec extends ObjectBehavior
         $dataTransformer->write($project)->shouldBeCalled();
         $dataTransformer->read()->shouldBeCalled();
         $this->__invoke($query)->shouldBeArray();
+    }
+
+    function it_serializes_filtered_projects_without_organizations(
+        FilterProjectsQuery $query,
+        ProjectRepository $repository,
+        OrganizationRepository $organizationRepository,
+        Organization $organization
+    ) {
+        $query->userId()->shouldBeCalled()->willReturn('user-id');
+        $query->organizationId()->shouldBeCalled()->willReturn('organization-id');
+        $organizationRepository->organizationOfId(OrganizationId::generate('organization-id'))
+            ->shouldBeCalled()->willReturn($organization);
+        $organization->isOrganizationMember(UserId::generate('user-id'))->shouldBeCalled()->willReturn(true);
+        $query->name()->shouldBeCalled()->willReturn('project name');
+        $query->offset()->shouldBeCalled()->willReturn(0);
+        $query->limit()->shouldBeCalled()->willReturn(-1);
+        $repository->query(Argument::any())->shouldBeCalled()->willReturn([]);
+        $this->__invoke($query)->shouldReturn([]);
     }
 
     function it_serializes_filtered_projects_without_organization_id(
@@ -128,6 +146,6 @@ class FilterProjectsHandlerSpec extends ObjectBehavior
         $organizationRepository->organizationOfId(OrganizationId::generate('organization-id'))
             ->shouldBeCalled()->willReturn($organization);
         $organization->isOrganizationMember(UserId::generate('user-id'))->shouldBeCalled()->willReturn(false);
-        $this->shouldThrow(UnauthorizedOrganizationActionException::class)->during__invoke($query);
+        $this->shouldThrow(UnauthorizedProjectResourceException::class)->during__invoke($query);
     }
 }

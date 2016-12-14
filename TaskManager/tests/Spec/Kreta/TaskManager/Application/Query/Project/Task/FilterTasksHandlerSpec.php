@@ -160,7 +160,7 @@ class FilterTasksHandlerSpec extends ObjectBehavior
         $this->shouldThrow(UnauthorizedTaskResourceException::class)->during__invoke($query);
     }
 
-    function it_serializes_filtered_projects_without_parent_id(
+    function it_serializes_filtered_tasks_without_parent_id(
         FilterTasksQuery $query,
         ProjectRepository $projectRepository,
         Project $project,
@@ -275,6 +275,24 @@ class FilterTasksHandlerSpec extends ObjectBehavior
         $dataTransformer->read()->shouldBeCalled();
 
         $this->__invoke($query)->shouldBeArray();
+    }
+
+    function it_serializes_filtered_projects_without_projects(
+        FilterTasksQuery $query,
+        ProjectRepository $projectRepository,
+        OrganizationId $organizationId,
+        OrganizationRepository $organizationRepository,
+        Organization $organization
+    ) {
+        $query->userId()->shouldBeCalled()->willReturn('user-id');
+        $query->projectId()->shouldBeCalled()->willReturn(null);
+        $projectRepository->projectOfId(Argument::type(ProjectId::class))->shouldBeCalled()->willReturn(null);
+
+        $organizationRepository->query(Argument::any())->shouldBeCalled()->willReturn([$organization]);
+        $organization->id()->shouldBeCalled()->willReturn($organizationId);
+        $projectRepository->query(Argument::any())->shouldBeCalled()->willReturn([]);
+
+        $this->__invoke($query)->shouldReturn([]);
     }
 
     function it_serializes_filtered_projects_without_title(
