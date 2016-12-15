@@ -14,7 +14,9 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Application\Query\Project\Task;
 
+use Kreta\TaskManager\Domain\Model\Organization\Organization;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationRepository;
+use Kreta\TaskManager\Domain\Model\Organization\OrganizationSpecificationFactory;
 use Kreta\TaskManager\Domain\Model\Project\Project;
 use Kreta\TaskManager\Domain\Model\Project\ProjectId;
 use Kreta\TaskManager\Domain\Model\Project\ProjectRepository;
@@ -31,6 +33,8 @@ class CountTasksHandler
 {
     private $repository;
     private $specificationFactory;
+    private $organizationRepository;
+    private $organizationSpecificationFactory;
     private $projectRepository;
     private $projectSpecificationFactory;
 
@@ -38,6 +42,7 @@ class CountTasksHandler
         ProjectRepository $projectRepository,
         ProjectSpecificationFactory $projectSpecificationFactory,
         OrganizationRepository $organizationRepository,
+        OrganizationSpecificationFactory $organizationSpecificationFactory,
         TaskRepository $repository,
         TaskSpecificationFactory $specificationFactory
     ) {
@@ -46,30 +51,52 @@ class CountTasksHandler
         $this->organizationRepository = $organizationRepository;
         $this->repository = $repository;
         $this->specificationFactory = $specificationFactory;
+        $this->organizationSpecificationFactory = $organizationSpecificationFactory;
     }
 
-    public function __invoke(CountTasksQuery $query): int
+    public function __invoke(CountTasksQuery $query) : int
     {
         $userId = UserId::generate($query->userId());
         $projectIds = [ProjectId::generate($query->projectId())];
+        $assigneeIds = [];
+        $creatorIds = [];
+
         $project = $this->projectRepository->projectOfId($projectIds[0]);
         if ($project instanceof Project) {
             $organization = $this->organizationRepository->organizationOfId(
                 $project->organizationId()
             );
+            $assigneeIds[] = $organization->organizationMember(UserId::generate($query->assigneeId()));
+            $creatorIds[] = $organization->organizationMember(UserId::generate($query->creatorId()));
+
             if (!$organization->isOrganizationMember($userId)) {
                 throw new UnauthorizedTaskResourceException();
             }
         } else {
-            $projects = $this->projectRepository->query(
-                $this->projectSpecificationFactory->buildFilterableSpecification(
+            $organizations = $this->organizationRepository->query(
+                $this->organizationSpecificationFactory->buildFilterableSpecification(
                     null,
                     $userId
+                )
+            );
+            $organizationIds = array_map(function (Organization $organization) use ($query) {
+                $assigneeIds[] = $organization->organizationMember(UserId::generate($query->assigneeId()));
+                $creatorIds[] = $organization->organizationMember(UserId::generate($query->creatorId()));
+
+                return $organization->id();
+            }, $organizations);
+            $projects = $this->projectRepository->query(
+                $this->projectSpecificationFactory->buildFilterableSpecification(
+                    $organizationIds,
+                    null
                 )
             );
             $projectIds = array_map(function (Project $project) {
                 return $project->id();
             }, $projects);
+        }
+        if (empty($projectIds)) {
+            return 0;
         }
 
         return $this->repository->count(
@@ -78,7 +105,9 @@ class CountTasksHandler
                 $query->title(),
                 $this->parentTask($query->parentId(), $userId),
                 null === $query->priority() ? null : new TaskPriority($query->priority()),
-                null === $query->progress() ? null : new TaskProgress($query->progress())
+                null === $query->progress() ? null : new TaskProgress($query->progress()),
+                $assigneeIds,
+                $creatorIds
             )
         );
     }

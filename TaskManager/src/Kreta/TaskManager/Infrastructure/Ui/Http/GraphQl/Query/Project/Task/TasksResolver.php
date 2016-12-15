@@ -17,7 +17,6 @@ namespace Kreta\TaskManager\Infrastructure\Ui\Http\GraphQl\Query\Project\Task;
 use Kreta\SharedKernel\Application\QueryBus;
 use Kreta\SharedKernel\Http\GraphQl\Relay\ConnectionBuilder;
 use Kreta\SharedKernel\Http\GraphQl\Resolver;
-use Kreta\TaskManager\Application\Query\Project\ProjectOfIdQuery;
 use Kreta\TaskManager\Application\Query\Project\Task\CountTasksQuery;
 use Kreta\TaskManager\Application\Query\Project\Task\FilterTasksQuery;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -27,15 +26,18 @@ class TasksResolver implements Resolver
     private $connectionBuilder;
     private $queryBus;
     private $currentUser;
+    private $taskBuilderResolver;
 
     public function __construct(
         TokenStorageInterface $tokenStorage,
         ConnectionBuilder $connectionBuilder,
-        QueryBus $queryBus
+        QueryBus $queryBus,
+        TaskBuilderResolver $taskBuilderResolver
     ) {
         $this->connectionBuilder = $connectionBuilder;
         $this->queryBus = $queryBus;
         $this->currentUser = $tokenStorage->getToken()->getUser()->getUsername();
+        $this->taskBuilderResolver = $taskBuilderResolver;
     }
 
     public function resolve($args)
@@ -55,6 +57,12 @@ class TasksResolver implements Resolver
         if (!isset($args['progress'])) {
             $args['progress'] = null;
         }
+        if (!isset($args['assigneeId'])) {
+            $args['assigneeId'] = null;
+        }
+        if (!isset($args['creatorId'])) {
+            $args['creatorId'] = null;
+        }
 
         list($offset, $limit, $total) = $this->buildPagination($args);
 
@@ -67,20 +75,15 @@ class TasksResolver implements Resolver
                 $args['projectId'],
                 $args['title'],
                 $args['priority'],
-                $args['progress']
+                $args['progress'],
+                $args['assigneeId'],
+                $args['creatorId']
             ),
             $result
         );
 
         foreach ($result as $key => $task) {
-            $this->queryBus->handle(
-                new ProjectOfIdQuery(
-                    $task['project_id'],
-                    $this->currentUser
-                ),
-                $result[$key]['project']
-            );
-            unset($result[$key]['project_id']);
+            $result[$key] = $this->taskBuilderResolver->resolve(['task' => $task]);
         }
 
         $connection = $this->connectionBuilder->fromArraySlice(
@@ -105,7 +108,9 @@ class TasksResolver implements Resolver
                 $args['projectId'],
                 $args['title'],
                 $args['priority'],
-                $args['progress']
+                $args['progress'],
+                $args['assigneeId'],
+                $args['creatorId']
             ),
             $total
         );

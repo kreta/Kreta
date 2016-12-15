@@ -16,7 +16,6 @@ namespace Kreta\TaskManager\Application\Query\Project\Task;
 
 use Kreta\TaskManager\Application\DataTransformer\Project\Task\TaskDataTransformer;
 use Kreta\TaskManager\Domain\Model\Organization\Organization;
-use Kreta\TaskManager\Domain\Model\Organization\OrganizationMemberId;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationRepository;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationSpecificationFactory;
 use Kreta\TaskManager\Domain\Model\Project\Project;
@@ -64,12 +63,17 @@ class FilterTasksHandler
     {
         $userId = UserId::generate($query->userId());
         $projectIds = [ProjectId::generate($query->projectId())];
+        $assigneeIds = [];
+        $creatorIds = [];
 
         $project = $this->projectRepository->projectOfId($projectIds[0]);
         if ($project instanceof Project) {
             $organization = $this->organizationRepository->organizationOfId(
                 $project->organizationId()
             );
+            $assigneeIds[] = $organization->organizationMember(UserId::generate($query->assigneeId()));
+            $creatorIds[] = $organization->organizationMember(UserId::generate($query->creatorId()));
+
             if (!$organization->isOrganizationMember($userId)) {
                 throw new UnauthorizedTaskResourceException();
             }
@@ -80,7 +84,10 @@ class FilterTasksHandler
                     $userId
                 )
             );
-            $organizationIds = array_map(function (Organization $organization) {
+            $organizationIds = array_map(function (Organization $organization) use ($query) {
+                $assigneeIds[] = $organization->organizationMember(UserId::generate($query->assigneeId()));
+                $creatorIds[] = $organization->organizationMember(UserId::generate($query->creatorId()));
+
                 return $organization->id();
             }, $organizations);
             $projects = $this->projectRepository->query(
@@ -104,8 +111,8 @@ class FilterTasksHandler
                 $this->parentTask($query->parentId(), $userId),
                 null === $query->priority() ? null : new TaskPriority($query->priority()),
                 null === $query->progress() ? null : new TaskProgress($query->progress()),
-                null === $query->assigneeId() ? null : OrganizationMemberId::generate($query->assigneeId()),
-                null === $query->creatorId() ? null : OrganizationMemberId::generate($query->creatorId()),
+                $assigneeIds,
+                $creatorIds,
                 $query->offset(),
                 $query->limit()
             )

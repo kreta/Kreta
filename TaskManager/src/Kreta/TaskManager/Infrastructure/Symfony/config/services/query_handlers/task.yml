@@ -13,6 +13,7 @@ services:
             - "@kreta.task_manager.repository.project"
             - "@kreta.task_manager.specification_factory.project"
             - "@kreta.task_manager.repository.organization"
+            - "@kreta.task_manager.specification_factory.organization"
             - "@kreta.task_manager.repository.task"
             - "@kreta.task_manager.specification_factory.task"
         tags:

@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace Kreta\TaskManager\Infrastructure\Persistence\Doctrine\ORM\Project\Task;
 
 use Kreta\SharedKernel\Domain\Model\Exception;
-use Kreta\TaskManager\Domain\Model\Organization\OrganizationMemberId;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskId;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskPriority;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskProgress;
@@ -29,8 +28,8 @@ class DoctrineORMTaskSpecificationFactory implements TaskSpecificationFactory
         ? TaskId $parentId,
         ? TaskPriority $priority,
         ? TaskProgress $progress,
-        ? OrganizationMemberId $assigneeId,
-        ? OrganizationMemberId $creatorId,
+        array $assigneeIds = [],
+        array $creatorIds = [],
         int $offset = 0,
         int $limit = -1
     ) {
@@ -44,8 +43,8 @@ class DoctrineORMTaskSpecificationFactory implements TaskSpecificationFactory
             $parentId,
             $priority,
             $progress,
-            $assigneeId,
-            $creatorId,
+            $assigneeIds,
+            $creatorIds,
             $offset,
             $limit
         );

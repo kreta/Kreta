@@ -9,3 +9,6 @@
 services:
     kreta.task_manager.data_transformer.task_dto:
         class: Kreta\TaskManager\Application\DataTransformer\Project\Task\TaskDTODataTransformer
+        arguments:
+            - "@kreta.task_manager.repository.organization"
+            - "@kreta.task_manager.repository.project"

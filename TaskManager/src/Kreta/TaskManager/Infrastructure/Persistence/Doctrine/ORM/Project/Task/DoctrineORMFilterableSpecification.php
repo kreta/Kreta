@@ -18,7 +18,6 @@ use Doctrine\ORM\Query;
 use Doctrine\ORM\QueryBuilder;
 use Kreta\SharedKernel\Infrastructure\Persistence\Doctrine\ORM\DoctrineORMCountSpecification;
 use Kreta\SharedKernel\Infrastructure\Persistence\Doctrine\ORM\DoctrineORMQuerySpecification;
-use Kreta\TaskManager\Domain\Model\Organization\OrganizationMemberId;
 use Kreta\TaskManager\Domain\Model\Project\Task\Task;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskId;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskPriority;
@@ -33,8 +32,8 @@ class DoctrineORMFilterableSpecification implements DoctrineORMQuerySpecificatio
     private $offset;
     private $limit;
     private $parentId;
-    private $assigneeId;
-    private $creatorId;
+    private $assigneeIds;
+    private $creatorIds;
 
     public function __construct(
         array $projectIds,
@@ -42,8 +41,8 @@ class DoctrineORMFilterableSpecification implements DoctrineORMQuerySpecificatio
         ? TaskId $parentId,
         ? TaskPriority $priority,
         ? TaskProgress $progress,
-        ? OrganizationMemberId $assigneeId,
-        ? OrganizationMemberId $creatorId,
+        array $assigneeIds,
+        array $creatorIds,
         int $offset,
         int $limit
     ) {
@@ -54,8 +53,8 @@ class DoctrineORMFilterableSpecification implements DoctrineORMQuerySpecificatio
         $this->priority = $priority;
         $this->progress = $progress;
         $this->parentId = $parentId;
-        $this->assigneeId = $assigneeId;
-        $this->creatorId = $creatorId;
+        $this->assigneeIds = $assigneeIds;
+        $this->creatorIds = $creatorIds;
     }
 
     public function buildQuery(QueryBuilder $queryBuilder) : Query
@@ -108,15 +107,15 @@ class DoctrineORMFilterableSpecification implements DoctrineORMQuerySpecificatio
                 ->andWhere($queryBuilder->expr()->eq('t.progress.progress', ':progress'))
                 ->setParameter('progress', $this->progress->progress());
         }
-        if (null !== $this->assigneeId) {
+        if (!empty($this->assigneeIds)) {
             $queryBuilder
-                ->andWhere($queryBuilder->expr()->eq('t.assigneeId', ':assigneeId'))
-                ->setParameter('assigneeId', $this->assigneeId->id());
+                ->andWhere($queryBuilder->expr()->in('t.assigneeId', ':assigneeIds'))
+                ->setParameter('assigneeIds', $this->assigneeIds);
         }
-        if (null !== $this->creatorId) {
+        if (!empty($this->creatorIds)) {
             $queryBuilder
-                ->andWhere($queryBuilder->expr()->eq('t.creatorId', ':creatorId'))
-                ->setParameter('creatorId', $this->creatorId->id());
+                ->andWhere($queryBuilder->expr()->in('t.creatorId', ':creatorIds'))
+                ->setParameter('creatorIds', $this->creatorIds);
         }
 
         return $queryBuilder;

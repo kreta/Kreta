@@ -35,6 +35,15 @@ services:
         tags:
             - { name: overblog_graphql.resolver, alias: "member_type", method: "resolve" }
 
+    kreta.task_manager.graph_ql.query_resolver.member_of_id:
+        class: Kreta\TaskManager\Infrastructure\Ui\Http\GraphQl\Query\Organization\MemberResolver
+        arguments:
+            - "@security.token_storage"
+            - "@kreta.task_manager.query_bus"
+            - "@kreta.task_manager.graph_ql.query_resolver.organization_of_id"
+        tags:
+            - { name: overblog_graphql.resolver, alias: "member", method: "resolve" }
+
     kreta.task_manager.graph_ql.query_resolver.organization_member_of_id:
         class: Kreta\TaskManager\Infrastructure\Ui\Http\GraphQl\Query\Organization\OrganizationMemberResolver
         arguments:
