@@ -19,7 +19,6 @@ use Kreta\SharedKernel\Application\QueryBus;
 use Kreta\TaskManager\Application\Command\Project\Task\CreateTaskCommand;
 use Kreta\TaskManager\Application\Query\Organization\OrganizationOfIdQuery;
 use Kreta\TaskManager\Application\Query\Project\FilterProjectsQuery;
-use Kreta\TaskManager\Domain\Model\Organization\UnauthorizedOrganizationActionException;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskPriority;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
@@ -54,17 +53,13 @@ class TaskFixturesCommand extends ContainerAwareCommand
             );
 
             foreach ($projects as $project) {
-                try {
-                    $this->queryBus->handle(
-                        new OrganizationOfIdQuery(
-                            $project['organization_id'],
-                            $userId
-                        ),
-                        $organization
-                    );
-                } catch (UnauthorizedOrganizationActionException $exception) {
-                    continue;
-                }
+                $this->queryBus->handle(
+                    new OrganizationOfIdQuery(
+                        $project['organization_id'],
+                        $userId
+                    ),
+                    $organization
+                );
                 $this->commandBus->handle(
                     new CreateTaskCommand(
                         'Task ' . $i,

@@ -49,7 +49,7 @@ class DoctrineORMFilterableSpecification implements DoctrineORMQuerySpecificatio
         }
 
         return $queryBuilder
-            ->select(['o', 'om', 'ow'])
+            ->select('o')
             ->from(Organization::class, 'o')
             ->leftJoin('o.organizationMembers', 'om')
             ->leftJoin('o.owners', 'ow')
