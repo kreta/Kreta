@@ -17,6 +17,7 @@ use Kreta\TaskManager\Application\Query\Project\Task\CountTasksQuery;
 use Kreta\TaskManager\Domain\Model\Organization\Organization;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationId;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationRepository;
+use Kreta\TaskManager\Domain\Model\Organization\OrganizationSpecificationFactory;
 use Kreta\TaskManager\Domain\Model\Project\Project;
 use Kreta\TaskManager\Domain\Model\Project\ProjectId;
 use Kreta\TaskManager\Domain\Model\Project\ProjectRepository;
@@ -36,6 +37,7 @@ class CountTasksHandlerSpec extends ObjectBehavior
         ProjectRepository $projectRepository,
         ProjectSpecificationFactory $projectSpecificationFactory,
         OrganizationRepository $organizationRepository,
+        OrganizationSpecificationFactory $organizationSpecificationFactory,
         TaskRepository $repository,
         TaskSpecificationFactory $specificationFactory
     ) {
@@ -43,6 +45,7 @@ class CountTasksHandlerSpec extends ObjectBehavior
             $projectRepository,
             $projectSpecificationFactory,
             $organizationRepository,
+            $organizationSpecificationFactory,
             $repository,
             $specificationFactory
         );

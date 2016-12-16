@@ -71,8 +71,8 @@ class FilterTasksHandler
             $organization = $this->organizationRepository->organizationOfId(
                 $project->organizationId()
             );
-            $assigneeIds[] = $organization->organizationMember(UserId::generate($query->assigneeId()));
-            $creatorIds[] = $organization->organizationMember(UserId::generate($query->creatorId()));
+            $assigneeIds = $this->addUserId($assigneeIds, $organization, $query->assigneeId());
+            $creatorIds = $this->addUserId($creatorIds, $organization, $query->creatorId());
 
             if (!$organization->isOrganizationMember($userId)) {
                 throw new UnauthorizedTaskResourceException();
@@ -84,12 +84,14 @@ class FilterTasksHandler
                     $userId
                 )
             );
-            $organizationIds = array_map(function (Organization $organization) use ($query) {
-                $assigneeIds[] = $organization->organizationMember(UserId::generate($query->assigneeId()));
-                $creatorIds[] = $organization->organizationMember(UserId::generate($query->creatorId()));
 
-                return $organization->id();
-            }, $organizations);
+            $organizationIds = [];
+            foreach ($organizations as $organization) {
+                $assigneeIds = $this->addUserId($assigneeIds, $organization, $query->assigneeId());
+                $creatorIds = $this->addUserId($creatorIds, $organization, $query->creatorId());
+
+                $organizationIds[] = $organization->id();
+            }
             $projects = $this->projectRepository->query(
                 $this->projectSpecificationFactory->buildFilterableSpecification(
                     $organizationIds,
@@ -123,6 +125,15 @@ class FilterTasksHandler
 
             return $this->dataTransformer->read();
         }, $tasks);
+    }
+
+    private function addUserId($userIds, Organization $organization, ? string $userId)
+    {
+        if (null !== $userId) {
+            $userIds[] = $organization->organizationMember(UserId::generate($userId));
+        }
+
+        return $userIds;
     }
 
     private function parentTask(? string $parentId, UserId $userId) : ? TaskId

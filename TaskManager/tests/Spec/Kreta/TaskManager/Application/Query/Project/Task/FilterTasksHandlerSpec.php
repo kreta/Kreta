@@ -17,6 +17,7 @@ use Kreta\TaskManager\Application\Query\Project\Task\FilterTasksHandler;
 use Kreta\TaskManager\Application\Query\Project\Task\FilterTasksQuery;
 use Kreta\TaskManager\Domain\Model\Organization\Organization;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationId;
+use Kreta\TaskManager\Domain\Model\Organization\OrganizationMemberId;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationRepository;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationSpecificationFactory;
 use Kreta\TaskManager\Domain\Model\Project\Project;
@@ -74,13 +75,21 @@ class FilterTasksHandlerSpec extends ObjectBehavior
         Task $task,
         Task $parent,
         TaskId $parentId,
-        TaskDataTransformer $dataTransformer
+        TaskDataTransformer $dataTransformer,
+        OrganizationMemberId $organizationMemberId,
+        OrganizationMemberId $organizationMemberId2
     ) {
         $query->userId()->shouldBeCalled()->willReturn('user-id');
         $query->projectId()->shouldBeCalled()->willReturn('project-id');
         $projectRepository->projectOfId(ProjectId::generate('project-id'))->shouldBeCalled()->willReturn($project);
         $project->organizationId()->shouldBeCalled()->willReturn($organizationId);
         $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
+        $query->assigneeId()->shouldBeCalled()->willReturn('assignee-id');
+        $query->creatorId()->shouldBeCalled()->willReturn('creator-id');
+        $organization->organizationMember(UserId::generate('assignee-id'))
+            ->shouldBeCalled()->willReturn($organizationMemberId);
+        $organization->organizationMember(UserId::generate('creator-id'))
+            ->shouldBeCalled()->willReturn($organizationMemberId2);
         $organization->isOrganizationMember(UserId::generate('user-id'))->shouldBeCalled()->willReturn(true);
         $query->title()->shouldBeCalled()->willReturn('task-title');
         $query->parentId()->shouldBeCalled()->willReturn('parent-id');
@@ -97,8 +106,6 @@ class FilterTasksHandlerSpec extends ObjectBehavior
 
         $query->priority()->shouldBeCalled()->willReturn('low');
         $query->progress()->shouldBeCalled()->willReturn('doing');
-        $query->assigneeId()->shouldBeCalled()->willReturn('assignee-id');
-        $query->creatorId()->shouldBeCalled()->willReturn('creator-id');
         $query->offset()->shouldBeCalled()->willReturn(0);
         $query->limit()->shouldBeCalled()->willReturn(-1);
         $repository->query(Argument::any())->shouldBeCalled()->willReturn([$task]);
@@ -115,10 +122,18 @@ class FilterTasksHandlerSpec extends ObjectBehavior
         Project $project,
         OrganizationId $organizationId,
         OrganizationRepository $organizationRepository,
-        Organization $organization
+        Organization $organization,
+        OrganizationMemberId $organizationMemberId,
+        OrganizationMemberId $organizationMemberId2
     ) {
         $query->userId()->shouldBeCalled()->willReturn('user-id');
         $query->projectId()->shouldBeCalled()->willReturn('project-id');
+        $query->assigneeId()->shouldBeCalled()->willReturn('assignee-id');
+        $query->creatorId()->shouldBeCalled()->willReturn('creator-id');
+        $organization->organizationMember(UserId::generate('assignee-id'))
+            ->shouldBeCalled()->willReturn($organizationMemberId);
+        $organization->organizationMember(UserId::generate('creator-id'))
+            ->shouldBeCalled()->willReturn($organizationMemberId2);
         $projectRepository->projectOfId(ProjectId::generate('project-id'))->shouldBeCalled()->willReturn($project);
         $project->organizationId()->shouldBeCalled()->willReturn($organizationId);
         $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
@@ -139,13 +154,21 @@ class FilterTasksHandlerSpec extends ObjectBehavior
         Organization $organization,
         Organization $parentOrganization,
         TaskRepository $repository,
-        Task $parent
+        Task $parent,
+        OrganizationMemberId $organizationMemberId,
+        OrganizationMemberId $organizationMemberId2
     ) {
         $query->userId()->shouldBeCalled()->willReturn('user-id');
         $query->projectId()->shouldBeCalled()->willReturn('project-id');
         $projectRepository->projectOfId(ProjectId::generate('project-id'))->shouldBeCalled()->willReturn($project);
         $project->organizationId()->shouldBeCalled()->willReturn($organizationId);
         $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
+        $query->assigneeId()->shouldBeCalled()->willReturn('assignee-id');
+        $query->creatorId()->shouldBeCalled()->willReturn('creator-id');
+        $organization->organizationMember(UserId::generate('assignee-id'))
+            ->shouldBeCalled()->willReturn($organizationMemberId);
+        $organization->organizationMember(UserId::generate('creator-id'))
+            ->shouldBeCalled()->willReturn($organizationMemberId2);
         $organization->isOrganizationMember(UserId::generate('user-id'))->shouldBeCalled()->willReturn(true);
         $query->title()->shouldBeCalled()->willReturn('task-title');
         $query->parentId()->shouldBeCalled()->willReturn('parent-id');
@@ -171,21 +194,27 @@ class FilterTasksHandlerSpec extends ObjectBehavior
         Organization $organization,
         TaskRepository $repository,
         Task $task,
-        TaskDataTransformer $dataTransformer
+        TaskDataTransformer $dataTransformer,
+        OrganizationMemberId $organizationMemberId,
+        OrganizationMemberId $organizationMemberId2
     ) {
         $query->userId()->shouldBeCalled()->willReturn('user-id');
         $query->projectId()->shouldBeCalled()->willReturn('project-id');
         $projectRepository->projectOfId(ProjectId::generate('project-id'))->shouldBeCalled()->willReturn($project);
         $project->organizationId()->shouldBeCalled()->willReturn($organizationId);
         $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
+        $query->assigneeId()->shouldBeCalled()->willReturn('assignee-id');
+        $query->creatorId()->shouldBeCalled()->willReturn('creator-id');
+        $organization->organizationMember(UserId::generate('assignee-id'))
+            ->shouldBeCalled()->willReturn($organizationMemberId);
+        $organization->organizationMember(UserId::generate('creator-id'))
+            ->shouldBeCalled()->willReturn($organizationMemberId2);
         $organization->isOrganizationMember(UserId::generate('user-id'))->shouldBeCalled()->willReturn(true);
         $query->title()->shouldBeCalled()->willReturn('task-title');
         $query->parentId()->shouldBeCalled()->willReturn(null);
 
         $query->priority()->shouldBeCalled()->willReturn('low');
         $query->progress()->shouldBeCalled()->willReturn('doing');
-        $query->assigneeId()->shouldBeCalled()->willReturn('assignee-id');
-        $query->creatorId()->shouldBeCalled()->willReturn('creator-id');
         $query->offset()->shouldBeCalled()->willReturn(0);
         $query->limit()->shouldBeCalled()->willReturn(-1);
         $repository->query(Argument::any())->shouldBeCalled()->willReturn([$task]);
@@ -205,13 +234,21 @@ class FilterTasksHandlerSpec extends ObjectBehavior
         Organization $organization,
         TaskRepository $repository,
         Task $task,
-        TaskDataTransformer $dataTransformer
+        TaskDataTransformer $dataTransformer,
+        OrganizationMemberId $organizationMemberId,
+        OrganizationMemberId $organizationMemberId2
     ) {
         $query->userId()->shouldBeCalled()->willReturn('user-id');
         $query->projectId()->shouldBeCalled()->willReturn('project-id');
         $projectRepository->projectOfId(ProjectId::generate('project-id'))->shouldBeCalled()->willReturn($project);
         $project->organizationId()->shouldBeCalled()->willReturn($organizationId);
         $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
+        $query->assigneeId()->shouldBeCalled()->willReturn('assignee-id');
+        $query->creatorId()->shouldBeCalled()->willReturn('creator-id');
+        $organization->organizationMember(UserId::generate('assignee-id'))
+            ->shouldBeCalled()->willReturn($organizationMemberId);
+        $organization->organizationMember(UserId::generate('creator-id'))
+            ->shouldBeCalled()->willReturn($organizationMemberId2);
         $organization->isOrganizationMember(UserId::generate('user-id'))->shouldBeCalled()->willReturn(true);
         $query->title()->shouldBeCalled()->willReturn('task-title');
         $query->parentId()->shouldBeCalled()->willReturn('parent-id');
@@ -220,8 +257,6 @@ class FilterTasksHandlerSpec extends ObjectBehavior
 
         $query->priority()->shouldBeCalled()->willReturn('low');
         $query->progress()->shouldBeCalled()->willReturn('doing');
-        $query->assigneeId()->shouldBeCalled()->willReturn('assignee-id');
-        $query->creatorId()->shouldBeCalled()->willReturn('creator-id');
         $query->offset()->shouldBeCalled()->willReturn(0);
         $query->limit()->shouldBeCalled()->willReturn(-1);
         $repository->query(Argument::any())->shouldBeCalled()->willReturn([$task]);
@@ -248,13 +283,21 @@ class FilterTasksHandlerSpec extends ObjectBehavior
         Task $task,
         Task $parent,
         TaskId $parentId,
-        TaskDataTransformer $dataTransformer
+        TaskDataTransformer $dataTransformer,
+        OrganizationMemberId $organizationMemberId,
+        OrganizationMemberId $organizationMemberId2
     ) {
         $query->userId()->shouldBeCalled()->willReturn('user-id');
         $query->projectId()->shouldBeCalled()->willReturn(null);
         $projectRepository->projectOfId(Argument::type(ProjectId::class))->shouldBeCalled()->willReturn(null);
 
         $organizationRepository->query(Argument::any())->shouldBeCalled()->willReturn([$organization]);
+        $query->assigneeId()->shouldBeCalled()->willReturn('assignee-id');
+        $query->creatorId()->shouldBeCalled()->willReturn('creator-id');
+        $organization->organizationMember(UserId::generate('assignee-id'))
+            ->shouldBeCalled()->willReturn($organizationMemberId);
+        $organization->organizationMember(UserId::generate('creator-id'))
+            ->shouldBeCalled()->willReturn($organizationMemberId2);
         $organization->id()->shouldBeCalled()->willReturn($organizationId);
         $projectRepository->query(Argument::any())->shouldBeCalled()->willReturn([$project]);
         $project->id()->shouldBeCalled()->willReturn($projectId);
@@ -273,8 +316,6 @@ class FilterTasksHandlerSpec extends ObjectBehavior
 
         $query->priority()->shouldBeCalled()->willReturn('low');
         $query->progress()->shouldBeCalled()->willReturn('doing');
-        $query->assigneeId()->shouldBeCalled()->willReturn('assignee-id');
-        $query->creatorId()->shouldBeCalled()->willReturn('creator-id');
         $query->offset()->shouldBeCalled()->willReturn(0);
         $query->limit()->shouldBeCalled()->willReturn(-1);
         $repository->query(Argument::any())->shouldBeCalled()->willReturn([$task]);
@@ -290,10 +331,18 @@ class FilterTasksHandlerSpec extends ObjectBehavior
         ProjectRepository $projectRepository,
         OrganizationId $organizationId,
         OrganizationRepository $organizationRepository,
-        Organization $organization
+        Organization $organization,
+        OrganizationMemberId $organizationMemberId,
+        OrganizationMemberId $organizationMemberId2
     ) {
         $query->userId()->shouldBeCalled()->willReturn('user-id');
         $query->projectId()->shouldBeCalled()->willReturn(null);
+        $query->assigneeId()->shouldBeCalled()->willReturn('assignee-id');
+        $query->creatorId()->shouldBeCalled()->willReturn('creator-id');
+        $organization->organizationMember(UserId::generate('assignee-id'))
+            ->shouldBeCalled()->willReturn($organizationMemberId);
+        $organization->organizationMember(UserId::generate('creator-id'))
+            ->shouldBeCalled()->willReturn($organizationMemberId2);
         $projectRepository->projectOfId(Argument::type(ProjectId::class))->shouldBeCalled()->willReturn(null);
 
         $organizationRepository->query(Argument::any())->shouldBeCalled()->willReturn([$organization]);
@@ -318,13 +367,21 @@ class FilterTasksHandlerSpec extends ObjectBehavior
         Task $task,
         Task $parent,
         TaskId $parentId,
-        TaskDataTransformer $dataTransformer
+        TaskDataTransformer $dataTransformer,
+        OrganizationMemberId $organizationMemberId,
+        OrganizationMemberId $organizationMemberId2
     ) {
         $query->userId()->shouldBeCalled()->willReturn('user-id');
         $query->projectId()->shouldBeCalled()->willReturn('project-id');
         $projectRepository->projectOfId(ProjectId::generate('project-id'))->shouldBeCalled()->willReturn($project);
         $project->organizationId()->shouldBeCalled()->willReturn($organizationId);
         $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
+        $query->assigneeId()->shouldBeCalled()->willReturn('assignee-id');
+        $query->creatorId()->shouldBeCalled()->willReturn('creator-id');
+        $organization->organizationMember(UserId::generate('assignee-id'))
+            ->shouldBeCalled()->willReturn($organizationMemberId);
+        $organization->organizationMember(UserId::generate('creator-id'))
+            ->shouldBeCalled()->willReturn($organizationMemberId2);
         $organization->isOrganizationMember(UserId::generate('user-id'))->shouldBeCalled()->willReturn(true);
         $query->title()->shouldBeCalled();
         $query->parentId()->shouldBeCalled()->willReturn('parent-id');
@@ -341,8 +398,6 @@ class FilterTasksHandlerSpec extends ObjectBehavior
 
         $query->priority()->shouldBeCalled()->willReturn('low');
         $query->progress()->shouldBeCalled()->willReturn('doing');
-        $query->assigneeId()->shouldBeCalled()->willReturn('assignee-id');
-        $query->creatorId()->shouldBeCalled()->willReturn('creator-id');
         $query->offset()->shouldBeCalled()->willReturn(0);
         $query->limit()->shouldBeCalled()->willReturn(-1);
         $repository->query(Argument::any())->shouldBeCalled()->willReturn([$task]);
@@ -368,13 +423,21 @@ class FilterTasksHandlerSpec extends ObjectBehavior
         Task $task,
         Task $parent,
         TaskId $parentId,
-        TaskDataTransformer $dataTransformer
+        TaskDataTransformer $dataTransformer,
+        OrganizationMemberId $organizationMemberId,
+        OrganizationMemberId $organizationMemberId2
     ) {
         $query->userId()->shouldBeCalled()->willReturn('user-id');
         $query->projectId()->shouldBeCalled()->willReturn('project-id');
         $projectRepository->projectOfId(ProjectId::generate('project-id'))->shouldBeCalled()->willReturn($project);
         $project->organizationId()->shouldBeCalled()->willReturn($organizationId);
         $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
+        $query->assigneeId()->shouldBeCalled()->willReturn('assignee-id');
+        $query->creatorId()->shouldBeCalled()->willReturn('creator-id');
+        $organization->organizationMember(UserId::generate('assignee-id'))
+            ->shouldBeCalled()->willReturn($organizationMemberId);
+        $organization->organizationMember(UserId::generate('creator-id'))
+            ->shouldBeCalled()->willReturn($organizationMemberId2);
         $organization->isOrganizationMember(UserId::generate('user-id'))->shouldBeCalled()->willReturn(true);
         $query->title()->shouldBeCalled()->willReturn('task-title');
         $query->parentId()->shouldBeCalled()->willReturn('parent-id');
@@ -391,8 +454,6 @@ class FilterTasksHandlerSpec extends ObjectBehavior
 
         $query->priority()->shouldBeCalled()->willReturn(null);
         $query->progress()->shouldBeCalled()->willReturn('doing');
-        $query->assigneeId()->shouldBeCalled()->willReturn('assignee-id');
-        $query->creatorId()->shouldBeCalled()->willReturn('creator-id');
         $query->offset()->shouldBeCalled()->willReturn(0);
         $query->limit()->shouldBeCalled()->willReturn(-1);
         $repository->query(Argument::any())->shouldBeCalled()->willReturn([$task]);
@@ -418,13 +479,21 @@ class FilterTasksHandlerSpec extends ObjectBehavior
         Task $task,
         Task $parent,
         TaskId $parentId,
-        TaskDataTransformer $dataTransformer
+        TaskDataTransformer $dataTransformer,
+        OrganizationMemberId $organizationMemberId,
+        OrganizationMemberId $organizationMemberId2
     ) {
         $query->userId()->shouldBeCalled()->willReturn('user-id');
         $query->projectId()->shouldBeCalled()->willReturn('project-id');
         $projectRepository->projectOfId(ProjectId::generate('project-id'))->shouldBeCalled()->willReturn($project);
         $project->organizationId()->shouldBeCalled()->willReturn($organizationId);
         $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
+        $query->assigneeId()->shouldBeCalled()->willReturn('assignee-id');
+        $query->creatorId()->shouldBeCalled()->willReturn('creator-id');
+        $organization->organizationMember(UserId::generate('assignee-id'))
+            ->shouldBeCalled()->willReturn($organizationMemberId);
+        $organization->organizationMember(UserId::generate('creator-id'))
+            ->shouldBeCalled()->willReturn($organizationMemberId2);
         $organization->isOrganizationMember(UserId::generate('user-id'))->shouldBeCalled()->willReturn(true);
         $query->title()->shouldBeCalled()->willReturn('task-title');
         $query->parentId()->shouldBeCalled()->willReturn('parent-id');
@@ -441,8 +510,6 @@ class FilterTasksHandlerSpec extends ObjectBehavior
 
         $query->priority()->shouldBeCalled()->willReturn('low');
         $query->progress()->shouldBeCalled()->willReturn(null);
-        $query->assigneeId()->shouldBeCalled()->willReturn('assignee-id');
-        $query->creatorId()->shouldBeCalled()->willReturn('creator-id');
         $query->offset()->shouldBeCalled()->willReturn(0);
         $query->limit()->shouldBeCalled()->willReturn(-1);
         $repository->query(Argument::any())->shouldBeCalled()->willReturn([$task]);
@@ -468,13 +535,18 @@ class FilterTasksHandlerSpec extends ObjectBehavior
         Task $task,
         Task $parent,
         TaskId $parentId,
-        TaskDataTransformer $dataTransformer
+        TaskDataTransformer $dataTransformer,
+        OrganizationMemberId $organizationMemberId
     ) {
         $query->userId()->shouldBeCalled()->willReturn('user-id');
         $query->projectId()->shouldBeCalled()->willReturn('project-id');
         $projectRepository->projectOfId(ProjectId::generate('project-id'))->shouldBeCalled()->willReturn($project);
         $project->organizationId()->shouldBeCalled()->willReturn($organizationId);
         $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
+        $query->assigneeId()->shouldBeCalled()->willReturn(null);
+        $query->creatorId()->shouldBeCalled()->willReturn('creator-id');
+        $organization->organizationMember(UserId::generate('creator-id'))
+            ->shouldBeCalled()->willReturn($organizationMemberId);
         $organization->isOrganizationMember(UserId::generate('user-id'))->shouldBeCalled()->willReturn(true);
         $query->title()->shouldBeCalled()->willReturn('task-title');
         $query->parentId()->shouldBeCalled()->willReturn('parent-id');
@@ -491,8 +563,6 @@ class FilterTasksHandlerSpec extends ObjectBehavior
 
         $query->priority()->shouldBeCalled()->willReturn('low');
         $query->progress()->shouldBeCalled()->willReturn('todo');
-        $query->assigneeId()->shouldBeCalled()->willReturn(null);
-        $query->creatorId()->shouldBeCalled()->willReturn('creator-id');
         $query->offset()->shouldBeCalled()->willReturn(0);
         $query->limit()->shouldBeCalled()->willReturn(-1);
         $repository->query(Argument::any())->shouldBeCalled()->willReturn([$task]);
@@ -518,13 +588,19 @@ class FilterTasksHandlerSpec extends ObjectBehavior
         Task $task,
         Task $parent,
         TaskId $parentId,
-        TaskDataTransformer $dataTransformer
+        TaskDataTransformer $dataTransformer,
+        OrganizationMemberId $organizationMemberId
     ) {
         $query->userId()->shouldBeCalled()->willReturn('user-id');
         $query->projectId()->shouldBeCalled()->willReturn('project-id');
         $projectRepository->projectOfId(ProjectId::generate('project-id'))->shouldBeCalled()->willReturn($project);
         $project->organizationId()->shouldBeCalled()->willReturn($organizationId);
         $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
+        $query->assigneeId()->shouldBeCalled()->willReturn('assignee-id');
+        $query->creatorId()->shouldBeCalled()->willReturn(null);
+        $organization->organizationMember(UserId::generate('assignee-id'))
+            ->shouldBeCalled()->willReturn($organizationMemberId);
+
         $organization->isOrganizationMember(UserId::generate('user-id'))->shouldBeCalled()->willReturn(true);
         $query->title()->shouldBeCalled()->willReturn('task-title');
         $query->parentId()->shouldBeCalled()->willReturn('parent-id');
@@ -541,8 +617,6 @@ class FilterTasksHandlerSpec extends ObjectBehavior
 
         $query->priority()->shouldBeCalled()->willReturn('low');
         $query->progress()->shouldBeCalled()->willReturn('todo');
-        $query->assigneeId()->shouldBeCalled()->willReturn('assignee-id');
-        $query->creatorId()->shouldBeCalled()->willReturn(null);
         $query->offset()->shouldBeCalled()->willReturn(0);
         $query->limit()->shouldBeCalled()->willReturn(-1);
         $repository->query(Argument::any())->shouldBeCalled()->willReturn([$task]);

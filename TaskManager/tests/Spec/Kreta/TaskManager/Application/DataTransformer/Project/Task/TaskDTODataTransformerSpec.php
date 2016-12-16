@@ -15,7 +15,12 @@ namespace Spec\Kreta\TaskManager\Application\DataTransformer\Project\Task;
 use Kreta\TaskManager\Application\DataTransformer\Project\Task\TaskDataTransformer;
 use Kreta\TaskManager\Application\DataTransformer\Project\Task\TaskDTODataTransformer;
 use Kreta\TaskManager\Domain\Model\Organization\MemberId;
+use Kreta\TaskManager\Domain\Model\Organization\Organization;
+use Kreta\TaskManager\Domain\Model\Organization\OrganizationId;
+use Kreta\TaskManager\Domain\Model\Organization\OrganizationRepository;
+use Kreta\TaskManager\Domain\Model\Project\Project;
 use Kreta\TaskManager\Domain\Model\Project\ProjectId;
+use Kreta\TaskManager\Domain\Model\Project\ProjectRepository;
 use Kreta\TaskManager\Domain\Model\Project\Task\Task;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskId;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskPriority;
@@ -25,6 +30,11 @@ use PhpSpec\ObjectBehavior;
 
 class TaskDTODataTransformerSpec extends ObjectBehavior
 {
+    function let(OrganizationRepository $organizationRepository, ProjectRepository $projectRepository)
+    {
+        $this->beConstructedWith($organizationRepository, $projectRepository);
+    }
+
     function it_is_initializable()
     {
         $this->shouldHaveType(TaskDTODataTransformer::class);
@@ -32,6 +42,11 @@ class TaskDTODataTransformerSpec extends ObjectBehavior
     }
 
     function it_transform_task_to_plain_dto(
+        ProjectRepository $projectRepository,
+        OrganizationRepository $organizationRepository,
+        Project $project,
+        Organization $organization,
+        OrganizationId $organizationId,
         Task $task,
         TaskId $taskId,
         TaskTitle $title,
@@ -44,6 +59,15 @@ class TaskDTODataTransformerSpec extends ObjectBehavior
         \DateTimeImmutable $updatedOn,
         TaskId $parentId
     ) {
+        $task->projectId()->shouldBeCalled()->willReturn($projectId);
+        $projectId->id()->shouldBeCalled()->willReturn('project-id');
+
+        $projectRepository->projectOfId($projectId)->shouldBeCalled()->willReturn($project);
+        $project->organizationId()->shouldBeCalled()->willReturn($organizationId);
+        $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
+        $organization->organizationMembers()->shouldBeCalled();
+        $organization->owners()->shouldBeCalled();
+
         $task->id()->shouldBeCalled()->willReturn($taskId);
         $taskId->id()->shouldBeCalled()->willReturn('task-id');
         $task->title()->shouldBeCalled()->willReturn($title);
@@ -59,8 +83,6 @@ class TaskDTODataTransformerSpec extends ObjectBehavior
         $creatorId->id()->shouldBeCalled()->willReturn('creator-id');
         $task->createdOn()->shouldBeCalled()->willReturn($createdOn);
         $task->updatedOn()->shouldBeCalled()->willReturn($updatedOn);
-        $task->projectId()->shouldBeCalled()->willReturn($projectId);
-        $projectId->id()->shouldBeCalled()->willReturn('project-id');
         $task->parentId()->shouldBeCalled()->willReturn($parentId);
         $parentId->id()->shouldBeCalled()->willReturn('parent-id');
 
