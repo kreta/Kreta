@@ -16,6 +16,7 @@ use Kreta\TaskManager\Application\Query\Project\Task\CountTasksHandler;
 use Kreta\TaskManager\Application\Query\Project\Task\CountTasksQuery;
 use Kreta\TaskManager\Domain\Model\Organization\Organization;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationId;
+use Kreta\TaskManager\Domain\Model\Organization\OrganizationMemberId;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationRepository;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationSpecificationFactory;
 use Kreta\TaskManager\Domain\Model\Project\Project;
@@ -69,7 +70,9 @@ class CountTasksHandlerSpec extends ObjectBehavior
         Project $parentProject,
         OrganizationId $parentOrganizationId,
         Organization $parentOrganization,
-        TaskId $parentId
+        TaskId $parentId,
+        OrganizationMemberId $organizationMemberId,
+        OrganizationMemberId $organizationMemberId2
     ) {
         $query->userId()->shouldBeCalled()->willReturn('user-id');
         $query->projectId()->shouldBeCalled()->willReturn('project-id');
@@ -77,6 +80,12 @@ class CountTasksHandlerSpec extends ObjectBehavior
             ->shouldBeCalled()->willReturn($project);
         $project->organizationId()->shouldBeCalled()->willReturn($organizationId);
         $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
+        $query->assigneeId()->shouldBeCalled()->willReturn('assignee-id');
+        $query->creatorId()->shouldBeCalled()->willReturn('creator-id');
+        $organization->organizationMember(UserId::generate('assignee-id'))
+            ->shouldBeCalled()->willReturn($organizationMemberId);
+        $organization->organizationMember(UserId::generate('creator-id'))
+            ->shouldBeCalled()->willReturn($organizationMemberId2);
         $organization->isOrganizationMember(UserId::generate('user-id'))->shouldBeCalled()->willReturn(true);
         $query->title()->shouldBeCalled()->willReturn('task title');
         $query->parentId()->shouldBeCalled()->willReturn('parent-id');
@@ -110,7 +119,9 @@ class CountTasksHandlerSpec extends ObjectBehavior
         Project $parentProject,
         OrganizationId $parentOrganizationId,
         Organization $parentOrganization,
-        TaskId $parentId
+        TaskId $parentId,
+        OrganizationMemberId $organizationMemberId,
+        OrganizationMemberId $organizationMemberId2
     ) {
         $query->userId()->shouldBeCalled()->willReturn('user-id');
         $query->projectId()->shouldBeCalled()->willReturn('project-id');
@@ -118,6 +129,12 @@ class CountTasksHandlerSpec extends ObjectBehavior
             ->shouldBeCalled()->willReturn($project);
         $project->organizationId()->shouldBeCalled()->willReturn($organizationId);
         $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
+        $query->assigneeId()->shouldBeCalled()->willReturn('assignee-id');
+        $query->creatorId()->shouldBeCalled()->willReturn('creator-id');
+        $organization->organizationMember(UserId::generate('assignee-id'))
+            ->shouldBeCalled()->willReturn($organizationMemberId);
+        $organization->organizationMember(UserId::generate('creator-id'))
+            ->shouldBeCalled()->willReturn($organizationMemberId2);
         $organization->isOrganizationMember(UserId::generate('user-id'))->shouldBeCalled()->willReturn(true);
         $query->title()->shouldBeCalled();
         $query->parentId()->shouldBeCalled()->willReturn('parent-id');
@@ -145,7 +162,9 @@ class CountTasksHandlerSpec extends ObjectBehavior
         TaskRepository $repository,
         Organization $organization,
         Project $project,
-        OrganizationId $organizationId
+        OrganizationId $organizationId,
+        OrganizationMemberId $organizationMemberId,
+        OrganizationMemberId $organizationMemberId2
     ) {
         $query->userId()->shouldBeCalled()->willReturn('user-id');
         $query->projectId()->shouldBeCalled()->willReturn('project-id');
@@ -153,6 +172,12 @@ class CountTasksHandlerSpec extends ObjectBehavior
             ->shouldBeCalled()->willReturn($project);
         $project->organizationId()->shouldBeCalled()->willReturn($organizationId);
         $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
+        $query->assigneeId()->shouldBeCalled()->willReturn('assignee-id');
+        $query->creatorId()->shouldBeCalled()->willReturn('creator-id');
+        $organization->organizationMember(UserId::generate('assignee-id'))
+            ->shouldBeCalled()->willReturn($organizationMemberId);
+        $organization->organizationMember(UserId::generate('creator-id'))
+            ->shouldBeCalled()->willReturn($organizationMemberId2);
         $organization->isOrganizationMember(UserId::generate('user-id'))->shouldBeCalled()->willReturn(true);
         $query->title()->shouldBeCalled()->willReturn('task title');
         $query->parentId()->shouldBeCalled()->willReturn(null);
@@ -177,7 +202,9 @@ class CountTasksHandlerSpec extends ObjectBehavior
         Project $parentProject,
         OrganizationId $parentOrganizationId,
         Organization $parentOrganization,
-        TaskId $parentId
+        TaskId $parentId,
+        OrganizationMemberId $organizationMemberId,
+        OrganizationMemberId $organizationMemberId2
     ) {
         $query->userId()->shouldBeCalled()->willReturn('user-id');
         $query->projectId()->shouldBeCalled();
@@ -185,6 +212,12 @@ class CountTasksHandlerSpec extends ObjectBehavior
             ->shouldBeCalled()->willReturn($project);
         $project->organizationId()->shouldBeCalled()->willReturn($organizationId);
         $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
+        $query->assigneeId()->shouldBeCalled()->willReturn('assignee-id');
+        $query->creatorId()->shouldBeCalled()->willReturn('creator-id');
+        $organization->organizationMember(UserId::generate('assignee-id'))
+            ->shouldBeCalled()->willReturn($organizationMemberId);
+        $organization->organizationMember(UserId::generate('creator-id'))
+            ->shouldBeCalled()->willReturn($organizationMemberId2);
         $organization->isOrganizationMember(UserId::generate('user-id'))->shouldBeCalled()->willReturn(true);
         $query->title()->shouldBeCalled()->willReturn('task title');
 
@@ -219,7 +252,9 @@ class CountTasksHandlerSpec extends ObjectBehavior
         Project $parentProject,
         OrganizationId $parentOrganizationId,
         Organization $parentOrganization,
-        TaskId $parentId
+        TaskId $parentId,
+        OrganizationMemberId $organizationMemberId,
+        OrganizationMemberId $organizationMemberId2
     ) {
         $query->userId()->shouldBeCalled()->willReturn('user-id');
         $query->projectId()->shouldBeCalled()->willReturn('project-id');
@@ -227,6 +262,12 @@ class CountTasksHandlerSpec extends ObjectBehavior
             ->shouldBeCalled()->willReturn($project);
         $project->organizationId()->shouldBeCalled()->willReturn($organizationId);
         $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
+        $query->assigneeId()->shouldBeCalled()->willReturn('assignee-id');
+        $query->creatorId()->shouldBeCalled()->willReturn('creator-id');
+        $organization->organizationMember(UserId::generate('assignee-id'))
+            ->shouldBeCalled()->willReturn($organizationMemberId);
+        $organization->organizationMember(UserId::generate('creator-id'))
+            ->shouldBeCalled()->willReturn($organizationMemberId2);
         $organization->isOrganizationMember(UserId::generate('user-id'))->shouldBeCalled()->willReturn(true);
         $query->title()->shouldBeCalled()->willReturn('task title');
         $query->parentId()->shouldBeCalled()->willReturn('parent-id');
@@ -260,7 +301,9 @@ class CountTasksHandlerSpec extends ObjectBehavior
         Project $parentProject,
         OrganizationId $parentOrganizationId,
         Organization $parentOrganization,
-        TaskId $parentId
+        TaskId $parentId,
+        OrganizationMemberId $organizationMemberId,
+        OrganizationMemberId $organizationMemberId2
     ) {
         $query->userId()->shouldBeCalled()->willReturn('user-id');
         $query->projectId()->shouldBeCalled()->willReturn('project-id');
@@ -268,6 +311,12 @@ class CountTasksHandlerSpec extends ObjectBehavior
             ->shouldBeCalled()->willReturn($project);
         $project->organizationId()->shouldBeCalled()->willReturn($organizationId);
         $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
+        $query->assigneeId()->shouldBeCalled()->willReturn('assignee-id');
+        $query->creatorId()->shouldBeCalled()->willReturn('creator-id');
+        $organization->organizationMember(UserId::generate('assignee-id'))
+            ->shouldBeCalled()->willReturn($organizationMemberId);
+        $organization->organizationMember(UserId::generate('creator-id'))
+            ->shouldBeCalled()->willReturn($organizationMemberId2);
         $organization->isOrganizationMember(UserId::generate('user-id'))->shouldBeCalled()->willReturn(true);
         $query->title()->shouldBeCalled()->willReturn('task title');
         $query->parentId()->shouldBeCalled()->willReturn('parent-id');
@@ -295,7 +344,9 @@ class CountTasksHandlerSpec extends ObjectBehavior
         TaskRepository $repository,
         Organization $organization,
         Project $project,
-        OrganizationId $organizationId
+        OrganizationId $organizationId,
+        OrganizationMemberId $organizationMemberId,
+        OrganizationMemberId $organizationMemberId2
     ) {
         $query->userId()->shouldBeCalled()->willReturn('user-id');
         $query->projectId()->shouldBeCalled()->willReturn('project-id');
@@ -303,6 +354,12 @@ class CountTasksHandlerSpec extends ObjectBehavior
             ->shouldBeCalled()->willReturn($project);
         $project->organizationId()->shouldBeCalled()->willReturn($organizationId);
         $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
+        $query->assigneeId()->shouldBeCalled()->willReturn('assignee-id');
+        $query->creatorId()->shouldBeCalled()->willReturn('creator-id');
+        $organization->organizationMember(UserId::generate('assignee-id'))
+            ->shouldBeCalled()->willReturn($organizationMemberId);
+        $organization->organizationMember(UserId::generate('creator-id'))
+            ->shouldBeCalled()->willReturn($organizationMemberId2);
         $organization->isOrganizationMember(UserId::generate('user-id'))->shouldBeCalled()->willReturn(true);
         $query->title()->shouldBeCalled()->willReturn('task title');
         $query->parentId()->shouldBeCalled()->willReturn('parent-id');
@@ -322,10 +379,18 @@ class CountTasksHandlerSpec extends ObjectBehavior
         OrganizationRepository $organizationRepository,
         Organization $organization,
         Project $project,
-        OrganizationId $organizationId
+        OrganizationId $organizationId,
+        OrganizationMemberId $organizationMemberId,
+        OrganizationMemberId $organizationMemberId2
     ) {
         $query->userId()->shouldBeCalled()->willReturn('user-id');
         $query->projectId()->shouldBeCalled()->willReturn('project-id');
+        $query->assigneeId()->shouldBeCalled()->willReturn('assignee-id');
+        $query->creatorId()->shouldBeCalled()->willReturn('creator-id');
+        $organization->organizationMember(UserId::generate('assignee-id'))
+            ->shouldBeCalled()->willReturn($organizationMemberId);
+        $organization->organizationMember(UserId::generate('creator-id'))
+            ->shouldBeCalled()->willReturn($organizationMemberId2);
         $projectRepository->projectOfId(Argument::type(ProjectId::class))
             ->shouldBeCalled()->willReturn($project);
         $project->organizationId()->shouldBeCalled()->willReturn($organizationId);
@@ -346,7 +411,9 @@ class CountTasksHandlerSpec extends ObjectBehavior
         ProjectId $parentProjectId,
         Project $parentProject,
         OrganizationId $parentOrganizationId,
-        Organization $parentOrganization
+        Organization $parentOrganization,
+        OrganizationMemberId $organizationMemberId,
+        OrganizationMemberId $organizationMemberId2
     ) {
         $query->userId()->shouldBeCalled()->willReturn('user-id');
         $query->projectId()->shouldBeCalled()->willReturn('project-id');
@@ -354,6 +421,12 @@ class CountTasksHandlerSpec extends ObjectBehavior
             ->shouldBeCalled()->willReturn($project);
         $project->organizationId()->shouldBeCalled()->willReturn($organizationId);
         $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
+        $query->assigneeId()->shouldBeCalled()->willReturn('assignee-id');
+        $query->creatorId()->shouldBeCalled()->willReturn('creator-id');
+        $organization->organizationMember(UserId::generate('assignee-id'))
+            ->shouldBeCalled()->willReturn($organizationMemberId);
+        $organization->organizationMember(UserId::generate('creator-id'))
+            ->shouldBeCalled()->willReturn($organizationMemberId2);
         $organization->isOrganizationMember(UserId::generate('user-id'))->shouldBeCalled()->willReturn(true);
         $query->title()->shouldBeCalled()->willReturn('task title');
         $query->parentId()->shouldBeCalled()->willReturn('parent-id');
