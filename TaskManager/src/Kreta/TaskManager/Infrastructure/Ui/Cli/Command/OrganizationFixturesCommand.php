@@ -38,6 +38,9 @@ class OrganizationFixturesCommand extends Command
     {
         for ($i = 0; $i < 10; ++$i) {
             $userId = UserFixturesCommand::USER_IDS[array_rand(UserFixturesCommand::USER_IDS)];
+            if ($i === 0) {
+                $userId = 'a38f8ef4-400b-4229-a5ff-712ff5f72b27';
+            }
             $command = new CreateOrganizationCommand($userId, 'Organization ' . $i, Uuid::generate());
 
             $this->commandBus->handle($command);

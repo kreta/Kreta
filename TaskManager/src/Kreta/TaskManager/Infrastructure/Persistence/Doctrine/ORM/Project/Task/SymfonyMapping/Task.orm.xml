@@ -17,6 +17,8 @@
                   use-column-prefix="false"/>
 
         <field name="description" type="string" column="description" nullable="false"/>
+        <field name="creatorId" type="organization_member_id" column="creator_id" nullable="false"/>
+        <field name="assigneeId" type="organization_member_id" column="assignee_id" nullable="false"/>
         <field name="createdOn" type="datetime" column="created_on" nullable="false"/>
         <field name="updatedOn" type="datetime" column="updated_on" nullable="false"/>
         <field name="projectId" type="project_id" column="project_id" nullable="false"/>

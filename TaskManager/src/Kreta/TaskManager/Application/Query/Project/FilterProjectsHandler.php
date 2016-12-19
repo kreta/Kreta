@@ -19,10 +19,10 @@ use Kreta\TaskManager\Domain\Model\Organization\Organization;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationId;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationRepository;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationSpecificationFactory;
-use Kreta\TaskManager\Domain\Model\Organization\UnauthorizedOrganizationActionException;
 use Kreta\TaskManager\Domain\Model\Project\Project;
 use Kreta\TaskManager\Domain\Model\Project\ProjectRepository;
 use Kreta\TaskManager\Domain\Model\Project\ProjectSpecificationFactory;
+use Kreta\TaskManager\Domain\Model\Project\UnauthorizedProjectResourceException;
 use Kreta\TaskManager\Domain\Model\User\UserId;
 
 class FilterProjectsHandler
@@ -53,7 +53,7 @@ class FilterProjectsHandler
         $organization = $this->organizationRepository->organizationOfId($organizationIds[0]);
         if ($organization instanceof Organization) {
             if (!$organization->isOrganizationMember(UserId::generate($query->userId()))) {
-                throw new UnauthorizedOrganizationActionException();
+                throw new UnauthorizedProjectResourceException();
             }
         } else {
             $organizations = $this->organizationRepository->query(
@@ -65,6 +65,9 @@ class FilterProjectsHandler
             $organizationIds = array_map(function (Organization $organization) {
                 return $organization->id();
             }, $organizations);
+        }
+        if (empty($organizationIds)) {
+            return [];
         }
 
         $projects = $this->repository->query(

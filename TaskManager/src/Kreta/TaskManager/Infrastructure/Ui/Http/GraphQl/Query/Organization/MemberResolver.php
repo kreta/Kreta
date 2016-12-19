@@ -21,17 +21,20 @@ use Kreta\TaskManager\Application\Query\Organization\OwnerOfIdQuery;
 use Kreta\TaskManager\Domain\Model\Organization\OwnerDoesNotExistException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-class MemberTypeResolver implements Resolver
+class MemberResolver implements Resolver
 {
-    private $resolver;
     private $queryBus;
     private $currentUser;
+    private $organizationResolver;
 
-    public function __construct(TokenStorageInterface $tokenStorage, Resolver $resolver, QueryBus $queryBus)
-    {
+    public function __construct(
+        TokenStorageInterface $tokenStorage,
+        QueryBus $queryBus,
+        OrganizationResolver $organizationResolver
+    ) {
         $this->queryBus = $queryBus;
-        $this->resolver = $resolver;
         $this->currentUser = $tokenStorage->getToken()->getUser()->getUsername();
+        $this->organizationResolver = $organizationResolver;
     }
 
     public function resolve($args)
@@ -48,18 +51,21 @@ class MemberTypeResolver implements Resolver
         } catch (OwnerDoesNotExistException $exception) {
         }
 
-        if (isset($result['id'])) {
-            return $this->resolver->resolve('Owner');
+        if (empty($result)) {
+            $this->queryBus->handle(
+                new OrganizationMemberOfIdQuery(
+                    $args['organizationId'],
+                    $args['organizationMemberId'],
+                    $this->currentUser
+                ),
+                $result
+            );
         }
-        $this->queryBus->handle(
-            new OrganizationMemberOfIdQuery(
-                $args['organizationId'],
-                $args['organizationMemberId'],
-                $this->currentUser
-            ),
-            $result
-        );
 
-        return $this->resolver->resolve('OrganizationMember');
+        $result['organization'] = $this->organizationResolver->resolve([
+            'id' => $args['organizationId'],
+        ]);
+
+        return $result;
     }
 }

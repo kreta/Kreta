@@ -53,13 +53,11 @@ class MemberDTODataTransformerSpec extends ObjectBehavior
             'updated_on'   => (new \DateTimeImmutable())->format('Y-m-d'),
             'user_id'      => 'user-id',
             'organization' => [
-                [
-                    'id'         => 'organization-id',
-                    'name'       => 'Organization name',
-                    'slug'       => 'organization-name',
-                    'created_on' => (new \DateTimeImmutable())->format('Y-m-d'),
-                    'updated_on' => (new \DateTimeImmutable())->format('Y-m-d'),
-                ],
+                'id'         => 'organization-id',
+                'name'       => 'Organization name',
+                'slug'       => 'organization-name',
+                'created_on' => (new \DateTimeImmutable())->format('Y-m-d'),
+                'updated_on' => (new \DateTimeImmutable())->format('Y-m-d'),
             ],
         ]);
     }

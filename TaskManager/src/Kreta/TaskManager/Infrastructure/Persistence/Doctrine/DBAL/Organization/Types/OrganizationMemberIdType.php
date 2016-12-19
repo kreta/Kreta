@@ -17,12 +17,13 @@ namespace Kreta\TaskManager\Infrastructure\Persistence\Doctrine\DBAL\Organizatio
 use Doctrine\DBAL\Platforms\AbstractPlatform;
 use Doctrine\DBAL\Types\GuidType;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationMemberId;
+use Kreta\TaskManager\Domain\Model\Organization\OwnerId;
 
 class OrganizationMemberIdType extends GuidType
 {
     public function convertToDatabaseValue($value, AbstractPlatform $platform) : string
     {
-        if ($value instanceof OrganizationMemberId) {
+        if ($value instanceof OrganizationMemberId || $value instanceof OwnerId) {
             return $value->id();
         }
 

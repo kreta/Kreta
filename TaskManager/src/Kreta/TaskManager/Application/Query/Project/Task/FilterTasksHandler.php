@@ -63,12 +63,17 @@ class FilterTasksHandler
     {
         $userId = UserId::generate($query->userId());
         $projectIds = [ProjectId::generate($query->projectId())];
+        $assigneeIds = [];
+        $creatorIds = [];
 
         $project = $this->projectRepository->projectOfId($projectIds[0]);
         if ($project instanceof Project) {
             $organization = $this->organizationRepository->organizationOfId(
                 $project->organizationId()
             );
+            $assigneeIds = $this->addUserId($assigneeIds, $organization, $query->assigneeId());
+            $creatorIds = $this->addUserId($creatorIds, $organization, $query->creatorId());
+
             if (!$organization->isOrganizationMember($userId)) {
                 throw new UnauthorizedTaskResourceException();
             }
@@ -79,9 +84,14 @@ class FilterTasksHandler
                     $userId
                 )
             );
-            $organizationIds = array_map(function (Organization $organization) {
-                return $organization->id();
-            }, $organizations);
+
+            $organizationIds = [];
+            foreach ($organizations as $organization) {
+                $assigneeIds = $this->addUserId($assigneeIds, $organization, $query->assigneeId());
+                $creatorIds = $this->addUserId($creatorIds, $organization, $query->creatorId());
+
+                $organizationIds[] = $organization->id();
+            }
             $projects = $this->projectRepository->query(
                 $this->projectSpecificationFactory->buildFilterableSpecification(
                     $organizationIds,
@@ -92,6 +102,9 @@ class FilterTasksHandler
                 return $project->id();
             }, $projects);
         }
+        if (empty($projectIds)) {
+            return [];
+        }
 
         $tasks = $this->repository->query(
             $this->specificationFactory->buildFilterableSpecification(
@@ -100,6 +113,8 @@ class FilterTasksHandler
                 $this->parentTask($query->parentId(), $userId),
                 null === $query->priority() ? null : new TaskPriority($query->priority()),
                 null === $query->progress() ? null : new TaskProgress($query->progress()),
+                $assigneeIds,
+                $creatorIds,
                 $query->offset(),
                 $query->limit()
             )
@@ -110,6 +125,15 @@ class FilterTasksHandler
 
             return $this->dataTransformer->read();
         }, $tasks);
+    }
+
+    private function addUserId($userIds, Organization $organization, ? string $userId)
+    {
+        if (null !== $userId) {
+            $userIds[] = $organization->organizationMember(UserId::generate($userId));
+        }
+
+        return $userIds;
     }
 
     private function parentTask(? string $parentId, UserId $userId) : ? TaskId

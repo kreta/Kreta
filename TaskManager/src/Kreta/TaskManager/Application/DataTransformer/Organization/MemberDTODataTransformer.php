@@ -37,13 +37,11 @@ class MemberDTODataTransformer implements MemberDataTransformer
             'updated_on'   => $this->member->updatedOn()->format('Y-m-d'),
             'user_id'      => $this->member->userId()->id(),
             'organization' => [
-                [
-                    'id'         => $this->member->organization()->id()->id(),
-                    'name'       => $this->member->organization()->name()->name(),
-                    'slug'       => $this->member->organization()->slug()->slug(),
-                    'created_on' => $this->member->organization()->createdOn()->format('Y-m-d'),
-                    'updated_on' => $this->member->organization()->updatedOn()->format('Y-m-d'),
-                ],
+                'id'         => $this->member->organization()->id()->id(),
+                'name'       => $this->member->organization()->name()->name(),
+                'slug'       => $this->member->organization()->slug()->slug(),
+                'created_on' => $this->member->organization()->createdOn()->format('Y-m-d'),
+                'updated_on' => $this->member->organization()->updatedOn()->format('Y-m-d'),
             ],
         ];
     }

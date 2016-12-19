@@ -17,23 +17,22 @@ namespace Kreta\TaskManager\Infrastructure\Ui\Http\GraphQl\Query\Project\Task;
 use Kreta\SharedKernel\Application\QueryBus;
 use Kreta\SharedKernel\Http\GraphQl\Resolver;
 use Kreta\TaskManager\Application\Query\Project\Task\TaskOfIdQuery;
-use Kreta\TaskManager\Infrastructure\Ui\Http\GraphQl\Query\Project\ProjectResolver;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class TaskResolver implements Resolver
 {
     private $queryBus;
     private $currentUser;
-    private $projectResolver;
+    private $taskBuilderResolver;
 
     public function __construct(
         TokenStorageInterface $tokenStorage,
         QueryBus $queryBus,
-        ProjectResolver $projectResolver
+        TaskBuilderResolver $taskBuilderResolver
     ) {
         $this->queryBus = $queryBus;
         $this->currentUser = $tokenStorage->getToken()->getUser()->getUsername();
-        $this->projectResolver = $projectResolver;
+        $this->taskBuilderResolver = $taskBuilderResolver;
     }
 
     public function resolve($args)
@@ -46,11 +45,6 @@ class TaskResolver implements Resolver
             $result
         );
 
-        $result['project'] = $this->projectResolver->resolve([
-            'id' => $result['project_id'],
-        ]);
-        unset($result['project_id']);
-
-        return $result;
+        return $this->taskBuilderResolver->resolve(['task' => $result]);
     }
 }

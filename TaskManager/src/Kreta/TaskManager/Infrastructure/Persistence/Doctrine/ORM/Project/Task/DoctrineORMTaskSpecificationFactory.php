@@ -28,6 +28,8 @@ class DoctrineORMTaskSpecificationFactory implements TaskSpecificationFactory
         ? TaskId $parentId,
         ? TaskPriority $priority,
         ? TaskProgress $progress,
+        array $assigneeIds = [],
+        array $creatorIds = [],
         int $offset = 0,
         int $limit = -1
     ) {
@@ -41,6 +43,8 @@ class DoctrineORMTaskSpecificationFactory implements TaskSpecificationFactory
             $parentId,
             $priority,
             $progress,
+            $assigneeIds,
+            $creatorIds,
             $offset,
             $limit
         );

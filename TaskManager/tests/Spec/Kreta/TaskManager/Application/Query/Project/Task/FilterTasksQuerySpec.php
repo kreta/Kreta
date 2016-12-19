@@ -28,6 +28,8 @@ class FilterTasksQuerySpec extends ObjectBehavior
         $this->parentId()->shouldReturn(null);
         $this->priority()->shouldReturn(null);
         $this->progress()->shouldReturn(null);
+        $this->assigneeId()->shouldReturn(null);
+        $this->creatorId()->shouldReturn(null);
     }
 
     function it_can_be_created_with_title()
@@ -41,6 +43,8 @@ class FilterTasksQuerySpec extends ObjectBehavior
         $this->parentId()->shouldReturn(null);
         $this->priority()->shouldReturn(null);
         $this->progress()->shouldReturn(null);
+        $this->assigneeId()->shouldReturn(null);
+        $this->creatorId()->shouldReturn(null);
     }
 
     function it_can_be_created_with_priority()
@@ -54,6 +58,8 @@ class FilterTasksQuerySpec extends ObjectBehavior
         $this->parentId()->shouldReturn(null);
         $this->priority()->shouldReturn('low');
         $this->progress()->shouldReturn(null);
+        $this->assigneeId()->shouldReturn(null);
+        $this->creatorId()->shouldReturn(null);
     }
 
     function it_can_be_created_with_progress()
@@ -67,6 +73,8 @@ class FilterTasksQuerySpec extends ObjectBehavior
         $this->parentId()->shouldReturn(null);
         $this->priority()->shouldReturn(null);
         $this->progress()->shouldReturn('todo');
+        $this->assigneeId()->shouldReturn(null);
+        $this->creatorId()->shouldReturn(null);
     }
 
     function it_can_be_created_with_parent_id()
@@ -80,6 +88,8 @@ class FilterTasksQuerySpec extends ObjectBehavior
         $this->parentId()->shouldReturn('parent-id');
         $this->priority()->shouldReturn(null);
         $this->progress()->shouldReturn(null);
+        $this->assigneeId()->shouldReturn(null);
+        $this->creatorId()->shouldReturn(null);
     }
 
     function it_can_be_created_with_project_id()
@@ -94,5 +104,39 @@ class FilterTasksQuerySpec extends ObjectBehavior
         $this->projectId()->shouldReturn('project-id');
         $this->priority()->shouldReturn(null);
         $this->progress()->shouldReturn(null);
+        $this->assigneeId()->shouldReturn(null);
+        $this->creatorId()->shouldReturn(null);
+    }
+
+    function it_can_be_created_with_assignee_id()
+    {
+        $this->beConstructedWith('user-id', 0, -1, null, null, null, null, null, 'assignee-id');
+        $this->shouldHaveType(FilterTasksQuery::class);
+        $this->userId()->shouldReturn('user-id');
+        $this->offset()->shouldReturn(0);
+        $this->limit()->shouldReturn(-1);
+        $this->title()->shouldReturn(null);
+        $this->parentId()->shouldReturn(null);
+        $this->projectId()->shouldReturn(null);
+        $this->priority()->shouldReturn(null);
+        $this->progress()->shouldReturn(null);
+        $this->assigneeId()->shouldReturn('assignee-id');
+        $this->creatorId()->shouldReturn(null);
+    }
+
+    function it_can_be_created_with_creator_id()
+    {
+        $this->beConstructedWith('user-id', 0, -1, null, null, null, null, null, null, 'creator-id');
+        $this->shouldHaveType(FilterTasksQuery::class);
+        $this->userId()->shouldReturn('user-id');
+        $this->offset()->shouldReturn(0);
+        $this->limit()->shouldReturn(-1);
+        $this->title()->shouldReturn(null);
+        $this->parentId()->shouldReturn(null);
+        $this->projectId()->shouldReturn(null);
+        $this->priority()->shouldReturn(null);
+        $this->progress()->shouldReturn(null);
+        $this->assigneeId()->shouldReturn(null);
+        $this->creatorId()->shouldReturn('creator-id');
     }
 }

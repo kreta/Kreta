@@ -29,18 +29,18 @@ Task:
             id:
                 type: "ID!"
                 description: "The id of the task."
-#            assignee:
-#                type: "Member!"
-#                description: "The assignee of the task."
+            assignee:
+                type: "Member!"
+                description: "The assignee of the task."
 #            children_tasks:
 #                type: "TaskConnection"
 #                description: "The collection of children tasks."
             created_on:
                 type: "String!"
                 description: "The created on of the project."
-#            creator:
-#                type: "Member!"
-#                description: "The creator of the task."
+            creator:
+                type: "Member!"
+                description: "The creator of the task."
             description:
                 type: "String!"
                 description: "The description of the task."
