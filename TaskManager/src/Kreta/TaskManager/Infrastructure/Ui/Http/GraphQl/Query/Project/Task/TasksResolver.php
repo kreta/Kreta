@@ -17,6 +17,8 @@ namespace Kreta\TaskManager\Infrastructure\Ui\Http\GraphQl\Query\Project\Task;
 use Kreta\SharedKernel\Application\QueryBus;
 use Kreta\SharedKernel\Http\GraphQl\Relay\ConnectionBuilder;
 use Kreta\SharedKernel\Http\GraphQl\Resolver;
+use Kreta\TaskManager\Application\Query\Organization\OrganizationMemberOfIdQuery;
+use Kreta\TaskManager\Application\Query\Project\ProjectOfIdQuery;
 use Kreta\TaskManager\Application\Query\Project\Task\CountTasksQuery;
 use Kreta\TaskManager\Application\Query\Project\Task\FilterTasksQuery;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
@@ -26,18 +28,15 @@ class TasksResolver implements Resolver
     private $connectionBuilder;
     private $queryBus;
     private $currentUser;
-    private $taskBuilderResolver;
 
     public function __construct(
         TokenStorageInterface $tokenStorage,
         ConnectionBuilder $connectionBuilder,
-        QueryBus $queryBus,
-        TaskBuilderResolver $taskBuilderResolver
+        QueryBus $queryBus
     ) {
         $this->connectionBuilder = $connectionBuilder;
         $this->queryBus = $queryBus;
         $this->currentUser = $tokenStorage->getToken()->getUser()->getUsername();
-        $this->taskBuilderResolver = $taskBuilderResolver;
     }
 
     public function resolve($args)
@@ -83,7 +82,8 @@ class TasksResolver implements Resolver
         );
 
         foreach ($result as $key => $task) {
-            $result[$key] = $this->taskBuilderResolver->resolve(['task' => $task]);
+            $result[$key] = $this->resolveProject($task);
+            $result[$key] = $this->resolveMember($result[$key]);
         }
 
         $connection = $this->connectionBuilder->fromArraySlice(
@@ -99,7 +99,42 @@ class TasksResolver implements Resolver
         return $connection;
     }
 
-    private function buildPagination($args)
+    private function resolveProject(array $result) : array
+    {
+        $this->queryBus->handle(
+            new ProjectOfIdQuery(
+                $result['project_id'],
+                $this->currentUser
+            ),
+            $result['project']
+        );
+        unset($result['project_id']);
+
+        return $result;
+    }
+
+    private function resolveMember(array $result) : array
+    {
+        foreach (TaskBuilderResolver::MEMBER_TYPES as $memberType) {
+            $this->queryBus->handle(
+                new OrganizationMemberOfIdQuery(
+                    $result['project']['organization_id'],
+                    $result[$memberType . '_id'],
+                    $this->currentUser
+                ),
+                $result[$memberType]
+            );
+
+            $result[$memberType]['organizationId'] = $result['project']['organization_id'];
+            $result[$memberType]['ownerId'] = $result[$memberType . '_id'];
+            $result[$memberType]['organizationMemberId'] = $result[$memberType . '_id'];
+            unset($result[$memberType . '_id']);
+        }
+
+        return $result;
+    }
+
+    private function buildPagination($args) : array
     {
         $this->queryBus->handle(
             new CountTasksQuery(

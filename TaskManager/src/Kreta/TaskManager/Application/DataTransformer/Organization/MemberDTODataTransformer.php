@@ -32,10 +32,9 @@ class MemberDTODataTransformer implements MemberDataTransformer
         }
 
         return [
-            'id'           => $this->member->id()->id(),
+            'id'           => $this->member->userId()->id(),
             'created_on'   => $this->member->createdOn()->format('Y-m-d'),
             'updated_on'   => $this->member->updatedOn()->format('Y-m-d'),
-            'user_id'      => $this->member->userId()->id(),
             'organization' => [
                 'id'         => $this->member->organization()->id()->id(),
                 'name'       => $this->member->organization()->name()->name(),

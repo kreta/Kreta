@@ -29,15 +29,6 @@ const Actions = {
         project: data.response.project,
       });
     });
-
-    IssueApi.getIssues({project: projectId})
-      .then((response) => {
-        dispatch({
-          type: ActionTypes.CURRENT_PROJECT_ISSUES_RECEIVED,
-          issues: response.data,
-          status: response.status
-        });
-      });
   },
   selectCurrentIssue: (issue) => {
     if (typeof issue === 'object' || issue === null) {

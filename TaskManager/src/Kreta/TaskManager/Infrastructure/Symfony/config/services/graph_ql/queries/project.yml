@@ -13,6 +13,7 @@ services:
             - "@security.token_storage"
             - "@kreta.task_manager.graphql.connection_builder"
             - "@kreta.task_manager.query_bus"
+            - "@kreta.task_manager.graph_ql.query_resolver.filter_tasks"
         tags:
             - { name: overblog_graphql.resolver, alias: "projects", method: "resolve" }
 
@@ -22,5 +23,6 @@ services:
             - "@security.token_storage"
             - "@kreta.task_manager.query_bus"
             - "@kreta.task_manager.graph_ql.query_resolver.organization_of_id"
+            - "@kreta.task_manager.graph_ql.query_resolver.filter_tasks"
         tags:
             - { name: overblog_graphql.resolver, alias: "project", method: "resolve" }

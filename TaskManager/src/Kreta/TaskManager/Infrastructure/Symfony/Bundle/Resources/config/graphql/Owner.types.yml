@@ -12,7 +12,6 @@
 #     id: ID!
 #     created_on: String!
 #     updated_on: String!
-#     user_id: String!
 #     organization: Organization!
 #   }
 
@@ -30,9 +29,6 @@ Owner:
             updated_on:
                 type: "String!"
                 description: "The updated on of the member."
-            user_id:
-                type: "String!"
-                description: "The user id associate with the member."
             organization:
                 type: "Organization!"
                 description: "The organization associate with the member."

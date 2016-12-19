@@ -34,7 +34,6 @@ class TaskBuilderResolver implements Resolver
     public function resolve($args)
     {
         $result = $args['task'];
-//        var_dump($result);die;
 
         $result['project'] = $this->projectResolver->resolve([
             'id' => $result['project_id'],

@@ -18,10 +18,6 @@ class GraphQl {
       throw new TypeError('GraphQl is an abstract class, it cannot be instantiate directly');
     }
 
-    this.accessToken = () => (
-      localStorage.token
-    );
-
     this.uri = () => (
       `${this.baseUrl()}?access_token=${this.accessToken()}`
     );
@@ -39,6 +35,10 @@ class GraphQl {
     };
 
     this.relayNetworkLayer = new DefaultNetworkLayer(this.uri());
+  }
+
+  accessToken() {
+    return localStorage.token;
   }
 
   baseUrl() {
