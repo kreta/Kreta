@@ -61,6 +61,9 @@ class CountProjectsHandler
                 return $organization->id();
             }, $organizations);
         }
+        if (empty($organizationIds)) {
+            return 0;
+        }
 
         return $this->repository->count(
             $this->specificationFactory->buildFilterableSpecification(
