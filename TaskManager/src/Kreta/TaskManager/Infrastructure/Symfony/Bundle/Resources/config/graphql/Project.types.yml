@@ -45,4 +45,6 @@ Project:
             tasks:
                 type: "TaskConnection!"
                 description: "The collection of the tasks of the project"
+                argsBuilder: ConnectionArgs
+                resolve: '@=resolver("project_tasks", [value["id"], args])'
         interfaces: [Node]

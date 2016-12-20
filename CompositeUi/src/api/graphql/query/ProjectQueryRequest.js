@@ -22,6 +22,17 @@ const query = Relay.QL`
         id,
         name,
         slug
+      },
+      tasks {
+        edges {
+          node {
+            id,
+            title,
+            assignee {
+              id
+            }
+          }
+        }
       }
     }
   }

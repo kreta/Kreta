@@ -13,8 +13,10 @@ services:
             - "@security.token_storage"
             - "@kreta.task_manager.graphql.connection_builder"
             - "@kreta.task_manager.query_bus"
+            - "@kreta.task_manager.graph_ql.query_resolver.task_builder"
         tags:
             - { name: overblog_graphql.resolver, alias: "tasks", method: "resolve" }
+            - { name: overblog_graphql.resolver, alias: "project_tasks", method: "resolveByProject" }
 
     kreta.task_manager.graph_ql.query_resolver.task_of_id:
         class: Kreta\TaskManager\Infrastructure\Ui\Http\GraphQl\Query\Project\Task\TaskResolver
@@ -22,10 +24,9 @@ services:
             - "@security.token_storage"
             - "@kreta.task_manager.query_bus"
             - "@kreta.task_manager.graph_ql.query_resolver.task_builder"
-            - "@kreta.task_manager.graph_ql.query_resolver.project_of_id"
-            - "@kreta.task_manager.graph_ql.query_resolver.member_of_id"
         tags:
             - { name: overblog_graphql.resolver, alias: "task", method: "resolve" }
+
 
     kreta.task_manager.graph_ql.query_resolver.task_builder:
         class: Kreta\TaskManager\Infrastructure\Ui\Http\GraphQl\Query\Project\Task\TaskBuilderResolver

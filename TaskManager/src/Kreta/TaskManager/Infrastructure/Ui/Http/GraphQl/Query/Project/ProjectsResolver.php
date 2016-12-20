@@ -17,10 +17,9 @@ namespace Kreta\TaskManager\Infrastructure\Ui\Http\GraphQl\Query\Project;
 use Kreta\SharedKernel\Application\QueryBus;
 use Kreta\SharedKernel\Http\GraphQl\Relay\ConnectionBuilder;
 use Kreta\SharedKernel\Http\GraphQl\Resolver;
-use Kreta\TaskManager\Application\Query\Organization\OrganizationOfIdQuery;
 use Kreta\TaskManager\Application\Query\Project\CountProjectsQuery;
 use Kreta\TaskManager\Application\Query\Project\FilterProjectsQuery;
-use Kreta\TaskManager\Infrastructure\Ui\Http\GraphQl\Query\Project\Task\TasksResolver;
+use Kreta\TaskManager\Infrastructure\Ui\Http\GraphQl\Query\Organization\OrganizationResolver;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class ProjectsResolver implements Resolver
@@ -28,18 +27,25 @@ class ProjectsResolver implements Resolver
     private $connectionBuilder;
     private $queryBus;
     private $currentUser;
-    private $tasksResolver;
+    private $organizationResolver;
 
     public function __construct(
         TokenStorageInterface $tokenStorage,
         ConnectionBuilder $connectionBuilder,
         QueryBus $queryBus,
-        TasksResolver $tasksResolver
+        OrganizationResolver $organizationResolver
     ) {
         $this->connectionBuilder = $connectionBuilder;
         $this->queryBus = $queryBus;
         $this->currentUser = $tokenStorage->getToken()->getUser()->getUsername();
-        $this->tasksResolver = $tasksResolver;
+        $this->organizationResolver = $organizationResolver;
+    }
+
+    public function resolveByOrganization($organizationId, $args)
+    {
+        $args['organizationId'] = $organizationId;
+
+        return $this->resolve($args);
     }
 
     public function resolve($args)
@@ -65,18 +71,9 @@ class ProjectsResolver implements Resolver
         );
 
         foreach ($result as $key => $project) {
-            $result[$key]['tasks'] = $this->tasksResolver->resolve([
-                'projectId' => $project['id'],
+            $result[$key]['organization'] = $this->organizationResolver->resolve([
+                'id' => $args['organizationId'],
             ]);
-
-            $this->queryBus->handle(
-                new OrganizationOfIdQuery(
-                    $project['organization_id'],
-                    $this->currentUser
-                ),
-                $result[$key]['organization']
-            );
-            unset($result[$key]['organization_id']);
         }
 
         $connection = $this->connectionBuilder->fromArraySlice(

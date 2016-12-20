@@ -128,11 +128,11 @@ class IssueList extends React.Component {
 
   getIssuesEl() {
     const {currentProject, params} = this.props;
-    return currentProject.issues.map((issue, index) => (
-      <IssuePreview issue={issue}
+    return currentProject.tasks.edges.map((task, index) => (
+      <IssuePreview issue={task.node}
                     key={index}
-                    onClick={this.selectCurrentIssue.bind(this, issue)}
-                    selected={params.issueId === issue.id}/>
+                    onClick={this.selectCurrentIssue.bind(this, task.node)}
+                    selected={params.issueId === task.node.id}/>
     ));
   }
 

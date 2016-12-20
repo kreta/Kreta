@@ -47,5 +47,7 @@ Organization:
                 description: "The updated on of the organization."
             projects:
                 type: "ProjectConnection!"
-                description: "The collection of the projects of the organization"
+                description: "The collection of the projects of the organization."
+                argsBuilder: ConnectionArgs
+                resolve: '@=resolver("organization_projects", [value["id"], args])'
         interfaces: [Node]

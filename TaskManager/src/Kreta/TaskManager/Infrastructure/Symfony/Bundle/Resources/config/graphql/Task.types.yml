@@ -48,7 +48,7 @@ Task:
                 type: "Task"
                 description: "The parent task to which the task belongs."
             project:
-                type: "Project"
+                type: "Project!"
                 description: "The project to which the task belongs."
             title:
                 type: "String!"

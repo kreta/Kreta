@@ -13,7 +13,7 @@ import ActionTypes from './../constants/ActionTypes';
 const initialState = {
   errors: [],
   fetchingIssues: true,
-  fetchingProjects: true,
+  fetchingProject: true,
   filters: [],
   issues: [],
   project: null,
@@ -23,13 +23,10 @@ const initialState = {
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     case ActionTypes.CURRENT_PROJECT_FETCHING: {
-      return {...state, fetchingProjects: true, fetchingIssues: true};
+      return {...state, fetchingProject: true};
     }
     case ActionTypes.CURRENT_PROJECT_RECEIVED: {
-      return {...state, project: action.project, fetchingProjects: false};
-    }
-    case ActionTypes.CURRENT_PROJECT_ISSUES_RECEIVED: {
-      return {...state, issues: action.issues, fetchingIssues: false};
+      return {...state, project: action.project, fetchingProject: false};
     }
     case ActionTypes.CURRENT_PROJECT_SELECTED_ISSUE_FETCHING: {
       return {...state, selectedIssue: null};
