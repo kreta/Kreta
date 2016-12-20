@@ -16,6 +16,8 @@
 #     creator: Member!
 #     description: String!
 #     parent_task: Task
+#     priority: TaskPriority!
+#     progress: TaskProgress!
 #     project: Project!
 #     title: String!
 #     updated_on: String!
@@ -47,6 +49,12 @@ Task:
             parent_task:
                 type: "Task"
                 description: "The parent task to which the task belongs."
+            priority:
+                type: "TaskPriority!"
+                description: "The priority of the task."
+            progress:
+                type: "TaskProgress!"
+                description: "The progress of the task."
             project:
                 type: "Project!"
                 description: "The project to which the task belongs."
