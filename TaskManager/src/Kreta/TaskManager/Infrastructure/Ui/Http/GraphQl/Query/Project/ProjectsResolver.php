@@ -72,7 +72,7 @@ class ProjectsResolver implements Resolver
 
         foreach ($result as $key => $project) {
             $result[$key]['organization'] = $this->organizationResolver->resolve([
-                'id' => $args['organizationId'],
+                'id' => $project['organization_id'],
             ]);
         }
 
