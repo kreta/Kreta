@@ -12,8 +12,7 @@ import ActionTypes from './../constants/ActionTypes';
 
 const initialState = {
   errors: [],
-  fetchingIssues: true,
-  fetchingProject: true,
+  waiting: true,
   filters: [],
   issues: [],
   project: null,
@@ -23,13 +22,11 @@ const initialState = {
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     case ActionTypes.CURRENT_PROJECT_FETCHING: {
-      return {...state, fetchingProject: true};
+      return {...state, waiting: true};
     }
     case ActionTypes.CURRENT_PROJECT_RECEIVED: {
-      return {...state, project: action.project, fetchingProject: false};
-    }
-    case ActionTypes.CURRENT_PROJECT_SELECTED_ISSUE_FETCHING: {
-      return {...state, selectedIssue: null};
+      initialState.project = action.project;
+      return {...state, project: action.project, waiting: false};
     }
     case ActionTypes.CURRENT_PROJECT_ISSUE_CREATING: {
       return {...state, errors: []};
@@ -58,7 +55,15 @@ export default function reducer(state = initialState, action = {}) {
       return {...state, errors: action.errors};
     }
     case ActionTypes.CURRENT_PROJECT_SELECTED_ISSUE_CHANGED: {
-      return {...state, selectedIssue: action.selectedIssue};
+      let selectedTaskIndex = 0;
+
+      initialState.project._tasks4hn9we.edges.map((task, index) => {
+        if (task.node.id === action.selectedIssue) {
+          selectedTaskIndex = index;
+        }
+      });
+
+      return {...state, selectedIssue: initialState.project._tasks4hn9we.edges[selectedTaskIndex].node};
     }
     default: {
       return state;

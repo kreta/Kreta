@@ -112,10 +112,10 @@ class IssueList extends React.Component {
 //    this.setState({filters: [assigneeFilters, priorityFilters, statusFilters]});
 //  }
 
-  selectCurrentIssue(issue) {
+  selectCurrentIssue(task) {
     const {dispatch, params} = this.props;
     dispatch(
-      routeActions.push(`/project/${params.projectId}/issue/${issue.id}`)
+      routeActions.push(`/project/${params.projectId}/issue/${task.id}`)
     );
   }
 
@@ -128,7 +128,8 @@ class IssueList extends React.Component {
 
   getIssuesEl() {
     const {currentProject, params} = this.props;
-    return currentProject.tasks.edges.map((task, index) => (
+
+    return currentProject.project._tasks4hn9we.edges.map((task, index) => (
       <IssuePreview issue={task.node}
                     key={index}
                     onClick={this.selectCurrentIssue.bind(this, task.node)}
@@ -138,7 +139,7 @@ class IssueList extends React.Component {
 
   render() {
     const {currentProject, params} = this.props;
-    if (currentProject.fetchingProjects || currentProject.fetchingIssues) {
+    if (currentProject.waiting) {
       return <LoadingSpinner/>;
     }
     return (
@@ -151,12 +152,12 @@ class IssueList extends React.Component {
               <Icon color="green" glyph={SettingsIcon} size="small"/>Settings
             </InlineLink>
             <Link to={`/project/${params.projectId}/issue/new`}>
-              <Button color="green">New issue</Button>
+              <Button color="green">New task</Button>
             </Link>
           </PageHeader>
           <Filter filters={currentProject.filters}
                   onFilterSelected={this.filterIssues.bind(this)}/>
-          {this.getIssuesEl()}
+           {this.getIssuesEl()}
         </ContentMiddleLayout>
         <ContentRightLayout isOpen={this.props.children !== null}
                             onRequestClose={this.hideIssue.bind(this)}>

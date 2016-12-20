@@ -21,33 +21,57 @@ import {Row, RowColumn} from './../../component/Grid';
 import SelectorOption from './../../component/SelectorOption';
 import Thumbnail from './../../component/Thumbnail';
 
-@connect(state => ({issue: state.currentProject.selectedIssue}))
+@connect(state => ({task: state.currentProject.selectedIssue}))
 class Show extends React.Component {
+  assignee(task) {
+    return !task.assignee.first_name ? 'Dummy assignee' : `${task.assignee.first_name} ${task.assignee.last_name}`;
+  }
+
+  creator(task) {
+    return !task.creator.first_name ? 'Dummy creator' : `${task.creator.first_name} ${task.creator.last_name}`;
+  }
 
   render() {
-    const {issue, params} = this.props;
-    if (!issue) {
-      return <div className="issue-show"><LoadingSpinner/></div>;
+    const {task, params} = this.props;
+
+    if (!task) {
+      return (
+        <div className="issue-show">
+          <LoadingSpinner/>
+        </div>
+      );
     }
+
     return (
       <div>
         <Row>
           <RowColumn>
-            <h1 className="issue-show__title">{issue.title}</h1>
-            <p className="issue-show__description">{issue.description}</p>
+            <h1 className="issue-show__title">{task.title}</h1>
+            <p className="issue-show__description">{task.description}</p>
           </RowColumn>
         </Row>
         <Row className="issue-show__fields">
           <RowColumn small={6}>
             <SelectorOption alignLeft
                             label="Assignee"
-                            text={`${issue.assignee.first_name} ${issue.assignee.last_name}`}
-                            thumbnail={<Thumbnail image={null}
-                                                  text={`${issue.assignee.first_name} ${issue.assignee.last_name}`}/>}
+                            text={this.assignee(task)}
+                            thumbnail={<Thumbnail image={null} text={this.assignee(task)}/>}
                             value="1"/>
           </RowColumn>
           <RowColumn small={6}>
-            <SelectorOption alignLeft label="Priority" left text="High" value="1"/>
+            <SelectorOption alignLeft
+                            label="Creator"
+                            text={this.creator(task)}
+                            thumbnail={<Thumbnail image={null} text={this.creator(task)}/>}
+                            value="1"/>
+          </RowColumn>
+        </Row>
+        <Row className="issue-show__fields">
+          <RowColumn small={6}>
+            <SelectorOption alignLeft label="Progress" left text={task.progress} value="1"/>
+          </RowColumn>
+          <RowColumn small={6}>
+            <SelectorOption alignLeft label="Priority" left text={task.priority} value="1"/>
           </RowColumn>
         </Row>
         <Row>

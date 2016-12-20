@@ -27,7 +27,16 @@ const query = Relay.QL`
         edges {
           node {
             id,
-            title
+            title,
+            description,
+            progress,
+            priority,
+            assignee {
+              id
+            },
+            creator {
+              id
+            }
           }
         }
       }

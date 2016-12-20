@@ -30,28 +30,12 @@ const Actions = {
       });
     });
   },
-  selectCurrentIssue: (issue) => {
-    if (typeof issue === 'object' || issue === null) {
-      return {
-        type: ActionTypes.CURRENT_PROJECT_SELECTED_ISSUE_CHANGED,
-        selectedIssue: issue
-      };
+  selectCurrentIssue: (issue) => (
+    {
+      type: ActionTypes.CURRENT_PROJECT_SELECTED_ISSUE_CHANGED,
+      selectedIssue: issue
     }
-
-    return (dispatch) => {
-      dispatch({
-        type: ActionTypes.CURRENT_PROJECT_SELECTED_ISSUE_FETCHING
-      });
-      IssueApi.getIssue(issue)
-        .then((response) => {
-          dispatch({
-            type: ActionTypes.CURRENT_PROJECT_SELECTED_ISSUE_CHANGED,
-            selectedIssue: response.data,
-            status: response.status
-          });
-        });
-    };
-  },
+  ),
   createIssue: (issueData) => (dispatch) => {
     dispatch({
       type: ActionTypes.CURRENT_PROJECT_ISSUE_CREATING
