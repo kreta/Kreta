@@ -23,14 +23,11 @@ const query = Relay.QL`
         name,
         slug
       },
-      tasks {
+      tasks(first: -1) {
         edges {
           node {
             id,
-            title,
-            assignee {
-              id
-            }
+            title
           }
         }
       }
