@@ -47,6 +47,13 @@ class TasksResolver implements Resolver
         return $this->resolve($args);
     }
 
+    public function resolveByParent($parentId, $args)
+    {
+        $args['parentId'] = $parentId;
+
+        return $this->resolve($args);
+    }
+
     public function resolve($args)
     {
         if (!isset($args['title'])) {

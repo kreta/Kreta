@@ -39,6 +39,13 @@ class MemberResolver implements Resolver
 
     public function resolve($args)
     {
+        if (!$args['ownerId'] && !$args['organizationMemberId']) {
+            return null;
+        }
+        if (null === $args['ownerId']) {
+            $args['ownerId'] = '';
+        }
+
         try {
             $this->queryBus->handle(
                 new OwnerOfIdQuery(

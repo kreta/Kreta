@@ -17,6 +17,7 @@ services:
         tags:
             - { name: overblog_graphql.resolver, alias: "tasks", method: "resolve" }
             - { name: overblog_graphql.resolver, alias: "project_tasks", method: "resolveByProject" }
+            - { name: overblog_graphql.resolver, alias: "task_children_tasks", method: "resolveByParent" }
 
     kreta.task_manager.graph_ql.query_resolver.task_of_id:
         class: Kreta\TaskManager\Infrastructure\Ui\Http\GraphQl\Query\Project\Task\TaskResolver
@@ -26,6 +27,7 @@ services:
             - "@kreta.task_manager.graph_ql.query_resolver.task_builder"
         tags:
             - { name: overblog_graphql.resolver, alias: "task", method: "resolve" }
+            - { name: overblog_graphql.resolver, alias: "task_parent_task", method: "resolveByParent" }
 
 
     kreta.task_manager.graph_ql.query_resolver.task_builder:

@@ -45,6 +45,13 @@ class TaskResolver implements Resolver
             $result
         );
 
-        return $this->taskBuilderResolver->resolve($result);
+        $result = $this->taskBuilderResolver->resolve($result);
+
+        return $result;
+    }
+
+    public function resolveByParent($parentId)
+    {
+        return $this->resolve(['id' => $parentId]);
     }
 }
