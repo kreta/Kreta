@@ -72,7 +72,7 @@ class List extends React.Component {
   }
 
   goToShortcutLink(index) {
-    const shortcutLinks = ['/', '/issue/new'];
+    const shortcutLinks = ['/', '/task/new'];
     this.props.dispatch(
       routeActions.push(
         `/project/${this.state.filteredProjects[this.state.selectedProject].node.id}${shortcutLinks[index]}`

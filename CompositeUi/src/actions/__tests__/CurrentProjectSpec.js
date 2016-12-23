@@ -20,23 +20,23 @@ describe('Current project actions', () => {
 
   });
 
-  it('changes selected issue', async () => {
+  it('changes selected task', async () => {
 
   });
 
-  it('creates an issue', async() => {
+  it('creates an task', async() => {
 
   });
 
-  it('it handles errors on invalid issue creation attempt', async () => {
+  it('it handles errors on invalid task creation attempt', async () => {
 
   });
 
-  it('updates an issue', async() => {
+  it('updates an task', async() => {
 
   });
 
-  it('filters issues', async() => {
+  it('filters tasks', async() => {
 
   });
 

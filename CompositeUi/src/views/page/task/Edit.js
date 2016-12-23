@@ -12,17 +12,17 @@ import {connect} from 'react-redux';
 import React from 'react';
 
 import ProjectActions from './../../../actions/CurrentProject';
-import IssueEdit from './../../form/IssueEdit';
+import TaskEdit from './../../form/TaskEdit';
 
 @connect(state => ({currentProject: state.currentProject}))
 class Show extends React.Component {
-  updateIssue(issue) {
-    this.props.dispatch(ProjectActions.updateIssue(issue));
+  updateTask(task) {
+    this.props.dispatch(ProjectActions.updateTask(task));
   }
 
   render() {
     return (
-      <IssueEdit onSubmit={this.updateIssue.bind(this)}/>
+      <TaskEdit onSubmit={this.updateTask.bind(this)}/>
     );
   }
 }

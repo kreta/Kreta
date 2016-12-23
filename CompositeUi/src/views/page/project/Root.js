@@ -17,27 +17,27 @@ import {connect} from 'react-redux';
 class Root extends React.Component {
   componentDidMount() {
     this.props.dispatch(CurrentProjectActions.fetchProject(this.props.params.projectId));
-    if (typeof this.props.params.issueId !== 'undefined') {
-      this.props.dispatch(CurrentProjectActions.selectCurrentIssue(this.props.params.issueId));
+    if (typeof this.props.params.taskId !== 'undefined') {
+      this.props.dispatch(CurrentProjectActions.selectCurrentTask(this.props.params.taskId));
     } else {
-      this.props.dispatch(CurrentProjectActions.selectCurrentIssue(null));
+      this.props.dispatch(CurrentProjectActions.selectCurrentTask(null));
     }
   }
 
   componentDidUpdate(prevProps) {
     const oldProjectId = prevProps.params.projectId,
       newProjectId = this.props.params.projectId,
-      oldIssueId = prevProps.params.issueId,
-      newIssueId = this.props.params.issueId;
+      oldTaskId = prevProps.params.taskId,
+      newTaskId = this.props.params.taskId;
 
     if (newProjectId !== oldProjectId) {
       this.props.dispatch(CurrentProjectActions.fetchProject(newProjectId));
     }
 
-    if (newIssueId !== oldIssueId && typeof newIssueId !== 'undefined') {
-      this.props.dispatch(CurrentProjectActions.selectCurrentIssue(newIssueId));
-    } else if (typeof newIssueId === 'undefined') {
-      this.props.dispatch(CurrentProjectActions.selectCurrentIssue(null));
+    if (newTaskId !== oldTaskId && typeof newTaskId !== 'undefined') {
+      this.props.dispatch(CurrentProjectActions.selectCurrentTask(newTaskId));
+    } else if (typeof newTaskId === 'undefined') {
+      this.props.dispatch(CurrentProjectActions.selectCurrentTask(null));
     }
   }
 

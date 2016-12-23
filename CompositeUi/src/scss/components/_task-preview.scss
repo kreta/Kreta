@@ -1,0 +1,111 @@
+// This file is part of the Kreta package.
+//
+// (c) Beñat Espiña <benatespina@gmail.com>
+// (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+//
+// For the full copyright and license information, please view the LICENSE
+// file that was distributed with this source code.
+
+@import '../base/colors';
+
+$task-preview-priority-radius: 20px;
+$task-preview-priority-stroke-width: 1px;
+$task-preview-priority-user-image-size: 32px;
+
+.task-preview {
+  align-items: center;
+  border-top: 1px solid $main-grey;
+  cursor: pointer;
+  display: flex;
+  height: 64px;
+  padding: 0 15px;
+  position: relative;
+  transition-duration: .4s;
+}
+
+.task-preview--highlight {
+  background: $light-grey;
+}
+
+.task-preview--closed {
+  opacity: .3;
+}
+
+.task-preview__title {
+  color: $main-black;
+  flex: 1;
+  font-size: 14px;
+  text-decoration: none;
+}
+
+.task-preview__icons {
+  align-items: center;
+  display: flex;
+  position: relative;
+}
+
+.task-preview__priority {
+  height: $task-preview-priority-radius * 2 + $task-preview-priority-stroke-width * 2;
+  position: absolute;
+  transform: translate(
+    -#{($task-preview-priority-radius * 2 - $task-preview-priority-user-image-size) / 2 + $task-preview-priority-stroke-width},
+    -#{($task-preview-priority-radius * 2 - $task-preview-priority-user-image-size) / 2 + $task-preview-priority-stroke-width}
+  );
+  width: $task-preview-priority-radius * 2 + $task-preview-priority-stroke-width * 2;
+}
+
+.task-preview__priority-back {
+  fill: transparent;
+  opacity: .2;
+}
+
+.task-preview__priority-front {
+  fill: transparent;
+  stroke-dasharray: #{2 * 3.14 * $task-preview-priority-radius};
+  stroke-width: 2px;
+}
+
+.task-preview__priority--todo {
+  animation: dash--todo 2s ease-in-out forwards;
+  stroke-dasharray: #{2 * 3.14 * $task-preview-priority-radius * .33};
+  stroke-dashoffset: #{2 * 3.14 * $task-preview-priority-radius * .33};
+}
+
+.task-preview__priority--doing {
+  animation: dash--doing 2s ease-in-out forwards;
+  stroke-dasharray: #{2 * 3.14 * $task-preview-priority-radius * .75};
+  stroke-dashoffset: #{2 * 3.14 * $task-preview-priority-radius * .75};
+}
+
+.task-preview__priority--done {
+  animation: dash--done 2s ease-in-out forwards;
+  stroke-dasharray: #{2 * 3.14 * $task-preview-priority-radius};
+  stroke-dashoffset: #{2 * 3.14 * $task-preview-priority-radius};
+}
+
+@keyframes dash--todo {
+  from {
+    stroke-dashoffset: #{2 * 3.14 * $task-preview-priority-radius};
+  }
+  to {
+    stroke-dashoffset: #{2 * 3.14 * $task-preview-priority-radius * .66};
+  }
+}
+
+@keyframes dash--doing {
+  from {
+    stroke-dashoffset: #{2 * 3.14 * $task-preview-priority-radius};
+  }
+  to {
+    stroke-dashoffset: #{2 * 3.14 * $task-preview-priority-radius * .25};
+  }
+}
+
+@keyframes dash--done {
+  from {
+    stroke-dashoffset: #{2 * 3.14 * $task-preview-priority-radius};
+  }
+  to {
+    stroke-dashoffset: 0;
+  }
+}

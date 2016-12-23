@@ -14,9 +14,9 @@ const initialState = {
   errors: [],
   waiting: true,
   filters: [],
-  issues: [],
+  tasks: [],
   project: null,
-  selectedIssue: null
+  selectedTask: null
 };
 
 export default function reducer(state = initialState, action = {}) {
@@ -28,48 +28,48 @@ export default function reducer(state = initialState, action = {}) {
       initialState.project = action.project;
       return {...state, project: action.project, waiting: false};
     }
-    case ActionTypes.CURRENT_PROJECT_ISSUE_CREATING: {
+    case ActionTypes.CURRENT_PROJECT_TASK_CREATING: {
       return {...state, errors: []};
     }
-    case ActionTypes.CURRENT_PROJECT_ISSUE_CREATED: {
-      return {...state, issues: [...state.issues, action.issue]};
+    case ActionTypes.CURRENT_PROJECT_TASK_CREATED: {
+      return {...state, tasks: [...state.tasks, action.task]};
     }
-    case ActionTypes.CURRENT_PROJECT_ISSUE_CREATE_ERROR: {
+    case ActionTypes.CURRENT_PROJECT_TASK_CREATE_ERROR: {
       return {...state, errors: action.errors};
     }
-    case ActionTypes.CURRENT_PROJECT_ISSUE_UPDATE: {
+    case ActionTypes.CURRENT_PROJECT_TASK_UPDATE: {
       return {...state, errors: []};
     }
-    case ActionTypes.CURRENT_PROJECT_ISSUE_UPDATED: {
-      const index = state.issues.findIndex(issue => issue.id === action.issue.id);
+    case ActionTypes.CURRENT_PROJECT_TASK_UPDATED: {
+      const index = state.tasks.findIndex(task => task.id === action.task.id);
 
       return {
-        ...state, issues: [
-          ...state.issues.slice(0, index),
-          action.issue,
-          ...state.issues.slice(index + 1)
+        ...state, tasks: [
+          ...state.tasks.slice(0, index),
+          action.task,
+          ...state.tasks.slice(index + 1)
         ]
       };
     }
-    case ActionTypes.CURRENT_PROJECT_ISSUE_UPDATE_ERROR: {
+    case ActionTypes.CURRENT_PROJECT_TASK_UPDATE_ERROR: {
       return {...state, errors: action.errors};
     }
-    case ActionTypes.CURRENT_PROJECT_SELECTED_ISSUE_CHANGED: {
+    case ActionTypes.CURRENT_PROJECT_SELECTED_TASK_CHANGED: {
       let
         selectedTaskIndex = 0,
-        selectedIssue = null;
+        selectedTask = null;
 
       if (null !== initialState.project) {
         initialState.project._tasks4hn9we.edges.map((task, index) => {
-          if (task.node.id === action.selectedIssue) {
+          if (task.node.id === action.selectedTask) {
             selectedTaskIndex = index;
           }
         });
 
-        selectedIssue = initialState.project._tasks4hn9we.edges[selectedTaskIndex].node;
+        selectedTask = initialState.project._tasks4hn9we.edges[selectedTaskIndex].node;
       }
 
-      return {...state, selectedIssue};
+      return {...state, selectedTask};
     }
     default: {
       return state;

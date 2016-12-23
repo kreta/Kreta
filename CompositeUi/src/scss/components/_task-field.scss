@@ -8,7 +8,7 @@
 
 @import '../base/colors';
 
-.issue-field {
+.task-field {
   align-items: center;
   color: $main-black;
   display: flex;
@@ -18,35 +18,35 @@
   width: 100%;
 }
 
-.issue-field--half {
+.task-field--half {
   float: left;
   width: 50%;
 }
 
-.issue-field--left {
+.task-field--left {
   justify-content: flex-start;
   padding-left: 10px;
 }
 
-.issue-field--selected {
+.task-field--selected {
   background: $light-grey;
 }
 
-.issue-field__image {
+.task-field__image {
   margin-right: 10px;
 }
 
-.issue-field__icon {
+.task-field__icon {
   height: 20px;
   width: 20px;
 }
 
 
-.issue-field__label {
+.task-field__label {
   font-size: 9px;
   margin-right: 5px;
 }
 
-.issue-field__value {
+.task-field__value {
   font-weight: bold;
 }

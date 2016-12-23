@@ -8,14 +8,14 @@
  * file that was distributed with this source code.
  */
 
-import './../../scss/components/_issue-preview';
+import './../../scss/components/_task-preview';
 
 import classnames from 'classnames';
 import React from 'react';
 
 import Thumbnail from './Thumbnail';
 
-class IssuePreview extends React.Component {
+class TaskPreview extends React.Component {
   getPriorityColor(priority) {
     if (priority === 'low') {
       return '#67b86a';
@@ -28,32 +28,32 @@ class IssuePreview extends React.Component {
 
   render() {
     const
-      priority = this.props.issue.priority.toLowerCase(),
-      progress = this.props.issue.progress.toLowerCase(),
-      assignee = 'Dummy assignee', // `${this.props.issue.assignee.first_name} ${this.props.issue.assignee.last_name}`,
+      priority = this.props.task.priority.toLowerCase(),
+      progress = this.props.task.progress.toLowerCase(),
+      assignee = 'Dummy assignee', // `${this.props.task.assignee.first_name} ${this.props.task.assignee.last_name}`,
       classes = classnames({
-        'issue-preview': true,
-        'issue-preview--highlight': this.props.selected,
-        'issue-preview--closed': progress === 'done'
+        'task-preview': true,
+        'task-preview--highlight': this.props.selected,
+        'task-preview--closed': progress === 'done'
       });
 
     return (
       <div className={classes} onClick={this.props.onClick}>
-        <a className="issue-preview__title">
-          {this.props.issue.title}
+        <a className="task-preview__title">
+          {this.props.task.title}
         </a>
-        <div className="issue-preview__icons">
+        <div className="task-preview__icons">
           <span>
-            <svg className={`issue-preview__priority issue-preview__priority--${progress}`}>
-              <circle className="issue-preview__priority-back"
+            <svg className={`task-preview__priority task-preview__priority--${progress}`}>
+              <circle className="task-preview__priority-back"
                       cx="21" cy="21" r="20"
                       style={{stroke: this.getPriorityColor(priority)}}/>
-              <circle className="issue-preview__priority-front"
+              <circle className="task-preview__priority-front"
                       cx="21" cy="21" r="20"
                       style={{stroke: this.getPriorityColor(priority)}}
                       transform="rotate(-90, 21, 21)"/>
             </svg>
-            <Thumbnail image={this.props.issue.assignee.photo ? this.props.issue.assignee.photo.name : null}
+            <Thumbnail image={this.props.task.assignee.photo ? this.props.task.assignee.photo.name : null}
                        text={assignee}/>
           </span>
         </div>
@@ -62,4 +62,4 @@ class IssuePreview extends React.Component {
   }
 }
 
-export default IssuePreview;
+export default TaskPreview;

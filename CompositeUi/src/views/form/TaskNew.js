@@ -41,8 +41,8 @@ const validate = (values) => {
   projects: state.projects.projects
 }))
 
-@reduxForm({form: 'IssueNew', validate})
-class IssueNew extends React.Component {
+@reduxForm({form: 'TaskNew', validate})
+class TaskNew extends React.Component {
   getProjectOptions() {
     const defaultEl = [<SelectorOption text="No project selected" value=""/>],
       optionsEl = this.props.projects.map(project => (
@@ -100,4 +100,4 @@ class IssueNew extends React.Component {
   }
 }
 
-export default IssueNew;
+export default TaskNew;

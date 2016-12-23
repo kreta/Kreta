@@ -11,7 +11,7 @@
 let Config = {
   baseUrl: `${location.hostname}`, // ${location.port !== '' ? `:${location.port}` : ''}`,
   shortcuts: {
-    issueNew: 'n',
+    taskNew: 'n',
     notificationList: 'w',
     projectList: 'p',
     projectNew: 'x',

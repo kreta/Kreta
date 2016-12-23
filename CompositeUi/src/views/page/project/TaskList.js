@@ -23,7 +23,7 @@ import Icon from './../../component/Icon';
 import Filter from './../../component/Filter';
 import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
 import ContentRightLayout from './../../layout/ContentRightLayout';
-import IssuePreview from './../../component/IssuePreview';
+import TaskPreview from './../../component/TaskPreview';
 import LoadingSpinner from './../../component/LoadingSpinner';
 import PageHeader from './../../component/PageHeader';
 import Thumbnail from './../../component/Thumbnail';
@@ -31,12 +31,12 @@ import InlineLink from './../../component/InlineLink';
 import CurrentProjectActions from './../../../actions/CurrentProject';
 
 @connect(state => ({currentProject: state.currentProject}))
-class IssueList extends React.Component {
+class TaskList extends React.Component {
   componentDidMount() {
     const {params, dispatch} = this.props;
-    Mousetrap.bind(Config.shortcuts.issueNew, () => {
+    Mousetrap.bind(Config.shortcuts.taskNew, () => {
       dispatch(
-        routeActions.push(`/project/${params.projectId}/issue/new`)
+        routeActions.push(`/project/${params.projectId}/task/new`)
       );
     });
     Mousetrap.bind(Config.shortcuts.projectSettings, () => {
@@ -46,7 +46,7 @@ class IssueList extends React.Component {
     });
   }
 
-  filterIssues(filters) {
+  filterTasks(filters) {
     const data = {project: this.state.project.id};
 
     filters.forEach((filter) => {
@@ -57,7 +57,7 @@ class IssueList extends React.Component {
       });
     });
 
-    this.props.dispatch(CurrentProjectActions.filterIssues(data));
+    this.props.dispatch(CurrentProjectActions.filterTasks(data));
   }
 
 //  loadFilters(project) {
@@ -79,7 +79,7 @@ class IssueList extends React.Component {
 //        value: ''
 //      }
 //      ],
-//      priorities = [], //project.get('issue_priorities'),
+//      priorities = [], //project.get('task_priorities'),
 //      statusFilters = [{
 //        filter: 'status',
 //        selected: true,
@@ -112,28 +112,28 @@ class IssueList extends React.Component {
 //    this.setState({filters: [assigneeFilters, priorityFilters, statusFilters]});
 //  }
 
-  selectCurrentIssue(task) {
+  selectCurrentTask(task) {
     const {dispatch, params} = this.props;
     dispatch(
-      routeActions.push(`/project/${params.projectId}/issue/${task.id}`)
+      routeActions.push(`/project/${params.projectId}/task/${task.id}`)
     );
   }
 
-  hideIssue() {
+  hideTask() {
     const {dispatch, params} = this.props;
     dispatch(
       routeActions.push(`/project/${params.projectId}`)
     );
   }
 
-  getIssuesEl() {
+  getTasksEl() {
     const {currentProject, params} = this.props;
 
     return currentProject.project._tasks4hn9we.edges.map((task, index) => (
-      <IssuePreview issue={task.node}
-                    key={index}
-                    onClick={this.selectCurrentIssue.bind(this, task.node)}
-                    selected={params.issueId === task.node.id}/>
+      <TaskPreview key={index}
+                   onClick={this.selectCurrentTask.bind(this, task.node)}
+                   selected={params.taskId === task.node.id}
+                   task={task.node}/>
     ));
   }
 
@@ -151,16 +151,16 @@ class IssueList extends React.Component {
             <InlineLink to={`/project/${currentProject.project.id}/settings`}>
               <Icon color="green" glyph={SettingsIcon} size="small"/>Settings
             </InlineLink>
-            <Link to={`/project/${params.projectId}/issue/new`}>
+            <Link to={`/project/${params.projectId}/task/new`}>
               <Button color="green">New task</Button>
             </Link>
           </PageHeader>
           <Filter filters={currentProject.filters}
-                  onFilterSelected={this.filterIssues.bind(this)}/>
-           {this.getIssuesEl()}
+                  onFilterSelected={this.filterTasks.bind(this)}/>
+          {this.getTasksEl()}
         </ContentMiddleLayout>
         <ContentRightLayout isOpen={this.props.children !== null}
-                            onRequestClose={this.hideIssue.bind(this)}>
+                            onRequestClose={this.hideTask.bind(this)}>
           {this.props.children}
         </ContentRightLayout>
       </div>
@@ -168,4 +168,4 @@ class IssueList extends React.Component {
   }
 }
 
-export default IssueList;
+export default TaskList;
