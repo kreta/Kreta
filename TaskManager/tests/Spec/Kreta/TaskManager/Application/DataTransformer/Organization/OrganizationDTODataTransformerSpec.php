@@ -50,10 +50,9 @@ class OrganizationDTODataTransformerSpec extends ObjectBehavior
 
         $memberDataTransformer->write($organization->owner($userId))->shouldBeCalled();
         $memberDataTransformer->read()->shouldBeCalled()->willReturn([
-            'id'           => 'owner-id',
+            'id'           => 'user-id',
             'created_on'   => '2016-10-24',
             'updated_on'   => '2016-10-24',
-            'user_id'      => 'user-id',
             'organization' => [
                 [
                     'id'         => 'organization-id',
@@ -72,10 +71,9 @@ class OrganizationDTODataTransformerSpec extends ObjectBehavior
             'created_on'          => (new \DateTimeImmutable())->format('Y-m-d'),
             'updated_on'          => (new \DateTimeImmutable())->format('Y-m-d'),
             'owners'              => [[
-                'id'           => 'owner-id',
+                'id'           => 'user-id',
                 'created_on'   => '2016-10-24',
                 'updated_on'   => '2016-10-24',
-                'user_id'      => 'user-id',
                 'organization' => [
                     [
                         'id'         => 'organization-id',

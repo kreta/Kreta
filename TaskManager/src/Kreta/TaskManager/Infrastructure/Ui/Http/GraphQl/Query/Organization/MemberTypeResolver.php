@@ -36,6 +36,12 @@ class MemberTypeResolver implements Resolver
 
     public function resolve($args)
     {
+        if ((!isset($args['ownerId']) || !$args['ownerId'])
+            && (!isset($args['organizationMemberId']) || !$args['organizationMemberId'])
+        ) {
+            return null;
+        }
+
         try {
             $this->queryBus->handle(
                 new OwnerOfIdQuery(

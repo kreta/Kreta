@@ -31,29 +31,26 @@ class TaskBuilderResolver implements Resolver
         $this->projectResolver = $projectResolver;
     }
 
-    public function resolve($args)
+    public function resolve($task)
     {
-        $result = $args['task'];
-//        var_dump($result);die;
-
-        $result['project'] = $this->projectResolver->resolve([
-            'id' => $result['project_id'],
+        $task['project'] = $this->projectResolver->resolve([
+            'id' => $task['project_id'],
         ]);
-        unset($result['project_id']);
+        unset($task['project_id']);
 
         foreach (self::MEMBER_TYPES as $memberType) {
-            $result[$memberType] = $this->memberResolver->resolve([
-                'organizationId'       => $result['project']['organization']['id'],
-                'ownerId'              => $result[$memberType . '_id'],
-                'organizationMemberId' => $result[$memberType . '_id'],
+            $task[$memberType] = $this->memberResolver->resolve([
+                'organizationId'       => $task['project']['organization']['id'],
+                'ownerId'              => $task[$memberType . '_id'],
+                'organizationMemberId' => $task[$memberType . '_id'],
             ]);
 
-            $result[$memberType]['organizationId'] = $result['project']['organization']['id'];
-            $result[$memberType]['ownerId'] = $result[$memberType . '_id'];
-            $result[$memberType]['organizationMemberId'] = $result[$memberType . '_id'];
-            unset($result[$memberType . '_id']);
+            $task[$memberType]['organizationId'] = $task['project']['organization']['id'];
+            $task[$memberType]['ownerId'] = $task[$memberType . '_id'];
+            $task[$memberType]['organizationMemberId'] = $task[$memberType . '_id'];
+            unset($task[$memberType . '_id']);
         }
 
-        return $result;
+        return $task;
     }
 }

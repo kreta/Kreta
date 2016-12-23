@@ -77,7 +77,7 @@ class TaskDTODataTransformer implements TaskDataTransformer
             'created_on'  => $this->task->createdOn()->format('Y-m-d'),
             'updated_on'  => $this->task->updatedOn()->format('Y-m-d'),
             'project_id'  => $this->task->projectId()->id(),
-            'parent_id'   => $this->task->parentId()->id(),
+            'parent_id'   => null === $this->task->parentId() ? null : $this->task->parentId()->id(),
         ];
     }
 }

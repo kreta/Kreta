@@ -16,6 +16,7 @@
 #     owners: [Owner!]!
 #     slug: String!
 #     updated_on: String!
+#     tasks: TaskConnection
 #   }
 
 Project:
@@ -41,4 +42,9 @@ Project:
             updated_on:
                 type: "String!"
                 description: "The updated on of the project."
+            tasks:
+                type: "TaskConnection!"
+                description: "The collection of the tasks of the project"
+                argsBuilder: ConnectionArgs
+                resolve: '@=resolver("project_tasks", [value["id"], args])'
         interfaces: [Node]

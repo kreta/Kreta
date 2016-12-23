@@ -57,7 +57,7 @@ class ProjectFixturesCommand extends ContainerAwareCommand
                 new CreateProjectCommand(
                     'Project ' . $i,
                     $organizations[0]['id'],
-                    $organizations[0]['owners'][0]['user_id'],
+                    $organizations[0]['owners'][0]['id'],
                     Uuid::generate()
                 )
             );

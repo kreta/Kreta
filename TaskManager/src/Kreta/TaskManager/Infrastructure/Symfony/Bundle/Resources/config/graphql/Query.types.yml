@@ -57,9 +57,6 @@ Query:
                     organizationMemberId:
                         description: "id of the user that want to find as organization member"
                         type: "ID!"
-                    userId:
-                        description: "id of the user"
-                        type: "ID!"
                 resolve: "@=resolver('member_organization_member', [args])"
             owner:
                 type: "Owner"
@@ -69,9 +66,6 @@ Query:
                         type: "ID!"
                     ownerId:
                         description: "id of the user that want to find as owner"
-                        type: "ID!"
-                    userId:
-                        description: "id of the user"
                         type: "ID!"
                 resolve: "@=resolver('member_owner', [args])"
             projects:
@@ -104,12 +98,12 @@ Query:
                     parentId:
                         description: "parent task id to which the task belongs"
                         type: "ID"
-#                    assigneeId:
-#                        description: "assignee id to which the task belongs"
-#                        type: "ID"
-#                    creatorId:
-#                        description: "creator id to which the task belongs"
-#                        type: "ID"
+                    assigneeId:
+                        description: "assignee id to which the task belongs"
+                        type: "ID"
+                    creatorId:
+                        description: "creator id to which the task belongs"
+                        type: "ID"
                     priority:
                         description: "priority to which the task has"
                         type: "TaskPriority"

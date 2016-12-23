@@ -40,6 +40,20 @@ class TasksResolver implements Resolver
         $this->taskBuilderResolver = $taskBuilderResolver;
     }
 
+    public function resolveByProject($projectId, $args)
+    {
+        $args['projectId'] = $projectId;
+
+        return $this->resolve($args);
+    }
+
+    public function resolveByParent($parentId, $args)
+    {
+        $args['parentId'] = $parentId;
+
+        return $this->resolve($args);
+    }
+
     public function resolve($args)
     {
         if (!isset($args['title'])) {
@@ -83,7 +97,7 @@ class TasksResolver implements Resolver
         );
 
         foreach ($result as $key => $task) {
-            $result[$key] = $this->taskBuilderResolver->resolve(['task' => $task]);
+            $result[$key] = $this->taskBuilderResolver->resolve($task);
         }
 
         $connection = $this->connectionBuilder->fromArraySlice(
@@ -99,7 +113,7 @@ class TasksResolver implements Resolver
         return $connection;
     }
 
-    private function buildPagination($args)
+    private function buildPagination($args) : array
     {
         $this->queryBus->handle(
             new CountTasksQuery(

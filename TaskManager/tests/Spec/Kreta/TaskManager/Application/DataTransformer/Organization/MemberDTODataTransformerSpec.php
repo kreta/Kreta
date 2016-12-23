@@ -48,10 +48,9 @@ class MemberDTODataTransformerSpec extends ObjectBehavior
 
         $this->write($member);
         $this->read()->shouldReturn([
-            'id'           => 'member-id',
+            'id'           => 'user-id',
             'created_on'   => (new \DateTimeImmutable())->format('Y-m-d'),
             'updated_on'   => (new \DateTimeImmutable())->format('Y-m-d'),
-            'user_id'      => 'user-id',
             'organization' => [
                 'id'         => 'organization-id',
                 'name'       => 'Organization name',

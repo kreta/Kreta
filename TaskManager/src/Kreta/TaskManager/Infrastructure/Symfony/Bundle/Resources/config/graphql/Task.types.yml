@@ -16,6 +16,8 @@
 #     creator: Member!
 #     description: String!
 #     parent_task: Task
+#     priority: TaskPriority!
+#     progress: TaskProgress!
 #     project: Project!
 #     title: String!
 #     updated_on: String!
@@ -32,9 +34,11 @@ Task:
             assignee:
                 type: "Member!"
                 description: "The assignee of the task."
-#            children_tasks:
-#                type: "TaskConnection"
-#                description: "The collection of children tasks."
+            children_tasks:
+                type: "TaskConnection"
+                description: "The collection of children tasks."
+                argsBuilder: ConnectionArgs
+                resolve: '@=resolver("task_children_tasks", [value["id"], args])'
             created_on:
                 type: "String!"
                 description: "The created on of the project."
@@ -47,8 +51,15 @@ Task:
             parent_task:
                 type: "Task"
                 description: "The parent task to which the task belongs."
+                resolve: '@=resolver("task_parent_task", [value["parent_id"], args])'
+            priority:
+                type: "TaskPriority!"
+                description: "The priority of the task."
+            progress:
+                type: "TaskProgress!"
+                description: "The progress of the task."
             project:
-                type: "Project"
+                type: "Project!"
                 description: "The project to which the task belongs."
             title:
                 type: "String!"

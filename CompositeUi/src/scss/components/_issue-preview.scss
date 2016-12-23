@@ -65,25 +65,25 @@ $issue-preview-priority-user-image-size: 32px;
   stroke-width: 2px;
 }
 
-.issue-preview__priority--initial {
-  animation: dash--initial 2s ease-in-out forwards;
+.issue-preview__priority--todo {
+  animation: dash--todo 2s ease-in-out forwards;
   stroke-dasharray: #{2 * 3.14 * $issue-preview-priority-radius * .33};
   stroke-dashoffset: #{2 * 3.14 * $issue-preview-priority-radius * .33};
 }
 
-.issue-preview__priority--normal {
-  animation: dash--normal 2s ease-in-out forwards;
+.issue-preview__priority--doing {
+  animation: dash--doing 2s ease-in-out forwards;
   stroke-dasharray: #{2 * 3.14 * $issue-preview-priority-radius * .75};
   stroke-dashoffset: #{2 * 3.14 * $issue-preview-priority-radius * .75};
 }
 
-.issue-preview__priority--final {
-  animation: dash--final 2s ease-in-out forwards;
+.issue-preview__priority--done {
+  animation: dash--done 2s ease-in-out forwards;
   stroke-dasharray: #{2 * 3.14 * $issue-preview-priority-radius};
   stroke-dashoffset: #{2 * 3.14 * $issue-preview-priority-radius};
 }
 
-@keyframes dash--initial {
+@keyframes dash--todo {
   from {
     stroke-dashoffset: #{2 * 3.14 * $issue-preview-priority-radius};
   }
@@ -92,7 +92,7 @@ $issue-preview-priority-user-image-size: 32px;
   }
 }
 
-@keyframes dash--normal {
+@keyframes dash--doing {
   from {
     stroke-dashoffset: #{2 * 3.14 * $issue-preview-priority-radius};
   }
@@ -101,7 +101,7 @@ $issue-preview-priority-user-image-size: 32px;
   }
 }
 
-@keyframes dash--final {
+@keyframes dash--done {
   from {
     stroke-dashoffset: #{2 * 3.14 * $issue-preview-priority-radius};
   }

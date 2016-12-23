@@ -65,7 +65,7 @@ class TaskFixturesCommand extends ContainerAwareCommand
                         'Task ' . $i,
                         'The description of the task ' . $i,
                         $userId,
-                        $organization['owners'][0]['user_id'],
+                        $organization['owners'][0]['id'],
                         self::TASK_PRIORITIES[array_rand(self::TASK_PRIORITIES)],
                         $project['id']
                     )

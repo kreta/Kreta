@@ -19,7 +19,11 @@ const mutation = Relay.QL`
         id,
         name,
         slug,
-        organization_id
+        organization {
+          id,
+          name,
+          slug
+        }
       }
     }
   }
