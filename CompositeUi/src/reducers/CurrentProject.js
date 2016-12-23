@@ -55,15 +55,21 @@ export default function reducer(state = initialState, action = {}) {
       return {...state, errors: action.errors};
     }
     case ActionTypes.CURRENT_PROJECT_SELECTED_ISSUE_CHANGED: {
-      let selectedTaskIndex = 0;
+      let
+        selectedTaskIndex = 0,
+        selectedIssue = null;
 
-      initialState.project._tasks4hn9we.edges.map((task, index) => {
-        if (task.node.id === action.selectedIssue) {
-          selectedTaskIndex = index;
-        }
-      });
+      if (null !== initialState.project) {
+        initialState.project._tasks4hn9we.edges.map((task, index) => {
+          if (task.node.id === action.selectedIssue) {
+            selectedTaskIndex = index;
+          }
+        });
 
-      return {...state, selectedIssue: initialState.project._tasks4hn9we.edges[selectedTaskIndex].node};
+        selectedIssue = initialState.project._tasks4hn9we.edges[selectedTaskIndex].node;
+      }
+
+      return {...state, selectedIssue};
     }
     default: {
       return state;
