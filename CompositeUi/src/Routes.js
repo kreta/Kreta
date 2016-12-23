@@ -25,18 +25,27 @@ import ProjectSettings from './views/page/project/Settings';
 import ProjectShow from './views/page/project/IssueList';
 import Security from './api/rest/User/Security';
 
-const requireAuth = (nextState, replace) => {
-  if (!Security.isLoggedIn()) {
-    replace({
-      pathname: '/login',
-      state: {nextPathname: nextState.location.pathname}
-    });
-  }
-};
+const
+  requireAuth = (nextState, replace) => {
+    if (!Security.isLoggedIn()) {
+      replace({
+        pathname: '/login',
+        state: {nextPathname: nextState.location.pathname}
+      });
+    }
+  },
+  loggedRedirect = (nextState, replace) => {
+    if (Security.isLoggedIn()) {
+      replace({
+        pathname: '/',
+        state: {nextPathname: nextState.location.pathname}
+      });
+    }
+  };
 
 export default (
   <div>
-    <Route component={LoginPage} path="/login"/>
+    <Route component={LoginPage} onEnter={loggedRedirect} path="/login"/>
     <Route component={BaseLayout} onEnter={requireAuth} path="/">
       <IndexRoute component={Dashboard}/>
 
