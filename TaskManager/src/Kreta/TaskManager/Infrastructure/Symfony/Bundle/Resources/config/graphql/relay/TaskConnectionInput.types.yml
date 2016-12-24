@@ -1,0 +1,56 @@
+# This file is part of the Kreta package.
+#
+# (c) Beñat Espiña <benatespina@gmail.com>
+# (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+
+# This implements the following type system shorthand:
+#
+#   type TaskConnectionInput {
+#     after: String,
+#     first: Int,
+#     before: String,
+#     last: Int,
+#     projectId: ID,
+#     parentId: ID,
+#     assigneeId: ID,
+#     creatorId: ID,
+#     priority: TaskPriority,
+#     progress: TaskProgress,
+#     title: String
+#   }
+TaskConnectionInput:
+    type: input-object
+    config:
+        fields:
+            after:
+                type: "String"
+            first:
+                type: "Int"
+            before:
+                type: "String"
+            last:
+                type: "Int"
+            projectId:
+                description: "project id to which the task belongs"
+                type: "ID"
+            parentId:
+                description: "parent task id to which the task belongs"
+                type: "ID"
+            assigneeId:
+                description: "assignee id to which the task belongs"
+                type: "ID"
+            creatorId:
+                description: "creator id to which the task belongs"
+                type: "ID"
+            priority:
+                description: "priority to which the task has"
+                type: "TaskPriority"
+            progress:
+                description: "progress to which the task has"
+                type: "TaskProgress"
+            title:
+                description: "title of the task, it uses to filter the tasks. Typical 'q'"
+                type: "String"

@@ -10,13 +10,81 @@
 
 import ActionTypes from './../constants/ActionTypes';
 
-const initialState = {
-  errors: [],
-  waiting: true,
-  tasks: [],
-  project: null,
-  selectedTask: null
-};
+const
+  filters = () => {
+    const assigneeFilters = [{
+        filter: 'assignee',
+        selected: true,
+        title: 'All',
+        value: ''
+      }, {
+        filter: 'assignee',
+        selected: false,
+        title: 'Assigned to me',
+        value: '' // this.props.profile.profile.id
+      }],
+      priorityFilters = [{
+        filter: 'priority',
+        selected: true,
+        title: 'All priorities',
+        value: ''
+      }
+      ],
+      priorities = [{
+        id: 'low',
+        name: 'LOW'
+      }, {
+        id: 'medium',
+        name: 'MEDIUM'
+      }, {
+        id: 'high',
+        name: 'HIGH'
+      }],
+      progressFilters = [{
+        filter: 'progress',
+        selected: true,
+        title: 'All progresses',
+        value: ''
+      }],
+      progresses = [{
+        id: 'todo',
+        name: 'TODO'
+      }, {
+        id: 'doing',
+        name: 'DOING'
+      }, {
+        id: 'done',
+        name: 'DONE'
+      }];
+
+    priorities.forEach((priority) => {
+      priorityFilters.push({
+        filter: 'priority',
+        selected: false,
+        title: priority.name,
+        value: priority.name
+      });
+    });
+
+    progresses.forEach((progress) => {
+      progressFilters.push({
+        filter: 'progress',
+        selected: false,
+        title: progress.name,
+        value: progress.name
+      });
+    });
+
+    return [assigneeFilters, priorityFilters, progressFilters];
+  },
+  initialState = {
+    errors: [],
+    waiting: true,
+    filters: filters(),
+    tasks: [],
+    project: null,
+    selectedTask: null
+  };
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {

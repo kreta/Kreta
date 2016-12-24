@@ -34,6 +34,7 @@ import CurrentProjectActions from './../../../actions/CurrentProject';
 class TaskList extends React.Component {
   componentDidMount() {
     const {params, dispatch} = this.props;
+
     Mousetrap.bind(Config.shortcuts.taskNew, () => {
       dispatch(
         routeActions.push(`/project/${params.projectId}/task/new`)
@@ -59,75 +60,9 @@ class TaskList extends React.Component {
     this.props.dispatch(CurrentProjectActions.filterTasks(data));
   }
 
-  filters() {
-    const assigneeFilters = [{
-        filter: 'assignee',
-        selected: true,
-        title: 'All',
-        value: ''
-      }, {
-        filter: 'assignee',
-        selected: false,
-        title: 'Assigned to me',
-        value: '' // this.props.profile.profile.id
-      }],
-      priorityFilters = [{
-        filter: 'priority',
-        selected: true,
-        title: 'All priorities',
-        value: ''
-      }
-      ],
-      priorities = [{
-        id: 'low',
-        name: 'LOW'
-      }, {
-        id: 'medium',
-        name: 'MEDIUM'
-      }, {
-        id: 'high',
-        name: 'HIGH'
-      }],
-      progressFilters = [{
-        filter: 'progress',
-        selected: true,
-        title: 'All progresses',
-        value: ''
-      }],
-      progresses = [{
-        id: 'todo',
-        name: 'TODO'
-      }, {
-        id: 'doing',
-        name: 'DOING'
-      }, {
-        id: 'done',
-        name: 'DONE'
-      }];
-
-    priorities.forEach((priority) => {
-      priorityFilters.push({
-        filter: 'priority',
-        selected: false,
-        title: priority.name,
-        value: priority.name
-      });
-    });
-
-    progresses.forEach((progress) => {
-      progressFilters.push({
-        filter: 'progress',
-        selected: false,
-        title: progress.name,
-        value: progress.name
-      });
-    });
-
-    return [assigneeFilters, priorityFilters, progressFilters];
-  }
-
   selectCurrentTask(task) {
     const {dispatch, params} = this.props;
+
     dispatch(
       routeActions.push(`/project/${params.projectId}/task/${task.id}`)
     );
@@ -135,6 +70,7 @@ class TaskList extends React.Component {
 
   hideTask() {
     const {dispatch, params} = this.props;
+
     dispatch(
       routeActions.push(`/project/${params.projectId}`)
     );
@@ -170,7 +106,7 @@ class TaskList extends React.Component {
               <Button color="green">New task</Button>
             </Link>
           </PageHeader>
-          <Filter filters={this.filters()}
+          <Filter filters={currentProject.filters}
                   onFilterSelected={this.filterTasks.bind(this)}/>
           {this.getTasksEl()}
         </ContentMiddleLayout>

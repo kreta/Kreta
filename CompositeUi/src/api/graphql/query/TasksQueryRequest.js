@@ -14,7 +14,7 @@ import RelayQueryRequest from 'react-relay/lib/RelayQueryRequest';
 
 const query = Relay.QL`
   query {
-    tasks(priority: $priority) {
+    tasks(taskConnectionInput: $taskConnectionInput) {
       totalCount,
       edges {
         node {
@@ -41,11 +41,19 @@ const query = Relay.QL`
 `;
 
 class TasksQueryRequest extends RelayQueryRequest {
-  static build({priority = null} = {}) {
+  static build({priority = null, progress = null} = {}) {
+    const taskConnectionInput = {};
+
+    if (priority) {
+      taskConnectionInput.priority = priority;
+    }
+    if (progress) {
+      taskConnectionInput.progress = progress;
+    }
+
     return new RelayQueryRequest(
       RelayQuery.Root.create(query, {}, {
-        priority,
-//         progress
+        taskConnectionInput
       })
     );
   }
