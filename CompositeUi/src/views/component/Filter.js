@@ -36,14 +36,15 @@ export default React.createClass({
     this.props.onFilterSelected(this.props.filters);
   },
   render() {
-    const filtersEl = this.props.filters.map((filter) => {
-      const groupFilters = filter.map((item) => (
+    const filtersEl = this.props.filters.map((filter, index) => {
+      const groupFilters = filter.map((item, index2) => (
         <a className={`filter-item ${ item.selected ? 'selected' : ''} `}
-           data-filter={ item.filter }
-           data-value={ item.value }
+           data-filter={item.filter}
+           data-value={item.value}
+           key={index2}
            onClick={this.filterSelected}>{item.title}</a>
       ));
-      return <div className="filter-group">{groupFilters}</div>;
+      return <div className="filter-group" key={index}>{groupFilters}</div>;
     });
 
     return (

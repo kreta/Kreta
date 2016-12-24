@@ -13,6 +13,7 @@ import {routeActions} from 'react-router-redux';
 import ActionTypes from './../constants/ActionTypes';
 import TaskApi from './../api/Task';
 import ProjectQueryRequest from './../api/graphql/query/ProjectQueryRequest';
+import TasksQueryRequest from './../api/graphql/query/TasksQueryRequest';
 import TaskManagerGraphQl from './../api/graphql/TaskManagerGraphQl';
 
 const Actions = {
@@ -30,12 +31,26 @@ const Actions = {
       });
     });
   },
-  selectCurrentTask: (task) => (
-    {
+  selectCurrentTask: (task) => (dispatch) => (
+    dispatch({
       type: ActionTypes.CURRENT_PROJECT_SELECTED_TASK_CHANGED,
       selectedTask: task
-    }
+    })
   ),
+  filterTasks: (filters) => (dispatch) => {
+    dispatch({
+      type: ActionTypes.CURRENT_PROJECT_TASK_FILTERING
+    });
+    const query = TasksQueryRequest.build(filters);
+
+    TaskManagerGraphQl.query(query);
+    query.then(data => {
+      dispatch({
+        type: ActionTypes.CURRENT_PROJECT_TASK_FILTERED,
+        tasks: data.response.tasks,
+      });
+    });
+  },
   createTask: (taskData) => (dispatch) => {
     dispatch({
       type: ActionTypes.CURRENT_PROJECT_TASK_CREATING
@@ -80,19 +95,6 @@ const Actions = {
             status: response.status,
             errors
           });
-        });
-      });
-  },
-  filterTasks: (filter) => (dispatch) => {
-    dispatch({
-      type: ActionTypes.CURRENT_PROJECT_TASK_FILTERING
-    });
-    TaskApi.getTasks(filter)
-      .then((response) => {
-        dispatch({
-          type: ActionTypes.CURRENT_PROJECT_TASK_FILTERED,
-          filter: response.data,
-          status: response.status
         });
       });
   },

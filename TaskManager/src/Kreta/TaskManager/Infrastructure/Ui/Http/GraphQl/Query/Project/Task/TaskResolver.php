@@ -52,6 +52,6 @@ class TaskResolver implements Resolver
 
     public function resolveByParent($parentId)
     {
-        return $this->resolve(['id' => $parentId]);
+        return null === $parentId ? null : $this->resolve(['id' => $parentId]);
     }
 }

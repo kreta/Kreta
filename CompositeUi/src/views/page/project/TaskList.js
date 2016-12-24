@@ -47,7 +47,7 @@ class TaskList extends React.Component {
   }
 
   filterTasks(filters) {
-    const data = {project: this.state.project.id};
+    const data = {project: this.props.currentProject.project.id};
 
     filters.forEach((filter) => {
       filter.forEach((item) => {
@@ -56,61 +56,75 @@ class TaskList extends React.Component {
         }
       });
     });
-
     this.props.dispatch(CurrentProjectActions.filterTasks(data));
   }
 
-//  loadFilters(project) {
-//    var assigneeFilters = [{
-//        filter: 'assignee',
-//        selected: true,
-//        title: 'All',
-//        value: ''
-//      }, {
-//        filter: 'assignee',
-//        selected: false,
-//        title: 'Assigned to me',
-//        value: this.props.profile.profile.id
-//      }],
-//      priorityFilters = [{
-//        filter: 'priority',
-//        selected: true,
-//        title: 'All priorities',
-//        value: ''
-//      }
-//      ],
-//      priorities = [], //project.get('task_priorities'),
-//      statusFilters = [{
-//        filter: 'status',
-//        selected: true,
-//        title: 'All statuses',
-//        value: ''
-//      }],
-//      statuses = [];// project.get('statuses');
-//
-//    if (priorities) {
-//      priorities.forEach((priority) => {
-//        priorityFilters.push({
-//          filter: 'priority',
-//          selected: false,
-//          title: priority.name,
-//          value: priority.id
-//        });
-//      });
-//    }
-//
-//    if (statuses) {
-//      statuses.forEach((status) => {
-//        statusFilters.push({
-//          filter: 'status',
-//          selected: false,
-//          title: status.name,
-//          value: status.id
-//        });
-//      });
-//    }
-//    this.setState({filters: [assigneeFilters, priorityFilters, statusFilters]});
-//  }
+  filters() {
+    const assigneeFilters = [{
+        filter: 'assignee',
+        selected: true,
+        title: 'All',
+        value: ''
+      }, {
+        filter: 'assignee',
+        selected: false,
+        title: 'Assigned to me',
+        value: '' // this.props.profile.profile.id
+      }],
+      priorityFilters = [{
+        filter: 'priority',
+        selected: true,
+        title: 'All priorities',
+        value: ''
+      }
+      ],
+      priorities = [{
+        id: 'low',
+        name: 'LOW'
+      }, {
+        id: 'medium',
+        name: 'MEDIUM'
+      }, {
+        id: 'high',
+        name: 'HIGH'
+      }],
+      progressFilters = [{
+        filter: 'progress',
+        selected: true,
+        title: 'All progresses',
+        value: ''
+      }],
+      progresses = [{
+        id: 'todo',
+        name: 'TODO'
+      }, {
+        id: 'doing',
+        name: 'DOING'
+      }, {
+        id: 'done',
+        name: 'DONE'
+      }];
+
+    priorities.forEach((priority) => {
+      priorityFilters.push({
+        filter: 'priority',
+        selected: false,
+        title: priority.name,
+        value: priority.name
+      });
+    });
+
+    progresses.forEach((progress) => {
+      progressFilters.push({
+        filter: 'progress',
+        selected: false,
+        title: progress.name,
+        value: progress.name
+      });
+    });
+
+    return [assigneeFilters, priorityFilters, progressFilters];
+  }
 
   selectCurrentTask(task) {
     const {dispatch, params} = this.props;
@@ -142,6 +156,7 @@ class TaskList extends React.Component {
     if (currentProject.waiting) {
       return <LoadingSpinner/>;
     }
+
     return (
       <div>
         <ContentMiddleLayout>
@@ -155,7 +170,7 @@ class TaskList extends React.Component {
               <Button color="green">New task</Button>
             </Link>
           </PageHeader>
-          <Filter filters={currentProject.filters}
+          <Filter filters={this.filters()}
                   onFilterSelected={this.filterTasks.bind(this)}/>
           {this.getTasksEl()}
         </ContentMiddleLayout>

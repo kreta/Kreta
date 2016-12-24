@@ -13,7 +13,6 @@ import ActionTypes from './../constants/ActionTypes';
 const initialState = {
   errors: [],
   waiting: true,
-  filters: [],
   tasks: [],
   project: null,
   selectedTask: null
@@ -26,7 +25,13 @@ export default function reducer(state = initialState, action = {}) {
     }
     case ActionTypes.CURRENT_PROJECT_RECEIVED: {
       initialState.project = action.project;
+
       return {...state, project: action.project, waiting: false};
+    }
+    case ActionTypes.CURRENT_PROJECT_TASK_FILTERED: {
+      initialState.project._tasks4hn9we = action.tasks;
+
+      return {...state};
     }
     case ActionTypes.CURRENT_PROJECT_TASK_CREATING: {
       return {...state, errors: []};
