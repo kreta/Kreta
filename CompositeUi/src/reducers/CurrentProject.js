@@ -11,7 +11,7 @@
 import ActionTypes from './../constants/ActionTypes';
 
 const
-  filters = () => {
+  filters = (assignee) => {
     const assigneeFilters = [{
         filter: 'assignee',
         selected: true,
@@ -21,7 +21,7 @@ const
         filter: 'assignee',
         selected: false,
         title: 'Assigned to me',
-        value: '' // this.props.profile.profile.id
+        value: assignee
       }],
       priorityFilters = [{
         filter: 'priority',
@@ -80,7 +80,7 @@ const
   initialState = {
     errors: [],
     waiting: true,
-    filters: filters(),
+    filters: [],
     tasks: [],
     project: null,
     selectedTask: null
@@ -95,6 +95,11 @@ export default function reducer(state = initialState, action = {}) {
       initialState.project = action.project;
 
       return {...state, project: action.project, waiting: false};
+    }
+    case ActionTypes.CURRENT_PROJECT_TASK_FILTERS_LOADED: {
+      initialState.filters = filters(action.assignee);
+
+      return {...state, filters: initialState.filters};
     }
     case ActionTypes.CURRENT_PROJECT_TASK_FILTERED: {
       initialState.project._tasks4hn9we = action.tasks;

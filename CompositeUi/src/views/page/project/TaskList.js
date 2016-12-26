@@ -30,10 +30,14 @@ import Thumbnail from './../../component/Thumbnail';
 import InlineLink from './../../component/InlineLink';
 import CurrentProjectActions from './../../../actions/CurrentProject';
 
-@connect(state => ({currentProject: state.currentProject}))
+@connect(state => ({currentProject: state.currentProject, profile: state.profile.profile}))
 class TaskList extends React.Component {
   componentDidMount() {
     const {params, dispatch} = this.props;
+
+    if (this.props.profile) {
+      dispatch(CurrentProjectActions.loadFilters(this.props.profile.id));
+    }
 
     Mousetrap.bind(Config.shortcuts.taskNew, () => {
       dispatch(

@@ -37,6 +37,12 @@ const Actions = {
       selectedTask: task
     })
   ),
+  loadFilters: (assignee) => (dispatch) => {
+    dispatch({
+      type: ActionTypes.CURRENT_PROJECT_TASK_FILTERS_LOADED,
+      assignee
+    });
+  },
   filterTasks: (filters) => (dispatch) => {
     dispatch({
       type: ActionTypes.CURRENT_PROJECT_TASK_FILTERING
