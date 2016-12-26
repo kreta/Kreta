@@ -10,7 +10,6 @@
 
 import './../../scss/components/_selector';
 
-import $ from 'jquery';
 import classnames from 'classnames';
 import React from 'react';
 
@@ -59,10 +58,10 @@ class Selector extends React.Component {
   keyboardSelected(ev) {
     if (ev.which === 13 || ev.which === 9) { // Enter or tab
       if (ev.which === 13) {
-        // Prevent submiting form
+        // Prevent submitting form
         ev.stopPropagation();
         ev.preventDefault();
-        $(`[tabindex="${parseInt(this.props.tabIndex, 10) + 1}"]`).focus();
+        document.querySelector(`[tabindex="${parseInt(this.props.tabIndex, 10) + 1}"]`).focus();
       }
       this.selectOption(this.state.selectedRow);
     } else {
