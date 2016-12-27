@@ -16,7 +16,7 @@
 }
 
 body {
-  font-family: $font-open-sans;
+  font-family: $font-family-open-sans;
 }
 
 h1,
@@ -70,7 +70,7 @@ i {
 input,
 textarea {
   border: 0;
-  font-family: $font-open-sans;
+  font-family: $font-family-open-sans;
   font-size: 1.3em;
   font-weight: lighter;
   width: 100%;

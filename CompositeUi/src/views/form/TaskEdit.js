@@ -12,13 +12,14 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Field, reduxForm} from 'redux-form';
 
+import Button from './../component/Button';
 import FormActions from './../component/FormActions';
 import FormInput from './../component/FormInput';
-import Button from './../component/Button';
-import Selector from './../component/Selector';
-import Thumbnail from './../component/Thumbnail';
-import SelectorOption from './../component/SelectorOption';
 import {Row, RowColumn} from './../component/Grid';
+import Selector from './../component/Selector';
+import SelectorOption from './../component/SelectorOption';
+import Thumbnail from './../component/Thumbnail';
+import Wysiwyg from './../component/Wysiwyg';
 
 const validate = (values) => {
   const
@@ -51,19 +52,30 @@ class TaskEdit extends React.Component {
         <Row>
           <RowColumn>
             <Field autoFocus component={FormInput} label="Title" name="title" tabIndex={2}/>
-            <Field component={FormInput} label="Description" multiline name="description" tabIndex={3}/>
-            <Field component={Selector} name="assignee" tabIndex={4}>
-              <SelectorOption text="Unassigned"
-                              thumbnail={<Thumbnail image={null} text=""/>}
-                              value=""/>
-              <SelectorOption text="User 1"
-                              thumbnail={<Thumbnail image={null} text="User 1"/>}
-                              value="1"/>
+            <Field component={Selector} name="assignee" tabIndex={3}>
+              <SelectorOption
+                text="Unassigned"
+                thumbnail={<Thumbnail image={null} text=""/>}
+                value=""
+              />
+              <SelectorOption
+                text="User 1"
+                thumbnail={<Thumbnail image={null} text="User 1"/>}
+                value="1"
+              />
             </Field>
-            <Field component={Selector} name="priority" tabIndex={5}>
+            <Field component={Selector} name="priority" tabIndex={4}>
               <SelectorOption text="Select one..." value=""/>
               <SelectorOption text="High" value="1"/>
             </Field>
+            <Field
+              component={Wysiwyg}
+              hasPlaceholder={true}
+              label="Description"
+              multiline
+              name="description"
+              tabIndex={5}
+            />
           </RowColumn>
         </Row>
         <Row>

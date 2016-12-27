@@ -1,0 +1,103 @@
+// This file is part of the Kreta package.
+//
+// (c) Beñat Espiña <benatespina@gmail.com>
+// (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+//
+// For the full copyright and license information, please view the LICENSE
+// file that was distributed with this source code.
+
+@import '../../../node_modules/react-draft-wysiwyg/dist/react-draft-wysiwyg.css';
+
+@import '../base/colors';
+@import '../base/typography';
+
+$wysiwyg-background-color: $white;
+$wysiwyg-border-color: $dark-grey;
+$wysiwyg-font-family: $font-family-open-sans;
+$wysiwyg-editor-height: 250px;
+$wysiwyg-editor-font-size: 14px;
+$wysiwyg-button-active-color: $light-grey;
+$wysiwyg-button-bold-font-weight: $font-weight-bold;
+$wysiwyg-editor-blockquote-left-border-color: $main-grey;
+$wysiwyg-editor-blockquote-font-family: $font-family-hoefler;
+$wysiwyg-editor-code-background-color: $main-grey;
+$wysiwyg-editor-code-font-family: $font-family-inconsolata;
+
+.wysiwyg {
+  background-color: $wysiwyg-background-color;
+  border: 1px solid $wysiwyg-border-color;
+  font-family: $wysiwyg-font-family;
+  padding: 15px;
+
+  &:focus {
+    outline: none;
+  }
+}
+
+.wysiwyg__toolbar {
+  border: none;
+  justify-content: center;
+  padding: 0;
+}
+
+.wysiwyg__toolbar--list-ordered,
+.wysiwyg__toolbar--list-unordered {
+  > img { // Hack to prevent the list icons wrong visualization
+    height: 15px;
+    width: 15px;
+  }
+}
+
+.wysiwyg__editor {
+  border-top: 1px solid $wysiwyg-border-color;
+  cursor: text;
+  font-size: $wysiwyg-editor-font-size;
+  margin-top: 10px;
+  min-height: $wysiwyg-editor-height;
+  padding-top: 15px;
+
+  code,
+  pre {
+    background-color: $wysiwyg-editor-code-background-color;
+    font-family: $wysiwyg-editor-code-font-family;
+    font-size: 16px;
+    padding: 20px;
+  }
+
+  blockquote {
+    border-left: 5px solid $wysiwyg-editor-blockquote-left-border-color;
+    font-family: $wysiwyg-editor-blockquote-font-family;
+    font-style: italic;
+    margin: 16px 0;
+    padding: 10px 20px;
+  }
+}
+
+/**
+ * Overrides react-draft-wysiwyg styles
+ */
+.rdw-colorpicker-modal {
+  height: 200px;
+  left: -140px;
+  top: 30px;
+  width: 200px;
+}
+
+.rdw-colorpicker-modal-style-label {
+  font-size: 12px;
+}
+
+.rdw-inline-wrapper {
+  align-items: center;
+}
+
+.rdw-option-wrapper {
+  border: none;
+}
+
+.rdw-option-wrapper:hover,
+.rdw-option-active {
+  background-color: $wysiwyg-button-active-color;
+  box-shadow: none;
+  transition: background-color .3s;
+}

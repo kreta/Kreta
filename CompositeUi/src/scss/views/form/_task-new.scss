@@ -6,9 +6,16 @@
 // For the full copyright and license information, please view the LICENSE
 // file that was distributed with this source code.
 
-$font-family-open-sans: 'Open Sans', sans-serif;
-$font-family-inconsolata: 'Inconsolata', 'Menlo', 'Consolas', monospace;
-$font-family-hoefler: 'Hoefler Text', 'Georgia', serif;
+.task-new__description {
+  margin-bottom: 30px;
+  margin-top: 30px;
 
-$font-weight-regular: 400;
-$font-weight-bold: 700;
+  .wysiwyg {
+    border: 0;
+    padding: 15px 0 0;
+  }
+
+  .wysiwyg__editor {
+    margin-top: 0;
+  }
+}

@@ -49,7 +49,7 @@ class Show extends React.Component {
         <Row>
           <RowColumn>
             <h1 className="task-show__title">{task.title}</h1>
-            <p className="task-show__description">{task.description}</p>
+             <p className="task-show__description">{task.description}</p>
           </RowColumn>
         </Row>
         <Row className="task-show__fields">

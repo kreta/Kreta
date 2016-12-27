@@ -29,6 +29,7 @@ export default {
   appPackageJson: resolveApp('package.json'),
   appSrc: resolveApp('src'),
   appScss: resolveApp('src/scss'),
+  wysiwygSvgPath: resolveApp('src/svg/wysiwyg'),
   appNodeModules: resolveApp('node_modules'),
   appPublicPath: '/',
   nodePaths: nodePaths

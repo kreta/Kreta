@@ -8,6 +8,8 @@
  * file that was distributed with this source code.
  */
 
+import './../../scss/views/form/_task-new.scss';
+
 import React from 'react';
 import {connect} from 'react-redux';
 import {Field, reduxForm} from 'redux-form';
@@ -70,7 +72,9 @@ class TaskNew extends React.Component {
               {this.getProjectOptions()}
             </Field>
             <Field autoFocus component={FormInput} label="Title" name="title" tabIndex={2}/>
-            <Field component={FormInput} label="Description" multiline name="description" tabIndex={3}/>
+             <div className="task-new__description">
+               <Field component={FormInput} label="Description" multiline name="description" tabIndex={3}/>
+             </div>
           </RowColumn>
         </Row>
         <Row collapse>

@@ -13,6 +13,8 @@ import './../../scss/components/_form-input.scss';
 import React from 'react';
 import classnames from 'classnames';
 
+// import Wysiwyg from './../component/Wysiwyg';
+
 class FormInput extends React.Component {
   getInputField() {
     const {
@@ -31,6 +33,7 @@ class FormInput extends React.Component {
     if (multiline) {
       return (
         <textarea className={inputClasses} onKeyUp={onChange} {...input} {...custom} ref="input"/>
+//         <Wysiwyg className={inputClasses} {...input} {...custom} ref="input"/>
       );
     }
 
@@ -39,9 +42,23 @@ class FormInput extends React.Component {
     );
   }
 
+  getLabelField() {
+    const {multiline, label} = this.props;
+
+    if (multiline) {
+      return (
+        <label className="form-input__label form-input__label--multiline">{label}</label>
+      );
+    }
+
+    return (
+      <label className="form-input__label">{label}</label>
+    );
+  }
+
   render() {
     const
-      {input, label, meta: {touched, error}} = this.props,
+      {input, label, meta: {touched, error}} = this.props, // eslint-disable-line no-unused-vars
       rootClasses = classnames('form-input', {
         'form-input--error': touched && error,
         'form-input--success': input.value.length > 0 && !error
@@ -50,7 +67,7 @@ class FormInput extends React.Component {
     return (
       <div className={rootClasses} onClick={this.focus.bind(this)}>
         {this.getInputField()}
-        <label className="form-input__label">{label}</label>
+        {this.getLabelField()}
         <div className="form-input__bar"></div>
       </div>
     );
