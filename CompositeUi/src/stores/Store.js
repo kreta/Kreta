@@ -33,13 +33,17 @@ const
   };
 
 export default function configureStore(browserHistory) {
-  const reduxRouterMiddleware = syncHistory(browserHistory),
-    createStoreWithMiddleware = compose(applyMiddleware(
-      reduxRouterMiddleware,
-      thunkMiddleware,
-      loggerMiddleware,
-      authInterceptorMiddleware
-    ), window.devToolsExtension ? window.devToolsExtension() : f => f)(createStore);
+  const
+    reduxRouterMiddleware = syncHistory(browserHistory),
+    createStoreWithMiddleware = compose(
+      applyMiddleware(
+        reduxRouterMiddleware,
+        thunkMiddleware,
+        loggerMiddleware,
+        authInterceptorMiddleware
+      ),
+      window.devToolsExtension ? window.devToolsExtension() : f => f
+    )(createStore);
 
   return createStoreWithMiddleware(reducers);
 }
