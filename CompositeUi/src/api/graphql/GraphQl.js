@@ -18,6 +18,14 @@ class GraphQl {
       throw new TypeError('GraphQl is an abstract class, it cannot be instantiate directly');
     }
 
+    this.accessToken = () => (
+      localStorage.token
+    );
+
+    this.issetToken = () => (
+      typeof this.accessToken() !== 'undefined'
+    );
+
     this.uri = () => (
       `${this.baseUrl()}?access_token=${this.accessToken()}`
     );
@@ -34,11 +42,9 @@ class GraphQl {
       }
     };
 
-    this.relayNetworkLayer = new DefaultNetworkLayer(this.uri());
-  }
-
-  accessToken() {
-    return localStorage.token;
+    this.relayNetworkLayer = () => (
+      new DefaultNetworkLayer(this.uri())
+    );
   }
 
   baseUrl() {
@@ -46,6 +52,9 @@ class GraphQl {
   }
 
   query(query) {
+    if (false === this.issetToken()) {
+      return;
+    }
     if (query instanceof Array) {
       for (const variable of query) {
         this.isRelayQueryRequest(variable);
@@ -55,13 +64,16 @@ class GraphQl {
       query = [query];
     }
 
-    return this.relayNetworkLayer.sendQueries(query);
+    return this.relayNetworkLayer().sendQueries(query);
   }
 
   mutation(mutation) {
+    if (false === this.issetToken()) {
+      return;
+    }
     this.isRelayMutationRequest(mutation);
 
-    return this.relayNetworkLayer.sendMutation(mutation);
+    return this.relayNetworkLayer().sendMutation(mutation);
   }
 }
 

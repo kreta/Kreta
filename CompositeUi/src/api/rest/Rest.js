@@ -18,6 +18,10 @@ class Rest {
       localStorage.token
     );
 
+    this.issetToken = () => (
+      typeof this.accessToken() !== 'undefined'
+    );
+
     this.request = (method, url, body = {}, headers = {}) => (
       new Promise((resolve, reject) => {
         fetch(`${this.baseUrl()}${url}`, {body, headers, method})
