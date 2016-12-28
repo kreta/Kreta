@@ -56,6 +56,8 @@ class TasksResolver implements Resolver
 
     public function resolve($args)
     {
+        $args = $args['taskConnectionInput'];
+
         if (!isset($args['title'])) {
             $args['title'] = null;
         }

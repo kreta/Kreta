@@ -11,19 +11,19 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
-import IssueNew from './../../form/IssueNew';
+import TaskNew from './../../form/TaskNew';
 import CurrentProjectActions from './../../../actions/CurrentProject';
 
 @connect()
 class New extends React.Component {
-  createIssue(issue) {
-    this.props.dispatch(CurrentProjectActions.createIssue(issue));
+  createTask(task) {
+    this.props.dispatch(CurrentProjectActions.createTask(task));
   }
 
   render() {
     return (
       <ContentMiddleLayout>
-        <IssueNew onSubmit={this.createIssue.bind(this)}/>
+        <TaskNew onSubmit={this.createTask.bind(this)}/>
       </ContentMiddleLayout>
     );
   }

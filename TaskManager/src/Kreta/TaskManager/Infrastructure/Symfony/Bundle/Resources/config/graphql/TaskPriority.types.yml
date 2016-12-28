@@ -14,7 +14,7 @@ TaskPriority:
             LOW:
                 value: "low"
                 description: "Low priority."
-            MEIDUM:
+            MEDIUM:
                 value: "medium"
                 description: "Medium priority."
             HIGH:

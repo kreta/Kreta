@@ -23,20 +23,25 @@ import Icon from './../../component/Icon';
 import Filter from './../../component/Filter';
 import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
 import ContentRightLayout from './../../layout/ContentRightLayout';
-import IssuePreview from './../../component/IssuePreview';
+import TaskPreview from './../../component/TaskPreview';
 import LoadingSpinner from './../../component/LoadingSpinner';
 import PageHeader from './../../component/PageHeader';
 import Thumbnail from './../../component/Thumbnail';
 import InlineLink from './../../component/InlineLink';
 import CurrentProjectActions from './../../../actions/CurrentProject';
 
-@connect(state => ({currentProject: state.currentProject}))
-class IssueList extends React.Component {
+@connect(state => ({currentProject: state.currentProject, profile: state.profile.profile}))
+class TaskList extends React.Component {
   componentDidMount() {
     const {params, dispatch} = this.props;
-    Mousetrap.bind(Config.shortcuts.issueNew, () => {
+
+    if (this.props.profile) {
+      dispatch(CurrentProjectActions.loadFilters(this.props.profile.id));
+    }
+
+    Mousetrap.bind(Config.shortcuts.taskNew, () => {
       dispatch(
-        routeActions.push(`/project/${params.projectId}/issue/new`)
+        routeActions.push(`/project/${params.projectId}/task/new`)
       );
     });
     Mousetrap.bind(Config.shortcuts.projectSettings, () => {
@@ -46,8 +51,8 @@ class IssueList extends React.Component {
     });
   }
 
-  filterIssues(filters) {
-    const data = {project: this.state.project.id};
+  filterTasks(filters) {
+    const data = {project: this.props.currentProject.project.id};
 
     filters.forEach((filter) => {
       filter.forEach((item) => {
@@ -56,84 +61,33 @@ class IssueList extends React.Component {
         }
       });
     });
-
-    this.props.dispatch(CurrentProjectActions.filterIssues(data));
+    this.props.dispatch(CurrentProjectActions.filterTasks(data));
   }
 
-//  loadFilters(project) {
-//    var assigneeFilters = [{
-//        filter: 'assignee',
-//        selected: true,
-//        title: 'All',
-//        value: ''
-//      }, {
-//        filter: 'assignee',
-//        selected: false,
-//        title: 'Assigned to me',
-//        value: this.props.profile.profile.id
-//      }],
-//      priorityFilters = [{
-//        filter: 'priority',
-//        selected: true,
-//        title: 'All priorities',
-//        value: ''
-//      }
-//      ],
-//      priorities = [], //project.get('issue_priorities'),
-//      statusFilters = [{
-//        filter: 'status',
-//        selected: true,
-//        title: 'All statuses',
-//        value: ''
-//      }],
-//      statuses = [];// project.get('statuses');
-//
-//    if (priorities) {
-//      priorities.forEach((priority) => {
-//        priorityFilters.push({
-//          filter: 'priority',
-//          selected: false,
-//          title: priority.name,
-//          value: priority.id
-//        });
-//      });
-//    }
-//
-//    if (statuses) {
-//      statuses.forEach((status) => {
-//        statusFilters.push({
-//          filter: 'status',
-//          selected: false,
-//          title: status.name,
-//          value: status.id
-//        });
-//      });
-//    }
-//    this.setState({filters: [assigneeFilters, priorityFilters, statusFilters]});
-//  }
-
-  selectCurrentIssue(task) {
+  selectCurrentTask(task) {
     const {dispatch, params} = this.props;
+
     dispatch(
-      routeActions.push(`/project/${params.projectId}/issue/${task.id}`)
+      routeActions.push(`/project/${params.projectId}/task/${task.id}`)
     );
   }
 
-  hideIssue() {
+  hideTask() {
     const {dispatch, params} = this.props;
+
     dispatch(
       routeActions.push(`/project/${params.projectId}`)
     );
   }
 
-  getIssuesEl() {
+  getTasksEl() {
     const {currentProject, params} = this.props;
 
     return currentProject.project._tasks4hn9we.edges.map((task, index) => (
-      <IssuePreview issue={task.node}
-                    key={index}
-                    onClick={this.selectCurrentIssue.bind(this, task.node)}
-                    selected={params.issueId === task.node.id}/>
+      <TaskPreview key={index}
+                   onClick={this.selectCurrentTask.bind(this, task.node)}
+                   selected={params.taskId === task.node.id}
+                   task={task.node}/>
     ));
   }
 
@@ -142,6 +96,7 @@ class IssueList extends React.Component {
     if (currentProject.waiting) {
       return <LoadingSpinner/>;
     }
+
     return (
       <div>
         <ContentMiddleLayout>
@@ -151,16 +106,16 @@ class IssueList extends React.Component {
             <InlineLink to={`/project/${currentProject.project.id}/settings`}>
               <Icon color="green" glyph={SettingsIcon} size="small"/>Settings
             </InlineLink>
-            <Link to={`/project/${params.projectId}/issue/new`}>
+            <Link to={`/project/${params.projectId}/task/new`}>
               <Button color="green">New task</Button>
             </Link>
           </PageHeader>
           <Filter filters={currentProject.filters}
-                  onFilterSelected={this.filterIssues.bind(this)}/>
-           {this.getIssuesEl()}
+                  onFilterSelected={this.filterTasks.bind(this)}/>
+          {this.getTasksEl()}
         </ContentMiddleLayout>
         <ContentRightLayout isOpen={this.props.children !== null}
-                            onRequestClose={this.hideIssue.bind(this)}>
+                            onRequestClose={this.hideTask.bind(this)}>
           {this.props.children}
         </ContentRightLayout>
       </div>
@@ -168,4 +123,4 @@ class IssueList extends React.Component {
   }
 }
 
-export default IssueList;
+export default TaskList;

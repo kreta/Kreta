@@ -11,39 +11,52 @@
 import '../../scss/components/_filter.scss';
 
 import React from 'react';
-import $ from 'jquery';
 
-export default React.createClass({
-  propTypes: {
+class Filter extends React.Component {
+  static propTypes = {
+    filters: React.PropTypes.array.isRequired,
     onFilterSelected: React.PropTypes.func.isRequired
-  },
-  selectFilterItem($item) {
-    const itemGroup = $item.parent().index();
+  };
 
-    $item.parent().find('a').removeClass('selected');
-    $item.addClass('selected');
+  index(element) {
+    return [...element.parentNode.children].indexOf(element);
+  }
 
-    this.props.filters[itemGroup].forEach((item) => {
-      item.selected = false;
+  selectFilterItem(item) {
+    const itemGroup = this.index(item.parentElement);
+
+    item.parentNode.querySelector('a').classList.remove('selected');
+    item.classList.add('selected');
+
+    this.props.filters[itemGroup].forEach((filter) => {
+      filter.selected = false;
     });
 
-    this.props.filters[itemGroup][$item.index()].selected = true;
+    this.props.filters[itemGroup][this.index(item)].selected = true;
 
     return this.props.filters;
-  },
-  filterSelected(ev) {
-    this.selectFilterItem($(ev.currentTarget));
+  }
+
+  filterSelected(event) {
+    this.selectFilterItem(event.currentTarget);
     this.props.onFilterSelected(this.props.filters);
-  },
+  }
+
   render() {
-    const filtersEl = this.props.filters.map((filter) => {
-      const groupFilters = filter.map((item) => (
-        <a className={`filter-item ${ item.selected ? 'selected' : ''} `}
-           data-filter={ item.filter }
-           data-value={ item.value }
-           onClick={this.filterSelected}>{item.title}</a>
+    const filtersEl = this.props.filters.map((filter, index) => {
+      const groupFilters = filter.map((item, index2) => (
+        <a className={`filter-item${item.selected ? ' selected ' : ' '}`}
+           data-filter={item.filter}
+           data-value={item.value}
+           key={index2}
+           onClick={this.filterSelected.bind(this)}>{item.title}</a>
       ));
-      return <div className="filter-group">{groupFilters}</div>;
+
+      return (
+        <div className="filter-group" key={index}>
+          {groupFilters}
+        </div>
+      );
     });
 
     return (
@@ -52,4 +65,6 @@ export default React.createClass({
       </div>
     );
   }
-});
+}
+
+export default Filter;

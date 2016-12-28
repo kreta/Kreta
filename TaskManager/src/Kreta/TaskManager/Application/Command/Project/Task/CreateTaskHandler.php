@@ -97,9 +97,7 @@ class CreateTaskHandler
             $organization->organizationMember($assigneeId)->id(),
             new TaskPriority($command->priority()),
             $project->id(),
-            TaskId::generate(
-                $parentId
-            )
+            null === $parentId ? null : TaskId::generate($parentId)
         );
         $this->repository->persist($task);
     }

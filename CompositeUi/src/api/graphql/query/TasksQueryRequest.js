@@ -12,32 +12,54 @@ import Relay from 'react-relay';
 import RelayQuery from 'react-relay/lib/RelayQuery';
 import RelayQueryRequest from 'react-relay/lib/RelayQueryRequest';
 
-const
-  query = RelayQuery.Root.create(
-    Relay.QL`
-      query {
-        tasks {
-          totalCount
-          edges {
-            node {
-              id
-              title
-              assignee {
-                id
-              },
-              creator {
-                id
-              },
-            }
-            cursor
-          }
-          pageInfo {
-            endCursor
-            hasNextPage
-          }
+const query = Relay.QL`
+  query {
+    tasks(taskConnectionInput: $taskConnectionInput) {
+      totalCount,
+      edges {
+        node {
+          id
+          title,
+          description,
+          priority,
+          progress,
+          assignee {
+            id
+          },
+          creator {
+            id
+          },
         }
-      }`
-  ),
-  TasksQueryRequest = new RelayQueryRequest(query);
+        cursor
+      }
+      pageInfo {
+        endCursor,
+        hasNextPage
+      }
+    }
+  }
+`;
+
+class TasksQueryRequest extends RelayQueryRequest {
+  static build({priority = null, progress = null, assignee = null} = {}) {
+    const taskConnectionInput = {};
+
+    if (priority) {
+      taskConnectionInput.priority = priority;
+    }
+    if (progress) {
+      taskConnectionInput.progress = progress;
+    }
+    if (assignee) {
+      taskConnectionInput.assigneeId = assignee;
+    }
+
+    return new RelayQueryRequest(
+      RelayQuery.Root.create(query, {}, {
+        taskConnectionInput
+      })
+    );
+  }
+}
 
 export default TasksQueryRequest;

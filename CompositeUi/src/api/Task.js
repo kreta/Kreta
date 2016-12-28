@@ -8,8 +8,8 @@
  * file that was distributed with this source code.
  */
 
-class IssueApi {
-  getIssues() {
+class TaskApi {
+  getTasks() {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve({status: 200, data: [
@@ -70,16 +70,16 @@ class IssueApi {
               "id": "0",
               "color": "#27ae60"
             },
-            "title": "Test issue 1",
+            "title": "Test task 1",
             "_links": {
               "self": {
-                "href": "http://kreta.test:8000/api/issues/0"
+                "href": "http://kreta.test:8000/api/tasks/0"
               },
               "project": {
                 "href": "http://kreta.test:8000/api/projects/0"
               },
-              "issues": {
-                "href": "http://kreta.test:8000/api/issues"
+              "tasks": {
+                "href": "http://kreta.test:8000/api/tasks"
               }
             }
           },
@@ -140,16 +140,16 @@ class IssueApi {
               "id": "2",
               "color": "#f1c40f"
             },
-            "title": "Test issue 2",
+            "title": "Test task 2",
             "_links": {
               "self": {
-                "href": "http://kreta.test:8000/api/issues/1"
+                "href": "http://kreta.test:8000/api/tasks/1"
               },
               "project": {
                 "href": "http://kreta.test:8000/api/projects/0"
               },
-              "issues": {
-                "href": "http://kreta.test:8000/api/issues"
+              "tasks": {
+                "href": "http://kreta.test:8000/api/tasks"
               }
             }
           },
@@ -210,16 +210,16 @@ class IssueApi {
               "id": "2",
               "color": "#f1c40f"
             },
-            "title": "Test issue 3",
+            "title": "Test task 3",
             "_links": {
               "self": {
-                "href": "http://kreta.test:8000/api/issues/2"
+                "href": "http://kreta.test:8000/api/tasks/2"
               },
               "project": {
                 "href": "http://kreta.test:8000/api/projects/0"
               },
-              "issues": {
-                "href": "http://kreta.test:8000/api/issues"
+              "tasks": {
+                "href": "http://kreta.test:8000/api/tasks"
               }
             }
           },
@@ -283,16 +283,16 @@ class IssueApi {
               "id": "3",
               "color": "#c0392b"
             },
-            "title": "Test issue 4",
+            "title": "Test task 4",
             "_links": {
               "self": {
-                "href": "http://kreta.test:8000/api/issues/5"
+                "href": "http://kreta.test:8000/api/tasks/5"
               },
               "project": {
                 "href": "http://kreta.test:8000/api/projects/0"
               },
-              "issues": {
-                "href": "http://kreta.test:8000/api/issues"
+              "tasks": {
+                "href": "http://kreta.test:8000/api/tasks"
               }
             }
           }
@@ -301,7 +301,7 @@ class IssueApi {
     });
   }
 
-  getIssue() {
+  getTask() {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve({status: 200, data: {
@@ -361,16 +361,16 @@ class IssueApi {
             "id": "0",
             "color": "#27ae60"
           },
-          "title": "Test issue 1",
+          "title": "Test task 1",
           "_links": {
             "self": {
-              "href": "http://kreta.test:8000/api/issues/0"
+              "href": "http://kreta.test:8000/api/tasks/0"
             },
             "project": {
               "href": "http://kreta.test:8000/api/projects/0"
             },
-            "issues": {
-              "href": "http://kreta.test:8000/api/issues"
+            "tasks": {
+              "href": "http://kreta.test:8000/api/tasks"
             }
           }
         }});
@@ -378,15 +378,15 @@ class IssueApi {
     });
   }
 
-//   postIssue(payload) {
-//     return this.post('/issues', payload);
+//   postTask(payload) {
+//     return this.post('/tasks', payload);
 //   }
 //
-//   putIssue(issueId, payload) {
-//     return this.put(`/issues/${issueId}`, payload);
+//   putTask(taskId, payload) {
+//     return this.put(`/tasks/${taskId}`, payload);
 //   }
 }
 
-const instance = new IssueApi();
+const instance = new TaskApi();
 
 export default instance;

@@ -41,8 +41,8 @@ const validate = (values) => {
   projects: state.projects.projects
 }))
 
-@reduxForm({form: 'IssueEdit', validate})
-class IssueEdit extends React.Component {
+@reduxForm({form: 'TaskEdit', validate})
+class TaskEdit extends React.Component {
   render() {
     const {handleSubmit} = this.props;
 
@@ -78,4 +78,4 @@ class IssueEdit extends React.Component {
   }
 }
 
-export default IssueEdit;
+export default TaskEdit;

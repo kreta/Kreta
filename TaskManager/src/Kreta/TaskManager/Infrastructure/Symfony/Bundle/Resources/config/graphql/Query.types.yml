@@ -90,29 +90,10 @@ Query:
             tasks:
                 type: "TaskConnection"
                 description: "The paginate list of task that can be filter by title, project id, parent task id, assignee id, creator id, priority and progress"
-                argsBuilder: ConnectionArgs
                 args:
-                    projectId:
-                        description: "project id to which the task belongs"
-                        type: "ID"
-                    parentId:
-                        description: "parent task id to which the task belongs"
-                        type: "ID"
-                    assigneeId:
-                        description: "assignee id to which the task belongs"
-                        type: "ID"
-                    creatorId:
-                        description: "creator id to which the task belongs"
-                        type: "ID"
-                    priority:
-                        description: "priority to which the task has"
-                        type: "TaskPriority"
-                    progress:
-                        description: "progress to which the task has"
-                        type: "TaskProgress"
-                    title:
-                        description: "title of the task, it uses to filter the tasks. Typical 'q'"
-                        type: "String"
+                    taskConnectionInput:
+                        description: "Input object that wraps complex filter requirements of task connection"
+                        type: "TaskConnectionInput"
                 resolve: '@=resolver("tasks", [args])'
             task:
                 type: "Task"

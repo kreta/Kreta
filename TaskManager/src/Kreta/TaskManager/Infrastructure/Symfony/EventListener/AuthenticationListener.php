@@ -20,7 +20,7 @@ use Http\Message\MessageFactory;
 use Kreta\TaskManager\Infrastructure\Symfony\Security\User;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
-use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
+use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 final class AuthenticationListener
@@ -51,12 +51,12 @@ final class AuthenticationListener
         $request = $this->authentication($event->getRequest())->authenticate($request);
         $response = $this->client->sendRequest($request);
 
-        $userId = json_decode($response->getBody()->getContents(), true)['user_id'];
-        if (null === $userId) {
-            throw new AccessDeniedHttpException();
+        $data = json_decode($response->getBody()->getContents(), true);
+        if (!isset($data['user_id'])) {
+            throw new UnauthorizedHttpException('Basic');
         }
 
-        $this->tokenStorage->getToken()->setUser(new User($userId));
+        $this->tokenStorage->getToken()->setUser(new User($data['user_id']));
     }
 
     private function authentication(Request $request) : Bearer
@@ -66,7 +66,7 @@ final class AuthenticationListener
         } elseif ($request->query->has('access_token')) {
             $token = $request->query->get('access_token');
         } else {
-            throw new AccessDeniedHttpException();
+            throw new UnauthorizedHttpException('Basic');
         }
 
         return new Bearer($token);

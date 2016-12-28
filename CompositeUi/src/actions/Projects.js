@@ -21,7 +21,7 @@ const Actions = {
     dispatch({
       type: ActionTypes.PROJECTS_FETCHING
     });
-    TaskManagerGraphQl.query(ProjectsQueryRequest);
+    TaskManagerGraphQl.query(ProjectsQueryRequest, dispatch);
     ProjectsQueryRequest.then(data => {
       dispatch({
         type: ActionTypes.PROJECTS_RECEIVED,
@@ -35,7 +35,7 @@ const Actions = {
     });
     const mutation = CreateProjectMutationRequest.build(projectInputData);
 
-    TaskManagerGraphQl.mutation(mutation);
+    TaskManagerGraphQl.mutation(mutation, dispatch);
     mutation
       .then(data => {
         const project = data.response.createProject.project;

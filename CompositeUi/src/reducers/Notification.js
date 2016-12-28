@@ -44,8 +44,8 @@ export default function reducer(state = initialState, action = {}) {
     }
 
     // Action listeners
-    case ActionTypes.ISSUE_UPDATED: {
-      return _addNotification(state, 'Issue updated successfully');
+    case ActionTypes.TASK_UPDATED: {
+      return _addNotification(state, 'Task updated successfully');
     }
 
     case ActionTypes.PROFILE_UPDATED: {
@@ -56,8 +56,8 @@ export default function reducer(state = initialState, action = {}) {
       return _addNotification(state, 'The profile update failed, please check field errors', 'error');
     }
 
-    case ActionTypes.CURRENT_PROJECT_ISSUE_CREATED: {
-      return _addNotification(state, 'Issue created successfully');
+    case ActionTypes.CURRENT_PROJECT_TASK_CREATED: {
+      return _addNotification(state, 'Task created successfully');
     }
 
     case ActionTypes.PROJECTS_CREATED: {

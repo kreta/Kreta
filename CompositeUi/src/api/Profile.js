@@ -13,7 +13,7 @@ class ProfileApi {
     return new Promise((resolve) => {
       setTimeout(() => {
         resolve({status: 200, data: {
-          "id": "0",
+          "id": "a38f8ef4-400b-4229-a5ff-712ff5f72b27",
           "username": "user",
           "email": "user@kreta.com",
           "enabled": true,

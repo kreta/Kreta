@@ -20,7 +20,7 @@ const Actions = {
       type: ActionTypes.DASHBOARD_DATA_FETCHING
     });
 
-    TaskManagerGraphQl.query([OrganizationsQueryRequest, ProjectsQueryRequest]);
+    TaskManagerGraphQl.query([OrganizationsQueryRequest, ProjectsQueryRequest], dispatch);
 
     OrganizationsQueryRequest.then(organizationsData => {
       ProjectsQueryRequest.then(projectsData => {

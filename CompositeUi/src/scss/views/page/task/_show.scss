@@ -8,11 +8,11 @@
 
 @import '../../../base/colors';
 
-.issue-show {
+.task-show {
   position: relative;
 }
 
-.issue-show__title {
+.task-show__title {
   background: $light-grey;
   color: $main-black;
   font-size: 1.8em;
@@ -22,7 +22,7 @@
   padding: 0;
 }
 
-.issue-show__transitions {
+.task-show__transitions {
   margin-top: 30px;
 
   .button {
@@ -30,7 +30,7 @@
   }
 }
 
-.issue-show__description {
+.task-show__description {
   background: $light-grey;
   color: $main-black;
   font-size: 16px;
@@ -42,6 +42,6 @@
   overflow: hidden;
 }
 
-.issue-show__fields {
+.task-show__fields {
   margin-top: 30px;
 }

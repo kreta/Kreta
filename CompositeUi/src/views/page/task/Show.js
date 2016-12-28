@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-import './../../../scss/views/page/issue/_show';
+import './../../../scss/views/page/task/_show';
 
 import {connect} from 'react-redux';
 import React from 'react';
@@ -21,7 +21,7 @@ import {Row, RowColumn} from './../../component/Grid';
 import SelectorOption from './../../component/SelectorOption';
 import Thumbnail from './../../component/Thumbnail';
 
-@connect(state => ({task: state.currentProject.selectedIssue}))
+@connect(state => ({task: state.currentProject.selectedTask}))
 class Show extends React.Component {
   assignee(task) {
     return !task.assignee.first_name ? 'Dummy assignee' : `${task.assignee.first_name} ${task.assignee.last_name}`;
@@ -36,7 +36,7 @@ class Show extends React.Component {
 
     if (!task) {
       return (
-        <div className="issue-show">
+        <div className="task-show">
           <LoadingSpinner/>
         </div>
       );
@@ -46,11 +46,11 @@ class Show extends React.Component {
       <div>
         <Row>
           <RowColumn>
-            <h1 className="issue-show__title">{task.title}</h1>
-            <p className="issue-show__description">{task.description}</p>
+            <h1 className="task-show__title">{task.title}</h1>
+            <p className="task-show__description">{task.description}</p>
           </RowColumn>
         </Row>
-        <Row className="issue-show__fields">
+        <Row className="task-show__fields">
           <RowColumn small={6}>
             <SelectorOption alignLeft
                             label="Assignee"
@@ -66,7 +66,7 @@ class Show extends React.Component {
                             value="1"/>
           </RowColumn>
         </Row>
-        <Row className="issue-show__fields">
+        <Row className="task-show__fields">
           <RowColumn small={6}>
             <SelectorOption alignLeft label="Progress" left text={task.progress} value="1"/>
           </RowColumn>
@@ -77,7 +77,7 @@ class Show extends React.Component {
         <Row>
           <RowColumn>
             <FormActions>
-              <Link to={`/project/${params.projectId}/issue/${params.issueId}/edit`}>
+              <Link to={`/project/${params.projectId}/task/${params.taskId}/edit`}>
                 <Button color="green">Edit</Button>
               </Link>
             </FormActions>
