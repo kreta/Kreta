@@ -12,6 +12,8 @@ import {DefaultNetworkLayer} from 'react-relay';
 import RelayMutationRequest from 'react-relay/lib/RelayMutationRequest';
 import RelayQueryRequest from 'react-relay/lib/RelayQueryRequest';
 
+import UserActions from './../../actions/User';
+
 class GraphQl {
   constructor() {
     if (this.constructor.name === 'GraphQl') {
@@ -45,33 +47,42 @@ class GraphQl {
     this.relayNetworkLayer = () => (
       new DefaultNetworkLayer(this.uri())
     );
+
+    this.buildGraphQlResponse = (response, dispatch) => (
+      response.catch(() => {
+        dispatch(UserActions.logout());
+      })
+    );
   }
 
   baseUrl() {
     throw new Error('"baseUrl" is an abstract method that expects to be implemented by children classes');
   }
 
-  query(query) {
+  query(query, dispatch) {
     if (false === this.issetToken()) {
       return;
     }
     if (query instanceof Array) {
       for (const variable of query) {
         this.isRelayQueryRequest(variable);
+        this.buildGraphQlResponse(variable, dispatch);
       }
     } else {
       this.isRelayQueryRequest(query);
+      this.buildGraphQlResponse(query, dispatch);
       query = [query];
     }
 
     return this.relayNetworkLayer().sendQueries(query);
   }
 
-  mutation(mutation) {
+  mutation(mutation, dispatch) {
     if (false === this.issetToken()) {
       return;
     }
     this.isRelayMutationRequest(mutation);
+    this.buildGraphQlResponse(mutation, dispatch);
 
     return this.relayNetworkLayer().sendMutation(mutation);
   }

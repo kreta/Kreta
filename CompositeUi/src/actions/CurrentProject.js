@@ -23,13 +23,14 @@ const Actions = {
     });
     const query = ProjectQueryRequest.build(projectId);
 
-    TaskManagerGraphQl.query(query);
-    query.then(data => {
-      dispatch({
-        type: ActionTypes.CURRENT_PROJECT_RECEIVED,
-        project: data.response.project,
+    TaskManagerGraphQl.query(query, dispatch);
+    query
+      .then(data => {
+        dispatch({
+          type: ActionTypes.CURRENT_PROJECT_RECEIVED,
+          project: data.response.project,
+        });
       });
-    });
   },
   selectCurrentTask: (task) => (dispatch) => (
     dispatch({
@@ -49,7 +50,7 @@ const Actions = {
     });
     const query = TasksQueryRequest.build(filters);
 
-    TaskManagerGraphQl.query(query);
+    TaskManagerGraphQl.query(query, dispatch);
     query.then(data => {
       dispatch({
         type: ActionTypes.CURRENT_PROJECT_TASK_FILTERED,

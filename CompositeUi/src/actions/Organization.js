@@ -21,7 +21,7 @@ const Actions = {
     });
     const mutation = CreateOrganizationMutationRequest.build(organizationInputData);
 
-    TaskManagerGraphQl.mutation(mutation);
+    TaskManagerGraphQl.mutation(mutation, dispatch);
     mutation
       .then(data => {
         const organization = data.response.createOrganization.organization;
