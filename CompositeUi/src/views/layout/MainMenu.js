@@ -51,8 +51,10 @@ class MainMenu extends React.Component {
     if (this.props.profile) {
       profileWidget = (
         <Link className="main-menu__profile" to="/profile">
-          <Thumbnail image={this.props.profile.photo.name}
-                     text={`${this.props.profile.first_name} ${this.props.profile.last_name}`}/>
+          <Thumbnail
+            image={this.props.profile.photo.name}
+            text={`${this.props.profile.first_name} ${this.props.profile.last_name}`}
+          />
           <span className="main-menu__username">@{this.props.profile.username}</span>
         </Link>
       );
@@ -76,10 +78,12 @@ class MainMenu extends React.Component {
             <Icon color="white" glyph={InboxIcon} size="medium"/>
             <span className="main-menu__notification-bubble">0</span>
           </div>
-          { profileWidget }
+          {profileWidget}
         </div>
-        <Modal isOpen={this.props.mainMenu.projectsVisible}
-               onRequestClose={this.hideProjectsList.bind(this)}>
+        <Modal
+          isOpen={this.props.mainMenu.projectsVisible}
+          onRequestClose={this.hideProjectsList.bind(this)}
+        >
           <ProjectList onProjectSelected={this.hideProjectsList.bind(this)} ref="projectList"/>
         </Modal>
       </nav>
