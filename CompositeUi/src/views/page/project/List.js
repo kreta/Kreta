@@ -163,7 +163,6 @@ class List extends React.Component {
       <div>
         {this.getHeader()}
         <input
-          autoFocus="autoFocus"
           className="resource-preview__filter"
           onKeyUp={this.onKeyUp.bind(this)}
           placeholder="Type the project"
