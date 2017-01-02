@@ -19,12 +19,13 @@ import classNames from 'classnames';
 
 import Button from './../../component/Button';
 import Icon from './../../component/Icon';
+import MainMenuActions from './../../../actions/MainMenu';
 import NavigableList from './../../component/NavigableList';
 import ResourcePreview from './../../component/ResourcePreview';
 import ShortcutHelp from './../../component/ShortcutHelp';
 import {Row, RowColumn} from './../../component/Grid';
 
-@connect(state => ({projects: state.projects.projects}))
+@connect(state => ({projects: state.projects.projects, mainMenu: state.mainMenu}))
 class List extends React.Component {
   static propTypes = {
     onProjectSelected: React.PropTypes.func
@@ -41,16 +42,26 @@ class List extends React.Component {
     this.filterProjects('');
   }
 
-  onKeyUp(ev) {
-    if (ev.which === 13) { // Enter
+  componentWillUpdate() {
+    this.focus();
+  }
+
+  onKeyUp(event) {
+    if (event.which === 13) { // Enter
       this.goToShortcutLink(this.state.selectedShortcut);
-    } else if (ev.which < 37 || ev.which > 40) { // Filter
-      this.filterProjects(ev.currentTarget.value);
+    } else if (event.which === 27) { // Escape
+      this.hideProjectsList();
+    } else if (event.which < 37 || event.which > 40) { // Filter
+      this.filterProjects(event.currentTarget.value);
     } else {
-      this.refs.navigableList.handleNavigation(ev);
+      this.refs.navigableList.handleNavigation(event);
     }
 
-    ev.stopPropagation();
+    event.stopPropagation();
+  }
+
+  hideProjectsList() {
+    this.props.dispatch(MainMenuActions.hideProjects());
   }
 
   filterProjects(value) {
@@ -152,6 +163,7 @@ class List extends React.Component {
       <div>
         {this.getHeader()}
         <input
+          autoFocus="autoFocus"
           className="resource-preview__filter"
           onKeyUp={this.onKeyUp.bind(this)}
           placeholder="Type the project"

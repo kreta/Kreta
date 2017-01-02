@@ -23,12 +23,6 @@ class Modal extends React.Component {
     this.props.onRequestClose();
   }
 
-  handleKeyUp(ev) {
-    if (ev.which === 27) {
-      this.props.onRequestClose();
-    }
-  }
-
   render() {
     const modalClasses = classNames({
         'modal': true,
@@ -40,12 +34,11 @@ class Modal extends React.Component {
       });
 
     return (
-      <div onKeyUp={this.handleKeyUp.bind(this)}>
-        <div className={ modalClasses }>
-          { this.props.children }
+      <div>
+        <div className={modalClasses}>
+          {this.props.children}
         </div>
-        <div className={ overlayClasses }
-             onClick={this.closeModal.bind(this)}/>
+        <div className={overlayClasses} onClick={this.closeModal.bind(this)}/>
       </div>
     );
   }
