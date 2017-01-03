@@ -20,9 +20,14 @@ const
           totalCount
           edges {
             node {
-              id
-              name
-              slug
+              id,
+              name,
+              slug,
+              organization {
+                id,
+                name,
+                slug
+              }
             }
             cursor
           }

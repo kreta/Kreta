@@ -16,10 +16,6 @@ const Actions = {
   }),
   hideProjects: () => ({
     type: ActionTypes.MAIN_MENU_HIDE_PROJECTS
-  }),
-  highlightProject: (project) => ({
-    type: ActionTypes.MAIN_MENU_HIGHLIGHT_PROJECT,
-    highlightedProject: project
   })
 };
 

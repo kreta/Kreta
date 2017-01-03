@@ -16,9 +16,12 @@ import React from 'react';
 import {Link} from 'react-router';
 import {connect} from 'react-redux';
 
+import DashboardActions from './../../actions/Dashboard';
+
+import {routes} from './../../Routes';
+
 import Button from './../component/Button';
 import ContentMiddleLayout from './../layout/ContentMiddleLayout';
-import DashboardActions from './../../actions/Dashboard';
 import DashboardWidget from './../component/DashboardWidget';
 import FormInput from './../component/FormInput';
 import Icon from './../component/Icon';
@@ -39,7 +42,7 @@ class Dashboard extends React.Component {
         <ResourcePreview
           resource={organization.node}
           shortcuts={
-            <Link to="/project/new">
+            <Link to={routes.project.new(organization.node.slug)}>
               <Icon glyph={AddIcon}/>
             </Link>
           }
@@ -64,7 +67,7 @@ class Dashboard extends React.Component {
 
     return (
       <div className="resource-preview resource-preview--grand-child">
-        <Link to={`/organization/${organization.id}`}>
+        <Link to={routes.organization.show(organization.slug)}>
           <div className="resource-preview__title">
             View more...
           </div>
@@ -92,7 +95,7 @@ class Dashboard extends React.Component {
           <RowColumn>
             <DashboardWidget
               actions={
-                <Link to="/organization/new">
+                <Link to={routes.organization.new()}>
                   <Button color="green" size="small">New organization</Button>
                 </Link>
               }

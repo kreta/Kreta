@@ -10,6 +10,8 @@
 
 import {routeActions} from 'react-router-redux';
 
+import {routes} from './../Routes';
+
 import ActionTypes from './../constants/ActionTypes';
 import TaskApi from './../api/Task';
 import ProjectQueryRequest from './../api/graphql/query/ProjectQueryRequest';
@@ -63,14 +65,13 @@ const Actions = {
       type: ActionTypes.CURRENT_PROJECT_TASK_CREATING
     });
     TaskApi.postTask(taskData)
-      .then((response) => {
+      .then((task) => {
         dispatch({
           type: ActionTypes.CURRENT_PROJECT_TASK_CREATED,
-          status: response.status,
-          task: response.data
+          task
         });
         dispatch(
-          routeActions.push(`/project/${response.data.project}/task/${response.data.id}`)
+          routeActions.push(routes.task.show(task.project.organization.slug, task.project.slug, task.id))
         );
       })
       .catch((response) => {

@@ -30,7 +30,10 @@ const query = Relay.QL`
               node {
                 id,
                 name,
-                slug
+                slug,
+                organization {
+                  slug
+                }
               }
             }
           }

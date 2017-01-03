@@ -11,7 +11,9 @@
 import {routeActions} from 'react-router-redux';
 
 import ActionTypes from './../constants/ActionTypes';
-import Security from '../api/rest/User/Security';
+import Security from './../api/rest/User/Security';
+
+import {routes} from './../Routes';
 
 const Actions = {
   login: (credentialData) => (dispatch) => {
@@ -26,7 +28,7 @@ const Actions = {
           token: json.token
         });
         dispatch(
-          routeActions.push('/')
+          routeActions.push(routes.home)
         );
       }, (errorData) => {
         errorData.then((errors) => {
@@ -47,7 +49,7 @@ const Actions = {
           type: ActionTypes.USER_UNAUTHORIZED
         });
         dispatch(
-          routeActions.push('/login')
+          routeActions.push(routes.security.login())
         );
       });
   }

@@ -10,6 +10,8 @@
 
 import {routeActions} from 'react-router-redux';
 
+import {routes} from './../Routes';
+
 import ActionTypes from './../constants/ActionTypes';
 
 import ProjectsQueryRequest from './../api/graphql/query/ProjectsQueryRequest';
@@ -22,12 +24,13 @@ const Actions = {
       type: ActionTypes.PROJECTS_FETCHING
     });
     TaskManagerGraphQl.query(ProjectsQueryRequest, dispatch);
-    ProjectsQueryRequest.then(data => {
-      dispatch({
-        type: ActionTypes.PROJECTS_RECEIVED,
-        projects: data.response.projects.edges
+    ProjectsQueryRequest
+      .then(data => {
+        dispatch({
+          type: ActionTypes.PROJECTS_RECEIVED,
+          projects: data.response.projects.edges
+        });
       });
-    });
   },
   createProject: (projectInputData) => (dispatch) => {
     dispatch({
@@ -45,7 +48,7 @@ const Actions = {
           project,
         });
         dispatch(
-          routeActions.push(`/project/${project.id}`)
+          routeActions.push(routes.project.show(project.organization.slug, project.slug))
         );
       })
       .catch((response) => {

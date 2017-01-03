@@ -17,6 +17,8 @@ import {connect} from 'react-redux';
 import {routeActions} from 'react-router-redux';
 import classNames from 'classnames';
 
+import {routes} from './../../../Routes';
+
 import Button from './../../component/Button';
 import Icon from './../../component/Icon';
 import MainMenuActions from './../../../actions/MainMenu';
@@ -83,12 +85,14 @@ class List extends React.Component {
   }
 
   goToShortcutLink(index) {
-    const shortcutLinks = ['/', '/task/new'];
-    this.props.dispatch(
-      routeActions.push(
-        `/project/${this.state.filteredProjects[this.state.selectedProject].node.id}${shortcutLinks[index]}`
-      )
-    );
+    const
+      project = this.state.filteredProjects[this.state.selectedProject].node,
+      shortcutLinks = [
+        routes.project.show(project.organization.slug, project.slug),
+        routes.task.new(project.organization.slug, project.slug),
+      ];
+
+    this.props.dispatch(routeActions.push(shortcutLinks[index]));
     this.triggerOnProjectSelected();
   }
 
@@ -111,7 +115,7 @@ class List extends React.Component {
             <ShortcutHelp does="to dismiss" keyboard="esc"/>
           </RowColumn>
           <RowColumn small={3}>
-            <Link to="/project/new">
+            <Link>
               <Button
                 color="green"
                 onClick={this.triggerOnProjectSelected.bind(this, null)}

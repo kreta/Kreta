@@ -10,6 +10,8 @@
 
 import {routeActions} from 'react-router-redux';
 
+import {routes} from './../Routes';
+
 import ActionTypes from './../constants/ActionTypes';
 import CreateOrganizationMutationRequest from './../api/graphql/mutation/CreateOrganizationMutationRequest';
 import TaskManagerGraphQl from './../api/graphql/TaskManagerGraphQl';
@@ -31,7 +33,7 @@ const Actions = {
           organization,
         });
         dispatch(
-          routeActions.push(`/organization/${organization.id}`)
+          routeActions.push(routes.organization.show(organization.slug))
         );
       })
       .catch((response) => {

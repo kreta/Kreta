@@ -48,10 +48,11 @@ class TaskNew extends React.Component {
       defaultEl = [<SelectorOption key="project-empty" text="No project selected" value=""/>],
       optionsEl = this.props.projects.map(project => (
           <SelectorOption
-            key={project.id}
-            text={project.name}
-            thumbnail={<Thumbnail image={null} text={project.name}/>}
-            value={project.id}/>
+            key={project.node.id}
+            text={project.node.name}
+            thumbnail={<Thumbnail image={null} text={project.node.name}/>}
+            value={project.node.id}
+          />
         )
       );
 
@@ -75,12 +76,16 @@ class TaskNew extends React.Component {
         <Row collapse>
           <RowColumn large={4} medium={6}>
             <Field component={Selector} name="assignee" tabIndex={4}>
-              <SelectorOption text="Unassigned"
-                              thumbnail={<Thumbnail image={null} text=""/>}
-                              value=""/>
-              <SelectorOption text="User 1"
-                              thumbnail={<Thumbnail image={null} text="User 1"/>}
-                              value="1"/>
+              <SelectorOption
+                text="Unassigned"
+                thumbnail={<Thumbnail image={null} text=""/>}
+                value=""
+              />
+              <SelectorOption
+                text="User 1"
+                thumbnail={<Thumbnail image={null} text="User 1"/>}
+                value="1"
+              />
             </Field>
           </RowColumn>
           <RowColumn large={4} medium={6}>
