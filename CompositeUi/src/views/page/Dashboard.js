@@ -8,6 +8,10 @@
  * file that was distributed with this source code.
  */
 
+import './../../scss/views/page/_dashboard.scss';
+
+import AddIcon from './../../svg/add';
+
 import React from 'react';
 import {Link} from 'react-router';
 import {connect} from 'react-redux';
@@ -17,6 +21,7 @@ import ContentMiddleLayout from './../layout/ContentMiddleLayout';
 import DashboardActions from './../../actions/Dashboard';
 import DashboardWidget from './../component/DashboardWidget';
 import FormInput from './../component/FormInput';
+import Icon from './../component/Icon';
 import LoadingSpinner from './../component/LoadingSpinner';
 import LogoHeader from './../component/LogoHeader';
 import ResourcePreview from './../component/ResourcePreview';
@@ -30,14 +35,42 @@ class Dashboard extends React.Component {
 
   renderOrganizations() {
     return this.props.dashboard.organizations.map((organization, index) => (
-      <ResourcePreview key={index} resource={organization.node} type="organization"/>
+      <div className="dashboard" key={index}>
+        <ResourcePreview
+          resource={organization.node}
+          shortcuts={
+            <Link to="/project/new">
+              <Icon glyph={AddIcon}/>
+            </Link>
+          }
+          type="organization"
+        />
+        {this.renderProjects(organization.node._projectsMDbLG.edges)}
+        {this.renderViewMore(organization.node)}
+      </div>
     ));
   }
 
-  renderProjects() {
-    return this.props.dashboard.projects.map((project, index) => (
-      <ResourcePreview key={index} resource={project.node} type="project"/>
+  renderProjects(projects) {
+    return projects.map((project, index) => (
+      <ResourcePreview format="child" key={index} resource={project.node} type="project"/>
     ));
+  }
+
+  renderViewMore(organization) {
+    if (false === organization._projectsMDbLG.pageInfo.hasNextPage) {
+      return;
+    }
+
+    return (
+      <div className="resource-preview resource-preview--grand-child">
+        <Link to={`/organization/${organization.id}`}>
+          <div className="resource-preview__title">
+            View more...
+          </div>
+        </Link>
+      </div>
+    );
   }
 
   render() {
@@ -56,23 +89,20 @@ class Dashboard extends React.Component {
           </RowColumn>
         </Row>
         <Row>
-          <RowColumn medium={6}>
+          <RowColumn>
             <DashboardWidget
-              actions={<Link to="/organization/new">
-                <Button color="green" size="small">Create org.</Button>
-              </Link>}
-              title={<span>Your <strong>organizations</strong></span>}>
-              {this.renderOrganizations()}
+              actions={
+                <Link to="/organization/new">
+                  <Button color="green" size="small">New organization</Button>
+                </Link>
+              }
+              title={<strong>Overview</strong>}>
             </DashboardWidget>
           </RowColumn>
-          <RowColumn medium={6}>
-            <DashboardWidget
-              actions={<Link to="/project/new">
-                <Button color="green" size="small">Create project</Button>
-              </Link>}
-              title={<span>Your <strong>projects</strong></span>}>
-              {this.renderProjects()}
-            </DashboardWidget>
+        </Row>
+        <Row>
+          <RowColumn medium={8}>
+            {this.renderOrganizations()}
           </RowColumn>
         </Row>
       </ContentMiddleLayout>
