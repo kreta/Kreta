@@ -13,7 +13,8 @@ import ActionTypes from './../constants/ActionTypes';
 const initialState = {
   errors: false,
   fetching: true,
-  organizations: []
+  organizations: [],
+  searchQuery: ''
 };
 
 export default function reducer(state = initialState, action = {}) {
@@ -22,7 +23,7 @@ export default function reducer(state = initialState, action = {}) {
       return {...state, fetching: true};
 
     case ActionTypes.DASHBOARD_DATA_RECEIVED:
-      return {...state, organizations: action.organizations, fetching: false};
+      return {...state, organizations: action.organizations, fetching: false, searchQuery: action.query};
 
     case ActionTypes.DASHBOARD_DATA_FETCH_ERROR:
       return {...state, error: true};

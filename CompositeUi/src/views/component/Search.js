@@ -13,6 +13,8 @@ import {connect} from 'react-redux';
 import {Link} from 'react-router';
 import {Field, reduxForm} from 'redux-form';
 
+import {routes} from './../../Routes';
+
 import FormInput from './FormInput';
 
 @connect()
@@ -20,15 +22,33 @@ import FormInput from './FormInput';
 class Search extends React.Component {
   static propTypes = {
     onChange: React.PropTypes.func,
+    query: React.PropTypes.string
   };
 
+  componentDidMount() {
+    this.handleInitialize();
+  }
+
+  handleInitialize() {
+    this.props.initialize({
+      'search': this.props.query
+    });
+  }
+
   render() {
-    const {onChange} = this.props;
+    const {onChange, query} = this.props;
 
     return (
-      <Link to="/search">
+      <Link to={routes.search(query)}>
         <form autoComplete="off">
-          <Field autoFocus component={FormInput} label="Search..." name="search" props={{onChange}} tabIndex={1}/>
+          <Field
+            autoFocus
+            component={FormInput}
+            label="Search..."
+            name="search"
+            props={{onChange}}
+            tabIndex={1}
+          />
         </form>
       </Link>
     );

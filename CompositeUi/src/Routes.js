@@ -51,7 +51,13 @@ const
     security: {
       login: () => ('/login')
     },
-    search: '/search',
+    search: (query = null) => {
+      if (null === query) {
+        return '/search';
+      }
+
+      return {pathname: '/search', query: {q: query}};
+    },
     home: '/'
   },
   requireAuth = (nextState, replace) => {
@@ -76,7 +82,7 @@ const
       <Route component={BaseLayout} onEnter={requireAuth} path={routes.home}>
         <IndexRoute component={Dashboard}/>
 
-        <Route component={Dashboard} path={routes.search}/>
+        <Route component={Dashboard} path={routes.search()}/>
 
         <Route component={OrganizationNew} path={routes.organization.new()}/>
 

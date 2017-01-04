@@ -26,6 +26,7 @@ const Actions = {
         dispatch({
           type: ActionTypes.DASHBOARD_DATA_RECEIVED,
           organizations: organizationsData.response.organizations.edges,
+          query: organizationName
         });
       });
   }

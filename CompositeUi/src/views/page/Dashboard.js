@@ -16,6 +16,7 @@ import debounce from 'lodash.debounce';
 import React from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
+import {routeActions} from 'react-router-redux';
 
 import DashboardActions from './../../actions/Dashboard';
 
@@ -37,7 +38,7 @@ class Dashboard extends React.Component {
   }
 
   componentDidMount() {
-    this.filterOrganizations(null);
+    this.filterOrganizations(this.props.location.query.q);
   }
 
   filterOrganizations(query) {
@@ -45,7 +46,22 @@ class Dashboard extends React.Component {
   }
 
   onChangeSearch(event) {
-    this.filterOrganizations(event.target.value);
+    const query = event.target.value;
+
+    this.props.dispatch(routeActions.push(routes.search(query)));
+    this.filterOrganizations(query);
+  }
+
+  searchQuery() {
+    const {dashboard, location} = this.props;
+
+    if (typeof location.query.q !== 'undefined') {
+      if (dashboard.searchQuery.length === 0 && location.query.q.length > 0) {
+        return location.query.q;
+      }
+    }
+
+    return dashboard.searchQuery;
   }
 
   renderOrganizations() {
@@ -93,7 +109,10 @@ class Dashboard extends React.Component {
       <article className="dashboard">
         <Row className="dashboard__search">
           <RowColumn>
-            <Search onChange={this.onChangeSearch.bind(this)}/>
+            <Search
+              onChange={this.onChangeSearch.bind(this)}
+              query={this.searchQuery()}
+            />
           </RowColumn>
         </Row>
         <Row>
