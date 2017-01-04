@@ -22,7 +22,6 @@ import DashboardActions from './../../actions/Dashboard';
 import {routes} from './../../Routes';
 
 import Button from './../component/Button';
-import ContentMiddleLayout from './../layout/ContentMiddleLayout';
 import DashboardWidget from './../component/DashboardWidget';
 import Icon from './../component/Icon';
 import ResourcePreview from './../component/ResourcePreview';
@@ -38,7 +37,7 @@ class Dashboard extends React.Component {
   }
 
   componentDidMount() {
-    this.props.dispatch(DashboardActions.fetchData());
+    this.filterOrganizations(null);
   }
 
   filterOrganizations(query) {
@@ -91,8 +90,8 @@ class Dashboard extends React.Component {
 
   render() {
     return (
-      <ContentMiddleLayout>
-        <Row>
+      <article className="dashboard">
+        <Row className="dashboard__search">
           <RowColumn>
             <Search onChange={this.onChangeSearch.bind(this)}/>
           </RowColumn>
@@ -114,7 +113,7 @@ class Dashboard extends React.Component {
             {this.renderOrganizations()}
           </RowColumn>
         </Row>
-      </ContentMiddleLayout>
+      </article>
     );
   }
 }
