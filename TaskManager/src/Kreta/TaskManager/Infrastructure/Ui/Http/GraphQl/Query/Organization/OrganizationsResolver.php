@@ -39,6 +39,8 @@ class OrganizationsResolver implements Resolver
 
     public function resolve($args)
     {
+        $args = $args['organizationConnectionInput'];
+
         if (!isset($args['name'])) {
             $args['name'] = null;
         }

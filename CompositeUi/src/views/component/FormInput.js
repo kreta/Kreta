@@ -15,20 +15,27 @@ import classnames from 'classnames';
 
 class FormInput extends React.Component {
   getInputField() {
-    const
-      {input, label, meta: {touched, error}, multiline, ...custom} = this.props, // eslint-disable-line no-unused-vars
-      inputClasses = classnames('form-input__input', {
-        'form-input__input--filled': input.value.length > 0
-      });
+    const {
+        input,
+        label,                      // eslint-disable-line no-unused-vars
+        meta: {touched, error},     // eslint-disable-line no-unused-vars
+        multiline,
+        onChange,
+        ...custom
+      } = this.props,
+      inputClasses = classnames(
+        'form-input__input',
+        {'form-input__input--filled': input.value.length > 0}
+      );
 
     if (multiline) {
       return (
-        <textarea className={inputClasses} {...input} {...custom} ref="input"/>
+        <textarea className={inputClasses} onKeyUp={onChange} {...input} {...custom} ref="input"/>
       );
     }
 
     return (
-      <input className={inputClasses} {...input} {...custom} ref="input"/>
+      <input className={inputClasses} onKeyUp={onChange} {...input} {...custom} ref="input"/>
     );
   }
 
@@ -44,7 +51,6 @@ class FormInput extends React.Component {
       <div className={rootClasses} onClick={this.focus.bind(this)}>
         {this.getInputField()}
         <label className="form-input__label">{label}</label>
-
         <div className="form-input__bar"></div>
       </div>
     );

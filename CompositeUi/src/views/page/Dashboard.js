@@ -12,9 +12,10 @@ import './../../scss/views/page/_dashboard.scss';
 
 import AddIcon from './../../svg/add';
 
+import debounce from 'lodash.debounce';
 import React from 'react';
-import {Link} from 'react-router';
 import {connect} from 'react-redux';
+import {Link} from 'react-router';
 
 import DashboardActions from './../../actions/Dashboard';
 
@@ -23,17 +24,29 @@ import {routes} from './../../Routes';
 import Button from './../component/Button';
 import ContentMiddleLayout from './../layout/ContentMiddleLayout';
 import DashboardWidget from './../component/DashboardWidget';
-import FormInput from './../component/FormInput';
 import Icon from './../component/Icon';
-import LoadingSpinner from './../component/LoadingSpinner';
-import LogoHeader from './../component/LogoHeader';
 import ResourcePreview from './../component/ResourcePreview';
 import {Row, RowColumn} from './../component/Grid';
+import Search from '../component/Search';
 
 @connect(state => ({dashboard: state.dashboard}))
 class Dashboard extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.filterOrganizations = debounce(this.filterOrganizations, 200);
+  }
+
   componentDidMount() {
     this.props.dispatch(DashboardActions.fetchData());
+  }
+
+  filterOrganizations(query) {
+    this.props.dispatch(DashboardActions.fetchData(query));
+  }
+
+  onChangeSearch(event) {
+    this.filterOrganizations(event.target.value);
   }
 
   renderOrganizations() {
@@ -77,18 +90,11 @@ class Dashboard extends React.Component {
   }
 
   render() {
-    if (this.props.dashboard.fetching) {
-      return <LoadingSpinner/>;
-    }
-
     return (
       <ContentMiddleLayout>
-        <LogoHeader/>
         <Row>
           <RowColumn>
-            <Link to="/search">
-              <FormInput input={{value: ''}} label="Search..." meta={{touched: false, errors: false}}/>
-            </Link>
+            <Search onChange={this.onChangeSearch.bind(this)}/>
           </RowColumn>
         </Row>
         <Row>
@@ -99,8 +105,8 @@ class Dashboard extends React.Component {
                   <Button color="green" size="small">New organization</Button>
                 </Link>
               }
-              title={<strong>Overview</strong>}>
-            </DashboardWidget>
+              title={<strong>Overview</strong>}
+            />
           </RowColumn>
         </Row>
         <Row>

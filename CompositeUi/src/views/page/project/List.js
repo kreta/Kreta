@@ -12,14 +12,12 @@ import AddIcon from './../../../svg/add';
 import ListIcon from './../../../svg/list';
 
 import React from 'react';
-import {Link} from 'react-router';
 import {connect} from 'react-redux';
 import {routeActions} from 'react-router-redux';
 import classNames from 'classnames';
 
 import {routes} from './../../../Routes';
 
-import Button from './../../component/Button';
 import Icon from './../../component/Icon';
 import MainMenuActions from './../../../actions/MainMenu';
 import NavigableList from './../../component/NavigableList';
@@ -108,22 +106,11 @@ class List extends React.Component {
     return (
       <div className="resource-preview__header">
         <Row>
-          <RowColumn small={9}>
+          <RowColumn>
             <ShortcutHelp does="to select action" keyboard="← →"/>
             <ShortcutHelp does="to select project" keyboard="↑ ↓"/>
             <ShortcutHelp does="go to project" keyboard="↵"/>
             <ShortcutHelp does="to dismiss" keyboard="esc"/>
-          </RowColumn>
-          <RowColumn small={3}>
-            <Link>
-              <Button
-                color="green"
-                onClick={this.triggerOnProjectSelected.bind(this, null)}
-                size="small"
-              >
-                New project
-              </Button>
-            </Link>
           </RowColumn>
         </Row>
       </div>

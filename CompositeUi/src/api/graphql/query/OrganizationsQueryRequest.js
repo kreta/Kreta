@@ -14,7 +14,7 @@ import RelayQueryRequest from 'react-relay/lib/RelayQueryRequest';
 
 const query = Relay.QL`
   query {
-    organizations(first: $organizationsFirst) {
+    organizations(organizationConnectionInput: $organizationConnectionInput) {
       totalCount,
       edges {
         node {
@@ -44,10 +44,19 @@ const query = Relay.QL`
 `;
 
 class OrganizationsQueryRequest extends RelayQueryRequest {
-  static build(organizationsFirst = 5, projectsFirst = 5) {
+  static build({name = null, organizationsFirst = 5, projectsFirst = 5} = {}) {
+    const organizationConnectionInput = {};
+
+    if (name) {
+      organizationConnectionInput.name = name;
+    }
+    if (organizationsFirst) {
+      organizationConnectionInput.first = organizationsFirst;
+    }
+
     return new RelayQueryRequest(
       RelayQuery.Root.create(query, {}, {
-        organizationsFirst,
+        organizationConnectionInput,
         projectsFirst
       })
     );

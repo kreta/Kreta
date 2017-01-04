@@ -35,11 +35,10 @@ Query:
             organizations:
                 type: "OrganizationConnection"
                 description: "The paginate list of organization that can be filter by name"
-                argsBuilder: ConnectionArgs
                 args:
-                    name:
-                        description: "name of the organization, it uses to filter the organizations. Typical 'q'"
-                        type: "String"
+                    organizationConnectionInput:
+                        description: "Input object that wraps complex filter requirements of task connection"
+                        type: "OrganizationConnectionInput"
                 resolve: '@=resolver("organizations", [args])'
             organization:
                 type: "Organization"

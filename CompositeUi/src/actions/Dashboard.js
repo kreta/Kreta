@@ -14,11 +14,11 @@ import OrganizationsQueryRequest from './../api/graphql/query/OrganizationsQuery
 import TaskManagerGraphQl from './../api/graphql/TaskManagerGraphQl';
 
 const Actions = {
-  fetchData: () => (dispatch) => {
+  fetchData: (organizationName) => (dispatch) => {
     dispatch({
       type: ActionTypes.DASHBOARD_DATA_FETCHING
     });
-    const query = OrganizationsQueryRequest.build();
+    const query = OrganizationsQueryRequest.build({name: organizationName});
 
     TaskManagerGraphQl.query(query, dispatch);
     query

@@ -51,6 +51,7 @@ const
     security: {
       login: () => ('/login')
     },
+    search: '/search',
     home: '/'
   },
   requireAuth = (nextState, replace) => {
@@ -74,6 +75,8 @@ const
       <Route component={LoginPage} onEnter={loggedRedirect} path={routes.security.login()}/>
       <Route component={BaseLayout} onEnter={requireAuth} path={routes.home}>
         <IndexRoute component={Dashboard}/>
+
+        <Route component={Dashboard} path={routes.search}/>
 
         <Route component={OrganizationNew} path={routes.organization.new()}/>
 
