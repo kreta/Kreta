@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Application\Command\Project\Task;
 
+use Kreta\TaskManager\Domain\Model\Organization\MemberId;
+use Kreta\TaskManager\Domain\Model\Organization\Organization;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationRepository;
 use Kreta\TaskManager\Domain\Model\Project\Project;
 use Kreta\TaskManager\Domain\Model\Project\ProjectDoesNotExistException;
@@ -48,57 +50,84 @@ class CreateTaskHandler
 
     public function __invoke(CreateTaskCommand $command)
     {
-        if (null !== $id = $command->taskId()) {
-            $task = $this->repository->taskOfId(
-                TaskId::generate(
-                    $id
-                )
-            );
-            if ($command->parentId() === $command->taskId()) {
-                throw new TaskAndTaskParentCannotBeTheSameException();
-            }
-            if ($task instanceof Task) {
-                throw new TaskAlreadyExistsException();
-            }
+        $taskId = $command->taskId();
+        $parentTaskId = $command->parentId();
+
+        if (!$this->areTaskAndParentIdsDifferent($taskId, $parentTaskId)) {
+            throw new TaskAndTaskParentCannotBeTheSameException();
         }
-        $project = $this->projectRepository->projectOfId(
-            ProjectId::generate(
-                $command->projectId()
-            )
-        );
-        if (!$project instanceof Project) {
+
+        $task = $this->repository->taskOfId(TaskId::generate($taskId));
+        if ($this->doesTaskExist($task)) {
+            throw new TaskAlreadyExistsException();
+        }
+
+        $parentTask = $this->repository->taskOfId(TaskId::generate($parentTaskId));
+        if (!$this->doesParentTaskExist($parentTaskId, $parentTask)) {
+            throw new TaskParentDoesNotExistException();
+        }
+
+        $projectId = $command->projectId();
+        $project = $this->projectRepository->projectOfId(ProjectId::generate($projectId));
+        if (!$this->doesProjectExist($project)) {
             throw new ProjectDoesNotExistException();
         }
-        $organization = $this->organizationRepository->organizationOfId(
-            $project->organizationId()
-        );
+
+        $organizationId = $project->organizationId();
         $creatorId = UserId::generate($command->creatorId());
         $assigneeId = UserId::generate($command->assigneeId());
-        if (!$organization->isOrganizationMember($creatorId) || !$organization->isOrganizationMember($assigneeId)) {
+
+        $organization = $this->organizationRepository->organizationOfId($organizationId);
+        if (!$this->areUsersOrganizationMembers($organization, $creatorId, $assigneeId)) {
             throw new UnauthorizedTaskActionException();
         }
-        if (null !== $parentId = $command->parentId()) {
-            $parent = $this->repository->taskOfId(
-                TaskId::generate(
-                    $parentId
-                )
-            );
-            if (!$parent instanceof Task) {
-                throw new TaskParentDoesNotExistException();
-            }
-        }
-        $task = new Task(
-            TaskId::generate($id),
-            new TaskTitle(
-                $command->title()
-            ),
-            $command->description(),
-            $organization->organizationMember($creatorId)->id(),
-            $organization->organizationMember($assigneeId)->id(),
-            new TaskPriority($command->priority()),
-            $project->id(),
-            null === $parentId ? null : TaskId::generate($parentId)
-        );
+
+        $taskId = TaskId::generate($taskId);
+        $title = new TaskTitle($command->title());
+        $description = $command->description();
+        $creator = $this->becomeUserIdToDomainMemberId($organization, $creatorId);
+        $assignee = $this->becomeUserIdToDomainMemberId($organization, $assigneeId);
+        $priority = new TaskPriority($command->priority());
+        $projectId = ProjectId::generate($projectId);
+        $parentTaskId = $this->parentTaskId($parentTaskId);
+
+        $task = new Task($taskId, $title, $description, $creator, $assignee, $priority, $projectId, $parentTaskId);
         $this->repository->persist($task);
+    }
+
+    private function areTaskAndParentIdsDifferent($taskId, $parentTaskId) : bool
+    {
+        return ($taskId === null && $parentTaskId === null) || $parentTaskId !== $taskId;
+    }
+
+    private function doesTaskExist(Task $task = null) : bool
+    {
+        return $task instanceof Task;
+    }
+
+    private function doesParentTaskExist($parentTaskId, Task $parentTask = null) : bool
+    {
+        return null === $parentTaskId || $parentTask instanceof Task;
+    }
+
+    private function doesProjectExist(Project $project = null) : bool
+    {
+        return $project instanceof Project;
+    }
+
+    private function areUsersOrganizationMembers(Organization $organization, UserId $creatorId, UserId $assigneeId)
+    {
+        return $organization->isOrganizationMember($creatorId)
+            && $organization->isOrganizationMember($assigneeId);
+    }
+
+    private function parentTaskId($parentTaskId)
+    {
+        return null === $parentTaskId ? null : TaskId::generate($parentTaskId);
+    }
+
+    private function becomeUserIdToDomainMemberId(Organization $organization, UserId $userId) : MemberId
+    {
+        return $organization->organizationMember($userId)->id();
     }
 }
