@@ -14,8 +14,11 @@ import classNames from 'classnames';
 import {Link} from 'react-router';
 import React from 'react';
 
+import {routes} from './../../Routes';
+
 class ResourcePreview extends React.Component {
   static propTypes = {
+    format: React.PropTypes.string,
     onMouseEnter: React.PropTypes.func,
     onTitleClick: React.PropTypes.func,
     resource: React.PropTypes.object.isRequired,
@@ -31,19 +34,33 @@ class ResourcePreview extends React.Component {
     shortcuts: ''
   };
 
+  resolveRoute() {
+    const {resource, type} = this.props;
+
+    let to;
+    if ('organization' === type) {
+      to = routes.organization.show(resource.slug);
+    } else if ('project' === type) {
+      to = routes.project.show(resource.organization.slug, resource.slug);
+    }
+
+    return to;
+  }
+
   render() {
     const
-      {onMouseEnter, onTitleClick, resource, type, shortcuts, selected} = this.props,
+      {format, onMouseEnter, onTitleClick, resource, shortcuts, selected} = this.props,
       classes = classNames({
         'resource-preview': true,
-        'resource-preview--selected': selected
+        'resource-preview--selected': selected,
+        'resource-preview--child': format === 'child'
       });
 
     return (
       <div className={classes} onMouseEnter={onMouseEnter}>
         <Link className="resource-preview__title"
               onClick={onTitleClick}
-              to={`/${type}/${resource.id}`}>
+              to={this.resolveRoute()}>
           {resource.name}
         </Link>
 

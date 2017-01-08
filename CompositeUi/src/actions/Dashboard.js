@@ -10,27 +10,25 @@
 
 import ActionTypes from './../constants/ActionTypes';
 
-import ProjectsQueryRequest from './../api/graphql/query/ProjectsQueryRequest';
 import OrganizationsQueryRequest from './../api/graphql/query/OrganizationsQueryRequest';
 import TaskManagerGraphQl from './../api/graphql/TaskManagerGraphQl';
 
 const Actions = {
-  fetchData: () => (dispatch) => {
+  fetchData: (organizationName) => (dispatch) => {
     dispatch({
       type: ActionTypes.DASHBOARD_DATA_FETCHING
     });
+    const query = OrganizationsQueryRequest.build({name: organizationName});
 
-    TaskManagerGraphQl.query([OrganizationsQueryRequest, ProjectsQueryRequest], dispatch);
-
-    OrganizationsQueryRequest.then(organizationsData => {
-      ProjectsQueryRequest.then(projectsData => {
+    TaskManagerGraphQl.query(query, dispatch);
+    query
+      .then(organizationsData => {
         dispatch({
           type: ActionTypes.DASHBOARD_DATA_RECEIVED,
           organizations: organizationsData.response.organizations.edges,
-          projects: projectsData.response.projects.edges
+          query: organizationName
         });
       });
-    });
   }
 };
 

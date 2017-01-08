@@ -14,7 +14,7 @@ const initialState = {
   errors: false,
   fetching: true,
   organizations: [],
-  projects: []
+  searchQuery: ''
 };
 
 export default function reducer(state = initialState, action = {}) {
@@ -23,7 +23,7 @@ export default function reducer(state = initialState, action = {}) {
       return {...state, fetching: true};
 
     case ActionTypes.DASHBOARD_DATA_RECEIVED:
-      return {...state, organizations: action.organizations, projects: action.projects, fetching: false};
+      return {...state, organizations: action.organizations, fetching: false, searchQuery: action.query};
 
     case ActionTypes.DASHBOARD_DATA_FETCH_ERROR:
       return {...state, error: true};

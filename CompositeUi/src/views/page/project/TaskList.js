@@ -18,6 +18,8 @@ import {Link} from 'react-router';
 
 import Config from './../../../Config';
 
+import {routes} from './../../../Routes';
+
 import Button from './../../component/Button';
 import Icon from './../../component/Icon';
 import Filter from './../../component/Filter';
@@ -41,12 +43,12 @@ class TaskList extends React.Component {
 
     Mousetrap.bind(Config.shortcuts.taskNew, () => {
       dispatch(
-        routeActions.push(`/project/${params.projectId}/task/new`)
+        routeActions.push(routes.task.new(params.organization, params.project))
       );
     });
     Mousetrap.bind(Config.shortcuts.projectSettings, () => {
       dispatch(
-        routeActions.push(`/project/${params.projectId}/settings`)
+        routeActions.push(routes.project.settings(params.organization, params.project))
       );
     });
   }
@@ -68,7 +70,7 @@ class TaskList extends React.Component {
     const {dispatch, params} = this.props;
 
     dispatch(
-      routeActions.push(`/project/${params.projectId}/task/${task.id}`)
+      routeActions.push(routes.task.show(params.organization, params.project, task.id))
     );
   }
 
@@ -76,7 +78,7 @@ class TaskList extends React.Component {
     const {dispatch, params} = this.props;
 
     dispatch(
-      routeActions.push(`/project/${params.projectId}`)
+      routeActions.push(routes.project.show(params.organization, params.project))
     );
   }
 
@@ -84,10 +86,12 @@ class TaskList extends React.Component {
     const {currentProject, params} = this.props;
 
     return currentProject.project._tasks4hn9we.edges.map((task, index) => (
-      <TaskPreview key={index}
-                   onClick={this.selectCurrentTask.bind(this, task.node)}
-                   selected={params.taskId === task.node.id}
-                   task={task.node}/>
+      <TaskPreview
+        key={index}
+        onClick={this.selectCurrentTask.bind(this, task.node)}
+        selected={params.taskId === task.node.id}
+        task={task.node}
+      />
     ));
   }
 
@@ -100,22 +104,32 @@ class TaskList extends React.Component {
     return (
       <div>
         <ContentMiddleLayout>
-          <PageHeader thumbnail={<Thumbnail image={null}
-                                            text={currentProject.project.name}/>}
-                      title={currentProject.project.name}>
-            <InlineLink to={`/project/${currentProject.project.id}/settings`}>
+          <PageHeader
+            thumbnail={
+              <Thumbnail
+                image={null}
+                text={currentProject.project.name}
+              />
+            }
+            title={currentProject.project.name}
+          >
+            <InlineLink to={routes.project.settings(params.organization, params.project)}>
               <Icon color="green" glyph={SettingsIcon} size="small"/>Settings
             </InlineLink>
-            <Link to={`/project/${params.projectId}/task/new`}>
+            <Link to={routes.task.new(params.organization, params.project)}>
               <Button color="green">New task</Button>
             </Link>
           </PageHeader>
-          <Filter filters={currentProject.filters}
-                  onFilterSelected={this.filterTasks.bind(this)}/>
+          <Filter
+            filters={currentProject.filters}
+            onFilterSelected={this.filterTasks.bind(this)}
+          />
           {this.getTasksEl()}
         </ContentMiddleLayout>
-        <ContentRightLayout isOpen={this.props.children !== null}
-                            onRequestClose={this.hideTask.bind(this)}>
+        <ContentRightLayout
+          isOpen={this.props.children !== null}
+          onRequestClose={this.hideTask.bind(this)}
+        >
           {this.props.children}
         </ContentRightLayout>
       </div>

@@ -63,6 +63,7 @@
     "classnames": "^2.1",
     "history": "^1.17.0",
     "lodash": "^3.10",
+    "lodash.debounce": "^4.0.8",
     "mousetrap": "^1.5.3",
     "react": "^15.4.1",
     "react-addons-test-utils": "^15.4.1",

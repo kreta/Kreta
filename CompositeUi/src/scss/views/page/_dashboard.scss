@@ -5,3 +5,19 @@
 //
 // For the full copyright and license information, please view the LICENSE
 // file that was distributed with this source code.
+
+.dashboard {
+  margin: auto;
+  padding-top: 30px;
+  max-width: 800px;
+
+  .resource-preview__shortcuts {
+    opacity: 1;
+    padding: 0 15px;
+  }
+}
+
+.dashboard__search {
+  margin-bottom: 15px;
+  margin-top: 30px;
+}

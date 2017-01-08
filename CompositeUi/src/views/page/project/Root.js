@@ -13,30 +13,40 @@ import CurrentProjectActions from './../../../actions/CurrentProject';
 import React from 'react';
 import {connect} from 'react-redux';
 
-@connect()
+@connect(state => ({projects: state.projects.projects}))
 class Root extends React.Component {
   componentDidMount() {
-    this.props.dispatch(CurrentProjectActions.fetchProject(this.props.params.projectId));
-    if (typeof this.props.params.taskId !== 'undefined') {
-      this.props.dispatch(CurrentProjectActions.selectCurrentTask(this.props.params.taskId));
+    this.props.projects.map((project) => {
+      if (project.node.slug === this.props.params.project) {
+        this.props.dispatch(CurrentProjectActions.fetchProject(project.node.id));
+      }
+    });
+
+    if (typeof this.props.params.task !== 'undefined') {
+      this.props.dispatch(CurrentProjectActions.selectCurrentTask(this.props.params.task));
     } else {
       this.props.dispatch(CurrentProjectActions.selectCurrentTask(null));
     }
   }
 
   componentDidUpdate(prevProps) {
-    const oldProjectId = prevProps.params.projectId,
-      newProjectId = this.props.params.projectId,
-      oldTaskId = prevProps.params.taskId,
-      newTaskId = this.props.params.taskId;
+    const
+      oldProject = prevProps.params.project,
+      newProject = this.props.params.project,
+      oldTask = prevProps.params.task,
+      newTask = this.props.params.task;
 
-    if (newProjectId !== oldProjectId) {
-      this.props.dispatch(CurrentProjectActions.fetchProject(newProjectId));
+    if (newProject !== oldProject) {
+      this.props.projects.map((project) => {
+        if (project.node.slug === newProject) {
+          this.props.dispatch(CurrentProjectActions.fetchProject(project.node.id));
+        }
+      });
     }
 
-    if (newTaskId !== oldTaskId && typeof newTaskId !== 'undefined') {
-      this.props.dispatch(CurrentProjectActions.selectCurrentTask(newTaskId));
-    } else if (typeof newTaskId === 'undefined') {
+    if (newTask !== oldTask && typeof newTask !== 'undefined') {
+      this.props.dispatch(CurrentProjectActions.selectCurrentTask(newTask));
+    } else if (typeof newTask === 'undefined') {
       this.props.dispatch(CurrentProjectActions.selectCurrentTask(null));
     }
   }

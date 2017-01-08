@@ -13,7 +13,8 @@ import {Provider} from 'react-redux';
 import {Router} from 'react-router';
 import invariant from 'invariant';
 import {RoutingContext} from 'react-router';
-import routes from './../../Routes';
+
+import {sitemap} from './../../Routes';
 
 class Root extends React.Component {
   _renderRouter() {
@@ -28,7 +29,7 @@ class Root extends React.Component {
 
     return (
       <Router history={this.props.routerHistory}>
-        {routes}
+        {sitemap}
       </Router>
     );
   }

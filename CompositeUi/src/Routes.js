@@ -11,6 +11,8 @@
 import React from 'react';
 import {IndexRoute, Route} from 'react-router';
 
+import Security from './api/rest/User/Security';
+
 import BaseLayout from './views/layout/Base';
 import Dashboard from './views/page/Dashboard';
 import TaskNew from './views/page/task/New';
@@ -23,13 +25,45 @@ import ProjectNew from './views/page/project/New';
 import ProjectRoot from './views/page/project/Root';
 import ProjectSettings from './views/page/project/Settings';
 import ProjectShow from './views/page/project/TaskList';
-import Security from './api/rest/User/Security';
 
 const
+  routes = {
+    organization: {
+      new: () => ('/organizations/new'),
+      edit: (organization) => (`/organizations/${organization}/edit`),
+      show: (organization) => (`/${organization}`),
+    },
+    project: {
+      new: (organization) => (`/organizations/${organization}/projects/new`),
+      edit: (organization, project) => (`/organizations/${organization}/projects/${project}/edit`),
+      settings: (organization, project) => (`/organizations/${organization}/projects/${project}/settings`),
+      show: (organization, project) => (`/${organization}/${project}`),
+    },
+    task: {
+      new: (organization, project) => (`/organizations/${organization}/projects/${project}/tasks/new`),
+      edit: (organization, project, task) => (`/organizations/${organization}/projects/${project}/tasks/${task}/edit`),
+      show: (organization, project, task) => (`/${organization}/${project}/${task}`),
+    },
+    profile: {
+      edit: () => ('/profile'),
+      show: () => ('/profile')
+    },
+    security: {
+      login: () => ('/login')
+    },
+    search: (query = null) => {
+      if (null === query) {
+        return '/search';
+      }
+
+      return {pathname: '/search', query: {q: query}};
+    },
+    home: '/'
+  },
   requireAuth = (nextState, replace) => {
     if (!Security.isLoggedIn()) {
       replace({
-        pathname: '/login',
+        pathname: routes.security.login(),
         state: {nextPathname: nextState.location.pathname}
       });
     }
@@ -37,31 +71,37 @@ const
   loggedRedirect = (nextState, replace) => {
     if (Security.isLoggedIn()) {
       replace({
-        pathname: '/',
+        pathname: routes.home,
         state: {nextPathname: nextState.location.pathname}
       });
     }
-  };
+  },
+  sitemap = (
+    <div>
+      <Route component={LoginPage} onEnter={loggedRedirect} path={routes.security.login()}/>
+      <Route component={BaseLayout} onEnter={requireAuth} path={routes.home}>
+        <IndexRoute component={Dashboard}/>
 
-export default (
-  <div>
-    <Route component={LoginPage} onEnter={loggedRedirect} path="/login"/>
-    <Route component={BaseLayout} onEnter={requireAuth} path="/">
-      <IndexRoute component={Dashboard}/>
+        <Route component={Dashboard} path={routes.search()}/>
 
-      <Route component={ProjectNew} path="project/new"/>
-      <Route component={ProjectRoot}>
-        <Route component={TaskNew} path="project/:projectId/task/new"/>
-        <Route component={ProjectShow} path="project/:projectId">
-          <Route component={TaskShow} path="task/:taskId"/>
-          <Route component={TaskEdit} path="task/:taskId/edit"/>
+        <Route component={OrganizationNew} path={routes.organization.new()}/>
+
+        <Route component={ProjectNew} path={routes.project.new(':organization')}/>
+        <Route component={ProjectRoot}>
+          <Route component={TaskNew} path={routes.task.new(':organization', ':project')}/>
+          <Route component={ProjectShow} path={routes.project.show(':organization', ':project')}>
+            <Route component={TaskShow} path={routes.task.show(':organization', ':project', ':task')}/>
+            <Route component={TaskEdit} path={routes.task.edit(':organization', ':project', ':task')}/>
+          </Route>
+          <Route component={ProjectSettings} path={routes.project.settings(':organization', ':project')}/>
         </Route>
-        <Route component={ProjectSettings} path="project/:projectId/settings"/>
+
+        <Route component={Profile} path={routes.profile.show()}/>
       </Route>
+    </div>
+  );
 
-      <Route component={OrganizationNew} path="organization/new"/>
-
-      <Route component={Profile} path="profile"/>
-    </Route>
-  </div>
-);
+export {
+  routes,
+  sitemap
+};

@@ -14,6 +14,8 @@ import {connect} from 'react-redux';
 import React from 'react';
 import {Link} from 'react-router';
 
+import {routes} from './../../../Routes';
+
 import Button from './../../component/Button';
 import FormActions from './../../component/FormActions';
 import LoadingSpinner from './../../component/LoadingSpinner';
@@ -52,18 +54,22 @@ class Show extends React.Component {
         </Row>
         <Row className="task-show__fields">
           <RowColumn small={6}>
-            <SelectorOption alignLeft
-                            label="Assignee"
-                            text={this.assignee(task)}
-                            thumbnail={<Thumbnail image={null} text={this.assignee(task)}/>}
-                            value="1"/>
+            <SelectorOption
+              alignLeft
+              label="Assignee"
+              text={this.assignee(task)}
+              thumbnail={<Thumbnail image={null} text={this.assignee(task)}/>}
+              value="1"
+            />
           </RowColumn>
           <RowColumn small={6}>
-            <SelectorOption alignLeft
-                            label="Creator"
-                            text={this.creator(task)}
-                            thumbnail={<Thumbnail image={null} text={this.creator(task)}/>}
-                            value="1"/>
+            <SelectorOption
+              alignLeft
+              label="Creator"
+              text={this.creator(task)}
+              thumbnail={<Thumbnail image={null} text={this.creator(task)}/>}
+              value="1"
+            />
           </RowColumn>
         </Row>
         <Row className="task-show__fields">
@@ -77,7 +83,7 @@ class Show extends React.Component {
         <Row>
           <RowColumn>
             <FormActions>
-              <Link to={`/project/${params.projectId}/task/${params.taskId}/edit`}>
+              <Link to={routes.task.edit(params.organization, params.project, params.task)}>
                 <Button color="green">Edit</Button>
               </Link>
             </FormActions>
