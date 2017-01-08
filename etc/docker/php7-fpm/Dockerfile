@@ -29,11 +29,14 @@ RUN docker-php-ext-install bcmath
 
 RUN mkdir /var/www/vendor-taskmanager
 RUN mkdir /var/www/vendor-identityaccess
-RUN mkdir /var/www/identityaccess
-RUN mkdir /var/www/taskmanager
 
-RUN cd /var/www/taskmanager && ln -s ../vendor-taskmanager/ vendor
-RUN cd /var/www/identityaccess && ln -s ../vendor-identityaccess/ vendor
+COPY taskmanager-composer.lock /var/www/taskmanager/composer.lock
+COPY taskmanager-composer.json /var/www/taskmanager/composer.json
+RUN cd /var/www/taskmanager && composer install
+
+COPY identityaccess-composer.lock /var/www/identityaccess/composer.lock
+COPY identityaccess-composer.json /var/www/identityaccess/composer.json
+RUN cd /var/www/identityaccess && composer install
 
 WORKDIR /var/www/taskmanager
 
