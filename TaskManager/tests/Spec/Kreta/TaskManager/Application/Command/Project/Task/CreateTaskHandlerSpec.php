@@ -49,120 +49,6 @@ class CreateTaskHandlerSpec extends ObjectBehavior
         $this->shouldHaveType(CreateTaskHandler::class);
     }
 
-    function it_creates_an_task(
-        CreateTaskCommand $command,
-        TaskRepository $repository,
-        ProjectRepository $projectRepository,
-        OrganizationRepository $organizationRepository,
-        Project $project,
-        OrganizationId $organizationId,
-        Organization $organization,
-        Task $parent,
-        ProjectId $projectId,
-        Member $member,
-        Member $member2,
-        MemberId $memberId,
-        MemberId $memberId2
-    ) {
-        $command->projectId()->shouldBeCalled()->willReturn('project-id');
-        $command->taskId()->shouldBeCalled()->willReturn('task-id');
-        $command->parentId()->shouldBeCalled()->willReturn('parent-id');
-        $repository->taskOfId(TaskId::generate('task-id'))->shouldBeCalled()->willReturn(null);
-        $projectRepository->projectOfId(ProjectId::generate('project-id'))->shouldBeCalled()->willReturn($project);
-        $project->organizationId()->shouldBeCalled()->willReturn($organizationId);
-        $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
-        $command->creatorId()->shouldBeCalled()->willReturn('creator-id');
-        $command->assigneeId()->shouldBeCalled()->willReturn('assignee-id');
-        $organization->isOrganizationMember(UserId::generate('creator-id'))->shouldBeCalled()->willReturn(true);
-        $organization->isOrganizationMember(UserId::generate('assignee-id'))->shouldBeCalled()->willReturn(true);
-        $organization->organizationMember(UserId::generate('creator-id'))->shouldBeCalled()->willReturn($member);
-        $member->id()->shouldBeCalled()->willReturn($memberId);
-        $organization->organizationMember(UserId::generate('assignee-id'))->shouldBeCalled()->willReturn($member2);
-        $member2->id()->shouldBeCalled()->willReturn($memberId2);
-        $repository->taskOfId(TaskId::generate('parent-id'))->shouldBeCalled()->willReturn($parent);
-        $command->title()->shouldBeCalled()->willReturn('Task title');
-        $command->description()->shouldBeCalled()->willReturn('Task description');
-        $command->priority()->shouldBeCalled()->willReturn('low');
-        $project->id()->shouldBeCalled()->willReturn($projectId);
-        $repository->persist(Argument::type(Task::class))->shouldBeCalled();
-        $this->__invoke($command);
-    }
-
-    function it_creates_an_organization_without_task_id(
-        CreateTaskCommand $command,
-        TaskRepository $repository,
-        ProjectRepository $projectRepository,
-        OrganizationRepository $organizationRepository,
-        Project $project,
-        OrganizationId $organizationId,
-        Organization $organization,
-        Task $parent,
-        ProjectId $projectId,
-        Member $member,
-        Member $member2,
-        MemberId $memberId,
-        MemberId $memberId2
-    ) {
-        $command->projectId()->shouldBeCalled()->willReturn('project-id');
-        $command->taskId()->shouldBeCalled()->willReturn(null);
-        $command->parentId()->shouldBeCalled()->willReturn('parent-id');
-        $projectRepository->projectOfId(ProjectId::generate('project-id'))->shouldBeCalled()->willReturn($project);
-        $project->organizationId()->shouldBeCalled()->willReturn($organizationId);
-        $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
-        $command->creatorId()->shouldBeCalled()->willReturn('creator-id');
-        $command->assigneeId()->shouldBeCalled()->willReturn('assignee-id');
-        $organization->isOrganizationMember(UserId::generate('creator-id'))->shouldBeCalled()->willReturn(true);
-        $organization->isOrganizationMember(UserId::generate('assignee-id'))->shouldBeCalled()->willReturn(true);
-        $organization->organizationMember(UserId::generate('creator-id'))->shouldBeCalled()->willReturn($member);
-        $member->id()->shouldBeCalled()->willReturn($memberId);
-        $organization->organizationMember(UserId::generate('assignee-id'))->shouldBeCalled()->willReturn($member2);
-        $member2->id()->shouldBeCalled()->willReturn($memberId2);
-        $repository->taskOfId(TaskId::generate('parent-id'))->shouldBeCalled()->willReturn($parent);
-        $command->title()->shouldBeCalled()->willReturn('Task title');
-        $command->description()->shouldBeCalled()->willReturn('Task description');
-        $command->priority()->shouldBeCalled()->willReturn('low');
-        $project->id()->shouldBeCalled()->willReturn($projectId);
-        $repository->persist(Argument::type(Task::class))->shouldBeCalled();
-        $this->__invoke($command);
-    }
-
-    function it_creates_an_organization_without_parent_task(
-        CreateTaskCommand $command,
-        TaskRepository $repository,
-        ProjectRepository $projectRepository,
-        OrganizationRepository $organizationRepository,
-        Project $project,
-        OrganizationId $organizationId,
-        Organization $organization,
-        ProjectId $projectId,
-        Member $member,
-        Member $member2,
-        MemberId $memberId,
-        MemberId $memberId2
-    ) {
-        $command->projectId()->shouldBeCalled()->willReturn('project-id');
-        $command->taskId()->shouldBeCalled()->willReturn('task-id');
-        $command->parentId()->shouldBeCalled()->willReturn(null);
-        $repository->taskOfId(TaskId::generate('task-id'))->shouldBeCalled()->willReturn(null);
-        $projectRepository->projectOfId(ProjectId::generate('project-id'))->shouldBeCalled()->willReturn($project);
-        $project->organizationId()->shouldBeCalled()->willReturn($organizationId);
-        $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
-        $command->creatorId()->shouldBeCalled()->willReturn('creator-id');
-        $command->assigneeId()->shouldBeCalled()->willReturn('assignee-id');
-        $organization->isOrganizationMember(UserId::generate('creator-id'))->shouldBeCalled()->willReturn(true);
-        $organization->isOrganizationMember(UserId::generate('assignee-id'))->shouldBeCalled()->willReturn(true);
-        $organization->organizationMember(UserId::generate('creator-id'))->shouldBeCalled()->willReturn($member);
-        $member->id()->shouldBeCalled()->willReturn($memberId);
-        $organization->organizationMember(UserId::generate('assignee-id'))->shouldBeCalled()->willReturn($member2);
-        $member2->id()->shouldBeCalled()->willReturn($memberId2);
-        $command->title()->shouldBeCalled()->willReturn('Task title');
-        $command->description()->shouldBeCalled()->willReturn('Task description');
-        $command->priority()->shouldBeCalled()->willReturn('low');
-        $project->id()->shouldBeCalled()->willReturn($projectId);
-        $repository->persist(Argument::type(Task::class))->shouldBeCalled();
-        $this->__invoke($command);
-    }
-
     function it_does_not_create_a_task_because_task_and_parent_are_the_same(
         CreateTaskCommand $command
     ) {
@@ -182,20 +68,33 @@ class CreateTaskHandlerSpec extends ObjectBehavior
         $this->shouldThrow(TaskAlreadyExistsException::class)->during__invoke($command);
     }
 
+    function it_does_not_create_a_task_because_parent_task_does_not_exist(
+        CreateTaskCommand $command,
+        TaskRepository $repository
+    ) {
+        $command->taskId()->shouldBeCalled()->willReturn('task-id');
+        $command->parentId()->shouldBeCalled()->willReturn('parent-id');
+        $repository->taskOfId(TaskId::generate('task-id'))->shouldBeCalled()->willReturn(null);
+        $repository->taskOfId(TaskId::generate('parent-id'))->shouldBeCalled()->willReturn(null);
+
+        $this->shouldThrow(TaskParentDoesNotExistException::class)->during__invoke($command);
+    }
+
     function it_does_not_create_a_task_because_project_does_not_exist(
         CreateTaskCommand $command,
         TaskRepository $repository,
         ProjectRepository $projectRepository
     ) {
-        $command->projectId()->shouldBeCalled()->willReturn('project-id');
         $command->taskId()->shouldBeCalled()->willReturn('task-id');
         $command->parentId()->shouldBeCalled()->willReturn(null);
         $repository->taskOfId(TaskId::generate('task-id'))->shouldBeCalled()->willReturn(null);
+        $repository->taskOfId(Argument::type(TaskId::class))->shouldBeCalled()->willReturn(null);
+        $command->projectId()->shouldBeCalled()->willReturn('project-id');
         $projectRepository->projectOfId(ProjectId::generate('project-id'))->shouldBeCalled()->willReturn(null);
         $this->shouldThrow(ProjectDoesNotExistException::class)->during__invoke($command);
     }
 
-    function it_does_not_create_a_task_because_task_creation_is_not_allowed(
+    function it_does_not_create_a_task_because_the_users_are_not_organization_members(
         CreateTaskCommand $command,
         TaskRepository $repository,
         ProjectRepository $projectRepository,
@@ -204,10 +103,11 @@ class CreateTaskHandlerSpec extends ObjectBehavior
         OrganizationId $organizationId,
         Organization $organization
     ) {
-        $command->projectId()->shouldBeCalled()->willReturn('project-id');
         $command->taskId()->shouldBeCalled()->willReturn('task-id');
-        $command->parentId()->shouldBeCalled()->willReturn('parent-id');
+        $command->parentId()->shouldBeCalled()->willReturn(null);
         $repository->taskOfId(TaskId::generate('task-id'))->shouldBeCalled()->willReturn(null);
+        $repository->taskOfId(Argument::type(TaskId::class))->shouldBeCalled()->willReturn(null);
+        $command->projectId()->shouldBeCalled()->willReturn('project-id');
         $projectRepository->projectOfId(ProjectId::generate('project-id'))->shouldBeCalled()->willReturn($project);
         $project->organizationId()->shouldBeCalled()->willReturn($organizationId);
         $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
@@ -217,19 +117,24 @@ class CreateTaskHandlerSpec extends ObjectBehavior
         $this->shouldThrow(UnauthorizedTaskActionException::class)->during__invoke($command);
     }
 
-    function it_does_not_create_a_task_because_parent_task_does_not_exist(
+    function it_creates_an_task(
         CreateTaskCommand $command,
         TaskRepository $repository,
         ProjectRepository $projectRepository,
         OrganizationRepository $organizationRepository,
         Project $project,
         OrganizationId $organizationId,
-        Organization $organization
+        Organization $organization,
+        Member $member,
+        Member $member2,
+        MemberId $memberId,
+        MemberId $memberId2
     ) {
-        $command->projectId()->shouldBeCalled()->willReturn('project-id');
         $command->taskId()->shouldBeCalled()->willReturn('task-id');
-        $command->parentId()->shouldBeCalled()->willReturn('parent-id');
+        $command->parentId()->shouldBeCalled()->willReturn(null);
         $repository->taskOfId(TaskId::generate('task-id'))->shouldBeCalled()->willReturn(null);
+        $repository->taskOfId(Argument::type(TaskId::class))->shouldBeCalled()->willReturn(null);
+        $command->projectId()->shouldBeCalled()->willReturn('project-id');
         $projectRepository->projectOfId(ProjectId::generate('project-id'))->shouldBeCalled()->willReturn($project);
         $project->organizationId()->shouldBeCalled()->willReturn($organizationId);
         $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
@@ -237,8 +142,14 @@ class CreateTaskHandlerSpec extends ObjectBehavior
         $command->assigneeId()->shouldBeCalled()->willReturn('assignee-id');
         $organization->isOrganizationMember(UserId::generate('creator-id'))->shouldBeCalled()->willReturn(true);
         $organization->isOrganizationMember(UserId::generate('assignee-id'))->shouldBeCalled()->willReturn(true);
-        $repository->taskOfId(TaskId::generate('parent-id'))->shouldBeCalled()->willReturn(null);
-
-        $this->shouldThrow(TaskParentDoesNotExistException::class)->during__invoke($command);
+        $organization->organizationMember(UserId::generate('creator-id'))->shouldBeCalled()->willReturn($member);
+        $member->id()->shouldBeCalled()->willReturn($memberId);
+        $organization->organizationMember(UserId::generate('assignee-id'))->shouldBeCalled()->willReturn($member2);
+        $member2->id()->shouldBeCalled()->willReturn($memberId2);
+        $command->title()->shouldBeCalled()->willReturn('Task title');
+        $command->description()->shouldBeCalled()->willReturn('Task description');
+        $command->priority()->shouldBeCalled()->willReturn('low');
+        $repository->persist(Argument::type(Task::class))->shouldBeCalled();
+        $this->__invoke($command);
     }
 }
