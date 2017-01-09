@@ -13,8 +13,6 @@ import './../../scss/components/_form-input.scss';
 import React from 'react';
 import classnames from 'classnames';
 
-// import Wysiwyg from './../component/Wysiwyg';
-
 class FormInput extends React.Component {
   getInputField() {
     const {
@@ -33,7 +31,6 @@ class FormInput extends React.Component {
     if (multiline) {
       return (
         <textarea className={inputClasses} onKeyUp={onChange} {...input} {...custom} ref="input"/>
-//         <Wysiwyg className={inputClasses} {...input} {...custom} ref="input"/>
       );
     }
 

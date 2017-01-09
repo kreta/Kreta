@@ -108,37 +108,71 @@ const toolbar = {
 };
 
 class Wysiwyg extends React.Component {
+  static propTypes = {
+    editorOnBlur: React.PropTypes.func,
+    editorOnChange: React.PropTypes.func,
+    editorOnFocus: React.PropTypes.func,
+    hasPlaceholder: React.PropTypes.bool,
+    tabIndex: React.PropTypes.number
+  };
+
+  static defaultProps = {
+    editorOnBlur: () => {},
+    editorOnChange: () => {},
+    editorOnFocus: () => {},
+  };
+
+  constructor(props) {
+    super(props);
+
+    this.handleBlur = this.handleBlur.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleFocus = this.handleFocus.bind(this);
+  }
+
+  handleBlur() {
+    return this.props.editorOnBlur();
+  }
+
+  handleChange(content) {
+    if (typeof content.blocks === 'undefined') {
+      return;
+    }
+    let value = 0;
+    content.blocks.forEach((block) => {
+      value += +block.text.length;
+    });
+
+    return this.props.editorOnChange(value);
+  }
+
+  handleFocus() {
+    return this.props.editorOnFocus();
+  }
+
   render() {
     const
-      {className, hasPlaceholder} = this.props,
-      wrapperClassName = `${className} wysiwyg`;
+      {hasPlaceholder, tabIndex} = this.props;
 
     let placeholder = '';
     if (hasPlaceholder) {
-      placeholder = "Type something...";
+      placeholder = 'Type something...';
     }
 
     return (
       <Editor
         editorClassName="wysiwyg__editor"
-        onBlur={this.blur.bind(this)}
-        onFocus={this.focus.bind(this)}
+        onBlur={this.handleBlur}
+        onContentStateChange={this.handleChange}
+        onFocus={this.handleFocus}
         placeholder={placeholder}
-        ref="input"
         spellCheck
+        tabIndex={tabIndex}
         toolbar={toolbar}
         toolbarClassName="wysiwyg__toolbar"
-        wrapperClassName={wrapperClassName}
+        wrapperClassName="wysiwyg"
       />
     );
-  }
-
-  focus() {
-    this.refs.input.editor.focus();
-  }
-
-  blur() {
-    this.refs.input.editor.blur();
   }
 }
 
