@@ -8,29 +8,48 @@
  * file that was distributed with this source code.
  */
 
+process.env.NODE_ENV = 'production';
+
 import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+import InterpolateHtmlPlugin from 'react-dev-utils/InterpolateHtmlPlugin';
 import WatchMissingNodeModulesPlugin from 'react-dev-utils/WatchMissingNodeModulesPlugin';
 
 import autoprefixer from 'autoprefixer';
 import path from 'path';
+import url from 'url';
 import webpack from 'webpack';
 
-import paths from './config/paths';
-import env from './config/env';
+import ensureSlash from './../devUtils/ensureSlash';
+import paths from './paths';
+import _env from './env';
+
+const
+  HOMEPAGE_PATH = require(paths.appPackageJson).homepage,
+  HOMEPAGE_PATHNAME = HOMEPAGE_PATH ? url.parse(HOMEPAGE_PATH).pathname : '/';
+
+const
+  PUBLIC_PATH = ensureSlash(HOMEPAGE_PATHNAME, true),
+  PUBLIC_URL = ensureSlash(HOMEPAGE_PATHNAME, false);
+
+const env = _env(PUBLIC_URL);
+
+if (env['process.env'].NODE_ENV !== '"production"') {
+  throw new Error('Production builds must have NODE_ENV=production.');
+}
 
 export default {
-  devtool: 'cheap-module-source-map',
+  bail: true,
+  devtool: 'source-map',
   entry: [
-    require.resolve('react-dev-utils/webpackHotDevClient'),
     require.resolve('react-scripts/config/polyfills'),
     paths.appIndexJs,
   ],
   output: {
-    path: paths.appPublic,
-    pathinfo: true,
-    filename: 'app.js',
-    publicPath: paths.appPublicPath
+    path: paths.appBuild,
+    filename: 'kreta.[hash].js',
+    publicPath: PUBLIC_PATH
   },
   resolve: {
     fallback: paths.nodePaths,
@@ -104,11 +123,44 @@ export default {
     includePaths: [path.join(__dirname, paths.appScss)]
   },
   plugins: [
-//     new webpack.BannerPlugin(LICENSE),
+    new InterpolateHtmlPlugin({
+      PUBLIC_URL: PUBLIC_URL
+    }),
+    new HtmlWebpackPlugin({
+      inject: true,
+      template: paths.appHtml,
+      minify: {
+        removeComments: true,
+        collapseWhitespace: true,
+        removeRedundantAttributes: true,
+        useShortDoctype: true,
+        removeEmptyAttributes: true,
+        removeStyleLinkTypeAttributes: true,
+        keepClosingSlash: true,
+        minifyJS: true,
+        minifyCSS: true,
+        minifyURLs: true
+      }
+    }),
     new webpack.DefinePlugin(env),
+    new webpack.optimize.OccurrenceOrderPlugin(),
+    new webpack.optimize.DedupePlugin(),
+    new webpack.optimize.UglifyJsPlugin({
+      compress: {
+        screw_ie8: true, // React doesn't support IE8
+        warnings: false
+      },
+      mangle: {
+        screw_ie8: true
+      },
+      output: {
+        comments: false,
+        screw_ie8: true
+      }
+    }),
     new webpack.HotModuleReplacementPlugin(),
     new CaseSensitivePathsPlugin(),
-    new ExtractTextPlugin('app.css'),
+    new ExtractTextPlugin('kreta.[contenthash].css'),
     new WatchMissingNodeModulesPlugin(paths.appNodeModules)
   ],
   node: {

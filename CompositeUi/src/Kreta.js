@@ -21,4 +21,4 @@ const
   store = configureStore(browserHistory),
   node = <Root routerHistory={browserHistory} store={store}/>;
 
-ReactDOM.render(node, document.getElementById('application'));
+ReactDOM.render(node, document.getElementById('kreta'));

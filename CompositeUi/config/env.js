@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-export default () => {
+export default (publicUrl) => {
   const REACT_APP = /^REACT_APP_/i;
 
   const processEnv = Object
@@ -22,6 +22,8 @@ export default () => {
       'NODE_ENV': JSON.stringify(
         process.env.NODE_ENV || 'development'
       ),
+    }, {
+      'PUBLIC_URL': JSON.stringify(publicUrl)
     });
 
   return {'process.env': processEnv};

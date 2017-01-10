@@ -26,8 +26,8 @@ import getProcessForPort from './../devUtils/getProcessForPort';
 import openBrowser from 'react-dev-utils/openBrowser';
 import prompt from 'react-dev-utils/prompt';
 
-import config from './../webpack.config.babel.js';
-import paths from './../config/paths.js';
+import config from './../config/webpack.config.babel.dev';
+import paths from './../config/paths';
 
 const isInteractive = process.stdout.isTTY;
 
