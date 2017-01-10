@@ -82,6 +82,10 @@ textarea {
   transition: top .2s, font-size .2s;
 }
 
+.form-input__label--multiline {
+  top: 60px;
+}
+
 .form-input__bar {
   background: $main-grey;
   bottom: 10px;

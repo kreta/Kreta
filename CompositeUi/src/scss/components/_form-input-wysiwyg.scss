@@ -1,0 +1,101 @@
+// This file is part of the Kreta package.
+//
+// (c) Beñat Espiña <benatespina@gmail.com>
+// (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+//
+// For the full copyright and license information, please view the LICENSE
+// file that was distributed with this source code.
+
+@import '../base/colors';
+@import '../base/typography';
+
+.form-input-wysiwyg {
+  margin-bottom: 30px;
+  margin-top: 30px;
+  position: relative;
+
+  .wysiwyg {
+    border: 0;
+    padding: 15px 0 0;
+  }
+
+  .wysiwyg__editor {
+    margin-top: 0;
+  }
+}
+
+.form-input-wysiwyg--error {
+  .form-input-wysiwyg__label {
+    color: $main-red;
+    font-size: 14px;
+    top: -15px;
+    transform: translateY(0);
+  }
+
+  .form-input-wysiwyg__bar,
+  .form-input-wysiwyg__bar:after {
+    background: $main-red;
+  }
+}
+
+.form-input-wysiwyg__input {
+  background-color: transparent;
+
+  &:-webkit-autofill { // Disable webkit yellow background on autocomplete
+    -webkit-box-shadow: 0 0 0 1000px white inset;
+  }
+}
+
+.form-input-wysiwyg__input--success {
+  ~ .form-input-wysiwyg__label {
+    color: $main-green;
+  }
+
+  ~ .form-input-wysiwyg__bar:after {
+    background: $main-green;
+  }
+}
+
+.form-input-wysiwyg__input--focus,
+.form-input-wysiwyg__input--filled {
+  ~ .form-input-wysiwyg__label {
+    font-size: 14px;
+    top: -15px;
+    transform: translateY(0);
+  }
+}
+
+.form-input-wysiwyg__input--focus {
+  ~ .form-input-wysiwyg__bar:after {
+    width: 100%;
+  }
+}
+
+.form-input-wysiwyg__label {
+  color: $grey;
+  font-size: 25px;
+  font-weight: lighter;
+  left: 0;
+  position: absolute;
+  top: 60px;
+  transition: top .2s, font-size .2s;
+}
+
+.form-input-wysiwyg__bar {
+  background: $main-grey;
+  bottom: 10px;
+  height: 1px;
+  left: 0;
+  position: absolute;
+  width: 100%;
+
+  &::after {
+    background: $main-black;
+    content: '';
+    height: 100%;
+    position: absolute;
+    top: 0;
+    transition: width .2s;
+    width: 0;
+  }
+}

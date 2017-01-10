@@ -14,6 +14,7 @@ import {Field, reduxForm} from 'redux-form';
 
 import FormActions from './../component/FormActions';
 import FormInput from './../component/FormInput';
+import FormInputWysiwyg from './../component/FormInputWysiwyg';
 import Button from './../component/Button';
 import Selector from './../component/Selector';
 import Thumbnail from './../component/Thumbnail';
@@ -23,7 +24,7 @@ import {Row, RowColumn} from './../component/Grid';
 const validate = (values) => {
   const
     errors = {},
-    requiredFields = ['title', 'description', 'project', 'assignee', 'priority'];
+    requiredFields = ['title', 'project', 'assignee', 'priority'];
 
   requiredFields.forEach(field => {
     if (!values[field] || values[field] === '') {
@@ -70,7 +71,9 @@ class TaskNew extends React.Component {
               {this.getProjectOptions()}
             </Field>
             <Field autoFocus component={FormInput} label="Title" name="title" tabIndex={2}/>
-            <Field component={FormInput} label="Description" multiline name="description" tabIndex={3}/>
+             <div className="task-new__description">
+               <Field component={FormInputWysiwyg} label="Description" name="description" tabIndex={3}/>
+             </div>
           </RowColumn>
         </Row>
         <Row collapse>
