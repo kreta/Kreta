@@ -13,24 +13,6 @@ import './../../scss/components/_wysiwyg.scss';
 import React from 'react';
 import {Editor} from 'react-draft-wysiwyg';
 
-import bold from './../../svg/wysiwyg/bold.svg';
-import center from './../../svg/wysiwyg/align-center.svg';
-import color from './../../svg/wysiwyg/color.svg';
-import image from './../../svg/wysiwyg/image.svg';
-import italic from './../../svg/wysiwyg/italic.svg';
-import justify from './../../svg/wysiwyg/align-justify.svg';
-import left from './../../svg/wysiwyg/align-left.svg';
-import link from './../../svg/wysiwyg/link.svg';
-import monospace from './../../svg/wysiwyg/monospace.svg';
-import ordered from './../../svg/wysiwyg/ordered.svg';
-import right from './../../svg/wysiwyg/align-right.svg';
-import strikethrough from './../../svg/wysiwyg/strikethrough.svg';
-import subscript from './../../svg/wysiwyg/subscript.svg';
-import superscript from './../../svg/wysiwyg/superscript.svg';
-import underline from './../../svg/wysiwyg/underline.svg';
-import unordered from './../../svg/wysiwyg/unordered.svg';
-import unlink from './../../svg/wysiwyg/unlink.svg';
-
 const toolbar = {
   options: [
     'inline',
@@ -52,13 +34,6 @@ const toolbar = {
       'superscript',
       'subscript'
     ],
-    bold: {icon: bold},
-    italic: {icon: italic},
-    underline: {icon: underline},
-    strikethrough: {icon: strikethrough},
-    monospace: {icon: monospace},
-    superscript: {icon: superscript},
-    subscript: {icon: subscript},
   },
   blockType: {
     inDropdown: false,
@@ -77,8 +52,8 @@ const toolbar = {
       'unordered',
       'ordered'
     ],
-    unordered: {icon: unordered, className: 'wysiwyg__toolbar--list-unordered'},
-    ordered: {icon: ordered, className: 'wysiwyg__toolbar--list-ordered'}
+    unordered: {className: 'wysiwyg__toolbar--list-unordered'},
+    ordered: {className: 'wysiwyg__toolbar--list-ordered'}
   },
   textAlign: {
     inDropdown: false,
@@ -89,22 +64,14 @@ const toolbar = {
       'right',
       'justify'
     ],
-    left: {icon: left},
-    center: {icon: center},
-    right: {icon: right},
-    justify: {icon: justify},
   },
-  colorPicker: {icon: color},
   link: {
     inDropdown: false,
     options: [
       'link',
       'unlink'
     ],
-    link: {icon: link},
-    unlink: {icon: unlink},
   },
-  image: {icon: image},
 };
 
 class Wysiwyg extends React.Component {
