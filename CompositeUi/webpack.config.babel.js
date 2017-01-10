@@ -84,13 +84,7 @@ export default {
       },
       {
         test: /\.svg$/,
-        loader: 'svg-sprite?name=[name]_[hash].svg',
-        exclude: paths.wysiwygSvgPath
-      },
-      {
-        test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'url?limit=10000&mimetype=image/svg+xml',
-        include: paths.wysiwygSvgPath
+        loader: 'svg-sprite?name=[name]_[hash].svg'
       },
     ]
   },
