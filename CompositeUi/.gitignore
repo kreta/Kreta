@@ -10,7 +10,5 @@
 /jest
 /node_modules
 /npm-debug.log
-/public/app.css
-/public/app.css.map
-/public/app.js
-/public/app.js.map
+/build
+!/build/.gitkeep
