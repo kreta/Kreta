@@ -1,7 +1,7 @@
 #!/usr/bin/env php
 <?php
 
-use Kreta\TaskManager\Infrastructure\Symfony\AppKernel;
+use Kreta\TaskManager\Infrastructure\Symfony\Framework\AppKernel;
 use Symfony\Bundle\FrameworkBundle\Console\Application;
 use Symfony\Component\Console\Input\ArgvInput;
 use Symfony\Component\Debug\Debug;

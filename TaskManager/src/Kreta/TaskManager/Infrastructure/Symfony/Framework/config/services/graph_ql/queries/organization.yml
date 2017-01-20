@@ -1,0 +1,59 @@
+# This file is part of the Kreta package.
+#
+# (c) Beñat Espiña <benatespina@gmail.com>
+# (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+
+services:
+    kreta.task_manager.graph_ql.query_resolver.filter_organizations:
+        class: Kreta\TaskManager\Infrastructure\Symfony\GraphQl\Query\Organization\OrganizationsResolver
+        arguments:
+            - "@security.token_storage"
+            - "@kreta.task_manager.graphql.connection_builder"
+            - "@kreta.task_manager.query_bus"
+        tags:
+            - { name: overblog_graphql.resolver, alias: "organizations", method: "resolve" }
+
+    kreta.task_manager.graph_ql.query_resolver.organization_of_id:
+        class: Kreta\TaskManager\Infrastructure\Symfony\GraphQl\Query\Organization\OrganizationResolver
+        arguments:
+            - "@security.token_storage"
+            - "@kreta.task_manager.query_bus"
+        tags:
+            - { name: overblog_graphql.resolver, alias: "organization", method: "resolve" }
+
+    kreta.task_manager.graph_ql.query_resolver.member_type:
+        class: Kreta\TaskManager\Infrastructure\Symfony\GraphQl\Query\Organization\MemberTypeResolver
+        arguments:
+            - "@security.token_storage"
+            - "@kreta.task_manager.graphql.resolver.type"
+            - "@kreta.task_manager.query_bus"
+        tags:
+            - { name: overblog_graphql.resolver, alias: "member_type", method: "resolve" }
+
+    kreta.task_manager.graph_ql.query_resolver.member_of_id:
+        class: Kreta\TaskManager\Infrastructure\Symfony\GraphQl\Query\Organization\MemberResolver
+        arguments:
+            - "@security.token_storage"
+            - "@kreta.task_manager.query_bus"
+            - "@kreta.task_manager.graph_ql.query_resolver.organization_of_id"
+        tags:
+            - { name: overblog_graphql.resolver, alias: "member", method: "resolve" }
+
+    kreta.task_manager.graph_ql.query_resolver.organization_member_of_id:
+        class: Kreta\TaskManager\Infrastructure\Symfony\GraphQl\Query\Organization\OrganizationMemberResolver
+        arguments:
+            - "@security.token_storage"
+            - "@kreta.task_manager.query_bus"
+        tags:
+            - { name: overblog_graphql.resolver, alias: "member_organization_member", method: "resolve" }
+
+    kreta.task_manager.graph_ql.query_resolver.owner_of_id:
+        class: Kreta\TaskManager\Infrastructure\Symfony\GraphQl\Query\Organization\OwnerResolver
+        arguments:
+            - "@security.token_storage"
+            - "@kreta.task_manager.query_bus"
+        tags:
+            - { name: overblog_graphql.resolver, alias: "member_owner", method: "resolve" }

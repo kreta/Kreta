@@ -1,0 +1,38 @@
+# This file is part of the Kreta package.
+#
+# (c) Beñat Espiña <benatespina@gmail.com>
+# (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+
+services:
+    kreta.task_manager.cli_command.fixtures_organization:
+        class: Kreta\TaskManager\Infrastructure\Symfony\Command\OrganizationFixturesCommand
+        arguments:
+            - "@kreta.task_manager.command_bus"
+        tags:
+            - { name: console.command }
+
+    kreta.task_manager.cli_command.fixtures_project:
+        class: Kreta\TaskManager\Infrastructure\Symfony\Command\ProjectFixturesCommand
+        arguments:
+            - "@kreta.task_manager.command_bus"
+            - "@kreta.task_manager.query_bus"
+        tags:
+            - { name: console.command }
+
+    kreta.task_manager.cli_command.fixtures_task:
+        class: Kreta\TaskManager\Infrastructure\Symfony\Command\TaskFixturesCommand
+        arguments:
+            - "@kreta.task_manager.command_bus"
+            - "@kreta.task_manager.query_bus"
+        tags:
+            - { name: console.command }
+
+    kreta.task_manager.cli_command.fixtures_user:
+        class: Kreta\TaskManager\Infrastructure\Symfony\Command\UserFixturesCommand
+        arguments:
+            - "@kreta.task_manager.command_bus"
+        tags:
+            - { name: console.command }
