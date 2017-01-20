@@ -73,7 +73,7 @@ class Rest {
   }
 
   get(url, query = null, headers) {
-    return this.request('GET', `${url}${this.toQueryParams(query)}`, {}, headers);
+    return this.request('GET', `${url}${this.toQueryParams(query)}`, null, headers);
   }
 
   post(url, payload = {}, headers = {}) {
