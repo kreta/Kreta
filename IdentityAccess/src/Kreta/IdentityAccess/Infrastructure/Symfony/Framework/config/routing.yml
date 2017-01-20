@@ -9,21 +9,21 @@
 kreta_identity_access_invite:
     path: /invite
     defaults:
-        _controller: "kreta.identity_access.action.invite:__invoke"
+        _controller: "kreta.identity_access.http_action.invite:__invoke"
     methods:
         - POST
 
 kreta_identity_access_resend_invitation:
     path: /resend-invitation
     defaults:
-        _controller: "kreta.identity_access.action.resend_invitation:__invoke"
+        _controller: "kreta.identity_access.http_action.resend_invitation:__invoke"
     methods:
         - POST
 
 kreta_identity_access_sign_up_by_invitation:
     path: /register
     defaults:
-        _controller: "kreta.identity_access.action.sign_up:__invoke"
+        _controller: "kreta.identity_access.http_action.sign_up:__invoke"
     methods:
         - POST
 
@@ -33,7 +33,7 @@ ben_gor_user:
 kreta_identity_access_user:
     path: /user
     defaults:
-        _controller: "kreta.identity_access.action.user:__invoke"
+        _controller: "kreta.identity_access.http_action.user:__invoke"
     methods:
         - GET
 
