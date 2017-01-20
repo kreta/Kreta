@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-use Kreta\IdentityAccess\Infrastructure\Symfony\AppKernel;
+use Kreta\IdentityAccess\Infrastructure\Symfony\Framework\AppKernel;
 use Symfony\Component\Debug\Debug;
 use Symfony\Component\HttpFoundation\Request;
 

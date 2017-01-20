@@ -12,7 +12,7 @@
 
 declare(strict_types=1);
 
-namespace Kreta\IdentityAccess\Infrastructure\Ui\Http\Action;
+namespace Kreta\IdentityAccess\Infrastructure\Symfony\HttpAction;
 
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;

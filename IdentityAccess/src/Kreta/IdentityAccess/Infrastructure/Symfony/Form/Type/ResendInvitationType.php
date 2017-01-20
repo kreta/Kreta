@@ -12,7 +12,7 @@
 
 declare(strict_types=1);
 
-namespace Kreta\IdentityAccess\Infrastructure\Ui\Form\Type;
+namespace Kreta\IdentityAccess\Infrastructure\Symfony\Form\Type;
 
 use BenGorUser\User\Application\Command\Invite\ResendInvitationUserCommand;
 use Symfony\Component\Form\AbstractType;

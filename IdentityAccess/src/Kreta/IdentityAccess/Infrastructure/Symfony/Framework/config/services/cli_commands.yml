@@ -8,7 +8,7 @@
 
 services:
     kreta.identity_access.cli_command.fixtures_user:
-        class: Kreta\IdentityAccess\Infrastructure\Ui\Cli\Command\UserFixturesCommand
+        class: Kreta\IdentityAccess\Infrastructure\Symfony\Command\UserFixturesCommand
         arguments:
             - "@bengor_user.user.command_bus"
         tags:

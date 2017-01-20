@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-namespace Kreta\IdentityAccess\Infrastructure\Symfony;
+namespace Kreta\IdentityAccess\Infrastructure\Symfony\Framework;
 
 use BenGorUser\UserBundle\BenGorUserBundle;
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
@@ -82,12 +82,12 @@ class AppKernel extends Kernel
 
     public function getCacheDir()
     {
-        return dirname(__DIR__) . '/../../../../var/cache/' . $this->getEnvironment();
+        return dirname(__DIR__) . '/../../../../../var/cache/' . $this->getEnvironment();
     }
 
     public function getLogDir()
     {
-        return dirname(__DIR__) . '/../../../../var/logs';
+        return dirname(__DIR__) . '/../../../../../var/logs';
     }
 
     public function registerContainerConfiguration(LoaderInterface $loader)

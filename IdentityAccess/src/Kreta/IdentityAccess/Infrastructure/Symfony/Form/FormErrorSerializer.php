@@ -12,7 +12,7 @@
 
 declare(strict_types=1);
 
-namespace Kreta\IdentityAccess\Infrastructure\Ui\Form;
+namespace Kreta\IdentityAccess\Infrastructure\Symfony\Form;
 
 use Symfony\Component\Form\FormInterface;
 

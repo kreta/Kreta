@@ -12,7 +12,7 @@
 
 declare(strict_types=1);
 
-namespace Kreta\IdentityAccess\Infrastructure\Ui\Cli\Command;
+namespace Kreta\IdentityAccess\Infrastructure\Symfony\Command;
 
 use BenGorUser\User\Application\Command\SignUp\SignUpUserCommand;
 use BenGorUser\User\Infrastructure\CommandBus\UserCommandBus;

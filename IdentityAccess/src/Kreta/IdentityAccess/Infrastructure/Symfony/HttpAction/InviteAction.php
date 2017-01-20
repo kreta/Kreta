@@ -12,12 +12,12 @@
 
 declare(strict_types=1);
 
-namespace Kreta\IdentityAccess\Infrastructure\Ui\Http\Action;
+namespace Kreta\IdentityAccess\Infrastructure\Symfony\HttpAction;
 
 use BenGorUser\User\Domain\Model\Exception\UserAlreadyExistException;
 use BenGorUser\User\Infrastructure\CommandBus\UserCommandBus;
-use Kreta\IdentityAccess\Infrastructure\Ui\Form\FormErrorSerializer;
-use Kreta\IdentityAccess\Infrastructure\Ui\Form\Type\InviteType;
+use Kreta\IdentityAccess\Infrastructure\Symfony\Form\FormErrorSerializer;
+use Kreta\IdentityAccess\Infrastructure\Symfony\Form\Type\InviteType;
 use Symfony\Component\Form\FormFactoryInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;

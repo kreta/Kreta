@@ -7,7 +7,7 @@
 # file that was distributed with this source code.
 
 imports:
-    - { resource: ../../../../../../parameters.yml }
+    - { resource: ../../../../../../../parameters.yml }
     - { resource: security.yml }
     - { resource: services/, type: directory }
 
@@ -32,7 +32,7 @@ framework:
     session:
         handler_id: session.handler.native_file
         name: kretasession
-        save_path: "%kernel.root_dir%/../../../../../var/sessions/%kernel.environment%"
+        save_path: "%kernel.root_dir%/../../../../../../var/sessions/%kernel.environment%"
     fragments: ~
     http_method_override: true
     assets: ~
@@ -59,11 +59,11 @@ doctrine:
                 mapping: true
                 type: xml
                 is_bundle: false
-                dir: "%kernel.root_dir%/../Persistence/Doctrine/ORM/User/SymfonyMapping/"
+                dir: "%kernel.root_dir%/../../Persistence/Doctrine/ORM/User/SymfonyMapping/"
                 prefix: 'Kreta\IdentityAccess\Domain\Model\User'
 
 doctrine_migrations:
-    dir_name: "%kernel.root_dir%/../Persistence/Doctrine/Migrations"
+    dir_name: "%kernel.root_dir%/../../Persistence/Doctrine/Migrations"
     namespace: Kreta\IdentityAccess\Infrastructure\Persistence\Doctrine\Migrations
     table_name: migration_versions
     name: Kreta Identity Access Migrations
@@ -107,8 +107,8 @@ ben_gor_user:
                         path: /auth/token
 
 lexik_jwt_authentication:
-    private_key_path: "%kernel.root_dir%/../../../../../var/jwt/private.pem"
-    public_key_path: "%kernel.root_dir%/../../../../../var/jwt/public.pem"
+    private_key_path: "%kernel.root_dir%/../../../../../../var/jwt/private.pem"
+    public_key_path: "%kernel.root_dir%/../../../../../../var/jwt/public.pem"
     pass_phrase: "%identity_access_jwt_key_pass_phrase%"
     token_ttl: "%jwt_token_lifetime%"
     user_identity_field: email

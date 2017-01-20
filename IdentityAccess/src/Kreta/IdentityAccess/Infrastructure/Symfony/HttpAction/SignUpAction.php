@@ -12,7 +12,7 @@
 
 declare(strict_types=1);
 
-namespace Kreta\IdentityAccess\Infrastructure\Ui\Http\Action;
+namespace Kreta\IdentityAccess\Infrastructure\Symfony\HttpAction;
 
 use BenGorUser\User\Application\Command\LogIn\LogInUserCommand;
 use BenGorUser\User\Application\Query\UserOfInvitationTokenHandler;
@@ -22,8 +22,8 @@ use BenGorUser\User\Domain\Model\Exception\UserInactiveException;
 use BenGorUser\User\Domain\Model\Exception\UserPasswordInvalidException;
 use BenGorUser\User\Domain\Model\Exception\UserTokenExpiredException;
 use BenGorUser\User\Infrastructure\CommandBus\UserCommandBus;
-use Kreta\IdentityAccess\Infrastructure\Ui\Form\FormErrorSerializer;
-use Kreta\IdentityAccess\Infrastructure\Ui\Form\Type\SignUpType;
+use Kreta\IdentityAccess\Infrastructure\Symfony\Form\FormErrorSerializer;
+use Kreta\IdentityAccess\Infrastructure\Symfony\Form\Type\SignUpType;
 use Kreta\SharedKernel\Application\CommandBus;
 use Lexik\Bundle\JWTAuthenticationBundle\Encoder\JWTEncoderInterface;
 use Symfony\Component\Form\FormFactoryInterface;
