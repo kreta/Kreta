@@ -21,6 +21,16 @@ final class DateTimeImmutable
         return new \DateTimeImmutable();
     }
 
+    public static function fromYmd(string $ymd) : \DateTimeImmutable
+    {
+        return new \DateTimeImmutable($ymd);
+    }
+
+    public static function relative(string $relative) : \DateTimeImmutable
+    {
+        return new \DateTimeImmutable($relative);
+    }
+
     private function __construct()
     {
     }

@@ -22,9 +22,21 @@ class DateTimeImmutableSpec extends ObjectBehavior
         $this->shouldHaveType(DateTimeImmutable::class);
     }
 
-    function it_instantiates_native_datetime()
+    function it_builds_now()
     {
         $this->beConstructedNow();
+        $this->shouldHaveType(\DateTimeImmutable::class);
+    }
+
+    function it_builds_from_ymd()
+    {
+        $this->beConstructedFromYmd('2016-10-11');
+        $this->shouldHaveType(\DateTimeImmutable::class);
+    }
+
+    function it_builds_relative()
+    {
+        $this->beConstructedRelative('+7 days');
         $this->shouldHaveType(\DateTimeImmutable::class);
     }
 }
