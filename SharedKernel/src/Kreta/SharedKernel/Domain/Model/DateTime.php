@@ -14,19 +14,19 @@ declare(strict_types=1);
 
 namespace Kreta\SharedKernel\Domain\Model;
 
-final class DateTimeImmutable
+final class DateTime
 {
     public static function now() : \DateTimeImmutable
     {
         return new \DateTimeImmutable();
     }
 
-    public static function fromYmd(string $ymd) : \DateTimeImmutable
+    public static function fromTime(string $time) : \DateTimeImmutable
     {
-        return new \DateTimeImmutable($ymd);
+        return new \DateTimeImmutable($time);
     }
 
-    public static function relative(string $relative) : \DateTimeImmutable
+    public static function fromRelative(string $relative) : \DateTimeImmutable
     {
         return new \DateTimeImmutable($relative);
     }

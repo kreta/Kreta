@@ -12,14 +12,14 @@
 
 namespace Spec\Kreta\SharedKernel\Domain\Model;
 
-use Kreta\SharedKernel\Domain\Model\DateTimeImmutable;
+use Kreta\SharedKernel\Domain\Model\DateTime;
 use PhpSpec\ObjectBehavior;
 
-class DateTimeImmutableSpec extends ObjectBehavior
+class DateTimeSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType(DateTimeImmutable::class);
+        $this->shouldHaveType(DateTime::class);
     }
 
     function it_builds_now()
@@ -28,15 +28,15 @@ class DateTimeImmutableSpec extends ObjectBehavior
         $this->shouldHaveType(\DateTimeImmutable::class);
     }
 
-    function it_builds_from_ymd()
+    function it_builds_from_time()
     {
-        $this->beConstructedFromYmd('2016-10-11');
+        $this->beConstructedFromTime('2016-10-11');
         $this->shouldHaveType(\DateTimeImmutable::class);
     }
 
-    function it_builds_relative()
+    function it_builds_from_relative()
     {
-        $this->beConstructedRelative('+7 days');
+        $this->beConstructedFromRelative('+7 days');
         $this->shouldHaveType(\DateTimeImmutable::class);
     }
 }
