@@ -46,6 +46,12 @@ services:
             - ../../IdentityAccess:/var/www/identityaccess
             - ./data/logs/identityaccess:/var/www/identityaccess/var/logs
             - ../../SharedKernel:/var/www/SharedKernel
+            - /var/www/taskmanager/var/cache
+            - /var/www/taskmanager/var/sessions
+#            - /var/www/taskmanager/vendor
+            - /var/www/identityaccess/var/cache
+            - /var/www/identityaccess/var/sessions
+#            - /var/www/identityaccess/vendor
 
     node:
         build: node

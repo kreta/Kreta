@@ -14,13 +14,6 @@ WORKDIR /var/www/compositeui
 
 RUN npm -g install yarn
 
-RUN mkdir /var/www/node_modules-compositeui
-
-COPY yarn.lock /var/www/compositeui
-COPY package.json /var/www/compositeui
-
-RUN yarn install
-
 EXPOSE 3000
 
-CMD npm start
+CMD yarn run start

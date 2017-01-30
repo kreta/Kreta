@@ -27,17 +27,6 @@ RUN "date"
 RUN docker-php-ext-install pdo pdo_mysql
 RUN docker-php-ext-install bcmath
 
-RUN mkdir /var/www/vendor-taskmanager
-RUN mkdir /var/www/vendor-identityaccess
-
-COPY taskmanager-composer.lock /var/www/taskmanager/composer.lock
-COPY taskmanager-composer.json /var/www/taskmanager/composer.json
-RUN cd /var/www/taskmanager && composer install
-
-COPY identityaccess-composer.lock /var/www/identityaccess/composer.lock
-COPY identityaccess-composer.json /var/www/identityaccess/composer.json
-RUN cd /var/www/identityaccess && composer install
-
 WORKDIR /var/www/taskmanager
 
 RUN echo 'alias sf="php etc/bin/symfony-console"' >> ~/.bashrc
