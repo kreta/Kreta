@@ -57,9 +57,9 @@ It provides the following containers:
     3. Create symbolic links for better performance & install dependencies (composer / yarn)
 
         ```bash
-        $ docker-compose run node bash -c "cd /var/www/compositeui && ln -s ../node_modules-compositeui/ node_modules && yarn install"
-        $ docker-compose exec php bash -c "cd /var/www/taskmanager && ln -s ../vendor-taskmanager/ vendor && composer install"
-        $ docker-compose exec php bash -c "cd /var/www/identityaccess && ln -s ../vendor-identityaccess/ vendor  && composer install"
+        $ docker-compose run node bash -c "cd /var/www/compositeui && yarn install"
+        $ docker-compose exec php bash -c "cd /var/www/taskmanager && composer install"
+        $ docker-compose exec php bash -c "cd /var/www/identityaccess && composer install"
         ```
 
 5. Enjoy :-)
