@@ -25,6 +25,7 @@ import ProjectNew from './views/page/project/New';
 import ProjectRoot from './views/page/project/Root';
 import ProjectSettings from './views/page/project/Settings';
 import ProjectShow from './views/page/project/TaskList';
+import ResetPasswordPage from './views/page/ResetPassword';
 
 const
   routes = {
@@ -51,6 +52,8 @@ const
     security: {
       login: () => ('/login')
     },
+    register: '/join',
+    resetPassword: '/reset-password',
     search: (query = null) => {
       if (null === query) {
         return '/search';
@@ -79,6 +82,7 @@ const
   sitemap = (
     <div>
       <Route component={LoginPage} onEnter={loggedRedirect} path={routes.security.login()}/>
+      <Route component={ResetPasswordPage} onEnter={loggedRedirect} path={routes.resetPassword}/>
       <Route component={BaseLayout} onEnter={requireAuth} path={routes.home}>
         <IndexRoute component={Dashboard}/>
 

@@ -16,6 +16,7 @@ import classnames from 'classnames';
 class FormInput extends React.Component {
   getInputField() {
     const {
+        auxLabelEl,                 // eslint-disable-line no-unused-vars
         input,
         label,                      // eslint-disable-line no-unused-vars
         meta: {touched, error},     // eslint-disable-line no-unused-vars
@@ -40,7 +41,7 @@ class FormInput extends React.Component {
   }
 
   getLabelField() {
-    const {multiline, label} = this.props;
+    const {multiline, label, auxLabelEl} = this.props;
 
     if (multiline) {
       return (
@@ -49,7 +50,10 @@ class FormInput extends React.Component {
     }
 
     return (
-      <label className="form-input__label">{label}</label>
+      <label className="form-input__label">
+        {label}
+        {auxLabelEl}
+      </label>
     );
   }
 

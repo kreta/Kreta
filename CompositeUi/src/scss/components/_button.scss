@@ -26,13 +26,14 @@
 }
 
 .button--green {
-  background: $main-green;
+  background-color: $main-green;
   border: 1px solid $main-green;
   color: $white;
+  transition-property: background;
 
   &:hover,
   &:focus {
-    background: lighten($main-green, 20%);
+    background-color: darken($main-green, 10%);
   }
 }
 
@@ -47,4 +48,8 @@
   min-width: 0;
   padding: 0;
   width: 25px;
+}
+
+.button--full {
+  width: 100%;
 }

@@ -48,6 +48,11 @@ h4 {
 a {
   color: $main-green;
   text-decoration: none;
+  transition: color .3s;
+
+  &:hover {
+    color: darken($main-green, 10%);
+  }
 }
 
 p {

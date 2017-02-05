@@ -73,17 +73,26 @@ textarea {
 }
 
 .form-input__label {
+  align-items: baseline;
   color: $grey;
+  display: flex;
   font-size: 25px;
   font-weight: lighter;
+  justify-content: space-between;
   left: 0;
   position: absolute;
   top: 20px;
   transition: top .2s, font-size .2s;
+  width: 100%;
 }
 
 .form-input__label--multiline {
   top: 60px;
+}
+
+.form-input__auxiliary-label {
+  font-size: 14px;
+  font-weight: $font-weight-bold;
 }
 
 .form-input__bar {

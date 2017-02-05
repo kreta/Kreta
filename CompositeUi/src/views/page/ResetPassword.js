@@ -14,29 +14,24 @@ import {connect} from 'react-redux';
 import ContentLayout from './../layout/ContentLayout';
 import ContentMiddleLayout from './../layout/ContentMiddleLayout';
 import NotificationLayout from './../layout/NotificationLayout';
-import LoadingSpinner from './../component/LoadingSpinner';
-import Login from './../form/Login';
+import ResetPassword from './../form/ResetPassword';
 import LogoCustomHeader from './../component/LogoCustomHeader';
-import UserActions from './../../actions/User';
+// import UserActions from './../../actions/User';
 
-@connect(state => ({authorizing: state.user.updatingAuthorization}))
-class LoginPage extends React.Component {
-  login(credentials) {
-    this.props.dispatch(UserActions.login(credentials));
+@connect()
+class ResetPasswordPage extends React.Component {
+  resetPassword() {
+//     this.props.dispatch(UserActions.resetPassword(email));
   }
 
   render() {
-    if (this.props.authorizing) {
-      return <LoadingSpinner/>;
-    }
-
     return (
       <div>
         <NotificationLayout/>
         <ContentLayout>
           <ContentMiddleLayout>
-            <LogoCustomHeader title="Sign in to Kreta"/>
-            <Login onSubmit={this.login.bind(this)}/>
+            <LogoCustomHeader title="Reset your password"/>
+            <ResetPassword onSubmit={this.resetPassword.bind(this)}/>
           </ContentMiddleLayout>
         </ContentLayout>
       </div>
@@ -44,4 +39,4 @@ class LoginPage extends React.Component {
   }
 }
 
-export default LoginPage;
+export default ResetPasswordPage;
