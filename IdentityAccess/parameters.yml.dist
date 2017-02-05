@@ -22,11 +22,11 @@ parameters:
     identity_access_mailer_user:         ~
     identity_access_mailer_password:     ~
 
-    identity_access_jwt_key_pass_phrase: kretataskmanager
+    identity_access_jwt_key_pass_phrase: kreta
 
     identity_access_rabbitmq_host:       localhost
     identity_access_rabbitmq_port:       5672
     identity_access_rabbitmq_user:       kreta
     identity_access_rabbitmq_password:   kreta
 
-    mailer_user:                         "%identity_access_mailer_user%"    # Needed for build the bengor-user service
+    mailer_user:                         "info@kreta.io"    # Needed for build the bengor-user service
