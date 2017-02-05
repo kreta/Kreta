@@ -11,24 +11,3 @@ services:
         class: Kreta\IdentityAccess\Infrastructure\Symfony\HttpAction\UserAction
         arguments:
             - "@security.token_storage"
-
-    kreta.identity_access.http_action.invite:
-        class: Kreta\IdentityAccess\Infrastructure\Symfony\HttpAction\InviteAction
-        arguments:
-            - "@form.factory"
-            - "@bengor_user.user.command_bus"
-
-    kreta.identity_access.http_action.resend_invitation:
-        class: Kreta\IdentityAccess\Infrastructure\Symfony\HttpAction\ResendInvitationAction
-        arguments:
-            - "@form.factory"
-            - "@bengor_user.user.command_bus"
-
-    kreta.identity_access.http_action.sign_up:
-        class: Kreta\IdentityAccess\Infrastructure\Symfony\HttpAction\SignUpAction
-        arguments:
-            - "@bengor_user.user.by_invitation_token_query"
-            - "@form.factory"
-            - "@kreta.identity_access.command_bus"
-            - "@lexik_jwt_authentication.encoder.default"
-            - "@bengor_user.user.command_bus"

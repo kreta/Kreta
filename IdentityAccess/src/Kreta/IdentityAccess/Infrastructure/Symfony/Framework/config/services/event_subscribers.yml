@@ -12,9 +12,22 @@ services:
         arguments:
             - "@bengor_user.mailer.swift_mailer"
             - "@bengor_user.mailable_factory.invite"
-            - "@bengor_user.symfony_url_generator"
-            - bengor_user_user_sign_up
+            - "@kreta.identity_access.invite_url_generator"
         tags:
             -
                 name: bengor_user_user_event_subscriber
                 subscribes_to: BenGorUser\User\Domain\Model\Event\UserInvited
+            -
+                name: bengor_user_user_event_subscriber
+                subscribes_to: BenGorUser\User\Domain\Model\Event\UserInvitationTokenRegenerated
+
+    kreta.identity_access.request_remember_password_mailer_subscriber:
+        class: BenGorUser\User\Domain\Event\UserRememberPasswordRequestedMailerSubscriber
+        arguments:
+            - '@bengor_user.mailer.swift_mailer'
+            - '@bengor_user.mailable_factory.request_remember_password'
+            - "@kreta.identity_access.request_remember_password_url_generator"
+        tags:
+            -
+                name: bengor_user_user_event_subscriber
+                subscribes_to: BenGorUser\User\Domain\Model\Event\UserRememberPasswordRequested

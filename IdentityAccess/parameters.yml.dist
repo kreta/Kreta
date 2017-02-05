@@ -7,6 +7,7 @@
 # file that was distributed with this source code.
 
 parameters:
+    identity_access_host:                "http://identityaccess.localhost"
     identity_access_secret:              12e54860e3fbbbebd0aa659fa8bc554c202298ac # Your own secret with http://nux.net/secret
     identity_access_delivery_address:    benatespina@gmail.com
 

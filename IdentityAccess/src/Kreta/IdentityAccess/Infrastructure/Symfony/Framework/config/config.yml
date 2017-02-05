@@ -82,29 +82,37 @@ ben_gor_user:
             firewall: main
             use_cases:
                 security:
-                    enabled: true
+                    enabled: false
+                    api_enabled: true
                 sign_up:
-                    enabled: true
-                    type: by_invitation
+                    enabled: false
+                    api_enabled: true
+                    api_type: by_invitation
                 change_password:
-                    enabled: true
-                    type: by_request_remember_password
+                    enabled: false
+                    api_enabled: true
+                    api_type: by_request_remember_password
                 remove:
                     enabled: false
-                jwt:
-                    enabled: true
             routes:
-                sign_up:
-                    path: /register
-                invite:
-                    path: /invite
-                change_password:
-                    path: /change-password
-                request_remember_password:
-                    path: /remember-password
-                jwt:
-                    new_token:
+                security:
+                    jwt:
                         path: /auth/token
+                sign_up:
+                    api_name: kreta_identity_access_sign_up_by_invitation
+                    api_path: /register
+                invite:
+                    api_name: kreta_identity_access_invite
+                    api_path: /invite
+                resend_invitation:
+                    api_name: kreta_identity_access_resend_invitation
+                    api_path: /resend-invitation
+                change_password:
+                    api_name: kreta_identity_access_change_password
+                    api_path: /change-password
+                request_remember_password:
+                    api_name: kreta_identity_access_request_remember_password
+                    api_path: /remember-password
 
 lexik_jwt_authentication:
     private_key_path: "%kernel.root_dir%/../../../../../../var/jwt/private.pem"
