@@ -8,6 +8,8 @@
  * file that was distributed with this source code.
  */
 
+import './../../scss/form/_form-register.scss';
+
 import React from 'react';
 import {Field, reduxForm} from 'redux-form';
 
@@ -15,7 +17,6 @@ import Button from './../component/Button';
 import FormActions from './../component/FormActions';
 import FormInput from './../component/FormInput';
 import {Row, RowColumn} from './../component/Grid';
-import {routes} from './../../Routes';
 
 const validate = (values) => {
   const
@@ -35,8 +36,8 @@ const validate = (values) => {
   return errors;
 };
 
-@reduxForm({form: 'Login', validate})
-class Login extends React.Component {
+@reduxForm({form: 'Register', validate})
+class Register extends React.Component {
   static propTypes = {
     handleSubmit: React.PropTypes.func
   };
@@ -49,25 +50,16 @@ class Login extends React.Component {
         <Row center>
           <RowColumn large={6}>
             <Field autoFocus component={FormInput} label="Email" name="email" tabIndex={1}/>
-            <Field
-              {...{
-                auxLabelEl: (
-                  <a className="form-input__auxiliary-label" href={routes.resetPassword}>
-                    Forgot your password?
-                  </a>
-                )
-              }}
-              component={FormInput}
-              label="Password"
-              name="password"
-              tabIndex={2}
-              type="password"
-            />
+            <Field component={FormInput} label="Password" name="password" tabIndex={2} type="password"/>
             <FormActions>
-              <Button color="green" size="full" tabIndex={3} type="submit">Sign in Kreta</Button>
+              <Button color="green" size="full" tabIndex={3} type="submit">Sign up for Kreta</Button>
             </FormActions>
             <FormActions>
-              <p>New to Kreta? <a href={routes.register}>Create an account.</a></p>
+              <p className="form-register__privacy">
+                By clicking "Sign up for Kreta", you agree to
+                our <a href="#">terms of service</a> and <a href="#">privacy policy</a>.
+                We'll occasionally send you account related emails.
+              </p>
             </FormActions>
           </RowColumn>
         </Row>
@@ -76,4 +68,4 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+export default Register;

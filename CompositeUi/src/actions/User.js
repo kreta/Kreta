@@ -49,7 +49,7 @@ const Actions = {
           type: ActionTypes.USER_UNAUTHORIZED
         });
         dispatch(
-          routeActions.push(routes.security.login())
+          routeActions.push(routes.login)
         );
       });
   }

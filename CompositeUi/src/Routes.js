@@ -25,6 +25,7 @@ import ProjectNew from './views/page/project/New';
 import ProjectRoot from './views/page/project/Root';
 import ProjectSettings from './views/page/project/Settings';
 import ProjectShow from './views/page/project/TaskList';
+import RegisterPage from './views/page/Register';
 import ResetPasswordPage from './views/page/ResetPassword';
 
 const
@@ -49,11 +50,6 @@ const
       edit: () => ('/profile'),
       show: () => ('/profile')
     },
-    security: {
-      login: () => ('/login')
-    },
-    register: '/join',
-    resetPassword: '/reset-password',
     search: (query = null) => {
       if (null === query) {
         return '/search';
@@ -61,6 +57,9 @@ const
 
       return {pathname: '/search', query: {q: query}};
     },
+    login: '/login',
+    register: '/join',
+    resetPassword: '/reset-password',
     home: '/'
   },
   requireAuth = (nextState, replace) => {
@@ -81,8 +80,9 @@ const
   },
   sitemap = (
     <div>
-      <Route component={LoginPage} onEnter={loggedRedirect} path={routes.security.login()}/>
+      <Route component={LoginPage} onEnter={loggedRedirect} path={routes.login}/>
       <Route component={ResetPasswordPage} onEnter={loggedRedirect} path={routes.resetPassword}/>
+      <Route component={RegisterPage} onEnter={loggedRedirect} path={routes.register}/>
       <Route component={BaseLayout} onEnter={requireAuth} path={routes.home}>
         <IndexRoute component={Dashboard}/>
 
