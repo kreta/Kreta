@@ -60,6 +60,7 @@ services:
             - 3000:3000
         volumes:
             - ../../CompositeUi:/var/www/compositeui
+            - /var/www/compositeui/node_modules
 
     nginx:
         build: nginx
