@@ -10,39 +10,18 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
-import {routeActions} from 'react-router-redux';
 
 import ContentLayout from './../layout/ContentLayout';
 import ContentMiddleLayout from './../layout/ContentMiddleLayout';
 import NotificationLayout from './../layout/NotificationLayout';
-import ResetPassword from './../form/ResetPassword';
+import RequestResetPassword from './../form/RequestResetPassword';
 import LogoCustomHeader from './../component/LogoCustomHeader';
-import {routes} from './../../Routes';
 import UserActions from './../../actions/User';
 
 @connect()
 class ResetPasswordPage extends React.Component {
-  componentDidMount() {
-    const
-      {dispatch, location} = this.props,
-      token = location.query['remember-password-token'];
-
-    if (typeof token === 'undefined' || token.length === 0) {
-      dispatch(
-        routeActions.push(routes.requestResetPassword)
-      );
-    }
-  }
-
-  resetPassword(passwords) {
-    const
-      {location} = this.props,
-      token = location.query['remember-password-token'];
-
-    this.props.dispatch(UserActions.changePassword({
-      token,
-      passwords
-    }));
+  requestResetPassword(email) {
+    this.props.dispatch(UserActions.requestResetPassword(email));
   }
 
   render() {
@@ -52,7 +31,7 @@ class ResetPasswordPage extends React.Component {
         <ContentLayout>
           <ContentMiddleLayout>
             <LogoCustomHeader title="Reset your password"/>
-            <ResetPassword onSubmit={this.resetPassword.bind(this)}/>
+            <RequestResetPassword onSubmit={this.requestResetPassword.bind(this)}/>
           </ContentMiddleLayout>
         </ContentLayout>
       </div>

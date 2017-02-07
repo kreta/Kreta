@@ -8,6 +8,8 @@
  * file that was distributed with this source code.
  */
 
+import './../../scss/form/_form-request-reset-password.scss';
+
 import React from 'react';
 import {Field, reduxForm} from 'redux-form';
 
@@ -19,7 +21,11 @@ import {Row, RowColumn} from './../component/Grid';
 const validate = (values) => {
   const
     errors = {},
-    requiredFields = ['password', 'repeated_password'];
+    requiredFields = ['email'];
+
+  if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+    errors.email = 'Invalid email address';
+  }
 
   requiredFields.forEach(field => {
     if (!values[field] || values[field] === '') {
@@ -30,8 +36,8 @@ const validate = (values) => {
   return errors;
 };
 
-@reduxForm({form: 'ResetPassword', validate})
-class Login extends React.Component {
+@reduxForm({form: 'RequestResetPassword', validate})
+class RequestResetPassword extends React.Component {
   static propTypes = {
     handleSubmit: React.PropTypes.func
   };
@@ -43,10 +49,12 @@ class Login extends React.Component {
       <form onSubmit={handleSubmit}>
         <Row center>
           <RowColumn large={6}>
-            <Field component={FormInput} label="Password" name="password" tabIndex={1} type="password"/>
-            <Field component={FormInput} label="Repeat password" name="repeated_password" tabIndex={2} type="password"/>
+              <p className="form-request-reset-password__claim">
+                Enter your email address and we will send you a link to reset your password.
+              </p>
+            <Field autoFocus component={FormInput} label="Email" name="email" tabIndex={1}/>
             <FormActions>
-              <Button color="green" size="full" tabIndex={3} type="submit">Change password</Button>
+              <Button color="green" size="full" tabIndex={3} type="submit">Send password reset email</Button>
             </FormActions>
           </RowColumn>
         </Row>
@@ -55,4 +63,4 @@ class Login extends React.Component {
   }
 }
 
-export default Login;
+export default RequestResetPassword;

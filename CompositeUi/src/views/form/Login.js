@@ -52,7 +52,7 @@ class Login extends React.Component {
             <Field
               {...{
                 auxLabelEl: (
-                  <a className="form-input__auxiliary-label" href={routes.resetPassword}>
+                  <a className="form-input__auxiliary-label" href={routes.requestResetPassword}>
                     Forgot your password?
                   </a>
                 )

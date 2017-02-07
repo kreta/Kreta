@@ -68,6 +68,10 @@ export default function reducer(state = initialState, action = {}) {
       return _addNotification(state, 'Invalid credentials', 'error');
     }
 
+    case ActionTypes.USER_RESET_PASSWORD_ERROR: {
+      return _addNotification(state, 'The remember password token is invalid', 'error');
+    }
+
     case ActionTypes.USER_AUTHORIZED: {
       return {...state, notifications: []};
     }
