@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "b1ab0a17026b46c2d8ad62baa2368a4b",
+    "content-hash": "a769202cabbd7b752b4b625d35f2f1ad",
     "packages": [
         {
             "name": "ajgl/simple-bus-query-bus",
@@ -941,16 +941,16 @@
         },
         {
             "name": "bengor-user/user-bundle",
-            "version": "v0.8.0",
+            "version": "v0.8.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/BenGorUser/UserBundle.git",
-                "reference": "e997067d2de87e4ff6a32d864c5deabad53c76ec"
+                "reference": "e8ce9e9a44e935cbfcc4329c476d7c2e4641a13e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/BenGorUser/UserBundle/zipball/e997067d2de87e4ff6a32d864c5deabad53c76ec",
-                "reference": "e997067d2de87e4ff6a32d864c5deabad53c76ec",
+                "url": "https://api.github.com/repos/BenGorUser/UserBundle/zipball/e8ce9e9a44e935cbfcc4329c476d7c2e4641a13e",
+                "reference": "e8ce9e9a44e935cbfcc4329c476d7c2e4641a13e",
                 "shasum": ""
             },
             "require": {
@@ -1004,7 +1004,7 @@
                 "ddd",
                 "user"
             ],
-            "time": "2017-02-02T21:50:00+00:00"
+            "time": "2017-02-07T17:36:37+00:00"
         },
         {
             "name": "doctrine/annotations",
