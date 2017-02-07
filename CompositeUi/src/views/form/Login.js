@@ -14,7 +14,9 @@ import {Link} from 'react-router';
 
 import Button from './../component/Button';
 import FormActions from './../component/FormActions';
+import Form from './../component/Form';
 import FormInput from './../component/FormInput';
+import HelpText from './../component/HelpText';
 import {Row, RowColumn} from './../component/Grid';
 import {routes} from './../../Routes';
 
@@ -46,14 +48,14 @@ class Login extends React.Component {
     const {handleSubmit} = this.props;
 
     return (
-      <form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <Row center>
           <RowColumn large={6}>
             <Field autoFocus component={FormInput} label="Email" name="email" tabIndex={1}/>
             <Field
               {...{
                 auxLabelEl: (
-                  <Link className="form-input__auxiliary-label" to={routes.requestResetPassword}>
+                  <Link to={routes.requestResetPassword}>
                     Forgot your password?
                   </Link>
                 )
@@ -64,15 +66,15 @@ class Login extends React.Component {
               tabIndex={2}
               type="password"
             />
-            <FormActions>
-              <Button color="green" size="full" tabIndex={3} type="submit">Sign in Kreta</Button>
+            <FormActions expand>
+              <Button color="green" tabIndex={3} type="submit">Sign in Kreta</Button>
             </FormActions>
-            <FormActions>
-              <p>New to Kreta? <Link to={routes.register}>Create an account.</Link></p>
-            </FormActions>
+            <HelpText center>
+              New to Kreta? <Link to={routes.register}>Create an account.</Link>
+            </HelpText>
           </RowColumn>
         </Row>
-      </form>
+      </Form>
     );
   }
 }

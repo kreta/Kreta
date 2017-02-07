@@ -10,3 +10,15 @@
   margin-top: 15px;
   text-align: center;
 }
+
+.form-actions--expand {
+  display: flex;
+
+  > .button {
+    flex: 1 1 auto;
+
+    &:not(:first-child) {
+      margin-left: 15px;
+    }
+  }
+}

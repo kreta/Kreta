@@ -41,11 +41,18 @@ class FormInput extends React.Component {
   }
 
   getLabelField() {
-    const {multiline, label, auxLabelEl} = this.props;
+    const {multiline, label} = this.props;
 
     if (multiline) {
       return (
         <label className="form-input__label form-input__label--multiline">{label}</label>
+      );
+    }
+
+    let auxLabelEl = '';
+    if (this.props.auxLabelEl) {
+      auxLabelEl = (
+        <div className="form-input__auxiliary-label">{this.props.auxLabelEl}</div>
       );
     }
 

@@ -8,14 +8,14 @@
  * file that was distributed with this source code.
  */
 
-import './../../scss/form/_form-request-reset-password.scss';
-
 import React from 'react';
 import {Field, reduxForm} from 'redux-form';
 
 import Button from './../component/Button';
+import Form from './../component/Form';
 import FormActions from './../component/FormActions';
 import FormInput from './../component/FormInput';
+import HelpText from './../component/HelpText';
 import {Row, RowColumn} from './../component/Grid';
 
 const validate = (values) => {
@@ -46,19 +46,19 @@ class RequestResetPassword extends React.Component {
     const {handleSubmit} = this.props;
 
     return (
-      <form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <Row center>
           <RowColumn large={6}>
-              <p className="form-request-reset-password__claim">
+              <HelpText>
                 Enter your email address and we will send you a link to reset your password.
-              </p>
+              </HelpText>
             <Field autoFocus component={FormInput} label="Email" name="email" tabIndex={1}/>
             <FormActions>
               <Button color="green" size="full" tabIndex={3} type="submit">Send password reset email</Button>
             </FormActions>
           </RowColumn>
         </Row>
-      </form>
+      </Form>
     );
   }
 }

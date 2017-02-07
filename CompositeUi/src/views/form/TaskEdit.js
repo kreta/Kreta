@@ -13,6 +13,7 @@ import {connect} from 'react-redux';
 import {Field, reduxForm} from 'redux-form';
 
 import Button from './../component/Button';
+import Form from './../component/Form';
 import FormActions from './../component/FormActions';
 import FormInput from './../component/FormInput';
 import {Row, RowColumn} from './../component/Grid';
@@ -48,7 +49,7 @@ class TaskEdit extends React.Component {
     const {handleSubmit} = this.props;
 
     return (
-      <form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <Row>
           <RowColumn>
             <Field autoFocus component={FormInput} label="Title" name="title" tabIndex={2}/>
@@ -85,7 +86,7 @@ class TaskEdit extends React.Component {
             </FormActions>
           </RowColumn>
         </Row>
-      </form>
+      </Form>
     );
   }
 }

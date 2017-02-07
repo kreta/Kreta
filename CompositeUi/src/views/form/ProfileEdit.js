@@ -13,6 +13,7 @@ import {connect} from 'react-redux';
 import {Field, reduxForm} from 'redux-form';
 
 import Button from './../component/Button';
+import Form from './../component/Form';
 import FormActions from './../component/FormActions';
 import FormInput from './../component/FormInput';
 import FormInputFile from './../component/FormInputFile';
@@ -37,7 +38,7 @@ class ProfileEdit extends React.Component {
     const {handleSubmit} = this.props;
 
     return (
-      <form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <Row>
           <RowColumn>
             <Field component={FormInputFile} name="photo"/>
@@ -49,7 +50,7 @@ class ProfileEdit extends React.Component {
             </FormActions>
           </RowColumn>
         </Row>
-      </form>
+      </Form>
     );
   }
 }

@@ -8,14 +8,14 @@
  * file that was distributed with this source code.
  */
 
-import './../../scss/form/_form-register.scss';
-
 import React from 'react';
 import {Field, reduxForm} from 'redux-form';
 
 import Button from './../component/Button';
+import Form from './../component/Form';
 import FormActions from './../component/FormActions';
 import FormInput from './../component/FormInput';
+import HelpText from './../component/HelpText';
 import {Row, RowColumn} from './../component/Grid';
 
 const validate = (values) => {
@@ -54,7 +54,7 @@ class Register extends React.Component {
     const {handleSubmit} = this.props;
 
     return (
-      <form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <Row center>
           <RowColumn large={6}>
             <Field autoFocus component={FormInput} label="Email" name="email" tabIndex={1}/>
@@ -63,16 +63,14 @@ class Register extends React.Component {
             <FormActions>
               <Button color="green" size="full" tabIndex={3} type="submit">Sign up for Kreta</Button>
             </FormActions>
-            <FormActions>
-              <p className="form-register__privacy">
+            <HelpText center>
                 By clicking "Sign up for Kreta", you agree to
                 our <a href="#">terms of service</a> and <a href="#">privacy policy</a>.
                 We'll occasionally send you account related emails.
-              </p>
-            </FormActions>
+            </HelpText>
           </RowColumn>
         </Row>
-      </form>
+      </Form>
     );
   }
 }

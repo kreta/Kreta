@@ -13,7 +13,7 @@ import './../../scss/components/_form-actions';
 import React from 'react';
 
 const FormActions = props => (
-  <div className="form-actions">
+  <div className={`form-actions${props.expand ? ' form-actions--expand' : ''}`}>
     {props.children}
   </div>
 );

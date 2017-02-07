@@ -12,6 +12,7 @@ import React from 'react';
 import {connect} from 'react-redux';
 import {Field, reduxForm} from 'redux-form';
 
+import Form from './../component/Form';
 import FormActions from './../component/FormActions';
 import FormInput from './../component/FormInput';
 import Button from './../component/Button';
@@ -38,7 +39,7 @@ class OrganizationNew extends React.Component {
     const {handleSubmit} = this.props;
 
     return (
-      <form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <Row>
           <RowColumn>
             <Field autoFocus component={FormInput} label="Organization Name" name="name" tabIndex={1}/>
@@ -47,7 +48,7 @@ class OrganizationNew extends React.Component {
             </FormActions>
           </RowColumn>
         </Row>
-      </form>
+      </Form>
     );
   }
 }
