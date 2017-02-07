@@ -54,8 +54,8 @@ class Login extends React.Component {
           <RowColumn large={6}>
             <Field component={FormInput} label="Password" name="password" tabIndex={1} type="password"/>
             <Field component={FormInput} label="Repeat password" name="repeated_password" tabIndex={2} type="password"/>
-            <FormActions>
-              <Button color="green" size="full" tabIndex={3} type="submit">Change password</Button>
+            <FormActions expand>
+              <Button color="green" tabIndex={3} type="submit">Change password</Button>
             </FormActions>
           </RowColumn>
         </Row>

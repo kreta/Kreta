@@ -53,8 +53,8 @@ class RequestResetPassword extends React.Component {
                 Enter your email address and we will send you a link to reset your password.
               </HelpText>
             <Field autoFocus component={FormInput} label="Email" name="email" tabIndex={1}/>
-            <FormActions>
-              <Button color="green" size="full" tabIndex={3} type="submit">Send password reset email</Button>
+            <FormActions expand>
+              <Button color="green" tabIndex={3} type="submit">Send password reset email</Button>
             </FormActions>
           </RowColumn>
         </Row>

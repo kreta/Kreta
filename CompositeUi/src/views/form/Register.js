@@ -60,8 +60,8 @@ class Register extends React.Component {
             <Field autoFocus component={FormInput} label="Email" name="email" tabIndex={1}/>
             <Field component={FormInput} label="Password" name="password" tabIndex={2} type="password"/>
             <Field component={FormInput} label="Repeat password" name="repeated_password" tabIndex={3} type="password"/>
-            <FormActions>
-              <Button color="green" size="full" tabIndex={3} type="submit">Sign up for Kreta</Button>
+            <FormActions expand>
+              <Button color="green" tabIndex={3} type="submit">Sign up for Kreta</Button>
             </FormActions>
             <HelpText center>
                 By clicking "Sign up for Kreta", you agree to
