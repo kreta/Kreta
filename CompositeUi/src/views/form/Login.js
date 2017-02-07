@@ -10,6 +10,7 @@
 
 import React from 'react';
 import {Field, reduxForm} from 'redux-form';
+import {Link} from 'react-router';
 
 import Button from './../component/Button';
 import FormActions from './../component/FormActions';
@@ -52,9 +53,9 @@ class Login extends React.Component {
             <Field
               {...{
                 auxLabelEl: (
-                  <a className="form-input__auxiliary-label" href={routes.requestResetPassword}>
+                  <Link className="form-input__auxiliary-label" to={routes.requestResetPassword}>
                     Forgot your password?
-                  </a>
+                  </Link>
                 )
               }}
               component={FormInput}
@@ -67,7 +68,7 @@ class Login extends React.Component {
               <Button color="green" size="full" tabIndex={3} type="submit">Sign in Kreta</Button>
             </FormActions>
             <FormActions>
-              <p>New to Kreta? <a href={routes.register}>Create an account.</a></p>
+              <p>New to Kreta? <Link to={routes.register}>Create an account.</Link></p>
             </FormActions>
           </RowColumn>
         </Row>

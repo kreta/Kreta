@@ -9,6 +9,7 @@
  */
 
 import React from 'react';
+import {Link} from 'react-router';
 
 import './../../scss/components/_logo-custom-header.scss';
 import LogoIcon from './../../svg/logo-green.svg';
@@ -18,9 +19,9 @@ import {routes} from './../../Routes';
 
 const LogoCustomHeader = props => (
   <div className="logo-custom-header">
-    <a href={routes.home}>
+    <Link to={routes.home}>
       <Icon glyph={LogoIcon}/>
-    </a>
+    </Link>
     <h1 className="logo-custom-header__title">{props.title}</h1>
   </div>
 );
