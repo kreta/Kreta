@@ -10,8 +10,12 @@ FROM node:7
 
 MAINTAINER Gorka Laucirica <gorka.lauzirika@gmail.com>
 
+RUN npm -g install yarn
+
 WORKDIR /var/www/compositeui
+
+COPY server_run.sh /var/www/
 
 EXPOSE 3000
 
-CMD npm start
+CMD sh /var/www/server_run.sh

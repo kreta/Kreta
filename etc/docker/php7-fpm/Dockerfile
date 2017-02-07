@@ -27,14 +27,6 @@ RUN "date"
 RUN docker-php-ext-install pdo pdo_mysql
 RUN docker-php-ext-install bcmath
 
-RUN mkdir /var/www/vendor-taskmanager
-RUN mkdir /var/www/vendor-identityaccess
-RUN mkdir /var/www/identityaccess
-RUN mkdir /var/www/taskmanager
-
-RUN cd /var/www/taskmanager && ln -s ../vendor-taskmanager/ vendor
-RUN cd /var/www/identityaccess && ln -s ../vendor-identityaccess/ vendor
-
 WORKDIR /var/www/taskmanager
 
 RUN echo 'alias sf="php etc/bin/symfony-console"' >> ~/.bashrc

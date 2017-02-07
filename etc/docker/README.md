@@ -25,7 +25,7 @@ It provides the following containers:
     $ docker-compose up -d
     ```
 
-3. Update your system host file (add symfony.dev)
+3. Update your system host file
 
     ```bash
     $ sudo echo "127.0.0.1 kreta.localhost taskmanager.localhost identityaccess.localhost" >> /etc/hosts
@@ -54,7 +54,7 @@ It provides the following containers:
             identity_access_database_password: root
         ```
 
-    3. Composer install & create database
+    3. Create symbolic links for better performance & install dependencies (composer / yarn)
 
         ```bash
         $ docker-compose exec php bash -c "cd /var/www/taskmanager && composer install"
@@ -124,3 +124,7 @@ $ docker rmi $(docker images -q)
 * How to config Xdebug?
 Xdebug is configured out of the box!
 Just config your IDE to connect port `9001` and id key `PHPSTORM`
+
+* I get "Error in Missing binding /var/www/compositeui/node_modules/node-sass/vendor/linux-x64-51/binding.node"
+Just run `docker-compose exec node bash -c "npm rebuild node-sass`
+If it does not work, delete node_module folder and run `docker-compose exec node bash -c "npm install`
