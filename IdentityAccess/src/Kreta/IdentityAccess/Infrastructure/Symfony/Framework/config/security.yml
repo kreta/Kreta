@@ -25,8 +25,8 @@ security:
                     - lexik_jwt_authentication.jwt_token_authenticator
             provider: bengor_user
     access_control:
-        - { path: ^/invite, role: IS_AUTHENTICATED_ANONYMOUSLY }
-        - { path: ^/resend-invitation, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/change-password, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/enable, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/auth/token, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/user, role: ROLE_USER }

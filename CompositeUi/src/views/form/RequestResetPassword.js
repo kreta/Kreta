@@ -9,21 +9,26 @@
  */
 
 import React from 'react';
-import {connect} from 'react-redux';
 import {Field, reduxForm} from 'redux-form';
 
 import Button from './../component/Button';
 import Form from './../component/Form';
 import FormActions from './../component/FormActions';
 import FormInput from './../component/FormInput';
-import FormInputFile from './../component/FormInputFile';
+import HelpText from './../component/HelpText';
 import {Row, RowColumn} from './../component/Grid';
 
 const validate = (values) => {
-  const errors = {},
-    requiredFields = ['first_name', 'last_name', 'username'];
+  const
+    errors = {},
+    requiredFields = ['email'];
+
+  if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+    errors.email = 'Invalid email address';
+  }
+
   requiredFields.forEach(field => {
-    if (!values[field]) {
+    if (!values[field] || values[field] === '') {
       errors[field] = 'Required';
     }
   });
@@ -31,22 +36,25 @@ const validate = (values) => {
   return errors;
 };
 
-@connect(state => ({initialValues: state.profile.profile}))
-@reduxForm({form: 'profileEdit', validate})
-class ProfileEdit extends React.Component {
+@reduxForm({form: 'RequestResetPassword', validate})
+class RequestResetPassword extends React.Component {
+  static propTypes = {
+    handleSubmit: React.PropTypes.func
+  };
+
   render() {
     const {handleSubmit} = this.props;
 
     return (
       <Form onSubmit={handleSubmit}>
-        <Row>
-          <RowColumn>
-            <Field component={FormInputFile} name="photo"/>
-            <Field component={FormInput} label="First Name" name="first_name" tabIndex={2}/>
-            <Field component={FormInput} label="Last Name" name="last_name" tabIndex={3}/>
-            <Field component={FormInput} label="Username" name="username" tabIndex={4}/>
+        <Row center>
+          <RowColumn large={6}>
+              <HelpText center>
+                Enter your email address and we will send you a link to reset your password.
+              </HelpText>
+            <Field autoFocus component={FormInput} label="Email" name="email" tabIndex={1}/>
             <FormActions>
-              <Button color="green" type="submit">Update</Button>
+              <Button color="green" size="full" tabIndex={3} type="submit">Send password reset email</Button>
             </FormActions>
           </RowColumn>
         </Row>
@@ -55,4 +63,4 @@ class ProfileEdit extends React.Component {
   }
 }
 
-export default ProfileEdit;
+export default RequestResetPassword;

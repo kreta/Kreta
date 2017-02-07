@@ -9,21 +9,29 @@
  */
 
 import React from 'react';
-import {connect} from 'react-redux';
 import {Field, reduxForm} from 'redux-form';
 
 import Button from './../component/Button';
 import Form from './../component/Form';
 import FormActions from './../component/FormActions';
 import FormInput from './../component/FormInput';
-import FormInputFile from './../component/FormInputFile';
 import {Row, RowColumn} from './../component/Grid';
 
 const validate = (values) => {
-  const errors = {},
-    requiredFields = ['first_name', 'last_name', 'username'];
+  const
+    errors = {},
+    requiredFields = ['password', 'repeated_password'];
+
+  if (typeof values.password !== 'undefined' && values.password.length < 6) {
+    errors.password = 'Password must be at least 6 characters';
+  }
+
+  if (values.password !== values.repeated_password) {
+    errors.repeated_password = 'Passwords do not match';
+  }
+
   requiredFields.forEach(field => {
-    if (!values[field]) {
+    if (!values[field] || values[field] === '') {
       errors[field] = 'Required';
     }
   });
@@ -31,22 +39,23 @@ const validate = (values) => {
   return errors;
 };
 
-@connect(state => ({initialValues: state.profile.profile}))
-@reduxForm({form: 'profileEdit', validate})
-class ProfileEdit extends React.Component {
+@reduxForm({form: 'ResetPassword', validate})
+class Login extends React.Component {
+  static propTypes = {
+    handleSubmit: React.PropTypes.func
+  };
+
   render() {
     const {handleSubmit} = this.props;
 
     return (
       <Form onSubmit={handleSubmit}>
-        <Row>
-          <RowColumn>
-            <Field component={FormInputFile} name="photo"/>
-            <Field component={FormInput} label="First Name" name="first_name" tabIndex={2}/>
-            <Field component={FormInput} label="Last Name" name="last_name" tabIndex={3}/>
-            <Field component={FormInput} label="Username" name="username" tabIndex={4}/>
+        <Row center>
+          <RowColumn large={6}>
+            <Field component={FormInput} label="Password" name="password" tabIndex={1} type="password"/>
+            <Field component={FormInput} label="Repeat password" name="repeated_password" tabIndex={2} type="password"/>
             <FormActions>
-              <Button color="green" type="submit">Update</Button>
+              <Button color="green" size="full" tabIndex={3} type="submit">Change password</Button>
             </FormActions>
           </RowColumn>
         </Row>
@@ -55,4 +64,4 @@ class ProfileEdit extends React.Component {
   }
 }
 
-export default ProfileEdit;
+export default Login;

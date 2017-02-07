@@ -16,6 +16,7 @@ import classnames from 'classnames';
 class FormInput extends React.Component {
   getInputField() {
     const {
+        auxLabelEl,                 // eslint-disable-line no-unused-vars
         input,
         label,                      // eslint-disable-line no-unused-vars
         meta: {touched, error},     // eslint-disable-line no-unused-vars
@@ -48,8 +49,18 @@ class FormInput extends React.Component {
       );
     }
 
+    let auxLabelEl = '';
+    if (this.props.auxLabelEl) {
+      auxLabelEl = (
+        <div className="form-input__auxiliary-label">{this.props.auxLabelEl}</div>
+      );
+    }
+
     return (
-      <label className="form-input__label">{label}</label>
+      <label className="form-input__label">
+        {label}
+        {auxLabelEl}
+      </label>
     );
   }
 

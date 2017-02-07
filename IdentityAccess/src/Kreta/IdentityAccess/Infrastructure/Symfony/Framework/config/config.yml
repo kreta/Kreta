@@ -87,7 +87,7 @@ ben_gor_user:
                 sign_up:
                     enabled: false
                     api_enabled: true
-                    api_type: by_invitation
+                    api_type: with_confirmation
                 change_password:
                     enabled: false
                     api_enabled: true
@@ -99,14 +99,11 @@ ben_gor_user:
                     jwt:
                         path: /auth/token
                 sign_up:
-                    api_name: kreta_identity_access_sign_up_by_invitation
+                    api_name: kreta_identity_access_sign_up_with_confirmation
                     api_path: /register
-                invite:
-                    api_name: kreta_identity_access_invite
-                    api_path: /invite
-                resend_invitation:
-                    api_name: kreta_identity_access_resend_invitation
-                    api_path: /resend-invitation
+                enable:
+                    api_name: kreta_identity_access_enable
+                    api_path: /enable
                 change_password:
                     api_name: kreta_identity_access_change_password
                     api_path: /change-password

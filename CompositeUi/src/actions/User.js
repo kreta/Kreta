@@ -11,6 +11,8 @@
 import {routeActions} from 'react-router-redux';
 
 import ActionTypes from './../constants/ActionTypes';
+import Register from './../api/rest/User/Register';
+import ResetPassword from './../api/rest/User/ResetPassword';
 import Security from './../api/rest/User/Security';
 
 import {routes} from './../Routes';
@@ -49,8 +51,76 @@ const Actions = {
           type: ActionTypes.USER_UNAUTHORIZED
         });
         dispatch(
-          routeActions.push(routes.security.login())
+          routeActions.push(routes.login)
         );
+      });
+  },
+  register: (formData) => (dispatch) => {
+    dispatch({
+      type: ActionTypes.USER_REGISTERING
+    });
+    return Register.signUp(formData)
+      .then(() => {
+        dispatch({
+          type: ActionTypes.USER_REGISTERED,
+        });
+      }, (errorData) => {
+        errorData.then(() => {
+          dispatch({
+            type: ActionTypes.USER_REGISTER_ERROR,
+          });
+        });
+      });
+  },
+  enable: (confirmationToken) => (dispatch) => {
+    dispatch({
+      type: ActionTypes.USER_ENABLE
+    });
+    return Register.enable(confirmationToken)
+      .then(() => {
+        dispatch({
+          type: ActionTypes.USER_ENABLED,
+        });
+      }, (errorData) => {
+        errorData.then(() => {
+          dispatch({
+            type: ActionTypes.USER_ENABLE_ERROR,
+          });
+        });
+      });
+  },
+  requestResetPassword: (formData) => (dispatch) => {
+    dispatch({
+      type: ActionTypes.USER_REQUESTING_RESET_PASSWORD
+    });
+    return ResetPassword.request(formData.email)
+      .then(() => {
+        dispatch({
+          type: ActionTypes.USER_REQUESTED_RESET_PASSWORD,
+        });
+      });
+  },
+  changePassword: (formData) => (dispatch) => {
+    dispatch({
+      type: ActionTypes.USER_RESETTING_PASSWORD
+    });
+    return ResetPassword.change(formData.token, formData.passwords)
+      .then(() => {
+        dispatch({
+          type: ActionTypes.USER_RESTORED_PASSWORD,
+        });
+        dispatch(
+          routeActions.push(routes.login)
+        );
+      }, (errorData) => {
+        errorData.then(() => {
+          dispatch({
+            type: ActionTypes.USER_RESET_PASSWORD_ERROR,
+          });
+          dispatch(
+            routeActions.push(routes.requestResetPassword)
+          );
+        });
       });
   }
 };

@@ -68,6 +68,30 @@ export default function reducer(state = initialState, action = {}) {
       return _addNotification(state, 'Invalid credentials', 'error');
     }
 
+    case ActionTypes.USER_RESTORED_PASSWORD: {
+      return _addNotification(state, 'Change password process is successfully done');
+    }
+    case ActionTypes.USER_RESET_PASSWORD_ERROR: {
+      return _addNotification(state, 'The remember password token is invalid', 'error');
+    }
+
+    case ActionTypes.USER_REGISTERED: {
+      return _addNotification(
+        state,
+        'Registration process has been successfully done. Check your email inbox to enable the account'
+      );
+    }
+    case ActionTypes.USER_REGISTER_ERROR: {
+      return _addNotification(state, 'The email is already in use', 'error');
+    }
+
+    case ActionTypes.USER_ENABLED: {
+      return _addNotification(
+        state,
+        'Your account is successfully enabled. Now, you can try to login with your credentials'
+      );
+    }
+
     case ActionTypes.USER_AUTHORIZED: {
       return {...state, notifications: []};
     }

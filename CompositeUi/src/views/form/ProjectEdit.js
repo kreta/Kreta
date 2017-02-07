@@ -13,6 +13,7 @@ import {connect} from 'react-redux';
 import {Field, reduxForm} from 'redux-form';
 
 import Button from './../component/Button';
+import Form from './../component/Form';
 import FormInput from './../component/FormInput';
 import FormInputFile from './../component/FormInputFile';
 
@@ -37,7 +38,7 @@ class ProjectEdit extends React.Component {
     const {handleSubmit} = this.props;
 
     return (
-      <form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <div className="section-header">
           <div className="section-header-title"></div>
           <div>
@@ -53,7 +54,7 @@ class ProjectEdit extends React.Component {
                        name="image"
                        value=""/>
         <Field component={FormInput} label="Project Name" name="name" tabIndex={2}/>
-      </form>
+      </Form>
     );
   }
 }

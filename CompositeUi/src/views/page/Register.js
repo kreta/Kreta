@@ -14,41 +14,24 @@ import {connect} from 'react-redux';
 import ContentLayout from './../layout/ContentLayout';
 import ContentMiddleLayout from './../layout/ContentMiddleLayout';
 import NotificationLayout from './../layout/NotificationLayout';
-import LoadingSpinner from './../component/LoadingSpinner';
-import Login from './../form/Login';
+import Register from './../form/Register';
 import LogoCustomHeader from './../component/LogoCustomHeader';
 import UserActions from './../../actions/User';
 
-@connect(state => ({authorizing: state.user.updatingAuthorization}))
-class LoginPage extends React.Component {
-  componentDidMount() {
-    const
-      {dispatch, location} = this.props,
-      token = location.query['confirmation-token'];
-
-    if (typeof token !== 'undefined' && token.length > 0) {
-      dispatch(
-        UserActions.enable(token)
-      );
-    }
-  }
-
-  login(credentials) {
-    this.props.dispatch(UserActions.login(credentials));
+@connect()
+class RegisterPage extends React.Component {
+  register(credentials) {
+    this.props.dispatch(UserActions.register(credentials));
   }
 
   render() {
-    if (this.props.authorizing) {
-      return <LoadingSpinner/>;
-    }
-
     return (
       <div>
         <NotificationLayout/>
         <ContentLayout>
           <ContentMiddleLayout>
-            <LogoCustomHeader title="Sign in to Kreta"/>
-            <Login onSubmit={this.login.bind(this)}/>
+            <LogoCustomHeader title="Join Kreta"/>
+            <Register onSubmit={this.register.bind(this)}/>
           </ContentMiddleLayout>
         </ContentLayout>
       </div>
@@ -56,4 +39,4 @@ class LoginPage extends React.Component {
   }
 }
 
-export default LoginPage;
+export default RegisterPage;

@@ -8,14 +8,18 @@
  * file that was distributed with this source code.
  */
 
-import './../../scss/components/_help-text.scss';
+import './../../scss/components/_form';
 
 import React from 'react';
 
-const HelpText = props => (
-  <p className={`help-text${props.center ? ' help-text--center' : ''}`}>
-    {props.children}
-  </p>
-);
+const Form = props => {
+  const {children, ...otherProps} = props;
+  return (
+    <form className="form" {...otherProps}>
+      {children}
+    </form>
+  );
+};
 
-export default HelpText;
+export default Form;
+

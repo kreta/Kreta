@@ -10,45 +10,49 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
+import {routeActions} from 'react-router-redux';
 
 import ContentLayout from './../layout/ContentLayout';
 import ContentMiddleLayout from './../layout/ContentMiddleLayout';
 import NotificationLayout from './../layout/NotificationLayout';
-import LoadingSpinner from './../component/LoadingSpinner';
-import Login from './../form/Login';
+import ResetPassword from './../form/ResetPassword';
 import LogoCustomHeader from './../component/LogoCustomHeader';
+import {routes} from './../../Routes';
 import UserActions from './../../actions/User';
 
-@connect(state => ({authorizing: state.user.updatingAuthorization}))
-class LoginPage extends React.Component {
+@connect()
+class ResetPasswordPage extends React.Component {
   componentDidMount() {
     const
       {dispatch, location} = this.props,
-      token = location.query['confirmation-token'];
+      token = location.query['remember-password-token'];
 
-    if (typeof token !== 'undefined' && token.length > 0) {
+    if (typeof token === 'undefined' || token.length === 0) {
       dispatch(
-        UserActions.enable(token)
+        routeActions.push(routes.requestResetPassword)
       );
     }
   }
 
-  login(credentials) {
-    this.props.dispatch(UserActions.login(credentials));
+  resetPassword(passwords) {
+    const
+      {location} = this.props,
+      token = location.query['remember-password-token'];
+
+    this.props.dispatch(UserActions.changePassword({
+      token,
+      passwords
+    }));
   }
 
   render() {
-    if (this.props.authorizing) {
-      return <LoadingSpinner/>;
-    }
-
     return (
       <div>
         <NotificationLayout/>
         <ContentLayout>
           <ContentMiddleLayout>
-            <LogoCustomHeader title="Sign in to Kreta"/>
-            <Login onSubmit={this.login.bind(this)}/>
+            <LogoCustomHeader title="Reset your password"/>
+            <ResetPassword onSubmit={this.resetPassword.bind(this)}/>
           </ContentMiddleLayout>
         </ContentLayout>
       </div>
@@ -56,4 +60,4 @@ class LoginPage extends React.Component {
   }
 }
 
-export default LoginPage;
+export default ResetPasswordPage;

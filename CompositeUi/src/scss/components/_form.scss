@@ -6,19 +6,12 @@
 // For the full copyright and license information, please view the LICENSE
 // file that was distributed with this source code.
 
-.form-actions {
-  margin-top: 15px;
-  text-align: center;
-}
+.form {
+  .help-text + .form-input {
+    margin-top: 15px;
+  }
 
-.form-actions--expand {
-  display: flex;
-
-  > .button {
-    flex: 1 1 auto;
-
-    &:not(:first-child) {
-      margin-left: 15px;
-    }
+  .form-actions + .help-text {
+    margin-top: 15px;
   }
 }
