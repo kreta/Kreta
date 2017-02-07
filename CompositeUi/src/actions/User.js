@@ -11,6 +11,7 @@
 import {routeActions} from 'react-router-redux';
 
 import ActionTypes from './../constants/ActionTypes';
+import Register from './../api/rest/User/Register';
 import ResetPassword from './../api/rest/User/ResetPassword';
 import Security from './../api/rest/User/Security';
 
@@ -52,6 +53,40 @@ const Actions = {
         dispatch(
           routeActions.push(routes.login)
         );
+      });
+  },
+  register: (formData) => (dispatch) => {
+    dispatch({
+      type: ActionTypes.USER_REGISTERING
+    });
+    return Register.signUp(formData)
+      .then(() => {
+        dispatch({
+          type: ActionTypes.USER_REGISTERED,
+        });
+      }, (errorData) => {
+        errorData.then(() => {
+          dispatch({
+            type: ActionTypes.USER_REGISTER_ERROR,
+          });
+        });
+      });
+  },
+  enable: (confirmationToken) => (dispatch) => {
+    dispatch({
+      type: ActionTypes.USER_ENABLE
+    });
+    return Register.enable(confirmationToken)
+      .then(() => {
+        dispatch({
+          type: ActionTypes.USER_ENABLED,
+        });
+      }, (errorData) => {
+        errorData.then(() => {
+          dispatch({
+            type: ActionTypes.USER_ENABLE_ERROR,
+          });
+        });
       });
   },
   requestResetPassword: (formData) => (dispatch) => {

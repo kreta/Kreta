@@ -7,11 +7,11 @@
 # file that was distributed with this source code.
 
 services:
-    kreta.identity_access.invite_url_generator:
+    kreta.identity_access.register_url_generator:
         public: false
         class: BenGorUser\User\Infrastructure\Routing\PlainUserUrlGenerator
         arguments:
-            - "%identity_access_host%/join?invitation-token={token}"
+            - "%identity_access_host%/login?confirmation-token={token}"
 
     kreta.identity_access.request_remember_password_url_generator:
         public: false

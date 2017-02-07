@@ -21,6 +21,14 @@ const validate = (values) => {
     errors = {},
     requiredFields = ['password', 'repeated_password'];
 
+  if (typeof values.password !== 'undefined' && values.password.length < 6) {
+    errors.password = 'Password must be at least 6 characters';
+  }
+
+  if (values.password !== values.repeated_password) {
+    errors.repeated_password = 'Passwords do not match';
+  }
+
   requiredFields.forEach(field => {
     if (!values[field] || values[field] === '') {
       errors[field] = 'Required';

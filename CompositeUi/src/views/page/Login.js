@@ -21,6 +21,18 @@ import UserActions from './../../actions/User';
 
 @connect(state => ({authorizing: state.user.updatingAuthorization}))
 class LoginPage extends React.Component {
+  componentDidMount() {
+    const
+      {dispatch, location} = this.props,
+      token = location.query['confirmation-token'];
+
+    if (typeof token !== 'undefined' && token.length > 0) {
+      dispatch(
+        UserActions.enable(token)
+      );
+    }
+  }
+
   login(credentials) {
     this.props.dispatch(UserActions.login(credentials));
   }

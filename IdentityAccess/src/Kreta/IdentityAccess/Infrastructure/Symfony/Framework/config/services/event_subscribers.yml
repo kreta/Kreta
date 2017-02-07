@@ -7,19 +7,16 @@
 # file that was distributed with this source code.
 
 services:
-    kreta.identity_access.invited_mailer_subscriber:
-        class: BenGorUser\User\Domain\Event\UserInvitedMailerSubscriber
+    kreta.identity_access.registered_mailer_subscriber:
+        class: BenGorUser\User\Domain\Event\UserRegisteredMailerSubscriber
         arguments:
             - "@bengor_user.mailer.swift_mailer"
             - "@bengor_user.mailable_factory.invite"
-            - "@kreta.identity_access.invite_url_generator"
+            - "@kreta.identity_access.register_url_generator"
         tags:
             -
                 name: bengor_user_user_event_subscriber
-                subscribes_to: BenGorUser\User\Domain\Model\Event\UserInvited
-            -
-                name: bengor_user_user_event_subscriber
-                subscribes_to: BenGorUser\User\Domain\Model\Event\UserInvitationTokenRegenerated
+                subscribes_to: BenGorUser\User\Domain\Model\Event\UserRegistered
 
     kreta.identity_access.request_remember_password_mailer_subscriber:
         class: BenGorUser\User\Domain\Event\UserRememberPasswordRequestedMailerSubscriber

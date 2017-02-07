@@ -21,7 +21,15 @@ import {Row, RowColumn} from './../component/Grid';
 const validate = (values) => {
   const
     errors = {},
-    requiredFields = ['email', 'password'];
+    requiredFields = ['email', 'password', 'repeated_password'];
+
+  if (typeof values.password !== 'undefined' && values.password.length < 6) {
+    errors.password = 'Password must be at least 6 characters';
+  }
+
+  if (values.password !== values.repeated_password) {
+    errors.repeated_password = 'Passwords do not match';
+  }
 
   if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
     errors.email = 'Invalid email address';
@@ -51,6 +59,7 @@ class Register extends React.Component {
           <RowColumn large={6}>
             <Field autoFocus component={FormInput} label="Email" name="email" tabIndex={1}/>
             <Field component={FormInput} label="Password" name="password" tabIndex={2} type="password"/>
+            <Field component={FormInput} label="Repeat password" name="repeated_password" tabIndex={3} type="password"/>
             <FormActions>
               <Button color="green" size="full" tabIndex={3} type="submit">Sign up for Kreta</Button>
             </FormActions>

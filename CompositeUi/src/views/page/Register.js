@@ -14,22 +14,17 @@ import {connect} from 'react-redux';
 import ContentLayout from './../layout/ContentLayout';
 import ContentMiddleLayout from './../layout/ContentMiddleLayout';
 import NotificationLayout from './../layout/NotificationLayout';
-import LoadingSpinner from './../component/LoadingSpinner';
 import Register from './../form/Register';
 import LogoCustomHeader from './../component/LogoCustomHeader';
-// import UserActions from './../../actions/User';
+import UserActions from './../../actions/User';
 
-@connect(state => ({authorizing: state.user.updatingAuthorization}))
+@connect()
 class RegisterPage extends React.Component {
-  register() {
-//     this.props.dispatch(UserActions.login(credentials));
+  register(credentials) {
+    this.props.dispatch(UserActions.register(credentials));
   }
 
   render() {
-    if (this.props.authorizing) {
-      return <LoadingSpinner/>;
-    }
-
     return (
       <div>
         <NotificationLayout/>

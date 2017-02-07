@@ -26,6 +26,7 @@ security:
             provider: bengor_user
     access_control:
         - { path: ^/change-password, role: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/enable, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/register, role: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/auth/token, roles: IS_AUTHENTICATED_ANONYMOUSLY }
         - { path: ^/user, role: ROLE_USER }
