@@ -24,7 +24,7 @@ class Rest {
 
     this.request = (method, url, body = {}, headers = {}) => (
       new Promise((resolve, reject) => {
-        fetch(`${this.baseUrl()}${url}`, {body, headers, method})
+        fetch(`${this.baseUrl()}${url}`, {body, headers, method, mode: 'cors'})
           .then((response) => {
             if (response.ok) {
               resolve(response.json());
