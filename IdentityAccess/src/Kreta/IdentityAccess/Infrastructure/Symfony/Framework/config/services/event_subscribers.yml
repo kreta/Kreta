@@ -11,7 +11,7 @@ services:
         class: BenGorUser\User\Domain\Event\UserRegisteredMailerSubscriber
         arguments:
             - "@bengor_user.mailer.swift_mailer"
-            - "@bengor_user.mailable_factory.invite"
+            - "@bengor_user.mailable_factory.sign_up"
             - "@kreta.identity_access.register_url_generator"
         tags:
             -

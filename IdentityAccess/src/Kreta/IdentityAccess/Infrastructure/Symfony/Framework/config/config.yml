@@ -81,6 +81,7 @@ ben_gor_user:
     user_class:
         user:
             class: Kreta\IdentityAccess\Domain\Model\User\User
+            data_transformer: Kreta\IdentityAccess\Application\DataTransformer\UserDTODataTransformer
             firewall: main
             use_cases:
                 security:

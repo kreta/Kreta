@@ -6,6 +6,8 @@
 
     <entity name="Kreta\IdentityAccess\Domain\Model\User\User"
             table="user"
-            repository-class="BenGorUser\DoctrineORMBridge\Infrastructure\Persistence\DoctrineORMUserRepository">
+            repository-class="Kreta\IdentityAccess\Infrastructure\Persistence\Doctrine\ORM\User\DoctrineORMUserRepository">
+        <embedded name="username" class="Kreta\IdentityAccess\Domain\Model\User\Username" use-column-prefix="false"/>
+        <embedded name="fullName" class="Kreta\IdentityAccess\Domain\Model\User\FullName" use-column-prefix="false"/>
     </entity>
 </doctrine-mapping>
