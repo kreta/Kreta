@@ -45,12 +45,16 @@ class FullName
 
     public function firstName() : string
     {
-        return $this->firstName;
+        // This ternary is a hack that avoids the
+        // DoctrineORM limitation with nullable embeddables
+        return null === $this->firstName ? '' : $this->firstName;
     }
 
     public function lastName() : string
     {
-        return $this->lastName;
+        // This ternary is a hack that avoids the
+        // DoctrineORM limitation with nullable embeddables
+        return null === $this->lastName ? '' : $this->lastName;
     }
 
     public function fullName() : string

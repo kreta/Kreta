@@ -66,7 +66,7 @@ class EditProfileHandler
     private function checkUsernameExists(User $user, Username $username)
     {
         $anotherUser = $this->repository->userOfUsername($username);
-        if (null !== $anotherUser && $user->id()->equals($anotherUser->id())) {
+        if (null !== $anotherUser && !$user->id()->equals($anotherUser->id())) {
             throw new UsernameAlreadyExistsException($username);
         }
     }
@@ -74,7 +74,7 @@ class EditProfileHandler
     private function checkEmailExists(User $user, UserEmail $email)
     {
         $anotherUser = $this->repository->userOfEmail($email);
-        if (null !== $anotherUser && $user->id()->equals($anotherUser->id())) {
+        if (null !== $anotherUser && !$user->id()->equals($anotherUser->id())) {
             throw new UserEmailAlreadyExistsException($email);
         }
     }

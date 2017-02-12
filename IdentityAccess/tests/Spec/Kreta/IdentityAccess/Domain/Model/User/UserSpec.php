@@ -63,6 +63,8 @@ class UserSpec extends ObjectBehavior
 
         $this->editProfile($email, $username, $fullName);
 
+        $fullName->fullName()->shouldBeCalled()->willReturn('Kreta name');
+
         $this->fullName()->shouldReturn($fullName);
         $this->username()->shouldReturn($username);
     }

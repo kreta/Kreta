@@ -68,7 +68,7 @@ class EditProfileHandlerSpec extends ObjectBehavior
 
         $repository->userOfUsername(new Username('kreta-username'))->shouldBeCalled()->willReturn($anotherUser);
         $user->id()->shouldBeCalled()->willReturn(new UserId('user-id'));
-        $anotherUser->id()->shouldBeCalled()->willReturn(new UserId('user-id'));
+        $anotherUser->id()->shouldBeCalled()->willReturn(new UserId('another-user-id'));
 
         $this->shouldThrow(UsernameAlreadyExistsException::class)->during__invoke($command);
     }
@@ -90,11 +90,11 @@ class EditProfileHandlerSpec extends ObjectBehavior
 
         $repository->userOfUsername(new Username('kreta-username'))->shouldBeCalled()->willReturn($anotherUser);
         $user->id()->shouldBeCalled()->willReturn(new UserId('user-id'));
-        $anotherUser->id()->shouldBeCalled()->willReturn(new UserId('another-user-id'));
+        $anotherUser->id()->shouldBeCalled()->willReturn(new UserId('user-id'));
 
         $repository->userOfEmail(new UserEmail('user@user.net'))->shouldBeCalled()->willReturn($anotherUser2);
         $user->id()->shouldBeCalled()->willReturn(new UserId('user-id'));
-        $anotherUser2->id()->shouldBeCalled()->willReturn(new UserId('user-id'));
+        $anotherUser2->id()->shouldBeCalled()->willReturn(new UserId('another-user-id'));
 
         $this->shouldThrow(UserEmailAlreadyExistsException::class)->during__invoke($command);
     }
@@ -116,11 +116,11 @@ class EditProfileHandlerSpec extends ObjectBehavior
 
         $repository->userOfUsername(new Username('kreta-username'))->shouldBeCalled()->willReturn($anotherUser);
         $user->id()->shouldBeCalled()->willReturn(new UserId('user-id'));
-        $anotherUser->id()->shouldBeCalled()->willReturn(new UserId('another-user-id'));
+        $anotherUser->id()->shouldBeCalled()->willReturn(new UserId('user-id'));
 
         $repository->userOfEmail(new UserEmail('user@user.net'))->shouldBeCalled()->willReturn($anotherUser2);
         $user->id()->shouldBeCalled()->willReturn(new UserId('user-id'));
-        $anotherUser2->id()->shouldBeCalled()->willReturn(new UserId('another-user-id-2'));
+        $anotherUser2->id()->shouldBeCalled()->willReturn(new UserId('user-id'));
 
         $user->editProfile(
             new UserEmail('user@user.net'),

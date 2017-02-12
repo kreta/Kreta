@@ -33,7 +33,7 @@ class UserAction
             'username'   => $this->tokenStorage->getToken()->getUser()->userName,
             'email'      => $this->tokenStorage->getToken()->getUser()->email,
             'first_name' => $this->tokenStorage->getToken()->getUser()->firstName,
-            'last_name'  => $this->tokenStorage->getToken()->getUser()->firstName,
+            'last_name'  => $this->tokenStorage->getToken()->getUser()->lastName,
             'full_name'  => $this->tokenStorage->getToken()->getUser()->fullName,
         ]);
     }

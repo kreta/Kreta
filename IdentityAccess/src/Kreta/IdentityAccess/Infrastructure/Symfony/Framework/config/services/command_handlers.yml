@@ -18,16 +18,11 @@ services:
                 name: bengor_user_user_command_bus_handler
                 handles: BenGorUser\User\Application\Command\SignUp\SignUpUserCommand
 
-### Keep the names of the followning services, because there are overridden the BenGorUserBundle's services
-    bengor.user.application.command.sign_up_user:
-        class: Kreta\IdentityAccess\Application\Command\SignUpUserHandler
+    kreta.identity_access.command_handler.edit_profile:
+        class: Kreta\IdentityAccess\Application\Command\EditProfileHandler
         arguments:
             - "@bengor_user.user.repository"
-            - "@bengor_user.user.symfony_password_encoder"
         tags:
             -
                 name: bengor_user_user_command_bus_handler
-                handles: Kreta\IdentityAccess\Application\Command\SignUpUserCommand
-
-    bengor_user.user.sign_up:
-        alias: bengor.user.application.command.sign_up_user
+                handles: Kreta\IdentityAccess\Application\Command\EditProfileCommand

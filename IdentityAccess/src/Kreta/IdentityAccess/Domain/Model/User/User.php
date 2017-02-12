@@ -50,8 +50,13 @@ class User extends BaseUser
         return $this->username;
     }
 
-    public function fullName() : ? FullName
+    public function fullName()
     {
-        return $this->fullName;
+        // This ternary is a hack that avoids the
+        // DoctrineORM limitation with nullable embeddables
+        return $this->fullName instanceof FullName
+        && !$this->fullName->fullName()
+            ? null
+            : $this->fullName;
     }
 }

@@ -23,6 +23,8 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class EditProfileType extends AbstractType
 {
+    private $userId;
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
@@ -30,15 +32,18 @@ class EditProfileType extends AbstractType
             ->add('username')
             ->add('firstName')
             ->add('lastName');
+
+        $this->userId = $options['user_id'];
     }
 
     public function configureOptions(OptionsResolver $resolver)
     {
+        $resolver->setRequired('user_id');
         $resolver->setDefaults([
             'data_class' => EditProfileCommand::class,
             'empty_data' => function (FormInterface $form) {
                 return new EditProfileCommand(
-                    $form->get('id')->getData(),
+                    $this->userId,
                     $form->get('email')->getData(),
                     $form->get('username')->getData(),
                     $form->get('firstName')->getData(),
