@@ -73,6 +73,8 @@ swiftmailer:
     host: "%identity_access_mailer_host%"
     username: "%identity_access_mailer_user%"
     password: "%identity_access_mailer_password%"
+    port: "%identity_access_mailer_port%"
+    encryption: "%identity_access_mailer_encryption%"
     spool: { type: memory }
 
 ben_gor_user:

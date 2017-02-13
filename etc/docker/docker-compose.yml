@@ -73,3 +73,13 @@ services:
             - php
         volumes:
             - ./data/logs/nginx/:/var/log/nginx
+        networks:
+            default:
+              ipv4_address: 172.18.0.10
+
+networks:
+  default:
+    driver: bridge
+    ipam:
+      config:
+      - subnet: 172.18.0.0/24
