@@ -1,10 +1,13 @@
 #!/usr/bin/env bash
 
 cd $(dirname $0)/../docker
-cp .env.dist .env || echo "Previosuly created env"
+if [ ! -f .env ]; then
+ echo "Creating Enviroment for docker"
+ cp .env.dist .env
+fi
 docker-compose up -d || docker-compose up -d
-docker-compose exec php bash -c "cd /var/www/taskmanager && composer install"
-docker-compose exec php bash -c "cd /var/www/identityaccess && composer install"
+docker-compose exec php bash -c "cd /var/www/taskmanager && composer install --no-interaction"
+docker-compose exec php bash -c "cd /var/www/identityaccess && composer install --no-interaction"
 docker-compose exec php bash -c "cd /var/www/identityaccess/var && chown www-data:www-data * && rm -rf cache/*"
 docker-compose exec php bash -c "cd /var/www/taskmanager/var && chown www-data:www-data * && rm -rf cache/*"
 docker-compose exec php bash -c "cd /var/www/identityaccess && sh etc/bash/generate_ssh_keys.sh"
@@ -15,9 +18,9 @@ while getopts 'df' flag; do
   case "${flag}" in
     d)
       docker-compose exec php bash -c "cd /var/www/taskmanager && etc/bin/symfony-console doctrine:da:cr"
-      docker-compose exec php bash -c "cd /var/www/taskmanager && etc/bin/symfony-console doctrine:mi:mi"
+      docker-compose exec php bash -c "cd /var/www/taskmanager && etc/bin/symfony-console doctrine:mi:mi --no-interaction"
       docker-compose exec php bash -c "cd /var/www/identityaccess && etc/bin/symfony-console doctrine:da:cr"
-      docker-compose exec php bash -c "cd /var/www/identityaccess && etc/bin/symfony-console doctrine:mi:mi" ;;
+      docker-compose exec php bash -c "cd /var/www/identityaccess && etc/bin/symfony-console doctrine:mi:mi --no-interaction" ;;
     f)
       docker-compose exec php bash -c "cd /var/www/taskmanager && sh etc/bash/load_fixtures.sh"
       docker-compose exec php bash -c "cd /var/www/identityaccess && sh etc/bash/load_fixtures.sh" ;;

@@ -11,57 +11,23 @@ It provides the following containers:
 
 ## Installation
 
-1. Create a `.env` from the `.env.dist` file. Adapt it according to your symfony application
+1. Adapt `.env.dist` file according to your symfony application. It will be copied to `.env` by upstart script.
 
+
+2. Update your system host file
+
+    Add this line to /etc/hosts 
     ```bash
-    cp .env.dist .env
+    "127.0.0.1 kreta.localhost taskmanager.localhost identityaccess.localhost"
     ```
 
+3. Execute this command 
 
-2. Build/run containers with (with and without detached mode)
-
-    ```bash
-    $ docker-compose build
-    $ docker-compose up -d
+    ```
+    sh etc/bash/docker.sh [-d This optional flag prepare DB when start app] [-f This optional flag load fixtures with fake data]
     ```
 
-3. Update your system host file
-
-    ```bash
-    $ sudo echo "127.0.0.1 kreta.localhost taskmanager.localhost identityaccess.localhost" >> /etc/hosts
-    ```
-
-4. Prepare Symfony app
-    1. Update TaskManager/parameters.yml
-
-        ```yml
-        parameters:
-            task_manager_database_host: db
-            task_manager_database_port: 3306
-            task_manager_database_name: kreta_task_manager
-            task_manager_database_user: root
-            task_manager_database_password: root
-        ```
-
-    2. Update IdentityAccess/parameters.yml
-
-        ```yml
-        parameters:
-            identity_access_database_host: db
-            identity_access_database_port: 3306
-            identity_access_database_name: kreta_identity_access
-            identity_access_database_user: root
-            identity_access_database_password: root
-        ```
-
-    3. Create symbolic links for better performance & install dependencies (composer / yarn)
-
-        ```bash
-        $ docker-compose exec php bash -c "cd /var/www/taskmanager && composer install"
-        $ docker-compose exec php bash -c "cd /var/www/identityaccess && composer install"
-        ```
-
-5. Enjoy :-)
+4. Enjoy :-)
 
 ## Usage
 

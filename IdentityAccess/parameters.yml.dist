@@ -9,7 +9,7 @@
 parameters:
     identity_access_host:                "http://identityaccess.localhost"
     identity_access_secret:              12e54860e3fbbbebd0aa659fa8bc554c202298ac # Your own secret with http://nux.net/secret
-    identity_access_delivery_address:    benatespina@gmail.com
+    identity_access_delivery_address:    kr.dev.mailing.001@gmail.com
 
     identity_access_database_host:       db
     identity_access_database_port:       3306
