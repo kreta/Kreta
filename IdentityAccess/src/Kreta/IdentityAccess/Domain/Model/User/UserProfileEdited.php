@@ -31,17 +31,17 @@ class UserProfileEdited implements UserEvent
         $this->occurredOn = new \DateTimeImmutable();
     }
 
-    public function id()
+    public function id() : UserId
     {
         return $this->userId;
     }
 
-    public function email()
+    public function email() : UserEmail
     {
         return $this->email;
     }
 
-    public function occurredOn()
+    public function occurredOn() : \DateTimeInterface
     {
         return $this->occurredOn;
     }
