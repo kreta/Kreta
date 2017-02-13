@@ -45,6 +45,7 @@ class ProfileEdit extends React.Component {
             <Field component={FormInput} label="First Name" name="first_name" tabIndex={2}/>
             <Field component={FormInput} label="Last Name" name="last_name" tabIndex={3}/>
             <Field component={FormInput} label="Username" name="username" tabIndex={4}/>
+            <Field component={FormInput} label="Email" name="email" tabIndex={5}/>
             <FormActions>
               <Button color="green" type="submit">Update</Button>
             </FormActions>

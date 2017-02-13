@@ -18,20 +18,25 @@ const initialState = {
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
-    case ActionTypes.PROFILE_FETCHING:
+    case ActionTypes.PROFILE_FETCHING: {
       return {...state, fetching: true};
+    }
 
-    case ActionTypes.PROFILE_RECEIVED:
+    case ActionTypes.PROFILE_RECEIVED: {
       return {...state, profile: action.profile, fetching: false};
+    }
 
-    case ActionTypes.PROFILE_UPDATED:
+    case ActionTypes.PROFILE_UPDATED: {
       return {...state, profile: action.profile};
+    }
 
-    case ActionTypes.PROFILE_FETCH_ERROR:
+    case ActionTypes.PROFILE_FETCH_ERROR: {
       return {...state, errors: action.errors};
+    }
 
-    case ActionTypes.PROFILE_UPDATE_ERROR:
+    case ActionTypes.PROFILE_UPDATE_ERROR: {
       return {...state, errors: action.errors};
+    }
 
     default:
       return state;

@@ -9,19 +9,18 @@
  */
 
 import ActionTypes from './../constants/ActionTypes';
-import ProfileApi from './../api/Profile';
+import Profile from './../api/rest/User/Profile';
 
 const Actions = {
   fetchProfile: () => (dispatch) => {
     dispatch({
       type: ActionTypes.PROFILE_FETCHING
     });
-    ProfileApi.getProfile()
+    Profile.get()
       .then((response) => {
         dispatch({
           type: ActionTypes.PROFILE_RECEIVED,
-          profile: response.data,
-          status: response.status
+          profile: response
         });
       });
   },
@@ -29,19 +28,21 @@ const Actions = {
     dispatch({
       type: ActionTypes.PROFILE_UPDATE
     });
-    ProfileApi.putProfile(profileData)
+    Profile.update(profileData)
       .then((response) => {
         dispatch({
           type: ActionTypes.PROFILE_UPDATED,
-          status: response.status,
-          profile: response.data
+          profile: response
         });
+
+        // Hack to maintain the session in the React
+        // app if the user changes the email
+        localStorage.token = response.token;
       })
       .catch((response) => {
         response.then((errors) => {
           dispatch({
             type: ActionTypes.PROFILE_UPDATE_ERROR,
-            status: response.status,
             errors
           });
         });

@@ -52,7 +52,7 @@ class MainMenu extends React.Component {
       profileWidget = (
         <Link className="main-menu__profile" to="/profile">
           <Thumbnail
-            image={this.props.profile.photo.name}
+            image={null}
             text={`${this.props.profile.first_name} ${this.props.profile.last_name}`}
           />
           <span className="main-menu__username">@{this.props.profile.username}</span>
