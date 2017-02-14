@@ -20,21 +20,26 @@ use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInt
 class UserAction
 {
     private $tokenStorage;
+    private $uploadDestination;
 
-    public function __construct(TokenStorageInterface $tokenStorage)
+    public function __construct(TokenStorageInterface $tokenStorage, $uploadDestination)
     {
         $this->tokenStorage = $tokenStorage;
+        $this->uploadDestination = $uploadDestination;
     }
 
     public function __invoke() : JsonResponse
     {
+        $user = $this->tokenStorage->getToken()->getUser();
+
         return new JsonResponse([
-            'user_id'    => $this->tokenStorage->getToken()->getUser()->id,
-            'username'   => $this->tokenStorage->getToken()->getUser()->userName,
-            'email'      => $this->tokenStorage->getToken()->getUser()->email,
-            'first_name' => $this->tokenStorage->getToken()->getUser()->firstName,
-            'last_name'  => $this->tokenStorage->getToken()->getUser()->lastName,
-            'full_name'  => $this->tokenStorage->getToken()->getUser()->fullName,
+            'user_id'    => $user->id,
+            'username'   => $user->userName,
+            'email'      => $user->email,
+            'first_name' => $user->firstName,
+            'last_name'  => $user->lastName,
+            'full_name'  => $user->fullName,
+            'image'      => $this->uploadDestination . '/' . $user->imageName,
         ]);
     }
 }

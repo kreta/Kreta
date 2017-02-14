@@ -21,7 +21,7 @@ class Thumbnail extends React.Component {
   render() {
     if (this.props.image) {
       return (
-        <img className="thumbnail" src={this.props.user.photo.name}/>
+        <img className="thumbnail" src={this.props.image}/>
       );
     }
 

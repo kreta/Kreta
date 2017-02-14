@@ -32,24 +32,27 @@ class EditProfileAction
     private $formFactory;
     private $commandBus;
     private $encoder;
+    private $uploadDestination;
 
     public function __construct(
         TokenStorageInterface $tokenStorage,
         FormFactoryInterface $formFactory,
         UserCommandBus $commandBus,
-        JWTEncoderInterface $encoder
+        JWTEncoderInterface $encoder,
+        $uploadDestination
     ) {
         $this->formFactory = $formFactory;
         $this->commandBus = $commandBus;
         $this->tokenStorage = $tokenStorage;
         $this->encoder = $encoder;
+        $this->uploadDestination = $uploadDestination;
     }
 
     public function __invoke(Request $request) : JsonResponse
     {
-        $userId = $this->tokenStorage->getToken()->getUser()->id;
+        $user = $this->tokenStorage->getToken()->getUser();
 
-        $form = $this->formFactory->createNamed('', EditProfileType::class, null, ['user_id' => $userId]);
+        $form = $this->formFactory->createNamed('', EditProfileType::class, null, ['user_id' => $user->id]);
         $form->handleRequest($request);
 
         if ($form->isValid()) {
@@ -65,6 +68,7 @@ class EditProfileAction
                     'token'      => $token,
                     'first_name' => $data->firstName(),
                     'last_name'  => $data->lastName(),
+                    'image'      => $this->uploadDestination . '/' . $user->imageName,
                 ]);
             } catch (UserDoesNotExistException $exception) {
                 return new JsonResponse(

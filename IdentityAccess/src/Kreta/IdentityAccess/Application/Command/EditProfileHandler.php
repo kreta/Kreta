@@ -10,10 +10,13 @@
  * file that was distributed with this source code.
  */
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Kreta\IdentityAccess\Application\Command;
 
+use BenGorFile\File\Domain\Model\FileMimeType;
+use BenGorFile\File\Domain\Model\FileName;
+use BenGorFile\File\Domain\Model\Filesystem;
 use BenGorUser\User\Domain\Model\Exception\UserDoesNotExistException;
 use BenGorUser\User\Domain\Model\UserEmail;
 use BenGorUser\User\Domain\Model\UserId;
@@ -27,10 +30,12 @@ use Kreta\IdentityAccess\Domain\Model\User\UserRepository;
 class EditProfileHandler
 {
     private $repository;
+    private $filesystem;
 
-    public function __construct(UserRepository $aRepository)
+    public function __construct(UserRepository $repository, Filesystem $filesystem)
     {
-        $this->repository = $aRepository;
+        $this->repository = $repository;
+        $this->filesystem = $filesystem;
     }
 
     public function __invoke(EditProfileCommand $command)
@@ -40,12 +45,21 @@ class EditProfileHandler
         $username = new Username($command->username());
         $fullName = new FullName($command->firstName(), $command->lastName());
 
+        $imageName = FileName::fromHash($command->imageName());
+        $imageMimeType = new FileMimeType($command->imageMimeType());
+        $uploadedImage = $command->uploadedImage();
+
         /** @var User $user */
         $user = $this->repository->userOfId($id);
         $this->checkUserExists($user);
         $this->checkEmailAndUsernameUniqueness($user, $username, $email);
 
         $user->editProfile($email, $username, $fullName);
+
+        if ($uploadedImage) {
+            $this->filesystem->write($imageName, $uploadedImage);
+            $user->uploadImage($imageName, $imageMimeType);
+        }
 
         $this->repository->persist($user);
     }

@@ -22,6 +22,7 @@ services:
         class: Kreta\IdentityAccess\Application\Command\EditProfileHandler
         arguments:
             - "@bengor_user.user.repository"
+            - "@bengor_file.image.filesystem"
         tags:
             -
                 name: bengor_user_user_command_bus_handler

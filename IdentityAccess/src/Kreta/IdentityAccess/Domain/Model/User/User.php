@@ -10,10 +10,13 @@
  * file that was distributed with this source code.
  */
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Kreta\IdentityAccess\Domain\Model\User;
 
+use BenGorFile\File\Domain\Model\FileId;
+use BenGorFile\File\Domain\Model\FileMimeType;
+use BenGorFile\File\Domain\Model\FileName;
 use BenGorUser\User\Domain\Model\User as BaseUser;
 use BenGorUser\User\Domain\Model\UserEmail;
 use BenGorUser\User\Domain\Model\UserId;
@@ -31,12 +34,11 @@ class User extends BaseUser
         $this->username = Username::fromEmail($email);
     }
 
-    public function editProfile(UserEmail $email, Username $username, FullName $fullName, Image $image = null)
+    public function editProfile(UserEmail $email, Username $username, FullName $fullName)
     {
         $this->email = $email;
         $this->username = $username;
         $this->fullName = $fullName;
-        $this->image = $image;
         $this->updatedOn = new \DateTimeImmutable();
 
         $this->publish(
@@ -45,6 +47,11 @@ class User extends BaseUser
                 $this->email()
             )
         );
+    }
+
+    public function uploadImage(FileName $name, FileMimeType $mimeType)
+    {
+        $this->image = new Image(new FileId(), $name, $mimeType);
     }
 
     public function username() : Username

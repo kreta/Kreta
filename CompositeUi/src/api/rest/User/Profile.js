@@ -20,7 +20,8 @@ class Profile {
       email: profileData.email,
       username: profileData.username,
       firstName: profileData.first_name,
-      lastName: profileData.last_name
+      lastName: profileData.last_name,
+      image: profileData.image
     });
   }
 }

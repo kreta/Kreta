@@ -54,7 +54,7 @@ class ProfileEdit extends React.Component {
       <Form onSubmit={handleSubmit}>
         <Row>
           <RowColumn>
-            <Field component={FormInputFile} name="photo"/>
+            <Field component={FormInputFile} name="image" type="file"/>
             <Field component={FormInput} label="First Name" name="first_name" tabIndex={2}/>
             <Field component={FormInput} label="Last Name" name="last_name" tabIndex={3}/>
             <Field component={FormInput} label="Username" name="username" tabIndex={4}/>
