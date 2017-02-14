@@ -12,7 +12,7 @@ services:
     db:
         image: mysql
         ports:
-            - 3306:3306
+            - ${MYSQL_EXTERNAL_PORT}:${MYSQL_INTERNAL_PORT}
         volumes:
             - ./data/mysql:/var/lib/mysql
         environment:
@@ -24,8 +24,8 @@ services:
     rabbitmq:
         image: rabbitmq:3.6.5-management
         ports:
-            - 5672:5672
-            - 15672:15672
+            - ${RABBITMQ_EXTERNAL_PORT}:${RABBITMQ_INTERNAL_PORT}
+            - ${RABBITMQ_EXTERNAL_GUI_PORT}:${RABBITMQ_INTERNAL_GUI_PORT}
         environment:
             RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER}
             RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS}
@@ -73,3 +73,13 @@ services:
             - php
         volumes:
             - ./data/logs/nginx/:/var/log/nginx
+        networks:
+            default:
+              ipv4_address: 172.18.0.10
+
+networks:
+  default:
+    driver: bridge
+    ipam:
+      config:
+      - subnet: 172.18.0.0/24

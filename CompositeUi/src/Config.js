@@ -21,8 +21,8 @@ let Config = {
 };
 
 Config = Object.assign({
-  taskManagerUrl: `//${Config.baseUrl}:8001`,
-  identityAccessUrl: `//${Config.baseUrl}:8002`,
+  taskManagerUrl: `//taskmanager.localhost`,
+  identityAccessUrl: `//identityaccess.localhost`,
 }, Config);
 
 export default Config;
