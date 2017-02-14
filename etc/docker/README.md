@@ -13,7 +13,6 @@ It provides the following containers:
 
 1. Adapt `.env.dist` file according to your symfony application. It will be copied to `.env` by upstart script.
 
-
 2. Update your system host file
 
     Add this line to /etc/hosts 
@@ -29,11 +28,7 @@ It provides the following containers:
 
 4. Enjoy :-)
 
-## Usage
-
-Just run `docker-compose -d`, then:
-
-* Symfony app: visit [kreta.localhost](http://kreta.localhost)
+* Symfony app: visit [kreta.localhost](http://kreta.localhost). If you get 502 visit Known Issues at bottom
 
 ## How it works?
 
@@ -83,7 +78,8 @@ $ docker rmi $(docker images -q)
 ## Known issues
 
 * Database requires root connection to create multiple databases
-* Logs, cache and sessions cannot be written due to permission issues, change `var` folder permissions to 777
+* Sometimes logs, cache and sessions cannot be written due to permission issues, change `var` folder permissions to 777
+* Node takes some time to up, if browser brings you 502 try again few minutes later
 
 ## FAQ
 
