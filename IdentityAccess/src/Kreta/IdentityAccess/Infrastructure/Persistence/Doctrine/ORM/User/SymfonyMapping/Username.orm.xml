@@ -5,6 +5,6 @@
                           http://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
 
     <embeddable name="Kreta\IdentityAccess\Domain\Model\User\Username">
-        <field name="username" column="username" type="string" length="150" nullable="false"/>
+        <field name="username" column="username" type="string" length="20" nullable="false"/>
     </embeddable>
 </doctrine-mapping>

@@ -18,12 +18,17 @@ use BenGorUser\User\Domain\Model\UserEmail;
 
 class Username
 {
+    const MAX_LENGTH = 20;
+    const MIN_LENGTH = 3;
+
     private $username;
 
     public static function fromEmail(UserEmail $email)
     {
         $localPart = $email->localPart();
-        $username = sprintf('%s%s', $localPart, mt_rand(1111, 9999));
+        $localPart = substr($localPart, 0, self::MAX_LENGTH);
+
+        $username = sprintf('%s%d', $localPart, mt_rand(1111, 9999));
 
         return new self($username);
     }
@@ -41,7 +46,9 @@ class Username
 
     private function checkIsValidUsername(string $username)
     {
-        if (!preg_match('/^[a-z0-9_.-]{3,15}$/', $username)) {
+        $regex = sprintf('/^[a-z0-9_.-]{%d,%d}$/', self::MIN_LENGTH, self::MAX_LENGTH);
+
+        if (!preg_match($regex, $username)) {
             throw new UsernameInvalidException($username);
         }
     }
@@ -53,6 +60,6 @@ class Username
 
     public function __toString() : string
     {
-        return (string) $this->username;
+        return (string)$this->username;
     }
 }
