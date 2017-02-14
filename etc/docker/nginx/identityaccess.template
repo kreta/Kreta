@@ -7,7 +7,7 @@
 # file that was distributed with this source code.
 
 server {
-    server_name identityaccess.localhost;
+    server_name ${IDENTITY_ACCESS_HOST};
     root /var/www/identityaccess/src/Kreta/IdentityAccess/Infrastructure/Ui/Http/Symfony/public;
 
     location / {

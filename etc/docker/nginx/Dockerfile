@@ -11,20 +11,19 @@ FROM nginx:1.11.9
 MAINTAINER Kreta <kreta@kreta.io>
 
 ADD nginx.conf /etc/nginx/
-ADD compositeui.conf /etc/nginx/sites-available/
-ADD taskmanager.conf /etc/nginx/sites-available/
-ADD identityaccess.conf /etc/nginx/sites-available/
+ADD compositeui.template /etc/nginx/sites-available/
+ADD taskmanager.template /etc/nginx/sites-available/
+ADD identityaccess.template /etc/nginx/sites-available/
 
 RUN mkdir /etc/nginx/sites-enabled
-RUN ln -s /etc/nginx/sites-available/compositeui.conf /etc/nginx/sites-enabled/compositeui
-RUN ln -s /etc/nginx/sites-available/taskmanager.conf /etc/nginx/sites-enabled/taskmanager
-RUN ln -s /etc/nginx/sites-available/identityaccess.conf /etc/nginx/sites-enabled/identityaccess
 
 RUN echo "upstream php-upstream { server php:9000; }" > /etc/nginx/conf.d/upstream.conf
 
 RUN usermod -u 1000 www-data
 
-CMD ["nginx"]
+COPY server_run.sh /var/www/
+
+CMD sh /var/www/server_run.sh
 
 EXPOSE 80
 EXPOSE 443

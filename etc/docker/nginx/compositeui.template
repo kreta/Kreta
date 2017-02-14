@@ -7,7 +7,7 @@
 # file that was distributed with this source code.
 
 server {
-    server_name kreta.localhost;
+    server_name ${COMPOSITE_UI_HOST};
 
     location / {
          proxy_pass http://node:3000;

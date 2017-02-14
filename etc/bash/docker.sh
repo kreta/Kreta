@@ -13,6 +13,7 @@ docker-compose exec php bash -c "cd /var/www/taskmanager/var && chown www-data:w
 docker-compose exec php bash -c "cd /var/www/identityaccess && sh etc/bash/generate_ssh_keys.sh"
 docker-compose exec php bash -c "echo '172.18.0.10 identityaccess.localhost' >> /etc/hosts"
 docker-compose exec php bash -c "echo '172.18.0.10 taskmanager.localhost' >> /etc/hosts"
+docker-compose exec php bash -c "cd /var/www/taskmanager && etc/bin/symfony-console rabbitmq:consumer asynchronous_events"
 
 while getopts 'df' flag; do
   case "${flag}" in

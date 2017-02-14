@@ -66,6 +66,10 @@ services:
         build: nginx
         ports:
             - 80:80
+        environment:
+            TASK_MANAGER_HOST: ${TASK_MANAGER_HOST}
+            IDENTITY_ACCESS_HOST: ${IDENTITY_ACCESS_HOST}
+            COMPOSITE_UI_HOST: ${COMPOSITE_UI_HOST}
         links:
             - php
             - node
