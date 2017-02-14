@@ -77,7 +77,6 @@ services:
             - php
         volumes:
             - ./data/logs/nginx/:/var/log/nginx
-        command: /bin/bash -c "envsubst '${COMPOSITE_UI_HOST}' < /etc/nginx/sites-available/compositeui.template && envsubst '${TASK_MANAGER_HOST}' < /etc/nginx/sites-available/taskmanager.template > /etc/nginx/sites-enabled/taskmanager.conf && envsubst '${IDENTITY_ACCESS_HOST}' < /etc/nginx/sites-available/identityaccess.template > /etc/nginx/sites-enabled/identityaccess.conf && nginx"
         networks:
             default:
               ipv4_address: 172.18.0.10
