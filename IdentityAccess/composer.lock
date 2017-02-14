@@ -4,8 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "c4f13a438978e5b2d3ed5b954e679e0f",
-    "content-hash": "f79ecccdfd80b2a0686ad73473bce7df",
+    "content-hash": "e882b8590052736d7bdb758007d86d75",
     "packages": [
         {
             "name": "ajgl/simple-bus-query-bus",
@@ -58,7 +57,7 @@
                 "message",
                 "simple bus"
             ],
-            "time": "2016-06-16 10:36:26"
+            "time": "2016-06-16T10:36:26+00:00"
         },
         {
             "name": "beberlei/assert",
@@ -113,7 +112,514 @@
                 "assertion",
                 "validation"
             ],
-            "time": "2017-01-24 15:14:39"
+            "time": "2017-01-24T15:14:39+00:00"
+        },
+        {
+            "name": "bengor-file/doctrine-orm-bridge",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/BenGorFile/DoctrineORMBridge.git",
+                "reference": "660c08202ccdea32b84ec088eb72545fa0b20011"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/BenGorFile/DoctrineORMBridge/zipball/660c08202ccdea32b84ec088eb72545fa0b20011",
+                "reference": "660c08202ccdea32b84ec088eb72545fa0b20011",
+                "shasum": ""
+            },
+            "require": {
+                "bengor-file/file": "^0.2.0",
+                "doctrine/orm": "^2.5",
+                "php": "^5.5 || ^7.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^1.11",
+                "phpspec/phpspec": "^2.5"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "BenGorFile\\DoctrineORMBridge\\": "src/BenGorFile/DoctrineORMBridge/"
+                },
+                "exclude-from-classmap": [
+                    "/spec/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Beñat Espiña Diaz",
+                    "email": "benatespina@gmail.com",
+                    "homepage": "http://benatespina.com"
+                },
+                {
+                    "name": "Gorka Laucirica Ibarra",
+                    "email": "gorka.lauzirika@gmail.com",
+                    "homepage": "http://gorkalaucirica.net"
+                }
+            ],
+            "description": "Adapter to make File compatible with Doctrine ORM",
+            "keywords": [
+                "adapter",
+                "ddd",
+                "doctrine",
+                "file",
+                "orm"
+            ],
+            "time": "2016-11-02T10:52:01+00:00"
+        },
+        {
+            "name": "bengor-file/doctrine-orm-bridge-bundle",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/BenGorFile/DoctrineORMBridgeBundle.git",
+                "reference": "18e07c2e0533e4e606ce32b66fd3a114a9aa81e2"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/BenGorFile/DoctrineORMBridgeBundle/zipball/18e07c2e0533e4e606ce32b66fd3a114a9aa81e2",
+                "reference": "18e07c2e0533e4e606ce32b66fd3a114a9aa81e2",
+                "shasum": ""
+            },
+            "require": {
+                "bengor-file/doctrine-orm-bridge": "^1.0.0",
+                "bengor-file/file-bundle": "^0.2.0",
+                "doctrine/doctrine-bundle": "^1.6",
+                "php": "^5.5 || ^7.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^1.11",
+                "phpspec/phpspec": "^2.5"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "BenGorFile\\DoctrineORMBridgeBundle\\": "src/BenGorFile/DoctrineORMBridgeBundle/"
+                },
+                "exclude-from-classmap": [
+                    "/spec/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Beñat Espiña Diaz",
+                    "email": "benatespina@gmail.com",
+                    "homepage": "http://benatespina.com"
+                },
+                {
+                    "name": "Gorka Laucirica Ibarra",
+                    "email": "gorka.lauzirika@gmail.com",
+                    "homepage": "http://gorkalaucirica.net"
+                }
+            ],
+            "description": "Symfony bundle that glues FileBundle and DoctrineORMBridge",
+            "keywords": [
+                "bundle",
+                "ddd",
+                "doctrine",
+                "file",
+                "orm",
+                "symfony"
+            ],
+            "time": "2016-11-02T10:47:42+00:00"
+        },
+        {
+            "name": "bengor-file/file",
+            "version": "v0.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/BenGorFile/File.git",
+                "reference": "76f6000fa834bf94a0b73efab4872d64be9164b5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/BenGorFile/File/zipball/76f6000fa834bf94a0b73efab4872d64be9164b5",
+                "reference": "76f6000fa834bf94a0b73efab4872d64be9164b5",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^5.5 || ^7.0",
+                "ramsey/uuid": "^3.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^1.11",
+                "phpspec/phpspec": "^2.5"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "BenGorFile\\File\\": "src/BenGorFile/File/"
+                },
+                "exclude-from-classmap": [
+                    "/spec/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Beñat Espiña Diaz",
+                    "email": "benatespina@gmail.com",
+                    "homepage": "http://benatespina.com"
+                },
+                {
+                    "name": "Gorka Laucirica Ibarra",
+                    "email": "gorka.lauzirika@gmail.com",
+                    "homepage": "http://gorkalaucirica.net"
+                }
+            ],
+            "description": "Lightweight file library developed using Domain-Driven Design",
+            "keywords": [
+                "component",
+                "ddd",
+                "file"
+            ],
+            "time": "2016-10-21T07:41:33+00:00"
+        },
+        {
+            "name": "bengor-file/file-bundle",
+            "version": "v0.2.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/BenGorFile/FileBundle.git",
+                "reference": "0da5fc67875b4b6d3c7388e0ed50ccdd582b7d11"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/BenGorFile/FileBundle/zipball/0da5fc67875b4b6d3c7388e0ed50ccdd582b7d11",
+                "reference": "0da5fc67875b4b6d3c7388e0ed50ccdd582b7d11",
+                "shasum": ""
+            },
+            "require": {
+                "bengor-file/file": "^0.2",
+                "php": "^5.5 || ^7.0",
+                "symfony/form": "^2.8 || ^3.0",
+                "symfony/framework-bundle": "^2.8 || ^3.0",
+                "symfony/twig-bundle": "^2.8 || ^3.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^1.11",
+                "phpspec/phpspec": "^2.5"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.0.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "BenGorFile\\FileBundle\\": "src/BenGorFile/FileBundle/"
+                },
+                "exclude-from-classmap": [
+                    "/spec/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Beñat Espiña Diaz",
+                    "email": "benatespina@gmail.com",
+                    "homepage": "http://benatespina.com"
+                },
+                {
+                    "name": "Gorka Laucirica Ibarra",
+                    "email": "gorka.lauzirika@gmail.com",
+                    "homepage": "http://gorkalaucirica.net"
+                }
+            ],
+            "description": "Symfony bundle on top of BenGor's file library",
+            "keywords": [
+                "bundle",
+                "ddd",
+                "file"
+            ],
+            "time": "2016-11-02T10:43:05+00:00"
+        },
+        {
+            "name": "bengor-file/gaufrette-filesystem-bridge",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/BenGorFile/GaufretteFilesystemBridge.git",
+                "reference": "603090d4764f163393abad80bfbac5aade961d24"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/BenGorFile/GaufretteFilesystemBridge/zipball/603090d4764f163393abad80bfbac5aade961d24",
+                "reference": "603090d4764f163393abad80bfbac5aade961d24",
+                "shasum": ""
+            },
+            "require": {
+                "bengor-file/file": "^0.2.0",
+                "knplabs/gaufrette": "^0.2.1",
+                "php": "^5.5 || ^7.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^1.11",
+                "phpspec/phpspec": "^2.5"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "BenGorFile\\GaufretteFilesystemBridge\\": "src/BenGorFile/GaufretteFilesystemBridge/"
+                },
+                "exclude-from-classmap": [
+                    "/spec/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Beñat Espiña Diaz",
+                    "email": "benatespina@gmail.com",
+                    "homepage": "http://benatespina.com"
+                },
+                {
+                    "name": "Gorka Laucirica Ibarra",
+                    "email": "gorka.lauzirika@gmail.com",
+                    "homepage": "http://gorkalaucirica.net"
+                }
+            ],
+            "description": "Adapter to make File compatible with Gaufrette filesystem",
+            "keywords": [
+                "adapter",
+                "ddd",
+                "file",
+                "filesystem",
+                "gaufrette"
+            ],
+            "time": "2016-11-02T10:45:37+00:00"
+        },
+        {
+            "name": "bengor-file/gaufrette-filesystem-bridge-bundle",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/BenGorFile/GaufretteFilesystemBridgeBundle.git",
+                "reference": "166975aed986994ea36840735770e74b7605e109"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/BenGorFile/GaufretteFilesystemBridgeBundle/zipball/166975aed986994ea36840735770e74b7605e109",
+                "reference": "166975aed986994ea36840735770e74b7605e109",
+                "shasum": ""
+            },
+            "require": {
+                "bengor-file/file-bundle": "^0.2.0",
+                "bengor-file/gaufrette-filesystem-bridge": "^1.0.0",
+                "knplabs/knp-gaufrette-bundle": "^0.3",
+                "php": "^5.5 || ^7.0"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^1.11",
+                "phpspec/phpspec": "^2.5"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "BenGorFile\\GaufretteFilesystemBridgeBundle\\": "src/BenGorFile/GaufretteFilesystemBridgeBundle/"
+                },
+                "exclude-from-classmap": [
+                    "/spec/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Beñat Espiña Diaz",
+                    "email": "benatespina@gmail.com",
+                    "homepage": "http://benatespina.com"
+                },
+                {
+                    "name": "Gorka Laucirica Ibarra",
+                    "email": "gorka.lauzirika@gmail.com",
+                    "homepage": "http://gorkalaucirica.net"
+                }
+            ],
+            "description": "Symfony bundle that glues FileBundle and GaufretteFilesystemBridge",
+            "keywords": [
+                "bundle",
+                "ddd",
+                "file",
+                "filesystem",
+                "gaufrette",
+                "symfony"
+            ],
+            "time": "2016-11-02T10:50:33+00:00"
+        },
+        {
+            "name": "bengor-file/simple-bus-bridge",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/BenGorFile/SimpleBusBridge.git",
+                "reference": "6342dc277d54818ec99b234232bbfb8a31f84ceb"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/BenGorFile/SimpleBusBridge/zipball/6342dc277d54818ec99b234232bbfb8a31f84ceb",
+                "reference": "6342dc277d54818ec99b234232bbfb8a31f84ceb",
+                "shasum": ""
+            },
+            "require": {
+                "bengor-file/file": "^0.2.0",
+                "php": "^5.5 || ^7.0",
+                "simple-bus/message-bus": "^2.2"
+            },
+            "require-dev": {
+                "friendsofphp/php-cs-fixer": "^1.11",
+                "phpspec/phpspec": "^2.5"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "BenGorFile\\SimpleBusBridge\\": "src/BenGorFile/SimpleBusBridge/"
+                },
+                "exclude-from-classmap": [
+                    "/spec/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Beñat Espiña Diaz",
+                    "email": "benatespina@gmail.com",
+                    "homepage": "http://benatespina.com"
+                },
+                {
+                    "name": "Gorka Laucirica Ibarra",
+                    "email": "gorka.lauzirika@gmail.com",
+                    "homepage": "http://gorkalaucirica.net"
+                }
+            ],
+            "description": "Adapter to make File compatible with Matthias Noback's SimpleBus",
+            "keywords": [
+                "adapter",
+                "ddd",
+                "file",
+                "simple-bus"
+            ],
+            "time": "2016-11-02T10:46:26+00:00"
+        },
+        {
+            "name": "bengor-file/simple-bus-bridge-bundle",
+            "version": "v1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/BenGorFile/SimpleBusBridgeBundle.git",
+                "reference": "cebe0ce1ed593d00429d9c882e70cd8968239a77"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/BenGorFile/SimpleBusBridgeBundle/zipball/cebe0ce1ed593d00429d9c882e70cd8968239a77",
+                "reference": "cebe0ce1ed593d00429d9c882e70cd8968239a77",
+                "shasum": ""
+            },
+            "require": {
+                "bengor-file/file-bundle": "^0.2.0",
+                "bengor-file/simple-bus-bridge": "^1.0.0",
+                "php": "^5.5 || ^7.0",
+                "simple-bus/doctrine-orm-bridge": "^4.0",
+                "simple-bus/symfony-bridge": "^4.0"
+            },
+            "require-dev": {
+                "doctrine/mongodb-odm": "~1.0",
+                "friendsofphp/php-cs-fixer": "^1.11",
+                "phpspec/phpspec": "^2.5"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.1.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "BenGorFile\\SimpleBusBridgeBundle\\": "src/BenGorFile/SimpleBusBridgeBundle/"
+                },
+                "exclude-from-classmap": [
+                    "/spec/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Beñat Espiña Diaz",
+                    "email": "benatespina@gmail.com",
+                    "homepage": "http://benatespina.com"
+                },
+                {
+                    "name": "Gorka Laucirica Ibarra",
+                    "email": "gorka.lauzirika@gmail.com",
+                    "homepage": "http://gorkalaucirica.net"
+                }
+            ],
+            "description": "Symfony bundle that glues FileBundle and Matthias Noback's SimpleBus",
+            "keywords": [
+                "bundle",
+                "ddd",
+                "file",
+                "simple-bus",
+                "symfony"
+            ],
+            "time": "2016-11-02T10:48:47+00:00"
         },
         {
             "name": "bengor-user/doctrine-orm-bridge",
@@ -177,7 +683,7 @@
                 "orm",
                 "user"
             ],
-            "time": "2017-02-02 16:35:37"
+            "time": "2017-02-02T16:35:37+00:00"
         },
         {
             "name": "bengor-user/doctrine-orm-bridge-bundle",
@@ -242,7 +748,7 @@
                 "symfony",
                 "user"
             ],
-            "time": "2017-02-02 18:12:55"
+            "time": "2017-02-02T18:12:55+00:00"
         },
         {
             "name": "bengor-user/simple-bus-bridge",
@@ -304,7 +810,7 @@
                 "simple-bus",
                 "user"
             ],
-            "time": "2017-02-02 18:22:55"
+            "time": "2017-02-02T18:22:55+00:00"
         },
         {
             "name": "bengor-user/simple-bus-bridge-bundle",
@@ -370,7 +876,7 @@
                 "symfony",
                 "user"
             ],
-            "time": "2017-02-02 18:26:05"
+            "time": "2017-02-02T18:26:05+00:00"
         },
         {
             "name": "bengor-user/swift-mailer-bridge",
@@ -433,7 +939,7 @@
                 "swift-mailer",
                 "user"
             ],
-            "time": "2017-02-02 18:33:52"
+            "time": "2017-02-02T18:33:52+00:00"
         },
         {
             "name": "bengor-user/swift-mailer-bridge-bundle",
@@ -497,7 +1003,7 @@
                 "symfony",
                 "user"
             ],
-            "time": "2017-02-02 18:38:42"
+            "time": "2017-02-02T18:38:42+00:00"
         },
         {
             "name": "bengor-user/symfony-routing-bridge",
@@ -560,7 +1066,7 @@
                 "symfony",
                 "user"
             ],
-            "time": "2017-02-02 17:15:31"
+            "time": "2017-02-02T17:15:31+00:00"
         },
         {
             "name": "bengor-user/symfony-routing-bridge-bundle",
@@ -623,7 +1129,7 @@
                 "symfony",
                 "user"
             ],
-            "time": "2017-02-02 17:26:03"
+            "time": "2017-02-02T17:26:03+00:00"
         },
         {
             "name": "bengor-user/symfony-security-bridge",
@@ -686,7 +1192,7 @@
                 "symfony",
                 "user"
             ],
-            "time": "2017-02-02 18:29:19"
+            "time": "2017-02-02T18:29:19+00:00"
         },
         {
             "name": "bengor-user/symfony-security-bridge-bundle",
@@ -750,7 +1256,7 @@
                 "symfony",
                 "user"
             ],
-            "time": "2017-02-02 18:31:13"
+            "time": "2017-02-02T18:31:13+00:00"
         },
         {
             "name": "bengor-user/twig-bridge",
@@ -814,7 +1320,7 @@
                 "twig",
                 "user"
             ],
-            "time": "2017-02-02 17:48:26"
+            "time": "2017-02-02T17:48:26+00:00"
         },
         {
             "name": "bengor-user/twig-bridge-bundle",
@@ -878,7 +1384,7 @@
                 "twig",
                 "user"
             ],
-            "time": "2017-02-02 17:51:42"
+            "time": "2017-02-02T17:51:42+00:00"
         },
         {
             "name": "bengor-user/user",
@@ -938,7 +1444,7 @@
                 "ddd",
                 "user"
             ],
-            "time": "2017-02-02 21:42:35"
+            "time": "2017-02-02T21:42:35+00:00"
         },
         {
             "name": "bengor-user/user-bundle",
@@ -1005,7 +1511,7 @@
                 "ddd",
                 "user"
             ],
-            "time": "2017-02-07 17:36:37"
+            "time": "2017-02-07T17:36:37+00:00"
         },
         {
             "name": "doctrine/annotations",
@@ -1073,7 +1579,7 @@
                 "docblock",
                 "parser"
             ],
-            "time": "2016-12-30 15:59:45"
+            "time": "2016-12-30T15:59:45+00:00"
         },
         {
             "name": "doctrine/cache",
@@ -1143,7 +1649,7 @@
                 "cache",
                 "caching"
             ],
-            "time": "2016-10-29 11:16:17"
+            "time": "2016-10-29T11:16:17+00:00"
         },
         {
             "name": "doctrine/collections",
@@ -1210,7 +1716,7 @@
                 "collections",
                 "iterator"
             ],
-            "time": "2017-01-03 10:49:41"
+            "time": "2017-01-03T10:49:41+00:00"
         },
         {
             "name": "doctrine/common",
@@ -1283,7 +1789,7 @@
                 "persistence",
                 "spl"
             ],
-            "time": "2017-01-13 14:02:13"
+            "time": "2017-01-13T14:02:13+00:00"
         },
         {
             "name": "doctrine/dbal",
@@ -1354,7 +1860,7 @@
                 "persistence",
                 "queryobject"
             ],
-            "time": "2017-02-08 12:53:47"
+            "time": "2017-02-08T12:53:47+00:00"
         },
         {
             "name": "doctrine/doctrine-bundle",
@@ -1435,7 +1941,7 @@
                 "orm",
                 "persistence"
             ],
-            "time": "2017-01-16 12:01:26"
+            "time": "2017-01-16T12:01:26+00:00"
         },
         {
             "name": "doctrine/doctrine-cache-bundle",
@@ -1523,7 +2029,7 @@
                 "cache",
                 "caching"
             ],
-            "time": "2016-01-26 17:28:51"
+            "time": "2016-01-26T17:28:51+00:00"
         },
         {
             "name": "doctrine/doctrine-migrations-bundle",
@@ -1584,7 +2090,7 @@
                 "migrations",
                 "schema"
             ],
-            "time": "2016-12-05 18:36:37"
+            "time": "2016-12-05T18:36:37+00:00"
         },
         {
             "name": "doctrine/inflector",
@@ -1651,7 +2157,7 @@
                 "singularize",
                 "string"
             ],
-            "time": "2015-11-06 14:35:42"
+            "time": "2015-11-06T14:35:42+00:00"
         },
         {
             "name": "doctrine/instantiator",
@@ -1705,7 +2211,7 @@
                 "constructor",
                 "instantiate"
             ],
-            "time": "2015-06-14 21:17:01"
+            "time": "2015-06-14T21:17:01+00:00"
         },
         {
             "name": "doctrine/lexer",
@@ -1759,7 +2265,7 @@
                 "lexer",
                 "parser"
             ],
-            "time": "2014-09-09 13:34:57"
+            "time": "2014-09-09T13:34:57+00:00"
         },
         {
             "name": "doctrine/migrations",
@@ -1833,7 +2339,7 @@
                 "database",
                 "migrations"
             ],
-            "time": "2016-12-25 22:54:00"
+            "time": "2016-12-25T22:54:00+00:00"
         },
         {
             "name": "doctrine/orm",
@@ -1909,7 +2415,7 @@
                 "database",
                 "orm"
             ],
-            "time": "2016-12-18 15:42:34"
+            "time": "2016-12-18T15:42:34+00:00"
         },
         {
             "name": "incenteev/composer-parameter-handler",
@@ -1960,7 +2466,7 @@
             "keywords": [
                 "parameters management"
             ],
-            "time": "2015-11-10 17:04:01"
+            "time": "2015-11-10T17:04:01+00:00"
         },
         {
             "name": "jdorn/sql-formatter",
@@ -2010,7 +2516,7 @@
                 "highlight",
                 "sql"
             ],
-            "time": "2014-01-12 16:20:24"
+            "time": "2014-01-12T16:20:24+00:00"
         },
         {
             "name": "keyvanakbary/slugifier",
@@ -2056,7 +2562,149 @@
                 "url",
                 "urlize"
             ],
-            "time": "2015-08-02 23:48:01"
+            "time": "2015-08-02T23:48:01+00:00"
+        },
+        {
+            "name": "knplabs/gaufrette",
+            "version": "0.2.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/KnpLabs/Gaufrette.git",
+                "reference": "1696386ca66f2f046dea7892cf1f85fd82b5b68e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/KnpLabs/Gaufrette/zipball/1696386ca66f2f046dea7892cf1f85fd82b5b68e",
+                "reference": "1696386ca66f2f046dea7892cf1f85fd82b5b68e",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "amazonwebservices/aws-sdk-for-php": "1.5.*",
+                "aws/aws-sdk-php": "~2",
+                "doctrine/dbal": ">=2.3",
+                "dropbox-php/dropbox-php": "*",
+                "google/apiclient": "~1.1.3",
+                "herzult/php-ssh": "*",
+                "microsoft/windowsazure": "dev-master",
+                "mikey179/vfsstream": "~1.2.0",
+                "phpseclib/phpseclib": "^2.0",
+                "phpspec/phpspec": "2.0.*",
+                "phpunit/phpunit": "3.7.*",
+                "rackspace/php-opencloud": "1.9.*"
+            },
+            "suggest": {
+                "amazonwebservices/aws-sdk-for-php": "to use the legacy Amazon S3 adapters",
+                "aws/aws-sdk-php": "to use the Amazon S3 adapter",
+                "doctrine/dbal": "to use the Doctrine DBAL adapter",
+                "dropbox-php/dropbox-php": "to use the Dropbox adapter",
+                "ext-apc": "to use the APC adapter",
+                "ext-curl": "*",
+                "ext-fileinfo": "This extension is used to automatically detect the content-type of a file in the AwsS3, OpenCloud, AzureBlogStorage and GoogleCloudStorage adapters",
+                "ext-mbstring": "*",
+                "ext-mongo": "*",
+                "ext-zip": "to use the Zip adapter",
+                "google/apiclient": "to use GoogleCloudStorage adapter",
+                "herzult/php-ssh": "to use SFtp adapter",
+                "knplabs/knp-gaufrette-bundle": "to use with Symfony2",
+                "microsoft/windowsazure": "to use Microsoft Azure Blob Storage adapter",
+                "phpseclib/phpseclib": "to use PhpseclibSftp adapter",
+                "rackspace/php-opencloud": "to use Opencloud adapter"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.4.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Gaufrette": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "The contributors",
+                    "homepage": "http://github.com/knplabs/Gaufrette/contributors"
+                },
+                {
+                    "name": "KnpLabs Team",
+                    "homepage": "http://knplabs.com"
+                }
+            ],
+            "description": "PHP5 library that provides a filesystem abstraction layer",
+            "homepage": "http://knplabs.com",
+            "keywords": [
+                "abstraction",
+                "file",
+                "filesystem",
+                "media"
+            ],
+            "time": "2016-03-03T09:36:22+00:00"
+        },
+        {
+            "name": "knplabs/knp-gaufrette-bundle",
+            "version": "0.3.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/KnpLabs/KnpGaufretteBundle.git",
+                "reference": "44cf552e14031517516458b0e394f16dd36a131b"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/KnpLabs/KnpGaufretteBundle/zipball/44cf552e14031517516458b0e394f16dd36a131b",
+                "reference": "44cf552e14031517516458b0e394f16dd36a131b",
+                "shasum": ""
+            },
+            "require": {
+                "knplabs/gaufrette": "~0.1.7|~0.2",
+                "symfony/framework-bundle": "~2.0|~3.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.2",
+                "symfony/console": "~2.0|~3.0",
+                "symfony/yaml": "~2.0|~3.0"
+            },
+            "type": "symfony-bundle",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.4.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Knp\\Bundle\\GaufretteBundle\\": ""
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "The contributors",
+                    "homepage": "https://github.com/knplabs/KnpGaufretteBundle/contributors"
+                },
+                {
+                    "name": "Antoine Hérault",
+                    "email": "antoine.herault@gmail.com"
+                }
+            ],
+            "description": "Allows to easily use the Gaufrette library in a Symfony project",
+            "homepage": "http://knplabs.com",
+            "keywords": [
+                "abstraction",
+                "file",
+                "filesystem",
+                "media"
+            ],
+            "time": "2016-01-16T00:12:11+00:00"
         },
         {
             "name": "kreta/shared-kernel",
@@ -2225,7 +2873,7 @@
                 "rest",
                 "symfony"
             ],
-            "time": "2017-01-20 22:50:02"
+            "time": "2017-01-20T22:50:02+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -2303,7 +2951,7 @@
                 "logging",
                 "psr-3"
             ],
-            "time": "2016-11-26 00:15:39"
+            "time": "2016-11-26T00:15:39+00:00"
         },
         {
             "name": "namshi/jose",
@@ -2366,7 +3014,7 @@
                 "jwt",
                 "token"
             ],
-            "time": "2016-12-05 07:27:31"
+            "time": "2016-12-05T07:27:31+00:00"
         },
         {
             "name": "nelmio/cors-bundle",
@@ -2423,7 +3071,7 @@
                 "cors",
                 "crossdomain"
             ],
-            "time": "2017-01-22 21:34:09"
+            "time": "2017-01-22T21:34:09+00:00"
         },
         {
             "name": "ocramius/package-versions",
@@ -2471,7 +3119,7 @@
                 }
             ],
             "description": "Composer plugin that provides efficient querying for installed package versions (no runtime IO)",
-            "time": "2016-12-30 09:49:15"
+            "time": "2016-12-30T09:49:15+00:00"
         },
         {
             "name": "ocramius/proxy-manager",
@@ -2538,7 +3186,7 @@
                 "proxy pattern",
                 "service proxies"
             ],
-            "time": "2016-11-30 15:45:00"
+            "time": "2016-11-30T15:45:00+00:00"
         },
         {
             "name": "paragonie/random_compat",
@@ -2586,7 +3234,7 @@
                 "pseudorandom",
                 "random"
             ],
-            "time": "2016-11-07 23:38:38"
+            "time": "2016-11-07T23:38:38+00:00"
         },
         {
             "name": "php-amqplib/php-amqplib",
@@ -2656,7 +3304,7 @@
                 "queue",
                 "rabbitmq"
             ],
-            "time": "2016-04-11 14:30:01"
+            "time": "2016-04-11T14:30:01+00:00"
         },
         {
             "name": "php-amqplib/rabbitmq-bundle",
@@ -2721,7 +3369,7 @@
                 "queue",
                 "rabbitmq"
             ],
-            "time": "2016-12-09 12:58:28"
+            "time": "2016-12-09T12:58:28+00:00"
         },
         {
             "name": "psr/cache",
@@ -2767,7 +3415,7 @@
                 "psr",
                 "psr-6"
             ],
-            "time": "2016-08-06 20:24:11"
+            "time": "2016-08-06T20:24:11+00:00"
         },
         {
             "name": "psr/log",
@@ -2814,7 +3462,7 @@
                 "psr",
                 "psr-3"
             ],
-            "time": "2016-10-10 12:19:37"
+            "time": "2016-10-10T12:19:37+00:00"
         },
         {
             "name": "ramsey/uuid",
@@ -2896,7 +3544,7 @@
                 "identifier",
                 "uuid"
             ],
-            "time": "2016-11-22 19:21:44"
+            "time": "2016-11-22T19:21:44+00:00"
         },
         {
             "name": "sensio/distribution-bundle",
@@ -2948,7 +3596,7 @@
                 "configuration",
                 "distribution"
             ],
-            "time": "2017-01-10 14:58:45"
+            "time": "2017-01-10T14:58:45+00:00"
         },
         {
             "name": "sensiolabs/security-checker",
@@ -2992,7 +3640,7 @@
                 }
             ],
             "description": "A security checker for your composer.lock",
-            "time": "2016-09-23 18:09:57"
+            "time": "2016-09-23T18:09:57+00:00"
         },
         {
             "name": "simple-bus/asynchronous",
@@ -3044,7 +3692,7 @@
                 "event bus",
                 "messaging"
             ],
-            "time": "2016-04-06 15:11:31"
+            "time": "2016-04-06T15:11:31+00:00"
         },
         {
             "name": "simple-bus/asynchronous-bundle",
@@ -3107,7 +3755,7 @@
                 "message",
                 "message bus"
             ],
-            "time": "2016-12-08 18:14:38"
+            "time": "2016-12-08T18:14:38+00:00"
         },
         {
             "name": "simple-bus/doctrine-orm-bridge",
@@ -3161,7 +3809,7 @@
                 "doctrine",
                 "event bus"
             ],
-            "time": "2015-04-29 12:27:27"
+            "time": "2015-04-29T12:27:27+00:00"
         },
         {
             "name": "simple-bus/message-bus",
@@ -3211,7 +3859,7 @@
                 "message",
                 "message bus"
             ],
-            "time": "2016-02-12 08:35:53"
+            "time": "2016-02-12T08:35:53+00:00"
         },
         {
             "name": "simple-bus/rabbitmq-bundle-bridge",
@@ -3275,7 +3923,7 @@
                 "messages",
                 "rabbitmq"
             ],
-            "time": "2016-12-17 12:51:17"
+            "time": "2016-12-17T12:51:17+00:00"
         },
         {
             "name": "simple-bus/serialization",
@@ -3323,7 +3971,7 @@
                 "messages",
                 "serialization"
             ],
-            "time": "2015-05-08 13:34:17"
+            "time": "2015-05-08T13:34:17+00:00"
         },
         {
             "name": "simple-bus/symfony-bridge",
@@ -3387,7 +4035,7 @@
                 "event bus",
                 "symfony"
             ],
-            "time": "2016-07-17 12:50:07"
+            "time": "2016-07-17T12:50:07+00:00"
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -3441,7 +4089,7 @@
                 "mail",
                 "mailer"
             ],
-            "time": "2017-02-13 07:52:53"
+            "time": "2017-02-13T07:52:53+00:00"
         },
         {
             "name": "symfony/monolog-bundle",
@@ -3501,7 +4149,7 @@
                 "log",
                 "logging"
             ],
-            "time": "2017-01-02 19:04:26"
+            "time": "2017-01-02T19:04:26+00:00"
         },
         {
             "name": "symfony/polyfill-intl-icu",
@@ -3559,7 +4207,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2016-11-14 01:06:16"
+            "time": "2016-11-14T01:06:16+00:00"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -3618,7 +4266,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2016-11-14 01:06:16"
+            "time": "2016-11-14T01:06:16+00:00"
         },
         {
             "name": "symfony/polyfill-php56",
@@ -3674,7 +4322,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2016-11-14 01:06:16"
+            "time": "2016-11-14T01:06:16+00:00"
         },
         {
             "name": "symfony/polyfill-php70",
@@ -3733,7 +4381,7 @@
                 "portable",
                 "shim"
             ],
-            "time": "2016-11-14 01:06:16"
+            "time": "2016-11-14T01:06:16+00:00"
         },
         {
             "name": "symfony/polyfill-util",
@@ -3785,7 +4433,7 @@
                 "polyfill",
                 "shim"
             ],
-            "time": "2016-11-14 01:06:16"
+            "time": "2016-11-14T01:06:16+00:00"
         },
         {
             "name": "symfony/swiftmailer-bundle",
@@ -3844,7 +4492,7 @@
             ],
             "description": "Symfony SwiftmailerBundle",
             "homepage": "http://symfony.com",
-            "time": "2016-12-20 04:44:33"
+            "time": "2016-12-20T04:44:33+00:00"
         },
         {
             "name": "symfony/symfony",
@@ -3987,7 +4635,7 @@
             "keywords": [
                 "framework"
             ],
-            "time": "2017-02-06 13:15:43"
+            "time": "2017-02-06T13:15:43+00:00"
         },
         {
             "name": "twig/twig",
@@ -4048,7 +4696,7 @@
             "keywords": [
                 "templating"
             ],
-            "time": "2017-01-11 19:36:15"
+            "time": "2017-01-11T19:36:15+00:00"
         },
         {
             "name": "zendframework/zend-code",
@@ -4101,7 +4749,7 @@
                 "code",
                 "zf2"
             ],
-            "time": "2016-10-24 13:23:32"
+            "time": "2016-10-24T13:23:32+00:00"
         },
         {
             "name": "zendframework/zend-eventmanager",
@@ -4155,7 +4803,7 @@
                 "events",
                 "zf2"
             ],
-            "time": "2016-12-19 21:47:12"
+            "time": "2016-12-19T21:47:12+00:00"
         }
     ],
     "packages-dev": [
@@ -4215,7 +4863,7 @@
                 }
             ],
             "description": "A tool to automatically fix PHP code style",
-            "time": "2016-12-01 00:05:05"
+            "time": "2016-12-01T00:05:05+00:00"
         },
         {
             "name": "phpdocumentor/reflection-common",
@@ -4269,7 +4917,7 @@
                 "reflection",
                 "static analysis"
             ],
-            "time": "2015-12-27 11:43:31"
+            "time": "2015-12-27T11:43:31+00:00"
         },
         {
             "name": "phpdocumentor/reflection-docblock",
@@ -4314,7 +4962,7 @@
                 }
             ],
             "description": "With this component, a library can provide support for annotations via DocBlocks or otherwise retrieve information that is embedded in a DocBlock.",
-            "time": "2016-09-30 07:12:33"
+            "time": "2016-09-30T07:12:33+00:00"
         },
         {
             "name": "phpdocumentor/type-resolver",
@@ -4361,7 +5009,7 @@
                     "email": "me@mikevanriel.com"
                 }
             ],
-            "time": "2016-11-25 06:54:22"
+            "time": "2016-11-25T06:54:22+00:00"
         },
         {
             "name": "phpspec/php-diff",
@@ -4399,7 +5047,7 @@
                 }
             ],
             "description": "A comprehensive library for generating differences between two hashable objects (strings or arrays).",
-            "time": "2016-04-07 12:29:16"
+            "time": "2016-04-07T12:29:16+00:00"
         },
         {
             "name": "phpspec/phpspec",
@@ -4481,7 +5129,7 @@
                 "testing",
                 "tests"
             ],
-            "time": "2017-01-29 12:28:48"
+            "time": "2017-01-29T12:28:48+00:00"
         },
         {
             "name": "phpspec/prophecy",
@@ -4544,7 +5192,7 @@
                 "spy",
                 "stub"
             ],
-            "time": "2016-11-21 14:58:47"
+            "time": "2016-11-21T14:58:47+00:00"
         },
         {
             "name": "sebastian/comparator",
@@ -4608,7 +5256,7 @@
                 "compare",
                 "equality"
             ],
-            "time": "2017-01-29 09:50:25"
+            "time": "2017-01-29T09:50:25+00:00"
         },
         {
             "name": "sebastian/diff",
@@ -4660,7 +5308,7 @@
             "keywords": [
                 "diff"
             ],
-            "time": "2015-12-08 07:14:41"
+            "time": "2015-12-08T07:14:41+00:00"
         },
         {
             "name": "sebastian/exporter",
@@ -4727,7 +5375,7 @@
                 "export",
                 "exporter"
             ],
-            "time": "2016-11-19 08:54:04"
+            "time": "2016-11-19T08:54:04+00:00"
         },
         {
             "name": "sebastian/recursion-context",
@@ -4780,7 +5428,7 @@
             ],
             "description": "Provides functionality to recursively process PHP variables",
             "homepage": "http://www.github.com/sebastianbergmann/recursion-context",
-            "time": "2016-11-19 07:33:16"
+            "time": "2016-11-19T07:33:16+00:00"
         },
         {
             "name": "webmozart/assert",
@@ -4830,7 +5478,7 @@
                 "check",
                 "validate"
             ],
-            "time": "2016-11-23 20:04:58"
+            "time": "2016-11-23T20:04:58+00:00"
         }
     ],
     "aliases": [],

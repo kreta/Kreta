@@ -9,5 +9,11 @@
             repository-class="Kreta\IdentityAccess\Infrastructure\Persistence\Doctrine\ORM\User\DoctrineORMUserRepository">
         <embedded name="username" class="Kreta\IdentityAccess\Domain\Model\User\Username" use-column-prefix="false"/>
         <embedded name="fullName" class="Kreta\IdentityAccess\Domain\Model\User\FullName" use-column-prefix="false"/>
+
+        <one-to-one field="image" target-entity="Kreta\IdentityAccess\Domain\Model\User\Image">
+            <cascade>
+                <cascade-all/>
+            </cascade>
+        </one-to-one>
     </entity>
 </doctrine-mapping>

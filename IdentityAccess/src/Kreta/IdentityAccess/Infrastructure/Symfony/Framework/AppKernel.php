@@ -12,9 +12,16 @@
 
 namespace Kreta\IdentityAccess\Infrastructure\Symfony\Framework;
 
+use BenGorFile\DoctrineORMBridgeBundle\BenGorFileDoctrineORMBridgeBundle;
+use BenGorFile\FileBundle\BenGorFileBundle;
+use BenGorFile\GaufretteFilesystemBridgeBundle\BenGorFileGaufretteFilesystemBridgeBundle;
+use BenGorFile\SimpleBusBridgeBundle\BenGorFileSimpleBusBridgeBundle;
+use BenGorFile\SimpleBusBridgeBundle\BenGorFileSimpleBusDoctrineORMBridgeBundle;
+use BenGorFile\SymfonyFilesystemBridgeBundle\BenGorFileSymfonyFilesystemBridgeBundle;
 use BenGorUser\UserBundle\BenGorUserBundle;
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle;
+use Knp\Bundle\GaufretteBundle\KnpGaufretteBundle;
 use Lexik\Bundle\JWTAuthenticationBundle\LexikJWTAuthenticationBundle;
 use Nelmio\CorsBundle\NelmioCorsBundle;
 use OldSound\RabbitMqBundle\OldSoundRabbitMqBundle;
@@ -55,6 +62,13 @@ class AppKernel extends Kernel
             new SimpleBusAsynchronousBundle(),
             new SimpleBusRabbitMQBundleBridgeBundle(),
             new OldSoundRabbitMqBundle(),
+
+            new KnpGaufretteBundle(),
+            new BenGorFileGaufretteFilesystemBridgeBundle(),
+            new BenGorFileDoctrineORMBridgeBundle(),
+            new BenGorFileSimpleBusBridgeBundle(),
+            new BenGorFileSimpleBusDoctrineORMBridgeBundle(),
+            new BenGorFileBundle(),
 
             new \BenGorUser\TwigBridgeBundle\TwigBridgeBundle(),
             new \BenGorUser\SymfonyRoutingBridgeBundle\SymfonyRoutingBridgeBundle(),

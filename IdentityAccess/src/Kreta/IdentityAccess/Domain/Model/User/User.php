@@ -23,6 +23,7 @@ class User extends BaseUser
 {
     private $fullName;
     private $username;
+    private $image;
 
     protected function __construct(UserId $id, UserEmail $email, array $userRoles, UserPassword $password)
     {
@@ -30,11 +31,12 @@ class User extends BaseUser
         $this->username = Username::fromEmail($email);
     }
 
-    public function editProfile(UserEmail $email, Username $username, FullName $fullName)
+    public function editProfile(UserEmail $email, Username $username, FullName $fullName, Image $image = null)
     {
         $this->email = $email;
         $this->username = $username;
         $this->fullName = $fullName;
+        $this->image = $image;
         $this->updatedOn = new \DateTimeImmutable();
 
         $this->publish(
@@ -58,5 +60,10 @@ class User extends BaseUser
         && !$this->fullName->fullName()
             ? null
             : $this->fullName;
+    }
+
+    public function image()
+    {
+        return $this->image;
     }
 }

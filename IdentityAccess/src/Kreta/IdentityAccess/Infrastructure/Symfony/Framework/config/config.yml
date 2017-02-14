@@ -77,6 +77,24 @@ swiftmailer:
     encryption: "%identity_access_mailer_encryption%"
     spool: { type: memory }
 
+knp_gaufrette:
+    stream_wrapper: ~
+    adapters:
+        image_adapter:
+            local:
+                directory: "%kernel.root_dir%/../../Ui/Http/Symfony/public/images"
+                create: true
+    filesystems:
+        image_filesystem:
+            adapter: image_adapter
+
+ben_gor_file:
+    file_class:
+        image:
+            class: Kreta\IdentityAccess\Domain\Model\User\Image
+            storage: gaufrette
+            upload_destination: image_filesystem
+
 ben_gor_user:
     user_class:
         user:
