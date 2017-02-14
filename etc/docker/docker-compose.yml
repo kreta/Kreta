@@ -66,6 +66,10 @@ services:
         build: nginx
         ports:
             - 80:80
+        environment:
+            TASK_MANAGER_HOST: ${TASK_MANAGER_HOST}
+            IDENTITY_ACCESS_HOST: ${IDENTITY_ACCESS_HOST}
+            COMPOSITE_UI_HOST: ${COMPOSITE_UI_HOST}
         links:
             - php
             - node
@@ -73,6 +77,7 @@ services:
             - php
         volumes:
             - ./data/logs/nginx/:/var/log/nginx
+        command: /bin/bash -c "envsubst '${COMPOSITE_UI_HOST}' < /etc/nginx/sites-available/compositeui.template && envsubst '${TASK_MANAGER_HOST}' < /etc/nginx/sites-available/taskmanager.template > /etc/nginx/sites-enabled/taskmanager.conf && envsubst '${IDENTITY_ACCESS_HOST}' < /etc/nginx/sites-available/identityaccess.template > /etc/nginx/sites-enabled/identityaccess.conf && nginx"
         networks:
             default:
               ipv4_address: 172.18.0.10

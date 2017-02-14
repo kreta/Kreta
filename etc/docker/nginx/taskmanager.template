@@ -7,7 +7,7 @@
 # file that was distributed with this source code.
 
 server {
-    server_name taskmanager.localhost;
+    server_name $TASK_MANAGER_HOST;
     root /var/www/taskmanager/src/Kreta/TaskManager/Infrastructure/Ui/Http/Symfony/public;
 
     location / {
