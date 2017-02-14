@@ -7,7 +7,7 @@
 # file that was distributed with this source code.
 
 parameters:
-    identity_access_host:                "http://identityaccess.localhost"
+    identity_access_host:                "%env(IDENTITY_ACCESS_HOST)%"
     identity_access_secret:              12e54860e3fbbbebd0aa659fa8bc554c202298ac # Your own secret with http://nux.net/secret
     identity_access_delivery_address:    kr.dev.mailing.001@gmail.com
 
@@ -26,7 +26,7 @@ parameters:
 
     identity_access_jwt_key_pass_phrase: kretataskmanager
 
-    identity_access_rabbitmq_host:       localhost
+    identity_access_rabbitmq_host:       rabbitmq
     identity_access_rabbitmq_port:       5672
     identity_access_rabbitmq_user:       kreta
     identity_access_rabbitmq_password:   kreta
