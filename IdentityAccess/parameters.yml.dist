@@ -7,9 +7,10 @@
 # file that was distributed with this source code.
 
 parameters:
-    identity_access_host:                "http://identityaccess.localhost"
+    identity_access_composite_ui_host:   '%env(COMPOSITE_UI_HOST)%'
+    env(COMPOSITE_UI_HOST):              'http://kreta.localhost'
+
     identity_access_secret:              12e54860e3fbbbebd0aa659fa8bc554c202298ac # Your own secret with http://nux.net/secret
-    identity_access_delivery_address:    kr.dev.mailing.001@gmail.com
 
     identity_access_database_host:       db
     identity_access_database_port:       3306
@@ -17,8 +18,8 @@ parameters:
     identity_access_database_user:       root
     identity_access_database_password:   root
 
-    identity_access_mailer_transport:    smtp
-    identity_access_mailer_host:         127.0.0.1
+    identity_access_mailer_transport:    gmail
+    identity_access_mailer_host:         smtp.gmail.com
     identity_access_mailer_user:         kr.dev.mailing.001@gmail.com
     identity_access_mailer_password:     kreta12345
     identity_access_mailer_port:         465
@@ -26,7 +27,7 @@ parameters:
 
     identity_access_jwt_key_pass_phrase: kretataskmanager
 
-    identity_access_rabbitmq_host:       localhost
+    identity_access_rabbitmq_host:       rabbitmq
     identity_access_rabbitmq_port:       5672
     identity_access_rabbitmq_user:       kreta
     identity_access_rabbitmq_password:   kreta
