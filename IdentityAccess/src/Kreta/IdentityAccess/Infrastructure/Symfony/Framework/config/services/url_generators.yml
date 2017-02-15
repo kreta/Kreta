@@ -11,10 +11,10 @@ services:
         public: false
         class: BenGorUser\User\Infrastructure\Routing\PlainUserUrlGenerator
         arguments:
-            - "%env(IDENTITY_ACCESS_HOST)%/login?confirmation-token={token}"
+            - "%identity_access_composite_ui_host%/login?confirmation-token={token}"
 
     kreta.identity_access.request_remember_password_url_generator:
         public: false
         class: BenGorUser\User\Infrastructure\Routing\PlainUserUrlGenerator
         arguments:
-            - "%env(IDENTITY_ACCESS_HOST)%/change-password?remember-password-token={token}"
+            - "%identity_access_composite_ui_host%/change-password?remember-password-token={token}"

@@ -166,7 +166,7 @@ httplug:
             plugins:
                 - "httplug.plugin.logger"
                 - add_host:
-                    host: "%env(IDENTITY_ACCESS_HOST)%"
+                    host: "%task_manager_identity_access_host%"
             config:
                 verify: false
                 timeout: 2
