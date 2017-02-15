@@ -13,18 +13,18 @@ docker-compose exec php bash -c "cd /var/www/taskmanager/var && chown www-data:w
 docker-compose exec php bash -c "cd /var/www/identityaccess && sh etc/bash/generate_ssh_keys.sh"
 docker-compose exec php bash -c "echo '172.18.0.10 identityaccess.localhost' >> /etc/hosts"
 docker-compose exec php bash -c "echo '172.18.0.10 taskmanager.localhost' >> /etc/hosts"
-docker-compose exec php bash -c "cd /var/www/taskmanager && etc/bin/symfony-console rabbitmq:consumer asynchronous_events"
+docker-compose exec php bash -c "cd /var/www/taskmanager && etc/bin/symfony-console doctrine:da:cr"
+docker-compose exec php bash -c "cd /var/www/taskmanager && etc/bin/symfony-console doctrine:mi:mi --no-interaction"
+docker-compose exec php bash -c "cd /var/www/identityaccess && etc/bin/symfony-console doctrine:da:cr"
+docker-compose exec php bash -c "cd /var/www/identityaccess && etc/bin/symfony-console doctrine:mi:mi --no-interaction"
 
-while getopts 'df' flag; do
+while getopts 'f' flag; do
   case "${flag}" in
-    d)
-      docker-compose exec php bash -c "cd /var/www/taskmanager && etc/bin/symfony-console doctrine:da:cr"
-      docker-compose exec php bash -c "cd /var/www/taskmanager && etc/bin/symfony-console doctrine:mi:mi --no-interaction"
-      docker-compose exec php bash -c "cd /var/www/identityaccess && etc/bin/symfony-console doctrine:da:cr"
-      docker-compose exec php bash -c "cd /var/www/identityaccess && etc/bin/symfony-console doctrine:mi:mi --no-interaction" ;;
     f)
       docker-compose exec php bash -c "cd /var/www/taskmanager && sh etc/bash/load_fixtures.sh"
       docker-compose exec php bash -c "cd /var/www/identityaccess && sh etc/bash/load_fixtures.sh" ;;
     *) error "Unexpected option ${flag}" ;;
   esac
 done
+
+docker-compose exec php bash -c "cd /var/www/taskmanager && etc/bin/symfony-console rabbitmq:consumer asynchronous_events"
