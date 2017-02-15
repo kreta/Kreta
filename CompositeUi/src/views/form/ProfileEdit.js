@@ -21,7 +21,20 @@ import {Row, RowColumn} from './../component/Grid';
 
 const validate = (values) => {
   const errors = {},
-    requiredFields = ['first_name', 'last_name', 'username'];
+    requiredFields = ['first_name', 'last_name', 'username', 'email'];
+
+  if (typeof values.username !== 'undefined' && values.username.length < 3) {
+    errors.username = 'Username must be at least 3 characters';
+  }
+
+  if (typeof values.username !== 'undefined' && values.username.length > 20) {
+    errors.username = 'Username should not have more than 20 characters';
+  }
+
+  if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+    errors.email = 'Invalid email address';
+  }
+
   requiredFields.forEach(field => {
     if (!values[field]) {
       errors[field] = 'Required';
