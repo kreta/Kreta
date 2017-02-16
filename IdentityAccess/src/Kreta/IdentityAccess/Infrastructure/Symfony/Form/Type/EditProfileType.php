@@ -40,8 +40,9 @@ class EditProfileType extends AbstractType
     {
         $resolver->setRequired('user_id');
         $resolver->setDefaults([
-            'data_class' => EditProfileCommand::class,
-            'empty_data' => function (FormInterface $form) {
+            'csrf_protection' => false,
+            'data_class'      => EditProfileCommand::class,
+            'empty_data'      => function (FormInterface $form) {
                 return new EditProfileCommand(
                     $this->userId,
                     $form->get('email')->getData(),

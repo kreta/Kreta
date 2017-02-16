@@ -22,3 +22,10 @@ kreta_identity_access_edit_profile:
         _controller: "kreta.identity_access.http_action.edit_profile:__invoke"
     methods:
         - POST
+
+kreta_identity_access_enable:
+    path: /enable
+    defaults:
+        _controller: "kreta.identity_access.http_action.enable:__invoke"
+    methods:
+        - GET
