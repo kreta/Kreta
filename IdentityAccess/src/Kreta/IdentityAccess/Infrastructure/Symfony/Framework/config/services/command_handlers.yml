@@ -17,3 +17,12 @@ services:
             -
                 name: bengor_user_user_command_bus_handler
                 handles: BenGorUser\User\Application\Command\SignUp\SignUpUserCommand
+
+    kreta.identity_access.command_handler.edit_profile:
+        class: Kreta\IdentityAccess\Application\Command\EditProfileHandler
+        arguments:
+            - "@bengor_user.user.repository"
+        tags:
+            -
+                name: bengor_user_user_command_bus_handler
+                handles: Kreta\IdentityAccess\Application\Command\EditProfileCommand

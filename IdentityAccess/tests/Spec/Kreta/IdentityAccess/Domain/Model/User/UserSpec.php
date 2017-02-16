@@ -18,7 +18,9 @@ use BenGorUser\User\Domain\Model\UserId;
 use BenGorUser\User\Domain\Model\UserPassword;
 use BenGorUser\User\Domain\Model\UserRole;
 use BenGorUser\User\Infrastructure\Security\DummyUserPasswordEncoder;
+use Kreta\IdentityAccess\Domain\Model\User\FullName;
 use Kreta\IdentityAccess\Domain\Model\User\User;
+use Kreta\IdentityAccess\Domain\Model\User\Username;
 use PhpSpec\ObjectBehavior;
 
 class UserSpec extends ObjectBehavior
@@ -39,5 +41,31 @@ class UserSpec extends ObjectBehavior
     {
         $this->shouldHaveType(User::class);
         $this->shouldHaveType(BaseUser::class);
+    }
+
+    function it_gets_username()
+    {
+        $this->username()->shouldReturnAnInstanceOf(Username::class);
+    }
+
+    function it_gets_full_name()
+    {
+        $this->fullName()->shouldReturn(null);
+    }
+
+    function it_edits_profile(
+        Username $username,
+        FullName $fullName
+    ) {
+        $email = new UserEmail('test@test.com');
+
+        $this->fullName()->shouldReturn(null);
+
+        $this->editProfile($email, $username, $fullName);
+
+        $fullName->fullName()->shouldBeCalled()->willReturn('Kreta name');
+
+        $this->fullName()->shouldReturn($fullName);
+        $this->username()->shouldReturn($username);
     }
 }

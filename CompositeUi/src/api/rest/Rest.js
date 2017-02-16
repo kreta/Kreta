@@ -22,9 +22,13 @@ class Rest {
       typeof this.accessToken() !== 'undefined'
     );
 
-    this.request = (method, url, body = {}, headers = {}) => (
+    this.uri = (url) => (
+      `${this.baseUrl()}${url}`
+    );
+
+    this.request = (method, url, body = {}, headers = {'Authorization': `Bearer ${this.accessToken()}`}) => (
       new Promise((resolve, reject) => {
-        fetch(`${this.baseUrl()}${url}`, {body, headers, method, mode: 'cors'})
+        fetch(this.uri(url), {body, headers, method, mode: 'cors'})
           .then((response) => {
             if (response.ok) {
               resolve(response.json());
@@ -76,11 +80,11 @@ class Rest {
     return this.request('GET', `${url}${this.toQueryParams(query)}`, null, headers);
   }
 
-  post(url, payload = {}, headers = {}) {
+  post(url, payload = {}, headers) {
     return this.request('POST', url, this.toFormData(payload), headers);
   }
 
-  put(url, payload = {}, headers = {}) {
+  put(url, payload = {}, headers) {
     return this.request('PUT', url, this.toFormData(payload), headers);
   }
 

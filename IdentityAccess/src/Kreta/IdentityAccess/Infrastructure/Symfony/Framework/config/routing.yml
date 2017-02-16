@@ -16,3 +16,9 @@ kreta_identity_access_user:
     methods:
         - GET
 
+kreta_identity_access_edit_profile:
+    path: /user
+    defaults:
+        _controller: "kreta.identity_access.http_action.edit_profile:__invoke"
+    methods:
+        - POST

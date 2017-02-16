@@ -11,3 +11,11 @@ services:
         class: Kreta\IdentityAccess\Infrastructure\Symfony\HttpAction\UserAction
         arguments:
             - "@security.token_storage"
+
+    kreta.identity_access.http_action.edit_profile:
+        class: Kreta\IdentityAccess\Infrastructure\Symfony\HttpAction\EditProfileAction
+        arguments:
+            - "@security.token_storage"
+            - "@form.factory"
+            - "@bengor_user.user.command_bus"
+            - "@lexik_jwt_authentication.encoder.default"
