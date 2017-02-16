@@ -9,7 +9,6 @@
  */
 
 let Config = {
-  baseUrl: `${location.hostname}`, // ${location.port !== '' ? `:${location.port}` : ''}`,
   shortcuts: {
     taskNew: 'n',
     notificationList: 'w',
@@ -21,8 +20,8 @@ let Config = {
 };
 
 Config = Object.assign({
-  taskManagerUrl: `//taskmanager.localhost`,
-  identityAccessUrl: `//identityaccess.localhost`,
+  taskManagerUrl: process.env.TASK_MANAGER_HOST,
+  identityAccessUrl: process.env.IDENTITY_ACCESS_HOST,
 }, Config);
 
 export default Config;
