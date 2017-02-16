@@ -29,6 +29,3 @@ monolog:
         console:
             type: console
             channels: [!event, !doctrine]
-
-swiftmailer:
-    delivery_address: "%task_manager_delivery_address%"
