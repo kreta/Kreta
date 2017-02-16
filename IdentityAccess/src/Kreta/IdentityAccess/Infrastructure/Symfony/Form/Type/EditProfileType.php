@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace Kreta\IdentityAccess\Infrastructure\Symfony\Form\Type;
 
@@ -40,8 +40,9 @@ class EditProfileType extends AbstractType
     {
         $resolver->setRequired('user_id');
         $resolver->setDefaults([
-            'data_class' => EditProfileCommand::class,
-            'empty_data' => function (FormInterface $form) {
+            'csrf_protection' => false,
+            'data_class'      => EditProfileCommand::class,
+            'empty_data'      => function (FormInterface $form) {
                 return new EditProfileCommand(
                     $this->userId,
                     $form->get('email')->getData(),

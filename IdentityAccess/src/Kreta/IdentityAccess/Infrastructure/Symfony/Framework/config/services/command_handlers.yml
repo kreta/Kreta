@@ -26,3 +26,12 @@ services:
             -
                 name: bengor_user_user_command_bus_handler
                 handles: Kreta\IdentityAccess\Application\Command\EditProfileCommand
+
+    kreta.identity_access.command_handler.enable:
+        class: BenGorUser\User\Application\Command\Enable\EnableUserHandler
+        arguments:
+            - "@bengor_user.user.repository"
+        tags:
+            -
+                name: command_handler
+                handles: BenGorUser\User\Application\Command\Enable\EnableUserCommand

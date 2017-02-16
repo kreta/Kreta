@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Kreta\IdentityAccess\Infrastructure\Serialization;
 
-use BenGorUser\User\Domain\Model\Event\UserRegistered;
+use BenGorUser\User\Domain\Model\Event\UserEnabled;
 use Kreta\SharedKernel\Serialization\NameResolver as BaseNameResolver;
 
 class NameResolver extends BaseNameResolver
@@ -22,7 +22,7 @@ class NameResolver extends BaseNameResolver
     protected function map() : array
     {
         return [
-            UserRegistered::class => 'kreta_identity_access.user_registered',
+            UserEnabled::class => 'kreta_identity_access.user_registered',
         ];
     }
 }

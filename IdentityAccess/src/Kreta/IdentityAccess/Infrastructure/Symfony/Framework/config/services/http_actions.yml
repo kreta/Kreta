@@ -19,3 +19,8 @@ services:
             - "@form.factory"
             - "@bengor_user.user.command_bus"
             - "@lexik_jwt_authentication.encoder.default"
+
+    kreta.identity_access.http_action.enable:
+        class: Kreta\IdentityAccess\Infrastructure\Symfony\HttpAction\EnableAction
+        arguments:
+            - "@kreta.identity_access.command_bus"

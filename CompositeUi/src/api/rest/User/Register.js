@@ -16,11 +16,11 @@ class Register {
       email: credentials.email,
       'password[first]': credentials.password,
       'password[second]': credentials.repeated_password
-    });
+    }, {});
   }
 
   enable(token) {
-    return IdentityAccessRest.get(`/enable?confirmation-token=${token}`);
+    return IdentityAccessRest.get(`/enable?confirmation-token=${token}`, null, {});
   }
 }
 
