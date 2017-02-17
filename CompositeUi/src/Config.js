@@ -20,8 +20,8 @@ let Config = {
 };
 
 Config = Object.assign({
-  taskManagerUrl: process.env.TASK_MANAGER_HOST,
-  identityAccessUrl: process.env.IDENTITY_ACCESS_HOST,
+  taskManagerUrl: `//${process.env.TASK_MANAGER_HOST}`,
+  identityAccessUrl: `//${process.env.IDENTITY_ACCESS_HOST}`,
 }, Config);
 
 export default Config;
