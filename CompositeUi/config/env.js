@@ -9,22 +9,20 @@
  */
 
 export default (publicUrl) => {
-  const REACT_APP = /^REACT_APP_/i;
-
-  const processEnv = Object
-    .keys(process.env)
-    .filter(key => REACT_APP.test(key))
-    .reduce((env, key) => {
-      env[key] = JSON.stringify(process.env[key]);
-
-      return env;
-    }, {
-      'NODE_ENV': JSON.stringify(
-        process.env.NODE_ENV || 'development'
-      ),
-    }, {
-      'PUBLIC_URL': JSON.stringify(publicUrl)
-    });
+  const processEnv = {
+    'TASK_MANAGER_HOST': JSON.stringify(
+      process.env.TASK_MANAGER_HOST || '//taskmanager.localhost'
+    ),
+    'IDENTITY_ACCESS_HOST': JSON.stringify(
+      process.env.IDENTITY_ACCESS_HOST || '//identityaccess.localhost'
+    ),
+    'NODE_ENV': JSON.stringify(
+      process.env.NODE_ENV || 'development'
+    ),
+    'PUBLIC_URL': JSON.stringify(
+      publicUrl
+    )
+  };
 
   return {'process.env': processEnv};
 };
