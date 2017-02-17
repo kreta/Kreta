@@ -32,4 +32,6 @@ parameters:
     identity_access_rabbitmq_user:       kreta
     identity_access_rabbitmq_password:   kreta
 
+    identity_access_upload_destination:  "/images"
+
     mailer_user:                         "info@kreta.io"    # Needed for build the bengor-user service
