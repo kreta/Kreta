@@ -10,15 +10,22 @@ server {
     server_name ${TASK_MANAGER_HOST};
     root /var/www/taskmanager/src/Kreta/TaskManager/Infrastructure/Ui/Http/Symfony/public;
 
+    set $app "app.php";
+    set $env "${SYMFONY_ENV}";
+
+    if ($env = "dev" ) {
+        set $app "app_dev.php";
+    }
+
     location / {
         try_files $uri @rewriteapp;
     }
 
     location @rewriteapp {
-        rewrite ^(.*)$ /app.php/$1 last;
+        rewrite ^(.*)$ /$app/$1 last;
     }
 
-    location ~ ^/(app)\.php(/|$) {
+    location ~ ^/(app|app_dev|config)\.php(/|$) {
         fastcgi_pass php-upstream;
         fastcgi_split_path_info ^(.+\.php)(/.*)$;
         include fastcgi_params;
