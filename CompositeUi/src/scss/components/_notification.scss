@@ -17,8 +17,10 @@ $notification-height: 50px !default;
   display: flex;
   height: $notification-height;
   overflow: hidden;
+  position: absolute;
   transform: translateY(-#{$notification-height});
   transition: transform .5s;
+  width: 100%;
 
   .icon {
     fill: $white;
@@ -40,8 +42,13 @@ $notification-height: 50px !default;
   height: $notification-height;
   justify-content: center;
   line-height: $notification-height;
-  margin-right: 5px;
+  margin-right: 15px;
   width: $notification-height;
+
+  .icon {
+    height: 25px;
+    width: 25px;
+  }
 }
 
 .notification__message {
@@ -51,7 +58,7 @@ $notification-height: 50px !default;
 .notification__close {
   cursor: pointer;
   height: 15px;
-  margin-left: 10px;
-  margin-right: 10px;
+  margin-left: 15px;
+  margin-right: 15px;
   width: 15px;
 }
