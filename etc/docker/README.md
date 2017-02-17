@@ -8,22 +8,24 @@ It provides the following containers:
 * MySQL
 * PHP7-FPM
 * RabbitMQ
+* Node
 
 ## Installation
 
-1. Adapt `.env.dist` file according to your symfony application. It will be copied to `.env` by upstart script.
+1. Copy the file located at `<kreta-root>/etc/docker/.env.dist` to `<kreta-root>/etc/docker/.env` and change the values
+according to your needs.
 
 2. Update your system host file
 
     Add this line to /etc/hosts 
     ```bash
-    "127.0.0.1 kreta.localhost taskmanager.localhost identityaccess.localhost"
+    127.0.0.1 kreta.localhost taskmanager.localhost identityaccess.localhost
     ```
 
 3. Execute this command 
 
     ```
-    sh etc/bash/docker.sh [-d This optional flag prepare DB when start app] [-f This optional flag load fixtures with fake data]
+    sh etc/bash/docker.sh [-f This optional flag load fixtures with fake data]
     ```
 
 4. Enjoy :-)
@@ -38,17 +40,19 @@ Have a look at the `docker-compose.yml` file, here are the `docker-compose` buil
 * `php`: This is the PHP-FPM container in which the application volume is mounted,
 * `nginx`: This is the Nginx webserver container in which application volume is mounted too,
 * `rabbitmq`: This is a rabbitmq container.
+* `node`: This is a the node container.
 
 This results in the following running containers:
 
 ```bash
 $ docker-compose ps
-      Name                     Command               State                                              Ports
---------------------------------------------------------------------------------------------------------------------------------------------------------
-docker_db_1         docker-entrypoint.sh mysqld      Up       0.0.0.0:3306->3306/tcp
-docker_nginx_1      nginx                            Up       443/tcp, 0.0.0.0:80->80/tcp
-docker_php_1        php-fpm                          Up       0.0.0.0:9000->9000/tcp
-docker_rabbitmq_1   docker-entrypoint.sh rabbi ...   Up       15671/tcp, 0.0.0.0:15672->15672/tcp, 25672/tcp, 4369/tcp, 5671/tcp, 0.0.0.0:5672->5672/tcp
+      Name                     Command               State                                             Ports
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+docker_db_1         docker-entrypoint.sh mysqld      Up      0.0.0.0:3307->3306/tcp
+docker_nginx_1      /bin/sh -c sh /var/www/ser ...   Up      443/tcp, 0.0.0.0:80->80/tcp
+docker_node_1       /bin/sh -c sh /var/www/ser ...   Up      0.0.0.0:3000->3000/tcp
+docker_php_1        docker-php-entrypoint php-fpm    Up      0.0.0.0:9000->9000/tcp
+docker_rabbitmq_1   docker-entrypoint.sh rabbi ...   Up      15671/tcp, 0.0.0.0:15672->15672/tcp, 25672/tcp, 4369/tcp, 5671/tcp, 0.0.0.0:5672->5672/tcp
 ```
 
 ## Useful commands
