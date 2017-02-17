@@ -59,6 +59,10 @@ services:
         build: node
         ports:
             - 3000:3000
+        environment:
+            TASK_MANAGER_HOST: ${TASK_MANAGER_HOST}
+            IDENTITY_ACCESS_HOST: ${IDENTITY_ACCESS_HOST}
+            COMPOSITE_UI_HOST: ${COMPOSITE_UI_HOST}
         volumes:
             - ../../CompositeUi:/var/www/compositeui
             - /var/www/compositeui/node_modules

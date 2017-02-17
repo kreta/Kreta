@@ -8,10 +8,6 @@
  * file that was distributed with this source code.
  */
 
-import dotenv from 'dotenv';
-
-dotenv.config();
-
 export default (publicUrl) => {
   const processEnv = {
     'TASK_MANAGER_HOST': JSON.stringify(
