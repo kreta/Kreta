@@ -4,13 +4,10 @@
     </a>
 </p>
 
-<p align="center">
-  <a href="https://insight.sensiolabs.com/projects/c744caca-06bb-4b7f-9e0d-96282f4e8469"><img src="https://insight.sensiolabs.com/projects/c744caca-06bb-4b7f-9e0d-96282f4e8469/mini.png" alt="SensioLabsInsight"></a>
-  <a href="https://travis-ci.org/kreta/kreta"><img src="https://travis-ci.org/kreta/kreta.svg?branch=master" alt="Build Status"></a>
-  <a href="https://scrutinizer-ci.com/g/kreta/kreta/?branch=master"><img src="https://scrutinizer-ci.com/g/kreta/kreta/badges/quality-score.png?b=master" alt="Scrutinizer Code Quality"></a>
-</p>
-
 > Modern project management solution
+
+[![Build Status](https://travis-ci.org/kreta/kreta.svg?branch=master)](https://travis-ci.org/kreta/kreta)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/kreta/kreta/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/kreta/kreta/?branch=master)
 
 Kreta is an ecosystem based on microservices that following the **[Domain-Driven Design][1]** can provide a serious,
 robust and testable project management platform written in **[PHP7][2]**. In the other hand, the project keeps
