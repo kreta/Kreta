@@ -28,12 +28,18 @@ final class AuthenticationListener
     private $messageFactory;
     private $client;
     private $tokenStorage;
+    private $identityAccessHost;
 
-    public function __construct(MessageFactory $messageFactory, HttpClient $client, TokenStorageInterface $tokenStorage)
-    {
+    public function __construct(
+        MessageFactory $messageFactory,
+        HttpClient $client,
+        TokenStorageInterface $tokenStorage,
+        string $identityAccessHost
+    ) {
         $this->messageFactory = $messageFactory;
         $this->client = $client;
         $this->tokenStorage = $tokenStorage;
+        $this->identityAccessHost = $identityAccessHost;
     }
 
     public function onKernelRequest(GetResponseEvent $event)
@@ -47,7 +53,7 @@ final class AuthenticationListener
             return;
         }
 
-        $request = $this->messageFactory->createRequest('GET', '/user');
+        $request = $this->messageFactory->createRequest('GET', '//' . $this->identityAccessHost . '/user');
         $request = $this->authentication($event->getRequest())->authenticate($request);
         $response = $this->client->sendRequest($request);
 

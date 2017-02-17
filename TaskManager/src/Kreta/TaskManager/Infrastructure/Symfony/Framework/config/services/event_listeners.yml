@@ -13,5 +13,6 @@ services:
             - "@httplug.message_factory"
             - "@httplug.client"
             - "@security.token_storage"
+            - "%task_manager_identity_access_host%"
         tags:
             - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
