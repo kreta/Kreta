@@ -34,7 +34,7 @@ final class AuthenticationListener
         MessageFactory $messageFactory,
         HttpClient $client,
         TokenStorageInterface $tokenStorage,
-        $identityAccessHost
+        string $identityAccessHost
     ) {
         $this->messageFactory = $messageFactory;
         $this->client = $client;
