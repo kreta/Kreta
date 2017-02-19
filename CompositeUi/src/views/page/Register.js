@@ -29,7 +29,7 @@ class RegisterPage extends React.Component {
       <div>
         <NotificationLayout/>
         <ContentLayout>
-          <ContentMiddleLayout>
+          <ContentMiddleLayout centered>
             <LogoCustomHeader title="Join Kreta"/>
             <Register onSubmit={this.register.bind(this)}/>
           </ContentMiddleLayout>

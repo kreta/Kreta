@@ -31,9 +31,14 @@ $content-transition: .3s;
 }
 
 .content__middle-content {
-  margin: auto;
+  margin-left: auto;
+  margin-right: auto;
   max-width: $content-width;
   width: 100%;
+}
+
+.content__middle-content--centered {
+  margin: auto;
 }
 
 .content__right {

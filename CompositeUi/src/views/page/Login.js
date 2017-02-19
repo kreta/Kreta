@@ -46,7 +46,7 @@ class LoginPage extends React.Component {
       <div>
         <NotificationLayout/>
         <ContentLayout>
-          <ContentMiddleLayout>
+          <ContentMiddleLayout centered>
             <LogoCustomHeader title="Sign in to Kreta"/>
             <Login onSubmit={this.login.bind(this)}/>
           </ContentMiddleLayout>
