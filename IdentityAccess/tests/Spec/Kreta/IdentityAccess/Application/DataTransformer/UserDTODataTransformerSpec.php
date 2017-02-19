@@ -12,12 +12,14 @@
 
 namespace Spec\Kreta\IdentityAccess\Application\DataTransformer;
 
+use BenGorFile\File\Domain\Model\FileName;
 use BenGorUser\User\Domain\Model\UserEmail;
 use BenGorUser\User\Domain\Model\UserId;
 use BenGorUser\User\Domain\Model\UserPassword;
 use BenGorUser\User\Domain\Model\UserRole;
 use Kreta\IdentityAccess\Application\DataTransformer\UserDTODataTransformer;
 use Kreta\IdentityAccess\Domain\Model\User\FullName;
+use Kreta\IdentityAccess\Domain\Model\User\Image;
 use Kreta\IdentityAccess\Domain\Model\User\User;
 use Kreta\IdentityAccess\Domain\Model\User\Username;
 use PhpSpec\ObjectBehavior;
@@ -40,7 +42,8 @@ class UserDTODataTransformerSpec extends ObjectBehavior
         \DateTimeImmutable $lastLogin,
         \DateTimeImmutable $updatedOn,
         FullName $fullName,
-        Username $username
+        Username $username,
+        Image $image
     ) {
         $this->read()->shouldReturn([]);
 
@@ -68,6 +71,10 @@ class UserDTODataTransformerSpec extends ObjectBehavior
         $fullName->lastName()->shouldBeCalled()->willReturn('The user last name');
         $fullName->fullName()->shouldBeCalled()->willReturn('The user first name The user last name');
 
+        $user->image()->shouldBeCalled()->willReturn($image);
+        $imageName = new FileName('image-name.png');
+        $image->name()->shouldBeCalled()->willReturn($imageName);
+
         $this->read()->shouldReturn([
             'id'                      => 'user-id',
             'confirmation_token'      => null,
@@ -84,6 +91,7 @@ class UserDTODataTransformerSpec extends ObjectBehavior
             'first_name'              => 'The user first name',
             'last_name'               => 'The user last name',
             'full_name'               => 'The user first name The user last name',
+            'image_name'              => '/image-name.png',
         ]);
     }
 }

@@ -12,6 +12,9 @@
 
 namespace Spec\Kreta\IdentityAccess\Application\Command;
 
+use BenGorFile\File\Domain\Model\FileMimeType;
+use BenGorFile\File\Domain\Model\FileName;
+use BenGorFile\File\Domain\Model\Filesystem;
 use BenGorUser\User\Domain\Model\Exception\UserDoesNotExistException;
 use BenGorUser\User\Domain\Model\UserEmail;
 use BenGorUser\User\Domain\Model\UserId;
@@ -24,12 +27,13 @@ use Kreta\IdentityAccess\Domain\Model\User\Username;
 use Kreta\IdentityAccess\Domain\Model\User\UsernameAlreadyExistsException;
 use Kreta\IdentityAccess\Domain\Model\User\UserRepository;
 use PhpSpec\ObjectBehavior;
+use Prophecy\Argument;
 
 class EditProfileHandlerSpec extends ObjectBehavior
 {
-    function let(UserRepository $repository)
+    function let(UserRepository $repository, Filesystem $filesystem)
     {
-        $this->beConstructedWith($repository);
+        $this->beConstructedWith($repository, $filesystem);
     }
 
     function it_is_initializable()
@@ -127,6 +131,51 @@ class EditProfileHandlerSpec extends ObjectBehavior
             new Username('kreta-username'),
             new FullName('kreta', 'lastname')
         )->shouldBeCalled();
+
+        $command->uploadedImage()->shouldBeCalled()->willReturn(null);
+
+        $repository->persist($user)->shouldBeCalled();
+
+        $this->__invoke($command);
+    }
+
+    function it_edits_profile_with_image(
+        EditProfileCommand $command,
+        UserRepository $repository,
+        User $user,
+        User $anotherUser,
+        User $anotherUser2,
+        Filesystem $filesystem
+    ) {
+        $command->id()->shouldBeCalled()->willReturn('user-id');
+        $command->email()->shouldBeCalled()->willReturn('user@user.net');
+        $command->username()->shouldBeCalled()->willReturn('kreta-username');
+        $command->firstName()->shouldBeCalled()->willReturn('kreta');
+        $command->lastName()->shouldBeCalled()->willReturn('lastname');
+
+        $repository->userOfId(new UserId('user-id'))->shouldBeCalled()->willReturn($user);
+
+        $repository->userOfUsername(new Username('kreta-username'))->shouldBeCalled()->willReturn($anotherUser);
+        $user->id()->shouldBeCalled()->willReturn(new UserId('user-id'));
+        $anotherUser->id()->shouldBeCalled()->willReturn(new UserId('user-id'));
+
+        $repository->userOfEmail(new UserEmail('user@user.net'))->shouldBeCalled()->willReturn($anotherUser2);
+        $user->id()->shouldBeCalled()->willReturn(new UserId('user-id'));
+        $anotherUser2->id()->shouldBeCalled()->willReturn(new UserId('user-id'));
+
+        $user->editProfile(
+            new UserEmail('user@user.net'),
+            new Username('kreta-username'),
+            new FullName('kreta', 'lastname')
+        )->shouldBeCalled();
+
+        $command->uploadedImage()->shouldBeCalled()->willReturn('image data content');
+
+        $command->imageName()->shouldBeCalled()->willReturn('image-name.png');
+        $command->imageMimeType()->shouldBeCalled()->willReturn('image/png');
+        $mimeType = new FileMimeType('image/png');
+        $filesystem->write(Argument::type(FileName::class), 'image data content')->shouldBeCalled();
+        $user->uploadImage(Argument::type(FileName::class), $mimeType)->shouldBeCalled();
 
         $repository->persist($user)->shouldBeCalled();
 

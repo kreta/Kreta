@@ -18,7 +18,7 @@ use BenGorFile\File\Domain\Model\File;
 
 class Image extends File
 {
-    protected function availableMimeTypes()
+    protected function availableMimeTypes() : array
     {
         return ['image/jpeg', 'image/jpg', 'image/png'];
     }
