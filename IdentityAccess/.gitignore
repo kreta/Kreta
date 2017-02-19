@@ -9,7 +9,7 @@
 .htaccess
 /parameters.yml
 /src/Kreta/IdentityAccess/Infrastructure/Ui/Uploads
-!/src/Kreta/IdentityAccess/Infrastructure/Ui/Uploads/images/.gitkeep
+!/src/Kreta/IdentityAccess/Infrastructure/Ui/Uploads/user-images/.gitkeep
 /var/*
 !/var/cache
 /var/cache/*

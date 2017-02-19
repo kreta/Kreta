@@ -13,10 +13,10 @@ imports:
 
 parameters:
     identity_access_jwt_key_pass_phrase: kretataskmanager
-    identity_access_jwt_token_lifetime: 31556926            # 1 year
+    identity_access_jwt_token_lifetime: 31556926    # 1 year
     identity_access_locale: en_US
-    identity_access_upload_destination: "/images"
-    mailer_user: "info@kreta.io"                            # Needed for build the bengor-user service
+    identity_access_upload_destination: "http://%identity_access_host%/uploads"
+    mailer_user: "info@kreta.io"    # Needed for build the bengor-user service
 
 framework:
     secret: "%identity_access_secret%"
@@ -85,7 +85,7 @@ knp_gaufrette:
     adapters:
         image_adapter:
             local:
-                directory: "%kernel.root_dir%/../../Ui/Uploads/images"
+                directory: "%kernel.root_dir%/../../Ui/Uploads/user-images"
                 create: true
     filesystems:
         image_filesystem:

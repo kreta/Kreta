@@ -12,6 +12,9 @@
 
         <one-to-one field="image" target-entity="Kreta\IdentityAccess\Domain\Model\User\Image" fetch="EAGER"
                     orphan-removal="true">
+            <cascade>
+                <cascade-all/>
+            </cascade>
         </one-to-one>
     </entity>
 </doctrine-mapping>
