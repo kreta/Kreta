@@ -20,7 +20,7 @@ use Kreta\TaskManager\Domain\Model\Project\Task\TaskId;
 
 class TaskIdType extends GuidType
 {
-    public function convertToDatabaseValue($value, AbstractPlatform $platform) : ?string
+    public function convertToDatabaseValue($value, AbstractPlatform $platform) : ? string
     {
         if ($value instanceof TaskId) {
             return $value->id();
@@ -29,7 +29,7 @@ class TaskIdType extends GuidType
         return $value;
     }
 
-    public function convertToPHPValue($value, AbstractPlatform $platform) : ?TaskId
+    public function convertToPHPValue($value, AbstractPlatform $platform) : ? TaskId
     {
         if (null === $value) {
             return null;

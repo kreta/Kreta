@@ -60,6 +60,6 @@ class Username
 
     public function __toString() : string
     {
-        return (string)$this->username;
+        return (string) $this->username;
     }
 }
