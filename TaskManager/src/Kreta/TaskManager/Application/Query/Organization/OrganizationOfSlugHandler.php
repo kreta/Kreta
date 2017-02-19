@@ -37,10 +37,8 @@ class OrganizationOfSlugHandler
 
     public function __invoke(OrganizationOfSlugQuery $query)
     {
-        $organization = $this->repository->query(
-            new DoctrineORMBySlugSpecification(
-                new Slug($query->organizationSlug())
-            )
+        $organization = $this->repository->organizationOfSlug(
+            new Slug($query->organizationSlug())
         );
 
         if (!$organization instanceof Organization) {
