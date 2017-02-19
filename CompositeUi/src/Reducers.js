@@ -12,6 +12,7 @@ import {combineReducers} from 'redux';
 import {routeReducer as routing} from 'react-router-redux';
 import {reducer as form} from 'redux-form';
 
+import currentOrganization from './reducers/CurrentOrganization';
 import currentProject from './reducers/CurrentProject';
 import dashboard from './reducers/Dashboard';
 import mainMenu from './reducers/MainMenu';
@@ -22,6 +23,7 @@ import projects from './reducers/Projects';
 import user from './reducers/User';
 
 export default combineReducers({
+  currentOrganization,
   currentProject,
   dashboard,
   mainMenu,

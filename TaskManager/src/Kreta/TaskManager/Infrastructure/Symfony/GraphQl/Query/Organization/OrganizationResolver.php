@@ -33,31 +33,14 @@ class OrganizationResolver implements Resolver
 
     public function resolve($args)
     {
-        if($args['id']) {
-            $this->queryBus->handle(
-                new OrganizationOfIdQuery(
-                    $args['id'],
-                    $this->currentUser
-                ),
-                $result
-            );
+        $this->queryBus->handle(
+            new OrganizationOfIdQuery(
+                $args['id'],
+                $this->currentUser
+            ),
+            $result
+        );
 
-            return $result;
-        }
-
-        if($args['slug']) {
-            $this->queryBus->handle(
-                new OrganizationOfSlugQuery(
-                    $args['slug'],
-                    $this->currentUser
-                ),
-                $result
-            );
-
-            return $result;
-        }
-
-
-
+        return $result;
     }
 }

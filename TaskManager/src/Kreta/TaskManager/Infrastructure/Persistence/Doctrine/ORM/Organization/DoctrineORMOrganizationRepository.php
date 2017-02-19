@@ -27,11 +27,6 @@ class DoctrineORMOrganizationRepository extends EntityRepository implements Orga
         return $this->find($id->id());
     }
 
-    public function organizationOfSlug(Slug $slug)
-    {
-        return $this->findOneBy(['slug' => $slug->slug()]);
-    }
-
     public function query($specification)
     {
         return null === $specification

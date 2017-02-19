@@ -22,6 +22,7 @@ use Kreta\TaskManager\Domain\Model\Organization\OrganizationId;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationRepository;
 use Kreta\TaskManager\Domain\Model\Organization\UnauthorizedOrganizationActionException;
 use Kreta\TaskManager\Domain\Model\User\UserId;
+use Kreta\TaskManager\Infrastructure\Persistence\Doctrine\ORM\Organization\DoctrineORMBySlugSpecification;
 
 class OrganizationOfSlugHandler
 {
@@ -36,8 +37,10 @@ class OrganizationOfSlugHandler
 
     public function __invoke(OrganizationOfSlugQuery $query)
     {
-        $organization = $this->repository->organizationOfSlug(
-            new Slug($query->organizationSlug())
+        $organization = $this->repository->query(
+            new DoctrineORMBySlugSpecification(
+                new Slug($query->organizationSlug())
+            )
         );
 
         if (!$organization instanceof Organization) {

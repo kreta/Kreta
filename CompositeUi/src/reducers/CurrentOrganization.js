@@ -24,5 +24,9 @@ export default function reducer(state = initialState, action = {}) {
     case ActionTypes.CURRENT_ORGANIZATION_RECEIVED : {
       return {...state, fetching: false, organization: action.organization};
     }
+
+    default: {
+      return state;
+    }
   }
 }

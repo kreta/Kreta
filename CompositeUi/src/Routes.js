@@ -106,7 +106,7 @@ const
 
         <Route component={Profile} path={routes.profile.show()}/>
 
-        <Route component={OrganizationShow} path={routes.organization.show()}/>
+        <Route component={OrganizationShow} path={routes.organization.show(':organization')}/>
       </Route>
     </div>
   );

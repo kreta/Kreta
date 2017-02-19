@@ -14,7 +14,7 @@ import RelayQueryRequest from 'react-relay/lib/RelayQueryRequest';
 
 const query = Relay.QL`
   query {
-    organization(id: $id) {
+    organization(slug: $slug) {
       id,
       name,
       slug,

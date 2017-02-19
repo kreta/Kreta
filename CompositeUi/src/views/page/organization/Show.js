@@ -10,6 +10,7 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
+import LoadingSpinner from './../../component/LoadingSpinner';
 import PageHeader from './../../component/PageHeader';
 import Thumbnail from './../../component/Thumbnail';
 import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
@@ -19,20 +20,25 @@ import CurrentOrganizationActions from './../../../actions/CurrentOrganization';
 class Show extends React.Component {
   componentDidMount() {
     const {params, dispatch} = this.props;
-    dispatch(CurrentOrganizationActions.fetchOrganization(params.slug));
+    dispatch(CurrentOrganizationActions.fetchOrganization(params.organization));
   }
 
   render() {
+    const {currentOrganization} = this.props;
+    if (currentOrganization.fetching) {
+      return <LoadingSpinner/>;
+    }
+
     return (
       <ContentMiddleLayout>
         <PageHeader
           thumbnail={
             <Thumbnail
               image={null}
-              text={this.props.currentOrganization.organization.name}
+              text={currentOrganization.organization.name}
             />
           }
-          title={this.props.currentOrganization.organization.name}
+          title={currentOrganization.organization.name}
         />
       </ContentMiddleLayout>
     );
