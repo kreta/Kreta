@@ -20,6 +20,7 @@ import TaskEdit from './views/page/task/Edit';
 import TaskShow from './views/page/task/Show';
 import LoginPage from './views/page/Login';
 import OrganizationNew from './views/page/organization/New';
+import OrganizationShow from './views/page/organization/Show';
 import Profile from './views/page/profile/Edit';
 import ProjectNew from './views/page/project/New';
 import ProjectRoot from './views/page/project/Root';
@@ -104,6 +105,8 @@ const
         </Route>
 
         <Route component={Profile} path={routes.profile.show()}/>
+
+        <Route component={OrganizationShow} path={routes.organization.show()}/>
       </Route>
     </div>
   );

@@ -14,9 +14,13 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Domain\Model\Organization;
 
+use Kreta\SharedKernel\Domain\Model\Identity\Slug;
+
 interface OrganizationRepository
 {
     public function organizationOfId(OrganizationId $id);
+
+    public function organizationOfSlug(Slug $slug);
 
     public function query($specification);
 

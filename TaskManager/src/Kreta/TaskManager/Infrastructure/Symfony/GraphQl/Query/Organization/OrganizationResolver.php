@@ -17,6 +17,7 @@ namespace Kreta\TaskManager\Infrastructure\Symfony\GraphQl\Query\Organization;
 use Kreta\SharedKernel\Application\QueryBus;
 use Kreta\SharedKernel\Http\GraphQl\Resolver;
 use Kreta\TaskManager\Application\Query\Organization\OrganizationOfIdQuery;
+use Kreta\TaskManager\Application\Query\Organization\OrganizationOfSlugQuery;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class OrganizationResolver implements Resolver
@@ -32,14 +33,31 @@ class OrganizationResolver implements Resolver
 
     public function resolve($args)
     {
-        $this->queryBus->handle(
-            new OrganizationOfIdQuery(
-                $args['id'],
-                $this->currentUser
-            ),
-            $result
-        );
+        if($args['id']) {
+            $this->queryBus->handle(
+                new OrganizationOfIdQuery(
+                    $args['id'],
+                    $this->currentUser
+                ),
+                $result
+            );
 
-        return $result;
+            return $result;
+        }
+
+        if($args['slug']) {
+            $this->queryBus->handle(
+                new OrganizationOfSlugQuery(
+                    $args['slug'],
+                    $this->currentUser
+                ),
+                $result
+            );
+
+            return $result;
+        }
+
+
+
     }
 }
