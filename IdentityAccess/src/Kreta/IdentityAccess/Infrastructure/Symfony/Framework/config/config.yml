@@ -82,7 +82,7 @@ knp_gaufrette:
     adapters:
         image_adapter:
             local:
-                directory: "%kernel.root_dir%/../../Ui/Http/Symfony/public/images"
+                directory: "%kernel.root_dir%/../../Ui/Uploads/images"
                 create: true
     filesystems:
         image_filesystem:

@@ -10,7 +10,7 @@
         <embedded name="username" class="Kreta\IdentityAccess\Domain\Model\User\Username" use-column-prefix="false"/>
         <embedded name="fullName" class="Kreta\IdentityAccess\Domain\Model\User\FullName" use-column-prefix="false"/>
 
-        <one-to-one field="image" target-entity="Kreta\IdentityAccess\Domain\Model\User\Image">
+        <one-to-one field="image" target-entity="Kreta\IdentityAccess\Domain\Model\User\Image" fetch="EAGER">
             <cascade>
                 <cascade-all/>
             </cascade>

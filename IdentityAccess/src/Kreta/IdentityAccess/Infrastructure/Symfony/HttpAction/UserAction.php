@@ -39,7 +39,7 @@ class UserAction
             'first_name' => $user->firstName,
             'last_name'  => $user->lastName,
             'full_name'  => $user->fullName,
-            'image'      => $this->uploadDestination . '/' . $user->imageName,
+            'image'      => $user->imageName,
         ]);
     }
 }

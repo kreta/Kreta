@@ -20,7 +20,7 @@ services:
             - "@form.factory"
             - "@bengor_user.user.command_bus"
             - "@lexik_jwt_authentication.encoder.default"
-            - "%identity_access_upload_destination%"
+            - "@bengor_user.user.provider"
 
     kreta.identity_access.http_action.enable:
         class: Kreta\IdentityAccess\Infrastructure\Symfony\HttpAction\EnableAction

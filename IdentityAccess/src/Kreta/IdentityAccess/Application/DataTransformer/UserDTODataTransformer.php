@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Kreta\IdentityAccess\Application\DataTransformer;
 
@@ -20,6 +20,13 @@ use Kreta\IdentityAccess\Domain\Model\User\Image;
 
 class UserDTODataTransformer extends BaseUserDTODataTransformer
 {
+    private $uploadDestination;
+
+    public function __construct(string $uploadDestination = '')
+    {
+        $this->uploadDestination = $uploadDestination;
+    }
+
     public function read() : array
     {
         if (null === $this->user) {
@@ -59,7 +66,7 @@ class UserDTODataTransformer extends BaseUserDTODataTransformer
     private function image(Image $image = null)
     {
         if ($image instanceof Image) {
-            return $image->name()->filename();
+            return sprintf('%s/%s', $this->uploadDestination, $image->name()->filename());
         }
     }
 }

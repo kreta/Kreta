@@ -10,7 +10,7 @@
  * file that was distributed with this source code.
  */
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Kreta\IdentityAccess\Application\Command;
 
@@ -45,10 +45,6 @@ class EditProfileHandler
         $username = new Username($command->username());
         $fullName = new FullName($command->firstName(), $command->lastName());
 
-        $imageName = FileName::fromHash($command->imageName());
-        $imageMimeType = new FileMimeType($command->imageMimeType());
-        $uploadedImage = $command->uploadedImage();
-
         /** @var User $user */
         $user = $this->repository->userOfId($id);
         $this->checkUserExists($user);
@@ -56,7 +52,11 @@ class EditProfileHandler
 
         $user->editProfile($email, $username, $fullName);
 
+        $uploadedImage = $command->uploadedImage();
         if ($uploadedImage) {
+            $imageName = FileName::fromHash($command->imageName());
+            $imageMimeType = new FileMimeType($command->imageMimeType());
+
             $this->filesystem->write($imageName, $uploadedImage);
             $user->uploadImage($imageName, $imageMimeType);
         }
