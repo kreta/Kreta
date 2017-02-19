@@ -22,7 +22,7 @@ class New extends React.Component {
 
   render() {
     return (
-      <ContentMiddleLayout>
+      <ContentMiddleLayout centered>
         <TaskNew onSubmit={this.createTask.bind(this)}/>
       </ContentMiddleLayout>
     );

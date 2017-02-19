@@ -29,7 +29,7 @@ class ResetPasswordPage extends React.Component {
       <div>
         <NotificationLayout/>
         <ContentLayout>
-          <ContentMiddleLayout>
+          <ContentMiddleLayout centered>
             <LogoCustomHeader title="Reset your password"/>
             <RequestResetPassword onSubmit={this.requestResetPassword.bind(this)}/>
           </ContentMiddleLayout>
