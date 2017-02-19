@@ -8,6 +8,8 @@
 
 .htaccess
 /parameters.yml
+/src/Kreta/IdentityAccess/Infrastructure/Ui/Uploads
+!/src/Kreta/IdentityAccess/Infrastructure/Ui/Uploads/images/.gitkeep
 /var/*
 !/var/cache
 /var/cache/*
