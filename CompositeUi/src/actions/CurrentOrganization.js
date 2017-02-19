@@ -21,7 +21,26 @@ const Actions = {
         type: ActionTypes.CURRENT_ORGANIZATION_RECEIVED,
         organization: {
           name: 'TODO',
-          slug
+          slug,
+          members: [{
+            first_name: 'Beñat',
+            last_name: 'Espiña',
+            username: 'bespina',
+            photo: {
+              name: null
+            }
+          }, {
+            first_name: 'Gorka',
+            last_name: 'Laucirica',
+            username: 'gorka',
+            photo: {
+              name: null
+            }
+          }],
+          projects: [{
+            name: 'TODO',
+            slug: 'todo'
+          }]
         }
       });
     });
