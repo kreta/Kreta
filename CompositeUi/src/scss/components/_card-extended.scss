@@ -1,0 +1,38 @@
+// This file is part of the Kreta package.
+//
+// (c) Beñat Espiña <benatespina@gmail.com>
+// (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+//
+// For the full copyright and license information, please view the LICENSE
+// file that was distributed with this source code.
+
+@import '../variables/grid';
+
+.card-extended {
+  align-items: center;
+  display: flex;
+  font-size: 14px;
+  padding-bottom: 15px;
+  padding-top: 15px;
+  position: relative;
+  width: 100%;
+}
+
+.card-extended__thumbnail {
+  margin-right: #{$column-gutter / 2};
+}
+
+.card-extended__container {
+  flex: 1;
+}
+
+.card-extended__header {
+  display: block;
+}
+
+.card-extended__subheader {
+  display: block;
+  font-size: .8em;
+  font-weight: lighter;
+  margin-top: 7px;
+}
