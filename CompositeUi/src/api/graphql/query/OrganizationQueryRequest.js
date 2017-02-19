@@ -14,7 +14,7 @@ import RelayQueryRequest from 'react-relay/lib/RelayQueryRequest';
 
 const query = Relay.QL`
   query {
-    organization(slug: $slug) {
+    organization(id: $id) {
       id,
       name,
       slug,
@@ -32,10 +32,10 @@ const query = Relay.QL`
 `;
 
 class OrganizationsQueryRequest extends RelayQueryRequest {
-  static build(slug) {
+  static build(id) {
     return new RelayQueryRequest(
       RelayQuery.Root.create(query, {}, {
-        slug
+        id
       })
     );
   }

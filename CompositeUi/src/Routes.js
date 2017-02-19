@@ -34,8 +34,8 @@ const
   routes = {
     organization: {
       new: () => ('/organizations/new'),
-      edit: (organization) => (`/organizations/${organization}/edit`),
       show: (organization) => (`/${organization}`),
+      settings: (organization) => (`/${organization}/settings`),
     },
     project: {
       new: (organization) => (`/organizations/${organization}/projects/new`),
@@ -93,6 +93,7 @@ const
         <Route component={Dashboard} path={routes.search()}/>
 
         <Route component={OrganizationNew} path={routes.organization.new()}/>
+        <Route component={OrganizationShow} path={routes.organization.settings(':organization')}/>
 
         <Route component={ProjectNew} path={routes.project.new(':organization')}/>
         <Route component={ProjectRoot}>

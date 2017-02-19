@@ -8,8 +8,17 @@
  * file that was distributed with this source code.
  */
 
+import SettingsIcon from './../../../svg/settings';
+
 import React from 'react';
 import {connect} from 'react-redux';
+import {Link} from 'react-router';
+
+import {routes} from './../../../Routes';
+
+import Button from './../../component/Button';
+import Icon from './../../component/Icon';
+import InlineLink from './../../component/InlineLink';
 import LoadingSpinner from './../../component/LoadingSpinner';
 import PageHeader from './../../component/PageHeader';
 import Thumbnail from './../../component/Thumbnail';
@@ -39,7 +48,14 @@ class Show extends React.Component {
             />
           }
           title={currentOrganization.organization.name}
-        />
+        >
+            <Icon color="green" glyph={SettingsIcon} size="small"/>Settings
+          <InlineLink to={routes.organization.settings(currentOrganization.organization.slug)}>
+          </InlineLink>
+          <Link to={routes.project.new(currentOrganization.organization.slug)}>
+            <Button color="green">New project</Button>
+          </Link>
+        </PageHeader>
       </ContentMiddleLayout>
     );
   }

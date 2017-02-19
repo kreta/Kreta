@@ -9,24 +9,32 @@
  */
 
 import ActionTypes from './../constants/ActionTypes';
-import OrganizationQueryRequest from './../api/graphql/query/OrganizationQueryRequest';
-import TaskManagerGraphQl from './../api/graphql/TaskManagerGraphQl';
 
 const Actions = {
   fetchOrganization: (slug) => (dispatch) => {
     dispatch({
       type: ActionTypes.CURRENT_ORGANIZATION_FETCHING
     });
-    const query = OrganizationQueryRequest.build(slug);
 
-    TaskManagerGraphQl.query(query, dispatch);
-    query
-      .then(data => {
-        dispatch({
-          type: ActionTypes.CURRENT_ORGANIZATION_RECEIVED,
-          organization: data.response.organization,
-        });
+    setTimeout(() => {
+      dispatch({
+        type: ActionTypes.CURRENT_ORGANIZATION_RECEIVED,
+        organization: {
+          name: 'TODO',
+          slug
+        }
       });
+    });
+    // const query = OrganizationQueryRequest.build(slug);
+    //
+    // TaskManagerGraphQl.query(query, dispatch);
+    // query
+    //   .then(data => {
+    //     dispatch({
+    //       type: ActionTypes.CURRENT_ORGANIZATION_RECEIVED,
+    //       organization: data.response.organization,
+    //     });
+    //   });
   }
 };
 
