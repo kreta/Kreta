@@ -18,11 +18,9 @@ use Kreta\SharedKernel\Domain\Model\Identity\Slug;
 use Kreta\TaskManager\Application\DataTransformer\Organization\OrganizationDataTransformer;
 use Kreta\TaskManager\Domain\Model\Organization\Organization;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationDoesNotExistException;
-use Kreta\TaskManager\Domain\Model\Organization\OrganizationId;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationRepository;
 use Kreta\TaskManager\Domain\Model\Organization\UnauthorizedOrganizationActionException;
 use Kreta\TaskManager\Domain\Model\User\UserId;
-use Kreta\TaskManager\Infrastructure\Persistence\Doctrine\ORM\Organization\DoctrineORMBySlugSpecification;
 
 class OrganizationOfSlugHandler
 {
