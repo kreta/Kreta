@@ -9,51 +9,24 @@
  */
 
 import ActionTypes from './../constants/ActionTypes';
+import OrganizationQueryRequest from './../api/graphql/query/OrganizationQueryRequest';
+import TaskManagerGraphQl from './../api/graphql/TaskManagerGraphQl';
 
 const Actions = {
   fetchOrganization: (slug) => (dispatch) => {
     dispatch({
       type: ActionTypes.CURRENT_ORGANIZATION_FETCHING
     });
+    const query = OrganizationQueryRequest.build(slug);
 
-    setTimeout(() => {
-      dispatch({
-        type: ActionTypes.CURRENT_ORGANIZATION_RECEIVED,
-        organization: {
-          name: 'TODO',
-          slug,
-          members: [{
-            first_name: 'Beñat',
-            last_name: 'Espiña',
-            username: 'bespina',
-            photo: {
-              name: null
-            }
-          }, {
-            first_name: 'Gorka',
-            last_name: 'Laucirica',
-            username: 'gorka',
-            photo: {
-              name: null
-            }
-          }],
-          projects: [{
-            name: 'TODO',
-            slug: 'todo'
-          }]
-        }
+    TaskManagerGraphQl.query(query, dispatch);
+    query
+      .then(data => {
+        dispatch({
+          type: ActionTypes.CURRENT_ORGANIZATION_RECEIVED,
+          organization: data.response.organization,
+        });
       });
-    });
-    // const query = OrganizationQueryRequest.build(slug);
-    //
-    // TaskManagerGraphQl.query(query, dispatch);
-    // query
-    //   .then(data => {
-    //     dispatch({
-    //       type: ActionTypes.CURRENT_ORGANIZATION_RECEIVED,
-    //       organization: data.response.organization,
-    //     });
-    //   });
   }
 };
 

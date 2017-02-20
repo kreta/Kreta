@@ -38,20 +38,39 @@ class Show extends React.Component {
   getProjects() {
     const {organization} = this.props.currentOrganization;
 
-    return organization.projects.map((project) => (
+    return organization._projects4l96UD.edges.map((project, index) => {
+      const currentProject = project.node;
+
+      return (
+        <CardExtended
+          key={index}
+          subtitle={`10 issues open`}
+          thumbnail={<Thumbnail text={`${currentProject.name}`}/>}
+          title={`${currentProject.name}`}
+        />
+      );
+    });
+  }
+
+  getOwners() {
+    const {organization} = this.props.currentOrganization;
+
+    return organization.owners.map((owner, index) => (
       <CardExtended
-        key={project.slug}
-        subtitle={`10 issues open`}
-        thumbnail={<Thumbnail text={`${project.name}`}/>}
-        title={`${project.name}`}
+        key={index}
+        subtitle={`@${owner.username}`}
+        thumbnail={<Thumbnail text={`${owner.first_name} ${owner.last_name}`}/>}
+        title={`${owner.first_name} ${owner.last_name}`}
       />
     ));
   }
 
   getMembers() {
-    return this.props.currentOrganization.organization.members.map((member) => (
+    const {organization} = this.props.currentOrganization;
+
+    return organization.organization_members.map((member, index) => (
       <CardExtended
-        key={member.username}
+        key={index}
         subtitle={`@${member.username}`}
         thumbnail={<Thumbnail text={`${member.first_name} ${member.last_name}`}/>}
         title={`${member.first_name} ${member.last_name}`}
@@ -92,6 +111,8 @@ class Show extends React.Component {
             {this.getProjects()}
           </RowColumn>
           <RowColumn medium={6}>
+            <SectionHeader title="Owners"/>
+            {this.getOwners()}
             <SectionHeader title="Members"/>
             {this.getMembers()}
           </RowColumn>

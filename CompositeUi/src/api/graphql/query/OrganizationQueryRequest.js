@@ -14,10 +14,16 @@ import RelayQueryRequest from 'react-relay/lib/RelayQueryRequest';
 
 const query = Relay.QL`
   query {
-    organization(id: $id) {
+    organization(slug: $slug) {
       id,
       name,
       slug,
+      organization_members {
+        id,
+      },
+      owners {
+        id,
+      },
       projects(first: -1) {
         edges {
           node {
@@ -31,14 +37,14 @@ const query = Relay.QL`
   }
 `;
 
-class OrganizationsQueryRequest extends RelayQueryRequest {
-  static build(id) {
+class OrganizationQueryRequest extends RelayQueryRequest {
+  static build(slug) {
     return new RelayQueryRequest(
       RelayQuery.Root.create(query, {}, {
-        id
+        slug
       })
     );
   }
 }
 
-export default OrganizationsQueryRequest;
+export default OrganizationQueryRequest;
