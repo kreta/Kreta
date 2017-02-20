@@ -28,17 +28,21 @@ class FormInputFile extends React.Component {
   }
 
   onChange(event) {
-    const file = event.target.files[0];
+    const
+      {input: {onChange}} = this.props,
+      file = event.target.files[0];
 
     if (typeof file === 'undefined') {
       this.setState({filename: this.props.filename ? this.props.filename : ''});
     } else {
       this.setState({filename: window.URL.createObjectURL(file)});
     }
+
+    onChange(file);
   }
 
   renderImageElement() {
-    if (this.state.filename === '') {
+    if (!this.state.filename) {
       return (
         <div className="form-input-file__background">
           <Icon color="white" glyph={ImageIcon}/>
@@ -52,15 +56,17 @@ class FormInputFile extends React.Component {
   }
 
   render() {
-    const {input, label} = this.props;
+    const {input: {value}} = this.props;
 
     return (
       <label className="form-input-file">
         {this.renderImageElement()}
-        <input className="form-input-file__input"
-               {...input}
-               onChange={this.onChange.bind(this)}
-               type="file"/>
+        <input
+          className="form-input-file__input"
+          onChange={this.onChange.bind(this)}
+          type="file"
+          value={value}
+        />
       </label>
     );
   }

@@ -16,9 +16,17 @@ namespace Kreta\IdentityAccess\Application\DataTransformer;
 
 use BenGorUser\User\Application\DataTransformer\UserDTODataTransformer as BaseUserDTODataTransformer;
 use Kreta\IdentityAccess\Domain\Model\User\FullName;
+use Kreta\IdentityAccess\Domain\Model\User\Image;
 
 class UserDTODataTransformer extends BaseUserDTODataTransformer
 {
+    private $uploadDestination;
+
+    public function __construct(string $uploadDestination = '')
+    {
+        $this->uploadDestination = $uploadDestination;
+    }
+
     public function read() : array
     {
         if (null === $this->user) {
@@ -26,10 +34,11 @@ class UserDTODataTransformer extends BaseUserDTODataTransformer
         }
 
         return array_merge(parent::read(), [
-            'user_name'   => $this->user->username()->username(),
-            'first_name'  => $this->firstName($this->user->fullName()),
-            'last_name'   => $this->lastName($this->user->fullName()),
-            'full_name'   => $this->fullName($this->user->fullName()),
+            'user_name'  => $this->user->username()->username(),
+            'first_name' => $this->firstName($this->user->fullName()),
+            'last_name'  => $this->lastName($this->user->fullName()),
+            'full_name'  => $this->fullName($this->user->fullName()),
+            'image_name' => $this->image($this->user->image()),
         ]);
     }
 
@@ -51,6 +60,13 @@ class UserDTODataTransformer extends BaseUserDTODataTransformer
     {
         if ($fullName instanceof FullName) {
             return $fullName->fullName();
+        }
+    }
+
+    private function image(Image $image = null)
+    {
+        if ($image instanceof Image) {
+            return sprintf('%s/%s', $this->uploadDestination, $image->name()->filename());
         }
     }
 }

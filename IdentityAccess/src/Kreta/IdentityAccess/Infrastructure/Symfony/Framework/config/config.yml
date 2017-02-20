@@ -12,8 +12,11 @@ imports:
     - { resource: services/, type: directory }
 
 parameters:
+    identity_access_jwt_key_pass_phrase: kretataskmanager
+    identity_access_jwt_token_lifetime: 31556926    # 1 year
     identity_access_locale: en_US
-    jwt_token_lifetime: 31556926    # 1 year
+    identity_access_upload_destination: "http://%identity_access_host%/uploads"
+    mailer_user: "info@kreta.io"    # Needed for build the bengor-user service
 
 framework:
     secret: "%identity_access_secret%"
@@ -77,6 +80,24 @@ swiftmailer:
     encryption: "%identity_access_mailer_encryption%"
     spool: { type: memory }
 
+knp_gaufrette:
+    stream_wrapper: ~
+    adapters:
+        image_adapter:
+            local:
+                directory: "%kernel.root_dir%/../../Ui/Uploads/user-images"
+                create: true
+    filesystems:
+        image_filesystem:
+            adapter: image_adapter
+
+ben_gor_file:
+    file_class:
+        image:
+            class: Kreta\IdentityAccess\Domain\Model\User\Image
+            storage: gaufrette
+            upload_destination: image_filesystem
+
 ben_gor_user:
     user_class:
         user:
@@ -118,7 +139,7 @@ lexik_jwt_authentication:
     private_key_path: "%kernel.root_dir%/../../../../../../var/jwt/private.pem"
     public_key_path: "%kernel.root_dir%/../../../../../../var/jwt/public.pem"
     pass_phrase: "%identity_access_jwt_key_pass_phrase%"
-    token_ttl: "%jwt_token_lifetime%"
+    token_ttl: "%identity_access_jwt_token_lifetime%"
     user_identity_field: email
 
 nelmio_cors:

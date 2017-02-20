@@ -14,6 +14,9 @@ declare(strict_types=1);
 
 namespace Kreta\IdentityAccess\Domain\Model\User;
 
+use BenGorFile\File\Domain\Model\FileId;
+use BenGorFile\File\Domain\Model\FileMimeType;
+use BenGorFile\File\Domain\Model\FileName;
 use BenGorUser\User\Domain\Model\User as BaseUser;
 use BenGorUser\User\Domain\Model\UserEmail;
 use BenGorUser\User\Domain\Model\UserId;
@@ -23,6 +26,7 @@ class User extends BaseUser
 {
     private $fullName;
     private $username;
+    private $image;
 
     protected function __construct(UserId $id, UserEmail $email, array $userRoles, UserPassword $password)
     {
@@ -45,6 +49,11 @@ class User extends BaseUser
         );
     }
 
+    public function uploadImage(FileName $name, FileMimeType $mimeType)
+    {
+        $this->image = new Image(new FileId(), $name, $mimeType);
+    }
+
     public function username() : Username
     {
         return $this->username;
@@ -58,5 +67,10 @@ class User extends BaseUser
         && !$this->fullName->fullName()
             ? null
             : $this->fullName;
+    }
+
+    public function image()
+    {
+        return $this->image;
     }
 }

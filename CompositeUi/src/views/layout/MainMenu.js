@@ -47,15 +47,19 @@ class MainMenu extends React.Component {
   }
 
   render() {
+    const {mainMenu, profile} = this.props;
     let profileWidget = '';
-    if (this.props.profile) {
+
+    if (profile) {
       profileWidget = (
         <Link className="main-menu__profile" to="/profile">
           <Thumbnail
-            image={null}
-            text={`${this.props.profile.first_name} ${this.props.profile.last_name}`}
+            image={profile.image}
+            text={`${profile.first_name} ${profile.last_name}`}
           />
-          <span className="main-menu__username">@{this.props.profile.username}</span>
+          <span className="main-menu__username">
+            @{profile.username}
+          </span>
         </Link>
       );
     }
@@ -81,7 +85,7 @@ class MainMenu extends React.Component {
           {profileWidget}
         </div>
         <Modal
-          isOpen={this.props.mainMenu.projectsVisible}
+          isOpen={mainMenu.projectsVisible}
           onRequestClose={this.hideProjectsList.bind(this)}
         >
           <ProjectList onProjectSelected={this.hideProjectsList.bind(this)} ref="projectList"/>

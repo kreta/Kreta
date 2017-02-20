@@ -48,19 +48,19 @@ const validate = (values) => {
 @reduxForm({form: 'profileEdit', validate})
 class ProfileEdit extends React.Component {
   render() {
-    const {handleSubmit} = this.props;
+    const {handleSubmit, initialValues} = this.props;
 
     return (
       <Form onSubmit={handleSubmit}>
         <Row>
           <RowColumn>
-            <Field component={FormInputFile} name="photo"/>
-            <Field component={FormInput} label="First Name" name="first_name" tabIndex={2}/>
-            <Field component={FormInput} label="Last Name" name="last_name" tabIndex={3}/>
-            <Field component={FormInput} label="Username" name="username" tabIndex={4}/>
-            <Field component={FormInput} label="Email" name="email" tabIndex={5}/>
+            <Field component={FormInputFile} filename={initialValues.image} name="image" type="file"/>
+            <Field autoFocus component={FormInput} label="First Name" name="first_name" tabIndex={1}/>
+            <Field component={FormInput} label="Last Name" name="last_name" tabIndex={2}/>
+            <Field component={FormInput} label="Username" name="username" tabIndex={3}/>
+            <Field component={FormInput} label="Email" name="email" tabIndex={4}/>
             <FormActions>
-              <Button color="green" type="submit">Update</Button>
+              <Button color="green" tabIndex={5} type="submit">Update</Button>
             </FormActions>
           </RowColumn>
         </Row>

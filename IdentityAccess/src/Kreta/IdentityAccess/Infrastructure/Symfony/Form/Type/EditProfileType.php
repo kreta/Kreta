@@ -17,8 +17,10 @@ namespace Kreta\IdentityAccess\Infrastructure\Symfony\Form\Type;
 use Kreta\IdentityAccess\Application\Command\EditProfileCommand;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\FormInterface;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
 class EditProfileType extends AbstractType
@@ -31,7 +33,13 @@ class EditProfileType extends AbstractType
             ->add('email', EmailType::class)
             ->add('username')
             ->add('firstName')
-            ->add('lastName');
+            ->add('lastName')
+            ->add('image', FileType::class, [
+                'error_bubbling' => false,
+                'label'          => false,
+                'mapped'         => false,
+                'required'       => false,
+            ]);
 
         $this->userId = $options['user_id'];
     }
@@ -43,12 +51,26 @@ class EditProfileType extends AbstractType
             'csrf_protection' => false,
             'data_class'      => EditProfileCommand::class,
             'empty_data'      => function (FormInterface $form) {
+                $image = $form->get('image')->getData();
+
+                $imageName = null;
+                $imageMimeType = null;
+                $uploadedImage = null;
+                if ($image instanceof UploadedFile) {
+                    $imageName = $image->getClientOriginalName();
+                    $uploadedImage = file_get_contents($image->getPathname());
+                    $imageMimeType = $image->getMimeType();
+                }
+
                 return new EditProfileCommand(
                     $this->userId,
                     $form->get('email')->getData(),
                     $form->get('username')->getData(),
                     $form->get('firstName')->getData(),
-                    $form->get('lastName')->getData()
+                    $form->get('lastName')->getData(),
+                    $imageName,
+                    $imageMimeType,
+                    $uploadedImage
                 );
             },
         ]);

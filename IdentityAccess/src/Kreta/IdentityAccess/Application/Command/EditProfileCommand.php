@@ -21,14 +21,28 @@ class EditProfileCommand
     private $username;
     private $firstName;
     private $lastName;
+    private $imageName;
+    private $imageMimeType;
+    private $uploadedImage;
 
-    public function __construct(string $id, string $email, string $username, string $firsName, string $lastName)
-    {
+    public function __construct(
+        string $id,
+        string $email,
+        string $username,
+        string $firsName,
+        string $lastName,
+        $imageName,
+        $imageMimeType,
+        $uploadedImage
+    ) {
         $this->id = $id;
         $this->email = $email;
         $this->username = $username;
         $this->firstName = $firsName;
         $this->lastName = $lastName;
+        $this->imageName = $imageName;
+        $this->imageMimeType = $imageMimeType;
+        $this->uploadedImage = $uploadedImage;
     }
 
     public function id() : string
@@ -54,5 +68,20 @@ class EditProfileCommand
     public function lastName() : string
     {
         return $this->lastName;
+    }
+
+    public function imageName()
+    {
+        return $this->imageName;
+    }
+
+    public function imageMimeType()
+    {
+        return $this->imageMimeType;
+    }
+
+    public function uploadedImage()
+    {
+        return $this->uploadedImage;
     }
 }

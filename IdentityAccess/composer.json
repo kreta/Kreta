@@ -28,6 +28,10 @@
     ],
     "require": {
         "php": "^7.1",
+        "bengor-file/file-bundle": "^0.2",
+        "bengor-file/doctrine-orm-bridge-bundle": "^1.0",
+        "bengor-file/simple-bus-bridge-bundle": "^1.0",
+        "bengor-file/gaufrette-filesystem-bridge-bundle": "^1.0",
         "bengor-user/user-bundle": "^0.8.1",
         "bengor-user/doctrine-orm-bridge-bundle": "^1.2",
         "bengor-user/simple-bus-bridge-bundle": "^1.0",

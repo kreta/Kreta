@@ -12,9 +12,16 @@
 
 namespace Kreta\IdentityAccess\Infrastructure\Symfony\Framework;
 
+use BenGorFile\DoctrineORMBridgeBundle\BenGorFileDoctrineORMBridgeBundle;
+use BenGorFile\FileBundle\BenGorFileBundle;
+use BenGorFile\GaufretteFilesystemBridgeBundle\BenGorFileGaufretteFilesystemBridgeBundle;
+use BenGorFile\SimpleBusBridgeBundle\BenGorFileSimpleBusBridgeBundle;
+use BenGorFile\SimpleBusBridgeBundle\BenGorFileSimpleBusDoctrineORMBridgeBundle;
 use BenGorUser\UserBundle\BenGorUserBundle;
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle;
+use Knp\Bundle\GaufretteBundle\KnpGaufretteBundle;
+use Kreta\IdentityAccess\Infrastructure\Symfony\DependencyInjection\Compiler\OverrideUserDataTransformerServicePass;
 use Lexik\Bundle\JWTAuthenticationBundle\LexikJWTAuthenticationBundle;
 use Nelmio\CorsBundle\NelmioCorsBundle;
 use OldSound\RabbitMqBundle\OldSoundRabbitMqBundle;
@@ -32,6 +39,7 @@ use Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle;
 use Symfony\Bundle\TwigBundle\TwigBundle;
 use Symfony\Bundle\WebProfilerBundle\WebProfilerBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
+use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\HttpKernel\Kernel;
 
 class AppKernel extends Kernel
@@ -55,6 +63,13 @@ class AppKernel extends Kernel
             new SimpleBusAsynchronousBundle(),
             new SimpleBusRabbitMQBundleBridgeBundle(),
             new OldSoundRabbitMqBundle(),
+
+            new KnpGaufretteBundle(),
+            new BenGorFileGaufretteFilesystemBridgeBundle(),
+            new BenGorFileDoctrineORMBridgeBundle(),
+            new BenGorFileSimpleBusBridgeBundle(),
+            new BenGorFileSimpleBusDoctrineORMBridgeBundle(),
+            new BenGorFileBundle(),
 
             new \BenGorUser\TwigBridgeBundle\TwigBridgeBundle(),
             new \BenGorUser\SymfonyRoutingBridgeBundle\SymfonyRoutingBridgeBundle(),
@@ -93,5 +108,16 @@ class AppKernel extends Kernel
     public function registerContainerConfiguration(LoaderInterface $loader)
     {
         $loader->load($this->getRootDir() . '/config/config_' . $this->getEnvironment() . '.yml');
+    }
+
+    protected function buildContainer()
+    {
+        $container = parent::buildContainer();
+        $container->addCompilerPass(
+            new OverrideUserDataTransformerServicePass($this),
+            PassConfig::TYPE_OPTIMIZE
+        );
+
+        return $container;
     }
 }

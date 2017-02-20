@@ -7,10 +7,13 @@
 # file that was distributed with this source code.
 
 parameters:
-    identity_access_composite_ui_host:   '%env(COMPOSITE_UI_HOST)%'
-    env(COMPOSITE_UI_HOST):              'http://kreta.localhost'
-
     identity_access_secret:              12e54860e3fbbbebd0aa659fa8bc554c202298ac # Your own secret with http://nux.net/secret
+
+    identity_access_host:                "%env(IDENTITY_ACCESS_HOST)%"
+    env(IDENTITY_ACCESS_HOST):           "identityaccess:localhost'"
+
+    identity_access_composite_ui_host:   "%env(COMPOSITE_UI_HOST)%"
+    env(COMPOSITE_UI_HOST):              "kreta.localhost"
 
     identity_access_database_host:       db
     identity_access_database_port:       3306
@@ -25,11 +28,7 @@ parameters:
     identity_access_mailer_port:         465
     identity_access_mailer_encryption:   ssl
 
-    identity_access_jwt_key_pass_phrase: kretataskmanager
-
     identity_access_rabbitmq_host:       rabbitmq
     identity_access_rabbitmq_port:       5672
     identity_access_rabbitmq_user:       kreta
     identity_access_rabbitmq_password:   kreta
-
-    mailer_user:                         "info@kreta.io"    # Needed for build the bengor-user service
