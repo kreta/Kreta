@@ -16,18 +16,28 @@ import {connect} from 'react-redux';
 import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
 import ProjectNew from './../../form/ProjectNew';
 
+import CurrentOrganizationActions from './../../../actions/CurrentOrganization';
 import ProjectsActions from './../../../actions/Projects';
 
-@connect()
+@connect(state => ({currentOrganization: state.currentOrganization}))
 class New extends React.Component {
+  componentDidMount() {
+    const {params, dispatch} = this.props;
+
+    dispatch(CurrentOrganizationActions.fetchOrganization(params.organization));
+  }
+
   createProject(project) {
-    this.props.dispatch(ProjectsActions.createProject(project));
+    const {dispatch, currentOrganization} = this.props;
+
+    project.organization = currentOrganization.organization.id;
+    dispatch(ProjectsActions.createProject(project));
   }
 
   render() {
     return (
       <ContentMiddleLayout centered>
-          <ProjectNew onSubmit={this.createProject.bind(this)}/>
+        <ProjectNew onSubmit={this.createProject.bind(this)}/>
       </ContentMiddleLayout>
     );
   }
