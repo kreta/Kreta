@@ -54,7 +54,6 @@ services:
             - /var/www/identityaccess/var/cache
             - /var/www/identityaccess/var/sessions
             - /var/www/identityaccess/vendor
-
     node:
         build: node
         ports:
@@ -85,7 +84,7 @@ services:
             - ./data/logs/nginx/:/var/log/nginx
         networks:
             default:
-              ipv4_address: 172.18.0.10
+              ipv4_address: ${NGINX_CONTAINER_IP}
 
 networks:
   default:
