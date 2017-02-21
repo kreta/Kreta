@@ -12,13 +12,19 @@
 
 declare(strict_types=1);
 
-namespace Kreta\IdentityAccess\Domain\Model\User;
+namespace Kreta\IdentityAccess\Application\Query;
 
-use BenGorUser\User\Domain\Model\UserRepository as BaseUserRepository;
-
-interface UserRepository extends BaseUserRepository
+class UsersOfIdsQuery
 {
-    public function userOfUsername(Username $username);
+    private $ids;
 
-    public function usersOfIds(array $userIds) : array;
+    public function __construct(array $ids)
+    {
+        $this->ids = $ids;
+    }
+
+    public function ids() : array
+    {
+        return $this->ids;
+    }
 }

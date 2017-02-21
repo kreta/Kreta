@@ -29,7 +29,7 @@ class UserPreview extends React.Component {
                   {user.first_name} {user.last_name}
               </span>
           <span className="user-preview__subheader">
-            @{user.username}
+            @{user.user_name}
           </span>
         </div>
         <div className="user-preview__actions">

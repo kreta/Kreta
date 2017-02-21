@@ -58,8 +58,8 @@ class Show extends React.Component {
     return organization.owners.map((owner, index) => (
       <CardExtended
         key={index}
-        subtitle={`@${owner.username}`}
-        thumbnail={<Thumbnail text={`${owner.first_name} ${owner.last_name}`}/>}
+        subtitle={`@${owner.user_name}`}
+        thumbnail={<Thumbnail image={owner.image} text={`${owner.first_name} ${owner.last_name}`}/>}
         title={`${owner.first_name} ${owner.last_name}`}
       />
     ));
@@ -71,8 +71,8 @@ class Show extends React.Component {
     return organization.organization_members.map((member, index) => (
       <CardExtended
         key={index}
-        subtitle={`@${member.username}`}
-        thumbnail={<Thumbnail text={`${member.first_name} ${member.last_name}`}/>}
+        subtitle={`@${member.user_name}`}
+        thumbnail={<Thumbnail image={member.image} text={`${member.first_name} ${member.last_name}`}/>}
         title={`${member.first_name} ${member.last_name}`}
       />
     ));

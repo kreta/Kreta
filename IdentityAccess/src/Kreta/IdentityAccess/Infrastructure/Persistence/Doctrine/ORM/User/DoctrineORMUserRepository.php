@@ -24,4 +24,17 @@ class DoctrineORMUserRepository extends BaseDoctrineORMUserRepository implements
     {
         return $this->findOneBy(['username.username' => $username->username()]);
     }
+
+    public function usersOfIds(array $userIds) : array
+    {
+        $queryBuilder = $this->createQueryBuilder('u');
+
+        return $queryBuilder
+            ->select('u, field(u.id, :ids) as HIDDEN field')
+            ->where($queryBuilder->expr()->in('u.id', ':ids'))
+            ->setParameter('ids', $userIds)
+            ->orderBy('field')
+            ->getQuery()
+            ->getResult();
+    }
 }

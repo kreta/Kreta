@@ -87,11 +87,12 @@ class UserDTODataTransformerSpec extends ObjectBehavior
             'remember_password_token' => null,
             'roles'                   => ['ROLE_USER'],
             'updated_on'              => $updatedOn,
+            'user_id'                 => 'user-id',
             'user_name'               => 'user11111',
             'first_name'              => 'The user first name',
             'last_name'               => 'The user last name',
             'full_name'               => 'The user first name The user last name',
-            'image_name'              => '/image-name.png',
+            'image'                   => '/image-name.png',
         ]);
     }
 
@@ -148,11 +149,12 @@ class UserDTODataTransformerSpec extends ObjectBehavior
             'remember_password_token' => null,
             'roles'                   => ['ROLE_USER'],
             'updated_on'              => $updatedOn,
+            'user_id'                 => 'user-id',
             'user_name'               => 'user11111',
             'first_name'              => 'The user first name',
             'last_name'               => 'The user last name',
             'full_name'               => 'The user first name The user last name',
-            'image_name'              => '/other-upload-destination/image-name.png',
+            'image'                   => '/other-upload-destination/image-name.png',
         ]);
     }
 }

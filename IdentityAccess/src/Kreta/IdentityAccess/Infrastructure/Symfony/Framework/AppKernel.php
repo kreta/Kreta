@@ -41,6 +41,7 @@ use Symfony\Bundle\WebProfilerBundle\WebProfilerBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\Compiler\PassConfig;
 use Symfony\Component\HttpKernel\Kernel;
+use Warezgibzzz\QueryBusBundle\WarezgibzzzQueryBusBundle;
 
 class AppKernel extends Kernel
 {
@@ -63,6 +64,7 @@ class AppKernel extends Kernel
             new SimpleBusAsynchronousBundle(),
             new SimpleBusRabbitMQBundleBridgeBundle(),
             new OldSoundRabbitMqBundle(),
+            new WarezgibzzzQueryBusBundle(),
 
             new KnpGaufretteBundle(),
             new BenGorFileGaufretteFilesystemBridgeBundle(),

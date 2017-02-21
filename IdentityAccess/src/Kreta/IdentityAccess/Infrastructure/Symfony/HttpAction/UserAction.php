@@ -32,12 +32,12 @@ class UserAction
 
         return new JsonResponse([
             'user_id'    => $user->id,
-            'username'   => $user->userName,
+            'user_name'  => $user->userName,
             'email'      => $user->email,
             'first_name' => $user->firstName,
             'last_name'  => $user->lastName,
             'full_name'  => $user->fullName,
-            'image'      => $user->imageName,
+            'image'      => $user->image,
         ]);
     }
 }
