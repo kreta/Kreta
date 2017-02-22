@@ -16,7 +16,6 @@ import Button from './../component/Button';
 import Form from './../component/Form';
 import FormActions from './../component/FormActions';
 import FormInput from './../component/FormInput';
-import FormInputFile from './../component/FormInputFile';
 import {Row, RowColumn} from './../component/Grid';
 
 const validate = (values) => {
@@ -43,7 +42,6 @@ class ProjectNew extends React.Component {
       <Form onSubmit={handleSubmit}>
         <Row>
           <RowColumn>
-            <Field component={FormInputFile} name="image"/>
             <Field autoFocus component={FormInput} label="Project Name" name="name" tabIndex={2}/>
             <Field component={FormInput} label="Short name" name="short_name" tabIndex={3}/>
             <FormActions>
