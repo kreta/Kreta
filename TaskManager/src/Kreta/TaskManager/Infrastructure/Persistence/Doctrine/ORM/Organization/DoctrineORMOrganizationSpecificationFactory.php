@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Infrastructure\Persistence\Doctrine\ORM\Organization;
 
+use Kreta\SharedKernel\Domain\Model\Identity\Slug;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationSpecificationFactory;
 use Kreta\TaskManager\Domain\Model\User\UserId;
 
@@ -22,5 +23,10 @@ class DoctrineORMOrganizationSpecificationFactory implements OrganizationSpecifi
     public function buildFilterableSpecification($name, UserId $userId, int $offset = 0, int $limit = -1)
     {
         return new DoctrineORMFilterableSpecification($name, $userId, $offset, $limit);
+    }
+
+    public function buildBySlugSpecification(Slug $slug)
+    {
+        return new DoctrineORMBySlugSpecification($slug);
     }
 }

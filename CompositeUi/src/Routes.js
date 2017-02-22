@@ -20,6 +20,7 @@ import TaskEdit from './views/page/task/Edit';
 import TaskShow from './views/page/task/Show';
 import LoginPage from './views/page/Login';
 import OrganizationNew from './views/page/organization/New';
+import OrganizationShow from './views/page/organization/Show';
 import Profile from './views/page/profile/Edit';
 import ProjectNew from './views/page/project/New';
 import ProjectRoot from './views/page/project/Root';
@@ -33,8 +34,8 @@ const
   routes = {
     organization: {
       new: () => ('/organizations/new'),
-      edit: (organization) => (`/organizations/${organization}/edit`),
       show: (organization) => (`/${organization}`),
+      settings: (organization) => (`/${organization}/settings`),
     },
     project: {
       new: (organization) => (`/organizations/${organization}/projects/new`),
@@ -92,6 +93,7 @@ const
         <Route component={Dashboard} path={routes.search()}/>
 
         <Route component={OrganizationNew} path={routes.organization.new()}/>
+        <Route component={OrganizationShow} path={routes.organization.settings(':organization')}/>
 
         <Route component={ProjectNew} path={routes.project.new(':organization')}/>
         <Route component={ProjectRoot}>
@@ -104,6 +106,8 @@ const
         </Route>
 
         <Route component={Profile} path={routes.profile.show()}/>
+
+        <Route component={OrganizationShow} path={routes.organization.show(':organization')}/>
       </Route>
     </div>
   );

@@ -38,6 +38,16 @@ services:
                 name: query_handler
                 handles: Kreta\TaskManager\Application\Query\Organization\OrganizationOfIdQuery
 
+    kreta.task_manager.query_handler.organization_of_slug:
+        class: Kreta\TaskManager\Application\Query\Organization\OrganizationOfSlugHandler
+        arguments:
+            - "@kreta.task_manager.repository.organization"
+            - "@kreta.task_manager.data_transformer.organization_dto"
+        tags:
+            -
+                name: query_handler
+                handles: Kreta\TaskManager\Application\Query\Organization\OrganizationOfSlugQuery
+
     kreta.task_manager.query_handler.organization_member_of_id:
         class: Kreta\TaskManager\Application\Query\Organization\OrganizationMemberOfIdHandler
         arguments:

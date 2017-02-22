@@ -12,6 +12,11 @@ services:
         arguments:
             - "@security.token_storage"
 
+    kreta.identity_access.http_action.users_by_ids:
+        class: Kreta\IdentityAccess\Infrastructure\Symfony\HttpAction\UsersByIdsAction
+        arguments:
+            - "@kreta.identity_access.query_bus"
+
     kreta.identity_access.http_action.edit_profile:
         class: Kreta\IdentityAccess\Infrastructure\Symfony\HttpAction\EditProfileAction
         arguments:

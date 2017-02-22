@@ -10,22 +10,12 @@
 
 import IdentityAccessRest from './../IdentityAccessRest';
 
-class Profile {
-  get() {
-    return IdentityAccessRest.get('/user');
-  }
-
-  update(profileData) {
-    return IdentityAccessRest.post('/user', {
-      email: profileData.email,
-      user_name: profileData.user_name,
-      firstName: profileData.first_name,
-      lastName: profileData.last_name,
-      image: profileData.image
-    });
+class Users {
+  get(ids) {
+    return IdentityAccessRest.get('/users', ids);
   }
 }
 
-const instance = new Profile();
+const instance = new Users();
 
 export default instance;

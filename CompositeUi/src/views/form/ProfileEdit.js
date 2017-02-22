@@ -21,14 +21,14 @@ import {Row, RowColumn} from './../component/Grid';
 
 const validate = (values) => {
   const errors = {},
-    requiredFields = ['first_name', 'last_name', 'username', 'email'];
+    requiredFields = ['first_name', 'last_name', 'user_name', 'email'];
 
-  if (typeof values.username !== 'undefined' && values.username.length < 3) {
-    errors.username = 'Username must be at least 3 characters';
+  if (typeof values.user_name !== 'undefined' && values.user_name.length < 3) {
+    errors.user_name = 'Username must be at least 3 characters';
   }
 
-  if (typeof values.username !== 'undefined' && values.username.length > 20) {
-    errors.username = 'Username should not have more than 20 characters';
+  if (typeof values.user_name !== 'undefined' && values.user_name.length > 20) {
+    errors.user_name = 'Username should not have more than 20 characters';
   }
 
   if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
@@ -57,7 +57,7 @@ class ProfileEdit extends React.Component {
             <Field component={FormInputFile} filename={initialValues.image} name="image" type="file"/>
             <Field autoFocus component={FormInput} label="First Name" name="first_name" tabIndex={1}/>
             <Field component={FormInput} label="Last Name" name="last_name" tabIndex={2}/>
-            <Field component={FormInput} label="Username" name="username" tabIndex={3}/>
+            <Field component={FormInput} label="Username" name="user_name" tabIndex={3}/>
             <Field component={FormInput} label="Email" name="email" tabIndex={4}/>
             <FormActions>
               <Button color="green" tabIndex={5} type="submit">Update</Button>

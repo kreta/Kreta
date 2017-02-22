@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Kreta\TaskManager\Infrastructure\Persistence\Doctrine\ORM\Organization;
 
 use Doctrine\ORM\EntityRepository;
+use Kreta\SharedKernel\Domain\Model\Identity\Slug;
 use Kreta\TaskManager\Domain\Model\Organization\Organization;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationId;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationRepository;
@@ -24,6 +25,11 @@ class DoctrineORMOrganizationRepository extends EntityRepository implements Orga
     public function organizationOfId(OrganizationId $id)
     {
         return $this->find($id->id());
+    }
+
+    public function organizationOfSlug(Slug $slug)
+    {
+        return $this->findOneBy(['slug.slug' => $slug->slug()]);
     }
 
     public function query($specification)

@@ -34,11 +34,12 @@ class UserDTODataTransformer extends BaseUserDTODataTransformer
         }
 
         return array_merge(parent::read(), [
+            'user_id'    => $this->user->id()->id(),
             'user_name'  => $this->user->username()->username(),
             'first_name' => $this->firstName($this->user->fullName()),
             'last_name'  => $this->lastName($this->user->fullName()),
             'full_name'  => $this->fullName($this->user->fullName()),
-            'image_name' => $this->image($this->user->image()),
+            'image'      => $this->image($this->user->image()),
         ]);
     }
 

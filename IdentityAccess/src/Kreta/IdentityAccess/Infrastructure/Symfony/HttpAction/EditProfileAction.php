@@ -73,11 +73,11 @@ class EditProfileAction
                 return new JsonResponse([
                     'user_id'    => $data->id(),
                     'email'      => $data->email(),
-                    'username'   => $data->userName(),
+                    'user_name'  => $data->username(),
                     'token'      => $token,
                     'first_name' => $data->firstName(),
                     'last_name'  => $data->lastName(),
-                    'image'      => $user->imageName,
+                    'image'      => $user->image,
                 ]);
             } catch (UserDoesNotExistException $exception) {
                 return new JsonResponse(

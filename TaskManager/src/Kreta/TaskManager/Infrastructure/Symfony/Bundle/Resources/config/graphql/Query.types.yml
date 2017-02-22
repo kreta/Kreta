@@ -45,7 +45,10 @@ Query:
                 args:
                     id:
                         description: "id of the organization"
-                        type: "ID!"
+                        type: "ID"
+                    slug:
+                        description: "slug of the organization"
+                        type: "String"
                 resolve: "@=resolver('organization', [args])"
             organizationMember:
                 type: "OrganizationMember"

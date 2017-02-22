@@ -31,7 +31,7 @@ class EditProfileType extends AbstractType
     {
         $builder
             ->add('email', EmailType::class)
-            ->add('username')
+            ->add('user_name')
             ->add('firstName')
             ->add('lastName')
             ->add('image', FileType::class, [
@@ -65,7 +65,7 @@ class EditProfileType extends AbstractType
                 return new EditProfileCommand(
                     $this->userId,
                     $form->get('email')->getData(),
-                    $form->get('username')->getData(),
+                    $form->get('user_name')->getData(),
                     $form->get('firstName')->getData(),
                     $form->get('lastName')->getData(),
                     $imageName,
