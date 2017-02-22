@@ -44,7 +44,7 @@ class OrganizationNew extends React.Component {
           <RowColumn>
             <Field autoFocus component={FormInput} label="Organization Name" name="name" tabIndex={1}/>
             <FormActions>
-              <Button color="green" type="submit">Create</Button>
+              <Button color="green" tabIndex={2} type="submit">Create</Button>
             </FormActions>
           </RowColumn>
         </Row>

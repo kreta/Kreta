@@ -42,10 +42,10 @@ class ProjectNew extends React.Component {
       <Form onSubmit={handleSubmit}>
         <Row>
           <RowColumn>
-            <Field autoFocus component={FormInput} label="Project Name" name="name" tabIndex={2}/>
-            <Field component={FormInput} label="Short name" name="short_name" tabIndex={3}/>
+            <Field autoFocus component={FormInput} label="Project Name" name="name" tabIndex={1}/>
+            <Field component={FormInput} label="Short name" name="short_name" tabIndex={2}/>
             <FormActions>
-              <Button color="green" type="submit">Update</Button>
+              <Button color="green" tabIndex={3} type="submit">Update</Button>
             </FormActions>
           </RowColumn>
         </Row>
