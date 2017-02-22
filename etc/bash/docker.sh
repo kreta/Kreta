@@ -27,4 +27,4 @@ while getopts 'f' flag; do
   esac
 done
 
-nohup docker-compose exec php bash -c "cd /var/www/taskmanager && etc/bin/symfony-console rabbitmq:consumer asynchronous_events" &
+nohup docker-compose exec php bash -c "cd /var/www/taskmanager && etc/bin/symfony-console rabbitmq:consumer asynchronous_events" </dev/null >/dev/null 2>&1
