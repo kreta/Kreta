@@ -54,7 +54,9 @@ class TaskList extends React.Component {
   }
 
   filterTasks(filters) {
-    const data = {project: this.props.currentProject.project.id};
+    const
+      {currentProject, dispatch} = this.props,
+      data = {projectId: currentProject.project.id};
 
     filters.forEach((filter) => {
       filter.forEach((item) => {
@@ -63,7 +65,8 @@ class TaskList extends React.Component {
         }
       });
     });
-    this.props.dispatch(CurrentProjectActions.filterTasks(data));
+
+    dispatch(CurrentProjectActions.filterTasks(data));
   }
 
   selectCurrentTask(task) {
