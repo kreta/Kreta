@@ -64,6 +64,10 @@ export default function reducer(state = initialState, action = {}) {
       return _addNotification(state, 'Project created successfully');
     }
 
+    case ActionTypes.ORGANIZATION_CREATED: {
+      return _addNotification(state, 'Organization created successfully');
+    }
+
     case ActionTypes.USER_AUTHORIZATION_ERROR: {
       return _addNotification(state, 'Invalid credentials', 'error');
     }
