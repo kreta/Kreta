@@ -84,7 +84,7 @@ $ docker rmi $(docker images -q)
 * Database requires root connection to create multiple databases
 * Sometimes logs, cache and sessions cannot be written due to permission issues, change `var` folder permissions to 777
 * Node takes some time to up, if browser brings you 502 try again few minutes later
-* If you have some infraestructure installed locally(MySQL, RabbitMQ, WebServer...) you'll get an error indicating that port is already allocated
+* If you have some infrastructure installed locally (MySQL, RabbitMQ, WebServer...) you'll get an error indicating that port is already allocated
 
 ## FAQ
 
