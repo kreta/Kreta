@@ -41,8 +41,8 @@ const query = Relay.QL`
 `;
 
 class TasksQueryRequest extends RelayQueryRequest {
-  static build({priority = null, progress = null, assignee = null} = {}) {
-    const taskConnectionInput = {};
+  static build({projectId, priority = null, progress = null, assignee = null} = {}) {
+    const taskConnectionInput = {projectId};
 
     if (priority) {
       taskConnectionInput.priority = priority;

@@ -143,7 +143,7 @@ module.exports = {
     "no-var": "off",
     "no-warning-comments": ["off", {"terms": ["todo", "fixme", "xxx"], "location": "start"}],
     "no-with": "error",
-    "one-var": "error",
+    "one-var": ["error", {var: "always", let: "always"}],
     "operator-assignment": ["off", "always"],
     "padded-blocks": "off",
     "quote-props": "off",

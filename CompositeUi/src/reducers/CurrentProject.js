@@ -138,13 +138,18 @@ export default function reducer(state = initialState, action = {}) {
         selectedTask = null;
 
       if (null !== initialState.project) {
-        initialState.project._tasks4hn9we.edges.map((task, index) => {
+        const tasks = initialState.project._tasks4hn9we.edges;
+
+        tasks.map((task, index) => {
           if (task.node.id === action.selectedTask) {
             selectedTaskIndex = index;
           }
         });
 
-        selectedTask = initialState.project._tasks4hn9we.edges[selectedTaskIndex].node;
+        const currentTask = tasks[selectedTaskIndex];
+        if (typeof currentTask !== 'undefined') {
+          selectedTask = currentTask.node;
+        }
       }
 
       return {...state, selectedTask};
