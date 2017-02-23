@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "d45a35b890718bf7f00ab37d9b9b8fc4",
+    "content-hash": "f22a657c217dbd0a6bdd5cead60ecf74",
     "packages": [
         {
             "name": "ajgl/simple-bus-query-bus",
@@ -178,16 +178,16 @@
         },
         {
             "name": "bengor-file/doctrine-orm-bridge",
-            "version": "v1.0.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/BenGorFile/DoctrineORMBridge.git",
-                "reference": "660c08202ccdea32b84ec088eb72545fa0b20011"
+                "reference": "65f2de2f515dcd3ec079d5a9059426c4fc8e3182"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/BenGorFile/DoctrineORMBridge/zipball/660c08202ccdea32b84ec088eb72545fa0b20011",
-                "reference": "660c08202ccdea32b84ec088eb72545fa0b20011",
+                "url": "https://api.github.com/repos/BenGorFile/DoctrineORMBridge/zipball/65f2de2f515dcd3ec079d5a9059426c4fc8e3182",
+                "reference": "65f2de2f515dcd3ec079d5a9059426c4fc8e3182",
                 "shasum": ""
             },
             "require": {
@@ -237,7 +237,7 @@
                 "file",
                 "orm"
             ],
-            "time": "2016-11-02T10:52:01+00:00"
+            "time": "2017-02-23T16:07:43+00:00"
         },
         {
             "name": "bengor-file/doctrine-orm-bridge-bundle",
@@ -685,16 +685,16 @@
         },
         {
             "name": "bengor-user/doctrine-orm-bridge",
-            "version": "v2.0.0",
+            "version": "v2.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/BenGorUser/DoctrineORMBridge.git",
-                "reference": "3adc0613c94e16327feff01f1ef273751df7d1bd"
+                "reference": "0ad9799a0d7f3502f5b86292d426d83d9c245c86"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/BenGorUser/DoctrineORMBridge/zipball/3adc0613c94e16327feff01f1ef273751df7d1bd",
-                "reference": "3adc0613c94e16327feff01f1ef273751df7d1bd",
+                "url": "https://api.github.com/repos/BenGorUser/DoctrineORMBridge/zipball/0ad9799a0d7f3502f5b86292d426d83d9c245c86",
+                "reference": "0ad9799a0d7f3502f5b86292d426d83d9c245c86",
                 "shasum": ""
             },
             "require": {
@@ -710,7 +710,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "2.0.x-dev"
+                    "dev-master": "2.1.x-dev"
                 }
             },
             "autoload": {
@@ -745,7 +745,7 @@
                 "orm",
                 "user"
             ],
-            "time": "2017-02-02T16:35:37+00:00"
+            "time": "2017-02-23T16:11:18+00:00"
         },
         {
             "name": "bengor-user/doctrine-orm-bridge-bundle",
