@@ -49,7 +49,11 @@ class GraphQl {
     );
 
     this.buildGraphQlResponse = (response, dispatch) => (
-      response.catch(() => {
+      response.catch((error) => {
+        if (__DEV__) {
+          return console.error(error);
+        }
+
         dispatch(UserActions.logout());
       })
     );
