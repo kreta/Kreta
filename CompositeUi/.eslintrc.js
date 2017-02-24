@@ -18,6 +18,7 @@ module.exports = {
     "templateStrings": true
   },
   "globals": {
+    "__DEV__": true,
     "new": true,
     "process": true,
     "require": true,

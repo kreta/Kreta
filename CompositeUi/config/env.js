@@ -24,5 +24,8 @@ export default (publicUrl) => {
     )
   };
 
-  return {'process.env': processEnv};
+  return {
+    'process.env': processEnv,
+    '__DEV__': process.env.NODE_ENV === 'development'
+  };
 };
