@@ -19,38 +19,54 @@ use Kreta\TaskManager\Domain\Model\Organization\OrganizationDoesNotExistExceptio
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationId;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationRepository;
 use Kreta\TaskManager\Domain\Model\Organization\UnauthorizedOrganizationActionException;
+use Kreta\TaskManager\Domain\Model\User\UserDoesNotExistException;
 use Kreta\TaskManager\Domain\Model\User\UserId;
+use Kreta\TaskManager\Domain\Model\User\UserRepository;
 
 class AddOrganizationMemberToOrganizationHandler
 {
     private $repository;
+    private $userRepository;
 
-    public function __construct(OrganizationRepository $repository)
+    public function __construct(OrganizationRepository $repository, UserRepository $userRepository)
     {
         $this->repository = $repository;
+        $this->userRepository = $userRepository;
     }
 
     public function __invoke(AddOrganizationMemberToOrganizationCommand $command)
     {
-        $organization = $this->repository->organizationOfId(
-            OrganizationId::generate(
-                $command->organizationId()
-            )
-        );
+        $adderId = UserId::generate($command->adderId());
+        $userId = UserId::generate($command->userId());
+        $organizationId = OrganizationId::generate($command->organizationId());
+
+        $organization = $this->repository->organizationOfId($organizationId);
+        $this->checkOrganizationExists($organization);
+        $this->checkAdderIsOrganizationOwner($organization, $adderId);
+        $this->checkUserExists($userId);
+        $organization->addOrganizationMember($userId);
+        $this->repository->persist($organization);
+    }
+
+    private function checkOrganizationExists(Organization $organization = null)
+    {
         if (!$organization instanceof Organization) {
             throw new OrganizationDoesNotExistException();
         }
+    }
 
-        if (!$organization->isOwner(UserId::generate($command->adderId()))) {
+    private function checkAdderIsOrganizationOwner(Organization $organization, UserId $adderId)
+    {
+        if (!$organization->isOwner($adderId)) {
             throw new UnauthorizedOrganizationActionException();
         }
+    }
 
-        $organization->addOrganizationMember(
-            UserId::generate(
-                $command->userId()
-            )
-        );
-
-        $this->repository->persist($organization);
+    private function checkUserExists(UserId $userId)
+    {
+        $user = $this->userRepository->userOfId($userId);
+        if (null === $user) {
+            throw new UserDoesNotExistException();
+        }
     }
 }
