@@ -8,6 +8,8 @@
  * file that was distributed with this source code.
  */
 
+process.env.NODE_ENV = 'development';
+
 import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
