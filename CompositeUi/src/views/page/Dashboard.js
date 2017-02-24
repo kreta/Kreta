@@ -25,11 +25,12 @@ import {routes} from './../../Routes';
 import Button from './../component/Button';
 import DashboardWidget from './../component/DashboardWidget';
 import Icon from './../component/Icon';
+import LoadingSpinner from './../component/LoadingSpinner';
 import ResourcePreview from './../component/ResourcePreview';
 import {Row, RowColumn} from './../component/Grid';
 import Search from '../component/Search';
 
-@connect(state => ({dashboard: state.dashboard}))
+@connect(state => ({profile: state.profile.profile, dashboard: state.dashboard}))
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
@@ -67,21 +68,35 @@ class Dashboard extends React.Component {
   }
 
   renderOrganizations() {
-    return this.props.dashboard.organizations.map((organization, index) => (
+    const {dashboard} = this.props;
+
+    return dashboard.organizations.map((organization, index) => (
       <div className="dashboard" key={index}>
         <ResourcePreview
           resource={organization.node}
-          shortcuts={
-            <Link to={routes.project.new(organization.node.slug)}>
-              <Icon glyph={AddIcon}/>
-            </Link>
-          }
+          shortcuts={this.renderProjectCreateLink(organization.node)}
           type="organization"
         />
         {this.renderProjects(organization.node._projectsMDbLG.edges)}
         {this.renderViewMore(organization.node)}
       </div>
     ));
+  }
+
+  renderProjectCreateLink(organization) {
+    const
+      {profile} = this.props,
+      profileId = profile.user_id;
+
+    return organization.owners.map((owner, index) => {
+      if (owner.id === profileId) {
+        return (
+          <Link key={index} to={routes.project.new(organization.slug)}>
+            <Icon glyph={AddIcon}/>
+          </Link>
+        );
+      }
+    });
   }
 
   renderProjects(projects) {
@@ -107,6 +122,8 @@ class Dashboard extends React.Component {
   }
 
   render() {
+    const {dashboard} = this.props;
+
     return (
       <article className="dashboard">
         <Row className="dashboard__search">
@@ -131,7 +148,7 @@ class Dashboard extends React.Component {
         </Row>
         <Row>
           <RowColumn medium={8}>
-            {this.renderOrganizations()}
+            {dashboard.fetching ? <LoadingSpinner/> : this.renderOrganizations()}
           </RowColumn>
         </Row>
       </article>

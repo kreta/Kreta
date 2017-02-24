@@ -21,6 +21,9 @@ const query = Relay.QL`
           id,
           name,
           slug,
+          owners {
+            id
+          }
           projects(first: $projectsFirst) {
             totalCount,
             pageInfo {
