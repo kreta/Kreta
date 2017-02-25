@@ -38,33 +38,46 @@ class CreateOrganizationHandler
 
     public function __invoke(CreateOrganizationCommand $command)
     {
-        $organization = $this->repository->organizationOfId(
-            OrganizationId::generate(
-                $command->id()
-            )
-        );
+        $name = $command->name();
+        $slug = $command->slug();
+        $slug = new Slug(null === $slug ? $name : $slug);
+        $name = new OrganizationName($name);
+        $organizationId = OrganizationId::generate($command->id());
+        $creatorId = UserId::generate($command->creatorId());
+
+        $this->checkOrganizationUniqueness($organizationId, $slug);
+        $this->checkCreatorExists($creatorId);
+        $organization = new Organization($organizationId, $name, $slug, $creatorId);
+        $this->repository->persist($organization);
+    }
+
+    private function checkOrganizationUniqueness(OrganizationId $organizationId, Slug $slug)
+    {
+        $this->checkOrganizationIdUniqueness($organizationId);
+        $this->checkOrganizationSlugUniqueness($slug);
+    }
+
+    private function checkOrganizationIdUniqueness(OrganizationId $organizationId)
+    {
+        $organization = $this->repository->organizationOfId($organizationId);
         if ($organization instanceof Organization) {
             throw new OrganizationAlreadyExistsException();
         }
-        $user = $this->userRepository->userOfId(
-            UserId::generate(
-                $command->creatorId()
-            )
-        );
-        if (!$user instanceof User) {
+    }
+
+    private function checkOrganizationSlugUniqueness(Slug $slug)
+    {
+        $organization = $this->repository->organizationOfSlug($slug);
+        if ($organization instanceof Organization) {
+            throw new OrganizationAlreadyExistsException();
+        }
+    }
+
+    private function checkCreatorExists(UserId $creatorId)
+    {
+        $creator = $this->userRepository->userOfId($creatorId);
+        if (!$creator instanceof User) {
             throw new UserDoesNotExistException();
         }
-        $organizationId = OrganizationId::generate($command->id());
-        $organization = new Organization(
-            $organizationId,
-            new OrganizationName(
-                $command->name()
-            ),
-            new Slug(
-                null === $command->slug() ? $command->name() : $command->slug()
-            ),
-            $user->id()
-        );
-        $this->repository->persist($organization);
     }
 }
