@@ -17,7 +17,6 @@ import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
 import ProjectNew from './../../form/ProjectNew';
 
 import CurrentOrganizationActions from './../../../actions/CurrentOrganization';
-import ProjectsActions from './../../../actions/Projects';
 
 @connect(state => ({currentOrganization: state.currentOrganization}))
 class New extends React.Component {
@@ -31,7 +30,7 @@ class New extends React.Component {
     const {dispatch, currentOrganization} = this.props;
 
     project.organization = currentOrganization.organization.id;
-    dispatch(ProjectsActions.createProject(project));
+    dispatch(CurrentOrganizationActions.createProject(project));
   }
 
   render() {

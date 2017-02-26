@@ -24,8 +24,9 @@ class ResourcePreview extends React.Component {
     resource: React.PropTypes.object.isRequired,
     selected: React.PropTypes.bool,
     shortcuts: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.element
+      React.PropTypes.array,
+      React.PropTypes.element,
+      React.PropTypes.string
     ]),
     type: React.PropTypes.string.isRequired
   };

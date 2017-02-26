@@ -14,25 +14,44 @@ import {routes} from './../Routes';
 
 import ActionTypes from './../constants/ActionTypes';
 import TaskApi from './../api/Task';
-import ProjectQueryRequest from './../api/graphql/query/ProjectQueryRequest';
 import TasksQueryRequest from './../api/graphql/query/TasksQueryRequest';
 import TaskManagerGraphQl from './../api/graphql/TaskManagerGraphQl';
 
 const Actions = {
-  fetchProject: (projectId) => (dispatch) => {
+  fetchProject: (organizationSlug, projectSlug) => (dispatch) => {
     dispatch({
       type: ActionTypes.CURRENT_PROJECT_FETCHING
     });
-    const query = ProjectQueryRequest.build(projectId);
 
-    TaskManagerGraphQl.query(query, dispatch);
-    query
-      .then(data => {
-        dispatch({
-          type: ActionTypes.CURRENT_PROJECT_RECEIVED,
-          project: data.response.project,
-        });
-      });
+    const project = {
+      id: '1',
+      name: 'Dummy Project',
+      slug: projectSlug,
+      organization: {
+        id: '1',
+        name: 'Dummy Organization',
+        slug: organizationSlug
+      },
+      _tasks4hn9we: {
+        edges: []
+      }
+    };
+
+    dispatch({
+      type: ActionTypes.CURRENT_PROJECT_RECEIVED,
+      project,
+    });
+
+    // const query = ProjectQueryRequest.build(projectId);
+    //
+    // TaskManagerGraphQl.query(query, dispatch);
+    // query
+    //   .then(data => {
+    //     dispatch({
+    //       type: ActionTypes.CURRENT_PROJECT_RECEIVED,
+    //       project: data.response.project,
+    //     });
+    //   });
   },
   selectCurrentTask: (task) => (dispatch) => (
     dispatch({
