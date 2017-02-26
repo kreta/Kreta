@@ -28,14 +28,25 @@ use Prophecy\Argument;
 
 class CreateOrganizationHandlerSpec extends ObjectBehavior
 {
-    function let(OrganizationRepository $repository, UserRepository $userRepository)
-    {
-        $this->beConstructedWith($repository, $userRepository);
-    }
+    private $organizationId;
+    private $slug;
+    private $creatorId;
 
-    function it_is_initializable()
-    {
-        $this->shouldHaveType(CreateOrganizationHandler::class);
+    function let(
+        OrganizationRepository $repository,
+        UserRepository $userRepository,
+        CreateOrganizationCommand $command
+    ) {
+        $this->beConstructedWith($repository, $userRepository);
+
+        $command->name()->shouldBeCalled()->willReturn('organization name');
+        $command->slug()->shouldBeCalled()->willReturn('organization-slug');
+        $command->id()->shouldBeCalled()->willReturn('organization-id');
+        $command->creatorId()->shouldBeCalled()->willReturn('user-id');
+
+        $this->organizationId = OrganizationId::generate('organization-id');
+        $this->slug = new Slug('organization-slug');
+        $this->creatorId = UserId::generate('user-id');
     }
 
     function it_creates_an_organization(
@@ -44,18 +55,11 @@ class CreateOrganizationHandlerSpec extends ObjectBehavior
         UserRepository $userRepository,
         User $user
     ) {
-        $command->name()->shouldBeCalled()->willReturn('organization name');
-        $command->slug()->shouldBeCalled()->willReturn('organization-slug');
-        $command->id()->shouldBeCalled()->willReturn('organization-id');
-        $command->creatorId()->shouldBeCalled()->willReturn('user-id');
+        $this->shouldHaveType(CreateOrganizationHandler::class);
 
-        $organizationId = OrganizationId::generate('organization-id');
-        $slug = new Slug('organization-slug');
-        $userId = UserId::generate('user-id');
-
-        $repository->organizationOfId($organizationId)->shouldBeCalled()->willReturn(null);
-        $repository->organizationOfSlug($slug)->shouldBeCalled()->willReturn(null);
-        $userRepository->userOfId($userId)->shouldBeCalled()->willReturn($user);
+        $repository->organizationOfId($this->organizationId)->shouldBeCalled()->willReturn(null);
+        $repository->organizationOfSlug($this->slug)->shouldBeCalled()->willReturn(null);
+        $userRepository->userOfId($this->creatorId)->shouldBeCalled()->willReturn($user);
         $repository->persist(Argument::type(Organization::class))->shouldBeCalled();
         $this->__invoke($command);
     }
@@ -66,18 +70,12 @@ class CreateOrganizationHandlerSpec extends ObjectBehavior
         UserRepository $userRepository,
         User $user
     ) {
-        $command->name()->shouldBeCalled()->willReturn('organization name');
         $command->slug()->shouldBeCalled()->willReturn(null);
-        $command->id()->shouldBeCalled()->willReturn('organization-id');
-        $command->creatorId()->shouldBeCalled()->willReturn('user-id');
-
-        $organizationId = OrganizationId::generate('organization-id');
         $slug = new Slug('organization name');
-        $userId = UserId::generate('user-id');
 
-        $repository->organizationOfId($organizationId)->shouldBeCalled()->willReturn(null);
+        $repository->organizationOfId($this->organizationId)->shouldBeCalled()->willReturn(null);
         $repository->organizationOfSlug($slug)->shouldBeCalled()->willReturn(null);
-        $userRepository->userOfId($userId)->shouldBeCalled()->willReturn($user);
+        $userRepository->userOfId($this->creatorId)->shouldBeCalled()->willReturn($user);
         $repository->persist(Argument::type(Organization::class))->shouldBeCalled();
         $this->__invoke($command);
     }
@@ -87,14 +85,7 @@ class CreateOrganizationHandlerSpec extends ObjectBehavior
         OrganizationRepository $repository,
         Organization $organization
     ) {
-        $command->name()->shouldBeCalled()->willReturn('organization name');
-        $command->slug()->shouldBeCalled()->willReturn('organization-slug');
-        $command->id()->shouldBeCalled()->willReturn('organization-id');
-        $command->creatorId()->shouldBeCalled()->willReturn('user-id');
-
-        $organizationId = OrganizationId::generate('organization-id');
-
-        $repository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
+        $repository->organizationOfId($this->organizationId)->shouldBeCalled()->willReturn($organization);
         $this->shouldThrow(OrganizationAlreadyExistsException::class)->during__invoke($command);
     }
 
@@ -103,16 +94,8 @@ class CreateOrganizationHandlerSpec extends ObjectBehavior
         OrganizationRepository $repository,
         Organization $organization
     ) {
-        $command->name()->shouldBeCalled()->willReturn('organization name');
-        $command->slug()->shouldBeCalled()->willReturn('organization-slug');
-        $command->id()->shouldBeCalled()->willReturn('organization-id');
-        $command->creatorId()->shouldBeCalled()->willReturn('user-id');
-
-        $organizationId = OrganizationId::generate('organization-id');
-        $slug = new Slug('organization-slug');
-
-        $repository->organizationOfId($organizationId)->shouldBeCalled()->willReturn(null);
-        $repository->organizationOfSlug($slug)->shouldBeCalled()->willReturn($organization);
+        $repository->organizationOfId($this->organizationId)->shouldBeCalled()->willReturn(null);
+        $repository->organizationOfSlug($this->slug)->shouldBeCalled()->willReturn($organization);
         $this->shouldThrow(OrganizationAlreadyExistsException::class)->during__invoke($command);
     }
 
@@ -121,16 +104,8 @@ class CreateOrganizationHandlerSpec extends ObjectBehavior
         OrganizationRepository $repository,
         UserRepository $userRepository
     ) {
-        $command->name()->shouldBeCalled()->willReturn('organization name');
-        $command->slug()->shouldBeCalled()->willReturn('organization-slug');
-        $command->id()->shouldBeCalled()->willReturn('organization-id');
-        $command->creatorId()->shouldBeCalled()->willReturn('user-id');
-
-        $organizationId = OrganizationId::generate('organization-id');
-        $slug = new Slug('organization-slug');
-
-        $repository->organizationOfId($organizationId)->shouldBeCalled()->willReturn(null);
-        $repository->organizationOfSlug($slug)->shouldBeCalled()->willReturn(null);
+        $repository->organizationOfId($this->organizationId)->shouldBeCalled()->willReturn(null);
+        $repository->organizationOfSlug($this->slug)->shouldBeCalled()->willReturn(null);
         $userRepository->userOfId(Argument::type(UserId::class))->shouldBeCalled()->willReturn(null);
         $this->shouldThrow(UserDoesNotExistException::class)->during__invoke($command);
     }

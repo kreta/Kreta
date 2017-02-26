@@ -23,7 +23,7 @@ class EditOrganizationCommandSpec extends ObjectBehavior
         $this->shouldHaveType(EditOrganizationCommand::class);
         $this->id()->shouldReturn('organization-id');
         $this->name()->shouldReturn('Organization name');
-        $this->userId()->shouldReturn('user-id');
+        $this->editorId()->shouldReturn('user-id');
         $this->slug()->shouldReturn(null);
     }
 
@@ -33,7 +33,7 @@ class EditOrganizationCommandSpec extends ObjectBehavior
         $this->shouldHaveType(EditOrganizationCommand::class);
         $this->id()->shouldReturn('organization-id');
         $this->name()->shouldReturn('Organization name');
-        $this->userId()->shouldReturn('user-id');
+        $this->editorId()->shouldReturn('user-id');
         $this->slug()->shouldReturn('organization-slug');
     }
 }
