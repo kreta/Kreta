@@ -16,6 +16,7 @@ import ActionTypes from './../constants/ActionTypes';
 import TaskApi from './../api/Task';
 import TasksQueryRequest from './../api/graphql/query/TasksQueryRequest';
 import TaskManagerGraphQl from './../api/graphql/TaskManagerGraphQl';
+import Users from './../api/rest/User/Users';
 
 const Actions = {
   fetchProject: (organizationSlug, projectSlug) => (dispatch) => {
@@ -30,17 +31,62 @@ const Actions = {
       organization: {
         id: '1',
         name: 'Dummy Organization',
-        slug: organizationSlug
+        slug: organizationSlug,
+        organization_members: [
+          {
+            "id": "8eb29ed7-93b2-4c94-bb9b-ad4b323ad8c5"
+          },
+          {
+            "id": "a38f8ef4-400b-4229-a5ff-712ff5f72b27"
+          }
+        ],
+        owners: [
+          {
+            "id": "da49c01f-2e99-45ee-9557-eb3eb57b06c5"
+          }
+        ]
       },
       _tasks4hn9we: {
         edges: []
       }
     };
 
-    dispatch({
-      type: ActionTypes.CURRENT_PROJECT_RECEIVED,
-      project,
+    const
+      organization = project.organization,
+      ids = [];
+
+    organization.owners.map((owner) => {
+      ids.push(owner.id);
     });
+    organization.organization_members.map((organizationMember) => {
+      ids.push(organizationMember.id);
+    });
+
+    Users.get({ids})
+      .then((users) => {
+        // eslint-disable-next-line
+        users.map((user, index) => {
+          const
+            owner = organization.owners[index],
+            reverseIndex = users.length - index - 1,
+            member = organization.organization_members[reverseIndex];
+
+          if (typeof owner !== 'undefined' && owner.id === user.id) {
+            Object.assign(organization.owners[index], user);
+          }
+
+          if (typeof member !== 'undefined' && member.id === user.id) {
+            Object.assign(organization.organization_members[reverseIndex], user);
+          }
+        });
+
+        project.organization = organization;
+        dispatch({
+          type: ActionTypes.CURRENT_PROJECT_RECEIVED,
+          project,
+        });
+      });
+
 
     // const query = ProjectQueryRequest.build(projectId);
     //

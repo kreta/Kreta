@@ -17,6 +17,7 @@ import FormActions from './../component/FormActions';
 import FormInput from './../component/FormInput';
 import FormInputWysiwyg from './../component/FormInputWysiwyg';
 import Button from './../component/Button';
+import PageHeader from './../component/PageHeader';
 import Selector from './../component/Selector';
 import Thumbnail from './../component/Thumbnail';
 import SelectorOption from './../component/SelectorOption';
@@ -38,71 +39,77 @@ const validate = (values) => {
 
 @connect(state => ({
   initialValues: {
-    project: state.currentProject.project !== null ? state.currentProject.project.id : ''
+    project: state.currentProject.project.id
   },
-  projects: state.projects.projects
+  project: state.currentProject.project
 }))
 
 @reduxForm({form: 'TaskNew', validate})
 class TaskNew extends React.Component {
-  getProjectOptions() {
-    const
-      defaultEl = [<SelectorOption key="project-empty" text="No project selected" value=""/>],
-      optionsEl = this.props.projects.map(project => (
-          <SelectorOption
-            key={project.node.id}
-            text={project.node.name}
-            thumbnail={<Thumbnail image={null} text={project.node.name}/>}
-            value={project.node.id}
-          />
-        )
+  assigneeSelector() {
+    const options = [(
+        <SelectorOption
+          key={0}
+          text="Unassigned"
+          thumbnail={<Thumbnail image={null} text=""/>}
+          value=""
+        />)],
+      users = this.props.project.organization.organization_members.concat(
+        this.props.project.organization.owners
       );
 
-    return [...defaultEl, ...optionsEl];
+    users.forEach((member) => {
+      options.push(
+        <SelectorOption
+          key={member.id}
+          text={member.id}
+          thumbnail={<Thumbnail image={null} text={member.id}/>}
+          value={member.id}
+        />
+      );
+    });
+
+    return options;
   }
 
   render() {
-    const {handleSubmit} = this.props;
+    const {project, handleSubmit} = this.props;
 
     return (
       <Form onSubmit={handleSubmit}>
-        <Row>
-          <RowColumn>
-            <Field component={Selector} name="project" tabIndex={1}>
-              {this.getProjectOptions()}
-            </Field>
-            <Field autoFocus component={FormInput} label="Title" name="title" tabIndex={2}/>
-             <div className="task-new__description">
-               <Field component={FormInputWysiwyg} label="Description" name="description" tabIndex={3}/>
-             </div>
-          </RowColumn>
-        </Row>
         <Row collapse>
+          <RowColumn>
+            <PageHeader
+              thumbnail={
+                <Thumbnail
+                  image={null}
+                  text={project.name}
+                />
+              }
+              title={project.name}/>
+          </RowColumn>
+          <RowColumn>
+            <Field autoFocus component={FormInput} label="Title" name="title" tabIndex={1}/>
+            <div className="task-new__description">
+              <Field component={FormInputWysiwyg} label="Description" name="description" tabIndex={2}/>
+            </div>
+          </RowColumn>
           <RowColumn large={4} medium={6}>
-            <Field component={Selector} name="assignee" tabIndex={4}>
-              <SelectorOption
-                text="Unassigned"
-                thumbnail={<Thumbnail image={null} text=""/>}
-                value=""
-              />
-              <SelectorOption
-                text="User 1"
-                thumbnail={<Thumbnail image={null} text="User 1"/>}
-                value="1"
-              />
+            <Field component={Selector} name="assignee" tabIndex={3}>
+              {this.assigneeSelector()}
             </Field>
           </RowColumn>
           <RowColumn large={4} medium={6}>
-            <Field component={Selector} name="priority" tabIndex={5}>
-              <SelectorOption text="Select one..." value=""/>
-              <SelectorOption text="High" value="1"/>
+            <Field component={Selector} name="priority" tabIndex={4}>
+              <SelectorOption text="Select priority..." value=""/>
+              <SelectorOption text="High" value="high"/>
+              <SelectorOption text="Medium" value="medium"/>
+              <SelectorOption text="Low" value="low"/>
             </Field>
           </RowColumn>
-        </Row>
-        <Row>
           <RowColumn>
             <FormActions>
-              <Button color="green" tabIndex={6} type="submit">Done</Button>
+              <Button color="green" tabIndex={5} type="submit">Done</Button>
             </FormActions>
           </RowColumn>
         </Row>

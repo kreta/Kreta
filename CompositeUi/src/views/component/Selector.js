@@ -20,7 +20,7 @@ class Selector extends React.Component {
     children: React.PropTypes.arrayOf(React.PropTypes.element),
     disabled: React.PropTypes.bool,
     label: React.PropTypes.string,
-    name: React.PropTypes.string.isRequired,
+    name: React.PropTypes.string,
     tabIndex: React.PropTypes.number
   };
 
