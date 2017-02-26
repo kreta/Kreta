@@ -44,8 +44,8 @@ class EditOrganizationHandler
 
         $organization = $this->repository->organizationOfId($organizationId);
         $this->checkOrganizationExists($organization);
-        $this->checkOrganizationSlugUniqueness($slug);
         $this->checkEditorIsOrganizationOwner($organization, $editorId);
+        $this->checkOrganizationSlugUniqueness($organizationId, $slug);
         $organization->edit($name, $slug);
         $this->repository->persist($organization);
     }
@@ -57,10 +57,10 @@ class EditOrganizationHandler
         }
     }
 
-    private function checkOrganizationSlugUniqueness(Slug $slug)
+    private function checkOrganizationSlugUniqueness(OrganizationId $organizationId, Slug $slug)
     {
         $organization = $this->repository->organizationOfSlug($slug);
-        if ($organization instanceof Organization) {
+        if ($organization instanceof Organization && !$organizationId->equals($organization->id())) {
             throw new OrganizationAlreadyExistsException();
         }
     }

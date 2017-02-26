@@ -56,8 +56,25 @@ class EditOrganizationHandlerSpec extends ObjectBehavior
         $this->shouldHaveType(EditOrganizationHandler::class);
 
         $repository->organizationOfId($this->organizationId)->shouldBeCalled()->willReturn($organization);
-        $repository->organizationOfSlug($this->slug)->shouldBeCalled()->willReturn(null);
         $organization->isOwner($this->editorId)->shouldBeCalled()->willReturn(true);
+        $repository->organizationOfSlug($this->slug)->shouldBeCalled()->willReturn(null);
+        $organization->edit($this->name, $this->slug)->shouldBeCalled();
+        $repository->persist(Argument::type(Organization::class))->shouldBeCalled();
+        $this->__invoke($command);
+    }
+
+    function it_edits_an_organization_with_the_same_slug(
+        EditOrganizationCommand $command,
+        OrganizationRepository $repository,
+        Organization $organization,
+        Organization $organization2
+    ) {
+        $this->shouldHaveType(EditOrganizationHandler::class);
+
+        $repository->organizationOfId($this->organizationId)->shouldBeCalled()->willReturn($organization);
+        $organization->isOwner($this->editorId)->shouldBeCalled()->willReturn(true);
+        $repository->organizationOfSlug($this->slug)->shouldBeCalled()->willReturn($organization2);
+        $organization2->id()->shouldBeCalled()->willReturn($this->organizationId);
         $organization->edit($this->name, $this->slug)->shouldBeCalled();
         $repository->persist(Argument::type(Organization::class))->shouldBeCalled();
         $this->__invoke($command);
@@ -72,8 +89,8 @@ class EditOrganizationHandlerSpec extends ObjectBehavior
         $slug = new Slug('Organization name');
 
         $repository->organizationOfId($this->organizationId)->shouldBeCalled()->willReturn($organization);
-        $repository->organizationOfSlug($slug)->shouldBeCalled()->willReturn(null);
         $organization->isOwner($this->editorId)->shouldBeCalled()->willReturn(true);
+        $repository->organizationOfSlug($slug)->shouldBeCalled()->willReturn(null);
         $organization->edit($this->name, $slug)->shouldBeCalled();
         $repository->persist(Argument::type(Organization::class))->shouldBeCalled();
         $this->__invoke($command);
@@ -93,8 +110,12 @@ class EditOrganizationHandlerSpec extends ObjectBehavior
         Organization $organization,
         Organization $organization2
     ) {
+        $organizationId2 = OrganizationId::generate('organization-id-2');
+
         $repository->organizationOfId($this->organizationId)->shouldBeCalled()->willReturn($organization);
+        $organization->isOwner($this->editorId)->shouldBeCalled()->willReturn(true);
         $repository->organizationOfSlug($this->slug)->shouldBeCalled()->willReturn($organization2);
+        $organization2->id()->shouldBeCalled()->willReturn($organizationId2);
         $this->shouldThrow(OrganizationAlreadyExistsException::class)->during__invoke($command);
     }
 
@@ -104,7 +125,6 @@ class EditOrganizationHandlerSpec extends ObjectBehavior
         Organization $organization
     ) {
         $repository->organizationOfId($this->organizationId)->shouldBeCalled()->willReturn($organization);
-        $repository->organizationOfSlug($this->slug)->shouldBeCalled()->willReturn(null);
         $organization->isOwner($this->editorId)->shouldBeCalled()->willReturn(false);
         $this->shouldThrow(UnauthorizedEditOrganizationException::class)->during__invoke($command);
     }
