@@ -91,16 +91,6 @@ export default function reducer(state = initialState, action = {}) {
     case ActionTypes.CURRENT_PROJECT_FETCHING: {
       return {...state, waiting: true};
     }
-// This case is needed to redirect to the project task list with just created
-// project, but it breaks the execution showing the following error:
-//
-//   https://github.com/facebook/react/issues/8267
-//
-//     case ActionTypes.CURRENT_PROJECT_CREATED: {
-//       initialState.project = action.project;
-//
-//       return {...state, project: action.project};
-//     }
     case ActionTypes.CURRENT_PROJECT_RECEIVED: {
       initialState.project = action.project;
 

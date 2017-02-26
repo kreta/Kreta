@@ -8,7 +8,12 @@
  * file that was distributed with this source code.
  */
 
+import {routeActions} from 'react-router-redux';
+
+import {routes} from './../Routes';
+
 import ActionTypes from './../constants/ActionTypes';
+import CreateProjectMutationRequest from './../api/graphql/mutation/CreateProjectMutationRequest';
 import OrganizationQueryRequest from './../api/graphql/query/OrganizationQueryRequest';
 import TaskManagerGraphQl from './../api/graphql/TaskManagerGraphQl';
 import Users from './../api/rest/User/Users';
@@ -57,6 +62,34 @@ const Actions = {
               organization,
             });
           });
+      });
+  },
+  createProject: (projectInputData) => (dispatch) => {
+    dispatch({
+      type: ActionTypes.CURRENT_ORGANIZATION_PROJECT_CREATING
+    });
+    const mutation = CreateProjectMutationRequest.build(projectInputData);
+
+    TaskManagerGraphQl.mutation(mutation, dispatch);
+    mutation
+      .then(data => {
+        const project = data.response.createProject.project;
+
+        dispatch({
+          type: ActionTypes.CURRENT_ORGANIZATION_PROJECT_CREATING,
+          project,
+        });
+        dispatch(
+          routeActions.push(routes.project.show(project.organization.slug, project.slug))
+        );
+      })
+      .catch((response) => {
+        response.then((errors) => {
+          dispatch({
+            type: ActionTypes.CURRENT_ORGANIZATION_PROJECT_CREATE_ERROR,
+            errors
+          });
+        });
       });
   }
 };

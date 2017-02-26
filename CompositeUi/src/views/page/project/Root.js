@@ -16,11 +16,9 @@ import {connect} from 'react-redux';
 @connect(state => ({projects: state.projects.projects}))
 class Root extends React.Component {
   componentDidMount() {
-    this.props.projects.map((project) => {
-      if (project.node.slug === this.props.params.project) {
-        this.props.dispatch(CurrentProjectActions.fetchProject(project.node.id));
-      }
-    });
+    const {params, dispatch} = this.props;
+
+    dispatch(CurrentProjectActions.fetchProject(params.organization, params.project));
 
     if (typeof this.props.params.task !== 'undefined') {
       this.props.dispatch(CurrentProjectActions.selectCurrentTask(this.props.params.task));
@@ -37,11 +35,7 @@ class Root extends React.Component {
       newTask = this.props.params.task;
 
     if (newProject !== oldProject) {
-      this.props.projects.map((project) => {
-        if (project.node.slug === newProject) {
-          this.props.dispatch(CurrentProjectActions.fetchProject(project.node.id));
-        }
-      });
+      this.props.dispatch(CurrentProjectActions.fetchProject(this.params.organization, this.params.project));
     }
 
     if (newTask !== oldTask && typeof newTask !== 'undefined') {
