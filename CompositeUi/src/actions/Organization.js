@@ -37,11 +37,9 @@ const Actions = {
         );
       })
       .catch((response) => {
-        response.then((errors) => {
-          dispatch({
-            type: ActionTypes.ORGANIZATION_CREATE_ERROR,
-            errors
-          });
+        dispatch({
+          type: ActionTypes.ORGANIZATION_CREATE_ERROR,
+          errors: response.source.errors
         });
       });
   }

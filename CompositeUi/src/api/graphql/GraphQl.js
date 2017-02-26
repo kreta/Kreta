@@ -50,13 +50,20 @@ class GraphQl {
 
     this.buildGraphQlResponse = (response, dispatch) => (
       response.catch((error) => {
-        if (__DEV__) {
-          return console.error(error);
+        if (typeof error.source !== 'undefined' && error.source.errors.length > 0) {
+          return;
         }
-
-        dispatch(UserActions.logout());
+        this.getUncontrolledErrors(error, dispatch);
       })
     );
+
+    this.getUncontrolledErrors = (error, dispatch) => {
+      if (__DEV__) {
+        return console.error(error);
+      }
+
+      dispatch(UserActions.logout());
+    };
   }
 
   baseUrl() {

@@ -16,13 +16,15 @@ namespace Kreta\TaskManager\Infrastructure\Symfony\GraphQl\Mutation\Organization
 
 use Kreta\SharedKernel\Application\CommandBus;
 use Kreta\SharedKernel\Http\GraphQl\Relay\Mutation;
-use Kreta\TaskManager\Application\Command\Organization\CreateOrganizationCommand;
+use Kreta\TaskManager\Application\Command\Organization\EditOrganizationCommand;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationAlreadyExistsException;
+use Kreta\TaskManager\Domain\Model\Organization\OrganizationDoesNotExistException;
+use Kreta\TaskManager\Domain\Model\Organization\UnauthorizedEditOrganizationException;
 use Kreta\TaskManager\Infrastructure\Symfony\GraphQl\Query\Organization\OrganizationResolver;
 use Overblog\GraphQLBundle\Error\UserError;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-class CreateOrganizationMutation implements Mutation
+class EditOrganizationMutation implements Mutation
 {
     private $commandBus;
     private $currentUser;
@@ -40,9 +42,10 @@ class CreateOrganizationMutation implements Mutation
 
     public function execute(array $values) : array
     {
-        $command = new CreateOrganizationCommand(
-            $this->currentUser,
-            $values['name']
+        $command = new EditOrganizationCommand(
+            $values['id'],
+            $values['name'],
+            $this->currentUser
         );
 
         try {
@@ -52,6 +55,20 @@ class CreateOrganizationMutation implements Mutation
                 sprintf(
                     'The organization with "%s" name already exists',
                     $values['name']
+                )
+            );
+        } catch (OrganizationDoesNotExistException $exception) {
+            throw new UserError(
+                sprintf(
+                    'The organization with "%s" id does not exist',
+                    $values['id']
+                )
+            );
+        } catch (UnauthorizedEditOrganizationException $exception) {
+            throw new UserError(
+                sprintf(
+                    'The "%s" user does not allow to edit the organization',
+                    $this->currentUser
                 )
             );
         }
