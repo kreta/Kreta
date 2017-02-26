@@ -11,6 +11,7 @@
 import ActionTypes from './../constants/ActionTypes';
 
 const initialState = {
+  errors: [],
   fetching: true,
   organizations: []
 };
@@ -18,10 +19,13 @@ const initialState = {
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     case ActionTypes.ORGANIZATION_CREATING:
-      return { ...state, fetching: true };
+      return {...state, fetching: true};
 
     case ActionTypes.ORGANIZATION_CREATED:
-      return { ...state, fetching: false, organizations: [...state.organizations, action.organization]};
+      return {...state, fetching: false, organizations: [...state.organizations, action.organization]};
+
+    case ActionTypes.ORGANIZATION_CREATE_ERROR:
+      return {...state, errors: action.errors};
 
     default:
       return state;

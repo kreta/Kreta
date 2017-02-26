@@ -35,6 +35,10 @@ const validate = (values) => {
 @connect()
 @reduxForm({form: 'OrganizationNew', validate})
 class OrganizationNew extends React.Component {
+  static propTypes = {
+    handleSubmit: React.PropTypes.func
+  };
+
   render() {
     const {handleSubmit} = this.props;
 

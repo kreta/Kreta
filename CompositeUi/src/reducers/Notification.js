@@ -67,6 +67,21 @@ export default function reducer(state = initialState, action = {}) {
     case ActionTypes.ORGANIZATION_CREATED: {
       return _addNotification(state, 'Organization created successfully');
     }
+    case ActionTypes.ORGANIZATION_CREATE_ERROR: {
+      const
+        notifications = state.notifications,
+        currentNotifications = action.errors.map((error) => (
+          {
+            id: Math.floor((Math.random() * 1000000)),
+            message: error.message,
+            type: 'error'
+          }
+        ));
+
+      return {
+        ...state, notifications: notifications.concat(currentNotifications)
+      };
+    }
 
     case ActionTypes.USER_AUTHORIZATION_ERROR: {
       return _addNotification(state, 'Invalid credentials', 'error');
