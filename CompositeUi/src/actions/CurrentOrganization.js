@@ -76,7 +76,7 @@ const Actions = {
         const project = data.response.createProject.project;
 
         dispatch({
-          type: ActionTypes.CURRENT_ORGANIZATION_PROJECT_CREATING,
+          type: ActionTypes.CURRENT_ORGANIZATION_PROJECT_CREATED,
           project,
         });
         dispatch(
