@@ -13,14 +13,19 @@ import {connect} from 'react-redux';
 import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
 import TaskNew from './../../form/TaskNew';
 import CurrentProjectActions from './../../../actions/CurrentProject';
+import LoadingSpinner from './../../component/LoadingSpinner';
 
-@connect()
+@connect(state => ({currentProject: state.currentProject}))
 class New extends React.Component {
   createTask(task) {
     this.props.dispatch(CurrentProjectActions.createTask(task));
   }
 
   render() {
+    if (this.props.currentProject.waiting) {
+      return <LoadingSpinner/>;
+    }
+
     return (
       <ContentMiddleLayout centered>
         <TaskNew onSubmit={this.createTask.bind(this)}/>
