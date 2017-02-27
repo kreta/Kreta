@@ -16,9 +16,9 @@
         <field name="updatedOn" type="datetime" column="updated_on" nullable="false"/>
 
         <one-to-many field="organizationMembers" target-entity="Kreta\TaskManager\Domain\Model\Organization\OrganizationMember"
-                     mapped-by="organization">
+                     mapped-by="organization" orphan-removal="true">
             <cascade>
-                <cascade-persist/>
+                <cascade-all/>
             </cascade>
         </one-to-many>
         <one-to-many field="owners" target-entity="Kreta\TaskManager\Domain\Model\Organization\Owner"

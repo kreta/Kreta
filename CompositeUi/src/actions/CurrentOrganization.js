@@ -18,6 +18,7 @@ import EditProjectMutationRequest from './../api/graphql/mutation/EditProjectMut
 import OrganizationQueryRequest from './../api/graphql/query/OrganizationQueryRequest';
 import TaskManagerGraphQl from './../api/graphql/TaskManagerGraphQl';
 import UserInjector from './../helpers/UserInjector';
+import Organization from './../api/rest/User/Organization';
 
 const Actions = {
   fetchOrganization: (slug) => (dispatch) => {
@@ -35,10 +36,24 @@ const Actions = {
           ...organization.organization_members,
           ...organization.owners,
         ]).then(() => (
-          dispatch({
-            type: ActionTypes.CURRENT_ORGANIZATION_RECEIVED,
-            organization,
-          })
+            Users.get({ids})
+                .then((users) => {
+                    // eslint-disable-next-line
+                    users.map((user, index) => {
+                        if (organization.owners.find((it) => it.id === user.id)) {
+                            Object.assign(organization.owners[index], user);
+                        }
+
+                        if (organization.organization_members.find((it) => it.id === user.id)) {
+                            Object.assign(organization.organization_members[index - organization.owners.length], user);
+                        }
+                    });
+
+                    dispatch({
+                        type: ActionTypes.CURRENT_ORGANIZATION_RECEIVED,
+                        organization,
+                    });
+                })
         ));
       });
   },
@@ -91,6 +106,28 @@ const Actions = {
         dispatch({
           type: ActionTypes.PROJECT_EDIT_ERROR,
           errors: response.source.errors
+        });
+      });
+  },
+  addMember: (user) => (dispatch) => {
+    const participant = {
+      role: 'ROLE_MEMBER',
+      user
+    };
+
+    setTimeout(() => {
+      dispatch({
+        type: ActionTypes.CURRENT_PROJECT_PARTICIPANT_ADDED,
+        participant
+      });
+    });
+  },
+  removeMember: (organization, user, remover) => (dispatch) => {
+    Organization.delete(organization, user, remover)
+      .then(() => {
+        dispatch({
+          type: ActionTypes.CURRENT_ORGANIZATION_MEMBER_REMOVED,
+          user
         });
       });
   }

@@ -42,11 +42,14 @@ class DoctrineORMOrganizationRepository extends EntityRepository implements Orga
     public function persist(Organization $organization)
     {
         $this->getEntityManager()->persist($organization);
+        $this->getEntityManager()->flush();
     }
+
 
     public function remove(Organization $organization)
     {
         $this->getEntityManager()->remove($organization);
+        $this->getEntityManager()->flush();
     }
 
     public function count($specification) : int

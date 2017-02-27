@@ -20,7 +20,7 @@ use Kreta\TaskManager\Domain\Model\Organization\OrganizationId;
 
 class OrganizationIdType extends GuidType
 {
-    public function convertToDatabaseValue($value, AbstractPlatform $platform) : string
+    public function convertToDatabaseValue($value, AbstractPlatform $platform)
     {
         if ($value instanceof OrganizationId) {
             return $value->id();

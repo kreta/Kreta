@@ -43,8 +43,8 @@ abstract class MemberCollection extends Collection
         foreach ($members as $member) {
             if ($userId->equals($member->userId())) {
                 $this->remove($member);
-
-                return;
+                $member->removeOrganization();
+                return $this;
             }
         }
 

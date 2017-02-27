@@ -17,20 +17,20 @@ import UserCard from './../../component/UserCard';
 
 class SettingsParticipants extends React.Component {
   static propTypes = {
-    onParticipantAddClicked: React.PropTypes.func,
-    project: React.PropTypes.object
+    onMemberRemoveClicked: React.PropTypes.func,
+    organization: React.PropTypes.object
   };
 
-  triggerOnParticipantAddClicked(participant) {
-    this.props.onParticipantAddClicked(participant);
+  triggerOnMemberRemoveClicked(participant) {
+    this.props.onMemberRemoveClicked(participant);
   }
 
   render() {
-    const notParticipating = this.props.project.participants
+    const notParticipating = this.props.organization.organization.organization_members
       .map((user, index) => {
         const actions = (
-          <Button color="green"
-                  onClick={this.triggerOnParticipantAddClicked.bind(this, user)}
+          <Button color="red"
+                  onClick={this.triggerOnMemberRemoveClicked.bind(this, user)}
                   type="icon">
             <i className="fa fa-plus"/>
           </Button>
@@ -39,7 +39,7 @@ class SettingsParticipants extends React.Component {
         return (
           <UserCard actions={actions}
                        key={index}
-                       user={user.user}/>
+                       user={user}/>
         );
       });
 
