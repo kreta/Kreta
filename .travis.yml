@@ -23,12 +23,9 @@ before_install:
 install:
     - nvm install 7
     - nvm use 7
-    - composer self-update
     - npm install -g yarn
-    - sh etc/bash/install.sh
 
-script:
-    - sh etc/bash/tests.sh
+    - sh etc/bash/install.sh
 
 cache:
     yarn: true
@@ -42,3 +39,24 @@ matrix:
     fast_finish: true
     include:
         php: 7.1
+
+script:
+    - sh etc/bash/tests.sh
+
+    - cd SharedKernel
+    - vendor/bin/php-cs-fixer fix --config=etc/phpcs/.php_cs --diff --dry-run -v
+    - vendor/bin/php-cs-fixer fix --config=etc/phpcs/.phpspec_cs --diff --dry-run -v
+    - cd -
+
+    - cd IdentityAccess
+    - vendor/bin/php-cs-fixer fix --config=etc/phpcs/.php_cs --diff --dry-run -v
+    - vendor/bin/php-cs-fixer fix --config=etc/phpcs/.phpspec_cs --diff --dry-run -v
+    - etc/bin/symfony-console lint:yaml src/Kreta/IdentityAccess/Infrastructure
+    - etc/bin/symfony-console security:check
+    - cd -
+
+    - cd TaskManager
+    - vendor/bin/php-cs-fixer fix --config=etc/phpcs/.php_cs --diff --dry-run -v
+    - vendor/bin/php-cs-fixer fix --config=etc/phpcs/.phpspec_cs --diff --dry-run -v
+    - etc/bin/symfony-console lint:yaml src/Kreta/TaskManager/Infrastructure
+    - etc/bin/symfony-console security:check
