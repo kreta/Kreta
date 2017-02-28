@@ -26,15 +26,9 @@ import {Row, RowColumn} from './../../component/Grid';
 import SectionHeader from './../../component/SectionHeader';
 import Thumbnail from './../../component/Thumbnail';
 import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
-import CurrentOrganizationActions from './../../../actions/CurrentOrganization';
 
 @connect(state => ({currentOrganization: state.currentOrganization}))
 class Show extends React.Component {
-  componentDidMount() {
-    const {params, dispatch} = this.props;
-    dispatch(CurrentOrganizationActions.fetchOrganization(params.organization));
-  }
-
   getProjects() {
     const {organization} = this.props.currentOrganization;
 
