@@ -23,7 +23,7 @@ import InlineLink from './../../component/InlineLink';
 import LoadingSpinner from './../../component/LoadingSpinner';
 import PageHeader from './../../component/PageHeader';
 import {Row, RowColumn} from './../../component/Grid';
-import SettingsParticipants from '../project/SettingsParticipants';
+import AddMemberToOrganization from '../organization/AddMemberToOrganization';
 import SectionHeader from './../../component/SectionHeader';
 import Thumbnail from './../../component/Thumbnail';
 import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
@@ -91,6 +91,15 @@ class Show extends React.Component {
     );
   }
 
+  addMember(participant) {
+      this.props.dispatch(
+          CurrentOrganizationActions.addMember(
+              this.props.currentOrganization.organization.id,
+              participant.id
+          )
+      );
+  }
+
   render() {
     const {currentOrganization} = this.props;
 
@@ -146,7 +155,7 @@ class Show extends React.Component {
           </Row>
         </ContentMiddleLayout>
         <ContentRightLayout isOpen={this.state.addParticipantsVisible}>
-          <SettingsParticipants
+          <AddMemberToOrganization
               onMemberRemoveClicked={this.removeMember.bind(this)}
               organization={this.props.currentOrganization}
           />
