@@ -10,17 +10,17 @@
  * file that was distributed with this source code.
  */
 
-use Kreta\SharedKernel\CS;
+declare(strict_types=1);
 
-CS\setHeader();
+use Kreta\PhpCsFixerConfig\KretaConfig;
 
-$finder = Symfony\CS\Finder::create()
-    ->in([
-        __DIR__ . '/../../tests/Spec',
-    ])
+$config = new KretaConfig(true);
+$config->getFinder()
+    ->in(__DIR__ . '/tests/Spec')
     ->name('*Spec.php');
 
-return Symfony\CS\Config::create()
-    ->level(Symfony\CS\FixerInterface::SYMFONY_LEVEL)
-    ->finder($finder)
-    ->fixers(array_merge(CS\fixers(), ['-visibility']));
+$cacheDir = getenv('TRAVIS') ? getenv('HOME') . '/.php-cs-fixer' : __DIR__;
+
+$config->setCacheFile($cacheDir . '/.php_cs.cache');
+
+return $config;

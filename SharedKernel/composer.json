@@ -33,13 +33,13 @@
     },
     "require-dev": {
         "doctrine/orm": "^2.5",
-        "friendsofphp/php-cs-fixer": "^1.12",
+        "kreta/php-cs-fixer-config": "^1.0",
         "phpspec/phpspec": "^3.2"
     },
     "scripts": {
         "cs": [
-            "php-cs-fixer fix --config-file=etc/phpcs/.php_cs",
-            "php-cs-fixer fix --config-file=etc/phpcs/.phpspec_cs"
+            "php-cs-fixer fix --config=etc/phpcs/.php_cs -v",
+            "php-cs-fixer fix --config=etc/phpcs/.phpspec_cs -v"
         ]
     },
     "autoload": {
@@ -47,9 +47,6 @@
             "Kreta\\SharedKernel\\": "src/Kreta/SharedKernel/",
             "Kreta\\SharedKernel\\Tests\\": "tests/"
         },
-        "files": [
-            "etc/phpcs/common.php"
-        ],
         "exclude-from-classmap": [
           "tests/"
         ]
