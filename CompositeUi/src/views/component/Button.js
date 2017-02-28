@@ -16,7 +16,6 @@ import React from 'react';
 class Button extends React.Component {
   static propTypes = {
     color: React.PropTypes.string,
-    onClick: React.PropTypes.func,
     size: React.PropTypes.string,
     type: React.PropTypes.string
   };
