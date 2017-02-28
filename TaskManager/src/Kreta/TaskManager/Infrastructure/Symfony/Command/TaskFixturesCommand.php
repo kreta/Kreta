@@ -21,6 +21,7 @@ use Kreta\TaskManager\Application\Query\Organization\OrganizationOfIdQuery;
 use Kreta\TaskManager\Application\Query\Project\FilterProjectsQuery;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskPriority;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -40,7 +41,14 @@ class TaskFixturesCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        for ($i = 0; $i < 50; ++$i) {
+        $amount = 50;
+        $output->writeln('');
+        $output->writeln('Loading tasks');
+        $progress = new ProgressBar($output, $amount);
+        $progress->start();
+        $i = 0;
+
+        while ($i < $amount) {
             $userId = UserFixturesCommand::USER_IDS[array_rand(UserFixturesCommand::USER_IDS)];
 
             $this->queryBus->handle(
@@ -70,8 +78,11 @@ class TaskFixturesCommand extends ContainerAwareCommand
                         $project['id']
                     )
                 );
+                $i++;
+                $progress->advance();
             }
         }
-        $output->writeln('Task population is successfully done');
+        $progress->finish();
+        $output->writeln('');
     }
 }

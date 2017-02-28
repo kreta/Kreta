@@ -20,6 +20,7 @@ use Kreta\SharedKernel\Domain\Model\Identity\Uuid;
 use Kreta\TaskManager\Application\Command\Project\CreateProjectCommand;
 use Kreta\TaskManager\Application\Query\Organization\FilterOrganizationsQuery;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -37,7 +38,13 @@ class ProjectFixturesCommand extends ContainerAwareCommand
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        for ($i = 0; $i < 50; ++$i) {
+        $amount = 50;
+        $output->writeln('Loading projects');
+        $progress = new ProgressBar($output, $amount);
+        $progress->start();
+        $i = 0;
+
+        while ($i < $amount) {
             $userId = UserFixturesCommand::USER_IDS[array_rand(UserFixturesCommand::USER_IDS)];
 
             $this->queryBus->handle(
@@ -61,7 +68,10 @@ class ProjectFixturesCommand extends ContainerAwareCommand
                     Uuid::generate()
                 )
             );
+            $i++;
+            $progress->advance();
         }
-        $output->writeln('Project population is successfully done');
+        $progress->finish();
+        $output->writeln('');
     }
 }
