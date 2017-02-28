@@ -16,10 +16,10 @@ use Kreta\PhpCsFixerConfig\KretaConfig;
 
 $config = new KretaConfig(true);
 $config->getFinder()
-    ->in(__DIR__ . '/tests/Spec')
+    ->in(__DIR__ . '/../../tests/Spec')
     ->name('*Spec.php');
 
-$cacheDir = getenv('TRAVIS') ? getenv('HOME') . '/.php-cs-fixer' : __DIR__;
+$cacheDir = getenv('TRAVIS') ? getenv('HOME') . '/.php-cs-fixer' : __DIR__ . '/../..';
 
 $config->setCacheFile($cacheDir . '/.php_cs.cache');
 
