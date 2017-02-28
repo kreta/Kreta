@@ -10,20 +10,19 @@
  * file that was distributed with this source code.
  */
 
-use Kreta\SharedKernel\CS;
+declare(strict_types=1);
 
-CS\setHeader();
+use Kreta\PhpCsFixerConfig\KretaConfig;
 
-$finder = Symfony\CS\Finder::create()
-    ->notName('*Spec.php')
-    ->name('*.php')
-    ->in([
-        __DIR__ . '/../../src',
-        __DIR__ . '/../../tests/Double',
-        __DIR__ . '/../../tests/Matchers'
-    ]);
+$config = new KretaConfig();
+$config->getFinder()->in([
+    __DIR__ . '/../../src',
+    __DIR__ . '/../../tests/Double',
+    __DIR__ . '/../../tests/Matchers',
+]);
 
-return Symfony\CS\Config::create()
-    ->level(Symfony\CS\FixerInterface::SYMFONY_LEVEL)
-    ->finder($finder)
-    ->fixers(CS\fixers());
+$cacheDir = getenv('TRAVIS') ? getenv('HOME') . '/.php-cs-fixer' : __DIR__ . '/../..';
+
+$config->setCacheFile($cacheDir . '/.php_cs.cache');
+
+return $config;

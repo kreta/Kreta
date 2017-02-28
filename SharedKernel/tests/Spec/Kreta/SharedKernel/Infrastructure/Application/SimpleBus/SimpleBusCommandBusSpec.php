@@ -10,6 +10,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Spec\Kreta\SharedKernel\Infrastructure\Application\SimpleBus;
 
 use Kreta\SharedKernel\Application\CommandBus;
