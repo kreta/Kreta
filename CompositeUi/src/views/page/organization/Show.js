@@ -42,12 +42,13 @@ class Show extends React.Component {
       const currentProject = project.node;
 
       return (
-        <CardExtended
-          key={index}
-          subtitle={`10 issues open`}
-          thumbnail={<Thumbnail text={`${currentProject.name}`}/>}
-          title={`${currentProject.name}`}
-        />
+        <Link key={index} to={routes.project.show(organization.slug, currentProject.slug)}>
+          <CardExtended
+            subtitle={`10 issues open`}
+            thumbnail={<Thumbnail text={`${currentProject.name}`}/>}
+            title={`${currentProject.name}`}
+          />
+        </Link>
       );
     });
   }
