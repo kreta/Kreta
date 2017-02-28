@@ -19,6 +19,7 @@ import TaskNew from './views/page/task/New';
 import TaskEdit from './views/page/task/Edit';
 import TaskShow from './views/page/task/Show';
 import LoginPage from './views/page/Login';
+import OrganizationRoot from './views/page/organization/Root';
 import OrganizationNew from './views/page/organization/New';
 import OrganizationShow from './views/page/organization/Show';
 import Profile from './views/page/profile/Edit';
@@ -93,16 +94,19 @@ const
         <Route component={Dashboard} path={routes.search()}/>
 
         <Route component={OrganizationNew} path={routes.organization.new()}/>
-        <Route component={OrganizationShow} path={routes.organization.settings(':organization')}/>
 
-        <Route component={ProjectNew} path={routes.project.new(':organization')}/>
-        <Route component={ProjectRoot}>
-          <Route component={TaskNew} path={routes.task.new(':organization', ':project')}/>
-          <Route component={ProjectShow} path={routes.project.show(':organization', ':project')}>
-            <Route component={TaskShow} path={routes.task.show(':organization', ':project', ':task')}/>
-            <Route component={TaskEdit} path={routes.task.edit(':organization', ':project', ':task')}/>
+        <Route component={OrganizationRoot}>
+          <Route component={OrganizationShow} path={routes.organization.show(':organization')}/>
+
+          <Route component={ProjectNew} path={routes.project.new(':organization')}/>
+          <Route component={ProjectRoot}>
+            <Route component={TaskNew} path={routes.task.new(':organization', ':project')}/>
+            <Route component={ProjectShow} path={routes.project.show(':organization', ':project')}>
+              <Route component={TaskShow} path={routes.task.show(':organization', ':project', ':task')}/>
+              <Route component={TaskEdit} path={routes.task.edit(':organization', ':project', ':task')}/>
+            </Route>
+            <Route component={ProjectSettings} path={routes.project.settings(':organization', ':project')}/>
           </Route>
-          <Route component={ProjectSettings} path={routes.project.settings(':organization', ':project')}/>
         </Route>
 
         <Route component={Profile} path={routes.profile.show()}/>
