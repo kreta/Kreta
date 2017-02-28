@@ -23,18 +23,18 @@ abstract class AggregateRoot
         return $this->recordedEvents;
     }
 
-    public function clearEvents()
+    public function clearEvents() : void
     {
         $this->recordedEvents = [];
     }
 
-    protected function publish(DomainEvent $event)
+    protected function publish(DomainEvent $event) : void
     {
         $this->apply($event);
         $this->record($event);
     }
 
-    protected function apply(DomainEvent $event)
+    protected function apply(DomainEvent $event) : void
     {
         $modifier = 'apply' . array_reverse(explode('\\', get_class($event)))[0];
         if (!method_exists($this, $modifier)) {
@@ -43,7 +43,7 @@ abstract class AggregateRoot
         $this->$modifier($event);
     }
 
-    private function record(DomainEvent $event)
+    private function record(DomainEvent $event) : void
     {
         $this->recordedEvents[] = $event;
     }

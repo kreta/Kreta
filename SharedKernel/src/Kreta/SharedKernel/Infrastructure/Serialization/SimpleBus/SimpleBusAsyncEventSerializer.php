@@ -28,7 +28,7 @@ class SimpleBusAsyncEventSerializer implements ObjectSerializer
         $this->asyncEventSerializer = $asyncEventSerializer;
     }
 
-    public function serialize($object)
+    public function serialize($object) : string
     {
         if ($object instanceof DefaultEnvelope) {
             return $this->asyncEventSerializer->serialize($object->message());
@@ -37,7 +37,7 @@ class SimpleBusAsyncEventSerializer implements ObjectSerializer
         return $this->asyncEventSerializer->serialize($object);
     }
 
-    public function deserialize($serializedObject, $type)
+    public function deserialize($serializedObject, $type) : ?DefaultEnvelope
     {
         if ($type === DefaultEnvelope::class) {
             return DefaultEnvelope::forSerializedMessage(

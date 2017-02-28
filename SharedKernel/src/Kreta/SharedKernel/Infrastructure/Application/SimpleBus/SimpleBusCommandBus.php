@@ -26,7 +26,7 @@ class SimpleBusCommandBus implements CommandBus
         $this->messageBus = $messageBus;
     }
 
-    public function handle($command)
+    public function handle($command) : void
     {
         $this->messageBus->handle($command);
     }

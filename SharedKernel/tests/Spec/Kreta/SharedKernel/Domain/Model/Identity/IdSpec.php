@@ -24,7 +24,7 @@ class IdSpec extends ObjectBehavior
     function let()
     {
         $this->beAnInstanceOf(IdStub::class);
-        $this->beConstructedGenerate(1);
+        $this->beConstructedGenerate('1');
     }
 
     function it_extends_id()
@@ -40,14 +40,14 @@ class IdSpec extends ObjectBehavior
     function it_generates_an_id()
     {
         $this::generate()->shouldReturnAnInstanceOf(IdStub::class);
-        $this->id()->shouldReturn(1);
+        $this->id()->shouldReturn('1');
         $this->__toString()->shouldReturn('1');
     }
 
     function it_compares_two_ids(IdStub $id, IdStub $id2)
     {
-        $id->id()->shouldBeCalled()->willReturn(1);
-        $id2->id()->shouldBeCalled()->willReturn(2);
+        $id->id()->shouldBeCalled()->willReturn('1');
+        $id2->id()->shouldBeCalled()->willReturn('2');
 
         $this->equals($id2)->shouldReturn(false);
         $this->equals($id)->shouldReturn(true);

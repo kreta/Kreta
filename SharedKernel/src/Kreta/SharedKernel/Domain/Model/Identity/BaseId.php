@@ -16,5 +16,5 @@ namespace Kreta\SharedKernel\Domain\Model\Identity;
 
 interface BaseId
 {
-    public static function generate($id = null);
+    public static function generate(?string $id = null);
 }

@@ -18,7 +18,7 @@ abstract class Id implements BaseId
 {
     protected $id;
 
-    protected function __construct($id = null)
+    protected function __construct(?string $id = null)
     {
         if ($id !== null && !is_scalar($id)) {
             throw new InvalidIdException();
@@ -26,7 +26,7 @@ abstract class Id implements BaseId
         $this->id = null === $id ? Uuid::generate() : $id;
     }
 
-    public function id()
+    public function id() : ?string
     {
         return $this->id;
     }

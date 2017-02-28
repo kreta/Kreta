@@ -16,7 +16,7 @@ namespace Kreta\SharedKernel\Domain\Model;
 
 class AsyncDomainEventValueDoesNotExistException extends Exception
 {
-    public function __construct($value)
+    public function __construct(string $value)
     {
         parent::__construct(sprintf('Does not exist any "%s" key inside values array', $value));
     }

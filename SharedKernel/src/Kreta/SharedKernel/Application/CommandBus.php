@@ -16,5 +16,5 @@ namespace Kreta\SharedKernel\Application;
 
 interface CommandBus
 {
-    public function handle($command);
+    public function handle($command) : void;
 }

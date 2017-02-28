@@ -18,5 +18,5 @@ use Kreta\SharedKernel\Domain\Model\DomainEvent;
 
 interface EventSubscriber
 {
-    public function handle(DomainEvent $event);
+    public function handle(DomainEvent $event) : void;
 }

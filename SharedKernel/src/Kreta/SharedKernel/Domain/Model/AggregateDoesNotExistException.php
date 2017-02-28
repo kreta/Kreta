@@ -16,7 +16,7 @@ namespace Kreta\SharedKernel\Domain\Model;
 
 class AggregateDoesNotExistException extends Exception
 {
-    public function __construct($aggregateId)
+    public function __construct(string $aggregateId)
     {
         parent::__construct(sprintf('Does not exist any aggregate with "%s" id', $aggregateId));
     }

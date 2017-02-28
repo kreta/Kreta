@@ -46,7 +46,7 @@ class AsyncEventSerializer implements Serializer
         ]);
     }
 
-    public function deserialize(string $serializedObject)
+    public function deserialize(string $serializedObject) : AsyncEvent
     {
         $decodedObject = json_decode($serializedObject, true);
         if (!isset($decodedObject['name'])
