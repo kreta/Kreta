@@ -39,14 +39,14 @@ const
       settings: (organization) => (`/${organization}/settings`),
     },
     project: {
-      new: (organization) => (`/organizations/${organization}/projects/new`),
-      edit: (organization, project) => (`/organizations/${organization}/projects/${project}/edit`),
-      settings: (organization, project) => (`/organizations/${organization}/projects/${project}/settings`),
+      new: (organization) => (`/${organization}/projects/new`),
+      edit: (organization, project) => (`/${organization}/${project}/edit`),
+      settings: (organization, project) => (`/${organization}/${project}/settings`),
       show: (organization, project) => (`/${organization}/${project}`),
     },
     task: {
-      new: (organization, project) => (`/organizations/${organization}/projects/${project}/tasks/new`),
-      edit: (organization, project, task) => (`/organizations/${organization}/projects/${project}/tasks/${task}/edit`),
+      new: (organization, project) => (`/${organization}/${project}/tasks/new`),
+      edit: (organization, project, task) => (`/${organization}/${project}/${task}/edit`),
       show: (organization, project, task) => (`/${organization}/${project}/${task}`),
     },
     profile: {
