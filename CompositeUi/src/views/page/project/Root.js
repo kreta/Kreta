@@ -21,27 +21,23 @@ class Root extends React.Component {
     dispatch(CurrentProjectActions.fetchProject(params.organization, params.project));
 
     if (typeof this.props.params.task !== 'undefined') {
-      this.props.dispatch(CurrentProjectActions.selectCurrentTask(this.props.params.task));
+      dispatch(CurrentProjectActions.selectCurrentTask(params.task));
     } else {
-      this.props.dispatch(CurrentProjectActions.selectCurrentTask(null));
+      dispatch(CurrentProjectActions.selectCurrentTask(null));
     }
   }
 
   componentDidUpdate(prevProps) {
-    const
-      oldProject = prevProps.params.project,
-      newProject = this.props.params.project,
-      oldTask = prevProps.params.task,
-      newTask = this.props.params.task;
+    const {params, dispatch} = this.props;
 
-    if (newProject !== oldProject) {
-      this.props.dispatch(CurrentProjectActions.fetchProject(this.params.organization, this.params.project));
+    if (params.project !== prevProps.params.project) {
+      dispatch(CurrentProjectActions.fetchProject(params.organization, params.project));
     }
 
-    if (newTask !== oldTask && typeof newTask !== 'undefined') {
-      this.props.dispatch(CurrentProjectActions.selectCurrentTask(newTask));
-    } else if (typeof newTask === 'undefined') {
-      this.props.dispatch(CurrentProjectActions.selectCurrentTask(null));
+    if (params.task !== prevProps.params.task && typeof params.task !== 'undefined') {
+      dispatch(CurrentProjectActions.selectCurrentTask(params.task));
+    } else if (typeof params.task === 'undefined') {
+      dispatch(CurrentProjectActions.selectCurrentTask(null));
     }
   }
 
