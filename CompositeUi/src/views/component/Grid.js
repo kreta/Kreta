@@ -14,40 +14,44 @@ import './../../scss/components/_grid';
 
 const
   Row = props => {
-    let classList = `${props.className ? props.className : ''} row`;
+    const {className, collapse, center, children} = props;
 
-    if (props.collapse) {
+    let classList = `${className ? className : ''} row`;
+
+    if (collapse) {
       classList = `${classList} row--collapse`;
     }
 
-    if (props.center) {
+    if (center) {
       classList = `${classList} row--center`;
     }
 
     return (
       <div className={classList}>
-        {props.children}
+        {children}
       </div>
     );
   },
   RowColumn = props => {
-    let classList = `${props.className ? props.className : ''} row__column`;
+    const {className, small, medium, large, children} = props;
 
-    if (props.small) {
-      classList = `${classList} row__column--small-${props.small}`;
+    let classList = `${className ? className : ''} row__column`;
+
+    if (small) {
+      classList = `${classList} row__column--small-${small}`;
     }
 
-    if (props.medium) {
-      classList = `${classList} row__column--medium-${props.medium}`;
+    if (medium) {
+      classList = `${classList} row__column--medium-${medium}`;
     }
 
-    if (props.large) {
-      classList = `${classList} row__column--large-${props.large}`;
+    if (large) {
+      classList = `${classList} row__column--large-${large}`;
     }
 
     return (
       <div className={classList}>
-        {props.children}
+        {children}
       </div>
     );
   };
