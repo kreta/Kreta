@@ -12,11 +12,13 @@ import TaskManagerRest from './../TaskManagerRest';
 
 class Organization {
   delete(organization, memberId, removerId) {
-    console.log(organization);
-    console.log(memberId);
-    console.log(removerId);
     const url = `/organization/${organization}/member/${memberId}?removerId=${removerId}`;
     return TaskManagerRest.deleteHttp(url);
+  }
+
+  post(organization, memberId) {
+    const url = `/organization/${organization}/member/${memberId}`;
+    return TaskManagerRest.post(url);
   }
 }
 

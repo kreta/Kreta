@@ -11,3 +11,8 @@ services:
         class: Kreta\TaskManager\Infrastructure\Symfony\HttpAction\RemoveMemberFromOrganization
         arguments:
             - "@kreta.task_manager.command_bus"
+    kreta.task_manager.http_action.add_member_from_organization:
+        class: Kreta\TaskManager\Infrastructure\Symfony\HttpAction\AddMemberToOrganization
+        arguments:
+            - "@kreta.task_manager.command_bus"
+            - "@security.token_storage"

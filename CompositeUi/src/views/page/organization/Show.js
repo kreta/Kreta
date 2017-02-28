@@ -92,12 +92,12 @@ class Show extends React.Component {
   }
 
   addMember(participant) {
-      this.props.dispatch(
-          CurrentOrganizationActions.addMember(
-              this.props.currentOrganization.organization.id,
-              participant.id
-          )
-      );
+    this.props.dispatch(
+      CurrentOrganizationActions.addMember(
+        this.props.currentOrganization.organization.id,
+          participant.id
+        )
+    );
   }
 
   render() {
