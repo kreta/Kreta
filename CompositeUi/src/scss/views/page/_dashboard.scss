@@ -10,14 +10,15 @@
   margin: auto;
   max-width: 800px;
   padding-top: 30px;
-
-  .resource-preview__shortcuts {
-    opacity: 1;
-    padding: 0 15px;
-  }
 }
 
 .dashboard__search {
   margin-bottom: 15px;
   margin-top: 30px;
+}
+
+.dashboard__view-more {
+  display: block;
+  font-size: 12px;
+  margin-top: 15px;
 }

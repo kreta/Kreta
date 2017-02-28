@@ -23,12 +23,14 @@ import DashboardActions from './../../actions/Dashboard';
 import {routes} from './../../Routes';
 
 import Button from './../component/Button';
+import CardMinimal from './../component/CardMinimal';
+import CardExtended from './../component/CardExtended';
 import DashboardWidget from './../component/DashboardWidget';
 import Icon from './../component/Icon';
 import LoadingSpinner from './../component/LoadingSpinner';
-import ResourcePreview from './../component/ResourcePreview';
 import {Row, RowColumn} from './../component/Grid';
 import Search from '../component/Search';
+import Thumbnail from '../component/Thumbnail';
 
 @connect(state => ({profile: state.profile.profile, dashboard: state.dashboard}))
 class Dashboard extends React.Component {
@@ -72,11 +74,10 @@ class Dashboard extends React.Component {
 
     return dashboard.organizations.map((organization, index) => (
       <div className="dashboard" key={index}>
-        <ResourcePreview
-          resource={organization.node}
-          shortcuts={this.renderProjectCreateLink(organization.node)}
-          type="organization"
-        />
+        <CardMinimal title={organization.node.name}
+                     to={routes.organization.show(organization.node.slug)}>
+          {this.renderProjectCreateLink(organization.node)}
+        </CardMinimal>
         {this.renderProjects(organization.node._projectsMDbLG.edges)}
         {this.renderViewMore(organization.node)}
       </div>
@@ -101,7 +102,13 @@ class Dashboard extends React.Component {
 
   renderProjects(projects) {
     return projects.map((project, index) => (
-      <ResourcePreview format="child" key={index} resource={project.node} type="project"/>
+      <Link key={index} to={routes.project.show(project.node.organization.slug, project.node.slug)}>
+        <CardExtended
+          subtitle={project.node.slug}
+          thumbnail={<Thumbnail text={`${project.node.name}`}/>}
+          title={`${project.node.name}`}
+        />
+      </Link>
     ));
   }
 
@@ -111,13 +118,9 @@ class Dashboard extends React.Component {
     }
 
     return (
-      <div className="resource-preview resource-preview--grand-child">
-        <Link to={routes.organization.show(organization.slug)}>
-          <div className="resource-preview__title">
-            View more...
-          </div>
-        </Link>
-      </div>
+      <Link className="dashboard__view-more" to={routes.organization.show(organization.slug)}>
+        View more...
+      </Link>
     );
   }
 
@@ -135,7 +138,7 @@ class Dashboard extends React.Component {
           </RowColumn>
         </Row>
         <Row>
-          <RowColumn>
+          <RowColumn medium={6}>
             <DashboardWidget
               actions={
                 <Link to={routes.organization.new()}>
@@ -144,10 +147,6 @@ class Dashboard extends React.Component {
               }
               title={<strong>Overview</strong>}
             />
-          </RowColumn>
-        </Row>
-        <Row>
-          <RowColumn medium={8}>
             {dashboard.fetching ? <LoadingSpinner/> : this.renderOrganizations()}
           </RowColumn>
         </Row>
