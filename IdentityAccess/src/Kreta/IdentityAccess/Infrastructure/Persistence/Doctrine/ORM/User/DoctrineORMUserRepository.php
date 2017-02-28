@@ -37,4 +37,16 @@ class DoctrineORMUserRepository extends BaseDoctrineORMUserRepository implements
             ->getQuery()
             ->getResult();
     }
+
+    public function usersOfSearchString($search) : array
+    {
+        $queryBuilder = $this->createQueryBuilder('u');
+
+        return $queryBuilder
+            ->select('u')
+            ->where($queryBuilder->expr()->like('u.username.username', ':search'))
+            ->setParameter('search', '%' . $search . '%')
+            ->getQuery()
+            ->getResult();
+    }
 }

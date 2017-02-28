@@ -14,6 +14,8 @@ import React from 'react';
 
 import Button from './../../component/Button';
 import UserCard from './../../component/UserCard';
+import Search from './../../component/SearchMember';
+import MemberActions from './../../../actions/Member';
 
 class SettingsParticipants extends React.Component {
   static propTypes = {
@@ -21,8 +23,31 @@ class SettingsParticipants extends React.Component {
     organization: React.PropTypes.object
   };
 
+  componentDidMount() {
+    this.filterMembersToAdd(this.props.location.query.q);
+  }
+
+  filterMembersToAdd(q) {
+    this.props.dispatch(MemberActions.fetchMembersToAdd(q));
+  }
+
   triggerOnMemberRemoveClicked(participant) {
     this.props.onMemberRemoveClicked(participant);
+  }
+
+  renderMembersToAdd() {
+    return this.props.organization.filtered.members.map((member, index) => (
+      <div className="MemberList" key={index}>
+        { member.id }
+      </div>
+    ));
+  }
+
+  onChangeSearch(event) {
+    const query = event.target.value;
+    console.log(query);
+    /* this.props.dispatch(routeActions.push(routes.search(query)));
+    this.filterOrganizations(query); */
   }
 
   render() {
@@ -44,8 +69,16 @@ class SettingsParticipants extends React.Component {
       });
 
     return (
-      <div className="project-settings__not-participating">
-        {notParticipating}
+      <div>
+        <div className="organization-settings__add_members">
+          {notParticipating}
+          <Search
+            onChange={this.onChangeSearch.bind(this)}
+          />
+          <div>
+            { this.filterMembersToAdd() }
+          </div>
+        </div>
       </div>
     );
   }

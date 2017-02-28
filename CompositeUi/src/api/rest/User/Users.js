@@ -14,6 +14,9 @@ class Users {
   get(ids) {
     return IdentityAccessRest.get('/users', ids);
   }
+  getByName(query) {
+    return IdentityAccessRest.get('/users', query);
+  }
 }
 
 const instance = new Users();

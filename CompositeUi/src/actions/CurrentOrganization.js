@@ -109,18 +109,14 @@ const Actions = {
         });
       });
   },
-  addMember: (user) => (dispatch) => {
-    const participant = {
-      role: 'ROLE_MEMBER',
-      user
-    };
-
-    setTimeout(() => {
-      dispatch({
-        type: ActionTypes.CURRENT_PROJECT_PARTICIPANT_ADDED,
-        participant
+  addMember: (organization, user) => (dispatch) => {
+    Organization.post(organization, user)
+      .then(() => {
+        dispatch({
+          type: ActionTypes.CURRENT_ORGANIZATION_MEMBER_ADDED,
+          user
+        });
       });
-    });
   },
   removeMember: (organization, user, remover) => (dispatch) => {
     Organization.delete(organization, user, remover)

@@ -156,7 +156,7 @@ class Show extends React.Component {
         </ContentMiddleLayout>
         <ContentRightLayout isOpen={this.state.addParticipantsVisible}>
           <AddMemberToOrganization
-              onMemberRemoveClicked={this.removeMember.bind(this)}
+              onMemberAddClicked={this.addMember.bind(this)}
               organization={this.props.currentOrganization}
           />
         </ContentRightLayout>

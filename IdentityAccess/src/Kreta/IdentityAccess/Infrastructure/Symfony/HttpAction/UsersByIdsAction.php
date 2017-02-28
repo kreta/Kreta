@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Kreta\IdentityAccess\Infrastructure\Symfony\HttpAction;
 
 use Kreta\IdentityAccess\Application\Query\UsersOfIdsQuery;
+use Kreta\IdentityAccess\Application\Query\UsersOfSearchStringQuery;
 use Kreta\SharedKernel\Application\QueryBus;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -30,13 +31,25 @@ class UsersByIdsAction
 
     public function __invoke(Request $request) : JsonResponse
     {
-        $ids = explode(',', $request->query->get('ids'));
+
+        if ($request->query->get('ids')) {
+          $ids = explode(',', $request->query->get('ids'));
+          $this->queryBus->handle(
+              new UsersOfIdsQuery($ids),
+              $result
+          );
+
+          return new JsonResponse($result);
+        }
+
+        $search = $request->query->get('query');
 
         $this->queryBus->handle(
-            new UsersOfIdsQuery($ids),
+            new UsersOfSearchStringQuery($search),
             $result
         );
 
         return new JsonResponse($result);
+
     }
 }

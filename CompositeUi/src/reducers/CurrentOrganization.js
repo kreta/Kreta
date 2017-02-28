@@ -13,6 +13,7 @@ import ActionTypes from './../constants/ActionTypes';
 const initialState = {
   fetching: true,
   organization: null,
+  potential_members: [],
   projects: []
 };
 
@@ -34,6 +35,25 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         fetching: false,
         organization: newOrganization
+      };
+    }
+
+    case ActionTypes.CURRENT_ORGANIZATION_MEMBER_ADDED : {
+      const newOrganization = state.organization;
+      newOrganization.organization_members.push(action.user);
+
+      return {
+        ...state,
+        fetching: false,
+        organization: newOrganization
+      };
+    }
+
+    case ActionTypes.MEMBERS_TO_ADD_RECEIVED: {
+      return {
+        ...state,
+        fetching: false,
+        potential_members: action.users
       };
     }
 
