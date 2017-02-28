@@ -1,0 +1,39 @@
+# This file is part of the Kreta package.
+#
+# (c) Beñat Espiña <benatespina@gmail.com>
+# (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+
+sudo: false
+
+language: php
+
+php:
+    - 7.1
+
+env:
+    - COMPOSER_OPTIONS="--no-interaction --prefer-source"
+
+before_install:
+    - phpenv config-rm xdebug.ini
+    - composer self-update
+
+install:
+    - composer install
+
+script:
+    - vendor/bin/phpspec run
+    - vendor/bin/php-cs-fixer fix --config=.php_cs --diff --dry-run -v
+    - vendor/bin/php-cs-fixer fix --config=.phpspec_cs --diff --dry-run -v
+
+cache:
+    directories:
+        - $HOME/.composer/cache/files
+        - $HOME/.php-cs-fixer
+
+matrix:
+    fast_finish: true
+    include:
+        php: 7.1
