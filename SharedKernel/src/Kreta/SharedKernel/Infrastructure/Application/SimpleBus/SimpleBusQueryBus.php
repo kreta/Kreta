@@ -26,7 +26,7 @@ class SimpleBusQueryBus implements QueryBus
         $this->messageBus = $messageBus;
     }
 
-    public function handle($query, &$result)
+    public function handle($query, &$result) : void
     {
         $this->messageBus->handle($query, $result);
     }

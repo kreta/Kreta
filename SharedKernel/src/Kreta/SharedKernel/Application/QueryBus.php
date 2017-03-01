@@ -16,5 +16,5 @@ namespace Kreta\SharedKernel\Application;
 
 interface QueryBus
 {
-    public function handle($query, &$result);
+    public function handle($query, &$result) : void;
 }

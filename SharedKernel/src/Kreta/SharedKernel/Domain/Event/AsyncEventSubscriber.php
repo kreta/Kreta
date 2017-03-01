@@ -18,5 +18,5 @@ use Kreta\SharedKernel\Domain\Model\AsyncDomainEvent;
 
 interface AsyncEventSubscriber
 {
-    public function handle(AsyncDomainEvent $event);
+    public function handle(AsyncDomainEvent $event) : void;
 }

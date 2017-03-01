@@ -28,7 +28,7 @@ abstract class Collection extends ArrayCollection
         parent::__construct($elements);
     }
 
-    public function add($element)
+    public function add($element) : void
     {
         if ($this->contains($this->validate($element))) {
             throw new CollectionElementAlreadyAddedException();
@@ -36,7 +36,7 @@ abstract class Collection extends ArrayCollection
         parent::add($element);
     }
 
-    public function remove($element)
+    public function remove($element) : void
     {
         if (!$this->contains($element)) {
             throw new CollectionElementAlreadyRemovedException();

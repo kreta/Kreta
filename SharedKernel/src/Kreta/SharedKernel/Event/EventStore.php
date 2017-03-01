@@ -18,7 +18,7 @@ use Kreta\SharedKernel\Domain\Model\Identity\Id;
 
 interface EventStore
 {
-    public function appendTo(EventStream $events);
+    public function appendTo(EventStream $events) : void;
 
     public function streamOfId(Id $aggregateId) : EventStream;
 }

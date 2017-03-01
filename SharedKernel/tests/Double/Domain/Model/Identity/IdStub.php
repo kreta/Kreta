@@ -18,7 +18,7 @@ use Kreta\SharedKernel\Domain\Model\Identity\Id;
 
 class IdStub extends Id
 {
-    public static function generate($id = null) : IdStub
+    public static function generate(?string $id = null) : IdStub
     {
         return new self($id);
     }

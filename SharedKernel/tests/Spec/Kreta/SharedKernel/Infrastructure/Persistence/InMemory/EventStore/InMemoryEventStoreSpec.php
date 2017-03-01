@@ -60,7 +60,7 @@ class InMemoryEventStoreSpec extends ObjectBehavior
 
     function it_does_not_get_any_aggregate(Id $aggregateId)
     {
-        $aggregateId->__toString()->willReturn('id');
+        $aggregateId->id()->willReturn('id');
 
         $this->shouldThrow(AggregateDoesNotExistException::class)->duringStreamOfId($aggregateId);
     }

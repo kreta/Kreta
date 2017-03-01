@@ -29,7 +29,7 @@ class InMemoryEventStore implements EventStore
         $this->store = [];
     }
 
-    public function appendTo(EventStream $stream)
+    public function appendTo(EventStream $stream) : void
     {
         foreach ($stream->events() as $event) {
             $content = [];
@@ -67,7 +67,7 @@ class InMemoryEventStore implements EventStore
             }
         }
         if (0 === $events->count()) {
-            throw new AggregateDoesNotExistException($aggregateId);
+            throw new AggregateDoesNotExistException($aggregateId->id());
         }
 
         return new EventStream($aggregateId, $events);

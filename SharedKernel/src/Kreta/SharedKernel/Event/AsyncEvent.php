@@ -22,7 +22,7 @@ class AsyncEvent implements AsyncDomainEvent
     private $occurredOn;
     private $values;
 
-    public function __construct($name, \DateTimeInterface $occurredOn, array $values)
+    public function __construct(string $name, \DateTimeInterface $occurredOn, array $values)
     {
         $this->name = $name;
         $this->occurredOn = $occurredOn;
