@@ -31,6 +31,8 @@ import LoadingSpinner from './../component/LoadingSpinner';
 import {Row, RowColumn} from './../component/Grid';
 import Search from '../component/Search';
 import Thumbnail from '../component/Thumbnail';
+import ContentLayout from '../layout/ContentLayout';
+import ContentMiddleLayout from '../layout/ContentMiddleLayout';
 
 @connect(state => ({profile: state.profile.profile, dashboard: state.dashboard}))
 class Dashboard extends React.Component {
@@ -128,29 +130,29 @@ class Dashboard extends React.Component {
     const {dashboard} = this.props;
 
     return (
-      <article className="dashboard">
-        <Row className="dashboard__search">
-          <RowColumn>
-            <Search
-              onChange={this.onChangeSearch.bind(this)}
-              query={this.searchQuery()}
-            />
-          </RowColumn>
-        </Row>
-        <Row>
-          <RowColumn medium={6}>
-            <DashboardWidget
-              actions={
-                <Link to={routes.organization.new()}>
-                  <Button color="green" size="small">New organization</Button>
-                </Link>
-              }
-              title={<strong>Overview</strong>}
-            />
-            {dashboard.fetching ? <LoadingSpinner/> : this.renderOrganizations()}
-          </RowColumn>
-        </Row>
-      </article>
+      <ContentLayout>
+        <ContentMiddleLayout>
+          <Row className="dashboard__search">
+            <RowColumn>
+              <Search
+                onChange={this.onChangeSearch.bind(this)}
+                query={this.searchQuery()}
+              />
+            </RowColumn>
+            <RowColumn medium={6}>
+              <DashboardWidget
+                actions={
+                  <Link to={routes.organization.new()}>
+                    <Button color="green" size="small">New organization</Button>
+                  </Link>
+                }
+                title={<strong>Overview</strong>}
+              />
+              {dashboard.fetching ? <LoadingSpinner/> : this.renderOrganizations()}
+            </RowColumn>
+          </Row>
+        </ContentMiddleLayout>
+      </ContentLayout>
     );
   }
 }
