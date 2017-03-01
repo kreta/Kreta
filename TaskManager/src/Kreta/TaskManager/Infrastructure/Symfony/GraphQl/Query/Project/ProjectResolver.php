@@ -17,6 +17,7 @@ namespace Kreta\TaskManager\Infrastructure\Symfony\GraphQl\Query\Project;
 use Kreta\SharedKernel\Application\QueryBus;
 use Kreta\SharedKernel\Http\GraphQl\Resolver;
 use Kreta\TaskManager\Application\Query\Project\ProjectOfIdQuery;
+use Kreta\TaskManager\Application\Query\Project\ProjectOfSlugQuery;
 use Kreta\TaskManager\Infrastructure\Symfony\GraphQl\Query\Organization\OrganizationResolver;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
@@ -38,14 +39,24 @@ class ProjectResolver implements Resolver
 
     public function resolve($args)
     {
-        $this->queryBus->handle(
-            new ProjectOfIdQuery(
-                $args['id'],
-                $this->currentUser
-            ),
-            $result
-        );
-
+        if (isset($args['slug'])) {
+            $this->queryBus->handle(
+                new ProjectOfSlugQuery(
+                    $args['slug'],
+                    $args['organization_slug'],
+                    $this->currentUser
+                ),
+                $result
+            );
+        } else {
+            $this->queryBus->handle(
+                new ProjectOfIdQuery(
+                    $args['id'],
+                    $this->currentUser
+                ),
+                $result
+            );
+        }
         $result['organization'] = $this->organizationResolver->resolve([
             'id' => $result['organization_id'],
         ]);

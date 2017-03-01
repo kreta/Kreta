@@ -14,7 +14,11 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Domain\Model\Project;
 
+use Kreta\SharedKernel\Domain\Model\Identity\Slug;
+
 interface ProjectSpecificationFactory
 {
     public function buildFilterableSpecification(array $organizationIds, $name, int $offset = 0, int $limit = -1);
+
+    public function buildBySlugSpecification(Slug $slug, Slug $organizationSlug);
 }
