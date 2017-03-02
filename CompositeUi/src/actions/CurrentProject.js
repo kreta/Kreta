@@ -16,7 +16,7 @@ import ActionTypes from './../constants/ActionTypes';
 import TaskApi from './../api/Task';
 import TasksQueryRequest from './../api/graphql/query/TasksQueryRequest';
 import TaskManagerGraphQl from './../api/graphql/TaskManagerGraphQl';
-import Users from './../api/rest/User/Users';
+import UserInjector from './../helpers/UserInjector';
 
 const Actions = {
   fetchProject: (organizationSlug, projectSlug) => (dispatch) => {
@@ -427,39 +427,22 @@ const Actions = {
       }
     };
 
-    const loadUsers = (arrays) => {
-      const ids = [];
-      arrays.forEach((user) => {
-        ids.push(user.id);
-      });
-
-      Users.get({ids}).then((users) => {
-        arrays.forEach((user, index) => {
-          const found = users.find((it) => it.id === user.id);
-          if (found) {
-            Object.assign(arrays[index], found);
-          }
-        });
-      });
-    };
-
-    const members = [];
+    let members = [];
 
     project._tasks4hn9we.edges.map((task) => {
-      members.push(task.node.assignee);
-      members.push(task.node.creator);
+      members = [...members, task.node.assignee, task.node.creator];
     });
 
-    loadUsers([
+    UserInjector.injectUserForId([
       ...project.organization.organization_members,
       ...project.organization.owners,
       ...members
-    ], project);
-
-    dispatch({
-      type: ActionTypes.CURRENT_PROJECT_RECEIVED,
-      project,
-    });
+    ]).then(() => (
+      dispatch({
+        type: ActionTypes.CURRENT_PROJECT_RECEIVED,
+        project,
+      })
+    ));
 
     // const query = ProjectQueryRequest.build(projectId);
     //

@@ -30,7 +30,7 @@ class TaskPreview extends React.Component {
     const
       priority = this.props.task.priority.toLowerCase(),
       progress = this.props.task.progress.toLowerCase(),
-      assignee = 'Dummy assignee', // `${this.props.task.assignee.first_name} ${this.props.task.assignee.last_name}`,
+      assignee = this.props.task.assignee.email,
       classes = classnames({
         'task-preview': true,
         'task-preview--highlight': this.props.selected,
