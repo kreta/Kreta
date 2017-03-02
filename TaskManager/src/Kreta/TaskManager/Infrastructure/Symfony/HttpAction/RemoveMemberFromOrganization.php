@@ -23,18 +23,21 @@ class RemoveMemberFromOrganization
 {
     private $commandBus;
 
-    public function __construct(CommandBus $commandBus)
+    private $currentUser;
+
+    public function __construct(CommandBus $commandBus, TokenStorageInterface $tokenStorage)
     {
         $this->commandBus = $commandBus;
+        $this->currentUser = $tokenStorage->getToken()->getUser();
     }
 
     public function __invoke(Request $request) : JsonResponse
     {
         $userId = $request->get('userId');
         $organizationId = $request->get('organizationId');
-        $removerId = $request->get('removerId');
+
         $this->commandBus->handle(
-            new RemoveOrganizationMemberToOrganizationCommand($userId, $organizationId, $removerId)
+            new RemoveOrganizationMemberToOrganizationCommand($userId, $organizationId, $this->currentUser->getUserName())
         );
 
         return new JsonResponse();
