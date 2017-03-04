@@ -54,19 +54,9 @@ $resource-preview-padding: 15px;
   }
 }
 
-.resource-preview__header {
-  padding-bottom: 5px;
-  padding-top: 5px;
-}
 
-.resource-preview__filter {
-  background: $main-grey;
-  padding: 15px;
 
-  &::placeholder {
-    color: rgba($grey, .4);
-  }
-}
+
 
 .resource-preview__list {
   height: 300px;

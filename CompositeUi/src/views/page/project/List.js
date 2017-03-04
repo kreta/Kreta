@@ -8,20 +8,22 @@
  * file that was distributed with this source code.
  */
 
+import './../../../scss/views/page/project/_list.scss';
+
 import AddIcon from './../../../svg/add';
 import ListIcon from './../../../svg/list';
 
 import React from 'react';
 import {connect} from 'react-redux';
 import {routeActions} from 'react-router-redux';
-import classNames from 'classnames';
 
 import {routes} from './../../../Routes';
 
 import Icon from './../../component/Icon';
 import MainMenuActions from './../../../actions/MainMenu';
 import NavigableList from './../../component/NavigableList';
-import ResourcePreview from './../../component/ResourcePreview';
+import NavigableListItemLink from './../../component/NavigableListItemLink';
+import CardMinimal from './../../component/CardMinimal';
 import ShortcutHelp from './../../component/ShortcutHelp';
 import {Row, RowColumn} from './../../component/Grid';
 
@@ -32,8 +34,6 @@ class List extends React.Component {
   };
 
   state = {
-    selectedProject: 0,
-    selectedShortcut: 0,
     filter: '',
     filteredProjects: []
   };
@@ -48,7 +48,7 @@ class List extends React.Component {
 
   onKeyUp(event) {
     if (event.which === 13) { // Enter
-      this.goToShortcutLink(this.state.selectedShortcut);
+      this.refs.navigableList.handleNavigation(event);
     } else if (event.which === 27) { // Escape
       this.hideProjectsList();
     } else if (event.which < 37 || event.which > 40) { // Filter
@@ -70,32 +70,14 @@ class List extends React.Component {
     ));
     this.setState({
       filteredProjects,
-      selectedProject: 0
     });
   }
 
-  changeSelectedRow(index) {
-    this.setState({selectedProject: index});
-  }
+  triggerOnProjectSelected(x, y, link) {
+    const {dispatch, onProjectSelected} = this.props;
 
-  changeSelectedShortcut(index) {
-    this.setState({selectedShortcut: index});
-  }
-
-  goToShortcutLink(index) {
-    const
-      project = this.state.filteredProjects[this.state.selectedProject].node,
-      shortcutLinks = [
-        routes.project.show(project.organization.slug, project.slug),
-        routes.task.new(project.organization.slug, project.slug),
-      ];
-
-    this.props.dispatch(routeActions.push(shortcutLinks[index]));
-    this.triggerOnProjectSelected();
-  }
-
-  triggerOnProjectSelected() {
-    this.props.onProjectSelected();
+    dispatch(routeActions.push(link));
+    onProjectSelected();
   }
 
   focus() {
@@ -104,7 +86,7 @@ class List extends React.Component {
 
   getHeader() {
     return (
-      <div className="resource-preview__header">
+      <div className="project-list__header">
         <Row>
           <RowColumn>
             <ShortcutHelp does="to select action" keyboard="← →"/>
@@ -119,33 +101,17 @@ class List extends React.Component {
 
   getProjectItems() {
     return this.state.filteredProjects.map((project, index) => (
-      <ResourcePreview
+      <CardMinimal
         key={index}
-        resource={project.node}
-        shortcuts={
-          <div>
-            <Icon
-              className={classNames({
-                'resource-preview__shortcut': true,
-                'resource-preview__shortcut--selected': 0 === this.state.selectedShortcut
-              })}
-              glyph={ListIcon}
-              onClick={this.goToShortcutLink.bind(this, 0)}
-              onMouseEnter={this.changeSelectedShortcut.bind(this, 0)}
-            />
-            <Icon
-              className={classNames({
-                'resource-preview__shortcut': true,
-                'resource-preview__shortcut--selected': 1 === this.state.selectedShortcut
-              })}
-              glyph={AddIcon}
-              onClick={this.goToShortcutLink.bind(this, 1)}
-              onMouseEnter={this.changeSelectedShortcut.bind(this, 1)}
-            />
-          </div>
-        }
-        type="project"
-      />
+        title={project.node.name}
+        to={routes.project.show(project.node.organization.slug, project.node.slug)}>
+          <NavigableListItemLink to={routes.project.show(project.node.organization.slug, project.node.slug)}>
+            <Icon glyph={ListIcon}/>
+          </NavigableListItemLink>
+          <NavigableListItemLink to={routes.task.new(project.node.organization.slug, project.node.slug)}>
+            <Icon glyph={AddIcon}/>
+          </NavigableListItemLink>
+      </CardMinimal>
     ));
   }
 
@@ -154,23 +120,16 @@ class List extends React.Component {
       <div>
         {this.getHeader()}
         <input
-          className="resource-preview__filter"
+          className="project-list__filter"
           onKeyUp={this.onKeyUp.bind(this)}
           placeholder="Type the project"
           ref="filter"
           type="text"
         />
         <NavigableList
-          className="resource-preview__list"
-          classNameSelected="resource-preview--selected"
+          className="project-list__navigable"
           onElementSelected={this.triggerOnProjectSelected.bind(this)}
-          onXChanged={this.changeSelectedShortcut.bind(this)}
-          onYChanged={this.changeSelectedRow.bind(this)}
           ref="navigableList"
-          xLength={2}
-          xSelected={this.state.selectedShortcut}
-          yLength={this.state.filteredProjects.length}
-          ySelected={this.state.selectedProject}
         >
           {this.getProjectItems()}
         </NavigableList>

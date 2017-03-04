@@ -11,6 +11,7 @@
 
 .card-minimal {
   align-items: center;
+  color: $main-black;
   display: flex;
   padding-bottom: 15px;
   padding-top: 15px;
@@ -19,9 +20,10 @@
 }
 
 .card-minimal__title {
-  color: $main-black;
+  color: inherit;
   flex: 1;
   font-size: 16px;
   padding-right: $column-gutter;
+  text-align: left;
   transition: color .3s;
 }
