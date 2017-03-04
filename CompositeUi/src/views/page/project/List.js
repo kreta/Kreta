@@ -74,10 +74,7 @@ class List extends React.Component {
   }
 
   triggerOnProjectSelected(x, y, link) {
-    const {dispatch, onProjectSelected} = this.props;
-
-    dispatch(routeActions.push(link));
-    onProjectSelected();
+    this.props.dispatch(routeActions.push(link));
   }
 
   focus() {

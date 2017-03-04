@@ -23,9 +23,16 @@
 }
 
 .project-list__navigable {
+  height: 400px;
+  overflow-y: scroll;
+
   .card-minimal {
     padding-left: 15px;
     padding-right: 15px;
+  }
+
+  .card-minimal__title:hover {
+    color: $white;
   }
 
   .card-minimal__actions {

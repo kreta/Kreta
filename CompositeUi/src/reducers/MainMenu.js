@@ -32,6 +32,9 @@ export default function reducer(state = initialState, action = {}) {
       }
       return state;
 
+    case '@@router/UPDATE_LOCATION':
+      return {...state, projectsVisible: false};
+
     default:
       return state;
   }

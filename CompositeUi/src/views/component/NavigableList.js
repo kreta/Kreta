@@ -27,8 +27,10 @@ class NavigableList extends React.Component {
       this.goToItemLink();
     } else if (ev.which === 40) { // Down
       this.selectNextY();
+      this.centerListScroll();
     } else if (ev.which === 38) { // Up
       this.selectPrevY();
+      this.centerListScroll();
     } else if (ev.which === 37) { // Left
       this.selectPrevX();
     } else if (ev.which === 39) { // Right
@@ -39,13 +41,23 @@ class NavigableList extends React.Component {
   goToItemLink() {
     const {children} = this.props,
       {xSelected, ySelected} = this.state,
-      link = this.findXNavigable(children[ySelected].props.children)[xSelected].props.to;
+      navigables = this.findXNavigable(children[ySelected].props.children);
+
+    let link = null;
+
+    if (navigables.length > 0) {
+      link = navigables[xSelected].props.to;
+    }
 
     this.props.onElementSelected(xSelected, ySelected, link);
   }
 
   findXNavigable(children) {
     let navigables = [];
+
+    if (typeof children === 'undefined') {
+      return navigables;
+    }
 
     children.forEach((child) => {
       if (child.type.name === 'NavigableListItemLink') {
@@ -104,14 +116,19 @@ class NavigableList extends React.Component {
   }
 
   render() {
-    const
-      {children, ...otherProps} = this.props,
+    const {
+        children,
+        onElementSelected, // eslint-disable-line no-unused-vars
+        ...otherProps
+      } = this.props,
       {xSelected, ySelected} = this.state;
 
     const wrappedItems = children.map((el, i) => {
       if (i === ySelected) {
         const navigableItems = this.findXNavigable(el.props.children);
-        navigableItems[xSelected] = React.cloneElement(navigableItems[xSelected], {selected: true});
+        if (navigableItems.length > 0) {
+          navigableItems[xSelected] = React.cloneElement(navigableItems[xSelected], {selected: true});
+        }
       }
 
       return (
