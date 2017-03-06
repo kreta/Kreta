@@ -33,6 +33,11 @@ class DoctrineORMProjectRepository extends EntityRepository implements ProjectRe
             : $specification->buildQuery($this->getEntityManager()->createQueryBuilder())->getResult();
     }
 
+    public function singleResultQuery($specification) : ?Project
+    {
+        return $specification->buildQuery($this->getEntityManager()->createQueryBuilder())->getOneOrNullResult();
+    }
+
     public function persist(Project $project)
     {
         $this->getEntityManager()->persist($project);

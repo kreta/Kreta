@@ -18,7 +18,7 @@ services:
             - { name: overblog_graphql.resolver, alias: "projects", method: "resolve" }
             - { name: overblog_graphql.resolver, alias: "organization_projects", method: "resolveByOrganization" }
 
-    kreta.task_manager.graph_ql.query_resolver.project_of_id:
+    kreta.task_manager.graph_ql.query_resolver.project:
         class: Kreta\TaskManager\Infrastructure\Symfony\GraphQl\Query\Project\ProjectResolver
         arguments:
             - "@security.token_storage"

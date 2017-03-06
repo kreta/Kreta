@@ -10,13 +10,15 @@
 #
 #   type Query {
 #     organizations($name: String, $first: Int, $last: Int, $before: String, $after: String) : OrganizationConnection
-#     organization($id: ID!) : Organization
+#     organization($id: ID) : Organization
+#     organization($slug: String) : Organization
 #
 #     organizationMember($organizationId: ID!, $organizationMemberId: ID!) : OrganizationMember
 #     owner($organizationId: ID!, $ownerId: ID!) : Owner
 #
 #     projects($organizationId: ID, $name: String, $first: Int, $last: Int, $before: String, $after: String) : ProjectConnection
-#     project($id: ID!) : Project
+#     project($id: ID) : Project
+#     project($slug: String, $organizationSlug: String) : Project
 #
 #     tasks($projectId: ID, $parentId: ID, $assigneeId: ID, $creatorId: ID, $title: String, $priority: TaskPriority, $progress: TaskProgress, $first: Int, $last: Int, $before: String, $after: String) : TaskConnection
 #     task($id: ID!) : Task
@@ -87,7 +89,13 @@ Query:
                 args:
                     id:
                         description: "id of the project"
-                        type: "ID!"
+                        type: "ID"
+                    slug:
+                        description: "slug of the project"
+                        type: "String"
+                    organizationSlug:
+                        description: "slug of the organization"
+                        type: "String"
                 resolve: "@=resolver('project', [args])"
             tasks:
                 type: "TaskConnection"
