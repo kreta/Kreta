@@ -48,8 +48,8 @@
         "warezgibzzz/query-bus-bundle": "^1.0"
     },
     "require-dev": {
-        "friendsofphp/php-cs-fixer": "^1.12",
-        "phpspec/phpspec": "^3.1"
+        "kreta/php-cs-fixer-config": "^1.0",
+        "phpspec/phpspec": "^3.2"
     },
     "scripts": {
         "lifecycle-scripts": [
@@ -62,8 +62,8 @@
             "@lifecycle-scripts"
         ],
         "cs": [
-            "php-cs-fixer fix --config-file=etc/phpcs/.php_cs",
-            "php-cs-fixer fix --config-file=etc/phpcs/.phpspec_cs"
+            "php-cs-fixer fix --config=etc/phpcs/.php_cs -v",
+            "php-cs-fixer fix --config=etc/phpcs/.phpspec_cs -v"
         ]
     },
     "autoload": {

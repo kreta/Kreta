@@ -42,7 +42,7 @@ class CountProjectsHandler
         $this->organizationSpecificationFactory = $organizationSpecificationFactory;
     }
 
-    public function __invoke(CountProjectsQuery $query): int
+    public function __invoke(CountProjectsQuery $query) : int
     {
         $organizationIds = [OrganizationId::generate($query->organizationId())];
         $organization = $this->organizationRepository->organizationOfId($organizationIds[0]);

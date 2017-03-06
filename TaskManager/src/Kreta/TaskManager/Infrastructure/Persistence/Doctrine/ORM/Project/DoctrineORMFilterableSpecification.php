@@ -35,7 +35,7 @@ class DoctrineORMFilterableSpecification implements DoctrineORMQuerySpecificatio
         $this->limit = $limit;
     }
 
-    public function buildQuery(QueryBuilder $queryBuilder): Query
+    public function buildQuery(QueryBuilder $queryBuilder) : Query
     {
         if ($this->limit > 0) {
             $queryBuilder->setMaxResults($this->limit);
@@ -56,7 +56,7 @@ class DoctrineORMFilterableSpecification implements DoctrineORMQuerySpecificatio
             ->getQuery();
     }
 
-    public function buildCount(QueryBuilder $queryBuilder): Query
+    public function buildCount(QueryBuilder $queryBuilder) : Query
     {
         if (!empty($this->name)) {
             $queryBuilder

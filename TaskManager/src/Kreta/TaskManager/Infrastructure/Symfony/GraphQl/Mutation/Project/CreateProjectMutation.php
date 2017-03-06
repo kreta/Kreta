@@ -48,7 +48,7 @@ class CreateProjectMutation implements Mutation
             $values['organizationId'],
             $this->currentUser,
             null,
-            isset($values['slug']) ? $values['slug'] : null
+            $values['slug'] ?? null
         );
 
         $this->commandBus->handle($command);

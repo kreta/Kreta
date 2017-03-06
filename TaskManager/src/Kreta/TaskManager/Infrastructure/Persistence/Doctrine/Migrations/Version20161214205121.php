@@ -10,6 +10,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Kreta\TaskManager\Infrastructure\Persistence\Doctrine\Migrations;
 
 use Doctrine\DBAL\Migrations\AbstractMigration;

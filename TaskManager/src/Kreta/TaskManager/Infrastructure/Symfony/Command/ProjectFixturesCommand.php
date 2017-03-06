@@ -68,7 +68,7 @@ class ProjectFixturesCommand extends ContainerAwareCommand
                     Uuid::generate()
                 )
             );
-            $i++;
+            ++$i;
             $progress->advance();
         }
         $progress->finish();

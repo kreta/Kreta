@@ -10,6 +10,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Spec\Kreta\IdentityAccess\Domain\Model\User;
 
 use Kreta\IdentityAccess\Domain\Model\User\FirstNameEmptyException;

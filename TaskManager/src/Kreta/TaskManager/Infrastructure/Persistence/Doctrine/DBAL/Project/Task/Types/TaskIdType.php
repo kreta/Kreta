@@ -32,7 +32,7 @@ class TaskIdType extends GuidType
     public function convertToPHPValue($value, AbstractPlatform $platform) : ? TaskId
     {
         if (null === $value) {
-            return null;
+            return;
         }
 
         return TaskId::generate($value);

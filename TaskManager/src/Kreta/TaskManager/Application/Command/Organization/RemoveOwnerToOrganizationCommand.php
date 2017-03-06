@@ -32,7 +32,7 @@ class RemoveOwnerToOrganizationCommand
         return $this->userId;
     }
 
-    public function organizationId(): string
+    public function organizationId() : string
     {
         return $this->organizationId;
     }

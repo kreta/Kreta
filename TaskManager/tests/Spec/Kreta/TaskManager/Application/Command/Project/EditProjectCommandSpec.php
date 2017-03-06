@@ -10,6 +10,8 @@
  * file that was distributed with this source code.
  */
 
+declare(strict_types=1);
+
 namespace Spec\Kreta\TaskManager\Application\Command\Project;
 
 use Kreta\TaskManager\Application\Command\Project\EditProjectCommand;

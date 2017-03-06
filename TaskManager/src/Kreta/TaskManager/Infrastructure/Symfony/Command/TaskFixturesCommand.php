@@ -78,7 +78,7 @@ class TaskFixturesCommand extends ContainerAwareCommand
                         $project['id']
                     )
                 );
-                $i++;
+                ++$i;
                 $progress->advance();
             }
         }

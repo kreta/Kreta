@@ -134,15 +134,13 @@ class TasksResolver implements Resolver
         );
 
         $beforeOffset = $this->connectionBuilder->getOffsetWithDefault(
-            isset($args['before'])
-                ? $args['before']
-                : null,
+            $args['before']
+                ?? null,
             $total
         );
         $afterOffset = $this->connectionBuilder->getOffsetWithDefault(
-            isset($args['after'])
-                ? $args['after']
-                : null,
+            $args['after']
+                ?? null,
             -1
         );
         $startOffset = max($afterOffset, -1) + 1;

@@ -26,7 +26,7 @@ class Username
     public static function fromEmail(UserEmail $email)
     {
         $localPart = $email->localPart();
-        $localPart = substr($localPart, 0, self::MAX_LENGTH);
+        $localPart = mb_substr($localPart, 0, self::MAX_LENGTH);
 
         $username = sprintf('%s%d', $localPart, mt_rand(1111, 9999));
 

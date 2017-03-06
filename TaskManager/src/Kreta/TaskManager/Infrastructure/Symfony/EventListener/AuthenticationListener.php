@@ -49,7 +49,7 @@ final class AuthenticationListener
         }
 
         // Prevents to crash the Symfony profiler routes
-        if (0 === strpos($event->getRequest()->getPathInfo(), '/_')) {
+        if (0 === mb_strpos($event->getRequest()->getPathInfo(), '/_')) {
             return;
         }
 

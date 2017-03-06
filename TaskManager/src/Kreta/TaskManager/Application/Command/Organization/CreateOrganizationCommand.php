@@ -45,7 +45,7 @@ class CreateOrganizationCommand
         return $this->name;
     }
 
-    public function creatorId(): string
+    public function creatorId() : string
     {
         return $this->creatorId;
     }

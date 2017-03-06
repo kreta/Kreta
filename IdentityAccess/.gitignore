@@ -7,6 +7,7 @@
 # file that was distributed with this source code.
 
 .htaccess
+/.php_cs.cache
 /parameters.yml
 /src/Kreta/IdentityAccess/Infrastructure/Ui/Uploads
 !/src/Kreta/IdentityAccess/Infrastructure/Ui/Uploads/user-images/.gitkeep
