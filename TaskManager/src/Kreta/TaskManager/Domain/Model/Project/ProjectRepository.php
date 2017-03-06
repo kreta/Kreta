@@ -20,6 +20,8 @@ interface ProjectRepository
 
     public function query($specification);
 
+    public function singleResultQuery($specification) : ?Project;
+
     public function persist(Project $project);
 
     public function remove(Project $project);

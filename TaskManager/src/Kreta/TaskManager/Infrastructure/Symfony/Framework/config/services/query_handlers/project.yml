@@ -42,3 +42,15 @@ services:
             -
                 name: query_handler
                 handles: Kreta\TaskManager\Application\Query\Project\ProjectOfIdQuery
+
+    kreta.task_manager.query_handler.project_of_slug:
+        class: Kreta\TaskManager\Application\Query\Project\ProjectOfSlugHandler
+        arguments:
+            - "@kreta.task_manager.repository.organization"
+            - "@kreta.task_manager.repository.project"
+            - "@kreta.task_manager.specification_factory.project"
+            - "@kreta.task_manager.data_transformer.project_dto"
+        tags:
+            -
+                name: query_handler
+                handles: Kreta\TaskManager\Application\Query\Project\ProjectOfSlugQuery

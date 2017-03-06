@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Kreta\TaskManager\Infrastructure\Persistence\Doctrine\ORM\Project;
 
 use Kreta\SharedKernel\Domain\Model\Exception;
+use Kreta\SharedKernel\Domain\Model\Identity\Slug;
 use Kreta\TaskManager\Domain\Model\Project\ProjectSpecificationFactory;
 
 class DoctrineORMProjectSpecificationFactory implements ProjectSpecificationFactory
@@ -26,5 +27,10 @@ class DoctrineORMProjectSpecificationFactory implements ProjectSpecificationFact
         }
 
         return new DoctrineORMFilterableSpecification($organizationIds, $name, $offset, $limit);
+    }
+
+    public function buildBySlugSpecification(Slug $slug, Slug $organizationSlug)
+    {
+        return new DoctrineORMBySlugSpecification($slug, $organizationSlug);
     }
 }

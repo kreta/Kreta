@@ -33,5 +33,5 @@ services:
     kreta.task_manager.graph_ql.query_resolver.task_builder:
         class: Kreta\TaskManager\Infrastructure\Symfony\GraphQl\Query\Project\Task\TaskBuilderResolver
         arguments:
-            - "@kreta.task_manager.graph_ql.query_resolver.project_of_id"
+            - "@kreta.task_manager.graph_ql.query_resolver.project"
             - "@kreta.task_manager.graph_ql.query_resolver.member_of_id"
