@@ -21,12 +21,12 @@ use Kreta\TaskManager\Domain\Model\Project\ProjectRepository;
 
 class DoctrineORMProjectRepository extends EntityRepository implements ProjectRepository
 {
-    public function projectOfId(ProjectId $id)
+    public function projectOfId(ProjectId $id) : ?Project
     {
         return $this->find($id->id());
     }
 
-    public function query($specification)
+    public function query($specification) : array
     {
         return null === $specification
             ? $this->findAll()
@@ -38,12 +38,12 @@ class DoctrineORMProjectRepository extends EntityRepository implements ProjectRe
         return $specification->buildQuery($this->getEntityManager()->createQueryBuilder())->getOneOrNullResult();
     }
 
-    public function persist(Project $project)
+    public function persist(Project $project) : void
     {
         $this->getEntityManager()->persist($project);
     }
 
-    public function remove(Project $project)
+    public function remove(Project $project) : void
     {
         $this->getEntityManager()->remove($project);
     }

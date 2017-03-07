@@ -15,15 +15,27 @@ declare(strict_types=1);
 namespace Kreta\TaskManager\Domain\Model\Project;
 
 use Kreta\SharedKernel\Domain\Model\Exception;
+use Kreta\SharedKernel\Domain\Model\Identity\Slug;
 
 class ProjectAlreadyExists extends Exception
 {
-    public function __construct(ProjectId $projectId)
+    public static function fromId(ProjectId $projectId)
     {
-        parent::__construct(
+        return new self(
             sprintf(
-                'Project with id "%s" already exists',
+                'Project with "%s" id already exists',
                 $projectId->id()
+            )
+        );
+    }
+
+    public static function fromSlugs(Slug $slug, Slug $organizationSlug)
+    {
+        return new self(
+            sprintf(
+                'Project with "%s" slug and "%s" organization\'s slug already exists',
+                $slug->slug(),
+                $organizationSlug->slug()
             )
         );
     }

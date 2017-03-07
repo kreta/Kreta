@@ -24,56 +24,82 @@ use Kreta\TaskManager\Domain\Model\Project\ProjectAlreadyExists;
 use Kreta\TaskManager\Domain\Model\Project\ProjectId;
 use Kreta\TaskManager\Domain\Model\Project\ProjectName;
 use Kreta\TaskManager\Domain\Model\Project\ProjectRepository;
+use Kreta\TaskManager\Domain\Model\Project\ProjectSpecificationFactory;
 use Kreta\TaskManager\Domain\Model\Project\UnauthorizedCreateProjectException;
 use Kreta\TaskManager\Domain\Model\User\UserId;
 
 class CreateProjectHandler
 {
     private $organizationRepository;
-    private $projectRepository;
+    private $repository;
+    private $specificationFactory;
 
     public function __construct(
         OrganizationRepository $organizationRepository,
-        ProjectRepository $projectRepository
+        ProjectRepository $repository,
+        ProjectSpecificationFactory $specificationFactory
     ) {
         $this->organizationRepository = $organizationRepository;
-        $this->projectRepository = $projectRepository;
+        $this->repository = $repository;
+        $this->specificationFactory = $specificationFactory;
     }
 
     public function __invoke(CreateProjectCommand $command)
     {
-        $project = $this->projectRepository->projectOfId(
-            ProjectId::generate($command->id())
-        );
-
-        if ($project instanceof Project) {
-            throw new ProjectAlreadyExists($project->id());
-        }
-
+        $name = $command->name();
+        $slug = $command->slug();
+        $slug = new Slug(null === $slug ? $name : $slug);
+        $name = new ProjectName($name);
+        $projectId = ProjectId::generate($command->id());
         $organizationId = OrganizationId::generate($command->organizationId());
-        $organization = $this->organizationRepository->organizationOfId($organizationId);
+        $creatorId = UserId::generate($command->creatorId());
 
+        $organization = $this->organizationRepository->organizationOfId($organizationId);
+        $this->checkOrganizationExists($organization);
+        $this->checkProjectUniqueness($projectId, $slug, $organization->slug());
+        $this->checkCreatorPrivileges($organization, $creatorId);
+
+        $project = new Project($projectId, $name, $slug, $organizationId);
+        $this->repository->persist($project);
+    }
+
+    private function checkOrganizationExists(?Organization $organization)
+    {
         if (!$organization instanceof Organization) {
             throw new OrganizationDoesNotExistException();
         }
+    }
 
-        if (!$organization->isOwner(UserId::generate($command->creatorId()))) {
+    private function checkProjectUniqueness(ProjectId $projectId, Slug $slug, Slug $organizationSlug)
+    {
+        $this->checkProjectIdUniqueness($projectId);
+        $this->checkProjectSlugUniqueness($slug, $organizationSlug);
+    }
+
+    private function checkProjectIdUniqueness(ProjectId $projectId)
+    {
+        $project = $this->repository->projectOfId($projectId);
+        if ($project instanceof Project) {
+            throw ProjectAlreadyExists::fromId($projectId);
+        }
+    }
+
+    private function checkProjectSlugUniqueness(Slug $slug, Slug $organizationSlug)
+    {
+        $project = $this->repository->singleResultQuery(
+            $this->specificationFactory->buildBySlugSpecification(
+                $slug, $organizationSlug
+            )
+        );
+        if ($project instanceof Project) {
+            throw ProjectAlreadyExists::fromSlugs($slug, $organizationSlug);
+        }
+    }
+
+    private function checkCreatorPrivileges(Organization $organization, UserId $creatorId)
+    {
+        if (!$organization->isOwner($creatorId)) {
             throw new UnauthorizedCreateProjectException();
         }
-
-        $project = new Project(
-            ProjectId::generate(
-                $command->id()
-            ),
-            new ProjectName(
-                $command->name()
-            ),
-            new Slug(
-                null === $command->slug() ? $command->name() : $command->slug()
-            ),
-            $organization->id()
-        );
-
-        $this->projectRepository->persist($project);
     }
 }

@@ -22,7 +22,7 @@ use Kreta\TaskManager\Domain\Model\Organization\OrganizationRepository;
 
 class DoctrineORMOrganizationRepository extends EntityRepository implements OrganizationRepository
 {
-    public function organizationOfId(OrganizationId $id)
+    public function organizationOfId(OrganizationId $id) : ?Organization
     {
         return $this->find($id->id());
     }

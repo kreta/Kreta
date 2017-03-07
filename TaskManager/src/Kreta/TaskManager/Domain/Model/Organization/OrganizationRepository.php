@@ -18,7 +18,7 @@ use Kreta\SharedKernel\Domain\Model\Identity\Slug;
 
 interface OrganizationRepository
 {
-    public function organizationOfId(OrganizationId $id);
+    public function organizationOfId(OrganizationId $id) : ?Organization;
 
     public function organizationOfSlug(Slug $slug);
 
