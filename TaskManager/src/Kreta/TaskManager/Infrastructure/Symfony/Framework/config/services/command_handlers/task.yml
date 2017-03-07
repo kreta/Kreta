@@ -44,6 +44,7 @@ services:
         class: Kreta\TaskManager\Application\Command\Project\Task\CreateTaskHandler
         arguments:
             - "@kreta.task_manager.repository.task"
+            - "@kreta.task_manager.specification_factory.task"
             - "@kreta.task_manager.repository.project"
             - "@kreta.task_manager.repository.organization"
         tags:

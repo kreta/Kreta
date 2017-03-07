@@ -21,6 +21,7 @@ use Kreta\TaskManager\Domain\Model\Project\ProjectId;
 class TaskCreated implements DomainEvent
 {
     private $id;
+    private $numericId;
     private $title;
     private $description;
     private $creatorId;
@@ -32,6 +33,7 @@ class TaskCreated implements DomainEvent
 
     public function __construct(
         TaskId $id,
+        NumericId $numericId,
         TaskTitle $title,
         string $description,
         MemberId $creatorId,
@@ -41,6 +43,7 @@ class TaskCreated implements DomainEvent
         TaskId $parentId = null
     ) {
         $this->id = $id;
+        $this->numericId = $numericId;
         $this->title = $title;
         $this->description = $description;
         $this->creatorId = $creatorId;
@@ -54,6 +57,11 @@ class TaskCreated implements DomainEvent
     public function id() : TaskId
     {
         return $this->id;
+    }
+
+    public function numericId() : NumericId
+    {
+        return $this->numericId;
     }
 
     public function title() : TaskTitle

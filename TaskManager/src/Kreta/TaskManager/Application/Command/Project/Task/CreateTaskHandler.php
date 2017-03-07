@@ -21,6 +21,7 @@ use Kreta\TaskManager\Domain\Model\Project\Project;
 use Kreta\TaskManager\Domain\Model\Project\ProjectDoesNotExistException;
 use Kreta\TaskManager\Domain\Model\Project\ProjectId;
 use Kreta\TaskManager\Domain\Model\Project\ProjectRepository;
+use Kreta\TaskManager\Domain\Model\Project\Task\NumericId;
 use Kreta\TaskManager\Domain\Model\Project\Task\Task;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskAlreadyExistsException;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskAndTaskParentCannotBeTheSameException;
@@ -28,6 +29,7 @@ use Kreta\TaskManager\Domain\Model\Project\Task\TaskId;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskParentDoesNotExistException;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskPriority;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskRepository;
+use Kreta\TaskManager\Domain\Model\Project\Task\TaskSpecificationFactory;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskTitle;
 use Kreta\TaskManager\Domain\Model\Project\Task\UnauthorizedTaskActionException;
 use Kreta\TaskManager\Domain\Model\User\UserId;
@@ -35,15 +37,18 @@ use Kreta\TaskManager\Domain\Model\User\UserId;
 class CreateTaskHandler
 {
     private $repository;
+    private $specificationFactory;
     private $projectRepository;
     private $organizationRepository;
 
     public function __construct(
         TaskRepository $repository,
+        TaskSpecificationFactory $specificationFactory,
         ProjectRepository $projectRepository,
         OrganizationRepository $organizationRepository
     ) {
         $this->repository = $repository;
+        $this->specificationFactory = $specificationFactory;
         $this->projectRepository = $projectRepository;
         $this->organizationRepository = $organizationRepository;
     }
@@ -91,7 +96,22 @@ class CreateTaskHandler
         $projectId = ProjectId::generate($projectId);
         $parentTaskId = $this->parentTaskId($parentTaskId);
 
-        $task = new Task($taskId, $title, $description, $creator, $assignee, $priority, $projectId, $parentTaskId);
+        $tasksNumber = $this->repository->count(
+            $this->specificationFactory->buildByProjectSpecification($projectId)
+        );
+        $numericId = NumericId::fromPrevious($tasksNumber);
+
+        $task = new Task(
+            $taskId,
+            $numericId,
+            $title,
+            $description,
+            $creator,
+            $assignee,
+            $priority,
+            $projectId,
+            $parentTaskId
+        );
         $this->repository->persist($task);
     }
 

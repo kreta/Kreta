@@ -16,23 +16,25 @@ namespace Spec\Kreta\TaskManager\Domain\Model\Project\Task;
 
 use Kreta\SharedKernel\Domain\Model\DomainEvent;
 use Kreta\TaskManager\Domain\Model\Organization\MemberId;
+use Kreta\TaskManager\Domain\Model\Project\Task\NumericId;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskId;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskReassigned;
 use PhpSpec\ObjectBehavior;
 
 class TaskReassignedSpec extends ObjectBehavior
 {
-    function let(TaskId $taskId, MemberId $assigneeId)
+    function let(TaskId $taskId, NumericId $numericId, MemberId $assigneeId)
     {
-        $this->beConstructedWith($taskId, $assigneeId);
+        $this->beConstructedWith($taskId, $numericId, $assigneeId);
     }
 
-    function it_creates_task_started_event(TaskId $taskId, MemberId $assigneeId)
+    function it_creates_task_started_event(TaskId $taskId, NumericId $numericId, MemberId $assigneeId)
     {
         $this->shouldHaveType(TaskReassigned::class);
         $this->shouldImplement(DomainEvent::class);
 
         $this->id()->shouldReturn($taskId);
+        $this->numericId()->shouldReturn($numericId);
         $this->assigneeId()->shouldReturn($assigneeId);
         $this->occurredOn()->shouldReturnAnInstanceOf(\DateTimeInterface::class);
     }

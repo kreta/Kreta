@@ -37,7 +37,7 @@ class DoctrineORMFilterableSpecification implements DoctrineORMQuerySpecificatio
 
     public function __construct(
         array $projectIds,
-        $title,
+        ? string $title,
         ? TaskId $parentId,
         ? TaskPriority $priority,
         ? TaskProgress $progress,

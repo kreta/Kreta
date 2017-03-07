@@ -14,17 +14,21 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Domain\Model\Project\Task;
 
+use Kreta\TaskManager\Domain\Model\Project\ProjectId;
+
 interface TaskSpecificationFactory
 {
     public function buildFilterableSpecification(
         array $projectIds,
-        $title,
-        ? TaskId $parentId,
-        ? TaskPriority $priority,
-        ? TaskProgress $progress,
+        ?string $title,
+        ?TaskId $parentId,
+        ?TaskPriority $priority,
+        ?TaskProgress $progress,
         array $assigneeIds = [],
         array $creatorIds = [],
         int $offset = 0,
         int $limit = -1
     );
+
+    public function buildByProjectSpecification(ProjectId $projectId);
 }

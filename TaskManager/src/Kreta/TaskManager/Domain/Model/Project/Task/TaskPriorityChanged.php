@@ -19,12 +19,14 @@ use Kreta\SharedKernel\Domain\Model\DomainEvent;
 class TaskPriorityChanged implements DomainEvent
 {
     private $taskId;
+    private $numericId;
     private $priority;
     private $occurredOn;
 
-    public function __construct(TaskId $taskId, TaskPriority $priority)
+    public function __construct(TaskId $taskId, NumericId $numericId, TaskPriority $priority)
     {
         $this->taskId = $taskId;
+        $this->numericId = $numericId;
         $this->priority = $priority;
         $this->occurredOn = new \DateTimeImmutable();
     }
@@ -32,6 +34,11 @@ class TaskPriorityChanged implements DomainEvent
     public function id() : TaskId
     {
         return $this->taskId;
+    }
+
+    public function numericId() : NumericId
+    {
+        return $this->numericId;
     }
 
     public function priority() : TaskPriority

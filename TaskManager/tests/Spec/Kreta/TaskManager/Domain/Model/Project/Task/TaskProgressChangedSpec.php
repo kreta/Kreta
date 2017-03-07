@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Spec\Kreta\TaskManager\Domain\Model\Project\Task;
 
 use Kreta\SharedKernel\Domain\Model\DomainEvent;
+use Kreta\TaskManager\Domain\Model\Project\Task\NumericId;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskId;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskProgress;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskProgressChanged;
@@ -22,17 +23,18 @@ use PhpSpec\ObjectBehavior;
 
 class TaskProgressChangedSpec extends ObjectBehavior
 {
-    function let(TaskId $taskId, TaskProgress $progress)
+    function let(TaskId $taskId, NumericId $numericId, TaskProgress $progress)
     {
-        $this->beConstructedWith($taskId, $progress);
+        $this->beConstructedWith($taskId, $numericId, $progress);
     }
 
-    function it_creates_task_started_event(TaskId $taskId, TaskProgress $progress)
+    function it_creates_task_started_event(TaskId $taskId, NumericId $numericId, TaskProgress $progress)
     {
         $this->shouldHaveType(TaskProgressChanged::class);
         $this->shouldImplement(DomainEvent::class);
 
         $this->id()->shouldReturn($taskId);
+        $this->numericId()->shouldReturn($numericId);
         $this->progress()->shouldReturn($progress);
         $this->occurredOn()->shouldReturnAnInstanceOf(\DateTimeInterface::class);
     }

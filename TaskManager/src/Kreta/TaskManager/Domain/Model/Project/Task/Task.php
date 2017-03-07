@@ -21,6 +21,7 @@ use Kreta\TaskManager\Domain\Model\Project\ProjectId;
 class Task extends AggregateRoot
 {
     private $id;
+    private $numericId;
     private $title;
     private $description;
     private $creatorId;
@@ -34,6 +35,7 @@ class Task extends AggregateRoot
 
     public function __construct(
         TaskId $id,
+        NumericId $numericId,
         TaskTitle $title,
         string $description,
         MemberId $creatorId,
@@ -43,6 +45,7 @@ class Task extends AggregateRoot
         TaskId $parentId = null
     ) {
         $this->id = $id;
+        $this->numericId = $numericId;
         $this->title = $title;
         $this->description = $description;
         $this->creatorId = $creatorId;
@@ -56,7 +59,17 @@ class Task extends AggregateRoot
         $this->updatedOn = new \DateTimeImmutable();
 
         $this->publish(
-            new TaskCreated($id, $title, $description, $creatorId, $assigneeId, $priority, $projectId, $parentId)
+            new TaskCreated(
+                $id,
+                $numericId,
+                $title,
+                $description,
+                $creatorId,
+                $assigneeId,
+                $priority,
+                $projectId,
+                $parentId
+            )
         );
     }
 
@@ -67,7 +80,7 @@ class Task extends AggregateRoot
         $this->updatedOn = new \DateTimeImmutable();
 
         $this->publish(
-            new TaskEdited($this->id, $title, $description)
+            new TaskEdited($this->id, $this->numericId, $title, $description)
         );
     }
 
@@ -77,7 +90,7 @@ class Task extends AggregateRoot
         $this->updatedOn = new \DateTimeImmutable();
 
         $this->publish(
-            new TaskParentChanged($this->id, $this->parentId)
+            new TaskParentChanged($this->id, $this->numericId, $this->parentId)
         );
     }
 
@@ -87,7 +100,7 @@ class Task extends AggregateRoot
         $this->updatedOn = new \DateTimeImmutable();
 
         $this->publish(
-            new TaskReassigned($this->id, $newAssigneeId)
+            new TaskReassigned($this->id, $this->numericId, $newAssigneeId)
         );
     }
 
@@ -97,7 +110,7 @@ class Task extends AggregateRoot
         $this->updatedOn = new \DateTimeImmutable();
 
         $this->publish(
-            new TaskPriorityChanged($this->id, $priority)
+            new TaskPriorityChanged($this->id, $this->numericId, $priority)
         );
     }
 
@@ -107,13 +120,18 @@ class Task extends AggregateRoot
         $this->updatedOn = new \DateTimeImmutable();
 
         $this->publish(
-            new TaskProgressChanged($this->id, $progress)
+            new TaskProgressChanged($this->id, $this->numericId, $progress)
         );
     }
 
     public function id() : TaskId
     {
         return $this->id;
+    }
+
+    public function numericId() : NumericId
+    {
+        return $this->numericId;
     }
 
     public function title() : TaskTitle
