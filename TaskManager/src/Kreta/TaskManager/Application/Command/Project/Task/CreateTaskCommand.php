@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Application\Command\Project\Task;
 
+use Kreta\SharedKernel\Domain\Model\Identity\Uuid;
+
 class CreateTaskCommand
 {
     private $title;
@@ -32,8 +34,8 @@ class CreateTaskCommand
         string $assigneeId,
         string $priority,
         string $projectId,
-        string $parentId = null,
-        string $taskId = null
+        ?string $parentId = null,
+        ?string $taskId = null
     ) {
         $this->title = $title;
         $this->description = $description;
@@ -42,7 +44,7 @@ class CreateTaskCommand
         $this->priority = $priority;
         $this->projectId = $projectId;
         $this->parentId = $parentId;
-        $this->taskId = $taskId;
+        $this->taskId = null === $taskId ? Uuid::generate() : $taskId;
     }
 
     public function title() : string
@@ -75,12 +77,12 @@ class CreateTaskCommand
         return $this->projectId;
     }
 
-    public function parentId()
+    public function parentId() : ?string
     {
         return $this->parentId;
     }
 
-    public function taskId()
+    public function taskId() : string
     {
         return $this->taskId;
     }
