@@ -19,7 +19,7 @@ use Kreta\SharedKernel\Domain\Model\Identity\Slug;
 
 class ProjectAlreadyExists extends Exception
 {
-    public static function fromId(ProjectId $projectId)
+    public static function fromId(ProjectId $projectId) : self
     {
         return new self(
             sprintf(
@@ -29,7 +29,7 @@ class ProjectAlreadyExists extends Exception
         );
     }
 
-    public static function fromSlugs(Slug $slug, Slug $organizationSlug)
+    public static function fromSlugs(Slug $slug, Slug $organizationSlug) : self
     {
         return new self(
             sprintf(
