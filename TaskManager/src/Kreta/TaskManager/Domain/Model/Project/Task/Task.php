@@ -80,7 +80,7 @@ class Task extends AggregateRoot
         $this->updatedOn = new \DateTimeImmutable();
 
         $this->publish(
-            new TaskEdited($this->id, $this->numericId, $title, $description)
+            new TaskEdited($this->id, $title, $description)
         );
     }
 
@@ -90,7 +90,7 @@ class Task extends AggregateRoot
         $this->updatedOn = new \DateTimeImmutable();
 
         $this->publish(
-            new TaskParentChanged($this->id, $this->numericId, $this->parentId)
+            new TaskParentChanged($this->id, $this->parentId)
         );
     }
 
@@ -100,7 +100,7 @@ class Task extends AggregateRoot
         $this->updatedOn = new \DateTimeImmutable();
 
         $this->publish(
-            new TaskReassigned($this->id, $this->numericId, $newAssigneeId)
+            new TaskReassigned($this->id, $newAssigneeId)
         );
     }
 
@@ -110,7 +110,7 @@ class Task extends AggregateRoot
         $this->updatedOn = new \DateTimeImmutable();
 
         $this->publish(
-            new TaskPriorityChanged($this->id, $this->numericId, $priority)
+            new TaskPriorityChanged($this->id, $priority)
         );
     }
 
@@ -120,7 +120,7 @@ class Task extends AggregateRoot
         $this->updatedOn = new \DateTimeImmutable();
 
         $this->publish(
-            new TaskProgressChanged($this->id, $this->numericId, $progress)
+            new TaskProgressChanged($this->id, $progress)
         );
     }
 

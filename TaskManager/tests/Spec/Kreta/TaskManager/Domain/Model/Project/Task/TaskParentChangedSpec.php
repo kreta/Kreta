@@ -15,34 +15,31 @@ declare(strict_types=1);
 namespace Spec\Kreta\TaskManager\Domain\Model\Project\Task;
 
 use Kreta\SharedKernel\Domain\Model\DomainEvent;
-use Kreta\TaskManager\Domain\Model\Project\Task\NumericId;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskId;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskParentChanged;
 use PhpSpec\ObjectBehavior;
 
 class TaskParentChangedSpec extends ObjectBehavior
 {
-    function let(TaskId $taskId, NumericId $numericId, TaskId $parentId)
+    function let(TaskId $taskId, TaskId $parentId)
     {
-        $this->beConstructedWith($taskId, $numericId, $parentId);
+        $this->beConstructedWith($taskId, $parentId);
     }
 
-    function it_creates_a_task_parent_changed_event(TaskId $taskId, NumericId $numericId, TaskId $parentId)
+    function it_creates_a_task_parent_changed_event(TaskId $taskId, TaskId $parentId)
     {
         $this->shouldHaveType(TaskParentChanged::class);
         $this->shouldImplement(DomainEvent::class);
 
         $this->id()->shouldReturn($taskId);
-        $this->numericId()->shouldReturn($numericId);
         $this->parentId()->shouldReturn($parentId);
         $this->occurredOn()->shouldReturnAnInstanceOf(\DateTimeInterface::class);
     }
 
-    function it_creates_a_task_parent_changed_event_without_parent(TaskId $taskId, NumericId $numericId)
+    function it_creates_a_task_parent_changed_event_without_parent(TaskId $taskId)
     {
-        $this->beConstructedWith($taskId, $numericId, null);
+        $this->beConstructedWith($taskId, null);
         $this->id()->shouldReturn($taskId);
-        $this->numericId()->shouldReturn($numericId);
         $this->parentId()->shouldReturn(null);
         $this->occurredOn()->shouldReturnAnInstanceOf(\DateTimeInterface::class);
     }

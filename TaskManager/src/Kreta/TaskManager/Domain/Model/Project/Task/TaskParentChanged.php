@@ -19,14 +19,12 @@ use Kreta\SharedKernel\Domain\Model\DomainEvent;
 class TaskParentChanged implements DomainEvent
 {
     private $id;
-    private $numericId;
     private $parentId;
     private $occurredOn;
 
-    public function __construct(TaskId $id, NumericId $numericId, ?TaskId $parentId)
+    public function __construct(TaskId $id, ?TaskId $parentId)
     {
         $this->id = $id;
-        $this->numericId = $numericId;
         $this->parentId = $parentId;
         $this->occurredOn = new \DateTimeImmutable();
     }
@@ -34,11 +32,6 @@ class TaskParentChanged implements DomainEvent
     public function id() : TaskId
     {
         return $this->id;
-    }
-
-    public function numericId() : NumericId
-    {
-        return $this->numericId;
     }
 
     public function parentId() : ?TaskId

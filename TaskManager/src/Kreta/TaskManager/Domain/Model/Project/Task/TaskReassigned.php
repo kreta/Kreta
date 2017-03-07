@@ -20,14 +20,12 @@ use Kreta\TaskManager\Domain\Model\Organization\MemberId;
 class TaskReassigned implements DomainEvent
 {
     private $taskId;
-    private $numericId;
     private $assigneeId;
     private $occurredOn;
 
-    public function __construct(TaskId $taskId, NumericId $numericId, MemberId $assigneeId)
+    public function __construct(TaskId $taskId, MemberId $assigneeId)
     {
         $this->taskId = $taskId;
-        $this->numericId = $numericId;
         $this->assigneeId = $assigneeId;
         $this->occurredOn = new \DateTimeImmutable();
     }
@@ -35,11 +33,6 @@ class TaskReassigned implements DomainEvent
     public function id() : TaskId
     {
         return $this->taskId;
-    }
-
-    public function numericId() : NumericId
-    {
-        return $this->numericId;
     }
 
     public function assigneeId() : MemberId

@@ -19,14 +19,12 @@ use Kreta\SharedKernel\Domain\Model\DomainEvent;
 class TaskProgressChanged implements DomainEvent
 {
     private $taskId;
-    private $numericId;
     private $progress;
     private $occurredOn;
 
-    public function __construct(TaskId $taskId, NumericId $numericId, TaskProgress $progress)
+    public function __construct(TaskId $taskId, TaskProgress $progress)
     {
         $this->taskId = $taskId;
-        $this->numericId = $numericId;
         $this->progress = $progress;
         $this->occurredOn = new \DateTimeImmutable();
     }
@@ -34,11 +32,6 @@ class TaskProgressChanged implements DomainEvent
     public function id() : TaskId
     {
         return $this->taskId;
-    }
-
-    public function numericId() : NumericId
-    {
-        return $this->numericId;
     }
 
     public function progress() : TaskProgress

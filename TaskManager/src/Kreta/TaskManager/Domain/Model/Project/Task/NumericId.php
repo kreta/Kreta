@@ -18,7 +18,7 @@ class NumericId
 {
     private $id;
 
-    public static function fromPrevious(int $id)
+    public static function fromPrevious(int $id) : self
     {
         return new self(++$id);
     }
