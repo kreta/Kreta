@@ -36,7 +36,7 @@ class CreateTaskCommandSpec extends ObjectBehavior
         $this->assigneeId()->shouldReturn('assignee-id');
         $this->projectId()->shouldReturn('project-id');
         $this->parentId()->shouldReturn(null);
-        $this->taskId()->shouldReturn(null);
+        $this->taskId()->shouldNotReturn(null);
     }
 
     function it_can_be_created_with_basic_info_and_parent()
@@ -56,7 +56,7 @@ class CreateTaskCommandSpec extends ObjectBehavior
         $this->assigneeId()->shouldReturn('assignee-id');
         $this->projectId()->shouldReturn('project-id');
         $this->parentId()->shouldReturn('parent-id');
-        $this->taskId()->shouldReturn(null);
+        $this->taskId()->shouldNotReturn(null);
     }
 
     function it_can_be_created_with_basic_info_and_parent_and_id()
