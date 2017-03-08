@@ -10,6 +10,7 @@
 
 import './../../scss/components/_wysiwyg.scss';
 
+import {convertToRaw} from 'draft-js';
 import React from 'react';
 import {Editor} from 'react-draft-wysiwyg';
 
@@ -84,9 +85,12 @@ class Wysiwyg extends React.Component {
   };
 
   static defaultProps = {
-    editorOnBlur: () => {},
-    editorOnChange: () => {},
-    editorOnFocus: () => {},
+    editorOnBlur: () => {
+    },
+    editorOnChange: () => {
+    },
+    editorOnFocus: () => {
+    },
   };
 
   constructor(props) {
@@ -101,16 +105,21 @@ class Wysiwyg extends React.Component {
     return this.props.editorOnBlur();
   }
 
-  handleChange(content) {
-    if (typeof content.blocks === 'undefined') {
-      return;
-    }
-    let value = 0;
-    content.blocks.forEach((block) => {
-      value += +block.text.length;
-    });
+  handleChange(index, content) {
+//     if (typeof content.blocks === 'undefined') {
+//       return;
+//     }
+//     let value = 0;
+//     content.blocks.forEach((block) => {
+//       value += +block.text.length;
+//     });
 
-    return this.props.editorOnChange(value);
+    console.log(content);
+
+    const content2 = convertToRaw(content);
+
+
+    return this.props.editorOnChange(content2, 0);
   }
 
   handleFocus() {
