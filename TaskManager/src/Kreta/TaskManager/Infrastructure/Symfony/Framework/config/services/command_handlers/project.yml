@@ -12,6 +12,7 @@ services:
         arguments:
             - "@kreta.task_manager.repository.organization"
             - "@kreta.task_manager.repository.project"
+            - "@kreta.task_manager.specification_factory.project"
         tags:
             -
                 name: command_handler

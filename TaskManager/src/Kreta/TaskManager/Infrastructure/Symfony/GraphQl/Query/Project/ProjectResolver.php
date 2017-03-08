@@ -39,7 +39,9 @@ class ProjectResolver implements Resolver
 
     public function resolve($args)
     {
-        if (isset($args['slug'])) {
+        if (isset($args['projectInput'])) {
+            $args = $args['projectInput'];
+
             $this->queryBus->handle(
                 new ProjectOfSlugQuery(
                     $args['slug'],

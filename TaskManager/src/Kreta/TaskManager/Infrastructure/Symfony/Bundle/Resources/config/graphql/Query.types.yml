@@ -90,12 +90,9 @@ Query:
                     id:
                         description: "id of the project"
                         type: "ID"
-                    slug:
-                        description: "slug of the project"
-                        type: "String"
-                    organizationSlug:
-                        description: "slug of the organization"
-                        type: "String"
+                    projectInput:
+                        description: "Input object that wraps project by slug query requirements"
+                        type: "ProjectInput"
                 resolve: "@=resolver('project', [args])"
             tasks:
                 type: "TaskConnection"
