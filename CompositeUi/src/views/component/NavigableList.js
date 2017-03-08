@@ -17,10 +17,18 @@ class NavigableList extends React.Component {
     onElementSelected: React.PropTypes.func,
   };
 
+  static childContextTypes = {
+    xSelected: React.PropTypes.number
+  };
+
   state = {
     xSelected: 0,
     ySelected: 0
   };
+
+  getChildContext() {
+    return {xSelected: this.state.xSelected};
+  }
 
   handleNavigation(ev) {
     if (ev.which === 13) { // Enter

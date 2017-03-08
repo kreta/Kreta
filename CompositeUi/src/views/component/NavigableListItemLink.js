@@ -16,8 +16,13 @@ class NavigableListItemLink extends React.Component {
     selected: false
   };
 
+  static contextTypes = {
+    xSelected: React.PropTypes.number
+  };
+
   render() {
-    const {children, selected, to} = this.props;
+    const {children, index, to} = this.props,
+      selected = this.context.xSelected === index;
 
     return (
       <Link className={`navigable-list-item-link ${selected ? ' navigable-list-item-link--selected' : ''}`}

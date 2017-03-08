@@ -102,10 +102,10 @@ class List extends React.Component {
         key={index}
         title={project.node.name}
         to={routes.project.show(project.node.organization.slug, project.node.slug)}>
-          <NavigableListItemLink to={routes.project.show(project.node.organization.slug, project.node.slug)}>
+          <NavigableListItemLink index={0} to={routes.project.show(project.node.organization.slug, project.node.slug)}>
             <Icon glyph={ListIcon}/>
           </NavigableListItemLink>
-          <NavigableListItemLink to={routes.task.new(project.node.organization.slug, project.node.slug)}>
+          <NavigableListItemLink index={1} to={routes.task.new(project.node.organization.slug, project.node.slug)}>
             <Icon glyph={AddIcon}/>
           </NavigableListItemLink>
       </CardMinimal>
