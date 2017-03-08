@@ -22,7 +22,7 @@ class TaskParentChanged implements DomainEvent
     private $parentId;
     private $occurredOn;
 
-    public function __construct(TaskId $id, TaskId $parentId = null)
+    public function __construct(TaskId $id, ?TaskId $parentId)
     {
         $this->id = $id;
         $this->parentId = $parentId;
@@ -34,7 +34,7 @@ class TaskParentChanged implements DomainEvent
         return $this->id;
     }
 
-    public function parentId()
+    public function parentId() : ?TaskId
     {
         return $this->parentId;
     }

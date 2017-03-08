@@ -31,6 +31,7 @@ use Kreta\TaskManager\Domain\Model\Project\Task\TaskAndTaskParentCannotBeTheSame
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskId;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskParentDoesNotExistException;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskRepository;
+use Kreta\TaskManager\Domain\Model\Project\Task\TaskSpecificationFactory;
 use Kreta\TaskManager\Domain\Model\Project\Task\UnauthorizedTaskActionException;
 use Kreta\TaskManager\Domain\Model\User\UserId;
 use PhpSpec\ObjectBehavior;
@@ -40,10 +41,11 @@ class CreateTaskHandlerSpec extends ObjectBehavior
 {
     function let(
         TaskRepository $repository,
+        TaskSpecificationFactory $specificationFactory,
         ProjectRepository $projectRepository,
         OrganizationRepository $organizationRepository
     ) {
-        $this->beConstructedWith($repository, $projectRepository, $organizationRepository);
+        $this->beConstructedWith($repository, $specificationFactory, $projectRepository, $organizationRepository);
     }
 
     function it_is_initializable()
@@ -130,14 +132,17 @@ class CreateTaskHandlerSpec extends ObjectBehavior
         Member $member,
         Member $member2,
         MemberId $memberId,
-        MemberId $memberId2
+        MemberId $memberId2,
+        TaskSpecificationFactory $specificationFactory
     ) {
+        $projectId = ProjectId::generate('project-id');
+
         $command->taskId()->shouldBeCalled()->willReturn('task-id');
         $command->parentId()->shouldBeCalled()->willReturn(null);
         $repository->taskOfId(TaskId::generate('task-id'))->shouldBeCalled()->willReturn(null);
         $repository->taskOfId(Argument::type(TaskId::class))->shouldBeCalled()->willReturn(null);
         $command->projectId()->shouldBeCalled()->willReturn('project-id');
-        $projectRepository->projectOfId(ProjectId::generate('project-id'))->shouldBeCalled()->willReturn($project);
+        $projectRepository->projectOfId($projectId)->shouldBeCalled()->willReturn($project);
         $project->organizationId()->shouldBeCalled()->willReturn($organizationId);
         $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
         $command->creatorId()->shouldBeCalled()->willReturn('creator-id');
@@ -151,6 +156,8 @@ class CreateTaskHandlerSpec extends ObjectBehavior
         $command->title()->shouldBeCalled()->willReturn('Task title');
         $command->description()->shouldBeCalled()->willReturn('Task description');
         $command->priority()->shouldBeCalled()->willReturn('low');
+        $specificationFactory->buildByProjectSpecification($projectId)->shouldBeCalled();
+        $repository->count(Argument::any())->shouldBeCalled()->willReturn(2);
         $repository->persist(Argument::type(Task::class))->shouldBeCalled();
         $this->__invoke($command);
     }

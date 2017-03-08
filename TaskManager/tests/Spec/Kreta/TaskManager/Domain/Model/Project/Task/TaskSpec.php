@@ -17,6 +17,7 @@ namespace Spec\Kreta\TaskManager\Domain\Model\Project\Task;
 use Kreta\SharedKernel\Domain\Model\AggregateRoot;
 use Kreta\TaskManager\Domain\Model\Organization\MemberId;
 use Kreta\TaskManager\Domain\Model\Project\ProjectId;
+use Kreta\TaskManager\Domain\Model\Project\Task\NumericId;
 use Kreta\TaskManager\Domain\Model\Project\Task\Task;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskCreated;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskEdited;
@@ -34,6 +35,7 @@ class TaskSpec extends ObjectBehavior
 {
     function let(
         TaskId $taskId,
+        NumericId $numericId,
         TaskTitle $title,
         MemberId $creator,
         MemberId $assignee,
@@ -41,11 +43,21 @@ class TaskSpec extends ObjectBehavior
         ProjectId $projectId
     ) {
         $taskId->id()->willReturn('task-id');
-        $this->beConstructedWith($taskId, $title, 'Description', $creator, $assignee, $priority, $projectId);
+        $this->beConstructedWith(
+            $taskId,
+            $numericId,
+            $title,
+            'Description',
+            $creator,
+            $assignee,
+            $priority,
+            $projectId
+        );
     }
 
     function it_can_be_created(
         TaskId $taskId,
+        NumericId $numericId,
         TaskTitle $title,
         MemberId $creator,
         MemberId $assignee,
@@ -56,6 +68,7 @@ class TaskSpec extends ObjectBehavior
         $this->shouldHaveType(AggregateRoot::class);
 
         $this->id()->shouldReturn($taskId);
+        $this->numericId()->shouldReturn($numericId);
         $this->title()->shouldReturn($title);
         $this->description()->shouldReturn('Description');
         $this->creatorId()->shouldReturn($creator);
@@ -74,6 +87,7 @@ class TaskSpec extends ObjectBehavior
 
     function it_can_be_created_as_a_subtask(
         TaskId $taskId,
+        NumericId $numericId,
         TaskTitle $title,
         MemberId $creator,
         MemberId $assignee,
@@ -81,12 +95,23 @@ class TaskSpec extends ObjectBehavior
         ProjectId $projectId,
         TaskId $parentId
     ) {
-        $this->beConstructedWith($taskId, $title, 'Description', $creator, $assignee, $priority, $projectId, $parentId);
+        $this->beConstructedWith(
+            $taskId,
+            $numericId,
+            $title,
+            'Description',
+            $creator,
+            $assignee,
+            $priority,
+            $projectId,
+            $parentId
+        );
 
         $this->shouldHaveType(Task::class);
         $this->shouldHaveType(AggregateRoot::class);
 
         $this->id()->shouldReturn($taskId);
+        $this->numericId()->shouldReturn($numericId);
         $this->title()->shouldReturn($title);
         $this->description()->shouldReturn('Description');
         $this->creatorId()->shouldReturn($creator);

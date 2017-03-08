@@ -10,6 +10,7 @@
 #
 #   type Task {
 #     id: ID!
+#     numeric_id: Int!
 #     assignee: Member!
 #     children_tasks: TaskConnection
 #     created_on: String!
@@ -31,6 +32,9 @@ Task:
             id:
                 type: "ID!"
                 description: "The id of the task."
+            numeric_id:
+                type: "Int!"
+                description: "The auto generated numeric id of the task. It is unique per project."
             assignee:
                 type: "Member!"
                 description: "The assignee of the task."

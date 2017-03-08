@@ -19,7 +19,7 @@ use Doctrine\DBAL\Schema\Schema;
 
 class Version20161022171904 extends AbstractMigration
 {
-    public function up(Schema $schema)
+    public function up(Schema $schema) : void
     {
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
@@ -33,7 +33,7 @@ class Version20161022171904 extends AbstractMigration
         $this->addSql('ALTER TABLE owner ADD CONSTRAINT FK_CF60E67C32C8A3DE FOREIGN KEY (organization_id) REFERENCES organization (id)');
     }
 
-    public function down(Schema $schema)
+    public function down(Schema $schema) : void
     {
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 

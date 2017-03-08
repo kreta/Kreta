@@ -24,6 +24,7 @@ use Kreta\TaskManager\Domain\Model\Organization\OrganizationRepository;
 use Kreta\TaskManager\Domain\Model\Project\Project;
 use Kreta\TaskManager\Domain\Model\Project\ProjectId;
 use Kreta\TaskManager\Domain\Model\Project\ProjectRepository;
+use Kreta\TaskManager\Domain\Model\Project\Task\NumericId;
 use Kreta\TaskManager\Domain\Model\Project\Task\Task;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskId;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskPriority;
@@ -68,6 +69,7 @@ class TaskDTODataTransformerSpec extends ObjectBehavior
 
         $task = new Task(
             TaskId::generate('task-id'),
+            NumericId::fromPrevious(2),
             new TaskTitle('The task title'),
             'The task description',
             $creator->id(),
@@ -85,6 +87,7 @@ class TaskDTODataTransformerSpec extends ObjectBehavior
 
         $this->read()->shouldReturn([
             'id'          => 'task-id',
+            'numeric_id'  => 3,
             'title'       => 'The task title',
             'priority'    => 'low',
             'progress'    => 'todo',

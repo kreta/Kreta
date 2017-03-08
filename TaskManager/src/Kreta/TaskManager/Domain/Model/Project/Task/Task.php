@@ -21,6 +21,7 @@ use Kreta\TaskManager\Domain\Model\Project\ProjectId;
 class Task extends AggregateRoot
 {
     private $id;
+    private $numericId;
     private $title;
     private $description;
     private $creatorId;
@@ -34,6 +35,7 @@ class Task extends AggregateRoot
 
     public function __construct(
         TaskId $id,
+        NumericId $numericId,
         TaskTitle $title,
         string $description,
         MemberId $creatorId,
@@ -43,6 +45,7 @@ class Task extends AggregateRoot
         TaskId $parentId = null
     ) {
         $this->id = $id;
+        $this->numericId = $numericId;
         $this->title = $title;
         $this->description = $description;
         $this->creatorId = $creatorId;
@@ -56,7 +59,17 @@ class Task extends AggregateRoot
         $this->updatedOn = new \DateTimeImmutable();
 
         $this->publish(
-            new TaskCreated($id, $title, $description, $creatorId, $assigneeId, $priority, $projectId, $parentId)
+            new TaskCreated(
+                $id,
+                $numericId,
+                $title,
+                $description,
+                $creatorId,
+                $assigneeId,
+                $priority,
+                $projectId,
+                $parentId
+            )
         );
     }
 
@@ -114,6 +127,11 @@ class Task extends AggregateRoot
     public function id() : TaskId
     {
         return $this->id;
+    }
+
+    public function numericId() : NumericId
+    {
+        return $this->numericId;
     }
 
     public function title() : TaskTitle

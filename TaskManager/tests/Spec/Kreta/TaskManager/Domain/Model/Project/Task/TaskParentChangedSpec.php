@@ -38,7 +38,7 @@ class TaskParentChangedSpec extends ObjectBehavior
 
     function it_creates_a_task_parent_changed_event_without_parent(TaskId $taskId)
     {
-        $this->beConstructedWith($taskId);
+        $this->beConstructedWith($taskId, null);
         $this->id()->shouldReturn($taskId);
         $this->parentId()->shouldReturn(null);
         $this->occurredOn()->shouldReturnAnInstanceOf(\DateTimeInterface::class);

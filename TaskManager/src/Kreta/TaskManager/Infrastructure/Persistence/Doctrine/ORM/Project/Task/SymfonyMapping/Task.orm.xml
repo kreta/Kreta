@@ -9,6 +9,8 @@
             repository-class="Kreta\TaskManager\Infrastructure\Persistence\Doctrine\ORM\Project\Task\DoctrineORMTaskRepository">
         <id name="id" type="task_id"/>
 
+        <embedded name="numericId" class="Kreta\TaskManager\Domain\Model\Project\Task\NumericId"
+                  column-prefix="numeric_"/>
         <embedded name="title" class="Kreta\TaskManager\Domain\Model\Project\Task\TaskTitle"
                   use-column-prefix="false"/>
         <embedded name="priority" class="Kreta\TaskManager\Domain\Model\Project\Task\TaskPriority"

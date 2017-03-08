@@ -68,6 +68,7 @@ class TaskDTODataTransformer implements TaskDataTransformer
 
         return [
             'id'          => $this->task->id()->id(),
+            'numeric_id'  => $this->task->numericId()->id(),
             'title'       => $this->task->title()->title(),
             'priority'    => $this->task->priority()->priority(),
             'progress'    => $this->task->progress()->progress(),
