@@ -16,15 +16,15 @@ namespace Kreta\TaskManager\Domain\Model\Project;
 
 interface ProjectRepository
 {
-    public function projectOfId(ProjectId $id);
+    public function projectOfId(ProjectId $id) : ?Project;
 
-    public function query($specification);
+    public function query($specification) : array;
 
     public function singleResultQuery($specification) : ?Project;
 
-    public function persist(Project $project);
+    public function persist(Project $project) : void;
 
-    public function remove(Project $project);
+    public function remove(Project $project) : void;
 
     public function count($specification) : int;
 }
