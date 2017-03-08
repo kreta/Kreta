@@ -83,6 +83,12 @@ $task-preview-priority-user-image-size: 32px;
   stroke-dashoffset: #{2 * 3.14 * $task-preview-priority-radius};
 }
 
+.navigable-list__item--selected {
+  .task-preview {
+    background: $light-grey;
+  }
+}
+
 @keyframes dash--todo {
   from {
     stroke-dashoffset: #{2 * 3.14 * $task-preview-priority-radius};
