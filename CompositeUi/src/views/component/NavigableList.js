@@ -129,24 +129,16 @@ class NavigableList extends React.Component {
         onElementSelected, // eslint-disable-line no-unused-vars
         ...otherProps
       } = this.props,
-      {xSelected, ySelected} = this.state;
+      {ySelected} = this.state;
 
-    const wrappedItems = children.map((el, i) => {
-      if (i === ySelected) {
-        const navigableItems = this.findXNavigable(el.props.children);
-        if (navigableItems.length > 0) {
-          navigableItems[xSelected] = React.cloneElement(navigableItems[xSelected], {selected: true});
-        }
-      }
-
-      return (
+    const wrappedItems = children.map((el, i) => (
         <div className={ i === ySelected ? 'navigable-list__item--selected' : ''}
              key={i}
              onMouseEnter={this.selectY.bind(this, i)}>
           {el}
         </div>
-      );
-    });
+      )
+    );
 
     return <div {...otherProps}>{wrappedItems}</div>;
   }
