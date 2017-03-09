@@ -13,7 +13,7 @@ import {routeActions} from 'react-router-redux';
 import {routes} from './../Routes';
 
 import ActionTypes from './../constants/ActionTypes';
-import TaskApi from './../api/Task';
+import CreateTaskMutationRequest from './../api/graphql/mutation/CreateTaskMutationRequest';
 import ProjectQueryRequest from './../api/graphql/query/ProjectQueryRequest';
 import TasksQueryRequest from './../api/graphql/query/TasksQueryRequest';
 import TaskManagerGraphQl from './../api/graphql/TaskManagerGraphQl';
@@ -82,47 +82,38 @@ const Actions = {
     dispatch({
       type: ActionTypes.CURRENT_PROJECT_TASK_CREATING
     });
-    TaskApi.postTask(taskData)
-      .then((task) => {
+    const mutation = CreateTaskMutationRequest.build(taskData);
+
+    TaskManagerGraphQl.mutation(mutation, dispatch);
+    mutation.then(data => {
+      const task = data.response.task;
+
+      dispatch({
+        type: ActionTypes.CURRENT_PROJECT_TASK_CREATED,
+        task,
+      });
+      dispatch(
+        routeActions.push(
+          routes.task.show(
+            task.project.organization.slug,
+            task.project.slug,
+            task.numeric_id
+          ))
+      );
+    }).catch((response) => {
+      response.then((errors) => {
         dispatch({
-          type: ActionTypes.CURRENT_PROJECT_TASK_CREATED,
-          task
-        });
-        dispatch(
-          routeActions.push(routes.task.show(task.project.organization.slug, task.project.slug, task.id))
-        );
-      })
-      .catch((response) => {
-        response.then((errors) => {
-          dispatch({
-            type: ActionTypes.CURRENT_PROJECT_TASK_CREATE_ERROR,
-            status: response.status,
-            errors
-          });
+          type: ActionTypes.CURRENT_PROJECT_TASK_CREATE_ERROR,
+          status: response.status,
+          errors
         });
       });
+    });
   },
-  updateTask: (taskData) => (dispatch) => {
+  updateTask: () => (dispatch) => {
     dispatch({
       type: ActionTypes.CURRENT_PROJECT_TASK_UPDATE
     });
-    TaskApi.putTask(taskData.id, taskData)
-      .then((response) => {
-        dispatch({
-          type: ActionTypes.CURRENT_PROJECT_TASK_UPDATED,
-          status: response.status,
-          task: response.data
-        });
-      })
-      .catch((response) => {
-        response.then((errors) => {
-          dispatch({
-            type: ActionTypes.CURRENT_PROJECT_TASK_UPDATE_ERROR,
-            status: response.status,
-            errors
-          });
-        });
-      });
   },
   addParticipant: (user) => (dispatch) => {
     const participant = {

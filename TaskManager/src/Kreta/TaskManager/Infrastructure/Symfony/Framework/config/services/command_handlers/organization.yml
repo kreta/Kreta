@@ -11,6 +11,7 @@ services:
         class: Kreta\TaskManager\Application\Command\Organization\AddOrganizationMemberToOrganizationHandler
         arguments:
             - "@kreta.task_manager.repository.organization"
+            - "@kreta.task_manager.repository.user"
         tags:
             -
                 name: command_handler
@@ -20,6 +21,7 @@ services:
         class: Kreta\TaskManager\Application\Command\Organization\AddOwnerToOrganizationHandler
         arguments:
             - "@kreta.task_manager.repository.organization"
+            - "@kreta.task_manager.repository.user"
         tags:
             -
                 name: command_handler
