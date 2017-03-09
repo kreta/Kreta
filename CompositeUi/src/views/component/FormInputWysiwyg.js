@@ -43,12 +43,10 @@ class FormInputWysiwyg extends React.Component {
     this.input().classList.remove('form-input-wysiwyg__input--success');
   }
 
-  handleChange(content, editorValue) {
+  handleChange(content, isEditorEmpty) {
     this.props.input.onChange(content);
 
-    return editorValue > 0
-      ? this.addCssClasses()
-      : this.removeCssClasses();
+    return isEditorEmpty ? this.addCssClasses() : this.removeCssClasses();
   }
 
   handleFocus() {

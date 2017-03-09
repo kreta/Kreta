@@ -11,6 +11,7 @@
 import './../../scss/components/_wysiwyg.scss';
 
 import {convertToRaw} from 'draft-js';
+import draftToHtml from 'draftjs-to-html';
 import React from 'react';
 import {Editor} from 'react-draft-wysiwyg';
 
@@ -19,10 +20,7 @@ const toolbar = {
     'inline',
     'blockType',
     'list',
-    'textAlign',
-    'colorPicker',
     'link',
-    'image',
   ],
   inline: {
     inDropdown: false,
@@ -32,8 +30,6 @@ const toolbar = {
       'underline',
       'strikethrough',
       'monospace',
-      'superscript',
-      'subscript'
     ],
   },
   blockType: {
@@ -41,9 +37,7 @@ const toolbar = {
     options: [
       'H1',
       'H2',
-      'H3',
-      'H4',
-      'Blockquote'
+      'H3'
     ],
   },
   list: {
@@ -56,16 +50,6 @@ const toolbar = {
     unordered: {className: 'wysiwyg__toolbar--list-unordered'},
     ordered: {className: 'wysiwyg__toolbar--list-ordered'}
   },
-  textAlign: {
-    inDropdown: false,
-    className: undefined,
-    options: [
-      'left',
-      'center',
-      'right',
-      'justify'
-    ],
-  },
   link: {
     inDropdown: false,
     options: [
@@ -73,24 +57,25 @@ const toolbar = {
       'unlink'
     ],
   },
+  image: {
+    className: undefined,
+    popupClassName: undefined,
+    urlEnabled: false,
+    uploadEnabled: true,
+    alignmentEnabled: false,
+    uploadCallback: () => {
+      console.log('test');
+    },
+  },
 };
 
 class Wysiwyg extends React.Component {
   static propTypes = {
-    editorOnBlur: React.PropTypes.func,
-    editorOnChange: React.PropTypes.func,
-    editorOnFocus: React.PropTypes.func,
+    editorOnBlur: React.PropTypes.func.isRequired,
+    editorOnChange: React.PropTypes.func.isRequired,
+    editorOnFocus: React.PropTypes.func.isRequired,
     hasPlaceholder: React.PropTypes.bool,
     tabIndex: React.PropTypes.number
-  };
-
-  static defaultProps = {
-    editorOnBlur: () => {
-    },
-    editorOnChange: () => {
-    },
-    editorOnFocus: () => {
-    },
   };
 
   constructor(props) {
@@ -99,31 +84,30 @@ class Wysiwyg extends React.Component {
     this.handleBlur = this.handleBlur.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.handleFocus = this.handleFocus.bind(this);
+    this.handleTab = this.handleTab.bind(this);
   }
 
   handleBlur() {
     return this.props.editorOnBlur();
   }
 
-  handleChange(index, content) {
-//     if (typeof content.blocks === 'undefined') {
-//       return;
-//     }
-//     let value = 0;
-//     content.blocks.forEach((block) => {
-//       value += +block.text.length;
-//     });
+  handleChange(editorState) {
+    const
+      content = editorState.getCurrentContent(),
+      htmlContent = draftToHtml(convertToRaw(content)),
+      isEditorEmpty = content.hasText();
 
-    console.log(content);
-
-    const content2 = convertToRaw(content);
-
-
-    return this.props.editorOnChange(content2, 0);
+    return this.props.editorOnChange(htmlContent, isEditorEmpty);
   }
 
   handleFocus() {
     return this.props.editorOnFocus();
+  }
+
+  handleTab() {
+    // Disables the default behaviour of editor
+    // that is to change depth of block.
+    return true;
   }
 
   render() {
@@ -139,8 +123,9 @@ class Wysiwyg extends React.Component {
       <Editor
         editorClassName="wysiwyg__editor"
         onBlur={this.handleBlur}
-        onContentStateChange={this.handleChange}
+        onEditorStateChange={this.handleChange}
         onFocus={this.handleFocus}
+        onTab={this.handleTab}
         placeholder={placeholder}
         spellCheck
         tabIndex={tabIndex}
