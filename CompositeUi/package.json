@@ -65,7 +65,6 @@
     "draft-js": "^0.9.1",
     "draftjs-to-html": "^0.6.3",
     "history": "^1.17.0",
-    "html-to-draftjs": "^0.1.0-beta6",
     "lodash": "^3.10",
     "lodash.debounce": "^4.0.8",
     "mousetrap": "^1.5.3",
