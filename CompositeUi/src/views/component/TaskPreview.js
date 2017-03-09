@@ -16,21 +16,29 @@ import React from 'react';
 import Thumbnail from './Thumbnail';
 
 class TaskPreview extends React.Component {
-  getPriorityColor(priority) {
-    if (priority === 'low') {
-      return '#67b86a';
-    } else if (priority === 'medium') {
-      return '#f07f2c';
-    }
+  static propTypes = {
+    onClick: React.PropTypes.func.isRequired,
+    task: React.PropTypes.object.isRequired
+  };
 
-    return '#f02c4c';
+  static TASK_PRIORITIES = {
+    LOW: '#67b86a',
+    MEDIUM: '#f07f2c',
+    HIGH: '#f02c4c'
+  };
+
+  getPriorityColor(priority) {
+    priority = priority.toUpperCase();
+
+    return TaskPreview.TASK_PRIORITIES[priority];
   }
 
   render() {
     const
-      priority = this.props.task.priority.toLowerCase(),
-      progress = this.props.task.progress.toLowerCase(),
-      assignee = this.props.task.assignee.email,
+      {onClick, task} = this.props,
+      priority = task.priority.toLowerCase(),
+      progress = task.progress.toLowerCase(),
+      assignee = task.assignee,
       classes = classnames({
         'task-preview': true,
         'task-preview--highlight': this.props.selected,
@@ -38,23 +46,29 @@ class TaskPreview extends React.Component {
       });
 
     return (
-      <div className={classes} onClick={this.props.onClick}>
+      <div className={classes} onClick={onClick}>
         <a className="task-preview__title">
-          {this.props.task.title}
+          {task.title}
         </a>
         <div className="task-preview__icons">
           <span>
             <svg className={`task-preview__priority task-preview__priority--${progress}`}>
-              <circle className="task-preview__priority-back"
-                      cx="21" cy="21" r="20"
-                      style={{stroke: this.getPriorityColor(priority)}}/>
-              <circle className="task-preview__priority-front"
-                      cx="21" cy="21" r="20"
-                      style={{stroke: this.getPriorityColor(priority)}}
-                      transform="rotate(-90, 21, 21)"/>
+              <circle
+                className="task-preview__priority-back"
+                cx="21" cy="21" r="20"
+                style={{stroke: this.getPriorityColor(priority)}}
+              />
+              <circle
+                className="task-preview__priority-front"
+                cx="21" cy="21" r="20"
+                style={{stroke: this.getPriorityColor(priority)}}
+                transform="rotate(-90, 21, 21)"
+              />
             </svg>
-            <Thumbnail image={this.props.task.assignee.photo ? this.props.task.assignee.photo.name : null}
-                       text={assignee}/>
+            <Thumbnail
+              image={assignee.photo ? assignee.photo.name : null}
+              text={assignee.email}
+            />
           </span>
         </div>
       </div>

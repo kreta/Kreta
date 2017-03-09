@@ -40,6 +40,7 @@ const mutation = Relay.QL`
 `;
 
 class CreateTaskMutation extends RelayQuery.Mutation {
+  // eslint-disable-next-line max-params
   constructor(taskTitle, taskDescription, assignee, taskPriority, project, parent = null) {
     super(mutation, {}, {
       input: {

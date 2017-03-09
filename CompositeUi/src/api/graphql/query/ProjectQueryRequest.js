@@ -29,7 +29,7 @@ const query = Relay.QL`
           id,
         }
       },
-      tasks(first: -1) {
+      tasks(first: $tasksFirst) {
         edges {
           node {
             id,
@@ -59,7 +59,8 @@ class ProjectQueryRequest extends RelayQueryRequest {
 
     return new RelayQueryRequest(
       RelayQuery.Root.create(query, {}, {
-        projectInput
+        projectInput,
+        tasksFirst: 50
       })
     );
   }
