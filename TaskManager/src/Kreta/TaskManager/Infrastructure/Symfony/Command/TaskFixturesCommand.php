@@ -20,12 +20,12 @@ use Kreta\TaskManager\Application\Command\Project\Task\CreateTaskCommand;
 use Kreta\TaskManager\Application\Query\Organization\OrganizationOfIdQuery;
 use Kreta\TaskManager\Application\Query\Project\FilterProjectsQuery;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskPriority;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class TaskFixturesCommand extends ContainerAwareCommand
+class TaskFixturesCommand extends Command
 {
     const TASK_PRIORITIES = [TaskPriority::LOW, TaskPriority::MEDIUM, TaskPriority::HIGH];
 
@@ -39,11 +39,11 @@ class TaskFixturesCommand extends ContainerAwareCommand
         parent::__construct('kreta:task-manager:fixtures:tasks');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output) : void
     {
-        $amount = 50;
+        $amount = 1000;
         $output->writeln('');
-        $output->writeln('Loading tasks');
+        $output->writeln('Loading tasks...');
         $progress = new ProgressBar($output, $amount);
         $progress->start();
         $i = 0;

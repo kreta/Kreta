@@ -16,11 +16,12 @@ namespace Kreta\TaskManager\Infrastructure\Symfony\Command;
 
 use Kreta\SharedKernel\Application\CommandBus;
 use Kreta\TaskManager\Application\Command\User\AddUserCommand;
-use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class UserFixturesCommand extends ContainerAwareCommand
+class UserFixturesCommand extends Command
 {
     // Do not touch this UUIDs, there are in common with IdentityAccess fixtures
     const USER_IDS = [
@@ -61,24 +62,28 @@ class UserFixturesCommand extends ContainerAwareCommand
     public function __construct(CommandBus $commandBus)
     {
         $this->commandBus = $commandBus;
-        parent::__construct();
+        parent::__construct('kreta:task-manager:fixtures:users');
     }
 
-    protected function configure()
+    protected function execute(InputInterface $input, OutputInterface $output) : void
     {
-        $this->setName('kreta:task-manager:fixtures:users');
-    }
+        $amount = count(self::USER_IDS);
+        $output->writeln('');
+        $output->writeln('Loading users...');
+        $progress = new ProgressBar($output, $amount);
+        $progress->start();
+        $i = 0;
 
-    protected function execute(InputInterface $input, OutputInterface $output)
-    {
-        foreach (self::USER_IDS as $key => $userId) {
+        while ($i < $amount) {
             $this->commandBus->handle(
                 new AddUserCommand(
-                    $userId
+                    self::USER_IDS[$i]
                 )
             );
+            ++$i;
+            $progress->advance();
         }
-
-        $output->writeln('User population is successfully done');
+        $progress->finish();
+        $output->writeln('');
     }
 }

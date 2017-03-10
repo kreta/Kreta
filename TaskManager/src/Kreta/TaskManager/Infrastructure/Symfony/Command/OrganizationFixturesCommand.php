@@ -15,12 +15,11 @@ declare(strict_types=1);
 namespace Kreta\TaskManager\Infrastructure\Symfony\Command;
 
 use Kreta\SharedKernel\Application\CommandBus;
-use Kreta\SharedKernel\Domain\Model\CollectionElementAlreadyAddedException;
 use Kreta\SharedKernel\Domain\Model\Identity\Uuid;
 use Kreta\TaskManager\Application\Command\Organization\AddOrganizationMemberToOrganizationCommand;
 use Kreta\TaskManager\Application\Command\Organization\CreateOrganizationCommand;
-use Kreta\TaskManager\Domain\Model\Organization\OrganizationMemberIsAlreadyAnOwnerException;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -34,35 +33,45 @@ class OrganizationFixturesCommand extends Command
         parent::__construct('kreta:task-manager:fixtures:organizations');
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output) : void
     {
-        for ($i = 0; $i < 10; ++$i) {
-            $userId = UserFixturesCommand::USER_IDS[array_rand(UserFixturesCommand::USER_IDS)];
+        $amount = 30;
+        $output->writeln('');
+        $output->writeln('Loading organizations...');
+        $progress = new ProgressBar($output, $amount);
+        $progress->start();
+        $i = 0;
+
+        $memberIds = [];
+        while ($i < $amount) {
+            $ownerId = UserFixturesCommand::USER_IDS[array_rand(UserFixturesCommand::USER_IDS)];
             if ($i === 0) {
-                $userId = 'a38f8ef4-400b-4229-a5ff-712ff5f72b27';
+                $ownerId = 'a38f8ef4-400b-4229-a5ff-712ff5f72b27';
             }
-            $command = new CreateOrganizationCommand($userId, 'Organization ' . $i, Uuid::generate());
+            $command = new CreateOrganizationCommand($ownerId, 'Organization ' . $i, Uuid::generate());
+            $memberIds[] = $ownerId;
 
             $this->commandBus->handle($command);
 
-            try {
-                $iterations = mt_rand(0, 2);
-                for ($j = 0; $j < $iterations; ++$j) {
-                    $this->commandBus->handle(
-                        new AddOrganizationMemberToOrganizationCommand(
-                            UserFixturesCommand::USER_IDS[array_rand(UserFixturesCommand::USER_IDS)],
-                            $command->id(),
-                            $userId
-                        )
-                    );
+            $j = 0;
+            $iterations = mt_rand(0, 5);
+            while ($j < $iterations) {
+                $memberId = UserFixturesCommand::USER_IDS[array_rand(UserFixturesCommand::USER_IDS)];
+                if (in_array($memberId, $memberIds, true)) {
+                    continue;
                 }
-            } catch (OrganizationMemberIsAlreadyAnOwnerException $exception) {
-                $output->writeln($exception->getMessage());
-            } catch (CollectionElementAlreadyAddedException $exception) {
-                $output->writeln($exception->getMessage());
-            }
-        }
 
-        $output->writeln('Organization population is successfully done');
+                $this->commandBus->handle(
+                    new AddOrganizationMemberToOrganizationCommand($memberId, $command->id(), $ownerId)
+                );
+                ++$j;
+                $memberIds[] = $memberId;
+            }
+            $memberIds = [];
+            ++$i;
+            $progress->advance();
+        }
+        $progress->finish();
+        $output->writeln('');
     }
 }
