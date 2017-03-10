@@ -12,7 +12,7 @@ import React from 'react';
 import {Link} from 'react-router';
 
 class NavigableListItemLink extends React.Component {
-  defaultProps = {
+  static defaultProps = {
     selected: false
   };
 

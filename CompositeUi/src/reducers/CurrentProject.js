@@ -141,7 +141,7 @@ export default function reducer(state = initialState, action = {}) {
         const tasks = initialState.project._tasks49h6f1.edges;
 
         tasks.map((task, index) => {
-          if (task.node.id === action.selectedTask) {
+          if (task.node.numeric_id === parseInt(action.selectedTask, 10)) {
             selectedTaskIndex = index;
           }
         });

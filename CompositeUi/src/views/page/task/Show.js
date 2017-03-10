@@ -74,10 +74,10 @@ class Show extends React.Component {
         </Row>
         <Row className="task-show__fields">
           <RowColumn small={6}>
-            <SelectorOption alignLeft label="Progress" left text={task.progress} value="1"/>
+            <SelectorOption alignLeft label="Progress" text={task.progress} value="1"/>
           </RowColumn>
           <RowColumn small={6}>
-            <SelectorOption alignLeft label="Priority" left text={task.priority} value="1"/>
+            <SelectorOption alignLeft label="Priority" text={task.priority} value="1"/>
           </RowColumn>
         </Row>
         <Row>

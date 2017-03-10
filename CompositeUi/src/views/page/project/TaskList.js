@@ -92,7 +92,7 @@ class TaskList extends React.Component {
   }
 
   selectCurrentTaskByIndex(x, y) {
-    this.selectCurrentTask(this.props.currentProject.project._tasks4hn9we.edges[y].node);
+    this.selectCurrentTask(this.props.currentProject.project._tasks49h6f1.edges[y].node);
   }
 
   handleKeyboardNavigation(event) {
