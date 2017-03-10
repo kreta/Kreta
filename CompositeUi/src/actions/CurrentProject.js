@@ -81,7 +81,7 @@ const Actions = {
 
     TaskManagerGraphQl.mutation(mutation, dispatch);
     mutation.then(data => {
-      const task = data.response.task;
+      const task = data.response.createTask.task;
 
       dispatch({
         type: ActionTypes.CURRENT_PROJECT_TASK_CREATED,
@@ -99,7 +99,6 @@ const Actions = {
       response.then((errors) => {
         dispatch({
           type: ActionTypes.CURRENT_PROJECT_TASK_CREATE_ERROR,
-          status: response.status,
           errors
         });
       });

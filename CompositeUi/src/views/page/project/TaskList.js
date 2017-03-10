@@ -73,7 +73,7 @@ class TaskList extends React.Component {
     const {dispatch, params} = this.props;
 
     dispatch(
-      routeActions.push(routes.task.show(params.organization, params.project, task.id))
+      routeActions.push(routes.task.show(params.organization, params.project, task.numeric_id))
     );
   }
 
