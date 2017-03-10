@@ -21,6 +21,7 @@ const query = Relay.QL`
           id
           title,
           description,
+          numeric_id,
           priority,
           progress,
           assignee {
