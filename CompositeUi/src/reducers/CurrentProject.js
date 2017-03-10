@@ -102,7 +102,7 @@ export default function reducer(state = initialState, action = {}) {
       return {...state, filters: initialState.filters};
     }
     case ActionTypes.CURRENT_PROJECT_TASK_FILTERED: {
-      initialState.project._tasks4hn9we = action.tasks;
+      initialState.project._tasks49h6f1 = action.tasks;
 
       return {...state};
     }

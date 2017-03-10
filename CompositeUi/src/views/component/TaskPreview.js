@@ -13,7 +13,7 @@ import './../../scss/components/_task-preview';
 import classnames from 'classnames';
 import React from 'react';
 
-import Thumbnail from './Thumbnail';
+import UserThumbnail from './UserThumbnail';
 
 class TaskPreview extends React.Component {
   static propTypes = {
@@ -65,10 +65,7 @@ class TaskPreview extends React.Component {
                 transform="rotate(-90, 21, 21)"
               />
             </svg>
-            <Thumbnail
-              image={assignee.photo ? assignee.photo.name : null}
-              text={assignee.email}
-            />
+            <UserThumbnail user={assignee}/>
           </span>
         </div>
       </div>
