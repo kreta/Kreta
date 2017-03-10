@@ -18,10 +18,11 @@ import FormInput from './../component/FormInput';
 import FormInputWysiwyg from './../component/FormInputWysiwyg';
 import Button from './../component/Button';
 import PageHeader from './../component/PageHeader';
-import Selector from './../component/Selector';
-import Thumbnail from './../component/Thumbnail';
-import SelectorOption from './../component/SelectorOption';
 import {Row, RowColumn} from './../component/Grid';
+import Selector from './../component/Selector';
+import SelectorOption from './../component/SelectorOption';
+import Thumbnail from './../component/Thumbnail';
+import UserThumbnail from './../component/UserThumbnail';
 
 const validate = (values) => {
   const
@@ -62,8 +63,8 @@ class TaskNew extends React.Component {
       options.push(
         <SelectorOption
           key={member.id}
-          text={member.id}
-          thumbnail={<Thumbnail image={null} text={member.id}/>}
+          text={member.user_name}
+          thumbnail={<UserThumbnail user={member}/>}
           value={member.id}
         />
       );
