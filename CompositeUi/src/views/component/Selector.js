@@ -78,7 +78,7 @@ class Selector extends React.Component {
 
       return React.cloneElement(child, {
         key: index,
-        onClick: this.selectOption.bind(this, 0, index)
+        onMouseDown: this.selectOption.bind(this, 0, index)
       });
     });
   }

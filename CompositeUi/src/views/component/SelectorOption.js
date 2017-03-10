@@ -16,39 +16,35 @@ import './../../scss/components/_selector-option';
 class SelectorOption extends React.Component {
   static propTypes = {
     alignLeft: React.PropTypes.bool,
-    fieldHovered: React.PropTypes.func,
-    fieldSelected: React.PropTypes.func,
     label: React.PropTypes.string,
-    selected: React.PropTypes.bool,
     text: React.PropTypes.string.isRequired,
     thumbnail: React.PropTypes.element,
     value: React.PropTypes.string.isRequired
   };
 
   render() {
-    const classes = classnames(
+    const
+      {alignLeft, label, text, thumbnail, ...otherProps} = this.props,
+      classes = classnames(
       'selector-option', {
-        'selector-option--left': this.props.alignLeft,
-        'selector-option--selected': this.props.selected
+        'selector-option--left': alignLeft,
       }
     );
 
-    let thumbnail = '';
-    if (this.props.thumbnail) {
-      thumbnail = (
+    let thumbnailEl = '';
+    if (thumbnail) {
+      thumbnailEl = (
         <div className="selector-option__thumbnail">
-          {this.props.thumbnail}
+          {thumbnail}
         </div>
       );
     }
 
     return (
-      <div className={classes}
-           onMouseDown={this.props.fieldSelected}
-           onMouseEnter={this.props.fieldHovered}>
-        {thumbnail}
-        <span className="selector-option__label">{this.props.label}</span>
-        <span className="selector-option__value">{this.props.text}</span>
+      <div className={classes} {...otherProps}>
+        {thumbnailEl}
+        <span className="selector-option__label">{label}</span>
+        <span className="selector-option__value">{text}</span>
       </div>
     );
   }
