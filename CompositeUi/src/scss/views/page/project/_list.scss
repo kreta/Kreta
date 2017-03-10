@@ -1,0 +1,63 @@
+// This file is part of the Kreta package.
+//
+// (c) Beñat Espiña <benatespina@gmail.com>
+// (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+//
+// For the full copyright and license information, please view the LICENSE
+// file that was distributed with this source code.
+
+@import '../../../base/colors';
+
+.project-list__header {
+  padding-bottom: 5px;
+  padding-top: 5px;
+}
+
+.project-list__filter {
+  background: $main-grey;
+  padding: 15px;
+
+  &::placeholder {
+    color: rgba($grey, .4);
+  }
+}
+
+.project-list__navigable {
+  height: 400px;
+  overflow-y: scroll;
+
+  .card-minimal {
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  .card-minimal__title:hover {
+    color: $white;
+  }
+
+  .card-minimal__actions {
+    opacity: 0;
+  }
+
+  .icon {
+    fill: $white;
+    margin-left: 15px;
+    opacity: .6;
+  }
+
+  .navigable-list__item--selected {
+    .card-minimal {
+      background-color: $main-green;
+      color: $white;
+      outline: 0;
+    }
+
+    .card-minimal__actions {
+      opacity: 1;
+    }
+  }
+
+  .navigable-list-item-link--selected .icon {
+    opacity: 1;
+  }
+}

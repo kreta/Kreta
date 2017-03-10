@@ -30,6 +30,7 @@ import LoadingSpinner from './../../component/LoadingSpinner';
 import PageHeader from './../../component/PageHeader';
 import Thumbnail from './../../component/Thumbnail';
 import InlineLink from './../../component/InlineLink';
+import NavigableList from './../../component/NavigableList';
 import CurrentProjectActions from './../../../actions/CurrentProject';
 
 @connect(state => ({currentProject: state.currentProject, profile: state.profile.profile}))
@@ -51,6 +52,19 @@ class TaskList extends React.Component {
         routeActions.push(routes.project.settings(params.organization, params.project))
       );
     });
+    Mousetrap.bind(['up', 'down', 'enter'], (event) => {
+      this.handleKeyboardNavigation(event);
+    });
+    Mousetrap.bind('esc', () => {
+      this.hideTask();
+    });
+  }
+
+  componentWillUnmount() {
+    Mousetrap.unbind(Config.shortcuts.taskNew);
+    Mousetrap.unbind(Config.shortcuts.projectSettings);
+    Mousetrap.unbind(['up', 'down', 'enter']);
+    Mousetrap.unbind('esc');
   }
 
   filterTasks(filters) {
@@ -75,6 +89,14 @@ class TaskList extends React.Component {
     dispatch(
       routeActions.push(routes.task.show(params.organization, params.project, task.numeric_id))
     );
+  }
+
+  selectCurrentTaskByIndex(x, y) {
+    this.selectCurrentTask(this.props.currentProject.project._tasks49h6f1.edges[y].node);
+  }
+
+  handleKeyboardNavigation(event) {
+    this.refs.navigableList.handleNavigation(event);
   }
 
   hideTask() {
@@ -127,7 +149,9 @@ class TaskList extends React.Component {
             filters={currentProject.filters}
             onFilterSelected={this.filterTasks.bind(this)}
           />
-          {this.getTasksEl()}
+          <NavigableList onElementSelected={this.selectCurrentTaskByIndex.bind(this)} ref="navigableList">
+            {this.getTasksEl()}
+          </NavigableList>
         </ContentMiddleLayout>
         <ContentRightLayout
           isOpen={this.props.children !== null}

@@ -24,12 +24,9 @@ class Selector extends React.Component {
     tabIndex: React.PropTypes.number
   };
 
-  componentWillMount() {
-    this.setState({
-      selectedRow: 0,
-      filter: ''
-    });
-  }
+  state = {
+    filter: ''
+  };
 
   componentWillReceiveProps() {
     this.setState({
@@ -47,25 +44,15 @@ class Selector extends React.Component {
     return found;
   }
 
-  selectOption(index) {
-    this.props.input.onChange(this.filteredValues[index]);
-  }
-
-  highlightItem(index) {
-    this.setState({selectedRow: index});
+  selectOption(x, y) {
+    this.props.input.onChange(this.filteredValues[y]);
   }
 
   keyboardSelected(ev) {
-    if (ev.which === 13 || ev.which === 9) { // Enter or tab
-      if (ev.which === 13) {
-        // Prevent submitting form
-        ev.stopPropagation();
-        ev.preventDefault();
-        document.querySelector(`[tabindex="${parseInt(this.props.tabIndex, 10) + 1}"]`).focus();
-      }
-      this.selectOption(this.state.selectedRow);
-    } else {
-      this.refs.navigableList.handleNavigation(ev);
+    this.refs.navigableList.handleNavigation(ev);
+
+    if (ev.which === 13) {
+      document.querySelector(`[tabindex="${parseInt(this.props.tabIndex, 10) + 1}"]`).focus();
     }
   }
 
@@ -90,10 +77,8 @@ class Selector extends React.Component {
       this.filteredValues.push(child.props.value);
 
       return React.cloneElement(child, {
-        selected: this.state.selectedRow === index,
-        fieldSelected: this.selectOption.bind(this, index),
-        fieldHovered: this.highlightItem.bind(this, index),
-        key: index
+        key: index,
+        onMouseDown: this.selectOption.bind(this, 0, index)
       });
     });
   }
@@ -123,9 +108,8 @@ class Selector extends React.Component {
         </div>
 
         <NavigableList className="selector__options"
-                       onYChanged={this.highlightItem.bind(this)}
-                       ref="navigableList"
-                       yLength={filteredOptions.length}>
+                       onElementSelected={this.selectOption.bind(this)}
+                       ref="navigableList">
           {filteredOptions}
         </NavigableList>
       </div>

@@ -57,6 +57,13 @@ $selector-input-height: 40px;
   visibility: hidden;
   width: 100%;
   z-index: 20;
+
+  .navigable-list__item--selected {
+    .selector-option {
+      background: $main-green;
+      color: $white;
+    }
+  }
 }
 
 .selector--disabled {
