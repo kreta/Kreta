@@ -138,7 +138,7 @@ export default function reducer(state = initialState, action = {}) {
         selectedTask = null;
 
       if (null !== initialState.project) {
-        const tasks = initialState.project._tasks4hn9we.edges;
+        const tasks = initialState.project._tasks49h6f1.edges;
 
         tasks.map((task, index) => {
           if (task.node.id === action.selectedTask) {

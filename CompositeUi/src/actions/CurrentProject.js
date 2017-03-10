@@ -31,12 +31,7 @@ const Actions = {
       const project = data.response.project;
       let members = [];
 
-      dispatch({
-        type: ActionTypes.CURRENT_PROJECT_RECEIVED,
-        project,
-      });
-
-      project._tasks4hn9we.edges.map((task) => {
+      project._tasks49h6f1.edges.map((task) => {
         members = [...members, task.node.assignee, task.node.creator];
       });
 

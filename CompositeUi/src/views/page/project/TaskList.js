@@ -88,7 +88,7 @@ class TaskList extends React.Component {
   getTasksEl() {
     const {currentProject, params} = this.props;
 
-    return currentProject.project._tasks4hn9we.edges.map((task, index) => (
+    return currentProject.project._tasks49h6f1.edges.map((task, index) => (
       <TaskPreview
         key={index}
         onClick={this.selectCurrentTask.bind(this, task.node)}
