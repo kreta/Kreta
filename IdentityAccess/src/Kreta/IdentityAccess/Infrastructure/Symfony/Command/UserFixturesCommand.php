@@ -17,6 +17,7 @@ namespace Kreta\IdentityAccess\Infrastructure\Symfony\Command;
 use BenGorUser\User\Application\Command\SignUp\SignUpUserCommand;
 use BenGorUser\User\Infrastructure\CommandBus\UserCommandBus;
 use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Helper\ProgressBar;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -60,27 +61,31 @@ class UserFixturesCommand extends Command
     public function __construct(UserCommandBus $commandBus)
     {
         $this->commandBus = $commandBus;
-        parent::__construct();
+        parent::__construct('kreta:identity-access:fixtures:users');
     }
 
-    protected function configure()
+    protected function execute(InputInterface $input, OutputInterface $output) : void
     {
-        $this->setName('kreta:identity-access:fixtures:users');
-    }
+        $amount = count(self::USER_IDS);
+        $output->writeln('');
+        $output->writeln('Loading users...');
+        $progress = new ProgressBar($output, $amount);
+        $progress->start();
+        $i = 0;
 
-    protected function execute(InputInterface $input, OutputInterface $output)
-    {
-        foreach (self::USER_IDS as $key => $userId) {
+        while ($i < $amount) {
             $this->commandBus->handle(
                 new SignUpUserCommand(
-                    'user' . $key . '@kreta.io',
+                    'user' . $i . '@kreta.io',
                     '123456',
                     ['ROLE_USER'],
-                    $userId
+                    self::USER_IDS[$i]
                 )
             );
+            ++$i;
+            $progress->advance();
         }
-
-        $output->writeln('User population is successfully done');
+        $progress->finish();
+        $output->writeln('');
     }
 }
