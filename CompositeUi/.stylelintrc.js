@@ -1,13 +1,24 @@
+/*
+ * This file is part of the Kreta package.
+ *
+ * (c) Beñat Espiña <benatespina@gmail.com>
+ * (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 'use strict';
 
 module.exports = {
   "plugins": [
-    "stylelint-selector-bem-pattern"
+    "stylelint-selector-bem-pattern",
+    "stylelint-order"
   ],
   "rules": {
     "at-rule-empty-line-before": ["always", {
       except: ["first-nested"],
-      ignore: ["blockless-group", "after-comment"]
+      ignore: ["blockless-after-blockless", "after-comment"]
     }],
     "at-rule-name-case": "lower",
     "at-rule-semicolon-newline-after": "always",
@@ -28,9 +39,7 @@ module.exports = {
     "comment-whitespace-inside": "always",
     "declaration-bang-space-after": "never",
     "declaration-bang-space-before": "always",
-    "declaration-block-no-ignored-properties": true,
     "declaration-block-no-shorthand-property-overrides": true,
-    "declaration-block-properties-order": "alphabetical",
     "declaration-block-semicolon-newline-after": "always-multi-line",
     "declaration-block-semicolon-space-after": "always-single-line",
     "declaration-block-semicolon-space-before": "never",
@@ -51,7 +60,6 @@ module.exports = {
     "max-empty-lines": 1,
     "media-feature-colon-space-after": "always",
     "media-feature-colon-space-before": "never",
-    "media-feature-no-missing-punctuation": true,
     "media-feature-range-operator-space-after": "always",
     "media-feature-range-operator-space-before": "always",
     "media-query-list-comma-newline-after": "always-multi-line",
@@ -61,9 +69,14 @@ module.exports = {
     "no-invalid-double-slash-comments": true,
     "number-leading-zero": "never",
     "number-no-trailing-zeros": true,
+    "order/order": [
+      "custom-properties",
+      "declarations"
+    ],
+    "order/properties-alphabetical-order": true,
     "property-case": "lower",
-    "rule-non-nested-empty-line-before": ["always-multi-line", {
-      ignore: ["after-comment"]
+    "rule-empty-line-before": ["always-multi-line", {
+      ignore: ["after-comment", "inside-block"]
     }],
     "plugin/selector-bem-pattern": {
       "preset": "bem",

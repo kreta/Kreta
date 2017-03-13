@@ -6,7 +6,7 @@
 // For the full copyright and license information, please view the LICENSE
 // file that was distributed with this source code.
 
-@import '../base/colors';
+@import '../variables/colors';
 
 .task-field {
   align-items: center;
@@ -40,7 +40,6 @@
   height: 20px;
   width: 20px;
 }
-
 
 .task-field__label {
   font-size: 9px;

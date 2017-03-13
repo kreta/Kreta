@@ -10,7 +10,7 @@
 
 'use strict';
 
-import configureMockStore from 'redux-mock-store'
-import thunk from 'redux-thunk'
+import getBabelRelayPlugin from 'babel-relay-plugin';
+import schema from './../schema.json';
 
-export default configureMockStore([thunk]);
+export default getBabelRelayPlugin(schema);

@@ -1,42 +1,27 @@
-$small-breakpoint: 640 !default;
-$medium-breakpoint: 1024 !default;
-$large-breakpoint: 1279 !default;
-$xlarge-breakpoint: 1440 !default;
+// This file is part of the Kreta package.
+//
+// (c) Beñat Espiña <benatespina@gmail.com>
+// (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+//
+// For the full copyright and license information, please view the LICENSE
+// file that was distributed with this source code.
 
-$small-range: (0, $small-breakpoint) !default;
-$medium-range: ($small-breakpoint  + 1, $medium-breakpoint) !default;
-$large-range: ($medium-breakpoint + 1, $large-breakpoint) !default;
-$xlarge-range: ($large-breakpoint  + 1, $xlarge-breakpoint) !default;
-$xxlarge-range: ($xlarge-breakpoint + 1, 99999999) !default;
+@import '../../../node_modules/lin3s-css-grid/scss/variables';
 
-$screen: 'only screen';
+$grid-type: 'fluid';
 
-$landscape: '#{$screen} and (orientation: landscape)' !default;
-$portrait: '#{$screen} and (orientation: portrait)' !default;
+$row-padding: 15px;
+$row-width: 1290;
 
-$small-up: $screen;
-$small-only: media-query-by-range($small-range, 'only');
+$column-count: 12;
+$column-gutter: 30px;
 
-$medium-up: media-query-by-range($medium-range);
-$medium-only: media-query-by-range($medium-range, 'only');
+$small-cols: 3, 6, 9, 12;
+$medium-cols: 4, 6, 8, 12;
+$large-cols: 2, 4, 6, 8, 12;
+$xlarge-cols: 2, 4, 6, 8, 12;
 
-$large-up: media-query-by-range($large-range);
-$large-only: media-query-by-range($large-range, 'only');
-
-$xlarge-up: media-query-by-range($xlarge-range);
-$xlarge-only: media-query-by-range($xlarge-range, 'only');
-
-$xxlarge-up: media-query-by-range($xxlarge-range);
-$xxlarge-only: media-query-by-range($xxlarge-range, 'only');
-
-$column-count: 12 !default;
-$column-gutter: 30px !default;
-$row-padding: 15px !default;
-
-$fluid-row-width: 1920 !default;
-
-$adaptive-row-small-width: 666 !default;
-$adaptive-row-medium-width: 666 !default;
-$adaptive-row-large-width: 930 !default;
-$adaptive-row-xlarge-width: 1170 !default;
-$adaptive-row-xxlarge-width: $fluid-row-width;
+$small-breakpoint: 640;
+$medium-breakpoint: 1024;
+$large-breakpoint: 1279;
+$xlarge-breakpoint: 1440;

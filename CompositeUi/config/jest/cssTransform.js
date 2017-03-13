@@ -8,16 +8,17 @@
  * file that was distributed with this source code.
  */
 
-const ensureSlash = (path, needsSlash) => {
-  const hasSlash = path.endsWith('/');
+'use strict';
 
-  if (hasSlash && !needsSlash) {
-    return path.substr(path, path.length - 1);
-  } else if (!hasSlash && needsSlash) {
-    return `${path}/`;
-  }
+const
+  process = () => {
+    return 'module.exports = {};';
+  },
+  getCacheKey = () => {
+    return 'cssTransform';
+  };
 
-  return path;
-};
-
-module.exports = ensureSlash;
+export {
+  process,
+  getCacheKey
+}

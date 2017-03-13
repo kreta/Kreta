@@ -13,5 +13,5 @@ vendor/bin/phpspec run
 cd ..
 
 cd CompositeUi
-yarn test:coverage
+yarn test
 cd ..
