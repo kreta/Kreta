@@ -83,6 +83,32 @@ const Actions = {
       ));
     });
   },
+  paginateTasks: (filters, endCursor) => (dispatch) => {
+    dispatch({
+      type: ActionTypes.CURRENT_PROJECT_TASK_PAGINATING
+    });
+    filters = Object.assign({endCursor}, filters);
+
+    const query = TasksQueryRequest.build(filters);
+
+    TaskManagerGraphQl.query(query, dispatch);
+    query.then(data => {
+      const tasks = data.response.tasks;
+
+      let members = [];
+      tasks.edges.map((task) => {
+        members = [...members, task.node.assignee, task.node.creator];
+      });
+      UserInjector.injectUserForId([
+        ...members
+      ]).then(() => (
+        dispatch({
+          type: ActionTypes.CURRENT_PROJECT_TASK_PAGINATED,
+          tasks,
+        })
+      ));
+    });
+  },
   createTask: (taskData) => (dispatch) => {
     dispatch({
       type: ActionTypes.CURRENT_PROJECT_TASK_CREATING
