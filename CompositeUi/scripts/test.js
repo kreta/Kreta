@@ -16,9 +16,9 @@ process.env.PUBLIC_URL = '';
 import dotenv from 'dotenv';
 dotenv.config({silent: true});
 
-const jest = require('jest');
-const argv = process.argv.slice(2);
+import jest from 'jest';
 
+const argv = process.argv.slice(2);
 if (!process.env.CI && argv.indexOf('--coverage') < 0) {
   argv.push('--watch');
 }

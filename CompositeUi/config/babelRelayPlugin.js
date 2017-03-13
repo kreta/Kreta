@@ -10,8 +10,7 @@
 
 'use strict';
 
-const
-  getBabelRelayPlugin = require('babel-relay-plugin'),
-  schema = require('./../schema.json');
+import getBabelRelayPlugin from 'babel-relay-plugin';
+import schema from './../schema.json';
 
-module.exports = getBabelRelayPlugin(schema);
+export default getBabelRelayPlugin(schema);

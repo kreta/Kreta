@@ -10,11 +10,15 @@
 
 'use strict';
 
-module.exports = {
-  process() {
+const
+  process = () => {
     return 'module.exports = {};';
   },
-  getCacheKey() {
+  getCacheKey = () => {
     return 'cssTransform';
-  },
-};
+  };
+
+export {
+  process,
+  getCacheKey
+}
