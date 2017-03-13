@@ -19,11 +19,11 @@ const
     let classList = `${className ? className : ''} row`;
 
     if (collapse) {
-      classList = `${classList} row--collapse`;
+      classList = `${classList} row--collapsed`;
     }
 
     if (center) {
-      classList = `${classList} row--center`;
+      classList = `${classList} row--centered`;
     }
 
     return (

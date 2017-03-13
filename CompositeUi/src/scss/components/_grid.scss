@@ -8,3 +8,9 @@
 
 @import '../variables/grid';
 @import '../../../node_modules/lin3s-css-grid/scss/row';
+
+// The following code solves the bug related with the lin3s-css-grid.
+// Remove after upgrade the dependency
+.row--centered {
+  justify-content: center;
+}
