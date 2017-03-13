@@ -6,6 +6,8 @@
 // For the full copyright and license information, please view the LICENSE
 // file that was distributed with this source code.
 
+@import '../../../node_modules/lin3s-css-grid/scss/variables';
+
 $grid-type: 'fluid';
 
 $row-padding: 15px;
@@ -23,5 +25,3 @@ $small-breakpoint: 640;
 $medium-breakpoint: 1024;
 $large-breakpoint: 1279;
 $xlarge-breakpoint: 1440;
-
-@import '../../../node_modules/lin3s-css-grid/scss/variables';
