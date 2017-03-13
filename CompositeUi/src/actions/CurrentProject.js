@@ -67,10 +67,20 @@ const Actions = {
 
     TaskManagerGraphQl.query(query, dispatch);
     query.then(data => {
-      dispatch({
-        type: ActionTypes.CURRENT_PROJECT_TASK_FILTERED,
-        tasks: data.response.tasks,
+      const tasks = data.response.tasks;
+
+      let members = [];
+      tasks.edges.map((task) => {
+        members = [...members, task.node.assignee, task.node.creator];
       });
+      UserInjector.injectUserForId([
+        ...members
+      ]).then(() => (
+        dispatch({
+          type: ActionTypes.CURRENT_PROJECT_TASK_FILTERED,
+          tasks,
+        })
+      ));
     });
   },
   createTask: (taskData) => (dispatch) => {
