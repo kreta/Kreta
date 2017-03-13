@@ -8,16 +8,10 @@
  * file that was distributed with this source code.
  */
 
-const ensureSlash = (path, needsSlash) => {
-  const hasSlash = path.endsWith('/');
+'use strict';
 
-  if (hasSlash && !needsSlash) {
-    return path.substr(path, path.length - 1);
-  } else if (!hasSlash && needsSlash) {
-    return `${path}/`;
-  }
+const
+  getBabelRelayPlugin = require('babel-relay-plugin'),
+  schema = require('./../schema.json');
 
-  return path;
-};
-
-module.exports = ensureSlash;
+module.exports = getBabelRelayPlugin(schema);

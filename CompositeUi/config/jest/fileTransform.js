@@ -10,7 +10,10 @@
 
 'use strict';
 
-import configureMockStore from 'redux-mock-store'
-import thunk from 'redux-thunk'
+import path from 'path';
 
-export default configureMockStore([thunk]);
+module.exports = {
+  process(src, filename) {
+    return `module.exports = ${JSON.stringify(path.basename(filename))};`;
+  },
+};

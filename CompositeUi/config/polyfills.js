@@ -8,8 +8,13 @@
  * file that was distributed with this source code.
  */
 
-const
-  getBabelRelayPlugin = require('babel-relay-plugin'),
-  schema = require('./../schema.json');
+'use strict';
 
-module.exports = getBabelRelayPlugin(schema);
+if (typeof Promise === 'undefined') {
+  require('promise/lib/rejection-tracking').enable();
+  window.Promise = require('promise/lib/es6-extensions.js');
+}
+
+import 'whatwg-fetch';
+
+Object.assign = require('object-assign');

@@ -11,9 +11,9 @@
 process.env.NODE_ENV = 'development';
 
 import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin';
-import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import InterpolateHtmlPlugin from 'react-dev-utils/InterpolateHtmlPlugin';
+import StyleLintPlugin from 'stylelint-webpack-plugin';
 import WatchMissingNodeModulesPlugin from 'react-dev-utils/WatchMissingNodeModulesPlugin';
 
 import autoprefixer from 'autoprefixer';
@@ -31,7 +31,7 @@ export default {
   devtool: 'cheap-module-source-map',
   entry: [
     require.resolve('react-dev-utils/webpackHotDevClient'),
-    require.resolve('react-scripts/config/polyfills'),
+    require.resolve('./polyfills'),
     paths.appIndexJs,
   ],
   output: {
@@ -41,77 +41,100 @@ export default {
     publicPath: PUBLIC_PATH
   },
   resolve: {
-    fallback: paths.nodePaths,
-    extensions: ['.js', '.json', '.jsx', '.css', '.scss', '.svg', '']
+    modules: ['node_modules'].concat(paths.nodePaths),
+    extensions: ['.js', '.json', '.jsx', '.css', '.scss', '.svg']
   },
   module: {
-    preLoaders: [
-      {
-        test: /\.(js|jsx)$/,
-        loader: 'eslint',
-        include: paths.appSrc,
-      },
-      {
-        test: /\.(css|scss)$/,
-        loader: 'stylelint',
-        include: paths.appScss,
+    rules: [{
+      parser: {
+        requireEnsure: false
       }
-    ],
-    loaders: [
-      {
-        exclude: [
-          /\.html$/,
-          /\.(js|jsx)$/,
-          /\.(css|scss)$/,
-          /\.json$/,
-          /\.svg$/
-        ],
-        loader: 'url',
-        query: {
-          limit: 10000,
-          name: '[name].[hash:8].[ext]'
+    }, {
+      test: /\.(js|jsx)$/,
+      enforce: 'pre',
+      use: [
+        {
+          loader: 'eslint-loader',
+        },
+      ],
+      include: paths.appSrc,
+    }, {
+      exclude: [
+        /\.html$/,
+        /\.(js|jsx)$/,
+        /\.(css|scss)$/,
+        /\.json$/,
+        /\.bmp$/,
+        /\.gif$/,
+        /\.jpe?g$/,
+        /\.png$/,
+        /\.svg$/
+      ],
+      loader: 'file-loader',
+      options: {
+        name: '[name].[hash:8].[ext]',
+      },
+    }, {
+      test: [
+        /\.bmp$/,
+        /\.gif$/,
+        /\.jpe?g$/,
+        /\.png$/
+      ],
+      loader: 'url-loader',
+      options: {
+        limit: 10000,
+        name: '[name].[hash:8].[ext]',
+      },
+    }, {
+      test: /\.svg$/,
+      loader: 'svg-sprite-loader',
+      options: {
+        name: '[name]_[hash].svg'
+      }
+    }, {
+      test: /\.(js|jsx)$/,
+      include: paths.appSrc,
+      loader: 'babel-loader',
+      options: {
+        cacheDirectory: true,
+      },
+    }, {
+      test: /\.(css|scss)$/,
+      use: [
+        'style-loader', {
+          loader: 'css-loader',
+          options: {
+            importLoaders: 1,
+          },
+        }, {
+          loader: 'postcss-loader',
+          options: {
+            ident: 'postcss',
+            plugins: () => [
+              autoprefixer({
+                browsers: [
+                  '>1%',
+                  'last 4 versions',
+                  'Firefox ESR',
+                  'not ie < 9',
+                ],
+              }),
+            ],
+          },
+        }, {
+          loader: 'sass-loader',
+          options: {
+            includePaths: [
+              path.join(__dirname, paths.appScss)
+            ]
+          }
         }
-      },
-      {
-        test: /\.(js|jsx)$/,
-        include: paths.appSrc,
-        loader: 'babel',
-        query: {
-          cacheDirectory: true
-        }
-      },
-      {
-        test: /\.(css|scss)$/,
-        loader: ExtractTextPlugin.extract(
-          'style', 'css!postcss!sass?outputStyle=expanded&sourceComments=true'
-        )
-      },
-      {
-        test: /\.json$/,
-        loader: 'json'
-      },
-      {
-        test: /\.svg$/,
-        loader: 'svg-sprite?name=[name]_[hash].svg'
-      },
-    ]
-  },
-  postcss: () => {
-    return [
-      autoprefixer({
-        browsers: [
-          '>1%',
-          'last 4 versions',
-          'Firefox ESR',
-          'not ie < 9', // React doesn't support IE8 anyway
-        ]
-      }),
-    ];
-  },
-  sassLoader: {
-    includePaths: [path.join(__dirname, paths.appScss)]
+      ],
+    }]
   },
   plugins: [
+    new CaseSensitivePathsPlugin(),
     new InterpolateHtmlPlugin({
       PUBLIC_URL: PUBLIC_URL
     }),
@@ -119,15 +142,17 @@ export default {
       inject: true,
       template: paths.appHtml,
     }),
+    new StyleLintPlugin(),
+    new WatchMissingNodeModulesPlugin(paths.appNodeModules),
     new webpack.DefinePlugin(env(PUBLIC_URL)),
-    new webpack.HotModuleReplacementPlugin(),
-    new CaseSensitivePathsPlugin(),
-    new ExtractTextPlugin('kreta.css'),
-    new WatchMissingNodeModulesPlugin(paths.appNodeModules)
+    new webpack.HotModuleReplacementPlugin()
   ],
   node: {
-    fst: 'empty',
+    fs: 'empty',
     net: 'empty',
-    tls: 'empty'
-  }
+    tls: 'empty',
+  },
+  performance: {
+    hints: false,
+  },
 };

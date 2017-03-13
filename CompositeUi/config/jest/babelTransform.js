@@ -10,7 +10,9 @@
 
 'use strict';
 
-import configureMockStore from 'redux-mock-store'
-import thunk from 'redux-thunk'
+import babelJest from 'babel-jest';
 
-export default configureMockStore([thunk]);
+module.exports = babelJest.createTransformer({
+  presets: [require.resolve('babel-preset-react-app')],
+  babelrc: false,
+});

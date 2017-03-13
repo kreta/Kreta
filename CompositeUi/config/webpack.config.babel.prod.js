@@ -8,30 +8,26 @@
  * file that was distributed with this source code.
  */
 
+'use strict';
+
 process.env.NODE_ENV = 'production';
 
-import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin';
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import InterpolateHtmlPlugin from 'react-dev-utils/InterpolateHtmlPlugin';
-import WatchMissingNodeModulesPlugin from 'react-dev-utils/WatchMissingNodeModulesPlugin';
+import ManifestPlugin from 'webpack-manifest-plugin';
 
 import autoprefixer from 'autoprefixer';
 import path from 'path';
-import url from 'url';
+import stylelint from 'stylelint';
 import webpack from 'webpack';
 
-import ensureSlash from './../devUtils/ensureSlash';
 import paths from './paths';
 import _env from './env';
 
 const
-  HOMEPAGE_PATH = require(paths.appPackageJson).homepage,
-  HOMEPAGE_PATHNAME = HOMEPAGE_PATH ? url.parse(HOMEPAGE_PATH).pathname : '/';
-
-const
-  PUBLIC_PATH = ensureSlash(HOMEPAGE_PATHNAME, true),
-  PUBLIC_URL = ensureSlash(HOMEPAGE_PATHNAME, false);
+  PUBLIC_PATH = paths.servedPath,
+  PUBLIC_URL = paths.publicUrl;
 
 const env = _env(PUBLIC_URL);
 
@@ -43,84 +39,106 @@ export default {
   bail: true,
   devtool: 'source-map',
   entry: [
-    require.resolve('react-scripts/config/polyfills'),
+    require.resolve('./polyfills'),
     paths.appIndexJs,
   ],
   output: {
     path: paths.appBuild,
-    filename: 'kreta.[hash].js',
+    filename: '[name].[chunkhash:8].js',
+    chunkFilename: '[name].[chunkhash:8].chunk.js',
     publicPath: PUBLIC_PATH
   },
   resolve: {
-    fallback: paths.nodePaths,
-    extensions: ['.js', '.json', '.jsx', '.css', '.scss', '.svg', '']
+    modules: ['node_modules'].concat(paths.nodePaths),
+    extensions: ['.js', '.json', '.jsx', '.css', '.scss', '.svg']
   },
   module: {
-    preLoaders: [
-      {
-        test: /\.(js|jsx)$/,
-        loader: 'eslint',
-        include: paths.appSrc,
-      },
-      {
-        test: /\.(css|scss)$/,
-        loader: 'stylelint',
-        include: paths.appScss,
+    rules: [{
+      parser: {
+        requireEnsure: false
       }
-    ],
-    loaders: [
-      {
-        exclude: [
-          /\.html$/,
-          /\.(js|jsx)$/,
-          /\.(css|scss)$/,
-          /\.json$/,
-          /\.svg$/
-        ],
-        loader: 'url',
-        query: {
-          limit: 10000,
-          name: '[name].[hash:8].[ext]'
-        }
+    }, {
+      test: /\.(js|jsx)$/,
+      enforce: 'pre',
+      use: [{
+        loader: 'eslint-loader',
       },
-      {
-        test: /\.(js|jsx)$/,
-        include: paths.appSrc,
-        loader: 'babel',
-        query: {
-          cacheDirectory: true
-        }
+      ],
+      include: paths.appSrc,
+    }, {
+      exclude: [
+        /\.html$/,
+        /\.(js|jsx)$/,
+        /\.(css|scss)$/,
+        /\.json$/,
+        /\.bmp$/,
+        /\.gif$/,
+        /\.jpe?g$/,
+        /\.png$/,
+        /\.svg$/,
+      ],
+      loader: 'file-loader',
+      options: {
+        name: '[name].[hash:8].[ext]',
       },
-      {
-        test: /\.(css|scss)$/,
-        loader: ExtractTextPlugin.extract(
-          'style', 'css!postcss!sass?outputStyle=expanded&sourceComments=true'
-        )
+    }, {
+      test: [
+        /\.bmp$/,
+        /\.gif$/,
+        /\.jpe?g$/,
+        /\.png$/
+      ],
+      loader: 'url-loader',
+      options: {
+        limit: 10000,
+        name: '[name].[hash:8].[ext]',
       },
-      {
-        test: /\.json$/,
-        loader: 'json'
-      },
-      {
-        test: /\.svg$/,
-        loader: 'svg-sprite?name=[name]_[hash].svg'
-      },
-    ]
-  },
-  postcss: () => {
-    return [
-      autoprefixer({
-        browsers: [
-          '>1%',
-          'last 4 versions',
-          'Firefox ESR',
-          'not ie < 9', // React doesn't support IE8 anyway
-        ]
-      }),
-    ];
-  },
-  sassLoader: {
-    includePaths: [path.join(__dirname, paths.appScss)]
+    }, {
+      test: /\.svg$/,
+      loader: 'svg-sprite-loader',
+      options: {
+        name: '[name].[hash:8].svg'
+      }
+    }, {
+      test: /\.(js|jsx)$/,
+      include: paths.appSrc,
+      loader: 'babel-loader',
+    }, {
+      test: /\.(css|scss)$/,
+      loader: ExtractTextPlugin.extract({
+        fallback: 'style-loader',
+        publicPath: PUBLIC_PATH,
+        use: [{
+          loader: 'css-loader',
+          options: {
+            importLoaders: 1,
+          },
+        }, {
+          loader: 'postcss-loader',
+          options: {
+            ident: 'postcss',
+            plugins: () => [
+              autoprefixer({
+                browsers: [
+                  '>1%',
+                  'last 4 versions',
+                  'Firefox ESR',
+                  'not ie < 9',
+                ],
+              }),
+              stylelint(),
+            ],
+          },
+        }, {
+          loader: 'sass-loader',
+          options: {
+            includePaths: [
+              path.join(__dirname, paths.appScss)
+            ]
+          }
+        }],
+      })
+    }],
   },
   plugins: [
     new InterpolateHtmlPlugin({
@@ -139,33 +157,34 @@ export default {
         keepClosingSlash: true,
         minifyJS: true,
         minifyCSS: true,
-        minifyURLs: true
-      }
+        minifyURLs: true,
+      },
     }),
     new webpack.DefinePlugin(env),
-    new webpack.optimize.OccurrenceOrderPlugin(),
-    new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
-        screw_ie8: true, // React doesn't support IE8
-        warnings: false
+        screw_ie8: true,
+        warnings: false,
       },
       mangle: {
-        screw_ie8: true
+        screw_ie8: true,
       },
       output: {
         comments: false,
-        screw_ie8: true
-      }
+        screw_ie8: true,
+      },
+      sourceMap: true,
     }),
-    new webpack.HotModuleReplacementPlugin(),
-    new CaseSensitivePathsPlugin(),
-    new ExtractTextPlugin('kreta.[contenthash].css'),
-    new WatchMissingNodeModulesPlugin(paths.appNodeModules)
+    new ExtractTextPlugin({
+      filename: '[name].[contenthash:8].css',
+    }),
+    new ManifestPlugin({
+      fileName: 'asset-manifest.json',
+    }),
   ],
   node: {
-    fst: 'empty',
+    fs: 'empty',
     net: 'empty',
-    tls: 'empty'
-  }
+    tls: 'empty',
+  },
 };
