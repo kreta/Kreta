@@ -16,21 +16,21 @@ import {Link} from 'react-router';
 
 import {routes} from './../../../Routes';
 
+import CurrentProjectActions from './../../../actions/CurrentProject';
+
 import Button from './../../component/Button';
-import FormActions from './../../component/FormActions';
+import CardExtended from './../../component/CardExtended';
+import HtmlArea from './../../component/HtmlArea';
 import LoadingSpinner from './../../component/LoadingSpinner';
 import {Row, RowColumn} from './../../component/Grid';
-import SelectorOption from './../../component/SelectorOption';
-import Thumbnail from './../../component/Thumbnail';
+import UserCard from './../../component/UserCard';
 
 @connect(state => ({task: state.currentProject.selectedTask}))
 class Show extends React.Component {
-  assignee(task) {
-    return !task.assignee.first_name ? 'Dummy assignee' : `${task.assignee.first_name} ${task.assignee.last_name}`;
-  }
+  componentDidMount() {
+    const {params, dispatch} = this.props;
 
-  creator(task) {
-    return !task.creator.first_name ? 'Dummy creator' : `${task.creator.first_name} ${task.creator.last_name}`;
+    dispatch(CurrentProjectActions.selectCurrentTask(params.task));
   }
 
   render() {
@@ -45,48 +45,40 @@ class Show extends React.Component {
     }
 
     return (
-      <div>
+      <div className="task-show">
         <Row>
           <RowColumn>
-            <h1 className="task-show__title">{task.title}</h1>
-            <p className="task-show__description">{task.description}</p>
+            <h1 className="task-show__title">
+              {task.title}
+            </h1>
+            <HtmlArea className="task-show__description">
+              {task.description}
+            </HtmlArea>
           </RowColumn>
         </Row>
         <Row className="task-show__fields">
           <RowColumn small={6}>
-            <SelectorOption
-              alignLeft
-              label="Assignee"
-              text={this.assignee(task)}
-              thumbnail={<Thumbnail image={null} text={this.assignee(task)}/>}
-              value="1"
-            />
+            <span>Assignee</span>
+            <UserCard user={task.assignee}/>
           </RowColumn>
           <RowColumn small={6}>
-            <SelectorOption
-              alignLeft
-              label="Creator"
-              text={this.creator(task)}
-              thumbnail={<Thumbnail image={null} text={this.creator(task)}/>}
-              value="1"
-            />
+            <span>Creator</span>
+            <UserCard user={task.creator}/>
           </RowColumn>
         </Row>
         <Row className="task-show__fields">
           <RowColumn small={6}>
-            <SelectorOption alignLeft label="Progress" text={task.progress} value="1"/>
+            <CardExtended subtitle="Progress" title={task.progress}/>
           </RowColumn>
           <RowColumn small={6}>
-            <SelectorOption alignLeft label="Priority" text={task.priority} value="1"/>
+            <CardExtended subtitle="Priority" title={task.priority}/>
           </RowColumn>
         </Row>
-        <Row>
+        <Row className="task-show__fields">
           <RowColumn>
-            <FormActions>
-              <Link to={routes.task.edit(params.organization, params.project, params.task)}>
-                <Button color="green">Edit</Button>
-              </Link>
-            </FormActions>
+            <Link to={routes.task.edit(params.organization, params.project, params.task)}>
+              <Button color="green">Edit</Button>
+            </Link>
           </RowColumn>
         </Row>
       </div>
