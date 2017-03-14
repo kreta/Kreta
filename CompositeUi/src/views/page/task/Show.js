@@ -19,6 +19,7 @@ import {routes} from './../../../Routes';
 import CurrentProjectActions from './../../../actions/CurrentProject';
 
 import Button from './../../component/Button';
+import HtmlArea from './../../component/HtmlArea';
 import LoadingSpinner from './../../component/LoadingSpinner';
 import {Row, RowColumn} from './../../component/Grid';
 import UserCard from './../../component/UserCard';
@@ -49,9 +50,9 @@ class Show extends React.Component {
             <h1 className="task-show__title">
               {task.title}
             </h1>
-            <p className="task-show__description">
+            <HtmlArea className="task-show__description">
               {task.description}
-            </p>
+            </HtmlArea>
           </RowColumn>
         </Row>
         <Row className="task-show__fields">
