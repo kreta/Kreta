@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-import CrossIcon from './../../svg/cross';
+import CrossIcon from './../../svg/cross.svg';
 
 import classnames from 'classnames';
 import React from 'react';
@@ -22,14 +22,18 @@ class ContentRightLayout extends React.Component {
   };
 
   triggerOnRequestClose() {
-    this.props.onRequestClose();
+    const {onRequestClose} = this.props;
+
+    onRequestClose();
   }
 
   render() {
-    const classes = classnames({
-      'content__right': true,
-      'content__right--visible': this.props.isOpen
-    });
+    const
+      {isOpen, children} = this.props,
+      classes = classnames({
+        'content__right': true,
+        'content__right--visible': isOpen
+      });
 
     return (
       <div className={classes}>
@@ -37,7 +41,7 @@ class ContentRightLayout extends React.Component {
           <Icon glyph={CrossIcon} onClick={this.triggerOnRequestClose.bind(this)}/>
         </div>
         <div className="content__right-content">
-          {this.props.children}
+          {children}
         </div>
       </div>
     );
