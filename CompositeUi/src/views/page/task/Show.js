@@ -16,6 +16,8 @@ import {Link} from 'react-router';
 
 import {routes} from './../../../Routes';
 
+import CurrentProjectActions from './../../../actions/CurrentProject';
+
 import Button from './../../component/Button';
 import LoadingSpinner from './../../component/LoadingSpinner';
 import {Row, RowColumn} from './../../component/Grid';
@@ -23,6 +25,12 @@ import UserCard from './../../component/UserCard';
 
 @connect(state => ({task: state.currentProject.selectedTask}))
 class Show extends React.Component {
+  componentDidMount() {
+    const {params, dispatch} = this.props;
+
+    dispatch(CurrentProjectActions.selectCurrentTask(params.task));
+  }
+
   render() {
     const {task, params} = this.props;
 
