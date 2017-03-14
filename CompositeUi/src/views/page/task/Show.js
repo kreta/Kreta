@@ -19,6 +19,7 @@ import {routes} from './../../../Routes';
 import CurrentProjectActions from './../../../actions/CurrentProject';
 
 import Button from './../../component/Button';
+import CardExtended from './../../component/CardExtended';
 import HtmlArea from './../../component/HtmlArea';
 import LoadingSpinner from './../../component/LoadingSpinner';
 import {Row, RowColumn} from './../../component/Grid';
@@ -67,10 +68,10 @@ class Show extends React.Component {
         </Row>
         <Row className="task-show__fields">
           <RowColumn small={6}>
-            <p>Progress: <strong>{task.progress}</strong></p>
+            <CardExtended subtitle="Progress" title={task.progress}/>
           </RowColumn>
           <RowColumn small={6}>
-            <p>Priority: <strong>{task.priority}</strong></p>
+            <CardExtended subtitle="Priority" title={task.priority}/>
           </RowColumn>
         </Row>
         <Row className="task-show__fields">
