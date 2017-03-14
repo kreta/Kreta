@@ -13,7 +13,7 @@ import './../../../scss/views/page/project/_settings';
 import React from 'react';
 
 import Button from './../../component/Button';
-import UserPreview from './../../component/UserPreview';
+import UserCard from './../../component/UserCard';
 
 class SettingsParticipants extends React.Component {
   static propTypes = {
@@ -37,7 +37,7 @@ class SettingsParticipants extends React.Component {
         );
 
         return (
-          <UserPreview actions={actions}
+          <UserCard actions={actions}
                        key={index}
                        user={user.user}/>
         );

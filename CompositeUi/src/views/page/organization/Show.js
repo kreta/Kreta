@@ -26,6 +26,7 @@ import {Row, RowColumn} from './../../component/Grid';
 import SectionHeader from './../../component/SectionHeader';
 import Thumbnail from './../../component/Thumbnail';
 import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
+import UserCard from './../../component/UserCard';
 
 @connect(state => ({currentOrganization: state.currentOrganization}))
 class Show extends React.Component {
@@ -51,12 +52,7 @@ class Show extends React.Component {
     const {organization} = this.props.currentOrganization;
 
     return organization.owners.map((owner, index) => (
-      <CardExtended
-        key={index}
-        subtitle={`@${owner.user_name}`}
-        thumbnail={<Thumbnail image={owner.image} text={`${owner.first_name} ${owner.last_name}`}/>}
-        title={`${owner.first_name} ${owner.last_name}`}
-      />
+      <UserCard key={index} user={owner}/>
     ));
   }
 
@@ -64,12 +60,7 @@ class Show extends React.Component {
     const {organization} = this.props.currentOrganization;
 
     return organization.organization_members.map((member, index) => (
-      <CardExtended
-        key={index}
-        subtitle={`@${member.user_name}`}
-        thumbnail={<Thumbnail image={member.image} text={`${member.first_name} ${member.last_name}`}/>}
-        title={`${member.first_name} ${member.last_name}`}
-      />
+      <UserCard key={index} user={member}/>
     ));
   }
 
