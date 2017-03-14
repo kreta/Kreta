@@ -13,6 +13,10 @@ import './../../scss/components/_card-extended';
 import React from 'react';
 
 class CardExtended extends React.Component {
+  static propTypes = {
+    thumbnail: React.PropTypes.element
+  };
+
   getThumbnail() {
     const {thumbnail} = this.props;
 
@@ -34,12 +38,12 @@ class CardExtended extends React.Component {
       <div className="card-extended">
         {this.getThumbnail()}
         <div className="card-extended__container">
-            <span className="card-extended__header">
-              {title}
-            </span>
-          <span className="card-extended__subheader">
-              {subtitle}
-            </span>
+          <span className="card-extended__header">
+            {title}
+          </span>
+          <span className="card-extended__sub-header">
+            {subtitle}
+          </span>
         </div>
         <div className="card-extended__actions">
           {children}

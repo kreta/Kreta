@@ -20,7 +20,7 @@ import ProjectEdit from './../../form/ProjectEdit';
 import Section from './../../component/Section';
 import Thumbnail from './../../component/Thumbnail';
 import SettingsParticipants from './SettingsParticipants';
-import UserPreview from './../../component/UserPreview';
+import UserCard from './../../component/UserCard';
 import LoadingSpinner from './../../component/LoadingSpinner';
 import CurrentProjectActions from './../../../actions/CurrentProject';
 import PageHeader from './../../component/PageHeader';
@@ -49,7 +49,7 @@ class Settings extends React.Component {
     }
 
     const participants = this.props.project.participants.map(
-      (participant, index) => <UserPreview key={index} user={participant.user}/>
+      (participant, index) => <UserCard key={index} user={participant.user}/>
     );
 
     return (
