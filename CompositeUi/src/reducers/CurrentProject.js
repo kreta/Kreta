@@ -137,6 +137,8 @@ export default function reducer(state = initialState, action = {}) {
         selectedTaskIndex = 0,
         selectedTask = null;
 
+      console.log(initialState);
+
       if (null !== initialState.project) {
         const tasks = initialState.project._tasks49h6f1.edges;
 
