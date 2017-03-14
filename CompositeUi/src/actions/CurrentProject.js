@@ -87,9 +87,7 @@ const Actions = {
     dispatch({
       type: ActionTypes.CURRENT_PROJECT_TASK_PAGINATING
     });
-    filters = Object.assign({endCursor}, filters);
-
-    const query = TasksQueryRequest.build(filters);
+    const query = TasksQueryRequest.build({endCursor, ...filters});
 
     TaskManagerGraphQl.query(query, dispatch);
     query.then(data => {
