@@ -18,14 +18,24 @@ class UserCard extends React.Component {
     user: React.PropTypes.object.isRequired
   };
 
-  name() {
+  username() {
+    const {user} = this.props;
+
+    return `@${user.user_name}`;
+  }
+
+  subtitle() {
+    return this.title() === this.username() ? null : this.username();
+  }
+
+  title() {
     const {user} = this.props;
 
     if (user.first_name && user.last_name) {
       return `${user.first_name} ${user.last_name}`;
     }
 
-    return user.email;
+    return this.username();
   }
 
   render() {
@@ -33,9 +43,9 @@ class UserCard extends React.Component {
 
     return (
       <CardExtended
-        subtitle={user.user_name}
+        subtitle={this.subtitle()}
         thumbnail={<UserThumbnail user={user}/>}
-        title={this.name()}
+        title={this.title()}
       >
         {actions}
       </CardExtended>

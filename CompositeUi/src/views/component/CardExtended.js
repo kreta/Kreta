@@ -14,10 +14,12 @@ import React from 'react';
 
 class CardExtended extends React.Component {
   static propTypes = {
-    thumbnail: React.PropTypes.element
+    subtitle: React.PropTypes.string,
+    thumbnail: React.PropTypes.element,
+    title: React.PropTypes.string.isRequired
   };
 
-  getThumbnail() {
+  thumbnail() {
     const {thumbnail} = this.props;
 
     if (thumbnail) {
@@ -31,19 +33,31 @@ class CardExtended extends React.Component {
     return '';
   }
 
+  subtitle() {
+    const {subtitle} = this.props;
+
+    if (subtitle) {
+      return (
+        <span className="card-extended__sub-header">
+          {subtitle}
+        </span>
+      );
+    }
+
+    return '';
+  }
+
   render() {
-    const {title, subtitle, children} = this.props;
+    const {title, children} = this.props;
 
     return (
       <div className="card-extended">
-        {this.getThumbnail()}
+        {this.thumbnail()}
         <div className="card-extended__container">
           <span className="card-extended__header">
             {title}
           </span>
-          <span className="card-extended__sub-header">
-            {subtitle}
-          </span>
+          {this.subtitle()}
         </div>
         <div className="card-extended__actions">
           {children}
