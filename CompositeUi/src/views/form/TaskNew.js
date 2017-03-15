@@ -103,9 +103,9 @@ class TaskNew extends React.Component {
           <RowColumn large={4} medium={6}>
             <Field component={Selector} name="priority" tabIndex={4}>
               <SelectorOption text="Select priority..." value=""/>
-              <SelectorOption text="High" value="high"/>
-              <SelectorOption text="Medium" value="medium"/>
-              <SelectorOption text="Low" value="low"/>
+              <SelectorOption text="High" value="HIGH"/>
+              <SelectorOption text="Medium" value="MEDIUM"/>
+              <SelectorOption text="Low" value="LOW"/>
             </Field>
           </RowColumn>
           <RowColumn>

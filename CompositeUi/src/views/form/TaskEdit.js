@@ -42,8 +42,11 @@ const validate = (values) => {
   initialValues: {
     project: state.currentProject.project.id,
     title: state.currentProject.selectedTask.title,
-    description: state.currentProject.selectedTask.description
+    description: state.currentProject.selectedTask.description,
+    priority: state.currentProject.selectedTask.priority,
+    assignee: state.currentProject.selectedTask.assignee.id
   },
+  project: state.currentProject.project
 }))
 
 @reduxForm({form: 'TaskEdit', validate})
@@ -99,9 +102,10 @@ class TaskEdit extends React.Component {
           </RowColumn>
           <RowColumn large={4} medium={6}>
             <Field component={Selector} name="priority" tabIndex={4}>
-              <SelectorOption text="High" value="high"/>
-              <SelectorOption text="Medium" value="medium"/>
-              <SelectorOption text="Low" value="low"/>
+              <SelectorOption text="Select priority..." value=""/>
+              <SelectorOption text="High" value="HIGH"/>
+              <SelectorOption text="Medium" value="MEDIUM"/>
+              <SelectorOption text="Low" value="LOW"/>
             </Field>
           </RowColumn>
           <RowColumn>

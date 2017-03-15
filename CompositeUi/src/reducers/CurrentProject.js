@@ -92,19 +92,13 @@ export default function reducer(state = initialState, action = {}) {
       return {...state, waiting: true};
     }
     case ActionTypes.CURRENT_PROJECT_RECEIVED: {
-      initialState.project = action.project;
-
       return {...state, project: action.project, waiting: false};
     }
     case ActionTypes.CURRENT_PROJECT_TASK_FILTERS_LOADED: {
-      initialState.filters = filters(action.assignee);
-
-      return {...state, filters: initialState.filters};
+      return {...state, filters: filters(action.assignee)};
     }
     case ActionTypes.CURRENT_PROJECT_TASK_FILTERED: {
-      initialState.project._tasks49h6f1 = action.tasks;
-
-      return {...state};
+      return {...state, project: {...state.project, _tasks49h6f1: action.tasks}};
     }
     case ActionTypes.CURRENT_PROJECT_TASK_CREATING: {
       return {...state, errors: []};
@@ -137,10 +131,8 @@ export default function reducer(state = initialState, action = {}) {
         selectedTaskIndex = 0,
         selectedTask = null;
 
-      console.log(initialState);
-
-      if (null !== initialState.project) {
-        const tasks = initialState.project._tasks49h6f1.edges;
+      if (null !== state.project) {
+        const tasks = state.project._tasks49h6f1.edges;
 
         tasks.map((task, index) => {
           if (task.node.numeric_id === parseInt(action.selectedTask, 10)) {
