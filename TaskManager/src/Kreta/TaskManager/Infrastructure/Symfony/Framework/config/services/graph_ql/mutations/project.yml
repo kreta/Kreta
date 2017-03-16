@@ -12,7 +12,15 @@ services:
         arguments:
             - "@security.token_storage"
             - "@kreta.task_manager.command_bus"
-            - "@kreta.task_manager.query_bus"
-            - "@kreta.task_manager.graph_ql.query_resolver.organization_of_id"
+            - "@kreta.task_manager.graph_ql.query_resolver.project"
         tags:
             - { name: overblog_graphql.mutation, alias: "create_project", method: "execute" }
+
+    kreta.task_manager.graph_ql.mutation.edit_project:
+        class: Kreta\TaskManager\Infrastructure\Symfony\GraphQl\Mutation\Project\EditProjectMutation
+        arguments:
+            - "@security.token_storage"
+            - "@kreta.task_manager.command_bus"
+            - "@kreta.task_manager.graph_ql.query_resolver.project"
+        tags:
+            - { name: overblog_graphql.mutation, alias: "edit_project", method: "execute" }
