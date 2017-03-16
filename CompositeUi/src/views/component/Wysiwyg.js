@@ -95,7 +95,8 @@ class Wysiwyg extends React.Component {
       return null;
     }
 
-    const blocksFromHTML = convertFromHTML(defaultValue),
+    const
+      blocksFromHTML = convertFromHTML(defaultValue),
       state = ContentState.createFromBlockArray(
       blocksFromHTML.contentBlocks,
       blocksFromHTML.entityMap
@@ -126,6 +127,7 @@ class Wysiwyg extends React.Component {
     // that is to change depth of block.
     return true;
   }
+
   render() {
     const
       {hasPlaceholder, tabIndex} = this.props;
@@ -152,7 +154,6 @@ class Wysiwyg extends React.Component {
       />
     );
   }
-
 }
 
 export default Wysiwyg;
