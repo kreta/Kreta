@@ -33,6 +33,7 @@ class NavigableList extends React.Component {
   handleNavigation(ev) {
     if (ev.which === 13) { // Enter
       this.goToItemLink();
+      ev.preventDefault();
     } else if (ev.which === 40) { // Down
       this.selectNextY();
       this.centerListScroll();
