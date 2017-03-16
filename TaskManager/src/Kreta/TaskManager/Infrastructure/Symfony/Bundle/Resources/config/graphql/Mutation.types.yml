@@ -28,6 +28,12 @@ Mutation:
                     inputType: CreateProjectInput
                     payloadType: CreateProjectPayload
                     mutateAndGetPayload: "@=mutation('create_project', [args.offsetGet('input')])"
+            editProject:
+                builder: Mutation
+                builderConfig:
+                    inputType: EditProjectInput
+                    payloadType: EditProjectPayload
+                    mutateAndGetPayload: "@=mutation('edit_project', [args.offsetGet('input')])"
             createTask:
                 builder: Mutation
                 builderConfig:

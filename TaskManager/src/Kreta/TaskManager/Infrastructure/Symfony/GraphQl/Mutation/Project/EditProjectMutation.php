@@ -16,15 +16,14 @@ namespace Kreta\TaskManager\Infrastructure\Symfony\GraphQl\Mutation\Project;
 
 use Kreta\SharedKernel\Application\CommandBus;
 use Kreta\SharedKernel\Http\GraphQl\Relay\Mutation;
-use Kreta\TaskManager\Application\Command\Project\CreateProjectCommand;
-use Kreta\TaskManager\Domain\Model\Organization\OrganizationDoesNotExistException;
-use Kreta\TaskManager\Domain\Model\Project\ProjectAlreadyExists;
-use Kreta\TaskManager\Domain\Model\Project\UnauthorizedCreateProjectException;
+use Kreta\TaskManager\Application\Command\Project\EditProjectCommand;
+use Kreta\TaskManager\Domain\Model\Project\ProjectDoesNotExistException;
+use Kreta\TaskManager\Domain\Model\Project\UnauthorizedProjectActionException;
 use Kreta\TaskManager\Infrastructure\Symfony\GraphQl\Query\Project\ProjectResolver;
 use Overblog\GraphQLBundle\Error\UserError;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-class CreateProjectMutation implements Mutation
+class EditProjectMutation implements Mutation
 {
     private $commandBus;
     private $currentUser;
@@ -42,35 +41,26 @@ class CreateProjectMutation implements Mutation
 
     public function execute(array $values) : array
     {
-        $command = new CreateProjectCommand(
+        $command = new EditProjectCommand(
+            $values['id'],
             $values['name'],
-            $values['organizationId'],
             $this->currentUser,
-            null,
             $values['slug'] ?? null
         );
 
         try {
             $this->commandBus->handle($command);
-        } catch (OrganizationDoesNotExistException $exception) {
+        } catch (ProjectDoesNotExistException $exception) {
             throw new UserError(
                 sprintf(
-                    'The organization with "%s" id does not exist',
-                    $values['organizationId']
+                    'The project with "%s" id does not exist',
+                    $values['id']
                 )
             );
-        } catch (ProjectAlreadyExists $exception) {
+        } catch (UnauthorizedProjectActionException $exception) {
             throw new UserError(
                 sprintf(
-                    'The project with "%s" name already exists in the organization with %s id',
-                    $values['name'],
-                    $values['organizationId']
-                )
-            );
-        } catch (UnauthorizedCreateProjectException $exception) {
-            throw new UserError(
-                sprintf(
-                    'The "%s" user does not allow to create the project',
+                    'The "%s" user does not allow to edit the project',
                     $this->currentUser
                 )
             );
