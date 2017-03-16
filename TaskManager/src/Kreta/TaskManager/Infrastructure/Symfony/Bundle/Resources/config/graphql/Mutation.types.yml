@@ -40,3 +40,9 @@ Mutation:
                     inputType: CreateTaskInput
                     payloadType: CreateTaskPayload
                     mutateAndGetPayload: "@=mutation('create_task', [args.offsetGet('input')])"
+            editTask:
+                builder: Mutation
+                builderConfig:
+                    inputType: EditTaskInput
+                    payloadType: EditTaskPayload
+                    mutateAndGetPayload: "@=mutation('edit_task', [args.offsetGet('input')])"

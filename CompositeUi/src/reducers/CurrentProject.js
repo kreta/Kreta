@@ -109,7 +109,7 @@ export default function reducer(state = initialState, action = {}) {
     case ActionTypes.CURRENT_PROJECT_TASK_CREATE_ERROR: {
       return {...state, errors: action.errors};
     }
-    case ActionTypes.CURRENT_PROJECT_TASK_UPDATE: {
+    case ActionTypes.CURRENT_PROJECT_TASK_UPDATING: {
       return {...state, errors: []};
     }
     case ActionTypes.CURRENT_PROJECT_TASK_UPDATED: {

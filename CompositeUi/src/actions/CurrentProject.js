@@ -14,6 +14,7 @@ import {routes} from './../Routes';
 
 import ActionTypes from './../constants/ActionTypes';
 import CreateTaskMutationRequest from './../api/graphql/mutation/CreateTaskMutationRequest';
+import EditTaskkMutationRequest from './../api/graphql/mutation/EditTaskMutationRequest';
 import ProjectQueryRequest from './../api/graphql/query/ProjectQueryRequest';
 import TasksQueryRequest from './../api/graphql/query/TasksQueryRequest';
 import TaskManagerGraphQl from './../api/graphql/TaskManagerGraphQl';
@@ -138,9 +139,39 @@ const Actions = {
       });
     });
   },
-  updateTask: () => (dispatch) => {
+  updateTask: (taskData) => (dispatch) => {
     dispatch({
-      type: ActionTypes.CURRENT_PROJECT_TASK_UPDATE
+      type: ActionTypes.CURRENT_PROJECT_TASK_UPDATING
+    });
+    const mutation = EditTaskkMutationRequest.build(taskData);
+
+    TaskManagerGraphQl.mutation(mutation, dispatch);
+    mutation.then(data => {
+      const task = data.response.editTask.task;
+
+      dispatch({
+        type: ActionTypes.CURRENT_PROJECT_TASK_UPDATED,
+        task,
+      });
+      dispatch({
+        type: ActionTypes.CURRENT_PROJECT_SELECTED_TASK_CHANGED,
+        selectedTask: task
+      });
+      dispatch(
+        routeActions.push(
+          routes.task.show(
+            task.project.organization.slug,
+            task.project.slug,
+            task.numeric_id
+          ))
+      );
+    }).catch((response) => {
+      response.then((errors) => {
+        dispatch({
+          type: ActionTypes.CURRENT_PROJECT_TASK_UPDATE_ERROR,
+          errors
+        });
+      });
     });
   },
   addParticipant: (user) => (dispatch) => {

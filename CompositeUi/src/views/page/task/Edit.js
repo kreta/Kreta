@@ -17,7 +17,7 @@ import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
 import LoadingSpinner from './../../component/LoadingSpinner';
 import TaskEdit from './../../form/TaskEdit';
 
-@connect(state => ({currentProject: state.currentProject}))
+@connect(state => ({task: state.currentProject.selectedTask}))
 class Edit extends React.Component {
   componentDidMount() {
     const {params, dispatch} = this.props;
@@ -25,16 +25,18 @@ class Edit extends React.Component {
     dispatch(CurrentProjectActions.selectCurrentTask(params.task));
   }
 
-  editTask(task) {
-    const {dispatch} = this.props;
+  editTask(updatedTask) {
+    const
+      {dispatch, task} = this.props,
+      id = task.id;
 
-    dispatch(CurrentProjectActions.updateTask(task));
+    dispatch(CurrentProjectActions.updateTask({...updatedTask, id}));
   }
 
   render() {
-    const {currentProject} = this.props;
+    const {task} = this.props;
 
-    if (currentProject.waiting || null === currentProject.selectedTask) {
+    if (!task) {
       return <LoadingSpinner/>;
     }
 
