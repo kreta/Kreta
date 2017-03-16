@@ -104,7 +104,13 @@ export default function reducer(state = initialState, action = {}) {
       return {...state, errors: []};
     }
     case ActionTypes.CURRENT_PROJECT_TASK_CREATED: {
-      return {...state, tasks: [...state.tasks, action.task]};
+      return {
+        ...state, project: {
+          ...state.project, _tasks49h6f1: {
+            ...state.project._tasks49h6f1, edges: [...state.project._tasks49h6f1.edges, action.task]
+          }
+        }
+      };
     }
     case ActionTypes.CURRENT_PROJECT_TASK_CREATE_ERROR: {
       return {...state, errors: action.errors};
