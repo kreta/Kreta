@@ -153,10 +153,6 @@ const Actions = {
         type: ActionTypes.CURRENT_PROJECT_TASK_UPDATED,
         task,
       });
-      dispatch({
-        type: ActionTypes.CURRENT_PROJECT_SELECTED_TASK_CHANGED,
-        selectedTask: task
-      });
       dispatch(
         routeActions.push(
           routes.task.show(
