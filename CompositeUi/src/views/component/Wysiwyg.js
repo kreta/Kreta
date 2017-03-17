@@ -10,7 +10,7 @@
 
 import './../../scss/components/_wysiwyg.scss';
 
-import {convertToRaw} from 'draft-js';
+import {convertToRaw, ContentState, EditorState, convertFromHTML} from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
 import React from 'react';
 import {Editor} from 'react-draft-wysiwyg';
@@ -71,6 +71,7 @@ const toolbar = {
 
 class Wysiwyg extends React.Component {
   static propTypes = {
+    defaultValue: React.PropTypes.string,
     editorOnBlur: React.PropTypes.func.isRequired,
     editorOnChange: React.PropTypes.func.isRequired,
     editorOnFocus: React.PropTypes.func.isRequired,
@@ -85,6 +86,23 @@ class Wysiwyg extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleFocus = this.handleFocus.bind(this);
     this.handleTab = this.handleTab.bind(this);
+  }
+
+  defaultEditorState() {
+    const {defaultValue} = this.props;
+
+    if (null === defaultValue) {
+      return null;
+    }
+
+    const
+      blocksFromHTML = convertFromHTML(defaultValue),
+      state = ContentState.createFromBlockArray(
+      blocksFromHTML.contentBlocks,
+      blocksFromHTML.entityMap
+    );
+
+    return EditorState.createWithContent(state);
   }
 
   handleBlur() {
@@ -121,6 +139,7 @@ class Wysiwyg extends React.Component {
 
     return (
       <Editor
+        defaultEditorState={this.defaultEditorState()}
         editorClassName="wysiwyg__editor"
         onBlur={this.handleBlur}
         onEditorStateChange={this.handleChange}

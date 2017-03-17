@@ -11,20 +11,41 @@
 import {connect} from 'react-redux';
 import React from 'react';
 
-import ProjectActions from './../../../actions/CurrentProject';
+import CurrentProjectActions from './../../../actions/CurrentProject';
+
+import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
+import LoadingSpinner from './../../component/LoadingSpinner';
 import TaskEdit from './../../form/TaskEdit';
 
-@connect(state => ({currentProject: state.currentProject}))
-class Show extends React.Component {
-  updateTask(task) {
-    this.props.dispatch(ProjectActions.updateTask(task));
+@connect(state => ({task: state.currentProject.selectedTask}))
+class Edit extends React.Component {
+  componentDidMount() {
+    const {params, dispatch} = this.props;
+
+    dispatch(CurrentProjectActions.selectCurrentTask(params.task));
+  }
+
+  editTask(updatedTask) {
+    const
+      {dispatch, task} = this.props,
+      id = task.id;
+
+    dispatch(CurrentProjectActions.updateTask({...updatedTask, id}));
   }
 
   render() {
+    const {task} = this.props;
+
+    if (!task) {
+      return <LoadingSpinner/>;
+    }
+
     return (
-      <TaskEdit onSubmit={this.updateTask.bind(this)}/>
+      <ContentMiddleLayout centered>
+        <TaskEdit onSubmit={this.editTask.bind(this)}/>
+      </ContentMiddleLayout>
     );
   }
 }
 
-export default Show;
+export default Edit;

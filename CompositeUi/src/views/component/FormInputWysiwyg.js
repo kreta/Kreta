@@ -69,6 +69,7 @@ class FormInputWysiwyg extends React.Component {
       <div className={inputClasses} ref="input">
         <input {...input} type="hidden"/>
         <Wysiwyg
+          defaultValue={input.value}
           editorOnBlur={this.handleBlur}
           editorOnChange={this.handleChange}
           editorOnFocus={this.handleFocus}

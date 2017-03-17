@@ -8,21 +8,27 @@
  * file that was distributed with this source code.
  */
 
-import React from 'react';
 import {connect} from 'react-redux';
-import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
-import TaskNew from './../../form/TaskNew';
+import React from 'react';
+
 import CurrentProjectActions from './../../../actions/CurrentProject';
+
+import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
 import LoadingSpinner from './../../component/LoadingSpinner';
+import TaskNew from './../../form/TaskNew';
 
 @connect(state => ({currentProject: state.currentProject}))
 class New extends React.Component {
   createTask(task) {
-    this.props.dispatch(CurrentProjectActions.createTask(task));
+    const {dispatch} = this.props;
+
+    dispatch(CurrentProjectActions.createTask(task));
   }
 
   render() {
-    if (this.props.currentProject.waiting) {
+    const {currentProject} = this.props;
+
+    if (currentProject.waiting) {
       return <LoadingSpinner/>;
     }
 

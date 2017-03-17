@@ -14,7 +14,7 @@ import RelayMutationRequest from 'react-relay/lib/RelayMutationRequest';
 
 const mutation = Relay.QL`
   mutation {
-    createTask(input: $input) {
+    editTask(input: $input) {
       task {
         id,
         title,
@@ -37,36 +37,36 @@ const mutation = Relay.QL`
   }
 `;
 
-class CreateTaskMutation extends RelayQuery.Mutation {
+class EditTaskMutation extends RelayQuery.Mutation {
   // eslint-disable-next-line max-params
-  constructor(taskTitle, taskDescription, assignee, taskPriority, project, parent = null) {
+  constructor(taskId, taskTitle, taskDescription, assignee, taskPriority, parent = null) {
     super(mutation, {}, {
       input: {
         clientMutationId: Math.random().toString(36),
+        id: taskId,
         title: taskTitle,
         description: taskDescription,
         assigneeId: assignee,
         priority: taskPriority.toUpperCase(),
-        projectId: project,
         parentId: parent
       }
     });
   }
 }
 
-class CreateTaskMutationRequest extends RelayMutationRequest {
+class EditTaskMutationRequest extends RelayMutationRequest {
   static build(taskInputData) {
     return new RelayMutationRequest(
-      new CreateTaskMutation(
+      new EditTaskMutation(
+        taskInputData.id,
         taskInputData.title,
         taskInputData.description,
         taskInputData.assignee,
         taskInputData.priority,
-        taskInputData.project,
         taskInputData.parent,
       )
     );
   }
 }
 
-export default CreateTaskMutationRequest;
+export default EditTaskMutationRequest;

@@ -92,41 +92,48 @@ export default function reducer(state = initialState, action = {}) {
       return {...state, waiting: true};
     }
     case ActionTypes.CURRENT_PROJECT_RECEIVED: {
-      initialState.project = action.project;
-
       return {...state, project: action.project, waiting: false};
     }
     case ActionTypes.CURRENT_PROJECT_TASK_FILTERS_LOADED: {
-      initialState.filters = filters(action.assignee);
-
-      return {...state, filters: initialState.filters};
+      return {...state, filters: filters(action.assignee)};
     }
     case ActionTypes.CURRENT_PROJECT_TASK_FILTERED: {
-      initialState.project._tasks49h6f1 = action.tasks;
-
-      return {...state};
+      return {...state, project: {...state.project, _tasks49h6f1: action.tasks}};
     }
     case ActionTypes.CURRENT_PROJECT_TASK_CREATING: {
       return {...state, errors: []};
     }
     case ActionTypes.CURRENT_PROJECT_TASK_CREATED: {
-      return {...state, tasks: [...state.tasks, action.task]};
+      return {
+        ...state, project: {
+          ...state.project, _tasks49h6f1: {
+            ...state.project._tasks49h6f1, edges: [
+              ...state.project._tasks49h6f1.edges,
+              {node: action.task, cursor: 'YXJyYXljb25uZWN0aW9uOjE5'}
+            ]
+          }
+        }
+      };
     }
     case ActionTypes.CURRENT_PROJECT_TASK_CREATE_ERROR: {
       return {...state, errors: action.errors};
     }
-    case ActionTypes.CURRENT_PROJECT_TASK_UPDATE: {
+    case ActionTypes.CURRENT_PROJECT_TASK_UPDATING: {
       return {...state, errors: []};
     }
     case ActionTypes.CURRENT_PROJECT_TASK_UPDATED: {
-      const index = state.tasks.findIndex(task => task.id === action.task.id);
+      const index = state.project._tasks49h6f1.edges.findIndex(edge => (edge.node.id === action.task.id));
 
       return {
-        ...state, tasks: [
-          ...state.tasks.slice(0, index),
-          action.task,
-          ...state.tasks.slice(index + 1)
-        ]
+        ...state, project: {
+          ...state.project, _tasks49h6f1: {
+            ...state.project._tasks49h6f1, edges: [
+              ...state.project._tasks49h6f1.edges.slice(0, index),
+              {node: action.task, cursor: 'YXJyYXljb25uZWN0aW9uOjE5'},
+              ...state.project._tasks49h6f1.edges.slice(index + 1)
+            ]
+          }
+        }
       };
     }
     case ActionTypes.CURRENT_PROJECT_TASK_UPDATE_ERROR: {
@@ -137,8 +144,8 @@ export default function reducer(state = initialState, action = {}) {
         selectedTaskIndex = 0,
         selectedTask = null;
 
-      if (null !== initialState.project) {
-        const tasks = initialState.project._tasks49h6f1.edges;
+      if (null !== state.project) {
+        const tasks = state.project._tasks49h6f1.edges;
 
         tasks.map((task, index) => {
           if (task.node.numeric_id === parseInt(action.selectedTask, 10)) {
