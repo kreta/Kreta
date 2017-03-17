@@ -24,3 +24,11 @@ services:
             - "@kreta.task_manager.graph_ql.query_resolver.task_of_id"
         tags:
             - { name: overblog_graphql.mutation, alias: "edit_task", method: "execute" }
+    kreta.task_manager.graph_ql.mutation.change_task_progress:
+        class: Kreta\TaskManager\Infrastructure\Symfony\GraphQl\Mutation\Project\Task\ChangeTaskProgressMutation
+        arguments:
+            - "@security.token_storage"
+            - "@kreta.task_manager.command_bus"
+            - "@kreta.task_manager.graph_ql.query_resolver.task_of_id"
+        tags:
+            - { name: overblog_graphql.mutation, alias: "change_task_progress", method: "execute" }

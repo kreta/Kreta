@@ -46,3 +46,9 @@ Mutation:
                     inputType: EditTaskInput
                     payloadType: EditTaskPayload
                     mutateAndGetPayload: "@=mutation('edit_task', [args.offsetGet('input')])"
+            changeTaskProgress:
+                builder: Mutation
+                builderConfig:
+                    inputType: ChangeTaskProgressInput
+                    payloadType: ChangeTaskProgressPayload
+                    mutateAndGetPayload: "@=mutation('change_task_progress', [args.offsetGet('input')])"
