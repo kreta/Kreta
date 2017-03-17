@@ -118,18 +118,24 @@ const Actions = {
     mutation.then(data => {
       const task = data.response.createTask.task;
 
-      dispatch({
-        type: ActionTypes.CURRENT_PROJECT_TASK_CREATED,
-        task,
+      UserInjector.injectUserForId([
+        task.assignee,
+        task.creator
+      ]).then(() => {
+        dispatch({
+          type: ActionTypes.CURRENT_PROJECT_TASK_CREATED,
+          task,
+        });
+        dispatch(
+          routeActions.push(
+            routes.task.show(
+              task.project.organization.slug,
+              task.project.slug,
+              task.numeric_id
+            ))
+        );
       });
-      dispatch(
-        routeActions.push(
-          routes.task.show(
-            task.project.organization.slug,
-            task.project.slug,
-            task.numeric_id
-          ))
-      );
+
     }).catch((response) => {
       response.then((errors) => {
         dispatch({
@@ -149,18 +155,24 @@ const Actions = {
     mutation.then(data => {
       const task = data.response.editTask.task;
 
-      dispatch({
-        type: ActionTypes.CURRENT_PROJECT_TASK_UPDATED,
-        task,
+      UserInjector.injectUserForId([
+        task.assignee,
+        task.creator
+      ]).then(() => {
+        dispatch({
+          type: ActionTypes.CURRENT_PROJECT_TASK_UPDATED,
+          task,
+        });
+
+        dispatch(
+          routeActions.push(
+            routes.task.show(
+              task.project.organization.slug,
+              task.project.slug,
+              task.numeric_id
+            ))
+        );
       });
-      dispatch(
-        routeActions.push(
-          routes.task.show(
-            task.project.organization.slug,
-            task.project.slug,
-            task.numeric_id
-          ))
-      );
     }).catch((response) => {
       response.then((errors) => {
         dispatch({

@@ -107,7 +107,10 @@ export default function reducer(state = initialState, action = {}) {
       return {
         ...state, project: {
           ...state.project, _tasks49h6f1: {
-            ...state.project._tasks49h6f1, edges: [...state.project._tasks49h6f1.edges, action.task]
+            ...state.project._tasks49h6f1, edges: [
+              ...state.project._tasks49h6f1.edges,
+              {node: action.task, cursor: 'YXJyYXljb25uZWN0aW9uOjE5'}
+            ]
           }
         }
       };
@@ -119,14 +122,18 @@ export default function reducer(state = initialState, action = {}) {
       return {...state, errors: []};
     }
     case ActionTypes.CURRENT_PROJECT_TASK_UPDATED: {
-      const index = state.tasks.findIndex(task => task.id === action.task.id);
+      const index = state.project._tasks49h6f1.edges.findIndex(edge => (edge.node.id === action.task.id));
 
       return {
-        ...state, tasks: [
-          ...state.tasks.slice(0, index),
-          action.task,
-          ...state.tasks.slice(index + 1)
-        ]
+        ...state, project: {
+          ...state.project, _tasks49h6f1: {
+            ...state.project._tasks49h6f1, edges: [
+              ...state.project._tasks49h6f1.edges.slice(0, index),
+              {node: action.task, cursor: 'YXJyYXljb25uZWN0aW9uOjE5'},
+              ...state.project._tasks49h6f1.edges.slice(index + 1)
+            ]
+          }
+        }
       };
     }
     case ActionTypes.CURRENT_PROJECT_TASK_UPDATE_ERROR: {

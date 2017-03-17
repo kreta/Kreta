@@ -18,19 +18,19 @@ const mutation = Relay.QL`
       task {
         id,
         title,
-        numeric_id,
         description,
+        numeric_id,
+        progress,
+        priority,
         assignee,
+        creator,
         project {
+          id,
           slug,
           organization {
+            id,
             slug
           }
-        }
-        priority,
-        parent_task {
-          id,
-          title
         }
       }
     }
