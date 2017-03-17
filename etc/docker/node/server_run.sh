@@ -4,4 +4,6 @@ until cd /var/www/compositeui && yarn install
 do
     echo "Retrying yarn install"
 done
-yarn run start
+rm -rf node_modules/.cache/babel-loader/*
+echo "Babel loader cache cleared"
+yarn start
