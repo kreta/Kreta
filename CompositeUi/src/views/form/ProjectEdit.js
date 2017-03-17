@@ -8,14 +8,15 @@
  * file that was distributed with this source code.
  */
 
-import React from 'react';
 import {connect} from 'react-redux';
+import React from 'react';
 import {Field, reduxForm} from 'redux-form';
 
 import Button from './../component/Button';
 import Form from './../component/Form';
+import FormActions from './../component/FormActions';
 import FormInput from './../component/FormInput';
-import FormInputFile from './../component/FormInputFile';
+import {Row, RowColumn} from './../component/Grid';
 
 const validate = (values) => {
   const
@@ -31,7 +32,12 @@ const validate = (values) => {
   return errors;
 };
 
-@connect(state => ({initialValues: state.currentProject.project}))
+@connect(state => ({
+  initialValues: {
+    name: state.currentProject.project.name,
+    short_name: state.currentProject.project.slug
+  }
+}))
 @reduxForm({form: 'ProjectEdit', validate})
 class ProjectEdit extends React.Component {
   render() {
@@ -39,21 +45,15 @@ class ProjectEdit extends React.Component {
 
     return (
       <Form onSubmit={handleSubmit}>
-        <div className="section-header">
-          <div className="section-header-title"></div>
-          <div>
-            <Button color="green"
-                    tabIndex="3"
-                    type="submit">
-              Done
-            </Button>
-          </div>
-        </div>
-        <Field component="hidden" name="id"/>
-        <FormInputFile filename={''}
-                       name="image"
-                       value=""/>
-        <Field component={FormInput} label="Project Name" name="name" tabIndex={2}/>
+        <Row>
+          <RowColumn>
+            <Field autoFocus component={FormInput} label="Project Name" name="name" tabIndex={1}/>
+            <Field component={FormInput} label="Short name" name="short_name" tabIndex={2}/>
+            <FormActions>
+              <Button color="green" tabIndex={3} type="submit">Update</Button>
+            </FormActions>
+          </RowColumn>
+        </Row>
       </Form>
     );
   }

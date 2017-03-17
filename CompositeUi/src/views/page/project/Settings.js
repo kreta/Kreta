@@ -12,34 +12,35 @@ import {connect} from 'react-redux';
 import React from 'react';
 
 import CurrentOrganizationActions from './../../../actions/CurrentOrganization';
+import CurrentProjectActions from './../../../actions/CurrentProject';
 
 import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
+import LoadingSpinner from './../../component/LoadingSpinner';
 import ProjectEdit from './../../form/ProjectEdit';
 
-@connect(state => ({currentProject: state.currentProject}))
+@connect(state => ({currentProject: state.currentProject.project}))
 class Settings extends React.Component {
   componentDidMount() {
     const {params, dispatch} = this.props;
 
-    dispatch(CurrentOrganizationActions.fetchOrganization(params.organization));
+    dispatch(CurrentProjectActions.fetchProject(params.organization, params.project));
   }
 
-//   editProject() {
-//     const
-//       {dispatch, currentProject} = this.props,
-//       id = currentProject.id;
-//
-//     dispatch(CurrentProjectActions.updateTask({...updatedTask, id}));
-//   }
-
   editProject(project) {
-    const {dispatch, currentOrganization} = this.props;
+    const
+      {dispatch, currentProject} = this.props,
+      id = currentProject.id;
 
-    project.organization = currentOrganization.organization.id;
-    dispatch(CurrentOrganizationActions.createProject(project));
+    dispatch(CurrentOrganizationActions.editProject({...project, id}));
   }
 
   render() {
+    const {currentProject} = this.props;
+
+    if (!currentProject) {
+      return <LoadingSpinner/>;
+    }
+
     return (
       <ContentMiddleLayout centered>
         <ProjectEdit onSubmit={this.editProject.bind(this)}/>

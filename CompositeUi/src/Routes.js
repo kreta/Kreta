@@ -99,13 +99,13 @@ const
           <Route component={OrganizationShow} path={routes.organization.show(':organization')}/>
 
           <Route component={ProjectNew} path={routes.project.new(':organization')}/>
+          <Route component={ProjectSettings} path={routes.project.settings(':organization', ':project')}/>
           <Route component={ProjectRoot}>
             <Route component={TaskNew} path={routes.task.new(':organization', ':project')}/>
             <Route component={TaskEdit} path={routes.task.edit(':organization', ':project', ':task')}/>
             <Route component={ProjectShow} path={routes.project.show(':organization', ':project')}>
               <Route component={TaskShow} path={routes.task.show(':organization', ':project', ':task')}/>
             </Route>
-            <Route component={ProjectSettings} path={routes.project.settings(':organization', ':project')}/>
           </Route>
         </Route>
 

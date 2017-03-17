@@ -14,6 +14,7 @@ import {routes} from './../Routes';
 
 import ActionTypes from './../constants/ActionTypes';
 import CreateProjectMutationRequest from './../api/graphql/mutation/CreateProjectMutationRequest';
+import EditProjectMutationRequest from './../api/graphql/mutation/EditProjectMutationRequest';
 import OrganizationQueryRequest from './../api/graphql/query/OrganizationQueryRequest';
 import TaskManagerGraphQl from './../api/graphql/TaskManagerGraphQl';
 import UserInjector from './../helpers/UserInjector';
@@ -63,6 +64,32 @@ const Actions = {
       .catch((response) => {
         dispatch({
           type: ActionTypes.PROJECT_CREATE_ERROR,
+          errors: response.source.errors
+        });
+      });
+  },
+  editProject: (projectInputData) => (dispatch) => {
+    dispatch({
+      type: ActionTypes.PROJECT_EDITING
+    });
+    const mutation = EditProjectMutationRequest.build(projectInputData);
+
+    TaskManagerGraphQl.mutation(mutation, dispatch);
+    mutation
+      .then(data => {
+        const project = data.response.editProject.project;
+
+        dispatch({
+          type: ActionTypes.PROJECT_EDITED,
+          project,
+        });
+        dispatch(
+          routeActions.push(routes.project.show(project.organization.slug, project.slug))
+        );
+      })
+      .catch((response) => {
+        dispatch({
+          type: ActionTypes.PROJECT_EDIT_ERROR,
           errors: response.source.errors
         });
       });
