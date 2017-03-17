@@ -27,10 +27,72 @@ import UserCard from './../../component/UserCard';
 
 @connect(state => ({task: state.currentProject.selectedTask}))
 class Show extends React.Component {
+  constructor(props) {
+    super(props);
+    this.startProgress = this.startProgress.bind(this);
+    this.stopProgress = this.stopProgress.bind(this);
+    this.finishProgress = this.finishProgress.bind(this);
+  }
+
   componentDidMount() {
     const {params, dispatch} = this.props;
 
     dispatch(CurrentProjectActions.selectCurrentTask(params.task));
+  }
+
+  renderTaskProgressButtons() {
+    const {task} = this.props;
+
+    if (task.progress === 'TODO') {
+      return (
+        <div>
+          <Button color="yellow" onClick={this.startProgress}>Start progress</Button>
+          <Button color="green" onClick={this.finishProgress}>Finish</Button>
+        </div>
+      );
+    }
+
+    if (task.progress === 'DOING') {
+      return (
+        <div>
+          <Button color="red" onClick={this.stopProgress}>Stop progress</Button>
+          <Button color="green" onClick={this.finishProgress}>Finish</Button>
+        </div>
+      );
+    }
+
+    return (
+      <div>
+        <Button color="yellow" onClick={this.startProgress}>Reopen</Button>
+      </div>
+    );
+  }
+
+  startProgress() {
+    const {task, dispatch} = this.props;
+
+    dispatch(CurrentProjectActions.updateTaskProgress({
+      id: task.id,
+      progress: 'DOING'
+    }));
+  }
+
+  stopProgress() {
+    const {task, dispatch} = this.props;
+
+    dispatch(CurrentProjectActions.updateTaskProgress({
+      id: task.id,
+      progress: 'TODO'
+    }));
+  }
+
+  finishProgress() {
+    const {task, dispatch} = this.props;
+
+    dispatch(CurrentProjectActions.updateTaskProgress({
+      id: task.id,
+      progress: 'DONE'
+    }));
   }
 
   render() {
@@ -75,10 +137,11 @@ class Show extends React.Component {
           </RowColumn>
         </Row>
         <Row className="task-show__fields">
-          <RowColumn>
+          <RowColumn className="task-show__actions">
             <Link to={routes.task.edit(params.organization, params.project, params.task)}>
-              <Button color="green">Edit</Button>
+              <Button color="blue">Edit</Button>
             </Link>
+            {this.renderTaskProgressButtons()}
           </RowColumn>
         </Row>
       </div>

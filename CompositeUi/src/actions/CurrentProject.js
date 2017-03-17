@@ -177,6 +177,16 @@ const Actions = {
       });
     });
   },
+  updateTaskProgress: (taskData) => (dispatch) => {
+    dispatch({
+      type: ActionTypes.CURRENT_PROJECT_TASK_UPDATING_PROGRESS
+    });
+
+    dispatch({
+      type: ActionTypes.CURRENT_PROJECT_TASK_UPDATED_PROGRESS,
+      task: taskData,
+    });
+  },
   addParticipant: (user) => (dispatch) => {
     const participant = {
       role: 'ROLE_PARTICIPANT',
