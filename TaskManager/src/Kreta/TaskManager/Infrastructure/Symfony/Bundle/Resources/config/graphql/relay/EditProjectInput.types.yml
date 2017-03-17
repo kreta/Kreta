@@ -10,7 +10,6 @@
 #   id: ID!
 #   name: String!
 #   slug: String
-#   organizationId: ID!
 # }
 EditProjectInput:
     type: relay-mutation-input
@@ -22,5 +21,3 @@ EditProjectInput:
                 type: "String!"
             slug:
                 type: "String"
-            organizationId:
-                type: "ID!"

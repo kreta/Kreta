@@ -8,13 +8,12 @@
  * file that was distributed with this source code.
  */
 
-import './../../../scss/views/page/project/_new';
-
 import React from 'react';
 import {connect} from 'react-redux';
 
 import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
 import ProjectNew from './../../form/ProjectNew';
+import LoadingSpinner from './../../component/LoadingSpinner';
 
 import CurrentOrganizationActions from './../../../actions/CurrentOrganization';
 
@@ -34,6 +33,12 @@ class New extends React.Component {
   }
 
   render() {
+    const {currentOrganization} = this.props;
+
+    if (!currentOrganization.organization) {
+      return <LoadingSpinner/>;
+    }
+
     return (
       <ContentMiddleLayout centered>
         <ProjectNew onSubmit={this.createProject.bind(this)}/>

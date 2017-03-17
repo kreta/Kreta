@@ -77,7 +77,7 @@ class CreateProjectMutation implements Mutation
         }
 
         $project = $this->projectResolver->resolve([
-            'id' => $values['id'],
+            'id' => $command->id(),
         ]);
 
         return [

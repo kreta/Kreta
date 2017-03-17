@@ -8,79 +8,36 @@
  * file that was distributed with this source code.
  */
 
-import './../../../scss/views/page/project/_settings';
-
-import React from 'react';
 import {connect} from 'react-redux';
+import React from 'react';
 
-import Button from './../../component/Button';
+import CurrentOrganizationActions from './../../../actions/CurrentOrganization';
+
 import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
-import ContentRightLayout from './../../layout/ContentRightLayout';
-import ProjectEdit from './../../form/ProjectEdit';
-import Section from './../../component/Section';
-import Thumbnail from './../../component/Thumbnail';
-import SettingsParticipants from './SettingsParticipants';
-import UserCard from './../../component/UserCard';
 import LoadingSpinner from './../../component/LoadingSpinner';
-import CurrentProjectActions from './../../../actions/CurrentProject';
-import PageHeader from './../../component/PageHeader';
+import ProjectEdit from './../../form/ProjectEdit';
 
-@connect(state => ({project: state.currentProject.project}))
+@connect(state => ({currentProject: state.currentProject.project}))
 class Settings extends React.Component {
-  state = {
-    addParticipantsVisible: false
-  };
+  editProject(project) {
+    const
+      {dispatch, currentProject} = this.props,
+      id = currentProject.id;
 
-  addParticipant(participant) {
-    this.props.dispatch(CurrentProjectActions.addParticipant(participant));
-  }
-
-  showAddParticipants() {
-    this.setState({addParticipantsVisible: true});
-  }
-
-  updateProject(project) {
-    this.props.dispatch(CurrentProjectActions.updateProject(project));
+    dispatch(CurrentOrganizationActions.editProject({...project, id}));
   }
 
   render() {
-    if (!this.props.project) {
+    const {currentProject} = this.props;
+
+    if (!currentProject) {
       return <LoadingSpinner/>;
     }
 
-    const participants = this.props.project.participants.map(
-      (participant, index) => <UserCard key={index} user={participant.user}/>
-    );
-
     return (
-      <div>
-        <ContentMiddleLayout>
-          <PageHeader thumbnail={<Thumbnail image={this.props.project.image.name} text={this.props.project.name}/>}
-                      title={this.props.project.name}/>
-          <Section>
-            <ProjectEdit onSubmit={this.updateProject.bind(this)}/>
-          </Section>
-          <Section
-            actions={
-              <Button color="green" onClick={this.showAddParticipants.bind(this)}>
-                Add people
-              </Button>
-            }
-            title={<span><strong>People</strong> in this project</span>}
-          >
-            <div className="project-settings__participants">
-              {participants}
-            </div>
-          </Section>
-
-        </ContentMiddleLayout>
-        <ContentRightLayout isOpen={this.state.addParticipantsVisible}>
-          <SettingsParticipants
-            onParticipantAddClicked={this.addParticipant.bind(this)}
-            project={this.props.project}
-          />
-        </ContentRightLayout>
-      </div>
+      <ContentMiddleLayout centered>
+        <ProjectEdit onSubmit={this.editProject.bind(this)}/>
+      </ContentMiddleLayout>
     );
   }
 }
