@@ -10,6 +10,7 @@
 
 import ActionTypes from './../constants/ActionTypes';
 import Profile from './../api/rest/User/Profile';
+import UserActions from './User';
 
 const Actions = {
   fetchProfile: () => (dispatch) => {
@@ -22,7 +23,8 @@ const Actions = {
           type: ActionTypes.PROFILE_RECEIVED,
           profile: response
         });
-      });
+      })
+      .catch(() => (dispatch(UserActions.logout())));
   },
   updateProfile: (profileData) => (dispatch) => {
     dispatch({
