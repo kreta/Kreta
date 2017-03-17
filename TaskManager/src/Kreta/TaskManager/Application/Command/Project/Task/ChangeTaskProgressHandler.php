@@ -17,8 +17,6 @@ namespace Kreta\TaskManager\Application\Command\Project\Task;
 use Kreta\TaskManager\Domain\Model\Organization\Organization;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationDoesNotExistException;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationRepository;
-use Kreta\TaskManager\Domain\Model\Project\Project;
-use Kreta\TaskManager\Domain\Model\Project\ProjectDoesNotExistException;
 use Kreta\TaskManager\Domain\Model\Project\ProjectRepository;
 use Kreta\TaskManager\Domain\Model\Project\Task\Task;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskDoesNotExistException;
@@ -52,10 +50,6 @@ class ChangeTaskProgressHandler
         }
 
         $project = $this->projectRepository->projectOfId($task->projectId());
-        if (!$project instanceof Project) {
-            throw new ProjectDoesNotExistException();
-        }
-
         $organization = $this->organizationRepository->organizationOfId($project->organizationId());
         if (!$organization instanceof Organization) {
             throw new OrganizationDoesNotExistException();
