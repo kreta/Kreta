@@ -63,13 +63,15 @@ export default function reducer(state = initialState, action = {}) {
       return _addNotification(state, 'Task updated successfully');
     }
 
-    case ActionTypes.CURRENT_ORGANIZATION_PROJECT_CREATED: {
+    case ActionTypes.PROJECT_CREATED: {
       return _addNotification(state, 'Project created successfully');
     }
 
     case ActionTypes.ORGANIZATION_CREATED: {
       return _addNotification(state, 'Organization created successfully');
     }
+
+    case ActionTypes.PROJECT_CREATE_ERROR:
     case ActionTypes.ORGANIZATION_CREATE_ERROR: {
       const
         notifications = state.notifications,

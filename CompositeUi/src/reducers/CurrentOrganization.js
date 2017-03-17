@@ -12,7 +12,8 @@ import ActionTypes from './../constants/ActionTypes';
 
 const initialState = {
   fetching: true,
-  organization: null
+  organization: null,
+  projects: []
 };
 
 export default function reducer(state = initialState, action = {}) {
@@ -20,9 +21,18 @@ export default function reducer(state = initialState, action = {}) {
     case ActionTypes.CURRENT_ORGANIZATION_FETCHING: {
       return {...state, fetching: true};
     }
-
-    case ActionTypes.CURRENT_ORGANIZATION_RECEIVED : {
+    case ActionTypes.CURRENT_ORGANIZATION_RECEIVED: {
       return {...state, fetching: false, organization: action.organization};
+    }
+
+    case ActionTypes.PROJECT_CREATING: {
+      return {...state, waiting: true};
+    }
+    case ActionTypes.PROJECT_CREATED: {
+      return {...state, tasks: [...state.projects, action.project], waiting: false};
+    }
+    case ActionTypes.PROJECT_CREATE_ERROR: {
+      return {...state, errors: action.errors};
     }
 
     default: {

@@ -12,20 +12,31 @@ import ActionTypes from './../constants/ActionTypes';
 
 const initialState = {
   errors: [],
-  fetching: true,
+  waiting: true,
   projects: []
 };
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
-    case ActionTypes.PROJECTS_FETCHING:
-      return { ...state, fetching: true };
-
-    case ActionTypes.PROJECTS_RECEIVED:
-      return {...state, projects: action.projects, fetching: false};
-
-    case ActionTypes.PROJECTS_FETCH_ERROR:
+    case ActionTypes.PROJECTS_FETCHING: {
+      return {...state, waiting: true};
+    }
+    case ActionTypes.PROJECTS_RECEIVED: {
+      return {...state, projects: action.projects, waiting: false};
+    }
+    case ActionTypes.PROJECTS_FETCH_ERROR: {
       return {...state, error: true};
+    }
+
+    case ActionTypes.PROJECT_CREATING: {
+      return {...state, waiting: true};
+    }
+    case ActionTypes.PROJECT_CREATED: {
+      return {...state, tasks: [...state.projects, action.project], waiting: false};
+    }
+    case ActionTypes.PROJECT_CREATE_ERROR: {
+      return {...state, errors: action.errors};
+    }
 
     default:
       return state;
