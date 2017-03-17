@@ -12,7 +12,6 @@ import {connect} from 'react-redux';
 import React from 'react';
 
 import CurrentOrganizationActions from './../../../actions/CurrentOrganization';
-import CurrentProjectActions from './../../../actions/CurrentProject';
 
 import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
 import LoadingSpinner from './../../component/LoadingSpinner';
@@ -20,12 +19,6 @@ import ProjectEdit from './../../form/ProjectEdit';
 
 @connect(state => ({currentProject: state.currentProject.project}))
 class Settings extends React.Component {
-  componentDidMount() {
-    const {params, dispatch} = this.props;
-
-    dispatch(CurrentProjectActions.fetchProject(params.organization, params.project));
-  }
-
   editProject(project) {
     const
       {dispatch, currentProject} = this.props,
