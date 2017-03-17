@@ -16,13 +16,13 @@ namespace Kreta\TaskManager\Domain\Model\Project\Task;
 
 interface TaskRepository
 {
-    public function taskOfId(TaskId $id);
+    public function taskOfId(TaskId $id) : ?Task;
 
-    public function query($specification);
+    public function query($specification) : array;
 
-    public function persist(Task $task);
+    public function persist(Task $task) : void;
 
-    public function remove(Task $task);
+    public function remove(Task $task) : void;
 
     public function count($specification) : int;
 }
