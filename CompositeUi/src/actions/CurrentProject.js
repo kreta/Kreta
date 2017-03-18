@@ -13,6 +13,7 @@ import {routeActions} from 'react-router-redux';
 import {routes} from './../Routes';
 
 import ActionTypes from './../constants/ActionTypes';
+import ChangeTaskProgressMutationRequest from './../api/graphql/mutation/ChangeTaskProgressMutationRequest';
 import CreateTaskMutationRequest from './../api/graphql/mutation/CreateTaskMutationRequest';
 import EditTaskkMutationRequest from './../api/graphql/mutation/EditTaskMutationRequest';
 import ProjectQueryRequest from './../api/graphql/query/ProjectQueryRequest';
@@ -181,24 +182,29 @@ const Actions = {
     dispatch({
       type: ActionTypes.CURRENT_PROJECT_TASK_UPDATING_PROGRESS
     });
+    const mutation = ChangeTaskProgressMutationRequest.build(taskData);
 
-    dispatch({
-      type: ActionTypes.CURRENT_PROJECT_TASK_UPDATED_PROGRESS,
-      task: taskData,
-    });
-  },
-  addParticipant: (user) => (dispatch) => {
-    const participant = {
-      role: 'ROLE_PARTICIPANT',
-      user
-    };
+    TaskManagerGraphQl.mutation(mutation, dispatch);
+    mutation
+      .then(data => {
+        const task = data.response.changeTaskProgress.task;
 
-    setTimeout(() => {
-      dispatch({
-        type: ActionTypes.CURRENT_PROJECT_PARTICIPANT_ADDED,
-        participant
+        UserInjector.injectUserForId([
+          task.assignee,
+          task.creator
+        ]).then(() => {
+          dispatch({
+            type: ActionTypes.CURRENT_PROJECT_TASK_UPDATED_PROGRESS,
+            task,
+          });
+        });
+      })
+      .catch((response) => {
+        dispatch({
+          type: ActionTypes.CURRENT_PROJECT_TASK_UPDATE_PROGRESS_ERROR,
+          errors: response.source.errors
+        });
       });
-    });
   }
 };
 
