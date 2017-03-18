@@ -93,6 +93,8 @@ const
 
         <Route component={Dashboard} path={routes.search()}/>
 
+        <Route component={Profile} path={routes.profile.show()}/>
+
         <Route component={OrganizationNew} path={routes.organization.new()}/>
 
         <Route component={OrganizationRoot}>
@@ -108,10 +110,6 @@ const
             </Route>
           </Route>
         </Route>
-
-        <Route component={Profile} path={routes.profile.show()}/>
-
-        <Route component={OrganizationShow} path={routes.organization.show(':organization')}/>
       </Route>
     </div>
   );
