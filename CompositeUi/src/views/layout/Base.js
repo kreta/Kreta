@@ -21,7 +21,10 @@ import LoadingSpinner from './../component/LoadingSpinner';
 import MainMenu from './MainMenu';
 import NotificationLayout from './NotificationLayout';
 
-@connect(state => ({waiting: state.projects.fetching || state.profile.fetching || state.user.updatingAuthorization}))
+@connect(state => ({
+  waiting: state.projects.fetching || state.profile.fetching || state.user.updatingAuthorization,
+  profile: state.profile.profile
+}))
 class Base extends React.Component {
   componentDidMount() {
     const {dispatch} = this.props;
@@ -31,9 +34,9 @@ class Base extends React.Component {
   }
 
   render() {
-    const {children, waiting} = this.props;
+    const {children, profile, waiting} = this.props;
 
-    if (waiting) {
+    if (true === waiting || null === profile) {
       return <LoadingSpinner/>;
     }
 
