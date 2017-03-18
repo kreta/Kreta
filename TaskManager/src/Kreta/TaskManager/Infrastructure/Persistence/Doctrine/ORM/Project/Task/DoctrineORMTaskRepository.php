@@ -21,24 +21,24 @@ use Kreta\TaskManager\Domain\Model\Project\Task\TaskRepository;
 
 class DoctrineORMTaskRepository extends EntityRepository implements TaskRepository
 {
-    public function taskOfId(TaskId $id)
+    public function taskOfId(TaskId $id) : ?Task
     {
         return $this->find($id->id());
     }
 
-    public function query($specification)
+    public function query($specification) : array
     {
         return null === $specification
             ? $this->findAll()
             : $specification->buildQuery($this->getEntityManager()->createQueryBuilder())->getResult();
     }
 
-    public function persist(Task $task)
+    public function persist(Task $task) : void
     {
         $this->getEntityManager()->persist($task);
     }
 
-    public function remove(Task $task)
+    public function remove(Task $task) : void
     {
         $this->getEntityManager()->remove($task);
     }

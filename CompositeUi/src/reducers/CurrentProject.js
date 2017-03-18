@@ -139,6 +139,25 @@ export default function reducer(state = initialState, action = {}) {
     case ActionTypes.CURRENT_PROJECT_TASK_UPDATE_ERROR: {
       return {...state, errors: action.errors};
     }
+    case ActionTypes.CURRENT_PROJECT_TASK_UPDATED_PROGRESS: {
+      const index = state.project._tasks49h6f1.edges.findIndex(edge => (edge.node.id === action.task.id)),
+        task = {...state.project._tasks49h6f1.edges[index].node, progress: action.task.progress};
+
+      return {
+        ...state, project: {
+          ...state.project, _tasks49h6f1: {
+            ...state.project._tasks49h6f1, edges: [
+              ...state.project._tasks49h6f1.edges.slice(0, index),
+              {
+                node: task,
+                cursor: 'YXJyYXljb25uZWN0aW9uOjE5'
+              },
+              ...state.project._tasks49h6f1.edges.slice(index + 1)
+            ]
+          }
+        }, selectedTask: state.selectedTask.id === task.id ? task : state.selectedTask
+      };
+    }
     case ActionTypes.CURRENT_PROJECT_SELECTED_TASK_CHANGED: {
       let
         selectedTaskIndex = 0,

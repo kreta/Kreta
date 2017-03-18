@@ -14,11 +14,7 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Application\Command\Project\Task;
 
-use Kreta\TaskManager\Domain\Model\Organization\Organization;
-use Kreta\TaskManager\Domain\Model\Organization\OrganizationDoesNotExistException;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationRepository;
-use Kreta\TaskManager\Domain\Model\Project\Project;
-use Kreta\TaskManager\Domain\Model\Project\ProjectDoesNotExistException;
 use Kreta\TaskManager\Domain\Model\Project\ProjectRepository;
 use Kreta\TaskManager\Domain\Model\Project\Task\Task;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskDoesNotExistException;
@@ -46,27 +42,31 @@ class ChangeTaskProgressHandler
 
     public function __invoke(ChangeTaskProgressCommand $command)
     {
-        $task = $this->taskRepository->taskOfId(TaskId::generate($command->id()));
+        $taskId = TaskId::generate($command->id());
+        $editorId = UserId::generate($command->editorId());
+        $progress = new TaskProgress($command->progress());
+
+        $task = $this->taskRepository->taskOfId($taskId);
+        $this->checkTaskExists($task);
+        $this->checkEditorPrivileges($task, $editorId);
+        $task->changeProgress($progress);
+
+        $this->taskRepository->persist($task);
+    }
+
+    private function checkTaskExists(Task $task = null) : void
+    {
         if (!$task instanceof Task) {
             throw new TaskDoesNotExistException();
         }
+    }
 
+    private function checkEditorPrivileges(Task $task, UserId $editorId) : void
+    {
         $project = $this->projectRepository->projectOfId($task->projectId());
-        if (!$project instanceof Project) {
-            throw new ProjectDoesNotExistException();
-        }
-
         $organization = $this->organizationRepository->organizationOfId($project->organizationId());
-        if (!$organization instanceof Organization) {
-            throw new OrganizationDoesNotExistException();
-        }
-
-        if (!$organization->isOrganizationMember(UserId::generate($command->editorId()))) {
+        if (!$organization->isOrganizationMember($editorId)) {
             throw new UnauthorizedTaskActionException();
         }
-
-        $task->changeProgress(new TaskProgress($command->progress()));
-
-        $this->taskRepository->persist($task);
     }
 }

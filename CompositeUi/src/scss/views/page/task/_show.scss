@@ -45,3 +45,11 @@
 .task-show__fields {
   margin-top: 30px;
 }
+
+.task-show__actions {
+  display: flex;
+
+  .button {
+    margin-right: 15px;
+  }
+}

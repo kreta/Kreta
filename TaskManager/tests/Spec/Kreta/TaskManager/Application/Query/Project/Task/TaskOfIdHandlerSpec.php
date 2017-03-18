@@ -77,7 +77,7 @@ class TaskOfIdHandlerSpec extends ObjectBehavior
         TaskRepository $repository
     ) {
         $query->taskId()->shouldBeCalled()->willReturn('task-id');
-        $repository->taskOfId(TaskId::generate('task-id'))->shouldBeCalled();
+        $repository->taskOfId(TaskId::generate('task-id'))->shouldBeCalled()->willReturn(null);
         $this->shouldThrow(TaskDoesNotExistException::class)->during__invoke($query);
     }
 
