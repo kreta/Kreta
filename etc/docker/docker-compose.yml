@@ -54,6 +54,9 @@ services:
             - /var/www/identityaccess/var/cache
             - /var/www/identityaccess/var/sessions
             - /var/www/identityaccess/vendor
+        extra_hosts:
+            - "${TASK_MANAGER_HOST}: ${NGINX_CONTAINER_IP}"
+            - "${IDENTITY_ACCESS_HOST}: ${NGINX_CONTAINER_IP}"
     node:
         build: node
         ports:

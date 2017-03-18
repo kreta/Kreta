@@ -11,8 +11,6 @@ docker-compose exec php bash -c "cd /var/www/identityaccess && composer install 
 docker-compose exec php bash -c "cd /var/www/identityaccess/var && chown www-data:www-data * && rm -rf cache/*"
 docker-compose exec php bash -c "cd /var/www/taskmanager/var && chown www-data:www-data * && rm -rf cache/*"
 docker-compose exec php bash -c "cd /var/www/identityaccess && sh etc/bash/generate_ssh_keys.sh"
-docker-compose exec php bash -c "echo '172.18.0.10 identityaccess.localhost' >> /etc/hosts"
-docker-compose exec php bash -c "echo '172.18.0.10 taskmanager.localhost' >> /etc/hosts"
 docker-compose exec php bash -c "cd /var/www/taskmanager && etc/bin/symfony-console doctrine:da:cr"
 docker-compose exec php bash -c "cd /var/www/taskmanager && etc/bin/symfony-console doctrine:mi:mi --no-interaction"
 docker-compose exec php bash -c "cd /var/www/identityaccess && etc/bin/symfony-console doctrine:da:cr"
