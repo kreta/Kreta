@@ -10,15 +10,16 @@
 
 import './../../scss/layout/_base';
 
-import React from 'react';
 import {connect} from 'react-redux';
+import React from 'react';
 
-import ContentLayout from './ContentLayout';
-import MainMenu from './MainMenu';
-import NotificationLayout from './NotificationLayout';
-import LoadingSpinner from './../component/LoadingSpinner';
 import ProfileActions from './../../actions/Profile';
 import ProjectsActions from './../../actions/Projects';
+
+import ContentLayout from './ContentLayout';
+import LoadingSpinner from './../component/LoadingSpinner';
+import MainMenu from './MainMenu';
+import NotificationLayout from './NotificationLayout';
 
 @connect(state => ({waiting: state.projects.fetching || state.profile.fetching || state.user.updatingAuthorization}))
 class Base extends React.Component {
@@ -30,7 +31,9 @@ class Base extends React.Component {
   }
 
   render() {
-    if (this.props.waiting) {
+    const {children, waiting} = this.props;
+
+    if (waiting) {
       return <LoadingSpinner/>;
     }
 
@@ -39,7 +42,7 @@ class Base extends React.Component {
         <NotificationLayout/>
         <MainMenu/>
         <ContentLayout>
-          {this.props.children}
+          {children}
         </ContentLayout>
       </div>
     );

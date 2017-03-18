@@ -10,36 +10,35 @@
 
 import SettingsIcon from './../../../svg/settings';
 
-import React from 'react';
-import Mousetrap from 'mousetrap';
 import {connect} from 'react-redux';
-import {routeActions} from 'react-router-redux';
 import {Link} from 'react-router';
+import Mousetrap from 'mousetrap';
+import React from 'react';
+import {routeActions} from 'react-router-redux';
 
 import Config from './../../../Config';
-
+import CurrentProjectActions from './../../../actions/CurrentProject';
 import {routes} from './../../../Routes';
 
 import Button from './../../component/Button';
-import Icon from './../../component/Icon';
-import Filter from './../../component/Filter';
 import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
 import ContentRightLayout from './../../layout/ContentRightLayout';
-import TaskPreview from './../../component/TaskPreview';
-import LoadingSpinner from './../../component/LoadingSpinner';
-import PageHeader from './../../component/PageHeader';
-import Thumbnail from './../../component/Thumbnail';
+import Filter from './../../component/Filter';
+import Icon from './../../component/Icon';
 import InlineLink from './../../component/InlineLink';
+import LoadingSpinner from './../../component/LoadingSpinner';
 import NavigableList from './../../component/NavigableList';
-import CurrentProjectActions from './../../../actions/CurrentProject';
+import PageHeader from './../../component/PageHeader';
+import TaskPreview from './../../component/TaskPreview';
+import Thumbnail from './../../component/Thumbnail';
 
-@connect(state => ({currentProject: state.currentProject, profile: state.profile.profile}))
+@connect(state => ({currentProject: state.currentProject, profile: state.profile}))
 class TaskList extends React.Component {
   componentDidMount() {
-    const {params, dispatch} = this.props;
+    const {dispatch, params, profile} = this.props;
 
-    if (this.props.profile) {
-      dispatch(CurrentProjectActions.loadFilters(this.props.profile.id));
+    if (profile.profile) {
+      dispatch(CurrentProjectActions.loadFilters(profile.profile.user_id));
     }
 
     Mousetrap.bind(Config.shortcuts.taskNew, () => {
@@ -92,7 +91,9 @@ class TaskList extends React.Component {
   }
 
   selectCurrentTaskByIndex(x, y) {
-    this.selectCurrentTask(this.props.currentProject.project._tasks49h6f1.edges[y].node);
+    const {currentProject} = this.props;
+
+    this.selectCurrentTask(currentProject.project._tasks49h6f1.edges[y].node);
   }
 
   handleKeyboardNavigation(event) {
@@ -121,8 +122,9 @@ class TaskList extends React.Component {
   }
 
   render() {
-    const {currentProject, params} = this.props;
-    if (currentProject.waiting) {
+    const {children, currentProject, params, profile} = this.props;
+
+    if (currentProject.waiting || profile.fetching) {
       return <LoadingSpinner/>;
     }
 
@@ -154,10 +156,10 @@ class TaskList extends React.Component {
           </NavigableList>
         </ContentMiddleLayout>
         <ContentRightLayout
-          isOpen={this.props.children !== null}
+          isOpen={children !== null}
           onRequestClose={this.hideTask.bind(this)}
         >
-          {this.props.children}
+          {children}
         </ContentRightLayout>
       </div>
     );
