@@ -28,8 +28,7 @@ const
         selected: true,
         title: 'All priorities',
         value: ''
-      }
-      ],
+      }],
       priorities = [{
         id: 'low',
         name: 'LOW'
