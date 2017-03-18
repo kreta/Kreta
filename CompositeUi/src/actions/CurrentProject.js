@@ -135,13 +135,10 @@ const Actions = {
             ))
         );
       });
-
     }).catch((response) => {
-      response.then((errors) => {
-        dispatch({
-          type: ActionTypes.CURRENT_PROJECT_TASK_CREATE_ERROR,
-          errors
-        });
+      dispatch({
+        type: ActionTypes.CURRENT_PROJECT_TASK_CREATE_ERROR,
+        errors: response.source.errors
       });
     });
   },
@@ -174,11 +171,9 @@ const Actions = {
         );
       });
     }).catch((response) => {
-      response.then((errors) => {
-        dispatch({
-          type: ActionTypes.CURRENT_PROJECT_TASK_UPDATE_ERROR,
-          errors
-        });
+      dispatch({
+        type: ActionTypes.CURRENT_PROJECT_TASK_UPDATE_ERROR,
+        errors: response.source.errors
       });
     });
   },
