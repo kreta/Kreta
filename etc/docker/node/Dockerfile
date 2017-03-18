@@ -6,11 +6,9 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 
-FROM node:7
+FROM node:7.7.3
 
 MAINTAINER Gorka Laucirica <gorka.lauzirika@gmail.com>
-
-RUN npm -g install yarn
 
 WORKDIR /var/www/compositeui
 
