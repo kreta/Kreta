@@ -43,31 +43,25 @@ class UserDTODataTransformer extends BaseUserDTODataTransformer
         ]);
     }
 
-    private function firstName(FullName $fullName = null)
+    private function firstName(FullName $fullName = null) : ?string
     {
-        if ($fullName instanceof FullName) {
-            return $fullName->firstName();
-        }
+        return $fullName instanceof FullName ? $fullName->firstName() : null;
     }
 
-    private function lastName(FullName $fullName = null)
+    private function lastName(FullName $fullName = null) : ?string
     {
-        if ($fullName instanceof FullName) {
-            return $fullName->lastName();
-        }
+        return $fullName instanceof FullName ? $fullName->lastName() : null;
     }
 
-    private function fullName(FullName $fullName = null)
+    private function fullName(FullName $fullName = null) : ?string
     {
-        if ($fullName instanceof FullName) {
-            return $fullName->fullName();
-        }
+        return $fullName instanceof FullName ? $fullName->fullName() : null;
     }
 
-    private function image(Image $image = null)
+    private function image(Image $image = null) : ?string
     {
-        if ($image instanceof Image) {
-            return sprintf('%s/%s', $this->uploadDestination, $image->name()->filename());
-        }
+        return $image instanceof Image
+            ? sprintf('%s/%s', $this->uploadDestination, $image->name()->filename())
+            : null;
     }
 }
