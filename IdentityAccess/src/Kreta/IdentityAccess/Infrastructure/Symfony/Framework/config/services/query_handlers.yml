@@ -11,7 +11,7 @@ services:
         class: Kreta\IdentityAccess\Application\Query\UsersOfIdsHandler
         arguments:
             - "@bengor_user.user.repository"
-            - "@bengor_user.user.dto_data_transformer"
+            - "@kreta.identity_access.data_transformer.public_dto"
         tags:
             -
                 name: query_handler

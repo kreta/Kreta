@@ -14,17 +14,23 @@ declare(strict_types=1);
 
 namespace Kreta\IdentityAccess\Application\DataTransformer;
 
-use BenGorUser\User\Application\DataTransformer\UserDTODataTransformer as BaseUserDTODataTransformer;
+use BenGorUser\User\Application\DataTransformer\UserDataTransformer;
 use Kreta\IdentityAccess\Domain\Model\User\FullName;
 use Kreta\IdentityAccess\Domain\Model\User\Image;
 
-class UserDTODataTransformer extends BaseUserDTODataTransformer
+class UserPublicDTODataTransformer implements UserDataTransformer
 {
     private $uploadDestination;
+    private $user;
 
     public function __construct(string $uploadDestination = '')
     {
         $this->uploadDestination = $uploadDestination;
+    }
+
+    public function write($aUser) : void
+    {
+        $this->user = $aUser;
     }
 
     public function read() : array
@@ -33,14 +39,16 @@ class UserDTODataTransformer extends BaseUserDTODataTransformer
             return [];
         }
 
-        return array_merge(parent::read(), [
+        return [
+            'id'         => $this->user->id()->id(),
             'user_id'    => $this->user->id()->id(),
-            'user_name'  => $this->user->username()->username(),
+            'email'      => $this->user->email()->email(),
             'first_name' => $this->firstName($this->user->fullName()),
-            'last_name'  => $this->lastName($this->user->fullName()),
             'full_name'  => $this->fullName($this->user->fullName()),
+            'last_name'  => $this->lastName($this->user->fullName()),
             'image'      => $this->image($this->user->image()),
-        ]);
+            'user_name'  => $this->user->username()->username(),
+        ];
     }
 
     private function firstName(FullName $fullName = null) : ?string
