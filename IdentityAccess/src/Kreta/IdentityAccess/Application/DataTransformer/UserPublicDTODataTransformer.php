@@ -42,14 +42,11 @@ class UserPublicDTODataTransformer implements UserDataTransformer
         return [
             'id'         => $this->user->id()->id(),
             'user_id'    => $this->user->id()->id(),
-            'created_on' => $this->user->createdOn(),
             'email'      => $this->user->email()->email(),
             'first_name' => $this->firstName($this->user->fullName()),
             'full_name'  => $this->fullName($this->user->fullName()),
-            'last_login' => $this->user->lastLogin(),
             'last_name'  => $this->lastName($this->user->fullName()),
             'image'      => $this->image($this->user->image()),
-            'updated_on' => $this->user->updatedOn(),
             'user_name'  => $this->user->username()->username(),
         ];
     }

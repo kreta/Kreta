@@ -51,10 +51,7 @@ class UserPublicDTODataTransformerSpec extends ObjectBehavior
         $this->write($user);
 
         $user->id()->shouldBeCalled()->willReturn(new UserId('user-id'));
-        $user->createdOn()->shouldBeCalled()->willReturn($createdOn);
         $user->email()->shouldBeCalled()->willReturn(new UserEmail('user@user.com'));
-        $user->lastLogin()->shouldBeCalled()->willReturn($lastLogin);
-        $user->updatedOn()->shouldBeCalled()->willReturn($updatedOn);
 
         $user->username()->shouldBeCalled()->willReturn($username);
         $username->username()->shouldBeCalled()->willReturn('user11111');
@@ -71,14 +68,11 @@ class UserPublicDTODataTransformerSpec extends ObjectBehavior
         $this->read()->shouldReturn([
             'id'                      => 'user-id',
             'user_id'                 => 'user-id',
-            'created_on'              => $createdOn,
             'email'                   => 'user@user.com',
             'first_name'              => 'The user first name',
             'full_name'               => 'The user first name The user last name',
-            'last_login'              => $lastLogin,
             'last_name'               => 'The user last name',
             'image'                   => '/image-name.png',
-            'updated_on'              => $updatedOn,
             'user_name'               => 'user11111',
         ]);
     }
@@ -99,10 +93,7 @@ class UserPublicDTODataTransformerSpec extends ObjectBehavior
         $this->write($user);
 
         $user->id()->shouldBeCalled()->willReturn(new UserId('user-id'));
-        $user->createdOn()->shouldBeCalled()->willReturn($createdOn);
         $user->email()->shouldBeCalled()->willReturn(new UserEmail('user@user.com'));
-        $user->lastLogin()->shouldBeCalled()->willReturn($lastLogin);
-        $user->updatedOn()->shouldBeCalled()->willReturn($updatedOn);
 
         $user->username()->shouldBeCalled()->willReturn($username);
         $username->username()->shouldBeCalled()->willReturn('user11111');
@@ -119,14 +110,11 @@ class UserPublicDTODataTransformerSpec extends ObjectBehavior
         $this->read()->shouldReturn([
             'id'                      => 'user-id',
             'user_id'                 => 'user-id',
-            'created_on'              => $createdOn,
             'email'                   => 'user@user.com',
             'first_name'              => 'The user first name',
             'full_name'               => 'The user first name The user last name',
-            'last_login'              => $lastLogin,
             'last_name'               => 'The user last name',
             'image'                   => '/other-upload-destination/image-name.png',
-            'updated_on'              => $updatedOn,
             'user_name'               => 'user11111',
         ]);
     }
