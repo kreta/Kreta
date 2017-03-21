@@ -1,4 +1,4 @@
-#Installation
+# Installation
 
 To run Kreta locally we highly recommend using our Docker environment. It provides all you need kreta with ease. Before
 starting make sure you have already installed [Docker](https://www.docker.com/) in your machine.

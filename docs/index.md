@@ -1,4 +1,4 @@
-#Kreta documentation
+# Kreta documentation
 
 * Usage
     * [Installation](installation.md)

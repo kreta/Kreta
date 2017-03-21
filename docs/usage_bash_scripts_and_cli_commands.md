@@ -1,4 +1,4 @@
-#Bash scripts and CLI commands
+# Bash scripts and CLI commands
 
 Each Kreta bounded context has many bash scripts and CLI commands that
 provide access to many actions. In order to standardize the usage of
