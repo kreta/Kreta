@@ -1,0 +1,66 @@
+# This file is part of the Kreta package.
+#
+# (c) Beñat Espiña <benatespina@gmail.com>
+# (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+
+---
+-
+    name: Create the IdentityAccess's jwt shared directory.
+    file: state=directory path={{ansistrano_deploy_to}}/shared/IdentityAccess/var/jwt
+-
+    name: Create the IdentityAccess's logs shared directory.
+    file: state=directory path={{ansistrano_deploy_to}}/shared/IdentityAccess/var/logs
+-
+    name: Create the IdentityAccess's sessions shared directory.
+    file: state=directory path={{ansistrano_deploy_to}}/shared/IdentityAccess/var/sessions
+-
+    name: Create the IdentityAccess's uploads shared directory.
+    file: state=directory path={{ansistrano_deploy_to}}/shared/IdentityAccess/src/Kreta/IdentityAccess/Infrastructure/Ui/Uploads
+-
+    name: Create the TaskManager's logs shared directory.
+    file: state=directory path={{ansistrano_deploy_to}}/shared/TaskManager/var/logs
+-
+    name: Create the TaskManager's sessions shared directory.
+    file: state=directory path={{ansistrano_deploy_to}}/shared/TaskManager/var/sessions
+
+
+-
+    name: Check if IdentityAccess's parameters file exists
+    stat: path={{ansistrano_deploy_to}}/shared/IdentityAccess/parameters.yml
+    register: parameters_ini
+-
+    name: Check if TaskManager's parameters file exists
+    stat: path={{ansistrano_deploy_to}}/shared/TaskManager/parameters.yml
+    register: parameters_ini
+
+
+-
+    name: Remove shared directories if they exist
+    command: "rm -rf {{ansistrano_release_path.stdout}}/{{item}}"
+    with_items: ansistrano_shared_folders
+
+-
+    name: Create symlink for shared directories
+    file: src={{ansistrano_deploy_to}}/shared/{{item}} dest={{ansistrano_release_path.stdout}}/{{item}} state=link
+    with_items: ansistrano_shared_folders
+
+-
+    name: Create symlink for shared files
+    file: src={{ansistrano_deploy_to}}/shared/{{item}} dest={{ansistrano_release_path.stdout}}/{{item}} state=link
+    with_items: ansistrano_shared_files
+
+-
+    name: Ensure IdentityAccess's cache permissions
+    file: path={{ansistrano_release_path.stdout}}/IdentityAccess/var/cache owner={{permission_owner}} group={{permission_group}} mode={{permission_mode}}
+-
+    name: Ensure TaskManager's cache permissions
+    file: path={{ansistrano_release_path.stdout}}/TaskManager/var/cache owner={{permission_owner}} group={{permission_group}} mode={{permission_mode}}
+
+- include: steps/composer.yml
+
+-
+    name: Doctrine migrations
+    shell: cd {{ansistrano_release_path.stdout}} && {{php_path}} bin/console doctrine:migrations:migrate --quiet --no-interaction

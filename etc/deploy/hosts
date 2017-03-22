@@ -1,0 +1,2 @@
+[webservers]
+kreta.io ansible_ssh_user=root
