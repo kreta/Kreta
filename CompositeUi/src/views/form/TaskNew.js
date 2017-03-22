@@ -42,7 +42,8 @@ const validate = (values) => {
   initialValues: {
     project: state.currentProject.project.id
   },
-  project: state.currentProject.project
+  project: state.currentProject.project,
+  updating: state.currentProject.updating
 }))
 
 @reduxForm({form: 'TaskNew', validate})
@@ -74,7 +75,7 @@ class TaskNew extends React.Component {
   }
 
   render() {
-    const {project, handleSubmit} = this.props;
+    const {project, handleSubmit, updating} = this.props;
 
     return (
       <Form onSubmit={handleSubmit}>
@@ -110,7 +111,7 @@ class TaskNew extends React.Component {
           </RowColumn>
           <RowColumn>
             <FormActions>
-              <Button color="green" tabIndex={5} type="submit">Done</Button>
+              <Button color="green" disabled={updating} tabIndex={5} type="submit">Done</Button>
             </FormActions>
           </RowColumn>
         </Row>

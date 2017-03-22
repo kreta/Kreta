@@ -32,7 +32,7 @@ const validate = (values) => {
   return errors;
 };
 
-@connect()
+@connect(state => ({fetching: state.organization.fetching}))
 @reduxForm({form: 'OrganizationNew', validate})
 class OrganizationNew extends React.Component {
   static propTypes = {
@@ -40,7 +40,7 @@ class OrganizationNew extends React.Component {
   };
 
   render() {
-    const {handleSubmit} = this.props;
+    const {handleSubmit, fetching} = this.props;
 
     return (
       <Form onSubmit={handleSubmit}>
@@ -48,7 +48,7 @@ class OrganizationNew extends React.Component {
           <RowColumn>
             <Field autoFocus component={FormInput} label="Organization Name" name="name" tabIndex={1}/>
             <FormActions>
-              <Button color="green" tabIndex={2} type="submit">Create</Button>
+              <Button color="green" disabled={fetching} tabIndex={2} type="submit">Create</Button>
             </FormActions>
           </RowColumn>
         </Row>

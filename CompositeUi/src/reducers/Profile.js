@@ -13,6 +13,7 @@ import ActionTypes from './../constants/ActionTypes';
 const initialState = {
   errors: [],
   fetching: false,
+  updating: false,
   profile: null
 };
 
@@ -26,8 +27,12 @@ export default function reducer(state = initialState, action = {}) {
       return {...state, profile: action.profile, fetching: false};
     }
 
+    case ActionTypes.PROFILE_UPDATE: {
+      return {...state, updating: true};
+    }
+
     case ActionTypes.PROFILE_UPDATED: {
-      return {...state, profile: action.profile};
+      return {...state, profile: action.profile, updating: false};
     }
 
     case ActionTypes.PROFILE_FETCH_ERROR: {
@@ -35,7 +40,7 @@ export default function reducer(state = initialState, action = {}) {
     }
 
     case ActionTypes.PROFILE_UPDATE_ERROR: {
-      return {...state, errors: action.errors};
+      return {...state, errors: action.errors, updating: false};
     }
 
     default:

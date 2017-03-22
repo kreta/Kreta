@@ -12,7 +12,7 @@ import ActionTypes from './../constants/ActionTypes';
 
 const initialState = {
   errors: [],
-  fetching: true,
+  fetching: false,
   organizations: []
 };
 
@@ -25,7 +25,7 @@ export default function reducer(state = initialState, action = {}) {
       return {...state, fetching: false, organizations: [...state.organizations, action.organization]};
 
     case ActionTypes.ORGANIZATION_CREATE_ERROR:
-      return {...state, errors: action.errors};
+      return {...state, fetching: false, errors: action.errors};
 
     default:
       return state;

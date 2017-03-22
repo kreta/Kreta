@@ -44,11 +44,11 @@ const validate = (values) => {
   return errors;
 };
 
-@connect(state => ({initialValues: state.profile.profile}))
+@connect(state => ({initialValues: state.profile.profile, updating: state.profile.updating}))
 @reduxForm({form: 'profileEdit', validate})
 class ProfileEdit extends React.Component {
   render() {
-    const {handleSubmit, initialValues} = this.props;
+    const {handleSubmit, initialValues, updating} = this.props;
 
     return (
       <Form onSubmit={handleSubmit}>
@@ -60,7 +60,7 @@ class ProfileEdit extends React.Component {
             <Field component={FormInput} label="Username" name="user_name" tabIndex={3}/>
             <Field component={FormInput} label="Email" name="email" tabIndex={4}/>
             <FormActions>
-              <Button color="green" tabIndex={5} type="submit">Update</Button>
+              <Button color="green" disabled={updating} tabIndex={5} type="submit">Update</Button>
             </FormActions>
           </RowColumn>
         </Row>

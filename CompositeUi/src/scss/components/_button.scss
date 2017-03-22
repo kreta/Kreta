@@ -23,6 +23,11 @@
   text-align: center;
   text-transform: uppercase;
   transition-duration: .3s;
+
+  &[disabled],
+  &:disabled {
+    opacity: .3;
+  }
 }
 
 .button--blue {

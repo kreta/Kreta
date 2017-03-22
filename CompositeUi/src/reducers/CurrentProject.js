@@ -100,7 +100,7 @@ export default function reducer(state = initialState, action = {}) {
       return {...state, project: {...state.project, _tasks49h6f1: action.tasks}};
     }
     case ActionTypes.CURRENT_PROJECT_TASK_CREATING: {
-      return {...state, errors: []};
+      return {...state, errors: [], updating: true};
     }
     case ActionTypes.CURRENT_PROJECT_TASK_CREATED: {
       return {
@@ -111,14 +111,15 @@ export default function reducer(state = initialState, action = {}) {
               {node: action.task, cursor: 'YXJyYXljb25uZWN0aW9uOjE5'}
             ]
           }
-        }
+        },
+        updating: false
       };
     }
     case ActionTypes.CURRENT_PROJECT_TASK_CREATE_ERROR: {
-      return {...state, errors: action.errors};
+      return {...state, errors: action.errors, updating: false};
     }
     case ActionTypes.CURRENT_PROJECT_TASK_UPDATING: {
-      return {...state, errors: []};
+      return {...state, errors: [], updating: true};
     }
     case ActionTypes.CURRENT_PROJECT_TASK_UPDATED: {
       const index = state.project._tasks49h6f1.edges.findIndex(edge => (edge.node.id === action.task.id));
@@ -132,11 +133,12 @@ export default function reducer(state = initialState, action = {}) {
               ...state.project._tasks49h6f1.edges.slice(index + 1)
             ]
           }
-        }
+        },
+        updating: false
       };
     }
     case ActionTypes.CURRENT_PROJECT_TASK_UPDATE_ERROR: {
-      return {...state, errors: action.errors};
+      return {...state, errors: action.errors, updating: false};
     }
     case ActionTypes.CURRENT_PROJECT_TASK_UPDATED_PROGRESS: {
       const index = state.project._tasks49h6f1.edges.findIndex(edge => (edge.node.id === action.task.id)),

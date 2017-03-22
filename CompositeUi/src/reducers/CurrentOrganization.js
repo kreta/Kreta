@@ -14,6 +14,7 @@ const initialState = {
   fetching: true,
   organization: null,
   potential_members: [],
+  updating: false,
   projects: []
 };
 
@@ -54,13 +55,24 @@ export default function reducer(state = initialState, action = {}) {
     }
 
     case ActionTypes.PROJECT_CREATING: {
-      return {...state, waiting: true};
+      return {...state, updating: true};
     }
+
     case ActionTypes.PROJECT_CREATED: {
-      return {...state, tasks: [...state.projects, action.project], fetching: false};
+      return {...state, tasks: [...state.projects, action.project], updating: false};
     }
+
     case ActionTypes.PROJECT_CREATE_ERROR: {
-      return {...state, errors: action.errors};
+      return {...state, errors: action.errors, updating: false};
+    }
+
+    case ActionTypes.PROJECT_EDITING: {
+      return {...state, updating: true};
+    }
+
+    case ActionTypes.PROJECT_EDITED:
+    case ActionTypes.PROJECT_EDIT_ERROR: {
+      return {...state, updating: false};
     }
 
     default: {
