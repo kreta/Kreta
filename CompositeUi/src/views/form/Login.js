@@ -9,6 +9,7 @@
  */
 
 import React from 'react';
+import {connect} from 'react-redux';
 import {Field, reduxForm} from 'redux-form';
 import {Link} from 'react-router';
 
@@ -38,6 +39,7 @@ const validate = (values) => {
   return errors;
 };
 
+@connect(state => ({authorizing: state.user.updatingAuthorization}))
 @reduxForm({form: 'Login', validate})
 class Login extends React.Component {
   static propTypes = {
@@ -45,7 +47,7 @@ class Login extends React.Component {
   };
 
   render() {
-    const {handleSubmit} = this.props;
+    const {handleSubmit, authorizing} = this.props;
 
     return (
       <Form onSubmit={handleSubmit}>
@@ -67,7 +69,7 @@ class Login extends React.Component {
               type="password"
             />
             <FormActions expand>
-              <Button color="green" tabIndex={3} type="submit">Sign in Kreta</Button>
+              <Button color="green" disabled={authorizing} tabIndex={3} type="submit">Sign in Kreta</Button>
             </FormActions>
             <HelpText center>
               New to Kreta? <Link to={routes.register}>Create an account.</Link>
