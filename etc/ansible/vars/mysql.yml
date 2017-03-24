@@ -1,0 +1,13 @@
+mysql_root_password: "{{ mysql.root_pass }}"
+mysql_databases:
+    -
+        name: kreta_task_manager
+        encoding: UTF8
+    -
+        name: kreta_identity_access
+        encoding: UTF8
+mysql_users:
+    -
+        name: kreta
+        password: "{{ mysql.kreta_pass }}"
+

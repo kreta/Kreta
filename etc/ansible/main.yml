@@ -1,0 +1,15 @@
+---
+-
+    hosts: all
+    become: yes
+    become_user: root
+    become_method: su
+    vars_files:
+        - parameters.yml
+        - vars/mysql.yml
+        - vars/php.yml
+#        - vars/rabbit.yml
+    roles:
+        - { role: geerlingguy.mysql }
+        - { role: geerlingguy.nginx }
+        - { role: geerlingguy.php }
