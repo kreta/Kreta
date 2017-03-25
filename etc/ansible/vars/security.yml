@@ -1,0 +1,2 @@
+security_sudoers_passworded:
+  - "{{ security.deploy_user }}"

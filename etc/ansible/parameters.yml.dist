@@ -1,3 +1,11 @@
 mysql:
     root_pass: root
     kreta_pass: kreta
+rabbitmq:
+    admin_user: admin
+    admin_password: admin
+security:
+    sudoer_user: kreta
+    github_users_allowed:
+        - someuser
+        - otheruser

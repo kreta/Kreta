@@ -8,8 +8,19 @@
         - parameters.yml
         - vars/mysql.yml
         - vars/php.yml
-#        - vars/rabbit.yml
+        - vars/rabbitmq.yml
+        - vars/security.yml
+        - vars/firewall.yml
+        - vars/nginx.yml
     roles:
-        - { role: geerlingguy.mysql }
-        - { role: geerlingguy.nginx }
-        - { role: geerlingguy.php }
+        - geerlingguy.repo-remi
+        - geerlingguy.mysql
+        - geerlingguy.nginx
+        - geerlingguy.php
+#        - alexeymedvedchikov.rabbitmq
+        - geerlingguy.firewall
+        - geerlingguy.security
+        - geerlingguy.git
+    tasks:
+        - include: tasks/users.yml
+

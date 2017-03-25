@@ -1,3 +1,6 @@
+php_enablerepo: "remi-php71"
+php_packages_state: "latest"
+php_webserver_daemon: "nginx"
 php_memory_limit: "1024M"
 php_max_execution_time: "90"
 php_upload_max_filesize: "20M"
@@ -8,3 +11,5 @@ php_fpm_pm_max_children: 50
 php_fpm_pm_start_servers: 5
 php_fpm_pm_min_spare_servers: 5
 php_fpm_pm_max_spare_servers: 5
+php_packages:
+    - php-bcmath
