@@ -9,3 +9,8 @@ security:
     github_users_allowed:
         - someuser
         - otheruser
+kreta:
+    domains:
+        identity_access: identityaccess.kreta.io
+        task_manager: taskmanager.kreta.io
+        composite_ui: kreta.io

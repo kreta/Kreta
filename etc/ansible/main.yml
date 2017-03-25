@@ -21,6 +21,8 @@
         - geerlingguy.firewall
         - geerlingguy.security
         - geerlingguy.git
+        - kbrebanov.unzip
     tasks:
         - include: tasks/users.yml
+        - include: tasks/hosts.yml
 

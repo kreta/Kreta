@@ -1,3 +1,4 @@
+nginx_user: "{{ security.deploy_user }}"
 nginx_extra_http_options: |
     fastcgi_buffer_size 128k;
     fastcgi_buffers 4 256k;
@@ -5,7 +6,7 @@ nginx_extra_http_options: |
 nginx_vhosts:
     -
         listen: '80'
-        server_name: "identityaccess.kreta.io"
+        server_name: "{{ kreta.domains.identity_access }}"
         root: "/var/www/kreta.io/IdentityAccess/src/Kreta/IdentityAccess/Infrastructure/Ui/Http/Symfony/public/"
         index: "app.php"
         access_log: "/var/log/nginx/identityaccess_error.log"
@@ -29,7 +30,7 @@ nginx_vhosts:
             }
     -
         listen: '80'
-        server_name: "taskmanager.kreta.io"
+        server_name: "{{ kreta.domains.task_manager }}"
         root: "/var/www/kreta.io/TaskManager/src/Kreta/TaskManager/Infrastructure/Ui/Http/Symfony/public/"
         index: "app.php"
         access_log: "/var/log/nginx/taskmanager_error.log"
