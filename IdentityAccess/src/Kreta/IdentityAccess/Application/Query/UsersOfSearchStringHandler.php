@@ -33,8 +33,9 @@ class UsersOfSearchStringHandler
     public function __invoke(UsersOfSearchStringQuery $query)
     {
         $search = $query->search();
+        $excludedIds = $query->excludedIds();
 
-        $users = $this->repository->usersOfSearchString($search);
+        $users = $this->repository->usersOfSearchString($search, $excludedIds);
 
         return array_map(function (User $user) {
             $this->dataTransformer->write($user);

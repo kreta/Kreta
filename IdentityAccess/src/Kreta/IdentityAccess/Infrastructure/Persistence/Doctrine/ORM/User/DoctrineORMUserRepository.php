@@ -38,14 +38,16 @@ class DoctrineORMUserRepository extends BaseDoctrineORMUserRepository implements
             ->getResult();
     }
 
-    public function usersOfSearchString($search) : array
+    public function usersOfSearchString($search, $userIds = []) : array
     {
         $queryBuilder = $this->createQueryBuilder('u');
 
         return $queryBuilder
             ->select('u')
             ->where($queryBuilder->expr()->like('u.username.username', ':search'))
+            ->andWhere($queryBuilder->expr()->notIn('u.id', ':ids'))
             ->setParameter('search', '%' . $search . '%')
+            ->setParameter('ids', $userIds)
             ->getQuery()
             ->getResult();
     }

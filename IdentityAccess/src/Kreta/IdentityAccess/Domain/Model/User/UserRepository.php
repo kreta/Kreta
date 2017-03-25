@@ -22,5 +22,5 @@ interface UserRepository extends BaseUserRepository
 
     public function usersOfIds(array $userIds) : array;
 
-    public function usersOfSearchString($search) : array;
+    public function usersOfSearchString($search, $excludedIds) : array;
 }

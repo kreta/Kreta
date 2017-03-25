@@ -28,8 +28,8 @@ export default function reducer(state = initialState, action = {}) {
 
     case ActionTypes.CURRENT_ORGANIZATION_MEMBER_REMOVED : {
       const newOrganization = state.organization;
-      const members = state.organization.organization_members.find((member) => member.id !== action.user);
-      newOrganization.organization_members = members ? [ members ] : [];
+      const members = state.organization.organization_members.filter((member) => member.id !== action.user);
+      newOrganization.organization_members = members ? members : [];
 
       return {
         ...state,
@@ -40,12 +40,12 @@ export default function reducer(state = initialState, action = {}) {
 
     case ActionTypes.CURRENT_ORGANIZATION_MEMBER_ADDED : {
       const newOrganization = state.organization;
-      newOrganization.organization_members.push(action.user);
-
+      newOrganization.organization_members.push(state.potential_members.find((member) => member.id === action.user));
       return {
         ...state,
         fetching: false,
-        organization: newOrganization
+        organization: newOrganization,
+        potential_members: state.potential_members.filter(member => member.id !== action.user)
       };
     }
 

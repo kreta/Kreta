@@ -73,7 +73,15 @@ class Show extends React.Component {
     const {organization} = this.props.currentOrganization;
 
     return organization.organization_members.map((member, index) => (
-      <UserCard key={index} user={member}/>
+        <CardExtended
+            key={index}
+            member={member}
+            onMemberRemoveClicked={this.removeMember.bind(this)}
+            subtitle={`@${member.user_name}`}
+            thumbnail={<Thumbnail image={member.image} text={`${member.first_name} ${member.last_name}`}/>}
+            title={`${member.first_name} ${member.last_name}`}
+            type="member"
+        />
     ));
   }
 

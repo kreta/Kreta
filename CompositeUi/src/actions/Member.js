@@ -12,9 +12,9 @@ import ActionTypes from './../constants/ActionTypes';
 import Users from './../api/rest/User/Users';
 
 const Actions = {
-  fetchMembersToAdd: (query) => (dispatch) => {
+  fetchMembersToAdd: (query, excludedIds) => (dispatch) => {
 
-    Users.getByName({query})
+    Users.getByName({query, excludedIds})
       .then((users) => {
         dispatch({
           type: ActionTypes.MEMBERS_TO_ADD_RECEIVED,

@@ -17,14 +17,23 @@ namespace Kreta\IdentityAccess\Application\Query;
 class UsersOfSearchStringQuery
 {
     private $search;
+    private $excludedIds;
 
-    public function __construct($search)
+    public function __construct($search, $excludedIds)
     {
         $this->search = $search;
+        $this->excludedIds = $excludedIds;
     }
 
     public function search() : string
     {
         return $this->search;
     }
+
+    public function excludedIds() : array
+    {
+        return $this->excludedIds;
+    }
+
+
 }

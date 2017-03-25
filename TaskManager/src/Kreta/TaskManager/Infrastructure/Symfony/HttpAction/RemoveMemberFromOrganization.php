@@ -16,6 +16,7 @@ namespace Kreta\TaskManager\Infrastructure\Symfony\HttpAction;
 
 use Kreta\SharedKernel\Application\CommandBus;
 use Kreta\TaskManager\Application\Command\Organization\RemoveOrganizationMemberToOrganizationCommand;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 

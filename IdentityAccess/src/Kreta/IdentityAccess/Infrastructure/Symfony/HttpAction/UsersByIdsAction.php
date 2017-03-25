@@ -43,9 +43,10 @@ class UsersByIdsAction
         }
 
         $search = $request->query->get('query');
+        $excludedIds = $request->query->get('excludedIds');
 
         $this->queryBus->handle(
-            new UsersOfSearchStringQuery($search),
+            new UsersOfSearchStringQuery($search, explode(',',$excludedIds)),
             $result
         );
 

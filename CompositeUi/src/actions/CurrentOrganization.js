@@ -36,24 +36,10 @@ const Actions = {
           ...organization.organization_members,
           ...organization.owners,
         ]).then(() => (
-            Users.get({ids})
-                .then((users) => {
-                    // eslint-disable-next-line
-                    users.map((user, index) => {
-                        if (organization.owners.find((it) => it.id === user.id)) {
-                            Object.assign(organization.owners[index], user);
-                        }
-
-                        if (organization.organization_members.find((it) => it.id === user.id)) {
-                            Object.assign(organization.organization_members[index - organization.owners.length], user);
-                        }
-                    });
-
-                    dispatch({
-                        type: ActionTypes.CURRENT_ORGANIZATION_RECEIVED,
-                        organization,
-                    });
-                })
+          dispatch({
+            type: ActionTypes.CURRENT_ORGANIZATION_RECEIVED,
+            organization,
+          })
         ));
       });
   },

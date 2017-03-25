@@ -25,7 +25,12 @@ class AddMemberToOrganization extends React.Component {
   };
 
   filterMembersToAdd(q) {
-    this.props.dispatch(MemberActions.fetchMembersToAdd(q));
+    this.props.dispatch(
+      MemberActions.fetchMembersToAdd(
+        q,
+        this.props.currentOrganization.organization.organization_members.map((item) => item.id)
+      )
+    );
   }
 
   triggerOnMemberaddClicked(participant) {
