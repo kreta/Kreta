@@ -1,9 +1,4 @@
 rabbitmq_users:
     -
         user: "{{rabbitmq.admin_user}}"
-        password: "{{rabbitmq.admin_pass}}"
-        vhost: /
-        configure_priv: .*
-        read_priv: .*
-        write_priv: .*
-        tags: administrator
+        password: "{{rabbitmq.admin_password}}"

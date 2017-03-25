@@ -17,7 +17,7 @@
         - geerlingguy.mysql
         - geerlingguy.nginx
         - geerlingguy.php
-#        - alexeymedvedchikov.rabbitmq
+        - openstack-ansible-galaxy.rabbitmq
         - geerlingguy.firewall
         - geerlingguy.security
         - geerlingguy.git
