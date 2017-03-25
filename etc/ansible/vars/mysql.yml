@@ -10,4 +10,5 @@ mysql_users:
     -
         name: kreta
         password: "{{ mysql.kreta_pass }}"
+        priv: "*.*:ALL"
 

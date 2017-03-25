@@ -13,5 +13,6 @@ php_fpm_pm_min_spare_servers: 5
 php_fpm_pm_max_spare_servers: 5
 php_packages:
     - php-bcmath
+    - php-mysql
 php_fpm_pool_user: "{{ security.deploy_user }}"
 php_fpm_pool_group: "{{ security.deploy_user }}"

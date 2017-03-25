@@ -6,6 +6,15 @@ nginx_extra_http_options: |
 nginx_vhosts:
     -
         listen: '80'
+        server_name: "{{ kreta.domains.composite_ui }}"
+        root: "/var/www/kreta.io/CompositeUi/build"
+        index: "index.html"
+        extra_parameters: |
+            location / {
+                try_files $uri /index.html;
+            }
+    -
+        listen: '80'
         server_name: "{{ kreta.domains.identity_access }}"
         root: "/var/www/kreta.io/IdentityAccess/src/Kreta/IdentityAccess/Infrastructure/Ui/Http/Symfony/public/"
         index: "app.php"
