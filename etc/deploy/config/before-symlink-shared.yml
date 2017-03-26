@@ -8,10 +8,8 @@
 
 ---
 -
-    name: Kreta
-    hosts: prod
-    roles:
-        - carlosbuenosvinos.ansistrano-deploy
-    vars_files:
-        - vars/all.yml
-        - vars/prod.yml
+    name: Ensure shared directories exist.
+    file:
+        state: directory
+        path: "{{ ansistrano_deploy_to }}/shared/{{ item }}"
+    with_items: "{{ ansistrano_shared_folders }}"

@@ -1,2 +1,2 @@
-[webservers]
-kreta.io ansible_ssh_user=root
+[prod]
+137.74.161.60 ansible_ssh_user=kreta

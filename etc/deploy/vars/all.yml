@@ -1,0 +1,26 @@
+permission_owner: kreta
+permission_group: kreta
+permission_mode: "0755"
+ansistrano_deploy_from: "{{ playbook_dir }}/../../"
+ansistrano_keep_releases: 3
+ansistrano_deploy_via: "git"            # Also it can be copy, rsync
+ansistrano_git_repo: git@github.com:kreta/Kreta.git
+ansistrano_git_branch: "master"
+
+ansistrano_before_symlink_shared_tasks_file: "{{ playbook_dir }}/config/before-symlink-shared.yml"
+ansistrano_after_symlink_shared_tasks_file: "{{ playbook_dir }}/config/after-symlink-shared.yml"
+
+ansistrano_shared_folders:
+    - IdentityAccess/var/jwt
+    - IdentityAccess/var/logs
+    - IdentityAccess/var/sessions
+    - IdentityAccess/src/Kreta/IdentityAccess/Infrastructure/Ui/Uploads
+    - TaskManager/var/logs
+    - TaskManager/var/sessions
+
+ansistrano_shared_files:
+    - IdentityAccess/parameters.yml
+    - TaskManager/parameters.yml
+
+php_path: /usr/bin/php
+composer_path: "{{ ansistrano_shared_path }}/composer.phar"
