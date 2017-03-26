@@ -12,46 +12,35 @@
 
 declare(strict_types=1);
 
-namespace Kreta\TaskManager\Infrastructure\Symfony\Command;
+namespace Kreta\TaskManager\Infrastructure\Persistence\Doctrine\DataFixtures;
 
-use Kreta\SharedKernel\Application\CommandBus;
-use Kreta\SharedKernel\Application\QueryBus;
+use Doctrine\Common\Persistence\ObjectManager;
 use Kreta\TaskManager\Application\Command\Project\Task\CreateTaskCommand;
 use Kreta\TaskManager\Application\Query\Organization\OrganizationOfIdQuery;
 use Kreta\TaskManager\Application\Query\Project\FilterProjectsQuery;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskPriority;
-use Symfony\Component\Console\Command\Command;
-use Symfony\Component\Console\Helper\ProgressBar;
-use Symfony\Component\Console\Input\InputInterface;
-use Symfony\Component\Console\Output\OutputInterface;
 
-class TaskFixturesCommand extends Command
+class LoadTaskData extends AbstractFixture
 {
     const TASK_PRIORITIES = [TaskPriority::LOW, TaskPriority::MEDIUM, TaskPriority::HIGH];
 
-    private $commandBus;
-    private $queryBus;
-
-    public function __construct(CommandBus $commandBus, QueryBus $queryBus)
+    protected function type() : string
     {
-        $this->commandBus = $commandBus;
-        $this->queryBus = $queryBus;
-        parent::__construct('kreta:task-manager:fixtures:tasks');
+        return 'task';
     }
 
-    protected function execute(InputInterface $input, OutputInterface $output) : void
+    public function getOrder() : int
     {
-        $amount = 1000;
-        $output->writeln('');
-        $output->writeln('Loading tasks...');
-        $progress = new ProgressBar($output, $amount);
-        $progress->start();
+        return 4;
+    }
+
+    public function load(ObjectManager $manager) : void
+    {
         $i = 0;
+        while ($i < $this->amount()) {
+            $userId = $this->getRandomUserByIndex($i);
 
-        while ($i < $amount) {
-            $userId = UserFixturesCommand::USER_IDS[array_rand(UserFixturesCommand::USER_IDS)];
-
-            $this->queryBus->handle(
+            $this->queryBus()->handle(
                 new FilterProjectsQuery(
                     $userId,
                     0,
@@ -61,28 +50,34 @@ class TaskFixturesCommand extends Command
             );
 
             foreach ($projects as $project) {
-                $this->queryBus->handle(
+                $this->queryBus()->handle(
                     new OrganizationOfIdQuery(
                         $project['organization_id'],
                         $userId
                     ),
                     $organization
                 );
-                $this->commandBus->handle(
+                $this->commandBus()->handle(
                     new CreateTaskCommand(
                         'Task ' . $i,
                         'The description of the task ' . $i,
                         $userId,
                         $organization['owners'][0]['id'],
-                        self::TASK_PRIORITIES[array_rand(self::TASK_PRIORITIES)],
-                        $project['id']
+                        $this->taskPriority($i),
+                        $project['id'],
+                        null,
+                        $this->fakeIds()[$i]
                     )
                 );
                 ++$i;
-                $progress->advance();
             }
         }
-        $progress->finish();
-        $output->writeln('');
+    }
+
+    private function taskPriority($index)
+    {
+        $priorityIndex = $index % 2 > 3 ? 0 : 2 - $index % 3;
+
+        return self::TASK_PRIORITIES[$priorityIndex];
     }
 }

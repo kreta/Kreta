@@ -25,6 +25,7 @@ declare(strict_types=1);
 namespace Kreta\TaskManager\Infrastructure\Symfony\Framework;
 
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
+use Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle;
 use Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle;
 use Http\HttplugBundle\HttplugBundle;
 use Kreta\TaskManager\Infrastructure\Symfony\Bundle\AppBundle;
@@ -71,6 +72,7 @@ class AppKernel extends Kernel
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
             $bundles[] = new DebugBundle();
+            $bundles[] = new DoctrineFixturesBundle();
             $bundles[] = new SensioDistributionBundle();
             $bundles[] = new WebProfilerBundle();
         }
