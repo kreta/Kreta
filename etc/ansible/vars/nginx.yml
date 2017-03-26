@@ -1,3 +1,11 @@
+# This file is part of the Kreta package.
+#
+# (c) Beñat Espiña <benatespina@gmail.com>
+# (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+
 nginx_user: "{{ security.deploy_user }}"
 nginx_extra_http_options: |
     fastcgi_buffer_size 128k;
