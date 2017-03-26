@@ -12,16 +12,6 @@
 
 declare(strict_types=1);
 
-/*
- * This file is part of the Kreta package.
- *
- * (c) Beñat Espiña <benatespina@gmail.com>
- * (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
 namespace Kreta\TaskManager\Infrastructure\Symfony\Framework;
 
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
@@ -32,6 +22,7 @@ use Kreta\TaskManager\Infrastructure\Symfony\Bundle\AppBundle;
 use Nelmio\CorsBundle\NelmioCorsBundle;
 use OldSound\RabbitMqBundle\OldSoundRabbitMqBundle;
 use Overblog\GraphQLBundle\OverblogGraphQLBundle;
+use PSS\SymfonyMockerContainer\DependencyInjection\MockerContainer;
 use Sensio\Bundle\DistributionBundle\SensioDistributionBundle;
 use SimpleBus\SymfonyBridge\DoctrineOrmBridgeBundle;
 use SimpleBus\SymfonyBridge\SimpleBusCommandBusBundle;
@@ -98,5 +89,14 @@ class AppKernel extends Kernel
     public function registerContainerConfiguration(LoaderInterface $loader) : void
     {
         $loader->load($this->getRootDir() . '/config/config_' . $this->getEnvironment() . '.yml');
+    }
+
+    protected function getContainerBaseClass() : string
+    {
+        if ('test' === $this->environment) {
+            return MockerContainer::class;
+        }
+
+        return parent::getContainerBaseClass();
     }
 }

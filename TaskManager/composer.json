@@ -50,7 +50,8 @@
     "require-dev": {
         "doctrine/doctrine-fixtures-bundle": "^2.3",
         "kreta/php-cs-fixer-config": "^1.0",
-        "phpspec/phpspec": "^3.2"
+        "phpspec/phpspec": "^3.2",
+        "lakion/api-test-case": "^1.1"
     },
     "scripts": {
         "lifecycle-scripts": [
