@@ -1,4 +1,10 @@
-# Do not touch this UUIDs, there are in common with IdentityAccess fixtures
+# This file is part of the Kreta package.
+#
+# (c) Beñat Espiña <benatespina@gmail.com>
+# (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
 
 - "da49c01f-2e99-45ee-9557-eb3eb57b06c5"
 - "a38f8ef4-400b-4229-a5ff-712ff5f72b27"

@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Kreta\TaskManager\Infrastructure\Persistence\Doctrine\DataFixtures;
 
 use Doctrine\Common\Persistence\ObjectManager;
+use Kreta\SharedKernel\Infrastructure\Persistence\Doctrine\DataFixtures\AbstractFixture;
 use Kreta\TaskManager\Application\Command\Organization\AddOrganizationMemberToOrganizationCommand;
 use Kreta\TaskManager\Application\Command\Organization\CreateOrganizationCommand;
 

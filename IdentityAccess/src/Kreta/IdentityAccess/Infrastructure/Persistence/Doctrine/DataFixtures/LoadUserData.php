@@ -12,11 +12,11 @@
 
 declare(strict_types=1);
 
-namespace Kreta\TaskManager\Infrastructure\Persistence\Doctrine\DataFixtures;
+namespace Kreta\IdentityAccess\Infrastructure\Persistence\Doctrine\DataFixtures;
 
+use BenGorUser\User\Application\Command\SignUp\SignUpUserCommand;
 use Doctrine\Common\Persistence\ObjectManager;
 use Kreta\SharedKernel\Infrastructure\Persistence\Doctrine\DataFixtures\AbstractFixture;
-use Kreta\TaskManager\Application\Command\User\AddUserCommand;
 
 class LoadUserData extends AbstractFixture
 {
@@ -35,8 +35,11 @@ class LoadUserData extends AbstractFixture
         $i = 0;
         while ($i < $this->amount()) {
             $this->commandBus()->handle(
-                new AddUserCommand(
-                    $this->getRandomUserByIndex($i)
+                new SignUpUserCommand(
+                    'user' . $i . '@kreta.io',
+                    '123456',
+                    ['ROLE_USER'],
+                    $this->fakeIds()[$i]
                 )
             );
             ++$i;

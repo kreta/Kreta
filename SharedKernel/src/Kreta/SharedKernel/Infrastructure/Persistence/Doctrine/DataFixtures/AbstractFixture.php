@@ -12,12 +12,12 @@
 
 declare(strict_types=1);
 
-namespace Kreta\TaskManager\Infrastructure\Persistence\Doctrine\DataFixtures;
+namespace Kreta\SharedKernel\Infrastructure\Persistence\Doctrine\DataFixtures;
 
 use Doctrine\Common\DataFixtures\AbstractFixture as BaseAbstractFixture;
 use Doctrine\Common\DataFixtures\OrderedFixtureInterface;
-use Kreta\SharedKernel\Application\CommandBus;
 use Kreta\SharedKernel\Application\QueryBus;
+use Kreta\SharedKernel\Domain\Model\Exception;
 use Symfony\Component\Yaml\Yaml;
 
 abstract class AbstractFixture extends BaseAbstractFixture implements OrderedFixtureInterface
@@ -27,7 +27,10 @@ abstract class AbstractFixture extends BaseAbstractFixture implements OrderedFix
 
     abstract protected function type() : string;
 
-    protected function commandBus() : CommandBus
+    // It does not possible enable this return type because IdentityAccess,
+    // uses the BenGorUser so, the command bus is not a shared kernel's
+    // command bus instance.
+    protected function commandBus() // : \Kreta\SharedKernel\Application\CommandBus
     {
         return $this->commandBus;
     }
@@ -41,7 +44,7 @@ abstract class AbstractFixture extends BaseAbstractFixture implements OrderedFix
     {
         return Yaml::parse(
             file_get_contents(
-                __DIR__ . '/../DataFixtures/FakeData/' . $this->type() . '_ids.yml'
+                $this->fakeDataDir() . '/' . $this->type() . '_ids.yml'
             )
         );
     }
@@ -81,4 +84,23 @@ abstract class AbstractFixture extends BaseAbstractFixture implements OrderedFix
         return $result < 0 ? $result + $second : $result;
     }
 
+    private function fakeDataDir()
+    {
+        $baseDir = __DIR__ . '/../../../../../../../../../../src/Kreta' .
+            '/%s/Infrastructure/Persistence/Doctrine/DataFixtures/FakeData/';
+
+        $identityAccessDir = sprintf($baseDir, 'IdentityAccess');
+        $taskManagerDir = sprintf($baseDir, 'TaskManager');
+
+        if (is_dir($identityAccessDir)) {
+            return $identityAccessDir;
+        }
+        if (is_dir($taskManagerDir)) {
+            return $taskManagerDir;
+        }
+        if ($this->type() === 'user') {
+            return __DIR__ . '/../DataFixtures/FakeData';
+        }
+        throw new Exception('The identity access and task manager fake data dirs are not valid');
+    }
 }
