@@ -1,0 +1,36 @@
+# This file is part of the Kreta package.
+#
+# (c) Beñat Espiña <benatespina@gmail.com>
+# (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+
+---
+-
+    hosts: all
+    become: yes
+    become_user: root
+    become_method: su
+    vars_files:
+        - parameters.yml
+        - vars/mysql.yml
+        - vars/php.yml
+        - vars/rabbitmq.yml
+        - vars/security.yml
+        - vars/firewall.yml
+        - vars/nginx.yml
+    roles:
+        - geerlingguy.repo-remi
+        - geerlingguy.mysql
+        - geerlingguy.nginx
+        - geerlingguy.php
+        - openstack-ansible-galaxy.rabbitmq
+        - geerlingguy.firewall
+        - geerlingguy.security
+        - geerlingguy.git
+        - kbrebanov.unzip
+    tasks:
+        - include: tasks/users.yml
+        - include: tasks/hosts.yml
+

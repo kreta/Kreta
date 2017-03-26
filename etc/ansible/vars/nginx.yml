@@ -1,0 +1,71 @@
+# This file is part of the Kreta package.
+#
+# (c) Beñat Espiña <benatespina@gmail.com>
+# (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+
+nginx_user: "{{ security.deploy_user }}"
+nginx_extra_http_options: |
+    fastcgi_buffer_size 128k;
+    fastcgi_buffers 4 256k;
+    fastcgi_busy_buffers_size 256k;
+nginx_vhosts:
+    -
+        listen: '80'
+        server_name: "{{ kreta.domains.composite_ui }}"
+        root: "/var/www/kreta.io/CompositeUi/build"
+        index: "index.html"
+        extra_parameters: |
+            location / {
+                try_files $uri /index.html;
+            }
+    -
+        listen: '80'
+        server_name: "{{ kreta.domains.identity_access }}"
+        root: "/var/www/kreta.io/IdentityAccess/src/Kreta/IdentityAccess/Infrastructure/Ui/Http/Symfony/public/"
+        index: "app.php"
+        access_log: "/var/log/nginx/identityaccess_error.log"
+        error_log: "/var/log/nginx/identityaccess_access.log"
+        extra_parameters: |
+            location / {
+                try_files $uri /app.php$is_args$args;
+            }
+
+            location ~ ^/app\.php(/|$) {
+                fastcgi_pass 127.0.0.1:9000;
+                fastcgi_split_path_info ^(.+\.php)(/.*)$;
+                include fastcgi_params;
+                fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+                fastcgi_param DOCUMENT_ROOT $realpath_root;
+                internal;
+            }
+
+            location ~ \.php$ {
+                return 404;
+            }
+    -
+        listen: '80'
+        server_name: "{{ kreta.domains.task_manager }}"
+        root: "/var/www/kreta.io/TaskManager/src/Kreta/TaskManager/Infrastructure/Ui/Http/Symfony/public/"
+        index: "app.php"
+        access_log: "/var/log/nginx/taskmanager_error.log"
+        error_log: "/var/log/nginx/taskmanager_access.log"
+        extra_parameters: |
+            location / {
+                try_files $uri /app.php$is_args$args;
+            }
+
+            location ~ ^/app\.php(/|$) {
+                fastcgi_pass 127.0.0.1:9000;
+                fastcgi_split_path_info ^(.+\.php)(/.*)$;
+                include fastcgi_params;
+                fastcgi_param SCRIPT_FILENAME $realpath_root$fastcgi_script_name;
+                fastcgi_param DOCUMENT_ROOT $realpath_root;
+                internal;
+            }
+
+            location ~ \.php$ {
+                return 404;
+            }
