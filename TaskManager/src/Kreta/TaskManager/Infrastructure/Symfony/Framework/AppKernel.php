@@ -49,7 +49,7 @@ use Warezgibzzz\QueryBusBundle\WarezgibzzzQueryBusBundle;
 
 class AppKernel extends Kernel
 {
-    public function registerBundles()
+    public function registerBundles() : array
     {
         $bundles = [
             new AppBundle(),
@@ -80,22 +80,22 @@ class AppKernel extends Kernel
         return $bundles;
     }
 
-    public function getRootDir()
+    public function getRootDir() : string
     {
         return __DIR__;
     }
 
-    public function getCacheDir()
+    public function getCacheDir() : string
     {
         return dirname(__DIR__) . '/../../../../../var/cache/' . $this->getEnvironment();
     }
 
-    public function getLogDir()
+    public function getLogDir() : string
     {
         return dirname(__DIR__) . '/../../../../../var/logs';
     }
 
-    public function registerContainerConfiguration(LoaderInterface $loader)
+    public function registerContainerConfiguration(LoaderInterface $loader) : void
     {
         $loader->load($this->getRootDir() . '/config/config_' . $this->getEnvironment() . '.yml');
     }
