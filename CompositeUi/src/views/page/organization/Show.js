@@ -10,26 +10,24 @@
 
 import SettingsIcon from './../../../svg/settings';
 
-import React from 'react';
-import {connect} from 'react-redux';
-import {Link} from 'react-router';
-
-import {routes} from './../../../Routes';
-
+import AddMemberToOrganization from '../organization/AddMemberToOrganization';
 import Button from './../../component/Button';
 import CardExtended from './../../component/CardExtended';
+import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
+import ContentRightLayout from './../../layout/ContentRightLayout';
+import CurrentOrganizationActions from './../../../actions/CurrentOrganization';
 import Icon from './../../component/Icon';
 import InlineLink from './../../component/InlineLink';
 import LoadingSpinner from './../../component/LoadingSpinner';
 import PageHeader from './../../component/PageHeader';
-import {Row, RowColumn} from './../../component/Grid';
-import AddMemberToOrganization from '../organization/AddMemberToOrganization';
+import React from 'react';
 import SectionHeader from './../../component/SectionHeader';
 import Thumbnail from './../../component/Thumbnail';
-import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
-import ContentRightLayout from './../../layout/ContentRightLayout';
-import CurrentOrganizationActions from './../../../actions/CurrentOrganization';
 import UserCard from './../../component/UserCard';
+import { connect } from 'react-redux';
+import { Link } from 'react-router';
+import { routes } from './../../../Routes';
+import { Row, RowColumn } from './../../component/Grid';
 
 @connect(state => ({currentOrganization: state.currentOrganization}))
 class Show extends React.Component {
@@ -38,7 +36,6 @@ class Show extends React.Component {
   };
 
   componentDidMount() {
-    console.log(this.props);
     const {params, dispatch} = this.props;
     dispatch(CurrentOrganizationActions.fetchOrganization(params.organization));
   }

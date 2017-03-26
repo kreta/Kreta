@@ -10,12 +10,12 @@
 
 import './../../../scss/views/page/project/_settings';
 
+import Button from './../../component/Button';
+import MemberActions from './../../../actions/Member';
 import React from 'react';
 import Search from './../../component/SearchMember';
-import {connect} from 'react-redux';
-import MemberActions from './../../../actions/Member';
 import UserPreview from './../../component/UserPreview';
-import Button from './../../component/Button';
+import { connect } from 'react-redux';
 
 @connect(state => ({currentOrganization: state.currentOrganization}))
 class AddMemberToOrganization extends React.Component {
@@ -44,7 +44,6 @@ class AddMemberToOrganization extends React.Component {
           <Button color="green"
               onClick={this.triggerOnMemberaddClicked.bind(this, member)}
               type="icon">
-              <i className="fa fa-plus"/>
           </Button>
           );
 

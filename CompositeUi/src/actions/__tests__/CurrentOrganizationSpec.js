@@ -7,11 +7,11 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-import CurrentOrganizationAction from '../../actions/CurrentOrganization'
-import ActionTypes from '../../constants/ActionTypes'
-import configureMockStore from 'redux-mock-store'
-import thunk from 'redux-thunk'
+
+import configureMockStore from 'redux-mock-store';
+import CurrentOrganizationAction from '../../actions/CurrentOrganization';
 import TaskManagerGraphQl from './../../api/graphql/TaskManagerGraphQl';
+import thunk from 'redux-thunk';
 
 const middlewares = [ thunk ];
 const mockStore = configureMockStore(middlewares);
@@ -26,7 +26,7 @@ describe('Current organization actions', () => {
           )
       );
       const store = mockStore({ concerts: [] });
-      return store.dispatch(CurrentOrganizationAction.fetchOrganization()).then(() => { // return of async actions
+      return store.dispatch(CurrentOrganizationAction.fetchOrganization()).then(() => {
           expect(store.getActions()).toEqual(expectedAction)
       });
   });

@@ -58,7 +58,8 @@ abstract class Member
         return $this->userId;
     }
 
-    public function removeOrganization() {
+    public function removeOrganization()
+    {
         $this->organization = null;
 
         return $this;

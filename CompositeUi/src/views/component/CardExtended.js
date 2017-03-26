@@ -60,7 +60,6 @@ class CardExtended extends React.Component {
           <Button color="red"
             onClick={this.triggerOnMemberRemoveClicked.bind(this, this.props.member)}
             type="icon">
-            <i className="fa fa-plus"/>
           </Button>);
     }
     return (
