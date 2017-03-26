@@ -20,3 +20,13 @@
     shell: "{{php_path}} etc/bin/symfony-console doctrine:migrations:migrate --quiet --no-interaction"
     args:
         chdir: "{{ ansistrano_release_path.stdout }}/IdentityAccess"
+
+-
+    name: Build composite ui locally
+    local_action: "command cd {{ playbook_dir }}/../../CompositeUi && yarn build"
+
+-
+    name: Upload build folder
+    synchronize:
+        src: "{{ playbook_dir }}/../../CompositeUi/build"
+        dest: "{{ ansistrano_release_path.stdout }}/CompositeUi"

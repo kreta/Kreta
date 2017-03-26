@@ -10,7 +10,7 @@ ansistrano_git_branch: "master"
 ansistrano_before_symlink_shared_tasks_file: "{{ playbook_dir }}/config/before-symlink-shared.yml"
 ansistrano_after_symlink_shared_tasks_file: "{{ playbook_dir }}/config/after-symlink-shared.yml"
 
-ansistrano_shared_folders:
+ansistrano_shared_paths:
     - IdentityAccess/var/jwt
     - IdentityAccess/var/logs
     - IdentityAccess/var/sessions

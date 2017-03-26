@@ -12,4 +12,4 @@
     file:
         state: directory
         path: "{{ ansistrano_deploy_to }}/shared/{{ item }}"
-    with_items: "{{ ansistrano_shared_folders }}"
+    with_items: "{{ ansistrano_shared_paths }}"
