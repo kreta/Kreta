@@ -20,12 +20,12 @@ use Kreta\TaskManager\Domain\Model\User\UserId;
 
 abstract class MemberCollection extends Collection
 {
-    public function contains($element)
+    public function contains($element) : bool
     {
         return $this->containsUserId($element->userId());
     }
 
-    public function containsUserId(UserId $userId)
+    public function containsUserId(UserId $userId) : bool
     {
         $members = $this->toArray();
         foreach ($members as $member) {
@@ -37,17 +37,21 @@ abstract class MemberCollection extends Collection
         return false;
     }
 
-    public function removeByUserId(UserId $userId)
+    public function removeByUserId(UserId $userId) : void
     {
         $members = $this->toArray();
         foreach ($members as $member) {
             if ($userId->equals($member->userId())) {
                 $this->remove($member);
+
+                // This line it's a hack for Doctrine ORM
+                // to enforce the bidirectional relationship
+                // between member and organization.
                 $member->removeOrganization();
-                return $this;
+
+                return;
             }
         }
-
         throw new CollectionElementAlreadyRemovedException();
     }
 }
