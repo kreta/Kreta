@@ -31,7 +31,7 @@ class SearchAction
     public function __invoke(Request $request) : JsonResponse
     {
         $search = $request->query->get('query');
-        $excludedIds = explode(',', $request->query->get('excluded_ids'));
+        $excludedIds = explode(',', $request->query->get('excluded_ids', ''));
 
         $this->queryBus->handle(
             new UsersOfSearchStringQuery(
