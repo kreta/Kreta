@@ -19,7 +19,7 @@ class UsersOfSearchStringQuery
     private $search;
     private $excludedIds;
 
-    public function __construct($search, $excludedIds)
+    public function __construct(string $search, array $excludedIds = [])
     {
         $this->search = $search;
         $this->excludedIds = $excludedIds;
@@ -34,6 +34,4 @@ class UsersOfSearchStringQuery
     {
         return $this->excludedIds;
     }
-
-
 }
