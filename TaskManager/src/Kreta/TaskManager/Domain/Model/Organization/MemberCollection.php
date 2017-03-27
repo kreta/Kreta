@@ -42,16 +42,24 @@ abstract class MemberCollection extends Collection
         $members = $this->toArray();
         foreach ($members as $member) {
             if ($userId->equals($member->userId())) {
-                $this->remove($member);
-
-                // This line it's a hack for Doctrine ORM
-                // to enforce the bidirectional relationship
-                // between member and organization.
-                $member->removeOrganization();
+                $this->removeMember($member);
 
                 return;
             }
         }
         throw new CollectionElementAlreadyRemovedException();
+    }
+
+    private function removeMember(Member $member) : void
+    {
+        $this->remove($member);
+
+        // This line it's a hack for Doctrine ORM
+        // to enforce the bidirectional relationship
+        // between member and organization.
+        $memberReflection = new \ReflectionClass($member);
+        $property = $memberReflection->getProperty('organization');
+        $property->setAccessible(true);
+        $property->setValue($member, null);
     }
 }

@@ -146,13 +146,15 @@ class Organization extends AggregateRoot
         return new OwnerCollection($this->owners->getValues());
     }
 
-    public function owner(UserId $userId)
+    public function owner(UserId $userId) : ?Owner
     {
         foreach ($this->owners() as $owner) {
             if ($userId->equals($owner->userId())) {
                 return $owner;
             }
         }
+
+        return null;
     }
 
     public function slug() : Slug

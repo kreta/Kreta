@@ -44,7 +44,6 @@ class DoctrineORMOrganizationRepository extends EntityRepository implements Orga
         $this->getEntityManager()->persist($organization);
     }
 
-
     public function remove(Organization $organization)
     {
         $this->getEntityManager()->remove($organization);

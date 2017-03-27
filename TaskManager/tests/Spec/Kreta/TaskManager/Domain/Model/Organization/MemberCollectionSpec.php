@@ -55,7 +55,6 @@ class MemberCollectionSpec extends ObjectBehavior
     {
         $member->userId()->shouldBeCalled()->willReturn($userId);
         $userId->equals($userId)->shouldBeCalled()->willReturn(true);
-        $member->removeOrganization()->shouldBeCalled();
         $this->removeByUserId($userId);
     }
 
