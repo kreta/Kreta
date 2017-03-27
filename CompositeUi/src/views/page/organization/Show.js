@@ -74,14 +74,16 @@ class Show extends React.Component {
     const {organization} = this.props.currentOrganization;
 
     return organization.organization_members.map((member, index) => (
-      <CardExtended
+      <UserCard
+        actions={
+          <Button
+            color="red"
+            onClick={this.removeMember.bind(this, member)}
+            type="icon"
+          />
+        }
         key={index}
-        member={member}
-        onMemberRemoveClicked={this.removeMember.bind(this)}
-        subtitle={`@${member.user_name}`}
-        thumbnail={<Thumbnail image={member.image} text={`${member.first_name} ${member.last_name}`}/>}
-        title={`${member.first_name} ${member.last_name}`}
-        type="member"
+        user={member}
       />
     ));
   }
@@ -90,25 +92,25 @@ class Show extends React.Component {
     this.setState({addParticipantsVisible: true});
   }
 
-  removeMember(participant) {
+  removeMember(member) {
     const {currentOrganization, dispatch, profile} = this.props;
-
-    console.log(profile);
 
     dispatch(
       CurrentOrganizationActions.removeMember(
         currentOrganization.organization.id,
-        participant.id,
+        member.id,
         profile.user_id
       )
     );
   }
 
-  addMember(participant) {
-    this.props.dispatch(
+  addMember(member) {
+    const {currentOrganization, dispatch} = this.props;
+
+    dispatch(
       CurrentOrganizationActions.addMember(
-        this.props.currentOrganization.organization.id,
-        participant.id
+        currentOrganization.organization.id,
+        member.id
       )
     );
   }

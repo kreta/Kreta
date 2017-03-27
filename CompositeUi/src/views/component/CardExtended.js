@@ -11,7 +11,6 @@
 import './../../scss/components/_card-extended';
 
 import React from 'react';
-import Button from './Button';
 
 class CardExtended extends React.Component {
   static propTypes = {
@@ -34,10 +33,6 @@ class CardExtended extends React.Component {
     return '';
   }
 
-  triggerOnMemberRemoveClicked(participant) {
-    this.props.onMemberRemoveClicked(participant);
-  }
-
   subtitle() {
     const {subtitle} = this.props;
 
@@ -54,14 +49,7 @@ class CardExtended extends React.Component {
 
   render() {
     const {title, children} = this.props;
-    const actions = [];
-    if (this.props.type === "member") {
-      actions.push(
-          <Button color="red"
-            onClick={this.triggerOnMemberRemoveClicked.bind(this, this.props.member)}
-            type="icon">
-          </Button>);
-    }
+
     return (
       <div className="card-extended">
         {this.thumbnail()}
@@ -73,9 +61,6 @@ class CardExtended extends React.Component {
         </div>
         <div className="card-extended__actions">
           {children}
-        </div>
-        <div className="user-preview__actions">
-          {actions[0]}
         </div>
       </div>
     );

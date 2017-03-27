@@ -8,14 +8,14 @@
  * file that was distributed with this source code.
  */
 
-import './../../../scss/views/page/project/_settings';
+import {connect} from 'react-redux';
+import React from 'react';
+
+import MemberActions from './../../../actions/Member';
 
 import Button from './../../component/Button';
-import MemberActions from './../../../actions/Member';
-import React from 'react';
 import Search from './../../component/SearchMember';
-import UserPreview from './../../component/UserPreview';
-import { connect } from 'react-redux';
+import UserCard from './../../component/UserCard';
 
 @connect(state => ({currentOrganization: state.currentOrganization}))
 class AddMemberToOrganization extends React.Component {
@@ -24,53 +24,54 @@ class AddMemberToOrganization extends React.Component {
     organization: React.PropTypes.object
   };
 
-  filterMembersToAdd(q) {
-    this.props.dispatch(
+  filterMembersToAdd(query) {
+    const {currentOrganization, dispatch} = this.props;
+
+    dispatch(
       MemberActions.fetchMembersToAdd(
-        q,
-        this.props.currentOrganization.organization.organization_members.map((item) => item.id)
+        query,
+        currentOrganization.organization.organization_members.map((item) => item.id)
       )
     );
   }
 
-  triggerOnMemberaddClicked(participant) {
-    this.props.onMemberAddClicked(participant);
+  addMember(member) {
+    const {onMemberAddClicked} = this.props;
+
+    onMemberAddClicked(member);
   }
 
   renderMembersToAdd() {
-    return this.props.currentOrganization.potential_members
-      .map((member, index) => {
-        const actions = (
-          <Button color="green"
-              onClick={this.triggerOnMemberaddClicked.bind(this, member)}
-              type="icon">
-          </Button>
-          );
+    const {currentOrganization} = this.props;
 
-        return (
-          <div className="MemberList" key={index}>
-            <UserPreview actions={actions}
-               key={index}
-               user={member}/>
-          </div>
-        );
-      });
+    return currentOrganization.potential_members
+      .map((member, index) => (
+        <div className="MemberList" key={index}>
+          <UserCard
+            actions={
+              <Button
+                color="green"
+                onClick={this.addMember.bind(this, member)}
+                type="icon"
+              />
+            }
+            user={member}
+          />
+        </div>
+      ));
   }
 
   onChangeSearch(event) {
     const query = event.target.value;
+
     this.filterMembersToAdd(query);
   }
 
   render() {
     return (
-      <div className="project-settings__not-participating">
-          <Search
-              onChange={this.onChangeSearch.bind(this)}
-          />
-          <div>
-              { this.renderMembersToAdd() }
-          </div>
+      <div>
+        <Search onChange={this.onChangeSearch.bind(this)}/>
+        {this.renderMembersToAdd()}
       </div>
     );
   }
