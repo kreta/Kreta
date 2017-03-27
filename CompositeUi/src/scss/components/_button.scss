@@ -37,18 +37,6 @@
   }
 }
 
-.button--red {
-  background-color: $main-red;
-  border: 1px solid $main-red;
-  color: $white;
-  transition-property: background;
-
-  &:hover,
-  &:focus {
-    background-color: darken($main-red, 10%);
-  }
-}
-
 .button--green {
   background-color: $main-green;
   border: 1px solid $main-green;

@@ -11,21 +11,17 @@
 import ActionTypes from './../constants/ActionTypes';
 
 const initialState = {
-    potential_members: []
+  potential_members: []
 };
 
 export default function reducer(state = initialState, action = {}) {
-    switch (action.type) {
-        case ActionTypes.MEMBERS_TO_ADD_RECEIVED: {
-            return {
-                ...state,
-                fetching: false,
-                potential_members: action.users
-            };
-        }
-
-        default: {
-            return state;
-        }
+  switch (action.type) {
+    case ActionTypes.MEMBERS_TO_ADD_RECEIVED: {
+      return {...state, fetching: false, potential_members: action.users};
     }
+
+    default: {
+      return state;
+    }
+  }
 }
