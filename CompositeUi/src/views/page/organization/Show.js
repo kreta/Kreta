@@ -10,26 +10,29 @@
 
 import SettingsIcon from './../../../svg/settings';
 
+import React from 'react';
+import {connect} from 'react-redux';
+import {Link} from 'react-router';
+
+import {routes} from './../../../Routes';
+
+import CurrentOrganizationActions from './../../../actions/CurrentOrganization';
+
 import AddMemberToOrganization from '../organization/AddMemberToOrganization';
 import Button from './../../component/Button';
 import CardExtended from './../../component/CardExtended';
 import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
 import ContentRightLayout from './../../layout/ContentRightLayout';
-import CurrentOrganizationActions from './../../../actions/CurrentOrganization';
 import Icon from './../../component/Icon';
 import InlineLink from './../../component/InlineLink';
 import LoadingSpinner from './../../component/LoadingSpinner';
 import PageHeader from './../../component/PageHeader';
-import React from 'react';
 import SectionHeader from './../../component/SectionHeader';
 import Thumbnail from './../../component/Thumbnail';
 import UserCard from './../../component/UserCard';
-import { connect } from 'react-redux';
-import { Link } from 'react-router';
-import { routes } from './../../../Routes';
-import { Row, RowColumn } from './../../component/Grid';
+import {Row, RowColumn} from './../../component/Grid';
 
-@connect(state => ({currentOrganization: state.currentOrganization}))
+@connect(state => ({currentOrganization: state.currentOrganization, profile: state.profile.profile}))
 class Show extends React.Component {
   state = {
     addParticipantsVisible: false
@@ -37,6 +40,7 @@ class Show extends React.Component {
 
   componentDidMount() {
     const {params, dispatch} = this.props;
+
     dispatch(CurrentOrganizationActions.fetchOrganization(params.organization));
   }
 
@@ -70,15 +74,15 @@ class Show extends React.Component {
     const {organization} = this.props.currentOrganization;
 
     return organization.organization_members.map((member, index) => (
-        <CardExtended
-            key={index}
-            member={member}
-            onMemberRemoveClicked={this.removeMember.bind(this)}
-            subtitle={`@${member.user_name}`}
-            thumbnail={<Thumbnail image={member.image} text={`${member.first_name} ${member.last_name}`}/>}
-            title={`${member.first_name} ${member.last_name}`}
-            type="member"
-        />
+      <CardExtended
+        key={index}
+        member={member}
+        onMemberRemoveClicked={this.removeMember.bind(this)}
+        subtitle={`@${member.user_name}`}
+        thumbnail={<Thumbnail image={member.image} text={`${member.first_name} ${member.last_name}`}/>}
+        title={`${member.first_name} ${member.last_name}`}
+        type="member"
+      />
     ));
   }
 
@@ -87,12 +91,16 @@ class Show extends React.Component {
   }
 
   removeMember(participant) {
-    this.props.dispatch(
-        CurrentOrganizationActions.removeMember(
-            this.props.currentOrganization.organization.id,
-            participant.id,
-            'a38f8ef4-400b-4229-a5ff-712ff5f72b27'
-        )
+    const {currentOrganization, dispatch, profile} = this.props;
+
+    console.log(profile);
+
+    dispatch(
+      CurrentOrganizationActions.removeMember(
+        currentOrganization.organization.id,
+        participant.id,
+        profile.user_id
+      )
     );
   }
 
@@ -100,8 +108,8 @@ class Show extends React.Component {
     this.props.dispatch(
       CurrentOrganizationActions.addMember(
         this.props.currentOrganization.organization.id,
-          participant.id
-        )
+        participant.id
+      )
     );
   }
 
@@ -140,29 +148,29 @@ class Show extends React.Component {
             </RowColumn>
             <RowColumn medium={6}>
               <SectionHeader
-                  actions={
-                    <Button color="green">
-                      Add Owners
-                    </Button>
-                  }
-                  title="Owners"
+                actions={
+                  <Button color="green">
+                    Add Owners
+                  </Button>
+                }
+                title="Owners"
               />
               {this.getOwners()}
               <SectionHeader
-                  actions={
-                    <Button color="green" onClick={this.showAddParticipants.bind(this)}>
-                      Add Members
-                    </Button>
-                  }
-                  title="Members"/>
+                actions={
+                  <Button color="green" onClick={this.showAddParticipants.bind(this)}>
+                    Add Members
+                  </Button>
+                }
+                title="Members"/>
               {this.getMembers()}
             </RowColumn>
           </Row>
         </ContentMiddleLayout>
         <ContentRightLayout isOpen={this.state.addParticipantsVisible}>
           <AddMemberToOrganization
-              onMemberAddClicked={this.addMember.bind(this)}
-              organization={this.props.currentOrganization}
+            onMemberAddClicked={this.addMember.bind(this)}
+            organization={this.props.currentOrganization}
           />
         </ContentRightLayout>
       </div>

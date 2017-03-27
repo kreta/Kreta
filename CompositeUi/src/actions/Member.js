@@ -13,8 +13,8 @@ import Users from './../api/rest/User/Users';
 
 const Actions = {
   fetchMembersToAdd: (query, excludedIds) => (dispatch) => {
-
-    Users.getByName({query, excludedIds})
+    console.log(excludedIds);
+    Users.search({query, excluded_ids: excludedIds})
       .then((users) => {
         dispatch({
           type: ActionTypes.MEMBERS_TO_ADD_RECEIVED,
