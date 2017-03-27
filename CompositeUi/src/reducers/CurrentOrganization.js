@@ -27,11 +27,11 @@ export default function reducer(state = initialState, action = {}) {
     }
 
     case ActionTypes.CURRENT_ORGANIZATION_MEMBER_REMOVED : {
-      const
-        newOrganization = state.organization,
-        members = newOrganization.organization_members.filter((member) => member.id !== action.user);
+      const newOrganization = state.organization;
 
-      newOrganization.organization_members = members;
+      newOrganization.organization_members = newOrganization.organization_members.filter(
+        (member) => member.id !== action.user
+      );
 
       return {...state, fetching: false, organization: newOrganization};
     }
