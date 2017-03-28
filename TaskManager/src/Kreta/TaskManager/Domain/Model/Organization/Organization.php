@@ -122,7 +122,9 @@ class Organization extends AggregateRoot
 
     public function organizationMembers()
     {
-        return new OrganizationMemberCollection($this->organizationMembers->getValues());
+        $this->organizationMembers = new OrganizationMemberCollection($this->organizationMembers->getValues());
+
+        return $this->organizationMembers;
     }
 
     public function organizationMember(UserId $userId)
@@ -143,7 +145,9 @@ class Organization extends AggregateRoot
 
     public function owners() : OwnerCollection
     {
-        return new OwnerCollection($this->owners->getValues());
+        $this->owners = new OwnerCollection($this->owners->getValues());
+
+        return $this->owners;
     }
 
     public function owner(UserId $userId) : ?Owner
