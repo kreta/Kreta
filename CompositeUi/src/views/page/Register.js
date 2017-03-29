@@ -8,15 +8,16 @@
  * file that was distributed with this source code.
  */
 
-import React from 'react';
 import {connect} from 'react-redux';
+import React from 'react';
+
+import UserActions from './../../actions/User';
 
 import ContentLayout from './../layout/ContentLayout';
 import ContentMiddleLayout from './../layout/ContentMiddleLayout';
+import LogoCustomHeader from './../component/LogoCustomHeader';
 import NotificationLayout from './../layout/NotificationLayout';
 import Register from './../form/Register';
-import LogoCustomHeader from './../component/LogoCustomHeader';
-import UserActions from './../../actions/User';
 
 @connect()
 class RegisterPage extends React.Component {

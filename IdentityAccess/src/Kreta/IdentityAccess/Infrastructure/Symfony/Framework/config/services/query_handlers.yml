@@ -16,3 +16,13 @@ services:
             -
                 name: query_handler
                 handles: Kreta\IdentityAccess\Application\Query\UsersOfIdsQuery
+
+    kreta.identity_access.query_handler.users_of_search_string:
+        class: Kreta\IdentityAccess\Application\Query\UsersOfSearchStringHandler
+        arguments:
+            - "@bengor_user.user.repository"
+            - "@bengor_user.user.dto_data_transformer"
+        tags:
+            -
+                name: query_handler
+                handles: Kreta\IdentityAccess\Application\Query\UsersOfSearchStringQuery

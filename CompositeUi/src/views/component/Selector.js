@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-import './../../scss/components/_selector';
+import './../../scss/components/_selector.scss';
 
 import classnames from 'classnames';
 import React from 'react';

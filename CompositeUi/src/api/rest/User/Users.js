@@ -14,6 +14,10 @@ class Users {
   get(ids) {
     return IdentityAccessRest.get('/users', ids);
   }
+
+  search(query) {
+    return IdentityAccessRest.get('/q', query);
+  }
 }
 
 const instance = new Users();

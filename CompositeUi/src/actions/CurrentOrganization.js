@@ -16,6 +16,7 @@ import ActionTypes from './../constants/ActionTypes';
 import CreateProjectMutationRequest from './../api/graphql/mutation/CreateProjectMutationRequest';
 import EditProjectMutationRequest from './../api/graphql/mutation/EditProjectMutationRequest';
 import OrganizationQueryRequest from './../api/graphql/query/OrganizationQueryRequest';
+import Organization from './../api/rest/User/Organization';
 import TaskManagerGraphQl from './../api/graphql/TaskManagerGraphQl';
 import UserInjector from './../helpers/UserInjector';
 
@@ -91,6 +92,24 @@ const Actions = {
         dispatch({
           type: ActionTypes.PROJECT_EDIT_ERROR,
           errors: response.source.errors
+        });
+      });
+  },
+  addMember: (organization, user) => (dispatch) => {
+    Organization.post(organization, user)
+      .then(() => {
+        dispatch({
+          type: ActionTypes.CURRENT_ORGANIZATION_MEMBER_ADDED,
+          user
+        });
+      });
+  },
+  removeMember: (organization, user, remover) => (dispatch) => {
+    Organization.delete(organization, user, remover)
+      .then(() => {
+        dispatch({
+          type: ActionTypes.CURRENT_ORGANIZATION_MEMBER_REMOVED,
+          user
         });
       });
   }

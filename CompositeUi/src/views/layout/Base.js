@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-import './../../scss/layout/_base';
+import './../../scss/layout/_base.scss';
 
 import {connect} from 'react-redux';
 import React from 'react';

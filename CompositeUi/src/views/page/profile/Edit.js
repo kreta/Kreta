@@ -11,8 +11,9 @@
 import {connect} from 'react-redux';
 import React from 'react';
 
-import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
 import ProfileActions from './../../../actions/Profile';
+
+import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
 import ProfileEdit from './../../form/ProfileEdit';
 
 @connect()

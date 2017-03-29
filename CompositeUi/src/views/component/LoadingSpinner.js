@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-import './../../scss/components/_loading-spinner';
+import './../../scss/components/_loading-spinner.scss';
 
 import React from 'react';
 

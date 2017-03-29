@@ -11,7 +11,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
-import './../../scss/components/_icon';
+import './../../scss/components/_icon.scss';
 
 class Icon extends React.Component {
   static propTypes = {

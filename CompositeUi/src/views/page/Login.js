@@ -8,16 +8,17 @@
  * file that was distributed with this source code.
  */
 
-import React from 'react';
 import {connect} from 'react-redux';
+import React from 'react';
+
+import UserActions from './../../actions/User';
 
 import ContentLayout from './../layout/ContentLayout';
 import ContentMiddleLayout from './../layout/ContentMiddleLayout';
-import NotificationLayout from './../layout/NotificationLayout';
 import LoadingSpinner from './../component/LoadingSpinner';
 import Login from './../form/Login';
 import LogoCustomHeader from './../component/LogoCustomHeader';
-import UserActions from './../../actions/User';
+import NotificationLayout from './../layout/NotificationLayout';
 
 @connect(state => ({authorizing: state.user.updatingAuthorization}))
 class LoginPage extends React.Component {

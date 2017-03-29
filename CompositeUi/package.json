@@ -50,7 +50,7 @@
     "transform": {
       "^.+\\.(js|jsx)$": "<rootDir>/node_modules/babel-jest",
       "^.+\\.(scss|css)$": "<rootDir>/config/jest/cssTransform.js",
-      "^(?!.*\\.(js|scss|css|json)$)": "<rootDir>/config/jest/fileTransform.js"
+      "^(?!.*\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$)": "<rootDir>/config/jest/fileTransform.js"
     },
     "transformIgnorePatterns": [
       "[/\\\\]node_modules[/\\\\].+\\.js$"
@@ -60,12 +60,13 @@
       "<rootDir>/node_modules/react-dom"
     ],
     "moduleNameMapper": {
+      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/src/__mocks__/fileMock.js",
       "\\.scss$": "<rootDir>/src/__mocks__/styleMock.js"
     }
   },
   "babel": {
     "presets": [
-      "stage-2",
+      "stage-3",
       "es2015",
       "react"
     ],
@@ -109,7 +110,7 @@
     "babel-preset-es2015": "^6.18.0",
     "babel-preset-react": "^6.16.0",
     "babel-preset-react-app": "^2.1.1",
-    "babel-preset-stage-2": "^6.18.0",
+    "babel-preset-stage-3": "^6.11.0",
     "babel-relay-plugin": "^0.9.3",
     "babel-runtime": "^6.20.0",
     "case-sensitive-paths-webpack-plugin": "^1.1.4",

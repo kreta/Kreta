@@ -8,13 +8,6 @@
  * file that was distributed with this source code.
  */
 
-import './../../scss/components/_shortcut-help.scss';
+'use strict';
 
-import React from 'react';
-
-export default props => (
-  <div className="shortcut-help">
-    <span className="shortcut-help__keyboard">{props.keyboard}</span>
-    {props.does}
-  </div>
-);
+module.exports = 'test-file-stub';

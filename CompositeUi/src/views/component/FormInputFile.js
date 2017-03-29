@@ -8,9 +8,9 @@
  * file that was distributed with this source code.
  */
 
-import './../../scss/components/_form-input-file';
+import './../../scss/components/_form-input-file.scss';
 
-import ImageIcon from './../../svg/image';
+import ImageIcon from './../../svg/image.svg';
 
 import React from 'react';
 

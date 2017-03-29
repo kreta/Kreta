@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-import './../../scss/components/_card-minimal';
+import './../../scss/components/_card-minimal.scss';
 
 import React from 'react';
 import {Link} from 'react-router';

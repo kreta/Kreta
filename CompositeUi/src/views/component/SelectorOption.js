@@ -8,10 +8,10 @@
  * file that was distributed with this source code.
  */
 
+import './../../scss/components/_selector-option.scss';
+
 import React from 'react';
 import classnames from 'classnames';
-
-import './../../scss/components/_selector-option';
 
 class SelectorOption extends React.Component {
   static propTypes = {

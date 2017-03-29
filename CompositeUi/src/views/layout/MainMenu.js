@@ -8,12 +8,12 @@
  * file that was distributed with this source code.
  */
 
-import './../../scss/layout/_main-menu';
+import './../../scss/layout/_main-menu.scss';
 
-import ExitIcon from './../../svg/exit';
-import InboxIcon from './../../svg/inbox';
-import LogoIcon from './../../svg/logo';
-import ProjectsIcon from './../../svg/projects';
+import ExitIcon from './../../svg/exit.svg';
+import InboxIcon from './../../svg/inbox.svg';
+import LogoIcon from './../../svg/logo.svg';
+import ProjectsIcon from './../../svg/projects.svg';
 
 import React from 'react';
 import {Link} from 'react-router';

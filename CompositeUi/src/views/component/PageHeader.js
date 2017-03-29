@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-import './../../scss/components/_page-header';
+import './../../scss/components/_page-header.scss';
 
 import React from 'react';
 

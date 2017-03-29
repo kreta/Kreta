@@ -26,6 +26,13 @@ kreta_identity_access_users:
     methods:
         - GET
 
+kreta_identity_access_search:
+    path: /q
+    defaults:
+        _controller: "kreta.identity_access.http_action.search:__invoke"
+    methods:
+        - GET
+
 kreta_identity_access_edit_profile:
     path: /user
     defaults:

@@ -82,7 +82,7 @@ class Organization extends AggregateRoot
 
     public function removeOrganizationMember(UserId $userId)
     {
-        $this->organizationMembers->removeByUserId($userId);
+        $this->organizationMembers()->removeByUserId($userId);
         $this->updatedOn = new \DateTimeImmutable();
 
         $this->publish(new OrganizationMemberRemoved($this->id, $userId));
@@ -93,7 +93,7 @@ class Organization extends AggregateRoot
         if ($this->owners()->count() === 1) {
             throw new UnauthorizedRemoveOwnerException();
         }
-        $this->owners->removeByUserId($userId);
+        $this->owners()->removeByUserId($userId);
         $this->updatedOn = new \DateTimeImmutable();
 
         $this->publish(new OwnerRemoved($this->id, $userId));
@@ -121,7 +121,9 @@ class Organization extends AggregateRoot
 
     public function organizationMembers()
     {
-        return new OrganizationMemberCollection($this->organizationMembers->getValues());
+        $this->organizationMembers = new OrganizationMemberCollection($this->organizationMembers->getValues());
+
+        return $this->organizationMembers;
     }
 
     public function organizationMember(UserId $userId)
@@ -142,16 +144,20 @@ class Organization extends AggregateRoot
 
     public function owners() : OwnerCollection
     {
-        return new OwnerCollection($this->owners->getValues());
+        $this->owners = new OwnerCollection($this->owners->getValues());
+
+        return $this->owners;
     }
 
-    public function owner(UserId $userId)
+    public function owner(UserId $userId) : ?Owner
     {
         foreach ($this->owners() as $owner) {
             if ($userId->equals($owner->userId())) {
                 return $owner;
             }
         }
+
+        return null;
     }
 
     public function slug() : Slug

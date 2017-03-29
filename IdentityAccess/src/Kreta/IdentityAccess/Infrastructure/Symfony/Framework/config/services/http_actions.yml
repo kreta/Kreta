@@ -17,6 +17,11 @@ services:
         arguments:
             - "@kreta.identity_access.query_bus"
 
+    kreta.identity_access.http_action.search:
+        class: Kreta\IdentityAccess\Infrastructure\Symfony\HttpAction\SearchAction
+        arguments:
+            - "@kreta.identity_access.query_bus"
+
     kreta.identity_access.http_action.edit_profile:
         class: Kreta\IdentityAccess\Infrastructure\Symfony\HttpAction\EditProfileAction
         arguments:
