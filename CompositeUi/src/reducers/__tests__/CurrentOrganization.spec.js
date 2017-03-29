@@ -8,9 +8,8 @@
  * file that was distributed with this source code.
  */
 
-import ActionTypes from '../../constants/ActionTypes'
-import reducer from '../CurrentOrganization'
-import * as Fixtures from '../../tests/Fixtures'
+import ActionTypes from './../../constants/ActionTypes'
+import reducer from './../CurrentOrganization'
 
 describe('Current organization reducer tests', () => {
   it('Initial State', () => {
@@ -19,7 +18,8 @@ describe('Current organization reducer tests', () => {
     ).toEqual({
       fetching: true,
       organization: null,
-      potential_members: []
+      potential_members: [],
+      projects: []
     });
   });
 
@@ -32,42 +32,93 @@ describe('Current organization reducer tests', () => {
   });
 
   it('Organization received', () => {
-    const organizationFixture = Fixtures.getOrganizationById(1);
-
     expect(
-      reducer({}, {type: ActionTypes.CURRENT_ORGANIZATION_RECEIVED, organization: organizationFixture})
+      reducer({}, {
+        type: ActionTypes.CURRENT_ORGANIZATION_RECEIVED,
+        organization: {
+          id: 1,
+          name: 'Organization 1',
+          organization_members: [{
+            id: 'id1'
+          }, {
+            id: 'id2'
+          }]
+        }
+      })
     ).toEqual({
-      fetching: false, organization: organizationFixture
+      fetching: false,
+      organization: {
+        id: 1,
+        name: 'Organization 1',
+        organization_members: [{
+          id: 'id1'
+        }, {
+          id: 'id2'
+        }]
+      }
     })
   });
 
   it('Organization member removed', () => {
-    const
-      organizationFixture = Fixtures.getOrganizationById(1),
-      expectedOrganizationFixture = Fixtures.getOrganizationExpectedById(1);
-
-    expect(
-      reducer({organization: organizationFixture}, {
+    return expect(
+      reducer({
+        organization: {
+          id: 1,
+          name: 'Organization 1',
+          organization_members: [{
+            id: 'id1'
+          }, {
+            id: 'id2'
+          }]
+        }
+      }, {
         type: ActionTypes.CURRENT_ORGANIZATION_MEMBER_REMOVED,
-        user: {id: 'id2'}
+        user: {
+          id: 'id2'
+        }
       })
     ).toEqual({
-      fetching: false, organization: expectedOrganizationFixture
+      fetching: false, organization: {
+        id: 1,
+        name: 'Organization 1',
+        organization_members: [{
+          id: 'id1'
+        }]
+      }
     })
   });
 
   it('Organization member add', () => {
-    const
-      organizationFixture = Fixtures.getOrganizationById(1),
-      expectedOrganizationFixture = Fixtures.getOrganizationExpectedById(1);
-
     expect(
-      reducer({organization: expectedOrganizationFixture}, {
-        type: ActionTypes.CURRENT_ORGANIZATION_MEMBER_REMOVED,
-        user: {id: 'id1'}
+      reducer({
+        organization: {
+          id: 1,
+          name: 'Organization 1',
+          organization_members: [{
+            id: 'id1'
+          }]
+        },
+        potential_members: [
+          {id: 'id2'}
+        ]
+      }, {
+        type: ActionTypes.CURRENT_ORGANIZATION_MEMBER_ADDED,
+        user: {
+          id: 'id1'
+        }
       })
     ).toEqual({
-      fetching: false, organization: organizationFixture
+      fetching: false,
+      organization: {
+        id: 1,
+        name: 'Organization 1',
+        organization_members: [{
+          id: 'id1'
+        }, {
+          id: 'id2'
+        }]
+      },
+      potential_members: []
     })
   })
 });

@@ -8,9 +8,8 @@
  * file that was distributed with this source code.
  */
 
-import reducer from '../MemberOrganization'
-import ActionTypes from '../../constants/ActionTypes'
-import * as Fixtures from '../../tests/Fixtures'
+import ActionTypes from './../../constants/ActionTypes'
+import reducer from './../MemberOrganization'
 
 describe('Member organization reducer tests', () => {
   it('Unknow action', () => {
@@ -23,11 +22,20 @@ describe('Member organization reducer tests', () => {
 
   it('Retrieve members action', () => {
     expect(
-      reducer({}, {'type': ActionTypes.MEMBERS_TO_ADD_RECEIVED, users: Fixtures.users})
+      reducer({}, {
+        type: ActionTypes.MEMBERS_TO_ADD_RECEIVED,
+        users: [
+          {id: 1, userName: 'User 1', fullName: 'Fullname 2'},
+          {id: 1, userName: 'User 2', fullName: 'Fullname 3'},
+        ]
+      })
     ).toEqual(
       {
         fetching: false,
-        potential_members: Fixtures.users
+        potential_members: [
+          {id: 1, userName: 'User 1', fullName: 'Fullname 2'},
+          {id: 1, userName: 'User 2', fullName: 'Fullname 3'},
+        ]
       }
     );
   })
