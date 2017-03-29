@@ -16,7 +16,7 @@ namespace Kreta\TaskManager\Domain\Model\Organization;
 
 class OwnerId extends MemberId
 {
-    public static function generate($id = null) : OwnerId
+    public static function generate(?string $id = null) : OwnerId
     {
         return new static($id);
     }

@@ -18,7 +18,7 @@ use Kreta\TaskManager\Domain\Model\Organization\MemberId;
 
 class MemberIdStub extends MemberId
 {
-    public static function generate($id = null) : MemberIdStub
+    public static function generate(?string $id = null) : MemberIdStub
     {
         return new static($id);
     }

@@ -18,7 +18,7 @@ use Kreta\SharedKernel\Domain\Model\Identity\Id;
 
 class TaskId extends Id
 {
-    public static function generate($id = null) : TaskId
+    public static function generate(?string $id = null) : TaskId
     {
         return new static($id);
     }
