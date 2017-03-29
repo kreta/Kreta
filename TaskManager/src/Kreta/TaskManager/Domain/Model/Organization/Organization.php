@@ -85,7 +85,6 @@ class Organization extends AggregateRoot
         $this->organizationMembers()->removeByUserId($userId);
         $this->updatedOn = new \DateTimeImmutable();
 
-
         $this->publish(new OrganizationMemberRemoved($this->id, $userId));
     }
 

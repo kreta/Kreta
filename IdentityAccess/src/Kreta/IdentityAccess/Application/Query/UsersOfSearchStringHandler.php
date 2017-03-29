@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace Kreta\IdentityAccess\Application\Query;
 
 use BenGorUser\User\Application\DataTransformer\UserDataTransformer;
-use BenGorUser\User\Domain\Model\UserId;
 use Kreta\IdentityAccess\Domain\Model\User\User;
 use Kreta\IdentityAccess\Domain\Model\User\UserRepository;
 
