@@ -8,14 +8,14 @@
  * file that was distributed with this source code.
  */
 
-import React from 'react';
 import {connect} from 'react-redux';
+import React from 'react';
+
+import CurrentOrganizationActions from './../../../actions/CurrentOrganization';
 
 import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
 import ProjectNew from './../../form/ProjectNew';
 import LoadingSpinner from './../../component/LoadingSpinner';
-
-import CurrentOrganizationActions from './../../../actions/CurrentOrganization';
 
 @connect(state => ({currentOrganization: state.currentOrganization}))
 class New extends React.Component {

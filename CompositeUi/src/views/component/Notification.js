@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-import './../../scss/components/_notification';
+import './../../scss/components/_notification.scss';
 import Close from './../../svg/notification-close.svg';
 import Error from './../../svg/notification-error.svg';
 import Success from './../../svg/notification-sucess.svg';

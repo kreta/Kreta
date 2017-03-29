@@ -8,10 +8,10 @@
  * file that was distributed with this source code.
  */
 
-import CurrentOrganizationActions from './../../../actions/CurrentOrganization';
-
-import React from 'react';
 import {connect} from 'react-redux';
+import React from 'react';
+
+import CurrentOrganizationActions from './../../../actions/CurrentOrganization';
 
 @connect()
 class Root extends React.Component {

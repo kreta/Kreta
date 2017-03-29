@@ -9,6 +9,7 @@
  */
 
 import React from 'react';
+
 import Thumbnail from './Thumbnail';
 
 class UserThumbnail extends React.Component {

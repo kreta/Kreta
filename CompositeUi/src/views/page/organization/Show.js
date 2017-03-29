@@ -8,11 +8,11 @@
  * file that was distributed with this source code.
  */
 
-import SettingsIcon from './../../../svg/settings';
+import SettingsIcon from './../../../svg/settings.svg';
 
-import React from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
+import React from 'react';
 
 import {routes} from './../../../Routes';
 

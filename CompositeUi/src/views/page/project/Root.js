@@ -8,10 +8,10 @@
  * file that was distributed with this source code.
  */
 
-import CurrentProjectActions from './../../../actions/CurrentProject';
-
-import React from 'react';
 import {connect} from 'react-redux';
+import React from 'react';
+
+import CurrentProjectActions from './../../../actions/CurrentProject';
 
 @connect(state => ({projects: state.projects.projects}))
 class Root extends React.Component {

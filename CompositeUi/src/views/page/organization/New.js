@@ -10,6 +10,7 @@
 
 import React from 'react';
 import {connect} from 'react-redux';
+
 import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
 import OrganizationNew from './../../form/OrganizationNew';
 import OrganizationActions from './../../../actions/Organization';

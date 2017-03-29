@@ -10,17 +10,18 @@
 
 import './../../../scss/views/page/project/_list.scss';
 
-import AddIcon from './../../../svg/add';
-import ListIcon from './../../../svg/list';
+import AddIcon from './../../../svg/add.svg';
+import ListIcon from './../../../svg/list.svg';
 
-import React from 'react';
 import {connect} from 'react-redux';
+import React from 'react';
 import {routeActions} from 'react-router-redux';
 
 import {routes} from './../../../Routes';
 
-import Icon from './../../component/Icon';
 import MainMenuActions from './../../../actions/MainMenu';
+
+import Icon from './../../component/Icon';
 import NavigableList from './../../component/NavigableList';
 import NavigableListItemLink from './../../component/NavigableListItemLink';
 import CardMinimal from './../../component/CardMinimal';

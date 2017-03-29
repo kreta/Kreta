@@ -12,17 +12,26 @@
 
 const localStorageMock = () => {
   let store = {};
+
   return {
-    getItem: function (key) {
-      return store[key];
-    },
     setItem: function (key, value) {
-      store[key] = value.toString();
+      store[key] = value || '';
     },
-    clear: function () {
-      store = {};
+    getItem: function (key) {
+      return store[key] || null;
+    },
+    removeItem: function (key) {
+      delete store[key];
+    },
+    get length() {
+      return Object.keys(store).length;
+    },
+    key: function (key) {
+      const keys = Object.keys(store);
+
+      return keys[key] || null;
     }
   }
 };
 
-Object.defineProperty(window, 'localStorage', { value: localStorageMock });
+Object.defineProperty(window, 'localStorage', {value: localStorageMock});

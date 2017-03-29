@@ -13,34 +13,32 @@ import mockStore from '../../__mocks__/mockStore';
 import CurrentProjectActions from '../../actions/CurrentProject';
 import ActionTypes from '../../constants/ActionTypes';
 
-//jest.mock('../../api/projects');
-
 describe('Current project actions', () => {
-  it('fetches projects', async () => {
+  it('fetches projects', () => {
 
   });
 
-  it('changes selected task', async () => {
+  it('changes selected task', () => {
 
   });
 
-  it('creates an task', async() => {
+  it('creates an task', () => {
 
   });
 
-  it('it handles errors on invalid task creation attempt', async () => {
+  it('it handles errors on invalid task creation attempt', () => {
 
   });
 
-  it('updates an task', async() => {
+  it('updates an task', () => {
 
   });
 
-  it('filters tasks', async() => {
+  it('filters tasks', () => {
 
   });
 
-  it('adds a participant', async() => {
+  it('adds a participant', () => {
 
   })
 });

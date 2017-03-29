@@ -10,12 +10,12 @@
 
 import './../../scss/views/page/_dashboard.scss';
 
-import AddIcon from './../../svg/add';
+import AddIcon from './../../svg/add.svg';
 
 import debounce from 'lodash.debounce';
-import React from 'react';
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
+import React from 'react';
 import {routeActions} from 'react-router-redux';
 
 import DashboardActions from './../../actions/Dashboard';

@@ -8,7 +8,7 @@
  * file that was distributed with this source code.
  */
 
-import './../../scss/components/_card-extended';
+import './../../scss/components/_card-extended.scss';
 
 import React from 'react';
 

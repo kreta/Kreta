@@ -8,11 +8,11 @@
  * file that was distributed with this source code.
  */
 
-import './../../../scss/views/page/task/_show';
+import './../../../scss/views/page/task/_show.scss';
 
 import {connect} from 'react-redux';
-import React from 'react';
 import {Link} from 'react-router';
+import React from 'react';
 
 import {routes} from './../../../Routes';
 

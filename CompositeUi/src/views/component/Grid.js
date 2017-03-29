@@ -10,7 +10,7 @@
 
 import React from 'react';
 
-import './../../scss/components/_grid';
+import './../../scss/components/_grid.scss';
 
 const
   Row = props => {

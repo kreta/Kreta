@@ -8,17 +8,19 @@
  * file that was distributed with this source code.
  */
 
-import React from 'react';
 import {connect} from 'react-redux';
+import React from 'react';
 import {routeActions} from 'react-router-redux';
+
+import UserActions from './../../actions/User';
+
+import {routes} from './../../Routes';
 
 import ContentLayout from './../layout/ContentLayout';
 import ContentMiddleLayout from './../layout/ContentMiddleLayout';
+import LogoCustomHeader from './../component/LogoCustomHeader';
 import NotificationLayout from './../layout/NotificationLayout';
 import ResetPassword from './../form/ResetPassword';
-import LogoCustomHeader from './../component/LogoCustomHeader';
-import {routes} from './../../Routes';
-import UserActions from './../../actions/User';
 
 @connect()
 class ResetPasswordPage extends React.Component {
