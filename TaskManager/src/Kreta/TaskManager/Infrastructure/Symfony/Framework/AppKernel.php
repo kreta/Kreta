@@ -25,6 +25,7 @@ declare(strict_types=1);
 namespace Kreta\TaskManager\Infrastructure\Symfony\Framework;
 
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
+use Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle;
 use Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle;
 use Http\HttplugBundle\HttplugBundle;
 use Kreta\TaskManager\Infrastructure\Symfony\Bundle\AppBundle;
@@ -48,7 +49,7 @@ use Warezgibzzz\QueryBusBundle\WarezgibzzzQueryBusBundle;
 
 class AppKernel extends Kernel
 {
-    public function registerBundles()
+    public function registerBundles() : array
     {
         $bundles = [
             new AppBundle(),
@@ -71,6 +72,7 @@ class AppKernel extends Kernel
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
             $bundles[] = new DebugBundle();
+            $bundles[] = new DoctrineFixturesBundle();
             $bundles[] = new SensioDistributionBundle();
             $bundles[] = new WebProfilerBundle();
         }
@@ -78,22 +80,22 @@ class AppKernel extends Kernel
         return $bundles;
     }
 
-    public function getRootDir()
+    public function getRootDir() : string
     {
         return __DIR__;
     }
 
-    public function getCacheDir()
+    public function getCacheDir() : string
     {
         return dirname(__DIR__) . '/../../../../../var/cache/' . $this->getEnvironment();
     }
 
-    public function getLogDir()
+    public function getLogDir() : string
     {
         return dirname(__DIR__) . '/../../../../../var/logs';
     }
 
-    public function registerContainerConfiguration(LoaderInterface $loader)
+    public function registerContainerConfiguration(LoaderInterface $loader) : void
     {
         $loader->load($this->getRootDir() . '/config/config_' . $this->getEnvironment() . '.yml');
     }
