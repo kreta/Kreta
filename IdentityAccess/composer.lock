@@ -2774,12 +2774,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kreta/SharedKernel.git",
-                "reference": "c3a147fe756f109a07980fc9317d7bd630d6930d"
+                "reference": "db38e060accec9c57090b2dd30847467a779e792"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kreta/SharedKernel/zipball/c3a147fe756f109a07980fc9317d7bd630d6930d",
-                "reference": "c3a147fe756f109a07980fc9317d7bd630d6930d",
+                "url": "https://api.github.com/repos/kreta/SharedKernel/zipball/db38e060accec9c57090b2dd30847467a779e792",
+                "reference": "db38e060accec9c57090b2dd30847467a779e792",
                 "shasum": ""
             },
             "require": {
@@ -2835,7 +2835,7 @@
                 "shared-kernel",
                 "tool"
             ],
-            "time": "2017-03-26 16:33:28"
+            "time": "2017-03-29 20:19:56"
         },
         {
             "name": "lexik/jwt-authentication-bundle",
