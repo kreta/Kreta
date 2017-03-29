@@ -61,16 +61,16 @@
         },
         {
             "name": "beberlei/DoctrineExtensions",
-            "version": "v1.0.14",
+            "version": "v1.0.15",
             "source": {
                 "type": "git",
                 "url": "https://github.com/beberlei/DoctrineExtensions.git",
-                "reference": "7ef0ba2773b9b2dccb1596b002ddecdb7e096c4f"
+                "reference": "47f6683377740ce69546726cfb55cadc1dfb69a0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/beberlei/DoctrineExtensions/zipball/7ef0ba2773b9b2dccb1596b002ddecdb7e096c4f",
-                "reference": "7ef0ba2773b9b2dccb1596b002ddecdb7e096c4f",
+                "url": "https://api.github.com/repos/beberlei/DoctrineExtensions/zipball/47f6683377740ce69546726cfb55cadc1dfb69a0",
+                "reference": "47f6683377740ce69546726cfb55cadc1dfb69a0",
                 "shasum": ""
             },
             "require": {
@@ -119,7 +119,7 @@
                 "doctrine",
                 "orm"
             ],
-            "time": "2017-03-16T10:17:33+00:00"
+            "time": "2017-03-27T05:57:42+00:00"
         },
         {
             "name": "beberlei/assert",
@@ -2774,12 +2774,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/kreta/SharedKernel.git",
-                "reference": "7529c790cb043a859209e4c5652a592dacb3a0d1"
+                "reference": "c3a147fe756f109a07980fc9317d7bd630d6930d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/kreta/SharedKernel/zipball/7529c790cb043a859209e4c5652a592dacb3a0d1",
-                "reference": "7529c790cb043a859209e4c5652a592dacb3a0d1",
+                "url": "https://api.github.com/repos/kreta/SharedKernel/zipball/c3a147fe756f109a07980fc9317d7bd630d6930d",
+                "reference": "c3a147fe756f109a07980fc9317d7bd630d6930d",
                 "shasum": ""
             },
             "require": {
@@ -2792,7 +2792,7 @@
             },
             "require-dev": {
                 "doctrine/orm": "^2.5",
-                "friendsofphp/php-cs-fixer": "^1.12",
+                "kreta/php-cs-fixer-config": "^1.0",
                 "phpspec/phpspec": "^3.2"
             },
             "type": "project",
@@ -2806,9 +2806,6 @@
                     "Kreta\\SharedKernel\\": "src/Kreta/SharedKernel/",
                     "Kreta\\SharedKernel\\Tests\\": "tests/"
                 },
-                "files": [
-                    "etc/phpcs/common.php"
-                ],
                 "exclude-from-classmap": [
                     "tests/"
                 ]
@@ -2838,7 +2835,7 @@
                 "shared-kernel",
                 "tool"
             ],
-            "time": "2016-12-07 23:17:13"
+            "time": "2017-03-26 16:33:28"
         },
         {
             "name": "lexik/jwt-authentication-bundle",
@@ -3528,16 +3525,16 @@
         },
         {
             "name": "ramsey/uuid",
-            "version": "3.6.0",
+            "version": "3.6.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/ramsey/uuid.git",
-                "reference": "0b7bdfb180e72c8d76e75a649ced67e392201458"
+                "reference": "4ae32dd9ab8860a4bbd750ad269cba7f06f7934e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/ramsey/uuid/zipball/0b7bdfb180e72c8d76e75a649ced67e392201458",
-                "reference": "0b7bdfb180e72c8d76e75a649ced67e392201458",
+                "url": "https://api.github.com/repos/ramsey/uuid/zipball/4ae32dd9ab8860a4bbd750ad269cba7f06f7934e",
+                "reference": "4ae32dd9ab8860a4bbd750ad269cba7f06f7934e",
                 "shasum": ""
             },
             "require": {
@@ -3549,9 +3546,9 @@
             },
             "require-dev": {
                 "apigen/apigen": "^4.1",
-                "codeception/aspect-mock": "1.0.0",
+                "codeception/aspect-mock": "^1.0 | ^2.0",
                 "doctrine/annotations": "~1.2.0",
-                "goaop/framework": "1.0.0-alpha.2",
+                "goaop/framework": "1.0.0-alpha.2 | ^1.0 | ^2.1",
                 "ircmaxell/random-lib": "^1.1",
                 "jakub-onderka/php-parallel-lint": "^0.9.0",
                 "mockery/mockery": "^0.9.4",
@@ -3606,7 +3603,7 @@
                 "identifier",
                 "uuid"
             ],
-            "time": "2017-03-18T15:38:09+00:00"
+            "time": "2017-03-26T20:37:53+00:00"
         },
         {
             "name": "sensio/distribution-bundle",
@@ -3662,16 +3659,16 @@
         },
         {
             "name": "sensiolabs/security-checker",
-            "version": "v4.0.2",
+            "version": "v4.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sensiolabs/security-checker.git",
-                "reference": "56bded66985e22f6eac2cf86735fd21c625bff2f"
+                "reference": "04bb87f5bd28a7d6ce7f4a4d1d6b94b3c1aa8dae"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sensiolabs/security-checker/zipball/56bded66985e22f6eac2cf86735fd21c625bff2f",
-                "reference": "56bded66985e22f6eac2cf86735fd21c625bff2f",
+                "url": "https://api.github.com/repos/sensiolabs/security-checker/zipball/04bb87f5bd28a7d6ce7f4a4d1d6b94b3c1aa8dae",
+                "reference": "04bb87f5bd28a7d6ce7f4a4d1d6b94b3c1aa8dae",
                 "shasum": ""
             },
             "require": {
@@ -3702,7 +3699,7 @@
                 }
             ],
             "description": "A security checker for your composer.lock",
-            "time": "2017-03-09T17:33:20+00:00"
+            "time": "2017-03-29T08:08:00+00:00"
         },
         {
             "name": "simple-bus/asynchronous",

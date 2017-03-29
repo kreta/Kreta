@@ -18,7 +18,7 @@ use Kreta\SharedKernel\Domain\Model\Identity\Id;
 
 class OrganizationId extends Id
 {
-    public static function generate($id = null) : OrganizationId
+    public static function generate(?string $id = null) : OrganizationId
     {
         return new static($id);
     }

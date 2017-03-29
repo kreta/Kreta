@@ -18,7 +18,7 @@ use Kreta\SharedKernel\Domain\Model\Identity\Id;
 
 class ProjectId extends Id
 {
-    public static function generate($id = null) : ProjectId
+    public static function generate(?string $id = null) : ProjectId
     {
         return new static($id);
     }

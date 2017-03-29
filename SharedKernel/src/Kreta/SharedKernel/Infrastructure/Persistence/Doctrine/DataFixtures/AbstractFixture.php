@@ -54,7 +54,7 @@ abstract class AbstractFixture extends BaseAbstractFixture implements OrderedFix
         return count($this->fakeIds());
     }
 
-    protected function getRandomByIndex($index, array $list = null) : string
+    protected function getRandomByIndex(int $index, array $list = null) : string
     {
         $list = null === $list ? $this->fakeIds() : $list;
 
@@ -66,7 +66,7 @@ abstract class AbstractFixture extends BaseAbstractFixture implements OrderedFix
         return $list[$j];
     }
 
-    protected function getRandomUserByIndex($index) : string
+    protected function getRandomUserByIndex(int $index) : string
     {
         $userIds = Yaml::parse(
             file_get_contents(
@@ -77,29 +77,29 @@ abstract class AbstractFixture extends BaseAbstractFixture implements OrderedFix
         return $this->getRandomByIndex($index, $userIds);
     }
 
-    private function mod($first, $second)
+    private function mod(int $first, int $second) : int
     {
         $result = $first % $second;
 
         return $result < 0 ? $result + $second : $result;
     }
 
-    private function fakeDataDir()
+    private function fakeDataDir() : string
     {
         $baseDir = __DIR__ . '/../../../../../../../../../../src/Kreta' .
-            '/%s/Infrastructure/Persistence/Doctrine/DataFixtures/FakeData/';
+            '/%s/Infrastructure/Persistence/Doctrine/DataFixtures/FakeData';
 
         $identityAccessDir = sprintf($baseDir, 'IdentityAccess');
         $taskManagerDir = sprintf($baseDir, 'TaskManager');
 
+        if ($this->type() === 'user') {
+            return __DIR__ . '/../DataFixtures/FakeData';
+        }
         if (is_dir($identityAccessDir)) {
             return $identityAccessDir;
         }
         if (is_dir($taskManagerDir)) {
             return $taskManagerDir;
-        }
-        if ($this->type() === 'user') {
-            return __DIR__ . '/../DataFixtures/FakeData';
         }
         throw new Exception('The identity access and task manager fake data dirs are not valid');
     }

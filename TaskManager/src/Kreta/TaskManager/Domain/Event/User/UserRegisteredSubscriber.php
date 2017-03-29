@@ -29,7 +29,7 @@ class UserRegisteredSubscriber implements AsyncEventSubscriber
         $this->commandBus = $commandBus;
     }
 
-    public function handle(AsyncDomainEvent $event)
+    public function handle(AsyncDomainEvent $event) : void
     {
         if (!isset($event->values()['userId'])) {
             throw new AsyncDomainEventValueDoesNotExistException('userId');
