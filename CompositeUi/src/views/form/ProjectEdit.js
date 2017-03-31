@@ -33,6 +33,7 @@ const validate = (values) => {
 };
 
 @connect(state => ({
+  updating: state.currentOrganization.updating,
   initialValues: {
     name: state.currentProject.project.name,
     short_name: state.currentProject.project.slug
@@ -41,7 +42,7 @@ const validate = (values) => {
 @reduxForm({form: 'ProjectEdit', validate})
 class ProjectEdit extends React.Component {
   render() {
-    const {handleSubmit} = this.props;
+    const {handleSubmit, updating} = this.props;
 
     return (
       <Form onSubmit={handleSubmit}>
@@ -50,7 +51,7 @@ class ProjectEdit extends React.Component {
             <Field autoFocus component={FormInput} label="Project Name" name="name" tabIndex={1}/>
             <Field component={FormInput} label="Short name" name="short_name" tabIndex={2}/>
             <FormActions>
-              <Button color="green" tabIndex={3} type="submit">Update</Button>
+              <Button color="green" disabled={updating} tabIndex={3} type="submit">Update</Button>
             </FormActions>
           </RowColumn>
         </Row>

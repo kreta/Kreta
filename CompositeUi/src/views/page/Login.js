@@ -15,12 +15,11 @@ import UserActions from './../../actions/User';
 
 import ContentLayout from './../layout/ContentLayout';
 import ContentMiddleLayout from './../layout/ContentMiddleLayout';
-import LoadingSpinner from './../component/LoadingSpinner';
 import Login from './../form/Login';
 import LogoCustomHeader from './../component/LogoCustomHeader';
 import NotificationLayout from './../layout/NotificationLayout';
 
-@connect(state => ({authorizing: state.user.updatingAuthorization}))
+@connect()
 class LoginPage extends React.Component {
   componentDidMount() {
     const
@@ -39,10 +38,6 @@ class LoginPage extends React.Component {
   }
 
   render() {
-    if (this.props.authorizing) {
-      return <LoadingSpinner/>;
-    }
-
     return (
       <div>
         <NotificationLayout/>
