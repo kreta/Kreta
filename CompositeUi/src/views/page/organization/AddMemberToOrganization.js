@@ -62,7 +62,7 @@ class AddMemberToOrganization extends React.Component {
   }
 
   onChangeSearch(event) {
-    const query = event.target.value;
+    const query = event.target ? event.target.value : null;
 
     this.filterMembersToAdd(query);
   }
