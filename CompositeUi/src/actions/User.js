@@ -98,6 +98,12 @@ const Actions = {
         dispatch({
           type: ActionTypes.USER_REQUESTED_RESET_PASSWORD,
         });
+      }, (errorData) => {
+        errorData.then(() => {
+          dispatch({
+            type: ActionTypes.USER_REQUEST_RESET_PASSWORD_ERROR,
+          });
+        });
       });
   },
   changePassword: (formData) => (dispatch) => {

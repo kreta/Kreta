@@ -10,10 +10,12 @@ parameters:
     identity_access_secret:              12e54860e3fbbbebd0aa659fa8bc554c202298ac # Your own secret with http://nux.net/secret
 
     identity_access_host:                "%env(IDENTITY_ACCESS_HOST)%"
-    env(IDENTITY_ACCESS_HOST):           "identityaccess:localhost'"
+    env(IDENTITY_ACCESS_HOST):           identityaccess.localhost
 
     identity_access_composite_ui_host:   "%env(COMPOSITE_UI_HOST)%"
-    env(COMPOSITE_UI_HOST):              "kreta.localhost"
+    identity_access_composite_ui_scheme: "%env(COMPOSITE_UI_SCHEME)%"
+    env(COMPOSITE_UI_HOST):              kreta.localhost
+    env(COMPOSITE_UI_SCHEME):            http
 
     identity_access_database_host:       db
     identity_access_database_port:       3306

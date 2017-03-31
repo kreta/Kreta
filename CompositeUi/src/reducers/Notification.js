@@ -99,6 +99,9 @@ export default function reducer(state = initialState, action = {}) {
     case ActionTypes.USER_RESTORED_PASSWORD: {
       return _addNotification(state, 'Change password process is successfully done');
     }
+    case ActionTypes.USER_REQUEST_RESET_PASSWORD_ERROR: {
+      return _addNotification(state, 'Something goes wrong, please try the request again', 'error');
+    }
     case ActionTypes.USER_RESET_PASSWORD_ERROR: {
       return _addNotification(state, 'The remember password token is invalid', 'error');
     }
