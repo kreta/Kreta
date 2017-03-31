@@ -6,4 +6,10 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 
-/vendor-*
+---
+-
+    name: Ensure shared directories exist.
+    file:
+        state: directory
+        path: "{{ ansistrano_deploy_to }}/shared/{{ item }}"
+    with_items: "{{ ansistrano_shared_paths }}"

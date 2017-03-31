@@ -6,4 +6,12 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 
-/vendor-*
+---
+-
+    name: Kreta
+    hosts: prod
+    roles:
+        - carlosbuenosvinos.ansistrano-deploy
+    vars_files:
+        - vars/all.yml
+        - vars/prod.yml

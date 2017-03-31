@@ -1,0 +1,32 @@
+# This file is part of the Kreta package.
+#
+# (c) Beñat Espiña <benatespina@gmail.com>
+# (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+
+---
+-
+    include: config/steps/composer.yml
+
+-
+    name: Doctrine migrations task manager
+    shell: "{{php_path}} etc/bin/symfony-console doctrine:migrations:migrate --quiet --no-interaction"
+    args:
+        chdir: "{{ ansistrano_release_path.stdout }}/TaskManager"
+-
+    name: Doctrine migrations identity access
+    shell: "{{php_path}} etc/bin/symfony-console doctrine:migrations:migrate --quiet --no-interaction"
+    args:
+        chdir: "{{ ansistrano_release_path.stdout }}/IdentityAccess"
+
+-
+    name: Build composite ui locally
+    local_action: "command cd {{ playbook_dir }}/../../CompositeUi && yarn build"
+
+-
+    name: Upload build folder
+    synchronize:
+        src: "{{ playbook_dir }}/../../CompositeUi/build"
+        dest: "{{ ansistrano_release_path.stdout }}/CompositeUi"
