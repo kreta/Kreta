@@ -7,6 +7,16 @@
 // file that was distributed with this source code.
 
 .notification-layout {
-  width: 100%;
-  z-index: 10;
+  bottom: 30px;
+  left: 110px;
+  position: fixed;
+  width: 350px;
+
+  .notification {
+    margin-bottom: 15px;
+
+    &:last-child {
+      margin-bottom: 0;
+    }
+  }
 }
