@@ -14,17 +14,17 @@ import ActionTypes from './../../constants/ActionTypes';
 import OrganizationActions from './../../actions/Organization';
 
 describe('Organization actions', () => {
-  it('creates organization', () => {
+  it('creates organization', async () => {
     const exampleOrganization = {name: 'example'},
       expectedActions = [
         {type: ActionTypes.ORGANIZATION_CREATING},
-//         {organization: exampleOrganization, type: ActionTypes.ORGANIZATION_CREATED},
-//         {payload: {arg: '/', method: 'push'}, type: '@@router/TRANSITION'}
+        {organization: exampleOrganization, type: ActionTypes.ORGANIZATION_CREATED},
+        {payload: {arg: '/', method: 'push'}, type: '@@router/TRANSITION'}
       ];
 
     const store = mockStore({});
 
     store.dispatch(OrganizationActions.createOrganization(exampleOrganization));
-    expect(store.getActions()).toEqual(expectedActions);
+    await expect(store.getActions()).toEqual(expectedActions);
   });
 });

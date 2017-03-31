@@ -19,7 +19,8 @@ describe('Current organization reducer tests', () => {
       fetching: true,
       organization: null,
       potential_members: [],
-      projects: []
+      projects: [],
+      updating: false
     });
   });
 
@@ -99,12 +100,14 @@ describe('Current organization reducer tests', () => {
           }]
         },
         potential_members: [
-          {id: 'id2'}
+          {
+            id: 'id2'
+          }
         ]
       }, {
         type: ActionTypes.CURRENT_ORGANIZATION_MEMBER_ADDED,
         user: {
-          id: 'id1'
+          id: 'id2'
         }
       })
     ).toEqual({
