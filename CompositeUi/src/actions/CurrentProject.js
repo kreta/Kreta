@@ -13,6 +13,7 @@ import {routeActions} from 'react-router-redux';
 import {routes} from './../Routes';
 
 import ActionTypes from './../constants/ActionTypes';
+import NotificationActions from './../actions/Notification';
 import ChangeTaskProgressMutationRequest from './../api/graphql/mutation/ChangeTaskProgressMutationRequest';
 import CreateTaskMutationRequest from './../api/graphql/mutation/CreateTaskMutationRequest';
 import EditTaskkMutationRequest from './../api/graphql/mutation/EditTaskMutationRequest';
@@ -135,12 +136,14 @@ const Actions = {
               task.numeric_id
             ))
         );
+        dispatch(NotificationActions.addNotification('Task created successfully', 'success'));
       });
     }).catch((response) => {
       dispatch({
         type: ActionTypes.CURRENT_PROJECT_TASK_CREATE_ERROR,
         errors: response.source.errors
       });
+      dispatch(NotificationActions.addNotification('Error while creating task', 'error'));
     });
   },
   updateTask: (taskData) => (dispatch) => {
@@ -161,7 +164,6 @@ const Actions = {
           type: ActionTypes.CURRENT_PROJECT_TASK_UPDATED,
           task,
         });
-
         dispatch(
           routeActions.push(
             routes.task.show(
@@ -170,12 +172,14 @@ const Actions = {
               task.numeric_id
             ))
         );
+        dispatch(NotificationActions.addNotification('Task updated successfully', 'success'));
       });
     }).catch((response) => {
       dispatch({
         type: ActionTypes.CURRENT_PROJECT_TASK_UPDATE_ERROR,
         errors: response.source.errors
       });
+      dispatch(NotificationActions.addNotification('Error while updating task', 'error'));
     });
   },
   updateTaskProgress: (taskData) => (dispatch) => {
@@ -197,6 +201,7 @@ const Actions = {
             type: ActionTypes.CURRENT_PROJECT_TASK_UPDATED_PROGRESS,
             task,
           });
+          dispatch(NotificationActions.addNotification('Task progress updated successfully', 'success'));
         });
       })
       .catch((response) => {
@@ -204,6 +209,7 @@ const Actions = {
           type: ActionTypes.CURRENT_PROJECT_TASK_UPDATE_PROGRESS_ERROR,
           errors: response.source.errors
         });
+        dispatch(NotificationActions.addNotification('Error while updating task progress', 'error'));
       });
   }
 };

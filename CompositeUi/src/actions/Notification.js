@@ -11,12 +11,28 @@
 import ActionTypes from './../constants/ActionTypes';
 
 const Actions = {
-  removeOldNotifications: () => ({
-    type: ActionTypes.NOTIFICATION_REMOVE_OLD
-  }),
-  removeNotification: (notification) => ({
+  addNotification: (message, messageType) => (dispatch) => {
+    const id = Math.floor((Math.random() * 1000000));
+
+    setTimeout(() => {
+      dispatch({
+        type: ActionTypes.NOTIFICATION_REMOVE,
+        id
+      });
+    }, 5000);
+
+    dispatch({
+      type: ActionTypes.NOTIFICATION_ADD,
+      notification: {
+        id,
+        message,
+        type: messageType
+      }
+    });
+  },
+  removeNotification: (id) => ({
     type: ActionTypes.NOTIFICATION_REMOVE,
-    notification
+    id
   })
 };
 
