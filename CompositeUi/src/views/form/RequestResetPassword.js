@@ -9,6 +9,7 @@
  */
 
 import React from 'react';
+import {connect} from 'react-redux';
 import {Field, reduxForm} from 'redux-form';
 
 import Button from './../component/Button';
@@ -36,6 +37,7 @@ const validate = (values) => {
   return errors;
 };
 
+@connect(state => ({requestingPassword: state.user.processing}))
 @reduxForm({form: 'RequestResetPassword', validate})
 class RequestResetPassword extends React.Component {
   static propTypes = {
@@ -43,7 +45,7 @@ class RequestResetPassword extends React.Component {
   };
 
   render() {
-    const {handleSubmit} = this.props;
+    const {handleSubmit, requestingPassword} = this.props;
 
     return (
       <Form onSubmit={handleSubmit}>
@@ -54,7 +56,9 @@ class RequestResetPassword extends React.Component {
               </HelpText>
             <Field autoFocus component={FormInput} label="Email" name="email" tabIndex={1}/>
             <FormActions expand>
-              <Button color="green" tabIndex={3} type="submit">Send password reset email</Button>
+              <Button color="green" disabled={requestingPassword} tabIndex={3} type="submit">
+                Send password reset email
+              </Button>
             </FormActions>
           </RowColumn>
         </Row>

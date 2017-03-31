@@ -9,6 +9,7 @@
  */
 
 import React from 'react';
+import {connect} from 'react-redux';
 import {Field, reduxForm} from 'redux-form';
 
 import Button from './../component/Button';
@@ -44,6 +45,7 @@ const validate = (values) => {
   return errors;
 };
 
+@connect(state => ({registering: state.user.processing}))
 @reduxForm({form: 'Register', validate})
 class Register extends React.Component {
   static propTypes = {
@@ -51,7 +53,7 @@ class Register extends React.Component {
   };
 
   render() {
-    const {handleSubmit} = this.props;
+    const {handleSubmit, registering} = this.props;
 
     return (
       <Form onSubmit={handleSubmit}>
@@ -61,7 +63,7 @@ class Register extends React.Component {
             <Field component={FormInput} label="Password" name="password" tabIndex={2} type="password"/>
             <Field component={FormInput} label="Repeat password" name="repeated_password" tabIndex={3} type="password"/>
             <FormActions expand>
-              <Button color="green" tabIndex={3} type="submit">Sign up for Kreta</Button>
+              <Button color="green" disabled={registering} tabIndex={3} type="submit">Sign up for Kreta</Button>
             </FormActions>
             <HelpText center>
                 By clicking "Sign up for Kreta", you agree to

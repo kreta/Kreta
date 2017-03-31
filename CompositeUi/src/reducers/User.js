@@ -12,7 +12,8 @@ import ActionTypes from './../constants/ActionTypes';
 
 const initialState = {
   token: null,
-  updatingAuthorization: false
+  updatingAuthorization: false,
+  processing: false
 };
 
 export default function reducer(state = initialState, action = {}) {
@@ -31,6 +32,15 @@ export default function reducer(state = initialState, action = {}) {
 
     case ActionTypes.USER_AUTHORIZATION_ERROR:
       return {...state, token: null, updatingAuthorization: false};
+
+    case ActionTypes.USER_REGISTERING:
+    case ActionTypes.USER_REQUESTING_RESET_PASSWORD:
+      return {...state, processing: true};
+
+    case ActionTypes.USER_REGISTERED:
+    case ActionTypes.USER_REGISTER_ERROR:
+    case ActionTypes.USER_REQUESTED_RESET_PASSWORD:
+      return {...state, processing: false};
 
     default:
       return state;
