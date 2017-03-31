@@ -9,6 +9,7 @@
  */
 
 import ActionTypes from './../constants/ActionTypes';
+import NotificationActions from './../actions/Notification';
 import Profile from './../api/rest/User/Profile';
 import UserActions from './User';
 
@@ -24,7 +25,13 @@ const Actions = {
           profile: response
         });
       })
-      .catch(() => (dispatch(UserActions.logout())));
+      .catch(() => {
+        dispatch(UserActions.logout());
+        dispatch(NotificationActions.addNotification(
+          'Session expired, you need to enter your credentials again',
+          'error'
+        ));
+      });
   },
   updateProfile: (profileData) => (dispatch) => {
     dispatch({
@@ -36,6 +43,7 @@ const Actions = {
           type: ActionTypes.PROFILE_UPDATED,
           profile: response
         });
+        dispatch(NotificationActions.addNotification('Profile updated successfully', 'success'));
 
         // Hack to maintain the session in the React
         // app if the user changes the email
@@ -47,6 +55,7 @@ const Actions = {
             type: ActionTypes.PROFILE_UPDATE_ERROR,
             errors
           });
+          dispatch(NotificationActions.addNotification('Error while updating your profile', 'error'));
         });
       });
   }

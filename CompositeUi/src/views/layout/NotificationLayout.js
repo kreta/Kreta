@@ -18,15 +18,15 @@ import NotificationActions from './../../actions/Notification';
 
 @connect(state => ({notifications: state.notification.notifications}))
 class NotificationLayout extends React.Component {
-  removeNotification(notification) {
-    this.props.dispatch(NotificationActions.removeNotification(notification));
+  removeNotification(id) {
+    this.props.dispatch(NotificationActions.removeNotification(id));
   }
 
   render() {
     const notifications = this.props.notifications.map((notification, index) => (
       <Notification key={index}
                     notification={notification}
-                    onCloseRequest={this.removeNotification.bind(this, notification)}/>
+                    onCloseRequest={this.removeNotification.bind(this, notification.id)}/>
     ));
 
     return (

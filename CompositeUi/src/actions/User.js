@@ -11,6 +11,7 @@
 import {routeActions} from 'react-router-redux';
 
 import ActionTypes from './../constants/ActionTypes';
+import NotificationActions from './../actions/Notification';
 import Register from './../api/rest/User/Register';
 import ResetPassword from './../api/rest/User/ResetPassword';
 import Security from './../api/rest/User/Security';
@@ -64,11 +65,19 @@ const Actions = {
         dispatch({
           type: ActionTypes.USER_REGISTERED,
         });
+        dispatch(NotificationActions.addNotification(
+          'Registration process has been successfully done. Check your email inbox to enable the account',
+          'success')
+        );
       }, (errorData) => {
         errorData.then(() => {
           dispatch({
             type: ActionTypes.USER_REGISTER_ERROR,
           });
+          dispatch(NotificationActions.addNotification(
+            'The email is already in use',
+            'error'
+          ));
         });
       });
   },
@@ -81,6 +90,10 @@ const Actions = {
         dispatch({
           type: ActionTypes.USER_ENABLED,
         });
+        dispatch(NotificationActions.addNotification(
+          'Your user has been enabled successfully',
+          'success')
+        );
       }, (errorData) => {
         errorData.then(() => {
           dispatch({
@@ -98,11 +111,16 @@ const Actions = {
         dispatch({
           type: ActionTypes.USER_REQUESTED_RESET_PASSWORD,
         });
+        dispatch(NotificationActions.addNotification(
+          'Your password has been reset. Check your email to change your password.',
+          'success')
+        );
       }, (errorData) => {
         errorData.then(() => {
           dispatch({
             type: ActionTypes.USER_REQUEST_RESET_PASSWORD_ERROR,
           });
+          dispatch(NotificationActions.addNotification('Something goes wrong, please try the request again', 'error'));
         });
       });
   },
@@ -118,6 +136,10 @@ const Actions = {
         dispatch(
           routeActions.push(routes.login)
         );
+        dispatch(NotificationActions.addNotification(
+          'Your password has been changed.',
+          'success')
+        );
       }, (errorData) => {
         errorData.then(() => {
           dispatch({
@@ -126,6 +148,7 @@ const Actions = {
           dispatch(
             routeActions.push(routes.requestResetPassword)
           );
+          dispatch(NotificationActions.addNotification('Error while changing password', 'error'));
         });
       });
   }

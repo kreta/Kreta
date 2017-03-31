@@ -13,6 +13,7 @@ import {routeActions} from 'react-router-redux';
 import {routes} from './../Routes';
 
 import ActionTypes from './../constants/ActionTypes';
+import NotificationActions from './../actions/Notification';
 import CreateOrganizationMutationRequest from './../api/graphql/mutation/CreateOrganizationMutationRequest';
 import TaskManagerGraphQl from './../api/graphql/TaskManagerGraphQl';
 
@@ -35,12 +36,14 @@ const Actions = {
         dispatch(
           routeActions.push(routes.organization.show(organization.slug))
         );
+        dispatch(NotificationActions.addNotification('Organization created successfully', 'success'));
       })
       .catch((response) => {
         dispatch({
           type: ActionTypes.ORGANIZATION_CREATE_ERROR,
           errors: response.source.errors
         });
+        dispatch(NotificationActions.addNotification('Error while creating organization', 'error'));
       });
   }
 };

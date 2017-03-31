@@ -13,6 +13,7 @@ import {routeActions} from 'react-router-redux';
 import {routes} from './../Routes';
 
 import ActionTypes from './../constants/ActionTypes';
+import NotificationActions from './../actions/Notification';
 import CreateProjectMutationRequest from './../api/graphql/mutation/CreateProjectMutationRequest';
 import EditProjectMutationRequest from './../api/graphql/mutation/EditProjectMutationRequest';
 import OrganizationQueryRequest from './../api/graphql/query/OrganizationQueryRequest';
@@ -61,12 +62,14 @@ const Actions = {
         dispatch(
           routeActions.push(routes.project.show(project.organization.slug, project.slug))
         );
+        dispatch(NotificationActions.addNotification('Project created successfully', 'success'));
       })
       .catch((response) => {
         dispatch({
           type: ActionTypes.PROJECT_CREATE_ERROR,
           errors: response.source.errors
         });
+        dispatch(NotificationActions.addNotification('Errors found while creating project', 'error'));
       });
   },
   editProject: (projectInputData) => (dispatch) => {
@@ -87,12 +90,14 @@ const Actions = {
         dispatch(
           routeActions.push(routes.project.show(project.organization.slug, project.slug))
         );
+        dispatch(NotificationActions.addNotification('Project edited successfully', 'success'));
       })
       .catch((response) => {
         dispatch({
           type: ActionTypes.PROJECT_EDIT_ERROR,
           errors: response.source.errors
         });
+        dispatch(NotificationActions.addNotification('Errors found while editing project', 'error'));
       });
   },
   addMember: (organization, user) => (dispatch) => {
@@ -102,6 +107,7 @@ const Actions = {
           type: ActionTypes.CURRENT_ORGANIZATION_MEMBER_ADDED,
           user
         });
+        dispatch(NotificationActions.addNotification('Member added successfully to project', 'success'));
       });
   },
   removeMember: (organization, user, remover) => (dispatch) => {
@@ -111,6 +117,7 @@ const Actions = {
           type: ActionTypes.CURRENT_ORGANIZATION_MEMBER_REMOVED,
           user
         });
+        dispatch(NotificationActions.addNotification('Member removed successfully from project', 'success'));
       });
   }
 };
