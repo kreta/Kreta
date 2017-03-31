@@ -9,7 +9,7 @@
  */
 
 import './../../scss/components/_notification.scss';
-import Close from './../../svg/notification-close.svg';
+import Cross from './../../svg/cross.svg';
 import Error from './../../svg/notification-error.svg';
 import Success from './../../svg/notification-sucess.svg';
 
@@ -33,7 +33,7 @@ class Notification extends React.Component {
       {notification} = this.props,
       classes = classnames({
         'notification': true,
-        'notification--visible': true,
+        'notification--success': notification.type === 'success',
         'notification--error': notification.type === 'error'
       }),
       glyph = notification.type === 'error' ? Error : Success;
@@ -46,7 +46,7 @@ class Notification extends React.Component {
         <p className="notification__message">{notification.message}</p>
         <Icon
           className="notification__close"
-          glyph={Close}
+          glyph={Cross}
           onClick={this.triggerOnCloseRequest.bind(this)}
         />
       </div>
