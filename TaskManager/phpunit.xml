@@ -6,8 +6,7 @@
          colors="true"
 >
     <php>
-        <server name="EXPECTED_RESPONSE_DIR" value="/tests/Acceptance/Expected/Responses" />
-        <server name="IS_DOCTRINE_ORM_SUPPORTED" value="true" />
+        <server name="EXPECTED_RESPONSE_DIR" value="../../../../../../tests/Integration/Expected/Responses" />
         <server name="KERNEL_CLASS" value="Kreta\TaskManager\Infrastructure\Symfony\Framework\AppKernel" />
         <server name="KERNEL_CLASS_PATH" value="../src/Kreta/TaskManager/Infrastructure/Symfony/Framework/AppKernel" />
     </php>

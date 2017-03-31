@@ -20,12 +20,15 @@ class OrganizationResolverTest extends JsonApiTestCase
 {
     public function testValidOrganizationResolver()
     {
-        $id = '12cf8031-ecbb-4569-a3aa-c5143ccf146d';
+        $this->organizationResolver('71298d2c-0ff4-11e7-93ae-92361f002671', 'graphql/organization_resolver');
+    }
 
+    private function organizationResolver($id, $jsonResult)
+    {
         $this->client->request('POST', '/', [
             'query'       => <<<EOF
-"query OrganizationQueryRequest(id: ID!) {
-  organization(id: id) {
+query OrganizationQueryRequest(\$id: ID!) {
+  organization(id: \$id) {
     id,
     name,
     slug,
@@ -50,13 +53,13 @@ class OrganizationResolverTest extends JsonApiTestCase
       }
     }
   }
-}"
+}
 EOF
             , 'variables' => ['id' => $id],
         ]);
 
         $response = $this->client->getResponse();
 
-        $this->assertResponse($response, 'graphql/organization_resolver');
+        $this->assertResponse($response, $jsonResult);
     }
 }

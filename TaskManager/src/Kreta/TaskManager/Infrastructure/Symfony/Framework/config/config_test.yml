@@ -26,3 +26,11 @@ web_profiler:
 
 swiftmailer:
     disable_delivery: true
+
+services:
+    kreta.task_manager.event_listener.authentication:
+        class: Kreta\TaskManager\Tests\Double\Infrastructure\Symfony\EventListener\DummyAuthenticationListener
+        arguments:
+            - "@security.token_storage"
+        tags:
+            - { name: kernel.event_listener, event: kernel.request, method: onKernelRequest }
