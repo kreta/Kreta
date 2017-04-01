@@ -13,7 +13,7 @@ import mockStore from './../../__mocks__/mockStore';
 import UserActions from './../../actions/User';
 import ActionTypes from './../../constants/ActionTypes';
 
-jest.mock('./../../api/__mocks__/Security');
+jest.mock('./../../api/rest/User/Security');
 
 describe('User actions', () => {
   it('can login with valid credentials', () => {
@@ -52,9 +52,8 @@ describe('User actions', () => {
       ],
       store = mockStore({errors: [], token: 'token', updatingAuthorization: false});
 
-    return store.dispatch(UserActions.logout())
-      .then(() => {
-        expect(store.getActions()).toEqual(expectedActions)
-      })
+    store.dispatch(UserActions.logout()).then(() => {
+      expect(store.getActions()).toEqual(expectedActions)
+    })
   });
 });
