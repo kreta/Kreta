@@ -34,7 +34,7 @@ final class DummyAuthenticationListener
         $this->tokenStorage = $tokenStorage;
     }
 
-    public function onKernelRequest(GetResponseEvent $event)
+    public function onKernelRequest(GetResponseEvent $event) : void
     {
         if (!$event->isMasterRequest()) {
             return;
@@ -49,7 +49,7 @@ final class DummyAuthenticationListener
         $this->tokenStorage->getToken()->setUser(new User($this->userId($request)));
     }
 
-    private function userId(Request $request)
+    private function userId(Request $request) : ?string
     {
         if ($request->headers->has('Authorization')) {
             $token = str_replace('Bearer ', '', $request->headers->get('Authorization'));
@@ -59,6 +59,6 @@ final class DummyAuthenticationListener
             throw new UnauthorizedHttpException('Basic');
         }
 
-        return self::USER_IDS[$token];
+        return isset(self::USER_IDS[$token]) ? self::USER_IDS[$token] : null;
     }
 }
