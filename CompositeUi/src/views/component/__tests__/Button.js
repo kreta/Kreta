@@ -38,6 +38,27 @@ describe('<Button />', () => {
     expect(wrapper.hasClass('button--small')).toBe(true);
   });
 
+  it('renders a red button', () => {
+    const wrapper = shallow(
+      <Button color="red"/>
+    );
+    expect(wrapper.hasClass('button--red')).toBe(true);
+  });
+
+  it('renders a blue button', () => {
+    const wrapper = shallow(
+      <Button color="blue"/>
+    );
+    expect(wrapper.hasClass('button--blue')).toBe(true);
+  });
+
+  it('renders a yelow button', () => {
+    const wrapper = shallow(
+      <Button color="yellow"/>
+    );
+    expect(wrapper.hasClass('button--yellow')).toBe(true);
+  });
+
   it('renders an icon type button', () => {
     const wrapper = shallow(
       <Button type="icon"/>
