@@ -1,0 +1,16 @@
+{
+  "data": {
+    "organization": null
+  },
+  "errors": [
+    {
+      "message": "The \"6704c278-e106-449f-a73d-2508e96f6177\" user does not allow to access the \"organization-0\" organization",
+      "locations": [
+        {
+          "line": 2,
+          "column": 3
+        }
+      ]
+    }
+  ]
+}

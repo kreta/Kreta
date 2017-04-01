@@ -18,6 +18,9 @@ use Kreta\SharedKernel\Application\QueryBus;
 use Kreta\SharedKernel\Http\GraphQl\Resolver;
 use Kreta\TaskManager\Application\Query\Organization\OrganizationOfIdQuery;
 use Kreta\TaskManager\Application\Query\Organization\OrganizationOfSlugQuery;
+use Kreta\TaskManager\Domain\Model\Organization\OrganizationDoesNotExistException;
+use Kreta\TaskManager\Domain\Model\Organization\UnauthorizedOrganizationActionException;
+use Overblog\GraphQLBundle\Error\UserError;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class OrganizationResolver implements Resolver
@@ -34,25 +37,69 @@ class OrganizationResolver implements Resolver
     public function resolve($args)
     {
         if (isset($args['id'])) {
+            return $this->byId($args['id']);
+        }
+
+        return $this->bySlug($args['slug']);
+    }
+
+    private function byId($id)
+    {
+        try {
             $this->queryBus->handle(
                 new OrganizationOfIdQuery(
-                    $args['id'],
+                    $id,
                     $this->currentUser
                 ),
                 $result
             );
 
             return $result;
+        } catch (OrganizationDoesNotExistException $exception) {
+            throw new UserError(
+                sprintf(
+                    'Does no exist any organization with the given "%s" id',
+                    $id
+                )
+            );
+        } catch (UnauthorizedOrganizationActionException $exception) {
+            throw new UserError(
+                sprintf(
+                    'The "%s" user does not allow to access the "%s" organization',
+                    $this->currentUser,
+                    $id
+                )
+            );
         }
+    }
 
-        $this->queryBus->handle(
-            new OrganizationOfSlugQuery(
-                $args['slug'],
-                $this->currentUser
-            ),
-            $result
-        );
+    public function bySlug($slug)
+    {
+        try {
+            $this->queryBus->handle(
+                new OrganizationOfSlugQuery(
+                    $slug,
+                    $this->currentUser
+                ),
+                $result
+            );
 
-        return $result;
+            return $result;
+        } catch (OrganizationDoesNotExistException $exception) {
+            throw new UserError(
+                sprintf(
+                    'Does no exist any organization with the given "%s" slug',
+                    $slug
+                )
+            );
+        } catch (UnauthorizedOrganizationActionException $exception) {
+            throw new UserError(
+                sprintf(
+                    'The "%s" user does not allow to access the "%s" organization',
+                    $this->currentUser,
+                    $slug
+                )
+            );
+        }
     }
 }

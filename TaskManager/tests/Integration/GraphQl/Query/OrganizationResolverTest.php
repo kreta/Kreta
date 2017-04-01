@@ -18,17 +18,72 @@ use Lakion\ApiTestCase\JsonApiTestCase;
 
 class OrganizationResolverTest extends JsonApiTestCase
 {
-    public function testValidOrganizationResolver()
+    public function testNonExistOrganizationByIdResolver()
     {
-        $this->organizationResolver('71298d2c-0ff4-11e7-93ae-92361f002671', 'graphql/organization_resolver');
+        $this->organizationById(
+            'access-token-1',
+            'non-exist-organization-id',
+            '/nonexistent_organization_by_id'
+        );
     }
 
-    private function organizationResolver($id, $jsonResult)
+    public function testNonExistOrganizationBySlugResolver()
     {
-        $this->client->request('POST', '/', [
+        $this->organizationBySlug(
+            'access-token-1',
+            'non-exist-organization-slug',
+            '/nonexistent_organization_by_slug'
+        );
+    }
+
+    public function testUnauthorizedOrganizationByIdResolver()
+    {
+        $this->organizationById(
+            'access-token-2',
+            '71298d2c-0ff4-11e7-93ae-92361f002671',
+            '/unauthorized_organization_by_id'
+        );
+    }
+
+    public function testUnauthorizedOrganizationBySlugResolver()
+    {
+        $this->organizationBySlug(
+            'access-token-2',
+            'organization-0',
+            '/unauthorized_organization_by_slug'
+        );
+    }
+
+    public function testOrganizationByIdResolver()
+    {
+        $this->organizationById(
+            'access-token-1',
+            '71298d2c-0ff4-11e7-93ae-92361f002671',
+            '/organization'
+        );
+    }
+
+    public function testOrganizationBySlugResolver()
+    {
+        $this->organizationBySlug('access-token-1', 'organization-0', '/organization');
+    }
+
+    private function organizationById($token, $id, $jsonResult)
+    {
+        return $this->organizationResolver($token, $id, 'id', 'ID!', $jsonResult);
+    }
+
+    private function organizationBySlug($token, $slug, $jsonResult)
+    {
+        return $this->organizationResolver($token, $slug, 'slug', 'String!', $jsonResult);
+    }
+
+    private function organizationResolver($token, $value, $name, $type, $jsonResult)
+    {
+        $this->client->request('POST', '/?access_token=' . $token, [
             'query'       => <<<EOF
-query OrganizationQueryRequest(\$id: ID!) {
-  organization(id: \$id) {
+query OrganizationQueryRequest(\$$name: $type) {
+  organization($name: \$$name) {
     id,
     name,
     slug,
@@ -55,11 +110,11 @@ query OrganizationQueryRequest(\$id: ID!) {
   }
 }
 EOF
-            , 'variables' => ['id' => $id],
+            , 'variables' => [$name => $value],
         ]);
 
         $response = $this->client->getResponse();
 
-        $this->assertResponse($response, $jsonResult);
+        $this->assertResponse($response, 'graphql/query/organization' . $jsonResult);
     }
 }
