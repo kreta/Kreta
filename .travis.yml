@@ -8,6 +8,10 @@
 
 sudo: false
 
+addons:
+    ssh_known_hosts:
+        - 137.74.161.60
+
 language: php
 
 php:
@@ -20,22 +24,30 @@ before_install:
     - phpenv config-rm xdebug.ini
     - composer self-update
 
+    - pip install --user -U pip
+    - pip install --user --upgrade pip
+    - pip install --user --upgrade ansible
+    - printf '[defaults]\nroles_path=../' >ansible.cfg
+    - ansible --version
+    - ansible-galaxy install carlosbuenosvinos.ansistrano-deploy --force
+    - ln -s `pwd` ../kreta.Kreta
+
 install:
     - nvm install 7
     - nvm use 7
     - npm install -g yarn
 
     - cd SharedKernel
-    - composer install -o
+    - composer install
     - cd -
 
     - cd IdentityAccess
-    - composer install -o
+    - composer install
     - sh etc/bash/generate_ssh_keys.sh
     - cd -
 
     - cd TaskManager
-    - composer install -o
+    - composer install
     - cd -
 
     - cd CompositeUi
@@ -49,14 +61,9 @@ cache:
     yarn: true
     directories:
         - node_modules
-        - $COMPOSER_CACHE_DIR
         - $HOME/.composer/cache/files
         - $HOME/.php-cs-fixer
-
-matrix:
-    fast_finish: true
-    include:
-        php: 7.1
+        - $HOME/virtualenv
 
 script:
     - cd SharedKernel
@@ -88,3 +95,11 @@ script:
 
     - cd CompositeUi
     - yarn test
+    - cd -
+
+deploy:
+    skip_cleanup: true
+    provider: script
+    script: .travis/deploy.sh
+    on:
+        branch: master
