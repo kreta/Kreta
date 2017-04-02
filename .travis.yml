@@ -31,17 +31,11 @@ install:
 
     - cd IdentityAccess
     - composer install -o
-    - sed -i -e "s/identity_access_database_host.*/identity_access_database_host: 127.0.0.1/" parameters.yml
-    - sed -i -e "s/identity_access_database_password.*/identity_access_database_password: ~/" parameters.yml
     - sh etc/bash/generate_ssh_keys.sh
-    - sh etc/bash/load_database.sh
     - cd -
 
     - cd TaskManager
     - composer install -o
-    - sed -i -e "s/task_manager_database_host.*/task_manager_database_host: 127.0.0.1/" parameters.yml
-    - sed -i -e "s/task_manager_database_password.*/task_manager_database_password: ~/" parameters.yml
-    - sh etc/bash/load_database.sh
     - cd -
 
     - cd CompositeUi

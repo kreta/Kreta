@@ -19,6 +19,8 @@ framework:
 doctrine:
     dbal:
         dbname: "%task_manager_database_name%_test"
+        host: 127.0.0.1
+        password: ~
 
 web_profiler:
     toolbar: false
