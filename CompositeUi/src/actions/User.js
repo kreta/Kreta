@@ -10,19 +10,22 @@
 
 import {routeActions} from 'react-router-redux';
 
+import {routes} from './../Routes';
+
 import ActionTypes from './../constants/ActionTypes';
+
 import NotificationActions from './../actions/Notification';
+
 import Register from './../api/rest/User/Register';
 import ResetPassword from './../api/rest/User/ResetPassword';
 import Security from './../api/rest/User/Security';
-
-import {routes} from './../Routes';
 
 const Actions = {
   login: (credentialData) => (dispatch) => {
     dispatch({
       type: ActionTypes.USER_AUTHORIZING
     });
+
     return Security.login(credentialData.email, credentialData.password)
       .then((json) => {
         localStorage.token = json.token;
@@ -46,6 +49,7 @@ const Actions = {
     dispatch({
       type: ActionTypes.USER_UNAUTHORIZING
     });
+
     return Security.logout()
       .then(() => {
         dispatch({
@@ -60,6 +64,7 @@ const Actions = {
     dispatch({
       type: ActionTypes.USER_REGISTERING
     });
+
     return Register.signUp(formData)
       .then(() => {
         dispatch({
@@ -85,6 +90,7 @@ const Actions = {
     dispatch({
       type: ActionTypes.USER_ENABLE
     });
+
     return Register.enable(confirmationToken)
       .then(() => {
         dispatch({
@@ -106,6 +112,7 @@ const Actions = {
     dispatch({
       type: ActionTypes.USER_REQUESTING_RESET_PASSWORD
     });
+
     return ResetPassword.request(formData.email)
       .then(() => {
         dispatch({
@@ -128,6 +135,7 @@ const Actions = {
     dispatch({
       type: ActionTypes.USER_RESETTING_PASSWORD
     });
+
     return ResetPassword.change(formData.token, formData.passwords)
       .then(() => {
         dispatch({
