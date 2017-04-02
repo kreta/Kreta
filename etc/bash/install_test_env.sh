@@ -8,7 +8,6 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 
-cd ../TaskManager
-etc/bin/symfony-console graph:dump-schema --file=../CompositeUi/schema.json
+cd TaskManager
+sh etc/bash/install_test_env.sh
 cd -
-rm -rf node_modules/.cache/babel-loader/*

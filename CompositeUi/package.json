@@ -32,7 +32,7 @@
   "scripts": {
     "start": "babel-node scripts/start.js",
     "build": "babel-node scripts/build.js",
-    "test": "babel-node scripts/test.js --env=jsdom"
+    "test": "babel-node scripts/test.js --verbose --env=jsdom"
   },
   "jest": {
     "collectCoverageFrom": [

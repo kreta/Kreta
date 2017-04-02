@@ -12,34 +12,26 @@
 
 declare(strict_types=1);
 
-namespace Kreta\TaskManager\Infrastructure\Symfony\EventListener;
+namespace Kreta\TaskManager\Tests\Double\Infrastructure\Symfony\EventListener;
 
-use Http\Client\HttpClient;
-use Http\Message\Authentication\Bearer;
-use Http\Message\MessageFactory;
 use Kreta\TaskManager\Infrastructure\Symfony\Security\User;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\Exception\UnauthorizedHttpException;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
-final class AuthenticationListener
+final class DummyAuthenticationListener
 {
-    private $messageFactory;
-    private $client;
     private $tokenStorage;
-    private $identityAccessHost;
 
-    public function __construct(
-        MessageFactory $messageFactory,
-        HttpClient $client,
-        TokenStorageInterface $tokenStorage,
-        string $identityAccessHost
-    ) {
-        $this->messageFactory = $messageFactory;
-        $this->client = $client;
+    const USER_IDS = [
+        'access-token-1' => 'da49c01f-2e99-45ee-9557-eb3eb57b06c5',
+        'access-token-2' => '6704c278-e106-449f-a73d-2508e96f6177',
+    ];
+
+    public function __construct(TokenStorageInterface $tokenStorage)
+    {
         $this->tokenStorage = $tokenStorage;
-        $this->identityAccessHost = $identityAccessHost;
     }
 
     public function onKernelRequest(GetResponseEvent $event) : void
@@ -47,25 +39,17 @@ final class AuthenticationListener
         if (!$event->isMasterRequest()) {
             return;
         }
+        $request = $event->getRequest();
 
         // Prevents to crash the Symfony profiler routes
-        if (0 === mb_strpos($event->getRequest()->getPathInfo(), '/_')) {
+        if (0 === mb_strpos($request->getPathInfo(), '/_')) {
             return;
         }
 
-        $request = $this->messageFactory->createRequest('GET', '//' . $this->identityAccessHost . '/user');
-        $request = $this->authentication($event->getRequest())->authenticate($request);
-        $response = $this->client->sendRequest($request);
-
-        $data = json_decode($response->getBody()->getContents(), true);
-        if (!isset($data['user_id'])) {
-            throw new UnauthorizedHttpException('Basic');
-        }
-
-        $this->tokenStorage->getToken()->setUser(new User($data['user_id']));
+        $this->tokenStorage->getToken()->setUser(new User($this->userId($request)));
     }
 
-    private function authentication(Request $request) : Bearer
+    private function userId(Request $request) : ?string
     {
         if ($request->headers->has('Authorization')) {
             $token = str_replace('Bearer ', '', $request->headers->get('Authorization'));
@@ -75,6 +59,6 @@ final class AuthenticationListener
             throw new UnauthorizedHttpException('Basic');
         }
 
-        return new Bearer($token);
+        return isset(self::USER_IDS[$token]) ? self::USER_IDS[$token] : null;
     }
 }

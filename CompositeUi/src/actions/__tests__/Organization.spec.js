@@ -13,22 +13,60 @@ import ActionTypes from './../../constants/ActionTypes';
 
 import OrganizationActions from './../../actions/Organization';
 
-jest.mock('./../../api/graphql/TaskManagerGraphQl');
+jest.mock('./../../api/graphql/mutation/CreateOrganizationMutationRequest');
 
 describe('Organization actions', () => {
   it('creates organization', () => {
-    const exampleOrganization = {name: 'example'},
-      expectedActions = [
-        {type: ActionTypes.ORGANIZATION_CREATING},
-        {organization: exampleOrganization, type: ActionTypes.ORGANIZATION_CREATED},
-        {payload: {arg: '/', method: 'push'}, type: '@@router/TRANSITION'}
-      ];
+    const
+      store = mockStore({}),
+      expectedActions = [{
+        type: ActionTypes.ORGANIZATION_CREATING
+      }, {
+        organization: {
+          id: 'organization-id',
+          name: 'New organization',
+          slug: 'new-organization'
+        },
+        type: ActionTypes.ORGANIZATION_CREATED
+      }, {
+        payload: {
+          arg: '/new-organization',
+          method: 'push'
+        },
+        type: '@@router/TRANSITION'
+      }, {
+        notification: {
+          id: expect.any(Number),
+          message: 'Organization created successfully',
+          type: 'success'
+        },
+        type: ActionTypes.NOTIFICATION_ADD
+      }];
 
-    const store = mockStore({});
+    store.dispatch(OrganizationActions.createOrganization({name: 'New organization'})).then(() => {
+      expect(store.getActions()).toEqual(expectedActions);
+    });
+  });
 
-    store.dispatch(OrganizationActions.createOrganization(exampleOrganization)).then(() => {
-      console.log('r');
-      expect(store.getActions()).toEqual([]);
+  it('does not create organization when the name is empty', () => {
+    const
+      store = mockStore({}),
+      expectedActions = [{
+        type: ActionTypes.ORGANIZATION_CREATING
+      }, {
+        errors: [],
+        type: ActionTypes.ORGANIZATION_CREATE_ERROR
+      }, {
+        notification: {
+          id: expect.any(Number),
+          message: 'Error while creating organization',
+          type: 'error'
+        },
+        type: ActionTypes.NOTIFICATION_ADD
+      }];
+
+    store.dispatch(OrganizationActions.createOrganization({})).then(() => {
+      expect(store.getActions()).toEqual(expectedActions);
     });
   });
 });

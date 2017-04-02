@@ -25,7 +25,25 @@ install:
     - nvm use 7
     - npm install -g yarn
 
-    - sh etc/bash/install.sh
+    - cd SharedKernel
+    - composer install -o
+    - cd -
+
+    - cd IdentityAccess
+    - composer install -o
+    - sh etc/bash/generate_ssh_keys.sh
+    - cd -
+
+    - cd TaskManager
+    - composer install -o
+    - cd -
+
+    - cd CompositeUi
+    - yarn install
+    - sh etc/bash/update_graph_schema.sh
+    - cd -
+
+    - sh etc/bash/install_test_env.sh
 
 cache:
     yarn: true
@@ -41,14 +59,14 @@ matrix:
         php: 7.1
 
 script:
-    - sh etc/bash/tests.sh
-
     - cd SharedKernel
+    - vendor/bin/phpspec run -fdot
     - vendor/bin/php-cs-fixer fix --config=etc/phpcs/.php_cs --diff --dry-run -v
     - vendor/bin/php-cs-fixer fix --config=etc/phpcs/.phpspec_cs --diff --dry-run -v
     - cd -
 
     - cd IdentityAccess
+    - vendor/bin/phpspec run -fdot
     - vendor/bin/php-cs-fixer fix --config=etc/phpcs/.php_cs --diff --dry-run -v
     - vendor/bin/php-cs-fixer fix --config=etc/phpcs/.phpspec_cs --diff --dry-run -v
     - etc/bin/symfony-console lint:yaml src/Kreta/IdentityAccess/Infrastructure
@@ -58,9 +76,15 @@ script:
     - cd -
 
     - cd TaskManager
+    - vendor/bin/phpspec run -fdot
+    - vendor/bin/phpunit
     - vendor/bin/php-cs-fixer fix --config=etc/phpcs/.php_cs --diff --dry-run -v
     - vendor/bin/php-cs-fixer fix --config=etc/phpcs/.phpspec_cs --diff --dry-run -v
     - etc/bin/symfony-console lint:yaml src/Kreta/TaskManager/Infrastructure
 ## The following check is commented because Travis CI throws an error:
 ## "An error occurred: gnutls_handshake() failed: A TLS fatal alert has been received.."
 #    - etc/bin/symfony-console security:check
+    - cd -
+
+    - cd CompositeUi
+    - yarn test

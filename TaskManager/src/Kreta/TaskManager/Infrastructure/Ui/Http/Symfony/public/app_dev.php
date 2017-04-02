@@ -19,7 +19,7 @@ use Symfony\Component\HttpFoundation\Request;
 if (isset($_SERVER['HTTP_CLIENT_IP'])
     || isset($_SERVER['HTTP_X_FORWARDED_FOR'])
     || !(in_array(@$_SERVER['REMOTE_ADDR'], ['127.0.0.1', '::1', getenv('DEFAULT_NETWORK_GATEWAY')], true)
-        || php_sapi_name() === 'cli-server' || getenv('SYMFONY_ENV') === 'dev'
+        || PHP_SAPI === 'cli-server' || getenv('SYMFONY_ENV') === 'dev'
     )
 ) {
     header('HTTP/1.0 403 Forbidden');
