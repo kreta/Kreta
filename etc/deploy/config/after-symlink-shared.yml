@@ -12,12 +12,12 @@
 
 -
     name: Doctrine migrations task manager
-    shell: "{{php_path}} etc/bin/symfony-console doctrine:migrations:migrate --quiet --no-interaction"
+    shell: "{{php_path}} etc/bin/symfony-console doctrine:migrations:migrate --quiet --no-interaction -e=prod"
     args:
         chdir: "{{ ansistrano_release_path.stdout }}/TaskManager"
 -
     name: Doctrine migrations identity access
-    shell: "{{php_path}} etc/bin/symfony-console doctrine:migrations:migrate --quiet --no-interaction"
+    shell: "{{php_path}} etc/bin/symfony-console doctrine:migrations:migrate --quiet --no-interaction -e=prod"
     args:
         chdir: "{{ ansistrano_release_path.stdout }}/IdentityAccess"
 
