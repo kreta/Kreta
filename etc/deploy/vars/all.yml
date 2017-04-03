@@ -1,10 +1,18 @@
+# This file is part of the Kreta package.
+#
+# (c) Beñat Espiña <benatespina@gmail.com>
+# (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+
 permission_owner: kreta
 permission_group: kreta
 permission_mode: "0755"
 ansistrano_deploy_from: "{{ playbook_dir }}/../../"
 ansistrano_keep_releases: 3
 ansistrano_deploy_via: "git"            # Also it can be copy, rsync
-ansistrano_git_repo: git@github.com:kreta/Kreta.git
+ansistrano_git_repo: https://github.com/kreta/Kreta.git
 ansistrano_git_branch: "master"
 
 ansistrano_before_symlink_shared_tasks_file: "{{ playbook_dir }}/config/before-symlink-shared.yml"
