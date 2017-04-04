@@ -9,8 +9,8 @@
  */
 
 export default {
-  build: (organizationInputData) => {
-    return new Promise((resolve, reject) => {
+  build: (organizationInputData) => (
+    new Promise((resolve, reject) => {
       if (typeof organizationInputData.name === 'undefined') {
         reject({source: {errors: []}});
       } else {
@@ -24,8 +24,8 @@ export default {
               }
             }
           }
-        })
+        });
       }
-    });
-  }
+    })
+  )
 };

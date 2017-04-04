@@ -8,6 +8,8 @@
  * file that was distributed with this source code.
  */
 
+/* eslint-disable max-nested-callbacks */
+
 import mockStore from './../../__mocks__/mockStore';
 import ActionTypes from './../../constants/ActionTypes';
 

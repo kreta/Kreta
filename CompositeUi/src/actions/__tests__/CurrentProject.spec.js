@@ -8,10 +8,10 @@
  * file that was distributed with this source code.
  */
 
-import mockStore from '../../__mocks__/mockStore';
+// import mockStore from './../../__mocks__/mockStore';
 
-import CurrentProjectActions from '../../actions/CurrentProject';
-import ActionTypes from '../../constants/ActionTypes';
+// import CurrentProjectActions from './../../actions/CurrentProject';
+// import ActionTypes from './../../constants/ActionTypes';
 
 describe('Current project actions', () => {
   it('fetches projects', () => {
@@ -40,5 +40,5 @@ describe('Current project actions', () => {
 
   it('adds a participant', () => {
 
-  })
+  });
 });

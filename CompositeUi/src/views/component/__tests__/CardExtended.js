@@ -9,9 +9,10 @@
  */
 
 import React from 'react';
-import { shallow } from 'enzyme';
-import CardExtended from '../CardExtended';
-import Thumbnail from '../Thumbnail';
+import {shallow} from 'enzyme';
+
+import CardExtended from './../CardExtended';
+import Thumbnail from './../Thumbnail';
 
 describe('<CardExtended />', () => {
   it('renders basic component', () => {
@@ -26,7 +27,7 @@ describe('<CardExtended />', () => {
 
   it('renders title with thumbnail', () => {
     const wrapper = shallow(
-      <CardExtended title="Example card" thumbnail={<Thumbnail text="me"/>}/>
+      <CardExtended thumbnail={<Thumbnail text="me"/>} title="Example card"/>
     );
     expect(wrapper.find('.card-extended__header').text()).toBe('Example card');
     expect(wrapper.find('.card-extended__thumbnail').contains(<Thumbnail text="me"/>)).toBe(true);
@@ -36,7 +37,7 @@ describe('<CardExtended />', () => {
 
   it('renders title and subtitle with thumbnail', () => {
     const wrapper = shallow(
-      <CardExtended subtitle="Example subtitle" title="Example card" thumbnail={<Thumbnail text="me"/>}/>
+      <CardExtended subtitle="Example subtitle" thumbnail={<Thumbnail text="me"/>} title="Example card"/>
     );
     expect(wrapper.find('.card-extended__header').text()).toBe('Example card');
     expect(wrapper.find('.card-extended__thumbnail').contains(<Thumbnail text="me"/>)).toBe(true);
@@ -54,5 +55,5 @@ describe('<CardExtended />', () => {
     expect(wrapper.find('.card-extended__thumbnail')).toHaveLength(0);
     expect(wrapper.find('.card-extended__sub-header')).toHaveLength(0);
     expect(wrapper.find('.card-extended__actions').contains(<a href="#">Add</a>)).toBe(true);
-  })
+  });
 });

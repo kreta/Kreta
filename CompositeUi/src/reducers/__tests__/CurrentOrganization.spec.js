@@ -8,8 +8,8 @@
  * file that was distributed with this source code.
  */
 
-import ActionTypes from './../../constants/ActionTypes'
-import reducer from './../CurrentOrganization'
+import ActionTypes from './../../constants/ActionTypes';
+import reducer from './../CurrentOrganization';
 
 describe('Current organization reducer tests', () => {
   it('Initial State', () => {
@@ -29,7 +29,7 @@ describe('Current organization reducer tests', () => {
       reducer({}, {type: ActionTypes.CURRENT_ORGANIZATION_FETCHING})
     ).toEqual({
       fetching: true
-    })
+    });
   });
 
   it('Organization received', () => {
@@ -57,11 +57,11 @@ describe('Current organization reducer tests', () => {
           id: 'id2'
         }]
       }
-    })
+    });
   });
 
   it('Organization member removed', () => {
-    return expect(
+    expect(
       reducer({
         organization: {
           id: 1,
@@ -86,7 +86,7 @@ describe('Current organization reducer tests', () => {
           id: 'id1'
         }]
       }
-    })
+    });
   });
 
   it('Organization member add', () => {
@@ -122,6 +122,6 @@ describe('Current organization reducer tests', () => {
         }]
       },
       potential_members: []
-    })
-  })
+    });
+  });
 });
