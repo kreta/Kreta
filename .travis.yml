@@ -32,6 +32,16 @@ before_install:
     - ansible-galaxy install carlosbuenosvinos.ansistrano-deploy --force
     - ln -s `pwd` ../kreta.Kreta
 
+    - ENCRYPTED_KEY_VAR="encrypted_${SSH_ENCRYPTION_KEY}_key"
+    - ENCRYPTED_IV_VAR="encrypted_${SSH_ENCRYPTION_KEY}_iv"
+    - ENCRYPTED_KEY=${!ENCRYPTED_KEY_VAR}
+    - ENCRYPTED_IV=${!ENCRYPTED_IV_VAR}
+
+    - openssl aes-256-cbc -K $ENCRYPTED_KEY -iv $ENCRYPTED_IV -in .travis/deploy_rsa.enc -out /tmp/deploy_rsa -d
+    - eval "$(ssh-agent -s)"
+    - chmod 600 /tmp/deploy_rsa
+    - ssh-add /tmp/deploy_rsa
+
 install:
     - nvm install 7
     - nvm use 7
@@ -100,6 +110,6 @@ script:
 deploy:
     skip_cleanup: true
     provider: script
-    script: .travis/deploy.sh
+    script: ansible-playbook -i etc/deploy/hosts etc/deploy/deploy.yml
     on:
         branch: master
