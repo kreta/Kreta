@@ -23,7 +23,7 @@
 
 -
     name: Build composite ui locally
-    local_action: "command cd {{ playbook_dir }}/../../CompositeUi && yarn build"
+    local_action: "shell cd {{ playbook_dir }}/../../CompositeUi && yarn build"
 
 -
     name: Upload build folder
