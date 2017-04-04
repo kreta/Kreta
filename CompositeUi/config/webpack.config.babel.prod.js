@@ -19,7 +19,6 @@ import ManifestPlugin from 'webpack-manifest-plugin';
 
 import autoprefixer from 'autoprefixer';
 import path from 'path';
-import stylelint from 'stylelint';
 import webpack from 'webpack';
 
 import paths from './paths';
@@ -57,14 +56,6 @@ export default {
       parser: {
         requireEnsure: false
       }
-    }, {
-      test: /\.(js|jsx)$/,
-      enforce: 'pre',
-      use: [{
-        loader: 'eslint-loader',
-      },
-      ],
-      include: paths.appSrc,
     }, {
       exclude: [
         /\.html$/,
@@ -126,7 +117,6 @@ export default {
                   'not ie < 9',
                 ],
               }),
-              stylelint(),
             ],
           },
         }, {
