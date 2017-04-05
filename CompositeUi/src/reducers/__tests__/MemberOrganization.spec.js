@@ -8,8 +8,8 @@
  * file that was distributed with this source code.
  */
 
-import ActionTypes from './../../constants/ActionTypes'
-import reducer from './../MemberOrganization'
+import ActionTypes from './../../constants/ActionTypes';
+import reducer from './../MemberOrganization';
 
 describe('Member organization reducer tests', () => {
   it('Unknow action', () => {
@@ -38,5 +38,5 @@ describe('Member organization reducer tests', () => {
         ]
       }
     );
-  })
+  });
 });

@@ -8,6 +8,4 @@
  * file that was distributed with this source code.
  */
 
-'use strict';
-
-module.exports = 'test-file-stub';
+export default 'test-file-stub';

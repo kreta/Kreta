@@ -8,30 +8,28 @@
  * file that was distributed with this source code.
  */
 
-'use strict';
-
 const localStorageMock = () => {
-  let store = {};
+  const store = {};
 
   return {
-    setItem: function (key, value) {
+    setItem: (key, value) => {
       store[key] = value || '';
     },
-    getItem: function (key) {
-      return store[key] || null;
-    },
-    removeItem: function (key) {
-      delete store[key];
+    getItem: (key) => (
+      store[key] || null
+    ),
+    removeItem: (key) => {
+      Reflect.deleteProperty(store[key]);
     },
     get length() {
       return Object.keys(store).length;
     },
-    key: function (key) {
+    key: (key) => {
       const keys = Object.keys(store);
 
       return keys[key] || null;
     }
-  }
+  };
 };
 
-Object.defineProperty(window, 'localStorage', {value: localStorageMock});
+Reflect.defineProperty(window, 'localStorage', {value: localStorageMock});
