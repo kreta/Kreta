@@ -34,7 +34,8 @@ $ sh etc/bash/cs.sh
 
 There is also a policy for contributing to this project. Pull requests must be explained step by step to make the
 review process easy in order to accept and merge them. New methods or code improvements must come paired with
-tests. We are using [PhpSpec][8] for PHP unit testing and [Jest][9] for JavaScript code.
+tests. We are using [PhpSpec][8] for PHP unit testing, [PHPUnit][13] for PHP integration tests and [Jest][9] for
+JavaScript code.
 
 If you have any doubt or maybe you want to share some opinion, join our **[Slack][10]** team.
 
@@ -59,3 +60,4 @@ Kreta is created by:
 [10]: https://slackinvite.me/to/kretaio
 [11]: https://en.wikipedia.org/wiki/Continuous_delivery
 [12]: http://kreta.io/
+[13]: https://phpunit.de/
