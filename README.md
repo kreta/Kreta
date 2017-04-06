@@ -14,12 +14,12 @@ robust and testable project management platform written in **[PHP7][2]**. In the
 constantly in mind the importance of a good user experience so, the good design and client-side logic is a must. For
 that, Kreta uses "**[React][3]** with Redux" JavaScript stack.
 
-If you want to test the project without any installation, you can play with a **public demo site in
-[demo.kreta.io][4]**.
-> Feel free to change anything you can, it has a cron that reloads all the dummy content everyday :)
+We are committed to the **[Continuous Delivery][11]** philosophy so, all the code that is merged to the repository's
+master branch is automatically deployed to production by **[Travis](https://travis-ci.org/kreta/Kreta)**. 
+In this way you can visit the **[kreta.io][12]** and enjoy instantaneously with the last updates of the platform.
 
 ## Documentation
-All the documentation is stored in the `docs` folder.
+All the documentation is stored in the `/docs` folder.
 
 [Show me the docs!](docs/index.md)
 
@@ -57,3 +57,5 @@ Kreta is created by:
 [8]: http://www.phpspec.net/
 [9]: https://facebook.github.io/jest/
 [10]: https://slackinvite.me/to/kretaio
+[11]: https://en.wikipedia.org/wiki/Continuous_delivery
+[12]: http://kreta.io/
