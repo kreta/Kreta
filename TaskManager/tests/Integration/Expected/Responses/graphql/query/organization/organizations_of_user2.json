@@ -1,0 +1,49 @@
+{
+  "data": {
+    "organizations": {
+      "totalCount": 1,
+      "edges": [
+        {
+          "node": {
+            "id": "7129a0fa-0ff4-11e7-93ae-92361f002671",
+            "name": "Organization 10",
+            "slug": "organization-10",
+            "owners": [
+              {
+                "id": "6704c278-e106-449f-a73d-2508e96f6177"
+              }
+            ],
+            "projects": {
+              "totalCount": 3,
+              "pageInfo": {
+                "hasNextPage": true
+              },
+              "edges": [
+                {
+                  "node": {
+                    "id": "0dadb844-1220-11e7-93ae-92361f002671",
+                    "name": "Project 10",
+                    "slug": "project-10",
+                    "organization": {
+                      "slug": "organization-10"
+                    }
+                  }
+                },
+                {
+                  "node": {
+                    "id": "0dae039e-1220-11e7-93ae-92361f002671",
+                    "name": "Project 40",
+                    "slug": "project-40",
+                    "organization": {
+                      "slug": "organization-10"
+                    }
+                  }
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  }
+}
