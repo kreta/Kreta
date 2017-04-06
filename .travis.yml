@@ -105,7 +105,7 @@ script:
 
     - cd CompositeUi
     - node_modules/.bin/eslint -c .eslintrc.js src/
-    - node_modules/.bin/stylelint src/scss/**/*.scss --syntax scss
+    - node_modules/.bin/stylelint -c .stylelintrc.js src/scss/**/*.scss --syntax scss
     - yarn test
     - cd -
 

@@ -47,10 +47,7 @@ $task-preview-priority-user-image-size: 32px;
 .task-preview__priority {
   height: $task-preview-priority-radius * 2 + $task-preview-priority-stroke-width * 2;
   position: absolute;
-  transform: translate(
-    -#{($task-preview-priority-radius * 2 - $task-preview-priority-user-image-size) / 2 + $task-preview-priority-stroke-width},
-    -#{($task-preview-priority-radius * 2 - $task-preview-priority-user-image-size) / 2 + $task-preview-priority-stroke-width}
-  );
+  transform: translate(-#{($task-preview-priority-radius * 2 - $task-preview-priority-user-image-size) / 2 + $task-preview-priority-stroke-width}, -#{($task-preview-priority-radius * 2 - $task-preview-priority-user-image-size) / 2 + $task-preview-priority-stroke-width});
   width: $task-preview-priority-radius * 2 + $task-preview-priority-stroke-width * 2;
 }
 
@@ -93,6 +90,7 @@ $task-preview-priority-user-image-size: 32px;
   from {
     stroke-dashoffset: #{2 * 3.14 * $task-preview-priority-radius};
   }
+
   to {
     stroke-dashoffset: #{2 * 3.14 * $task-preview-priority-radius * .66};
   }
@@ -102,6 +100,7 @@ $task-preview-priority-user-image-size: 32px;
   from {
     stroke-dashoffset: #{2 * 3.14 * $task-preview-priority-radius};
   }
+
   to {
     stroke-dashoffset: #{2 * 3.14 * $task-preview-priority-radius * .25};
   }
@@ -111,6 +110,7 @@ $task-preview-priority-user-image-size: 32px;
   from {
     stroke-dashoffset: #{2 * 3.14 * $task-preview-priority-radius};
   }
+
   to {
     stroke-dashoffset: 0;
   }

@@ -19,3 +19,8 @@ cd -
 cd TaskManager
 composer run-script cs
 cd -
+
+cd CompositeUi
+node_modules/.bin/eslint -c .eslintrc.js src/ --fix
+# node_modules/.bin/stylefmt -c .stylelintrc.js -r src/scss/**/*.scss
+cd -
