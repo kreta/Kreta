@@ -22,6 +22,7 @@ import LoginPage from './views/page/Login';
 import OrganizationRoot from './views/page/organization/Root';
 import OrganizationNew from './views/page/organization/New';
 import OrganizationShow from './views/page/organization/Show';
+import OrganizationAddMember from './views/page/organization/AddMember';
 import Profile from './views/page/profile/Edit';
 import ProjectNew from './views/page/project/New';
 import ProjectRoot from './views/page/project/Root';
@@ -37,6 +38,7 @@ const
       new: () => ('/organizations/new'),
       show: (organization) => (`/${organization}`),
       settings: (organization) => (`/${organization}/settings`),
+      addMember: (organization) => (`/${organization}/add-member`)
     },
     project: {
       new: (organization) => (`/${organization}/projects/new`),
@@ -98,7 +100,9 @@ const
         <Route component={OrganizationNew} path={routes.organization.new()}/>
 
         <Route component={OrganizationRoot}>
-          <Route component={OrganizationShow} path={routes.organization.show(':organization')}/>
+          <Route component={OrganizationShow} path={routes.organization.show(':organization')}>
+            <Route component={OrganizationAddMember} path={routes.organization.addMember(':organization')}/>
+          </Route>
 
           <Route component={ProjectNew} path={routes.project.new(':organization')}/>
           <Route component={ProjectRoot}>

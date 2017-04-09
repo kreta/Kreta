@@ -9,6 +9,7 @@
  */
 
 import SettingsIcon from './../../../svg/settings.svg';
+import CrossIcon from './../../../svg/cross.svg';
 
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
@@ -18,7 +19,6 @@ import {routes} from './../../../Routes';
 
 import CurrentOrganizationActions from './../../../actions/CurrentOrganization';
 
-import AddMemberToOrganization from '../organization/AddMemberToOrganization';
 import Button from './../../component/Button';
 import CardExtended from './../../component/CardExtended';
 import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
@@ -34,10 +34,6 @@ import {Row, RowColumn} from './../../component/Grid';
 
 @connect(state => ({currentOrganization: state.currentOrganization, profile: state.profile.profile}))
 class Show extends React.Component {
-  state = {
-    addParticipantsVisible: false
-  };
-
   componentDidMount() {
     const {params, dispatch} = this.props;
 
@@ -80,16 +76,14 @@ class Show extends React.Component {
             color="red"
             onClick={this.removeMember.bind(this, member)}
             type="icon"
-          />
+          >
+            <Icon color="white" glyph={CrossIcon} size="expand"/>
+          </Button>
         }
         key={index}
         user={member}
       />
     ));
-  }
-
-  showAddParticipants() {
-    this.setState({addParticipantsVisible: true});
   }
 
   removeMember(member) {
@@ -104,19 +98,8 @@ class Show extends React.Component {
     );
   }
 
-  addMember(member) {
-    const {currentOrganization, dispatch} = this.props;
-
-    dispatch(
-      CurrentOrganizationActions.addMember(
-        currentOrganization.organization.id,
-        member.id
-      )
-    );
-  }
-
   render() {
-    const {currentOrganization} = this.props;
+    const {currentOrganization, children} = this.props;
 
     if (currentOrganization.fetching) {
       return <LoadingSpinner/>;
@@ -136,8 +119,8 @@ class Show extends React.Component {
                 }
                 title={currentOrganization.organization.name}
               >
-                <Icon color="green" glyph={SettingsIcon} size="small"/>Settings
                 <InlineLink to={routes.organization.settings(currentOrganization.organization.slug)}>
+                  <Icon color="green" glyph={SettingsIcon} size="small"/>Settings
                 </InlineLink>
                 <Link to={routes.project.new(currentOrganization.organization.slug)}>
                   <Button color="green">New project</Button>
@@ -150,30 +133,22 @@ class Show extends React.Component {
             </RowColumn>
             <RowColumn medium={6}>
               <SectionHeader
-                actions={
-                  <Button color="green">
-                    Add Owners
-                  </Button>
-                }
                 title="Owners"
               />
               {this.getOwners()}
               <SectionHeader
                 actions={
-                  <Button color="green" onClick={this.showAddParticipants.bind(this)}>
-                    Add Members
-                  </Button>
+                  <Link to={routes.organization.addMember(currentOrganization.organization.slug)}>
+                    <Button color="green">Add Members</Button>
+                  </Link>
                 }
                 title="Members"/>
               {this.getMembers()}
             </RowColumn>
           </Row>
         </ContentMiddleLayout>
-        <ContentRightLayout isOpen={this.state.addParticipantsVisible}>
-          <AddMemberToOrganization
-            onMemberAddClicked={this.addMember.bind(this)}
-            organization={this.props.currentOrganization}
-          />
+        <ContentRightLayout isOpen={children !== null}>
+          {children}
         </ContentRightLayout>
       </div>
     );
