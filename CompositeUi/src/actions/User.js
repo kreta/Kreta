@@ -42,6 +42,10 @@ const Actions = {
             type: ActionTypes.USER_AUTHORIZATION_ERROR,
             errors
           });
+          dispatch(NotificationActions.addNotification(
+            'Invalid credentials, try again',
+            'error')
+          );
         });
       });
   },
