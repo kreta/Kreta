@@ -1,10 +1,10 @@
 {
   "data": {
-    "organization": null
+    "owner": null
   },
   "errors": [
     {
-      "message": "Does not exist any organization with the given \"non-exist-organization-id\" id",
+      "message": "Does not exist any owner with the given \"non-exist-owner-id\" id",
       "locations": [
         {
           "line": 2,

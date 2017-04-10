@@ -58,7 +58,7 @@ class OrganizationResolver implements Resolver
         } catch (OrganizationDoesNotExistException $exception) {
             throw new UserError(
                 sprintf(
-                    'Does no exist any organization with the given "%s" id',
+                    'Does not exist any organization with the given "%s" id',
                     $id
                 )
             );
@@ -88,7 +88,7 @@ class OrganizationResolver implements Resolver
         } catch (OrganizationDoesNotExistException $exception) {
             throw new UserError(
                 sprintf(
-                    'Does no exist any organization with the given "%s" slug',
+                    'Does not exist any organization with the given "%s" slug',
                     $slug
                 )
             );

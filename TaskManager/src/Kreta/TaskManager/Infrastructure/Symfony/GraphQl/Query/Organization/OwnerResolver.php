@@ -17,6 +17,10 @@ namespace Kreta\TaskManager\Infrastructure\Symfony\GraphQl\Query\Organization;
 use Kreta\SharedKernel\Application\QueryBus;
 use Kreta\SharedKernel\Http\GraphQl\Resolver;
 use Kreta\TaskManager\Application\Query\Organization\OwnerOfIdQuery;
+use Kreta\TaskManager\Domain\Model\Organization\OrganizationDoesNotExistException;
+use Kreta\TaskManager\Domain\Model\Organization\OwnerDoesNotExistException;
+use Kreta\TaskManager\Domain\Model\Organization\UnauthorizedOrganizationActionException;
+use Overblog\GraphQLBundle\Error\UserError;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class OwnerResolver implements Resolver
@@ -32,15 +36,39 @@ class OwnerResolver implements Resolver
 
     public function resolve($args)
     {
-        $this->queryBus->handle(
-            new OwnerOfIdQuery(
-                $args['organizationId'],
-                $args['ownerId'],
-                $this->currentUser
-            ),
-            $result
-        );
+        try {
+            $this->queryBus->handle(
+                new OwnerOfIdQuery(
+                    $args['organizationId'],
+                    $args['ownerId'],
+                    $this->currentUser
+                ),
+                $result
+            );
 
-        return $result;
+            return $result;
+        } catch (OrganizationDoesNotExistException $exception) {
+            throw new UserError(
+                sprintf(
+                    'Does not exist any organization with the given "%s" id',
+                    $args['organizationId']
+                )
+            );
+        } catch (UnauthorizedOrganizationActionException $exception) {
+            throw new UserError(
+                sprintf(
+                    'The "%s" user does not allow to access the "%s" organization',
+                    $this->currentUser,
+                    $args['organizationId']
+                )
+            );
+        } catch (OwnerDoesNotExistException $exception) {
+            throw new UserError(
+                sprintf(
+                    'Does not exist any owner with the given "%s" id',
+                    $args['ownerId']
+                )
+            );
+        }
     }
 }
