@@ -4,7 +4,7 @@
   },
   "errors": [
     {
-      "message": "Does no exist any organization with the given \"non-exist-organization-slug\" slug",
+      "message": "Does not exist any organization with the given \"non-exist-organization-slug\" slug",
       "locations": [
         {
           "line": 2,

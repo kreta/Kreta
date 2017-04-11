@@ -1,0 +1,16 @@
+{
+  "data": {
+    "organizationMember": null
+  },
+  "errors": [
+    {
+      "message": "Does not exist any organization member with the given \"non-exist-organization-member-id\" id",
+      "locations": [
+        {
+          "line": 2,
+          "column": 3
+        }
+      ]
+    }
+  ]
+}
