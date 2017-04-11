@@ -11,7 +11,7 @@
 import {connect} from 'react-redux';
 import React from 'react';
 
-import AddIcon from '../../../svg/add.svg';
+import AddIcon from './../../../svg/add.svg';
 
 import CurrentOrganizationActions from './../../../actions/CurrentOrganization';
 import MemberActions from './../../../actions/Member';
