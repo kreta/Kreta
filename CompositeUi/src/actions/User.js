@@ -44,8 +44,8 @@ const Actions = {
           });
           dispatch(NotificationActions.addNotification(
             'Invalid credentials, try again',
-            'error')
-          );
+            'error'
+          ));
         });
       });
   },
@@ -76,8 +76,8 @@ const Actions = {
         });
         dispatch(NotificationActions.addNotification(
           'Registration process has been successfully done. Check your email inbox to enable the account',
-          'success')
-        );
+          'success'
+        ));
       }, (errorData) => {
         errorData.then(() => {
           dispatch({
@@ -102,8 +102,8 @@ const Actions = {
         });
         dispatch(NotificationActions.addNotification(
           'Your user has been enabled successfully',
-          'success')
-        );
+          'success'
+        ));
       }, (errorData) => {
         errorData.then(() => {
           dispatch({
@@ -124,14 +124,17 @@ const Actions = {
         });
         dispatch(NotificationActions.addNotification(
           'Your password has been reset. Check your email to change your password.',
-          'success')
-        );
+          'success'
+        ));
       }, (errorData) => {
         errorData.then(() => {
           dispatch({
             type: ActionTypes.USER_REQUEST_RESET_PASSWORD_ERROR,
           });
-          dispatch(NotificationActions.addNotification('Something goes wrong, please try the request again', 'error'));
+          dispatch(NotificationActions.addNotification(
+            'Something goes wrong, please try the request again',
+            'error'
+          ));
         });
       });
   },
@@ -150,8 +153,8 @@ const Actions = {
         );
         dispatch(NotificationActions.addNotification(
           'Your password has been changed.',
-          'success')
-        );
+          'success'
+        ));
       }, (errorData) => {
         errorData.then(() => {
           dispatch({
@@ -160,7 +163,10 @@ const Actions = {
           dispatch(
             routeActions.push(routes.requestResetPassword)
           );
-          dispatch(NotificationActions.addNotification('Error while changing password', 'error'));
+          dispatch(NotificationActions.addNotification(
+            'Error while changing password',
+            'error'
+          ));
         });
       });
   }
