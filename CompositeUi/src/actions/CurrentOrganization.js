@@ -101,7 +101,7 @@ const Actions = {
       });
   },
   addMember: (organization, user) => (dispatch) => {
-    Organization.post(organization, user)
+    Organization.post(organization.id, user.id)
       .then(() => {
         dispatch({
           type: ActionTypes.CURRENT_ORGANIZATION_MEMBER_ADDED,

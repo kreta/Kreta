@@ -11,18 +11,26 @@
 import {connect} from 'react-redux';
 import React from 'react';
 
+import AddIcon from './../../../svg/add.svg';
+
+import CurrentOrganizationActions from './../../../actions/CurrentOrganization';
 import MemberActions from './../../../actions/Member';
 
 import Button from './../../component/Button';
+import Icon from './../../component/Icon';
 import Search from './../../component/SearchMember';
 import UserCard from './../../component/UserCard';
 
 @connect(state => ({currentOrganization: state.currentOrganization}))
-class AddMemberToOrganization extends React.Component {
+class AddMember extends React.Component {
   static propTypes = {
     onMemberRemoveClicked: React.PropTypes.func,
     organization: React.PropTypes.object
   };
+
+  componentDidMount() {
+    this.filterMembersToAdd(null);
+  }
 
   filterMembersToAdd(query) {
     const {currentOrganization, dispatch} = this.props;
@@ -36,13 +44,22 @@ class AddMemberToOrganization extends React.Component {
   }
 
   addMember(member) {
-    const {onMemberAddClicked} = this.props;
+    const {currentOrganization, dispatch} = this.props;
 
-    onMemberAddClicked(member);
+    dispatch(
+      CurrentOrganizationActions.addMember(
+        currentOrganization.organization,
+        member.id
+      )
+    );
   }
 
   renderMembersToAdd() {
     const {currentOrganization} = this.props;
+
+    if (currentOrganization.potential_members.length === 0) {
+      return <p>No users found for your search, try typing another username</p>;
+    }
 
     return currentOrganization.potential_members
       .map((member, index) => (
@@ -52,8 +69,9 @@ class AddMemberToOrganization extends React.Component {
               <Button
                 color="green"
                 onClick={this.addMember.bind(this, member)}
-                type="icon"
-              />
+                type="icon">
+                <Icon color="white" glyph={AddIcon} size="expand"/>
+              </Button>
             }
             user={member}
           />
@@ -77,4 +95,4 @@ class AddMemberToOrganization extends React.Component {
   }
 }
 
-export default AddMemberToOrganization;
+export default AddMember;
