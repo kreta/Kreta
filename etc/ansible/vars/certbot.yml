@@ -6,5 +6,6 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 
-/main.retry
-/parameters.yml
+certbot_auto_renew_user: "{{ security.deploy_user }}"
+certbot_auto_renew_minute: 30
+certbot_auto_renew_hour: 3

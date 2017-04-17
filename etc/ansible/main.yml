@@ -20,6 +20,7 @@
         - vars/security.yml
         - vars/firewall.yml
         - vars/nginx.yml
+        - vars/certbot.yml
     roles:
         - geerlingguy.repo-remi
         - geerlingguy.mysql
@@ -30,7 +31,7 @@
         - geerlingguy.security
         - geerlingguy.git
         - kbrebanov.unzip
+        - geerlingguy.certbot
     tasks:
         - include: tasks/users.yml
         - include: tasks/hosts.yml
-
