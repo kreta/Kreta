@@ -49,6 +49,13 @@ describe('User actions', () => {
         type: ActionTypes.USER_AUTHORIZING
       }, {
         type: ActionTypes.USER_AUTHORIZATION_ERROR
+      }, {
+        notification: {
+          id: expect.any(Number),
+          message: 'Invalid credentials, try again',
+          type: 'error'
+        },
+        type: ActionTypes.NOTIFICATION_ADD
       }],
       store = mockStore({
         errors: [],
