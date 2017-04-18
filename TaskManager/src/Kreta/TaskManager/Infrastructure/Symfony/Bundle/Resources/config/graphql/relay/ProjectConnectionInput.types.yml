@@ -1,0 +1,36 @@
+# This file is part of the Kreta package.
+#
+# (c) Beñat Espiña <benatespina@gmail.com>
+# (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+
+# This implements the following type system shorthand:
+#
+#   type ProjectConnectionInput {
+#     after: String,
+#     first: Int,
+#     before: String,
+#     last: Int,
+#     name: String,
+#     organizationId: ID
+#   }
+ProjectConnectionInput:
+    type: input-object
+    config:
+        fields:
+            after:
+                type: "String"
+            first:
+                type: "Int"
+            before:
+                type: "String"
+            last:
+                type: "Int"
+            name:
+                description: "name of the project, it uses to filter the projects. Typical 'q'"
+                type: "String"
+            organizationId:
+                description: "id of the organization, it uses to filter the organizations"
+                type: "ID"

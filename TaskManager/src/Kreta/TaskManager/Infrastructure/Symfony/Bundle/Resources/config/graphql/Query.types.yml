@@ -39,7 +39,7 @@ Query:
                 description: "The paginate list of organization that can be filter by name"
                 args:
                     organizationConnectionInput:
-                        description: "Input object that wraps complex filter requirements of task connection"
+                        description: "Input object that wraps complex filter requirements of organization connection"
                         type: "OrganizationConnectionInput"
                 resolve: '@=resolver("organizations", [args])'
             organization:
@@ -75,14 +75,10 @@ Query:
             projects:
                 type: "ProjectConnection"
                 description: "The paginate list of project that can be filter by name and organization id"
-                argsBuilder: ConnectionArgs
                 args:
-                    organizationId:
-                        description: "organization id to which the project belongs"
-                        type: "ID"
-                    name:
-                        description: "name of the project, it uses to filter the projects. Typical 'q'"
-                        type: "String"
+                    projectConnectionInput:
+                        description: "Input object that wraps complex filter requirements of project connection"
+                        type: "ProjectConnectionInput"
                 resolve: '@=resolver("projects", [args])'
             project:
                 type: "Project"
