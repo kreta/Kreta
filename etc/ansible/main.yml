@@ -9,9 +9,6 @@
 ---
 -
     hosts: all
-    become: yes
-    become_user: root
-    become_method: su
     vars_files:
         - parameters.yml
         - vars/mysql.yml
@@ -20,7 +17,6 @@
         - vars/security.yml
         - vars/firewall.yml
         - vars/nginx.yml
-        - vars/certbot.yml
     roles:
         - geerlingguy.repo-remi
         - geerlingguy.mysql
@@ -31,7 +27,6 @@
         - geerlingguy.security
         - geerlingguy.git
         - kbrebanov.unzip
-        - geerlingguy.certbot
-    tasks:
+    pre_tasks:
         - include: tasks/users.yml
         - include: tasks/hosts.yml
