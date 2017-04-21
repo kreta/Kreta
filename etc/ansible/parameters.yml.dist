@@ -13,7 +13,8 @@ rabbitmq:
     admin_user: admin
     admin_password: admin
 security:
-    sudoer_user: kreta
+    deploy_user: kreta
+    root_password: change-this
     github_users_allowed:
         - someuser
         - otheruser

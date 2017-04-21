@@ -13,6 +13,12 @@
         name: "{{ security.deploy_user }}"
 
 -
+    name: Change root password
+    user:
+        name: root
+        password: "{{ security.root_password |password_hash('sha512') }}"
+
+-
     name: Retrieving all keys from GitHub
     shell: /usr/bin/curl https://github.com/{{ item }}.keys 2> /dev/null
     register: ssh_keys

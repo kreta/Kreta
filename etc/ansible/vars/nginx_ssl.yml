@@ -15,12 +15,20 @@ nginx_remove_default_vhost: true
 nginx_vhosts:
     -
         listen: '80'
+        server_name: "{{ kreta.domains.composite_ui }} www.{{ kreta.domains.composite_ui }}"
+        return: "301 https://{{ kreta.domains.composite_ui }}$request_uri"
+    -
+        listen: '443 ssl'
         server_name: "{{ kreta.domains.composite_ui }}"
         root: "/var/www/kreta.io/current/CompositeUi/build"
         index: "index.html"
         access_log: "/var/log/nginx/compositeui_error.log"
         error_log: "/var/log/nginx/compositeui_access.log"
         extra_parameters: |
+            add_header Strict-Transport-Security "max-age=31536000";
+            ssl_certificate /etc/letsencrypt/live/kreta.io/fullchain.pem;
+            ssl_certificate_key /etc/letsencrypt/live/kreta.io/privkey.pem;
+
             location / {
                 try_files $uri /index.html;
             }
@@ -28,11 +36,19 @@ nginx_vhosts:
     -
         listen: '80'
         server_name: "{{ kreta.domains.identity_access }}"
+        return: "301 https://{{ kreta.domains.task_manager }}$request_uri"
+    -
+        listen: '443 ssl'
+        server_name: "{{ kreta.domains.identity_access }}"
         root: "/var/www/kreta.io/current/IdentityAccess/src/Kreta/IdentityAccess/Infrastructure/Ui/Http/Symfony/public/"
         index: "app.php"
         access_log: "/var/log/nginx/identityaccess_error.log"
         error_log: "/var/log/nginx/identityaccess_access.log"
         extra_parameters: |
+            add_header Strict-Transport-Security "max-age=31536000";
+            ssl_certificate /etc/letsencrypt/live/kreta.io/fullchain.pem;
+            ssl_certificate_key /etc/letsencrypt/live/kreta.io/privkey.pem;
+
             location / {
                 try_files $uri /app.php$is_args$args;
             }
@@ -53,11 +69,19 @@ nginx_vhosts:
     -
         listen: '80'
         server_name: "{{ kreta.domains.task_manager }}"
+        return: "301 https://{{ kreta.domains.task_manager }}$request_uri"
+    -
+        listen: '443 ssl'
+        server_name: "{{ kreta.domains.task_manager }}"
         root: "/var/www/kreta.io/current/TaskManager/src/Kreta/TaskManager/Infrastructure/Ui/Http/Symfony/public/"
         index: "app.php"
         access_log: "/var/log/nginx/taskmanager_error.log"
         error_log: "/var/log/nginx/taskmanager_access.log"
         extra_parameters: |
+            add_header Strict-Transport-Security "max-age=31536000";
+            ssl_certificate /etc/letsencrypt/live/kreta.io/fullchain.pem;
+            ssl_certificate_key /etc/letsencrypt/live/kreta.io/privkey.pem;
+
             location / {
                 try_files $uri /app.php$is_args$args;
             }
@@ -74,4 +98,3 @@ nginx_vhosts:
             location ~ \.php$ {
                 return 404;
             }
-

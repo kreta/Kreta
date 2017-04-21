@@ -1,0 +1,32 @@
+# This file is part of the Kreta package.
+#
+# (c) Beñat Espiña <benatespina@gmail.com>
+# (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+
+---
+-
+    name: Run certbot generation for each host
+    command: certbot certonly --webroot -w {{ item['webroot'] }} -d {{ item['domain'] }} --email info@kreta.io --redirect --agree-tos
+    with_items:
+        -
+            domain: www.kreta.io
+            webroot: /var/www/kreta.io/current/CompositeUi/build
+        -
+            domain: kreta.io
+            webroot: /var/www/kreta.io/current/CompositeUi/build
+        -
+            domain: identityaccess.kreta.io
+            webroot: /var/www/kreta.io/current/IdentityAccess/src/Kreta/IdentityAccess/Infrastructure/Ui/Http/Symfony/public
+        -
+            domain: taskmanager.kreta.io
+            webroot: /var/www/kreta.io/current/TaskManager/src/Kreta/TaskManager/Infrastructure/Ui/Http/Symfony/public
+
+-
+    name: Add certbot autorenewal cronjob
+    cron:
+        name: "certbot autorenewal cronjob"
+        special_time: monthly
+        job: "certbot renew"

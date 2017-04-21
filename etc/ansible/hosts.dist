@@ -1,0 +1,4 @@
+[on_fist_run]
+xxx.xxx.xxx.xxx ansible_ssh_user=root
+[following_runs]
+xxx.xxx.xxx.xxx ansible_ssh_user=kreta ansible_become_pass=change-this ansible_become=true ansible_become_method=su

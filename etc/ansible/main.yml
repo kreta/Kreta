@@ -9,9 +9,6 @@
 ---
 -
     hosts: all
-    become: yes
-    become_user: root
-    become_method: su
     vars_files:
         - parameters.yml
         - vars/mysql.yml
@@ -30,7 +27,6 @@
         - geerlingguy.security
         - geerlingguy.git
         - kbrebanov.unzip
-    tasks:
+    pre_tasks:
         - include: tasks/users.yml
         - include: tasks/hosts.yml
-

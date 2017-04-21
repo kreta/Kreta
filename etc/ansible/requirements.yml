@@ -1,0 +1,38 @@
+# This file is part of the Kreta package.
+#
+# (c) Beñat Espiña <benatespina@gmail.com>
+# (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+
+-
+    name: geerlingguy.certbot
+    version: 2.0.0
+-
+    name: geerlingguy.firewall
+    version: 2.2.0
+-
+    name: geerlingguy.git
+    version: 1.3.0
+-
+    name: geerlingguy.mysql
+    version: 2.7.1
+-
+    name: geerlingguy.nginx
+    version: 2.1.0
+-
+    name: geerlingguy.php
+    version: 3.4.4
+-
+    name: geerlingguy.repo-remi
+    version: 1.2.0
+-
+    name: geerlingguy.security
+    version: 1.5.0
+-
+    name: kbrebanov.unzip
+    version: v2.0.0
+-
+    name: openstack-ansible-galaxy.rabbitmq
+    version: f10055fed91d1e74fe7a80c770ff7c4bd7bf9dcb
