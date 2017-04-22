@@ -10,7 +10,9 @@ parameters:
     task_manager_secret:                       12e54860e3fbbbebd0aa659fa8bc554c202298ac # Your own secret with http://nux.net/secret
 
     task_manager_identity_access_host:         "%env(IDENTITY_ACCESS_HOST)%"
-    env(IDENTITY_ACCESS_HOST):                 "identityaccess.localhost"
+    task_manager_identity_access_scheme:       "%env(IDENTITY_ACCESS_SCHEME)%"
+    env(IDENTITY_ACCESS_HOST):                 identityaccess.localhost
+    env(IDENTITY_ACCESS_SCHEME):               http
 
     task_manager_database_host:                db
     task_manager_database_port:                3306
