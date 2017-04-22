@@ -12,12 +12,18 @@
 
 module.exports = {
   "plugins": [
+    "stylelint-order",
     "stylelint-selector-bem-pattern",
-    "stylelint-order"
+    "stylelint-scss"
   ],
   "rules": {
     "at-rule-empty-line-before": ["always", {
-      except: ["first-nested"],
+      except: [
+        "inside-block",
+        "blockless-after-same-name-blockless",
+        "blockless-after-blockless",
+        "first-nested"
+      ],
       ignore: ["blockless-after-blockless", "after-comment"]
     }],
     "at-rule-name-case": "lower",
@@ -83,6 +89,15 @@ module.exports = {
       "componentName": "[A-Z]+",
       "componentSelectors": "^([\.\%]?[a-z]*[-]?[a-z0-9\-]*)(\.[a-z0-9\-]*)?(__[a-z0-9]*[-]?[a-z0-9\-]*)?(--[a-z0-9]*[-]?[a-z0-9\-]*)?(\:[a-z]*)*$"
     },
+    "scss/dollar-variable-empty-line-before": ["always", {
+      except: [
+        "first-nested",
+        "after-dollar-variable",
+      ],
+      ignore: [
+        "inside-single-line-block",
+      ],
+    }],
     "selector-combinator-space-after": "always",
     "selector-combinator-space-before": "always",
     "selector-list-comma-newline-after": "always",
