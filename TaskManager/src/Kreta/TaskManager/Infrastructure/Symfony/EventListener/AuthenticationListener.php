@@ -53,7 +53,7 @@ final class AuthenticationListener
             return;
         }
 
-        $request = $this->messageFactory->createRequest('GET', '//' . $this->identityAccessHost . '/user');
+        $request = $this->messageFactory->createRequest('GET', $this->identityAccessHost . '/user');
         $request = $this->authentication($event->getRequest())->authenticate($request);
         $response = $this->client->sendRequest($request);
 
