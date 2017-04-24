@@ -11,6 +11,8 @@ parameters:
 
     identity_access_host:                "%env(IDENTITY_ACCESS_HOST)%"
     env(IDENTITY_ACCESS_HOST):           identityaccess.localhost
+    identity_access_scheme:              "%env(IDENTITY_ACCESS_SCHEME)%"
+    env(IDENTITY_ACCESS_SCHEME):         http
 
     identity_access_composite_ui_host:   "%env(COMPOSITE_UI_HOST)%"
     identity_access_composite_ui_scheme: "%env(COMPOSITE_UI_SCHEME)%"
