@@ -17,7 +17,6 @@ use Kreta\PhpCsFixerConfig\KretaConfig;
 $config = new KretaConfig();
 $config->getFinder()->in([
     __DIR__ . '/../../src',
-    __DIR__ . '/../../tests/Double',
 ]);
 
 $cacheDir = getenv('TRAVIS') ? getenv('HOME') . '/.php-cs-fixer' : __DIR__ . '/../..';

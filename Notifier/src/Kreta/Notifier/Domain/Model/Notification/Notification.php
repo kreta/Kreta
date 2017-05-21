@@ -60,13 +60,13 @@ class Notification extends AggregateRoot implements EventSourcedAggregateRoot
     protected function applyThatNotificationMarkedAsRead(NotificationMarkedAsRead $event) : void
     {
         $this->readOn = $event->occurredOn();
-        $this->status = $event->newStatus();
+        $this->status = $event->status();
     }
 
     protected function applyThatNotificationMarkedAsUnread(NotificationMarkedAsUnread $event) : void
     {
         $this->readOn = null;
-        $this->status = $event->newStatus();
+        $this->status = $event->status();
     }
 
     public static function reconstitute(EventStream $events) : AggregateRoot
