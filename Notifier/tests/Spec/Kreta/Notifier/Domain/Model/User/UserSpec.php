@@ -14,9 +14,9 @@ declare(strict_types=1);
 
 namespace Spec\Kreta\Notifier\Domain\Model\User;
 
-use Kreta\SharedKernel\Domain\Model\AggregateRoot;
 use Kreta\Notifier\Domain\Model\User\User;
 use Kreta\Notifier\Domain\Model\User\UserId;
+use Kreta\SharedKernel\Domain\Model\AggregateRoot;
 use PhpSpec\ObjectBehavior;
 
 class UserSpec extends ObjectBehavior

@@ -14,8 +14,8 @@ declare(strict_types=1);
 
 namespace Spec\Kreta\Notifier\Domain\Model\User;
 
-use Kreta\SharedKernel\Domain\Model\Identity\Id;
 use Kreta\Notifier\Domain\Model\User\UserId;
+use Kreta\SharedKernel\Domain\Model\Identity\Id;
 use PhpSpec\ObjectBehavior;
 
 class UserIdSpec extends ObjectBehavior
