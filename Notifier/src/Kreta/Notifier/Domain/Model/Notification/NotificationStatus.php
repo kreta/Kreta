@@ -16,8 +16,8 @@ namespace Kreta\Notifier\Domain\Model\Notification;
 
 class NotificationStatus
 {
-    const READ = 'read';
-    const UNREAD = 'unread';
+    private const READ = 'read';
+    private const UNREAD = 'unread';
 
     private $status;
 
