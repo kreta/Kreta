@@ -18,6 +18,18 @@ use Kreta\SharedKernel\Domain\Model\DomainEvent;
 
 class NotificationMarkedAsUnread implements DomainEvent
 {
+    private $id;
+
+    public function __construct(NotificationId $id)
+    {
+        $this->id = $id;
+    }
+
+    public function id() : NotificationId
+    {
+        return $this->id;
+    }
+
     public function status() : NotificationStatus
     {
         return NotificationStatus::unread();
