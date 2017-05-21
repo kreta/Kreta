@@ -34,14 +34,13 @@ class Notification extends AggregateRoot implements EventSourcedAggregateRoot
 
     public static function broadcast(
         NotificationId $id,
-        NotificationStatus $type,
         NotificationOwner $owner,
         NotificationBody $body
     ) : self {
         $notification = new self($id);
 
         $notification->publish(
-            new NotificationPublished($id, $type, $owner, $body, NotificationStatus::unread())
+            new NotificationPublished($id, $owner, $body)
         );
 
         return $notification;
