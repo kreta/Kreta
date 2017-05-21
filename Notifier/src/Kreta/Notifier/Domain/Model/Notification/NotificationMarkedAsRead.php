@@ -18,7 +18,7 @@ use Kreta\SharedKernel\Domain\Model\DomainEvent;
 
 class NotificationMarkedAsRead implements DomainEvent
 {
-    public function status()
+    public function status() : NotificationStatus
     {
         return NotificationStatus::read();
     }
