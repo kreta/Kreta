@@ -20,7 +20,7 @@ class NotificationMarkedAsUnread implements DomainEvent
 {
     public function status()
     {
-        return NotificationType::unread();
+        return NotificationStatus::unread();
     }
 
     public function occurredOn() : \DateTimeInterface

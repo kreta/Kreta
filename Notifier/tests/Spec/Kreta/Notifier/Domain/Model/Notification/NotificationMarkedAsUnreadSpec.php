@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace Spec\Kreta\Notifier\Domain\Model\Notification;
 
 use Kreta\Notifier\Domain\Model\Notification\NotificationMarkedAsUnread;
-use Kreta\Notifier\Domain\Model\Notification\NotificationType;
+use Kreta\Notifier\Domain\Model\Notification\NotificationStatus;
 use Kreta\SharedKernel\Domain\Model\DomainEvent;
 use PhpSpec\ObjectBehavior;
 
@@ -25,7 +25,7 @@ class NotificationMarkedAsUnreadSpec extends ObjectBehavior
     {
         $this->shouldHaveType(NotificationMarkedAsUnread::class);
         $this->shouldImplement(DomainEvent::class);
-        $this->status()->shouldReturnAnInstanceOf(NotificationType::class);
+        $this->status()->shouldReturnAnInstanceOf(NotificationStatus::class);
         $this->occurredOn()->shouldReturnAnInstanceOf(\DateTimeInterface::class);
     }
 }

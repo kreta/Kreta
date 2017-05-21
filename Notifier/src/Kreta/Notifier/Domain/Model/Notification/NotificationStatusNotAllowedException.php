@@ -16,10 +16,10 @@ namespace Kreta\Notifier\Domain\Model\Notification;
 
 use Kreta\SharedKernel\Domain\Model\Exception;
 
-class NotificationTypeNotAllowedException extends Exception
+class NotificationStatusNotAllowedException extends Exception
 {
     public function __construct(string $type)
     {
-        parent::__construct(sprintf('Notification type "%s" not allowed', $type));
+        parent::__construct(sprintf('Notification status "%s" not allowed', $type));
     }
 }

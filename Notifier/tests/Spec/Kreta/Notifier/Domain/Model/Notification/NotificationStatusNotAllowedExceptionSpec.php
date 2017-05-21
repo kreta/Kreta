@@ -14,25 +14,25 @@ declare(strict_types=1);
 
 namespace Spec\Kreta\Notifier\Domain\Model\Notification;
 
-use Kreta\Notifier\Domain\Model\Notification\NotificationTypeNotAllowedException;
+use Kreta\Notifier\Domain\Model\Notification\NotificationStatusNotAllowedException;
 use Kreta\SharedKernel\Domain\Model\Exception;
 use PhpSpec\ObjectBehavior;
 
-class NotificationTypeNotAllowedExceptionSpec extends ObjectBehavior
+class NotificationStatusNotAllowedExceptionSpec extends ObjectBehavior
 {
     function let()
     {
-        $this->beConstructedWith('invalid-type-notification');
+        $this->beConstructedWith('invalid-status-notification');
     }
 
     function it_is_initializable()
     {
-        $this->shouldHaveType(NotificationTypeNotAllowedException::class);
+        $this->shouldHaveType(NotificationStatusNotAllowedException::class);
         $this->shouldHaveType(Exception::class);
     }
 
     function it_returns_a_message()
     {
-        $this->getMessage()->shouldReturn('Notification type "invalid-type-notification" not allowed');
+        $this->getMessage()->shouldReturn('Notification status "invalid-status-notification" not allowed');
     }
 }
