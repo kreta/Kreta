@@ -14,9 +14,9 @@ declare(strict_types=1);
 
 namespace Spec\Kreta\Notifier\Domain\Model\User;
 
-use Kreta\SharedKernel\Domain\Model\Exception;
 use Kreta\Notifier\Domain\Model\User\UserAlreadyExistsException;
 use Kreta\Notifier\Domain\Model\User\UserId;
+use Kreta\SharedKernel\Domain\Model\Exception;
 use PhpSpec\ObjectBehavior;
 
 class UserAlreadyExistsExceptionSpec extends ObjectBehavior

@@ -14,8 +14,8 @@ declare(strict_types=1);
 
 namespace Spec\Kreta\Notifier\Domain\Model\User;
 
-use Kreta\SharedKernel\Domain\Model\Exception;
 use Kreta\Notifier\Domain\Model\User\UserDoesNotExistException;
+use Kreta\SharedKernel\Domain\Model\Exception;
 use PhpSpec\ObjectBehavior;
 
 class UserDoesNotExistExceptionSpec extends ObjectBehavior
