@@ -14,19 +14,19 @@ declare(strict_types=1);
 
 namespace Kreta\Notifier\Domain\Model\Notification;
 
-class NotificationType
+class NotificationStatus
 {
     const READ = 'read';
     const UNREAD = 'unread';
 
-    private $type;
+    private $status;
 
-    public function __construct(string $type)
+    public function __construct(string $status)
     {
-        if ($type !== self::READ && $type !== self::UNREAD) {
-            throw new NotificationTypeNotAllowedException($type);
+        if ($status !== self::READ && $status !== self::UNREAD) {
+            throw new NotificationStatusNotAllowedException($status);
         }
-        $this->type = $type;
+        $this->status = $status;
     }
 
     public static function read()
@@ -39,13 +39,13 @@ class NotificationType
         return new self(self::UNREAD);
     }
 
-    public function type() : string
+    public function status() : string
     {
-        return $this->type;
+        return $this->status;
     }
 
     public function __toString() : string
     {
-        return (string) $this->type;
+        return (string) $this->status;
     }
 }

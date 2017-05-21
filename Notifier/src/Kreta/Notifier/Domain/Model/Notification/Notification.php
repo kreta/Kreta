@@ -26,7 +26,6 @@ class Notification extends AggregateRoot implements EventSourcedAggregateRoot
     private $publishedOn;
     private $readOn;
     private $status;
-    private $type;
 
     private function __construct(NotificationId $id)
     {
@@ -35,14 +34,14 @@ class Notification extends AggregateRoot implements EventSourcedAggregateRoot
 
     public static function broadcast(
         NotificationId $id,
-        NotificationType $type,
+        NotificationStatus $type,
         NotificationOwner $owner,
         NotificationBody $body
     ) : self {
         $notification = new self($id);
 
         $notification->publish(
-            new NotificationPublished($id, $type, $owner, $body, Status::unread())
+            new NotificationPublished($id, $type, $owner, $body, NotificationStatus::unread())
         );
 
         return $notification;
@@ -54,7 +53,6 @@ class Notification extends AggregateRoot implements EventSourcedAggregateRoot
         $this->owner = $event->owner();
         $this->publishedOn = $event->occurredOn();
         $this->status = $event->status();
-        $this->type = $event->type();
     }
 
     protected function applyThatNotificationMarkedAsRead(NotificationMarkedAsRead $event) : void
