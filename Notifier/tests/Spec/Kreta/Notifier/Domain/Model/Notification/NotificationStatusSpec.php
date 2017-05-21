@@ -14,12 +14,14 @@ declare(strict_types=1);
 
 namespace Spec\Kreta\Notifier\Domain\Model\Notification;
 
-use Kreta\Notifier\Domain\Model\Notification\NotificationStatus;
 use Kreta\Notifier\Domain\Model\Notification\NotificationStatusNotAllowedException;
 use PhpSpec\ObjectBehavior;
 
 class NotificationStatusSpec extends ObjectBehavior
 {
+    private const READ = 'read';
+    private const UNREAD = 'unread';
+
     function it_does_not_create_notification_status_with_invalid_status()
     {
         $this->beConstructedWith('invalid-notification-status');
@@ -29,14 +31,14 @@ class NotificationStatusSpec extends ObjectBehavior
     function it_creates_a_read_notification_status_value()
     {
         $this->beConstructedRead();
-        $this->status()->shouldReturn(NotificationStatus::READ);
-        $this->__toString()->shouldReturn(NotificationStatus::READ);
+        $this->status()->shouldReturn(self::READ);
+        $this->__toString()->shouldReturn(self::READ);
     }
 
     function it_creates_a_unread_notification_status_value()
     {
         $this->beConstructedUnread();
-        $this->status()->shouldReturn(NotificationStatus::UNREAD);
-        $this->__toString()->shouldReturn(NotificationStatus::UNREAD);
+        $this->status()->shouldReturn(self::UNREAD);
+        $this->__toString()->shouldReturn(self::UNREAD);
     }
 }

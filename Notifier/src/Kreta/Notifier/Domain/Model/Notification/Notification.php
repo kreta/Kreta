@@ -43,7 +43,7 @@ class Notification extends AggregateRoot implements EventSourcedAggregateRoot
         return $notification;
     }
 
-    protected function applyThatNotificationPublished(NotificationPublished $event)
+    protected function applyThatNotificationPublished(NotificationPublished $event) : void
     {
         $this->body = $event->body();
         $this->owner = $event->owner();
