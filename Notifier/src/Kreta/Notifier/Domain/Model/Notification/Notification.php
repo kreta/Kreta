@@ -57,7 +57,7 @@ class Notification extends AggregateRoot implements EventSourcedAggregateRoot
         );
     }
 
-    protected function applyThatNotificationPublished(NotificationPublished $event) : void
+    protected function applyNotificationPublished(NotificationPublished $event) : void
     {
         $this->body = $event->body();
         $this->owner = $event->owner();
@@ -65,13 +65,13 @@ class Notification extends AggregateRoot implements EventSourcedAggregateRoot
         $this->status = $event->status();
     }
 
-    protected function applyThatNotificationMarkedAsRead(NotificationMarkedAsRead $event) : void
+    protected function applyNotificationMarkedAsRead(NotificationMarkedAsRead $event) : void
     {
         $this->readOn = $event->occurredOn();
         $this->status = $event->status();
     }
 
-    protected function applyThatNotificationMarkedAsUnread(NotificationMarkedAsUnread $event) : void
+    protected function applyNotificationMarkedAsUnread(NotificationMarkedAsUnread $event) : void
     {
         $this->readOn = null;
         $this->status = $event->status();
