@@ -1,0 +1,21 @@
+# This file is part of the Kreta package.
+#
+# (c) Beñat Espiña <benatespina@gmail.com>
+# (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+
+services:
+#    kreta.notifier.repository.user:
+#        class: Kreta\TaskManager\Infrastructure\Persistence\Doctrine\ORM\User\DoctrineORMUserRepository
+#        factory:
+#            - '@doctrine.orm.default_entity_manager'
+#            - 'getRepository'
+#        arguments:
+#            - Kreta\TaskManager\Domain\Model\User\User
+
+    kreta.notifier.repository.notification:
+        class: Kreta\Notifier\Infrastructure\Persistence\EventStore\Notification\EventStoreNotificationRepository
+        arguments:
+            - '@kreta.notifier.event_store.redis'
