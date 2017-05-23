@@ -48,9 +48,9 @@ doctrine:
         user: "%notifier_database_user%"
         password: "%notifier_database_password%"
         charset: UTF8
-#        types:
-#            user_id:
-#                class: Kreta\Notifier\Infrastructure\Persistence\Doctrine\DBAL\User\Types\UserIdType
+        types:
+            user_id:
+                class: Kreta\Notifier\Infrastructure\Persistence\Doctrine\DBAL\User\Types\UserIdType
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
         naming_strategy: doctrine.orm.naming_strategy.underscore
@@ -68,6 +68,12 @@ doctrine:
                 is_bundle: false
                 dir: "%kernel.root_dir%/../../Projection/Projector/Doctrine/ORM/Notification/SymfonyMapping/"
                 prefix: 'Kreta\Notifier\Infrastructure\Projection\ReadModel'
+            NotifierUser:
+                mapping: true
+                type: xml
+                is_bundle: false
+                dir: "%kernel.root_dir%/../../Persistence/Doctrine/ORM/User/SymfonyMapping/"
+                prefix: 'Kreta\Notifier\Domain\Model\User'
 
 doctrine_migrations:
     dir_name: "%kernel.root_dir%/../../Persistence/Doctrine/Migrations"
