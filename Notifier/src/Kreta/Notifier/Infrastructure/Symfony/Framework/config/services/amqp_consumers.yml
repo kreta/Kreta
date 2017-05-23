@@ -1,0 +1,20 @@
+# This file is part of the Kreta package.
+#
+# (c) Beñat Espiña <benatespina@gmail.com>
+# (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+
+services:
+#    kreta.notifier.php_amqp_lib.user_registered:
+#        class: Kreta\SharedKernel\Infrastructure\Messaging\AMQP\PhpAmqpLib\PhpAmqpLibAMQPConsumer
+#        public: false
+#        arguments:
+#            - "@kreta.notifier.event_subscriber.user_registered"
+#            - "kreta_identity_access.user_registered"
+#
+#    kreta.notifier.rabbit_mq_bundle.user_registered:
+#        class: Kreta\SharedKernel\Infrastructure\Messaging\AMQP\RabbitMqBundle\RabbitMqBundleAMQPConsumer
+#        arguments:
+#            - "@kreta.notifier.php_amqp_lib.user_registered"

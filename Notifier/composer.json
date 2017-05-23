@@ -28,8 +28,23 @@
     ],
     "require": {
         "php": "^7.1",
+        "doctrine/doctrine-bundle": "^1.6",
+        "doctrine/doctrine-migrations-bundle": "^1.2",
+        "doctrine/orm": "^2.5",
         "incenteev/composer-parameter-handler": "^2.0",
-        "kreta/shared-kernel": "1.0.x-dev"
+        "kreta/shared-kernel": "1.0.x-dev",
+        "predis/predis": "^1.1",
+        "sensio/distribution-bundle": "^5.0",
+        "simple-bus/asynchronous-bundle": "^2.2",
+        "simple-bus/doctrine-orm-bridge": "^4.0",
+        "simple-bus/rabbitmq-bundle-bridge": "^3.0",
+        "simple-bus/symfony-bridge": "^4.1",
+        "snc/redis-bundle": "^2.0",
+        "symfony/monolog-bundle": "^2.8",
+        "symfony/swiftmailer-bundle": "^2.3",
+        "symfony/symfony": "3.2.*",
+        "nelmio/cors-bundle": "^1.4",
+        "twig/twig": "^1.30"
     },
     "require-dev": {
         "kreta/php-cs-fixer-config": "^1.0",

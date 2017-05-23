@@ -7,4 +7,27 @@
 # file that was distributed with this source code.
 
 parameters:
-    notifier_secret: 12e54860e3fbbbebd0aa659fa8bc554c202298ac # Your own secret with http://nux.net/secret
+    notifier_secret:                       12e54860e3fbbbebd0aa659fa8bc554c202298ac # Your own secret with http://nux.net/secret
+
+    notifier_identity_access_host:         "%env(IDENTITY_ACCESS_HOST)%"
+    notifier_identity_access_scheme:       "%env(IDENTITY_ACCESS_SCHEME)%"
+    env(IDENTITY_ACCESS_HOST):             identityaccess.localhost
+    env(IDENTITY_ACCESS_SCHEME):           http
+
+    notifier_database_host:                db
+    notifier_database_port:                3306
+    notifier_database_name:                kreta_notifier
+    notifier_database_user:                root
+    notifier_database_password:            root
+
+    notifier_mailer_transport:             smtp
+    notifier_mailer_host:                  127.0.0.1
+    notifier_mailer_user:                  ~
+    notifier_mailer_password:              ~
+
+    notifier_rabbitmq_host:                rabbitmq
+    notifier_rabbitmq_port:                5672
+    notifier_rabbitmq_user:                kreta
+    notifier_rabbitmq_password:            kreta
+
+    notifier_redis_dsn:                    redis://localhost
