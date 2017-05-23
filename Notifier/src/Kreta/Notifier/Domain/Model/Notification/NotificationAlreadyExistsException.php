@@ -12,13 +12,14 @@
 
 declare(strict_types=1);
 
-namespace Kreta\SharedKernel\Event;
+namespace Kreta\Notifier\Domain\Model\Notification;
 
-use Kreta\SharedKernel\Domain\Model\Identity\Id;
+use Kreta\SharedKernel\Domain\Model\Exception;
 
-interface EventStore
+class NotificationAlreadyExistsException extends Exception
 {
-    public function appendTo(EventStream $stream) : void;
-
-    public function streamOfId(Id $aggregateId) : EventStream;
+    public function __construct()
+    {
+        parent::__construct('The notification already exists');
+    }
 }
