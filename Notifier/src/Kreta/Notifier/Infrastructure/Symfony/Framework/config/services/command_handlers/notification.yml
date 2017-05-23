@@ -17,22 +17,22 @@ services:
                 name: command_handler
                 handles: Kreta\Notifier\Application\Command\Notification\PublishNotificationCommand
 
-#    kreta.notifier.command_handler.mark_as_read_notification:
-#        class: Kreta\TaskManager\Application\Command\Organization\AddOwnerToOrganizationHandler
-#        arguments:
-#            - "@kreta.task_manager.repository.organization"
-#            - "@kreta.task_manager.repository.user"
-#        tags:
-#            -
-#                name: command_handler
-#                handles: Kreta\TaskManager\Application\Command\Organization\AddOwnerToOrganizationCommand
-#
-#    kreta.notifier.command_handler.mark_as_unread_notification:
-#        class: Kreta\TaskManager\Application\Command\Organization\CreateOrganizationHandler
-#        arguments:
-#            - "@kreta.task_manager.repository.organization"
-#            - "@kreta.task_manager.repository.user"
-#        tags:
-#            -
-#                name: command_handler
-#                handles: Kreta\TaskManager\Application\Command\Organization\CreateOrganizationCommand
+    kreta.notifier.command_handler.mark_as_read_notification:
+        class: Kreta\Notifier\Application\Command\Notification\MarkAsReadNotificationHandler
+        arguments:
+            - "@kreta.notifier.repository.notification"
+            - "@kreta.notifier.repository.user"
+        tags:
+            -
+                name: command_handler
+                handles: Kreta\Notifier\Application\Command\Notification\MarkAsReadNotificationCommand
+
+    kreta.notifier.command_handler.mark_as_unread_notification:
+        class: Kreta\Notifier\Application\Command\Notification\MarkAsUnreadNotificationHandler
+        arguments:
+            - "@kreta.notifier.repository.notification"
+            - "@kreta.notifier.repository.user"
+        tags:
+            -
+                name: command_handler
+                handles: Kreta\Notifier\Application\Command\Notification\MarkAsUnreadNotificationCommand
