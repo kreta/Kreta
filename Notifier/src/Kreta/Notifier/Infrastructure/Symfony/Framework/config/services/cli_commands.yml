@@ -7,8 +7,8 @@
 # file that was distributed with this source code.
 
 services:
-    kreta.notifier.command.publish_notification:
-        class: Kreta\Notifier\Infrastructure\Symfony\Command\PublishNotificationCommand
+    kreta.notifier.command.test_notification:
+        class: Kreta\Notifier\Infrastructure\Symfony\Command\TestNotificationCommand
         arguments:
             - "@kreta.notifier.command_bus"
         tags:

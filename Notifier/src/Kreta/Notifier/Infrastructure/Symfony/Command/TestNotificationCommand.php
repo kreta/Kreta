@@ -14,20 +14,21 @@ declare(strict_types=1);
 
 namespace Kreta\Notifier\Infrastructure\Symfony\Command;
 
-use Kreta\Notifier\Application\Command\Notification\PublishNotificationCommand as ApplicationPublishNotificationCommand;
+use Kreta\Notifier\Application\Command\Notification\MarkAsReadNotificationCommand;
+use Kreta\Notifier\Application\Command\Notification\PublishNotificationCommand;
 use Kreta\SharedKernel\Application\CommandBus;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
-class PublishNotificationCommand extends Command
+class TestNotificationCommand extends Command
 {
     private $commandBus;
 
     public function __construct(CommandBus $commandBus)
     {
         $this->commandBus = $commandBus;
-        parent::__construct('kreta:notifier:notification:publish');
+        parent::__construct('kreta:notifier:notification:test');
     }
 
     protected function execute(InputInterface $input, OutputInterface $output)
@@ -35,13 +36,19 @@ class PublishNotificationCommand extends Command
         $body = 'The notification body';
         $userId = 'user-id';
 
+        $publishNotificationCommand = new PublishNotificationCommand($body, $userId);
+
+        $this->commandBus->handle($publishNotificationCommand);
+
+        $output->writeln('Published the notification');
+
         $this->commandBus->handle(
-            new ApplicationPublishNotificationCommand(
-                $body,
+            new MarkAsReadNotificationCommand(
+                $publishNotificationCommand->id(),
                 $userId
             )
         );
 
-        $output->writeln('Published the notification');
+        $output->writeln('Marked as read the notification');
     }
 }

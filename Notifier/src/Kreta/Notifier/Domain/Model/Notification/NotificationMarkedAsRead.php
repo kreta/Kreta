@@ -19,10 +19,12 @@ use Kreta\SharedKernel\Domain\Model\DomainEvent;
 class NotificationMarkedAsRead implements DomainEvent
 {
     private $id;
+    private $occurredOn;
 
     public function __construct(NotificationId $id)
     {
         $this->id = $id;
+        $this->occurredOn = new \DateTimeImmutable();
     }
 
     public function id() : NotificationId
@@ -30,13 +32,8 @@ class NotificationMarkedAsRead implements DomainEvent
         return $this->id;
     }
 
-    public function status() : NotificationStatus
-    {
-        return NotificationStatus::read();
-    }
-
     public function occurredOn() : \DateTimeInterface
     {
-        return new \DateTimeImmutable();
+        return $this->occurredOn;
     }
 }
