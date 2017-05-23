@@ -22,7 +22,6 @@ class NotificationPublished implements DomainEvent
     private $owner;
     private $body;
     private $occurredOn;
-    private $status;
 
     public function __construct(NotificationId $id, NotificationOwner $owner, NotificationBody $body)
     {
@@ -30,7 +29,6 @@ class NotificationPublished implements DomainEvent
         $this->owner = $owner;
         $this->body = $body;
         $this->occurredOn = new \DateTimeImmutable();
-        $this->status = NotificationStatus::unread();
     }
 
     public function id() : NotificationId
@@ -51,10 +49,5 @@ class NotificationPublished implements DomainEvent
     public function owner() : NotificationOwner
     {
         return $this->owner;
-    }
-
-    public function status() : NotificationStatus
-    {
-        return $this->status;
     }
 }
