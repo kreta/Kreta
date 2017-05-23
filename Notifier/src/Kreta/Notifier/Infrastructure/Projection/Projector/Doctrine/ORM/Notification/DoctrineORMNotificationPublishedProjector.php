@@ -16,6 +16,7 @@ namespace Kreta\TaskManager\Infrastructure\Projection\Projector\Doctrine\ORM\Not
 
 use Doctrine\ORM\EntityManagerInterface;
 use Kreta\Notifier\Domain\Model\Notification\NotificationPublished;
+use Kreta\Notifier\Domain\Model\Notification\NotificationStatus;
 use Kreta\Notifier\Infrastructure\Projection\ReadModel\Notification;
 use Kreta\SharedKernel\Domain\Model\DomainEvent;
 use Kreta\SharedKernel\Projection\Projector;
@@ -37,12 +38,12 @@ class DoctrineORMNotificationPublishedProjector implements Projector
     public function project(DomainEvent $event) : void
     {
         $notification = new Notification(
-            $event->id(),
-            $event->body(),
-            $event->owner(),
+            $event->id()->id(),
+            $event->body()->body(),
+            $event->owner()->userId(),
             $event->occurredOn(),
             $event->readOn(),
-            $event->status()
+            (NotificationStatus::unread())->status()
         );
 
         $this->manager->persist($notification);
