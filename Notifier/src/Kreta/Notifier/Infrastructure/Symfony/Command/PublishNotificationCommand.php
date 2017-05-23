@@ -32,13 +32,11 @@ class PublishNotificationCommand extends Command
 
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $id = 'notification-id';
         $body = 'The notification body';
         $userId = 'user-id';
 
         $this->commandBus->handle(
             new ApplicationPublishNotificationCommand(
-                $id,
                 $body,
                 $userId
             )

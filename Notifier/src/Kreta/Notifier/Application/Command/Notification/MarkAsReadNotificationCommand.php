@@ -14,29 +14,20 @@ declare(strict_types=1);
 
 namespace Kreta\Notifier\Application\Command\Notification;
 
-use Kreta\SharedKernel\Domain\Model\Identity\Uuid;
-
-class PublishNotificationCommand
+class MarkAsReadNotificationCommand
 {
     private $id;
-    private $body;
     private $userId;
 
-    public function __construct(string $body, string $userId, string $id = null)
+    public function __construct(string $id, string $userId)
     {
-        $this->id = null === $id ? Uuid::generate() : $id;
-        $this->body = $body;
+        $this->id = $id;
         $this->userId = $userId;
     }
 
     public function id() : string
     {
         return $this->id;
-    }
-
-    public function body() : string
-    {
-        return $this->body;
     }
 
     public function userId() : string

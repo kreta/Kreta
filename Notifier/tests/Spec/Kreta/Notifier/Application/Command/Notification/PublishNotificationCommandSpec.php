@@ -21,9 +21,18 @@ class PublishNotificationCommandSpec extends ObjectBehavior
 {
     function it_can_be_created()
     {
-        $this->beConstructedWith('notification-id', 'The notification body', 'user-id');
+        $this->beConstructedWith('The notification body', 'user-id', 'notification-id');
         $this->shouldHaveType(PublishNotificationCommand::class);
         $this->id()->shouldReturn('notification-id');
+        $this->body()->shouldReturn('The notification body');
+        $this->userId()->shouldReturn('user-id');
+    }
+
+    function it_can_be_created_without_notification_id()
+    {
+        $this->beConstructedWith('The notification body', 'user-id');
+        $this->shouldHaveType(PublishNotificationCommand::class);
+        $this->id()->shouldNotReturn(null);
         $this->body()->shouldReturn('The notification body');
         $this->userId()->shouldReturn('user-id');
     }
