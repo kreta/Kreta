@@ -15,17 +15,14 @@ declare(strict_types=1);
 namespace Kreta\Notifier\Application\Command\Notification;
 
 use Kreta\Notifier\Domain\Model\Notification\Notification;
-use Kreta\Notifier\Domain\Model\Notification\NotificationAlreadyExistsException;
-use Kreta\Notifier\Domain\Model\Notification\NotificationBody;
+use Kreta\Notifier\Domain\Model\Notification\NotificationDoesNotExistException;
 use Kreta\Notifier\Domain\Model\Notification\NotificationId;
-use Kreta\Notifier\Domain\Model\Notification\NotificationOwner;
-use Kreta\Notifier\Domain\Model\Notification\NotificationOwnerId;
 use Kreta\Notifier\Domain\Model\Notification\NotificationRepository;
 use Kreta\Notifier\Domain\Model\User\UserDoesNotExistException;
 use Kreta\Notifier\Domain\Model\User\UserId;
 use Kreta\Notifier\Domain\Model\User\UserRepository;
 
-class PublishNotificationHandler
+class MarkAsReadNotificationHandler
 {
     private $repository;
     private $userRepository;
@@ -36,28 +33,24 @@ class PublishNotificationHandler
         $this->userRepository = $userRepository;
     }
 
-    public function __invoke(PublishNotificationCommand $command) : void
+    public function __invoke(MarkAsReadNotificationCommand $command) : void
     {
         $id = NotificationId::generate($command->id());
-        $body = new NotificationBody($command->body());
         $userId = UserId::generate($command->userId());
 
-        $this->checkNotificationExists($id);
+        $notification = $this->repository->notificationOfId($id);
+        $this->checkNotificationExists($notification);
         $this->checkUserExists($userId);
 
-        $ownerId = NotificationOwnerId::generate();
-        $owner = new NotificationOwner($ownerId, $userId);
-
-        $notification = Notification::broadcast($id, $owner, $body);
+        $notification->markAsRead();
 
         $this->repository->persist($notification);
     }
 
-    private function checkNotificationExists(NotificationId $notificationId) : void
+    private function checkNotificationExists(?Notification $notification) : void
     {
-        $notification = $this->repository->notificationOfId($notificationId);
-        if ($notification instanceof Notification) {
-            throw new NotificationAlreadyExistsException();
+        if (null === $notification) {
+            throw new NotificationDoesNotExistException();
         }
     }
 
