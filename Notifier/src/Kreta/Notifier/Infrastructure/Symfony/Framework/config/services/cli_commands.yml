@@ -7,8 +7,10 @@
 # file that was distributed with this source code.
 
 services:
-    kreta.notifier.event_store.redis:
-        class: Kreta\SharedKernel\Infrastructure\Persistence\Redis\EventStore\RedisEventStore
+    kreta.notifier.command.publish_notification:
+        class: Kreta\Notifier\Infrastructure\Symfony\Command\PublishNotificationCommand
         arguments:
-            - "@snc_redis.default"
-            - "@jms_serializer.serializer"
+            - "@kreta.notifier.command_bus"
+        tags:
+            -
+                name: console.command

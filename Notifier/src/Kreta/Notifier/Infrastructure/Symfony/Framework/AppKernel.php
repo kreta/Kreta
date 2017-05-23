@@ -16,6 +16,7 @@ namespace Kreta\Notifier\Infrastructure\Symfony\Framework;
 
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle;
+use JMS\SerializerBundle\JMSSerializerBundle;
 use Nelmio\CorsBundle\NelmioCorsBundle;
 use OldSound\RabbitMqBundle\OldSoundRabbitMqBundle;
 use PSS\SymfonyMockerContainer\DependencyInjection\MockerContainer;
@@ -43,6 +44,7 @@ class AppKernel extends Kernel
             new DoctrineMigrationsBundle(),
             new DoctrineOrmBridgeBundle(),
             new FrameworkBundle(),
+            new JMSSerializerBundle(),
             new MonologBundle(),
             new NelmioCorsBundle(),
             new OldSoundRabbitMqBundle(),

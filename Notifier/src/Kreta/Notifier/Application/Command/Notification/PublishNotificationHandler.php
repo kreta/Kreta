@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Kreta\Notifier\Application\Command\Notification;
 
 use Kreta\Notifier\Domain\Model\Notification\Notification;
+use Kreta\Notifier\Domain\Model\Notification\NotificationAlreadyExistsException;
 use Kreta\Notifier\Domain\Model\Notification\NotificationBody;
 use Kreta\Notifier\Domain\Model\Notification\NotificationId;
 use Kreta\Notifier\Domain\Model\Notification\NotificationOwner;
@@ -41,6 +42,7 @@ class PublishNotificationHandler
         $body = new NotificationBody($command->body());
         $userId = UserId::generate($command->userId());
 
+        $this->checkNotificationExists($id);
         $this->checkUserExists($userId);
 
         $ownerId = NotificationOwnerId::generate();
@@ -49,6 +51,14 @@ class PublishNotificationHandler
         $notification = Notification::broadcast($id, $owner, $body);
 
         $this->repository->persist($notification);
+    }
+
+    private function checkNotificationExists(NotificationId $notificationId)
+    {
+        $notification = $this->repository->notificationOfId($notificationId);
+        if ($notification instanceof Notification) {
+            throw new NotificationAlreadyExistsException();
+        }
     }
 
     private function checkUserExists(UserId $userId)

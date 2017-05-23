@@ -15,9 +15,9 @@ declare(strict_types=1);
 namespace Kreta\Notifier\Infrastructure\Persistence\Doctrine\ORM\User;
 
 use Doctrine\ORM\EntityRepository;
-use Kreta\TaskManager\Domain\Model\User\User;
-use Kreta\TaskManager\Domain\Model\User\UserId;
-use Kreta\TaskManager\Domain\Model\User\UserRepository;
+use Kreta\Notifier\Domain\Model\User\User;
+use Kreta\Notifier\Domain\Model\User\UserId;
+use Kreta\Notifier\Domain\Model\User\UserRepository;
 
 class DoctrineORMUserRepository extends EntityRepository implements UserRepository
 {

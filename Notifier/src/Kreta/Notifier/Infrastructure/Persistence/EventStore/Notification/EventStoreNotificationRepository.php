@@ -17,6 +17,8 @@ namespace Kreta\Notifier\Infrastructure\Persistence\EventStore\Notification;
 use Kreta\Notifier\Domain\Model\Notification\Notification;
 use Kreta\Notifier\Domain\Model\Notification\NotificationId;
 use Kreta\Notifier\Domain\Model\Notification\NotificationRepository;
+use Kreta\SharedKernel\Domain\Model\AggregateDoesNotExistException;
+use Kreta\SharedKernel\Domain\Model\DomainEventCollection;
 use Kreta\SharedKernel\Event\EventStore;
 use Kreta\SharedKernel\Event\EventStream;
 
@@ -31,12 +33,16 @@ final class EventStoreNotificationRepository implements NotificationRepository
 
     public function notificationOfId(NotificationId $id) : ?Notification
     {
-        return Notification::reconstitute($this->eventStore->streamOfId($id));
+        try {
+            return Notification::reconstitute($this->eventStore->streamOfId($id));
+        } catch (AggregateDoesNotExistException $exception) {
+            return null;
+        }
     }
 
     public function persist(Notification $notification) : void
     {
-        $events = $notification->recordedEvents();
+        $events = new DomainEventCollection($notification->recordedEvents());
         $eventStream = new EventStream($notification->id(), $events);
 
         $this->eventStore->appendTo($eventStream);

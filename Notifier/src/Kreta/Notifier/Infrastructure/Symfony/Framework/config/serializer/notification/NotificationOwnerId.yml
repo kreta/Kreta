@@ -6,9 +6,5 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 
-services:
-    kreta.notifier.event_store.redis:
-        class: Kreta\SharedKernel\Infrastructure\Persistence\Redis\EventStore\RedisEventStore
-        arguments:
-            - "@snc_redis.default"
-            - "@jms_serializer.serializer"
+Kreta\Notifier\Domain\Model\Notification\NotificationOwnerId:
+    exclusion_policy: all
