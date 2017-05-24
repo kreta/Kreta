@@ -14,12 +14,12 @@ declare(strict_types=1);
 
 namespace Kreta\SharedKernel\Infrastructure\Persistence\Redis\EventStore;
 
-use JMS\Serializer\Serializer;
 use Kreta\SharedKernel\Domain\Model\AggregateDoesNotExistException;
 use Kreta\SharedKernel\Domain\Model\DomainEventCollection;
 use Kreta\SharedKernel\Domain\Model\Identity\Id;
 use Kreta\SharedKernel\Event\EventStore;
 use Kreta\SharedKernel\Event\EventStream;
+use Kreta\SharedKernel\Serialization\Serializer;
 use Predis\Client;
 
 final class RedisEventStore implements EventStore
@@ -38,15 +38,14 @@ final class RedisEventStore implements EventStore
     public function appendTo(EventStream $stream) : void
     {
         foreach ($stream->events() as $event) {
-            $data = $this->serializer->serialize($event, 'json');
+            $data = $this->serializer->serialize($event);
 
             $serializedEvent = $this->serializer->serialize(
                 [
                     'type'       => get_class($event),
                     'created_on' => (new \DateTimeImmutable())->getTimestamp(),
                     'data'       => $data,
-                ],
-                'json'
+                ]
             );
 
             $this->predis->rpush($this->redisKey($stream->aggregateId()), $serializedEvent);
@@ -63,13 +62,12 @@ final class RedisEventStore implements EventStore
 
         $events = new DomainEventCollection();
         foreach ($serializedEvents as $serializedEvent) {
-            $eventData = $this->serializer->deserialize($serializedEvent, 'array', 'json');
+            $eventData = $this->serializer->deserialize($serializedEvent, 'array');
 
             $events->add(
                 $this->serializer->deserialize(
                     $eventData['data'],
-                    $eventData['type'],
-                    'json'
+                    $eventData['type']
                 )
             );
         }
