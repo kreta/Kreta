@@ -7,8 +7,5 @@
 # file that was distributed with this source code.
 
 services:
-    kreta.notifier.event_store.redis:
-        class: Kreta\SharedKernel\Infrastructure\Persistence\Redis\EventStore\RedisEventStore
-        arguments:
-            - "@snc_redis.default"
-            - "@kreta.notifier.serielizer.jms"
+    kreta.notifier.serielizer.jms:
+        class: Kreta\Notifier\Infrastructure\Serialization\JMS\JMSSerializer

@@ -81,20 +81,6 @@ doctrine_migrations:
     table_name: migration_versions
     name: Kreta Notifier Migrations
 
-jms_serializer:
-    metadata:
-        auto_detection: false
-        directories:
-            SharedKernel:
-                namespace_prefix: "Kreta\\SharedKernel\\Domain\\Model\\Identity"
-                path: "%kernel.root_dir%/../../../../../../vendor/kreta/shared-kernel/src/Kreta/SharedKernel/Infrastructure/Serialization/JMS/Config/Identity"
-            Notification:
-                namespace_prefix: "Kreta\\Notifier\\Domain\\Model\\Notification"
-                path: "%kernel.root_dir%/../../Serialization/JMS/Config/Notification"
-            User:
-                namespace_prefix: "Kreta\\Notifier\\Domain\\Model\\User"
-                path: "%kernel.root_dir%/../../Serialization/JMS/Config/User"
-
 swiftmailer:
     transport: "%notifier_mailer_transport%"
     host: "%notifier_mailer_host%"
