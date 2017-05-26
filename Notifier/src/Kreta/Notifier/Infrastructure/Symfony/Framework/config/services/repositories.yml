@@ -19,3 +19,4 @@ services:
         class: Kreta\Notifier\Infrastructure\Persistence\EventStore\Notification\EventStoreNotificationRepository
         arguments:
             - '@kreta.notifier.event_store.redis'
+            - '@kreta.notifier.projection.projector'

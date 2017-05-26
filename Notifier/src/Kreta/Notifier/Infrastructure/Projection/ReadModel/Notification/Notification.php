@@ -12,7 +12,9 @@
 
 declare(strict_types=1);
 
-namespace Kreta\Notifier\Infrastructure\Projection\ReadModel;
+namespace Kreta\Notifier\Infrastructure\Projection\ReadModel\Notification;
+
+use Kreta\Notifier\Domain\Model\Notification\NotificationStatus;
 
 class Notification
 {
@@ -27,15 +29,12 @@ class Notification
         string $id,
         string $body,
         string $owner,
-        \DateTimeInterface $publishedOn,
-        \DateTimeInterface $readOn,
-        string $status
+        \DateTimeInterface $publishedOn
     ) {
         $this->id = $id;
         $this->body = $body;
         $this->owner = $owner;
         $this->publishedOn = $publishedOn;
-        $this->readOn = $readOn;
-        $this->status = $status;
+        $this->status = (NotificationStatus::unread())->status();
     }
 }

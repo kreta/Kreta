@@ -12,16 +12,15 @@
 
 declare(strict_types=1);
 
-namespace Kreta\TaskManager\Infrastructure\Projection\Projector\Doctrine\ORM\Notification;
+namespace Kreta\Notifier\Infrastructure\Projection\EventHandler\Doctrine\ORM\Notification;
 
 use Doctrine\ORM\EntityManagerInterface;
 use Kreta\Notifier\Domain\Model\Notification\NotificationPublished;
-use Kreta\Notifier\Domain\Model\Notification\NotificationStatus;
-use Kreta\Notifier\Infrastructure\Projection\ReadModel\Notification;
+use Kreta\Notifier\Infrastructure\Projection\ReadModel\Notification\Notification;
 use Kreta\SharedKernel\Domain\Model\DomainEvent;
-use Kreta\SharedKernel\Projection\Projector;
+use Kreta\SharedKernel\Projection\EventHandler;
 
-class DoctrineORMNotificationPublishedProjector implements Projector
+class DoctrineORMNotificationPublishedEventHandler implements EventHandler
 {
     private $manager;
 
@@ -32,18 +31,16 @@ class DoctrineORMNotificationPublishedProjector implements Projector
 
     public function eventType() : string
     {
-        NotificationPublished::class;
+        return NotificationPublished::class;
     }
 
-    public function project(DomainEvent $event) : void
+    public function handle(DomainEvent $event) : void
     {
         $notification = new Notification(
             $event->id()->id(),
             $event->body()->body(),
-            $event->owner()->userId(),
-            $event->occurredOn(),
-            $event->readOn(),
-            (NotificationStatus::unread())->status()
+            $event->owner()->userId()->id(),
+            $event->occurredOn()
         );
 
         $this->manager->persist($notification);

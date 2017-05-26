@@ -20,7 +20,6 @@ use Nelmio\CorsBundle\NelmioCorsBundle;
 use OldSound\RabbitMqBundle\OldSoundRabbitMqBundle;
 use PSS\SymfonyMockerContainer\DependencyInjection\MockerContainer;
 use Sensio\Bundle\DistributionBundle\SensioDistributionBundle;
-use SimpleBus\SymfonyBridge\DoctrineOrmBridgeBundle;
 use SimpleBus\SymfonyBridge\SimpleBusCommandBusBundle;
 use SimpleBus\SymfonyBridge\SimpleBusEventBusBundle;
 use Snc\RedisBundle\SncRedisBundle;
@@ -41,7 +40,6 @@ class AppKernel extends Kernel
         $bundles = [
             new DoctrineBundle(),
             new DoctrineMigrationsBundle(),
-            new DoctrineOrmBridgeBundle(),
             new FrameworkBundle(),
             new MonologBundle(),
             new NelmioCorsBundle(),

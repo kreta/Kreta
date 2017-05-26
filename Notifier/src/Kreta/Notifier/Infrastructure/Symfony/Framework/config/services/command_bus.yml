@@ -11,12 +11,3 @@ services:
         class: Kreta\SharedKernel\Infrastructure\Application\SimpleBus\SimpleBusCommandBus
         arguments:
             - "@command_bus"
-
-# Event recorder that communicates command bus with the SimpleBus's event bus and
-# Doctrine events publishing the recorded events of the aggregate root.
-    kreta.notifier.simple_bus.event_recorder.aggregate_root:
-        class: Kreta\SharedKernel\Infrastructure\Event\SimpleBus\EventRecorder\Doctrine\ORM\AggregateRootEventRecorder
-        public: false
-        tags:
-            - { name: event_recorder }
-            - { name: doctrine.event_subscriber }

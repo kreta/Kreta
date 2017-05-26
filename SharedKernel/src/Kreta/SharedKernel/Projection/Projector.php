@@ -14,11 +14,50 @@ declare(strict_types=1);
 
 namespace Kreta\SharedKernel\Projection;
 
-use Kreta\SharedKernel\Domain\Model\DomainEvent;
+use Kreta\SharedKernel\Domain\Model\DomainEventCollection;
 
-interface Projector
+final class Projector
 {
-    public function eventType() : string;
+    private $eventHandlers;
+    private static $instance = null;
 
-    public function project(DomainEvent $event) : void;
+    public static function instance() : self
+    {
+        if (null === self::$instance) {
+            self::$instance = new self();
+        }
+
+        return self::$instance;
+    }
+
+    private function __construct()
+    {
+        $this->eventHandlers = [];
+    }
+
+    public function __clone()
+    {
+        throw new \BadMethodCallException('Clone is not supported');
+    }
+
+    public function register(array $eventHandlers)
+    {
+        foreach ($eventHandlers as $eventHandler) {
+            $this->add($eventHandler);
+        }
+    }
+
+    private function add(EventHandler $eventHandler)
+    {
+        $this->eventHandlers[] = $eventHandler;
+    }
+
+    public function project(DomainEventCollection $events) : void
+    {
+        foreach ($events as $event) {
+            if (isset($this->eventHandlers[get_class($event)])) {
+                $this->eventHandlers[get_class($event)]->handle($event);
+            }
+        }
+    }
 }
