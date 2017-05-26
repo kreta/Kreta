@@ -7,14 +7,6 @@
 # file that was distributed with this source code.
 
 services:
-    kreta.notifier.projection.projector:
-        class: Kreta\SharedKernel\Projection\Projector
-        arguments:
-            -
-                - "@kreta.notifier.projection.event_handler.notification_published"
-                - "@kreta.notifier.projection.event_handler.notification_marked_as_read"
-                - "@kreta.notifier.projection.event_handler.notification_marked_as_unread"
-
     kreta.notifier.projection.event_handler.notification_published:
         class: Kreta\Notifier\Infrastructure\Projection\EventHandler\Doctrine\ORM\Notification\DoctrineORMNotificationPublishedEventHandler
         arguments:

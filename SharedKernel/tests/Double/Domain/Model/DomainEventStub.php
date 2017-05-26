@@ -22,7 +22,7 @@ class DomainEventStub implements DomainEvent
     private $foo;
     private $occurredOn;
 
-    public function __construct($foo, $bar, $occurredOn = null)
+    public function __construct(string $foo, string $bar, $occurredOn = null)
     {
         $this->bar = $bar;
         $this->foo = $foo;

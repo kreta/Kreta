@@ -26,12 +26,10 @@ use Kreta\SharedKernel\Projection\Projector;
 final class EventStoreNotificationRepository implements NotificationRepository
 {
     private $eventStore;
-    private $projector;
 
-    public function __construct(EventStore $eventStore, Projector $projector)
+    public function __construct(EventStore $eventStore)
     {
         $this->eventStore = $eventStore;
-        $this->projector = $projector;
     }
 
     public function notificationOfId(NotificationId $id) : ?Notification
@@ -51,6 +49,6 @@ final class EventStoreNotificationRepository implements NotificationRepository
         $this->eventStore->appendTo($eventStream);
         $notification->clearEvents();
 
-        $this->projector->project($events);
+        Projector::instance()->project($events);
     }
 }
