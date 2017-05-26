@@ -66,13 +66,13 @@ doctrine:
                 mapping: true
                 type: xml
                 is_bundle: false
-                dir: "%kernel.root_dir%/../../Projection/ReadModel/Notification/Doctrine/ORM/SymfonyMapping/"
+                dir: "%kernel.root_dir%/../../Persistence/Doctrine/Symfony/Notification/Mapping/"
                 prefix: 'Kreta\Notifier\Infrastructure\Projection\ReadModel\Notification'
             NotifierUser:
                 mapping: true
                 type: xml
                 is_bundle: false
-                dir: "%kernel.root_dir%/../../Persistence/Doctrine/ORM/User/SymfonyMapping/"
+                dir: "%kernel.root_dir%/../../Persistence/Doctrine/Symfony/User/Mapping/"
                 prefix: 'Kreta\Notifier\Domain\Model\User'
 
 doctrine_migrations:
