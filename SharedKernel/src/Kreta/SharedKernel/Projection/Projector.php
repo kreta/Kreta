@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Kreta\SharedKernel\Projection;
 
 use Kreta\SharedKernel\Domain\Model\DomainEventCollection;
+use Kreta\SharedKernel\Domain\Model\Exception;
 
 final class Projector
 {
@@ -37,7 +38,7 @@ final class Projector
 
     public function __clone()
     {
-        throw new \BadMethodCallException('Clone is not supported');
+        throw new Exception('Clone is not supported');
     }
 
     public function register(array $eventHandlers)
@@ -49,12 +50,12 @@ final class Projector
 
     private function add(EventHandler $eventHandler)
     {
-        $this->eventHandlers[] = $eventHandler;
+        $this->eventHandlers[$eventHandler->eventType()] = $eventHandler;
     }
 
     public function project(DomainEventCollection $events) : void
     {
-        foreach ($events as $event) {
+        foreach ($events->toArray() as $event) {
             if (isset($this->eventHandlers[get_class($event)])) {
                 $this->eventHandlers[get_class($event)]->handle($event);
             }
