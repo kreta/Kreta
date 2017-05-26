@@ -4,14 +4,14 @@
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
                           http://raw.github.com/doctrine/doctrine2/master/doctrine-mapping.xsd">
 
-    <entity name="Kreta\Notifier\Infrastructure\Projection\ReadModel\Notification" table="projection_notification">
+    <entity name="Kreta\Notifier\Infrastructure\Projection\ReadModel\Notification\Notification" table="projection_notification">
         <id name="id" type="string" column="id">
-            <generator strategy="UUID"/>
+            <generator strategy="NONE"/>
         </id>
         <field name="body" type="string"/>
         <field name="owner" type="string"/>
         <field name="publishedOn" type="datetime" column="published_on"/>
-        <field name="readOn" type="datetime" column="read_on"/>
+        <field name="readOn" type="datetime" column="read_on" nullable="true"/>
         <field name="status" type="string"/>
     </entity>
 </doctrine-mapping>

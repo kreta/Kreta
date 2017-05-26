@@ -12,16 +12,16 @@
 
 declare(strict_types=1);
 
-namespace Kreta\TaskManager\Infrastructure\Projection\Projector\Doctrine\ORM\Notification;
+namespace Kreta\Notifier\Infrastructure\Projection\EventHandler\Doctrine\ORM\Notification;
 
 use Doctrine\ORM\EntityManagerInterface;
-use Kreta\Notifier\Domain\Model\Notification\NotificationMarkedAsUnread;
+use Kreta\Notifier\Domain\Model\Notification\NotificationMarkedAsRead;
 use Kreta\Notifier\Domain\Model\Notification\NotificationStatus;
-use Kreta\Notifier\Infrastructure\Projection\ReadModel\Notification;
+use Kreta\Notifier\Infrastructure\Projection\ReadModel\Notification\Notification;
 use Kreta\SharedKernel\Domain\Model\DomainEvent;
-use Kreta\SharedKernel\Projection\Projector;
+use Kreta\SharedKernel\Projection\EventHandler;
 
-class DoctrineORMNotificationMarkedAsUnreadProjector implements Projector
+class DoctrineORMNotificationMarkedAsReadEventHandler implements EventHandler
 {
     private $manager;
 
@@ -32,14 +32,16 @@ class DoctrineORMNotificationMarkedAsUnreadProjector implements Projector
 
     public function eventType() : string
     {
-        NotificationMarkedAsUnread::class;
+        return NotificationMarkedAsRead::class;
     }
 
-    public function project(DomainEvent $event) : void
+    public function handle(DomainEvent $event) : void
     {
         $notification = $this->manager->getRepository(Notification::class)->find($event->id());
-        $notification->readOn = null;
-        $notification->status = (NotificationStatus::unread())->status();
+
+        $notification->readOn = $event->occurredOn();
+        $notification->status = (NotificationStatus::read())->status();
+
         $this->manager->persist($notification);
         $this->manager->flush();
     }

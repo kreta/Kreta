@@ -21,14 +21,17 @@ use Kreta\SharedKernel\Domain\Model\AggregateDoesNotExistException;
 use Kreta\SharedKernel\Domain\Model\DomainEventCollection;
 use Kreta\SharedKernel\Event\EventStore;
 use Kreta\SharedKernel\Event\EventStream;
+use Kreta\SharedKernel\Projection\Projector;
 
 final class EventStoreNotificationRepository implements NotificationRepository
 {
     private $eventStore;
+    private $projector;
 
-    public function __construct(EventStore $eventStore)
+    public function __construct(EventStore $eventStore, Projector $projector)
     {
         $this->eventStore = $eventStore;
+        $this->projector = $projector;
     }
 
     public function notificationOfId(NotificationId $id) : ?Notification
@@ -47,5 +50,7 @@ final class EventStoreNotificationRepository implements NotificationRepository
 
         $this->eventStore->appendTo($eventStream);
         $notification->clearEvents();
+
+        $this->projector->project($events);
     }
 }

@@ -1,0 +1,31 @@
+# This file is part of the Kreta package.
+#
+# (c) Beñat Espiña <benatespina@gmail.com>
+# (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+
+services:
+    kreta.notifier.projection.projector:
+        class: Kreta\SharedKernel\Projection\Projector
+        arguments:
+            -
+                - "@kreta.notifier.projection.event_handler.notification_published"
+                - "@kreta.notifier.projection.event_handler.notification_marked_as_read"
+                - "@kreta.notifier.projection.event_handler.notification_marked_as_unread"
+
+    kreta.notifier.projection.event_handler.notification_published:
+        class: Kreta\Notifier\Infrastructure\Projection\EventHandler\Doctrine\ORM\Notification\DoctrineORMNotificationPublishedEventHandler
+        arguments:
+            - "@doctrine.orm.default_entity_manager"
+
+    kreta.notifier.projection.event_handler.notification_marked_as_read:
+        class: Kreta\Notifier\Infrastructure\Projection\EventHandler\Doctrine\ORM\Notification\DoctrineORMNotificationMarkedAsReadEventHandler
+        arguments:
+            - "@doctrine.orm.default_entity_manager"
+
+    kreta.notifier.projection.event_handler.notification_marked_as_unread:
+        class: Kreta\Notifier\Infrastructure\Projection\EventHandler\Doctrine\ORM\Notification\DoctrineORMNotificationMarkedAsUnreadEventHandler
+        arguments:
+            - "@doctrine.orm.default_entity_manager"
