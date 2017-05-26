@@ -1,17 +1,5 @@
 <?php
 
-/*
- * This file is part of the Kreta package.
- *
- * (c) Beñat Espiña <benatespina@gmail.com>
- * (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
- *
- * For the full copyright and license information, please view the LICENSE
- * file that was distributed with this source code.
- */
-
-declare(strict_types=1);
-
 namespace Kreta\Notifier\Infrastructure\Persistence\Doctrine\Migrations;
 
 use Doctrine\DBAL\Migrations\AbstractMigration;
@@ -20,7 +8,7 @@ use Doctrine\DBAL\Schema\Schema;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-class Version20170523153258 extends AbstractMigration
+class Version20170526175802 extends AbstractMigration
 {
     /**
      * @param Schema $schema
@@ -30,6 +18,7 @@ class Version20170523153258 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
+        $this->addSql('CREATE TABLE notification (id VARCHAR(255) NOT NULL, body VARCHAR(255) NOT NULL, owner VARCHAR(255) NOT NULL, published_on DATETIME NOT NULL, read_on DATETIME DEFAULT NULL, status VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE user (id CHAR(36) NOT NULL COMMENT \'(DC2Type:user_id)\', PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci ENGINE = InnoDB');
     }
 
@@ -41,6 +30,7 @@ class Version20170523153258 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
+        $this->addSql('DROP TABLE notification');
         $this->addSql('DROP TABLE user');
     }
 }
