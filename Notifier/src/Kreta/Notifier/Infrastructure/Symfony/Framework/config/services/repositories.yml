@@ -7,15 +7,7 @@
 # file that was distributed with this source code.
 
 services:
-    kreta.notifier.repository.user:
-        class: Kreta\Notifier\Infrastructure\Persistence\Doctrine\ORM\User\DoctrineORMUserRepository
-        factory:
-            - '@doctrine.orm.default_entity_manager'
-            - 'getRepository'
-        arguments:
-            - Kreta\Notifier\Domain\Model\User\User
-
-    kreta.notifier.repository.notification:
-        class: Kreta\Notifier\Infrastructure\Persistence\EventStore\Notification\EventStoreNotificationRepository
+    kreta.notifier.repository.inbox.user:
+        class: Kreta\Notifier\Infrastructure\Persistence\EventStore\Inbox\EventStoreUserRepository
         arguments:
             - '@kreta.notifier.event_store.redis'

@@ -7,5 +7,5 @@
 # file that was distributed with this source code.
 
 services:
-    kreta.notifier.serielizer.jms:
+    kreta.notifier.serializer.jms:
         class: Kreta\Notifier\Infrastructure\Serialization\JMS\JMSSerializer

@@ -7,14 +7,14 @@
 # file that was distributed with this source code.
 
 services:
-#    kreta.notifier.php_amqp_lib.user_registered:
-#        class: Kreta\SharedKernel\Infrastructure\Messaging\AMQP\PhpAmqpLib\PhpAmqpLibAMQPConsumer
-#        public: false
-#        arguments:
-#            - "@kreta.notifier.event_subscriber.user_registered"
-#            - "kreta_identity_access.user_registered"
-#
-#    kreta.notifier.rabbit_mq_bundle.user_registered:
-#        class: Kreta\SharedKernel\Infrastructure\Messaging\AMQP\RabbitMqBundle\RabbitMqBundleAMQPConsumer
-#        arguments:
-#            - "@kreta.notifier.php_amqp_lib.user_registered"
+    kreta.notifier.php_amqp_lib.inbox.user_signed_up:
+        class: Kreta\SharedKernel\Infrastructure\Messaging\AMQP\PhpAmqpLib\PhpAmqpLibAMQPConsumer
+        public: false
+        arguments:
+            - "@kreta.notifier.event_subscriber.inbox.user_signed_up"
+            - "kreta_identity_access.user_registered"
+
+    kreta.notifier.rabbit_mq_bundle.inbox.user_signed_up:
+        class: Kreta\SharedKernel\Infrastructure\Messaging\AMQP\RabbitMqBundle\RabbitMqBundleAMQPConsumer
+        arguments:
+            - "@kreta.notifier.php_amqp_lib.inbox.user_signed_up"

@@ -48,9 +48,6 @@ doctrine:
         user: "%notifier_database_user%"
         password: "%notifier_database_password%"
         charset: UTF8
-        types:
-            user_id:
-                class: Kreta\Notifier\Infrastructure\Persistence\Doctrine\DBAL\User\Types\UserIdType
     orm:
         auto_generate_proxy_classes: "%kernel.debug%"
         naming_strategy: doctrine.orm.naming_strategy.underscore
@@ -62,18 +59,12 @@ doctrine:
                 is_bundle: false
                 dir: "%kernel.root_dir%/../../../../../../../SharedKernel/src/Kreta/SharedKernel/Infrastructure/Persistence/Doctrine/ORM/Identity/SymfonyMapping/"
                 prefix: 'Kreta\SharedKernel\Domain\Model\Identity'
-            NotifierNotification:
+            NotifierInbox:
                 mapping: true
                 type: xml
                 is_bundle: false
-                dir: "%kernel.root_dir%/../../Persistence/Doctrine/Symfony/Notification/Mapping/"
-                prefix: 'Kreta\Notifier\Infrastructure\Projection\ReadModel\Notification'
-            NotifierUser:
-                mapping: true
-                type: xml
-                is_bundle: false
-                dir: "%kernel.root_dir%/../../Persistence/Doctrine/Symfony/User/Mapping/"
-                prefix: 'Kreta\Notifier\Domain\Model\User'
+                dir: "%kernel.root_dir%/../../Persistence/Doctrine/Symfony/Inbox/Mapping/"
+                prefix: 'Kreta\Notifier\Infrastructure\Projection\ReadModel\Inbox'
 
 doctrine_migrations:
     dir_name: "%kernel.root_dir%/../../Persistence/Doctrine/Migrations"
@@ -96,28 +87,28 @@ nelmio_cors:
             allow_methods: [GET, POST, PUT, DELETE, OPTIONS]
             max_age: 3600
 
-#old_sound_rabbit_mq:
-#    connections:
-#        default:
-#            host: "%notifier_rabbitmq_host%"
-#            port: "%notifier_rabbitmq_port%"
-#            user: "%notifier_rabbitmq_user%"
-#            password: "%notifier_rabbitmq_password%"
-#            vhost: '/'
-#            lazy: true
-#            connection_timeout: 3
-#            read_write_timeout: 3
-#            keepalive: false
-#            heartbeat: 0
-#    consumers:
-#        asynchronous_events:
-#            connection: default
-#            exchange_options:
-#                name: asynchronous_events
-#                type: direct
-#            queue_options:
-#                name: asynchronous_events
-#            callback: kreta.notifier.rabbit_mq_bundle.user_registered
+old_sound_rabbit_mq:
+    connections:
+        default:
+            host: "%notifier_rabbitmq_host%"
+            port: "%notifier_rabbitmq_port%"
+            user: "%notifier_rabbitmq_user%"
+            password: "%notifier_rabbitmq_password%"
+            vhost: '/'
+            lazy: true
+            connection_timeout: 3
+            read_write_timeout: 3
+            keepalive: false
+            heartbeat: 0
+    consumers:
+        asynchronous_events:
+            connection: default
+            exchange_options:
+                name: asynchronous_events
+                type: direct
+            queue_options:
+                name: asynchronous_events
+            callback: kreta.notifier.rabbit_mq_bundle.inbox.user_signed_up
 
 snc_redis:
     clients:

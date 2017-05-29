@@ -7,7 +7,7 @@
 # file that was distributed with this source code.
 
 services:
-#    kreta.notifier.event_subscriber.user_registered:
-#        class: Kreta\Notifier\Domain\Event\User\UserRegisteredSubscriber
-#        arguments:
-#            - "@kreta.notifier.command_bus"
+    kreta.notifier.event_subscriber.inbox.user_signed_up:
+        class: Kreta\Notifier\Domain\Event\Inbox\UserSignedUpSubscriber
+        arguments:
+            - "@kreta.notifier.command_bus"

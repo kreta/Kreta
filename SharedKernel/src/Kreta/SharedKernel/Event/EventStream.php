@@ -15,22 +15,22 @@ declare(strict_types=1);
 namespace Kreta\SharedKernel\Event;
 
 use Kreta\SharedKernel\Domain\Model\DomainEventCollection;
-use Kreta\SharedKernel\Domain\Model\Identity\Id;
+use Kreta\SharedKernel\Domain\Model\Identity\BaseId as Id;
 
 class EventStream
 {
-    private $aggregateId;
+    private $aggregateRootId;
     private $events;
 
-    public function __construct(Id $aggregateId, DomainEventCollection $events)
+    public function __construct(Id $aggregateRootId, DomainEventCollection $events)
     {
-        $this->aggregateId = $aggregateId;
+        $this->aggregateRootId = $aggregateRootId;
         $this->events = $events;
     }
 
-    public function aggregateId() : Id
+    public function aggregateRootId() : Id
     {
-        return $this->aggregateId;
+        return $this->aggregateRootId;
     }
 
     public function events() : DomainEventCollection

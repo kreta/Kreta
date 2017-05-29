@@ -7,17 +7,22 @@
 # file that was distributed with this source code.
 
 services:
-    kreta.notifier.projection.event_handler.notification_published:
-        class: Kreta\Notifier\Infrastructure\Projection\EventHandler\Doctrine\ORM\Notification\DoctrineORMNotificationPublishedEventHandler
+    kreta.notifier.projection.event_handler.user_signed_up:
+        class: Kreta\Notifier\Infrastructure\Projection\EventHandler\Doctrine\ORM\Inbox\DoctrineORMUserSignedUpEventHandler
         arguments:
             - "@doctrine.orm.default_entity_manager"
 
-    kreta.notifier.projection.event_handler.notification_marked_as_read:
-        class: Kreta\Notifier\Infrastructure\Projection\EventHandler\Doctrine\ORM\Notification\DoctrineORMNotificationMarkedAsReadEventHandler
+    kreta.notifier.projection.event_handler.user_received_notification:
+        class: Kreta\Notifier\Infrastructure\Projection\EventHandler\Doctrine\ORM\Inbox\DoctrineORMUserReceivedNotificationEventHandler
         arguments:
             - "@doctrine.orm.default_entity_manager"
 
-    kreta.notifier.projection.event_handler.notification_marked_as_unread:
-        class: Kreta\Notifier\Infrastructure\Projection\EventHandler\Doctrine\ORM\Notification\DoctrineORMNotificationMarkedAsUnreadEventHandler
+    kreta.notifier.projection.event_handler.user_read_notification:
+        class: Kreta\Notifier\Infrastructure\Projection\EventHandler\Doctrine\ORM\Inbox\DoctrineORMUserReadNotificationEventHandler
+        arguments:
+            - "@doctrine.orm.default_entity_manager"
+
+    kreta.notifier.projection.event_handler.user_unread_notification:
+        class: Kreta\Notifier\Infrastructure\Projection\EventHandler\Doctrine\ORM\Inbox\DoctrineORMUserUnreadNotificationEventHandler
         arguments:
             - "@doctrine.orm.default_entity_manager"
