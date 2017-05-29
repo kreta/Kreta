@@ -7,13 +7,14 @@
 # file that was distributed with this source code.
 
 services:
-    kreta.notifier.event_listener.project:
+    kreta.notifier.event_listener.projector:
         class: Kreta\Notifier\Infrastructure\Symfony\EventListener\ProjectorEventListener
         arguments:
             -
-                - "@kreta.notifier.projection.event_handler.notification_published"
-                - "@kreta.notifier.projection.event_handler.notification_marked_as_read"
-                - "@kreta.notifier.projection.event_handler.notification_marked_as_unread"
+                - "@kreta.notifier.projection.event_handler.user_signed_up"
+                - "@kreta.notifier.projection.event_handler.user_received_notification"
+                - "@kreta.notifier.projection.event_handler.user_read_notification"
+                - "@kreta.notifier.projection.event_handler.user_unread_notification"
         tags:
             -
                 name: kernel.event_listener

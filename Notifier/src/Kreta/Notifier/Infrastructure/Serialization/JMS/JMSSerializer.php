@@ -46,8 +46,7 @@ final class JMSSerializer implements Serializer
                 __DIR__ . '/../../../../../../vendor/kreta/shared-kernel/src/Kreta/SharedKernel' .
                 '/Infrastructure/Serialization/JMS/Config/Identity',
                 'Kreta\\SharedKernel\\Domain\\Model\\Identity')
-            ->addMetadataDir(__DIR__ . '/Config/Notification', 'Kreta\\Notifier\\Domain\\Model\\Notification')
-            ->addMetadataDir(__DIR__ . '/Config/User', 'Kreta\\Notifier\\Domain\\Model\\User')
+            ->addMetadataDir(__DIR__ . '/Config/Inbox', 'Kreta\\Notifier\\Domain\\Model\\Inbox')
             ->setCacheDir(__DIR__ . '/../../../../../../var/cache/jms-serializer')
             ->build();
     }

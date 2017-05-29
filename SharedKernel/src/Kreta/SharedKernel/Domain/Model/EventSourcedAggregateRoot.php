@@ -18,5 +18,5 @@ use Kreta\SharedKernel\Event\EventStream;
 
 interface EventSourcedAggregateRoot
 {
-    public static function reconstitute(EventStream $events) : AggregateRoot;
+    public static function reconstitute(EventStream $events) : EventSourcedAggregateRoot;
 }
