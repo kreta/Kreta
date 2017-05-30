@@ -24,3 +24,16 @@ services:
                 name: kernel.event_listener
                 event: console.command
                 method: onKernel
+
+    kreta.notifier.event_listener.authentication:
+        class: Kreta\SharedKernel\Infrastructure\Symfony\EventListener\AuthenticationListener
+        arguments:
+            - "@httplug.message_factory"
+            - "@httplug.client"
+            - "@security.token_storage"
+            - "%notifier_identity_access_scheme%://%notifier_identity_access_host%"
+        tags:
+            -
+                name: kernel.event_listener
+                event: kernel.request
+                method: onKernelRequest

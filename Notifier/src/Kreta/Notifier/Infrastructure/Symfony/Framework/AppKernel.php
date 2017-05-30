@@ -16,10 +16,10 @@ namespace Kreta\Notifier\Infrastructure\Symfony\Framework;
 
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle;
+use Http\HttplugBundle\HttplugBundle;
 use Nelmio\CorsBundle\NelmioCorsBundle;
 use OldSound\RabbitMqBundle\OldSoundRabbitMqBundle;
 use PSS\SymfonyMockerContainer\DependencyInjection\MockerContainer;
-use Sensio\Bundle\DistributionBundle\SensioDistributionBundle;
 use SimpleBus\SymfonyBridge\SimpleBusCommandBusBundle;
 use SimpleBus\SymfonyBridge\SimpleBusEventBusBundle;
 use Snc\RedisBundle\SncRedisBundle;
@@ -30,6 +30,7 @@ use Symfony\Bundle\SecurityBundle\SecurityBundle;
 use Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle;
 use Symfony\Bundle\TwigBundle\TwigBundle;
 use Symfony\Bundle\WebProfilerBundle\WebProfilerBundle;
+use Symfony\Bundle\WebServerBundle\WebServerBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\HttpKernel\Kernel;
 
@@ -41,6 +42,7 @@ class AppKernel extends Kernel
             new DoctrineBundle(),
             new DoctrineMigrationsBundle(),
             new FrameworkBundle(),
+            new HttplugBundle(),
             new MonologBundle(),
             new NelmioCorsBundle(),
             new OldSoundRabbitMqBundle(),
@@ -54,8 +56,11 @@ class AppKernel extends Kernel
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
             $bundles[] = new DebugBundle();
-            $bundles[] = new SensioDistributionBundle();
             $bundles[] = new WebProfilerBundle();
+
+            if ('dev' === $this->getEnvironment()) {
+                $bundles[] = new WebServerBundle();
+            }
         }
 
         return $bundles;

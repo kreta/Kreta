@@ -18,15 +18,5 @@ _errors:
     resource: "@TwigBundle/Resources/config/routing/errors.xml"
     prefix: /_error
 
-overblog_graphql_graphiql:
-    path: /graphiql
-    defaults:
-        _controller: "kreta.task_manager.controller.graphiql_controller:indexAction"
-
-overblog_graphql_graphiql_multiple:
-    path: /graphiql/{schemaName}
-    defaults:
-        _controller: "kreta.task_manager.controller.graphiql_controller:indexAction"
-
 _main:
     resource: routing.yml
