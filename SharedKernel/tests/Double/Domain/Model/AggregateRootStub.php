@@ -55,9 +55,9 @@ class AggregateRootStub extends AggregateRoot implements EventSourcedAggregateRo
         $this->property = 'foo';
     }
 
-    public static function reconstitute(EventStream $events) : AggregateRoot
+    public static function reconstitute(EventStream $events) : EventSourcedAggregateRoot
     {
-        $instance = new self($events->aggregateId());
+        $instance = new self($events->aggregateRootId());
 
         foreach ($events as $event) {
             $instance->apply($event);

@@ -21,9 +21,9 @@ use PhpSpec\ObjectBehavior;
 
 class EventStreamSpec extends ObjectBehavior
 {
-    function let(Id $aggregateId, DomainEventCollection $events)
+    function let(Id $aggregateRootId, DomainEventCollection $events)
     {
-        $this->beConstructedWith($aggregateId, $events);
+        $this->beConstructedWith($aggregateRootId, $events);
     }
 
     function it_is_initializable()
@@ -31,9 +31,9 @@ class EventStreamSpec extends ObjectBehavior
         $this->shouldHaveType(EventStream::class);
     }
 
-    function it_gets_aggregate_id(Id $aggregateId)
+    function it_gets_aggregate_root_id(Id $aggregateRootId)
     {
-        $this->aggregateId()->shouldReturn($aggregateId);
+        $this->aggregateRootId()->shouldReturn($aggregateRootId);
     }
 
     function it_gets_events(DomainEventCollection $events)

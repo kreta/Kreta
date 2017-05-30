@@ -60,9 +60,9 @@ class AggregateRootSpec extends ObjectBehavior
         $this->property()->shouldReturn('bar');
     }
 
-    function it_reconstitutes_the_aggregate_root(EventStream $events, Id $aggregateId)
+    function it_reconstitutes_the_aggregate_root(EventStream $events, Id $aggregateRootId)
     {
-        $events->aggregateId()->shouldBeCalled()->willReturn($aggregateId);
+        $events->aggregateRootId()->shouldBeCalled()->willReturn($aggregateRootId);
         $this::reconstitute($events)->shouldReturnAnInstanceOf(AggregateRoot::class);
     }
 }
