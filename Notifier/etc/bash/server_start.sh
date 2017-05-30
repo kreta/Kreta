@@ -9,5 +9,4 @@
 # file that was distributed with this source code.
 
 $(dirname $0)/../bin/symfony-console server:start 127.0.0.1:8003 \
-    --docroot=src/Kreta/Notifier/Infrastructure/Ui/Http/Symfony/public \
-    --force
+    --docroot=src/Kreta/Notifier/Infrastructure/Ui/Http/Symfony/public

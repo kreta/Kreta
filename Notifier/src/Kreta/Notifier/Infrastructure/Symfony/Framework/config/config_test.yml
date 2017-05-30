@@ -18,7 +18,7 @@ framework:
 
 doctrine:
     dbal:
-        dbname: "%task_manager_database_name%_test"
+        dbname: "%notifier_database_name%_test"
         host: 127.0.0.1
         password: ~
 
@@ -30,8 +30,8 @@ swiftmailer:
     disable_delivery: true
 
 services:
-    kreta.task_manager.event_listener.authentication:
-        class: Kreta\TaskManager\Tests\Double\Infrastructure\Symfony\EventListener\DummyAuthenticationListener
+    kreta.notifier.event_listener.authentication:
+        class: Kreta\SharedKernel\Tests\Double\Infrastructure\Symfony\EventListener\DummyAuthenticationListener
         arguments:
             - "@security.token_storage"
         tags:
