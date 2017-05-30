@@ -16,7 +16,7 @@ namespace Spec\Kreta\SharedKernel\Infrastructure\Persistence\InMemory\EventStore
 
 use Kreta\SharedKernel\Domain\Model\AggregateDoesNotExistException;
 use Kreta\SharedKernel\Domain\Model\DomainEventCollection;
-use Kreta\SharedKernel\Domain\Model\Identity\Id;
+use Kreta\SharedKernel\Domain\Model\Identity\BaseId as Id;
 use Kreta\SharedKernel\Event\EventStore;
 use Kreta\SharedKernel\Event\EventStream;
 use Kreta\SharedKernel\Infrastructure\Persistence\InMemory\EventStore\InMemoryEventStore;
@@ -35,33 +35,33 @@ class InMemoryEventStoreSpec extends ObjectBehavior
         $this->shouldImplement(EventStore::class);
     }
 
-    function it_appends_to(EventStream $stream, Id $aggregateId)
+    function it_appends_to(EventStream $stream, Id $aggregateRootId)
     {
         $eventCollection = new DomainEventCollection([
             new DomainEventStub('foo', 'bar'),
         ]);
         $stream->events()->shouldBeCalled()->willReturn($eventCollection);
-        $stream->aggregateId()->shouldBeCalled()->willReturn($aggregateId);
+        $stream->aggregateRootId()->shouldBeCalled()->willReturn($aggregateRootId);
         $this->appendTo($stream);
     }
 
-    function it_get_stream_of_id_given(EventStream $stream, Id $aggregateId)
+    function it_get_stream_of_id_given(EventStream $stream, Id $aggregateRootId)
     {
-        $aggregateId->id()->willReturn('aggregate-id');
+        $aggregateRootId->id()->willReturn('aggregate-id');
         $eventCollection = new DomainEventCollection([
             new DomainEventStub('foo', 'bar'),
         ]);
         $stream->events()->shouldBeCalled()->willReturn($eventCollection);
-        $stream->aggregateId()->shouldBeCalled()->willReturn($aggregateId);
+        $stream->aggregateRootId()->shouldBeCalled()->willReturn($aggregateRootId);
         $this->appendTo($stream);
 
-        $this->streamOfId($aggregateId)->shouldReturnAnInstanceOf(EventStream::class);
+        $this->streamOfId($aggregateRootId)->shouldReturnAnInstanceOf(EventStream::class);
     }
 
-    function it_does_not_get_any_aggregate(Id $aggregateId)
+    function it_does_not_get_any_aggregate(Id $aggregateRootId)
     {
-        $aggregateId->id()->willReturn('id');
+        $aggregateRootId->id()->willReturn('id');
 
-        $this->shouldThrow(AggregateDoesNotExistException::class)->duringStreamOfId($aggregateId);
+        $this->shouldThrow(AggregateDoesNotExistException::class)->duringStreamOfId($aggregateRootId);
     }
 }

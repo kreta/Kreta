@@ -18,5 +18,5 @@ interface BaseId
 {
     public static function generate(?string $id = null);
 
-    public static function id() : string;
+    public function id() : string;
 }
