@@ -91,6 +91,7 @@ abstract class AbstractFixture extends BaseAbstractFixture implements OrderedFix
 
         $identityAccessDir = sprintf($baseDir, 'IdentityAccess');
         $taskManagerDir = sprintf($baseDir, 'TaskManager');
+        $notifierDir = sprintf($baseDir, 'Notifier');
 
         if ($this->type() === 'user') {
             return __DIR__ . '/../DataFixtures/FakeData';
@@ -100,6 +101,9 @@ abstract class AbstractFixture extends BaseAbstractFixture implements OrderedFix
         }
         if (is_dir($taskManagerDir)) {
             return $taskManagerDir;
+        }
+        if (is_dir($notifierDir)) {
+            return $notifierDir;
         }
         throw new Exception('The identity access and task manager fake data dirs are not valid');
     }
