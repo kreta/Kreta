@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Kreta\Notifier\Infrastructure\Symfony\Framework;
 
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
+use Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle;
 use Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle;
 use Http\HttplugBundle\HttplugBundle;
 use Nelmio\CorsBundle\NelmioCorsBundle;
@@ -59,6 +60,7 @@ class AppKernel extends Kernel
             $bundles[] = new WebProfilerBundle();
 
             if ('dev' === $this->getEnvironment()) {
+                $bundles[] = new DoctrineFixturesBundle();
                 $bundles[] = new WebServerBundle();
             }
         }
