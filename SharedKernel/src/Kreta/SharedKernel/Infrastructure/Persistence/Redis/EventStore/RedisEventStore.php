@@ -40,9 +40,8 @@ final class RedisEventStore implements EventStore
         foreach ($stream->events() as $event) {
             $serializedEvent = $this->serializer->serialize(
                 [
-                    'type'       => get_class($event),
-                    'created_on' => (new \DateTimeImmutable())->getTimestamp(),
-                    'data'       => $this->serializer->serialize($event),
+                    'type' => get_class($event),
+                    'data' => $this->serializer->serialize($event),
                 ]
             );
 
