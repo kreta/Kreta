@@ -19,5 +19,5 @@ Kreta\Notifier\Domain\Model\Inbox\UserReceivedNotification:
             type: Kreta\Notifier\Domain\Model\Inbox\NotificationBody
             expose: true
         occurredOn:
-            type: DateTimeImmutable
+            type: DateTimeImmutable<'U'>
             expose: true

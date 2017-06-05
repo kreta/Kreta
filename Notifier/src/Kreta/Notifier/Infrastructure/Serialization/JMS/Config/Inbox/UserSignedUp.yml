@@ -13,5 +13,5 @@ Kreta\Notifier\Domain\Model\Inbox\UserSignedUp:
             type: Kreta\Notifier\Domain\Model\Inbox\UserId
             expose: true
         occurredOn:
-            type: DateTimeImmutable
+            type: DateTimeImmutable<'U'>
             expose: true

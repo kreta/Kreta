@@ -16,5 +16,5 @@ Kreta\Notifier\Domain\Model\Inbox\UserUnreadNotification:
             type: Kreta\Notifier\Domain\Model\Inbox\NotificationId
             expose: true
         occurredOn:
-            type: DateTimeImmutable
+            type: DateTimeImmutable<'U'>
             expose: true
