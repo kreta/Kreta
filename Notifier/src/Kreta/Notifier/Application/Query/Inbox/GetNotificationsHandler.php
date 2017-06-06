@@ -12,16 +12,9 @@
 
 declare(strict_types=1);
 
-namespace Kreta\Notifier\Infrastructure\Projection\ReadModel\Inbox;
+namespace Kreta\Notifier\Application\Query\Inbox;
 
-class User
+interface GetNotificationsHandler
 {
-    public $id;
-    public $notifications;
-
-    public function __construct(string $id)
-    {
-        $this->id = $id;
-        $this->notifications = [];
-    }
+    public function __invoke(GetNotificationsQuery $query) : array;
 }

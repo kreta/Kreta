@@ -16,10 +16,11 @@ namespace Kreta\Notifier\Infrastructure\Symfony\Framework;
 
 use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
 use Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle;
-use Doctrine\Bundle\MigrationsBundle\DoctrineMigrationsBundle;
 use Http\HttplugBundle\HttplugBundle;
+use Kreta\Notifier\Infrastructure\Projection\ReadModel\Inbox\Elasticsearch\AppBundle;
 use Nelmio\CorsBundle\NelmioCorsBundle;
 use OldSound\RabbitMqBundle\OldSoundRabbitMqBundle;
+use ONGR\ElasticsearchBundle\ONGRElasticsearchBundle;
 use PSS\SymfonyMockerContainer\DependencyInjection\MockerContainer;
 use SimpleBus\SymfonyBridge\SimpleBusCommandBusBundle;
 use SimpleBus\SymfonyBridge\SimpleBusEventBusBundle;
@@ -34,25 +35,28 @@ use Symfony\Bundle\WebProfilerBundle\WebProfilerBundle;
 use Symfony\Bundle\WebServerBundle\WebServerBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\HttpKernel\Kernel;
+use Warezgibzzz\QueryBusBundle\WarezgibzzzQueryBusBundle;
 
 class AppKernel extends Kernel
 {
     public function registerBundles() : array
     {
         $bundles = [
+            new AppBundle(),
             new DoctrineBundle(),
-            new DoctrineMigrationsBundle(),
             new FrameworkBundle(),
             new HttplugBundle(),
             new MonologBundle(),
             new NelmioCorsBundle(),
             new OldSoundRabbitMqBundle(),
+            new ONGRElasticsearchBundle(),
             new SecurityBundle(),
             new SimpleBusCommandBusBundle(),
             new SimpleBusEventBusBundle(),
             new SncRedisBundle(),
             new SwiftmailerBundle(),
             new TwigBundle(),
+            new WarezgibzzzQueryBusBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {

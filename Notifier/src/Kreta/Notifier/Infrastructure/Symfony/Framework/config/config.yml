@@ -50,35 +50,7 @@ twig:
 doctrine:
     dbal:
         driver: pdo_mysql
-        host: "%notifier_database_host%"
-        port: "%notifier_database_port%"
-        dbname: "%notifier_database_name%"
-        user: "%notifier_database_user%"
-        password: "%notifier_database_password%"
-        charset: UTF8
-    orm:
-        auto_generate_proxy_classes: "%kernel.debug%"
-        naming_strategy: doctrine.orm.naming_strategy.underscore
-        auto_mapping: true
-        mappings:
-            SharedKernelIdentity:
-                mapping: true
-                type: xml
-                is_bundle: false
-                dir: "%kernel.root_dir%/../../../../../../../SharedKernel/src/Kreta/SharedKernel/Infrastructure/Persistence/Doctrine/ORM/Identity/SymfonyMapping/"
-                prefix: 'Kreta\SharedKernel\Domain\Model\Identity'
-            NotifierInbox:
-                mapping: true
-                type: xml
-                is_bundle: false
-                dir: "%kernel.root_dir%/../../Persistence/Doctrine/Symfony/Inbox/Mapping/"
-                prefix: 'Kreta\Notifier\Infrastructure\Projection\ReadModel\Inbox'
-
-doctrine_migrations:
-    dir_name: "%kernel.root_dir%/../../Persistence/Doctrine/Migrations"
-    namespace: Kreta\Notifier\Infrastructure\Persistence\Doctrine\Migrations
-    table_name: migration_versions
-    name: Kreta Notifier Migrations
+    orm: ~
 
 swiftmailer:
     transport: "%notifier_mailer_transport%"
@@ -141,3 +113,14 @@ snc_redis:
             type: predis
             alias: default
             dsn: "%notifier_redis_dsn%"
+
+ongr_elasticsearch:
+    managers:
+        default:
+            index:
+                index_name: users
+                hosts:
+                    - "%notifier_es_host%"
+            mappings:
+                AppBundle:
+                    document_dir: ~

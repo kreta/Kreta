@@ -12,22 +12,21 @@
 
 declare(strict_types=1);
 
-namespace Kreta\Notifier\Infrastructure\Projection\EventHandler\Doctrine\ORM\Inbox;
+namespace Kreta\Notifier\Infrastructure\Projection\EventHandler\Elasticsearch\Inbox;
 
-use Doctrine\ORM\EntityManagerInterface;
 use Kreta\Notifier\Domain\Model\Inbox\NotificationStatus;
 use Kreta\Notifier\Domain\Model\Inbox\UserUnreadNotification;
-use Kreta\Notifier\Infrastructure\Projection\ReadModel\Inbox\User;
 use Kreta\SharedKernel\Domain\Model\DomainEvent;
 use Kreta\SharedKernel\Projection\EventHandler;
+use ONGR\ElasticsearchBundle\Service\Repository;
 
-class DoctrineORMUserUnreadNotificationEventHandler implements EventHandler
+class ElasticsearchUserUnreadNotificationEventHandler implements EventHandler
 {
-    private $manager;
+    private $repository;
 
-    public function __construct(EntityManagerInterface $manager)
+    public function __construct(Repository $repository)
     {
-        $this->manager = $manager;
+        $this->repository = $repository;
     }
 
     public function eventType() : string
@@ -37,14 +36,16 @@ class DoctrineORMUserUnreadNotificationEventHandler implements EventHandler
 
     public function handle(DomainEvent $event) : void
     {
-        $user = $this->manager->getRepository(User::class)->find($event->userId());
+        $user = $this->repository->find($event->userId()->id());
 
         foreach ($user->notifications as $index => $notification) {
+            if ($event->notificationId()->id() !== $notification->id) {
+                continue;
+            }
             $user->notifications[$index]->readOn = null;
             $user->notifications[$index]->status = (NotificationStatus::unread())->status();
         }
 
-        $this->manager->persist($user);
-        $this->manager->flush();
+        $this->repository->update($event->userId()->id(), ['notifications' => $user->notifications]);
     }
 }

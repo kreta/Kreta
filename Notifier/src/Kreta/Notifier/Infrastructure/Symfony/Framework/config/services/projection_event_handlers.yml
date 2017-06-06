@@ -8,21 +8,21 @@
 
 services:
     kreta.notifier.projection.event_handler.user_signed_up:
-        class: Kreta\Notifier\Infrastructure\Projection\EventHandler\Doctrine\ORM\Inbox\DoctrineORMUserSignedUpEventHandler
+        class: Kreta\Notifier\Infrastructure\Projection\EventHandler\Elasticsearch\Inbox\ElasticsearchUserSignedUpEventHandler
         arguments:
-            - "@doctrine.orm.default_entity_manager"
+            - "@kreta.notifier.repository.inbox_user_read"
 
     kreta.notifier.projection.event_handler.user_received_notification:
-        class: Kreta\Notifier\Infrastructure\Projection\EventHandler\Doctrine\ORM\Inbox\DoctrineORMUserReceivedNotificationEventHandler
+        class: Kreta\Notifier\Infrastructure\Projection\EventHandler\Elasticsearch\Inbox\ElasticsearchUserReceivedNotificationEventHandler
         arguments:
-            - "@doctrine.orm.default_entity_manager"
+            - "@kreta.notifier.repository.inbox_user_read"
 
     kreta.notifier.projection.event_handler.user_read_notification:
-        class: Kreta\Notifier\Infrastructure\Projection\EventHandler\Doctrine\ORM\Inbox\DoctrineORMUserReadNotificationEventHandler
+        class: Kreta\Notifier\Infrastructure\Projection\EventHandler\Elasticsearch\Inbox\ElasticsearchUserReadNotificationEventHandler
         arguments:
-            - "@doctrine.orm.default_entity_manager"
+            - "@kreta.notifier.repository.inbox_user_read"
 
     kreta.notifier.projection.event_handler.user_unread_notification:
-        class: Kreta\Notifier\Infrastructure\Projection\EventHandler\Doctrine\ORM\Inbox\DoctrineORMUserUnreadNotificationEventHandler
+        class: Kreta\Notifier\Infrastructure\Projection\EventHandler\Elasticsearch\Inbox\ElasticsearchUserUnreadNotificationEventHandler
         arguments:
-            - "@doctrine.orm.default_entity_manager"
+            - "@kreta.notifier.repository.inbox_user_read"

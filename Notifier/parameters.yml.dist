@@ -14,12 +14,6 @@ parameters:
     env(IDENTITY_ACCESS_HOST):             identityaccess.localhost
     env(IDENTITY_ACCESS_SCHEME):           http
 
-    notifier_database_host:                db
-    notifier_database_port:                3306
-    notifier_database_name:                kreta_notifier
-    notifier_database_user:                root
-    notifier_database_password:            root
-
     notifier_mailer_transport:             smtp
     notifier_mailer_host:                  127.0.0.1
     notifier_mailer_user:                  ~
@@ -31,3 +25,5 @@ parameters:
     notifier_rabbitmq_password:            kreta
 
     notifier_redis_dsn:                    redis://localhost
+
+    notifier_es_host:                      127.0.0.1:9200

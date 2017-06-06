@@ -11,3 +11,9 @@ services:
         class: Kreta\Notifier\Infrastructure\Persistence\EventStore\Inbox\EventStoreUserRepository
         arguments:
             - '@kreta.notifier.event_store.redis'
+
+    kreta.notifier.repository.inbox_user_read:
+        class: ONGR\ElasticsearchBundle\Service\Repository
+        arguments:
+            - "@es.manager.default"
+            - Kreta\Notifier\Infrastructure\Projection\ReadModel\Inbox\Elasticsearch\User

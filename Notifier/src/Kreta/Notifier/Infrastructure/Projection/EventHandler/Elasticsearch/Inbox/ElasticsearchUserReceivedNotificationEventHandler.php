@@ -12,22 +12,21 @@
 
 declare(strict_types=1);
 
-namespace Kreta\Notifier\Infrastructure\Projection\EventHandler\Doctrine\ORM\Inbox;
+namespace Kreta\Notifier\Infrastructure\Projection\EventHandler\Elasticsearch\Inbox;
 
-use Doctrine\ORM\EntityManagerInterface;
 use Kreta\Notifier\Domain\Model\Inbox\UserReceivedNotification;
-use Kreta\Notifier\Infrastructure\Projection\ReadModel\Inbox\Notification;
-use Kreta\Notifier\Infrastructure\Projection\ReadModel\Inbox\User;
+use Kreta\Notifier\Infrastructure\Projection\ReadModel\Inbox\Elasticsearch\Notification;
 use Kreta\SharedKernel\Domain\Model\DomainEvent;
 use Kreta\SharedKernel\Projection\EventHandler;
+use ONGR\ElasticsearchBundle\Service\Repository;
 
-class DoctrineORMUserReceivedNotificationEventHandler implements EventHandler
+class ElasticsearchUserReceivedNotificationEventHandler implements EventHandler
 {
-    private $manager;
+    private $repository;
 
-    public function __construct(EntityManagerInterface $manager)
+    public function __construct(Repository $repository)
     {
-        $this->manager = $manager;
+        $this->repository = $repository;
     }
 
     public function eventType() : string
@@ -37,15 +36,13 @@ class DoctrineORMUserReceivedNotificationEventHandler implements EventHandler
 
     public function handle(DomainEvent $event) : void
     {
-        $user = $this->manager->getRepository(User::class)->find($event->userId());
+        $user = $this->repository->find($event->userId()->id());
 
         $user->notifications[] = new Notification(
             $event->notificationId()->id(),
             $event->body()->body(),
             $event->occurredOn()
         );
-
-        $this->manager->persist($user);
-        $this->manager->flush();
+        $this->repository->update($event->userId()->id(), ['notifications' => $user->notifications]); // die;
     }
 }
