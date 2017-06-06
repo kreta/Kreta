@@ -14,6 +14,7 @@ ADD nginx.conf /etc/nginx/
 ADD compositeui.template /etc/nginx/sites-available/
 ADD taskmanager.template /etc/nginx/sites-available/
 ADD identityaccess.template /etc/nginx/sites-available/
+ADD notifier.template /etc/nginx/sites-available/
 
 RUN mkdir /etc/nginx/sites-enabled
 
