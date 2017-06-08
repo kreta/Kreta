@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace Kreta\Notifier\Infrastructure\Projection\EventHandler\Elasticsearch\Inbox;
 
 use Kreta\Notifier\Domain\Model\Inbox\UserReceivedNotification;
-use Kreta\Notifier\Infrastructure\Projection\ReadModel\Inbox\Elasticsearch\Notification;
+use Kreta\Notifier\Infrastructure\Projection\ReadModel\Inbox\Elasticsearch\Document\Notification;
 use Kreta\SharedKernel\Domain\Model\DomainEvent;
 use Kreta\SharedKernel\Projection\EventHandler;
 use ONGR\ElasticsearchBundle\Service\Repository;
@@ -38,11 +38,16 @@ class ElasticsearchUserReceivedNotificationEventHandler implements EventHandler
     {
         $user = $this->repository->find($event->userId()->id());
 
-        $user->notifications[] = new Notification(
-            $event->notificationId()->id(),
-            $event->body()->body(),
-            $event->occurredOn()
+        $user->notifications->offsetSet(
+            null,
+            new Notification(
+                $event->notificationId()->id(),
+                $event->body()->body(),
+                $event->occurredOn()->getTimestamp()
+            )
         );
-        $this->repository->update($event->userId()->id(), ['notifications' => $user->notifications]); // die;
+
+        $this->repository->getManager()->persist($user);
+        $this->repository->getManager()->commit();
     }
 }

@@ -18,4 +18,6 @@ use Symfony\Component\HttpKernel\Bundle\Bundle;
 
 class AppBundle extends Bundle
 {
+    // This bundle is required to satisfy the
+    // limitation of the ONGRElasticsearchBundle
 }

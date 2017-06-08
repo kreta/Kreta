@@ -16,4 +16,4 @@ services:
         class: ONGR\ElasticsearchBundle\Service\Repository
         arguments:
             - "@es.manager.default"
-            - Kreta\Notifier\Infrastructure\Projection\ReadModel\Inbox\Elasticsearch\User
+            - Kreta\Notifier\Infrastructure\Projection\ReadModel\Inbox\Elasticsearch\Document\User

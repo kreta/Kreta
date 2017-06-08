@@ -38,14 +38,17 @@ class ElasticsearchUserUnreadNotificationEventHandler implements EventHandler
     {
         $user = $this->repository->find($event->userId()->id());
 
-        foreach ($user->notifications as $index => $notification) {
+        foreach ($user->notifications as $key => $notification) {
             if ($event->notificationId()->id() !== $notification->id) {
                 continue;
             }
-            $user->notifications[$index]->readOn = null;
-            $user->notifications[$index]->status = (NotificationStatus::unread())->status();
+
+            $notification->readOn = null;
+            $notification->status = (NotificationStatus::unread())->status();
+            $user->notifications->offsetSet($key, $notification);
         }
 
-        $this->repository->update($event->userId()->id(), ['notifications' => $user->notifications]);
+        $this->repository->getManager()->persist($user);
+        $this->repository->getManager()->commit();
     }
 }

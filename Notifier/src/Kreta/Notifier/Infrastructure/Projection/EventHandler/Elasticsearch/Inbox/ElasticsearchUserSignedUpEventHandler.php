@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace Kreta\Notifier\Infrastructure\Projection\EventHandler\Elasticsearch\Inbox;
 
 use Kreta\Notifier\Domain\Model\Inbox\UserSignedUp;
-use Kreta\Notifier\Infrastructure\Projection\ReadModel\Inbox\Elasticsearch\User;
+use Kreta\Notifier\Infrastructure\Projection\ReadModel\Inbox\Elasticsearch\Document\User;
 use Kreta\SharedKernel\Domain\Model\DomainEvent;
 use Kreta\SharedKernel\Projection\EventHandler;
 use ONGR\ElasticsearchBundle\Service\Repository;

@@ -122,5 +122,4 @@ ongr_elasticsearch:
                 hosts:
                     - "%notifier_es_host%"
             mappings:
-                AppBundle:
-                    document_dir: ~
+                - AppBundle

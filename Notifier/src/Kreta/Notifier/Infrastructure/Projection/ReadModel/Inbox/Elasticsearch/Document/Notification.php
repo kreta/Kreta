@@ -12,42 +12,42 @@
 
 declare(strict_types=1);
 
-namespace Kreta\Notifier\Infrastructure\Projection\ReadModel\Inbox\Elasticsearch;
+namespace Kreta\Notifier\Infrastructure\Projection\ReadModel\Inbox\Elasticsearch\Document;
 
 use Kreta\Notifier\Domain\Model\Inbox\NotificationStatus;
-use ONGR\ElasticsearchBundle\Annotation as ES;
+use ONGR\ElasticsearchBundle\Annotation as Elasticsearch;
 
 /**
- * @ES\Object()
+ * @Elasticsearch\Object()
  */
 class Notification
 {
     /**
-     * @ES\Property(type="string")
+     * @Elasticsearch\Property(type="string")
      */
     public $id;
 
     /**
-     * @ES\Property(type="string")
+     * @Elasticsearch\Property(type="text")
      */
     public $body;
 
     /**
-     * @ES\Property(type="datetime")
+     * @Elasticsearch\Property(type="integer")
      */
     public $publishedOn;
 
     /**
-     * @ES\Property(type="datetime")
+     * @Elasticsearch\Property(type="integer")
      */
     public $readOn;
 
     /**
-     * @ES\Property(type="string")
+     * @Elasticsearch\Property(type="string")
      */
     public $status;
 
-    public function __construct(string $id, string $body, \DateTimeInterface $publishedOn)
+    public function __construct(string $id = null, string $body = null, int $publishedOn = null)
     {
         $this->id = $id;
         $this->body = $body;

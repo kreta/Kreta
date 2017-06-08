@@ -12,27 +12,30 @@
 
 declare(strict_types=1);
 
-namespace Kreta\Notifier\Infrastructure\Projection\ReadModel\Inbox\Elasticsearch;
+namespace Kreta\Notifier\Infrastructure\Projection\ReadModel\Inbox\Elasticsearch\Document;
 
-use ONGR\ElasticsearchBundle\Annotation as ES;
+use ONGR\ElasticsearchBundle\Annotation as Elasticsearch;
 use ONGR\ElasticsearchBundle\Collection\Collection;
 
 /**
- * @ES\Document(type="user")
+ * @Elasticsearch\Document(type="user")
  */
 class User
 {
     /**
-     * @ES\Id()
+     * @Elasticsearch\Id()
      */
     public $id;
 
     /**
-     * @ES\Embedded(class="Kreta\Notifier\Infrastructure\Projection\ReadModel\Inbox\Elasticsearch\Notification", multiple=true)
+     * @Elasticsearch\Embedded(
+     *     class="Kreta\Notifier\Infrastructure\Projection\ReadModel\Inbox\Elasticsearch\Document\Notification",
+     *     multiple=true
+     * )
      */
     public $notifications;
 
-    public function __construct(string $id)
+    public function __construct(string $id = null)
     {
         $this->id = $id;
         $this->notifications = new Collection();
