@@ -33,8 +33,8 @@ final class GetNotificationsAction
 
     public function __invoke(Request $request) : JsonResponse
     {
-        $offset = $request->query->get('offset');
-        $limit = $request->query->get('limit');
+        $offset = $request->query->get('offset', 0);
+        $limit = $request->query->get('limit', 50);
         $status = $request->query->get('status');
 
         $this->queryBus->handle(
