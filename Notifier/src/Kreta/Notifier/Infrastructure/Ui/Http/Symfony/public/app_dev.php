@@ -12,7 +12,7 @@
 
 declare(strict_types=1);
 
-use Kreta\TaskManager\Infrastructure\Symfony\Framework\AppKernel;
+use Kreta\Notifier\Infrastructure\Symfony\Framework\AppKernel;
 use Symfony\Component\Debug\Debug;
 use Symfony\Component\HttpFoundation\Request;
 
