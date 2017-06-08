@@ -30,8 +30,6 @@ use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Bundle\MonologBundle\MonologBundle;
 use Symfony\Bundle\SecurityBundle\SecurityBundle;
 use Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle;
-use Symfony\Bundle\TwigBundle\TwigBundle;
-use Symfony\Bundle\WebProfilerBundle\WebProfilerBundle;
 use Symfony\Bundle\WebServerBundle\WebServerBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\HttpKernel\Kernel;
@@ -55,13 +53,11 @@ class AppKernel extends Kernel
             new SimpleBusEventBusBundle(),
             new SncRedisBundle(),
             new SwiftmailerBundle(),
-            new TwigBundle(),
             new WarezgibzzzQueryBusBundle(),
         ];
 
         if (in_array($this->getEnvironment(), ['dev', 'test'], true)) {
             $bundles[] = new DebugBundle();
-            $bundles[] = new WebProfilerBundle();
 
             if ('dev' === $this->getEnvironment()) {
                 $bundles[] = new DoctrineFixturesBundle();

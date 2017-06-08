@@ -11,13 +11,7 @@ imports:
 
 framework:
     router:
-        resource: "%kernel.root_dir%/config/routing_dev.yml"
         strict_requirements: true
-    profiler: { only_exceptions: false }
-
-web_profiler:
-    toolbar: true
-    intercept_redirects: false
 
 monolog:
     handlers:
@@ -27,10 +21,10 @@ monolog:
             level: debug
             channels: [!event]
         console:
-            type:   console
+            type: console
             process_psr_3_messages: false
-            channels: ['!event', '!doctrine', '!console']
+            channels: ["!event", "!doctrine", "!console"]
         server_log:
-            type:   server_log
+            type: server_log
             process_psr_3_messages: false
             host: 127.0.0.1:9911

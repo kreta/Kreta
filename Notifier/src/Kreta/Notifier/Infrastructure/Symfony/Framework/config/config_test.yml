@@ -22,10 +22,6 @@ doctrine:
         host: 127.0.0.1
         password: ~
 
-web_profiler:
-    toolbar: false
-    intercept_redirects: false
-
 swiftmailer:
     disable_delivery: true
 

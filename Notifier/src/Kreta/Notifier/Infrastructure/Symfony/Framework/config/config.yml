@@ -22,7 +22,7 @@ framework:
     csrf_protection: ~
     validation: { enable_annotations: false }
     templating:
-        engines: ['twig']
+        engines: ['php']
     default_locale: "%notifier_locale%"
     trusted_hosts: ~
     session:
@@ -42,10 +42,6 @@ security:
     firewalls:
         main:
             anonymous: ~
-
-twig:
-    debug: "%kernel.debug%"
-    strict_variables: "%kernel.debug%"
 
 doctrine:
     dbal:
