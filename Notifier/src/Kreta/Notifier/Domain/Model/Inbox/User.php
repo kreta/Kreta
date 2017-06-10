@@ -21,45 +21,33 @@ use Kreta\SharedKernel\Event\EventStream;
 class User extends AggregateRoot implements EventSourcedAggregateRoot
 {
     private $id;
-    private $notifications;
 
     private function __construct(UserId $id)
     {
         $this->id = $id;
-        $this->notifications = new Notifications();
     }
 
     public static function signUp(UserId $id) : self
     {
-        $instance = new self($id);
-        $instance->publish(new UserSignedUp($id));
+        $user = new self($id);
+        $user->publish(new UserSignedUp($id));
 
-        return $instance;
+        return $user;
     }
 
-    public function receiveNotification(NotificationId $notificationId, NotificationBody $body) : void
+    protected function applyUserSignedUp(UserSignedUp $event) : void
     {
-        $this->publish(
-            new UserReceivedNotification(
-                $this->id,
-                $notificationId,
-                $body
-            )
-        );
     }
 
-    public function readNotification(Notification $notification) : void
+    public static function reconstitute(EventStream $stream) : EventSourcedAggregateRoot
     {
-        $this->publish(
-            new UserReadNotification($this->id, $notification->id())
-        );
-    }
+        $user = new self($stream->aggregateRootId());
+        $events = $stream->events()->toArray();
+        foreach ($events as $event) {
+            $user->apply($event);
+        }
 
-    public function unreadNotification(Notification $notification) : void
-    {
-        $this->publish(
-            new UserUnreadNotification($this->id, $notification->id())
-        );
+        return $user;
     }
 
     public function id() : UserId
@@ -70,59 +58,5 @@ class User extends AggregateRoot implements EventSourcedAggregateRoot
     public function __toString() : string
     {
         return (string) $this->id()->id();
-    }
-
-    public function notification(NotificationId $notificationId) : Notification
-    {
-        foreach ($this->notifications as $notification) {
-            if ($notificationId->equals($notification->id())) {
-                return $notification;
-            }
-        }
-
-        throw new NotificationDoesNotExist();
-    }
-
-    protected function applyUserReceivedNotification(UserReceivedNotification $event) : void
-    {
-        $this->notifications->add(
-            Notification::broadcast(
-                $event->notificationId(),
-                $event->body()
-            )
-        );
-    }
-
-    protected function applyUserReadNotification(UserReadNotification $event) : void
-    {
-        foreach ($this->notifications as $key => $notification) {
-            if ($notification->id()->equals($event->notificationId())) {
-                $this->notifications->of($key)->read();
-
-                break;
-            }
-        }
-    }
-
-    protected function applyUserUnreadNotification(UserUnreadNotification $event) : void
-    {
-        foreach ($this->notifications as $key => $notification) {
-            if ($notification->id()->equals($event->notificationId())) {
-                $this->notifications->of($key)->unread();
-
-                break;
-            }
-        }
-    }
-
-    public static function reconstitute(EventStream $stream) : EventSourcedAggregateRoot
-    {
-        $receiver = new self($stream->aggregateRootId());
-        $events = $stream->events()->toArray();
-        foreach ($events as $event) {
-            $receiver->apply($event);
-        }
-
-        return $receiver;
     }
 }

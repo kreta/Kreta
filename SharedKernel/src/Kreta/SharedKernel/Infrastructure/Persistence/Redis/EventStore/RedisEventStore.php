@@ -24,15 +24,17 @@ use Predis\Client;
 
 final class RedisEventStore implements EventStore
 {
-    private const REDIS_KEY_PLACEHOLDER = 'events: %s';
+    private const REDIS_KEY_PLACEHOLDER = '%sevents: %s';
 
     private $predis;
     private $serializer;
+    private $eventType;
 
-    public function __construct(Client $predis, Serializer $serializer)
+    public function __construct(Client $predis, Serializer $serializer, string $eventType = null)
     {
         $this->predis = $predis;
         $this->serializer = $serializer;
+        $this->eventType = $eventType;
     }
 
     public function appendTo(EventStream $stream) : void
@@ -72,8 +74,13 @@ final class RedisEventStore implements EventStore
         return new EventStream($aggregateRootId, $events);
     }
 
-    private function redisKey(Id $aggregateRootId)
+    private function redisKey(Id $aggregateRootId) : string
     {
-        return sprintf(self::REDIS_KEY_PLACEHOLDER, $aggregateRootId->id());
+        $name = '';
+        if ($this->eventType) {
+            $name = $this->eventType . '-';
+        }
+
+        return sprintf(self::REDIS_KEY_PLACEHOLDER, $name, $aggregateRootId->id());
     }
 }

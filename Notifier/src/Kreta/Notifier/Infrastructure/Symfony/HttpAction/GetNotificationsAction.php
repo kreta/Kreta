@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Kreta\Notifier\Infrastructure\Symfony\HttpAction;
 
-use Kreta\Notifier\Application\Query\Inbox\GetNotificationsQuery;
+use Kreta\Notifier\Application\Inbox\Notification\ViewNotificationsQuery;
 use Kreta\SharedKernel\Application\QueryBus;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
@@ -38,7 +38,7 @@ final class GetNotificationsAction
         $status = $request->query->get('status');
 
         $this->queryBus->handle(
-            new GetNotificationsQuery(
+            new ViewNotificationsQuery(
                 $this->userId,
                 $offset,
                 $limit,

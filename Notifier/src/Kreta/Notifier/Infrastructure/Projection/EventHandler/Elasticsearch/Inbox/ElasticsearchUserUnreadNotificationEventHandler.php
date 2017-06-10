@@ -15,7 +15,7 @@ declare(strict_types=1);
 namespace Kreta\Notifier\Infrastructure\Projection\EventHandler\Elasticsearch\Inbox;
 
 use Kreta\Notifier\Domain\Model\Inbox\NotificationStatus;
-use Kreta\Notifier\Domain\Model\Inbox\UserUnreadNotification;
+use Kreta\Notifier\Domain\Model\Inbox\NotificationMarkedAsUnread;
 use Kreta\SharedKernel\Domain\Model\DomainEvent;
 use Kreta\SharedKernel\Projection\EventHandler;
 use ONGR\ElasticsearchBundle\Service\Repository;
@@ -31,7 +31,7 @@ class ElasticsearchUserUnreadNotificationEventHandler implements EventHandler
 
     public function eventType() : string
     {
-        return UserUnreadNotification::class;
+        return NotificationMarkedAsUnread::class;
     }
 
     public function handle(DomainEvent $event) : void

@@ -8,9 +8,14 @@
 
 services:
     kreta.notifier.repository.inbox.user:
-        class: Kreta\Notifier\Infrastructure\Persistence\EventStore\Inbox\EventStoreUserRepository
+        class: Kreta\Notifier\Infrastructure\Domain\Model\Inbox\EventStoreUserRepository
         arguments:
-            - '@kreta.notifier.event_store.redis'
+            - '@kreta.notifier.event_store.redis_user'
+
+    kreta.notifier.repository.inbox.notification:
+        class: Kreta\Notifier\Infrastructure\Domain\Model\Inbox\Notification\EventStoreNotificationRepository
+        arguments:
+            - '@kreta.notifier.event_store.redis_notification'
 
     kreta.notifier.repository.inbox_user_read:
         class: ONGR\ElasticsearchBundle\Service\Repository
