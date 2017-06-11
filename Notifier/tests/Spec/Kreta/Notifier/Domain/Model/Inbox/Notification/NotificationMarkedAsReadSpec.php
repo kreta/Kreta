@@ -31,6 +31,7 @@ class NotificationMarkedAsReadSpec extends ObjectBehavior
         $this->userId()->shouldReturn($userId);
         $this->notificationId()->shouldReturn($notificationId);
         $this->status()->shouldReturnAnInstanceOf(NotificationStatus::class);
+        $this->status()->shouldBeAReadNotificationStatus();
         $this->occurredOn()->shouldReturnAnInstanceOf(\DateTimeInterface::class);
     }
 }

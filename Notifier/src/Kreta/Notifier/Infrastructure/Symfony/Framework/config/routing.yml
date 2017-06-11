@@ -6,9 +6,23 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 
-kreta_notifier_notifications:
+kreta_notifier_view_user_notifications:
     path: /notifications
     defaults:
-        _controller: "kreta.notifier.http_actions.get_notifications:__invoke"
+        _controller: "kreta.notifier.http_actions.view_user_notifications:__invoke"
     methods:
         - GET
+
+kreta_notifier_mark_as_read_notification:
+    path: /notifications/{notificationId}/read
+    defaults:
+        _controller: "kreta.notifier.http_actions.mark_as_read_notification:__invoke"
+    methods:
+        - PATCH
+
+kreta_notifier_mark_as_unread_notification:
+    path: /notifications/{notificationId}/unread
+    defaults:
+        _controller: "kreta.notifier.http_actions.mark_as_unread_notification:__invoke"
+    methods:
+        - PATCH

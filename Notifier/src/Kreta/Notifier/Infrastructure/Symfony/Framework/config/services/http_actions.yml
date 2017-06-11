@@ -7,8 +7,20 @@
 # file that was distributed with this source code.
 
 services:
-    kreta.notifier.http_actions.get_notifications:
-        class: Kreta\Notifier\Infrastructure\Symfony\HttpAction\GetNotificationsAction
+    kreta.notifier.http_actions.view_user_notifications:
+        class: Kreta\Notifier\Infrastructure\Symfony\HttpAction\ViewUserNotificationsAction
         arguments:
-            - '@security.token_storage'
-            - '@kreta.notifier.query_bus'
+            - "@security.token_storage"
+            - "@kreta.notifier.query_bus"
+
+    kreta.notifier.http_actions.mark_as_read_notification:
+        class: Kreta\Notifier\Infrastructure\Symfony\HttpAction\MarkAsReadNotificationAction
+        arguments:
+            - "@security.token_storage"
+            - "@kreta.notifier.command_bus"
+
+    kreta.notifier.http_actions.mark_as_unread_notification:
+        class: Kreta\Notifier\Infrastructure\Symfony\HttpAction\MarkAsUnreadNotificationAction
+        arguments:
+            - "@security.token_storage"
+            - "@kreta.notifier.command_bus"

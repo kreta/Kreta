@@ -8,6 +8,8 @@
 
 matchers:
     - Kreta\SharedKernel\Tests\Matchers\DomainPublishedMatcher
+    - Kreta\Notifier\Tests\Matchers\UnreadNotificationStatusMatcher
+    - Kreta\Notifier\Tests\Matchers\ReadNotificationStatusMatcher
 
 suites:
     kreta_notifier:

@@ -28,7 +28,7 @@ class NotificationMarkedAsUnread implements DomainEvent
     {
         $this->notificationId = $notificationId;
         $this->userId = $userId;
-        $this->status = NotificationStatus::read();
+        $this->status = NotificationStatus::unread();
         $this->occurredOn = new \DateTimeImmutable();
     }
 

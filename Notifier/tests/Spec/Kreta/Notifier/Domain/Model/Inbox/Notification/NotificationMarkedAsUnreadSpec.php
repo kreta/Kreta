@@ -31,6 +31,7 @@ class NotificationMarkedAsUnreadSpec extends ObjectBehavior
         $this->userId()->shouldReturn($userId);
         $this->notificationId()->shouldReturn($notificationId);
         $this->status()->shouldReturnAnInstanceOf(NotificationStatus::class);
+        $this->status()->shouldBeAnUnreadNotificationStatus();
         $this->occurredOn()->shouldReturnAnInstanceOf(\DateTimeInterface::class);
     }
 }
