@@ -26,3 +26,10 @@ kreta_notifier_mark_as_unread_notification:
         _controller: "kreta.notifier.http_actions.mark_as_unread_notification:__invoke"
     methods:
         - PATCH
+
+kreta_notifier_mark_all_as_read_notifications:
+    path: /notifications/read
+    defaults:
+        _controller: "kreta.notifier.http_actions.mark_all_as_read_notifications:__invoke"
+    methods:
+        - PATCH

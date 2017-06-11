@@ -24,3 +24,10 @@ services:
         arguments:
             - "@security.token_storage"
             - "@kreta.notifier.command_bus"
+
+    kreta.notifier.http_actions.mark_all_as_read_notifications:
+        class: Kreta\Notifier\Infrastructure\Symfony\HttpAction\MarkAllAsReadNotificationsAction
+        arguments:
+            - "@security.token_storage"
+            - "@kreta.notifier.command_bus"
+            - "@kreta.notifier.query_bus"
