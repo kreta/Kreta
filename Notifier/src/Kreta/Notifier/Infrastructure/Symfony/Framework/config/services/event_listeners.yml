@@ -11,10 +11,10 @@ services:
         class: Kreta\Notifier\Infrastructure\Symfony\EventListener\ProjectorEventListener
         arguments:
             -
-                - "@kreta.notifier.projection.event_handler.user_signed_up"
-                - "@kreta.notifier.projection.event_handler.user_received_notification"
-                - "@kreta.notifier.projection.event_handler.user_read_notification"
-                - "@kreta.notifier.projection.event_handler.user_unread_notification"
+                - "@kreta.notifier.event_handler.user_signed_up"
+                - "@kreta.notifier.event_handler.user_received_notification"
+                - "@kreta.notifier.event_handler.user_read_notification"
+                - "@kreta.notifier.event_handler.user_unread_notification"
         tags:
             -
                 name: kernel.event_listener

@@ -14,13 +14,9 @@ declare(strict_types=1);
 
 namespace Kreta\Notifier\Infrastructure\Symfony\Framework;
 
-use Doctrine\Bundle\DoctrineBundle\DoctrineBundle;
-use Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle;
 use Http\HttplugBundle\HttplugBundle;
-use Kreta\Notifier\Infrastructure\Projection\ReadModel\Inbox\Elasticsearch\AppBundle;
 use Nelmio\CorsBundle\NelmioCorsBundle;
 use OldSound\RabbitMqBundle\OldSoundRabbitMqBundle;
-use ONGR\ElasticsearchBundle\ONGRElasticsearchBundle;
 use PSS\SymfonyMockerContainer\DependencyInjection\MockerContainer;
 use SimpleBus\SymfonyBridge\SimpleBusCommandBusBundle;
 use SimpleBus\SymfonyBridge\SimpleBusEventBusBundle;
@@ -30,6 +26,8 @@ use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Bundle\MonologBundle\MonologBundle;
 use Symfony\Bundle\SecurityBundle\SecurityBundle;
 use Symfony\Bundle\SwiftmailerBundle\SwiftmailerBundle;
+use Symfony\Bundle\TwigBundle\TwigBundle;
+use Symfony\Bundle\WebProfilerBundle\WebProfilerBundle;
 use Symfony\Bundle\WebServerBundle\WebServerBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\HttpKernel\Kernel;
@@ -40,14 +38,11 @@ class AppKernel extends Kernel
     public function registerBundles() : array
     {
         $bundles = [
-            new AppBundle(),
-            new DoctrineBundle(),
             new FrameworkBundle(),
             new HttplugBundle(),
             new MonologBundle(),
             new NelmioCorsBundle(),
             new OldSoundRabbitMqBundle(),
-            new ONGRElasticsearchBundle(),
             new SecurityBundle(),
             new SimpleBusCommandBusBundle(),
             new SimpleBusEventBusBundle(),
@@ -60,7 +55,8 @@ class AppKernel extends Kernel
             $bundles[] = new DebugBundle();
 
             if ('dev' === $this->getEnvironment()) {
-                $bundles[] = new DoctrineFixturesBundle();
+                $bundles[] = new TwigBundle();
+                $bundles[] = new WebProfilerBundle();
                 $bundles[] = new WebServerBundle();
             }
         }

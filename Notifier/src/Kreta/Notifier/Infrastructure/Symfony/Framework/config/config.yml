@@ -12,6 +12,10 @@ imports:
 
 parameters:
     notifier_locale: en
+    notifier_es_user_index: users
+    notifier_es_user_type: user
+    notifier_es_notification_index: notifications
+    notifier_es_notification_type: notification
 
 framework:
     secret: "%notifier_secret%"
@@ -42,11 +46,6 @@ security:
     firewalls:
         main:
             anonymous: ~
-
-doctrine:
-    dbal:
-        driver: pdo_mysql
-    orm: ~
 
 swiftmailer:
     transport: "%notifier_mailer_transport%"
@@ -109,13 +108,3 @@ snc_redis:
             type: predis
             alias: default
             dsn: "%notifier_redis_dsn%"
-
-ongr_elasticsearch:
-    managers:
-        default:
-            index:
-                index_name: users
-                hosts:
-                    - "%notifier_es_host%"
-            mappings:
-                - AppBundle

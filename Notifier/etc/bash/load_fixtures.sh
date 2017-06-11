@@ -8,6 +8,5 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 
-$(dirname $0)/../bin/symfony-console doctrine:fixtures:load \
-    --no-interaction \
-    --fixtures=src/Kreta/Notifier/Infrastructure/Symfony/DoctrineDataFixtures
+$(dirname $0)/../bin/symfony-console kreta:notifier:inbox:user:load
+$(dirname $0)/../bin/symfony-console kreta:notifier:inbox:notification:load

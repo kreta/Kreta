@@ -16,6 +16,7 @@ namespace Kreta\SharedKernel\Projection;
 
 use Kreta\SharedKernel\Domain\Model\DomainEventCollection;
 use Kreta\SharedKernel\Domain\Model\Exception;
+use Kreta\SharedKernel\Domain\ReadEvent\EventHandler;
 
 final class Projector
 {
@@ -50,7 +51,7 @@ final class Projector
 
     private function add(EventHandler $eventHandler)
     {
-        $this->eventHandlers[$eventHandler->eventType()] = $eventHandler;
+        $this->eventHandlers[$eventHandler->isSubscribeTo()] = $eventHandler;
     }
 
     public function project(DomainEventCollection $events) : void

@@ -14,7 +14,7 @@ declare(strict_types=1);
 
 namespace Kreta\Notifier\Domain\Event\Inbox;
 
-use Kreta\Notifier\Application\Command\Inbox\SignUpUserCommand;
+use Kreta\Notifier\Application\Inbox\SignUpUserCommand;
 use Kreta\SharedKernel\Application\CommandBus;
 use Kreta\SharedKernel\Domain\Event\AsyncEventSubscriber;
 use Kreta\SharedKernel\Domain\Model\AsyncDomainEvent;
