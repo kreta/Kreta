@@ -21,11 +21,14 @@ use Kreta\Notifier\Domain\Model\Inbox\Notification\NotificationRepository;
 use Kreta\SharedKernel\Domain\Model\AggregateDoesNotExistException;
 use Kreta\SharedKernel\Domain\Model\DomainEventCollection;
 use Kreta\SharedKernel\Event\EventStore;
-use Kreta\SharedKernel\Event\EventStream;
+use Kreta\SharedKernel\Event\Stream;
+use Kreta\SharedKernel\Event\StreamName;
 use Kreta\SharedKernel\Projection\Projector;
 
 final class EventStoreNotificationRepository implements NotificationRepository
 {
+    private const NAME = 'notification';
+
     private $eventStore;
 
     public function __construct(EventStore $eventStore)
@@ -36,7 +39,14 @@ final class EventStoreNotificationRepository implements NotificationRepository
     public function get(NotificationId $id) : Notification
     {
         try {
-            return Notification::reconstitute($this->eventStore->streamOfId($id));
+            return Notification::reconstitute(
+                $this->eventStore->streamOfName(
+                    new StreamName(
+                        $id,
+                        self::NAME
+                    )
+                )
+            );
         } catch (AggregateDoesNotExistException $exception) {
             throw new NotificationDoesNotExist();
         }
@@ -45,7 +55,14 @@ final class EventStoreNotificationRepository implements NotificationRepository
     public function save(Notification $notification) : void
     {
         $events = new DomainEventCollection($notification->recordedEvents());
-        $eventStream = new EventStream($notification->id(), $events);
+
+        $eventStream = new Stream(
+            new StreamName(
+                $notification->id(),
+                self::NAME
+            ),
+            $events
+        );
 
         $this->eventStore->appendTo($eventStream);
         $notification->clearEvents();

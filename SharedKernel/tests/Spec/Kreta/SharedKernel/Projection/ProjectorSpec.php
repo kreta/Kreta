@@ -16,7 +16,7 @@ namespace Spec\Kreta\SharedKernel\Projection;
 
 use Kreta\SharedKernel\Domain\Model\DomainEventCollection;
 use Kreta\SharedKernel\Domain\Model\Exception;
-use Kreta\SharedKernel\Projection\EventHandler;
+use Kreta\SharedKernel\Domain\ReadEvent\EventHandler;
 use Kreta\SharedKernel\Tests\Double\Domain\Model\DomainEventStub;
 use Kreta\SharedKernel\Tests\Double\Domain\Model\EventSourcingEventStub;
 use PhpSpec\ObjectBehavior;
@@ -39,7 +39,7 @@ class ProjectorSpec extends ObjectBehavior
     ) {
         $event = new EventSourcingEventStub();
 
-        $eventHandler->eventType()->shouldBeCalled()->willReturn(DomainEventStub::class);
+        $eventHandler->isSubscribeTo()->shouldBeCalled()->willReturn(DomainEventStub::class);
         $this->register([$eventHandler]);
         $events->toArray()->shouldBeCalled()->willReturn([$event]);
         $eventHandler->handle($event)->shouldNotBeCalled();
@@ -50,7 +50,7 @@ class ProjectorSpec extends ObjectBehavior
     {
         $event = new DomainEventStub('foo', 'bar');
 
-        $eventHandler->eventType()->shouldBeCalled()->willReturn(DomainEventStub::class);
+        $eventHandler->isSubscribeTo()->shouldBeCalled()->willReturn(DomainEventStub::class);
         $this->register([$eventHandler]);
         $events->toArray()->shouldBeCalled()->willReturn([$event]);
         $eventHandler->handle($event)->shouldBeCalled();

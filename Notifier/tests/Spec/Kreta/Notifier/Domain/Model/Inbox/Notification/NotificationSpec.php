@@ -24,7 +24,8 @@ use Kreta\Notifier\Domain\Model\Inbox\UserId;
 use Kreta\SharedKernel\Domain\Model\AggregateRoot;
 use Kreta\SharedKernel\Domain\Model\DomainEventCollection;
 use Kreta\SharedKernel\Domain\Model\EventSourcedAggregateRoot;
-use Kreta\SharedKernel\Event\EventStream;
+use Kreta\SharedKernel\Event\Stream;
+use Kreta\SharedKernel\Event\StreamName;
 use PhpSpec\ObjectBehavior;
 
 class NotificationSpec extends ObjectBehavior
@@ -49,7 +50,8 @@ class NotificationSpec extends ObjectBehavior
     }
 
     function it_can_be_reconstituted_notification(
-        EventStream $stream,
+        Stream $stream,
+        StreamName $streamName,
         NotificationId $id,
         NotificationPublished $notificationPublished,
         DomainEventCollection $collection
@@ -58,7 +60,8 @@ class NotificationSpec extends ObjectBehavior
             $notificationPublished,
         ]);
         $stream->events()->shouldBeCalled()->willReturn($collection);
-        $stream->aggregateRootId()->shouldBeCalled()->willReturn($id);
+        $stream->name()->shouldBeCalled()->willReturn($streamName);
+        $streamName->aggregateId()->shouldBeCalled()->willReturn($id);
         $this->beConstructedReconstitute($stream);
         $this->id()->shouldReturn($id);
         $id->id()->shouldBeCalled()->willReturn('notification-id');

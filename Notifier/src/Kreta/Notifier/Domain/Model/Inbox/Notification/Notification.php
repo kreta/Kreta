@@ -17,7 +17,7 @@ namespace Kreta\Notifier\Domain\Model\Inbox\Notification;
 use Kreta\Notifier\Domain\Model\Inbox\UserId;
 use Kreta\SharedKernel\Domain\Model\AggregateRoot;
 use Kreta\SharedKernel\Domain\Model\EventSourcedAggregateRoot;
-use Kreta\SharedKernel\Event\EventStream;
+use Kreta\SharedKernel\Event\Stream;
 
 class Notification extends AggregateRoot implements EventSourcedAggregateRoot
 {
@@ -89,9 +89,9 @@ class Notification extends AggregateRoot implements EventSourcedAggregateRoot
         $this->status = $event->status();
     }
 
-    public static function reconstitute(EventStream $stream) : EventSourcedAggregateRoot
+    public static function reconstitute(Stream $stream) : self
     {
-        $notification = new self($stream->aggregateRootId());
+        $notification = new self($stream->name()->aggregateId());
         $events = $stream->events()->toArray();
         foreach ($events as $event) {
             $notification->apply($event);

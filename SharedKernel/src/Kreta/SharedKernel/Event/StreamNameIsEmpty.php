@@ -14,9 +14,12 @@ declare(strict_types=1);
 
 namespace Kreta\SharedKernel\Event;
 
-interface EventStore
-{
-    public function appendTo(Stream $stream) : void;
+use Kreta\SharedKernel\Domain\Model\InvalidArgumentException;
 
-    public function streamOfName(StreamName $name) : Stream;
+class StreamNameIsEmpty extends InvalidArgumentException
+{
+    public function __construct()
+    {
+        parent::__construct('Event stream name must not be empty');
+    }
 }

@@ -16,9 +16,9 @@ namespace Kreta\SharedKernel\Infrastructure\Persistence\InMemory\EventStore;
 
 use Kreta\SharedKernel\Domain\Model\AggregateDoesNotExistException;
 use Kreta\SharedKernel\Domain\Model\DomainEventCollection;
-use Kreta\SharedKernel\Domain\Model\Identity\BaseId as Id;
 use Kreta\SharedKernel\Event\EventStore;
-use Kreta\SharedKernel\Event\EventStream;
+use Kreta\SharedKernel\Event\Stream;
+use Kreta\SharedKernel\Event\StreamName;
 
 class InMemoryEventStore implements EventStore
 {
@@ -29,7 +29,7 @@ class InMemoryEventStore implements EventStore
         $this->store = [];
     }
 
-    public function appendTo(EventStream $stream) : void
+    public function appendTo(Stream $stream) : void
     {
         foreach ($stream->events() as $event) {
             $content = [];
@@ -40,18 +40,18 @@ class InMemoryEventStore implements EventStore
             }
 
             $this->store[] = [
-                'stream_id' => $stream->aggregateRootId(),
-                'type'      => get_class($event),
-                'content'   => json_encode($content),
+                'stream_name' => $stream->name()->name(),
+                'type'        => get_class($event),
+                'content'     => json_encode($content),
             ];
         }
     }
 
-    public function streamOfId(Id $aggregateRootId) : EventStream
+    public function streamOfName(StreamName $name) : Stream
     {
         $events = new DomainEventCollection();
         foreach ($this->store as $event) {
-            if ($event['stream_id'] === $aggregateRootId) {
+            if ($event['stream_name'] === $name->name()) {
                 $eventData = json_decode($event['content']);
                 $eventReflection = new \ReflectionClass($event['type']);
                 $parameters = $eventReflection->getConstructor()->getParameters();
@@ -67,9 +67,9 @@ class InMemoryEventStore implements EventStore
             }
         }
         if (0 === $events->count()) {
-            throw new AggregateDoesNotExistException($aggregateRootId->id());
+            throw new AggregateDoesNotExistException($name->aggregateId()->id());
         }
 
-        return new EventStream($aggregateRootId, $events);
+        return new Stream($name, $events);
     }
 }

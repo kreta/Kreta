@@ -16,52 +16,48 @@ namespace Spec\Kreta\SharedKernel\Infrastructure\Persistence\InMemory\EventStore
 
 use Kreta\SharedKernel\Domain\Model\AggregateDoesNotExistException;
 use Kreta\SharedKernel\Domain\Model\DomainEventCollection;
-use Kreta\SharedKernel\Domain\Model\Identity\BaseId as Id;
+use Kreta\SharedKernel\Domain\Model\Identity\Id;
 use Kreta\SharedKernel\Event\EventStore;
-use Kreta\SharedKernel\Event\EventStream;
+use Kreta\SharedKernel\Event\Stream;
+use Kreta\SharedKernel\Event\StreamName;
 use Kreta\SharedKernel\Infrastructure\Persistence\InMemory\EventStore\InMemoryEventStore;
 use Kreta\SharedKernel\Tests\Double\Domain\Model\DomainEventStub;
 use PhpSpec\ObjectBehavior;
 
 class InMemoryEventStoreSpec extends ObjectBehavior
 {
-    function it_is_initializable()
+    function it_appends_to(Stream $stream, StreamName $streamName)
     {
         $this->shouldHaveType(InMemoryEventStore::class);
-    }
-
-    function it_implements_event_store()
-    {
         $this->shouldImplement(EventStore::class);
+
+        $eventCollection = new DomainEventCollection([
+            new DomainEventStub('foo', 'bar'),
+        ]);
+        $stream->events()->shouldBeCalled()->willReturn($eventCollection);
+        $stream->name()->shouldBeCalled()->willReturn($streamName);
+        $streamName->name()->shouldBeCalled()->willReturn('dummy');
+        $this->appendTo($stream);
     }
 
-    function it_appends_to(EventStream $stream, Id $aggregateRootId)
+    function it_get_stream_of_name_given(Stream $stream, StreamName $streamName)
     {
         $eventCollection = new DomainEventCollection([
             new DomainEventStub('foo', 'bar'),
         ]);
         $stream->events()->shouldBeCalled()->willReturn($eventCollection);
-        $stream->aggregateRootId()->shouldBeCalled()->willReturn($aggregateRootId);
-        $this->appendTo($stream);
-    }
-
-    function it_get_stream_of_id_given(EventStream $stream, Id $aggregateRootId)
-    {
-        $aggregateRootId->id()->willReturn('aggregate-id');
-        $eventCollection = new DomainEventCollection([
-            new DomainEventStub('foo', 'bar'),
-        ]);
-        $stream->events()->shouldBeCalled()->willReturn($eventCollection);
-        $stream->aggregateRootId()->shouldBeCalled()->willReturn($aggregateRootId);
+        $stream->name()->shouldBeCalled()->willReturn($streamName);
+        $streamName->name()->shouldBeCalled()->willReturn('dummy');
         $this->appendTo($stream);
 
-        $this->streamOfId($aggregateRootId)->shouldReturnAnInstanceOf(EventStream::class);
+        $this->streamOfName($streamName)->shouldReturnAnInstanceOf(Stream::class);
     }
 
-    function it_does_not_get_any_aggregate(Id $aggregateRootId)
+    function it_does_not_get_any_aggregate(StreamName $streamName, Id $aggregateId)
     {
-        $aggregateRootId->id()->willReturn('id');
+        $streamName->aggregateId()->shouldBeCalled()->willReturn($aggregateId);
+        $aggregateId->id()->willReturn('id');
 
-        $this->shouldThrow(AggregateDoesNotExistException::class)->duringStreamOfId($aggregateRootId);
+        $this->shouldThrow(AggregateDoesNotExistException::class)->duringStreamOfName($streamName);
     }
 }

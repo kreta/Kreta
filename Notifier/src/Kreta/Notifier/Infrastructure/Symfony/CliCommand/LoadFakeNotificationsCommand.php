@@ -72,7 +72,7 @@ class LoadFakeNotificationsCommand extends Command
     {
         $i = 0;
         while ($i < $this->amount()) {
-            $this->redis->del($this->type() . '-events: ' . $this->dataOfIndex($i));
+            $this->redis->del($this->type() . '-' . $this->dataOfIndex($i));
             ++$i;
         }
     }

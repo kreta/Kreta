@@ -17,7 +17,7 @@ namespace Kreta\SharedKernel\Tests\Double\Domain\Model;
 use Kreta\SharedKernel\Domain\Model\AggregateRoot;
 use Kreta\SharedKernel\Domain\Model\EventSourcedAggregateRoot;
 use Kreta\SharedKernel\Domain\Model\Identity\Id;
-use Kreta\SharedKernel\Event\EventStream;
+use Kreta\SharedKernel\Event\Stream;
 
 class AggregateRootStub extends AggregateRoot implements EventSourcedAggregateRoot
 {
@@ -55,11 +55,11 @@ class AggregateRootStub extends AggregateRoot implements EventSourcedAggregateRo
         $this->property = 'foo';
     }
 
-    public static function reconstitute(EventStream $events) : EventSourcedAggregateRoot
+    public static function reconstitute(Stream $stream) : self
     {
-        $instance = new self($events->aggregateRootId());
+        $instance = new self($stream->name()->aggregateId());
 
-        foreach ($events as $event) {
+        foreach ($stream as $event) {
             $instance->apply($event);
         }
 

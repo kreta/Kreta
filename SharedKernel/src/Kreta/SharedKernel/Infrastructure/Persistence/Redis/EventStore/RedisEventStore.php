@@ -16,16 +16,14 @@ namespace Kreta\SharedKernel\Infrastructure\Persistence\Redis\EventStore;
 
 use Kreta\SharedKernel\Domain\Model\AggregateDoesNotExistException;
 use Kreta\SharedKernel\Domain\Model\DomainEventCollection;
-use Kreta\SharedKernel\Domain\Model\Identity\BaseId as Id;
 use Kreta\SharedKernel\Event\EventStore;
-use Kreta\SharedKernel\Event\EventStream;
+use Kreta\SharedKernel\Event\Stream;
+use Kreta\SharedKernel\Event\StreamName;
 use Kreta\SharedKernel\Serialization\Serializer;
 use Predis\Client;
 
 final class RedisEventStore implements EventStore
 {
-    private const REDIS_KEY_PLACEHOLDER = '%sevents: %s';
-
     private $predis;
     private $serializer;
     private $eventType;
@@ -37,7 +35,7 @@ final class RedisEventStore implements EventStore
         $this->eventType = $eventType;
     }
 
-    public function appendTo(EventStream $stream) : void
+    public function appendTo(Stream $stream) : void
     {
         foreach ($stream->events() as $event) {
             $serializedEvent = $this->serializer->serialize(
@@ -47,17 +45,17 @@ final class RedisEventStore implements EventStore
                 ]
             );
 
-            $this->predis->rpush($this->redisKey($stream->aggregateRootId()), $serializedEvent);
+            $this->predis->rpush($stream->name()->name(), $serializedEvent);
         }
     }
 
-    public function streamOfId(Id $aggregateRootId) : EventStream
+    public function streamOfName(StreamName $name) : Stream
     {
-        if (!$this->predis->exists($this->redisKey($aggregateRootId))) {
-            throw new AggregateDoesNotExistException($aggregateRootId->id());
+        if (!$this->predis->exists($name->name())) {
+            throw new AggregateDoesNotExistException($name->aggregateId()->id());
         }
 
-        $serializedEvents = $this->predis->lrange($this->redisKey($aggregateRootId), 0, -1);
+        $serializedEvents = $this->predis->lrange($name->name(), 0, -1);
 
         $events = new DomainEventCollection();
         foreach ($serializedEvents as $serializedEvent) {
@@ -71,16 +69,6 @@ final class RedisEventStore implements EventStore
             );
         }
 
-        return new EventStream($aggregateRootId, $events);
-    }
-
-    private function redisKey(Id $aggregateRootId) : string
-    {
-        $name = '';
-        if ($this->eventType) {
-            $name = $this->eventType . '-';
-        }
-
-        return sprintf(self::REDIS_KEY_PLACEHOLDER, $name, $aggregateRootId->id());
+        return new Stream($name, $events);
     }
 }

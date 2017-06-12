@@ -58,7 +58,7 @@ class LoadFakeUsersCommand extends Command
     {
         $i = 0;
         while ($i < $this->userFakeData->amount()) {
-            $this->redis->del('user-events: ' . $this->userFakeData->userOfIndex($i));
+            $this->redis->del('user-' . $this->userFakeData->userOfIndex($i));
             ++$i;
         }
     }

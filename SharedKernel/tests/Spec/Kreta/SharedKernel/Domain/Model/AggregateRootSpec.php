@@ -16,7 +16,8 @@ namespace Spec\Kreta\SharedKernel\Domain\Model;
 
 use Kreta\SharedKernel\Domain\Model\AggregateRoot;
 use Kreta\SharedKernel\Domain\Model\Identity\Id;
-use Kreta\SharedKernel\Event\EventStream;
+use Kreta\SharedKernel\Event\Stream;
+use Kreta\SharedKernel\Event\StreamName;
 use Kreta\SharedKernel\Tests\Double\Domain\Model\AggregateRootStub;
 use PhpSpec\ObjectBehavior;
 
@@ -60,9 +61,10 @@ class AggregateRootSpec extends ObjectBehavior
         $this->property()->shouldReturn('bar');
     }
 
-    function it_reconstitutes_the_aggregate_root(EventStream $events, Id $aggregateRootId)
+    function it_reconstitutes_the_aggregate_root(Stream $stream, StreamName $streamName, Id $aggregateId)
     {
-        $events->aggregateRootId()->shouldBeCalled()->willReturn($aggregateRootId);
-        $this::reconstitute($events)->shouldReturnAnInstanceOf(AggregateRoot::class);
+        $stream->name()->shouldBeCalled()->willReturn($streamName);
+        $streamName->aggregateId()->shouldBeCalled()->willReturn($aggregateId);
+        $this::reconstitute($stream)->shouldReturnAnInstanceOf(AggregateRoot::class);
     }
 }

@@ -20,7 +20,8 @@ use Kreta\Notifier\Domain\Model\Inbox\UserSignedUp;
 use Kreta\SharedKernel\Domain\Model\AggregateRoot;
 use Kreta\SharedKernel\Domain\Model\DomainEventCollection;
 use Kreta\SharedKernel\Domain\Model\EventSourcedAggregateRoot;
-use Kreta\SharedKernel\Event\EventStream;
+use Kreta\SharedKernel\Event\Stream;
+use Kreta\SharedKernel\Event\StreamName;
 use PhpSpec\ObjectBehavior;
 
 class UserSpec extends ObjectBehavior
@@ -42,7 +43,8 @@ class UserSpec extends ObjectBehavior
     }
 
     function it_can_be_reconstituted_user(
-        EventStream $stream,
+        Stream $stream,
+        StreamName $streamName,
         UserId $id,
         UserSignedUp $userSignedUp,
         DomainEventCollection $collection
@@ -51,7 +53,8 @@ class UserSpec extends ObjectBehavior
             $userSignedUp,
         ]);
         $stream->events()->willReturn($collection);
-        $stream->aggregateRootId()->shouldBeCalled()->willReturn($id);
+        $stream->name()->shouldBeCalled()->willReturn($streamName);
+        $streamName->aggregateId()->shouldBeCalled()->willReturn($id);
         $this->beConstructedReconstitute($stream);
         $this->id()->shouldReturn($id);
         $id->id()->shouldBeCalled()->willReturn('user-id');
