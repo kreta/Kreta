@@ -7,5 +7,51 @@
 # file that was distributed with this source code.
 
 services:
-    kreta.notifier.serializer.jms:
-        class: Kreta\Notifier\Infrastructure\Serialization\JMS\JMSSerializer
+    kreta.notifier.serializer:
+        class: Kreta\SharedKernel\Infrastructure\Serialization\Symfony\SymfonySerializer
+        arguments:
+            - "@serializer"
+
+    kreta.notifier.serializer.normalizer.user_signed_up:
+        class: Kreta\Notifier\Infrastructure\Serialization\Inbox\SymfonyUserSignedUpNormalizer
+        public: false
+        tags:
+            - serializer.normalizer
+    kreta.notifier.serializer.denormalizer.user_signed_up:
+        class: Kreta\Notifier\Infrastructure\Serialization\Inbox\SymfonyUserSignedUpDenormalizer
+        public: false
+        tags:
+            - serializer.normalizer
+
+    kreta.notifier.serializer.normalizer.notification_published:
+        class: Kreta\Notifier\Infrastructure\Serialization\Inbox\Notification\SymfonyNotificationPublishedNormalizer
+        public: false
+        tags:
+            - serializer.normalizer
+    kreta.notifier.serializer.denormalizer.notification_published:
+        class: Kreta\Notifier\Infrastructure\Serialization\Inbox\Notification\SymfonyNotificationPublishedDenormalizer
+        public: false
+        tags:
+            - serializer.normalizer
+
+    kreta.notifier.serializer.normalizer.notification_marked_as_read:
+        class: Kreta\Notifier\Infrastructure\Serialization\Inbox\Notification\SymfonyNotificationMarkedAsReadNormalizer
+        public: false
+        tags:
+            - serializer.normalizer
+    kreta.notifier.serializer.denormalizer.notification_marked_as_read:
+        class: Kreta\Notifier\Infrastructure\Serialization\Inbox\Notification\SymfonyNotificationMarkedAsReadDenormalizer
+        public: false
+        tags:
+            - serializer.normalizer
+
+    kreta.notifier.serializer.normalizer.notification_marked_as_unread:
+        class: Kreta\Notifier\Infrastructure\Serialization\Inbox\Notification\SymfonyNotificationMarkedAsUnreadNormalizer
+        public: false
+        tags:
+            - serializer.normalizer
+    kreta.notifier.serializer.denormalizer.notification_marked_as_unread:
+        class: Kreta\Notifier\Infrastructure\Serialization\Inbox\Notification\SymfonyNotificationMarkedAsUnreadDenormalizer
+        public: false
+        tags:
+            - serializer.normalizer

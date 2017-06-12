@@ -18,5 +18,5 @@ interface Serializer
 {
     public function serialize($object) : string;
 
-    public function deserialize(string $serializedObject, string $type);
+    public function deserialize(string $serializedObject);
 }

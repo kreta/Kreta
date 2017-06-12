@@ -30,7 +30,6 @@
         "php": "^7.1",
         "elasticsearch/elasticsearch": "^5.2",
         "incenteev/composer-parameter-handler": "^2.0",
-        "jms/serializer": "^1.7",
         "kreta/shared-kernel": "1.0.x-dev",
         "nelmio/cors-bundle": "^1.5",
         "php-http/guzzle6-adapter": "^1.1",

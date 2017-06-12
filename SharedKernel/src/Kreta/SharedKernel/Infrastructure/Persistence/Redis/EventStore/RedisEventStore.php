@@ -26,26 +26,20 @@ final class RedisEventStore implements EventStore
 {
     private $predis;
     private $serializer;
-    private $eventType;
 
-    public function __construct(Client $predis, Serializer $serializer, string $eventType = null)
+    public function __construct(Client $predis, Serializer $serializer)
     {
         $this->predis = $predis;
         $this->serializer = $serializer;
-        $this->eventType = $eventType;
     }
 
     public function appendTo(Stream $stream) : void
     {
         foreach ($stream->events() as $event) {
-            $serializedEvent = $this->serializer->serialize(
-                [
-                    'type' => get_class($event),
-                    'data' => $this->serializer->serialize($event),
-                ]
+            $this->predis->rpush(
+                $stream->name()->name(),
+                $this->serializer->serialize($event)
             );
-
-            $this->predis->rpush($stream->name()->name(), $serializedEvent);
         }
     }
 
@@ -59,13 +53,8 @@ final class RedisEventStore implements EventStore
 
         $events = new DomainEventCollection();
         foreach ($serializedEvents as $serializedEvent) {
-            $eventData = $this->serializer->deserialize($serializedEvent, 'array');
-
             $events->add(
-                $this->serializer->deserialize(
-                    $eventData['data'],
-                    $eventData['type']
-                )
+                $this->serializer->deserialize($serializedEvent)
             );
         }
 

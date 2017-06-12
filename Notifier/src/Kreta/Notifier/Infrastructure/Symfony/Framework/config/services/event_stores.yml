@@ -11,12 +11,10 @@ services:
         class: Kreta\SharedKernel\Infrastructure\Persistence\Redis\EventStore\RedisEventStore
         arguments:
             - "@snc_redis.default"
-            - "@kreta.notifier.serializer.jms"
-            - "user"
+            - "@kreta.notifier.serializer"
 
     kreta.notifier.event_store.redis_notification:
         class: Kreta\SharedKernel\Infrastructure\Persistence\Redis\EventStore\RedisEventStore
         arguments:
             - "@snc_redis.default"
-            - "@kreta.notifier.serializer.jms"
-            - "notification"
+            - "@kreta.notifier.serializer"
