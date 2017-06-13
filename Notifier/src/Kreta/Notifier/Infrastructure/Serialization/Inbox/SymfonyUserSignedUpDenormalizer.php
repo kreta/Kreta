@@ -16,10 +16,18 @@ namespace Kreta\Notifier\Infrastructure\Serialization\Inbox;
 
 use Kreta\Notifier\Domain\Model\Inbox\UserId;
 use Kreta\Notifier\Domain\Model\Inbox\UserSignedUp;
+use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
 final class SymfonyUserSignedUpDenormalizer implements DenormalizerInterface
 {
+    private $nameConverter;
+
+    public function __construct(NameConverterInterface $nameConverter)
+    {
+        $this->nameConverter = $nameConverter;
+    }
+
     public function denormalize($data, $class, $format = null, array $context = []) : UserSignedUp
     {
         $userSignedUp = new UserSignedUp(
@@ -36,6 +44,6 @@ final class SymfonyUserSignedUpDenormalizer implements DenormalizerInterface
 
     public function supportsDenormalization($data, $type, $format = null) : bool
     {
-        return isset($data['type']) && $data['type'] === UserSignedUp::class;
+        return isset($data['type']) && $this->nameConverter->denormalize($data['type']) === UserSignedUp::class;
     }
 }

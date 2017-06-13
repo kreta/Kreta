@@ -16,16 +16,24 @@ namespace Kreta\Notifier\Infrastructure\Serialization\Inbox\Notification;
 
 use Kreta\Notifier\Domain\Model\Inbox\Notification\NotificationPublished;
 use Kreta\SharedKernel\Event\StoredEvent;
+use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 final class SymfonyNotificationPublishedNormalizer implements NormalizerInterface
 {
+    private $nameConverter;
+
+    public function __construct(NameConverterInterface $nameConverter)
+    {
+        $this->nameConverter = $nameConverter;
+    }
+
     public function normalize($object, $format = null, array $context = []) : array
     {
         return [
             'order'       => $object->order(),
             'name'        => $object->name(),
-            'type'        => get_class($object->event()),
+            'type'        => $this->nameConverter->normalize(get_class($object->event())),
             'occurred_on' => $object->occurredOn()->getTimestamp(),
             'payload'     => [
                 'id'      => $object->event()->notificationId()->id(),

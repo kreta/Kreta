@@ -18,10 +18,18 @@ use Kreta\Notifier\Domain\Model\Inbox\Notification\NotificationId;
 use Kreta\Notifier\Domain\Model\Inbox\Notification\NotificationMarkedAsRead;
 use Kreta\Notifier\Domain\Model\Inbox\Notification\NotificationStatus;
 use Kreta\Notifier\Domain\Model\Inbox\UserId;
+use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
 final class SymfonyNotificationMarkedAsReadDenormalizer implements DenormalizerInterface
 {
+    private $nameConverter;
+
+    public function __construct(NameConverterInterface $nameConverter)
+    {
+        $this->nameConverter = $nameConverter;
+    }
+
     public function denormalize($data, $class, $format = null, array $context = []) : NotificationMarkedAsRead
     {
         $notificationMarkedAsRead = new NotificationMarkedAsRead(
@@ -49,6 +57,7 @@ final class SymfonyNotificationMarkedAsReadDenormalizer implements DenormalizerI
 
     public function supportsDenormalization($data, $type, $format = null) : bool
     {
-        return isset($data['type']) && $data['type'] === NotificationMarkedAsRead::class;
+        return isset($data['type'])
+            && $this->nameConverter->denormalize($data['type']) === NotificationMarkedAsRead::class;
     }
 }

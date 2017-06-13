@@ -19,10 +19,18 @@ use Kreta\Notifier\Domain\Model\Inbox\Notification\NotificationId;
 use Kreta\Notifier\Domain\Model\Inbox\Notification\NotificationPublished;
 use Kreta\Notifier\Domain\Model\Inbox\Notification\NotificationStatus;
 use Kreta\Notifier\Domain\Model\Inbox\UserId;
+use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
 
 final class SymfonyNotificationPublishedDenormalizer implements DenormalizerInterface
 {
+    private $nameConverter;
+
+    public function __construct(NameConverterInterface $nameConverter)
+    {
+        $this->nameConverter = $nameConverter;
+    }
+
     public function denormalize($data, $class, $format = null, array $context = []) : NotificationPublished
     {
         $notificationPublished = new NotificationPublished(
@@ -51,6 +59,7 @@ final class SymfonyNotificationPublishedDenormalizer implements DenormalizerInte
 
     public function supportsDenormalization($data, $type, $format = null) : bool
     {
-        return isset($data['type']) && $data['type'] === NotificationPublished::class;
+        return isset($data['type'])
+            && $this->nameConverter->denormalize($data['type']) === NotificationPublished::class;
     }
 }
