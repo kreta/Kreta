@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Kreta\Notifier\Infrastructure\Serialization\Inbox\Notification;
 
 use Kreta\Notifier\Domain\Model\Inbox\Notification\NotificationPublished;
+use Kreta\SharedKernel\Event\StoredEvent;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 final class SymfonyNotificationPublishedNormalizer implements NormalizerInterface
@@ -22,19 +23,21 @@ final class SymfonyNotificationPublishedNormalizer implements NormalizerInterfac
     public function normalize($object, $format = null, array $context = []) : array
     {
         return [
-            'type'           => get_class($object),
-            'occurred_on'    => $object->occurredOn()->getTimestamp(),
-            'payload'        => [
-                'id'      => $object->notificationId()->id(),
-                'user_id' => $object->userId()->id(),
-                'body'    => $object->body()->body(),
-                'status'  => $object->status()->status(),
+            'order'       => $object->order(),
+            'name'        => $object->name(),
+            'type'        => get_class($object->event()),
+            'occurred_on' => $object->occurredOn()->getTimestamp(),
+            'payload'     => [
+                'id'      => $object->event()->notificationId()->id(),
+                'user_id' => $object->event()->userId()->id(),
+                'body'    => $object->event()->body()->body(),
+                'status'  => $object->event()->status()->status(),
             ],
         ];
     }
 
     public function supportsNormalization($data, $format = null) : bool
     {
-        return $data instanceof NotificationPublished;
+        return $data instanceof StoredEvent && $data->event() instanceof NotificationPublished;
     }
 }

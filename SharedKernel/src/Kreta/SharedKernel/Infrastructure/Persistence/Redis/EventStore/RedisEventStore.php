@@ -17,6 +17,7 @@ namespace Kreta\SharedKernel\Infrastructure\Persistence\Redis\EventStore;
 use Kreta\SharedKernel\Domain\Model\AggregateDoesNotExistException;
 use Kreta\SharedKernel\Domain\Model\DomainEventCollection;
 use Kreta\SharedKernel\Event\EventStore;
+use Kreta\SharedKernel\Event\StoredEvent;
 use Kreta\SharedKernel\Event\Stream;
 use Kreta\SharedKernel\Event\StreamName;
 use Kreta\SharedKernel\Serialization\Serializer;
@@ -35,7 +36,15 @@ final class RedisEventStore implements EventStore
 
     public function appendTo(Stream $stream) : void
     {
+        $order = $this->countStoredEventsOfStream($stream) + 1;
+
         foreach ($stream->events() as $event) {
+            $event = new StoredEvent(
+                $order,
+                $stream->name(),
+                $event
+            );
+
             $this->predis->rpush(
                 $stream->name()->name(),
                 $this->serializer->serialize($event)
@@ -59,5 +68,10 @@ final class RedisEventStore implements EventStore
         }
 
         return new Stream($name, $events);
+    }
+
+    private function countStoredEventsOfStream(Stream $stream) : int
+    {
+        return count($this->predis->lrange($stream->name()->name(), 0, -1));
     }
 }

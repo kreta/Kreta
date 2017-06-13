@@ -55,6 +55,7 @@ class PublishNotificationSpec extends ObjectBehavior
     ) {
         $repository->get($this->notificationId)->shouldBeCalled()->willReturn($notification);
         $notification->id()->shouldBeCalled()->willReturn($notificationId);
+        $notificationId->id()->willReturn('notification-id');
         $this->shouldThrow(NotificationAlreadyExists::class)->during__invoke($command);
     }
 

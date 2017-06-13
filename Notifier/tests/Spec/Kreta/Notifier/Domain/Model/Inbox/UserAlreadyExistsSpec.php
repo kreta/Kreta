@@ -21,20 +21,13 @@ use PhpSpec\ObjectBehavior;
 
 class UserAlreadyExistsSpec extends ObjectBehavior
 {
-    function let(UserId $userId)
+    function it_can_be_thrown(UserId $userId)
     {
         $this->beConstructedWith($userId);
-    }
+        $userId->id()->shouldBeCalled()->willReturn('user-id');
 
-    function it_is_initializable()
-    {
         $this->shouldHaveType(UserAlreadyExists::class);
         $this->shouldHaveType(Exception::class);
-    }
-
-    function it_should_return_message(UserId $userId)
-    {
-        $userId->id()->shouldBeCalled()->willReturn('user-id');
         $this->getMessage()->shouldReturn('Already exists a user with the "user-id" id');
     }
 }

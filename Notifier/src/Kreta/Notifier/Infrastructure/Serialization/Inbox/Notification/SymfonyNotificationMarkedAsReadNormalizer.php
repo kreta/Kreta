@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Kreta\Notifier\Infrastructure\Serialization\Inbox\Notification;
 
 use Kreta\Notifier\Domain\Model\Inbox\Notification\NotificationMarkedAsRead;
+use Kreta\SharedKernel\Event\StoredEvent;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 final class SymfonyNotificationMarkedAsReadNormalizer implements NormalizerInterface
@@ -22,18 +23,20 @@ final class SymfonyNotificationMarkedAsReadNormalizer implements NormalizerInter
     public function normalize($object, $format = null, array $context = []) : array
     {
         return [
-            'type'        => get_class($object),
+            'order'       => $object->order(),
+            'name'        => $object->name(),
+            'type'        => get_class($object->event()),
             'occurred_on' => $object->occurredOn()->getTimestamp(),
             'payload'     => [
-                'id'      => $object->notificationId()->id(),
-                'user_id' => $object->userId()->id(),
-                'status'  => $object->status()->status(),
+                'id'      => $object->event()->notificationId()->id(),
+                'user_id' => $object->event()->userId()->id(),
+                'status'  => $object->event()->status()->status(),
             ],
         ];
     }
 
     public function supportsNormalization($data, $format = null) : bool
     {
-        return $data instanceof NotificationMarkedAsRead;
+        return $data instanceof StoredEvent && $data->event() instanceof NotificationMarkedAsRead;
     }
 }

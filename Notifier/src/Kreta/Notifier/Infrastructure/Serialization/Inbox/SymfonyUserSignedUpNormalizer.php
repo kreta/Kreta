@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Kreta\Notifier\Infrastructure\Serialization\Inbox;
 
 use Kreta\Notifier\Domain\Model\Inbox\UserSignedUp;
+use Kreta\SharedKernel\Event\StoredEvent;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 final class SymfonyUserSignedUpNormalizer implements NormalizerInterface
@@ -22,16 +23,18 @@ final class SymfonyUserSignedUpNormalizer implements NormalizerInterface
     public function normalize($object, $format = null, array $context = []) : array
     {
         return [
-            'type'           => get_class($object),
-            'occurred_on'    => $object->occurredOn()->getTimestamp(),
-            'payload'        => [
-                'user_id' => $object->userId()->id(),
+            'order'       => $object->order(),
+            'name'        => $object->name(),
+            'type'        => get_class($object->event()),
+            'occurred_on' => $object->occurredOn()->getTimestamp(),
+            'payload'     => [
+                'user_id' => $object->event()->userId()->id(),
             ],
         ];
     }
 
     public function supportsNormalization($data, $format = null) : bool
     {
-        return $data instanceof UserSignedUp;
+        return $data instanceof StoredEvent && $data->event() instanceof UserSignedUp;
     }
 }

@@ -21,20 +21,13 @@ use PhpSpec\ObjectBehavior;
 
 class NotificationAlreadyExistsSpec extends ObjectBehavior
 {
-    function let(NotificationId $notificationId)
+    function it_can_be_thrown(NotificationId $notificationId)
     {
         $this->beConstructedWith($notificationId);
-    }
+        $notificationId->id()->shouldBeCalled()->willReturn('notification-id');
 
-    function it_is_initializable()
-    {
         $this->shouldHaveType(NotificationAlreadyExists::class);
         $this->shouldHaveType(Exception::class);
-    }
-
-    function it_should_return_message(NotificationId $notificationId)
-    {
-        $notificationId->id()->shouldBeCalled()->willReturn('notification-id');
         $this->getMessage()->shouldReturn('Already exists a notification with the "notification-id" id');
     }
 }
