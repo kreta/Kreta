@@ -16,8 +16,8 @@ namespace Kreta\SharedKernel\Infrastructure\Persistence\Redis\EventStore;
 
 use Kreta\SharedKernel\Domain\Model\AggregateDoesNotExistException;
 use Kreta\SharedKernel\Domain\Model\DomainEventCollection;
-use Kreta\SharedKernel\Event\EventStore;
 use Kreta\SharedKernel\Event\StoredEvent;
+use Kreta\SharedKernel\Event\EventStore;
 use Kreta\SharedKernel\Event\Stream;
 use Kreta\SharedKernel\Event\StreamName;
 use Kreta\SharedKernel\Serialization\Serializer;
@@ -34,7 +34,7 @@ final class RedisEventStore implements EventStore
         $this->serializer = $serializer;
     }
 
-    public function appendTo(Stream $stream) : void
+    public function append(Stream $stream) : void
     {
         $order = $this->countStoredEventsOfStream($stream) + 1;
 
@@ -68,6 +68,22 @@ final class RedisEventStore implements EventStore
         }
 
         return new Stream($name, $events);
+    }
+
+    public function eventsSince(?\DateTimeInterface $since, int $offset = 0, int $limit = -1) : array
+    {
+        $since = null === $since ? 0 : $since->getTimestamp();
+        $keys = $this->predis->keys('*');
+
+        $events = array_filter(call_user_func_array('array_merge', array_map(function ($key) use ($since) {
+            return array_map(function (string $serializedEvent) {
+                return json_decode($serializedEvent, true);
+            }, $this->predis->lrange($key, 0, -1));
+        }, $keys)), function (array $event) use ($since) {
+            return $event['occurred_on'] >= $since;
+        });
+
+        return array_slice($events, $offset, $limit);
     }
 
     private function countStoredEventsOfStream(Stream $stream) : int

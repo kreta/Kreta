@@ -37,7 +37,10 @@ final class SymfonyUserSignedUpDenormalizer implements DenormalizerInterface
         $reflectionClass = new \ReflectionClass($userSignedUp);
         $reflectionProperty = $reflectionClass->getProperty('occurredOn');
         $reflectionProperty->setAccessible(true);
-        $reflectionProperty->setValue($userSignedUp, $data['occurred_on']);
+        $reflectionProperty->setValue(
+            $userSignedUp,
+            \DateTimeImmutable::createFromFormat('U', (string) $data['occurred_on'])
+        );
 
         return $userSignedUp;
     }

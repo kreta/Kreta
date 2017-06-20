@@ -10,9 +10,9 @@ services:
     kreta.notifier.repository.inbox.user:
         class: Kreta\Notifier\Infrastructure\Domain\Model\Inbox\EventStoreUserRepository
         arguments:
-            - '@kreta.notifier.event_store.redis_user'
+            - "@kreta.notifier.event_store.redis"
 
     kreta.notifier.repository.inbox.notification:
         class: Kreta\Notifier\Infrastructure\Domain\Model\Inbox\Notification\EventStoreNotificationRepository
         arguments:
-            - '@kreta.notifier.event_store.redis_notification'
+            - "@kreta.notifier.event_store.redis"

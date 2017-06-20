@@ -6,6 +6,13 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 
+kreta_notifier_get_domain_events:
+    path: /events
+    defaults:
+        _controller: "kreta.notifier.http_actions.get_domain_events:__invoke"
+    methods:
+        - GET
+
 kreta_notifier_view_user_notifications:
     path: /notifications
     defaults:

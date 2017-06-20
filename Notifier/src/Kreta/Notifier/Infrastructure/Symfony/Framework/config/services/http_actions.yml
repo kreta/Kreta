@@ -7,6 +7,11 @@
 # file that was distributed with this source code.
 
 services:
+    kreta.notifier.http_actions.get_domain_events:
+        class: Kreta\Notifier\Infrastructure\Symfony\HttpAction\GetDomainEventsAction
+        arguments:
+            - "@kreta.notifier.query_bus"
+
     kreta.notifier.http_actions.view_user_notifications:
         class: Kreta\Notifier\Infrastructure\Symfony\HttpAction\ViewUserNotificationsAction
         arguments:

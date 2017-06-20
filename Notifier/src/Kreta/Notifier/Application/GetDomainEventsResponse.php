@@ -12,13 +12,9 @@
 
 declare(strict_types=1);
 
-namespace Kreta\SharedKernel\Event;
+namespace Kreta\Notifier\Application;
 
-interface EventStore
+interface GetDomainEventsResponse
 {
-    public function append(Stream $stream) : void;
-
-    public function streamOfName(StreamName $name) : Stream;
-
-    public function eventsSince(?\DateTimeInterface $since, int $offset = 0, int $limit = -1) : array;
+    public function build(array $events, int $page, int $pageSize) : array;
 }

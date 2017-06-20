@@ -7,7 +7,7 @@
 # file that was distributed with this source code.
 
 services:
-    kreta.notifier.query_handler.inbox.view_user_notifications:
+    kreta.notifier.query_handler.inbox.notification.view_user_notifications:
         class: Kreta\Notifier\Application\Inbox\Notification\ViewUserNotifications
         arguments:
             - "@kreta.notifier.view.inbox.notification"
