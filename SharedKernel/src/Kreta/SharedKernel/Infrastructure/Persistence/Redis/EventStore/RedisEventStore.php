@@ -16,8 +16,8 @@ namespace Kreta\SharedKernel\Infrastructure\Persistence\Redis\EventStore;
 
 use Kreta\SharedKernel\Domain\Model\AggregateDoesNotExistException;
 use Kreta\SharedKernel\Domain\Model\DomainEventCollection;
-use Kreta\SharedKernel\Event\StoredEvent;
 use Kreta\SharedKernel\Event\EventStore;
+use Kreta\SharedKernel\Event\StoredEvent;
 use Kreta\SharedKernel\Event\Stream;
 use Kreta\SharedKernel\Event\StreamName;
 use Kreta\SharedKernel\Serialization\Serializer;

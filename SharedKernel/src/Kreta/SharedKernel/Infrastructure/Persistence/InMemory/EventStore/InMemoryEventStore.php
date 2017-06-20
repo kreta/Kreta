@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Kreta\SharedKernel\Infrastructure\Persistence\InMemory\EventStore;
 
 use Kreta\SharedKernel\Domain\Model\AggregateDoesNotExistException;
+use Kreta\SharedKernel\Domain\Model\DomainEvent;
 use Kreta\SharedKernel\Domain\Model\DomainEventCollection;
 use Kreta\SharedKernel\Event\EventStore;
 use Kreta\SharedKernel\Event\Stream;
@@ -29,7 +30,7 @@ class InMemoryEventStore implements EventStore
         $this->store = [];
     }
 
-    public function appendTo(Stream $stream) : void
+    public function append(Stream $stream) : void
     {
         foreach ($stream->events() as $event) {
             $content = [];
@@ -52,18 +53,7 @@ class InMemoryEventStore implements EventStore
         $events = new DomainEventCollection();
         foreach ($this->store as $event) {
             if ($event['stream_name'] === $name->name()) {
-                $eventData = json_decode($event['content']);
-                $eventReflection = new \ReflectionClass($event['type']);
-                $parameters = $eventReflection->getConstructor()->getParameters();
-                $arguments = [];
-                foreach ($parameters as $parameter) {
-                    foreach ($eventData as $key => $data) {
-                        if ($key === $parameter->getName()) {
-                            $arguments[] = $data;
-                        }
-                    }
-                }
-                $events->add(new $event['type'](...$arguments));
+                $events->add($this->buildEvent($event));
             }
         }
         if (0 === $events->count()) {
@@ -71,5 +61,43 @@ class InMemoryEventStore implements EventStore
         }
 
         return new Stream($name, $events);
+    }
+
+    public function eventsSince(?\DateTimeInterface $since, int $offset = 0, int $limit = -1) : array
+    {
+        $since = $since instanceof \DateTimeInterface ? $since->getTimestamp() : 0;
+
+        $events = array_map(function (array $event) use ($since) {
+            $domainEvent = $this->buildEvent($event);
+            if ($domainEvent->occurredOn()->getTimestamp() >= $since) {
+                $evenContent = json_decode($event['content'], true);
+                $evenContent['occurredOn'] = $domainEvent->occurredOn()->getTimestamp();
+
+                return [
+                    'stream_name' => $event['stream_name'],
+                    'type'        => $event['type'],
+                    'content'     => $evenContent,
+                ];
+            }
+        }, $this->store);
+
+        return array_slice($events, $offset);
+    }
+
+    private function buildEvent(array $event) : DomainEvent
+    {
+        $eventData = json_decode($event['content']);
+        $eventReflection = new \ReflectionClass($event['type']);
+        $parameters = $eventReflection->getConstructor()->getParameters();
+        $arguments = [];
+        foreach ($parameters as $parameter) {
+            foreach ($eventData as $key => $data) {
+                if ($key === $parameter->getName()) {
+                    $arguments[] = $data;
+                }
+            }
+        }
+
+        return new $event['type'](...$arguments);
     }
 }

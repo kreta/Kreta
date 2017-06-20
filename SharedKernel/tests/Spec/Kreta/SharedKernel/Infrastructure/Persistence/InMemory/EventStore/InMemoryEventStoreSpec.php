@@ -37,7 +37,7 @@ class InMemoryEventStoreSpec extends ObjectBehavior
         $stream->events()->shouldBeCalled()->willReturn($eventCollection);
         $stream->name()->shouldBeCalled()->willReturn($streamName);
         $streamName->name()->shouldBeCalled()->willReturn('dummy');
-        $this->appendTo($stream);
+        $this->append($stream);
     }
 
     function it_get_stream_of_name_given(Stream $stream, StreamName $streamName)
@@ -48,7 +48,7 @@ class InMemoryEventStoreSpec extends ObjectBehavior
         $stream->events()->shouldBeCalled()->willReturn($eventCollection);
         $stream->name()->shouldBeCalled()->willReturn($streamName);
         $streamName->name()->shouldBeCalled()->willReturn('dummy');
-        $this->appendTo($stream);
+        $this->append($stream);
 
         $this->streamOfName($streamName)->shouldReturnAnInstanceOf(Stream::class);
     }
@@ -59,5 +59,44 @@ class InMemoryEventStoreSpec extends ObjectBehavior
         $aggregateId->id()->willReturn('id');
 
         $this->shouldThrow(AggregateDoesNotExistException::class)->duringStreamOfName($streamName);
+    }
+
+    function it_gets_events_since_given_date(\DateTimeImmutable $since, Stream $stream, StreamName $streamName)
+    {
+        $domainEvent = new DomainEventStub('foo', 'bar');
+        $eventCollection = new DomainEventCollection([$domainEvent]);
+        $stream->events()->shouldBeCalled()->willReturn($eventCollection);
+        $stream->name()->shouldBeCalled()->willReturn($streamName);
+        $streamName->name()->shouldBeCalled()->willReturn('dummy');
+        $this->append($stream);
+
+        $this->eventsSince($since)->shouldReturn([
+            [
+                'stream_name' => 'dummy',
+                'type'        => DomainEventStub::class,
+                'content'     => [
+                    'bar'        => 'bar',
+                    'foo'        => 'foo',
+                    'occurredOn' => $domainEvent->occurredOn()->getTimestamp(),
+                ],
+            ],
+        ]);
+    }
+
+    function it_gets_empty_events_when_since_is_higher_than_persisted_events_occurred_on(
+        \DateTimeImmutable $since,
+        Stream $stream,
+        StreamName $streamName
+    ) {
+        $domainEvent = new DomainEventStub('foo', 'bar');
+        $eventCollection = new DomainEventCollection([$domainEvent]);
+        $stream->events()->shouldBeCalled()->willReturn($eventCollection);
+        $stream->name()->shouldBeCalled()->willReturn($streamName);
+        $streamName->name()->shouldBeCalled()->willReturn('dummy');
+        $this->append($stream);
+
+        $since->getTimestamp()->willReturn($domainEvent->occurredOn()->getTimestamp() + 10);
+
+        $this->eventsSince($since)->shouldReturn([null]);
     }
 }
