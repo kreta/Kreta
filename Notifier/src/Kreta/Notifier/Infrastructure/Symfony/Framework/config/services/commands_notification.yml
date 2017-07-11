@@ -1,0 +1,38 @@
+# This file is part of the Kreta package.
+#
+# (c) Beñat Espiña <benatespina@gmail.com>
+# (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+
+services:
+    kreta.notifier.command_handler.inbox.publish_notification:
+        class: Kreta\Notifier\Application\Inbox\Notification\PublishNotification
+        arguments:
+            - "@kreta.notifier.repository.inbox.notification"
+            - "@kreta.notifier.repository.inbox.user"
+        tags:
+            -
+                name: command_handler
+                handles: Kreta\Notifier\Application\Inbox\Notification\PublishNotificationCommand
+
+    kreta.notifier.command_handler.inbox.mark_as_read_notification:
+        class: Kreta\Notifier\Application\Inbox\Notification\MarkAsReadNotification
+        arguments:
+            - "@kreta.notifier.repository.inbox.notification"
+            - "@kreta.notifier.repository.inbox.user"
+        tags:
+            -
+                name: command_handler
+                handles: Kreta\Notifier\Application\Inbox\Notification\MarkAsReadNotificationCommand
+
+    kreta.notifier.command_handler.inbox.mark_as_unread_notification:
+        class: Kreta\Notifier\Application\Inbox\Notification\MarkAsUnreadNotification
+        arguments:
+            - "@kreta.notifier.repository.inbox.notification"
+            - "@kreta.notifier.repository.inbox.user"
+        tags:
+            -
+                name: command_handler
+                handles: Kreta\Notifier\Application\Inbox\Notification\MarkAsUnreadNotificationCommand

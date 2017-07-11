@@ -23,6 +23,7 @@ docker-compose exec php bash -c "cd /var/www/taskmanager && etc/bin/symfony-cons
 docker-compose exec php bash -c "cd /var/www/taskmanager && etc/bin/symfony-console doctrine:mi:mi --no-interaction"
 docker-compose exec php bash -c "cd /var/www/identityaccess && etc/bin/symfony-console doctrine:da:cr"
 docker-compose exec php bash -c "cd /var/www/identityaccess && etc/bin/symfony-console doctrine:mi:mi --no-interaction"
+docker-compose exec php bash -c "cd /var/www/notifier && composer install --no-interaction"
 
 while getopts 'f' flag; do
   case "${flag}" in

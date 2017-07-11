@@ -165,14 +165,6 @@ httplug:
             factory: "httplug.factory.guzzle6"
             plugins:
                 - "httplug.plugin.logger"
-
-# This plugin does not work properly with Docker ENV variable,
-# so it is hardcoded in the service declaration.
-# More info in "services/event_listeners.yml" file
-#
-#                - add_host:
-#                    host: "%task_manager_identity_access_host%"
-
             config:
                 verify: false
                 timeout: 2

@@ -1,0 +1,32 @@
+# This file is part of the Kreta package.
+#
+# (c) Beñat Espiña <benatespina@gmail.com>
+# (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+
+services:
+    kreta.notifier.persistence.fake.user_data:
+        class: Kreta\SharedKernel\Infrastructure\Persistence\Fake\UserFakeData
+        public: false
+
+    kreta.notifier.cli_commands.load_fake_users:
+        class: Kreta\Notifier\Infrastructure\Symfony\CliCommand\LoadFakeUsersCommand
+        arguments:
+            - "@kreta.notifier.command_bus"
+            - "@snc_redis.default"
+            - "@kreta.notifier.persistence.fake.user_data"
+        tags:
+            -
+                name: console.command
+
+    kreta.notifier.cli_commands.load_fake_notifications:
+        class: Kreta\Notifier\Infrastructure\Symfony\CliCommand\LoadFakeNotificationsCommand
+        arguments:
+            - "@kreta.notifier.command_bus"
+            - "@snc_redis.default"
+            - "@kreta.notifier.persistence.fake.user_data"
+        tags:
+            -
+                name: console.command

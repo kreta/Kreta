@@ -1,0 +1,38 @@
+# This file is part of the Kreta package.
+#
+# (c) Beñat Espiña <benatespina@gmail.com>
+# (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+
+server {
+    server_name ${NOTIFIER_HOST};
+    root /var/www/notifier/src/Kreta/Notifier/Infrastructure/Ui/Http/Symfony/public;
+
+    set $app "app.php";
+    set $env "${SYMFONY_ENV}";
+
+    if ($env = "dev" ) {
+        set $app "app_dev.php";
+    }
+
+    location / {
+        try_files $uri @rewriteapp;
+    }
+
+    location @rewriteapp {
+        rewrite ^(.*)$ /$app/$1 last;
+    }
+
+    location ~ ^/(app|app_dev|config)\.php(/|$) {
+        fastcgi_pass php-upstream;
+        fastcgi_split_path_info ^(.+\.php)(/.*)$;
+        include fastcgi_params;
+        fastcgi_param SCRIPT_FILENAME $document_root$fastcgi_script_name;
+        fastcgi_param HTTPS off;
+    }
+
+    error_log /var/log/nginx/notifier_error.log;
+    access_log /var/log/nginx/notifier_access.log;
+}

@@ -1,0 +1,28 @@
+# This file is part of the Kreta package.
+#
+# (c) Beñat Espiña <benatespina@gmail.com>
+# (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+
+services:
+    kreta.notifier.event_handler.user_signed_up:
+        class: Kreta\Notifier\Domain\ReadEvent\Inbox\UserSignedUpEventHandler
+        arguments:
+            - "@kreta.notifier.view.inbox.user"
+
+    kreta.notifier.event_handler.user_received_notification:
+        class: Kreta\Notifier\Domain\ReadEvent\Inbox\Notification\NotificationPublishedEventHandler
+        arguments:
+            - "@kreta.notifier.view.inbox.notification"
+
+    kreta.notifier.event_handler.user_read_notification:
+        class: Kreta\Notifier\Domain\ReadEvent\Inbox\Notification\NotificationMarkedAsReadEventHandler
+        arguments:
+            - "@kreta.notifier.view.inbox.notification"
+
+    kreta.notifier.event_handler.user_unread_notification:
+        class: Kreta\Notifier\Domain\ReadEvent\Inbox\Notification\NotificationMarkedAsUnreadEventHandler
+        arguments:
+            - "@kreta.notifier.view.inbox.notification"

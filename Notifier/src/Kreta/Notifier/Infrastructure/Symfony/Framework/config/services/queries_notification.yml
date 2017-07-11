@@ -1,0 +1,18 @@
+# This file is part of the Kreta package.
+#
+# (c) Beñat Espiña <benatespina@gmail.com>
+# (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+
+services:
+    kreta.notifier.query_handler.inbox.notification.view_user_notifications:
+        class: Kreta\Notifier\Application\Inbox\Notification\ViewUserNotifications
+        arguments:
+            - "@kreta.notifier.view.inbox.notification"
+            - "@kreta.notifier.view_specification_factory.inbox.notification"
+        tags:
+            -
+                name: query_handler
+                handles: Kreta\Notifier\Application\Inbox\Notification\ViewUserNotificationsQuery

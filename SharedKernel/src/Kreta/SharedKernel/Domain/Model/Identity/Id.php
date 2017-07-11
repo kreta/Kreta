@@ -26,7 +26,7 @@ abstract class Id implements BaseId
         $this->id = null === $id ? Uuid::generate() : $id;
     }
 
-    public function id() : ?string
+    public function id() : string
     {
         return $this->id;
     }

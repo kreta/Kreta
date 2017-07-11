@@ -1,0 +1,112 @@
+# This file is part of the Kreta package.
+#
+# (c) Beñat Espiña <benatespina@gmail.com>
+# (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+
+imports:
+    - { resource: ../../../../../../../parameters.yml }
+    - { resource: services/, type: directory }
+
+parameters:
+    notifier_locale: en
+    notifier_es_user_index: users
+    notifier_es_user_type: user
+    notifier_es_notification_index: notifications
+    notifier_es_notification_type: notification
+
+framework:
+    secret: "%notifier_secret%"
+    router:
+        resource: "%kernel.root_dir%/config/routing.yml"
+        strict_requirements: ~
+    form: ~
+    csrf_protection: ~
+    validation: { enable_annotations: false }
+    templating:
+        engines: ['php']
+    default_locale: "%notifier_locale%"
+    trusted_hosts: ~
+    session:
+        handler_id: session.handler.native_file
+        name: kretasession
+        save_path: "%kernel.root_dir%/../../../../../../var/sessions/%kernel.environment%"
+    fragments: ~
+    http_method_override: true
+    serializer:
+        enabled: true
+    assets: ~
+    php_errors:
+        log: true
+
+security:
+    providers:
+        in_memory:
+            memory: ~
+    firewalls:
+        main:
+            anonymous: ~
+
+swiftmailer:
+    transport: "%notifier_mailer_transport%"
+    host: "%notifier_mailer_host%"
+    username: "%notifier_mailer_user%"
+    password: "%notifier_mailer_password%"
+    spool: { type: memory }
+
+nelmio_cors:
+    paths:
+        '^/':
+            allow_origin: ['*']
+            allow_headers: [Content-Type, Origin, X-Custom-Auth, x-requested-with, x-requested-by, Authorization]
+            allow_methods: [GET, POST, PUT, DELETE, OPTIONS]
+            max_age: 3600
+
+old_sound_rabbit_mq:
+    connections:
+        default:
+            host: "%notifier_rabbitmq_host%"
+            port: "%notifier_rabbitmq_port%"
+            user: "%notifier_rabbitmq_user%"
+            password: "%notifier_rabbitmq_password%"
+            vhost: '/'
+            lazy: true
+            connection_timeout: 3
+            read_write_timeout: 3
+            keepalive: false
+            heartbeat: 0
+    consumers:
+        asynchronous_events:
+            connection: default
+            exchange_options:
+                name: asynchronous_events
+                type: direct
+            queue_options:
+                name: asynchronous_events
+            callback: kreta.notifier.rabbit_mq_bundle.inbox.user_signed_up
+
+httplug:
+    plugins:
+        logger: ~
+    classes:
+        client: Http\Adapter\Guzzle6\Client
+        message_factory: Http\Message\MessageFactory\GuzzleMessageFactory
+        uri_factory: Http\Message\UriFactory\GuzzleUriFactory
+        stream_factory: Http\Message\StreamFactory\GuzzleStreamFactory
+    clients:
+        guzzle6:
+            factory: "httplug.factory.guzzle6"
+            plugins:
+                - "httplug.plugin.logger"
+            config:
+                verify: false
+                timeout: 2
+
+snc_redis:
+    clients:
+        default:
+            type: predis
+            alias: default
+            dsn: "%notifier_redis_dsn%"

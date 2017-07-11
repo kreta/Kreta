@@ -1,0 +1,85 @@
+# This file is part of the Kreta package.
+#
+# (c) Beñat Espiña <benatespina@gmail.com>
+# (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+
+services:
+    kreta.notifier.serializer:
+        class: Kreta\SharedKernel\Infrastructure\Serialization\Symfony\SymfonySerializer
+        arguments:
+            - "@serializer"
+    kreta.notifier.serializer.name_converter.camel_case_to_snake_case:
+        class: Symfony\Component\Serializer\NameConverter\CamelCaseToSnakeCaseNameConverter
+        public: false
+        arguments:
+            - ~
+            - false
+
+    kreta.notifier.serializer.name_converter.fully_qualified_class:
+        class: Kreta\Notifier\Infrastructure\Serialization\SymfonyFullyQualifiedClassNameConverter
+        public: false
+        arguments:
+            - "@kreta.notifier.serializer.name_converter.camel_case_to_snake_case"
+
+    kreta.notifier.serializer.normalizer.user_signed_up:
+        class: Kreta\Notifier\Infrastructure\Serialization\Inbox\SymfonyUserSignedUpNormalizer
+        public: false
+        arguments:
+            - "@kreta.notifier.serializer.name_converter.fully_qualified_class"
+        tags:
+            - serializer.normalizer
+    kreta.notifier.serializer.denormalizer.user_signed_up:
+        class: Kreta\Notifier\Infrastructure\Serialization\Inbox\SymfonyUserSignedUpDenormalizer
+        public: false
+        arguments:
+            - "@kreta.notifier.serializer.name_converter.fully_qualified_class"
+        tags:
+            - serializer.normalizer
+
+    kreta.notifier.serializer.normalizer.notification_published:
+        class: Kreta\Notifier\Infrastructure\Serialization\Inbox\Notification\SymfonyNotificationPublishedNormalizer
+        public: false
+        arguments:
+            - "@kreta.notifier.serializer.name_converter.fully_qualified_class"
+        tags:
+            - serializer.normalizer
+    kreta.notifier.serializer.denormalizer.notification_published:
+        class: Kreta\Notifier\Infrastructure\Serialization\Inbox\Notification\SymfonyNotificationPublishedDenormalizer
+        public: false
+        arguments:
+            - "@kreta.notifier.serializer.name_converter.fully_qualified_class"
+        tags:
+            - serializer.normalizer
+
+    kreta.notifier.serializer.normalizer.notification_marked_as_read:
+        class: Kreta\Notifier\Infrastructure\Serialization\Inbox\Notification\SymfonyNotificationMarkedAsReadNormalizer
+        public: false
+        arguments:
+            - "@kreta.notifier.serializer.name_converter.fully_qualified_class"
+        tags:
+            - serializer.normalizer
+    kreta.notifier.serializer.denormalizer.notification_marked_as_read:
+        class: Kreta\Notifier\Infrastructure\Serialization\Inbox\Notification\SymfonyNotificationMarkedAsReadDenormalizer
+        public: false
+        arguments:
+            - "@kreta.notifier.serializer.name_converter.fully_qualified_class"
+        tags:
+            - serializer.normalizer
+
+    kreta.notifier.serializer.normalizer.notification_marked_as_unread:
+        class: Kreta\Notifier\Infrastructure\Serialization\Inbox\Notification\SymfonyNotificationMarkedAsUnreadNormalizer
+        public: false
+        arguments:
+            - "@kreta.notifier.serializer.name_converter.fully_qualified_class"
+        tags:
+            - serializer.normalizer
+    kreta.notifier.serializer.denormalizer.notification_marked_as_unread:
+        class: Kreta\Notifier\Infrastructure\Serialization\Inbox\Notification\SymfonyNotificationMarkedAsUnreadDenormalizer
+        public: false
+        arguments:
+            - "@kreta.notifier.serializer.name_converter.fully_qualified_class"
+        tags:
+            - serializer.normalizer

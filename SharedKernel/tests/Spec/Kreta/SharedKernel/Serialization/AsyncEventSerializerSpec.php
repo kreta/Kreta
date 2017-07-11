@@ -52,13 +52,15 @@ class AsyncEventSerializerSpec extends ObjectBehavior
 
     function it_deserializes()
     {
-        $this->deserialize('{"name":"event-name","occurredOn":"2016-11-06 23:02:21","values":{"bar":"bar","foo":"foo","occurredOn":"2016-11-06 23:02:21"}}')
-            ->shouldReturnAnInstanceOf(AsyncEvent::class);
+        $this->deserialize(
+            '{"name":"event-name","occurredOn":"2016-11-06 23:02:21","values":{"bar":"bar","foo":"foo","occurredOn":"2016-11-06 23:02:21"}}'
+        )->shouldReturnAnInstanceOf(AsyncEvent::class);
     }
 
     function it_does_not_deserialize_when_name_or_occurred_on_or_values_do_not_exist()
     {
-        $this->shouldThrow(Exception::class)
-        ->duringDeserialize('{"name":"event-name","values":{"bar":"bar","foo":"foo","occurredOn":"2016-11-06 23:02:21"}}');
+        $this->shouldThrow(Exception::class)->duringDeserialize(
+            '{"name":"event-name","values":{"bar":"bar","foo":"foo","occurredOn":"2016-11-06 23:02:21"}}'
+        );
     }
 }

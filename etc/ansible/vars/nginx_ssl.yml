@@ -36,7 +36,7 @@ nginx_vhosts:
     -
         listen: '80'
         server_name: "{{ kreta.domains.identity_access }}"
-        return: "301 https://{{ kreta.domains.task_manager }}$request_uri"
+        return: "301 https://{{ kreta.domains.identity_access }}$request_uri"
     -
         listen: '443 ssl'
         server_name: "{{ kreta.domains.identity_access }}"

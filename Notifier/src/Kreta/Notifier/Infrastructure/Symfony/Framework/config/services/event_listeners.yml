@@ -1,0 +1,39 @@
+# This file is part of the Kreta package.
+#
+# (c) Beñat Espiña <benatespina@gmail.com>
+# (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+
+services:
+    kreta.notifier.event_listener.projector:
+        class: Kreta\Notifier\Infrastructure\Symfony\EventListener\ProjectorEventListener
+        arguments:
+            -
+                - "@kreta.notifier.event_handler.user_signed_up"
+                - "@kreta.notifier.event_handler.user_received_notification"
+                - "@kreta.notifier.event_handler.user_read_notification"
+                - "@kreta.notifier.event_handler.user_unread_notification"
+        tags:
+            -
+                name: kernel.event_listener
+                event: kernel.request
+                method: onKernel
+            -
+                name: kernel.event_listener
+                event: console.command
+                method: onKernel
+
+    kreta.notifier.event_listener.authentication:
+        class: Kreta\SharedKernel\Infrastructure\Symfony\EventListener\AuthenticationListener
+        arguments:
+            - "@httplug.message_factory"
+            - "@httplug.client"
+            - "@security.token_storage"
+            - "%notifier_identity_access_scheme%://%notifier_identity_access_host%"
+        tags:
+            -
+                name: kernel.event_listener
+                event: kernel.request
+                method: onKernelRequest

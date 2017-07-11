@@ -1,0 +1,84 @@
+{
+    "name": "kreta/notifier",
+    "description": "Notifier Bounded Context of Kreta",
+    "keywords": [
+        "project",
+        "manager",
+        "development",
+        "tool",
+        "bc",
+        "notifier",
+        "notifications",
+        "alerts"
+    ],
+    "homepage": "https://kreta.io",
+    "license": "MIT",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Beñat Espiña Diaz",
+            "email": "benatespina@gmail.com",
+            "homepage": "http://benatespina.com"
+        },
+        {
+            "name": "Gorka Laucirica Ibarra",
+            "email": "gorka.lauzirika@gmail.com",
+            "homepage": "http://gorkalaucirica.net"
+        }
+    ],
+    "require": {
+        "php": "^7.1",
+        "elasticsearch/elasticsearch": "^5.2",
+        "incenteev/composer-parameter-handler": "^2.0",
+        "kreta/shared-kernel": "1.0.x-dev",
+        "nelmio/cors-bundle": "^1.5",
+        "php-http/guzzle6-adapter": "^1.1",
+        "php-http/httplug-bundle": "^1.4",
+        "predis/predis": "^1.1",
+        "simple-bus/asynchronous-bundle": "^2.2",
+        "simple-bus/rabbitmq-bundle-bridge": "^3.0",
+        "simple-bus/symfony-bridge": "^4.1",
+        "snc/redis-bundle": "^2.0",
+        "symfony/monolog-bundle": "^3.1",
+        "symfony/swiftmailer-bundle": "^2.6",
+        "symfony/symfony": "3.3.*",
+        "warezgibzzz/query-bus-bundle": "^1.0"
+    },
+    "require-dev": {
+        "doctrine/doctrine-fixtures-bundle": "^2.3",
+        "kreta/php-cs-fixer-config": "^1.0",
+        "phpspec/phpspec": "^3.2"
+    },
+    "scripts": {
+        "lifecycle-scripts": [
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters"
+        ],
+        "post-install-cmd": [
+            "@lifecycle-scripts"
+        ],
+        "post-update-cmd": [
+            "@lifecycle-scripts"
+        ],
+        "cs": [
+            "php-cs-fixer fix --config=etc/phpcs/.php_cs -v",
+            "php-cs-fixer fix --config=etc/phpcs/.phpspec_cs -v"
+        ]
+    },
+    "autoload": {
+        "psr-4": {
+            "Kreta\\Notifier\\": "src/Kreta/Notifier/",
+            "Kreta\\Notifier\\Tests\\": "tests/"
+        },
+        "exclude-from-classmap": [
+          "tests/"
+        ]
+    },
+    "extra": {
+        "incenteev-parameters": {
+            "file": "parameters.yml"
+        },
+        "branch-alias": {
+            "dev-master": "0.7.x-dev"
+        }
+    }
+}
