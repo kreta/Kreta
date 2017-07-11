@@ -16,12 +16,6 @@ framework:
     profiler:
         collect: false
 
-doctrine:
-    dbal:
-        dbname: "%notifier_database_name%_test"
-        host: 127.0.0.1
-        password: ~
-
 swiftmailer:
     disable_delivery: true
 
