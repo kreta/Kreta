@@ -31,7 +31,7 @@
         "doctrine/doctrine-migrations-bundle": "^1.2",
         "doctrine/orm": "^2.5",
         "incenteev/composer-parameter-handler": "^2.0",
-        "kreta/shared-kernel": "1.0.x-dev",
+        "kreta/shared-kernel": "^0.4",
         "overblog/graphql-bundle": "^0.6.0",
         "php-http/guzzle6-adapter": "^1.1",
         "php-http/httplug-bundle": "^1.3",

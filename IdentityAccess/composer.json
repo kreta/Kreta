@@ -44,7 +44,7 @@
         "doctrine/doctrine-migrations-bundle": "^1.2",
         "doctrine/orm": "^2.5",
         "incenteev/composer-parameter-handler": "^2.0",
-        "kreta/shared-kernel": "1.0.x-dev",
+        "kreta/shared-kernel": "^0.4",
         "lexik/jwt-authentication-bundle": "^2.0",
         "nelmio/cors-bundle": "^1.4",
         "sensio/distribution-bundle": "^5.0",
