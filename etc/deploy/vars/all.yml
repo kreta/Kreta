@@ -25,10 +25,13 @@ ansistrano_shared_paths:
     - IdentityAccess/src/Kreta/IdentityAccess/Infrastructure/Ui/Uploads
     - TaskManager/var/logs
     - TaskManager/var/sessions
+    - Notifier/var/logs
+    - Notifier/var/sessions
 
 ansistrano_shared_files:
     - IdentityAccess/parameters.yml
     - TaskManager/parameters.yml
+    - Notifier/parameters.yml
 
 php_path: /usr/bin/php
 composer_path: "{{ ansistrano_shared_path }}/composer.phar"
