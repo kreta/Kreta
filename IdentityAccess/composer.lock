@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "c6b0f5b2216b76d0e4ceb4d1748771c7",
+    "content-hash": "e85c6c0a6c77317759efbcfcc7f50de0",
     "packages": [
         {
             "name": "ajgl/simple-bus-query-bus",
@@ -1510,16 +1510,16 @@
         },
         {
             "name": "bengor-user/user-bundle",
-            "version": "v0.8.5",
+            "version": "v0.8.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/BenGorUser/UserBundle.git",
-                "reference": "a6d0173496c269a6c80e1319d42eaed4b3bbbd4a"
+                "reference": "31f8116c91f31d9e1e53a2311c1f7da8f2ac1f4e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/BenGorUser/UserBundle/zipball/a6d0173496c269a6c80e1319d42eaed4b3bbbd4a",
-                "reference": "a6d0173496c269a6c80e1319d42eaed4b3bbbd4a",
+                "url": "https://api.github.com/repos/BenGorUser/UserBundle/zipball/31f8116c91f31d9e1e53a2311c1f7da8f2ac1f4e",
+                "reference": "31f8116c91f31d9e1e53a2311c1f7da8f2ac1f4e",
                 "shasum": ""
             },
             "require": {
@@ -1573,7 +1573,7 @@
                 "ddd",
                 "user"
             ],
-            "time": "2017-06-26T08:03:18+00:00"
+            "time": "2017-06-23T14:50:27+00:00"
         },
         {
             "name": "composer/ca-bundle",
@@ -4937,16 +4937,16 @@
         },
         {
             "name": "zendframework/zend-eventmanager",
-            "version": "3.1.0",
+            "version": "3.2.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-eventmanager.git",
-                "reference": "c3bce7b7d47c54040b9ae51bc55491c72513b75d"
+                "reference": "9d72db10ceb6e42fb92350c0cb54460da61bd79c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-eventmanager/zipball/c3bce7b7d47c54040b9ae51bc55491c72513b75d",
-                "reference": "c3bce7b7d47c54040b9ae51bc55491c72513b75d",
+                "url": "https://api.github.com/repos/zendframework/zend-eventmanager/zipball/9d72db10ceb6e42fb92350c0cb54460da61bd79c",
+                "reference": "9d72db10ceb6e42fb92350c0cb54460da61bd79c",
                 "shasum": ""
             },
             "require": {
@@ -4955,7 +4955,7 @@
             "require-dev": {
                 "athletic/athletic": "^0.1",
                 "container-interop/container-interop": "^1.1.0",
-                "phpunit/phpunit": "^5.6",
+                "phpunit/phpunit": "^6.0.7 || ^5.7.14",
                 "zendframework/zend-coding-standard": "~1.0.0",
                 "zendframework/zend-stdlib": "^2.7.3 || ^3.0"
             },
@@ -4966,8 +4966,8 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.1-dev",
-                    "dev-develop": "3.2-dev"
+                    "dev-master": "3.2-dev",
+                    "dev-develop": "3.3-dev"
                 }
             },
             "autoload": {
@@ -4987,7 +4987,7 @@
                 "events",
                 "zf2"
             ],
-            "time": "2016-12-19T21:47:12+00:00"
+            "time": "2017-07-11T19:17:22+00:00"
         }
     ],
     "packages-dev": [

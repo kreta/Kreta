@@ -33,7 +33,7 @@
         "bengor-file/doctrine-orm-bridge-bundle": "^1.0",
         "bengor-file/simple-bus-bridge-bundle": "^1.0",
         "bengor-file/gaufrette-filesystem-bridge-bundle": "^1.0",
-        "bengor-user/user-bundle": "^0.8.1",
+        "bengor-user/user-bundle": "0.8.4",
         "bengor-user/doctrine-orm-bridge-bundle": "^1.2",
         "bengor-user/simple-bus-bridge-bundle": "^1.0",
         "bengor-user/swift-mailer-bridge-bundle": "^1.0",
