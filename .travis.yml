@@ -51,15 +51,13 @@ install:
     - composer install
     - cd -
 
-#    - cd IdentityAccess
-#    - composer install
-#    - sh etc/bash/generate_ssh_keys.sh
-#    - sh etc/bash/load_database.sh
-#    - cd -
+    - cd IdentityAccess
+    - composer install
+    - sh etc/bash/generate_ssh_keys.sh
+    - cd -
 
     - cd TaskManager
     - composer install
-    - sh etc/bash/load_database.sh
     - cd -
 
     - cd Notifier

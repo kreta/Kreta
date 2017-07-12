@@ -8,6 +8,10 @@
 # For the full copyright and license information, please view the LICENSE
 # file that was distributed with this source code.
 
+cd IdentityAccess
+sh etc/bash/install_test_env.sh
+cd -
+
 cd TaskManager
 sh etc/bash/install_test_env.sh
 cd -
