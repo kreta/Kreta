@@ -16,7 +16,7 @@
         - vars/rabbitmq.yml
         - vars/security.yml
         - vars/firewall.yml
-        - vars/nginx.yml
+        - vars/nginx_ssl.yml
     roles:
         - geerlingguy.repo-remi
         - geerlingguy.mysql
@@ -27,6 +27,9 @@
         - geerlingguy.security
         - geerlingguy.git
         - kbrebanov.unzip
+        - geerlingguy.java
+        - geerlingguy.elasticsearch
+        - geerlingguy.redis
     pre_tasks:
         - include: tasks/users.yml
         - include: tasks/hosts.yml

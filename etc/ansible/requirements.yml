@@ -36,3 +36,12 @@
 -
     name: openstack-ansible-galaxy.rabbitmq
     version: f10055fed91d1e74fe7a80c770ff7c4bd7bf9dcb
+-
+    name: geerlingguy.elasticsearch
+    version: 2.1.3
+-
+    name: geerlingguy.java
+    version: 1.7.4
+-
+    name: geerlingguy.redis
+    version: 1.5.1
