@@ -18,6 +18,7 @@ class Notification implements \JsonSerializable
 {
     public $id;
     public $userId;
+    public $type;
     public $body;
     public $publishedOn;
     public $readOn;
@@ -26,6 +27,7 @@ class Notification implements \JsonSerializable
     public function __construct(
         string $id,
         string $userId,
+        string $type,
         string $body,
         int $publishedOn,
         string $status,
@@ -33,6 +35,7 @@ class Notification implements \JsonSerializable
     ) {
         $this->id = $id;
         $this->userId = $userId;
+        $this->type = $type;
         $this->body = $body;
         $this->publishedOn = $publishedOn;
         $this->status = $status;
@@ -44,6 +47,7 @@ class Notification implements \JsonSerializable
         return new self(
             $notificationData['id'],
             $notificationData['user_id'],
+            $notificationData['type'],
             $notificationData['body'],
             $notificationData['published_on'],
             $notificationData['status'],
@@ -56,6 +60,7 @@ class Notification implements \JsonSerializable
         return [
             'id'           => $this->id,
             'user_id'      => $this->userId,
+            'type'         => $this->type,
             'body'         => $this->body,
             'published_on' => $this->publishedOn,
             'status'       => $this->status,

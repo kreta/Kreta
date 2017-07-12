@@ -70,6 +70,7 @@ final class ElasticsearchNotificationView implements NotificationView
             'id'    => $notification->id,
             'body'  => [
                 'user_id'      => $notification->userId,
+                'type'         => $notification->type,
                 'body'         => $notification->body,
                 'published_on' => $notification->publishedOn,
                 'read_on'      => $notification->readOn,

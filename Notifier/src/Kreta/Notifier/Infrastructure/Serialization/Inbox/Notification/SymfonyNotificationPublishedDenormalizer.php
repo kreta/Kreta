@@ -18,6 +18,7 @@ use Kreta\Notifier\Domain\Model\Inbox\Notification\NotificationBody;
 use Kreta\Notifier\Domain\Model\Inbox\Notification\NotificationId;
 use Kreta\Notifier\Domain\Model\Inbox\Notification\NotificationPublished;
 use Kreta\Notifier\Domain\Model\Inbox\Notification\NotificationStatus;
+use Kreta\Notifier\Domain\Model\Inbox\Notification\NotificationType;
 use Kreta\Notifier\Domain\Model\Inbox\UserId;
 use Symfony\Component\Serializer\NameConverter\NameConverterInterface;
 use Symfony\Component\Serializer\Normalizer\DenormalizerInterface;
@@ -36,6 +37,7 @@ final class SymfonyNotificationPublishedDenormalizer implements DenormalizerInte
         $notificationPublished = new NotificationPublished(
             NotificationId::generate($data['payload']['id']),
             UserId::generate($data['payload']['user_id']),
+            new NotificationType($data['payload']['type']),
             new NotificationBody($data['payload']['body'])
         );
 

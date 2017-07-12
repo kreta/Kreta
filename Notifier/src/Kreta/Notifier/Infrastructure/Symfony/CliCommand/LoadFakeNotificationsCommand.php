@@ -50,9 +50,10 @@ class LoadFakeNotificationsCommand extends Command
         while ($i < $this->amount()) {
             $userId = $this->userFakeData->userOfIndex($i);
             $notificationId = $this->ids()[$i];
+            $type = $this->chooseNotificationType();
             $body = 'The notification body ' . $i;
 
-            $receiveNotificationCommand = new PublishNotificationCommand($body, $userId, $notificationId);
+            $receiveNotificationCommand = new PublishNotificationCommand($type, $body, $userId, $notificationId);
             $this->commandBus->handle($receiveNotificationCommand);
 
             $readNotificationCommand = new MarkAsReadNotificationCommand($notificationId, $userId);
@@ -75,6 +76,18 @@ class LoadFakeNotificationsCommand extends Command
             $this->redis->del($this->type() . '-' . $this->dataOfIndex($i));
             ++$i;
         }
+    }
+
+    private function chooseNotificationType() : string
+    {
+        $types = [
+            'project_created',
+            'project_edited',
+            'task_created',
+            'task_edited',
+        ];
+
+        return $types[array_rand($types)];
     }
 
     protected function type() : string

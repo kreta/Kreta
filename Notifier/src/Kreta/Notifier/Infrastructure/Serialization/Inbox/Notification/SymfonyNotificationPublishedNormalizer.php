@@ -38,6 +38,7 @@ final class SymfonyNotificationPublishedNormalizer implements NormalizerInterfac
             'payload'     => [
                 'id'      => $object->event()->notificationId()->id(),
                 'user_id' => $object->event()->userId()->id(),
+                'type'    => $object->event()->type()->type(),
                 'body'    => $object->event()->body()->body(),
                 'status'  => $object->event()->status()->status(),
             ],
