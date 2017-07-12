@@ -19,6 +19,10 @@ web_profiler:
     toolbar: true
     intercept_redirects: false
 
+doctrine:
+    dbal:
+        server_version: "5.7"
+
 monolog:
     handlers:
         main:
