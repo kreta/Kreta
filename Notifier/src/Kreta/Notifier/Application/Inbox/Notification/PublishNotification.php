@@ -20,6 +20,7 @@ use Kreta\Notifier\Domain\Model\Inbox\Notification\NotificationBody;
 use Kreta\Notifier\Domain\Model\Inbox\Notification\NotificationDoesNotExist;
 use Kreta\Notifier\Domain\Model\Inbox\Notification\NotificationId;
 use Kreta\Notifier\Domain\Model\Inbox\Notification\NotificationRepository;
+use Kreta\Notifier\Domain\Model\Inbox\Notification\NotificationType;
 use Kreta\Notifier\Domain\Model\Inbox\UserId;
 use Kreta\Notifier\Domain\Model\Inbox\UserRepository;
 
@@ -38,12 +39,13 @@ class PublishNotification
     {
         $id = NotificationId::generate($command->notificationId());
         $userId = UserId::generate($command->userId());
+        $type = new NotificationType($command->type());
         $body = new NotificationBody($command->body());
 
         $this->checkNotificationDoesNotExist($id);
         $this->checkUserExists($userId);
 
-        $notification = Notification::broadcast($id, $userId, $body);
+        $notification = Notification::broadcast($id, $userId, $type, $body);
 
         $this->repository->save($notification);
     }

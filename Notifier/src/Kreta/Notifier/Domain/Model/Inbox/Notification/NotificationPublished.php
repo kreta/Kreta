@@ -21,14 +21,20 @@ class NotificationPublished implements DomainEvent
 {
     private $notificationId;
     private $userId;
+    private $type;
     private $body;
     private $status;
     private $occurredOn;
 
-    public function __construct(NotificationId $notificationId, UserId $userId, NotificationBody $body)
-    {
+    public function __construct(
+        NotificationId $notificationId,
+        UserId $userId,
+        NotificationType $type,
+        NotificationBody $body
+    ) {
         $this->notificationId = $notificationId;
         $this->userId = $userId;
+        $this->type = $type;
         $this->body = $body;
         $this->status = NotificationStatus::unread();
         $this->occurredOn = new \DateTimeImmutable();
@@ -42,6 +48,11 @@ class NotificationPublished implements DomainEvent
     public function userId() : UserId
     {
         return $this->userId;
+    }
+
+    public function type() : NotificationType
+    {
+        return $this->type;
     }
 
     public function body() : NotificationBody

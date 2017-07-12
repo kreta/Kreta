@@ -20,6 +20,7 @@ use Kreta\Notifier\Domain\Model\Inbox\Notification\NotificationId;
 use Kreta\Notifier\Domain\Model\Inbox\Notification\NotificationMarkedAsRead;
 use Kreta\Notifier\Domain\Model\Inbox\Notification\NotificationMarkedAsUnread;
 use Kreta\Notifier\Domain\Model\Inbox\Notification\NotificationPublished;
+use Kreta\Notifier\Domain\Model\Inbox\Notification\NotificationType;
 use Kreta\Notifier\Domain\Model\Inbox\UserId;
 use Kreta\SharedKernel\Domain\Model\AggregateRoot;
 use Kreta\SharedKernel\Domain\Model\DomainEventCollection;
@@ -30,16 +31,14 @@ use PhpSpec\ObjectBehavior;
 
 class NotificationSpec extends ObjectBehavior
 {
-    function let(NotificationId $id, UserId $userId, NotificationBody $body)
+    function let(NotificationId $id, UserId $userId, NotificationType $type, NotificationBody $body)
     {
         $id->id()->willReturn('notification-id');
-        $this->beConstructedBroadcast($id, $userId, $body);
+        $this->beConstructedBroadcast($id, $userId, $type, $body);
     }
 
-    function it_can_be_broadcast(NotificationId $id, UserId $userId, NotificationBody $body)
+    function it_can_be_broadcast(NotificationId $id)
     {
-        $id->id()->willReturn('notification-id');
-        $this->beConstructedBroadcast($id, $userId, $body);
         $this->shouldHaveType(Notification::class);
         $this->shouldHaveType(AggregateRoot::class);
         $this->shouldImplement(EventSourcedAggregateRoot::class);
