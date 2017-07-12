@@ -64,7 +64,7 @@ final class EventStoreNotificationRepository implements NotificationRepository
             $events
         );
 
-        $this->eventStore->appendTo($eventStream);
+        $this->eventStore->append($eventStream);
         $notification->clearEvents();
 
         Projector::instance()->project($events);

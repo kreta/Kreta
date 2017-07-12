@@ -19,11 +19,13 @@ use Kreta\SharedKernel\Domain\Model\Identity\Uuid;
 class PublishNotificationCommand
 {
     private $notificationId;
+    private $type;
     private $body;
     private $userId;
 
-    public function __construct(string $body, string $userId, string $notificationId = null)
+    public function __construct(string $type, string $body, string $userId, string $notificationId = null)
     {
+        $this->type = $type;
         $this->body = $body;
         $this->userId = $userId;
         $this->notificationId = $notificationId ?? Uuid::generate();
@@ -32,6 +34,11 @@ class PublishNotificationCommand
     public function notificationId() : string
     {
         return $this->notificationId;
+    }
+
+    public function type() : string
+    {
+        return $this->type;
     }
 
     public function body() : string

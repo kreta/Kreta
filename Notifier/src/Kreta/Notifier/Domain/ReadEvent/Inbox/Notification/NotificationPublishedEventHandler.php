@@ -39,6 +39,7 @@ class NotificationPublishedEventHandler implements EventHandler
         $notification = new Notification(
             $event->notificationId()->id(),
             $event->userId()->id(),
+            $event->type()->type(),
             $event->body()->body(),
             $event->occurredOn()->getTimestamp(),
             $event->status()->status()

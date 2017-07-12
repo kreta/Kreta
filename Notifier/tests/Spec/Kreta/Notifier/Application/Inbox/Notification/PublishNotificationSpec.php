@@ -41,6 +41,7 @@ class PublishNotificationSpec extends ObjectBehavior
 
         $command->notificationId()->shouldBeCalled()->willReturn('notification-id');
         $command->userId()->shouldBeCalled()->willReturn('user-id');
+        $command->type()->shouldBeCalled()->willReturn('project_created');
         $command->body()->shouldBeCalled()->willReturn('The notification body');
 
         $this->notificationId = NotificationId::generate('notification-id');

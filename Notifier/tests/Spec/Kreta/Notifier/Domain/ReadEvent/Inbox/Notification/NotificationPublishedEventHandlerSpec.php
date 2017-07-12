@@ -18,6 +18,7 @@ use Kreta\Notifier\Domain\Model\Inbox\Notification\NotificationBody;
 use Kreta\Notifier\Domain\Model\Inbox\Notification\NotificationId;
 use Kreta\Notifier\Domain\Model\Inbox\Notification\NotificationPublished;
 use Kreta\Notifier\Domain\Model\Inbox\Notification\NotificationStatus;
+use Kreta\Notifier\Domain\Model\Inbox\Notification\NotificationType;
 use Kreta\Notifier\Domain\Model\Inbox\UserId;
 use Kreta\Notifier\Domain\ReadEvent\Inbox\Notification\NotificationPublishedEventHandler;
 use Kreta\Notifier\Domain\ReadModel\Inbox\Notification\Notification;
@@ -38,6 +39,7 @@ class NotificationPublishedEventHandlerSpec extends ObjectBehavior
         NotificationView $view,
         NotificationId $notificationId,
         UserId $userId,
+        NotificationType $type,
         NotificationBody $body,
         NotificationStatus $status,
         \DateTimeImmutable $occurredOn
@@ -49,6 +51,8 @@ class NotificationPublishedEventHandlerSpec extends ObjectBehavior
         $notificationId->id()->shouldBeCalled()->willReturn('notification-id');
         $event->userId()->shouldBeCalled()->willReturn($userId);
         $userId->id()->shouldBeCalled()->willReturn('user-id');
+        $event->type()->shouldBeCalled()->willReturn($type);
+        $type->type()->shouldBeCalled()->willReturn('project_created');
         $event->body()->shouldBeCalled()->willReturn($body);
         $body->body()->shouldBeCalled()->willReturn('The notification body');
         $event->status()->shouldBeCalled()->willReturn($status);

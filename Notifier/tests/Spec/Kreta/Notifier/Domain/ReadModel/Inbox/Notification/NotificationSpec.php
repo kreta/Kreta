@@ -21,12 +21,20 @@ class NotificationSpec extends ObjectBehavior
 {
     function it_can_be_built()
     {
-        $this->beConstructedWith('notification-id', 'user-id', 'The notification body', 638323200, 'unread');
+        $this->beConstructedWith(
+            'notification-id',
+            'user-id',
+            'project_created',
+            'The notification body',
+            638323200,
+            'unread'
+        );
         $this->shouldHaveType(Notification::class);
         $this->shouldImplement(\JsonSerializable::class);
         $this->jsonSerialize()->shouldReturn([
             'id'           => 'notification-id',
             'user_id'      => 'user-id',
+            'type'         => 'project_created',
             'body'         => 'The notification body',
             'published_on' => 638323200,
             'status'       => 'unread',
@@ -36,12 +44,21 @@ class NotificationSpec extends ObjectBehavior
 
     function it_can_be_built_with_read_on()
     {
-        $this->beConstructedWith('notification-id', 'user-id', 'The notification body', 638323200, 'read', 238343200);
+        $this->beConstructedWith(
+            'notification-id',
+            'user-id',
+            'project_created',
+            'The notification body',
+            638323200,
+            'read',
+            238343200
+        );
         $this->shouldHaveType(Notification::class);
         $this->shouldImplement(\JsonSerializable::class);
         $this->jsonSerialize()->shouldReturn([
             'id'           => 'notification-id',
             'user_id'      => 'user-id',
+            'type'         => 'project_created',
             'body'         => 'The notification body',
             'published_on' => 638323200,
             'status'       => 'read',
@@ -54,6 +71,7 @@ class NotificationSpec extends ObjectBehavior
         $this->beConstructedFromArray([
             'id'           => 'notification-id',
             'user_id'      => 'user-id',
+            'type'         => 'project_created',
             'body'         => 'The notification body',
             'published_on' => 638323200,
             'status'       => 'unread',
@@ -62,6 +80,7 @@ class NotificationSpec extends ObjectBehavior
         $this->jsonSerialize()->shouldReturn([
             'id'           => 'notification-id',
             'user_id'      => 'user-id',
+            'type'         => 'project_created',
             'body'         => 'The notification body',
             'published_on' => 638323200,
             'status'       => 'unread',

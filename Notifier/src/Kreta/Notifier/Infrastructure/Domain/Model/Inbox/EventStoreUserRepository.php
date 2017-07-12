@@ -64,7 +64,7 @@ final class EventStoreUserRepository implements UserRepository
             $events
         );
 
-        $this->eventStore->appendTo($eventStream);
+        $this->eventStore->append($eventStream);
         $user->clearEvents();
 
         Projector::instance()->project($events);

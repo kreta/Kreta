@@ -43,7 +43,6 @@ use Symfony\Bundle\TwigBundle\TwigBundle;
 use Symfony\Bundle\WebProfilerBundle\WebProfilerBundle;
 use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\Compiler\PassConfig;
-use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Kernel;
 use Warezgibzzz\QueryBusBundle\WarezgibzzzQueryBusBundle;
 
@@ -117,7 +116,7 @@ class AppKernel extends Kernel
         $loader->load($this->getRootDir() . '/config/config_' . $this->getEnvironment() . '.yml');
     }
 
-    protected function buildContainer() : ContainerBuilder
+    protected function buildContainer()
     {
         $container = parent::buildContainer();
         $container->addCompilerPass(

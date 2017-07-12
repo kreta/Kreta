@@ -22,6 +22,7 @@ use Kreta\SharedKernel\Event\Stream;
 class Notification extends AggregateRoot implements EventSourcedAggregateRoot
 {
     private $id;
+    private $type;
     private $body;
     private $publishedOn;
     private $readOn;
@@ -33,14 +34,19 @@ class Notification extends AggregateRoot implements EventSourcedAggregateRoot
         $this->id = $id;
     }
 
-    public static function broadcast(NotificationId $id, UserId $userId, NotificationBody $body) : self
-    {
+    public static function broadcast(
+        NotificationId $id,
+        UserId $userId,
+        NotificationType $type,
+        NotificationBody $body
+    ) : self {
         $notification = new self($id);
 
         $notification->publish(
             new NotificationPublished(
                 $id,
                 $userId,
+                $type,
                 $body,
                 NotificationStatus::unread()
             )
@@ -71,6 +77,7 @@ class Notification extends AggregateRoot implements EventSourcedAggregateRoot
 
     protected function applyNotificationPublished(NotificationPublished $event) : void
     {
+        $this->type = $event->type();
         $this->body = $event->body();
         $this->userId = $event->userId();
         $this->publishedOn = $event->occurredOn();
