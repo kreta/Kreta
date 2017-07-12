@@ -16,7 +16,7 @@
         - vars/rabbitmq.yml
         - vars/security.yml
         - vars/firewall.yml
-        - vars/nginx_ssl.yml
+        - vars/nginx.yml
     roles:
         - geerlingguy.repo-remi
         - geerlingguy.mysql
