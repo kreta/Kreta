@@ -18,51 +18,37 @@ use Lakion\ApiTestCase\JsonApiTestCase;
 
 class ProjectsResolverTest extends JsonApiTestCase
 {
-//    public function testProjectsResolver()
-//    {
-//        $this->projectsResolver(
-//            'access-token-1',
-//            [
-//                'name' => '',
-//            ],
-//            '/projects'
-//        );
-//    }
-//
+    public function testProjectsResolver()
+    {
+        $this->projectsResolver('access-token-1', [], '/projects');
+    }
+
     public function testProjectsFilteredByNameResolver()
+    {
+        $this->projectsResolver('access-token-1', ['name' => '2'], '/projects_filtered_by_name');
+    }
+
+    public function testProjectsFilteredByOrganizationResolver()
     {
         $this->projectsResolver(
             'access-token-1',
             [
-                'name' => '2',
+                'organizationId' => '71298d2c-0ff4-11e7-93ae-92361f002671',
             ],
-            '/projects_filtered'
+            '/projects_filtered_by_organization'
         );
     }
 
-//    public function testProjectsWithAfter3AndFirst2()
-//    {
-//        $this->projectsResolver(
-//            'access-token-1',
-//            [
-//                'after' => '3',
-//                'first' => '2',
-//            ],
-//            '/projects_paginated'
-//        );
-//    }
-//
-//    public function testProjectsWithOtherUserResolver()
-//    {
-//        $this->projectsResolver(
-//            'access-token-2',
-//            [
-//                'name' => '',
-//            ],
-//            '/projects_of_user2'
-//        );
-//    }
-//
+    public function testProjectsWithAfter3AndFirst2()
+    {
+        $this->projectsResolver('access-token-1', ['after' => '3', 'first' => '2'], '/projects_paginated');
+    }
+
+    public function testProjectsWithOtherUserResolver()
+    {
+        $this->projectsResolver('access-token-2', [], '/projects_of_user2');
+    }
+
     private function projectsResolver($token, $projectConnectionInput, $jsonResult)
     {
         $this->client->request('POST', '/?access_token=' . $token, [
