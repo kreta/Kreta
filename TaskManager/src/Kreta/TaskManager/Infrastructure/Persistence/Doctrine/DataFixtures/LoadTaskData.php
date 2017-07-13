@@ -58,6 +58,9 @@ class LoadTaskData extends AbstractFixture
                     ),
                     $organization
                 );
+
+                $parent = 40 === $i || 70 === $i ? $this->fakeIds()[10] : null;
+
                 $this->commandBus()->handle(
                     new CreateTaskCommand(
                         'Task ' . $i,
@@ -66,7 +69,7 @@ class LoadTaskData extends AbstractFixture
                         $organization['owners'][0]['id'],
                         $this->taskPriority($i),
                         $project['id'],
-                        null,
+                        $parent,
                         $this->fakeIds()[$i]
                     )
                 );
