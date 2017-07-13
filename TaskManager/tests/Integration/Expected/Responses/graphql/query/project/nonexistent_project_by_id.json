@@ -1,0 +1,16 @@
+{
+  "data": {
+    "project": null
+  },
+  "errors": [
+    {
+      "message": "Does not exist any project with the given \"non-exist-project-id\" id",
+      "locations": [
+        {
+          "line": 2,
+          "column": 3
+        }
+      ]
+    }
+  ]
+}

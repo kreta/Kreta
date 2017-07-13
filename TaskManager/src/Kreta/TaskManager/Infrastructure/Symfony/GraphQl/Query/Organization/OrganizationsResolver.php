@@ -39,10 +39,14 @@ class OrganizationsResolver implements Resolver
 
     public function resolve($args)
     {
-        $args = $args['organizationConnectionInput'];
-
         if (!isset($args['name'])) {
             $args['name'] = null;
+        }
+        if (isset($args['organizationConnectionInput'])) {
+            foreach ($args['organizationConnectionInput'] as $key => $value) {
+                $args[$key] = $value;
+            }
+            unset($args['organizationConnectionInput']);
         }
 
         list($offset, $limit, $total) = $this->buildPagination($args);

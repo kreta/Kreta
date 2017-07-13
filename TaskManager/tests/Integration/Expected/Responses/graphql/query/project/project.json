@@ -1,0 +1,33 @@
+{
+  "data": {
+    "project": {
+      "id": "0dada084-1220-11e7-93ae-92361f002671",
+      "name": "Project 1",
+      "slug": "project-1",
+      "organization": {
+        "id": "71298d2c-0ff4-11e7-93ae-92361f002671",
+        "name": "Organization 0",
+        "slug": "organization-0",
+        "owners": [
+          {
+            "id": "a38f8ef4-400b-4229-a5ff-712ff5f72b27"
+          }
+        ],
+        "organization_members": [
+          {
+            "id": "0659f3d0-4883-4bb5-a8dd-d8215c9dc369"
+          },
+          {
+            "id": "1f4199c5-150d-4f94-85e7-40497458e4ee"
+          },
+          {
+            "id": "3bf979cb-7f82-4de5-9b81-5a9a868505ce"
+          },
+          {
+            "id": "da49c01f-2e99-45ee-9557-eb3eb57b06c5"
+          }
+        ]
+      }
+    }
+  }
+}

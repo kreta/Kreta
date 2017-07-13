@@ -1,0 +1,75 @@
+{
+  "data": {
+    "projects": {
+      "totalCount": 3,
+      "edges": [
+        {
+          "node": {
+            "id": "0dadb844-1220-11e7-93ae-92361f002671",
+            "name": "Project 10",
+            "slug": "project-10",
+            "organization": {
+              "id": "7129a0fa-0ff4-11e7-93ae-92361f002671",
+              "name": "Organization 10",
+              "slug": "organization-10",
+              "owners": [
+                {
+                  "id": "6704c278-e106-449f-a73d-2508e96f6177"
+                }
+              ],
+              "organization_members": [
+                {
+                  "id": "a38f8ef4-400b-4229-a5ff-712ff5f72b27"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "node": {
+            "id": "0dae039e-1220-11e7-93ae-92361f002671",
+            "name": "Project 40",
+            "slug": "project-40",
+            "organization": {
+              "id": "7129a0fa-0ff4-11e7-93ae-92361f002671",
+              "name": "Organization 10",
+              "slug": "organization-10",
+              "owners": [
+                {
+                  "id": "6704c278-e106-449f-a73d-2508e96f6177"
+                }
+              ],
+              "organization_members": [
+                {
+                  "id": "a38f8ef4-400b-4229-a5ff-712ff5f72b27"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "node": {
+            "id": "0dae4fe8-1220-11e7-93ae-92361f002671",
+            "name": "Project 70",
+            "slug": "project-70",
+            "organization": {
+              "id": "7129a0fa-0ff4-11e7-93ae-92361f002671",
+              "name": "Organization 10",
+              "slug": "organization-10",
+              "owners": [
+                {
+                  "id": "6704c278-e106-449f-a73d-2508e96f6177"
+                }
+              ],
+              "organization_members": [
+                {
+                  "id": "a38f8ef4-400b-4229-a5ff-712ff5f72b27"
+                }
+              ]
+            }
+          }
+        }
+      ]
+    }
+  }
+}

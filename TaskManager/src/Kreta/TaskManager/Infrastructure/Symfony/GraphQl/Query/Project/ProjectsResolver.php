@@ -56,6 +56,12 @@ class ProjectsResolver implements Resolver
         if (!isset($args['organizationId'])) {
             $args['organizationId'] = null;
         }
+        if (isset($args['projectConnectionInput'])) {
+            foreach ($args['projectConnectionInput'] as $key => $value) {
+                $args[$key] = $value;
+            }
+            unset($args['projectConnectionInput']);
+        }
 
         list($offset, $limit, $total) = $this->buildPagination($args);
 
@@ -102,12 +108,12 @@ class ProjectsResolver implements Resolver
 
         $beforeOffset = $this->connectionBuilder->getOffsetWithDefault(
             $args['before']
-                ?? null,
+            ?? null,
             $total
         );
         $afterOffset = $this->connectionBuilder->getOffsetWithDefault(
             $args['after']
-                ?? null,
+            ?? null,
             -1
         );
         $startOffset = max($afterOffset, -1) + 1;
