@@ -1,0 +1,18 @@
+{
+  "data": {
+    "task": {
+      "id": "42eb4472-1225-11e7-93ae-92361f002671",
+      "title": "Task 0",
+      "description": "The description of the task 0",
+      "numeric_id": 1,
+      "priority": "HIGH",
+      "progress": "TODO",
+      "assignee": {
+        "id": "a38f8ef4-400b-4229-a5ff-712ff5f72b27"
+      },
+      "creator": {
+        "id": "a38f8ef4-400b-4229-a5ff-712ff5f72b27"
+      }
+    }
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "data": {
+    "task": null
+  },
+  "errors": [
+    {
+      "message": "The \"6704c278-e106-449f-a73d-2508e96f6177\" user does not allow to access the \"42eb4472-1225-11e7-93ae-92361f002671\" task",
+      "locations": [
+        {
+          "line": 2,
+          "column": 3
+        }
+      ]
+    }
+  ]
+}

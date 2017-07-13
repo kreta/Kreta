@@ -12,7 +12,7 @@
 
 declare(strict_types=1);
 
-namespace Kreta\TaskManager\Tests\Integration\GraphQl\Query;
+namespace Kreta\TaskManager\Tests\Integration\GraphQl\Query\Organization;
 
 use Lakion\ApiTestCase\JsonApiTestCase;
 

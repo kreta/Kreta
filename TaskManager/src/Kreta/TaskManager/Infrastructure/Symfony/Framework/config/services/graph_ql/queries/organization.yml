@@ -40,6 +40,15 @@ services:
         tags:
             - { name: overblog_graphql.resolver, alias: "member_owner", method: "resolve" }
 
+    kreta.task_manager.graph_ql.query_resolver.member_type:
+        class: Kreta\TaskManager\Infrastructure\Symfony\GraphQl\Query\Organization\MemberTypeResolver
+        arguments:
+            - "@security.token_storage"
+            - "@kreta.task_manager.graphql.resolver.type"
+            - "@kreta.task_manager.query_bus"
+        tags:
+            - { name: overblog_graphql.resolver, alias: "member_type", method: "resolve" }
+
 # This service is not a public resolver, it is needed to reuse code between resolvers.
     kreta.task_manager.graph_ql.query_resolver.member_of_id:
         class: Kreta\TaskManager\Infrastructure\Symfony\GraphQl\Query\Organization\MemberResolver
