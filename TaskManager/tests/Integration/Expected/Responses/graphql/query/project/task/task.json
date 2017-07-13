@@ -12,6 +12,11 @@
       },
       "creator": {
         "id": "a38f8ef4-400b-4229-a5ff-712ff5f72b27"
+      },
+      "project": {
+        "id": "0dad9cba-1220-11e7-93ae-92361f002671",
+        "name": "Project 0",
+        "slug": "project-0"
       }
     }
   }

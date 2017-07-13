@@ -18,17 +18,17 @@ use Lakion\ApiTestCase\JsonApiTestCase;
 
 class ProjectResolverTest extends JsonApiTestCase
 {
-    public function testNonExistProjectByIdResolver()
+    public function testNonExistProjectByIdResolver() : void
     {
         $this->projectByIdResolver('access-token-1', 'non-exist-project-id', '/nonexistent_project_by_id');
     }
 
-    public function testProjectByIdResolver()
+    public function testProjectByIdResolver() : void
     {
-        $this->projectByIdResolver('access-token-1', '0dada084-1220-11e7-93ae-92361f002671', '/project');
+        $this->projectByIdResolver('access-token-1', '0dadad5e-1220-11e7-93ae-92361f002671', '/project');
     }
 
-    public function testNonExistProjectBySlugResolver()
+    public function testNonExistProjectBySlugResolver() : void
     {
         $this->projectByInputResolver('access-token-1', [
             'slug'             => 'non-exist-project-slug',
@@ -36,7 +36,7 @@ class ProjectResolverTest extends JsonApiTestCase
         ], '/nonexistent_project_by_slug');
     }
 
-    public function testProjectBySlugResolver()
+    public function testProjectBySlugResolver() : void
     {
         $this->projectByInputResolver('access-token-1', [
             'slug'             => 'project-1',
@@ -44,20 +44,20 @@ class ProjectResolverTest extends JsonApiTestCase
         ], '/project_by_slug');
     }
 
-    public function testProjectWithOtherUserResolver()
+    public function testProjectWithOtherUserResolver() : void
     {
         $this->projectByIdResolver(
             'access-token-2',
-            '0dada5ca-1220-11e7-93ae-92361f002671',
+            '0dadad5e-1220-11e7-93ae-92361f002671',
             '/project_with_other_user'
         );
     }
 
-    private function projectByIdResolver($token, $id, $jsonResult)
+    private function projectByIdResolver(string $token, string $id, string $jsonResult) : void
     {
         $this->projectResolver($token, $jsonResult, [
             'query'       => <<<EOF
-query ProjectQueryRequest(\$id: ID!) {
+query ProjectQueryRequest(\$id: ID!, \$first: Int) {
   project(id: \$id) {
     id,
     name,
@@ -72,15 +72,38 @@ query ProjectQueryRequest(\$id: ID!) {
       organization_members {
         id
       }
+    },
+    tasks(first: \$first) {
+      totalCount
+      edges {
+        node {
+          id,
+          title,
+          description,
+          numeric_id,
+          progress,
+          priority,
+          assignee {
+            id
+          },
+          creator {
+            id
+          }
+        }
+      },
+      pageInfo {
+        endCursor,
+        hasNextPage
+      }
     }
   }
 }
 EOF
-            , 'variables' => ['id' => $id],
+            , 'variables' => ['id' => $id, 'first' => 10],
         ]);
     }
 
-    private function projectByInputResolver($token, $projectInput, $jsonResult)
+    private function projectByInputResolver(string $token, array $projectInput, string $jsonResult) : void
     {
         $this->projectResolver($token, $jsonResult, [
             'query'       => <<<EOF

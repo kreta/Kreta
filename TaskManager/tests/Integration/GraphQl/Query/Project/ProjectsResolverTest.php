@@ -18,17 +18,17 @@ use Lakion\ApiTestCase\JsonApiTestCase;
 
 class ProjectsResolverTest extends JsonApiTestCase
 {
-    public function testProjectsResolver()
+    public function testProjectsResolver() : void
     {
         $this->projectsResolver('access-token-1', [], '/projects');
     }
 
-    public function testProjectsFilteredByNameResolver()
+    public function testProjectsFilteredByNameResolver() : void
     {
         $this->projectsResolver('access-token-1', ['name' => '2'], '/projects_filtered_by_name');
     }
 
-    public function testProjectsFilteredByOrganizationResolver()
+    public function testProjectsFilteredByOrganizationResolver() : void
     {
         $this->projectsResolver(
             'access-token-1',
@@ -39,17 +39,17 @@ class ProjectsResolverTest extends JsonApiTestCase
         );
     }
 
-    public function testProjectsWithAfter3AndFirst2()
+    public function testProjectsWithAfter3AndFirst2() : void
     {
         $this->projectsResolver('access-token-1', ['after' => '3', 'first' => '2'], '/projects_paginated');
     }
 
-    public function testProjectsWithOtherUserResolver()
+    public function testProjectsWithOtherUserResolver() : void
     {
         $this->projectsResolver('access-token-2', [], '/projects_of_user2');
     }
 
-    private function projectsResolver($token, $projectConnectionInput, $jsonResult)
+    private function projectsResolver(string $token, array $projectConnectionInput, string $jsonResult) : void
     {
         $this->client->request('POST', '/?access_token=' . $token, [
             'query'       => <<<EOF

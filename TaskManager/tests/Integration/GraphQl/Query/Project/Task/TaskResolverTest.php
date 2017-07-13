@@ -18,17 +18,17 @@ use Lakion\ApiTestCase\JsonApiTestCase;
 
 class TaskResolverTest extends JsonApiTestCase
 {
-    public function testNonExistTaskByIdResolver()
+    public function testNonExistTaskByIdResolver() : void
     {
         $this->taskResolver('access-token-1', 'non-exist-task-id', '/nonexistent_task_by_id');
     }
 
-    public function testTaskByIdResolver()
+    public function testTaskByIdResolver() : void
     {
         $this->taskResolver('access-token-1', '42eb4472-1225-11e7-93ae-92361f002671', '/task');
     }
 
-    public function testTaskWithOtherUserResolver()
+    public function testTaskWithOtherUserResolver() : void
     {
         $this->taskResolver(
             'access-token-2',
@@ -55,6 +55,11 @@ query TaskQueryRequest(\$id: ID!) {
     creator {
       id
     },
+    project {
+      id,
+      name,
+      slug
+    }
   }
 }
 EOF

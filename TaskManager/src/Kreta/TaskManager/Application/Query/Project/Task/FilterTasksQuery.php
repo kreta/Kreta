@@ -76,7 +76,7 @@ class FilterTasksQuery
         return $this->projectId;
     }
 
-    public function title() : ? string
+    public function title() : ?string
     {
         return $this->title;
     }
