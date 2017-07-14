@@ -1,16 +1,16 @@
 {
   "data": {
     "project": {
-      "id": "0dada084-1220-11e7-93ae-92361f002671",
-      "name": "Project 1",
-      "slug": "project-1",
+      "id": "0dadad5e-1220-11e7-93ae-92361f002671",
+      "name": "Project 6",
+      "slug": "project-6",
       "organization": {
-        "id": "71298d2c-0ff4-11e7-93ae-92361f002671",
-        "name": "Organization 0",
-        "slug": "organization-0",
+        "id": "71299a6a-0ff4-11e7-93ae-92361f002671",
+        "name": "Organization 6",
+        "slug": "organization-6",
         "owners": [
           {
-            "id": "a38f8ef4-400b-4229-a5ff-712ff5f72b27"
+            "id": "1106e034-d6b8-46c0-a393-9f0fd92d18a1"
           }
         ],
         "organization_members": [
@@ -24,9 +24,181 @@
             "id": "3bf979cb-7f82-4de5-9b81-5a9a868505ce"
           },
           {
+            "id": "a38f8ef4-400b-4229-a5ff-712ff5f72b27"
+          },
+          {
             "id": "da49c01f-2e99-45ee-9557-eb3eb57b06c5"
           }
         ]
+      },
+      "tasks": {
+        "totalCount": 10,
+        "edges": [
+          {
+            "node": {
+              "id": "42eb4c4c-1225-11e7-93ae-92361f002671",
+              "title": "Task 6",
+              "description": "The description of the task 6",
+              "numeric_id": 1,
+              "progress": "TODO",
+              "priority": "HIGH",
+              "assignee": {
+                "id": "1106e034-d6b8-46c0-a393-9f0fd92d18a1"
+              },
+              "creator": {
+                "id": "1106e034-d6b8-46c0-a393-9f0fd92d18a1"
+              }
+            }
+          },
+          {
+            "node": {
+              "id": "42eb7f28-1225-11e7-93ae-92361f002671",
+              "title": "Task 36",
+              "description": "The description of the task 36",
+              "numeric_id": 2,
+              "progress": "TODO",
+              "priority": "HIGH",
+              "assignee": {
+                "id": "1106e034-d6b8-46c0-a393-9f0fd92d18a1"
+              },
+              "creator": {
+                "id": "1106e034-d6b8-46c0-a393-9f0fd92d18a1"
+              }
+            }
+          },
+          {
+            "node": {
+              "id": "42eba520-1225-11e7-93ae-92361f002671",
+              "title": "Task 66",
+              "description": "The description of the task 66",
+              "numeric_id": 3,
+              "progress": "TODO",
+              "priority": "HIGH",
+              "assignee": {
+                "id": "1106e034-d6b8-46c0-a393-9f0fd92d18a1"
+              },
+              "creator": {
+                "id": "1106e034-d6b8-46c0-a393-9f0fd92d18a1"
+              }
+            }
+          },
+          {
+            "node": {
+              "id": "42ebd176-1225-11e7-93ae-92361f002671",
+              "title": "Task 96",
+              "description": "The description of the task 96",
+              "numeric_id": 4,
+              "progress": "TODO",
+              "priority": "HIGH",
+              "assignee": {
+                "id": "1106e034-d6b8-46c0-a393-9f0fd92d18a1"
+              },
+              "creator": {
+                "id": "1106e034-d6b8-46c0-a393-9f0fd92d18a1"
+              }
+            }
+          },
+          {
+            "node": {
+              "id": "42ebf732-1225-11e7-93ae-92361f002671",
+              "title": "Task 126",
+              "description": "The description of the task 126",
+              "numeric_id": 5,
+              "progress": "TODO",
+              "priority": "HIGH",
+              "assignee": {
+                "id": "1106e034-d6b8-46c0-a393-9f0fd92d18a1"
+              },
+              "creator": {
+                "id": "1106e034-d6b8-46c0-a393-9f0fd92d18a1"
+              }
+            }
+          },
+          {
+            "node": {
+              "id": "42ec22a2-1225-11e7-93ae-92361f002671",
+              "title": "Task 156",
+              "description": "The description of the task 156",
+              "numeric_id": 6,
+              "progress": "TODO",
+              "priority": "HIGH",
+              "assignee": {
+                "id": "1106e034-d6b8-46c0-a393-9f0fd92d18a1"
+              },
+              "creator": {
+                "id": "1106e034-d6b8-46c0-a393-9f0fd92d18a1"
+              }
+            }
+          },
+          {
+            "node": {
+              "id": "42ec43fe-1225-11e7-93ae-92361f002671",
+              "title": "Task 186",
+              "description": "The description of the task 186",
+              "numeric_id": 7,
+              "progress": "TODO",
+              "priority": "HIGH",
+              "assignee": {
+                "id": "1106e034-d6b8-46c0-a393-9f0fd92d18a1"
+              },
+              "creator": {
+                "id": "1106e034-d6b8-46c0-a393-9f0fd92d18a1"
+              }
+            }
+          },
+          {
+            "node": {
+              "id": "42ec6f96-1225-11e7-93ae-92361f002671",
+              "title": "Task 216",
+              "description": "The description of the task 216",
+              "numeric_id": 8,
+              "progress": "TODO",
+              "priority": "HIGH",
+              "assignee": {
+                "id": "1106e034-d6b8-46c0-a393-9f0fd92d18a1"
+              },
+              "creator": {
+                "id": "1106e034-d6b8-46c0-a393-9f0fd92d18a1"
+              }
+            }
+          },
+          {
+            "node": {
+              "id": "42ec9318-1225-11e7-93ae-92361f002671",
+              "title": "Task 246",
+              "description": "The description of the task 246",
+              "numeric_id": 9,
+              "progress": "TODO",
+              "priority": "HIGH",
+              "assignee": {
+                "id": "1106e034-d6b8-46c0-a393-9f0fd92d18a1"
+              },
+              "creator": {
+                "id": "1106e034-d6b8-46c0-a393-9f0fd92d18a1"
+              }
+            }
+          },
+          {
+            "node": {
+              "id": "42ecb442-1225-11e7-93ae-92361f002671",
+              "title": "Task 276",
+              "description": "The description of the task 276",
+              "numeric_id": 10,
+              "progress": "TODO",
+              "priority": "HIGH",
+              "assignee": {
+                "id": "1106e034-d6b8-46c0-a393-9f0fd92d18a1"
+              },
+              "creator": {
+                "id": "1106e034-d6b8-46c0-a393-9f0fd92d18a1"
+              }
+            }
+          }
+        ],
+        "pageInfo": {
+          "endCursor": "YXJyYXljb25uZWN0aW9uOjk=",
+          "hasNextPage": true
+        }
       }
     }
   }

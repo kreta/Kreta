@@ -89,7 +89,7 @@ class DoctrineORMFilterableSpecification implements DoctrineORMQuerySpecificatio
 
         if (!empty($this->title)) {
             $queryBuilder
-                ->where($queryBuilder->expr()->like('t.title.title', ':title'))
+                ->andWhere($queryBuilder->expr()->like('t.title.title', ':title'))
                 ->setParameter('title', '%' . $this->title . '%');
         }
         if (null !== $this->parentId) {

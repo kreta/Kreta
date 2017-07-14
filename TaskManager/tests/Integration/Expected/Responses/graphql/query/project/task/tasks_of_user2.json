@@ -1,0 +1,16 @@
+{
+  "data": {
+    "tasks": null
+  },
+  "errors": [
+    {
+      "message": "Does no exist any owner with the given \"da49c01f-2e99-45ee-9557-eb3eb57b06c5\" id",
+      "locations": [
+        {
+          "line": 2,
+          "column": 3
+        }
+      ]
+    }
+  ]
+}

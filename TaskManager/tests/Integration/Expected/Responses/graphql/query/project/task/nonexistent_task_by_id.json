@@ -1,0 +1,16 @@
+{
+  "data": {
+    "task": null
+  },
+  "errors": [
+    {
+      "message": "Does not exist any task with the given \"non-exist-task-id\" id",
+      "locations": [
+        {
+          "line": 2,
+          "column": 3
+        }
+      ]
+    }
+  ]
+}

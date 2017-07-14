@@ -4,7 +4,7 @@
   },
   "errors": [
     {
-      "message": "The \"6704c278-e106-449f-a73d-2508e96f6177\" user does not allow to access the \"0dada5ca-1220-11e7-93ae-92361f002671\" project",
+      "message": "The \"6704c278-e106-449f-a73d-2508e96f6177\" user does not allow to access the \"0dadad5e-1220-11e7-93ae-92361f002671\" project",
       "locations": [
         {
           "line": 2,

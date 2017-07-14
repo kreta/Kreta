@@ -1,0 +1,57 @@
+{
+  "data": {
+    "tasks": {
+      "totalCount": 2,
+      "edges": [
+        {
+          "node": {
+            "id": "42eb8374-1225-11e7-93ae-92361f002671",
+            "title": "Task 40",
+            "description": "The description of the task 40",
+            "numeric_id": 2,
+            "priority": "MEDIUM",
+            "progress": "TODO",
+            "assignee": {
+              "id": "6704c278-e106-449f-a73d-2508e96f6177"
+            },
+            "creator": {
+              "id": "6704c278-e106-449f-a73d-2508e96f6177"
+            },
+            "project": {
+              "id": "0dadb844-1220-11e7-93ae-92361f002671",
+              "name": "Project 10",
+              "slug": "project-10"
+            }
+          },
+          "cursor": "YXJyYXljb25uZWN0aW9uOjA="
+        },
+        {
+          "node": {
+            "id": "42ebab7e-1225-11e7-93ae-92361f002671",
+            "title": "Task 70",
+            "description": "The description of the task 70",
+            "numeric_id": 3,
+            "priority": "MEDIUM",
+            "progress": "TODO",
+            "assignee": {
+              "id": "6704c278-e106-449f-a73d-2508e96f6177"
+            },
+            "creator": {
+              "id": "6704c278-e106-449f-a73d-2508e96f6177"
+            },
+            "project": {
+              "id": "0dadb844-1220-11e7-93ae-92361f002671",
+              "name": "Project 10",
+              "slug": "project-10"
+            }
+          },
+          "cursor": "YXJyYXljb25uZWN0aW9uOjE="
+        }
+      ],
+      "pageInfo": {
+        "endCursor": "YXJyYXljb25uZWN0aW9uOjE=",
+        "hasNextPage": false
+      }
+    }
+  }
+}

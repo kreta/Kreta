@@ -12,58 +12,58 @@
 
 declare(strict_types=1);
 
-namespace Kreta\TaskManager\Tests\Integration\GraphQl\Query;
+namespace Kreta\TaskManager\Tests\Integration\GraphQl\Query\Organization;
 
 use Lakion\ApiTestCase\JsonApiTestCase;
 
-class OrganizationMemberResolverTest extends JsonApiTestCase
+class OwnerResolverTest extends JsonApiTestCase
 {
     public function testNonExistOrganizationResolver()
     {
-        $this->organizationMemberResolver(
+        $this->ownerResolver(
             'access-token-1',
             'non-exist-organization-id',
             'a38f8ef4-400b-4229-a5ff-712ff5f72b27',
-            '/nonexistent_organization_by_organization_member_id'
+            '/nonexistent_organization_by_owner_id'
         );
     }
 
     public function testUnauthorizedOrganizationResolver()
     {
-        $this->organizationMemberResolver(
+        $this->ownerResolver(
             'access-token-2',
             '71298d2c-0ff4-11e7-93ae-92361f002671',
             'a38f8ef4-400b-4229-a5ff-712ff5f72b27',
-            '/unauthorized_organization_by_organization_member_id'
+            '/unauthorized_organization_by_owner_id'
         );
     }
 
-    public function testNonExistOrganizationMemberResolver()
+    public function testNonExistOwnerResolver()
     {
-        $this->organizationMemberResolver(
+        $this->ownerResolver(
             'access-token-1',
             '71298d2c-0ff4-11e7-93ae-92361f002671',
-            'non-exist-organization-member-id',
-            '/nonexistent_organization_member_by_id'
+            'non-exist-owner-id',
+            '/nonexistent_owner_by_id'
         );
     }
 
-    public function testOrganizationMemberResolver()
+    public function testOwnerResolver()
     {
-        $this->organizationMemberResolver(
+        $this->ownerResolver(
             'access-token-1',
             '71298d2c-0ff4-11e7-93ae-92361f002671',
             'a38f8ef4-400b-4229-a5ff-712ff5f72b27',
-            '/organization_member'
+            '/owner'
         );
     }
 
-    private function organizationMemberResolver($token, $organizationId, $value, $jsonResult)
+    private function ownerResolver($token, $organizationId, $value, $jsonResult)
     {
         $this->client->request('POST', '/?access_token=' . $token, [
             'query'       => <<<EOF
-query MemberQueryRequest(\$organizationId: ID!, \$organizationMemberId: ID!) {
-  organizationMember(organizationId: \$organizationId, organizationMemberId: \$organizationMemberId) {
+query MemberQueryRequest(\$organizationId: ID!, \$ownerId: ID!) {
+  owner(organizationId: \$organizationId, ownerId: \$ownerId) {
     id,
     organization {
       id,
@@ -73,8 +73,8 @@ query MemberQueryRequest(\$organizationId: ID!, \$organizationMemberId: ID!) {
 }
 EOF
             , 'variables' => [
-                'organizationId'       => $organizationId,
-                'organizationMemberId' => $value,
+                'organizationId' => $organizationId,
+                'ownerId'        => $value,
             ],
         ]);
 
