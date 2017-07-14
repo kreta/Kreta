@@ -23,6 +23,9 @@
         -
             domain: taskmanager.kreta.io
             webroot: /var/www/kreta.io/current/TaskManager/src/Kreta/TaskManager/Infrastructure/Ui/Http/Symfony/public
+        -
+            domain: notifier.kreta.io
+            webroot: /var/www/kreta.io/current/Notifier/src/Kreta/Notifier/Infrastructure/Ui/Http/Symfony/public
 
 -
     name: Add certbot autorenewal cronjob

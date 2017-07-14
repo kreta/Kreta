@@ -22,4 +22,5 @@ kreta:
     domains:
         identity_access: identityaccess.kreta.io
         task_manager: taskmanager.kreta.io
+        notifier: notifier.kreta.io
         composite_ui: kreta.io

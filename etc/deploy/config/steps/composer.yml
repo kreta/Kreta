@@ -39,3 +39,10 @@
       chdir: "{{ ansistrano_release_path.stdout }}/IdentityAccess"
   register: composer_install_result
   changed_when: composer_install_result.stderr | search('- \w+ing ')
+
+- name: Run composer install notifier
+  shell: "{{ php_path }} {{ composer_path }} install -o --no-dev --no-interaction"
+  args:
+      chdir: "{{ ansistrano_release_path.stdout }}/Notifier"
+  register: composer_install_result
+  changed_when: composer_install_result.stderr | search('- \w+ing ')
