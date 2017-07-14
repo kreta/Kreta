@@ -15,10 +15,3 @@ kreta_task_manager_remove_member_from_organization:
         _controller: "kreta.task_manager.http_action.remove_member_from_organization:__invoke"
     methods:
         - DELETE
-
-kreta_task_manager_add_member_from_organization:
-    path: /organization/{organizationId}/member/{userId}
-    defaults:
-        _controller: "kreta.task_manager.http_action.add_member_from_organization:__invoke"
-    methods:
-        - POST
