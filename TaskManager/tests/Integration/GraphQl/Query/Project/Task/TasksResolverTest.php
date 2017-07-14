@@ -35,10 +35,12 @@ class TasksResolverTest extends JsonApiTestCase
         ], '/tasks_filtered_by_parent');
     }
 
-//    public function testTasksFilteredByProjectResolver() : void
-//    {
-//        $this->tasksResolver('access-token-2', ['projectId' => 'Task 1'], '/tasks_filtered_by_project');
-//    }
+    public function testTasksFilteredByProjectResolver() : void
+    {
+        $this->tasksResolver('access-token-2', [
+            'projectId' => '0dadb844-1220-11e7-93ae-92361f002671',
+        ], '/tasks_filtered_by_project');
+    }
 
     public function testTasksFilteredByPriorityResolver() : void
     {
@@ -47,18 +49,31 @@ class TasksResolverTest extends JsonApiTestCase
 
     public function testTasksFilteredByProgressResolver() : void
     {
-        $this->tasksResolver('access-token-2', ['progress' => 'TODO'], '/tasks_filtered_by_progress');
+        $this->tasksResolver('access-token-2', ['progress' => 'DOING'], '/tasks_filtered_by_progress');
     }
 
-//    public function testTasksFilteredByAssigneeResolver() : void
-//    {
-//        $this->tasksResolver('access-token-2', ['assigneeId' => ''], '/tasks_filtered_by_assignee');
-//    }
-//
-//    public function testTasksFilteredByCreatorResolver() : void
-//    {
-//        $this->tasksResolver('access-token-2', ['creatorId' => ''], '/tasks_filtered_by_creator');
-//    }
+    public function testTasksFilteredByAssigneeResolver() : void
+    {
+        $this->tasksResolver('access-token-2', [
+            'assigneeId' => '6704c278-e106-449f-a73d-2508e96f6177',
+        ], '/tasks_filtered_by_assignee');
+    }
+
+    public function testTasksFilteredByCreatorResolver() : void
+    {
+        $this->tasksResolver('access-token-2', [
+            'creatorId' => '6704c278-e106-449f-a73d-2508e96f6177',
+        ], '/tasks_filtered_by_creator');
+    }
+
+    public function testTasksFilteredByMultipleResolver() : void
+    {
+        $this->tasksResolver('access-token-2', [
+            'creatorId' => '6704c278-e106-449f-a73d-2508e96f6177',
+            'priority'  => 'MEDIUM',
+            'progress'  => 'DOING',
+        ], '/tasks_filtered_by_multiple');
+    }
 
     public function testTasksWithAfter3AndFirst2() : void
     {

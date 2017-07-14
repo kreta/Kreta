@@ -16,6 +16,7 @@ namespace Kreta\TaskManager\Infrastructure\Persistence\Doctrine\DataFixtures;
 
 use Doctrine\Common\Persistence\ObjectManager;
 use Kreta\SharedKernel\Infrastructure\Persistence\Doctrine\DataFixtures\AbstractFixture;
+use Kreta\TaskManager\Application\Command\Project\Task\ChangeTaskProgressCommand;
 use Kreta\TaskManager\Application\Command\Project\Task\CreateTaskCommand;
 use Kreta\TaskManager\Application\Query\Organization\OrganizationOfIdQuery;
 use Kreta\TaskManager\Application\Query\Project\FilterProjectsQuery;
@@ -73,6 +74,17 @@ class LoadTaskData extends AbstractFixture
                         $this->fakeIds()[$i]
                     )
                 );
+
+                if (130 === $i || 340 === $i) {
+                    $this->commandBus()->handle(
+                        new ChangeTaskProgressCommand(
+                            $this->fakeIds()[$i],
+                            'doing',
+                            $userId
+                        )
+                    );
+                }
+
                 ++$i;
             }
         }

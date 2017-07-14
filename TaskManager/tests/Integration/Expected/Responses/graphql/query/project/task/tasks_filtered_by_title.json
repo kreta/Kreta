@@ -54,7 +54,7 @@
             "description": "The description of the task 130",
             "numeric_id": 5,
             "priority": "MEDIUM",
-            "progress": "TODO",
+            "progress": "DOING",
             "assignee": {
               "id": "6704c278-e106-449f-a73d-2508e96f6177"
             },
