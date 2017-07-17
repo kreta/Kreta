@@ -34,7 +34,7 @@ class AddMember extends React.Component {
 
     this.debouncedOnChangeSearch = debounce((query) => {
       this.filterMembersToAdd(query);
-    }, 2000);
+    }, 200);
     this.onChangeSearch = this.onChangeSearch.bind(this);
   }
 

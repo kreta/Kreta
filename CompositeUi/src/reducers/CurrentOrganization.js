@@ -30,12 +30,20 @@ export default function reducer(state = initialState, action = {}) {
     case ActionTypes.CURRENT_ORGANIZATION_MEMBER_REMOVED: {
       const index = state.organization.organization_members.findIndex(member => member.id === action.userId);
 
-      return {...state, fetching: false, organization: {
-        ...state.organization, organization_members: [
-          ...state.organization.organization_members.slice(0, index),
-          ...state.organization.organization_members.slice(index + 1)
+      return {
+        ...state,
+        fetching: false,
+        organization: {
+          ...state.organization, organization_members: [
+            ...state.organization.organization_members.slice(0, index),
+            ...state.organization.organization_members.slice(index + 1)
+          ]
+        },
+        potential_members: [
+          ...state.potential_members,
+          state.organization.organization_members[index]
         ]
-      }};
+      };
     }
     case ActionTypes.CURRENT_ORGANIZATION_MEMBER_REMOVE_ERROR: {
       return {...state, fetching: false};
