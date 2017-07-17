@@ -16,12 +16,6 @@ class Organization {
 
     return TaskManagerRest.deleteHttp(url);
   }
-
-  post(organization, memberId) {
-    const url = `/organization/${organization}/member/${memberId}`;
-
-    return TaskManagerRest.post(url);
-  }
 }
 
 const instance = new Organization();
