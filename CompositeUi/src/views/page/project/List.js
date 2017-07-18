@@ -67,7 +67,7 @@ class List extends React.Component {
 
   filterProjects(value) {
     const filteredProjects = this.props.projects.filter(project => (
-      value.length === 0 || project.node.name.indexOf(value) > -1
+      value.length === 0 || project.name.indexOf(value) > -1
     ));
     this.setState({
       filteredProjects,
@@ -101,12 +101,12 @@ class List extends React.Component {
     return this.state.filteredProjects.map((project, index) => (
       <CardMinimal
         key={index}
-        title={project.node.name}
-        to={routes.project.show(project.node.organization.slug, project.node.slug)}>
-          <NavigableListItemLink index={0} to={routes.project.show(project.node.organization.slug, project.node.slug)}>
+        title={project.name}
+        to={routes.project.show(project.organization.slug, project.slug)}>
+          <NavigableListItemLink index={0} to={routes.project.show(project.organization.slug, project.slug)}>
             <Icon glyph={ListIcon}/>
           </NavigableListItemLink>
-          <NavigableListItemLink index={1} to={routes.task.new(project.node.organization.slug, project.node.slug)}>
+          <NavigableListItemLink index={1} to={routes.task.new(project.organization.slug, project.slug)}>
             <Icon glyph={AddIcon}/>
           </NavigableListItemLink>
       </CardMinimal>

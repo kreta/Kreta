@@ -24,7 +24,7 @@ const Actions = {
       .then(data => {
         dispatch({
           type: ActionTypes.PROJECTS_RECEIVED,
-          projects: data.response.projects.edges
+          projects: data.response.projects.edges.map(project => project.node)
         });
       });
   }
