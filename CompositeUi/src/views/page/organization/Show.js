@@ -87,13 +87,12 @@ class Show extends React.Component {
   }
 
   removeMember(member) {
-    const {currentOrganization, dispatch, profile} = this.props;
+    const {currentOrganization, dispatch} = this.props;
 
     dispatch(
       CurrentOrganizationActions.removeMember(
         currentOrganization.organization.id,
         member.id,
-        profile.user_id
       )
     );
   }

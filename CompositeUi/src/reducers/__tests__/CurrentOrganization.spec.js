@@ -71,21 +71,24 @@ describe('Current organization reducer tests', () => {
           }, {
             id: 'id2'
           }]
-        }
+        },
+        potential_members: []
       }, {
         type: ActionTypes.CURRENT_ORGANIZATION_MEMBER_REMOVED,
-        user: {
-          id: 'id2'
-        }
+        userId: 'id2'
       })
     ).toEqual({
-      fetching: false, organization: {
+      fetching: false,
+      organization: {
         id: 1,
         name: 'Organization 1',
         organization_members: [{
-          id: 'id1'
-        }]
-      }
+          id: 'id1',
+        }],
+      },
+      potential_members: [{
+        id: 'id2',
+      }]
     });
   });
 
@@ -106,9 +109,7 @@ describe('Current organization reducer tests', () => {
         ]
       }, {
         type: ActionTypes.CURRENT_ORGANIZATION_MEMBER_ADDED,
-        user: {
-          id: 'id2'
-        }
+        userId: 'id2'
       })
     ).toEqual({
       fetching: false,
@@ -116,9 +117,9 @@ describe('Current organization reducer tests', () => {
         id: 1,
         name: 'Organization 1',
         organization_members: [{
-          id: 'id1'
+          id: 'id1',
         }, {
-          id: 'id2'
+          id: 'id2',
         }]
       },
       potential_members: []

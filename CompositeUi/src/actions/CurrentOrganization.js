@@ -13,11 +13,12 @@ import {routeActions} from 'react-router-redux';
 import {routes} from './../Routes';
 
 import ActionTypes from './../constants/ActionTypes';
+import AddMemberToOrganizationRequest from './../api/graphql/mutation/AddMemberToOrganizationMutationRequest';
 import NotificationActions from './../actions/Notification';
 import CreateProjectMutationRequest from './../api/graphql/mutation/CreateProjectMutationRequest';
 import EditProjectMutationRequest from './../api/graphql/mutation/EditProjectMutationRequest';
 import OrganizationQueryRequest from './../api/graphql/query/OrganizationQueryRequest';
-import Organization from './../api/rest/User/Organization';
+import RemoveMemberToOrganizationRequest from './../api/graphql/mutation/RemoveMemberToOrganizationMutationRequest';
 import TaskManagerGraphQl from './../api/graphql/TaskManagerGraphQl';
 import UserInjector from './../helpers/UserInjector';
 
@@ -100,24 +101,56 @@ const Actions = {
         dispatch(NotificationActions.addNotification('Errors found while editing project', 'error'));
       });
   },
-  addMember: (organization, user) => (dispatch) => {
-    Organization.post(organization.id, user.id)
+  addMember: (organizationId, userId) => (dispatch) => {
+    dispatch({
+      type: ActionTypes.CURRENT_ORGANIZATION_MEMBER_ADDING,
+    });
+
+    const mutation = AddMemberToOrganizationRequest.build({
+      organizationId,
+      userId,
+    });
+    TaskManagerGraphQl.mutation(mutation, dispatch);
+    mutation
       .then(() => {
         dispatch({
           type: ActionTypes.CURRENT_ORGANIZATION_MEMBER_ADDED,
-          user
+          userId
         });
-        dispatch(NotificationActions.addNotification('Member added successfully to project', 'success'));
+        dispatch(NotificationActions.addNotification('Member added successfully', 'success'));
+      })
+      .catch((response) => {
+        dispatch({
+          type: ActionTypes.CURRENT_ORGANIZATION_MEMBER_ADD_ERROR,
+          errors: response.source.errors
+        });
+        dispatch(NotificationActions.addNotification('Errors found while adding member to organization', 'error'));
       });
   },
-  removeMember: (organization, user, remover) => (dispatch) => {
-    Organization.delete(organization, user, remover)
+  removeMember: (organizationId, userId) => (dispatch) => {
+    dispatch({
+      type: ActionTypes.CURRENT_ORGANIZATION_MEMBER_REMOVING,
+    });
+
+    const mutation = RemoveMemberToOrganizationRequest.build({
+      organizationId,
+      userId,
+    });
+    TaskManagerGraphQl.mutation(mutation, dispatch);
+    mutation
       .then(() => {
         dispatch({
           type: ActionTypes.CURRENT_ORGANIZATION_MEMBER_REMOVED,
-          user
+          userId
         });
-        dispatch(NotificationActions.addNotification('Member removed successfully from project', 'success'));
+        dispatch(NotificationActions.addNotification('Member removed successfully', 'success'));
+      })
+      .catch((response) => {
+        dispatch({
+          type: ActionTypes.CURRENT_ORGANIZATION_MEMBER_REMOVE_ERROR,
+          errors: response.source.errors
+        });
+        dispatch(NotificationActions.addNotification('Errors found while removing member to organization', 'error'));
       });
   }
 };

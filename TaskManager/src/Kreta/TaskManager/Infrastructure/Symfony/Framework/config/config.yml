@@ -8,7 +8,6 @@
 
 imports:
     - { resource: ../../../../../../../parameters.yml }
-    - { resource: security.yml }
     - { resource: services/, type: directory }
 
 parameters:
@@ -34,6 +33,17 @@ framework:
     fragments: ~
     http_method_override: true
     assets: ~
+
+security:
+    providers:
+        in_memory:
+            memory: ~
+    firewalls:
+        dev:
+            pattern: ^/(_(profiler|wdt)|css|images|js)/
+            security: false
+        main:
+            anonymous: ~
 
 twig:
     debug: "%kernel.debug%"

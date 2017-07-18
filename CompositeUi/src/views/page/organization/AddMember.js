@@ -9,6 +9,7 @@
  */
 
 import {connect} from 'react-redux';
+import debounce from 'lodash.debounce';
 import React from 'react';
 
 import AddIcon from './../../../svg/add.svg';
@@ -27,6 +28,15 @@ class AddMember extends React.Component {
     onMemberRemoveClicked: React.PropTypes.func,
     organization: React.PropTypes.object
   };
+
+  constructor(props) {
+    super(props);
+
+    this.debouncedOnChangeSearch = debounce((query) => {
+      this.filterMembersToAdd(query);
+    }, 200);
+    this.onChangeSearch = this.onChangeSearch.bind(this);
+  }
 
   componentDidMount() {
     this.filterMembersToAdd(null);
@@ -48,10 +58,16 @@ class AddMember extends React.Component {
 
     dispatch(
       CurrentOrganizationActions.addMember(
-        currentOrganization.organization,
+        currentOrganization.organization.id,
         member.id
       )
     );
+  }
+
+  onChangeSearch(event) {
+    const query = event.target ? event.target.value : null;
+
+    this.debouncedOnChangeSearch(query);
   }
 
   renderMembersToAdd() {
@@ -79,16 +95,10 @@ class AddMember extends React.Component {
       ));
   }
 
-  onChangeSearch(event) {
-    const query = event.target ? event.target.value : null;
-
-    this.filterMembersToAdd(query);
-  }
-
   render() {
     return (
       <div>
-        <Search onChange={this.onChangeSearch.bind(this)}/>
+        <Search onChange={this.onChangeSearch}/>
         {this.renderMembersToAdd()}
       </div>
     );

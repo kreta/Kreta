@@ -22,6 +22,18 @@ Mutation:
                     inputType: EditOrganizationInput
                     payloadType: EditOrganizationPayload
                     mutateAndGetPayload: "@=mutation('edit_organization', [args.offsetGet('input')])"
+            addMemberToOrganization:
+                builder: Mutation
+                builderConfig:
+                    inputType: AddMemberToOrganizationInput
+                    payloadType: AddMemberToOrganizationPayload
+                    mutateAndGetPayload: "@=mutation('add_member_to_organization', [args.offsetGet('input')])"
+            removeMemberToOrganization:
+                builder: Mutation
+                builderConfig:
+                    inputType: RemoveMemberToOrganizationInput
+                    payloadType: RemoveMemberToOrganizationPayload
+                    mutateAndGetPayload: "@=mutation('remove_member_to_organization', [args.offsetGet('input')])"
             createProject:
                 builder: Mutation
                 builderConfig:

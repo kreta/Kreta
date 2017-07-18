@@ -24,3 +24,21 @@ services:
             - "@kreta.task_manager.graph_ql.query_resolver.organization_of_id"
         tags:
             - { name: overblog_graphql.mutation, alias: "edit_organization", method: "execute" }
+
+    kreta.task_manager.graph_ql.mutation.add_member_to_organization:
+        class: Kreta\TaskManager\Infrastructure\Symfony\GraphQl\Mutation\Organization\AddMemberToOrganizationMutation
+        arguments:
+            - "@security.token_storage"
+            - "@kreta.task_manager.command_bus"
+            - "@kreta.task_manager.graph_ql.query_resolver.organization_of_id"
+        tags:
+            - { name: overblog_graphql.mutation, alias: "add_member_to_organization", method: "execute" }
+
+    kreta.task_manager.graph_ql.mutation.remove_member_to_organization:
+        class: Kreta\TaskManager\Infrastructure\Symfony\GraphQl\Mutation\Organization\RemoveMemberToOrganizationMutation
+        arguments:
+            - "@security.token_storage"
+            - "@kreta.task_manager.command_bus"
+            - "@kreta.task_manager.graph_ql.query_resolver.organization_of_id"
+        tags:
+            - { name: overblog_graphql.mutation, alias: "remove_member_to_organization", method: "execute" }
