@@ -43,13 +43,12 @@ class Show extends React.Component {
   getProjects() {
     const {organization} = this.props.currentOrganization;
 
-    return organization._projects4l96UD.edges.map((project, index) => {
+    return organization._projects2TvKxM.edges.map((project, index) => {
       const currentProject = project.node;
 
       return (
         <Link key={index} to={routes.project.show(organization.slug, currentProject.slug)}>
           <CardExtended
-            subtitle={`10 issues open`}
             thumbnail={<Thumbnail text={`${currentProject.name}`}/>}
             title={`${currentProject.name}`}
           />
