@@ -47,6 +47,10 @@ class List extends React.Component {
     this.focus();
   }
 
+  componentWillReceiveProps() {
+    this.filterProjects('');
+  }
+
   onKeyUp(event) {
     if (event.which === 13) { // Enter
       this.refs.navigableList.handleNavigation(event);

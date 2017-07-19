@@ -11,7 +11,7 @@
 import './../../scss/layout/_main-menu.scss';
 
 import ExitIcon from './../../svg/exit.svg';
-// import InboxIcon from './../../svg/inbox.svg';
+import InboxIcon from './../../svg/inbox.svg';
 import LogoIcon from './../../svg/logo.svg';
 import ProjectsIcon from './../../svg/projects.svg';
 
@@ -79,6 +79,15 @@ class MainMenu extends React.Component {
     );
   }
 
+  notificationWidget() {
+    return (
+      <div className="main-menu__notification">
+        <Icon color="white" glyph={InboxIcon} size="medium"/>
+        <span className="main-menu__notification-bubble">0</span>
+      </div>
+    );
+  }
+
   render() {
     const {mainMenu, projects, profile} = this.props;
 
@@ -94,10 +103,7 @@ class MainMenu extends React.Component {
           </div>
         </div>
         <div className="main-menu__user">
-          {/* <div className="main-menu__notification"> */}
-          {/* <Icon color="white" glyph={InboxIcon} size="medium"/> */}
-          {/* <span className="main-menu__notification-bubble">0</span> */}
-          {/* </div> */}
+          {/* {this.notificationWidget()} */}
           {profile ? this.profileWidget(profile) : ''}
         </div>
         {projects.length > 0 ? this.projectsModal(mainMenu) : ''}
