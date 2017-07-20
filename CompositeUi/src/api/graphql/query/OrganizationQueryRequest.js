@@ -24,7 +24,7 @@ const query = Relay.QL`
       owners {
         id,
       },
-      projects(first: -1) {
+      projects(first: 25) {
         edges {
           node {
             id,

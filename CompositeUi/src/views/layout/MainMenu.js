@@ -28,7 +28,7 @@ import ProjectList from './../page/project/List';
 import Thumbnail from './../component/Thumbnail';
 import UserActions from './../../actions/User';
 
-@connect(state => ({profile: state.profile.profile, mainMenu: state.mainMenu}))
+@connect(state => ({profile: state.profile.profile, projects: state.projects.projects, mainMenu: state.mainMenu}))
 class MainMenu extends React.Component {
   componentDidMount() {
     Mousetrap.bind(Config.shortcuts.projectList, this.showProjectList.bind(this));
@@ -46,23 +46,50 @@ class MainMenu extends React.Component {
     this.props.dispatch(UserActions.logout());
   }
 
-  render() {
-    const {mainMenu, profile} = this.props;
-    let profileWidget = '';
+  projectsIcon() {
+    return (
+      <div className="main-menu__action">
+        <Icon color="green" glyph={ProjectsIcon} onClick={this.showProjectList.bind(this)} size="medium"/>
+      </div>
+    );
+  }
 
-    if (profile) {
-      profileWidget = (
-        <Link className="main-menu__profile" to="/profile">
-          <Thumbnail
-            image={profile.image}
-            text={`${profile.first_name} ${profile.last_name}`}
-          />
-          <span className="main-menu__username">
+  projectsModal(mainMenu) {
+    return (
+      <Modal
+        isOpen={mainMenu.projectsVisible}
+        onRequestClose={this.hideProjectsList.bind(this)}
+      >
+        <ProjectList ref="projectList"/>
+      </Modal>
+    );
+  }
+
+  profileWidget(profile) {
+    return (
+      <Link className="main-menu__profile" to="/profile">
+        <Thumbnail
+          image={profile.image}
+          text={`${profile.first_name} ${profile.last_name}`}
+        />
+        <span className="main-menu__username">
             @{profile.user_name}
           </span>
-        </Link>
-      );
-    }
+      </Link>
+    );
+  }
+
+  notificationWidget() {
+    return (
+      <div className="main-menu__notification">
+        <Icon color="white" glyph={InboxIcon} size="medium"/>
+        <span className="main-menu__notification-bubble">0</span>
+      </div>
+    );
+  }
+
+  render() {
+    const {mainMenu, projects, profile} = this.props;
 
     return (
       <nav className="main-menu">
@@ -70,24 +97,16 @@ class MainMenu extends React.Component {
           <Icon color="white" glyph={LogoIcon} size="expand"/>
         </Link>
         <div className="main-menu__actions">
-          <div className="main-menu__action">
-            <Icon color="green" glyph={ProjectsIcon} onClick={this.showProjectList.bind(this)} size="medium"/>
-          </div>
+          {projects.length > 0 ? this.projectsIcon() : ''}
           <div className="main-menu__action">
             <Icon color="red" glyph={ExitIcon} onClick={this.logout.bind(this)} size="medium"/>
           </div>
         </div>
         <div className="main-menu__user">
-          <div className="main-menu__notification">
-            <Icon color="white" glyph={InboxIcon} size="medium"/>
-            <span className="main-menu__notification-bubble">0</span>
-          </div>
-          {profileWidget}
+          {/* {this.notificationWidget()} */}
+          {profile ? this.profileWidget(profile) : ''}
         </div>
-        <Modal isOpen={mainMenu.projectsVisible}
-               onRequestClose={this.hideProjectsList.bind(this)}>
-          <ProjectList ref="projectList"/>
-        </Modal>
+        {projects.length > 0 ? this.projectsModal(mainMenu) : ''}
       </nav>
     );
   }

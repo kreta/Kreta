@@ -30,3 +30,9 @@
     synchronize:
         src: "{{ playbook_dir }}/../../CompositeUi/build"
         dest: "{{ ansistrano_release_path.stdout }}/CompositeUi"
+
+-
+    name: Consume "asyncrhonous_events" from RabbitMQ task manager
+    shell: "{{php_path}} etc/bin/symfony-console rabbitmq:consumer -e=prod &"
+    args:
+        chdir: "{{ ansistrano_release_path.stdout }}/TaskManager"

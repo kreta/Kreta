@@ -32,7 +32,7 @@ export default function reducer(state = initialState, action = {}) {
       return {...state, waiting: true};
     }
     case ActionTypes.PROJECT_CREATED: {
-      return {...state, tasks: [...state.projects, action.project], waiting: false};
+      return {...state, projects: [...state.projects, action.project], waiting: false};
     }
     case ActionTypes.PROJECT_CREATE_ERROR: {
       return {...state, errors: action.errors};

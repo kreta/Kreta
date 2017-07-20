@@ -31,9 +31,4 @@ class SimpleBusQueryBusSpec extends ObjectBehavior
         $this->shouldHaveType(SimpleBusQueryBus::class);
         $this->shouldImplement(QueryBus::class);
     }
-
-//    function it_handles_a_query(CatchReturnMessageBus $messageBus, OrganizationOfIdQuery $query)
-//    {
-//         It is not possible to mock variable that passes by reference
-//    }
 }
