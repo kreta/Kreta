@@ -18,7 +18,7 @@ use Lakion\ApiTestCase\JsonApiTestCase;
 
 class ProjectResolverTest extends JsonApiTestCase
 {
-    public function testNonExistProjectByIdResolver() : void
+    public function testNonexistentProjectByIdResolver() : void
     {
         $this->projectByIdResolver('access-token-1', 'non-exist-project-id', '/nonexistent_project_by_id');
     }
@@ -28,7 +28,7 @@ class ProjectResolverTest extends JsonApiTestCase
         $this->projectByIdResolver('access-token-1', '0dadad5e-1220-11e7-93ae-92361f002671', '/project');
     }
 
-    public function testNonExistProjectBySlugResolver() : void
+    public function testNonexistentProjectBySlugResolver() : void
     {
         $this->projectByInputResolver('access-token-1', [
             'slug'             => 'non-exist-project-slug',

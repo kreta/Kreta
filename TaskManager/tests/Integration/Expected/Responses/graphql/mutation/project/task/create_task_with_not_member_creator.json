@@ -1,0 +1,16 @@
+{
+  "data": {
+    "createTask": null
+  },
+  "errors": [
+    {
+      "message": "The \"6704c278-e106-449f-a73d-2508e96f6177\" creator does not allow to perform the task creation",
+      "locations": [
+        {
+          "line": 2,
+          "column": 3
+        }
+      ]
+    }
+  ]
+}

@@ -41,7 +41,7 @@ class MemberResolver implements Resolver
         $this->organizationResolver = $organizationResolver;
     }
 
-    public function resolve($args)
+    public function resolve($args) : array
     {
         if (isset($args['ownerId'])) {
             $result = $this->owner(
@@ -61,7 +61,7 @@ class MemberResolver implements Resolver
         return $result;
     }
 
-    private function owner($organizationId, $ownerId)
+    private function owner(string $organizationId, string $ownerId) : array
     {
         try {
             $this->queryBus->handle(
@@ -90,16 +90,11 @@ class MemberResolver implements Resolver
                 )
             );
         } catch (OwnerDoesNotExistException $exception) {
-            throw new UserError(
-                sprintf(
-                    'Does no exist any owner with the given "%s" id',
-                    $ownerId
-                )
-            );
+            return $this->organizationMember($organizationId, $ownerId);
         }
     }
 
-    private function organizationMember($organizationId, $organizationMemberId)
+    private function organizationMember(string $organizationId, string $organizationMemberId) : array
     {
         try {
             $this->queryBus->handle(
@@ -130,7 +125,7 @@ class MemberResolver implements Resolver
         } catch (OrganizationMemberDoesNotExistException $exception) {
             throw new UserError(
                 sprintf(
-                    'Does no exist any organization member with the given "%s" id',
+                    'Does no exist any member with the given "%s" id',
                     $organizationMemberId
                 )
             );
