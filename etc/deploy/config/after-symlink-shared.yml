@@ -33,6 +33,6 @@
 
 -
     name: Consume "asyncrhonous_events" from RabbitMQ task manager
-    shell: "{{php_path}} etc/bin/symfony-console rabbitmq:consumer -e=prod &"
+    shell: "{{php_path}} etc/bin/symfony-console rabbitmq:consumer asynchronous_events -e=prod &"
     args:
         chdir: "{{ ansistrano_release_path.stdout }}/TaskManager"
