@@ -17,7 +17,12 @@ namespace Kreta\TaskManager\Infrastructure\Symfony\GraphQl\Mutation\Project\Task
 use Kreta\SharedKernel\Application\CommandBus;
 use Kreta\SharedKernel\Http\GraphQl\Relay\Mutation;
 use Kreta\TaskManager\Application\Command\Project\Task\CreateTaskCommand;
+use Kreta\TaskManager\Domain\Model\Organization\OrganizationMemberDoesNotExistException;
+use Kreta\TaskManager\Domain\Model\Project\ProjectDoesNotExistException;
+use Kreta\TaskManager\Domain\Model\Project\Task\TaskParentDoesNotExistException;
+use Kreta\TaskManager\Domain\Model\Project\Task\UnauthorizedTaskActionException;
 use Kreta\TaskManager\Infrastructure\Symfony\GraphQl\Query\Project\Task\TaskResolver;
+use Overblog\GraphQLBundle\Error\UserError;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 
 class CreateTaskMutation implements Mutation
@@ -45,7 +50,37 @@ class CreateTaskMutation implements Mutation
             $values['parentId'] ?? null
         );
 
-        $this->commandBus->handle($command);
+        try {
+            $this->commandBus->handle($command);
+        } catch (TaskParentDoesNotExistException $exception) {
+            throw new UserError(
+                sprintf(
+                    'Does not exist any task with the given "%s" id',
+                    $values['parentId']
+                )
+            );
+        } catch (ProjectDoesNotExistException $exception) {
+            throw new UserError(
+                sprintf(
+                    'Does not exist any project with the given "%s" id',
+                    $values['projectId']
+                )
+            );
+        } catch (UnauthorizedTaskActionException $exception) {
+            throw new UserError(
+                sprintf(
+                    'The "%s" creator does not allow to perform the task creation',
+                    $this->currentUser
+                )
+            );
+        } catch (OrganizationMemberDoesNotExistException $exception) {
+            throw new UserError(
+                sprintf(
+                    'The "%s" assignee is not an organization member',
+                    $values['assigneeId']
+                )
+            );
+        }
 
         return [
             'task' => $this->taskResolver->resolve([

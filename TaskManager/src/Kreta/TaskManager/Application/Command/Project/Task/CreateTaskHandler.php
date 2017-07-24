@@ -16,6 +16,7 @@ namespace Kreta\TaskManager\Application\Command\Project\Task;
 
 use Kreta\TaskManager\Domain\Model\Organization\MemberId;
 use Kreta\TaskManager\Domain\Model\Organization\Organization;
+use Kreta\TaskManager\Domain\Model\Organization\OrganizationMemberDoesNotExistException;
 use Kreta\TaskManager\Domain\Model\Organization\OrganizationRepository;
 use Kreta\TaskManager\Domain\Model\Project\Project;
 use Kreta\TaskManager\Domain\Model\Project\ProjectDoesNotExistException;
@@ -83,9 +84,8 @@ class CreateTaskHandler
         $assigneeId = UserId::generate($command->assigneeId());
 
         $organization = $this->organizationRepository->organizationOfId($organizationId);
-        if (!$this->areUsersOrganizationMembers($organization, $creatorId, $assigneeId)) {
-            throw new UnauthorizedTaskActionException();
-        }
+
+        $this->checkUsersAreOrganizationMembers($organization, $creatorId, $assigneeId);
 
         $taskId = TaskId::generate($taskId);
         $title = new TaskTitle($command->title());
@@ -115,33 +115,50 @@ class CreateTaskHandler
         $this->repository->persist($task);
     }
 
-    private function areTaskAndParentIdsDifferent($taskId, $parentTaskId) : bool
+    private function areTaskAndParentIdsDifferent(?string $taskId, ?string $parentTaskId) : bool
     {
         return ($taskId === null && $parentTaskId === null) || $parentTaskId !== $taskId;
     }
 
-    private function doesTaskExist(Task $task = null) : bool
+    private function doesTaskExist(?Task $task) : bool
     {
         return $task instanceof Task;
     }
 
-    private function doesParentTaskExist($parentTaskId, Task $parentTask = null) : bool
+    private function doesParentTaskExist(?string $parentTaskId, Task $parentTask = null) : bool
     {
         return null === $parentTaskId || $parentTask instanceof Task;
     }
 
-    private function doesProjectExist(Project $project = null) : bool
+    private function doesProjectExist(?Project $project) : bool
     {
         return $project instanceof Project;
     }
 
-    private function areUsersOrganizationMembers(Organization $organization, UserId $creatorId, UserId $assigneeId)
-    {
-        return $organization->isOrganizationMember($creatorId)
-            && $organization->isOrganizationMember($assigneeId);
+    private function checkUsersAreOrganizationMembers(
+        Organization $organization,
+        UserId $creatorId,
+        UserId $assigneeId
+    ) : void {
+        $this->checkCreatorIsOrganizationMember($organization, $creatorId);
+        $this->checkAssigneeIsOrganizationMember($organization, $assigneeId);
     }
 
-    private function parentTaskId($parentTaskId)
+    private function checkAssigneeIsOrganizationMember(Organization $organization, UserId $assigneeId) : void
+    {
+        if (!$organization->isOrganizationMember($assigneeId)) {
+            throw new OrganizationMemberDoesNotExistException($assigneeId);
+        }
+    }
+
+    private function checkCreatorIsOrganizationMember(Organization $organization, UserId $creatorId) : void
+    {
+        if (!$organization->isOrganizationMember($creatorId)) {
+            throw new UnauthorizedTaskActionException();
+        }
+    }
+
+    private function parentTaskId(?string $parentTaskId) : ?TaskId
     {
         return null === $parentTaskId ? null : TaskId::generate($parentTaskId);
     }

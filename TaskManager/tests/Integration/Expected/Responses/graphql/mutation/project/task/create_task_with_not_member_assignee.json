@@ -1,0 +1,16 @@
+{
+  "data": {
+    "createTask": null
+  },
+  "errors": [
+    {
+      "message": "The \"8eb29ed7-93b2-4c94-bb9b-ad4b323ad8c5\" assignee is not an organization member",
+      "locations": [
+        {
+          "line": 2,
+          "column": 3
+        }
+      ]
+    }
+  ]
+}

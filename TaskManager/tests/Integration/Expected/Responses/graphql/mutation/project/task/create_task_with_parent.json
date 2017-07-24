@@ -1,0 +1,34 @@
+{
+  "data": {
+    "createTask": {
+      "task": {
+        "id": "@string@",
+        "title": "The task title with parent",
+        "description": "The task description with parent",
+        "numeric_id": 19,
+        "progress": "TODO",
+        "priority": "MEDIUM",
+        "parent_task": {
+          "id": "42eb4c4c-1225-11e7-93ae-92361f002671",
+          "title": "Task 6",
+          "numeric_id": 1
+        },
+        "assignee": {
+          "id": "1106e034-d6b8-46c0-a393-9f0fd92d18a1"
+        },
+        "creator": {
+          "id": "da49c01f-2e99-45ee-9557-eb3eb57b06c5"
+        },
+        "project": {
+          "id": "0dadad5e-1220-11e7-93ae-92361f002671",
+          "name": "Project 6",
+          "slug": "project-6",
+          "organization": {
+            "id": "71299a6a-0ff4-11e7-93ae-92361f002671",
+            "slug": "organization-6"
+          }
+        }
+      }
+    }
+  }
+}
