@@ -46,7 +46,7 @@ class Members extends React.Component {
     return organization.owners.map((owner, index) => (
       <UserCard
         actions={
-          organization.owners > 1 && owner.id === profile.user_id
+          organization.owners.length > 1 && owner.id === profile.user_id
             ? leaveAction
             : null
         }
@@ -56,8 +56,21 @@ class Members extends React.Component {
     ));
   }
 
+  noMembers() {
+    return (
+      <p className="members__no-member-sentence">
+        No members found, you may want to add someone so, please
+        click on "<strong>Add members</strong>" button.
+      </p>
+    );
+  }
+
   getMembers() {
     const {organization} = this.props;
+
+    if (organization.organization_members.length === 0) {
+      return this.noMembers();
+    }
 
     return organization.organization_members.map((member, index) => (
       <UserCard
@@ -82,7 +95,7 @@ class Members extends React.Component {
     return removeMember(member);
   }
 
-  renderUsersSectionHeader(title, toFunction) {
+  renderSectionHeader(title, toFunction) {
     const {organization, currentPath} = this.props;
 
     return (
@@ -108,14 +121,14 @@ class Members extends React.Component {
   }
 
   renderOwnersHeader() {
-    return this.renderUsersSectionHeader(
+    return this.renderSectionHeader(
       'Owners',
       routes.organization.addOwner
     );
   }
 
   renderMembersHeader() {
-    return this.renderUsersSectionHeader(
+    return this.renderSectionHeader(
       'Members',
       routes.organization.addMember
     );

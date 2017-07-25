@@ -6,18 +6,13 @@
 // For the full copyright and license information, please view the LICENSE
 // file that was distributed with this source code.
 
-.notification-layout {
-  bottom: 30px;
-  left: 110px;
-  position: fixed;
-  width: 350px;
-  z-index: 10;
+@import '../../../variables/colors';
 
-  .notification {
-    margin-bottom: 15px;
-
-    &:last-child {
-      margin-bottom: 0;
-    }
+.organization-show {
+  .projects + .members {
+    border-top: 1px solid $main-grey;
+    margin-top: 30px;
+    padding-top: 30px;
   }
 }
+

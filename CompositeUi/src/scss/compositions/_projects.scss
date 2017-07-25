@@ -6,19 +6,7 @@
 // For the full copyright and license information, please view the LICENSE
 // file that was distributed with this source code.
 
-@import '../variables/colors';
-
-.members__table {
-  .card-extended {
-    border: 1px solid $main-grey;
-    float: left;
-    padding-left: 15px;
-    padding-right: 15px;
-    width: calc(100% / 3);
-  }
-}
-
-.members__no-member-sentence {
+.projects__no-project-sentence {
   line-height: 23px;
   margin-left: auto;
   margin-right: auto;
