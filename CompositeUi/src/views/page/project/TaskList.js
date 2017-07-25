@@ -25,7 +25,7 @@ import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
 import ContentRightLayout from './../../layout/ContentRightLayout';
 import Filter from './../../component/Filter';
 import Icon from './../../component/Icon';
-import InlineLink from './../../component/InlineLink';
+import InlineLink from '../../component/LinkInline';
 import LoadingSpinner from './../../component/LoadingSpinner';
 import NavigableList from './../../component/NavigableList';
 import PageHeader from './../../component/PageHeader';

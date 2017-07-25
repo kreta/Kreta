@@ -8,8 +8,9 @@
  * file that was distributed with this source code.
  */
 
-import SettingsIcon from './../../../svg/settings.svg';
+import AddIcon from './../../../svg/add.svg';
 import CrossIcon from './../../../svg/cross.svg';
+import SettingsIcon from './../../../svg/settings.svg';
 
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
@@ -24,7 +25,8 @@ import CardExtended from './../../component/CardExtended';
 import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
 import ContentRightLayout from './../../layout/ContentRightLayout';
 import Icon from './../../component/Icon';
-import InlineLink from './../../component/InlineLink';
+import LinkInline from '../../component/LinkInline';
+import LinkToggle from '../../component/LinkToggle';
 import LoadingSpinner from './../../component/LoadingSpinner';
 import PageHeader from './../../component/PageHeader';
 import SectionHeader from './../../component/SectionHeader';
@@ -96,8 +98,37 @@ class Show extends React.Component {
     );
   }
 
+  renderUsersSectionHeader(title, toFunction) {
+    const
+      {currentOrganization, location} = this.props,
+      organization = currentOrganization.organization;
+
+    return (
+      <SectionHeader
+        actions={
+          <LinkToggle
+            currentPath={location.pathname}
+            disableLink={
+              <LinkInline to={toFunction(organization.slug)}>
+                <Icon color="green" glyph={AddIcon} size="small"/>Add {title.toLowerCase()}
+              </LinkInline>
+            }
+            enableLink={
+              <LinkInline classModifiers="link-inline--red" to={routes.organization.show(organization.slug)}>
+                <Icon color="red" glyph={CrossIcon} size="small"/>Close bar
+              </LinkInline>
+            }
+          />
+        }
+        title={title}
+      />
+    );
+  }
+
   render() {
-    const {currentOrganization, children} = this.props;
+    const
+      {currentOrganization, children} = this.props,
+      organization = currentOrganization.organization;
 
     if (currentOrganization.fetching) {
       return <LoadingSpinner/>;
@@ -112,17 +143,17 @@ class Show extends React.Component {
                 thumbnail={
                   <Thumbnail
                     image={null}
-                    text={currentOrganization.organization.name}
+                    text={organization.name}
                   />
                 }
-                title={currentOrganization.organization.name}
+                title={organization.name}
               >
-                <InlineLink to={routes.organization.settings(currentOrganization.organization.slug)}>
-                  <Icon color="green" glyph={SettingsIcon} size="small"/>Settings
-                </InlineLink>
-                <Link to={routes.project.new(currentOrganization.organization.slug)}>
+                <Link to={routes.project.new(organization.slug)}>
                   <Button color="green">New project</Button>
                 </Link>
+                <LinkInline to={routes.organization.settings(organization.slug)}>
+                  <Icon color="green" glyph={SettingsIcon} size="small"/>Settings
+                </LinkInline>
               </PageHeader>
             </RowColumn>
             <RowColumn medium={6}>
@@ -130,17 +161,9 @@ class Show extends React.Component {
               {this.getProjects()}
             </RowColumn>
             <RowColumn medium={6}>
-              <SectionHeader
-                title="Owners"
-              />
+              {this.renderUsersSectionHeader('Owners', routes.organization.addOwner)}
               {this.getOwners()}
-              <SectionHeader
-                actions={
-                  <Link to={routes.organization.addMember(currentOrganization.organization.slug)}>
-                    <Button color="green">Add Members</Button>
-                  </Link>
-                }
-                title="Members"/>
+              {this.renderUsersSectionHeader('Members', routes.organization.addMember)}
               {this.getMembers()}
             </RowColumn>
           </Row>
