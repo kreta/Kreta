@@ -11,7 +11,6 @@
 import AddIcon from './../../../svg/add.svg';
 import CrossIcon from './../../../svg/cross.svg';
 import ExitIcon from './../../../svg/exit.svg';
-// import SettingsIcon from './../../../svg/settings.svg';
 
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
@@ -31,9 +30,11 @@ import LinkToggle from './../../component/LinkToggle';
 import LoadingSpinner from './../../component/LoadingSpinner';
 import PageHeader from './../../component/PageHeader';
 import SectionHeader from './../../component/SectionHeader';
+import Table from './../../component/Table';
 import Thumbnail from './../../component/Thumbnail';
 import UserCard from './../../component/UserCard';
 import {Row, RowColumn} from './../../component/Grid';
+import Section from "../../component/Section";
 
 @connect(state => ({currentOrganization: state.currentOrganization, profile: state.profile.profile}))
 class Show extends React.Component {
@@ -155,27 +156,26 @@ class Show extends React.Component {
         <ContentMiddleLayout>
           <Row>
             <RowColumn>
-              <PageHeader
-                thumbnail={<Thumbnail image={null} text={organization.name}/>}
-                title={organization.name}
-              >
+              <PageHeader thumbnail={<Thumbnail image={null} text={organization.name}/>} title={organization.name}>
                 <Link to={routes.project.new(organization.slug)}>
                   <Button color="green">New project</Button>
                 </Link>
-                {/* <LinkInline to={routes.organization.settings(organization.slug)}> */}
-                {/* <Icon color="green" glyph={SettingsIcon} size="small"/>Settings */}
-                {/* </LinkInline> */}
               </PageHeader>
             </RowColumn>
-            <RowColumn medium={6}>
-              <SectionHeader title="Projects"/>
-              {this.getProjects()}
-            </RowColumn>
-            <RowColumn medium={6}>
-              {this.renderUsersSectionHeader('Owners', routes.organization.addOwner)}
-              {this.getOwners()}
-              {this.renderUsersSectionHeader('Members', routes.organization.addMember)}
-              {this.getMembers()}
+            <RowColumn>
+              <Section header={<SectionHeader title="Projects"/>}>
+                {this.getProjects()}
+              </Section>
+              <Section header={this.renderUsersSectionHeader('Owners', routes.organization.addOwner)}>
+                <Table>
+                  {this.getOwners()}
+                </Table>
+              </Section>
+              <Section header={this.renderUsersSectionHeader('Members', routes.organization.addMember)}>
+                <Table>
+                  {this.getMembers()}
+                </Table>
+              </Section>
             </RowColumn>
           </Row>
         </ContentMiddleLayout>

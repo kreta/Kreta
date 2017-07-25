@@ -8,19 +8,14 @@
  * file that was distributed with this source code.
  */
 
-import './../../scss/components/_section-header.scss';
+import './../../scss/components/_table.scss';
 
 import React from 'react';
 
-const SectionHeader = props => (
-  <div className="section-header">
-    <h3 className="section-header__title">
-      {props.title}
-    </h3>
-    <div className="section-header__actions">
-      {props.actions}
-    </div>
+const Table = props => (
+  <div className="table">
+    {props.children}
   </div>
 );
 
-export default SectionHeader;
+export default Table;
