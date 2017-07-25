@@ -10,7 +10,7 @@
 
 import AddIcon from './../../../svg/add.svg';
 import CrossIcon from './../../../svg/cross.svg';
-import SettingsIcon from './../../../svg/settings.svg';
+// import SettingsIcon from './../../../svg/settings.svg';
 
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
@@ -140,20 +140,15 @@ class Show extends React.Component {
           <Row>
             <RowColumn>
               <PageHeader
-                thumbnail={
-                  <Thumbnail
-                    image={null}
-                    text={organization.name}
-                  />
-                }
+                thumbnail={<Thumbnail image={null} text={organization.name}/>}
                 title={organization.name}
               >
                 <Link to={routes.project.new(organization.slug)}>
                   <Button color="green">New project</Button>
                 </Link>
-                <LinkInline to={routes.organization.settings(organization.slug)}>
-                  <Icon color="green" glyph={SettingsIcon} size="small"/>Settings
-                </LinkInline>
+                {/* <LinkInline to={routes.organization.settings(organization.slug)}> */}
+                  {/* <Icon color="green" glyph={SettingsIcon} size="small"/>Settings */}
+                {/* </LinkInline> */}
               </PageHeader>
             </RowColumn>
             <RowColumn medium={6}>
