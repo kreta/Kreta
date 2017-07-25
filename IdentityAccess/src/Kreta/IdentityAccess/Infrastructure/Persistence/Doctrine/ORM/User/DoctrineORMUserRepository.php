@@ -39,7 +39,7 @@ class DoctrineORMUserRepository extends BaseDoctrineORMUserRepository implements
             ->getResult();
     }
 
-    public function usersOfSearchString($search, array $excludedIds = []) : array
+    public function usersOfSearchString(string $search, int $size, array $excludedIds = []) : array
     {
         $queryBuilder = $this->createQueryBuilder('u');
 
@@ -49,6 +49,7 @@ class DoctrineORMUserRepository extends BaseDoctrineORMUserRepository implements
             ->andWhere($queryBuilder->expr()->notIn('u.id', ':ids'))
             ->setParameter('search', '%' . $search . '%')
             ->setParameter('ids', $excludedIds)
+            ->setMaxResults($size)
             ->getQuery()
             ->getResult();
     }

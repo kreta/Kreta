@@ -21,6 +21,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class SearchAction
 {
+    private const PAGE_SIZE = 10;
     private $queryBus;
 
     public function __construct(QueryBus $queryBus)
@@ -31,11 +32,16 @@ class SearchAction
     public function __invoke(Request $request) : JsonResponse
     {
         $search = $request->query->get('query');
+        if (!$search) {
+            return new JsonResponse([]);
+        }
+
         $excludedIds = explode(',', $request->query->get('excluded_ids', ''));
 
         $this->queryBus->handle(
             new UsersOfSearchStringQuery(
                 $search,
+                self::PAGE_SIZE,
                 $excludedIds
             ),
             $result
