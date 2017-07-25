@@ -10,6 +10,7 @@
 
 import AddIcon from './../../../svg/add.svg';
 import CrossIcon from './../../../svg/cross.svg';
+import ExitIcon from './../../../svg/exit.svg';
 // import SettingsIcon from './../../../svg/settings.svg';
 
 import {connect} from 'react-redux';
@@ -25,8 +26,8 @@ import CardExtended from './../../component/CardExtended';
 import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
 import ContentRightLayout from './../../layout/ContentRightLayout';
 import Icon from './../../component/Icon';
-import LinkInline from '../../component/LinkInline';
-import LinkToggle from '../../component/LinkToggle';
+import LinkInline from './../../component/LinkInline';
+import LinkToggle from './../../component/LinkToggle';
 import LoadingSpinner from './../../component/LoadingSpinner';
 import PageHeader from './../../component/PageHeader';
 import SectionHeader from './../../component/SectionHeader';
@@ -60,10 +61,25 @@ class Show extends React.Component {
   }
 
   getOwners() {
-    const {organization} = this.props.currentOrganization;
+    const
+      {currentOrganization, profile} = this.props,
+      organization = currentOrganization.organization,
+      leaveAction = (
+        <LinkInline classModifiers="link-inline--red" to={null}>
+          <Icon color="red" glyph={ExitIcon} size="small"/>Leave organization
+        </LinkInline>
+      );
 
     return organization.owners.map((owner, index) => (
-      <UserCard key={index} user={owner}/>
+      <UserCard
+        actions={
+          organization.owners > 1 && owner.id === profile.user_id
+            ? leaveAction
+            : null
+        }
+        key={index}
+        user={owner}
+      />
     ));
   }
 
@@ -147,7 +163,7 @@ class Show extends React.Component {
                   <Button color="green">New project</Button>
                 </Link>
                 {/* <LinkInline to={routes.organization.settings(organization.slug)}> */}
-                  {/* <Icon color="green" glyph={SettingsIcon} size="small"/>Settings */}
+                {/* <Icon color="green" glyph={SettingsIcon} size="small"/>Settings */}
                 {/* </LinkInline> */}
               </PageHeader>
             </RowColumn>
