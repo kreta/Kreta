@@ -8,8 +8,7 @@
  * file that was distributed with this source code.
  */
 
-import SettingsIcon from './../../../svg/settings.svg';
-import CrossIcon from './../../../svg/cross.svg';
+import './../../../scss/views/page/organization/_show.scss';
 
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
@@ -20,17 +19,13 @@ import {routes} from './../../../Routes';
 import CurrentOrganizationActions from './../../../actions/CurrentOrganization';
 
 import Button from './../../component/Button';
-import CardExtended from './../../component/CardExtended';
 import ContentMiddleLayout from './../../layout/ContentMiddleLayout';
 import ContentRightLayout from './../../layout/ContentRightLayout';
-import Icon from './../../component/Icon';
-import InlineLink from './../../component/InlineLink';
 import LoadingSpinner from './../../component/LoadingSpinner';
+import Members from './../../composition/Members';
 import PageHeader from './../../component/PageHeader';
-import SectionHeader from './../../component/SectionHeader';
+import Projects from './../../composition/Projects';
 import Thumbnail from './../../component/Thumbnail';
-import UserCard from './../../component/UserCard';
-import {Row, RowColumn} from './../../component/Grid';
 
 @connect(state => ({currentOrganization: state.currentOrganization, profile: state.profile.profile}))
 class Show extends React.Component {
@@ -40,110 +35,61 @@ class Show extends React.Component {
     dispatch(CurrentOrganizationActions.fetchOrganization(params.organization));
   }
 
-  getProjects() {
-    const {organization} = this.props.currentOrganization;
-
-    return organization._projects2TvKxM.edges.map((project, index) => {
-      const currentProject = project.node;
-
-      return (
-        <Link key={index} to={routes.project.show(organization.slug, currentProject.slug)}>
-          <CardExtended
-            thumbnail={<Thumbnail text={`${currentProject.name}`}/>}
-            title={`${currentProject.name}`}
-          />
-        </Link>
-      );
-    });
-  }
-
-  getOwners() {
-    const {organization} = this.props.currentOrganization;
-
-    return organization.owners.map((owner, index) => (
-      <UserCard key={index} user={owner}/>
-    ));
-  }
-
-  getMembers() {
-    const {organization} = this.props.currentOrganization;
-
-    return organization.organization_members.map((member, index) => (
-      <UserCard
-        actions={
-          <Button
-            color="red"
-            onClick={this.removeMember.bind(this, member)}
-            type="icon"
-          >
-            <Icon color="white" glyph={CrossIcon} size="expand"/>
-          </Button>
-        }
-        key={index}
-        user={member}
-      />
-    ));
-  }
-
   removeMember(member) {
-    const {currentOrganization, dispatch} = this.props;
+    const
+      {currentOrganization, dispatch} = this.props,
+      organization = currentOrganization.organization;
 
     dispatch(
       CurrentOrganizationActions.removeMember(
-        currentOrganization.organization.id,
+        organization.id,
         member.id,
       )
     );
   }
 
+  renderPageHeader() {
+    const
+      {currentOrganization} = this.props,
+      organization = currentOrganization.organization;
+
+    return (
+      <PageHeader
+        thumbnail={
+          <Thumbnail
+            image={null}
+            text={organization.name}
+          />
+        }
+        title={organization.name}
+      >
+        <Link to={routes.project.new(organization.slug)}>
+          <Button color="green">New project</Button>
+        </Link>
+      </PageHeader>
+    );
+  }
+
   render() {
-    const {currentOrganization, children} = this.props;
+    const
+      {currentOrganization, children, location, profile} = this.props,
+      organization = currentOrganization.organization;
 
     if (currentOrganization.fetching) {
       return <LoadingSpinner/>;
     }
 
     return (
-      <div>
+      <div className="organization-show">
         <ContentMiddleLayout>
-          <Row>
-            <RowColumn>
-              <PageHeader
-                thumbnail={
-                  <Thumbnail
-                    image={null}
-                    text={currentOrganization.organization.name}
-                  />
-                }
-                title={currentOrganization.organization.name}
-              >
-                <InlineLink to={routes.organization.settings(currentOrganization.organization.slug)}>
-                  <Icon color="green" glyph={SettingsIcon} size="small"/>Settings
-                </InlineLink>
-                <Link to={routes.project.new(currentOrganization.organization.slug)}>
-                  <Button color="green">New project</Button>
-                </Link>
-              </PageHeader>
-            </RowColumn>
-            <RowColumn medium={6}>
-              <SectionHeader title="Projects"/>
-              {this.getProjects()}
-            </RowColumn>
-            <RowColumn medium={6}>
-              <SectionHeader
-                title="Owners"
-              />
-              {this.getOwners()}
-              <SectionHeader
-                actions={
-                  <Link to={routes.organization.addMember(currentOrganization.organization.slug)}>
-                    <Button color="green">Add Members</Button>
-                  </Link>
-                }
-                title="Members"/>
-              {this.getMembers()}
-            </RowColumn>
-          </Row>
+          {this.renderPageHeader()}
+          <Projects organization={organization}/>
+          <Members
+            currentPath={location.pathname}
+            organization={organization}
+            profile={profile}
+            removeMember={this.removeMember.bind(this)}
+          />
         </ContentMiddleLayout>
         <ContentRightLayout isOpen={children !== null}>
           {children}

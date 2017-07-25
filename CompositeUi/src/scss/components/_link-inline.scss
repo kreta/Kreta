@@ -6,12 +6,23 @@
 // For the full copyright and license information, please view the LICENSE
 // file that was distributed with this source code.
 
-.section-header {
+@import '../variables/colors';
+
+.link-inline {
   align-items: center;
+  color: $main-black;
   display: flex;
+  font-size: .8em;
+  padding-left: 1em;
+  text-decoration: none;
+
+  .icon {
+    margin-right: 5px;
+  }
 }
 
-.section-header__title {
-  flex: 1;
-  font-weight: normal;
+.link-inline--red {
+  &:hover {
+    color: darken($main-red, 10%);
+  }
 }

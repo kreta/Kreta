@@ -38,7 +38,8 @@ const
       new: () => ('/organizations/new'),
       show: (organization) => (`/${organization}`),
       settings: (organization) => (`/${organization}/settings`),
-      addMember: (organization) => (`/${organization}/add-member`)
+      addMember: (organization) => (`/${organization}/add-member`),
+      addOwner: (organization) => (`/${organization}/add-owner`)
     },
     project: {
       new: (organization) => (`/${organization}/projects/new`),
@@ -101,6 +102,7 @@ const
 
         <Route component={OrganizationRoot}>
           <Route component={OrganizationShow} path={routes.organization.show(':organization')}>
+            <Route component={OrganizationAddMember} path={routes.organization.addOwner(':organization')}/>
             <Route component={OrganizationAddMember} path={routes.organization.addMember(':organization')}/>
           </Route>
 

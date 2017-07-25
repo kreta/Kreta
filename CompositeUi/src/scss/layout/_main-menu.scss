@@ -50,12 +50,16 @@ $main-menu-size-desktop: 80px;
   display: none;
   font-size: 10px;
   margin: 10px 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 .main-menu__notification,
 .main-menu__profile {
   margin: 0 10px;
   position: relative;
+  width: 100%;
 }
 
 .main-menu__notification {
@@ -103,6 +107,10 @@ $main-menu-size-desktop: 80px;
     flex-direction: column;
   }
 
+  .main-menu__user {
+    width: 100%;
+  }
+
   .main-menu__notification,
   .main-menu__profile {
     margin: 10px;
@@ -114,5 +122,8 @@ $main-menu-size-desktop: 80px;
 
   .main-menu__username {
     display: block;
+    margin-bottom: 0;
+    padding-left: 5px;
+    padding-right: 5px;
   }
 }

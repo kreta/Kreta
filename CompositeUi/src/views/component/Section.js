@@ -8,15 +8,23 @@
  * file that was distributed with this source code.
  */
 
+import './../../scss/components/_section.scss';
+
 import React from 'react';
 
-import SectionHeader from './SectionHeader';
-
-export default props => (
+const Section = props => (
   <section className="section">
-    <SectionHeader actions={props.action} title={props.title}/>
+    <div className="section__header">
+      {props.header}
+    </div>
     <div className="section__content">
       {props.children}
     </div>
   </section>
 );
+
+Section.propTypes = {
+  header: React.PropTypes.object.isRequired,
+};
+
+export default Section;

@@ -6,12 +6,13 @@
 // For the full copyright and license information, please view the LICENSE
 // file that was distributed with this source code.
 
-.section-header {
-  align-items: center;
-  display: flex;
+@import '../variables/colors';
+
+.section + .section {
+  margin-top: 30px;
 }
 
-.section-header__title {
-  flex: 1;
-  font-weight: normal;
+.section {
+  display: flex;
+  flex-direction: column;
 }
