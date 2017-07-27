@@ -67,18 +67,18 @@ class TaskDTODataTransformer implements TaskDataTransformer
         }
 
         return [
-            'id'          => $this->task->id()->id(),
-            'numeric_id'  => $this->task->numericId()->id(),
-            'title'       => $this->task->title()->title(),
-            'priority'    => $this->task->priority()->priority(),
-            'progress'    => $this->task->progress()->progress(),
-            'description' => $this->task->description(),
-            'assignee_id' => $assigneeId,
+            'id'           => $this->task->id()->id(),
+            'numeric_id'   => $this->task->numericId()->id(),
+            'title'        => $this->task->title()->title(),
+            'priority'     => $this->task->priority()->priority(),
+            'progress'     => $this->task->progress()->progress(),
+            'description'  => $this->task->description(),
+            'assignee_id'  => $assigneeId,
             'reporter_id'  => $reporterId,
-            'created_on'  => $this->task->createdOn()->format('Y-m-d'),
-            'updated_on'  => $this->task->updatedOn()->format('Y-m-d'),
-            'project_id'  => $this->task->projectId()->id(),
-            'parent_id'   => null === $this->task->parentId() ? null : $this->task->parentId()->id(),
+            'created_on'   => $this->task->createdOn()->format('Y-m-d'),
+            'updated_on'   => $this->task->updatedOn()->format('Y-m-d'),
+            'project_id'   => $this->task->projectId()->id(),
+            'parent_id'    => null === $this->task->parentId() ? null : $this->task->parentId()->id(),
         ];
     }
 }

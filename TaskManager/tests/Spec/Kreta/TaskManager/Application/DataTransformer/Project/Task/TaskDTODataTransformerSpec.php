@@ -86,18 +86,18 @@ class TaskDTODataTransformerSpec extends ObjectBehavior
         $this->write($task);
 
         $this->read()->shouldReturn([
-            'id'          => 'task-id',
-            'numeric_id'  => 3,
-            'title'       => 'The task title',
-            'priority'    => 'low',
-            'progress'    => 'todo',
-            'description' => 'The task description',
-            'assignee_id' => 'assignee-id',
+            'id'           => 'task-id',
+            'numeric_id'   => 3,
+            'title'        => 'The task title',
+            'priority'     => 'low',
+            'progress'     => 'todo',
+            'description'  => 'The task description',
+            'assignee_id'  => 'assignee-id',
             'reporter_id'  => 'reporter-id',
-            'created_on'  => (new \DateTimeImmutable())->format('Y-m-d'),
-            'updated_on'  => (new \DateTimeImmutable())->format('Y-m-d'),
-            'project_id'  => 'project-id',
-            'parent_id'   => 'parent-id',
+            'created_on'   => (new \DateTimeImmutable())->format('Y-m-d'),
+            'updated_on'   => (new \DateTimeImmutable())->format('Y-m-d'),
+            'project_id'   => 'project-id',
+            'parent_id'    => 'parent-id',
         ]);
     }
 
