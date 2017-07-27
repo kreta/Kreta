@@ -28,6 +28,7 @@ use Kreta\TaskManager\Domain\Model\Project\Task\TaskPriorityChanged;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskProgress;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskProgressChanged;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskReassigned;
+use Kreta\TaskManager\Domain\Model\Project\Task\TaskReporterChanged;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskTitle;
 use PhpSpec\ObjectBehavior;
 
@@ -187,6 +188,18 @@ class TaskSpec extends ObjectBehavior
         $this->updatedOn()->shouldNotEqual($oldUpdatedOn);
 
         $this->shouldHavePublished(TaskReassigned::class);
+    }
+
+    function its_reporter_can_be_changed(MemberId $reporter)
+    {
+        $oldUpdatedOn = $this->updatedOn();
+
+        $this->changeReporter($reporter);
+
+        $this->creatorId()->shouldReturn($reporter);
+        $this->updatedOn()->shouldNotEqual($oldUpdatedOn);
+
+        $this->shouldHavePublished(TaskReporterChanged::class);
     }
 
     function its_priority_can_be_changed(TaskPriority $priority)

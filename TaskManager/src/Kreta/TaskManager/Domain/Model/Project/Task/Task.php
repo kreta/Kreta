@@ -73,7 +73,7 @@ class Task extends AggregateRoot
         );
     }
 
-    public function edit(TaskTitle $title, string $description)
+    public function edit(TaskTitle $title, string $description) : void
     {
         $this->title = $title;
         $this->description = $description;
@@ -84,7 +84,7 @@ class Task extends AggregateRoot
         );
     }
 
-    public function changeParent(TaskId $parentId = null)
+    public function changeParent(TaskId $parentId = null) : void
     {
         $this->parentId = $parentId;
         $this->updatedOn = new \DateTimeImmutable();
@@ -94,7 +94,7 @@ class Task extends AggregateRoot
         );
     }
 
-    public function reassign(MemberId $newAssigneeId)
+    public function reassign(MemberId $newAssigneeId) : void
     {
         $this->assigneeId = $newAssigneeId;
         $this->updatedOn = new \DateTimeImmutable();
@@ -104,7 +104,17 @@ class Task extends AggregateRoot
         );
     }
 
-    public function changePriority(TaskPriority $priority)
+    public function changeReporter(MemberId $newReporterId) : void
+    {
+        $this->creatorId = $newReporterId;
+        $this->updatedOn = new \DateTimeImmutable();
+
+        $this->publish(
+            new TaskReporterChanged($this->id, $newReporterId)
+        );
+    }
+
+    public function changePriority(TaskPriority $priority) : void
     {
         $this->priority = $priority;
         $this->updatedOn = new \DateTimeImmutable();
@@ -114,7 +124,7 @@ class Task extends AggregateRoot
         );
     }
 
-    public function changeProgress(TaskProgress $progress)
+    public function changeProgress(TaskProgress $progress) : void
     {
         $this->progress = $progress;
         $this->updatedOn = new \DateTimeImmutable();
@@ -179,7 +189,7 @@ class Task extends AggregateRoot
         return $this->projectId;
     }
 
-    public function parentId()
+    public function parentId() : ?TaskId
     {
         return $this->parentId;
     }

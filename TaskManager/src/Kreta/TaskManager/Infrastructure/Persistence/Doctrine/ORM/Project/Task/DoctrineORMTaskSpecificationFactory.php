@@ -15,6 +15,7 @@ declare(strict_types=1);
 namespace Kreta\TaskManager\Infrastructure\Persistence\Doctrine\ORM\Project\Task;
 
 use Kreta\SharedKernel\Domain\Model\Exception;
+use Kreta\TaskManager\Domain\Model\Organization\MemberId;
 use Kreta\TaskManager\Domain\Model\Project\ProjectId;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskId;
 use Kreta\TaskManager\Domain\Model\Project\Task\TaskPriority;
@@ -54,5 +55,15 @@ class DoctrineORMTaskSpecificationFactory implements TaskSpecificationFactory
     public function buildByProjectSpecification(ProjectId $projectId, int $offset = 0, int $limit = -1)
     {
         return new DoctrineORMFilterableSpecification([$projectId], null, null, null, null, [], [], $offset, $limit);
+    }
+
+    public function buildByAssigneeSpecification(MemberId $assigneeId, int $offset = 0, int $limit = -1)
+    {
+        return new DoctrineORMFilterableSpecification([], null, null, null, null, [$assigneeId], [], $offset, $limit);
+    }
+
+    public function buildByCreatorSpecification(MemberId $creatorId, int $offset = 0, int $limit = -1)
+    {
+        return new DoctrineORMFilterableSpecification([], null, null, null, null, [], [$creatorId], $offset, $limit);
     }
 }
