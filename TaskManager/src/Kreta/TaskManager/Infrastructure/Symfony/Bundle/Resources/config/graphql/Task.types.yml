@@ -14,7 +14,7 @@
 #     assignee: Member!
 #     children_tasks: TaskConnection
 #     created_on: String!
-#     creator: Member!
+#     reporter: Member!
 #     description: String!
 #     parent_task: Task
 #     priority: TaskPriority!
@@ -46,9 +46,9 @@ Task:
             created_on:
                 type: "String!"
                 description: "The created on of the project."
-            creator:
+            reporter:
                 type: "Member!"
-                description: "The creator of the task."
+                description: "The reporter of the task."
             description:
                 type: "String!"
                 description: "The description of the task."

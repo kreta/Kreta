@@ -18,19 +18,19 @@ use Kreta\SharedKernel\Domain\Model\Identity\Uuid;
 
 class CreateOrganizationCommand
 {
-    private $creatorId;
+    private $reporterId;
     private $name;
     private $id;
     private $slug;
 
     public function __construct(
-        string $creatorId,
+        string $reporterId,
         string $name,
         string $id = null,
         string $slug = null
     ) {
         $this->id = null === $id ? Uuid::generate() : $id;
-        $this->creatorId = $creatorId;
+        $this->reporterId = $reporterId;
         $this->name = $name;
         $this->slug = $slug;
     }
@@ -45,9 +45,9 @@ class CreateOrganizationCommand
         return $this->name;
     }
 
-    public function creatorId() : string
+    public function reporterId() : string
     {
-        return $this->creatorId;
+        return $this->reporterId;
     }
 
     public function slug()

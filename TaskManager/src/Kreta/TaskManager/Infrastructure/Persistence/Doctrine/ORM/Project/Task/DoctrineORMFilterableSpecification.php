@@ -33,7 +33,7 @@ class DoctrineORMFilterableSpecification implements DoctrineORMQuerySpecificatio
     private $limit;
     private $parentId;
     private $assigneeIds;
-    private $creatorIds;
+    private $reporterIds;
 
     public function __construct(
         array $projectIds,
@@ -42,7 +42,7 @@ class DoctrineORMFilterableSpecification implements DoctrineORMQuerySpecificatio
         ?TaskPriority $priority,
         ?TaskProgress $progress,
         array $assigneeIds,
-        array $creatorIds,
+        array $reporterIds,
         int $offset,
         int $limit
     ) {
@@ -54,7 +54,7 @@ class DoctrineORMFilterableSpecification implements DoctrineORMQuerySpecificatio
         $this->progress = $progress;
         $this->parentId = $parentId;
         $this->assigneeIds = $assigneeIds;
-        $this->creatorIds = $creatorIds;
+        $this->reporterIds = $reporterIds;
     }
 
     public function buildQuery(QueryBuilder $queryBuilder) : Query
@@ -113,10 +113,10 @@ class DoctrineORMFilterableSpecification implements DoctrineORMQuerySpecificatio
                 ->andWhere($queryBuilder->expr()->in('t.assigneeId', ':assigneeIds'))
                 ->setParameter('assigneeIds', $this->assigneeIds);
         }
-        if (!empty($this->creatorIds)) {
+        if (!empty($this->reporterIds)) {
             $queryBuilder
-                ->andWhere($queryBuilder->expr()->in('t.creatorId', ':creatorIds'))
-                ->setParameter('creatorIds', $this->creatorIds);
+                ->andWhere($queryBuilder->expr()->in('t.reporterId', ':reporterIds'))
+                ->setParameter('reporterIds', $this->reporterIds);
         }
 
         return $queryBuilder;

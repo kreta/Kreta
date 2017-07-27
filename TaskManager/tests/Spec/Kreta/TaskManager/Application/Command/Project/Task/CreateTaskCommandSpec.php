@@ -24,7 +24,7 @@ class CreateTaskCommandSpec extends ObjectBehavior
         $this->beConstructedWith(
             'title',
             'description',
-            'creator-id',
+            'reporter-id',
             'assignee-id',
             'priority',
             'project-id'
@@ -32,7 +32,7 @@ class CreateTaskCommandSpec extends ObjectBehavior
         $this->shouldHaveType(CreateTaskCommand::class);
         $this->title()->shouldReturn('title');
         $this->description()->shouldReturn('description');
-        $this->creatorId()->shouldReturn('creator-id');
+        $this->reporterId()->shouldReturn('reporter-id');
         $this->assigneeId()->shouldReturn('assignee-id');
         $this->projectId()->shouldReturn('project-id');
         $this->parentId()->shouldReturn(null);
@@ -44,7 +44,7 @@ class CreateTaskCommandSpec extends ObjectBehavior
         $this->beConstructedWith(
             'title',
             'description',
-            'creator-id',
+            'reporter-id',
             'assignee-id',
             'priority',
             'project-id',
@@ -52,7 +52,7 @@ class CreateTaskCommandSpec extends ObjectBehavior
         );
         $this->title()->shouldReturn('title');
         $this->description()->shouldReturn('description');
-        $this->creatorId()->shouldReturn('creator-id');
+        $this->reporterId()->shouldReturn('reporter-id');
         $this->assigneeId()->shouldReturn('assignee-id');
         $this->projectId()->shouldReturn('project-id');
         $this->parentId()->shouldReturn('parent-id');
@@ -64,7 +64,7 @@ class CreateTaskCommandSpec extends ObjectBehavior
         $this->beConstructedWith(
             'title',
             'description',
-            'creator-id',
+            'reporter-id',
             'assignee-id',
             'priority',
             'project-id',
@@ -73,7 +73,7 @@ class CreateTaskCommandSpec extends ObjectBehavior
         );
         $this->title()->shouldReturn('title');
         $this->description()->shouldReturn('description');
-        $this->creatorId()->shouldReturn('creator-id');
+        $this->reporterId()->shouldReturn('reporter-id');
         $this->assigneeId()->shouldReturn('assignee-id');
         $this->projectId()->shouldReturn('project-id');
         $this->parentId()->shouldReturn('parent-id');

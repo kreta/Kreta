@@ -24,7 +24,7 @@ class Task extends AggregateRoot
     private $numericId;
     private $title;
     private $description;
-    private $creatorId;
+    private $reporterId;
     private $assigneeId;
     private $priority;
     private $progress;
@@ -38,7 +38,7 @@ class Task extends AggregateRoot
         NumericId $numericId,
         TaskTitle $title,
         string $description,
-        MemberId $creatorId,
+        MemberId $reporterId,
         MemberId $assigneeId,
         TaskPriority $priority,
         ProjectId $projectId,
@@ -48,7 +48,7 @@ class Task extends AggregateRoot
         $this->numericId = $numericId;
         $this->title = $title;
         $this->description = $description;
-        $this->creatorId = $creatorId;
+        $this->reporterId = $reporterId;
         $this->assigneeId = $assigneeId;
         $this->priority = $priority;
         $this->progress = TaskProgress::todo();
@@ -64,7 +64,7 @@ class Task extends AggregateRoot
                 $numericId,
                 $title,
                 $description,
-                $creatorId,
+                $reporterId,
                 $assigneeId,
                 $priority,
                 $projectId,
@@ -106,7 +106,7 @@ class Task extends AggregateRoot
 
     public function changeReporter(MemberId $newReporterId) : void
     {
-        $this->creatorId = $newReporterId;
+        $this->reporterId = $newReporterId;
         $this->updatedOn = new \DateTimeImmutable();
 
         $this->publish(
@@ -154,9 +154,9 @@ class Task extends AggregateRoot
         return $this->description;
     }
 
-    public function creatorId() : MemberId
+    public function reporterId() : MemberId
     {
-        return $this->creatorId;
+        return $this->reporterId;
     }
 
     public function assigneeId() : MemberId

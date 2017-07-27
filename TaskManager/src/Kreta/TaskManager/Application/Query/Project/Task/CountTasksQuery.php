@@ -23,7 +23,7 @@ class CountTasksQuery
     private $priority;
     private $progress;
     private $assigneeId;
-    private $creatorId;
+    private $reporterId;
 
     public function __construct(
         string $userId,
@@ -33,7 +33,7 @@ class CountTasksQuery
         string $priority = null,
         string $progress = null,
         string $assigneeId = null,
-        string $creatorId = null
+        string $reporterId = null
     ) {
         $this->userId = $userId;
         $this->title = $title;
@@ -42,7 +42,7 @@ class CountTasksQuery
         $this->priority = $priority;
         $this->progress = $progress;
         $this->assigneeId = $assigneeId;
-        $this->creatorId = $creatorId;
+        $this->reporterId = $reporterId;
     }
 
     public function userId() : string
@@ -80,8 +80,8 @@ class CountTasksQuery
         return $this->assigneeId;
     }
 
-    public function creatorId()
+    public function reporterId()
     {
-        return $this->creatorId;
+        return $this->reporterId;
     }
 }

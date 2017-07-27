@@ -20,7 +20,7 @@
 #     project($id: ID) : Project
 #     project($slug: String, $organizationSlug: String) : Project
 #
-#     tasks($projectId: ID, $parentId: ID, $assigneeId: ID, $creatorId: ID, $title: String, $priority: TaskPriority, $progress: TaskProgress, $first: Int, $last: Int, $before: String, $after: String) : TaskConnection
+#     tasks($projectId: ID, $parentId: ID, $assigneeId: ID, $reporterId: ID, $title: String, $priority: TaskPriority, $progress: TaskProgress, $first: Int, $last: Int, $before: String, $after: String) : TaskConnection
 #     task($id: ID!) : Task
 #   }
 
@@ -92,7 +92,7 @@ Query:
                 resolve: "@=resolver('project', [args])"
             tasks:
                 type: "TaskConnection"
-                description: "The paginate list of task that can be filter by title, project id, parent task id, assignee id, creator id, priority and progress"
+                description: "The paginate list of task that can be filter by title, project id, parent task id, assignee id, reporter id, priority and progress"
                 args:
                     taskConnectionInput:
                         description: "Input object that wraps complex filter requirements of task connection"

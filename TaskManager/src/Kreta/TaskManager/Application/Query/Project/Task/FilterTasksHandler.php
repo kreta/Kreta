@@ -64,7 +64,7 @@ class FilterTasksHandler
         $userId = UserId::generate($query->userId());
         $projectIds = [ProjectId::generate($query->projectId())];
         $assigneeIds = [];
-        $creatorIds = [];
+        $reporterIds = [];
 
         $project = $this->projectRepository->projectOfId($projectIds[0]);
         if ($project instanceof Project) {
@@ -72,7 +72,7 @@ class FilterTasksHandler
                 $project->organizationId()
             );
             $assigneeIds = $this->addUserId($assigneeIds, $organization, $query->assigneeId());
-            $creatorIds = $this->addUserId($creatorIds, $organization, $query->creatorId());
+            $reporterIds = $this->addUserId($reporterIds, $organization, $query->reporterId());
 
             if (!$organization->isOrganizationMember($userId)) {
                 throw new UnauthorizedTaskResourceException();
@@ -88,7 +88,7 @@ class FilterTasksHandler
             $organizationIds = [];
             foreach ($organizations as $organization) {
                 $assigneeIds = $this->addUserId($assigneeIds, $organization, $query->assigneeId());
-                $creatorIds = $this->addUserId($creatorIds, $organization, $query->creatorId());
+                $reporterIds = $this->addUserId($reporterIds, $organization, $query->reporterId());
 
                 $organizationIds[] = $organization->id();
             }
@@ -114,7 +114,7 @@ class FilterTasksHandler
                 null === $query->priority() ? null : new TaskPriority($query->priority()),
                 null === $query->progress() ? null : new TaskProgress($query->progress()),
                 $assigneeIds,
-                $creatorIds,
+                $reporterIds,
                 $query->offset(),
                 $query->limit()
             )

@@ -22,12 +22,12 @@ class CreateProjectCommand
     private $name;
     private $slug;
     private $organizationId;
-    private $creatorId;
+    private $reporterId;
 
     public function __construct(
         string $name,
         string $organizationId,
-        string $creatorId,
+        string $reporterId,
         string $id = null,
         string $slug = null
     ) {
@@ -35,7 +35,7 @@ class CreateProjectCommand
         $this->name = $name;
         $this->slug = $slug;
         $this->organizationId = $organizationId;
-        $this->creatorId = $creatorId;
+        $this->reporterId = $reporterId;
     }
 
     public function id() : string
@@ -58,8 +58,8 @@ class CreateProjectCommand
         return $this->organizationId;
     }
 
-    public function creatorId() : string
+    public function reporterId() : string
     {
-        return $this->creatorId;
+        return $this->reporterId;
     }
 }

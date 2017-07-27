@@ -78,8 +78,8 @@ class TasksResolver implements Resolver
         if (!isset($args['assigneeId'])) {
             $args['assigneeId'] = null;
         }
-        if (!isset($args['creatorId'])) {
-            $args['creatorId'] = null;
+        if (!isset($args['reporterId'])) {
+            $args['reporterId'] = null;
         }
 
         list($offset, $limit, $total) = $this->buildPagination($args);
@@ -95,7 +95,7 @@ class TasksResolver implements Resolver
                 $args['priority'],
                 $args['progress'],
                 $args['assigneeId'],
-                $args['creatorId']
+                $args['reporterId']
             ),
             $result
         );
@@ -128,7 +128,7 @@ class TasksResolver implements Resolver
                 $args['priority'],
                 $args['progress'],
                 $args['assigneeId'],
-                $args['creatorId']
+                $args['reporterId']
             ),
             $total
         );

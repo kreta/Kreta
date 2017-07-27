@@ -69,7 +69,7 @@ class CreateTaskMutation implements Mutation
         } catch (UnauthorizedTaskActionException $exception) {
             throw new UserError(
                 sprintf(
-                    'The "%s" creator does not allow to perform the task creation',
+                    'The "%s" reporter does not allow to perform the task creation',
                     $this->currentUser
                 )
             );

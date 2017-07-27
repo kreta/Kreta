@@ -86,7 +86,7 @@ query ProjectQueryRequest(\$id: ID!, \$first: Int) {
           assignee {
             id
           },
-          creator {
+          reporter {
             id
           }
         }

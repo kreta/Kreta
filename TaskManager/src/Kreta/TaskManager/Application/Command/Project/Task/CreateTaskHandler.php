@@ -80,17 +80,17 @@ class CreateTaskHandler
         }
 
         $organizationId = $project->organizationId();
-        $creatorId = UserId::generate($command->creatorId());
+        $reporterId = UserId::generate($command->reporterId());
         $assigneeId = UserId::generate($command->assigneeId());
 
         $organization = $this->organizationRepository->organizationOfId($organizationId);
 
-        $this->checkUsersAreOrganizationMembers($organization, $creatorId, $assigneeId);
+        $this->checkUsersAreOrganizationMembers($organization, $reporterId, $assigneeId);
 
         $taskId = TaskId::generate($taskId);
         $title = new TaskTitle($command->title());
         $description = $command->description();
-        $creator = $this->becomeUserIdToDomainMemberId($organization, $creatorId);
+        $reporter = $this->becomeUserIdToDomainMemberId($organization, $reporterId);
         $assignee = $this->becomeUserIdToDomainMemberId($organization, $assigneeId);
         $priority = new TaskPriority($command->priority());
         $projectId = ProjectId::generate($projectId);
@@ -106,7 +106,7 @@ class CreateTaskHandler
             $numericId,
             $title,
             $description,
-            $creator,
+            $reporter,
             $assignee,
             $priority,
             $projectId,
@@ -137,10 +137,10 @@ class CreateTaskHandler
 
     private function checkUsersAreOrganizationMembers(
         Organization $organization,
-        UserId $creatorId,
+        UserId $reporterId,
         UserId $assigneeId
     ) : void {
-        $this->checkCreatorIsOrganizationMember($organization, $creatorId);
+        $this->checkReporterIsOrganizationMember($organization, $reporterId);
         $this->checkAssigneeIsOrganizationMember($organization, $assigneeId);
     }
 
@@ -151,9 +151,9 @@ class CreateTaskHandler
         }
     }
 
-    private function checkCreatorIsOrganizationMember(Organization $organization, UserId $creatorId) : void
+    private function checkReporterIsOrganizationMember(Organization $organization, UserId $reporterId) : void
     {
-        if (!$organization->isOrganizationMember($creatorId)) {
+        if (!$organization->isOrganizationMember($reporterId)) {
             throw new UnauthorizedTaskActionException();
         }
     }

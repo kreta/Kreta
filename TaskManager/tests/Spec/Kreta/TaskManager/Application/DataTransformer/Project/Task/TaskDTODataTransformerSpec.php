@@ -53,7 +53,7 @@ class TaskDTODataTransformerSpec extends ObjectBehavior
     ) {
         $projectId = ProjectId::generate('project-id');
         $assigneeId = UserId::generate('assignee-id');
-        $creatorId = UserId::generate('creator-id');
+        $reporterId = UserId::generate('reporter-id');
 
         $organization = new Organization(
             OrganizationId::generate('organization-id'),
@@ -62,17 +62,17 @@ class TaskDTODataTransformerSpec extends ObjectBehavior
             UserId::generate()
         );
         $organization->addOwner($assigneeId);
-        $organization->addOrganizationMember($creatorId);
+        $organization->addOrganizationMember($reporterId);
 
         $assignee = $organization->organizationMember($assigneeId);
-        $creator = $organization->organizationMember($creatorId);
+        $reporter = $organization->organizationMember($reporterId);
 
         $task = new Task(
             TaskId::generate('task-id'),
             NumericId::fromPrevious(2),
             new TaskTitle('The task title'),
             'The task description',
-            $creator->id(),
+            $reporter->id(),
             $assignee->id(),
             TaskPriority::low(),
             $projectId,
@@ -93,7 +93,7 @@ class TaskDTODataTransformerSpec extends ObjectBehavior
             'progress'    => 'todo',
             'description' => 'The task description',
             'assignee_id' => 'assignee-id',
-            'creator_id'  => 'creator-id',
+            'reporter_id'  => 'reporter-id',
             'created_on'  => (new \DateTimeImmutable())->format('Y-m-d'),
             'updated_on'  => (new \DateTimeImmutable())->format('Y-m-d'),
             'project_id'  => 'project-id',

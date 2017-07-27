@@ -26,7 +26,7 @@ interface TaskSpecificationFactory
         ?TaskPriority $priority,
         ?TaskProgress $progress,
         array $assigneeIds = [],
-        array $creatorIds = [],
+        array $reporterIds = [],
         int $offset = 0,
         int $limit = -1
     );
@@ -35,5 +35,5 @@ interface TaskSpecificationFactory
 
     public function buildByAssigneeSpecification(MemberId $assigneeId, int $offset = 0, int $limit = -1);
 
-    public function buildByCreatorSpecification(MemberId $creatorId, int $offset = 0, int $limit = -1);
+    public function buildByReporterSpecification(MemberId $reporterId, int $offset = 0, int $limit = -1);
 }

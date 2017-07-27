@@ -30,7 +30,7 @@ class TaskCreatedSpec extends ObjectBehavior
         TaskId $taskId,
         NumericId $numericId,
         TaskTitle $title,
-        MemberId $creatorId,
+        MemberId $reporterId,
         MemberId $assigneeId,
         TaskPriority $priority,
         ProjectId $projectId,
@@ -41,7 +41,7 @@ class TaskCreatedSpec extends ObjectBehavior
             $numericId,
             $title,
             'Description',
-            $creatorId,
+            $reporterId,
             $assigneeId,
             $priority,
             $projectId,
@@ -53,7 +53,7 @@ class TaskCreatedSpec extends ObjectBehavior
         TaskId $taskId,
         NumericId $numericId,
         TaskTitle $title,
-        MemberId $creatorId,
+        MemberId $reporterId,
         MemberId $assigneeId,
         TaskPriority $priority,
         ProjectId $projectId,
@@ -66,7 +66,7 @@ class TaskCreatedSpec extends ObjectBehavior
         $this->numericId()->shouldReturn($numericId);
         $this->title()->shouldReturn($title);
         $this->description()->shouldReturn('Description');
-        $this->creatorId()->shouldReturn($creatorId);
+        $this->reporterId()->shouldReturn($reporterId);
         $this->assigneeId()->shouldReturn($assigneeId);
         $this->priority()->shouldReturn($priority);
         $this->projectId()->shouldReturn($projectId);

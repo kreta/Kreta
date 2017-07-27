@@ -52,7 +52,7 @@ query TaskQueryRequest(\$id: ID!) {
     assignee {
       id
     },
-    creator {
+    reporter {
       id
     },
     project {

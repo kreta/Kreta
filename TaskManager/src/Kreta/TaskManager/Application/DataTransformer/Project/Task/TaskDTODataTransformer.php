@@ -48,21 +48,21 @@ class TaskDTODataTransformer implements TaskDataTransformer
             $project->organizationId()
         );
         $assigneeId = null;
-        $creatorId = null;
+        $reporterId = null;
         foreach ($organization->organizationMembers() as $organizationMember) {
             if ($organizationMember->id()->equals($this->task->assigneeId())) {
                 $assigneeId = $organizationMember->userId()->id();
             }
-            if ($organizationMember->id()->equals($this->task->creatorId())) {
-                $creatorId = $organizationMember->userId()->id();
+            if ($organizationMember->id()->equals($this->task->reporterId())) {
+                $reporterId = $organizationMember->userId()->id();
             }
         }
         foreach ($organization->owners() as $owner) {
             if ($owner->id()->equals($this->task->assigneeId())) {
                 $assigneeId = $owner->userId()->id();
             }
-            if ($owner->id()->equals($this->task->creatorId())) {
-                $creatorId = $owner->userId()->id();
+            if ($owner->id()->equals($this->task->reporterId())) {
+                $reporterId = $owner->userId()->id();
             }
         }
 
@@ -74,7 +74,7 @@ class TaskDTODataTransformer implements TaskDataTransformer
             'progress'    => $this->task->progress()->progress(),
             'description' => $this->task->description(),
             'assignee_id' => $assigneeId,
-            'creator_id'  => $creatorId,
+            'reporter_id'  => $reporterId,
             'created_on'  => $this->task->createdOn()->format('Y-m-d'),
             'updated_on'  => $this->task->updatedOn()->format('Y-m-d'),
             'project_id'  => $this->task->projectId()->id(),

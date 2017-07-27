@@ -82,7 +82,7 @@ class RemoveOrganizationMemberToOrganizationHandler
         $remover = $organization->owner($removerId);
 
         $this->moveTaskReferencesFromAssigneeToRemover($member, $remover);
-        $this->moveTaskReferencesFromCreatorToRemover($member, $remover);
+        $this->moveTaskReferencesFromReporterToRemover($member, $remover);
     }
 
     private function moveTaskReferencesFromAssigneeToRemover(Member $assignee, Owner $remover) : void
@@ -104,19 +104,19 @@ class RemoveOrganizationMemberToOrganizationHandler
         return $tasks;
     }
 
-    private function moveTaskReferencesFromCreatorToRemover(Member $creator, Owner $remover) : void
+    private function moveTaskReferencesFromReporterToRemover(Member $reporter, Owner $remover) : void
     {
-        $tasks = $this->tasksOfCreator($creator);
-        array_map(function (Task $task) use ($creator, $remover) {
+        $tasks = $this->tasksOfReporter($reporter);
+        array_map(function (Task $task) use ($reporter, $remover) {
             $task->changeReporter($remover->id());
         }, $tasks);
     }
 
-    private function tasksOfCreator(Member $creator) : array
+    private function tasksOfReporter(Member $reporter) : array
     {
         $tasks = $this->taskRepository->query(
-            $this->taskSpecificationFactory->buildByCreatorSpecification(
-                $creator->id()
+            $this->taskSpecificationFactory->buildByReporterSpecification(
+                $reporter->id()
             )
         );
 

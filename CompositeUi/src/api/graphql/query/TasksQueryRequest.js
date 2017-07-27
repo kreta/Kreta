@@ -27,7 +27,7 @@ const query = Relay.QL`
           assignee {
             id
           },
-          creator {
+          reporter {
             id
           },
         }

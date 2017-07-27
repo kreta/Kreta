@@ -31,7 +31,7 @@ class DoctrineORMTaskSpecificationFactory implements TaskSpecificationFactory
         ?TaskPriority $priority,
         ?TaskProgress $progress,
         array $assigneeIds = [],
-        array $creatorIds = [],
+        array $reporterIds = [],
         int $offset = 0,
         int $limit = -1
     ) {
@@ -46,7 +46,7 @@ class DoctrineORMTaskSpecificationFactory implements TaskSpecificationFactory
             $priority,
             $progress,
             $assigneeIds,
-            $creatorIds,
+            $reporterIds,
             $offset,
             $limit
         );
@@ -62,8 +62,8 @@ class DoctrineORMTaskSpecificationFactory implements TaskSpecificationFactory
         return new DoctrineORMFilterableSpecification([], null, null, null, null, [$assigneeId], [], $offset, $limit);
     }
 
-    public function buildByCreatorSpecification(MemberId $creatorId, int $offset = 0, int $limit = -1)
+    public function buildByReporterSpecification(MemberId $reporterId, int $offset = 0, int $limit = -1)
     {
-        return new DoctrineORMFilterableSpecification([], null, null, null, null, [], [$creatorId], $offset, $limit);
+        return new DoctrineORMFilterableSpecification([], null, null, null, null, [], [$reporterId], $offset, $limit);
     }
 }

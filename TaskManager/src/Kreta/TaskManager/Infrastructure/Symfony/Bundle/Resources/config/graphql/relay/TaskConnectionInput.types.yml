@@ -16,7 +16,7 @@
 #     projectId: ID,
 #     parentId: ID,
 #     assigneeId: ID,
-#     creatorId: ID,
+#     reporterId: ID,
 #     priority: TaskPriority,
 #     progress: TaskProgress,
 #     title: String
@@ -42,8 +42,8 @@ TaskConnectionInput:
             assigneeId:
                 description: "assignee id to which the task belongs"
                 type: "ID"
-            creatorId:
-                description: "creator id to which the task belongs"
+            reporterId:
+                description: "reporter id to which the task belongs"
                 type: "ID"
             priority:
                 description: "priority to which the task has"
