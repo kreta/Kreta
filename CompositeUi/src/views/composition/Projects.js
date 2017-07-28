@@ -8,16 +8,16 @@
  * file that was distributed with this source code.
  */
 
-import './../../scss/compositions/_projects.scss';
-
 import {Link} from 'react-router';
 import React from 'react';
 
 import {routes} from './../../Routes';
 
+import Advice from './../component/Advice';
 import CardExtended from './../component/CardExtended';
 import Section from './../component/Section';
 import SectionHeader from './../component/SectionHeader';
+import Table from './../component/Table';
 import Thumbnail from './../component/Thumbnail';
 
 class Projects extends React.Component {
@@ -27,19 +27,15 @@ class Projects extends React.Component {
 
   noProjects() {
     return (
-      <p className="projects__no-project-sentence">
+      <Advice>
         No projects found, you may want to create the first one so, please
         click on "<strong>NEW PROJECT</strong>" green button.
-      </p>
+      </Advice>
     );
   }
 
   getProjects() {
     const {organization} = this.props;
-
-    if (organization._projects2TvKxM.edges.length === 0) {
-      return this.noProjects();
-    }
 
     return organization._projects2TvKxM.edges.map((project, index) => {
       const currentProject = project.node;
@@ -62,13 +58,23 @@ class Projects extends React.Component {
     );
   }
 
+  renderContent() {
+    const {organization} = this.props;
+
+    if (organization._projects2TvKxM.edges.length === 0) {
+      return this.noProjects();
+    }
+
+    return (
+      <Table columns={3} items={this.getProjects()}/>
+    );
+  }
+
   render() {
     return (
       <div className="projects">
         <Section header={this.renderHeader()}>
-          <div className="projects__table">
-            {this.getProjects()}
-          </div>
+          {this.renderContent()}
         </Section>
       </div>
     );
