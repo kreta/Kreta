@@ -124,8 +124,8 @@ class Show extends React.Component {
             <UserCard user={task.assignee}/>
           </RowColumn>
           <RowColumn small={6}>
-            <span>Creator</span>
-            <UserCard user={task.creator}/>
+            <span>Reporter</span>
+            <UserCard user={task.reporter}/>
           </RowColumn>
         </Row>
         <Row className="task-show__fields">

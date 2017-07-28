@@ -115,9 +115,9 @@ class CreateTaskHandlerSpec extends ObjectBehavior
         $projectRepository->projectOfId(ProjectId::generate('project-id'))->shouldBeCalled()->willReturn($project);
         $project->organizationId()->shouldBeCalled()->willReturn($organizationId);
         $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
-        $command->creatorId()->shouldBeCalled()->willReturn('creator-id');
+        $command->reporterId()->shouldBeCalled()->willReturn('reporter-id');
         $command->assigneeId()->shouldBeCalled()->willReturn('assignee-id');
-        $organization->isOrganizationMember(UserId::generate('creator-id'))->shouldBeCalled()->willReturn(false);
+        $organization->isOrganizationMember(UserId::generate('reporter-id'))->shouldBeCalled()->willReturn(false);
         $this->shouldThrow(UnauthorizedTaskActionException::class)->during__invoke($command);
     }
 
@@ -145,11 +145,11 @@ class CreateTaskHandlerSpec extends ObjectBehavior
         $projectRepository->projectOfId($projectId)->shouldBeCalled()->willReturn($project);
         $project->organizationId()->shouldBeCalled()->willReturn($organizationId);
         $organizationRepository->organizationOfId($organizationId)->shouldBeCalled()->willReturn($organization);
-        $command->creatorId()->shouldBeCalled()->willReturn('creator-id');
+        $command->reporterId()->shouldBeCalled()->willReturn('reporter-id');
         $command->assigneeId()->shouldBeCalled()->willReturn('assignee-id');
-        $organization->isOrganizationMember(UserId::generate('creator-id'))->shouldBeCalled()->willReturn(true);
+        $organization->isOrganizationMember(UserId::generate('reporter-id'))->shouldBeCalled()->willReturn(true);
         $organization->isOrganizationMember(UserId::generate('assignee-id'))->shouldBeCalled()->willReturn(true);
-        $organization->organizationMember(UserId::generate('creator-id'))->shouldBeCalled()->willReturn($member);
+        $organization->organizationMember(UserId::generate('reporter-id'))->shouldBeCalled()->willReturn($member);
         $member->id()->shouldBeCalled()->willReturn($memberId);
         $organization->organizationMember(UserId::generate('assignee-id'))->shouldBeCalled()->willReturn($member2);
         $member2->id()->shouldBeCalled()->willReturn($memberId2);

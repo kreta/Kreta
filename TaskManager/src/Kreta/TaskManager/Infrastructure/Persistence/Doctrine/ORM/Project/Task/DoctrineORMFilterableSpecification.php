@@ -33,16 +33,16 @@ class DoctrineORMFilterableSpecification implements DoctrineORMQuerySpecificatio
     private $limit;
     private $parentId;
     private $assigneeIds;
-    private $creatorIds;
+    private $reporterIds;
 
     public function __construct(
         array $projectIds,
-        ? string $title,
-        ? TaskId $parentId,
-        ? TaskPriority $priority,
-        ? TaskProgress $progress,
+        ?string $title,
+        ?TaskId $parentId,
+        ?TaskPriority $priority,
+        ?TaskProgress $progress,
         array $assigneeIds,
-        array $creatorIds,
+        array $reporterIds,
         int $offset,
         int $limit
     ) {
@@ -54,7 +54,7 @@ class DoctrineORMFilterableSpecification implements DoctrineORMQuerySpecificatio
         $this->progress = $progress;
         $this->parentId = $parentId;
         $this->assigneeIds = $assigneeIds;
-        $this->creatorIds = $creatorIds;
+        $this->reporterIds = $reporterIds;
     }
 
     public function buildQuery(QueryBuilder $queryBuilder) : Query
@@ -83,26 +83,27 @@ class DoctrineORMFilterableSpecification implements DoctrineORMQuerySpecificatio
 
     private function setWhereClauses(QueryBuilder $queryBuilder) : QueryBuilder
     {
-        $queryBuilder
-            ->andWhere($queryBuilder->expr()->in('t.projectId', ':projectIds'))
-            ->setParameter('projectIds', $this->projectIds);
-
+        if (!empty($this->projectIds)) {
+            $queryBuilder
+                ->andWhere($queryBuilder->expr()->in('t.projectId', ':projectIds'))
+                ->setParameter('projectIds', $this->projectIds);
+        }
         if (!empty($this->title)) {
             $queryBuilder
                 ->andWhere($queryBuilder->expr()->like('t.title.title', ':title'))
                 ->setParameter('title', '%' . $this->title . '%');
         }
-        if (null !== $this->parentId) {
+        if ($this->parentId instanceof TaskId) {
             $queryBuilder
                 ->andWhere($queryBuilder->expr()->eq('t.parentId', ':parentId'))
                 ->setParameter('parentId', $this->parentId->id());
         }
-        if (null !== $this->priority) {
+        if ($this->priority instanceof TaskPriority) {
             $queryBuilder
                 ->andWhere($queryBuilder->expr()->eq('t.priority.priority', ':priority'))
                 ->setParameter('priority', $this->priority->priority());
         }
-        if (null !== $this->progress) {
+        if ($this->progress instanceof TaskProgress) {
             $queryBuilder
                 ->andWhere($queryBuilder->expr()->eq('t.progress.progress', ':progress'))
                 ->setParameter('progress', $this->progress->progress());
@@ -112,10 +113,10 @@ class DoctrineORMFilterableSpecification implements DoctrineORMQuerySpecificatio
                 ->andWhere($queryBuilder->expr()->in('t.assigneeId', ':assigneeIds'))
                 ->setParameter('assigneeIds', $this->assigneeIds);
         }
-        if (!empty($this->creatorIds)) {
+        if (!empty($this->reporterIds)) {
             $queryBuilder
-                ->andWhere($queryBuilder->expr()->in('t.creatorId', ':creatorIds'))
-                ->setParameter('creatorIds', $this->creatorIds);
+                ->andWhere($queryBuilder->expr()->in('t.reporterId', ':reporterIds'))
+                ->setParameter('reporterIds', $this->reporterIds);
         }
 
         return $queryBuilder;

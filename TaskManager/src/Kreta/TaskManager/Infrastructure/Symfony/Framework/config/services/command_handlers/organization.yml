@@ -50,6 +50,8 @@ services:
         class: Kreta\TaskManager\Application\Command\Organization\RemoveOrganizationMemberToOrganizationHandler
         arguments:
             - "@kreta.task_manager.repository.organization"
+            - "@kreta.task_manager.repository.task"
+            - "@kreta.task_manager.specification_factory.task"
         tags:
             -
                 name: command_handler

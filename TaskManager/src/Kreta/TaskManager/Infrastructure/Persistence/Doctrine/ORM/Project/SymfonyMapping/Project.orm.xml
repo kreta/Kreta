@@ -9,11 +9,11 @@
             repository-class="Kreta\TaskManager\Infrastructure\Persistence\Doctrine\ORM\Project\DoctrineORMProjectRepository">
         <id name="id" type="project_id"/>
 
+        <field name="createdOn" type="datetime" column="created_on"/>
+        <field name="updatedOn" type="datetime" column="updated_on"/>
+        <field name="organizationId" type="organization_id" column="organization_id"/>
+
         <embedded name="name" class="Kreta\TaskManager\Domain\Model\Project\ProjectName" use-column-prefix="false"/>
         <embedded name="slug" class="Kreta\SharedKernel\Domain\Model\Identity\Slug" use-column-prefix="false"/>
-
-        <field name="createdOn" type="datetime" column="created_on" nullable="false"/>
-        <field name="updatedOn" type="datetime" column="updated_on" nullable="false"/>
-        <field name="organizationId" type="organization_id" column="organization_id" nullable="false"/>
     </entity>
 </doctrine-mapping>

@@ -20,7 +20,7 @@ class CreateTaskCommand
 {
     private $title;
     private $description;
-    private $creatorId;
+    private $reporterId;
     private $assigneeId;
     private $priority;
     private $projectId;
@@ -30,7 +30,7 @@ class CreateTaskCommand
     public function __construct(
         string $title,
         string $description,
-        string $creatorId,
+        string $reporterId,
         string $assigneeId,
         string $priority,
         string $projectId,
@@ -39,7 +39,7 @@ class CreateTaskCommand
     ) {
         $this->title = $title;
         $this->description = $description;
-        $this->creatorId = $creatorId;
+        $this->reporterId = $reporterId;
         $this->assigneeId = $assigneeId;
         $this->priority = $priority;
         $this->projectId = $projectId;
@@ -57,9 +57,9 @@ class CreateTaskCommand
         return $this->description;
     }
 
-    public function creatorId() : string
+    public function reporterId() : string
     {
-        return $this->creatorId;
+        return $this->reporterId;
     }
 
     public function assigneeId() : string

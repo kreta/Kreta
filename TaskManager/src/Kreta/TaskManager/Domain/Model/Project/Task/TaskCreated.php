@@ -24,7 +24,7 @@ class TaskCreated implements DomainEvent
     private $numericId;
     private $title;
     private $description;
-    private $creatorId;
+    private $reporterId;
     private $assigneeId;
     private $priority;
     private $projectId;
@@ -36,7 +36,7 @@ class TaskCreated implements DomainEvent
         NumericId $numericId,
         TaskTitle $title,
         string $description,
-        MemberId $creatorId,
+        MemberId $reporterId,
         MemberId $assigneeId,
         TaskPriority $priority,
         ProjectId $projectId,
@@ -46,7 +46,7 @@ class TaskCreated implements DomainEvent
         $this->numericId = $numericId;
         $this->title = $title;
         $this->description = $description;
-        $this->creatorId = $creatorId;
+        $this->reporterId = $reporterId;
         $this->assigneeId = $assigneeId;
         $this->projectId = $projectId;
         $this->priority = $priority;
@@ -74,9 +74,9 @@ class TaskCreated implements DomainEvent
         return $this->description;
     }
 
-    public function creatorId() : MemberId
+    public function reporterId() : MemberId
     {
-        return $this->creatorId;
+        return $this->reporterId;
     }
 
     public function assigneeId() : MemberId

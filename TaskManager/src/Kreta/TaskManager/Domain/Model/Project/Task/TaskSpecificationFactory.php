@@ -14,6 +14,7 @@ declare(strict_types=1);
 
 namespace Kreta\TaskManager\Domain\Model\Project\Task;
 
+use Kreta\TaskManager\Domain\Model\Organization\MemberId;
 use Kreta\TaskManager\Domain\Model\Project\ProjectId;
 
 interface TaskSpecificationFactory
@@ -25,10 +26,14 @@ interface TaskSpecificationFactory
         ?TaskPriority $priority,
         ?TaskProgress $progress,
         array $assigneeIds = [],
-        array $creatorIds = [],
+        array $reporterIds = [],
         int $offset = 0,
         int $limit = -1
     );
 
-    public function buildByProjectSpecification(ProjectId $projectId);
+    public function buildByProjectSpecification(ProjectId $projectId, int $offset = 0, int $limit = -1);
+
+    public function buildByAssigneeSpecification(MemberId $assigneeId, int $offset = 0, int $limit = -1);
+
+    public function buildByReporterSpecification(MemberId $reporterId, int $offset = 0, int $limit = -1);
 }

@@ -32,7 +32,7 @@ class CreateOrganizationHandlerSpec extends ObjectBehavior
 {
     private $organizationId;
     private $slug;
-    private $creatorId;
+    private $reporterId;
 
     function let(
         OrganizationRepository $repository,
@@ -44,11 +44,11 @@ class CreateOrganizationHandlerSpec extends ObjectBehavior
         $command->name()->shouldBeCalled()->willReturn('organization name');
         $command->slug()->shouldBeCalled()->willReturn('organization-slug');
         $command->id()->shouldBeCalled()->willReturn('organization-id');
-        $command->creatorId()->shouldBeCalled()->willReturn('user-id');
+        $command->reporterId()->shouldBeCalled()->willReturn('user-id');
 
         $this->organizationId = OrganizationId::generate('organization-id');
         $this->slug = new Slug('organization-slug');
-        $this->creatorId = UserId::generate('user-id');
+        $this->reporterId = UserId::generate('user-id');
     }
 
     function it_creates_an_organization(
@@ -61,7 +61,7 @@ class CreateOrganizationHandlerSpec extends ObjectBehavior
 
         $repository->organizationOfId($this->organizationId)->shouldBeCalled()->willReturn(null);
         $repository->organizationOfSlug($this->slug)->shouldBeCalled()->willReturn(null);
-        $userRepository->userOfId($this->creatorId)->shouldBeCalled()->willReturn($user);
+        $userRepository->userOfId($this->reporterId)->shouldBeCalled()->willReturn($user);
         $repository->persist(Argument::type(Organization::class))->shouldBeCalled();
         $this->__invoke($command);
     }
@@ -77,7 +77,7 @@ class CreateOrganizationHandlerSpec extends ObjectBehavior
 
         $repository->organizationOfId($this->organizationId)->shouldBeCalled()->willReturn(null);
         $repository->organizationOfSlug($slug)->shouldBeCalled()->willReturn(null);
-        $userRepository->userOfId($this->creatorId)->shouldBeCalled()->willReturn($user);
+        $userRepository->userOfId($this->reporterId)->shouldBeCalled()->willReturn($user);
         $repository->persist(Argument::type(Organization::class))->shouldBeCalled();
         $this->__invoke($command);
     }
@@ -101,7 +101,7 @@ class CreateOrganizationHandlerSpec extends ObjectBehavior
         $this->shouldThrow(OrganizationAlreadyExistsException::class)->during__invoke($command);
     }
 
-    function it_does_not_create_an_organization_because_creator_does_not_exist(
+    function it_does_not_create_an_organization_because_reporter_does_not_exist(
         CreateOrganizationCommand $command,
         OrganizationRepository $repository,
         UserRepository $userRepository

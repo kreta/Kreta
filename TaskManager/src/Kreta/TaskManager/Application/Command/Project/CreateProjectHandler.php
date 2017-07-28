@@ -52,12 +52,12 @@ class CreateProjectHandler
         $name = new ProjectName($name);
         $projectId = ProjectId::generate($command->id());
         $organizationId = OrganizationId::generate($command->organizationId());
-        $creatorId = UserId::generate($command->creatorId());
+        $reporterId = UserId::generate($command->reporterId());
 
         $organization = $this->organizationRepository->organizationOfId($organizationId);
         $this->checkOrganizationExists($organization);
         $this->checkProjectUniqueness($projectId, $slug, $organization->slug());
-        $this->checkCreatorPrivileges($organization, $creatorId);
+        $this->checkReporterPrivileges($organization, $reporterId);
 
         $project = new Project($projectId, $name, $slug, $organizationId);
         $this->repository->persist($project);
@@ -96,9 +96,9 @@ class CreateProjectHandler
         }
     }
 
-    private function checkCreatorPrivileges(Organization $organization, UserId $creatorId)
+    private function checkReporterPrivileges(Organization $organization, UserId $reporterId)
     {
-        if (!$organization->isOwner($creatorId)) {
+        if (!$organization->isOwner($reporterId)) {
             throw new UnauthorizedCreateProjectException();
         }
     }

@@ -21,41 +21,41 @@ class CreateOrganizationCommandSpec extends ObjectBehavior
 {
     function it_can_be_created_with_basic_info()
     {
-        $this->beConstructedWith('creator-id', 'Organization name');
+        $this->beConstructedWith('reporter-id', 'Organization name');
         $this->shouldHaveType(CreateOrganizationCommand::class);
         $this->id()->shouldNotBe(null);
         $this->name()->shouldReturn('Organization name');
         $this->slug()->shouldReturn(null);
-        $this->creatorId()->shouldReturn('creator-id');
+        $this->reporterId()->shouldReturn('reporter-id');
     }
 
     function it_can_be_created_with_basic_info_and_organization_id()
     {
-        $this->beConstructedWith('creator-id', 'Organization name', 'organization-id');
+        $this->beConstructedWith('reporter-id', 'Organization name', 'organization-id');
         $this->shouldHaveType(CreateOrganizationCommand::class);
         $this->id()->shouldReturn('organization-id');
         $this->name()->shouldReturn('Organization name');
         $this->slug()->shouldReturn(null);
-        $this->creatorId()->shouldReturn('creator-id');
+        $this->reporterId()->shouldReturn('reporter-id');
     }
 
-    function it_can_be_created_with_basic_info_organization_id_creator_id()
+    function it_can_be_created_with_basic_info_organization_id_reporter_id()
     {
         $this->beConstructedWith(
-            'creator-id',
+            'reporter-id',
             'Organization name',
             'organization-id'
         );
         $this->id()->shouldReturn('organization-id');
         $this->name()->shouldReturn('Organization name');
         $this->slug()->shouldReturn(null);
-        $this->creatorId()->shouldReturn('creator-id');
+        $this->reporterId()->shouldReturn('reporter-id');
     }
 
-    function it_can_be_created_with_basic_info_organization_id_creator_id_and_slug()
+    function it_can_be_created_with_basic_info_organization_id_reporter_id_and_slug()
     {
         $this->beConstructedWith(
-            'creator-id',
+            'reporter-id',
             'Organization name',
             'organization-id',
             'organization-slug'

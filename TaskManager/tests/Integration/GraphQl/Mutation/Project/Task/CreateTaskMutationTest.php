@@ -90,7 +90,7 @@ class CreateTaskMutationTest extends JsonApiTestCase
                 'projectId'        => '0dadad5e-1220-11e7-93ae-92361f002671',
                 'parentId'         => null,
             ],
-            '/create_task_with_not_member_creator'
+            '/create_task_with_not_member_reporter'
         );
     }
 
@@ -149,7 +149,7 @@ mutation CreateTaskMutation(\$input: CreateTaskInput!) {
       assignee {
         id
       },
-      creator {
+      reporter {
         id
       },
       project {

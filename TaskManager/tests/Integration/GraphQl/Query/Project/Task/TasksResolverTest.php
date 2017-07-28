@@ -59,17 +59,17 @@ class TasksResolverTest extends JsonApiTestCase
         ], '/tasks_filtered_by_assignee');
     }
 
-    public function testTasksFilteredByCreatorResolver() : void
+    public function testTasksFilteredByReporterResolver() : void
     {
         $this->tasksResolver('access-token-2', [
-            'creatorId' => '6704c278-e106-449f-a73d-2508e96f6177',
-        ], '/tasks_filtered_by_creator');
+            'reporterId' => '6704c278-e106-449f-a73d-2508e96f6177',
+        ], '/tasks_filtered_by_reporter');
     }
 
     public function testTasksFilteredByMultipleResolver() : void
     {
         $this->tasksResolver('access-token-2', [
-            'creatorId' => '6704c278-e106-449f-a73d-2508e96f6177',
+            'reporterId' => '6704c278-e106-449f-a73d-2508e96f6177',
             'priority'  => 'MEDIUM',
             'progress'  => 'DOING',
         ], '/tasks_filtered_by_multiple');
@@ -103,7 +103,7 @@ query TasksQueryRequest(\$taskConnectionInput: TaskConnectionInput!) {
         assignee {
           id
         },
-        creator {
+        reporter {
           id
         },
         project {

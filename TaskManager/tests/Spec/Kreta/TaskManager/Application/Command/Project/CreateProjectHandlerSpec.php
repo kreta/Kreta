@@ -38,7 +38,7 @@ class CreateProjectHandlerSpec extends ObjectBehavior
     private $id;
     private $organizationId;
     private $organizationSlug;
-    private $creatorId;
+    private $reporterId;
 
     function let(
         OrganizationRepository $organizationRepository,
@@ -52,14 +52,14 @@ class CreateProjectHandlerSpec extends ObjectBehavior
         $command->slug()->shouldBeCalled()->willReturn('the-project-slug');
         $command->id()->shouldBeCalled()->willReturn('project-id');
         $command->organizationId()->shouldBeCalled()->willReturn('organization-id');
-        $command->creatorId()->shouldBeCalled()->willReturn('creator-id');
+        $command->reporterId()->shouldBeCalled()->willReturn('reporter-id');
 
         $this->name = new ProjectName('The project name');
         $this->slug = new Slug('the-project-slug');
         $this->id = ProjectId::generate('project-id');
         $this->organizationId = OrganizationId::generate('organization-id');
         $this->organizationSlug = new Slug('organization-slug');
-        $this->creatorId = UserId::generate('creator-id');
+        $this->reporterId = UserId::generate('reporter-id');
     }
 
     function it_does_not_allow_to_create_project_if_organization_does_not_exist(
@@ -99,7 +99,7 @@ class CreateProjectHandlerSpec extends ObjectBehavior
         $this->shouldThrow(ProjectAlreadyExists::class)->during__invoke($command);
     }
 
-    function it_does_not_allow_to_create_project_if_creator_is_not_organization_owner(
+    function it_does_not_allow_to_create_project_if_reporter_is_not_organization_owner(
         OrganizationRepository $organizationRepository,
         ProjectRepository $repository,
         CreateProjectCommand $command,
@@ -111,7 +111,7 @@ class CreateProjectHandlerSpec extends ObjectBehavior
         $organization->slug()->shouldBeCalled()->willReturn($this->organizationSlug);
         $specificationFactory->buildBySlugSpecification($this->slug, $this->organizationSlug)->shouldBeCalled();
         $repository->singleResultQuery(Argument::any())->shouldBeCalled()->willReturn(null);
-        $organization->isOwner(UserId::generate('creator-id'))->shouldBeCalled()->willReturn(false);
+        $organization->isOwner(UserId::generate('reporter-id'))->shouldBeCalled()->willReturn(false);
         $this->shouldThrow(UnauthorizedCreateProjectException::class)->during__invoke($command);
     }
 
@@ -127,7 +127,7 @@ class CreateProjectHandlerSpec extends ObjectBehavior
         $organization->slug()->shouldBeCalled()->willReturn($this->organizationSlug);
         $specificationFactory->buildBySlugSpecification($this->slug, $this->organizationSlug)->shouldBeCalled();
         $repository->singleResultQuery(Argument::any())->shouldBeCalled()->willReturn(null);
-        $organization->isOwner($this->creatorId)->shouldBeCalled()->willReturn(true);
+        $organization->isOwner($this->reporterId)->shouldBeCalled()->willReturn(true);
         $repository->persist(Argument::type(Project::class))->shouldBeCalled();
         $this->__invoke($command);
     }
@@ -147,7 +147,7 @@ class CreateProjectHandlerSpec extends ObjectBehavior
         $organization->slug()->shouldBeCalled()->willReturn($this->organizationSlug);
         $specificationFactory->buildBySlugSpecification($slug, $this->organizationSlug)->shouldBeCalled();
         $repository->singleResultQuery(Argument::any())->shouldBeCalled()->willReturn(null);
-        $organization->isOwner($this->creatorId)->shouldBeCalled()->willReturn(true);
+        $organization->isOwner($this->reporterId)->shouldBeCalled()->willReturn(true);
         $repository->persist(Argument::type(Project::class))->shouldBeCalled();
         $this->__invoke($command);
     }

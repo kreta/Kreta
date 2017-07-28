@@ -35,7 +35,7 @@ const Actions = {
       let members = [];
 
       project._tasks49h6f1.edges.map((task) => {
-        members = [...members, task.node.assignee, task.node.creator];
+        members = [...members, task.node.assignee, task.node.reporter];
       });
 
       UserInjector.injectUserForId([
@@ -74,7 +74,7 @@ const Actions = {
 
       let members = [];
       tasks.edges.map((task) => {
-        members = [...members, task.node.assignee, task.node.creator];
+        members = [...members, task.node.assignee, task.node.reporter];
       });
       UserInjector.injectUserForId([
         ...members
@@ -98,7 +98,7 @@ const Actions = {
 
       let members = [];
       tasks.edges.map((task) => {
-        members = [...members, task.node.assignee, task.node.creator];
+        members = [...members, task.node.assignee, task.node.reporter];
       });
       UserInjector.injectUserForId([
         ...members
@@ -122,7 +122,7 @@ const Actions = {
 
       UserInjector.injectUserForId([
         task.assignee,
-        task.creator
+        task.reporter
       ]).then(() => {
         dispatch({
           type: ActionTypes.CURRENT_PROJECT_TASK_CREATED,
@@ -158,7 +158,7 @@ const Actions = {
 
       UserInjector.injectUserForId([
         task.assignee,
-        task.creator
+        task.reporter
       ]).then(() => {
         dispatch({
           type: ActionTypes.CURRENT_PROJECT_TASK_UPDATED,
@@ -195,7 +195,7 @@ const Actions = {
 
         UserInjector.injectUserForId([
           task.assignee,
-          task.creator
+          task.reporter
         ]).then(() => {
           dispatch({
             type: ActionTypes.CURRENT_PROJECT_TASK_UPDATED_PROGRESS,

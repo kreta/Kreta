@@ -31,7 +31,7 @@ class FilterTasksQuerySpec extends ObjectBehavior
         $this->priority()->shouldReturn(null);
         $this->progress()->shouldReturn(null);
         $this->assigneeId()->shouldReturn(null);
-        $this->creatorId()->shouldReturn(null);
+        $this->reporterId()->shouldReturn(null);
     }
 
     function it_can_be_created_with_title()
@@ -46,7 +46,7 @@ class FilterTasksQuerySpec extends ObjectBehavior
         $this->priority()->shouldReturn(null);
         $this->progress()->shouldReturn(null);
         $this->assigneeId()->shouldReturn(null);
-        $this->creatorId()->shouldReturn(null);
+        $this->reporterId()->shouldReturn(null);
     }
 
     function it_can_be_created_with_priority()
@@ -61,7 +61,7 @@ class FilterTasksQuerySpec extends ObjectBehavior
         $this->priority()->shouldReturn('low');
         $this->progress()->shouldReturn(null);
         $this->assigneeId()->shouldReturn(null);
-        $this->creatorId()->shouldReturn(null);
+        $this->reporterId()->shouldReturn(null);
     }
 
     function it_can_be_created_with_progress()
@@ -76,7 +76,7 @@ class FilterTasksQuerySpec extends ObjectBehavior
         $this->priority()->shouldReturn(null);
         $this->progress()->shouldReturn('todo');
         $this->assigneeId()->shouldReturn(null);
-        $this->creatorId()->shouldReturn(null);
+        $this->reporterId()->shouldReturn(null);
     }
 
     function it_can_be_created_with_parent_id()
@@ -91,7 +91,7 @@ class FilterTasksQuerySpec extends ObjectBehavior
         $this->priority()->shouldReturn(null);
         $this->progress()->shouldReturn(null);
         $this->assigneeId()->shouldReturn(null);
-        $this->creatorId()->shouldReturn(null);
+        $this->reporterId()->shouldReturn(null);
     }
 
     function it_can_be_created_with_project_id()
@@ -107,7 +107,7 @@ class FilterTasksQuerySpec extends ObjectBehavior
         $this->priority()->shouldReturn(null);
         $this->progress()->shouldReturn(null);
         $this->assigneeId()->shouldReturn(null);
-        $this->creatorId()->shouldReturn(null);
+        $this->reporterId()->shouldReturn(null);
     }
 
     function it_can_be_created_with_assignee_id()
@@ -123,12 +123,12 @@ class FilterTasksQuerySpec extends ObjectBehavior
         $this->priority()->shouldReturn(null);
         $this->progress()->shouldReturn(null);
         $this->assigneeId()->shouldReturn('assignee-id');
-        $this->creatorId()->shouldReturn(null);
+        $this->reporterId()->shouldReturn(null);
     }
 
-    function it_can_be_created_with_creator_id()
+    function it_can_be_created_with_reporter_id()
     {
-        $this->beConstructedWith('user-id', 0, -1, null, null, null, null, null, null, 'creator-id');
+        $this->beConstructedWith('user-id', 0, -1, null, null, null, null, null, null, 'reporter-id');
         $this->shouldHaveType(FilterTasksQuery::class);
         $this->userId()->shouldReturn('user-id');
         $this->offset()->shouldReturn(0);
@@ -139,6 +139,6 @@ class FilterTasksQuerySpec extends ObjectBehavior
         $this->priority()->shouldReturn(null);
         $this->progress()->shouldReturn(null);
         $this->assigneeId()->shouldReturn(null);
-        $this->creatorId()->shouldReturn('creator-id');
+        $this->reporterId()->shouldReturn('reporter-id');
     }
 }

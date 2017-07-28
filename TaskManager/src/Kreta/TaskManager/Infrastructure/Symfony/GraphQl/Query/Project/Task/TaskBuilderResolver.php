@@ -20,7 +20,7 @@ use Kreta\TaskManager\Infrastructure\Symfony\GraphQl\Query\Project\ProjectResolv
 
 class TaskBuilderResolver implements Resolver
 {
-    const MEMBER_TYPES = ['assignee', 'creator'];
+    const MEMBER_TYPES = ['assignee', 'reporter'];
 
     private $memberResolver;
     private $projectResolver;

@@ -23,7 +23,7 @@ const mutation = Relay.QL`
         progress,
         priority,
         assignee,
-        creator,
+        reporter,
         project {
           id,
           slug,

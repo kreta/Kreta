@@ -43,11 +43,11 @@ class CreateOrganizationHandler
         $slug = new Slug(null === $slug ? $name : $slug);
         $name = new OrganizationName($name);
         $organizationId = OrganizationId::generate($command->id());
-        $creatorId = UserId::generate($command->creatorId());
+        $reporterId = UserId::generate($command->reporterId());
 
         $this->checkOrganizationUniqueness($organizationId, $slug);
-        $this->checkCreatorExists($creatorId);
-        $organization = new Organization($organizationId, $name, $slug, $creatorId);
+        $this->checkReporterExists($reporterId);
+        $organization = new Organization($organizationId, $name, $slug, $reporterId);
         $this->repository->persist($organization);
     }
 
@@ -73,10 +73,10 @@ class CreateOrganizationHandler
         }
     }
 
-    private function checkCreatorExists(UserId $creatorId)
+    private function checkReporterExists(UserId $reporterId)
     {
-        $creator = $this->userRepository->userOfId($creatorId);
-        if (!$creator instanceof User) {
+        $reporter = $this->userRepository->userOfId($reporterId);
+        if (!$reporter instanceof User) {
             throw new UserDoesNotExistException();
         }
     }

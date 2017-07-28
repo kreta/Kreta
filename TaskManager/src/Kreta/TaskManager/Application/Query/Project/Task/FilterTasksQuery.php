@@ -25,7 +25,7 @@ class FilterTasksQuery
     private $priority;
     private $progress;
     private $assigneeId;
-    private $creatorId;
+    private $reporterId;
 
     public function __construct(
         string $userId,
@@ -37,7 +37,7 @@ class FilterTasksQuery
         string $priority = null,
         string $progress = null,
         string $assigneeId = null,
-        string $creatorId = null
+        string $reporterId = null
     ) {
         $this->title = $title;
         $this->projectId = $projectId;
@@ -48,7 +48,7 @@ class FilterTasksQuery
         $this->priority = $priority;
         $this->progress = $progress;
         $this->assigneeId = $assigneeId;
-        $this->creatorId = $creatorId;
+        $this->reporterId = $reporterId;
     }
 
     public function userId() : string
@@ -96,8 +96,8 @@ class FilterTasksQuery
         return $this->assigneeId;
     }
 
-    public function creatorId()
+    public function reporterId()
     {
-        return $this->creatorId;
+        return $this->reporterId;
     }
 }

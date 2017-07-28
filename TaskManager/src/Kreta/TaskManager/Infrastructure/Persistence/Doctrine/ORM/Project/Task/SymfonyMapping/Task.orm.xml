@@ -1,4 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+
+ This file is part of the Kreta package.
+
+ (c) Beñat Espiña <benatespina@gmail.com>
+ (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+
+ For the full copyright and license information, please view the LICENSE
+ file that was distributed with this source code.
+
+-->
+
 <doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping"
                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
                   xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping
@@ -9,6 +22,14 @@
             repository-class="Kreta\TaskManager\Infrastructure\Persistence\Doctrine\ORM\Project\Task\DoctrineORMTaskRepository">
         <id name="id" type="task_id"/>
 
+        <field name="description" column="description"/>
+        <field name="reporterId" type="organization_member_id" column="reporter_id"/>
+        <field name="assigneeId" type="organization_member_id" column="assignee_id"/>
+        <field name="createdOn" type="datetime" column="created_on"/>
+        <field name="updatedOn" type="datetime" column="updated_on"/>
+        <field name="projectId" type="project_id" column="project_id"/>
+        <field name="parentId" type="task_id" column="parent_id" nullable="true"/>
+
         <embedded name="numericId" class="Kreta\TaskManager\Domain\Model\Project\Task\NumericId"
                   column-prefix="numeric_"/>
         <embedded name="title" class="Kreta\TaskManager\Domain\Model\Project\Task\TaskTitle"
@@ -17,13 +38,5 @@
                   use-column-prefix="false"/>
         <embedded name="progress" class="Kreta\TaskManager\Domain\Model\Project\Task\TaskProgress"
                   use-column-prefix="false"/>
-
-        <field name="description" type="string" column="description" nullable="false"/>
-        <field name="creatorId" type="organization_member_id" column="creator_id" nullable="false"/>
-        <field name="assigneeId" type="organization_member_id" column="assignee_id" nullable="false"/>
-        <field name="createdOn" type="datetime" column="created_on" nullable="false"/>
-        <field name="updatedOn" type="datetime" column="updated_on" nullable="false"/>
-        <field name="projectId" type="project_id" column="project_id" nullable="false"/>
-        <field name="parentId" type="task_id" column="parent_id" nullable="true"/>
     </entity>
 </doctrine-mapping>
