@@ -42,7 +42,7 @@ class EditProfileHandler
     {
         $id = new UserId($command->id());
         $email = new UserEmail($command->email());
-        $username = new Username($command->username());
+        $username = Username::from($command->username());
         $fullName = new FullName($command->firstName(), $command->lastName());
 
         /** @var User $user */

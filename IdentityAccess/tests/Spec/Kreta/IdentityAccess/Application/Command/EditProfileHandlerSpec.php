@@ -72,7 +72,7 @@ class EditProfileHandlerSpec extends ObjectBehavior
 
         $repository->userOfId(new UserId('user-id'))->shouldBeCalled()->willReturn($user);
 
-        $repository->userOfUsername(new Username('kreta-username'))->shouldBeCalled()->willReturn($anotherUser);
+        $repository->userOfUsername(Username::from('kreta-username'))->shouldBeCalled()->willReturn($anotherUser);
         $user->id()->shouldBeCalled()->willReturn(new UserId('user-id'));
         $anotherUser->id()->shouldBeCalled()->willReturn(new UserId('another-user-id'));
 
@@ -94,7 +94,7 @@ class EditProfileHandlerSpec extends ObjectBehavior
 
         $repository->userOfId(new UserId('user-id'))->shouldBeCalled()->willReturn($user);
 
-        $repository->userOfUsername(new Username('kreta-username'))->shouldBeCalled()->willReturn($anotherUser);
+        $repository->userOfUsername(Username::from('kreta-username'))->shouldBeCalled()->willReturn($anotherUser);
         $user->id()->shouldBeCalled()->willReturn(new UserId('user-id'));
         $anotherUser->id()->shouldBeCalled()->willReturn(new UserId('user-id'));
 
@@ -120,7 +120,7 @@ class EditProfileHandlerSpec extends ObjectBehavior
 
         $repository->userOfId(new UserId('user-id'))->shouldBeCalled()->willReturn($user);
 
-        $repository->userOfUsername(new Username('kreta-username'))->shouldBeCalled()->willReturn($anotherUser);
+        $repository->userOfUsername(Username::from('kreta-username'))->shouldBeCalled()->willReturn($anotherUser);
         $user->id()->shouldBeCalled()->willReturn(new UserId('user-id'));
         $anotherUser->id()->shouldBeCalled()->willReturn(new UserId('user-id'));
 
@@ -130,7 +130,7 @@ class EditProfileHandlerSpec extends ObjectBehavior
 
         $user->editProfile(
             new UserEmail('user@user.net'),
-            new Username('kreta-username'),
+            Username::from('kreta-username'),
             new FullName('kreta', 'lastname')
         )->shouldBeCalled();
 
@@ -157,7 +157,7 @@ class EditProfileHandlerSpec extends ObjectBehavior
 
         $repository->userOfId(new UserId('user-id'))->shouldBeCalled()->willReturn($user);
 
-        $repository->userOfUsername(new Username('kreta-username'))->shouldBeCalled()->willReturn($anotherUser);
+        $repository->userOfUsername(Username::from('kreta-username'))->shouldBeCalled()->willReturn($anotherUser);
         $user->id()->shouldBeCalled()->willReturn(new UserId('user-id'));
         $anotherUser->id()->shouldBeCalled()->willReturn(new UserId('user-id'));
 
@@ -167,7 +167,7 @@ class EditProfileHandlerSpec extends ObjectBehavior
 
         $user->editProfile(
             new UserEmail('user@user.net'),
-            new Username('kreta-username'),
+            Username::from('kreta-username'),
             new FullName('kreta', 'lastname')
         )->shouldBeCalled();
 

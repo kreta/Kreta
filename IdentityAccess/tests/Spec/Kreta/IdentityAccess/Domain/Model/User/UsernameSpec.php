@@ -33,26 +33,26 @@ class UsernameSpec extends ObjectBehavior
 
     function it_creates()
     {
-        $this->beConstructedWIth('kreta');
+        $this->beConstructedFrom('kreta');
         $this->username()->shouldReturn('kreta');
         $this->__toString()->shouldReturn('kreta');
     }
 
     function it_does_not_creates_with_invalid_username()
     {
-        $this->beConstructedWith('kreta=#,');
+        $this->beConstructedFrom('kreta=#,');
         $this->shouldThrow(UsernameInvalidException::class)->duringInstantiation();
     }
 
     function it_does_not_creates_with_less_than_2_length()
     {
-        $this->beConstructedWith('k');
+        $this->beConstructedFrom('k');
         $this->shouldThrow(UsernameInvalidException::class)->duringInstantiation();
     }
 
     function it_does_not_creates_with_more_than_20_length()
     {
-        $this->beConstructedWith('sdskfhsdufhsduifisudfhisudfhisufdhid');
+        $this->beConstructedFrom('sdskfhsdufhsduifisudfhisudfhisufdhid');
         $this->shouldThrow(UsernameInvalidException::class)->duringInstantiation();
     }
 }
