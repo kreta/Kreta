@@ -17,19 +17,19 @@ namespace Kreta\IdentityAccess\Infrastructure\Persistence\Doctrine\Migrations;
 use Doctrine\DBAL\Migrations\AbstractMigration;
 use Doctrine\DBAL\Schema\Schema;
 
-class Version20170212142132 extends AbstractMigration
+class Version20170731164211 extends AbstractMigration
 {
     public function up(Schema $schema) : void
     {
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE user ADD username VARCHAR(20) NOT NULL, ADD first_name VARCHAR(150) DEFAULT NULL, ADD last_name VARCHAR(150) DEFAULT NULL');
+        $this->addSql('ALTER TABLE user CHANGE username username VARCHAR(150) NOT NULL');
     }
 
     public function down(Schema $schema) : void
     {
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
-        $this->addSql('ALTER TABLE user DROP username, DROP first_name, DROP last_name');
+        $this->addSql('ALTER TABLE user CHANGE username username VARCHAR(20) NOT NULL COLLATE utf8_unicode_ci');
     }
 }
