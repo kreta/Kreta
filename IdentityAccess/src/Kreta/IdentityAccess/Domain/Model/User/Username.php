@@ -18,33 +18,40 @@ use BenGorUser\User\Domain\Model\UserEmail;
 
 class Username
 {
-    const MAX_LENGTH = 20;
-    const MIN_LENGTH = 3;
+    private const MAX_LENGTH = 20;
+    private const MIN_LENGTH = 3;
 
     private $username;
 
-    public static function fromEmail(UserEmail $email)
+    public static function fromEmail(UserEmail $email) : self
     {
         $localPart = $email->localPart();
         $localPart = mb_substr($localPart, 0, self::MAX_LENGTH);
 
         $username = sprintf('%s%d', $localPart, mt_rand(1111, 9999));
 
-        return new self($username);
+        return new self($username, true);
     }
 
-    public function __construct(string $username)
+    public static function from(string $username) : self
     {
-        $this->setUsername($username);
+        return new self($username, false);
     }
 
-    private function setUsername(string $username)
+    private function __construct(string $username, bool $isFromEmail)
     {
-        $this->checkIsValidUsername($username);
+        $this->setUsername($username, $isFromEmail);
+    }
+
+    private function setUsername(string $username, bool $isFromEmail) : void
+    {
+        if (false === $isFromEmail) {
+            $this->checkIsValidUsername($username);
+        }
         $this->username = $username;
     }
 
-    private function checkIsValidUsername(string $username)
+    private function checkIsValidUsername(string $username) : void
     {
         $regex = sprintf('/^[a-z0-9_.-]{%d,%d}$/', self::MIN_LENGTH, self::MAX_LENGTH);
 

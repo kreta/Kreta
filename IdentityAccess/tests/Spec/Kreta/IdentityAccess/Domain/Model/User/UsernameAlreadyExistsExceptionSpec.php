@@ -24,7 +24,7 @@ class UsernameAlreadyExistsExceptionSpec extends ObjectBehavior
     function let()
     {
         $this->beConstructedWith(
-            new Username('kreta-username')
+            Username::from('kreta-username')
         );
     }
 
