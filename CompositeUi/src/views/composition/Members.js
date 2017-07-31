@@ -8,8 +8,6 @@
  * file that was distributed with this source code.
  */
 
-import './../../scss/compositions/_members.scss';
-
 import AddIcon from './../../svg/add.svg';
 import CrossIcon from './../../svg/cross.svg';
 import ExitIcon from './../../svg/exit.svg';
@@ -18,12 +16,14 @@ import React from 'react';
 
 import {routes} from './../../Routes';
 
+import Advice from './../component/Advice';
 import Button from './../component/Button';
 import Icon from './../component/Icon';
 import LinkInline from './../component/LinkInline';
 import LinkToggle from './../component/LinkToggle';
 import Section from './../component/Section';
 import SectionHeader from './../component/SectionHeader';
+import Table from './../component/Table';
 import UserCard from './../component/UserCard';
 
 class Members extends React.Component {
@@ -58,19 +58,15 @@ class Members extends React.Component {
 
   noMembers() {
     return (
-      <p className="members__no-member-sentence">
+      <Advice>
         No members found, you may want to add someone so, please
         click on "<strong>Add members</strong>" button.
-      </p>
+      </Advice>
     );
   }
 
   getMembers() {
     const {organization} = this.props;
-
-    if (organization.organization_members.length === 0) {
-      return this.noMembers();
-    }
 
     return organization.organization_members.map((member, index) => (
       <UserCard
@@ -127,6 +123,12 @@ class Members extends React.Component {
     );
   }
 
+  renderOwnersContent() {
+    return (
+      <Table columns={3} items={this.getOwners()}/>
+    );
+  }
+
   renderMembersHeader() {
     return this.renderSectionHeader(
       'Members',
@@ -134,18 +136,26 @@ class Members extends React.Component {
     );
   }
 
+  renderMembersContent() {
+    const {organization} = this.props;
+
+    if (organization.organization_members.length === 0) {
+      return this.noMembers();
+    }
+
+    return (
+      <Table columns={3} items={this.getMembers()}/>
+    );
+  }
+
   render() {
     return (
       <div className="members">
         <Section header={this.renderOwnersHeader()}>
-          <div className="members__table">
-            {this.getOwners()}
-          </div>
+          {this.renderOwnersContent()}
         </Section>
         <Section header={this.renderMembersHeader()}>
-          <div className="members__table">
-            {this.getMembers()}
-          </div>
+          {this.renderMembersContent()}
         </Section>
       </div>
     );
