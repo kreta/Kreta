@@ -10,8 +10,6 @@
 
 import './../../scss/views/page/_dashboard.scss';
 
-import AddIcon from './../../svg/add.svg';
-
 import debounce from 'lodash.debounce';
 import {connect} from 'react-redux';
 import {Link} from 'react-router';
@@ -22,46 +20,56 @@ import DashboardActions from './../../actions/Dashboard';
 
 import {routes} from './../../Routes';
 
+import AssignedTasksDashboardWidget from './../composition/AssignedTasksDashboardWidget';
 import Button from './../component/Button';
-import CardMinimal from './../component/CardMinimal';
-import CardExtended from './../component/CardExtended';
-import DashboardWidget from './../component/DashboardWidget';
-import Icon from './../component/Icon';
-import LoadingSpinner from './../component/LoadingSpinner';
-import {Row, RowColumn} from './../component/Grid';
-import Search from '../component/Search';
-import Thumbnail from '../component/Thumbnail';
-import ContentLayout from '../layout/ContentLayout';
-import ContentMiddleLayout from '../layout/ContentMiddleLayout';
+import ContentLayout from './../layout/ContentLayout';
+import ContentMiddleLayout from './../layout/ContentMiddleLayout';
+import LastUpdatedProjectsDashboardWidget from './../composition/LastUpdatedProjectsDashboardWidget';
+import MyOrganizationsDashboardWidget from './../composition/MyOrganizationsDashboardWidget';
+import PageHeader from './../component/PageHeader';
+import Search from './../component/Search';
+import Table from './../component/Table';
 
 @connect(state => ({profile: state.profile.profile, dashboard: state.dashboard}))
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
 
-    this.filterOrganizations = debounce(this.filterOrganizations, 200);
+    this.debouncedOnChangeSearch = debounce((query) => {
+      this.filterOrganizations(query);
+      props.dispatch(routeActions.push(routes.search(query)));
+    }, 200);
+    this.onChangeSearch = this.onChangeSearch.bind(this);
   }
 
   componentDidMount() {
-    this.filterOrganizations(this.props.location.query.q);
+    const {dashboard, dispatch, location} = this.props;
+
+    dispatch(routeActions.push(routes.search(location.query.q)));
+    this.filterOrganizations(dashboard.searchQuery);
   }
 
   filterOrganizations(query) {
-    this.props.dispatch(DashboardActions.fetchData(query));
+    const {dispatch} = this.props;
+
+    dispatch(DashboardActions.fetchData(query));
   }
 
   onChangeSearch(event) {
     const query = event.target ? event.target.value : null;
 
-    this.props.dispatch(routeActions.push(routes.search(query)));
-    this.filterOrganizations(query);
+    this.debouncedOnChangeSearch(query);
   }
 
   searchQuery() {
     const {dashboard, location} = this.props;
 
+    console.log(location);
+
     if (typeof location.query.q !== 'undefined') {
-      if ((typeof dashboard.searchQuery === 'undefined' || dashboard.searchQuery.length === 0)
+      if ((!dashboard.searchQuery
+          || dashboard.searchQuery.length === 0
+        )
         && location.query.q.length > 0
       ) {
         return location.query.q;
@@ -71,86 +79,59 @@ class Dashboard extends React.Component {
     return dashboard.searchQuery;
   }
 
-  renderOrganizations() {
+  assignedTasks() {
     const {dashboard} = this.props;
 
-    return dashboard.organizations.map((organization, index) => (
-      <div className="dashboard" key={index}>
-        <CardMinimal title={organization.node.name}
-                     to={routes.organization.show(organization.node.slug)}>
-          {this.renderProjectCreateLink(organization.node)}
-        </CardMinimal>
-        {this.renderProjects(organization.node._projectsMDbLG.edges)}
-        {this.renderViewMore(organization.node)}
-      </div>
-    ));
+    return dashboard.assignedTasks;
   }
 
-  renderProjectCreateLink(organization) {
-    const
-      {profile} = this.props,
-      profileId = profile.user_id;
+  lastUpdatedProjects() {
+    const {dashboard} = this.props;
 
-    return organization.owners.map((owner, index) => {
-      if (owner.id === profileId) {
-        return (
-          <Link key={index} to={routes.project.new(organization.slug)}>
-            <Icon glyph={AddIcon}/>
-          </Link>
-        );
+    let projects = [];
+    dashboard.myOrganizations.map((organization, index) => {
+      if (index === 0) {
+        projects = organization._projectsMDbLG.edges;
       }
     });
+
+    return projects;
   }
 
-  renderProjects(projects) {
-    return projects.map((project, index) => (
-      <Link key={index} to={routes.project.show(project.node.organization.slug, project.node.slug)}>
-        <CardExtended
-          subtitle={project.node.slug}
-          thumbnail={<Thumbnail text={`${project.node.name}`}/>}
-          title={`${project.node.name}`}
-        />
-      </Link>
-    ));
-  }
+  myOrganizations() {
+    const {dashboard} = this.props;
 
-  renderViewMore(organization) {
-    if (false === organization._projectsMDbLG.pageInfo.hasNextPage) {
-      return;
-    }
-
-    return (
-      <Link className="dashboard__view-more" to={routes.organization.show(organization.slug)}>
-        View more...
-      </Link>
-    );
+    return dashboard.myOrganizations;
   }
 
   render() {
-    const {dashboard} = this.props;
-
     return (
       <ContentLayout>
         <ContentMiddleLayout>
-          <Row className="dashboard__search">
-            <RowColumn>
+          <div className="dashboard">
+            <section className="dashboard__search">
               <Search
                 onChange={this.onChangeSearch.bind(this)}
                 query={this.searchQuery()}
               />
-            </RowColumn>
-            <RowColumn medium={6}>
-              <DashboardWidget
-                actions={
-                  <Link to={routes.organization.new()}>
-                    <Button color="green" size="small">New organization</Button>
-                  </Link>
-                }
-                title={<strong>Overview</strong>}
+            </section>
+            <section className="dashboard__content">
+              <PageHeader thumbnail={null} title="Overview">
+                <Link to={routes.organization.new()}>
+                  <Button color="green" size="small">New organization</Button>
+                </Link>
+              </PageHeader>
+              <Table
+                columns={2}
+                headers={['Assigned tasks', 'Last updated projects', 'My organizations']}
+                items={[
+                  <AssignedTasksDashboardWidget tasks={this.assignedTasks()}/>,
+                  <LastUpdatedProjectsDashboardWidget projects={this.lastUpdatedProjects()}/>,
+                  <MyOrganizationsDashboardWidget organizations={this.myOrganizations()}/>,
+                ]}
               />
-              {dashboard.fetching ? <LoadingSpinner/> : this.renderOrganizations()}
-            </RowColumn>
-          </Row>
+            </section>
+          </div>
         </ContentMiddleLayout>
       </ContentLayout>
     );

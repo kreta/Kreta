@@ -5,3 +5,10 @@
 //
 // For the full copyright and license information, please view the LICENSE
 // file that was distributed with this source code.
+
+$dashboard-widget-height: 200px;
+
+.dashboard-widget {
+  height: $dashboard-widget-height;
+  overflow-y: scroll;
+}

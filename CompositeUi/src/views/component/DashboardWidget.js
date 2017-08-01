@@ -12,27 +12,10 @@ import './../../scss/components/_dashboard-widget.scss';
 
 import React from 'react';
 
-import SectionHeader from './SectionHeader';
-
-class DashboardWidget extends React.Component {
-  static propTypes = {
-    actions: React.PropTypes.element,
-    title: React.PropTypes.oneOfType([
-      React.PropTypes.string,
-      React.PropTypes.element,
-    ])
-  };
-
-  render() {
-    const {title, children, actions, ...otherProps} = this.props;
-
-    return (
-      <div className="dashboard-widget" {...otherProps}>
-        <SectionHeader actions={actions} title={title}/>
-        {children}
-      </div>
-    );
-  }
-}
+const DashboardWidget = props => (
+  <div className="dashboard-widget">
+    {props.children}
+  </div>
+);
 
 export default DashboardWidget;

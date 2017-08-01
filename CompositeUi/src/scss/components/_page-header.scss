@@ -6,20 +6,20 @@
 // For the full copyright and license information, please view the LICENSE
 // file that was distributed with this source code.
 
-@import '../variables/colors';
-
 .page-header {
   align-items: center;
   display: flex;
   padding-bottom: 30px;
   padding-top: 30px;
   position: relative;
+
+  .thumbnail {
+    margin-right: 15px;
+  }
 }
 
 .page-header__title {
   flex: 1;
-  font-size: 1.3em;
-  margin-left: 15px;
   text-transform: uppercase;
 }
 
