@@ -8,22 +8,20 @@
  * file that was distributed with this source code.
  */
 
+import {shallow} from 'enzyme';
 import React from 'react';
-import { shallow } from 'enzyme';
 
-import DashboardWidget from '../DashboardWidget';
-import SectionHeader from '../SectionHeader';
+import Advice from './../Advice';
 
-describe('<DashboardWidget/>', () => {
+describe('<Advice/>', () => {
   it('renders string title and child content', () => {
     const wrapper = shallow(
-      <DashboardWidget title="Title">
-        <div>Content</div>
-      </DashboardWidget>
+      <Advice>
+        This is a dummy advice text.
+      </Advice>
     );
-    expect(wrapper.find(SectionHeader)).toHaveLength(1);
     expect(wrapper.contains(
-      <div>Content</div>
+      <p className="advice">This is a dummy advice text.</p>
     )).toBe(true);
   });
 });

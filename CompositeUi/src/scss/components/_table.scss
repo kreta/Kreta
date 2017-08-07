@@ -7,7 +7,11 @@
 // file that was distributed with this source code.
 
 @import '../variables/colors';
+@import '../variables/typography';
 
+$table-header-padding: 10px;
+$table-header-color: $main-green;
+$table-header-margin-bottom: 10px;
 $table-item-border-color: $main-grey;
 $table-item-margin-bottom: 10px;
 $table-item-padding: 20px;
@@ -16,6 +20,15 @@ $table-item-padding: 20px;
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
+}
+
+.table__header {
+  border-bottom: 0;
+  color: $table-header-color;
+  margin-bottom: $table-header-margin-bottom;
+  margin-left: -5px;
+  margin-top: -#{$table-header-padding};
+  padding: $table-header-padding;
 }
 
 .table__item {

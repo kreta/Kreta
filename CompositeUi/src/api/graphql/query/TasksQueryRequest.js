@@ -30,6 +30,14 @@ const query = Relay.QL`
           reporter {
             id
           },
+          project {
+            id,
+            slug,
+            organization {
+              id,
+              slug
+            }
+          }
         }
         cursor
       }
@@ -42,9 +50,12 @@ const query = Relay.QL`
 `;
 
 class TasksQueryRequest extends RelayQueryRequest {
-  static build({projectId, endCursor = null, priority = null, progress = null, assignee = null} = {}) {
+  static build({projectId, endCursor = null, priority = null, progress = null, assignee = null, title = null} = {}) {
     const taskConnectionInput = {projectId, first: 50};
 
+    if (title) {
+      taskConnectionInput.title = title;
+    }
     if (priority) {
       taskConnectionInput.priority = priority;
     }

@@ -20,7 +20,7 @@ use Kreta\TaskManager\Domain\Model\User\UserId;
 
 class DoctrineORMOrganizationSpecificationFactory implements OrganizationSpecificationFactory
 {
-    public function buildFilterableSpecification($name, UserId $userId, int $offset = 0, int $limit = -1)
+    public function buildFilterableSpecification(?string $name, UserId $userId, int $offset = 0, int $limit = -1)
     {
         return new DoctrineORMFilterableSpecification($name, $userId, $offset, $limit);
     }

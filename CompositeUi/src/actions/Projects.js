@@ -19,8 +19,10 @@ const Actions = {
     dispatch({
       type: ActionTypes.PROJECTS_FETCHING
     });
-    TaskManagerGraphQl.query(ProjectsQueryRequest, dispatch);
-    ProjectsQueryRequest
+    const query = ProjectsQueryRequest.build();
+
+    TaskManagerGraphQl.query(query, dispatch);
+    query
       .then(data => {
         dispatch({
           type: ActionTypes.PROJECTS_RECEIVED,

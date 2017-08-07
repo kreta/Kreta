@@ -6,6 +6,11 @@
 // For the full copyright and license information, please view the LICENSE
 // file that was distributed with this source code.
 
+@import '../variables/typography';
+
+$section-header-title-air: 10px;
+$section-header-title-font-weight: $font-weight-regular;
+
 .section-header {
   align-items: center;
   display: flex;
@@ -13,5 +18,7 @@
 
 .section-header__title {
   flex: 1;
-  font-weight: normal;
+  font-weight: $section-header-title-font-weight;
+  margin-bottom: $section-header-title-air;
+  margin-top: $section-header-title-air;
 }

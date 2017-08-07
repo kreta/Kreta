@@ -15,6 +15,7 @@ import React from 'react';
 class Table extends React.Component {
   static propTypes = {
     columns: React.PropTypes.number.isRequired,
+    headers: React.PropTypes.arrayOf(React.PropTypes.string),
     items: React.PropTypes.arrayOf(React.PropTypes.element).isRequired,
   };
 
@@ -46,13 +47,38 @@ class Table extends React.Component {
     return tableItems;
   }
 
+  header(index) {
+    const {headers} = this.props;
+
+    if (!headers) {
+      return;
+    }
+
+    return (
+      <h4 className="table__header" key={index} style={{flexBasis: this.columnWith()}}>
+        {headers[index]}
+      </h4>
+    );
+  }
+
+  content(index) {
+    const {items} = this.props;
+
+    return (
+      <div className="table__content">
+        {items[index]}
+      </div>
+    );
+  }
+
   items() {
     const {items} = this.props;
 
     return this.fixedLastRow(
       items.map((item, index) => (
         <div className="table__item" key={index} style={{flexBasis: this.columnWith()}}>
-          {item}
+          {this.header(index)}
+          {this.content(index)}
         </div>
       ))
     );
