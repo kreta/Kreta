@@ -28,10 +28,10 @@ export default function reducer(state = initialState, action = {}) {
       return {
         ...state,
         fetching: false,
-//         assignedTasks: action.tasks,
-//         lastUpdatedProjects: action.projects,
-        myOrganizations: action.organizations.map(organization => organization.node),
-        searchQuery: action.query
+        assignedTasks: action.assignedTasks.map(task => task.node),
+        lastUpdatedProjects: action.lastUpdatedProjects.map(project => project.node),
+        myOrganizations: action.myOrganizations.map(organization => organization.node),
+        searchQuery: action.searchQuery
       };
     }
     case ActionTypes.DASHBOARD_DATA_FETCH_ERROR:

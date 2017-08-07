@@ -25,12 +25,13 @@ class AssignedTasksDashboardWidget extends React.Component {
   renderTasks() {
     const {tasks} = this.props;
 
-    if (!tasks) {
+    if (tasks.length === 0) {
       return;
     }
 
-    return tasks.map((task) => (
+    return tasks.map((task, index) => (
       <CardMinimal
+        key={index}
         title={`${task.title}`}
         to={routes.task.show(task.project.organization.slug, task.project.slug, task.numeric_id)}
       />

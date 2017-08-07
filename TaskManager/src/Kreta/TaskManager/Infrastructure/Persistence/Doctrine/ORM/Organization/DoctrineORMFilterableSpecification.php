@@ -28,7 +28,7 @@ class DoctrineORMFilterableSpecification implements DoctrineORMQuerySpecificatio
     private $offset;
     private $limit;
 
-    public function __construct($name, UserId $userId, int $offset, int $limit)
+    public function __construct(?string $name, UserId $userId, int $offset, int $limit)
     {
         $this->name = $name;
         $this->userId = $userId;

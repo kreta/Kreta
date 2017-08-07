@@ -12,32 +12,48 @@ import Relay from 'react-relay';
 import RelayQuery from 'react-relay/lib/RelayQuery';
 import RelayQueryRequest from 'react-relay/lib/RelayQueryRequest';
 
-const
-  query = RelayQuery.Root.create(
-    Relay.QL`
-      query {
-        projects {
-          totalCount
-          edges {
-            node {
-              id,
-              name,
-              slug,
-              organization {
-                id,
-                name,
-                slug
-              }
-            }
-            cursor
-          }
-          pageInfo {
-            endCursor
-            hasNextPage
+const query = Relay.QL`
+  query {
+    projects(projectConnectionInput: $projectConnectionInput) {
+      totalCount
+      edges {
+        node {
+          id,
+          name,
+          slug,
+          organization {
+            id,
+            name,
+            slug
           }
         }
-      }`
-  ),
-  ProjectsQueryRequest = new RelayQueryRequest(query);
+        cursor
+      }
+      pageInfo {
+        endCursor
+        hasNextPage
+      }
+    }
+  }
+`;
+
+class ProjectsQueryRequest extends RelayQueryRequest {
+  static build({name, endCursor = null} = {}) {
+    const projectConnectionInput = {first: 50};
+
+    if (name) {
+      projectConnectionInput.name = name;
+    }
+    if (endCursor) {
+      projectConnectionInput.after = endCursor;
+    }
+
+    return new RelayQueryRequest(
+      RelayQuery.Root.create(query, {}, {
+        projectConnectionInput
+      })
+    );
+  }
+}
 
 export default ProjectsQueryRequest;

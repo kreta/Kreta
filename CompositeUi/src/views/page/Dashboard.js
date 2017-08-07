@@ -42,13 +42,6 @@ class Dashboard extends React.Component {
     this.onChangeSearch = this.onChangeSearch.bind(this);
   }
 
-  componentDidMount() {
-    const {dashboard, dispatch, location} = this.props;
-
-    dispatch(routeActions.push(routes.search(location.query.q)));
-    this.filterOrganizations(dashboard.searchQuery);
-  }
-
   filterOrganizations(query) {
     const {dispatch} = this.props;
 
@@ -63,8 +56,6 @@ class Dashboard extends React.Component {
 
   searchQuery() {
     const {dashboard, location} = this.props;
-
-    console.log(location);
 
     if (typeof location.query.q !== 'undefined') {
       if ((!dashboard.searchQuery
@@ -88,14 +79,7 @@ class Dashboard extends React.Component {
   lastUpdatedProjects() {
     const {dashboard} = this.props;
 
-    let projects = [];
-    dashboard.myOrganizations.map((organization, index) => {
-      if (index === 0) {
-        projects = organization._projectsMDbLG.edges;
-      }
-    });
-
-    return projects;
+    return dashboard.lastUpdatedProjects;
   }
 
   myOrganizations() {
@@ -111,7 +95,7 @@ class Dashboard extends React.Component {
           <div className="dashboard">
             <section className="dashboard__search">
               <Search
-                onChange={this.onChangeSearch.bind(this)}
+                onChange={this.onChangeSearch}
                 query={this.searchQuery()}
               />
             </section>

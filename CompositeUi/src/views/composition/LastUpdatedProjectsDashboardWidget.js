@@ -8,8 +8,6 @@
  * file that was distributed with this source code.
  */
 
-import AddIcon from './../../svg/add.svg';
-
 import {Link} from 'react-router';
 import React from 'react';
 
@@ -17,7 +15,6 @@ import {routes} from './../../Routes';
 
 import CardExtended from './../component/CardExtended';
 import DashboardWidget from './../component/DashboardWidget';
-import Icon from './../component/Icon';
 import Thumbnail from './../component/Thumbnail';
 
 class LastUpdatedProjectsDashboardWidget extends React.Component {
@@ -30,22 +27,18 @@ class LastUpdatedProjectsDashboardWidget extends React.Component {
   renderProjects() {
     const {projects} = this.props;
 
+    if (projects.length === 0) {
+      return;
+    }
+
     return projects.map((project, index) => (
-      <Link key={index} to={routes.project.show(project.node.organization.slug, project.node.slug)}>
+      <Link key={index} to={routes.project.show(project.organization.slug, project.slug)}>
         <CardExtended
-          subtitle={project.node.slug}
-          thumbnail={<Thumbnail text={`${project.node.name}`}/>}
-          title={`${project.node.name}`}
+          subtitle={project.slug}
+          thumbnail={<Thumbnail text={`${project.name}`}/>}
+          title={`${project.name}`}
         >
         </CardExtended>
-      </Link>
-    ));
-  }
-
-  renderProjectActions(project) {
-    return project.owners.map((owner, index) => (
-      <Link key={index} to={routes.project.new(project.slug)}>
-        <Icon glyph={AddIcon}/>
       </Link>
     ));
   }
