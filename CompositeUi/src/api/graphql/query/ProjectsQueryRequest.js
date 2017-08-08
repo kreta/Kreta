@@ -49,9 +49,13 @@ class ProjectsQueryRequest extends RelayQueryRequest {
     }
 
     return new RelayQueryRequest(
-      RelayQuery.Root.create(query, {}, {
-        projectConnectionInput
-      })
+      RelayQuery.Root.create(
+        query,
+        {},
+        {
+          projectConnectionInput,
+        },
+      ),
     );
   }
 }

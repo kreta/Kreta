@@ -28,10 +28,17 @@ import ProjectList from './../page/project/List';
 import Thumbnail from './../component/Thumbnail';
 import UserActions from './../../actions/User';
 
-@connect(state => ({profile: state.profile.profile, projects: state.projects.projects, mainMenu: state.mainMenu}))
+@connect(state => ({
+  profile: state.profile.profile,
+  projects: state.projects.projects,
+  mainMenu: state.mainMenu,
+}))
 class MainMenu extends React.Component {
   componentDidMount() {
-    Mousetrap.bind(Config.shortcuts.projectList, this.showProjectList.bind(this));
+    Mousetrap.bind(
+      Config.shortcuts.projectList,
+      this.showProjectList.bind(this),
+    );
   }
 
   showProjectList() {
@@ -49,7 +56,12 @@ class MainMenu extends React.Component {
   projectsIcon() {
     return (
       <div className="main-menu__action">
-        <Icon color="green" glyph={ProjectsIcon} onClick={this.showProjectList.bind(this)} size="medium"/>
+        <Icon
+          color="green"
+          glyph={ProjectsIcon}
+          onClick={this.showProjectList.bind(this)}
+          size="medium"
+        />
       </div>
     );
   }
@@ -60,7 +72,7 @@ class MainMenu extends React.Component {
         isOpen={mainMenu.projectsVisible}
         onRequestClose={this.hideProjectsList.bind(this)}
       >
-        <ProjectList ref="projectList"/>
+        <ProjectList ref="projectList" />
       </Modal>
     );
   }
@@ -82,7 +94,7 @@ class MainMenu extends React.Component {
   notificationWidget() {
     return (
       <div className="main-menu__notification">
-        <Icon color="white" glyph={InboxIcon} size="medium"/>
+        <Icon color="white" glyph={InboxIcon} size="medium" />
         <span className="main-menu__notification-bubble">0</span>
       </div>
     );
@@ -94,12 +106,17 @@ class MainMenu extends React.Component {
     return (
       <nav className="main-menu">
         <Link className="main-menu__logo-container" to="/">
-          <Icon color="white" glyph={LogoIcon} size="expand"/>
+          <Icon color="white" glyph={LogoIcon} size="expand" />
         </Link>
         <div className="main-menu__actions">
           {projects.length > 0 ? this.projectsIcon() : ''}
           <div className="main-menu__action">
-            <Icon color="red" glyph={ExitIcon} onClick={this.logout.bind(this)} size="medium"/>
+            <Icon
+              color="red"
+              glyph={ExitIcon}
+              onClick={this.logout.bind(this)}
+              size="medium"
+            />
           </div>
         </div>
         <div className="main-menu__user">

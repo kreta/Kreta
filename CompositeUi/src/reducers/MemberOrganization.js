@@ -11,7 +11,7 @@
 import ActionTypes from './../constants/ActionTypes';
 
 const initialState = {
-  potential_members: []
+  potential_members: [],
 };
 
 export default function reducer(state = initialState, action = {}) {

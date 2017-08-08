@@ -22,14 +22,11 @@ import NotificationLayout from './../layout/NotificationLayout';
 @connect()
 class LoginPage extends React.Component {
   componentDidMount() {
-    const
-      {dispatch, location} = this.props,
+    const {dispatch, location} = this.props,
       token = location.query['confirmation-token'];
 
     if (typeof token !== 'undefined' && token.length > 0) {
-      dispatch(
-        UserActions.enable(token)
-      );
+      dispatch(UserActions.enable(token));
     }
   }
 
@@ -40,11 +37,11 @@ class LoginPage extends React.Component {
   render() {
     return (
       <div>
-        <NotificationLayout/>
+        <NotificationLayout />
         <ContentLayout>
           <ContentMiddleLayout centered>
-            <LogoCustomHeader title="Sign in to Kreta"/>
-            <Login onSubmit={this.login.bind(this)}/>
+            <LogoCustomHeader title="Sign in to Kreta" />
+            <Login onSubmit={this.login.bind(this)} />
           </ContentMiddleLayout>
         </ContentLayout>
       </div>

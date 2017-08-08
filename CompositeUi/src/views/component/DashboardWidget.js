@@ -12,10 +12,9 @@ import './../../scss/components/_dashboard-widget.scss';
 
 import React from 'react';
 
-const DashboardWidget = props => (
+const DashboardWidget = props =>
   <div className="dashboard-widget">
     {props.children}
-  </div>
-);
+  </div>;
 
 export default DashboardWidget;

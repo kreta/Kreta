@@ -16,7 +16,7 @@ const initialState = {
   assignedTasks: [],
   lastUpdatedProjects: [],
   myOrganizations: [],
-  searchQuery: ''
+  searchQuery: '',
 };
 
 export default function reducer(state = initialState, action = {}) {
@@ -29,9 +29,13 @@ export default function reducer(state = initialState, action = {}) {
         ...state,
         fetching: false,
         assignedTasks: action.assignedTasks.map(task => task.node),
-        lastUpdatedProjects: action.lastUpdatedProjects.map(project => project.node),
-        myOrganizations: action.myOrganizations.map(organization => organization.node),
-        searchQuery: action.searchQuery
+        lastUpdatedProjects: action.lastUpdatedProjects.map(
+          project => project.node,
+        ),
+        myOrganizations: action.myOrganizations.map(
+          organization => organization.node,
+        ),
+        searchQuery: action.searchQuery,
       };
     }
     case ActionTypes.DASHBOARD_DATA_FETCH_ERROR:

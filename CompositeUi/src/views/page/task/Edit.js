@@ -26,8 +26,7 @@ class Edit extends React.Component {
   }
 
   editTask(updatedTask) {
-    const
-      {dispatch, task} = this.props,
+    const {dispatch, task} = this.props,
       id = task.id;
 
     dispatch(CurrentProjectActions.updateTask({...updatedTask, id}));
@@ -37,12 +36,12 @@ class Edit extends React.Component {
     const {task} = this.props;
 
     if (!task) {
-      return <LoadingSpinner/>;
+      return <LoadingSpinner />;
     }
 
     return (
       <ContentMiddleLayout centered>
-        <TaskEdit onSubmit={this.editTask.bind(this)}/>
+        <TaskEdit onSubmit={this.editTask.bind(this)} />
       </ContentMiddleLayout>
     );
   }

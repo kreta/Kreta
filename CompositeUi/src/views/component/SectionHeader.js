@@ -12,7 +12,7 @@ import './../../scss/components/_section-header.scss';
 
 import React from 'react';
 
-const SectionHeader = props => (
+const SectionHeader = props =>
   <div className="section-header">
     <h3 className="section-header__title">
       {props.title}
@@ -20,7 +20,6 @@ const SectionHeader = props => (
     <div className="section-header__actions">
       {props.actions}
     </div>
-  </div>
-);
+  </div>;
 
 export default SectionHeader;

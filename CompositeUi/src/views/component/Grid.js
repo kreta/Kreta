@@ -12,8 +12,7 @@ import React from 'react';
 
 import './../../scss/components/_grid.scss';
 
-const
-  Row = props => {
+const Row = props => {
     const {className, collapse, center, children} = props;
 
     let classList = `${className ? className : ''} row`;
@@ -56,7 +55,4 @@ const
     );
   };
 
-export {
-  Row,
-  RowColumn
-};
+export {Row, RowColumn};

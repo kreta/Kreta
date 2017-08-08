@@ -17,9 +17,7 @@ import DashboardWidget from './../component/DashboardWidget';
 
 class AssignedTasksDashboardWidget extends React.Component {
   static propTypes = {
-    tasks: React.PropTypes.arrayOf(
-      React.PropTypes.object
-    ).isRequired,
+    tasks: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
   };
 
   renderTasks() {
@@ -29,13 +27,17 @@ class AssignedTasksDashboardWidget extends React.Component {
       return;
     }
 
-    return tasks.map((task, index) => (
+    return tasks.map((task, index) =>
       <CardMinimal
         key={index}
         title={`${task.title}`}
-        to={routes.task.show(task.project.organization.slug, task.project.slug, task.numeric_id)}
-      />
-    ));
+        to={routes.task.show(
+          task.project.organization.slug,
+          task.project.slug,
+          task.numeric_id,
+        )}
+      />,
+    );
   }
 
   render() {

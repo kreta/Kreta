@@ -12,10 +12,9 @@ import './../../scss/components/_help-text.scss';
 
 import React from 'react';
 
-const HelpText = props => (
+const HelpText = props =>
   <p className={`help-text${props.center ? ' help-text--center' : ''}`}>
     {props.children}
-  </p>
-);
+  </p>;
 
 export default HelpText;

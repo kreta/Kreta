@@ -21,155 +21,172 @@ import ResetPassword from './../api/rest/User/ResetPassword';
 import Security from './../api/rest/User/Security';
 
 const Actions = {
-  login: (credentialData) => (dispatch) => {
+  login: credentialData => dispatch => {
     dispatch({
-      type: ActionTypes.USER_AUTHORIZING
+      type: ActionTypes.USER_AUTHORIZING,
     });
 
-    return Security.login(credentialData.email, credentialData.password)
-      .then((json) => {
+    return Security.login(credentialData.email, credentialData.password).then(
+      json => {
         localStorage.token = json.token;
         dispatch({
           type: ActionTypes.USER_AUTHORIZED,
-          token: json.token
+          token: json.token,
         });
-        dispatch(
-          routeActions.push(routes.home)
-        );
-      }, (errorData) => {
-        errorData.then((errors) => {
+        dispatch(routeActions.push(routes.home));
+      },
+      errorData => {
+        errorData.then(errors => {
           dispatch({
             type: ActionTypes.USER_AUTHORIZATION_ERROR,
-            errors
+            errors,
           });
-          dispatch(NotificationActions.addNotification(
-            'Invalid credentials, try again',
-            'error'
-          ));
+          dispatch(
+            NotificationActions.addNotification(
+              'Invalid credentials, try again',
+              'error',
+            ),
+          );
         });
-      });
+      },
+    );
   },
-  logout: () => (dispatch) => {
+  logout: () => dispatch => {
     dispatch({
-      type: ActionTypes.USER_UNAUTHORIZING
+      type: ActionTypes.USER_UNAUTHORIZING,
     });
 
-    return Security.logout()
-      .then(() => {
-        dispatch({
-          type: ActionTypes.USER_UNAUTHORIZED
-        });
-        dispatch(
-          routeActions.push(routes.login)
-        );
+    return Security.logout().then(() => {
+      dispatch({
+        type: ActionTypes.USER_UNAUTHORIZED,
       });
+      dispatch(routeActions.push(routes.login));
+    });
   },
-  register: (formData) => (dispatch) => {
+  register: formData => dispatch => {
     dispatch({
-      type: ActionTypes.USER_REGISTERING
+      type: ActionTypes.USER_REGISTERING,
     });
 
-    return Register.signUp(formData)
-      .then(() => {
+    return Register.signUp(formData).then(
+      () => {
         dispatch({
           type: ActionTypes.USER_REGISTERED,
         });
-        dispatch(NotificationActions.addNotification(
-          'Registration process has been successfully done. Check your email inbox to enable the account',
-          'success'
-        ));
-      }, (errorData) => {
+        dispatch(
+          NotificationActions.addNotification(
+            'Registration process has been successfully done. Check your email inbox to enable the account',
+            'success',
+          ),
+        );
+      },
+      errorData => {
         errorData.then(() => {
           dispatch({
             type: ActionTypes.USER_REGISTER_ERROR,
           });
-          dispatch(NotificationActions.addNotification(
-            'The email is already in use',
-            'error'
-          ));
+          dispatch(
+            NotificationActions.addNotification(
+              'The email is already in use',
+              'error',
+            ),
+          );
         });
-      });
+      },
+    );
   },
-  enable: (confirmationToken) => (dispatch) => {
+  enable: confirmationToken => dispatch => {
     dispatch({
-      type: ActionTypes.USER_ENABLE
+      type: ActionTypes.USER_ENABLE,
     });
 
-    return Register.enable(confirmationToken)
-      .then(() => {
+    return Register.enable(confirmationToken).then(
+      () => {
         dispatch({
           type: ActionTypes.USER_ENABLED,
         });
-        dispatch(NotificationActions.addNotification(
-          'Your user has been enabled successfully',
-          'success'
-        ));
-      }, (errorData) => {
+        dispatch(
+          NotificationActions.addNotification(
+            'Your user has been enabled successfully',
+            'success',
+          ),
+        );
+      },
+      errorData => {
         errorData.then(() => {
           dispatch({
             type: ActionTypes.USER_ENABLE_ERROR,
           });
         });
-      });
+      },
+    );
   },
-  requestResetPassword: (formData) => (dispatch) => {
+  requestResetPassword: formData => dispatch => {
     dispatch({
-      type: ActionTypes.USER_REQUESTING_RESET_PASSWORD
+      type: ActionTypes.USER_REQUESTING_RESET_PASSWORD,
     });
 
-    return ResetPassword.request(formData.email)
-      .then(() => {
+    return ResetPassword.request(formData.email).then(
+      () => {
         dispatch({
           type: ActionTypes.USER_REQUESTED_RESET_PASSWORD,
         });
-        dispatch(NotificationActions.addNotification(
-          'Your password has been reset. Check your email to change your password.',
-          'success'
-        ));
-      }, (errorData) => {
+        dispatch(
+          NotificationActions.addNotification(
+            'Your password has been reset. Check your email to change your password.',
+            'success',
+          ),
+        );
+      },
+      errorData => {
         errorData.then(() => {
           dispatch({
             type: ActionTypes.USER_REQUEST_RESET_PASSWORD_ERROR,
           });
-          dispatch(NotificationActions.addNotification(
-            'Something goes wrong, please try the request again',
-            'error'
-          ));
+          dispatch(
+            NotificationActions.addNotification(
+              'Something goes wrong, please try the request again',
+              'error',
+            ),
+          );
         });
-      });
+      },
+    );
   },
-  changePassword: (formData) => (dispatch) => {
+  changePassword: formData => dispatch => {
     dispatch({
-      type: ActionTypes.USER_RESETTING_PASSWORD
+      type: ActionTypes.USER_RESETTING_PASSWORD,
     });
 
-    return ResetPassword.change(formData.token, formData.passwords)
-      .then(() => {
+    return ResetPassword.change(formData.token, formData.passwords).then(
+      () => {
         dispatch({
           type: ActionTypes.USER_RESTORED_PASSWORD,
         });
+        dispatch(routeActions.push(routes.login));
         dispatch(
-          routeActions.push(routes.login)
+          NotificationActions.addNotification(
+            'Your password has been changed.',
+            'success',
+          ),
         );
-        dispatch(NotificationActions.addNotification(
-          'Your password has been changed.',
-          'success'
-        ));
-      }, (errorData) => {
+      },
+      errorData => {
         errorData.then(() => {
           dispatch({
             type: ActionTypes.USER_RESET_PASSWORD_ERROR,
           });
+          dispatch(routeActions.push(routes.requestResetPassword));
           dispatch(
-            routeActions.push(routes.requestResetPassword)
+            NotificationActions.addNotification(
+              'Error while changing password',
+              'error',
+            ),
           );
-          dispatch(NotificationActions.addNotification(
-            'Error while changing password',
-            'error'
-          ));
         });
-      });
-  }
+      },
+    );
+  },
 };
 
 export default Actions;

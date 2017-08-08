@@ -19,72 +19,92 @@ jest.mock('./../../api/rest/User/Security');
 
 describe('User actions', () => {
   it('can login with valid credentials', () => {
-    const
-      expectedActions = [{
-        type: ActionTypes.USER_AUTHORIZING
-      }, {
-        type: ActionTypes.USER_AUTHORIZED, token: 'token'
-      }, {
-        payload: {
-          arg: '/',
-          method: 'push'
+    const expectedActions = [
+        {
+          type: ActionTypes.USER_AUTHORIZING,
         },
-        type: '@@router/TRANSITION'
-      }
+        {
+          type: ActionTypes.USER_AUTHORIZED,
+          token: 'token',
+        },
+        {
+          payload: {
+            arg: '/',
+            method: 'push',
+          },
+          type: '@@router/TRANSITION',
+        },
       ],
       store = mockStore({
         errors: [],
         token: null,
-        updatingAuthorization: false
+        updatingAuthorization: false,
       });
 
-    store.dispatch(UserActions.login({email: 'valid@email.com', password: 'password'})).then(() => {
-      expect(store.getActions()).toEqual(expectedActions);
-    });
+    store
+      .dispatch(
+        UserActions.login({email: 'valid@email.com', password: 'password'}),
+      )
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+      });
   });
 
   it('cannot login with invalid credentials', () => {
-    const
-      expectedActions = [{
-        type: ActionTypes.USER_AUTHORIZING
-      }, {
-        type: ActionTypes.USER_AUTHORIZATION_ERROR
-      }, {
-        notification: {
-          id: expect.any(Number),
-          message: 'Invalid credentials, try again',
-          type: 'error'
+    const expectedActions = [
+        {
+          type: ActionTypes.USER_AUTHORIZING,
         },
-        type: ActionTypes.NOTIFICATION_ADD
-      }],
+        {
+          type: ActionTypes.USER_AUTHORIZATION_ERROR,
+        },
+        {
+          notification: {
+            id: expect.any(Number),
+            message: 'Invalid credentials, try again',
+            type: 'error',
+          },
+          type: ActionTypes.NOTIFICATION_ADD,
+        },
+      ],
       store = mockStore({
         errors: [],
         token: null,
-        updatingAuthorization: false
+        updatingAuthorization: false,
       });
 
-    store.dispatch(UserActions.login({email: 'invalid@email.com', password: 'invalid-password'})).then(() => {
-      expect(store.getActions()).toEqual(expectedActions);
-    });
+    store
+      .dispatch(
+        UserActions.login({
+          email: 'invalid@email.com',
+          password: 'invalid-password',
+        }),
+      )
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+      });
   });
 
   it('can logout', () => {
-    const
-      expectedActions = [{
-        type: ActionTypes.USER_UNAUTHORIZING
-      }, {
-        type: ActionTypes.USER_UNAUTHORIZED
-      }, {
-        payload: {
-          arg: '/login',
-          method: 'push'
+    const expectedActions = [
+        {
+          type: ActionTypes.USER_UNAUTHORIZING,
         },
-        type: '@@router/TRANSITION'
-      }],
+        {
+          type: ActionTypes.USER_UNAUTHORIZED,
+        },
+        {
+          payload: {
+            arg: '/login',
+            method: 'push',
+          },
+          type: '@@router/TRANSITION',
+        },
+      ],
       store = mockStore({
         errors: [],
         token: 'token',
-        updatingAuthorization: false
+        updatingAuthorization: false,
       });
 
     store.dispatch(UserActions.logout()).then(() => {

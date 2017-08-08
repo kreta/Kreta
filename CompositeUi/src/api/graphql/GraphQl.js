@@ -17,45 +17,43 @@ import UserActions from './../../actions/User';
 class GraphQl {
   constructor() {
     if (this.constructor.name === 'GraphQl') {
-      throw new TypeError('GraphQl is an abstract class, it cannot be instantiate directly');
+      throw new TypeError(
+        'GraphQl is an abstract class, it cannot be instantiate directly',
+      );
     }
 
-    this.accessToken = () => (
-      localStorage.token
-    );
+    this.accessToken = () => localStorage.token;
 
-    this.issetToken = () => (
-      typeof this.accessToken() !== 'undefined'
-    );
+    this.issetToken = () => typeof this.accessToken() !== 'undefined';
 
-    this.uri = () => (
-      `${this.baseUrl()}?access_token=${this.accessToken()}`
-    );
+    this.uri = () => `${this.baseUrl()}?access_token=${this.accessToken()}`;
 
-    this.isRelayQueryRequest = (query) => {
+    this.isRelayQueryRequest = query => {
       if (!(query instanceof RelayQueryRequest)) {
-        throw new TypeError('Given query must be a collection of RelayQueryRequest or a single RelayQueryRequest');
+        throw new TypeError(
+          'Given query must be a collection of RelayQueryRequest or a single RelayQueryRequest',
+        );
       }
     };
 
-    this.isRelayMutationRequest = (mutation) => {
+    this.isRelayMutationRequest = mutation => {
       if (!(mutation instanceof RelayMutationRequest)) {
         throw new TypeError('Given mutation must be a RelayMutationRequest');
       }
     };
 
-    this.relayNetworkLayer = () => (
-      new DefaultNetworkLayer(this.uri())
-    );
+    this.relayNetworkLayer = () => new DefaultNetworkLayer(this.uri());
 
-    this.buildGraphQlResponse = (response, dispatch) => (
-      response.catch((error) => {
-        if (typeof error.source !== 'undefined' && error.source.errors.length > 0) {
+    this.buildGraphQlResponse = (response, dispatch) =>
+      response.catch(error => {
+        if (
+          typeof error.source !== 'undefined' &&
+          error.source.errors.length > 0
+        ) {
           return;
         }
         this.getUncontrolledErrors(error, dispatch);
-      })
-    );
+      });
 
     this.getUncontrolledErrors = (error, dispatch) => {
       if (__DEV__) {
@@ -67,7 +65,9 @@ class GraphQl {
   }
 
   baseUrl() {
-    throw new Error('"baseUrl" is an abstract method that expects to be implemented by children classes');
+    throw new Error(
+      '"baseUrl" is an abstract method that expects to be implemented by children classes',
+    );
   }
 
   query(query, dispatch) {

@@ -24,19 +24,30 @@ class FormInput extends React.Component {
         onChange,
         ...custom
       } = this.props,
-      inputClasses = classnames(
-        'form-input__input',
-        {'form-input__input--filled': input.value.length > 0}
-      );
+      inputClasses = classnames('form-input__input', {
+        'form-input__input--filled': input.value.length > 0,
+      });
 
     if (multiline) {
       return (
-        <textarea className={inputClasses} onKeyUp={onChange} {...input} {...custom} ref="input"/>
+        <textarea
+          className={inputClasses}
+          onKeyUp={onChange}
+          {...input}
+          {...custom}
+          ref="input"
+        />
       );
     }
 
     return (
-      <input className={inputClasses} onKeyUp={onChange} {...input} {...custom} ref="input"/>
+      <input
+        className={inputClasses}
+        onKeyUp={onChange}
+        {...input}
+        {...custom}
+        ref="input"
+      />
     );
   }
 
@@ -45,14 +56,18 @@ class FormInput extends React.Component {
 
     if (multiline) {
       return (
-        <label className="form-input__label form-input__label--multiline">{label}</label>
+        <label className="form-input__label form-input__label--multiline">
+          {label}
+        </label>
       );
     }
 
     let auxLabelEl = '';
     if (this.props.auxLabelEl) {
       auxLabelEl = (
-        <div className="form-input__auxiliary-label">{this.props.auxLabelEl}</div>
+        <div className="form-input__auxiliary-label">
+          {this.props.auxLabelEl}
+        </div>
       );
     }
 
@@ -65,18 +80,17 @@ class FormInput extends React.Component {
   }
 
   render() {
-    const
-      {input, label, meta: {touched, error}} = this.props, // eslint-disable-line no-unused-vars
+    const {input, label, meta: {touched, error}} = this.props, // eslint-disable-line no-unused-vars
       rootClasses = classnames('form-input', {
         'form-input--error': touched && error,
-        'form-input--success': input.value.length > 0 && !error
+        'form-input--success': input.value.length > 0 && !error,
       });
 
     return (
       <div className={rootClasses} onClick={this.focus.bind(this)}>
         {this.getInputField()}
         {this.getLabelField()}
-        <div className="form-input__bar"/>
+        <div className="form-input__bar" />
       </div>
     );
   }

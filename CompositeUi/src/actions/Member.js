@@ -12,15 +12,14 @@ import ActionTypes from './../constants/ActionTypes';
 import Users from './../api/rest/User/Users';
 
 const Actions = {
-  fetchMembersToAdd: (query, excludedIds) => (dispatch) => {
-    Users.search({query, excluded_ids: excludedIds})
-      .then((users) => {
-        dispatch({
-          type: ActionTypes.MEMBERS_TO_ADD_RECEIVED,
-          users
-        });
+  fetchMembersToAdd: (query, excludedIds) => dispatch => {
+    Users.search({query, excluded_ids: excludedIds}).then(users => {
+      dispatch({
+        type: ActionTypes.MEMBERS_TO_ADD_RECEIVED,
+        users,
       });
-  }
+    });
+  },
 };
 
 export default Actions;

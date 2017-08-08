@@ -18,12 +18,12 @@ class NavigableList extends React.Component {
   };
 
   static childContextTypes = {
-    xSelected: React.PropTypes.number
+    xSelected: React.PropTypes.number,
   };
 
   state = {
     xSelected: 0,
-    ySelected: 0
+    ySelected: 0,
   };
 
   getChildContext() {
@@ -31,18 +31,23 @@ class NavigableList extends React.Component {
   }
 
   handleNavigation(ev) {
-    if (ev.which === 13) { // Enter
+    if (ev.which === 13) {
+      // Enter
       this.goToItemLink();
       ev.preventDefault();
-    } else if (ev.which === 40) { // Down
+    } else if (ev.which === 40) {
+      // Down
       this.selectNextY();
       this.centerListScroll();
-    } else if (ev.which === 38) { // Up
+    } else if (ev.which === 38) {
+      // Up
       this.selectPrevY();
       this.centerListScroll();
-    } else if (ev.which === 37) { // Left
+    } else if (ev.which === 37) {
+      // Left
       this.selectPrevX();
-    } else if (ev.which === 39) { // Right
+    } else if (ev.which === 39) {
+      // Right
       this.selectNextX();
     }
   }
@@ -68,11 +73,14 @@ class NavigableList extends React.Component {
       return navigables;
     }
 
-    children.forEach((child) => {
+    children.forEach(child => {
       if (child.type.name === 'NavigableListItemLink') {
         navigables.push(child);
       } else if (Array.isArray(child.props.children)) {
-        navigables = [...navigables, ...this.findXNavigable(child.props.children)];
+        navigables = [
+          ...navigables,
+          ...this.findXNavigable(child.props.children),
+        ];
       }
     });
 
@@ -132,17 +140,21 @@ class NavigableList extends React.Component {
       } = this.props,
       {ySelected} = this.state;
 
-    const wrappedItems = children.map((el, i) => (
+    const wrappedItems = children.map((el, i) =>
       <div
         className={i === ySelected ? 'navigable-list__item--selected' : ''}
         key={i}
         onMouseEnter={this.selectY.bind(this, i)}
       >
         {el}
-      </div>
-    ));
+      </div>,
+    );
 
-    return <div {...otherProps}>{wrappedItems}</div>;
+    return (
+      <div {...otherProps}>
+        {wrappedItems}
+      </div>
+    );
   }
 }
 

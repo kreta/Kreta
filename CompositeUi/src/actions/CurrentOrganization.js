@@ -23,31 +23,30 @@ import TaskManagerGraphQl from './../api/graphql/TaskManagerGraphQl';
 import UserInjector from './../helpers/UserInjector';
 
 const Actions = {
-  fetchOrganization: (slug) => (dispatch) => {
+  fetchOrganization: slug => dispatch => {
     dispatch({
-      type: ActionTypes.CURRENT_ORGANIZATION_FETCHING
+      type: ActionTypes.CURRENT_ORGANIZATION_FETCHING,
     });
     const query = OrganizationQueryRequest.build(slug);
 
     TaskManagerGraphQl.query(query, dispatch);
-    query
-      .then(data => {
-        const organization = data.response.organization;
+    query.then(data => {
+      const organization = data.response.organization;
 
-        UserInjector.injectUserForId([
-          ...organization.organization_members,
-          ...organization.owners,
-        ]).then(() => (
-          dispatch({
-            type: ActionTypes.CURRENT_ORGANIZATION_RECEIVED,
-            organization,
-          })
-        ));
-      });
+      UserInjector.injectUserForId([
+        ...organization.organization_members,
+        ...organization.owners,
+      ]).then(() =>
+        dispatch({
+          type: ActionTypes.CURRENT_ORGANIZATION_RECEIVED,
+          organization,
+        }),
+      );
+    });
   },
-  createProject: (projectInputData) => (dispatch) => {
+  createProject: projectInputData => dispatch => {
     dispatch({
-      type: ActionTypes.PROJECT_CREATING
+      type: ActionTypes.PROJECT_CREATING,
     });
     const mutation = CreateProjectMutationRequest.build(projectInputData);
 
@@ -61,21 +60,33 @@ const Actions = {
           project,
         });
         dispatch(
-          routeActions.push(routes.project.show(project.organization.slug, project.slug))
+          routeActions.push(
+            routes.project.show(project.organization.slug, project.slug),
+          ),
         );
-        dispatch(NotificationActions.addNotification('Project created successfully', 'success'));
+        dispatch(
+          NotificationActions.addNotification(
+            'Project created successfully',
+            'success',
+          ),
+        );
       })
-      .catch((response) => {
+      .catch(response => {
         dispatch({
           type: ActionTypes.PROJECT_CREATE_ERROR,
-          errors: response.source.errors
+          errors: response.source.errors,
         });
-        dispatch(NotificationActions.addNotification('Errors found while creating project', 'error'));
+        dispatch(
+          NotificationActions.addNotification(
+            'Errors found while creating project',
+            'error',
+          ),
+        );
       });
   },
-  editProject: (projectInputData) => (dispatch) => {
+  editProject: projectInputData => dispatch => {
     dispatch({
-      type: ActionTypes.PROJECT_EDITING
+      type: ActionTypes.PROJECT_EDITING,
     });
     const mutation = EditProjectMutationRequest.build(projectInputData);
 
@@ -89,19 +100,31 @@ const Actions = {
           project,
         });
         dispatch(
-          routeActions.push(routes.project.show(project.organization.slug, project.slug))
+          routeActions.push(
+            routes.project.show(project.organization.slug, project.slug),
+          ),
         );
-        dispatch(NotificationActions.addNotification('Project edited successfully', 'success'));
+        dispatch(
+          NotificationActions.addNotification(
+            'Project edited successfully',
+            'success',
+          ),
+        );
       })
-      .catch((response) => {
+      .catch(response => {
         dispatch({
           type: ActionTypes.PROJECT_EDIT_ERROR,
-          errors: response.source.errors
+          errors: response.source.errors,
         });
-        dispatch(NotificationActions.addNotification('Errors found while editing project', 'error'));
+        dispatch(
+          NotificationActions.addNotification(
+            'Errors found while editing project',
+            'error',
+          ),
+        );
       });
   },
-  addMember: (organizationId, userId) => (dispatch) => {
+  addMember: (organizationId, userId) => dispatch => {
     dispatch({
       type: ActionTypes.CURRENT_ORGANIZATION_MEMBER_ADDING,
     });
@@ -115,19 +138,29 @@ const Actions = {
       .then(() => {
         dispatch({
           type: ActionTypes.CURRENT_ORGANIZATION_MEMBER_ADDED,
-          userId
+          userId,
         });
-        dispatch(NotificationActions.addNotification('Member added successfully', 'success'));
+        dispatch(
+          NotificationActions.addNotification(
+            'Member added successfully',
+            'success',
+          ),
+        );
       })
-      .catch((response) => {
+      .catch(response => {
         dispatch({
           type: ActionTypes.CURRENT_ORGANIZATION_MEMBER_ADD_ERROR,
-          errors: response.source.errors
+          errors: response.source.errors,
         });
-        dispatch(NotificationActions.addNotification('Errors found while adding member to organization', 'error'));
+        dispatch(
+          NotificationActions.addNotification(
+            'Errors found while adding member to organization',
+            'error',
+          ),
+        );
       });
   },
-  removeMember: (organizationId, userId) => (dispatch) => {
+  removeMember: (organizationId, userId) => dispatch => {
     dispatch({
       type: ActionTypes.CURRENT_ORGANIZATION_MEMBER_REMOVING,
     });
@@ -141,18 +174,28 @@ const Actions = {
       .then(() => {
         dispatch({
           type: ActionTypes.CURRENT_ORGANIZATION_MEMBER_REMOVED,
-          userId
+          userId,
         });
-        dispatch(NotificationActions.addNotification('Member removed successfully', 'success'));
+        dispatch(
+          NotificationActions.addNotification(
+            'Member removed successfully',
+            'success',
+          ),
+        );
       })
-      .catch((response) => {
+      .catch(response => {
         dispatch({
           type: ActionTypes.CURRENT_ORGANIZATION_MEMBER_REMOVE_ERROR,
-          errors: response.source.errors
+          errors: response.source.errors,
         });
-        dispatch(NotificationActions.addNotification('Errors found while removing member to organization', 'error'));
+        dispatch(
+          NotificationActions.addNotification(
+            'Errors found while removing member to organization',
+            'error',
+          ),
+        );
       });
-  }
+  },
 };
 
 export default Actions;

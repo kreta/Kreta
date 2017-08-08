@@ -20,11 +20,13 @@ import CreateOrganizationMutationRequest from './../api/graphql/mutation/CreateO
 import TaskManagerGraphQl from './../api/graphql/TaskManagerGraphQl';
 
 const Actions = {
-  createOrganization: (organizationInputData) => (dispatch) => {
-    const mutation = CreateOrganizationMutationRequest.build(organizationInputData);
+  createOrganization: organizationInputData => dispatch => {
+    const mutation = CreateOrganizationMutationRequest.build(
+      organizationInputData,
+    );
 
     dispatch({
-      type: ActionTypes.ORGANIZATION_CREATING
+      type: ActionTypes.ORGANIZATION_CREATING,
     });
     TaskManagerGraphQl.mutation(mutation, dispatch);
 
@@ -37,18 +39,28 @@ const Actions = {
           organization,
         });
         dispatch(
-          routeActions.push(routes.organization.show(organization.slug))
+          routeActions.push(routes.organization.show(organization.slug)),
         );
-        dispatch(NotificationActions.addNotification('Organization created successfully', 'success'));
+        dispatch(
+          NotificationActions.addNotification(
+            'Organization created successfully',
+            'success',
+          ),
+        );
       })
-      .catch((response) => {
+      .catch(response => {
         dispatch({
           type: ActionTypes.ORGANIZATION_CREATE_ERROR,
-          errors: response.source.errors
+          errors: response.source.errors,
         });
-        dispatch(NotificationActions.addNotification('Error while creating organization', 'error'));
+        dispatch(
+          NotificationActions.addNotification(
+            'Error while creating organization',
+            'error',
+          ),
+        );
       });
-  }
+  },
 };
 
 export default Actions;

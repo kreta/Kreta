@@ -20,8 +20,7 @@ import ProjectEdit from './../../form/ProjectEdit';
 @connect(state => ({currentProject: state.currentProject.project}))
 class Settings extends React.Component {
   editProject(project) {
-    const
-      {dispatch, currentProject} = this.props,
+    const {dispatch, currentProject} = this.props,
       id = currentProject.id;
 
     dispatch(CurrentOrganizationActions.editProject({...project, id}));
@@ -31,12 +30,12 @@ class Settings extends React.Component {
     const {currentProject} = this.props;
 
     if (!currentProject) {
-      return <LoadingSpinner/>;
+      return <LoadingSpinner />;
     }
 
     return (
       <ContentMiddleLayout centered>
-        <ProjectEdit onSubmit={this.editProject.bind(this)}/>
+        <ProjectEdit onSubmit={this.editProject.bind(this)} />
       </ContentMiddleLayout>
     );
   }

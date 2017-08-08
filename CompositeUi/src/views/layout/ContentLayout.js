@@ -12,10 +12,9 @@ import './../../scss/layout/_content.scss';
 
 import React from 'react';
 
-const ContentLayout = props => (
+const ContentLayout = props =>
   <div className="content">
     {props.children}
-  </div>
-);
+  </div>;
 
 export default ContentLayout;

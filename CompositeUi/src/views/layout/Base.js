@@ -22,8 +22,11 @@ import MainMenu from './MainMenu';
 import NotificationLayout from './NotificationLayout';
 
 @connect(state => ({
-  waiting: state.projects.fetching || state.profile.fetching || state.user.updatingAuthorization,
-  profile: state.profile.profile
+  waiting:
+    state.projects.fetching ||
+    state.profile.fetching ||
+    state.user.updatingAuthorization,
+  profile: state.profile.profile,
 }))
 class Base extends React.Component {
   componentDidMount() {
@@ -37,13 +40,13 @@ class Base extends React.Component {
     const {children, profile, waiting} = this.props;
 
     if (true === waiting || null === profile) {
-      return <LoadingSpinner/>;
+      return <LoadingSpinner />;
     }
 
     return (
       <div className="base-layout">
-        <NotificationLayout/>
-        <MainMenu/>
+        <NotificationLayout />
+        <MainMenu />
         <ContentLayout>
           {children}
         </ContentLayout>

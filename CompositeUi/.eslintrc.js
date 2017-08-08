@@ -8,11 +8,11 @@
  * file that was distributed with this source code.
  */
 
-'use strict';
-
 module.exports = {
   "root": true,
-  "extends": "eslint:recommended",
+  "extends": [
+    "eslint:recommended"
+  ],
   "parser": "babel-eslint",
   "env": {
     "browser": true,

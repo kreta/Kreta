@@ -14,16 +14,16 @@ class UserInjector {
   // Receives an array of objects containing and
   // ID and converts them into a user object.
   static injectUserForId(arrays) {
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       const ids = [];
-      arrays.forEach((user) => {
+      arrays.forEach(user => {
         ids.push(user.id);
       });
 
-      Users.get({ids}).then((users) => {
+      Users.get({ids}).then(users => {
         arrays.forEach((user, index) => {
           // eslint-disable-next-line max-nested-callbacks
-          const found = users.find((it) => it.id === user.id);
+          const found = users.find(it => it.id === user.id);
           if (found) {
             Object.assign(arrays[index], found);
           }

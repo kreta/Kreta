@@ -30,12 +30,15 @@ import PageHeader from './../component/PageHeader';
 import Search from './../component/Search';
 import Table from './../component/Table';
 
-@connect(state => ({profile: state.profile.profile, dashboard: state.dashboard}))
+@connect(state => ({
+  profile: state.profile.profile,
+  dashboard: state.dashboard,
+}))
 class Dashboard extends React.Component {
   constructor(props) {
     super(props);
 
-    this.debouncedOnChangeSearch = debounce((query) => {
+    this.debouncedOnChangeSearch = debounce(query => {
       this.filterOrganizations(query);
       props.dispatch(routeActions.push(routes.search(query)));
     }, 200);
@@ -58,7 +61,10 @@ class Dashboard extends React.Component {
     const {dashboard, location} = this.props;
 
     if (typeof location.query.q !== 'undefined') {
-      if ((!dashboard.searchQuery || dashboard.searchQuery.length === 0) && location.query.q.length > 0) {
+      if (
+        (!dashboard.searchQuery || dashboard.searchQuery.length === 0) &&
+        location.query.q.length > 0
+      ) {
         return location.query.q;
       }
     }
@@ -98,16 +104,26 @@ class Dashboard extends React.Component {
             <section className="dashboard__content">
               <PageHeader thumbnail={null} title="Overview">
                 <Link to={routes.organization.new()}>
-                  <Button color="green" size="small">New organization</Button>
+                  <Button color="green" size="small">
+                    New organization
+                  </Button>
                 </Link>
               </PageHeader>
               <Table
                 columns={2}
-                headers={['Assigned tasks', 'Last updated projects', 'My organizations']}
+                headers={[
+                  'Assigned tasks',
+                  'Last updated projects',
+                  'My organizations',
+                ]}
                 items={[
-                  <AssignedTasksDashboardWidget tasks={this.assignedTasks()}/>,
-                  <LastUpdatedProjectsDashboardWidget projects={this.lastUpdatedProjects()}/>,
-                  <MyOrganizationsDashboardWidget organizations={this.myOrganizations()}/>,
+                  <AssignedTasksDashboardWidget tasks={this.assignedTasks()} />,
+                  <LastUpdatedProjectsDashboardWidget
+                    projects={this.lastUpdatedProjects()}
+                  />,
+                  <MyOrganizationsDashboardWidget
+                    organizations={this.myOrganizations()}
+                  />,
                 ]}
               />
             </section>

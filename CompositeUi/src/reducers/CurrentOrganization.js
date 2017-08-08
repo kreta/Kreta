@@ -15,7 +15,7 @@ const initialState = {
   organization: null,
   potential_members: [],
   updating: false,
-  projects: []
+  projects: [],
 };
 
 export default function reducer(state = initialState, action = {}) {
@@ -28,21 +28,24 @@ export default function reducer(state = initialState, action = {}) {
     }
 
     case ActionTypes.CURRENT_ORGANIZATION_MEMBER_REMOVED: {
-      const index = state.organization.organization_members.findIndex(member => member.id === action.userId);
+      const index = state.organization.organization_members.findIndex(
+        member => member.id === action.userId,
+      );
 
       return {
         ...state,
         fetching: false,
         organization: {
-          ...state.organization, organization_members: [
+          ...state.organization,
+          organization_members: [
             ...state.organization.organization_members.slice(0, index),
-            ...state.organization.organization_members.slice(index + 1)
-          ]
+            ...state.organization.organization_members.slice(index + 1),
+          ],
         },
         potential_members: [
           ...state.potential_members,
-          state.organization.organization_members[index]
-        ]
+          state.organization.organization_members[index],
+        ],
       };
     }
     case ActionTypes.CURRENT_ORGANIZATION_MEMBER_REMOVE_ERROR: {
@@ -50,7 +53,9 @@ export default function reducer(state = initialState, action = {}) {
     }
 
     case ActionTypes.CURRENT_ORGANIZATION_MEMBER_ADDED: {
-      const index = state.potential_members.findIndex(member => member.id === action.userId);
+      const index = state.potential_members.findIndex(
+        member => member.id === action.userId,
+      );
 
       return {
         ...state,
@@ -59,13 +64,13 @@ export default function reducer(state = initialState, action = {}) {
           ...state.organization,
           organization_members: [
             ...state.organization.organization_members,
-            state.potential_members[index]
-          ]
+            state.potential_members[index],
+          ],
         },
         potential_members: [
           ...state.potential_members.slice(0, index),
-          ...state.potential_members.slice(index + 1)
-        ]
+          ...state.potential_members.slice(index + 1),
+        ],
       };
     }
     case ActionTypes.CURRENT_ORGANIZATION_MEMBER_ADD_ERROR: {
@@ -81,7 +86,11 @@ export default function reducer(state = initialState, action = {}) {
     }
 
     case ActionTypes.PROJECT_CREATED: {
-      return {...state, projects: [...state.projects, action.project], updating: false};
+      return {
+        ...state,
+        projects: [...state.projects, action.project],
+        updating: false,
+      };
     }
 
     case ActionTypes.PROJECT_CREATE_ERROR: {

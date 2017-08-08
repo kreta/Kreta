@@ -16,7 +16,7 @@ class CardExtended extends React.Component {
   static propTypes = {
     subtitle: React.PropTypes.string,
     thumbnail: React.PropTypes.element,
-    title: React.PropTypes.string.isRequired
+    title: React.PropTypes.string.isRequired,
   };
 
   thumbnail() {

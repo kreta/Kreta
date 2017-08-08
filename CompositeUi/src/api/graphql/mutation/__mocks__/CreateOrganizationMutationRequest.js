@@ -9,7 +9,7 @@
  */
 
 export default {
-  build: (organizationInputData) => (
+  build: organizationInputData =>
     new Promise((resolve, reject) => {
       if (typeof organizationInputData.name === 'undefined') {
         reject({source: {errors: []}});
@@ -20,12 +20,11 @@ export default {
               organization: {
                 id: 'organization-id',
                 name: 'New organization',
-                slug: 'new-organization'
-              }
-            }
-          }
+                slug: 'new-organization',
+              },
+            },
+          },
         });
       }
-    })
-  )
+    }),
 };

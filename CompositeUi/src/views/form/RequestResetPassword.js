@@ -19,9 +19,8 @@ import FormInput from './../component/FormInput';
 import HelpText from './../component/HelpText';
 import {Row, RowColumn} from './../component/Grid';
 
-const validate = (values) => {
-  const
-    errors = {},
+const validate = values => {
+  const errors = {},
     requiredFields = ['email'];
 
   if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
@@ -41,7 +40,7 @@ const validate = (values) => {
 @reduxForm({form: 'RequestResetPassword', validate})
 class RequestResetPassword extends React.Component {
   static propTypes = {
-    handleSubmit: React.PropTypes.func
+    handleSubmit: React.PropTypes.func,
   };
 
   render() {
@@ -52,11 +51,23 @@ class RequestResetPassword extends React.Component {
         <Row center>
           <RowColumn large={6}>
             <HelpText center>
-              Enter your email address and we will send you a link to reset your password.
+              Enter your email address and we will send you a link to reset your
+              password.
             </HelpText>
-            <Field autoFocus component={FormInput} label="Email" name="email" tabIndex={1}/>
+            <Field
+              autoFocus
+              component={FormInput}
+              label="Email"
+              name="email"
+              tabIndex={1}
+            />
             <FormActions expand>
-              <Button color="green" disabled={requestingPassword} tabIndex={3} type="submit">
+              <Button
+                color="green"
+                disabled={requestingPassword}
+                tabIndex={3}
+                type="submit"
+              >
                 Send password reset email
               </Button>
             </FormActions>

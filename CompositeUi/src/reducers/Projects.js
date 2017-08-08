@@ -13,7 +13,7 @@ import ActionTypes from './../constants/ActionTypes';
 const initialState = {
   errors: [],
   waiting: true,
-  projects: []
+  projects: [],
 };
 
 export default function reducer(state = initialState, action = {}) {
@@ -32,7 +32,11 @@ export default function reducer(state = initialState, action = {}) {
       return {...state, waiting: true};
     }
     case ActionTypes.PROJECT_CREATED: {
-      return {...state, projects: [...state.projects, action.project], waiting: false};
+      return {
+        ...state,
+        projects: [...state.projects, action.project],
+        waiting: false,
+      };
     }
     case ActionTypes.PROJECT_CREATE_ERROR: {
       return {...state, errors: action.errors};

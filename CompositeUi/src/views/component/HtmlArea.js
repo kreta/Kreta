@@ -17,8 +17,7 @@ const HtmlArea = props => {
     <div
       className={className}
       dangerouslySetInnerHTML={{__html: children}} // eslint-disable-line react/no-danger
-    >
-    </div>
+    />
   );
 };
 

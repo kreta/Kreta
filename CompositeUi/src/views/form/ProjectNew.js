@@ -18,9 +18,8 @@ import FormActions from './../component/FormActions';
 import FormInput from './../component/FormInput';
 import {Row, RowColumn} from './../component/Grid';
 
-const validate = (values) => {
-  const
-    errors = {},
+const validate = values => {
+  const errors = {},
     requiredFields = ['name', 'short_name'];
 
   requiredFields.forEach(field => {
@@ -42,10 +41,28 @@ class ProjectNew extends React.Component {
       <Form onSubmit={handleSubmit}>
         <Row>
           <RowColumn>
-            <Field autoFocus component={FormInput} label="Project Name" name="name" tabIndex={1}/>
-            <Field component={FormInput} label="Short name" name="short_name" tabIndex={2}/>
+            <Field
+              autoFocus
+              component={FormInput}
+              label="Project Name"
+              name="name"
+              tabIndex={1}
+            />
+            <Field
+              component={FormInput}
+              label="Short name"
+              name="short_name"
+              tabIndex={2}
+            />
             <FormActions>
-              <Button color="green" disabled={updating} tabIndex={3} type="submit">Update</Button>
+              <Button
+                color="green"
+                disabled={updating}
+                tabIndex={3}
+                type="submit"
+              >
+                Update
+              </Button>
             </FormActions>
           </RowColumn>
         </Row>

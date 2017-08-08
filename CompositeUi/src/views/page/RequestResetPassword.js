@@ -28,11 +28,13 @@ class ResetPasswordPage extends React.Component {
   render() {
     return (
       <div>
-        <NotificationLayout/>
+        <NotificationLayout />
         <ContentLayout>
           <ContentMiddleLayout centered>
-            <LogoCustomHeader title="Reset your password"/>
-            <RequestResetPassword onSubmit={this.requestResetPassword.bind(this)}/>
+            <LogoCustomHeader title="Reset your password" />
+            <RequestResetPassword
+              onSubmit={this.requestResetPassword.bind(this)}
+            />
           </ContentMiddleLayout>
         </ContentLayout>
       </div>

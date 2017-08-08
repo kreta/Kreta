@@ -28,11 +28,11 @@ class RegisterPage extends React.Component {
   render() {
     return (
       <div>
-        <NotificationLayout/>
+        <NotificationLayout />
         <ContentLayout>
           <ContentMiddleLayout centered>
-            <LogoCustomHeader title="Join Kreta"/>
-            <Register onSubmit={this.register.bind(this)}/>
+            <LogoCustomHeader title="Join Kreta" />
+            <Register onSubmit={this.register.bind(this)} />
           </ContentMiddleLayout>
         </ContentLayout>
       </div>

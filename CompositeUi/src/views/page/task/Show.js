@@ -46,8 +46,12 @@ class Show extends React.Component {
     if (task.progress === 'TODO') {
       return (
         <div>
-          <Button color="yellow" onClick={this.startProgress}>Start progress</Button>
-          <Button color="green" onClick={this.finishProgress}>Finish</Button>
+          <Button color="yellow" onClick={this.startProgress}>
+            Start progress
+          </Button>
+          <Button color="green" onClick={this.finishProgress}>
+            Finish
+          </Button>
         </div>
       );
     }
@@ -55,15 +59,21 @@ class Show extends React.Component {
     if (task.progress === 'DOING') {
       return (
         <div>
-          <Button color="red" onClick={this.stopProgress}>Stop progress</Button>
-          <Button color="green" onClick={this.finishProgress}>Finish</Button>
+          <Button color="red" onClick={this.stopProgress}>
+            Stop progress
+          </Button>
+          <Button color="green" onClick={this.finishProgress}>
+            Finish
+          </Button>
         </div>
       );
     }
 
     return (
       <div>
-        <Button color="yellow" onClick={this.startProgress}>Reopen</Button>
+        <Button color="yellow" onClick={this.startProgress}>
+          Reopen
+        </Button>
       </div>
     );
   }
@@ -71,28 +81,34 @@ class Show extends React.Component {
   startProgress() {
     const {task, dispatch} = this.props;
 
-    dispatch(CurrentProjectActions.updateTaskProgress({
-      id: task.id,
-      progress: 'DOING'
-    }));
+    dispatch(
+      CurrentProjectActions.updateTaskProgress({
+        id: task.id,
+        progress: 'DOING',
+      }),
+    );
   }
 
   stopProgress() {
     const {task, dispatch} = this.props;
 
-    dispatch(CurrentProjectActions.updateTaskProgress({
-      id: task.id,
-      progress: 'TODO'
-    }));
+    dispatch(
+      CurrentProjectActions.updateTaskProgress({
+        id: task.id,
+        progress: 'TODO',
+      }),
+    );
   }
 
   finishProgress() {
     const {task, dispatch} = this.props;
 
-    dispatch(CurrentProjectActions.updateTaskProgress({
-      id: task.id,
-      progress: 'DONE'
-    }));
+    dispatch(
+      CurrentProjectActions.updateTaskProgress({
+        id: task.id,
+        progress: 'DONE',
+      }),
+    );
   }
 
   render() {
@@ -101,7 +117,7 @@ class Show extends React.Component {
     if (!task) {
       return (
         <div className="task-show">
-          <LoadingSpinner/>
+          <LoadingSpinner />
         </div>
       );
     }
@@ -121,24 +137,30 @@ class Show extends React.Component {
         <Row className="task-show__fields">
           <RowColumn small={6}>
             <span>Assignee</span>
-            <UserCard user={task.assignee}/>
+            <UserCard user={task.assignee} />
           </RowColumn>
           <RowColumn small={6}>
             <span>Reporter</span>
-            <UserCard user={task.reporter}/>
+            <UserCard user={task.reporter} />
           </RowColumn>
         </Row>
         <Row className="task-show__fields">
           <RowColumn small={6}>
-            <CardExtended subtitle="Progress" title={task.progress}/>
+            <CardExtended subtitle="Progress" title={task.progress} />
           </RowColumn>
           <RowColumn small={6}>
-            <CardExtended subtitle="Priority" title={task.priority}/>
+            <CardExtended subtitle="Priority" title={task.priority} />
           </RowColumn>
         </Row>
         <Row className="task-show__fields">
           <RowColumn className="task-show__actions">
-            <Link to={routes.task.edit(params.organization, params.project, params.task)}>
+            <Link
+              to={routes.task.edit(
+                params.organization,
+                params.project,
+                params.task,
+              )}
+            >
               <Button color="blue">Edit</Button>
             </Link>
             {this.renderTaskProgressButtons()}

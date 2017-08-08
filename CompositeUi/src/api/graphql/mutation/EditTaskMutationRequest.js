@@ -39,18 +39,29 @@ const mutation = Relay.QL`
 
 class EditTaskMutation extends RelayQuery.Mutation {
   // eslint-disable-next-line max-params
-  constructor(taskId, taskTitle, taskDescription, assignee, taskPriority, parent = null) {
-    super(mutation, {}, {
-      input: {
-        clientMutationId: Math.random().toString(36),
-        id: taskId,
-        title: taskTitle,
-        description: taskDescription,
-        assigneeId: assignee,
-        priority: taskPriority.toUpperCase(),
-        parentId: parent
-      }
-    });
+  constructor(
+    taskId,
+    taskTitle,
+    taskDescription,
+    assignee,
+    taskPriority,
+    parent = null,
+  ) {
+    super(
+      mutation,
+      {},
+      {
+        input: {
+          clientMutationId: Math.random().toString(36),
+          id: taskId,
+          title: taskTitle,
+          description: taskDescription,
+          assigneeId: assignee,
+          priority: taskPriority.toUpperCase(),
+          parentId: parent,
+        },
+      },
+    );
   }
 }
 
@@ -64,7 +75,7 @@ class EditTaskMutationRequest extends RelayMutationRequest {
         taskInputData.assignee,
         taskInputData.priority,
         taskInputData.parent,
-      )
+      ),
     );
   }
 }

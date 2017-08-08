@@ -10,52 +10,36 @@
 
 import './../../scss/components/_wysiwyg.scss';
 
-import {convertToRaw, ContentState, EditorState, convertFromHTML} from 'draft-js';
+import {
+  convertToRaw,
+  ContentState,
+  EditorState,
+  convertFromHTML,
+} from 'draft-js';
 import draftToHtml from 'draftjs-to-html';
 import React from 'react';
 import {Editor} from 'react-draft-wysiwyg';
 
 const toolbar = {
-  options: [
-    'inline',
-    'blockType',
-    'list',
-    'link',
-  ],
+  options: ['inline', 'blockType', 'list', 'link'],
   inline: {
     inDropdown: false,
-    options: [
-      'bold',
-      'italic',
-      'underline',
-      'strikethrough',
-      'monospace',
-    ],
+    options: ['bold', 'italic', 'underline', 'strikethrough', 'monospace'],
   },
   blockType: {
     inDropdown: false,
-    options: [
-      'H1',
-      'H2',
-      'H3'
-    ],
+    options: ['H1', 'H2', 'H3'],
   },
   list: {
     inDropdown: false,
     className: undefined,
-    options: [
-      'unordered',
-      'ordered'
-    ],
+    options: ['unordered', 'ordered'],
     unordered: {className: 'wysiwyg__toolbar--list-unordered'},
-    ordered: {className: 'wysiwyg__toolbar--list-ordered'}
+    ordered: {className: 'wysiwyg__toolbar--list-ordered'},
   },
   link: {
     inDropdown: false,
-    options: [
-      'link',
-      'unlink'
-    ],
+    options: ['link', 'unlink'],
   },
   image: {
     className: undefined,
@@ -76,7 +60,7 @@ class Wysiwyg extends React.Component {
     editorOnChange: React.PropTypes.func.isRequired,
     editorOnFocus: React.PropTypes.func.isRequired,
     hasPlaceholder: React.PropTypes.bool,
-    tabIndex: React.PropTypes.number
+    tabIndex: React.PropTypes.number,
   };
 
   constructor(props) {
@@ -95,11 +79,10 @@ class Wysiwyg extends React.Component {
       return null;
     }
 
-    const
-      blocksFromHTML = convertFromHTML(defaultValue),
+    const blocksFromHTML = convertFromHTML(defaultValue),
       state = ContentState.createFromBlockArray(
         blocksFromHTML.contentBlocks,
-        blocksFromHTML.entityMap
+        blocksFromHTML.entityMap,
       );
 
     return EditorState.createWithContent(state);
@@ -110,8 +93,7 @@ class Wysiwyg extends React.Component {
   }
 
   handleChange(editorState) {
-    const
-      content = editorState.getCurrentContent(),
+    const content = editorState.getCurrentContent(),
       htmlContent = draftToHtml(convertToRaw(content)),
       isEditorEmpty = content.hasText();
 
@@ -129,8 +111,7 @@ class Wysiwyg extends React.Component {
   }
 
   render() {
-    const
-      {hasPlaceholder, tabIndex} = this.props;
+    const {hasPlaceholder, tabIndex} = this.props;
 
     let placeholder = '';
     if (hasPlaceholder) {

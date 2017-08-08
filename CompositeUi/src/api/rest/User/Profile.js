@@ -21,7 +21,7 @@ class Profile {
       user_name: profileData.user_name,
       firstName: profileData.first_name,
       lastName: profileData.last_name,
-      image: profileData.image
+      image: profileData.image,
     });
   }
 }

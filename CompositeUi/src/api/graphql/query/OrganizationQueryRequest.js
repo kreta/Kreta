@@ -40,9 +40,13 @@ const query = Relay.QL`
 class OrganizationQueryRequest extends RelayQueryRequest {
   static build(slug) {
     return new RelayQueryRequest(
-      RelayQuery.Root.create(query, {}, {
-        slug
-      })
+      RelayQuery.Root.create(
+        query,
+        {},
+        {
+          slug,
+        },
+      ),
     );
   }
 }

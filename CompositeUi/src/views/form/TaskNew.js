@@ -24,9 +24,8 @@ import SelectorOption from './../component/SelectorOption';
 import Thumbnail from './../component/Thumbnail';
 import UserThumbnail from './../component/UserThumbnail';
 
-const validate = (values) => {
-  const
-    errors = {},
+const validate = values => {
+  const errors = {},
     requiredFields = ['title', 'project', 'assignee', 'priority'];
 
   requiredFields.forEach(field => {
@@ -40,34 +39,34 @@ const validate = (values) => {
 
 @connect(state => ({
   initialValues: {
-    project: state.currentProject.project.id
+    project: state.currentProject.project.id,
   },
   project: state.currentProject.project,
-  updating: state.currentProject.updating
+  updating: state.currentProject.updating,
 }))
-
 @reduxForm({form: 'TaskNew', validate})
 class TaskNew extends React.Component {
   assigneeSelector() {
-    const options = [(
+    const options = [
         <SelectorOption
           key={0}
           text="Unassigned"
-          thumbnail={<Thumbnail image={null} text=""/>}
+          thumbnail={<Thumbnail image={null} text="" />}
           value=""
-        />)],
+        />,
+      ],
       users = this.props.project.organization.organization_members.concat(
-        this.props.project.organization.owners
+        this.props.project.organization.owners,
       );
 
-    users.forEach((member) => {
+    users.forEach(member => {
       options.push(
         <SelectorOption
           key={member.id}
           text={member.user_name}
-          thumbnail={<UserThumbnail user={member}/>}
+          thumbnail={<UserThumbnail user={member} />}
           value={member.id}
-        />
+        />,
       );
     });
 
@@ -82,18 +81,25 @@ class TaskNew extends React.Component {
         <Row collapse>
           <RowColumn>
             <PageHeader
-              thumbnail={
-                <Thumbnail
-                  image={null}
-                  text={project.name}
-                />
-              }
-              title={project.name}/>
+              thumbnail={<Thumbnail image={null} text={project.name} />}
+              title={project.name}
+            />
           </RowColumn>
           <RowColumn>
-            <Field autoFocus component={FormInput} label="Title" name="title" tabIndex={1}/>
+            <Field
+              autoFocus
+              component={FormInput}
+              label="Title"
+              name="title"
+              tabIndex={1}
+            />
             <div className="task-new__description">
-              <Field component={FormInputWysiwyg} label="Description" name="description" tabIndex={2}/>
+              <Field
+                component={FormInputWysiwyg}
+                label="Description"
+                name="description"
+                tabIndex={2}
+              />
             </div>
           </RowColumn>
           <RowColumn large={4} medium={6}>
@@ -103,15 +109,22 @@ class TaskNew extends React.Component {
           </RowColumn>
           <RowColumn large={4} medium={6}>
             <Field component={Selector} name="priority" tabIndex={4}>
-              <SelectorOption text="Select priority..." value=""/>
-              <SelectorOption text="High" value="HIGH"/>
-              <SelectorOption text="Medium" value="MEDIUM"/>
-              <SelectorOption text="Low" value="LOW"/>
+              <SelectorOption text="Select priority..." value="" />
+              <SelectorOption text="High" value="HIGH" />
+              <SelectorOption text="Medium" value="MEDIUM" />
+              <SelectorOption text="Low" value="LOW" />
             </Field>
           </RowColumn>
           <RowColumn>
             <FormActions>
-              <Button color="green" disabled={updating} tabIndex={5} type="submit">Done</Button>
+              <Button
+                color="green"
+                disabled={updating}
+                tabIndex={5}
+                type="submit"
+              >
+                Done
+              </Button>
             </FormActions>
           </RowColumn>
         </Row>

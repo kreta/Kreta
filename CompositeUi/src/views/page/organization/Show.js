@@ -27,7 +27,10 @@ import PageHeader from './../../component/PageHeader';
 import Projects from './../../composition/Projects';
 import Thumbnail from './../../component/Thumbnail';
 
-@connect(state => ({currentOrganization: state.currentOrganization, profile: state.profile.profile}))
+@connect(state => ({
+  currentOrganization: state.currentOrganization,
+  profile: state.profile.profile,
+}))
 class Show extends React.Component {
   componentDidMount() {
     const {params, dispatch} = this.props;
@@ -36,31 +39,21 @@ class Show extends React.Component {
   }
 
   removeMember(member) {
-    const
-      {currentOrganization, dispatch} = this.props,
+    const {currentOrganization, dispatch} = this.props,
       organization = currentOrganization.organization;
 
     dispatch(
-      CurrentOrganizationActions.removeMember(
-        organization.id,
-        member.id,
-      )
+      CurrentOrganizationActions.removeMember(organization.id, member.id),
     );
   }
 
   renderPageHeader() {
-    const
-      {currentOrganization} = this.props,
-      organization = currentOrganization.organization;
+    const {currentOrganization} = this.props;
+    const organization = currentOrganization.organization;
 
     return (
       <PageHeader
-        thumbnail={
-          <Thumbnail
-            image={null}
-            text={organization.name}
-          />
-        }
+        thumbnail={<Thumbnail image={null} text={organization.name} />}
         title={organization.name}
       >
         <Link to={routes.project.new(organization.slug)}>
@@ -71,19 +64,18 @@ class Show extends React.Component {
   }
 
   render() {
-    const
-      {currentOrganization, children, location, profile} = this.props,
+    const {currentOrganization, children, location, profile} = this.props,
       organization = currentOrganization.organization;
 
     if (currentOrganization.fetching) {
-      return <LoadingSpinner/>;
+      return <LoadingSpinner />;
     }
 
     return (
       <div className="organization-show">
         <ContentMiddleLayout>
           {this.renderPageHeader()}
-          <Projects organization={organization}/>
+          <Projects organization={organization} />
           <Members
             currentPath={location.pathname}
             organization={organization}

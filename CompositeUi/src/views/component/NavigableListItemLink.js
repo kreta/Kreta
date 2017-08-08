@@ -13,11 +13,11 @@ import {Link} from 'react-router';
 
 class NavigableListItemLink extends React.Component {
   static defaultProps = {
-    selected: false
+    selected: false,
   };
 
   static contextTypes = {
-    xSelected: React.PropTypes.number
+    xSelected: React.PropTypes.number,
   };
 
   render() {
@@ -25,8 +25,12 @@ class NavigableListItemLink extends React.Component {
       selected = this.context.xSelected === index;
 
     return (
-      <Link className={`navigable-list-item-link ${selected ? ' navigable-list-item-link--selected' : ''}`}
-        to={to}>
+      <Link
+        className={`navigable-list-item-link ${selected
+          ? ' navigable-list-item-link--selected'
+          : ''}`}
+        to={to}
+      >
         {children}
       </Link>
     );

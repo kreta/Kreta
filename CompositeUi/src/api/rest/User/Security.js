@@ -12,13 +12,17 @@ import IdentityAccessRest from './../IdentityAccessRest';
 
 class Security {
   login(email, password) {
-    return IdentityAccessRest.post('/auth/token', {}, {
-      'Authorization': `Basic ${btoa(`${email}:${password}`)}`
-    });
+    return IdentityAccessRest.post(
+      '/auth/token',
+      {},
+      {
+        Authorization: `Basic ${btoa(`${email}:${password}`)}`,
+      },
+    );
   }
 
   logout() {
-    return new Promise((resolve) => {
+    return new Promise(resolve => {
       localStorage.removeItem('token');
 
       setTimeout(() => {

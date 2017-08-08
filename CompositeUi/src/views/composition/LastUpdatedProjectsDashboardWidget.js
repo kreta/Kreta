@@ -19,9 +19,7 @@ import Thumbnail from './../component/Thumbnail';
 
 class LastUpdatedProjectsDashboardWidget extends React.Component {
   static propTypes = {
-    projects: React.PropTypes.arrayOf(
-      React.PropTypes.object
-    ).isRequired,
+    projects: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
   };
 
   renderProjects() {
@@ -31,16 +29,18 @@ class LastUpdatedProjectsDashboardWidget extends React.Component {
       return;
     }
 
-    return projects.map((project, index) => (
-      <Link key={index} to={routes.project.show(project.organization.slug, project.slug)}>
+    return projects.map((project, index) =>
+      <Link
+        key={index}
+        to={routes.project.show(project.organization.slug, project.slug)}
+      >
         <CardExtended
           subtitle={project.slug}
-          thumbnail={<Thumbnail text={`${project.name}`}/>}
+          thumbnail={<Thumbnail text={`${project.name}`} />}
           title={`${project.name}`}
-        >
-        </CardExtended>
-      </Link>
-    ));
+        />
+      </Link>,
+    );
   }
 
   render() {

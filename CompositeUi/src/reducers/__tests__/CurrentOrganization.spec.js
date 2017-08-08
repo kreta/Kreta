@@ -13,116 +13,141 @@ import reducer from './../CurrentOrganization';
 
 describe('Current organization reducer tests', () => {
   it('Initial State', () => {
-    expect(
-      reducer()
-    ).toEqual({
+    expect(reducer()).toEqual({
       fetching: true,
       organization: null,
       potential_members: [],
       projects: [],
-      updating: false
+      updating: false,
     });
   });
 
   it('Organization fetching', () => {
     expect(
-      reducer({}, {type: ActionTypes.CURRENT_ORGANIZATION_FETCHING})
+      reducer({}, {type: ActionTypes.CURRENT_ORGANIZATION_FETCHING}),
     ).toEqual({
-      fetching: true
+      fetching: true,
     });
   });
 
   it('Organization received', () => {
     expect(
-      reducer({}, {
-        type: ActionTypes.CURRENT_ORGANIZATION_RECEIVED,
-        organization: {
-          id: 1,
-          name: 'Organization 1',
-          organization_members: [{
-            id: 'id1'
-          }, {
-            id: 'id2'
-          }]
-        }
-      })
+      reducer(
+        {},
+        {
+          type: ActionTypes.CURRENT_ORGANIZATION_RECEIVED,
+          organization: {
+            id: 1,
+            name: 'Organization 1',
+            organization_members: [
+              {
+                id: 'id1',
+              },
+              {
+                id: 'id2',
+              },
+            ],
+          },
+        },
+      ),
     ).toEqual({
       fetching: false,
       organization: {
         id: 1,
         name: 'Organization 1',
-        organization_members: [{
-          id: 'id1'
-        }, {
-          id: 'id2'
-        }]
-      }
+        organization_members: [
+          {
+            id: 'id1',
+          },
+          {
+            id: 'id2',
+          },
+        ],
+      },
     });
   });
 
   it('Organization member removed', () => {
     expect(
-      reducer({
-        organization: {
-          id: 1,
-          name: 'Organization 1',
-          organization_members: [{
-            id: 'id1'
-          }, {
-            id: 'id2'
-          }]
+      reducer(
+        {
+          organization: {
+            id: 1,
+            name: 'Organization 1',
+            organization_members: [
+              {
+                id: 'id1',
+              },
+              {
+                id: 'id2',
+              },
+            ],
+          },
+          potential_members: [],
         },
-        potential_members: []
-      }, {
-        type: ActionTypes.CURRENT_ORGANIZATION_MEMBER_REMOVED,
-        userId: 'id2'
-      })
+        {
+          type: ActionTypes.CURRENT_ORGANIZATION_MEMBER_REMOVED,
+          userId: 'id2',
+        },
+      ),
     ).toEqual({
       fetching: false,
       organization: {
         id: 1,
         name: 'Organization 1',
-        organization_members: [{
-          id: 'id1',
-        }],
+        organization_members: [
+          {
+            id: 'id1',
+          },
+        ],
       },
-      potential_members: [{
-        id: 'id2',
-      }]
+      potential_members: [
+        {
+          id: 'id2',
+        },
+      ],
     });
   });
 
   it('Organization member add', () => {
     expect(
-      reducer({
-        organization: {
-          id: 1,
-          name: 'Organization 1',
-          organization_members: [{
-            id: 'id1'
-          }]
+      reducer(
+        {
+          organization: {
+            id: 1,
+            name: 'Organization 1',
+            organization_members: [
+              {
+                id: 'id1',
+              },
+            ],
+          },
+          potential_members: [
+            {
+              id: 'id2',
+            },
+          ],
         },
-        potential_members: [
-          {
-            id: 'id2'
-          }
-        ]
-      }, {
-        type: ActionTypes.CURRENT_ORGANIZATION_MEMBER_ADDED,
-        userId: 'id2'
-      })
+        {
+          type: ActionTypes.CURRENT_ORGANIZATION_MEMBER_ADDED,
+          userId: 'id2',
+        },
+      ),
     ).toEqual({
       fetching: false,
       organization: {
         id: 1,
         name: 'Organization 1',
-        organization_members: [{
-          id: 'id1',
-        }, {
-          id: 'id2',
-        }]
+        organization_members: [
+          {
+            id: 'id1',
+          },
+          {
+            id: 'id2',
+          },
+        ],
       },
-      potential_members: []
+      potential_members: [],
     });
   });
 });

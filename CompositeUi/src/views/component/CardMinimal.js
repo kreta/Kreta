@@ -16,7 +16,7 @@ import {Link} from 'react-router';
 class CardMinimal extends React.Component {
   static propTypes = {
     title: React.PropTypes.string.isRequired,
-    to: React.PropTypes.string.isRequired
+    to: React.PropTypes.string.isRequired,
   };
 
   render() {

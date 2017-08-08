@@ -14,7 +14,7 @@ import Thumbnail from './Thumbnail';
 
 class UserThumbnail extends React.Component {
   static propTypes = {
-    user: React.PropTypes.object.isRequired
+    user: React.PropTypes.object.isRequired,
   };
 
   image() {
@@ -34,9 +34,7 @@ class UserThumbnail extends React.Component {
   }
 
   render() {
-    return (
-      <Thumbnail image={this.image()} text={this.text()}/>
-    );
+    return <Thumbnail image={this.image()} text={this.text()} />;
   }
 }
 

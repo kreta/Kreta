@@ -17,8 +17,7 @@ import ReactDOM from 'react-dom';
 import configureStore from './stores/Store';
 import Root from './views/layout/Root';
 
-const
-  store = configureStore(browserHistory),
-  node = <Root routerHistory={browserHistory} store={store}/>;
+const store = configureStore(browserHistory);
+const node = <Root routerHistory={browserHistory} store={store} />;
 
 ReactDOM.render(node, document.getElementById('kreta'));

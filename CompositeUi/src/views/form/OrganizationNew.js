@@ -18,9 +18,8 @@ import FormInput from './../component/FormInput';
 import Button from './../component/Button';
 import {Row, RowColumn} from './../component/Grid';
 
-const validate = (values) => {
-  const
-    errors = {},
+const validate = values => {
+  const errors = {},
     requiredFields = ['name'];
 
   requiredFields.forEach(field => {
@@ -36,7 +35,7 @@ const validate = (values) => {
 @reduxForm({form: 'OrganizationNew', validate})
 class OrganizationNew extends React.Component {
   static propTypes = {
-    handleSubmit: React.PropTypes.func
+    handleSubmit: React.PropTypes.func,
   };
 
   render() {
@@ -46,9 +45,22 @@ class OrganizationNew extends React.Component {
       <Form onSubmit={handleSubmit}>
         <Row>
           <RowColumn>
-            <Field autoFocus component={FormInput} label="Organization Name" name="name" tabIndex={1}/>
+            <Field
+              autoFocus
+              component={FormInput}
+              label="Organization Name"
+              name="name"
+              tabIndex={1}
+            />
             <FormActions>
-              <Button color="green" disabled={fetching} tabIndex={2} type="submit">Create</Button>
+              <Button
+                color="green"
+                disabled={fetching}
+                tabIndex={2}
+                type="submit"
+              >
+                Create
+              </Button>
             </FormActions>
           </RowColumn>
         </Row>

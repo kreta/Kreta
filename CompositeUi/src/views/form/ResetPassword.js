@@ -17,9 +17,8 @@ import FormActions from './../component/FormActions';
 import FormInput from './../component/FormInput';
 import {Row, RowColumn} from './../component/Grid';
 
-const validate = (values) => {
-  const
-    errors = {},
+const validate = values => {
+  const errors = {},
     requiredFields = ['password', 'repeated_password'];
 
   if (typeof values.password !== 'undefined' && values.password.length < 6) {
@@ -42,7 +41,7 @@ const validate = (values) => {
 @reduxForm({form: 'ResetPassword', validate})
 class Login extends React.Component {
   static propTypes = {
-    handleSubmit: React.PropTypes.func
+    handleSubmit: React.PropTypes.func,
   };
 
   render() {
@@ -52,10 +51,24 @@ class Login extends React.Component {
       <Form onSubmit={handleSubmit}>
         <Row center>
           <RowColumn large={6}>
-            <Field component={FormInput} label="Password" name="password" tabIndex={1} type="password"/>
-            <Field component={FormInput} label="Repeat password" name="repeated_password" tabIndex={2} type="password"/>
+            <Field
+              component={FormInput}
+              label="Password"
+              name="password"
+              tabIndex={1}
+              type="password"
+            />
+            <Field
+              component={FormInput}
+              label="Repeat password"
+              name="repeated_password"
+              tabIndex={2}
+              type="password"
+            />
             <FormActions expand>
-              <Button color="green" tabIndex={3} type="submit">Change password</Button>
+              <Button color="green" tabIndex={3} type="submit">
+                Change password
+              </Button>
             </FormActions>
           </RowColumn>
         </Row>

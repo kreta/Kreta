@@ -29,12 +29,12 @@ class New extends React.Component {
     const {currentProject} = this.props;
 
     if (currentProject.waiting) {
-      return <LoadingSpinner/>;
+      return <LoadingSpinner />;
     }
 
     return (
       <ContentMiddleLayout centered>
-        <TaskNew onSubmit={this.createTask.bind(this)}/>
+        <TaskNew onSubmit={this.createTask.bind(this)} />
       </ContentMiddleLayout>
     );
   }

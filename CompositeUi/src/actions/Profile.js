@@ -14,51 +14,63 @@ import Profile from './../api/rest/User/Profile';
 import UserActions from './User';
 
 const Actions = {
-  fetchProfile: () => (dispatch) => {
+  fetchProfile: () => dispatch => {
     dispatch({
-      type: ActionTypes.PROFILE_FETCHING
+      type: ActionTypes.PROFILE_FETCHING,
     });
     Profile.get()
-      .then((response) => {
+      .then(response => {
         dispatch({
           type: ActionTypes.PROFILE_RECEIVED,
-          profile: response
+          profile: response,
         });
       })
       .catch(() => {
         dispatch(UserActions.logout());
-        dispatch(NotificationActions.addNotification(
-          'Session expired, you need to enter your credentials again',
-          'error'
-        ));
+        dispatch(
+          NotificationActions.addNotification(
+            'Session expired, you need to enter your credentials again',
+            'error',
+          ),
+        );
       });
   },
-  updateProfile: (profileData) => (dispatch) => {
+  updateProfile: profileData => dispatch => {
     dispatch({
-      type: ActionTypes.PROFILE_UPDATE
+      type: ActionTypes.PROFILE_UPDATE,
     });
     Profile.update(profileData)
-      .then((response) => {
+      .then(response => {
         dispatch({
           type: ActionTypes.PROFILE_UPDATED,
-          profile: response
+          profile: response,
         });
-        dispatch(NotificationActions.addNotification('Profile updated successfully', 'success'));
+        dispatch(
+          NotificationActions.addNotification(
+            'Profile updated successfully',
+            'success',
+          ),
+        );
 
         // Hack to maintain the session in the React
         // app if the user changes the email
         localStorage.token = response.token;
       })
-      .catch((response) => {
-        response.then((errors) => {
+      .catch(response => {
+        response.then(errors => {
           dispatch({
             type: ActionTypes.PROFILE_UPDATE_ERROR,
-            errors
+            errors,
           });
-          dispatch(NotificationActions.addNotification('Error while updating your profile', 'error'));
+          dispatch(
+            NotificationActions.addNotification(
+              'Error while updating your profile',
+              'error',
+            ),
+          );
         });
       });
-  }
+  },
 };
 
 export default Actions;

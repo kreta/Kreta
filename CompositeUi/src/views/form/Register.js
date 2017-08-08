@@ -19,9 +19,8 @@ import FormInput from './../component/FormInput';
 import HelpText from './../component/HelpText';
 import {Row, RowColumn} from './../component/Grid';
 
-const validate = (values) => {
-  const
-    errors = {},
+const validate = values => {
+  const errors = {},
     requiredFields = ['email', 'password', 'repeated_password'];
 
   if (typeof values.password !== 'undefined' && values.password.length < 6) {
@@ -49,7 +48,7 @@ const validate = (values) => {
 @reduxForm({form: 'Register', validate})
 class Register extends React.Component {
   static propTypes = {
-    handleSubmit: React.PropTypes.func
+    handleSubmit: React.PropTypes.func,
   };
 
   render() {
@@ -59,16 +58,42 @@ class Register extends React.Component {
       <Form onSubmit={handleSubmit}>
         <Row center>
           <RowColumn large={6}>
-            <Field autoFocus component={FormInput} label="Email" name="email" tabIndex={1}/>
-            <Field component={FormInput} label="Password" name="password" tabIndex={2} type="password"/>
-            <Field component={FormInput} label="Repeat password" name="repeated_password" tabIndex={3} type="password"/>
+            <Field
+              autoFocus
+              component={FormInput}
+              label="Email"
+              name="email"
+              tabIndex={1}
+            />
+            <Field
+              component={FormInput}
+              label="Password"
+              name="password"
+              tabIndex={2}
+              type="password"
+            />
+            <Field
+              component={FormInput}
+              label="Repeat password"
+              name="repeated_password"
+              tabIndex={3}
+              type="password"
+            />
             <FormActions expand>
-              <Button color="green" disabled={registering} tabIndex={3} type="submit">Sign up for Kreta</Button>
+              <Button
+                color="green"
+                disabled={registering}
+                tabIndex={3}
+                type="submit"
+              >
+                Sign up for Kreta
+              </Button>
             </FormActions>
             <HelpText center>
-                By clicking "Sign up for Kreta", you agree to
-                our <a href="#">terms of service</a> and <a href="#">privacy policy</a>.
-                We'll occasionally send you account related emails.
+              By clicking "Sign up for Kreta", you agree to our{' '}
+              <a href="#">terms of service</a> and{' '}
+              <a href="#">privacy policy</a>. We'll occasionally send you
+              account related emails.
             </HelpText>
           </RowColumn>
         </Row>

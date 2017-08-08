@@ -25,36 +25,34 @@ import ResetPassword from './../form/ResetPassword';
 @connect()
 class ResetPasswordPage extends React.Component {
   componentDidMount() {
-    const
-      {dispatch, location} = this.props,
+    const {dispatch, location} = this.props,
       token = location.query['remember-password-token'];
 
     if (typeof token === 'undefined' || token.length === 0) {
-      dispatch(
-        routeActions.push(routes.requestResetPassword)
-      );
+      dispatch(routeActions.push(routes.requestResetPassword));
     }
   }
 
   resetPassword(passwords) {
-    const
-      {location} = this.props,
+    const {location} = this.props,
       token = location.query['remember-password-token'];
 
-    this.props.dispatch(UserActions.changePassword({
-      token,
-      passwords
-    }));
+    this.props.dispatch(
+      UserActions.changePassword({
+        token,
+        passwords,
+      }),
+    );
   }
 
   render() {
     return (
       <div>
-        <NotificationLayout/>
+        <NotificationLayout />
         <ContentLayout>
           <ContentMiddleLayout centered>
-            <LogoCustomHeader title="Reset your password"/>
-            <ResetPassword onSubmit={this.resetPassword.bind(this)}/>
+            <LogoCustomHeader title="Reset your password" />
+            <ResetPassword onSubmit={this.resetPassword.bind(this)} />
           </ContentMiddleLayout>
         </ContentLayout>
       </div>

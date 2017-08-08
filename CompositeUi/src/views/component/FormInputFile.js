@@ -18,18 +18,17 @@ import Icon from './../component/Icon';
 
 class FormInputFile extends React.Component {
   static propTypes = {
-    filename: React.PropTypes.string
+    filename: React.PropTypes.string,
   };
 
   componentWillMount() {
     this.setState({
-      filename: this.props.filename ? this.props.filename : ''
+      filename: this.props.filename ? this.props.filename : '',
     });
   }
 
   onChange(event) {
-    const
-      {input: {onChange}} = this.props,
+    const {input: {onChange}} = this.props,
       file = event.target.files[0];
 
     if (typeof file === 'undefined') {
@@ -45,14 +44,12 @@ class FormInputFile extends React.Component {
     if (!this.state.filename) {
       return (
         <div className="form-input-file__background">
-          <Icon color="white" glyph={ImageIcon}/>
+          <Icon color="white" glyph={ImageIcon} />
         </div>
       );
     }
 
-    return (
-      <img className="form-input-file__image" src={this.state.filename}/>
-    );
+    return <img className="form-input-file__image" src={this.state.filename} />;
   }
 
   render() {

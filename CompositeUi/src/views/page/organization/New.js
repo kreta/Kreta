@@ -24,7 +24,7 @@ class New extends React.Component {
   render() {
     return (
       <ContentMiddleLayout centered>
-        <OrganizationNew onSubmit={this.createOrganization.bind(this)}/>
+        <OrganizationNew onSubmit={this.createOrganization.bind(this)} />
       </ContentMiddleLayout>
     );
   }

@@ -14,31 +14,17 @@
 // import ActionTypes from './../../constants/ActionTypes';
 
 describe('Current project actions', () => {
-  it('fetches projects', () => {
+  it('fetches projects', () => {});
 
-  });
+  it('changes selected task', () => {});
 
-  it('changes selected task', () => {
+  it('creates an task', () => {});
 
-  });
+  it('it handles errors on invalid task creation attempt', () => {});
 
-  it('creates an task', () => {
+  it('updates an task', () => {});
 
-  });
+  it('filters tasks', () => {});
 
-  it('it handles errors on invalid task creation attempt', () => {
-
-  });
-
-  it('updates an task', () => {
-
-  });
-
-  it('filters tasks', () => {
-
-  });
-
-  it('adds a participant', () => {
-
-  });
+  it('adds a participant', () => {});
 });

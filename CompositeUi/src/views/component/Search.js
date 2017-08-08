@@ -22,7 +22,7 @@ import FormInput from './FormInput';
 class Search extends React.Component {
   static propTypes = {
     onChange: React.PropTypes.func,
-    query: React.PropTypes.string
+    query: React.PropTypes.string,
   };
 
   componentDidMount() {
@@ -31,7 +31,7 @@ class Search extends React.Component {
 
   handleInitialize() {
     this.props.initialize({
-      'search': this.props.query
+      search: this.props.query,
     });
   }
 

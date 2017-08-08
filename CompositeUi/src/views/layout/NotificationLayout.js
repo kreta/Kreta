@@ -23,13 +23,13 @@ class NotificationLayout extends React.Component {
   }
 
   render() {
-    const notifications = this.props.notifications.map((notification, index) => (
+    const notifications = this.props.notifications.map((notification, index) =>
       <Notification
         key={index}
         notification={notification}
         onCloseRequest={this.removeNotification.bind(this, notification.id)}
-      />
-    ));
+      />,
+    );
 
     return (
       <div className="notification-layout">

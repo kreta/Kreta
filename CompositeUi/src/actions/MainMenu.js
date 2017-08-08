@@ -12,11 +12,11 @@ import ActionTypes from './../constants/ActionTypes';
 
 const Actions = {
   showProjects: () => ({
-    type: ActionTypes.MAIN_MENU_SHOW_PROJECTS
+    type: ActionTypes.MAIN_MENU_SHOW_PROJECTS,
   }),
   hideProjects: () => ({
-    type: ActionTypes.MAIN_MENU_HIDE_PROJECTS
-  })
+    type: ActionTypes.MAIN_MENU_HIDE_PROJECTS,
+  }),
 };
 
 export default Actions;

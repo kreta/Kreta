@@ -11,31 +11,33 @@
 import ActionTypes from './../constants/ActionTypes';
 
 const initialState = {
-  notifications: []
+  notifications: [],
 };
 
 export default function reducer(state = initialState, action = {}) {
   switch (action.type) {
     case ActionTypes.NOTIFICATION_ADD: {
       return {
-        ...state, notifications: [
-          ...state.notifications, action.notification
-        ]
+        ...state,
+        notifications: [...state.notifications, action.notification],
       };
     }
 
     case ActionTypes.NOTIFICATION_REMOVE: {
-      const index = state.notifications.findIndex(notification => notification.id === action.id);
+      const index = state.notifications.findIndex(
+        notification => notification.id === action.id,
+      );
 
       if (typeof index < 0) {
         return state;
       }
 
       return {
-        ...state, notifications: [
+        ...state,
+        notifications: [
           ...state.notifications.slice(0, index),
-          ...state.notifications.slice(index + 1)
-        ]
+          ...state.notifications.slice(index + 1),
+        ],
       };
     }
 

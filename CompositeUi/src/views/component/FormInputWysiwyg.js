@@ -60,14 +60,13 @@ class FormInputWysiwyg extends React.Component {
         meta: {touched, error}, // eslint-disable-line no-unused-vars
         ...custom
       } = this.props,
-      inputClasses = classnames(
-        'form-input-wysiwyg__input',
-        {'form-input-wysiwyg__input--filled': input.value.length > 0}
-      );
+      inputClasses = classnames('form-input-wysiwyg__input', {
+        'form-input-wysiwyg__input--filled': input.value.length > 0,
+      });
 
     return (
       <div className={inputClasses} ref="input">
-        <input {...input} type="hidden"/>
+        <input {...input} type="hidden" />
         <Wysiwyg
           defaultValue={input.value}
           editorOnBlur={this.handleBlur}
@@ -88,7 +87,7 @@ class FormInputWysiwyg extends React.Component {
         <label className="form-input-wysiwyg__label">
           {label}
         </label>
-        <div className="form-input-wysiwyg__bar"/>
+        <div className="form-input-wysiwyg__bar" />
       </div>
     );
   }

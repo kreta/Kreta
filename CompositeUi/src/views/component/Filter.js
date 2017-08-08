@@ -15,7 +15,7 @@ import React from 'react';
 class Filter extends React.Component {
   static propTypes = {
     filters: React.PropTypes.array.isRequired,
-    onFilterSelected: React.PropTypes.func.isRequired
+    onFilterSelected: React.PropTypes.func.isRequired,
   };
 
   index(element) {
@@ -28,7 +28,7 @@ class Filter extends React.Component {
     item.parentNode.querySelector('a').classList.remove('selected');
     item.classList.add('selected');
 
-    this.props.filters[itemGroup].forEach((filter) => {
+    this.props.filters[itemGroup].forEach(filter => {
       filter.selected = false;
     });
 
@@ -44,7 +44,7 @@ class Filter extends React.Component {
 
   render() {
     const filtersEl = this.props.filters.map((filter, index) => {
-      const groupFilters = filter.map((item, index2) => (
+      const groupFilters = filter.map((item, index2) =>
         <a
           className={`filter-item${item.selected ? ' selected ' : ' '}`}
           data-filter={item.filter}
@@ -53,8 +53,8 @@ class Filter extends React.Component {
           onClick={this.filterSelected.bind(this)}
         >
           {item.title}
-        </a>
-      ));
+        </a>,
+      );
 
       return (
         <div className="filter-group" key={index}>
