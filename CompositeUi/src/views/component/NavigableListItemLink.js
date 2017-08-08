@@ -26,7 +26,7 @@ class NavigableListItemLink extends React.Component {
 
     return (
       <Link className={`navigable-list-item-link ${selected ? ' navigable-list-item-link--selected' : ''}`}
-            to={to}>
+        to={to}>
         {children}
       </Link>
     );

@@ -8,10 +8,13 @@
  * file that was distributed with this source code.
  */
 
-'use strict';
-
+process.env.BABEL_ENV = 'test';
 process.env.NODE_ENV = 'test';
 process.env.PUBLIC_URL = '';
+
+process.on('unhandledRejection', error => {
+  throw error;
+});
 
 import dotenv from 'dotenv';
 dotenv.config({silent: true});

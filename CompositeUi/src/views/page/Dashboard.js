@@ -58,11 +58,7 @@ class Dashboard extends React.Component {
     const {dashboard, location} = this.props;
 
     if (typeof location.query.q !== 'undefined') {
-      if ((!dashboard.searchQuery
-          || dashboard.searchQuery.length === 0
-        )
-        && location.query.q.length > 0
-      ) {
+      if ((!dashboard.searchQuery || dashboard.searchQuery.length === 0) && location.query.q.length > 0) {
         return location.query.q;
       }
     }

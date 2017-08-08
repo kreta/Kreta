@@ -45,11 +45,15 @@ class Filter extends React.Component {
   render() {
     const filtersEl = this.props.filters.map((filter, index) => {
       const groupFilters = filter.map((item, index2) => (
-        <a className={`filter-item${item.selected ? ' selected ' : ' '}`}
-           data-filter={item.filter}
-           data-value={item.value}
-           key={index2}
-           onClick={this.filterSelected.bind(this)}>{item.title}</a>
+        <a
+          className={`filter-item${item.selected ? ' selected ' : ' '}`}
+          data-filter={item.filter}
+          data-value={item.value}
+          key={index2}
+          onClick={this.filterSelected.bind(this)}
+        >
+          {item.title}
+        </a>
       ));
 
       return (

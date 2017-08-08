@@ -56,8 +56,8 @@ class FormInputWysiwyg extends React.Component {
   renderInput() {
     const {
         input,
-        label,                      // eslint-disable-line no-unused-vars
-        meta: {touched, error},     // eslint-disable-line no-unused-vars
+        label, // eslint-disable-line no-unused-vars
+        meta: {touched, error}, // eslint-disable-line no-unused-vars
         ...custom
       } = this.props,
       inputClasses = classnames(
@@ -88,7 +88,7 @@ class FormInputWysiwyg extends React.Component {
         <label className="form-input-wysiwyg__label">
           {label}
         </label>
-        <div className="form-input-wysiwyg__bar"></div>
+        <div className="form-input-wysiwyg__bar"/>
       </div>
     );
   }

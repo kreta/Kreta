@@ -98,9 +98,9 @@ class Wysiwyg extends React.Component {
     const
       blocksFromHTML = convertFromHTML(defaultValue),
       state = ContentState.createFromBlockArray(
-      blocksFromHTML.contentBlocks,
-      blocksFromHTML.entityMap
-    );
+        blocksFromHTML.contentBlocks,
+        blocksFromHTML.entityMap
+      );
 
     return EditorState.createWithContent(state);
   }

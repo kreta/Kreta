@@ -26,10 +26,10 @@ class SelectorOption extends React.Component {
     const
       {alignLeft, label, text, thumbnail, ...otherProps} = this.props,
       classes = classnames(
-      'selector-option', {
-        'selector-option--left': alignLeft,
-      }
-    );
+        'selector-option', {
+          'selector-option--left': alignLeft,
+        }
+      );
 
     let thumbnailEl = '';
     if (thumbnail) {

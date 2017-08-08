@@ -8,8 +8,6 @@
  * file that was distributed with this source code.
  */
 
-'use strict';
-
 import getBabelRelayPlugin from 'babel-relay-plugin';
 import schema from './../schema.json';
 

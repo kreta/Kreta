@@ -36,16 +36,16 @@ class SearchMember extends React.Component {
     const {onChange} = this.props;
 
     return (
-        <form autoComplete="off">
-          <Field
-            autoFocus
-            component={FormInput}
-            label="Search..."
-            name="search"
-            props={{onChange}}
-            tabIndex={1}
-          />
-        </form>
+      <form autoComplete="off">
+        <Field
+          autoFocus
+          component={FormInput}
+          label="Search..."
+          name="search"
+          props={{onChange}}
+          tabIndex={1}
+        />
+      </form>
     );
   }
 }

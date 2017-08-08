@@ -24,8 +24,7 @@ class CardMinimal extends React.Component {
 
     return (
       <div className="card-minimal">
-        <Link className="card-minimal__title"
-              to={to}>
+        <Link className="card-minimal__title" to={to}>
           {title}
         </Link>
 

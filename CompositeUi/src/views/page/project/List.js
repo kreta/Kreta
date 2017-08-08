@@ -107,12 +107,12 @@ class List extends React.Component {
         key={index}
         title={project.name}
         to={routes.project.show(project.organization.slug, project.slug)}>
-          <NavigableListItemLink index={0} to={routes.project.show(project.organization.slug, project.slug)}>
-            <Icon glyph={ListIcon}/>
-          </NavigableListItemLink>
-          <NavigableListItemLink index={1} to={routes.task.new(project.organization.slug, project.slug)}>
-            <Icon glyph={AddIcon}/>
-          </NavigableListItemLink>
+        <NavigableListItemLink index={0} to={routes.project.show(project.organization.slug, project.slug)}>
+          <Icon glyph={ListIcon}/>
+        </NavigableListItemLink>
+        <NavigableListItemLink index={1} to={routes.task.new(project.organization.slug, project.slug)}>
+          <Icon glyph={AddIcon}/>
+        </NavigableListItemLink>
       </CardMinimal>
     ));
   }

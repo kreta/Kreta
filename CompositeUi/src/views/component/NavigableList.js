@@ -133,13 +133,14 @@ class NavigableList extends React.Component {
       {ySelected} = this.state;
 
     const wrappedItems = children.map((el, i) => (
-        <div className={ i === ySelected ? 'navigable-list__item--selected' : ''}
-             key={i}
-             onMouseEnter={this.selectY.bind(this, i)}>
-          {el}
-        </div>
-      )
-    );
+      <div
+        className={i === ySelected ? 'navigable-list__item--selected' : ''}
+        key={i}
+        onMouseEnter={this.selectY.bind(this, i)}
+      >
+        {el}
+      </div>
+    ));
 
     return <div {...otherProps}>{wrappedItems}</div>;
   }

@@ -16,10 +16,10 @@ import classnames from 'classnames';
 class FormInput extends React.Component {
   getInputField() {
     const {
-        auxLabelEl,                 // eslint-disable-line no-unused-vars
+        auxLabelEl, // eslint-disable-line no-unused-vars
         input,
-        label,                      // eslint-disable-line no-unused-vars
-        meta: {touched, error},     // eslint-disable-line no-unused-vars
+        label, // eslint-disable-line no-unused-vars
+        meta: {touched, error}, // eslint-disable-line no-unused-vars
         multiline,
         onChange,
         ...custom
@@ -76,7 +76,7 @@ class FormInput extends React.Component {
       <div className={rootClasses} onClick={this.focus.bind(this)}>
         {this.getInputField()}
         {this.getLabelField()}
-        <div className="form-input__bar"></div>
+        <div className="form-input__bar"/>
       </div>
     );
   }

@@ -96,20 +96,24 @@ class Selector extends React.Component {
       <div className={classes}>
         <input {...input} type="hidden"/>
 
-        <input className="selector__filter"
-               onChange={this.filter.bind(this)}
-               onKeyDown={this.keyboardSelected.bind(this)}
-               ref="filter"
-               tabIndex={tabIndex}
-               type="text"/>
+        <input
+          className="selector__filter"
+          onChange={this.filter.bind(this)}
+          onKeyDown={this.keyboardSelected.bind(this)}
+          ref="filter"
+          tabIndex={tabIndex}
+          type="text"
+        />
 
         <div className="selector__selected">
           {selectedElement}
         </div>
 
-        <NavigableList className="selector__options"
-                       onElementSelected={this.selectOption.bind(this)}
-                       ref="navigableList">
+        <NavigableList
+          className="selector__options"
+          onElementSelected={this.selectOption.bind(this)}
+          ref="navigableList"
+        >
           {filteredOptions}
         </NavigableList>
       </div>

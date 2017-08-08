@@ -73,8 +73,8 @@ class MainMenu extends React.Component {
           text={`${profile.first_name} ${profile.last_name}`}
         />
         <span className="main-menu__username">
-            @{profile.user_name}
-          </span>
+          @{profile.user_name}
+        </span>
       </Link>
     );
   }

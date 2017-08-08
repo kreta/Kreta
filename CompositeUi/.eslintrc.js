@@ -19,20 +19,22 @@ module.exports = {
     "es6": true,
     "jest": true
   },
-  "ecmaVersion": 7,
-  "ecmaFeatures": {
-    "classes": true,
-    "experimentalObjectRestSpread": true,
-    "jsx": true,
-    "modules": true,
-    "templateStrings": true
-  },
   "globals": {
     "__DEV__": true,
     "new": true,
     "process": true,
     "require": true,
     "target": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 7,
+    "ecmaFeatures": {
+      "classes": true,
+      "experimentalObjectRestSpread": true,
+      "jsx": true,
+      "modules": true,
+      "templateStrings": true
+    }
   },
   "plugins": [
     "react"

@@ -8,8 +8,6 @@
  * file that was distributed with this source code.
  */
 
-'use strict';
-
 import path from 'path';
 import fs from 'fs';
 import url from 'url';

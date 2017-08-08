@@ -51,9 +51,9 @@ class RequestResetPassword extends React.Component {
       <Form onSubmit={handleSubmit}>
         <Row center>
           <RowColumn large={6}>
-              <HelpText center>
-                Enter your email address and we will send you a link to reset your password.
-              </HelpText>
+            <HelpText center>
+              Enter your email address and we will send you a link to reset your password.
+            </HelpText>
             <Field autoFocus component={FormInput} label="Email" name="email" tabIndex={1}/>
             <FormActions expand>
               <Button color="green" disabled={requestingPassword} tabIndex={3} type="submit">
