@@ -33,5 +33,5 @@ export default combineReducers({
   profile,
   projects,
   user,
-  routing
+  routing,
 });

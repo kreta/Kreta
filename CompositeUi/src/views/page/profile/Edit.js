@@ -25,7 +25,7 @@ class Edit extends React.Component {
   render() {
     return (
       <ContentMiddleLayout centered>
-        <ProfileEdit onSubmit={this.updateProfile.bind(this)}/>
+        <ProfileEdit onSubmit={this.updateProfile.bind(this)} />
       </ContentMiddleLayout>
     );
   }

@@ -12,10 +12,9 @@ import './../../scss/components/_advice.scss';
 
 import React from 'react';
 
-const Advice = props => (
+const Advice = props =>
   <p className="advice">
     {props.children}
-  </p>
-);
+  </p>;
 
 export default Advice;

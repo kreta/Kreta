@@ -39,23 +39,24 @@ const mutation = Relay.QL`
 
 class ChangeTaskProgressMutation extends RelayQuery.Mutation {
   constructor(taskId, taskProgress) {
-    super(mutation, {}, {
-      input: {
-        clientMutationId: Math.random().toString(36),
-        id: taskId,
-        progress: taskProgress
-      }
-    });
+    super(
+      mutation,
+      {},
+      {
+        input: {
+          clientMutationId: Math.random().toString(36),
+          id: taskId,
+          progress: taskProgress,
+        },
+      },
+    );
   }
 }
 
 class ChangeTaskProgressMutationRequest extends RelayMutationRequest {
   static build(taskInputData) {
     return new RelayMutationRequest(
-      new ChangeTaskProgressMutation(
-        taskInputData.id,
-        taskInputData.progress,
-      )
+      new ChangeTaskProgressMutation(taskInputData.id, taskInputData.progress),
     );
   }
 }

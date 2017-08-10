@@ -58,10 +58,14 @@ class OrganizationsQueryRequest extends RelayQueryRequest {
     }
 
     return new RelayQueryRequest(
-      RelayQuery.Root.create(query, {}, {
-        organizationConnectionInput,
-        projectsFirst
-      })
+      RelayQuery.Root.create(
+        query,
+        {},
+        {
+          organizationConnectionInput,
+          projectsFirst,
+        },
+      ),
     );
   }
 }

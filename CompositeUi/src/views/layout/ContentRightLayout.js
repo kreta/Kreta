@@ -18,7 +18,7 @@ import Icon from './../component/Icon';
 class ContentRightLayout extends React.Component {
   static propTypes = {
     isOpen: React.PropTypes.bool.isRequired,
-    onRequestClose: React.PropTypes.func
+    onRequestClose: React.PropTypes.func,
   };
 
   triggerOnRequestClose() {
@@ -28,17 +28,19 @@ class ContentRightLayout extends React.Component {
   }
 
   render() {
-    const
-      {isOpen, children} = this.props,
+    const {isOpen, children} = this.props,
       classes = classnames({
-        'content__right': true,
-        'content__right--visible': isOpen
+        content__right: true,
+        'content__right--visible': isOpen,
       });
 
     return (
       <div className={classes}>
         <div className="content-right-layout__cross">
-          <Icon glyph={CrossIcon} onClick={this.triggerOnRequestClose.bind(this)}/>
+          <Icon
+            glyph={CrossIcon}
+            onClick={this.triggerOnRequestClose.bind(this)}
+          />
         </div>
         <div className="content__right-content">
           {children}

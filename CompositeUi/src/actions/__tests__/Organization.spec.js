@@ -19,53 +19,64 @@ jest.mock('./../../api/graphql/mutation/CreateOrganizationMutationRequest');
 
 describe('Organization actions', () => {
   it('creates organization', () => {
-    const
-      store = mockStore({}),
-      expectedActions = [{
-        type: ActionTypes.ORGANIZATION_CREATING
-      }, {
-        organization: {
-          id: 'organization-id',
-          name: 'New organization',
-          slug: 'new-organization'
+    const store = mockStore({}),
+      expectedActions = [
+        {
+          type: ActionTypes.ORGANIZATION_CREATING,
         },
-        type: ActionTypes.ORGANIZATION_CREATED
-      }, {
-        payload: {
-          arg: '/new-organization',
-          method: 'push'
+        {
+          organization: {
+            id: 'organization-id',
+            name: 'New organization',
+            slug: 'new-organization',
+          },
+          type: ActionTypes.ORGANIZATION_CREATED,
         },
-        type: '@@router/TRANSITION'
-      }, {
-        notification: {
-          id: expect.any(Number),
-          message: 'Organization created successfully',
-          type: 'success'
+        {
+          payload: {
+            arg: '/new-organization',
+            method: 'push',
+          },
+          type: '@@router/TRANSITION',
         },
-        type: ActionTypes.NOTIFICATION_ADD
-      }];
+        {
+          notification: {
+            id: expect.any(Number),
+            message: 'Organization created successfully',
+            type: 'success',
+          },
+          type: ActionTypes.NOTIFICATION_ADD,
+        },
+      ];
 
-    store.dispatch(OrganizationActions.createOrganization({name: 'New organization'})).then(() => {
-      expect(store.getActions()).toEqual(expectedActions);
-    });
+    store
+      .dispatch(
+        OrganizationActions.createOrganization({name: 'New organization'}),
+      )
+      .then(() => {
+        expect(store.getActions()).toEqual(expectedActions);
+      });
   });
 
   it('does not create organization when the name is empty', () => {
-    const
-      store = mockStore({}),
-      expectedActions = [{
-        type: ActionTypes.ORGANIZATION_CREATING
-      }, {
-        errors: [],
-        type: ActionTypes.ORGANIZATION_CREATE_ERROR
-      }, {
-        notification: {
-          id: expect.any(Number),
-          message: 'Error while creating organization',
-          type: 'error'
+    const store = mockStore({}),
+      expectedActions = [
+        {
+          type: ActionTypes.ORGANIZATION_CREATING,
         },
-        type: ActionTypes.NOTIFICATION_ADD
-      }];
+        {
+          errors: [],
+          type: ActionTypes.ORGANIZATION_CREATE_ERROR,
+        },
+        {
+          notification: {
+            id: expect.any(Number),
+            message: 'Error while creating organization',
+            type: 'error',
+          },
+          type: ActionTypes.NOTIFICATION_ADD,
+        },
+      ];
 
     store.dispatch(OrganizationActions.createOrganization({})).then(() => {
       expect(store.getActions()).toEqual(expectedActions);

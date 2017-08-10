@@ -22,25 +22,23 @@ import Thumbnail from './../component/Thumbnail';
 
 class OrganizationsDashboardWidget extends React.Component {
   static propTypes = {
-    organizations: React.PropTypes.arrayOf(
-      React.PropTypes.object
-    ).isRequired,
+    organizations: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
   };
 
   renderOrganizations() {
     const {organizations} = this.props;
 
-    return organizations.map((organization, index) => (
+    return organizations.map((organization, index) =>
       <Link key={index} to={routes.organization.show(organization.slug)}>
         <CardExtended
           subtitle={organization.slug}
-          thumbnail={<Thumbnail text={`${organization.name}`}/>}
+          thumbnail={<Thumbnail text={`${organization.name}`} />}
           title={`${organization.name}`}
         >
           {this.renderOrganizationActions(organization)}
         </CardExtended>
-      </Link>
-    ));
+      </Link>,
+    );
   }
 
   renderOrganizationActions(organization) {
@@ -48,7 +46,7 @@ class OrganizationsDashboardWidget extends React.Component {
       if (owner.id) {
         return (
           <Link key={index} to={routes.project.new(organization.slug)}>
-            <Icon glyph={AddIcon}/>
+            <Icon glyph={AddIcon} />
           </Link>
         );
       }

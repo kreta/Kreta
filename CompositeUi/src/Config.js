@@ -15,13 +15,16 @@ let Config = {
     projectList: 'p',
     projectNew: 'x',
     projectSettings: 's',
-    userProfile: 'm'
-  }
+    userProfile: 'm',
+  },
 };
 
-Config = Object.assign({
-  taskManagerUrl: `//${process.env.TASK_MANAGER_HOST}`,
-  identityAccessUrl: `//${process.env.IDENTITY_ACCESS_HOST}`,
-}, Config);
+Config = Object.assign(
+  {
+    taskManagerUrl: `//${process.env.TASK_MANAGER_HOST}`,
+    identityAccessUrl: `//${process.env.IDENTITY_ACCESS_HOST}`,
+  },
+  Config,
+);
 
 export default Config;

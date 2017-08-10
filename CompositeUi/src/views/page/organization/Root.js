@@ -22,18 +22,17 @@ class Root extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
-    const
-      {params, dispatch} = this.props;
+    const {params, dispatch} = this.props;
 
     if (params.organization !== prevProps.params.organization) {
-      dispatch(CurrentOrganizationActions.fetchOrganization(params.organization));
+      dispatch(
+        CurrentOrganizationActions.fetchOrganization(params.organization),
+      );
     }
   }
 
   render() {
-    return (
-      this.props.children
-    );
+    return this.props.children;
   }
 }
 

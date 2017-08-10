@@ -28,15 +28,18 @@ import CardMinimal from './../../component/CardMinimal';
 import ShortcutHelp from './../../component/ShortcutHelp';
 import {Row, RowColumn} from './../../component/Grid';
 
-@connect(state => ({projects: state.projects.projects, mainMenu: state.mainMenu}))
+@connect(state => ({
+  projects: state.projects.projects,
+  mainMenu: state.mainMenu,
+}))
 class List extends React.Component {
   static propTypes = {
-    onProjectSelected: React.PropTypes.func
+    onProjectSelected: React.PropTypes.func,
   };
 
   state = {
     filter: '',
-    filteredProjects: []
+    filteredProjects: [],
   };
 
   componentWillMount() {
@@ -52,11 +55,14 @@ class List extends React.Component {
   }
 
   onKeyUp(event) {
-    if (event.which === 13) { // Enter
+    if (event.which === 13) {
+      // Enter
       this.refs.navigableList.handleNavigation(event);
-    } else if (event.which === 27) { // Escape
+    } else if (event.which === 27) {
+      // Escape
       this.hideProjectsList();
-    } else if (event.which < 37 || event.which > 40) { // Filter
+    } else if (event.which < 37 || event.which > 40) {
+      // Filter
       this.filterProjects(event.currentTarget.value);
     } else {
       this.refs.navigableList.handleNavigation(event);
@@ -70,9 +76,9 @@ class List extends React.Component {
   }
 
   filterProjects(value) {
-    const filteredProjects = this.props.projects.filter(project => (
-      value.length === 0 || project.name.indexOf(value) > -1
-    ));
+    const filteredProjects = this.props.projects.filter(
+      project => value.length === 0 || project.name.indexOf(value) > -1,
+    );
     this.setState({
       filteredProjects,
     });
@@ -91,10 +97,10 @@ class List extends React.Component {
       <div className="project-list__header">
         <Row>
           <RowColumn>
-            <ShortcutHelp does="to select action" keyboard="← →"/>
-            <ShortcutHelp does="to select project" keyboard="↑ ↓"/>
-            <ShortcutHelp does="go to project" keyboard="↵"/>
-            <ShortcutHelp does="to dismiss" keyboard="esc"/>
+            <ShortcutHelp does="to select action" keyboard="← →" />
+            <ShortcutHelp does="to select project" keyboard="↑ ↓" />
+            <ShortcutHelp does="go to project" keyboard="↵" />
+            <ShortcutHelp does="to dismiss" keyboard="esc" />
           </RowColumn>
         </Row>
       </div>
@@ -102,19 +108,26 @@ class List extends React.Component {
   }
 
   getProjectItems() {
-    return this.state.filteredProjects.map((project, index) => (
+    return this.state.filteredProjects.map((project, index) =>
       <CardMinimal
         key={index}
         title={project.name}
-        to={routes.project.show(project.organization.slug, project.slug)}>
-          <NavigableListItemLink index={0} to={routes.project.show(project.organization.slug, project.slug)}>
-            <Icon glyph={ListIcon}/>
-          </NavigableListItemLink>
-          <NavigableListItemLink index={1} to={routes.task.new(project.organization.slug, project.slug)}>
-            <Icon glyph={AddIcon}/>
-          </NavigableListItemLink>
-      </CardMinimal>
-    ));
+        to={routes.project.show(project.organization.slug, project.slug)}
+      >
+        <NavigableListItemLink
+          index={0}
+          to={routes.project.show(project.organization.slug, project.slug)}
+        >
+          <Icon glyph={ListIcon} />
+        </NavigableListItemLink>
+        <NavigableListItemLink
+          index={1}
+          to={routes.task.new(project.organization.slug, project.slug)}
+        >
+          <Icon glyph={AddIcon} />
+        </NavigableListItemLink>
+      </CardMinimal>,
+    );
   }
 
   render() {

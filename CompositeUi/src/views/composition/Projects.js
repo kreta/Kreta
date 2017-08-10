@@ -28,8 +28,8 @@ class Projects extends React.Component {
   noProjects() {
     return (
       <Advice>
-        No projects found, you may want to create the first one so, please
-        click on "<strong>NEW PROJECT</strong>" green button.
+        No projects found, you may want to create the first one so, please click
+        on "<strong>NEW PROJECT</strong>" green button.
       </Advice>
     );
   }
@@ -41,10 +41,13 @@ class Projects extends React.Component {
       const currentProject = project.node;
 
       return (
-        <Link key={index} to={routes.project.show(organization.slug, currentProject.slug)}>
+        <Link
+          key={index}
+          to={routes.project.show(organization.slug, currentProject.slug)}
+        >
           <CardExtended
             subtitle={currentProject.slug}
-            thumbnail={<Thumbnail text={currentProject.name}/>}
+            thumbnail={<Thumbnail text={currentProject.name} />}
             title={currentProject.name}
           />
         </Link>
@@ -53,9 +56,7 @@ class Projects extends React.Component {
   }
 
   renderHeader() {
-    return (
-      <SectionHeader title="Projects"/>
-    );
+    return <SectionHeader title="Projects" />;
   }
 
   renderContent() {
@@ -65,9 +66,7 @@ class Projects extends React.Component {
       return this.noProjects();
     }
 
-    return (
-      <Table columns={3} items={this.getProjects()}/>
-    );
+    return <Table columns={3} items={this.getProjects()} />;
   }
 
   render() {

@@ -50,7 +50,16 @@ const query = Relay.QL`
 `;
 
 class TasksQueryRequest extends RelayQueryRequest {
-  static build({projectId, endCursor = null, priority = null, progress = null, assignee = null, title = null} = {}) {
+  static build(
+    {
+      projectId,
+      endCursor = null,
+      priority = null,
+      progress = null,
+      assignee = null,
+      title = null,
+    } = {},
+  ) {
     const taskConnectionInput = {projectId, first: 50};
 
     if (title) {
@@ -70,9 +79,13 @@ class TasksQueryRequest extends RelayQueryRequest {
     }
 
     return new RelayQueryRequest(
-      RelayQuery.Root.create(query, {}, {
-        taskConnectionInput
-      })
+      RelayQuery.Root.create(
+        query,
+        {},
+        {
+          taskConnectionInput,
+        },
+      ),
     );
   }
 }

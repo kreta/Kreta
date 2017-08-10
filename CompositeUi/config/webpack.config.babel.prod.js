@@ -8,14 +8,14 @@
  * file that was distributed with this source code.
  */
 
-'use strict';
-
 process.env.NODE_ENV = 'production';
 
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import InterpolateHtmlPlugin from 'react-dev-utils/InterpolateHtmlPlugin';
 import ManifestPlugin from 'webpack-manifest-plugin';
+import ModuleScopePlugin from 'react-dev-utils/ModuleScopePlugin';
+import SWPrecacheWebpackPlugin from 'sw-precache-webpack-plugin';
 
 import autoprefixer from 'autoprefixer';
 import path from 'path';
@@ -45,90 +45,88 @@ export default {
     path: paths.appBuild,
     filename: '[name].[chunkhash:8].js',
     chunkFilename: '[name].[chunkhash:8].chunk.js',
-    publicPath: PUBLIC_PATH
+    publicPath: PUBLIC_PATH,
+    devtoolModuleFilenameTemplate: info =>
+      path
+        .relative(paths.appSrc, info.absoluteResourcePath)
+        .replace(/\\/g, '/'),
   },
   resolve: {
     modules: ['node_modules'].concat(paths.nodePaths),
-    extensions: ['.js', '.json', '.jsx', '.css', '.scss', '.svg']
+    extensions: ['.js', '.json', '.jsx', '.css', '.scss', '.svg'],
+    plugins: [
+      new ModuleScopePlugin(paths.appSrc, [paths.appPackageJson]),
+    ]
   },
   module: {
+    strictExportPresence: true,
     rules: [{
-      parser: {
-        requireEnsure: false
-      }
-    }, {
-      exclude: [
-        /\.html$/,
-        /\.(js|jsx)$/,
-        /\.(css|scss)$/,
-        /\.json$/,
-        /\.bmp$/,
-        /\.gif$/,
-        /\.jpe?g$/,
-        /\.png$/,
-        /\.svg$/,
-      ],
-      loader: 'file-loader',
-      options: {
-        name: '[name].[hash:8].[ext]',
-      },
-    }, {
-      test: [
-        /\.bmp$/,
-        /\.gif$/,
-        /\.jpe?g$/,
-        /\.png$/
-      ],
-      loader: 'url-loader',
-      options: {
-        limit: 10000,
-        name: '[name].[hash:8].[ext]',
-      },
-    }, {
-      test: /\.svg$/,
-      loader: 'svg-sprite-loader',
-      options: {
-        name: '[name].[hash:8].svg'
-      }
-    }, {
-      test: /\.(js|jsx)$/,
-      include: paths.appSrc,
-      loader: 'babel-loader',
-    }, {
-      test: /\.(css|scss)$/,
-      loader: ExtractTextPlugin.extract({
-        fallback: 'style-loader',
-        publicPath: PUBLIC_PATH,
-        use: [{
-          loader: 'css-loader',
-          options: {
-            importLoaders: 1,
-          },
-        }, {
-          loader: 'postcss-loader',
-          options: {
-            ident: 'postcss',
-            plugins: () => [
-              autoprefixer({
-                browsers: [
-                  '>1%',
-                  'last 4 versions',
-                  'Firefox ESR',
-                  'not ie < 9',
-                ],
-              }),
-            ],
-          },
-        }, {
-          loader: 'sass-loader',
-          options: {
-            includePaths: [
-              path.join(__dirname, paths.appScss)
-            ]
-          }
-        }],
-      })
-    }],
+      oneOf: [{
+        test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
+        loader: 'url-loader',
+        options: {
+          limit: 10000,
+          name: '[name].[hash:8].[ext]',
+        },
+      }, {
+        test: /\.svg$/,
+        loader: 'svg-sprite-loader',
+        options: {
+          name: '[name].[hash:8].svg'
+        }
+      }, {
+        test: /\.(js|jsx)$/,
+        include: paths.appSrc,
+        loader: 'babel-loader',
+        options: {
+          compact: true
+        }
+      }, {
+        test: /\.(css|scss)$/,
+        loader: ExtractTextPlugin.extract({
+          fallback: 'style-loader',
+          publicPath: PUBLIC_PATH,
+          use: [{
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1,
+              minimize: true,
+              sourceMap: true,
+            },
+          }, {
+            loader: 'postcss-loader',
+            options: {
+              ident: 'postcss',
+              plugins: () => [
+                require('postcss-flexbugs-fixes'),
+                autoprefixer({
+                  browsers: [
+                    '>1%',
+                    'last 4 versions',
+                    'Firefox ESR',
+                    'not ie < 9',
+                  ],
+                  flexbox: 'no-2009',
+                }),
+              ],
+            },
+          }, {
+            loader: 'sass-loader',
+            options: {
+              includePaths: [
+                path.join(__dirname, paths.appScss)
+              ]
+            }
+          }],
+        })
+      }, {
+        loader: 'file-loader',
+        exclude: [/\.js$/, /\.html$/, /\.json$/],
+        options: {
+          name: '[name].[hash:8].[ext]',
+        },
+      }]
+    }]
   },
   plugins: [
     new InterpolateHtmlPlugin({
@@ -153,15 +151,12 @@ export default {
     new webpack.DefinePlugin(env),
     new webpack.optimize.UglifyJsPlugin({
       compress: {
-        screw_ie8: true,
         warnings: false,
-      },
-      mangle: {
-        screw_ie8: true,
+        comparisons: false,
       },
       output: {
         comments: false,
-        screw_ie8: true,
+        ascii_only: true,
       },
       sourceMap: true,
     }),
@@ -171,8 +166,26 @@ export default {
     new ManifestPlugin({
       fileName: 'asset-manifest.json',
     }),
+    new SWPrecacheWebpackPlugin({
+      dontCacheBustUrlsMatching: /\.\w{8}\./,
+      filename: 'service-worker.js',
+      logger(message) {
+        if (message.indexOf('Total precache size is') === 0) {
+          return;
+        }
+        if (message.indexOf('Skipping static resource') === 0) {
+          return;
+        }
+        console.log(message);
+      },
+      minify: true,
+      navigateFallback: `${PUBLIC_URL}/index.html`,
+      navigateFallbackWhitelist: [/^(?!\/__).*/],
+      staticFileGlobsIgnorePatterns: [/\.map$/, /asset-manifest\.json$/],
+    }),
   ],
   node: {
+    dgram: 'empty',
     fs: 'empty',
     net: 'empty',
     tls: 'empty',

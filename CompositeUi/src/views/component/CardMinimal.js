@@ -16,7 +16,7 @@ import {Link} from 'react-router';
 class CardMinimal extends React.Component {
   static propTypes = {
     title: React.PropTypes.string.isRequired,
-    to: React.PropTypes.string.isRequired
+    to: React.PropTypes.string.isRequired,
   };
 
   render() {
@@ -24,8 +24,7 @@ class CardMinimal extends React.Component {
 
     return (
       <div className="card-minimal">
-        <Link className="card-minimal__title"
-              to={to}>
+        <Link className="card-minimal__title" to={to}>
           {title}
         </Link>
 

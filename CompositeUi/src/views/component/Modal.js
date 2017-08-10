@@ -16,7 +16,7 @@ import React from 'react';
 class Modal extends React.Component {
   static propTypes = {
     isOpen: React.PropTypes.bool.isRequired,
-    onRequestClose: React.PropTypes.func
+    onRequestClose: React.PropTypes.func,
   };
 
   closeModal() {
@@ -25,12 +25,12 @@ class Modal extends React.Component {
 
   render() {
     const modalClasses = classNames({
-        'modal': true,
-        'modal--visible': this.props.isOpen
+        modal: true,
+        'modal--visible': this.props.isOpen,
       }),
       overlayClasses = classNames({
-        'modal__overlay': true,
-        'modal__overlay--visible': this.props.isOpen
+        modal__overlay: true,
+        'modal__overlay--visible': this.props.isOpen,
       });
 
     return (
@@ -38,7 +38,7 @@ class Modal extends React.Component {
         <div className={modalClasses}>
           {this.props.children}
         </div>
-        <div className={overlayClasses} onClick={this.closeModal.bind(this)}/>
+        <div className={overlayClasses} onClick={this.closeModal.bind(this)} />
       </div>
     );
   }

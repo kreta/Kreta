@@ -8,8 +8,6 @@
  * file that was distributed with this source code.
  */
 
-'use strict';
-
 if (typeof Promise === 'undefined') {
   require('promise/lib/rejection-tracking').enable();
   window.Promise = require('promise/lib/es6-extensions.js');

@@ -10,12 +10,15 @@
 
 import React from 'react';
 
-const ContentMiddleLayout = props => (
+const ContentMiddleLayout = props =>
   <div className="content__middle">
-    <div className={`content__middle-content${props.centered ? ' content__middle-content--centered' : ''}`}>
+    <div
+      className={`content__middle-content${props.centered
+        ? ' content__middle-content--centered'
+        : ''}`}
+    >
       {props.children}
     </div>
-  </div>
-);
+  </div>;
 
 export default ContentMiddleLayout;

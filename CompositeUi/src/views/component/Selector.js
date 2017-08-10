@@ -21,22 +21,22 @@ class Selector extends React.Component {
     disabled: React.PropTypes.bool,
     label: React.PropTypes.string,
     name: React.PropTypes.string,
-    tabIndex: React.PropTypes.number
+    tabIndex: React.PropTypes.number,
   };
 
   state = {
-    filter: ''
+    filter: '',
   };
 
   componentWillReceiveProps() {
     this.setState({
-      filter: ''
+      filter: '',
     });
   }
 
   getElementByValue(value) {
     let found = this.props.children[0];
-    this.props.children.forEach((child) => {
+    this.props.children.forEach(child => {
       if (child.props.value === value) {
         found = child;
       }
@@ -52,14 +52,16 @@ class Selector extends React.Component {
     this.refs.navigableList.handleNavigation(ev);
 
     if (ev.which === 13) {
-      document.querySelector(`[tabindex="${parseInt(this.props.tabIndex, 10) + 1}"]`).focus();
+      document
+        .querySelector(`[tabindex="${parseInt(this.props.tabIndex, 10) + 1}"]`)
+        .focus();
     }
   }
 
   filter() {
     this.setState({
       filter: this.refs.filter.value,
-      selectedRow: 0
+      selectedRow: 0,
     });
   }
 
@@ -67,49 +69,55 @@ class Selector extends React.Component {
     // Keeps filtered values in memory to select correct item
     this.filteredValues = [];
 
-    return this.props.children.filter((child) => (
-      child.props.value !== '' && (
-        this.state.filter === '' ||
-        child.props.text.toLowerCase().indexOf(
-          this.state.filter.toLowerCase()) !== -1
+    return this.props.children
+      .filter(
+        child =>
+          child.props.value !== '' &&
+          (this.state.filter === '' ||
+            child.props.text
+              .toLowerCase()
+              .indexOf(this.state.filter.toLowerCase()) !== -1),
       )
-    )).map((child, index) => {
-      this.filteredValues.push(child.props.value);
+      .map((child, index) => {
+        this.filteredValues.push(child.props.value);
 
-      return React.cloneElement(child, {
-        key: index,
-        onMouseDown: this.selectOption.bind(this, 0, index)
+        return React.cloneElement(child, {
+          key: index,
+          onMouseDown: this.selectOption.bind(this, 0, index),
+        });
       });
-    });
   }
 
   render() {
-    const
-      {input, tabIndex} = this.props,
+    const {input, tabIndex} = this.props,
       selectedElement = this.getElementByValue(input.value),
       classes = classnames('selector', {
-        'selector--disabled': input.disabled
+        'selector--disabled': input.disabled,
       }),
       filteredOptions = this.getFilteredOptions();
 
     return (
       <div className={classes}>
-        <input {...input} type="hidden"/>
+        <input {...input} type="hidden" />
 
-        <input className="selector__filter"
-               onChange={this.filter.bind(this)}
-               onKeyDown={this.keyboardSelected.bind(this)}
-               ref="filter"
-               tabIndex={tabIndex}
-               type="text"/>
+        <input
+          className="selector__filter"
+          onChange={this.filter.bind(this)}
+          onKeyDown={this.keyboardSelected.bind(this)}
+          ref="filter"
+          tabIndex={tabIndex}
+          type="text"
+        />
 
         <div className="selector__selected">
           {selectedElement}
         </div>
 
-        <NavigableList className="selector__options"
-                       onElementSelected={this.selectOption.bind(this)}
-                       ref="navigableList">
+        <NavigableList
+          className="selector__options"
+          onElementSelected={this.selectOption.bind(this)}
+          ref="navigableList"
+        >
           {filteredOptions}
         </NavigableList>
       </div>

@@ -12,9 +12,10 @@ import './../../scss/components/_shortcut-help.scss';
 
 import React from 'react';
 
-export default props => (
+export default props =>
   <div className="shortcut-help">
-    <span className="shortcut-help__keyboard">{props.keyboard}</span>
+    <span className="shortcut-help__keyboard">
+      {props.keyboard}
+    </span>
     {props.does}
-  </div>
-);
+  </div>;

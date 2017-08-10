@@ -23,9 +23,9 @@ import TaskManagerGraphQl from './../api/graphql/TaskManagerGraphQl';
 import UserInjector from './../helpers/UserInjector';
 
 const Actions = {
-  fetchProject: (organizationSlug, projectSlug) => (dispatch) => {
+  fetchProject: (organizationSlug, projectSlug) => dispatch => {
     dispatch({
-      type: ActionTypes.CURRENT_PROJECT_FETCHING
+      type: ActionTypes.CURRENT_PROJECT_FETCHING,
     });
     const query = ProjectQueryRequest.build(organizationSlug, projectSlug);
 
@@ -34,37 +34,36 @@ const Actions = {
       const project = data.response.project;
       let members = [];
 
-      project._tasks49h6f1.edges.map((task) => {
+      project._tasks49h6f1.edges.map(task => {
         members = [...members, task.node.assignee, task.node.reporter];
       });
 
       UserInjector.injectUserForId([
         ...project.organization.organization_members,
         ...project.organization.owners,
-        ...members
-      ]).then(() => (
+        ...members,
+      ]).then(() =>
         dispatch({
           type: ActionTypes.CURRENT_PROJECT_RECEIVED,
-          project
-        })
-      ));
+          project,
+        }),
+      );
     });
   },
-  selectCurrentTask: (task) => (dispatch) => (
+  selectCurrentTask: task => dispatch =>
     dispatch({
       type: ActionTypes.CURRENT_PROJECT_SELECTED_TASK_CHANGED,
-      selectedTask: task
-    })
-  ),
-  loadFilters: (assignee) => (dispatch) => {
+      selectedTask: task,
+    }),
+  loadFilters: assignee => dispatch => {
     dispatch({
       type: ActionTypes.CURRENT_PROJECT_TASK_FILTERS_LOADED,
-      assignee
+      assignee,
     });
   },
-  filterTasks: (filters) => (dispatch) => {
+  filterTasks: filters => dispatch => {
     dispatch({
-      type: ActionTypes.CURRENT_PROJECT_TASK_FILTERING
+      type: ActionTypes.CURRENT_PROJECT_TASK_FILTERING,
     });
     const query = TasksQueryRequest.build(filters);
 
@@ -73,22 +72,20 @@ const Actions = {
       const tasks = data.response.tasks;
 
       let members = [];
-      tasks.edges.map((task) => {
+      tasks.edges.map(task => {
         members = [...members, task.node.assignee, task.node.reporter];
       });
-      UserInjector.injectUserForId([
-        ...members
-      ]).then(() => (
+      UserInjector.injectUserForId([...members]).then(() =>
         dispatch({
           type: ActionTypes.CURRENT_PROJECT_TASK_FILTERED,
           tasks,
-        })
-      ));
+        }),
+      );
     });
   },
-  paginateTasks: (filters, endCursor) => (dispatch) => {
+  paginateTasks: (filters, endCursor) => dispatch => {
     dispatch({
-      type: ActionTypes.CURRENT_PROJECT_TASK_PAGINATING
+      type: ActionTypes.CURRENT_PROJECT_TASK_PAGINATING,
     });
     const query = TasksQueryRequest.build({endCursor, ...filters});
 
@@ -97,94 +94,118 @@ const Actions = {
       const tasks = data.response.tasks;
 
       let members = [];
-      tasks.edges.map((task) => {
+      tasks.edges.map(task => {
         members = [...members, task.node.assignee, task.node.reporter];
       });
-      UserInjector.injectUserForId([
-        ...members
-      ]).then(() => (
+      UserInjector.injectUserForId([...members]).then(() =>
         dispatch({
           type: ActionTypes.CURRENT_PROJECT_TASK_PAGINATED,
           tasks,
-        })
-      ));
+        }),
+      );
     });
   },
-  createTask: (taskData) => (dispatch) => {
+  createTask: taskData => dispatch => {
     dispatch({
-      type: ActionTypes.CURRENT_PROJECT_TASK_CREATING
+      type: ActionTypes.CURRENT_PROJECT_TASK_CREATING,
     });
     const mutation = CreateTaskMutationRequest.build(taskData);
 
     TaskManagerGraphQl.mutation(mutation, dispatch);
-    mutation.then(data => {
-      const task = data.response.createTask.task;
+    mutation
+      .then(data => {
+        const task = data.response.createTask.task;
 
-      UserInjector.injectUserForId([
-        task.assignee,
-        task.reporter
-      ]).then(() => {
+        UserInjector.injectUserForId([
+          task.assignee,
+          task.reporter,
+        ]).then(() => {
+          dispatch({
+            type: ActionTypes.CURRENT_PROJECT_TASK_CREATED,
+            task,
+          });
+          dispatch(
+            routeActions.push(
+              routes.task.show(
+                task.project.organization.slug,
+                task.project.slug,
+                task.numeric_id,
+              ),
+            ),
+          );
+          dispatch(
+            NotificationActions.addNotification(
+              'Task created successfully',
+              'success',
+            ),
+          );
+        });
+      })
+      .catch(response => {
         dispatch({
-          type: ActionTypes.CURRENT_PROJECT_TASK_CREATED,
-          task,
+          type: ActionTypes.CURRENT_PROJECT_TASK_CREATE_ERROR,
+          errors: response.source.errors,
         });
         dispatch(
-          routeActions.push(
-            routes.task.show(
-              task.project.organization.slug,
-              task.project.slug,
-              task.numeric_id
-            ))
+          NotificationActions.addNotification(
+            'Error while creating task',
+            'error',
+          ),
         );
-        dispatch(NotificationActions.addNotification('Task created successfully', 'success'));
       });
-    }).catch((response) => {
-      dispatch({
-        type: ActionTypes.CURRENT_PROJECT_TASK_CREATE_ERROR,
-        errors: response.source.errors
-      });
-      dispatch(NotificationActions.addNotification('Error while creating task', 'error'));
-    });
   },
-  updateTask: (taskData) => (dispatch) => {
+  updateTask: taskData => dispatch => {
     dispatch({
-      type: ActionTypes.CURRENT_PROJECT_TASK_UPDATING
+      type: ActionTypes.CURRENT_PROJECT_TASK_UPDATING,
     });
     const mutation = EditTaskkMutationRequest.build(taskData);
 
     TaskManagerGraphQl.mutation(mutation, dispatch);
-    mutation.then(data => {
-      const task = data.response.editTask.task;
+    mutation
+      .then(data => {
+        const task = data.response.editTask.task;
 
-      UserInjector.injectUserForId([
-        task.assignee,
-        task.reporter
-      ]).then(() => {
+        UserInjector.injectUserForId([
+          task.assignee,
+          task.reporter,
+        ]).then(() => {
+          dispatch({
+            type: ActionTypes.CURRENT_PROJECT_TASK_UPDATED,
+            task,
+          });
+          dispatch(
+            routeActions.push(
+              routes.task.show(
+                task.project.organization.slug,
+                task.project.slug,
+                task.numeric_id,
+              ),
+            ),
+          );
+          dispatch(
+            NotificationActions.addNotification(
+              'Task updated successfully',
+              'success',
+            ),
+          );
+        });
+      })
+      .catch(response => {
         dispatch({
-          type: ActionTypes.CURRENT_PROJECT_TASK_UPDATED,
-          task,
+          type: ActionTypes.CURRENT_PROJECT_TASK_UPDATE_ERROR,
+          errors: response.source.errors,
         });
         dispatch(
-          routeActions.push(
-            routes.task.show(
-              task.project.organization.slug,
-              task.project.slug,
-              task.numeric_id
-            ))
+          NotificationActions.addNotification(
+            'Error while updating task',
+            'error',
+          ),
         );
-        dispatch(NotificationActions.addNotification('Task updated successfully', 'success'));
       });
-    }).catch((response) => {
-      dispatch({
-        type: ActionTypes.CURRENT_PROJECT_TASK_UPDATE_ERROR,
-        errors: response.source.errors
-      });
-      dispatch(NotificationActions.addNotification('Error while updating task', 'error'));
-    });
   },
-  updateTaskProgress: (taskData) => (dispatch) => {
+  updateTaskProgress: taskData => dispatch => {
     dispatch({
-      type: ActionTypes.CURRENT_PROJECT_TASK_UPDATING_PROGRESS
+      type: ActionTypes.CURRENT_PROJECT_TASK_UPDATING_PROGRESS,
     });
     const mutation = ChangeTaskProgressMutationRequest.build(taskData);
 
@@ -195,23 +216,33 @@ const Actions = {
 
         UserInjector.injectUserForId([
           task.assignee,
-          task.reporter
+          task.reporter,
         ]).then(() => {
           dispatch({
             type: ActionTypes.CURRENT_PROJECT_TASK_UPDATED_PROGRESS,
             task,
           });
-          dispatch(NotificationActions.addNotification('Task progress updated successfully', 'success'));
+          dispatch(
+            NotificationActions.addNotification(
+              'Task progress updated successfully',
+              'success',
+            ),
+          );
         });
       })
-      .catch((response) => {
+      .catch(response => {
         dispatch({
           type: ActionTypes.CURRENT_PROJECT_TASK_UPDATE_PROGRESS_ERROR,
-          errors: response.source.errors
+          errors: response.source.errors,
         });
-        dispatch(NotificationActions.addNotification('Error while updating task progress', 'error'));
+        dispatch(
+          NotificationActions.addNotification(
+            'Error while updating task progress',
+            'error',
+          ),
+        );
       });
-  }
+  },
 };
 
 export default Actions;

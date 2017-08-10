@@ -14,7 +14,7 @@ const initialState = {
   errors: [],
   fetching: false,
   updating: false,
-  profile: null
+  profile: null,
 };
 
 export default function reducer(state = initialState, action = {}) {

@@ -15,7 +15,7 @@ import React from 'react';
 class PageHeader extends React.Component {
   static propTypes = {
     thumbnail: React.PropTypes.element,
-    title: React.PropTypes.string
+    title: React.PropTypes.string,
   };
 
   render() {
@@ -23,7 +23,9 @@ class PageHeader extends React.Component {
     return (
       <div className="page-header">
         {thumbnail}
-        <h2 className="page-header__title">{title}</h2>
+        <h2 className="page-header__title">
+          {title}
+        </h2>
         <div className="page-header__actions">
           {children}
         </div>

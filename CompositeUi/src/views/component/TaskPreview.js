@@ -18,13 +18,13 @@ import UserThumbnail from './UserThumbnail';
 class TaskPreview extends React.Component {
   static propTypes = {
     onClick: React.PropTypes.func.isRequired,
-    task: React.PropTypes.object.isRequired
+    task: React.PropTypes.object.isRequired,
   };
 
   static TASK_PRIORITIES = {
     LOW: '#67b86a',
     MEDIUM: '#f07f2c',
-    HIGH: '#f02c4c'
+    HIGH: '#f02c4c',
   };
 
   getPriorityColor(priority) {
@@ -34,15 +34,14 @@ class TaskPreview extends React.Component {
   }
 
   render() {
-    const
-      {onClick, task} = this.props,
+    const {onClick, task} = this.props,
       priority = task.priority.toLowerCase(),
       progress = task.progress.toLowerCase(),
       assignee = task.assignee,
       classes = classnames({
         'task-preview': true,
         'task-preview--highlight': this.props.selected,
-        'task-preview--closed': progress === 'done'
+        'task-preview--closed': progress === 'done',
       });
 
     return (
@@ -52,20 +51,26 @@ class TaskPreview extends React.Component {
         </a>
         <div className="task-preview__icons">
           <span>
-            <svg className={`task-preview__priority task-preview__priority--${progress}`}>
+            <svg
+              className={`task-preview__priority task-preview__priority--${progress}`}
+            >
               <circle
                 className="task-preview__priority-back"
-                cx="21" cy="21" r="20"
+                cx="21"
+                cy="21"
+                r="20"
                 style={{stroke: this.getPriorityColor(priority)}}
               />
               <circle
                 className="task-preview__priority-front"
-                cx="21" cy="21" r="20"
+                cx="21"
+                cy="21"
+                r="20"
                 style={{stroke: this.getPriorityColor(priority)}}
                 transform="rotate(-90, 21, 21)"
               />
             </svg>
-            <UserThumbnail user={assignee}/>
+            <UserThumbnail user={assignee} />
           </span>
         </div>
       </div>

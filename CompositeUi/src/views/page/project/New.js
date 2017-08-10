@@ -36,12 +36,12 @@ class New extends React.Component {
     const {currentOrganization} = this.props;
 
     if (!currentOrganization.organization) {
-      return <LoadingSpinner/>;
+      return <LoadingSpinner />;
     }
 
     return (
       <ContentMiddleLayout centered>
-        <ProjectNew onSubmit={this.createProject.bind(this)}/>
+        <ProjectNew onSubmit={this.createProject.bind(this)} />
       </ContentMiddleLayout>
     );
   }

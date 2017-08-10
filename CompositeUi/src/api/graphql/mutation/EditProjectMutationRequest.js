@@ -31,15 +31,18 @@ const mutation = Relay.QL`
 
 class EditProjectMutation extends RelayQuery.Mutation {
   constructor(projectId, projectName, projectShortName) {
-    super(mutation, {}, {
-      input: {
-        clientMutationId: Math.random().toString(36),
-        id: projectId,
-        name: projectName,
-        slug: projectShortName
-      }
-    });
-
+    super(
+      mutation,
+      {},
+      {
+        input: {
+          clientMutationId: Math.random().toString(36),
+          id: projectId,
+          name: projectName,
+          slug: projectShortName,
+        },
+      },
+    );
   }
 }
 
@@ -49,8 +52,8 @@ class EditProjectMutationRequest extends RelayMutationRequest {
       new EditProjectMutation(
         projectInputData.id,
         projectInputData.name,
-        projectInputData.short_name
-      )
+        projectInputData.short_name,
+      ),
     );
   }
 }

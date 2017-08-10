@@ -13,7 +13,7 @@ import ActionTypes from './../constants/ActionTypes';
 const initialState = {
   errors: [],
   fetching: false,
-  organizations: []
+  organizations: [],
 };
 
 export default function reducer(state = initialState, action = {}) {
@@ -22,7 +22,11 @@ export default function reducer(state = initialState, action = {}) {
       return {...state, fetching: true};
 
     case ActionTypes.ORGANIZATION_CREATED:
-      return {...state, fetching: false, organizations: [...state.organizations, action.organization]};
+      return {
+        ...state,
+        fetching: false,
+        organizations: [...state.organizations, action.organization],
+      };
 
     case ActionTypes.ORGANIZATION_CREATE_ERROR:
       return {...state, fetching: false, errors: action.errors};

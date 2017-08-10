@@ -14,9 +14,7 @@ import MainMenu from '../../actions/MainMenu';
 
 describe('Main menu actions', () => {
   it('shows projects', () => {
-    const expectedActions = [
-      {type: ActionTypes.MAIN_MENU_SHOW_PROJECTS},
-    ];
+    const expectedActions = [{type: ActionTypes.MAIN_MENU_SHOW_PROJECTS}];
 
     const store = mockStore({projectVisible: false});
 

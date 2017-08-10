@@ -8,8 +8,6 @@
  * file that was distributed with this source code.
  */
 
-'use strict';
-
 export default (publicUrl) => {
   const processEnv = {
     'TASK_MANAGER_HOST': JSON.stringify(

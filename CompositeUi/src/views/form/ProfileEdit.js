@@ -19,7 +19,7 @@ import FormInput from './../component/FormInput';
 import FormInputFile from './../component/FormInputFile';
 import {Row, RowColumn} from './../component/Grid';
 
-const validate = (values) => {
+const validate = values => {
   const errors = {},
     requiredFields = ['first_name', 'last_name', 'user_name', 'email'];
 
@@ -44,7 +44,10 @@ const validate = (values) => {
   return errors;
 };
 
-@connect(state => ({initialValues: state.profile.profile, updating: state.profile.updating}))
+@connect(state => ({
+  initialValues: state.profile.profile,
+  updating: state.profile.updating,
+}))
 @reduxForm({form: 'profileEdit', validate})
 class ProfileEdit extends React.Component {
   render() {
@@ -54,13 +57,46 @@ class ProfileEdit extends React.Component {
       <Form onSubmit={handleSubmit}>
         <Row>
           <RowColumn>
-            <Field component={FormInputFile} filename={initialValues.image} name="image" type="file"/>
-            <Field autoFocus component={FormInput} label="First Name" name="first_name" tabIndex={1}/>
-            <Field component={FormInput} label="Last Name" name="last_name" tabIndex={2}/>
-            <Field component={FormInput} label="Username" name="user_name" tabIndex={3}/>
-            <Field component={FormInput} label="Email" name="email" tabIndex={4}/>
+            <Field
+              component={FormInputFile}
+              filename={initialValues.image}
+              name="image"
+              type="file"
+            />
+            <Field
+              autoFocus
+              component={FormInput}
+              label="First Name"
+              name="first_name"
+              tabIndex={1}
+            />
+            <Field
+              component={FormInput}
+              label="Last Name"
+              name="last_name"
+              tabIndex={2}
+            />
+            <Field
+              component={FormInput}
+              label="Username"
+              name="user_name"
+              tabIndex={3}
+            />
+            <Field
+              component={FormInput}
+              label="Email"
+              name="email"
+              tabIndex={4}
+            />
             <FormActions>
-              <Button color="green" disabled={updating} tabIndex={5} type="submit">Update</Button>
+              <Button
+                color="green"
+                disabled={updating}
+                tabIndex={5}
+                type="submit"
+              >
+                Update
+              </Button>
             </FormActions>
           </RowColumn>
         </Row>

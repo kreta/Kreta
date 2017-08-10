@@ -9,16 +9,14 @@
  */
 
 export default {
-  login: (email, password) => (
+  login: (email, password) =>
     new Promise((resolve, reject) => {
       email === 'valid@email.com' && password === 'password' // eslint-disable-line no-unused-expressions
         ? resolve(new Promise(resolve => resolve({token: 'token'})))
         : reject(new Promise(resolve => resolve()));
-    })
-  ),
-  logout: () => (
-    new Promise((resolve) => {
+    }),
+  logout: () =>
+    new Promise(resolve => {
       resolve();
-    })
-  )
+    }),
 };

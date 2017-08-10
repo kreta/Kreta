@@ -30,18 +30,17 @@ class Table extends React.Component {
   }
 
   fixedLastRow(tableItems) {
-    const
-      {columns, items} = this.props,
+    const {columns, items} = this.props,
       exceededItems = items.length % columns;
 
     for (let i = 0; i < exceededItems; i++) {
-      tableItems.push((
+      tableItems.push(
         <div
           className="table__item table__item--hidden"
           key={items.length + i}
           style={{flexBasis: this.columnWith()}}
-        />
-      ));
+        />,
+      );
     }
 
     return tableItems;
@@ -55,7 +54,11 @@ class Table extends React.Component {
     }
 
     return (
-      <h4 className="table__header" key={index} style={{flexBasis: this.columnWith()}}>
+      <h4
+        className="table__header"
+        key={index}
+        style={{flexBasis: this.columnWith()}}
+      >
         {headers[index]}
       </h4>
     );
@@ -75,12 +78,16 @@ class Table extends React.Component {
     const {items} = this.props;
 
     return this.fixedLastRow(
-      items.map((item, index) => (
-        <div className="table__item" key={index} style={{flexBasis: this.columnWith()}}>
+      items.map((item, index) =>
+        <div
+          className="table__item"
+          key={index}
+          style={{flexBasis: this.columnWith()}}
+        >
           {this.header(index)}
           {this.content(index)}
-        </div>
-      ))
+        </div>,
+      ),
     );
   }
 

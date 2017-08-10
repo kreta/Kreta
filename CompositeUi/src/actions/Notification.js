@@ -11,13 +11,13 @@
 import ActionTypes from './../constants/ActionTypes';
 
 const Actions = {
-  addNotification: (message, messageType) => (dispatch) => {
-    const id = Math.floor((Math.random() * 1000000));
+  addNotification: (message, messageType) => dispatch => {
+    const id = Math.floor(Math.random() * 1000000);
 
     setTimeout(() => {
       dispatch({
         type: ActionTypes.NOTIFICATION_REMOVE,
-        id
+        id,
       });
     }, 5000);
 
@@ -26,14 +26,14 @@ const Actions = {
       notification: {
         id,
         message,
-        type: messageType
-      }
+        type: messageType,
+      },
     });
   },
-  removeNotification: (id) => ({
+  removeNotification: id => ({
     type: ActionTypes.NOTIFICATION_REMOVE,
-    id
-  })
+    id,
+  }),
 };
 
 export default Actions;

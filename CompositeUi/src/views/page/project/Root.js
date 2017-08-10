@@ -18,7 +18,9 @@ class Root extends React.Component {
   componentDidMount() {
     const {params, dispatch} = this.props;
 
-    dispatch(CurrentProjectActions.fetchProject(params.organization, params.project));
+    dispatch(
+      CurrentProjectActions.fetchProject(params.organization, params.project),
+    );
 
     if (typeof this.props.params.task !== 'undefined') {
       dispatch(CurrentProjectActions.selectCurrentTask(params.task));
@@ -31,10 +33,15 @@ class Root extends React.Component {
     const {params, dispatch} = this.props;
 
     if (params.project !== prevProps.params.project) {
-      dispatch(CurrentProjectActions.fetchProject(params.organization, params.project));
+      dispatch(
+        CurrentProjectActions.fetchProject(params.organization, params.project),
+      );
     }
 
-    if (params.task !== prevProps.params.task && typeof params.task !== 'undefined') {
+    if (
+      params.task !== prevProps.params.task &&
+      typeof params.task !== 'undefined'
+    ) {
       dispatch(CurrentProjectActions.selectCurrentTask(params.task));
     } else if (typeof params.task === 'undefined') {
       dispatch(CurrentProjectActions.selectCurrentTask(null));
@@ -42,9 +49,7 @@ class Root extends React.Component {
   }
 
   render() {
-    return (
-      this.props.children
-    );
+    return this.props.children;
   }
 }
 

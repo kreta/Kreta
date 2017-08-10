@@ -17,13 +17,14 @@ import LogoIcon from './../../svg/logo-green.svg';
 import Icon from './Icon';
 import {routes} from './../../Routes';
 
-const LogoCustomHeader = props => (
+const LogoCustomHeader = props =>
   <div className="logo-custom-header">
     <Link to={routes.home}>
-      <Icon glyph={LogoIcon}/>
+      <Icon glyph={LogoIcon} />
     </Link>
-    <h1 className="logo-custom-header__title">{props.title}</h1>
-  </div>
-);
+    <h1 className="logo-custom-header__title">
+      {props.title}
+    </h1>
+  </div>;
 
 export default LogoCustomHeader;

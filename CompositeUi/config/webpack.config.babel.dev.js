@@ -11,8 +11,10 @@
 process.env.NODE_ENV = 'development';
 
 import CaseSensitivePathsPlugin from 'case-sensitive-paths-webpack-plugin';
+import ESLintFormatter from 'react-dev-utils/eslintFormatter';
 import HtmlWebpackPlugin from 'html-webpack-plugin';
 import InterpolateHtmlPlugin from 'react-dev-utils/InterpolateHtmlPlugin';
+import ModuleScopePlugin from 'react-dev-utils/ModuleScopePlugin';
 import StyleLintPlugin from 'stylelint-webpack-plugin';
 import WatchMissingNodeModulesPlugin from 'react-dev-utils/WatchMissingNodeModulesPlugin';
 
@@ -42,95 +44,86 @@ export default {
   },
   resolve: {
     modules: ['node_modules'].concat(paths.nodePaths),
-    extensions: ['.js', '.json', '.jsx', '.css', '.scss', '.svg']
+    extensions: ['.js', '.json'],
+    plugins: [
+      new ModuleScopePlugin(paths.appSrc, [paths.appPackageJson]),
+    ]
   },
   module: {
     rules: [{
-      parser: {
-        requireEnsure: false
-      }
-    }, {
       test: /\.(js|jsx)$/,
       enforce: 'pre',
       use: [
         {
           loader: 'eslint-loader',
+          options: {
+            formatter: ESLintFormatter
+          }
         },
       ],
       include: paths.appSrc,
     }, {
-      exclude: [
-        /\.html$/,
-        /\.(js|jsx)$/,
-        /\.(css|scss)$/,
-        /\.json$/,
-        /\.bmp$/,
-        /\.gif$/,
-        /\.jpe?g$/,
-        /\.png$/,
-        /\.svg$/
-      ],
-      loader: 'file-loader',
-      options: {
-        name: '[name].[hash:8].[ext]',
-      },
-    }, {
-      test: [
-        /\.bmp$/,
-        /\.gif$/,
-        /\.jpe?g$/,
-        /\.png$/
-      ],
-      loader: 'url-loader',
-      options: {
-        limit: 10000,
-        name: '[name].[hash:8].[ext]',
-      },
-    }, {
-      test: /\.svg$/,
-      loader: 'svg-sprite-loader',
-      options: {
-        name: '[name]_[hash].svg'
-      }
-    }, {
-      test: /\.(js|jsx)$/,
-      include: paths.appSrc,
-      loader: 'babel-loader',
-      options: {
-        cacheDirectory: true,
-      },
-    }, {
-      test: /\.(css|scss)$/,
-      use: [
-        'style-loader', {
-          loader: 'css-loader',
-          options: {
-            importLoaders: 1,
-          },
-        }, {
-          loader: 'postcss-loader',
-          options: {
-            ident: 'postcss',
-            plugins: () => [
-              autoprefixer({
-                browsers: [
-                  '>1%',
-                  'last 4 versions',
-                  'Firefox ESR',
-                  'not ie < 9',
-                ],
-              }),
-            ],
-          },
-        }, {
-          loader: 'sass-loader',
-          options: {
-            includePaths: [
-              path.join(__dirname, paths.appScss)
-            ]
-          }
+      oneOf: [{
+        test: [/\.bmp$/, /\.gif$/, /\.jpe?g$/, /\.png$/],
+        loader: 'url-loader',
+        options: {
+          limit: 10000,
+          name: '[name].[hash:8].[ext]',
+        },
+      }, {
+        test: /\.svg$/,
+        loader: 'svg-sprite-loader',
+        options: {
+          name: '[name]_[hash].svg'
         }
-      ],
+      }, {
+        test: /\.(js|jsx)$/,
+        include: paths.appSrc,
+        loader: 'babel-loader',
+        options: {
+          cacheDirectory: true,
+        },
+      }, {
+        test: /\.(css|scss)$/,
+        use: [
+          'style-loader', {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1,
+            },
+          }, {
+            loader: 'postcss-loader',
+            options: {
+              ident: 'postcss',
+              plugins: () => [
+                require('postcss-flexbugs-fixes'),
+                autoprefixer({
+                  browsers: [
+                    '>1%',
+                    'last 4 versions',
+                    'Firefox ESR',
+                    'not ie < 9',
+                  ],
+                  flexbox: 'no-2009',
+                }),
+              ],
+            },
+          }, {
+            loader: 'sass-loader',
+            options: {
+              includePaths: [
+                path.join(__dirname, paths.appScss)
+              ]
+            }
+          }
+        ],
+      }, {
+        exclude: [/\.js$/, /\.html$/, /\.json$/],
+        loader: 'file-loader',
+        options: {
+          name: '[name].[hash:8].[ext]',
+        },
+      }]
     }]
   },
   plugins: [
@@ -142,12 +135,14 @@ export default {
       inject: true,
       template: paths.appHtml,
     }),
+    new webpack.NamedModulesPlugin(),
     new StyleLintPlugin(),
     new WatchMissingNodeModulesPlugin(paths.appNodeModules),
     new webpack.DefinePlugin(env(PUBLIC_URL)),
     new webpack.HotModuleReplacementPlugin()
   ],
   node: {
+    dgram: 'empty',
     fs: 'empty',
     net: 'empty',
     tls: 'empty',

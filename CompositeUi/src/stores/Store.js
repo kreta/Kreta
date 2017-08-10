@@ -15,22 +15,16 @@ import {syncHistory} from 'react-router-redux';
 
 import reducers from './../Reducers';
 
-const
-  loggerMiddleware = createLogger({
-    level: 'info',
-    collapsed: true
-  });
+const loggerMiddleware = createLogger({
+  level: 'info',
+  collapsed: true,
+});
 
 export default function configureStore(browserHistory) {
-  const
-    reduxRouterMiddleware = syncHistory(browserHistory),
+  const reduxRouterMiddleware = syncHistory(browserHistory),
     createStoreWithMiddleware = compose(
-      applyMiddleware(
-        reduxRouterMiddleware,
-        thunkMiddleware,
-        loggerMiddleware
-      ),
-      window.devToolsExtension ? window.devToolsExtension() : f => f
+      applyMiddleware(reduxRouterMiddleware, thunkMiddleware, loggerMiddleware),
+      window.devToolsExtension ? window.devToolsExtension() : f => f,
     )(createStore);
 
   return createStoreWithMiddleware(reducers);

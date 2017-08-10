@@ -59,10 +59,14 @@ class ProjectQueryRequest extends RelayQueryRequest {
     projectInput.slug = projectSLug;
 
     return new RelayQueryRequest(
-      RelayQuery.Root.create(query, {}, {
-        projectInput,
-        tasksFirst: 50
-      })
+      RelayQuery.Root.create(
+        query,
+        {},
+        {
+          projectInput,
+          tasksFirst: 50,
+        },
+      ),
     );
   }
 }

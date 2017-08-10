@@ -20,11 +20,13 @@ describe('<FormInput/>', () => {
         input={{value: 'example value'}}
         label="example"
         meta={{touched: false, error: false}}
-      />
+      />,
     );
-    expect(wrapper.containsMatchingElement(<input value="example value"/>)).toBe(true);
+    expect(
+      wrapper.containsMatchingElement(<input value="example value" />),
+    ).toBe(true);
     expect(wrapper.containsMatchingElement(<label>example</label>)).toBe(true);
-    expect(wrapper.containsMatchingElement(<textarea/>)).toBe(false);
+    expect(wrapper.containsMatchingElement(<textarea />)).toBe(false);
   });
 
   it('renders a textarea when multiline prop is used', () => {
@@ -34,10 +36,10 @@ describe('<FormInput/>', () => {
         label="example"
         meta={{touched: false, error: false}}
         multiline
-      />
+      />,
     );
-    expect(wrapper.containsMatchingElement(<textarea/>)).toBe(true);
-    expect(wrapper.containsMatchingElement(<input/>)).toBe(false);
+    expect(wrapper.containsMatchingElement(<textarea />)).toBe(true);
+    expect(wrapper.containsMatchingElement(<input />)).toBe(false);
   });
 
   it('notifies an error when the input is touched and it has an error', () => {
@@ -46,9 +48,11 @@ describe('<FormInput/>', () => {
         input={{value: ''}}
         label="example"
         meta={{touched: true, error: true}}
-      />
+      />,
     );
-    expect(wrapper.find('.form-input').hasClass('form-input--error')).toBe(true);
+    expect(wrapper.find('.form-input').hasClass('form-input--error')).toBe(
+      true,
+    );
   });
 
   it('notifies a value is valid when the value has at least 1 char and has no errors', () => {
@@ -57,9 +61,11 @@ describe('<FormInput/>', () => {
         input={{value: 'Valid'}}
         label="example"
         meta={{touched: true, error: false}}
-      />
+      />,
     );
-    expect(wrapper.find('.form-input').hasClass('form-input--success')).toBe(true);
+    expect(wrapper.find('.form-input').hasClass('form-input--success')).toBe(
+      true,
+    );
   });
 
   it('moves the label to the top when an input is filled', () => {
@@ -68,8 +74,10 @@ describe('<FormInput/>', () => {
         input={{value: 'Valid'}}
         label="example"
         meta={{touched: true, error: false}}
-      />
+      />,
     );
-    expect(wrapper.find('.form-input__input').hasClass('form-input__input--filled')).toBe(true);
+    expect(
+      wrapper.find('.form-input__input').hasClass('form-input__input--filled'),
+    ).toBe(true);
   });
 });

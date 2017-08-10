@@ -12,7 +12,7 @@ import './../../scss/components/_section.scss';
 
 import React from 'react';
 
-const Section = props => (
+const Section = props =>
   <section className="section">
     <div className="section__header">
       {props.header}
@@ -20,8 +20,7 @@ const Section = props => (
     <div className="section__content">
       {props.children}
     </div>
-  </section>
-);
+  </section>;
 
 Section.propTypes = {
   header: React.PropTypes.object.isRequired,

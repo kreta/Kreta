@@ -8,24 +8,26 @@
  * file that was distributed with this source code.
  */
 
+process.env.BABEL_ENV = 'development';
 process.env.NODE_ENV = 'development';
+
+process.on('unhandledRejection', error => {
+  throw error;
+});
 
 import dotenv from 'dotenv';
 dotenv.config({silent: true});
 
 import chalk from 'chalk';
-import WebpackDevServer from 'webpack-dev-server';
-import detect from 'detect-port';
-import clearConsole from 'react-dev-utils/clearConsole';
 import checkRequiredFiles from 'react-dev-utils/checkRequiredFiles';
-import getProcessForPort from 'react-dev-utils/getProcessForPort';
+import {choosePort, createCompiler, prepareProxy, prepareUrls} from 'react-dev-utils/WebpackDevServerUtils';
+import clearConsole from 'react-dev-utils/clearConsole';
 import openBrowser from 'react-dev-utils/openBrowser';
-import prompt from 'react-dev-utils/prompt';
+import WebpackDevServer from 'webpack-dev-server';
+import webpack from 'webpack';
 
-import addWebpackMiddleware from './utils/addWebpackMiddleware';
+import createDevServerConfig from './../config/webpackDevServer.config';
 import config from './../config/webpack.config.babel.dev';
-import createWebpackCompiler from './utils/createWebpackCompiler';
-import devServerConfig from './../config/webpackDevServer.config';
 import paths from './../config/paths';
 
 const isInteractive = process.stdout.isTTY;
@@ -35,65 +37,44 @@ if (!checkRequiredFiles([paths.appHtml, paths.appIndexJs])) {
 }
 
 const DEFAULT_PORT = parseInt(process.env.PORT, 10) || 3000;
+const HOST = process.env.HOST || '0.0.0.0';
 
-const run = (port) => {
+choosePort(HOST, DEFAULT_PORT).then(port => {
+  if (!port) {
+    return;
+  }
   const protocol = process.env.HTTPS === 'true' ? 'https' : 'http';
-  const host = process.env.HOST || 'localhost';
+  const appName = require(paths.appPackageJson).name;
+  const urls = prepareUrls(protocol, HOST, port);
+  const compiler = createCompiler(webpack, config, appName, urls, true);
+  const proxySetting = require(paths.appPackageJson).proxy;
+  const proxyConfig = prepareProxy(proxySetting, paths.appPublic);
+  const serverConfig = createDevServerConfig(
+    proxyConfig,
+    urls.lanUrlForConfig
+  );
+  const devServer = new WebpackDevServer(compiler, serverConfig);
 
-  const compiler = createWebpackCompiler(config, (showInstructions) => {
-    if (!showInstructions) {
-      return;
-    }
-    console.log();
-    console.log('The app is running at:');
-    console.log();
-    console.log(`  ${chalk.cyan(`${protocol}://${host}:${port}/`)}`);
-    console.log();
-    console.log('Note that the development build is not optimized.');
-    console.log(`To create a production build, use ${chalk.cyan(`yarn build`)}.`);
-    console.log();
-  });
-
-  const devServer = new WebpackDevServer(compiler, devServerConfig);
-
-  addWebpackMiddleware(devServer);
-  devServer.listen(port, (err) => {
-    if (err) {
-      return console.log(err);
+  devServer.listen(port, HOST, error => {
+    if (error) {
+      return console.log(error);
     }
     if (isInteractive) {
       clearConsole();
     }
-    console.log(chalk.cyan('Starting the development server...'));
-    console.log();
-    if (isInteractive) {
-      openBrowser(`${protocol}://${host}:${port}/`);
-    }
+    console.log(chalk.cyan('Starting the development server...\n'));
+    openBrowser(urls.localUrlForBrowser);
   });
-};
 
-detect(DEFAULT_PORT).then(port => {
-  if (port === DEFAULT_PORT) {
-    return run(port);
+  ['SIGINT', 'SIGTERM'].forEach((sig) => {
+    process.on(sig, () => {
+      devServer.close();
+      process.exit();
+    });
+  });
+}).catch(error => {
+  if (error && error.message) {
+    console.log(error.message);
   }
-
-  if (isInteractive) {
-    clearConsole();
-
-    const
-      existingProcess = getProcessForPort(DEFAULT_PORT),
-      question = chalk.yellow(
-          `Something is already running on port ${DEFAULT_PORT}.` +
-          `${existingProcess ? ` Probably:\n  ${existingProcess}` : ''}`
-        ) + '\n\nWould you like to run the app on another port instead?';
-
-    prompt(question, true).then(shouldChangePort => {
-      if (shouldChangePort) {
-        run(port);
-      }
-    }).catch(err => console.log(err));
-
-  } else {
-    console.log(chalk.red(`Something is already running on port ${DEFAULT_PORT}.`));
-  }
-}).catch(err => console.log(err));
+  process.exit(1);
+});

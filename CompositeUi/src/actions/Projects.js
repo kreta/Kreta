@@ -15,21 +15,20 @@ import ProjectsQueryRequest from './../api/graphql/query/ProjectsQueryRequest';
 import TaskManagerGraphQl from './../api/graphql/TaskManagerGraphQl';
 
 const Actions = {
-  fetchProjects: () => (dispatch) => {
+  fetchProjects: () => dispatch => {
     dispatch({
-      type: ActionTypes.PROJECTS_FETCHING
+      type: ActionTypes.PROJECTS_FETCHING,
     });
     const query = ProjectsQueryRequest.build();
 
     TaskManagerGraphQl.query(query, dispatch);
-    query
-      .then(data => {
-        dispatch({
-          type: ActionTypes.PROJECTS_RECEIVED,
-          projects: data.response.projects.edges.map(project => project.node)
-        });
+    query.then(data => {
+      dispatch({
+        type: ActionTypes.PROJECTS_RECEIVED,
+        projects: data.response.projects.edges.map(project => project.node),
       });
-  }
+    });
+  },
 };
 
 export default Actions;

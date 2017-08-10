@@ -35,15 +35,14 @@ class Members extends React.Component {
   };
 
   getOwners() {
-    const
-      {organization, profile} = this.props,
+    const {organization, profile} = this.props,
       leaveAction = (
         <LinkInline classModifiers="link-inline--red" to={null}>
-          <Icon color="red" glyph={ExitIcon} size="small"/>Leave organization
+          <Icon color="red" glyph={ExitIcon} size="small" />Leave organization
         </LinkInline>
       );
 
-    return organization.owners.map((owner, index) => (
+    return organization.owners.map((owner, index) =>
       <UserCard
         actions={
           organization.owners.length > 1 && owner.id === profile.user_id
@@ -52,15 +51,15 @@ class Members extends React.Component {
         }
         key={index}
         user={owner}
-      />
-    ));
+      />,
+    );
   }
 
   noMembers() {
     return (
       <Advice>
-        No members found, you may want to add someone so, please
-        click on "<strong>Add members</strong>" button.
+        No members found, you may want to add someone so, please click on "<strong>Add members</strong>"
+        button.
       </Advice>
     );
   }
@@ -68,7 +67,7 @@ class Members extends React.Component {
   getMembers() {
     const {organization} = this.props;
 
-    return organization.organization_members.map((member, index) => (
+    return organization.organization_members.map((member, index) =>
       <UserCard
         actions={
           <Button
@@ -76,13 +75,13 @@ class Members extends React.Component {
             onClick={this.removeMember.bind(this, member)}
             type="icon"
           >
-            <Icon color="white" glyph={CrossIcon} size="expand"/>
+            <Icon color="white" glyph={CrossIcon} size="expand" />
           </Button>
         }
         key={index}
         user={member}
-      />
-    ));
+      />,
+    );
   }
 
   removeMember(member) {
@@ -101,12 +100,16 @@ class Members extends React.Component {
             currentPath={currentPath}
             disableLink={
               <LinkInline to={toFunction(organization.slug)}>
-                <Icon color="green" glyph={AddIcon} size="small"/>Add {title.toLowerCase()}
+                <Icon color="green" glyph={AddIcon} size="small" />Add{' '}
+                {title.toLowerCase()}
               </LinkInline>
             }
             enableLink={
-              <LinkInline classModifiers="link-inline--red" to={routes.organization.show(organization.slug)}>
-                <Icon color="red" glyph={CrossIcon} size="small"/>Close bar
+              <LinkInline
+                classModifiers="link-inline--red"
+                to={routes.organization.show(organization.slug)}
+              >
+                <Icon color="red" glyph={CrossIcon} size="small" />Close bar
               </LinkInline>
             }
           />
@@ -117,23 +120,15 @@ class Members extends React.Component {
   }
 
   renderOwnersHeader() {
-    return this.renderSectionHeader(
-      'Owners',
-      routes.organization.addOwner
-    );
+    return this.renderSectionHeader('Owners', routes.organization.addOwner);
   }
 
   renderOwnersContent() {
-    return (
-      <Table columns={3} items={this.getOwners()}/>
-    );
+    return <Table columns={3} items={this.getOwners()} />;
   }
 
   renderMembersHeader() {
-    return this.renderSectionHeader(
-      'Members',
-      routes.organization.addMember
-    );
+    return this.renderSectionHeader('Members', routes.organization.addMember);
   }
 
   renderMembersContent() {
@@ -143,9 +138,7 @@ class Members extends React.Component {
       return this.noMembers();
     }
 
-    return (
-      <Table columns={3} items={this.getMembers()}/>
-    );
+    return <Table columns={3} items={this.getMembers()} />;
   }
 
   render() {

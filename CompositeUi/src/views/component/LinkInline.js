@@ -14,8 +14,7 @@ import {Link} from 'react-router';
 import './../../scss/components/_link-inline.scss';
 
 export default props => {
-  const
-    {children, classModifiers, ...otherProps} = props,
+  const {children, classModifiers, ...otherProps} = props,
     className = `link-inline ${classModifiers}`;
 
   return (

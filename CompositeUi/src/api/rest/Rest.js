@@ -11,33 +11,37 @@
 class Rest {
   constructor() {
     if (this.constructor.name === 'Rest') {
-      throw new TypeError('Rest is an abstract class, it cannot be instantiate directly');
+      throw new TypeError(
+        'Rest is an abstract class, it cannot be instantiate directly',
+      );
     }
 
-    this.accessToken = () => (
-      localStorage.token
-    );
+    this.accessToken = () => localStorage.token;
 
-    this.issetToken = () => (
-      typeof this.accessToken() !== 'undefined'
-    );
+    this.issetToken = () => typeof this.accessToken() !== 'undefined';
 
-    this.uri = (url) => (
-      `${this.baseUrl()}${url}`
-    );
+    this.uri = url => `${this.baseUrl()}${url}`;
 
-    this.request = (method, url, body = {}, headers = {'Authorization': `Bearer ${this.accessToken()}`}) => (
+    this.request = (
+      method,
+      url,
+      body = {},
+      headers = {Authorization: `Bearer ${this.accessToken()}`},
+    ) =>
       new Promise((resolve, reject) => {
-        fetch(this.uri(url), {body, headers, method, mode: 'cors'})
-          .then((response) => {
-            if (response.ok) {
-              resolve(response.json());
-            } else {
-              reject(response.json());
-            }
-          });
-      })
-    );
+        fetch(this.uri(url), {
+          body,
+          headers,
+          method,
+          mode: 'cors',
+        }).then(response => {
+          if (response.ok) {
+            resolve(response.json());
+          } else {
+            reject(response.json());
+          }
+        });
+      });
 
     this.toQueryParams = (query = null) => {
       if (null === query) {
@@ -60,7 +64,7 @@ class Rest {
       return result;
     };
 
-    this.toFormData = (body) => {
+    this.toFormData = body => {
       const data = new FormData();
       for (const key in body) {
         if (body.hasOwnProperty(key)) {
@@ -73,11 +77,18 @@ class Rest {
   }
 
   baseUrl() {
-    throw new Error('"baseUrl" is an abstract method that expects to be implemented by children classes');
+    throw new Error(
+      '"baseUrl" is an abstract method that expects to be implemented by children classes',
+    );
   }
 
   get(url, query = null, headers) {
-    return this.request('GET', `${url}${this.toQueryParams(query)}`, null, headers);
+    return this.request(
+      'GET',
+      `${url}${this.toQueryParams(query)}`,
+      null,
+      headers,
+    );
   }
 
   post(url, payload = {}, headers) {
@@ -88,7 +99,8 @@ class Rest {
     return this.request('PUT', url, this.toFormData(payload), headers);
   }
 
-  deleteHttp(url, headers) { // Http suffix is needed because delete is a reserved word
+  deleteHttp(url, headers) {
+    // Http suffix is needed because delete is a reserved word
     return this.request('DELETE', url, {}, headers);
   }
 }

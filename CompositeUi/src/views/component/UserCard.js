@@ -15,7 +15,7 @@ import UserThumbnail from './UserThumbnail';
 
 class UserCard extends React.Component {
   static propTypes = {
-    user: React.PropTypes.object.isRequired
+    user: React.PropTypes.object.isRequired,
   };
 
   username() {
@@ -44,7 +44,7 @@ class UserCard extends React.Component {
     return (
       <CardExtended
         subtitle={this.subtitle()}
-        thumbnail={<UserThumbnail user={user}/>}
+        thumbnail={<UserThumbnail user={user} />}
         title={this.title()}
       >
         {actions}

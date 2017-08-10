@@ -15,13 +15,9 @@ import Advice from './../Advice';
 
 describe('<Advice/>', () => {
   it('renders string title and child content', () => {
-    const wrapper = shallow(
-      <Advice>
-        This is a dummy advice text.
-      </Advice>
-    );
-    expect(wrapper.contains(
-      <p className="advice">This is a dummy advice text.</p>
-    )).toBe(true);
+    const wrapper = shallow(<Advice>This is a dummy advice text.</Advice>);
+    expect(
+      wrapper.contains(<p className="advice">This is a dummy advice text.</p>),
+    ).toBe(true);
   });
 });

@@ -8,8 +8,6 @@
  * file that was distributed with this source code.
  */
 
-'use strict';
-
 import babelJest from 'babel-jest';
 
 export default babelJest.createTransformer({

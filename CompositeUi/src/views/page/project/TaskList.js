@@ -32,7 +32,10 @@ import PageHeader from './../../component/PageHeader';
 import TaskPreview from './../../component/TaskPreview';
 import Thumbnail from './../../component/Thumbnail';
 
-@connect(state => ({currentProject: state.currentProject, profile: state.profile}))
+@connect(state => ({
+  currentProject: state.currentProject,
+  profile: state.profile,
+}))
 class TaskList extends React.Component {
   componentDidMount() {
     const {dispatch, params, profile} = this.props;
@@ -43,15 +46,17 @@ class TaskList extends React.Component {
 
     Mousetrap.bind(Config.shortcuts.taskNew, () => {
       dispatch(
-        routeActions.push(routes.task.new(params.organization, params.project))
+        routeActions.push(routes.task.new(params.organization, params.project)),
       );
     });
     Mousetrap.bind(Config.shortcuts.projectSettings, () => {
       dispatch(
-        routeActions.push(routes.project.settings(params.organization, params.project))
+        routeActions.push(
+          routes.project.settings(params.organization, params.project),
+        ),
       );
     });
-    Mousetrap.bind(['up', 'down', 'enter'], (event) => {
+    Mousetrap.bind(['up', 'down', 'enter'], event => {
       this.handleKeyboardNavigation(event);
     });
     Mousetrap.bind('esc', () => {
@@ -67,12 +72,11 @@ class TaskList extends React.Component {
   }
 
   filterTasks(filters) {
-    const
-      {currentProject, dispatch} = this.props,
+    const {currentProject, dispatch} = this.props,
       data = {projectId: currentProject.project.id};
 
-    filters.forEach((filter) => {
-      filter.forEach((item) => {
+    filters.forEach(filter => {
+      filter.forEach(item => {
         if (item.selected) {
           data[item.filter] = item.value;
         }
@@ -86,7 +90,9 @@ class TaskList extends React.Component {
     const {dispatch, params} = this.props;
 
     dispatch(
-      routeActions.push(routes.task.show(params.organization, params.project, task.numeric_id))
+      routeActions.push(
+        routes.task.show(params.organization, params.project, task.numeric_id),
+      ),
     );
   }
 
@@ -104,28 +110,30 @@ class TaskList extends React.Component {
     const {dispatch, params} = this.props;
 
     dispatch(
-      routeActions.push(routes.project.show(params.organization, params.project))
+      routeActions.push(
+        routes.project.show(params.organization, params.project),
+      ),
     );
   }
 
   getTasksEl() {
     const {currentProject, params} = this.props;
 
-    return currentProject.project._tasks49h6f1.edges.map((task, index) => (
+    return currentProject.project._tasks49h6f1.edges.map((task, index) =>
       <TaskPreview
         key={index}
         onClick={this.selectCurrentTask.bind(this, task.node)}
         selected={params.taskId === task.node.id}
         task={task.node}
-      />
-    ));
+      />,
+    );
   }
 
   render() {
     const {children, currentProject, params, profile} = this.props;
 
     if (currentProject.waiting || profile.fetching) {
-      return <LoadingSpinner/>;
+      return <LoadingSpinner />;
     }
 
     return (
@@ -133,15 +141,14 @@ class TaskList extends React.Component {
         <ContentMiddleLayout>
           <PageHeader
             thumbnail={
-              <Thumbnail
-                image={null}
-                text={currentProject.project.name}
-              />
+              <Thumbnail image={null} text={currentProject.project.name} />
             }
             title={currentProject.project.name}
           >
-            <InlineLink to={routes.project.settings(params.organization, params.project)}>
-              <Icon color="green" glyph={SettingsIcon} size="small"/>Settings
+            <InlineLink
+              to={routes.project.settings(params.organization, params.project)}
+            >
+              <Icon color="green" glyph={SettingsIcon} size="small" />Settings
             </InlineLink>
             <Link to={routes.task.new(params.organization, params.project)}>
               <Button color="green">New task</Button>
@@ -151,7 +158,10 @@ class TaskList extends React.Component {
             filters={currentProject.filters}
             onFilterSelected={this.filterTasks.bind(this)}
           />
-          <NavigableList onElementSelected={this.selectCurrentTaskByIndex.bind(this)} ref="navigableList">
+          <NavigableList
+            onElementSelected={this.selectCurrentTaskByIndex.bind(this)}
+            ref="navigableList"
+          >
             {this.getTasksEl()}
           </NavigableList>
         </ContentMiddleLayout>

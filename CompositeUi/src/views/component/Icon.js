@@ -15,17 +15,17 @@ import './../../scss/components/_icon.scss';
 
 class Icon extends React.Component {
   static propTypes = {
-    glyph: React.PropTypes.string.isRequired
+    glyph: React.PropTypes.string.isRequired,
   };
 
   static defaultProps = {
-    className: ''
+    className: '',
   };
 
   render() {
     const {glyph, color, size, className, ...props} = this.props,
       classes = classNames({
-        'icon': true,
+        icon: true,
         'icon--expand': size === 'expand',
         'icon--small': size === 'small',
         'icon--blue': color === 'blue',
@@ -35,7 +35,7 @@ class Icon extends React.Component {
 
     return (
       <svg {...props} className={`${classes} ${className}`}>
-        <use xlinkHref={glyph}/>
+        <use xlinkHref={glyph} />
       </svg>
     );
   }

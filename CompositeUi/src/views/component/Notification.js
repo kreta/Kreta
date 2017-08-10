@@ -21,7 +21,7 @@ import Icon from './Icon';
 class Notification extends React.Component {
   static propTypes = {
     notification: React.PropTypes.object.isRequired,
-    onCloseRequest: React.PropTypes.func
+    onCloseRequest: React.PropTypes.func,
   };
 
   triggerOnCloseRequest() {
@@ -29,21 +29,22 @@ class Notification extends React.Component {
   }
 
   render() {
-    const
-      {notification} = this.props,
+    const {notification} = this.props,
       classes = classnames({
-        'notification': true,
+        notification: true,
         'notification--success': notification.type === 'success',
-        'notification--error': notification.type === 'error'
+        'notification--error': notification.type === 'error',
       }),
       glyph = notification.type === 'error' ? Error : Success;
 
     return (
       <div className={classes}>
         <div className="notification__icon">
-          <Icon glyph={glyph}/>
+          <Icon glyph={glyph} />
         </div>
-        <p className="notification__message">{notification.message}</p>
+        <p className="notification__message">
+          {notification.message}
+        </p>
         <Icon
           className="notification__close"
           glyph={Cross}

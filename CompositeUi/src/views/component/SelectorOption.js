@@ -19,17 +19,14 @@ class SelectorOption extends React.Component {
     label: React.PropTypes.string,
     text: React.PropTypes.string.isRequired,
     thumbnail: React.PropTypes.element,
-    value: React.PropTypes.string.isRequired
+    value: React.PropTypes.string.isRequired,
   };
 
   render() {
-    const
-      {alignLeft, label, text, thumbnail, ...otherProps} = this.props,
-      classes = classnames(
-      'selector-option', {
+    const {alignLeft, label, text, thumbnail, ...otherProps} = this.props,
+      classes = classnames('selector-option', {
         'selector-option--left': alignLeft,
-      }
-    );
+      });
 
     let thumbnailEl = '';
     if (thumbnail) {
@@ -43,8 +40,12 @@ class SelectorOption extends React.Component {
     return (
       <div className={classes} {...otherProps}>
         {thumbnailEl}
-        <span className="selector-option__label">{label}</span>
-        <span className="selector-option__value">{text}</span>
+        <span className="selector-option__label">
+          {label}
+        </span>
+        <span className="selector-option__value">
+          {text}
+        </span>
       </div>
     );
   }

@@ -20,7 +20,7 @@ class Root extends React.Component {
   _renderRouter() {
     invariant(
       this.props.routingContext || this.props.routerHistory,
-      '<Root /> needs either a routingContext or routerHistory to render.'
+      '<Root /> needs either a routingContext or routerHistory to render.',
     );
 
     if (this.props.routingContext) {

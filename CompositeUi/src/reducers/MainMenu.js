@@ -12,7 +12,7 @@ import ActionTypes from './../constants/ActionTypes';
 
 const initialState = {
   highlightedProject: null,
-  projectsVisible: false
+  projectsVisible: false,
 };
 
 export default function reducer(state = initialState, action = {}) {

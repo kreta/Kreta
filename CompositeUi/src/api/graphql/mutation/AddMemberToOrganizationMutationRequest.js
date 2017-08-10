@@ -26,13 +26,17 @@ const mutation = Relay.QL`
 
 class AddMemberToOrganizationMutation extends RelayQuery.Mutation {
   constructor(userId, organizationId) {
-    super(mutation, {}, {
-      input: {
-        clientMutationId: Math.random().toString(36),
-        userId,
-        organizationId
-      }
-    });
+    super(
+      mutation,
+      {},
+      {
+        input: {
+          clientMutationId: Math.random().toString(36),
+          userId,
+          organizationId,
+        },
+      },
+    );
   }
 }
 
@@ -42,7 +46,7 @@ class AddMemberToOrganizationMutationRequest extends RelayMutationRequest {
       new AddMemberToOrganizationMutation(
         inputData.userId,
         inputData.organizationId,
-      )
+      ),
     );
   }
 }

@@ -26,13 +26,13 @@ import UserCard from './../../component/UserCard';
 class AddMember extends React.Component {
   static propTypes = {
     onMemberRemoveClicked: React.PropTypes.func,
-    organization: React.PropTypes.object
+    organization: React.PropTypes.object,
   };
 
   constructor(props) {
     super(props);
 
-    this.debouncedOnChangeSearch = debounce((query) => {
+    this.debouncedOnChangeSearch = debounce(query => {
       this.filterMembersToAdd(query);
     }, 200);
     this.onChangeSearch = this.onChangeSearch.bind(this);
@@ -48,8 +48,10 @@ class AddMember extends React.Component {
     dispatch(
       MemberActions.fetchMembersToAdd(
         query,
-        currentOrganization.organization.organization_members.map((item) => item.id)
-      )
+        currentOrganization.organization.organization_members.map(
+          item => item.id,
+        ),
+      ),
     );
   }
 
@@ -59,8 +61,8 @@ class AddMember extends React.Component {
     dispatch(
       CurrentOrganizationActions.addMember(
         currentOrganization.organization.id,
-        member.id
-      )
+        member.id,
+      ),
     );
   }
 
@@ -77,28 +79,28 @@ class AddMember extends React.Component {
       return <p>No users found for your search, try typing another username</p>;
     }
 
-    return currentOrganization.potential_members
-      .map((member, index) => (
-        <div className="MemberList" key={index}>
-          <UserCard
-            actions={
-              <Button
-                color="green"
-                onClick={this.addMember.bind(this, member)}
-                type="icon">
-                <Icon color="white" glyph={AddIcon} size="expand"/>
-              </Button>
-            }
-            user={member}
-          />
-        </div>
-      ));
+    return currentOrganization.potential_members.map((member, index) =>
+      <div className="MemberList" key={index}>
+        <UserCard
+          actions={
+            <Button
+              color="green"
+              onClick={this.addMember.bind(this, member)}
+              type="icon"
+            >
+              <Icon color="white" glyph={AddIcon} size="expand" />
+            </Button>
+          }
+          user={member}
+        />
+      </div>,
+    );
   }
 
   render() {
     return (
       <div>
-        <Search onChange={this.onChangeSearch}/>
+        <Search onChange={this.onChangeSearch} />
         {this.renderMembersToAdd()}
       </div>
     );

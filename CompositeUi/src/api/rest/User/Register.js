@@ -12,15 +12,23 @@ import IdentityAccessRest from './../IdentityAccessRest';
 
 class Register {
   signUp(credentials) {
-    return IdentityAccessRest.post('/register', {
-      email: credentials.email,
-      'password[first]': credentials.password,
-      'password[second]': credentials.repeated_password
-    }, {});
+    return IdentityAccessRest.post(
+      '/register',
+      {
+        email: credentials.email,
+        'password[first]': credentials.password,
+        'password[second]': credentials.repeated_password,
+      },
+      {},
+    );
   }
 
   enable(token) {
-    return IdentityAccessRest.get(`/enable?confirmation-token=${token}`, null, {});
+    return IdentityAccessRest.get(
+      `/enable?confirmation-token=${token}`,
+      null,
+      {},
+    );
   }
 }
 

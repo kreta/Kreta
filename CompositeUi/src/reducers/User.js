@@ -13,7 +13,7 @@ import ActionTypes from './../constants/ActionTypes';
 const initialState = {
   token: null,
   updatingAuthorization: false,
-  processing: false
+  processing: false,
 };
 
 export default function reducer(state = initialState, action = {}) {

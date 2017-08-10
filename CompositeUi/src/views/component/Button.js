@@ -17,23 +17,19 @@ class Button extends React.Component {
   static propTypes = {
     color: React.PropTypes.string,
     size: React.PropTypes.string,
-    type: React.PropTypes.string
+    type: React.PropTypes.string,
   };
 
   render() {
-    const
-      {color, size, type} = this.props,
-      classes = classnames(
-        'button',
-        {
-          'button--green': color === 'green',
-          'button--red': color === 'red',
-          'button--yellow': color === 'yellow',
-          'button--blue': color === 'blue',
-          'button--icon': type === 'icon',
-          'button--small': size === 'small',
-        }
-      );
+    const {color, size, type} = this.props,
+      classes = classnames('button', {
+        'button--green': color === 'green',
+        'button--red': color === 'red',
+        'button--yellow': color === 'yellow',
+        'button--blue': color === 'blue',
+        'button--icon': type === 'icon',
+        'button--small': size === 'small',
+      });
 
     return (
       <button className={classes} {...this.props}>

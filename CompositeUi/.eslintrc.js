@@ -8,24 +8,16 @@
  * file that was distributed with this source code.
  */
 
-'use strict';
-
 module.exports = {
   "root": true,
-  "extends": "eslint:recommended",
+  "extends": [
+    "eslint:recommended"
+  ],
   "parser": "babel-eslint",
   "env": {
     "browser": true,
     "es6": true,
     "jest": true
-  },
-  "ecmaVersion": 7,
-  "ecmaFeatures": {
-    "classes": true,
-    "experimentalObjectRestSpread": true,
-    "jsx": true,
-    "modules": true,
-    "templateStrings": true
   },
   "globals": {
     "__DEV__": true,
@@ -33,6 +25,16 @@ module.exports = {
     "process": true,
     "require": true,
     "target": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 7,
+    "ecmaFeatures": {
+      "classes": true,
+      "experimentalObjectRestSpread": true,
+      "jsx": true,
+      "modules": true,
+      "templateStrings": true
+    }
   },
   "plugins": [
     "react"
