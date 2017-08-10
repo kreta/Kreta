@@ -20,7 +20,7 @@ doctrine:
     dbal:
         dbname: "%identity_access_database_name%_test"
         host: 127.0.0.1
-        password: ~
+        password: "%identity_access_database_password%"
 
 web_profiler:
     toolbar: false
