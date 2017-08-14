@@ -1,0 +1,133 @@
+# This file is part of the Kreta package.
+#
+# (c) Beñat Espiña <benatespina@gmail.com>
+# (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+
+skip_branch_with_pr: true
+max_jobs: 1
+
+clone_folder: c:\projects\kreta
+
+init:
+    - SET PATH=c:\Program Files\OpenSSL;c:\php;%PATH%
+    - SET PASS_PHRASE=kretataskmanager
+    - SET COMPOSER_NO_INTERACTION=1
+    - SET PHP=1
+
+cache:
+    - '%LOCALAPPDATA%\Composer\files'
+    - "%LOCALAPPDATA%\\Yarn"
+    - composer.phar
+    - node_modules
+
+services:
+    - mysql
+
+install:
+    - IF EXIST c:\php (SET PHP=0)
+    - mkdir c:\php && cd c:\php
+    - appveyor DownloadFile https://github.com/symfony/binary-utils/releases/download/v0.1/php-7.1.3-Win32-VC14-x86.zip
+    - 7z x php-7.1.3-Win32-VC14-x86.zip -y >nul
+    - copy /Y php.ini-development php.ini-min
+    - echo serialize_precision=14 >> php.ini-min
+    - echo max_execution_time=1200 >> php.ini-min
+    - echo date.timezone="Europe/Madrid" >> php.ini-min
+    - echo extension_dir=ext >> php.ini-min
+    - copy /Y php.ini-min php.ini-max
+    - echo extension=php_openssl.dll >> php.ini-max
+    - echo extension=php_intl.dll >> php.ini-max
+    - echo extension=php_mbstring.dll >> php.ini-max
+    - echo extension=php_fileinfo.dll >> php.ini-max
+    - echo extension=php_pdo_mysql.dll >> php.ini-max
+    - echo extension=php_curl.dll >> php.ini-max
+    - copy /Y php.ini-max php.ini
+
+    - IF %PHP%==1 echo @php %%~dp0composer.phar %%* > composer.bat
+    - appveyor-retry appveyor DownloadFile https://getcomposer.org/composer.phar
+    - composer self-update
+
+    - ps: Install-Product node 8
+    - appveyor-retry npm i -g npm@^5
+    - appveyor-retry npm i -g yarn
+
+    - cd %APPVEYOR_BUILD_FOLDER%
+
+    - cd SharedKernel
+    - composer install
+    - cd %APPVEYOR_BUILD_FOLDER%
+
+    - cd IdentityAccess
+    - composer install
+    - openssl genrsa -passout pass:%PASS_PHRASE% -out var/jwt/private.pem -aes256 4096
+    - openssl rsa -pubout -in var/jwt/private.pem -out var/jwt/public.pem -passin pass:%PASS_PHRASE%
+    - cd %APPVEYOR_BUILD_FOLDER%
+
+    - cd TaskManager
+    - composer install
+    - cd %APPVEYOR_BUILD_FOLDER%
+
+    - cd Notifier
+    - composer install
+    - cd %APPVEYOR_BUILD_FOLDER%
+
+    - cd CompositeUi
+    - yarn install
+    - cd ../TaskManager
+    - php src/Kreta/TaskManager/Infrastructure/Ui/Cli/Symfony/console graph:dump-schema --file=../CompositeUi/schema.json
+    - cd %APPVEYOR_BUILD_FOLDER%
+    - rm -rf node_modules/.cache/babel-loader/*
+    - cd %APPVEYOR_BUILD_FOLDER%
+
+test_script:
+    - cd IdentityAccess
+    - 'sed -i -e "s/identity_access_database_password:.*/identity_access_database_password: Password12!/" parameters.yml'
+    - php src/Kreta/IdentityAccess/Infrastructure/Ui/Cli/Symfony/console doctrine:database:create -e=test
+    - php src/Kreta/IdentityAccess/Infrastructure/Ui/Cli/Symfony/console doctrine:migrations:migrate -e=test --no-interaction
+    - php src/Kreta/IdentityAccess/Infrastructure/Ui/Cli/Symfony/console doctrine:fixtures:load -e=test --no-interaction --fixtures=src/Kreta/IdentityAccess/Infrastructure/Symfony/DoctrineDataFixtures
+    - cd %APPVEYOR_BUILD_FOLDER%
+
+    - cd TaskManager
+    - 'sed -i -e "s/task_manager_database_password:.*/task_manager_database_password: Password12!/" parameters.yml'
+    - php src/Kreta/TaskManager/Infrastructure/Ui/Cli/Symfony/console doctrine:database:create -e=test
+    - php src/Kreta/TaskManager/Infrastructure/Ui/Cli/Symfony/console doctrine:migrations:migrate -e=test --no-interaction
+    - php src/Kreta/TaskManager/Infrastructure/Ui/Cli/Symfony/console doctrine:fixtures:load -e=test --no-interaction --fixtures=src/Kreta/TaskManager/Infrastructure/Symfony/DoctrineDataFixtures
+    - cd %APPVEYOR_BUILD_FOLDER%
+
+
+    - cd SharedKernel
+    - vendor/bin/phpspec.bat run -fdot
+    - vendor/bin/php-cs-fixer.bat fix --config=etc/phpcs/.php_cs --diff --dry-run -v
+    - vendor/bin/php-cs-fixer.bat fix --config=etc/phpcs/.phpspec_cs --diff --dry-run -v
+    - cd %APPVEYOR_BUILD_FOLDER%
+
+    - cd IdentityAccess
+    - vendor/bin/phpspec.bat run -fdot
+    - vendor/bin/php-cs-fixer.bat fix --config=etc/phpcs/.php_cs --diff --dry-run -v
+    - vendor/bin/php-cs-fixer.bat fix --config=etc/phpcs/.phpspec_cs --diff --dry-run -v
+    - php src/Kreta/IdentityAccess/Infrastructure/Ui/Cli/Symfony/console lint:yaml src/Kreta/IdentityAccess/Infrastructure
+    - cd %APPVEYOR_BUILD_FOLDER%
+
+    - cd TaskManager
+    - vendor/bin/phpspec.bat run -fdot
+    - vendor/bin/phpunit.bat
+    - vendor/bin/php-cs-fixer.bat fix --config=etc/phpcs/.php_cs --diff --dry-run -v
+    - vendor/bin/php-cs-fixer.bat fix --config=etc/phpcs/.phpspec_cs --diff --dry-run -v
+    - php src/Kreta/TaskManager/Infrastructure/Ui/Cli/Symfony/console lint:yaml src/Kreta/TaskManager/Infrastructure
+    - cd %APPVEYOR_BUILD_FOLDER%
+
+    - cd Notifier
+    - vendor/bin/phpspec.bat run -fdot
+    - vendor/bin/php-cs-fixer.bat fix --config=etc/phpcs/.php_cs --diff --dry-run -v
+    - vendor/bin/php-cs-fixer.bat fix --config=etc/phpcs/.phpspec_cs --diff --dry-run -v
+    - php src/Kreta/Notifier/Infrastructure/Ui/Cli/Symfony/console lint:yaml src/Kreta/Notifier/Infrastructure
+    - cd %APPVEYOR_BUILD_FOLDER%
+
+    - cd CompositeUi
+    - node_modules/.bin/eslint -c .eslintrc.js src/
+    - node_modules/.bin/prettier "src/**/*.js" --list-different --single-quote --no-bracket-spacing --trailing-comma all
+    - node_modules/.bin/stylelint -c .stylelintrc.js src/scss/**/*.scss --syntax scss
+    - yarn test
+    - cd %APPVEYOR_BUILD_FOLDER%

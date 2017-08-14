@@ -6,7 +6,10 @@
 
 <p align="center">
     <a href="https://travis-ci.org/kreta/Kreta">
-        <img src="https://travis-ci.org/kreta/Kreta.svg?branch=master" alt="Build Status">
+        <img src="https://travis-ci.org/kreta/Kreta.svg?branch=master" alt="Unix build Status">
+    </a>
+    <a href="https://ci.appveyor.com/project/benatespina/kreta">
+        <img src="https://ci.appveyor.com/api/projects/status/i12wv7afbg23xkjb/branch/master?svg=true" alt="Windows build Status">
     </a>
     <a href="https://scrutinizer-ci.com/g/kreta/Kreta/?branch=master">
         <img src="https://scrutinizer-ci.com/g/kreta/Kreta/badges/quality-score.png?b=master" alt="Code Quality">

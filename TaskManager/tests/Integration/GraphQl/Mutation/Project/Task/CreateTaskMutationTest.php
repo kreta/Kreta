@@ -23,7 +23,13 @@ class CreateTaskMutationTest extends JsonApiTestCase
      */
     public static function tearDownChangedDbData() : void
     {
-        exec("sh etc/bash/install_test_env.sh");
+        exec("php src/Kreta/IdentityAccess/Infrastructure/Ui/Cli/Symfony/console doctrine:database:create -e=test");
+        exec("php src/Kreta/IdentityAccess/Infrastructure/Ui/Cli/Symfony/console doctrine:migrations:migrate -e=test --no-interaction");
+        exec("php src/Kreta/IdentityAccess/Infrastructure/Ui/Cli/Symfony/console doctrine:fixtures:load -e=test --no-interaction --fixtures=src/Kreta/IdentityAccess/Infrastructure/Symfony/DoctrineDataFixtures");
+
+        exec("php src/Kreta/TaskManager/Infrastructure/Ui/Cli/Symfony/console doctrine:database:create -e=test");
+        exec("php src/Kreta/TaskManager/Infrastructure/Ui/Cli/Symfony/console doctrine:migrations:migrate -e=test --no-interaction");
+        exec("php src/Kreta/TaskManager/Infrastructure/Ui/Cli/Symfony/console doctrine:fixtures:load -e=test --no-interaction --fixtures=src/Kreta/TaskManager/Infrastructure/Symfony/DoctrineDataFixtures");
     }
 
     public function testNonexistentTaskParentMutation() : void

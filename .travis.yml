@@ -43,8 +43,8 @@ before_install:
     - ssh-add /tmp/deploy_rsa
 
 install:
-    - nvm install 7
-    - nvm use 7
+    - nvm install 8
+    - nvm use 8
     - npm install -g yarn
 
     - cd SharedKernel
@@ -53,11 +53,13 @@ install:
 
     - cd IdentityAccess
     - composer install
+    - 'sed -i -e "s/identity_access_database_password:.*/identity_access_database_password: null/" parameters.yml'
     - sh etc/bash/generate_ssh_keys.sh
     - cd -
 
     - cd TaskManager
     - composer install
+    - 'sed -i -e "s/task_manager_database_password:.*/task_manager_database_password: null/" parameters.yml'
     - cd -
 
     - cd Notifier
