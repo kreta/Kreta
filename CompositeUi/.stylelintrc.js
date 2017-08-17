@@ -74,6 +74,15 @@ module.exports = {
     "number-leading-zero": "never",
     "number-no-trailing-zeros": true,
     "order/order": [
+      "dollar-variables",
+      {
+        type: 'at-rule',
+        name: 'extend',
+      },
+      {
+        type: 'at-rule',
+        name: 'include',
+      },
       "custom-properties",
       "declarations"
     ],
