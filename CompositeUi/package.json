@@ -152,7 +152,6 @@
     "source-map": "^0.5.6",
     "strip-ansi": "^4.0.0",
     "style-loader": "^0.18.2",
-    "stylefmt": "^6.0.0",
     "stylelint": "^8.0.0",
     "stylelint-order": "^0.6.0",
     "stylelint-scss": "^2.0.1",

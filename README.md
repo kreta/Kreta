@@ -39,9 +39,9 @@ All the documentation is stored in the `/docs` folder.
 
 ## Contributing
 Kreta follows PHP, Sass and JavaScript coding standards, so pull requests need to pass the [PHP-CS-Fixer][5],
-[Stylelint][6] and [ESLint][7]. Furthermore, if the PR creates some non-PHP file, remember that you have to put the
-license header manually. In order to simplify the CS process we provide a simple bash script that wraps all the
-commands related.
+[Stylelint][6], [ESLint][7] and [Prettier][13]. Furthermore, if the PR creates some non-PHP file, remember that you
+have to put the license header manually. In order to simplify the CS process we provide a simple bash script that wraps
+all the commands related.
 ```bash
 $ sh etc/bash/cs.sh
 ```
@@ -72,3 +72,4 @@ The Kreta project is open-sourced software licensed under the [MIT license](http
 [10]: https://en.wikipedia.org/wiki/Continuous_delivery
 [11]: https://kreta.io/
 [12]: https://phpunit.de/
+[13]: https://prettier.io/ 

@@ -21,6 +21,7 @@ composer run-script cs
 cd -
 
 cd CompositeUi
+node_modules/.bin/prettier src/**/*.js --list-different --single-quote --no-bracket-spacing --trailing-comma all
 node_modules/.bin/eslint -c .eslintrc.js src/ --fix
-# node_modules/.bin/stylefmt -c .stylelintrc.js -r src/scss/**/*.scss
+node_modules/.bin/stylelint -c .stylelintrc.js src/scss/**/*.scss --syntax scss --fix
 cd -
