@@ -1,0 +1,41 @@
+# This file is part of the Kreta package.
+#
+# (c) Beñat Espiña <benatespina@gmail.com>
+# (c) Gorka Laucirica <gorka.lauzirika@gmail.com>
+#
+# For the full copyright and license information, please view the LICENSE
+# file that was distributed with this source code.
+
+default:
+    calls:
+        error_reporting: 16383 # E_ALL & ~E_USER_DREPRECATED
+    formatters:
+        pretty:
+            verbose: true
+            paths: true
+            snippets: false
+    suites:
+        organization:
+            paths:
+                features: tests/Behat/features/organization
+            contexts:
+                - Kreta\TaskManager\Tests\Behat\Context\Domain\User\UserContext:
+                    commandBus: "@kreta.task_manager.command_bus"
+                - Kreta\TaskManager\Tests\Behat\Context\Domain\Organization\OrganizationContext
+    extensions:
+        Behat\Symfony2Extension:
+            kernel:
+                class: Kreta\TaskManager\Infrastructure\Symfony\Framework\AppKernel
+                path: src/Kreta/TaskManager/Infrastructure/Symfony/Framework/AppKernel.php
+                bootstrap: vendor/autoload.php
+                env: test
+                debug: true
+        Zalas\Behat\NoExtension:
+            imports:
+                - tests/Behat/Bootstrap/Resources/config/services.yml
+        Behat\MinkExtension:
+            base_url: "http://example.com/"
+            sessions:
+                default:
+                    symfony2: ~
+#        Behatch\Extension: ~
